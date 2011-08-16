@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{024D07DF-F669-46E9-9514-3AB8094F74AC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VocaDb.Model</RootNamespace>
+    <AssemblyName>VocaDb.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\Libs\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\Libs\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\Libs\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataContracts\Artists\ArtistContract.cs" />
+    <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
+    <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
+    <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
+    <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
+    <Compile Include="DataContracts\Security\UserContract.cs" />
+    <Compile Include="DataContracts\Songs\AlbumContract.cs" />
+    <Compile Include="DataContracts\Songs\SongContract.cs" />
+    <Compile Include="DataContracts\Songs\SongMetadataEntryContract.cs" />
+    <Compile Include="DataContracts\UseCases\CreateSongContract.cs" />
+    <Compile Include="DataContracts\UseCases\SongDetailsContract.cs" />
+    <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
+    <Compile Include="DataContracts\Ranking\RankingContract.cs" />
+    <Compile Include="Domain\Artists\Artist.cs" />
+    <Compile Include="Domain\Artists\ArtistMetadataEntry.cs" />
+    <Compile Include="Domain\Artists\ArtistMetadataType.cs" />
+    <Compile Include="Domain\Artists\ArtistType.cs" />
+    <Compile Include="Domain\Artists\Circle.cs" />
+    <Compile Include="Domain\Artists\Performer.cs" />
+    <Compile Include="Domain\Artists\Producer.cs" />
+    <Compile Include="Domain\Globalization\ContentLanguageSelection.cs" />
+    <Compile Include="Domain\Globalization\LocalizedString.cs" />
+    <Compile Include="Domain\MetadataEntry.cs" />
+    <Compile Include="Domain\Security\PermissionFlags.cs" />
+    <Compile Include="Domain\Security\RoleTypes.cs" />
+    <Compile Include="Domain\Security\User.cs" />
+    <Compile Include="Domain\Ranking\SongInRanking.cs" />
+    <Compile Include="Domain\Songs\Album.cs" />
+    <Compile Include="Domain\Songs\ArtistForSong.cs" />
+    <Compile Include="Domain\Songs\LyricsForSong.cs" />
+    <Compile Include="Domain\Songs\Song.cs" />
+    <Compile Include="Domain\Songs\SongInAlbum.cs" />
+    <Compile Include="Domain\Songs\SongMetadataEntry.cs" />
+    <Compile Include="Domain\Songs\SongMetadataType.cs" />
+    <Compile Include="Domain\Ranking\RankingList.cs" />
+    <Compile Include="EnumVal.cs" />
+    <Compile Include="Mapping\Artists\ArtistMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
+    <Compile Include="Mapping\ClassConventions.cs" />
+    <Compile Include="Mapping\Security\UserMap.cs" />
+    <Compile Include="Mapping\WVR\SongWVRPollMap.cs" />
+    <Compile Include="Mapping\Songs\AlbumMap.cs" />
+    <Compile Include="Mapping\Songs\SongMap.cs" />
+    <Compile Include="Mapping\Songs\SongMetadataEntryMap.cs" />
+    <Compile Include="ParamIs.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\DatabaseConfiguration.cs" />
+    <Compile Include="Service\Helpers\SongTagger.cs" />
+    <Compile Include="Service\RankingService.cs" />
+    <Compile Include="Service\Rankings\VocaloidismWVRParser.cs" />
+    <Compile Include="Service\Security\LoginManager.cs" />
+    <Compile Include="Service\ServiceBase.cs" />
+    <Compile Include="Service\ServiceException.cs" />
+    <Compile Include="Service\ServiceModel.cs" />
+    <Compile Include="Service\SongService.cs" />
+    <Compile Include="Service\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
