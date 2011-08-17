@@ -1,14 +1,12 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model.Domain.Songs;
 
-namespace VocaVoter.Model.Mapping.Songs {
+namespace VocaDb.Model.Mapping.Songs {
 
 	public class AlbumMap : ClassMap<Album> {
 
 		public AlbumMap() {
 
-			Schema("dbo");
 			Id(m => m.Id);
 			Map(m => m.ReleaseDate).Nullable();
 			Component(m => m.LocalizedName, c => {

@@ -7,7 +7,6 @@ namespace VocaDb.Model.Mapping.Security {
 
 		public UserMap() {
 			
-			Schema("dbo");
 			Id(m => m.Id);
 
 			Map(m => m.Email).Not.Nullable();

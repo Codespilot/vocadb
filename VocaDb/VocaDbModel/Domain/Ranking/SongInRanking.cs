@@ -12,14 +12,14 @@ namespace VocaDb.Model.Domain.Ranking {
 			ParamIs.NotNull(() => poll);
 			ParamIs.NotNull(() => song);
 
-			List = poll;
+			Ranking = poll;
 			Song = song;
 			SortIndex = sortIndex;
 		}
 
 		public virtual int Id { get; set; }
 
-		public virtual RankingList List { get; set; }
+		public virtual RankingList Ranking { get; set; }
 
 		public virtual Song Song { get; set; }
 

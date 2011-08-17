@@ -7,7 +7,6 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		public ArtistMetadataEntryMap() {
 
-			Schema("dbo");
 			Table("ArtistMetadata");
 			Id(m => m.Id);
 			Map(m => m.MetadataType).Column("[Type]").Not.Nullable();
