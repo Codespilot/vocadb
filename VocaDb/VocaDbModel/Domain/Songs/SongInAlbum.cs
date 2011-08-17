@@ -18,7 +18,7 @@
 		public virtual Song Song {
 			get { return song; }
 			set {
-				ParamIs.NotNull(value, "value");
+				ParamIs.NotNull(() => value);
 				song = value;
 			}
 		}
@@ -26,7 +26,7 @@
 		public virtual Album Album {
 			get { return album; }
 			set {
-				ParamIs.NotNull(value, "value");
+				ParamIs.NotNull(() => value);
 				album = value;
 			}
 		}

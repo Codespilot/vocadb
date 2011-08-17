@@ -1,5 +1,4 @@
 ﻿using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model;
 
 namespace VocaDb.Model.Domain.Ranking {
 

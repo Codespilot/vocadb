@@ -6,6 +6,8 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArtistMetadataEntryContract(ArtistMetadataEntry entry) {
 
+			ParamIs.NotNull(() => entry);
+
 			MetadataType = entry.MetadataType;
 			Value = entry.Value;
 

@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using VocaDb.Model.DataContracts.UseCases;
-using VocaDb.Model.Domain;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Ranking;
 using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model.DataContracts.Songs;
-using VocaVoter.Model.Domain;
-using VocaVoter.Model.Domain.Songs;
 
-namespace VocaVoter.Model.DataContracts.UseCases {
+namespace VocaDb.Model.DataContracts.UseCases {
 
 	[DataContract]
 	public class SongDetailsContract {

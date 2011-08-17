@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
-using VocaVoter.Model.DataContracts.Songs;
 
 namespace VocaDb.Model.DataContracts.Artists {
 

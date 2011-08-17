@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using VocaDb.Model.DataContracts.Ranking;
 using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model;
 
 namespace VocaDb.Model.Domain.Ranking {
 
@@ -37,10 +36,8 @@ namespace VocaDb.Model.Domain.Ranking {
 		public virtual string Name {
 			get { return name; }
 			set {
-
-				ParamIs.NotNullOrEmpty(value, "value");
+				ParamIs.NotNullOrEmpty(()=>  value);
 				name = value;
-
 			}
 		}
 
@@ -55,7 +52,7 @@ namespace VocaDb.Model.Domain.Ranking {
 
 		public virtual SongInRanking AddSong(Song song, int sortIndex) {
 
-			ParamIs.NotNull(song, "song");
+			ParamIs.NotNull(() => song);
 
 			var songInPoll = new SongInRanking(this, song, sortIndex);
 			Songs.Add(songInPoll);
