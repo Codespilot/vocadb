@@ -4,13 +4,11 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Ranking;
 using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model.DataContracts.Songs;
-using VocaVoter.Model.DataContracts.UseCases;
-using VocaVoter.Model.Service;
 
 namespace VocaDb.Model.Service {
 

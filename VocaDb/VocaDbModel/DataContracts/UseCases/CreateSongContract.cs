@@ -1,6 +1,6 @@
-﻿using VocaVoter.Model.DataContracts.Songs;
+﻿using VocaDb.Model.DataContracts.Songs;
 
-namespace VocaVoter.Model.DataContracts.UseCases {
+namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class CreateSongContract {
 

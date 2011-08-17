@@ -1,6 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model.Domain.Songs;
 
 namespace VocaDb.Model.Mapping.Songs {
 

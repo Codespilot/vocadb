@@ -1,4 +1,4 @@
-﻿namespace VocaVoter.Model.Domain.Songs {
+﻿namespace VocaDb.Model.Domain.Songs {
 
 	public enum SongMetadataType {
 

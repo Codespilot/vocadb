@@ -18,7 +18,7 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual Artist Artist {
 			get { return artist; }
 			set {
-				ParamIs.NotNull(value, "value");
+				ParamIs.NotNull(() => value);
 				artist = value;
 			}
 		}
@@ -28,7 +28,7 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual Song Song {
 			get { return song; }
 			set {
-				ParamIs.NotNull(value, "value");
+				ParamIs.NotNull(() => value);
 				song = value;
 			}
 		}

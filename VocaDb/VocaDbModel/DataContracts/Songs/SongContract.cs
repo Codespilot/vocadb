@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Songs;
-using VocaVoter.Model.Domain.Songs;
 
-namespace VocaVoter.Model.DataContracts.Songs {
+namespace VocaDb.Model.DataContracts.Songs {
 
 	[DataContract]
 	public class SongContract {
