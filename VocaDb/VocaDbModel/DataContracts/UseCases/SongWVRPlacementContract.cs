@@ -1,14 +1,12 @@
-﻿using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Ranking;
-using VocaVoter.Model.Domain;
+﻿using VocaDb.Model.Domain.Ranking;
 
-namespace VocaVoter.Model.DataContracts.UseCases {
+namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class SongWVRPlacementContract {
 
 		public SongWVRPlacementContract(SongInRanking songInRanking) {
-			PollId = songInRanking.List.Id;
-			PollName = songInRanking.List.Name;
+			PollId = songInRanking.Ranking.Id;
+			PollName = songInRanking.Ranking.Name;
 			SortIndex = songInRanking.SortIndex;
 		}
 

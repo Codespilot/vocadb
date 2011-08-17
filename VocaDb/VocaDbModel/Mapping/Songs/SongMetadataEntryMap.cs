@@ -8,7 +8,6 @@ namespace VocaDb.Model.Mapping.Songs {
 
 		public SongMetadataEntryMap() {
 
-			Schema("dbo");
 			Table("SongMetadata");
 			Id(m => m.Id);
 			Map(m => m.MetadataType).CustomType(typeof(SongMetadataType)).Not.Nullable();

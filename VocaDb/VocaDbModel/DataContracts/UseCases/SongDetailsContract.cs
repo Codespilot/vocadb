@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Ranking;
 using VocaDb.Model.Domain.Songs;

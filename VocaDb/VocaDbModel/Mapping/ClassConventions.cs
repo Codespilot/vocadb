@@ -12,7 +12,7 @@ namespace VocaDb.Model.Mapping {
 		public void Apply(IClassInstance instance) {
 		
 			instance.Cache.ReadWrite();
-			instance.Schema("voter");
+			instance.Schema("dbo");
 			instance.Table(instance.EntityType.Name + "s");
 
 		}

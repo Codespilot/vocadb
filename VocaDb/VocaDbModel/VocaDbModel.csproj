@@ -93,8 +93,10 @@
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
     <Compile Include="Mapping\ClassConventions.cs" />
+    <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\UserMap.cs" />
-    <Compile Include="Mapping\WVR\SongWVRPollMap.cs" />
+    <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
+    <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
     <Compile Include="Mapping\Songs\AlbumMap.cs" />
     <Compile Include="Mapping\Songs\SongMap.cs" />
     <Compile Include="Mapping\Songs\SongMetadataEntryMap.cs" />

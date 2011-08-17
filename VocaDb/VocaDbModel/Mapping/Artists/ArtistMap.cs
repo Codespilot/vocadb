@@ -7,7 +7,6 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		public ArtistMap() {
 
-			Schema("dbo");
 			DiscriminateSubClassesOnColumn("ArtistType");
 			Id(m => m.Id);
 			Map(m => m.ArtistType).Not.Nullable();

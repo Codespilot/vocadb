@@ -3,8 +3,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using VocaDb.Model.Mapping;
-using VocaVoter.Model.Mapping;
-using VocaVoter.Model.Mapping.Songs;
+using VocaDb.Model.Mapping.Songs;
 
 namespace VocaDb.Model.Service {
 

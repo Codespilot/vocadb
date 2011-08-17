@@ -30,8 +30,6 @@ namespace VocaDb.Model.Domain.Ranking {
 
 		public virtual DateTime CreateDate { get; set; }
 
-		public virtual DateTime Date { get; set; }
-
 		public virtual string Description { get; set; }
 
 		public virtual int Id { get; set; }
