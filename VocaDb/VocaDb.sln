@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VocaDbWeb", "VocaDbWeb\VocaDbWeb.csproj", "{543CB31E-8641-44AA-95D4-DF0E06D41D02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VocaDbModel", "VocaDbModel\VocaDbModel.csproj", "{024D07DF-F669-46E9-9514-3AB8094F74AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VocaDb.Model", "VocaDbModel\VocaDb.Model.csproj", "{024D07DF-F669-46E9-9514-3AB8094F74AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
