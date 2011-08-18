@@ -7,6 +7,19 @@
 </head>
 
 <body>
-    @RenderBody()
+	<table>
+		<tr>
+			<td class="menu">
+				<ul>
+					<li>@Html.ActionLink("Home", "Index", "Home")</li>
+					<li>@Html.ActionLink("Artists", "Index", "Artist")</li>
+					<li>@Html.ActionLink("Albums", "Index", "Album")</li>
+				</ul>
+			</td>
+			<td>
+				@RenderBody()
+			</td>
+		</tr>
+	</table>  
 </body>
 </html>

@@ -61,7 +61,9 @@
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
     <Compile Include="DataContracts\Security\UserContract.cs" />
     <Compile Include="DataContracts\Songs\AlbumContract.cs" />
+    <Compile Include="DataContracts\Songs\AlbumDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongContract.cs" />
+    <Compile Include="DataContracts\Songs\SongInAlbumContract.cs" />
     <Compile Include="DataContracts\Songs\SongMetadataEntryContract.cs" />
     <Compile Include="DataContracts\UseCases\CreateSongContract.cs" />
     <Compile Include="DataContracts\UseCases\SongDetailsContract.cs" />
@@ -102,6 +104,8 @@
     <Compile Include="Mapping\Songs\SongMetadataEntryMap.cs" />
     <Compile Include="ParamIs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\AlbumService.cs" />
+    <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\Helpers\SongTagger.cs" />
     <Compile Include="Service\RankingService.cs" />

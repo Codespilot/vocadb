@@ -1,0 +1,19 @@
+﻿@using VocaDb.Model.DataContracts.Songs;
+@{
+    ViewBag.Title = "Albums";
+}
+
+<h2>Artists</h2>
+
+<table>
+	<tr>
+		<th>Name</th>
+	</tr>
+@foreach (AlbumContract album in ViewBag.Albums) {
+	<tr>
+		<td>
+			@Html.ActionLink(album.Name, "Details", new { id = album.Id })<br />
+		</td>
+	</tr>
+}
+</table>

@@ -73,3 +73,9 @@ textarea
 {
     display: none;
 }
+
+td.menu 
+{
+	width: 200px;
+	vertical-align: top;
+}

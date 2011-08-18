@@ -1,8 +1,10 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
+	[DataContract]
 	public class ArtistWithAdditionalNamesContract : ArtistContract {
 
 		public ArtistWithAdditionalNamesContract(Artist artist)
@@ -12,6 +14,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		}
 
+		[DataMember]
 		public string AdditionalNames { get; private set; }
 
 	}

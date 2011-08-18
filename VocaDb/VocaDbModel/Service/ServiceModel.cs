@@ -10,6 +10,18 @@ namespace VocaDb.Model.Service {
 			this.sessionFactory = sessionFactory;
 		}
 
+		public AlbumService Albums {
+			get {
+				return new AlbumService(sessionFactory);
+			}
+		}
+
+		public ArtistService Artists {
+			get {
+				return new ArtistService(sessionFactory);
+			}
+		}
+
 		public RankingService Rankings {
 			get {
 				return new RankingService(sessionFactory);

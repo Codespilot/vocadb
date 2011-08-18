@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using VocaDb.Model.Service;
 
 namespace VocaDb.Web {
 
@@ -7,6 +8,20 @@ namespace VocaDb.Web {
 	// visit http://go.microsoft.com/?LinkId=9394801
 
 	public class MvcApplication : System.Web.HttpApplication {
+
+		private static ServiceModel serviceModel;
+
+		public static ServiceModel Services {
+			get {
+				
+				if (serviceModel == null)
+					serviceModel = new ServiceModel(DatabaseConfiguration.BuildSessionFactory());
+
+				return serviceModel;
+
+			}
+		}
+
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
 			filters.Add(new HandleErrorAttribute());
 		}

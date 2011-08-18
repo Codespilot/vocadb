@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
@@ -13,43 +11,6 @@ using VocaDb.Model.Domain.Songs;
 namespace VocaDb.Model.Service {
 
 	public class SongService : ServiceBase {
-
-		private ArtistDetailsContract[] FindArtists(ISession session, string query, int maxResults) {
-
-			var direct = session.Query<Artist>()
-				.Where(s => string.IsNullOrEmpty(query)
-					|| s.LocalizedName.English.Contains(query)
-						|| s.LocalizedName.Romaji.Contains(query)
-							|| s.LocalizedName.Japanese.Contains(query))
-				.OrderBy(s => s.LocalizedName.Japanese)
-				.Take(maxResults)
-				.ToArray();
-
-			var additionalNames = session.Query<ArtistMetadataEntry>()
-				.Where(m => m.MetadataType == ArtistMetadataType.AlternateName
-					&& m.Value.Contains(query))
-				.Select(m => m.Artist)
-				.Distinct()
-				.Take(maxResults)
-				.ToArray()
-				.Where(a => !direct.Contains(a));
-
-			return direct.Concat(additionalNames)
-				.Take(maxResults)
-				.Select(a => new ArtistDetailsContract(a))
-				.ToArray();
-
-		}
-
-		private T[] GetArtists<T>(Func<Artist, T> func) {
-
-			return HandleQuery(session => session.Query<Artist>()
-				.ToArray()
-				.OrderBy(a => a.Name)
-				.Select(func)
-				.ToArray());
-
-		}
 
 		public SongService(ISessionFactory sessionFactory)
 			: base(sessionFactory) {
@@ -90,34 +51,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistDetailsContract[] FindArtists(string query, int maxResults) {
-
-			return HandleQuery(session => FindArtists(session, query, maxResults));
-
-		}
-
-		public AlbumContract[] GetAlbums() {
-
-			return HandleQuery(session => session.Query<Album>()
-				.ToArray()
-				.OrderBy(a => a.Name)
-				.Select(a => new AlbumContract(a))
-				.ToArray());
-
-		}
-
-		public ArtistContract[] GetArtists() {
-
-			return GetArtists(a => new ArtistContract(a));
-
-		}
-
-		public ArtistWithAdditionalNamesContract[] GetArtistsWithAdditionalNames() {
-
-			return GetArtists(a => new ArtistWithAdditionalNamesContract(a));
-
-		}
-
 		public int GetSongCount(string filter) {
 
 			return HandleQuery(session => session.Query<Song>()
@@ -131,7 +64,8 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var song = session.Load<Song>(songId);
-				var songInPolls = session.Query<SongInRanking>().Where(s => s.Song == song).ToArray();
+				//var songInPolls = session.Query<SongInRanking>().Where(s => s.Song == song).ToArray();
+			    var songInPolls = new SongInRanking[] {};
 
 				return new SongDetailsContract(song, songInPolls);
 
