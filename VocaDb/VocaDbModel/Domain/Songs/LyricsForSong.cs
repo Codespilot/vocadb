@@ -20,7 +20,7 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public Song Song {
+		public virtual Song Song {
 			get { return song; }
 			set {
 				ParamIs.NotNull(() => value);

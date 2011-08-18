@@ -16,6 +16,8 @@ namespace VocaDb.Model.Mapping.Songs {
 				c.Map(m => m.Romaji, "RomajiName");
 			});
 
+			HasMany(m => m.Songs).Inverse().Cascade.All().OrderBy("TrackNumber");
+
 		}
 
 	}

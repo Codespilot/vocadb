@@ -28,7 +28,7 @@ namespace VocaDb.Model.Domain.Security {
 
 		public virtual int Id { get; set; }
 
-		public string Password {
+		public virtual string Password {
 			get { return password; }
 			set {
 				ParamIs.NotNullOrEmpty(() => value);

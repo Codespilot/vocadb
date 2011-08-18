@@ -1,5 +1,4 @@
 ﻿using VocaDb.Model.Domain.Artists;
-using VocaVoter.Model;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
