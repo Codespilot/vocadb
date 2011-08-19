@@ -7,11 +7,14 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		public ArtistMap() {
 
-			DiscriminateSubClassesOnColumn("ArtistType");
+			//DiscriminateSubClassesOnColumn("ArtistType");
 			Id(m => m.Id);
-			//Map(m => m.ArtistType).Not.Nullable();
+			Map(m => m.ArtistType).Not.Nullable();
 			References(m => m.Circle);
 
+			HasMany(m => m.Members)
+				.Inverse()
+				.KeyColumn("[Circle]");
 			HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
 			HasMany(m => m.Songs).Table("ArtistsForSongs").Inverse().Cascade.All();
 
@@ -26,7 +29,7 @@ namespace VocaDb.Model.Mapping.Artists {
 
 	}
 
-	public class CircleMap : SubclassMap<Circle> {
+	/*public class CircleMap : SubclassMap<Circle> {
 		
 		public CircleMap() {
 			
@@ -58,6 +61,6 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		}
 
-	}
+	}*/
 
 }

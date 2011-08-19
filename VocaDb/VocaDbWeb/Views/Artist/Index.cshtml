@@ -22,7 +22,8 @@
 </table>
 
 @model ArtistContract
-@using (Html.BeginForm("Create", "Artist")) {
+@if (Context.User.Identity.IsAuthenticated) {
+using (Html.BeginForm("Create", "Artist")) {
 	
     <div>
         <fieldset>
@@ -35,4 +36,5 @@
 			<input type="submit" value="Create" />
 		</fieldset>
 	</div>
+}
 }

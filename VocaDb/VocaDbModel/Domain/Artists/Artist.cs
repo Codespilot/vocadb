@@ -7,6 +7,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 	public class Artist {
 
+		private IList<Artist> members = new List<Artist>();
 		private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
 
@@ -38,9 +39,11 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual LocalizedString LocalizedName { get; set; }
 
-		public virtual IEnumerable<Artist> Members {
-			get {
-				return Enumerable.Empty<Artist>();
+		public virtual IList<Artist> Members {
+			get { return members; }
+			set {
+				ParamIs.NotNull(() => value);
+				members = value;
 			}
 		}
 
