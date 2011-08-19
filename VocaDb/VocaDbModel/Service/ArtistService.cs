@@ -4,6 +4,7 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Service {
 
@@ -48,6 +49,20 @@ namespace VocaDb.Model.Service {
 
 		public ArtistService(ISessionFactory sessionFactory)
 			: base(sessionFactory) {}
+
+		public ArtistContract Create(string name) {
+
+			return HandleTransaction(session => {
+
+				var artist = new Artist(new LocalizedString(name));
+
+				session.Save(artist);
+
+				return new ArtistContract(artist);
+
+			});
+
+		}
 
 		public ArtistDetailsContract[] FindArtists(string query, int maxResults) {
 

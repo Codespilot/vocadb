@@ -20,3 +20,19 @@
 	</tr>
 }
 </table>
+
+@model ArtistContract
+@using (Html.BeginForm("Create", "Artist")) {
+	
+    <div>
+        <fieldset>
+            <div class="editor-label">
+                Name:
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+            </div>			
+			<input type="submit" value="Create" />
+		</fieldset>
+	</div>
+}

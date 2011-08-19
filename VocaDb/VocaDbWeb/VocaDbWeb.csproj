@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Code\Security\VocaDbPrincipal.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -82,6 +83,7 @@
     </Compile>
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Controllers
@@ -26,8 +27,8 @@ namespace VocaDb.Web.Controllers
         // GET: /Artist/Details/5
 
         public ActionResult Details(int id) {
-        	ViewBag.Artist = Service.GetArtistDetails(id);
-            return View();
+        	var model = Service.GetArtistDetails(id);
+            return View(model);
         }
 
         //
@@ -42,18 +43,17 @@ namespace VocaDb.Web.Controllers
         // POST: /Artist/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ArtistContract artist)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            
+			if (string.IsNullOrEmpty(artist.Name)) {
+				ModelState.AddModelError("", "Name cannot be empty");
+				return RedirectToAction("Index");
+			}
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        	artist = Service.Create(artist.Name);
+        	return RedirectToAction("Details", new {id = artist.Id});
+
         }
         
         //

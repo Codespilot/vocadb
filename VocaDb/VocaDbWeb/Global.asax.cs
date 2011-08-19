@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Web {
 
