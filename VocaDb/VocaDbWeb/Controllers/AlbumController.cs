@@ -22,8 +22,8 @@ namespace VocaDb.Web.Controllers
         // GET: /Album/Details/5
 
         public ActionResult Details(int id) {
-        	ViewBag.Album = Service.GetAlbumDetails(id);
-            return View();
+        	var model = Service.GetAlbumDetails(id);
+            return View(model);
         }
 
         //

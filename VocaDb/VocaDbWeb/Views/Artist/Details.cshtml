@@ -1,11 +1,43 @@
-﻿@using VocaDb.Model.DataContracts.Songs;
+﻿@using VocaDb.Model.DataContracts.Artists;
+@using VocaDb.Model.DataContracts.Songs;
+@model ArtistDetailsContract
+
 @{
-	ViewBag.Title = "Artist details - " + ViewBag.Artist.Name;
+	ViewBag.Title = "Artist details - " + Model.Name;
 }
 
+<h3>Basic info</h3>
+<table>
+	<tr>
+		<td>Name</td>
+		<td>
+			@Model.Name<br />
+			<span class="extraInfo">@Model.AdditionalNames</span>
+		</td>
+	</tr>
+@if (Model.Circle != null) {
+	<tr>
+		<td>Circle</td>
+		<td>@Html.ActionLink(Model.Circle.Name, "Details", new { id = Model.Circle.Id }, null)</td>
+	</tr>
+}
+</table>
+	
+
+@if (Model.Members.Any()) {
+<h3>Members</h3>
+<ul>
+	@foreach (var member in Model.Members) {
+		<li>@Html.ActionLink(member.Name, "Details", new { id = member.Id }, null)</li>
+	}
+</ul>
+}
+
+@if (Model.Albums.Any()) {
 <h3>Albums</h3>
 <ul>
-	@foreach (AlbumContract album in ViewBag.Artist.Albums) {
+	@foreach (var album in Model.Albums) {
 		<li>@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null)</li>
 	}
 </ul>
+}

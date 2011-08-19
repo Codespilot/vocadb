@@ -19,9 +19,11 @@
 					<li>@Html.ActionLink("Log in", "Login", "User")</li>
 					} else {
 					<li>@Html.ActionLink("Log out", "Logout", "User")</li>
-					<p>Welcome @Context.User.Identity.Name</p>		 
-	 }
+					}
 				</ul>
+				@if (Context.User.Identity.IsAuthenticated) {
+					<p>Welcome @Context.User.Identity.Name</p>
+				}
 			</td>
 			<td>
 				<h2>@ViewBag.Title</h2>

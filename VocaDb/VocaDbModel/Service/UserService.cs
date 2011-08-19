@@ -63,11 +63,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*public UserContract GetUser(int userId) {
+		public UserContract GetUser(int id) {
 
-			return HandleQuery(session => session.Linq<User>());
+			return HandleQuery(session => new UserContract(session.Load<User>(id)));
 
-		}*/
+		}
 
 	}
 

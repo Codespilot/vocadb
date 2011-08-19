@@ -15,6 +15,13 @@ namespace VocaDb.Model.Domain.Artists {
 			LocalizedName = new LocalizedString();
 		}
 
+		public Artist(LocalizedString name)
+			: this() {
+
+			LocalizedName = name;
+
+		}
+
 		public virtual IEnumerable<Album> Albums {
 			get {
 
@@ -30,6 +37,12 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual int Id { get; set; }
 
 		public virtual LocalizedString LocalizedName { get; set; }
+
+		public virtual IEnumerable<Artist> Members {
+			get {
+				return Enumerable.Empty<Artist>();
+			}
+		}
 
 		public virtual IList<ArtistMetadataEntry> Metadata {
 			get { return metadata; }

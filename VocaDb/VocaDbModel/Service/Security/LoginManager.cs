@@ -1,4 +1,6 @@
-﻿using System.Web.Security;
+﻿using System.Web;
+using System.Web.Security;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service.Security {
 
@@ -10,15 +12,15 @@ namespace VocaDb.Model.Service.Security {
 
 		}
 
-		public bool IsAdmin {
-			get {
-				return false;
-			}
+		public bool HasPermission(PermissionFlags flag) {
+
+			return IsLoggedIn;
+
 		}
 
 		public bool IsLoggedIn {
 			get {
-				return true;
+				return HttpContext.Current.User.Identity.IsAuthenticated;
 			}
 		}
 

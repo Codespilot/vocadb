@@ -10,12 +10,15 @@ namespace VocaDb.Model.DataContracts.Security {
 
 			Id = user.Id;
 			Name = user.Name;
+			PermissionFlags = user.PermissionFlags;
 
 		}
 
 		public int Id { get; private set; }
 
 		public string Name { get; private set; }
+
+		public PermissionFlags PermissionFlags { get; private set; }
 
 	}
 

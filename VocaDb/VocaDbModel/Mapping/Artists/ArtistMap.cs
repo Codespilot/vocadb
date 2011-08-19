@@ -9,8 +9,9 @@ namespace VocaDb.Model.Mapping.Artists {
 
 			DiscriminateSubClassesOnColumn("ArtistType");
 			Id(m => m.Id);
-			Map(m => m.ArtistType).Not.Nullable();
+			//Map(m => m.ArtistType).Not.Nullable();
 			References(m => m.Circle);
+
 			HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
 			HasMany(m => m.Songs).Table("ArtistsForSongs").Inverse().Cascade.All();
 
@@ -31,10 +32,9 @@ namespace VocaDb.Model.Mapping.Artists {
 			
 			DiscriminatorValue("Circle");
 
-			HasMany(m => m.Members)
+			HasMany(m => m.CircleMembers)
 				.Inverse()
-				.KeyColumn("[Circle]")
-				.Cascade.All();
+				.KeyColumn("[Circle]");
 
 		}
 
