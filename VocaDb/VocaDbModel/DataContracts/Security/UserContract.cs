@@ -9,9 +9,13 @@ namespace VocaDb.Model.DataContracts.Security {
 			ParamIs.NotNull(() => user);
 
 			Id = user.Id;
+			Name = user.Name;
+
 		}
 
-		public int Id { get; set; }
+		public int Id { get; private set; }
+
+		public string Name { get; private set; }
 
 	}
 

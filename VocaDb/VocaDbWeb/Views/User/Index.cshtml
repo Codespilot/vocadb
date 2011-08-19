@@ -1,0 +1,17 @@
+﻿@using VocaDb.Model.DataContracts.Security;
+@{
+	ViewBag.Title = "Users";
+}
+
+<table>
+	<tr>
+		<th>Name</th>
+	</tr>
+@foreach (UserContract user in ViewBag.Users) {
+	<tr>
+		<td>
+			@user.Name
+		</td>
+	</tr>
+}
+</table>

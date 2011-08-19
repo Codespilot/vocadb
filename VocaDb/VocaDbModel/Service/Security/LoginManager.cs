@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Security;
+﻿using System.Web.Security;
 
-namespace VocaVoter.Model.Service.Security {
+namespace VocaDb.Model.Service.Security {
 
 	public class LoginManager {
 
-		public static string GetHashedPass(string email, string pass, int salt) {
+		public static string GetHashedPass(string name, string pass, int salt) {
 
-			return FormsAuthentication.HashPasswordForStoringInConfigFile(email + pass + salt, "sha1");
+			return FormsAuthentication.HashPasswordForStoringInConfigFile(name + pass + salt, "sha1");
 
 		}
 

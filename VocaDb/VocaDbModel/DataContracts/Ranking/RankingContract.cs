@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Ranking;
-using VocaVoter.Model;
 
 namespace VocaDb.Model.DataContracts.Ranking {
 
