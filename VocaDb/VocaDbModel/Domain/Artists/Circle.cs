@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class Circle : Artist {
+	/*public class Circle : Artist {
 
-		private IList<Artist> members = new List<Artist>();
 
 		public virtual IList<Artist> CircleMembers {
 			get { return members; }
@@ -19,5 +18,5 @@ namespace VocaDb.Model.Domain.Artists {
 			get { return CircleMembers; }
 		}
 
-	}
+	}*/
 }
