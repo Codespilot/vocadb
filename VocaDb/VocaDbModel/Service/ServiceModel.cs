@@ -34,5 +34,11 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		public UserService Users {
+			get {
+				return new UserService(sessionFactory);
+			}
+		}
+
 	}
 }

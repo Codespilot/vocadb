@@ -5,28 +5,49 @@ namespace VocaDb.Model.Domain.Security {
 	public class User {
 
 		private string email;
+		private string name;
+		private string nameLc;
 		private string password;
 
 		public User() {}
 
-		public User(string email, string pass) {
+		public User(string name, string pass, int salt) {
 
-			Email = email;
+			Name = name;
+			NameLC = name.ToLowerInvariant();
 			Password = pass;
 			PermissionFlags = PermissionFlags.Nothing;
-			Salt = new Random().Next();
+			Salt = salt;
+
+			Email = String.Empty;
 
 		}
 
 		public virtual string Email {
 			get { return email; }
 			set {
-				ParamIs.NotNullOrEmpty(() => value);
+				ParamIs.NotNull(() => value);
 				email = value;
 			}
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual string Name {
+			get { return name; }
+			set {
+				ParamIs.NotNullOrEmpty(() => value);
+				name = value;
+			}
+		}
+
+		public virtual string NameLC {
+			get { return nameLc; }
+			set {
+				ParamIs.NotNullOrEmpty(() => value);
+				nameLc = value;
+			}
+		}
 
 		public virtual string Password {
 			get { return password; }

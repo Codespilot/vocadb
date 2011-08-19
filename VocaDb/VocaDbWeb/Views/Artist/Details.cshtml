@@ -3,8 +3,6 @@
 	ViewBag.Title = "Artist details - " + ViewBag.Artist.Name;
 }
 
-<h2>Artist details - @ViewBag.Artist.Name</h2>
-
 <h3>Albums</h3>
 <ul>
 	@foreach (AlbumContract album in ViewBag.Artist.Albums) {
