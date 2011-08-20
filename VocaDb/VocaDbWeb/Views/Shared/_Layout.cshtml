@@ -26,6 +26,11 @@
 				}
 			</td>
 			<td>
+				@if (ViewBag.Parents != null) {
+					foreach (MvcHtmlString link in ViewBag.Parents) {
+						@link
+					}
+				}
 				<h2>@ViewBag.Title</h2>
 				@RenderBody()
 			</td>

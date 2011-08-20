@@ -1,12 +1,14 @@
-﻿@using VocaDb.Model.DataContracts.Artists;
+﻿@using VocaDb.Web;
+@using VocaDb.Model.DataContracts.Artists;
 @{
-    ViewBag.Title = "Artists";
+	ViewBag.Title = "Artists";
 }
 
 <table>
 	<tr>
 		<th>Name</th>
 		<th>Type</th>
+		<th>Actions</th>
 	</tr>
 @foreach (ArtistWithAdditionalNamesContract artist in ViewBag.Artists) {
 	<tr>
@@ -17,13 +19,18 @@
 		<td>
 			@artist.ArtistType
 		</td>
+		<td>
+			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.EditArtist)) {
+				@Html.ActionLink("Edit", "Edit", new { id = artist.Id })
+			}
+		</td>
 	</tr>
 }
 </table>
 
-@model ArtistContract
+@model VocaDb.Web.Models.ArtistCreate
 @if (Context.User.Identity.IsAuthenticated) {
-using (Html.BeginForm("Create", "Artist")) {
+	using (Html.BeginForm("Create", "Artist")) {
 	
     <div>
         <fieldset>
@@ -32,6 +39,7 @@ using (Html.BeginForm("Create", "Artist")) {
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
             </div>			
 			<input type="submit" value="Create" />
 		</fieldset>

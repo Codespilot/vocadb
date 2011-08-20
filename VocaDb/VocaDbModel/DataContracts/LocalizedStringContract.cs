@@ -1,0 +1,51 @@
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.Domain.Globalization;
+
+namespace VocaDb.Model.DataContracts {
+
+	[DataContract]
+	public class LocalizedStringContract {
+
+		public LocalizedStringContract() {}
+
+		public LocalizedStringContract(string english, string japanese, 
+			string romaji, ContentLanguageSelection defaultLanguage) {
+
+			English = english;
+			Japanese = japanese;
+			Romaji = romaji;
+			DefaultLanguage = defaultLanguage;
+
+		}
+
+		public LocalizedStringContract(LocalizedString str) {
+			
+			ParamIs.NotNull(() => str);
+
+			Default = str.Current;
+			DefaultLanguage = str.DefaultLanguage;
+			English = str.English;
+			Japanese = str.Japanese;
+			Romaji = str.Romaji;
+
+		}
+
+		[DataMember]
+		public string Default { get; set; }
+
+		[DataMember]
+		public ContentLanguageSelection DefaultLanguage { get; set; }
+
+		[DataMember]
+		public string English { get; set; }
+
+		[DataMember]
+		public string Japanese { get; set; }
+
+		[DataMember]
+		public string Romaji { get; set; }
+
+
+	}
+
+}

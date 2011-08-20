@@ -8,15 +8,27 @@ namespace VocaDb.Model.Domain.Songs {
 
 	public class Album {
 
+		private string description;
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 
 		public Album() {
+			Description = string.Empty;
 			LocalizedName = new LocalizedString();
 		}
 
 		public virtual IEnumerable<Artist> Artists {
 			get {
 				return songs.SelectMany(s => s.Song.Artists).Select(a => a.Artist).Distinct().OrderBy(a => a.Name);
+			}
+		}
+
+		public virtual PictureData CoverPicture { get; set; }
+
+		public virtual string Description {
+			get { return description; }
+			set {
+				ParamIs.NotNull(() => value);
+				description = value;
 			}
 		}
 
