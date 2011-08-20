@@ -7,6 +7,8 @@ namespace VocaDb.Model.DataContracts.Artists {
 	[DataContract]
 	public class ArtistWithAdditionalNamesContract : ArtistContract {
 
+		public ArtistWithAdditionalNamesContract() {}
+
 		public ArtistWithAdditionalNamesContract(Artist artist)
 			: base(artist) {
 

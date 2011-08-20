@@ -7,9 +7,11 @@ namespace VocaDb.Model.Domain.Security {
 
 		Nothing			= 0,
 
-		CreatePolls		= 1,
+		CreateArtist	= 1,
 
-		ManageDatabase	= 2
+		EditArtist		= 2,
+
+		DeleteArtist	= 4,
 
 	}
 

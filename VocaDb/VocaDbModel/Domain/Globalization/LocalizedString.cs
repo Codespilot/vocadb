@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Domain.Globalization {
 
@@ -89,6 +90,17 @@ namespace VocaDb.Model.Domain.Globalization {
 		public virtual string Japanese { get; set; }
 
 		public virtual string Romaji { get; set; }
+
+		public void CopyFrom(LocalizedStringContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			DefaultLanguage = contract.DefaultLanguage;
+			English = contract.English;
+			Japanese = contract.Japanese;
+			Romaji = contract.Romaji;
+
+		}
 
 	}
 

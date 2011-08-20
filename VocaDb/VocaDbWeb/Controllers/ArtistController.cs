@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Service;
+using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
@@ -43,42 +44,42 @@ namespace VocaDb.Web.Controllers
         // POST: /Artist/Create
 
         [HttpPost]
-        public ActionResult Create(ArtistContract artist)
+        public ActionResult Create(ArtistCreate model)
         {
-            
-			if (string.IsNullOrEmpty(artist.Name)) {
-				ModelState.AddModelError("", "Name cannot be empty");
-				return RedirectToAction("Index");
+
+			if (ModelState.IsValid) {
+
+				var artist = Service.Create(model.Name);
+				return RedirectToAction("Details", new {id = artist.Id});
+
 			}
 
-        	artist = Service.Create(artist.Name);
-        	return RedirectToAction("Details", new {id = artist.Id});
+        	return RedirectToAction("Index", model);
 
         }
         
         //
         // GET: /Artist/Edit/5
  
-        public ActionResult Edit(int id)
-        {
-            return View();
+        public ActionResult Edit(int id) {
+        	var model = new ArtistEdit(Service.GetArtistDetails(id));
+            return View(model);
         }
 
         //
         // POST: /Artist/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+		public ActionResult EditBasicDetails(ArtistEdit model)
         {
             try
             {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
+                Service.UpdateBasicProperties(model.ToContract());
+
+				return RedirectToAction("Edit", new { id = model.Id });
             }
-            catch
-            {
-                return View();
+            catch {
+				return RedirectToAction("Edit", new { id = model.Id });
             }
         }
 

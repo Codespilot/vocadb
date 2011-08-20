@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.Artists;
+﻿using System.ComponentModel.DataAnnotations;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.DataContracts.Artists {
 

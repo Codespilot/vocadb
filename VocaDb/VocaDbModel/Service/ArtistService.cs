@@ -88,6 +88,31 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistContract[] GetCircles() {
+
+			return HandleQuery(session => session.Query<Artist>()
+				.Where(a => a.ArtistType == ArtistType.Circle)
+				.ToArray()
+				.OrderBy(a => a.Name)
+				.Select(a => new ArtistContract(a))
+				.ToArray());
+
+		}
+
+		public void UpdateBasicProperties(ArtistDetailsContract properties) {
+			
+			ParamIs.NotNull(() => properties);
+
+			HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(properties.Id);
+				artist.Description = properties.Description;
+				artist.LocalizedName.CopyFrom(properties.LocalizedName);
+
+			});
+
+		}
+
 	}
 
 }

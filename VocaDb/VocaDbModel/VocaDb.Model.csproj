@@ -44,6 +44,7 @@
       <HintPath>..\Libs\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -58,6 +59,7 @@
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
+    <Compile Include="DataContracts\LocalizedStringContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
     <Compile Include="DataContracts\Security\UserContract.cs" />
     <Compile Include="DataContracts\Songs\AlbumContract.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Domain\Globalization\ContentLanguageSelection.cs" />
     <Compile Include="Domain\Globalization\LocalizedString.cs" />
     <Compile Include="Domain\MetadataEntry.cs" />
+    <Compile Include="Domain\PictureData.cs" />
     <Compile Include="Domain\Security\PermissionFlags.cs" />
     <Compile Include="Domain\Security\RoleTypes.cs" />
     <Compile Include="Domain\Security\User.cs" />

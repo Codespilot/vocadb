@@ -11,11 +11,11 @@
 
 		Genre			= 2,
 
-		IsOriginalSong	= 3,
+		//IsOriginalSong	= 3,
 
-		Lyrics			= 4,
+		//Lyrics			= 4,
 
-		Year			= 5,
+		//Year			= 5,
 
 		/// <summary>
 		/// Web link

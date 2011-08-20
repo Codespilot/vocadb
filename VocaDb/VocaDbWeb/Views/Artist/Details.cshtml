@@ -4,6 +4,7 @@
 
 @{
 	ViewBag.Title = "Artist details - " + Model.Name;
+	ViewBag.Parents = new[] { Html.ActionLink("Artists", "Index") };
 }
 
 <h3>Basic info</h3>
@@ -14,6 +15,20 @@
 			@Model.Name<br />
 			<span class="extraInfo">@Model.AdditionalNames</span>
 		</td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td>
+			@Model.Description<br />
+		</td>	
+	</tr>
+	<tr>
+		<td>Links</td>
+		<td>
+			@foreach (var link in Model.Metadata.Where(m => m.MetadataType == VocaDb.Model.Domain.Artists.ArtistMetadataType.WebLink)) {
+				<a href='@link.Value'>@link.Value</a><br />
+			}
+		</td>	
 	</tr>
 @if (Model.Circle != null) {
 	<tr>
