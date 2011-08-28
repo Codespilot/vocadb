@@ -66,6 +66,23 @@ namespace VocaDb.Model.Service {
 			this.sessionFactory = sessionFactory;
 		}
 
+		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func) {
+
+			var typeName = typeof(TEntity).Name;
+
+			log.Info(string.Format("Updating {0} with Id {1}", typeName, id));
+
+			HandleTransaction(session => {
+
+				var entity = session.Load<TEntity>(id);
+				func(session, entity);
+
+				session.Update(entity);
+
+			}, "Unable to update " + typeName);
+
+		}
+
 	}
 
 }

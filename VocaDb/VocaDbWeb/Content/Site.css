@@ -84,3 +84,9 @@ td.menu
 	width: 200px;
 	vertical-align: top;
 }
+
+img.coverPic 
+{
+	max-width: 250px;
+	max-height: 250px;	
+}

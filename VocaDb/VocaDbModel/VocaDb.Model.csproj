@@ -60,6 +60,7 @@
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
+    <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
     <Compile Include="DataContracts\Security\UserContract.cs" />
     <Compile Include="DataContracts\Songs\AlbumContract.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="DataContracts\Songs\SongContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumContract.cs" />
     <Compile Include="DataContracts\Songs\SongMetadataEntryContract.cs" />
+    <Compile Include="DataContracts\UseCases\ArtistForEditContract.cs" />
     <Compile Include="DataContracts\UseCases\CreateSongContract.cs" />
     <Compile Include="DataContracts\UseCases\SongDetailsContract.cs" />
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
