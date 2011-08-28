@@ -28,7 +28,9 @@
 			<td>
 				@if (ViewBag.Parents != null) {
 					foreach (MvcHtmlString link in ViewBag.Parents) {
-						@link
+						<span>
+						@link &gt;&gt;
+						</span>
 					}
 				}
 				<h2>@ViewBag.Title</h2>

@@ -25,6 +25,11 @@ namespace VocaDb.Model.Mapping.Artists {
 				c.Map(m => m.Romaji, "RomajiName");
 			});
 
+			Component(m => m.Picture, c => {
+				c.Map(m => m.Bytes, "PictureBytes");
+				c.Map(m => m.Mime, "PictureMime");
+			});
+
 		}
 
 	}

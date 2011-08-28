@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Linq;
+using log4net;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Service {
 
 	public class ArtistService : ServiceBase {
+
+		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
 
 		private ArtistDetailsContract[] FindArtists(ISession session, string query, int maxResults) {
 
@@ -76,6 +82,30 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistForEditContract GetArtistForEdit(int id) {
+
+			return
+				HandleQuery(session =>
+					new ArtistForEditContract(session.Load<Artist>(id),
+						session.Query<Artist>().Where(a => a.ArtistType == ArtistType.Circle)));
+
+		}
+
+		public PictureDataContract GetArtistPicture(int id) {
+
+			return HandleQuery(session => {
+
+				var artist = session.Load<Artist>(id);
+
+				if (artist.Picture != null)
+					return new PictureDataContract(artist.Picture);
+				else
+					return null;
+
+			});
+
+		}
+
 		public ArtistContract[] GetArtists() {
 
 			return GetArtists(a => new ArtistContract(a));
@@ -99,15 +129,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateBasicProperties(ArtistDetailsContract properties) {
+		public void UpdateBasicProperties(ArtistDetailsContract properties, PictureDataContract pictureData) {
 			
 			ParamIs.NotNull(() => properties);
 
-			HandleTransaction(session => {
+			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
-				var artist = session.Load<Artist>(properties.Id);
+				artist.ArtistType = properties.ArtistType;
+				artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);
 				artist.Description = properties.Description;
 				artist.LocalizedName.CopyFrom(properties.LocalizedName);
+
+				if (pictureData != null) {
+					artist.Picture = new PictureData(pictureData);
+				}
 
 			});
 
