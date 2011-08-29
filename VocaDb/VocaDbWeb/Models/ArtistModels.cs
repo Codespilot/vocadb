@@ -78,17 +78,17 @@ namespace VocaDb.Web.Models {
 
 		[Required]
 		[Display(Name = "Name in English")]
-		[MaxLength(255)]
+		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
 		[Required]
 		[Display(Name = "Name in Japanese")]
-		[MaxLength(255)]
+		[StringLength(255)]
 		public string NameJapanese { get; set; }
 
 		[Required]
 		[Display(Name = "Name in Romaji")]
-		[MaxLength(255)]
+		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
 		public ArtistDetailsContract ToContract() {
