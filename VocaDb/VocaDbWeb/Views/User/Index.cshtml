@@ -6,11 +6,15 @@
 <table>
 	<tr>
 		<th>Name</th>
+		<th>Created</th>
 	</tr>
 @foreach (UserContract user in ViewBag.Users) {
 	<tr>
 		<td>
 			@user.Name
+		</td>
+		<td>
+			@user.CreateDate
 		</td>
 	</tr>
 }

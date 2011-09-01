@@ -1,19 +1,39 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
+@model VocaDb.Model.DataContracts.UseCases.SongDetailsContract
 @{
-	ViewBag.Title = "Song details - " + ViewBag.Song.Song.Name;
+	ViewBag.Title = "Song details - " + Model.Song.Name;
 }
+
+<h3>Basic info</h3>
+<table>
+	<tr>
+		<td>Name</td>
+		<td>
+			@Model.Song.Name<br />
+			<span class="extraInfo">@Model.AdditionalNames</span>
+		</td>	
+	</tr>
+	@if (!string.IsNullOrEmpty(Model.Song.NicoId)) {
+	<tr>
+		<td>Nico Nico Douga link</td>
+		<td>
+			<a href="http://www.nicovideo.jp/watch/@Model.Song.NicoId">@Model.Song.NicoId</a>
+		</td>
+	</tr>
+	}
+</table>
 
 <h3>Artists</h3>
 <ul>
-	@foreach (ArtistContract artist in ViewBag.Song.Artists) {
+	@foreach (var artist in Model.Artists) {
 		<li>@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)</li>
  }
 </ul>
 
 <h3>Albums</h3>
 <ul>
-	@foreach (AlbumContract album in ViewBag.Song.Albums) {
+	@foreach (var album in Model.Albums) {
 		<li>@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null)</li>
  }
 </ul>

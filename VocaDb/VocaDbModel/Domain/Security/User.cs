@@ -9,19 +9,23 @@ namespace VocaDb.Model.Domain.Security {
 		private string nameLc;
 		private string password;
 
-		public User() {}
+		public User() {
+			CreateDate = DateTime.Now;
+			Email = string.Empty;
+			PermissionFlags = PermissionFlags.Nothing;
+		}
 
-		public User(string name, string pass, int salt) {
+		public User(string name, string pass, int salt)
+			: this() {
 
 			Name = name;
 			NameLC = name.ToLowerInvariant();
 			Password = pass;
-			PermissionFlags = PermissionFlags.Nothing;
 			Salt = salt;
 
-			Email = String.Empty;
-
 		}
+
+		public virtual DateTime CreateDate { get; set; }
 
 		public virtual string Email {
 			get { return email; }
