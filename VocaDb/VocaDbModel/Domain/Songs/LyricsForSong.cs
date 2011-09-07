@@ -2,15 +2,12 @@
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class LyricsForSong {
+	public class LyricsForSong : LocalizedString {
 
 		private string notes;
 		private Song song;
-		private string text;
 
 		public virtual int Id { get; protected set; }
-
-		public virtual ContentLanguageSelection Language { get; protected set; }
 
 		public virtual string Notes {
 			get { return notes; }
@@ -28,13 +25,6 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual string Text {
-			get { return text; }
-			set {
-				ParamIs.NotNull(() => value);
-				text = value;
-			}
-		}
 	}
 
 }

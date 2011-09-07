@@ -10,14 +10,14 @@ namespace VocaDb.Web {
 	public static class ViewExtension {
 
 		public static LoginManager LoggedUser(this WebViewPage page) {
-			
-			return new LoginManager();
+
+			return MvcApplication.LoginManager;
 
 		}
 
 		public static LoginManager LoggedUser<TModel>(this WebViewPage<TModel> page) {
 
-			return new LoginManager();
+			return MvcApplication.LoginManager;
 
 		}
 	}

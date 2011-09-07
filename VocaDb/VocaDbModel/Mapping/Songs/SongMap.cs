@@ -15,7 +15,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.OriginalName).Not.Nullable();
 
 			HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
-			Component(m => m.LocalizedName, c => {
+			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 				c.Map(m => m.Japanese, "JapaneseName");
 				c.Map(m => m.English, "EnglishName");

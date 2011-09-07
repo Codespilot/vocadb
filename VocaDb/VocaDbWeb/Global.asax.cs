@@ -12,6 +12,12 @@ namespace VocaDb.Web {
 
 		private static ServiceModel serviceModel;
 
+		public static LoginManager LoginManager {
+			get {
+				return new LoginManager();
+			}
+		}
+
 		public static ServiceModel Services {
 			get {
 				

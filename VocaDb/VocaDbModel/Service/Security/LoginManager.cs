@@ -4,7 +4,7 @@ using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service.Security {
 
-	public class LoginManager {
+	public class LoginManager : IUserPermissionContext {
 
 		public static string GetHashedPass(string name, string pass, int salt) {
 
@@ -22,6 +22,13 @@ namespace VocaDb.Model.Service.Security {
 			get {
 				return HttpContext.Current.User.Identity.IsAuthenticated;
 			}
+		}
+
+		public void VerifyPermission(PermissionFlags flag) {
+
+			if (!HasPermission(flag))
+				throw new NotAllowedException();
+
 		}
 
 	}

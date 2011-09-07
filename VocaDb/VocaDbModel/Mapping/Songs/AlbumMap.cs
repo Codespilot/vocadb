@@ -9,7 +9,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Id(m => m.Id);
 			Map(m => m.ReleaseDate).Nullable();
-			Component(m => m.LocalizedName, c => {
+			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 				c.Map(m => m.Japanese, "JapaneseName");
 				c.Map(m => m.English, "EnglishName");

@@ -65,7 +65,7 @@ namespace VocaDb.Web.Controllers
 
 			if (ModelState.IsValid) {
 
-				var artist = Service.Create(model.Name);
+				var artist = Service.Create(model.Name, MvcApplication.LoginManager);
 				return RedirectToAction("Details", new {id = artist.Id});
 
 			}
@@ -107,7 +107,7 @@ namespace VocaDb.Web.Controllers
 
 				}
 
-                Service.UpdateBasicProperties(model.ToContract(), pictureData);
+				Service.UpdateBasicProperties(model.ToContract(), pictureData, MvcApplication.LoginManager);
 
 				return RedirectToAction("Edit", new { id = model.Id });
             }

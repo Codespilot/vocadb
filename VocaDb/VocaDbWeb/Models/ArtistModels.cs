@@ -39,13 +39,13 @@ namespace VocaDb.Web.Models {
 
 			ArtistType = artist.ArtistType;
 			CircleId = (artist.Circle != null ? artist.Circle.Id : EmptyArtist.EmptyArtistId);
-			DefaultLanguageSelection = artist.LocalizedName.DefaultLanguage;
+			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
 			Id = artist.Id;
 			Name = artist.Name;
-			NameEnglish = artist.LocalizedName.English;
-			NameJapanese = artist.LocalizedName.Japanese;
-			NameRomaji = artist.LocalizedName.Romaji;
+			NameEnglish = artist.TranslatedName.English;
+			NameJapanese = artist.TranslatedName.Japanese;
+			NameRomaji = artist.TranslatedName.Romaji;
 
 			AllArtistTypes = EnumVal<ArtistType>.Values;
 			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
@@ -99,7 +99,7 @@ namespace VocaDb.Web.Models {
 				ArtistType = this.ArtistType,
 				Circle = (CircleId != EmptyArtist.EmptyArtistId ? new ArtistContract { Id = CircleId} : null),
 				Description =  this.Description ?? string.Empty,
-				LocalizedName = new LocalizedStringContract(
+				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
 
 			};

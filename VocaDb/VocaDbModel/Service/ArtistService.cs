@@ -9,6 +9,8 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Model.Service {
 
@@ -20,10 +22,10 @@ namespace VocaDb.Model.Service {
 
 			var direct = session.Query<Artist>()
 				.Where(s => string.IsNullOrEmpty(query)
-					|| s.LocalizedName.English.Contains(query)
-						|| s.LocalizedName.Romaji.Contains(query)
-							|| s.LocalizedName.Japanese.Contains(query))
-				.OrderBy(s => s.LocalizedName.Japanese)
+					|| s.TranslatedName.English.Contains(query)
+						|| s.TranslatedName.Romaji.Contains(query)
+							|| s.TranslatedName.Japanese.Contains(query))
+				.OrderBy(s => s.TranslatedName.Japanese)
 				.Take(maxResults)
 				.ToArray();
 
@@ -56,11 +58,16 @@ namespace VocaDb.Model.Service {
 		public ArtistService(ISessionFactory sessionFactory)
 			: base(sessionFactory) {}
 
-		public ArtistContract Create(string name) {
+		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
 			return HandleTransaction(session => {
 
-				var artist = new Artist(new LocalizedString(name));
+				var artist = new Artist(new TranslatedString(name));
 
 				session.Save(artist);
 
@@ -129,16 +136,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateBasicProperties(ArtistDetailsContract properties, PictureDataContract pictureData) {
+		public void UpdateBasicProperties(ArtistDetailsContract properties, PictureDataContract pictureData, IUserPermissionContext permissionContext) {
 			
 			ParamIs.NotNull(() => properties);
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);
 				artist.Description = properties.Description;
-				artist.LocalizedName.CopyFrom(properties.LocalizedName);
+				artist.TranslatedName.CopyFrom(properties.TranslatedName);
 
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);

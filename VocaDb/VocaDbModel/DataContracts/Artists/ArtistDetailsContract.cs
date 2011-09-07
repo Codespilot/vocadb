@@ -15,7 +15,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != artist.Name));
 			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle) : null);
 			Description = artist.Description;
-			LocalizedName = new LocalizedStringContract(artist.LocalizedName);
+			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			Members = artist.Members.Select(m => new ArtistContract(m)).ToArray();
 			Metadata = artist.Metadata.Select(m => new ArtistMetadataEntryContract(m)).ToArray();
 			Songs = artist.Songs.Select(s => new SongContract(s.Song)).ToArray();
@@ -30,7 +30,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public string Description { get; set; }
 
-		public LocalizedStringContract LocalizedName { get; set; }
+		public TranslatedStringContract TranslatedName { get; set; }
 
 		public ArtistContract[] Members { get; set; }
 

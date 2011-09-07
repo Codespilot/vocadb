@@ -10,18 +10,20 @@ namespace VocaDb.Model.Domain.Artists {
 		private string description;
 		private IList<Artist> members = new List<Artist>();
 		private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
+		private IList<ArtistName> names = new List<ArtistName>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
+		private IList<ArtistWebLink> webLinks = new List<ArtistWebLink>();
 
 		public Artist() {
 			ArtistType = ArtistType.Unknown;
 			Description = string.Empty;
-			LocalizedName = new LocalizedString();
+			TranslatedName = new TranslatedString();
 		}
 
-		public Artist(LocalizedString name)
+		public Artist(TranslatedString name)
 			: this() {
 
-			LocalizedName = name;
+			TranslatedName = name;
 
 		}
 
@@ -47,7 +49,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual int Id { get; set; }
 
-		public virtual LocalizedString LocalizedName { get; set; }
+		public virtual TranslatedString TranslatedName { get; set; }
 
 		public virtual IList<Artist> Members {
 			get { return members; }
@@ -67,10 +69,18 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual string Name {
 			get {
-				return LocalizedName.Current;
+				return TranslatedName.Current;
 			}
 			set {
-				LocalizedName.Current = value;
+				TranslatedName.Current = value;
+			}
+		}
+
+		public virtual IList<ArtistName> Names {
+			get { return names; }
+			set {
+				ParamIs.NotNull(() => value);
+				names = value;
 			}
 		}
 
@@ -84,9 +94,17 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual IList<ArtistWebLink> WebLinks {
+			get { return webLinks; }
+			set {
+				ParamIs.NotNull(() => value);
+				webLinks = value;
+			}
+		}
+
 		public virtual IEnumerable<string> AllNames {
 			get {
-				return LocalizedName.All
+				return TranslatedName.All
 					.Concat(Metadata.Where(m => m.MetadataType == ArtistMetadataType.AlternateName).Select(m => m.Value))
 					.Distinct();
 			}

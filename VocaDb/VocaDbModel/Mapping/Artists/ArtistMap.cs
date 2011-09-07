@@ -18,7 +18,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
 			HasMany(m => m.Songs).Table("ArtistsForSongs").Inverse().Cascade.All();
 
-			Component(m => m.LocalizedName, c => {
+			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage").Not.Nullable();
 				c.Map(m => m.Japanese, "JapaneseName");
 				c.Map(m => m.English, "EnglishName");

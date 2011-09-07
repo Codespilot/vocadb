@@ -31,7 +31,7 @@ namespace VocaDb.Model.Service {
 		
 				}
 
-				var song = new Song(new LocalizedString(contract.BasicData.Name), contract.BasicData.NicoId);
+				var song = new Song(new TranslatedString(contract.BasicData.Name), contract.BasicData.NicoId);
 
 				if (contract.AlbumId != null)
 					song.AddAlbum(session.Load<Album>(contract.AlbumId.Value), 0);
@@ -54,7 +54,7 @@ namespace VocaDb.Model.Service {
 		public int GetSongCount(string filter) {
 
 			return HandleQuery(session => session.Query<Song>()
-				.Where(s => string.IsNullOrEmpty(filter) || s.LocalizedName.Japanese.Contains(filter))
+				.Where(s => string.IsNullOrEmpty(filter) || s.TranslatedName.Japanese.Contains(filter))
 				.Count());
 
 		}
@@ -77,9 +77,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => session.Query<Song>()
 				.Where(s => string.IsNullOrEmpty(filter) 
-					|| s.LocalizedName.Japanese.Contains(filter) 
+					|| s.TranslatedName.Japanese.Contains(filter) 
 					|| s.NicoId == filter)
-				.OrderBy(s => s.LocalizedName.Japanese)
+				.OrderBy(s => s.TranslatedName.Japanese)
 				.Skip(start)
 				.Take(count)
 				.ToArray()
