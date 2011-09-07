@@ -7,11 +7,13 @@ namespace VocaDb.Model.Domain.Security {
 
 		Nothing			= 0,
 
-		CreateArtist	= 1,
+		ManageAlbums	= 1,
 
-		EditArtist		= 2,
+		ManageArtists	= 2,
 
-		DeleteArtist	= 4,
+		ManageSongs		= 4,
+
+		ManageUsers		= 8
 
 	}
 

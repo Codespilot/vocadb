@@ -60,6 +60,7 @@
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
+    <Compile Include="DataContracts\TranslatedStringContract.cs" />
     <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
     <Compile Include="DataContracts\Security\UserContract.cs" />
@@ -76,14 +77,18 @@
     <Compile Include="Domain\Artists\Artist.cs" />
     <Compile Include="Domain\Artists\ArtistMetadataEntry.cs" />
     <Compile Include="Domain\Artists\ArtistMetadataType.cs" />
+    <Compile Include="Domain\Artists\ArtistName.cs" />
     <Compile Include="Domain\Artists\ArtistType.cs" />
+    <Compile Include="Domain\Artists\ArtistWebLink.cs" />
     <Compile Include="Domain\Artists\Circle.cs" />
     <Compile Include="Domain\Artists\Performer.cs" />
     <Compile Include="Domain\Artists\Producer.cs" />
     <Compile Include="Domain\Globalization\ContentLanguageSelection.cs" />
     <Compile Include="Domain\Globalization\LocalizedString.cs" />
+    <Compile Include="Domain\Globalization\TranslatedString.cs" />
     <Compile Include="Domain\MetadataEntry.cs" />
     <Compile Include="Domain\PictureData.cs" />
+    <Compile Include="Domain\Security\NotAllowedException.cs" />
     <Compile Include="Domain\Security\PermissionFlags.cs" />
     <Compile Include="Domain\Security\RoleTypes.cs" />
     <Compile Include="Domain\Security\User.cs" />
@@ -96,6 +101,7 @@
     <Compile Include="Domain\Songs\SongMetadataEntry.cs" />
     <Compile Include="Domain\Songs\SongMetadataType.cs" />
     <Compile Include="Domain\Ranking\RankingList.cs" />
+    <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
@@ -115,6 +121,7 @@
     <Compile Include="Service\Helpers\SongTagger.cs" />
     <Compile Include="Service\RankingService.cs" />
     <Compile Include="Service\Rankings\VocaloidismWVRParser.cs" />
+    <Compile Include="Domain\Security\IUserPermissionContext.cs" />
     <Compile Include="Service\Security\LoginManager.cs" />
     <Compile Include="Service\ServiceBase.cs" />
     <Compile Include="Service\ServiceException.cs" />

@@ -4,11 +4,11 @@ using VocaDb.Model.Domain.Globalization;
 namespace VocaDb.Model.DataContracts {
 
 	[DataContract]
-	public class LocalizedStringContract {
+	public class TranslatedStringContract {
 
-		public LocalizedStringContract() {}
+		public TranslatedStringContract() {}
 
-		public LocalizedStringContract(string english, string japanese, 
+		public TranslatedStringContract(string english, string japanese, 
 			string romaji, ContentLanguageSelection defaultLanguage) {
 
 			English = english;
@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
-		public LocalizedStringContract(LocalizedString str) {
+		public TranslatedStringContract(TranslatedString str) {
 			
 			ParamIs.NotNull(() => str);
 

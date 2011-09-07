@@ -13,7 +13,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private IList<SongMetadataEntry> metadata = new List<SongMetadataEntry>();
-		private LocalizedString name;
+		private TranslatedString name;
 		private string originalName;
 
 		protected IEnumerable<Artist> ArtistList {
@@ -25,15 +25,15 @@ namespace VocaDb.Model.Domain.Songs {
 		public Song() {
 			ArtistString = string.Empty;
 			CreateDate = DateTime.Now;
-			LocalizedName = new LocalizedString();
+			TranslatedName = new TranslatedString();
 		}
 
-		public Song(LocalizedString localizedName, string nicoId)
+		public Song(TranslatedString translatedName, string nicoId)
 			: this() {
 
-			LocalizedName = localizedName;
+			TranslatedName = translatedName;
 			NicoId = nicoId;
-			OriginalName = localizedName.Display;
+			OriginalName = translatedName.Display;
 
 		}
 
@@ -87,15 +87,15 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual string Name {
 			get {
-				return LocalizedName.Current;
+				return TranslatedName.Current;
 			}
 			set {
 				ParamIs.NotNull(() => value);
-				LocalizedName.Current = value;
+				TranslatedName.Current = value;
 			}
 		}
 
-		public virtual LocalizedString LocalizedName {
+		public virtual TranslatedString TranslatedName {
 			get { return name; }
 			set {
 				ParamIs.NotNull(() => value);

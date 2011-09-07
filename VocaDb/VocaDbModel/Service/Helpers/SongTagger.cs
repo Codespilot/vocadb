@@ -33,7 +33,7 @@ namespace VocaDb.Model.Service.Helpers {
 		private bool MatchArtist(Song song, Artist artist) {
 
 			foreach (var lang in EnumVal<ContentLanguageSelection>.Values)
-				if (song.LocalizedName[lang].ToLowerInvariant().Contains(artist.LocalizedName[lang].ToLowerInvariant()))
+				if (song.TranslatedName[lang].ToLowerInvariant().Contains(artist.TranslatedName[lang].ToLowerInvariant()))
 					return true;
 
 			return false;

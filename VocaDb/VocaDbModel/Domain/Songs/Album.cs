@@ -13,7 +13,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public Album() {
 			Description = string.Empty;
-			LocalizedName = new LocalizedString();
+			TranslatedName = new TranslatedString();
 		}
 
 		public virtual IEnumerable<Artist> Artists {
@@ -34,14 +34,14 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual int Id { get; set; }
 
-		public virtual LocalizedString LocalizedName { get; set; }
+		public virtual TranslatedString TranslatedName { get; set; }
 
 		public virtual string Name {
 			get {
-				return LocalizedName.Current;
+				return TranslatedName.Current;
 			}
 			set {
-				LocalizedName.Current = value;
+				TranslatedName.Current = value;
 			}
 		}
 

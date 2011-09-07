@@ -16,7 +16,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Song = new SongContract(song);
 
 			Albums = song.Albums.Select(a => new AlbumContract(a.Album)).ToArray();
-			AdditionalNames = string.Join(", ", song.LocalizedName.All.Where(n => n != song.Name));
+			AdditionalNames = string.Join(", ", song.TranslatedName.All.Where(n => n != song.Name));
 			Artists = song.Artists.Select(a => new ArtistContract(a.Artist)).ToArray();
 			WVRPlacements = songInPolls.Select(s => new SongWVRPlacementContract(s)).ToArray();
 

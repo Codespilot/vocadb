@@ -3,13 +3,13 @@ using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Domain.Globalization {
 
-	public class LocalizedString {
+	public class TranslatedString {
 
-		public LocalizedString() {
+		public TranslatedString() {
 			DefaultLanguage = ContentLanguageSelection.Japanese;
 		}
 
-		public LocalizedString(string uniform)
+		public TranslatedString(string uniform)
 			: this() {
 
 			Japanese = Romaji = English = uniform;
@@ -91,7 +91,7 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		public virtual string Romaji { get; set; }
 
-		public void CopyFrom(LocalizedStringContract contract) {
+		public void CopyFrom(TranslatedStringContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
