@@ -60,6 +60,7 @@
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
+    <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
     <Compile Include="DataContracts\TranslatedStringContract.cs" />
     <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="DataContracts\UseCases\SongDetailsContract.cs" />
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
+    <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Artists\Artist.cs" />
     <Compile Include="Domain\Artists\ArtistMetadataEntry.cs" />
     <Compile Include="Domain\Artists\ArtistMetadataType.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Domain\Artists\Producer.cs" />
     <Compile Include="Domain\Globalization\ContentLanguageSelection.cs" />
     <Compile Include="Domain\Globalization\LocalizedString.cs" />
+    <Compile Include="Domain\Globalization\LocalizedStringWithId.cs" />
     <Compile Include="Domain\Globalization\TranslatedString.cs" />
     <Compile Include="Domain\MetadataEntry.cs" />
     <Compile Include="Domain\PictureData.cs" />
@@ -105,6 +108,8 @@
     <Compile Include="EnumVal.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistNameMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistWebLinkMap.cs" />
     <Compile Include="Mapping\ClassConventions.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\UserMap.cs" />

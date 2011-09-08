@@ -5,7 +5,7 @@
 		private string description;
 		private string url;
 
-		public string Description {
+		public virtual string Description {
 			get { return description; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -13,7 +13,9 @@
 			}
 		}
 
-		public string Url {
+		public virtual int Id { get; protected set; }
+
+		public virtual string Url {
 			get { return url; }
 			set {
 				ParamIs.NotNullOrEmpty(() => value);
