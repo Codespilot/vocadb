@@ -15,7 +15,9 @@ namespace VocaDb.Model.Mapping.Artists {
 			HasMany(m => m.Members)
 				.Inverse()
 				.KeyColumn("[Circle]");
-			HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
+			//HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
+			HasMany(m => m.Names).Table("ArtistNames").Inverse().Cascade.All();
+			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
 			HasMany(m => m.Songs).Table("ArtistsForSongs").Inverse().Cascade.All();
 
 			Component(m => m.TranslatedName, c => {

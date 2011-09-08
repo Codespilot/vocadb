@@ -20,10 +20,13 @@ namespace VocaDb.Model.Domain.Artists {
 			TranslatedName = new TranslatedString();
 		}
 
-		public Artist(TranslatedString name)
+		public Artist(TranslatedString translatedName)
 			: this() {
 
-			TranslatedName = name;
+			TranslatedName = translatedName;
+			
+			foreach (var name in translatedName.AllLocalized)
+				Names.Add(new ArtistName(this, name));
 
 		}
 
@@ -105,7 +108,7 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual IEnumerable<string> AllNames {
 			get {
 				return TranslatedName.All
-					.Concat(Metadata.Where(m => m.MetadataType == ArtistMetadataType.AlternateName).Select(m => m.Value))
+					.Concat(Names.Select(n => n.Value))
 					.Distinct();
 			}
 		}

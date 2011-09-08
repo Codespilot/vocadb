@@ -15,7 +15,7 @@
         <fieldset>
 			<legend>Basic properties</legend>
 			<table><tr>
-			<td>Name:</td>
+			<td>Primary name:</td>
             <td><div class="editor-label">
                 @Html.LabelFor(m => m.NameRomaji)
             </div>
@@ -49,7 +49,31 @@
             <div class="editor-field">
                 @Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
             </div>
-			</td></tr></table>
+			</td></tr>
+			</table>
+
+           <div class="editor-label">
+                @Html.LabelFor(m => m.Names)
+            </div>
+            <div class="editor-field">
+				<table>
+					@foreach (var name in Model.Names) {
+						<tr>
+							<td>
+								<input type="hidden" class="nameId" value='@name.Id' />
+								<input type="text" class="nameEdit" value='@name.Value' />
+							</td>
+							<td>
+								@Html.DropDownList("nameLanguage" + name.Id, new SelectList(Model.AllLanguages, @name.Language))
+							</td>
+							<td>
+								<input type="button" class="nameDelete" value="Delete" />
+								<input type="button" class="nameCopy" value="Copy to primary" />
+							</td>
+						</tr>
+					}
+				</table>
+            </div>
 
            <div class="editor-label">
                 <label>Picture</label>

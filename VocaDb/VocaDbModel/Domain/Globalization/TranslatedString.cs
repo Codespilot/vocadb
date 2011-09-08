@@ -61,6 +61,16 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
+		public virtual IEnumerable<LocalizedString> AllLocalized {
+			get {
+				return new[] {
+					new LocalizedString(Japanese, ContentLanguageSelection.Japanese),
+					new LocalizedString(Romaji, ContentLanguageSelection.Romaji), 	
+					new LocalizedString(English, ContentLanguageSelection.English), 	
+				};
+			}
+		}
+
 		public virtual string Current {
 			get {
 				return this[DefaultLanguage];

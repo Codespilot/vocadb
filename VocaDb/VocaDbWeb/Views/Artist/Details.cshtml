@@ -7,7 +7,7 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Artists", "Index") };
 }
 
-@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.EditArtist)) {
+@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageArtists)) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
@@ -38,8 +38,8 @@
 	<tr>
 		<td>Links</td>
 		<td>
-			@foreach (var link in Model.Metadata.Where(m => m.MetadataType == VocaDb.Model.Domain.Artists.ArtistMetadataType.WebLink)) {
-				<a href='@link.Value'>@link.Value</a><br />
+			@foreach (var link in Model.WebLinks) {
+				<a href='@link.Url'>@link.Description</a><br />
 			}
 		</td>	
 	</tr>

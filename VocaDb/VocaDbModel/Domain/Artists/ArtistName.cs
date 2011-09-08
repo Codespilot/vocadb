@@ -2,11 +2,20 @@
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class ArtistName : LocalizedString {
+	public class ArtistName : LocalizedStringWithId {
 
 		private Artist artist;
 
-		public Artist Artist {
+		public ArtistName() {}
+
+		public ArtistName(Artist artist, LocalizedString localizedString)
+			: base(localizedString.Value, localizedString.Language) {
+
+			Artist = artist;
+
+		}
+
+		public virtual Artist Artist {
 			get { return artist; }
 			set {
 				ParamIs.NotNull(() => value);

@@ -4,7 +4,7 @@
 
 		private Artist artist;
 
-		public Artist Artist {
+		public virtual Artist Artist {
 			get { return artist; }
 			set {
 				ParamIs.NotNull(() => value);

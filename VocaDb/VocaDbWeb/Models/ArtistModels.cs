@@ -46,6 +46,7 @@ namespace VocaDb.Web.Models {
 			NameEnglish = artist.TranslatedName.English;
 			NameJapanese = artist.TranslatedName.Japanese;
 			NameRomaji = artist.TranslatedName.Romaji;
+			Names = artist.Names;
 
 			AllArtistTypes = EnumVal<ArtistType>.Values;
 			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
@@ -75,6 +76,9 @@ namespace VocaDb.Web.Models {
 		public int Id { get; set; }
 
 		public string Name { get; set; }
+
+		[Display(Name = "Names")]
+		public LocalizedStringWithIdContract[] Names { get; set; }
 
 		[Required]
 		[Display(Name = "Name in English")]
