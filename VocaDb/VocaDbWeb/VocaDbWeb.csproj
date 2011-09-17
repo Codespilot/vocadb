@@ -86,9 +86,6 @@
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AjaxService.svc.cs">
-      <DependentUpon>AjaxService.svc</DependentUpon>
-    </Compile>
     <Compile Include="ViewExtension.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -131,8 +128,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
-    <Content Include="Services\AjaxService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

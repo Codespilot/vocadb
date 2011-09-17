@@ -17,7 +17,7 @@
 
 		}
 
-		public virtual ContentLanguageSelection Language { get; private set; }
+		public virtual ContentLanguageSelection Language { get; set; }
 
 		public virtual string Value {
 			get { return val; }

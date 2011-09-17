@@ -113,6 +113,29 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual ArtistName CreateName(string val, ContentLanguageSelection language) {
+			
+			ParamIs.NotNullOrEmpty(() => val);
+
+			var name = new ArtistName(this, new LocalizedString(val, language));
+			Names.Add(name);
+
+			return name;
+
+		}
+
+		public virtual ArtistWebLink CreateWebLink(string description, string url) {
+
+			ParamIs.NotNull(() => description);
+			ParamIs.NotNullOrEmpty(() => url);
+
+			var link = new ArtistWebLink(this, description, url);
+			WebLinks.Add(link);
+
+			return link;
+
+		}
+
 	}
 
 }
