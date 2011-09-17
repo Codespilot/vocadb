@@ -77,6 +77,66 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public LocalizedStringWithIdContract CreateArtistName(int artistId, string nameVal, ContentLanguageSelection language, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNullOrEmpty(() => nameVal);
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			return HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(artistId);
+
+				var name = artist.CreateName(nameVal, language);
+				session.Save(name);
+				return new LocalizedStringWithIdContract(name);
+
+			});
+
+		}
+
+		public void DeleteArtistName(int nameId, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+	
+			DeleteEntity<ArtistName>(nameId);
+
+		}
+
+		public WebLinkContract CreateWebLink(int artistId, string description, string url, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => description);
+			ParamIs.NotNullOrEmpty(() => url);
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			return HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(artistId);
+
+				var link = artist.CreateWebLink(description, url );
+				session.Save(link);
+
+				return new WebLinkContract(link);
+
+			});
+
+		}
+
+		public void DeleteWebLink(int linkId, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			DeleteEntity<ArtistWebLink>(linkId);
+
+		}
+
 		public ArtistDetailsContract[] FindArtists(string query, int maxResults) {
 
 			return HandleQuery(session => FindArtists(session, query, maxResults));
@@ -155,6 +215,24 @@ namespace VocaDb.Model.Service {
 				}
 
 			});
+
+		}
+
+		public void UpdateArtistNameLanguage(int nameId, ContentLanguageSelection lang, IUserPermissionContext permissionContext) {
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			UpdateEntity<ArtistName>(nameId, name => name.Language = lang);
+
+		}
+
+		public void UpdateArtistNameValue(int nameId, string val, IUserPermissionContext permissionContext) {
+			
+			ParamIs.NotNullOrEmpty(() => val);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			UpdateEntity<ArtistName>(nameId, name => name.Value = val);
 
 		}
 

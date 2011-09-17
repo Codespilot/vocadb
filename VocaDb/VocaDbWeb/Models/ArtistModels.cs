@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Script.Serialization;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
@@ -47,11 +48,13 @@ namespace VocaDb.Web.Models {
 			NameJapanese = artist.TranslatedName.Japanese;
 			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names;
+			WebLinks = artist.WebLinks;
 
 			AllArtistTypes = EnumVal<ArtistType>.Values;
 			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
 				.ToDictionary(a => a.Id, a => a.Name);
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
+			AllLanguagesJson = new JavaScriptSerializer().Serialize(AllLanguages.Select(l => l.ToString()));
 
 		}
 
@@ -60,6 +63,8 @@ namespace VocaDb.Web.Models {
 		public Dictionary<int, string> AllCircles { get; set; }
 
 		public ContentLanguageSelection[] AllLanguages { get; set; }
+
+		public string AllLanguagesJson { get; set; }
 
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
@@ -94,6 +99,9 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Name in Romaji")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
+
+		[Display(Name = "Web links")]
+		public WebLinkContract[] WebLinks { get; set; }
 
 		public ArtistDetailsContract ToContract() {
 

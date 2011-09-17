@@ -9,11 +9,14 @@ namespace VocaDb.Model.DataContracts {
 			ParamIs.NotNull(() => link);
 
 			Description = link.Description;
+			Id = link.Id;
 			Url = link.Url;
 
 		}
 
 		public string Description { get; set; }
+
+		public int Id { get; set; }
 
 		public string Url { get; set; }
 

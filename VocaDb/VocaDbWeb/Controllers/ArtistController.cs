@@ -4,15 +4,22 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
     public class ArtistController : Controller
     {
+
+    	private LoginManager LoginManager {
+			get { return MvcApplication.LoginManager; }
+    	}
 
     	private ArtistService Service {
     		get { return MvcApplication.Services.Artists; }
@@ -107,7 +114,7 @@ namespace VocaDb.Web.Controllers
 
 				}
 
-				Service.UpdateBasicProperties(model.ToContract(), pictureData, MvcApplication.LoginManager);
+				Service.UpdateBasicProperties(model.ToContract(), pictureData, LoginManager);
 
 				return RedirectToAction("Edit", new { id = model.Id });
             }
@@ -115,6 +122,36 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Edit", new { id = model.Id });
             }
         }
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
+
+			var name = Service.CreateArtistName(artistId, nameVal, language, LoginManager);
+
+			return Json(name);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteName(int nameId) {
+
+			Service.DeleteArtistName(nameId, LoginManager);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditNameLanguage(int nameId, string nameLanguage) {
+
+			Service.UpdateArtistNameLanguage(nameId, EnumVal<ContentLanguageSelection>.Parse(nameLanguage), LoginManager);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditNameValue(int nameId, string nameVal) {
+
+			Service.UpdateArtistNameValue(nameId, nameVal, LoginManager);
+
+		}
 
         //
         // GET: /Artist/Delete/5

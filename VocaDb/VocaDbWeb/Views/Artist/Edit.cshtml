@@ -20,7 +20,7 @@
                 @Html.LabelFor(m => m.NameRomaji)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameRomaji)
+                @Html.TextBoxFor(m => m.NameRomaji, new { @readonly = "readonly" } )
                 @Html.ValidationMessageFor(m => m.NameRomaji)
             </div>
 			</td><td>
@@ -29,7 +29,7 @@
                 @Html.LabelFor(m => m.NameJapanese)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameJapanese)
+                @Html.TextBoxFor(m => m.NameJapanese, new { @readonly = "readonly" })
                 @Html.ValidationMessageFor(m => m.NameJapanese)
             </div>
 			</td><td>
@@ -38,7 +38,7 @@
                 @Html.LabelFor(m => m.NameEnglish)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameEnglish)
+                @Html.TextBoxFor(m => m.NameEnglish, new { @readonly = "readonly" })
                 @Html.ValidationMessageFor(m => m.NameEnglish)
             </div>
 			</td><td>
@@ -58,20 +58,30 @@
             <div class="editor-field">
 				<table>
 					@foreach (var name in Model.Names) {
-						<tr>
+						<tr id="@("nameRow_" + name.Id)">
 							<td>
-								<input type="hidden" class="nameId" value='@name.Id' />
-								<input type="text" class="nameEdit" value='@name.Value' />
+								<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + name.Id)" value='@name.Value' />
 							</td>
 							<td>
-								@Html.DropDownList("nameLanguage" + name.Id, new SelectList(Model.AllLanguages, @name.Language))
+								@Html.DropDownList("nameLanguage_" + name.Id, new SelectList(Model.AllLanguages, @name.Language), new { id = "nameLanguage_" + name.Id, @class = "nameLanguage" })
 							</td>
 							<td>
-								<input type="button" class="nameDelete" value="Delete" />
-								<input type="button" class="nameCopy" value="Copy to primary" />
+								<input type="button" class="nameDelete" id="@("nameDelete_" + name.Id)" value="Delete" />
+								<input type="button" class="nameCopy" id="@("nameCopy_" + name.Id)" value="Copy to primary" />
 							</td>
 						</tr>
 					}
+					<tr id="nameRow_new">
+						<td>
+							<input type="text" maxlength="128" class="nameEditNew" id="nameEdit_new" />						
+						</td>
+						<td>
+							@Html.DropDownList("nameLanguage_new", new SelectList(Model.AllLanguages), new { id = "nameLanguage_new" })
+						</td>
+						<td>
+							<input type="button" class="nameAddNew" id="nameAdd" value="Add" />
+						</td>
+					</tr>
 				</table>
             </div>
 
@@ -105,6 +115,43 @@
                 @Html.DropDownListFor(m => m.CircleId, new SelectList(Model.AllCircles, "Key", "Value", Model.CircleId))
             </div>
 			}
+			
+            <div class="editor-label">
+                @Html.LabelFor(m => m.WebLinks)
+            </div>
+            <div class="editor-field">
+				<table>
+					<tr>
+						<th>Description</th>
+						<th>URL</th>
+						<th>Actions</th>
+					</tr>
+					@foreach (var webLink in Model.WebLinks) {
+						<tr>
+							<td>
+								<input type="text" maxlength="512" class="webLinkDescription" id="@("webLinkDescription_" + webLink.Id)" value="@webLink.Description" />
+							</td>
+							<td>
+								<input type="text" maxlength="512" class="webLinkUrl" id="@("webLinkUrl_" + webLink.Id)" value="@webLink.Url" />
+							</td>
+							<td>
+								<input type="button" class="webLinkDelete" id="@("webLinkDelete_" + webLink.Id)" value="Delete" />
+							</td>
+						</tr>
+					}
+					<tr id="webLinkRow_new">
+						<td>
+							<input type="text" maxlength="512" class="webLinkDescriptionNew" id="webLinkDescription_new" />						
+						</td>
+						<td>
+							<input type="text" maxlength="512" class="webLinkUrlNew" id="webLinkUrl_new" />													
+						</td>
+						<td>
+							<input type="button" class="webLinkAddNew" id="webLinkAdd" value="Add" />
+						</td>
+					</tr>
+				</table>
+            </div>
 
             <p>
                 <input type="submit" value="Save" />
@@ -112,3 +159,107 @@
         </fieldset>
     </div>
 }
+
+<script type="text/javascript">
+
+	function onChangeLang(event) {
+
+		var select = event.target;
+
+		var id = getId(select);
+		var val = $(select).val();
+
+		$.post("/Artist/EditNameLanguage", { nameId: id, nameLanguage: val });
+		
+	}
+
+	function getId(elem) {
+		return $(elem).attr('id').split("_")[1];
+	}
+
+	$(document).ready(function () {
+
+		$("input.nameEdit").live("change", function () {
+
+			var id = getId(this);
+			var val = $(this).val();
+
+			$.post("/Artist/EditNameValue", { nameId: id, nameVal: val });
+
+		});
+
+		$("select.nameLanguage").change(onChangeLang);
+
+		$("input.nameCopy").live("click", function () {
+
+			var id = getId(this);
+			var nameVal = $("input#nameEdit_" + id).val();
+			var langId = $("select#nameLanguage_" + id).val();
+
+			$("input#Name" + langId).val(nameVal);
+
+		});
+
+		$("input.nameDelete").live("click", function () {
+
+			var id = getId(this);
+
+			$.post("/Artist/DeleteName", { nameId: id });
+
+			$("tr#nameRow_" + id).remove();
+
+		});
+
+		function createLanguageDropDown(nameId, nameLang) {
+
+			var languages = eval("[\"Japanese\",\"Romaji\",\"English\"]");
+
+			var dropDown = document.createElement("select");
+			$(dropDown).attr("id", "nameLanguage_" + nameId);
+
+			$(languages).each(function() {
+
+				/*var option = document.createElement("option"); //"<option value=\"" + this + "\">" + this + "</option>";
+				$(option).val(this),
+				$(option).text(this);
+
+				$(dropDown).append(option);*/
+				$(dropDown).append("<option value=\"" + this + "\">" + this + "</option>");
+
+			});
+
+			$(dropDown).change(onChangeLang);
+
+			return dropDown;
+
+		}
+
+		$("input#nameAdd").click(function () {
+
+			var aId = @Model.Id;
+			var newNameVal = $("input#nameEdit_new").val();
+			var newLangId = $("select#nameLanguage_new").val();
+
+			$.post("/Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function(name) {
+			
+				var row = document.createElement("tr");
+				$(row).attr("id", "nameRow_" + name.Id);
+				$("#nameRow_new").before(row);
+				$(row).append("<td><input maxlength=\"128\" type=\"text\" class=\"nameEdit\" id=\"nameEdit_" + name.Id + "\" value=\"" + name.Value + "\" />");
+
+				var languageCell = document.createElement("td");
+				$(languageCell).append(createLanguageDropDown(name.Id, name.Language));
+				$(row).append(languageCell);
+
+				var actionCell = document.createElement("td");
+				$(actionCell).append("<input type=\"button\" class=\"nameDelete\" id=\"nameDelete_" + name.Id + "\" value=\"Delete\" />");
+				$(actionCell).append("<input type=\"button\" class=\"nameCopy\" id=\"nameCopy_" + name.Id + "\" value=\"Copy to primary\" />");
+				$(row).append(actionCell);
+
+			});
+
+		});
+
+	});
+
+</script>

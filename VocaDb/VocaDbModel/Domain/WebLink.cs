@@ -5,6 +5,18 @@
 		private string description;
 		private string url;
 
+		public WebLink() {}
+
+		public WebLink(string description, string url) {
+
+			ParamIs.NotNull(() => description);
+			ParamIs.NotNullOrEmpty(() => url);
+
+			Description = description;
+			Url = url;
+
+		}
+
 		public virtual string Description {
 			get { return description; }
 			set {
