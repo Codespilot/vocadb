@@ -17,6 +17,9 @@
 
 		}
 
+		/// <summary>
+		/// User-visible link description. Cannot be null.
+		/// </summary>
 		public virtual string Description {
 			get { return description; }
 			set {
@@ -25,8 +28,20 @@
 			}
 		}
 
+		/// <summary>
+		/// Link description if the description is not empty. Otherwise URL.
+		/// </summary>
+		public virtual string DescriptionOrUrl {
+			get {
+				return !string.IsNullOrEmpty(Description) ? Description : Url;
+			}
+		}
+
 		public virtual int Id { get; protected set; }
 
+		/// <summary>
+		/// Link URL. Cannot be null or empty.
+		/// </summary>
 		public virtual string Url {
 			get { return url; }
 			set {

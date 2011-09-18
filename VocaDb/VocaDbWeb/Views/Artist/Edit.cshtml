@@ -127,7 +127,7 @@
 						<th>Actions</th>
 					</tr>
 					@foreach (var webLink in Model.WebLinks) {
-						<tr>
+						<tr id="@("webLinkRow_" + webLink.Id)">
 							<td>
 								<input type="text" maxlength="512" class="webLinkDescription" id="@("webLinkDescription_" + webLink.Id)" value="@webLink.Description" />
 							</td>
@@ -248,12 +248,64 @@
 				$(row).append("<td><input maxlength=\"128\" type=\"text\" class=\"nameEdit\" id=\"nameEdit_" + name.Id + "\" value=\"" + name.Value + "\" />");
 
 				var languageCell = document.createElement("td");
-				$(languageCell).append(createLanguageDropDown(name.Id, name.Language));
+				var languageDropDown = createLanguageDropDown(name.Id, name.Language);
+				$(languageDropDown).val(name.Language);
+				$(languageCell).append(languageDropDown);
 				$(row).append(languageCell);
 
 				var actionCell = document.createElement("td");
 				$(actionCell).append("<input type=\"button\" class=\"nameDelete\" id=\"nameDelete_" + name.Id + "\" value=\"Delete\" />");
 				$(actionCell).append("<input type=\"button\" class=\"nameCopy\" id=\"nameCopy_" + name.Id + "\" value=\"Copy to primary\" />");
+				$(row).append(actionCell);
+
+			});
+
+		});
+
+		$("input.webLinkDescription").live("change", function () {
+
+			var id = getId(this);
+			var val = $(this).val();
+
+			$.post("/Artist/EditWebLinkDescription", { linkId: id, description: val });
+
+		});
+
+		$("input.webLinkUrl").live("change", function () {
+
+			var id = getId(this);
+			var val = $(this).val();
+
+			$.post("/Artist/EditWebLinkUrl", { linkId: id, url: val });
+
+		});
+
+		$("input.webLinkDelete").live("click", function () {
+
+			var id = getId(this);
+
+			$.post("/Artist/DeleteWebLink", { linkId: id });
+
+			$("tr#webLinkRow_" + id).remove();
+
+		});
+
+		$("input#webLinkAdd").click(function () {
+
+			var aId = @Model.Id;
+			var newDescription = $("input#webLinkDescription_new").val();
+			var newUrl = $("input#webLinkUrl_new").val();
+
+			$.post("/Artist/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function(link) {
+			
+				var row = document.createElement("tr");
+				$(row).attr("id", "webLinkRow_" + link.Id);
+				$("#webLinkRow_new").before(row);
+				$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkDescription\" id=\"webLinkDescription_" + link.Id + "\" value=\"" + link.Description + "\" />");
+				$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkUrl\" id=\"webLinkUrl_" + link.Id + "\" value=\"" + link.Url + "\" />");
+
+				var actionCell = document.createElement("td");
+				$(actionCell).append("<input type=\"button\" class=\"webLinkDelete\" id=\"webLinkDelete_" + link.Id + "\" value=\"Delete\" />");
 				$(row).append(actionCell);
 
 			});

@@ -20,7 +20,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var lc = name.ToLowerInvariant();
-				var user = session.Query<User>().FirstOrDefault(u => u.Name == lc);
+				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
 
 				if (user == null)
 					return null;

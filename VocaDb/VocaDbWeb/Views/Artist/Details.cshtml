@@ -39,7 +39,7 @@
 		<td>Links</td>
 		<td>
 			@foreach (var link in Model.WebLinks) {
-				<a href='@link.Url'>@link.Description</a><br />
+				<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
 			}
 		</td>	
 	</tr>

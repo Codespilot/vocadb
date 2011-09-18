@@ -10,9 +10,12 @@ namespace VocaDb.Model.Domain.Security {
 		private string password;
 
 		public User() {
+
+			Active = false;
 			CreateDate = DateTime.Now;
 			Email = string.Empty;
 			PermissionFlags = PermissionFlags.Nothing;
+
 		}
 
 		public User(string name, string pass, int salt)
@@ -24,6 +27,8 @@ namespace VocaDb.Model.Domain.Security {
 			Salt = salt;
 
 		}
+
+		public virtual bool Active { get; set; }
 
 		public virtual DateTime CreateDate { get; set; }
 

@@ -236,6 +236,27 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateWebLinkDescription(int linkId, string description, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => description);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			UpdateEntity<ArtistWebLink>(linkId, link => link.Description = description);
+
+		}
+
+		public void UpdateWebLinkUrl(int nameId, string url, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNullOrEmpty(() => url);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			UpdateEntity<ArtistWebLink>(nameId, link => link.Url = url);
+
+		}
+
+
 	}
 
 }
