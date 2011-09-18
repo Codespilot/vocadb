@@ -29,9 +29,8 @@ namespace VocaDb.Model.Service {
 				.Take(maxResults)
 				.ToArray();
 
-			var additionalNames = session.Query<ArtistMetadataEntry>()
-				.Where(m => m.MetadataType == ArtistMetadataType.AlternateName
-					&& m.Value.Contains(query))
+			var additionalNames = session.Query<ArtistName>()
+				.Where(m => m.Value.Contains(query))
 				.Select(m => m.Artist)
 				.Distinct()
 				.Take(maxResults)

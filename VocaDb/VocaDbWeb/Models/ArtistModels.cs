@@ -5,6 +5,7 @@ using System.Web.Script.Serialization;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -38,6 +39,7 @@ namespace VocaDb.Web.Models {
 
 		public ArtistEdit(ArtistForEditContract artist) {
 
+			Albums = artist.Albums;
 			ArtistType = artist.ArtistType;
 			CircleId = (artist.Circle != null ? artist.Circle.Id : EmptyArtist.EmptyArtistId);
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
@@ -57,6 +59,8 @@ namespace VocaDb.Web.Models {
 			AllLanguagesJson = new JavaScriptSerializer().Serialize(AllLanguages.Select(l => l.ToString()));
 
 		}
+
+		public AlbumContract[] Albums { get; set; }
 
 		public ArtistType[] AllArtistTypes { get; set; }
 

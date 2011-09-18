@@ -1,9 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Controllers
 {
-    public class AlbumController : Controller
+    public class AlbumController : ControllerBase
     {
 
 		private AlbumService Service {
@@ -17,6 +18,14 @@ namespace VocaDb.Web.Controllers
         	ViewBag.Albums = Service.GetAlbums();
             return View();
         }
+
+		public ActionResult FindJson(string term) {
+
+			var albums = Service.Find(term, 20).Select(a => a.Name);
+
+			return Json(albums);
+
+		}
 
         //
         // GET: /Album/Details/5
