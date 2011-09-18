@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
@@ -14,7 +10,7 @@ using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
-    public class ArtistController : Controller
+    public class ArtistController : ControllerBase
     {
 
     	private LoginManager LoginManager {
@@ -133,9 +129,25 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateWebLink(int artistId, string description, string url) {
+
+			var name = Service.CreateWebLink(artistId, description, url, LoginManager);
+
+			return Json(name);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteName(int nameId) {
 
 			Service.DeleteArtistName(nameId, LoginManager);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteWebLink(int linkId) {
+
+			Service.DeleteWebLink(linkId, LoginManager);
 
 		}
 
@@ -150,6 +162,20 @@ namespace VocaDb.Web.Controllers
 		public void EditNameValue(int nameId, string nameVal) {
 
 			Service.UpdateArtistNameValue(nameId, nameVal, LoginManager);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditWebLinkDescription(int linkId, string description) {
+
+			Service.UpdateWebLinkDescription(linkId, description, LoginManager);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditWebLinkUrl(int linkId, string url) {
+
+			Service.UpdateWebLinkUrl(linkId, url, LoginManager);
 
 		}
 

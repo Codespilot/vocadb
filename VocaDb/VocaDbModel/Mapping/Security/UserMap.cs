@@ -9,6 +9,7 @@ namespace VocaDb.Model.Mapping.Security {
 			
 			Id(m => m.Id);
 
+			Map(m => m.Active).Not.Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Email).Not.Nullable();
 			Map(m => m.Name).Not.Nullable();
