@@ -10,6 +10,27 @@ namespace VocaDb.Model.Service {
 
 		public AlbumService(ISessionFactory sessionFactory) : base(sessionFactory) {}
 
+		public AlbumContract[] Find(string query, int maxResults) {
+
+			return HandleQuery(session => {
+
+				var direct = session.Query<Album>()
+					.Where(s => string.IsNullOrEmpty(query)
+						|| s.TranslatedName.English.Contains(query)
+							|| s.TranslatedName.Romaji.Contains(query)
+								|| s.TranslatedName.Japanese.Contains(query))
+					.OrderBy(s => s.TranslatedName.Japanese)
+					.Take(maxResults)
+					.ToArray();
+
+				return direct
+					.Select(a => new AlbumContract(a))
+					.ToArray();
+
+			});
+
+		}
+
 		public AlbumDetailsContract GetAlbumDetails(int id) {
 
 			return HandleQuery(session => new AlbumDetailsContract(session.Load<Album>(id)));
