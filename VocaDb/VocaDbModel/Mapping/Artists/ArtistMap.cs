@@ -29,7 +29,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			});
 
 			Component(m => m.Picture, c => {
-				c.Map(m => m.Bytes, "PictureBytes");
+				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue);
 				c.Map(m => m.Mime, "PictureMime");
 			});
 
