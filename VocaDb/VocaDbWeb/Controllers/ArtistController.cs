@@ -29,6 +29,14 @@ namespace VocaDb.Web.Controllers
             return View();
         }
 
+		public ActionResult FindJson(string term) {
+
+			var albums = Service.FindArtists(term, 20);
+
+			return Json(albums);
+
+		}
+
         //
         // GET: /Artist/Details/5
 
