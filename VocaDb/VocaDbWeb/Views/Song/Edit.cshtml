@@ -1,0 +1,41 @@
+﻿@model  VocaDb.Web.Models.SongEdit
+@{
+	ViewBag.Title = "Edit song - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+<div>
+    <fieldset>
+		<legend>Connected artists</legend>
+		<table>
+		@foreach (var artist in Model.Artists) {
+			<tr id="@("artistRow_" + artist.Id)">
+				<td>@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id })</td>
+				<td>
+					<input type="button" class="artistRemove" id="@("artistRemove_" + artist.Id)" value="Remove" />
+				</td>
+			</tr>
+		}
+		<tr id="artistRow_new">
+			<td>
+				<input type="text" maxlength="128" id="artistAddName" /><br />
+				<select id="artistAddList" size="5" />
+			</td>
+			<td>
+				<input type="button" id="artistAddBtn" value="Add" />
+			</td>
+		</tr>
+		</table>
+	</fieldset>
+</div>
+
+<script type="text/javascript" src="../../Scripts/Song_Edit.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id) 
+	});
+
+</script>

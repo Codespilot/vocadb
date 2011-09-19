@@ -97,7 +97,7 @@
                 @Html.LabelFor(m => m.Description)
             </div>
             <div class="editor-field">
-                @Html.TextBoxFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description)
             </div>
 
            <div class="editor-label">
@@ -159,31 +159,6 @@
         </fieldset>
     </div>
 }
-
-<div>
-    <fieldset>
-		<legend>Connected albums</legend>
-		<table>
-		@foreach (var album in Model.Albums) {
-			<tr>
-				<td>@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id })</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="button" value="Remove" />
-				</td>
-			</tr>
-		}
-		<tr>
-			<td><input type="text" maxlength="128" id="addAlbumName" /></td>
-			<td>
-				<input type="button" value="Add existing" />
-				<input type="button" value="Add new" />
-			</td>
-		</tr>
-		</table>
-	</fieldset>
-</div>
 
 <script type="text/javascript" src="../../Scripts/Artist_Edit.js"></script>
 <script type="text/javascript">

@@ -1,0 +1,19 @@
+﻿@model  VocaDb.Web.Models.AlbumEdit
+@{
+	ViewBag.Title = "Edit album - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Albums", "Index"), 
+		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+
+
+<script type="text/javascript" src="../../Scripts/Album_Edit.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id) 
+	});
+
+</script>

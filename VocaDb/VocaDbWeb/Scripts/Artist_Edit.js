@@ -6,12 +6,8 @@ function onChangeLang(event) {
 	var id = getId(select);
 	var val = $(select).val();
 
-	$.post("/Artist/EditNameLanguage", { nameId: id, nameLanguage: val });
+	$.post("../../Artist/EditNameLanguage", { nameId: id, nameLanguage: val });
 		
-}
-
-function getId(elem) {
-	return $(elem).attr('id').split("_")[1];
 }
 
 function initPage(artistId) {
@@ -21,7 +17,7 @@ function initPage(artistId) {
 		var id = getId(this);
 		var val = $(this).val();
 
-		$.post("/Artist/EditNameValue", { nameId: id, nameVal: val });
+		$.post("../../Artist/EditNameValue", { nameId: id, nameVal: val });
 
 	});
 
@@ -41,7 +37,7 @@ function initPage(artistId) {
 
 		var id = getId(this);
 
-		$.post("/Artist/DeleteName", { nameId: id });
+		$.post("../../Artist/DeleteName", { nameId: id });
 
 		$("tr#nameRow_" + id).remove();
 
@@ -61,7 +57,7 @@ function initPage(artistId) {
 			$(option).text(this);
 
 			$(dropDown).append(option);*/
-			$(dropDown).append("<option value=\"" + this + "\">" + this + "</option>");
+			addOption(dropDown, this, this);
 
 		});
 
@@ -77,8 +73,8 @@ function initPage(artistId) {
 		var newNameVal = $("input#nameEdit_new").val();
 		var newLangId = $("select#nameLanguage_new").val();
 
-		$.post("/Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function(name) {
-			
+		$.post("/Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (name) {
+
 			var row = document.createElement("tr");
 			$(row).attr("id", "nameRow_" + name.Id);
 			$("#nameRow_new").before(row);
@@ -95,6 +91,8 @@ function initPage(artistId) {
 			$(actionCell).append("<input type=\"button\" class=\"nameCopy\" id=\"nameCopy_" + name.Id + "\" value=\"Copy to primary\" />");
 			$(row).append(actionCell);
 
+			$("input#nameEdit_new").val("");
+
 		});
 
 	});
@@ -104,7 +102,7 @@ function initPage(artistId) {
 		var id = getId(this);
 		var val = $(this).val();
 
-		$.post("/Artist/EditWebLinkDescription", { linkId: id, description: val });
+		$.post("../../Artist/EditWebLinkDescription", { linkId: id, description: val });
 
 	});
 
@@ -113,7 +111,7 @@ function initPage(artistId) {
 		var id = getId(this);
 		var val = $(this).val();
 
-		$.post("/Artist/EditWebLinkUrl", { linkId: id, url: val });
+		$.post("../../Artist/EditWebLinkUrl", { linkId: id, url: val });
 
 	});
 
@@ -121,7 +119,7 @@ function initPage(artistId) {
 
 		var id = getId(this);
 
-		$.post("/Artist/DeleteWebLink", { linkId: id });
+		$.post("../../Artist/DeleteWebLink", { linkId: id });
 
 		$("tr#webLinkRow_" + id).remove();
 
@@ -133,8 +131,8 @@ function initPage(artistId) {
 		var newDescription = $("input#webLinkDescription_new").val();
 		var newUrl = $("input#webLinkUrl_new").val();
 
-		$.post("/Artist/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function(link) {
-			
+		$.post("../../Artist/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function (link) {
+
 			var row = document.createElement("tr");
 			$(row).attr("id", "webLinkRow_" + link.Id);
 			$("#webLinkRow_new").before(row);
@@ -145,10 +143,11 @@ function initPage(artistId) {
 			$(actionCell).append("<input type=\"button\" class=\"webLinkDelete\" id=\"webLinkDelete_" + link.Id + "\" value=\"Delete\" />");
 			$(row).append(actionCell);
 
+			$("input#webLinkDescription_new").val("");
+			$("input#webLinkUrl_new").val("");
+
 		});
 
 	});
-
-	$("input#addAlbumName").autocomplete({ source: "/Album/FindJson" });
 
 }
