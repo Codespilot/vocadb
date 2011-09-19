@@ -131,6 +131,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual ArtistForSong AddArtist(Artist artist) {
 
+			ParamIs.NotNull(() => artist);
+
 			var link = new ArtistForSong(this, artist);
 			Artists.Add(link);
 			return link;

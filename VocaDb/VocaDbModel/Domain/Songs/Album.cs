@@ -54,6 +54,7 @@ namespace VocaDb.Model.Domain.Songs {
 				songs = value;
 			}
 		}
+
 	}
 
 }

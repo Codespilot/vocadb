@@ -10,6 +10,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Model.Service {
@@ -56,6 +57,16 @@ namespace VocaDb.Model.Service {
 
 		public ArtistService(ISessionFactory sessionFactory)
 			: base(sessionFactory) {}
+
+		/*public void AddAlbum(int artistId, int albumId, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			UpdateEntity<Album>((session, album) => album.Artists);
+
+		}*/
 
 		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
 
