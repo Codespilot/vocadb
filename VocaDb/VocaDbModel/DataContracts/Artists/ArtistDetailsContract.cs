@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ArtistDetailsContract(Artist artist)
 			: base(artist) {
 
-			Albums = artist.Albums.Select(a => new AlbumContract(a)).ToArray();
+			Albums = artist.Albums.Select(a => new AlbumContract(a)).OrderBy(a => a.Name).ToArray();
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != artist.Name));
 			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle) : null);
 			Description = artist.Description;

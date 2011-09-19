@@ -10,6 +10,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			//DiscriminateSubClassesOnColumn("ArtistType");
 			Id(m => m.Id);
 			Map(m => m.ArtistType).Not.Nullable();
+			Map(m => m.Description).Not.Nullable();
 			References(m => m.Circle);
 
 			HasMany(m => m.Members)

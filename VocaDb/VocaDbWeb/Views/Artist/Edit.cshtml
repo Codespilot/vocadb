@@ -57,6 +57,11 @@
             </div>
             <div class="editor-field">
 				<table>
+					<tr>
+						<th>Name *</th>
+						<th>Language</th>
+						<th>Actions</th>
+					</tr>
 					@foreach (var name in Model.Names) {
 						<tr id="@("nameRow_" + name.Id)">
 							<td>
@@ -97,7 +102,7 @@
                 @Html.LabelFor(m => m.Description)
             </div>
             <div class="editor-field">
-                @Html.TextAreaFor(m => m.Description)
+                @Html.TextAreaFor(m => m.Description, 7, 70, null)
             </div>
 
            <div class="editor-label">
@@ -123,7 +128,7 @@
 				<table>
 					<tr>
 						<th>Description</th>
-						<th>URL</th>
+						<th>URL *</th>
 						<th>Actions</th>
 					</tr>
 					@foreach (var webLink in Model.WebLinks) {
@@ -132,7 +137,7 @@
 								<input type="text" maxlength="512" class="webLinkDescription" id="@("webLinkDescription_" + webLink.Id)" value="@webLink.Description" />
 							</td>
 							<td>
-								<input type="text" maxlength="512" class="webLinkUrl" id="@("webLinkUrl_" + webLink.Id)" value="@webLink.Url" />
+								<input type="text" maxlength="512" class="webLinkUrl" size="50" id="@("webLinkUrl_" + webLink.Id)" value="@webLink.Url" />
 							</td>
 							<td>
 								<input type="button" class="webLinkDelete" id="@("webLinkDelete_" + webLink.Id)" value="Delete" />
@@ -144,7 +149,7 @@
 							<input type="text" maxlength="512" class="webLinkDescriptionNew" id="webLinkDescription_new" />						
 						</td>
 						<td>
-							<input type="text" maxlength="512" class="webLinkUrlNew" id="webLinkUrl_new" />													
+							<input type="text" maxlength="512" class="webLinkUrlNew" size="50" id="webLinkUrl_new" />													
 						</td>
 						<td>
 							<input type="button" class="webLinkAddNew" id="webLinkAdd" value="Add" />
