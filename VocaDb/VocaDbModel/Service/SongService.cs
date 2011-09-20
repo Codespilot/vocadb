@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Songs;
@@ -51,6 +52,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public LyricsForSongContract GetRandomSongWithLyricsDetails() {
+
+			return HandleQuery(session => {
+
+				var ids = session.Query<LyricsForSong>().Select(s => s.Id).ToArray();
+				var id = ids[new Random().Next(ids.Length)];
+
+				return new LyricsForSongContract(session.Load<LyricsForSong>(id));
+
+			});
+
+		}
+
 		public int GetSongCount(string filter) {
 
 			return HandleQuery(session => session.Query<Song>()
@@ -61,15 +75,7 @@ namespace VocaDb.Model.Service {
 
 		public SongDetailsContract GetSongDetails(int songId) {
 
-			return HandleQuery(session => {
-
-				var song = session.Load<Song>(songId);
-				//var songInPolls = session.Query<SongInRanking>().Where(s => s.Song == song).ToArray();
-			    var songInPolls = new SongInRanking[] {};
-
-				return new SongDetailsContract(song, songInPolls);
-
-			});
+			return HandleQuery(session => new SongDetailsContract(session.Load<Song>(songId)));
 
 		}
 

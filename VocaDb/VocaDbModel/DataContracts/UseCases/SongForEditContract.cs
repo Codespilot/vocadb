@@ -4,17 +4,15 @@ using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
-	public class SongForEditContract : SongContract {
+	public class SongForEditContract : SongDetailsContract {
 
-		public SongForEditContract(Song song) {
+		public SongForEditContract(Song song)
+			: base(song) {
 			
 			ParamIs.NotNull(() => song);
 
-			Artists = song.Artists.Select(a => new ArtistForSongContract(a)).ToArray();
-
 		}
 
-		public ArtistForSongContract[] Artists { get; set; }
 
 	}
 

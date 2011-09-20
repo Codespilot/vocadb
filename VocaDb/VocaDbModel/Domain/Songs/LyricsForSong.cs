@@ -6,6 +6,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		private string notes;
 		private Song song;
+		private string source;
 
 		public virtual int Id { get; protected set; }
 
@@ -22,6 +23,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				song = value;
+			}
+		}
+
+		public virtual string Source {
+			get { return source; }
+			set {
+				ParamIs.NotNull(() => value);
+				source = value;
 			}
 		}
 

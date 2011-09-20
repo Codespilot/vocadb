@@ -1,8 +1,10 @@
-﻿using VocaDb.Model.DataContracts.Artists;
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
+	[DataContract]
 	public class ArtistForSongContract {
 
 		public ArtistForSongContract(ArtistForSong artistForSong) {
@@ -14,8 +16,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		[DataMember]
 		public ArtistContract Artist { get; set; }
 
+		[DataMember]
 		public int Id { get; set; }
 
 	}
