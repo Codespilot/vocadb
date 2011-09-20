@@ -52,9 +52,13 @@
 
 	<div id="lyricsTab">
 	@foreach (var lyrics in Model.Lyrics) {
-		<p>@lyrics.Language</p>
-		<p>@lyrics.Value</p>
-	}
+		<p><text>@lyrics.Language</text>
+		@if (!string.IsNullOrEmpty(lyrics.Source)) {
+			<text>(from @lyrics.Source)</text>
+  }
+		</p>
+		<p>@Html.Raw(lyrics.Value.Replace("\n", "<br />"))</p>
+ }
 	</div>
 </div>
 
