@@ -1,39 +1,65 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
-@model VocaDb.Model.DataContracts.UseCases.SongDetailsContract
+@model SongDetailsContract
 @{
 	ViewBag.Title = "Song details - " + Model.Song.Name;
 }
 
-<h3>Basic info</h3>
-<table>
-	<tr>
-		<td>Name</td>
-		<td>
-			@Model.Song.Name<br />
-			<span class="extraInfo">@Model.AdditionalNames</span>
-		</td>	
-	</tr>
-	@if (!string.IsNullOrEmpty(Model.Song.NicoId)) {
-	<tr>
-		<td>Nico Nico Douga link</td>
-		<td>
-			<a href="http://www.nicovideo.jp/watch/@Model.Song.NicoId">@Model.Song.NicoId</a>
-		</td>
-	</tr>
+@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageSongs)) {
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Song.Id });
+}
+
+<div id="tabs">
+
+	<ul>
+		<li><a href="#basicInfoTab">Basic info</a></li>
+		<li><a href="#lyricsTab">Lyrics</a></li>
+	</ul>
+
+	<div id="basicInfoTab">
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>
+					@Model.Song.Name<br />
+					<span class="extraInfo">@Model.AdditionalNames</span>
+				</td>	
+			</tr>
+			@if (!string.IsNullOrEmpty(Model.Song.NicoId)) {
+			<tr>
+				<td>Nico Nico Douga link</td>
+				<td>
+					<a href="http://www.nicovideo.jp/watch/@Model.Song.NicoId">@Model.Song.NicoId</a>
+				</td>
+			</tr>
+			}
+		</table>
+
+		<h3>Artists</h3>
+		<ul>
+			@foreach (var artist in Model.Artists) {
+				<li>@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, null)</li>
+		 }
+		</ul>
+
+		<h3>Albums</h3>
+		<ul>
+			@foreach (var album in Model.Albums) {
+				<li>@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null)</li>
+		 }
+		</ul>
+	</div>
+
+	<div id="lyricsTab">
+	@foreach (var lyrics in Model.Lyrics) {
+		<p>@lyrics.Language</p>
+		<p>@lyrics.Value</p>
 	}
-</table>
+	</div>
+</div>
 
-<h3>Artists</h3>
-<ul>
-	@foreach (var artist in Model.Artists) {
-		<li>@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)</li>
- }
-</ul>
-
-<h3>Albums</h3>
-<ul>
-	@foreach (var album in Model.Albums) {
-		<li>@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null)</li>
- }
-</ul>
+<script type="text/javascript">
+	$(function () {
+		$("#tabs").tabs();
+	});
+</script>

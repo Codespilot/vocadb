@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Services {
@@ -23,6 +24,13 @@ namespace VocaDb.Web.Services {
 		public ArtistDetailsContract[] FindArtists(string term, int maxResults) {
 
 			return Services.Artists.FindArtists(term, maxResults);
+
+		}
+
+		[OperationContract]
+		public LyricsForSongContract GetRandomSongLyrics() {
+
+			return Services.Songs.GetRandomSongWithLyricsDetails();
 
 		}
 
