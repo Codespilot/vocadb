@@ -13,6 +13,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			Id = lyrics.Id;
 			Language = lyrics.Language;
+			Source = lyrics.Source;
 			Value = lyrics.Value;
 
 		}
@@ -22,6 +23,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public ContentLanguageSelection Language { get; set; }
+
+		[DataMember]
+		public string Source { get; set; }
 
 		[DataMember]
 		public string Value { get; set; }
