@@ -2,6 +2,7 @@
 @{
 	ViewBag.Title = "Edit song - " + Model.Name;
 	ViewBag.Parents = new[] { 
+		Html.ActionLink("Songs", "Index"), 
 		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
 	};
 }

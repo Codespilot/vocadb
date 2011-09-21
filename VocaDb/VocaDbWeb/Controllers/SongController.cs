@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Controllers
@@ -17,9 +19,16 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Song/
 
-        public ActionResult Index()
-        {
-            return View();
+        public ActionResult Index(string filter, int? page) {
+
+        	var songs = Service.Find(filter, ((page ?? 1) - 1)  * 30, 30);
+        	var songCount = Service.GetSongCount(filter);
+
+        	ViewBag.Filter = filter;
+        	ViewBag.OnePageOfProducts = new StaticPagedList<SongContract>(songs, page ?? 1, 30, songCount);
+
+        	return View();
+
         }
 
         //

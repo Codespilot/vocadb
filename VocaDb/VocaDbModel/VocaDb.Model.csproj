@@ -67,6 +67,7 @@
     <Compile Include="DataContracts\Schemas.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\LyricsForSongContract.cs" />
+    <Compile Include="DataContracts\Songs\SongWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\TranslatedStringContract.cs" />
     <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Domain\Songs\SongMetadataEntry.cs" />
     <Compile Include="Domain\Songs\SongMetadataType.cs" />
     <Compile Include="Domain\Ranking\RankingList.cs" />
+    <Compile Include="Domain\Songs\SongName.cs" />
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
