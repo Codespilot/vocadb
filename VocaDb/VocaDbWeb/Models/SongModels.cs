@@ -11,6 +11,12 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Web.Models {
 
+	public class SongList {
+
+		public string Filter { get; set; }
+
+	}
+
 	public class SongEdit {
 
 		public SongEdit(SongForEditContract song) {

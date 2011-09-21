@@ -1,0 +1,36 @@
+﻿@using VocaDb.Web;
+@using VocaDb.Model.DataContracts.Songs;
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Songs";
+}
+
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm()) {
+	
+<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Filter" /></p>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+<table>
+@foreach (SongWithAdditionalNamesContract song in ViewBag.OnePageOfProducts) {
+	<tr>
+		<td>
+			@Html.ActionLink(song.Name, "Details", new { id = song.Id })<br />
+			<span class="extraInfo">@song.AdditionalNames</span>
+		</td>
+		<td>
+			@song.ArtistString
+		</td>
+		<td>
+			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageSongs)) {
+				@Html.ActionLink("Edit", "Edit", new { id = song.Id })
+			}		
+		</td>
+	</tr>	
+}
+</table>
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+}

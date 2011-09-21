@@ -14,6 +14,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private IList<SongMetadataEntry> metadata = new List<SongMetadataEntry>();
 		private TranslatedString name;
+		private IList<SongName> names = new List<SongName>();
 		private string originalName;
 
 		protected IEnumerable<Artist> ArtistList {
@@ -55,6 +56,13 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual IEnumerable<string> AllNames {
+			get {
+				return TranslatedName.All
+					.Concat(Names.Select(n => n.Value))
+					.Distinct();
+			}
+		}
 		public virtual IList<ArtistForSong> Artists {
 			get { return artists; }
 			set {
@@ -92,6 +100,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				TranslatedName.Current = value;
+			}
+		}
+
+		public virtual IList<SongName> Names {
+			get { return names; }
+			set {
+				ParamIs.NotNull(() => value);
+				names = value;
 			}
 		}
 

@@ -30,6 +30,21 @@ namespace VocaDb.Model.Mapping.Songs {
 
 	}
 
+	public class SongNameMap : ClassMap<SongName> {
+
+		public SongNameMap() {
+
+			Id(m => m.Id);
+
+			Map(m => m.Language).Not.Nullable();
+			Map(m => m.Value).Not.Nullable();
+
+			References(m => m.Song).Not.Nullable();
+
+		}
+
+	}
+
 	public class ArtistForSongMap : ClassMap<ArtistForSong> {
 
 		public ArtistForSongMap() {

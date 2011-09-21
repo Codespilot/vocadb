@@ -52,6 +52,40 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongWithAdditionalNamesContract[] Find(string query, int start, int maxResults) {
+
+			return HandleQuery(session => {
+
+
+				var direct = session.Query<Song>()
+					.Where(s => (string.IsNullOrEmpty(query)
+						|| s.TranslatedName.English.Contains(query)
+							|| s.TranslatedName.Romaji.Contains(query)
+								|| s.TranslatedName.Japanese.Contains(query))
+						|| (s.ArtistString.Contains(query))
+						|| (s.NicoId != null && s.NicoId == query))
+					.OrderBy(s => s.TranslatedName.Japanese)
+					.Take(maxResults)
+					.ToArray();
+
+				var additionalNames = session.Query<SongName>()
+					.Where(m => m.Value.Contains(query))
+					.Select(m => m.Song)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray()
+					.Where(a => !direct.Contains(a));
+
+				return direct.Concat(additionalNames)
+					.Skip(start)
+					.Take(maxResults)
+					.Select(a => new SongWithAdditionalNamesContract(a))
+					.ToArray();
+
+			});
+
+		}
+
 		public LyricsForSongContract GetRandomSongWithLyricsDetails() {
 
 			return HandleQuery(session => {
@@ -65,11 +99,34 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public int GetSongCount(string filter) {
+		public int GetSongCount(string query) {
 
-			return HandleQuery(session => session.Query<Song>()
-				.Where(s => string.IsNullOrEmpty(filter) || s.TranslatedName.Japanese.Contains(filter))
-				.Count());
+			return HandleQuery(session => {
+
+				//var artistForSong = (artistId != null ? session.Query<ArtistForSong>()
+				//	.Where(a => a.Artist.Id == artistId).Select(a => a.Song).ToArray() : null);
+
+				var direct = session.Query<Song>()
+					.Where(s => string.IsNullOrEmpty(query)
+						|| s.TranslatedName.English.Contains(query)
+							|| s.TranslatedName.Romaji.Contains(query)
+								|| s.TranslatedName.Japanese.Contains(query)
+						|| (s.ArtistString.Contains(query))
+						|| (s.NicoId == null || s.NicoId == query))
+					.OrderBy(s => s.TranslatedName.Japanese)
+					.ToArray();
+
+				var additionalNames = session.Query<SongName>()
+					.Where(m => m.Value.Contains(query))
+					.Select(m => m.Song)
+					.Distinct()
+					.ToArray()
+					.Where(a => !direct.Contains(a))
+					.ToArray();
+
+				return direct.Count() + additionalNames.Count();
+
+			});
 
 		}
 

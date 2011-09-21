@@ -10,11 +10,19 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongContract() {}
 
 		public SongContract(Song song) {
+
+			ParamIs.NotNull(() => song);
+
+			ArtistString = song.ArtistString;
 			CreateDate = song.CreateDate;
 			Id = song.Id;
 			Name = song.Name;
 			NicoId = song.NicoId;
+
 		}
+
+		[DataMember]
+		public string ArtistString { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }

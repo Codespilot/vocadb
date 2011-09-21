@@ -3,6 +3,7 @@
 @model SongDetailsContract
 @{
 	ViewBag.Title = "Song details - " + Model.Song.Name;
+	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };
 }
 
 @if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageSongs)) {
