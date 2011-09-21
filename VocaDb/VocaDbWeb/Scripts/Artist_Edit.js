@@ -73,7 +73,7 @@ function initPage(artistId) {
 		var newNameVal = $("input#nameEdit_new").val();
 		var newLangId = $("select#nameLanguage_new").val();
 
-		$.post("/Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (name) {
+		$.post("../../Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (name) {
 
 			var row = document.createElement("tr");
 			$(row).attr("id", "nameRow_" + name.Id);
