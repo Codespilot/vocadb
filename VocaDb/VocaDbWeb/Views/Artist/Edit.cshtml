@@ -11,6 +11,7 @@
 
 @using (Html.BeginForm("EditBasicDetails", "Artist", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenFor(m => m.Name)
     <div>
         <fieldset>
 			<legend>Basic properties</legend>

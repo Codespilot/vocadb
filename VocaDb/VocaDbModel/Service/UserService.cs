@@ -20,7 +20,7 @@ namespace VocaDb.Model.Service {
 
 		public UserContract CheckAuthentication(string name, string pass) {
 
-			return HandleQuery(session => {
+			return HandleTransaction(session => {
 
 				var lc = name.ToLowerInvariant();
 				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
@@ -32,6 +32,11 @@ namespace VocaDb.Model.Service {
 
 				if (user.Password != hashed)
 					return null;
+
+				log.Info("'" + user + "' logged in");
+
+				user.UpdateLastLogin();
+				session.Update(user);
 
 				return new UserContract(user);
 
