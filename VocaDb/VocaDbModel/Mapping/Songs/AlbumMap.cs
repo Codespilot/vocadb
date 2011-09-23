@@ -16,10 +16,26 @@ namespace VocaDb.Model.Mapping.Songs {
 				c.Map(m => m.Romaji, "RomajiName");
 			});
 
+			HasMany(m => m.Artists).Table("ArtistsForAlbums").Inverse().Cascade.All();
 			HasMany(m => m.Songs).Inverse().Cascade.All().OrderBy("TrackNumber");
 
 		}
 
 	}
+
+	public class ArtistForAlbumMap : ClassMap<ArtistForAlbum> {
+
+		public ArtistForAlbumMap() {
+
+			Schema("dbo");
+			Table("ArtistsForAlbums");
+			Id(m => m.Id);
+			References(m => m.Album).Not.Nullable();
+			References(m => m.Artist).Not.Nullable();
+
+		}
+
+	}
+
 
 }

@@ -1,5 +1,9 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
+using log4net;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 
@@ -10,6 +14,7 @@ namespace VocaDb.Web {
 
 	public class MvcApplication : System.Web.HttpApplication {
 
+		private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
 		private static ServiceModel serviceModel;
 
 		public static LoginManager LoginManager {
@@ -27,6 +32,35 @@ namespace VocaDb.Web {
 				return serviceModel;
 
 			}
+		}
+
+		protected void Application_AuthenticateRequest(object sender, EventArgs e) {
+
+			try {
+
+				// Get user roles from cookie and assign correct principal
+				if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated) {
+					if (HttpContext.Current.User.Identity is FormsIdentity && !(HttpContext.Current.User is VocaDbPrincipal)) {
+						var id = (FormsIdentity)HttpContext.Current.User.Identity;
+						var user = Services.Users.GetUserByName(id.Name);
+						HttpContext.Current.User = new VocaDbPrincipal(id, user);
+					}
+				}
+			} catch (Exception x) {
+				log.Fatal("Error during authentication", x);
+			}
+
+		}
+
+		protected void Application_Error(object sender, EventArgs e) {
+
+			var ex = HttpContext.Current.Server.GetLastError();
+
+			if (ex == null)
+				return;
+
+			log.Error("Unhandled exception", ex);
+
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
@@ -49,6 +83,9 @@ namespace VocaDb.Web {
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+
+			log4net.Config.XmlConfigurator.Configure();
+
 		}
 	}
 }

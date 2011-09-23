@@ -58,12 +58,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Artists\ArchivedArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
+    <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\LyricsForSongContract.cs" />
@@ -85,11 +87,14 @@
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
+    <Compile Include="Domain\Security\AgentLoginData.cs" />
+    <Compile Include="Domain\ArchivedObjectVersion.cs" />
     <Compile Include="Domain\Artists\Artist.cs" />
     <Compile Include="Domain\Artists\ArtistMetadataEntry.cs" />
     <Compile Include="Domain\Artists\ArtistMetadataType.cs" />
     <Compile Include="Domain\Artists\ArtistName.cs" />
     <Compile Include="Domain\Artists\ArtistType.cs" />
+    <Compile Include="Domain\Artists\ArchivedArtistVersion.cs" />
     <Compile Include="Domain\Artists\ArtistWebLink.cs" />
     <Compile Include="Domain\Artists\Circle.cs" />
     <Compile Include="Domain\Artists\Performer.cs" />
@@ -106,6 +111,7 @@
     <Compile Include="Domain\Security\User.cs" />
     <Compile Include="Domain\Ranking\SongInRanking.cs" />
     <Compile Include="Domain\Songs\Album.cs" />
+    <Compile Include="Domain\Songs\ArtistForAlbum.cs" />
     <Compile Include="Domain\Songs\ArtistForSong.cs" />
     <Compile Include="Domain\Songs\LyricsForSong.cs" />
     <Compile Include="Domain\Songs\Song.cs" />
@@ -121,6 +127,7 @@
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />
     <Compile Include="Mapping\Artists\ArtistWebLinkMap.cs" />
     <Compile Include="Mapping\ClassConventions.cs" />
+    <Compile Include="Mapping\CustomTypes\XDocumentType.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
@@ -133,11 +140,13 @@
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
+    <Compile Include="Service\Helpers\SessionHelper.cs" />
     <Compile Include="Service\Helpers\SongTagger.cs" />
     <Compile Include="Service\RankingService.cs" />
     <Compile Include="Service\Rankings\VocaloidismWVRParser.cs" />
     <Compile Include="Domain\Security\IUserPermissionContext.cs" />
     <Compile Include="Service\Security\LoginManager.cs" />
+    <Compile Include="Service\Security\VocaDbPrincipal.cs" />
     <Compile Include="Service\ServiceBase.cs" />
     <Compile Include="Service\ServiceException.cs" />
     <Compile Include="Service\ServiceModel.cs" />

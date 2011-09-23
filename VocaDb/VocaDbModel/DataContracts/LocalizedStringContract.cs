@@ -8,6 +8,8 @@ namespace VocaDb.Model.DataContracts {
 	[DataContract]
 	public class LocalizedStringContract {
 
+		public LocalizedStringContract() {}
+
 		public LocalizedStringContract(LocalizedString str) {
 			
 			ParamIs.NotNull(() => str);

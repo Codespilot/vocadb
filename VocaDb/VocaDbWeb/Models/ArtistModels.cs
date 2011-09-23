@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
@@ -56,7 +57,7 @@ namespace VocaDb.Web.Models {
 			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
 				.ToDictionary(a => a.Id, a => a.Name);
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
-			AllLanguagesJson = new JavaScriptSerializer().Serialize(AllLanguages.Select(l => l.ToString()));
+			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
 
 		}
 

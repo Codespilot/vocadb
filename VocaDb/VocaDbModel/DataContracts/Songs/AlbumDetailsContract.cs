@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public AlbumDetailsContract(Album album)
 			: base(album) {
 
-			Artists = album.Artists.Select(a => new ArtistContract(a)).ToArray();
+			Artists = album.Artists.Select(a => new ArtistContract(a.Artist)).ToArray();
 			Songs = album.Songs.Select(s => new SongInAlbumContract(s)).ToArray();
 
 		}

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -24,8 +26,14 @@ namespace VocaDb.Web.Models {
 			Artists = song.Artists;
 			Name = song.Song.Name;
 			Lyrics = song.Lyrics;
+			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
+			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
 
 		}
+
+		public ContentLanguageSelection[] AllLanguages { get; set; }
+
+		public string AllLanguagesJson { get; set; }
 
 		public ArtistForSongContract[] Artists { get; protected set; }
 

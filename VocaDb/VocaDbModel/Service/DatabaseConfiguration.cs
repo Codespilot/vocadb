@@ -14,8 +14,8 @@ namespace VocaDb.Model.Service {
 			var config = Fluently.Configure()
 				.Database(
 				MsSqlConfiguration.MsSql2008
-					.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter"))
-					.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2")))
+					.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter")))
+				.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2"))
 				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SongMap>().Conventions.AddFromAssemblyOf<ClassConventions>());
 
 			return config.BuildSessionFactory();
@@ -27,8 +27,8 @@ namespace VocaDb.Model.Service {
 			var config = Fluently.Configure()
 				.Database(
 				MsSqlConfiguration.MsSql2008
-					.ConnectionString(connectionStringBuilder)
-					.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2")))
+					.ConnectionString(connectionStringBuilder))
+				.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2"))
 				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SongMap>().Conventions.AddFromAssemblyOf<ClassConventions>());
 
 			return config.BuildSessionFactory();
