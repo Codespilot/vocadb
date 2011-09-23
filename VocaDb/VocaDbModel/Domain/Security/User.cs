@@ -42,6 +42,8 @@ namespace VocaDb.Model.Domain.Security {
 
 		public virtual int Id { get; set; }
 
+		public virtual DateTime LastLogin { get; set; }
+
 		public virtual string Name {
 			get { return name; }
 			set {
@@ -71,6 +73,14 @@ namespace VocaDb.Model.Domain.Security {
 		public virtual RoleTypes Roles { get; set; }
 
 		public virtual int Salt { get; set; }
+
+		public override string ToString() {
+			return Name;
+		}
+
+		public virtual void UpdateLastLogin() {
+			LastLogin = DateTime.Now;
+		}
 
 	}
 

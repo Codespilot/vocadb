@@ -116,6 +116,7 @@ namespace VocaDb.Web.Models {
 				ArtistType = this.ArtistType,
 				Circle = (CircleId != EmptyArtist.EmptyArtistId ? new ArtistContract { Id = CircleId} : null),
 				Description =  this.Description ?? string.Empty,
+				Name = this.Name,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
 
