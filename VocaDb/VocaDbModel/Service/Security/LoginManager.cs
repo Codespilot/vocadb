@@ -1,15 +1,29 @@
-﻿using System.Web;
+﻿using System;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Security;
+using log4net;
+using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service.Security {
 
 	public class LoginManager : IUserPermissionContext {
 
+		private static readonly ILog log = LogManager.GetLogger(typeof(LoginManager));
+
+		private UserContract user;
+
 		public static string GetHashedPass(string name, string pass, int salt) {
 
 			return FormsAuthentication.HashPasswordForStoringInConfigFile(name + pass + salt, "sha1");
 
+		}
+
+		protected IPrincipal User {
+			get {
+				return HttpContext.Current.User;
+			}
 		}
 
 		public bool HasPermission(PermissionFlags flag) {
@@ -20,14 +34,34 @@ namespace VocaDb.Model.Service.Security {
 
 		public bool IsLoggedIn {
 			get {
-				return HttpContext.Current.User.Identity.IsAuthenticated;
+				return User.Identity.IsAuthenticated;
+			}
+		}
+
+		public UserContract LoggedUser {
+			get {
+
+				if (user != null)
+					return user;
+
+				user = (IsLoggedIn && User is VocaDbPrincipal ? ((VocaDbPrincipal)User).User : null);
+				return user;
+
+			}
+		}
+
+		public string Name {
+			get {
+				return User.Identity.Name;
 			}
 		}
 
 		public void VerifyPermission(PermissionFlags flag) {
 
-			if (!HasPermission(flag))
-				throw new NotAllowedException();
+			if (!HasPermission(flag)) {
+				log.Warn(string.Format("User '{0}' does not have the requested permission '{1}'", Name, flag));
+				throw new NotAllowedException();				
+			}
 
 		}
 

@@ -3,8 +3,10 @@ using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class WebLinkContract {
+
+		public WebLinkContract() {}
 
 		public WebLinkContract(WebLink link) {
 			

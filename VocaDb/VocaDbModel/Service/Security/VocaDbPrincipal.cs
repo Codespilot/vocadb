@@ -1,7 +1,7 @@
 ﻿using System.Security.Principal;
 using VocaDb.Model.DataContracts.Security;
 
-namespace VocaDb.Web.Code.Security {
+namespace VocaDb.Model.Service.Security {
 
 	public class VocaDbPrincipal : GenericPrincipal {
 

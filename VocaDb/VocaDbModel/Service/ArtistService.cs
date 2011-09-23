@@ -10,8 +10,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
-using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Service.Security;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -72,6 +71,8 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNull(() => permissionContext);
+
+			log.Info("'" + permissionContext.Name + "' creating an artist");
 
 			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
@@ -211,9 +212,15 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => properties);
 			ParamIs.NotNull(() => permissionContext);
 
+			log.Info(string.Format("'{0}' updating properties for artist '{1}'", permissionContext.Name, properties.Name));
+
 			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
+
+				var agentLoginData = SessionHelper.CreateAgentLoginData(session, permissionContext);
+				var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
+				session.Save(archived);
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);

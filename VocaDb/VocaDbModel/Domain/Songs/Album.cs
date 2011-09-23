@@ -8,6 +8,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 	public class Album {
 
+		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private string description;
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 
@@ -16,9 +17,11 @@ namespace VocaDb.Model.Domain.Songs {
 			TranslatedName = new TranslatedString();
 		}
 
-		public virtual IEnumerable<Artist> Artists {
-			get {
-				return songs.SelectMany(s => s.Song.Artists).Select(a => a.Artist).Distinct().OrderBy(a => a.Name);
+		public virtual IList<ArtistForSong> Artists {
+			get { return artists; }
+			set {
+				ParamIs.NotNull(() => value);
+				artists = value;
 			}
 		}
 

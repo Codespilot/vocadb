@@ -137,7 +137,7 @@ function initPage(artistId) {
 			$(row).attr("id", "webLinkRow_" + link.Id);
 			$("#webLinkRow_new").before(row);
 			$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkDescription\" id=\"webLinkDescription_" + link.Id + "\" value=\"" + link.Description + "\" />");
-			$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkUrl\" id=\"webLinkUrl_" + link.Id + "\" value=\"" + link.Url + "\" />");
+			$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkUrl\" size=\"50\" id=\"webLinkUrl_" + link.Id + "\" value=\"" + link.Url + "\" />");
 
 			var actionCell = document.createElement("td");
 			$(actionCell).append("<input type=\"button\" class=\"webLinkDelete\" id=\"webLinkDelete_" + link.Id + "\" value=\"Delete\" />");

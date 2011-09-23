@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Security;
@@ -9,6 +10,8 @@ using VocaDb.Model.Service.Security;
 namespace VocaDb.Model.Service {
 
 	public class UserService : ServiceBase {
+
+		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
 
 		public UserService(ISessionFactory sessionFactory)
 			: base(sessionFactory) {
@@ -38,6 +41,11 @@ namespace VocaDb.Model.Service {
 
 		public UserContract Create(string name, string pass) {
 
+			ParamIs.NotNullOrEmpty(() => name);
+			ParamIs.NotNullOrEmpty(() => pass);
+
+			log.Info("Creating user '" + name + "'");
+
 			return HandleTransaction(session => {
 
 				var lc = name.ToLowerInvariant();
@@ -66,6 +74,12 @@ namespace VocaDb.Model.Service {
 		public UserContract GetUser(int id) {
 
 			return HandleQuery(session => new UserContract(session.Load<User>(id)));
+
+		}
+
+		public UserContract GetUserByName(string name) {
+
+			return HandleQuery(session => new UserContract(session.Query<User>().First(u => u.Name == name)));
 
 		}
 

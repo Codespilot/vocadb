@@ -71,9 +71,9 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual string ArtistString { get; private set; }
+		public virtual string ArtistString { get; protected set; }
 
-		public virtual DateTime CreateDate { get; private set; }
+		public virtual DateTime CreateDate { get; protected set; }
 
 		public virtual int Id { get; set; }
 

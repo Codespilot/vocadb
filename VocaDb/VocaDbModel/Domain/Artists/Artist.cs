@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Artists {
 
 	public class Artist {
 
+		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
+		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
 		private string description;
 		private IList<Artist> members = new List<Artist>();
 		private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
@@ -18,6 +22,7 @@ namespace VocaDb.Model.Domain.Artists {
 			ArtistType = ArtistType.Unknown;
 			Description = string.Empty;
 			TranslatedName = new TranslatedString();
+			Version = 0;
 		}
 
 		public Artist(TranslatedString translatedName)
@@ -30,11 +35,19 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
-		public virtual IEnumerable<Album> Albums {
-			get {
+		public virtual IList<ArtistForAlbum> Albums {
+			get { return albums; }
+			set {
+				ParamIs.NotNull(() => value);
+				albums = value;
+			}
+		}
 
-				return Songs.SelectMany(s => s.Song.Albums.Select(a => a.Album)).Distinct();
-
+		public virtual IList<ArchivedArtistVersion> ArchivedVersions {
+			get { return archivedVersions; }
+			set {
+				ParamIs.NotNull(() => value);
+				archivedVersions = value;
 			}
 		}
 
@@ -97,6 +110,8 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual int Version { get; set; }
+
 		public virtual IList<ArtistWebLink> WebLinks {
 			get { return webLinks; }
 			set {
@@ -111,6 +126,16 @@ namespace VocaDb.Model.Domain.Artists {
 					.Concat(Names.Select(n => n.Value))
 					.Distinct();
 			}
+		}
+
+		public virtual ArchivedArtistVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {
+
+			var archived = new ArchivedArtistVersion(this, data, author, Version);
+			ArchivedVersions.Add(archived);
+			Version++;
+
+			return archived;
+
 		}
 
 		public virtual ArtistName CreateName(string val, ContentLanguageSelection language) {

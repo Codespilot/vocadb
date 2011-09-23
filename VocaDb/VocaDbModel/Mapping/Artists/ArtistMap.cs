@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Mapping.CustomTypes;
 
 namespace VocaDb.Model.Mapping.Artists {
 
@@ -13,10 +14,9 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.Description).Not.Nullable();
 			References(m => m.Circle);
 
-			HasMany(m => m.Members)
-				.Inverse()
-				.KeyColumn("[Circle]");
-			//HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
+			HasMany(m => m.Albums).Table("ArtistsForAlbums").Inverse().Cascade.All();
+			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
+			HasMany(m => m.Members).Inverse().KeyColumn("[Circle]");
 			HasMany(m => m.Names).Table("ArtistNames").Inverse().Cascade.All();
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
 			HasMany(m => m.Songs).Table("ArtistsForSongs").Inverse().Cascade.All();
@@ -32,6 +32,24 @@ namespace VocaDb.Model.Mapping.Artists {
 				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue);
 				c.Map(m => m.Mime, "PictureMime");
 			});
+
+		}
+
+	}
+
+	public class ArchivedArtistVersionMap : ClassMap<ArchivedArtistVersion> {
+		
+		public ArchivedArtistVersionMap() {
+
+			Id(m => m.Id);
+
+			Map(m => m.AgentName).Not.Nullable();
+			Map(m => m.Created).Not.Nullable();
+			Map(m => m.Data).Not.Nullable();
+			Map(m => m.Version).Not.Nullable();
+
+			References(m => m.Artist);
+			References(m => m.Author);
 
 		}
 

@@ -6,6 +6,8 @@ namespace VocaDb.Model.DataContracts {
 	[DataContract]
 	public class LocalizedStringWithIdContract : LocalizedStringContract {
 
+		public LocalizedStringWithIdContract() {}
+
 		public LocalizedStringWithIdContract(LocalizedStringWithId str) 
 			: base(str) {
 
