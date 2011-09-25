@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -87,6 +88,46 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => new UserContract(session.Query<User>().First(u => u.Name == name)));
 
 		}
+
+		public UserContract UpdateUserSettings(UpdateUserSettingsContract contract, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => contract);
+			ParamIs.NotNull(() => permissionContext);
+
+			return HandleTransaction(session => {
+
+				var user = session.Load<User>(contract.Id);
+
+				if (!string.IsNullOrEmpty(contract.NewPass)) {
+
+					var oldHashed = LoginManager.GetHashedPass(user.NameLC, contract.OldPass, user.Salt);
+
+					if (user.Password != oldHashed)
+						throw new InvalidPasswordException();
+
+					var newHashed = LoginManager.GetHashedPass(user.NameLC, contract.NewPass, user.Salt);
+					user.Password = newHashed;
+
+				}
+
+				user.SetEmail(contract.Email);
+				session.Update(user);
+
+				return new UserContract(user);
+
+			});
+
+		}
+
+	}
+
+	public class InvalidPasswordException : Exception {
+		
+		public InvalidPasswordException()
+			: base("Invalid password") {}
+
+		protected InvalidPasswordException(SerializationInfo info, StreamingContext context) 
+			: base(info, context) {}
 
 	}
 

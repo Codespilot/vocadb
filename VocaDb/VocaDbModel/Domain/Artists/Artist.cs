@@ -20,6 +20,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public Artist() {
 			ArtistType = ArtistType.Unknown;
+			Deleted = false;
 			Description = string.Empty;
 			TranslatedName = new TranslatedString();
 			Version = 0;
@@ -54,6 +55,8 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual ArtistType ArtistType { get; set; }
 
 		public virtual Artist Circle { get; set; }
+
+		public virtual bool Deleted { get; set; }
 
 		public virtual string Description {
 			get { return description; }
@@ -158,6 +161,12 @@ namespace VocaDb.Model.Domain.Artists {
 			WebLinks.Add(link);
 
 			return link;
+
+		}
+
+		public virtual void Delete() {
+
+			Deleted = true;
 
 		}
 

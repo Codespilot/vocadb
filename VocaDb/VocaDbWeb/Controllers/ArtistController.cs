@@ -192,7 +192,11 @@ namespace VocaDb.Web.Controllers
  
         public ActionResult Delete(int id)
         {
-            return View();
+
+			Service.DeleteArtist(id, LoginManager);
+
+            return RedirectToAction("Index");
+
         }
 
         //

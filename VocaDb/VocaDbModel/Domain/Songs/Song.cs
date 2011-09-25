@@ -19,13 +19,14 @@ namespace VocaDb.Model.Domain.Songs {
 
 		protected IEnumerable<Artist> ArtistList {
 			get {
-				return Artists.Select(a => a.Artist);
+				return AllArtists.Select(a => a.Artist);
 			}
 		}
 
 		public Song() {
 			ArtistString = string.Empty;
 			CreateDate = DateTime.Now;
+			Deleted = false;
 			TranslatedName = new TranslatedString();
 		}
 
@@ -63,7 +64,7 @@ namespace VocaDb.Model.Domain.Songs {
 					.Distinct();
 			}
 		}
-		public virtual IList<ArtistForSong> Artists {
+		public virtual IList<ArtistForSong> AllArtists {
 			get { return artists; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -71,9 +72,17 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual IEnumerable<ArtistForSong> Artists {
+			get {
+				return AllArtists.Where(a => !a.Artist.Deleted);
+			}
+		}
+
 		public virtual string ArtistString { get; protected set; }
 
 		public virtual DateTime CreateDate { get; protected set; }
+
+		public virtual bool Deleted { get; set; }
 
 		public virtual int Id { get; set; }
 
@@ -150,7 +159,7 @@ namespace VocaDb.Model.Domain.Songs {
 			ParamIs.NotNull(() => artist);
 
 			var link = new ArtistForSong(this, artist);
-			Artists.Add(link);
+			AllArtists.Add(link);
 			return link;
 
 		}

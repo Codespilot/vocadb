@@ -43,7 +43,7 @@ namespace VocaDb.Web {
 					if (HttpContext.Current.User.Identity is FormsIdentity && !(HttpContext.Current.User is VocaDbPrincipal)) {
 						var id = (FormsIdentity)HttpContext.Current.User.Identity;
 						var user = Services.Users.GetUserByName(id.Name);
-						HttpContext.Current.User = new VocaDbPrincipal(id, user);
+						LoginManager.SetLoggedUser(user);
 					}
 				}
 			} catch (Exception x) {

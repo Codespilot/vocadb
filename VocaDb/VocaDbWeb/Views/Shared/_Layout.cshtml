@@ -29,7 +29,7 @@
 	 }
 				</ul>
 				@if (Context.User.Identity.IsAuthenticated) {
-					<p>Welcome @Context.User.Identity.Name</p>
+					<p>Welcome @Html.ActionLink(Context.User.Identity.Name, "MySettings", "User")</p>
 	}
 			</td>
 			<td>

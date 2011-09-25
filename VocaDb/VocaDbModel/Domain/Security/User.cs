@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Mail;
 
 namespace VocaDb.Model.Domain.Security {
 
@@ -73,6 +74,17 @@ namespace VocaDb.Model.Domain.Security {
 		public virtual RoleTypes Roles { get; set; }
 
 		public virtual int Salt { get; set; }
+
+		public virtual void SetEmail(string newEmail) {
+			
+			ParamIs.NotNull(() => newEmail);
+
+			if (newEmail != string.Empty)
+				new MailAddress(newEmail);
+
+			Email = newEmail;
+
+		}
 
 		public override string ToString() {
 			return Name;
