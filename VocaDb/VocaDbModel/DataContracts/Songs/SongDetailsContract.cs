@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			Albums = song.Albums.Select(a => new AlbumContract(a.Album)).ToArray();
 			AdditionalNames = string.Join(", ", song.TranslatedName.All.Where(n => n != song.Name));
-			Artists = song.Artists.Select(a => new ArtistForSongContract(a)).ToArray();
+			Artists = song.AllArtists.Select(a => new ArtistForSongContract(a)).ToArray();
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 
 		}

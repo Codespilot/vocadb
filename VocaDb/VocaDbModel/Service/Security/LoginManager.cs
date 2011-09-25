@@ -20,6 +20,17 @@ namespace VocaDb.Model.Service.Security {
 
 		}
 
+		public static void SetLoggedUser(UserContract user) {
+
+			ParamIs.NotNull(() => user);
+
+			if (!HttpContext.Current.User.Identity.IsAuthenticated)
+				throw new InvalidOperationException("Must be authenticated");
+
+			HttpContext.Current.User = new VocaDbPrincipal(HttpContext.Current.User.Identity, user);
+
+		}
+
 		protected IPrincipal User {
 			get {
 				return HttpContext.Current.User;

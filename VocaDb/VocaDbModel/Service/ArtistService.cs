@@ -18,10 +18,20 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
 
+		private void ArchiveArtist(ISession session, IUserPermissionContext permissionContext, Artist artist) {
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, permissionContext);
+			var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
+			session.Save(archived);
+
+		}
+
 		private ArtistDetailsContract[] FindArtists(ISession session, string query, int maxResults) {
 
 			var direct = session.Query<Artist>()
-				.Where(s => string.IsNullOrEmpty(query)
+				.Where(s => 
+					!s.Deleted &&
+					string.IsNullOrEmpty(query)
 					|| s.TranslatedName.English.Contains(query)
 						|| s.TranslatedName.Romaji.Contains(query)
 							|| s.TranslatedName.Japanese.Contains(query))
@@ -30,7 +40,7 @@ namespace VocaDb.Model.Service {
 				.ToArray();
 
 			var additionalNames = session.Query<ArtistName>()
-				.Where(m => m.Value.Contains(query))
+				.Where(m => m.Value.Contains(query) && !m.Artist.Deleted)
 				.Select(m => m.Artist)
 				.Distinct()
 				.Take(maxResults)
@@ -46,7 +56,9 @@ namespace VocaDb.Model.Service {
 
 		private T[] GetArtists<T>(Func<Artist, T> func) {
 
-			return HandleQuery(session => session.Query<Artist>()
+			return HandleQuery(session => session
+				.Query<Artist>()
+				.Where(a => !a.Deleted)
 				.ToArray()
 				.OrderBy(a => a.Name)
 				.Select(func)
@@ -103,6 +115,23 @@ namespace VocaDb.Model.Service {
 				session.Save(name);
 				return new LocalizedStringWithIdContract(name);
 
+			});
+
+		}
+
+		public void DeleteArtist(int id, IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			UpdateEntity<Artist>(id, (session, a) => {
+			      
+				log.Info(string.Format("'{0}' deleting artist '{1}'", permissionContext.Name, a.Name));
+
+				//ArchiveArtist(session, permissionContext, a);
+				a.Delete();
+			                         
 			});
 
 		}
@@ -199,7 +228,7 @@ namespace VocaDb.Model.Service {
 		public ArtistContract[] GetCircles() {
 
 			return HandleQuery(session => session.Query<Artist>()
-				.Where(a => a.ArtistType == ArtistType.Circle)
+				.Where(a => !a.Deleted && a.ArtistType == ArtistType.Circle)
 				.ToArray()
 				.OrderBy(a => a.Name)
 				.Select(a => new ArtistContract(a))
@@ -218,9 +247,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
-				var agentLoginData = SessionHelper.CreateAgentLoginData(session, permissionContext);
-				var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
-				session.Save(archived);
+				ArchiveArtist(session, permissionContext, artist);
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);

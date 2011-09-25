@@ -1,16 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
     public class UserController : Controller
     {
+
+		private LoginManager LoginManager {
+			get { return MvcApplication.LoginManager; }
+		}
 
 		private UserService Service {
 			get { return MvcApplication.Services.Users; }
@@ -131,6 +137,45 @@ namespace VocaDb.Web.Controllers
                 return View();
             }
         }
+
+		public ActionResult MySettings() {
+
+			var user = LoginManager.LoggedUser;
+
+			return View(new MySettingsModel(user));
+
+		}
+
+		[HttpPost]
+		public ActionResult MySettings(MySettingsModel model) {
+
+			var user = LoginManager.LoggedUser;
+
+			if (user.Id != model.Id)
+				return new HttpStatusCodeResult(403);
+
+			if (!ModelState.IsValid)
+				return View(new MySettingsModel(user));
+
+			if (!string.IsNullOrEmpty(model.Email)) {
+				try {
+					new MailAddress(model.Email);
+				} catch (FormatException) {
+					ModelState.AddModelError("Email", "Invalid email address");
+					return View(new MySettingsModel(user));
+				}
+			}
+
+			try {
+				var newUser = Service.UpdateUserSettings(model.ToContract(), LoginManager);				
+				LoginManager.SetLoggedUser(newUser);
+			} catch (InvalidPasswordException x) {
+				ModelState.AddModelError("OldPass", x.Message);				
+			}
+
+			return View(new MySettingsModel(user));
+
+		}
 
         //
         // GET: /User/Delete/5

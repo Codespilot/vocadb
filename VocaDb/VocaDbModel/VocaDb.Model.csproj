@@ -86,6 +86,7 @@
     <Compile Include="DataContracts\UseCases\SongForEditContract.cs" />
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
+    <Compile Include="DataContracts\Security\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />
     <Compile Include="Domain\ArchivedObjectVersion.cs" />

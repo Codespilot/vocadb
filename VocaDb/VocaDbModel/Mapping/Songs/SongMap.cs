@@ -23,7 +23,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			});
 
 			HasMany(m => m.Albums).Table("SongsInAlbums").Inverse().Cascade.All();
-			HasMany(m => m.Artists).Table("ArtistsForSongs").Inverse().Cascade.All();
+			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All();
 
 		}
