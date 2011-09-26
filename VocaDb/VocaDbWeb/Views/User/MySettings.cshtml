@@ -29,7 +29,7 @@
                 @Html.LabelFor(m => m.DefaultLanguageSelection)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
+                @Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages, Model.DefaultLanguageSelection))
             </div>
 
             <div class="editor-label">

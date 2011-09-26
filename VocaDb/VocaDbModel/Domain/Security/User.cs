@@ -15,7 +15,7 @@ namespace VocaDb.Model.Domain.Security {
 
 			Active = false;
 			CreateDate = DateTime.Now;
-			DefaultLanguageSelection = null;
+			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
 			PermissionFlags = PermissionFlags.Nothing;
 
@@ -35,7 +35,7 @@ namespace VocaDb.Model.Domain.Security {
 
 		public virtual DateTime CreateDate { get; set; }
 
-		public virtual ContentLanguageSelection? DefaultLanguageSelection { get; set; }
+		public virtual ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
 		public virtual string Email {
 			get { return email; }

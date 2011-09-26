@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Songs;
 
-namespace VocaDb.Model.Domain.Songs {
+namespace VocaDb.Model.Domain.Albums {
 
 	public class Album {
 
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
 		private string description;
+		private IList<AlbumName> names = new List<AlbumName>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
+		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
 		public Album() {
 			Deleted = false;
@@ -49,10 +52,18 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual string Name {
 			get {
-				return TranslatedName.Current;
+				return TranslatedName.Default;
 			}
 			set {
-				TranslatedName.Current = value;
+				TranslatedName.Default = value;
+			}
+		}
+
+		public virtual IList<AlbumName> Names {
+			get { return names; }
+			set {
+				ParamIs.NotNull(() => value);
+				names = value;
 			}
 		}
 
@@ -63,6 +74,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				songs = value;
+			}
+		}
+
+		public virtual IList<AlbumWebLink> WebLinks {
+			get { return webLinks; }
+			set {
+				ParamIs.NotNull(() => value);
+				webLinks = value;
 			}
 		}
 

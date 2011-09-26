@@ -7,6 +7,7 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		public ArtistWebLinkMap() {
 
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			Map(m => m.Description).Not.Nullable();

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
@@ -9,13 +10,13 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArtistContract() {}
 
-		public ArtistContract(Artist artist) {
+		public ArtistContract(Artist artist, ContentLanguagePreference preference) {
 
 			ParamIs.NotNull(() => artist);
 
 			ArtistType = artist.ArtistType;
 			Id = artist.Id;
-			Name = artist.Name;
+			Name = artist.TranslatedName[preference];
 
 		}
 

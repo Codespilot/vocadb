@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
@@ -8,15 +9,15 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArtistDetailsContract() {}
 
-		public ArtistDetailsContract(Artist artist)
-			: base(artist) {
+		public ArtistDetailsContract(Artist artist, ContentLanguagePreference languagePreference)
+			: base(artist, languagePreference) {
 
-			Albums = artist.Albums.Select(a => new AlbumContract(a.Album)).OrderBy(a => a.Name).ToArray();
+			Albums = artist.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != artist.Name));
-			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle) : null);
+			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle, languagePreference) : null);
 			Description = artist.Description;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
-			Members = artist.Members.Select(m => new ArtistContract(m)).ToArray();
+			Members = artist.Members.Select(m => new ArtistContract(m, languagePreference)).ToArray();
 			Songs = artist.Songs.Select(s => new SongContract(s.Song)).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 

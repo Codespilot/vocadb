@@ -6,7 +6,7 @@
 
 		Romaji		= 2,
 
-		English		= 3
+		English		= 4
 
 	}
 }

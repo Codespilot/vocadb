@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.DataContracts.Ranking;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
@@ -104,11 +105,11 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual string Name {
 			get {
-				return TranslatedName.Current;
+				return TranslatedName.Default;
 			}
 			set {
 				ParamIs.NotNull(() => value);
-				TranslatedName.Current = value;
+				TranslatedName.Default = value;
 			}
 		}
 

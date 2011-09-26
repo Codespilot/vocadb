@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using log4net;
+using NHibernate;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 
@@ -15,7 +16,7 @@ namespace VocaDb.Web {
 	public class MvcApplication : System.Web.HttpApplication {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
-		private static ServiceModel serviceModel;
+		private static ISessionFactory sessionFactory;
 
 		public static LoginManager LoginManager {
 			get {
@@ -25,11 +26,11 @@ namespace VocaDb.Web {
 
 		public static ServiceModel Services {
 			get {
-				
-				if (serviceModel == null)
-					serviceModel = new ServiceModel(DatabaseConfiguration.BuildSessionFactory());
 
-				return serviceModel;
+				if (sessionFactory == null)
+					sessionFactory = DatabaseConfiguration.BuildSessionFactory();
+
+				return new ServiceModel(sessionFactory, LoginManager);
 
 			}
 		}

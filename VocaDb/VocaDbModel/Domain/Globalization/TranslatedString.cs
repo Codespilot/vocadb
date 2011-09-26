@@ -51,6 +51,13 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
+		public string this[ContentLanguagePreference preference] {
+			get {
+				return
+					this[preference == ContentLanguagePreference.Default ? DefaultLanguage : (ContentLanguageSelection)preference];
+			}
+		}
+
 		public virtual IEnumerable<string> All {
 			get {
 				return new[] {
@@ -71,7 +78,7 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
-		public virtual string Current {
+		public virtual string Default {
 			get {
 				return this[DefaultLanguage];
 			}
@@ -83,7 +90,7 @@ namespace VocaDb.Model.Domain.Globalization {
 		public virtual string Display {
 			get {
 
-				var current = Current;
+				var current = Default;
 
 				if (string.IsNullOrEmpty(current))
 					return Japanese;

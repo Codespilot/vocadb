@@ -3,14 +3,15 @@ using NHibernate.Linq;
 using NHibernate;
 using VocaDb.Model.DataContracts.Ranking;
 using VocaDb.Model.Domain.Ranking;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service {
 
 	public class RankingService : ServiceBase {
 
-		public RankingService(ISessionFactory sessionFactory)
-			: base(sessionFactory) {
+		public RankingService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
+			: base(sessionFactory, permissionContext) {
 		}
 
 		public void CreateWVRPoll(RankingContract contract) {

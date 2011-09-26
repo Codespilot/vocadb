@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Security;
@@ -32,14 +34,14 @@ namespace VocaDb.Web.Models {
 			Id = user.Id;
 			Username = user.Name;
 
-			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
+			AllLanguages = EnumVal<ContentLanguagePreference>.Values;
 
 		}
 
-		public ContentLanguageSelection[] AllLanguages { get; set; }
+		public ContentLanguagePreference[] AllLanguages { get; set; }
 
-		[Display(Name = "Default display language")]
-		public ContentLanguageSelection? DefaultLanguageSelection { get; set; }
+		[Display(Name = "Primary display language")]
+		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
 		[Display(Name = "Email")]
 		[DataType(DataType.EmailAddress)]

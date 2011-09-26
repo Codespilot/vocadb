@@ -7,6 +7,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 		public SongMap() {
 
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			Map(m => m.ArtistString).Not.Nullable();
@@ -34,6 +35,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 		public SongNameMap() {
 
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			Map(m => m.Language).Not.Nullable();
@@ -51,6 +53,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Schema("dbo");
 			Table("ArtistsForSongs");
+			Cache.ReadWrite();
 			Id(m => m.Id);
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.Song).Not.Nullable();
@@ -65,6 +68,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Schema("dbo");
 			Table("SongsInAlbums");
+			Cache.ReadWrite();
 			Id(m => m.Id);
 			Map(m => m.TrackNumber).Not.Nullable();
 			References(m => m.Album).Not.Nullable();

@@ -7,6 +7,7 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		public ArtistNameMap() {
 
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			Map(m => m.Language).Not.Nullable();

@@ -49,7 +49,7 @@ namespace VocaDb.Model.Service {
 
 			return direct.Concat(additionalNames)
 				.Take(maxResults)
-				.Select(a => new ArtistDetailsContract(a))
+				.Select(a => new ArtistDetailsContract(a, PermissionContext.LanguagePreference))
 				.ToArray();
 
 		}
@@ -66,8 +66,8 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistService(ISessionFactory sessionFactory)
-			: base(sessionFactory) {}
+		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
+			: base(sessionFactory, permissionContext) {}
 
 		/*public void AddAlbum(int artistId, int albumId, IUserPermissionContext permissionContext) {
 
@@ -94,7 +94,7 @@ namespace VocaDb.Model.Service {
 
 				session.Save(artist);
 
-				return new ArtistContract(artist);
+				return new ArtistContract(artist, PermissionContext.LanguagePreference);
 
 			});
 
@@ -185,7 +185,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistDetailsContract GetArtistDetails(int id) {
 
-			return HandleQuery(session => new ArtistDetailsContract(session.Load<Artist>(id)));
+			return HandleQuery(session => new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
 
 		}
 
@@ -193,7 +193,7 @@ namespace VocaDb.Model.Service {
 
 			return
 				HandleQuery(session =>
-					new ArtistForEditContract(session.Load<Artist>(id),
+					new ArtistForEditContract(session.Load<Artist>(id), PermissionContext.LanguagePreference,
 						session.Query<Artist>().Where(a => a.ArtistType == ArtistType.Circle)));
 
 		}
@@ -215,13 +215,13 @@ namespace VocaDb.Model.Service {
 
 		public ArtistContract[] GetArtists() {
 
-			return GetArtists(a => new ArtistContract(a));
+			return GetArtists(a => new ArtistContract(a, PermissionContext.LanguagePreference));
 
 		}
 
 		public ArtistWithAdditionalNamesContract[] GetArtistsWithAdditionalNames() {
 
-			return GetArtists(a => new ArtistWithAdditionalNamesContract(a));
+			return GetArtists(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference));
 
 		}
 
@@ -231,7 +231,7 @@ namespace VocaDb.Model.Service {
 				.Where(a => !a.Deleted && a.ArtistType == ArtistType.Circle)
 				.ToArray()
 				.OrderBy(a => a.Name)
-				.Select(a => new ArtistContract(a))
+				.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
 
 		}
