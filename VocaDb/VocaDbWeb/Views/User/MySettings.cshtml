@@ -26,6 +26,13 @@
             </div>
 
             <div class="editor-label">
+                @Html.LabelFor(m => m.DefaultLanguageSelection)
+            </div>
+            <div class="editor-field">
+                @Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
+            </div>
+
+            <div class="editor-label">
                 @Html.LabelFor(m => m.OldPass)
 				(required for changing password.)
             </div>

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Web.Models {
 
@@ -26,11 +27,19 @@ namespace VocaDb.Web.Models {
 			
 			ParamIs.NotNull(() => user);
 
+			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
 			Id = user.Id;
 			Username = user.Name;
 
+			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
+
 		}
+
+		public ContentLanguageSelection[] AllLanguages { get; set; }
+
+		[Display(Name = "Default display language")]
+		public ContentLanguageSelection? DefaultLanguageSelection { get; set; }
 
 		[Display(Name = "Email")]
 		[DataType(DataType.EmailAddress)]
@@ -59,6 +68,7 @@ namespace VocaDb.Web.Models {
 			return new UpdateUserSettingsContract {
 				Id = this.Id,
 				Name = Username,
+				DefaultLanguageSelection = this.DefaultLanguageSelection,
 				Email = this.Email,
 				OldPass = this.OldPass,
 				NewPass = this.NewPass

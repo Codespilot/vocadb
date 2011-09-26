@@ -110,6 +110,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
 				user.SetEmail(contract.Email);
 				session.Update(user);
 

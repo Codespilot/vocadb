@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Mail;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Security {
 
@@ -14,6 +15,7 @@ namespace VocaDb.Model.Domain.Security {
 
 			Active = false;
 			CreateDate = DateTime.Now;
+			DefaultLanguageSelection = null;
 			Email = string.Empty;
 			PermissionFlags = PermissionFlags.Nothing;
 
@@ -32,6 +34,8 @@ namespace VocaDb.Model.Domain.Security {
 		public virtual bool Active { get; set; }
 
 		public virtual DateTime CreateDate { get; set; }
+
+		public virtual ContentLanguageSelection? DefaultLanguageSelection { get; set; }
 
 		public virtual string Email {
 			get { return email; }
