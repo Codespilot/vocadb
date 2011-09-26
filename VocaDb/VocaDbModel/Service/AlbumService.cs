@@ -2,13 +2,15 @@
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service {
 
 	public class AlbumService : ServiceBase {
 
-		public AlbumService(ISessionFactory sessionFactory) : base(sessionFactory) {}
+		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) : base(sessionFactory, permissionContext) {}
 
 		public AlbumContract[] Find(string query, int maxResults) {
 
@@ -24,7 +26,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				return direct
-					.Select(a => new AlbumContract(a))
+					.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			});
@@ -33,7 +35,7 @@ namespace VocaDb.Model.Service {
 
 		public AlbumDetailsContract GetAlbumDetails(int id) {
 
-			return HandleQuery(session => new AlbumDetailsContract(session.Load<Album>(id)));
+			return HandleQuery(session => new AlbumDetailsContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
 
 		}
 
@@ -42,7 +44,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => session.Query<Album>()
 				.ToArray()
 				.OrderBy(a => a.Name)
-				.Select(a => new AlbumContract(a))
+				.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
 
 		}

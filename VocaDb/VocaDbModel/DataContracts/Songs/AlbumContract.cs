@@ -1,4 +1,6 @@
 ﻿using System;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
@@ -7,12 +9,12 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public AlbumContract() { }
 
-		public AlbumContract(Album album) {
+		public AlbumContract(Album album, ContentLanguagePreference languagePreference) {
 
 			ParamIs.NotNull(() => album);
 
 			Id = album.Id;
-			Name = album.Name;
+			Name = album.TranslatedName[languagePreference];
 			ReleaseDate = album.ReleaseDate;
 
 		}

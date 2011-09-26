@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Security;
 using log4net;
 using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service.Security {
@@ -46,6 +47,12 @@ namespace VocaDb.Model.Service.Security {
 		public bool IsLoggedIn {
 			get {
 				return User.Identity.IsAuthenticated;
+			}
+		}
+
+		public ContentLanguagePreference LanguagePreference {
+			get {
+				return (LoggedUser != null ? LoggedUser.DefaultLanguageSelection : ContentLanguagePreference.Default);
 			}
 		}
 

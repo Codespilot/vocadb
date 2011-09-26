@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts {
 			
 			ParamIs.NotNull(() => str);
 
-			Default = str.Current;
+			Default = str.Default;
 			DefaultLanguage = str.DefaultLanguage;
 			English = str.English;
 			Japanese = str.Japanese;

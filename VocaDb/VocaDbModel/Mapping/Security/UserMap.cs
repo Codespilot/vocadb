@@ -6,7 +6,8 @@ namespace VocaDb.Model.Mapping.Security {
 	public class UserMap : ClassMap<User> {
 
 		public UserMap() {
-			
+
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			Map(m => m.Active).Not.Nullable();

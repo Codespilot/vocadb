@@ -27,7 +27,7 @@ namespace VocaDb.Model.DataContracts.Security {
 		public DateTime CreateDate { get; set; }
 
 		[DataMember]
-		public ContentLanguageSelection? DefaultLanguageSelection { get; set; }
+		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
 		[DataMember]
 		public string Email { get; set; }

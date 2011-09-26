@@ -1,6 +1,7 @@
 ﻿using System;
 using log4net;
 using NHibernate;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service {
 
@@ -8,6 +9,11 @@ namespace VocaDb.Model.Service {
 
 		private readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
 		private readonly ISessionFactory sessionFactory;
+		private readonly IUserPermissionContext permissionContext;
+
+		protected IUserPermissionContext PermissionContext {
+			get { return permissionContext; }
+		}
 
 		protected T HandleQuery<T>(Func<ISession, T> func, string failMsg = "Unexpected NHibernate error") {
 			
@@ -61,9 +67,10 @@ namespace VocaDb.Model.Service {
 			return sessionFactory.OpenSession();
 		}
 
-		protected ServiceBase(ISessionFactory sessionFactory) {
+		protected ServiceBase(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) {
 			ParamIs.NotNull(() => sessionFactory);
 			this.sessionFactory = sessionFactory;
+			this.permissionContext = permissionContext;
 		}
 
 		protected void DeleteEntity<TEntity>(int id) {

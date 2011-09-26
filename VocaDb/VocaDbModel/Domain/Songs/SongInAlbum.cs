@@ -1,4 +1,6 @@
-﻿namespace VocaDb.Model.Domain.Songs {
+﻿using VocaDb.Model.Domain.Albums;
+
+namespace VocaDb.Model.Domain.Songs {
 
 	public class SongInAlbum {
 

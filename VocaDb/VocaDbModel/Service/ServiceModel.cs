@@ -1,42 +1,45 @@
 ﻿using NHibernate;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service {
 
 	public class ServiceModel {
 
+		private readonly IUserPermissionContext permissionContext;
 		private readonly ISessionFactory sessionFactory;
 
-		public ServiceModel(ISessionFactory sessionFactory) {
+		public ServiceModel(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) {
 			this.sessionFactory = sessionFactory;
+			this.permissionContext = permissionContext;
 		}
 
 		public AlbumService Albums {
 			get {
-				return new AlbumService(sessionFactory);
+				return new AlbumService(sessionFactory, permissionContext);
 			}
 		}
 
 		public ArtistService Artists {
 			get {
-				return new ArtistService(sessionFactory);
+				return new ArtistService(sessionFactory, permissionContext);
 			}
 		}
 
 		public RankingService Rankings {
 			get {
-				return new RankingService(sessionFactory);
+				return new RankingService(sessionFactory, permissionContext);
 			}
 		}
 
 		public SongService Songs {
 			get {
-				return new SongService(sessionFactory);
+				return new SongService(sessionFactory, permissionContext);
 			}
 		}
 
 		public UserService Users {
 			get {
-				return new UserService(sessionFactory);
+				return new UserService(sessionFactory, permissionContext);
 			}
 		}
 

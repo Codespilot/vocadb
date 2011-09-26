@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
@@ -9,10 +10,10 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArtistWithAdditionalNamesContract() {}
 
-		public ArtistWithAdditionalNamesContract(Artist artist)
-			: base(artist) {
+		public ArtistWithAdditionalNamesContract(Artist artist, ContentLanguagePreference languagePreference)
+			: base(artist, languagePreference) {
 
-			AdditionalNames = string.Join(", ", artist.AllNames.Where(n => n != artist.Name));
+			AdditionalNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 
 		}
 

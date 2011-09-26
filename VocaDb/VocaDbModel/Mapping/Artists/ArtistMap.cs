@@ -1,6 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Mapping.CustomTypes;
 
 namespace VocaDb.Model.Mapping.Artists {
 

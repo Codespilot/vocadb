@@ -9,6 +9,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Table("LyricsForSongs");
 
+			Cache.ReadWrite();
 			Id(m => m.Id);
 			Map(m => m.Language).Not.Nullable();
 			//Map(m => m.Notes).Not.Nullable();

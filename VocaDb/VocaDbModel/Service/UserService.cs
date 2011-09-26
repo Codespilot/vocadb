@@ -14,8 +14,8 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
 
-		public UserService(ISessionFactory sessionFactory)
-			: base(sessionFactory) {
+		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
+			: base(sessionFactory, permissionContext) {
 
 		}
 

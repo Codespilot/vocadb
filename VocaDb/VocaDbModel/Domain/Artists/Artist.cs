@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -88,10 +89,10 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual string Name {
 			get {
-				return TranslatedName.Current;
+				return TranslatedName.Default;
 			}
 			set {
-				TranslatedName.Current = value;
+				TranslatedName.Default = value;
 			}
 		}
 

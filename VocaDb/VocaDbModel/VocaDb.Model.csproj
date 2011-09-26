@@ -88,6 +88,8 @@
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Security\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
+    <Compile Include="Domain\Albums\AlbumWebLink.cs" />
+    <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />
     <Compile Include="Domain\ArchivedObjectVersion.cs" />
     <Compile Include="Domain\Artists\Artist.cs" />
@@ -111,8 +113,9 @@
     <Compile Include="Domain\Security\RoleTypes.cs" />
     <Compile Include="Domain\Security\User.cs" />
     <Compile Include="Domain\Ranking\SongInRanking.cs" />
-    <Compile Include="Domain\Songs\Album.cs" />
-    <Compile Include="Domain\Songs\ArtistForAlbum.cs" />
+    <Compile Include="Domain\Albums\Album.cs" />
+    <Compile Include="Domain\Albums\AlbumName.cs" />
+    <Compile Include="Domain\Albums\ArtistForAlbum.cs" />
     <Compile Include="Domain\Songs\ArtistForSong.cs" />
     <Compile Include="Domain\Songs\LyricsForSong.cs" />
     <Compile Include="Domain\Songs\Song.cs" />
@@ -123,6 +126,8 @@
     <Compile Include="Domain\Songs\SongName.cs" />
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
+    <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
+    <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />
@@ -133,7 +138,7 @@
     <Compile Include="Mapping\Security\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
-    <Compile Include="Mapping\Songs\AlbumMap.cs" />
+    <Compile Include="Mapping\Albums\AlbumMap.cs" />
     <Compile Include="Mapping\Songs\SongMap.cs" />
     <Compile Include="Mapping\Songs\SongMetadataEntryMap.cs" />
     <Compile Include="ParamIs.cs" />

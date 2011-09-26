@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model.Domain.Artists;
 
-namespace VocaDb.Model.Domain.Songs {
+namespace VocaDb.Model.Domain.Albums {
+
 	public class ArtistForAlbum {
 
 		private Artist artist;

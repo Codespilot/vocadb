@@ -4,17 +4,19 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Ranking;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service {
 
 	public class SongService : ServiceBase {
 
-		public SongService(ISessionFactory sessionFactory)
-			: base(sessionFactory) {
+		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
+			: base(sessionFactory, permissionContext) {
 
 		}
 
@@ -132,7 +134,7 @@ namespace VocaDb.Model.Service {
 
 		public SongDetailsContract GetSongDetails(int songId) {
 
-			return HandleQuery(session => new SongDetailsContract(session.Load<Song>(songId)));
+			return HandleQuery(session => new SongDetailsContract(session.Load<Song>(songId), PermissionContext.LanguagePreference));
 
 		}
 

@@ -1,8 +1,11 @@
 ﻿using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Security {
 
 	public interface IUserPermissionContext {
+
+		ContentLanguagePreference LanguagePreference { get; }
 
 		/// <summary>
 		/// Currently logged in user. Can be null.
