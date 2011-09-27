@@ -1,7 +1,6 @@
 ﻿using System;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
@@ -13,11 +12,14 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => album);
 
+			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.TranslatedName[languagePreference];
 			ReleaseDate = album.ReleaseDate;
 
 		}
+
+		public DiscType DiscType { get; set; }
 
 		public int Id { get; set; }
 

@@ -17,6 +17,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public Album() {
 			Deleted = false;
 			Description = string.Empty;
+			DiscType = DiscType.Album;
 			TranslatedName = new TranslatedString();
 		}
 
@@ -45,6 +46,8 @@ namespace VocaDb.Model.Domain.Albums {
 				description = value;
 			}
 		}
+
+		public virtual DiscType DiscType { get; set; }
 
 		public virtual int Id { get; set; }
 

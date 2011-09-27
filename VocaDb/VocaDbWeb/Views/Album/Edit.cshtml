@@ -9,7 +9,7 @@
 
 @Html.ValidationSummary(true, "Unable to save.")
 
-@using (Html.BeginForm("EditBasicDetails", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
     <div>
@@ -107,20 +107,11 @@
             </div>
 
            <div class="editor-label">
-                @Html.LabelFor(m => m.ArtistType)
+                @Html.LabelFor(m => m.DiscType)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(m => m.ArtistType, new SelectList(Model.AllArtistTypes))
+                @Html.DropDownListFor(m => m.DiscType, new SelectList(Model.AllDiscTypes, Model.DiscType))
             </div>
-
-			@if (Model.ArtistType != VocaDb.Model.Domain.Artists.ArtistType.Circle) {
-            <div class="editor-label">
-                @Html.LabelFor(m => m.CircleId)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(m => m.CircleId, new SelectList(Model.AllCircles, "Key", "Value", Model.CircleId))
-            </div>
-			}
 			
             <div class="editor-label">
                 @Html.LabelFor(m => m.WebLinks)

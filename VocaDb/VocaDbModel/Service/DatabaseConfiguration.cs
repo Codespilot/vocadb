@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using log4net;
 using NHibernate;
 using VocaDb.Model.Mapping;
 using VocaDb.Model.Mapping.Songs;
@@ -8,6 +9,8 @@ using VocaDb.Model.Mapping.Songs;
 namespace VocaDb.Model.Service {
 
 	public class DatabaseConfiguration {
+
+		private static readonly ILog log = LogManager.GetLogger(typeof(DatabaseConfiguration));
 
 		public static ISessionFactory BuildSessionFactory() {
 
@@ -18,7 +21,12 @@ namespace VocaDb.Model.Service {
 				.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2"))
 				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SongMap>().Conventions.AddFromAssemblyOf<ClassConventions>());
 
-			return config.BuildSessionFactory();
+			try {
+				return config.BuildSessionFactory();				
+			} catch (ArgumentException x) {
+				log.Error("Error while building session factory", x);
+				throw;
+			}
 
 		}
 

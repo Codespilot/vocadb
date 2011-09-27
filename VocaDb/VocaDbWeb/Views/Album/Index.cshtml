@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.DataContracts.Songs;
+﻿@using VocaDb.Web;
+@using VocaDb.Model.DataContracts.Songs;
 @{
     ViewBag.Title = "Albums";
 }
@@ -11,6 +12,11 @@
 	<tr>
 		<td>
 			@Html.ActionLink(album.Name, "Details", new { id = album.Id })<br />
+		</td>
+		<td>
+			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageAlbums)) {
+				@Html.ActionLink("Edit", "Edit", new { id = album.Id })
+			}
 		</td>
 	</tr>
 }
