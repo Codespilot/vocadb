@@ -437,6 +437,7 @@
     <Content Include="Views\Song\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\MySettings.cshtml" />
+    <Content Include="Views\Shared\LocalizedStringCtl.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
