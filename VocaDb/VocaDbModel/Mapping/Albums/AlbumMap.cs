@@ -9,6 +9,7 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Cache.ReadWrite();
 			Id(m => m.Id);
+			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
 			Map(m => m.ReleaseDate).Nullable();
 			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");

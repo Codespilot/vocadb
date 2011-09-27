@@ -99,32 +99,28 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
 		public ActionResult EditBasicDetails(ArtistEdit model)
         {
-            try {
 
-            	PictureDataContract pictureData = null;
+            PictureDataContract pictureData = null;
 
-				if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
+			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
 
-					var file = Request.Files[0];
-					var buf = new Byte[file.ContentLength];
-					file.InputStream.Read(buf, 0, file.ContentLength);
-					/*var r = new StreamReader(file.InputStream);
-					r.Read()
-					var memStream = new MemoryStream();
-					file.InputStream.CopyTo(memStream);
-					memStream.Write(buf, 0, file.ContentLength);*/
+				var file = Request.Files[0];
+				var buf = new Byte[file.ContentLength];
+				file.InputStream.Read(buf, 0, file.ContentLength);
+				/*var r = new StreamReader(file.InputStream);
+				r.Read()
+				var memStream = new MemoryStream();
+				file.InputStream.CopyTo(memStream);
+				memStream.Write(buf, 0, file.ContentLength);*/
 
-					pictureData = new PictureDataContract(buf, file.ContentType);
+				pictureData = new PictureDataContract(buf, file.ContentType);
 
-				}
+			}
 
-				Service.UpdateBasicProperties(model.ToContract(), pictureData, LoginManager);
+			Service.UpdateBasicProperties(model.ToContract(), pictureData, LoginManager);
 
-				return RedirectToAction("Edit", new { id = model.Id });
-            }
-            catch {
-				return RedirectToAction("Edit", new { id = model.Id });
-            }
+			return RedirectToAction("Edit", new { id = model.Id });
+
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]

@@ -1,8 +1,14 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
 @model AlbumDetailsContract
+		   
 @{
 	ViewBag.Title = "Album details - " + Model.Name;
+	ViewBag.Parents = new[] { Html.ActionLink("Albums", "Index") };
+}
+
+@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageAlbums)) {
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
 <h3>Songs</h3>

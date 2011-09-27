@@ -7,15 +7,22 @@ using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Web.Models {
 
 	public class AlbumEdit {
 
+		public AlbumEdit() {}
+
 		public AlbumEdit(AlbumForEditContract album) {
 
+			ParamIs.NotNull(() => album);
+
+			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
+			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.Name;
 			NameEnglish = album.TranslatedName.English;
@@ -26,19 +33,28 @@ namespace VocaDb.Web.Models {
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
 			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
+			AllDiscTypes = EnumVal<DiscType>.Values;
 
 		}
+
+		public DiscType[] AllDiscTypes { get; set; }
 
 		public ContentLanguageSelection[] AllLanguages { get; set; }
 
 		public string AllLanguagesJson { get; set; }
 
+		[Display(Name = "Default language")]
+		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
+
 		[Display(Name = "Description")]
 		public string Description { get; set; }
 
+		[Display(Name = "Record type")]
+		public DiscType DiscType { get; set; }
+
 		public int Id { get; set; }
 
-		public string Name { get; protected set; }
+		public string Name { get; set; }
 
 		[Display(Name = "Names")]
 		public LocalizedStringWithIdContract[] Names { get; set; }
@@ -60,6 +76,19 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Web links")]
 		public WebLinkContract[] WebLinks { get; set; }
+
+		public AlbumForEditContract ToContract() {
+
+			return new AlbumForEditContract {
+				Description = this.Description ?? string.Empty,
+				DiscType = this.DiscType,
+				Id = this.Id,
+				Name = this.Name,
+				TranslatedName = new TranslatedStringContract(
+					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
+			};
+
+		}
 
 	}
 
