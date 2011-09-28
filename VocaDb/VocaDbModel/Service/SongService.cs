@@ -10,10 +10,22 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Ranking;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using log4net;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
 	public class SongService : ServiceBase {
+
+		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
+
+		private void Archive(ISession session, Song song) {
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+			var archived = ArchivedSongVersion.Create(song, agentLoginData);
+			session.Save(archived);
+
+		}
 
 		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
 			: base(sessionFactory, permissionContext) {
@@ -49,6 +61,21 @@ namespace VocaDb.Model.Service {
 				session.Save(song);
 
 				return new SongContract(song);
+
+			});
+
+		}
+
+		public void Delete(int id) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageSongs);
+
+			UpdateEntity<Album>(id, (session, a) => {
+
+				log.Info(string.Format("'{0}' deleting song '{1}'", PermissionContext.Name, a.Name));
+
+				//ArchiveArtist(session, permissionContext, a);
+				a.Delete();
 
 			});
 

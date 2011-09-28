@@ -41,6 +41,17 @@ namespace VocaDb.Web.Controllers
             return View(model);
         }
 
+		public ActionResult CoverPicture(int id) {
+
+			var pictureData = Service.GetCoverPicture(id);
+
+			if (pictureData == null)
+				return new EmptyResult();
+
+			return File(pictureData.Bytes, pictureData.Mime);
+
+		}
+
         //
         // POST: /Album/Create
 

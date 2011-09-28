@@ -101,11 +101,6 @@ namespace VocaDb.Web.Controllers
 				var file = Request.Files[0];
 				var buf = new Byte[file.ContentLength];
 				file.InputStream.Read(buf, 0, file.ContentLength);
-				/*var r = new StreamReader(file.InputStream);
-				r.Read()
-				var memStream = new MemoryStream();
-				file.InputStream.CopyTo(memStream);
-				memStream.Write(buf, 0, file.ContentLength);*/
 
 				pictureData = new PictureDataContract(buf, file.ContentType);
 
@@ -183,7 +178,7 @@ namespace VocaDb.Web.Controllers
         public ActionResult Delete(int id)
         {
 
-			Service.DeleteArtist(id, LoginManager);
+			Service.Delete(id);
 
             return RedirectToAction("Index");
 
