@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.Security {
 
 		public bool IsLoggedIn {
 			get {
-				return User.Identity.IsAuthenticated;
+				return (HttpContext.Current != null && User.Identity.IsAuthenticated);
 			}
 		}
 
