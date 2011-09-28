@@ -168,6 +168,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongForEditContract GetSongForEdit(int songId) {
+
+			return HandleQuery(session => new SongForEditContract(session.Load<Song>(songId), PermissionContext.LanguagePreference));
+
+		}
+
 		public SongContract[] GetSongs(string filter, int start, int count) {
 
 			return HandleQuery(session => session.Query<Song>()

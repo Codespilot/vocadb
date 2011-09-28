@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ParamIs.NotNull(() => album);
 
-			CoverPicture = new PictureDataContract(album.CoverPicture);
+			CoverPicture = (album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
 			Description = album.Description;
 			DiscType = album.DiscType;
 			Id = album.Id;
