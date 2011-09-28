@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PagedList;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
@@ -40,14 +41,6 @@ namespace VocaDb.Web.Controllers
         }
 
         //
-        // GET: /Song/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
         // POST: /Song/Create
 
         [HttpPost]
@@ -70,8 +63,9 @@ namespace VocaDb.Web.Controllers
  
         public ActionResult Edit(int id)
         {
-            return View();
-        }
+			var model = new SongEdit(Service.GetSongForEdit(id));
+			return View(model);
+		}
 
         //
         // POST: /Song/Edit/5

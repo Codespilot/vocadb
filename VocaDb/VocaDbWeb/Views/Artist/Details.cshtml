@@ -23,18 +23,21 @@
 			<span class="extraInfo">@Model.AdditionalNames</span>
 		</td>
 	</tr>
+@if (!string.IsNullOrEmpty(Model.Description)) {
 	<tr>
 		<td>Description</td>
 		<td>
 			@Model.Description<br />
 		</td>	
 	</tr>
+}
 	<tr>
 		<td>Type</td>
 		<td>
 			@Model.ArtistType<br />
 		</td>	
 	</tr>
+@if (Model.WebLinks.Any()) {
 	<tr>
 		<td>Links</td>
 		<td>
@@ -43,6 +46,7 @@
 			}
 		</td>	
 	</tr>
+}
 @if (Model.Circle != null) {
 	<tr>
 		<td>Circle</td>

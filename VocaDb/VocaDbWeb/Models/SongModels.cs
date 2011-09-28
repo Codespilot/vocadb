@@ -24,8 +24,12 @@ namespace VocaDb.Web.Models {
 		public SongEdit(SongForEditContract song) {
 
 			Artists = song.Artists;
+			Id = song.Song.Id;
 			Name = song.Song.Name;
 			Lyrics = song.Lyrics;
+			Names = song.Names;
+			WebLinks = song.WebLinks;
+
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
 			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
 
@@ -64,7 +68,11 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		[Display(Name = "NicoNicoDouga ID")]
 		public string NicoId { get; protected set; }
+
+		[Display(Name = "Web links")]
+		public WebLinkContract[] WebLinks { get; set; }
 
 	}
 

@@ -45,5 +45,22 @@ namespace VocaDb.Model.Mapping.Albums {
 
 	}
 
+	public class ArchivedAlbumVersionMap : ClassMap<ArchivedAlbumVersion> {
+
+		public ArchivedAlbumVersionMap() {
+
+			Id(m => m.Id);
+
+			Map(m => m.AgentName).Not.Nullable();
+			Map(m => m.Created).Not.Nullable();
+			Map(m => m.Data).Not.Nullable();
+			Map(m => m.Version).Not.Nullable();
+
+			References(m => m.Album);
+			References(m => m.Author);
+
+		}
+
+	}
 
 }
