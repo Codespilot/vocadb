@@ -99,6 +99,7 @@
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\ArtistModels.cs" />
+    <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

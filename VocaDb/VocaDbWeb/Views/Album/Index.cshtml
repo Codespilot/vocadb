@@ -21,3 +21,22 @@
 	</tr>
 }
 </table>
+
+@model VocaDb.Web.Models.ObjectCreate
+@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageAlbums)) {
+	using (Html.BeginForm("Create", "Album")) {
+	
+    <div>
+        <fieldset>
+            <div class="editor-label">
+                Name:
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>			
+			<input type="submit" value="Create" />
+		</fieldset>
+	</div>
+}
+}

@@ -1,9 +1,13 @@
 ﻿using System;
 using VocaDb.Model.Domain;
+using System.Runtime.Serialization;
 
 namespace VocaDb.Model.DataContracts {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PictureDataContract {
+
+		public PictureDataContract() { }
 
 		public PictureDataContract(Byte[] bytes, string mime) {
 			Bytes = bytes;
@@ -19,8 +23,10 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		[DataMember]
 		public Byte[] Bytes { get; set; }
 
+		[DataMember]
 		public string Mime { get; set; }
 
 	}

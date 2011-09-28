@@ -7,6 +7,8 @@
 	};
 }
 
+@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { onclick = "return confirm(\"Are you sure you want to delete this album?\");" })
+
 @Html.ValidationSummary(true, "Unable to save.")
 
 @using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {

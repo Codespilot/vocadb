@@ -68,6 +68,7 @@
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
+    <Compile Include="DataContracts\Songs\ArchivedSongContract.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\LyricsForSongContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithAdditionalNamesContract.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="DataContracts\Security\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Albums\AlbumWebLink.cs" />
+    <Compile Include="Domain\Albums\ArchivedAlbumVersion.cs" />
     <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />
     <Compile Include="Domain\ArchivedObjectVersion.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Domain\Albums\Album.cs" />
     <Compile Include="Domain\Albums\AlbumName.cs" />
     <Compile Include="Domain\Albums\ArtistForAlbum.cs" />
+    <Compile Include="Domain\Songs\ArchivedSongVersion.cs" />
     <Compile Include="Domain\Songs\ArtistForSong.cs" />
     <Compile Include="Domain\Songs\LyricsForSong.cs" />
     <Compile Include="Domain\Songs\Song.cs" />
@@ -125,6 +128,7 @@
     <Compile Include="Domain\Songs\SongMetadataType.cs" />
     <Compile Include="Domain\Ranking\RankingList.cs" />
     <Compile Include="Domain\Songs\SongName.cs" />
+    <Compile Include="Domain\Songs\SongWebLink.cs" />
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
