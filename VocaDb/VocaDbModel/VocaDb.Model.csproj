@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
@@ -74,8 +75,8 @@
     <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
     <Compile Include="DataContracts\Security\UserContract.cs" />
-    <Compile Include="DataContracts\Songs\AlbumContract.cs" />
-    <Compile Include="DataContracts\Songs\AlbumDetailsContract.cs" />
+    <Compile Include="DataContracts\Albums\AlbumContract.cs" />
+    <Compile Include="DataContracts\Albums\AlbumDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumContract.cs" />
     <Compile Include="DataContracts\Songs\SongMetadataEntryContract.cs" />
