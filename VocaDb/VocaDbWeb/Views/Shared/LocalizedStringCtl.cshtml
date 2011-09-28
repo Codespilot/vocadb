@@ -1,0 +1,9 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Model.DataContracts.LocalizedStringWithIdContract
+
+<tr>
+    @using(Html.BeginCollectionItem("names")) {
+        <td>@Html.TextBoxFor(x => x.Value)</td>
+        <td>@Html.TextBoxFor(x => x.Language)</td>
+	}
+</tr>
