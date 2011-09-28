@@ -58,20 +58,21 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-
 				var direct = session.Query<Song>()
-					.Where(s => (string.IsNullOrEmpty(query)
-						|| s.TranslatedName.English.Contains(query)
+					.Where(s => 
+						!s.Deleted &&
+						(string.IsNullOrEmpty(query)
+							|| s.TranslatedName.English.Contains(query)
 							|| s.TranslatedName.Romaji.Contains(query)
-								|| s.TranslatedName.Japanese.Contains(query))
+							|| s.TranslatedName.Japanese.Contains(query)
 						|| (s.ArtistString.Contains(query))
-						|| (s.NicoId != null && s.NicoId == query))
+						|| (s.NicoId != null && s.NicoId == query)))
 					.OrderBy(s => s.TranslatedName.Japanese)
 					.Take(maxResults)
 					.ToArray();
 
 				var additionalNames = session.Query<SongName>()
-					.Where(m => m.Value.Contains(query))
+					.Where(m => m.Value.Contains(query) && !m.Song.Deleted)
 					.Select(m => m.Song)
 					.Distinct()
 					.Take(maxResults)
@@ -109,17 +110,19 @@ namespace VocaDb.Model.Service {
 				//	.Where(a => a.Artist.Id == artistId).Select(a => a.Song).ToArray() : null);
 
 				var direct = session.Query<Song>()
-					.Where(s => string.IsNullOrEmpty(query)
-						|| s.TranslatedName.English.Contains(query)
+					.Where(s => 
+						!s.Deleted &&
+						(string.IsNullOrEmpty(query)
+							|| s.TranslatedName.English.Contains(query)
 							|| s.TranslatedName.Romaji.Contains(query)
-								|| s.TranslatedName.Japanese.Contains(query)
+							|| s.TranslatedName.Japanese.Contains(query)
 						|| (s.ArtistString.Contains(query))
-						|| (s.NicoId == null || s.NicoId == query))
+						|| (s.NicoId == null || s.NicoId == query)))
 					.OrderBy(s => s.TranslatedName.Japanese)
 					.ToArray();
 
 				var additionalNames = session.Query<SongName>()
-					.Where(m => m.Value.Contains(query))
+					.Where(m => m.Value.Contains(query) && !m.Song.Deleted)
 					.Select(m => m.Song)
 					.Distinct()
 					.ToArray()

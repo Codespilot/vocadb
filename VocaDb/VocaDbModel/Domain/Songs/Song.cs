@@ -5,18 +5,22 @@ using VocaDb.Model.DataContracts.Ranking;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using System.Xml.Linq;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Domain.Songs {
 
 	public class Song {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
+		private IList<ArchivedSongVersion> archivedVersions = new List<ArchivedSongVersion>();
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private IList<SongMetadataEntry> metadata = new List<SongMetadataEntry>();
 		private TranslatedString name;
 		private IList<SongName> names = new List<SongName>();
 		private string originalName;
+		private IList<SongWebLink> webLinks = new List<SongWebLink>();
 
 		protected IEnumerable<Artist> ArtistList {
 			get {
@@ -70,6 +74,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				artists = value;
+			}
+		}
+
+		public virtual IList<ArchivedSongVersion> ArchivedVersions {
+			get { return archivedVersions; }
+			set {
+				ParamIs.NotNull(() => value);
+				archivedVersions = value;
 			}
 		}
 
@@ -147,6 +159,16 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual string URL { get; set; }
 
+		public virtual int Version { get; set; }
+
+		public virtual IList<SongWebLink> WebLinks {
+			get { return webLinks; }
+			set {
+				ParamIs.NotNull(() => value);
+				webLinks = value;
+			}
+		}
+
 		public virtual SongInAlbum AddAlbum(Album album, int trackNumber) {
 
 			var link = new SongInAlbum(this, album, trackNumber);
@@ -162,6 +184,45 @@ namespace VocaDb.Model.Domain.Songs {
 			var link = new ArtistForSong(this, artist);
 			AllArtists.Add(link);
 			return link;
+
+		}
+
+		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {
+
+			var archived = new ArchivedSongVersion(this, data, author, Version);
+			ArchivedVersions.Add(archived);
+			Version++;
+
+			return archived;
+
+		}
+
+		public virtual SongName CreateName(string val, ContentLanguageSelection language) {
+
+			ParamIs.NotNullOrEmpty(() => val);
+
+			var name = new SongName(this, new LocalizedString(val, language));
+			Names.Add(name);
+
+			return name;
+
+		}
+
+		public virtual SongWebLink CreateWebLink(string description, string url) {
+
+			ParamIs.NotNull(() => description);
+			ParamIs.NotNullOrEmpty(() => url);
+
+			var link = new SongWebLink(this, description, url);
+			WebLinks.Add(link);
+
+			return link;
+
+		}
+
+		public virtual void Delete() {
+
+			Deleted = true;
 
 		}
 

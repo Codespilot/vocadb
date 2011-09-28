@@ -9,6 +9,8 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Cache.ReadWrite();
 			Id(m => m.Id);
+
+			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
 			Map(m => m.ReleaseDate).Nullable();
 			Component(m => m.TranslatedName, c => {
@@ -35,6 +37,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Table("ArtistsForAlbums");
 			Cache.ReadWrite();
 			Id(m => m.Id);
+
 			References(m => m.Album).Not.Nullable();
 			References(m => m.Artist).Not.Nullable();
 

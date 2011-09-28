@@ -60,28 +60,22 @@ namespace VocaDb.Web.Controllers
 		}
 
         //
-        // GET: /Artist/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
         // POST: /Artist/Create
 
         [HttpPost]
-        public ActionResult Create(ArtistCreate model)
+        public ActionResult Create(ObjectCreate model)
         {
 
 			if (ModelState.IsValid) {
 
 				var artist = Service.Create(model.Name, MvcApplication.LoginManager);
-				return RedirectToAction("Edit", new {id = artist.Id});
+				return RedirectToAction("Edit", new { id = artist.Id });
+
+			} else {
+			
+				return RedirectToAction("Index");
 
 			}
-
-        	return RedirectToAction("Index", model);
 
         }
         
@@ -126,7 +120,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
 
-			var name = Service.CreateArtistName(artistId, nameVal, language, LoginManager);
+			var name = Service.CreateName(artistId, nameVal, language, LoginManager);
 
 			return Json(name);
 
@@ -144,7 +138,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteName(int nameId) {
 
-			Service.DeleteArtistName(nameId, LoginManager);
+			Service.DeleteName(nameId, LoginManager);
 
 		}
 
@@ -195,22 +189,5 @@ namespace VocaDb.Web.Controllers
 
         }
 
-        //
-        // POST: /Artist/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

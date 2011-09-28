@@ -4,8 +4,10 @@ using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class LyricsForSongContract {
+
+		public LyricsForSongContract() { }
 
 		public LyricsForSongContract(LyricsForSong lyrics) {
 			

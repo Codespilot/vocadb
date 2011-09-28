@@ -29,7 +29,7 @@
 </table>
 
 @model VocaDb.Web.Models.ArtistCreate
-@if (Context.User.Identity.IsAuthenticated) {
+@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageArtists)) {
 	using (Html.BeginForm("Create", "Artist")) {
 	
     <div>

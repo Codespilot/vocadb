@@ -31,10 +31,10 @@ namespace VocaDb.Model.Service {
 			var direct = session.Query<Artist>()
 				.Where(s => 
 					!s.Deleted &&
-					string.IsNullOrEmpty(query)
-					|| s.TranslatedName.English.Contains(query)
+					(string.IsNullOrEmpty(query)
+						|| s.TranslatedName.English.Contains(query)
 						|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query))
+						|| s.TranslatedName.Japanese.Contains(query)))
 				.OrderBy(s => s.TranslatedName.Japanese)
 				.Take(maxResults)
 				.ToArray();
@@ -100,7 +100,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public LocalizedStringWithIdContract CreateArtistName(int artistId, string nameVal, ContentLanguageSelection language, IUserPermissionContext permissionContext) {
+		public LocalizedStringWithIdContract CreateName(int artistId, string nameVal, ContentLanguageSelection language, IUserPermissionContext permissionContext) {
 
 			ParamIs.NotNullOrEmpty(() => nameVal);
 			ParamIs.NotNull(() => permissionContext);
@@ -136,7 +136,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void DeleteArtistName(int nameId, IUserPermissionContext permissionContext) {
+		public void DeleteName(int nameId, IUserPermissionContext permissionContext) {
 
 			ParamIs.NotNull(() => permissionContext);
 
@@ -299,7 +299,6 @@ namespace VocaDb.Model.Service {
 			UpdateEntity<ArtistWebLink>(nameId, link => link.Url = url);
 
 		}
-
 
 	}
 

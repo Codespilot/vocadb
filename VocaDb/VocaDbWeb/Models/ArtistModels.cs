@@ -13,14 +13,6 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Web.Models {
 
-	public class ArtistCreate {
-
-		[Required]
-		[Display(Name = "Name")]
-		public string Name { get; set; }
-
-	}
-
 	public class ArtistEdit {
 
 		class EmptyArtist : ArtistContract {

@@ -60,7 +60,9 @@ namespace VocaDb.Web {
 			if (ex == null)
 				return;
 
-			log.Error("Unhandled exception", ex);
+			var request = (HttpContext.Current.Request != null ? " (" + HttpContext.Current.Request.RawUrl + " from " + HttpContext.Current.Request.UserHostAddress + ")" : string.Empty);
+
+			log.Error("Unhandled exception" + request, ex);
 
 		}
 

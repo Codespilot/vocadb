@@ -5,6 +5,8 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model;
 
 namespace VocaDb.Web.Controllers
 {
@@ -40,30 +42,24 @@ namespace VocaDb.Web.Controllers
         }
 
         //
-        // GET: /Album/Create
-
-        public ActionResult Create()
-        {
-            return View();
-        } 
-
-        //
         // POST: /Album/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ObjectCreate model)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+			if (ModelState.IsValid) {
+
+				var artist = Service.Create(model.Name);
+				return RedirectToAction("Edit", new { id = artist.Id });
+
+			} else {
+
+				return RedirectToAction("Index");
+
+			}
+
+		}
         
         //
         // GET: /Album/Edit/5
@@ -105,30 +101,77 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
+
+			var name = Service.CreateName(artistId, nameVal, language);
+
+			return Json(name);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult CreateWebLink(int artistId, string description, string url) {
+
+			var name = Service.CreateWebLink(artistId, description, url);
+
+			return Json(name);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteName(int nameId) {
+
+			Service.DeleteName(nameId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteWebLink(int linkId) {
+
+			Service.DeleteWebLink(linkId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditNameLanguage(int nameId, string nameLanguage) {
+
+			Service.UpdateNameLanguage(nameId, EnumVal<ContentLanguageSelection>.Parse(nameLanguage));
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditNameValue(int nameId, string nameVal) {
+
+			Service.UpdateNameValue(nameId, nameVal);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditWebLinkDescription(int linkId, string description) {
+
+			Service.UpdateWebLinkDescription(linkId, description);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditWebLinkUrl(int linkId, string url) {
+
+			Service.UpdateWebLinkUrl(linkId, url);
+
+		}
+
         //
         // GET: /Album/Delete/5
  
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
+        
+		{
+			Service.Delete(id);
 
-        //
-        // POST: /Album/Delete/5
+			return RedirectToAction("Index");
 
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		}
+
     }
 }

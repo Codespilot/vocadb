@@ -37,7 +37,13 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
-		public virtual IList<ArtistForAlbum> Albums {
+		public virtual IEnumerable<ArtistForAlbum> Albums {
+			get {
+				return AllAlbums.Where(a => !a.Album.Deleted);
+			}
+		}
+
+		public virtual IList<ArtistForAlbum> AllAlbums {
 			get { return albums; }
 			set {
 				ParamIs.NotNull(() => value);

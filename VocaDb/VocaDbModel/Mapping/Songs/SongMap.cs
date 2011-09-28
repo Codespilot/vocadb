@@ -12,10 +12,12 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Map(m => m.ArtistString).Not.Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
-			Map(m => m.NicoId);
+			Map(m => m.Deleted).Not.Nullable();
+			Map(m => m.NicoId).Nullable();
 			Map(m => m.OriginalName).Not.Nullable();
+			Map(m => m.Version).Not.Nullable();
 
-			HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
+			//HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
 			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 				c.Map(m => m.Japanese, "JapaneseName");
@@ -25,7 +27,28 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			HasMany(m => m.Albums).Table("SongsInAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All();
+			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
+			HasMany(m => m.Names).Table("SongNames").Inverse().Cascade.All();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All();
+			HasMany(m => m.WebLinks).Table("SongWebLinks").Inverse().Cascade.All();
+
+		}
+
+	}
+
+	public class ArchivedSongVersionMap : ClassMap<ArchivedSongVersion> {
+
+		public ArchivedSongVersionMap() {
+
+			Id(m => m.Id);
+
+			Map(m => m.AgentName).Not.Nullable();
+			Map(m => m.Created).Not.Nullable();
+			Map(m => m.Data).Not.Nullable();
+			Map(m => m.Version).Not.Nullable();
+
+			References(m => m.Author);
+			References(m => m.Song);
 
 		}
 
