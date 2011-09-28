@@ -119,15 +119,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void DeleteArtist(int id, IUserPermissionContext permissionContext) {
+		public void Delete(int id) {
 
-			ParamIs.NotNull(() => permissionContext);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
 			UpdateEntity<Artist>(id, (session, a) => {
-			      
-				log.Info(string.Format("'{0}' deleting artist '{1}'", permissionContext.Name, a.Name));
+
+				log.Info(string.Format("'{0}' deleting artist '{1}'", PermissionContext.Name, a.Name));
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();

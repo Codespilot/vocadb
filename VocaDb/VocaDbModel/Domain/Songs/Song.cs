@@ -54,7 +54,13 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual IList<SongInAlbum> Albums {
+		public virtual IEnumerable<SongInAlbum> Albums {
+			get { 
+				return AllAlbums.Where(a => !a.Album.Deleted); 
+			}
+		}
+
+		public virtual IList<SongInAlbum> AllAlbums {
 			get { return albums; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -172,7 +178,7 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual SongInAlbum AddAlbum(Album album, int trackNumber) {
 
 			var link = new SongInAlbum(this, album, trackNumber);
-			Albums.Add(link);
+			AllAlbums.Add(link);
 			return link;
 
 		}

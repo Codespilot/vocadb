@@ -17,11 +17,11 @@ namespace VocaDb.Model.Mapping.Artists {
 			References(m => m.Circle);
 
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums").Inverse().Cascade.All();
+			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Members).Inverse().KeyColumn("[Circle]");
 			HasMany(m => m.Names).Table("ArtistNames").Inverse().Cascade.All();
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
-			HasMany(m => m.Songs).Table("ArtistsForSongs").Inverse().Cascade.All();
 
 			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage").Not.Nullable();

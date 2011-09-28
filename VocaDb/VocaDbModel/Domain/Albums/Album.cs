@@ -42,6 +42,14 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual IList<SongInAlbum> AllSongs {
+			get { return songs; }
+			set {
+				ParamIs.NotNull(() => value);
+				songs = value;
+			}
+		}
+
 		public virtual IList<ArchivedAlbumVersion> ArchivedVersions {
 			get { return archivedVersions; }
 			set {
@@ -93,11 +101,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual DateTime ReleaseDate { get; set; }
 
-		public virtual IList<SongInAlbum> Songs {
-			get { return songs; }
-			set {
-				ParamIs.NotNull(() => value);
-				songs = value;
+		public virtual IEnumerable<SongInAlbum> Songs {
+			get {
+				return AllSongs.Where(s => !s.Song.Deleted);
 			}
 		}
 

@@ -51,6 +51,14 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual IList<ArtistForSong> AllSongs {
+			get { return songs; }
+			set {
+				ParamIs.NotNull(() => value);
+				songs = value;
+			}
+		}
+
 		public virtual IList<ArchivedArtistVersion> ArchivedVersions {
 			get { return archivedVersions; }
 			set {
@@ -112,11 +120,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual PictureData Picture { get; set; }
 
-		public virtual IList<ArtistForSong> Songs {
-			get { return songs; }
-			set {
-				ParamIs.NotNull(() => value);
-				songs = value;
+		public virtual IEnumerable<ArtistForSong> Songs {
+			get {
+				return AllSongs.Where(s => !s.Song.Deleted);
 			}
 		}
 

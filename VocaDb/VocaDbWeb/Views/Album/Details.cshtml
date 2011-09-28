@@ -11,6 +11,40 @@
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
+<h3>Basic info</h3>
+<table>
+	<tr>
+		<td rowspan="5">
+			<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+		</td>
+		<td>Name</td>
+		<td>
+			@Model.Name<br />
+			<span class="extraInfo">@Model.AdditionalNames</span>
+		</td>
+	</tr>
+	<tr>
+		<td>Description</td>
+		<td>
+			@Model.Description<br />
+		</td>	
+	</tr>
+	<tr>
+		<td>Type</td>
+		<td>
+			@Model.DiscType<br />
+		</td>	
+	</tr>
+	<tr>
+		<td>Links</td>
+		<td>
+			@foreach (var link in Model.WebLinks) {
+				<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
+			}
+		</td>	
+	</tr>
+</table>
+
 <h3>Songs</h3>
 <ul>
 	@foreach (var song in Model.Songs) {

@@ -166,6 +166,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PictureDataContract GetCoverPicture(int id) {
+
+			return HandleQuery(session => {
+
+				var album = session.Load<Album>(id);
+
+				if (album.CoverPicture != null)
+					return new PictureDataContract(album.CoverPicture);
+				else
+					return null;
+
+			});
+
+		}
+
 		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, PictureDataContract pictureData) {
 
 			ParamIs.NotNull(() => properties);
