@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 

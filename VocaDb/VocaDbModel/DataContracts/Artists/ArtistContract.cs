@@ -1,11 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArtistContract {
 
 		public ArtistContract() {}

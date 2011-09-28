@@ -1,10 +1,13 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArtistDetailsContract : ArtistWithAdditionalNamesContract {
 
 		public ArtistDetailsContract() {}
@@ -23,20 +26,28 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		}
 
+		[DataMember]
 		public AlbumContract[] Albums { get; set; }
 
+		[DataMember]
 		public string AllNames { get; set; }
 
+		[DataMember]
 		public ArtistContract Circle { get; set; }
 
+		[DataMember]
 		public string Description { get; set; }
 
+		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }
 
+		[DataMember]
 		public ArtistContract[] Members { get; set; }
 
+		[DataMember]
 		public SongContract[] Songs { get; set; }
 
+		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}

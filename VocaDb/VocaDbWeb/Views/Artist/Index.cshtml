@@ -28,7 +28,7 @@
 }
 </table>
 
-@model VocaDb.Web.Models.ArtistCreate
+@model VocaDb.Web.Models.ObjectCreate
 @if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageArtists)) {
 	using (Html.BeginForm("Create", "Artist")) {
 	

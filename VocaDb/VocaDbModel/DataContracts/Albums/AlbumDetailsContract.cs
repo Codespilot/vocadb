@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 
-namespace VocaDb.Model.DataContracts.Songs {
+namespace VocaDb.Model.DataContracts.Albums {
 
 	public class AlbumDetailsContract : AlbumContract {
 

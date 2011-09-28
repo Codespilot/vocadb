@@ -5,7 +5,7 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArtistWithAdditionalNamesContract : ArtistContract {
 
 		public ArtistWithAdditionalNamesContract() {}
