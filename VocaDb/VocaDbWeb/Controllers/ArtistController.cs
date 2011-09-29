@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model;
@@ -25,7 +26,7 @@ namespace VocaDb.Web.Controllers
         // GET: /Artist/
 
         public ActionResult Index() {
-			ViewBag.Artists = Service.GetArtistsWithAdditionalNames();
+			ViewBag.Artists = Service.GetArtistsWithAdditionalNames().OrderBy(a => a.Name);
             return View();
         }
 

@@ -5,6 +5,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using System;
 
 namespace VocaDb.Model.Domain.Artists {
 
@@ -23,6 +24,7 @@ namespace VocaDb.Model.Domain.Artists {
 			ArtistType = ArtistType.Unknown;
 			Deleted = false;
 			Description = string.Empty;
+			StartDate = null;
 			TranslatedName = new TranslatedString();
 			Version = 0;
 		}
@@ -126,6 +128,8 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual DateTime? StartDate { get; set; }
+
 		public virtual int Version { get; set; }
 
 		public virtual IList<ArtistWebLink> WebLinks {
@@ -142,6 +146,17 @@ namespace VocaDb.Model.Domain.Artists {
 					.Concat(Names.Select(n => n.Value))
 					.Distinct();
 			}
+		}
+
+		public virtual ArtistForAlbum AddAlbum(Album album) {
+
+			ParamIs.NotNull(() => album);
+
+			var link = new ArtistForAlbum(album, this);
+			AllAlbums.Add(link);
+
+			return link;
+
 		}
 
 		public virtual ArchivedArtistVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {

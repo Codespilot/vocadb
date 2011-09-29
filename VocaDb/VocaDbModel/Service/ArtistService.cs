@@ -11,6 +11,8 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.DataContracts.Albums;
 
 namespace VocaDb.Model.Service {
 
@@ -35,7 +37,6 @@ namespace VocaDb.Model.Service {
 						|| s.TranslatedName.English.Contains(query)
 						|| s.TranslatedName.Romaji.Contains(query)
 						|| s.TranslatedName.Japanese.Contains(query)))
-				.OrderBy(s => s.TranslatedName.Japanese)
 				.Take(maxResults)
 				.ToArray();
 
@@ -69,15 +70,40 @@ namespace VocaDb.Model.Service {
 		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
 			: base(sessionFactory, permissionContext) {}
 
-		/*public void AddAlbum(int artistId, int albumId, IUserPermissionContext permissionContext) {
+		public AlbumContract AddAlbum(int artistId, int albumId) {
 
-			ParamIs.NotNull(() => permissionContext);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			return HandleTransaction(session => {
+				
+				var artist = session.Load<Artist>(artistId);
+				var album = session.Load<Album>(albumId);
 
-			UpdateEntity<Album>((session, album) => album.Artists);
+				artist.AddAlbum(session.Load<Album>(albumId));
+				return new AlbumContract(album, PermissionContext.LanguagePreference);
 
-		}*/
+			});
+
+		}
+
+		public AlbumContract AddAlbum(int artistId, string newAlbumName) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			return HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(artistId);
+				var album = new Album(new TranslatedString(newAlbumName));
+
+				session.Save(album);
+				artist.AddAlbum(album);
+				session.Update(artist);
+
+				return new AlbumContract(album, PermissionContext.LanguagePreference);
+
+			});
+
+		}
 
 		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
 
@@ -86,7 +112,7 @@ namespace VocaDb.Model.Service {
 
 			log.Info("'" + permissionContext.Name + "' creating an artist");
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
 
 			return HandleTransaction(session => {
 
@@ -228,7 +254,6 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => session.Query<Artist>()
 				.Where(a => !a.Deleted && a.ArtistType == ArtistType.Circle)
 				.ToArray()
-				.OrderBy(a => a.Name)
 				.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
 
