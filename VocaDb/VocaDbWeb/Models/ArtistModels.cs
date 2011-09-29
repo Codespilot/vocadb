@@ -33,7 +33,7 @@ namespace VocaDb.Web.Models {
 
 		public ArtistEdit(ArtistForEditContract artist) {
 
-			Albums = artist.Albums;
+			AlbumLinks = artist.AlbumLinks;
 			ArtistType = artist.ArtistType;
 			CircleId = (artist.Circle != null ? artist.Circle.Id : EmptyArtist.EmptyArtistId);
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
@@ -54,7 +54,7 @@ namespace VocaDb.Web.Models {
 
 		}
 
-		public AlbumContract[] Albums { get; set; }
+		public ArtistForAlbumContract[] AlbumLinks { get; set; }
 
 		public ArtistType[] AllArtistTypes { get; set; }
 
