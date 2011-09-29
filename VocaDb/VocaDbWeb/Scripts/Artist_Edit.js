@@ -150,4 +150,58 @@ function initPage(artistId) {
 
 	});
 
+	$("input#albumAddName").keyup(function () {
+
+		var findTerm = $(this).val();
+		var albumList = $("#albumAddList");
+
+		if (findTerm.length < 3) {
+
+			$(albumList).empty();
+
+			if (findTerm.length > 0) {
+				addOption(artistList, null, "Create new album named '" + findTerm + "'");
+			}
+
+			return;
+		}
+
+		$.post("../../Album/FindJson", { term: findTerm }, function (results) {
+
+			$(albumList).empty();
+
+			$(results).each(function () {
+
+				addOption(albumList, this.Id, this.Name);
+
+			});
+
+			addOption(albumList, null, "Create new album named '" + findTerm + "'");
+
+		});
+
+	});
+
+	$("#albumAddBtn").click(function () {
+
+		var findTerm = $(this).val();
+		var albumList = $("#albumAddList");
+
+		if (findTerm.length == 0)
+			return;
+
+		var albumId = $(albumList).val();
+
+		if (albumId == null) {
+			$.post("../../Artist/AddAlbum", { artistId : artistId, albumName: findTerm }, albumAdded);
+		} else {
+			$.post("../../Artist/AddAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
+		}
+
+	});	
+
+	function albumAdded(album) {
+
+	}
+
 }

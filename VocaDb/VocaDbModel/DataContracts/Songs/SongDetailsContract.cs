@@ -15,9 +15,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Song = new SongContract(song);
 
 			Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).ToArray();
-			AdditionalNames = string.Join(", ", song.TranslatedName.All.Where(n => n != song.Name));
+			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != song.Name).Distinct());
 			Artists = song.AllArtists.Select(a => new ArtistForSongContract(a, languagePreference)).ToArray();
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
+			TranslatedName = new TranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}
@@ -36,6 +37,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public SongContract Song { get; private set; }
+
+		[DataMember]
+		public TranslatedStringContract TranslatedName { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }

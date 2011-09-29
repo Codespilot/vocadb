@@ -15,7 +15,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ArtistDetailsContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			Albums = artist.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
+			AlbumLinks = artist.Albums.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != artist.Name));
 			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle, languagePreference) : null);
 			Description = artist.Description;
@@ -27,7 +27,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		}
 
 		[DataMember]
-		public AlbumContract[] Albums { get; set; }
+		public ArtistForAlbumContract[] AlbumLinks { get; set; }
 
 		[DataMember]
 		public string AllNames { get; set; }

@@ -168,6 +168,31 @@
     </div>
 }
 
+<div>
+    <fieldset>
+		<legend>Connected albums</legend>
+		<table>
+		@foreach (var album in Model.AlbumLinks) {
+			<tr id="@("artistRow_" + album.Id)">
+				<td>@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id })</td>
+				<td>
+					<input type="button" class="albumRemove" id="@("albumRemove_" + album.Id)" value="Remove" />
+				</td>
+			</tr>
+		}
+		<tr id="artistRow_new">
+			<td>
+				<input type="text" maxlength="128" id="albumAddName" /><br />
+				<select id="albumAddList" size="5" />
+			</td>
+			<td>
+				<input type="button" id="albumAddBtn" value="Add" />
+			</td>
+		</tr>
+		</table>
+	</fieldset>
+</div>
+
 <script type="text/javascript" src="../../Scripts/Artist_Edit.js"></script>
 <script type="text/javascript">
 
