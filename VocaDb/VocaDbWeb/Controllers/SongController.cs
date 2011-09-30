@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 
@@ -84,6 +86,16 @@ namespace VocaDb.Web.Controllers
                 return View();
             }
         }
+
+		public PartialViewResult CreateLyrics(int songId, ContentLanguageSelection languageSelection, string source, string value) {
+			
+			ParamIs.NotNull(() => value);
+
+			var entry = Service.CreateLyrics(songId, languageSelection, value, source);
+
+			return PartialView("LyricsForSongEditRow", entry);
+
+		}
 
         //
         // GET: /Song/Delete/5

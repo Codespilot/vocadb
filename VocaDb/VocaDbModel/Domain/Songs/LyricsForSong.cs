@@ -8,6 +8,16 @@ namespace VocaDb.Model.Domain.Songs {
 		private Song song;
 		private string source;
 
+		public LyricsForSong() {}
+
+		public LyricsForSong(Song song, ContentLanguageSelection language, string val, string source)
+			: base(val, language) {
+
+			Song = song;
+			Source = source;
+
+		}
+
 		public virtual int Id { get; protected set; }
 
 		public virtual string Notes {

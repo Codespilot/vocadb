@@ -1,0 +1,20 @@
+﻿@model VocaDb.Web.Models.LyricsForSongModel
+
+<div id="@("lyricsRow_" + Model.Id)">
+
+	<p>
+	@Html.LabelFor(m => m.Language):
+	@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
+
+	@Html.LabelFor(m => m.Source):
+	@Html.TextBoxFor(m => m.Source)
+	</p>
+	
+	@Html.TextAreaFor(m => m.Value, 40, 65, null)
+
+	<br />
+
+	<input type="button" class="deleteLyrics" id="@("deleteLyrics_" + Model.Id)" value="Delete" />
+	<hr />
+
+</div>

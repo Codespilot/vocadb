@@ -203,6 +203,18 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual LyricsForSong CreateLyrics(ContentLanguageSelection language, string val, string source) {
+			
+			ParamIs.NotNullOrEmpty(() => val);
+			ParamIs.NotNull(() => source);
+
+			var entry = new LyricsForSong(this, language, val, source);
+			Lyrics.Add(entry);
+
+			return entry;
+
+		}
+
 		public virtual SongName CreateName(string val, ContentLanguageSelection language) {
 
 			ParamIs.NotNullOrEmpty(() => val);
