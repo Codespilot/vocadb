@@ -160,7 +160,7 @@ function initPage(artistId) {
 			$(albumList).empty();
 
 			if (findTerm.length > 0) {
-				addOption(artistList, null, "Create new album named '" + findTerm + "'");
+				addOption(albumList, null, "Create new album named '" + findTerm + "'");
 			}
 
 			return;
@@ -193,9 +193,9 @@ function initPage(artistId) {
 		var albumId = $(albumList).val();
 
 		if (albumId == null) {
-			$.post("../../Artist/AddAlbum", { artistId : artistId, newAlbumName: findTerm }, albumAdded);
+			$.post("../../Artist/AddNewAlbum", { artistId : artistId, newAlbumName: findTerm }, albumAdded);
 		} else {
-			$.post("../../Artist/AddAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
+			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
 		}
 
 	});	
