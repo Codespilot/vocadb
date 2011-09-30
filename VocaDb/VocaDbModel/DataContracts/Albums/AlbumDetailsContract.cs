@@ -15,7 +15,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			: base(album, languagePreference) {
 
 			AdditionalNames = string.Join(", ", album.TranslatedName.All.Where(n => n != album.Name));
-			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).ToArray();
+			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Description = album.Description;
 			Songs = album.Songs.Select(s => new SongInAlbumContract(s)).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
