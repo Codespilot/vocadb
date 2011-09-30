@@ -100,6 +100,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void DeleteArtistForAlbum(int artistForAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+
+			DeleteEntity<ArtistForAlbum>(artistForAlbumId);
+
+		}
+
 		public void DeleteName(int nameId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
