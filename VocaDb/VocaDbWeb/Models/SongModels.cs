@@ -25,7 +25,7 @@ namespace VocaDb.Web.Models {
 
 			Artists = song.Artists;
 			Id = song.Song.Id;
-			Lyrics = song.Lyrics;
+			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			Name = song.Song.Name;
 			NameEnglish = song.TranslatedName.English;
 			NameJapanese = song.TranslatedName.Japanese;
@@ -49,7 +49,8 @@ namespace VocaDb.Web.Models {
 
 		public int Id { get; set; }
 
-		public LyricsForSongContract[] Lyrics { get; protected set; }
+		[Display(Name = "Lyrics")]
+		public LyricsForSongModel[] Lyrics { get; protected set; }
 
 		public string Name { get; protected set; }
 
@@ -76,6 +77,41 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Web links")]
 		public WebLinkContract[] WebLinks { get; set; }
+
+	}
+
+	public class LyricsForSongModel {
+		
+		public LyricsForSongModel() {}
+
+		public LyricsForSongModel(LyricsForSongContract contract) {
+			
+			ParamIs.NotNull(() => contract);
+
+			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
+			Id = contract.Id;
+			Language = contract.Language;
+			Source = contract.Source;
+			Value = contract.Value;
+
+		}
+
+		public ContentLanguageSelection[] AllLanguages { get; set; }
+
+		public int Id { get; set; }
+
+		[Required]
+		[Display(Name = "Language")]
+		public ContentLanguageSelection Language { get; set; }
+
+		[Required]
+		[Display(Name = "Source")]
+		[StringLength(255)]
+		public string Source { get; set; }
+
+		[Required]
+		[Display(Name = "Text")]
+		public string Value { get; set; }
 
 	}
 

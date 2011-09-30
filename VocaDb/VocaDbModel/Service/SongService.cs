@@ -32,6 +32,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public LyricsForSongContract CreateLyrics(int songId, ContentLanguageSelection language, string value, string source) {
+
+			ParamIs.NotNullOrEmpty(() => value);
+			ParamIs.NotNull(() => source);
+
+			PermissionContext.HasPermission(PermissionFlags.ManageSongs);
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+				var entry = song.CreateLyrics(language, value, source);
+
+				session.Update(song);
+				return new LyricsForSongContract(entry);
+
+			});
+
+		}
+
 		public SongContract CreateSong(CreateSongContract contract) {
 
 			return HandleTransaction(session => {

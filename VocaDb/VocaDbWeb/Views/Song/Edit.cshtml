@@ -9,169 +9,197 @@
 
 @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { onclick = "return confirm(\"Are you sure you want to delete this song?\");" })
 
-@using (Html.BeginForm("EditBasicDetails", "Song", FormMethod.Post, new { enctype = "multipart/form-data" })) {
-	@Html.HiddenFor(m => m.Id)
-    <div>
-        <fieldset>
-			<legend>Basic properties</legend>
-			<table><tr>
-			<td>Primary name:</td>
-            <td><div class="editor-label">
-                @Html.LabelFor(m => m.NameRomaji)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameRomaji, new { @readonly = "readonly" } )
-                @Html.ValidationMessageFor(m => m.NameRomaji)
-            </div>
-			</td><td>
+<div id="tabs">
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.NameJapanese)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameJapanese, new { @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.NameJapanese)
-            </div>
-			</td><td>
+	<ul>
+		<li><a href="#basicInfoTab">Basic info</a></li>
+		<li><a href="#lyricsTab">Lyrics</a></li>
+	</ul>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.NameEnglish)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameEnglish, new { @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.NameEnglish)
-            </div>
-			</td><td>
+	<div id="basicInfoTab">
+		@using (Html.BeginForm("EditBasicDetails", "Song", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+			@Html.HiddenFor(m => m.Id)
+			<div>
+				<fieldset>
+					<legend>Basic properties</legend>
+					<table><tr>
+					<td>Primary name:</td>
+					<td><div class="editor-label">
+						@Html.LabelFor(m => m.NameRomaji)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NameRomaji, new { @readonly = "readonly" } )
+						@Html.ValidationMessageFor(m => m.NameRomaji)
+					</div>
+					</td><td>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.DefaultLanguageSelection)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
-            </div>
-			</td></tr>
-			</table>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.NameJapanese)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NameJapanese, new { @readonly = "readonly" })
+						@Html.ValidationMessageFor(m => m.NameJapanese)
+					</div>
+					</td><td>
 
-           <div class="editor-label">
-                @Html.LabelFor(m => m.Names)
-            </div>
-            <div class="editor-field">
-				<table>
-					<tr>
-						<th>Name *</th>
-						<th>Language</th>
-						<th>Actions</th>
-					</tr>
-					@foreach (var name in Model.Names) {
-						<tr id="@("nameRow_" + name.Id)">
-							<td>
-								<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + name.Id)" value='@name.Value' />
-							</td>
-							<td>
-								@Html.DropDownList("nameLanguage_" + name.Id, new SelectList(Model.AllLanguages, @name.Language), new { id = "nameLanguage_" + name.Id, @class = "nameLanguage" })
-							</td>
-							<td>
-								<input type="button" class="nameDelete" id="@("nameDelete_" + name.Id)" value="Delete" />
-								<input type="button" class="nameCopy" id="@("nameCopy_" + name.Id)" value="Copy to primary" />
-							</td>
-						</tr>
-					}
-					<tr id="nameRow_new">
-						<td>
-							<input type="text" maxlength="128" class="nameEditNew" id="nameEdit_new" />						
-						</td>
-						<td>
-							@Html.DropDownList("nameLanguage_new", new SelectList(Model.AllLanguages), new { id = "nameLanguage_new" })
-						</td>
-						<td>
-							<input type="button" class="nameAddNew" id="nameAdd" value="Add" />
-						</td>
-					</tr>
-				</table>
-            </div>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.NameEnglish)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NameEnglish, new { @readonly = "readonly" })
+						@Html.ValidationMessageFor(m => m.NameEnglish)
+					</div>
+					</td><td>
 
-           <div class="editor-label">
-                <label>Picture</label>
-            </div>
-            <div class="editor-field">
-				<img src="@Url.Action("Picture", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
-				<input type="file" id="pictureUpload" name="pictureUpload" />
-            </div>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.DefaultLanguageSelection)
+					</div>
+					<div class="editor-field">
+						@Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
+					</div>
+					</td></tr>
+					</table>
 
-           <div class="editor-label">
-                @Html.LabelFor(m => m.NicoId)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NicoId)
-            </div>
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.Names)
+					</div>
+					<div class="editor-field">
+						<table>
+							<tr>
+								<th>Name *</th>
+								<th>Language</th>
+								<th>Actions</th>
+							</tr>
+							@foreach (var name in Model.Names) {
+								<tr id="@("nameRow_" + name.Id)">
+									<td>
+										<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + name.Id)" value='@name.Value' />
+									</td>
+									<td>
+										@Html.DropDownList("nameLanguage_" + name.Id, new SelectList(Model.AllLanguages, @name.Language), new { id = "nameLanguage_" + name.Id, @class = "nameLanguage" })
+									</td>
+									<td>
+										<input type="button" class="nameDelete" id="@("nameDelete_" + name.Id)" value="Delete" />
+										<input type="button" class="nameCopy" id="@("nameCopy_" + name.Id)" value="Copy to primary" />
+									</td>
+								</tr>
+							}
+							<tr id="nameRow_new">
+								<td>
+									<input type="text" maxlength="128" class="nameEditNew" id="nameEdit_new" />						
+								</td>
+								<td>
+									@Html.DropDownList("nameLanguage_new", new SelectList(Model.AllLanguages), new { id = "nameLanguage_new" })
+								</td>
+								<td>
+									<input type="button" class="nameAddNew" id="nameAdd" value="Add" />
+								</td>
+							</tr>
+						</table>
+					</div>
+
+				   <div class="editor-label">
+						<label>Picture</label>
+					</div>
+					<div class="editor-field">
+						<img src="@Url.Action("Picture", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
+						<input type="file" id="pictureUpload" name="pictureUpload" />
+					</div>
+
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.NicoId)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NicoId)
+					</div>
 			
-            <div class="editor-label">
-                @Html.LabelFor(m => m.WebLinks)
-            </div>
-            <div class="editor-field">
-				<table>
-					<tr>
-						<th>Description</th>
-						<th>URL *</th>
-						<th>Actions</th>
-					</tr>
-					@foreach (var webLink in Model.WebLinks) {
-						<tr id="@("webLinkRow_" + webLink.Id)">
-							<td>
-								<input type="text" maxlength="512" class="webLinkDescription" id="@("webLinkDescription_" + webLink.Id)" value="@webLink.Description" />
-							</td>
-							<td>
-								<input type="text" maxlength="512" class="webLinkUrl" size="50" id="@("webLinkUrl_" + webLink.Id)" value="@webLink.Url" />
-							</td>
-							<td>
-								<input type="button" class="webLinkDelete" id="@("webLinkDelete_" + webLink.Id)" value="Delete" />
-							</td>
-						</tr>
-					}
-					<tr id="webLinkRow_new">
-						<td>
-							<input type="text" maxlength="512" class="webLinkDescriptionNew" id="webLinkDescription_new" />						
-						</td>
-						<td>
-							<input type="text" maxlength="512" class="webLinkUrlNew" size="50" id="webLinkUrl_new" />													
-						</td>
-						<td>
-							<input type="button" class="webLinkAddNew" id="webLinkAdd" value="Add" />
-						</td>
-					</tr>
-				</table>
-            </div>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.WebLinks)
+					</div>
+					<div class="editor-field">
+						<table>
+							<tr>
+								<th>Description</th>
+								<th>URL *</th>
+								<th>Actions</th>
+							</tr>
+							@foreach (var webLink in Model.WebLinks) {
+								<tr id="@("webLinkRow_" + webLink.Id)">
+									<td>
+										<input type="text" maxlength="512" class="webLinkDescription" id="@("webLinkDescription_" + webLink.Id)" value="@webLink.Description" />
+									</td>
+									<td>
+										<input type="text" maxlength="512" class="webLinkUrl" size="50" id="@("webLinkUrl_" + webLink.Id)" value="@webLink.Url" />
+									</td>
+									<td>
+										<input type="button" class="webLinkDelete" id="@("webLinkDelete_" + webLink.Id)" value="Delete" />
+									</td>
+								</tr>
+							}
+							<tr id="webLinkRow_new">
+								<td>
+									<input type="text" maxlength="512" class="webLinkDescriptionNew" id="webLinkDescription_new" />						
+								</td>
+								<td>
+									<input type="text" maxlength="512" class="webLinkUrlNew" size="50" id="webLinkUrl_new" />													
+								</td>
+								<td>
+									<input type="button" class="webLinkAddNew" id="webLinkAdd" value="Add" />
+								</td>
+							</tr>
+						</table>
+					</div>
 
-            <p>
-                <input type="submit" value="Save" />
-            </p>
-        </fieldset>
-    </div>
-}
+					<p>
+						<input type="submit" value="Save" />
+					</p>
+				</fieldset>
+			</div>
+		}
 
-<div>
-    <fieldset>
-		<legend>Connected artists</legend>
-		<table>
-		@foreach (var artist in Model.Artists) {
-			<tr id="@("artistRow_" + artist.Id)">
-				<td>@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Id })</td>
+		<fieldset>
+			<legend>Connected artists</legend>
+			<table>
+			@foreach (var artist in Model.Artists) {
+				<tr id="@("artistRow_" + artist.Id)">
+					<td>@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Id })</td>
+					<td>
+						<input type="button" class="artistRemove" id="@("artistRemove_" + artist.Id)" value="Remove" />
+					</td>
+				</tr>
+			}
+			<tr id="artistRow_new">
 				<td>
-					<input type="button" class="artistRemove" id="@("artistRemove_" + artist.Id)" value="Remove" />
+					<input type="text" maxlength="128" id="artistAddName" /><br />
+					<select id="artistAddList" size="5" />
+				</td>
+				<td>
+					<input type="button" id="artistAddBtn" value="Add" />
 				</td>
 			</tr>
+			</table>
+		</fieldset>
+	</div>
+
+	<div id="lyricsTab">
+		@foreach (var lyrics in Model.Lyrics) {
+			Html.RenderPartial("LyricsForSongEditRow", lyrics);
 		}
-		<tr id="artistRow_new">
-			<td>
-				<input type="text" maxlength="128" id="artistAddName" /><br />
-				<select id="artistAddList" size="5" />
-			</td>
-			<td>
-				<input type="button" id="artistAddBtn" value="Add" />
-			</td>
-		</tr>
-		</table>
-	</fieldset>
+		<div id="lyrics_new">
+			<p>
+			Language:
+			@Html.DropDownList("lyricsLanguage_new", new SelectList(Model.AllLanguages), new { id = "lyricsLanguage_new" })
+
+			Source:
+			<input type="text" id="lyricsSource_new" size="40" maxlength="255" />
+			</p>
+
+			<textarea id="lyricsValue_new" cols="65" rows="40"></textarea>
+
+			<br />
+			<input type="button" class="lyricsAddNew" id="lyricsAdd" value="Add" />
+		</div>
+	</div>
 </div>
 
 <script type="text/javascript" src="../../Scripts/Song_Edit.js"></script>
