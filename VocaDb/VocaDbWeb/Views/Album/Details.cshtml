@@ -24,28 +24,45 @@
 		</td>
 	</tr>
 	<tr>
+		<td>
+			Artists
+		</td>
+		<td>
+		@foreach (var artist in Model.Artists) {
+			Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+			if (artist != Model.Artists.Last()) {
+				<text>,&nbsp;</text>
+			}
+		}			
+		</td>
+	</tr>
+@if (!string.IsNullOrEmpty(Model.Description)) {
+	<tr>
 		<td>Description</td>
 		<td>
 			@Model.Description<br />
 		</td>	
 	</tr>
+}
 	<tr>
 		<td>Type</td>
 		<td>
 			@Model.DiscType<br />
 		</td>	
 	</tr>
+@if (Model.WebLinks.Any()) {
 	<tr>
 		<td>Links</td>
 		<td>
 			@foreach (var link in Model.WebLinks) {
 				<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
-			}
+   }
 		</td>	
 	</tr>
+}
 </table>
 
-<h3>Songs</h3>
+<h3>Songlist</h3>
 <ul>
 	@foreach (var song in Model.Songs) {
 		<li>
@@ -53,12 +70,5 @@
 			.&nbsp;
 			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, null)
 		</li>
- }
-</ul>
-
-<h3>Artists</h3>
-<ul>
-	@foreach (var artist in Model.Artists) {
-		<li>@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)</li>
  }
 </ul>
