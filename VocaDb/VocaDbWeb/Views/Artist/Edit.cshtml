@@ -173,7 +173,7 @@
 		<legend>Connected albums</legend>
 		<table>
 		@foreach (var album in Model.AlbumLinks) {
-			Html.RenderPartial("ArtistForAlbum", album);
+			Html.RenderPartial("ArtistForAlbumRow", album);
 		}
 		<tr id="artistRow_new">
 			<td>
