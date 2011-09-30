@@ -193,14 +193,17 @@ function initPage(artistId) {
 		var albumId = $(albumList).val();
 
 		if (albumId == null) {
-			$.post("../../Artist/AddAlbum", { artistId : artistId, albumName: findTerm }, albumAdded);
+			$.post("../../Artist/AddAlbum", { artistId : artistId, newAlbumName: findTerm }, albumAdded);
 		} else {
 			$.post("../../Artist/AddAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
 		}
 
 	});	
 
-	function albumAdded(album) {
+	function albumAdded(row) {
+
+		var addRow = $("#artistRow_new");
+		addRow.before(row);
 
 	}
 

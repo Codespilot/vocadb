@@ -173,12 +173,7 @@
 		<legend>Connected albums</legend>
 		<table>
 		@foreach (var album in Model.AlbumLinks) {
-			<tr id="@("artistRow_" + album.Id)">
-				<td>@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id })</td>
-				<td>
-					<input type="button" class="albumRemove" id="@("albumRemove_" + album.Id)" value="Remove" />
-				</td>
-			</tr>
+			Html.RenderPartial("ArtistForAlbum", album);
 		}
 		<tr id="artistRow_new">
 			<td>
