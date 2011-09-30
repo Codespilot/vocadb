@@ -21,6 +21,7 @@ namespace VocaDb.Model.Domain.Albums {
 			Deleted = false;
 			Description = string.Empty;
 			DiscType = DiscType.Album;
+			ReleaseDate = null;
 			TranslatedName = new TranslatedString();
 		}
 
@@ -99,7 +100,7 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual DateTime ReleaseDate { get; set; }
+		public virtual DateTime? ReleaseDate { get; set; }
 
 		public virtual IEnumerable<SongInAlbum> Songs {
 			get {

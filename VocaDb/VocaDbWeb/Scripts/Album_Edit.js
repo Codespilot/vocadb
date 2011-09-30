@@ -10,7 +10,7 @@ function onChangeLang(event) {
 
 }
 
-function initPage(artistId) {
+function initPage(albumId) {
 
 	$("input.nameEdit").live("change", function () {
 
@@ -69,11 +69,11 @@ function initPage(artistId) {
 
 	$("input#nameAdd").click(function () {
 
-		var aId = artistId;
+		var aId = albumId;
 		var newNameVal = $("input#nameEdit_new").val();
 		var newLangId = $("select#nameLanguage_new").val();
 
-		$.post("../../Album/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (name) {
+		$.post("../../Album/CreateName", { albumId: aId, nameVal: newNameVal, language: newLangId }, function (name) {
 
 			var row = document.createElement("tr");
 			$(row).attr("id", "nameRow_" + name.Id);
@@ -127,11 +127,11 @@ function initPage(artistId) {
 
 	$("input#webLinkAdd").click(function () {
 
-		var aId = artistId;
+		var aId = albumId;
 		var newDescription = $("input#webLinkDescription_new").val();
 		var newUrl = $("input#webLinkUrl_new").val();
 
-		$.post("../../Album/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function (link) {
+		$.post("../../Album/CreateWebLink", { albumId: aId, description: newDescription, url: newUrl }, function (link) {
 
 			var row = document.createElement("tr");
 			$(row).attr("id", "webLinkRow_" + link.Id);
@@ -145,6 +145,42 @@ function initPage(artistId) {
 
 			$("input#webLinkDescription_new").val("");
 			$("input#webLinkUrl_new").val("");
+
+		});
+
+	});
+
+	$("#artistAddBtn").click(function () {
+
+		var findTerm = $(this).val();
+		var artistList = $("#artistAddList");
+
+		if (findTerm.length == 0)
+			return;
+
+		var artistId = $(artistList).val();
+
+		if (artistId == null) {
+			$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: findTerm }, artistAdded);
+		} else {
+			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, artistAdded);
+		}
+
+	});
+
+	function artistAdded(row) {
+
+		var addRow = $("#artistRow_new");
+		addRow.before(row);
+
+	}
+
+	$("input.artistRemove").live("click", function () {
+
+		var id = getId(this);
+		$.post("../../Album/DeleteArtistForAlbum", { artistForAlbumId: id }, function () {
+
+			$("tr#artistRow_" + id).remove();
 
 		});
 

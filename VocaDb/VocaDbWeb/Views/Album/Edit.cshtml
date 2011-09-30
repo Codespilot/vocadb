@@ -163,9 +163,18 @@
     <fieldset>
 		<legend>Artists</legend>
 		<table>
-		@foreach (var album in Model.ArtistLinks) {
-			Html.RenderPartial("ArtistForAlbumEditRow", album);
-		}
+			@foreach (var album in Model.ArtistLinks) {
+				Html.RenderPartial("ArtistForAlbumEditRow", album);
+			}
+			<tr id="artistRow_new">
+				<td>
+					<input type="text" maxlength="128" id="artistAddName" /><br />
+					<select id="artistAddList" size="5" />
+				</td>
+				<td>
+					<input type="button" id="artistAddBtn" value="Add" />
+				</td>
+			</tr>
 		</table>
 	</fieldset>
 </div>
