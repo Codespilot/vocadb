@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.DataContracts.Albums;
 
 namespace VocaDb.Web.Models {
 
@@ -20,6 +21,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => album);
 
+			ArtistLinks = album.ArtistLinks;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			DiscType = album.DiscType;
@@ -42,6 +44,8 @@ namespace VocaDb.Web.Models {
 		public ContentLanguageSelection[] AllLanguages { get; set; }
 
 		public string AllLanguagesJson { get; set; }
+
+		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
 		[Display(Name = "Default language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }

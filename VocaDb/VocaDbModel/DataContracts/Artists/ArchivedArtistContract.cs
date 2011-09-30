@@ -13,15 +13,20 @@ namespace VocaDb.Model.DataContracts.Artists {
 			
 			ParamIs.NotNull(() => artist);
 
+			Albums = artist.Albums.Select(a => new ObjectRefContract(a.Album.Id, a.Album.Name)).ToArray();
 			ArtistType = artist.ArtistType;
 			Id = artist.Id;
 			Circle = (artist.Circle != null ? new ObjectRefContract(artist.Circle.Id, artist.Circle.Name) : null);
 			Description = artist.Description;
 			Names = artist.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song.Id, s.Song.Name)).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			WebLinks = artist.WebLinks.Select(l => new WebLinkContract(l)).ToArray();
 
 		}
+
+		[DataMember]
+		public ObjectRefContract[] Albums { get; set; }
 
 		[DataMember]
 		public ArtistType ArtistType { get; set; }
@@ -37,6 +42,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public LocalizedStringWithIdContract[] Names { get; set; }
+
+		[DataMember]
+		public ObjectRefContract[] Songs { get; set; }
 
 		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }

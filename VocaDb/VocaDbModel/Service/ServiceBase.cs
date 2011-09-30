@@ -15,6 +15,12 @@ namespace VocaDb.Model.Service {
 			get { return permissionContext; }
 		}
 
+		protected void AuditLog(string doingWhat) {
+
+			log.Info("'" + PermissionContext.Name + "' " + doingWhat);
+
+		}
+
 		protected T HandleQuery<T>(Func<ISession, T> func, string failMsg = "Unexpected NHibernate error") {
 			
 			try {

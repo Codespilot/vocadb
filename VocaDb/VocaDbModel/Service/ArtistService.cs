@@ -70,25 +70,29 @@ namespace VocaDb.Model.Service {
 		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
 			: base(sessionFactory, permissionContext) {}
 
-		public AlbumContract AddAlbum(int artistId, int albumId) {
+		public ArtistForAlbumContract AddAlbum(int artistId, int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			AuditLog("adding album '" + albumId + "' to artist '" + artistId + "'");
 
 			return HandleTransaction(session => {
 				
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
 
-				artist.AddAlbum(session.Load<Album>(albumId));
-				return new AlbumContract(album, PermissionContext.LanguagePreference);
+				var artistForAlbum = artist.AddAlbum(session.Load<Album>(albumId));
+				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 
 			});
 
 		}
 
-		public AlbumContract AddAlbum(int artistId, string newAlbumName) {
+		public ArtistForAlbumContract AddAlbum(int artistId, string newAlbumName) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			AuditLog("creating album '" + newAlbumName + "' to artist '" + artistId + "'");
 
 			return HandleTransaction(session => {
 
@@ -96,10 +100,10 @@ namespace VocaDb.Model.Service {
 				var album = new Album(new TranslatedString(newAlbumName));
 
 				session.Save(album);
-				artist.AddAlbum(album);
+				var artistForAlbum = artist.AddAlbum(album);
 				session.Update(artist);
 
-				return new AlbumContract(album, PermissionContext.LanguagePreference);
+				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 
 			});
 

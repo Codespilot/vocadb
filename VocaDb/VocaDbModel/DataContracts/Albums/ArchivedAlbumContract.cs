@@ -14,16 +14,21 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ParamIs.NotNull(() => album);
 
+			Artists = album.Artists.Select(a => new ObjectRefContract(a.Artist.Id, a.Artist.Name)).ToArray();
 			CoverPicture = (album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
 			Description = album.Description;
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			ReleaseDate = album.ReleaseDate;
+			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			WebLinks = album.WebLinks.Select(l => new WebLinkContract(l)).ToArray();
 
 		}
+
+		[DataMember]
+		public ObjectRefContract[] Artists { get; set; }
 
 		[DataMember]
 		public PictureDataContract CoverPicture { get; set; }
@@ -42,6 +47,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public DateTime ReleaseDate { get; set; }
+
+		[DataMember]
+		public SongInAlbumRefContract[] Songs { get; set; }
 
 		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }

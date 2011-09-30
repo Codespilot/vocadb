@@ -202,7 +202,7 @@ function initPage(artistId) {
 
 	function albumAdded(row) {
 
-		var addRow = $("#artistRow_new");
+		var addRow = $("#albumRow_new");
 		addRow.before(row);
 
 	}
