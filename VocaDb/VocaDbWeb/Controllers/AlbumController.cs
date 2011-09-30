@@ -180,6 +180,14 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddExistingArtist(int albumId, int artistId) {
+
+			var link = MvcApplication.Services.Artists.AddAlbum(artistId, albumId);
+			return PartialView("ArtistForAlbumEditRow", link);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewArtist(int albumId, string newArtistName) {
 
 			var link = Service.AddArtist(albumId, newArtistName);
