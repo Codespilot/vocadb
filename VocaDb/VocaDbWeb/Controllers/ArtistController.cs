@@ -174,7 +174,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ViewResult AddAlbum(int artistId, string newAlbumName) {
+		public ViewResult AddNewAlbum(int artistId, string newAlbumName) {
 
 			var link = Service.AddAlbum(artistId, newAlbumName);
 			return View("ArtistForAlbumRow", link);
@@ -182,7 +182,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ViewResult AddAlbum(int artistId, int albumId) {
+		public ViewResult AddExistingAlbum(int artistId, int albumId) {
 
 			var link = Service.AddAlbum(artistId, albumId);
 			return View("ArtistForAlbumRow", link);
