@@ -160,7 +160,7 @@ function initPage(albumId) {
 			$(artistList).empty();
 
 			if (findTerm.length > 0) {
-				addOption(artistList, null, "Create new artist named '" + findTerm + "'");
+				addOption(artistList, "", "Create new artist named '" + findTerm + "'");
 			}
 
 			return;
@@ -176,7 +176,7 @@ function initPage(albumId) {
 
 			});
 
-			addOption(artistList, null, "Create new artist named '" + findTerm + "'");
+			addOption(artistList, "", "Create new artist named '" + findTerm + "'");
 
 		});
 
@@ -184,7 +184,7 @@ function initPage(albumId) {
 
 	$("#artistAddBtn").click(function () {
 
-		var findTerm = $(this).val();
+		var findTerm = $("input#artistAddName").val();
 		var artistList = $("#artistAddList");
 
 		if (findTerm.length == 0)
@@ -192,7 +192,7 @@ function initPage(albumId) {
 
 		var artistId = $(artistList).val();
 
-		if (artistId == null) {
+		if (artistId == "") {
 			$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: findTerm }, artistAdded);
 		} else {
 			$.post("../../Album/AddExistingArtist", { albumId: albumId, artistId: artistId }, artistAdded);
@@ -204,6 +204,7 @@ function initPage(albumId) {
 
 		var addRow = $("#artistRow_new");
 		addRow.before(row);
+		$("input#artistAddName").val("");
 
 	}
 
