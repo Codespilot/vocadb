@@ -170,12 +170,12 @@
 
 <div>
     <fieldset>
-		<legend>Connected albums</legend>
+		<legend>Discography</legend>
 		<table>
 		@foreach (var album in Model.AlbumLinks) {
 			Html.RenderPartial("ArtistForAlbumRow", album);
 		}
-		<tr id="artistRow_new">
+		<tr id="albumRow_new">
 			<td>
 				<input type="text" maxlength="128" id="albumAddName" /><br />
 				<select id="albumAddList" size="5" />

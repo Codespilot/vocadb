@@ -159,6 +159,17 @@
     </div>
 }
 
+<div>
+    <fieldset>
+		<legend>Artists</legend>
+		<table>
+		@foreach (var album in Model.ArtistLinks) {
+			Html.RenderPartial("ArtistForAlbumEditRow", album);
+		}
+		</table>
+	</fieldset>
+</div>
+
 <script type="text/javascript" src="../../Scripts/Album_Edit.js"></script>
 <script type="text/javascript">
 
