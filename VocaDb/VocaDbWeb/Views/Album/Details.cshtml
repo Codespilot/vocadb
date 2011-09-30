@@ -28,9 +28,9 @@
 			Artists
 		</td>
 		<td>
-		@foreach (var artist in Model.Artists) {
-			Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
-			if (artist != Model.Artists.Last()) {
+		@foreach (var artist in Model.ArtistLinks) {
+			Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, null);
+			if (artist != Model.ArtistLinks.Last()) {
 				<text>,&nbsp;</text>
 			}
 		}			

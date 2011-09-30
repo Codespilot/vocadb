@@ -179,6 +179,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddNewArtist(int albumId, string newArtistName) {
+
+			var link = Service.AddArtist(albumId, newArtistName);
+			return PartialView("ArtistForAlbumEditRow", link);
+
+		}
+
         //
         // GET: /Album/Delete/5
  

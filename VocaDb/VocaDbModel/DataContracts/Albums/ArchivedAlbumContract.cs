@@ -46,7 +46,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public LocalizedStringWithIdContract[] Names { get; set; }
 
 		[DataMember]
-		public DateTime ReleaseDate { get; set; }
+		public DateTime? ReleaseDate { get; set; }
 
 		[DataMember]
 		public SongInAlbumRefContract[] Songs { get; set; }

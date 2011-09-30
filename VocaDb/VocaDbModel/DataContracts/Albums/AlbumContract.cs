@@ -25,7 +25,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public string Name { get; set; }
 
-		public DateTime ReleaseDate { get; set; }
+		public DateTime? ReleaseDate { get; set; }
 
 	}
 
