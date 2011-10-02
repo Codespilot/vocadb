@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
@@ -205,6 +206,48 @@ namespace VocaDb.Model.Service {
 				.ToArray()
 				.Select(s => new SongContract(s))
 				.ToArray());
+
+		}
+
+		public SongForEditContract UpdateLyrics(int songId, IEnumerable<LyricsForSongContract> lyrics) {
+			
+			ParamIs.NotNull(() => lyrics);
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+
+				var deleted = song.Lyrics.Where(l => !lyrics.Any(l2 => l.Id == l2.Id)).ToArray();
+				var added = lyrics.Where(l => !song.Lyrics.Any(l2 => l.Id == l2.Id)).ToArray();
+
+				foreach (var l in deleted) {
+					song.Lyrics.Remove(l);
+					session.Delete(l);
+				}
+
+				foreach (var entry in lyrics) {
+
+					var old = song.Lyrics.FirstOrDefault(l => l.Id == entry.Id);
+
+					if (old != null) {
+
+						old.Language = entry.Language;
+						old.Source = entry.Source;
+						old.Value = entry.Value;
+						session.Update(old);
+
+					} else {
+
+						var l = song.CreateLyrics(entry.Language, entry.Value, entry.Source);
+						session.Save(l);
+
+					}
+
+				}
+
+				return new SongForEditContract(song, PermissionContext.LanguagePreference);
+
+			});
 
 		}
 

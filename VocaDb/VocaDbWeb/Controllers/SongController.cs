@@ -97,6 +97,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public ActionResult EditLyrics(SongEdit model, IEnumerable<LyricsForSongModel> lyrics) {
+
+			var contracts = lyrics.Select(l => l.ToContract());
+			var song = Service.UpdateLyrics(model.Id, contracts);
+
+			return View("Edit", new SongEdit(song));
+
+		}
+
         //
         // GET: /Song/Delete/5
  

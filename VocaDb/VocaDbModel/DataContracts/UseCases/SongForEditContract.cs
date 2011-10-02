@@ -7,6 +7,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class SongForEditContract : SongDetailsContract {
 
+		public SongForEditContract() {}
+
 		public SongForEditContract(Song song, ContentLanguagePreference languagePreference)
 			: base(song, languagePreference) {
 			
