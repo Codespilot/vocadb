@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
@@ -9,6 +8,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 	[DataContract]
 	public class SongDetailsContract {
+
+		public SongDetailsContract() {}
 
 		public SongDetailsContract(Song song, ContentLanguagePreference languagePreference) {
 
@@ -24,19 +25,19 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 		[DataMember]
-		public AlbumContract[] Albums { get; private set; }
+		public AlbumContract[] Albums { get; set; }
 
 		[DataMember]
 		public string AdditionalNames { get; set; }
 
 		[DataMember]
-		public ArtistForSongContract[] Artists { get; private set; }
+		public ArtistForSongContract[] Artists { get; set; }
 
 		[DataMember]
 		public LyricsForSongContract[] Lyrics { get; set; }
 
 		[DataMember]
-		public SongContract Song { get; private set; }
+		public SongContract Song { get; set; }
 
 		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }

@@ -21,6 +21,8 @@ namespace VocaDb.Web.Models {
 
 	public class SongEdit {
 
+		public SongEdit() {}
+
 		public SongEdit(SongForEditContract song) {
 
 			Artists = song.Artists;
@@ -78,6 +80,20 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Web links")]
 		public WebLinkContract[] WebLinks { get; set; }
 
+		public SongForEditContract ToContract() {
+
+			return new SongForEditContract {
+				Song = new SongContract {
+					Id = this.Id,
+					Name = this.Name,
+					NicoId = this.NicoId
+				},
+				TranslatedName = new TranslatedStringContract(
+					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
+			};
+
+		}
+
 	}
 
 	public class LyricsForSongModel {
@@ -104,7 +120,6 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Language")]
 		public ContentLanguageSelection Language { get; set; }
 
-		[Required]
 		[Display(Name = "Source")]
 		[StringLength(255)]
 		public string Source { get; set; }
@@ -112,6 +127,17 @@ namespace VocaDb.Web.Models {
 		[Required]
 		[Display(Name = "Text")]
 		public string Value { get; set; }
+
+		public LyricsForSongContract ToContract() {
+
+			return new LyricsForSongContract {
+				Id = this.Id,
+				Language = this.Language,
+				Source = this.Source ?? string.Empty,
+				Value = this.Value
+			};
+
+		}
 
 	}
 
