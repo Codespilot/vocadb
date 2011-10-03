@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;

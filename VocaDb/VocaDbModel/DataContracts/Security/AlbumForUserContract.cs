@@ -11,14 +11,14 @@ namespace VocaDb.Model.DataContracts.Security {
 
 			ParamIs.NotNull(() => albumForUser);
 
-			Album = new AlbumContract(albumForUser.Album, languagePreference);
+			Album = new AlbumDetailsContract(albumForUser.Album, languagePreference);
 			Id = albumForUser.Id;
 			User = new UserContract(albumForUser.User);
 
 		}
 
 		[DataMember]
-		public AlbumContract Album { get; set; }
+		public AlbumDetailsContract Album { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
