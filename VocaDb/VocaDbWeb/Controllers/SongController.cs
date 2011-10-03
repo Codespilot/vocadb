@@ -87,6 +87,22 @@ namespace VocaDb.Web.Controllers
             }
         }
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddExistingArtist(int songId, int artistId) {
+
+			var link = Service.AddArtist(songId, artistId);
+			return PartialView("ArtistForSongEditRow", link);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddNewArtist(int songId, string newArtistName) {
+
+			var link = Service.AddArtist(songId, newArtistName);
+			return PartialView("ArtistForSongEditRow", link);
+
+		}
+
 		public PartialViewResult CreateLyrics(int songId, ContentLanguageSelection languageSelection, string source, string value) {
 			
 			ParamIs.NotNull(() => value);

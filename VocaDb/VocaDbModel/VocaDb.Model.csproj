@@ -116,7 +116,9 @@
     <Compile Include="Domain\Security\NotAllowedException.cs" />
     <Compile Include="Domain\Security\PermissionFlags.cs" />
     <Compile Include="Domain\Security\RoleTypes.cs" />
-    <Compile Include="Domain\Security\User.cs" />
+    <Compile Include="Domain\Users\AlbumForUser.cs" />
+    <Compile Include="Domain\Users\MediaType.cs" />
+    <Compile Include="Domain\Users\User.cs" />
     <Compile Include="Domain\Ranking\SongInRanking.cs" />
     <Compile Include="Domain\Albums\Album.cs" />
     <Compile Include="Domain\Albums\AlbumName.cs" />
@@ -143,7 +145,7 @@
     <Compile Include="Mapping\ClassConventions.cs" />
     <Compile Include="Mapping\CustomTypes\XDocumentType.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
-    <Compile Include="Mapping\Security\UserMap.cs" />
+    <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
     <Compile Include="Mapping\Albums\AlbumMap.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="Service\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Mapping\Security\" />
     <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

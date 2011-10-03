@@ -205,6 +205,7 @@ function initPage(albumId) {
 		var addRow = $("#artistRow_new");
 		addRow.before(row);
 		$("input#artistAddName").val("");
+		$("#artistAddList").empty();
 
 	}
 

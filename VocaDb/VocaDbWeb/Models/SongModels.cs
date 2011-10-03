@@ -25,7 +25,7 @@ namespace VocaDb.Web.Models {
 
 		public SongEdit(SongForEditContract song) {
 
-			Artists = song.Artists;
+			ArtistLinks = song.Artists;
 			Id = song.Song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			Name = song.Song.Name;
@@ -44,7 +44,7 @@ namespace VocaDb.Web.Models {
 
 		public string AllLanguagesJson { get; set; }
 
-		public ArtistForSongContract[] Artists { get; protected set; }
+		public ArtistForSongContract[] ArtistLinks { get; protected set; }
 
 		[Display(Name = "Default language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }

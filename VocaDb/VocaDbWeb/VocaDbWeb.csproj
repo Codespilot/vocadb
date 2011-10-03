@@ -183,6 +183,7 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.Template.html" />
+    <Content Include="Scripts\Shared\AddNewLinkRow.js" />
     <Content Include="Scripts\Song_Edit.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-af.js" />
@@ -442,6 +443,8 @@
     <Content Include="Views\Shared\LocalizedStringEditableRow.cshtml" />
     <Content Include="Views\Album\ArtistForAlbumEditRow.cshtml" />
     <Content Include="Views\Song\LyricsForSongEditRow.cshtml" />
+    <Content Include="Views\Song\ArtistForSongEditRow.cshtml" />
+    <Content Include="Views\Shared\AddNewLinkRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
