@@ -18,7 +18,7 @@
 			return;
 		}
 
-		$.post("../../Album/FindJson", { term: findTerm }, function (results) {
+		$.post("../Album/FindJson", { term: findTerm }, function (results) {
 
 			$(albumList).empty();
 
@@ -45,9 +45,9 @@
 		var albumId = $(albumList).val();
 
 		if (albumId == "") {
-			$.post("../../User/AddNewAlbum", { newAlbumName: findTerm }, albumAdded);
+			$.post("../User/AddNewAlbum", { newAlbumName: findTerm }, albumAdded);
 		} else {
-			$.post("../../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
+			$.post("../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
 		}
 
 	});
@@ -64,7 +64,7 @@
 	$("input.albumRemove").live("click", function () {
 
 		var id = getId(this);
-		$.post("../../User/DeleteAlbumForUser", { albumForUserId: id }, function () {
+		$.post("../User/DeleteAlbumForUser", { albumForUserId: id }, function () {
 
 			$("tr#albumRow_" + id).remove();
 
