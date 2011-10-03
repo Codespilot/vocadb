@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Security {
 		public UserDetailsContract(User user, ContentLanguagePreference languagePreference) 
 			: base(user) {
 
-			AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).ToArray();
+			AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
 
 		}
 
