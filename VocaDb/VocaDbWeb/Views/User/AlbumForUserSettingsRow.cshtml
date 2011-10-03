@@ -1,0 +1,8 @@
+﻿@model VocaDb.Model.DataContracts.Security.AlbumForUserContract
+
+<tr id="@("albumRow_" + Model.Id)">
+	<td>@Html.ActionLink(Model.Album.Name, "Edit", "Album", new { id = Model.Album.Id }, null)</td>
+	<td>
+		<input type="button" class="albumRemove" id="@("albumRemove_" + Model.Id)" value="Remove" />
+	</td>
+</tr>

@@ -165,7 +165,8 @@
 			@foreach (var album in Model.ArtistLinks) {
 				Html.RenderPartial("ArtistForSongEditRow", album);
 			}
-			@Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" })
+			
+			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 			</table>
 		</fieldset>
 	</div>

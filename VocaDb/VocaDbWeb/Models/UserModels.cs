@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Security;
@@ -25,7 +23,7 @@ namespace VocaDb.Web.Models {
 
 		public MySettingsModel() {}
 
-		public MySettingsModel(UserContract user) {
+		public MySettingsModel(UserDetailsContract user) {
 			
 			ParamIs.NotNull(() => user);
 
@@ -34,9 +32,12 @@ namespace VocaDb.Web.Models {
 			Id = user.Id;
 			Username = user.Name;
 
+			AlbumLinks = user.AlbumLinks;
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values;
 
 		}
+
+		public AlbumForUserContract[] AlbumLinks { get; set; }
 
 		public ContentLanguagePreference[] AllLanguages { get; set; }
 

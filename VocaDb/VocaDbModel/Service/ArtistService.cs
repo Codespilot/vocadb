@@ -81,7 +81,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
 
-				var artistForAlbum = artist.AddAlbum(session.Load<Album>(albumId));
+				var artistForAlbum = artist.AddAlbum(album);
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 
 			});

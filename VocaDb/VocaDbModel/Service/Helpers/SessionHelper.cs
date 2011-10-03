@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service.Helpers {
 

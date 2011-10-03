@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Net.Mail;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Users;
 using System.Collections.Generic;
+using VocaDb.Model.Domain.Security;
 
-namespace VocaDb.Model.Domain.Security {
+namespace VocaDb.Model.Domain.Users {
 
 	public class User {
 
@@ -89,6 +90,17 @@ namespace VocaDb.Model.Domain.Security {
 		public virtual RoleTypes Roles { get; set; }
 
 		public virtual int Salt { get; set; }
+
+		public virtual AlbumForUser AddAlbum(Album album) {
+
+			ParamIs.NotNull(() => album);
+
+			var link = new AlbumForUser(this, album);
+			Albums.Add(link);
+
+			return link;
+
+		}
 
 		public virtual void SetEmail(string newEmail) {
 			

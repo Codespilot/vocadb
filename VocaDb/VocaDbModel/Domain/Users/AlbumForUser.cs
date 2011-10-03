@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Security;
-using VocaDb.Model.Domain.Albums;
+﻿using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.Domain.Users {
 
@@ -11,6 +6,18 @@ namespace VocaDb.Model.Domain.Users {
 
 		private Album album;
 		private User user;
+
+		public AlbumForUser() {
+			MediaType = MediaType.PhysicalDisc;
+		}
+
+		public AlbumForUser(User user, Album album)
+			: this() {
+
+			User = user;
+			Album = album;
+
+		}
 
 		public virtual Album Album {
 			get { return album; }

@@ -373,6 +373,7 @@
     <Content Include="Scripts\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="Scripts\User\MySettings.js" />
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />
     <Content Include="Web.config">
@@ -445,6 +446,8 @@
     <Content Include="Views\Song\LyricsForSongEditRow.cshtml" />
     <Content Include="Views\Song\ArtistForSongEditRow.cshtml" />
     <Content Include="Views\Shared\AddNewLinkRow.cshtml" />
+    <Content Include="Views\User\AlbumForUserSettingsRow.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

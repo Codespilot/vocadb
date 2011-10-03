@@ -154,6 +154,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 			var link = new ArtistForAlbum(album, this);
 			AllAlbums.Add(link);
+			album.AllArtists.Add(link);
 
 			return link;
 
@@ -165,6 +166,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 			var link = new ArtistForSong(song, this);
 			AllSongs.Add(link);
+			song.AllArtists.Add(link);
 
 			return link;
 

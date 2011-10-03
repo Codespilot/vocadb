@@ -62,6 +62,17 @@ function initPage(songId) {
 
 	}
 
+	$("input.artistRemove").live("click", function () {
+
+		var id = getId(this);
+		$.post("../../Song/DeleteArtistForSong", { artistForSongId: id }, function () {
+
+			$("tr#artistRow_" + id).remove();
+
+		});
+
+	});
+
 	$("#lyricsAdd").click(function () {
 
 		var lang = $("#lyricsLanguage_new").val();

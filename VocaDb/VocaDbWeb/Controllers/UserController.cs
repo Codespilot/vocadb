@@ -5,6 +5,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
@@ -22,6 +23,12 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Users; }
 		}
 
+		private UserDetailsContract GetUserDetails() {
+
+			return Service.GetUserDetails(LoginManager.LoggedUser.Id);
+
+		}
+
 			//
         // GET: /User/
 
@@ -35,8 +42,9 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
-        }
+			var model = Service.GetUserDetails(id);
+			return View(model);
+		}
 
        public ActionResult Login()
         {
@@ -140,7 +148,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult MySettings() {
 
-			var user = LoginManager.LoggedUser;
+			var user = GetUserDetails();
 
 			return View(new MySettingsModel(user));
 
@@ -155,14 +163,14 @@ namespace VocaDb.Web.Controllers
 				return new HttpStatusCodeResult(403);
 
 			if (!ModelState.IsValid)
-				return View(new MySettingsModel(user));
+				return View(new MySettingsModel(GetUserDetails()));
 
 			if (!string.IsNullOrEmpty(model.Email)) {
 				try {
 					new MailAddress(model.Email);
 				} catch (FormatException) {
 					ModelState.AddModelError("Email", "Invalid email address");
-					return View(new MySettingsModel(user));
+					return View(new MySettingsModel(GetUserDetails()));
 				}
 			}
 
@@ -173,7 +181,30 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("OldPass", x.Message);				
 			}
 
-			return View(new MySettingsModel(user));
+			return View(new MySettingsModel(GetUserDetails()));
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddNewAlbum(string newAlbumName) {
+
+			var link = Service.AddAlbum(LoginManager.LoggedUser.Id, newAlbumName);
+			return PartialView("AlbumForUserSettingsRow", link);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddExistingAlbum(int albumId) {
+
+			var link = Service.AddAlbum(LoginManager.LoggedUser.Id, albumId);
+			return PartialView("AlbumForUserSettingsRow", link);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteAlbumForUser(int albumForUserId) {
+
+			Service.DeleteAlbumForUser(albumForUserId);
 
 		}
 

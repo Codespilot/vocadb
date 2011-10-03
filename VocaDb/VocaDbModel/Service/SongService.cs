@@ -44,7 +44,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 
 				var artistForSong = artist.AddSong(session.Load<Song>(songId));
-				session.Update(artistForSong);
+				session.Save(artistForSong);
 
 				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
 
@@ -137,6 +137,14 @@ namespace VocaDb.Model.Service {
 				a.Delete();
 
 			});
+
+		}
+
+		public void DeleteArtistForSong(int artistForSongId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+
+			DeleteEntity<ArtistForSong>(artistForSongId);
 
 		}
 

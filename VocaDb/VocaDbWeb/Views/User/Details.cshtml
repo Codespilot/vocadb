@@ -1,0 +1,25 @@
+﻿@using VocaDb.Model.DataContracts.Security;
+@model UserDetailsContract
+		   
+@{
+	ViewBag.Title = "User details - " + Model.Name;
+}
+
+<h3>Basic info</h3>
+<table>
+	<tr>
+		<td>Name</td>
+		<td>
+			@Model.Name<br />
+		</td>
+	</tr>
+</table>
+	
+@if (Model.AlbumLinks.Any()) {
+<h3>Collection</h3>
+<ul>
+	@foreach (var album in Model.AlbumLinks) {
+		<li>@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, null)</li>
+	}
+</ul>
+}
