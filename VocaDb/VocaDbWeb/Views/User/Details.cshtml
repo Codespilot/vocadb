@@ -1,8 +1,13 @@
 ﻿@using VocaDb.Model.DataContracts.Security;
+@using VocaDb.Web;
 @model UserDetailsContract
 		   
 @{
 	ViewBag.Title = "User details - " + Model.Name;
+}
+
+@if (ViewExtension.LoggedUser(this).LoggedUser != null && ViewExtension.LoggedUser(this).LoggedUser.Id == Model.Id) {
+	@Html.ActionLink("Edit", "MySettings");
 }
 
 <h3>Basic info</h3>
@@ -19,7 +24,7 @@
 <h3>Collection</h3>
 <ul>
 	@foreach (var album in Model.AlbumLinks) {
-		<li>@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, null)</li>
+		<li>@Html.ActionLink(string.Join(", ", album.Album.ArtistLinks.Select(a => a.Artist.Name)) + " - " + album.Album.Name, "Details", "Album", new { id = album.Album.Id }, null)</li>
 	}
 </ul>
 }

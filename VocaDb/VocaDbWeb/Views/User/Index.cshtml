@@ -11,7 +11,7 @@
 @foreach (UserContract user in ViewBag.Users) {
 	<tr>
 		<td>
-			@user.Name
+			@Html.ActionLink(user.Name, "Details", new { id = user.Id })
 		</td>
 		<td>
 			@user.CreateDate
