@@ -13,6 +13,12 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
 			Map(m => m.ReleaseDate).Nullable();
+
+			Component(m => m.CoverPicture, c => {
+				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue);
+				c.Map(m => m.Mime, "CoverPictureMime");
+			});
+
 			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 				c.Map(m => m.Japanese, "JapaneseName");
