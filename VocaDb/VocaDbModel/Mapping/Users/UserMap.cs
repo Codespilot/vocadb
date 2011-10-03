@@ -1,7 +1,8 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 
-namespace VocaDb.Model.Mapping.Security {
+namespace VocaDb.Model.Mapping.Users {
 
 	public class UserMap : ClassMap<User> {
 
@@ -21,6 +22,25 @@ namespace VocaDb.Model.Mapping.Security {
 			Map(m => m.PermissionFlags).CustomType(typeof(PermissionFlags)).Not.Nullable();
 			//Map(m => m.Roles).Not.Nullable();
 			Map(m => m.Salt).Not.Nullable();
+
+			HasMany(m => m.Albums).Inverse().Cascade.All();
+
+		}
+
+	}
+
+	public class AlbumForUserMap : ClassMap<AlbumForUser> {
+
+		public AlbumForUserMap() {
+
+			Table("AlbumsForUsers");
+			Cache.ReadWrite();
+			Id(m => m.Id);
+
+			Map(m => m.MediaType).Not.Nullable();
+
+			References(m => m.Album).Not.Nullable();
+			References(m => m.User).Not.Nullable();
 
 		}
 

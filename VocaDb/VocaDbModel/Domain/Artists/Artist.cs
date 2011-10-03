@@ -159,6 +159,17 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
+		public virtual ArtistForSong AddSong(Song song) {
+
+			ParamIs.NotNull(() => song);
+
+			var link = new ArtistForSong(song, this);
+			AllSongs.Add(link);
+
+			return link;
+
+		}
+
 		public virtual ArchivedArtistVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {
 
 			var archived = new ArchivedArtistVersion(this, data, author, Version);

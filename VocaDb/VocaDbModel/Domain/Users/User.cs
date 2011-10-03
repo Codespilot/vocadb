@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Net.Mail;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Users;
+using System.Collections.Generic;
 
 namespace VocaDb.Model.Domain.Security {
 
 	public class User {
 
+		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private string email;
 		private string name;
 		private string nameLc;
@@ -32,6 +35,14 @@ namespace VocaDb.Model.Domain.Security {
 		}
 
 		public virtual bool Active { get; set; }
+
+		public virtual IList<AlbumForUser> Albums {
+			get { return albums; }
+			set {
+				ParamIs.NotNull(() => value);
+				albums = value;
+			}
+		}
 
 		public virtual DateTime CreateDate { get; set; }
 

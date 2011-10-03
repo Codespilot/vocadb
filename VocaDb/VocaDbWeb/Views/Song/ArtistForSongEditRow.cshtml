@@ -1,0 +1,8 @@
+﻿@model VocaDb.Model.DataContracts.Songs.ArtistForSongContract
+
+<tr id="@("artistRow_" + Model.Id)">
+	<td>@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)</td>
+	<td>
+		<input type="button" class="artistRemove" id="@("artistRemove_" + Model.Id)" value="Remove" />
+	</td>
+</tr>

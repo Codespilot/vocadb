@@ -33,6 +33,45 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistForSongContract AddArtist(int songId, int artistId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			AuditLog("adding artist '" + artistId + "' to song '" + songId + "'");
+
+			return HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(artistId);
+
+				var artistForSong = artist.AddSong(session.Load<Song>(songId));
+				session.Update(artistForSong);
+
+				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			AuditLog("creating artist '" + newArtistName + "' to song '" + songId + "'");
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+				var artist = new Artist(new TranslatedString(newArtistName));
+
+				var artistForSong = artist.AddSong(song);
+				session.Save(artist);
+
+				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public LyricsForSongContract CreateLyrics(int songId, ContentLanguageSelection language, string value, string source) {
 
 			ParamIs.NotNullOrEmpty(() => value);

@@ -46,4 +46,14 @@ namespace VocaDb.Web.Models {
 
 	}
 
+	public class AddNewLinkRowModel {
+
+		public string EntityName { get; set; }
+
+		public string Prefix { get; set; }
+
+		public string SearchUrl { get; set; }
+
+	}
+
 }
