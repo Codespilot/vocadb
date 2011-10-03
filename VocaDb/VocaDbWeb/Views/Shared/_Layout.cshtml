@@ -31,7 +31,7 @@
 	 }
 				</ul>
 				@if (Context.User.Identity.IsAuthenticated) {
-					<p>Welcome @Html.ActionLink(Context.User.Identity.Name, "MySettings", "User")</p>
+					<p>Welcome @Html.ActionLink(Context.User.Identity.Name, "Details", "User", new { id = VocaDb.Web.ViewExtension.LoggedUser(this).LoggedUser.Id }, null)</p>
 	}
 			</td>
 			<td>

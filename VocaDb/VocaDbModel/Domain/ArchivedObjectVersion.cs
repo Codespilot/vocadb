@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain {
 

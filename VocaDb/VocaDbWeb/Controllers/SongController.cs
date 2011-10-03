@@ -103,6 +103,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteArtistForSong(int artistForSongId) {
+
+			Service.DeleteArtistForSong(artistForSongId);
+
+		}
+
 		public PartialViewResult CreateLyrics(int songId, ContentLanguageSelection languageSelection, string source, string value) {
 			
 			ParamIs.NotNull(() => value);

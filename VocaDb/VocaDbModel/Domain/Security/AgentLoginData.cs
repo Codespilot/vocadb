@@ -1,4 +1,6 @@
-﻿namespace VocaDb.Model.Domain.Security {
+﻿using VocaDb.Model.Domain.Users;
+
+namespace VocaDb.Model.Domain.Security {
 
 	public class AgentLoginData {
 

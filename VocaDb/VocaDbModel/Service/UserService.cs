@@ -5,7 +5,10 @@ using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Model.Service {
@@ -16,6 +19,47 @@ namespace VocaDb.Model.Service {
 
 		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
 			: base(sessionFactory, permissionContext) {
+
+		}
+
+		public AlbumForUserContract AddAlbum(int userId, int albumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			AuditLog("adding album '" + albumId + "' to user '" + userId + "'");
+
+			return HandleTransaction(session => {
+
+				var user = session.Load<User>(userId);
+				var album = session.Load<Album>(albumId);
+
+				var albumForUser = user.AddAlbum(album);
+				session.Save(albumForUser);
+
+				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public AlbumForUserContract AddAlbum(int userId, string newAlbumName) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+
+			AuditLog("creating album '" + newAlbumName + "' to user '" + userId + "'");
+
+			return HandleTransaction(session => {
+
+				var user = session.Load<User>(userId);
+				var album = new Album(new TranslatedString(newAlbumName));
+
+				session.Save(album);
+				var albumForUser = user.AddAlbum(album);
+				session.Update(user);
+
+				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
+
+			});
 
 		}
 
@@ -71,6 +115,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void DeleteAlbumForUser(int albumForUserId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+
+			DeleteEntity<AlbumForUser>(albumForUserId);
+
+		}
+
 		public UserContract[] GetUsers() {
 
 			return HandleQuery(session => session.Query<User>().Select(u => new UserContract(u)).ToArray());
@@ -80,6 +132,12 @@ namespace VocaDb.Model.Service {
 		public UserContract GetUser(int id) {
 
 			return HandleQuery(session => new UserContract(session.Load<User>(id)));
+
+		}
+
+		public UserDetailsContract GetUserDetails(int id) {
+
+			return HandleQuery(session => new UserDetailsContract(session.Load<User>(id), PermissionContext.LanguagePreference));
 
 		}
 
