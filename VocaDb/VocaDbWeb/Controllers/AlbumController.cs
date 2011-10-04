@@ -46,7 +46,7 @@ namespace VocaDb.Web.Controllers
 			var pictureData = Service.GetCoverPicture(id);
 
 			if (pictureData == null)
-				return new EmptyResult();
+				return File("~/Content/unknown.png", "image/png");
 
 			return File(pictureData.Bytes, pictureData.Mime);
 
