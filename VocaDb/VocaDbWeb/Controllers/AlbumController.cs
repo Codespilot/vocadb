@@ -7,6 +7,8 @@ using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
+using System.Drawing;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -97,11 +99,19 @@ namespace VocaDb.Web.Controllers
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
 
-				var file = Request.Files[0];
-				var buf = new Byte[file.ContentLength];
-				file.InputStream.Read(buf, 0, file.ContentLength);
+				if (ImageHelper.IsValidImageExtension(Request.Files[0].FileName)) {
 
-				pictureData = new PictureDataContract(buf, file.ContentType);
+					var file = Request.Files[0];
+					var buf = new Byte[file.ContentLength];
+					file.InputStream.Read(buf, 0, file.ContentLength);
+
+					pictureData = new PictureDataContract(buf, file.ContentType);
+
+				} else {
+
+
+
+				}
 
 			}
 

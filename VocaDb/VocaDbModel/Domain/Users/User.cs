@@ -21,6 +21,7 @@ namespace VocaDb.Model.Domain.Users {
 			CreateDate = DateTime.Now;
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
+			LastLogin = DateTime.Now;
 			PermissionFlags = PermissionFlags.Nothing;
 
 		}
