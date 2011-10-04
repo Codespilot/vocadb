@@ -25,7 +25,7 @@
 			@song.ArtistString
 		</td>
 		<td>
-			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageSongs)) {
+			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 				@Html.ActionLink("Edit", "Edit", new { id = song.Id })
 			}		
 		</td>

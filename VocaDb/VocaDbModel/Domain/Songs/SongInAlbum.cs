@@ -35,5 +35,15 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual int TrackNumber { get; set; }
 
+		public virtual void OnDeleting() {
+			
+			Album.OnSongDeleting(this);
+
+		}
+
+		public override string ToString() {
+			return Song.Name + " in album " + Album.Name;
+		}
+
 	}
 }

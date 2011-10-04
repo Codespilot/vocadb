@@ -71,8 +71,8 @@
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
-    <Compile Include="DataContracts\Security\AlbumForUserContract.cs" />
-    <Compile Include="DataContracts\Security\UserDetailsContract.cs" />
+    <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
+    <Compile Include="DataContracts\Users\UserDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongContract.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\LyricsForSongContract.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="DataContracts\TranslatedStringContract.cs" />
     <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />
-    <Compile Include="DataContracts\Security\UserContract.cs" />
+    <Compile Include="DataContracts\Users\UserContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongContract.cs" />
@@ -93,7 +93,7 @@
     <Compile Include="DataContracts\UseCases\SongForEditContract.cs" />
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
-    <Compile Include="DataContracts\Security\UpdateUserSettingsContract.cs" />
+    <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Albums\AlbumWebLink.cs" />
     <Compile Include="Domain\Albums\ArchivedAlbumVersion.cs" />

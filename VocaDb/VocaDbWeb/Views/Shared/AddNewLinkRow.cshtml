@@ -1,7 +1,7 @@
 ﻿@model VocaDb.Web.Models.AddNewLinkRowModel
 
 <tr id="@(Model.Prefix + "Row_new")">
-	<td>
+	<td colspan="@Model.FirstColSpan">
 		<input type="text" maxlength="128" id="@(Model.Prefix + "AddName")" /><br />
 		<select id="@(Model.Prefix + "AddList")" size="5" />
 	</td>

@@ -6,6 +6,7 @@ using System.Web;
 using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -31,6 +32,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
 			Names = album.Names;
+			Tracks = album.Songs;
 			WebLinks = album.WebLinks;
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
@@ -77,6 +79,9 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Name in Romaji")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
+
+		[Display(Name = "Tracks")]
+		public SongInAlbumContract[] Tracks { get; set; }
 
 		[Display(Name = "Web links")]
 		public WebLinkContract[] WebLinks { get; set; }

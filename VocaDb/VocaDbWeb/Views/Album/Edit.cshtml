@@ -162,6 +162,19 @@
 
 <div>
     <fieldset>
+		<legend>Tracklist</legend>
+		<table>
+			@foreach (var track in Model.Tracks) {
+				Html.RenderPartial("SongInAlbumEditRow", track);
+			}
+
+			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "song", Prefix = "song", FirstColSpan = 2 }); }
+		</table>
+	</fieldset>
+</div>
+
+<div>
+    <fieldset>
 		<legend>Artists</legend>
 		<table>
 			@foreach (var album in Model.ArtistLinks) {

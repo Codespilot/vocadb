@@ -1,4 +1,4 @@
-﻿using VocaDb.Model.DataContracts.Security;
+﻿using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Security {

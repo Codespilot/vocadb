@@ -13,7 +13,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongDetailsContract(Song song, ContentLanguagePreference languagePreference) {
 
-			Song = new SongContract(song);
+			Song = new SongContract(song, languagePreference);
 
 			Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).ToArray();
 			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != song.Name).Distinct());

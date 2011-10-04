@@ -12,7 +12,7 @@ using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
-    public class SongController : Controller
+    public class SongController : ControllerBase
     {
 
 		private SongService Service {
@@ -33,6 +33,14 @@ namespace VocaDb.Web.Controllers
         	return View();
 
         }
+
+		public ActionResult FindJsonByName(string term) {
+
+			var albums = Service.FindByName(term, 20);
+
+			return Json(albums);
+
+		}
 
         //
         // GET: /Song/Details/5

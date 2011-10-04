@@ -7,12 +7,12 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Albums", "Index") };
 }
 
-@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageAlbums)) {
+@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
 <h3>Basic info</h3>
-<table>
+<table class="properties">
 	<tr>
 		<td rowspan="5">
 			<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" />

@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
-using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;

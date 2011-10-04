@@ -101,14 +101,6 @@
 					</div>
 
 				   <div class="editor-label">
-						<label>Picture</label>
-					</div>
-					<div class="editor-field">
-						<img src="@Url.Action("Picture", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
-						<input type="file" id="pictureUpload" name="pictureUpload" />
-					</div>
-
-				   <div class="editor-label">
 						@Html.LabelFor(m => m.NicoId)
 					</div>
 					<div class="editor-field">
@@ -158,6 +150,8 @@
 				</fieldset>
 			</div>
 		}
+
+	<div id="artistsTab">
 
 		<fieldset>
 			<legend>Connected artists</legend>

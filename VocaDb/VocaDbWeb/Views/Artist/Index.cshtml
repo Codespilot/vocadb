@@ -20,7 +20,7 @@
 			@artist.ArtistType
 		</td>
 		<td>
-			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageArtists)) {
+			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 				@Html.ActionLink("Edit", "Edit", new { id = artist.Id })
 			}
 		</td>
@@ -29,7 +29,7 @@
 </table>
 
 @model VocaDb.Web.Models.ObjectCreate
-@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageArtists)) {
+@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 	using (Html.BeginForm("Create", "Artist")) {
 	
     <div>

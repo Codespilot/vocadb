@@ -3,7 +3,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using log4net;
-using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 

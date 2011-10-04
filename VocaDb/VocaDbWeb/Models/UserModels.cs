@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using VocaDb.Model;
-using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Web.Models {
