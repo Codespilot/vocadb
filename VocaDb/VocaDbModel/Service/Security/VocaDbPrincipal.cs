@@ -1,5 +1,5 @@
 ﻿using System.Security.Principal;
-using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.DataContracts.Users;
 
 namespace VocaDb.Model.Service.Security {
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Remotion.Linq.Utilities;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using System.Xml.Linq;
@@ -40,6 +41,14 @@ namespace VocaDb.Model.Domain.Albums {
 			set {
 				ParamIs.NotNull(() => value);
 				artists = value;
+			}
+		}
+
+		public virtual IEnumerable<string> AllNames {
+			get {
+				return TranslatedName.All
+					.Concat(Names.Select(n => n.Value))
+					.Distinct();
 			}
 		}
 
@@ -118,6 +127,19 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual SongInAlbum AddSong(Song song) {
+			
+			ParamIs.NotNull(() => song);
+
+			var trackNum = (Songs.Any() ? Songs.Max(s => s.TrackNumber) + 1 : 1);
+			var track = new SongInAlbum(song, this, trackNum);
+			AllSongs.Add(track);
+			song.AllAlbums.Add(track);
+
+			return track;
+
+		}
+
 		public virtual ArchivedAlbumVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {
 
 			var archived = new ArchivedAlbumVersion(this, data, author, Version);
@@ -154,6 +176,21 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual void Delete() {
 
 			Deleted = true;
+
+		}
+
+		public virtual void OnSongDeleting(SongInAlbum songInAlbum) {
+			
+			ParamIs.NotNull(() => songInAlbum);
+
+			if (songInAlbum.Album != this)
+				throw new ArgumentException("Song is not in album");
+
+			foreach (var song in Songs.Where(song => song.TrackNumber > songInAlbum.TrackNumber)) {
+				song.TrackNumber--;
+			}
+
+			AllSongs.Remove(songInAlbum);
 
 		}
 

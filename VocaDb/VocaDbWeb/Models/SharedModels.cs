@@ -48,7 +48,13 @@ namespace VocaDb.Web.Models {
 
 	public class AddNewLinkRowModel {
 
+		public AddNewLinkRowModel() {
+			FirstColSpan = 1;
+		}
+
 		public string EntityName { get; set; }
+
+		public int FirstColSpan { get; set; }
 
 		public string Prefix { get; set; }
 

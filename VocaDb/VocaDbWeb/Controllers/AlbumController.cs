@@ -183,6 +183,29 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddNewSong(int albumId, string newSongName) {
+
+			var link = Service.AddSong(albumId, newSongName);
+			return PartialView("SongInAlbumEditRow", link);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult AddExistingSong(int albumId, int songId) {
+
+			var link = Service.AddSong(albumId, songId);
+			return PartialView("SongInAlbumEditRow", link);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteSongInAlbum(int songInAlbumId) {
+
+			Service.DeleteSongInAlbum(songInAlbumId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteArtistForAlbum(int artistForAlbumId) {
 
 			Service.DeleteArtistForAlbum(artistForAlbumId);

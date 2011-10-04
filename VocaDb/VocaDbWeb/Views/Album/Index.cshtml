@@ -14,7 +14,7 @@
 			@Html.ActionLink(album.Name, "Details", new { id = album.Id })<br />
 		</td>
 		<td>
-			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageAlbums)) {
+			@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 				@Html.ActionLink("Edit", "Edit", new { id = album.Id })
 			}
 		</td>
@@ -23,7 +23,7 @@
 </table>
 
 @model VocaDb.Web.Models.ObjectCreate
-@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageAlbums)) {
+@if (ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 	using (Html.BeginForm("Create", "Album")) {
 	
     <div>

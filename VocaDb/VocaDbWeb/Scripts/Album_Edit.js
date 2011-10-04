@@ -220,4 +220,74 @@ function initPage(albumId) {
 
 	});
 
+	$("input#songAddName").keyup(function () {
+
+		var findTerm = $(this).val();
+		var songList = $("#songAddList");
+
+		if (findTerm.length < 3) {
+
+			$(songList).empty();
+
+			if (findTerm.length > 0) {
+				addOption(songList, "", "Create new song named '" + findTerm + "'");
+			}
+
+			return;
+		}
+
+		$.post("../../Song/FindJsonByName", { term: findTerm }, function (results) {
+
+			$(songList).empty();
+
+			$(results).each(function () {
+
+				addOption(songList, this.Id, this.Name);
+
+			});
+
+			addOption(songList, "", "Create new song named '" + findTerm + "'");
+
+		});
+
+	});
+
+	$("#songAddBtn").click(function () {
+
+		var findTerm = $("input#songAddName").val();
+		var songList = $("#songAddList");
+
+		if (findTerm.length == 0)
+			return;
+
+		var songId = $(songList).val();
+
+		if (songId == "") {
+			$.post("../../Album/AddNewSong", { albumId: albumId, newSongName: findTerm }, songAdded);
+		} else {
+			$.post("../../Album/AddExistingSong", { albumId: albumId, songId: songId }, songAdded);
+		}
+
+	});
+
+	function songAdded(row) {
+
+		var addRow = $("#songRow_new");
+		addRow.before(row);
+		$("input#songAddName").val("");
+		$("#songAddList").empty();
+
+	}
+
+	$("input.songRemove").live("click", function () {
+
+		var id = getId(this);
+		$.post("../../Album/DeleteSongForAlbum", { songForAlbumId: id }, function () {
+
+			$("tr#songRow_" + id).remove();
+
+		});
+
+	});
+
 }

@@ -7,7 +7,7 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Artists", "Index") };
 }
 
-@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageArtists)) {
+@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 

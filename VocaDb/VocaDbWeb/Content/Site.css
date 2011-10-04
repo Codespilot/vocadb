@@ -96,3 +96,8 @@ img.coverPicIcon
 	max-width: 25px;
 	max-height: 25px;	
 }
+
+table.properties tr
+{
+	vertical-align: top;
+}

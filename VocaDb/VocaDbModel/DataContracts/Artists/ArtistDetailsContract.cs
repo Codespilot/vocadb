@@ -16,12 +16,12 @@ namespace VocaDb.Model.DataContracts.Artists {
 			: base(artist, languagePreference) {
 
 			AlbumLinks = artist.Albums.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
-			AllNames = string.Join(", ", artist.AllNames.Where(n => n != artist.Name));
+			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle, languagePreference) : null);
 			Description = artist.Description;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			Members = artist.Members.Select(m => new ArtistContract(m, languagePreference)).OrderBy(a => a.Name).ToArray();
-			Songs = artist.Songs.Select(s => new SongContract(s.Song)).ToArray();
+			Songs = artist.Songs.Select(s => new SongContract(s.Song, languagePreference)).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}

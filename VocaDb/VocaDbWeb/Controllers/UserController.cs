@@ -5,7 +5,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;

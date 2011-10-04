@@ -4,10 +4,12 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Artists;
@@ -31,6 +33,8 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
 
+			ParamIs.NotNullOrEmpty(() => newArtistName);
+
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			AuditLog("creating artist '" + newArtistName + "' to album '" + albumId + "'");
@@ -44,6 +48,49 @@ namespace VocaDb.Model.Service {
 				session.Save(artist);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public SongInAlbumContract AddSong(int albumId, string newSongName) {
+
+			ParamIs.NotNullOrEmpty(() => newSongName);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			AuditLog("creating song '" + newSongName + "' to album '" + albumId + "'");
+
+			return HandleTransaction(session => {
+
+				var album = session.Load<Album>(albumId);
+				var song = new Song(new TranslatedString(newSongName), null);
+
+				session.Save(song);
+				var songInAlbum = album.AddSong(song);
+				session.Save(songInAlbum);
+
+				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public SongInAlbumContract AddSong(int albumId, int songId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			AuditLog("adding song '" + songId + "' to album '" + albumId + "'");
+
+			return HandleTransaction(session => {
+
+				var album = session.Load<Album>(albumId);
+				var song = session.Load<Song>(songId);
+
+				var songInAlbum = album.AddSong(song);
+				session.Save(songInAlbum);
+
+				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 
 			});
 
@@ -113,7 +160,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Album>(id, (session, a) => {
 
-				log.Info(string.Format("'{0}' deleting album '{1}'", PermissionContext.Name, a.Name));
+				AuditLog(string.Format("deleting album '{0}'", a.Name));
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -135,6 +182,24 @@ namespace VocaDb.Model.Service {
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<AlbumName>(nameId);
+
+		}
+
+		public void DeleteSongInAlbum(int songInAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
+
+				AuditLog("removing " + songInAlbum);
+
+				songInAlbum.OnDeleting();
+
+				session.Delete(songInAlbum);
+
+			});
 
 		}
 

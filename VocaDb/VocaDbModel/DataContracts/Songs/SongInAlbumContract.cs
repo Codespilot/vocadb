@@ -1,15 +1,18 @@
-﻿using VocaDb.Model.Domain.Songs;
+﻿using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
 	public class SongInAlbumContract {
 
-		public SongInAlbumContract(SongInAlbum songInAlbum) {
+		public SongInAlbumContract() {}
+
+		public SongInAlbumContract(SongInAlbum songInAlbum, ContentLanguagePreference languagePreference) {
 			
 			ParamIs.NotNull(() => songInAlbum);
 
 			Id = songInAlbum.Id;
-			Song = new SongContract(songInAlbum.Song);
+			Song = new SongContract(songInAlbum.Song, languagePreference);
 			TrackNumber = songInAlbum.TrackNumber;
 
 		}

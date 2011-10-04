@@ -119,7 +119,7 @@ namespace VocaDb.Model.Service {
 				song.UpdateArtistString();
 				session.Save(song);
 
-				return new SongContract(song);
+				return new SongContract(song, PermissionContext.LanguagePreference);
 
 			});
 
@@ -161,7 +161,6 @@ namespace VocaDb.Model.Service {
 							|| s.TranslatedName.Japanese.Contains(query)
 						|| (s.ArtistString.Contains(query))
 						|| (s.NicoId != null && s.NicoId == query)))
-					.OrderBy(s => s.TranslatedName.Japanese)
 					.Take(maxResults)
 					.ToArray();
 
@@ -176,7 +175,39 @@ namespace VocaDb.Model.Service {
 				return direct.Concat(additionalNames)
 					.Skip(start)
 					.Take(maxResults)
-					.Select(a => new SongWithAdditionalNamesContract(a))
+					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.ToArray();
+
+			});
+
+		}
+
+		public SongContract[] FindByName(string term, int maxResults) {
+
+			return HandleQuery(session => {
+
+				var direct = session.Query<Song>()
+					.Where(s =>
+						!s.Deleted &&
+						(string.IsNullOrEmpty(term)
+							|| s.TranslatedName.English.Contains(term)
+							|| s.TranslatedName.Romaji.Contains(term)
+							|| s.TranslatedName.Japanese.Contains(term)
+						|| (s.NicoId != null && s.NicoId == term)))
+					.Take(maxResults)
+					.ToArray();
+
+				var additionalNames = session.Query<SongName>()
+					.Where(m => m.Value.Contains(term) && !m.Song.Deleted)
+					.Select(m => m.Song)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray()
+					.Where(a => !direct.Contains(a));
+
+				return direct.Concat(additionalNames)
+					.Take(maxResults)
+					.Select(a => new SongContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			});
@@ -251,7 +282,7 @@ namespace VocaDb.Model.Service {
 				.Skip(start)
 				.Take(count)
 				.ToArray()
-				.Select(s => new SongContract(s))
+				.Select(s => new SongContract(s, PermissionContext.LanguagePreference))
 				.ToArray());
 
 		}
