@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Mail;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -38,7 +39,13 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual bool Active { get; set; }
 
-		public virtual IList<AlbumForUser> Albums {
+		public virtual IEnumerable<AlbumForUser> Albums {
+			get {
+				return AllAlbums.Where(a => !a.Album.Deleted);
+			}
+		}
+
+		public virtual IList<AlbumForUser> AllAlbums {
 			get { return albums; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -97,7 +104,7 @@ namespace VocaDb.Model.Domain.Users {
 			ParamIs.NotNull(() => album);
 
 			var link = new AlbumForUser(this, album);
-			Albums.Add(link);
+			AllAlbums.Add(link);
 
 			return link;
 

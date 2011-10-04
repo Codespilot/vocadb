@@ -72,7 +72,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract AddAlbum(int artistId, int albumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			AuditLog("adding album '" + albumId + "' to artist '" + artistId + "'");
 
@@ -90,7 +90,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract AddAlbum(int artistId, string newAlbumName) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			AuditLog("creating album '" + newAlbumName + "' to artist '" + artistId + "'");
 
@@ -116,7 +116,7 @@ namespace VocaDb.Model.Service {
 
 			log.Info("'" + permissionContext.Name + "' creating an artist");
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -135,7 +135,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrEmpty(() => nameVal);
 			ParamIs.NotNull(() => permissionContext);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -151,7 +151,7 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int id) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<Artist>(id, (session, a) => {
 
@@ -168,7 +168,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => permissionContext);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 	
 			DeleteEntity<ArtistName>(nameId);
 
@@ -180,7 +180,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrEmpty(() => url);
 			ParamIs.NotNull(() => permissionContext);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -199,7 +199,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => permissionContext);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<ArtistWebLink>(linkId);
 
@@ -270,7 +270,7 @@ namespace VocaDb.Model.Service {
 
 			log.Info(string.Format("'{0}' updating properties for artist '{1}'", permissionContext.Name, properties.Name));
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
@@ -291,7 +291,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateArtistNameLanguage(int nameId, ContentLanguageSelection lang, IUserPermissionContext permissionContext) {
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<ArtistName>(nameId, name => name.Language = lang);
 
@@ -301,7 +301,7 @@ namespace VocaDb.Model.Service {
 			
 			ParamIs.NotNullOrEmpty(() => val);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<ArtistName>(nameId, name => name.Value = val);
 
@@ -311,7 +311,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => description);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<ArtistWebLink>(linkId, link => link.Description = description);
 
@@ -321,7 +321,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => url);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<ArtistWebLink>(nameId, link => link.Url = url);
 

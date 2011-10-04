@@ -31,7 +31,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			AuditLog("creating artist '" + newArtistName + "' to album '" + albumId + "'");
 
@@ -55,7 +55,7 @@ namespace VocaDb.Model.Service {
 
 			log.Info("'" + PermissionContext.Name + "' creating an artist");
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -73,7 +73,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => nameVal);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -92,7 +92,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => description);
 			ParamIs.NotNullOrEmpty(() => url);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -109,7 +109,7 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int id) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<Album>(id, (session, a) => {
 
@@ -124,7 +124,7 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteArtistForAlbum(int artistForAlbumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<ArtistForAlbum>(artistForAlbumId);
 
@@ -132,7 +132,7 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteName(int nameId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<AlbumName>(nameId);
 
@@ -140,7 +140,7 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteWebLink(int linkId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<AlbumWebLink>(linkId);
 
@@ -215,7 +215,7 @@ namespace VocaDb.Model.Service {
 
 			log.Info(string.Format("'{0}' updating properties for album '{1}'", PermissionContext.Name, properties.Name));
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -240,7 +240,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateNameLanguage(int nameId, ContentLanguageSelection lang) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<AlbumName>(nameId, name => name.Language = lang);
 
@@ -248,7 +248,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateNameValue(int nameId, string val) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<AlbumName>(nameId, name => name.Value = val);
 
@@ -258,7 +258,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => description);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<AlbumWebLink>(linkId, link => link.Description = description);
 
@@ -268,7 +268,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => url);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<AlbumWebLink>(nameId, link => link.Url = url);
 

@@ -35,7 +35,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForSongContract AddArtist(int songId, int artistId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			AuditLog("adding artist '" + artistId + "' to song '" + songId + "'");
 
@@ -54,7 +54,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			AuditLog("creating artist '" + newArtistName + "' to song '" + songId + "'");
 
@@ -77,7 +77,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrEmpty(() => value);
 			ParamIs.NotNull(() => source);
 
-			PermissionContext.HasPermission(PermissionFlags.ManageSongs);
+			PermissionContext.HasPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
@@ -127,7 +127,7 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int id) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageSongs);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<Album>(id, (session, a) => {
 
@@ -142,7 +142,7 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteArtistForSong(int artistForSongId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<ArtistForSong>(artistForSongId);
 

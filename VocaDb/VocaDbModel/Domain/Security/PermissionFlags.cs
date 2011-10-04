@@ -7,13 +7,20 @@ namespace VocaDb.Model.Domain.Security {
 
 		Nothing			= 0,
 
-		ManageAlbums	= 1,
+		/// <summary>
+		/// User is allowed to edit his own profile
+		/// </summary>
+		EditProfile		= 1,
 
-		ManageArtists	= 2,
+		/// <summary>
+		/// User is allowed to edit the artist/album/song entries
+		/// </summary>
+		ManageDatabase	= 2,
 
-		ManageSongs		= 4,
-
-		ManageUsers		= 8
+		/// <summary>
+		/// User is allowed to manage user accounts
+		/// </summary>
+		ManageUsers		= 4
 
 	}
 

@@ -23,7 +23,7 @@ namespace VocaDb.Model.Mapping.Users {
 			//Map(m => m.Roles).Not.Nullable();
 			Map(m => m.Salt).Not.Nullable();
 
-			HasMany(m => m.Albums).Inverse().Cascade.All();
+			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
 
 		}
 

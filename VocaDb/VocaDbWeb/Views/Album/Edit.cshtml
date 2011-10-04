@@ -1,4 +1,5 @@
-﻿@model  VocaDb.Web.Models.AlbumEdit
+﻿@using VocaDb.Web.Models
+@model  AlbumEdit
 @{
 	ViewBag.Title = "Edit album - " + Model.Name;
 	ViewBag.Parents = new[] { 
@@ -166,15 +167,8 @@
 			@foreach (var album in Model.ArtistLinks) {
 				Html.RenderPartial("ArtistForAlbumEditRow", album);
 			}
-			<tr id="artistRow_new">
-				<td>
-					<input type="text" maxlength="128" id="artistAddName" /><br />
-					<select id="artistAddList" size="5" />
-				</td>
-				<td>
-					<input type="button" id="artistAddBtn" value="Add" />
-				</td>
-			</tr>
+
+			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 		</table>
 	</fieldset>
 </div>
