@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -137,6 +138,7 @@
     <Compile Include="Domain\Songs\SongWebLink.cs" />
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Domain\Albums\DiscType.cs" />
@@ -173,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\Security\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
