@@ -150,19 +150,6 @@
 				</fieldset>
 			</div>
 		}
-
-	<div id="artistsTab">
-
-		<fieldset>
-			<legend>Connected artists</legend>
-			<table>
-			@foreach (var album in Model.ArtistLinks) {
-				Html.RenderPartial("ArtistForSongEditRow", album);
-			}
-			
-			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
-			</table>
-		</fieldset>
 	</div>
 
 	<div id="lyricsTab">
@@ -171,9 +158,9 @@
 
 			<input type="submit" value="Save" />
 	  
-	  foreach (var lyrics in Model.Lyrics) {
-		  Html.RenderPartial("LyricsForSongEditRow", lyrics);
-	  }
+		  foreach (var lyrics in Model.Lyrics) {
+			  Html.RenderPartial("LyricsForSongEditRow", lyrics);
+		  }
 			<div id="lyrics_new">
 				<p>
 				Language:
@@ -191,7 +178,21 @@
 	  
 			<input type="submit" value="Save" />
 
-  }
+		}
+	</div>
+
+	<div id="artistsTab">
+
+		<fieldset>
+			<legend>Connected artists</legend>
+			<table>
+			@foreach (var album in Model.ArtistLinks) {
+				Html.RenderPartial("ArtistForSongEditRow", album);
+			}
+			
+			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
+			</table>
+		</fieldset>
 	</div>
 
 </div>
