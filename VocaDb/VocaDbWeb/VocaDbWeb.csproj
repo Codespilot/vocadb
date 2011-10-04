@@ -448,6 +448,7 @@
     <Content Include="Views\Shared\AddNewLinkRow.cshtml" />
     <Content Include="Views\User\AlbumForUserSettingsRow.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\Album\SongInAlbumEditRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

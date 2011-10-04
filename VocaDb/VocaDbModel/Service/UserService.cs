@@ -24,7 +24,7 @@ namespace VocaDb.Model.Service {
 
 		public AlbumForUserContract AddAlbum(int userId, int albumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
 			AuditLog("adding album '" + albumId + "' to user '" + userId + "'");
 
@@ -44,7 +44,7 @@ namespace VocaDb.Model.Service {
 
 		public AlbumForUserContract AddAlbum(int userId, string newAlbumName) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageArtists);
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
 			AuditLog("creating album '" + newAlbumName + "' to user '" + userId + "'");
 
@@ -117,7 +117,7 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteAlbumForUser(int albumForUserId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageAlbums);
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
 			DeleteEntity<AlbumForUser>(albumForUserId);
 

@@ -8,10 +8,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 			
 			ParamIs.NotNull(() => songInAlbum);
 
+			Id = songInAlbum.Id;
 			Song = new SongContract(songInAlbum.Song);
 			TrackNumber = songInAlbum.TrackNumber;
 
 		}
+
+		public int Id { get; set; }
 
 		public SongContract Song { get; private set; }
 

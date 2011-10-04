@@ -13,6 +13,7 @@ namespace VocaDb.Model.DataContracts.Security {
 
 			Album = new AlbumDetailsContract(albumForUser.Album, languagePreference);
 			Id = albumForUser.Id;
+			MediaType = albumForUser.MediaType;
 			User = new UserContract(albumForUser.User);
 
 		}
@@ -22,6 +23,9 @@ namespace VocaDb.Model.DataContracts.Security {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public MediaType MediaType { get; set; }
 
 		[DataMember]
 		public UserContract User { get; set; }

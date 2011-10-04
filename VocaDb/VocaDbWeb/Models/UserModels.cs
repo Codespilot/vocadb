@@ -41,7 +41,7 @@ namespace VocaDb.Web.Models {
 
 		public ContentLanguagePreference[] AllLanguages { get; set; }
 
-		[Display(Name = "Primary display language")]
+		[Display(Name = "Preferred display language")]
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
 		[Display(Name = "Email")]
