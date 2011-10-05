@@ -97,6 +97,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
+    <Compile Include="Helpers\Login.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\SharedModels.cs" />
@@ -106,7 +107,6 @@
     <Compile Include="Services\QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
     </Compile>
-    <Compile Include="ViewExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\PagedList.css" />
