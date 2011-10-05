@@ -42,6 +42,9 @@ namespace VocaDb.Model.Domain.Songs {
 			NicoId = nicoId;
 			OriginalName = translatedName.Display;
 
+			foreach (var name in translatedName.AllLocalized)
+				Names.Add(new SongName(this, name));
+
 		}
 
 		public Song(SongInRankingContract contract)
