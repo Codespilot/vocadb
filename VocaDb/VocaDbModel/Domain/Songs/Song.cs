@@ -247,6 +247,26 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual bool Equals(Song another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as Song);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public virtual bool HasArtist(Artist artist) {
 
 			return ArtistList.Contains(artist);

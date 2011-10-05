@@ -98,6 +98,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\Login.cs" />
+    <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\SharedModels.cs" />

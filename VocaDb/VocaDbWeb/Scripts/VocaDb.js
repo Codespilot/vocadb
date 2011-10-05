@@ -5,5 +5,6 @@
 }
 
 function getId(elem) {
-	return $(elem).attr('id').split("_")[1];
+	var parts = $(elem).attr('id').split("_");
+	return (parts.length >= 2 ? parts[1] : null);
 }

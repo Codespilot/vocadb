@@ -1,13 +1,14 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
-@model SongDetailsContract
+@using VocaDb.Web.Models;
+@model SongDetails
 @{
-	ViewBag.Title = "Song details - " + Model.Song.Name;
+	ViewBag.Title = "Song details - " + Model.Name;
 	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };
 }
 
 @if (VocaDb.Web.Helpers.Login.CanManageDb) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Song.Id });
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
 <div id="tabs">
@@ -19,36 +20,66 @@
 
 	<div id="basicInfoTab">
 		<table>
+			@if (!string.IsNullOrEmpty(Model.NicoId)) {
+			<tr>
+				<script type="text/javascript" src="@("http://ext.nicovideo.jp/thumb_watch/" + Model.NicoId)"></script>
+			</tr>
+			}
 			<tr>
 				<td>Name</td>
 				<td>
-					@Model.Song.Name<br />
+					@Model.Name<br />
 					<span class="extraInfo">@Model.AdditionalNames</span>
 				</td>	
 			</tr>
-			@if (!string.IsNullOrEmpty(Model.Song.NicoId)) {
+			@if (!string.IsNullOrEmpty(Model.NicoId)) {
 			<tr>
 				<td>Nico Nico Douga link</td>
 				<td>
-					<a href="http://www.nicovideo.jp/watch/@Model.Song.NicoId">@Model.Song.NicoId</a>
+					<a href="http://www.nicovideo.jp/watch/@Model.NicoId">@Model.NicoId</a>
+				</td>
+			</tr>
+			}
+			@if (Model.Performers.Any()) {
+			<tr>
+				<td>Performers</td>
+				<td>
+					@foreach (var artist in Model.Performers) {
+						@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+						if (artist != Model.Performers.Last()) {
+							<text>,&nbsp;</text>
+						}
+					}			
+				</td>
+			</tr>
+			}
+			@if (Model.OtherArtists.Any()) {
+			<tr>
+				<td>Other artists</td>
+				<td>
+					@foreach (var artist in Model.OtherArtists) {
+						@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+						if (artist != Model.OtherArtists.Last()) {
+							<text>,&nbsp;</text>
+						}
+					}			
+				</td>
+			</tr>
+			}
+			@if (Model.Albums.Any()) {
+			<tr>
+				<td>Albums</td>
+				<td>
+					@foreach (var album in Model.Albums) {
+						@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null);
+						if (album != Model.Albums.Last()) {
+							<text>,&nbsp;</text>
+						}
+					}			
 				</td>
 			</tr>
 			}
 		</table>
-
-		<h3>Artists</h3>
-		<ul>
-			@foreach (var artist in Model.Artists) {
-				<li>@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, null)</li>
-		 }
-		</ul>
-
-		<h3>Albums</h3>
-		<ul>
-			@foreach (var album in Model.Albums) {
-				<li>@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null)</li>
-		 }
-		</ul>
 	</div>
 
 	<div id="lyricsTab">
