@@ -81,18 +81,16 @@ namespace VocaDb.Web.Controllers
         // POST: /Song/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+        public ActionResult Edit(SongEdit model) {
+
+			if (!ModelState.IsValid)
+				return View();
+
+			var contract = model.ToContract();
+			Service.UpdateBasicProperties(contract);
+
+			return RedirectToAction("Details", new { id = model.Id });
+
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]

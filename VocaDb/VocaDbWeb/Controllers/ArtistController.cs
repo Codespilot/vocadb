@@ -108,7 +108,7 @@ namespace VocaDb.Web.Controllers
 
 			Service.UpdateBasicProperties(model.ToContract(), pictureData, LoginManager);
 
-			return RedirectToAction("Edit", new { id = model.Id });
+			return RedirectToAction("Details", new { id = model.Id });
 
         }
 

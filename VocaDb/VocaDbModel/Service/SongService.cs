@@ -287,6 +287,30 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongForEditContract UpdateBasicProperties(SongForEditContract properties) {
+
+			ParamIs.NotNull(() => properties);
+
+			AuditLog(string.Format("updating properties for song '{0}'", properties.Song.Name));
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(properties.Song.Id);
+
+				Archive(session, song);
+
+				song.NicoId = properties.Song.NicoId;
+				song.TranslatedName.CopyFrom(properties.TranslatedName);
+
+				session.Update(song);
+				return new SongForEditContract(song, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public SongForEditContract UpdateLyrics(int songId, IEnumerable<LyricsForSongContract> lyrics) {
 			
 			ParamIs.NotNull(() => lyrics);

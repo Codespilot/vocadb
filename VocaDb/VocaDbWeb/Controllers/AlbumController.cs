@@ -109,7 +109,7 @@ namespace VocaDb.Web.Controllers
 
 				} else {
 
-
+					ModelState.AddModelError("CoverPicture", "Picture format is not valid");
 
 				}
 
