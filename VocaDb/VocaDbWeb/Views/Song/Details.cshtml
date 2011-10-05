@@ -6,7 +6,7 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };
 }
 
-@if (VocaDb.Web.ViewExtension.LoggedUser(this).HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
+@if (VocaDb.Web.Helpers.Login.CanManageDb) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Song.Id });
 }
 
