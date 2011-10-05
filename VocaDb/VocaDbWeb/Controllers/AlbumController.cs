@@ -199,9 +199,29 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public void DeleteSongInAlbum(int songInAlbumId) {
+		public ActionResult DeleteSongInAlbum(int songInAlbumId) {
 
-			Service.DeleteSongInAlbum(songInAlbumId);
+			var songs = Service.DeleteSongInAlbum(songInAlbumId);
+
+			return Json(songs);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult MoveSongInAlbumDown(int songInAlbumId) {
+
+			var songs = Service.MoveSongDown(songInAlbumId);
+
+			return Json(songs);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public ActionResult MoveSongInAlbumUp(int songInAlbumId) {
+
+			var songs = Service.MoveSongUp(songInAlbumId);
+
+			return Json(songs);
 
 		}
 

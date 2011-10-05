@@ -179,11 +179,63 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public virtual bool Equals(Album another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as Album);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
+		public virtual void MoveSongDown(SongInAlbum songInAlbum) {
+
+			ParamIs.NotNull(() => songInAlbum);
+
+			if (!songInAlbum.Album.Equals(this))
+				throw new ArgumentException("Song is not in album");
+
+			var next = Songs.FirstOrDefault(s => s.TrackNumber == songInAlbum.TrackNumber + 1);
+
+			if (next != null) {
+				next.TrackNumber--;
+				songInAlbum.TrackNumber++;				
+			}
+
+		}
+
+		public virtual void MoveSongUp(SongInAlbum songInAlbum) {
+
+			ParamIs.NotNull(() => songInAlbum);
+
+			if (!songInAlbum.Album.Equals(this))
+				throw new ArgumentException("Song is not in album");
+
+			var prev = Songs.FirstOrDefault(s => s.TrackNumber == songInAlbum.TrackNumber - 1);
+
+			if (prev != null) {
+				prev.TrackNumber++;
+				songInAlbum.TrackNumber--;				
+			}
+
+		}
+
 		public virtual void OnSongDeleting(SongInAlbum songInAlbum) {
 			
 			ParamIs.NotNull(() => songInAlbum);
 
-			if (songInAlbum.Album != this)
+			if (!songInAlbum.Album.Equals(this))
 				throw new ArgumentException("Song is not in album");
 
 			foreach (var song in Songs.Where(song => song.TrackNumber > songInAlbum.TrackNumber)) {

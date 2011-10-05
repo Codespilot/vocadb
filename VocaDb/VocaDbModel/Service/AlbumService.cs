@@ -185,19 +185,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void DeleteSongInAlbum(int songInAlbumId) {
+		public SongInAlbumContract[] DeleteSongInAlbum(int songInAlbumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			HandleTransaction(session => {
+			return HandleTransaction(session => {
 
 				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
 
 				AuditLog("removing " + songInAlbum);
 
 				songInAlbum.OnDeleting();
-
 				session.Delete(songInAlbum);
+				session.Update(songInAlbum.Album);
+
+				return songInAlbum.Album.Songs.Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
 
 			});
 
@@ -272,6 +274,44 @@ namespace VocaDb.Model.Service {
 
 			});
 
+		}
+
+		public SongInAlbumContract[] MoveSongDown(int songInAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
+
+				AuditLog("moving down " + songInAlbum);
+
+				songInAlbum.Album.MoveSongDown(songInAlbum);
+				session.Update(songInAlbum.Album);
+
+				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
+
+			});
+
+		}
+
+		public SongInAlbumContract[] MoveSongUp(int songInAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
+
+				AuditLog("moving up " + songInAlbum);
+
+				songInAlbum.Album.MoveSongUp(songInAlbum);
+				session.Update(songInAlbum.Album);
+
+				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
+
+			});
+			
 		}
 
 		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, PictureDataContract pictureData) {

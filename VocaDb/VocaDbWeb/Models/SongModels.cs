@@ -6,9 +6,11 @@ using System.Web;
 using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Web.Models {
@@ -16,6 +18,39 @@ namespace VocaDb.Web.Models {
 	public class SongList {
 
 		public string Filter { get; set; }
+
+	}
+
+	public class SongDetails {
+
+		public SongDetails(SongDetailsContract contract) {
+
+			AdditionalNames = contract.AdditionalNames;
+			Albums = contract.Albums;
+			Id = contract.Song.Id;
+			Lyrics = contract.Lyrics;
+			Name = contract.Song.Name;
+			NicoId = contract.Song.NicoId;
+			OtherArtists = contract.Artists.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
+			Performers = contract.Artists.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
+
+		}
+
+		public string AdditionalNames { get; set; }
+
+		public AlbumContract[] Albums { get; set; }
+
+		public int Id { get; set; }
+
+		public LyricsForSongContract[] Lyrics { get; set; }
+
+		public string Name { get; set; }
+
+		public string NicoId { get; set; }
+
+		public ArtistContract[] OtherArtists { get; set; }
+
+		public ArtistContract[] Performers { get; set; }
 
 	}
 
@@ -35,6 +70,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names;
+			NicoId = song.Song.NicoId;
 			WebLinks = song.WebLinks;
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
@@ -46,7 +82,7 @@ namespace VocaDb.Web.Models {
 
 		public string AllLanguagesJson { get; set; }
 
-		public ArtistForSongContract[] ArtistLinks { get; protected set; }
+		public ArtistForSongContract[] ArtistLinks { get; set; }
 
 		[Display(Name = "Default language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
@@ -54,7 +90,7 @@ namespace VocaDb.Web.Models {
 		public int Id { get; set; }
 
 		[Display(Name = "Lyrics")]
-		public LyricsForSongModel[] Lyrics { get; protected set; }
+		public LyricsForSongModel[] Lyrics { get; set; }
 
 		public string Name { get; protected set; }
 
@@ -77,7 +113,7 @@ namespace VocaDb.Web.Models {
 		public string NameRomaji { get; set; }
 
 		[Display(Name = "NicoNicoDouga ID")]
-		public string NicoId { get; protected set; }
+		public string NicoId { get; set; }
 
 		[Display(Name = "Web links")]
 		public WebLinkContract[] WebLinks { get; set; }
