@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.Security {
 
 		public bool IsLoggedIn {
 			get {
-				return (HttpContext.Current != null && User.Identity.IsAuthenticated);
+				return (HttpContext.Current != null && User.Identity.IsAuthenticated && User is VocaDbPrincipal);
 			}
 		}
 
@@ -62,7 +62,7 @@ namespace VocaDb.Model.Service.Security {
 				if (user != null)
 					return user;
 
-				user = (IsLoggedIn && User is VocaDbPrincipal ? ((VocaDbPrincipal)User).User : null);
+				user = (IsLoggedIn ? ((VocaDbPrincipal)User).User : null);
 				return user;
 
 			}
