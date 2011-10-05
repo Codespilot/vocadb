@@ -25,6 +25,8 @@ namespace VocaDb.Web.Models {
 
 		public SongEdit(SongForEditContract song) {
 
+			ParamIs.NotNull(() => song);
+
 			ArtistLinks = song.Artists;
 			Id = song.Song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();

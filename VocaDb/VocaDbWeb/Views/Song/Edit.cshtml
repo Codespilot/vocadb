@@ -19,7 +19,7 @@
 	</ul>
 
 	<div id="basicInfoTab">
-		@using (Html.BeginForm("EditBasicDetails", "Song", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+		@using (Html.BeginForm("Edit", "Song", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 			@Html.HiddenFor(m => m.Id)
 			<div>
 				<fieldset>
