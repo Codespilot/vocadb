@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using VocaDb.Model.Service.Security;
+﻿using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Helpers {
 
 	public static class Login {
+
+		public static bool CanManageDb {
+			get {
+				return Manager.HasPermission(PermissionFlags.ManageDatabase);
+			}
+		}
 
 		public static LoginManager Manager {
 			get {
