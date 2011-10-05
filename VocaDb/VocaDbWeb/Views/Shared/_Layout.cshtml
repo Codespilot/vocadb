@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using VocaDb.Web.Helpers
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Vocaloid Database - @ViewBag.Title</title>
@@ -24,24 +26,24 @@
 					<li>@Html.ActionLink("Albums", "Index", "Album")</li>
 					<li>@Html.ActionLink("Songs", "Index", "Song")</li>
 
-					@if (!Context.User.Identity.IsAuthenticated) {
+					@if (!Login.Manager.IsLoggedIn) {
 					<li>@Html.ActionLink("Log in", "Login", "User")</li>
-	 } else {
+					} else {
 					<li>@Html.ActionLink("Log out", "Logout", "User")</li>
-	 }
+					}
 				</ul>
-				@if (Context.User.Identity.IsAuthenticated) {
-					<p>Welcome @Html.ActionLink(Context.User.Identity.Name, "Details", "User", new { id = VocaDb.Web.ViewExtension.LoggedUser(this).LoggedUser.Id }, null)</p>
-	}
+				@if (Login.Manager.IsLoggedIn) {
+					<p>Welcome @Html.ActionLink(Login.User.Name, "Details", "User", new { id = Login.User.Id }, null)</p>
+				}
 			</td>
 			<td>
 				@if (ViewBag.Parents != null) {
-		foreach (MvcHtmlString link in ViewBag.Parents) {
+					foreach (MvcHtmlString link in ViewBag.Parents) {
 						<span>
 						@link &gt;&gt;
 						</span>
-		}
-	}
+					}
+				}
 				<h2>@ViewBag.Title</h2>
 				@RenderBody()
 			</td>

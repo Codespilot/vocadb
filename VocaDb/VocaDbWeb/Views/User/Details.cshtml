@@ -1,12 +1,13 @@
 ﻿@using VocaDb.Model.DataContracts.Users;
 @using VocaDb.Web;
+@using VocaDb.Web.Helpers;
 @model UserDetailsContract
 		   
 @{
 	ViewBag.Title = "User details - " + Model.Name;
 }
 
-@if (ViewExtension.LoggedUser(this).LoggedUser != null && ViewExtension.LoggedUser(this).LoggedUser.Id == Model.Id) {
+@if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id) {
 	@Html.ActionLink("Edit", "MySettings");
 }
 
