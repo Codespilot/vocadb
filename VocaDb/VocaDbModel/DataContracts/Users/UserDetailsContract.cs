@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Users;
 
@@ -12,10 +13,13 @@ namespace VocaDb.Model.DataContracts.Users {
 			: base(user) {
 
 			AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
+			LastLogin = user.LastLogin;
 
 		}
 
 		public AlbumForUserContract[] AlbumLinks { get; set; }
+
+		public DateTime LastLogin { get; set; }
 
 	}
 }

@@ -54,18 +54,20 @@ namespace VocaDb.Web.Controllers
         // POST: /Song/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ObjectCreate model)
         {
-            try
-            {
-                // TODO: Add insert logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+			if (ModelState.IsValid) {
+
+				var song = Service.Create(model.Name);
+				return RedirectToAction("Edit", new { id = song.Id });
+
+			} else {
+
+				return RedirectToAction("Index");
+
+			}
+
         }
         
         //

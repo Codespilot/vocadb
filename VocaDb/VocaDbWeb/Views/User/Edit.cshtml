@@ -1,5 +1,22 @@
-﻿@{
-    ViewBag.Title = "Edit";
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.UserEdit
+
+@{
+	ViewBag.Title = "Edit user - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Users", "Index"), 
+		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+	};	
 }
 
-<h2>Edit</h2>
+@using(Html.BeginForm()) {	
+	@Html.HiddenFor(m => m.Id)
+	
+	<h3>Permissions</h3>
+	foreach (var entry in Model.Permissions) {	 
+		Html.RenderPartial("PermissionEditRow", entry);											 
+	}
+	
+	<input type="submit" value="Save" />
+	
+}

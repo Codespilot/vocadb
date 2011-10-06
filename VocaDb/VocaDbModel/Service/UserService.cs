@@ -147,10 +147,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract UpdateUserSettings(UpdateUserSettingsContract contract, IUserPermissionContext permissionContext) {
+		public void UpdateUser(UserContract contract) {
 
 			ParamIs.NotNull(() => contract);
-			ParamIs.NotNull(() => permissionContext);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageUsers);
+
+			UpdateEntity<User>(contract.Id, user => user.PermissionFlags = contract.PermissionFlags);
+
+		}
+
+		public UserContract UpdateUserSettings(UpdateUserSettingsContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
 			return HandleTransaction(session => {
 

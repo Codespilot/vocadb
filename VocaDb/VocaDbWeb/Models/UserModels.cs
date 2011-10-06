@@ -1,9 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Web.Models {
@@ -80,6 +84,55 @@ namespace VocaDb.Web.Models {
 			};
 
 		}
+
+	}
+
+	public class UserEdit {
+
+		public UserEdit() {
+		}
+
+		public UserEdit(UserContract contract) {
+
+			Id = contract.Id;
+			Name = contract.Name;
+			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing && p != PermissionFlags.Default)
+				.Select(p => new PermissionFlagEntry(p, contract.PermissionFlags.HasFlag(p))).ToArray();
+
+		}
+
+		public int Id { get; set; }
+
+		public string Name { get; set; }
+
+		public PermissionFlagEntry[] Permissions { get; set; }
+
+		public UserContract ToContract() {
+
+			return new UserContract {
+				Id = this.Id,
+				Name = this.Name,
+				PermissionFlags =
+					Permissions.Aggregate(PermissionFlags.Nothing,
+						(flags, item) => flags | (item.HasFlag ? item.PermissionType : PermissionFlags.Nothing))
+			};
+
+		}
+
+	}
+
+	public class PermissionFlagEntry {
+
+		public PermissionFlagEntry() {}
+
+		public PermissionFlagEntry(PermissionFlags permissionType, bool hasFlag) {
+			PermissionType = permissionType;
+			HasFlag = hasFlag;
+		}
+
+		public bool HasFlag { get; set; }
+
+		public PermissionFlags PermissionType { get; set; }
 
 	}
 
