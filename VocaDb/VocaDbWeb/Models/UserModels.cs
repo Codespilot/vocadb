@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Web.Models {
 
@@ -78,6 +80,32 @@ namespace VocaDb.Web.Models {
 			};
 
 		}
+
+	}
+
+	public class AlbumForUserEditModel {
+
+		public AlbumForUserEditModel() {
+			AllMediaTypes = EnumVal<MediaType>.Values;
+		}
+
+		public AlbumForUserEditModel(AlbumForUserContract contract)
+			: this() {
+
+			Album = contract.Album;
+			Id = contract.Id;
+			MediaType = contract.MediaType;
+
+		}
+
+		public AlbumDetailsContract Album { get; set; }
+
+		public MediaType[] AllMediaTypes { get; set; }
+
+		public int Id { get; set; }
+
+		public MediaType MediaType { get; set; }
+
 
 	}
 
