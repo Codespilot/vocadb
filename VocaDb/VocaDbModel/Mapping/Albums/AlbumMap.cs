@@ -12,6 +12,7 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
+			Map(m => m.ProductCode).Not.Nullable();
 			Map(m => m.ReleaseDate).Nullable();
 
 			Component(m => m.CoverPicture, c => {

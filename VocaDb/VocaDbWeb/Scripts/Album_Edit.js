@@ -314,13 +314,13 @@ function initPage(albumId) {
 			var id = item.Id;
 			var newTrackNum = item.TrackNumber;
 			var trackNumElem = $("#songTrackNumber_" + id);
-			var oldTrackNum = $(trackNumElem).text();
+			var oldTrackNum = $(trackNumElem).val();
 
 			if (newTrackNum != oldTrackNum) {
 
 				var row = $("tr#songRow_" + id);
 
-				$(trackNumElem).text(newTrackNum);
+				$(trackNumElem).val(newTrackNum);
 
 				var nextItem = (i < songList.length - 1 ? songList[i + 1] : null);
 				var nextItemId = (nextItem != null ? nextItem.Id : null);
@@ -331,7 +331,6 @@ function initPage(albumId) {
 
 				if (nextItemId != nextRowId) {
 
-					//var html = $(row).html();
 					$(row).remove();
 
 					if (newNextRow != null) {
