@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web;
+@using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
 @using PagedList.Mvc;
 @using PagedList;
@@ -33,4 +34,23 @@
 }
 </table>
 @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+}
+
+@model VocaDb.Web.Models.ObjectCreate
+@if (Login.CanManageDb) {
+	using (Html.BeginForm("Create", "Song")) {
+	
+    <div>
+        <fieldset>
+            <div class="editor-label">
+                Name:
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Name)
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>			
+			<input type="submit" value="Create" />
+		</fieldset>
+	</div>
+	}
 }

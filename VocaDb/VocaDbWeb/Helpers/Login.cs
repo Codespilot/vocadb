@@ -12,6 +12,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanManageUsers {
+			get {
+				return Manager.HasPermission(PermissionFlags.ManageUsers);
+			}
+		}
+
 		public static LoginManager Manager {
 			get {
 				return MvcApplication.LoginManager;

@@ -91,6 +91,26 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongContract Create(string name) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+
+			log.Info("'" + PermissionContext.Name + "' creating a song");
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var song = new Song(new TranslatedString(name), null);
+
+				session.Save(song);
+
+				return new SongContract(song, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public SongContract CreateSong(CreateSongContract contract) {
 
 			return HandleTransaction(session => {
@@ -151,6 +171,19 @@ namespace VocaDb.Model.Service {
 		public SongWithAdditionalNamesContract[] Find(string query, int start, int maxResults) {
 
 			return HandleQuery(session => {
+
+				if (string.IsNullOrWhiteSpace(query)) {
+
+					var songs = session.Query<Song>()
+						.Where(s => !s.Deleted)
+						.Skip(start)
+						.Take(maxResults)
+						.ToArray();
+
+					return songs.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+						.ToArray();
+
+				}
 
 				var direct = session.Query<Song>()
 					.Where(s => 
@@ -230,6 +263,14 @@ namespace VocaDb.Model.Service {
 		public int GetSongCount(string query) {
 
 			return HandleQuery(session => {
+
+				if (string.IsNullOrWhiteSpace(query)) {
+
+					return session.Query<Song>()
+						.Where(s => !s.Deleted)
+						.Count();
+
+				}
 
 				//var artistForSong = (artistId != null ? session.Query<ArtistForSong>()
 				//	.Where(a => a.Artist.Id == artistId).Select(a => a.Song).ToArray() : null);

@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Model.DataContracts.Users;
+@using VocaDb.Web.Helpers;
 @{
 	ViewBag.Title = "Users";
 }
@@ -7,6 +8,7 @@
 	<tr>
 		<th>Name</th>
 		<th>Created</th>
+		<th></th>
 	</tr>
 @foreach (UserContract user in ViewBag.Users) {
 	<tr>
@@ -15,6 +17,12 @@
 		</td>
 		<td>
 			@user.CreateDate
+		</td>
+		<td>
+			@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageUsers)) {
+				<text>&nbsp;</text>
+				@Html.ActionLink("Edit", "Edit", new { id = user.Id });	
+			}
 		</td>
 	</tr>
 }

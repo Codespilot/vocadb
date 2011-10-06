@@ -5,10 +5,17 @@
 		   
 @{
 	ViewBag.Title = "User details - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Users", "Index"), 
+	};		
 }
 
 @if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id) {
-	@Html.ActionLink("Edit", "MySettings");
+	@Html.ActionLink("My settings", "MySettings");
+}
+@if (Login.CanManageUsers) {
+	<text>&nbsp;</text>
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });	
 }
 
 <h3>Basic info</h3>
@@ -19,6 +26,16 @@
 			@Model.Name<br />
 		</td>
 	</tr>
+	@if (Login.CanManageUsers || (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id)) {
+		<tr>
+			<td>Last login</td>
+			<td>@Model.LastLogin</td>
+		</tr>
+		<tr>
+			<td>Permissions</td>
+			<td>@Model.PermissionFlags</td>
+		</tr>
+	}
 </table>
 	
 @if (Model.AlbumLinks.Any()) {

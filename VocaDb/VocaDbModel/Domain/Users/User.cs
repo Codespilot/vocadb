@@ -23,7 +23,7 @@ namespace VocaDb.Model.Domain.Users {
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
 			LastLogin = DateTime.Now;
-			PermissionFlags = PermissionFlags.Nothing;
+			PermissionFlags = PermissionFlags.Default;
 
 		}
 

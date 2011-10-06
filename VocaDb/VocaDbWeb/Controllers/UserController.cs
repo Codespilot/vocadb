@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
@@ -125,25 +126,25 @@ namespace VocaDb.Web.Controllers
  
         public ActionResult Edit(int id)
         {
-            return View();
+
+			LoginManager.VerifyPermission(PermissionFlags.ManageUsers);
+
+        	var user = Service.GetUser(id);
+            return View(new UserEdit(user));
+
         }
 
         //
         // POST: /User/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+		public ActionResult Edit(UserEdit model, IEnumerable<PermissionFlagEntry> permissions) {
+
+			model.Permissions = permissions.ToArray();
+			Service.UpdateUser(model.ToContract());
+
+        	return RedirectToAction("Details", new {id = model.Id});
+
         }
 
 		public ActionResult MySettings() {
@@ -175,7 +176,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			try {
-				var newUser = Service.UpdateUserSettings(model.ToContract(), LoginManager);				
+				var newUser = Service.UpdateUserSettings(model.ToContract());				
 				LoginManager.SetLoggedUser(newUser);
 			} catch (InvalidPasswordException x) {
 				ModelState.AddModelError("OldPass", x.Message);				

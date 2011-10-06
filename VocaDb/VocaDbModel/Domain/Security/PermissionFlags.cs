@@ -20,7 +20,9 @@ namespace VocaDb.Model.Domain.Security {
 		/// <summary>
 		/// User is allowed to manage user accounts
 		/// </summary>
-		ManageUsers		= 4
+		ManageUsers		= 4,
+
+		Default			= (EditProfile | ManageDatabase)
 
 	}
 
