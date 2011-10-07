@@ -2,7 +2,7 @@
 
 <tr id="@("albumRow_" + Model.Id)">
 	<td>@Html.ActionLink(Model.Album.Name, "Edit", "Album", new { id = Model.Album.Id }, null)</td>
-	<td>@Html.DropDownListFor(m => m.MediaType, new SelectList(Model.AllMediaTypes, Model.MediaType), new { id = "albumMediaType_" + Model.Id })</td>
+	<td>@Html.DropDownListFor(m => m.MediaType, new SelectList(Model.AllMediaTypes, Model.MediaType), new { id = "albumMediaType_" + Model.Id, @class = "albumMediaType" })</td>
 	<td>
 		<input type="button" class="albumRemove" id="@("albumRemove_" + Model.Id)" value="Remove" />
 	</td>

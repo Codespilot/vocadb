@@ -147,6 +147,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			UpdateEntity<AlbumForUser>(albumForUserId, albumForUser => albumForUser.MediaType = mediaType);
+
+		}
+
 		public void UpdateUser(UserContract contract) {
 
 			ParamIs.NotNull(() => contract);
