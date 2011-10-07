@@ -38,12 +38,12 @@ namespace VocaDb.Web.Models {
 			Id = user.Id;
 			Username = user.Name;
 
-			AlbumLinks = user.AlbumLinks;
+			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values;
 
 		}
 
-		public AlbumForUserContract[] AlbumLinks { get; set; }
+		public AlbumForUserEditModel[] AlbumLinks { get; set; }
 
 		public ContentLanguagePreference[] AllLanguages { get; set; }
 

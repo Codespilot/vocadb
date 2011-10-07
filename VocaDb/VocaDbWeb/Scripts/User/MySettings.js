@@ -1,4 +1,11 @@
-﻿function initPage(userId) {
+﻿function onChangeAlbumMediaType() {
+
+	var id = getId(this);
+	$.post("../User/UpdateAlbumForUserMediaType", { albumForUserId: id, mediaType: $(this).val() });
+
+}
+
+function initPage(userId) {
 
 	$("#tabs").tabs();	
 
@@ -56,6 +63,8 @@
 
 		var addRow = $("#albumRow_new");
 		addRow.before(row);
+		var newRow = $(addRow).prev();
+		$(newRow).find("select.albumMediaType").change(onChangeAlbumMediaType);
 		$("input#albumAddName").val("");
 		$("#albumAddList").empty();
 
@@ -71,5 +80,7 @@
 		});
 
 	});
+
+	$("select.albumMediaType").change(onChangeAlbumMediaType);
 
 }

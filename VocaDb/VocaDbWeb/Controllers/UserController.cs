@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
@@ -149,6 +150,8 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult MySettings() {
 
+			LoginManager.VerifyPermission(PermissionFlags.EditProfile);			
+
 			var user = GetUserDetails();
 
 			return View(new MySettingsModel(user));
@@ -187,10 +190,17 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
+			
+			Service.UpdateAlbumForUserMediaType(albumForUserId, mediaType);
+
+		}
+
+    	[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewAlbum(string newAlbumName) {
 
 			var link = Service.AddAlbum(LoginManager.LoggedUser.Id, newAlbumName);
-			return PartialView("AlbumForUserSettingsRow", link);
+			return PartialView("AlbumForUserSettingsRow", new AlbumForUserEditModel(link));
 
 		}
 
@@ -198,7 +208,7 @@ namespace VocaDb.Web.Controllers
 		public PartialViewResult AddExistingAlbum(int albumId) {
 
 			var link = Service.AddAlbum(LoginManager.LoggedUser.Id, albumId);
-			return PartialView("AlbumForUserSettingsRow", link);
+			return PartialView("AlbumForUserSettingsRow", new AlbumForUserEditModel(link));
 
 		}
 
