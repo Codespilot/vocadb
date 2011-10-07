@@ -41,7 +41,7 @@ namespace VocaDb.Web.Controllers
 
 			var albums = Service.FindArtists(term, 0, 20);
 
-			return Json(albums);
+			return Json(albums.Items);
 
 		}
 
