@@ -69,7 +69,7 @@ namespace VocaDb.Web.Models {
 			NameEnglish = song.TranslatedName.English;
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
-			Names = song.Names;
+			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
 			NicoId = song.Song.NicoId;
 			WebLinks = song.WebLinks;
 
@@ -95,7 +95,7 @@ namespace VocaDb.Web.Models {
 		public string Name { get; protected set; }
 
 		[Display(Name = "Names")]
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public LocalizedStringEdit[] Names { get; set; }
 
 		[Required]
 		[Display(Name = "Name in English")]
