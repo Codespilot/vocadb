@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /ViewNicoVideo.aspx
+Disallow: /ListPolls.aspx
