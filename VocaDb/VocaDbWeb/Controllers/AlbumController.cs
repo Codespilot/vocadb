@@ -26,7 +26,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, int? page) {
 
-			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30);
+			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, true);
 
 			ViewBag.Filter = filter;
 			ViewBag.Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);

@@ -1,8 +1,18 @@
 ﻿@using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Artists;
+@using PagedList.Mvc;
+@using PagedList;
 @{
 	ViewBag.Title = "Artists";
 }
+
+<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm()) {
+	
+<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Apply" /></p>
+
+@Html.PagedListPager((IPagedList)ViewBag.Artists, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
 
 <table>
 	<tr>
@@ -22,11 +32,14 @@
 		<td>
 			@if (Login.CanManageDb) {
 				@Html.ActionLink("Edit", "Edit", new { id = artist.Id })
-			}
+   }
 		</td>
 	</tr>
 }
 </table>
+	
+@Html.PagedListPager((IPagedList)ViewBag.Artists, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+}
 
 @model VocaDb.Web.Models.ObjectCreate
 @if (Login.CanManageDb) {
@@ -44,5 +57,5 @@
 			<input type="submit" value="Create" />
 		</fieldset>
 	</div>
-}
+	}
 }

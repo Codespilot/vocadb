@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Mvc;
+using PagedList;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
@@ -24,14 +26,20 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Artist/
 
-        public ActionResult Index() {
-			ViewBag.Artists = Service.GetArtistsWithAdditionalNames().OrderBy(a => a.Name);
-            return View();
+		public ActionResult Index(string filter, int? page) {
+
+			var result = Service.FindArtists(filter, ((page ?? 1) - 1) * 30, 30, true);
+
+			ViewBag.Filter = filter;
+			ViewBag.Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
+
+			return View();
+
         }
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.FindArtists(term, 20);
+			var albums = Service.FindArtists(term, 0, 20);
 
 			return Json(albums);
 
