@@ -1,7 +1,63 @@
 ﻿
+function onChangeLang(event) {
+
+	var select = event.target;
+
+	var id = getId(select);
+	var val = $(select).val();
+
+	$.post("../../Song/EditNameLanguage", { nameId: id, nameLanguage: val });
+
+}
+
 function initPage(songId) {
 
-	$("#tabs").tabs();	
+	$("#tabs").tabs();
+
+	$("input.nameEdit").live("change", function () {
+
+		var id = getId(this);
+		var val = $(this).val();
+
+		$.post("../../Song/EditNameValue", { nameId: id, nameVal: val });
+
+	});
+
+	$("select.nameLanguage").change(onChangeLang);
+
+	$("input.nameCopy").live("click", function () {
+
+		var id = getId(this);
+		var nameVal = $("input#nameEdit_" + id).val();
+		var langId = $("select#nameLanguage_" + id).val();
+
+		$("input#Name" + langId).val(nameVal);
+
+	});
+
+	$("input.nameDelete").live("click", function () {
+
+		var id = getId(this);
+
+		$.post("../../Song/DeleteName", { nameId: id });
+
+		$("tr#nameRow_" + id).remove();
+
+	});
+
+	$("input#nameAdd").click(function () {
+
+		var newNameVal = $("input#nameEdit_new").val();
+		var newLangId = $("select#nameLanguage_new").val();
+
+		$.post("../../Song/CreateName", { songId: songId, nameVal: newNameVal, language: newLangId }, function (row) {
+
+			$("#nameRow_new").before(row);			
+			$("input#nameEdit_new").val("");
+
+		});
+
+	});
 
 	$("input#artistAddName").keyup(function () {
 

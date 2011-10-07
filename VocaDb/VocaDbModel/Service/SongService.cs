@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using log4net;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Service {
 
@@ -111,6 +112,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public LocalizedStringWithIdContract CreateName(int songId, string nameVal, ContentLanguageSelection language) {
+
+			ParamIs.NotNullOrEmpty(() => nameVal);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+
+				var name = song.CreateName(nameVal, language);
+				session.Save(name);
+				return new LocalizedStringWithIdContract(name);
+
+			});
+
+		}
+
 		public SongContract CreateSong(CreateSongContract contract) {
 
 			return HandleTransaction(session => {
@@ -165,6 +184,14 @@ namespace VocaDb.Model.Service {
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			DeleteEntity<ArtistForSong>(artistForSongId);
+
+		}
+
+		public void DeleteName(int nameId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			DeleteEntity<SongName>(nameId);
 
 		}
 
@@ -391,6 +418,22 @@ namespace VocaDb.Model.Service {
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
 
 			});
+
+		}
+
+		public void UpdateNameLanguage(int nameId, ContentLanguageSelection lang) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			UpdateEntity<SongName>(nameId, name => name.Language = lang);
+
+		}
+
+		public void UpdateNameValue(int nameId, string val) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			UpdateEntity<SongName>(nameId, name => name.Value = val);
 
 		}
 

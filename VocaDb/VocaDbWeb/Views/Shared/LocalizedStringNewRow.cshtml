@@ -1,0 +1,13 @@
+﻿@using VocaDb.Model
+
+<tr id="nameRow_new">
+	<td>
+		<input type="text" maxlength="128" class="nameEditNew" id="nameEdit_new" />						
+	</td>
+	<td>
+		@Html.DropDownList("nameLanguage_new", new SelectList(EnumVal<VocaDb.Model.Domain.Globalization.ContentLanguageSelection>.Values), new { id = "nameLanguage_new" })
+	</td>
+	<td>
+		<input type="button" class="nameAddNew" id="nameAdd" value="Add" />
+	</td>
+</tr>
