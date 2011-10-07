@@ -8,7 +8,6 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Ranking;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using log4net;
@@ -243,7 +242,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults) {
+		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, bool getTotalCount = false) {
 
 			return HandleQuery(session => {
 
@@ -259,7 +258,7 @@ namespace VocaDb.Model.Service {
 					var contracts = songs.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 						.ToArray();
 
-					var count = GetSongCount(session, query);
+					var count = (getTotalCount ? GetSongCount(session, query) : 0);
 
 					return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
 
@@ -293,7 +292,7 @@ namespace VocaDb.Model.Service {
 						.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 						.ToArray();
 
-					var count = GetSongCount(session, query);
+					var count = (getTotalCount ? GetSongCount(session, query) : 0);
 
 					return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
 

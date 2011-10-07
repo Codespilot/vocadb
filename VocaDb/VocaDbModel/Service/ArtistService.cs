@@ -28,30 +28,88 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private ArtistDetailsContract[] FindArtists(ISession session, string query, int maxResults) {
+		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ISession session, string query, int start, int maxResults, bool getTotalCount) {
+
+			if (string.IsNullOrWhiteSpace(query)) {
+
+				var artists = session.Query<Artist>()
+					.Where(s => !s.Deleted)
+					.OrderBy(s => s.TranslatedName.Romaji)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
+				var contracts = artists.Select(s => new ArtistWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+					.ToArray();
+
+				var count = (getTotalCount ? GetArtistCount(session, query) : 0);
+
+				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count);
+
+			} else {
+
+				var direct = session.Query<Artist>()
+					.Where(s =>
+						!s.Deleted &&
+						(string.IsNullOrEmpty(query)
+							|| s.TranslatedName.English.Contains(query)
+							|| s.TranslatedName.Romaji.Contains(query)
+							|| s.TranslatedName.Japanese.Contains(query)))
+					.OrderBy(s => s.TranslatedName.Romaji)
+					.Take(maxResults)
+					.ToArray();
+
+				var additionalNames = session.Query<ArtistName>()
+					.Where(m => m.Value.Contains(query) && !m.Artist.Deleted)
+					.Select(m => m.Artist)
+					.OrderBy(s => s.TranslatedName.Romaji)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray()
+					.Where(a => !direct.Contains(a));
+
+				var contracts = direct.Concat(additionalNames)
+					.Skip(start)
+					.Take(maxResults)
+					.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.ToArray();
+
+				var count = (getTotalCount ? GetArtistCount(session, query) : 0);
+
+				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count);
+
+			}
+
+		}
+
+		private int GetArtistCount(ISession session, string query) {
+
+			if (string.IsNullOrWhiteSpace(query)) {
+
+				return session.Query<Artist>()
+					.Where(s => !s.Deleted)
+					.Count();
+
+			}
 
 			var direct = session.Query<Artist>()
-				.Where(s => 
+				.Where(s =>
 					!s.Deleted &&
 					(string.IsNullOrEmpty(query)
 						|| s.TranslatedName.English.Contains(query)
 						|| s.TranslatedName.Romaji.Contains(query)
 						|| s.TranslatedName.Japanese.Contains(query)))
-				.Take(maxResults)
 				.ToArray();
 
 			var additionalNames = session.Query<ArtistName>()
 				.Where(m => m.Value.Contains(query) && !m.Artist.Deleted)
 				.Select(m => m.Artist)
 				.Distinct()
-				.Take(maxResults)
 				.ToArray()
-				.Where(a => !direct.Contains(a));
-
-			return direct.Concat(additionalNames)
-				.Take(maxResults)
-				.Select(a => new ArtistDetailsContract(a, PermissionContext.LanguagePreference))
+				.Where(a => !direct.Contains(a))
 				.ToArray();
+
+			return direct.Count() + additionalNames.Count();
 
 		}
 
@@ -212,9 +270,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistDetailsContract[] FindArtists(string query, int maxResults) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, int start, int maxResults, bool getTotalCount = false) {
 
-			return HandleQuery(session => FindArtists(session, query, maxResults));
+			return HandleQuery(session => FindArtists(session, query, start, maxResults, getTotalCount));
 
 		}
 

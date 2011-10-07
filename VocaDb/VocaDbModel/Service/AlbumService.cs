@@ -256,7 +256,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(string query, int start, int maxResults) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(string query, int start, int maxResults, bool getTotalCount = false) {
 
 			return HandleQuery(session => {
 
@@ -272,7 +272,7 @@ namespace VocaDb.Model.Service {
 					var contracts = albums.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 						.ToArray();
 
-					var count = GetAlbumCount(session, query);
+					var count = (getTotalCount ? GetAlbumCount(session, query) : 0);
 
 					return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
 
@@ -305,7 +305,7 @@ namespace VocaDb.Model.Service {
 						.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 						.ToArray();
 
-					var count = GetAlbumCount(session, query);
+					var count = (getTotalCount ? GetAlbumCount(session, query) : 0);
 
 					return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
 

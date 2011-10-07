@@ -11,7 +11,7 @@
 
 @using (Html.BeginForm()) {
 	
-<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Filter" /></p>
+<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Apply" /></p>
 
 @Html.PagedListPager((IPagedList)ViewBag.Albums, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
 

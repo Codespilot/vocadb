@@ -22,9 +22,9 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public ArtistDetailsContract[] FindArtists(string term, int maxResults) {
+		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
 
-			return Services.Artists.FindArtists(term, maxResults);
+			return Services.Artists.FindArtists(term, 0, maxResults).Items;
 
 		}
 
