@@ -24,11 +24,10 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index(string filter, int? page) {
 
-        	var songs = Service.Find(filter, ((page ?? 1) - 1)  * 30, 30);
-        	var songCount = Service.GetSongCount(filter);
+        	var result = Service.Find(filter, ((page ?? 1) - 1)*30, 30);
 
         	ViewBag.Filter = filter;
-        	ViewBag.OnePageOfProducts = new StaticPagedList<SongContract>(songs, page ?? 1, 30, songCount);
+        	ViewBag.OnePageOfProducts = new StaticPagedList<SongContract>(result.Items.OrderBy(s => s.Name), page ?? 1, 30, result.TotalCount);
 
         	return View();
 

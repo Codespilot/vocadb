@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using System.Drawing;
 
@@ -9,7 +7,7 @@ namespace VocaDb.Model.Helpers {
 
 	public static class ImageHelper {
 
-		private static string[] allowedExt = new[] { "bmp", "gif", "jpg", "jpeg", "png" };
+		private static readonly string[] allowedExt = new[] { "bmp", "gif", "jpg", "jpeg", "png" };
 
 		public static byte[] GetOriginalAndResizedImages(Stream input, int length, params Size[] sizes) {
 

@@ -28,6 +28,38 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private int GetAlbumCount(ISession session, string query) {
+
+			if (string.IsNullOrWhiteSpace(query)) {
+
+				return session.Query<Album>()
+					.Where(s => !s.Deleted)
+					.Count();
+
+			}
+
+			var direct = session.Query<Album>()
+				.Where(s =>
+					!s.Deleted &&
+					(string.IsNullOrEmpty(query)
+						|| s.TranslatedName.English.Contains(query)
+						|| s.TranslatedName.Romaji.Contains(query)
+						|| s.TranslatedName.Japanese.Contains(query)
+					|| (s.ArtistString.Contains(query))))
+				.ToArray();
+
+			var additionalNames = session.Query<AlbumName>()
+				.Where(m => m.Value.Contains(query) && !m.Album.Deleted)
+				.Select(m => m.Album)
+				.Distinct()
+				.ToArray()
+				.Where(a => !direct.Contains(a))
+				.ToArray();
+
+			return direct.Count() + additionalNames.Count();
+
+		}
+
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
 			: base(sessionFactory, permissionContext) {}
 
@@ -46,6 +78,9 @@ namespace VocaDb.Model.Service {
 
 				var artistForAlbum = artist.AddAlbum(album);
 				session.Save(artist);
+
+				album.UpdateArtistString();
+				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 
@@ -173,7 +208,15 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			DeleteEntity<ArtistForAlbum>(artistForAlbumId);
+			HandleTransaction(session => {
+
+				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
+
+				artistForAlbum.Album.DeleteArtistForAlbum(artistForAlbum);
+				session.Delete(artistForAlbum);
+				session.Update(artistForAlbum.Album);
+
+			});
 
 		}
 
@@ -213,7 +256,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumContract[] Find(string query, int start, int maxResults) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(string query, int start, int maxResults) {
 
 			return HandleQuery(session => {
 
@@ -221,29 +264,52 @@ namespace VocaDb.Model.Service {
 
 					var albums = session.Query<Album>()
 						.Where(s => !s.Deleted)
+						.OrderBy(s => s.TranslatedName.Romaji)
 						.Skip(start)
 						.Take(maxResults)
 						.ToArray();
 
-					return albums.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
+					var contracts = albums.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 						.ToArray();
 
+					var count = GetAlbumCount(session, query);
+
+					return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
+
+				} else {
+
+					var direct = session.Query<Album>()
+						.Where(s =>
+							(!s.Deleted
+							&& (string.IsNullOrEmpty(query)
+								|| s.TranslatedName.English.Contains(query)
+								|| s.TranslatedName.Romaji.Contains(query)
+								|| s.TranslatedName.Japanese.Contains(query)))
+							|| (s.ArtistString.Contains(query)))
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Take(maxResults)
+						.ToArray();
+
+					var additionalNames = session.Query<AlbumName>()
+						.Where(m => m.Value.Contains(query) && !m.Album.Deleted)
+						.Select(m => m.Album)
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Distinct()
+						.Take(maxResults)
+						.ToArray()
+						.Where(a => !direct.Contains(a));
+
+					var contracts = direct.Concat(additionalNames)
+						.Skip(start)
+						.Take(maxResults)
+						.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+						.ToArray();
+
+					var count = GetAlbumCount(session, query);
+
+					return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
+
 				}
-
-				var direct = session.Query<Album>()
-					.Where(s => 
-						(!s.Deleted 
-						&& (string.IsNullOrEmpty(query)
-							|| s.TranslatedName.English.Contains(query)
-							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query)))
-						|| (s.ArtistString.Contains(query)))
-					.Take(maxResults)
-					.ToArray();
-
-				return direct
-					.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
 
 			});
 

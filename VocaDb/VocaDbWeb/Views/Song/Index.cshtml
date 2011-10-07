@@ -19,7 +19,7 @@
 @foreach (SongWithAdditionalNamesContract song in ViewBag.OnePageOfProducts) {
 	<tr>
 		<td>
-			@Html.ActionLink(song.Name, "Details", new { id = song.Id, title = song.AdditionalNames })<br />
+			@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })<br />
 			<span class="extraInfo">@song.ArtistString</span>
 		</td>
 		<td>

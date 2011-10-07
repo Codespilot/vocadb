@@ -12,12 +12,15 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ParamIs.NotNull(() => album);
 
+			ArtistString = album.ArtistString;
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.TranslatedName[languagePreference];
 			ReleaseDate = album.ReleaseDate;
 
 		}
+
+		public string ArtistString { get; set; }
 
 		public DiscType DiscType { get; set; }
 

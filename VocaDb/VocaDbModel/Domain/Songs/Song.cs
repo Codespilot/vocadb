@@ -7,6 +7,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -24,7 +25,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		protected IEnumerable<Artist> ArtistList {
 			get {
-				return AllArtists.Select(a => a.Artist);
+				return Artists.Select(a => a.Artist);
 			}
 		}
 
@@ -285,13 +286,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual void UpdateArtistString() {
 
-			var producers = ArtistList.Where(a => a.ArtistType == ArtistType.Producer).Select(m => m.Name);
-			var performers = ArtistList.Where(a => a.ArtistType == ArtistType.Performer).Select(m => m.Name);
-
-			if (producers.Any() && performers.Any())
-				ArtistString = string.Format("{0} feat. {1}", string.Join(", ", producers), string.Join(", ", performers));
-			else
-				ArtistString = string.Join(", ", ArtistList.Select(m => m.Name));
+			ArtistString = ArtistHelper.GetArtistString(ArtistList);
 
 		}
 

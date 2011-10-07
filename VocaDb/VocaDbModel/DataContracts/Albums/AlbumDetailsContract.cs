@@ -6,23 +6,19 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
-	public class AlbumDetailsContract : AlbumContract {
+	public class AlbumDetailsContract : AlbumWithAdditionalNamesContract {
 
 		public AlbumDetailsContract() { }
 
 		public AlbumDetailsContract(Album album, ContentLanguagePreference languagePreference)
 			: base(album, languagePreference) {
 
-			AdditionalNames = string.Join(", ", album.AllNames.Where(n => n != Name));
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Description = album.Description;
 			Songs = album.Songs.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}
-
-		[DataMember]
-		public string AdditionalNames { get; set; }
 
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
