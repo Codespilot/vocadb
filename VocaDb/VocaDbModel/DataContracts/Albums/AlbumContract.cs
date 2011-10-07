@@ -28,6 +28,8 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public string Name { get; set; }
 
+		public string ProductCode { get; set; }
+
 		public DateTime? ReleaseDate { get; set; }
 
 	}
