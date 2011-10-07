@@ -82,6 +82,10 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(albumId);
 
 				var artistForAlbum = artist.AddAlbum(album);
+
+				album.UpdateArtistString();
+				session.Update(album);
+
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 
 			});
@@ -102,6 +106,9 @@ namespace VocaDb.Model.Service {
 				session.Save(album);
 				var artistForAlbum = artist.AddAlbum(album);
 				session.Update(artist);
+
+				album.UpdateArtistString();
+				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 

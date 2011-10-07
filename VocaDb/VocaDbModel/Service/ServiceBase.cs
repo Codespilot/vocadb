@@ -130,4 +130,20 @@ namespace VocaDb.Model.Service {
 
 	}
 
+	public class PartialFindResult<T> {
+
+		public PartialFindResult(T[] items, int totalCount) {
+
+			Items = items;
+			TotalCount = totalCount;
+
+		}
+
+		public T[] Items { get; set; }
+
+		public int TotalCount { get; set; }
+
+	}
+
+
 }

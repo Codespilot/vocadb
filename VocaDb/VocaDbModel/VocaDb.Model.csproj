@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Domain\Songs\SongWebLink.cs" />
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
+    <Compile Include="Helpers\ArtistHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />

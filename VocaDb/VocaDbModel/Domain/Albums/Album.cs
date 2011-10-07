@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Remotion.Linq.Utilities;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -17,6 +19,12 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<AlbumName> names = new List<AlbumName>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
+
+		protected IEnumerable<Artist> ArtistList {
+			get {
+				return Artists.Select(a => a.Artist);
+			}
+		}
 
 		public Album() {
 			ArtistString = string.Empty;
@@ -185,6 +193,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public virtual void DeleteArtistForAlbum(ArtistForAlbum artistForAlbum) {
+
+			if (!artistForAlbum.Album.Equals(this))
+				throw new ArgumentException("Artist is not attached to album", "artistForAlbum");
+
+			AllArtists.Remove(artistForAlbum);
+			UpdateArtistString();
+
+		}
+
 		public virtual bool Equals(Album another) {
 
 			if (another == null)
@@ -249,6 +267,12 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 
 			AllSongs.Remove(songInAlbum);
+
+		}
+
+		public virtual void UpdateArtistString() {
+
+			ArtistString = ArtistHelper.GetArtistString(ArtistList);
 
 		}
 

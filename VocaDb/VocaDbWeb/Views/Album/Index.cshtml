@@ -7,16 +7,23 @@
     ViewBag.Title = "Albums";
 }
 
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))
+<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm()) {
+	
+<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Filter" /></p>
+
+@Html.PagedListPager((IPagedList)ViewBag.Albums, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
 
 <table>
 	<tr>
 		<th>Name</th>
 	</tr>
-@foreach (AlbumContract album in ViewBag.Albums) {
+@foreach (AlbumWithAdditionalNamesContract album in ViewBag.Albums) {
 	<tr>
 		<td>
-			@Html.ActionLink(album.Name, "Details", new { id = album.Id })<br />
+			@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
+			<span class="extraInfo">@album.ArtistString</span>
 		</td>
 		<td>
 			@if (Login.CanManageDb) {
@@ -27,7 +34,8 @@
 }
 </table>
 
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))
+@Html.PagedListPager((IPagedList)ViewBag.Albums, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+}
 
 @model VocaDb.Web.Models.ObjectCreate
 @if (Login.CanManageDb) {

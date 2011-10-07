@@ -29,6 +29,39 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private int GetSongCount(ISession session, string query) {
+
+			if (string.IsNullOrWhiteSpace(query)) {
+
+				return session.Query<Song>()
+					.Where(s => !s.Deleted)
+					.Count();
+
+			}
+
+			var direct = session.Query<Song>()
+				.Where(s =>
+					!s.Deleted &&
+					(string.IsNullOrEmpty(query)
+						|| s.TranslatedName.English.Contains(query)
+						|| s.TranslatedName.Romaji.Contains(query)
+						|| s.TranslatedName.Japanese.Contains(query)
+					|| (s.ArtistString.Contains(query))
+					|| (s.NicoId == null || s.NicoId == query)))
+				.ToArray();
+
+			var additionalNames = session.Query<SongName>()
+				.Where(m => m.Value.Contains(query) && !m.Song.Deleted)
+				.Select(m => m.Song)
+				.Distinct()
+				.ToArray()
+				.Where(a => !direct.Contains(a))
+				.ToArray();
+
+			return direct.Count() + additionalNames.Count();
+
+		}
+
 		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
 			: base(sessionFactory, permissionContext) {
 
@@ -195,7 +228,8 @@ namespace VocaDb.Model.Service {
 				var artistForSong = session.Load<ArtistForSong>(artistForSongId);
 
 				artistForSong.Song.DeleteArtistForSong(artistForSong);
-				session.Update(artistForSong);
+				session.Delete(artistForSong);
+				session.Update(artistForSong.Song);
 
 			});
 
@@ -209,7 +243,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongWithAdditionalNamesContract[] Find(string query, int start, int maxResults) {
+		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults) {
 
 			return HandleQuery(session => {
 
@@ -217,40 +251,53 @@ namespace VocaDb.Model.Service {
 
 					var songs = session.Query<Song>()
 						.Where(s => !s.Deleted)
+						.OrderBy(s => s.TranslatedName.Romaji)
 						.Skip(start)
 						.Take(maxResults)
 						.ToArray();
 
-					return songs.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+					var contracts = songs.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 						.ToArray();
 
+					var count = GetSongCount(session, query);
+
+					return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
+
+				} else {
+
+					var direct = session.Query<Song>()
+						.Where(s =>
+							!s.Deleted &&
+							(string.IsNullOrEmpty(query)
+								|| s.TranslatedName.English.Contains(query)
+								|| s.TranslatedName.Romaji.Contains(query)
+								|| s.TranslatedName.Japanese.Contains(query)
+							|| (s.ArtistString.Contains(query))
+							|| (s.NicoId != null && s.NicoId == query)))
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Take(maxResults)
+						.ToArray();
+
+					var additionalNames = session.Query<SongName>()
+						.Where(m => m.Value.Contains(query) && !m.Song.Deleted)
+						.Select(m => m.Song)
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Distinct()
+						.Take(maxResults)
+						.ToArray()
+						.Where(a => !direct.Contains(a));
+
+					var contracts = direct.Concat(additionalNames)
+						.Skip(start)
+						.Take(maxResults)
+						.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+						.ToArray();
+
+					var count = GetSongCount(session, query);
+
+					return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
+
 				}
-
-				var direct = session.Query<Song>()
-					.Where(s => 
-						!s.Deleted &&
-						(string.IsNullOrEmpty(query)
-							|| s.TranslatedName.English.Contains(query)
-							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query)
-						|| (s.ArtistString.Contains(query))
-						|| (s.NicoId != null && s.NicoId == query)))
-					.Take(maxResults)
-					.ToArray();
-
-				var additionalNames = session.Query<SongName>()
-					.Where(m => m.Value.Contains(query) && !m.Song.Deleted)
-					.Select(m => m.Song)
-					.Distinct()
-					.Take(maxResults)
-					.ToArray()
-					.Where(a => !direct.Contains(a));
-
-				return direct.Concat(additionalNames)
-					.Skip(start)
-					.Take(maxResults)
-					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
 
 			});
 

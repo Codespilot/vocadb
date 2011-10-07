@@ -26,20 +26,18 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, int? page) {
 
-			var songs = Service.Find(filter, ((page ?? 1) - 1) * 30, 30);
-			var songCount = Service.GetSongCount(filter);
+			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30);
 
 			ViewBag.Filter = filter;
-			ViewBag.Albums = new StaticPagedList<AlbumContract>(songs, page ?? 1, 30, songCount);
+			ViewBag.Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
 
-        	ViewBag.Albums = Service.GetAlbums();
             return View();
 
         }
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.Find(term, 20);
+			var albums = Service.Find(term, 0, 20).Items;
 
 			return Json(albums);
 
