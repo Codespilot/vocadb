@@ -451,6 +451,7 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\Album\SongInAlbumEditRow.cshtml" />
     <Content Include="Views\User\PermissionEditRow.cshtml" />
+    <Content Include="Views\Shared\LocalizedStringNewRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

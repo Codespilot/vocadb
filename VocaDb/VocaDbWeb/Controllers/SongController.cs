@@ -96,6 +96,36 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult CreateName(int songId, string nameVal, ContentLanguageSelection language) {
+
+			var name = Service.CreateName(songId, nameVal, language);
+
+			return PartialView("LocalizedStringEditableRow", name);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void DeleteName(int nameId) {
+
+			Service.DeleteName(nameId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditNameLanguage(int nameId, string nameLanguage) {
+
+			Service.UpdateNameLanguage(nameId, EnumVal<ContentLanguageSelection>.Parse(nameLanguage));
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void EditNameValue(int nameId, string nameVal) {
+
+			Service.UpdateNameValue(nameId, nameVal);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingArtist(int songId, int artistId) {
 
 			var link = Service.AddArtist(songId, artistId);
