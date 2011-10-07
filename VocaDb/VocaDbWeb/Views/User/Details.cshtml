@@ -43,22 +43,21 @@
 	<table>
 		<tr>
 			<th colspan="2">Album</th>
-			<th>Artists</th>
+			<th>Media type</th>
 		</tr>
 		@foreach (var album in Model.AlbumLinks) {
 		<tr>
 			<td>
 				<img src="@Url.Action("CoverPicture", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
 			</td>
-			<td>@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, null)</td>		
 			<td>
-				@foreach (var artist in album.Album.ArtistLinks) {
-					@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, null);
-					if (artist != album.Album.ArtistLinks.Last()) {
-						<text>,&nbsp;</text>
-					}
-				}					
+				@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
+				<br />
+				<span class="extraInfo">@album.Album.ArtistString</span>
 			</td>
+			<td>
+				@Translate.MediaTypeName(album.MediaType)
+			</td>	
 		</tr>
 		}	
 	</table>
