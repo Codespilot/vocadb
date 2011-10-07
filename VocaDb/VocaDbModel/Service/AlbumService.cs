@@ -213,18 +213,31 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumContract[] Find(string query, int maxResults) {
+		public AlbumContract[] Find(string query, int start, int maxResults) {
 
 			return HandleQuery(session => {
 
+				if (string.IsNullOrWhiteSpace(query)) {
+
+					var albums = session.Query<Album>()
+						.Where(s => !s.Deleted)
+						.Skip(start)
+						.Take(maxResults)
+						.ToArray();
+
+					return albums.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
+						.ToArray();
+
+				}
+
 				var direct = session.Query<Album>()
 					.Where(s => 
-						!s.Deleted &&
-						(string.IsNullOrEmpty(query)
+						(!s.Deleted 
+						&& (string.IsNullOrEmpty(query)
 							|| s.TranslatedName.English.Contains(query)
 							|| s.TranslatedName.Romaji.Contains(query)
 							|| s.TranslatedName.Japanese.Contains(query)))
-					.OrderBy(s => s.TranslatedName.Japanese)
+						|| (s.ArtistString.Contains(query)))
 					.Take(maxResults)
 					.ToArray();
 

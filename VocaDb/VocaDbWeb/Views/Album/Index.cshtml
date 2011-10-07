@@ -1,9 +1,13 @@
 ﻿@using VocaDb.Web;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Albums;
+@using PagedList.Mvc;
+@using PagedList;
 @{
     ViewBag.Title = "Albums";
 }
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))
 
 <table>
 	<tr>
@@ -22,6 +26,8 @@
 	</tr>
 }
 </table>
+
+@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page }))
 
 @model VocaDb.Web.Models.ObjectCreate
 @if (Login.CanManageDb) {

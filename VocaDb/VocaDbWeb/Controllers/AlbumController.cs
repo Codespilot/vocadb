@@ -9,6 +9,8 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
 using System.Drawing;
 using VocaDb.Model.Helpers;
+using PagedList;
+using VocaDb.Model.DataContracts.Albums;
 
 namespace VocaDb.Web.Controllers
 {
@@ -22,9 +24,17 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Album/
 
-        public ActionResult Index() {
+		public ActionResult Index(string filter, int? page) {
+
+			var songs = Service.Find(filter, ((page ?? 1) - 1) * 30, 30);
+			var songCount = Service.GetSongCount(filter);
+
+			ViewBag.Filter = filter;
+			ViewBag.Albums = new StaticPagedList<AlbumContract>(songs, page ?? 1, 30, songCount);
+
         	ViewBag.Albums = Service.GetAlbums();
             return View();
+
         }
 
 		public ActionResult FindJson(string term) {

@@ -247,6 +247,16 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual void DeleteArtistForSong(ArtistForSong artistForSong) {
+
+			if (!artistForSong.Song.Equals(this))
+				throw new ArgumentException("Artist is not attached to song", "artistForSong");
+
+			AllArtists.Remove(artistForSong);
+			UpdateArtistString();
+
+		}
+
 		public virtual bool Equals(Song another) {
 
 			if (another == null)

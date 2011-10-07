@@ -19,6 +19,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
 		public Album() {
+			ArtistString = string.Empty;
 			Deleted = false;
 			Description = string.Empty;
 			DiscType = DiscType.Album;
@@ -74,6 +75,8 @@ namespace VocaDb.Model.Domain.Albums {
 				return AllArtists.Where(a => !a.Artist.Deleted);
 			}
 		}
+
+		public virtual string ArtistString { get; protected set; }
 
 		public virtual PictureData CoverPicture { get; set; }
 
