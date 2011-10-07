@@ -14,12 +14,8 @@ using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
-
-		private LoginManager LoginManager {
-			get { return MvcApplication.LoginManager; }
-		}
 
 		private UserService Service {
 			get { return MvcApplication.Services.Users; }

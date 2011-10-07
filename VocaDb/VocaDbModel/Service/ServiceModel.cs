@@ -13,6 +13,12 @@ namespace VocaDb.Model.Service {
 			this.permissionContext = permissionContext;
 		}
 
+		public AdminService Admin {
+			get {
+				return new AdminService(sessionFactory, permissionContext);
+			}
+		}
+
 		public AlbumService Albums {
 			get {
 				return new AlbumService(sessionFactory, permissionContext);

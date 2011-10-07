@@ -22,6 +22,8 @@ namespace VocaDb.Model.Domain.Security {
 		/// </summary>
 		ManageUsers		= 4,
 
+		Admin			= 8,
+
 		Default			= (EditProfile | ManageDatabase)
 
 	}
