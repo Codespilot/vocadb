@@ -100,7 +100,7 @@ namespace VocaDb.Web.Controllers
 
 			var name = Service.CreateName(songId, nameVal, language);
 
-			return PartialView("LocalizedStringEditableRow", name);
+			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit(name));
 
 		}
 

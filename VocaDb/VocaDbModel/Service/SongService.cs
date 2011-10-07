@@ -43,9 +43,13 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
+				var song = session.Load<Song>(songId);
 
-				var artistForSong = artist.AddSong(session.Load<Song>(songId));
+				var artistForSong = artist.AddSong(song);
 				session.Save(artistForSong);
+
+				song.UpdateArtistString();
+				session.Update(song);
 
 				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
 
@@ -66,6 +70,9 @@ namespace VocaDb.Model.Service {
 
 				var artistForSong = artist.AddSong(song);
 				session.Save(artist);
+
+				song.UpdateArtistString();
+				session.Update(song);
 
 				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
 
@@ -170,7 +177,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Album>(id, (session, a) => {
 
-				log.Info(string.Format("'{0}' deleting song '{1}'", PermissionContext.Name, a.Name));
+				AuditLog(string.Format("deleting song '{0}'", a.Name));
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -183,7 +190,14 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			DeleteEntity<ArtistForSong>(artistForSongId);
+			HandleTransaction(session => {
+
+				var artistForSong = session.Load<ArtistForSong>(artistForSongId);
+
+				artistForSong.Song.DeleteArtistForSong(artistForSong);
+				session.Update(artistForSong);
+
+			});
 
 		}
 
@@ -311,7 +325,6 @@ namespace VocaDb.Model.Service {
 							|| s.TranslatedName.Japanese.Contains(query)
 						|| (s.ArtistString.Contains(query))
 						|| (s.NicoId == null || s.NicoId == query)))
-					.OrderBy(s => s.TranslatedName.Japanese)
 					.ToArray();
 
 				var additionalNames = session.Query<SongName>()
