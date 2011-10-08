@@ -5,11 +5,13 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.DataContracts.Albums;
@@ -278,7 +280,16 @@ namespace VocaDb.Model.Service {
 
 		public ArtistDetailsContract GetArtistDetails(int id) {
 
-			return HandleQuery(session => new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
+			return HandleQuery(session => {
+			                   	
+				var contract = new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference);
+				contract.LatestSongs = session.Query<ArtistForSong>().OrderBy(s => s.Song.CreateDate).Take(20)
+					.Select(s => s.Song).ToArray()
+					.Select(s => new SongContract(s, PermissionContext.LanguagePreference)).ToArray();
+
+				return contract;
+
+			});
 
 		}
 

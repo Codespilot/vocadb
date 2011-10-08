@@ -1,3 +1,6 @@
 User-agent: *
 Disallow: /ViewNicoVideo.aspx
 Disallow: /ListPolls.aspx
+Disallow: /ListSongs.aspx
+Disallow: /ViewPoll.aspx
+Disallow: /SongDetails.aspx
