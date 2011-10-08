@@ -73,3 +73,12 @@
 	}
 </ul>
 }
+
+@if (Model.LatestSongs.Any()) {
+<h3>Recently added songs</h3>
+<ul>
+	@foreach (var song in Model.LatestSongs) {
+		<li>@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, null)</li>
+ }
+</ul>	
+}
