@@ -283,8 +283,8 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 			                   	
 				var contract = new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference);
-				contract.LatestSongs = session.Query<ArtistForSong>().Where(s => s.Artist.Id == id).Select(s => s.Song)
-					.OrderBy(s => s.CreateDate).Take(20).ToArray()
+				contract.LatestSongs = session.Query<ArtistForSong>().Where(s => s.Artist.Id == id).ToArray().Select(s => s.Song)
+					.OrderByDescending(s => s.CreateDate).Take(20).ToArray()
 					.Select(s => new SongContract(s, PermissionContext.LanguagePreference)).ToArray();
 
 				return contract;
