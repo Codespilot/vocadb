@@ -12,9 +12,14 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Home/
 
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
+
+        	var result = MvcApplication.Services.Other.GetFrontPageContent();
+        	ViewBag.Albums = result.LatestAlbums;
+        	ViewBag.Songs = result.LatestSongs;
+
             return View();
+
         }
 
         //

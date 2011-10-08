@@ -28,6 +28,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public Album() {
 			ArtistString = string.Empty;
+			CreateDate = DateTime.Now;
 			Deleted = false;
 			Description = string.Empty;
 			DiscType = DiscType.Album;
@@ -87,6 +88,8 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual string ArtistString { get; protected set; }
 
 		public virtual PictureData CoverPicture { get; set; }
+
+		public virtual DateTime CreateDate { get; set; }
 
 		public virtual bool Deleted { get; set; }
 
