@@ -1,11 +1,34 @@
-﻿@{
+﻿@using VocaDb.Model.DataContracts.U
+
+@{
 	ViewBag.Title = "Home";
 }
 
 <h3>Welcome to the Vocaloid Database!</h3>
 
-<ul>
-	<li>@Html.ActionLink("Artists", "Index", "Artist")</li>
-	<li>@Html.ActionLink("Albums", "Index", "Album")</li>
-	<li>@Html.ActionLink("Songs", "Index", "Song")</li>
-</ul>
+<table>
+	<tr>
+		<td>
+			<h3>Recently added albums</h3>
+			<ul>
+			@foreach (VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract album in ViewBag.Albums) {
+				<li>
+					@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })<br />
+					<span class="extraInfo">@album.ArtistString</span>
+				</li>
+			}
+			</ul>
+		</td>
+		<td>
+			<h3>Recently added songs</h3>
+			<ul>
+			@foreach (VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract song in ViewBag.Songs) {
+				<li>
+					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })<br />
+					<span class="extraInfo">@song.ArtistString</span>
+				</li>				
+			}
+			</ul>		
+		</td>
+	</tr>
+</table>

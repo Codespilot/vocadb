@@ -31,6 +31,12 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		public OtherService Other {
+			get {
+				return new OtherService(sessionFactory, permissionContext);
+			}
+		}
+
 		public RankingService Rankings {
 			get {
 				return new RankingService(sessionFactory, permissionContext);
