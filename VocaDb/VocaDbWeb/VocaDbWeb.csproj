@@ -174,7 +174,8 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\Album_Edit.js" />
+    <Content Include="Scripts\Album\Edit.js" />
+    <Content Include="Scripts\Album\Details.js" />
     <Content Include="Scripts\Artist_Edit.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
