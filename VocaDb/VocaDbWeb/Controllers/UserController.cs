@@ -186,6 +186,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public void RemoveAlbumFromUser(int albumId) {
+			
+			Service.RemoveAlbumFromUser(LoginManager.LoggedUser.Id, albumId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 			
 			Service.UpdateAlbumForUserMediaType(albumForUserId, mediaType);

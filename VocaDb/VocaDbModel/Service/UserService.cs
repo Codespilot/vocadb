@@ -147,6 +147,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void RemoveAlbumFromUser(int userId, int albumId) {
+
+			HandleTransaction(session => {
+
+				var links = session.Query<AlbumForUser>().Where(a => a.Album.Id == albumId && a.User.Id == userId).ToArray();
+
+				foreach (var link in links)
+					session.Delete(link);
+
+			});
+
+		}
+
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
