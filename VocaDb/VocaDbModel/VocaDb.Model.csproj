@@ -125,6 +125,7 @@
     <Compile Include="Domain\Songs\PVService.cs" />
     <Compile Include="Domain\Songs\PVType.cs" />
     <Compile Include="Domain\Users\AlbumForUser.cs" />
+    <Compile Include="Domain\Users\FavoriteSongForUser.cs" />
     <Compile Include="Domain\Users\MediaType.cs" />
     <Compile Include="Domain\Users\User.cs" />
     <Compile Include="Domain\Ranking\SongInRanking.cs" />
