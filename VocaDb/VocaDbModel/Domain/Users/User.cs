@@ -12,6 +12,7 @@ namespace VocaDb.Model.Domain.Users {
 
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private string email;
+		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
 		private string name;
 		private string nameLc;
 		private string password;
@@ -62,6 +63,14 @@ namespace VocaDb.Model.Domain.Users {
 			set {
 				ParamIs.NotNull(() => value);
 				email = value;
+			}
+		}
+
+		public virtual IList<FavoriteSongForUser> FavoriteSongs {
+			get { return favoriteSongs; }
+			set {
+				ParamIs.NotNull(() => value);
+				favoriteSongs = value;
 			}
 		}
 
