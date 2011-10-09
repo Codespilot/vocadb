@@ -10,7 +10,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
-			Map(m => m.ArtistString).Not.Nullable();
+			Map(m => m.ArtistString).Not.Nullable().Length(500);
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.NicoId).Nullable();

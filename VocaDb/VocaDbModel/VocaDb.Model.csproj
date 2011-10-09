@@ -121,6 +121,9 @@
     <Compile Include="Domain\Security\NotAllowedException.cs" />
     <Compile Include="Domain\Security\PermissionFlags.cs" />
     <Compile Include="Domain\Security\RoleTypes.cs" />
+    <Compile Include="Domain\Songs\PVForSong.cs" />
+    <Compile Include="Domain\Songs\PVService.cs" />
+    <Compile Include="Domain\Songs\PVType.cs" />
     <Compile Include="Domain\Users\AlbumForUser.cs" />
     <Compile Include="Domain\Users\MediaType.cs" />
     <Compile Include="Domain\Users\User.cs" />

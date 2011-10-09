@@ -21,6 +21,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private TranslatedString name;
 		private IList<SongName> names = new List<SongName>();
 		private string originalName;
+		private IList<PVForSong> pvs = new List<PVForSong>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
 
 		protected IEnumerable<Artist> ArtistList {
@@ -140,6 +141,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				names = value;
+			}
+		}
+
+		public IList<PVForSong> PVs {
+			get { return pvs; }
+			set {
+				ParamIs.NotNull(() => value);
+				pvs = value;
 			}
 		}
 
