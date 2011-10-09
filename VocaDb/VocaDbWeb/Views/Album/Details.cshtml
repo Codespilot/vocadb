@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Albums;
+@using VocaDb.Web.Helpers;
 @model AlbumDetailsContract
 		   
 @{
@@ -7,10 +8,12 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Albums", "Index") };
 }
 
+@if (Login.Manager.IsLoggedIn) {
 <a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">Add album to collection</a>
 <a href="#" id="removeAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Remove album from collection</a>
-
-@if (VocaDb.Web.Helpers.Login.CanManageDb) {
+}
+	
+@if (Login.CanManageDb) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
