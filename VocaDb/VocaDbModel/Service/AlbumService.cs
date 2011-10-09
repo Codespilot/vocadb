@@ -10,6 +10,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Artists;
@@ -317,7 +318,16 @@ namespace VocaDb.Model.Service {
 
 		public AlbumDetailsContract GetAlbumDetails(int id) {
 
-			return HandleQuery(session => new AlbumDetailsContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
+			return HandleQuery(session => {
+
+				var contract = new AlbumDetailsContract(session.Load<Album>(id), PermissionContext.LanguagePreference);
+				if (PermissionContext.LoggedUser != null)
+					contract.UserHasAlbum = session.Query<AlbumForUser>()
+						.Any(a => a.Album.Id == id && a.User.Id == PermissionContext.LoggedUser.Id);
+
+				return contract;
+
+			});
 
 		}
 
