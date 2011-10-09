@@ -15,10 +15,6 @@ namespace VocaDb.Web.Controllers
     public class ArtistController : ControllerBase
     {
 
-    	private LoginManager LoginManager {
-			get { return MvcApplication.LoginManager; }
-    	}
-
     	private ArtistService Service {
     		get { return MvcApplication.Services.Artists; }
     	}

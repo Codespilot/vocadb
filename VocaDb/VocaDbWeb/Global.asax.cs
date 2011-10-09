@@ -26,11 +26,17 @@ namespace VocaDb.Web {
 
 		public static ServiceModel Services {
 			get {
+				return new ServiceModel(SessionFactory, LoginManager);
+			}
+		}
+
+		public static ISessionFactory SessionFactory {
+			get {
 
 				if (sessionFactory == null)
 					sessionFactory = DatabaseConfiguration.BuildSessionFactory();
 
-				return new ServiceModel(sessionFactory, LoginManager);
+				return sessionFactory;
 
 			}
 		}

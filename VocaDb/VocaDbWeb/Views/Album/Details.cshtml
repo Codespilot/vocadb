@@ -7,7 +7,10 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Albums", "Index") };
 }
 
-@if (VocaDb.Web.Helpers.Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageDatabase)) {
+<a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">Add album to collection</a>
+<a href="#" id="removeAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Remove album from collection</a>
+
+@if (VocaDb.Web.Helpers.Login.CanManageDb) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
 }
 
@@ -30,10 +33,10 @@
 		<td>
 		@foreach (var artist in Model.ArtistLinks) {
 			@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, null);
-			if (artist != Model.ArtistLinks.Last()) {
+																								 if (artist != Model.ArtistLinks.Last()) {
 				<text>,&nbsp;</text>
-			}
-		}			
+																								 }
+  }			
 		</td>
 	</tr>
 @if (!string.IsNullOrEmpty(Model.Description)) {
@@ -68,7 +71,8 @@
 		<li>
 			@song.TrackNumber
 			.&nbsp;
-			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, null)
+			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, null)<br />
+			<span class="extraInfo">@song.Song.ArtistString</span>
 		</li>
  }
 </ul>

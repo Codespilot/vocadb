@@ -25,7 +25,9 @@
 					<li>@Html.ActionLink("Artists", "Index", "Artist")</li>
 					<li>@Html.ActionLink("Albums", "Index", "Album")</li>
 					<li>@Html.ActionLink("Songs", "Index", "Song")</li>
-
+					@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
+					<li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+					}
 					@if (!Login.Manager.IsLoggedIn) {
 					<li>@Html.ActionLink("Log in", "Login", "User")</li>
 					} else {
@@ -34,7 +36,7 @@
 				</ul>
 				@if (Login.Manager.IsLoggedIn) {
 					<p>Welcome @Html.ActionLink(Login.User.Name, "Details", "User", new { id = Login.User.Id }, null)</p>
-				}
+	}
 				
 				<br /><br />
 				<h3>Related sites</h3>
@@ -46,12 +48,12 @@
 			</td>
 			<td class="rightFrame">
 				@if (ViewBag.Parents != null) {
-					foreach (MvcHtmlString link in ViewBag.Parents) {
+		foreach (MvcHtmlString link in ViewBag.Parents) {
 						<span>
 						@link &gt;&gt;
 						</span>
-					}
-				}
+		}
+	}
 				<h2>@ViewBag.Title</h2>
 				@RenderBody()
 			</td>

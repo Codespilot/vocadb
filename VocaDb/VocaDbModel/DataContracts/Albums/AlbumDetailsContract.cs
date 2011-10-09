@@ -26,6 +26,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public SongInAlbumContract[] Songs { get; set; }
 
+		[DataMember]
+		public bool UserHasAlbum { get; set; }
+
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}
