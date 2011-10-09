@@ -6,7 +6,7 @@
 
 <table>
 	<tr>
-		<td>
+		<td class="recentAlbums">
 			<h3>Recently added albums</h3>
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract album in ViewBag.Albums) {
@@ -17,7 +17,7 @@
 			}
 			</ul>
 		</td>
-		<td>
+		<td class="recentSongs">
 			<h3>Recently added songs</h3>
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract song in ViewBag.Songs) {

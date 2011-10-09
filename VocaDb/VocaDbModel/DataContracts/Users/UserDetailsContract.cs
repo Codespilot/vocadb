@@ -13,11 +13,14 @@ namespace VocaDb.Model.DataContracts.Users {
 			: base(user) {
 
 			AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
+			FavoriteSongs = user.FavoriteSongs.Select(f => new FavoriteSongForUserContract(f, languagePreference)).ToArray();
 			LastLogin = user.LastLogin;
 
 		}
 
 		public AlbumForUserContract[] AlbumLinks { get; set; }
+
+		public FavoriteSongForUserContract[] FavoriteSongs { get; set; }
 
 		public DateTime LastLogin { get; set; }
 

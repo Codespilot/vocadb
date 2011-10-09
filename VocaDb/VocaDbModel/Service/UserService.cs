@@ -8,6 +8,7 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Security;
 
@@ -60,6 +61,15 @@ namespace VocaDb.Model.Service {
 				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
 
 			});
+
+		}
+
+		public void AddSongToFavorites(int userId, int songId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			UpdateEntity<User>(userId, (session, user) 
+				=> user.AddSongToFavorites(session.Load<Song>(songId)));
 
 		}
 
@@ -154,6 +164,19 @@ namespace VocaDb.Model.Service {
 				var links = session.Query<AlbumForUser>().Where(a => a.Album.Id == albumId && a.User.Id == userId).ToArray();
 
 				foreach (var link in links)
+					session.Delete(link);
+
+			});
+
+		}
+
+		public void RemoveSongFromFavorites(int userId, int songId) {
+
+			HandleTransaction(session => {
+
+				var link = session.Query<FavoriteSongForUser>().FirstOrDefault(a => a.Song.Id == songId && a.User.Id == userId);
+
+				if (link != null)
 					session.Delete(link);
 
 			});

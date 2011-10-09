@@ -17,6 +17,17 @@ namespace VocaDb.Web.Controllers
     public class UserController : ControllerBase
     {
 
+    	private int LoggedUserId {
+    		get {
+    			
+				if (!LoginManager.IsLoggedIn)
+					throw new InvalidOperationException("Not logged in");
+
+    			return LoginManager.LoggedUser.Id;
+
+    		}
+    	}
+
 		private UserService Service {
 			get { return MvcApplication.Services.Users; }
 		}
@@ -188,7 +199,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void RemoveAlbumFromUser(int albumId) {
 			
-			Service.RemoveAlbumFromUser(LoginManager.LoggedUser.Id, albumId);
+			Service.RemoveAlbumFromUser(LoggedUserId, albumId);
 
 		}
 
@@ -202,7 +213,7 @@ namespace VocaDb.Web.Controllers
     	[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewAlbum(string newAlbumName) {
 
-			var link = Service.AddAlbum(LoginManager.LoggedUser.Id, newAlbumName);
+			var link = Service.AddAlbum(LoggedUserId, newAlbumName);
 			return PartialView("AlbumForUserSettingsRow", new AlbumForUserEditModel(link));
 
 		}
@@ -210,7 +221,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingAlbum(int albumId) {
 
-			var link = Service.AddAlbum(LoginManager.LoggedUser.Id, albumId);
+			var link = Service.AddAlbum(LoggedUserId, albumId);
 			return PartialView("AlbumForUserSettingsRow", new AlbumForUserEditModel(link));
 
 		}
@@ -219,6 +230,20 @@ namespace VocaDb.Web.Controllers
 		public void DeleteAlbumForUser(int albumForUserId) {
 
 			Service.DeleteAlbumForUser(albumForUserId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void AddSongToFavorites(int songId) {
+
+			Service.AddSongToFavorites(LoggedUserId, songId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void RemoveSongFromFavorites(int songId) {
+
+			Service.RemoveSongFromFavorites(LoggedUserId, songId);
 
 		}
 

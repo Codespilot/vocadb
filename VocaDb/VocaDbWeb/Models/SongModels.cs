@@ -28,6 +28,7 @@ namespace VocaDb.Web.Models {
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
 			Id = contract.Song.Id;
+			IsFavorited = contract.IsFavorited;
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
@@ -41,6 +42,8 @@ namespace VocaDb.Web.Models {
 		public AlbumContract[] Albums { get; set; }
 
 		public int Id { get; set; }
+
+		public bool IsFavorited { get; set; }
 
 		public LyricsForSongContract[] Lyrics { get; set; }
 

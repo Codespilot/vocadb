@@ -11,6 +11,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using log4net;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
 
@@ -389,7 +390,17 @@ namespace VocaDb.Model.Service {
 
 		public SongDetailsContract GetSongDetails(int songId) {
 
-			return HandleQuery(session => new SongDetailsContract(session.Load<Song>(songId), PermissionContext.LanguagePreference));
+			return HandleQuery(session => {
+
+				var contract = new SongDetailsContract(session.Load<Song>(songId), PermissionContext.LanguagePreference);
+
+				if (PermissionContext.LoggedUser != null)
+					contract.IsFavorited = session.Query<FavoriteSongForUser>()
+						.Any(s => s.Song.Id == songId && s.User.Id == PermissionContext.LoggedUser.Id);
+
+				return contract;
+
+			});
 
 		}
 

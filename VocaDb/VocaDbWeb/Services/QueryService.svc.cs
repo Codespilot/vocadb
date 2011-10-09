@@ -29,6 +29,18 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public ArtistDetailsContract GetArtistDetails(string term) {
+
+			var artists = Services.Artists.FindArtists(term, 0, 1);
+
+			if (!artists.Items.Any())
+				return null;
+
+			return Services.Artists.GetArtistDetails(artists.Items[0].Id);
+
+		}
+
+		[OperationContract]
 		public LyricsForSongContract GetRandomSongLyrics() {
 
 			return Services.Songs.GetRandomSongWithLyricsDetails();

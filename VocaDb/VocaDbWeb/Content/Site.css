@@ -97,12 +97,7 @@ img.coverPicIcon
 	max-height: 25px;	
 }
 
-table.properties tr
-{
-	vertical-align: top;
-}
-
-.rightFrame 
+table.properties tr, .rightFrame, .recentAlbums, .recentSongs
 {
 	vertical-align: top;	
 }
