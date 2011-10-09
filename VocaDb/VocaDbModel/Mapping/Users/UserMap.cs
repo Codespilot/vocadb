@@ -24,6 +24,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.Salt).Not.Nullable();
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
+			HasMany(m => m.FavoriteSongs).Inverse().Cascade.All();
 
 		}
 
@@ -40,6 +41,21 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.MediaType).Not.Nullable();
 
 			References(m => m.Album).Not.Nullable();
+			References(m => m.User).Not.Nullable();
+
+		}
+
+	}
+
+	public class FavoriteSongForUserMap : ClassMap<FavoriteSongForUser> {
+		
+		public FavoriteSongForUserMap() {
+			
+			Table("FavoriteSongsForUsers");
+			Cache.ReadWrite();
+			Id(m => m.Id);
+
+			References(m => m.Song).Not.Nullable();
 			References(m => m.User).Not.Nullable();
 
 		}

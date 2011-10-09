@@ -74,6 +74,7 @@
     <Compile Include="DataContracts\Schemas.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
+    <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
     <Compile Include="DataContracts\Users\UserDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongContract.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />

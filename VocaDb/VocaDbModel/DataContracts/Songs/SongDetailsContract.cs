@@ -35,6 +35,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public ArtistForSongContract[] Artists { get; set; }
 
 		[DataMember]
+		public bool IsFavorited { get; set; }
+
+		[DataMember]
 		public LyricsForSongContract[] Lyrics { get; set; }
 
 		[DataMember]

@@ -5,6 +5,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Users {
 
@@ -114,6 +115,17 @@ namespace VocaDb.Model.Domain.Users {
 
 			var link = new AlbumForUser(this, album);
 			AllAlbums.Add(link);
+
+			return link;
+
+		}
+
+		public virtual FavoriteSongForUser AddSongToFavorites(Song song) {
+			
+			ParamIs.NotNull(() => song);
+
+			var link = new FavoriteSongForUser(this, song);
+			FavoriteSongs.Add(link);
 
 			return link;
 

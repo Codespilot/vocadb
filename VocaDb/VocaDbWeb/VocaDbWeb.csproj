@@ -191,7 +191,8 @@
     <Content Include="Scripts\PagedList\PagedList.Mvc.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.Template.html" />
     <Content Include="Scripts\Shared\AddNewLinkRow.js" />
-    <Content Include="Scripts\Song_Edit.js" />
+    <Content Include="Scripts\Song\Details.js" />
+    <Content Include="Scripts\Song\Edit.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-af.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
@@ -380,6 +381,7 @@
     <Content Include="Scripts\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\MySettings.js" />
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />

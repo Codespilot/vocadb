@@ -8,7 +8,7 @@
 
 		public PVForSong() {
 			Notes = string.Empty;
-			PVId = string.Empty;
+			pvId = string.Empty;
 			Service = PVService.Other;
 			PVType = PVType.Other;
 		}
@@ -33,7 +33,7 @@
 
 		public virtual PVService Service { get; set; }
 
-		public Song Song {
+		public virtual Song Song {
 			get { return song; }
 			set {
 				ParamIs.NotNull(() => value);

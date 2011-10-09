@@ -144,7 +144,7 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public IList<PVForSong> PVs {
+		public virtual IList<PVForSong> PVs {
 			get { return pvs; }
 			set {
 				ParamIs.NotNull(() => value);

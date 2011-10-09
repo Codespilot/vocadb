@@ -30,6 +30,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Names).Table("SongNames").Inverse().Cascade.All();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All();
+			HasMany(m => m.PVs).Inverse().Cascade.All();
 			HasMany(m => m.WebLinks).Table("SongWebLinks").Inverse().Cascade.All();
 
 		}
@@ -117,5 +118,22 @@ namespace VocaDb.Model.Mapping.Songs {
 
 	}
 
+	public class PVForSongMap : ClassMap<PVForSong> {
+		
+		public PVForSongMap() {
+			
+			Table("PVsForSongs");
+			Id(m => m.Id);
+
+			Map(m => m.Notes).Not.Nullable();
+			Map(m => m.PVId).Not.Nullable();
+			Map(m => m.PVType).Not.Nullable();
+			Map(m => m.Service).Not.Nullable();
+
+			References(m => m.Song).Not.Nullable();
+
+		}
+
+	}
 
 }

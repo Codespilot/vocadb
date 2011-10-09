@@ -37,30 +37,55 @@
 		</tr>
 	}
 </table>
-	
-@if (Model.AlbumLinks.Any()) {
-<h3>Collection</h3>
-	<table>
-		<tr>
-			<th colspan="2">Album</th>
-			<th>Media type</th>
-		</tr>
-		@foreach (var album in Model.AlbumLinks) {
-		<tr>
-			<td>
-				<img src="@Url.Action("CoverPicture", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
-			</td>
-			<td>
-				@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
-				<br />
-				<span class="extraInfo">@album.Album.ArtistString</span>
-			</td>
-			<td>
-				@Translate.MediaTypeName(album.MediaType)
-			</td>	
-		</tr>
-		}	
-	</table>
-<ul>
-</ul>
-}
+
+<div id="tabs">
+
+	<ul>
+		<li><a href="#collection">Collection</a></li>
+		<li><a href="#favorites">Favorites</a></li>
+	</ul>
+
+	<div id="collection">
+		<table>
+			<tr>
+				<th colspan="2">Album</th>
+				<th>Media type</th>
+			</tr>
+			@foreach (var album in Model.AlbumLinks) {
+			<tr>
+				<td>
+					<img src="@Url.Action("CoverPicture", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
+				</td>
+				<td>
+					@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
+					<br />
+					<span class="extraInfo">@album.Album.ArtistString</span>
+				</td>
+				<td>
+					@Translate.MediaTypeName(album.MediaType)
+				</td>	
+			</tr>
+			}	
+		</table>
+	</div>
+
+	<div id="favorites">
+		<ul>
+		@foreach (var song in Model.FavoriteSongs) {
+			<li>
+				@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Id }, new { title = song.Song.AdditionalNames })<br />
+				<span class="extraInfo">@song.Song.ArtistString</span>
+			</li>
+		}
+		</ul>	
+	</div>
+</div>
+
+<script type="text/javascript" src="../../Scripts/User/Details.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id) 
+	});
+
+</script>
