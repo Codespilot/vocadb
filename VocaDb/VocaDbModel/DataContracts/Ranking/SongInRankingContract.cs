@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Ranking {
 		public SongInRankingContract(SongInRanking songInPoll) {
 
 			Id = songInPoll.Id;
-			Name = songInPoll.Song.Name;
+			Name = songInPoll.Song.DefaultName;
 			NicoId = songInPoll.Song.NicoId;
 			SongId = songInPoll.Song.Id;
 			SortIndex = songInPoll.SortIndex;

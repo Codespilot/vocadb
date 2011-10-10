@@ -273,6 +273,10 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public override string ToString() {
+			return "Album " + Name;
+		}
+
 		public virtual void UpdateArtistString() {
 
 			ArtistString = ArtistHelper.GetArtistString(ArtistList);

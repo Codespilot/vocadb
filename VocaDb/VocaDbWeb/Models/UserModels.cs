@@ -9,6 +9,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Models {
 
@@ -36,10 +37,12 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
 			Id = user.Id;
+			PreferredVideoService = user.PreferredVideoService;
 			Username = user.Name;
 
 			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values;
+			AllVideoServices = EnumVal<PVService>.Values;
 
 		}
 
@@ -47,8 +50,13 @@ namespace VocaDb.Web.Models {
 
 		public ContentLanguagePreference[] AllLanguages { get; set; }
 
+		public PVService[] AllVideoServices { get; set; }
+
 		[Display(Name = "Preferred display language")]
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
+
+		[Display(Name = "Preferred video service")]
+		public PVService PreferredVideoService { get; set; }
 
 		[Display(Name = "Email")]
 		[DataType(DataType.EmailAddress)]
@@ -80,6 +88,7 @@ namespace VocaDb.Web.Models {
 				DefaultLanguageSelection = this.DefaultLanguageSelection,
 				Email = this.Email,
 				OldPass = this.OldPass,
+				PreferredVideoService = this.PreferredVideoService,
 				NewPass = this.NewPass
 			};
 

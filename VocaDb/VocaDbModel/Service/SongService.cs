@@ -170,6 +170,26 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PVForSongContract CreatePVForSong(int songId, PVService service, string pvId, PVType pvType) {
+
+			ParamIs.NotNullOrEmpty(() => pvId);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+				AuditLog("creating a PV for " + song);
+
+				var pv = song.CreatePV(service, pvId, pvType);
+				session.Save(pv);
+
+				return new PVForSongContract(pv);
+
+			});
+
+		}
+
 		public SongContract CreateSong(CreateSongContract contract) {
 
 			return HandleTransaction(session => {
@@ -237,9 +257,13 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteName(int nameId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			DeleteEntity<SongName>(nameId, PermissionFlags.ManageDatabase);
 
-			DeleteEntity<SongName>(nameId);
+		}
+
+		public void DeletePvForSong(int pvForSongId) {
+
+			DeleteEntity<PVForSong>(pvForSongId, PermissionFlags.ManageDatabase);
 
 		}
 

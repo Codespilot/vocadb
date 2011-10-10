@@ -79,10 +79,11 @@ namespace VocaDb.Model.Service {
 			this.permissionContext = permissionContext;
 		}
 
-		protected void DeleteEntity<TEntity>(int id) {
+		protected void DeleteEntity<TEntity>(int id, PermissionFlags permissionFlags = PermissionFlags.Nothing) {
 
 			var typeName = typeof(TEntity).Name;
-			log.Info(string.Format("Deleting {0} with Id {1}", typeName, id));
+			AuditLog(string.Format("is about to delete {0} with Id {1}", typeName, id));
+			PermissionContext.VerifyPermission(permissionFlags);
 
 			HandleTransaction(session => {
 
@@ -94,11 +95,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void UpdateEntity<TEntity>(int id, Action<TEntity> func) {
+		protected void UpdateEntity<TEntity>(int id, Action<TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing) {
 
 			var typeName = typeof(TEntity).Name;
 
-			log.Info(string.Format("Updating {0} with Id {1}", typeName, id));
+			AuditLog(string.Format("is about to update {0} with Id {1}", typeName, id));
+			PermissionContext.VerifyPermission(permissionFlags);
 
 			HandleTransaction(session => {
 
@@ -111,11 +113,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func) {
+		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing) {
 
 			var typeName = typeof(TEntity).Name;
 
-			log.Info(string.Format("Updating {0} with Id {1}", typeName, id));
+			AuditLog(string.Format("is about to update {0} with Id {1}", typeName, id));
+			PermissionContext.VerifyPermission(permissionFlags);
 
 			HandleTransaction(session => {
 

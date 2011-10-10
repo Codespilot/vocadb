@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Users {
 
@@ -21,6 +22,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			Id = user.Id;
 			Name = user.Name;
 			PermissionFlags = user.PermissionFlags;
+			PreferredVideoService = user.PreferredVideoService;
 
 		}
 
@@ -41,6 +43,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public PermissionFlags PermissionFlags { get; set; }
+
+		[DataMember]
+		public PVService PreferredVideoService { get; set; }
 
 	}
 

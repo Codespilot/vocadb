@@ -40,6 +40,9 @@ namespace VocaDb.Model.Service.Security {
 
 		public bool HasPermission(PermissionFlags flag) {
 
+			if (flag == PermissionFlags.Nothing)
+				return true;
+
 			return (IsLoggedIn && LoggedUser.PermissionFlags.HasFlag(flag));
 
 		}

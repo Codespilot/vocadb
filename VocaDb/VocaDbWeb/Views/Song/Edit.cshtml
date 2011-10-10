@@ -14,8 +14,9 @@
 
 	<ul>
 		<li><a href="#basicInfoTab">Basic info</a></li>
-		<li><a href="#lyricsTab">Lyrics</a></li>
 		<li><a href="#artistsTab">Artists</a></li>
+		<li><a href="#pvsTab">PVs</a></li>
+		<li><a href="#lyricsTab">Lyrics</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -130,6 +131,35 @@
 				</fieldset>
 			</div>
 		}
+	</div>
+
+	<div id="pvsTab">
+	
+		<table>
+		@foreach (var pv in Model.PVs) {
+			Html.RenderPartial("PVForSongEditRow", pv);
+		}
+		<tr id="pvRow_new">
+			<td>
+				<p>
+				Service:
+				@Html.DropDownList("pvService_new", new SelectList(Model.AllVideoServices), new { id = "pvService_new" })
+				</p>
+				<p>
+				ID:
+				@Html.TextBox("pvId_new", string.Empty, new { id = "pvId_new" })
+				</p>
+				<p>
+				Type:
+				@Html.DropDownList("pvType_new", new SelectList(Model.AllPVTypes), new { id = "pvType_new" })
+				</p>
+			</td>
+			<td>
+				<input type="button" class="pvAddNew" id="pvAdd" value="Add" />				
+			</td>
+		</tr>
+		</table>
+	
 	</div>
 
 	<div id="lyricsTab">

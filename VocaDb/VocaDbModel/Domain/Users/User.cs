@@ -26,6 +26,7 @@ namespace VocaDb.Model.Domain.Users {
 			Email = string.Empty;
 			LastLogin = DateTime.Now;
 			PermissionFlags = PermissionFlags.Default;
+			PreferredVideoService = PVService.Youtube;
 
 		}
 
@@ -104,6 +105,8 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public virtual PermissionFlags PermissionFlags { get; set; }
+
+		public virtual PVService PreferredVideoService { get; set; }
 
 		public virtual RoleTypes Roles { get; set; }
 

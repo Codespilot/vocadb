@@ -129,6 +129,34 @@ function initPage(songId) {
 
 	});
 
+	$("#pvAdd").click(function () {
+
+		var service = $("#pvService_new").val();
+		var pvId = $("#pvId_new").val();
+		var pvType = $("#pvType_new").val();
+
+		$.post("../../Song/CreatePVForSong", { songId: songId, service: service, pvId: pvId, type: pvType }, function (row) {
+
+			var addRow = $("#pvRow_new");
+			addRow.before(row);
+			$("input#artistAddName").val("");
+			$("#artistAddList").empty();			
+
+		});
+
+	});
+
+	$("input.pvRemove").live("click", function () {
+
+		var id = getId(this);
+		$.post("../../Song/DeletePVForSong", { pvForSongId: id }, function () {
+
+			$("tr#pvRow_" + id).remove();
+
+		});
+		
+	});
+
 	$("#lyricsAdd").click(function () {
 
 		var lang = $("#lyricsLanguage_new").val();

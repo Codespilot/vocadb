@@ -224,6 +224,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
+				user.PreferredVideoService = contract.PreferredVideoService;
 				user.SetEmail(contract.Email);
 				session.Update(user);
 

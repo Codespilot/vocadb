@@ -17,7 +17,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Song = new SongContract(song, languagePreference);
 
 			Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
-			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != song.Name).Distinct());
+			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != Song.Name).Distinct());
 			Artists = song.AllArtists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 			PVs = song.PVs.Select(p => new PVForSongContract(p)).ToArray();

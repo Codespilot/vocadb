@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			PVId = pvForSong.PVId;
 			Service = pvForSong.Service;
 			PVType = pvForSong.PVType;
+			Url = pvForSong.Url;
 
 		}
 
@@ -29,6 +30,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public PVService Service { get; set; }
 
 		public PVType PVType { get; set; }
+
+		public string Url { get; set; }
 
 	}
 }

@@ -20,7 +20,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.NameLC).Not.Nullable();
 			Map(m => m.Password).Not.Nullable();
 			Map(m => m.PermissionFlags).CustomType(typeof(PermissionFlags)).Not.Nullable();
-			//Map(m => m.Roles).Not.Nullable();
+			Map(m => m.PreferredVideoService).Not.Nullable();
 			Map(m => m.Salt).Not.Nullable();
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
