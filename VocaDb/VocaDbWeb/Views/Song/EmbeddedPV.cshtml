@@ -1,0 +1,11 @@
+﻿@using VocaDb.Model.Domain.Songs;
+@model VocaDb.Model.DataContracts.Songs.PVForSongContract
+
+@switch (Model.Service) {
+	case PVService.NicoNicoDouga:
+		<script type="text/javascript" src="@("http://ext.nicovideo.jp/thumb_watch/" + Model.PVId)"></script>
+		break;
+	case PVService.Youtube:
+		<iframe width="560" height="315" src="http://www.youtube.com/embed/@Model.PVId" frameborder="0" allowfullscreen></iframe>
+		break;
+}

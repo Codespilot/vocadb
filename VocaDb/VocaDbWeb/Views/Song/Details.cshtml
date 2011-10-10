@@ -26,9 +26,9 @@
 
 	<div id="basicInfoTab">
 		<table>
-			@if (!string.IsNullOrEmpty(Model.NicoId)) {
+			@if (Model.PrimaryPV != null) {
 			<tr>
-				<script type="text/javascript" src="@("http://ext.nicovideo.jp/thumb_watch/" + Model.NicoId)"></script>
+				@{ Html.RenderPartial("EmbeddedPV", Model.PrimaryPV); }
 			</tr>
 			}
 			<tr>

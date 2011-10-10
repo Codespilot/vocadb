@@ -131,7 +131,7 @@ function initPage(albumId) {
 		var newDescription = $("input#webLinkDescription_new").val();
 		var newUrl = $("input#webLinkUrl_new").val();
 
-		$.post("../../Album/CreateWebLink", { albumId: aId, description: newDescription, url: newUrl }, function (link) {
+		$.post("../../Album/CreateWebLink", { albumId: albumId, description: newDescription, url: newUrl }, function (link) {
 
 			var row = document.createElement("tr");
 			$(row).attr("id", "webLinkRow_" + link.Id);
