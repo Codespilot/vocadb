@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using PagedList;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
@@ -168,17 +169,24 @@ namespace VocaDb.Web.Controllers
 			
 			ParamIs.NotNull(() => value);
 
-			var entry = Service.CreateLyrics(songId, languageSelection, value, source);
+			//var entry = Service.CreateLyrics(songId, languageSelection, value, source);
+			var entry = new LyricsForSongContract();
 
-			return PartialView("LyricsForSongEditRow", entry);
+			return PartialView("LyricsForSongEditRow", new LyricsForSongModel(entry));
 
 		}
 
 		[HttpPost]
 		public ActionResult EditLyrics(SongEdit model, IEnumerable<LyricsForSongModel> lyrics) {
 
-			var contracts = lyrics.Select(l => l.ToContract());
-			var song = Service.UpdateLyrics(model.Id, contracts);
+			SongForEditContract song;
+
+			if (lyrics != null) {
+				var contracts = lyrics.Select(l => l.ToContract());
+				song = Service.UpdateLyrics(model.Id, contracts);
+			} else {
+				song = Service.GetSongForEdit(model.Id);
+			}
 
 			return View("Edit", new SongEdit(song));
 

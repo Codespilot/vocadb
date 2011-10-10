@@ -184,6 +184,11 @@ namespace VocaDb.Model.Service {
 				var pv = song.CreatePV(service, pvId, pvType);
 				session.Save(pv);
 
+				if (string.IsNullOrEmpty(song.NicoId) && service == PVService.NicoNicoDouga && pvType == PVType.Original) {
+					song.NicoId = pvId;
+					session.Update(song);
+				}
+
 				return new PVForSongContract(pv);
 
 			});
@@ -466,6 +471,11 @@ namespace VocaDb.Model.Service {
 				song.NicoId = properties.Song.NicoId;
 				song.TranslatedName.CopyFrom(properties.TranslatedName);
 
+				if (!string.IsNullOrEmpty(properties.Song.NicoId) && !song.PVs.Any(p => p.Service == PVService.NicoNicoDouga && p.PVId == properties.Song.NicoId)) {
+					var pv = song.CreatePV(PVService.NicoNicoDouga, properties.Song.NicoId, PVType.Original);
+					session.Save(pv);
+				}
+
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
 
@@ -477,19 +487,20 @@ namespace VocaDb.Model.Service {
 			
 			ParamIs.NotNull(() => lyrics);
 
+			var validLyrics = lyrics.Where(l => !string.IsNullOrEmpty(l.Value));
+
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
 
-				var deleted = song.Lyrics.Where(l => !lyrics.Any(l2 => l.Id == l2.Id)).ToArray();
-				var added = lyrics.Where(l => !song.Lyrics.Any(l2 => l.Id == l2.Id)).ToArray();
+				var deleted = song.Lyrics.Where(l => !validLyrics.Any(l2 => l.Id == l2.Id)).ToArray();
 
 				foreach (var l in deleted) {
 					song.Lyrics.Remove(l);
 					session.Delete(l);
 				}
 
-				foreach (var entry in lyrics) {
+				foreach (var entry in validLyrics) {
 
 					var old = song.Lyrics.FirstOrDefault(l => l.Id == entry.Id);
 

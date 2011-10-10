@@ -131,18 +131,18 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
+		public ActionResult CreateName(int albumId, string nameVal, ContentLanguageSelection language) {
 
-			var name = Service.CreateName(artistId, nameVal, language);
+			var name = Service.CreateName(albumId, nameVal, language);
 
 			return Json(name);
 
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult CreateWebLink(int artistId, string description, string url) {
+		public ActionResult CreateWebLink(int albumId, string description, string url) {
 
-			var name = Service.CreateWebLink(artistId, description, url);
+			var name = Service.CreateWebLink(albumId, description, url);
 
 			return Json(name);
 

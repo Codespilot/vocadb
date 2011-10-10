@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
@@ -37,6 +34,15 @@ namespace VocaDb.Web.Models {
 			Performers = contract.Artists.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 
+			if (MvcApplication.LoginManager.IsLoggedIn)
+				PrimaryPV = PVs.FirstOrDefault(p => p.Service == MvcApplication.LoginManager.LoggedUser.PreferredVideoService);
+
+			if (PrimaryPV == null)
+				PrimaryPV = PVs.FirstOrDefault();
+
+			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
+				PrimaryPV = new PVForSongContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
+
 		}
 
 		public string AdditionalNames { get; set; }
@@ -56,6 +62,8 @@ namespace VocaDb.Web.Models {
 		public ArtistContract[] OtherArtists { get; set; }
 
 		public ArtistContract[] Performers { get; set; }
+
+		public PVForSongContract PrimaryPV { get; set; }
 
 		[Display(Name = "PVs")]
 		public PVForSongContract[] PVs { get; set; }

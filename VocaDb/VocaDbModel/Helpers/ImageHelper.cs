@@ -7,7 +7,7 @@ namespace VocaDb.Model.Helpers {
 
 	public static class ImageHelper {
 
-		private static readonly string[] allowedExt = new[] { "bmp", "gif", "jpg", "jpeg", "png" };
+		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
 
 		public static byte[] GetOriginalAndResizedImages(Stream input, int length, params Size[] sizes) {
 

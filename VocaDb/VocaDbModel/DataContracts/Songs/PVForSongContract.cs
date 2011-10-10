@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Songs;
+﻿using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
@@ -20,6 +16,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Url = pvForSong.Url;
 
 		}
+
+		public PVForSongContract() { }
 
 		public int Id { get; set; }
 

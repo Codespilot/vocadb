@@ -54,11 +54,8 @@ namespace VocaDb.Web.Controllers
 			var pictureData = Service.GetArtistPicture(id);
 
 			if (pictureData == null)
-				return new EmptyResult();
+				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
 
-			/*using (var stream = new MemoryStream(pictureData.Bytes)) {
-				return new FileStreamResult(stream, pictureData.Mime);
-			}*/
 			return File(pictureData.Bytes, pictureData.Mime);
 
 		}

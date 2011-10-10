@@ -135,12 +135,12 @@ function initPage(songId) {
 		var pvId = $("#pvId_new").val();
 		var pvType = $("#pvType_new").val();
 
+		$("input#pvId_new").val("");
+
 		$.post("../../Song/CreatePVForSong", { songId: songId, service: service, pvId: pvId, type: pvType }, function (row) {
 
 			var addRow = $("#pvRow_new");
 			addRow.before(row);
-			$("input#artistAddName").val("");
-			$("#artistAddList").empty();			
 
 		});
 
@@ -168,6 +168,13 @@ function initPage(songId) {
 			$("#lyrics_new").before(html);
 
 		});
+
+	});
+
+	$(".deleteLyrics").live("click", function () {
+
+		var id = getId(this);
+		$("#lyricsRow_" + id).remove();
 
 	});
 

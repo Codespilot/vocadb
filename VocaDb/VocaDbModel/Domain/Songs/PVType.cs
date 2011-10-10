@@ -4,7 +4,9 @@
 
 		Original	= 1,
 
-		Other		= 2
+		Reprint		= 2,
+
+		Other		= 4
 
 	}
 
