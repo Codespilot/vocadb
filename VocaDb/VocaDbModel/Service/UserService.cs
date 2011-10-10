@@ -197,7 +197,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageUsers);
 
-			UpdateEntity<User>(contract.Id, user => user.PermissionFlags = contract.PermissionFlags);
+			UpdateEntity<User>(contract.Id, user => {
+
+				user.Active = contract.Active;
+				user.PermissionFlags = contract.PermissionFlags;               	
+
+			});
 
 		}
 

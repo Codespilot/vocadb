@@ -16,6 +16,7 @@ namespace VocaDb.Model.DataContracts.Users {
 
 			ParamIs.NotNull(() => user);
 
+			Active = user.Active;
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
@@ -25,6 +26,9 @@ namespace VocaDb.Model.DataContracts.Users {
 			PreferredVideoService = user.PreferredVideoService;
 
 		}
+
+		[DataMember]
+		public bool Active { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }

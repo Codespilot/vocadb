@@ -103,12 +103,15 @@ namespace VocaDb.Web.Models {
 
 		public UserEdit(UserContract contract) {
 
+			Active = contract.Active;
 			Id = contract.Id;
 			Name = contract.Name;
 			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing && p != PermissionFlags.Default)
 				.Select(p => new PermissionFlagEntry(p, contract.PermissionFlags.HasFlag(p))).ToArray();
 
 		}
+
+		public bool Active { get; set; }
 
 		public int Id { get; set; }
 
@@ -119,6 +122,7 @@ namespace VocaDb.Web.Models {
 		public UserContract ToContract() {
 
 			return new UserContract {
+				Active = this.Active,
 				Id = this.Id,
 				Name = this.Name,
 				PermissionFlags =

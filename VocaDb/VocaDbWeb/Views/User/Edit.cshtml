@@ -12,6 +12,9 @@
 @using(Html.BeginForm()) {	
 	@Html.HiddenFor(m => m.Id)
 	
+	@Html.CheckBoxFor(m => m.Active)
+	<text>Active</text>
+	
 	<h3>Permissions</h3>
 	foreach (var entry in Model.Permissions) {	 
 		Html.RenderPartial("PermissionEditRow", entry);											 

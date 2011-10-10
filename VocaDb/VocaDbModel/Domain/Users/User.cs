@@ -20,7 +20,7 @@ namespace VocaDb.Model.Domain.Users {
 
 		public User() {
 
-			Active = false;
+			Active = true;
 			CreateDate = DateTime.Now;
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
