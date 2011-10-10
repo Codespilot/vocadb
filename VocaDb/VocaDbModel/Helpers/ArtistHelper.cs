@@ -8,6 +8,9 @@ namespace VocaDb.Model.Helpers {
 
 		public static string GetArtistString(IEnumerable<Artist> artists) {
 
+			if (artists.Count() >= 4)
+				return "Various artists";
+
 			var producers = artists.Where(a => a.ArtistType == ArtistType.Producer || a.ArtistType == ArtistType.Circle).Select(m => m.Name);
 			var performers = artists.Where(a => a.ArtistType == ArtistType.Performer).Select(m => m.Name);
 
