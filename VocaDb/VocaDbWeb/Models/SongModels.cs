@@ -12,6 +12,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Models {
 
@@ -34,6 +35,7 @@ namespace VocaDb.Web.Models {
 			NicoId = contract.Song.NicoId;
 			OtherArtists = contract.Artists.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
 			Performers = contract.Artists.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
+			PVs = contract.PVs;
 
 		}
 
@@ -55,6 +57,9 @@ namespace VocaDb.Web.Models {
 
 		public ArtistContract[] Performers { get; set; }
 
+		[Display(Name = "PVs")]
+		public PVForSongContract[] PVs { get; set; }
+
 	}
 
 	public class SongEdit {
@@ -74,16 +79,23 @@ namespace VocaDb.Web.Models {
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
 			NicoId = song.Song.NicoId;
+			PVs = song.PVs;
 			WebLinks = song.WebLinks;
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
 			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
+			AllPVTypes = EnumVal<PVType>.Values;
+			AllVideoServices = EnumVal<PVService>.Values;
 
 		}
 
 		public ContentLanguageSelection[] AllLanguages { get; set; }
 
 		public string AllLanguagesJson { get; set; }
+
+		public PVType[] AllPVTypes { get; set; }
+
+		public PVService[] AllVideoServices { get; set; }
 
 		public ArtistForSongContract[] ArtistLinks { get; set; }
 
@@ -118,6 +130,9 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "NicoNicoDouga ID")]
 		public string NicoId { get; set; }
 
+		[Display(Name = "PVs")]
+		public PVForSongContract[] PVs { get; set; }
+
 		[Display(Name = "Web links")]
 		public WebLinkContract[] WebLinks { get; set; }
 
@@ -136,6 +151,18 @@ namespace VocaDb.Web.Models {
 		}
 
 	}
+
+	/*public class PVForSongModel {
+
+		public PVForSongModel() { }
+
+		public PVForSongModel(PVForSongContract contract) {
+
+		}
+
+		public int Id { get; set; }
+
+	}*/
 
 	public class LyricsForSongModel {
 		

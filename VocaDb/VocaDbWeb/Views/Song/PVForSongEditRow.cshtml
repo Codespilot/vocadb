@@ -1,0 +1,11 @@
+﻿@model VocaDb.Model.DataContracts.Songs.PVForSongContract
+@using VocaDb.Web.Helpers;
+
+<tr id="@("pvRow_" + Model.Id)">
+	<td>
+		<a href="@Model.Url">@ViewHelper.GetVideoServiceLinkName(Model.Service, Model.PVId)"</a>
+	</td>
+	<td>
+		<input type="button" class="pvRemove" id="@("pvRemove_" + Model.Id)" value="Remove" />
+	</td>
+</tr>

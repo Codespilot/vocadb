@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Controllers
 {
@@ -147,6 +148,22 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult CreatePVForSong(int songId, PVService service, string pvId, PVType type) {
+
+			ParamIs.NotNullOrEmpty(() => pvId);
+
+			var contract = Service.CreatePVForSong(songId, service, pvId, type);
+
+			return PartialView("PVForSongEditRow", contract);
+
+		}
+
+		public void DeletePVForSong(int pvForSongId) {
+
+			Service.DeletePvForSong(pvForSongId);
+
+		}
+
 		public PartialViewResult CreateLyrics(int songId, ContentLanguageSelection languageSelection, string source, string value) {
 			
 			ParamIs.NotNull(() => value);
@@ -192,5 +209,6 @@ namespace VocaDb.Web.Controllers
                 return View();
             }
         }
+
     }
 }

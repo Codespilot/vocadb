@@ -54,7 +54,7 @@ namespace VocaDb.Model.Domain.Songs {
 			
 			ParamIs.NotNull(() => contract);
 
-			Name = OriginalName = contract.Name;
+			DefaultName = OriginalName = contract.Name;
 			NicoId = contract.NicoId;
 
 		}
@@ -126,7 +126,7 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual string Name {
+		public virtual string DefaultName {
 			get {
 				return TranslatedName.Default;
 			}
@@ -239,6 +239,16 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual PVForSong CreatePV(PVService service, string pvId, PVType pvType) {
+
+			ParamIs.NotNullOrEmpty(() => pvId);
+
+			var pv = new PVForSong(this, service, pvId, pvType);
+			PVs.Add(pv);
+			return pv;
+
+		}
+
 		public virtual SongWebLink CreateWebLink(string description, string url) {
 
 			ParamIs.NotNull(() => description);
@@ -291,6 +301,10 @@ namespace VocaDb.Model.Domain.Songs {
 
 			return ArtistList.Contains(artist);
 
+		}
+
+		public override string ToString() {
+			return "Song " + DefaultName;
 		}
 
 		public virtual void UpdateArtistString() {

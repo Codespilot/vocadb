@@ -43,6 +43,13 @@
 					</div>
 
 					<div class="editor-label">
+						@Html.LabelFor(m => m.PreferredVideoService)
+					</div>
+					<div class="editor-field">
+						@Html.DropDownListFor(m => m.PreferredVideoService, new SelectList(Model.AllVideoServices, Model.PreferredVideoService))
+					</div>
+
+					<div class="editor-label">
 						@Html.LabelFor(m => m.OldPass)
 						(required for changing password.)
 					</div>

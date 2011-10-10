@@ -62,7 +62,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return Song.Name + " in album " + Album.Name;
+			return Song + " in " + Album;
 		}
 
 	}

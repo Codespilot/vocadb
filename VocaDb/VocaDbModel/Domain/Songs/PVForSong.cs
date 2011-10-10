@@ -13,6 +13,16 @@
 			PVType = PVType.Other;
 		}
 
+		public PVForSong(Song song, PVService service, string pvId, PVType pvType)
+			: this() {
+
+			Song = song;
+			Service = service;
+			PVId = pvId;
+			PVType = pvType;
+
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual string Notes {
@@ -42,6 +52,21 @@
 		}
 
 		public virtual PVType PVType { get; set; }
+
+		public virtual string Url {
+			get {
+
+				switch (Service) {
+					case PVService.Youtube:
+						return "http://youtu.be/" + pvId;
+					case PVService.NicoNicoDouga:
+						return "http://nicovideo.jp/watch/" + pvId;
+					default:
+						return pvId;
+				}
+
+			}
+		}
 
 	}
 }
