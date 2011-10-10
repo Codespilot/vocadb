@@ -72,6 +72,7 @@
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
+    <Compile Include="DataContracts\Songs\PVForSongContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
     <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
