@@ -4,3 +4,4 @@ Disallow: /ListPolls.aspx
 Disallow: /ListSongs.aspx
 Disallow: /ViewPoll.aspx
 Disallow: /SongDetails.aspx
+Disallow: /Database/SongDetails.aspx
