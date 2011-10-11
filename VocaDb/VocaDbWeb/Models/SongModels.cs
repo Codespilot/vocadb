@@ -172,6 +172,23 @@ namespace VocaDb.Web.Models {
 
 	}*/
 
+	public class LyricsEditorModel {
+
+		public LyricsEditorModel() {}
+
+		public LyricsEditorModel(SongEdit model) {
+
+			Id = model.Id;
+			Lyrics = model.Lyrics;
+
+		}
+
+		public int Id { get; set; }
+
+		public LyricsForSongModel[] Lyrics { get; set; }
+
+	}
+
 	public class LyricsForSongModel {
 		
 		public LyricsForSongModel() {}

@@ -163,32 +163,7 @@
 	</div>
 
 	<div id="lyricsTab">
-		@using (Html.BeginForm("EditLyrics", "Song", FormMethod.Post)) {
-			@Html.HiddenFor(m => m.Id)
-
-			<input type="submit" value="Save" />
-	  
-		  foreach (var lyrics in Model.Lyrics) {
-			  Html.RenderPartial("LyricsForSongEditRow", lyrics);
-		  }
-			<div id="lyrics_new">
-				<p>
-				Language:
-				@Html.DropDownList("lyricsLanguage_new", new SelectList(Model.AllLanguages), new { id = "lyricsLanguage_new" })
-
-				Source:
-				<input type="text" id="lyricsSource_new" size="40" maxlength="255" />
-				</p>
-
-				<textarea id="lyricsValue_new" cols="65" rows="40"></textarea>
-
-				<br />
-				<input type="button" class="lyricsAddNew" id="lyricsAdd" value="Add" />
-			</div>
-	  
-			<input type="submit" value="Save" />
-
-		}
+		@{ Html.RenderPartial("LyricsEditor", new LyricsEditorModel(Model)); }
 	</div>
 
 	<div id="artistsTab">
@@ -197,8 +172,8 @@
 			<legend>Connected artists</legend>
 			<table>
 			@foreach (var album in Model.ArtistLinks) {
-				Html.RenderPartial("ArtistForSongEditRow", album);
-			}
+	   Html.RenderPartial("ArtistForSongEditRow", album);
+   }
 			
 			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 			</table>

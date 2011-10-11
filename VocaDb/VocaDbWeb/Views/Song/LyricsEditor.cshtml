@@ -1,0 +1,18 @@
+﻿@using VocaDb.Web.Models;
+@model LyricsEditorModel
+
+		@using (Html.BeginForm("EditLyrics", "Song", FormMethod.Post)) {
+			@Html.HiddenFor(m => m.Id)
+
+			<input type="submit" value="Save" />
+			<br />
+	  
+		  foreach (var lyrics in Model.Lyrics) {
+			  Html.RenderPartial("LyricsForSongEditRow", lyrics);
+		  }
+			<input type="button" class="lyricsAddNew" id="lyricsAdd" value="Add" />
+	  
+			<br />
+			<input type="submit" value="Save" />
+
+  }
