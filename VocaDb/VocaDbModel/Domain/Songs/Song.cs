@@ -302,7 +302,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return "Song " + DefaultName;
+			return "song '" + DefaultName + "'";
 		}
 
 		public virtual void UpdateArtistString() {

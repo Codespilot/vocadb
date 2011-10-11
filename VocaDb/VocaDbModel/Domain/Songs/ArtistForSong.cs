@@ -32,5 +32,9 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public override string ToString() {
+			return Artist + " for " + Song;
+		}
+
 	}
 }

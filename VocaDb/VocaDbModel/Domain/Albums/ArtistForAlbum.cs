@@ -32,5 +32,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
+		public override string ToString() {
+			return string.Format("{0} for {1}", Artist, Album);
+		}
+
 	}
 }

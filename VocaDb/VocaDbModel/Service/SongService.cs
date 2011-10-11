@@ -71,12 +71,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("adding artist '" + artistId + "' to song '" + songId + "'");
-
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
 				var song = session.Load<Song>(songId);
+
+				AuditLog(string.Format("linking {0} to {1}", artist, song));
 
 				var artistForSong = artist.AddSong(song);
 				session.Save(artistForSong);
@@ -94,11 +94,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating artist '" + newArtistName + "' to song '" + songId + "'");
-
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
+
+				AuditLog(string.Format("creating new artist {0} to {1}", newArtistName, song));
+
 				var artist = new Artist(new TranslatedString(newArtistName));
 
 				var artistForSong = artist.AddSong(song);
@@ -123,6 +124,9 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
+
+				AuditLog("creating lyrics for " + song);
+
 				var entry = song.CreateLyrics(language, value, source);
 
 				session.Update(song);
@@ -136,7 +140,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => name);
 
-			log.Info("'" + PermissionContext.Name + "' creating a song");
+			AuditLog("creating a new song with name " + name);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
@@ -161,6 +165,8 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
+
+				AuditLog("creating a name " + nameVal + " for " + song);
 
 				var name = song.CreateName(nameVal, language);
 				session.Save(name);
@@ -235,7 +241,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Album>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting song '{0}'", a.Name));
+				AuditLog(string.Format("deleting {0}", a));
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -251,6 +257,8 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var artistForSong = session.Load<ArtistForSong>(artistForSongId);
+
+				AuditLog("deleting " + artistForSong);
 
 				artistForSong.Song.DeleteArtistForSong(artistForSong);
 				session.Delete(artistForSong);
@@ -458,13 +466,13 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => properties);
 
-			AuditLog(string.Format("updating properties for song '{0}'", properties.Song.Name));
-
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(properties.Song.Id);
+
+				AuditLog(string.Format("updating properties for {0}", song));
 
 				Archive(session, song);
 
@@ -492,6 +500,8 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
+
+				AuditLog("updating lyrics for " + song);
 
 				var deleted = song.Lyrics.Where(l => !validLyrics.Any(l2 => l.Id == l2.Id)).ToArray();
 
