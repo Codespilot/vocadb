@@ -36,5 +36,9 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public override string ToString() {
+			return string.Format("favorited {0} for {1}", Song, User);
+		}
+
 	}
 }
