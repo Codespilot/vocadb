@@ -32,6 +32,8 @@ namespace VocaDb.Web.Models {
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
 			Names = album.Names;
+			ProductCode = album.ProductCode;
+			ReleaseDate = album.ReleaseDate;
 			Tracks = album.Songs;
 			WebLinks = album.WebLinks;
 
@@ -80,6 +82,13 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		[Display(Name = "Catalog number / Product code")]
+		[StringLength(50)]
+		public string ProductCode { get; set; }
+
+		[Display(Name = "Release date")]
+		public DateTime? ReleaseDate { get; set; }
+
 		[Display(Name = "Tracks")]
 		public SongInAlbumContract[] Tracks { get; set; }
 
@@ -93,6 +102,8 @@ namespace VocaDb.Web.Models {
 				DiscType = this.DiscType,
 				Id = this.Id,
 				Name = this.Name,
+				ProductCode = this.ProductCode,
+				ReleaseDate = this.ReleaseDate,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
 			};

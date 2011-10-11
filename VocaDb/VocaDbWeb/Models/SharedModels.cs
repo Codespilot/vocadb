@@ -17,6 +17,24 @@ namespace VocaDb.Web.Models {
 
 	}
 
+	public class GlobalSearchBoxModel {
+
+		public string GlobalSearchTerm { get; set; }
+
+		public 
+
+	}
+
+	public enum SearchObjectType {
+
+		Artist,
+
+		Album,
+
+		Song
+
+	}
+
 	public class LocalizedStringEdit {
 
 		public LocalizedStringEdit() { }

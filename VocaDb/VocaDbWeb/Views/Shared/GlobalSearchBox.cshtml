@@ -1,0 +1,7 @@
+﻿
+
+@using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post)) {
+	@Html.TextBox("globalSearchTerm")
+	<br />
+	<input type="submit" value="Search" />
+}
