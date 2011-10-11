@@ -27,12 +27,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
-			AuditLog("adding album '" + albumId + "' to user '" + userId + "'");
-
 			return HandleTransaction(session => {
 
 				var user = session.Load<User>(userId);
 				var album = session.Load<Album>(albumId);
+
+				AuditLog("adding " + album + " for " + user);
 
 				var albumForUser = user.AddAlbum(album);
 				session.Save(albumForUser);
@@ -47,11 +47,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
-			AuditLog("creating album '" + newAlbumName + "' to user '" + userId + "'");
-
 			return HandleTransaction(session => {
 
 				var user = session.Load<User>(userId);
+
+				AuditLog("creating a new album '" + newAlbumName + "' for " + user);
+
 				var album = new Album(new TranslatedString(newAlbumName));
 
 				session.Save(album);
@@ -161,9 +162,11 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				var links = session.Query<AlbumForUser>().Where(a => a.Album.Id == albumId && a.User.Id == userId).ToArray();
+				var link = session.Query<AlbumForUser>().FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
 
-				foreach (var link in links)
+				AuditLog("deleting " + link);
+
+				if (link != null)
 					session.Delete(link);
 
 			});
@@ -175,6 +178,8 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var link = session.Query<FavoriteSongForUser>().FirstOrDefault(a => a.Song.Id == songId && a.User.Id == userId);
+
+				AuditLog("deleting " + link);
 
 				if (link != null)
 					session.Delete(link);
@@ -198,6 +203,8 @@ namespace VocaDb.Model.Service {
 			PermissionContext.VerifyPermission(PermissionFlags.ManageUsers);
 
 			UpdateEntity<User>(contract.Id, user => {
+
+				AuditLog("updating " + user);
 
 				user.Active = contract.Active;
 				user.PermissionFlags = contract.PermissionFlags;               	
