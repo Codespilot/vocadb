@@ -10,7 +10,7 @@
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Index", "Song")) {
 	
 <p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Apply" /></p>
 

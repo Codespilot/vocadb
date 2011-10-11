@@ -36,7 +36,9 @@
 				</ul>
 				@if (Login.Manager.IsLoggedIn) {
 					<p>Welcome @Html.ActionLink(Login.User.Name, "Details", "User", new { id = Login.User.Id }, null)</p>
-	}
+				}
+				
+				<br />
 				
 				<br /><br />
 				<h3>Related sites</h3>

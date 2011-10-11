@@ -176,8 +176,6 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual string URL { get; set; }
-
 		public virtual int Version { get; set; }
 
 		public virtual IList<SongWebLink> WebLinks {

@@ -463,6 +463,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Song\PVForSongEditRow.cshtml" />
     <Content Include="Views\Song\EmbeddedPV.cshtml" />
+    <Content Include="Views\Shared\GlobalSearchBox.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
