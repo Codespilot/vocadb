@@ -163,9 +163,9 @@ function initPage(songId) {
 		var source = $("#lyricsSource_new").val();
 		var value = $("#lyricsValue_new").val();
 
-		$.post("../../Song/CreateLyrics", { songId: songId, languageSelection: lang, source: source, value: value }, function (html) {
+		$.post("../../Song/CreateLyrics", { }, function (html) {
 
-			$("#lyrics_new").before(html);
+			$("#lyricsAdd").before(html);
 
 		});
 

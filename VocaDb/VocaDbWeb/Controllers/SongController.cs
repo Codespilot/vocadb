@@ -165,10 +165,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult CreateLyrics(int songId, ContentLanguageSelection languageSelection, string source, string value) {
+		public PartialViewResult CreateLyrics() {
 			
-			ParamIs.NotNull(() => value);
-
 			//var entry = Service.CreateLyrics(songId, languageSelection, value, source);
 			var entry = new LyricsForSongContract();
 
@@ -177,16 +175,12 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult EditLyrics(SongEdit model, IEnumerable<LyricsForSongModel> lyrics) {
+		public ActionResult EditLyrics(LyricsEditorModel model, IEnumerable<LyricsForSongModel> lyrics) {
 
-			SongForEditContract song;
+			lyrics = lyrics ?? new LyricsForSongModel[] {};
 
-			if (lyrics != null) {
-				var contracts = lyrics.Select(l => l.ToContract());
-				song = Service.UpdateLyrics(model.Id, contracts);
-			} else {
-				song = Service.GetSongForEdit(model.Id);
-			}
+			var contracts = lyrics.Select(l => l.ToContract());
+			var song = Service.UpdateLyrics(model.Id, contracts);
 
 			return View("Edit", new SongEdit(song));
 
