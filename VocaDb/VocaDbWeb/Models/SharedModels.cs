@@ -19,9 +19,15 @@ namespace VocaDb.Web.Models {
 
 	public class GlobalSearchBoxModel {
 
+		public GlobalSearchBoxModel() {
+			AllObjectTypes = EnumVal<SearchObjectType>.Values;
+		}
+
+		public SearchObjectType[] AllObjectTypes { get; set; }
+
 		public string GlobalSearchTerm { get; set; }
 
-		public 
+		public SearchObjectType ObjectType { get; set; }
 
 	}
 

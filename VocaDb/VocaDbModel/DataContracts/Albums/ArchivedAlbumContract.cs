@@ -25,7 +25,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ReleaseDate = album.ReleaseDate;
 			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
-			WebLinks = album.WebLinks.Select(l => new WebLinkContract(l)).ToArray();
+			WebLinks = album.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
 
 		}
 
@@ -63,7 +63,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public TranslatedStringContract TranslatedName { get; set; }
 
 		[DataMember]
-		public WebLinkContract[] WebLinks { get; set; }
+		public ArchivedWebLinkContract[] WebLinks { get; set; }
 
 	}
 

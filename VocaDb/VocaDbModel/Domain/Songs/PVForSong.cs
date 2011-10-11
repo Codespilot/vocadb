@@ -2,12 +2,12 @@
 
 	public class PVForSong {
 
-		private string notes;
+		private string name;
 		private string pvId;
 		private Song song;
 
 		public PVForSong() {
-			Notes = string.Empty;
+			Name = string.Empty;
 			pvId = string.Empty;
 			Service = PVService.Other;
 			PVType = PVType.Other;
@@ -25,11 +25,11 @@
 
 		public virtual int Id { get; set; }
 
-		public virtual string Notes {
-			get { return notes; }
+		public virtual string Name {
+			get { return name; }
 			set {
 				ParamIs.NotNull(() => value);
-				notes = value;
+				name = value;
 			}
 		}
 

@@ -85,6 +85,16 @@
 				</td>
 			</tr>
 			}
+			@if (Model.PVs.Any()) {
+			<tr>
+				<td>PVs</td>
+				<td>
+					@foreach (var pv in Model.PVs) {
+						<a href="@pv.Url">@pv.DisplayName</a><br />
+					}			
+				</td>
+			</tr>
+			}
 		</table>
 	</div>
 
@@ -108,7 +118,7 @@
 	});
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>

@@ -3,7 +3,7 @@
 
 <tr id="@("pvRow_" + Model.Id)">
 	<td>
-		<a href="@Model.Url">@ViewHelper.GetVideoServiceLinkName(Model.Service, Model.PVId)</a>
+		<a href="@Model.Url">@Model.DisplayName</a>
 	</td>
 	<td>
 		<input type="button" class="pvRemove" id="@("pvRemove_" + Model.Id)" value="Remove" />
