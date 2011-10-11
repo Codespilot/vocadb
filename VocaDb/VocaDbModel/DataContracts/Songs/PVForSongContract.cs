@@ -11,21 +11,26 @@ namespace VocaDb.Model.DataContracts.Songs {
 			ParamIs.NotNull(() => pvForSong);
 
 			Id = pvForSong.Id;
-			Notes = pvForSong.Notes;
+			Name = pvForSong.Name;
 			PVId = pvForSong.PVId;
 			Service = pvForSong.Service;
 			PVType = pvForSong.PVType;
 			Url = pvForSong.Url;
+
+			DisplayName = Service + " (" + PVId + ")";
 
 		}
 
 		public PVForSongContract() { }
 
 		[DataMember]
+		public string DisplayName { get; set; }
+
+		[DataMember]
 		public int Id { get; set; }
 
 		[DataMember]
-		public string Notes { get; set; }
+		public string Name { get; set; }
 
 		[DataMember]
 		public string PVId { get; set; }

@@ -63,6 +63,7 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
+    <Compile Include="DataContracts\ArchivedWebLinkContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
+    <Compile Include="DataContracts\Songs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\PVForSongContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />

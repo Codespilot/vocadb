@@ -1,7 +1,7 @@
-﻿
+﻿@model VocaDb.Web.Models.GlobalSearchBoxModel
 
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post)) {
-	@Html.TextBox("globalSearchTerm")
-	<br />
-	<input type="submit" value="Search" />
+	<p>@Html.TextBox("globalSearchTerm")</p>
+	<p>@Html.DropDownListFor(m => m.ObjectType, new SelectList(Model.AllObjectTypes))</p>	
+	<p><input type="submit" value="Search" /></p>
 }

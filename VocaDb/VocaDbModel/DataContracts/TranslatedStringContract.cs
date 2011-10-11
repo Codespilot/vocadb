@@ -45,7 +45,6 @@ namespace VocaDb.Model.DataContracts {
 		[DataMember]
 		public string Romaji { get; set; }
 
-
 	}
 
 }
