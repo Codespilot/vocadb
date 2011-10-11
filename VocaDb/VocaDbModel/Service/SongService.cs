@@ -47,7 +47,7 @@ namespace VocaDb.Model.Service {
 						|| s.TranslatedName.Romaji.Contains(query)
 						|| s.TranslatedName.Japanese.Contains(query)
 					|| (s.ArtistString.Contains(query))
-					|| (s.NicoId == null || s.NicoId == query)))
+					|| (s.NicoId != null && s.NicoId == query)))
 				.ToArray();
 
 			var additionalNames = session.Query<SongName>()

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain.Albums;
@@ -18,6 +15,8 @@ namespace VocaDb.Model.Service {
 		public void UpdateArtistStrings() {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			AuditLog("rebuilding artist strings");
 
 			HandleTransaction(session => {
 
