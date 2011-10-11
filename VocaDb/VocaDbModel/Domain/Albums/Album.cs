@@ -274,7 +274,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return "Album " + Name;
+			return "album '" + Name + "'";
 		}
 
 		public virtual void UpdateArtistString() {

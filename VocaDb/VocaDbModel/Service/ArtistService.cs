@@ -134,12 +134,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("adding album '" + albumId + "' to artist '" + artistId + "'");
-
 			return HandleTransaction(session => {
 				
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
+
+				AuditLog("adding " + album + " for " + artist);
 
 				var artistForAlbum = artist.AddAlbum(album);
 
@@ -156,11 +156,11 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating album '" + newAlbumName + "' to artist '" + artistId + "'");
-
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
+				AuditLog("creating a new album '" + newAlbumName + "' for " + artist);
+
 				var album = new Album(new TranslatedString(newAlbumName));
 
 				session.Save(album);
@@ -181,7 +181,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNull(() => permissionContext);
 
-			log.Info("'" + permissionContext.Name + "' creating an artist");
+			AuditLog("creating a new artist with name '" + name + "'");
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
@@ -207,6 +207,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
+				AuditLog("creating a new name '" + nameVal + "' for " + artist);
 
 				var name = artist.CreateName(nameVal, language);
 				session.Save(name);
@@ -222,7 +223,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(id, (session, a) => {
 
-				log.Info(string.Format("'{0}' deleting artist '{1}'", PermissionContext.Name, a.Name));
+				AuditLog(string.Format("deleting {0}", a));
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -252,6 +253,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
+				AuditLog("creating web link for " + artist);
 
 				var link = artist.CreateWebLink(description, url );
 				session.Save(link);
@@ -344,12 +346,11 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => properties);
 			ParamIs.NotNull(() => permissionContext);
 
-			log.Info(string.Format("'{0}' updating properties for artist '{1}'", permissionContext.Name, properties.Name));
-
 			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
+				AuditLog(string.Format("updating properties for {0}", artist));
 				ArchiveArtist(session, permissionContext, artist);
 
 				artist.ArtistType = properties.ArtistType;

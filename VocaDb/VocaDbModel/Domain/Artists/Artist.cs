@@ -211,6 +211,10 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
+		public override string ToString() {
+			return "artist '" + Name + "'";
+		}
+
 	}
 
 }
