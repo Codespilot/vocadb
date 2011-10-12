@@ -50,7 +50,7 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Details(int id) {
         	var model = Service.GetAlbumDetails(id);
-            return View(model);
+            return View(new AlbumDetails(model));
         }
 
 		public ActionResult CoverPicture(int id) {
