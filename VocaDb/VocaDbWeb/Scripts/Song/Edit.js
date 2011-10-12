@@ -132,15 +132,19 @@ function initPage(songId) {
 	$("#pvAdd").click(function () {
 
 		var service = $("#pvService_new").val();
-		var pvId = $("#pvId_new").val();
-		var pvType = $("#pvType_new").val();
+		var pvUrl = $("#pvUrl_new").val();
 
-		$("input#pvId_new").val("");
+		$("#pvUrl_new").val("");
 
-		$.post("../../Song/CreatePVForSong", { songId: songId, service: service, pvId: pvId, type: pvType }, function (row) {
+		$.post("../../Song/CreatePVForSong", { songId: songId, pvUrl: pvUrl, type: pvType }, function (response) {
+
+			if (!response.Successful) {
+				alert(response.Message);
+				return;
+			}
 
 			var addRow = $("#pvRow_new");
-			addRow.before(row);
+			addRow.before(response.Result);
 
 		});
 

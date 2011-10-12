@@ -11,6 +11,8 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Web.Controllers
 {
@@ -156,6 +158,21 @@ namespace VocaDb.Web.Controllers
 			var contract = Service.CreatePVForSong(songId, service, pvId, type);
 
 			return PartialView("PVForSongEditRow", contract);
+
+		}
+
+		public GenericResponse<string> CreatePVForSong(int songId, string pvUrl, PVType type) {
+
+			ParamIs.NotNullOrEmpty(() => pvUrl);
+
+			try {
+				var contract = Service.CreatePVForSong(songId, pvUrl, type);
+				var view = RenderPartialViewToString("PVForSongEditRow", contract);
+				return new GenericResponse<string>(view);
+				//return PartialView("PVForSongEditRow", contract);
+			} catch (VideoParseException x) {
+				return new GenericResponse<string>(x.Message);
+			}
 
 		}
 

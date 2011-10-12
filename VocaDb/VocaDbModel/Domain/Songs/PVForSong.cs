@@ -9,7 +9,7 @@
 		public PVForSong() {
 			Name = string.Empty;
 			pvId = string.Empty;
-			Service = PVService.Other;
+			Service = PVService.Youtube;
 			PVType = PVType.Other;
 		}
 

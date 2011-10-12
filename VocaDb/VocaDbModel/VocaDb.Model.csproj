@@ -173,8 +173,14 @@
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
+    <Compile Include="Service\Helpers\UrlHelper.cs" />
+    <Compile Include="Service\VideoServices\IVideoService.cs" />
+    <Compile Include="Service\VideoServices\RegexLinkMatcher.cs" />
     <Compile Include="Service\Helpers\SessionHelper.cs" />
     <Compile Include="Service\Helpers\SongTagger.cs" />
+    <Compile Include="Service\VideoServices\VideoParseException.cs" />
+    <Compile Include="Service\VideoServices\VideoService.cs" />
+    <Compile Include="Service\VideoServices\VideoServiceHelper.cs" />
     <Compile Include="Service\OtherService.cs" />
     <Compile Include="Service\RankingService.cs" />
     <Compile Include="Service\Rankings\VocaloidismWVRParser.cs" />
@@ -186,6 +192,7 @@
     <Compile Include="Service\ServiceModel.cs" />
     <Compile Include="Service\SongService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="Service\VideoServices\VideoUrlParseResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mapping\Security\" />

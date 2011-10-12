@@ -14,6 +14,7 @@ using log4net;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Service {
 
@@ -198,6 +199,16 @@ namespace VocaDb.Model.Service {
 				return new PVForSongContract(pv);
 
 			});
+
+		}
+
+		public PVForSongContract CreatePVForSong(int songId, string pvUrl, PVType pvType) {
+
+			ParamIs.NotNullOrEmpty(() => pvUrl);
+
+			var result = VideoServiceHelper.ParseByUrl(pvUrl);
+
+			return CreatePVForSong(songId, result.Service, result.Id, pvType);
 
 		}
 

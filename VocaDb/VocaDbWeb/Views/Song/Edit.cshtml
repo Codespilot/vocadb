@@ -141,13 +141,10 @@
 		}
 		<tr id="pvRow_new">
 			<td>
+				<p>Only Youtube and NicoNicoDouga are supported.</p>
 				<p>
-				Service:
-				@Html.DropDownList("pvService_new", new SelectList(Model.AllVideoServices), new { id = "pvService_new" })
-				</p>
-				<p>
-				ID:
-				@Html.TextBox("pvId_new", string.Empty, new { id = "pvId_new" })
+				URL:
+				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new" })
 				</p>
 				<p>
 				Type:
