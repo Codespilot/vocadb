@@ -341,7 +341,7 @@ namespace VocaDb.Model.Service {
 		public ArtistContract[] GetCircles() {
 
 			return HandleQuery(session => session.Query<Artist>()
-				.Where(a => !a.Deleted && a.ArtistType == ArtistType.Circle)
+				.Where(a => !a.Deleted && (a.ArtistType == ArtistType.Circle || a.ArtistType == ArtistType.Label))
 				.ToArray()
 				.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
