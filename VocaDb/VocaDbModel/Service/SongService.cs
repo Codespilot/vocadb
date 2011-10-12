@@ -250,7 +250,7 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			UpdateEntity<Album>(id, (session, a) => {
+			UpdateEntity<Song>(id, (session, a) => {
 
 				AuditLog(string.Format("deleting {0}", a));
 
