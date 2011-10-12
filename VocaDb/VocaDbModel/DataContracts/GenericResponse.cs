@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 
 namespace VocaDb.Model.DataContracts {
 
-	[DataContract]
+	[DataContract(Namespace=Schemas.VocaDb)]
 	public class GenericResponse {
 
 		public GenericResponse() {
@@ -26,7 +26,7 @@ namespace VocaDb.Model.DataContracts {
 
 	}
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class GenericResponse<TResult> : GenericResponse {
 
 		public GenericResponse(TResult result) {
