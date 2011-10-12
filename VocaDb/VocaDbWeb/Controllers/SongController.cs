@@ -172,7 +172,7 @@ namespace VocaDb.Web.Controllers
 				return Json(new GenericResponse<string>(view));
 				//return PartialView("PVForSongEditRow", contract);
 			} catch (VideoParseException x) {
-				return Json(new GenericResponse<string>(x.Message));
+				return Json(new GenericResponse<string>(false, x.Message));
 			}
 
 		}
