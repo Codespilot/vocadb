@@ -11,6 +11,8 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Web.Models {
 
@@ -109,6 +111,51 @@ namespace VocaDb.Web.Models {
 			};
 
 		}
+
+	}
+
+	public class AlbumDetails {
+
+		public AlbumDetails() { }
+
+		public AlbumDetails(AlbumDetailsContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			AdditionalNames = contract.AdditionalNames;
+			Description = contract.Description;
+			DiscType = contract.DiscType;
+			Id = contract.Id;
+			Name = contract.Name;
+			Songs = contract.Songs;
+			UserHasAlbum = contract.UserHasAlbum;
+			WebLinks = contract.WebLinks;
+
+			OtherArtists = contract.ArtistLinks.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
+			Performers = contract.ArtistLinks.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
+
+		}
+
+		public string AdditionalNames { get; set; }
+
+		public string Description { get; set; }
+
+		public DiscType DiscType { get; set; }
+
+		public int Id { get; set; }
+
+		public string Name { get; set; }
+
+		public ArtistContract[] OtherArtists { get; set; }
+
+		public ArtistContract[] Performers { get; set; }
+
+		public SongInAlbumContract[] Songs { get; set; }
+
+		public bool UserHasAlbum { get; set; }
+
+		public WebLinkContract[] WebLinks { get; set; }
+
 
 	}
 

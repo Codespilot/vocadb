@@ -1,7 +1,8 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Web.Helpers;
-@model AlbumDetailsContract
+@using VocaDb.Web.Models;
+@model AlbumDetails
 		   
 @{
 	ViewBag.Title = "Album details - " + Model.Name;
@@ -29,19 +30,32 @@
 			<span class="extraInfo">@Model.AdditionalNames</span>
 		</td>
 	</tr>
-	<tr>
-		<td>
-			Artists
-		</td>
-		<td>
-		@foreach (var artist in Model.ArtistLinks) {
-			@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, null);
-																								 if (artist != Model.ArtistLinks.Last()) {
-				<text>,&nbsp;</text>
-																								 }
-  }			
-		</td>
-	</tr>
+		@if (Model.Performers.Any()) {
+		<tr>
+			<td>Performers</td>
+			<td>
+				@foreach (var artist in Model.Performers) {
+					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+					if (artist != Model.Performers.Last()) {
+						<text>,&nbsp;</text>
+					}
+				}			
+			</td>
+		</tr>
+		}
+		@if (Model.OtherArtists.Any()) {
+		<tr>
+			<td>Other artists</td>
+			<td>
+				@foreach (var artist in Model.OtherArtists) {
+					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+					if (artist != Model.OtherArtists.Last()) {
+						<text>,&nbsp;</text>
+					}
+				}			
+			</td>
+		</tr>
+		}
 @if (!string.IsNullOrEmpty(Model.Description)) {
 	<tr>
 		<td>Description</td>
@@ -84,7 +98,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>
