@@ -23,6 +23,10 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public override string ToString() {
+			return "name '" + Value + "' for " + Album;
+		}
+
 	}
 
 }

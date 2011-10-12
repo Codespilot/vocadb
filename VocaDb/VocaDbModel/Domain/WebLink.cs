@@ -50,6 +50,10 @@
 			}
 		}
 
+		public override string ToString() {
+			return "web link '" + Url + "'";
+		}
+
 	}
 
 }

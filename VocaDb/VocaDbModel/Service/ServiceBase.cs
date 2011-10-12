@@ -88,6 +88,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
+				AuditLog("deleting " + entity);
 
 				session.Delete(entity);
 
@@ -105,6 +106,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
+				AuditLog("updating " + entity);
 				func(entity);
 
 				session.Update(entity);
@@ -123,6 +125,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
+				AuditLog("updating " + entity);
 				func(session, entity);
 
 				session.Update(entity);

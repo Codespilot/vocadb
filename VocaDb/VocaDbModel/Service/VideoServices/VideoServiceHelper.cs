@@ -14,8 +14,8 @@ namespace VocaDb.Model.Service.VideoServices {
 				new RegexLinkMatcher("youtu.be/{0}", @"youtu.be/(\S{11})")
 			}),
 			new VideoService(PVService.NicoNicoDouga, new[] {
-				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/[a-z]{2}\d{4,10}"),
-				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/\d{6,12}")
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/([a-z]{2}\d{4,10})"),
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/(\d{6,12})")
 			})
 		};
 

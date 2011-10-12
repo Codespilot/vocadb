@@ -137,7 +137,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => name);
 
-			AuditLog("creating an artist with name '" + name + "'");
+			AuditLog("creating a new artist with name '" + name + "'");
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
