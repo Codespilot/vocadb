@@ -68,5 +68,9 @@
 			}
 		}
 
+		public override string ToString() {
+			return "PV '" + Name + "' (" + Id + ") for " + Song;
+		}
+
 	}
 }

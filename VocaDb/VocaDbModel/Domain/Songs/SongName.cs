@@ -22,6 +22,9 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public override string ToString() {
+			return "name '" + Value + "' for " + Song;
+		}
 
 	}
 }

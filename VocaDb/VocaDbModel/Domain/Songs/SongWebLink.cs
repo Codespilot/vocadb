@@ -21,6 +21,10 @@
 			}
 		}
 
+		public override string ToString() {
+			return base.ToString() + " for " + Song;
+		}
+
 	}
 
 }

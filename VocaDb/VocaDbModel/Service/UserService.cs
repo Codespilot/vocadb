@@ -89,7 +89,7 @@ namespace VocaDb.Model.Service {
 				if (user.Password != hashed)
 					return null;
 
-				log.Info("'" + user + "' logged in");
+				log.Info(user + " logged in");
 
 				user.UpdateLastLogin();
 				session.Update(user);
