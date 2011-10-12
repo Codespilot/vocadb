@@ -161,7 +161,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public GenericResponse<string> CreatePVForSong(int songId, string pvUrl, PVType type) {
+		[HttpPost]
+		public GenericResponse<string> CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {
 
 			ParamIs.NotNullOrEmpty(() => pvUrl);
 
