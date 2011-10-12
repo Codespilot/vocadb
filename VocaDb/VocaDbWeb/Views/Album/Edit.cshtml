@@ -98,8 +98,14 @@
                 <label>Picture</label>
             </div>
             <div class="editor-field">
-				<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
-				<input type="file" id="pictureUpload" name="pictureUpload" />
+				<table>
+					<tr><td>
+						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+					</td><td>
+						<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions)</p>
+						<input type="file" id="pictureUpload" name="pictureUpload" />
+					</td></tr>
+				</table>
             </div>
 
            <div class="editor-label">

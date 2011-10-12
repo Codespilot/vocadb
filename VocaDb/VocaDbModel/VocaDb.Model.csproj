@@ -73,6 +73,7 @@
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
+    <Compile Include="DataContracts\PictureContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
     <Compile Include="DataContracts\Songs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\PVForSongContract.cs" />

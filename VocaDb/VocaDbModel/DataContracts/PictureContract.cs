@@ -1,25 +1,29 @@
 ﻿using System;
-using VocaDb.Model.Domain;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Runtime.Serialization;
+using VocaDb.Model.Domain;
 using System.Drawing;
 
 namespace VocaDb.Model.DataContracts {
 
+	/// <summary>
+	/// Data contract for a single picture.
+	/// </summary>
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class PictureDataContract {
+	public class PictureContract {
 
-		public PictureDataContract() { }
-
-		public PictureDataContract(Byte[] bytes, string mime) {
+		public PictureContract(Byte[] bytes, string mime) {
 			Bytes = bytes;
 			Mime = mime;
 		}
 
-		public PictureDataContract(PictureData pictureData) {
+		public PictureContract(PictureData pictureData, Size requestedSize) {
 
 			ParamIs.NotNull(() => pictureData);
 
-			Bytes = pictureData.Bytes;
+			Bytes = pictureData.GetBytes(requestedSize);
 			Mime = pictureData.Mime;
 
 		}
@@ -31,4 +35,5 @@ namespace VocaDb.Model.DataContracts {
 		public string Mime { get; set; }
 
 	}
+
 }
