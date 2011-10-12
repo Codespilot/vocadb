@@ -133,10 +133,11 @@ function initPage(songId) {
 
 		var service = $("#pvService_new").val();
 		var pvUrl = $("#pvUrl_new").val();
+		var pvType = $("#pvType_new").val();
 
 		$("#pvUrl_new").val("");
 
-		$.post("../../Song/CreatePVForSong", { songId: songId, pvUrl: pvUrl, type: pvType }, function (response) {
+		$.post("../../Song/CreatePVForSongByUrl", { songId: songId, pvUrl: pvUrl, type: pvType }, function (response) {
 
 			if (!response.Successful) {
 				alert(response.Message);
