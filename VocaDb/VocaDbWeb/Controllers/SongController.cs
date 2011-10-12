@@ -162,17 +162,17 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public GenericResponse<string> CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {
+		public ActionResult CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {
 
 			ParamIs.NotNullOrEmpty(() => pvUrl);
 
 			try {
 				var contract = Service.CreatePVForSong(songId, pvUrl, type);
 				var view = RenderPartialViewToString("PVForSongEditRow", contract);
-				return new GenericResponse<string>(view);
+				return Json(new GenericResponse<string>(view));
 				//return PartialView("PVForSongEditRow", contract);
 			} catch (VideoParseException x) {
-				return new GenericResponse<string>(x.Message);
+				return Json(new GenericResponse<string>(x.Message));
 			}
 
 		}
