@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Artists;
+using System.Drawing;
 
 namespace VocaDb.Model.Service {
 
@@ -357,14 +358,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PictureDataContract GetCoverPicture(int id) {
+		/// <summary>
+		/// Gets the cover picture for a <see cref="Album"/>.
+		/// </summary>
+		/// <param name="id">Album Id.</param>
+		/// <param name="requestedSize">Requested size. If Empty, original size will be returned.</param>
+		/// <returns>Data contract for the picture. Can be null if there is no picture.</returns>
+		public PictureContract GetCoverPicture(int id, Size requestedSize) {
 
 			return HandleQuery(session => {
 
 				var album = session.Load<Album>(id);
 
 				if (album.CoverPicture != null)
-					return new PictureDataContract(album.CoverPicture);
+					return new PictureContract(album.CoverPicture, requestedSize);
 				else
 					return null;
 

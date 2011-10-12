@@ -9,11 +9,15 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
+using System.Drawing;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
     public class ArtistController : ControllerBase
     {
+
+		private readonly Size pictureThumbSize = new Size(250, 250);
 
     	private ArtistService Service {
     		get { return MvcApplication.Services.Artists; }
@@ -51,7 +55,18 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Picture(int id) {
 
-			var pictureData = Service.GetArtistPicture(id);
+			var pictureData = Service.GetArtistPicture(id, Size.Empty);
+
+			if (pictureData == null)
+				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
+
+			return File(pictureData.Bytes, pictureData.Mime);
+
+		}
+
+		public ActionResult PictureThumb(int id) {
+
+			var pictureData = Service.GetArtistPicture(id, pictureThumbSize);
 
 			if (pictureData == null)
 				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
@@ -99,11 +114,19 @@ namespace VocaDb.Web.Controllers
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
 
-				var file = Request.Files[0];
-				var buf = new Byte[file.ContentLength];
-				file.InputStream.Read(buf, 0, file.ContentLength);
+				if (ImageHelper.IsValidImageExtension(Request.Files[0].FileName)) {
 
-				pictureData = new PictureDataContract(buf, file.ContentType);
+					var file = Request.Files[0];
+
+					pictureData = ImageHelper.GetOriginalAndResizedImages(
+						file.InputStream, file.ContentLength, file.ContentType, pictureThumbSize);
+
+				} else {
+
+					ModelState.AddModelError("Picture", "Picture format is not valid");
+					return RedirectToAction("Edit", new { id = model.Id });
+
+				}
 
 			}
 

@@ -17,6 +17,8 @@ namespace VocaDb.Web.Controllers
     public class AlbumController : ControllerBase
     {
 
+		private readonly Size pictureThumbSize = new Size(250, 250);
+
 		private AlbumService Service {
 			get { return MvcApplication.Services.Albums; }
 		}
@@ -53,7 +55,18 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult CoverPicture(int id) {
 
-			var pictureData = Service.GetCoverPicture(id);
+			var pictureData = Service.GetCoverPicture(id, Size.Empty);
+
+			if (pictureData == null)
+				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
+
+			return File(pictureData.Bytes, pictureData.Mime);
+
+		}
+
+		public ActionResult CoverPictureThumb(int id) {
+
+			var pictureData = Service.GetCoverPicture(id, pictureThumbSize);
 
 			if (pictureData == null)
 				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
@@ -110,14 +123,14 @@ namespace VocaDb.Web.Controllers
 				if (ImageHelper.IsValidImageExtension(Request.Files[0].FileName)) {
 
 					var file = Request.Files[0];
-					var buf = new Byte[file.ContentLength];
-					file.InputStream.Read(buf, 0, file.ContentLength);
 
-					pictureData = new PictureDataContract(buf, file.ContentType);
+					pictureData = ImageHelper.GetOriginalAndResizedImages(
+						file.InputStream, file.ContentLength, file.ContentType, pictureThumbSize);
 
 				} else {
 
 					ModelState.AddModelError("CoverPicture", "Picture format is not valid");
+					return RedirectToAction("Edit", new { id = model.Id });
 
 				}
 
