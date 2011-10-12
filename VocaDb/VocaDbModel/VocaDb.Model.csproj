@@ -103,8 +103,10 @@
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
+    <Compile Include="Domain\Albums\AlbumIssue.cs" />
     <Compile Include="Domain\Albums\AlbumWebLink.cs" />
     <Compile Include="Domain\Albums\ArchivedAlbumVersion.cs" />
+    <Compile Include="Domain\Albums\MediaTypes.cs" />
     <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />
     <Compile Include="Domain\ArchivedObjectVersion.cs" />
