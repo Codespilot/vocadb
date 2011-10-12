@@ -6,8 +6,6 @@
 
 		Youtube			= 2,
 
-		Other			= 4
-
 	}
 
 }

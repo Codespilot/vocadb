@@ -9,7 +9,9 @@ namespace VocaDb.Model.DataContracts {
 	[DataContract]
 	public class GenericResponse {
 
-		public GenericResponse() { }
+		public GenericResponse() {
+			Successful = true;
+		}
 
 		public GenericResponse(bool successful, string message) {
 			Successful = successful;
@@ -26,6 +28,13 @@ namespace VocaDb.Model.DataContracts {
 
 	[DataContract]
 	public class GenericResponse<TResult> : GenericResponse {
+
+		public GenericResponse(TResult result) {
+			Result = result;
+		}
+
+		public GenericResponse(string errorMessage)
+			: base(false, errorMessage) {}
 
 		[DataMember]
 		public TResult Result { get; set; }
