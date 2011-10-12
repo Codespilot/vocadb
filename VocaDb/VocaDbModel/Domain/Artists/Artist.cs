@@ -21,7 +21,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<ArtistWebLink> webLinks = new List<ArtistWebLink>();
 
 		public Artist() {
-			ArtistType = ArtistType.Unknown;
+			ArtistType = ArtistType.Producer;
 			Deleted = false;
 			Description = string.Empty;
 			StartDate = null;

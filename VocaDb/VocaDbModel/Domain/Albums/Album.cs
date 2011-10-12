@@ -17,6 +17,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
 		private string description;
 		private IList<AlbumName> names = new List<AlbumName>();
+		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
@@ -121,6 +122,14 @@ namespace VocaDb.Model.Domain.Albums {
 			set {
 				ParamIs.NotNull(() => value);
 				names = value;
+			}
+		}
+
+		public virtual AlbumRelease OriginalRelease {
+			get { return originalRelease; }
+			set {
+				ParamIs.NotNull(() => value);
+				originalRelease = value;
 			}
 		}
 
