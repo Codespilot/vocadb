@@ -200,7 +200,7 @@ namespace VocaDb.Web.Controllers
 			var contracts = lyrics.Select(l => l.ToContract());
 			var song = Service.UpdateLyrics(model.Id, contracts);
 
-			return View("Edit", new SongEdit(song));
+			return RedirectToAction("Edit", new { id = model.Id });
 
 		}
 
