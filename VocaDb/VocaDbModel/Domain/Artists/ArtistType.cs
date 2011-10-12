@@ -4,10 +4,18 @@
 
 		Unknown,
 
+		/// <summary>
+		/// Doujin circle. A group of doujin producers that also releases music (acts as a label).
+		/// </summary>
 		Circle,
 
 		/// <summary>
-		/// Producer is the maker or the song (for example doriko)
+		/// Commercial music label. Does not produce music by itself.
+		/// </summary>
+		Label,
+
+		/// <summary>
+		/// Producer is the maker or the song (usually an individual, for example doriko)
 		/// </summary>
 		Producer,
 

@@ -103,7 +103,7 @@
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
-    <Compile Include="Domain\Albums\AlbumIssue.cs" />
+    <Compile Include="Domain\Albums\AlbumRelease.cs" />
     <Compile Include="Domain\Albums\AlbumWebLink.cs" />
     <Compile Include="Domain\Albums\ArchivedAlbumVersion.cs" />
     <Compile Include="Domain\Albums\MediaTypes.cs" />
@@ -161,6 +161,7 @@
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />
     <Compile Include="Mapping\Artists\ArtistWebLinkMap.cs" />
+    <Compile Include="Mapping\Artists\GroupForArtist.cs" />
     <Compile Include="Mapping\ClassConventions.cs" />
     <Compile Include="Mapping\CustomTypes\XDocumentType.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
