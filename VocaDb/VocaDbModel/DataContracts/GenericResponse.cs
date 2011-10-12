@@ -33,8 +33,8 @@ namespace VocaDb.Model.DataContracts {
 			Result = result;
 		}
 
-		public GenericResponse(string errorMessage)
-			: base(false, errorMessage) {}
+		public GenericResponse(bool successful, string errorMessage)
+			: base(successful, errorMessage) {}
 
 		[DataMember]
 		public TResult Result { get; set; }
