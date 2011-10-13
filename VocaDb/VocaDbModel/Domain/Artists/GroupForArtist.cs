@@ -1,7 +1,6 @@
 ﻿using System;
-using VocaDb.Model.Domain.Artists;
 
-namespace VocaDb.Model.Mapping.Artists {
+namespace VocaDb.Model.Domain.Artists {
 
 	public class GroupForArtist {
 

@@ -11,6 +11,7 @@ using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Web.Controllers
 {
@@ -26,9 +27,11 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Artist/
 
-		public ActionResult Index(string filter, int? page) {
+		public ActionResult Index(string filter, ArtistType? artistType, int? page) {
 
-			var result = Service.FindArtists(filter, ((page ?? 1) - 1) * 30, 30, true);
+			var result = Service.FindArtists(filter, 
+				artistType != null ? new[] { artistType.Value } : new ArtistType[] {}, 
+				((page ?? 1) - 1) * 30, 30, true);
 
 			ViewBag.Filter = filter;
 			ViewBag.Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
@@ -37,9 +40,9 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public ActionResult FindJson(string term) {
+		public ActionResult FindJson(string term, ArtistType[] artistTypes) {
 
-			var albums = Service.FindArtists(term, 0, 20);
+			var albums = Service.FindArtists(term, artistTypes ?? new ArtistType[] {}, 0, 20);
 
 			return Json(albums.Items);
 

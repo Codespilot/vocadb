@@ -31,12 +31,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ISession session, string query, int start, int maxResults, bool getTotalCount) {
+		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ISession session, string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
 				var artists = session.Query<Artist>()
-					.Where(s => !s.Deleted)
+					.Where(s => 
+						!s.Deleted 
+						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType)))
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Skip(start)
 					.Take(maxResults)
@@ -45,7 +47,7 @@ namespace VocaDb.Model.Service {
 				var contracts = artists.Select(s => new ArtistWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetArtistCount(session, query) : 0);
+				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes) : 0);
 
 				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count);
 
@@ -53,8 +55,9 @@ namespace VocaDb.Model.Service {
 
 				var direct = session.Query<Artist>()
 					.Where(s =>
-						!s.Deleted &&
-						(string.IsNullOrEmpty(query)
+						!s.Deleted
+						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType))
+						&& (string.IsNullOrEmpty(query)
 							|| s.TranslatedName.English.Contains(query)
 							|| s.TranslatedName.Romaji.Contains(query)
 							|| s.TranslatedName.Japanese.Contains(query)))
@@ -63,7 +66,11 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var additionalNames = session.Query<ArtistName>()
-					.Where(m => m.Value.Contains(query) && !m.Artist.Deleted)
+					.Where(m => 
+						m.Value.Contains(query) 
+						&& !m.Artist.Deleted
+						&& (!artistTypes.Any() 
+							|| artistTypes.Contains(m.Artist.ArtistType)))
 					.Select(m => m.Artist)
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Distinct()
@@ -77,7 +84,7 @@ namespace VocaDb.Model.Service {
 					.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetArtistCount(session, query) : 0);
+				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes) : 0);
 
 				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count);
 
@@ -85,27 +92,34 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private int GetArtistCount(ISession session, string query) {
+		private int GetArtistCount(ISession session, string query, ArtistType[] artistTypes) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
 				return session.Query<Artist>()
-					.Where(s => !s.Deleted)
+					.Where(s => 
+						!s.Deleted
+						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType)))
 					.Count();
 
 			}
 
 			var direct = session.Query<Artist>()
 				.Where(s =>
-					!s.Deleted &&
-					(string.IsNullOrEmpty(query)
+					!s.Deleted 
+					&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType))
+					&& (string.IsNullOrEmpty(query)
 						|| s.TranslatedName.English.Contains(query)
 						|| s.TranslatedName.Romaji.Contains(query)
 						|| s.TranslatedName.Japanese.Contains(query)))
 				.ToArray();
 
 			var additionalNames = session.Query<ArtistName>()
-				.Where(m => m.Value.Contains(query) && !m.Artist.Deleted)
+				.Where(m => 
+					m.Value.Contains(query) 
+					&& !m.Artist.Deleted
+					&& (!artistTypes.Any()
+						|| artistTypes.Contains(m.Artist.ArtistType)))
 				.Select(m => m.Artist)
 				.Distinct()
 				.ToArray()
@@ -275,9 +289,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, int start, int maxResults, bool getTotalCount = false) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount = false) {
 
-			return HandleQuery(session => FindArtists(session, query, start, maxResults, getTotalCount));
+			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, getTotalCount));
 
 		}
 
