@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using PagedList;
@@ -40,9 +41,13 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public ActionResult FindJson(string term, ArtistType[] artistTypes) {
+		public ActionResult FindJson(string term, string artistTypes) {
 
-			var albums = Service.FindArtists(term, artistTypes ?? new ArtistType[] {}, 0, 20);
+			var typeVals = !string.IsNullOrEmpty(artistTypes)
+				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
+				: new ArtistType[] {};
+
+			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20);
 
 			return Json(albums.Items);
 

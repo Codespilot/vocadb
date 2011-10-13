@@ -24,6 +24,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => album);
 
+			AllLabels = album.AllLabels;
 			ArtistLinks = album.ArtistLinks;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
@@ -34,10 +35,14 @@ namespace VocaDb.Web.Models {
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
 			Names = album.Names;
-			ProductCode = album.ProductCode;
-			ReleaseDate = album.ReleaseDate;
 			Tracks = album.Songs;
 			WebLinks = album.WebLinks;
+
+			if (album.OriginalRelease != null) {
+				CatNum = album.OriginalRelease.CatNum;
+				Label = album.OriginalRelease.Label;
+				ReleaseDate = album.OriginalRelease.ReleaseDate;				
+			}
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
 			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
@@ -47,11 +52,17 @@ namespace VocaDb.Web.Models {
 
 		public DiscType[] AllDiscTypes { get; set; }
 
+		public ArtistContract[] AllLabels { get; set; }
+
 		public ContentLanguageSelection[] AllLanguages { get; set; }
 
 		public string AllLanguagesJson { get; set; }
 
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
+
+		[Display(Name = "Catalog number")]
+		[StringLength(50)]
+		public string CatNum { get; set; }
 
 		[Display(Name = "Default language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
@@ -63,6 +74,9 @@ namespace VocaDb.Web.Models {
 		public DiscType DiscType { get; set; }
 
 		public int Id { get; set; }
+
+		[Display(Name = "Original release label")]
+		public ArtistContract Label { get; set; }
 
 		public string Name { get; set; }
 
@@ -84,12 +98,12 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		[Display(Name = "Catalog number / Product code")]
-		[StringLength(50)]
-		public string ProductCode { get; set; }
-
 		[Display(Name = "Release date")]
 		public DateTime? ReleaseDate { get; set; }
+
+		[Display(Name = "Release event")]
+		[StringLength(50)]
+		public string ReleaseEvent { get; set; }
 
 		[Display(Name = "Tracks")]
 		public SongInAlbumContract[] Tracks { get; set; }
@@ -104,8 +118,12 @@ namespace VocaDb.Web.Models {
 				DiscType = this.DiscType,
 				Id = this.Id,
 				Name = this.Name,
-				ProductCode = this.ProductCode,
-				ReleaseDate = this.ReleaseDate,
+				OriginalRelease = new AlbumReleaseContract {
+					CatNum = this.CatNum,
+					Label = this.Label,
+					ReleaseDate = this.ReleaseDate,
+					EventName = this.ReleaseEvent
+				},
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
 			};

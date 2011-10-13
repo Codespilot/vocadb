@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />

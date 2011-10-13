@@ -16,7 +16,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.TranslatedName[languagePreference];
-			ReleaseDate = album.ReleaseDate;
 
 		}
 
@@ -27,10 +26,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public int Id { get; set; }
 
 		public string Name { get; set; }
-
-		public string ProductCode { get; set; }
-
-		public DateTime? ReleaseDate { get; set; }
 
 	}
 

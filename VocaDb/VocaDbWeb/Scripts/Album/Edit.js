@@ -166,7 +166,7 @@ function initPage(albumId) {
 			return;
 		}
 
-		$.post("../../Artist/FindJson", { term: findTerm }, function (results) {
+		$.post("../../Artist/FindJson", { term: findTerm, artistTypes: "Performer,Producer,Circle" }, function (results) {
 
 			$(artistList).empty();
 
