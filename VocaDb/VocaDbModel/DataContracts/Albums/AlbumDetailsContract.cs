@@ -15,6 +15,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Description = album.Description;
+			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
 			Songs = album.Songs.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
@@ -23,6 +24,8 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
 		public string Description { get; set; }
+
+		public AlbumReleaseContract OriginalRelease { get; set; }
 
 		public SongInAlbumContract[] Songs { get; set; }
 

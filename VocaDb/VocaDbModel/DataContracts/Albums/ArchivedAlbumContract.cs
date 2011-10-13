@@ -21,8 +21,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
-			ProductCode = album.ProductCode;
-			ReleaseDate = album.ReleaseDate;
 			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			WebLinks = album.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
@@ -50,6 +48,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		[DataMember]
 		public LocalizedStringWithIdContract[] Names { get; set; }
 
+		// FIXME
 		[DataMember]
 		public string ProductCode { get; set; }
 

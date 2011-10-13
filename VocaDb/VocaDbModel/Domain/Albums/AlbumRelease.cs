@@ -21,7 +21,7 @@ namespace VocaDb.Model.Domain.Albums {
 			set { eventName = value; }
 		}
 
-		public virtual Artist Publisher {
+		public virtual Artist Label {
 			get { return publisher; }
 			set { publisher = value; }
 		}

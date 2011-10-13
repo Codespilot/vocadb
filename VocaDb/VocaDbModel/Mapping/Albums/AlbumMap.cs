@@ -14,13 +14,18 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
-			Map(m => m.ProductCode).Not.Nullable();
-			Map(m => m.ReleaseDate).Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			Component(m => m.CoverPicture, c => {
 				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue);
 				c.Map(m => m.Mime, "CoverPictureMime");
+			});
+
+			Component(m => m.OriginalRelease, c => {
+				c.Map(m => m.CatNum, "ReleaseCatNum");
+				c.Map(m => m.EventName, "ReleaseEventName");
+				c.Map(m => m.ReleaseDate, "ReleaseDate");
+				c.References(m => m.Label, "ReleaseLabel");
 			});
 
 			Component(m => m.TranslatedName, c => {

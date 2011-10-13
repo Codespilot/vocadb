@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -59,6 +60,12 @@ namespace VocaDb.Model.Service {
 				.ToArray();
 
 			return direct.Count() + additionalNames.Count();
+
+		}
+
+		private IEnumerable<Artist> GetAllLabels(ISession session) {
+
+			return session.Query<Artist>().Where(a => a.ArtistType == ArtistType.Label);
 
 		}
 
@@ -343,7 +350,7 @@ namespace VocaDb.Model.Service {
 
 			return
 				HandleQuery(session =>
-					new AlbumForEditContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
+					new AlbumForEditContract(session.Load<Album>(id), GetAllLabels(session), PermissionContext.LanguagePreference));
 
 		}
 
@@ -439,7 +446,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				session.Update(album);
-				return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
+				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 
 			});
 
