@@ -1,4 +1,5 @@
 ﻿using System;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Albums {
@@ -8,6 +9,19 @@ namespace VocaDb.Model.Domain.Albums {
 		private string catNum;
 		private string eventName;
 		private Artist publisher;
+
+		public AlbumRelease() {}
+
+		public AlbumRelease(AlbumReleaseContract contract, Artist label) {
+			
+			ParamIs.NotNull(() => contract);
+
+			CatNum = contract.CatNum;
+			ReleaseYear = contract.ReleaseYear;
+			EventName = contract.EventName;
+			Label = label;
+
+		}
 
 		public virtual string CatNum {
 			get { return catNum; }

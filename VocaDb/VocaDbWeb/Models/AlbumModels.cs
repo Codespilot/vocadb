@@ -42,6 +42,7 @@ namespace VocaDb.Web.Models {
 				CatNum = album.OriginalRelease.CatNum;
 				LabelId = (album.OriginalRelease.Label != null ? album.OriginalRelease.Label.Id : EmptyArtist.EmptyArtistId);
 				ReleaseYear = album.OriginalRelease.ReleaseYear;
+				ReleaseEvent = album.OriginalRelease.EventName;
 
 				/*if (album.OriginalRelease.ReleaseDate != null) {
 
