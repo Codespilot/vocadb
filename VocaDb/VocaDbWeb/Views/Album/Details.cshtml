@@ -70,6 +70,30 @@
 			@Model.DiscType<br />
 		</td>	
 	</tr>
+@if (Model.ReleaseYear != null) {
+	<tr>
+		<td>Release year</td>
+		<td>
+			@Model.ReleaseYear<br />
+		</td>	
+	</tr>
+}
+@if (!string.IsNullOrEmpty(Model.CatNum)) {
+	<tr>
+		<td>Catalog number</td>
+		<td>
+			@Model.CatNum<br />
+		</td>	
+	</tr>
+}
+@if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
+	<tr>
+		<td>Release event</td>
+		<td>
+			@Model.ReleaseEvent<br />
+		</td>	
+	</tr>
+}
 @if (Model.WebLinks.Any()) {
 	<tr>
 		<td>Links</td>

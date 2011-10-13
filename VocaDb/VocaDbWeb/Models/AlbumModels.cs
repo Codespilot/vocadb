@@ -161,12 +161,20 @@ namespace VocaDb.Web.Models {
 			UserHasAlbum = contract.UserHasAlbum;
 			WebLinks = contract.WebLinks;
 
+			if (contract.OriginalRelease != null) {
+				CatNum = contract.OriginalRelease.CatNum;
+				ReleaseEvent = contract.OriginalRelease.EventName;
+				ReleaseYear = contract.OriginalRelease.ReleaseYear;
+			}
+
 			OtherArtists = contract.ArtistLinks.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
 			Performers = contract.ArtistLinks.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
 
 		}
 
 		public string AdditionalNames { get; set; }
+
+		public string CatNum { get; set; }
 
 		public string Description { get; set; }
 
@@ -179,6 +187,10 @@ namespace VocaDb.Web.Models {
 		public ArtistContract[] OtherArtists { get; set; }
 
 		public ArtistContract[] Performers { get; set; }
+
+		public string ReleaseEvent { get; set; }
+
+		public int? ReleaseYear { get; set; }
 
 		public SongInAlbumContract[] Songs { get; set; }
 
