@@ -440,6 +440,12 @@ namespace VocaDb.Model.Service {
 				album.DiscType = properties.DiscType;
 				album.Description = properties.Description;
 				album.TranslatedName.CopyFrom(properties.TranslatedName);
+				
+				if (properties.OriginalRelease != null) {
+					album.OriginalRelease = new AlbumRelease(properties.OriginalRelease, (properties.OriginalRelease.Label != null ? session.Load<Artist>(properties.OriginalRelease.Label.Id) : null));
+				} else {
+					album.OriginalRelease = null;
+				}
 
 				if (pictureData != null) {
 					album.CoverPicture = new PictureData(pictureData);
