@@ -14,7 +14,7 @@ namespace VocaDb.Model.Domain.Albums {
 			set { catNum = value; }
 		}
 
-		public virtual DateTime ReleaseDate { get; set; }
+		public virtual int? ReleaseYear { get; set; }
 
 		public virtual string EventName {
 			get { return eventName; }

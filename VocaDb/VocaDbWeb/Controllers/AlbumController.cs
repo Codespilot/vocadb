@@ -114,7 +114,7 @@ namespace VocaDb.Web.Controllers
         {
 
 			if (!ModelState.IsValid)
-				return View();
+				return View(new AlbumEdit(Service.GetAlbumForEdit(model.Id)));
 
             PictureDataContract pictureData = null;
 

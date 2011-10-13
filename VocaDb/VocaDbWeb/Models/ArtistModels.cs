@@ -16,19 +16,6 @@ namespace VocaDb.Web.Models {
 
 	public class ArtistEdit {
 
-		class EmptyArtist : ArtistContract {
-
-			public const int EmptyArtistId = 0;
-
-			public EmptyArtist() {
-
-				Id = EmptyArtistId;
-				Name = "(nothing)";
-
-			}
-
-		}
-
 		public ArtistEdit() {}
 
 		public ArtistEdit(ArtistForEditContract artist) {
@@ -114,6 +101,19 @@ namespace VocaDb.Web.Models {
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
 
 			};
+
+		}
+
+	}
+
+	public class EmptyArtist : ArtistContract {
+
+		public const int EmptyArtistId = 0;
+
+		public EmptyArtist() {
+
+			Id = EmptyArtistId;
+			Name = "(nothing)";
 
 		}
 
