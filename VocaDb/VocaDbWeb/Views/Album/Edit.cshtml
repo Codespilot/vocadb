@@ -123,17 +123,17 @@
             </div>
 
            <div class="editor-label">
-                @Html.LabelFor(m => m.Label)
+                @Html.LabelFor(m => m.LabelId)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(m => m.Label, new SelectList(Model.AllLabels, "Id", "Name", Model.Label))
+                @Html.DropDownListFor(m => m.LabelId, new SelectList(Model.AllLabels, "Key", "Value", Model.LabelId))
             </div>
 
            <div class="editor-label">
-                @Html.LabelFor(m => m.ReleaseDate)
+                @Html.LabelFor(m => m.ReleaseYear)
             </div>
             <div class="editor-field">
-                @Html.EditorFor(m => m.ReleaseDate)
+                @Html.TextBoxFor(m => m.ReleaseYear)
             </div>
 
            <div class="editor-label">

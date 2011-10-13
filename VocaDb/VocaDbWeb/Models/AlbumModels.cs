@@ -24,7 +24,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => album);
 
-			AllLabels = album.AllLabels;
+			AllLabels = new[] { new EmptyArtist() }.Concat(album.AllLabels).ToDictionary(l => l.Id, l => l.Name);
 			ArtistLinks = album.ArtistLinks;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
@@ -40,8 +40,19 @@ namespace VocaDb.Web.Models {
 
 			if (album.OriginalRelease != null) {
 				CatNum = album.OriginalRelease.CatNum;
-				Label = album.OriginalRelease.Label;
-				ReleaseDate = album.OriginalRelease.ReleaseDate;				
+				LabelId = (album.OriginalRelease.Label != null ? album.OriginalRelease.Label.Id : EmptyArtist.EmptyArtistId);
+				ReleaseYear = album.OriginalRelease.ReleaseYear;
+
+				/*if (album.OriginalRelease.ReleaseDate != null) {
+
+					var d = album.OriginalRelease.ReleaseDate.Value;
+
+					ReleaseDateYear = d.Year;
+					ReleaseDateMonth = d.Month;
+					ReleaseDateDay = d.Day;
+
+				}*/
+
 			}
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
@@ -52,7 +63,7 @@ namespace VocaDb.Web.Models {
 
 		public DiscType[] AllDiscTypes { get; set; }
 
-		public ArtistContract[] AllLabels { get; set; }
+		public Dictionary<int, string> AllLabels { get; set; }
 
 		public ContentLanguageSelection[] AllLanguages { get; set; }
 
@@ -76,7 +87,7 @@ namespace VocaDb.Web.Models {
 		public int Id { get; set; }
 
 		[Display(Name = "Original release label")]
-		public ArtistContract Label { get; set; }
+		public int LabelId { get; set; }
 
 		public string Name { get; set; }
 
@@ -98,8 +109,8 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		[Display(Name = "Release date")]
-		public DateTime? ReleaseDate { get; set; }
+		[Display(Name = "Release year")]
+		public int? ReleaseYear { get; set; }
 
 		[Display(Name = "Release event")]
 		[StringLength(50)]
@@ -120,8 +131,8 @@ namespace VocaDb.Web.Models {
 				Name = this.Name,
 				OriginalRelease = new AlbumReleaseContract {
 					CatNum = this.CatNum,
-					Label = this.Label,
-					ReleaseDate = this.ReleaseDate,
+					Label = (this.LabelId != EmptyArtist.EmptyArtistId ? new ArtistContract { Id = this.LabelId } : null),
+					ReleaseYear = this.ReleaseYear,
 					EventName = this.ReleaseEvent
 				},
 				TranslatedName = new TranslatedStringContract(

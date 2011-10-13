@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ParamIs.NotNull(() => release);
 
 			CatNum = release.CatNum;
-			ReleaseDate = release.ReleaseDate;
+			ReleaseYear = release.ReleaseYear;
 			EventName = release.EventName;
 			Label = (release.Label != null ? new ArtistContract(release.Label, languagePreference) : null);
 
@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public string CatNum { get; set; }
 
-		public DateTime? ReleaseDate { get; set; }
+		public int? ReleaseYear { get; set; }
 
 		public string EventName { get; set; }
 
