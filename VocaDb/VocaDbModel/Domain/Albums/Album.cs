@@ -127,7 +127,6 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual AlbumRelease OriginalRelease {
 			get { return originalRelease; }
 			set {
-				ParamIs.NotNull(() => value);
 				originalRelease = value;
 			}
 		}
