@@ -187,9 +187,9 @@ namespace VocaDb.Web.Models {
 
 		public string Name { get; set; }
 
-		public ArtistContract[] OtherArtists { get; set; }
+		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
-		public ArtistContract[] Performers { get; set; }
+		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
 
 		public string ReleaseEvent { get; set; }
 

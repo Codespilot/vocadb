@@ -302,7 +302,7 @@ namespace VocaDb.Model.Service {
 				var contract = new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference);
 				contract.LatestSongs = session.Query<ArtistForSong>().Where(s => s.Artist.Id == id).Select(s => s.Song)
 					.OrderByDescending(s => s.CreateDate).Take(20).ToArray()
-					.Select(s => new SongContract(s, PermissionContext.LanguagePreference)).ToArray();
+					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray();
 
 				return contract;
 
