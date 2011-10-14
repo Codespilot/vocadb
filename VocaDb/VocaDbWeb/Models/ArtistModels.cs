@@ -1,18 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using PagedList;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Models {
+
+	public class ArtistIndex {
+
+		public ArtistIndex() {}
+
+		public ArtistIndex(PartialFindResult<ArtistWithAdditionalNamesContract> result, string filter, ArtistType artistType, int? page) {
+
+			Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
+			Filter = filter;
+			ArtistType = artistType;
+
+			FilterableArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, a => a != ArtistType.Unknown ? a.ToString() : "Any");
+
+		}
+
+		public IPagedList<ArtistWithAdditionalNamesContract> Artists { get; set; }
+
+		public ArtistType ArtistType { get; set; }
+
+		public string Filter { get; set; }
+
+		public Dictionary<ArtistType, string> FilterableArtistTypes { get; set; }
+
+	}
 
 	public class ArtistEdit {
 

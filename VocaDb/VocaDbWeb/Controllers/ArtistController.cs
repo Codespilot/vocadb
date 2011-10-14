@@ -34,10 +34,9 @@ namespace VocaDb.Web.Controllers
 				artistType != null ? new[] { artistType.Value } : new ArtistType[] {}, 
 				((page ?? 1) - 1) * 30, 30, true);
 
-			ViewBag.Filter = filter;
-			ViewBag.Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
+			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, page);
 
-			return View();
+			return View(model);
 
         }
 
