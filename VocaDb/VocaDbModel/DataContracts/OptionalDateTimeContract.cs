@@ -19,11 +19,15 @@ namespace VocaDb.Model.DataContracts {
 			Day = dateTime.Day;
 			Month = dateTime.Month;
 			Year = dateTime.Year;
+			Formatted = dateTime.ToString();
 
 		}
 
 		[DataMember]
 		public int? Day { get; set; }
+
+		[DataMember]
+		public string Formatted { get; set; }
 
 		[DataMember]
 		public int? Month { get; set; }

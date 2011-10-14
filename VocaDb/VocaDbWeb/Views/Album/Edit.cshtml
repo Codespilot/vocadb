@@ -122,12 +122,33 @@
                 @Html.DropDownListFor(m => m.DiscType, new SelectList(Model.AllDiscTypes, Model.DiscType))
             </div>
 
-           <div class="editor-label">
-                @Html.LabelFor(m => m.ReleaseYear)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.ReleaseYear)
-            </div>
+			<table><tr>
+				<td>Release Date:</td>
+				<td>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseDay)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4" } )
+					</div>				
+				</td>
+				<td>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseMonth)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4" } )
+					</div>				
+				</td>
+				<td>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseYear)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10" } )
+					</div>				
+				</td>
+			</tr></table>
 
            <div class="editor-label">
                 @Html.LabelFor(m => m.CatNum)

@@ -70,11 +70,11 @@
 			@Model.DiscType<br />
 		</td>	
 	</tr>
-@if (Model.ReleaseYear != null) {
+@if (Model.ReleaseDate != null) {
 	<tr>
-		<td>Release year</td>
+		<td>Release date</td>
 		<td>
-			@Model.ReleaseYear<br />
+			@Model.ReleaseDate.Formatted<br />
 		</td>	
 	</tr>
 }
@@ -96,7 +96,7 @@
 }
 @if (Model.WebLinks.Any()) {
 	<tr>
-		<td>Links</td>
+		<td>External links</td>
 		<td>
 			@foreach (var link in Model.WebLinks) {
 				<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
