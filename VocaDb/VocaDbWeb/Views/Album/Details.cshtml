@@ -35,7 +35,7 @@
 			<td>Performers</td>
 			<td>
 				@foreach (var artist in Model.Performers) {
-					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames });
 					if (artist != Model.Performers.Last()) {
 						<text>,&nbsp;</text>
 					}
@@ -48,7 +48,7 @@
 			<td>Other artists</td>
 			<td>
 				@foreach (var artist in Model.OtherArtists) {
-					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
+					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames });
 					if (artist != Model.OtherArtists.Last()) {
 						<text>,&nbsp;</text>
 					}
@@ -113,7 +113,7 @@
 		<li>
 			@song.TrackNumber
 			.&nbsp;
-			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, null)<br />
+			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })<br />
 			<span class="extraInfo">@song.Song.ArtistString</span>
 		</li>
  }

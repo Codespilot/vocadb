@@ -20,7 +20,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle, languagePreference) : null);
 			Description = artist.Description;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
-			LatestSongs = new SongContract[] {};
+			LatestSongs = new SongWithAdditionalNamesContract[] { };
 			Members = artist.Members.Select(m => new ArtistContract(m, languagePreference)).OrderBy(a => a.Name).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
@@ -45,7 +45,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ArtistContract[] Members { get; set; }
 
 		[DataMember]
-		public SongContract[] LatestSongs { get; set; }
+		public SongWithAdditionalNamesContract[] LatestSongs { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }
