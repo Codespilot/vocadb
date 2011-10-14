@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 using VocaDb.Model.Domain.Globalization;
@@ -112,6 +113,9 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
 		public ActionResult Edit(AlbumEdit model)
         {
+
+			if (!OptionalDateTime.IsValid(model.ReleaseYear, model.ReleaseDay, model.ReleaseMonth))
+				ModelState.AddModelError("ReleaseYear", "Invalid date");
 
 			if (!ModelState.IsValid)
 				return View(new AlbumEdit(Service.GetAlbumForEdit(model.Id)));

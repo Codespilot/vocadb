@@ -42,6 +42,8 @@ namespace VocaDb.Web.Models {
 				ReleaseEvent = album.OriginalRelease.EventName;
 				var d = album.OriginalRelease.ReleaseDate;
 				if (d != null) {
+					ReleaseDay = d.Day;
+					ReleaseMonth = d.Month;
 					ReleaseYear = d.Year;
 				}
 			}
@@ -100,7 +102,15 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		[Display(Name = "Release year")]
+		[Display(Name = "Day")]
+		[Range(1, 31)]
+		public int? ReleaseDay { get; set; }
+
+		[Display(Name = "Month")]
+		[Range(1, 12)]
+		public int? ReleaseMonth { get; set; }
+
+		[Display(Name = "Year")]
 		public int? ReleaseYear { get; set; }
 
 		[Display(Name = "Release event")]
@@ -110,7 +120,7 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Tracks")]
 		public SongInAlbumContract[] Tracks { get; set; }
 
-		[Display(Name = "Web links")]
+		[Display(Name = "External links")]
 		public WebLinkContract[] WebLinks { get; set; }
 
 		public AlbumForEditContract ToContract() {
@@ -124,6 +134,8 @@ namespace VocaDb.Web.Models {
 					CatNum = this.CatNum,
 					EventName = this.ReleaseEvent,
 					ReleaseDate = new OptionalDateTimeContract {
+						Day = this.ReleaseDay,
+						Month = this.ReleaseMonth,
 						Year = this.ReleaseYear
 					}
 				},
@@ -155,10 +167,7 @@ namespace VocaDb.Web.Models {
 			if (contract.OriginalRelease != null) {
 				CatNum = contract.OriginalRelease.CatNum;
 				ReleaseEvent = contract.OriginalRelease.EventName;
-				var d = contract.OriginalRelease.ReleaseDate;
-				if (d != null) {
-					ReleaseYear = d.Year;
-				}
+				ReleaseDate = contract.OriginalRelease.ReleaseDate;
 			}
 
 			OtherArtists = contract.ArtistLinks.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
@@ -184,7 +193,7 @@ namespace VocaDb.Web.Models {
 
 		public string ReleaseEvent { get; set; }
 
-		public int? ReleaseYear { get; set; }
+		public OptionalDateTimeContract ReleaseDate { get; set; }
 
 		public SongInAlbumContract[] Songs { get; set; }
 
