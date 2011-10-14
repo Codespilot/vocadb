@@ -465,6 +465,7 @@
     <Content Include="Views\Song\EmbeddedPV.cshtml" />
     <Content Include="Views\Shared\GlobalSearchBox.cshtml" />
     <Content Include="Views\Song\LyricsEditor.cshtml" />
+    <Content Include="Views\Shared\ObjectCreateForm.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

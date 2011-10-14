@@ -24,7 +24,6 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => album);
 
-			AllLabels = new[] { new EmptyArtist() }.Concat(album.AllLabels).ToDictionary(l => l.Id, l => l.Name);
 			ArtistLinks = album.ArtistLinks;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
@@ -40,20 +39,11 @@ namespace VocaDb.Web.Models {
 
 			if (album.OriginalRelease != null) {
 				CatNum = album.OriginalRelease.CatNum;
-				LabelId = (album.OriginalRelease.Label != null ? album.OriginalRelease.Label.Id : EmptyArtist.EmptyArtistId);
-				ReleaseYear = album.OriginalRelease.ReleaseYear;
 				ReleaseEvent = album.OriginalRelease.EventName;
-
-				/*if (album.OriginalRelease.ReleaseDate != null) {
-
-					var d = album.OriginalRelease.ReleaseDate.Value;
-
-					ReleaseDateYear = d.Year;
-					ReleaseDateMonth = d.Month;
-					ReleaseDateDay = d.Day;
-
-				}*/
-
+				var d = album.OriginalRelease.ReleaseDate;
+				if (d != null) {
+					ReleaseYear = d.Year;
+				}
 			}
 
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
@@ -132,12 +122,13 @@ namespace VocaDb.Web.Models {
 				Name = this.Name,
 				OriginalRelease = new AlbumReleaseContract {
 					CatNum = this.CatNum,
-					Label = (this.LabelId != EmptyArtist.EmptyArtistId ? new ArtistContract { Id = this.LabelId } : null),
-					ReleaseYear = this.ReleaseYear,
-					EventName = this.ReleaseEvent
+					EventName = this.ReleaseEvent,
+					ReleaseDate = new OptionalDateTimeContract {
+						Year = this.ReleaseYear
+					}
 				},
 				TranslatedName = new TranslatedStringContract(
-					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
+					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 			};
 
 		}
@@ -164,7 +155,10 @@ namespace VocaDb.Web.Models {
 			if (contract.OriginalRelease != null) {
 				CatNum = contract.OriginalRelease.CatNum;
 				ReleaseEvent = contract.OriginalRelease.EventName;
-				ReleaseYear = contract.OriginalRelease.ReleaseYear;
+				var d = contract.OriginalRelease.ReleaseDate;
+				if (d != null) {
+					ReleaseYear = d.Year;
+				}
 			}
 
 			OtherArtists = contract.ArtistLinks.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();

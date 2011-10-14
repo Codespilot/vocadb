@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
@@ -20,6 +21,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Description = album.Description;
 			DiscType = album.DiscType;
 			Id = album.Id;
+			OriginalRelease = (album.OriginalRelease != null ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
 			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
@@ -48,12 +50,8 @@ namespace VocaDb.Model.DataContracts.Albums {
 		[DataMember]
 		public LocalizedStringWithIdContract[] Names { get; set; }
 
-		// FIXME
 		[DataMember]
-		public string ProductCode { get; set; }
-
-		[DataMember]
-		public DateTime? ReleaseDate { get; set; }
+		public ArchivedAlbumReleaseContract OriginalRelease { get; set; }
 
 		[DataMember]
 		public SongInAlbumRefContract[] Songs { get; set; }

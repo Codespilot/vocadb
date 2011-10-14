@@ -12,12 +12,12 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public AlbumRelease() {}
 
-		public AlbumRelease(AlbumReleaseContract contract, Artist label) {
+		public AlbumRelease(AlbumReleaseContract contract, Artist label = null) {
 			
 			ParamIs.NotNull(() => contract);
 
 			CatNum = contract.CatNum;
-			ReleaseYear = contract.ReleaseYear;
+			ReleaseDate = (contract.ReleaseDate != null ? OptionalDateTime.Create(contract.ReleaseDate) : null);
 			EventName = contract.EventName;
 			Label = label;
 
@@ -28,7 +28,7 @@ namespace VocaDb.Model.Domain.Albums {
 			set { catNum = value; }
 		}
 
-		public virtual int? ReleaseYear { get; set; }
+		public virtual OptionalDateTime ReleaseDate { get; set; }
 
 		public virtual string EventName {
 			get { return eventName; }

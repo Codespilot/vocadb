@@ -442,7 +442,7 @@ namespace VocaDb.Model.Service {
 				album.TranslatedName.CopyFrom(properties.TranslatedName);
 				
 				if (properties.OriginalRelease != null) {
-					album.OriginalRelease = new AlbumRelease(properties.OriginalRelease, (properties.OriginalRelease.Label != null ? session.Load<Artist>(properties.OriginalRelease.Label.Id) : null));
+					album.OriginalRelease = new AlbumRelease(properties.OriginalRelease);
 				} else {
 					album.OriginalRelease = null;
 				}
