@@ -1,24 +1,57 @@
-﻿namespace VocaDb.Model.Domain {
+﻿using System;
+using VocaDb.Model.DataContracts;
+namespace VocaDb.Model.Domain {
 
-	public class DateTimeYearAndDate {
+	public class OptionalDateTime {
 
-		public DateTimeYearAndDate() {}
+		public static OptionalDateTime Create(OptionalDateTimeContract contract) {
 
-		public DateTimeYearAndDate(int year) {
-			Year = year;
+			ParamIs.NotNull(() => contract);
+
+			return new OptionalDateTime(contract.Year, contract.Day, contract.Month);
+
 		}
 
-		public DateTimeYearAndDate(int year, int? day, int? month) {
+		public OptionalDateTime() {}
+
+		public OptionalDateTime(int year) {
+
+			ParamIs.NonNegative(() => year);
+			Year = year;
+
+		}
+
+		public OptionalDateTime(int? year, int? day, int? month) {
+
+			if (year != null) {
+
+				if (year < 0)
+					throw new FormatException("Invalid date");
+
+				if (month != null) {
+
+					if (month.Value < 1 || month.Value > 12)
+						throw new FormatException("Invalid date");
+
+
+					if (day != null) {
+						if (day.Value < 1 || day.Value > DateTime.DaysInMonth(year.Value, month.Value))
+							throw new FormatException("Invalid date");
+					}
+				}
+			}
+
 			Year = year;
 			Month = month;
 			Day = day;
+
 		}
 
-		public int? Day { get; set; }
+		public virtual int? Day { get; protected set; }
 
-		public int? Month { get; set; }
+		public virtual int? Month { get; protected set; }
 
-		public int Year { get; set; }
+		public virtual int? Year { get; protected set; }
 
 	}
 }

@@ -1,4 +1,6 @@
 ﻿@using VocaDb.Web.Helpers;
+@using VocaDb.Model;
+@using VocaDb.Model.Domain.Artists;
 @using VocaDb.Model.DataContracts.Artists;
 @using PagedList.Mvc;
 @using PagedList;
@@ -10,7 +12,13 @@
 
 @using (Html.BeginForm()) {
 	
-<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Apply" /></p>
+<p>
+	Filter: @Html.TextBox("filter") 
+	&nbsp; 
+	@Html.DropDownList("artistType", new SelectList(EnumVal<ArtistType>.Values
+	&nbsp; 
+	<input type="submit" value="Apply" />
+</p>
 
 @Html.PagedListPager((IPagedList)ViewBag.Artists, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
 
@@ -41,21 +49,8 @@
 @Html.PagedListPager((IPagedList)ViewBag.Artists, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
 }
 
-@model VocaDb.Web.Models.ObjectCreate
 @if (Login.CanManageDb) {
 	using (Html.BeginForm("Create", "Artist")) {
-	
-    <div>
-        <fieldset>
-            <div class="editor-label">
-                Name:
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.Name)
-                @Html.ValidationMessageFor(m => m.Name)
-            </div>			
-			<input type="submit" value="Create" />
-		</fieldset>
-	</div>
+		Html.RenderPartial("ObjectCreateForm");	
 	}
 }
