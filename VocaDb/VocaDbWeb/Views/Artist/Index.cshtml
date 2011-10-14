@@ -53,6 +53,6 @@
 
 @if (Login.CanManageDb) {
 	using (Html.BeginForm("Create", "Artist")) {
-		Html.RenderPartial("ObjectCreateForm");	
+		Html.RenderPartial("ObjectCreateForm", new ObjectCreate());	
 	}
 }

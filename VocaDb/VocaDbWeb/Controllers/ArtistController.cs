@@ -31,7 +31,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Index(string filter, ArtistType? artistType, int? page) {
 
 			var result = Service.FindArtists(filter, 
-				artistType != null ? new[] { artistType.Value } : new ArtistType[] {}, 
+				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
 				((page ?? 1) - 1) * 30, 30, true);
 
 			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, page);
