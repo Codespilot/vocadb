@@ -11,6 +11,7 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models {
 
@@ -24,7 +25,7 @@ namespace VocaDb.Web.Models {
 			Filter = filter;
 			ArtistType = artistType;
 
-			FilterableArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, a => a != ArtistType.Unknown ? a.ToString() : "Any");
+			FilterableArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
 
 		}
 
@@ -57,7 +58,7 @@ namespace VocaDb.Web.Models {
 			Names = artist.Names;
 			WebLinks = artist.WebLinks;
 
-			AllArtistTypes = EnumVal<ArtistType>.Values;
+			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
 			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
 				.ToDictionary(a => a.Id, a => a.Name);
 			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
@@ -67,7 +68,7 @@ namespace VocaDb.Web.Models {
 
 		public ArtistForAlbumContract[] AlbumLinks { get; set; }
 
-		public ArtistType[] AllArtistTypes { get; set; }
+		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }
 
 		public Dictionary<int, string> AllCircles { get; set; }
 

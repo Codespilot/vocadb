@@ -120,7 +120,7 @@
                 @Html.LabelFor(m => m.ArtistType)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(m => m.ArtistType, new SelectList(Model.AllArtistTypes))
+                @Html.DropDownListFor(m => m.ArtistType, new SelectList(Model.AllArtistTypes, "Key", "Value"))
             </div>
 
 			@if (Model.ArtistType != VocaDb.Model.Domain.Artists.ArtistType.Circle) {

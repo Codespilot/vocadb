@@ -22,7 +22,7 @@ namespace VocaDb.Model.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ArtistTypeNames {
+    public class ArtistTypeNames {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace VocaDb.Model.Resources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Model.Resources.ArtistTypeNames", typeof(ArtistTypeNames).Assembly);
@@ -51,7 +51,7 @@ namespace VocaDb.Model.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Circle.
         /// </summary>
-        internal static string Circle {
+        public static string Circle {
             get {
                 return ResourceManager.GetString("Circle", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Label.
         /// </summary>
-        internal static string Label {
+        public static string Label {
             get {
                 return ResourceManager.GetString("Label", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Other vocalist.
         /// </summary>
-        internal static string OtherVocalist {
+        public static string OtherVocalist {
             get {
                 return ResourceManager.GetString("OtherVocalist", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Producer.
         /// </summary>
-        internal static string Producer {
+        public static string Producer {
             get {
                 return ResourceManager.GetString("Producer", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Not specified.
         /// </summary>
-        internal static string Unknown {
+        public static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to UTAUloid.
         /// </summary>
-        internal static string UTAU {
+        public static string UTAU {
             get {
                 return ResourceManager.GetString("UTAU", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace VocaDb.Model.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Vocaloid.
         /// </summary>
-        internal static string Vocaloid {
+        public static string Vocaloid {
             get {
                 return ResourceManager.GetString("Vocaloid", resourceCulture);
             }
