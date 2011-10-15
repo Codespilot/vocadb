@@ -17,15 +17,13 @@
 	<table>
 		<tr>
 			<th>Title</th>
-			<th>Created</th>
-			<th>Source URL</th>
+			<th>Imported</th>
 			<th>Data</th>
 		</tr>
 		@foreach (var album in Model.Albums) {
 			<tr>
-				<td>@album.Title</td>
+				<td><a href="@album.SourceUrl">@album.Title</a></td>
 				<td>@album.Created</td>
-				<td><a href="@album.SourceUrl">@album.SourceUrl</a></td>
 				<td>@album.Data</td>
 			</tr>
 		}
