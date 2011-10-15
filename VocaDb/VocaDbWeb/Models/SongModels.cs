@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Models {
 
@@ -30,8 +31,8 @@ namespace VocaDb.Web.Models {
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
-			OtherArtists = contract.Artists.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
-			Performers = contract.Artists.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
+			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
+			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 
 			if (MvcApplication.LoginManager.IsLoggedIn)
