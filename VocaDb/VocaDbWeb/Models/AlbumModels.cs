@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Models {
 
@@ -170,8 +171,8 @@ namespace VocaDb.Web.Models {
 				ReleaseDate = contract.OriginalRelease.ReleaseDate;
 			}
 
-			OtherArtists = contract.ArtistLinks.Where(a => a.Artist.ArtistType != ArtistType.Performer).Select(a => a.Artist).ToArray();
-			Performers = contract.ArtistLinks.Where(a => a.Artist.ArtistType == ArtistType.Performer).Select(a => a.Artist).ToArray();
+			OtherArtists = contract.ArtistLinks.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
+			Performers = contract.ArtistLinks.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 
 		}
 

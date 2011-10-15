@@ -24,5 +24,11 @@
 		/// </summary>
 		Performer,
 
+		Vocaloid,
+
+		UTAU,
+
+		OtherVocalist
+
 	}
 }

@@ -48,7 +48,7 @@
 			}
 			@if (Model.Performers.Any()) {
 			<tr>
-				<td>Performers</td>
+				<td>Vocalists</td>
 				<td>
 					@foreach (var artist in Model.Performers) {
 						@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
