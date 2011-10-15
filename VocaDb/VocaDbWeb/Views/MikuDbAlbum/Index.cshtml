@@ -1,0 +1,34 @@
+﻿@model VocaDb.Web.Models.MikuDbAlbums.Index
+@{
+	ViewBag.Title = "MikuDB albums";
+}
+
+@Html.ActionLink("Import new", "ImportNew")
+
+@using (Html.BeginForm("Index", "MikuDbAlbum")) {
+
+<p>
+	Status:
+	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses))
+	&nbsp;
+	<input type="submit" value="Apply" />
+</p>
+	
+	<table>
+		<tr>
+			<th>Title</th>
+			<th>Created</th>
+			<th>Source URL</th>
+			<th>Data</th>
+		</tr>
+		@foreach (var album in Model.Albums) {
+			<tr>
+				<td>@album.Title</td>
+				<td>@album.Created</td>
+				<td><a href="@album.SourceUrl">@album.SourceUrl</a></td>
+				<td>@album.Data</td>
+			</tr>
+		}
+	</table>
+	
+}
