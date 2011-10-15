@@ -74,6 +74,7 @@
     <Compile Include="DataContracts\GenericResponse.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
+    <Compile Include="DataContracts\MikuDb\MikuDbAlbumContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\OptionalDateTimeContract.cs" />
     <Compile Include="DataContracts\PictureContract.cs" />
@@ -112,6 +113,8 @@
     <Compile Include="Domain\Albums\MediaTypes.cs" />
     <Compile Include="Domain\DateTimeYearAndDate.cs" />
     <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />
+    <Compile Include="Domain\MikuDb\AlbumStatus.cs" />
+    <Compile Include="Domain\MikuDb\MikuDbAlbum.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />
     <Compile Include="Domain\ArchivedObjectVersion.cs" />
     <Compile Include="Domain\Artists\Artist.cs" />
@@ -168,6 +171,7 @@
     <Compile Include="Domain\Artists\GroupForArtist.cs" />
     <Compile Include="Mapping\ClassConventions.cs" />
     <Compile Include="Mapping\CustomTypes\XDocumentType.cs" />
+    <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
@@ -187,6 +191,9 @@
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
+    <Compile Include="Service\MikuDbAlbumService.cs" />
+    <Compile Include="Service\MikuDb\AlbumImporter.cs" />
+    <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\RegexLinkMatcher.cs" />
     <Compile Include="Service\Helpers\SessionHelper.cs" />

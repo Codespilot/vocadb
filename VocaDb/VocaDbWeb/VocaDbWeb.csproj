@@ -93,6 +93,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MikuDbAlbumController.cs" />
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -104,6 +105,7 @@
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\ArtistModels.cs" />
+    <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\UserModels.cs" />
@@ -466,6 +468,7 @@
     <Content Include="Views\Shared\GlobalSearchBox.cshtml" />
     <Content Include="Views\Song\LyricsEditor.cshtml" />
     <Content Include="Views\Shared\ObjectCreateForm.cshtml" />
+    <Content Include="Views\MikuDbAlbum\Index.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

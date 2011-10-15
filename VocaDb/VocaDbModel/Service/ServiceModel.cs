@@ -31,6 +31,12 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		public MikuDbAlbumService MikuDbAlbums {
+			get {
+				return new MikuDbAlbumService(sessionFactory, permissionContext);				
+			}
+		}
+
 		public OtherService Other {
 			get {
 				return new OtherService(sessionFactory, permissionContext);
