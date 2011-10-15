@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Web.Helpers;
 @model ArtistDetailsContract
 
 @{
@@ -34,7 +35,7 @@
 	<tr>
 		<td>Type</td>
 		<td>
-			@Model.ArtistType<br />
+			@Translate.ArtistTypeName(Model.ArtistType)<br />
 		</td>	
 	</tr>
 @if (Model.WebLinks.Any()) {

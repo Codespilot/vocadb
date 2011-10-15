@@ -12,7 +12,7 @@
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Index", "Artist")) {
 	
 <p>
 	Filter: @Html.TextBoxFor(m => m.Filter) 
@@ -22,7 +22,7 @@
 	<input type="submit" value="Apply" />
 </p>
 
-@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter }))
+@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType }))
 
 <table>
 	<tr>
@@ -37,7 +37,7 @@
 			<span class="extraInfo">@artist.AdditionalNames</span>
 		</td>
 		<td>
-			@artist.ArtistType
+			@Translate.ArtistTypeName(artist.ArtistType)
 		</td>
 		<td>
 			@if (Login.CanManageDb) {
@@ -48,7 +48,7 @@
 }
 </table>
 	
-@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter }))
+@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType }))
 }
 
 @if (Login.CanManageDb) {

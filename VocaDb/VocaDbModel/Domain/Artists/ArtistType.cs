@@ -19,11 +19,6 @@
 		/// </summary>
 		Producer,
 
-		/// <summary>
-		/// Performer is an entity performing the song (for example the Vocaloid characters)
-		/// </summary>
-		Performer,
-
 		Vocaloid,
 
 		UTAU,
