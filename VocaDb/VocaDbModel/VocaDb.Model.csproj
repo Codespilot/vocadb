@@ -74,6 +74,8 @@
     <Compile Include="DataContracts\GenericResponse.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
+    <Compile Include="DataContracts\MikuDb\ImportedAlbumDataContract.cs" />
+    <Compile Include="DataContracts\MikuDb\ImportedAlbumTrack.cs" />
     <Compile Include="DataContracts\MikuDb\MikuDbAlbumContract.cs" />
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\OptionalDateTimeContract.cs" />
@@ -160,7 +162,9 @@
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
     <Compile Include="Helpers\ArtistHelper.cs" />
+    <Compile Include="Helpers\HtmlRequestHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Domain\Albums\DiscType.cs" />

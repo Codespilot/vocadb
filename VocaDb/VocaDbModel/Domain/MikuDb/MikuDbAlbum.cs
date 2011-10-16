@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using VocaDb.Model.DataContracts.MikuDb;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.MikuDb {
 
@@ -21,7 +22,7 @@ namespace VocaDb.Model.Domain.MikuDb {
 			
 			ParamIs.NotNull(() => contract);
 
-			Data = contract.Data;
+			Data = XmlHelper.SerializeToXml(contract.Data);
 			SourceUrl = contract.SourceUrl;
 			Status = contract.Status;
 			Title = contract.Title;

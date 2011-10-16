@@ -3,6 +3,19 @@
 	ViewBag.Title = "MikuDB albums";
 }
 
+@helper ImportedAlbumData(VocaDb.Model.DataContracts.MikuDb.ImportedAlbumDataContract album) {
+	
+	if (album != null) {
+	<p>
+		Artists: @string.Join(", ", album.ArtistNames)<br />
+		Vocalists: @string.Join(", ", album.VocalistNames)<br />
+		Circle: @album.CircleName<br />
+		Year: @album.ReleaseYear<br />
+	</p>
+	}
+
+}
+
 @Html.ActionLink("Import new", "ImportNew")
 
 @using (Html.BeginForm("Index", "MikuDbAlbum")) {
@@ -24,7 +37,7 @@
 			<tr>
 				<td><a href="@album.SourceUrl">@album.Title</a></td>
 				<td>@album.Created</td>
-				<td>@album.Data</td>
+				<td>@ImportedAlbumData(album.Data)</td>
 			</tr>
 		}
 	</table>
