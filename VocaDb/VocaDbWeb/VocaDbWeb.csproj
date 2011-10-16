@@ -469,6 +469,7 @@
     <Content Include="Views\Song\LyricsEditor.cshtml" />
     <Content Include="Views\Shared\ObjectCreateForm.cshtml" />
     <Content Include="Views\MikuDbAlbum\Index.cshtml" />
+    <Content Include="Views\MikuDbAlbum\MikuDbAlbumRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

@@ -27,6 +27,8 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public int Id { get; set; }
 
+		public bool Selected { get; set; }
+
 		public string SourceUrl { get; set; }
 
 		public AlbumStatus Status { get; set; }

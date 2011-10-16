@@ -18,8 +18,31 @@ namespace VocaDb.Model.Service.MikuDb {
 		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumImporter));
 
 		private const string albumIndexUrl = "http://mikudb.com/album-index/";
-		private HashSet<string> existingUrls;
+		private readonly HashSet<string> existingUrls;
 		
+		private HtmlNode FindTracklistRow(HtmlNode row) {
+
+			while (row != null) {
+
+				var cell = row.Element("td");
+
+				if (cell != null) {
+
+					var text = StripHtml(cell.InnerText);
+
+					if (LineMatch(text, "Track list"))
+						return row;
+					
+				}
+
+				row = row.NextSibling;
+
+			}
+
+			return null;
+
+		}
+
 		private bool LineMatch(string line, string field) {
 
 			return line.StartsWith(field + ":") || line.StartsWith(field + " :");
@@ -33,11 +56,11 @@ namespace VocaDb.Model.Service.MikuDb {
 
 			foreach (var row in rows) {
 
-				var stripped = Regex.Replace(row, "<.*?>", string.Empty).Trim();
+				var stripped = StripHtml(row);
 				if (stripped.StartsWith("\"") && stripped.EndsWith("\""))
 					stripped = stripped.Substring(1, stripped.Length - 2).Trim();
 
-				if (LineMatch(stripped, "Artist")) {
+				if (LineMatch(stripped, "Artist") || LineMatch(stripped, "Artists")) {
 
 					var artists = stripped.Substring(8).Split(',').Select(s => s.Trim()).ToArray();
 					data.ArtistNames = artists;
@@ -64,6 +87,44 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
+		private void ParseTrackList(ImportedAlbumDataContract data, HtmlNode trackListRow) {
+
+			var cell = trackListRow.Element("td");
+			var lines = cell.InnerText.Split(new[] { "<br>", "<br />", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+			var tracks = new List<ImportedAlbumTrack>();
+			foreach (var line in lines) {
+
+				var dotPos = line.IndexOf('.');
+
+				if (dotPos <= 0)
+					continue;
+
+				var trackText = line.Substring(0, dotPos);
+
+				int trackNum;
+
+				if (int.TryParse(trackText, out trackNum)) {
+
+					var trackTitle = line.Substring(dotPos + 1, line.Length - dotPos - 1).Trim();
+
+					tracks.Add(new ImportedAlbumTrack { Title = trackTitle, TrackNum = trackNum });
+
+				}
+
+			}
+
+			data.Tracks = tracks.ToArray();
+
+
+		}
+
+		private string StripHtml(string html) {
+
+			return Regex.Replace(html, "<.*?>", string.Empty).Trim();
+
+		}
+
 		private ImportedAlbumDataContract GetAlbumData(HtmlDocument doc) {
 
 			var data = new ImportedAlbumDataContract();
@@ -81,6 +142,14 @@ namespace VocaDb.Model.Service.MikuDb {
 						ParseInfoBox(data, row);
 
 				}*/
+
+			}
+
+			var trackListRow = FindTracklistRow(infoBox.ParentNode.NextSibling);
+
+			if (trackListRow != null) {
+				
+				ParseTrackList(data, trackListRow);
 
 			}
 
