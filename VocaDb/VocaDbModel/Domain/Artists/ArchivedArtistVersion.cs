@@ -4,6 +4,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Artists {
 
@@ -12,22 +13,7 @@ namespace VocaDb.Model.Domain.Artists {
 		public static ArchivedArtistVersion Create(Artist artist, AgentLoginData author) {
 
 			var contract = new ArchivedArtistContract(artist);
-			var serializer = new XmlSerializer(typeof(ArchivedArtistContract));
-			XDocument doc;
-
-			using (var writer = new StringWriter()) {
-				serializer.Serialize(writer, contract);
-				doc = XDocument.Parse(writer.ToString());				
-			}
-
-			/*using (var stream = new MemoryStream()) {
-				serializer.Serialize(stream, contract);
-				var reader = XmlReader.Create(stream);
-				doc = XDocument.Load(reader);
-			}*/
-
-			/*var doc = new XDocument();
-			serializer.Serialize(doc.CreateWriter(), contract);*/
+			var doc = XmlHelper.SerializeToXml(contract);
 
 			return artist.CreateArchivedVersion(doc, author);
 

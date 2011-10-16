@@ -154,7 +154,13 @@ namespace VocaDb.Model.Service {
 
 		public UserContract GetUserByName(string name) {
 
-			return HandleQuery(session => new UserContract(session.Query<User>().First(u => u.Name == name)));
+			return HandleQuery(session => new UserContract(session.Query<User>().First(u => u.Name.Equals(name))));
+
+		}
+
+		public UserDetailsContract GetUserByNameNonSensitive(string name) {
+
+			return HandleQuery(session => new UserDetailsContract(session.Query<User>().ToArray().First(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)), PermissionContext.LanguagePreference));
 
 		}
 

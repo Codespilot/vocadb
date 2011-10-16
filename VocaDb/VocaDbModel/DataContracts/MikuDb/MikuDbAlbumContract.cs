@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml.Linq;
 using VocaDb.Model.Domain.MikuDb;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.DataContracts.MikuDb {
 
@@ -16,7 +13,7 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 			ParamIs.NotNull(() => album);
 
 			Created = album.Created;
-			Data = album.Data;
+			Data = XmlHelper.DeserializeFromXml<ImportedAlbumDataContract>(album.Data);
 			Id = album.Id;
 			SourceUrl = album.SourceUrl;
 			Status = album.Status;
@@ -26,7 +23,7 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public DateTime Created { get; set; }
 
-		public XDocument Data { get; set; }
+		public ImportedAlbumDataContract Data { get; set; }
 
 		public int Id { get; set; }
 
