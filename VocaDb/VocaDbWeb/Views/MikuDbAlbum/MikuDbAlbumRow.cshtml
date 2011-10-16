@@ -1,0 +1,28 @@
+﻿@model VocaDb.Model.DataContracts.MikuDb.MikuDbAlbumContract
+
+@helper ImportedAlbumData(VocaDb.Model.DataContracts.MikuDb.ImportedAlbumDataContract album) {
+	
+	if (album != null) {
+	<p>
+		Artists: @string.Join(", ", album.ArtistNames)<br />
+		Vocalists: @string.Join(", ", album.VocalistNames)<br />
+		Circle: @album.CircleName<br />
+		Year: @album.ReleaseYear<br />
+	</p>
+	<span>Tracks:</span><br />
+	
+	foreach (var track in album.Tracks) {
+	  @track.TrackNum<text>.&nbsp;</text>@track.Title<br />
+	}
+	}
+
+}
+
+<tr>
+	<td>
+		@Html.CheckBoxFor(m => m.Selected)
+		<a href="@Model.SourceUrl">@Model.Title</a>
+	</td>
+	<td>@Model.Created</td>
+	<td>@ImportedAlbumData(Model.Data)</td>
+</tr>
