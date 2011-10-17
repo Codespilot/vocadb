@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Models
+@using VocaDb.Web.Helpers
 @model SongEdit
 @{
 	ViewBag.Title = "Edit song - " + Model.Name;
@@ -58,7 +59,7 @@
 						@Html.LabelFor(m => m.DefaultLanguageSelection)
 					</div>
 					<div class="editor-field">
-						@Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
+						@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
 					</div>
 					</td></tr>
 					</table>
@@ -179,7 +180,7 @@
 
 </div>
 
-<script type="text/javascript" src="../../Scripts/Song/Edit.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Edit.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 

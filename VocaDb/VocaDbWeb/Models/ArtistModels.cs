@@ -61,8 +61,6 @@ namespace VocaDb.Web.Models {
 			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
 			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
 				.ToDictionary(a => a.Id, a => a.Name);
-			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
-			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
 
 		}
 
@@ -71,10 +69,6 @@ namespace VocaDb.Web.Models {
 		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }
 
 		public Dictionary<int, string> AllCircles { get; set; }
-
-		public ContentLanguageSelection[] AllLanguages { get; set; }
-
-		public string AllLanguagesJson { get; set; }
 
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }

@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
+using FluentNHibernate.Mapping;
 
 namespace VocaDb.Model.Mapping {
 
@@ -34,6 +35,7 @@ namespace VocaDb.Model.Mapping {
 
 		public void Apply(IOneToManyCollectionInstance instance) {
 			instance.Key.Column(EscapeColumn(instance.Key.EntityType.Name));
+			//instance.LazyLoad(); // TODO: profile this
 		}
 	}
 

@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models {
 
@@ -41,14 +42,14 @@ namespace VocaDb.Web.Models {
 			Username = user.Name;
 
 			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
-			AllLanguages = EnumVal<ContentLanguagePreference>.Values;
+			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, l => Translate.ContentLanguagePreferenceName(l));
 			AllVideoServices = EnumVal<PVService>.Values;
 
 		}
 
 		public AlbumForUserEditModel[] AlbumLinks { get; set; }
 
-		public ContentLanguagePreference[] AllLanguages { get; set; }
+		public Dictionary<ContentLanguagePreference, string> AllLanguages { get; set; }
 
 		public PVService[] AllVideoServices { get; set; }
 
