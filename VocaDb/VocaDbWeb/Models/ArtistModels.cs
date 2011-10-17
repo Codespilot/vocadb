@@ -50,6 +50,7 @@ namespace VocaDb.Web.Models {
 			CircleId = (artist.Circle != null ? artist.Circle.Id : EmptyArtist.EmptyArtistId);
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
+			Groups = artist.Groups;
 			Id = artist.Id;
 			Name = artist.Name;
 			NameEnglish = artist.TranslatedName.English;
@@ -81,6 +82,9 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Description")]
 		public string Description { get; set; }
+
+		[Display(Name = "Groups or circles")]
+		public GroupForArtistContract[] Groups { get; set; }
 
 		public int Id { get; set; }
 

@@ -18,6 +18,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			References(m => m.Circle);
 
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums").Inverse().Cascade.All();
+			HasMany(m => m.AllGroups).Inverse().KeyColumn("[Member]").Cascade.All();
 			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Members).Inverse().KeyColumn("[Circle]");
@@ -58,38 +59,18 @@ namespace VocaDb.Model.Mapping.Artists {
 
 	}
 
-	/*public class CircleMap : SubclassMap<Circle> {
+	public class GroupForArtistMap : ClassMap<GroupForArtist> {
 		
-		public CircleMap() {
+		public GroupForArtistMap() {
 			
-			DiscriminatorValue("Circle");
+			Table("GroupsForArtists");
+			Id(m => m.Id);
 
-			HasMany(m => m.CircleMembers)
-				.Inverse()
-				.KeyColumn("[Circle]");
-
-		}
-
-	}
-
-	public class PerformerMap : SubclassMap<Performer> {
-
-		public PerformerMap() {
-
-			DiscriminatorValue("Performer");
+			References(m => m.Group).Not.Nullable();
+			References(m => m.Member).Not.Nullable();
 
 		}
 
 	}
-
-	public class ProducerMap : SubclassMap<Producer> {
-
-		public ProducerMap() {
-
-			DiscriminatorValue("Producer");
-
-		}
-
-	}*/
 
 }

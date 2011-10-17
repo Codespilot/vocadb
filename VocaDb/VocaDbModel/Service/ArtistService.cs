@@ -39,7 +39,7 @@ namespace VocaDb.Model.Service {
 
 				bool filterByArtistType = artistTypes.Any();
 				Artist art = null;
-				IList<ArtistName> names = null;
+				//IList<ArtistName> names = null;
 
 				var q = session.QueryOver(() => art)
 					//.Left.JoinAlias(a => a.Names, () => names)
