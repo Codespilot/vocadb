@@ -144,11 +144,11 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
+		public PartialViewResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
 
 			var name = Service.CreateName(artistId, nameVal, language, LoginManager);
 
-			return Json(name);
+			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit(name));
 
 		}
 

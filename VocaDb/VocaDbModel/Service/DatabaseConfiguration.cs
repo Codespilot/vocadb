@@ -17,13 +17,22 @@ namespace VocaDb.Model.Service {
 			var config = Fluently.Configure()
 				.Database(
 				MsSqlConfiguration.MsSql2008
-					.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter")))
-				.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2"))
+					.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter"))
+					.MaxFetchDepth(1)
+				)
+				.Cache(c => c
+					.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2")
+					.UseSecondLevelCache()
+					.UseQueryCache()
+				)
 				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SongMap>().Conventions.AddFromAssemblyOf<ClassConventions>());
 
 			try {
-				return config.BuildSessionFactory();				
+				return config.BuildSessionFactory();
 			} catch (ArgumentException x) {
+				log.Error("Error while building session factory", x);
+				throw;
+			} catch (FluentConfigurationException x) {
 				log.Error("Error while building session factory", x);
 				throw;
 			}

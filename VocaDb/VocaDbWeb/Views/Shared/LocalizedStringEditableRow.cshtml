@@ -6,7 +6,7 @@
 		<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + Model.Id)" value='@Model.Value' />
 	</td>
 	<td>
-		@Html.LanguageSelectionDropDownList("nameLanguage_" + Model.Id, new { id = "nameLanguage_" + Model.Id, @class = "nameLanguage" })
+		@Html.LanguageSelectionDropDownListFor(m => m.Language, new { id = "nameLanguage_" + Model.Id, @class = "nameLanguage" })
 	</td>
 	<td>
 		<input type="button" class="nameDelete" id="@("nameDelete_" + Model.Id)" value="Delete" />

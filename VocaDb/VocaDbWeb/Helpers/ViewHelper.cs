@@ -15,7 +15,7 @@ namespace VocaDb.Web.Helpers {
 			get {
 
 				return EnumVal<ContentLanguageSelection>.Values
-					.ToDictionary(l => l, l => Translate.ContentLanguageSelectionName(l));
+					.ToDictionary(l => l, Translate.ContentLanguageSelectionName);
 
 			}
 
@@ -25,7 +25,7 @@ namespace VocaDb.Web.Helpers {
 			get {
 
 				return EnumVal<ContentLanguagePreference>.Values
-					.ToDictionary(l => l, l => Translate.ContentLanguagePreferenceName(l));
+					.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
 
 			}
 		}
@@ -53,6 +53,13 @@ namespace VocaDb.Web.Helpers {
 			Expression<Func<TModel, ContentLanguageSelection>> expression) {
 
 			return htmlHelper.DropDownListFor(expression, LanguageSelectionList);
+
+		}
+
+		public static MvcHtmlString LanguageSelectionDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, ContentLanguageSelection>> expression, object htmlAttributes) {
+
+			return htmlHelper.DropDownListFor(expression, LanguageSelectionList, htmlAttributes);
 
 		}
 
