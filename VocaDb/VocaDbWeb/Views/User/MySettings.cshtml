@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Models
+@using VocaDb.Web.Helpers
 @model MySettingsModel
 
 @{
@@ -39,7 +40,7 @@
 						@Html.LabelFor(m => m.DefaultLanguageSelection)
 					</div>
 					<div class="editor-field">
-						@Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages, Model.DefaultLanguageSelection))
+						@Html.LanguagePreferenceDropDownListFor(m => m.DefaultLanguageSelection)
 					</div>
 
 					<div class="editor-label">
@@ -96,7 +97,7 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="../Scripts/User/MySettings.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/User/MySettings.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 

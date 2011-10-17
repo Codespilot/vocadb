@@ -1,23 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using VocaDb.Model.Domain.Songs;
+using System.Web.Mvc.Html;
+using System.Linq.Expressions;
+using VocaDb.Model;
+using VocaDb.Model.Domain.Globalization;
+using System.Collections.Generic;
 
 namespace VocaDb.Web.Helpers {
 
 	public static class ViewHelper {
 
-		public static string CreateEmbedHtml(PVService service, string pvId) {
+		private static Dictionary<ContentLanguageSelection, string> LanguageSelections {
+			get {
 
-			return null;
+				return EnumVal<ContentLanguageSelection>.Values
+					.ToDictionary(l => l, l => Translate.ContentLanguageSelectionName(l));
+
+			}
 
 		}
 
-		public static string GetVideoServiceLinkName(PVService service, string pvId) {
+		private static Dictionary<ContentLanguagePreference, string> LanguagePreferences {
+			get {
 
-			return service + " (" + pvId + ")";
+				return EnumVal<ContentLanguagePreference>.Values
+					.ToDictionary(l => l, l => Translate.ContentLanguagePreferenceName(l));
+
+			}
+		}
+
+		public static SelectList LanguagePreferenceList {
+			get {
+				return new SelectList(LanguagePreferences, "Key", "Value");
+			}
+		}
+
+		public static SelectList LanguageSelectionList {
+			get {
+				return new SelectList(LanguageSelections, "Key", "Value");
+			}
+		}
+
+		public static MvcHtmlString LanguagePreferenceDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, ContentLanguagePreference>> expression) {
+
+			return htmlHelper.DropDownListFor(expression, LanguagePreferenceList);
+
+		}
+
+		public static MvcHtmlString LanguageSelectionDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, ContentLanguageSelection>> expression) {
+
+			return htmlHelper.DropDownListFor(expression, LanguageSelectionList);
+
+		}
+
+		public static MvcHtmlString LanguageSelectionDropDownList(this HtmlHelper htmlHelper, string name, object htmlAttributes) {
+
+			return htmlHelper.DropDownList(name, LanguageSelectionList, htmlAttributes);
 
 		}
 

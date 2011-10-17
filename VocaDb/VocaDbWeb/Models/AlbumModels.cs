@@ -49,8 +49,6 @@ namespace VocaDb.Web.Models {
 				}
 			}
 
-			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
-			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
 			AllDiscTypes = EnumVal<DiscType>.Values;
 
 		}
@@ -58,10 +56,6 @@ namespace VocaDb.Web.Models {
 		public DiscType[] AllDiscTypes { get; set; }
 
 		public Dictionary<int, string> AllLabels { get; set; }
-
-		public ContentLanguageSelection[] AllLanguages { get; set; }
-
-		public string AllLanguagesJson { get; set; }
 
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 

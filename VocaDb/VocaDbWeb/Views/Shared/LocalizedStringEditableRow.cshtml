@@ -1,11 +1,12 @@
-﻿@model VocaDb.Web.Models.LocalizedStringEdit
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Web.Models.LocalizedStringEdit
 
 <tr id="@("nameRow_" + Model.Id)">
 	<td>
 		<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + Model.Id)" value='@Model.Value' />
 	</td>
 	<td>
-		@Html.DropDownList("nameLanguage_" + Model.Id, new SelectList(Model.AllLanguages, @Model.Language), new { id = "nameLanguage_" + Model.Id, @class = "nameLanguage" })
+		@Html.LanguageSelectionDropDownList("nameLanguage_" + Model.Id, new { id = "nameLanguage_" + Model.Id, @class = "nameLanguage" })
 	</td>
 	<td>
 		<input type="button" class="nameDelete" id="@("nameDelete_" + Model.Id)" value="Delete" />

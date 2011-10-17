@@ -91,16 +91,10 @@ namespace VocaDb.Web.Models {
 			PVs = song.PVs;
 			WebLinks = song.WebLinks;
 
-			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
-			AllLanguagesJson = JsonConvert.SerializeObject(AllLanguages);
 			AllPVTypes = EnumVal<PVType>.Values;
 			AllVideoServices = EnumVal<PVService>.Values;
 
 		}
-
-		public ContentLanguageSelection[] AllLanguages { get; set; }
-
-		public string AllLanguagesJson { get; set; }
 
 		public PVType[] AllPVTypes { get; set; }
 

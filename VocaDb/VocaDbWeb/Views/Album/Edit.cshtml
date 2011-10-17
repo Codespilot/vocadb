@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Models
+@using VocaDb.Web.Helpers
 @model  AlbumEdit
 @{
 	ViewBag.Title = "Edit album - " + Model.Name;
@@ -57,7 +58,7 @@
                 @Html.LabelFor(m => m.DefaultLanguageSelection)
             </div>
             <div class="editor-field">
-                @Html.DropDownListFor(m => m.DefaultLanguageSelection, new SelectList(Model.AllLanguages))
+                @Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
             </div>
 			</td></tr>
 			</table>
@@ -78,7 +79,7 @@
 								<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + name.Id)" value='@name.Value' />
 							</td>
 							<td>
-								@Html.DropDownList("nameLanguage_" + name.Id, new SelectList(Model.AllLanguages, @name.Language), new { id = "nameLanguage_" + name.Id, @class = "nameLanguage" })
+								@Html.LanguageSelectionDropDownList("nameLanguage_" + name.Id, new { id = "nameLanguage_" + name.Id, @class = "nameLanguage" })
 							</td>
 							<td>
 								<input type="button" class="nameDelete" id="@("nameDelete_" + name.Id)" value="Delete" />
@@ -91,7 +92,7 @@
 							<input type="text" maxlength="128" class="nameEditNew" id="nameEdit_new" />						
 						</td>
 						<td>
-							@Html.DropDownList("nameLanguage_new", new SelectList(Model.AllLanguages), new { id = "nameLanguage_new" })
+							@Html.LanguageSelectionDropDownList("nameLanguage_new", new { id = "nameLanguage_new" })
 						</td>
 						<td>
 							<input type="button" class="nameAddNew" id="nameAdd" value="Add" />
@@ -240,7 +241,7 @@
 	</fieldset>
 </div>
 
-<script type="text/javascript" src="../../Scripts/Album/Edit.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
