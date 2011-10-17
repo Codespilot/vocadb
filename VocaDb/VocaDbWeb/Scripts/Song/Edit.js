@@ -75,7 +75,7 @@ function initPage(songId) {
 			return;
 		}
 
-		$.post("../../Artist/FindJson", { term: findTerm, artistTypes: "Performer,Producer" }, function (results) {
+		$.post("../../Artist/FindJson", { term: findTerm, artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer" }, function (results) {
 
 			$(artistList).empty();
 
