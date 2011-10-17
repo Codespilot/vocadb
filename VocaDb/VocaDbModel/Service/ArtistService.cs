@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
+using NHibernate.Transform;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -35,15 +37,23 @@ namespace VocaDb.Model.Service {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
-				var artists = session.Query<Artist>()
-					.Where(s => 
-						!s.Deleted 
-						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType)))
-					.OrderBy(s => s.TranslatedName.Romaji)
+				bool filterByArtistType = artistTypes.Any();
+				Artist art = null;
+				IList<ArtistName> names = null;
+
+				var q = session.QueryOver(() => art)
+					//.Left.JoinAlias(a => a.Names, () => names)
+					.Where(s => !s.Deleted);
+
+				if (filterByArtistType)
+					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
+
+				var artists = q
+					.OrderBy(s => s.TranslatedName.Romaji).Asc
+					.TransformUsing(new DistinctRootEntityResultTransformer())
 					.Skip(start)
 					.Take(maxResults)
-					.FetchMany(s => s.Names)
-					.ToArray();
+					.List();
 
 				var contracts = artists.Select(s => new ArtistWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
@@ -64,7 +74,7 @@ namespace VocaDb.Model.Service {
 							|| s.TranslatedName.Japanese.Contains(query)))
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Take(maxResults)
-					.FetchMany(s => s.Names)
+					//.FetchMany(s => s.Names)
 					.ToArray();
 
 				var additionalNames = session.Query<ArtistName>()
@@ -77,7 +87,7 @@ namespace VocaDb.Model.Service {
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Distinct()
 					.Take(maxResults)
-					.FetchMany(s => s.Names)
+					//.FetchMany(s => s.Names)
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 

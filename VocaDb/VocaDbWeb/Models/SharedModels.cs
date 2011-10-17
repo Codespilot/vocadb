@@ -52,11 +52,8 @@ namespace VocaDb.Web.Models {
 			Id = contract.Id;
 			Language = contract.Language;
 			Value = contract.Value;
-			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
 
 		}
-
-		public ContentLanguageSelection[] AllLanguages { get; set; }
 
 		public int Id { get; set; }
 

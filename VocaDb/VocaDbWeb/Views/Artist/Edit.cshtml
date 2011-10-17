@@ -67,30 +67,10 @@
 						<th>Actions</th>
 					</tr>
 					@foreach (var name in Model.Names) {
-						<tr id="@("nameRow_" + name.Id)">
-							<td>
-								<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + name.Id)" value='@name.Value' />
-							</td>
-							<td>
-								@Html.LanguageSelectionDropDownList("nameLanguage_" + name.Id, new { id = "nameLanguage_" + name.Id, @class = "nameLanguage" })
-							</td>
-							<td>
-								<input type="button" class="nameDelete" id="@("nameDelete_" + name.Id)" value="Delete" />
-								<input type="button" class="nameCopy" id="@("nameCopy_" + name.Id)" value="Copy to primary" />
-							</td>
-						</tr>
+						Html.RenderPartial("LocalizedStringEditableRow", name);		 
 					}
-					<tr id="nameRow_new">
-						<td>
-							<input type="text" maxlength="128" class="nameEditNew" id="nameEdit_new" />						
-						</td>
-						<td>
-							@Html.LanguageSelectionDropDownList("nameLanguage_new", new { id = "nameLanguage_new" })
-						</td>
-						<td>
-							<input type="button" class="nameAddNew" id="nameAdd" value="Add" />
-						</td>
-					</tr>
+
+					@{ Html.RenderPartial("LocalizedStringNewRow"); }
 				</table>
             </div>
 

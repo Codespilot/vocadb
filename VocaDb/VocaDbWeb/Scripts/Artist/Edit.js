@@ -73,24 +73,9 @@ function initPage(artistId) {
 		var newNameVal = $("input#nameEdit_new").val();
 		var newLangId = $("select#nameLanguage_new").val();
 
-		$.post("../../Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (name) {
+		$.post("../../Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (row) {
 
-			var row = document.createElement("tr");
-			$(row).attr("id", "nameRow_" + name.Id);
 			$("#nameRow_new").before(row);
-			$(row).append("<td><input maxlength=\"128\" type=\"text\" class=\"nameEdit\" id=\"nameEdit_" + name.Id + "\" value=\"" + name.Value + "\" />");
-
-			var languageCell = document.createElement("td");
-			var languageDropDown = createLanguageDropDown(name.Id, name.Language);
-			$(languageDropDown).val(name.Language);
-			$(languageCell).append(languageDropDown);
-			$(row).append(languageCell);
-
-			var actionCell = document.createElement("td");
-			$(actionCell).append("<input type=\"button\" class=\"nameDelete\" id=\"nameDelete_" + name.Id + "\" value=\"Delete\" />");
-			$(actionCell).append("<input type=\"button\" class=\"nameCopy\" id=\"nameCopy_" + name.Id + "\" value=\"Copy to primary\" />");
-			$(row).append(actionCell);
-
 			$("input#nameEdit_new").val("");
 
 		});

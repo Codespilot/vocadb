@@ -9,7 +9,7 @@ using System;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class Artist {
+	public class Artist : IEquatable<Artist> {
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
@@ -209,6 +209,26 @@ namespace VocaDb.Model.Domain.Artists {
 
 			Deleted = true;
 
+		}
+
+		public virtual bool Equals(Artist another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as Artist);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
 		}
 
 		public override string ToString() {
