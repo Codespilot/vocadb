@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Artists;
 @model  VocaDb.Web.Models.ArtistEdit
 @{
 	ViewBag.Title = "Edit artist - " + Model.Name;
@@ -104,13 +105,26 @@
                 @Html.DropDownListFor(m => m.ArtistType, new SelectList(Model.AllArtistTypes, "Key", "Value"))
             </div>
 
-			@if (Model.ArtistType != VocaDb.Model.Domain.Artists.ArtistType.Circle) {
-            <div class="editor-label">
-                @Html.LabelFor(m => m.CircleId)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(m => m.CircleId, new SelectList(Model.AllCircles, "Key", "Value", Model.CircleId))
-            </div>
+			@if (Model.ArtistType != ArtistType.Circle && Model.ArtistType != ArtistType.Label) {
+				<table>
+					<tr><td>
+						@Html.LabelFor(m => m.Groups)
+					</td><td>
+						<table>
+							@foreach (var grp in Model.Groups) {
+								Html.RenderPartial("GroupForArtistEditRow", grp);
+							}
+							<tr id="groupRow_new">
+								<td>
+									@Html.DropDownList("groupAddGroup", new SelectList(Model.AllCircles, "Key", "Value"), new { id = "groupAddGroup" })
+								</td>
+								<td>
+									<input type="button" id="groupAddBtn" value="Add" />
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr></table>
 			}
 			
             <div class="editor-label">
@@ -135,7 +149,7 @@
 								<input type="button" class="webLinkDelete" id="@("webLinkDelete_" + webLink.Id)" value="Delete" />
 							</td>
 						</tr>
-					}
+	 }
 					<tr id="webLinkRow_new">
 						<td>
 							<input type="text" maxlength="512" class="webLinkDescriptionNew" id="webLinkDescription_new" />						
@@ -162,8 +176,8 @@
 		<legend>Discography</legend>
 		<table>
 		@foreach (var album in Model.AlbumLinks) {
-			Html.RenderPartial("ArtistForAlbumRow", album);
-		}
+	  Html.RenderPartial("ArtistForAlbumRow", album);
+  }
 		<tr id="albumRow_new">
 			<td>
 				<input type="text" maxlength="128" id="albumAddName" /><br />

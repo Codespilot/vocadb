@@ -11,7 +11,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		//public DateTime? EndDate { get; set; }
 
-		public Artist Group {
+		public virtual Artist Group {
 			get { return group; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -19,7 +19,9 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
-		public Artist Member {
+		public virtual int Id { get; set; }
+
+		public virtual Artist Member {
 			get { return member; }
 			set {
 				ParamIs.NotNull(() => value);

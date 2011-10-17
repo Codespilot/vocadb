@@ -1,0 +1,9 @@
+﻿@model VocaDb.Model.DataContracts.Artists.GroupForArtistContract
+@using VocaDb.Web.Helpers
+
+<tr id="@("groupRow_" + Model.Id)">
+	<td>@Html.ActionLink(Model.Group.Name, "Edit", "Artist", new { id = Model.Group.Id }, null)</td>
+	<td>
+		<input type="button" class="groupRemove" id="@("groupRemove_" + Model.Id)" value="Remove" />
+	</td>
+</tr>

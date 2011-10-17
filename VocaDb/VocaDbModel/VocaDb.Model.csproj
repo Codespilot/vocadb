@@ -71,6 +71,7 @@
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
+    <Compile Include="DataContracts\Artists\GroupForArtistContract.cs" />
     <Compile Include="DataContracts\GenericResponse.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
     <Compile Include="DataContracts\LocalizedStringWithIdContract.cs" />
