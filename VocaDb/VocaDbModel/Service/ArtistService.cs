@@ -42,6 +42,7 @@ namespace VocaDb.Model.Service {
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Skip(start)
 					.Take(maxResults)
+					.Fetch(s => s.Names)
 					.ToArray();
 
 				var contracts = artists.Select(s => new ArtistWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
@@ -63,6 +64,7 @@ namespace VocaDb.Model.Service {
 							|| s.TranslatedName.Japanese.Contains(query)))
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Take(maxResults)
+					.Fetch(s => s.Names)
 					.ToArray();
 
 				var additionalNames = session.Query<ArtistName>()
@@ -75,6 +77,7 @@ namespace VocaDb.Model.Service {
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Distinct()
 					.Take(maxResults)
+					.Fetch(s => s.Names)
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 

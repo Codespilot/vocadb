@@ -17,9 +17,9 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.Version).Not.Nullable();
 
 			Component(m => m.CoverPicture, c => {
-				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue);
+				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
 				c.Map(m => m.Mime, "CoverPictureMime");
-			}).LazyLoad();
+			});
 
 			Component(m => m.OriginalRelease, c => {
 				c.Map(m => m.CatNum, "ReleaseCatNum");
