@@ -3,6 +3,11 @@
 	ViewBag.Title = "MikuDB albums";
 }
 
+<!--
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery.tooltip.css")" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.tooltip.min.js")" type="text/javascript"></script>
+-->
+
 @Html.ActionLink("Import new", "ImportNew")
 
 @using (Html.BeginForm("Index", "MikuDbAlbum")) {
@@ -17,8 +22,8 @@
 	<table>
 		<tr>
 			<th>Title</th>
-			<th>Imported</th>
-			<th>Data</th>
+			<th>Info</th>
+			<th>Tracks</th>
 		</tr>
 		@foreach (var album in Model.Albums) {
 			Html.RenderPartial("MikuDbAlbumRow", album);
@@ -26,3 +31,17 @@
 	</table>
 	
 }
+
+<script type="text/javascript">
+
+	/*$(document).ready(function () {
+		$("p.albumData").tooltip({
+			bodyHandler: function () {
+				return $($(this).next()).html();
+			},
+			showURL: false,
+			track: true
+		});
+	});*/
+
+</script>

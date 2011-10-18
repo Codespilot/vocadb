@@ -34,8 +34,8 @@ namespace VocaDb.Model.Service {
 
 				var all = session.Query<MikuDbAlbum>();
 
-				foreach (var album in all)
-					session.Delete(album);
+				//foreach (var album in all)
+				//	session.Delete(album);
 
 				var newAlbums = new List<MikuDbAlbum>();
 
