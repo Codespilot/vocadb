@@ -105,14 +105,14 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new RegisterModel());
         } 
 
         //
         // POST: /User/Create
 
         [HttpPost]
-        public ActionResult Create(LoginModel model)
+        public ActionResult Create(RegisterModel model)
         {
 
 			if (ModelState.IsValid) {
@@ -121,7 +121,7 @@ namespace VocaDb.Web.Controllers
 				var user = Service.Create(model.UserName, model.Password);
 
 				if (user == null) {
-					ModelState.AddModelError("", "Username is already taken.");
+					ModelState.AddModelError("UserName", "Username is already taken.");
 				} else {
 
 					FormsAuthentication.SetAuthCookie(model.UserName, false);

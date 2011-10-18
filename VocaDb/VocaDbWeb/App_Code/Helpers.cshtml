@@ -1,0 +1,12 @@
+﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc.Html
+
+@helper ValidationSymmaryPanel(string message) {
+	if (!ViewData.ModelState.IsValid) {
+	<div class="ui-widget">
+		<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+			@Html.ValidationSummary(false, "Unable to save properties.")
+		</div>
+	</div>
+	}
+}

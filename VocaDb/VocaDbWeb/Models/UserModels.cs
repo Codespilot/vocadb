@@ -14,10 +14,26 @@ using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models {
 
+	public class RegisterModel {
+
+		[Required]
+		[Display(Name = "Username")]
+		[StringLength(100, MinimumLength = 3)]
+		public string UserName { get; set; }
+
+		[Required]
+		[DataType(DataType.Password)]
+		[Display(Name = "Password")]
+		[StringLength(100, MinimumLength = 5)]
+		public string Password { get; set; }
+
+	}
+
 	public class LoginModel {
 
 		[Required]
 		[Display(Name = "Username")]
+		[StringLength(100, MinimumLength = 3)]
 		public string UserName { get; set; }
 
 		[Required]

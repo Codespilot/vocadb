@@ -11,13 +11,7 @@
 
 @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { onclick = "return confirm(\"Are you sure you want to delete this album?\");" })
 
-@if (!ViewData.ModelState.IsValid) {
-<div class="ui-widget">
-	<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-		@Html.ValidationSummary(false, "Unable to save properties.")
-	</div>
-</div>
-}
+@Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
 @using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 	@Html.HiddenFor(m => m.Id)
@@ -117,6 +111,7 @@
 					</div>
 					<div class="editor-field">
 						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4" })
+						@Html.ValidationMessageFor(m => m.ReleaseDay)
 					</div>				
 				</td>
 				<td>
@@ -125,6 +120,7 @@
 					</div>
 					<div class="editor-field">
 						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4" })
+						@Html.ValidationMessageFor(m => m.ReleaseMonth)
 					</div>				
 				</td>
 				<td>
@@ -133,6 +129,7 @@
 					</div>
 					<div class="editor-field">
 						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10" })
+						@Html.ValidationMessageFor(m => m.ReleaseYear)
 					</div>				
 				</td>
 			</tr></table>
@@ -142,6 +139,7 @@
             </div>
             <div class="editor-field">
                 @Html.TextBoxFor(m => m.CatNum)
+				@Html.ValidationMessageFor(m => m.CatNum)
             </div>
 
            <div class="editor-label">
