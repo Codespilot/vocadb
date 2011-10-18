@@ -56,7 +56,7 @@ namespace VocaDb.Model.Service.MikuDb {
 
 			foreach (var row in rows) {
 
-				var stripped = StripHtml(row);
+				var stripped = HtmlEntity.DeEntitize(StripHtml(row));
 				if (stripped.StartsWith("\"") && stripped.EndsWith("\""))
 					stripped = stripped.Substring(1, stripped.Length - 2).Trim();
 
@@ -108,7 +108,7 @@ namespace VocaDb.Model.Service.MikuDb {
 
 					var trackTitle = line.Substring(dotPos + 1, line.Length - dotPos - 1).Trim();
 
-					tracks.Add(new ImportedAlbumTrack { Title = trackTitle, TrackNum = trackNum });
+					tracks.Add(new ImportedAlbumTrack { Title = HtmlEntity.DeEntitize(trackTitle), TrackNum = trackNum });
 
 				}
 
