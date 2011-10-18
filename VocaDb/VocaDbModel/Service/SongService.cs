@@ -15,6 +15,7 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service {
 
