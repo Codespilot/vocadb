@@ -89,6 +89,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
@@ -473,6 +474,7 @@
     <Content Include="Views\MikuDbAlbum\Index.cshtml" />
     <Content Include="Views\MikuDbAlbum\MikuDbAlbumRow.cshtml" />
     <Content Include="Views\Artist\GroupForArtistEditRow.cshtml" />
+    <Content Include="App_Code\Helpers.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

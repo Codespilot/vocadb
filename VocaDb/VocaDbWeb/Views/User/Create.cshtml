@@ -1,9 +1,11 @@
-﻿@model VocaDb.Web.Models.LoginModel
+﻿@using VocaDb.Web.Helpers
+
+@model VocaDb.Web.Models.RegisterModel
 @{
 	ViewBag.Title = "Register";
 }
 
-@Html.ValidationSummary(true, "Registration was unsuccessful. Please correct the errors and try again.")
+@Helpers.ValidationSymmaryPanel("Registration was unsuccessful. Please correct the errors and try again.")
 
 @using (Html.BeginForm()) {
     <div>

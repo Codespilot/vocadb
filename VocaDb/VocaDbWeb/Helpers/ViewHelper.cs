@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
+using System.Web;
 
 namespace VocaDb.Web.Helpers {
 
@@ -68,6 +69,20 @@ namespace VocaDb.Web.Helpers {
 			return htmlHelper.DropDownList(name, LanguageSelectionList, htmlAttributes);
 
 		}
+
+		/*public static MvcHtmlString ValidationSymmaryPanel(this HtmlHelper htmlHelper, string message) {
+
+			if (!HttpContext.Current.ViewData.ModelState.IsValid) {
+			<div class="ui-widget">
+				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+					@Html.ValidationSummary(false, "Unable to save properties.")
+				</div>
+			</div>
+			} else {
+				return null;
+			}
+
+		}*/
 
 	}
 
