@@ -308,6 +308,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistContract GetArtist(int id) {
+
+			return HandleQuery(session => new ArtistContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
+
+		}
+
 		public ArtistDetailsContract GetArtistDetails(int id) {
 
 			return HandleQuery(session => {

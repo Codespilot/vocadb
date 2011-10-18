@@ -189,6 +189,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public PartialViewResult AddCircle(int artistId, int circleId) {
+
+			var circle = Service.GetArtist(circleId);
+
+			return PartialView("GroupForArtistEditRow", new GroupForArtistContract { Group = circle });
+
+		}
+
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void EditWebLinkDescription(int linkId, string description) {
 

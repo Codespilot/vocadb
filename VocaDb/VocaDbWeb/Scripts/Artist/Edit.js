@@ -43,30 +43,6 @@ function initPage(artistId) {
 
 	});
 
-	function createLanguageDropDown(nameId, nameLang) {
-
-		var languages = eval("[\"Japanese\",\"Romaji\",\"English\"]");
-
-		var dropDown = document.createElement("select");
-		$(dropDown).attr("id", "nameLanguage_" + nameId);
-
-		$(languages).each(function() {
-
-			/*var option = document.createElement("option"); //"<option value=\"" + this + "\">" + this + "</option>";
-			$(option).val(this),
-			$(option).text(this);
-
-			$(dropDown).append(option);*/
-			addOption(dropDown, this, this);
-
-		});
-
-		$(dropDown).change(onChangeLang);
-
-		return dropDown;
-
-	}
-
 	$("input#nameAdd").click(function () {
 
 		var aId = artistId;
@@ -135,6 +111,23 @@ function initPage(artistId) {
 
 	});
 
+	$("#groupAddBtn").click(function () {
+
+		var groupId = $("#groupAddGroup").val();
+		$.post("../../Artist/AddCircle", { artistId: artistId, circleId: groupId }, function (row) {
+
+			$("#groupRow_new").before(row);
+
+		});
+
+	});
+
+	$("input.groupRemove").live("click", function () {
+
+		$(this).parent().parent().remove();		
+
+	});
+
 	$("input#albumAddName").keyup(function () {
 
 		var findTerm = $(this).val();
@@ -183,7 +176,7 @@ function initPage(artistId) {
 			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
 		}
 
-	});	
+	});
 
 	function albumAdded(row) {
 

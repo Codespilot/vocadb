@@ -178,8 +178,8 @@ function initPage(songId) {
 
 	$(".deleteLyrics").live("click", function () {
 
-		var id = getId(this);
-		$("#lyricsRow_" + id).remove();
+		// TODO: verify
+		$(this).parent().parent().remove();
 
 	});
 

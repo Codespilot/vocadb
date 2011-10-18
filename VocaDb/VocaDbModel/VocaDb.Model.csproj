@@ -163,6 +163,7 @@
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
     <Compile Include="Helpers\ArtistHelper.cs" />
+    <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\HtmlRequestHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
