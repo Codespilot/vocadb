@@ -65,25 +65,51 @@ namespace VocaDb.Model.Service {
 
 			} else {
 
-				var direct = session.Query<Artist>()
-					.Where(s =>
-						!s.Deleted
-						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType))
-						&& (string.IsNullOrEmpty(query)
-							|| s.TranslatedName.English.Contains(query)
+				var directQ = session.Query<Artist>()
+					.Where(s => !s.Deleted);
+
+				if (artistTypes.Any())
+					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
+
+				if (query.Length < 3) {
+					
+					directQ = directQ.Where(s => 
+						s.TranslatedName.English == query
+							|| s.TranslatedName.Romaji == query
+							|| s.TranslatedName.Japanese == query);
+
+				} else {
+
+					directQ = directQ.Where(s => 
+						s.TranslatedName.English.Contains(query)
 							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query)))
+							|| s.TranslatedName.Japanese.Contains(query));
+
+				}
+					
+				var direct = directQ
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Take(maxResults)
 					//.FetchMany(s => s.Names)
 					.ToArray();
 
-				var additionalNames = session.Query<ArtistName>()
-					.Where(m => 
-						m.Value.Contains(query) 
-						&& !m.Artist.Deleted
-						&& (!artistTypes.Any() 
-							|| artistTypes.Contains(m.Artist.ArtistType)))
+				var additionalNamesQ = session.Query<ArtistName>()
+					.Where(m => !m.Artist.Deleted);
+
+				if (query.Length < 3) {
+
+					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+				} else {
+
+					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+				}
+
+				if (artistTypes.Any())
+					additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
+
+				var additionalNames = additionalNamesQ
 					.Select(m => m.Artist)
 					.OrderBy(s => s.TranslatedName.Romaji)
 					.Distinct()
@@ -118,22 +144,47 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			var direct = session.Query<Artist>()
-				.Where(s =>
-					!s.Deleted 
-					&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType))
-					&& (string.IsNullOrEmpty(query)
-						|| s.TranslatedName.English.Contains(query)
-						|| s.TranslatedName.Romaji.Contains(query)
-						|| s.TranslatedName.Japanese.Contains(query)))
-				.ToArray();
+			var directQ = session.Query<Artist>()
+				.Where(s => !s.Deleted);
 
-			var additionalNames = session.Query<ArtistName>()
-				.Where(m => 
-					m.Value.Contains(query) 
-					&& !m.Artist.Deleted
-					&& (!artistTypes.Any()
-						|| artistTypes.Contains(m.Artist.ArtistType)))
+			if (artistTypes.Any())
+				directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
+
+			if (query.Length < 3) {
+
+				directQ = directQ.Where(s =>
+					s.TranslatedName.English == query
+						|| s.TranslatedName.Romaji == query
+						|| s.TranslatedName.Japanese == query);
+
+			} else {
+
+				directQ = directQ.Where(s =>
+					s.TranslatedName.English.Contains(query)
+						|| s.TranslatedName.Romaji.Contains(query)
+						|| s.TranslatedName.Japanese.Contains(query));
+
+			}
+
+			var direct = directQ.ToArray();
+
+			var additionalNamesQ = session.Query<ArtistName>()
+				.Where(m => !m.Artist.Deleted);
+
+			if (query.Length < 3) {
+
+				additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+			} else {
+
+				additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+			}
+
+			if (artistTypes.Any())
+				additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
+
+			var additionalNames = additionalNamesQ
 				.Select(m => m.Artist)
 				.Distinct()
 				.ToArray()

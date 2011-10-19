@@ -41,18 +41,42 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			var direct = session.Query<Album>()
-				.Where(s =>
-					!s.Deleted &&
-					(string.IsNullOrEmpty(query)
-						|| s.TranslatedName.English.Contains(query)
+			var directQ = session.Query<Album>()
+				.Where(s => !s.Deleted);
+
+			if (query.Length < 3) {
+
+				directQ = directQ.Where(s =>
+					s.TranslatedName.English == query
+						|| s.TranslatedName.Romaji == query
+						|| s.TranslatedName.Japanese == query);
+
+			} else {
+
+				directQ = directQ.Where(s =>
+					s.TranslatedName.English.Contains(query)
 						|| s.TranslatedName.Romaji.Contains(query)
 						|| s.TranslatedName.Japanese.Contains(query)
-					|| (s.ArtistString.Contains(query))))
-				.ToArray();
+						|| s.ArtistString.Contains(query));
 
-			var additionalNames = session.Query<AlbumName>()
-				.Where(m => m.Value.Contains(query) && !m.Album.Deleted)
+			}
+
+			var direct = directQ.ToArray();
+
+			var additionalNamesQ = session.Query<AlbumName>()
+				.Where(m => !m.Album.Deleted);
+
+			if (query.Length < 3) {
+
+				additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+			} else {
+
+				additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+			}
+
+			var additionalNames = additionalNamesQ
 				.Select(m => m.Album)
 				.Distinct()
 				.ToArray()
@@ -294,20 +318,45 @@ namespace VocaDb.Model.Service {
 
 				} else {
 
-					var direct = session.Query<Album>()
-						.Where(s =>
-							(!s.Deleted
-							&& (string.IsNullOrEmpty(query)
-								|| s.TranslatedName.English.Contains(query)
+					var directQ = session.Query<Album>()
+						.Where(s => !s.Deleted);
+
+					if (query.Length < 3) {
+					
+						directQ = directQ.Where(s => 
+							s.TranslatedName.English == query
+								|| s.TranslatedName.Romaji == query
+								|| s.TranslatedName.Japanese == query);
+
+					} else {
+
+						directQ = directQ.Where(s => 
+							s.TranslatedName.English.Contains(query)
 								|| s.TranslatedName.Romaji.Contains(query)
-								|| s.TranslatedName.Japanese.Contains(query)))
-							|| (s.ArtistString.Contains(query)))
+								|| s.TranslatedName.Japanese.Contains(query)
+								|| s.ArtistString.Contains(query));
+
+					}
+
+					var direct = directQ
 						.OrderBy(s => s.TranslatedName.Romaji)
 						.Take(maxResults)
 						.ToArray();
 
-					var additionalNames = session.Query<AlbumName>()
-						.Where(m => m.Value.Contains(query) && !m.Album.Deleted)
+					var additionalNamesQ = session.Query<AlbumName>()
+						.Where(m => !m.Album.Deleted);
+
+					if (query.Length < 3) {
+
+						additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+					} else {
+
+						additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+					}
+
+					var additionalNames = additionalNamesQ
 						.Select(m => m.Album)
 						.OrderBy(s => s.TranslatedName.Romaji)
 						.Distinct()
