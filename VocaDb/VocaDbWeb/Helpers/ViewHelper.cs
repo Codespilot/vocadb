@@ -72,7 +72,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static MvcHtmlString LinkList<T>(this HtmlHelper htmlHelper, IEnumerable<T> list, Func<T, MvcHtmlString> linkFunc) {
 
-			return StringHelper.Join(", ", list.Select(l => linkFunc(l)));
+			return StringHelper.Join(", ", list.Select(linkFunc));
 
 		}
 
