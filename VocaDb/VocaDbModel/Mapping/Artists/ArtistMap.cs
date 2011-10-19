@@ -7,21 +7,20 @@ namespace VocaDb.Model.Mapping.Artists {
 
 		public ArtistMap() {
 
-			//DiscriminateSubClassesOnColumn("ArtistType");
 			Cache.ReadWrite();
+
 			Id(m => m.Id);
 			Map(m => m.ArtistType).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
 			Map(m => m.StartDate).Nullable();
 			Map(m => m.Version).Not.Nullable();
-			References(m => m.Circle);
 
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllGroups).Inverse().KeyColumn("[Member]").Cascade.All();
 			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
-			HasMany(m => m.Members).Inverse().KeyColumn("[Circle]");
+			HasMany(m => m.Members).Inverse().KeyColumn("[Group]");
 			HasMany(m => m.Names).Table("ArtistNames").Inverse().Cascade.All();
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
 

@@ -7,6 +7,15 @@ namespace VocaDb.Model.Domain.Artists {
 		private Artist group;
 		private Artist member;
 
+		public GroupForArtist() { }
+
+		public GroupForArtist(Artist group, Artist member) {
+
+			Group = group;
+			Member = member;
+
+		}
+
 		//public DateTime? BeginDate { get; set; }
 
 		//public DateTime? EndDate { get; set; }
@@ -28,5 +37,12 @@ namespace VocaDb.Model.Domain.Artists {
 				member = value;
 			}
 		}
+
+		public virtual void Delete() {
+
+			Member.AllGroups.Remove(this);
+
+		}
+
 	}
 }

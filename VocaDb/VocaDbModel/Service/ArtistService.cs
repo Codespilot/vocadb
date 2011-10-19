@@ -18,6 +18,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.DataContracts.Albums;
 using System.Drawing;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -338,6 +339,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistWithAdditionalNamesContract GetArtistWithAdditionalNames(int id) {
+
+			return HandleQuery(session => new ArtistWithAdditionalNamesContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
+
+		}
+
 		/// <summary>
 		/// Gets the picture for a <see cref="Artist"/>.
 		/// </summary>
@@ -394,13 +401,27 @@ namespace VocaDb.Model.Service {
 				ArchiveArtist(session, permissionContext, artist);
 
 				artist.ArtistType = properties.ArtistType;
-				artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);
+				//artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);
 				artist.Description = properties.Description;
 				artist.TranslatedName.CopyFrom(properties.TranslatedName);
 
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
 				}
+
+				var diff = CollectionHelper.Diff(artist.Groups, properties.Groups, (i, i2) => (i.Id == i2.Id));
+
+				foreach (var grp in diff.Removed) {
+					grp.Delete();
+					session.Delete(grp);
+				}
+
+				foreach (var grp in diff.Added) {
+					var link = artist.AddGroup(session.Load<Artist>(grp.Group.Id));
+					session.Save(link);
+				}
+
+				session.Update(artist);
 
 			});
 

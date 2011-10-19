@@ -114,9 +114,10 @@ namespace VocaDb.Web.Controllers
         // POST: /Artist/Edit/5
 
         [HttpPost]
-		public ActionResult EditBasicDetails(ArtistEdit model)
+		public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
         {
 
+			model.Groups = groups.ToArray();
             PictureDataContract pictureData = null;
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
@@ -192,7 +193,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult AddCircle(int artistId, int circleId) {
 
-			var circle = Service.GetArtist(circleId);
+			var circle = Service.GetArtistWithAdditionalNames(circleId);
 
 			return PartialView("GroupForArtistEditRow", new GroupForArtistContract { Group = circle });
 

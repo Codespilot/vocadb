@@ -17,12 +17,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			AlbumLinks = artist.Albums.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
-			Circle = (artist.Circle != null ? new ArtistContract(artist.Circle, languagePreference) : null);
 			Description = artist.Description;
-			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).ToArray();
+			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			LatestSongs = new SongWithAdditionalNamesContract[] { };
-			Members = artist.Members.Select(m => new ArtistContract(m, languagePreference)).OrderBy(a => a.Name).ToArray();
+			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}
@@ -34,9 +33,6 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public string AllNames { get; set; }
 
 		[DataMember]
-		public ArtistContract Circle { get; set; }
-
-		[DataMember]
 		public string Description { get; set; }
 
 		[DataMember]
@@ -46,7 +42,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public TranslatedStringContract TranslatedName { get; set; }
 
 		[DataMember]
-		public ArtistContract[] Members { get; set; }
+		public GroupForArtistContract[] Members { get; set; }
 
 		[DataMember]
 		public SongWithAdditionalNamesContract[] LatestSongs { get; set; }
