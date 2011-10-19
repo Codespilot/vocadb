@@ -12,13 +12,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 			
 			ParamIs.NotNull(() => artistForSong);
 
-			Artist = new ArtistContract(artistForSong.Artist, languagePreference);
+			Artist = new ArtistWithAdditionalNamesContract(artistForSong.Artist, languagePreference);
 			Id = artistForSong.Id;
 
 		}
 
 		[DataMember]
-		public ArtistContract Artist { get; set; }
+		public ArtistWithAdditionalNamesContract Artist { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }

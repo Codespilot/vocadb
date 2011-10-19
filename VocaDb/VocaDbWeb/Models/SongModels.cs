@@ -48,7 +48,7 @@ namespace VocaDb.Web.Models {
 
 		public string AdditionalNames { get; set; }
 
-		public AlbumContract[] Albums { get; set; }
+		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
 
 		public int Id { get; set; }
 
@@ -60,9 +60,9 @@ namespace VocaDb.Web.Models {
 
 		public string NicoId { get; set; }
 
-		public ArtistContract[] OtherArtists { get; set; }
+		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
-		public ArtistContract[] Performers { get; set; }
+		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
 
 		public PVForSongContract PrimaryPV { get; set; }
 

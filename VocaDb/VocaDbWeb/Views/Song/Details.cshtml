@@ -50,12 +50,7 @@
 			<tr>
 				<td>Vocalists</td>
 				<td>
-					@foreach (var artist in Model.Performers) {
-						@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
-						if (artist != Model.Performers.Last()) {
-							<text>,&nbsp;</text>
-						}
-					}			
+					@Html.LinkList(Model.Performers, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 				</td>
 			</tr>
 			}
@@ -63,12 +58,7 @@
 			<tr>
 				<td>Other artists</td>
 				<td>
-					@foreach (var artist in Model.OtherArtists) {
-						@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null);
-						if (artist != Model.OtherArtists.Last()) {
-							<text>,&nbsp;</text>
-						}
-					}			
+					@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 				</td>
 			</tr>
 			}
@@ -76,12 +66,7 @@
 			<tr>
 				<td>Albums</td>
 				<td>
-					@foreach (var album in Model.Albums) {
-						@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, null);
-						if (album != Model.Albums.Last()) {
-							<text>,&nbsp;</text>
-						}
-					}			
+					@Html.LinkList(Model.Albums, album => Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames }))
 				</td>
 			</tr>
 			}

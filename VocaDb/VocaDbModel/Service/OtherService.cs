@@ -17,9 +17,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => new FrontPageContract(
 				session.Query<Album>().Where(a => !a.Deleted)
-					.OrderByDescending(a => a.CreateDate).Take(20),
+					.OrderByDescending(a => a.CreateDate).Take(15),
 				session.Query<Song>().Where(s => !s.Deleted)
-					.OrderByDescending(s => s.CreateDate).Take(20), 
+					.OrderByDescending(s => s.CreateDate).Take(15), 
 				PermissionContext.LanguagePreference));
 
 		}

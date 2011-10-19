@@ -30,32 +30,18 @@
 			<span class="extraInfo">@Model.AdditionalNames</span>
 		</td>
 	</tr>
-		@if (Model.Performers.Any()) {
 		<tr>
 			<td>Vocalists</td>
 			<td>
-				@foreach (var artist in Model.Performers) {
-					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames });
-					if (artist != Model.Performers.Last()) {
-						<text>,&nbsp;</text>
-					}
-				}			
+				@Html.LinkList(Model.Performers, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 			</td>
 		</tr>
-		}
-		@if (Model.OtherArtists.Any()) {
 		<tr>
 			<td>Other artists</td>
 			<td>
-				@foreach (var artist in Model.OtherArtists) {
-					@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames });
-					if (artist != Model.OtherArtists.Last()) {
-						<text>,&nbsp;</text>
-					}
-				}			
+				@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 			</td>
 		</tr>
-		}
 @if (!string.IsNullOrEmpty(Model.Description)) {
 	<tr>
 		<td>Description</td>
