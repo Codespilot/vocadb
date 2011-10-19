@@ -14,15 +14,11 @@ function initPage(userId) {
 		var findTerm = $(this).val();
 		var albumList = $("#albumAddList");
 
-		if (findTerm.length < 3) {
+		if (findTerm.length == 0) {
 
 			$(albumList).empty();
-
-			if (findTerm.length > 0) {
-				addOption(albumList, "", "Create new album named '" + findTerm + "'");
-			}
-
 			return;
+
 		}
 
 		$.post("../Album/FindJson", { term: findTerm }, function (results) {
