@@ -39,7 +39,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJsonByName(string term) {
 
-			var albums = Service.FindByName(term, 20);
+			var albums = Service.Find(term, 0, 20, onlyByName: true);
 
 			return Json(albums);
 

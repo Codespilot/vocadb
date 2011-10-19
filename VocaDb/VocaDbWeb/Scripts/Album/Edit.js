@@ -155,15 +155,11 @@ function initPage(albumId) {
 		var findTerm = $(this).val();
 		var artistList = $("#artistAddList");
 
-		if (findTerm.length < 3) {
+		if (findTerm.length == 0) {
 
 			$(artistList).empty();
-
-			if (findTerm.length > 0) {
-				addOption(artistList, "", "Create new artist named '" + findTerm + "'");
-			}
-
 			return;
+
 		}
 
 		$.post("../../Artist/FindJson", { term: findTerm }, function (results) {
@@ -225,22 +221,18 @@ function initPage(albumId) {
 		var findTerm = $(this).val();
 		var songList = $("#songAddList");
 
-		if (findTerm.length < 3) {
+		if (findTerm.length == 0) {
 
 			$(songList).empty();
-
-			if (findTerm.length > 0) {
-				addOption(songList, "", "Create new song named '" + findTerm + "'");
-			}
-
 			return;
+
 		}
 
 		$.post("../../Song/FindJsonByName", { term: findTerm }, function (results) {
 
 			$(songList).empty();
 
-			$(results).each(function () {
+			$(results.Items).each(function () {
 
 				addOption(songList, this.Id, this.Name);
 
