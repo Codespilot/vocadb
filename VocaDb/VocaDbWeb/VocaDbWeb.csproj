@@ -104,6 +104,7 @@
     </Compile>
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\Login.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\Translate.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AlbumModels.cs" />

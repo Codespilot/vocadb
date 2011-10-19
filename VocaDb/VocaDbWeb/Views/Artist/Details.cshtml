@@ -48,10 +48,10 @@
 		</td>	
 	</tr>
 }
-@if (Model.Circle != null) {
+@if (Model.Groups.Any()) {
 	<tr>
-		<td>Circle</td>
-		<td>@Html.ActionLink(Model.Circle.Name, "Details", new { id = Model.Circle.Id }, null)</td>
+		<td>Circles and labels</td>
+		<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames })</td>
 	</tr>
 }
 </table>
@@ -61,7 +61,7 @@
 <h3>Members</h3>
 <ul>
 	@foreach (var member in Model.Members) {
-		<li>@Html.ActionLink(member.Name, "Details", new { id = member.Id }, null)</li>
+		<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Id }, new { title = member.Member.AdditionalNames })</li>
 	}
 </ul>
 }

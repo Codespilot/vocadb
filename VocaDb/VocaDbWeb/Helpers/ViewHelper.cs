@@ -70,6 +70,12 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static MvcHtmlString LinkList<T>(this HtmlHelper htmlHelper, IEnumerable<T> list, Func<T, MvcHtmlString> linkFunc) {
+
+			return StringHelper.Join(", ", list.Select(l => linkFunc(l)));
+
+		}
+
 		/*public static MvcHtmlString ValidationSymmaryPanel(this HtmlHelper htmlHelper, string message) {
 
 			if (!HttpContext.Current.ViewData.ModelState.IsValid) {

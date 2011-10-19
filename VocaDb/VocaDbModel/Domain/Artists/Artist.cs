@@ -15,7 +15,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
 		private string description;
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
-		private IList<Artist> members = new List<Artist>();
+		private IList<GroupForArtist> members = new List<GroupForArtist>();
 		private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
 		private IList<ArtistName> names = new List<ArtistName>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
@@ -80,8 +80,6 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual ArtistType ArtistType { get; set; }
 
-		public virtual Artist Circle { get; set; }
-
 		public virtual bool Deleted { get; set; }
 
 		public virtual string Description {
@@ -102,7 +100,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual TranslatedString TranslatedName { get; set; }
 
-		public virtual IList<Artist> Members {
+		public virtual IList<GroupForArtist> Members {
 			get { return members; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -170,6 +168,17 @@ namespace VocaDb.Model.Domain.Artists {
 			var link = new ArtistForAlbum(album, this);
 			AllAlbums.Add(link);
 			album.AllArtists.Add(link);
+
+			return link;
+
+		}
+
+		public virtual GroupForArtist AddGroup(Artist grp) {
+
+			ParamIs.NotNull(() => grp);
+
+			var link = new GroupForArtist(grp, this);
+			AllGroups.Add(link);
 
 			return link;
 

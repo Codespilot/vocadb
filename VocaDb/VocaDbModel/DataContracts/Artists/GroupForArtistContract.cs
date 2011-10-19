@@ -13,16 +13,20 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			ParamIs.NotNull(() => groupForArtist);
 
-			Group = new ArtistContract(groupForArtist.Group, languagePreference);
+			Group = new ArtistWithAdditionalNamesContract(groupForArtist.Group, languagePreference);
 			Id = groupForArtist.Id;
+			Member = new ArtistWithAdditionalNamesContract(groupForArtist.Member, languagePreference);
 
 		}
 
 		[DataMember]
-		public ArtistContract Group { get; set; }
+		public ArtistWithAdditionalNamesContract Group { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public ArtistWithAdditionalNamesContract Member { get; set; }
 
 	}
 
