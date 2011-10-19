@@ -299,7 +299,7 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int id) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
 
 			UpdateEntity<Artist>(id, (session, a) => {
 
