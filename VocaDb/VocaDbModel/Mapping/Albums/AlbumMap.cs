@@ -13,6 +13,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.ArtistString).Not.Nullable().Length(500);
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
+			Map(m => m.Description).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 

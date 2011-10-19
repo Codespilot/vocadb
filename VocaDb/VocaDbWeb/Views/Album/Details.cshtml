@@ -70,7 +70,7 @@
 			@Model.DiscType<br />
 		</td>	
 	</tr>
-@if (Model.ReleaseDate != null) {
+@if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
 	<tr>
 		<td>Release date</td>
 		<td>

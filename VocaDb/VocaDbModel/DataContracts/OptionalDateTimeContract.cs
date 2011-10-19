@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts {
 			ParamIs.NotNull(() => dateTime);
 
 			Day = dateTime.Day;
+			IsEmpty = dateTime.IsEmpty;
 			Month = dateTime.Month;
 			Year = dateTime.Year;
 			Formatted = dateTime.ToString();
@@ -28,6 +29,9 @@ namespace VocaDb.Model.DataContracts {
 
 		[DataMember]
 		public string Formatted { get; set; }
+
+		[DataMember]
+		public bool IsEmpty { get; set; }
 
 		[DataMember]
 		public int? Month { get; set; }
