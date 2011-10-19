@@ -117,7 +117,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
         {
 
-			model.Groups = groups.ToArray();
+			model.Groups = (groups != null ? groups.ToArray() : null);
             PictureDataContract pictureData = null;
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {

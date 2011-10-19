@@ -59,8 +59,7 @@ namespace VocaDb.Web.Models {
 			WebLinks = artist.WebLinks;
 
 			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
-			AllCircles = new[] { new EmptyArtist() }.Concat(artist.AllCircles)
-				.ToDictionary(a => a.Id, a => a.Name);
+			AllCircles = artist.AllCircles.ToDictionary(a => a.Id, a => a.Name);
 
 		}
 
@@ -114,6 +113,7 @@ namespace VocaDb.Web.Models {
 				Id = this.Id,
 				ArtistType = this.ArtistType,
 				Description =  this.Description ?? string.Empty,
+				Groups = this.Groups ?? new GroupForArtistContract[] {},
 				Name = this.Name,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				

@@ -64,6 +64,10 @@ namespace VocaDb.Model.Domain {
 
 		public virtual int? Day { get; protected set; }
 
+		public virtual bool IsEmpty {
+			get { return (Year == null); }
+		}
+
 		public virtual int? Month { get; protected set; }
 
 		public virtual int? Year { get; protected set; }
