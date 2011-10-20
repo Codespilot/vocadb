@@ -73,7 +73,7 @@
 		<ul>
 		@foreach (var song in Model.FavoriteSongs) {
 			<li>
-				@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Id }, new { title = song.Song.AdditionalNames })<br />
+				@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })<br />
 				<span class="extraInfo">@song.Song.ArtistString</span>
 			</li>
 		}
