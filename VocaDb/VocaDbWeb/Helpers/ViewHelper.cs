@@ -7,6 +7,8 @@ using VocaDb.Model;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using System.Web;
+using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Web.Helpers {
 
@@ -73,6 +75,19 @@ namespace VocaDb.Web.Helpers {
 		public static MvcHtmlString LinkList<T>(this HtmlHelper htmlHelper, IEnumerable<T> list, Func<T, MvcHtmlString> linkFunc) {
 
 			return StringHelper.Join(", ", list.Select(linkFunc));
+
+		}
+
+		public static string VideoServiceLinkUrl(this HtmlHelper htmlHelper, PVService service) {
+
+			switch (service) {
+				case PVService.Youtube:
+					return UrlHelper.GenerateContentUrl("~/Content/youtube.png", new HttpContextWrapper(HttpContext.Current));
+				case PVService.NicoNicoDouga:
+					return UrlHelper.GenerateContentUrl("~/Content/nico.png", new HttpContextWrapper(HttpContext.Current));
+				default:
+					return string.Empty;
+			}
 
 		}
 
