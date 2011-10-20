@@ -255,6 +255,46 @@ namespace VocaDb.Model.Domain.Artists {
 			return base.GetHashCode();
 		}
 
+		public virtual bool HasAlbum(Album album) {
+
+			ParamIs.NotNull(() => album);
+
+			return Albums.Any(a => a.Album.Equals(album));
+
+		}
+
+		public virtual bool HasGroup(Artist grp) {
+
+			ParamIs.NotNull(() => grp);
+
+			return Groups.Any(a => a.Group.Equals(grp));
+
+		}
+
+		public virtual bool HasName(LocalizedString name) {
+
+			ParamIs.NotNull(() => name);
+
+			return Names.Any(n => n.ContentEquals(name));
+
+		}
+
+		public virtual bool HasSong(Song song) {
+
+			ParamIs.NotNull(() => song);
+
+			return Songs.Any(a => a.Song.Equals(song));
+
+		}
+
+		public virtual bool HasWebLink(string url) {
+
+			ParamIs.NotNull(() => url);
+
+			return WebLinks.Any(w => w.Url == url);
+
+		}
+
 		public override string ToString() {
 			return "artist '" + Name + "'";
 		}

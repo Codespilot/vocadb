@@ -27,5 +27,11 @@
 			}
 		}
 
+		public virtual bool ContentEquals(LocalizedString another) {
+
+			return (another != null && another.Language == Language && another.Value == Value);
+
+		}
+
 	}
 }

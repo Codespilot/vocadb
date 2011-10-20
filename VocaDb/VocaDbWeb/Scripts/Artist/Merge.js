@@ -20,7 +20,8 @@ function initPage(artistId) {
 			$(results).each(function () {
 
 				if (this.Id != artistId) {
-					addOption(artistList, this.Id, this.Name + " (" + this.AdditionalNames + ")");
+					addOption(artistList, this.Id, this.Name 
+						+ (this.AdditionalNames != "" ? " (" + this.AdditionalNames + ")" : ""));
 				}
 
 			});
@@ -29,4 +30,16 @@ function initPage(artistId) {
 
 	});
 
+	$("input:submit").click(function () {
+
+		var targetArtistId = $("#artistList").val();
+
+		if (targetArtistId == null || targetArtistId == "") {
+			alert("Artist must be selected!");
+			return false;
+		}
+
+		return confirm("Are you sure you want to merge the artists?");
+
+	});	
 }
