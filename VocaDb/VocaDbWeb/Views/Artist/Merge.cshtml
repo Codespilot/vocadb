@@ -1,0 +1,20 @@
+﻿@model  VocaDb.Model.DataContracts.Artists.ArtistContract
+
+@{
+    ViewBag.Title = "Merge artist - " + Model.Name;
+}
+
+@using (Html.BeginForm()) {
+
+<p>
+	Choose the entry which this one will be merged to. All references will be pointed to that new entry.
+</p>
+
+<p>
+	<input name="artistName" type="text" maxlength="128" id="artistName" /><br />
+	<select name="artistList" id="artistList" size="5" />
+</p>
+
+<input type="submit" value="Merge" />
+	
+}

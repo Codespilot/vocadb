@@ -584,6 +584,7 @@
     <Content Include="Views\MikuDbAlbum\MikuDbAlbumRow.cshtml" />
     <Content Include="Views\Artist\GroupForArtistEditRow.cshtml" />
     <Content Include="App_Code\Helpers.cshtml" />
+    <Content Include="Views\Artist\Merge.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

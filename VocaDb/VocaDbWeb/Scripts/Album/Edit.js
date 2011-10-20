@@ -12,6 +12,8 @@ function onChangeLang(event) {
 
 function initPage(albumId) {
 
+	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+
 	$("input.nameEdit").live("change", function () {
 
 		var id = getId(this);
