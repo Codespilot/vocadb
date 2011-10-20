@@ -7,6 +7,9 @@
 		Html.ActionLink("Artists", "Index"), 
 		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
 	};
+	ViewBad.ToolbarButtons = new[] {
+		
+	}
 }
 
 @if (Login.CanDeleteEntries) {

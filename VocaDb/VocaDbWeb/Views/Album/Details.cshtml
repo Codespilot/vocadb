@@ -15,7 +15,7 @@
 }
 	
 @if (Login.CanManageDb) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
 
 <h3>Basic info</h3>
