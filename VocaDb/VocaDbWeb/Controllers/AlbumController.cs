@@ -285,5 +285,12 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Merge(int id) {
+
+			var album = Service.GetAlbumDetails(id);
+			return View(album);
+
+		}
+
     }
 }

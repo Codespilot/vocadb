@@ -13,6 +13,7 @@ function onChangeLang(event) {
 function initPage(albumId) {
 
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+	$("#mergeLink").button();
 
 	$("input.nameEdit").live("change", function () {
 

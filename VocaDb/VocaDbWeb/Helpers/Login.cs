@@ -24,6 +24,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanMergeEntries {
+			get {
+				return Manager.HasPermission(PermissionFlags.MergeEntries);
+			}
+		}
+
 		public static LoginManager Manager {
 			get {
 				return MvcApplication.LoginManager;

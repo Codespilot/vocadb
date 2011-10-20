@@ -241,5 +241,18 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		public ActionResult Merge(int id) {
+
+			var artist = Service.GetArtist(id);
+			return View(artist);
+
+		}
+
+		/*public ActionResult Merge(int id, FormCollection collection) {
+
+
+
+		}*/
+
     }
 }
