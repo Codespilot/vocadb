@@ -108,10 +108,14 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs
 
 .rightFrame
 { 
- background-color:#e0f8ff;
-	border :groove #48CCCD 2px;
-	opacity:0.8;
- 
+background-color:#e0f8ff;
+border :groove #48CCCD 2px;
+opacity:0.9;
+float: left;
+margin-bottom: 0px;
+margin-left: 5px;
+margin-right: 0px;
+margin-top: 0px; 
 }
 
 .rightFrame td
@@ -121,17 +125,29 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs
  
 }
 
-.rightFrame table
+.rightFrame a
 { 
-vertical-align: top;
- 
+color:#003399;
+ margin-bottom: 5px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
+}
+
+.rightFrame li
+{ 
+ margin-bottom: 2px;
+margin-left: 0px;
+margin-right: 0px;
+margin-top: 0px;
 }
 
 .menu
 { 
  	background: #b9e9f7;
-	border :groove #48CCCD 2px;
-  opacity:0.9;
+	border: groove #48CCCD 2px;
+  opacity: 0.9;
+	float: left;
 }
 
 ul
@@ -143,3 +159,70 @@ ul
  {
 list-style: none;
  }
+ 
+.menu ul
+ {
+list-style: none;
+padding-bottom: 0px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 0px;
+ }
+ 
+.menu li { 
+padding-bottom: 0px;
+padding-left: 5px;
+padding-right: 5px;
+padding-top: 1px;
+ }
+ 
+.menu a
+ {
+text-decoration: none;
+color :#21758a;
+ }
+ 
+.user a
+{
+text-decoration: none;
+color : #003366;
+border-bottom-color: #333333;
+border-bottom-style: dashed;
+border-bottom-width: 1px;
+}
+
+.menu a:hover 
+{
+text-decoration: underline;
+ }
+ 
+.user a:hover 
+{
+text-decoration: none;
+border-bottom-color: #333333;
+border-bottom-style: solid;
+border-bottom-width: 1px;
+ }
+
+.user a:visited  
+{
+color : #003366;  
+}
+
+.menu a:visited  
+{
+color :#21758a;  
+}
+
+.rightFrame a:visited  
+{
+color:#003399;  
+}
+
+.recentAlbums a 
+{
+padding-bottom: 0px;
+padding-left: 0px;
+padding-right: 0px;
+padding-top: 1opx;  
+}
