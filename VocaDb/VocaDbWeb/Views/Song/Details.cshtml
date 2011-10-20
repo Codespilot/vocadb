@@ -77,7 +77,7 @@
 				<td>PVs</td>
 				<td>
 					@foreach (var pv in Model.PVs) {
-						<a href="@pv.Url">@pv.DisplayName</a><br />
+						<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName - @pv.PVType</a><br />
 					}			
 				</td>
 			</tr>
