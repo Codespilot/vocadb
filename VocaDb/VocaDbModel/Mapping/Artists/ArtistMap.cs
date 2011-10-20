@@ -20,7 +20,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			HasMany(m => m.AllGroups).Inverse().KeyColumn("[Member]").Cascade.All();
 			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
-			HasMany(m => m.Members).Inverse().KeyColumn("[Group]");
+			HasMany(m => m.AllMembers).Inverse().KeyColumn("[Group]");
 			HasMany(m => m.Names).Table("ArtistNames").Inverse().Cascade.All();
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
 

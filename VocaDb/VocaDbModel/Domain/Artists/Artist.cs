@@ -62,6 +62,14 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual IList<GroupForArtist> AllMembers {
+			get { return members; }
+			set {
+				ParamIs.NotNull(() => value);
+				members = value;
+			}
+		}
+
 		public virtual IList<ArtistForSong> AllSongs {
 			get { return songs; }
 			set {
@@ -100,20 +108,16 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual TranslatedString TranslatedName { get; set; }
 
-		public virtual IList<GroupForArtist> Members {
-			get { return members; }
-			set {
-				ParamIs.NotNull(() => value);
-				members = value;
-			}
-		}
-
 		public virtual IList<ArtistMetadataEntry> Metadata {
 			get { return metadata; }
 			set {
 				ParamIs.NotNull(() => value);
 				metadata = value;
 			}
+		}
+
+		public virtual IEnumerable<GroupForArtist> Members {
+			get { return AllMembers.Where(m => !m.Member.Deleted); }
 		}
 
 		public virtual string Name {

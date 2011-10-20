@@ -454,6 +454,7 @@ namespace VocaDb.Model.Service {
 				var target = session.Load<Artist>(targetId);
 
 				AuditLog("Merging " + source + " to " + target);
+				ArchiveArtist(session, PermissionContext, source);
 				ArchiveArtist(session, PermissionContext, target);
 
 				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
@@ -466,16 +467,26 @@ namespace VocaDb.Model.Service {
 					session.Save(link);
 				}
 
-				foreach (var g in source.Groups.Where(g => !target.HasGroup(g.Group))) {
-
+				var groups = source.Groups.Where(g => !target.HasGroup(g.Group)).ToArray();
+				foreach (var g in groups) {
+					g.MoveToMember(target);
+					session.Update(g);
 				}
 
-				foreach (var a in source.Albums.Where(a => !target.HasAlbum(a.Album))) {
+				var members = source.Members.Where(m => !m.Member.HasGroup(target)).ToArray();
+				foreach (var m in members) {
+					m.MoveToGroup(target);
+					session.Update(m);
+				}
+
+				var albums = source.Albums.Where(a => !target.HasAlbum(a.Album)).ToArray();
+				foreach (var a in albums) {
 					a.Move(target);
 					session.Update(a);
 				}
 
-				foreach (var s in source.Songs.Where(s => !target.HasSong(s.Song))) {
+				var songs = source.Songs.Where(s => !target.HasSong(s.Song)).ToArray();
+				foreach (var s in songs) {
 					s.Move(target);
 					session.Update(s);
 				}
