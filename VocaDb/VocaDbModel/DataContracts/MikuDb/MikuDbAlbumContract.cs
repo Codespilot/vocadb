@@ -19,6 +19,8 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 			Status = album.Status;
 			Title = album.Title;
 
+			Selected = true;
+
 		}
 
 		public DateTime Created { get; set; }

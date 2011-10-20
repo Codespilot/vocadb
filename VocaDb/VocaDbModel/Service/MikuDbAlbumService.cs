@@ -25,6 +25,8 @@ namespace VocaDb.Model.Service {
 
 		public int ImportNew() {
 
+			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
+
 			MikuDbAlbumContract[] existing = HandleQuery(session => session.Query<MikuDbAlbum>().Select(a => new MikuDbAlbumContract(a)).ToArray());
 
 			var importer = new AlbumImporter(existing);
@@ -32,7 +34,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var all = session.Query<MikuDbAlbum>();
+				//var all = session.Query<MikuDbAlbum>();
 
 				//foreach (var album in all)
 				//	session.Delete(album);
@@ -50,6 +52,19 @@ namespace VocaDb.Model.Service {
 				}
 
 				return newAlbums.Count;
+
+			});
+
+		}
+
+		public InspectedAlbum Inspect(int importedAlbumId) {
+
+			return HandleQuery(session => {
+
+				var album = session.Load<MikuDbAlbum>(importedAlbumId);
+				var result = new InspectedAlbum();
+
+				return result;
 
 			});
 
