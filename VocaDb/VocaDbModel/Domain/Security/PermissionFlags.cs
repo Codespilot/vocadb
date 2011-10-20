@@ -28,7 +28,9 @@ namespace VocaDb.Model.Domain.Security {
 
 		Admin			= 32,
 
-		Default			= (EditProfile | ManageDatabase | MergeEntries)
+		MikuDbImport	= 64,
+
+		Default			= (EditProfile | ManageDatabase)
 
 	}
 
