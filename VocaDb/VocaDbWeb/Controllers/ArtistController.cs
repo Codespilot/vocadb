@@ -248,11 +248,22 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		/*public ActionResult Merge(int id, FormCollection collection) {
+		public ActionResult Merge(int id, FormCollection collection) {
 
+			var targetId = collection["artistList"];
 
+			if (string.IsNullOrEmpty(targetId)) {
+				ModelState.AddModelError("artistList", "Artist must be selected");
+				return Merge(id);
+			}
 
-		}*/
+			var targetIdInt = int.Parse(targetId);
+
+			Service.Merge(id, targetIdInt);
+
+			return RedirectToAction("Edit", new { id = targetIdInt });
+
+		}
 
     }
 }

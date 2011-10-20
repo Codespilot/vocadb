@@ -32,6 +32,19 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
+		public virtual void Move(Artist target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Artist))
+				return;
+
+			Artist.AllAlbums.Remove(this);
+			Artist = target;
+			target.AllAlbums.Add(this);
+
+		}
+
 		public override string ToString() {
 			return string.Format("{0} for {1}", Artist, Album);
 		}

@@ -28,6 +28,8 @@ namespace VocaDb.Model.Service {
 
 		private void ArchiveArtist(ISession session, IUserPermissionContext permissionContext, Artist artist) {
 
+			log.Info("Archiving " + artist);
+
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, permissionContext);
 			var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
 			session.Save(archived);
@@ -436,6 +438,55 @@ namespace VocaDb.Model.Service {
 				.ToArray()
 				.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
+
+		}
+
+		public void Merge(int sourceId, int targetId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);
+
+			if (sourceId == targetId)
+				throw new ArgumentException("Source and target artists can't be the same", "targetId");
+
+			HandleTransaction(session => {
+
+				var source = session.Load<Artist>(sourceId);
+				var target = session.Load<Artist>(targetId);
+
+				AuditLog("Merging " + source + " to " + target);
+				ArchiveArtist(session, PermissionContext, target);
+
+				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
+					var name = target.CreateName(n.Value, n.Language);
+					session.Save(name);
+				}
+
+				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
+					var link = target.CreateWebLink(w.Description, w.Url);
+					session.Save(link);
+				}
+
+				foreach (var g in source.Groups.Where(g => !target.HasGroup(g.Group))) {
+
+				}
+
+				foreach (var a in source.Albums.Where(a => !target.HasAlbum(a.Album))) {
+					a.Move(target);
+					session.Update(a);
+				}
+
+				foreach (var s in source.Songs.Where(s => !target.HasSong(s.Song))) {
+					s.Move(target);
+					session.Update(s);
+				}
+
+				if (target.Description == string.Empty)
+					target.Description = source.Description;
+
+				source.Deleted = true;
+				session.Update(source);
+
+			});
 
 		}
 

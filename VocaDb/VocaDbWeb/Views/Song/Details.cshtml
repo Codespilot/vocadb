@@ -8,13 +8,15 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };
 }
 
+@section Toolbar {
 @if (Login.Manager.IsLoggedIn) {
 <a href="#" id="addFavoriteLink" style="@(Model.IsFavorited ? "display: none;" : "")">Add to favorites</a>
 <a href="#" id="removeFavoriteLink" style="@(Model.IsFavorited ? "" : "display: none;")">Remove from favorites</a>
 }
 
 @if (VocaDb.Web.Helpers.Login.CanManageDb) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
+}
 }
 
 <div id="tabs">
