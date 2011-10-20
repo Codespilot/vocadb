@@ -8,8 +8,10 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Artists", "Index") };
 }
 
+@section Toolbar {
 @if (VocaDb.Web.Helpers.Login.CanManageDb) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editArtistLink" });
+}
 }
 
 <h3>Basic info</h3>
@@ -83,3 +85,12 @@
  }
 </ul>	
 }
+
+<script type="text/javascript" src="../../Scripts/Artist/Details.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id);
+	});
+
+</script>

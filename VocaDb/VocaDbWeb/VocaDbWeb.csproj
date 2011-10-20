@@ -186,6 +186,7 @@
     <Content Include="robots.txt" />
     <Content Include="Scripts\Album\Edit.js" />
     <Content Include="Scripts\Album\Details.js" />
+    <Content Include="Scripts\Artist\Details.js" />
     <Content Include="Scripts\Artist\Edit.js" />
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />

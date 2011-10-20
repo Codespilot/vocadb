@@ -51,9 +51,22 @@ namespace VocaDb.Model.Domain.Artists {
 			if (target.Equals(Group))
 				return;
 
-			Group.Members.Remove(this);
+			Group.AllMembers.Remove(this);
 			Group = target;
-			target.Members.Add(this);
+			target.AllMembers.Add(this);
+
+		}
+
+		public virtual void MoveToMember(Artist target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Member))
+				return;
+
+			Member.AllGroups.Remove(this);
+			Member = target;
+			target.AllGroups.Add(this);
 
 		}
 

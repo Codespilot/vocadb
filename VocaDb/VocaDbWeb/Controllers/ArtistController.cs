@@ -248,6 +248,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
 		public ActionResult Merge(int id, FormCollection collection) {
 
 			var targetId = collection["artistList"];
