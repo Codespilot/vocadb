@@ -74,13 +74,20 @@
 			</td>
 			<td class="rightFrame">
 				@if (ViewBag.Parents != null) {
-		foreach (MvcHtmlString link in ViewBag.Parents) {
+					foreach (MvcHtmlString link in ViewBag.Parents) {
 						<span>
 						@link &gt;&gt;
 						</span>
-		}
-	}
+					}
+				}
 				<h2>@ViewBag.Title</h2>
+
+				@if (IsSectionDefined("Toolbar")) {
+					<p>
+					@RenderSection("Toolbar")
+					</p>
+				}
+		
 				@RenderBody()
 			</td>
 		</tr>
