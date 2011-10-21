@@ -12,7 +12,7 @@
 @section Toolbar {
 @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.MikuDbImport)) {
 	
-@Html.ActionLink("Import new", "ImportNew", null, new { id = "importNewLink" })
+@Html.ActionLink("Download new album info from MikuDB", "ImportNew", null, new { id = "importNewLink" })
 
 }
 }
