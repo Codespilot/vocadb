@@ -333,59 +333,77 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var directQ = session.Query<Song>()
-					.Where(s => !s.Deleted);
+				SongWithAdditionalNamesContract[] contracts;
 
-				if (!string.IsNullOrEmpty(query) && query.Length < 3) {
+				if (string.IsNullOrEmpty(query)) {
 
-					directQ = directQ.Where(s =>
-						s.TranslatedName.English == query
-							|| s.TranslatedName.Romaji == query
-							|| s.TranslatedName.Japanese == query);
+					contracts = session.Query<Song>()
+						.Where(s => !s.Deleted)
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Skip(start)
+						.Take(maxResults)
+						.ToArray()
+						.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+						.ToArray();
 
-				} else if (!string.IsNullOrEmpty(query)) {
+				} else {
 
-					directQ = directQ.Where(s =>
-						s.TranslatedName.English.Contains(query)
-							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query)
-							|| (!onlyByName && s.ArtistString.Contains(query))
-							|| (s.NicoId != null && s.NicoId == query));
+					var directQ = session.Query<Song>()
+						.Where(s => !s.Deleted);
+
+					if (!string.IsNullOrEmpty(query) && query.Length < 3) {
+
+						directQ = directQ.Where(s =>
+							s.TranslatedName.English == query
+								|| s.TranslatedName.Romaji == query
+								|| s.TranslatedName.Japanese == query);
+
+					} else if (!string.IsNullOrEmpty(query)) {
+
+						directQ = directQ.Where(s =>
+							s.TranslatedName.English.Contains(query)
+								|| s.TranslatedName.Romaji.Contains(query)
+								|| s.TranslatedName.Japanese.Contains(query)
+								|| (!onlyByName && s.ArtistString.Contains(query))
+								|| (s.NicoId != null && s.NicoId == query));
+
+					}
+
+					var direct = directQ
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Take(maxResults)	// TODO: this might be removed
+						.ToArray();
+
+					var additionalNamesQ = session.Query<SongName>()
+						.Where(m => !m.Song.Deleted);
+
+					if (!string.IsNullOrEmpty(query) && query.Length < 3) {
+
+						additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+					} else if (!string.IsNullOrEmpty(query)) {
+
+						additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+					}
+
+					var additionalNames = additionalNamesQ
+						.Select(m => m.Song)
+						.OrderBy(s => s.TranslatedName.Romaji)
+						.Distinct()
+						.Take(maxResults)
+						.ToArray()
+						.Where(a => !direct.Contains(a));
+
+					contracts = direct.Concat(additionalNames)
+						.Skip(start)
+						.Take(maxResults)
+						.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+						.ToArray();
 
 				}
 
-				var direct = directQ.OrderBy(s => s.TranslatedName.Romaji)
-					.Take(maxResults)
-					.ToArray();
-
-				var additionalNamesQ = session.Query<SongName>()
-					.Where(m => !m.Song.Deleted);
-					
-				if (!string.IsNullOrEmpty(query) && query.Length < 3) {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-				} else if (!string.IsNullOrEmpty(query)) {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-				}
-
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Song)
-					.OrderBy(s => s.TranslatedName.Romaji)
-					.Distinct()
-					.Take(maxResults)
-					.ToArray()
-					.Where(a => !direct.Contains(a));
-
-				var contracts = direct.Concat(additionalNames)
-					.Skip(start)
-					.Take(maxResults)
-					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
-
-				var count = (getTotalCount ? GetSongCount(session, query, onlyByName) : 0);
+				int count = (getTotalCount ? GetSongCount(session, query, onlyByName) : 0);
 
 				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
 
