@@ -1,20 +1,37 @@
 ﻿@model VocaDb.Model.DataContracts.MikuDb.InspectedAlbum
 
 <div>
-	<h3>@Model.ImportedAlbum.Title</h3>
+	<h3><a href="@Model.ImportedAlbum.SourceUrl">@Model.ImportedAlbum.Title</a></h3>
 	<table>
 		<tr>
 			<td>
+				<img src="@Url.Action("CoverPicture", new { id = Model.ImportedAlbum.Id })" alt="Cover picture" class="coverPic" />			
+			</td><td>
 				<p>
-					Existing album: @(Model.ExistingAlbum != null ? Html.ActionLink(Model.ExistingAlbum.Name, "Details", { id = Model.ExistingAlbum.Id } : "(nothing)")
+					Existing album: 
+					@if (Model.ExistingAlbum != null) { 
+						<span>@Html.ActionLink(Model.ExistingAlbum.Name, "Details", "Album", new { id = Model.ExistingAlbum.Id }, new { title = Model.ExistingAlbum.AdditionalNames })</span> 
+					} else {
+						<span>(no match)</span>
+					}
 				</p>
 				@if (Model.ImportedAlbum.Data.ReleaseYear != null) {
-					Model.ImportedAlbum.Data.ReleaseYear;
-				}
+					<span>Release year: @Model.ImportedAlbum.Data.ReleaseYear</span>
+				}			
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<h4>Artists</h4>
 				<ul>
 				@foreach (var artist in Model.Artists) {
 					<li>
-						@(artist.Name + ": " + artist.ExistingArtist != null ? Html.ActionLink(artist.ExistingArtist.Name, "Details", new { id = artist.ExistingArtist.Id } ) : "(no match)")
+						@artist.Name: 
+						@if (artist.ExistingArtist != null) {
+							<span>@Html.ActionLink(artist.ExistingArtist.Name, "Details", "Artist", new { id = artist.ExistingArtist.Id }, new { title = artist.ExistingArtist.AdditionalNames })</span>
+						} else {
+							<span>(no match)</span>
+						}
 					</li>
 				}
 				</ul>

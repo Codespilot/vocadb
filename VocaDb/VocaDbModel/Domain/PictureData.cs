@@ -8,6 +8,11 @@ namespace VocaDb.Model.Domain {
 
 		public PictureData() {}
 
+		public PictureData(Byte[] bytes, string mime) {
+			Bytes = bytes;
+			Mime = mime;
+		}
+
 		public PictureData(PictureDataContract contract) {
 
 			ParamIs.NotNull(() => contract);

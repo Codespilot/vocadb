@@ -23,6 +23,8 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		}
 
+		public PictureDataContract CoverPicture { get; set; }
+
 		public DateTime Created { get; set; }
 
 		public ImportedAlbumDataContract Data { get; set; }

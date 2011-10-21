@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models.MikuDbAlbums;
@@ -14,6 +15,17 @@ namespace VocaDb.Web.Controllers
 
     	private MikuDbAlbumService Service {
     		get { return MvcApplication.Services.MikuDbAlbums; }
+    	}
+
+    	public FileResult CoverPicture(int id) {
+
+			var pictureData = Service.GetCoverPicture(id);
+
+			if (pictureData == null)
+				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
+
+			return File(pictureData.Bytes, pictureData.Mime);
+
     	}
 
         //
@@ -29,11 +41,12 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpPost]
-		public ActionResult Index(Index model) {
+		public ActionResult Index(IEnumerable<MikuDbAlbumContract> albums) {
 
-			var selectedIds = model.Albums.Where(a => a.Selected).Select(a => a.Id).ToArray();
+			var selectedIds = (albums != null ? albums.Where(a => a.Selected).Select(a => a.Id).ToArray() : new int[] {});
+			var result = Service.Inspect(selectedIds);
 
-			return RedirectToAction("PrepareForImport", new {ids = selectedIds});
+			return View("PrepareForImport", new PrepareAlbumsForImport(result));
 
 		}
 
@@ -45,11 +58,11 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult PrepareForImport(int[] ids) {
+		public ActionResult PrepareForImport(PrepareAlbumsForImport model) {
 
-			var result = Service.Inspect(ids);
+			//var result = Service.Inspect(model.Albums);
 
-			return View(result);
+			return View(model);
 
 		}
 

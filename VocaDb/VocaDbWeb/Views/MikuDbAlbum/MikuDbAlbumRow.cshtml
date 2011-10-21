@@ -1,4 +1,5 @@
-﻿@model VocaDb.Model.DataContracts.MikuDb.MikuDbAlbumContract
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Model.DataContracts.MikuDb.MikuDbAlbumContract
 
 @helper ImportedAlbumData(VocaDb.Model.DataContracts.MikuDb.ImportedAlbumDataContract album) {
 	
@@ -20,17 +21,21 @@
 }
 
 <tr>
+	@using (Html.BeginCollectionItem("albums")) {
 	<td>
+		@Html.HiddenFor(m => m.Id)
 		@Html.CheckBoxFor(m => m.Selected)
 		<a href="@Model.SourceUrl">@Model.Title</a><br />
-		@Model.Created
+		@Model.Created<br />
+		<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
 	</td>
 	<td>@ImportedAlbumData(Model.Data)</td>
 	<td>
 		@if (Model.Data != null && Model.Data.Tracks.Any()) {
 			foreach (var track in Model.Data.Tracks) {
-			  @track.TrackNum<text>.&nbsp;</text>@track.Title<br />
-		   }
-		  }
+				@track.TrackNum<text>.&nbsp;</text>@track.Title<br />
+			}
+		}
 	</td>
+	 }
 </tr>

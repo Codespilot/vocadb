@@ -110,6 +110,7 @@
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
+    <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\UserModels.cs" />

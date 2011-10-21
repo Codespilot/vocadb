@@ -8,12 +8,22 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using HtmlAgilityPack;
 using log4net;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.MikuDb {
 
 	public class AlbumImporter {
+
+		private class DataAndCover {
+
+			public PictureDataContract CoverPicture { get; set; }
+
+			public ImportedAlbumDataContract AlbumData { get; set; }
+
+		}
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumImporter));
 
@@ -125,10 +135,44 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
-		private ImportedAlbumDataContract GetAlbumData(HtmlDocument doc) {
+		private DataAndCover GetAlbumData(HtmlDocument doc) {
 
 			var data = new ImportedAlbumDataContract();
+
+			var coverPicLink = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]/td[1]/a/img");
+			PictureDataContract coverPicture = null;
+
+			if (coverPicLink != null) {
+
+				var address = coverPicLink.Attributes["src"].Value;
+
+				var request = WebRequest.Create(address);
+				using (var response = request.GetResponse())
+				using (var stream = response.GetResponseStream()) {
+
+					int buffer = 1024;
+					var buf = new byte[buffer];
+					var wholeBuf = new byte[response.ContentLength];
+
+					int count = 0;
+					int offset = 0;
+					do {
+						count = stream.Read(buf, 0, buffer);
+						Array.Copy(buf, 0, wholeBuf, offset, count);
+						offset += count;
+					}
+					while (count != 0);
+
+					//stream.Read(buf, 0, (int)response.ContentLength);
+					coverPicture = new PictureDataContract(wholeBuf, response.ContentType);
+
+				}
+
+			}
+
 			var infoBox = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]/td[2]");
+
+			HtmlNode trackListRow;
 
 			if (infoBox != null) {
 
@@ -143,21 +187,26 @@ namespace VocaDb.Model.Service.MikuDb {
 
 				}*/
 
+				trackListRow = FindTracklistRow(infoBox.ParentNode.NextSibling);
+
+			} else {
+
+				trackListRow = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]");
+				trackListRow = FindTracklistRow(trackListRow);
+		
 			}
-
-			var trackListRow = FindTracklistRow(infoBox.ParentNode.NextSibling);
-
+	
 			if (trackListRow != null) {
 				
 				ParseTrackList(data, trackListRow);
 
 			}
 
-			return data;
+			return new DataAndCover {AlbumData = data, CoverPicture = coverPicture};
 
 		}
 
-		private ImportedAlbumDataContract GetAlbumData(string url) {
+		private DataAndCover GetAlbumData(string url) {
 
 			HtmlDocument doc;
 			
@@ -178,7 +227,7 @@ namespace VocaDb.Model.Service.MikuDb {
 			var albumDivs = listDiv.Descendants("div");
 			var list = new List<AlbumImportResult>();
 
-			foreach (var albumDiv in albumDivs.Take(10)) {
+			foreach (var albumDiv in albumDivs.Take(3)) {
 
 				var link = albumDiv.Element("a");
 
@@ -193,7 +242,7 @@ namespace VocaDb.Model.Service.MikuDb {
 				var name = link.InnerText;
 				var data = GetAlbumData(url);
 
-				list.Add(new AlbumImportResult {AlbumContract = new MikuDbAlbumContract {Title = name, SourceUrl = url, Data = data}});
+				list.Add(new AlbumImportResult {AlbumContract = new MikuDbAlbumContract {Title = name, SourceUrl = url, CoverPicture = data.CoverPicture, Data = data.AlbumData}});
 
 			}
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.DataContracts.MikuDb;
+﻿using VocaDb.Model.DataContracts.MikuDb;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.Service.MikuDb {
 

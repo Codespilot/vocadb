@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
-using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
@@ -30,7 +28,7 @@ namespace VocaDb.Web.Models {
 			IsFavorited = contract.IsFavorited;
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
-			NicoId = contract.Song.NicoId;
+			//NicoId = contract.Song.NicoId;
 			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
@@ -41,8 +39,8 @@ namespace VocaDb.Web.Models {
 			if (PrimaryPV == null)
 				PrimaryPV = PVs.FirstOrDefault();
 
-			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
-				PrimaryPV = new PVForSongContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
+			if (PrimaryPV == null && !string.IsNullOrEmpty(contract.Song.NicoId))
+				PrimaryPV = new PVForSongContract { PVId = contract.Song.NicoId, Service = PVService.NicoNicoDouga };
 
 		}
 
@@ -58,7 +56,7 @@ namespace VocaDb.Web.Models {
 
 		public string Name { get; set; }
 
-		public string NicoId { get; set; }
+		//public string NicoId { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
@@ -87,7 +85,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
-			NicoId = song.Song.NicoId;
+			//NicoId = song.Song.NicoId;
 			PVs = song.PVs;
 			WebLinks = song.WebLinks;
 
@@ -130,8 +128,8 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		[Display(Name = "NicoNicoDouga ID")]
-		public string NicoId { get; set; }
+		//[Display(Name = "NicoNicoDouga ID")]
+		//public string NicoId { get; set; }
 
 		[Display(Name = "PVs")]
 		public PVForSongContract[] PVs { get; set; }
@@ -145,7 +143,7 @@ namespace VocaDb.Web.Models {
 				Song = new SongContract {
 					Id = this.Id,
 					Name = this.Name,
-					NicoId = this.NicoId
+					//NicoId = this.NicoId
 				},
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				

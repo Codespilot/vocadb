@@ -22,6 +22,7 @@ namespace VocaDb.Model.Domain.MikuDb {
 			
 			ParamIs.NotNull(() => contract);
 
+			CoverPicture = (contract.CoverPicture != null ? new PictureData(contract.CoverPicture) : null);
 			Data = XmlHelper.SerializeToXml(contract.Data);
 			SourceUrl = contract.SourceUrl;
 			Status = contract.Status;
