@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Domain.Security;
@@ -113,7 +115,7 @@ namespace VocaDb.Model.Service {
 			var importedContract = new MikuDbAlbumContract(imported);
 			var data = importedContract.Data;
 
-			var artists = data.ArtistNames.Concat(data.VocalistNames).Concat(new[] { data.CircleName })
+			var artists = data.ArtistNames.Concat(data.VocalistNames).Concat(!string.IsNullOrEmpty(data.CircleName) ? new[] { data.CircleName } : new string[] {})
 				.Select(a => InspectArtist(session, a))
 				.ToArray();
 
@@ -169,6 +171,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PictureContract GetCoverPicture(int id) {
+
+			return HandleQuery(session => {
+
+				var album = session.Load<MikuDbAlbum>(id);
+
+				if (album.CoverPicture != null)
+					return new PictureContract(album.CoverPicture, Size.Empty);
+				else
+					return null;
+
+			});
+
+		}
+
 		public int ImportNew() {
 
 			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
@@ -204,6 +221,8 @@ namespace VocaDb.Model.Service {
 		}
 
 		public InspectedAlbum[] Inspect(int[] importedAlbumIds) {
+
+			ParamIs.NotNull(() => importedAlbumIds);
 
 			return HandleQuery(session => {
 

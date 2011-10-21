@@ -18,6 +18,11 @@ namespace VocaDb.Model.Mapping.MikuDb {
 			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Title).Not.Nullable();
 
+			Component(m => m.CoverPicture, c => {
+				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
+				c.Map(m => m.Mime, "CoverPictureMime");
+			});
+
 		}
 
 	}

@@ -1,6 +1,9 @@
-﻿
+﻿@model VocaDb.Web.Models.MikuDbAlbums.PrepareAlbumsForImport
 
 @{
     ViewBag.Title = "Importing albums";
 }
 
+@foreach (var album in Model.Albums) {
+	Html.RenderPartial("InspectedAlbumRow", album);
+}
