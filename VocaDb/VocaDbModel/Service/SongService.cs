@@ -520,10 +520,10 @@ namespace VocaDb.Model.Service {
 				song.NicoId = properties.Song.NicoId;
 				song.TranslatedName.CopyFrom(properties.TranslatedName);
 
-				if (!string.IsNullOrEmpty(properties.Song.NicoId) && !song.PVs.Any(p => p.Service == PVService.NicoNicoDouga && p.PVId == properties.Song.NicoId)) {
+				/*if (!string.IsNullOrEmpty(properties.Song.NicoId) && !song.PVs.Any(p => p.Service == PVService.NicoNicoDouga && p.PVId == properties.Song.NicoId)) {
 					var pv = song.CreatePV(PVService.NicoNicoDouga, properties.Song.NicoId, PVType.Original);
 					session.Save(pv);
-				}
+				}*/
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);

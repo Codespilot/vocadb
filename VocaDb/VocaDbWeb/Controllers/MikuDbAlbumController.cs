@@ -36,5 +36,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult PrepareForImport(int[] ids) {
+
+			var result = Service.Inspect(ids);
+
+			return View(result);
+
+		}
+
     }
 }
