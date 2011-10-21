@@ -217,8 +217,8 @@ namespace VocaDb.Model.Service {
 				var pv = song.CreatePV(service, pvId, pvType);
 				session.Save(pv);
 
-				if (string.IsNullOrEmpty(song.NicoId) && service == PVService.NicoNicoDouga && pvType == PVType.Original) {
-					song.NicoId = pvId;
+				if (service == PVService.NicoNicoDouga && pvType == PVType.Original) {
+					song.UpdateNicoId();
 					session.Update(song);
 				}
 
@@ -313,7 +313,19 @@ namespace VocaDb.Model.Service {
 
 		public void DeletePvForSong(int pvForSongId) {
 
-			DeleteEntity<PVForSong>(pvForSongId, PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var pvForSong = session.Load<PVForSong>(pvForSongId);
+
+				AuditLog("deleting " + pvForSong);
+
+				pvForSong.OnDelete();
+				session.Delete(pvForSong);
+				session.Update(pvForSong.Song);
+
+			});
 
 		}
 

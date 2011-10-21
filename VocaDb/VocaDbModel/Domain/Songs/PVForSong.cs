@@ -68,6 +68,13 @@
 			}
 		}
 
+		public virtual void OnDelete() {
+
+			Song.PVs.Remove(this);
+			Song.UpdateNicoId();
+
+		}
+
 		public override string ToString() {
 			return "PV '" + Name + "' (" + Id + ") for " + Song;
 		}
