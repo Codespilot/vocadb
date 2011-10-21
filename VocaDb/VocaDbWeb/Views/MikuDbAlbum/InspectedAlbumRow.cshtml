@@ -1,2 +1,24 @@
 ﻿@model VocaDb.Model.DataContracts.MikuDb.InspectedAlbum
 
+<div>
+	<h3>@Model.ImportedAlbum.Title</h3>
+	<table>
+		<tr>
+			<td>
+				<p>
+					Existing album: @(Model.ExistingAlbum != null ? Html.ActionLink(Model.ExistingAlbum.Name, "Details", { id = Model.ExistingAlbum.Id } : "(nothing)")
+				</p>
+				@if (Model.ImportedAlbum.Data.ReleaseYear != null) {
+					Model.ImportedAlbum.Data.ReleaseYear;
+				}
+				<ul>
+				@foreach (var artist in Model.Artists) {
+					<li>
+						@(artist.Name + ": " + artist.ExistingArtist != null ? Html.ActionLink(artist.ExistingArtist.Name, "Details", new { id = artist.ExistingArtist.Id } ) : "(no match)")
+					</li>
+				}
+				</ul>
+			</td>
+		</tr>
+	</table>
+</div>

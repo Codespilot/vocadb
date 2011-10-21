@@ -29,6 +29,8 @@ namespace VocaDb.Model.Domain.MikuDb {
 
 		}
 
+		public virtual PictureData CoverPicture { get; set; }
+
 		public virtual DateTime Created { get; set; }
 
 		public virtual XDocument Data {
