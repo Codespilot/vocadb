@@ -1,6 +1,5 @@
 ﻿using FluentNHibernate.Conventions;
 using FluentNHibernate.Conventions.Instances;
-using FluentNHibernate.Mapping;
 
 namespace VocaDb.Model.Mapping {
 

@@ -16,16 +16,29 @@ namespace VocaDb.Model.Service {
 
 			var config = Fluently.Configure()
 				.Database(
-				MsSqlConfiguration.MsSql2008
-					.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter"))
-					.MaxFetchDepth(1)
+					MsSqlConfiguration.MsSql2008
+						.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter"))
+						.MaxFetchDepth(1)
+#if !DEBUG
+					.UseReflectionOptimizer()
+#endif
 				)
+				.ProxyFactoryFactory<NHibernate.ByteCode.Castle.ProxyFactoryFactory>()
 				.Cache(c => c
-					.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2")
+					.ProviderClass<NHibernate.Caches.SysCache2.SysCacheProvider>()
 					.UseSecondLevelCache()
 					.UseQueryCache()
 				)
-				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SongMap>().Conventions.AddFromAssemblyOf<ClassConventions>());
+				.Mappings(m => m
+					.FluentMappings.AddFromAssemblyOf<SongMap>()
+					.Conventions.AddFromAssemblyOf<ClassConventions>()
+				)
+				/*.Diagnostics(d => d
+					.Enable()
+					.OutputToFile("C:\\Temp\\Fluent.txt")
+				)*/
+				;
+
 
 			try {
 				return config.BuildSessionFactory();
