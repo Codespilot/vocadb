@@ -311,6 +311,14 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual void UpdateNicoId() {
+
+			var originalPv = PVs.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVType == PVType.Original);
+
+			NicoId = (originalPv != null ? originalPv.PVId : null);
+
+		}
+
 	}
 
 }

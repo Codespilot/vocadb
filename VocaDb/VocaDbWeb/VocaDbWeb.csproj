@@ -530,6 +530,7 @@
   <ItemGroup>
     <Folder Include="Code\Security\" />
     <Folder Include="Models\Artist\" />
+    <Folder Include="Scripts\MikuDbAlbums\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -591,6 +592,8 @@
     <Content Include="App_Code\Helpers.cshtml" />
     <Content Include="Views\Artist\Merge.cshtml" />
     <Content Include="Views\Album\Merge.cshtml" />
+    <Content Include="Views\MikuDbAlbum\PrepareForImport.cshtml" />
+    <Content Include="Views\MikuDbAlbum\InspectedAlbumRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

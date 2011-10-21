@@ -1,7 +1,7 @@
 ﻿
 function initPage(albumId) {
 
-	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-heart'} });
+	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#removeAlbumLink").button({ icons: { primary: 'ui-icon-close'} });
 	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });	
 

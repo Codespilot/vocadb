@@ -15,6 +15,12 @@ namespace VocaDb.Model.Service {
 			get { return permissionContext; }
 		}
 
+		protected ServiceModel Services {
+			get {
+				return new ServiceModel(sessionFactory, PermissionContext);
+			}
+		}
+
 		protected void AuditLog(string doingWhat) {
 
 			log.Info("'" + PermissionContext.Name + "' " + doingWhat);

@@ -54,7 +54,7 @@
 					}
 				</ul>
 				@if (Login.Manager.IsLoggedIn) {
-					<p>Welcome @Html.ActionLink(Login.User.Name, "Details", "User", new { id = Login.User.Id }, null)</p>
+					<p>Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
 				}
 				
 				<br />
