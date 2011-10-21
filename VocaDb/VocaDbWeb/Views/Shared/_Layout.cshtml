@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Helpers
+@using VocaDb.Model.Domain.Security
 
 <!DOCTYPE html>
 <html>
@@ -44,7 +45,10 @@
 					<li>@Html.ActionLink("Artists", "Index", "Artist")</li>
 					<li>@Html.ActionLink("Albums", "Index", "Album")</li>
 					<li>@Html.ActionLink("Songs", "Index", "Song")</li>
-					@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
+					@if (Login.Manager.HasPermission(PermissionFlags.MikuDbImport)) {
+					<li>@Html.ActionLink("MikuDbAlbum", "Index", "MikuDbAlbum")</li>		 
+					}
+					@if (Login.Manager.HasPermission(PermissionFlags.Admin)) {
 					<li>@Html.ActionLink("Admin", "Index", "Admin")</li>
 					}
 					@if (!Login.Manager.IsLoggedIn) {

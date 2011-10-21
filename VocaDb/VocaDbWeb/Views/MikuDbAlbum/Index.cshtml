@@ -18,14 +18,16 @@
 }
 
 @using (Html.BeginForm("Index", "MikuDbAlbum")) {
-
+	
 <p>
 	Status:
 	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses))
 	&nbsp;
 	<input type="submit" value="Apply" />
 </p>
-	
+
+	<input type="submit" value="Import selected" />
+		
 	<table>
 		<tr>
 			<th>Title</th>

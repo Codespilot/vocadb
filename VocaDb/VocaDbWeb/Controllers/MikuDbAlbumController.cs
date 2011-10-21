@@ -28,6 +28,15 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[HttpPost]
+		public ActionResult Index(Index model) {
+
+			var selectedIds = model.Albums.Where(a => a.Selected).Select(a => a.Id).ToArray();
+
+			return RedirectToAction("PrepareForImport", new {ids = selectedIds});
+
+		}
+
 		public ActionResult ImportNew() {
 
 			Service.ImportNew();

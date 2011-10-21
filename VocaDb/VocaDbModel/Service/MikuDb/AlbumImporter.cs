@@ -178,7 +178,7 @@ namespace VocaDb.Model.Service.MikuDb {
 			var albumDivs = listDiv.Descendants("div");
 			var list = new List<AlbumImportResult>();
 
-			foreach (var albumDiv in albumDivs.Take(5)) {
+			foreach (var albumDiv in albumDivs.Take(10)) {
 
 				var link = albumDiv.Element("a");
 

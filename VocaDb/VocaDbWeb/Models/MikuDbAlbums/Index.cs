@@ -6,6 +6,8 @@ namespace VocaDb.Web.Models.MikuDbAlbums {
 
 	public class Index {
 
+		public Index() {}
+
 		public Index(MikuDbAlbumContract[] albums, AlbumStatus status) {
 
 			ParamIs.NotNull(() => albums);
