@@ -28,7 +28,7 @@ namespace VocaDb.Web.Models {
 			IsFavorited = contract.IsFavorited;
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
-			//NicoId = contract.Song.NicoId;
+			NicoId = contract.Song.NicoId;
 			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
@@ -39,8 +39,8 @@ namespace VocaDb.Web.Models {
 			if (PrimaryPV == null)
 				PrimaryPV = PVs.FirstOrDefault();
 
-			if (PrimaryPV == null && !string.IsNullOrEmpty(contract.Song.NicoId))
-				PrimaryPV = new PVForSongContract { PVId = contract.Song.NicoId, Service = PVService.NicoNicoDouga };
+			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
+				PrimaryPV = new PVForSongContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
 
 		}
 
@@ -56,7 +56,7 @@ namespace VocaDb.Web.Models {
 
 		public string Name { get; set; }
 
-		//public string NicoId { get; set; }
+		public string NicoId { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
