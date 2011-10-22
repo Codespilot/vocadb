@@ -22,6 +22,26 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual bool Equals(SongName another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as SongName);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public override string ToString() {
 			return "name '" + Value + "' for " + Song;
 		}

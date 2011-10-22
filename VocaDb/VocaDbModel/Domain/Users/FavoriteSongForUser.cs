@@ -36,6 +36,26 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public virtual bool Equals(FavoriteSongForUser another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as FavoriteSongForUser);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public override string ToString() {
 			return string.Format("favorited {0} for {1}", Song, User);
 		}

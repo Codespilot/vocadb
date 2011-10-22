@@ -23,8 +23,28 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual bool Equals(ArtistName another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as ArtistName);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public override string ToString() {
-			return "name '" + Value + "' for " + Artist;
+			return string.Format("name '{0}' for {1}", Value, Artist);
 		}
 
 	}

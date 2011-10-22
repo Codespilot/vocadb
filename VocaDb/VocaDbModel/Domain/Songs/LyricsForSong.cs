@@ -1,8 +1,9 @@
-﻿using VocaDb.Model.Domain.Globalization;
+﻿using System;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class LyricsForSong : LocalizedString {
+	public class LyricsForSong : LocalizedString, IEquatable<LyricsForSong> {
 
 		private string notes;
 		private Song song;
@@ -42,6 +43,26 @@ namespace VocaDb.Model.Domain.Songs {
 				ParamIs.NotNull(() => value);
 				source = value;
 			}
+		}
+
+		public virtual bool Equals(LyricsForSong another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as LyricsForSong);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
 		}
 
 	}

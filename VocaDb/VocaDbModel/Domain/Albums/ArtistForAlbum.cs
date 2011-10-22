@@ -32,6 +32,26 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
+		public virtual bool Equals(ArtistForAlbum another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as ArtistForAlbum);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public virtual void Move(Artist target) {
 
 			ParamIs.NotNull(() => target);

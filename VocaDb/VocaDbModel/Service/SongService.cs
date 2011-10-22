@@ -547,7 +547,6 @@ namespace VocaDb.Model.Service {
 
 				Archive(session, song);
 
-				song.NicoId = properties.Song.NicoId;
 				song.TranslatedName.CopyFrom(properties.TranslatedName);
 
 				/*if (!string.IsNullOrEmpty(properties.Song.NicoId) && !song.PVs.Any(p => p.Service == PVService.NicoNicoDouga && p.PVId == properties.Song.NicoId)) {

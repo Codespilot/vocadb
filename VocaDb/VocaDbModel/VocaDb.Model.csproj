@@ -134,9 +134,6 @@
     <Compile Include="Domain\Artists\ArtistType.cs" />
     <Compile Include="Domain\Artists\ArchivedArtistVersion.cs" />
     <Compile Include="Domain\Artists\ArtistWebLink.cs" />
-    <Compile Include="Domain\Artists\Circle.cs" />
-    <Compile Include="Domain\Artists\Performer.cs" />
-    <Compile Include="Domain\Artists\Producer.cs" />
     <Compile Include="Domain\Globalization\ContentLanguageSelection.cs" />
     <Compile Include="Domain\Globalization\LocalizedString.cs" />
     <Compile Include="Domain\Globalization\LocalizedStringWithId.cs" />
