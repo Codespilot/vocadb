@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Users {
 
 			ParamIs.NotNull(() => albumForUser);
 
-			Album = new AlbumDetailsContract(albumForUser.Album, languagePreference);
+			Album = new AlbumWithAdditionalNamesContract(albumForUser.Album, languagePreference);
 			Id = albumForUser.Id;
 			MediaType = albumForUser.MediaType;
 			User = new UserContract(albumForUser.User);
@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		}
 
 		[DataMember]
-		public AlbumDetailsContract Album { get; set; }
+		public AlbumWithAdditionalNamesContract Album { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
