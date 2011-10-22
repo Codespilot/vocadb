@@ -63,7 +63,7 @@
 <h3>Members</h3>
 <ul>
 	@foreach (var member in Model.Members) {
-		<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Id }, new { title = member.Member.AdditionalNames })</li>
+		<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Member.Id }, new { title = member.Member.AdditionalNames })</li>
 	}
 </ul>
 }

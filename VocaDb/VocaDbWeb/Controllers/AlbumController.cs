@@ -129,7 +129,7 @@ namespace VocaDb.Web.Controllers
 					var file = Request.Files[0];
 
 					pictureData = ImageHelper.GetOriginalAndResizedImages(
-						file.InputStream, file.ContentLength, file.ContentType, pictureThumbSize);
+						file.InputStream, file.ContentLength, file.ContentType);
 
 				} else {
 
