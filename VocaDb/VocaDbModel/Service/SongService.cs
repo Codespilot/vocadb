@@ -371,7 +371,7 @@ namespace VocaDb.Model.Service {
 
 					var direct = directQ
 						.OrderBy(s => s.TranslatedName.Romaji)
-						.Take(maxResults)	// TODO: this might be removed
+						//.Take(maxResults)	// TODO: this might be removed
 						.ToArray();
 
 					var additionalNamesQ = session.Query<SongName>()
@@ -391,7 +391,7 @@ namespace VocaDb.Model.Service {
 						.Select(m => m.Song)
 						.OrderBy(s => s.TranslatedName.Romaji)
 						.Distinct()
-						.Take(maxResults)
+						//.Take(maxResults)
 						.ToArray()
 						.Where(a => !direct.Contains(a));
 

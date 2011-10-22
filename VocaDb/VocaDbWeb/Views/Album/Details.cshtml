@@ -24,7 +24,9 @@
 <table class="properties">
 	<tr>
 		<td rowspan="9">
-			<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+			<a href="@Url.Action("CoverPicture", "Album", new { id = Model.Id })">
+				<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+			</a>
 		</td>
 		<td>Name</td>
 		<td>

@@ -17,7 +17,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			PVType = pvForSong.PVType;
 			Url = pvForSong.Url;
 
-			DisplayName = Service + " (" + PVId + ")";
+			DisplayName = Service + " (" + PVType + ")";
 
 		}
 

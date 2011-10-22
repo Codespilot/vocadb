@@ -34,6 +34,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			Component(m => m.Picture, c => {
 				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue).LazyLoad();
 				c.Map(m => m.Mime, "PictureMime");
+				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "PictureThumb250Bytes").Length(int.MaxValue).LazyLoad());
 			});
 
 		}

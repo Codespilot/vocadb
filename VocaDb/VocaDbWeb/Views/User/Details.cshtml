@@ -54,7 +54,7 @@
 			@foreach (var album in Model.AlbumLinks) {
 			<tr>
 				<td>
-					<img src="@Url.Action("CoverPicture", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
+					<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
 				</td>
 				<td>
 					@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })

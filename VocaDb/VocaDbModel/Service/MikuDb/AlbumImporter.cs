@@ -150,21 +150,10 @@ namespace VocaDb.Model.Service.MikuDb {
 				using (var response = request.GetResponse())
 				using (var stream = response.GetResponseStream()) {
 
-					int buffer = 1024;
-					var buf = new byte[buffer];
-					var wholeBuf = new byte[response.ContentLength];
-
-					int count = 0;
-					int offset = 0;
-					do {
-						count = stream.Read(buf, 0, buffer);
-						Array.Copy(buf, 0, wholeBuf, offset, count);
-						offset += count;
-					}
-					while (count != 0);
+					var buf = StreamHelper.ReadStream(stream, response.ContentLength);
 
 					//stream.Read(buf, 0, (int)response.ContentLength);
-					coverPicture = new PictureDataContract(wholeBuf, response.ContentType);
+					coverPicture = new PictureDataContract(buf, response.ContentType);
 
 				}
 

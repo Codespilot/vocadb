@@ -26,6 +26,14 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		public ActionResult GeneratePictureThumbs() {
+			
+			Service.GeneratePictureThumbs();
+
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult RefreshDbCache() {
 
 			var sessionFactory = MvcApplication.SessionFactory;
