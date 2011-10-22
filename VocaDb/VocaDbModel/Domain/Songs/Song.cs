@@ -17,7 +17,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<ArchivedSongVersion> archivedVersions = new List<ArchivedSongVersion>();
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
-		private IList<SongMetadataEntry> metadata = new List<SongMetadataEntry>();
+		//private IList<SongMetadataEntry> metadata = new List<SongMetadataEntry>();
 		private TranslatedString name;
 		private IList<SongName> names = new List<SongName>();
 		private string originalName;
@@ -118,13 +118,13 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual IList<SongMetadataEntry> Metadata {
+		/*public virtual IList<SongMetadataEntry> Metadata {
 			get { return metadata; }
 			set {
 				ParamIs.NotNull(() => value);
 				metadata = value;
 			}
-		}
+		}*/
 
 		public virtual string DefaultName {
 			get {

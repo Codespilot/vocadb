@@ -134,6 +134,26 @@ namespace VocaDb.Model.Domain.Users {
 
 		}
 
+		public virtual bool Equals(User another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.NameLC == another.NameLC;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as User);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public virtual void SetEmail(string newEmail) {
 			
 			ParamIs.NotNull(() => newEmail);

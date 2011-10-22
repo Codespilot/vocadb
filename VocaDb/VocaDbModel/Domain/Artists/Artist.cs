@@ -16,7 +16,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private string description;
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
-		private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
+		//private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
 		private IList<ArtistName> names = new List<ArtistName>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
 		private IList<ArtistWebLink> webLinks = new List<ArtistWebLink>();
@@ -108,13 +108,13 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual TranslatedString TranslatedName { get; set; }
 
-		public virtual IList<ArtistMetadataEntry> Metadata {
+		/*public virtual IList<ArtistMetadataEntry> Metadata {
 			get { return metadata; }
 			set {
 				ParamIs.NotNull(() => value);
 				metadata = value;
 			}
-		}
+		}*/
 
 		public virtual IEnumerable<GroupForArtist> Members {
 			get { return AllMembers.Where(m => !m.Member.Deleted); }

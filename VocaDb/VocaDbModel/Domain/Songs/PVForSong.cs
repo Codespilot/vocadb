@@ -1,6 +1,8 @@
-﻿namespace VocaDb.Model.Domain.Songs {
+﻿using System;
 
-	public class PVForSong {
+namespace VocaDb.Model.Domain.Songs {
+
+	public class PVForSong : IEquatable<PVForSong> {
 
 		private string name;
 		private string pvId;
@@ -67,6 +69,27 @@
 
 			}
 		}
+
+		public virtual bool Equals(PVForSong another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as PVForSong);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 
 		public virtual void OnDelete() {
 

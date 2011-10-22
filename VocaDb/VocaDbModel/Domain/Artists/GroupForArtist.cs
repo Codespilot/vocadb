@@ -44,6 +44,26 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
+		public virtual bool Equals(GroupForArtist another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as GroupForArtist);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public virtual void MoveToGroup(Artist target) {
 
 			ParamIs.NotNull(() => target);
