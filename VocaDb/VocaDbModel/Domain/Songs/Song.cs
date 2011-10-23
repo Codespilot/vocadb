@@ -283,6 +283,9 @@ namespace VocaDb.Model.Domain.Songs {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}

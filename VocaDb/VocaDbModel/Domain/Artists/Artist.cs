@@ -247,6 +247,9 @@ namespace VocaDb.Model.Domain.Artists {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}

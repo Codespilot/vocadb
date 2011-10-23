@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Remotion.Linq.Utilities;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
@@ -11,7 +10,7 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class Album {
+	public class Album : IEquatable<Album> {
 
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
@@ -131,6 +130,20 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual OptionalDateTime OriginalReleaseDate {
+			get {
+
+				if (OriginalRelease == null)
+					OriginalRelease = new AlbumRelease();
+
+				if (OriginalRelease.ReleaseDate == null)
+					OriginalRelease.ReleaseDate = new OptionalDateTime();
+
+				return OriginalRelease.ReleaseDate;
+
+			}
+		}
+
 		public virtual IEnumerable<SongInAlbum> Songs {
 			get {
 				return AllSongs.Where(s => !s.Song.Deleted);
@@ -152,6 +165,15 @@ namespace VocaDb.Model.Domain.Albums {
 			ParamIs.NotNull(() => song);
 
 			var trackNum = (Songs.Any() ? Songs.Max(s => s.TrackNumber) + 1 : 1);
+
+			return AddSong(song, trackNum);
+
+		}
+
+		public virtual SongInAlbum AddSong(Song song, int trackNum) {
+
+			ParamIs.NotNull(() => song);
+
 			var track = new SongInAlbum(song, this, trackNum);
 			AllSongs.Add(track);
 			song.AllAlbums.Add(track);
@@ -217,6 +239,9 @@ namespace VocaDb.Model.Domain.Albums {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}
@@ -227,6 +252,14 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public override int GetHashCode() {
 			return base.GetHashCode();
+		}
+
+		public virtual bool HasSong(Song song) {
+
+			ParamIs.NotNull(() => song);
+
+			return Songs.Any(a => a.Song.Equals(song));
+
 		}
 
 		public virtual void MoveSongDown(SongInAlbum songInAlbum) {

@@ -41,7 +41,7 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpPost]
-		public ActionResult Index(IEnumerable<MikuDbAlbumContract> albums) {
+		public ActionResult PrepareForImport(IEnumerable<MikuDbAlbumContract> albums) {
 
 			var selectedIds = (albums != null ? albums.Where(a => a.Selected).Select(a => a.Id).ToArray() : new int[] {});
 			var result = Service.Inspect(selectedIds);
@@ -58,11 +58,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult PrepareForImport(PrepareAlbumsForImport model) {
+		[HttpPost]
+		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums) {
 
-			//var result = Service.Inspect(model.Albums);
+			var ids = albums.Select(a => a.ImportedAlbum.Id).ToArray();
 
-			return View(model);
+			var result = Service.AcceptImportedAlbums(ids);
+
+			return RedirectToAction("Index");
 
 		}
 
