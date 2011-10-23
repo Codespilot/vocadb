@@ -1,14 +1,17 @@
-﻿@model VocaDb.Model.DataContracts.MikuDb.InspectedAlbum
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Model.DataContracts.MikuDb.InspectedAlbum
+
+@using (Html.BeginCollectionItem("albums")) {
 
 <div>
 	<h3><a href="@Model.ImportedAlbum.SourceUrl">@Model.ImportedAlbum.Title</a></h3>
+	@Html.HiddenFor(m => m.ImportedAlbum.Id)
 	<table>
 		<tr>
 			<td>
 				<img src="@Url.Action("CoverPicture", new { id = Model.ImportedAlbum.Id })" alt="Cover picture" class="coverPic" />			
-			</td><td>
 				<p>
-					Existing album: 
+					Existing album:<br /> 
 					@if (Model.ExistingAlbum != null) { 
 						<span>@Html.ActionLink(Model.ExistingAlbum.Name, "Details", "Album", new { id = Model.ExistingAlbum.Id }, new { title = Model.ExistingAlbum.AdditionalNames })</span> 
 					} else {
@@ -16,11 +19,9 @@
 					}
 				</p>
 				@if (Model.ImportedAlbum.Data.ReleaseYear != null) {
-					<span>Release year: @Model.ImportedAlbum.Data.ReleaseYear</span>
+					<p>Release year: @Model.ImportedAlbum.Data.ReleaseYear</p>
 				}			
 			</td>
-		</tr>
-		<tr>
 			<td>
 				<h4>Artists</h4>
 				<ul>
@@ -35,7 +36,29 @@
 					</li>
 				}
 				</ul>
+
+				<h4>Tracks</h4>
+				@if (Model.Tracks != null) {
+				<div class="tracklist">
+					<ul>
+					@foreach (var track in Model.Tracks) {
+						<li>
+							<span>@track.ImportedTrack.TrackNum</span>. <span>@track.ImportedTrack.Title</span>
+							@if (track.ExistingSong != null) {
+								<span>@Html.ActionLink(track.ExistingSong.Name, "Details", "Song", new { id = track.ExistingSong.Id }, new { title = track.ExistingSong.AdditionalNames })</span>
+							} else {
+								<span>(no match)</span>
+							}
+						</li>
+					}				
+					</ul>
+				</div>
+				} else {
+					<p>No tracks will be imported.</p>
+				}
 			</td>
 		</tr>
 	</table>
 </div>
+
+}

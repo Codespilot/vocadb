@@ -5,6 +5,8 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
+using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service.MikuDb;
@@ -21,6 +23,69 @@ namespace VocaDb.Model.Service {
 
 		public MikuDbAlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
 			: base(sessionFactory, permissionContext) {}
+
+		private AlbumContract AcceptImportedAlbum(ISession session, InspectedAlbum acceptedAlbum) {
+			
+			Album album;
+
+			if (acceptedAlbum.ExistingAlbum == null) {
+
+				album = new Album(new TranslatedString(acceptedAlbum.ImportedAlbum.Title));
+				session.Save(album);
+
+			} else {
+				album = session.Load<Album>(acceptedAlbum.ExistingAlbum.Id);
+			}
+
+			foreach (var inspectedArtist in acceptedAlbum.Artists.Where(a => a.ExistingArtist != null)) {
+
+				var artist = session.Load<Artist>(inspectedArtist.ExistingArtist.Id);
+
+				if (!artist.HasAlbum(album))
+					session.Save(artist.AddAlbum(album));
+
+			}
+
+			if (!album.Songs.Any()) {
+
+				foreach (var inspectedTrack in acceptedAlbum.Tracks) {
+
+					Song song;
+
+					if (inspectedTrack.ExistingSong == null) {
+						song = new Song(new TranslatedString(inspectedTrack.ImportedTrack.Title), null);
+						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum);
+						session.Save(song);
+					} else {
+						song = session.Load<Song>(inspectedTrack.ExistingSong.Id);
+						if (!album.HasSong(song))
+							session.Save(album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum));
+					}
+
+				}
+	
+			}
+
+			if (acceptedAlbum.ImportedAlbum.CoverPicture != null && album.CoverPicture == null) {
+				album.CoverPicture = new PictureData(acceptedAlbum.ImportedAlbum.CoverPicture);				
+			}
+
+			if (acceptedAlbum.ImportedAlbum.Data.ReleaseYear != null && album.OriginalReleaseDate.Year == null)
+				album.OriginalReleaseDate.Year = acceptedAlbum.ImportedAlbum.Data.ReleaseYear;
+
+			if (!album.WebLinks.Any(w => w.Url.Contains("mikudb.com")))
+				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl);
+
+			session.Update(album);
+
+			var importedAlbum = session.Load<MikuDbAlbum>(acceptedAlbum.ImportedAlbum.Id);
+			importedAlbum.Status = AlbumStatus.Approved;
+
+			session.Update(importedAlbum);
+
+			return new AlbumContract(album, PermissionContext.LanguagePreference);
+
+		}
 
 		private Album FindAlbum(ISession session, MikuDbAlbum imported) {
 
@@ -108,6 +173,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private InspectedAlbum[] Inspect(ISession session, int[] importedAlbumIds) {
+
+			var importedAlbums = session.Query<MikuDbAlbum>().Where(a => importedAlbumIds.Contains(a.Id)).ToArray();
+
+			return importedAlbums.Select(s => Inspect(session, s)).ToArray();
+
+		}
+
 		private InspectedAlbum Inspect(ISession session, MikuDbAlbum imported) {
 
 			var albumMatch = FindAlbum(session, imported);
@@ -159,6 +232,29 @@ namespace VocaDb.Model.Service {
 				inspected.ExistingSong = new SongWithAdditionalNamesContract(existingSong, PermissionContext.LanguagePreference);
 
 			return inspected;
+
+		}
+
+		public AlbumContract[] AcceptImportedAlbums(int[] importedAlbumIds) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport | PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var importedAlbums = new List<AlbumContract>(importedAlbumIds.Length);
+				var inspected = Inspect(session, importedAlbumIds);
+
+				foreach (var acceptedAlbum in inspected) {
+
+					var album = AcceptImportedAlbum(session, acceptedAlbum);
+
+					importedAlbums.Add(album);
+
+				}
+
+				return importedAlbums.ToArray();
+
+			});
 
 		}
 
@@ -224,13 +320,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => importedAlbumIds);
 
-			return HandleQuery(session => {
-
-				var importedAlbums = session.Query<MikuDbAlbum>().Where(a => importedAlbumIds.Contains(a.Id)).ToArray();
-
-				return importedAlbums.Select(s => Inspect(session, s)).ToArray();
-
-			});
+			return HandleQuery(session => Inspect(session, importedAlbumIds));
 
 		}
 

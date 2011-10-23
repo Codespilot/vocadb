@@ -4,6 +4,12 @@
     ViewBag.Title = "Importing albums";
 }
 
-@foreach (var album in Model.Albums) {
+@using (Html.BeginForm("AcceptImported", "MikuDbAlbum")) {
+
+foreach (var album in Model.Albums) {
 	Html.RenderPartial("InspectedAlbumRow", album);
+}
+
+<input type="submit" value="Accept" />
+
 }
