@@ -8,6 +8,12 @@
     ViewBag.Title = "Songs";
 }
 
+@section Toolbar {
+@if (Login.CanManageDb) {
+	@Html.ActionLink("Create", "Create", new { id = "createLink" })
+}
+}
+
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
 @using (Html.BeginForm("Index", "Song")) {
@@ -34,7 +40,7 @@
 }
 
 @model VocaDb.Web.Models.ObjectCreate
-@if (Login.CanManageDb) {
+@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
 	using (Html.BeginForm("Create", "Song")) {
 	
     <div>
@@ -51,3 +57,12 @@
 	</div>
 	}
 }
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage() 
+	});
+
+</script>

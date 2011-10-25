@@ -49,25 +49,26 @@
 				@Html.ValidationMessageFor(m => m.PVUrl)
 			</div>
 
-			<table>
-				<tr>
-				<td>
-					<div class="editor-label">
-						Vocalists
-					</div>
-					<div class="editor-field">
-						<ul>
-						
-						</ul>
-					</div>
-				</td>
-				<td>
-				
-				</td>
-				</tr>
-			</table>
+			<div class="editor-label">
+				Artists (need at least 1)
+			</div>
+			<div class="editor-field">
+				@Html.ValidationMessage("Artists");
+				<table>
+				@{ Html.RenderPartial("AddNewEntryRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }				
+				</table>
+			</div>
 
 		</fieldset>
 	</div>
 	
 }
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Create.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		initPage()
+	});
+
+</script>

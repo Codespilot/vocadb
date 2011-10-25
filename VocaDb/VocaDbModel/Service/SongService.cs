@@ -238,33 +238,45 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongContract CreateSong(CreateSongContract contract) {
+		public SongContract Create(CreateSongContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			AuditLog("creating a new song with name '" + contract.Name.Default + "'");
 
 			return HandleTransaction(session => {
 
-				if (!string.IsNullOrEmpty(contract.BasicData.NicoId)) {
+				VideoUrlParseResult pvResult = null;
 
-					var existing = session.Query<Song>().FirstOrDefault(s => s.NicoId == contract.BasicData.NicoId);
+				if (!string.IsNullOrEmpty(contract.PVUrl)) {
+
+					pvResult = VideoServiceHelper.ParseByUrl(contract.PVUrl);
+
+					var existing = session.Query<PVForSong>().FirstOrDefault(s => s.Service == pvResult.Service 
+						&& s.PVId == pvResult.Id);
 
 					if (existing != null) {
-						throw new ServiceException("Song with NicoId '" + contract.BasicData.NicoId + "' has already been added");
+						throw new VideoParseException(string.Format("Song '{0}' already contains this PV", 
+							existing.Song.TranslatedName[PermissionContext.LanguagePreference]));
 					}			
 		
 				}
 
-				var song = new Song(new TranslatedString(contract.BasicData.Name), contract.BasicData.NicoId);
+				var song = new Song(new TranslatedString(contract.Name), null);
+				session.Save(song);
 
-				if (contract.AlbumId != null)
-					song.AddAlbum(session.Load<Album>(contract.AlbumId.Value), 0);
+				foreach (var artist in contract.Artists) {
+					session.Save(song.AddArtist(session.Load<Artist>(artist.Id)));
+				}
 
-				if (contract.PerformerId != null)
-					song.AddArtist(session.Load<Artist>(contract.PerformerId.Value));
-
-				if (contract.ProducerId != null)
-					song.AddArtist(session.Load<Artist>(contract.ProducerId.Value));
+				if (pvResult != null) {
+					session.Save(song.CreatePV(pvResult.Service, pvResult.Id, PVType.Original));
+				}
 
 				song.UpdateArtistString();
-				session.Save(song);
+				session.Update(song);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
 

@@ -1,0 +1,13 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Model.DataContracts.Artists.ArtistContract
+
+@using (Html.BeginCollectionItem("artists")) {
+
+<tr>
+	<td>@Html.ActionLink(Model.Name, "Details", "Artist", new { id = Model.Id }, null)</td>
+	<td>
+		<input type="button" class="artistRemove" value="Remove" />
+	</td>
+</tr>
+	
+}

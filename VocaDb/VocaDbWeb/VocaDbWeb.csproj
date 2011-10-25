@@ -311,8 +311,10 @@
     <Content Include="Scripts\PagedList\PagedList.Mvc.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.Template.html" />
     <Content Include="Scripts\Shared\AddNewLinkRow.js" />
+    <Content Include="Scripts\Song\Create.js" />
     <Content Include="Scripts\Song\Details.js" />
     <Content Include="Scripts\Song\Edit.js" />
+    <Content Include="Scripts\Song\Index.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-af.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
@@ -597,6 +599,8 @@
     <Content Include="Views\MikuDbAlbum\PrepareForImport.cshtml" />
     <Content Include="Views\MikuDbAlbum\InspectedAlbumRow.cshtml" />
     <Content Include="Views\Song\Create.cshtml" />
+    <Content Include="Views\Shared\AddNewEntryDiv.cshtml" />
+    <Content Include="Views\Song\ArtistForSongRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

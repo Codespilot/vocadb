@@ -13,6 +13,8 @@ using VocaDb.Web.Models;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
+using VocaDb.Web.Models.Song;
+using VocaDb.Model.DataContracts.Artists;
 
 namespace VocaDb.Web.Controllers
 {
@@ -72,6 +74,43 @@ namespace VocaDb.Web.Controllers
 			}
 
         }
+
+		public ActionResult Create() {
+
+			return View();
+
+		}
+
+		[HttpPost]
+		public ActionResult Create(Create model, IEnumerable<ArtistContract> artists) {
+
+			if (artists == null || !artists.Any())
+				ModelState.AddModelError("Artists", "Need at least one artist");
+
+			if (!ModelState.IsValid)
+				return View();
+
+			var contract = model.ToContract();
+			contract.Artists = artists.ToArray();
+
+			try {
+				var song = Service.Create(contract);
+				return RedirectToAction("Details", new { id = song.Id });
+			} catch (VideoParseException x) {
+				ModelState.AddModelError("PVUrl", x);
+				return View();
+			}
+
+		}
+
+		[HttpPost]
+		public PartialViewResult CreateArtistForSongRow(int artistId) {
+
+			var artist = MvcApplication.Services.Artists.GetArtist(artistId);
+
+			return PartialView("ArtistForSongRow", artist);
+
+		}
         
         //
         // GET: /Song/Edit/5
