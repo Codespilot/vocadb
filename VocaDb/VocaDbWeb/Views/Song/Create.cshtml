@@ -53,9 +53,9 @@
 				Artists (need at least 1)
 			</div>
 			<div class="editor-field">
-				@Html.ValidationMessage("Artists");
+				@Html.ValidationMessage("Artists")
 				<table>
-				@{ Html.RenderPartial("AddNewEntryRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }				
+				@{ Html.RenderPartial("AddNewLinkRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 				</table>
 			</div>
 
