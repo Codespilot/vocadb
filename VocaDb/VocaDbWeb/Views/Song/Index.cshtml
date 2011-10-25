@@ -41,7 +41,7 @@
 
 @model VocaDb.Web.Models.ObjectCreate
 @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
-	using (Html.BeginForm("Create", "Song")) {
+	using (Html.BeginForm("CreateQuick", "Song")) {
 	
     <div>
         <fieldset>
