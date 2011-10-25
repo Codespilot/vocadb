@@ -43,7 +43,7 @@
 					<ul>
 					@foreach (var track in Model.Tracks) {
 						<li>
-							<span>@track.ImportedTrack.TrackNum</span>. <span>@track.ImportedTrack.Title</span>
+							<span>@track.ImportedTrack.TrackNum</span>. <span>@track.ImportedTrack.Title</span>:
 							@if (track.ExistingSong != null) {
 								<span>@Html.ActionLink(track.ExistingSong.Name, "Details", "Song", new { id = track.ExistingSong.Id }, new { title = track.ExistingSong.AdditionalNames })</span>
 							} else {

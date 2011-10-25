@@ -7,7 +7,9 @@ namespace VocaDb.Model.Helpers
 
 		public static byte[] ReadStream(Stream input, long length) {
 
-			input.Position = 0;
+			if (input.CanSeek && input.Position > 0)
+				input.Position = 0;
+
 			int buffer = 1024;
 			var buf = new byte[buffer];
 			var wholeBuf = new byte[length];

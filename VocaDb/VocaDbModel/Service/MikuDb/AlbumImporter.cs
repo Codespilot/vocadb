@@ -1,29 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Xml.Linq;
 using HtmlAgilityPack;
 using log4net;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.MikuDb {
 
 	public class AlbumImporter {
-
-		private class DataAndCover {
-
-			public PictureDataContract CoverPicture { get; set; }
-
-			public ImportedAlbumDataContract AlbumData { get; set; }
-
-		}
 
 		private const string albumIndexUrl = "http://mikudb.com/album-index/";
 		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumImporter));
@@ -136,9 +124,15 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
-		private DataAndCover GetAlbumData(HtmlDocument doc) {
+		private MikuDbAlbumContract GetAlbumData(HtmlDocument doc, string url) {
 
 			var data = new ImportedAlbumDataContract();
+
+			string title = string.Empty;
+			var titleElem = doc.DocumentNode.SelectSingleNode(".//h2[@class='posttitle']/a");
+
+			if (titleElem != null)
+				title = HtmlEntity.DeEntitize(titleElem.InnerText);
 
 			var coverPicLink = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]/td[1]/a/img");
 			PictureDataContract coverPicture = null;
@@ -192,11 +186,11 @@ namespace VocaDb.Model.Service.MikuDb {
 
 			}
 
-			return new DataAndCover {AlbumData = data, CoverPicture = coverPicture};
+			return new MikuDbAlbumContract { Title = title, Data = data, CoverPicture = coverPicture, SourceUrl = url };
 
 		}
 
-		private DataAndCover GetAlbumData(string url) {
+		private MikuDbAlbumContract GetAlbumData(string url) {
 
 			HtmlDocument doc;
 			
@@ -207,7 +201,7 @@ namespace VocaDb.Model.Service.MikuDb {
 				throw;
 			}
 
-			return GetAlbumData(doc);
+			return GetAlbumData(doc, url);
 
 		}
 
@@ -229,10 +223,16 @@ namespace VocaDb.Model.Service.MikuDb {
 				if (existingUrls.Contains(url))
 					continue;
 
-				var name = link.InnerText;
+				//var name = HtmlEntity.DeEntitize(link.InnerText);
 				var data = GetAlbumData(url);
 
-				list.Add(new AlbumImportResult {AlbumContract = new MikuDbAlbumContract {Title = name, SourceUrl = url, CoverPicture = data.CoverPicture, Data = data.AlbumData}});
+				list.Add(new AlbumImportResult {AlbumContract = data});
+
+				/*list.Add(new AlbumImportResult {
+					AlbumContract = new MikuDbAlbumContract {
+						Title = name, SourceUrl = url, CoverPicture = data.CoverPicture, Data = data.AlbumData
+					}
+				});*/
 
 				if (list.Count >= maxResults)
 					break;
@@ -263,6 +263,17 @@ namespace VocaDb.Model.Service.MikuDb {
 			}
 
 			return Import(albumIndex);
+
+		}
+
+		public AlbumImportResult ImportOne(string url) {
+			
+			if (existingUrls.Contains(url))
+				return new AlbumImportResult { Message = "Album already imported" };
+
+			var data = GetAlbumData(url);
+
+			return new AlbumImportResult {AlbumContract = data};
 
 		}
 

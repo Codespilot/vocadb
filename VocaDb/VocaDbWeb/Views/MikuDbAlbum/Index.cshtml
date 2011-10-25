@@ -17,6 +17,15 @@
 }
 }
 
+@using (Html.BeginForm("ImportOne", "MikuDbAlbum")) {
+
+	<p>Import one album: </p>
+	@Html.TextBox("AlbumUrl", null, new { size = 30, maxlength = 255 })
+	
+	<input type="submit" value="Import" />
+	
+}
+	
 @using (Html.BeginForm("Index", "MikuDbAlbum")) {
 	
 <p>
