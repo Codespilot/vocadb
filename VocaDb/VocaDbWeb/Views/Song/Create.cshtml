@@ -1,0 +1,73 @@
+﻿@model VocaDb.Web.Models.Song.Create
+
+@{
+    ViewBag.Title = "Submit a new song";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Songs", "Index")
+	};	
+}
+
+@using (Html.BeginForm("Create", "Song", FormMethod.Post)) {
+
+	<div>
+		<fieldset>
+			<table><tr>
+			<td>Name:</td>
+			<td><div class="editor-label">
+				@Html.LabelFor(m => m.NameOriginal) *
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.NameOriginal)
+				@Html.ValidationMessageFor(m => m.NameOriginal)
+			</div>
+			</td><td>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.NameRomaji)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.NameRomaji)
+				@Html.ValidationMessageFor(m => m.NameRomaji)
+			</div>
+			</td><td>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.NameEnglish)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.NameEnglish)
+				@Html.ValidationMessageFor(m => m.NameEnglish)
+			</div>
+			</td></tr>
+			</table>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.PVUrl)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.PVUrl)
+				@Html.ValidationMessageFor(m => m.PVUrl)
+			</div>
+
+			<table>
+				<tr>
+				<td>
+					<div class="editor-label">
+						Vocalists
+					</div>
+					<div class="editor-field">
+						<ul>
+						
+						</ul>
+					</div>
+				</td>
+				<td>
+				
+				</td>
+				</tr>
+			</table>
+
+		</fieldset>
+	</div>
+	
+}
