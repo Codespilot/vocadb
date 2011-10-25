@@ -77,7 +77,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Create() {
 
-			return View();
+			return View(new Create());
 
 		}
 
