@@ -4,6 +4,7 @@
 <tr>
 	<td>
 		@using (Html.BeginCollectionItem("artists")) {
+			@Html.HiddenFor(m => m.Id);
 			@Html.ActionLink(Model.Name, "Details", "Artist", new { id = Model.Id }, null);
 		}
 	</td>

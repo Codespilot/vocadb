@@ -9,6 +9,8 @@
 
 @using (Html.BeginForm("Create", "Song", FormMethod.Post)) {
 
+	@Helpers.ValidationSymmaryPanel("Unable to create song. Correct the errors and try again.");
+	
 	<div>
 		<fieldset>
 			<table><tr>
@@ -17,7 +19,7 @@
 				@Html.LabelFor(m => m.NameOriginal) *
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameOriginal)
+				@Html.TextBoxFor(m => m.NameOriginal)<br />
 				@Html.ValidationMessageFor(m => m.NameOriginal)
 			</div>
 			</td><td>
@@ -45,7 +47,7 @@
 				@Html.LabelFor(m => m.PVUrl)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.PVUrl)
+				@Html.TextBoxFor(m => m.PVUrl, new { size = 30 })
 				@Html.ValidationMessageFor(m => m.PVUrl)
 			</div>
 
@@ -55,6 +57,11 @@
 			<div class="editor-field">
 				@Html.ValidationMessage("Artists")
 				<table>
+				@if (Model != null && Model.Artists != null) {
+					foreach (var artist in Model.Artists) {
+						Html.RenderPartial("ArtistForSongRow", artist);
+					}
+				}
 				@{ Html.RenderPartial("AddNewLinkRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 				</table>
 			</div>

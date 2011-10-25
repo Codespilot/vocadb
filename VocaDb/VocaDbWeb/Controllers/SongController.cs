@@ -59,7 +59,7 @@ namespace VocaDb.Web.Controllers
         // POST: /Song/Create
 
         [HttpPost]
-        public ActionResult Create(ObjectCreate model)
+		public ActionResult CreateQuick(ObjectCreate model)
         {
 
 			if (ModelState.IsValid) {
@@ -85,10 +85,10 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Create(Create model, IEnumerable<ArtistContract> artists) {
 
 			if (artists == null || !artists.Any())
-				ModelState.AddModelError("Artists", "Need at least one artist");
+				ModelState.AddModelError("Artists", "Need at least one artist.");
 
 			if (!ModelState.IsValid)
-				return View();
+				return View(model);
 
 			var contract = model.ToContract();
 			contract.Artists = artists.ToArray();
@@ -98,7 +98,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Details", new { id = song.Id });
 			} catch (VideoParseException x) {
 				ModelState.AddModelError("PVUrl", x);
-				return View();
+				return View(model);
 			}
 
 		}
