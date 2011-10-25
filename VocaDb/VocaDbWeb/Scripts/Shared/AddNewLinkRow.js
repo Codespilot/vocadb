@@ -8,15 +8,11 @@
 		var findList = $(findListId);
 		var findTerm = $(this).val();
 
-		if (findTerm.length < 3) {
+		if (findTerm.length == 0) {
 
 			$(findList).empty();
-
-			if (findTerm.length > 0) {
-				addOption(findList, "", "Create new " + entityName + " named '" + findTerm + "'");
-			}
-
 			return;
+
 		}
 
 		$.post(searchUrl, { term: findTerm }, function (results) {

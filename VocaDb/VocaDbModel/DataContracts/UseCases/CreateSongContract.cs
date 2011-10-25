@@ -1,17 +1,16 @@
 ﻿using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Artists;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class CreateSongContract {
 
-		public int? AlbumId { get; set; }
+		public ArtistContract[] Artists { get; set; }
 
-		public SongContract BasicData { get; set; }
+		public TranslatedStringContract Name { get; set; }
 
-		public int? PerformerId { get; set; }
-
-		public int? ProducerId { get; set; }
-
+		public string PVUrl { get; set; }
+		
 	}
 
 }
