@@ -4,7 +4,7 @@
 <tr>
 	<td>
 		@using (Html.BeginCollectionItem("artists")) {
-			Html.ActionLink(Model.Name, "Details", "Artist", new { id = Model.Id }, null);
+			@Html.ActionLink(Model.Name, "Details", "Artist", new { id = Model.Id }, null);
 		}
 	</td>
 	 
