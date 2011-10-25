@@ -47,4 +47,10 @@ function initPage() {
 
 	});
 
+	$("input.artistRemove").live("click", function () {
+
+		$(this).parent().parent().remove();
+
+	});
+
 }
