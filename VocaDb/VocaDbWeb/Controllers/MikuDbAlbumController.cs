@@ -50,6 +50,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public ActionResult ImportOne(string AlbumUrl) {
+			
+			Service.ImportOne(AlbumUrl);
+
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult ImportNew() {
 
 			Service.ImportNew();

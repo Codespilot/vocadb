@@ -316,6 +316,27 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void ImportOne(string url) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
+
+			MikuDbAlbumContract[] existing = HandleQuery(session => session.Query<MikuDbAlbum>().Select(a => new MikuDbAlbumContract(a)).ToArray());
+
+			var importer = new AlbumImporter(existing);
+			var imported = importer.ImportOne(url);
+
+			if (imported.AlbumContract == null)
+				return;
+
+			HandleTransaction(session => {
+
+				var newAlbum = new MikuDbAlbum(imported.AlbumContract);
+				session.Save(newAlbum);
+
+			});
+
+		} 
+
 		public InspectedAlbum[] Inspect(int[] importedAlbumIds) {
 
 			ParamIs.NotNull(() => importedAlbumIds);
