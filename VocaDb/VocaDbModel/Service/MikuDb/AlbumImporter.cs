@@ -25,9 +25,10 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumImporter));
-
 		private const string albumIndexUrl = "http://mikudb.com/album-index/";
+		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumImporter));
+		private const int maxResults = 5;
+
 		private readonly HashSet<string> existingUrls;
 		
 		private HtmlNode FindTracklistRow(HtmlNode row) {
@@ -216,7 +217,7 @@ namespace VocaDb.Model.Service.MikuDb {
 			var albumDivs = listDiv.Descendants("div");
 			var list = new List<AlbumImportResult>();
 
-			foreach (var albumDiv in albumDivs.Take(3)) {
+			foreach (var albumDiv in albumDivs) {
 
 				var link = albumDiv.Element("a");
 
@@ -233,6 +234,9 @@ namespace VocaDb.Model.Service.MikuDb {
 
 				list.Add(new AlbumImportResult {AlbumContract = new MikuDbAlbumContract {Title = name, SourceUrl = url, CoverPicture = data.CoverPicture, Data = data.AlbumData}});
 
+				if (list.Count >= maxResults)
+					break;
+
 			}
 
 			return list.ToArray();
@@ -240,7 +244,9 @@ namespace VocaDb.Model.Service.MikuDb {
 		}
 
 		public AlbumImporter(IEnumerable<MikuDbAlbumContract> existingUrls) {
-			
+
+			ParamIs.NotNull(() => existingUrls);
+
 			this.existingUrls = new HashSet<string>(existingUrls.Select(a => a.SourceUrl));
 
 		}

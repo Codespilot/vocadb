@@ -66,8 +66,11 @@ namespace VocaDb.Model.Service {
 	
 			}
 
-			if (acceptedAlbum.ImportedAlbum.CoverPicture != null && album.CoverPicture == null) {
-				album.CoverPicture = new PictureData(acceptedAlbum.ImportedAlbum.CoverPicture);				
+			var importedAlbum = session.Load<MikuDbAlbum>(acceptedAlbum.ImportedAlbum.Id);
+			importedAlbum.Status = AlbumStatus.Approved;
+
+			if (importedAlbum.CoverPicture != null && album.CoverPicture == null) {
+				album.CoverPicture = importedAlbum.CoverPicture;
 			}
 
 			if (acceptedAlbum.ImportedAlbum.Data.ReleaseYear != null && album.OriginalReleaseDate.Year == null)
@@ -77,9 +80,6 @@ namespace VocaDb.Model.Service {
 				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl);
 
 			session.Update(album);
-
-			var importedAlbum = session.Load<MikuDbAlbum>(acceptedAlbum.ImportedAlbum.Id);
-			importedAlbum.Status = AlbumStatus.Approved;
 
 			session.Update(importedAlbum);
 

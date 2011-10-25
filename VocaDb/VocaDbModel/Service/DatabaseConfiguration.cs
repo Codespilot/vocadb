@@ -5,6 +5,7 @@ using log4net;
 using NHibernate;
 using VocaDb.Model.Mapping;
 using VocaDb.Model.Mapping.Songs;
+using System.Configuration;
 
 namespace VocaDb.Model.Service {
 
@@ -12,12 +13,18 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(DatabaseConfiguration));
 
+		private static string ConnectionStringName {
+			get {
+				return ConfigurationManager.AppSettings["ConnectionStringName"] ?? "Jupiter";
+			}
+		}
+
 		public static ISessionFactory BuildSessionFactory() {
 
 			var config = Fluently.Configure()
 				.Database(
 					MsSqlConfiguration.MsSql2008
-						.ConnectionString(c => c.FromConnectionStringWithKey("Jupiter"))
+						.ConnectionString(c => c.FromConnectionStringWithKey(ConnectionStringName))
 						.MaxFetchDepth(1)
 #if !DEBUG
 					.UseReflectionOptimizer()
