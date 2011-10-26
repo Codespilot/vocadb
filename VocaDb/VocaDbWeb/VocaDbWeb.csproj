@@ -108,12 +108,14 @@
     <Compile Include="Helpers\Translate.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AlbumModels.cs" />
+    <Compile Include="Models\Album\Index.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\Song\Create.cs" />
+    <Compile Include="Models\Song\Index.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\QueryService.svc.cs">
