@@ -12,6 +12,7 @@ using System.Drawing;
 using VocaDb.Model.Helpers;
 using PagedList;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Web.Models.Album;
 
 namespace VocaDb.Web.Controllers
 {
@@ -31,10 +32,9 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, true);
 
-			ViewBag.Filter = filter;
-			ViewBag.Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
+			var model = new Index(result, filter, page);
 
-            return View();
+            return View(model);
 
         }
 

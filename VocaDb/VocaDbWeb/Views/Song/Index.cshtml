@@ -1,8 +1,10 @@
 ﻿@using VocaDb.Web;
+@using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
 @using PagedList.Mvc;
 @using PagedList;
+@model VocaDb.Web.Models.Song.Index
 
 @{
     ViewBag.Title = "Songs";
@@ -18,13 +20,17 @@
 
 @using (Html.BeginForm("Index", "Song")) {
 	
-<p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Apply" /></p>
+<p>
+	Filter: @Html.TextBoxFor(m => m.Filter) 
+	&nbsp; 
+	<input type="submit" value="Apply" />
+</p>
 
-@if (ViewBag.OnePageOfProducts.Any()) {
+if (Model.Songs.Any()) {
 	
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter }))
 <table>
-@foreach (SongWithAdditionalNamesContract song in ViewBag.OnePageOfProducts) {
+@foreach (var song in Model.Songs) {
 	<tr>
 		<td>
 			@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })<br />
@@ -38,32 +44,20 @@
 	</tr>	
 }
 </table>
-@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
-}
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter }))
+	}
 
-} else {
+}
+@if (!Model.Songs.Any()) {
 
 	<p>No results! Try a different query or Google site search.</p>
 	@Helpers.GoogleSiteSearch()
 
 }
 
-@model VocaDb.Web.Models.ObjectCreate
 @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
 	using (Html.BeginForm("CreateQuick", "Song")) {
-	
-    <div>
-        <fieldset>
-            <div class="editor-label">
-                Name:
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.Name)
-                @Html.ValidationMessageFor(m => m.Name)
-            </div>			
-			<input type="submit" value="Create" />
-		</fieldset>
-	</div>
+		Html.RenderPartial("ObjectCreateForm", new ObjectCreate());
 	}
 }
 
