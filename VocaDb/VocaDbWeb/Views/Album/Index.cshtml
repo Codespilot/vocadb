@@ -13,6 +13,8 @@
 	
 <p>Filter: @Html.TextBox("filter") &nbsp; <input type="submit" value="Apply" /></p>
 
+@if (ViewBag.Albums.Any()) {
+	
 @Html.PagedListPager((IPagedList)ViewBag.Albums, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
 
 <table>
@@ -28,13 +30,20 @@
 		<td>
 			@if (Login.CanManageDb) {
 				@Html.ActionLink("Edit", "Edit", new { id = album.Id })
-			}
+   }
 		</td>
 	</tr>
 }
 </table>
 
 @Html.PagedListPager((IPagedList)ViewBag.Albums, page => Url.Action("Index", new { page, filter = ViewBag.Filter }))
+}
+
+} else {
+
+	<p>No results! Try a different query or Google site search.</p>
+	@Helpers.GoogleSiteSearch()
+
 }
 
 @model VocaDb.Web.Models.ObjectCreate

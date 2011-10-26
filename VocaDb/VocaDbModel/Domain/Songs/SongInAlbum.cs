@@ -55,6 +55,19 @@ namespace VocaDb.Model.Domain.Songs {
 			return base.GetHashCode();
 		}
 
+		public virtual void Move(Album target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Album))
+				return;
+
+			Album.AllSongs.Remove(this);
+			Album = target;
+			target.AllSongs.Add(this);
+
+		}
+
 		public virtual void OnDeleting() {
 			
 			Album.OnSongDeleting(this);

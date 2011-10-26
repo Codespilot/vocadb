@@ -287,10 +287,20 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Merge(int id) {
 
-			var album = Service.GetAlbumDetails(id);
+			var album = Service.GetAlbum(id);
 			return View(album);
 
 		}
+
+		[HttpPost]
+		public ActionResult Merge(int id, int artistList) {
+
+			Service.Merge(id, artistList);
+
+			return RedirectToAction("Edit", new { id = artistList });
+
+		}
+
 
     }
 }
