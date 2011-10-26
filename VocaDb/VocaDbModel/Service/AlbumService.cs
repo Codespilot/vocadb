@@ -16,6 +16,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Artists;
 using System.Drawing;
+using System;
 
 namespace VocaDb.Model.Service {
 
@@ -380,6 +381,16 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumContract GetAlbum(int id) {
+
+			return HandleQuery(session => {
+
+				return new AlbumContract(session.Load<Album>(id), PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public AlbumDetailsContract GetAlbumDetails(int id) {
 
 			return HandleQuery(session => {
@@ -430,6 +441,60 @@ namespace VocaDb.Model.Service {
 					return new PictureContract(album.CoverPicture, requestedSize);
 				else
 					return null;
+
+			});
+
+		}
+
+		public void Merge(int sourceId, int targetId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);
+
+			if (sourceId == targetId)
+				throw new ArgumentException("Source and target albums can't be the same", "targetId");
+
+			HandleTransaction(session => {
+
+				var source = session.Load<Album>(sourceId);
+				var target = session.Load<Album>(targetId);
+
+				AuditLog("Merging " + source + " to " + target);
+				Archive(session, source);
+				Archive(session, target);
+
+				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
+					var name = target.CreateName(n.Value, n.Language);
+					session.Save(name);
+				}
+
+				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
+					var link = target.CreateWebLink(w.Description, w.Url);
+					session.Save(link);
+				}
+
+				var artists = source.Artists.Where(a => !target.HasArtist(a.Artist)).ToArray();
+				foreach (var a in artists) {
+					a.Move(target);
+					session.Update(a);
+				}
+
+				var songs = source.Songs.Where(s => !target.HasSong(s.Song)).ToArray();
+				foreach (var s in songs) {
+					s.Move(target);
+					session.Update(s);
+				}
+
+				var userCollections = source.UserCollections.Where(a => !target.IsInUserCollection(a.User)).ToArray();
+				foreach (var u in userCollections) {
+					u.Move(target);
+					session.Update(u);
+				}
+
+				if (target.Description == string.Empty)
+					target.Description = source.Description;
+
+				source.Deleted = true;
+				session.Update(source);
 
 			});
 

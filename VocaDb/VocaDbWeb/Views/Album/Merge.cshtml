@@ -1,4 +1,34 @@
-﻿@{
-    ViewBag.Title = "Merge";
+﻿@model  VocaDb.Model.DataContracts.Albums.AlbumContract
+
+@{
+    ViewBag.Title = "Merge album - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Albums", "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }),
+		Html.ActionLink("Edit", "Edit", new { id = Model.Id }),
+	};		
 }
 
+@using (Html.BeginForm()) {
+
+<p>
+	Choose the entry which this one will be merged to. All references will be pointed to that new entry.
+</p>
+
+<p>
+	<input name="albumName" type="text" maxlength="128" id="albumName" /><br />
+	<select name="albumList" id="albumList" size="5" />
+</p>
+
+<input type="submit" value="Merge" />
+	
+}
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Merge.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id) 
+	});
+
+</script>

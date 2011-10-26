@@ -25,7 +25,7 @@ namespace VocaDb.Web.Models.Song {
 		[StringLength(255)]
 		public string NameOriginal { get; set; }
 
-		[Display(Name = "URL to the original PV (Youtube or NND)")]
+		[Display(Name = "URL to the original PV (NicoNicoDouga or Youtube)")]
 		[StringLength(255)]
 		public string PVUrl { get; set; }
 

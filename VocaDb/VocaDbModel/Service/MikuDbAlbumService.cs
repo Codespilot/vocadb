@@ -79,8 +79,9 @@ namespace VocaDb.Model.Service {
 			if (!album.WebLinks.Any(w => w.Url.Contains("mikudb.com")))
 				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl);
 
-			session.Update(album);
+			album.UpdateArtistString();
 
+			session.Update(album);
 			session.Update(importedAlbum);
 
 			return new AlbumContract(album, PermissionContext.LanguagePreference);

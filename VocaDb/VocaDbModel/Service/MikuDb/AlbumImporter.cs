@@ -18,23 +18,47 @@ namespace VocaDb.Model.Service.MikuDb {
 		private const int maxResults = 5;
 
 		private readonly HashSet<string> existingUrls;
-		
-		private HtmlNode FindTracklistRow(HtmlNode row) {
 
-			while (row != null) {
+		private bool ContainsTracklist(HtmlNode node) {
 
-				var cell = row.Element("td");
+			var text = StripHtml(node.InnerText);
 
-				if (cell != null) {
+			return (LineMatch(text, "Track list") || LineMatch(text, "Tracks list"));
 
-					var text = StripHtml(cell.InnerText);
+		}
 
-					if (LineMatch(text, "Track list"))
+		private HtmlNode FindTracklistRow(HtmlDocument doc, HtmlNode row) {
+
+			// Find the first table row on the page
+			if (row == null)
+				row = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]");
+
+			if (row != null) {
+
+				while (row != null) {
+
+					var cell = row.Element("td");
+
+					if (cell != null && ContainsTracklist(cell))
 						return row;
-					
+
+					row = row.NextSibling;
+
 				}
 
-				row = row.NextSibling;
+			} else {
+
+				// Legacy pages don't have a <table>, but <p> elements instead
+				row = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/p[2]");
+
+				while (row != null) {
+
+					if (ContainsTracklist(row))
+						return row;
+
+					row = row.NextSibling;
+
+				}
 
 			}
 
@@ -86,9 +110,8 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
-		private void ParseTrackList(ImportedAlbumDataContract data, HtmlNode trackListRow) {
+		private void ParseTrackList(ImportedAlbumDataContract data, HtmlNode cell) {
 
-			var cell = trackListRow.Element("td");
 			var lines = cell.InnerText.Split(new[] { "<br>", "<br />", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
 			var tracks = new List<ImportedAlbumTrack>();
@@ -156,8 +179,6 @@ namespace VocaDb.Model.Service.MikuDb {
 
 			var infoBox = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]/td[2]");
 
-			HtmlNode trackListRow;
-
 			if (infoBox != null) {
 
 				ParseInfoBox(data, infoBox);
@@ -171,14 +192,9 @@ namespace VocaDb.Model.Service.MikuDb {
 
 				}*/
 
-				trackListRow = FindTracklistRow(infoBox.ParentNode.NextSibling);
-
-			} else {
-
-				trackListRow = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]");
-				trackListRow = FindTracklistRow(trackListRow);
-		
 			}
+
+			var trackListRow = FindTracklistRow(doc, (infoBox != null ? infoBox.ParentNode.NextSibling : null));
 	
 			if (trackListRow != null) {
 				

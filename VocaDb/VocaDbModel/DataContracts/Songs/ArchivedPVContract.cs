@@ -12,6 +12,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			
 			ParamIs.NotNull(() => pvForSong);
 
+			Name = pvForSong.Name;
 			PVId = pvForSong.PVId;
 			Service = pvForSong.Service;
 			PVType = pvForSong.PVType;

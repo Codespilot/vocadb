@@ -59,6 +59,19 @@ namespace VocaDb.Model.Domain.Users {
 			return base.GetHashCode();
 		}
 
+		public virtual void Move(Album target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Album))
+				return;
+
+			Album.UserCollections.Remove(this);
+			Album = target;
+			target.UserCollections.Add(this);
+
+		}
+
 		public override string ToString() {
 			return string.Format("{0} for {1}", Album, User);
 		}

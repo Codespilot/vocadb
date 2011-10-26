@@ -7,6 +7,7 @@ using VocaDb.Model.Domain.Songs;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -18,6 +19,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<AlbumName> names = new List<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
+		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
 		protected IEnumerable<Artist> ArtistList {
@@ -150,6 +152,14 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual IList<AlbumForUser> UserCollections {
+			get { return userCollections; }
+			set {
+				ParamIs.NotNull(() => value);
+				userCollections = value;
+			}
+		}
+
 		public virtual int Version { get; set; }
 
 		public virtual IList<AlbumWebLink> WebLinks {
@@ -254,11 +264,44 @@ namespace VocaDb.Model.Domain.Albums {
 			return base.GetHashCode();
 		}
 
+		public virtual bool HasArtist(Artist artist) {
+
+			ParamIs.NotNull(() => artist);
+
+			return Artists.Any(a => a.Artist.Equals(artist));
+
+		}
+
+
+		public virtual bool HasName(LocalizedString name) {
+
+			ParamIs.NotNull(() => name);
+
+			return Names.Any(n => n.ContentEquals(name));
+
+		}
+
 		public virtual bool HasSong(Song song) {
 
 			ParamIs.NotNull(() => song);
 
 			return Songs.Any(a => a.Song.Equals(song));
+
+		}
+
+		public virtual bool HasWebLink(string url) {
+
+			ParamIs.NotNull(() => url);
+
+			return WebLinks.Any(w => w.Url == url);
+
+		}
+
+		public virtual bool IsInUserCollection(User user) {
+
+			ParamIs.NotNull(() => user);
+
+			return UserCollections.Any(w => w.User.Equals(user));
 
 		}
 
