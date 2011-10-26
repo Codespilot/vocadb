@@ -31,6 +31,7 @@ namespace VocaDb.Model.Service {
 			if (acceptedAlbum.ExistingAlbum == null) {
 
 				album = new Album(new TranslatedString(acceptedAlbum.ImportedAlbum.Title));
+				album.DiscType = DiscType.Unknown;
 				session.Save(album);
 
 			} else {
