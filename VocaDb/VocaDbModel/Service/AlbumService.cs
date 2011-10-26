@@ -493,6 +493,27 @@ namespace VocaDb.Model.Service {
 				if (target.Description == string.Empty)
 					target.Description = source.Description;
 
+				if (target.OriginalRelease == null)
+					target.OriginalRelease = new AlbumRelease();
+
+				if (string.IsNullOrEmpty(target.OriginalRelease.CatNum))
+					target.OriginalRelease.CatNum = source.OriginalRelease.CatNum;
+
+				if (string.IsNullOrEmpty(target.OriginalRelease.EventName))
+					target.OriginalRelease.EventName = source.OriginalRelease.EventName;
+
+				if (target.OriginalRelease.ReleaseDate == null)
+					target.OriginalRelease.ReleaseDate = new OptionalDateTime();
+
+				if (target.OriginalReleaseDate.Year == null)
+					target.OriginalReleaseDate.Year = source.OriginalReleaseDate.Year;
+
+				if (target.OriginalReleaseDate.Month == null)
+					target.OriginalReleaseDate.Month = source.OriginalReleaseDate.Month;
+
+				if (target.OriginalReleaseDate.Day == null)
+					target.OriginalReleaseDate.Day = source.OriginalReleaseDate.Day;
+
 				source.Deleted = true;
 				session.Update(source);
 

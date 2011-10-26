@@ -4,7 +4,7 @@ function initPage(albumId) {
 	$("input#albumName").keyup(function () {
 
 		var findTerm = $(this).val();
-		var albumList = $("albumList");
+		var albumList = $("#albumList");
 
 		if (findTerm.length == 0) {
 
