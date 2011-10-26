@@ -22,7 +22,7 @@
 	<input type="submit" value="Apply" />
 </p>
 
-@if (Model.Artists.Any()) {
+if (Model.Artists.Any()) {
 	
 @Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType }))
 
