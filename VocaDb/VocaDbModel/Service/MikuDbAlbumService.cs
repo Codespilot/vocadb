@@ -260,6 +260,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void Delete(int importedAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
+
+			DeleteEntity<MikuDbAlbum>(importedAlbumId);
+
+		}
+
 		public MikuDbAlbumContract[] GetAlbums(AlbumStatus status) {
 
 			return HandleQuery(session => session.Query<MikuDbAlbum>()
@@ -344,6 +352,14 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => importedAlbumIds);
 
 			return HandleQuery(session => Inspect(session, importedAlbumIds));
+
+		}
+
+		public void SkipAlbum(int importedAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
+
+			UpdateEntity<MikuDbAlbum>(importedAlbumId, a => a.Status = AlbumStatus.Skipped);
 
 		}
 

@@ -78,5 +78,19 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Delete(int id) {
+
+			Service.Delete(id);
+			return RedirectToAction("Index");
+
+		}
+
+		public ActionResult SkipAlbum(int id) {
+
+			Service.SkipAlbum(id);
+			return RedirectToAction("Index");
+
+		}
+
     }
 }
