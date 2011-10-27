@@ -16,7 +16,7 @@
 
 <p>
 	@Html.TextBox("songName", string.Empty, new { id = "songName", maxlength = "128" })<br />
-	@Html.DropDownList("songList", null, null, new { id="songList", size = 5 })
+	@Html.DropDownList("songList", new SelectList(new object[] {}), null, new { id="songList", size = 5 })
 	@Html.ValidationMessage("songList")
 </p>
 
