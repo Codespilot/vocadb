@@ -60,5 +60,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UpdateNicoIds() {
+			
+			Service.UpdateNicoIds();
+
+			return RedirectToAction("Index");
+
+		}
+
     }
 }
