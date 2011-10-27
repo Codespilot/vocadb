@@ -43,6 +43,9 @@ namespace VocaDb.Model.Domain.Songs {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}
@@ -63,8 +66,21 @@ namespace VocaDb.Model.Domain.Songs {
 				return;
 
 			Album.AllSongs.Remove(this);
-			Album = target;
 			target.AllSongs.Add(this);
+			Album = target;
+
+		}
+
+		public virtual void Move(Song target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Song))
+				return;
+
+			Song.AllAlbums.Remove(this);
+			target.AllAlbums.Add(this);
+			Song = target;
 
 		}
 

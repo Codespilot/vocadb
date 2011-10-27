@@ -1,0 +1,34 @@
+﻿@model  VocaDb.Model.DataContracts.Songs.SongContract
+
+@{
+	ViewBag.Title = "Merge song - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Songs", "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }),
+		Html.ActionLink("Edit", "Edit", new { id = Model.Id }),
+	};		
+
+}
+
+@using (Html.BeginForm()) {
+
+@Helpers.NotificationPanel("Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.")
+
+<p>
+	@Html.TextBox("songName", string.Empty, new { id = "songName", maxlength = "128" })<br />
+	@Html.DropDownList("songList", null, null, new { id="songList", size = 5 })
+	@Html.ValidationMessage("songList")
+</p>
+
+<input type="submit" value="Merge" />
+	
+}
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Merge.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id) 
+	});
+
+</script>

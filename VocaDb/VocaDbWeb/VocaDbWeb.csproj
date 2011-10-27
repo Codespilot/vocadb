@@ -319,6 +319,7 @@
     <Content Include="Scripts\Song\Details.js" />
     <Content Include="Scripts\Song\Edit.js" />
     <Content Include="Scripts\Song\Index.js" />
+    <Content Include="Scripts\Song\Merge.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-af.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
@@ -605,6 +606,7 @@
     <Content Include="Views\Song\Create.cshtml" />
     <Content Include="Views\Shared\AddNewEntryDiv.cshtml" />
     <Content Include="Views\Song\ArtistForSongRow.cshtml" />
+    <Content Include="Views\Song\Merge.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

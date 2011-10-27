@@ -44,6 +44,9 @@ namespace VocaDb.Model.Domain.Users {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}
@@ -54,6 +57,19 @@ namespace VocaDb.Model.Domain.Users {
 
 		public override int GetHashCode() {
 			return base.GetHashCode();
+		}
+
+		public virtual void Move(Song target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Song))
+				return;
+
+			Song.UserFavorites.Remove(this);
+			target.UserFavorites.Add(this);
+			Song = target;
+
 		}
 
 		public override string ToString() {
