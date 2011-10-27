@@ -40,9 +40,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJsonByName(string term) {
 
-			var albums = Service.Find(term, 0, 20, onlyByName: true);
+			var songs = Service.Find(term, 0, 20, onlyByName: true);
 
-			return Json(albums);
+			return Json(songs);
 
 		}
 

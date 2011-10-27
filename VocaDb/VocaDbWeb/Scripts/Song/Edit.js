@@ -14,6 +14,7 @@ function initPage(songId) {
 
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+	$("#mergeLink").button();
 
 	$("input.nameEdit").live("change", function () {
 

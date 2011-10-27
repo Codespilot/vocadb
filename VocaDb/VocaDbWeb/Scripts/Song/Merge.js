@@ -1,5 +1,5 @@
 ﻿
-function initPage(artistId) {
+function initPage(songId) {
 
 	$("input#songName").keyup(function () {
 
@@ -13,11 +13,11 @@ function initPage(artistId) {
 
 		}
 
-		$.post("../../Song/FindJson", { term: findTerm }, function (results) {
+		$.post("../../Song/FindJsonByName", { term: findTerm }, function (results) {
 
 			$(songList).empty();
 
-			$(results).each(function () {
+			$(results.Items).each(function () {
 
 				if (this.Id != songId) {
 					addOption(songList, this.Id, this.Name
