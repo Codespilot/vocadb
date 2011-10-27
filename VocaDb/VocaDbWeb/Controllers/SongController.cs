@@ -253,5 +253,26 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		public ActionResult Merge(int id) {
+
+			var song = Service.GetSong(id);
+			return View(song);
+
+		}
+
+		[HttpPost]
+		public ActionResult Merge(int id, int? songList) {
+
+			if (songList == null) {
+				ModelState.AddModelError("songList", "Song must be selected");
+				return Merge(id);
+			}
+
+			Service.Merge(id, songList.Value);
+
+			return RedirectToAction("Edit", new { id = songList.Value });
+
+		}
+
     }
 }

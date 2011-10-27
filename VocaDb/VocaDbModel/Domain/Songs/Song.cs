@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Globalization;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -22,6 +23,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<SongName> names = new List<SongName>();
 		private string originalName;
 		private IList<PVForSong> pvs = new List<PVForSong>();
+		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
 
 		protected IEnumerable<Artist> ArtistList {
@@ -176,6 +178,14 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual IList<FavoriteSongForUser> UserFavorites {
+			get { return userFavorites; }
+			set {
+				ParamIs.NotNull(() => value);
+				userFavorites = value;
+			}
+		}
+
 		public virtual int Version { get; set; }
 
 		public virtual IList<SongWebLink> WebLinks {
@@ -304,8 +314,48 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual bool HasName(LocalizedString name) {
+
+			ParamIs.NotNull(() => name);
+
+			return Names.Any(n => n.ContentEquals(name));
+
+		}
+
+		public virtual bool HasPV(PVService service, string pvId) {
+
+			ParamIs.NotNullOrEmpty(() => pvId);
+
+			return PVs.Any(p => p.Service == service && p.PVId == pvId);
+
+		}
+
+		public virtual bool HasWebLink(string url) {
+
+			ParamIs.NotNull(() => url);
+
+			return WebLinks.Any(w => w.Url == url);
+
+		}
+
+		public virtual bool IsOnAlbum(Album album) {
+
+			ParamIs.NotNull(() => album);
+
+			return Albums.Any(a => a.Album.Equals(album));
+
+		}
+
+		public virtual bool IsFavoritedBy(User user) {
+
+			ParamIs.NotNull(() => user);
+
+			return UserFavorites.Any(a => a.User.Equals(user));
+
+		}
+
 		public override string ToString() {
-			return "song '" + DefaultName + "'";
+			return "song '" + DefaultName + "' [" + Id + "]";
 		}
 
 		public virtual void UpdateArtistString() {

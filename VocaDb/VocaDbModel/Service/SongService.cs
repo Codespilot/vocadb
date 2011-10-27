@@ -468,6 +468,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongContract GetSong(int id) {
+
+			return HandleQuery(
+				session => new SongContract(session.Load<Song>(id), PermissionContext.LanguagePreference));
+
+		}
+
 		public int GetSongCount(string query) {
 
 			return HandleQuery(session => {
@@ -542,6 +549,67 @@ namespace VocaDb.Model.Service {
 				.ToArray()
 				.Select(s => new SongContract(s, PermissionContext.LanguagePreference))
 				.ToArray());
+
+		}
+
+		public void Merge(int sourceId, int targetId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);
+
+			if (sourceId == targetId)
+				throw new ArgumentException("Source and target songs can't be the same", "targetId");
+
+			HandleTransaction(session => {
+
+				var source = session.Load<Song>(sourceId);
+				var target = session.Load<Song>(targetId);
+
+				AuditLog("Merging " + source + " to " + target);
+				Archive(session, source);
+				Archive(session, target);
+
+				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
+					var name = target.CreateName(n.Value, n.Language);
+					session.Save(name);
+				}
+
+				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
+					var link = target.CreateWebLink(w.Description, w.Url);
+					session.Save(link);
+				}
+
+				var pvs = source.PVs.Where(a => !target.HasPV(a.Service, a.PVId));
+				foreach (var p in pvs) {
+					var pv = target.CreatePV(p.Service, p.PVId, p.PVType);
+					session.Save(p);
+				}
+
+				var artists = source.Artists.Where(a => !target.HasArtist(a.Artist)).ToArray();
+				foreach (var a in artists) {
+					a.Move(target);
+					session.Update(a);
+				}
+
+				var albums = source.Albums.Where(s => !target.IsOnAlbum(s.Album)).ToArray();
+				foreach (var s in albums) {
+					s.Move(target);
+					session.Update(s);
+				}
+
+				var userFavorites = source.UserFavorites.Where(a => !target.IsFavoritedBy(a.User)).ToArray();
+				foreach (var u in userFavorites) {
+					u.Move(target);
+					session.Update(u);
+				}
+
+				source.Deleted = true;
+				session.Update(source);
+
+				target.UpdateArtistString();
+				target.UpdateNicoId();
+				session.Update(target);
+
+			});
 
 		}
 

@@ -1,6 +1,7 @@
-﻿namespace VocaDb.Model.Domain.Globalization {
+﻿using System;
+namespace VocaDb.Model.Domain.Globalization {
 
-	public class LocalizedString {
+	public class LocalizedString : IEquatable<LocalizedString> {
 
 		private string val;
 
@@ -31,6 +32,24 @@
 
 			return (another != null && another.Language == Language && another.Value == Value);
 
+		}
+
+		public virtual bool Equals(LocalizedString another) {
+
+			return ContentEquals(another);
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as LocalizedString);
+		}
+
+		public override int GetHashCode() {
+			return (Language + ":" + Value).GetHashCode();
+		}
+
+		public override string ToString() {
+			return Language + ": " + Value;
 		}
 
 	}

@@ -108,7 +108,6 @@
     <Compile Include="DataContracts\Albums\AlbumDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumContract.cs" />
-    <Compile Include="DataContracts\Songs\SongMetadataEntryContract.cs" />
     <Compile Include="DataContracts\UseCases\AlbumForEditContract.cs" />
     <Compile Include="DataContracts\UseCases\ArtistForEditContract.cs" />
     <Compile Include="DataContracts\UseCases\CreateSongContract.cs" />
@@ -160,8 +159,6 @@
     <Compile Include="Domain\Songs\LyricsForSong.cs" />
     <Compile Include="Domain\Songs\Song.cs" />
     <Compile Include="Domain\Songs\SongInAlbum.cs" />
-    <Compile Include="Domain\Songs\SongMetadataEntry.cs" />
-    <Compile Include="Domain\Songs\SongMetadataType.cs" />
     <Compile Include="Domain\Ranking\RankingList.cs" />
     <Compile Include="Domain\Songs\SongName.cs" />
     <Compile Include="Domain\Songs\SongWebLink.cs" />
@@ -190,7 +187,6 @@
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
     <Compile Include="Mapping\Albums\AlbumMap.cs" />
     <Compile Include="Mapping\Songs\SongMap.cs" />
-    <Compile Include="Mapping\Songs\SongMetadataEntryMap.cs" />
     <Compile Include="ParamIs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ArtistTypeNames.Designer.cs">
