@@ -103,10 +103,10 @@ namespace VocaDb.Model.Service {
 
 				foreach (var song in songs) {
 
-					song.UpdateNicoId();
-
 					if (!string.IsNullOrEmpty(song.NicoId) && !song.PVs.Any())
 						session.Save(song.CreatePV(PVService.NicoNicoDouga, song.NicoId, PVType.Original));
+
+					song.UpdateNicoId();
 
 					session.Update(song);
 				}

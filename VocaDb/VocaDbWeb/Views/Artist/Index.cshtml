@@ -53,11 +53,12 @@ if (Model.Artists.Any()) {
 @Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType }))
 }
 
-} else {
+if (!Model.Artists.Any()) {
 
 	<p>No results! Try a different query or Google custom search.</p>
 	@Helpers.GoogleSiteSearch()
 
+}
 }
 
 @if (Login.CanManageDb) {

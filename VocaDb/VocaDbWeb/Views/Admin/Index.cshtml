@@ -1,14 +1,20 @@
 ﻿@{
     ViewBag.Title = "Admin menu";
 }
+<h3>Common tasks</h3>
 <p>
 @Html.ActionLink("Manage users", "Index", "User")
+</p>
+
+<h3>Database maintenance tasks</h3>
+<p>
+@Html.ActionLink("Refresh NHibernate cache", "RefreshDbCache")
 </p>
 <p>
 @Html.ActionLink("Generate image thumbnails", "GeneratePictureThumbs")
 </p>
 <p>
-@Html.ActionLink("Refresh NHibernate cache", "RefreshDbCache")
+@Html.ActionLink("Update NicoIDs", "UpdateNicoIds")
 </p>
 <p>
 @Html.ActionLink("Update all artist strings", "UpdateArtistStrings")
