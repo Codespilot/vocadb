@@ -6,22 +6,22 @@ namespace VocaDb.Model.Domain.Globalization {
 
 	public class TranslatedString {
 
-		private string defaultVal;
+		//private string defaultVal;
 		private string english;
 		private string original;
-		private string other;
+		//private string other;
 		private string romaji;
 
 		public TranslatedString() {
 			DefaultLanguage = ContentLanguageSelection.Japanese;
 		}
 
-		public TranslatedString(string uniform)
+		/*public TranslatedString(string uniform)
 			: this() {
 
-			Default = Japanese = Romaji = English = uniform;
+			Japanese = Romaji = English = uniform;
 
-		}
+		}*/
 
 		public TranslatedString(TranslatedStringContract contract)
 			: this() {
@@ -95,11 +95,21 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
-		public virtual string Default {
+		/*public virtual string Default {
 			get {  return defaultVal; }
 			protected set {
 				ParamIs.NotNullOrEmpty(() => value);
 				defaultVal = value;
+			}
+		}*/
+
+		public virtual string Default {
+			get {
+				
+				var val = this[DefaultLanguage];
+
+				return val ?? All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
+
 			}
 		}
 

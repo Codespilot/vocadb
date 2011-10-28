@@ -35,16 +35,26 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = string.Empty;
 			DiscType = DiscType.Album;
 			OriginalRelease = new AlbumRelease();
-			TranslatedName = new TranslatedString();
+			//TranslatedName = new TranslatedString();
+		}
+
+		public Album(string unspecifiedName) {
+
+			ParamIs.NotNullOrEmpty(() => unspecifiedName);
+
+			Names.Add(new AlbumName(this, new LocalizedString(unspecifiedName, ContentLanguageSelection.Unspecified)));
+
 		}
 
 		public Album(TranslatedString translatedName)
 			: this() {
 
-			TranslatedName = translatedName;
+			ParamIs.NotNull(() => translatedName);
+
+			//TranslatedName = translatedName;);
 			
-			//foreach (var name in translatedName.AllLocalized)
-			//	Names.Add(new AlbumName(this, name));
+			foreach (var name in translatedName.AllLocalized)
+				Names.Add(new AlbumName(this, name));
 
 		}
 
@@ -57,11 +67,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual IEnumerable<string> AllNames {
-			get {
-				return TranslatedName.All
-					.Concat(Names.Select(n => n.Value))
-					.Distinct();
-			}
+			get { return Names.AllValues; }
 		}
 
 		public virtual IList<SongInAlbum> AllSongs {
@@ -106,14 +112,13 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
-		public virtual TranslatedString TranslatedName { get; set; }
+		public virtual TranslatedString TranslatedName {
+			get { return Names.SortNames; }
+		}
 
 		public virtual string Name {
 			get {
 				return TranslatedName.Default;
-			}
-			set {
-				TranslatedName.Default = value;
 			}
 		}
 
@@ -277,7 +282,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 			ParamIs.NotNull(() => name);
 
-			return Names.Any(n => n.ContentEquals(name));
+			return Names.HasName(name);
 
 		}
 

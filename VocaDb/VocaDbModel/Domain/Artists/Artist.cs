@@ -17,7 +17,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
 		//private IList<ArtistMetadataEntry> metadata = new List<ArtistMetadataEntry>();
-		private IList<ArtistName> names = new List<ArtistName>();
+		private NameManager<ArtistName> names = new NameManager<ArtistName>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
 		private IList<ArtistWebLink> webLinks = new List<ArtistWebLink>();
 
@@ -26,17 +26,28 @@ namespace VocaDb.Model.Domain.Artists {
 			Deleted = false;
 			Description = string.Empty;
 			StartDate = null;
-			TranslatedName = new TranslatedString();
+			//TranslatedName = new TranslatedString();
 			Version = 0;
+		}
+
+		public Artist(string unspecifiedName)
+			: this() {
+
+			ParamIs.NotNullOrEmpty(() => unspecifiedName);
+
+			Names.Add(new ArtistName(this, new LocalizedString(unspecifiedName, ContentLanguageSelection.Unspecified)));
+
 		}
 
 		public Artist(TranslatedString translatedName)
 			: this() {
 
-			TranslatedName = translatedName;
+			ParamIs.NotNull(() => translatedName);
+
+			//TranslatedName = translatedName;
 			
-			//foreach (var name in translatedName.AllLocalized)
-			//	Names.Add(new ArtistName(this, name));
+			foreach (var name in translatedName.AllLocalized)
+				Names.Add(new ArtistName(this, name));
 
 		}
 
@@ -106,7 +117,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual int Id { get; set; }
 
-		public virtual TranslatedString TranslatedName { get; set; }
+		public virtual TranslatedString TranslatedName {
+			get { return Names.SortNames; }
+		}
 
 		/*public virtual IList<ArtistMetadataEntry> Metadata {
 			get { return metadata; }
@@ -126,7 +139,7 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
-		public virtual IList<ArtistName> Names {
+		public virtual NameManager<ArtistName> Names {
 			get { return names; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -155,11 +168,7 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public virtual IEnumerable<string> AllNames {
-			get {
-				return TranslatedName.All
-					.Concat(Names.Select(n => n.Value))
-					.Distinct();
-			}
+			get { return Names.AllValues; }
 		}
 
 		public virtual ArtistForAlbum AddAlbum(Album album) {
@@ -279,7 +288,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 			ParamIs.NotNull(() => name);
 
-			return Names.Any(n => n.ContentEquals(name));
+			return Names.HasName(name);
 
 		}
 

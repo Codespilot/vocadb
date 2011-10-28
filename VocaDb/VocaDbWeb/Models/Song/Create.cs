@@ -35,17 +35,11 @@ namespace VocaDb.Web.Models.Song {
 
 		public CreateSongContract ToContract() {
 
-			var nameContract = new TranslatedStringContract(NameOriginal, NameOriginal, NameOriginal, ContentLanguageSelection.Japanese);
-
-			if (!string.IsNullOrEmpty(NameRomaji))
-				nameContract.Romaji = NameRomaji;
-
-			if (!string.IsNullOrEmpty(NameEnglish))
-				nameContract.English = NameEnglish;
-
 			return new CreateSongContract {
 				Artists = this.Artists,
-				Name = nameContract,
+				NameEnglish = this.NameEnglish,
+				NameRomaji = this.NameRomaji,
+				NameOriginal = this.NameOriginal,
 				PVUrl = this.PVUrl,
 			};
 

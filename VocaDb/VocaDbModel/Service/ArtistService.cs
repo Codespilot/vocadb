@@ -52,7 +52,7 @@ namespace VocaDb.Model.Service {
 					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
 
 				var artists = q
-					.OrderBy(s => s.TranslatedName.Romaji).Asc
+					.OrderBy(s => s.Names.SortNames.Romaji).Asc
 					.TransformUsing(new DistinctRootEntityResultTransformer())
 					.Skip(start)
 					.Take(maxResults)
@@ -75,22 +75,22 @@ namespace VocaDb.Model.Service {
 
 				if (query.Length < 3) {
 					
-					directQ = directQ.Where(s => 
-						s.TranslatedName.English == query
-							|| s.TranslatedName.Romaji == query
-							|| s.TranslatedName.Japanese == query);
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English == query
+							|| s.Names.SortNames.Romaji == query
+							|| s.Names.SortNames.Japanese == query);
 
 				} else {
 
-					directQ = directQ.Where(s => 
-						s.TranslatedName.English.Contains(query)
-							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query));
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English.Contains(query)
+							|| s.Names.SortNames.Romaji.Contains(query)
+							|| s.Names.SortNames.Japanese.Contains(query));
 
 				}
 					
 				var direct = directQ
-					.OrderBy(s => s.TranslatedName.Romaji)
+					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Take(maxResults)
 					//.FetchMany(s => s.Names)
 					.ToArray();
@@ -113,7 +113,7 @@ namespace VocaDb.Model.Service {
 
 				var additionalNames = additionalNamesQ
 					.Select(m => m.Artist)
-					.OrderBy(s => s.TranslatedName.Romaji)
+					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Distinct()
 					.Take(maxResults)
 					//.FetchMany(s => s.Names)
@@ -243,7 +243,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 				AuditLog("creating a new album '" + newAlbumName + "' for " + artist);
 
-				var album = new Album(new TranslatedString(newAlbumName));
+				var album = new Album(newAlbumName);
 
 				session.Save(album);
 				var artistForAlbum = artist.AddAlbum(album);
@@ -269,7 +269,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var artist = new Artist(new TranslatedString(name));
+				var artist = new Artist(name);
 
 				session.Save(artist);
 
@@ -457,7 +457,7 @@ namespace VocaDb.Model.Service {
 				ArchiveArtist(session, PermissionContext, source);
 				ArchiveArtist(session, PermissionContext, target);
 
-				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
+				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
 					session.Save(name);
 				}

@@ -53,7 +53,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog("creating a new album '" + newAlbumName + "' for " + user);
 
-				var album = new Album(new TranslatedString(newAlbumName));
+				var album = new Album(newAlbumName);
 
 				session.Save(album);
 				var albumForUser = user.AddAlbum(album);

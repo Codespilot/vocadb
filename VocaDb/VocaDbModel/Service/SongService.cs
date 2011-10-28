@@ -127,7 +127,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("creating new artist {0} to {1}", newArtistName, song));
 
-				var artist = new Artist(new TranslatedString(newArtistName));
+				var artist = new Artist(newArtistName);
 
 				var artistForSong = artist.AddSong(song);
 				session.Save(artist);
@@ -244,7 +244,7 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating a new song with name '" + contract.Name.Default + "'");
+			AuditLog("creating a new song with name '" + contract.NameOriginal + "'");
 
 			return HandleTransaction(session => {
 
@@ -264,7 +264,24 @@ namespace VocaDb.Model.Service {
 		
 				}
 
-				var song = new Song(new TranslatedString(contract.Name));
+				var song = new Song();
+
+				if (!string.IsNullOrEmpty(contract.NameOriginal))
+					song.CreateName(contract.NameOriginal, ContentLanguageSelection.Japanese);
+
+				if (!string.IsNullOrEmpty(contract.NameRomaji))
+					song.CreateName(contract.NameRomaji, ContentLanguageSelection.Romaji);
+
+				if (!string.IsNullOrEmpty(contract.NameEnglish))
+					song.CreateName(contract.NameEnglish, ContentLanguageSelection.English);
+
+				if (!string.IsNullOrEmpty(contract.NameOriginal))
+					song.TranslatedName.DefaultLanguage = ContentLanguageSelection.Japanese;
+				else if (!string.IsNullOrEmpty(contract.NameRomaji))
+					song.TranslatedName.DefaultLanguage = ContentLanguageSelection.Romaji;
+				else if (!string.IsNullOrEmpty(contract.NameEnglish))
+					song.TranslatedName.DefaultLanguage = ContentLanguageSelection.English;
+
 				session.Save(song);
 
 				foreach (var artist in contract.Artists) {
@@ -352,7 +369,7 @@ namespace VocaDb.Model.Service {
 
 					contracts = session.Query<Song>()
 						.Where(s => !s.Deleted)
-						.OrderBy(s => s.TranslatedName.Romaji)
+						.OrderBy(s => s.Names.SortNames.Romaji)
 						.Skip(start)
 						.Take(maxResults)
 						.ToArray()
@@ -367,24 +384,23 @@ namespace VocaDb.Model.Service {
 					if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
 						directQ = directQ.Where(s =>
-							s.TranslatedName.English == query
-								|| s.TranslatedName.Romaji == query
-								|| s.TranslatedName.Japanese == query);
+							s.Names.SortNames.English == query
+								|| s.Names.SortNames.Romaji == query
+								|| s.Names.SortNames.Japanese == query);
 
 					} else {
 
 						directQ = directQ.Where(s =>
-							s.TranslatedName.English.Contains(query)
-								|| s.TranslatedName.Romaji.Contains(query)
-								|| s.TranslatedName.Japanese.Contains(query)
+							s.Names.SortNames.English.Contains(query)
+								|| s.Names.SortNames.Romaji.Contains(query)
+								|| s.Names.SortNames.Japanese.Contains(query)
 								|| (!onlyByName && s.ArtistString.Contains(query))
 								|| (s.NicoId != null && s.NicoId == query));
 
 					}
 
 					var direct = directQ
-						.OrderBy(s => s.TranslatedName.Romaji)
-						//.Take(maxResults)	// TODO: this might be removed
+						.OrderBy(s => s.Names.SortNames.Romaji)
 						.ToArray();
 
 					var additionalNamesQ = session.Query<SongName>()
@@ -402,7 +418,7 @@ namespace VocaDb.Model.Service {
 
 					var additionalNames = additionalNamesQ
 						.Select(m => m.Song)
-						.OrderBy(s => s.TranslatedName.Romaji)
+						.OrderBy(s => s.Names.SortNames.Romaji)
 						.Distinct()
 						//.Take(maxResults)
 						.ToArray()
@@ -569,7 +585,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, source);
 				Archive(session, target);
 
-				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
+				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
 					session.Save(name);
 				}

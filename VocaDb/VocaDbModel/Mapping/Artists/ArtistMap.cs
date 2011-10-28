@@ -21,15 +21,17 @@ namespace VocaDb.Model.Mapping.Artists {
 			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.AllMembers).Inverse().KeyColumn("[Group]");
-			HasMany(m => m.Names).Table("ArtistNames").Inverse().Cascade.All();
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
 
-			Component(m => m.TranslatedName, c => {
-				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage").Not.Nullable();
-				c.Map(m => m.Japanese, "JapaneseName");
-				c.Map(m => m.English, "EnglishName");
-				c.Map(m => m.Romaji, "RomajiName");
-				c.Map(m => m.Other, "OtherName");
+			Component(m => m.Names, c => {
+				c.HasMany(m => m.Names).Table("ArtistNames").KeyColumn("[Artist]").Inverse().Cascade.All();
+				c.Component(m => m.SortNames, c2 => {
+					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
+					c2.Map(m => m.Japanese, "JapaneseName");
+					c2.Map(m => m.English, "EnglishName");
+					c2.Map(m => m.Romaji, "RomajiName");
+					//c.Map(m => m.Other, "OtherName");
+				});
 			});
 
 			Component(m => m.Picture, c => {

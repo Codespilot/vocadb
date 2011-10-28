@@ -1,5 +1,4 @@
-﻿using VocaDb.Model.DataContracts.Songs;
-using VocaDb.Model.DataContracts.Artists;
+﻿using VocaDb.Model.DataContracts.Artists;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
@@ -7,7 +6,11 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public ArtistContract[] Artists { get; set; }
 
-		public TranslatedStringContract Name { get; set; }
+		public string NameEnglish { get; set; }
+
+		public string NameOriginal { get; set; }
+
+		public string NameRomaji { get; set; }
 
 		public string PVUrl { get; set; }
 		

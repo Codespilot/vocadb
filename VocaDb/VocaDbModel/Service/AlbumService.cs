@@ -106,7 +106,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
-				var artist = new Artist(new TranslatedString(newArtistName));
+				var artist = new Artist(newArtistName);
 
 				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album));
 
@@ -134,7 +134,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("creating a new song '{0}' to {1}", newSongName, album));
 
-				var song = new Song(new TranslatedString(newSongName), null);
+				var song = new Song(newSongName);
 
 				session.Save(song);
 				var songInAlbum = album.AddSong(song);
@@ -176,7 +176,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var artist = new Album(new TranslatedString(name));
+				var artist = new Album(name);
 
 				session.Save(artist);
 
@@ -305,7 +305,7 @@ namespace VocaDb.Model.Service {
 
 					var albums = session.Query<Album>()
 						.Where(s => !s.Deleted)
-						.OrderBy(s => s.TranslatedName.Romaji)
+						.OrderBy(s => s.Names.SortNames.Romaji)
 						.Skip(start)
 						.Take(maxResults)
 						.ToArray();
@@ -324,23 +324,23 @@ namespace VocaDb.Model.Service {
 
 					if (query.Length < 3) {
 					
-						directQ = directQ.Where(s => 
-							s.TranslatedName.English == query
-								|| s.TranslatedName.Romaji == query
-								|| s.TranslatedName.Japanese == query);
+						directQ = directQ.Where(s =>
+							s.Names.SortNames.English == query
+								|| s.Names.SortNames.Romaji == query
+								|| s.Names.SortNames.Japanese == query);
 
 					} else {
 
-						directQ = directQ.Where(s => 
-							s.TranslatedName.English.Contains(query)
-								|| s.TranslatedName.Romaji.Contains(query)
-								|| s.TranslatedName.Japanese.Contains(query)
+						directQ = directQ.Where(s =>
+							s.Names.SortNames.English.Contains(query)
+								|| s.Names.SortNames.Romaji.Contains(query)
+								|| s.Names.SortNames.Japanese.Contains(query)
 								|| s.ArtistString.Contains(query));
 
 					}
 
 					var direct = directQ
-						.OrderBy(s => s.TranslatedName.Romaji)
+						.OrderBy(s => s.Names.SortNames.Romaji)
 						.Take(maxResults)
 						.ToArray();
 
@@ -359,7 +359,7 @@ namespace VocaDb.Model.Service {
 
 					var additionalNames = additionalNamesQ
 						.Select(m => m.Album)
-						.OrderBy(s => s.TranslatedName.Romaji)
+						.OrderBy(s => s.Names.SortNames.Romaji)
 						.Distinct()
 						.Take(maxResults)
 						.ToArray()
@@ -462,7 +462,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, source);
 				Archive(session, target);
 
-				foreach (var n in source.Names.Where(n => !target.HasName(n))) {
+				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
 					session.Save(name);
 				}
@@ -516,6 +516,11 @@ namespace VocaDb.Model.Service {
 
 				source.Deleted = true;
 				session.Update(source);
+
+				target.UpdateArtistString();
+				target.Names.UpdateSortNames();
+
+				session.Update(target);
 
 			});
 

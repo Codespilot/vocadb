@@ -16,7 +16,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			: base(album, languagePreference) {
 
 			AllLabels = allLabels.Select(l => new ArtistContract(l, languagePreference)).ToArray();
-			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = album.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 
 		}
