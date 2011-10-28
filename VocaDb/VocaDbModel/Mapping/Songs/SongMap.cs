@@ -14,15 +14,14 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.NicoId).Nullable();
-			Map(m => m.OriginalName).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
-			//HasMany(m => m.Metadata).Inverse().Cascade.AllDeleteOrphan();
 			Component(m => m.TranslatedName, c => {
 				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 				c.Map(m => m.Japanese, "JapaneseName");
 				c.Map(m => m.English, "EnglishName");
 				c.Map(m => m.Romaji, "RomajiName");
+				c.Map(m => m.Other, "OtherName");
 			});
 
 			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All();

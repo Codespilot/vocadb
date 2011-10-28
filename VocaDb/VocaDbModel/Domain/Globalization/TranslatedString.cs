@@ -1,9 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Domain.Globalization {
 
 	public class TranslatedString {
+
+		private string defaultVal;
+		private string english;
+		private string original;
+		private string other;
+		private string romaji;
 
 		public TranslatedString() {
 			DefaultLanguage = ContentLanguageSelection.Japanese;
@@ -12,19 +19,14 @@ namespace VocaDb.Model.Domain.Globalization {
 		public TranslatedString(string uniform)
 			: this() {
 
-			Japanese = Romaji = English = uniform;
+			Default = Japanese = Romaji = English = uniform;
 
 		}
 
 		public TranslatedString(TranslatedStringContract contract)
 			: this() {
 
-			ParamIs.NotNull(() => contract);
-
-			DefaultLanguage = contract.DefaultLanguage;
-			English = contract.English;
-			Japanese = contract.Japanese;
-			Romaji = contract.Romaji;
+			CopyFrom(contract);
 
 		}
 
@@ -65,17 +67,20 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		public string this[ContentLanguagePreference preference] {
 			get {
-				return
-					this[preference == ContentLanguagePreference.Default ? DefaultLanguage : (ContentLanguageSelection)preference];
+				return GetBestMatch(preference);
 			}
 		}
 
+		/// <summary>
+		/// All names in prioritized order.
+		/// Cannot be null.
+		/// </summary>
 		public virtual IEnumerable<string> All {
 			get {
 				return new[] {
 					Japanese,
 					Romaji,
-					English
+					English,
 				};
 			}
 		}
@@ -91,36 +96,38 @@ namespace VocaDb.Model.Domain.Globalization {
 		}
 
 		public virtual string Default {
-			get {
-				return this[DefaultLanguage];
-			}
-			set {
-				this[DefaultLanguage] = value;
-			}
-		}
-
-		public virtual string Display {
-			get {
-
-				var current = Default;
-
-				if (string.IsNullOrEmpty(current))
-					return Japanese;
-				else
-					return current;
-
+			get {  return defaultVal; }
+			protected set {
+				ParamIs.NotNullOrEmpty(() => value);
+				defaultVal = value;
 			}
 		}
 
 		public virtual ContentLanguageSelection DefaultLanguage { get; set; }
 
-		public virtual string English { get; set; }
+		public virtual string English {
+			get { return english; }
+			set {
+				english = value;
+				//UpdateDefault();
+			}
+		}
 
-		public virtual string Japanese { get; set; }
+		public virtual string Japanese {
+			get { return original; }
+			set {
+				original = value;
+			}
+		}
 
-		public virtual string Romaji { get; set; }
+		public virtual string Romaji {
+			get { return romaji; }
+			set {
+				romaji = value;
+			}
+		}
 
-		public void CopyFrom(TranslatedStringContract contract) {
+		public virtual void CopyFrom(TranslatedStringContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -130,6 +137,25 @@ namespace VocaDb.Model.Domain.Globalization {
 			Romaji = contract.Romaji;
 
 		}
+
+		public virtual string GetBestMatch(ContentLanguagePreference preference) {
+
+			var val = this[preference == ContentLanguagePreference.Default ? DefaultLanguage : (ContentLanguageSelection)preference];
+
+			return (!string.IsNullOrEmpty(val) ? val : Default);
+
+		}
+
+		/*public virtual void UpdateDefault() {
+
+			var val = this[DefaultLanguage];
+
+			if (string.IsNullOrEmpty(val))
+				val = All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
+
+			Default = val;
+
+		}*/
 
 	}
 

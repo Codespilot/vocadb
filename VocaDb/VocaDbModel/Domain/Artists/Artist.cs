@@ -35,8 +35,8 @@ namespace VocaDb.Model.Domain.Artists {
 
 			TranslatedName = translatedName;
 			
-			foreach (var name in translatedName.AllLocalized)
-				Names.Add(new ArtistName(this, name));
+			//foreach (var name in translatedName.AllLocalized)
+			//	Names.Add(new ArtistName(this, name));
 
 		}
 
@@ -123,9 +123,6 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual string Name {
 			get {
 				return TranslatedName.Default;
-			}
-			set {
-				TranslatedName.Default = value;
 			}
 		}
 

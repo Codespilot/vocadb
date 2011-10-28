@@ -38,9 +38,9 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public ActionResult FindJsonByName(string term) {
+		public ActionResult FindJsonByName(string term, bool alwaysExact = false) {
 
-			var songs = Service.Find(term, 0, 20, onlyByName: true);
+			var songs = Service.Find(term, 0, 20, onlyByName: true, nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto));
 
 			return Json(songs);
 

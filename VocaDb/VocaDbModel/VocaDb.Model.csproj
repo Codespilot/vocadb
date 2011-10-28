@@ -123,6 +123,7 @@
     <Compile Include="Domain\Albums\MediaTypes.cs" />
     <Compile Include="Domain\DateTimeYearAndDate.cs" />
     <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />
+    <Compile Include="Domain\Globalization\NameManager.cs" />
     <Compile Include="Domain\MikuDb\AlbumStatus.cs" />
     <Compile Include="Domain\MikuDb\MikuDbAlbum.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />

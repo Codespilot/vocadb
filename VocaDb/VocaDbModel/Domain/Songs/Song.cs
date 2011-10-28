@@ -39,15 +39,22 @@ namespace VocaDb.Model.Domain.Songs {
 			TranslatedName = new TranslatedString();
 		}
 
-		public Song(TranslatedString translatedName, string nicoId)
+		public Song(string otherName)
+			: this() {
+
+			ParamIs.NotNullOrEmpty(() => otherName);
+
+			TranslatedName.Other = otherName;
+
+		}
+
+		public Song(TranslatedString translatedName)
 			: this() {
 
 			TranslatedName = translatedName;
-			NicoId = nicoId;
-			OriginalName = translatedName.Display;
 
-			foreach (var name in translatedName.AllLocalized)
-				Names.Add(new SongName(this, name));
+			//foreach (var name in translatedName.AllLocalized)
+			//	Names.Add(new SongName(this, name));
 
 		}
 
@@ -56,7 +63,7 @@ namespace VocaDb.Model.Domain.Songs {
 			
 			ParamIs.NotNull(() => contract);
 
-			DefaultName = OriginalName = contract.Name;
+			TranslatedName.Other = contract.Name;
 			NicoId = contract.NicoId;
 
 		}
@@ -132,10 +139,6 @@ namespace VocaDb.Model.Domain.Songs {
 			get {
 				return TranslatedName.Default;
 			}
-			set {
-				ParamIs.NotNull(() => value);
-				TranslatedName.Default = value;
-			}
 		}
 
 		public virtual IList<SongName> Names {
@@ -166,17 +169,6 @@ namespace VocaDb.Model.Domain.Songs {
 		/// NicoNicoDouga Id for the PV (for example sm12850213). Is unique, but can be null.
 		/// </summary>
 		public virtual string NicoId { get; set; }
-
-		/// <summary>
-		/// Original song name. This value is generally immutable and is used for archival purposes. Cannot be null or empty.
-		/// </summary>
-		public virtual string OriginalName {
-			get { return originalName; }
-			set {
-				ParamIs.NotNullOrEmpty(() => value);
-				originalName = value;
-			}
-		}
 
 		public virtual IList<FavoriteSongForUser> UserFavorites {
 			get { return userFavorites; }
