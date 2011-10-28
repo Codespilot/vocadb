@@ -13,14 +13,23 @@ namespace VocaDb.Web.Models.Shared {
 			ParamIs.NotNull(() => contract);
 
 			Description = contract.Description;
+			Id = contract.Id;
 			Url = contract.Url;
 
 		}
 
 		public string Description { get; set; }
 
+		public int Id { get; set; }
+
 		[Required]
 		public string Url { get; set; }
+
+		public WebLinkContract ToContract() {
+
+			return new WebLinkContract { Id = this.Id, Description = this.Description, Url = this.Url };
+
+		}
 
 	}
 

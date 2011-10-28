@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -644,7 +645,13 @@ namespace VocaDb.Model.Service {
 
 				Archive(session, song);
 
-				song.TranslatedName.CopyFrom(properties.TranslatedName);
+				var nameDiff = song.Names.Sync(properties.Names, song);
+				SessionHelper.Sync(session, nameDiff);
+
+				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
+				SessionHelper.Sync(session, webLinkDiff);
+
+				//song.TranslatedName.CopyFrom(properties.TranslatedName);
 
 				/*if (!string.IsNullOrEmpty(properties.Song.NicoId) && !song.PVs.Any(p => p.Service == PVService.NicoNicoDouga && p.PVId == properties.Song.NicoId)) {
 					var pv = song.CreatePV(PVService.NicoNicoDouga, properties.Song.NicoId, PVType.Original);

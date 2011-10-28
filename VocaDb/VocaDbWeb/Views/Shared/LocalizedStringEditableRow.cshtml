@@ -5,7 +5,8 @@
 	<td>
 		@{ var item = Html.BeginCollectionItem("Names"); }
 		@Html.HiddenFor(m => m.Id)
-		@Html.TextBoxFor(m => m.Value, new { maxlength = 128, @class = "nameEdit" })
+		@Html.TextBoxFor(m => m.Value, new { maxlength = 128, @class = "nameEdit" })<br />
+		@Html.ValidationMessageFor(m => m.Value)
 	</td>
 	<td>
 		@Html.LanguageSelectionDropDownListFor(m => m.Language, new { @class = "nameLanguage" }, true, Model.Language)

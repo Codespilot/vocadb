@@ -65,6 +65,12 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Name")]
 		public string Value { get; set; }
 
+		public LocalizedStringWithIdContract ToContract() {
+
+			return new LocalizedStringWithIdContract { Id = this.Id, Language = this.Language, Value = this.Value };
+
+		}
+
 	}
 
 	public class AddNewLinkRowModel {
