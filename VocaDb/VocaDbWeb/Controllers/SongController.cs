@@ -126,8 +126,12 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
         public ActionResult Edit(SongEdit model) {
 
-			if (!ModelState.IsValid)
-				return View(new SongEdit(Service.GetSongForEdit(model.Id)));
+			if (!ModelState.IsValid) {
+				var oldContract = Service.GetSongForEdit(model.Id);
+				model.Lyrics = oldContract.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
+				model.ArtistLinks = oldContract.Artists;
+				return View(model);				
+			}
 
 			var contract = model.ToContract();
 			Service.UpdateBasicProperties(contract);

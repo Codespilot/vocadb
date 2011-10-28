@@ -3,7 +3,8 @@
 		   
 <tr>
 	<td>
-		@{ var item = Html.BeginCollectionItem("WebLinks"); }
+		@{ var item = Html.BeginCollectionItem("WebLinks"); 
+		@Html.HiddenFor(m => m.Id)
 		@Html.TextBoxFor(m => m.Description, new { maxlength = 512, @class = "webLinkDescription" })
 	</td>
 	<td>

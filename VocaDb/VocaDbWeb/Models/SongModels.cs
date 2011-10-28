@@ -155,6 +155,8 @@ namespace VocaDb.Web.Models {
 					Name = this.Name,
 					//NicoId = this.NicoId
 				},
+				Names = this.Names.Select(n => n.ToContract()).ToArray(),
+				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
 			};

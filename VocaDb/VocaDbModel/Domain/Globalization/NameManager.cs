@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.DataContracts;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Globalization {
 
@@ -82,16 +84,63 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		}*/
 
-		public virtual void Add(T name) {
+		public virtual void Add(T name, bool update = true) {
 			
 			Names.Add(name);
-			UpdateSortNames();
+
+			if (update)
+				UpdateSortNames();
 
 		}
 
 		public virtual bool HasName(LocalizedString name) {
 
 			return Names.Any(n => n.ContentEquals(name));
+
+		}
+
+		public virtual void Remove(T name, bool update = true) {
+
+			Names.Remove(name);
+
+			if (update)
+				UpdateSortNames();
+
+		}
+
+		public virtual CollectionDiff<T,T> Sync(IEnumerable<LocalizedStringWithIdContract> newNames, INameFactory<T> nameFactory) {
+
+			ParamIs.NotNull(() => newNames);
+			ParamIs.NotNull(() => nameFactory);
+
+			var diff = CollectionHelper.Diff(Names, newNames, (n1, n2) => n1.Id == n2.Id);
+			var created = new List<T>();
+
+			foreach (var n in diff.Removed) {
+				Remove(n);
+			}
+
+			foreach (var nameEntry in newNames) {
+
+				var old = Names.FirstOrDefault(n => n.Id == nameEntry.Id);
+
+				if (old != null) {
+
+					old.Language = nameEntry.Language;
+					old.Value = nameEntry.Value;
+
+				} else {
+
+					var n = nameFactory.CreateName(nameEntry.Value, nameEntry.Language);
+					created.Add(n);
+
+				}
+
+			}
+
+			UpdateSortNames();
+
+			return new CollectionDiff<T,T>(created, diff.Removed, diff.Unchanged);
 
 		}
 
