@@ -18,6 +18,8 @@
 }
 }
 
+@Helpers.ValidationSymmaryPanel("Unable to save properties.")
+
 <div id="tabs">
 
 	<ul>
@@ -29,6 +31,7 @@
 
 	<div id="basicInfoTab">
 		@using (Html.BeginForm("Edit", "Song", FormMethod.Post)) {
+			@Html.HiddenFor(m => m.Name)
 			@Html.HiddenFor(m => m.Id)
 			<div>
 				<fieldset>
@@ -100,29 +103,9 @@
 								<th>Actions</th>
 							</tr>
 							@foreach (var webLink in Model.WebLinks) {
-								<tr id="@("webLinkRow_" + webLink.Id)">
-									<td>
-										<input type="text" maxlength="512" class="webLinkDescription" id="@("webLinkDescription_" + webLink.Id)" value="@webLink.Description" />
-									</td>
-									<td>
-										<input type="text" maxlength="512" class="webLinkUrl" size="50" id="@("webLinkUrl_" + webLink.Id)" value="@webLink.Url" />
-									</td>
-									<td>
-										<input type="button" class="webLinkDelete" id="@("webLinkDelete_" + webLink.Id)" value="Delete" />
-									</td>
-								</tr>
+								Html.RenderPartial("WebLinkEditRow", webLink);
 							}
-							<tr id="webLinkRow_new">
-								<td>
-									<input type="text" maxlength="512" class="webLinkDescriptionNew" id="webLinkDescription_new" />						
-								</td>
-								<td>
-									<input type="text" maxlength="512" class="webLinkUrlNew" size="50" id="webLinkUrl_new" />													
-								</td>
-								<td>
-									<input type="button" class="webLinkAddNew" id="webLinkAdd" value="Add" />
-								</td>
-							</tr>
+							@{ Html.RenderPartial("WebLinkCreateRow"); }
 						</table>
 					</div>
 

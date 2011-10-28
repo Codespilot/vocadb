@@ -1,0 +1,16 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Web.Models.Shared.WebLink
+		   
+<tr>
+	<td>
+		@{ var item = Html.BeginCollectionItem("WebLinks"); }
+		@Html.TextBoxFor(m => m.Description, new { maxlength = 512, @class = "webLinkDescription" })
+	</td>
+	<td>
+		@Html.TextBoxFor(m => m.Url, new { maxlength = 512, @class = "webLinkUrl" })
+		@{ item.Dispose(); }
+	</td>
+	<td>
+		<input type="button" class="webLinkDelete" value="Delete" />
+	</td>
+</tr>
