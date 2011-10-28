@@ -29,6 +29,7 @@ namespace VocaDb.Model.Mapping.Artists {
 				c.Map(m => m.Japanese, "JapaneseName");
 				c.Map(m => m.English, "EnglishName");
 				c.Map(m => m.Romaji, "RomajiName");
+				c.Map(m => m.Other, "OtherName");
 			});
 
 			Component(m => m.Picture, c => {

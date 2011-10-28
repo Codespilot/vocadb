@@ -1,12 +1,12 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 @using System.Web.Mvc.Html
 
-@helper NotificationPanel(string message) {
+@helper NotificationPanel(string message, string messageId = "") {
 	<div class="ui-widget">
 		<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
 			<p>
 				<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				@message
+				<span id="@messageId">@message</span>
 			</p>
 		</div>
 	</div>

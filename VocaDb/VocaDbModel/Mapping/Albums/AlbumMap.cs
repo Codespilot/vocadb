@@ -26,7 +26,6 @@ namespace VocaDb.Model.Mapping.Albums {
 			Component(m => m.OriginalRelease, c => {
 				c.Map(m => m.CatNum, "ReleaseCatNum");
 				c.Map(m => m.EventName, "ReleaseEventName");
-				//c.References(m => m.Label, "ReleaseLabel");
 				c.Component(m => m.ReleaseDate, c2 => {
 					c2.Map(m => m.Year, "ReleaseYear");
 					c2.Map(m => m.Month, "ReleaseMonth");
@@ -39,6 +38,7 @@ namespace VocaDb.Model.Mapping.Albums {
 				c.Map(m => m.Japanese, "JapaneseName");
 				c.Map(m => m.English, "EnglishName");
 				c.Map(m => m.Romaji, "RomajiName");
+				c.Map(m => m.Other, "OtherName");
 			});
 
 			HasMany(m => m.AllArtists).Table("ArtistsForAlbums").Inverse().Cascade.All();

@@ -142,6 +142,28 @@ namespace VocaDb.Model.Service {
 
 	}
 
+	/// <summary>
+	/// Match mode for name queries.
+	/// </summary>
+	public enum NameMatchMode {
+
+		/// <summary>
+		/// Automatically choose match mode based on query term length
+		/// </summary>
+		Auto,
+
+		/// <summary>
+		/// Always partial matching
+		/// </summary>
+		Partial,
+
+		/// <summary>
+		/// Always exact matching (still case-insensitive)
+		/// </summary>
+		Exact
+
+	}
+
 	public class PartialFindResult<T> {
 
 		public PartialFindResult(T[] items, int totalCount) {

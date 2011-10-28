@@ -173,7 +173,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var song = new Song(new TranslatedString(name), null);
+				var song = new Song(name);
 
 				session.Save(song);
 
@@ -254,8 +254,8 @@ namespace VocaDb.Model.Service {
 
 					pvResult = VideoServiceHelper.ParseByUrl(contract.PVUrl);
 
-					var existing = session.Query<PVForSong>().FirstOrDefault(s => s.Service == pvResult.Service 
-						&& s.PVId == pvResult.Id);
+					var existing = session.Query<PVForSong>().FirstOrDefault(
+						s => s.Service == pvResult.Service && s.PVId == pvResult.Id && !s.Song.Deleted);
 
 					if (existing != null) {
 						throw new VideoParseException(string.Format("Song '{0}' already contains this PV", 
@@ -264,7 +264,7 @@ namespace VocaDb.Model.Service {
 		
 				}
 
-				var song = new Song(new TranslatedString(contract.Name), null);
+				var song = new Song(new TranslatedString(contract.Name));
 				session.Save(song);
 
 				foreach (var artist in contract.Artists) {
@@ -341,7 +341,8 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, bool getTotalCount = false, bool onlyByName = false) {
+		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
+			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool onlyByName = false) {
 
 			return HandleQuery(session => {
 
@@ -363,14 +364,14 @@ namespace VocaDb.Model.Service {
 					var directQ = session.Query<Song>()
 						.Where(s => !s.Deleted);
 
-					if (!string.IsNullOrEmpty(query) && query.Length < 3) {
+					if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
 						directQ = directQ.Where(s =>
 							s.TranslatedName.English == query
 								|| s.TranslatedName.Romaji == query
 								|| s.TranslatedName.Japanese == query);
 
-					} else if (!string.IsNullOrEmpty(query)) {
+					} else {
 
 						directQ = directQ.Where(s =>
 							s.TranslatedName.English.Contains(query)

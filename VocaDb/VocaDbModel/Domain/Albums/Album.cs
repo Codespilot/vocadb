@@ -16,7 +16,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
 		private string description;
-		private IList<AlbumName> names = new List<AlbumName>();
+		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
@@ -43,8 +43,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 			TranslatedName = translatedName;
 			
-			foreach (var name in translatedName.AllLocalized)
-				Names.Add(new AlbumName(this, name));
+			//foreach (var name in translatedName.AllLocalized)
+			//	Names.Add(new AlbumName(this, name));
 
 		}
 
@@ -117,7 +117,7 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual IList<AlbumName> Names {
+		public virtual NameManager<AlbumName> Names {
 			get { return names; }
 			set {
 				ParamIs.NotNull(() => value);
