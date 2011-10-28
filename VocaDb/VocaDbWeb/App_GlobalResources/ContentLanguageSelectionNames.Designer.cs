@@ -95,5 +95,14 @@ namespace Resources {
                 return ResourceManager.GetString("Romaji", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unspecified.
+        /// </summary>
+        internal static string Unspecified {
+            get {
+                return ResourceManager.GetString("Unspecified", resourceCulture);
+            }
+        }
     }
 }
