@@ -28,7 +28,7 @@ namespace VocaDb.Web.Helpers {
 			get {
 
 				return EnumVal<ContentLanguageSelection>.Values.Where(l => l != ContentLanguageSelection.Unspecified)
-					.ToDictionary(l => l, Translate.ContentLanguageSelectionName));
+					.ToDictionary(l => l, Translate.ContentLanguageSelectionName);
 
 			}
 
@@ -57,8 +57,16 @@ namespace VocaDb.Web.Helpers {
 
 		public static SelectList LanguageSelectionListWithoutUnspecified {
 			get {
-				return new SelectList(LanguageSelections, "Key", "Value");
+				return new SelectList(LanguageSelectionsWithoutUnspecified, "Key", "Value");
 			}
+		}
+
+		public static SelectList CreateLanguageSelectionList(object selectedValue) {
+			return new SelectList(LanguageSelections, "Key", "Value", selectedValue);
+		}
+
+		public static SelectList CreateLanguageSelectionListWithoutUnspecified(object selectedValue) {
+			return new SelectList(LanguageSelectionsWithoutUnspecified, "Key", "Value", selectedValue);
 		}
 
 		public static MvcHtmlString LanguagePreferenceDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
@@ -69,9 +77,9 @@ namespace VocaDb.Web.Helpers {
 		}
 
 		public static MvcHtmlString LanguageSelectionDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
-			Expression<Func<TModel, ContentLanguageSelection>> expression, object htmlAttributes = null, bool allowUnspecified = false) {
+			Expression<Func<TModel, ContentLanguageSelection>> expression, object htmlAttributes = null, bool allowUnspecified = false, object selectedValue = null) {
 
-			return htmlHelper.DropDownListFor(expression, allowUnspecified ? LanguageSelectionList : LanguageSelectionListWithoutUnspecified, htmlAttributes);
+			return htmlHelper.DropDownListFor(expression, allowUnspecified ? CreateLanguageSelectionList(selectedValue) : CreateLanguageSelectionListWithoutUnspecified(selectedValue), htmlAttributes);
 
 		}
 

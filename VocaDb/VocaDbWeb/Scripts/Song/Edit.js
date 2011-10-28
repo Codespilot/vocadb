@@ -25,9 +25,9 @@ function initPage(songId) {
 
 	});
 
-	$("select.nameLanguage").change(onChangeLang);
+	//$("select.nameLanguage").change(onChangeLang);
 
-	$("input.nameCopy").live("click", function () {
+	/*$("input.nameCopy").live("click", function () {
 
 		var id = getId(this);
 		var nameVal = $("input#nameEdit_" + id).val();
@@ -35,15 +35,17 @@ function initPage(songId) {
 
 		$("input#Name" + langId).val(nameVal);
 
-	});
+	});*/
 
 	$("input.nameDelete").live("click", function () {
 
-		var id = getId(this);
+		//var id = getId(this);
 
-		$.post("../../Song/DeleteName", { nameId: id });
+		//$.post("../../Song/DeleteName", { nameId: id });
 
-		$("tr#nameRow_" + id).remove();
+		//$("tr#nameRow_" + id).remove();
+
+		$(this).parent().parent().remove();
 
 	});
 
@@ -176,7 +178,6 @@ function initPage(songId) {
 
 	$(".deleteLyrics").live("click", function () {
 
-		// TODO: verify
 		$(this).parent().parent().remove();
 
 	});

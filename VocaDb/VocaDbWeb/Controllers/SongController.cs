@@ -127,7 +127,7 @@ namespace VocaDb.Web.Controllers
         public ActionResult Edit(SongEdit model) {
 
 			if (!ModelState.IsValid)
-				return View();
+				return View(new SongEdit(Service.GetSongForEdit(model.Id)));
 
 			var contract = model.ToContract();
 			Service.UpdateBasicProperties(contract);
@@ -139,9 +139,9 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult CreateName(int songId, string nameVal, ContentLanguageSelection language) {
 
-			var name = Service.CreateName(songId, nameVal, language);
+			//var name = Service.CreateName(songId, nameVal, language);
 
-			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit(name));
+			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit { Language = language, Value = nameVal });
 
 		}
 

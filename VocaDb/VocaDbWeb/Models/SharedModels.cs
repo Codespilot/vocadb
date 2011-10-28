@@ -62,7 +62,7 @@ namespace VocaDb.Web.Models {
 		public ContentLanguageSelection Language { get; set; }
 
 		[Required]
-		[Display(Name = "Value")]
+		[Display(Name = "Name")]
 		public string Value { get; set; }
 
 	}

@@ -1,15 +1,17 @@
 ﻿@using VocaDb.Web.Helpers
 @model VocaDb.Web.Models.LocalizedStringEdit
 
-<tr id="@("nameRow_" + Model.Id)">
+<tr>
 	<td>
-		<input type="text" maxlength="128" class="nameEdit" id="@("nameEdit_" + Model.Id)" value='@Model.Value' />
+		@{ var item = Html.BeginCollectionItem("Names"); }
+		@Html.HiddenFor(m => m.Id)
+		@Html.TextBoxFor(m => m.Value, new { maxlength = 128, @class = "nameEdit" })
 	</td>
 	<td>
-		@Html.LanguageSelectionDropDownListFor(m => m.Language, new { id = "nameLanguage_" + Model.Id, @class = "nameLanguage" })
+		@Html.LanguageSelectionDropDownListFor(m => m.Language, new { @class = "nameLanguage" }, true, Model.Language)
+		@{ item.Dispose(); }
 	</td>
 	<td>
-		<input type="button" class="nameDelete" id="@("nameDelete_" + Model.Id)" value="Delete" />
-		<input type="button" class="nameCopy" id="@("nameCopy_" + Model.Id)" value="Copy to primary" />
+		<input type="button" class="nameDelete" value="Delete" />
 	</td>
 </tr>

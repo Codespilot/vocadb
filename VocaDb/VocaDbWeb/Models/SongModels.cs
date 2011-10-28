@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
@@ -9,6 +10,7 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
 
@@ -71,9 +73,19 @@ namespace VocaDb.Web.Models {
 
 	public class SongEdit {
 
-		public SongEdit() {}
+		public SongEdit() {
 
-		public SongEdit(SongForEditContract song) {
+			Names = new List<LocalizedStringEdit>();
+			PVs = new List<PVForSongContract>();
+			WebLinks = new List<WebLink>();
+
+			AllPVTypes = EnumVal<PVType>.Values;
+			AllVideoServices = EnumVal<PVService>.Values;
+
+		}
+
+		public SongEdit(SongForEditContract song)
+			: this() {
 
 			ParamIs.NotNull(() => song);
 
@@ -88,10 +100,7 @@ namespace VocaDb.Web.Models {
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
 			//NicoId = song.Song.NicoId;
 			PVs = song.PVs;
-			WebLinks = song.WebLinks;
-
-			AllPVTypes = EnumVal<PVType>.Values;
-			AllVideoServices = EnumVal<PVService>.Values;
+			WebLinks = song.WebLinks.Select(w => new WebLink(w)).ToArray();
 
 		}
 
@@ -109,10 +118,10 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Lyrics")]
 		public LyricsForSongModel[] Lyrics { get; set; }
 
-		public string Name { get; protected set; }
+		public string Name { get; set; }
 
 		[Display(Name = "Names")]
-		public LocalizedStringEdit[] Names { get; set; }
+		public IList<LocalizedStringEdit> Names { get; set; }
 
 		[Required]
 		[Display(Name = "Name in English")]
@@ -133,10 +142,10 @@ namespace VocaDb.Web.Models {
 		//public string NicoId { get; set; }
 
 		[Display(Name = "PVs")]
-		public PVForSongContract[] PVs { get; set; }
+		public IList<PVForSongContract> PVs { get; set; }
 
 		[Display(Name = "Web links")]
-		public WebLinkContract[] WebLinks { get; set; }
+		public IList<WebLink> WebLinks { get; set; }
 
 		public SongForEditContract ToContract() {
 
