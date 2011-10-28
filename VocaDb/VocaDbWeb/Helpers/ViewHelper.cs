@@ -24,6 +24,16 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		private static Dictionary<ContentLanguageSelection, string> LanguageSelectionsWithoutUnspecified {
+			get {
+
+				return EnumVal<ContentLanguageSelection>.Values.Where(l => l != ContentLanguageSelection.Unspecified)
+					.ToDictionary(l => l, Translate.ContentLanguageSelectionName));
+
+			}
+
+		}
+
 		private static Dictionary<ContentLanguagePreference, string> LanguagePreferences {
 			get {
 
@@ -45,6 +55,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static SelectList LanguageSelectionListWithoutUnspecified {
+			get {
+				return new SelectList(LanguageSelections, "Key", "Value");
+			}
+		}
+
 		public static MvcHtmlString LanguagePreferenceDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, ContentLanguagePreference>> expression) {
 
@@ -53,22 +69,15 @@ namespace VocaDb.Web.Helpers {
 		}
 
 		public static MvcHtmlString LanguageSelectionDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
-			Expression<Func<TModel, ContentLanguageSelection>> expression) {
+			Expression<Func<TModel, ContentLanguageSelection>> expression, object htmlAttributes = null, bool allowUnspecified = false) {
 
-			return htmlHelper.DropDownListFor(expression, LanguageSelectionList);
-
-		}
-
-		public static MvcHtmlString LanguageSelectionDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
-			Expression<Func<TModel, ContentLanguageSelection>> expression, object htmlAttributes) {
-
-			return htmlHelper.DropDownListFor(expression, LanguageSelectionList, htmlAttributes);
+			return htmlHelper.DropDownListFor(expression, allowUnspecified ? LanguageSelectionList : LanguageSelectionListWithoutUnspecified, htmlAttributes);
 
 		}
 
-		public static MvcHtmlString LanguageSelectionDropDownList(this HtmlHelper htmlHelper, string name, object htmlAttributes) {
+		public static MvcHtmlString LanguageSelectionDropDownList(this HtmlHelper htmlHelper, string name, object htmlAttributes, bool allowUnspecified) {
 
-			return htmlHelper.DropDownList(name, LanguageSelectionList, htmlAttributes);
+			return htmlHelper.DropDownList(name, allowUnspecified ? LanguageSelectionList : LanguageSelectionListWithoutUnspecified, htmlAttributes);
 
 		}
 

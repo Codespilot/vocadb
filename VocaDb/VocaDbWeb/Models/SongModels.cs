@@ -78,6 +78,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => song);
 
 			ArtistLinks = song.Artists;
+			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
 			Id = song.Song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			Name = song.Song.Name;

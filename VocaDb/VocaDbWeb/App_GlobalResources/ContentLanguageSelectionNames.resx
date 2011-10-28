@@ -129,4 +129,7 @@
   <data name="Romaji" xml:space="preserve">
     <value>Romanized</value>
   </data>
+  <data name="Unspecified" xml:space="preserve">
+    <value>Unspecified</value>
+  </data>
 </root>
