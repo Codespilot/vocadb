@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			Id = song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
-			Names = song.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
 			TranslatedName = new TranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();

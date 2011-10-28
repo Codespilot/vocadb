@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ParamIs.NotNull(() => allCircles);
 
 			AllCircles = allCircles.OrderBy(a => a.TranslatedName[languagePreference]).Select(a => new ArtistContract(a, languagePreference)).ToArray();
-			Names = artist.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = artist.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 
 		}
 

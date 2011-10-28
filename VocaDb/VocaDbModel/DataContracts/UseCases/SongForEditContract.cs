@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			
 			ParamIs.NotNull(() => song);
 
-			Names = song.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 
 		}
 

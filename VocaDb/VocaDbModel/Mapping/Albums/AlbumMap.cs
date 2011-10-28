@@ -33,17 +33,19 @@ namespace VocaDb.Model.Mapping.Albums {
 				});
 			});
 
-			Component(m => m.TranslatedName, c => {
-				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
-				c.Map(m => m.Japanese, "JapaneseName");
-				c.Map(m => m.English, "EnglishName");
-				c.Map(m => m.Romaji, "RomajiName");
-				c.Map(m => m.Other, "OtherName");
+			Component(m => m.Names, c => {
+				c.HasMany(m => m.Names).Table("AlbumNames").KeyColumn("[Album]").Inverse().Cascade.All();
+				c.Component(m => m.SortNames, c2 => {
+					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
+					c2.Map(m => m.Japanese, "JapaneseName");
+					c2.Map(m => m.English, "EnglishName");
+					c2.Map(m => m.Romaji, "RomajiName");
+					//c.Map(m => m.Other, "OtherName");
+				});
 			});
 
 			HasMany(m => m.AllArtists).Table("ArtistsForAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("TrackNumber");
-			HasMany(m => m.Names).Table("AlbumNames").Inverse().Cascade.All();
 			HasMany(m => m.UserCollections).Inverse();
 			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.All();
 

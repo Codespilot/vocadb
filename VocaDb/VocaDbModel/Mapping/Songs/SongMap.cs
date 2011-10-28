@@ -16,18 +16,20 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.NicoId).Nullable();
 			Map(m => m.Version).Not.Nullable();
 
-			Component(m => m.TranslatedName, c => {
-				c.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
-				c.Map(m => m.Japanese, "JapaneseName");
-				c.Map(m => m.English, "EnglishName");
-				c.Map(m => m.Romaji, "RomajiName");
-				c.Map(m => m.Other, "OtherName");
+			Component(m => m.Names, c => {
+				c.HasMany(m => m.Names).Table("SongNames").KeyColumn("[Song]").Inverse().Cascade.All();
+				c.Component(m => m.SortNames, c2 => {
+					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
+					c2.Map(m => m.Japanese, "JapaneseName");
+					c2.Map(m => m.English, "EnglishName");
+					c2.Map(m => m.Romaji, "RomajiName");
+					//c.Map(m => m.Other, "OtherName");
+				});
 			});
 
 			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
-			HasMany(m => m.Names).Table("SongNames").Inverse().Cascade.All();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All();
 			HasMany(m => m.PVs).Inverse().Cascade.All();
 			HasMany(m => m.UserFavorites).Inverse();

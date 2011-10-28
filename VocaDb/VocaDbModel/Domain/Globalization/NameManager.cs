@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace VocaDb.Model.Domain.Globalization {
 
@@ -10,6 +8,17 @@ namespace VocaDb.Model.Domain.Globalization {
 		private IList<T> names = new List<T>();
 		private TranslatedString sortNames = new TranslatedString();
 
+		private T GetDefaultName() {
+
+			if (!Names.Any())
+				return null;
+
+			var name = Names.FirstOrDefault(n => n.Language == sortNames.DefaultLanguage);
+			
+			return name ?? Names.First();
+
+		}
+
 		private T GetFirstName(ContentLanguageSelection languageSelection) {
 
 			if (!Names.Any())
@@ -17,10 +26,12 @@ namespace VocaDb.Model.Domain.Globalization {
 
 			var name = Names.FirstOrDefault(n => n.Language == languageSelection);
 
-			if (name == null)
+			return name ?? GetDefaultName();
+
+			/*if (name == null)
 				name = Names.FirstOrDefault(n => n.Language == ContentLanguageSelection.Unspecified);
 
-			return name;
+			return name;*/
 
 		}
 
@@ -65,9 +76,22 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
-		public virtual bool HasNameFor(ContentLanguageSelection language) {
+		/*public virtual bool HasNameFor(ContentLanguageSelection language) {
 
 			return Names.Any(n => n.Language == language || n.Language == ContentLanguageSelection.Unspecified);
+
+		}*/
+
+		public virtual void Add(T name) {
+			
+			Names.Add(name);
+			UpdateSortNames();
+
+		}
+
+		public virtual bool HasName(LocalizedString name) {
+
+			return Names.Any(n => n.ContentEquals(name));
 
 		}
 

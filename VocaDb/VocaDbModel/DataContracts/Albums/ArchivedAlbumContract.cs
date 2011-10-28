@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			OriginalRelease = (album.OriginalRelease != null ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
-			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = album.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			WebLinks = album.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();

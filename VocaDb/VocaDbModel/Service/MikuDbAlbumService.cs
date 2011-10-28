@@ -30,7 +30,7 @@ namespace VocaDb.Model.Service {
 
 			if (acceptedAlbum.ExistingAlbum == null) {
 
-				album = new Album(new TranslatedString(acceptedAlbum.ImportedAlbum.Title));
+				album = new Album(acceptedAlbum.ImportedAlbum.Title);
 				album.DiscType = DiscType.Unknown;
 				session.Save(album);
 
@@ -54,7 +54,7 @@ namespace VocaDb.Model.Service {
 					Song song;
 
 					if (inspectedTrack.ExistingSong == null) {
-						song = new Song(new TranslatedString(inspectedTrack.ImportedTrack.Title), null);
+						song = new Song(inspectedTrack.ImportedTrack.Title);
 						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum);
 						session.Save(song);
 					} else {
