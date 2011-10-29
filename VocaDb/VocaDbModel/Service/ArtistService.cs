@@ -501,7 +501,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateBasicProperties(ArtistDetailsContract properties, PictureDataContract pictureData, IUserPermissionContext permissionContext) {
+		public void UpdateBasicProperties(ArtistForEditContract properties, PictureDataContract pictureData, IUserPermissionContext permissionContext) {
 			
 			ParamIs.NotNull(() => properties);
 			ParamIs.NotNull(() => permissionContext);
@@ -514,13 +514,19 @@ namespace VocaDb.Model.Service {
 				ArchiveArtist(session, permissionContext, artist);
 
 				artist.ArtistType = properties.ArtistType;
-				//artist.Circle = (properties.Circle != null ? session.Load<Artist>(properties.Circle.Id) : null);
 				artist.Description = properties.Description;
-				artist.TranslatedName.CopyFrom(properties.TranslatedName);
+				//artist.TranslatedName.CopyFrom(properties.TranslatedName);
+				artist.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
 				}
+
+				var nameDiff = artist.Names.Sync(properties.Names, artist);
+				SessionHelper.Sync(session, nameDiff);
+
+				var webLinkDiff = WebLink.Sync(artist.WebLinks, properties.WebLinks, artist);
+				SessionHelper.Sync(session, webLinkDiff);
 
 				var diff = CollectionHelper.Diff(artist.Groups, properties.Groups, (i, i2) => (i.Id == i2.Id));
 

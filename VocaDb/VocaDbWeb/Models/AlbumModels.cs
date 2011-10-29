@@ -14,14 +14,23 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
 
 	public class AlbumEdit {
 
-		public AlbumEdit() {}
+		public AlbumEdit() {
+			
+			Names = new List<LocalizedStringEdit>();
+			WebLinks = new List<WebLink>();
 
-		public AlbumEdit(AlbumForEditContract album) {
+			AllDiscTypes = EnumVal<DiscType>.Values;
+
+		}
+
+		public AlbumEdit(AlbumForEditContract album)
+			: this() {
 
 			ParamIs.NotNull(() => album);
 
@@ -36,7 +45,7 @@ namespace VocaDb.Web.Models {
 			NameRomaji = album.TranslatedName.Romaji;
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
 			Tracks = album.Songs;
-			WebLinks = album.WebLinks;
+			WebLinks = album.WebLinks.Select(w => new WebLink(w)).ToArray();
 
 			if (album.OriginalRelease != null) {
 				CatNum = album.OriginalRelease.CatNum;
@@ -48,8 +57,6 @@ namespace VocaDb.Web.Models {
 					ReleaseYear = d.Year;
 				}
 			}
-
-			AllDiscTypes = EnumVal<DiscType>.Values;
 
 		}
 
@@ -80,7 +87,7 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		[Display(Name = "Names")]
-		public LocalizedStringEdit[] Names { get; set; }
+		public IList<LocalizedStringEdit> Names { get; set; }
 
 		[Required]
 		[Display(Name = "Name in English")]
@@ -116,7 +123,7 @@ namespace VocaDb.Web.Models {
 		public SongInAlbumContract[] Tracks { get; set; }
 
 		[Display(Name = "External links")]
-		public WebLinkContract[] WebLinks { get; set; }
+		public IList<WebLink> WebLinks { get; set; }
 
 		public AlbumForEditContract ToContract() {
 
@@ -125,6 +132,7 @@ namespace VocaDb.Web.Models {
 				DiscType = this.DiscType,
 				Id = this.Id,
 				Name = this.Name,
+				Names = this.Names.Select(n => n.ToContract()).ToArray(),
 				OriginalRelease = new AlbumReleaseContract {
 					CatNum = this.CatNum,
 					EventName = this.ReleaseEvent,
@@ -136,6 +144,7 @@ namespace VocaDb.Web.Models {
 				},
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
+				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
 			};
 
 		}

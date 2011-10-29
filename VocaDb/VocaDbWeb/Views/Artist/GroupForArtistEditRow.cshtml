@@ -3,7 +3,7 @@
 
 <tr id="@("groupRow_" + Model.Id)">
 	<td>
-		@using (Html.BeginCollectionItem("groups")) {
+		@using (Html.BeginCollectionItem("Groups")) {
 			@Html.HiddenFor(m => m.Id);
 			@Html.HiddenFor(m => m.Group.Id);
 			@Html.ActionLink(Model.Group.Name, "Edit", "Artist", new { id = Model.Group.Id }, null);

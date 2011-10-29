@@ -11,7 +11,7 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class Album : IEquatable<Album> {
+	public class Album : IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();

@@ -130,6 +130,7 @@ namespace VocaDb.Web.Controllers
 				var oldContract = Service.GetSongForEdit(model.Id);
 				model.Lyrics = oldContract.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 				model.ArtistLinks = oldContract.Artists;
+				model.PVs = oldContract.PVs;
 				return View(model);				
 			}
 

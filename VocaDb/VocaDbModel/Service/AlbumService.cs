@@ -579,8 +579,16 @@ namespace VocaDb.Model.Service {
 
 				album.DiscType = properties.DiscType;
 				album.Description = properties.Description;
-				album.TranslatedName.CopyFrom(properties.TranslatedName);
-				
+				album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+
+				var nameDiff = album.Names.Sync(properties.Names, album);
+				SessionHelper.Sync(session, nameDiff);
+
+				album.Names.UpdateSortNames();
+
+				var webLinkDiff = WebLink.Sync(album.WebLinks, properties.WebLinks, album);
+				SessionHelper.Sync(session, webLinkDiff);
+
 				if (properties.OriginalRelease != null) {
 					album.OriginalRelease = new AlbumRelease(properties.OriginalRelease);
 				} else {

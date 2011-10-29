@@ -645,6 +645,8 @@ namespace VocaDb.Model.Service {
 
 				Archive(session, song);
 
+				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+
 				var nameDiff = song.Names.Sync(properties.Names, song);
 				SessionHelper.Sync(session, nameDiff);
 
