@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
 
@@ -41,9 +42,18 @@ namespace VocaDb.Web.Models {
 
 	public class ArtistEdit {
 
-		public ArtistEdit() {}
+		public ArtistEdit() {
 
-		public ArtistEdit(ArtistForEditContract artist) {
+			Groups = new List<GroupForArtistContract>();
+			Names = new List<LocalizedStringEdit>();
+			WebLinks = new List<WebLink>();
+
+			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
+
+		}
+
+		public ArtistEdit(ArtistForEditContract artist)
+			: this() {
 
 			AlbumLinks = artist.AlbumLinks;
 			ArtistType = artist.ArtistType;
@@ -56,9 +66,8 @@ namespace VocaDb.Web.Models {
 			NameJapanese = artist.TranslatedName.Japanese;
 			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
-			WebLinks = artist.WebLinks;
+			WebLinks = artist.WebLinks.Select(w => new WebLink(w)).ToArray();
 
-			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
 			AllCircles = artist.AllCircles.ToDictionary(a => a.Id, a => a.Name);
 
 		}
@@ -79,14 +88,14 @@ namespace VocaDb.Web.Models {
 		public string Description { get; set; }
 
 		[Display(Name = "Groups and circles")]
-		public GroupForArtistContract[] Groups { get; set; }
+		public IList<GroupForArtistContract> Groups { get; set; }
 
 		public int Id { get; set; }
 
 		public string Name { get; set; }
 
 		[Display(Name = "Names")]
-		public LocalizedStringEdit[] Names { get; set; }
+		public IList<LocalizedStringEdit> Names { get; set; }
 
 		[Required]
 		[Display(Name = "Name in English")]
@@ -104,19 +113,21 @@ namespace VocaDb.Web.Models {
 		public string NameRomaji { get; set; }
 
 		[Display(Name = "Web links")]
-		public WebLinkContract[] WebLinks { get; set; }
+		public IList<WebLink> WebLinks { get; set; }
 
-		public ArtistDetailsContract ToContract() {
+		public ArtistForEditContract ToContract() {
 
-			return new ArtistDetailsContract {
+			return new ArtistForEditContract {
 				
 				Id = this.Id,
 				ArtistType = this.ArtistType,
 				Description =  this.Description ?? string.Empty,
-				Groups = this.Groups ?? new GroupForArtistContract[] {},
+				Groups = this.Groups.ToArray(),
 				Name = this.Name,
+				Names = this.Names.Select(l => l.ToContract()).ToArray(),
 				TranslatedName = new TranslatedStringContract(
-					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				
+					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
+				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
 
 			};
 

@@ -8,6 +8,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class ArtistForEditContract : ArtistDetailsContract {
 
+		public ArtistForEditContract() { }
+
 		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference, IEnumerable<Artist> allCircles)
 			: base(artist, languagePreference) {
 
@@ -18,9 +20,9 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
-		public ArtistContract[] AllCircles { get; private set; }
+		public ArtistContract[] AllCircles { get; set; }
 
-		public LocalizedStringWithIdContract[] Names { get; private set; }
+		public LocalizedStringWithIdContract[] Names { get; set; }
 
 	}
 

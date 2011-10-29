@@ -97,6 +97,7 @@
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">

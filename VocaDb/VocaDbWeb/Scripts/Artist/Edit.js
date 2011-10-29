@@ -15,7 +15,7 @@ function initPage(artistId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
-	$("input.nameEdit").live("change", function () {
+	/*$("input.nameEdit").live("change", function () {
 
 		var id = getId(this);
 		var val = $(this).val();
@@ -34,15 +34,17 @@ function initPage(artistId) {
 
 		$("input#Name" + langId).val(nameVal);
 
-	});
+	});*/
 
 	$("input.nameDelete").live("click", function () {
 
-		var id = getId(this);
+		/*var id = getId(this);
 
 		$.post("../../Artist/DeleteName", { nameId: id });
 
-		$("tr#nameRow_" + id).remove();
+		$("tr#nameRow_" + id).remove();*/
+
+		$(this).parent().parent().remove();
 
 	});
 
@@ -52,7 +54,7 @@ function initPage(artistId) {
 		var newNameVal = $("input#nameEdit_new").val();
 		var newLangId = $("select#nameLanguage_new").val();
 
-		$.post("../../Artist/CreateName", { artistId: aId, nameVal: newNameVal, language: newLangId }, function (row) {
+		$.post("../../Shared/CreateName", { nameVal: newNameVal, language: newLangId }, function (row) {
 
 			$("#nameRow_new").before(row);
 			$("input#nameEdit_new").val("");
@@ -61,7 +63,7 @@ function initPage(artistId) {
 
 	});
 
-	$("input.webLinkDescription").live("change", function () {
+	/*$("input.webLinkDescription").live("change", function () {
 
 		var id = getId(this);
 		var val = $(this).val();
@@ -77,15 +79,17 @@ function initPage(artistId) {
 
 		$.post("../../Artist/EditWebLinkUrl", { linkId: id, url: val });
 
-	});
+	});*/
 
 	$("input.webLinkDelete").live("click", function () {
 
-		var id = getId(this);
+		/*var id = getId(this);
 
 		$.post("../../Artist/DeleteWebLink", { linkId: id });
 
-		$("tr#webLinkRow_" + id).remove();
+		$("tr#webLinkRow_" + id).remove();*/
+
+		$(this).parent().parent().remove();
 
 	});
 
@@ -95,9 +99,9 @@ function initPage(artistId) {
 		var newDescription = $("input#webLinkDescription_new").val();
 		var newUrl = $("input#webLinkUrl_new").val();
 
-		$.post("../../Artist/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function (link) {
+		$.post("../../Shared/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function (row) {
 
-			var row = document.createElement("tr");
+			/*var row = document.createElement("tr");
 			$(row).attr("id", "webLinkRow_" + link.Id);
 			$("#webLinkRow_new").before(row);
 			$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkDescription\" id=\"webLinkDescription_" + link.Id + "\" value=\"" + link.Description + "\" />");
@@ -107,6 +111,10 @@ function initPage(artistId) {
 			$(actionCell).append("<input type=\"button\" class=\"webLinkDelete\" id=\"webLinkDelete_" + link.Id + "\" value=\"Delete\" />");
 			$(row).append(actionCell);
 
+			$("input#webLinkDescription_new").val("");
+			$("input#webLinkUrl_new").val("");*/
+
+			$("#webLinkRow_new").before(row);
 			$("input#webLinkDescription_new").val("");
 			$("input#webLinkUrl_new").val("");
 

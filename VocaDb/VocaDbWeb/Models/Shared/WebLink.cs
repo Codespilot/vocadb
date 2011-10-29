@@ -6,7 +6,10 @@ namespace VocaDb.Web.Models.Shared {
 
 	public class WebLink {
 
-		public WebLink() {}
+		public WebLink() {
+			Description = string.Empty;
+			Url = string.Empty;
+		}
 
 		public WebLink(WebLinkContract contract) {
 			
@@ -27,7 +30,7 @@ namespace VocaDb.Web.Models.Shared {
 
 		public WebLinkContract ToContract() {
 
-			return new WebLinkContract { Id = this.Id, Description = this.Description, Url = this.Url };
+			return new WebLinkContract { Id = this.Id, Description = this.Description ?? string.Empty, Url = this.Url };
 
 		}
 

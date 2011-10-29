@@ -117,7 +117,6 @@ namespace VocaDb.Web.Controllers
 		public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
         {
 
-			model.Groups = (groups != null ? groups.ToArray() : null);
             PictureDataContract pictureData = null;
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
@@ -132,10 +131,13 @@ namespace VocaDb.Web.Controllers
 				} else {
 
 					ModelState.AddModelError("Picture", "Picture format is not valid");
-					return RedirectToAction("Edit", new { id = model.Id });
 
 				}
 
+			}
+
+			if (!ModelState.IsValid) {
+				return RedirectToAction("Edit", new { id = model.Id });
 			}
 
 			Service.UpdateBasicProperties(model.ToContract(), pictureData, LoginManager);

@@ -16,34 +16,7 @@ function initPage(songId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
-	$("input.nameEdit").live("change", function () {
-
-		var id = getId(this);
-		var val = $(this).val();
-
-		$.post("../../Song/EditNameValue", { nameId: id, nameVal: val });
-
-	});
-
-	//$("select.nameLanguage").change(onChangeLang);
-
-	/*$("input.nameCopy").live("click", function () {
-
-		var id = getId(this);
-		var nameVal = $("input#nameEdit_" + id).val();
-		var langId = $("select#nameLanguage_" + id).val();
-
-		$("input#Name" + langId).val(nameVal);
-
-	});*/
-
 	$("input.nameDelete").live("click", function () {
-
-		//var id = getId(this);
-
-		//$.post("../../Song/DeleteName", { nameId: id });
-
-		//$("tr#nameRow_" + id).remove();
 
 		$(this).parent().parent().remove();
 
@@ -54,10 +27,31 @@ function initPage(songId) {
 		var newNameVal = $("input#nameEdit_new").val();
 		var newLangId = $("select#nameLanguage_new").val();
 
-		$.post("../../Song/CreateName", { songId: songId, nameVal: newNameVal, language: newLangId }, function (row) {
+		$.post("../../Shared/CreateName", { nameVal: newNameVal, language: newLangId }, function (row) {
 
 			$("#nameRow_new").before(row);			
 			$("input#nameEdit_new").val("");
+
+		});
+
+	});
+
+	$("input.webLinkDelete").live("click", function () {
+
+		$(this).parent().parent().remove();
+
+	});
+
+	$("input#webLinkAdd").click(function () {
+
+		var newDescription = $("input#webLinkDescription_new").val();
+		var newUrl = $("input#webLinkUrl_new").val();
+
+		$.post("../../Shared/CreateWebLink", { description: newDescription, url: newUrl }, function (row) {
+
+			$("#webLinkRow_new").before(row);
+			$("input#webLinkDescription_new").val("");
+			$("input#webLinkUrl_new").val("");
 
 		});
 

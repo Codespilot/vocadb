@@ -9,7 +9,7 @@ using System;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class Artist : IEquatable<Artist> {
+	public class Artist : IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
