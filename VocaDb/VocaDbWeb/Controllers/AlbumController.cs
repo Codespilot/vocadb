@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
@@ -10,8 +7,6 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
 using System.Drawing;
 using VocaDb.Model.Helpers;
-using PagedList;
-using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Web.Models.Album;
 
 namespace VocaDb.Web.Controllers
@@ -210,7 +205,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewSong(int albumId, string newSongName) {
 
-			var link = Service.AddSong(albumId, newSongName);
+			var link = MvcApplication.Services.Songs.CreateForAlbum(albumId, newSongName);
 			return PartialView("SongInAlbumEditRow", link);
 
 		}
@@ -301,6 +296,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Versions(int id) {
 
+			return View(Service.GetAlbumWithArchivedVersions(id));
+
+		}
     }
 }

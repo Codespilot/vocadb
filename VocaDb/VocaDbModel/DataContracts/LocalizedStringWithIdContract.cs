@@ -3,7 +3,7 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class LocalizedStringWithIdContract : LocalizedStringContract {
 
 		public LocalizedStringWithIdContract() {}

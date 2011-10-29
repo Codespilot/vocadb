@@ -59,6 +59,9 @@ namespace VocaDb.Model.Service {
 				var albumForUser = user.AddAlbum(album);
 				session.Update(user);
 
+				Services.Albums.Archive(session, album);
+				session.Update(album);
+
 				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
 
 			});

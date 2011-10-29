@@ -218,7 +218,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewAlbum(int artistId, string newAlbumName) {
 
-			var link = Service.AddAlbum(artistId, newAlbumName);
+			var link = MvcApplication.Services.Albums.CreateForArtist(artistId, newAlbumName);
 			return PartialView("ArtistForAlbumRow", link);
 
 		}
@@ -265,6 +265,12 @@ namespace VocaDb.Web.Controllers
 			Service.Merge(id, targetIdInt);
 
 			return RedirectToAction("Edit", new { id = targetIdInt });
+
+		}
+
+		public ActionResult Versions(int id) {
+
+			return View(Service.GetArtistWithArchivedVersions(id));
 
 		}
 

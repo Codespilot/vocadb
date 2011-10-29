@@ -26,16 +26,6 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
 
-		private void ArchiveArtist(ISession session, IUserPermissionContext permissionContext, Artist artist) {
-
-			log.Info("Archiving " + artist);
-
-			var agentLoginData = SessionHelper.CreateAgentLoginData(session, permissionContext);
-			var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
-			session.Save(archived);
-
-		}
-
 		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ISession session, string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
@@ -234,27 +224,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistForAlbumContract AddAlbum(int artistId, string newAlbumName) {
+		public void Archive(ISession session, Artist artist) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			log.Info("Archiving " + artist);
 
-			return HandleTransaction(session => {
-
-				var artist = session.Load<Artist>(artistId);
-				AuditLog("creating a new album '" + newAlbumName + "' for " + artist);
-
-				var album = new Album(newAlbumName);
-
-				session.Save(album);
-				var artistForAlbum = artist.AddAlbum(album);
-				session.Update(artist);
-
-				album.UpdateArtistString();
-				session.Update(album);
-
-				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
-
-			});
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+			var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
+			session.Save(archived);
 
 		}
 
@@ -419,6 +395,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistWithArchivedVersionsContract GetArtistWithArchivedVersions(int artistId) {
+
+			return HandleQuery(session => new ArtistWithArchivedVersionsContract(session.Load<Artist>(artistId), PermissionContext.LanguagePreference));
+
+		}
+
 		public ArtistContract[] GetArtists() {
 
 			return GetArtists(a => new ArtistContract(a, PermissionContext.LanguagePreference));
@@ -454,8 +436,6 @@ namespace VocaDb.Model.Service {
 				var target = session.Load<Artist>(targetId);
 
 				AuditLog("Merging " + source + " to " + target);
-				ArchiveArtist(session, PermissionContext, source);
-				ArchiveArtist(session, PermissionContext, target);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -495,7 +475,12 @@ namespace VocaDb.Model.Service {
 					target.Description = source.Description;
 
 				source.Deleted = true;
+
+				Archive(session, source);
+				Archive(session, target);
+
 				session.Update(source);
+				session.Update(target);
 
 			});
 
@@ -511,7 +496,6 @@ namespace VocaDb.Model.Service {
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
 				AuditLog(string.Format("updating properties for {0}", artist));
-				ArchiveArtist(session, permissionContext, artist);
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Description = properties.Description;
@@ -540,6 +524,7 @@ namespace VocaDb.Model.Service {
 					session.Save(link);
 				}
 
+				Archive(session, artist);
 				session.Update(artist);
 
 			});

@@ -24,14 +24,6 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumService));
 
-		private void Archive(ISession session, Album album) {
-
-			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedAlbumVersion.Create(album, agentLoginData);
-			session.Save(archived);
-
-		}
-
 		private int GetAlbumCount(ISession session, string query) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
@@ -111,36 +103,13 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album));
 
 				var artistForAlbum = artist.AddAlbum(album);
+				Services.Artists.Archive(session, artist);
 				session.Save(artist);
 
 				album.UpdateArtistString();
 				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
-		public SongInAlbumContract AddSong(int albumId, string newSongName) {
-
-			ParamIs.NotNullOrEmpty(() => newSongName);
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-
-				AuditLog(string.Format("creating a new song '{0}' to {1}", newSongName, album));
-
-				var song = new Song(newSongName);
-
-				session.Save(song);
-				var songInAlbum = album.AddSong(song);
-				session.Save(songInAlbum);
-
-				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 
 			});
 
@@ -166,6 +135,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void Archive(ISession session, Album album) {
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+			var archived = ArchivedAlbumVersion.Create(album, agentLoginData);
+			session.Save(archived);
+
+		}
+
 		public AlbumContract Create(string name) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -176,11 +153,39 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var artist = new Album(name);
+				var album = new Album(name);
 
-				session.Save(artist);
+				session.Save(album);
 
-				return new AlbumContract(artist, PermissionContext.LanguagePreference);
+				Archive(session, album);
+				session.Update(album);
+
+				return new AlbumContract(album, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public ArtistForAlbumContract CreateForArtist(int artistId, string newAlbumName) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(artistId);
+				AuditLog("creating a new album '" + newAlbumName + "' for " + artist);
+
+				var album = new Album(newAlbumName);
+
+				session.Save(album);
+				var artistForAlbum = artist.AddAlbum(album);
+				session.Update(artist);
+
+				album.UpdateArtistString();
+				Archive(session, album);
+				session.Update(album);
+
+				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
 
 			});
 
@@ -414,6 +419,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumWithArchivedVersionsContract GetAlbumWithArchivedVersions(int albumId) {
+
+			return HandleQuery(session => new AlbumWithArchivedVersionsContract(session.Load<Album>(albumId), PermissionContext.LanguagePreference));
+
+		}
+
 		public AlbumContract[] GetAlbums() {
 
 			return HandleQuery(session => session.Query<Album>()
@@ -459,8 +470,6 @@ namespace VocaDb.Model.Service {
 				var target = session.Load<Album>(targetId);
 
 				AuditLog("Merging " + source + " to " + target);
-				Archive(session, source);
-				Archive(session, target);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -515,11 +524,14 @@ namespace VocaDb.Model.Service {
 					target.OriginalReleaseDate.Day = source.OriginalReleaseDate.Day;
 
 				source.Deleted = true;
-				session.Update(source);
 
 				target.UpdateArtistString();
 				target.Names.UpdateSortNames();
 
+				Archive(session, source);
+				Archive(session, target);
+
+				session.Update(source);
 				session.Update(target);
 
 			});
@@ -575,7 +587,6 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(properties.Id);
 
 				AuditLog(string.Format("updating properties for {0}", album));
-				Archive(session, album);
 
 				album.DiscType = properties.DiscType;
 				album.Description = properties.Description;
@@ -599,6 +610,7 @@ namespace VocaDb.Model.Service {
 					album.CoverPicture = new PictureData(pictureData);
 				}
 
+				Archive(session, album);
 				session.Update(album);
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 

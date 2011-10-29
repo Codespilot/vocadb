@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			OriginalRelease = (album.OriginalRelease != null ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
-			Names = album.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = album.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			WebLinks = album.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
@@ -48,7 +48,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public int Id { get; set; }
 
 		[DataMember]
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public LocalizedStringContract[] Names { get; set; }
 
 		[DataMember]
 		public ArchivedAlbumReleaseContract OriginalRelease { get; set; }

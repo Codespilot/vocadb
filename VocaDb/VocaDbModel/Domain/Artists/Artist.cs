@@ -6,6 +6,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using System;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Artists {
 
@@ -26,7 +27,6 @@ namespace VocaDb.Model.Domain.Artists {
 			Deleted = false;
 			Description = string.Empty;
 			StartDate = null;
-			//TranslatedName = new TranslatedString();
 			Version = 0;
 		}
 

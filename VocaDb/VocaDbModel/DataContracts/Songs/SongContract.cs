@@ -19,6 +19,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Id = song.Id;
 			Name = song.TranslatedName[languagePreference];
 			NicoId = song.NicoId;
+			Version = song.Version;
 
 		}
 
@@ -36,6 +37,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public string NicoId { get; set; }
+
+		[DataMember]
+		public int Version { get; set; }
 
 	}
 

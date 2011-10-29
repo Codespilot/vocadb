@@ -3,7 +3,8 @@ function initPage(albumId) {
 
 	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#removeAlbumLink").button({ icons: { primary: 'ui-icon-close'} });
-	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });	
+	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
+	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });	
 
 	$("#addAlbumLink").click(function () {
 

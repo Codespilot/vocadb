@@ -279,5 +279,11 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Versions(int id) {
+
+			return View(Service.GetSongWithArchivedVersions(id));
+
+		}
+
     }
 }

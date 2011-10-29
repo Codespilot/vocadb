@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Songs;
 
@@ -16,14 +13,19 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => song);
 
+			Artists = song.Artists.Select(a => new ObjectRefContract(a.Artist.Id, a.Artist.Name)).ToArray();
 			Id = song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
-			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+			NicoId = song.NicoId;
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
-			TranslatedName = new TranslatedStringContract(song.TranslatedName);
+			TranslatedName = new ArchivedTranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
 			
 		}
+
+		[DataMember]
+		public ObjectRefContract[] Artists { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
@@ -32,13 +34,16 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public LyricsForSongContract[] Lyrics { get; set; }
 
 		[DataMember]
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public LocalizedStringContract[] Names { get; set; }
+
+		[DataMember]
+		public string NicoId { get; set; }
 
 		[DataMember]
 		public ArchivedPVContract[] PVs { get; set; }
 
 		[DataMember]
-		public TranslatedStringContract TranslatedName { get; set; }
+		public ArchivedTranslatedStringContract TranslatedName { get; set; }
 
 		[DataMember]
 		public ArchivedWebLinkContract[] WebLinks { get; set; }

@@ -20,7 +20,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Id, g.Group.Name)).ToArray();
 			Members = artist.Members.Select(m => new ObjectRefContract(m.Id, m.Member.Name)).ToArray();
-			Names = artist.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			Picture = (artist.Picture != null ? new PictureDataContract(artist.Picture) : null);
 			Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song.Id, s.Song.DefaultName)).ToArray();
 			StartDate = artist.StartDate;
@@ -48,7 +48,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ObjectRefContract[] Members { get; set; }
 
 		[DataMember]
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public LocalizedStringContract[] Names { get; set; }
 
 		[DataMember]
 		public PictureDataContract Picture { get; set; }
