@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 			Status = album.Status;
 			Title = album.Title;
 
-			Selected = true;
+			Selected = (Status == AlbumStatus.New);
 
 		}
 

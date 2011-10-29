@@ -98,9 +98,9 @@ namespace VocaDb.Model.Service {
 
 				var nameMatchDirect = session.Query<Album>()
 					.Where(s => !s.Deleted
-					&& s.TranslatedName.English.Contains(imported.Title)
-						|| s.TranslatedName.Romaji.Contains(imported.Title)
-						|| s.TranslatedName.Japanese.Contains(imported.Title))
+					&& s.Names.SortNames.English.Contains(imported.Title)
+						|| s.Names.SortNames.Romaji.Contains(imported.Title)
+						|| s.Names.SortNames.Japanese.Contains(imported.Title))
 					.FirstOrDefault();
 
 				if (nameMatchDirect != null) {
@@ -132,9 +132,9 @@ namespace VocaDb.Model.Service {
 			var direct = session.Query<Artist>()
 				.Where(
 					s => !s.Deleted &&
-					(s.TranslatedName.English == artistName
-						|| s.TranslatedName.Romaji == artistName
-						|| s.TranslatedName.Japanese == artistName))
+					(s.Names.SortNames.English == artistName
+						|| s.Names.SortNames.Romaji == artistName
+						|| s.Names.SortNames.Japanese == artistName))
 				.FirstOrDefault();
 
 			if (direct != null)
@@ -156,9 +156,9 @@ namespace VocaDb.Model.Service {
 			var direct = session.Query<Song>()
 				.Where(
 					s => !s.Deleted &&
-					(s.TranslatedName.English == songName
-						|| s.TranslatedName.Romaji == songName
-						|| s.TranslatedName.Japanese == songName))
+					(s.Names.SortNames.English == songName
+						|| s.Names.SortNames.Romaji == songName
+						|| s.Names.SortNames.Japanese == songName))
 				.FirstOrDefault();
 
 			if (direct != null)
