@@ -48,16 +48,16 @@ namespace VocaDb.Model.Service {
 			if (query.Length < 3) {
 
 				directQ = directQ.Where(s =>
-					s.TranslatedName.English == query
-						|| s.TranslatedName.Romaji == query
-						|| s.TranslatedName.Japanese == query);
+					s.Names.SortNames.English == query
+						|| s.Names.SortNames.Romaji == query
+						|| s.Names.SortNames.Japanese == query);
 
 			} else {
 
 				directQ = directQ.Where(s =>
-					s.TranslatedName.English.Contains(query)
-						|| s.TranslatedName.Romaji.Contains(query)
-						|| s.TranslatedName.Japanese.Contains(query)
+					s.Names.SortNames.English.Contains(query)
+						|| s.Names.SortNames.Romaji.Contains(query)
+						|| s.Names.SortNames.Japanese.Contains(query)
 						|| s.ArtistString.Contains(query));
 
 			}
