@@ -512,9 +512,9 @@ namespace VocaDb.Model.Service {
 					.Where(s => 
 						!s.Deleted &&
 						(string.IsNullOrEmpty(query)
-							|| s.TranslatedName.English.Contains(query)
-							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query)
+							|| s.Names.SortNames.English.Contains(query)
+							|| s.Names.SortNames.Romaji.Contains(query)
+							|| s.Names.SortNames.Japanese.Contains(query)
 						|| (s.ArtistString.Contains(query))
 						|| (s.NicoId == null || s.NicoId == query)))
 					.ToArray();
