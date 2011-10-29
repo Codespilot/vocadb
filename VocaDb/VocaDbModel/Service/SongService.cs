@@ -16,7 +16,6 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.VideoServices;
-using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -178,7 +177,36 @@ namespace VocaDb.Model.Service {
 
 				session.Save(song);
 
+				Archive(session, song);
+				session.Update(song);
+
 				return new SongContract(song, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public SongInAlbumContract CreateForAlbum(int albumId, string newSongName) {
+
+			ParamIs.NotNullOrEmpty(() => newSongName);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var album = session.Load<Album>(albumId);
+
+				AuditLog(string.Format("creating a new song '{0}' to {1}", newSongName, album));
+
+				var song = new Song(newSongName);
+				session.Save(song);
+
+				var songInAlbum = album.AddSong(song);
+				session.Save(songInAlbum);
+
+				Archive(session, song);
+
+				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 
 			});
 
@@ -294,6 +322,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				song.UpdateArtistString();
+				Archive(session, song);
 				session.Update(song);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
@@ -555,6 +584,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongWithArchivedVersionsContract GetSongWithArchivedVersions(int songId) {
+
+			return HandleQuery(session => new SongWithArchivedVersionsContract(session.Load<Song>(songId), PermissionContext.LanguagePreference));
+
+		}
+
 		public SongContract[] GetSongs(string filter, int start, int count) {
 
 			return HandleQuery(session => session.Query<Song>()
@@ -583,8 +618,6 @@ namespace VocaDb.Model.Service {
 				var target = session.Load<Song>(targetId);
 
 				AuditLog("Merging " + source + " to " + target);
-				Archive(session, source);
-				Archive(session, target);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -621,10 +654,14 @@ namespace VocaDb.Model.Service {
 				}
 
 				source.Deleted = true;
-				session.Update(source);
 
 				target.UpdateArtistString();
 				target.UpdateNicoId();
+
+				Archive(session, source);
+				Archive(session, target);
+
+				session.Update(source);
 				session.Update(target);
 
 			});
@@ -643,8 +680,6 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updating properties for {0}", song));
 
-				Archive(session, song);
-
 				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				var nameDiff = song.Names.Sync(properties.Names, song);
@@ -653,12 +688,7 @@ namespace VocaDb.Model.Service {
 				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				//song.TranslatedName.CopyFrom(properties.TranslatedName);
-
-				/*if (!string.IsNullOrEmpty(properties.Song.NicoId) && !song.PVs.Any(p => p.Service == PVService.NicoNicoDouga && p.PVId == properties.Song.NicoId)) {
-					var pv = song.CreatePV(PVService.NicoNicoDouga, properties.Song.NicoId, PVType.Original);
-					session.Save(pv);
-				}*/
+				Archive(session, song);
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
@@ -706,6 +736,9 @@ namespace VocaDb.Model.Service {
 					}
 
 				}
+
+				Archive(session, song);
+				session.Update(song);
 
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
 

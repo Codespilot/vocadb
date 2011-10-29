@@ -22,13 +22,18 @@ namespace VocaDb.Model.Domain.Security {
 		DeleteEntries	= 8,
 
 		/// <summary>
+		/// User is allowed to restore deleted entries and versions
+		/// </summary>
+		RestoreEntries	= 16,
+
+		/// <summary>
 		/// User is allowed to manage user accounts
 		/// </summary>
-		ManageUsers		= 16,
+		ManageUsers		= 32,
 
-		Admin			= 32,
+		Admin			= 64,
 
-		MikuDbImport	= 64,
+		MikuDbImport	= 128,
 
 		Default			= (EditProfile | ManageDatabase)
 

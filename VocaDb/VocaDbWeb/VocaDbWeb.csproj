@@ -611,6 +611,9 @@
     <Content Include="Views\Song\Merge.cshtml" />
     <Content Include="Views\Shared\WebLinkEditRow.cshtml" />
     <Content Include="Views\Shared\WebLinkCreateRow.cshtml" />
+    <Content Include="Views\Song\Versions.cshtml" />
+    <Content Include="Views\Album\Versions.cshtml" />
+    <Content Include="Views\Artist\Versions.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

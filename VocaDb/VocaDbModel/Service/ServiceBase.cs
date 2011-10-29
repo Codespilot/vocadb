@@ -2,6 +2,7 @@
 using log4net;
 using NHibernate;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service {
 
@@ -10,6 +11,12 @@ namespace VocaDb.Model.Service {
 		private readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
 		private readonly ISessionFactory sessionFactory;
 		private readonly IUserPermissionContext permissionContext;
+
+		protected User GetLoggedUser(ISession session) {
+
+			return (PermissionContext.LoggedUser != null ? session.Load<User>(PermissionContext.LoggedUser.Id) : null);
+
+		}
 
 		protected IUserPermissionContext PermissionContext {
 			get { return permissionContext; }

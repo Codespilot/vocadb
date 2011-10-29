@@ -81,6 +81,7 @@ namespace VocaDb.Model.Service {
 				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl);
 
 			album.UpdateArtistString();
+			Services.Albums.Archive(session, album);
 
 			session.Update(album);
 			session.Update(importedAlbum);

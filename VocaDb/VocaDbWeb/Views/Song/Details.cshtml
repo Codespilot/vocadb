@@ -17,6 +17,8 @@
 @if (VocaDb.Web.Helpers.Login.CanManageDb) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
+
+@Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 
 <div id="tabs">

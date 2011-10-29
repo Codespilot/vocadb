@@ -18,6 +18,8 @@
 @if (Login.CanManageDb) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
+
+@Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 
 <h3>Basic info</h3>

@@ -1,5 +1,31 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc
 @using System.Web.Mvc.Html
+
+@helper ArchivedObjectVersions(IEnumerable<VocaDb.Model.DataContracts.ArchivedObjectVersionContract> archivedVersions) {
+	
+	<table>
+		<tr>
+			<th>Version</th>
+			<th>Created</th>
+			<th>Author</th>
+		</tr>
+		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Version)) {
+			<tr>
+				<td>
+					@ver.Version
+				</td>
+				<td>
+					@ver.Created
+				</td>
+				<td>
+					@(ver.Author != null ? Html.ActionLink(ver.Author.Name, "Profile", "User", new { id = ver.Author.Name }, null) : MvcHtmlString.Create(ver.AgentName))
+				</td>
+			</tr>
+  }
+	</table>	
+	
+}
 
 @helper NotificationPanel(string message, string messageId = "") {
 	<div class="ui-widget">

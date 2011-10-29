@@ -18,6 +18,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			ArtistType = artist.ArtistType;
 			Id = artist.Id;
 			Name = artist.TranslatedName[preference];
+			Version = artist.Version;
 
 		}
 
@@ -30,6 +31,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public int Version { get; set; }
 
 	}
 
