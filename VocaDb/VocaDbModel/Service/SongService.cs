@@ -688,7 +688,8 @@ namespace VocaDb.Model.Service {
 
 				foreach (var entry in validLyrics) {
 
-					var old = song.Lyrics.FirstOrDefault(l => l.Id == entry.Id);
+					var entry1 = entry;
+					var old = (entry1.Id != 0 ? song.Lyrics.FirstOrDefault(l => l.Id == entry1.Id) : null);
 
 					if (old != null) {
 

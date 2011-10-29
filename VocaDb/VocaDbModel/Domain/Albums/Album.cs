@@ -38,7 +38,8 @@ namespace VocaDb.Model.Domain.Albums {
 			//TranslatedName = new TranslatedString();
 		}
 
-		public Album(string unspecifiedName) {
+		public Album(string unspecifiedName)
+			: this() {
 
 			ParamIs.NotNullOrEmpty(() => unspecifiedName);
 

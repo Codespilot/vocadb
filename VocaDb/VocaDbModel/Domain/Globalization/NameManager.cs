@@ -122,7 +122,8 @@ namespace VocaDb.Model.Domain.Globalization {
 
 			foreach (var nameEntry in newNames) {
 
-				var old = Names.FirstOrDefault(n => n.Id == nameEntry.Id);
+				var entry = nameEntry;
+				var old = (entry.Id != 0 ? Names.FirstOrDefault(n => n.Id == entry.Id) : null);
 
 				if (old != null) {
 

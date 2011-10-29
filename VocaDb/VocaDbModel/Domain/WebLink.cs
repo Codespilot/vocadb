@@ -18,7 +18,8 @@ namespace VocaDb.Model.Domain {
 
 			foreach (var linkEntry in newLinks) {
 
-				var old = oldLinks.FirstOrDefault(n => n.Id == linkEntry.Id);
+				var entry = linkEntry;
+				var old = (entry.Id != 0 ? oldLinks.FirstOrDefault(n => n.Id == entry.Id) : null);
 
 				if (old != null) {
 
