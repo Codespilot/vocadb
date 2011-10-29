@@ -48,16 +48,16 @@ namespace VocaDb.Model.Service {
 				if (query.Length < 3) {
 
 					directQ = directQ.Where(s =>
-						s.TranslatedName.English == query
-							|| s.TranslatedName.Romaji == query
-							|| s.TranslatedName.Japanese == query);
+						s.Names.SortNames.English == query
+							|| s.Names.SortNames.Romaji == query
+							|| s.Names.SortNames.Japanese == query);
 
 				} else {
 
 					directQ = directQ.Where(s =>
-						s.TranslatedName.English.Contains(query)
-							|| s.TranslatedName.Romaji.Contains(query)
-							|| s.TranslatedName.Japanese.Contains(query)
+						s.Names.SortNames.English.Contains(query)
+							|| s.Names.SortNames.Romaji.Contains(query)
+							|| s.Names.SortNames.Japanese.Contains(query)
 							|| (!onlyByName && s.ArtistString.Contains(query))
 							|| (s.NicoId != null && s.NicoId == query));
 
@@ -449,9 +449,9 @@ namespace VocaDb.Model.Service {
 					.Where(s =>
 						!s.Deleted &&
 						(string.IsNullOrEmpty(term)
-							|| s.TranslatedName.English.Contains(term)
-							|| s.TranslatedName.Romaji.Contains(term)
-							|| s.TranslatedName.Japanese.Contains(term)
+							|| s.Names.SortNames.English.Contains(term)
+							|| s.Names.SortNames.Romaji.Contains(term)
+							|| s.Names.SortNames.Japanese.Contains(term)
 						|| (s.NicoId != null && s.NicoId == term)))
 					.Take(maxResults)
 					.ToArray();
@@ -558,10 +558,10 @@ namespace VocaDb.Model.Service {
 		public SongContract[] GetSongs(string filter, int start, int count) {
 
 			return HandleQuery(session => session.Query<Song>()
-				.Where(s => string.IsNullOrEmpty(filter) 
-					|| s.TranslatedName.Japanese.Contains(filter) 
+				.Where(s => string.IsNullOrEmpty(filter)
+					|| s.Names.SortNames.Japanese.Contains(filter) 
 					|| s.NicoId == filter)
-				.OrderBy(s => s.TranslatedName.Japanese)
+				.OrderBy(s => s.Names.SortNames.Japanese)
 				.Skip(start)
 				.Take(count)
 				.ToArray()
