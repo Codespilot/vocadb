@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Microsoft.Web.Helpers;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
@@ -114,6 +116,9 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
         public ActionResult Create(RegisterModel model)
         {
+
+			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"]))
+				ModelState.AddModelError("CAPTCHA", "CAPTCHA is invalid.");
 
 			if (ModelState.IsValid) {
 				// Attempt to register the user

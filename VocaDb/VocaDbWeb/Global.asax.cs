@@ -3,6 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Web.Mvc.Html;
 using log4net;
 using NHibernate;
 using VocaDb.Model.Service;
@@ -69,6 +70,21 @@ namespace VocaDb.Web {
 			var request = (HttpContext.Current.Request != null ? " (" + HttpContext.Current.Request.RawUrl + " from " + HttpContext.Current.Request.UserHostAddress + ")" : string.Empty);
 
 			log.Error("Unhandled exception" + request, ex);
+
+			if (ex.GetBaseException() is HttpRequestValidationException) {
+				Response.Clear();
+				Response.StatusCode = 200;
+				Response.Write(@"
+					<html><head><title>HTML request validation error</title></head>
+					<body>
+						<p>
+							For some reason your input triggered a HTTP request validation exception. 
+							If you think this is an error, please contant the admin.
+						</p>
+					</body>
+				");
+				Response.End();
+			}
 
 		}
 

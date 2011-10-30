@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Helpers">
+      <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -192,6 +195,7 @@
     <Content Include="Content\youtube.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Release Notes - Microsoft.Web.Helpers.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\Album\AlbumSearchBox.js" />
     <Content Include="Scripts\Album\Edit.js" />
