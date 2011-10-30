@@ -34,6 +34,8 @@ namespace VocaDb.Web.Models {
 			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
+			SongType = contract.Song.SongType;
+			WebLinks = contract.WebLinks;
 
 			if (MvcApplication.LoginManager.IsLoggedIn)
 				PrimaryPV = PVs.FirstOrDefault(p => p.Service == MvcApplication.LoginManager.LoggedUser.PreferredVideoService);
@@ -69,6 +71,12 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "PVs")]
 		public PVForSongContract[] PVs { get; set; }
 
+		[Display(Name = "Song type")]
+		public SongType SongType { get; set; }
+
+		[Display(Name = "External links")]
+		public WebLinkContract[] WebLinks { get; set; }
+
 	}
 
 	public class SongEdit {
@@ -98,8 +106,8 @@ namespace VocaDb.Web.Models {
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
-			//NicoId = song.Song.NicoId;
 			PVs = song.PVs;
+			SongType = song.Song.SongType;
 			WebLinks = song.WebLinks.Select(w => new WebLink(w)).ToArray();
 
 		}
@@ -138,11 +146,11 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		//[Display(Name = "NicoNicoDouga ID")]
-		//public string NicoId { get; set; }
-
 		[Display(Name = "PVs")]
 		public IList<PVForSongContract> PVs { get; set; }
+
+		[Display(Name = "Song type")]
+		public SongType SongType { get; set; }
 
 		[Display(Name = "Web links")]
 		public IList<WebLink> WebLinks { get; set; }
@@ -153,7 +161,7 @@ namespace VocaDb.Web.Models {
 				Song = new SongContract {
 					Id = this.Id,
 					Name = this.Name,
-					//NicoId = this.NicoId
+					SongType = this.SongType
 				},
 				Names = this.Names.Select(n => n.ToContract()).ToArray(),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),

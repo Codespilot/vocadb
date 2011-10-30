@@ -25,7 +25,9 @@
 
 	<ul>
 		<li><a href="#basicInfoTab">Basic info</a></li>
+		@if (Model.Lyrics.Any()) {
 		<li><a href="#lyricsTab">Lyrics</a></li>
+		}
 	</ul>
 
 	<div id="basicInfoTab">
@@ -58,6 +60,12 @@
 				</td>
 			</tr>
 			}
+
+			<tr>
+				<td>@Html.LabelFor(m => m.SongType)</td>
+				<td>@Html.DisplayFor(m => m.SongType)</td>
+			</tr>
+			
 			@if (Model.Albums.Any()) {
 			<tr>
 				<td>Albums</td>
@@ -72,6 +80,17 @@
 				<td>
 					@foreach (var pv in Model.PVs) {
 						<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
+					}			
+				</td>
+			</tr>
+			}
+			
+			@if (Model.WebLinks.Any()) {
+			<tr>
+				<td>@Html.LabelFor(m => m.WebLinks)</td>
+				<td>
+					@foreach (var link in Model.WebLinks) {
+						<a href="@link.Url">@link.DescriptionOrUrl</a><br />
 					}			
 				</td>
 			</tr>

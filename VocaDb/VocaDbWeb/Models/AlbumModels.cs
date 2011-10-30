@@ -205,7 +205,6 @@ namespace VocaDb.Web.Models {
 
 		public WebLinkContract[] WebLinks { get; set; }
 
-
 	}
 
 }

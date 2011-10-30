@@ -23,14 +23,6 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
 
-		private void Archive(ISession session, Song song) {
-
-			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedSongVersion.Create(song, agentLoginData);
-			session.Save(archived);
-
-		}
-
 		private int GetSongCount(ISession session, string query, bool onlyByName = false) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
@@ -160,6 +152,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void Archive(ISession session, Song song, string notes = "") {
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+			var archived = ArchivedSongVersion.Create(song, agentLoginData, notes);
+			session.Save(archived);
+
+		}
+
 		public LyricsForSongContract CreateLyrics(int songId, ContentLanguageSelection language, string value, string source) {
 
 			ParamIs.NotNullOrEmpty(() => value);
@@ -223,7 +223,7 @@ namespace VocaDb.Model.Service {
 				var songInAlbum = album.AddSong(song);
 				session.Save(songInAlbum);
 
-				Archive(session, song);
+				Archive(session, song, string.Format("Created for album '{0}'", album.Name));
 
 				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 
@@ -669,8 +669,8 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.UpdateNicoId();
 
-				Archive(session, source);
-				Archive(session, target);
+				Archive(session, source, "Merged to '" + target.DefaultName + "'");
+				Archive(session, target, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);
 				session.Update(target);
@@ -691,6 +691,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updating properties for {0}", song));
 
+				song.SongType = properties.Song.SongType;
 				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				var nameDiff = song.Names.Sync(properties.Names, song);

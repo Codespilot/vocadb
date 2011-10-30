@@ -103,7 +103,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album));
 
 				var artistForAlbum = artist.AddAlbum(album);
-				Services.Artists.Archive(session, artist);
+				Services.Artists.Archive(session, artist, "Created for album '" + album.Name + "'");
 				session.Save(artist);
 
 				album.UpdateArtistString();
@@ -135,10 +135,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Album album) {
+		public void Archive(ISession session, Album album, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedAlbumVersion.Create(album, agentLoginData);
+			var archived = ArchivedAlbumVersion.Create(album, agentLoginData, notes);
 			session.Save(archived);
 
 		}
@@ -182,7 +182,7 @@ namespace VocaDb.Model.Service {
 				session.Update(artist);
 
 				album.UpdateArtistString();
-				Archive(session, album);
+				Archive(session, album, "Created for artist '" + artist.Name + "'");
 				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
@@ -528,8 +528,8 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.Names.UpdateSortNames();
 
-				Archive(session, source);
-				Archive(session, target);
+				Archive(session, source, "Merged to '" + target.Name + "'");
+				Archive(session, target, "Merged from '" + source.Name + "'");
 
 				session.Update(source);
 				session.Update(target);

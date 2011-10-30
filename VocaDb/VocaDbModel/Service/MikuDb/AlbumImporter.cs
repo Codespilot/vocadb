@@ -129,6 +129,7 @@ namespace VocaDb.Model.Service.MikuDb {
 				if (int.TryParse(trackText, out trackNum)) {
 
 					var trackTitle = line.Substring(dotPos + 1, line.Length - dotPos - 1).Trim();
+					trackTitle = trackTitle.Replace("(lyrics)", string.Empty);
 
 					tracks.Add(new ImportedAlbumTrack { Title = HtmlEntity.DeEntitize(trackTitle), TrackNum = trackNum });
 
@@ -170,7 +171,6 @@ namespace VocaDb.Model.Service.MikuDb {
 
 					var buf = StreamHelper.ReadStream(stream, response.ContentLength);
 
-					//stream.Read(buf, 0, (int)response.ContentLength);
 					coverPicture = new PictureDataContract(buf, response.ContentType);
 
 				}
@@ -180,18 +180,7 @@ namespace VocaDb.Model.Service.MikuDb {
 			var infoBox = doc.DocumentNode.SelectSingleNode(".//div[@class='postcontent']/table/tr[1]/td[2]");
 
 			if (infoBox != null) {
-
 				ParseInfoBox(data, infoBox);
-
-				/*var rows = infoBox.Elements("p").Concat(infoBox.Elements("strong"));
-
-				foreach (var row in rows) {
-
-					if (row.InnerText.Contains("Artist:") || row.InnerText.Contains("Vocals:"))
-						ParseInfoBox(data, row);
-
-				}*/
-
 			}
 
 			var trackListRow = FindTracklistRow(doc, (infoBox != null ? infoBox.ParentNode.NextSibling : null));

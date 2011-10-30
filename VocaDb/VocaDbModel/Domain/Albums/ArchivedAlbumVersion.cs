@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Security;
+﻿using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Albums;
 using System.Xml.Serialization;
 using System.Xml.Linq;
@@ -12,7 +8,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class ArchivedAlbumVersion : ArchivedObjectVersion {
 
-		public static ArchivedAlbumVersion Create(Album album, AgentLoginData author) {
+		public static ArchivedAlbumVersion Create(Album album, AgentLoginData author, string notes) {
 
 			var contract = new ArchivedAlbumContract(album);
 			var serializer = new XmlSerializer(typeof(ArchivedAlbumContract));
@@ -32,7 +28,7 @@ namespace VocaDb.Model.Domain.Albums {
 			/*var doc = new XDocument();
 			serializer.Serialize(doc.CreateWriter(), contract);*/
 
-			return album.CreateArchivedVersion(doc, author);
+			return album.CreateArchivedVersion(doc, author, notes);
 
 		}
 
@@ -40,8 +36,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public ArchivedAlbumVersion() { }
 
-		public ArchivedAlbumVersion(Album album, XDocument data, AgentLoginData author, int version)
-			: base(data, author, version) {
+		public ArchivedAlbumVersion(Album album, XDocument data, AgentLoginData author, int version, string notes)
+			: base(data, author, version, notes) {
 
 			Album = album;
 

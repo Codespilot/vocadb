@@ -8,7 +8,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 	public class ArchivedSongVersion : ArchivedObjectVersion {
 
-		public static ArchivedSongVersion Create(Song song, AgentLoginData author) {
+		public static ArchivedSongVersion Create(Song song, AgentLoginData author, string notes) {
 
 			var contract = new ArchivedSongContract(song);
 			var serializer = new XmlSerializer(typeof(ArchivedSongContract));
@@ -19,7 +19,7 @@ namespace VocaDb.Model.Domain.Songs {
 				doc = XDocument.Parse(writer.ToString());
 			}
 
-			return song.CreateArchivedVersion(doc, author);
+			return song.CreateArchivedVersion(doc, author, notes);
 
 		}
 
@@ -27,8 +27,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public ArchivedSongVersion() { }
 
-		public ArchivedSongVersion(Song song, XDocument data, AgentLoginData author, int version)
-			: base(data, author, version) {
+		public ArchivedSongVersion(Song song, XDocument data, AgentLoginData author, int version, string notes)
+			: base(data, author, version, notes) {
 
 			Song = song;
 
