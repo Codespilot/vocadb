@@ -128,6 +128,7 @@
     <Compile Include="Domain\Albums\ArchivedAlbumVersion.cs" />
     <Compile Include="Domain\Albums\MediaTypes.cs" />
     <Compile Include="Domain\DateTimeYearAndDate.cs" />
+    <Compile Include="Domain\EntryStatus.cs" />
     <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />
     <Compile Include="Domain\Globalization\INameFactory.cs" />
     <Compile Include="Domain\Globalization\NameManager.cs" />
