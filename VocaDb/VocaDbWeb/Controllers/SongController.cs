@@ -81,16 +81,18 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(Create model, IEnumerable<ArtistContract> artists) {
+		public ActionResult Create(Create model) {
 
-			if (artists == null || !artists.Any())
+			if (string.IsNullOrEmpty(model.NameOriginal) && string.IsNullOrEmpty(model.NameRomaji) && string.IsNullOrEmpty(model.NameEnglish))
+				ModelState.AddModelError("Name", "Need at least one name.");
+
+			if (model.Artists == null || !model.Artists.Any())
 				ModelState.AddModelError("Artists", "Need at least one artist.");
 
 			if (!ModelState.IsValid)
 				return View(model);
 
 			var contract = model.ToContract();
-			contract.Artists = artists.ToArray();
 
 			try {
 				var song = Service.Create(contract);

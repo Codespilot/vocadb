@@ -13,6 +13,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public string NameRomaji { get; set; }
 
 		public string PVUrl { get; set; }
+
+		public string ReprintPVUrl { get; set; }
 		
 	}
 
