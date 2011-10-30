@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Models.Song {
 
@@ -10,6 +11,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public Create() {
 			Artists = new List<ArtistContract>();
+			SongType = SongType.Original;
 		}
 
 		[Display(Name = "Artists")]
@@ -35,6 +37,9 @@ namespace VocaDb.Web.Models.Song {
 		[StringLength(255)]
 		public string ReprintPVUrl { get; set; }
 
+		[Display(Name = "Song type")]
+		public SongType SongType { get; set; }
+
 		public CreateSongContract ToContract() {
 
 			return new CreateSongContract {
@@ -43,7 +48,8 @@ namespace VocaDb.Web.Models.Song {
 				NameRomaji = this.NameRomaji,
 				NameOriginal = this.NameOriginal,
 				PVUrl = this.PVUrl,
-				ReprintPVUrl = this.ReprintPVUrl
+				ReprintPVUrl = this.ReprintPVUrl,
+				SongType = this.SongType
 			};
 
 		}

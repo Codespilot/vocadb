@@ -1,15 +1,4 @@
 ﻿
-function onChangeLang(event) {
-
-	var select = event.target;
-
-	var id = getId(select);
-	var val = $(select).val();
-
-	$.post("../../Song/EditNameLanguage", { nameId: id, nameLanguage: val });
-
-}
-
 function initPage(songId) {
 
 	$("#tabs").tabs();

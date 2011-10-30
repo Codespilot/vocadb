@@ -1,4 +1,5 @@
 ﻿using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
@@ -15,6 +16,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public string PVUrl { get; set; }
 
 		public string ReprintPVUrl { get; set; }
+
+		public SongType SongType { get; set; }
 		
 	}
 

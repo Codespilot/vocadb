@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using PagedList;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
-using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
@@ -14,7 +10,6 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Song;
-using VocaDb.Model.DataContracts.Artists;
 
 namespace VocaDb.Web.Controllers
 {
@@ -109,7 +104,7 @@ namespace VocaDb.Web.Controllers
 
 			var artist = MvcApplication.Services.Artists.GetArtist(artistId);
 
-			return PartialView("ArtistForSongRow", artist);
+			return PartialView("ArtistContractRow", artist);
 
 		}
         
