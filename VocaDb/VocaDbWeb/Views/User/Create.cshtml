@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Helpers
+﻿@using VocaDb.Web.Helpers;
+@using Microsoft.Web.Helpers;
 
 @model VocaDb.Web.Models.RegisterModel
 @{
@@ -24,6 +25,15 @@
             <div class="editor-field">
                 @Html.PasswordFor(m => m.Password)
                 @Html.ValidationMessageFor(m => m.Password)
+            </div>
+
+            <div class="editor-label">
+                CAPTCHA
+            </div>
+            <div class="editor-field">
+				@ReCaptcha.GetHtml(publicKey: "6LcXm8kSAAAAAF1vG6IH1la0Dt1-dKKcethSJhzo")
+
+				@Html.ValidationMessage("CAPTCHA")
             </div>
 
             <p>

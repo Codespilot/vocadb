@@ -10,17 +10,23 @@
 	};		
 }
 
+@section Toolbar {
 @if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id) {
-	@Html.ActionLink("My settings", "MySettings");
+	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
 }
 @if (Login.CanManageUsers) {
 	<text>&nbsp;</text>
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id });	
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });	
+}
 }
 
-<h3>Basic info</h3>
 <table>
 	<tr>
+		<td rowspan="3">
+			@if (!string.IsNullOrEmpty(Model.Email)) {
+				@Gravatar.GetHtml(Model.Email)
+			}
+		</td>
 		<td>Name</td>
 		<td>
 			@Model.Name<br />
@@ -37,6 +43,8 @@
 		</tr>
 	}
 </table>
+
+<br />
 
 <div id="tabs">
 

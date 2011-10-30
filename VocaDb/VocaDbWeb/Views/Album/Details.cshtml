@@ -52,7 +52,7 @@
 
 	@if (Model.Circles.Any()) {
 	<tr>
-		<td>Circle(s)</td>
+		<td>Circle</td>
 		<td>
 			@Html.LinkList(Model.Circles, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 		</td>
