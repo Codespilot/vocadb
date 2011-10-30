@@ -6,6 +6,14 @@ namespace VocaDb.Model.Helpers {
 
 	public static class ArtistHelper {
 
+		public static readonly ArtistType[] ArtistTypes = new[] {
+			ArtistType.Producer
+		};
+
+		public static readonly ArtistType[] LabelTypes = new[] {
+			ArtistType.Circle, ArtistType.Label
+		};
+
 		public static readonly ArtistType[] ProducerTypes = new[] {
 			ArtistType.Producer, ArtistType.Circle
 		};

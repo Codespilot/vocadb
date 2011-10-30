@@ -174,8 +174,12 @@ namespace VocaDb.Web.Models {
 				ReleaseDate = contract.OriginalRelease.ReleaseDate;
 			}
 
-			OtherArtists = contract.ArtistLinks.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
-			Performers = contract.ArtistLinks.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
+			var artists = contract.ArtistLinks.Select(a => a.Artist);
+
+			Circles = artists.Where(a => a.ArtistType == ArtistType.Circle).ToArray();
+			Labels = artists.Where(a => a.ArtistType == ArtistType.Label).ToArray();
+			Producers = artists.Where(a => a.ArtistType == ArtistType.Producer).ToArray();
+			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
 
 		}
 
@@ -183,17 +187,19 @@ namespace VocaDb.Web.Models {
 
 		public string CatNum { get; set; }
 
+		public ArtistWithAdditionalNamesContract[] Circles { get; set; }
+
 		public string Description { get; set; }
 
 		public DiscType DiscType { get; set; }
 
 		public int Id { get; set; }
 
+		public ArtistWithAdditionalNamesContract[] Labels { get; set; }
+
 		public string Name { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
-
-		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
+		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
 
 		public string ReleaseEvent { get; set; }
 
@@ -202,6 +208,8 @@ namespace VocaDb.Web.Models {
 		public SongInAlbumContract[] Songs { get; set; }
 
 		public bool UserHasAlbum { get; set; }
+
+		public ArtistWithAdditionalNamesContract[] Vocalists { get; set; }
 
 		public WebLinkContract[] WebLinks { get; set; }
 
