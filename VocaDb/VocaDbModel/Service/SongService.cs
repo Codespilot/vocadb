@@ -21,7 +21,9 @@ namespace VocaDb.Model.Service {
 
 	public class SongService : ServiceBase {
 
+#pragma warning disable 169
 		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
+#pragma warning restore 169
 
 		private int GetSongCount(ISession session, string query, bool onlyByName = false) {
 
@@ -196,7 +198,7 @@ namespace VocaDb.Model.Service {
 
 				session.Save(song);
 
-				Archive(session, song);
+				Archive(session, song, "Created");
 				session.Update(song);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
@@ -296,7 +298,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var song = new Song();
+				var song = new Song { SongType = contract.SongType };
 
 				if (!string.IsNullOrEmpty(contract.NameOriginal))
 					song.CreateName(contract.NameOriginal, ContentLanguageSelection.Japanese);
@@ -333,7 +335,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				song.UpdateArtistString();
-				Archive(session, song);
+				Archive(session, song, "Created");
 				session.Update(song);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
@@ -643,7 +645,7 @@ namespace VocaDb.Model.Service {
 				var pvs = source.PVs.Where(a => !target.HasPV(a.Service, a.PVId));
 				foreach (var p in pvs) {
 					var pv = target.CreatePV(p.Service, p.PVId, p.PVType);
-					session.Save(p);
+					session.Save(pv);
 				}
 
 				var artists = source.Artists.Where(a => !target.HasArtist(a.Artist)).ToArray();
@@ -700,7 +702,7 @@ namespace VocaDb.Model.Service {
 				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				Archive(session, song);
+				Archive(session, song, "Update properties");
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
@@ -749,7 +751,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				Archive(session, song);
+				Archive(session, song, "Update lyrics");
 				session.Update(song);
 
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);

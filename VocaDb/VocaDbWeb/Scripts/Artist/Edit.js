@@ -1,48 +1,10 @@
 ﻿
-function onChangeLang(event) {
-
-	var select = event.target;
-
-	var id = getId(select);
-	var val = $(select).val();
-
-	$.post("../../Artist/EditNameLanguage", { nameId: id, nameLanguage: val });
-		
-}
-
 function initPage(artistId) {
 
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
-	/*$("input.nameEdit").live("change", function () {
-
-		var id = getId(this);
-		var val = $(this).val();
-
-		$.post("../../Artist/EditNameValue", { nameId: id, nameVal: val });
-
-	});
-
-	$("select.nameLanguage").change(onChangeLang);
-
-	$("input.nameCopy").live("click", function () {
-
-		var id = getId(this);
-		var nameVal = $("input#nameEdit_" + id).val();
-		var langId = $("select#nameLanguage_" + id).val();
-
-		$("input#Name" + langId).val(nameVal);
-
-	});*/
-
 	$("input.nameDelete").live("click", function () {
-
-		/*var id = getId(this);
-
-		$.post("../../Artist/DeleteName", { nameId: id });
-
-		$("tr#nameRow_" + id).remove();*/
 
 		$(this).parent().parent().remove();
 
@@ -63,31 +25,7 @@ function initPage(artistId) {
 
 	});
 
-	/*$("input.webLinkDescription").live("change", function () {
-
-		var id = getId(this);
-		var val = $(this).val();
-
-		$.post("../../Artist/EditWebLinkDescription", { linkId: id, description: val });
-
-	});
-
-	$("input.webLinkUrl").live("change", function () {
-
-		var id = getId(this);
-		var val = $(this).val();
-
-		$.post("../../Artist/EditWebLinkUrl", { linkId: id, url: val });
-
-	});*/
-
 	$("input.webLinkDelete").live("click", function () {
-
-		/*var id = getId(this);
-
-		$.post("../../Artist/DeleteWebLink", { linkId: id });
-
-		$("tr#webLinkRow_" + id).remove();*/
 
 		$(this).parent().parent().remove();
 
@@ -100,19 +38,6 @@ function initPage(artistId) {
 		var newUrl = $("input#webLinkUrl_new").val();
 
 		$.post("../../Shared/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function (row) {
-
-			/*var row = document.createElement("tr");
-			$(row).attr("id", "webLinkRow_" + link.Id);
-			$("#webLinkRow_new").before(row);
-			$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkDescription\" id=\"webLinkDescription_" + link.Id + "\" value=\"" + link.Description + "\" />");
-			$(row).append("<td><input maxlength=\"512\" type=\"text\" class=\"webLinkUrl\" size=\"50\" id=\"webLinkUrl_" + link.Id + "\" value=\"" + link.Url + "\" />");
-
-			var actionCell = document.createElement("td");
-			$(actionCell).append("<input type=\"button\" class=\"webLinkDelete\" id=\"webLinkDelete_" + link.Id + "\" value=\"Delete\" />");
-			$(row).append(actionCell);
-
-			$("input#webLinkDescription_new").val("");
-			$("input#webLinkUrl_new").val("");*/
 
 			$("#webLinkRow_new").before(row);
 			$("input#webLinkDescription_new").val("");
