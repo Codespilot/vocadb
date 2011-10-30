@@ -89,6 +89,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private VideoUrlParseResult ParsePV(ISession session, string url) {
+
+			if (string.IsNullOrEmpty(url))
+				return null;
+
+			var pvResult = VideoServiceHelper.ParseByUrl(url);
+
+			var existing = session.Query<PVForSong>().FirstOrDefault(
+				s => s.Service == pvResult.Service && s.PVId == pvResult.Id && !s.Song.Deleted);
+
+			if (existing != null) {
+				throw new VideoParseException(string.Format("Song '{0}' already contains this PV",
+					existing.Song.TranslatedName[PermissionContext.LanguagePreference]));
+			}
+
+			return pvResult;
+
+		}
+
 		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
 			: base(sessionFactory, permissionContext) {
 
@@ -277,22 +296,6 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				VideoUrlParseResult pvResult = null;
-
-				if (!string.IsNullOrEmpty(contract.PVUrl)) {
-
-					pvResult = VideoServiceHelper.ParseByUrl(contract.PVUrl);
-
-					var existing = session.Query<PVForSong>().FirstOrDefault(
-						s => s.Service == pvResult.Service && s.PVId == pvResult.Id && !s.Song.Deleted);
-
-					if (existing != null) {
-						throw new VideoParseException(string.Format("Song '{0}' already contains this PV", 
-							existing.Song.TranslatedName[PermissionContext.LanguagePreference]));
-					}			
-		
-				}
-
 				var song = new Song();
 
 				if (!string.IsNullOrEmpty(contract.NameOriginal))
@@ -317,8 +320,16 @@ namespace VocaDb.Model.Service {
 					session.Save(song.AddArtist(session.Load<Artist>(artist.Id)));
 				}
 
+				var pvResult = ParsePV(session, contract.PVUrl);
+
 				if (pvResult != null) {
 					session.Save(song.CreatePV(pvResult.Service, pvResult.Id, PVType.Original));
+				}
+
+				pvResult = ParsePV(session, contract.ReprintPVUrl);
+
+				if (pvResult != null) {
+					session.Save(song.CreatePV(pvResult.Service, pvResult.Id, PVType.Reprint));
 				}
 
 				song.UpdateArtistString();
