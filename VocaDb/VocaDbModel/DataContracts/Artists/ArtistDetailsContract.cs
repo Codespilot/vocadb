@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			LatestSongs = new SongWithAdditionalNamesContract[] { };
 			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
-			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
+			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
 

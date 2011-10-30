@@ -17,7 +17,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
 			Songs = album.Songs.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
-			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
+			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
 
