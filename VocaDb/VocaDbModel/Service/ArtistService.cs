@@ -224,12 +224,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Artist artist) {
+		public void Archive(ISession session, Artist artist, string notes = "") {
 
 			log.Info("Archiving " + artist);
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedArtistVersion.Create(artist, agentLoginData);
+			var archived = ArchivedArtistVersion.Create(artist, agentLoginData, notes);
 			session.Save(archived);
 
 		}
@@ -476,8 +476,8 @@ namespace VocaDb.Model.Service {
 
 				source.Deleted = true;
 
-				Archive(session, source);
-				Archive(session, target);
+				Archive(session, source, "Merged to '" + target.Name + "'");
+				Archive(session, target, "Merged from '" + source.Name + "'");
 
 				session.Update(source);
 				session.Update(target);

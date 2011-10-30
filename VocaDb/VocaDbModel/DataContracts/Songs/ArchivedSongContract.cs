@@ -19,6 +19,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			NicoId = song.NicoId;
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
+			SongType = song.SongType;
 			TranslatedName = new ArchivedTranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
 			
@@ -41,6 +42,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public ArchivedPVContract[] PVs { get; set; }
+
+		[DataMember]
+		public SongType SongType { get; set; }
 
 		[DataMember]
 		public ArchivedTranslatedStringContract TranslatedName { get; set; }

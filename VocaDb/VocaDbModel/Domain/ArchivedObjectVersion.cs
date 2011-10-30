@@ -7,11 +7,13 @@ namespace VocaDb.Model.Domain {
 
 	public class ArchivedObjectVersion {
 
+		private string notes;
+
 		public ArchivedObjectVersion() {
 			Created = DateTime.Now;
 		}
 
-		public ArchivedObjectVersion(XDocument data, AgentLoginData author, int version)
+		public ArchivedObjectVersion(XDocument data, AgentLoginData author, int version, string notes)
 			: this() {
 
 			ParamIs.NotNull(() => data);
@@ -20,6 +22,7 @@ namespace VocaDb.Model.Domain {
 			Data = data;
 			AgentName = author.Name;
 			Author = author.User;
+			Notes = notes;
 			Version = version;
 
 		}
@@ -33,6 +36,14 @@ namespace VocaDb.Model.Domain {
 		public virtual XDocument Data { get; protected set; }
 
 		public virtual int Id { get; protected set; }
+
+		public virtual string Notes {
+			get { return notes; }
+			protected set {
+				ParamIs.NotNull(() => value);
+				notes = value; 
+			}
+		}
 
 		public virtual int Version { get; protected set; }
 

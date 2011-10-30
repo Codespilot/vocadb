@@ -91,6 +91,13 @@
 							@{ Html.RenderPartial("LocalizedStringNewRow"); }
 						</table>
 					</div>
+
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.SongType)
+					</div>
+					<div class="editor-field">
+						@Html.SongTypeDropDownListFor(m => m.SongType)
+					</div>
 			
 					<div class="editor-label">
 						@Html.LabelFor(m => m.WebLinks)

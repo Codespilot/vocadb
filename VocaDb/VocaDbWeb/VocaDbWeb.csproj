@@ -109,6 +109,7 @@
     <Compile Include="Helpers\Translate.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AlbumModels.cs" />
+    <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
@@ -607,13 +608,14 @@
     <Content Include="Views\MikuDbAlbum\InspectedAlbumRow.cshtml" />
     <Content Include="Views\Song\Create.cshtml" />
     <Content Include="Views\Shared\AddNewEntryDiv.cshtml" />
-    <Content Include="Views\Song\ArtistForSongRow.cshtml" />
+    <Content Include="Views\Shared\ArtistContractRow.cshtml" />
     <Content Include="Views\Song\Merge.cshtml" />
     <Content Include="Views\Shared\WebLinkEditRow.cshtml" />
     <Content Include="Views\Shared\WebLinkCreateRow.cshtml" />
     <Content Include="Views\Song\Versions.cshtml" />
     <Content Include="Views\Album\Versions.cshtml" />
     <Content Include="Views\Artist\Versions.cshtml" />
+    <Content Include="Views\Album\Create.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

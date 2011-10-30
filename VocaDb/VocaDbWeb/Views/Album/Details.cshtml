@@ -56,12 +56,14 @@
 		</td>	
 	</tr>
 }
+
 	<tr>
 		<td>Type</td>
 		<td>
 			@Model.DiscType<br />
 		</td>	
 	</tr>
+
 @if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
 	<tr>
 		<td>Release date</td>
@@ -70,6 +72,7 @@
 		</td>	
 	</tr>
 }
+
 @if (!string.IsNullOrEmpty(Model.CatNum)) {
 	<tr>
 		<td>Catalog number</td>
@@ -78,6 +81,7 @@
 		</td>	
 	</tr>
 }
+
 @if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
 	<tr>
 		<td>Release event</td>
@@ -86,6 +90,7 @@
 		</td>	
 	</tr>
 }
+
 @if (Model.WebLinks.Any()) {
 	<tr>
 		<td>External links</td>

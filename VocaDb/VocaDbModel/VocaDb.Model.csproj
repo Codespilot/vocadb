@@ -72,6 +72,7 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
+    <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
     <Compile Include="DataContracts\ArchivedObjectVersionContract.cs" />
     <Compile Include="DataContracts\ArchivedTranslatedStringContract.cs" />
@@ -154,6 +155,7 @@
     <Compile Include="Domain\Songs\PVForSong.cs" />
     <Compile Include="Domain\Songs\PVService.cs" />
     <Compile Include="Domain\Songs\PVType.cs" />
+    <Compile Include="Domain\Songs\SongType.cs" />
     <Compile Include="Domain\Users\AlbumForUser.cs" />
     <Compile Include="Domain\Users\FavoriteSongForUser.cs" />
     <Compile Include="Domain\Users\MediaType.cs" />

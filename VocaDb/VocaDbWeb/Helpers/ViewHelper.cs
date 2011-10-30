@@ -69,6 +69,10 @@ namespace VocaDb.Web.Helpers {
 			return new SelectList(LanguageSelectionsWithoutUnspecified, "Key", "Value", selectedValue);
 		}
 
+		public static SelectList CreateSongTypesList(object selectedValue) {
+			return new SelectList(EnumVal<SongType>.Values.ToDictionary(s => s, s => s.ToString()), "Key", "Value", selectedValue);
+		}
+
 		public static MvcHtmlString LanguagePreferenceDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, ContentLanguagePreference>> expression) {
 
@@ -92,6 +96,13 @@ namespace VocaDb.Web.Helpers {
 		public static MvcHtmlString LinkList<T>(this HtmlHelper htmlHelper, IEnumerable<T> list, Func<T, MvcHtmlString> linkFunc) {
 
 			return StringHelper.Join(", ", list.Select(linkFunc));
+
+		}
+
+		public static MvcHtmlString SongTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, SongType>> expression, object htmlAttributes = null, object selectedValue = null) {
+
+			return htmlHelper.DropDownListFor(expression, CreateSongTypesList(selectedValue), htmlAttributes);
 
 		}
 

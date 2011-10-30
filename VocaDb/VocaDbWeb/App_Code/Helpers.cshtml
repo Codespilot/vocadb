@@ -9,6 +9,7 @@
 			<th>Version</th>
 			<th>Created</th>
 			<th>Author</th>
+			<th>Notes</th>
 		</tr>
 		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Version)) {
 			<tr>
@@ -21,8 +22,11 @@
 				<td>
 					@(ver.Author != null ? Html.ActionLink(ver.Author.Name, "Profile", "User", new { id = ver.Author.Name }, null) : MvcHtmlString.Create(ver.AgentName))
 				</td>
+				<td>
+					@ver.Notes
+				</td>
 			</tr>
-  }
+		}
 	</table>	
 	
 }

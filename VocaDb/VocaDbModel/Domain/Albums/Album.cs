@@ -198,9 +198,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public virtual ArchivedAlbumVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {
+		public virtual ArchivedAlbumVersion CreateArchivedVersion(XDocument data, AgentLoginData author, string notes) {
 
-			var archived = new ArchivedAlbumVersion(this, data, author, Version);
+			var archived = new ArchivedAlbumVersion(this, data, author, Version, notes);
 			ArchivedVersions.Add(archived);
 			Version++;
 

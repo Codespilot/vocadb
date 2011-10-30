@@ -14,6 +14,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.NicoId).Nullable();
+			Map(m => m.SongType).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			Component(m => m.Names, c => {
@@ -48,6 +49,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.AgentName).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
+			Map(m => m.Notes).Length(200).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			References(m => m.Author);

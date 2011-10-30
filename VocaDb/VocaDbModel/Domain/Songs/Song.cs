@@ -18,10 +18,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<ArchivedSongVersion> archivedVersions = new List<ArchivedSongVersion>();
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
-		//private IList<SongMetadataEntry> metadata = new List<SongMetadataEntry>();
-		//private TranslatedString name;
 		private NameManager<SongName> names = new NameManager<SongName>();
-		//private string originalName;
 		private IList<PVForSong> pvs = new List<PVForSong>();
 		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
@@ -36,7 +33,7 @@ namespace VocaDb.Model.Domain.Songs {
 			ArtistString = string.Empty;
 			CreateDate = DateTime.Now;
 			Deleted = false;
-			//TranslatedName = new TranslatedString();
+			SongType = SongType.Unspecified;
 		}
 
 		public Song(string unspecifiedName)
@@ -155,6 +152,8 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual SongType SongType { get; set; }
+
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }
 		}
@@ -200,9 +199,9 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, AgentLoginData author) {
+		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, AgentLoginData author, string notes) {
 
-			var archived = new ArchivedSongVersion(this, data, author, Version);
+			var archived = new ArchivedSongVersion(this, data, author, Version, notes);
 			ArchivedVersions.Add(archived);
 			Version++;
 

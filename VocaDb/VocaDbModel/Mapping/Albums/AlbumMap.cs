@@ -79,6 +79,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.AgentName).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
+			Map(m => m.Notes).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			References(m => m.Album);
