@@ -249,6 +249,9 @@ namespace VocaDb.Model.Service {
 
 				session.Save(artist);
 
+				Archive(session, artist, "Created");
+				session.Update(artist);
+
 				return new ArtistContract(artist, PermissionContext.LanguagePreference);
 
 			});
@@ -524,7 +527,7 @@ namespace VocaDb.Model.Service {
 					session.Save(link);
 				}
 
-				Archive(session, artist);
+				Archive(session, artist, "Update properties");
 				session.Update(artist);
 
 			});
