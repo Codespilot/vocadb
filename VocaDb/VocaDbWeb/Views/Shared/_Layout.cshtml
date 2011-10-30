@@ -53,6 +53,7 @@
 					}
 					@if (!Login.Manager.IsLoggedIn) {
 					<li>@Html.ActionLink("Log in", "Login", "User")</li>
+					<li>@Html.ActionLink("Register", "Create", "User")</li>
 					} else {
 					<li>@Html.ActionLink("Log out", "Logout", "User")</li>
 					}
