@@ -161,7 +161,7 @@ function initPage(songId) {
 
 	$(".deleteLyrics").live("click", function () {
 
-		$(this).parent().parent().remove();
+		$(this).parent().remove();
 
 	});
 
