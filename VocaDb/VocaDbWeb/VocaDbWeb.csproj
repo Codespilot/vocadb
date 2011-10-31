@@ -202,7 +202,6 @@
     <Content Include="Content\youtube.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Release Notes - Microsoft.Web.Helpers.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\Album\AlbumSearchBox.js" />
     <Content Include="Scripts\Album\Edit.js" />
@@ -631,6 +630,7 @@
     <Content Include="Views\Album\MassTagSongs.cshtml" />
     <Content Include="Views\Album\TrackArtistSelectionsRow.cshtml" />
     <Content Include="Views\Album\TrackArtistSelection.cshtml" />
+    <Content Include="Views\Admin\ViewAuditLog.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

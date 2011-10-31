@@ -68,5 +68,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult ViewAuditLog() {
+
+			LoginManager.VerifyPermission(PermissionFlags.Admin);
+
+			var entries = Service.GetAuditLog();
+
+			return View(entries);
+
+		}
+
     }
 }

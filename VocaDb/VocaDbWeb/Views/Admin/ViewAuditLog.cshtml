@@ -1,0 +1,24 @@
+﻿@model VocaDb.Model.DataContracts.Security.AuditLogEntryContract[]
+
+@{
+    ViewBag.Title = "View audit log";
+}
+
+<table>
+	<tr>
+		<th>Time</th>
+		<th>User</th>
+		<th>Action</th>
+	</tr>
+	@foreach (var entry in Model) {
+		<tr>
+			<td>@entry.Time</td>
+			<td>
+				@(entry.User != null ? Html.ActionLink(entry.User.Name, "Profile", "User", new { id = entry.User.Name }, null) : MvcHtmlString.Create(entry.AgentName))			
+			</td>
+			<td>
+				@entry.Action
+			</td>
+		</tr> 
+	}
+</table>
