@@ -68,6 +68,15 @@
 	</tr>
 	}
 
+	@if (Model.OtherArtists.Any()) {
+	<tr>
+		<td>Other artists</td>
+		<td>
+			@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+		</td>
+	</tr>
+	}
+
 	@if (!string.IsNullOrEmpty(Model.Description)) {
 	<tr>
 		<td>Description</td>

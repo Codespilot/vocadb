@@ -178,6 +178,7 @@ namespace VocaDb.Web.Models {
 
 			Circles = artists.Where(a => a.ArtistType == ArtistType.Circle).ToArray();
 			Labels = artists.Where(a => a.ArtistType == ArtistType.Label).ToArray();
+			OtherArtists = artists.Where(a => a.ArtistType == ArtistType.Unknown).ToArray();
 			Producers = artists.Where(a => a.ArtistType == ArtistType.Producer).ToArray();
 			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
 
@@ -198,6 +199,8 @@ namespace VocaDb.Web.Models {
 		public ArtistWithAdditionalNamesContract[] Labels { get; set; }
 
 		public string Name { get; set; }
+
+		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
 
