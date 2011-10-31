@@ -95,6 +95,7 @@
     <Compile Include="DataContracts\OptionalDateTimeContract.cs" />
     <Compile Include="DataContracts\PictureContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
+    <Compile Include="DataContracts\Security\AuditLogEntryContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\PVForSongContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />

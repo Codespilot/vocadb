@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -60,6 +61,23 @@ namespace VocaDb.Model.Service {
 					}
 
 				}
+
+			});
+
+		}
+
+		public AuditLogEntryContract[] GetAuditLog() {
+
+			return HandleQuery(session => {
+
+				var entries = session.Query<AuditLogEntry>()
+					.OrderByDescending(e => e.Time)
+					.Take(200)
+					.ToArray()
+					.Select(e => new AuditLogEntryContract(e))
+					.ToArray();
+
+				return entries;
 
 			});
 
