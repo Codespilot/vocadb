@@ -9,6 +9,12 @@
     ViewBag.Title = "Albums";
 }
 
+@section Toolbar {
+@if (Login.CanManageDb) {
+	@Html.ActionLink("Submit a new album", "Create", null, new { id = "createLink" })
+}
+}
+
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
 @using (Html.BeginForm("Index", "Album")) {

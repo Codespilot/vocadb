@@ -92,6 +92,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="App_GlobalResources\DiscTypeNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiscTypeNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
@@ -114,6 +119,8 @@
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />
+    <Compile Include="Models\Album\MassTagSongs.cs" />
+    <Compile Include="Models\Album\TrackArtistSelectionsRow.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
@@ -621,6 +628,9 @@
     <Content Include="Views\Artist\Versions.cshtml" />
     <Content Include="Views\Album\Create.cshtml" />
     <Content Include="Views\Help\Index.cshtml" />
+    <Content Include="Views\Album\MassTagSongs.cshtml" />
+    <Content Include="Views\Album\TrackArtistSelectionsRow.cshtml" />
+    <Content Include="Views\Album\TrackArtistSelection.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
@@ -629,6 +639,12 @@
     <Content Include="App_GlobalResources\ContentLanguageSelectionNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ContentLanguageSelectionNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\DiscTypeNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DiscTypeNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

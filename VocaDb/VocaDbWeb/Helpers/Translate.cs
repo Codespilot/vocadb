@@ -3,6 +3,7 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Resources;
 using VocaDb.Model.Domain.Globalization;
 using Resources;
+using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Web.Helpers {
 
@@ -23,6 +24,12 @@ namespace VocaDb.Web.Helpers {
 		public static string ContentLanguageSelectionName(ContentLanguageSelection languageSelection) {
 
 			return ContentLanguageSelectionNames.ResourceManager.GetString(languageSelection.ToString());
+
+		}
+
+		public static string DiscTypeName(DiscType discType) {
+
+			return DiscTypeNames.ResourceManager.GetString(discType.ToString());
 
 		}
 

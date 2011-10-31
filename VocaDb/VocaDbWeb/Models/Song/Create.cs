@@ -4,6 +4,7 @@ using System.Linq;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Models.Song {
 
@@ -44,9 +45,7 @@ namespace VocaDb.Web.Models.Song {
 
 			return new CreateSongContract {
 				Artists = this.Artists.ToArray(),
-				NameEnglish = this.NameEnglish,
-				NameRomaji = this.NameRomaji,
-				NameOriginal = this.NameOriginal,
+				Names = LocalizedStringHelper.SkipNull(NameOriginal, NameRomaji, NameEnglish).ToArray(),
 				PVUrl = this.PVUrl,
 				ReprintPVUrl = this.ReprintPVUrl,
 				SongType = this.SongType

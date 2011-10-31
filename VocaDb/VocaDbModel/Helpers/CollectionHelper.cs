@@ -33,6 +33,12 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static IEnumerable<T> SkipNull<T>(params T[] items) where T : class {
+
+			return items.Where(i => i != null);
+
+		}
+
 	}
 
 	/// <summary>

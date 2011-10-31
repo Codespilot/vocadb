@@ -292,29 +292,21 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
+			if (contract.Names == null || !contract.Names.Any())
+				throw new ArgumentException("Album needs at least one name", "contract");
+
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating a new song with name '" + contract.NameOriginal + "'");
+			AuditLog("creating a new song with name '" + contract.Names.First().Value + "'");
 
 			return HandleTransaction(session => {
 
+				var pvResult = ParsePV(session, contract.PVUrl);
+				var reprintPvResult = ParsePV(session, contract.ReprintPVUrl);
+
 				var song = new Song { SongType = contract.SongType };
 
-				if (!string.IsNullOrEmpty(contract.NameOriginal))
-					song.CreateName(contract.NameOriginal, ContentLanguageSelection.Japanese);
-
-				if (!string.IsNullOrEmpty(contract.NameRomaji))
-					song.CreateName(contract.NameRomaji, ContentLanguageSelection.Romaji);
-
-				if (!string.IsNullOrEmpty(contract.NameEnglish))
-					song.CreateName(contract.NameEnglish, ContentLanguageSelection.English);
-
-				if (!string.IsNullOrEmpty(contract.NameOriginal))
-					song.TranslatedName.DefaultLanguage = ContentLanguageSelection.Japanese;
-				else if (!string.IsNullOrEmpty(contract.NameRomaji))
-					song.TranslatedName.DefaultLanguage = ContentLanguageSelection.Romaji;
-				else if (!string.IsNullOrEmpty(contract.NameEnglish))
-					song.TranslatedName.DefaultLanguage = ContentLanguageSelection.English;
+				song.Names.Init(contract.Names, song);
 
 				session.Save(song);
 
@@ -322,16 +314,12 @@ namespace VocaDb.Model.Service {
 					session.Save(song.AddArtist(session.Load<Artist>(artist.Id)));
 				}
 
-				var pvResult = ParsePV(session, contract.PVUrl);
-
 				if (pvResult != null) {
 					session.Save(song.CreatePV(pvResult.Service, pvResult.Id, PVType.Original));
 				}
 
-				pvResult = ParsePV(session, contract.ReprintPVUrl);
-
-				if (pvResult != null) {
-					session.Save(song.CreatePV(pvResult.Service, pvResult.Id, PVType.Reprint));
+				if (reprintPvResult != null) {
+					session.Save(song.CreatePV(reprintPvResult.Service, reprintPvResult.Id, PVType.Reprint));
 				}
 
 				song.UpdateArtistString();
