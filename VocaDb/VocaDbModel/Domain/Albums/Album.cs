@@ -359,7 +359,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return "album '" + Name + "'";
+			return string.Format("album '{0}' [{1}]", Name, Id);
 		}
 
 		public virtual void UpdateArtistString() {

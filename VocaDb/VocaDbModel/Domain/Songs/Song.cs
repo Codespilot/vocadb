@@ -340,7 +340,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return "song '" + DefaultName + "' [" + Id + "]";
+			return string.Format("song '{0}' [{1}]", DefaultName, Id);
 		}
 
 		public virtual void UpdateArtistString() {

@@ -498,11 +498,10 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
-				AuditLog(string.Format("updating properties for {0}", artist), session);
+				//AuditLog(string.Format("updating properties for {0}", artist), session);
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Description = properties.Description;
-				//artist.TranslatedName.CopyFrom(properties.TranslatedName);
 				artist.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				if (pictureData != null) {
