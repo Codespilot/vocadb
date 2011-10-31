@@ -498,7 +498,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
-				//AuditLog(string.Format("updating properties for {0}", artist), session);
+				AuditLog(string.Format("updating properties for {0}", artist));
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Description = properties.Description;

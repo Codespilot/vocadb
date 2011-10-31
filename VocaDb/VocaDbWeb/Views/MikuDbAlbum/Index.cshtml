@@ -19,10 +19,10 @@
 
 @using (Html.BeginForm("ImportOne", "MikuDbAlbum")) {
 
-	<p>Import one album: </p>
+	<p>Download one album from MikuDB: </p>
 	@Html.TextBox("AlbumUrl", null, new { size = 30, maxlength = 255 })
 	
-	<input type="submit" value="Import" />
+	<input type="submit" value="Download" />
 	
 }
 	
