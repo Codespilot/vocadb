@@ -620,6 +620,7 @@
     <Content Include="Views\Album\Versions.cshtml" />
     <Content Include="Views\Artist\Versions.cshtml" />
     <Content Include="Views\Album\Create.cshtml" />
+    <Content Include="Views\Help\Index.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

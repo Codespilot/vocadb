@@ -166,6 +166,50 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumContract Create(CreateAlbumContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			AuditLog("creating a new album with name '" + contract.NameOriginal + "'");
+
+			return HandleTransaction(session => {
+
+				var album = new Album { DiscType = contract.DiscType };
+
+				if (!string.IsNullOrEmpty(contract.NameOriginal))
+					album.CreateName(contract.NameOriginal, ContentLanguageSelection.Japanese);
+
+				if (!string.IsNullOrEmpty(contract.NameRomaji))
+					album.CreateName(contract.NameRomaji, ContentLanguageSelection.Romaji);
+
+				if (!string.IsNullOrEmpty(contract.NameEnglish))
+					album.CreateName(contract.NameEnglish, ContentLanguageSelection.English);
+
+				if (!string.IsNullOrEmpty(contract.NameOriginal))
+					album.TranslatedName.DefaultLanguage = ContentLanguageSelection.Japanese;
+				else if (!string.IsNullOrEmpty(contract.NameRomaji))
+					album.TranslatedName.DefaultLanguage = ContentLanguageSelection.Romaji;
+				else if (!string.IsNullOrEmpty(contract.NameEnglish))
+					album.TranslatedName.DefaultLanguage = ContentLanguageSelection.English;
+
+				session.Save(album);
+
+				foreach (var artist in contract.Artists) {
+					session.Save(session.Load<Artist>(artist.Id).AddAlbum(album));
+				}
+
+				album.UpdateArtistString();
+				Archive(session, album, "Created");
+				session.Update(album);
+
+				return new AlbumContract(album, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public ArtistForAlbumContract CreateForArtist(int artistId, string newAlbumName) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);

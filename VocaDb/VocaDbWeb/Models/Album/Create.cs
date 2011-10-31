@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Web.Models.Album {
 
@@ -12,10 +13,14 @@ namespace VocaDb.Web.Models.Album {
 
 		public Create() {
 			Artists = new List<ArtistContract>();
+			DiscType = DiscType.Album;
 		}
 
 		[Display(Name = "Artists")]
 		public IList<ArtistContract> Artists { get; set; }
+
+		[Display(Name = "Disc type")]
+		public DiscType DiscType { get; set; }
 
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
@@ -32,12 +37,11 @@ namespace VocaDb.Web.Models.Album {
 		public CreateAlbumContract ToContract() {
 
 			return new CreateAlbumContract {
-				/*Artists = this.Artists.ToArray(),
+				Artists = this.Artists.ToArray(),
+				DiscType = this.DiscType,
 				NameEnglish = this.NameEnglish,
 				NameRomaji = this.NameRomaji,
 				NameOriginal = this.NameOriginal,
-				PVUrl = this.PVUrl,
-				ReprintPVUrl = this.ReprintPVUrl*/
 			};
 
 		}

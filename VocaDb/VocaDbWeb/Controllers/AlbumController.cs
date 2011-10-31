@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
@@ -8,6 +9,7 @@ using VocaDb.Model;
 using System.Drawing;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Web.Controllers
 {
@@ -75,7 +77,7 @@ namespace VocaDb.Web.Controllers
         // POST: /Album/Create
 
         [HttpPost]
-        public ActionResult Create(ObjectCreate model)
+        public ActionResult CreateQuick(ObjectCreate model)
         {
 
 			if (ModelState.IsValid) {
@@ -90,7 +92,32 @@ namespace VocaDb.Web.Controllers
 			}
 
 		}
-        
+
+		public ActionResult Create() {
+
+			return View(new Create());
+
+		}
+
+		[HttpPost]
+		public ActionResult Create(Create model) {
+
+			if (string.IsNullOrEmpty(model.NameOriginal) && string.IsNullOrEmpty(model.NameRomaji) && string.IsNullOrEmpty(model.NameEnglish))
+				ModelState.AddModelError("Name", "Need at least one name.");
+
+			if (model.Artists == null || !model.Artists.Any())
+				ModelState.AddModelError("Artists", "Need at least one artist.");
+
+			if (!ModelState.IsValid)
+				return View(model);
+
+			var contract = model.ToContract();
+
+			var album = Service.Create(contract);
+			return RedirectToAction("Details", new { id = album.Id });
+
+		}
+
         //
         // GET: /Album/Edit/5
  
