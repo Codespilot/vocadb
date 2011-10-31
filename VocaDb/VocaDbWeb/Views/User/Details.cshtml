@@ -11,7 +11,7 @@
 }
 
 @section Toolbar {
-@if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id) {
+@if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active) {
 	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
 }
 @if (Login.CanManageUsers) {
