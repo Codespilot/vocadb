@@ -100,7 +100,7 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(albumId);
 				var artist = new Artist(newArtistName);
 
-				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album));
+				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album), session);
 
 				var artistForAlbum = artist.AddAlbum(album);
 				Services.Artists.Archive(session, artist, "Created for album '" + album.Name + "'");
@@ -124,7 +124,7 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(albumId);
 				var song = session.Load<Song>(songId);
 
-				AuditLog(string.Format("adding {0} to {1}", song, album));
+				AuditLog(string.Format("adding {0} to {1}", song, album), session);
 
 				var songInAlbum = album.AddSong(song);
 				session.Save(songInAlbum);
@@ -147,11 +147,11 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => name);
 
-			AuditLog("creating a new artist with name '" + name + "'");
-
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
+
+				AuditLog(string.Format("creating a new artist with name '{0}'", name), session);
 
 				var album = new Album(name);
 
@@ -175,9 +175,9 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating a new album with name '" + contract.Names.First().Value + "'");
-
 			return HandleTransaction(session => {
+
+				AuditLog(string.Format("creating a new album with name '{0}'", contract.Names.First().Value), session);
 
 				var album = new Album { DiscType = contract.DiscType };
 
@@ -206,7 +206,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
-				AuditLog("creating a new album '" + newAlbumName + "' for " + artist);
+				AuditLog("creating a new album '" + newAlbumName + "' for " + artist, session);
 
 				var album = new Album(newAlbumName);
 
@@ -234,7 +234,7 @@ namespace VocaDb.Model.Service {
 
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("creating name '" + nameVal + "' for " + album);
+				AuditLog("creating name '" + nameVal + "' for " + album, session);
 
 				var name = album.CreateName(nameVal, language);
 				session.Save(name);
@@ -255,7 +255,7 @@ namespace VocaDb.Model.Service {
 
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("creating web link for " + album);
+				AuditLog("creating web link for " + album, session);
 
 				var link = album.CreateWebLink(description, url);
 				session.Save(link);
@@ -272,7 +272,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Album>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", a));
+				AuditLog(string.Format("deleting {0}", a), session);
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -289,7 +289,7 @@ namespace VocaDb.Model.Service {
 
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
 
-				AuditLog("deleting " + artistForAlbum);
+				AuditLog(string.Format("deleting {0}", artistForAlbum), session);
 
 				artistForAlbum.Album.DeleteArtistForAlbum(artistForAlbum);
 				session.Delete(artistForAlbum);
@@ -315,7 +315,7 @@ namespace VocaDb.Model.Service {
 
 				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
 
-				AuditLog("removing " + songInAlbum);
+				AuditLog("removing " + songInAlbum, session);
 
 				songInAlbum.OnDeleting();
 				session.Delete(songInAlbum);
@@ -502,7 +502,7 @@ namespace VocaDb.Model.Service {
 				var source = session.Load<Album>(sourceId);
 				var target = session.Load<Album>(targetId);
 
-				AuditLog("Merging " + source + " to " + target);
+				AuditLog(string.Format("Merging {0} to {1}", source, target), session);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -579,7 +579,7 @@ namespace VocaDb.Model.Service {
 
 				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
 
-				AuditLog("moving down " + songInAlbum);
+				AuditLog("moving down " + songInAlbum, session);
 
 				songInAlbum.Album.MoveSongDown(songInAlbum);
 				session.Update(songInAlbum.Album);
@@ -598,7 +598,7 @@ namespace VocaDb.Model.Service {
 
 				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
 
-				AuditLog("moving up " + songInAlbum);
+				AuditLog("moving up " + songInAlbum, session);
 
 				songInAlbum.Album.MoveSongUp(songInAlbum);
 				session.Update(songInAlbum.Album);
@@ -619,7 +619,7 @@ namespace VocaDb.Model.Service {
 
 				var album = session.Load<Album>(properties.Id);
 
-				AuditLog(string.Format("updating properties for {0}", album));
+				AuditLog(string.Format("updating properties for {0}", album), session);
 
 				album.DiscType = properties.DiscType;
 				album.Description = properties.Description;

@@ -211,7 +211,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("adding " + album + " for " + artist);
+				AuditLog(string.Format("adding {0} for {1}", album, artist), session);
 
 				var artistForAlbum = artist.AddAlbum(album);
 
@@ -239,11 +239,11 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNull(() => permissionContext);
 
-			AuditLog("creating a new artist with name '" + name + "'");
-
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
+
+				AuditLog(string.Format("creating a new artist with name '{0}'", name), session);
 
 				var artist = new Artist(name);
 
@@ -268,7 +268,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
-				AuditLog("creating a new name '" + nameVal + "' for " + artist);
+				AuditLog(string.Format("creating a new name '{0}' for {1}", nameVal, artist), session);
 
 				var name = artist.CreateName(nameVal, language);
 				session.Save(name);
@@ -284,7 +284,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", a));
+				AuditLog(string.Format("deleting {0}", a), session);
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -314,7 +314,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
-				AuditLog("creating web link for " + artist);
+				AuditLog("creating web link for " + artist, session);
 
 				var link = artist.CreateWebLink(description, url );
 				session.Save(link);
@@ -438,7 +438,7 @@ namespace VocaDb.Model.Service {
 				var source = session.Load<Artist>(sourceId);
 				var target = session.Load<Artist>(targetId);
 
-				AuditLog("Merging " + source + " to " + target);
+				AuditLog(string.Format("Merging {0} to {1}", source, target), session);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -498,7 +498,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(properties.Id, (session, artist) => {
 
-				AuditLog(string.Format("updating properties for {0}", artist));
+				AuditLog(string.Format("updating properties for {0}", artist), session);
 
 				artist.ArtistType = properties.ArtistType;
 				artist.Description = properties.Description;

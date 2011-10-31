@@ -310,7 +310,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult MassTagSongs(int id) {
 
 			var album = Service.GetAlbumDetails(id);
-			return View(album);
+			return View(new MassTagSongs(album));
 
 		}
 

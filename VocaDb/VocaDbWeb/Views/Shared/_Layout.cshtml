@@ -59,6 +59,7 @@
 						</ul>
 						}
 					</li>
+					<li>@Html.ActionLink("Help / About", "Index", "Help")</li>
 					@if (Login.Manager.HasPermission(PermissionFlags.MikuDbImport)) {
 					<li>@Html.ActionLink("MikuDbAlbum", "Index", "MikuDbAlbum")</li>		 
 					}

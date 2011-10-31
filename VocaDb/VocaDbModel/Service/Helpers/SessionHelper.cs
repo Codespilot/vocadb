@@ -7,11 +7,14 @@ namespace VocaDb.Model.Service.Helpers {
 
 	public static class SessionHelper {
 
-		public static AgentLoginData CreateAgentLoginData(ISession session, IUserPermissionContext permissionContext) {
+		public static AgentLoginData CreateAgentLoginData(ISession session, IUserPermissionContext permissionContext, User user = null) {
+
+			if (user != null)
+				return new AgentLoginData(user);
 
 			if (permissionContext.LoggedUser != null) {
 
-				var user = session.Load<User>(permissionContext.LoggedUser.Id);
+				user = session.Load<User>(permissionContext.LoggedUser.Id);
 				return new AgentLoginData(user);
 
 			} else {

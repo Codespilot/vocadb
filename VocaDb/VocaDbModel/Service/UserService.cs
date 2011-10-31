@@ -32,7 +32,7 @@ namespace VocaDb.Model.Service {
 				var user = session.Load<User>(userId);
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("adding " + album + " for " + user);
+				AuditLog(string.Format("adding {0} for {1}", album, user), session);
 
 				var albumForUser = user.AddAlbum(album);
 				session.Save(albumForUser);
@@ -51,7 +51,7 @@ namespace VocaDb.Model.Service {
 
 				var user = session.Load<User>(userId);
 
-				AuditLog("creating a new album '" + newAlbumName + "' for " + user);
+				AuditLog(string.Format("creating a new album '{0}' for {1}", newAlbumName, user), session);
 
 				var album = new Album(newAlbumName);
 
@@ -92,7 +92,7 @@ namespace VocaDb.Model.Service {
 				if (user.Password != hashed)
 					return null;
 
-				log.Info(user + " logged in");
+				AuditLog("logged in", session, user);
 
 				user.UpdateLastLogin();
 				session.Update(user);
@@ -108,8 +108,6 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNullOrEmpty(() => pass);
 
-			log.Info("Creating user '" + name + "'");
-
 			return HandleTransaction(session => {
 
 				var lc = name.ToLowerInvariant();
@@ -122,6 +120,8 @@ namespace VocaDb.Model.Service {
 				var hashed = LoginManager.GetHashedPass(lc, pass, salt);
 				var user = new User(name, hashed, salt);
 				session.Save(user);
+
+				AuditLog("registered", session, user);
 
 				return new UserContract(user);
 
@@ -173,7 +173,7 @@ namespace VocaDb.Model.Service {
 
 				var link = session.Query<AlbumForUser>().FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
 
-				AuditLog("deleting " + link);
+				AuditLog("deleting " + link, session);
 
 				if (link != null)
 					session.Delete(link);
@@ -188,7 +188,7 @@ namespace VocaDb.Model.Service {
 
 				var link = session.Query<FavoriteSongForUser>().FirstOrDefault(a => a.Song.Id == songId && a.User.Id == userId);
 
-				AuditLog("deleting " + link);
+				AuditLog("deleting " + link, session);
 
 				if (link != null)
 					session.Delete(link);
@@ -212,8 +212,6 @@ namespace VocaDb.Model.Service {
 			PermissionContext.VerifyPermission(PermissionFlags.ManageUsers);
 
 			UpdateEntity<User>(contract.Id, user => {
-
-				AuditLog("updating " + user);
 
 				user.Active = contract.Active;
 				user.PermissionFlags = contract.PermissionFlags;               	

@@ -116,7 +116,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 				var song = session.Load<Song>(songId);
 
-				AuditLog(string.Format("linking {0} to {1}", artist, song));
+				AuditLog(string.Format("linking {0} to {1}", artist, song), session);
 
 				var artistForSong = artist.AddSong(song);
 				session.Save(artistForSong);
@@ -138,7 +138,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog(string.Format("creating new artist {0} to {1}", newArtistName, song));
+				AuditLog(string.Format("creating new artist {0} to {1}", newArtistName, song), session);
 
 				var artist = new Artist(newArtistName);
 
@@ -173,7 +173,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog("creating lyrics for " + song);
+				AuditLog("creating lyrics for " + song, session);
 
 				var entry = song.CreateLyrics(language, value, source);
 
@@ -188,11 +188,11 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => name);
 
-			AuditLog("creating a new song with name " + name);
-
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
+
+				AuditLog("creating a new song with name " + name, session);
 
 				var song = new Song(name);
 
@@ -217,7 +217,7 @@ namespace VocaDb.Model.Service {
 
 				var album = session.Load<Album>(albumId);
 
-				AuditLog(string.Format("creating a new song '{0}' to {1}", newSongName, album));
+				AuditLog(string.Format("creating a new song '{0}' to {1}", newSongName, album), session);
 
 				var song = new Song(newSongName);
 				session.Save(song);
@@ -243,7 +243,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog("creating a name " + nameVal + " for " + song);
+				AuditLog(string.Format("creating a name {0} for {1}", nameVal, song), session);
 
 				var name = song.CreateName(nameVal, language);
 				session.Save(name);
@@ -262,7 +262,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
-				AuditLog("creating a PV for " + song);
+				AuditLog("creating a PV for " + song, session);
 
 				var pv = song.CreatePV(service, pvId, pvType);
 				session.Save(pv);
@@ -297,12 +297,12 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating a new song with name '" + contract.Names.First().Value + "'");
-
 			return HandleTransaction(session => {
 
 				var pvResult = ParsePV(session, contract.PVUrl);
 				var reprintPvResult = ParsePV(session, contract.ReprintPVUrl);
+
+				AuditLog(string.Format("creating a new song with name '{0}'", contract.Names.First().Value), session);
 
 				var song = new Song { SongType = contract.SongType };
 
@@ -338,7 +338,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Song>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", a));
+				AuditLog(string.Format("deleting {0}", a), session);
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -355,7 +355,7 @@ namespace VocaDb.Model.Service {
 
 				var artistForSong = session.Load<ArtistForSong>(artistForSongId);
 
-				AuditLog("deleting " + artistForSong);
+				AuditLog("deleting " + artistForSong, session);
 
 				artistForSong.Song.DeleteArtistForSong(artistForSong);
 				session.Delete(artistForSong);
@@ -379,7 +379,7 @@ namespace VocaDb.Model.Service {
 
 				var pvForSong = session.Load<PVForSong>(pvForSongId);
 
-				AuditLog("deleting " + pvForSong);
+				AuditLog("deleting " + pvForSong, session);
 
 				pvForSong.OnDelete();
 				session.Delete(pvForSong);
@@ -618,7 +618,7 @@ namespace VocaDb.Model.Service {
 				var source = session.Load<Song>(sourceId);
 				var target = session.Load<Song>(targetId);
 
-				AuditLog("Merging " + source + " to " + target);
+				AuditLog(string.Format("Merging {0} to {1}", source, target), session);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -679,7 +679,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(properties.Song.Id);
 
-				AuditLog(string.Format("updating properties for {0}", song));
+				AuditLog(string.Format("updating properties for {0}", song), session);
 
 				song.SongType = properties.Song.SongType;
 				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
@@ -709,7 +709,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog("updating lyrics for " + song);
+				AuditLog("updating lyrics for " + song, session);
 
 				var deleted = song.Lyrics.Where(l => !validLyrics.Any(l2 => l.Id == l2.Id)).ToArray();
 

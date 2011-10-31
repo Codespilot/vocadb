@@ -150,6 +150,7 @@
     <Compile Include="Domain\Globalization\TranslatedString.cs" />
     <Compile Include="Domain\MetadataEntry.cs" />
     <Compile Include="Domain\PictureData.cs" />
+    <Compile Include="Domain\Security\AuditLogEntry.cs" />
     <Compile Include="Domain\Security\NotAllowedException.cs" />
     <Compile Include="Domain\Security\PermissionFlags.cs" />
     <Compile Include="Domain\Security\RoleTypes.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Mapping\CustomTypes\XDocumentType.cs" />
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
+    <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
@@ -234,9 +236,7 @@
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Service\VideoServices\VideoUrlParseResult.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mapping\Security\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\ArtistTypeNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
