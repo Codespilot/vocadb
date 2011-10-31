@@ -170,29 +170,18 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
+			if (contract.Names == null || !contract.Names.Any())
+				throw new ArgumentException("Album needs at least one name", "contract");
+
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			AuditLog("creating a new album with name '" + contract.NameOriginal + "'");
+			AuditLog("creating a new album with name '" + contract.Names.First().Value + "'");
 
 			return HandleTransaction(session => {
 
 				var album = new Album { DiscType = contract.DiscType };
 
-				if (!string.IsNullOrEmpty(contract.NameOriginal))
-					album.CreateName(contract.NameOriginal, ContentLanguageSelection.Japanese);
-
-				if (!string.IsNullOrEmpty(contract.NameRomaji))
-					album.CreateName(contract.NameRomaji, ContentLanguageSelection.Romaji);
-
-				if (!string.IsNullOrEmpty(contract.NameEnglish))
-					album.CreateName(contract.NameEnglish, ContentLanguageSelection.English);
-
-				if (!string.IsNullOrEmpty(contract.NameOriginal))
-					album.TranslatedName.DefaultLanguage = ContentLanguageSelection.Japanese;
-				else if (!string.IsNullOrEmpty(contract.NameRomaji))
-					album.TranslatedName.DefaultLanguage = ContentLanguageSelection.Romaji;
-				else if (!string.IsNullOrEmpty(contract.NameEnglish))
-					album.TranslatedName.DefaultLanguage = ContentLanguageSelection.English;
+				album.Names.Init(contract.Names, album);
 
 				session.Save(album);
 

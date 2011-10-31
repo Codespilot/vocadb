@@ -78,12 +78,6 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
-		/*public virtual bool HasNameFor(ContentLanguageSelection language) {
-
-			return Names.Any(n => n.Language == language || n.Language == ContentLanguageSelection.Unspecified);
-
-		}*/
-
 		public virtual void Add(T name, bool update = true) {
 			
 			Names.Add(name);
@@ -96,6 +90,23 @@ namespace VocaDb.Model.Domain.Globalization {
 		public virtual bool HasName(LocalizedString name) {
 
 			return Names.Any(n => n.ContentEquals(name));
+
+		}
+
+		public virtual void Init(IEnumerable<LocalizedStringContract> names, INameFactory<T> nameFactory) {
+
+			ParamIs.NotNull(() => names);
+			ParamIs.NotNull(() => nameFactory);
+
+			foreach (var name in names)
+				nameFactory.CreateName(name.Value, name.Language);
+
+			if (names.Any(n => n.Language == ContentLanguageSelection.Japanese))
+				SortNames.DefaultLanguage = ContentLanguageSelection.Japanese;
+			else if (names.Any(n => n.Language == ContentLanguageSelection.Romaji))
+				SortNames.DefaultLanguage = ContentLanguageSelection.Romaji;
+			else if (names.Any(n => n.Language == ContentLanguageSelection.English))
+				SortNames.DefaultLanguage = ContentLanguageSelection.English;
 
 		}
 

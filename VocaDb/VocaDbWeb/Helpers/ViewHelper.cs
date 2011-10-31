@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Web;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Web.Helpers {
 
@@ -61,6 +62,10 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static SelectList CreateDiscTypesList(object selectedValue) {
+			return new SelectList(EnumVal<DiscType>.Values.ToDictionary(s => s, s => Translate.DiscTypeName(s)), "Key", "Value", selectedValue);
+		}
+
 		public static SelectList CreateLanguageSelectionList(object selectedValue) {
 			return new SelectList(LanguageSelections, "Key", "Value", selectedValue);
 		}
@@ -71,6 +76,13 @@ namespace VocaDb.Web.Helpers {
 
 		public static SelectList CreateSongTypesList(object selectedValue) {
 			return new SelectList(EnumVal<SongType>.Values.ToDictionary(s => s, s => s.ToString()), "Key", "Value", selectedValue);
+		}
+
+		public static MvcHtmlString DiscTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, DiscType>> expression, object htmlAttributes = null, object selectedValue = null) {
+
+			return htmlHelper.DropDownListFor(expression, CreateDiscTypesList(selectedValue), htmlAttributes);
+
 		}
 
 		public static MvcHtmlString LanguagePreferenceDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,

@@ -4,24 +4,18 @@ using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Domain.Globalization {
 
+	/// <summary>
+	/// String that is translated to all common languages supported by the system.
+	/// </summary>
 	public class TranslatedString {
 
-		//private string defaultVal;
 		private string english;
 		private string original;
-		//private string other;
 		private string romaji;
 
 		public TranslatedString() {
 			DefaultLanguage = ContentLanguageSelection.Japanese;
 		}
-
-		/*public TranslatedString(string uniform)
-			: this() {
-
-			Japanese = Romaji = English = uniform;
-
-		}*/
 
 		public TranslatedString(TranslatedStringContract contract)
 			: this() {
@@ -115,6 +109,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		public virtual ContentLanguageSelection DefaultLanguage { get; set; }
 
+		/// <summary>
+		/// Name in English.
+		/// TODO: currently this can be null/empty, but that should be changed for all new fields.
+		/// </summary>
 		public virtual string English {
 			get { return english; }
 			set {
@@ -123,6 +121,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
+		/// <summary>
+		/// Name in the original language (usually Japanese).
+		/// TODO: currently this can be null/empty, but that should be changed for all new fields.
+		/// </summary>
 		public virtual string Japanese {
 			get { return original; }
 			set {
@@ -130,6 +132,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
+		/// <summary>
+		/// Romanized name.
+		/// TODO: currently this can be null/empty, but that should be changed for all new fields.
+		/// </summary>
 		public virtual string Romaji {
 			get { return romaji; }
 			set {

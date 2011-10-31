@@ -1,4 +1,5 @@
-﻿@model VocaDb.Web.Models.Album.Create
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.Album.Create
 
 @{
     ViewBag.Title = "Submit a new album";
@@ -50,6 +51,13 @@
 
 			<div id="duplicateSongWarning" style="display:none">
 				@Helpers.NotificationPanel(string.Empty, "duplicateSongMessage")
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.DiscType)
+			</div>
+			<div class="editor-field">
+				@Html.DiscTypeDropDownListFor(m => m.DiscType)
 			</div>
 
 			<div class="editor-label">

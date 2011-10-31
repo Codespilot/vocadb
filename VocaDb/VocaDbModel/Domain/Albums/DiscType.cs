@@ -8,7 +8,11 @@
 
 		Single		= 2,
 
-		EP			= 4
+		EP			= 4,
+
+		Compilation	= 8,
+
+		Other		= 16
 
 	}
 

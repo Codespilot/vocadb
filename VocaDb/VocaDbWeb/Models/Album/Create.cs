@@ -6,6 +6,8 @@ using System.Web;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Helpers;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Web.Models.Album {
 
@@ -39,9 +41,7 @@ namespace VocaDb.Web.Models.Album {
 			return new CreateAlbumContract {
 				Artists = this.Artists.ToArray(),
 				DiscType = this.DiscType,
-				NameEnglish = this.NameEnglish,
-				NameRomaji = this.NameRomaji,
-				NameOriginal = this.NameOriginal,
+				Names = LocalizedStringHelper.SkipNull(NameOriginal, NameRomaji, NameEnglish).ToArray()
 			};
 
 		}

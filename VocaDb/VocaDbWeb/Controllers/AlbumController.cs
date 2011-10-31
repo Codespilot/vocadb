@@ -307,6 +307,22 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult MassTagSongs(int id) {
+
+			var album = Service.GetAlbumDetails(id);
+			return View(album);
+
+		}
+
+		[HttpPost]
+		public ActionResult MassTagSongs(MassTagSongs model) {
+
+			// TODO
+
+			return RedirectToAction("Details", new { id = model.Id });
+
+		}
+
 		public ActionResult Merge(int id) {
 
 			var album = Service.GetAlbum(id);
