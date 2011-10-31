@@ -72,11 +72,14 @@
 </ul>
 }
 
-@if (Model.AlbumLinks.Any()) {
+@if (Model.LatestAlbums.Any()) {
 <h3>Recently added albums</h3>
 <ul>
-	@foreach (var album in Model.AlbumLinks) {
-		<li>@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })</li>
+	@foreach (var album in Model.LatestAlbums) {
+		<li>
+			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+			(added @album.CreateDate).
+		</li>
 	}
 </ul>
 }
@@ -85,7 +88,10 @@
 <h3>Recently added songs</h3>
 <ul>
 	@foreach (var song in Model.LatestSongs) {
-		<li>@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })</li>
+		<li>
+			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+			(added @song.CreateDate).
+		</li>
  }
 </ul>	
 }

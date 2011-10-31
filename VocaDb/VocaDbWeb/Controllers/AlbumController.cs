@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
@@ -315,7 +316,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult MassTagSongs(MassTagSongs model) {
+		public ActionResult MassTagSongs(MassTagSongs model, IEnumerable<TrackArtistSelection> ArtistSelections) {
 
 			// TODO
 

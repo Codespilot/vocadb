@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ParamIs.NotNull(() => album);
 
 			ArtistString = album.ArtistString;
+			CreateDate = album.CreateDate;
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.TranslatedName[languagePreference];
@@ -26,6 +27,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public string ArtistString { get; set; }
+
+		[DataMember]
+		public DateTime CreateDate { get; set; }
 
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
