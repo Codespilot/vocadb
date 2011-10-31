@@ -14,10 +14,10 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.Active).Not.Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.DefaultLanguageSelection).Not.Nullable();
-			Map(m => m.Email).Not.Nullable();
+			Map(m => m.Email).Length(50).Not.Nullable();
 			Map(m => m.LastLogin).Not.Nullable();
-			Map(m => m.Name).Not.Nullable();
-			Map(m => m.NameLC).Not.Nullable();
+			Map(m => m.Name).Length(100).Not.Nullable();
+			Map(m => m.NameLC).Length(100).Not.Nullable();
 			Map(m => m.Password).Not.Nullable();
 			Map(m => m.PermissionFlags).CustomType(typeof(PermissionFlags)).Not.Nullable();
 			Map(m => m.PreferredVideoService).Not.Nullable();

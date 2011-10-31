@@ -3,6 +3,7 @@ using log4net;
 using NHibernate;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -11,6 +12,12 @@ namespace VocaDb.Model.Service {
 		private readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
 		private readonly ISessionFactory sessionFactory;
 		private readonly IUserPermissionContext permissionContext;
+
+		private string GetAuditLogMessage(string doingWhat) {
+
+			return string.Format("'{0}' {1}", PermissionContext.Name, doingWhat);
+
+		}
 
 		protected User GetLoggedUser(ISession session) {
 
@@ -30,7 +37,20 @@ namespace VocaDb.Model.Service {
 
 		protected void AuditLog(string doingWhat) {
 
-			log.Info("'" + PermissionContext.Name + "' " + doingWhat);
+			log.Info(GetAuditLogMessage(doingWhat));
+
+		}
+
+		protected void AuditLog(string doingWhat, ISession session, User user = null) {
+
+			ParamIs.NotNull(() => session);
+
+			AuditLog(doingWhat);
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext, user);
+			var entry = new AuditLogEntry(agentLoginData, doingWhat);
+
+			session.Save(entry);
 
 		}
 
@@ -101,7 +121,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
-				AuditLog("deleting " + entity);
+				AuditLog("deleting " + entity, session);
 
 				session.Delete(entity);
 
@@ -119,7 +139,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
-				AuditLog("updating " + entity);
+				AuditLog("updating " + entity, session);
 				func(entity);
 
 				session.Update(entity);
@@ -138,7 +158,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
-				AuditLog("updating " + entity);
+				AuditLog("updating " + entity, session);
 				func(session, entity);
 
 				session.Update(entity);

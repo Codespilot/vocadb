@@ -39,6 +39,7 @@ namespace VocaDb.Web.Models {
 		[Required]
 		[DataType(DataType.Password)]
 		[Display(Name = "Password")]
+		[StringLength(100)]
 		public string Password { get; set; }
 
 	}
@@ -77,6 +78,7 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Email")]
 		[DataType(DataType.EmailAddress)]
+		[StringLength(50)]
 		public string Email { get; set; }
 
 		public int Id { get; set; }
@@ -86,15 +88,18 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Old password")]
 		[DataType(DataType.Password)]
+		[StringLength(100)]
 		public string OldPass { get; set; }
 
 		[Display(Name = "New password")]
 		[DataType(DataType.Password)]
 		[Compare("NewPassAgain", ErrorMessage = "Passwords must match")]
+		[StringLength(100)]
 		public string NewPass { get; set; }
 
 		[Display(Name = "New password again")]
 		[DataType(DataType.Password)]
+		[StringLength(100)]
 		public string NewPassAgain { get; set; }
 
 		public UpdateUserSettingsContract ToContract() {
