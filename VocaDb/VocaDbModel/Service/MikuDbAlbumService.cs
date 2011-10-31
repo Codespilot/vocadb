@@ -26,6 +26,8 @@ namespace VocaDb.Model.Service {
 
 		private AlbumContract AcceptImportedAlbum(ISession session, InspectedAlbum acceptedAlbum) {
 			
+			AuditLog("accepting imported album with name '" + acceptedAlbum.ImportedAlbum.Title + "'");
+
 			Album album;
 
 			if (acceptedAlbum.ExistingAlbum == null) {
@@ -309,6 +311,8 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
+				AuditLog("importing new albums from MikuDB", session);
+
 				//var all = session.Query<MikuDbAlbum>();
 
 				//foreach (var album in all)
@@ -345,6 +349,8 @@ namespace VocaDb.Model.Service {
 				return;
 
 			HandleTransaction(session => {
+
+				AuditLog(string.Format("importing album from MikuDB with URL '{0}'", url));
 
 				var newAlbum = new MikuDbAlbum(imported.AlbumContract);
 				session.Save(newAlbum);
