@@ -307,7 +307,7 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public override string ToString() {
-			return "artist '" + Name + "'";
+			return string.Format("artist '{0}' [{1}]", Name, Id);
 		}
 
 	}
