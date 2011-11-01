@@ -78,7 +78,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult ViewAuditLog() {
 
-			LoginManager.VerifyPermission(PermissionFlags.Admin);
+			LoginManager.VerifyPermission(PermissionFlags.ViewAuditLog);
 
 			var entries = Service.GetAuditLog();
 

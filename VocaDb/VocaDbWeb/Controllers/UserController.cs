@@ -284,5 +284,14 @@ namespace VocaDb.Web.Controllers
                 return View();
             }
         }
+
+		public ActionResult Disable(int id) {
+
+			Service.DisableUser(id);
+
+			return RedirectToAction("Details", new { id });
+
+		}
+
     }
 }

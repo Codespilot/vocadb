@@ -1,15 +1,21 @@
-﻿@{
+﻿@using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Security;
+
+@{
     ViewBag.Title = "Admin menu";
 }
 <h3>Common tasks</h3>
 <p>
-@Html.ActionLink("Manage users", "Index", "User")
+@Html.ActionLink("View users list", "Index", "User")
 </p>
+@if (Login.Manager.HasPermission(PermissionFlags.ViewAuditLog)) {
 <p>
 @Html.ActionLink("View audit log", "ViewAuditLog")
 </p>
+}
 <br />
 
+@if (Login.Manager.HasPermission(PermissionFlags.Admin)) {
 <h3>Database maintenance tasks</h3>
 <p>
 @Html.ActionLink("Refresh NHibernate cache", "RefreshDbCache")
@@ -26,3 +32,4 @@
 <p>
 @Html.ActionLink("Update PV Icons", "UpdatePVIcons")
 </p>
+}

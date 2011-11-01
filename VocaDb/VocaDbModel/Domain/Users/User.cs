@@ -56,6 +56,16 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public virtual bool CanBeDisabled {
+			get {
+
+				return (!PermissionFlags.HasFlag(PermissionFlags.Admin) 
+					&& !PermissionFlags.HasFlag(PermissionFlags.ManageUserBlocks)
+					&& !PermissionFlags.HasFlag(PermissionFlags.ManageUsers));
+
+			}
+		}
+
 		public virtual DateTime CreateDate { get; set; }
 
 		public virtual ContentLanguagePreference DefaultLanguageSelection { get; set; }

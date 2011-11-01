@@ -137,6 +137,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void DisableUser(int userId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+
+			UpdateEntity<User>(userId, user => {
+
+				if (!user.CanBeDisabled)
+					throw new InvalidOperationException("This user account cannot be disabled");
+
+				user.Active = false;
+
+			});
+
+		}
+
 		public UserContract[] GetUsers() {
 
 			return HandleQuery(session => session.Query<User>().Select(u => new UserContract(u)).ToArray());

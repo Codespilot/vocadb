@@ -22,8 +22,9 @@
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract song in ViewBag.Songs) {
 				<li>
+					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 					@Html.PVServiceIcons(song.PVServices)
-					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })<br />
+					<br />
 					<span class="extraInfo">@song.ArtistString</span>
 				</li>				
 			}

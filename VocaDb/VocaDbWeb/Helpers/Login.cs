@@ -6,6 +6,17 @@ namespace VocaDb.Web.Helpers {
 
 	public static class Login {
 
+		public static bool CanAccessManageMenu {
+			get {
+
+				return Manager.HasPermission(PermissionFlags.Admin)
+					|| Manager.HasPermission(PermissionFlags.ManageUserBlocks)
+					|| Manager.HasPermission(PermissionFlags.ManageUsers)
+					|| Manager.HasPermission(PermissionFlags.ViewAuditLog);
+
+			}
+		}
+
 		public static bool CanDeleteEntries {
 			get {
 				return Manager.HasPermission(PermissionFlags.DeleteEntries);
