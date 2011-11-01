@@ -36,7 +36,7 @@ namespace VocaDb.Web.Models.Artist {
 
 			return new CreateArtistContract {
 				ArtistType = this.ArtistType,
-				Description = this.Description,
+				Description = this.Description ?? string.Empty,
 				Names = LocalizedStringHelper.SkipNull(NameOriginal, NameRomaji, NameEnglish).ToArray()
 			};
 
