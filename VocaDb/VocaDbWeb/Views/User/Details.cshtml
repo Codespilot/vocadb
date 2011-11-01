@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Model.DataContracts.Users;
 @using VocaDb.Web;
 @using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Security;
 @model UserDetailsContract
 		   
 @{
@@ -18,14 +19,18 @@
 	<text>&nbsp;</text>
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });	
 }
+@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks) && Login.User.Id != Model.Id && Model.Active) {
+	<text>&nbsp;</text>
+	@Html.ActionLink("Disable", "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
+}
 }
 
 <table>
 	<tr>
-		<td rowspan="3">
+		<td rowspan="4">
 			@if (!string.IsNullOrEmpty(Model.Email)) {
 				@Gravatar.GetHtml(Model.Email)
-			}
+   }
 		</td>
 		<td>Name</td>
 		<td>
@@ -40,6 +45,12 @@
 		<tr>
 			<td>Permissions</td>
 			<td>@Model.PermissionFlags</td>
+		</tr>
+	}
+	@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
+		<tr>
+			<td>Active</td>
+			<td>@Model.Active</td>
 		</tr>
 	}
 </table>
@@ -73,7 +84,7 @@
 					@Translate.MediaTypeName(album.MediaType)
 				</td>	
 			</tr>
-			}	
+   }	
 		</table>
 	</div>
 
@@ -84,7 +95,7 @@
 				@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })<br />
 				<span class="extraInfo">@song.Song.ArtistString</span>
 			</li>
-		}
+  }
 		</ul>	
 	</div>
 </div>
