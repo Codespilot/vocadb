@@ -108,7 +108,7 @@ namespace VocaDb.Web.Models {
 				Id = this.Id,
 				Name = Username,
 				DefaultLanguageSelection = this.DefaultLanguageSelection,
-				Email = this.Email,
+				Email = this.Email ?? string.Empty,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
 				NewPass = this.NewPass
