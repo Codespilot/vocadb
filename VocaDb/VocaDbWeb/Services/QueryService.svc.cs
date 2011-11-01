@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
@@ -26,6 +27,14 @@ namespace VocaDb.Web.Services {
 		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
 
 			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults).Items;
+
+		}
+
+		[OperationContract]
+		public AlbumContract GetAlbumDetails(string term) {
+
+			var albums = Services.Albums.Find(term, 0, 1);
+			return albums.Items.FirstOrDefault();
 
 		}
 

@@ -9,7 +9,7 @@
 	@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
 
 	@Html.LabelFor(m => m.Source):
-	@Html.TextBoxFor(m => m.Source)
+	@Html.TextBoxFor(m => m.Source, new { size = 45 })
 	</p>
 	
 	@Html.TextAreaFor(m => m.Value, 30, 65, null)

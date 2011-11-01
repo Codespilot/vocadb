@@ -103,10 +103,11 @@
 		<p><text>@lyrics.Language</text>
 		@if (!string.IsNullOrEmpty(lyrics.Source)) {
 			<text>(from @lyrics.Source)</text>
-  }
+		}
 		</p>
 		<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
- }
+		<hr />
+	}
 	</div>
 </div>
 
