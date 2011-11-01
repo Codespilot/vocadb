@@ -15,6 +15,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
+		private IList<AlbumComment> comments = new List<AlbumComment>();
 		private string description;
 		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
@@ -94,6 +95,14 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual string ArtistString { get; protected set; }
+
+		public virtual IList<AlbumComment> Comments {
+			get { return comments; }
+			set {
+				ParamIs.NotNull(() => value);
+				comments = value; 
+			}
+		}
 
 		public virtual PictureData CoverPicture { get; set; }
 
