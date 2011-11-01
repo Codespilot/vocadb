@@ -98,6 +98,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 			Song.PVs.Remove(this);
 			Song.UpdateNicoId();
+			Song.UpdatePVServices();
 
 		}
 

@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Mapping.Songs {
@@ -14,7 +15,9 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.NicoId).Nullable();
+			Map(m => m.PVServices).CustomType(typeof(PVServices)).Not.Nullable();
 			Map(m => m.SongType).Not.Nullable();
+			Map(m => m.Status).CustomType(typeof(EntryStatus)).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			Component(m => m.Names, c => {

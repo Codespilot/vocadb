@@ -105,7 +105,7 @@
 			<text>(from @lyrics.Source)</text>
   }
 		</p>
-		<p>@Html.Raw(lyrics.Value.Replace("\n", "<br />"))</p>
+		<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
  }
 	</div>
 </div>

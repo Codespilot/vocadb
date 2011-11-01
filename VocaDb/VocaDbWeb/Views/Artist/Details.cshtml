@@ -34,7 +34,7 @@
 	<tr>
 		<td>Description</td>
 		<td>
-			@Model.Description<br />
+			@Helpers.ConvertNewlinesToBreaks(Model.Description)
 		</td>	
 	</tr>
 }
@@ -89,6 +89,7 @@
 <ul>
 	@foreach (var song in Model.LatestSongs) {
 		<li>
+			@Html.PVServiceIcons(song.PVServices)
 			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 			(added @song.CreateDate).
 		</li>

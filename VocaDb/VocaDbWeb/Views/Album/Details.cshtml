@@ -81,7 +81,7 @@
 	<tr>
 		<td>Description</td>
 		<td>
-			@Model.Description<br />
+			@Helpers.ConvertNewlinesToBreaks(Model.Description)
 		</td>	
 	</tr>
 	}
@@ -139,7 +139,10 @@
 		<li>
 			@song.TrackNumber
 			.&nbsp;
-			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })<br />
+			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
+			&nbsp;
+			@Html.PVServiceIcons(song.Song.PVServices)
+			<br />
 			<span class="extraInfo">@song.Song.ArtistString</span>
 		</li>
  }

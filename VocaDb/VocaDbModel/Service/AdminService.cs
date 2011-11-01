@@ -133,5 +133,30 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdatePVIcons() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+
+			AuditLog("updating PVServices");
+
+			HandleTransaction(session => {
+
+				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var song in songs) {
+
+					var old = song.PVServices;
+
+					song.UpdatePVServices();
+
+					if (song.PVServices != old)
+						session.Update(song);
+
+				}
+
+			});
+
+		}
+
 	}
 }

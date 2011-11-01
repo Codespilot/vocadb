@@ -1,7 +1,6 @@
 ﻿using System;
 using VocaDb.Model.Domain;
 using System.Runtime.Serialization;
-using System.Drawing;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -36,7 +35,7 @@ namespace VocaDb.Model.DataContracts {
 
 	}
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PictureThumbContract {
 
 		public PictureThumbContract() {}
@@ -62,7 +61,6 @@ namespace VocaDb.Model.DataContracts {
 
 		[DataMember]
 		public virtual int Size { get; set; }
-
 
 	}
 
