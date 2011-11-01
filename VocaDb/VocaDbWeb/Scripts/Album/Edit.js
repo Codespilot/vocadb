@@ -129,7 +129,7 @@ function initPage(albumId) {
 
 			$(results.Items).each(function () {
 
-				addOption(songList, this.Id, this.Name);
+				addOption(songList, this.Id, this.Name + (this.ArtistString != "" ? " (by " + this.ArtistString + ")" : ""));
 
 			});
 
