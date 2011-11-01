@@ -83,6 +83,7 @@
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithArchivedVersions.cs" />
+    <Compile Include="DataContracts\Artists\CreateArtistContract.cs" />
     <Compile Include="DataContracts\Artists\GroupForArtistContract.cs" />
     <Compile Include="DataContracts\GenericResponse.cs" />
     <Compile Include="DataContracts\LocalizedStringContract.cs" />
@@ -124,10 +125,12 @@
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
+    <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumRelease.cs" />
     <Compile Include="Domain\Albums\AlbumWebLink.cs" />
     <Compile Include="Domain\Albums\ArchivedAlbumVersion.cs" />
     <Compile Include="Domain\Albums\MediaTypes.cs" />
+    <Compile Include="Domain\Artists\ArtistDiff.cs" />
     <Compile Include="Domain\DateTimeYearAndDate.cs" />
     <Compile Include="Domain\EntryStatus.cs" />
     <Compile Include="Domain\Globalization\ContentLanguagePreference.cs" />

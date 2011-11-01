@@ -10,6 +10,7 @@ using System.Web;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Web.Helpers {
 
@@ -62,6 +63,10 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static SelectList CreateArtistTypesList(object selectedValue) {
+			return new SelectList(EnumVal<ArtistType>.Values.ToDictionary(s => s, s => Translate.ArtistTypeName(s)), "Key", "Value", selectedValue);
+		}
+
 		public static SelectList CreateDiscTypesList(object selectedValue) {
 			return new SelectList(EnumVal<DiscType>.Values.ToDictionary(s => s, s => Translate.DiscTypeName(s)), "Key", "Value", selectedValue);
 		}
@@ -76,6 +81,13 @@ namespace VocaDb.Web.Helpers {
 
 		public static SelectList CreateSongTypesList(object selectedValue) {
 			return new SelectList(EnumVal<SongType>.Values.ToDictionary(s => s, s => s.ToString()), "Key", "Value", selectedValue);
+		}
+
+		public static MvcHtmlString ArtistTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, ArtistType>> expression, object htmlAttributes = null, object selectedValue = null) {
+
+			return htmlHelper.DropDownListFor(expression, CreateArtistTypesList(selectedValue), htmlAttributes);
+
 		}
 
 		public static MvcHtmlString DiscTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,

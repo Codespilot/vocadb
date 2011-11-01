@@ -77,7 +77,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract CheckAuthentication(string name, string pass) {
+		public UserContract CheckAuthentication(string name, string pass, string hostname) {
 
 			return HandleTransaction(session => {
 
@@ -92,7 +92,7 @@ namespace VocaDb.Model.Service {
 				if (user.Password != hashed)
 					return null;
 
-				AuditLog("logged in", session, user);
+				AuditLog("logged in from " + hostname, session, user);
 
 				user.UpdateLastLogin();
 				session.Update(user);
@@ -103,7 +103,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract Create(string name, string pass) {
+		public UserContract Create(string name, string pass, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNullOrEmpty(() => pass);
@@ -121,7 +121,7 @@ namespace VocaDb.Model.Service {
 				var user = new User(name, hashed, salt);
 				session.Save(user);
 
-				AuditLog("registered", session, user);
+				AuditLog("registered from " + hostname, session, user);
 
 				return new UserContract(user);
 

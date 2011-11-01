@@ -122,6 +122,7 @@
     <Compile Include="Models\Album\MassTagSongs.cs" />
     <Compile Include="Models\Album\TrackArtistSelectionsRow.cs" />
     <Compile Include="Models\ArtistModels.cs" />
+    <Compile Include="Models\Artist\Create.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\SharedModels.cs" />
@@ -551,7 +552,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Code\Security\" />
-    <Folder Include="Models\Artist\" />
     <Folder Include="Scripts\MikuDbAlbums\" />
   </ItemGroup>
   <ItemGroup>
@@ -631,6 +631,7 @@
     <Content Include="Views\Album\TrackArtistSelectionsRow.cshtml" />
     <Content Include="Views\Album\TrackArtistSelection.cshtml" />
     <Content Include="Views\Admin\ViewAuditLog.cshtml" />
+    <Content Include="Views\Artist\Create.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

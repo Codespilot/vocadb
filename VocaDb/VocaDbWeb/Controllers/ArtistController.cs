@@ -13,6 +13,7 @@ using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Web.Models.Artist;
 
 namespace VocaDb.Web.Controllers
 {
@@ -82,11 +83,33 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Create() {
+
+			return View(new Create());
+
+		}
+
+		[HttpPost]
+		public ActionResult Create(Create model) {
+
+			if (string.IsNullOrEmpty(model.NameOriginal) && string.IsNullOrEmpty(model.NameRomaji) && string.IsNullOrEmpty(model.NameEnglish))
+				ModelState.AddModelError("Name", "Need at least one name.");
+
+			if (!ModelState.IsValid)
+				return View(model);
+
+			var contract = model.ToContract();
+
+			var album = Service.Create(contract);
+			return RedirectToAction("Details", new { id = album.Id });
+
+		}
+
         //
         // POST: /Artist/Create
 
         [HttpPost]
-        public ActionResult Create(ObjectCreate model)
+        public ActionResult CreateQuick(ObjectCreate model)
         {
 
 			if (ModelState.IsValid) {

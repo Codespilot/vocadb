@@ -68,7 +68,7 @@ function initPage(songId) {
 
 			});
 
-			addOption(artistList, "", "Create new artist named '" + findTerm + "'");
+			//addOption(artistList, "", "Create new artist named '" + findTerm + "'");
 
 		});
 
@@ -85,7 +85,7 @@ function initPage(songId) {
 		var artistId = $(artistList).val();
 
 		if (artistId == "") {
-			$.post("../../Song/AddNewArtist", { songId: songId, newArtistName: findTerm }, artistAdded);
+			//$.post("../../Song/AddNewArtist", { songId: songId, newArtistName: findTerm }, artistAdded);
 		} else {
 			$.post("../../Song/AddExistingArtist", { songId: songId, artistId: artistId }, artistAdded);
 		}

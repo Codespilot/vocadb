@@ -10,12 +10,12 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public ArchivedAlbumContract() { }
 
-		public ArchivedAlbumContract(Album album) {
+		public ArchivedAlbumContract(Album album, AlbumDiff diff) {
 
 			ParamIs.NotNull(() => album);
 
 			Artists = album.Artists.Select(a => new ObjectRefContract(a.Artist.Id, a.Artist.Name)).ToArray();
-			CoverPicture = (album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
+			CoverPicture = (diff.IncludeCover && album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
 			CreateDate = album.CreateDate;
 			Description = album.Description;
 			DiscType = album.DiscType;

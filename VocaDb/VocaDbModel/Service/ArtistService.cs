@@ -224,13 +224,47 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Artist artist, string notes = "") {
+		public void Archive(ISession session, Artist artist, ArtistDiff diff, string notes = "") {
 
 			log.Info("Archiving " + artist);
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedArtistVersion.Create(artist, agentLoginData, notes);
+			var archived = ArchivedArtistVersion.Create(artist, diff, agentLoginData, notes);
 			session.Save(archived);
+
+		}
+
+		public void Archive(ISession session, Artist artist, string notes = "") {
+
+			Archive(session, artist, new ArtistDiff(), notes);
+
+		}
+
+		public ArtistContract Create(CreateArtistContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			if (contract.Names == null || !contract.Names.Any())
+				throw new ArgumentException("Artist needs at least one name", "contract");
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				AuditLog(string.Format("creating a new artist with name '{0}'", contract.Names.First().Value), session);
+
+				var artist = new Artist { ArtistType = contract.ArtistType, Description = contract.Description };
+
+				artist.Names.Init(contract.Names, artist);
+
+				session.Save(artist);
+
+				Archive(session, artist, "Created");
+				session.Update(artist);
+
+				return new ArtistContract(artist, PermissionContext.LanguagePreference);
+
+			});
 
 		}
 
@@ -539,7 +573,7 @@ namespace VocaDb.Model.Service {
 					session.Save(link);
 				}
 
-				Archive(session, artist, "Update properties");
+				Archive(session, artist, new ArtistDiff { IncludePicture = (pictureData != null) }, "Updated properties");
 				session.Update(artist);
 
 			});

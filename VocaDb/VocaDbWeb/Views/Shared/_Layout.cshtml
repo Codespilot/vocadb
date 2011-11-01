@@ -42,7 +42,14 @@
 				<h2>VocaDB</h2>
 				<ul>
 					<li>@Html.ActionLink("Home", "Index", "Home")</li>
-					<li>@Html.ActionLink("Artists", "Index", "Artist")</li>
+					<li>
+						@Html.ActionLink("Artists", "Index", "Artist")
+						@if (Login.CanManageDb) {
+						<ul>
+							<li>@Html.ActionLink("Add an artist", "Create", "Artist")</li>
+						</ul>
+						}
+					</li>
 					<li>
 						@Html.ActionLink("Albums", "Index", "Album")
 						@if (Login.CanManageDb) {

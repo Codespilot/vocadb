@@ -1,0 +1,69 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.Artist.Create
+
+@{
+	ViewBag.Title = "Add an artist";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Artists", "Index")
+	};	
+}
+
+@using (Html.BeginForm("Create", "Artist", FormMethod.Post)) {
+
+	@Helpers.ValidationSymmaryPanel("Unable to create artist. Correct the errors and try again.");
+	
+	@Helpers.NotificationPanel("Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name.")
+
+	<div>
+		<fieldset>
+			<table><tr>
+			<td>
+				Name:<br />
+				(need at least one)
+			</td>
+			<td><div class="editor-label">
+				@Html.LabelFor(m => m.NameOriginal)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal" })<br />
+				@Html.ValidationMessageFor(m => m.NameOriginal)
+			</div>
+			</td><td>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.NameRomaji)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji" })<br />
+				@Html.ValidationMessageFor(m => m.NameRomaji)
+			</div>
+			</td><td>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.NameEnglish)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish" })<br />
+				@Html.ValidationMessageFor(m => m.NameEnglish)
+			</div>
+			</td></tr>
+			</table>
+
+			<div id="duplicateSongWarning" style="display:none">
+				@Helpers.NotificationPanel(string.Empty, "duplicateSongMessage")
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.ArtistType)
+			</div>
+			<div class="editor-field">
+				@Html.ArtistTypeDropDownListFor(m => m.ArtistType)
+			</div>
+
+		</fieldset>
+
+		<input type="submit" value="Save" />
+
+	</div>	
+	
+}
