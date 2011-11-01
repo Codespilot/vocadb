@@ -1,4 +1,6 @@
-﻿<h3>Welcome to the Vocaloid Database!</h3>
+﻿@using VocaDb.Web.Helpers;
+
+<h3>Welcome to the Vocaloid Database!</h3>
 
 @Helpers.NotificationPanel("This site is currently in beta testing. Short downtimes and small bugs are to be expected.")
 
@@ -20,6 +22,7 @@
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract song in ViewBag.Songs) {
 				<li>
+					@Html.PVServiceIcons(song.PVServices)
 					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })<br />
 					<span class="extraInfo">@song.ArtistString</span>
 				</li>				
