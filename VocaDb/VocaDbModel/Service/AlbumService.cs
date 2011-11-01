@@ -544,22 +544,22 @@ namespace VocaDb.Model.Service {
 				if (target.OriginalRelease == null)
 					target.OriginalRelease = new AlbumRelease();
 
-				if (string.IsNullOrEmpty(target.OriginalRelease.CatNum))
+				if (string.IsNullOrEmpty(target.OriginalRelease.CatNum) && source.OriginalRelease != null)
 					target.OriginalRelease.CatNum = source.OriginalRelease.CatNum;
 
-				if (string.IsNullOrEmpty(target.OriginalRelease.EventName))
+				if (string.IsNullOrEmpty(target.OriginalRelease.EventName) && source.OriginalRelease != null)
 					target.OriginalRelease.EventName = source.OriginalRelease.EventName;
 
 				if (target.OriginalRelease.ReleaseDate == null)
 					target.OriginalRelease.ReleaseDate = new OptionalDateTime();
 
-				if (target.OriginalReleaseDate.Year == null)
+				if (target.OriginalReleaseDate.Year == null && source.OriginalRelease != null)
 					target.OriginalReleaseDate.Year = source.OriginalReleaseDate.Year;
 
-				if (target.OriginalReleaseDate.Month == null)
+				if (target.OriginalReleaseDate.Month == null && source.OriginalRelease != null)
 					target.OriginalReleaseDate.Month = source.OriginalReleaseDate.Month;
 
-				if (target.OriginalReleaseDate.Day == null)
+				if (target.OriginalReleaseDate.Day == null && source.OriginalRelease != null)
 					target.OriginalReleaseDate.Day = source.OriginalReleaseDate.Day;
 
 				source.Deleted = true;
