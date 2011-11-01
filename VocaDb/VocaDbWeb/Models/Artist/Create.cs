@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Artists;
@@ -20,7 +17,7 @@ namespace VocaDb.Web.Models.Artist {
 		[StringLength(1000)]
 		public string Description { get; set; }
 
-		[Display(Name = "Disc type")]
+		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
 
 		[Display(Name = "Name in English")]

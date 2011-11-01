@@ -323,7 +323,7 @@ namespace VocaDb.Model.Service {
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
 			                         
-			});
+			}, skipLog: true);
 
 		}
 
