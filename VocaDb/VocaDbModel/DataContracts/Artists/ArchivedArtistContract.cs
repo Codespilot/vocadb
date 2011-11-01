@@ -10,7 +10,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArchivedArtistContract() {}
 
-		public ArchivedArtistContract(Artist artist) {
+		public ArchivedArtistContract(Artist artist, ArtistDiff diff) {
 			
 			ParamIs.NotNull(() => artist);
 
@@ -21,7 +21,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Id, g.Group.Name)).ToArray();
 			Members = artist.Members.Select(m => new ObjectRefContract(m.Id, m.Member.Name)).ToArray();
 			Names = artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
-			Picture = (artist.Picture != null ? new PictureDataContract(artist.Picture) : null);
+			Picture = (diff.IncludePicture && artist.Picture != null ? new PictureDataContract(artist.Picture) : null);
 			Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song.Id, s.Song.DefaultName)).ToArray();
 			StartDate = artist.StartDate;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);

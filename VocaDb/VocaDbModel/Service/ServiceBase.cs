@@ -112,7 +112,7 @@ namespace VocaDb.Model.Service {
 			this.permissionContext = permissionContext;
 		}
 
-		protected void DeleteEntity<TEntity>(int id, PermissionFlags permissionFlags = PermissionFlags.Nothing) {
+		protected void DeleteEntity<TEntity>(int id, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
 			AuditLog(string.Format("is about to delete {0} with Id {1}", typeName, id));
@@ -121,7 +121,11 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
-				AuditLog("deleting " + entity, session);
+
+				if (!skipLog)
+					AuditLog("deleting " + entity, session);
+				else
+					AuditLog("deleting " + entity);
 
 				session.Delete(entity);
 
@@ -129,7 +133,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void UpdateEntity<TEntity>(int id, Action<TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing) {
+		protected void UpdateEntity<TEntity>(int id, Action<TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
 
@@ -139,7 +143,12 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
-				AuditLog("updating " + entity, session);
+
+				if (!skipLog)
+					AuditLog("updating " + entity, session);
+				else
+					AuditLog("updating " + entity);
+
 				func(entity);
 
 				session.Update(entity);
@@ -148,7 +157,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing) {
+		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
 
@@ -158,7 +167,12 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var entity = session.Load<TEntity>(id);
-				AuditLog("updating " + entity, session);
+
+				if (!skipLog)
+					AuditLog("updating " + entity, session);
+				else
+					AuditLog("updating " + entity);
+
 				func(session, entity);
 
 				session.Update(entity);

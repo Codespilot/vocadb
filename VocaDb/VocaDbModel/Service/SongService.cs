@@ -343,7 +343,7 @@ namespace VocaDb.Model.Service {
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
 
-			});
+			}, skipLog: true);
 
 		}
 
@@ -690,7 +690,7 @@ namespace VocaDb.Model.Service {
 				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				Archive(session, song, "Update properties");
+				Archive(session, song, "Updated properties");
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
@@ -739,7 +739,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				Archive(session, song, "Update lyrics");
+				Archive(session, song, "Updated lyrics");
 				session.Update(song);
 
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);

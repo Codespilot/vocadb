@@ -135,11 +135,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Album album, string notes = "") {
+		public void Archive(ISession session, Album album, AlbumDiff diff, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedAlbumVersion.Create(album, agentLoginData, notes);
+			var archived = ArchivedAlbumVersion.Create(album, diff, agentLoginData, notes);
 			session.Save(archived);
+
+		}
+
+		public void Archive(ISession session, Album album, string notes = "") {
+
+			Archive(session, album, new AlbumDiff(), notes);
 
 		}
 
@@ -643,7 +649,7 @@ namespace VocaDb.Model.Service {
 					album.CoverPicture = new PictureData(pictureData);
 				}
 
-				Archive(session, album);
+				Archive(session, album, new AlbumDiff { IncludeCover = (pictureData != null) });
 				session.Update(album);
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 

@@ -7,9 +7,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 	public class ArchivedArtistVersion : ArchivedObjectVersion {
 
-		public static ArchivedArtistVersion Create(Artist artist, AgentLoginData author, string notes) {
+		public static ArchivedArtistVersion Create(Artist artist, ArtistDiff diff, AgentLoginData author, string notes) {
 
-			var contract = new ArchivedArtistContract(artist);
+			var contract = new ArchivedArtistContract(artist, diff);
 			var doc = XmlHelper.SerializeToXml(contract);
 
 			return artist.CreateArchivedVersion(doc, author, notes);

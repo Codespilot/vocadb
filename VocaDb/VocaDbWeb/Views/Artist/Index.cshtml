@@ -10,6 +10,12 @@
 	ViewBag.Title = "Artists";
 }
 
+@section Toolbar {
+@if (Login.CanManageDb) {
+	@Html.ActionLink("Add an artist", "Create", null, new { id = "createLink" })
+}
+}
+
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
 @using (Html.BeginForm("Index", "Artist")) {
@@ -61,8 +67,16 @@ if (!Model.Artists.Any()) {
 }
 }
 
-@if (Login.CanManageDb) {
-	using (Html.BeginForm("Create", "Artist")) {
+@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
+	using (Html.BeginForm("CreateQuick", "Artist")) {
 		Html.RenderPartial("ObjectCreateForm", new ObjectCreate());	
 	}
 }
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#createLink").button({ icons: { primary: 'ui-icon-plusthick'} });		
+	});
+
+</script>

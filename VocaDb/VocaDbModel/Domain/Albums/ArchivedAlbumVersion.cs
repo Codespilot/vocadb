@@ -8,9 +8,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class ArchivedAlbumVersion : ArchivedObjectVersion {
 
-		public static ArchivedAlbumVersion Create(Album album, AgentLoginData author, string notes) {
+		public static ArchivedAlbumVersion Create(Album album, AlbumDiff diff, AgentLoginData author, string notes) {
 
-			var contract = new ArchivedAlbumContract(album);
+			var contract = new ArchivedAlbumContract(album, diff);
 			var serializer = new XmlSerializer(typeof(ArchivedAlbumContract));
 			XDocument doc;
 
