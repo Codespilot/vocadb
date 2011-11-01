@@ -68,6 +68,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UpdatePVIcons() {
+
+			Service.UpdatePVIcons();
+
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult ViewAuditLog() {
 
 			LoginManager.VerifyPermission(PermissionFlags.Admin);

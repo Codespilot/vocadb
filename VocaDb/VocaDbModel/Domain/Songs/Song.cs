@@ -33,7 +33,9 @@ namespace VocaDb.Model.Domain.Songs {
 			ArtistString = string.Empty;
 			CreateDate = DateTime.Now;
 			Deleted = false;
+			PVServices = PVServices.Nothing;
 			SongType = SongType.Unspecified;
+			Status = EntryStatus.Draft;
 		}
 
 		public Song(string unspecifiedName)
@@ -152,7 +154,11 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual PVServices PVServices { get; set; }
+
 		public virtual SongType SongType { get; set; }
+
+		public virtual EntryStatus Status { get; set; }
 
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }
@@ -238,6 +244,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 			var pv = new PVForSong(this, service, pvId, pvType);
 			PVs.Add(pv);
+			UpdatePVServices();
+
 			return pv;
 
 		}
@@ -354,6 +362,20 @@ namespace VocaDb.Model.Domain.Songs {
 			var originalPv = PVs.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVType == PVType.Original);
 
 			NicoId = (originalPv != null ? originalPv.PVId : null);
+
+		}
+
+		public virtual void UpdatePVServices() {
+
+			var services = PVServices.Nothing;
+
+			if (PVs.Any(p => p.Service == PVService.NicoNicoDouga))
+				services |= PVServices.NicoNicoDouga;
+
+			if (PVs.Any(p => p.Service == PVService.Youtube))
+				services |= PVServices.Youtube;
+
+			PVServices = services;
 
 		}
 

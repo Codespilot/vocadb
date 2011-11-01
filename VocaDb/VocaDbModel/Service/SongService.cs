@@ -382,6 +382,7 @@ namespace VocaDb.Model.Service {
 				AuditLog("deleting " + pvForSong, session);
 
 				pvForSong.OnDelete();
+
 				session.Delete(pvForSong);
 				session.Update(pvForSong.Song);
 

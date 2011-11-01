@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
@@ -97,6 +98,12 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static MvcHtmlString Image(this HtmlHelper htmlHelper, string src, string alt) {
+
+			return new MvcHtmlString(string.Format("<img src='{0}' alt='{1}' />", src, alt));
+
+		}
+
 		public static MvcHtmlString LanguagePreferenceDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, ContentLanguagePreference>> expression) {
 
@@ -127,6 +134,20 @@ namespace VocaDb.Web.Helpers {
 			Expression<Func<TModel, SongType>> expression, object htmlAttributes = null, object selectedValue = null) {
 
 			return htmlHelper.DropDownListFor(expression, CreateSongTypesList(selectedValue), htmlAttributes);
+
+		}
+
+		public static MvcHtmlString PVServiceIcons(this HtmlHelper htmlHelper, PVServices services) {
+
+			var sb = new StringBuilder();
+
+			if (services.HasFlag(PVServices.NicoNicoDouga))
+				sb.Append(Image(htmlHelper, VideoServiceLinkUrl(htmlHelper, PVService.NicoNicoDouga), "NicoNicoDouga"));
+
+			if (services.HasFlag(PVServices.Youtube))
+				sb.Append(Image(htmlHelper, VideoServiceLinkUrl(htmlHelper, PVService.Youtube), "Youtube"));
+
+			return new MvcHtmlString(sb.ToString());
 
 		}
 

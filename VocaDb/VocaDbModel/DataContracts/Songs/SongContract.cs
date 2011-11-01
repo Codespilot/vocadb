@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
@@ -19,7 +20,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Id = song.Id;
 			Name = song.TranslatedName[languagePreference];
 			NicoId = song.NicoId;
+			PVServices = song.PVServices;
 			SongType = song.SongType;
+			Status = song.Status;
 			Version = song.Version;
 
 		}
@@ -40,7 +43,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string NicoId { get; set; }
 
 		[DataMember]
+		public PVServices PVServices { get; set; }
+
+		[DataMember]
 		public SongType SongType { get; set; }
+
+		[DataMember]
+		public EntryStatus Status { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }

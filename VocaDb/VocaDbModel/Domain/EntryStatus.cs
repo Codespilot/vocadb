@@ -2,9 +2,11 @@
 
 	public enum EntryStatus {
 
-		Draft,
+		Draft		= 0,
 
-		Finished,
+		Finished	= 1,
+
+		Locked		= 2
 
 	}
 
