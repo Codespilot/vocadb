@@ -60,6 +60,13 @@
 				@Html.ArtistTypeDropDownListFor(m => m.ArtistType)
 			</div>
 
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Description)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(m => m.Description, 7, 70, null)<br />
+			</div>
+
 		</fieldset>
 
 		<input type="submit" value="Save" />
