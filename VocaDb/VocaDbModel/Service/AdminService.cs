@@ -27,7 +27,7 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				var changed = new List<object>(100);
+				var changed = new List<Album>(100);
 				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 
 				foreach (var album in albums) {
@@ -46,6 +46,14 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				foreach (var album in changed)
+					session.Update(album);
+
+			});
+
+			HandleTransaction(session => {
+
+				var changed = new List<Artist>(100);
 				var artists = session.Query<Artist>().Where(s => !s.Deleted).ToArray();
 
 				foreach (var artist in artists) {
@@ -64,10 +72,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				foreach (var album in albums)
-					session.Update(album);
-
-				foreach (var artist in artists)
+				foreach (var artist in changed)
 					session.Update(artist);
 
 			});

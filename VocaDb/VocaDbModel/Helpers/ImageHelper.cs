@@ -86,16 +86,16 @@ namespace VocaDb.Model.Helpers {
 			nPercentH = ((float)Height / (float)sourceHeight);
 			if (nPercentH < nPercentW) {
 				nPercent = nPercentH;
-				destX = Convert.ToInt16((Width -
-							  (sourceWidth * nPercent)) / 2);
+				//destX = Convert.ToInt16((Width -
+				//			  (sourceWidth * nPercent)) / 2);
 			} else {
 				nPercent = nPercentW;
-				destY = Convert.ToInt16((Height -
-							  (sourceHeight * nPercent)) / 2);
+				//destY = Convert.ToInt16((Height -
+				//			  (sourceHeight * nPercent)) / 2);
 			}
 
-			int destWidth = (int)(sourceWidth * nPercent);
-			int destHeight = (int)(sourceHeight * nPercent);
+			int destWidth = Width = (int)(sourceWidth * nPercent);
+			int destHeight = Height = (int)(sourceHeight * nPercent);
 
 			var bmPhoto = new Bitmap(Width, Height,
 							  PixelFormat.Format24bppRgb);
