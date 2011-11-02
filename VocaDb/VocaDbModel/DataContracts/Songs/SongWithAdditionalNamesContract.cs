@@ -15,6 +15,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		public SongWithAdditionalNamesContract() { }
+
 		[DataMember]
 		public string AdditionalNames { get; private set; }
 

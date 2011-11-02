@@ -73,6 +73,10 @@ namespace VocaDb.Model.Domain.MikuDb {
 			return base.GetHashCode();
 		}
 
+		public override string ToString() {
+			return string.Format("MikuDB album '{0}' [{1}]", Title, Id);
+		}
+
 	}
 
 }

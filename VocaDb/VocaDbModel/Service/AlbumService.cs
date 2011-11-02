@@ -468,7 +468,10 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				return session.Query<AlbumComment>().Where(c => c.Album.Id == albumId).Select(c => new CommentContract(c)).ToArray();
+				return session.Query<AlbumComment>()
+					.Where(c => c.Album.Id == albumId)
+					.OrderByDescending(c => c.Created)
+					.Select(c => new CommentContract(c)).ToArray();
 
 			});
 
