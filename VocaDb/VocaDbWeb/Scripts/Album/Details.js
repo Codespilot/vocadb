@@ -1,6 +1,8 @@
 ﻿
 function tabLoaded(albumId, event, ui) {
 
+	$("#tabs").tabs("url", 1, "");
+
 	$("#createComment").click(function () {
 
 		var message = $("#newCommentMessage").val();
