@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using NHibernate;
@@ -26,6 +27,7 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
+				var changed = new List<object>(100);
 				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 
 				foreach (var album in albums) {
@@ -36,7 +38,7 @@ namespace VocaDb.Model.Service {
 							var thumbs = ImageHelper.GenerateThumbs(stream, new[] {250});
 							if (thumbs.Any()) {
 								album.CoverPicture.Thumb250 = new PictureThumb250(thumbs.First().Bytes);
-								session.Update(album);
+								changed.Add(album);
 							}
 						}
 
@@ -54,13 +56,19 @@ namespace VocaDb.Model.Service {
 							var thumbs = ImageHelper.GenerateThumbs(stream, new[] { 250 });
 							if (thumbs.Any()) {
 								artist.Picture.Thumb250 = new PictureThumb250(thumbs.First().Bytes);
-								session.Update(artist);
+								changed.Add(artist);
 							}
 						}
 
 					}
 
 				}
+
+				foreach (var album in albums)
+					session.Update(album);
+
+				foreach (var artist in artists)
+					session.Update(artist);
 
 			});
 
@@ -95,15 +103,19 @@ namespace VocaDb.Model.Service {
 
 				foreach (var album in albums) {
 					album.UpdateArtistString();
-					session.Update(album);
 				}
 
 				var songs = session.Query<Song>().Where(s => !s.Deleted).ToArray();
 
 				foreach (var song in songs) {
 					song.UpdateArtistString();
-					session.Update(song);
 				}
+
+				foreach (var album in albums)
+					session.Update(album);
+
+				foreach (var song in songs)
+					session.Update(song);
 
 			});
 
