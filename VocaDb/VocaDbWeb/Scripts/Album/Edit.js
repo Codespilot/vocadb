@@ -1,6 +1,7 @@
 ﻿
 function initPage(albumId) {
 
+	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
@@ -159,8 +160,8 @@ function initPage(albumId) {
 
 	function songAdded(row) {
 
-		var addRow = $("#songRow_new");
-		addRow.before(row);
+		var tracksTable = $("#tracksTable");
+		tracksTable.append(row);
 		$("input#songAddName").val("");
 		$("#songAddList").empty();
 
@@ -226,8 +227,8 @@ function initPage(albumId) {
 
 					} else {
 
-						var addRow = $("#songRow_new");
-						addRow.before(row);
+						var tracksTable = $("#tracksTable");
+						tracksTable.append(row);
 
 					}
 

@@ -24,7 +24,7 @@ namespace VocaDb.Model.Service {
 		public MikuDbAlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
 			: base(sessionFactory, permissionContext) {}
 
-		private AlbumContract AcceptImportedAlbum(ISession session, InspectedAlbum acceptedAlbum) {
+		private AlbumContract AcceptImportedAlbum(ISession session, InspectedAlbum acceptedAlbum, int[] selectedSongIds) {
 			
 			AuditLog("accepting imported album with name '" + acceptedAlbum.ImportedAlbum.Title + "'");
 
@@ -55,7 +55,7 @@ namespace VocaDb.Model.Service {
 
 					Song song;
 
-					if (inspectedTrack.ExistingSong == null) {
+					if (inspectedTrack.ExistingSong == null || !selectedSongIds.Contains(inspectedTrack.ExistingSong.Id)) {
 
 						song = new Song(inspectedTrack.ImportedTrack.Title);
 						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum);
@@ -245,7 +245,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumContract[] AcceptImportedAlbums(int[] importedAlbumIds) {
+		public AlbumContract[] AcceptImportedAlbums(int[] importedAlbumIds, int[] selectedSongIds) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport | PermissionFlags.ManageDatabase);
 
@@ -256,7 +256,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var acceptedAlbum in inspected) {
 
-					var album = AcceptImportedAlbum(session, acceptedAlbum);
+					var album = AcceptImportedAlbum(session, acceptedAlbum, selectedSongIds);
 
 					importedAlbums.Add(album);
 

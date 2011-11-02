@@ -68,11 +68,12 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums) {
+		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums, IEnumerable<InspectedTrack> Tracks) {
 
 			var ids = albums.Select(a => a.ImportedAlbum.Id).ToArray();
+			var selectedSongIds = (Tracks != null ? Tracks.Where(t => t.Selected).Select(t => t.ExistingSong.Id).ToArray() : new int[] {});
 
-			var result = Service.AcceptImportedAlbums(ids);
+			var result = Service.AcceptImportedAlbums(ids, selectedSongIds);
 
 			return RedirectToAction("Index");
 

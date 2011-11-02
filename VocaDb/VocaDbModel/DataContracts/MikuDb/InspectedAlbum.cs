@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.DataContracts.Albums;
+﻿using System.Collections.Generic;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Artists;
 
@@ -6,9 +7,11 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 	public class InspectedAlbum {
 
-		public InspectedAlbum() { }
+		public InspectedAlbum() { 
+		}
 
-		public InspectedAlbum(MikuDbAlbumContract importedAlbum) {
+		public InspectedAlbum(MikuDbAlbumContract importedAlbum)
+			: this() {
 			ImportedAlbum = importedAlbum;
 		}
 
@@ -47,6 +50,8 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 		public SongWithAdditionalNamesContract ExistingSong { get; set; }
 
 		public ImportedAlbumTrack ImportedTrack { get; set; }
+
+		public bool Selected { get; set; }
 
 	}
 
