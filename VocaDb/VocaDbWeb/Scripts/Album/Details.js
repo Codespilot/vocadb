@@ -10,9 +10,29 @@ function tabLoaded(albumId, event, ui) {
 			return false;
 		}
 
+		$("#newCommentMessage").val("");
+
 		$.post("../../Album/CreateComment", { albumId: albumId, message: message }, function (result) {
 
 			$("#newCommentPanel").after(result);
+
+		});
+
+		return false;
+
+	});
+
+	$("a.deleteComment").live("click", function () {
+
+		if (!confirm("Are you sure you want to delete this comment?"))
+			return false;
+
+		var btn = this;
+		var id = getId(this);
+
+		$.post("../../Album/DeleteComment", { commentId: id }, function () {
+
+			$(btn).parent().parent().remove();
 
 		});
 

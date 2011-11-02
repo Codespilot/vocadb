@@ -1,4 +1,6 @@
-﻿using VocaDb.Model.Service.Security;
+﻿using VocaDb.Model;
+using VocaDb.Model.DataContracts;
+using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 
@@ -51,6 +53,15 @@ namespace VocaDb.Web.Helpers {
 			get {
 				return Manager.LoggedUser;
 			}
+		}
+
+		public static bool CanDeleteComment(CommentContract comment) {
+
+			ParamIs.NotNull(() => comment);
+
+			return Manager.HasPermission(PermissionFlags.ManageUserBlocks)
+				|| (comment.Author != null && User != null && comment.Author.Id == User.Id);
+
 		}
 
 	}

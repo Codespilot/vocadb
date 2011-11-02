@@ -100,11 +100,11 @@
 
 	<div id="lyricsTab">
 	@foreach (var lyrics in Model.Lyrics) {
-		<p><text>@lyrics.Language</text>
+		<h3><text>@lyrics.Language</text>
 		@if (!string.IsNullOrEmpty(lyrics.Source)) {
 			<text>(from @lyrics.Source)</text>
 		}
-		</p>
+		</h3>
 		<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
 		<hr />
 	}

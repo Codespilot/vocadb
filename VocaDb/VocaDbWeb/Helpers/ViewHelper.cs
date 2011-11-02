@@ -4,6 +4,7 @@ using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
+using Microsoft.Web.Helpers;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
@@ -135,6 +136,15 @@ namespace VocaDb.Web.Helpers {
 			Expression<Func<TModel, SongType>> expression, object htmlAttributes = null, object selectedValue = null) {
 
 			return htmlHelper.DropDownListFor(expression, CreateSongTypesList(selectedValue), htmlAttributes);
+
+		}
+
+		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserContract user, int size = 80) {
+
+			if (user != null && !string.IsNullOrEmpty(user.Email))
+				return Gravatar.GetHtml(user.Email, size);
+			else
+				return new HtmlString(string.Empty);
 
 		}
 

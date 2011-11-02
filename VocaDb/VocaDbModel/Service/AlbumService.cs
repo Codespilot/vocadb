@@ -244,6 +244,7 @@ namespace VocaDb.Model.Service {
 				AuditLog("creating comment for " + album, session, agent.User);
 
 				var comment = album.CreateComment(message, agent);
+				session.Save(comment);
 
 				return new CommentContract(comment);
 
@@ -279,6 +280,29 @@ namespace VocaDb.Model.Service {
 				artistForAlbum.Album.DeleteArtistForAlbum(artistForAlbum);
 				session.Delete(artistForAlbum);
 				session.Update(artistForAlbum.Album);
+
+			});
+
+		}
+
+		public void DeleteComment(int commentId) {
+
+			HandleTransaction(session => {
+
+				if (PermissionContext.LoggedUser == null)
+					throw new NotAllowedException("Must be logged in");
+
+				var comment = session.Load<AlbumComment>(commentId);
+
+				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
+
+				AuditLog("deleting comment " + comment, session, user);
+
+				if (!user.Equals(comment.Author))
+					PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+
+				comment.Album.Comments.Remove(comment);
+				session.Delete(comment);
 
 			});
 

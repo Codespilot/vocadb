@@ -3,12 +3,17 @@
 
 <div>
 	<h3>
+		@Html.ProfileIcon(Model.Author, 25)
 		@Html.UserLink(Model.Author, Model.AuthorName)
 		&nbsp;-&nbsp;
 		@Model.Created
+
+		@if (Login.CanDeleteComment(Model)) {
+			<a href="#" id="deleteComment_@(Model.Id)" class="deleteComment">Delete</a>
+		}
 	</h3>
 	<p>
-		@Model.Message
+		@Helpers.ConvertNewlinesToBreaks(Model.Message)
 	</p>
 	<hr />
 </div>
