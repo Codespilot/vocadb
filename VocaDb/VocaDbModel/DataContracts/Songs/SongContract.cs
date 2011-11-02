@@ -15,8 +15,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => song);
 
-			// TODO: change this after updated
-			ArtistString = song.ArtistString[ContentLanguagePreference.Japanese]; //song.ArtistString[languagePreference];
+			ArtistString = song.ArtistString[languagePreference];
 			CreateDate = song.CreateDate;
 			Id = song.Id;
 			Name = song.TranslatedName[languagePreference];

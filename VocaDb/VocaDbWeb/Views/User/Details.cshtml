@@ -28,9 +28,7 @@
 <table>
 	<tr>
 		<td rowspan="4">
-			@if (!string.IsNullOrEmpty(Model.Email)) {
-				@Gravatar.GetHtml(Model.Email)
-   }
+			@Html.ProfileIcon(Model)
 		</td>
 		<td>Name</td>
 		<td>

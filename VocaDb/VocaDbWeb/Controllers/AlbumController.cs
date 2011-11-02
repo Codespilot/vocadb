@@ -228,6 +228,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public void DeleteComment(int commentId) {
+
+			Service.DeleteComment(commentId);
+
+		}
+
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteArtistForAlbum(int artistForAlbumId) {
 

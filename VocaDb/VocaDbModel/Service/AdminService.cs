@@ -87,9 +87,9 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.Admin);
 
-			AuditLog("rebuilding artist strings");
-
 			HandleTransaction(session => {
+
+				AuditLog("rebuilding artist strings", session);
 
 				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 
