@@ -234,6 +234,8 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => message);
 
+			message = message.Trim();
+
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
@@ -241,9 +243,9 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(albumId);
 				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 
-				AuditLog("creating comment for " + album, session, agent.User);
+				AuditLog("creating comment for " + album + ": '" + message.Substring(0, Math.Min(message.Length, 30)) + "'", session, agent.User);
 
-				var comment = album.CreateComment(message, agent);
+				var comment = album.CreateComment(message.Trim(), agent);
 				session.Save(comment);
 
 				return new CommentContract(comment);
