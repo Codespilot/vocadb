@@ -1,0 +1,15 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.CommentContract[]
+
+@if (Login.CanManageDb) {
+<div id="newCommentPanel">
+	<h3>New comment</h3>
+	@Html.TextArea("newCommentMessage", string.Empty, 5, 60, new { id = "newCommentMessage", maxlength = 200 })
+	<br />
+	<a href="#" id="createComment">Submit</a>
+</div>
+}
+
+@foreach (var comment in Model) {
+	Html.RenderPartial("Comment", comment);
+}

@@ -217,6 +217,18 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public virtual AlbumComment CreateComment(string message, AgentLoginData loginData) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+			ParamIs.NotNull(() => loginData);
+
+			var comment = new AlbumComment(this, message, loginData);
+			Comments.Add(comment);
+
+			return comment;
+
+		}
+
 		public virtual AlbumName CreateName(string val, ContentLanguageSelection language) {
 
 			ParamIs.NotNullOrEmpty(() => val);
@@ -373,7 +385,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual void UpdateArtistString() {
 
-			ArtistString = ArtistHelper.GetArtistString(ArtistList);
+			ArtistString = ArtistHelper.GetArtistString(ArtistList)[ContentLanguageSelection.Romaji];
 
 		}
 

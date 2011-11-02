@@ -41,5 +41,21 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static void Sync<T>(ISession session, CollectionDiffWithValue<T, T> diff) {
+
+			ParamIs.NotNull(() => session);
+			ParamIs.NotNull(() => diff);
+
+			foreach (var n in diff.Removed)
+				session.Delete(n);
+
+			foreach (var n in diff.Added)
+				session.Save(n);
+
+			foreach (var n in diff.Edited)
+				session.Update(n);
+
+		}
+
 	}
 }

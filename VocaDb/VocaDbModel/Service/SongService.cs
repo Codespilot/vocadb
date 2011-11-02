@@ -51,7 +51,10 @@ namespace VocaDb.Model.Service {
 						s.Names.SortNames.English.Contains(query)
 							|| s.Names.SortNames.Romaji.Contains(query)
 							|| s.Names.SortNames.Japanese.Contains(query)
-							|| (!onlyByName && s.ArtistString.Contains(query))
+							|| (!onlyByName && 
+								(s.ArtistString.Japanese.Contains(query)
+								|| s.ArtistString.Romaji.Contains(query)
+								|| s.ArtistString.English.Contains(query)))
 							|| (s.NicoId != null && s.NicoId == query));
 
 				}
@@ -162,28 +165,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public LyricsForSongContract CreateLyrics(int songId, ContentLanguageSelection language, string value, string source) {
-
-			ParamIs.NotNullOrEmpty(() => value);
-			ParamIs.NotNull(() => source);
-
-			PermissionContext.HasPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-
-				AuditLog("creating lyrics for " + song, session);
-
-				var entry = song.CreateLyrics(language, value, source);
-
-				session.Update(song);
-				return new LyricsForSongContract(entry);
-
-			});
-
-		}
-
 		public SongContract Create(string name) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -228,26 +209,6 @@ namespace VocaDb.Model.Service {
 				Archive(session, song, string.Format("Created for album '{0}'", album.Name));
 
 				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
-		public LocalizedStringWithIdContract CreateName(int songId, string nameVal, ContentLanguageSelection language) {
-
-			ParamIs.NotNullOrEmpty(() => nameVal);
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-
-				AuditLog(string.Format("creating a name {0} for {1}", nameVal, song), session);
-
-				var name = song.CreateName(nameVal, language);
-				session.Save(name);
-				return new LocalizedStringWithIdContract(name);
 
 			});
 
@@ -365,12 +326,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void DeleteName(int nameId) {
-
-			DeleteEntity<SongName>(nameId, PermissionFlags.ManageDatabase);
-
-		}
-
 		public void DeletePvForSong(int pvForSongId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -426,8 +381,11 @@ namespace VocaDb.Model.Service {
 							s.Names.SortNames.English.Contains(query)
 								|| s.Names.SortNames.Romaji.Contains(query)
 								|| s.Names.SortNames.Japanese.Contains(query)
-								|| (!onlyByName && s.ArtistString.Contains(query))
-								|| (s.NicoId != null && s.NicoId == query));
+							|| (!onlyByName &&
+								(s.ArtistString.Japanese.Contains(query)
+								|| s.ArtistString.Romaji.Contains(query)
+								|| s.ArtistString.English.Contains(query)))
+							|| (s.NicoId != null && s.NicoId == query));
 
 					}
 
@@ -528,7 +486,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				if (string.IsNullOrWhiteSpace(query)) {
+				return GetSongCount(session, query);
+
+				/*if (string.IsNullOrWhiteSpace(query)) {
 
 					return session.Query<Song>()
 						.Where(s => !s.Deleted)
@@ -558,7 +518,7 @@ namespace VocaDb.Model.Service {
 					.Where(a => !direct.Contains(a))
 					.ToArray();
 
-				return direct.Count() + additionalNames.Count();
+				return direct.Count() + additionalNames.Count();*/
 
 			});
 
@@ -746,22 +706,6 @@ namespace VocaDb.Model.Service {
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
 
 			});
-
-		}
-
-		public void UpdateNameLanguage(int nameId, ContentLanguageSelection lang) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<SongName>(nameId, name => name.Language = lang);
-
-		}
-
-		public void UpdateNameValue(int nameId, string val) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<SongName>(nameId, name => name.Value = val);
 
 		}
 

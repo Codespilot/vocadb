@@ -31,6 +31,12 @@ namespace VocaDb.Model.Mapping.Songs {
 				});
 			});
 
+			Component(m => m.ArtistString, c => {
+				c.Map(m => m.Japanese, "ArtistString").Length(500).Not.Nullable();
+				c.Map(m => m.Romaji, "ArtistStringRomaji").Length(500).Not.Nullable();
+				c.Map(m => m.English, "ArtistStringEnglish").Length(500).Not.Nullable();
+			});
+
 			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();

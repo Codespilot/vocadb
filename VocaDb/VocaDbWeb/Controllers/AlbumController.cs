@@ -52,6 +52,13 @@ namespace VocaDb.Web.Controllers
             return View(new AlbumDetails(model));
         }
 
+		public PartialViewResult Comments(int id) {
+
+			var comments = Service.GetComments(id);
+			return PartialView("DiscussionContent", comments);
+
+		}
+
 		public ActionResult CoverPicture(int id) {
 
 			var pictureData = Service.GetCoverPicture(id, Size.Empty);
@@ -71,6 +78,14 @@ namespace VocaDb.Web.Controllers
 				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
 
 			return File(pictureData.Bytes, pictureData.Mime);
+
+		}
+
+		public PartialViewResult CreateComment(int albumId, string message) {
+
+			var comment = Service.CreateComment(albumId, message);
+
+			return PartialView("Comment", comment);
 
 		}
 
@@ -169,66 +184,6 @@ namespace VocaDb.Web.Controllers
         	return RedirectToAction("Details", new { id = model.Id });
 
         }
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult CreateName(int albumId, string nameVal, ContentLanguageSelection language) {
-
-			var name = Service.CreateName(albumId, nameVal, language);
-
-			return Json(name);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult CreateWebLink(int albumId, string description, string url) {
-
-			var name = Service.CreateWebLink(albumId, description, url);
-
-			return Json(name);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void DeleteName(int nameId) {
-
-			Service.DeleteName(nameId);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void DeleteWebLink(int linkId) {
-
-			Service.DeleteWebLink(linkId);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditNameLanguage(int nameId, string nameLanguage) {
-
-			Service.UpdateNameLanguage(nameId, EnumVal<ContentLanguageSelection>.Parse(nameLanguage));
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditNameValue(int nameId, string nameVal) {
-
-			Service.UpdateNameValue(nameId, nameVal);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditWebLinkDescription(int linkId, string description) {
-
-			Service.UpdateWebLinkDescription(linkId, description);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditWebLinkUrl(int linkId, string url) {
-
-			Service.UpdateWebLinkUrl(linkId, url);
-
-		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewSong(int albumId, string newSongName) {

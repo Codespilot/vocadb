@@ -68,4 +68,20 @@ namespace VocaDb.Model.Helpers {
 
 	}
 
+	public class CollectionDiffWithValue<T, T2> : CollectionDiff<T, T2> {
+
+		public CollectionDiffWithValue(IEnumerable<T2> added, IEnumerable<T> removed, 
+			IEnumerable<T> unchanged, IEnumerable<T> edited)
+			: base(added, removed, unchanged) {
+
+			ParamIs.NotNull(() => edited);
+
+			Edited = edited.ToArray();
+
+		}
+
+		public T[] Edited { get; private set; }
+
+	}
+
 }

@@ -230,43 +230,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public LocalizedStringWithIdContract CreateName(int albumId, string nameVal, ContentLanguageSelection language) {
+		public CommentContract CreateComment(int albumId, string message) {
 
-			ParamIs.NotNullOrEmpty(() => nameVal);
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-
-				AuditLog("creating name '" + nameVal + "' for " + album, session);
-
-				var name = album.CreateName(nameVal, language);
-				session.Save(name);
-				return new LocalizedStringWithIdContract(name);
-
-			});
-
-		}
-
-		public WebLinkContract CreateWebLink(int albumId, string description, string url) {
-
-			ParamIs.NotNull(() => description);
-			ParamIs.NotNullOrEmpty(() => url);
+			ParamIs.NotNullOrEmpty(() => message);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
+				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 
-				AuditLog("creating web link for " + album, session);
+				AuditLog("creating comment for " + album, session, agent.User);
 
-				var link = album.CreateWebLink(description, url);
-				session.Save(link);
+				var comment = album.CreateComment(message, agent);
 
-				return new WebLinkContract(link);
+				return new CommentContract(comment);
 
 			});
 
@@ -305,14 +284,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void DeleteName(int nameId) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			DeleteEntity<AlbumName>(nameId);
-
-		}
-
 		public SongInAlbumContract[] DeleteSongInAlbum(int songInAlbumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -330,14 +301,6 @@ namespace VocaDb.Model.Service {
 				return songInAlbum.Album.Songs.Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
 
 			});
-
-		}
-
-		public void DeleteWebLink(int linkId) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			DeleteEntity<AlbumWebLink>(linkId);
 
 		}
 
@@ -472,6 +435,16 @@ namespace VocaDb.Model.Service {
 				.OrderBy(a => a.Name)
 				.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
+
+		}
+
+		public CommentContract[] GetComments(int albumId) {
+
+			return HandleQuery(session => {
+
+				return session.Query<AlbumComment>().Where(c => c.Album.Id == albumId).Select(c => new CommentContract(c)).ToArray();
+
+			});
 
 		}
 
@@ -654,42 +627,6 @@ namespace VocaDb.Model.Service {
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 
 			});
-
-		}
-
-		public void UpdateNameLanguage(int nameId, ContentLanguageSelection lang) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<AlbumName>(nameId, name => name.Language = lang);
-
-		}
-
-		public void UpdateNameValue(int nameId, string val) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<AlbumName>(nameId, name => name.Value = val);
-
-		}
-
-		public void UpdateWebLinkDescription(int linkId, string description) {
-
-			ParamIs.NotNull(() => description);
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<AlbumWebLink>(linkId, link => link.Description = description);
-
-		}
-
-		public void UpdateWebLinkUrl(int nameId, string url) {
-
-			ParamIs.NotNullOrEmpty(() => url);
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<AlbumWebLink>(nameId, link => link.Url = url);
 
 		}
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Helpers {
 
@@ -22,18 +23,27 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist
 		};
 
-		public static string GetArtistString(IEnumerable<Artist> artists) {
+		public static TranslatedString GetArtistString(IEnumerable<Artist> artists) {
 
 			if (artists.Count() >= 4)
-				return "Various artists";
+				return new TranslatedString("Various artists", "Various artists", "Various artists");
 
-			var producers = artists.Where(a => ProducerTypes.Contains(a.ArtistType)).Select(m => m.Name);
-			var performers = artists.Where(a => VocalistTypes.Contains(a.ArtistType)).Select(m => m.Name);
+			var producers = artists.Where(a => ProducerTypes.Contains(a.ArtistType)).Select(m => m.TranslatedName);
+			var performers = artists.Where(a => VocalistTypes.Contains(a.ArtistType)).Select(m => m.TranslatedName);
 
-			if (producers.Any() && performers.Any())
-				return string.Format("{0} feat. {1}", string.Join(", ", producers), string.Join(", ", performers));
-			else
-				return string.Join(", ", artists.Select(m => m.Name));
+			if (producers.Any() && performers.Any()) {
+
+				return TranslatedString.Create(lang => string.Format("{0} feat. {1}", 
+					string.Join(", ", producers.Select(p => p[lang])), 
+					string.Join(", ", performers.Select(p => p[lang]))));
+
+				//return string.Format("{0} feat. {1}", string.Join(", ", producers), string.Join(", ", performers));
+			} else {
+
+				return TranslatedString.Create(lang => string.Join(", ", artists.Select(a => a.TranslatedName[lang])));
+
+				//return string.Join(", ", artists.Select(m => m.Name));
+			}
 
 		}
 

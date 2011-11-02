@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.DataContracts;
+using System;
 
 namespace VocaDb.Model.Domain.Globalization {
 
@@ -9,12 +10,31 @@ namespace VocaDb.Model.Domain.Globalization {
 	/// </summary>
 	public class TranslatedString {
 
+		public static TranslatedString Create(Func<ContentLanguageSelection, string> factory) {
+
+			return new TranslatedString(
+				factory(ContentLanguageSelection.Japanese),
+				factory(ContentLanguageSelection.Romaji),
+				factory(ContentLanguageSelection.English)
+			);
+
+		}
+
 		private string english;
 		private string original;
 		private string romaji;
 
 		public TranslatedString() {
 			DefaultLanguage = ContentLanguageSelection.Japanese;
+		}
+
+		public TranslatedString(string original, string romaji, string english)
+			: this() {
+
+			Japanese = original;
+			Romaji = romaji;
+			English = english;
+
 		}
 
 		public TranslatedString(TranslatedStringContract contract)

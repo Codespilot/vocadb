@@ -20,190 +20,200 @@
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
-@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
-	@Html.HiddenFor(m => m.Id)
-	@Html.HiddenFor(m => m.Name)
-    <div>
-        <fieldset>
-			<legend>Basic properties</legend>
-			<table><tr>
-			<td>Primary name:</td>
-            <td><div class="editor-label">
-                @Html.LabelFor(m => m.NameRomaji)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameRomaji, new { @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.NameRomaji)
-            </div>
-			</td><td>
+<div id="tabs">
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.NameJapanese)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameJapanese, new { @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.NameJapanese)
-            </div>
-			</td><td>
+	<ul>
+		<li><a href="#basicInfoTab">Basic info</a></li>
+		<li><a href="#artistsTab">Artists</a></li>
+	</ul>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.NameEnglish)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.NameEnglish, new { @readonly = "readonly" })
-                @Html.ValidationMessageFor(m => m.NameEnglish)
-            </div>
-			</td><td>
-
-            <div class="editor-label">
-                @Html.LabelFor(m => m.DefaultLanguageSelection)
-            </div>
-            <div class="editor-field">
-                @Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
-            </div>
-			</td></tr>
-			</table>
-
-           <div class="editor-label">
-                @Html.LabelFor(m => m.Names)
-            </div>
-            <div class="editor-field">
-				<table>
-					<tr>
-						<th>Name *</th>
-						<th>Language</th>
-						<th>Actions</th>
-					</tr>
-					@foreach (var name in Model.Names) {
-						Html.RenderPartial("LocalizedStringEditableRow", name);
-					}
-
-					@{ Html.RenderPartial("LocalizedStringNewRow"); }
-				</table>
-            </div>
-
-           <div class="editor-label">
-                <label>Picture</label>
-            </div>
-            <div class="editor-field">
-				<table>
-					<tr><td>
-						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+	<div id="basicInfoTab">
+		@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+			@Html.HiddenFor(m => m.Id)
+			@Html.HiddenFor(m => m.Name)
+			<div>
+				<fieldset>
+					<legend>Basic properties</legend>
+					<table><tr>
+					<td>Primary name:</td>
+					<td><div class="editor-label">
+						@Html.LabelFor(m => m.NameRomaji)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NameRomaji, new { @readonly = "readonly" })
+						@Html.ValidationMessageFor(m => m.NameRomaji)
+					</div>
 					</td><td>
-						<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions)</p>
-						<input type="file" id="pictureUpload" name="pictureUpload" />
+
+					<div class="editor-label">
+						@Html.LabelFor(m => m.NameJapanese)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NameJapanese, new { @readonly = "readonly" })
+						@Html.ValidationMessageFor(m => m.NameJapanese)
+					</div>
+					</td><td>
+
+					<div class="editor-label">
+						@Html.LabelFor(m => m.NameEnglish)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.NameEnglish, new { @readonly = "readonly" })
+						@Html.ValidationMessageFor(m => m.NameEnglish)
+					</div>
+					</td><td>
+
+					<div class="editor-label">
+						@Html.LabelFor(m => m.DefaultLanguageSelection)
+					</div>
+					<div class="editor-field">
+						@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
+					</div>
 					</td></tr>
-				</table>
-            </div>
+					</table>
 
-           <div class="editor-label">
-                @Html.LabelFor(m => m.Description)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(m => m.Description, 7, 70, null)
-            </div>
-
-           <div class="editor-label">
-                @Html.LabelFor(m => m.DiscType)
-            </div>
-            <div class="editor-field">
-                @Html.DropDownListFor(m => m.DiscType, new SelectList(Model.AllDiscTypes, Model.DiscType))
-            </div>
-
-			<table><tr>
-				<td>Release Date:</td>
-				<td>
-					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseDay)
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.Names)
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4" })
-						@Html.ValidationMessageFor(m => m.ReleaseDay)
-					</div>				
-				</td>
-				<td>
-					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseMonth)
+						<table>
+							<tr>
+								<th>Name *</th>
+								<th>Language</th>
+								<th>Actions</th>
+							</tr>
+							@foreach (var name in Model.Names) {
+								Html.RenderPartial("LocalizedStringEditableRow", name);
+							}
+
+							@{ Html.RenderPartial("LocalizedStringNewRow"); }
+						</table>
+					</div>
+
+				   <div class="editor-label">
+						<label>Picture</label>
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4" })
-						@Html.ValidationMessageFor(m => m.ReleaseMonth)
-					</div>				
-				</td>
-				<td>
-					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseYear)
+						<table>
+							<tr><td>
+								<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+							</td><td>
+								<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions)</p>
+								<input type="file" id="pictureUpload" name="pictureUpload" />
+							</td></tr>
+						</table>
+					</div>
+
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.Description)
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10" })
-						@Html.ValidationMessageFor(m => m.ReleaseYear)
-					</div>				
-				</td>
-			</tr></table>
+						@Html.TextAreaFor(m => m.Description, 7, 70, null)
+					</div>
 
-           <div class="editor-label">
-                @Html.LabelFor(m => m.CatNum)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.CatNum)
-				@Html.ValidationMessageFor(m => m.CatNum)
-            </div>
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.DiscType)
+					</div>
+					<div class="editor-field">
+						@Html.DropDownListFor(m => m.DiscType, new SelectList(Model.AllDiscTypes, Model.DiscType))
+					</div>
 
-           <div class="editor-label">
-                @Html.LabelFor(m => m.ReleaseEvent)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.ReleaseEvent)
-            </div>
+					<table><tr>
+						<td>Release Date:</td>
+						<td>
+							<div class="editor-label">
+								@Html.LabelFor(m => m.ReleaseDay)
+							</div>
+							<div class="editor-field">
+								@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4" })
+								@Html.ValidationMessageFor(m => m.ReleaseDay)
+							</div>				
+						</td>
+						<td>
+							<div class="editor-label">
+								@Html.LabelFor(m => m.ReleaseMonth)
+							</div>
+							<div class="editor-field">
+								@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4" })
+								@Html.ValidationMessageFor(m => m.ReleaseMonth)
+							</div>				
+						</td>
+						<td>
+							<div class="editor-label">
+								@Html.LabelFor(m => m.ReleaseYear)
+							</div>
+							<div class="editor-field">
+								@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10" })
+								@Html.ValidationMessageFor(m => m.ReleaseYear)
+							</div>				
+						</td>
+					</tr></table>
+
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.CatNum)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.CatNum)
+						@Html.ValidationMessageFor(m => m.CatNum)
+					</div>
+
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseEvent)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseEvent)
+					</div>
 			
-            <div class="editor-label">
-                @Html.LabelFor(m => m.WebLinks)
-            </div>
-            <div class="editor-field">
+					<div class="editor-label">
+						@Html.LabelFor(m => m.WebLinks)
+					</div>
+					<div class="editor-field">
+						<table>
+							<tr>
+								<th>Description</th>
+								<th>URL *</th>
+								<th>Actions</th>
+							</tr>
+							@foreach (var webLink in Model.WebLinks) {
+								Html.RenderPartial("WebLinkEditRow", webLink);
+							}
+							@{ Html.RenderPartial("WebLinkCreateRow"); }
+						</table>
+					</div>
+
+					<p>
+						<input type="submit" value="Save properties" />
+					</p>
+				</fieldset>
+			</div>
+		}
+
+		<div>
+			<fieldset>
+				<legend>Tracklist</legend>
 				<table>
-					<tr>
-						<th>Description</th>
-						<th>URL *</th>
-						<th>Actions</th>
-					</tr>
-					@foreach (var webLink in Model.WebLinks) {
-						Html.RenderPartial("WebLinkEditRow", webLink);
+					@foreach (var track in Model.Tracks) {
+						Html.RenderPartial("SongInAlbumEditRow", track);
 					}
-					@{ Html.RenderPartial("WebLinkCreateRow"); }
+
+					@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "song", Prefix = "song", FirstColSpan = 2 }); }
 				</table>
-            </div>
+			</fieldset>
+		</div>
+	</div>
 
-            <p>
-                <input type="submit" value="Save properties" />
-            </p>
-        </fieldset>
-    </div>
-}
+	<div id="artistsTab">
+		<fieldset>
+			<legend>Connected artists</legend>
+			<table>
+				@foreach (var album in Model.ArtistLinks) {
+				   Html.RenderPartial("ArtistForAlbumEditRow", album);
+			   }
 
-<div>
-    <fieldset>
-		<legend>Tracklist</legend>
-		<table>
-			@foreach (var track in Model.Tracks) {
-				Html.RenderPartial("SongInAlbumEditRow", track);
-			}
-
-			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "song", Prefix = "song", FirstColSpan = 2 }); }
-		</table>
-	</fieldset>
-</div>
-
-<div>
-    <fieldset>
-		<legend>Artists</legend>
-		<table>
-			@foreach (var album in Model.ArtistLinks) {
-	   Html.RenderPartial("ArtistForAlbumEditRow", album);
-   }
-
-			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
-		</table>
-	</fieldset>
+				@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
+			</table>
+		</fieldset>
+	</div>
 </div>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>

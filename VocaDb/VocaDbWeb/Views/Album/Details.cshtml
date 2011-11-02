@@ -22,135 +22,149 @@
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 
-<h3>Basic info</h3>
-<table class="properties">
-	<tr>
-		<td rowspan="9">
-			<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
-				<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
-			</a>
-		</td>
-		<td>Name</td>
-		<td>
-			@Model.Name<br />
-			<span class="extraInfo">@Model.AdditionalNames</span>
-		</td>
-	</tr>
-	<tr>
-		<td>Vocalists</td>
-		<td>
-			@Html.LinkList(Model.Vocalists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
-		</td>
-	</tr>
+<div id="tabs">
 
-	<tr>
-		<td>Producers</td>
-		<td>
-			@Html.LinkList(Model.Producers, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
-		</td>
-	</tr>
+	<ul>
+		<li><a href="#basicInfoTab">Basic info</a></li>
+		<li><a href="@Url.Action("Comments", new { id = Model.Id })">Lyrics</a></li>
+	</ul>
 
-	@if (Model.Circles.Any()) {
-	<tr>
-		<td>Circle</td>
-		<td>
-			@Html.LinkList(Model.Circles, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
-		</td>
-	</tr>
-	}
+	<div id="basicInfoTab">
 
-	@if (Model.Labels.Any()) {
-	<tr>
-		<td>Label(s)</td>
-		<td>
-			@Html.LinkList(Model.Labels, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
-		</td>
-	</tr>
-	}
+		<table class="properties">
+			<tr>
+				<td rowspan="9">
+					<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
+						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+					</a>
+				</td>
+				<td>Name</td>
+				<td>
+					@Model.Name<br />
+					<span class="extraInfo">@Model.AdditionalNames</span>
+				</td>
+			</tr>
+			<tr>
+				<td>Vocalists</td>
+				<td>
+					@Html.LinkList(Model.Vocalists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+				</td>
+			</tr>
 
-	@if (Model.OtherArtists.Any()) {
-	<tr>
-		<td>Other artists</td>
-		<td>
-			@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
-		</td>
-	</tr>
-	}
+			<tr>
+				<td>Producers</td>
+				<td>
+					@Html.LinkList(Model.Producers, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+				</td>
+			</tr>
 
-	@if (!string.IsNullOrEmpty(Model.Description)) {
-	<tr>
-		<td>Description</td>
-		<td>
-			@Helpers.ConvertNewlinesToBreaks(Model.Description)
-		</td>	
-	</tr>
-	}
+			@if (Model.Circles.Any()) {
+			<tr>
+				<td>Circle</td>
+				<td>
+					@Html.LinkList(Model.Circles, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+				</td>
+			</tr>
+			}
 
-	<tr>
-		<td>Type</td>
-		<td>
-			@Model.DiscType<br />
-		</td>	
-	</tr>
+			@if (Model.Labels.Any()) {
+			<tr>
+				<td>Label(s)</td>
+				<td>
+					@Html.LinkList(Model.Labels, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+				</td>
+			</tr>
+			}
 
-	@if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
-	<tr>
-		<td>Release date</td>
-		<td>
-			@Model.ReleaseDate.Formatted<br />
-		</td>	
-	</tr>
-	}
+			@if (Model.OtherArtists.Any()) {
+			<tr>
+				<td>Other artists</td>
+				<td>
+					@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+				</td>
+			</tr>
+			}
 
-@if (!string.IsNullOrEmpty(Model.CatNum)) {
-	<tr>
-		<td>Catalog number</td>
-		<td>
-			@Model.CatNum<br />
-		</td>	
-	</tr>
-}
+			@if (!string.IsNullOrEmpty(Model.Description)) {
+			<tr>
+				<td>Description</td>
+				<td>
+					@Helpers.ConvertNewlinesToBreaks(Model.Description)
+				</td>	
+			</tr>
+			}
 
-@if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
-	<tr>
-		<td>Release event</td>
-		<td>
-			@Model.ReleaseEvent<br />
-		</td>	
-	</tr>
-}
+			<tr>
+				<td>Type</td>
+				<td>
+					@Model.DiscType<br />
+				</td>	
+			</tr>
 
-@if (Model.WebLinks.Any()) {
-	<tr>
-		<td>External links</td>
-		<td>
-			@foreach (var link in Model.WebLinks) {
-				<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
-   }
-		</td>	
-	</tr>
-}
-</table>
+			@if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
+			<tr>
+				<td>Release date</td>
+				<td>
+					@Model.ReleaseDate.Formatted<br />
+				</td>	
+			</tr>
+			}
 
-<h3>Tracklist</h3>
-<div class="tracklist">
-<ul>
-	@foreach (var song in Model.Songs) {
-		<li>
-			@song.TrackNumber
-			.&nbsp;
-			@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
-			&nbsp;
-			@Html.PVServiceIcons(song.Song.PVServices)
-			<br />
-			<span class="extraInfo">@song.Song.ArtistString</span>
-		</li>
- }
-</ul>
+		@if (!string.IsNullOrEmpty(Model.CatNum)) {
+			<tr>
+				<td>Catalog number</td>
+				<td>
+					@Model.CatNum<br />
+				</td>	
+			</tr>
+		}
+
+		@if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
+			<tr>
+				<td>Release event</td>
+				<td>
+					@Model.ReleaseEvent<br />
+				</td>	
+			</tr>
+		}
+
+		@if (Model.WebLinks.Any()) {
+			<tr>
+				<td>External links</td>
+				<td>
+					@foreach (var link in Model.WebLinks) {
+						<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
+		   }
+				</td>	
+			</tr>
+		}
+		</table>
+
+		<h3>Tracklist</h3>
+		<div class="tracklist">
+		<ul>
+			@foreach (var song in Model.Songs) {
+				<li>
+					@song.TrackNumber
+					.&nbsp;
+					@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
+					&nbsp;
+					@Html.PVServiceIcons(song.Song.PVServices)
+					<br />
+					<span class="extraInfo">@song.Song.ArtistString</span>
+				</li>
+		 }
+		</ul>
+		</div>
+	</div>
+
+	<div id="Discussion">
+	</div>
 </div>
 
 <script type="text/javascript" src="../../Scripts/Album/Details.js"></script>
 <script type="text/javascript">
+
 
 	$(document).ready(function() { 
 		initPage(@Model.Id);
