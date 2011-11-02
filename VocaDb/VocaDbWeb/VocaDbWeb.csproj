@@ -632,6 +632,8 @@
     <Content Include="Views\Album\TrackArtistSelection.cshtml" />
     <Content Include="Views\Admin\ViewAuditLog.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
+    <Content Include="Views\Album\DiscussionContent.cshtml" />
+    <Content Include="Views\Shared\Comment.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

@@ -292,26 +292,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public LocalizedStringWithIdContract CreateName(int artistId, string nameVal, ContentLanguageSelection language, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNullOrEmpty(() => nameVal);
-			ParamIs.NotNull(() => permissionContext);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var artist = session.Load<Artist>(artistId);
-				AuditLog(string.Format("creating a new name '{0}' for {1}", nameVal, artist), session);
-
-				var name = artist.CreateName(nameVal, language);
-				session.Save(name);
-				return new LocalizedStringWithIdContract(name);
-
-			});
-
-		}
-
 		public void Delete(int id) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
@@ -324,48 +304,6 @@ namespace VocaDb.Model.Service {
 				a.Delete();
 			                         
 			}, skipLog: true);
-
-		}
-
-		public void DeleteName(int nameId, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNull(() => permissionContext);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-	
-			DeleteEntity<ArtistName>(nameId);
-
-		}
-
-		public WebLinkContract CreateWebLink(int artistId, string description, string url, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNull(() => description);
-			ParamIs.NotNullOrEmpty(() => url);
-			ParamIs.NotNull(() => permissionContext);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var artist = session.Load<Artist>(artistId);
-				AuditLog("creating web link for " + artist, session);
-
-				var link = artist.CreateWebLink(description, url );
-				session.Save(link);
-
-				return new WebLinkContract(link);
-
-			});
-
-		}
-
-		public void DeleteWebLink(int linkId, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNull(() => permissionContext);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			DeleteEntity<ArtistWebLink>(linkId);
 
 		}
 
@@ -547,6 +485,8 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updating properties for {0}", artist));
 
+				var artistTypeChanged = artist.ArtistType != properties.ArtistType;
+
 				artist.ArtistType = properties.ArtistType;
 				artist.Description = properties.Description;
 				artist.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
@@ -561,14 +501,23 @@ namespace VocaDb.Model.Service {
 				var webLinkDiff = WebLink.Sync(artist.WebLinks, properties.WebLinks, artist);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				var diff = CollectionHelper.Diff(artist.Groups, properties.Groups, (i, i2) => (i.Id == i2.Id));
+				if (artistTypeChanged || nameDiff.Edited.Any()) {
 
-				foreach (var grp in diff.Removed) {
+					foreach (var song in artist.Songs) {
+						song.Song.UpdateArtistString();
+						session.Update(song);
+					}
+
+				}
+
+				var groupsDiff = CollectionHelper.Diff(artist.Groups, properties.Groups, (i, i2) => (i.Id == i2.Id));
+
+				foreach (var grp in groupsDiff.Removed) {
 					grp.Delete();
 					session.Delete(grp);
 				}
 
-				foreach (var grp in diff.Added) {
+				foreach (var grp in groupsDiff.Added) {
 					var link = artist.AddGroup(session.Load<Artist>(grp.Group.Id));
 					session.Save(link);
 				}
@@ -577,44 +526,6 @@ namespace VocaDb.Model.Service {
 				session.Update(artist);
 
 			});
-
-		}
-
-		public void UpdateArtistNameLanguage(int nameId, ContentLanguageSelection lang, IUserPermissionContext permissionContext) {
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<ArtistName>(nameId, name => name.Language = lang);
-
-		}
-
-		public void UpdateArtistNameValue(int nameId, string val, IUserPermissionContext permissionContext) {
-			
-			ParamIs.NotNullOrEmpty(() => val);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<ArtistName>(nameId, name => name.Value = val);
-
-		}
-
-		public void UpdateWebLinkDescription(int linkId, string description, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNull(() => description);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<ArtistWebLink>(linkId, link => link.Description = description);
-
-		}
-
-		public void UpdateWebLinkUrl(int nameId, string url, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNullOrEmpty(() => url);
-
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			UpdateEntity<ArtistWebLink>(nameId, link => link.Url = url);
 
 		}
 

@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.DataContracts.Users;
 
 namespace VocaDb.Web.Helpers {
 
@@ -148,6 +149,12 @@ namespace VocaDb.Web.Helpers {
 				sb.Append(Image(htmlHelper, VideoServiceLinkUrl(htmlHelper, PVService.Youtube), "Youtube"));
 
 			return new MvcHtmlString(sb.ToString());
+
+		}
+
+		public static MvcHtmlString UserLink(this HtmlHelper htmlHelper, UserContract user, string name) {
+
+			return (user != null ? htmlHelper.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null) : MvcHtmlString.Create(name));
 
 		}
 

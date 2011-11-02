@@ -7,10 +7,11 @@ namespace VocaDb.Model.Domain {
 
 	public class WebLink {
 
-		public static CollectionDiff<T,T> Sync<T>(IList<T> oldLinks, IEnumerable<WebLinkContract> newLinks, IWebLinkFactory<T> webLinkFactory) where T : WebLink {
+		public static CollectionDiffWithValue<T,T> Sync<T>(IList<T> oldLinks, IEnumerable<WebLinkContract> newLinks, IWebLinkFactory<T> webLinkFactory) where T : WebLink {
 
 			var diff = CollectionHelper.Diff(oldLinks, newLinks, (n1, n2) => n1.Id == n2.Id);
 			var created = new List<T>();
+			var edited = new List<T>();
 
 			foreach (var n in diff.Removed) {
 				oldLinks.Remove(n);
@@ -25,6 +26,7 @@ namespace VocaDb.Model.Domain {
 
 					old.Description = linkEntry.Description;
 					old.Url = linkEntry.Url;
+					edited.Add(old);
 
 				} else {
 
@@ -35,7 +37,7 @@ namespace VocaDb.Model.Domain {
 
 			}
 
-			return new CollectionDiff<T, T>(created, diff.Removed, diff.Unchanged);
+			return new CollectionDiffWithValue<T, T>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 

@@ -169,72 +169,12 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult CreateName(int artistId, string nameVal, ContentLanguageSelection language) {
-
-			var name = Service.CreateName(artistId, nameVal, language, LoginManager);
-
-			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit(name));
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult CreateWebLink(int artistId, string description, string url) {
-
-			var name = Service.CreateWebLink(artistId, description, url, LoginManager);
-
-			return Json(name);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void DeleteName(int nameId) {
-
-			Service.DeleteName(nameId, LoginManager);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void DeleteWebLink(int linkId) {
-
-			Service.DeleteWebLink(linkId, LoginManager);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditNameLanguage(int nameId, string nameLanguage) {
-
-			Service.UpdateArtistNameLanguage(nameId, EnumVal<ContentLanguageSelection>.Parse(nameLanguage), LoginManager);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditNameValue(int nameId, string nameVal) {
-
-			Service.UpdateArtistNameValue(nameId, nameVal, LoginManager);
-
-		}
-
 		[HttpPost]
 		public PartialViewResult AddCircle(int artistId, int circleId) {
 
 			var circle = Service.GetArtistWithAdditionalNames(circleId);
 
 			return PartialView("GroupForArtistEditRow", new GroupForArtistContract { Group = circle });
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditWebLinkDescription(int linkId, string description) {
-
-			Service.UpdateWebLinkDescription(linkId, description, LoginManager);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void EditWebLinkUrl(int linkId, string url) {
-
-			Service.UpdateWebLinkUrl(linkId, url, LoginManager);
 
 		}
 

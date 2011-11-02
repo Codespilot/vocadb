@@ -1,4 +1,5 @@
-﻿@model VocaDb.Model.DataContracts.Security.AuditLogEntryContract[]
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Security.AuditLogEntryContract[]
 
 @{
     ViewBag.Title = "View audit log";
@@ -14,7 +15,7 @@
 		<tr>
 			<td>@entry.Time</td>
 			<td>
-				@(entry.User != null ? Html.ActionLink(entry.User.Name, "Profile", "User", new { id = entry.User.Name }, null) : MvcHtmlString.Create(entry.AgentName))			
+				@Html.UserLink(entry.User, entry.AgentName)
 			</td>
 			<td>
 				@entry.Action
