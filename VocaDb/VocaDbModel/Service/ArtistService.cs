@@ -214,6 +214,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("adding {0} for {1}", album, artist), session);
 
 				var artistForAlbum = artist.AddAlbum(album);
+				session.Save(artistForAlbum);
 
 				album.UpdateArtistString();
 				session.Update(album);
