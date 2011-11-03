@@ -232,3 +232,47 @@ span.tag
 	padding: 6px; 
 	display: inline-block;
 }
+
+.about-disclaimer
+{
+color: #aaa;
+font-size: 0.7em;
+}
+
+.about-disclaimer a
+{
+color: #99A9F0;
+text-decoration: none;
+}
+
+.about-disclaimer a:link 
+{
+color: #99A9F0;
+text-decoration: none;
+}
+
+.about-disclaimer a:hover
+{
+color: #99A9F0;
+text-decoration: none;
+}
+
+.about-disclaimer a:visited
+{
+color: #99A9F0;
+text-decoration: none;
+}
+
+.aboutvocaloid-ytiframe
+{
+margin-left: 15px;
+margin-bottom: 15px;
+}
+
+.incorrect-example-input
+{
+border-color: #FFADAD;
+color: #FF6161;
+margin-right: 7px;
+margin-bottom: 5px;
+}

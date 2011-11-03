@@ -7,6 +7,7 @@
 	<ul>
 		<li><a href="#aboutvocadb">VocaDB</a></li>
 		<li><a href="#aboutvocaloid">Vocaloid</a></li>
+		<li><a href="#guidelines">Guidelines</a></li>
 	</ul>
 
 	<div id="aboutvocadb">
@@ -17,18 +18,20 @@
 
 		<h4 id="vocadbfeatures">Can I download Vocaloid music here?</h4>
 			<p>No, VocaDB does not store any Vocaloid music files and does not provide any download links - check out <a href="http://www.mikudb.com/" title="">MikuDB</a> for that.</p>
+			<p>Album descriptions may have links to MikuDB, songs may have embedded videos with PVs from YouTube and NicoNicoDouga.</p>
 
 		<h4 id="whatCanIDo">What can I do here?</h4>
 			<p>You can browse and search for Vocaloid songs, producers, circles, PV's and song lyrics.</p>
 			<p>Register (it's free and fast) to be able to:</p>
 			<ul type="circle">
-				<li>add information to VocaDB</li>
+				<li><a href="#" onclick="seecomments(0);" title="">add information to VocaDB</a></li>
 				<li>add songs to your favourites</li>
 				<li>list personal collections of Vocaloid albums</li>
+				<li>more in the future</li>
 			</ul>
 		
 		<h4 id="contribute">How can I report errors and add information to VocaDB?</h4>
-			<p>If you have found an incorrect or missing information, you can either <a href="#contactus" title="">contact us</a> or register and fix/add it yourself (which should be much faster and more effective).</p>
+			<p>If you have found an incorrect or missing information, you can either <a href="#contactus" title="">contact us</a> or register and <a href="#" onclick="seecomments(0);" title="">fix/add it</a> yourself (which should be much faster and more effective).</p>
 			
 		<h4 id="translations">VocaDB is looking for translators!</h4>
 			<p>We are looking for help with translation of VocaDB interface to Japanese, as well as to other languages! If you can contribute to translation, please <a href="#contactus" title="">contact us</a>. Thanks!</p>
@@ -40,7 +43,7 @@
 			<ul>
 				<li><a href="http://www.mikuchan.org/" title="">riipah</a> - founder, developer</li>
 				<li><a href="http://www.mikudb.com/" title="">Zakudono</a> - developer, contributor</li>
-				<li>digited - creator of this help</li>
+				<li>digited - contributor</li>
 			</ul>
 		<br />
 		<h4 id="contactus">Contact Us</h4>
@@ -48,16 +51,20 @@
 			<a href="http://code.google.com/p/vocadb" title="">Google code</a><br />
 		<br />
 		<br />
+		<span class="about-disclaimer">VocaDB interface is powered by <a href="http://jquery.com/" title="">jQuery</a> and <a href="http://jqueryui.com" title="">jQuery UI</a></span>
 	</div>
 
 	<div id="aboutvocaloid">
+		<iframe class="aboutvocaloid-ytiframe" width="560" height="315" src="http://www.youtube.com/embed/VOE03b4XPNE" frameborder="0" align="right" allowfullscreen></iframe>
 		<h4 id="vocaloidlinks">Main description</h4>
 			<a href="http://en.wikipedia.org/wiki/Vocaloid" title="">Wikipedia article</a><br />
 			<a href="http://vocaloid.wikia.com/wiki/Vocaloid_Wiki" title="">Vocaloid wiki</a><br />
+			<br />
+			<a href="http://deliciouscakeproject.wordpress.com/2010/09/20/hatsune-miku-and-the-magic-of-make-believe/" title="">Delicious Cake Project</a><br />
 		<h4 id="vocaloiddescription">Short description</h4>
 			<p>Vocaloid is a unique subculture of user-created content (music, illustrations, videos, software, games, cosplay, events), based on voice synthesizers and their mascots.</p>
 			<p>Vocaloid synthesizer software is a digital musical instrument to create human vocals, allowing anyone to have their personal virtual singer.</p>
-			<p>The first Vocaloid "singers" Leon and Lola were released in 2003 in english language, but weren't successful. Vocaloid technology became popular in 2007 in Japan with the japanese voicebank "Hatsune Miku" (first V2 in Japan, second V2 in world after Sweet Ann).</p>
+			<p>The first Vocaloid "singers" Leon and Lola were released in 2004 in english language, but weren't successful. Vocaloid technology became popular in 2007 in Japan with the japanese voicebank "Hatsune Miku" (first V2 in Japan, second V2 in world after Sweet Ann).</p>
 			<p>Being a great and fresh combination of a decent V2 voicebank and a snazzy boxart illustration, Hatsune Miku gained unexpected, unprecedented and massive success and became the symbol of all Vocaloid technology and subculture.</p>
 		<h4 id="whyjapan">Why in Japan?</h4>
 			<ul type="circle">
@@ -91,8 +98,33 @@
 			<a href="http://vocaloid.wikia.com/wiki/Category:Producer" title="">Desctription on Vocaloid Wiki</a>
 			<p>"Producer" is the term used for any person that produces Vocaloid-related audiovisual material, generally original music or fanmade PVs.</p>
 		<h4 id="vocaloidcircle">Circles and Labels</h4>
-			<p>Dōjinshi circle is a group of authors of self-published works that acts as a label for dōjin events (Comiket or Vocaloid M@ster).</p>
-			<p>Label (musical) is a commercial organization that provides professional studio services (instruments, recording, mastering), production of CD's and promotion. The most well known Vocaloid label is <a href="http://www.karent.jp/">KarenT</a>, created by Crypton Future Media.</p>
+			<p><a href="http://en.wikipedia.org/wiki/D%C5%8Djin" title="">Dōjinshi circle</a> is a group of authors of self-published works that may act as a label for dōjin events (Comiket or Vocaloid M@ster).</p>
+			<p><a href="http://en.wikipedia.org/wiki/Record_label" title="">Record label</a> is a company that provides professional studio services (instruments, recording, mastering), production of CD's, various promotion and copyright protection. The most well known Vocaloid label is <a href="http://www.karent.jp/">KarenT</a>, created by Crypton Future Media.</p>
+	</div>
+	
+	<div id="guidelines">
+		<h4>How can I add new producers, albums and songs?</h4>
+			<p>Register and use links in main navigation panel or buttons in producer, album and song list pages.</p>
+
+		<h4 id="guidelineintro">Main principles</h4>
+			<ul>
+				<li>No duplication of artists or albums</li>
+				<li>One name per field (no composite names of songs or producers)</li>
+			</ul>
+
+		<h4 id="addingalbums">Editing producers</h4>
+		<p>Name languages:</p>
+			<ul>
+				<li>"Original" is for names in producer's native language (Japanese, English, Spanish, Korean etc).</li>
+				<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji)</li>
+			</ul>
+			<p><input type="text" class="incorrect-example-input"value="cosMo@Bousou-P(暴走P)" size="23" readonly /> is incorrect: every field should contain only one name.</p>
+		<h4 id="addingsongs">Editing albums</h4>
+			<p>To assign producers and vocalists to songs in album, add artists to album first and then click each added song in song list to show a quick selection dialog.</p>
+
+		<h4 id="addingsongs">Songs</h4>
+			<p>Song entries contain information about authors and vocalists (see "Artists" tab), PVs and lyrics.</p>
+			<p><input type="text" class="incorrect-example-input" value="『ミク×リン×レン』 ReAct 『オリジナル曲PV』" size="40" readonly /> is incorrect: all additional info (vocalists, authors, PV) should be added to appropriate fields. A song title should contain nothing more than the name itself.</p>
 	</div>
 </div>
 
@@ -101,5 +133,9 @@
 	$(function () {
 		$("#tabs").tabs();
 	});
+	
+	function seecomments() {
+		$("#tabs").tabs('select', 2);
+	}
 
 </script>
