@@ -10,13 +10,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public ArchivedSongContract() { }
 
-		public ArchivedSongContract(Song song) {
+		public ArchivedSongContract(Song song, SongDiff diff) {
 
 			ParamIs.NotNull(() => song);
 
 			Artists = song.Artists.Select(a => new ObjectRefContract(a.Artist.Id, a.Artist.Name)).ToArray();
 			Id = song.Id;
-			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
+			Lyrics = (diff.IncludeLyrics ? song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray() : null);
 			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			NicoId = song.NicoId;
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();

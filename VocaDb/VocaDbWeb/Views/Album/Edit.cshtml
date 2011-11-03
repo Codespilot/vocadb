@@ -24,8 +24,8 @@
 
 	<ul>
 		<li><a href="#basicInfoTab">Basic info</a></li>
-		<li><a href="#tracksTab">Tracks</a></li>
 		<li><a href="#artistsTab">Artists</a></li>
+		<li><a href="#tracksTab">Tracks</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -194,11 +194,12 @@
 		<div>
 			<fieldset>
 				<legend>Tracklist</legend>
+				@Helpers.NotificationPanel("New feature! Click track name to edit artists.")
+
 				<table id="tracksTable">
 					@foreach (var track in Model.Tracks) {
 						Html.RenderPartial("SongInAlbumEditRow", track);
 					}
-
 				</table>
 				<h4>Add new</h4>
 				<table>
