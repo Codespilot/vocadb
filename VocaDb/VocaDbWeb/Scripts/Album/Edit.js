@@ -15,7 +15,19 @@ function saveTrackProperties() {
 
 	$("#editTrackPropertiesPopup").dialog("close");
 
+	var trackPropertiesRows = $("input.artistSelection:checked");
+	var artistIds = "";
 
+	$(trackPropertiesRows).each(function () {
+
+		if ($(this).Selected)
+			artistIds += getId(this);
+
+	});
+
+	var songId = getId($(".trackProperties"));
+
+	$.post("../../Album/TrackProperties", { songId: songId, artistIds: artistIds });
 
 }
 
