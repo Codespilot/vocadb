@@ -2,11 +2,16 @@
 
 <div id="@("trackProperties_" + Model.Id)" class="trackProperties">
 
-	<h4>Artists for song @Model.Name</h4>
+	<h3>Artists for song @Model.Name</h3>
 
+	<div id="artistSelections">
 	@foreach (var artist in Model.ArtistSelections) {
-		@Html.CheckBox("artistSelected_" + artist.Artist.Id, artist.Selected, new { @class = "artistSelection", id = "artistSelection_" + artist.Artist.Id })
-		@Html.ActionLink(artist.Artist.Name, "Details", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+		<span style="padding: 5px; display: inline-block;">
+		@Html.CheckBox("artistSelection_" + artist.Artist.Id, artist.Selected, new { @class = "artistSelection", id = "artistSelection_" + artist.Artist.Id })
+		@Html.Label("artistSelection_" + artist.Artist.Id, artist.Artist.Name)
+		<text>&nbsp;</text>
+		</span>
 	}
+	</div>
 
 </div>
