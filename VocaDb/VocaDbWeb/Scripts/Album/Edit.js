@@ -1,9 +1,31 @@
 ﻿
+function showTrackPropertiesPopup(songInAlbumId) {
+
+	$.get("../../Album/TrackProperties", { songInAlbumId: songInAlbumId }, function (content) {
+
+		$("#trackPropertiesContent").html(content);
+
+		$("#editTrackPropertiesPopup").dialog("open");
+
+	});
+
+}
+
+function saveTrackProperties() {
+
+	$("#editTrackPropertiesPopup").dialog("close");
+
+
+
+}
+
 function initPage(albumId) {
 
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
+
+	$("#editTrackPropertiesPopup").dialog();
 
 	$("input.nameDelete").live("click", function () {
 
@@ -239,5 +261,15 @@ function initPage(albumId) {
 		}
 
 	}
+
+	$(".editTrackProperties").live("click", function () {
+
+		var id = getId(this);
+
+		showTrackPropertiesPopup(id);
+
+	});
+
+	$("#saveTrackProperties").click(saveTrackProperties);
 
 }

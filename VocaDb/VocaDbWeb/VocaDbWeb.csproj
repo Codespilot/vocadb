@@ -635,6 +635,7 @@
     <Content Include="Views\Album\DiscussionContent.cshtml" />
     <Content Include="Views\Shared\Comment.cshtml" />
     <Content Include="Views\MikuDbAlbum\InspectedAlbumTrack.cshtml" />
+    <Content Include="Views\Album\TrackProperties.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

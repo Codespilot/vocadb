@@ -222,11 +222,19 @@
 	</div>
 </div>
 
+<div id="editTrackPropertiesPopup" style="display:none;">
+
+	<div id="trackPropertiesContent" />
+
+	<a href="#" id="saveTrackProperties">Save</a>
+
+</div>
+
 <script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>
