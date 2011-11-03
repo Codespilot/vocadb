@@ -656,6 +656,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				if (diff.Added.Any() || diff.Removed.Any()) {
+					song.UpdateArtistString();
 					Archive(session, song, "Updated artists");
 					session.Update(song);
 				}
