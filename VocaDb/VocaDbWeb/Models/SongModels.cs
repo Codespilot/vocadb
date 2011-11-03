@@ -131,17 +131,17 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Names")]
 		public IList<LocalizedStringEdit> Names { get; set; }
 
-		[Required]
+		//[Required]
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
-		[Required]
+		//[Required]
 		[Display(Name = "Name in Japanese")]
 		[StringLength(255)]
 		public string NameJapanese { get; set; }
 
-		[Required]
+		//[Required]
 		[Display(Name = "Name in Romaji")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
