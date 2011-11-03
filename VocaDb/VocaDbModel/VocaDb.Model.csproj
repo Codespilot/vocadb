@@ -101,7 +101,9 @@
     <Compile Include="DataContracts\Songs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\PVForSongContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
+    <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
+    <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
     <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
     <Compile Include="DataContracts\Users\UserDetailsContract.cs" />

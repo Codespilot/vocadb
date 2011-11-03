@@ -1,0 +1,12 @@
+﻿@model VocaDb.Model.DataContracts.UseCases.TrackPropertiesContract
+
+<div id="@("trackProperties_" + Model.Id)">
+
+	<h4>Artists for song @Model.Name</h4>
+
+	@foreach (var artist in Model.ArtistSelections) {
+		@Html.CheckBox("artistSelected_" + artist.Artist.Id)
+		@Html.ActionLink(artist.Artist.Name, "Details", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+	}
+
+</div>

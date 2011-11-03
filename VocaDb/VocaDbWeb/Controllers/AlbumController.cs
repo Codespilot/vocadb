@@ -302,6 +302,21 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult TrackProperties(int songInAlbumId) {
+
+			// TODO: get data
+
+			return PartialView();
+
+		}
+
+		[HttpPost]
+		public void TrackProperties(int songId, string artistIds) {
+
+			// TODO: update data
+
+		}
+
 		public ActionResult Versions(int id) {
 
 			return View(Service.GetAlbumWithArchivedVersions(id));
