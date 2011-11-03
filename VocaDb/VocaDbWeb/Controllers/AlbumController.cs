@@ -304,16 +304,19 @@ namespace VocaDb.Web.Controllers
 
 		public PartialViewResult TrackProperties(int songInAlbumId) {
 
-			// TODO: get data
+			var contract = Service.GetTrackProperties(songInAlbumId);
 
-			return PartialView();
+			return PartialView(contract);
 
 		}
 
 		[HttpPost]
 		public void TrackProperties(int songId, string artistIds) {
 
-			// TODO: update data
+			var idStr = artistIds.Split(',');
+			var ids = idStr.Where(i => !string.IsNullOrEmpty(i)).Select(i => int.Parse(i)).ToArray();
+
+			MvcApplication.Services.Songs.UpdateArtists(songId, ids);
 
 		}
 

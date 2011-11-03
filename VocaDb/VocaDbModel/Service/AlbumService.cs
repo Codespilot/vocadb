@@ -499,6 +499,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TrackPropertiesContract GetTrackProperties(int songInAlbumId) {
+
+			return HandleQuery(session => {
+
+				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
+
+				return new TrackPropertiesContract(songInAlbum.Song, 
+					songInAlbum.Album.Artists.Select(a => a.Artist), PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public void Merge(int sourceId, int targetId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);

@@ -5,9 +5,13 @@ function showTrackPropertiesPopup(songInAlbumId) {
 
 		$("#trackPropertiesContent").html(content);
 
+		$("input.artistSelection").button();
+
 		$("#editTrackPropertiesPopup").dialog("open");
 
 	});
+
+	return false;
 
 }
 
@@ -20,14 +24,16 @@ function saveTrackProperties() {
 
 	$(trackPropertiesRows).each(function () {
 
-		if ($(this).Selected)
-			artistIds += getId(this);
+		if ($(this).is(":checked"))
+			artistIds += getId(this) + ",";
 
 	});
 
 	var songId = getId($(".trackProperties"));
 
 	$.post("../../Album/TrackProperties", { songId: songId, artistIds: artistIds });
+
+	return false;
 
 }
 
@@ -37,7 +43,7 @@ function initPage(albumId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
-	$("#editTrackPropertiesPopup").dialog();
+	$("#editTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTrackProperties } });
 
 	$("input.nameDelete").live("click", function () {
 
@@ -278,10 +284,8 @@ function initPage(albumId) {
 
 		var id = getId(this);
 
-		showTrackPropertiesPopup(id);
+		return showTrackPropertiesPopup(id);
 
 	});
-
-	$("#saveTrackProperties").click(saveTrackProperties);
 
 }

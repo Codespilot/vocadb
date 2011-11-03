@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using log4net;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.VideoServices;
@@ -625,6 +626,39 @@ namespace VocaDb.Model.Service {
 
 				session.Update(source);
 				session.Update(target);
+
+			});
+
+		}
+
+		public void UpdateArtists(int songId, int[] artistIds) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+
+				AuditLog("updating artists for " + song, session);
+
+				var oldArtists = song.Artists.Select(a => a.Artist).ToArray();
+				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
+
+				var diff = CollectionHelper.Diff(oldArtists, artists, (a, a2) => a.Id == a2.Id);
+
+				foreach (var added in diff.Added)
+					session.Save(song.AddArtist(added));
+
+				foreach (var removed in diff.Removed) {
+					var link = song.RemoveArtist(removed);
+					if (link != null)
+						session.Delete(link);
+				}
+
+				if (diff.Added.Any() || diff.Removed.Any()) {
+					Archive(session, song, "Updated artists");
+					session.Update(song);
+				}
 
 			});
 

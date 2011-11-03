@@ -354,6 +354,19 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual ArtistForSong RemoveArtist(Artist artist) {
+
+			var link = Artists.First(a => a.Artist.Equals(artist));
+
+			if (link == null)
+				return null;
+
+			DeleteArtistForSong(link);
+
+			return link;
+
+		}
+
 		public override string ToString() {
 			return string.Format("song '{0}' [{1}]", DefaultName, Id);
 		}
