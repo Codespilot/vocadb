@@ -219,6 +219,7 @@ namespace VocaDb.Model.Service {
 				session.Save(album);
 				var artistForAlbum = artist.AddAlbum(album);
 				session.Update(artist);
+				session.Save(artistForAlbum);
 
 				album.UpdateArtistString();
 				Archive(session, album, "Created for artist '" + artist.Name + "'");
