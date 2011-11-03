@@ -158,11 +158,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Song song, string notes = "") {
+		public void Archive(ISession session, Song song, SongDiff diff, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedSongVersion.Create(song, agentLoginData, notes);
+			var archived = ArchivedSongVersion.Create(song, diff, agentLoginData, notes);
 			session.Save(archived);
+
+		}
+
+		public void Archive(ISession session, Song song, string notes = "") {
+
+			Archive(session, song, new SongDiff(), notes);
 
 		}
 
@@ -686,7 +692,7 @@ namespace VocaDb.Model.Service {
 				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				Archive(session, song, "Updated properties");
+				Archive(session, song, new SongDiff { IncludeLyrics = false }, "Updated properties");
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
