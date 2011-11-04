@@ -112,6 +112,7 @@
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
+    <Compile Include="Controllers\UIController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
