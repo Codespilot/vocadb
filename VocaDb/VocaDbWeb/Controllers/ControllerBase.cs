@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Linq;
+using System.IO;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.Service.Security;
@@ -33,6 +34,58 @@ namespace VocaDb.Web.Controllers {
 			}
 
 		}
+
+		protected void RestoreErrorsFromTempData() {
+
+			var list = TempData["ModelErrors"] as ModelStateList;
+
+			if (list == null)
+				return;
+
+			foreach (var state in list.ModelStates) {
+				if (ModelState[state.Key] == null || !ModelState[state.Key].Errors.Any()) {
+					foreach (var err in state.Errors) {
+						if (err.Exception != null)
+							ModelState.AddModelError(state.Key, err.Exception);
+						else
+							ModelState.AddModelError(state.Key, err.ErrorMessage);
+					}
+				}
+			}
+
+		}
+
+		protected void SaveErrorsToTempData() {
+
+			var list = new ModelStateList { ModelStates 
+				= ViewData.ModelState.Select(m => new ModelStateErrors(m.Key, m.Value)).ToArray() };
+
+			TempData["ModelErrors"] = list;
+
+		}
+
+	}
+
+	class ModelStateList {
+
+		public ModelStateErrors[] ModelStates;
+
+	}
+
+	class ModelStateErrors {
+
+		public ModelStateErrors() { }
+
+		public ModelStateErrors(string key, ModelState state) {
+
+			Key = key;
+			Errors = state.Errors;
+
+		}
+
+		public string Key { get; set; }
+
+		public ModelErrorCollection Errors { get; set; }
 
 	}
 

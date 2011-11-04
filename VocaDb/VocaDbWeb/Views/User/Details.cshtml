@@ -14,10 +14,11 @@
 @section Toolbar {
 @if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active) {
 	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
+	@Html.ActionLink("Messages", "Messages", null, new { id = "messagesLink" });
 }
 @if (Login.CanManageUsers) {
 	<text>&nbsp;</text>
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });	
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });
 }
 @if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks) && Login.User.Id != Model.Id && Model.Active) {
 	<text>&nbsp;</text>
@@ -44,13 +45,13 @@
 			<td>Permissions</td>
 			<td>@Model.PermissionFlags</td>
 		</tr>
-	}
+ }
 	@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
 		<tr>
 			<td>Active</td>
 			<td>@Model.Active</td>
 		</tr>
-	}
+ }
 </table>
 
 <br />

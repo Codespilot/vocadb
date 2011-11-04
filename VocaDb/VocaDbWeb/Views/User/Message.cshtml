@@ -1,15 +1,32 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Users.UserMessageContract
 
-<h3>
-	@Model.Subject
-</h3>
-<p>
-	@Model.Created
-	<span> from </span>
-	@Html.ProfileIcon(Model.Sender, 25)
-	@Html.UserLink(Model.Sender, Model.Sender.Name)
-</p>
-<p>
-	@Helpers.ConvertNewlinesToBreaks(Model.Body)
-</p>
+<div class="message ui-tabs ui-widget ui-widget-content ui-corner-all">
+
+	@Html.HiddenFor(m => m.Sender.Name, new { id = "senderName" })
+	@Html.HiddenFor(m => m.Subject, new { id = "subject" })
+
+	<div class="messageTitle ui-widget-header ui-corner-all">
+		<div class="messageTitleText">
+			@Model.Subject<br />
+			@Model.Created
+			<span> from </span>
+			@Html.ProfileIcon(Model.Sender, 25)
+			@Html.UserLink(Model.Sender, Model.Sender.Name)
+		</div>
+	</div>
+	<p class="messageContent">
+		@Helpers.ConvertNewlinesToBreaks(Model.Body)
+	</p>
+
+	<a href="#" id="replyMessage">Reply</a>
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+			$("#replyMessage").button({ icons: { primary: 'ui-icon-arrowreturnthick-1-w'} });
+		});
+
+	</script>
+
+</div>

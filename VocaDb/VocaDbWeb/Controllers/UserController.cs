@@ -42,6 +42,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public JsonResult FindByName(string term) {
+
+			var users = Service.FindUsersByName(term).Select(u => u.Name).ToArray();
+
+			return Json(users, "text/json", JsonRequestBehavior.AllowGet);
+
+		}
+
 			//
         // GET: /User/
 
@@ -107,16 +115,19 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult ComposeMessage(ComposeMessage model) {
 
-			if (!ModelState.IsValid)
-				return View(model);
+			if (!ModelState.IsValid) {
+				SaveErrorsToTempData();
+				return RedirectToAction("Messages");
+			}
 
 			var contract = model.ToContract(LoggedUserId);
 
 			try {
-				Service.SendMessage(contract);
+				Service.SendMessage(contract, ConfigurationManager.AppSettings["HostAddress"] + Url.Action("Messages", "User"));
 			} catch (UserNotFoundException x) {
 				ModelState.AddModelError("ReceiverName", x.Message);
-				return View(model);
+				SaveErrorsToTempData();
+				return RedirectToAction("Messages");
 			}
 
 			TempData.SetStatusMessage("Message has been sent");
@@ -199,6 +210,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Messages() {
 
 			var user = Service.GetUserWithMessages(LoggedUserId);
+			RestoreErrorsFromTempData();
 
 			return View(user);
 

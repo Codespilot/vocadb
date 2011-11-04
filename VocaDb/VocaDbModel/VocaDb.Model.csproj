@@ -228,6 +228,7 @@
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
+    <Compile Include="Service\Helpers\UserMessageMailer.cs" />
     <Compile Include="Service\MikuDbAlbumService.cs" />
     <Compile Include="Service\MikuDb\AlbumImporter.cs" />
     <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
