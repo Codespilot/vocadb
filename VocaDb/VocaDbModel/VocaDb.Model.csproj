@@ -127,6 +127,9 @@
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
+    <Compile Include="DataContracts\Users\UserMessageContract.cs" />
+    <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="Domain\Users\UserMessage.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Albums\AlbumComment.cs" />
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
     <Compile Include="Mapping\Albums\AlbumMap.cs" />
     <Compile Include="Mapping\Songs\SongMap.cs" />
+    <Compile Include="Mapping\Users\UserMessageMap.cs" />
     <Compile Include="ParamIs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ArtistTypeNames.Designer.cs">

@@ -40,6 +40,9 @@ namespace VocaDb.Model.DataContracts.Users {
 		public string Email { get; set; }
 
 		[DataMember]
+		public bool HasUnreadMessages { get; set; }
+
+		[DataMember]
 		public int Id { get; set; }
 
 		[DataMember]

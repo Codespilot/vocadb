@@ -13,6 +13,8 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
+using VocaDb.Web.Models.User;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -100,7 +102,28 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Logout() {
 			FormsAuthentication.SignOut();
 			return RedirectToAction("Index", "Home");
-		} 
+		}
+
+		[HttpPost]
+		public ActionResult ComposeMessage(ComposeMessage model) {
+
+			if (!ModelState.IsValid)
+				return View(model);
+
+			var contract = model.ToContract(LoggedUserId);
+
+			try {
+				Service.SendMessage(contract);
+			} catch (UserNotFoundException x) {
+				ModelState.AddModelError("ReceiverName", x.Message);
+				return View(model);
+			}
+
+			TempData.SetStatusMessage("Message has been sent");
+
+			return RedirectToAction("Messages");
+
+		}
 
         //
         // GET: /User/Create
@@ -166,6 +189,20 @@ namespace VocaDb.Web.Controllers
         	return RedirectToAction("Details", new {id = model.Id});
 
         }
+
+		public PartialViewResult Message(int messageId) {
+
+			return PartialView("Message", Service.GetMessageDetails(messageId));
+
+		}
+
+		public ActionResult Messages() {
+
+			var user = Service.GetUserWithMessages(LoggedUserId);
+
+			return View(user);
+
+		}
 
 		public ActionResult MySettings() {
 

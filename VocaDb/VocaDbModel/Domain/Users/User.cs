@@ -17,6 +17,8 @@ namespace VocaDb.Model.Domain.Users {
 		private string name;
 		private string nameLc;
 		private string password;
+		private IList<UserMessage> receivedMessages = new List<UserMessage>();
+		private IList<UserMessage> sentMessages = new List<UserMessage>();
 
 		public User() {
 
@@ -118,9 +120,25 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual PVService PreferredVideoService { get; set; }
 
+		public virtual IList<UserMessage> ReceivedMessages {
+			get { return receivedMessages; }
+			set {
+				ParamIs.NotNull(() => value);
+				receivedMessages = value;
+			}
+		}
+
 		public virtual RoleTypes Roles { get; set; }
 
 		public virtual int Salt { get; set; }
+
+		public virtual IList<UserMessage> SentMessages {
+			get { return sentMessages; }
+			set {
+				ParamIs.NotNull(() => value);
+				sentMessages = value;
+			}
+		}
 
 		public virtual AlbumForUser AddAlbum(Album album) {
 
@@ -162,6 +180,18 @@ namespace VocaDb.Model.Domain.Users {
 
 		public override int GetHashCode() {
 			return base.GetHashCode();
+		}
+
+		public virtual UserMessage SendMessage(User to, string subject, string body, bool highPriority) {
+
+			ParamIs.NotNull(() => to);
+
+			var msg = new UserMessage(this, to, subject, body, highPriority);
+			SentMessages.Add(msg);
+			to.ReceivedMessages.Add(msg);
+
+			return msg;
+
 		}
 
 		public virtual void SetEmail(string newEmail) {

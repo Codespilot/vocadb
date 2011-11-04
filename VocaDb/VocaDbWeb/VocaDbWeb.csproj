@@ -131,6 +131,7 @@
     <Compile Include="Models\Song\Create.cs" />
     <Compile Include="Models\Song\Index.cs" />
     <Compile Include="Models\UserModels.cs" />
+    <Compile Include="Models\User\ComposeMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
@@ -523,6 +524,7 @@
     <Content Include="Scripts\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\User\Details.js" />
+    <Content Include="Scripts\User\Messages.js" />
     <Content Include="Scripts\User\MySettings.js" />
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />
@@ -636,6 +638,9 @@
     <Content Include="Views\Shared\Comment.cshtml" />
     <Content Include="Views\MikuDbAlbum\InspectedAlbumTrack.cshtml" />
     <Content Include="Views\Album\TrackProperties.cshtml" />
+    <Content Include="Views\User\Messages.cshtml" />
+    <Content Include="Views\User\ComposeMessage.cshtml" />
+    <Content Include="Views\User\Message.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

@@ -1,0 +1,83 @@
+﻿@model VocaDb.Model.DataContracts.Users.UserWithMessagesContract
+
+@{
+    ViewBag.Title = "Messages";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
+	};		
+}
+
+<!--
+<link rel="stylesheet" href="@Url.Content("~/Content/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Content/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Content/jqwidgets/jqxexpander.js")"></script>-->
+
+<div id="viewMessage" style="display:none;">
+
+</div>
+
+<div id="tabs">
+
+	<ul>
+		<li><a href="#receivedTab">Received</a></li>
+		<li><a href="#sentTab">Sent</a></li>
+		<li><a href="#composeTab">Compose</a></li>
+	</ul>
+
+	<div id="receivedTab">
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>From</th>
+				<th>Subject</th>
+			</tr>
+			@foreach (var message in Model.ReceivedMessages) {
+				<tr>
+					<td>@message.Created</td>
+					<td>@Html.ActionLink(message.Sender.Name, "Profile", new { id = message.Sender.Name })</td>
+					<td>
+						@if (message.HighPriority) {
+							Helpers.NotificationIcon();
+							<text>&nbsp;</text>
+						}
+
+						@message.Subject
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+
+	<div id="sentTab">
+		<table>
+			<tr>
+				<th>Date</th>
+				<th>To</th>
+				<th>Subject</th>
+			</tr>
+			@foreach (var message in Model.SentMessages) {
+				<tr>
+					<td>@message.Created</td>
+					<td>@Html.ActionLink(message.Receiver.Name, "Profile", new { id = message.Sender.Name })</td>
+					<td>
+						<div class="message">
+							<div>
+								@if (message.HighPriority) {
+									Helpers.NotificationIcon();
+									<text>&nbsp;</text>
+								}
+
+								<a href="#" class="viewMessage" id="@("viewMessage_" + message.Id)">@message.Subject</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+
+	<div id="composeTab">
+		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage()); }
+	</div>
+
+</div>

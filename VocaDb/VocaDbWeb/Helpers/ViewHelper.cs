@@ -181,6 +181,17 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static void SetStatusMessage(this TempDataDictionary temp, string val) {
+			temp["StatusMessage"] = val;
+		}
+
+		public static string StatusMessage(this TempDataDictionary temp) {
+
+			var msg = temp["StatusMessage"];
+			return (msg != null ? msg.ToString() : null);
+
+		}
+
 		/*public static MvcHtmlString ValidationSymmaryPanel(this HtmlHelper htmlHelper, string message) {
 
 			if (!HttpContext.Current.ViewData.ModelState.IsValid) {
