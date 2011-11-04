@@ -54,6 +54,7 @@ namespace VocaDb.Web.Models {
 
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
+			EmailOptions = user.EmailOptions;
 			Id = user.Id;
 			PreferredVideoService = user.PreferredVideoService;
 			Username = user.Name;
@@ -72,6 +73,9 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Preferred display language")]
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
+
+		[Display(Name = "Email options for private messages")]
+		public UserEmailOptions EmailOptions { get; set; }
 
 		[Display(Name = "Preferred video service")]
 		public PVService PreferredVideoService { get; set; }
@@ -109,6 +113,7 @@ namespace VocaDb.Web.Models {
 				Name = Username,
 				DefaultLanguageSelection = this.DefaultLanguageSelection,
 				Email = this.Email ?? string.Empty,
+				EmailOptions = this.EmailOptions,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
 				NewPass = this.NewPass

@@ -37,6 +37,13 @@
 					</div>
 
 					<div class="editor-label">
+						@Html.LabelFor(m => m.EmailOptions)
+					</div>
+					<div class="editor-field">
+						@Html.EmailOptionsDropDownListFor(m => m.EmailOptions)
+					</div>
+
+					<div class="editor-label">
 						@Html.LabelFor(m => m.DefaultLanguageSelection)
 					</div>
 					<div class="editor-field">

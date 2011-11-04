@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using System.Web;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -67,11 +68,15 @@ namespace VocaDb.Web.Helpers {
 		}
 
 		public static SelectList CreateArtistTypesList(object selectedValue) {
-			return new SelectList(EnumVal<ArtistType>.Values.ToDictionary(s => s, s => Translate.ArtistTypeName(s)), "Key", "Value", selectedValue);
+			return new SelectList(EnumVal<ArtistType>.Values.ToDictionary(s => s, Translate.ArtistTypeName), "Key", "Value", selectedValue);
 		}
 
 		public static SelectList CreateDiscTypesList(object selectedValue) {
-			return new SelectList(EnumVal<DiscType>.Values.ToDictionary(s => s, s => Translate.DiscTypeName(s)), "Key", "Value", selectedValue);
+			return new SelectList(EnumVal<DiscType>.Values.ToDictionary(s => s, Translate.DiscTypeName), "Key", "Value", selectedValue);
+		}
+
+		public static SelectList CreateEmailOptionsList(object selectedValue) {
+			return new SelectList(EnumVal<UserEmailOptions>.Values.ToDictionary(s => s, Translate.EmailOptions), "Key", "Value", selectedValue);
 		}
 
 		public static SelectList CreateLanguageSelectionList(object selectedValue) {
@@ -97,6 +102,13 @@ namespace VocaDb.Web.Helpers {
 			Expression<Func<TModel, DiscType>> expression, object htmlAttributes = null, object selectedValue = null) {
 
 			return htmlHelper.DropDownListFor(expression, CreateDiscTypesList(selectedValue), htmlAttributes);
+
+		}
+
+		public static MvcHtmlString EmailOptionsDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
+			Expression<Func<TModel, UserEmailOptions>> expression, object htmlAttributes = null, object selectedValue = null) {
+
+			return htmlHelper.DropDownListFor(expression, CreateEmailOptionsList(selectedValue), htmlAttributes);
 
 		}
 
