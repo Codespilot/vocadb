@@ -33,6 +33,12 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static string EmailOptions(UserEmailOptions emailOptions) {
+
+			return UserEmailOptionsNames.ResourceManager.GetString(emailOptions.ToString());
+
+		}
+
 		public static string MediaTypeName(MediaType mediaType) {
 
 			switch (mediaType) {

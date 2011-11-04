@@ -286,8 +286,13 @@ namespace VocaDb.Model.Service {
 
 				var message = sender.SendMessage(receiver, contract.Subject, contract.Body, contract.HighPriority);
 
-				var mailer = new UserMessageMailer();
-				mailer.Send(messagesUrl, message);
+				if (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAll 
+					|| (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAdmins && sender.PermissionFlags.HasFlag(PermissionFlags.ManageUserBlocks))) {
+
+					var mailer = new UserMessageMailer();
+					mailer.Send(messagesUrl, message);
+
+				}
 
 				session.Save(message);
 
@@ -341,6 +346,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
+				user.EmailOptions = contract.EmailOptions;
 				user.PreferredVideoService = contract.PreferredVideoService;
 				user.SetEmail(contract.Email);
 				session.Update(user);

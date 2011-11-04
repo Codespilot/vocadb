@@ -97,6 +97,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscTypeNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserEmailOptionsNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
@@ -655,6 +660,12 @@
     <Content Include="App_GlobalResources\DiscTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>DiscTypeNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\UserEmailOptionsNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserEmailOptionsNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

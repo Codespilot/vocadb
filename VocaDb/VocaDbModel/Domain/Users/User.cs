@@ -26,6 +26,7 @@ namespace VocaDb.Model.Domain.Users {
 			CreateDate = DateTime.Now;
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
+			EmailOptions = UserEmailOptions.PrivateMessagesFromAll;
 			LastLogin = DateTime.Now;
 			PermissionFlags = PermissionFlags.Default;
 			PreferredVideoService = PVService.Youtube;
@@ -79,6 +80,8 @@ namespace VocaDb.Model.Domain.Users {
 				email = value;
 			}
 		}
+
+		public virtual UserEmailOptions EmailOptions { get; set; }
 
 		public virtual IList<FavoriteSongForUser> FavoriteSongs {
 			get { return favoriteSongs; }

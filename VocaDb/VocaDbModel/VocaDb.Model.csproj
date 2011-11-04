@@ -129,6 +129,7 @@
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="Domain\Users\UserEmailOptions.cs" />
     <Compile Include="Domain\Users\UserMessage.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Albums\AlbumComment.cs" />

@@ -20,6 +20,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
+			EmailOptions = user.EmailOptions;
 			Id = user.Id;
 			Name = user.Name;
 			PermissionFlags = user.PermissionFlags;
@@ -38,6 +39,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public string Email { get; set; }
+
+		[DataMember]
+		public UserEmailOptions EmailOptions { get; set; }
 
 		[DataMember]
 		public bool HasUnreadMessages { get; set; }
