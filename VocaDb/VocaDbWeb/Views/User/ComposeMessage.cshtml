@@ -1,12 +1,12 @@
 ﻿@model VocaDb.Web.Models.User.ComposeMessage
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("ComposeMessage", "User")) {
 
 	<div class="editor-label">
 		@Html.LabelFor(m => m.ReceiverName)
 	</div>
 	<div class="editor-field">
-		@Html.TextBoxFor(m => m.ReceiverName)
+		@Html.TextBoxFor(m => m.ReceiverName, new { id = "receiverName", size = 30 })<br />
 		@Html.ValidationMessageFor(m => m.ReceiverName)
 	</div>
 	
@@ -14,7 +14,7 @@
 		@Html.LabelFor(m => m.Subject)
 	</div>
 	<div class="editor-field">
-		@Html.TextBoxFor(m => m.Subject)
+		@Html.TextBoxFor(m => m.Subject, new { id = "newMessageSubject", size = 40 })<br />
 		@Html.ValidationMessageFor(m => m.Subject)
 
 		@Html.CheckBoxFor(m => m.HighPriority)
@@ -25,9 +25,10 @@
 		@Html.LabelFor(m => m.Body)
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaFor(m => m.Body, 10, 60, null)
+		@Html.TextAreaFor(m => m.Body, 10, 60, null)<br />
 		@Html.ValidationMessageFor(m => m.Body)
 	</div>
+	<br />
 	
 	<input type="submit" value="Send" />
 	

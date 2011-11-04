@@ -23,7 +23,7 @@ namespace VocaDb.Model.Domain.Users {
 			Sender = from;
 			Receiver = to;
 			Subject = subject;
-			Message = message;
+			Message = body;
 			HighPriority = highPriority;
 
 		}

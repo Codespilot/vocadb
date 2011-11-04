@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Model.Service {
@@ -152,15 +153,32 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public UserContract[] FindUsersByName(string term) {
+
+			return HandleQuery(session => {
+
+				var users = session.Query<User>().Where(u => u.Name.Contains(term)).OrderBy(u => u.Name).Take(10).ToArray();
+
+				return users.Select(u => new UserContract(u)).ToArray();
+
+			});
+
+		}
+
 		public UserMessageContract GetMessageDetails(int messageId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
-			return HandleQuery(session => {
+			return HandleTransaction(session => {
 
 				var msg = session.Load<UserMessage>(messageId);
 
 				VerifyResourceAccess(msg.Sender, msg.Receiver);
+
+				if (!msg.Read && PermissionContext.LoggedUser.Id == msg.Receiver.Id) {
+					msg.Read = true;
+					session.Update(msg);
+				}
 
 				return new UserMessageContract(msg);
 
@@ -193,7 +211,7 @@ namespace VocaDb.Model.Service {
 				var user = session.Query<User>().First(u => u.Name.Equals(name));
 				var contract = new UserContract(user);
 
-				contract.HasUnreadMessages = session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Equals(user));
+				contract.HasUnreadMessages = session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Id == user.Id);
 
 				return contract;
 
@@ -247,7 +265,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void SendMessage(UserMessageContract contract) {
+		public void SendMessage(UserMessageContract contract, string messagesUrl) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -267,6 +285,9 @@ namespace VocaDb.Model.Service {
 				AuditLog("sending message from " + sender + " to " + receiver);
 
 				var message = sender.SendMessage(receiver, contract.Subject, contract.Body, contract.HighPriority);
+
+				var mailer = new UserMessageMailer();
+				mailer.Send(messagesUrl, message);
 
 				session.Save(message);
 

@@ -16,9 +16,10 @@ namespace VocaDb.Web.Models.User {
 		[StringLength(1000)]
 		public string Body { get; set; }
 
+		[Display(Name = "High priority")]
 		public bool HighPriority { get; set; }
 
-		[Display(Name = "Body")]
+		[Display(Name = "To")]
 		[Required]
 		[StringLength(100)]
 		public string ReceiverName { get; set; }

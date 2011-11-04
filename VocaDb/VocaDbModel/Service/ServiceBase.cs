@@ -198,7 +198,7 @@ namespace VocaDb.Model.Service {
 
 		private void VerifyResourceAccess(IEnumerable<int> ownerIds) {
 
-			if (!PermissionContext.IsLoggedIn == null)
+			if (!PermissionContext.IsLoggedIn)
 				throw new NotAllowedException("Must be logged in.");
 
 			if (!ownerIds.Contains(PermissionContext.LoggedUser.Id))

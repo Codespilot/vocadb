@@ -4,6 +4,7 @@ function initPage(userId) {
 	$("#tabs").tabs();
 
 	$("#mySettingsLink").button({ icons: { primary: 'ui-icon-wrench'} });
+	$("#messagesLink").button({ icons: { primary: 'ui-icon-mail-closed'} });
 	$("#editUserLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#disableUserLink").button({ icons: { primary: 'ui-icon-close'} });
 

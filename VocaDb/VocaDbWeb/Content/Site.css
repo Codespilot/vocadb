@@ -276,3 +276,19 @@ color: #FF6161;
 margin-right: 7px;
 margin-bottom: 5px;
 }
+
+div.message 
+{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+div.messageTitleText, p.messageContent
+{
+	margin: 5px;	
+}
+
+p.messageContent 
+{
+	margin: 10px;
+}
