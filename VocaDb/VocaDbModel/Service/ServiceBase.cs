@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using log4net;
 using NHibernate;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
+using System.Collections.Generic;
+using VocaDb.Model.DataContracts.Users;
 
 namespace VocaDb.Model.Service {
 
@@ -180,6 +183,29 @@ namespace VocaDb.Model.Service {
 			}, "Unable to update " + typeName);
 
 		}
+
+		protected void VerifyResourceAccess(params User[] owners) {
+
+			VerifyResourceAccess(owners.Select(o => o.Id));
+				
+		}
+
+		protected void VerifyResourceAccess(params UserContract[] owners) {
+
+			VerifyResourceAccess(owners.Select(o => o.Id));
+
+		}
+
+		private void VerifyResourceAccess(IEnumerable<int> ownerIds) {
+
+			if (!PermissionContext.IsLoggedIn == null)
+				throw new NotAllowedException("Must be logged in.");
+
+			if (!ownerIds.Contains(PermissionContext.LoggedUser.Id))
+				throw new NotAllowedException("You do not have access to this resource.");
+
+		}
+
 
 	}
 

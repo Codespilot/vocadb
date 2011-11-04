@@ -152,6 +152,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public UserMessageContract GetMessageDetails(int messageId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			return HandleQuery(session => {
+
+				var msg = session.Load<UserMessage>(messageId);
+
+				VerifyResourceAccess(msg.Sender, msg.Receiver);
+
+				return new UserMessageContract(msg);
+
+			});
+
+		}
+
 		public UserContract[] GetUsers() {
 
 			return HandleQuery(session => session.Query<User>().Select(u => new UserContract(u)).ToArray());
@@ -172,7 +188,16 @@ namespace VocaDb.Model.Service {
 
 		public UserContract GetUserByName(string name) {
 
-			return HandleQuery(session => new UserContract(session.Query<User>().First(u => u.Name.Equals(name))));
+			return HandleQuery(session => {
+
+				var user = session.Query<User>().First(u => u.Name.Equals(name));
+				var contract = new UserContract(user);
+
+				contract.HasUnreadMessages = session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Equals(user));
+
+				return contract;
+
+			});
 
 		}
 
@@ -182,7 +207,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public UserWithMessagesContract GetUserWithMessages(int id) {
+
+			return HandleQuery(session => new UserWithMessagesContract(session.Load<User>(id)));
+
+		}
+
 		public void RemoveAlbumFromUser(int userId, int albumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -199,6 +232,8 @@ namespace VocaDb.Model.Service {
 
 		public void RemoveSongFromFavorites(int userId, int songId) {
 
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
 			HandleTransaction(session => {
 
 				var link = session.Query<FavoriteSongForUser>().FirstOrDefault(a => a.Song.Id == songId && a.User.Id == userId);
@@ -207,6 +242,33 @@ namespace VocaDb.Model.Service {
 
 				if (link != null)
 					session.Delete(link);
+
+			});
+
+		}
+
+		public void SendMessage(UserMessageContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			HandleTransaction(session => {
+
+				var receiver = session.Query<User>().FirstOrDefault(u => u.Name.Equals(contract.Receiver.Name));
+
+				if (receiver == null)
+					throw new UserNotFoundException();
+
+				var sender = session.Load<User>(contract.Sender.Id);
+
+				VerifyResourceAccess(sender);
+
+				AuditLog("sending message from " + sender + " to " + receiver);
+
+				var message = sender.SendMessage(receiver, contract.Subject, contract.Body, contract.HighPriority);
+
+				session.Save(message);
 
 			});
 
@@ -276,6 +338,16 @@ namespace VocaDb.Model.Service {
 			: base("Invalid password") {}
 
 		protected InvalidPasswordException(SerializationInfo info, StreamingContext context) 
+			: base(info, context) {}
+
+	}
+
+	public class UserNotFoundException : Exception {
+
+		public UserNotFoundException()
+			: base("User not found") {}
+
+		protected UserNotFoundException(SerializationInfo info, StreamingContext context) 
 			: base(info, context) {}
 
 	}

@@ -7,6 +7,8 @@ namespace VocaDb.Model.Domain.Security {
 
 		ContentLanguagePreference LanguagePreference { get; }
 
+		bool IsLoggedIn { get; }
+
 		/// <summary>
 		/// Currently logged in user. Can be null.
 		/// </summary>

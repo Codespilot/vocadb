@@ -1,0 +1,15 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Users.UserMessageContract
+
+<h3>
+	@Model.Subject
+</h3>
+<p>
+	@Model.Created
+	<span> from </span>
+	@Html.ProfileIcon(Model.Sender, 25)
+	@Html.UserLink(Model.Sender, Model.Sender.Name)
+</p>
+<p>
+	@Helpers.ConvertNewlinesToBreaks(Model.Body)
+</p>

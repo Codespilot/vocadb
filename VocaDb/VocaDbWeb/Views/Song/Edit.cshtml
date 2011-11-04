@@ -152,13 +152,15 @@
 	</div>
 
 	<div id="artistsTab">
-
 		<fieldset>
 			<legend>Connected performers and producers</legend>
+
+			@Helpers.NotificationPanel("Note that you can tag artists for a song much faster after tagging the album first")
+
 			<table>
 			@foreach (var album in Model.ArtistLinks) {
-	   Html.RenderPartial("ArtistForSongEditRow", album);
-   }
+			   Html.RenderPartial("ArtistForSongEditRow", album);
+		   }
 			
 			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 			</table>
