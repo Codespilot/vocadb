@@ -34,7 +34,7 @@ namespace VocaDb.Model.Service.Helpers {
 			mailMessage.Body =
 				"Hi " + message.Receiver.Name + ",\n\n" +
 				"You have received a message from " + message.Sender.Name + ".\n" +
-				"You your messages at " + messagesUrl + ".\n\n" +
+				"You can view your messages at " + messagesUrl + ".\n\n" +
 				"- VocaDB mailer";
 
 			var client = new SmtpClient();
