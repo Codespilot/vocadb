@@ -42,6 +42,9 @@
 							Helpers.NotificationIcon();
 							<text>&nbsp;</text>
 						}
+						@if (!message.Read) {
+							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
+						}
 
 						<a href="#" class="viewMessage" id="@("viewFromMessage_" + message.Id)">@message.Subject</a>
 					</td>
@@ -60,7 +63,7 @@
 			@foreach (var message in Model.SentMessages) {
 				<tr>
 					<td>@message.Created</td>
-					<td>@Html.ActionLink(message.Receiver.Name, "Profile", new { id = message.Sender.Name })</td>
+					<td>@Html.ActionLink(message.Receiver.Name, "Profile", new { id = message.Receiver.Name })</td>
 					<td>
 						<div class="message">
 							<div>
