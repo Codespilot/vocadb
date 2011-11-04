@@ -26,8 +26,8 @@ namespace VocaDb.Model.Mapping.Users {
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
 			HasMany(m => m.FavoriteSongs).Inverse().Cascade.All();
-			HasMany(m => m.ReceivedMessages).KeyColumn("[Receiver]").Inverse().Cascade.All();
-			HasMany(m => m.SentMessages).KeyColumn("[Sender]").Inverse().Cascade.All();
+			HasMany(m => m.ReceivedMessages).KeyColumn("[Receiver]").OrderBy("Created DESC").Inverse().Cascade.All();
+			HasMany(m => m.SentMessages).KeyColumn("[Sender]").OrderBy("Created DESC").Inverse().Cascade.All();
 
 		}
 
