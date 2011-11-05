@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
@@ -19,6 +20,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private string description;
 		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
+		private IList<PVForAlbum> pvs = new List<PVForAlbum>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
@@ -161,6 +163,14 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual IList<PVForAlbum> PVs {
+			get { return pvs; }
+			set {
+				ParamIs.NotNull(() => value);
+				pvs = value;
+			}
+		}
+
 		public virtual IEnumerable<SongInAlbum> Songs {
 			get {
 				return AllSongs.Where(s => !s.Song.Deleted);
@@ -237,6 +247,17 @@ namespace VocaDb.Model.Domain.Albums {
 			Names.Add(name);
 
 			return name;
+
+		}
+
+		public virtual PVForAlbum CreatePV(PVService service, string pvId, PVType pvType) {
+
+			ParamIs.NotNullOrEmpty(() => pvId);
+
+			var pv = new PVForAlbum(this, service, pvId, pvType);
+			PVs.Add(pv);
+
+			return pv;
 
 		}
 

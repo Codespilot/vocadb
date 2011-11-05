@@ -369,24 +369,17 @@ namespace VocaDb.Model.Service {
 		/// <param name="id">Artist Id.</param>
 		/// <param name="requestedSize">Requested size. If Empty, original size will be returned.</param>
 		/// <returns>Data contract for the picture. Can be null if there is no picture.</returns>
-		public PictureContract GetArtistPicture(int id, Size requestedSize) {
+		public ArtistWithPictureContract GetArtistPicture(int id, Size requestedSize) {
 
-			return HandleQuery(session => {
-
-				var artist = session.Load<Artist>(id);
-
-				if (artist.Picture != null)
-					return new PictureContract(artist.Picture, requestedSize);
-				else
-					return null;
-
-			});
+			return HandleQuery(session => new ArtistWithPictureContract(
+				session.Load<Artist>(id), PermissionContext.LanguagePreference, requestedSize));
 
 		}
 
 		public ArtistWithArchivedVersionsContract GetArtistWithArchivedVersions(int artistId) {
 
-			return HandleQuery(session => new ArtistWithArchivedVersionsContract(session.Load<Artist>(artistId), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new ArtistWithArchivedVersionsContract(
+				session.Load<Artist>(artistId), PermissionContext.LanguagePreference));
 
 		}
 

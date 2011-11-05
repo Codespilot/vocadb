@@ -47,6 +47,23 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static string GetExtensionFromMime(string mime) {
+
+			switch (mime) {
+				case "image/jpeg":
+					return ".jpg";
+				case "image/png":
+					return ".png";
+				case "image/gif":
+					return ".gif";
+				case "image/bmp":
+					return ".bmp";
+				default:
+					return null;
+			}
+
+		}
+
 		public static PictureDataContract GetOriginalAndResizedImages(Stream input, int length, string contentType) {
 
 			var buf = new Byte[length];

@@ -6,6 +6,7 @@ using System.Web;
 using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
@@ -44,6 +45,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
+			PVs = album.PVs;
 			Tracks = album.Songs;
 			WebLinks = album.WebLinks.Select(w => new WebLink(w)).ToArray();
 
@@ -103,6 +105,9 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Name in Romaji")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
+
+		[Display(Name = "PVs")]
+		public IList<PVContract> PVs { get; set; }
 
 		[Display(Name = "Day")]
 		[Range(1, 31)]
@@ -164,6 +169,7 @@ namespace VocaDb.Web.Models {
 			DiscType = contract.DiscType;
 			Id = contract.Id;
 			Name = contract.Name;
+			PVs = contract.PVs;
 			Songs = contract.Songs;
 			UserHasAlbum = contract.UserHasAlbum;
 			WebLinks = contract.WebLinks;
@@ -203,6 +209,8 @@ namespace VocaDb.Web.Models {
 		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
+
+		public PVContract[] PVs { get; set; }
 
 		public string ReleaseEvent { get; set; }
 

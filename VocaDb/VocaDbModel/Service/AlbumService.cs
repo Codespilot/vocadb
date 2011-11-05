@@ -5,10 +5,12 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -17,6 +19,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Artists;
 using System.Drawing;
 using System;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Service {
 
@@ -255,6 +258,28 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PVContract CreatePV(int albumId, string pvUrl, PVType pvType) {
+
+			ParamIs.NotNullOrEmpty(() => pvUrl);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			var result = VideoServiceHelper.ParseByUrl(pvUrl);
+
+			return HandleTransaction(session => {
+
+				var album = session.Load<Album>(albumId);
+				AuditLog("creating a PV for " + album, session);
+
+				var pv = album.CreatePV(result.Service, result.Id, pvType);
+				session.Save(pv);
+
+				return new PVContract(pv);
+
+			});
+			
+		}
+
 		public void Delete(int id) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
@@ -326,6 +351,24 @@ namespace VocaDb.Model.Service {
 				session.Update(songInAlbum.Album);
 
 				return songInAlbum.Album.Songs.Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
+
+			});
+
+		}
+
+		public void DeletePv(int pvForAlbumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var pvForAlbum = session.Load<PVForAlbum>(pvForAlbumId);
+
+				AuditLog("deleting " + pvForAlbum, session);
+
+				pvForAlbum.OnDelete();
+
+				session.Delete(pvForAlbum);
 
 			});
 
@@ -484,18 +527,11 @@ namespace VocaDb.Model.Service {
 		/// <param name="id">Album Id.</param>
 		/// <param name="requestedSize">Requested size. If Empty, original size will be returned.</param>
 		/// <returns>Data contract for the picture. Can be null if there is no picture.</returns>
-		public PictureContract GetCoverPicture(int id, Size requestedSize) {
+		public AlbumWithCoverPictureContract GetCoverPicture(int id, Size requestedSize) {
 
-			return HandleQuery(session => {
-
-				var album = session.Load<Album>(id);
-
-				if (album.CoverPicture != null)
-					return new PictureContract(album.CoverPicture, requestedSize);
-				else
-					return null;
-
-			});
+			return HandleQuery(session => 
+				new AlbumWithCoverPictureContract(
+					session.Load<Album>(id), PermissionContext.LanguagePreference, requestedSize));
 
 		}
 

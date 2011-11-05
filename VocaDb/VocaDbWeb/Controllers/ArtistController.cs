@@ -63,23 +63,17 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Picture(int id) {
 
-			var pictureData = Service.GetArtistPicture(id, Size.Empty);
+			var artist = Service.GetArtistPicture(id, Size.Empty);
 
-			if (pictureData == null)
-				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
-
-			return File(pictureData.Bytes, pictureData.Mime);
+			return Picture(artist.CoverPicture, artist.Name);
 
 		}
 
 		public ActionResult PictureThumb(int id) {
 
-			var pictureData = Service.GetArtistPicture(id, pictureThumbSize);
+			var artist = Service.GetArtistPicture(id, pictureThumbSize);
 
-			if (pictureData == null)
-				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
-
-			return File(pictureData.Bytes, pictureData.Mime);
+			return Picture(artist.CoverPicture, artist.Name);
 
 		}
 

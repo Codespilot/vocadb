@@ -48,6 +48,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("TrackNumber");
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Comments).Inverse().Cascade.All().OrderBy("Created");
+			HasMany(m => m.PVs).Inverse().Cascade.All();
 			HasMany(m => m.UserCollections).Inverse();
 			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.All();
 

@@ -5,9 +5,11 @@ using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Shared;
@@ -44,7 +46,7 @@ namespace VocaDb.Web.Models {
 				PrimaryPV = PVs.FirstOrDefault();
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
-				PrimaryPV = new PVForSongContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
+				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
 
 		}
 
@@ -66,10 +68,10 @@ namespace VocaDb.Web.Models {
 
 		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
 
-		public PVForSongContract PrimaryPV { get; set; }
+		public PVContract PrimaryPV { get; set; }
 
 		[Display(Name = "PVs")]
-		public PVForSongContract[] PVs { get; set; }
+		public PVContract[] PVs { get; set; }
 
 		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }
@@ -84,7 +86,7 @@ namespace VocaDb.Web.Models {
 		public SongEdit() {
 
 			Names = new List<LocalizedStringEdit>();
-			PVs = new List<PVForSongContract>();
+			PVs = new List<PVContract>();
 			WebLinks = new List<WebLink>();
 
 			AllPVTypes = EnumVal<PVType>.Values;
@@ -147,7 +149,7 @@ namespace VocaDb.Web.Models {
 		public string NameRomaji { get; set; }
 
 		[Display(Name = "PVs")]
-		public IList<PVForSongContract> PVs { get; set; }
+		public IList<PVContract> PVs { get; set; }
 
 		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }

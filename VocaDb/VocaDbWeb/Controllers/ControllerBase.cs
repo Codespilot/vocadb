@@ -2,6 +2,9 @@
 using System.IO;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using VocaDb.Model.DataContracts;
+using VocaDb.Model.Domain;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Web.Controllers {
@@ -10,6 +13,23 @@ namespace VocaDb.Web.Controllers {
 
 		protected LoginManager LoginManager {
 			get { return MvcApplication.LoginManager; }
+		}
+
+		protected ActionResult Picture(PictureContract pictureData, string title) {
+
+			if (pictureData == null)
+				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
+
+			var ext = ImageHelper.GetExtensionFromMime(pictureData.Mime);
+
+			if (ext != null) {
+				//var encoded = Url.Encode(title);
+				Response.AddHeader("content-disposition", "inline;filename=\"" + title + ext + "\"");
+				return File(pictureData.Bytes, pictureData.Mime);
+			} else {
+				return File(pictureData.Bytes, pictureData.Mime);
+			}
+
 		}
 
 		protected new ActionResult Json(object obj) {
