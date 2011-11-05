@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
@@ -19,7 +20,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != Song.Name).Distinct());
 			Artists = song.AllArtists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
-			PVs = song.PVs.Select(p => new PVForSongContract(p)).ToArray();
+			PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
 			TranslatedName = new TranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
@@ -41,7 +42,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public LyricsForSongContract[] Lyrics { get; set; }
 
 		[DataMember]
-		public PVForSongContract[] PVs { get; set; }
+		public PVContract[] PVs { get; set; }
 
 		[DataMember]
 		public SongContract Song { get; set; }

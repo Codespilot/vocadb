@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using log4net;
@@ -221,7 +223,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PVForSongContract CreatePVForSong(int songId, PVService service, string pvId, PVType pvType) {
+		public PVContract CreatePVForSong(int songId, PVService service, string pvId, PVType pvType) {
 
 			ParamIs.NotNullOrEmpty(() => pvId);
 
@@ -240,13 +242,13 @@ namespace VocaDb.Model.Service {
 					session.Update(song);
 				}
 
-				return new PVForSongContract(pv);
+				return new PVContract(pv);
 
 			});
 
 		}
 
-		public PVForSongContract CreatePVForSong(int songId, string pvUrl, PVType pvType) {
+		public PVContract CreatePVForSong(int songId, string pvUrl, PVType pvType) {
 
 			ParamIs.NotNullOrEmpty(() => pvUrl);
 

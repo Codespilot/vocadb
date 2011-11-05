@@ -3,10 +3,9 @@ using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
-using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
-using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Song;
@@ -187,6 +186,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
 		public void DeletePVForSong(int pvForSongId) {
 
 			Service.DeletePvForSong(pvForSongId);

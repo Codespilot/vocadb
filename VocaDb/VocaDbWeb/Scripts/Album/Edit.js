@@ -288,4 +288,36 @@ function initPage(albumId) {
 
 	});
 
+	$("#pvAdd").click(function () {
+
+		var service = $("#pvService_new").val();
+		var pvUrl = $("#pvUrl_new").val();
+
+		$("#pvUrl_new").val("");
+
+		$.post("../../Album/CreatePVForAlbumByUrl", { albumId: albumId, pvUrl: pvUrl }, function (response) {
+
+			if (!response.Successful) {
+				alert(response.Message);
+				return;
+			}
+
+			var addRow = $("#pvRow_new");
+			addRow.before(response.Result);
+
+		});
+
+	});
+
+	$("input.pvRemove").live("click", function () {
+
+		var id = getId(this);
+		$.post("../../Album/DeletePVForAlbum", { pvForAlbumId: id }, function () {
+
+			$("tr#pvRow_" + id).remove();
+
+		});
+
+	});
+
 }

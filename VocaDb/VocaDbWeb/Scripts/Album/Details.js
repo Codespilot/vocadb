@@ -49,7 +49,8 @@ function initPage(albumId) {
 	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#removeAlbumLink").button({ icons: { primary: 'ui-icon-close'} });
 	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
-	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });	
+	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
+	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
 
 	$("#tabs").tabs({
 		load: function(event, ui) {

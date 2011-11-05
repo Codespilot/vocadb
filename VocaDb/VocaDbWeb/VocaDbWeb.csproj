@@ -118,8 +118,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
+    <Compile Include="Helpers\CfHelper.cs" />
     <Compile Include="Helpers\Login.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\TagsHelper.cs" />
     <Compile Include="Helpers\Translate.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Models\AlbumModels.cs" />
@@ -611,7 +613,7 @@
     <Content Include="Views\User\PermissionEditRow.cshtml" />
     <Content Include="Views\Shared\LocalizedStringNewRow.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Song\PVForSongEditRow.cshtml" />
+    <Content Include="Views\Shared\PVForSongEditRow.cshtml" />
     <Content Include="Views\Song\EmbeddedPV.cshtml" />
     <Content Include="Views\Shared\GlobalSearchBox.cshtml" />
     <Content Include="Views\Song\LyricsEditor.cshtml" />

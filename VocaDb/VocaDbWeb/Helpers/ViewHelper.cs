@@ -9,6 +9,7 @@ using VocaDb.Model;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using System.Web;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.VideoServices;

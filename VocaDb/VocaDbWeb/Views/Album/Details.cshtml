@@ -20,6 +20,7 @@
 }
 
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+@Html.ActionLink("Download tags as CSV", "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
 }
 
 <div id="tabs">
@@ -33,7 +34,7 @@
 
 		<table class="properties">
 			<tr>
-				<td rowspan="9">
+				<td rowspan="10">
 					<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
 						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
 					</a>
@@ -126,6 +127,17 @@
 					@Model.ReleaseEvent<br />
 				</td>	
 			</tr>
+		}
+
+		@if (Model.PVs.Any()) {
+		<tr>
+			<td>Videos</td>
+			<td>
+				@foreach (var pv in Model.PVs) {
+					<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
+				}			
+			</td>
+		</tr>
 		}
 
 		@if (Model.WebLinks.Any()) {

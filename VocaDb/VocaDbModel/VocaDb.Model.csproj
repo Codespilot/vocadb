@@ -69,6 +69,7 @@
     <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithArchivedVersions.cs" />
+    <Compile Include="DataContracts\Albums\AlbumWithCoverPictureContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithArchivedVersions.cs" />
+    <Compile Include="DataContracts\Artists\ArtistWithPictureContract.cs" />
     <Compile Include="DataContracts\Artists\CreateArtistContract.cs" />
     <Compile Include="DataContracts\Artists\GroupForArtistContract.cs" />
     <Compile Include="DataContracts\CommentContract.cs" />
@@ -96,10 +98,10 @@
     <Compile Include="DataContracts\ObjectRefContract.cs" />
     <Compile Include="DataContracts\OptionalDateTimeContract.cs" />
     <Compile Include="DataContracts\PictureContract.cs" />
+    <Compile Include="DataContracts\PVs\PVContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
     <Compile Include="DataContracts\Security\AuditLogEntryContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedPVContract.cs" />
-    <Compile Include="DataContracts\Songs\PVForSongContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
@@ -129,6 +131,8 @@
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Users\UserEmailOptions.cs" />
     <Compile Include="Domain\Users\UserMessage.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
@@ -168,8 +172,8 @@
     <Compile Include="Domain\Security\PermissionFlags.cs" />
     <Compile Include="Domain\Security\RoleTypes.cs" />
     <Compile Include="Domain\Songs\PVForSong.cs" />
-    <Compile Include="Domain\Songs\PVService.cs" />
-    <Compile Include="Domain\Songs\PVType.cs" />
+    <Compile Include="Domain\PVs\PVService.cs" />
+    <Compile Include="Domain\PVs\PVType.cs" />
     <Compile Include="Domain\Songs\SongDiff.cs" />
     <Compile Include="Domain\Songs\SongType.cs" />
     <Compile Include="Domain\Users\AlbumForUser.cs" />
@@ -201,6 +205,7 @@
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Domain\Albums\DiscType.cs" />
+    <Compile Include="Mapping\Albums\PVForAlbumMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />

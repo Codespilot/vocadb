@@ -1,27 +1,31 @@
-﻿using VocaDb.Model.Domain.Songs;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Text;
+using VocaDb.Model.Domain.PVs;
 
-namespace VocaDb.Model.DataContracts.Songs {
+namespace VocaDb.Model.DataContracts.PVs {
 
-	[DataContract(Namespace=Schemas.VocaDb)]
-	public class PVForSongContract {
+	[DataContract(Namespace = Schemas.VocaDb)]
+	public class PVContract {
 
-		public PVForSongContract(PVForSong pvForSong) {
+		public PVContract(PV pv) {
 
-			ParamIs.NotNull(() => pvForSong);
+			ParamIs.NotNull(() => pv);
 
-			Id = pvForSong.Id;
-			Name = pvForSong.Name;
-			PVId = pvForSong.PVId;
-			Service = pvForSong.Service;
-			PVType = pvForSong.PVType;
-			Url = pvForSong.Url;
+			Id = pv.Id;
+			Name = pv.Name;
+			PVId = pv.PVId;
+			Service = pv.Service;
+			PVType = pv.PVType;
+			Url = pv.Url;
 
 			DisplayName = Service + " (" + PVType + ")";
 
 		}
 
-		public PVForSongContract() { }
+		public PVContract() { }
 
 		[DataMember]
 		public string DisplayName { get; set; }
@@ -45,4 +49,5 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string Url { get; set; }
 
 	}
+
 }

@@ -26,6 +26,7 @@
 		<li><a href="#basicInfoTab">Basic info</a></li>
 		<li><a href="#artistsTab">Artists</a></li>
 		<li><a href="#tracksTab">Tracks</a></li>
+		<li><a href="#pvsTab">Videos</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -221,6 +222,29 @@
 			</table>
 		</fieldset>
 	</div>
+
+	<div id="pvsTab">
+	
+		<table>
+		@foreach (var pv in Model.PVs) {
+			Html.RenderPartial("PVForSongEditRow", pv);
+		}
+		<tr id="pvRow_new">
+			<td>
+				<p>Only Youtube and NicoNicoDouga are supported.</p>
+				<p>
+				URL:
+				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
+				</p>
+			</td>
+			<td>
+				<input type="button" class="pvAddNew" id="pvAdd" value="Add" />				
+			</td>
+		</tr>
+		</table>
+	
+	</div>
+
 </div>
 
 <div id="editTrackPropertiesPopup" style="display:none;" title="Track properties">

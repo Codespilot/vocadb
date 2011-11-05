@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Text;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
+using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
@@ -21,6 +25,28 @@ namespace VocaDb.Web.Controllers
 
 		private AlbumService Service {
 			get { return MvcApplication.Services.Albums; }
+		}
+
+		[HttpPost]
+		public ActionResult CreatePVForAlbumByUrl(int albumId, string pvUrl) {
+
+			ParamIs.NotNullOrEmpty(() => pvUrl);
+
+			try {
+				var contract = Service.CreatePV(albumId, pvUrl, PVType.Other);
+				var view = RenderPartialViewToString("PVForSongEditRow", contract);
+				return Json(new GenericResponse<string>(view));
+			} catch (VideoParseException x) {
+				return Json(new GenericResponse<string>(false, x.Message));
+			}
+
+		}
+
+		[HttpPost]
+		public void DeletePVForAlbum(int pvForAlbumId) {
+
+			Service.DeletePv(pvForAlbumId);
+
 		}
 
         //
@@ -52,6 +78,14 @@ namespace VocaDb.Web.Controllers
             return View(new AlbumDetails(model));
         }
 
+		public FileContentResult DownloadTags(int id) {
+
+			var album = Service.GetAlbumDetails(id);
+
+			return File(Encoding.Unicode.GetBytes(TagsHelper.GetAlbumTags(album)), "text/csv", album.Name + ".csv");
+
+		}
+
 		public PartialViewResult Comments(int id) {
 
 			var comments = Service.GetComments(id);
@@ -61,23 +95,17 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult CoverPicture(int id) {
 
-			var pictureData = Service.GetCoverPicture(id, Size.Empty);
+			var album = Service.GetCoverPicture(id, Size.Empty);
 
-			if (pictureData == null)
-				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
-
-			return File(pictureData.Bytes, pictureData.Mime);
+			return Picture(album.CoverPicture, album.Name);
 
 		}
 
 		public ActionResult CoverPictureThumb(int id) {
 
-			var pictureData = Service.GetCoverPicture(id, pictureThumbSize);
+			var album = Service.GetCoverPicture(id, pictureThumbSize);
 
-			if (pictureData == null)
-				return File(Server.MapPath("~/Content/unknown.png"), "image/png");
-
-			return File(pictureData.Bytes, pictureData.Mime);
+			return Picture(album.CoverPicture, album.Name);
 
 		}
 

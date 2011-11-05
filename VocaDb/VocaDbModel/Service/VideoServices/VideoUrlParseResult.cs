@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {

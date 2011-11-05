@@ -14,9 +14,9 @@ namespace VocaDb.Model.Mapping.MikuDb {
 
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
-			Map(m => m.SourceUrl).Not.Nullable();
+			Map(m => m.SourceUrl).Length(255).Not.Nullable();
 			Map(m => m.Status).Not.Nullable();
-			Map(m => m.Title).Not.Nullable();
+			Map(m => m.Title).Length(100).Not.Nullable();
 
 			Component(m => m.CoverPicture, c => {
 				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
