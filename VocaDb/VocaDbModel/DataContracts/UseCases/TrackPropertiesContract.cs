@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -17,7 +15,9 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Id = song.Id;
 			Name = song.TranslatedName[languagePreference];
 
-			ArtistSelections = artists.Select(a => new ArtistSelectionForTrackContract(a, song.HasArtist(a), languagePreference)).ToArray();
+			ArtistSelections = artists.Select(a => 
+				new ArtistSelectionForTrackContract(a, song.HasArtist(a), languagePreference))
+					.OrderBy(a => a.Artist.Name).ToArray();
 
 		}
 
