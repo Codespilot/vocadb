@@ -50,6 +50,35 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult ForgotPassword() {
+
+			return View();
+
+		}
+
+		[HttpPost]
+		public ActionResult ForgotPassword(ForgotPassword model) {
+
+			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"]))
+				ModelState.AddModelError("CAPTCHA", "CAPTCHA is invalid.");
+
+			if (!ModelState.IsValid) {
+				SaveErrorsToTempData();
+				return RedirectToAction("Login");
+			}
+
+			try {
+				Service.RequestPasswordReset(model.Username, model.Email, ConfigurationManager.AppSettings["HostAddress"] + Url.Action("ResetPassword", "User"));
+				TempData.SetStatusMessage("Password reset message has been sent");
+				return RedirectToAction("Login");
+			} catch (UserNotFoundException) {
+				ModelState.AddModelError("Username", "Username or email doesn't match");
+				SaveErrorsToTempData();
+				return RedirectToAction("Login");
+			}
+
+		}
+
 			//
         // GET: /User/
 
@@ -76,6 +105,9 @@ namespace VocaDb.Web.Controllers
 
        public ActionResult Login()
         {
+
+			RestoreErrorsFromTempData();
+
             return View();
         } 
 
@@ -261,6 +293,34 @@ namespace VocaDb.Web.Controllers
 		public void RemoveAlbumFromUser(int albumId) {
 			
 			Service.RemoveAlbumFromUser(LoggedUserId, albumId);
+
+		}
+
+		public ActionResult ResetPassword(Guid id) {
+
+			var model = new ResetPassword();
+
+			if (!Service.CheckPasswordResetRequest(id)) {
+				ModelState.AddModelError("", "Request ID is invalid. It might have been used already.");
+			} else {
+				model.RequestId = id;
+			}
+
+			return View(model);
+
+		}
+
+		[HttpPost]
+		public ActionResult ResetPassword(ResetPassword model) {
+
+			if (!ModelState.IsValid) {
+				return ResetPassword(model.RequestId);
+			}
+
+			var user = Service.ResetPassword(model.RequestId, model.NewPass);
+			FormsAuthentication.SetAuthCookie(user.Name, false);
+
+			return RedirectToAction("Index", "Home");
 
 		}
 
