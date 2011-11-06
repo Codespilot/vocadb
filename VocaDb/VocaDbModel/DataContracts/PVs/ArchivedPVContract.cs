@@ -1,22 +1,21 @@
 ﻿using System.Runtime.Serialization;
 using VocaDb.Model.Domain.PVs;
-using VocaDb.Model.Domain.Songs;
 
-namespace VocaDb.Model.DataContracts.Songs {
+namespace VocaDb.Model.DataContracts.PVs {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArchivedPVContract {
 
 		public ArchivedPVContract() {}
 
-		public ArchivedPVContract(PVForSong pvForSong) {
-			
-			ParamIs.NotNull(() => pvForSong);
+		public ArchivedPVContract(PV pv) {
 
-			Name = pvForSong.Name;
-			PVId = pvForSong.PVId;
-			Service = pvForSong.Service;
-			PVType = pvForSong.PVType;
+			ParamIs.NotNull(() => pv);
+
+			Name = pv.Name;
+			PVId = pv.PVId;
+			Service = pv.Service;
+			PVType = pv.PVType;
 
 		}
 

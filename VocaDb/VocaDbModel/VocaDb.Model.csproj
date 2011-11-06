@@ -101,7 +101,7 @@
     <Compile Include="DataContracts\PVs\PVContract.cs" />
     <Compile Include="DataContracts\Schemas.cs" />
     <Compile Include="DataContracts\Security\AuditLogEntryContract.cs" />
-    <Compile Include="DataContracts\Songs\ArchivedPVContract.cs" />
+    <Compile Include="DataContracts\PVs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
