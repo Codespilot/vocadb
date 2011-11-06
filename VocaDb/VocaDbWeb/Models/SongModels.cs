@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
@@ -33,17 +34,14 @@ namespace VocaDb.Web.Models {
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
+			Notes = contract.Notes;
 			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
 			WebLinks = contract.WebLinks;
 
-			if (MvcApplication.LoginManager.IsLoggedIn)
-				PrimaryPV = PVs.FirstOrDefault(p => p.Service == MvcApplication.LoginManager.LoggedUser.PreferredVideoService);
-
-			if (PrimaryPV == null)
-				PrimaryPV = PVs.FirstOrDefault();
+			PrimaryPV = PVHelper.PrimaryPV(PVs);
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
@@ -63,6 +61,8 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		public string NicoId { get; set; }
+
+		public string Notes { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
 
@@ -108,6 +108,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
+			Notes = song.Notes;
 			PVs = song.PVs;
 			SongType = song.Song.SongType;
 			WebLinks = song.WebLinks.Select(w => new WebLink(w)).ToArray();
@@ -133,20 +134,21 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Names")]
 		public IList<LocalizedStringEdit> Names { get; set; }
 
-		//[Required]
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
-		//[Required]
 		[Display(Name = "Name in Japanese")]
 		[StringLength(255)]
 		public string NameJapanese { get; set; }
 
-		//[Required]
 		[Display(Name = "Name in Romaji")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
+
+		[Display(Name = "Notes")]
+		[StringLength(300)]
+		public string Notes { get; set; }
 
 		[Display(Name = "PVs")]
 		public IList<PVContract> PVs { get; set; }
@@ -166,6 +168,7 @@ namespace VocaDb.Web.Models {
 					SongType = this.SongType
 				},
 				Names = this.Names.Select(n => n.ToContract()).ToArray(),
+				Notes = this.Notes ?? string.Empty,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),				

@@ -90,6 +90,13 @@
 					</div>
 
 				   <div class="editor-label">
+						@Html.LabelFor(m => m.Notes)
+					</div>
+					<div class="editor-field">
+						@Html.TextAreaFor(m => m.Notes, 6, 70, null)
+					</div>
+
+				   <div class="editor-label">
 						@Html.LabelFor(m => m.SongType)
 					</div>
 					<div class="editor-field">

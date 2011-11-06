@@ -21,6 +21,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private NameManager<SongName> names = new NameManager<SongName>();
+		private string notes;
 		private IList<PVForSong> pvs = new List<PVForSong>();
 		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
@@ -35,6 +36,7 @@ namespace VocaDb.Model.Domain.Songs {
 			ArtistString = new TranslatedString(string.Empty, string.Empty, string.Empty);
 			CreateDate = DateTime.Now;
 			Deleted = false;
+			Notes = string.Empty;
 			PVServices = PVServices.Nothing;
 			SongType = SongType.Unspecified;
 			Status = EntryStatus.Draft;
@@ -53,8 +55,6 @@ namespace VocaDb.Model.Domain.Songs {
 			: this() {
 
 			ParamIs.NotNull(() => translatedName);
-
-			//TranslatedName = translatedName;
 
 			foreach (var name in translatedName.AllLocalized)
 				Names.Add(new SongName(this, name));
@@ -120,6 +120,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual DateTime CreateDate { get; protected set; }
 
+		public virtual string DefaultName {
+			get {
+				return TranslatedName.Default;
+			}
+		}
+
 		public virtual bool Deleted { get; set; }
 
 		public virtual int Id { get; set; }
@@ -140,17 +146,19 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}*/
 
-		public virtual string DefaultName {
-			get {
-				return TranslatedName.Default;
-			}
-		}
-
 		public virtual NameManager<SongName> Names {
 			get { return names; }
 			set {
 				ParamIs.NotNull(() => value);
 				names = value;
+			}
+		}
+
+		public virtual string Notes {
+			get { return notes; }
+			set {
+				ParamIs.NotNull(() => value);
+				notes = value; 
 			}
 		}
 
