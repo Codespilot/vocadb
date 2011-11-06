@@ -140,6 +140,8 @@
     <Compile Include="Models\Song\Index.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\User\ComposeMessage.cs" />
+    <Compile Include="Models\User\ForgotPassword.cs" />
+    <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
@@ -649,6 +651,8 @@
     <Content Include="Views\User\Messages.cshtml" />
     <Content Include="Views\User\ComposeMessage.cshtml" />
     <Content Include="Views\User\Message.cshtml" />
+    <Content Include="Views\User\ForgotPassword.cshtml" />
+    <Content Include="Views\User\ResetPassword.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

@@ -133,6 +133,7 @@
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
+    <Compile Include="Domain\Users\PasswordResetRequest.cs" />
     <Compile Include="Domain\Users\UserEmailOptions.cs" />
     <Compile Include="Domain\Users\UserMessage.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
@@ -216,6 +217,7 @@
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
+    <Compile Include="Mapping\Users\PasswordResetRequestMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
@@ -233,6 +235,7 @@
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
+    <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
     <Compile Include="Service\Helpers\UserMessageMailer.cs" />
     <Compile Include="Service\MikuDbAlbumService.cs" />

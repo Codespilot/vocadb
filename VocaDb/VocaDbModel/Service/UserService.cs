@@ -104,6 +104,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public bool CheckPasswordResetRequest(Guid requestId) {
+
+			return HandleQuery(session => session.Query<PasswordResetRequest>().Any(r => r.Id == requestId));
+
+		}
+
 		public UserContract Create(string name, string pass, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -265,6 +271,54 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void RequestPasswordReset(string username, string email, string resetUrl) {
+
+			ParamIs.NotNullOrEmpty(() => username);
+			ParamIs.NotNullOrEmpty(() => email);
+
+			var lc = username.ToLowerInvariant();
+
+			HandleTransaction(session => {
+
+				var user = session.Query<User>().Where(u => u.NameLC.Equals(lc) && email.Equals(u.Email)).FirstOrDefault();
+
+				if (user == null)
+					throw new UserNotFoundException();
+
+				var request = new PasswordResetRequest(user);
+				session.Save(request);
+
+				var mailer = new PasswordResetRequestMailer();
+				mailer.Send(resetUrl, request);
+
+			});
+
+		}
+
+		public UserContract ResetPassword(Guid requestId, string password) {
+
+			ParamIs.NotNullOrEmpty(() => password);
+
+			return HandleTransaction(session => {
+
+				var request = session.Load<PasswordResetRequest>(requestId);
+				var user = request.User;
+
+				AuditLog("resetting password", session, user);
+
+				var newHashed = LoginManager.GetHashedPass(user.NameLC, password, user.Salt);
+				user.Password = newHashed;
+
+				session.Update(user);
+
+				session.Delete(request);
+
+				return new UserContract(user);
+
+			});
+
+		}
+
 		public void SendMessage(UserMessageContract contract, string messagesUrl) {
 
 			ParamIs.NotNull(() => contract);
@@ -332,6 +386,10 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var user = session.Load<User>(contract.Id);
+
+				AuditLog("Updating settings for " + user);
+
+				VerifyResourceAccess(user);
 
 				if (!string.IsNullOrEmpty(contract.NewPass)) {
 
