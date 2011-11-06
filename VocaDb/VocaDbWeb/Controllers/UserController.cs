@@ -311,8 +311,12 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult ResetPassword(ResetPassword model) {
 
+			if (!Service.CheckPasswordResetRequest(model.RequestId)) {
+				ModelState.AddModelError("", "Request ID is invalid. It might have been used already.");
+			}
+
 			if (!ModelState.IsValid) {
-				return ResetPassword(model.RequestId);
+				return View(new ResetPassword());
 			}
 
 			var user = Service.ResetPassword(model.RequestId, model.NewPass);
