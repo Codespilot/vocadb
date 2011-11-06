@@ -15,6 +15,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.NicoId).Nullable();
+			Map(m => m.Notes).Length(300).Not.Nullable();
 			Map(m => m.PVServices).CustomType(typeof(PVServices)).Not.Nullable();
 			Map(m => m.SongType).Not.Nullable();
 			Map(m => m.Status).CustomType(typeof(EntryStatus)).Not.Nullable();
@@ -27,7 +28,6 @@ namespace VocaDb.Model.Mapping.Songs {
 					c2.Map(m => m.Japanese, "JapaneseName");
 					c2.Map(m => m.English, "EnglishName");
 					c2.Map(m => m.Romaji, "RomajiName");
-					//c.Map(m => m.Other, "OtherName");
 				});
 			});
 

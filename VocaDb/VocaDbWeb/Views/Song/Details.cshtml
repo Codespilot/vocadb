@@ -95,6 +95,15 @@
 				</td>
 			</tr>
 			}
+			
+			@if (!string.IsNullOrEmpty(Model.Notes)) {
+			<tr>
+				<td>Notes</td>
+				<td>
+					@Helpers.ConvertNewlinesToBreaks(Model.Notes)
+				</td>	
+			</tr>
+			}
 		</table>
 	</div>
 

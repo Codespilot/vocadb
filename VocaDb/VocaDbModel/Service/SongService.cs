@@ -685,6 +685,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updating properties for {0}", song), session);
 
+				song.Notes = properties.Notes;
 				song.SongType = properties.Song.SongType;
 				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 

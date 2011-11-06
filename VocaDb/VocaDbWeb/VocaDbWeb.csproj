@@ -120,6 +120,7 @@
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
     <Compile Include="Helpers\Login.cs" />
+    <Compile Include="Helpers\PVHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TagsHelper.cs" />
     <Compile Include="Helpers\Translate.cs" />
@@ -616,7 +617,7 @@
     <Content Include="Views\Shared\LocalizedStringNewRow.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\PVForSongEditRow.cshtml" />
-    <Content Include="Views\Song\EmbeddedPV.cshtml" />
+    <Content Include="Views\Shared\EmbeddedPV.cshtml" />
     <Content Include="Views\Shared\GlobalSearchBox.cshtml" />
     <Content Include="Views\Song\LyricsEditor.cshtml" />
     <Content Include="Views\Shared\ObjectCreateForm.cshtml" />

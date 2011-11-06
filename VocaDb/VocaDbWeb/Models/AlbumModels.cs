@@ -14,7 +14,9 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
@@ -188,6 +190,8 @@ namespace VocaDb.Web.Models {
 			Producers = artists.Where(a => a.ArtistType == ArtistType.Producer).ToArray();
 			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
 
+			PrimaryPV = PVHelper.PrimaryPV(PVs);
+
 		}
 
 		public string AdditionalNames { get; set; }
@@ -207,6 +211,8 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
+
+		public PVContract PrimaryPV { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
 

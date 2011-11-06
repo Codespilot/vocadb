@@ -131,7 +131,7 @@
 
 		@if (Model.PVs.Any()) {
 		<tr>
-			<td>Videos</td>
+			<td>Ads / crossfades</td>
 			<td>
 				@foreach (var pv in Model.PVs) {
 					<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
@@ -152,22 +152,37 @@
 		}
 		</table>
 
-		<h3>Tracklist</h3>
-		<div class="tracklist">
-		<ul>
-			@foreach (var song in Model.Songs) {
-				<li>
-					@song.TrackNumber
-					.&nbsp;
-					@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
-					&nbsp;
-					@Html.PVServiceIcons(song.Song.PVServices)
-					<br />
-					<span class="extraInfo">@song.Song.ArtistString</span>
-				</li>
-		 }
-		</ul>
-		</div>
+		<table>
+			<tr>
+				@if (Model.PrimaryPV != null) {
+				<td>
+					@Helpers.EmbedPV(Model.PrimaryPV, 250, 188)
+				</td>
+				}
+
+				<td>
+			
+					<h3>Tracklist</h3>
+					<div class="tracklist">
+					<ul>
+						@foreach (var song in Model.Songs) {
+							<li>
+								@song.TrackNumber
+								.&nbsp;
+								@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
+								&nbsp;
+								@Html.PVServiceIcons(song.Song.PVServices)
+								<br />
+								<span class="extraInfo">@song.Song.ArtistString</span>
+							</li>
+					 }
+					</ul>
+					</div>
+				
+				</td>
+			</tr>
+		</table>
+
 	</div>
 
 	<div id="Discussion">
