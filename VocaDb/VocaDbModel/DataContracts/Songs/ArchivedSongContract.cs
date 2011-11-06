@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Songs;
 
@@ -19,6 +20,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Lyrics = (diff.IncludeLyrics ? song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray() : null);
 			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			NicoId = song.NicoId;
+			Notes = song.Notes;
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
 			SongType = song.SongType;
 			Status = song.Status;
@@ -41,6 +43,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public string NicoId { get; set; }
+
+		[DataMember]
+		public string Notes { get; set; }
 
 		[DataMember]
 		public ArchivedPVContract[] PVs { get; set; }
