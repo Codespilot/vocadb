@@ -63,8 +63,7 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("CAPTCHA", "CAPTCHA is invalid.");
 
 			if (!ModelState.IsValid) {
-				SaveErrorsToTempData();
-				return RedirectToAction("Login");
+				return View();
 			}
 
 			try {
@@ -73,8 +72,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Login");
 			} catch (UserNotFoundException) {
 				ModelState.AddModelError("Username", "Username or email doesn't match");
-				SaveErrorsToTempData();
-				return RedirectToAction("Login");
+				return View();
 			}
 
 		}
