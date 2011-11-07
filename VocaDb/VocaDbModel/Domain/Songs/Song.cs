@@ -16,6 +16,7 @@ namespace VocaDb.Model.Domain.Songs {
 	public class Song : INameFactory<SongName>, IWebLinkFactory<SongWebLink> {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
+		private IList<Song> alternateVersions = new List<Song>();
 		private IList<ArchivedSongVersion> archivedVersions = new List<ArchivedSongVersion>();
 		private TranslatedString artistString;
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
@@ -85,14 +86,29 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual IList<Song> AllAlternateVersions {
+			get { return alternateVersions; }
+			set {
+				ParamIs.NotNull(() => value);
+				alternateVersions = value;
+			}
+		}
+
 		public virtual IEnumerable<string> AllNames {
 			get { return Names.AllValues; }
 		}
+
 		public virtual IList<ArtistForSong> AllArtists {
 			get { return artists; }
 			set {
 				ParamIs.NotNull(() => value);
 				artists = value;
+			}
+		}
+
+		public virtual IEnumerable<Song> AlternateVersions {
+			get {
+				return AllAlternateVersions.Where(a => !a.Deleted);
 			}
 		}
 
@@ -161,6 +177,8 @@ namespace VocaDb.Model.Domain.Songs {
 				notes = value; 
 			}
 		}
+
+		public virtual Song OriginalVersion { get; set; }
 
 		public virtual IList<PVForSong> PVs {
 			get { return pvs; }

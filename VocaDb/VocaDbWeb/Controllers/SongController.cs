@@ -32,6 +32,21 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[HttpPost]
+		public ActionResult FindDuplicate(string term) {
+
+			var songs = Service.Find(term, 0, 1, onlyByName: true, nameMatchMode: NameMatchMode.Exact);
+
+			if (songs.Items.Any()) {
+				return PartialView("DuplicateEntryMessage",
+					new KeyValuePair<string, string>(songs.Items.First().Name,
+						Url.Action("Details", new { id = songs.Items.First().Id })));
+			} else {
+				return Content("Ok");
+			}
+
+		}
+
 		public ActionResult FindJsonByName(string term, bool alwaysExact = false) {
 
 			var songs = Service.Find(term, 0, 20, onlyByName: true, nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto));

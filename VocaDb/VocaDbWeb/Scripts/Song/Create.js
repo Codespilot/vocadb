@@ -1,6 +1,21 @@
 ﻿
 function initPage() {
 
+	$(".nameField").change(function () {
+
+		$.post("../../Song/FindDuplicate", { term: findTerm }, function (result) {
+
+			if (results != "Ok") {
+				$("#duplicateSongWarning").html(result);
+				$("#duplicateSongWarning").show();
+			} else {
+				$("#duplicateSongWarning").hide();
+			}
+
+		});
+
+	});
+
 	$("input#artistAddName").keyup(function () {
 
 		var findTerm = $(this).val();

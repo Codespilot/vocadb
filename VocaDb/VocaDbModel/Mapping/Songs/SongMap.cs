@@ -21,6 +21,8 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.Status).CustomType(typeof(EntryStatus)).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
+			References(m => m.OriginalVersion).Nullable();
+
 			Component(m => m.Names, c => {
 				c.HasMany(m => m.Names).Table("SongNames").KeyColumn("[Song]").Inverse().Cascade.All();
 				c.Component(m => m.SortNames, c2 => {
@@ -38,6 +40,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			});
 
 			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All();
+			HasMany(m => m.AllAlternateVersions).KeyColumn("[OriginalName]").Inverse();
 			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All();

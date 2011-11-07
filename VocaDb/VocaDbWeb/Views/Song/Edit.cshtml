@@ -102,6 +102,15 @@
 					<div class="editor-field">
 						@Html.SongTypeDropDownListFor(m => m.SongType)
 					</div>
+	
+					@if (Model.SongType != VocaDb.Model.Domain.Songs.SongType.Original) {
+				   <div class="editor-label">
+						@Html.LabelFor(m => m.OriginalVersion)
+					</div>
+					<div class="editor-field">
+						@{ Html.RenderPartial("SongLink", Model.OriginalVersion); }
+					</div>
+					}
 			
 					<div class="editor-label">
 						@Html.LabelFor(m => m.WebLinks)

@@ -1,0 +1,9 @@
+﻿@model VocaDb.Model.DataContracts.Songs.SongContract
+
+<div>
+	@if (Model != null) {
+		@Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
+	 } else {
+		<span>(nothing)</span>
+	 }
+</div>

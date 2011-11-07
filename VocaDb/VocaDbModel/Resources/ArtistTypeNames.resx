@@ -138,4 +138,7 @@
   <data name="Vocaloid" xml:space="preserve">
     <value>Vocaloid</value>
   </data>
+  <data name="OtherGroup" xml:space="preserve">
+    <value>Other group</value>
+  </data>
 </root>

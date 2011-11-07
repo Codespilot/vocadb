@@ -79,6 +79,15 @@ namespace VocaDb.Model.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Other group.
+        /// </summary>
+        public static string OtherGroup {
+            get {
+                return ResourceManager.GetString("OtherGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other vocalist.
         /// </summary>
         public static string OtherVocalist {
