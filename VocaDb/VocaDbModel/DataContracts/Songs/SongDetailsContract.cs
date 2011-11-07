@@ -18,11 +18,11 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != Song.Name).Distinct());
 			Albums = song.Albums.Select(a => new AlbumWithAdditionalNamesContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
-			AlternateVersions = song.AlternateVersions.Select(s => new SongContract(s, languagePreference)).ToArray();
+			AlternateVersions = song.AlternateVersions.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
 			Artists = song.AllArtists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 			Notes = song.Notes;
-			OriginalVersion = (song.OriginalVersion != null ? new SongContract(song.OriginalVersion, languagePreference) : null);
+			OriginalVersion = (song.OriginalVersion != null ? new SongWithAdditionalNamesContract(song.OriginalVersion, languagePreference) : null);
 			PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
 			TranslatedName = new TranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
@@ -33,7 +33,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
 
 		[DataMember]
-		public SongContract[] AlternateVersions { get; set; }
+		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
 
 		[DataMember]
 		public string AdditionalNames { get; set; }
@@ -51,7 +51,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string Notes { get; set; }
 
 		[DataMember]
-		public SongContract OriginalVersion { get; set; }
+		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
 
 		[DataMember]
 		public PVContract[] PVs { get; set; }

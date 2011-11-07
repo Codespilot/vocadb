@@ -29,6 +29,7 @@ namespace VocaDb.Web.Models {
 
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
+			AlternateVersions = contract.AlternateVersions;
 			Id = contract.Song.Id;
 			IsFavorited = contract.IsFavorited;
 			Lyrics = contract.Lyrics;
@@ -36,6 +37,7 @@ namespace VocaDb.Web.Models {
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;
 			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
+			OriginalVersion = contract.OriginalVersion;
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
@@ -52,6 +54,9 @@ namespace VocaDb.Web.Models {
 
 		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
 
+		[Display(Name = "Alternate versions")]
+		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+
 		public int Id { get; set; }
 
 		public bool IsFavorited { get; set; }
@@ -65,6 +70,9 @@ namespace VocaDb.Web.Models {
 		public string Notes { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
+
+		[Display(Name = "Original version")]
+		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
 
@@ -109,7 +117,7 @@ namespace VocaDb.Web.Models {
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
 			Notes = song.Notes;
-			OriginalVersion = song.OriginalVersion ?? new SongContract();
+			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
 			PVs = song.PVs;
 			SongType = song.Song.SongType;
 			WebLinks = song.WebLinks.Select(w => new WebLink(w)).ToArray();
@@ -152,7 +160,7 @@ namespace VocaDb.Web.Models {
 		public string Notes { get; set; }
 
 		[Display(Name = "Original version")]
-		public SongContract OriginalVersion { get; set; }
+		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
 
 		public int OriginalVersionId { get; set; }
 
@@ -175,7 +183,7 @@ namespace VocaDb.Web.Models {
 				},
 				Names = this.Names.Select(n => n.ToContract()).ToArray(),
 				Notes = this.Notes ?? string.Empty,
-				OriginalVersion = this.OriginalVersion ?? new SongContract { Id = OriginalVersionId },
+				OriginalVersion = this.OriginalVersion ?? new SongWithAdditionalNamesContract { Id = OriginalVersionId },
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
