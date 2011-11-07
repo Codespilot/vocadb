@@ -186,7 +186,7 @@ namespace VocaDb.Web.Models {
 
 			Circles = artists.Where(a => a.ArtistType == ArtistType.Circle).ToArray();
 			Labels = artists.Where(a => a.ArtistType == ArtistType.Label).ToArray();
-			OtherArtists = artists.Where(a => a.ArtistType == ArtistType.Unknown).ToArray();
+			OtherArtists = artists.Where(a => a.ArtistType == ArtistType.Unknown || a.ArtistType == ArtistType.OtherGroup).ToArray();
 			Producers = artists.Where(a => a.ArtistType == ArtistType.Producer).ToArray();
 			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
 

@@ -598,6 +598,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongWithAdditionalNamesContract GetSongWithAdditionalNames(int id) {
+
+			return HandleQuery(
+				session => new SongWithAdditionalNamesContract(session.Load<Song>(id), PermissionContext.LanguagePreference));
+
+		}
+
 		public SongWithArchivedVersionsContract GetSongWithArchivedVersions(int songId) {
 
 			return HandleQuery(session => new SongWithArchivedVersionsContract(session.Load<Song>(songId), PermissionContext.LanguagePreference));

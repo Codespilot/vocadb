@@ -22,12 +22,12 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult CreateSongLink(int? songId) {
 
-			SongContract song;
+			SongWithAdditionalNamesContract song;
 
 			if (songId == null)
-				song = new SongContract();
+				song = new SongWithAdditionalNamesContract();
 			else
-				song = Service.GetSong(songId.Value);
+				song = Service.GetSongWithAdditionalNames(songId.Value);
 
 			return PartialView("SongLink", song);
 

@@ -353,7 +353,10 @@ namespace VocaDb.Model.Service {
 			return
 				HandleQuery(session =>
 					new ArtistForEditContract(session.Load<Artist>(id), PermissionContext.LanguagePreference,
-						session.Query<Artist>().Where(a => !a.Deleted && (a.ArtistType == ArtistType.Circle || a.ArtistType == ArtistType.Label))));
+						session.Query<Artist>().Where(a => !a.Deleted 
+							&& (a.ArtistType == ArtistType.Circle 
+								|| a.ArtistType == ArtistType.Label
+								|| a.ArtistType == ArtistType.OtherGroup))));
 
 		}
 
