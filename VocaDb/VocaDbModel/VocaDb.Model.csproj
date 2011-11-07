@@ -133,6 +133,7 @@
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
+    <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />
     <Compile Include="Domain\Users\PasswordResetRequest.cs" />
     <Compile Include="Domain\Users\UserEmailOptions.cs" />
     <Compile Include="Domain\Users\UserMessage.cs" />
