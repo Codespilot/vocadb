@@ -112,7 +112,7 @@
 				<td>
 					@foreach (var alternateVersion in Model.AlternateVersions) {
 						@Html.ActionLink(alternateVersion.Name, "Details", new { id = alternateVersion.Id }, new { title = alternateVersion.AdditionalNames })<br />
-						@alternateVersion.ArtistString
+						@alternateVersion.ArtistString<br />
 					}			
 				</td>
 			</tr>
