@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 using System.Text;
@@ -97,6 +98,9 @@ namespace VocaDb.Web.Controllers
 
 			var album = Service.GetCoverPicture(id, Size.Empty);
 
+			//Response.Cache.SetExpires(DateTime.Now + imageExpirationTime);
+			Response.Cache.SetETag(string.Format("Album{0}v{1}", id, album.Version));
+
 			return Picture(album.CoverPicture, album.Name);
 
 		}
@@ -104,6 +108,9 @@ namespace VocaDb.Web.Controllers
 		public ActionResult CoverPictureThumb(int id) {
 
 			var album = Service.GetCoverPicture(id, pictureThumbSize);
+
+			//Response.Cache.SetExpires(DateTime.Now + imageExpirationTime);
+			Response.Cache.SetETag(string.Format("Album{0}v{1}t", id, album.Version));
 
 			return Picture(album.CoverPicture, album.Name);
 

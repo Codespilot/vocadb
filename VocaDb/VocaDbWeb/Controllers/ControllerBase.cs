@@ -1,15 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.IO;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Web.Controllers {
 
 	public class ControllerBase : Controller {
+
+		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
 
 		protected LoginManager LoginManager {
 			get { return MvcApplication.LoginManager; }
