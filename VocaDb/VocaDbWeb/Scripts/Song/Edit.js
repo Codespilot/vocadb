@@ -46,6 +46,48 @@ function initPage(songId) {
 
 	});
 
+	$("#changeOriginalBtn").click(function () {
+
+		$("#changeOriginalPanel").show();
+		return false;
+
+	});
+
+	$("#changeOriginalName").keyup(function () {
+
+		var term = $(this).val();
+
+		if (term == "") {
+			$(changeOriginalList).empty();
+			return;
+		}
+
+		$.post("../../Song/FindJsonByName", { term: term }, function (results) {
+
+			var changeOriginalList = $("#changeOriginalList");
+			$(changeOriginalList).empty();
+
+			$(results.Items).each(function () {
+
+				addOption(changeOriginalList, this.Id, formatSongName(this));
+
+			});
+
+		});
+
+	});
+
+	$("#acceptNewOriginalBtn").click(function () {
+
+		$("#changeOriginalPanel").hide();
+		var newOriginalId = $("#changeOriginalList").val();
+
+		$.post("../../Song/CreateSongLink", { songId: newOriginalId }, function (content) {
+			$("#originalContent").html(content);
+		});
+
+	});
+
 	$("input#artistAddName").keyup(function () {
 
 		var findTerm = $(this).val();

@@ -108,7 +108,17 @@
 						@Html.LabelFor(m => m.OriginalVersion)
 					</div>
 					<div class="editor-field">
-						@{ Html.RenderPartial("SongLink", Model.OriginalVersion); }
+						<span id="originalContent">
+							@{ Html.RenderPartial("SongLink", Model.OriginalVersion); }
+						</span>
+
+						<input id="changeOriginalBtn" type="button" value="Change" />
+
+						<div id="changeOriginalPanel" style="display:none;">
+							<input type="text" maxlength="128" size="30" id="changeOriginalName" /><br />
+							<select id="changeOriginalList" size="6" /><br />
+							<input type="button" id="acceptNewOriginalBtn" value="Set" />
+						</div>
 					</div>
 					}
 			

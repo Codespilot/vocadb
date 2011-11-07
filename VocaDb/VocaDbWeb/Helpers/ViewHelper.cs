@@ -194,6 +194,12 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static void RenderPartialTyped<T>(this HtmlHelper htmlHelper, string partialViewName, T model) {
+
+			htmlHelper.RenderPartial(partialViewName, model);
+
+		}
+
 		public static void SetStatusMessage(this TempDataDictionary temp, string val) {
 			temp["StatusMessage"] = val;
 		}

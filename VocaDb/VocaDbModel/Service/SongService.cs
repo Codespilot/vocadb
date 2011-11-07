@@ -28,6 +28,87 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
 #pragma warning restore 169
 
+		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, int start, int maxResults,
+			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool onlyByName = false) {
+
+			SongWithAdditionalNamesContract[] contracts;
+
+			if (string.IsNullOrEmpty(query)) {
+
+				contracts = session.Query<Song>()
+					.Where(s => !s.Deleted)
+					.OrderBy(s => s.Names.SortNames.Romaji)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray()
+					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+					.ToArray();
+
+			} else {
+
+				var directQ = session.Query<Song>()
+					.Where(s => !s.Deleted);
+
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
+
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English == query
+							|| s.Names.SortNames.Romaji == query
+							|| s.Names.SortNames.Japanese == query);
+
+				} else {
+
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English.Contains(query)
+							|| s.Names.SortNames.Romaji.Contains(query)
+							|| s.Names.SortNames.Japanese.Contains(query)
+						|| (!onlyByName &&
+							(s.ArtistString.Japanese.Contains(query)
+							|| s.ArtistString.Romaji.Contains(query)
+							|| s.ArtistString.English.Contains(query)))
+						|| (s.NicoId != null && s.NicoId == query));
+
+				}
+
+				var direct = directQ
+					.OrderBy(s => s.Names.SortNames.Romaji)
+					.ToArray();
+
+				var additionalNamesQ = session.Query<SongName>()
+					.Where(m => !m.Song.Deleted);
+
+				if (!string.IsNullOrEmpty(query) && query.Length < 3) {
+
+					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+				} else if (!string.IsNullOrEmpty(query)) {
+
+					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+				}
+
+				var additionalNames = additionalNamesQ
+					.Select(m => m.Song)
+					.OrderBy(s => s.Names.SortNames.Romaji)
+					.Distinct()
+					//.Take(maxResults)
+					.ToArray()
+					.Where(a => !direct.Contains(a));
+
+				contracts = direct.Concat(additionalNames)
+					.Skip(start)
+					.Take(maxResults)
+					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.ToArray();
+
+			}
+
+			int count = (getTotalCount ? GetSongCount(session, query, onlyByName) : 0);
+
+			return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
+
+		}
+
 		private int GetSongCount(ISession session, string query, bool onlyByName = false) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
@@ -159,6 +240,27 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
+
+		/*public SongContract AddAlternateVersion(int songId, int addedSongId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+				var addedSong = session.Load<Song>(addedSongId);
+
+				AuditLog("adding " + addedSong + " to " + song);
+
+				song.AddAlternateVersion(addedSong);
+
+				session.Update(addedSong);
+
+				return new SongContract(addedSong, PermissionContext.LanguagePreference);
+
+			});
+
+		}*/
 
 		public void Archive(ISession session, Song song, SongDiff diff, string notes = "") {
 
@@ -354,88 +456,29 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
-			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool onlyByName = false) {
+		public SongWithAdditionalNamesContract FindFirst(string[] query) {
 
 			return HandleQuery(session => {
 
-				SongWithAdditionalNamesContract[] contracts;
+				foreach (var q in query.Where(q => !string.IsNullOrEmpty(q))) {
 
-				if (string.IsNullOrEmpty(query)) {
+					var result = Find(q, 0, 1, false, NameMatchMode.Exact, true);
 
-					contracts = session.Query<Song>()
-						.Where(s => !s.Deleted)
-						.OrderBy(s => s.Names.SortNames.Romaji)
-						.Skip(start)
-						.Take(maxResults)
-						.ToArray()
-						.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
-						.ToArray();
-
-				} else {
-
-					var directQ = session.Query<Song>()
-						.Where(s => !s.Deleted);
-
-					if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-						directQ = directQ.Where(s =>
-							s.Names.SortNames.English == query
-								|| s.Names.SortNames.Romaji == query
-								|| s.Names.SortNames.Japanese == query);
-
-					} else {
-
-						directQ = directQ.Where(s =>
-							s.Names.SortNames.English.Contains(query)
-								|| s.Names.SortNames.Romaji.Contains(query)
-								|| s.Names.SortNames.Japanese.Contains(query)
-							|| (!onlyByName &&
-								(s.ArtistString.Japanese.Contains(query)
-								|| s.ArtistString.Romaji.Contains(query)
-								|| s.ArtistString.English.Contains(query)))
-							|| (s.NicoId != null && s.NicoId == query));
-
-					}
-
-					var direct = directQ
-						.OrderBy(s => s.Names.SortNames.Romaji)
-						.ToArray();
-
-					var additionalNamesQ = session.Query<SongName>()
-						.Where(m => !m.Song.Deleted);
-
-					if (!string.IsNullOrEmpty(query) && query.Length < 3) {
-
-						additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-					} else if (!string.IsNullOrEmpty(query)) {
-
-						additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-					}
-
-					var additionalNames = additionalNamesQ
-						.Select(m => m.Song)
-						.OrderBy(s => s.Names.SortNames.Romaji)
-						.Distinct()
-						//.Take(maxResults)
-						.ToArray()
-						.Where(a => !direct.Contains(a));
-
-					contracts = direct.Concat(additionalNames)
-						.Skip(start)
-						.Take(maxResults)
-						.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-						.ToArray();
+					if (result.Items.Any())
+						return result.Items.First();
 
 				}
 
-				int count = (getTotalCount ? GetSongCount(session, query, onlyByName) : 0);
-
-				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
+				return null;
 
 			});
+
+		}
+
+		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
+			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool onlyByName = false) {
+
+			return HandleQuery(session => Find(session, query, start, maxResults, getTotalCount, nameMatchMode, onlyByName));
 
 		}
 
@@ -639,6 +682,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void RemoveAlternateVersion(int songId) {
+
+			UpdateEntity<Song>(songId, (session, song) => {
+
+				AuditLog("removing " + song + " from all originals");
+
+				song.OriginalVersion = null;
+
+				session.Update(song);
+
+			}, PermissionFlags.ManageDatabase, true);
+
+		}
+
 		public void UpdateArtists(int songId, int[] artistIds) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -686,6 +743,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("updating properties for {0}", song), session);
 
 				song.Notes = properties.Notes;
+				song.OriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? session.Load<Song>(properties.OriginalVersion.Id) : null);
 				song.SongType = properties.Song.SongType;
 				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
