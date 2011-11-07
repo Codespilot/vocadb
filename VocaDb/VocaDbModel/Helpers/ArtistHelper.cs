@@ -12,11 +12,11 @@ namespace VocaDb.Model.Helpers {
 		};
 
 		public static readonly ArtistType[] LabelTypes = new[] {
-			ArtistType.Circle, ArtistType.Label
+			ArtistType.Circle, ArtistType.Label, ArtistType.OtherGroup
 		};
 
 		public static readonly ArtistType[] ProducerTypes = new[] {
-			ArtistType.Producer, ArtistType.Circle
+			ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup
 		};
 
 		public static readonly ArtistType[] VocalistTypes = new[] {
@@ -37,12 +37,10 @@ namespace VocaDb.Model.Helpers {
 					string.Join(", ", producers.Select(p => p[lang])), 
 					string.Join(", ", performers.Select(p => p[lang]))));
 
-				//return string.Format("{0} feat. {1}", string.Join(", ", producers), string.Join(", ", performers));
 			} else {
 
 				return TranslatedString.Create(lang => string.Join(", ", artists.Select(a => a.TranslatedName[lang])));
 
-				//return string.Join(", ", artists.Select(m => m.Name));
 			}
 
 		}

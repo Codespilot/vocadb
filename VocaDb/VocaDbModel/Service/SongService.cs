@@ -77,11 +77,11 @@ namespace VocaDb.Model.Service {
 				var additionalNamesQ = session.Query<SongName>()
 					.Where(m => !m.Song.Deleted);
 
-				if (!string.IsNullOrEmpty(query) && query.Length < 3) {
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
 					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
 
-				} else if (!string.IsNullOrEmpty(query)) {
+				} else {
 
 					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
 

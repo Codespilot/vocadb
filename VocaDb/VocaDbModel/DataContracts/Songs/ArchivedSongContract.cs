@@ -21,6 +21,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			NicoId = song.NicoId;
 			Notes = song.Notes;
+			OriginalVersion = (song.OriginalVersion != null ? new ObjectRefContract(song.OriginalVersion.Id, song.OriginalVersion.DefaultName) : null);
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
 			SongType = song.SongType;
 			Status = song.Status;
@@ -46,6 +47,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public string Notes { get; set; }
+
+		[DataMember]
+		public ObjectRefContract OriginalVersion { get; set; }
 
 		[DataMember]
 		public ArchivedPVContract[] PVs { get; set; }
