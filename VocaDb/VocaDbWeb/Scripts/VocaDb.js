@@ -4,6 +4,12 @@
 
 }
 
+function formatSongName(songContract) {
+
+	return (songContract.Name + (songContract.ArtistString != "" ? " (by " + songContract.ArtistString + ")" : ""));
+
+}
+
 function getId(elem) {
 
 	if ($(elem) == null || $(elem).attr('id') == null)

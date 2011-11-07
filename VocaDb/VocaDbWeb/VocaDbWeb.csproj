@@ -656,6 +656,7 @@
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Shared\DuplicateEntryMessage.cshtml" />
     <Content Include="Views\Song\SongLink.cshtml" />
+    <Content Include="Views\Song\SongLinkEditRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

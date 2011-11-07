@@ -239,6 +239,18 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual void AddAlternateVersion(Song song) {
+
+			ParamIs.NotNull(() => song);
+
+			if (song.OriginalVersion != null)
+				song.OriginalVersion.AllAlternateVersions.Remove(song);
+
+			AllAlternateVersions.Add(song);
+			song.OriginalVersion = this;
+
+		}
+
 		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, AgentLoginData author, string notes) {
 
 			var archived = new ArchivedSongVersion(this, data, author, Version, notes);

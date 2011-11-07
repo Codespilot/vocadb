@@ -19,6 +19,20 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Songs; }
 		}
 
+		[HttpPost]
+		public PartialViewResult CreateSongLink(int? songId) {
+
+			SongContract song;
+
+			if (songId == null)
+				song = new SongContract();
+			else
+				song = Service.GetSong(songId.Value);
+
+			return PartialView("SongLink", song);
+
+		}
+
         //
         // GET: /Song/
 
@@ -33,14 +47,14 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpPost]
-		public ActionResult FindDuplicate(string term) {
+		public ActionResult FindDuplicate(string term1, string term2, string term3) {
 
-			var songs = Service.Find(term, 0, 1, onlyByName: true, nameMatchMode: NameMatchMode.Exact);
+			var result = Service.FindFirst(new[] { term1, term2, term3 });
 
-			if (songs.Items.Any()) {
+			if (result != null) {
 				return PartialView("DuplicateEntryMessage",
-					new KeyValuePair<string, string>(songs.Items.First().Name,
-						Url.Action("Details", new { id = songs.Items.First().Id })));
+					new KeyValuePair<string, string>(result.Name,
+						Url.Action("Details", new { id = result.Id })));
 			} else {
 				return Content("Ok");
 			}
