@@ -352,6 +352,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult TagSelections(int albumId) {
+
+			var contract = Service.GetTagSelections(albumId, LoginManager.LoggedUser.Id);
+
+			return PartialView(contract);
+
+		}
+
 		public PartialViewResult TrackProperties(int songInAlbumId) {
 
 			var contract = Service.GetTrackProperties(songInAlbumId);

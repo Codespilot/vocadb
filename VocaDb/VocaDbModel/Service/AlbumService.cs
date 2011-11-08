@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -554,6 +555,22 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => 
 				new AlbumWithCoverPictureContract(
 					session.Load<Album>(id), PermissionContext.LanguagePreference, requestedSize));
+
+		}
+
+		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
+
+			return HandleQuery(session => {
+
+				var tagsInUse = session.Query<AlbumTagUsage>().Where(a => a.Album.Id == albumId).ToArray();
+				var tagVotes = session.Query<AlbumTagVote>().Where(a => a.User.Id == userId && a.Usage.Album.Id == albumId).ToArray();
+
+				var tagSelections = tagsInUse.Select(t => 
+					new TagSelectionContract(t.Tag.Name, t.Votes.Any(v => tagVotes.Any(v.Equals))));
+
+				return tagSelections.ToArray();
+
+			});
 
 		}
 

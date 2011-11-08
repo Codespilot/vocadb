@@ -674,6 +674,15 @@ namespace VocaDb.Model.Service {
 					session.Update(u);
 				}
 
+				if (target.OriginalVersion == null)
+					target.OriginalVersion = source.OriginalVersion;
+
+				var alternateVersions = source.AlternateVersions.ToArray();
+				foreach (var alternate in alternateVersions) {
+					alternate.OriginalVersion = target;
+					session.Update(alternate);
+				}
+
 				source.Deleted = true;
 
 				target.UpdateArtistString();

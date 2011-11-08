@@ -79,6 +79,7 @@
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
+    <Compile Include="DataContracts\Tags\TagSelectionContract.cs" />
     <Compile Include="DataContracts\ArchivedObjectVersionContract.cs" />
     <Compile Include="DataContracts\ArchivedTranslatedStringContract.cs" />
     <Compile Include="DataContracts\ArchivedWebLinkContract.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
+    <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
@@ -228,6 +230,9 @@
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
+    <Compile Include="Mapping\Tags\TagMap.cs" />
+    <Compile Include="Mapping\Tags\TagUsageMap.cs" />
+    <Compile Include="Mapping\Tags\TagVoteMap.cs" />
     <Compile Include="Mapping\Users\PasswordResetRequestMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
