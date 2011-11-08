@@ -22,6 +22,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<PVForAlbum> pvs = new List<PVForAlbum>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
+		private Iesi.Collections.Generic.ISet<AlbumTagUsage> tags = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
 		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
@@ -184,6 +185,14 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual IEnumerable<SongInAlbum> Songs {
 			get {
 				return AllSongs.Where(s => !s.Song.Deleted);
+			}
+		}
+
+		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> Tags {
+			get { return tags; }
+			set {
+				ParamIs.NotNull(() => value);
+				tags = value;
 			}
 		}
 
