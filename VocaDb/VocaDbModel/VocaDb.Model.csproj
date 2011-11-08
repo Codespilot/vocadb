@@ -37,6 +37,10 @@
     <Reference Include="HtmlAgilityPack">
       <HintPath>..\Libs\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Iesi.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
     </Reference>
@@ -131,11 +135,15 @@
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />
+    <Compile Include="Domain\Tags\Tag.cs" />
+    <Compile Include="Domain\Tags\TagUsage.cs" />
+    <Compile Include="Domain\Tags\TagVote.cs" />
     <Compile Include="Domain\Users\PasswordResetRequest.cs" />
     <Compile Include="Domain\Users\UserEmailOptions.cs" />
     <Compile Include="Domain\Users\UserMessage.cs" />
