@@ -19,6 +19,10 @@
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
 
+@if (Login.Manager.IsLoggedIn) {
+	<a href="#" id="editTags">Edit tags</a>
+}
+
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 @Html.ActionLink("Download tags as CSV", "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
 }
@@ -187,6 +191,12 @@
 
 	<div id="Discussion">
 	</div>
+</div>
+
+<div id="editTagsPopup" style="display:none;" title="Tags">
+
+	<div id="editTagsContent"></div>
+
 </div>
 
 <script type="text/javascript" src="../../Scripts/Album/Details.js"></script>

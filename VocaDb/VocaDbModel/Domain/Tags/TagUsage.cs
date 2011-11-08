@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace VocaDb.Model.Domain.Tags {
 
 	public abstract class TagUsage {
 
 		private Tag tag;
-		private IList<TagVote> votes = new List<TagVote>();
 
-		public TagUsage() { }
+		protected TagUsage() { }
 
-		public TagUsage(Tag tag) {
+		protected TagUsage(Tag tag) {
 			Tag = tag;
 		}
 
@@ -20,7 +16,7 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public abstract IEntryBase Entry { get; }
 
-		public virtual int Id { get; set; }
+		public virtual long Id { get; set; }
 
 		public virtual Tag Tag {
 			get { return tag; }
@@ -29,6 +25,8 @@ namespace VocaDb.Model.Domain.Tags {
 				tag = value;
 			}
 		}
+
+		public abstract IEnumerable<TagVote> VotesBase { get; }
 
 		public virtual bool Equals(TagUsage another) {
 
@@ -49,7 +47,7 @@ namespace VocaDb.Model.Domain.Tags {
 			return Equals(obj as TagUsage);
 		}
 
-		public virtual int GetHashCode() {
+		public override int GetHashCode() {
 			return (Tag.Name + "_" + Entry.EntryType + Entry.Id).GetHashCode();
 		}
 

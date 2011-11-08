@@ -1,4 +1,10 @@
 ﻿
+function saveTagSelections() {
+
+	
+
+}
+
 function tabLoaded(albumId, event, ui) {
 
 	$("#tabs").tabs("url", 1, "");
@@ -49,8 +55,11 @@ function initPage(albumId) {
 	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#removeAlbumLink").button({ icons: { primary: 'ui-icon-close'} });
 	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
+	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
+
+	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections } });
 
 	$("#tabs").tabs({
 		load: function(event, ui) {
@@ -81,6 +90,22 @@ function initPage(albumId) {
 		});
 
 		return false;
+
+	});
+
+	$("#editTags").click(function () {
+
+		$.get("../../Album/TagSelections", { albumId: albumId }, function (content) {
+
+			$("#editTagsContent").html(content);
+
+			$("input.tagSelection").button();
+
+			$("#editTagsPopup").dialog("open");
+
+		});
+
+		return false;		
 
 	});
 

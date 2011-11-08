@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Domain.Albums {
@@ -9,6 +7,7 @@ namespace VocaDb.Model.Domain.Albums {
 	public class AlbumTagUsage : TagUsage {
 
 		private Album album;
+		private IList<AlbumTagVote> votes = new List<AlbumTagVote>();
 
 		public virtual Album Album {
 			get { return album; }
@@ -22,6 +21,17 @@ namespace VocaDb.Model.Domain.Albums {
 			get { return Album; }
 		}
 
+		public virtual IList<AlbumTagVote> Votes {
+			get { return votes; }
+			set {
+				ParamIs.NotNull(() => value);
+				votes = value;
+			}
+		}
+
+		public override IEnumerable<TagVote> VotesBase {
+			get { return Votes; }
+		}
 	}
 
 }

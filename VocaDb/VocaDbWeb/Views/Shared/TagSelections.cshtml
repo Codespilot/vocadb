@@ -1,0 +1,14 @@
+﻿@model VocaDb.Model.DataContracts.Tags.TagSelectionContract[]
+
+<div class="trackProperties">
+
+	<div id="tagSelections">
+	@foreach (var tagSelection in Model) {
+		<span class="tag">
+		@Html.CheckBox("tagSelection_" + tagSelection.TagName, tagSelection.Selected, new { @class = "tagSelection", id = "tagSelection_" + tagSelection.TagName })
+		@Html.Label("tagSelection_" + tagSelection.TagName, tagSelection.TagName)
+		</span>
+	}
+	</div>
+
+</div>

@@ -660,6 +660,7 @@
     <Content Include="Views\Shared\DuplicateEntryMessage.cshtml" />
     <Content Include="Views\Song\SongLink.cshtml" />
     <Content Include="Views\Song\SongLinkEditRow.cshtml" />
+    <Content Include="Views\Shared\TagSelections.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
