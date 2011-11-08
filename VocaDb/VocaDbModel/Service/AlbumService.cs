@@ -187,7 +187,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album), session);
 
 				var artistForAlbum = artist.AddAlbum(album);
-				Services.Artists.Archive(session, artist, "Created for album '" + album.Name + "'");
+				Services.Artists.Archive(session, artist, "Created for album '" + album.DefaultName + "'");
 				session.Save(artist);
 
 				album.UpdateArtistString();
@@ -306,7 +306,7 @@ namespace VocaDb.Model.Service {
 				session.Save(artistForAlbum);
 
 				album.UpdateArtistString();
-				Archive(session, album, "Created for artist '" + artist.Name + "'");
+				Archive(session, album, "Created for artist '" + artist.DefaultName + "'");
 				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
@@ -524,7 +524,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => session.Query<Album>()
 				.Where(a => !a.Deleted)
 				.ToArray()
-				.OrderBy(a => a.Name)
+				.OrderBy(a => a.DefaultName)
 				.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
 				.ToArray());
 
@@ -641,8 +641,8 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.Names.UpdateSortNames();
 
-				Archive(session, source, "Merged to '" + target.Name + "'");
-				Archive(session, target, "Merged from '" + source.Name + "'");
+				Archive(session, source, "Merged to '" + target.DefaultName + "'");
+				Archive(session, target, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);
 				session.Update(target);

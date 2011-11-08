@@ -188,13 +188,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		private T[] GetArtists<T>(Func<Artist, T> func) {
 
 			return HandleQuery(session => session
 				.Query<Artist>()
 				.Where(a => !a.Deleted)
 				.ToArray()
-				.OrderBy(a => a.Name)
+				.OrderBy(a => a.DefaultName)
 				.Select(func)
 				.ToArray());
 
@@ -406,12 +407,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public ArtistContract[] GetArtists() {
 
 			return GetArtists(a => new ArtistContract(a, PermissionContext.LanguagePreference));
 
 		}
 
+		[Obsolete]
 		public ArtistWithAdditionalNamesContract[] GetArtistsWithAdditionalNames() {
 
 			return GetArtists(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference));
@@ -481,8 +484,8 @@ namespace VocaDb.Model.Service {
 
 				source.Deleted = true;
 
-				Archive(session, source, "Merged to '" + target.Name + "'");
-				Archive(session, target, "Merged from '" + source.Name + "'");
+				Archive(session, source, "Merged to '" + target.DefaultName + "'");
+				Archive(session, target, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);
 				session.Update(target);

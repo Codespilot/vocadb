@@ -12,7 +12,7 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class Album : IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
+	public class Album : IEntryBase, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
@@ -38,7 +38,6 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = string.Empty;
 			DiscType = DiscType.Album;
 			OriginalRelease = new AlbumRelease();
-			//TranslatedName = new TranslatedString();
 		}
 
 		public Album(string unspecifiedName)
@@ -55,8 +54,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 			ParamIs.NotNull(() => translatedName);
 
-			//TranslatedName = translatedName;);
-			
 			foreach (var name in translatedName.AllLocalized)
 				Names.Add(new AlbumName(this, name));
 
@@ -110,6 +107,12 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual DateTime CreateDate { get; set; }
 
+		public virtual string DefaultName {
+			get {
+				return TranslatedName.Default;
+			}
+		}
+
 		public virtual bool Deleted { get; set; }
 
 		public virtual string Description {
@@ -122,12 +125,19 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual DiscType DiscType { get; set; }
 
+		public virtual EntryType EntryType {
+			get {
+				return EntryType.Album;
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }
 		}
 
+		[Obsolete]
 		public virtual string Name {
 			get {
 				return TranslatedName.Default;
@@ -401,7 +411,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return string.Format("album '{0}' [{1}]", Name, Id);
+			return string.Format("album '{0}' [{1}]", DefaultName, Id);
 		}
 
 		public virtual void UpdateArtistString() {

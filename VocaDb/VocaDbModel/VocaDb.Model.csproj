@@ -132,6 +132,8 @@
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\EntryBase.cs" />
+    <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />
     <Compile Include="Domain\Users\PasswordResetRequest.cs" />
@@ -235,6 +237,10 @@
     <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
+    <Compile Include="Service\BBCode\BasicBBCodeTransformer.cs" />
+    <Compile Include="Service\BBCode\BBCodeConverter.cs" />
+    <Compile Include="Service\BBCode\IBBCodeElementTransformer.cs" />
+    <Compile Include="Service\BBCode\BBElement.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />

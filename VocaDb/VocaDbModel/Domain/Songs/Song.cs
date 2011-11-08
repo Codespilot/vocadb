@@ -13,7 +13,7 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class Song : INameFactory<SongName>, IWebLinkFactory<SongWebLink> {
+	public class Song : IEntryBase, INameFactory<SongName>, IWebLinkFactory<SongWebLink> {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
 		private IList<Song> alternateVersions = new List<Song>();
@@ -144,6 +144,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool Deleted { get; set; }
 
+		public virtual EntryType EntryType {
+			get {
+				return EntryType.Song;
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual IList<LyricsForSong> Lyrics {
@@ -153,14 +159,6 @@ namespace VocaDb.Model.Domain.Songs {
 				lyrics = value;
 			}
 		}
-
-		/*public virtual IList<SongMetadataEntry> Metadata {
-			get { return metadata; }
-			set {
-				ParamIs.NotNull(() => value);
-				metadata = value;
-			}
-		}*/
 
 		public virtual NameManager<SongName> Names {
 			get { return names; }

@@ -14,15 +14,15 @@ namespace VocaDb.Model.DataContracts.Artists {
 			
 			ParamIs.NotNull(() => artist);
 
-			Albums = artist.Albums.Select(a => new ObjectRefContract(a.Album.Id, a.Album.Name)).ToArray();
+			Albums = artist.Albums.Select(a => new ObjectRefContract(a.Album)).ToArray();
 			ArtistType = artist.ArtistType;
 			Id = artist.Id;
 			Description = artist.Description;
-			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Id, g.Group.Name)).ToArray();
-			Members = artist.Members.Select(m => new ObjectRefContract(m.Id, m.Member.Name)).ToArray();
+			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Group)).ToArray();
+			Members = artist.Members.Select(m => new ObjectRefContract(m.Member)).ToArray();
 			Names = artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			Picture = (diff.IncludePicture && artist.Picture != null ? new PictureDataContract(artist.Picture) : null);
-			Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song.Id, s.Song.DefaultName)).ToArray();
+			Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song)).ToArray();
 			StartDate = artist.StartDate;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			WebLinks = artist.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();

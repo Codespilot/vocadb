@@ -9,7 +9,7 @@ using System;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class Artist : IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
+	public class Artist : IEntryBase, IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
@@ -25,6 +25,7 @@ namespace VocaDb.Model.Domain.Artists {
 			Deleted = false;
 			Description = string.Empty;
 			StartDate = null;
+			Status = EntryStatus.Draft;
 			Version = 0;
 		}
 
@@ -99,11 +100,23 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Deleted { get; set; }
 
+		public virtual string DefaultName {
+			get {
+				return TranslatedName.Default;
+			}
+		}
+
 		public virtual string Description {
 			get { return description; }
 			set {
 				ParamIs.NotNull(() => value);
 				description = value;
+			}
+		}
+
+		public virtual EntryType EntryType {
+			get {
+				return EntryType.Artist;
 			}
 		}
 
@@ -119,18 +132,11 @@ namespace VocaDb.Model.Domain.Artists {
 			get { return Names.SortNames; }
 		}
 
-		/*public virtual IList<ArtistMetadataEntry> Metadata {
-			get { return metadata; }
-			set {
-				ParamIs.NotNull(() => value);
-				metadata = value;
-			}
-		}*/
-
 		public virtual IEnumerable<GroupForArtist> Members {
 			get { return AllMembers.Where(m => !m.Member.Deleted); }
 		}
 
+		[Obsolete]
 		public virtual string Name {
 			get {
 				return TranslatedName.Default;
@@ -154,6 +160,8 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public virtual DateTime? StartDate { get; set; }
+
+		public virtual EntryStatus Status { get; set; }
 
 		public virtual int Version { get; set; }
 
@@ -307,7 +315,7 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public override string ToString() {
-			return string.Format("artist '{0}' [{1}]", Name, Id);
+			return string.Format("artist '{0}' [{1}]", DefaultName, Id);
 		}
 
 	}

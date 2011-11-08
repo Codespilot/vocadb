@@ -13,7 +13,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public SongInAlbumRefContract() {}
 
 		public SongInAlbumRefContract(SongInAlbum songInAlbum)
-			: base(songInAlbum.Song.Id, songInAlbum.Song.DefaultName) {
+			: base(songInAlbum.Song) {
 
 			TrackNumber = songInAlbum.TrackNumber;
 
