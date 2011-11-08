@@ -10,7 +10,7 @@ using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class User {
+	public class User : IEntryBase, IEquatable<User> {
 
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private string email;
@@ -74,6 +74,10 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
+		public virtual string DefaultName {
+			get { return Name; }
+		}
+
 		public virtual string Email {
 			get { return email; }
 			set {
@@ -83,6 +87,10 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public virtual UserEmailOptions EmailOptions { get; set; }
+
+		public virtual EntryType EntryType {
+			get { return EntryType.User; }
+		}
 
 		public virtual IList<FavoriteSongForUser> FavoriteSongs {
 			get { return favoriteSongs; }
@@ -183,7 +191,7 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return NameLC.GetHashCode();
 		}
 
 		public virtual UserMessage SendMessage(User to, string subject, string body, bool highPriority) {

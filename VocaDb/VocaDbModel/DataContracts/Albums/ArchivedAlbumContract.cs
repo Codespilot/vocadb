@@ -15,7 +15,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ParamIs.NotNull(() => album);
 
-			Artists = album.Artists.Select(a => new ObjectRefContract(a.Artist.Id, a.Artist.Name)).ToArray();
+			Artists = album.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray();
 			CoverPicture = (diff.IncludeCover && album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
 			CreateDate = album.CreateDate;
 			Description = album.Description;

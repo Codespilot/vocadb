@@ -15,13 +15,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => song);
 
-			Artists = song.Artists.Select(a => new ObjectRefContract(a.Artist.Id, a.Artist.Name)).ToArray();
+			Artists = song.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray();
 			Id = song.Id;
 			Lyrics = (diff.IncludeLyrics ? song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray() : null);
 			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			NicoId = song.NicoId;
 			Notes = song.Notes;
-			OriginalVersion = (song.OriginalVersion != null ? new ObjectRefContract(song.OriginalVersion.Id, song.OriginalVersion.DefaultName) : null);
+			OriginalVersion = (song.OriginalVersion != null ? new ObjectRefContract(song.OriginalVersion) : null);
 			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
 			SongType = song.SongType;
 			Status = song.Status;

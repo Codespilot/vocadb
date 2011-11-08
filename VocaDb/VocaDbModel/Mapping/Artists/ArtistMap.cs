@@ -14,6 +14,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
 			Map(m => m.StartDate).Nullable();
+			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums").Inverse().Cascade.All();
@@ -30,7 +31,6 @@ namespace VocaDb.Model.Mapping.Artists {
 					c2.Map(m => m.Japanese, "JapaneseName");
 					c2.Map(m => m.English, "EnglishName");
 					c2.Map(m => m.Romaji, "RomajiName");
-					//c.Map(m => m.Other, "OtherName");
 				});
 			});
 

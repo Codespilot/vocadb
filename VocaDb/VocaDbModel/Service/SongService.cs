@@ -317,7 +317,7 @@ namespace VocaDb.Model.Service {
 				var songInAlbum = album.AddSong(song);
 				session.Save(songInAlbum);
 
-				Archive(session, song, string.Format("Created for album '{0}'", album.Name));
+				Archive(session, song, string.Format("Created for album '{0}'", album.DefaultName));
 
 				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 

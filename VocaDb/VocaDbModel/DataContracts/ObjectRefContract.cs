@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -11,6 +12,15 @@ namespace VocaDb.Model.DataContracts {
 
 			Id = id;
 			NameHint = nameHint;
+
+		}
+
+		public ObjectRefContract(IEntryBase entry) {
+
+			ParamIs.NotNull(() => entry);
+
+			Id = entry.Id;
+			NameHint = entry.DefaultName;
 
 		}
 
