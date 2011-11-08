@@ -360,6 +360,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public void TagSelections(int albumId, string tagNames) {
+
+
+
+		}
+
 		public PartialViewResult TrackProperties(int songInAlbumId) {
 
 			var contract = Service.GetTrackProperties(songInAlbumId);

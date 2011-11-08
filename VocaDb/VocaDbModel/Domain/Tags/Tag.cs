@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VocaDb.Model.Domain.Tags {
 
 	public class Tag : IEquatable<Tag> {
+
+		public static readonly Regex TagNameRegex = new Regex(@"[\w]+");
 
 		public virtual string Name { get; set; }
 

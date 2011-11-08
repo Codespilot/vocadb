@@ -7,7 +7,7 @@ using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
 
         //

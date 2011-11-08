@@ -1,0 +1,6 @@
+﻿@model VocaDb.Model.DataContracts.Tags.TagSelectionContract
+
+<span class="tag">
+@Html.CheckBox("tagSelection_" + Model.TagName, Model.Selected, new { @class = "tagSelection", id = "tagSelection_" + Model.TagName })
+@Html.Label("tagSelection_" + Model.TagName, Model.TagName)
+</span>

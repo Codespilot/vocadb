@@ -113,6 +113,7 @@
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
+    <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\UIController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -661,6 +662,7 @@
     <Content Include="Views\Song\SongLink.cshtml" />
     <Content Include="Views\Song\SongLinkEditRow.cshtml" />
     <Content Include="Views\Shared\TagSelections.cshtml" />
+    <Content Include="Views\Shared\TagSelection.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
