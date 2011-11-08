@@ -26,7 +26,8 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
 
-		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ISession session, string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount) {
+		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
+			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -63,7 +64,7 @@ namespace VocaDb.Model.Service {
 				if (artistTypes.Any())
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
-				if (query.Length < 3) {
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 					
 					directQ = directQ.Where(s =>
 						s.Names.SortNames.English == query
@@ -88,7 +89,7 @@ namespace VocaDb.Model.Service {
 				var additionalNamesQ = session.Query<ArtistName>()
 					.Where(m => !m.Artist.Deleted);
 
-				if (query.Length < 3) {
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
 					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
 
@@ -311,6 +312,25 @@ namespace VocaDb.Model.Service {
 		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount = false) {
 
 			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, getTotalCount));
+
+		}
+
+		public ArtistWithAdditionalNamesContract FindByNames(string[] query) {
+
+			return HandleQuery(session => {
+
+				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
+
+					var result = FindArtists(session, q, new ArtistType[] {}, 0, 1, false, NameMatchMode.Exact);
+
+					if (result.Items.Any())
+						return result.Items.First();
+
+				}
+
+				return null;
+
+			});
 
 		}
 

@@ -9,18 +9,18 @@ namespace VocaDb.Model.Helpers {
 
 	public static class LocalizedStringHelper {
 
-		public static IEnumerable<LocalizedStringContract> SkipNull(string original, string romaji, string english) {
+		public static IEnumerable<LocalizedStringContract> SkipNullAndEmpty(string original, string romaji, string english) {
 
 			var names = new List<LocalizedStringContract>();
 
-			if (!string.IsNullOrEmpty(original))
-				names.Add(new LocalizedStringContract(original, ContentLanguageSelection.Japanese));
+			if (!string.IsNullOrWhiteSpace(original))
+				names.Add(new LocalizedStringContract(original.Trim(), ContentLanguageSelection.Japanese));
 
-			if (!string.IsNullOrEmpty(romaji))
-				names.Add(new LocalizedStringContract(romaji, ContentLanguageSelection.Romaji));
+			if (!string.IsNullOrWhiteSpace(romaji))
+				names.Add(new LocalizedStringContract(romaji.Trim(), ContentLanguageSelection.Romaji));
 
-			if (!string.IsNullOrEmpty(english))
-				names.Add(new LocalizedStringContract(english, ContentLanguageSelection.English));
+			if (!string.IsNullOrWhiteSpace(english))
+				names.Add(new LocalizedStringContract(english.Trim(), ContentLanguageSelection.English));
 
 			return names;
 

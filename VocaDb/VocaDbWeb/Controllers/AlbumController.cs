@@ -63,6 +63,21 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[HttpPost]
+		public ActionResult FindDuplicate(string term1, string term2, string term3) {
+
+			var result = Service.FindByNames(new[] { term1, term2, term3 });
+
+			if (result != null) {
+				return PartialView("DuplicateEntryMessage",
+					new KeyValuePair<string, string>(result.Name,
+						Url.Action("Details", new { id = result.Id })));
+			} else {
+				return Content("Ok");
+			}
+
+		}
+
 		public ActionResult FindJson(string term) {
 
 			var albums = Service.Find(term, 0, 20).Items;
@@ -153,7 +168,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult Create(Create model) {
 
-			if (string.IsNullOrEmpty(model.NameOriginal) && string.IsNullOrEmpty(model.NameRomaji) && string.IsNullOrEmpty(model.NameEnglish))
+			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
 				ModelState.AddModelError("Name", "Need at least one name.");
 
 			if (model.Artists == null || !model.Artists.Any())

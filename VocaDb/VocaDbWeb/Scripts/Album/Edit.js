@@ -108,8 +108,6 @@ function initPage(albumId) {
 
 			});
 
-			//addOption(artistList, "", "Create new artist named '" + findTerm + "'");
-
 		});
 
 	});

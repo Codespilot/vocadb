@@ -25,7 +25,7 @@
 				@Html.LabelFor(m => m.NameOriginal)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal" })<br />
+				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "nameField" })<br />
 				@Html.ValidationMessageFor(m => m.NameOriginal)
 			</div>
 			</td><td>
@@ -34,7 +34,7 @@
 				@Html.LabelFor(m => m.NameRomaji)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji" })<br />
+				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "nameField" })<br />
 				@Html.ValidationMessageFor(m => m.NameRomaji)
 			</div>
 			</td><td>
@@ -43,14 +43,13 @@
 				@Html.LabelFor(m => m.NameEnglish)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish" })<br />
+				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "nameField" })<br />
 				@Html.ValidationMessageFor(m => m.NameEnglish)
 			</div>
 			</td></tr>
 			</table>
 
-			<div id="duplicateSongWarning" style="display:none">
-				@Helpers.NotificationPanel(string.Empty, "duplicateSongMessage")
+			<div id="duplicateEntryWarning" style="display:none">
 			</div>
 
 			<div class="editor-label">
@@ -74,3 +73,12 @@
 	</div>	
 	
 }
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Create.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		initPage()
+	});
+
+</script>

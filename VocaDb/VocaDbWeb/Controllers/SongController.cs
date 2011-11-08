@@ -106,7 +106,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult Create(Create model) {
 
-			if (string.IsNullOrEmpty(model.NameOriginal) && string.IsNullOrEmpty(model.NameRomaji) && string.IsNullOrEmpty(model.NameEnglish))
+			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
 				ModelState.AddModelError("Name", "Need at least one name.");
 
 			if (model.Artists == null || !model.Artists.Any())
@@ -126,19 +126,9 @@ namespace VocaDb.Web.Controllers
 			}
 
 		}
-
-		[HttpPost]
-		public PartialViewResult CreateArtistForSongRow(int artistId) {
-
-			var artist = MvcApplication.Services.Artists.GetArtist(artistId);
-
-			return PartialView("ArtistContractRow", artist);
-
-		}
-        
+       
         //
-        // GET: /Song/Edit/5
- 
+        // GET: /Song/Edit/5 
         public ActionResult Edit(int id)
         {
 			var model = new SongEdit(Service.GetSongForEdit(id));
@@ -147,7 +137,6 @@ namespace VocaDb.Web.Controllers
 
         //
         // POST: /Song/Edit/5
-
         [HttpPost]
         public ActionResult Edit(SongEdit model) {
 

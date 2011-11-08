@@ -41,7 +41,7 @@ namespace VocaDb.Web.Models.Album {
 			return new CreateAlbumContract {
 				Artists = this.Artists.ToArray(),
 				DiscType = this.DiscType,
-				Names = LocalizedStringHelper.SkipNull(NameOriginal, NameRomaji, NameEnglish).ToArray()
+				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray()
 			};
 
 		}
