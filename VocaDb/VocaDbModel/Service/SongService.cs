@@ -460,9 +460,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				foreach (var q in query.Where(q => !string.IsNullOrEmpty(q))) {
+				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(q, 0, 1, false, NameMatchMode.Exact, true);
+					var result = Find(session, q, 0, 1, false, NameMatchMode.Exact, true);
 
 					if (result.Items.Any())
 						return result.Items.First();

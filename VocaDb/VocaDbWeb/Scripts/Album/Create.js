@@ -7,13 +7,13 @@ function initPage() {
 		var term2 = $("#nameRomaji").val();
 		var term3 = $("#nameEnglish").val();
 
-		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3 }, function (result) {
+		$.post("../../Album/FindDuplicate", { term1: term1, term2: term2, term3: term3 }, function (result) {
 
 			if (result != "Ok") {
-				$("#duplicateSongWarning").html(result);
-				$("#duplicateSongWarning").show();
+				$("#duplicateEntryWarning").html(result);
+				$("#duplicateEntryWarning").show();
 			} else {
-				$("#duplicateSongWarning").hide();
+				$("#duplicateEntryWarning").hide();
 			}
 
 		});
@@ -32,7 +32,7 @@ function initPage() {
 
 		}
 
-		$.post("../../Artist/FindJson", { term: findTerm, artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown" }, function (results) {
+		$.post("../../Artist/FindJson", { term: findTerm }, function (results) {
 
 			$(artistList).empty();
 
@@ -61,7 +61,7 @@ function initPage() {
 			addRow.before(row);
 			$("input#artistAddName").val("");
 			$("#artistAddList").empty();
-			
+
 		});
 
 	});

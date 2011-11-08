@@ -45,7 +45,7 @@ namespace VocaDb.Web.Models.Song {
 
 			return new CreateSongContract {
 				Artists = this.Artists.ToArray(),
-				Names = LocalizedStringHelper.SkipNull(NameOriginal, NameRomaji, NameEnglish).ToArray(),
+				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray(),
 				PVUrl = this.PVUrl,
 				ReprintPVUrl = this.ReprintPVUrl,
 				SongType = this.SongType

@@ -26,9 +26,17 @@ namespace VocaDb.Web.Controllers
     		get { return MvcApplication.Services.Artists; }
     	}
 
+		[HttpPost]
+		public PartialViewResult CreateArtistContractRow(int artistId) {
+
+			var artist = Service.GetArtist(artistId);
+
+			return PartialView("ArtistContractRow", artist);
+
+		}
+
         //
         // GET: /Artist/
-
 		public ActionResult Index(string filter, ArtistType? artistType, int? page) {
 
 			var result = Service.FindArtists(filter, 
@@ -40,6 +48,21 @@ namespace VocaDb.Web.Controllers
 			return View(model);
 
         }
+
+		[HttpPost]
+		public ActionResult FindDuplicate(string term1, string term2, string term3) {
+
+			var result = Service.FindByNames(new[] { term1, term2, term3 });
+
+			if (result != null) {
+				return PartialView("DuplicateEntryMessage",
+					new KeyValuePair<string, string>(result.Name,
+						Url.Action("Details", new { id = result.Id })));
+			} else {
+				return Content("Ok");
+			}
+
+		}
 
 		public ActionResult FindJson(string term, string artistTypes) {
 
@@ -90,7 +113,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult Create(Create model) {
 
-			if (string.IsNullOrEmpty(model.NameOriginal) && string.IsNullOrEmpty(model.NameRomaji) && string.IsNullOrEmpty(model.NameEnglish))
+			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
 				ModelState.AddModelError("Name", "Need at least one name.");
 
 			if (!ModelState.IsValid)
