@@ -4,7 +4,7 @@ using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Mapping.Tags {
 
-	public class TagUsageMap : ClassMap<TagUsage> {
+	/*public class TagUsageMap : ClassMap<TagUsage> {
 
 		public TagUsageMap() {
 
@@ -15,20 +15,6 @@ namespace VocaDb.Model.Mapping.Tags {
 
 		}
 
-	}
-
-	public class AlbumTagUsageMap : SubclassMap<AlbumTagUsage> {
-
-		public AlbumTagUsageMap() {
-
-			Table("AlbumTagUsages");
-
-			References(m => m.Album).Not.Nullable();
-
-			HasMany(m => m.Votes).Inverse().Cascade.All();
-
-		}
-
-	}
+	}*/
 
 }

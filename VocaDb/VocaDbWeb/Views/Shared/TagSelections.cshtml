@@ -4,11 +4,14 @@
 
 	<div id="tagSelections">
 	@foreach (var tagSelection in Model) {
-		<span class="tag">
-		@Html.CheckBox("tagSelection_" + tagSelection.TagName, tagSelection.Selected, new { @class = "tagSelection", id = "tagSelection_" + tagSelection.TagName })
-		@Html.Label("tagSelection_" + tagSelection.TagName, tagSelection.TagName)
-		</span>
+		Html.RenderPartial("TagSelection", tagSelection);
 	}
 	</div>
+
+	<p>
+		Add tag:
+		<input type="text" id="newTagName" maxlength="30" />
+		<input type="button" id="addNewTag" value="Add" />
+	</p>
 
 </div>

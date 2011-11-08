@@ -8,7 +8,7 @@ using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Mapping.Tags {
 
-	public class TagVoteMap : ClassMap<TagVote> {
+	/*public class TagVoteMap : ClassMap<TagVote> {
 
 		public TagVoteMap() {
 
@@ -18,17 +18,7 @@ namespace VocaDb.Model.Mapping.Tags {
 
 		}
 
-	}
+	}*/
 
-	public class AlbumTagVoteMap : SubclassMap<AlbumTagVote> {
-
-		public AlbumTagVoteMap() {
-
-			Table("AlbumTagVotes");
-			References(m => m.Usage).Not.Nullable();
-
-		}
-
-	}
 
 }

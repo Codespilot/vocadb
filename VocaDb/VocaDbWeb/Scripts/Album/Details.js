@@ -1,4 +1,34 @@
 ﻿
+function initDialog() {
+
+	$("input.tagSelection").button();
+
+	$("input#addNewTag").click(function () {
+
+		var name = $("#newTagName").val();
+
+		if (name == "")
+			return false;
+
+		$("#newTagName").val("")
+
+		$.post("../../Tag/Create", { name: name }, function (response) {
+
+			if (!response.Successful) {
+				alert(response.Result);
+			} else {
+				$("#tagSelections").append(response.Result);
+				$("input.tagSelection").button();
+			}
+
+		});
+
+		return false;
+
+	});
+
+}
+
 function saveTagSelections() {
 
 	
@@ -99,13 +129,13 @@ function initPage(albumId) {
 
 			$("#editTagsContent").html(content);
 
-			$("input.tagSelection").button();
+			initDialog();
 
 			$("#editTagsPopup").dialog("open");
 
 		});
 
-		return false;		
+		return false;
 
 	});
 
