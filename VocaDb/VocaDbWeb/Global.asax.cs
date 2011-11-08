@@ -18,6 +18,7 @@ namespace VocaDb.Web {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
 		private static ISessionFactory sessionFactory;
+		private const string sessionFactoryLock = "lock";
 
 		public static LoginManager LoginManager {
 			get {
@@ -34,8 +35,10 @@ namespace VocaDb.Web {
 		public static ISessionFactory SessionFactory {
 			get {
 
-				if (sessionFactory == null)
-					sessionFactory = DatabaseConfiguration.BuildSessionFactory();
+				lock (sessionFactoryLock) {
+					if (sessionFactory == null)
+						sessionFactory = DatabaseConfiguration.BuildSessionFactory();
+				}
 
 				return sessionFactory;
 
