@@ -6,11 +6,18 @@ using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Controllers
 {
     public class TagController : ControllerBase
     {
+
+		private TagService Service {
+			get {
+				return MvcApplication.Services.Tags;
+			}
+		}
 
 		public ActionResult Create(string name) {
 
@@ -28,9 +35,25 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Details(string id) {
+
+			var contract = Service.GetTagDetails(id);
+
+			return View(contract);
+
+		}
+
 		public string[] Find(string term) {
 
-			return MvcApplication.Services.Other.FindTags(term);
+			return Service.FindTags(term);
+
+		}
+
+		public ActionResult Index() {
+
+			var tagNames = Service.GetTagNames();
+
+			return View(tagNames);
 
 		}
 

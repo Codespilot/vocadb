@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
+    <Compile Include="DataContracts\Albums\AlbumTagUsageContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithArchivedVersions.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithCoverPictureContract.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
+    <Compile Include="DataContracts\Tags\TagDetailsContract.cs" />
     <Compile Include="DataContracts\Tags\TagSelectionContract.cs" />
     <Compile Include="DataContracts\ArchivedObjectVersionContract.cs" />
     <Compile Include="DataContracts\ArchivedTranslatedStringContract.cs" />
@@ -270,6 +272,7 @@
     <Compile Include="Service\MikuDbAlbumService.cs" />
     <Compile Include="Service\MikuDb\AlbumImporter.cs" />
     <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
+    <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\RegexLinkMatcher.cs" />
     <Compile Include="Service\Helpers\SessionHelper.cs" />

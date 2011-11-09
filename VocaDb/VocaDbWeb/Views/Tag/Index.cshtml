@@ -1,0 +1,11 @@
+﻿@model string[]
+
+@{
+    ViewBag.Title = "Tags";
+}
+
+@foreach (var tagName in Model) {
+<span class="tag">
+	@Html.ActionLink(tagName, "Details", new { id = tagName });
+</span>
+}
