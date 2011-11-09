@@ -722,7 +722,7 @@ namespace VocaDb.Model.Service {
 				//var userId = PermissionContext.LoggedUser.Id;
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("tagging " + album);
+				AuditLog("tagging " + album, session, user);
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 
