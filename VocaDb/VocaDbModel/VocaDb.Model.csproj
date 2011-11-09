@@ -108,6 +108,7 @@
     <Compile Include="DataContracts\Security\AuditLogEntryContract.cs" />
     <Compile Include="DataContracts\PVs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
+    <Compile Include="DataContracts\Tags\TagUsageContract.cs" />
     <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
     <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
@@ -139,11 +140,16 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\CaseInsensitiveStringComparer.cs" />
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />
+    <Compile Include="Domain\Tags\ITagFactory.cs" />
+    <Compile Include="Domain\Tags\ITagUsageFactory.cs" />
+    <Compile Include="Domain\Tags\ITagVoteFactory.cs" />
     <Compile Include="Domain\Tags\Tag.cs" />
+    <Compile Include="Domain\Tags\TagManager.cs" />
     <Compile Include="Domain\Tags\TagUsage.cs" />
     <Compile Include="Domain\Tags\TagVote.cs" />
     <Compile Include="Domain\Users\PasswordResetRequest.cs" />
@@ -258,6 +264,7 @@
     <Compile Include="Service\BBCode\BBElement.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
+    <Compile Include="Service\Helpers\TagFactory.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
     <Compile Include="Service\Helpers\UserMessageMailer.cs" />
     <Compile Include="Service\MikuDbAlbumService.cs" />

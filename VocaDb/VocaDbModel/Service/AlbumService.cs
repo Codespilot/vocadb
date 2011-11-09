@@ -21,6 +21,8 @@ using VocaDb.Model.Domain.Artists;
 using System.Drawing;
 using System;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Service {
 
@@ -706,6 +708,32 @@ namespace VocaDb.Model.Service {
 			
 		}
 
+		public TagUsageContract[] SaveTags(int albumId, string[] tags) {
+
+			ParamIs.NotNull(() => tags);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				tags = tags.Distinct(new CaseInsensitiveStringComparer()).ToArray();
+
+				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
+				//var userId = PermissionContext.LoggedUser.Id;
+				var album = session.Load<Album>(albumId);
+
+				AuditLog("tagging " + album);
+
+				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
+
+				album.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new AlbumTagUsageFactory(session, album));
+
+				return album.Tags.Usages.Select(t => new TagUsageContract(t)).ToArray();
+
+			});
+
+		}
+
 		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, PictureDataContract pictureData) {
 
 			ParamIs.NotNull(() => properties);
@@ -745,6 +773,27 @@ namespace VocaDb.Model.Service {
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 
 			});
+
+		}
+
+	}
+
+	public class AlbumTagUsageFactory : ITagUsageFactory<AlbumTagUsage> {
+
+		private Album album;
+		private ISession session;
+
+		public AlbumTagUsageFactory(ISession session, Album album) {
+			this.session = session;
+			this.album = album;
+		}
+
+		public AlbumTagUsage CreateTagUsage(Tag tag) {
+
+			var usage = new AlbumTagUsage(album, tag);
+			session.Save(usage);
+
+			return usage;
 
 		}
 

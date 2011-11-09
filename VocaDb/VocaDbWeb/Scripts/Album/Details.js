@@ -3,6 +3,10 @@ function initDialog() {
 
 	$("input.tagSelection").button();
 
+	$("input#newTagName").autocomplete({
+		source: "../../Tag/Find"
+	});
+
 	$("input#addNewTag").click(function () {
 
 		var name = $("#newTagName").val();
@@ -31,7 +35,21 @@ function initDialog() {
 
 function saveTagSelections() {
 
-	
+	var tagNames = new Array();
+
+	$("input.tagSelection:checked").each(function () {
+		var name = getId(this);
+		tagNames.push(name);
+	});
+
+	var tagNamesStr = tagNames.join(",");
+	var albumId = $("#");
+
+	$.post("../../Album/TagSelections", { albumId: albumId, tagNames: tagNamesStr }, function (content) {
+
+		$("#tagList").html(content);
+
+	});
 
 }
 
@@ -127,6 +145,7 @@ function initPage(albumId) {
 
 		$.get("../../Album/TagSelections", { albumId: albumId }, function (content) {
 
+			$("#editTagsAlbumId").val(albumId);
 			$("#editTagsContent").html(content);
 
 			initDialog();

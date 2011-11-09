@@ -6,6 +6,12 @@ namespace VocaDb.Model.Domain.Tags {
 
 		private User user;
 
+		public TagVote() { }
+
+		public TagVote(User user) {
+			User = user;
+		}
+
 		public virtual long Id { get; set; }
 
 		public abstract TagUsage UsageBase { get; }

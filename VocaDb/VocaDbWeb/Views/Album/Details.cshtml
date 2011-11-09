@@ -19,12 +19,8 @@
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
 
-@if (Login.Manager.IsLoggedIn) {
-	<a href="#" id="editTags">Edit tags</a>
-}
-
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
-@Html.ActionLink("Download tags as CSV", "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
+@Html.ActionLink("Download track info as CSV", "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
 }
 
 <div id="tabs">
@@ -104,6 +100,18 @@
 				<td>
 					@Model.DiscType<br />
 				</td>	
+			</tr>
+
+			<tr>
+				<td>Tags</td>
+				<td>
+					<span id="tagList">
+						@{ Html.RenderPartial("TagList", Model.Tags); }
+					</span>
+					@if (Login.Manager.IsLoggedIn) {
+						<a href="#" id="editTags">Edit tags</a>
+					}				
+				</td>
 			</tr>
 
 			@if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
@@ -194,6 +202,8 @@
 </div>
 
 <div id="editTagsPopup" style="display:none;" title="Tags">
+
+	<input type="hidden" id="editTagsAlbumId" />
 
 	<div id="editTagsContent"></div>
 
