@@ -2,6 +2,8 @@
 
 <div class="trackProperties">
 
+	<p>Tags may contain only alphanumeric characters and underscores.</p>
+
 	<div id="tagSelections">
 	@foreach (var tagSelection in Model) {
 		Html.RenderPartial("TagSelection", tagSelection);

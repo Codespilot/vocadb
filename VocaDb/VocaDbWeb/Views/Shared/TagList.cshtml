@@ -1,4 +1,4 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Tags.TagUsageContract[]
 
-@Html.LinkList(Model, t => Html.ActionLink(t.TagName, "Details", "Tag", new { id = t.TagName }, null))
+@Html.LinkList(Model, t => Html.ActionLink(t.TagName + " (" + t.Count + ")", "Details", "Tag", new { id = t.TagName }, null))
