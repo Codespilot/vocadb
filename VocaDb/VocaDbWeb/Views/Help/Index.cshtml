@@ -24,14 +24,14 @@
 			<p>You can browse and search for Vocaloid songs, producers, circles, PV's and song lyrics.</p>
 			<p>Register (it's free and fast) to be able to:</p>
 			<ul type="circle">
-				<li><a href="#" onclick="seecomments(0);" title="">add information to VocaDB</a></li>
+				<li><a href="#" onclick="guidelines();" title="">add information to VocaDB</a></li>
 				<li>add songs to your favourites</li>
 				<li>list personal collections of Vocaloid albums</li>
 				<li>more in the future</li>
 			</ul>
 		
 		<h4 id="contribute">How can I report errors and add information to VocaDB?</h4>
-			<p>If you have found an incorrect or missing information, you can either <a href="#contactus" title="">contact us</a> or register and <a href="#" onclick="seecomments(0);" title="">fix/add it</a> yourself (which should be much faster and more effective).</p>
+			<p>If you have found an incorrect or missing information, you can either <a href="#contactus" title="">contact us</a> or register and <a href="#" onclick="guidelines();" title="">fix/add it</a> yourself (which should be much faster and more effective).</p>
 			
 		<h4 id="translations">VocaDB is looking for translators!</h4>
 			<p>We are looking for help with translation of VocaDB interface to Japanese, as well as to other languages! If you can contribute to translation, please <a href="#contactus" title="">contact us</a>. Thanks!</p>
@@ -154,12 +154,34 @@
 
 <script type="text/javascript">
 
+	script type="text/javascript">
+	function aboutvocadb()   { $("#tabs").tabs('select', 0); }
+	function aboutvocaloid() { $("#tabs").tabs('select', 1); }
+	function guidelines()    { $("#tabs").tabs('select', 2); }
+
 	$(function () {
-		$("#tabs").tabs();
+		var tabs = $("#tabs").tabs();
+
+		var hsh = window.location.search;
+		var done = false;
+
+		if (hsh.length > 3 && (hsh.indexOf("+") > 1)) {
+			// 4 minimum chars in search str are "?a+b"
+			var hsh_arr = hsh.substr(1).split('+', 2);
+			
+			if (hsh_arr[1].length > 0) {
+				switch (hsh_arr[0]) {
+					case 'vocadb':     aboutvocadb(); break;
+					case 'vocaloid':   aboutvocaloid(); break;
+					case 'guidelines': guidelines(); break;
+					default: break;
+				}
+
+				document.getElementById(hsh_arr[1]).scrollIntoView(); // TODO: check & highlight
+			}
+		}
 	});
-	
-	function seecomments() {
-		$("#tabs").tabs('select', 2);
-	}
+
+</script>
 
 </script>
