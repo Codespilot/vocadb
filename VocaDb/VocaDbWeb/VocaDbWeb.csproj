@@ -663,6 +663,7 @@
     <Content Include="Views\Song\SongLinkEditRow.cshtml" />
     <Content Include="Views\Shared\TagSelections.cshtml" />
     <Content Include="Views\Shared\TagSelection.cshtml" />
+    <Content Include="Views\Shared\TagList.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

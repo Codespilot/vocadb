@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -22,7 +23,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<PVForAlbum> pvs = new List<PVForAlbum>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
-		private Iesi.Collections.Generic.ISet<AlbumTagUsage> tags = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
+		private TagManager<AlbumTagUsage> tags = new TagManager<AlbumTagUsage>();
 		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
@@ -188,7 +189,7 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> Tags {
+		public virtual TagManager<AlbumTagUsage> Tags {
 			get { return tags; }
 			set {
 				ParamIs.NotNull(() => value);

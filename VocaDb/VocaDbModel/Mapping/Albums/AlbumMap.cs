@@ -44,12 +44,15 @@ namespace VocaDb.Model.Mapping.Albums {
 				});
 			});
 
+			Component(m => m.Tags, c => {
+				c.HasMany(m => m.Usages).Inverse().Cascade.All();
+			});
+
 			HasMany(m => m.AllArtists).Table("ArtistsForAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("TrackNumber");
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Comments).Inverse().Cascade.All().OrderBy("Created");
 			HasMany(m => m.PVs).Inverse().Cascade.All();
-			HasMany(m => m.Tags).Inverse().Cascade.All();
 			HasMany(m => m.UserCollections).Inverse();
 			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.All();
 

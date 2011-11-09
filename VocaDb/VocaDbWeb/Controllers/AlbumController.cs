@@ -361,9 +361,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public void TagSelections(int albumId, string tagNames) {
+		public PartialViewResult TagSelections(int albumId, string tagNames) {
 
+			string[] tagNameParts = (tagNames != null ? tagNames.Split(',') : new string[] { });
 
+			var tagUsages = Service.SaveTags(albumId, tagNameParts);
+
+			return PartialView("TagList", tagUsages);
 
 		}
 

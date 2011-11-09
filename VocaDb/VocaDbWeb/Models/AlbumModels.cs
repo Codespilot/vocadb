@@ -18,6 +18,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
+using VocaDb.Model.DataContracts.Tags;
 
 namespace VocaDb.Web.Models {
 
@@ -173,6 +174,7 @@ namespace VocaDb.Web.Models {
 			Name = contract.Name;
 			PVs = contract.PVs;
 			Songs = contract.Songs;
+			Tags = contract.Tags;
 			UserHasAlbum = contract.UserHasAlbum;
 			WebLinks = contract.WebLinks;
 
@@ -223,6 +225,8 @@ namespace VocaDb.Web.Models {
 		public OptionalDateTimeContract ReleaseDate { get; set; }
 
 		public SongInAlbumContract[] Songs { get; set; }
+
+		public TagUsageContract[] Tags { get; set; }
 
 		public bool UserHasAlbum { get; set; }
 

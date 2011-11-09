@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Tags {
 
@@ -28,6 +30,8 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public abstract IEnumerable<TagVote> VotesBase { get; }
 
+		public abstract TagVote CreateVote(User user);
+
 		public virtual bool Equals(TagUsage another) {
 
 			if (another == null)
@@ -50,6 +54,16 @@ namespace VocaDb.Model.Domain.Tags {
 		public override int GetHashCode() {
 			return (Tag.Name + "_" + Entry.EntryType + Entry.Id).GetHashCode();
 		}
+
+		public virtual bool HasVoteByUser(User user) {
+
+			ParamIs.NotNull(() => user);
+
+			return VotesBase.Any(v => v.User.Equals(user));
+
+		}
+
+		public abstract TagVote RemoveVote(User user);
 
 	}
 

@@ -7,6 +7,17 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public static readonly Regex TagNameRegex = new Regex(@"[\w]+");
 
+		public Tag() { }
+
+		public Tag(string name) {
+
+			if (!TagNameRegex.IsMatch(name))
+				throw new ArgumentException("Tag name must contain only word characters", "name");
+
+			Name = name;
+
+		}
+
 		public virtual string Name { get; set; }
 
 		public virtual bool Equals(Tag tag) {
@@ -14,7 +25,7 @@ namespace VocaDb.Model.Domain.Tags {
 			if (tag == null)
 				return false;
 
-			return tag.Name.Equals(Name);
+			return tag.Name.Equals(Name, StringComparison.InvariantCultureIgnoreCase);
 
 		}
 
@@ -23,7 +34,7 @@ namespace VocaDb.Model.Domain.Tags {
 		}
 
 		public override int GetHashCode() {
-			return Name.GetHashCode();
+			return Name.ToLowerInvariant().GetHashCode();
 		}
 
 	}

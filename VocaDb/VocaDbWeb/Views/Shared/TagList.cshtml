@@ -1,0 +1,3 @@
+﻿@model VocaDb.Model.DataContracts.Tags.TagUsageContract[]
+
+@string.Join(", ", Model.Select(t => t.TagName + " (" + t.Count + ")"))
