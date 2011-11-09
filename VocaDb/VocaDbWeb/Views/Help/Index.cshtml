@@ -51,7 +51,7 @@
 			<a href="http://code.google.com/p/vocadb" title="">Google code</a><br />
 		<br />
 		<br />
-		<span class="about-disclaimer">Background illustration by <a href="http://www.pixiv.net/member_illust.php?mode=medium&illust_id=21869578" title="">72</a> | VocaDB interface is powered by <a href="http://jquery.com/" title="">jQuery</a> and <a href="http://jqueryui.com" title="">jQuery UI</a></span>
+		<span class="about-disclaimer">Background illustration by <a href="http://www.pixiv.net/member_illust.php?mode=medium&illust_id=21869578" title="">72</a>  |  VocaDB interface is powered by <a href="http://jquery.com/" title="">jQuery</a> and <a href="http://jqueryui.com" title="">jQuery UI</a></span>
 	</div>
 
 	<div id="aboutvocaloid">
@@ -103,28 +103,52 @@
 	</div>
 	
 	<div id="guidelines">
+	<div id="guidelines">
 		<h4>How can I add new producers, albums and songs?</h4>
 			<p>Register and use links in main navigation panel or buttons in producer, album and song list pages.</p>
 
-		<h4 id="guidelineintro">Main principles</h4>
+		<h4 id="guidemain">Main principles</h4>
 			<ul>
 				<li>No duplication of artists or albums</li>
 				<li>One name per field (no composite names of songs or producers)</li>
+				<li>Only Vocaloid-related music</li>
 			</ul>
 
-		<h4 id="addingalbums">Editing producers</h4>
+		<h4 id="guideproducers">Producers</h4>
 		<p>Name languages:</p>
 			<ul>
 				<li>"Original" is for names in producer's native language (Japanese, English, Spanish, Korean etc).</li>
-				<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji)</li>
+				<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji).</li>
 			</ul>
 			<p><input type="text" class="incorrect-example-input"value="cosMo@Bousou-P(暴走P)" size="23" readonly /> is incorrect: every field should contain only one name.</p>
-		<h4 id="addingsongs">Editing albums</h4>
-			<p>To assign producers and vocalists to songs in album, add artists to album first and then click each added song in song list to show a quick selection dialog.</p>
+		<h4 id="guidegroups">Artist types</h4>
+			<ul>
+				<li>"Producer" - default type for composer.</li>
+				<li>"Circle" - group that sells albums only at doujin events (Comiket or Vocaloid Master).</li>
+				<li>"Other group" - group that releases albums via Labels.</li>
+				<li>"Other vocalist" - human singers (NND vocalists).</li>
+			</ul>
+		<h4 id="guidealbums">Albums</h4>
+			<p>To assign producers and vocalists to songs in album, add artists to album first and then click on each added song in song list to show a quick selection dialog.</p>
+			<p>Every album should be related to Vocaloid music by meeting one of following conditions:</p>
+			<ul>
+				<li>being done by a producer that created Vocaloid albums before</li>
+				<li>having at least one song with synthesized vocal</li>
+				<li>having at least one cover of an originally Vocaloid song</li>
+			</ul>
+			<p>Totally unrelated albums may be deleted from VocaDB.</p>
 
-		<h4 id="addingsongs">Songs</h4>
+		<h4 id="guidepv">Songs</h4>
 			<p>Song entries contain information about authors and vocalists (see "Artists" tab), PVs and lyrics.</p>
 			<p><input type="text" class="incorrect-example-input" value="『ミク×リン×レン』 ReAct 『オリジナル曲PV』" size="40" readonly /> is incorrect: all additional info (vocalists, authors, PV) should be added to appropriate fields. A song title should contain nothing more than the name itself.</p>
+			
+		<h4 id="guidepv">PV types</h4>
+		<ul>
+			<li>"Original" - the first video with that song, usually uploaded by author himself (may lack any animation).</li>
+			<li>"Reprint" - should be identical to "Original"; most often it's a YouTube reprint of original NND video.</li>
+			<li>"Other" - any following PV with animation, MMD versions etc. May be much better known than original one.</li>
+		</ul>
+		
 	</div>
 </div>
 
