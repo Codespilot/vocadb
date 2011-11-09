@@ -1,0 +1,14 @@
+﻿@model VocaDb.Model.DataContracts.Tags.TagDetailsContract
+
+@{
+    ViewBag.Title = "Tag details - " + Model.Name;
+	ViewBag.Parents = new[] { Html.ActionLink("Tags", "Index") };	
+}
+
+<h2>Albums</h2>
+
+<ul>
+	@foreach (var usage in Model.Albums) {
+		<li>@Html.ActionLink(usage.Album.Name, "Details", "Album", new { id = usage.Album.Id }, null)</li>
+	}
+</ul>

@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.Domain.Tags {
 
 	public class Tag : IEquatable<Tag> {
 
 		public static readonly Regex TagNameRegex = new Regex(@"[\w]+");
+
+		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
 
 		public Tag() { }
 
@@ -16,6 +19,14 @@ namespace VocaDb.Model.Domain.Tags {
 
 			Name = name;
 
+		}
+
+		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> AlbumTagUsages {
+			get { return albumTagUsages; }
+			set {
+				ParamIs.NotNull(() => value);
+				albumTagUsages = value;
+			}
 		}
 
 		public virtual string Name { get; set; }

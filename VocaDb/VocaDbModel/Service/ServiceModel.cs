@@ -55,6 +55,12 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		public TagService Tags {
+			get {
+				return new TagService(sessionFactory, permissionContext);
+			}
+		}
+
 		public UserService Users {
 			get {
 				return new UserService(sessionFactory, permissionContext);

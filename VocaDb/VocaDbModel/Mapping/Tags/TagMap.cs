@@ -9,6 +9,8 @@ namespace VocaDb.Model.Mapping.Tags {
 
 			Id(m => m.Name).GeneratedBy.Assigned();
 
+			HasMany(m => m.AlbumTagUsages).Inverse();
+
 		}
 
 	}
