@@ -43,9 +43,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public string[] Find(string term) {
+		public ActionResult Find(string term) {
 
-			return Service.FindTags(term);
+			return Json(Service.FindTags(term));
 
 		}
 

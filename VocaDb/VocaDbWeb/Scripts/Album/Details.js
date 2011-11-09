@@ -19,7 +19,7 @@ function initDialog() {
 		$.post("../../Tag/Create", { name: name }, function (response) {
 
 			if (!response.Successful) {
-				alert(response.Result);
+				alert(response.Message);
 			} else {
 				$("#tagSelections").append(response.Result);
 				$("input.tagSelection").button();
@@ -38,18 +38,20 @@ function saveTagSelections() {
 	var tagNames = new Array();
 
 	$("input.tagSelection:checked").each(function () {
-		var name = getId(this);
+		var name = $(this).parent().find("input.tagName").val();
 		tagNames.push(name);
 	});
 
 	var tagNamesStr = tagNames.join(",");
-	var albumId = $("#");
+	var albumId = $("#editTagsAlbumId").val();
 
 	$.post("../../Album/TagSelections", { albumId: albumId, tagNames: tagNamesStr }, function (content) {
 
 		$("#tagList").html(content);
 
 	});
+
+	$("#editTagsPopup").dialog("close");
 
 }
 

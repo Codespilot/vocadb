@@ -26,9 +26,9 @@ namespace VocaDb.Model.Service {
 				string[] tags;
 
 				if (query.Length < 3)
-					tags = session.Query<Tag>().Where(t => t.Name == query).Take(10).Select(t => t.Name).ToArray();
+					tags = session.Query<Tag>().Where(t => t.Name == query).Take(10).ToArray().Select(t => t.Name).ToArray();
 				else
-					tags = session.Query<Tag>().Where(t => t.Name.Contains(query)).Take(10).Select(t => t.Name).ToArray();
+					tags = session.Query<Tag>().Where(t => t.Name.Contains(query)).Take(10).ToArray().Select(t => t.Name).ToArray();
 
 				return tags;
 
