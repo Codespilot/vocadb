@@ -17,6 +17,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public Tag CreateTag(string name) {
 			var tag = new Tag(name);
+			session.Save(tag);
 			return tag;
 		}
 

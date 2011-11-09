@@ -45,7 +45,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			});
 
 			Component(m => m.Tags, c => {
-				c.HasMany(m => m.Usages).Inverse().Cascade.All();
+				c.HasMany(m => m.Usages).Table("AlbumTagUsages").KeyColumn("[Album]").Inverse().Cascade.AllDeleteOrphan();
 			});
 
 			HasMany(m => m.AllArtists).Table("ArtistsForAlbums").Inverse().Cascade.All();

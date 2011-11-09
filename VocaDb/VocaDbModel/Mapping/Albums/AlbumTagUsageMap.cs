@@ -11,7 +11,8 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Map(m => m.Count).Not.Nullable();
 			References(m => m.Album).Not.Nullable();
-			HasMany(m => m.Votes).Inverse().Cascade.All();
+			References(m => m.Tag).Not.Nullable();
+			HasMany(m => m.Votes).KeyColumn("[Usage]").Inverse().Cascade.All();
 
 		}
 
