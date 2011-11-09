@@ -112,6 +112,10 @@ function initPage(albumId) {
 
 	});
 
+	$("input#artistAddName").bind("paste", function (e) {
+		$(this).trigger("keyup");
+	});
+
 	$("#artistAddBtn").click(function () {
 
 		var findTerm = $("input#artistAddName").val();
