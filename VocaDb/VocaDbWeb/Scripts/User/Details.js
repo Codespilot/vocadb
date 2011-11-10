@@ -5,6 +5,7 @@ function initPage(userId) {
 
 	$("#mySettingsLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#messagesLink").button({ icons: { primary: 'ui-icon-mail-closed'} });
+	$("#composeMessageLink").button({ icons: { primary: 'ui-icon-mail-closed'} });
 	$("#editUserLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#disableUserLink").button({ icons: { primary: 'ui-icon-close'} });
 
