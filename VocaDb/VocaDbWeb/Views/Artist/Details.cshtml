@@ -17,7 +17,7 @@
 }
 
 @if (Model.Deleted) {
-	Helpers.NotificationPanel("This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.");
+	@Helpers.NotificationPanel("This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.")
 }
 
 <div id="tabs">
