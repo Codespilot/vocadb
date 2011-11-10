@@ -341,7 +341,7 @@ namespace VocaDb.Model.Service {
 				var comment = session.Load<ArtistComment>(commentId);
 				var user = GetLoggedUser(session);
 
-				AuditLog("deleting comment " + comment, session, user);
+				AuditLog("deleting " + comment, session, user);
 
 				if (!user.Equals(comment.Author))
 					PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);

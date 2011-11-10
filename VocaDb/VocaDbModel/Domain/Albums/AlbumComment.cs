@@ -46,5 +46,9 @@ namespace VocaDb.Model.Domain.Albums {
 			return base.GetHashCode();
 		}
 
+		public override string ToString() {
+			return string.Format("comment [{0}] for " + Album, Id);
+		}
+
 	}
 }
