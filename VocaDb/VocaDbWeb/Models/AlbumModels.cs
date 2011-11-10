@@ -169,6 +169,7 @@ namespace VocaDb.Web.Models {
 
 			AdditionalNames = contract.AdditionalNames;
 			Description = contract.Description;
+			Deleted = contract.Deleted;
 			DiscType = contract.DiscType;
 			Id = contract.Id;
 			Name = contract.Name;
@@ -201,6 +202,8 @@ namespace VocaDb.Web.Models {
 		public string CatNum { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Circles { get; set; }
+
+		public bool Deleted { get; set; }
 
 		public string Description { get; set; }
 

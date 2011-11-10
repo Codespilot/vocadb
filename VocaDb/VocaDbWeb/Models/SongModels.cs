@@ -30,6 +30,7 @@ namespace VocaDb.Web.Models {
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions;
+			Deleted = contract.Deleted;
 			Id = contract.Song.Id;
 			IsFavorited = contract.IsFavorited;
 			Lyrics = contract.Lyrics;
@@ -56,6 +57,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Alternate versions")]
 		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+
+		public bool Deleted { get; set; }
 
 		public int Id { get; set; }
 

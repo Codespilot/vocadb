@@ -16,6 +16,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			: base(artist, languagePreference) {
 
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
+			Deleted = artist.Deleted;
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
@@ -28,6 +29,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public string AllNames { get; set; }
+
+		[DataMember]
+		public bool Deleted { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }
