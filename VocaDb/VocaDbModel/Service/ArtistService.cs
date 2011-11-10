@@ -58,6 +58,8 @@ namespace VocaDb.Model.Service {
 
 			} else {
 
+				query = query.Trim();
+
 				var directQ = session.Query<Artist>()
 					.Where(s => !s.Deleted);
 
@@ -277,6 +279,8 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => permissionContext);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			name = name.Trim();
 
 			return HandleTransaction(session => {
 
