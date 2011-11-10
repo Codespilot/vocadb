@@ -322,18 +322,18 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => message);
 
-			message = message.Trim();
-
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			message = message.Trim();
 
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
 				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 
-				AuditLog("creating comment for " + album + ": '" + message.Substring(0, Math.Min(message.Length, 30)) + "'", session, agent.User);
+				AuditLog("creating comment for " + album + ": '" + message.Substring(0, Math.Min(message.Length, 40)) + "'", session, agent.User);
 
-				var comment = album.CreateComment(message.Trim(), agent);
+				var comment = album.CreateComment(message, agent);
 				session.Save(comment);
 
 				return new CommentContract(comment);
@@ -401,12 +401,8 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				if (PermissionContext.LoggedUser == null)
-					throw new NotAllowedException("Must be logged in");
-
 				var comment = session.Load<AlbumComment>(commentId);
-
-				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
+				var user = GetLoggedUser(session);
 
 				AuditLog("deleting comment " + comment, session, user);
 
@@ -660,7 +656,7 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.Names.UpdateSortNames();
 
-				Archive(session, source, "Merged to '" + target.DefaultName + "'");
+				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
 				Archive(session, target, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);
@@ -719,16 +715,15 @@ namespace VocaDb.Model.Service {
 				tags = tags.Distinct(new CaseInsensitiveStringComparer()).ToArray();
 
 				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
-				//var userId = PermissionContext.LoggedUser.Id;
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("tagging " + album, session, user);
+				AuditLog("tagging " + album + " with " + string.Join(", ", tags), session, user);
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 
 				album.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new AlbumTagUsageFactory(session, album));
 
-				return album.Tags.Usages.Select(t => new TagUsageContract(t)).ToArray();
+				return album.Tags.Usages.OrderByDescending(u => u.Count).Select(t => new TagUsageContract(t)).ToArray();
 
 			});
 

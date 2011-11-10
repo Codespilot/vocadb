@@ -688,7 +688,7 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.UpdateNicoId();
 
-				Archive(session, source, "Merged to '" + target.DefaultName + "'");
+				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
 				Archive(session, target, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);

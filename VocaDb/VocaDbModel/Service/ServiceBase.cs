@@ -24,6 +24,15 @@ namespace VocaDb.Model.Service {
 
 		protected User GetLoggedUser(ISession session) {
 
+			if (!PermissionContext.IsLoggedIn)
+				throw new InvalidOperationException("Must be logged in");
+
+			return session.Load<User>(PermissionContext.LoggedUser.Id);
+
+		}
+
+		protected User GetLoggedUserOrDefault(ISession session) {
+
 			return (PermissionContext.LoggedUser != null ? session.Load<User>(PermissionContext.LoggedUser.Id) : null);
 
 		}

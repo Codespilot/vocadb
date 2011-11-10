@@ -6,6 +6,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using System;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Artists {
 
@@ -13,6 +14,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
+		private IList<ArtistComment> comments = new List<ArtistComment>();
 		private string description;
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
@@ -97,6 +99,14 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public virtual ArtistType ArtistType { get; set; }
+
+		public virtual IList<ArtistComment> Comments {
+			get { return comments; }
+			set {
+				ParamIs.NotNull(() => value);
+				comments = value;
+			}
+		}
 
 		public virtual bool Deleted { get; set; }
 
@@ -219,6 +229,18 @@ namespace VocaDb.Model.Domain.Artists {
 			Version++;
 
 			return archived;
+
+		}
+
+		public virtual ArtistComment CreateComment(string message, User author) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+			ParamIs.NotNull(() => author);
+
+			var comment = new ArtistComment(this, message, author);
+			Comments.Add(comment);
+
+			return comment;
 
 		}
 

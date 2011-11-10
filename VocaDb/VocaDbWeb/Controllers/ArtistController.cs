@@ -35,6 +35,22 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public PartialViewResult CreateComment(int entryId, string message) {
+
+			var comment = Service.CreateComment(entryId, message);
+
+			return PartialView("Comment", comment);
+
+		}
+
+		[HttpPost]
+		public void DeleteComment(int commentId) {
+
+			Service.DeleteComment(commentId);
+
+		}
+
         //
         // GET: /Artist/
 		public ActionResult Index(string filter, ArtistType? artistType, int? page) {
