@@ -25,6 +25,8 @@
 	<ul>
 		<li><a href="#basicInfoTab">Basic info</a></li>
 		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">Discussion</a></li>
+		<li><a href="@Url.Action("Albums", "Album", new { id = Model.Id })" title="All albums">All albums</a></li>
+		<li><a href="@Url.Action("Songs", "Album", new { id = Model.Id })" title="All songs">All songs</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -87,30 +89,25 @@
 		@if (Model.LatestAlbums.Any()) {
 		<h3>Recently added albums</h3>
 		<ul>
-			@foreach (var album in Model.LatestAlbums) {
-				<li>
-					@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
-					(added @album.CreateDate).
-				</li>
-			}
+			@{ Html.RenderPartial("Albums", Model.LatestAlbums); }  
 		</ul>
 		}
 
 		@if (Model.LatestSongs.Any()) {
 		<h3>Recently added songs</h3>
 		<ul>
-			@foreach (var song in Model.LatestSongs) {
-				<li>
-					@Html.PVServiceIcons(song.PVServices)
-					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
-					(added @song.CreateDate).
-				</li>
-		 }
+			@{ Html.RenderPartial("Songs", Model.LatestSongs); }  
 		</ul>	
 		}
 	</div>
 
 	<div id="Discussion">
+	</div>
+
+	<div id="All_albums">
+	</div>
+
+	<div id="All_songs">
 	</div>
 
 </div>

@@ -26,6 +26,14 @@ namespace VocaDb.Web.Controllers
     		get { return MvcApplication.Services.Artists; }
     	}
 
+		public PartialViewResult Albums(int artistId) {
+
+			var albums = Service.GetAlbums(artistId);
+
+			return PartialView(albums);
+
+		}
+
 		[HttpPost]
 		public PartialViewResult CreateArtistContractRow(int artistId) {
 
@@ -64,6 +72,14 @@ namespace VocaDb.Web.Controllers
 			return View(model);
 
         }
+
+		public PartialViewResult Songs(int artistId) {
+
+			var songs = Service.GetSongs(artistId);
+
+			return PartialView(songs);
+
+		}
 
 		[HttpPost]
 		public ActionResult FindDuplicate(string term1, string term2, string term3) {

@@ -378,6 +378,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public IEnumerable<AlbumWithAdditionalNamesContract> GetAlbums(int artistId) {
+
+			return HandleQuery(session =>
+				session.Load<Artist>(artistId).Albums.Select(a => new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference)));
+
+		}
+
 		public ArtistContract GetArtist(int id) {
 
 			return HandleQuery(session => new ArtistContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
@@ -484,6 +491,13 @@ namespace VocaDb.Model.Service {
 					.Select(c => new CommentContract(c)).ToArray();
 
 			});
+
+		}
+
+		public IEnumerable<SongWithAdditionalNamesContract> GetSongs(int artistId) {
+
+			return HandleQuery(session =>
+				session.Load<Artist>(artistId).Songs.Select(a => new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference)));
 
 		}
 
