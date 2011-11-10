@@ -33,7 +33,7 @@ namespace VocaDb.Model.Service {
 
 			SongWithAdditionalNamesContract[] contracts;
 
-			if (string.IsNullOrEmpty(query)) {
+			if (string.IsNullOrWhiteSpace(query)) {
 
 				contracts = session.Query<Song>()
 					.Where(s => !s.Deleted)
@@ -45,6 +45,8 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 			} else {
+
+				query = query.Trim();
 
 				var directQ = session.Query<Song>()
 					.Where(s => !s.Deleted);
@@ -305,6 +307,8 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
+			newSongName = newSongName.Trim();
+
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
@@ -482,6 +486,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public SongContract[] FindByName(string term, int maxResults) {
 
 			return HandleQuery(session => {

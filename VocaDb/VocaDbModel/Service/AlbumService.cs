@@ -49,6 +49,8 @@ namespace VocaDb.Model.Service {
 
 			} else {
 
+				query = query.Trim();
+
 				var directQ = session.Query<Album>()
 					.Where(s => !s.Deleted);
 
@@ -240,6 +242,8 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
+			name = name.Trim();
+
 			return HandleTransaction(session => {
 
 				AuditLog(string.Format("creating a new artist with name '{0}'", name), session);
@@ -292,7 +296,11 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract CreateForArtist(int artistId, string newAlbumName) {
 
+			ParamIs.NotNullOrEmpty(() => newAlbumName);
+
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			newAlbumName = newAlbumName.Trim();
 
 			return HandleTransaction(session => {
 
