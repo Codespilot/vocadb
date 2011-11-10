@@ -55,16 +55,16 @@ function initPage(songId) {
 
 	$("#changeOriginalName").keyup(function () {
 
+		var changeOriginalList = $("#changeOriginalList");
 		var term = $(this).val();
 
-		if (term == "") {
+		if (isNullOrWhiteSpace(term)) {
 			$(changeOriginalList).empty();
 			return;
 		}
 
 		$.post("../../Song/FindJsonByName", { term: term }, function (results) {
 
-			var changeOriginalList = $("#changeOriginalList");
 			$(changeOriginalList).empty();
 
 			$(results.Items).each(function () {
@@ -93,7 +93,7 @@ function initPage(songId) {
 		var findTerm = $(this).val();
 		var artistList = $("#artistAddList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
 			$(artistList).empty();
 			return;
@@ -121,7 +121,7 @@ function initPage(songId) {
 		var findTerm = $("input#artistAddName").val();
 		var artistList = $("#artistAddList");
 
-		if (findTerm.length == 0)
+		if (isNullOrWhiteSpace(findTerm))
 			return;
 
 		var artistId = $(artistList).val();

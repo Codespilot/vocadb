@@ -69,7 +69,7 @@ function initPage(artistId) {
 		var findTerm = $(this).val();
 		var albumList = $("#albumAddList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
 			$(albumList).empty();
 			return;
@@ -97,7 +97,7 @@ function initPage(artistId) {
 		var findTerm = $("input#albumAddName").val();
 		var albumList = $("#albumAddList");
 
-		if (findTerm.length == 0)
+		if (isNullOrWhiteSpace(findTerm))
 			return;
 
 		var albumId = $(albumList).val();
