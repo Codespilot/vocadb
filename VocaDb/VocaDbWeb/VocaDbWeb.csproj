@@ -114,7 +114,6 @@
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\TagController.cs" />
-    <Compile Include="Controllers\UIController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -650,7 +649,7 @@
     <Content Include="Views\Album\TrackArtistSelection.cshtml" />
     <Content Include="Views\Admin\ViewAuditLog.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
-    <Content Include="Views\Album\DiscussionContent.cshtml" />
+    <Content Include="Views\Shared\DiscussionContent.cshtml" />
     <Content Include="Views\Shared\Comment.cshtml" />
     <Content Include="Views\MikuDbAlbum\InspectedAlbumTrack.cshtml" />
     <Content Include="Views\Album\TrackProperties.cshtml" />

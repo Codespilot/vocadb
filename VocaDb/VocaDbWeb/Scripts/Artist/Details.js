@@ -12,6 +12,7 @@ function initPage(albumId) {
 
 			// Load only once
 			$("#tabs").tabs("url", ui.index, "");
+			$("#tabs").tabs("option", "spinner", 'Loading...');
 
 		}
 	});

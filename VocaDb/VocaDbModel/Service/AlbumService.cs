@@ -16,12 +16,10 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Artists;
 using System.Drawing;
 using System;
 using VocaDb.Model.Service.VideoServices;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Service {

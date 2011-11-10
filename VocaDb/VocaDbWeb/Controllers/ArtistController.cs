@@ -26,9 +26,9 @@ namespace VocaDb.Web.Controllers
     		get { return MvcApplication.Services.Artists; }
     	}
 
-		public PartialViewResult Albums(int artistId) {
+		public PartialViewResult Albums(int id) {
 
-			var albums = Service.GetAlbums(artistId);
+			var albums = Service.GetAlbums(id);
 
 			return PartialView(albums);
 
@@ -73,9 +73,9 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public PartialViewResult Songs(int artistId) {
+		public PartialViewResult Songs(int id) {
 
-			var songs = Service.GetSongs(artistId);
+			var songs = Service.GetSongs(id);
 
 			return PartialView(songs);
 
@@ -133,6 +133,13 @@ namespace VocaDb.Web.Controllers
 			Response.Cache.SetETag(string.Format("Artist{0}v{1}t", id, artist.Version));
 
 			return Picture(artist.CoverPicture, artist.Name);
+
+		}
+
+		public PartialViewResult Comments(int id) {
+
+			var comments = Service.GetComments(id);
+			return PartialView("DiscussionContent", comments);
 
 		}
 

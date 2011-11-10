@@ -378,10 +378,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public IEnumerable<AlbumWithAdditionalNamesContract> GetAlbums(int artistId) {
+		public AlbumWithAdditionalNamesContract[] GetAlbums(int artistId) {
+
+			// TODO: sorting could be done in DB
 
 			return HandleQuery(session =>
-				session.Load<Artist>(artistId).Albums.Select(a => new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference)));
+				session.Load<Artist>(artistId).Albums.Select(a => 
+					new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference)).OrderBy(a => a.Name).ToArray());
 
 		}
 
@@ -494,10 +497,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public IEnumerable<SongWithAdditionalNamesContract> GetSongs(int artistId) {
+		public SongWithAdditionalNamesContract[] GetSongs(int artistId) {
+
+			// TODO: sorting could be done in DB
 
 			return HandleQuery(session =>
-				session.Load<Artist>(artistId).Songs.Select(a => new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference)));
+				session.Load<Artist>(artistId).Songs.Select(a => 
+					new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference)).OrderBy(s => s.Name).ToArray());
 
 		}
 

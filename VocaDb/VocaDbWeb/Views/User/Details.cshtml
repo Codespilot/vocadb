@@ -16,8 +16,9 @@
 	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
 	@Html.ActionLink("Messages", "Messages", null, new { id = "messagesLink" });
 }
+
 @if (Login.Manager.IsLoggedIn && Login.User.Id != Model.Id && Login.User.Active) {
-	@Html.ActionLink("Compose message", "Messages", null, null, null, "composeTab", new { ReceiverName = Model.Name }, new { id = "composeMessageLink" });
+	//@Html.ActionLink("Compose message", "Messages", null, null, null, "composeTab", new { ReceiverName = Model.Name }, new { id = "composeMessageLink" });
 }
 @if (Login.CanManageUsers) {
 	<text>&nbsp;</text>
