@@ -91,7 +91,7 @@ function initPage(albumId) {
 		var findTerm = $(this).val();
 		var artistList = $("#artistAddList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
 			$(artistList).empty();
 			return;
@@ -113,7 +113,10 @@ function initPage(albumId) {
 	});
 
 	$("input#artistAddName").bind("paste", function (e) {
-		$(this).trigger("keyup");
+		var elem = $(this);
+		setTimeout(function () {
+			$(elem).trigger("keyup");
+		}, 0);
 	});
 
 	$("#artistAddBtn").click(function () {
@@ -121,7 +124,7 @@ function initPage(albumId) {
 		var findTerm = $("input#artistAddName").val();
 		var artistList = $("#artistAddList");
 
-		if (findTerm.length == 0)
+		if (isNullOrWhiteSpace(findTerm))
 			return;
 
 		var artistId = $(artistList).val();
@@ -159,7 +162,7 @@ function initPage(albumId) {
 		var findTerm = $(this).val();
 		var songList = $("#songAddList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
 			$(songList).empty();
 			return;
@@ -187,7 +190,7 @@ function initPage(albumId) {
 		var findTerm = $("input#songAddName").val();
 		var songList = $("#songAddList");
 
-		if (findTerm.length == 0)
+		if (isNullOrWhiteSpace(findTerm))
 			return;
 
 		var songId = $(songList).val();
