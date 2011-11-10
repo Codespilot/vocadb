@@ -25,7 +25,7 @@ function initPage() {
 		var findTerm = $(this).val();
 		var artistList = $("#artistAddList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
 			$(artistList).empty();
 			return;
@@ -46,13 +46,20 @@ function initPage() {
 
 	});
 
+	$("input#artistAddName").bind("paste", function (e) {
+		var elem = $(this);
+		setTimeout(function () {
+			$(elem).trigger("keyup");
+		}, 0);
+	});
+
 	$("#artistAddBtn").click(function () {
 
 		var findTerm = $("input#artistAddName").val();
 		var artistList = $("#artistAddList");
 		var artistId = $(artistList).val();
 
-		if (findTerm.length == 0 || artistId == "")
+		if (isNullOrWhiteSpace(findTerm) || artistId == "")
 			return;
 
 		$.post("../../Artist/CreateArtistContractRow", { artistId: artistId }, function (row) {
