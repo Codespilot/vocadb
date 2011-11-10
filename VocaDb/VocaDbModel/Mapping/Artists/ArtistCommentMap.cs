@@ -14,7 +14,6 @@ namespace VocaDb.Model.Mapping.Artists {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
-			Map(m => m.AuthorName).Length(100).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Message).Length(200).Not.Nullable();
 

@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[]
 
+<ul>
 @foreach (var song in Model) {
 	<li>
 		@Html.PVServiceIcons(song.PVServices)
@@ -8,3 +9,4 @@
 		(added @song.CreateDate).
 	</li>
 }
+</ul>
