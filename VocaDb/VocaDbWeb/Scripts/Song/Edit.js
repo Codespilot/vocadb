@@ -77,6 +77,13 @@ function initPage(songId) {
 
 	});
 
+	$("input#changeOriginalName").bind("paste", function (e) {
+		var elem = $(this);
+		setTimeout(function () {
+			$(elem).trigger("keyup");
+		}, 0);
+	});
+
 	$("#acceptNewOriginalBtn").click(function () {
 
 		$("#changeOriginalPanel").hide();
@@ -114,6 +121,13 @@ function initPage(songId) {
 
 		});
 
+	});
+
+	$("input#artistAddName").bind("paste", function (e) {
+		var elem = $(this);
+		setTimeout(function () {
+			$(elem).trigger("keyup");
+		}, 0);
 	});
 
 	$("#artistAddBtn").click(function () {
