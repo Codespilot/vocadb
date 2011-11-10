@@ -185,6 +185,13 @@ function initPage(albumId) {
 
 	});
 
+	$("input#songAddName").bind("paste", function (e) {
+		var elem = $(this);
+		setTimeout(function () {
+			$(elem).trigger("keyup");
+		}, 0);
+	});
+
 	$("#songAddBtn").click(function () {
 
 		var findTerm = $("input#songAddName").val();

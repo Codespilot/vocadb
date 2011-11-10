@@ -24,6 +24,6 @@ function isNullOrWhiteSpace(str) {
 	if (str == null || str.length == 0)
 		return true;
 
-	return !(/\S/.test(myString));
+	return !(/\S/.test(str));
 
 }
