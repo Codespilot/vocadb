@@ -345,6 +345,7 @@
     <Content Include="Scripts\PagedList\PagedList.Mvc.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.Template.html" />
     <Content Include="Scripts\Shared\AddNewLinkRow.js" />
+    <Content Include="Scripts\Shared\DiscussionTab.js" />
     <Content Include="Scripts\Song\Create.js" />
     <Content Include="Scripts\Song\Details.js" />
     <Content Include="Scripts\Song\Edit.js" />

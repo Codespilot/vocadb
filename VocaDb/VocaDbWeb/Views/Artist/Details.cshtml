@@ -16,88 +16,103 @@
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 
-<h3>Basic info</h3>
-<table>
-	<tr>
-		<td rowspan="5">
-			<a href="@Url.Action("Picture", new { id = Model.Id })">
-				<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
-			</a>
-		</td>
-		<td>Name</td>
-		<td>
-			@Model.Name<br />
-			<span class="extraInfo">@Model.AdditionalNames</span>
-		</td>
-	</tr>
-@if (!string.IsNullOrEmpty(Model.Description)) {
-	<tr>
-		<td>Description</td>
-		<td>
-			@Helpers.ConvertNewlinesToBreaks(Model.Description)
-		</td>	
-	</tr>
-}
-	<tr>
-		<td>Type</td>
-		<td>
-			@Translate.ArtistTypeName(Model.ArtistType)<br />
-		</td>	
-	</tr>
-@if (Model.WebLinks.Any()) {
-	<tr>
-		<td>Links</td>
-		<td>
-			@foreach (var link in Model.WebLinks) {
-				<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
-			}
-		</td>	
-	</tr>
-}
-@if (Model.Groups.Any()) {
-	<tr>
-		<td>Circles and labels</td>
-		<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames }))</td>
-	</tr>
-}
-</table>
+<div id="tabs">
+
+	<ul>
+		<li><a href="#basicInfoTab">Basic info</a></li>
+		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">Discussion</a></li>
+	</ul>
+
+	<div id="basicInfoTab">
+
+		<table>
+			<tr>
+				<td rowspan="5">
+					<a href="@Url.Action("Picture", new { id = Model.Id })">
+						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
+					</a>
+				</td>
+				<td>Name</td>
+				<td>
+					@Model.Name<br />
+					<span class="extraInfo">@Model.AdditionalNames</span>
+				</td>
+			</tr>
+		@if (!string.IsNullOrEmpty(Model.Description)) {
+			<tr>
+				<td>Description</td>
+				<td>
+					@Helpers.ConvertNewlinesToBreaks(Model.Description)
+				</td>	
+			</tr>
+		}
+			<tr>
+				<td>Type</td>
+				<td>
+					@Translate.ArtistTypeName(Model.ArtistType)<br />
+				</td>	
+			</tr>
+		@if (Model.WebLinks.Any()) {
+			<tr>
+				<td>Links</td>
+				<td>
+					@foreach (var link in Model.WebLinks) {
+						<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
+					}
+				</td>	
+			</tr>
+		}
+		@if (Model.Groups.Any()) {
+			<tr>
+				<td>Circles and labels</td>
+				<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames }))</td>
+			</tr>
+		}
+		</table>
 	
 
-@if (Model.Members.Any()) {
-<h3>Members</h3>
-<ul>
-	@foreach (var member in Model.Members) {
-		<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Member.Id }, new { title = member.Member.AdditionalNames })</li>
-	}
-</ul>
-}
+		@if (Model.Members.Any()) {
+		<h3>Members</h3>
+		<ul>
+			@foreach (var member in Model.Members) {
+				<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Member.Id }, new { title = member.Member.AdditionalNames })</li>
+			}
+		</ul>
+		}
 
-@if (Model.LatestAlbums.Any()) {
-<h3>Recently added albums</h3>
-<ul>
-	@foreach (var album in Model.LatestAlbums) {
-		<li>
-			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
-			(added @album.CreateDate).
-		</li>
-	}
-</ul>
-}
+		@if (Model.LatestAlbums.Any()) {
+		<h3>Recently added albums</h3>
+		<ul>
+			@foreach (var album in Model.LatestAlbums) {
+				<li>
+					@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+					(added @album.CreateDate).
+				</li>
+			}
+		</ul>
+		}
 
-@if (Model.LatestSongs.Any()) {
-<h3>Recently added songs</h3>
-<ul>
-	@foreach (var song in Model.LatestSongs) {
-		<li>
-			@Html.PVServiceIcons(song.PVServices)
-			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
-			(added @song.CreateDate).
-		</li>
- }
-</ul>	
-}
+		@if (Model.LatestSongs.Any()) {
+		<h3>Recently added songs</h3>
+		<ul>
+			@foreach (var song in Model.LatestSongs) {
+				<li>
+					@Html.PVServiceIcons(song.PVServices)
+					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+					(added @song.CreateDate).
+				</li>
+		 }
+		</ul>	
+		}
+	</div>
 
-<script type="text/javascript" src="../../Scripts/Artist/Details.js"></script>
+	<div id="Discussion">
+	</div>
+
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/DiscussionTab.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Details.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 

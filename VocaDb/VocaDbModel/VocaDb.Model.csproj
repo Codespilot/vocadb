@@ -142,6 +142,7 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\Artists\ArtistComment.cs" />
     <Compile Include="Domain\CaseInsensitiveStringComparer.cs" />
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
@@ -230,6 +231,7 @@
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Domain\Albums\DiscType.cs" />
     <Compile Include="Mapping\Albums\PVForAlbumMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistCommentMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />

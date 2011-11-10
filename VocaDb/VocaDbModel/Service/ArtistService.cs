@@ -295,6 +295,30 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public CommentContract CreateComment(int artistId, string message) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			message = message.Trim();
+
+			return HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(artistId);
+				var author = GetLoggedUser(session);
+
+				AuditLog("creating comment for " + artist + ": '" + message.Substring(0, Math.Min(message.Length, 40)) + "'", session, author);
+
+				var comment = artist.CreateComment(message, author);
+				session.Save(comment);
+
+				return new CommentContract(comment);
+
+			});
+
+		}
+
 		public void Delete(int id) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
@@ -307,6 +331,25 @@ namespace VocaDb.Model.Service {
 				a.Delete();
 			                         
 			}, skipLog: true);
+
+		}
+
+		public void DeleteComment(int commentId) {
+
+			HandleTransaction(session => {
+
+				var comment = session.Load<ArtistComment>(commentId);
+				var user = GetLoggedUser(session);
+
+				AuditLog("deleting comment " + comment, session, user);
+
+				if (!user.Equals(comment.Author))
+					PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+
+				comment.Artist.Comments.Remove(comment);
+				session.Delete(comment);
+
+			});
 
 		}
 
@@ -431,6 +474,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public CommentContract[] GetComments(int artistId) {
+
+			return HandleQuery(session => {
+
+				return session.Query<ArtistComment>()
+					.Where(c => c.Artist.Id == artistId)
+					.OrderByDescending(c => c.Created)
+					.Select(c => new CommentContract(c)).ToArray();
+
+			});
+
+		}
+
 		public void Merge(int sourceId, int targetId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);
@@ -484,7 +540,7 @@ namespace VocaDb.Model.Service {
 
 				source.Deleted = true;
 
-				Archive(session, source, "Merged to '" + target.DefaultName + "'");
+				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
 				Archive(session, target, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);

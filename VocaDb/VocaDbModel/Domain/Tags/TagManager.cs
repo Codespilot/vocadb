@@ -25,6 +25,14 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public virtual bool HasTag(Tag tag) {
+
+			ParamIs.NotNull(() => tag);
+
+			return Usages.Any(u => u.Tag.Equals(tag));
+
+		}
+
 		public virtual void SyncVotes(User user, string[] tagNames, Dictionary<string, Tag> allTags, ITagFactory tagFactory, ITagUsageFactory<T> tagUsageFactory) {
 
 			var newTags = tagNames.Where(t => !allTags.ContainsKey(t));
