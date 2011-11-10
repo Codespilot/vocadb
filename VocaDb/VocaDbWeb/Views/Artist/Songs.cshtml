@@ -1,0 +1,10 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[]
+
+@foreach (var song in Model) {
+	<li>
+		@Html.PVServiceIcons(song.PVServices)
+		@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+		(added @song.CreateDate).
+	</li>
+}

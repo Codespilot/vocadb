@@ -667,6 +667,8 @@
     <Content Include="Views\Shared\TagList.cshtml" />
     <Content Include="Views\Tag\Details.cshtml" />
     <Content Include="Views\Tag\Index.cshtml" />
+    <Content Include="Views\Artist\Albums.cshtml" />
+    <Content Include="Views\Artist\Songs.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

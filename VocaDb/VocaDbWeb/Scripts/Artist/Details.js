@@ -6,7 +6,13 @@ function initPage(albumId) {
 
 	$("#tabs").tabs({
 		load: function (event, ui) {
-			tabLoaded("../../Artist", albumId, event, ui);
+
+			if (ui.index == 1)
+				tabLoaded("../../Artist", albumId, event, ui);
+
+			// Load only once
+			$("#tabs").tabs("url", ui.index, "");
+
 		}
 	});
 
