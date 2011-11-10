@@ -280,9 +280,11 @@ namespace VocaDb.Model.Service {
 
 		public SongContract Create(string name) {
 
-			ParamIs.NotNullOrEmpty(() => name);
+			ParamIs.NotNullOrWhiteSpace(() => name);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			name = name.Trim();
 
 			return HandleTransaction(session => {
 
@@ -303,7 +305,7 @@ namespace VocaDb.Model.Service {
 
 		public SongInAlbumContract CreateForAlbum(int albumId, string newSongName) {
 
-			ParamIs.NotNullOrEmpty(() => newSongName);
+			ParamIs.NotNullOrWhiteSpace(() => newSongName);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 

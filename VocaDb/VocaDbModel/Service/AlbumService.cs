@@ -238,7 +238,7 @@ namespace VocaDb.Model.Service {
 
 		public AlbumContract Create(string name) {
 
-			ParamIs.NotNullOrEmpty(() => name);
+			ParamIs.NotNullOrWhiteSpace(() => name);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
@@ -296,7 +296,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract CreateForArtist(int artistId, string newAlbumName) {
 
-			ParamIs.NotNullOrEmpty(() => newAlbumName);
+			ParamIs.NotNullOrWhiteSpace(() => newAlbumName);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 

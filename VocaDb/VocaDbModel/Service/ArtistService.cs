@@ -275,7 +275,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
 
-			ParamIs.NotNullOrEmpty(() => name);
+			ParamIs.NotNullOrWhiteSpace(() => name);
 			ParamIs.NotNull(() => permissionContext);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);

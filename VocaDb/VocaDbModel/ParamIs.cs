@@ -125,6 +125,24 @@ namespace VocaDb.Model {
 		}
 
 		/// <summary>
+		/// Validates that the given parameter is not null or whitespace.
+		/// </summary>
+		/// <param name="expression">Parameter expression. Expression body must be a member expression. Cannot be null.</param>
+		public static void NotNullOrWhiteSpace(Expression<Func<string>> expression) {
+
+			if (!(expression.Body is MemberExpression))
+				throw new ArgumentException("Only member expressions are supported", "expression");
+
+			var f = expression.Compile();
+
+			if (string.IsNullOrWhiteSpace(f())) {
+				var body = (MemberExpression)expression.Body;
+				throw new ArgumentException(body.Member.Name + " cannot be null or whitespace", body.Member.Name);
+			}
+
+		}
+
+		/// <summary>
 		/// Validates that the given parameter is a positive (greater than 0) integer.
 		/// </summary>
 		/// <param name="val">Parameter to be validated.</param>
