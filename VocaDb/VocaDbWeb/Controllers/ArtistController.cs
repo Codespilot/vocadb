@@ -189,8 +189,11 @@ namespace VocaDb.Web.Controllers
         // GET: /Artist/Edit/5
  
         public ActionResult Edit(int id) {
+
+			RestoreErrorsFromTempData();
         	var model = new ArtistEdit(Service.GetArtistForEdit(id));
             return View(model);
+
         }
 
         //
@@ -220,6 +223,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			if (!ModelState.IsValid) {
+				SaveErrorsToTempData();
 				return RedirectToAction("Edit", new { id = model.Id });
 			}
 

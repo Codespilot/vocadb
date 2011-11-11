@@ -1,6 +1,7 @@
 ﻿
 function initPage(artistId) {
 
+	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
