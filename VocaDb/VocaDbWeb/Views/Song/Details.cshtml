@@ -130,6 +130,26 @@
 				</td>	
 			</tr>
 			}
+			
+			@if (Model.Lyrics.Any()) {
+				<tr>
+					<td>Lyrics</td>
+					<td>
+						<div id="lyricsAccordion">
+							@foreach (var lyrics in Model.Lyrics) {
+								<p><a href="#">@lyrics.Language</a></p>
+								<div>
+									@if (!string.IsNullOrEmpty(lyrics.Source)) {
+										<span>(from @lyrics.Source)</span><br /><br />
+									}
+
+									@Helpers.ConvertNewlinesToBreaks(lyrics.Value)
+								</div>
+							}
+						</div>
+					</td>
+				</tr>
+			}
 		</table>
 	</div>
 
