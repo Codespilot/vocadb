@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Globalization;

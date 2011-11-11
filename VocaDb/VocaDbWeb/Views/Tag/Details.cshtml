@@ -9,6 +9,6 @@
 
 <ul>
 	@foreach (var usage in Model.Albums) {
-		<li>@Html.ActionLink(usage.Album.Name, "Details", "Album", new { id = usage.Album.Id }, null)</li>
+		<li>@Html.ActionLink(usage.Album.Name + " (" + usage.Count + ")", "Details", "Album", new { id = usage.Album.Id }, null)</li>
 	}
 </ul>

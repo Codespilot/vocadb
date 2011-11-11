@@ -1,11 +1,7 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
-using VocaDb.Model.DataContracts;
-using VocaDb.Model.DataContracts.UseCases;
-using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
-using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.DataContracts.Tags;
 

@@ -24,7 +24,7 @@
 
 	<ul>
 		<li><a href="#basicInfoTab">Basic info</a></li>
-		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">Discussion</a></li>
+		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">Discussion (@Model.CommentCount)</a></li>
 		<li><a href="@Url.Action("Albums", "Artist", new { id = Model.Id })" title="All albums"><span>All albums</span></a></li>
 		<li><a href="@Url.Action("Songs", "Artist", new { id = Model.Id })" title="All songs"><span>All songs</span></a></li>
 	</ul>
