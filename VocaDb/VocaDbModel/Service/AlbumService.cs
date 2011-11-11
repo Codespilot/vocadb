@@ -503,6 +503,7 @@ namespace VocaDb.Model.Service {
 				if (PermissionContext.LoggedUser != null)
 					contract.UserHasAlbum = session.Query<AlbumForUser>()
 						.Any(a => a.Album.Id == id && a.User.Id == PermissionContext.LoggedUser.Id);
+				contract.CommentCount = session.Query<AlbumComment>().Where(c => c.Album.Id == id).Count();
 
 				return contract;
 

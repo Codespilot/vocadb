@@ -404,11 +404,13 @@ namespace VocaDb.Model.Service {
 			                   	
 				var contract = new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference);
 
+				contract.CommentCount = session.Query<ArtistComment>().Where(c => c.Artist.Id == id).Count();
+
 				contract.LatestAlbums = session.Query<ArtistForAlbum>()
 					.Where(s => !s.Album.Deleted && s.Artist.Id == id)
 					.Select(s => s.Album)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(20).ToArray()
+					.Take(15).ToArray()
 					.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
@@ -416,7 +418,7 @@ namespace VocaDb.Model.Service {
 					.Where(s => !s.Song.Deleted && s.Artist.Id == id)
 					.Select(s => s.Song)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(20).ToArray()
+					.Take(15).ToArray()
 					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 

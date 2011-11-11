@@ -17,7 +17,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 			: base(album, languagePreference) {
 
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
-			Comments = album.Comments.Select(c => new CommentContract(c)).ToArray();
 			Deleted = album.Deleted;
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
@@ -32,7 +31,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
 		[DataMember]
-		public CommentContract[] Comments { get; set; }
+		public int CommentCount { get; set; }
 
 		[DataMember]
 		public bool Deleted { get; set; }

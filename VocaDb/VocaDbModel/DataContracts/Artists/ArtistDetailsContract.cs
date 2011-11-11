@@ -31,6 +31,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public string AllNames { get; set; }
 
 		[DataMember]
+		public int CommentCount { get; set; }
+
+		[DataMember]
 		public bool Deleted { get; set; }
 
 		[DataMember]
