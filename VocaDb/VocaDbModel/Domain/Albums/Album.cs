@@ -373,6 +373,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		[Obsolete]
 		public virtual void MoveSongDown(SongInAlbum songInAlbum) {
 
 			ParamIs.NotNull(() => songInAlbum);
@@ -389,6 +390,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		[Obsolete]
 		public virtual void MoveSongUp(SongInAlbum songInAlbum) {
 
 			ParamIs.NotNull(() => songInAlbum);
@@ -417,6 +419,45 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 
 			AllSongs.Remove(songInAlbum);
+
+		}
+
+		public virtual void ReorderTrack(SongInAlbum songInAlbum, SongInAlbum prevTrack) {
+
+			ParamIs.NotNull(() => songInAlbum);
+
+			if (!songInAlbum.Album.Equals(this))
+				throw new ArgumentException("Song is not in album");
+
+			int trackNum = 1;
+
+			if (Equals(prevTrack, null)) {
+				songInAlbum.TrackNumber = trackNum;
+				trackNum++;
+			}
+
+			foreach (var track in Songs) {
+
+				if (!track.Equals(songInAlbum)) {
+					track.TrackNumber = trackNum;
+					trackNum++;
+				}
+				
+				if (Equals(track, prevTrack)) {
+					songInAlbum.TrackNumber = trackNum;
+					trackNum++;
+				}
+
+			}
+
+			/*var oldTrackNum = songInAlbum.TrackNumber;
+			var newTrackNum = (prevTrack != null ? prevTrack.TrackNumber + 1 : 1);
+			songInAlbum.TrackNumber = newTrackNum;
+
+			var moved = Songs.Where(s => !s.Equals(songInAlbum) && s.TrackNumber >= newTrackNum && s.TrackNumber <= oldTrackNum);
+
+			foreach (var song in moved)
+				song.TrackNumber++;*/
 
 		}
 

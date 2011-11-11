@@ -261,7 +261,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
+		[HttpPost]
+		[Obsolete]
 		public ActionResult MoveSongInAlbumDown(int songInAlbumId) {
 
 			var songs = Service.MoveSongDown(songInAlbumId);
@@ -270,10 +271,20 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
+		[HttpPost]
+		[Obsolete]
 		public ActionResult MoveSongInAlbumUp(int songInAlbumId) {
 
 			var songs = Service.MoveSongUp(songInAlbumId);
+
+			return Json(songs);
+
+		}
+
+		[HttpPost]
+		public ActionResult ReorderTrack(int songInAlbumId, int? prevTrackId) {
+
+			var songs = Service.ReorderTrack(songInAlbumId, prevTrackId);
 
 			return Json(songs);
 

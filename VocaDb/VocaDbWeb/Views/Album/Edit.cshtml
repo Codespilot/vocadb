@@ -198,9 +198,11 @@
 				<p>Click track name to edit artists.</p>
 
 				<table id="tracksTable">
+					<tbody id="tracksTableBody">
 					@foreach (var track in Model.Tracks) {
 						Html.RenderPartial("SongInAlbumEditRow", track);
 					}
+					</tbody>
 				</table>
 				<h4>Add new</h4>
 				<table>
