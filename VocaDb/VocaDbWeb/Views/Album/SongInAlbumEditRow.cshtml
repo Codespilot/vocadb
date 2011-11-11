@@ -1,11 +1,15 @@
 ﻿@model VocaDb.Model.DataContracts.Songs.SongInAlbumContract
 
-<tr id="@("songRow_" + Model.Id)">
-	<td>@Html.TextBoxFor(m => m.TrackNumber, new { id = "songTrackNumber_" + Model.Id, @readonly = "readonly", @class = "songTrackNumber" })</td>
-	<td><a href="#" class="editTrackProperties" id="@("editTrackProperties_" + Model.Id)" title="@Model.Song.AdditionalNames">@Model.Song.Name</a></td>
+<tr id="@("songRow_" + Model.Id)" class="ui-state-default">
 	<td>
-		<input type="button" class="songMoveUp" id="@("songMoveUp_" + Model.Id)" value="Move up" />
-		<input type="button" class="songMoveDown" id="@("songMoveDown_" + Model.Id)" value="Move down" />
+		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
+	</td>
+	<td id="@("songTrackNumber_" + @Model.Id)" class="songTrackNumber">
+		@Model.TrackNumber
+	</td>
+	<td class="trackNameCol">
+		<a href="#" class="editTrackProperties" id="@("editTrackProperties_" + Model.Id)" title="@Model.Song.AdditionalNames">@Model.Song.Name</a></td>
+	<td>
 		<input type="button" class="songRemove" id="@("songRemove_" + Model.Id)" value="Remove" />
 	</td>
 </tr>

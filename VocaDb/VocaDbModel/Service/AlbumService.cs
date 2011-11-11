@@ -673,6 +673,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public SongInAlbumContract[] MoveSongDown(int songInAlbumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -692,6 +693,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public SongInAlbumContract[] MoveSongUp(int songInAlbumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -709,6 +711,27 @@ namespace VocaDb.Model.Service {
 
 			});
 			
+		}
+
+		public SongInAlbumContract[] ReorderTrack(int songInAlbumId, int? prevSongId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
+				var prevTrack = (prevSongId != null ? session.Load<SongInAlbum>(prevSongId.Value) : null);
+
+				AuditLog("reordering " + songInAlbum, session);
+
+				songInAlbum.Album.ReorderTrack(songInAlbum, prevTrack);
+				session.Update(songInAlbum.Album);
+
+				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).Select(s => 
+					new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
+
+			});
+
 		}
 
 		public TagUsageContract[] SaveTags(int albumId, string[] tags) {

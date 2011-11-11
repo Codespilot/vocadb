@@ -292,3 +292,8 @@ p.messageContent
 {
 	margin: 10px;
 }
+
+td.trackNameCol
+{
+	min-width: 200px;	
+}

@@ -37,11 +37,82 @@ function saveTrackProperties() {
 
 }
 
+function updateTrackList(albumId, event, ui) {
+
+	var id = getId(ui.item);
+	var prev = $(ui.item).prev();
+	var prevId = getId(prev);
+
+	$.post("../../Album/ReorderTrack", { songInAlbumId: id, prevTrackId: prevId }, function (songList) {
+		songListChanged(songList);
+	});	
+
+}
+
+function songListChanged(songList) {
+
+	$(songList).each(function () {
+
+		var trackNumElem = $("#songTrackNumber_" + this.Id);
+		$(trackNumElem).html(this.TrackNumber);
+
+	});
+
+	/*for (var i = 0; i < songList.length; ++i) {
+
+		var item = songList[i];
+
+		var id = item.Id;
+		var newTrackNum = item.TrackNumber;
+		var trackNumElem = $("#songTrackNumber_" + id);
+		var oldTrackNum = $(trackNumElem).val();
+
+		if (newTrackNum != oldTrackNum) {
+
+			var row = $("tr#songRow_" + id);
+
+			$(trackNumElem).val(newTrackNum);
+
+			var nextItem = (i < songList.length - 1 ? songList[i + 1] : null);
+			var nextItemId = (nextItem != null ? nextItem.Id : null);
+			var oldNextRow = $(row).next();
+			var newNextRow = (nextItemId != null ? $("tr#songRow_" + nextItemId) : null);
+
+			var nextRowId = getId(oldNextRow);
+
+			if (nextItemId != nextRowId) {
+
+				$(row).remove();
+
+				if (newNextRow != null) {
+
+					newNextRow.before(row);
+
+				} else {
+
+					var tracksTable = $("#tracksTable");
+					tracksTable.append(row);
+
+				}
+
+			}
+
+		}
+
+	}*/
+
+}
+
 function initPage(albumId) {
 
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
+	$("#tracksTableBody").sortable({
+		update: function (event, ui) {
+			updateTrackList(albumId, event, ui) 
+		}
+	});
 
 	$("#editTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTrackProperties } });
 
@@ -212,14 +283,14 @@ function initPage(albumId) {
 
 	function songAdded(row) {
 
-		var tracksTable = $("#tracksTable");
+		var tracksTable = $("#tracksTableBody");
 		tracksTable.append(row);
 		$("input#songAddName").val("");
 		$("#songAddList").empty();
 
 	}
 
-	$("input.songMoveUp").live("click", function () {
+	/*$("input.songMoveUp").live("click", function () {
 
 		var id = getId(this);
 		$.post("../../Album/MoveSongInAlbumUp", { songInAlbumId: id }, songListChanged);
@@ -231,7 +302,7 @@ function initPage(albumId) {
 		var id = getId(this);
 		$.post("../../Album/MoveSongInAlbumDown", { songInAlbumId: id }, songListChanged);
 
-	});
+	});*/
 
 	$("input.songRemove").live("click", function () {
 
@@ -244,53 +315,6 @@ function initPage(albumId) {
 		});
 
 	});
-
-	function songListChanged(songList) {
-
-		for (var i = 0; i < songList.length; ++i) {
-
-			var item = songList[i];
-
-			var id = item.Id;
-			var newTrackNum = item.TrackNumber;
-			var trackNumElem = $("#songTrackNumber_" + id);
-			var oldTrackNum = $(trackNumElem).val();
-
-			if (newTrackNum != oldTrackNum) {
-
-				var row = $("tr#songRow_" + id);
-
-				$(trackNumElem).val(newTrackNum);
-
-				var nextItem = (i < songList.length - 1 ? songList[i + 1] : null);
-				var nextItemId = (nextItem != null ? nextItem.Id : null);
-				var oldNextRow = $(row).next();
-				var newNextRow = (nextItemId != null ? $("tr#songRow_" + nextItemId) : null);
-
-				var nextRowId = getId(oldNextRow);
-
-				if (nextItemId != nextRowId) {
-
-					$(row).remove();
-
-					if (newNextRow != null) {
-
-						newNextRow.before(row);
-
-					} else {
-
-						var tracksTable = $("#tracksTable");
-						tracksTable.append(row);
-
-					}
-
-				}
-
-			}
-
-		}
-
-	}
 
 	$(".editTrackProperties").live("click", function () {
 
