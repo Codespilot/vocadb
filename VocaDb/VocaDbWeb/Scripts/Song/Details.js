@@ -4,7 +4,12 @@ function initPage(songId) {
 	$("#addFavoriteLink").button({ icons: { primary: 'ui-icon-heart'} });
 	$("#removeFavoriteLink").button({ icons: { primary: 'ui-icon-close'} });
 	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
-	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });	
+	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
+	$("#lyricsAccordion").accordion({
+		active: false,
+		autoHeight: false,
+		collapsible: true
+	});
 
 	$("#addFavoriteLink").click(function () {
 
