@@ -58,49 +58,6 @@ function songListChanged(songList) {
 
 	});
 
-	/*for (var i = 0; i < songList.length; ++i) {
-
-		var item = songList[i];
-
-		var id = item.Id;
-		var newTrackNum = item.TrackNumber;
-		var trackNumElem = $("#songTrackNumber_" + id);
-		var oldTrackNum = $(trackNumElem).val();
-
-		if (newTrackNum != oldTrackNum) {
-
-			var row = $("tr#songRow_" + id);
-
-			$(trackNumElem).val(newTrackNum);
-
-			var nextItem = (i < songList.length - 1 ? songList[i + 1] : null);
-			var nextItemId = (nextItem != null ? nextItem.Id : null);
-			var oldNextRow = $(row).next();
-			var newNextRow = (nextItemId != null ? $("tr#songRow_" + nextItemId) : null);
-
-			var nextRowId = getId(oldNextRow);
-
-			if (nextItemId != nextRowId) {
-
-				$(row).remove();
-
-				if (newNextRow != null) {
-
-					newNextRow.before(row);
-
-				} else {
-
-					var tracksTable = $("#tracksTable");
-					tracksTable.append(row);
-
-				}
-
-			}
-
-		}
-
-	}*/
-
 }
 
 function initPage(albumId) {
