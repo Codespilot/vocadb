@@ -8,6 +8,7 @@ namespace VocaDb.Model.Mapping.Albums {
 		public PVForAlbumMap() {
 
 			Table("PVsForAlbums");
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			//Map(m => m.Name).Not.Nullable();

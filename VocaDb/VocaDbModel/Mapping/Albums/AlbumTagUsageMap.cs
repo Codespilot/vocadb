@@ -7,6 +7,7 @@ namespace VocaDb.Model.Mapping.Albums {
 
 		public AlbumTagUsageMap() {
 
+			Cache.ReadWrite();
 			Id(m => m.Id);
 
 			Map(m => m.Count).Not.Nullable();

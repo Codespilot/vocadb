@@ -23,6 +23,13 @@ namespace VocaDb.Web.Services {
 			}
 		}
 
+		/*[OperationContract]
+		public bool CheckAuthentication(string name, string pass) {
+
+			var result = Services.Users.CheckAuthentication(name, pass, null);
+
+		}*/
+
 		[OperationContract]
 		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
 
