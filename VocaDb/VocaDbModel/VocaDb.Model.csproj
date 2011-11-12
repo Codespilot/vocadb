@@ -88,7 +88,6 @@
     <Compile Include="DataContracts\Artists\ArchivedArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
-    <Compile Include="DataContracts\Artists\ArtistMetadataEntryContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithArchivedVersions.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithPictureContract.cs" />
@@ -178,8 +177,6 @@
     <Compile Include="Domain\Security\AgentLoginData.cs" />
     <Compile Include="Domain\ArchivedObjectVersion.cs" />
     <Compile Include="Domain\Artists\Artist.cs" />
-    <Compile Include="Domain\Artists\ArtistMetadataEntry.cs" />
-    <Compile Include="Domain\Artists\ArtistMetadataType.cs" />
     <Compile Include="Domain\Artists\ArtistName.cs" />
     <Compile Include="Domain\Artists\ArtistType.cs" />
     <Compile Include="Domain\Artists\ArchivedArtistVersion.cs" />
@@ -233,7 +230,6 @@
     <Compile Include="Mapping\Albums\PVForAlbumMap.cs" />
     <Compile Include="Mapping\Artists\ArtistCommentMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
-    <Compile Include="Mapping\Artists\ArtistMetadataEntryMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />
     <Compile Include="Mapping\Artists\ArtistWebLinkMap.cs" />
     <Compile Include="Domain\Artists\GroupForArtist.cs" />

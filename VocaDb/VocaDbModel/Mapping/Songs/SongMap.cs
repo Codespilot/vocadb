@@ -24,7 +24,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			References(m => m.OriginalVersion).Nullable();
 
 			Component(m => m.Names, c => {
-				c.HasMany(m => m.Names).Table("SongNames").KeyColumn("[Song]").Inverse().Cascade.All();
+				c.HasMany(m => m.Names).Table("SongNames").KeyColumn("[Song]").Inverse().Cascade.All().Cache.ReadWrite();
 				c.Component(m => m.SortNames, c2 => {
 					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 					c2.Map(m => m.Japanese, "JapaneseName");
@@ -94,6 +94,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Schema("dbo");
 			Table("ArtistsForSongs");
 			Cache.ReadWrite();
+
 			Id(m => m.Id);
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.Song).Not.Nullable();
@@ -109,6 +110,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Schema("dbo");
 			Table("SongsInAlbums");
 			Cache.ReadWrite();
+
 			Id(m => m.Id);
 			Map(m => m.TrackNumber).Not.Nullable();
 			References(m => m.Album).Not.Nullable();

@@ -26,7 +26,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
 
 			Component(m => m.Names, c => {
-				c.HasMany(m => m.Names).Table("ArtistNames").KeyColumn("[Artist]").Inverse().Cascade.All();
+				c.HasMany(m => m.Names).Table("ArtistNames").KeyColumn("[Artist]").Inverse().Cascade.All().Cache.ReadWrite();
 				c.Component(m => m.SortNames, c2 => {
 					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 					c2.Map(m => m.Japanese, "JapaneseName");

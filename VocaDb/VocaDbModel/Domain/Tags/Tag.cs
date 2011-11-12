@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using VocaDb.Model.Domain.Albums;
 
@@ -21,11 +23,17 @@ namespace VocaDb.Model.Domain.Tags {
 
 		}
 
-		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> AlbumTagUsages {
+		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> AllAlbumTagUsages {
 			get { return albumTagUsages; }
 			set {
 				ParamIs.NotNull(() => value);
 				albumTagUsages = value;
+			}
+		}
+
+		public virtual IEnumerable<AlbumTagUsage> AlbumTagUsages {
+			get {
+				return AllAlbumTagUsages.Where(a => !a.Album.Deleted);
 			}
 		}
 
