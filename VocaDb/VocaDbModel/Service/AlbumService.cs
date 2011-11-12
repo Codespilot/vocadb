@@ -67,7 +67,9 @@ namespace VocaDb.Model.Service {
 						s.Names.SortNames.English.Contains(query)
 							|| s.Names.SortNames.Romaji.Contains(query)
 							|| s.Names.SortNames.Japanese.Contains(query)
-							|| s.ArtistString.Contains(query));
+							|| s.ArtistString.Japanese.Contains(query)
+							|| s.ArtistString.Romaji.Contains(query)
+							|| s.ArtistString.English.Contains(query));
 
 				}
 
@@ -137,7 +139,9 @@ namespace VocaDb.Model.Service {
 					s.Names.SortNames.English.Contains(query)
 						|| s.Names.SortNames.Romaji.Contains(query)
 						|| s.Names.SortNames.Japanese.Contains(query)
-						|| s.ArtistString.Contains(query));
+						|| s.ArtistString.Japanese.Contains(query)
+						|| s.ArtistString.Romaji.Contains(query)
+						|| s.ArtistString.English.Contains(query));
 
 			}
 

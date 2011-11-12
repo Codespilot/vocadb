@@ -10,12 +10,17 @@ namespace VocaDb.Model.Mapping.Albums {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
-			Map(m => m.ArtistString).Not.Nullable().Length(500);
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
+
+			Component(m => m.ArtistString, c => {
+				c.Map(m => m.Japanese, "ArtistString").Length(500).Not.Nullable();
+				c.Map(m => m.Romaji, "ArtistStringRomaji").Length(500).Not.Nullable();
+				c.Map(m => m.English, "ArtistStringEnglish").Length(500).Not.Nullable();
+			});
 
 			Component(m => m.CoverPicture, c => {
 				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();

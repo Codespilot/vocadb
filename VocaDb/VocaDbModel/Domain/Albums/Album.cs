@@ -16,6 +16,7 @@ namespace VocaDb.Model.Domain.Albums {
 	public class Album : IEntryBase, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
+		private TranslatedString artistString;
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
 		private IList<AlbumComment> comments = new List<AlbumComment>();
 		private string description;
@@ -34,7 +35,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public Album() {
-			ArtistString = string.Empty;
+			ArtistString = new TranslatedString(string.Empty, string.Empty, string.Empty);
 			CreateDate = DateTime.Now;
 			Deleted = false;
 			Description = string.Empty;
@@ -95,8 +96,13 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual string ArtistString { get; protected set; }
-
+		public virtual TranslatedString ArtistString {
+			get { return artistString; }
+			set {
+				ParamIs.NotNull(() => value);
+				artistString = value;
+			}
+		}
 		public virtual IList<AlbumComment> Comments {
 			get { return comments; }
 			set {
@@ -137,13 +143,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }
-		}
-
-		[Obsolete]
-		public virtual string Name {
-			get {
-				return TranslatedName.Default;
-			}
 		}
 
 		public virtual NameManager<AlbumName> Names {
@@ -467,7 +466,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual void UpdateArtistString() {
 
-			ArtistString = ArtistHelper.GetArtistString(ArtistList)[ContentLanguageSelection.Romaji];
+			ArtistString = ArtistHelper.GetArtistString(ArtistList);
 
 		}
 

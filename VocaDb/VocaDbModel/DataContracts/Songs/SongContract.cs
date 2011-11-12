@@ -16,7 +16,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => song);
 
-			ArtistString = song.ArtistString[languagePreference];
+			ArtistString = song.ArtistString.GetBestMatch(languagePreference, song.TranslatedName.DefaultLanguage);
 			CreateDate = song.CreateDate;
 			Id = song.Id;
 			Name = song.TranslatedName[languagePreference];
