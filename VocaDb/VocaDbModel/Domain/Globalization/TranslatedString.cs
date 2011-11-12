@@ -119,11 +119,7 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		public virtual string Default {
 			get {
-				
-				var val = this[DefaultLanguage];
-
-				return val ?? All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
-
+				return GetDefaultOrFirst();
 			}
 		}
 
@@ -176,22 +172,31 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		public virtual string GetBestMatch(ContentLanguagePreference preference) {
 
-			var val = this[preference == ContentLanguagePreference.Default ? DefaultLanguage : (ContentLanguageSelection)preference];
-
-			return (!string.IsNullOrEmpty(val) ? val : Default);
+			return GetBestMatch(preference, DefaultLanguage);
 
 		}
 
-		/*public virtual void UpdateDefault() {
+		public virtual string GetBestMatch(ContentLanguagePreference preference, ContentLanguageSelection defaultLanguage) {
 
-			var val = this[DefaultLanguage];
+			var val = this[preference == ContentLanguagePreference.Default ? defaultLanguage : (ContentLanguageSelection)preference];
 
-			if (string.IsNullOrEmpty(val))
-				val = All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
+			return (!string.IsNullOrEmpty(val) ? val : GetDefaultOrFirst(defaultLanguage));
 
-			Default = val;
+		}
 
-		}*/
+		public virtual string GetDefaultOrFirst() {
+
+			return GetDefaultOrFirst(DefaultLanguage);
+
+		}
+
+		public virtual string GetDefaultOrFirst(ContentLanguageSelection defaultLanguage) {
+
+			var val = this[defaultLanguage];
+
+			return val ?? All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
+
+		}
 
 	}
 

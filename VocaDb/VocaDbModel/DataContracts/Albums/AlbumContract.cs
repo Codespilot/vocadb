@@ -16,7 +16,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ParamIs.NotNull(() => album);
 
-			ArtistString = album.ArtistString;
+			ArtistString = album.ArtistString.GetBestMatch(languagePreference, album.TranslatedName.DefaultLanguage);
 			CreateDate = album.CreateDate;
 			DiscType = album.DiscType;
 			Id = album.Id;
