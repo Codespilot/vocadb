@@ -24,9 +24,11 @@ namespace VocaDb.Model.Domain {
 
 				if (old != null) {
 
-					old.Description = linkEntry.Description;
-					old.Url = linkEntry.Url;
-					edited.Add(old);
+					if (old.Description != linkEntry.Description || old.Url != linkEntry.Url) {
+						old.Description = linkEntry.Description;
+						old.Url = linkEntry.Url;
+						edited.Add(old);
+					}
 
 				} else {
 

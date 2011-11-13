@@ -1,34 +1,20 @@
 ﻿using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Albums;
-using System.Xml.Serialization;
 using System.Xml.Linq;
-using System.IO;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Albums {
 
 	public class ArchivedAlbumVersion : ArchivedObjectVersion {
 
-		public static ArchivedAlbumVersion Create(Album album, AlbumDiff diff, AgentLoginData author, string notes) {
+		public static ArchivedAlbumVersion Create(Album album, AlbumDiffContract diff, AgentLoginData author, string notes) {
 
 			var contract = new ArchivedAlbumContract(album, diff);
-			var serializer = new XmlSerializer(typeof(ArchivedAlbumContract));
-			XDocument doc;
 
-			using (var writer = new StringWriter()) {
-				serializer.Serialize(writer, contract);
-				doc = XDocument.Parse(writer.ToString());
-			}
+			var data = XmlHelper.SerializeToXml(contract);
+			var diffXml = XmlHelper.SerializeToXml(diff);
 
-			/*using (var stream = new MemoryStream()) {
-				serializer.Serialize(stream, contract);
-				var reader = XmlReader.Create(stream);
-				doc = XDocument.Load(reader);
-			}*/
-
-			/*var doc = new XDocument();
-			serializer.Serialize(doc.CreateWriter(), contract);*/
-
-			return album.CreateArchivedVersion(doc, author, notes);
+			return album.CreateArchivedVersion(data, diffXml, author, notes);
 
 		}
 
@@ -36,10 +22,11 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public ArchivedAlbumVersion() { }
 
-		public ArchivedAlbumVersion(Album album, XDocument data, AgentLoginData author, int version, string notes)
+		public ArchivedAlbumVersion(Album album, XDocument data, XDocument diff, AgentLoginData author, int version, string notes)
 			: base(data, author, version, notes) {
 
 			Album = album;
+			Diff = diff;
 
 		}
 
@@ -50,6 +37,8 @@ namespace VocaDb.Model.Domain.Albums {
 				album = value;
 			}
 		}
+
+		public virtual XDocument Diff { get; set; }
 
 	}
 

@@ -62,6 +62,12 @@ namespace VocaDb.Model.Helpers {
 
 		public T2[] Added { get; private set; }
 
+		public virtual bool Changed {
+			get {
+				return (Added.Any() || Removed.Any());
+			}
+		}
+
 		public T[] Removed { get; private set; }
 
 		public T[] Unchanged { get; private set; }
@@ -78,6 +84,12 @@ namespace VocaDb.Model.Helpers {
 
 			Edited = edited.ToArray();
 
+		}
+
+		public override bool Changed {
+			get {
+				return (base.Changed || Edited.Any());
+			}
 		}
 
 		public T[] Edited { get; private set; }
