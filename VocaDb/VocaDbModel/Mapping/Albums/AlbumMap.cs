@@ -55,7 +55,7 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			HasMany(m => m.AllArtists).Table("ArtistsForAlbums").Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("TrackNumber").Cache.ReadWrite();
-			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
+			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All().OrderBy("[Created] DESC");
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.PVs).Inverse().Cascade.All();
 			HasMany(m => m.UserCollections).Inverse();
@@ -91,6 +91,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.AgentName).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
+			//Map(m => m.Diff);
 			Map(m => m.Notes).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using log4net;
 using NHibernate;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
@@ -63,6 +64,15 @@ namespace VocaDb.Model.Service {
 			var entry = new AuditLogEntry(agentLoginData, doingWhat);
 
 			session.Save(entry);
+
+		}
+
+		protected bool DoFullDiff(ArchivedObjectVersion latestVersion) {
+
+			if (latestVersion == null)
+				return true;
+
+			return ((((latestVersion.Version + 1) % 5) == 0) || DateTime.Now - latestVersion.Created >= TimeSpan.FromDays(7));
 
 		}
 

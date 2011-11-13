@@ -139,9 +139,11 @@ namespace VocaDb.Model.Domain.Globalization {
 
 				if (old != null) {
 
-					old.Language = nameEntry.Language;
-					old.Value = nameEntry.Value;
-					edited.Add(old);
+					if (old.Language != nameEntry.Language || old.Value != nameEntry.Value) {
+						old.Language = nameEntry.Language;
+						old.Value = nameEntry.Value;
+						edited.Add(old);
+					}
 
 				} else {
 

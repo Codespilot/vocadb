@@ -226,7 +226,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Album album, AlbumDiff diff, string notes = "") {
+		public void Archive(ISession session, Album album, AlbumDiffContract diff, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 			var archived = ArchivedAlbumVersion.Create(album, diff, agentLoginData, notes);
@@ -236,7 +236,7 @@ namespace VocaDb.Model.Service {
 
 		public void Archive(ISession session, Album album, string notes = "") {
 
-			Archive(session, album, new AlbumDiff(), notes);
+			Archive(session, album, new AlbumDiffContract(), notes);
 
 		}
 
@@ -772,11 +772,17 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(properties.Id);
+				var diff = new AlbumDiffContract(DoFullDiff(album.GetLatestVersion()));
 
 				AuditLog(string.Format("updating properties for {0}", album), session);
 
 				album.DiscType = properties.DiscType;
-				album.Description = properties.Description;
+
+				if (album.Description != properties.Description) {
+					album.Description = properties.Description;
+					diff.Description = true;
+				}
+
 				album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				var nameDiff = album.Names.Sync(properties.Names, album);
@@ -784,8 +790,14 @@ namespace VocaDb.Model.Service {
 
 				album.Names.UpdateSortNames();
 
+				if (nameDiff.Changed)
+					diff.Names = true;
+
 				var webLinkDiff = WebLink.Sync(album.WebLinks, properties.WebLinks, album);
 				SessionHelper.Sync(session, webLinkDiff);
+
+				if (webLinkDiff.Changed)
+					diff.WebLinks = true;
 
 				if (properties.OriginalRelease != null) {
 					album.OriginalRelease = new AlbumRelease(properties.OriginalRelease);
@@ -795,9 +807,10 @@ namespace VocaDb.Model.Service {
 
 				if (pictureData != null) {
 					album.CoverPicture = new PictureData(pictureData);
+					diff.Cover = true;
 				}
 
-				Archive(session, album, new AlbumDiff { IncludeCover = (pictureData != null) });
+				Archive(session, album, diff);
 				session.Update(album);
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 
