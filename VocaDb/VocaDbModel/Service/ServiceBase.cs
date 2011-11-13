@@ -67,7 +67,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected bool DoFullDiff(ArchivedObjectVersion latestVersion) {
+		protected bool DoSnapshot(ArchivedObjectVersion latestVersion) {
 
 			if (latestVersion == null)
 				return true;
