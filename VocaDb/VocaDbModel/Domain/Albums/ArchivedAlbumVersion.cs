@@ -7,7 +7,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class ArchivedAlbumVersion : ArchivedObjectVersion {
 
-		public static ArchivedAlbumVersion Create(Album album, AlbumDiffContract diff, AgentLoginData author, string notes) {
+		public static ArchivedAlbumVersion Create(Album album, AlbumDiff diff, AgentLoginData author, string notes) {
 
 			var contract = new ArchivedAlbumContract(album, diff);
 

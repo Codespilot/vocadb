@@ -138,6 +138,7 @@
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />

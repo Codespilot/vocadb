@@ -226,7 +226,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Album album, AlbumDiffContract diff, string notes = "") {
+		public void Archive(ISession session, Album album, AlbumDiff diff, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 			var archived = ArchivedAlbumVersion.Create(album, diff, agentLoginData, notes);
@@ -236,7 +236,7 @@ namespace VocaDb.Model.Service {
 
 		public void Archive(ISession session, Album album, string notes = "") {
 
-			Archive(session, album, new AlbumDiffContract(), notes);
+			Archive(session, album, new AlbumDiff(), notes);
 
 		}
 
@@ -772,9 +772,9 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(properties.Id);
-				var diff = new AlbumDiffContract(DoFullDiff(album.GetLatestVersion()));
+				var diff = new AlbumDiff(DoSnapshot(album.GetLatestVersion()));
 
-				AuditLog(string.Format("updating properties for {0}", album), session);
+				AuditLog(string.Format("updating properties for {0}", album));
 
 				album.DiscType = properties.DiscType;
 
@@ -810,7 +810,9 @@ namespace VocaDb.Model.Service {
 					diff.Cover = true;
 				}
 
-				Archive(session, album, diff);
+				AuditLog(string.Format("updated properties for {0} ({1})", album, diff.GetChangeString()), session);
+
+				Archive(session, album, diff, "updated properties (" + diff.GetChangeString() + ")");
 				session.Update(album);
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 
