@@ -4,6 +4,22 @@ namespace VocaDb.Model.Domain {
 
 	public class OptionalDateTime {
 
+		public static bool operator ==(OptionalDateTime p1, OptionalDateTime p2) {
+
+			if (ReferenceEquals(p1, null) && ReferenceEquals(p2, null))
+				return true;
+
+			if (!ReferenceEquals(p1, null))
+				return p1.Equals(p2);
+			else
+				return p2.Equals(p1);
+
+		}
+
+		public static bool operator !=(OptionalDateTime p1, OptionalDateTime p2) {
+			return !(p1 == p2);
+		}
+
 		public static OptionalDateTime Create(OptionalDateTimeContract contract) {
 
 			ParamIs.NotNull(() => contract);
@@ -75,9 +91,30 @@ namespace VocaDb.Model.Domain {
 		public virtual bool Equals(OptionalDateTime another) {
 
 			if (another == null)
-				return false;
+				return IsEmpty;
 
 			return (Year == another.Year && Month == another.Month && Day == another.Day);
+
+		}
+
+		public override bool Equals(object obj) {
+			
+			if (!(obj is OptionalDateTime))
+				return false;
+
+			return Equals((OptionalDateTime)obj);
+
+		}
+
+		public override int GetHashCode() {
+
+			return ToString().GetHashCode();
+
+		}
+
+		public DateTime ToDateTime() {
+
+			return new DateTime(Year ?? 0, Month ?? 1, Day ?? 1);
 
 		}
 

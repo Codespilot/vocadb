@@ -29,7 +29,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual string ChangedFieldsString {
 			get {
 
-				var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(f => IsSet(f));
+				var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(f => f != AlbumEditableFields.Nothing && IsSet(f));
 				return string.Join(",", fieldNames);
 
 			}
@@ -44,7 +44,7 @@ namespace VocaDb.Model.Domain.Albums {
 				var fieldNames = value.Split(',');
 				foreach (var name in fieldNames) {
 					AlbumEditableFields field;
-					if (Enum.TryParse<AlbumEditableFields>(name, out field))
+					if (Enum.TryParse(name, out field))
 						Set(field, true);
 				}
 

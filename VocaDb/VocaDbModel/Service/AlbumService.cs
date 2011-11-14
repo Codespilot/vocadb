@@ -525,7 +525,8 @@ namespace VocaDb.Model.Service {
 
 		public AlbumWithArchivedVersionsContract GetAlbumWithArchivedVersions(int albumId) {
 
-			return HandleQuery(session => new AlbumWithArchivedVersionsContract(session.Load<Album>(albumId), PermissionContext.LanguagePreference));
+			return HandleQuery(session => 
+				new AlbumWithArchivedVersionsContract(session.Load<Album>(albumId), PermissionContext.LanguagePreference));
 
 		}
 
@@ -802,9 +803,12 @@ namespace VocaDb.Model.Service {
 				if (webLinkDiff.Changed)
 					diff.WebLinks = true;
 
-				var newOriginalRelease = (properties.OriginalRelease != null ? new AlbumRelease(properties.OriginalRelease) : null);
+				var newOriginalRelease = (properties.OriginalRelease != null ? new AlbumRelease(properties.OriginalRelease) : new AlbumRelease());
 
-				if (!Equals(album.OriginalRelease, newOriginalRelease)) {
+				if (album.OriginalRelease == null)
+					album.OriginalRelease = new AlbumRelease();
+
+				if (album.OriginalRelease.Equals(newOriginalRelease)) {
 					album.OriginalRelease = newOriginalRelease;
 					diff.OriginalRelease = true;
 				}
