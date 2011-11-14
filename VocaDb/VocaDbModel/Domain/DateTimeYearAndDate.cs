@@ -72,6 +72,15 @@ namespace VocaDb.Model.Domain {
 
 		public virtual int? Year { get; set; }
 
+		public virtual bool Equals(OptionalDateTime another) {
+
+			if (another == null)
+				return false;
+
+			return (Year == another.Year && Month == another.Month && Day == another.Day);
+
+		}
+
 		public override string ToString() {
 			if (Year != null) {
 				if (Month != null && Day != null)

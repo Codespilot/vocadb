@@ -31,6 +31,10 @@ namespace VocaDb.Model {
 			return Values.Where(val => FlagIsSet(flags, val)).ToArray();
 		}
 
+		public static bool IsDefined(string str) {
+			return Enum.IsDefined(typeof(T), str);
+		}
+
 		/// <summary>
 		/// List of possible values for this enum.
 		/// </summary>

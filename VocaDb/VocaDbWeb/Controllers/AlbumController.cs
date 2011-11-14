@@ -403,7 +403,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Versions(int id) {
 
-			return View(Service.GetAlbumWithArchivedVersions(id));
+			var contract = Service.GetAlbumWithArchivedVersions(id);
+
+			return View(new Versions(contract));
 
 		}
     }

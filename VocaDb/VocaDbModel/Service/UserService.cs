@@ -60,7 +60,7 @@ namespace VocaDb.Model.Service {
 				var albumForUser = user.AddAlbum(album);
 				session.Update(user);
 
-				Services.Albums.Archive(session, album, "Created for user '" + user.Name + "'");
+				Services.Albums.Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
 
 				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);

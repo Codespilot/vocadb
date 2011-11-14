@@ -77,6 +77,7 @@
     <Compile Include="DataContracts\Albums\AlbumWithCoverPictureContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumReleaseContract.cs" />
+    <Compile Include="DataContracts\Albums\ArchivedAlbumVersionContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
@@ -138,7 +139,9 @@
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="Domain\Albums\AlbumArchiveReason.cs" />
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
+    <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />

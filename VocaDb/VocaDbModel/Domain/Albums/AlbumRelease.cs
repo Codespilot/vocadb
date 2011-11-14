@@ -40,5 +40,14 @@ namespace VocaDb.Model.Domain.Albums {
 			set { publisher = value; }
 		}
 
+		public virtual bool Equals(AlbumRelease another) {
+
+			if (another == null)
+				return false;
+
+			return (Equals(CatNum, another.CatNum) && Equals(ReleaseDate, another.ReleaseDate) && Equals(EventName, another.EventName));
+
+		}
+
 	}
 }
