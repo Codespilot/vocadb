@@ -1,13 +1,13 @@
-﻿@model VocaDb.Model.DataContracts.Albums.AlbumWithArchivedVersionsContract
+﻿@model VocaDb.Web.Models.Album.Versions
 
 @{
-	ViewBag.Title = "Versions - " + Model.Name;
+	ViewBag.Title = "Versions - " + Model.Album.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Albums", "Index"), 
-		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+		LinkExtensions.ActionLink(Html, Model.Album.Name, "Details", new { id = Model.Album.Id }) 
 	};
 }
 
-<p>Current version number is @Model.Version .</p>
+<p>Current version number is @Model.Album.Version .</p>
 
 @Helpers.ArchivedObjectVersions(Model.ArchivedVersions)

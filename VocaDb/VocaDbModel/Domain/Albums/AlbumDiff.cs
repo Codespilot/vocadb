@@ -1,9 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace VocaDb.Model.Domain.Albums {
 
 	public class AlbumDiff {
+
+		private bool IsSet(AlbumEditableFields field) {
+			return ChangedFields.HasFlag(field);
+		}
+
+		private void Set(AlbumEditableFields field, bool val) {
+
+			if (val && !IsSet(field))
+				ChangedFields |= field;
+			else if (!val && IsSet(field))
+				ChangedFields -= field;
+
+		}
 
 		public AlbumDiff()
 			: this(true) { }
@@ -12,62 +26,112 @@ namespace VocaDb.Model.Domain.Albums {
 			IsSnapshot = isSnapshot;
 		}
 
-		public bool Cover { get; set; }
+		public virtual string ChangedFieldsString {
+			get {
 
-		public bool Description { get; set; }
+				var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(f => IsSet(f));
+				return string.Join(",", fieldNames);
 
-		public bool IncludeCover {
+			}
+			set {
+
+				ChangedFields = AlbumEditableFields.Nothing;
+
+				if (string.IsNullOrEmpty(value)) {
+					return;
+				}
+
+				var fieldNames = value.Split(',');
+				foreach (var name in fieldNames) {
+					AlbumEditableFields field;
+					if (Enum.TryParse<AlbumEditableFields>(name, out field))
+						Set(field, true);
+				}
+
+			}
+		}
+
+		public virtual AlbumEditableFields ChangedFields { get; set; }
+
+		public virtual bool Cover {
+			get {
+				return IsSet(AlbumEditableFields.Cover);
+			}
+			set {
+				Set(AlbumEditableFields.Cover, value);
+			}
+		}
+
+		public virtual bool Description {
+			get {
+				return IsSet(AlbumEditableFields.Description);
+			}
+			set {
+				Set(AlbumEditableFields.Description, value);
+			}		
+		}
+
+		public virtual bool DiscType {
+			get {
+				return IsSet(AlbumEditableFields.DiscType);
+			}
+			set {
+				Set(AlbumEditableFields.DiscType, value);
+			}
+		}
+
+		public virtual bool IncludeCover {
 			get {
 				// Special treatment for cover - not included in snapshots by default.
 				return Cover;
 			}
 		}
 
-		public bool IncludeDescription {
+		public virtual bool IncludeDescription {
 			get {
 				return (IsSnapshot || Description);
 			}
 		}
 
-		public bool IncludeNames {
+		public virtual bool IncludeNames {
 			get {
 				return (IsSnapshot || Names);
 			}
 		}
 
-		public bool IncludeWebLinks {
+		public virtual bool IncludeWebLinks {
 			get {
 				return (IsSnapshot || WebLinks);
 			}
 		}
 
-		public bool IsSnapshot { get; set; }
+		public virtual bool IsSnapshot { get; set; }
 
-		public bool Names { get; set; }
+		public virtual bool Names {
+			get {
+				return IsSet(AlbumEditableFields.Names);
+			}
+			set {
+				Set(AlbumEditableFields.Names, value);
+			}
+		}
 
-		public bool WebLinks { get; set; }
+		public virtual bool OriginalRelease {
+			get {
+				return IsSet(AlbumEditableFields.OriginalRelease);
+			}
+			set {
+				Set(AlbumEditableFields.OriginalRelease, value);
+			}
+		}
 
-		public string GetChangeString() {
-
-			var items = new List<string>();
-
-			if (Cover)
-				items.Add("cover");
-
-			if (Description)
-				items.Add("description");
-
-			if (Names)
-				items.Add("names");
-
-			if (WebLinks)
-				items.Add("weblinks");
-
-			if (items.Any())
-				return string.Join(", ", items);
-			else
-				return "other";
-
+		public virtual bool WebLinks {
+			get {
+				return IsSet(AlbumEditableFields.WebLinks);
+			}
+			set {
+				Set(AlbumEditableFields.WebLinks, value);
+			}		
 		}
 
 	}

@@ -90,13 +90,18 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Map(m => m.AgentName).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
-			Map(m => m.Data).Not.Nullable();
-			//Map(m => m.Diff);
+			Map(m => m.Data).Not.Nullable().LazyLoad();
 			Map(m => m.Notes).Not.Nullable();
+			Map(m => m.Reason).Length(30).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			References(m => m.Album);
 			References(m => m.Author);
+
+			Component(m => m.Diff, c => {
+				c.Map(m => m.ChangedFieldsString, "ChangedFields").Length(100).Not.Nullable();
+				c.Map(m => m.IsSnapshot).Not.Nullable();
+			});
 
 		}
 

@@ -87,6 +87,16 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\AlbumArchiveReasonNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumArchiveReasonNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\AlbumEditableFieldNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumEditableFieldNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ContentLanguageSelectionNames.Designer.cs">
       <DependentUpon>ContentLanguageSelectionNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -131,11 +141,13 @@
     <Compile Include="Models\Album\Index.cs" />
     <Compile Include="Models\Album\MassTagSongs.cs" />
     <Compile Include="Models\Album\TrackArtistSelectionsRow.cs" />
+    <Compile Include="Models\Album\Versions.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\Artist\Create.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\SharedModels.cs" />
+    <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
     <Compile Include="Models\Shared\WebLink.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\Song\Create.cs" />
@@ -688,6 +700,18 @@
     <Content Include="App_GlobalResources\UserEmailOptionsNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UserEmailOptionsNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\AlbumEditableFieldNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumEditableFieldNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\AlbumArchiveReasonNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumArchiveReasonNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

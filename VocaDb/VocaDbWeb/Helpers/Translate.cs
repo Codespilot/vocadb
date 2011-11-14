@@ -9,6 +9,18 @@ namespace VocaDb.Web.Helpers {
 
 	public static class Translate {
 
+		public static string AlbumEditableField(AlbumEditableFields field) {
+
+			return AlbumEditableFieldNames.ResourceManager.GetString(field.ToString());
+
+		}
+
+		public static string AlbumArchiveReason(AlbumArchiveReason reason) {
+
+			return AlbumArchiveReasonNames.ResourceManager.GetString(reason.ToString());
+
+		}
+
 		public static string ArtistTypeName(ArtistType artistType) {
 
 			return ArtistTypeNames.ResourceManager.GetString(artistType.ToString());

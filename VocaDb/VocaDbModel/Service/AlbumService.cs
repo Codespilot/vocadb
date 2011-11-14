@@ -226,17 +226,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Album album, AlbumDiff diff, string notes = "") {
+		public void Archive(ISession session, Album album, AlbumDiff diff, AlbumArchiveReason reason, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedAlbumVersion.Create(album, diff, agentLoginData, notes);
+			var archived = ArchivedAlbumVersion.Create(album, diff, agentLoginData, reason, notes);
 			session.Save(archived);
 
 		}
 
-		public void Archive(ISession session, Album album, string notes = "") {
+		public void Archive(ISession session, Album album, AlbumArchiveReason reason, string notes = "") {
 
-			Archive(session, album, new AlbumDiff(), notes);
+			Archive(session, album, new AlbumDiff(), reason, notes);
 
 		}
 
@@ -256,7 +256,7 @@ namespace VocaDb.Model.Service {
 
 				session.Save(album);
 
-				Archive(session, album);
+				Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
@@ -289,7 +289,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				album.UpdateArtistString();
-				Archive(session, album, "Created");
+				Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
@@ -319,7 +319,7 @@ namespace VocaDb.Model.Service {
 				session.Save(artistForAlbum);
 
 				album.UpdateArtistString();
-				Archive(session, album, "Created for artist '" + artist.DefaultName + "'");
+				Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
@@ -668,7 +668,7 @@ namespace VocaDb.Model.Service {
 				target.Names.UpdateSortNames();
 
 				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
-				Archive(session, target, "Merged from '" + source.DefaultName + "'");
+				Archive(session, target, AlbumArchiveReason.Merged);
 
 				session.Update(source);
 				session.Update(target);
@@ -776,7 +776,10 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updating properties for {0}", album));
 
-				album.DiscType = properties.DiscType;
+				if (album.DiscType != properties.DiscType) {
+					album.DiscType = properties.DiscType;
+					diff.DiscType = true;
+				}
 
 				if (album.Description != properties.Description) {
 					album.Description = properties.Description;
@@ -799,10 +802,11 @@ namespace VocaDb.Model.Service {
 				if (webLinkDiff.Changed)
 					diff.WebLinks = true;
 
-				if (properties.OriginalRelease != null) {
-					album.OriginalRelease = new AlbumRelease(properties.OriginalRelease);
-				} else {
-					album.OriginalRelease = null;
+				var newOriginalRelease = (properties.OriginalRelease != null ? new AlbumRelease(properties.OriginalRelease) : null);
+
+				if (!Equals(album.OriginalRelease, newOriginalRelease)) {
+					album.OriginalRelease = newOriginalRelease;
+					diff.OriginalRelease = true;
 				}
 
 				if (pictureData != null) {
@@ -810,9 +814,9 @@ namespace VocaDb.Model.Service {
 					diff.Cover = true;
 				}
 
-				AuditLog(string.Format("updated properties for {0} ({1})", album, diff.GetChangeString()), session);
+				AuditLog(string.Format("updated properties for {0} ({1})", album, diff.ChangedFieldsString), session);
 
-				Archive(session, album, diff, "updated properties (" + diff.GetChangeString() + ")");
+				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);
 				session.Update(album);
 				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
 

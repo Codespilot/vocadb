@@ -18,9 +18,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			Artists = album.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray();
 			CoverPicture = (diff.IncludeCover && album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
-			CreateDate = album.CreateDate;
 			Description = (diff.IncludeDescription ? album.Description : null);
-			Diff = new AlbumDiffContract(diff);
 			DiscType = album.DiscType;
 			Id = album.Id;
 			OriginalRelease = (album.OriginalRelease != null ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
@@ -39,13 +37,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public PictureDataContract CoverPicture { get; set; }
 
 		[DataMember]
-		public DateTime CreateDate { get; set; }
-
-		[DataMember]
 		public string Description { get; set; }
-
-		[DataMember]
-		public AlbumDiffContract Diff { get; set; }
 
 		[DataMember]
 		public DiscType DiscType { get; set; }
