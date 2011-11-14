@@ -14,7 +14,7 @@ function initPage(userId) {
 		var findTerm = $(this).val();
 		var albumList = $("#albumAddList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
 			$(albumList).empty();
 			return;
@@ -31,7 +31,7 @@ function initPage(userId) {
 
 			});
 
-			addOption(albumList, "", "Create new album named '" + findTerm + "'");
+			//addOption(albumList, "", "Create new album named '" + findTerm + "'");
 
 		});
 
@@ -42,13 +42,13 @@ function initPage(userId) {
 		var findTerm = $("input#albumAddName").val();
 		var albumList = $("#albumAddList");
 
-		if (findTerm.length == 0)
+		if (isNullOrWhiteSpace(findTerm))
 			return;
 
 		var albumId = $(albumList).val();
 
 		if (albumId == "") {
-			$.post("../User/AddNewAlbum", { newAlbumName: findTerm }, albumAdded);
+			//$.post("../User/AddNewAlbum", { newAlbumName: findTerm }, albumAdded);
 		} else {
 			$.post("../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
 		}
