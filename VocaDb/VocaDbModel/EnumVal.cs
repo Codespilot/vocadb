@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace VocaDb.Model {
@@ -54,6 +55,22 @@ namespace VocaDb.Model {
 		/// <returns>Enum value matching the string.</returns>
 		public static T Parse(string value) {
 			return (T)Enum.Parse(typeof(T), value);
+		}
+
+		public static T[] ParseAll(string[] values) {
+
+			ParamIs.NotNull(() => values);
+
+			var list = new List<T>(values.Length);
+
+			foreach (var name in values) {
+				T field;
+				if (Enum.TryParse(name, out field))
+					list.Add(field);
+			}
+
+			return list.ToArray();
+
 		}
 
 		/// <summary>

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -10,17 +7,21 @@ namespace VocaDb.Model.Domain.Albums {
 
 		Nothing			= 0,
 
-		Cover			= 1,
+		Artists			= 1,
 
-		Description		= 2,
+		Cover			= 2,
 
-		DiscType		= 4,
+		Description		= 4,
 
-		Names			= 8,
+		DiscType		= 8,
 
-		OriginalRelease	= 16,
+		Names			= 16,
 
-		WebLinks		= 32
+		OriginalRelease	= 32,
+
+		Tracks			= 64,
+
+		WebLinks		= 128
 
 	}
 

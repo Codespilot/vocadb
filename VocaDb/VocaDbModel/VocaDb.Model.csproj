@@ -146,6 +146,7 @@
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
     <Compile Include="Domain\Artists\ArtistComment.cs" />
+    <Compile Include="Domain\Artists\ArtistEditableFields.cs" />
     <Compile Include="Domain\CaseInsensitiveStringComparer.cs" />
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
