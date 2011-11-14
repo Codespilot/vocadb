@@ -14,6 +14,9 @@ namespace VocaDb.Web.Models.Album {
 
 		private string GetChangeString(AlbumEditableFields fields) {
 
+			if (fields == AlbumEditableFields.Nothing)
+				return string.Empty;
+
 			var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(a => fields.HasFlag(a)).Select(f => Translate.AlbumEditableField(f));
 			return string.Join(", ", fieldNames);
 
@@ -21,7 +24,7 @@ namespace VocaDb.Web.Models.Album {
 
 		private string GetReasonName(AlbumArchiveReason reason, string notes) {
 
-			if (reason == AlbumArchiveReason.Unknown)
+			if (reason == AlbumArchiveReason.Unknown && !string.IsNullOrEmpty(notes))
 				return notes;
 
 			return Translate.AlbumArchiveReason(reason);
