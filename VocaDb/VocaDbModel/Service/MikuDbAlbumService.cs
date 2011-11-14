@@ -26,7 +26,7 @@ namespace VocaDb.Model.Service {
 
 		private AlbumContract AcceptImportedAlbum(ISession session, InspectedAlbum acceptedAlbum, int[] selectedSongIds) {
 			
-			AuditLog("accepting imported album with name '" + acceptedAlbum.ImportedAlbum.Title + "'");
+			AuditLog(string.Format("accepting imported album '{0}'", acceptedAlbum.ImportedAlbum.Title), session);
 
 			Album album;
 
