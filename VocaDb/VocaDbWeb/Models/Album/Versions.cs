@@ -17,14 +17,16 @@ namespace VocaDb.Web.Models.Album {
 			if (fields == AlbumEditableFields.Nothing)
 				return string.Empty;
 
-			var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(a => fields.HasFlag(a)).Select(f => Translate.AlbumEditableField(f));
+			var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(f => 
+				f != AlbumEditableFields.Nothing && fields.HasFlag(f)).Select(Translate.AlbumEditableField);
+
 			return string.Join(", ", fieldNames);
 
 		}
 
 		private string GetReasonName(AlbumArchiveReason reason, string notes) {
 
-			if (reason == AlbumArchiveReason.Unknown && !string.IsNullOrEmpty(notes))
+			if (reason == AlbumArchiveReason.Unknown)
 				return notes;
 
 			return Translate.AlbumArchiveReason(reason);

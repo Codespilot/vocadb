@@ -20,6 +20,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private AlbumDiff diff;
 
 		public ArchivedAlbumVersion() {
+			Diff = new AlbumDiff();
 			Reason = AlbumArchiveReason.Unknown;
 		}
 

@@ -1,6 +1,4 @@
-﻿using System;
-using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.Domain.Artists;
+﻿using VocaDb.Model.DataContracts.Albums;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -8,18 +6,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 		private string catNum;
 		private string eventName;
-		private Artist publisher;
 
 		public AlbumRelease() {}
 
-		public AlbumRelease(AlbumReleaseContract contract, Artist label = null) {
+		public AlbumRelease(AlbumReleaseContract contract) {
 			
 			ParamIs.NotNull(() => contract);
 
 			CatNum = contract.CatNum;
 			ReleaseDate = (contract.ReleaseDate != null ? OptionalDateTime.Create(contract.ReleaseDate) : null);
 			EventName = contract.EventName;
-			Label = label;
 
 		}
 
@@ -28,24 +24,29 @@ namespace VocaDb.Model.Domain.Albums {
 			set { catNum = value; }
 		}
 
-		public virtual OptionalDateTime ReleaseDate { get; set; }
-
 		public virtual string EventName {
 			get { return eventName; }
 			set { eventName = value; }
 		}
 
-		public virtual Artist Label {
-			get { return publisher; }
-			set { publisher = value; }
+		public virtual bool IsEmpty {
+			get {
+
+				return (string.IsNullOrEmpty(CatNum) 
+					&& string.IsNullOrEmpty(EventName) 
+					&& (ReleaseDate == null || ReleaseDate.IsEmpty));
+
+			}
 		}
+
+		public virtual OptionalDateTime ReleaseDate { get; set; }
 
 		public virtual bool Equals(AlbumRelease another) {
 
 			if (another == null)
-				return false;
+				return IsEmpty;
 
-			return (Equals(CatNum, another.CatNum) && Equals(ReleaseDate, another.ReleaseDate) && Equals(EventName, another.EventName));
+			return (Equals(CatNum, another.CatNum) && ReleaseDate != another.ReleaseDate && Equals(EventName, another.EventName));
 
 		}
 
