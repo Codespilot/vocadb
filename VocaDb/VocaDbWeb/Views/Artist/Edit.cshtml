@@ -97,7 +97,7 @@
 							<td>
 								<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="Artist picture" class="coverPic" />					
 							</td><td>
-								<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions)</p>
+								<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions) . Maximum size is 5 MB.</p>
 								<input type="file" id="pictureUpload" name="pictureUpload" />					
 							</td>
 						</tr>

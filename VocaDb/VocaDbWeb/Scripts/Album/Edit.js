@@ -247,20 +247,6 @@ function initPage(albumId) {
 
 	}
 
-	/*$("input.songMoveUp").live("click", function () {
-
-		var id = getId(this);
-		$.post("../../Album/MoveSongInAlbumUp", { songInAlbumId: id }, songListChanged);
-
-	});
-
-	$("input.songMoveDown").live("click", function () {
-
-		var id = getId(this);
-		$.post("../../Album/MoveSongInAlbumDown", { songInAlbumId: id }, songListChanged);
-
-	});*/
-
 	$("input.songRemove").live("click", function () {
 
 		var id = getId(this);

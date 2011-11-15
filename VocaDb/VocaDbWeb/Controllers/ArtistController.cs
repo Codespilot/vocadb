@@ -226,16 +226,20 @@ namespace VocaDb.Web.Controllers
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
 
-				if (ImageHelper.IsValidImageExtension(Request.Files[0].FileName)) {
+				var file = Request.Files[0];
 
-					var file = Request.Files[0];
+				if (file.ContentLength > ImageHelper.MaxImageSizeBytes) {
+					ModelState.AddModelError("Picture", "Picture file is too large.");
+				}
+
+				if (!ImageHelper.IsValidImageExtension(file.FileName)) {
+					ModelState.AddModelError("Picture", "Picture format is not valid.");
+				}
+
+				if (ModelState.IsValid) {
 
 					pictureData = ImageHelper.GetOriginalAndResizedImages(
 						file.InputStream, file.ContentLength, file.ContentType);
-
-				} else {
-
-					ModelState.AddModelError("Picture", "Picture format is not valid");
 
 				}
 

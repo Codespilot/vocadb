@@ -206,27 +206,31 @@ namespace VocaDb.Web.Controllers
 			if (!OptionalDateTime.IsValid(model.ReleaseYear, model.ReleaseDay, model.ReleaseMonth))
 				ModelState.AddModelError("ReleaseYear", "Invalid date");
 
-			if (!ModelState.IsValid)
-				return View(new AlbumEdit(Service.GetAlbumForEdit(model.Id)));
-
             PictureDataContract pictureData = null;
 
 			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
 
-				if (ImageHelper.IsValidImageExtension(Request.Files[0].FileName)) {
+				var file = Request.Files[0];
 
-					var file = Request.Files[0];
+				if (file.ContentLength > ImageHelper.MaxImageSizeBytes) {
+					ModelState.AddModelError("CoverPicture", "Picture file is too large.");
+				}
+
+				if (!ImageHelper.IsValidImageExtension(file.FileName)) {
+					ModelState.AddModelError("CoverPicture", "Picture format is not valid.");
+				}
+
+				if (ModelState.IsValid) {
 
 					pictureData = ImageHelper.GetOriginalAndResizedImages(
 						file.InputStream, file.ContentLength, file.ContentType);
 
-				} else {
-
-					ModelState.AddModelError("CoverPicture", "Picture format is not valid");
-					return RedirectToAction("Edit", new { id = model.Id });
-
 				}
 
+			}
+
+			if (!ModelState.IsValid) {
+				return View(new AlbumEdit(Service.GetAlbumForEdit(model.Id)));
 			}
 
             var contract = model.ToContract();
