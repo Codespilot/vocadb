@@ -229,19 +229,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Archive(ISession session, Artist artist, ArtistDiff diff, string notes = "") {
+		public void Archive(ISession session, Artist artist, ArtistDiff diff, ArtistArchiveReason reason, string notes = "") {
 
-			log.Info("Archiving " + artist);
+			AuditLog("Archiving " + artist);
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedArtistVersion.Create(artist, diff, agentLoginData, notes);
+			var archived = ArchivedArtistVersion.Create(artist, diff, agentLoginData, reason, notes);
 			session.Save(archived);
 
 		}
 
-		public void Archive(ISession session, Artist artist, string notes = "") {
+		public void Archive(ISession session, Artist artist, ArtistArchiveReason reason, string notes = "") {
 
-			Archive(session, artist, new ArtistDiff(), notes);
+			Archive(session, artist, new ArtistDiff(), reason, notes);
 
 		}
 
@@ -264,7 +264,7 @@ namespace VocaDb.Model.Service {
 
 				session.Save(artist);
 
-				Archive(session, artist, "Created");
+				Archive(session, artist, ArtistArchiveReason.Created);
 				session.Update(artist);
 
 				return new ArtistContract(artist, PermissionContext.LanguagePreference);
@@ -290,7 +290,7 @@ namespace VocaDb.Model.Service {
 
 				session.Save(artist);
 
-				Archive(session, artist, "Created");
+				Archive(session, artist, ArtistArchiveReason.Created);
 				session.Update(artist);
 
 				return new ArtistContract(artist, PermissionContext.LanguagePreference);
@@ -567,7 +567,7 @@ namespace VocaDb.Model.Service {
 				source.Deleted = true;
 
 				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
-				Archive(session, target, "Merged from '" + source.DefaultName + "'");
+				Archive(session, target, ArtistArchiveReason.Merged, "Merged from '" + source.DefaultName + "'");
 
 				session.Update(source);
 				session.Update(target);
@@ -583,27 +583,43 @@ namespace VocaDb.Model.Service {
 
 			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			UpdateEntity<Artist>(properties.Id, (session, artist) => {
+			HandleTransaction(session => {
+
+				var artist = session.Load<Artist>(properties.Id);
+				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion()));
 
 				AuditLog(string.Format("updating properties for {0}", artist));
 
-				var artistTypeChanged = artist.ArtistType != properties.ArtistType;
+				if (artist.ArtistType != properties.ArtistType) {
+					artist.ArtistType = properties.ArtistType;
+					diff.ArtistType = true;
+				}
 
-				artist.ArtistType = properties.ArtistType;
-				artist.Description = properties.Description;
+				if (artist.Description != properties.Description) {
+					artist.Description = properties.Description;
+					diff.Description = true;
+				}
+
 				artist.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
+					diff.Picture = true;
 				}
 
 				var nameDiff = artist.Names.Sync(properties.Names, artist);
 				SessionHelper.Sync(session, nameDiff);
 
+				if (nameDiff.Changed)
+					diff.Names = true;
+
 				var webLinkDiff = WebLink.Sync(artist.WebLinks, properties.WebLinks, artist);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				if (artistTypeChanged || nameDiff.Edited.Any()) {
+				if (webLinkDiff.Changed)
+					diff.WebLinks = true;
+
+				if (diff.ArtistType || diff.Names) {
 
 					foreach (var song in artist.Songs) {
 						song.Song.UpdateArtistString();
@@ -624,7 +640,13 @@ namespace VocaDb.Model.Service {
 					session.Save(link);
 				}
 
-				Archive(session, artist, new ArtistDiff { IncludePicture = (pictureData != null) }, "Updated properties");
+				if (groupsDiff.Changed)
+					diff.Groups = true;
+
+
+				AuditLog(string.Format("updated properties for {0} ({1})", artist, diff.ChangedFieldsString), session);
+
+				Archive(session, artist, diff, ArtistArchiveReason.PropertiesUpdated);
 				session.Update(artist);
 
 			});

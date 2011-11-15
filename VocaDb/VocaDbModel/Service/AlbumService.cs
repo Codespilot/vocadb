@@ -194,7 +194,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album), session);
 
 				var artistForAlbum = artist.AddAlbum(album);
-				Services.Artists.Archive(session, artist, "Created for album '" + album.DefaultName + "'");
+				Services.Artists.Archive(session, artist, ArtistArchiveReason.Created, "Created for album '" + album.DefaultName + "'");
 				session.Save(artist);
 
 				album.UpdateArtistString();

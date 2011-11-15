@@ -25,6 +25,15 @@ namespace VocaDb.Model.Domain.Artists {
 			IsSnapshot = isSnapshot;
 		}
 
+		public virtual bool ArtistType {
+			get {
+				return IsSet(ArtistEditableFields.ArtistType);
+			}
+			set {
+				Set(ArtistEditableFields.ArtistType, value);
+			}
+		}
+
 		public virtual ArtistEditableFields ChangedFields { get; set; }
 
 		public virtual string ChangedFieldsString {
@@ -52,9 +61,65 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
-		public bool IncludePicture { get; set; }
+		public virtual bool Description {
+			get {
+				return IsSet(ArtistEditableFields.Description);
+			}
+			set {
+				Set(ArtistEditableFields.Description, value);
+			}
+		}
+
+		public virtual bool Groups {
+			get {
+				return IsSet(ArtistEditableFields.Groups);
+			}
+			set {
+				Set(ArtistEditableFields.Groups, value);
+			}
+		}
+
+		public virtual bool IncludeAlbums {
+			get {
+				return true;
+			}
+		}
+
+		public virtual bool IncludeDescription {
+			get {
+				return (IsSnapshot || Description);
+			}
+		}
+
+		public virtual bool IncludeNames {
+			get {
+				return (IsSnapshot || Names);
+			}
+		}
+
+		public virtual bool IncludeWebLinks {
+			get {
+				return (IsSnapshot || WebLinks);
+			}
+		}
+
+		public bool IncludePicture {
+			get {
+				// Special handling for pictures
+				return Picture;
+			}
+		}
 
 		public virtual bool IsSnapshot { get; set; }
+
+		public virtual bool Names {
+			get {
+				return IsSet(ArtistEditableFields.Names);
+			}
+			set {
+				Set(ArtistEditableFields.Names, value);
+			}
+		}
 
 		public virtual bool Picture {
 			get {
@@ -62,6 +127,15 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 			set {
 				Set(ArtistEditableFields.Picture, value);
+			}
+		}
+
+		public virtual bool WebLinks {
+			get {
+				return IsSet(ArtistEditableFields.WebLinks);
+			}
+			set {
+				Set(ArtistEditableFields.WebLinks, value);
 			}
 		}
 

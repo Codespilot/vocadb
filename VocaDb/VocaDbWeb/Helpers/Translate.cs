@@ -21,6 +21,18 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static string ArtistEditableField(ArtistEditableFields field) {
+
+			return ArtistEditableFieldNames.ResourceManager.GetString(field.ToString());
+
+		}
+
+		public static string ArtistArchiveReason(ArtistArchiveReason reason) {
+
+			return ArtistArchiveReasonNames.ResourceManager.GetString(reason.ToString());
+
+		}
+
 		public static string ArtistTypeName(ArtistType artistType) {
 
 			return ArtistTypeNames.ResourceManager.GetString(artistType.ToString());

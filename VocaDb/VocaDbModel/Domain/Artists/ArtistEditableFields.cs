@@ -7,17 +7,19 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Nothing		= 0,
 
-		ArtistType	= 1,
+		Albums		= 1,
 
-		Description	= 2,
+		ArtistType	= 2,
 
-		Groups		= 4,
+		Description	= 4,
 
-		Names		= 8,
+		Groups		= 8,
 
-		Picture		= 16,
+		Names		= 16,
 
-		WebLinks	= 32
+		Picture		= 32,
+
+		WebLinks	= 64
 
 	}
 

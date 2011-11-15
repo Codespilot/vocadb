@@ -222,9 +222,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
-		public virtual ArchivedArtistVersion CreateArchivedVersion(XDocument data, AgentLoginData author, string notes) {
+		public virtual ArchivedArtistVersion CreateArchivedVersion(XDocument data, ArtistDiff diff, AgentLoginData author, ArtistArchiveReason reason, string notes) {
 
-			var archived = new ArchivedArtistVersion(this, data, author, Version, notes);
+			var archived = new ArchivedArtistVersion(this, data, diff, author, Version, reason, notes);
 			ArchivedVersions.Add(archived);
 			Version++;
 
@@ -294,6 +294,10 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public override int GetHashCode() {
 			return base.GetHashCode();
+		}
+
+		public virtual ArchivedArtistVersion GetLatestVersion() {
+			return ArchivedVersions.OrderByDescending(m => m.Created).First();
 		}
 
 		public virtual bool HasAlbum(Album album) {
