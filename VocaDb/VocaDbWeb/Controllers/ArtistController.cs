@@ -81,6 +81,25 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult TagSelections(int artistId) {
+
+			var contract = Service.GetTagSelections(artistId, LoginManager.LoggedUser.Id);
+
+			return PartialView(contract);
+
+		}
+
+		[HttpPost]
+		public PartialViewResult TagSelections(int artistId, string tagNames) {
+
+			string[] tagNameParts = (tagNames != null ? tagNames.Split(',').Where(s => s != string.Empty).ToArray() : new string[] { });
+
+			var tagUsages = Service.SaveTags(artistId, tagNameParts);
+
+			return PartialView("TagList", tagUsages);
+
+		}
+
 		[HttpPost]
 		public ActionResult FindDuplicate(string term1, string term2, string term3) {
 

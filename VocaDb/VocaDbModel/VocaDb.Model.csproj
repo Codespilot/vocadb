@@ -82,6 +82,7 @@
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
+    <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
     <Compile Include="DataContracts\Tags\TagDetailsContract.cs" />
     <Compile Include="DataContracts\Tags\TagSelectionContract.cs" />
     <Compile Include="DataContracts\ArchivedObjectVersionContract.cs" />
@@ -149,6 +150,8 @@
     <Compile Include="Domain\Artists\ArtistArchiveReason.cs" />
     <Compile Include="Domain\Artists\ArtistComment.cs" />
     <Compile Include="Domain\Artists\ArtistEditableFields.cs" />
+    <Compile Include="Domain\Artists\ArtistTagUsage.cs" />
+    <Compile Include="Domain\Artists\ArtistTagVote.cs" />
     <Compile Include="Domain\CaseInsensitiveStringComparer.cs" />
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
@@ -238,6 +241,8 @@
     <Compile Include="Mapping\Artists\ArtistCommentMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistTagUsageMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistTagVoteMap.cs" />
     <Compile Include="Mapping\Artists\ArtistWebLinkMap.cs" />
     <Compile Include="Domain\Artists\GroupForArtist.cs" />
     <Compile Include="Mapping\ClassConventions.cs" />

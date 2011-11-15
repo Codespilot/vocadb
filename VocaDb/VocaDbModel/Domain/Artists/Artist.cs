@@ -6,6 +6,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using System;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Artists {
@@ -20,6 +21,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
 		private NameManager<ArtistName> names = new NameManager<ArtistName>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
+		private TagManager<ArtistTagUsage> tags = new TagManager<ArtistTagUsage>();
 		private IList<ArtistWebLink> webLinks = new List<ArtistWebLink>();
 
 		public Artist() {
@@ -172,6 +174,14 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual DateTime? StartDate { get; set; }
 
 		public virtual EntryStatus Status { get; set; }
+
+		public virtual TagManager<ArtistTagUsage> Tags {
+			get { return tags; }
+			set {
+				ParamIs.NotNull(() => value);
+				tags = value;
+			}
+		}
 
 		public virtual int Version { get; set; }
 

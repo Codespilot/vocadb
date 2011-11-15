@@ -832,8 +832,8 @@ namespace VocaDb.Model.Service {
 
 	public class AlbumTagUsageFactory : ITagUsageFactory<AlbumTagUsage> {
 
-		private Album album;
-		private ISession session;
+		private readonly Album album;
+		private readonly ISession session;
 
 		public AlbumTagUsageFactory(ISession session, Album album) {
 			this.session = session;
