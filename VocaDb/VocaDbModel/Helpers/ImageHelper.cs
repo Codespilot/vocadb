@@ -13,6 +13,8 @@ namespace VocaDb.Model.Helpers {
 
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
 
+		public const int MaxImageSizeBytes = 5 * 1024 * 1024;	// 5 MB
+
 		public static string[] AllowedExtensions {
 			get { return allowedExt; }
 		}
