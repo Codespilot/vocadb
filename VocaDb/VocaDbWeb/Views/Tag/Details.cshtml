@@ -5,6 +5,14 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Tags", "Index") };	
 }
 
+<h2>Artists</h2>
+
+<ul>
+	@foreach (var usage in Model.Artists) {
+		<li>@Html.ActionLink(usage.Artist.Name + " (" + usage.Count + ")", "Details", "Artist", new { id = usage.Artist.Id }, null)</li>
+	}
+</ul>
+
 <h2>Albums</h2>
 
 <ul>

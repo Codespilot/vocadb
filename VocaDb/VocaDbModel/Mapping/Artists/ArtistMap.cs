@@ -41,6 +41,10 @@ namespace VocaDb.Model.Mapping.Artists {
 				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "PictureThumb250Bytes").Length(int.MaxValue).LazyLoad());
 			});
 
+			Component(m => m.Tags, c => {
+				c.HasMany(m => m.Usages).Table("ArtistTagUsages").KeyColumn("[Artist]").Inverse().Cascade.AllDeleteOrphan();
+			});
+
 		}
 
 	}

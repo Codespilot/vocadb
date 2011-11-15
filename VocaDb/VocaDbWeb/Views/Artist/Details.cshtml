@@ -58,7 +58,21 @@
 					@Translate.ArtistTypeName(Model.ArtistType)<br />
 				</td>	
 			</tr>
-		@if (Model.WebLinks.Any()) {
+
+			<tr>
+				<td>Tags</td>
+				<td>
+					<span id="tagList">
+						@{ Html.RenderPartial("TagList", Model.Tags); }
+					</span>
+					@if (Login.Manager.IsLoggedIn) {
+						<a href="#" id="editTags">Edit tags</a>
+					}				
+				</td>
+			</tr>
+
+
+			@if (Model.WebLinks.Any()) {
 			<tr>
 				<td>Links</td>
 				<td>
@@ -109,6 +123,14 @@
 
 	<div id="All_songs">
 	</div>
+
+</div>
+
+<div id="editTagsPopup" style="display:none;" title="Tags">
+
+	<input type="hidden" id="editTagsArtistId" />
+
+	<div id="editTagsContent"></div>
 
 </div>
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.DataContracts.Tags;
+﻿using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 
@@ -22,4 +18,5 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumContract Album { get; set; } 
 
 	}
+
 }
