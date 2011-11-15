@@ -81,6 +81,7 @@
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
+    <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Tags\TagDetailsContract.cs" />
     <Compile Include="DataContracts\Tags\TagSelectionContract.cs" />
     <Compile Include="DataContracts\ArchivedObjectVersionContract.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\Artists\ArtistArchiveReason.cs" />
     <Compile Include="Domain\Artists\ArtistComment.cs" />
     <Compile Include="Domain\Artists\ArtistEditableFields.cs" />
     <Compile Include="Domain\CaseInsensitiveStringComparer.cs" />

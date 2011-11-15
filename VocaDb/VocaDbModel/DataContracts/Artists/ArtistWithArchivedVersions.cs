@@ -11,11 +11,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			ParamIs.NotNull(() => artist);
 
-			ArchivedVersions = artist.ArchivedVersions.Select(a => new ArchivedObjectVersionContract(a)).ToArray();
+			ArchivedVersions = artist.ArchivedVersions.Select(a => new ArchivedArtistVersionContract(a)).ToArray();
 
 		}
 
-		public ArchivedObjectVersionContract[] ArchivedVersions { get; set; }
+		public ArchivedArtistVersionContract[] ArchivedVersions { get; set; }
 
 	}
 

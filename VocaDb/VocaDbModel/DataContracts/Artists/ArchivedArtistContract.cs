@@ -14,18 +14,18 @@ namespace VocaDb.Model.DataContracts.Artists {
 			
 			ParamIs.NotNull(() => artist);
 
-			Albums = artist.Albums.Select(a => new ObjectRefContract(a.Album)).ToArray();
+			Albums = (diff.IncludeAlbums ? artist.Albums.Select(a => new ObjectRefContract(a.Album)).ToArray() : null);
 			ArtistType = artist.ArtistType;
 			Id = artist.Id;
-			Description = artist.Description;
+			Description = (diff.IncludeDescription ? artist.Description : null);
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Group)).ToArray();
 			Members = artist.Members.Select(m => new ObjectRefContract(m.Member)).ToArray();
-			Names = artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+			Names = (diff.IncludeNames ? artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
 			Picture = (diff.IncludePicture && artist.Picture != null ? new PictureDataContract(artist.Picture) : null);
 			//Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song)).ToArray();
-			StartDate = artist.StartDate;
+			//StartDate = artist.StartDate;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
-			WebLinks = artist.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
+			WebLinks = (diff.IncludeWebLinks ? artist.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray() : null);
 
 		}
 
@@ -56,8 +56,8 @@ namespace VocaDb.Model.DataContracts.Artists {
 		//[DataMember]
 		//public ObjectRefContract[] Songs { get; set; }
 
-		[DataMember]
-		public DateTime? StartDate { get; set; }
+		//[DataMember]
+		//public DateTime? StartDate { get; set; }
 
 		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }

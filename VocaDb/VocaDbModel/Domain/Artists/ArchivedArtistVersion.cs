@@ -7,23 +7,26 @@ namespace VocaDb.Model.Domain.Artists {
 
 	public class ArchivedArtistVersion : ArchivedObjectVersion {
 
-		public static ArchivedArtistVersion Create(Artist artist, ArtistDiff diff, AgentLoginData author, string notes) {
+		public static ArchivedArtistVersion Create(Artist artist, ArtistDiff diff, AgentLoginData author, ArtistArchiveReason reason, string notes) {
 
 			var contract = new ArchivedArtistContract(artist, diff);
-			var doc = XmlHelper.SerializeToXml(contract);
+			var data = XmlHelper.SerializeToXml(contract);
 
-			return artist.CreateArchivedVersion(doc, author, notes);
+			return artist.CreateArchivedVersion(data, diff, author, reason, notes);
 
 		}
 
 		private Artist artist;
+		private ArtistDiff diff;
 
 		public ArchivedArtistVersion() {}
 
-		public ArchivedArtistVersion(Artist artist, XDocument data, AgentLoginData author, int version, string notes)
+		public ArchivedArtistVersion(Artist artist, XDocument data, ArtistDiff diff, AgentLoginData author, int version, ArtistArchiveReason reason, string notes)
 			: base(data, author, version, notes) {
 
 			Artist = artist;
+			Diff = diff;
+			Reason = reason;
 
 		}
 
@@ -34,6 +37,13 @@ namespace VocaDb.Model.Domain.Artists {
 				artist = value;
 			}
 		}
+
+		public virtual ArtistDiff Diff {
+			get { return diff; }
+			protected set { diff = value; }
+		}
+
+		public virtual ArtistArchiveReason Reason { get; set; }
 
 	}
 }
