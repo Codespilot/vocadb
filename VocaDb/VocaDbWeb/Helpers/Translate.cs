@@ -4,6 +4,7 @@ using VocaDb.Model.Resources;
 using VocaDb.Model.Domain.Globalization;
 using Resources;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Helpers {
 
@@ -75,6 +76,18 @@ namespace VocaDb.Web.Helpers {
 				default:
 					return "Other";
 			}
+
+		}
+
+		public static string SongArchiveReason(SongArchiveReason reason) {
+
+			return SongArchiveReasonNames.ResourceManager.GetString(reason.ToString());
+
+		}
+
+		public static string SongEditableField(SongEditableFields field) {
+
+			return SongEditableFieldNames.ResourceManager.GetString(field.ToString());
 
 		}
 

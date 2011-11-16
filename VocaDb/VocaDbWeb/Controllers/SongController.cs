@@ -266,7 +266,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Versions(int id) {
 
-			return View(Service.GetSongWithArchivedVersions(id));
+			var contract = Service.GetSongWithArchivedVersions(id);
+
+			return View(new Versions(contract));
 
 		}
 

@@ -3,36 +3,41 @@ using System.Xml.Serialization;
 using VocaDb.Model.DataContracts.Songs;
 using System.Xml.Linq;
 using System.IO;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Songs {
 
 	public class ArchivedSongVersion : ArchivedObjectVersion {
 
-		public static ArchivedSongVersion Create(Song song, SongDiff diff, AgentLoginData author, string notes) {
+		public static ArchivedSongVersion Create(Song song, SongDiff diff, AgentLoginData author, SongArchiveReason reason, string notes) {
 
 			var contract = new ArchivedSongContract(song, diff);
-			var serializer = new XmlSerializer(typeof(ArchivedSongContract));
-			XDocument doc;
+			var data = XmlHelper.SerializeToXml(contract);
 
-			using (var writer = new StringWriter()) {
-				serializer.Serialize(writer, contract);
-				doc = XDocument.Parse(writer.ToString());
-			}
-
-			return song.CreateArchivedVersion(doc, author, notes);
+			return song.CreateArchivedVersion(data, diff, author, reason, notes);
 
 		}
 
+		private SongDiff diff;
 		private Song song;
 
 		public ArchivedSongVersion() { }
 
-		public ArchivedSongVersion(Song song, XDocument data, AgentLoginData author, int version, string notes)
+		public ArchivedSongVersion(Song song, XDocument data, SongDiff diff, AgentLoginData author, int version, SongArchiveReason reason, string notes)
 			: base(data, author, version, notes) {
 
 			Song = song;
+			Diff = diff;
+			Reason = reason;
 
 		}
+
+		public virtual SongDiff Diff {
+			get { return diff; }
+			protected set { diff = value; }
+		}
+
+		public virtual SongArchiveReason Reason { get; set; }
 
 		public virtual Song Song {
 			get { return song; }

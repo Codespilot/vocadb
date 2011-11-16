@@ -264,17 +264,17 @@ namespace VocaDb.Model.Service {
 
 		}*/
 
-		public void Archive(ISession session, Song song, SongDiff diff, string notes = "") {
+		public void Archive(ISession session, Song song, SongDiff diff, SongArchiveReason reason, string notes = "") {
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = ArchivedSongVersion.Create(song, diff, agentLoginData, notes);
+			var archived = ArchivedSongVersion.Create(song, diff, agentLoginData, reason, notes);
 			session.Save(archived);
 
 		}
 
-		public void Archive(ISession session, Song song, string notes = "") {
+		public void Archive(ISession session, Song song, SongArchiveReason reason, string notes = "") {
 
-			Archive(session, song, new SongDiff(), notes);
+			Archive(session, song, new SongDiff(), reason, notes);
 
 		}
 
@@ -294,7 +294,7 @@ namespace VocaDb.Model.Service {
 
 				session.Save(song);
 
-				Archive(session, song, "Created");
+				Archive(session, song, SongArchiveReason.Created);
 				session.Update(song);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
@@ -323,7 +323,7 @@ namespace VocaDb.Model.Service {
 				var songInAlbum = album.AddSong(song);
 				session.Save(songInAlbum);
 
-				Archive(session, song, string.Format("Created for album '{0}'", album.DefaultName));
+				Archive(session, song, SongArchiveReason.Created, string.Format("Created for album '{0}'", album.DefaultName));
 
 				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 
@@ -401,7 +401,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				song.UpdateArtistString();
-				Archive(session, song, "Created");
+				Archive(session, song, SongArchiveReason.Created);
 				session.Update(song);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
@@ -695,8 +695,7 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.UpdateNicoId();
 
-				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
-				Archive(session, target, "Merged from '" + source.DefaultName + "'");
+				Archive(session, target, SongArchiveReason.Merged, "Merged from " + source);
 
 				session.Update(source);
 				session.Update(target);
@@ -732,20 +731,23 @@ namespace VocaDb.Model.Service {
 				var oldArtists = song.Artists.Select(a => a.Artist).ToArray();
 				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
 
-				var diff = CollectionHelper.Diff(oldArtists, artists, (a, a2) => a.Id == a2.Id);
+				var artistDiff = CollectionHelper.Diff(oldArtists, artists, (a, a2) => a.Id == a2.Id);
 
-				foreach (var added in diff.Added)
+				foreach (var added in artistDiff.Added)
 					session.Save(song.AddArtist(added));
 
-				foreach (var removed in diff.Removed) {
+				foreach (var removed in artistDiff.Removed) {
 					var link = song.RemoveArtist(removed);
 					if (link != null)
 						session.Delete(link);
 				}
 
-				if (diff.Added.Any() || diff.Removed.Any()) {
+				if (artistDiff.Changed) {
+
+					var diff = new SongDiff(DoSnapshot(song.GetLatestVersion())) { Artists = true };
+
 					song.UpdateArtistString();
-					Archive(session, song, "Updated artists");
+					Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 					session.Update(song);
 				}
 
@@ -762,8 +764,9 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(properties.Song.Id);
+				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion()));
 
-				AuditLog(string.Format("updating properties for {0}", song), session);
+				AuditLog(string.Format("updating properties for {0}", song));
 
 				song.Notes = properties.Notes;
 				song.OriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? session.Load<Song>(properties.OriginalVersion.Id) : null);
@@ -776,7 +779,9 @@ namespace VocaDb.Model.Service {
 				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
 
-				Archive(session, song, new SongDiff { IncludeLyrics = false }, "Updated properties");
+				AuditLog(string.Format("updated properties for {0} ({1})", song, diff.ChangedFieldsString), session);
+
+				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
@@ -794,8 +799,9 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
+				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion())) { Lyrics = true };	// TODO: actually check if they changed
 
-				AuditLog("updating lyrics for " + song, session);
+				AuditLog("updating lyrics for " + song);
 
 				var deleted = song.Lyrics.Where(l => !validLyrics.Any(l2 => l.Id == l2.Id)).ToArray();
 
@@ -825,7 +831,9 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				Archive(session, song, "Updated lyrics");
+				AuditLog(string.Format("updated properties for {0} ({1})", song, diff.ChangedFieldsString), session);
+
+				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 				session.Update(song);
 
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);

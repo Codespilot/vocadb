@@ -614,7 +614,7 @@ namespace VocaDb.Model.Service {
 
 				artist.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new ArtistTagUsageFactory(session, artist));
 
-				return artist.Tags.Usages.OrderByDescending(u => u.Count).Select(t => new TagUsageContract(t)).ToArray();
+				return artist.Tags.Usages.OrderByDescending(u => u.Count).Take(3).Select(t => new TagUsageContract(t)).ToArray();
 
 			});
 
