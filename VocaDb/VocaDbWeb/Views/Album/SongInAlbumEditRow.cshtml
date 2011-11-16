@@ -10,6 +10,8 @@
 	<td class="trackNameCol">
 		<a href="#" class="editTrackProperties" id="@("editTrackProperties_" + Model.Id)" title="@Model.Song.AdditionalNames">@Model.Song.Name</a></td>
 	<td>
+		@Html.ActionLink("Edit", "Edit", "Song", new { id = Model.Song.Id }, null)
+	</td><td>
 		<input type="button" class="songRemove" id="@("songRemove_" + Model.Id)" value="Remove" />
 	</td>
 </tr>
