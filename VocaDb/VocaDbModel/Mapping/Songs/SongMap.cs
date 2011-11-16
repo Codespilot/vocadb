@@ -58,14 +58,20 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Id(m => m.Id);
 
-			Map(m => m.AgentName).Not.Nullable();
+			Map(m => m.AgentName).Length(100).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
 			Map(m => m.Notes).Length(200).Not.Nullable();
+			Map(m => m.Reason).Length(30).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			References(m => m.Author);
 			References(m => m.Song);
+
+			Component(m => m.Diff, c => {
+				c.Map(m => m.ChangedFieldsString, "ChangedFields").Length(100).Not.Nullable();
+				c.Map(m => m.IsSnapshot).Not.Nullable();
+			});
 
 		}
 

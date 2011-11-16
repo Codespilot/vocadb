@@ -14,19 +14,20 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public ArchivedSongContract(Song song, SongDiff diff) {
 
 			ParamIs.NotNull(() => song);
+			ParamIs.NotNull(() => diff);
 
-			Artists = song.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray();
+			Artists = (diff.IncludeArtists ? song.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray() : null);
 			Id = song.Id;
 			Lyrics = (diff.IncludeLyrics ? song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray() : null);
-			Names = song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+			Names = (diff.IncludeNames ? song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
 			NicoId = song.NicoId;
 			Notes = song.Notes;
 			OriginalVersion = (song.OriginalVersion != null ? new ObjectRefContract(song.OriginalVersion) : null);
-			PVs = song.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
+			PVs = (diff.IncludePVs ? song.PVs.Select(p => new ArchivedPVContract(p)).ToArray() : null);
 			SongType = song.SongType;
 			Status = song.Status;
 			TranslatedName = new ArchivedTranslatedStringContract(song.TranslatedName);
-			WebLinks = song.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray();
+			WebLinks = (diff.IncludeWebLinks ? song.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray() : null);
 			
 		}
 

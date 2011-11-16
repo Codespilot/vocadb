@@ -12,12 +12,12 @@ namespace VocaDb.Model.DataContracts.Songs {
 			
 			ParamIs.NotNull(() => song);
 
-			ArchivedVersions = song.ArchivedVersions.Select(a => new ArchivedObjectVersionContract(a)).OrderByDescending(v => v.Version).ToArray();
+			ArchivedVersions = song.ArchivedVersions.Select(a => new ArchivedSongVersionContract(a)).OrderByDescending(v => v.Version).ToArray();
 			//Author = (ArchivedVersions.Any() && ArchivedVersions.Last().Author != null ? ArchivedVersions.Last().Author : null);
 
 		}
 
-		public ArchivedObjectVersionContract[] ArchivedVersions { get; set; }
+		public ArchivedSongVersionContract[] ArchivedVersions { get; set; }
 
 		//public UserContract Author { get; set; }
 

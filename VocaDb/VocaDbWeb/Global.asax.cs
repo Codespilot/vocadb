@@ -74,21 +74,6 @@ namespace VocaDb.Web {
 
 			log.Error("Unhandled exception" + request, ex);
 
-			if (ex.GetBaseException() is HttpRequestValidationException) {
-				Response.Clear();
-				Response.StatusCode = 200;
-				Response.Write(@"
-					<html><head><title>HTML request validation error</title></head>
-					<body>
-						<p>
-							For some reason your input triggered a HTTP request validation exception. 
-							If you think this is an error, please contant the admin.
-						</p>
-					</body>
-				");
-				Response.End();
-			}
-
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
@@ -96,8 +81,8 @@ namespace VocaDb.Web {
 		}
 
 		public static void RegisterRoutes(RouteCollection routes) {
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute(

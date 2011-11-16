@@ -60,7 +60,8 @@ namespace VocaDb.Model.Service {
 						song = new Song(inspectedTrack.ImportedTrack.Title);
 						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum);
 
-						Services.Songs.Archive(session, song, "Auto-imported from MikuDB for album '" + album.DefaultName + "'");
+						Services.Songs.Archive(session, song, SongArchiveReason.AutoImportedFromMikuDb, 
+							"Auto-imported from MikuDB for album '" + album.DefaultName + "'");
 
 						session.Save(song);
 

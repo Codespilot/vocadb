@@ -1,7 +1,7 @@
 ﻿@model VocaDb.Web.Models.Artist.Versions
 
 @{
-	ViewBag.Title = "Versions - " + Model.Artist.Name;
+	ViewBag.Title = "Revisions - " + Model.Artist.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Artists", "Index"), 
 		LinkExtensions.ActionLink(Html, Model.Artist.Name, "Details", new { id = Model.Artist.Id }) 

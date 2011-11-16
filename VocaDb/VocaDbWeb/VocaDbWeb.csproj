@@ -117,6 +117,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscTypeNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongArchiveReasonNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongArchiveReasonNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SongEditableFieldNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongEditableFieldNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -163,6 +173,7 @@
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\Song\Create.cs" />
     <Compile Include="Models\Song\Index.cs" />
+    <Compile Include="Models\Song\Versions.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\User\ComposeMessage.cs" />
     <Compile Include="Models\User\ForgotPassword.cs" />
@@ -735,6 +746,18 @@
     <Content Include="App_GlobalResources\ArtistEditableFieldNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistEditableFieldNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\SongArchiveReasonNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongArchiveReasonNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\SongEditableFieldNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongEditableFieldNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
