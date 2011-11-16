@@ -157,6 +157,7 @@
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />
+    <Compile Include="Domain\Songs\SongEditableFields.cs" />
     <Compile Include="Domain\Tags\ITagFactory.cs" />
     <Compile Include="Domain\Tags\ITagUsageFactory.cs" />
     <Compile Include="Domain\Tags\ITagVoteFactory.cs" />

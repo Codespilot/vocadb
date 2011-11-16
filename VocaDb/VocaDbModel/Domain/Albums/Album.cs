@@ -332,7 +332,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual ArchivedAlbumVersion GetLatestVersion() {
-			return ArchivedVersions.OrderByDescending(m => m.Created).First();
+			return ArchivedVersions.OrderByDescending(m => m.Created).FirstOrDefault();
 		}
 
 		public virtual bool HasArtist(Artist artist) {
