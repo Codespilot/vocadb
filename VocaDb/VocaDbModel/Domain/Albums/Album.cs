@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -461,6 +462,42 @@ namespace VocaDb.Model.Domain.Albums {
 
 			foreach (var song in moved)
 				song.TrackNumber++;*/
+
+		}
+
+		public virtual CollectionDiffWithValue<SongInAlbum, SongInAlbum> SyncSongs(
+			IEnumerable<SongInAlbumEditContract> newTracks, Func<SongInAlbumEditContract, Song> songGetter) {
+
+			var diff = CollectionHelper.Diff(Songs, newTracks, (n1, n2) => n1.Id == n2.SongInAlbumId);
+			var created = new List<SongInAlbum>();
+			var edited = new List<SongInAlbum>();
+
+			foreach (var n in diff.Removed) {
+				AllSongs.Remove(n);
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var song = songGetter(newEntry);
+
+				var link = AddSong(song, newEntry.TrackNumber);
+				created.Add(link);
+
+			}
+
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newTracks.First(e => e.SongInAlbumId == entry.Id);
+
+				if (newEntry.TrackNumber != linkEntry.TrackNumber) {
+					linkEntry.TrackNumber = newEntry.TrackNumber;
+					edited.Add(linkEntry);
+				}
+
+			}
+
+			return new CollectionDiffWithValue<SongInAlbum, SongInAlbum>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 

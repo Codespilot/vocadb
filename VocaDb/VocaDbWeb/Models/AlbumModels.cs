@@ -27,6 +27,7 @@ namespace VocaDb.Web.Models {
 		public AlbumEdit() {
 			
 			Names = new List<LocalizedStringEdit>();
+			Tracks = new List<SongInAlbumEditContract>();
 			WebLinks = new List<WebLink>();
 
 			AllDiscTypes = EnumVal<DiscType>.Values;
@@ -128,7 +129,7 @@ namespace VocaDb.Web.Models {
 		public string ReleaseEvent { get; set; }
 
 		[Display(Name = "Tracks")]
-		public SongInAlbumContract[] Tracks { get; set; }
+		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
 		[Display(Name = "External links")]
 		public IList<WebLink> WebLinks { get; set; }
@@ -150,6 +151,7 @@ namespace VocaDb.Web.Models {
 						Year = this.ReleaseYear
 					}
 				},
+				Songs = Tracks.ToArray(),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()

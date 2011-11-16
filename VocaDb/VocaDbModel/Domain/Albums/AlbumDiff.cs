@@ -25,6 +25,15 @@ namespace VocaDb.Model.Domain.Albums {
 			IsSnapshot = isSnapshot;
 		}
 
+		public virtual bool Artists {
+			get {
+				return IsSet(AlbumEditableFields.Artists);
+			}
+			set {
+				Set(AlbumEditableFields.Artists, value);
+			}
+		}
+
 		public virtual string ChangedFieldsString {
 			get {
 
@@ -79,6 +88,12 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool IncludeArtists {
+			get {
+				return (IsSnapshot || Artists);
+			}
+		}
+
 		public virtual bool IncludeCover {
 			get {
 				// Special treatment for cover - not included in snapshots by default.
@@ -95,6 +110,12 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual bool IncludeNames {
 			get {
 				return (IsSnapshot || Names);
+			}
+		}
+
+		public virtual bool IncludeTracks {
+			get {
+				return (IsSnapshot || Tracks);
 			}
 		}
 
@@ -121,6 +142,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 			set {
 				Set(AlbumEditableFields.OriginalRelease, value);
+			}
+		}
+
+		public virtual bool Tracks {
+			get {
+				return IsSet(AlbumEditableFields.Tracks);
+			}
+			set {
+				Set(AlbumEditableFields.Tracks, value);
 			}
 		}
 

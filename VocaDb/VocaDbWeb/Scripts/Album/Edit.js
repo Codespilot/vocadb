@@ -37,7 +37,7 @@ function saveTrackProperties() {
 
 }
 
-function updateTrackList(albumId, event, ui) {
+/*function updateTrackList(albumId, event, ui) {
 
 	var id = getId(ui.item);
 	var prev = $(ui.item).prev();
@@ -47,16 +47,24 @@ function updateTrackList(albumId, event, ui) {
 		songListChanged(songList);
 	});	
 
-}
+}*/
 
-function songListChanged(songList) {
+function songListChanged() {
 
-	$(songList).each(function () {
+	var track = 1;
+
+	$("tr.trackRow").each(function () {
+		$(this).find(".songTrackNumberField").val(track);
+		$(this).find(".songTrackNumber").html(track);
+		track++;
+	});
+
+	/*$(songList).each(function () {
 
 		var trackNumElem = $("#songTrackNumber_" + this.Id);
 		$(trackNumElem).html(this.TrackNumber);
 
-	});
+	});*/
 
 }
 
@@ -67,7 +75,7 @@ function initPage(albumId) {
 	$("#mergeLink").button();
 	$("#tracksTableBody").sortable({
 		update: function (event, ui) {
-			updateTrackList(albumId, event, ui) 
+			songListChanged();
 		}
 	});
 
@@ -244,18 +252,20 @@ function initPage(albumId) {
 		tracksTable.append(row);
 		$("input#songAddName").val("");
 		$("#songAddList").empty();
+		songListChanged();
 
 	}
 
 	$("input.songRemove").live("click", function () {
 
-		var id = getId(this);
+		$(this).parent().parent().remove();
+		songListChanged();
+
+		/*var id = getId(this);
 		$.post("../../Album/DeleteSongInAlbum", { songInAlbumId: id }, function (songList) {
 
-			$("tr#songRow_" + id).remove();
-			songListChanged(songList);
 
-		});
+		});*/
 
 	});
 

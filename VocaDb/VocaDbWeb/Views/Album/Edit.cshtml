@@ -20,19 +20,24 @@
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
-<div id="tabs">
+@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenFor(m => m.Name)
 
-	<ul>
-		<li><a href="#basicInfoTab">Basic info</a></li>
-		<li><a href="#artistsTab">Artists</a></li>
-		<li><a href="#tracksTab">Tracks</a></li>
-		<li><a href="#pvsTab">Videos</a></li>
-	</ul>
+	<p>
+		<input type="submit" value="Save changes" />
+	</p>
+	
+	<div id="tabs">
 
-	<div id="basicInfoTab">
-		@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
-			@Html.HiddenFor(m => m.Id)
-			@Html.HiddenFor(m => m.Name)
+		<ul>
+			<li><a href="#basicInfoTab">Basic info</a></li>
+			<li><a href="#artistsTab">Artists</a></li>
+			<li><a href="#tracksTab">Tracks</a></li>
+			<li><a href="#pvsTab">Videos</a></li>
+		</ul>
+
+		<div id="basicInfoTab">
 			<div>
 				<fieldset>
 					<legend>Basic properties</legend>
@@ -85,8 +90,8 @@
 								<th>Actions</th>
 							</tr>
 							@foreach (var name in Model.Names) {
-								Html.RenderPartial("LocalizedStringEditableRow", name);
-							}
+							   Html.RenderPartial("LocalizedStringEditableRow", name);
+						   }
 
 							@{ Html.RenderPartial("LocalizedStringNewRow"); }
 						</table>
@@ -177,81 +182,83 @@
 								<th>Actions</th>
 							</tr>
 							@foreach (var webLink in Model.WebLinks) {
-								Html.RenderPartial("WebLinkEditRow", webLink);
-							}
+							   Html.RenderPartial("WebLinkEditRow", webLink);
+						   }
 							@{ Html.RenderPartial("WebLinkCreateRow"); }
 						</table>
 					</div>
 
-					<p>
-						<input type="submit" value="Save properties" />
-					</p>
 				</fieldset>
 			</div>
-		}
-	</div>
+		</div>
 
-	<div id="tracksTab">
-		<div>
+		<div id="tracksTab">
+			<div>
+				<fieldset>
+					<legend>Tracklist</legend>
+					<p>Click track name to edit artists.</p>
+
+					<table id="tracksTable">
+						<tbody id="tracksTableBody">
+						@foreach (var track in Model.Tracks) {
+						  Html.RenderPartial("SongInAlbumEditRow", track);
+					  }
+						</tbody>
+					</table>
+					<h4>Add new</h4>
+					<p>Note: do not write the artist into the track name. Artists will be specified separately.</p>
+					<table>
+						@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "song", Prefix = "song", FirstColSpan = 1 }); }
+					</table>
+				</fieldset>
+			</div>
+		</div>
+
+		<div id="artistsTab">
 			<fieldset>
-				<legend>Tracklist</legend>
-				<p>Click track name to edit artists.</p>
-
-				<table id="tracksTable">
-					<tbody id="tracksTableBody">
-					@foreach (var track in Model.Tracks) {
-						Html.RenderPartial("SongInAlbumEditRow", track);
-					}
-					</tbody>
-				</table>
-				<h4>Add new</h4>
-				<p>Note: do not write the artist into the track name. Artists will be specified separately.</p>
+				<legend>Connected artists</legend>
 				<table>
-					@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "song", Prefix = "song", FirstColSpan = 1 }); }
+					@foreach (var album in Model.ArtistLinks) {
+						 Html.RenderPartial("ArtistForAlbumEditRow", album);
+					 }
+
+					@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 				</table>
 			</fieldset>
 		</div>
-	</div>
 
-	<div id="artistsTab">
-		<fieldset>
-			<legend>Connected artists</legend>
+		<div id="pvsTab">
+	
+			<p>You can use this page to add advertisements or crossfades related to this album.</p>
+
 			<table>
-				@foreach (var album in Model.ArtistLinks) {
-				   Html.RenderPartial("ArtistForAlbumEditRow", album);
-			   }
-
-				@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
+			@foreach (var pv in Model.PVs) {
+			   Html.RenderPartial("PVForSongEditRow", pv);
+		   }
+			<tr id="pvRow_new">
+				<td>
+					<p>Only Youtube and NicoNicoDouga are supported.</p>
+					<p>
+					URL:
+					@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
+					</p>
+				</td>
+				<td>
+					<input type="button" class="pvAddNew" id="pvAdd" value="Add" />				
+				</td>
+			</tr>
 			</table>
-		</fieldset>
+	
+		</div>
+
 	</div>
 
-	<div id="pvsTab">
+	<p>
+		<input type="submit" value="Save changes" />
+	</p>
 	
-		<p>You can use this page to add advertisements or crossfades related to this album.</p>
-
-		<table>
-		@foreach (var pv in Model.PVs) {
-			Html.RenderPartial("PVForSongEditRow", pv);
-		}
-		<tr id="pvRow_new">
-			<td>
-				<p>Only Youtube and NicoNicoDouga are supported.</p>
-				<p>
-				URL:
-				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
-				</p>
-			</td>
-			<td>
-				<input type="button" class="pvAddNew" id="pvAdd" value="Add" />				
-			</td>
-		</tr>
-		</table>
+}
 	
-	</div>
-
-</div>
-
 <div id="editTrackPropertiesPopup" style="display:none;" title="Track properties">
 
 	<div id="trackPropertiesContent"></div>
