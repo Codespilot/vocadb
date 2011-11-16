@@ -768,16 +768,31 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updating properties for {0}", song));
 
-				song.Notes = properties.Notes;
+				if (song.Notes != properties.Notes) {
+					diff.Notes = true;
+					song.Notes = properties.Notes;
+				}
+
 				song.OriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? session.Load<Song>(properties.OriginalVersion.Id) : null);
-				song.SongType = properties.Song.SongType;
+
+				if (song.SongType != properties.Song.SongType) {
+					diff.SongType = true;
+					song.SongType = properties.Song.SongType;
+				}
+
 				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 
 				var nameDiff = song.Names.Sync(properties.Names, song);
 				SessionHelper.Sync(session, nameDiff);
 
+				if (nameDiff.Changed)
+					diff.Names = true;
+
 				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
+
+				if (webLinkDiff.Changed)
+					diff.WebLinks = true;
 
 				AuditLog(string.Format("updated properties for {0} ({1})", song, diff.ChangedFieldsString), session);
 

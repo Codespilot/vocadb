@@ -81,7 +81,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool IncludePVs {
 			get {
-				return (IsSnapshot || PVs);
+				return true;
 			}
 		}
 
