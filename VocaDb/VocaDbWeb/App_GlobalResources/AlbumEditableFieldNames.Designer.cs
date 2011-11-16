@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artists.
+        /// </summary>
+        internal static string Artists {
+            get {
+                return ResourceManager.GetString("Artists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cover.
         /// </summary>
         internal static string Cover {
@@ -111,6 +120,15 @@ namespace Resources {
         internal static string OriginalRelease {
             get {
                 return ResourceManager.GetString("OriginalRelease", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tracks.
+        /// </summary>
+        internal static string Tracks {
+            get {
+                return ResourceManager.GetString("Tracks", resourceCulture);
             }
         }
         

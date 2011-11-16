@@ -1,17 +1,31 @@
-﻿@model VocaDb.Model.DataContracts.Songs.SongInAlbumContract
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Songs.SongInAlbumEditContract
 
-<tr id="@("songRow_" + Model.Id)" class="ui-state-default">
+<tr class="trackRow ui-state-default">
 	<td>
+		@{ var item = Html.BeginCollectionItem("Tracks"); }
+		@Html.HiddenFor(m => m.SongInAlbumId)
+		@Html.HiddenFor(m => m.SongId)
+		@Html.HiddenFor(m => m.SongName)
+		@Html.HiddenFor(m => m.SongAdditionalNames)
+		@Html.HiddenFor(m => m.TrackNumber, new { @class = "songTrackNumberField" })
 		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 	</td>
-	<td id="@("songTrackNumber_" + @Model.Id)" class="songTrackNumber">
+	<td class="songTrackNumber">
 		@Model.TrackNumber
 	</td>
 	<td class="trackNameCol">
-		<a href="#" class="editTrackProperties" id="@("editTrackProperties_" + Model.Id)" title="@Model.Song.AdditionalNames">@Model.Song.Name</a></td>
-	<td>
-		@Html.ActionLink("Edit", "Edit", "Song", new { id = Model.Song.Id }, null)
+		@if (Model.SongInAlbumId != 0) {
+		<a href="#" class="editTrackProperties" id="@("editTrackProperties_" + Model.SongInAlbumId)" title="@Model.SongAdditionalNames">@Model.SongName</a>
+		} else {
+		<span title="@Model.SongAdditionalNames">@Model.SongName</span>
+		}
 	</td><td>
-		<input type="button" class="songRemove" id="@("songRemove_" + Model.Id)" value="Remove" />
+		@if (Model.SongId != 0) {
+			@Html.ActionLink("Edit song", "Edit", "Song", new { id = Model.SongId }, null)
+		}
+		@{ item.Dispose(); }
+	</td><td>
+		<input type="button" class="songRemove" value="Remove" />
 	</td>
 </tr>

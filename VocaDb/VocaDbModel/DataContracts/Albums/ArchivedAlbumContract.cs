@@ -16,7 +16,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ParamIs.NotNull(() => album);
 			ParamIs.NotNull(() => diff);
 
-			Artists = album.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray();
+			Artists = (diff.IncludeArtists ? album.Artists.Select(a => new ObjectRefContract(a.Artist)).ToArray() : null);
 			CoverPicture = (diff.IncludeCover && album.CoverPicture != null ? new PictureDataContract(album.CoverPicture) : null);
 			Description = (diff.IncludeDescription ? album.Description : null);
 			DiscType = album.DiscType;
@@ -24,7 +24,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			OriginalRelease = (album.OriginalRelease != null && !album.OriginalRelease.IsEmpty ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
 			PVs = album.PVs.Select(p => new ArchivedPVContract(p)).ToArray();
 			Names = (diff.IncludeNames ? album.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
-			Songs = album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray();
+			Songs = (diff.IncludeTracks ? album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray() : null);
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			WebLinks = (diff.IncludeWebLinks ? album.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray() : null);
 

@@ -818,6 +818,42 @@ namespace VocaDb.Model.Service {
 					diff.Cover = true;
 				}
 
+				var songGetter = new Func<SongInAlbumEditContract, Song>(contract => {
+
+					if (contract.SongId != 0)
+						return session.Load<Song>(contract.SongId);
+					else {
+
+						AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album), session);
+
+						var song = new Song(contract.SongName);
+						session.Save(song);
+
+						Services.Songs.Archive(session, song, SongArchiveReason.Created, 
+							string.Format("Created for album '{0}'", album.DefaultName));
+
+						return song;
+
+					}
+
+				});
+
+				var tracksDiff = album.SyncSongs(properties.Songs, songGetter);
+
+				SessionHelper.Sync(session, tracksDiff);
+
+				if (tracksDiff.Changed) {
+
+					var add = string.Join(", ", tracksDiff.Added.Select(i => i.Song.ToString()));
+					var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
+					var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
+
+					AuditLog(string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit), session);
+
+					diff.Tracks = true;
+
+				}
+
 				AuditLog(string.Format("updated properties for {0} ({1})", album, diff.ChangedFieldsString), session);
 
 				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);

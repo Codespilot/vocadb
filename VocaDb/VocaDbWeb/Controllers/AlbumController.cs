@@ -5,6 +5,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
@@ -243,7 +244,12 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewSong(int albumId, string newSongName) {
 
-			var link = MvcApplication.Services.Songs.CreateForAlbum(albumId, newSongName);
+			ParamIs.NotNullOrWhiteSpace(() => newSongName);
+
+			//var link = MvcApplication.Services.Songs.CreateForAlbum(albumId, newSongName);
+
+			var link = new SongInAlbumEditContract(newSongName.Trim());
+
 			return PartialView("SongInAlbumEditRow", link);
 
 		}
@@ -251,7 +257,11 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingSong(int albumId, int songId) {
 
-			var link = Service.AddSong(albumId, songId);
+			//var link = Service.AddSong(albumId, songId);
+
+			var songContract = MvcApplication.Services.Songs.GetSongWithAdditionalNames(songId);
+			var link = new SongInAlbumEditContract(songContract);
+
 			return PartialView("SongInAlbumEditRow", link);
 
 		}
