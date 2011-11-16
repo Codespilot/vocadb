@@ -1,5 +1,5 @@
-﻿@using VocaDb.Web.Models
-@using VocaDb.Web.Helpers
+﻿@using VocaDb.Web.Models;
+@using VocaDb.Web.Helpers;
 @model  AlbumEdit
 @{
 	ViewBag.Title = "Edit album - " + Model.Name;
@@ -215,6 +215,9 @@
 		</div>
 
 		<div id="artistsTab">
+
+			@Helpers.NotificationPanel("For now changes on this tab are saved immediately")<br />
+
 			<fieldset>
 				<legend>Connected artists</legend>
 				<table>
@@ -229,6 +232,8 @@
 
 		<div id="pvsTab">
 	
+			@Helpers.NotificationPanel("For now changes on this tab are saved immediately")<br />
+
 			<p>You can use this page to add advertisements or crossfades related to this album.</p>
 
 			<table>

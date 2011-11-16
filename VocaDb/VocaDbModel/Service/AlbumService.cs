@@ -848,7 +848,12 @@ namespace VocaDb.Model.Service {
 					var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
 					var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
 
-					AuditLog(string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit), session);
+					var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit);
+
+					if (str.Length > 300)
+						str = str.Substring(0, 300);
+
+					AuditLog(str, session);
 
 					diff.Tracks = true;
 
