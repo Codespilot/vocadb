@@ -21,11 +21,13 @@ namespace VocaDb.Web.Models.Shared {
 
 		}
 
+		[StringLength(512)]
 		public string Description { get; set; }
 
 		public int Id { get; set; }
 
 		[Required]
+		[StringLength(512)]
 		public string Url { get; set; }
 
 		public WebLinkContract ToContract() {
