@@ -1,8 +1,22 @@
-﻿@model VocaDb.Model.DataContracts.Albums.ArtistForAlbumContract
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.UseCases.AlbumForArtistEditContract
 
-<tr id="@("albumRow_" + Model.Id)">
-	<td>@Html.ActionLink(Model.Album.Name, "Edit", "Album", new { id = Model.Album.Id }, null)</td>
+<tr>
 	<td>
-		<input type="button" class="albumRemove" id="@("albumRemove_" + Model.Id)" value="Remove" />
+		@using (Html.BeginCollectionItem("AlbumLinks")) {
+			@Html.HiddenFor(m => m.AlbumId)
+			@Html.HiddenFor(m => m.ArtistForAlbumId)
+			@Html.HiddenFor(m => m.AlbumAdditionalNames)
+			@Html.HiddenFor(m => m.AlbumName)
+
+			if (Model.AlbumId != 0) {
+				@Html.ActionLink(Model.AlbumName, "Edit", "Album", new { id = Model.AlbumId }, null)
+			} else {
+				@Model.AlbumName	   
+			}
+		}
+	</td>
+	<td>
+		<input type="button" class="albumRemove" value="Remove" />
 	</td>
 </tr>

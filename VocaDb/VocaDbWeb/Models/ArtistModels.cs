@@ -44,6 +44,7 @@ namespace VocaDb.Web.Models {
 
 		public ArtistEdit() {
 
+			AlbumLinks = new List<AlbumForArtistEditContract>();
 			Groups = new List<GroupForArtistContract>();
 			Names = new List<LocalizedStringEdit>();
 			WebLinks = new List<WebLink>();
@@ -72,7 +73,7 @@ namespace VocaDb.Web.Models {
 
 		}
 
-		public ArtistForAlbumContract[] AlbumLinks { get; set; }
+		public IList<AlbumForArtistEditContract> AlbumLinks { get; set; }
 
 		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }
 
@@ -120,6 +121,7 @@ namespace VocaDb.Web.Models {
 			return new ArtistForEditContract {
 				
 				Id = this.Id,
+				AlbumLinks = this.AlbumLinks.ToArray(),
 				ArtistType = this.ArtistType,
 				Description =  this.Description ?? string.Empty,
 				Groups = this.Groups.ToArray(),

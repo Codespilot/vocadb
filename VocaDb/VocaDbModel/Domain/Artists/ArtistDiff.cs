@@ -25,6 +25,15 @@ namespace VocaDb.Model.Domain.Artists {
 			IsSnapshot = isSnapshot;
 		}
 
+		public virtual bool Albums {
+			get {
+				return IsSet(ArtistEditableFields.Albums);
+			}
+			set {
+				Set(ArtistEditableFields.Albums, value);
+			}
+		}
+
 		public virtual bool ArtistType {
 			get {
 				return IsSet(ArtistEditableFields.ArtistType);
@@ -81,7 +90,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool IncludeAlbums {
 			get {
-				return true;
+				return (IsSnapshot || Albums);
 			}
 		}
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
@@ -8,6 +9,7 @@ using VocaDb.Model.Domain.Songs;
 using System;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Artists {
 
@@ -347,6 +349,29 @@ namespace VocaDb.Model.Domain.Artists {
 			ParamIs.NotNull(() => url);
 
 			return WebLinks.Any(w => w.Url == url);
+
+		}
+
+		public virtual CollectionDiff<ArtistForAlbum, ArtistForAlbum> SyncAlbums(
+			IEnumerable<AlbumForArtistEditContract> newAlbums, Func<AlbumForArtistEditContract, Album> albumGetter) {
+
+			var albumDiff = CollectionHelper.Diff(Albums, newAlbums, (a1, a2) => (a1.Id == a2.ArtistForAlbumId));
+			var created = new List<ArtistForAlbum>();
+
+			foreach (var removed in albumDiff.Removed) {
+				removed.Album.DeleteArtistForAlbum(removed);
+				AllAlbums.Remove(removed);
+			}
+
+			foreach (var added in albumDiff.Added) {
+
+				var album = albumGetter(added);
+				var link = AddAlbum(album);
+				created.Add(link);
+
+			}
+
+			return new CollectionDiff<ArtistForAlbum, ArtistForAlbum>(created, albumDiff.Removed, albumDiff.Unchanged);
 
 		}
 

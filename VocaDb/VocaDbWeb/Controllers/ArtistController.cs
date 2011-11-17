@@ -6,6 +6,7 @@ using PagedList;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
@@ -268,7 +269,11 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewAlbum(int artistId, string newAlbumName) {
 
-			var link = MvcApplication.Services.Albums.CreateForArtist(artistId, newAlbumName);
+			ParamIs.NotNullOrWhiteSpace(() => newAlbumName);
+
+			var link = new AlbumForArtistEditContract(newAlbumName);
+			//var link = MvcApplication.Services.Albums.CreateForArtist(artistId, newAlbumName);
+
 			return PartialView("ArtistForAlbumRow", link);
 
 		}
@@ -276,7 +281,11 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingAlbum(int artistId, int albumId) {
 
-			var link = Service.AddAlbum(artistId, albumId);
+			//var link = Service.AddAlbum(artistId, albumId);
+
+			var album = MvcApplication.Services.Albums.GetAlbumWithAdditionalNames(albumId);
+			var link = new AlbumForArtistEditContract(album);
+
 			return PartialView("ArtistForAlbumRow", link);
 
 		}
