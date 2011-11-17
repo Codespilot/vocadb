@@ -1,7 +1,7 @@
 ﻿
-function showTrackPropertiesPopup(songInAlbumId) {
+function showTrackPropertiesPopup(albumId, songId) {
 
-	$.get("../../Album/TrackProperties", { songInAlbumId: songInAlbumId }, function (content) {
+	$.get("../../Album/TrackProperties", { albumId: albumId, songId: songId }, function (content) {
 
 		$("#trackPropertiesContent").html(content);
 
@@ -271,9 +271,12 @@ function initPage(albumId) {
 
 	$(".editTrackProperties").live("click", function () {
 
-		var id = getId(this);
+		var songId = $(this).parent().parent().find("input.songId").val();
 
-		return showTrackPropertiesPopup(id);
+		if (songId == 0)
+			return;
+
+		return showTrackPropertiesPopup(albumId, songId);
 
 	});
 

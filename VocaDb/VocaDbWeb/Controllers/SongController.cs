@@ -9,6 +9,7 @@ using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Song;
+using System;
 
 namespace VocaDb.Web.Controllers
 {
@@ -164,6 +165,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete]
 		public PartialViewResult AddNewArtist(int songId, string newArtistName) {
 
 			var link = Service.AddArtist(songId, newArtistName);
@@ -178,6 +180,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete]
 		public PartialViewResult CreatePVForSong(int songId, PVService service, string pvId, PVType type) {
 
 			ParamIs.NotNullOrEmpty(() => pvId);
@@ -213,7 +216,6 @@ namespace VocaDb.Web.Controllers
 
 		public PartialViewResult CreateLyrics() {
 			
-			//var entry = Service.CreateLyrics(songId, languageSelection, value, source);
 			var entry = new LyricsForSongContract();
 
 			return PartialView("LyricsForSongEditRow", new LyricsForSongModel(entry));

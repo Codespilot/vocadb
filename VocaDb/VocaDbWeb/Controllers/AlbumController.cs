@@ -242,6 +242,7 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Integrated to saving properties")]
 		public PartialViewResult AddNewSong(int albumId, string newSongName) {
 
 			ParamIs.NotNullOrWhiteSpace(() => newSongName);
@@ -255,6 +256,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Integrated to saving properties")]
 		public PartialViewResult AddExistingSong(int albumId, int songId) {
 
 			//var link = Service.AddSong(albumId, songId);
@@ -267,6 +269,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Integrated to saving properties")]
 		public ActionResult DeleteSongInAlbum(int songInAlbumId) {
 
 			var songs = Service.DeleteSongInAlbum(songInAlbumId);
@@ -276,26 +279,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		[Obsolete]
-		public ActionResult MoveSongInAlbumDown(int songInAlbumId) {
-
-			var songs = Service.MoveSongDown(songInAlbumId);
-
-			return Json(songs);
-
-		}
-
-		[HttpPost]
-		[Obsolete]
-		public ActionResult MoveSongInAlbumUp(int songInAlbumId) {
-
-			var songs = Service.MoveSongUp(songInAlbumId);
-
-			return Json(songs);
-
-		}
-
-		[HttpPost]
+		[Obsolete("Integrated to saving properties")]
 		public ActionResult ReorderTrack(int songInAlbumId, int? prevTrackId) {
 
 			var songs = Service.ReorderTrack(songInAlbumId, prevTrackId);
@@ -326,6 +310,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete]
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewArtist(int albumId, string newArtistName) {
 
@@ -397,9 +382,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult TrackProperties(int songInAlbumId) {
+		public PartialViewResult TrackProperties(int albumId, int songId) {
 
-			var contract = Service.GetTrackProperties(songInAlbumId);
+			var contract = Service.GetTrackProperties(albumId, songId);
 
 			return PartialView(contract);
 

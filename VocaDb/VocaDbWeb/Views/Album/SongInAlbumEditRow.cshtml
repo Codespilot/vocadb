@@ -5,7 +5,7 @@
 	<td>
 		@{ var item = Html.BeginCollectionItem("Tracks"); }
 		@Html.HiddenFor(m => m.SongInAlbumId)
-		@Html.HiddenFor(m => m.SongId)
+		@Html.HiddenFor(m => m.SongId, new { @class = "songId" })
 		@Html.HiddenFor(m => m.SongName)
 		@Html.HiddenFor(m => m.SongAdditionalNames)
 		@Html.HiddenFor(m => m.TrackNumber, new { @class = "songTrackNumberField" })
@@ -15,14 +15,16 @@
 		@Model.TrackNumber
 	</td>
 	<td class="trackNameCol">
-		@if (Model.SongInAlbumId != 0) {
-		<a href="#" class="editTrackProperties" id="@("editTrackProperties_" + Model.SongInAlbumId)" title="@Model.SongAdditionalNames">@Model.SongName</a>
+		@if (Model.SongId != 0) {
+		<a href="#" class="editTrackProperties" title="@Model.SongAdditionalNames">@Model.SongName</a>
 		} else {
 		<span title="@Model.SongAdditionalNames">@Model.SongName</span>
 		}
 	</td><td>
 		@if (Model.SongId != 0) {
 			@Html.ActionLink("Edit song", "Edit", "Song", new { id = Model.SongId }, null)
+		} else {
+			<span>NEW</span>
 		}
 		@{ item.Dispose(); }
 	</td><td>

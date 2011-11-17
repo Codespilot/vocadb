@@ -584,14 +584,16 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public TrackPropertiesContract GetTrackProperties(int songInAlbumId) {
+		public TrackPropertiesContract GetTrackProperties(int albumId, int songId) {
 
 			return HandleQuery(session => {
 
-				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
+				var artists = session.Query<ArtistForAlbum>().Where(a => a.Album.Id == albumId).Where(a => !a.Artist.Deleted).Select(a => a.Artist).ToArray();
+				var song = session.Load<Song>(songId);
+				//var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
 
-				return new TrackPropertiesContract(songInAlbum.Song, 
-					songInAlbum.Album.Artists.Select(a => a.Artist), PermissionContext.LanguagePreference);
+				return new TrackPropertiesContract(song, 
+					artists, PermissionContext.LanguagePreference);
 
 			});
 
