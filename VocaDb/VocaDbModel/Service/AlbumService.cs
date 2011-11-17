@@ -491,11 +491,7 @@ namespace VocaDb.Model.Service {
 
 		public AlbumContract GetAlbum(int id) {
 
-			return HandleQuery(session => {
-
-				return new AlbumContract(session.Load<Album>(id), PermissionContext.LanguagePreference);
-
-			});
+			return HandleQuery(session => new AlbumContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
 
 		}
 
@@ -520,6 +516,13 @@ namespace VocaDb.Model.Service {
 			return
 				HandleQuery(session =>
 					new AlbumForEditContract(session.Load<Album>(id), GetAllLabels(session), PermissionContext.LanguagePreference));
+
+		}
+
+		public AlbumWithAdditionalNamesContract GetAlbumWithAdditionalNames(int id) {
+
+			return HandleQuery(session => new AlbumWithAdditionalNamesContract(
+				session.Load<Album>(id), PermissionContext.LanguagePreference));
 
 		}
 

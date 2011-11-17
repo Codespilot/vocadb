@@ -687,11 +687,56 @@ namespace VocaDb.Model.Service {
 				if (groupsDiff.Changed)
 					diff.Groups = true;
 
+				var albumGetter = new Func<AlbumForArtistEditContract, Album>(contract => {
+
+					Album album;
+
+					if (contract.AlbumId != 0) {
+
+						album = session.Load<Album>(contract.AlbumId);
+
+					} else {
+
+						AuditLog(string.Format("creating a new album '{0}' to {1}", contract.AlbumName, artist), session);
+
+						album = new Album(contract.AlbumName);
+						session.Save(album);
+
+						Services.Albums.Archive(session, album, AlbumArchiveReason.Created,
+							string.Format("Created for artist '{0}'", artist.DefaultName));
+
+					}
+
+					return album;
+
+				});
+
+				var albumDiff = artist.SyncAlbums(properties.AlbumLinks, albumGetter);
+
+				SessionHelper.Sync(session, albumDiff);
+
+				if (albumDiff.Changed) {
+
+					diff.Albums = true;
+
+					var add = string.Join(", ", albumDiff.Added.Select(i => i.Album.ToString()));
+					var rem = string.Join(", ", albumDiff.Removed.Select(i => i.Album.ToString()));
+
+					var str = string.Format("edited albums (added: {0}, removed: {1})", add, rem);
+
+					if (str.Length > 300)
+						str = str.Substring(0, 300);
+
+					AuditLog(str, session);
+
+				}
 
 				AuditLog(string.Format("updated properties for {0} ({1})", artist, diff.ChangedFieldsString), session);
 
 				Archive(session, artist, diff, ArtistArchiveReason.PropertiesUpdated);
 				session.Update(artist);
+
+				return true;
 
 			});
 

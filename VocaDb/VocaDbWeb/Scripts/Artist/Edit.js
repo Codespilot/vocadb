@@ -129,12 +129,14 @@ function initPage(artistId) {
 
 	$("input.albumRemove").live("click", function () {
 
-		var id = getId(this);
+		$(this).parent().parent().remove();
+
+		/*var id = getId(this);
 		$.post("../../Album/DeleteArtistForAlbum", { artistForAlbumId: id }, function () {
 
-			$("tr#albumRow_" + id).remove();
+		$("tr#albumRow_" + id).remove();
 
-		});
+		});*/
 
 	});
 
