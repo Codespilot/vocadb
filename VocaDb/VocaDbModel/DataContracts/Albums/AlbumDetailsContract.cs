@@ -5,6 +5,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
@@ -22,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs.Select(s => new SongInAlbumContract(s, languagePreference)).OrderBy(s => s.TrackNumber).ToArray();
+			Status = album.Status;
 			Tags = album.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(3).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
@@ -47,6 +49,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public SongInAlbumContract[] Songs { get; set; }
+
+		[DataMember]
+		public EntryStatus Status { get; set; }
 
 		[DataMember]
 		public TagUsageContract[] Tags { get; set; }

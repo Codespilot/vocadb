@@ -27,6 +27,10 @@
 	@Helpers.NotificationPanel("This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.")
 }
 
+@if (Model.Draft) {
+	@Helpers.NotificationPanel("This entry is a draft"
+}
+
 <div id="tabs">
 
 	<ul>
