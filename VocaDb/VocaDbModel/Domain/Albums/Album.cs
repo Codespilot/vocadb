@@ -42,6 +42,7 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = string.Empty;
 			DiscType = DiscType.Album;
 			OriginalRelease = new AlbumRelease();
+			Status = EntryStatus.Finished;
 		}
 
 		public Album(string unspecifiedName)
@@ -188,6 +189,8 @@ namespace VocaDb.Model.Domain.Albums {
 				return AllSongs.Where(s => !s.Song.Deleted);
 			}
 		}
+
+		public virtual EntryStatus Status { get; set; }
 
 		public virtual TagManager<AlbumTagUsage> Tags {
 			get { return tags; }

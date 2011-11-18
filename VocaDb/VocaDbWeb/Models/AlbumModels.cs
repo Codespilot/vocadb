@@ -19,6 +19,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Models {
 
@@ -174,7 +175,9 @@ namespace VocaDb.Web.Models {
 			Description = contract.Description;
 			Deleted = contract.Deleted;
 			DiscType = contract.DiscType;
+			Draft = contract.Status == EntryStatus.Draft;
 			Id = contract.Id;
+			Locked = contract.Status == EntryStatus.Locked;
 			Name = contract.Name;
 			PVs = contract.PVs;
 			Songs = contract.Songs;
@@ -214,9 +217,13 @@ namespace VocaDb.Web.Models {
 
 		public DiscType DiscType { get; set; }
 
+		public bool Draft { get; set; }
+
 		public int Id { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Labels { get; set; }
+
+		public bool Locked { get; set; }
 
 		public string Name { get; set; }
 
