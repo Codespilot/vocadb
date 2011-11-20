@@ -107,6 +107,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistEditableFieldNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\CommonMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommonMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ContentLanguageSelectionNames.Designer.cs">
       <DependentUpon>ContentLanguageSelectionNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -169,7 +174,7 @@
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
-    <Compile Include="Models\Shared\WebLink.cs" />
+    <Compile Include="Models\Shared\WebLinkDisplay.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\Song\Create.cs" />
     <Compile Include="Models\Song\Index.cs" />
@@ -758,6 +763,12 @@
     <Content Include="App_GlobalResources\SongEditableFieldNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongEditableFieldNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\CommonMessages.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

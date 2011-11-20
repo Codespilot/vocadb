@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
-using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.PVs;
@@ -14,12 +11,11 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers;
-using VocaDb.Web.Models.Shared;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
 
@@ -29,7 +25,7 @@ namespace VocaDb.Web.Models {
 			
 			Names = new List<LocalizedStringEdit>();
 			Tracks = new List<SongInAlbumEditContract>();
-			WebLinks = new List<WebLink>();
+			WebLinks = new List<WebLinkDisplay>();
 
 			AllDiscTypes = EnumVal<DiscType>.Values;
 
@@ -52,7 +48,7 @@ namespace VocaDb.Web.Models {
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
 			PVs = album.PVs;
 			Tracks = album.Songs;
-			WebLinks = album.WebLinks.Select(w => new WebLink(w)).ToArray();
+			WebLinks = album.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			if (album.OriginalRelease != null) {
 				CatNum = album.OriginalRelease.CatNum;
@@ -133,7 +129,7 @@ namespace VocaDb.Web.Models {
 		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
 		[Display(Name = "External links")]
-		public IList<WebLink> WebLinks { get; set; }
+		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		public AlbumForEditContract ToContract() {
 

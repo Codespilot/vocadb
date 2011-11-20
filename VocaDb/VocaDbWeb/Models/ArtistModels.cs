@@ -47,7 +47,7 @@ namespace VocaDb.Web.Models {
 			AlbumLinks = new List<AlbumForArtistEditContract>();
 			Groups = new List<GroupForArtistContract>();
 			Names = new List<LocalizedStringEdit>();
-			WebLinks = new List<WebLink>();
+			WebLinks = new List<WebLinkDisplay>();
 
 			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
 
@@ -67,7 +67,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = artist.TranslatedName.Japanese;
 			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
-			WebLinks = artist.WebLinks.Select(w => new WebLink(w)).ToArray();
+			WebLinks = artist.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			AllCircles = artist.AllCircles.ToDictionary(a => a.Id, a => a.Name);
 
@@ -114,7 +114,7 @@ namespace VocaDb.Web.Models {
 		public string NameRomaji { get; set; }
 
 		[Display(Name = "Web links")]
-		public IList<WebLink> WebLinks { get; set; }
+		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		public ArtistForEditContract ToContract() {
 

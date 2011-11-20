@@ -4,14 +4,14 @@ using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Web.Models.Shared {
 
-	public class WebLink {
+	public class WebLinkDisplay {
 
-		public WebLink() {
+		public WebLinkDisplay() {
 			Description = string.Empty;
 			Url = string.Empty;
 		}
 
-		public WebLink(WebLinkContract contract) {
+		public WebLinkDisplay(WebLinkContract contract) {
 			
 			ParamIs.NotNull(() => contract);
 

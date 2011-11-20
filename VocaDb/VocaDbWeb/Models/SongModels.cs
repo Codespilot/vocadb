@@ -98,7 +98,7 @@ namespace VocaDb.Web.Models {
 
 			Names = new List<LocalizedStringEdit>();
 			PVs = new List<PVContract>();
-			WebLinks = new List<WebLink>();
+			WebLinks = new List<WebLinkDisplay>();
 
 			AllPVTypes = EnumVal<PVType>.Values;
 			AllVideoServices = EnumVal<PVService>.Values;
@@ -123,7 +123,7 @@ namespace VocaDb.Web.Models {
 			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
 			PVs = song.PVs;
 			SongType = song.Song.SongType;
-			WebLinks = song.WebLinks.Select(w => new WebLink(w)).ToArray();
+			WebLinks = song.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 		}
 
@@ -174,7 +174,7 @@ namespace VocaDb.Web.Models {
 		public SongType SongType { get; set; }
 
 		[Display(Name = "Web links")]
-		public IList<WebLink> WebLinks { get; set; }
+		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		public SongForEditContract ToContract() {
 
