@@ -18,7 +18,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult CreateWebLink(string description, string url) {
 
-			return PartialView("WebLinkEditRow", new WebLink { Description = description, Url = url });
+			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url });
 
 		}
 
