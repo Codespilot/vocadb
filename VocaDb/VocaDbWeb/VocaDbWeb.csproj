@@ -156,6 +156,7 @@
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
     <Compile Include="Helpers\Login.cs" />
+    <Compile Include="Helpers\PanelExtensions.cs" />
     <Compile Include="Helpers\PVHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\TagsHelper.cs" />
