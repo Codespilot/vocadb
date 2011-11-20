@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do not enter artist names into the name field. Instead, use the artists list..
+        /// </summary>
+        internal static string DoNotEnterArtistsToNameField {
+            get {
+                return ResourceManager.GetString("DoNotEnterArtistsToNameField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This entry is a draft. You can help by adding the missing information and marking the entry as Finalized..
         /// </summary>
         internal static string Draft {
