@@ -4,35 +4,6 @@
 @using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
 
-@helper ArchivedObjectVersions(IEnumerable<VocaDb.Model.DataContracts.ArchivedObjectVersionContract> archivedVersions) {
-	
-	<table>
-		<tr>
-			<th>Version</th>
-			<th>Created</th>
-			<th>Author</th>
-			<th>Notes</th>
-		</tr>
-		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Version)) {
-			<tr>
-				<td>
-					@ver.Version
-				</td>
-				<td>
-					@ver.Created
-				</td>
-				<td>
-					@(ver.Author != null ? Html.ActionLink(ver.Author.Name, "Profile", "User", new { id = ver.Author.Name }, null) : MvcHtmlString.Create(ver.AgentName))
-				</td>
-				<td>
-					@ver.Notes
-				</td>
-			</tr>
-		}
-	</table>	
-	
-}
-
 @helper ArchivedObjectVersions(IEnumerable<VocaDb.Web.Models.Shared.ArchivedObjectVersion> archivedVersions) {
 	
 	<table>
@@ -73,19 +44,6 @@
 	}
 }
 
-@helper DuplicateEntryMessage(MvcHtmlString link) {
-	
-	<div class="ui-widget">
-		<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
-			<p>
-				<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				An entry called @link already exists. Make sure you're not creating a duplicate.
-			</p>
-		</div>
-	</div>
-		
-}
-
 @helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315) {
 	
 	if (pv.Service == VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga) {
@@ -103,26 +61,22 @@
 }
 
 @helper NotificationPanel(string message, string messageId = "") {
-	<div class="ui-widget">
-		<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
-			<p>
-				<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				<span id="@messageId">@message</span>
-			</p>
-		</div>
-	</div>
+	using (Html.BeginHighlightPanel()) {
+		<p>
+			@Helpers.NotificationIcon()
+			<span id="@messageId">@message</span>
+		</p>
+	}
 }
 
 @helper ValidationSymmaryPanel(string message) {
 	if (!ViewData.ModelState.IsValid) {
-	<div class="ui-widget">
-		<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+		using (Html.BeginErrorPanel()) {
 			<p>
 				<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 				@Html.ValidationSummary(false, message)
 			</p>
-		</div>
-	</div>
+		}
 	}
 }
 

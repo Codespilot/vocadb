@@ -267,6 +267,11 @@
     <Compile Include="Mapping\Users\UserMessageMap.cs" />
     <Compile Include="ParamIs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\AlbumValidationErrors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumValidationErrors.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ArtistTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -280,6 +285,8 @@
     <Compile Include="Service\BBCode\IBBCodeElementTransformer.cs" />
     <Compile Include="Service\BBCode\BBElement.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
+    <Compile Include="Service\EntryValidators\AlbumValidator.cs" />
+    <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
@@ -310,6 +317,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AlbumValidationErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlbumValidationErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ArtistTypeNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistTypeNames.Designer.cs</LastGenOutput>
