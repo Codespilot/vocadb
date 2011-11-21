@@ -129,11 +129,11 @@
 						<td>Release Date:</td>
 						<td>
 							<div class="editor-label">
-								@Html.LabelFor(m => m.ReleaseDay)
+								@Html.LabelFor(m => m.ReleaseYear)
 							</div>
 							<div class="editor-field">
-								@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4" })
-								@Html.ValidationMessageFor(m => m.ReleaseDay)
+								@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10" })
+								@Html.ValidationMessageFor(m => m.ReleaseYear)
 							</div>				
 						</td>
 						<td>
@@ -147,11 +147,11 @@
 						</td>
 						<td>
 							<div class="editor-label">
-								@Html.LabelFor(m => m.ReleaseYear)
+								@Html.LabelFor(m => m.ReleaseDay)
 							</div>
 							<div class="editor-field">
-								@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10" })
-								@Html.ValidationMessageFor(m => m.ReleaseYear)
+								@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4" })
+								@Html.ValidationMessageFor(m => m.ReleaseDay)
 							</div>				
 						</td>
 					</tr></table>

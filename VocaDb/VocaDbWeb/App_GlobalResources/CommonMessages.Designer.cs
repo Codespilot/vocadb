@@ -79,11 +79,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This entry has been deleted. It is still temporarily accessible, but won&apos;t show up in any of the listings..
+        /// </summary>
+        internal static string EntryDeleted {
+            get {
+                return ResourceManager.GetString("EntryDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This entry is locked, meaning that only trusted users are allowed to edit it..
         /// </summary>
         internal static string Locked {
             get {
                 return ResourceManager.GetString("Locked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose the language for this name. &quot;Original&quot; is the name in original language that isn&apos;t English, for example Japanese. If the original language is English, do not input a name in the &quot;Original&quot; language..
+        /// </summary>
+        internal static string NameLanguageHelp {
+            get {
+                return ResourceManager.GetString("NameLanguageHelp", resourceCulture);
             }
         }
     }
