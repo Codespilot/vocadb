@@ -123,7 +123,13 @@
   <data name="Draft" xml:space="preserve">
     <value>This entry is a draft. You can help by adding the missing information and marking the entry as Finalized.</value>
   </data>
+  <data name="EntryDeleted" xml:space="preserve">
+    <value>This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.</value>
+  </data>
   <data name="Locked" xml:space="preserve">
     <value>This entry is locked, meaning that only trusted users are allowed to edit it.</value>
+  </data>
+  <data name="NameLanguageHelp" xml:space="preserve">
+    <value>Choose the language for this name. "Original" is the name in original language that isn't English, for example Japanese. If the original language is English, do not input a name in the "Original" language.</value>
   </data>
 </root>

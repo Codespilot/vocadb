@@ -231,7 +231,9 @@ namespace VocaDb.Web.Controllers
 			}
 
 			if (!ModelState.IsValid) {
-				return View(new AlbumEdit(Service.GetAlbumForEdit(model.Id)));
+				var oldContract = Service.GetAlbumForEdit(model.Id);
+				model.CopyNonEditableFields(oldContract);
+				return View(model);
 			}
 
             var contract = model.ToContract();
