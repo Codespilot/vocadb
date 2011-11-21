@@ -15,6 +15,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Artists;
 using System.Drawing;
@@ -823,6 +824,11 @@ namespace VocaDb.Model.Service {
 					diff.Cover = true;
 				}
 
+				if (album.Status != properties.Status) {
+					album.Status = properties.Status;
+					diff.Status = true;
+				}
+
 				var songGetter = new Func<SongInAlbumEditContract, Song>(contract => {
 
 					if (contract.SongId != 0)
@@ -853,10 +859,8 @@ namespace VocaDb.Model.Service {
 					var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
 					var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
 
-					var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit);
-
-					if (str.Length > 300)
-						str = str.Substring(0, 300);
+					var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit)
+						.Truncate(300);
 
 					AuditLog(str, session);
 

@@ -145,6 +145,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool Status {
+			get {
+				return IsSet(AlbumEditableFields.Status);
+			}
+			set {
+				Set(AlbumEditableFields.Status, value);
+			}
+		}
+
 		public virtual bool Tracks {
 			get {
 				return IsSet(AlbumEditableFields.Tracks);

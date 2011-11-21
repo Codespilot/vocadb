@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Service.EntryValidators;
 
 namespace VocaDb.Model.Service {
 
@@ -122,6 +123,39 @@ namespace VocaDb.Model.Service {
 
 				foreach (var song in songs)
 					session.Update(song);
+
+			});
+
+		}
+
+		public int UpdateEntryStatuses() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+
+			AuditLog("updating entry statuses");
+
+			return HandleTransaction(session => {
+
+				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
+				int count = 0;
+
+				foreach (var album in albums) {
+
+					var result = AlbumValidator.Validate(album);
+
+					if (result.Passed && album.Status == EntryStatus.Draft) {
+						album.Status = EntryStatus.Finished;
+						session.Update(album);
+						count++;
+					} else if (!result.Passed && album.Status == EntryStatus.Finished) {
+						album.Status = EntryStatus.Draft;
+						session.Update(album);
+						count++;
+					}
+
+				}
+
+				return count;
 
 			});
 

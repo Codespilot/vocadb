@@ -138,6 +138,9 @@
   <data name="OriginalRelease" xml:space="preserve">
     <value>Original release</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
   <data name="Tracks" xml:space="preserve">
     <value>Tracks</value>
   </data>

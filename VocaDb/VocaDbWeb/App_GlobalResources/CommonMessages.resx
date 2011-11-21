@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Draft" xml:space="preserve">
-    <value>This entry is a draft. You can help by adding the missing information and marking the entry as Finalized.</value>
+    <value>This entry is a draft. You can help by editing the entry and adding the missing information.</value>
   </data>
   <data name="EntryDeleted" xml:space="preserve">
     <value>This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.</value>
