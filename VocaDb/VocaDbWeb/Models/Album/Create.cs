@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Helpers;
-using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Web.Models.Album {
 
@@ -15,7 +12,7 @@ namespace VocaDb.Web.Models.Album {
 
 		public Create() {
 			Artists = new List<ArtistContract>();
-			DiscType = DiscType.Album;
+			DiscType = DiscType.Unknown;
 		}
 
 		[Display(Name = "Artists")]
