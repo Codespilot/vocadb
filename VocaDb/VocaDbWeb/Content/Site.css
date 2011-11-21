@@ -101,7 +101,7 @@ img.coverPicIcon
 	max-height: 25px;	
 }
 
-table.properties tr, .rightFrame, .recentAlbums, .recentSongs
+table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop
 {
 	vertical-align: top;	
 }
@@ -296,4 +296,19 @@ p.messageContent
 td.trackNameCol
 {
 	min-width: 200px;	
+}
+
+.tooltip {
+	background-color:#fff;
+	border:1px solid #fff;
+	padding:10px 15px;
+	width:200px;
+	display:none;
+	color:#005;
+	text-align:left;
+	font-size:12px;
+
+	/* outline radius for mozilla/firefox only */
+	-moz-box-shadow:0 0 10px #000;
+	-webkit-box-shadow:0 0 10px #000;
 }

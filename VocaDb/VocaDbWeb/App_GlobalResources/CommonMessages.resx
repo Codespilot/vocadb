@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DoNotEnterArtistsToNameField" xml:space="preserve">
-    <value>Do not enter artist names into the name field. Instead, use the artists list.</value>
-  </data>
   <data name="Draft" xml:space="preserve">
     <value>This entry is a draft. You can help by adding the missing information and marking the entry as Finalized.</value>
   </data>
@@ -128,6 +125,10 @@
   </data>
   <data name="Locked" xml:space="preserve">
     <value>This entry is locked, meaning that only trusted users are allowed to edit it.</value>
+  </data>
+  <data name="NameHelp" xml:space="preserve">
+    <value>&lt;p&gt;Do not enter artist names into the name field. Instead, use the artists list.&lt;/p&gt;
+&lt;p&gt;If the entry has a non-English (for example Japanese) name, input that into the Original name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.&lt;/p&gt;</value>
   </data>
   <data name="NameLanguageHelp" xml:space="preserve">
     <value>Choose the language for this name. "Original" is the name in original language that isn't English, for example Japanese. If the original language is English, do not input a name in the "Original" language.</value>

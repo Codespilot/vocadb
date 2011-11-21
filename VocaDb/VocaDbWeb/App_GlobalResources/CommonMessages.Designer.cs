@@ -61,15 +61,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do not enter artist names into the name field. Instead, use the artists list..
-        /// </summary>
-        internal static string DoNotEnterArtistsToNameField {
-            get {
-                return ResourceManager.GetString("DoNotEnterArtistsToNameField", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This entry is a draft. You can help by adding the missing information and marking the entry as Finalized..
         /// </summary>
         internal static string Draft {
@@ -93,6 +84,16 @@ namespace Resources {
         internal static string Locked {
             get {
                 return ResourceManager.GetString("Locked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;Do not enter artist names into the name field. Instead, use the artists list.&lt;/p&gt;
+        ///&lt;p&gt;If the entry has a non-English (for example Japanese) name, input that into the Original name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.&lt;/p&gt;.
+        /// </summary>
+        internal static string NameHelp {
+            get {
+                return ResourceManager.GetString("NameHelp", resourceCulture);
             }
         }
         
