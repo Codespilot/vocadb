@@ -101,6 +101,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Drafts() {
+
+			var drafts = Service.GetDrafts();
+
+			return View(drafts);
+
+		}
+
 		public PartialViewResult Comments(int id) {
 
 			var comments = Service.GetComments(id);
