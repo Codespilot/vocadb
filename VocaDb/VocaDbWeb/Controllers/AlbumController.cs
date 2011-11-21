@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mime;
 using System.Text;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
@@ -11,7 +10,6 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
 using System.Drawing;
 using VocaDb.Model.Helpers;
@@ -170,8 +168,9 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult Create(Create model) {
 
-			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
-				ModelState.AddModelError("Name", "Need at least one name.");
+			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) 
+				&& string.IsNullOrWhiteSpace(model.NameEnglish))
+				ModelState.AddModelError("Names", "Need at least one name.");
 
 			if (model.Artists == null || !model.Artists.Any())
 				ModelState.AddModelError("Artists", "Need at least one artist.");
