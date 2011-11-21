@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This entry is a draft. You can help by adding the missing information and marking the entry as Finalized..
+        ///   Looks up a localized string similar to This entry is a draft. You can help by editing the entry and adding the missing information..
         /// </summary>
         internal static string Draft {
             get {

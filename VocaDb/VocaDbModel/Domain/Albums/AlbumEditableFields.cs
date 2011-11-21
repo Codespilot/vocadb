@@ -19,9 +19,11 @@ namespace VocaDb.Model.Domain.Albums {
 
 		OriginalRelease	= 32,
 
-		Tracks			= 64,
+		Status			= 64,
 
-		WebLinks		= 128
+		Tracks			= 128,
+
+		WebLinks		= 256
 
 	}
 

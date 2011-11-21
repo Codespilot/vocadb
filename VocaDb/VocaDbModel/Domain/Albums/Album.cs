@@ -42,7 +42,7 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = string.Empty;
 			DiscType = DiscType.Album;
 			OriginalRelease = new AlbumRelease();
-			Status = EntryStatus.Finished;
+			Status = EntryStatus.Draft;
 		}
 
 		public Album(string unspecifiedName)

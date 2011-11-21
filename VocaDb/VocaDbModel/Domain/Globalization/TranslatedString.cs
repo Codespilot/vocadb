@@ -40,6 +40,8 @@ namespace VocaDb.Model.Domain.Globalization {
 		public TranslatedString(TranslatedStringContract contract)
 			: this() {
 
+			ParamIs.NotNull(() => contract);
+
 			CopyFrom(contract);
 
 		}

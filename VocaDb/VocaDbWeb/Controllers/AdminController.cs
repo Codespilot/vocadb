@@ -4,6 +4,7 @@ using NHibernate.Persister.Collection;
 using NHibernate.Persister.Entity;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -55,6 +56,16 @@ namespace VocaDb.Web.Controllers
 		public ActionResult UpdateArtistStrings() {
 			
 			Service.UpdateArtistStrings();
+
+			return RedirectToAction("Index");
+
+		}
+
+		public ActionResult UpdateEntryStatuses() {
+
+			var count = Service.UpdateEntryStatuses();
+
+			TempData.SetStatusMessage(count + " entries updated");
 
 			return RedirectToAction("Index");
 

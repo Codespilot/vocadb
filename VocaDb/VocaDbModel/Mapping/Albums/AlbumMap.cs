@@ -14,6 +14,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
 			Map(m => m.DiscType).Column("[Type]").Not.Nullable();
+			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			Component(m => m.ArtistString, c => {

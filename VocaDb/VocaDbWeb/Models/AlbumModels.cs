@@ -39,6 +39,7 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			DiscType = album.DiscType;
+			Draft = album.Status == EntryStatus.Draft;
 			Id = album.Id;
 			Name = album.Name;
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
@@ -78,6 +79,9 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Record type")]
 		public DiscType DiscType { get; set; }
+
+		[Display(Name = "This entry is a draft")]
+		public bool Draft { get; set; }
 
 		public int Id { get; set; }
 
@@ -155,6 +159,7 @@ namespace VocaDb.Web.Models {
 					}
 				},
 				Songs = Tracks.ToArray(),
+				Status = (this.Draft ? EntryStatus.Draft : EntryStatus.Finished),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
