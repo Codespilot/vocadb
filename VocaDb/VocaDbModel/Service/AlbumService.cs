@@ -572,6 +572,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumWithAdditionalNamesContract[] GetDrafts() {
+
+			return HandleQuery(session => 
+				session.Query<Album>()
+					.Where(a => !a.Deleted && a.Status == EntryStatus.Draft)
+					.Take(50)
+					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.ToArray());
+
+		}
+
 		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
 
 			return HandleQuery(session => {
