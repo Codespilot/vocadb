@@ -38,6 +38,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected ICriteria AddNameMatchFilter(ICriteria criteria, string name, NameMatchMode matchMode) {
+
+			// TODO
+
+		}
+
 		protected IUserPermissionContext PermissionContext {
 			get { return permissionContext; }
 		}

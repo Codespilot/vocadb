@@ -120,6 +120,9 @@
   <data name="Draft" xml:space="preserve">
     <value>This entry is a draft. You can help by editing the entry and adding the missing information.</value>
   </data>
+  <data name="Drafts" xml:space="preserve">
+    <value>These entries are marked as drafts which means they are missing some information. </value>
+  </data>
   <data name="EntryDeleted" xml:space="preserve">
     <value>This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.</value>
   </data>
