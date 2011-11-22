@@ -107,19 +107,47 @@
 
 		<h4 id="glmain">Main principles</h4>
 			<ul>
-				<li>No duplication of artists or albums</li>
+				<li>Avoid submitting entries that already exist in the database. Duplicates have to be deleted or merged by the staff.</li>
+				<li>This is a database for Vocaloid-related content. UTAU and Vocaloid-related collaborations are accepted, but totally unrelated content will be deleted.</li>
 				<li>One name per field (no composite names of songs or producers)</li>
-				<li>Only Vocaloid-related music</li>
 				<li>Download links to file-sharing sites that provide no useful information (like Mediafire/Megaupload/Torrents) are NOT allowed. Links to informative blogs/forums/wikis (like MikuDB/Miku;Zen) are allowed.</li>
 			</ul>
 
+		<h4>Names and translations</h4>
+		<p>
+			All names should primarily be written in the original language, which usually means Japanese, but it can also be for example English or Korean. 
+			If the original language is English, the name should be written to the English language field, otherwise it's written to the "Original" (non-English) language field.
+			If those names have commonly used romanizations or English translations, those can be entered as well to make it easier for the international audience to find
+			and understand those names. 
+			Multiple names can be specified for each language option, in which case the first name will be used as the primary display name for that language.
+		</p>
+		<p>
+			Registered users can set their display language, so that they will always see the names in that language, if available.
+			Unregistered users and users who haven't set their display language will see the default names. Usually the default name is the name in
+			the non-English language, but that can be changed on per-entry basis.
+			For example, if the non-English name of an artist is ナナホシ, the romanized name is nanahoshi and the default language option is "Original", then by default users will see ナナホシ unless they have chosen to prefer romanized names instead.
+		</p>
+		<p>Usually there is no need to add composite names, and those names should broken into separate fields.</p>
+		<p><input type="text" class="incorrect-example-input"value="cosMo@Bousou-P(暴走P)" size="23" readonly="readonly" /> is incorrect: every field should contain only one name.</p>
+
+		<h5>Name languages</h5>
+		<ul>
+			<li>"Original" is for names in producer's native language when it's not English (Japanese, Spanish, Korean etc).</li>
+			<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji).</li>
+			<li>"English" is for official names in English and known translations.</li>
+			<li>"Unspecified" language should not be used, as it's only for cases when the language hasn't been specified yet (for example if the entry has been imported from another system).</li>
+		</ul>
+
+		<h4>Draft entries</h4>
+		<p>
+			Entries that are marked as drafts have missing or incomplete information. The draft status is indicated on the entry's page. 
+			All entries should meet certain requirements before they can be marked as completed. For now these requirements are only suggestions, but 
+			in the future they may be enforced more strictly. Of course when editing an entry that meets these requirements,
+			you can still mark it as draft if you feel that the entry needs further attention.
+			Note: draft status is currently available only for albums, but will be added to artists and songs as well.
+		</p>
+
 		<h4 id="glproducers">Producers</h4>
-		<p>Name languages:</p>
-			<ul>
-				<li>"Original" is for names in producer's native language when it's not English (Japanese, Spanish, Korean etc).</li>
-				<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji).</li>
-			</ul>
-			<p><input type="text" class="incorrect-example-input"value="cosMo@Bousou-P(暴走P)" size="23" readonly="readonly" /> is incorrect: every field should contain only one name.</p>
 		<h4 id="glartisttypes">Artist types</h4>
 			<ul>
 				<li>"Producer" - default type for composer.</li>
@@ -127,6 +155,13 @@
 				<li>"Other group" - group that releases albums via Labels.</li>
 				<li>"Other vocalist" - human singers (NND vocalists).</li>
 			</ul>
+
+		<h5>Completed artist entries should meet the following criteria:</h5>
+		<ul>
+			<li>The artist has at least one name whose language option isn't "Unspecified".</li>
+			<li>Artist type isn't "Unspecified".</li>
+		</ul>
+
 		<h4 id="glalbums">Albums</h4>
 			<p>To assign producers and vocalists to songs in album, add artists to album first and then click on each added song in song list to show a quick selection dialog.</p>
 			<p>Every album should be related to Vocaloid music by meeting one of following conditions:</p>
@@ -137,15 +172,30 @@
 			</ul>
 			<p>Totally unrelated albums may be deleted from VocaDB.</p>
 
+		<h5>Completed album entries should meet the following criteria:</h5>
+		<ul>
+			<li>The album has at least one name whose language option isn't "Unspecified".</li>
+			<li>The album has at least one artist (usually there should be at least one producer and one vocalist).</li>
+			<li>Album type isn't "Unspecified". Try to find the correct type.</li>
+			<li>The album has a tracklist.</li>
+		</ul>
+
 		<h4 id="glsongs">Songs</h4>
 			<p>Song entries contain information about authors and vocalists (see "Artists" tab), PVs and lyrics.</p>
 			<p><input type="text" class="incorrect-example-input" value="『ミク×リン×レン』 ReAct 『オリジナル曲PV』" size="40" readonly="readonly" /> is incorrect: all additional info (vocalists, authors, PV) should be added to appropriate fields. A song title should contain nothing more than the name itself.</p>
 			
-		<h4 id="glpv">PV types</h4>
+		<h5 id="glpv">PV types</h5>
 		<ul>
 			<li>"Original" - the first video with that song, usually uploaded by author himself (may lack any animation).</li>
 			<li>"Reprint" - should be identical to "Original"; most often it's a YouTube reprint of original NND video.</li>
 			<li>"Other" - any following PV with animation, MMD versions etc. May be much better known than original one.</li>
+		</ul>
+
+		<h5>Completed song entries should meet the following criteria:</h5>
+		<ul>
+			<li>The song has at least one name whose language option isn't "Unspecified".</li>
+			<li>The song has at least one artist (usually there should be at least one producer and one vocalist).</li>
+			<li>Song type isn't "Unspecified".</li>
 		</ul>
 		
 	</div>
