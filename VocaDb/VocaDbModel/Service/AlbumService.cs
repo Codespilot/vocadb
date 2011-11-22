@@ -30,12 +30,18 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumService));
 
 		private PartialFindResult<AlbumWithAdditionalNamesContract> Find(
-			ISession session, string query, int start, int maxResults, bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+			ISession session, string query, int start, int maxResults, bool draftsOnly,
+			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
-				var albums = session.Query<Album>()
-					.Where(s => !s.Deleted)
+				var albumsQ = session.Query<Album>()
+					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					albumsQ = albumsQ.Where(a => a.Status == EntryStatus.Draft);
+
+				var albums = albumsQ
 					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Skip(start)
 					.Take(maxResults)
@@ -54,6 +60,9 @@ namespace VocaDb.Model.Service {
 
 				var directQ = session.Query<Album>()
 					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
 				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
@@ -81,6 +90,9 @@ namespace VocaDb.Model.Service {
 
 				var additionalNamesQ = session.Query<AlbumName>()
 					.Where(m => !m.Album.Deleted);
+
+				if (draftsOnly)
+					additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
 
 				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
@@ -569,17 +581,6 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => 
 				new AlbumWithCoverPictureContract(
 					session.Load<Album>(id), PermissionContext.LanguagePreference, requestedSize));
-
-		}
-
-		public AlbumWithAdditionalNamesContract[] GetDrafts() {
-
-			return HandleQuery(session => 
-				session.Query<Album>()
-					.Where(a => !a.Deleted && a.Status == EntryStatus.Draft)
-					.Take(50)
-					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-					.ToArray());
 
 		}
 
