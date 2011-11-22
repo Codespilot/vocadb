@@ -14,7 +14,7 @@ using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class Album : IEntryBase, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
+	public class Album : IEntryBase, IEntryWithNames, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
 		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
 		private TranslatedString artistString;
@@ -153,6 +153,10 @@ namespace VocaDb.Model.Domain.Albums {
 				ParamIs.NotNull(() => value);
 				names = value;
 			}
+		}
+
+		INameManager IEntryWithNames.Names {
+			get { return Names; }
 		}
 
 		public virtual AlbumRelease OriginalRelease {

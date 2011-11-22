@@ -50,7 +50,7 @@ namespace VocaDb.Model.Service {
 				var contracts = albums.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetAlbumCount(session, query) : 0);
+				var count = (getTotalCount ? GetAlbumCount(session, query, draftsOnly, nameMatchMode) : 0);
 
 				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
 
@@ -64,24 +64,7 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English == query
-							|| s.Names.SortNames.Romaji == query
-							|| s.Names.SortNames.Japanese == query);
-
-				} else {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query)
-							|| s.ArtistString.Japanese.Contains(query)
-							|| s.ArtistString.Romaji.Contains(query)
-							|| s.ArtistString.English.Contains(query));
-
-				}
+				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
 				var direct = directQ
 					.OrderBy(s => s.Names.SortNames.Romaji)
@@ -118,7 +101,7 @@ namespace VocaDb.Model.Service {
 					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetAlbumCount(session, query) : 0);
+				var count = (getTotalCount ? GetAlbumCount(session, query, draftsOnly, nameMatchMode) : 0);
 
 				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
 
@@ -126,20 +109,30 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private int GetAlbumCount(ISession session, string query) {
+		private int GetAlbumCount(
+			ISession session, string query, bool draftsOnly, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
-				return session.Query<Album>()
-					.Where(s => !s.Deleted)
-					.Count();
+				var albumQ = session.Query<Album>()
+					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					albumQ = albumQ.Where(a => a.Status == EntryStatus.Draft);
+
+				return albumQ.Count();
 
 			}
 
 			var directQ = session.Query<Album>()
 				.Where(s => !s.Deleted);
 
-			if (query.Length < 3) {
+			if (draftsOnly)
+				directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
+
+			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
+
+			/*if (query.Length < 3) {
 
 				directQ = directQ.Where(s =>
 					s.Names.SortNames.English == query
@@ -156,7 +149,7 @@ namespace VocaDb.Model.Service {
 						|| s.ArtistString.Romaji.Contains(query)
 						|| s.ArtistString.English.Contains(query));
 
-			}
+			}*/
 
 			var direct = directQ.ToArray();
 
@@ -477,9 +470,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(string query, int start, int maxResults, bool getTotalCount = false) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(
+			string query, int start, int maxResults, bool draftsOnly, bool getTotalCount) {
 
-			return HandleQuery(session => Find(session, query, start, maxResults, getTotalCount));
+			return HandleQuery(session => Find(session, query, start, maxResults, draftsOnly, getTotalCount));
 
 		}
 
@@ -489,7 +483,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, 0, 1, false, NameMatchMode.Exact);
+					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact);
 
 					if (result.Items.Any())
 						return result.Items.First();

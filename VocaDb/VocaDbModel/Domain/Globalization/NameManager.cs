@@ -5,7 +5,7 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Globalization {
 
-	public class NameManager<T> where T : LocalizedStringWithId {
+	public class NameManager<T> : INameManager where T : LocalizedStringWithId {
 
 		private IList<T> names = new List<T>();
 		private TranslatedString sortNames = new TranslatedString();
@@ -68,6 +68,10 @@ namespace VocaDb.Model.Domain.Globalization {
 				ParamIs.NotNull(() => value);
 				names = value;
 			}
+		}
+
+		IEnumerable<LocalizedStringWithId> INameManager.Names {
+			get { return Names; }
 		}
 
 		public virtual TranslatedString SortNames {

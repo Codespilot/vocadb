@@ -52,11 +52,11 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Album/
 
-		public ActionResult Index(string filter, int? page) {
+		public ActionResult Index(string filter, int? page, bool? draftsOnly) {
 
-			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, true);
+			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true);
 
-			var model = new Index(result, filter, page);
+			var model = new Index(result, filter, page, draftsOnly);
 
             return View(model);
 
@@ -79,7 +79,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.Find(term, 0, 20).Items;
+			var albums = Service.Find(term, 0, 20, false, false).Items;
 
 			return Json(albums);
 
@@ -98,14 +98,6 @@ namespace VocaDb.Web.Controllers
 			var album = Service.GetAlbumDetails(id);
 
 			return File(Encoding.Unicode.GetBytes(TagsHelper.GetAlbumTags(album)), "text/csv", album.Name + ".csv");
-
-		}
-
-		public ActionResult Drafts() {
-
-			var drafts = Service.GetDrafts();
-
-			return View(drafts);
 
 		}
 

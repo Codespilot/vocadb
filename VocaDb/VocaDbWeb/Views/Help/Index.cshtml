@@ -149,8 +149,9 @@
 		<h4 id="glproducers">Producers</h4>
 		<h5 id="glartisttypes">Artist types</h5>
 			<ul>
-				<li>"Producer" - default type for composer.</li>
-				<li>"Circle" - group that sells albums only at doujin events (Comiket or Vocaloid Master).</li>
+				<li>"Producer" - the person who operates created the song. Not necessarily the original composer.</li>
+				<li>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</li>
+				<li>"Label" - a commercial company that publishes albums for other artists.</li>
 				<li>"Other group" - group that releases albums via Labels.</li>
 				<li>"Other vocalist" - human singers (NND vocalists).</li>
 			</ul>
@@ -172,6 +173,12 @@
 			</ul>
 			<p>Totally unrelated albums may be deleted from VocaDB.</p>
 
+		<h5>Adding artists for albums</h5>
+		<p>
+			When linking artists to albums, at the very least you should add the responsible circle (usually there's only one) and vocalists.
+			Invidividual producers and the associated record label (if any) can be added as well. At the moment all artist types may be linked to albums.
+		</p>
+
 		<h5>Completed album entries should meet the following criteria:</h5>
 		<ul>
 			<li>The album has at least one name whose language option isn't "Unspecified".</li>
@@ -184,6 +191,16 @@
 			<p>Song entries contain information about authors and vocalists (see "Artists" tab), PVs and lyrics.</p>
 			<p><input type="text" class="incorrect-example-input" value="『ミク×リン×レン』 ReAct 『オリジナル曲PV』" size="40" readonly="readonly" /> is incorrect: all additional info (vocalists, authors, PV) should be added to appropriate fields. A song title should contain nothing more than the name itself.</p>
 			
+		<h5>Adding artists for songs</h5>
+		<p>
+			Most Vocaloid songs have one producer and one or more vocalists (Vocaloids). 
+			Circles and labels are generally NOT credited for individual songs, unless it's clear that the whole group worked on that song.
+		</p>
+		<p>
+			In the case of a remix or cover, the original composer of the song does NOT need to be added to the artists list of that song. 
+			Instead, if the original is a Vocaloid song, add the original song to the database and link the derived version to that original, or if the original is not a Vocaloid song, you may mention the composer in the notes.		
+		</p>
+
 		<h5 id="glpv">PV types</h5>
 		<ul>
 			<li>"Original" - the first video with that song, usually uploaded by author himself (may lack any animation).</li>
