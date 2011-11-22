@@ -17,11 +17,17 @@
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
+@if (Model.DraftsOnly) {
+	@Helpers.NotificationPanel(Resources.CommonMessages.Drafts)
+}
+
 @using (Html.BeginForm("Index", "Album")) {
 	
 <p>
 	Filter: @Html.TextBoxFor(m => m.Filter) 
-	&nbsp; 
+	&nbsp;
+	@Html.CheckBoxFor(m => m.DraftsOnly)
+	@Html.LabelFor(m => m.DraftsOnly)
 	<input type="submit" value="Apply" />
 </p>
 

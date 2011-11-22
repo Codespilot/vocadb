@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using VocaDb.Model.Service;
@@ -12,15 +13,19 @@ namespace VocaDb.Web.Models.Album {
 
 		public Index() {}
 
-		public Index(PartialFindResult<AlbumWithAdditionalNamesContract> result, string filter, int? page) {
+		public Index(PartialFindResult<AlbumWithAdditionalNamesContract> result, string filter, int? page, bool? draftsOnly) {
 
 			Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), 
 				page ?? 1, 30, result.TotalCount);
+			DraftsOnly = draftsOnly ?? false;
 			Filter = filter;
 
 		}
 
 		public IPagedList<AlbumWithAdditionalNamesContract> Albums { get; set; }
+
+		[Display(Name = "Only drafts")]
+		public bool DraftsOnly { get; set; }
 
 		public string Filter { get; set; }
 

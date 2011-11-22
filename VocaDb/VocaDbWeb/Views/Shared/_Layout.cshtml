@@ -57,7 +57,7 @@
 							@if (Login.CanManageDb) {
 							<li>@Html.ActionLink("Submit an album", "Create", "Album")</li>
 							}
-							<li>@Html.ActionLink("Drafts", "Drafts", "Album")</li>
+							<li>@Html.ActionLink("Drafts", "Index", "Album", new { draftsOnly = true }, null)</li>
 						</ul>
 					</li>
 					<li>
