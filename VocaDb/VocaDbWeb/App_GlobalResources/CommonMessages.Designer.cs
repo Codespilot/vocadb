@@ -98,7 +98,7 @@ namespace Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;p&gt;Do not enter artist names into the name field. Instead, use the artists list.&lt;/p&gt;
-        ///&lt;p&gt;If the entry has a non-English (for example Japanese) name, input that into the Original name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.&lt;/p&gt;.
+        ///&lt;p&gt;If the entry has a non-English (for example Japanese) name, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.&lt;/p&gt;.
         /// </summary>
         internal static string NameHelp {
             get {

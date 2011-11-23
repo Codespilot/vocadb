@@ -801,7 +801,7 @@ namespace VocaDb.Model.Service {
 
 				if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
 					album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
-					// TODO: add diff
+					diff.OriginalName = true;
 				}
 
 				var nameDiff = album.Names.Sync(properties.Names, album);

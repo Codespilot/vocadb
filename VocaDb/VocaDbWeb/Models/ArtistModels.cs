@@ -82,7 +82,7 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
 
-		[Display(Name = "Default language")]
+		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
 
 		[Display(Name = "Description")]

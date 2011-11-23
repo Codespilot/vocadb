@@ -36,40 +36,12 @@
 			<div>
 				<fieldset>
 					<legend>Basic properties</legend>
-					<table><tr>
-					<td>Primary name:</td>
-					<td><div class="editor-label">
-						@Html.LabelFor(m => m.NameRomaji)
-					</div>
-					<div class="editor-field">
-						@Model.NameRomaji
-					</div>
-					</td><td>
-
-					<div class="editor-label">
-						@Html.LabelFor(m => m.NameJapanese)
-					</div>
-					<div class="editor-field">
-						@Model.NameJapanese
-					</div>
-					</td><td>
-
-					<div class="editor-label">
-						@Html.LabelFor(m => m.NameEnglish)
-					</div>
-					<div class="editor-field">
-						@Model.NameEnglish
-					</div>
-					</td><td>
-
 					<div class="editor-label">
 						@Html.LabelFor(m => m.DefaultLanguageSelection)
 					</div>
 					<div class="editor-field">
 						@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
 					</div>
-					</td></tr>
-					</table>
 
 				   <div class="editor-label">
 						@Html.LabelFor(m => m.Names)

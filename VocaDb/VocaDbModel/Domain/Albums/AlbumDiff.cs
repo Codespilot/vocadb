@@ -136,6 +136,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool OriginalName {
+			get {
+				return IsSet(AlbumEditableFields.OriginalName);
+			}
+			set {
+				Set(AlbumEditableFields.OriginalName, value);
+			}
+		}
+
 		public virtual bool OriginalRelease {
 			get {
 				return IsSet(AlbumEditableFields.OriginalRelease);
