@@ -120,6 +120,24 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual bool OriginalName {
+			get {
+				return IsSet(SongEditableFields.OriginalName);
+			}
+			set {
+				Set(SongEditableFields.OriginalName, value);
+			}
+		}
+
+		public virtual bool OriginalVersion {
+			get {
+				return IsSet(SongEditableFields.OriginalVersion);
+			}
+			set {
+				Set(SongEditableFields.OriginalVersion, value);
+			}
+		}
+
 		public virtual bool PVs {
 			get {
 				return true;

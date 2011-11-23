@@ -773,14 +773,22 @@ namespace VocaDb.Model.Service {
 					song.Notes = properties.Notes;
 				}
 
-				song.OriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? session.Load<Song>(properties.OriginalVersion.Id) : null);
+				var newOriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? session.Load<Song>(properties.OriginalVersion.Id) : null);
+
+				if ((song.OriginalVersion != null && newOriginalVersion == null) || !song.OriginalVersion.Equals(newOriginalVersion)) {
+					song.OriginalVersion = newOriginalVersion;
+					diff.OriginalVersion = true;
+				}
 
 				if (song.SongType != properties.Song.SongType) {
 					diff.SongType = true;
 					song.SongType = properties.Song.SongType;
 				}
 
-				song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+				if (song.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
+					song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+					diff.OriginalName = true;
+				}
 
 				var nameDiff = song.Names.Sync(properties.Names, song);
 				SessionHelper.Sync(session, nameDiff);

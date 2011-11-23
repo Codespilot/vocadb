@@ -133,7 +133,7 @@ namespace VocaDb.Web.Models {
 
 		public ArtistForSongContract[] ArtistLinks { get; set; }
 
-		[Display(Name = "Default language")]
+		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
 
 		public int Id { get; set; }

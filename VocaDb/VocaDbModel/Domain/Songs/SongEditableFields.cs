@@ -15,11 +15,13 @@ namespace VocaDb.Model.Domain.Songs {
 
 		Notes			= 8,
 
-		OriginalVersion	= 16,
+		OriginalName	= 16,
 
-		PVs				= 32,
+		OriginalVersion	= 32,
 
-		SongType		= 64,
+		PVs				= 64,
+
+		SongType		= 128,
 
 		WebLinks		= 128
 
