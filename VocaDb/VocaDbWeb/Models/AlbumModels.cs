@@ -71,7 +71,7 @@ namespace VocaDb.Web.Models {
 		[StringLength(50)]
 		public string CatNum { get; set; }
 
-		[Display(Name = "Default language")]
+		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
 
 		[Display(Name = "Description")]

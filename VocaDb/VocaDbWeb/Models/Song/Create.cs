@@ -22,7 +22,7 @@ namespace VocaDb.Web.Models.Song {
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
-		[Display(Name = "Original name")]
+		[Display(Name = "Non-English name")]
 		[StringLength(255)]
 		public string NameOriginal { get; set; }
 

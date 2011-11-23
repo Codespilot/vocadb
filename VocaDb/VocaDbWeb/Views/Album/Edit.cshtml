@@ -41,34 +41,6 @@
 			<div>
 				<fieldset>
 					<legend>Basic properties</legend>
-					<table><tr>
-					<td>Primary name:</td>
-					<td><div class="editor-label">
-						@Html.LabelFor(m => m.NameRomaji)
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(m => m.NameRomaji, new { @readonly = "readonly" })
-						@Html.ValidationMessageFor(m => m.NameRomaji)
-					</div>
-					</td><td>
-
-					<div class="editor-label">
-						@Html.LabelFor(m => m.NameJapanese)
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(m => m.NameJapanese, new { @readonly = "readonly" })
-						@Html.ValidationMessageFor(m => m.NameJapanese)
-					</div>
-					</td><td>
-
-					<div class="editor-label">
-						@Html.LabelFor(m => m.NameEnglish)
-					</div>
-					<div class="editor-field">
-						@Html.TextBoxFor(m => m.NameEnglish, new { @readonly = "readonly" })
-						@Html.ValidationMessageFor(m => m.NameEnglish)
-					</div>
-					</td><td>
 
 					<div class="editor-label">
 						@Html.LabelFor(m => m.DefaultLanguageSelection)
@@ -76,8 +48,6 @@
 					<div class="editor-field">
 						@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
 					</div>
-					</td></tr>
-					</table>
 
 				   <div class="editor-label">
 						@Html.LabelFor(m => m.Names)

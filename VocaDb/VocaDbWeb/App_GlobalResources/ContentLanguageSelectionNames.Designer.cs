@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use default.
+        ///   Looks up a localized string similar to Original.
         /// </summary>
         internal static string Default {
             get {
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Original.
+        ///   Looks up a localized string similar to Non-English.
         /// </summary>
         internal static string Japanese {
             get {
