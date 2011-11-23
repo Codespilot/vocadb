@@ -799,7 +799,10 @@ namespace VocaDb.Model.Service {
 					diff.Description = true;
 				}
 
-				album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+				if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
+					album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+					// TODO: add diff
+				}
 
 				var nameDiff = album.Names.Sync(properties.Names, album);
 				SessionHelper.Sync(session, nameDiff);
