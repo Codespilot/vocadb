@@ -16,79 +16,83 @@
 																							
 	<div>
 		<fieldset>
-			<table><tr>
-			<td>
-				Name:<br />
-				(need at least one)
-			</td>
-			<td><div class="editor-label">
-				@Html.LabelFor(m => m.NameOriginal)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "nameField" })<br />
-				@Html.ValidationMessageFor(m => m.NameOriginal)
-			</div>
-			</td><td>
+			<table><tr><td class="alignTop">
 
-			<div class="editor-label">
-				@Html.LabelFor(m => m.NameRomaji)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "nameField" })<br />
-				@Html.ValidationMessageFor(m => m.NameRomaji)
-			</div>
-			</td><td>
+				<div class="editor-label">
+					Name (need at least one)
+				</div>
 
-			<div class="editor-label">
-				@Html.LabelFor(m => m.NameEnglish)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "nameField" })<br />
-				@Html.ValidationMessageFor(m => m.NameEnglish)
-			</div>
-			</td></tr>
-			</table>
+				<div class="editor-field">
+					@Html.ValidationMessage("Names")
 
-			<div id="duplicateSongWarning" style="display:none">
-			</div>
+					<table><tr><td>				
+					@Html.LabelFor(m => m.NameOriginal)
+					</td><td>
+					@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "nameField", maxlength = 255, size = 40 })<br />
+					@Html.ValidationMessageFor(m => m.NameOriginal)
+					</td></tr>
 
-			<div class="editor-label">
-				@Html.LabelFor(m => m.SongType)
-			</div>
-			<div class="editor-field">
-				@Html.SongTypeDropDownListFor(m => m.SongType)
-			</div>
+					<tr><td>
+					@Html.LabelFor(m => m.NameRomaji)
+					</td><td>
+					@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "nameField", maxlength = 255, size = 40 })<br />
+					@Html.ValidationMessageFor(m => m.NameRomaji)
+					</td></tr>
+					
+					<tr><td>
+					@Html.LabelFor(m => m.NameEnglish)
+					</td><td>
+					@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "nameField", maxlength = 255, size = 40 })<br />
+					@Html.ValidationMessageFor(m => m.NameEnglish)
+					</td></tr></table>
+				</div>
 
-			<div class="editor-label">
-				@Html.LabelFor(m => m.PVUrl)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(m => m.PVUrl, new { size = 30 })<br />
-				@Html.ValidationMessageFor(m => m.PVUrl)
-			</div>
+				<div id="duplicateSongWarning" style="display:none">
+				</div>
 
-			<div class="editor-label">
-				@Html.LabelFor(m => m.ReprintPVUrl)
-			</div>
-			<div class="editor-field">
-				@Html.TextBoxFor(m => m.ReprintPVUrl, new { size = 30 })<br />
-				@Html.ValidationMessageFor(m => m.ReprintPVUrl)
-			</div>
+				<div class="editor-label">
+					@Html.LabelFor(m => m.SongType)
+				</div>
+				<div class="editor-field">
+					@Html.SongTypeDropDownListFor(m => m.SongType)
+				</div>
 
-			<div class="editor-label">
-				Artists (need at least 1)
-			</div>
-			<div class="editor-field">
-				@Html.ValidationMessage("Artists")
-				<table>
-				@if (Model != null && Model.Artists != null) {
-					foreach (var artist in Model.Artists) {
-						Html.RenderPartial("ArtistContractRow", artist);
+				<div class="editor-label">
+					@Html.LabelFor(m => m.PVUrl)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(m => m.PVUrl, new { size = 30 })<br />
+					@Html.ValidationMessageFor(m => m.PVUrl)
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(m => m.ReprintPVUrl)
+				</div>
+				<div class="editor-field">
+					@Html.TextBoxFor(m => m.ReprintPVUrl, new { size = 30 })<br />
+					@Html.ValidationMessageFor(m => m.ReprintPVUrl)
+				</div>
+
+				<div class="editor-label">
+					Artists (need at least 1)
+				</div>
+				<div class="editor-field">
+					@Html.ValidationMessage("Artists")
+					<table>
+					@if (Model != null && Model.Artists != null) {
+						foreach (var artist in Model.Artists) {
+							Html.RenderPartial("ArtistContractRow", artist);
+						}
 					}
+					@{ Html.RenderPartial("AddNewLinkRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
+					</table>
+				</div>
+
+			</td><td class="alignTop" style="max-width: 250px">
+				@using (Html.BeginPanel()) {
+					@Html.Raw(Resources.CommonMessages.NameHelp)
 				}
-				@{ Html.RenderPartial("AddNewLinkRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
-				</table>
-			</div>
+			</td></tr></table>
 
 		</fieldset>
 
