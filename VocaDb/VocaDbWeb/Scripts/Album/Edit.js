@@ -31,7 +31,17 @@ function saveTrackProperties() {
 
 	var songId = getId($(".trackProperties"));
 
-	$.post("../../Album/TrackProperties", { songId: songId, artistIds: artistIds });
+	$.post("../../Album/TrackProperties", { songId: songId, artistIds: artistIds }, function (artistString) {
+
+		var trackRows = $("tr.trackRow:has(input[type='hidden'][class='songId'][value='" + songId + "'])");
+
+		trackRows.each(function () {
+
+			$(this).find("span.artistString").text(artistString);
+
+		});
+
+	});
 
 	return false;
 

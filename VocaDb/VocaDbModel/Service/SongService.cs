@@ -718,11 +718,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateArtists(int songId, int[] artistIds) {
+		public string UpdateArtists(int songId, int[] artistIds) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
-			HandleTransaction(session => {
+			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
 
@@ -750,6 +750,8 @@ namespace VocaDb.Model.Service {
 					Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 					session.Update(song);
 				}
+
+				return song.ArtistString[PermissionContext.LanguagePreference];
 
 			});
 
