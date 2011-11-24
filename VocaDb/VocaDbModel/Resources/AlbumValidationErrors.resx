@@ -123,7 +123,10 @@
   <data name="NeedTracks" xml:space="preserve">
     <value>Album needs a tracklist.</value>
   </data>
+  <data name="NeedType" xml:space="preserve">
+    <value>Album type needs to be specified.</value>
+  </data>
   <data name="UnspecifiedNames" xml:space="preserve">
-    <value>None of the names is allowed to be 'Unspecified'</value>
+    <value>Album needs at least one entry whose language isn't 'Unspecified'.</value>
   </data>
 </root>

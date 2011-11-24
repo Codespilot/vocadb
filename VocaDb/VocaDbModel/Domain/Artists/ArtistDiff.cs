@@ -130,6 +130,15 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual bool OriginalName {
+			get {
+				return IsSet(ArtistEditableFields.OriginalName);
+			}
+			set {
+				Set(ArtistEditableFields.OriginalName, value);
+			}
+		}
+
 		public virtual bool Picture {
 			get {
 				return IsSet(ArtistEditableFields.Picture);

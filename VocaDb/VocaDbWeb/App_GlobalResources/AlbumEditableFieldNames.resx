@@ -135,6 +135,9 @@
   <data name="Nothing" xml:space="preserve">
     <value>Nothing</value>
   </data>
+  <data name="OriginalName" xml:space="preserve">
+    <value>Original name</value>
+  </data>
   <data name="OriginalRelease" xml:space="preserve">
     <value>Original release</value>
   </data>

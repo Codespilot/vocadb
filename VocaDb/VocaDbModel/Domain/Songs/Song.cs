@@ -13,7 +13,7 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class Song : IEntryBase, INameFactory<SongName>, IWebLinkFactory<SongWebLink> {
+	public class Song : IEntryBase, INameFactory<SongName>, IWebLinkFactory<SongWebLink>, IEquatable<Song> {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
 		private IList<Song> alternateVersions = new List<Song>();

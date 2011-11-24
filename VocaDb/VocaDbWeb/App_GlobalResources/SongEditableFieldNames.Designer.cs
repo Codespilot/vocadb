@@ -115,6 +115,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original name.
+        /// </summary>
+        internal static string OriginalName {
+            get {
+                return ResourceManager.GetString("OriginalName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original version.
+        /// </summary>
+        internal static string OriginalVersion {
+            get {
+                return ResourceManager.GetString("OriginalVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PVs.
         /// </summary>
         internal static string PVs {

@@ -14,10 +14,13 @@ namespace VocaDb.Model.Service.EntryValidators {
 
 			var errors = new List<string>();
 
+			if (album.DiscType == DiscType.Unknown)
+				errors.Add(AlbumValidationErrors.NeedType);
+
 			if (!album.Artists.Any())
 				errors.Add(AlbumValidationErrors.NeedArtist);
 
-			if (album.Names.Names.Any(n => n.Language == ContentLanguageSelection.Unspecified))
+			if (!album.Names.Names.Any(n => n.Language != ContentLanguageSelection.Unspecified))
 				errors.Add(AlbumValidationErrors.UnspecifiedNames);
 
 			if (!album.Songs.Any())

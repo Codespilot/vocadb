@@ -115,27 +115,27 @@
 		<h4>Names and translations</h4>
 		<p>
 			All names should primarily be written in the original language, which usually means Japanese, but it can also be for example English or Korean. 
-			If the original language is English, the name should be written to the English language field, otherwise it's written to the "Original" (non-English) language field.
+			The system supports 3 language options:
+		</p>
+		<ul>
+			<li>"Non-English" covers all languages that aren't English or romanized, for example Japanese.</li>
+			<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji).</li>
+			<li>"English" is for official names in English and known translations.</li>
+			<li>"Unspecified" language should not be used, as it's only for cases when the language hasn't been specified yet (for example if the entry has been imported from another system).</li>
+		</ul>
+		<p>
+			If the original language is English, the name should be written to the English language field, otherwise it's written to the "Non-English" language field.
 			If those names have commonly used romanizations or English translations, those can be entered as well to make it easier for the international audience to find
 			and understand those names. 
 			Multiple names can be specified for each language option, in which case the first name will be used as the primary display name for that language.
 		</p>
 		<p>
 			Registered users can set their display language, so that they will always see the names in that language, if available.
-			Unregistered users and users who haven't set their display language will see the default names. 
-			Usually the default name is the primary non-English name, but that can be changed on per-entry basis.
+			Unregistered users and users who haven't set their display language will see the original names, which may be either English or something else. 
 			For example, if the non-English name of an artist is ナナホシ, the romanized name is nanahoshi and the default language option is "Original", then by default users will see ナナホシ unless they have chosen to prefer romanized names instead.
 		</p>
 		<p>Usually there is no need to add composite names, and those names should broken into separate fields.</p>
 		<p><input type="text" class="incorrect-example-input"value="cosMo@Bousou-P(暴走P)" size="23" readonly="readonly" /> is incorrect: every field should contain only one name.</p>
-
-		<h4>Name languages</h4>
-		<ul>
-			<li>"Original" is for names in producer's native language when it's not English (Japanese, Spanish, Korean etc).</li>
-			<li>"Romanized" is for English transcription of original name (how is it pronounced in English. For Japanese names that's Romaji).</li>
-			<li>"English" is for official names in English and known translations.</li>
-			<li>"Unspecified" language should not be used, as it's only for cases when the language hasn't been specified yet (for example if the entry has been imported from another system).</li>
-		</ul>
 
 		<h4>Draft entries</h4>
 		<p>

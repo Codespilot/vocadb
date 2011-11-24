@@ -644,7 +644,10 @@ namespace VocaDb.Model.Service {
 					diff.Description = true;
 				}
 
-				artist.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+				if (artist.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
+					artist.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+					diff.OriginalName = true;
+				}
 
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
@@ -722,10 +725,8 @@ namespace VocaDb.Model.Service {
 					var add = string.Join(", ", albumDiff.Added.Select(i => i.Album.ToString()));
 					var rem = string.Join(", ", albumDiff.Removed.Select(i => i.Album.ToString()));
 
-					var str = string.Format("edited albums (added: {0}, removed: {1})", add, rem);
-
-					if (str.Length > 300)
-						str = str.Substring(0, 300);
+					var str = string.Format("edited albums (added: {0}, removed: {1})", add, rem)
+						.Truncate(300);
 
 					AuditLog(str, session);
 
