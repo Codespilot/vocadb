@@ -392,12 +392,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public void TrackProperties(int songId, string artistIds) {
+		public ContentResult TrackProperties(int songId, string artistIds) {
 
 			var idStr = artistIds.Split(',');
 			var ids = idStr.Where(i => !string.IsNullOrEmpty(i)).Select(i => int.Parse(i)).ToArray();
 
-			MvcApplication.Services.Songs.UpdateArtists(songId, ids);
+			var artistString = MvcApplication.Services.Songs.UpdateArtists(songId, ids);
+			return Content(artistString);
 
 		}
 

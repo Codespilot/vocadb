@@ -78,6 +78,13 @@ textarea
     display: none;
 }
 
+/* Custom styles */
+span.extraInfo 
+{
+	color: #222222;
+	font-size: small;
+}
+
 td 
 {
 	padding: 5px;	

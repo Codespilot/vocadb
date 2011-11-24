@@ -4,6 +4,7 @@
 <tr class="trackRow ui-state-default">
 	<td>
 		@{ var item = Html.BeginCollectionItem("Tracks"); }
+		@Html.HiddenFor(m => m.ArtistString)
 		@Html.HiddenFor(m => m.SongInAlbumId)
 		@Html.HiddenFor(m => m.SongId, new { @class = "songId" })
 		@Html.HiddenFor(m => m.SongName)
@@ -16,10 +17,11 @@
 	</td>
 	<td class="trackNameCol">
 		@if (Model.SongId != 0) {
-		<a href="#" class="editTrackProperties" title="@Model.SongAdditionalNames">@Model.SongName</a>
+		<a href="#" class="editTrackProperties" title="@Model.SongAdditionalNames">@Model.SongName</a><br />
 		} else {
-		<span title="@Model.SongAdditionalNames">@Model.SongName</span>
+		<span title="@Model.SongAdditionalNames">@Model.SongName</span><br />
 		}
+		<span class="extraInfo artistString">@Model.ArtistString</span>
 	</td><td>
 		@if (Model.SongId != 0) {
 			@Html.ActionLink("Edit song", "Edit", "Song", new { id = Model.SongId }, null)
