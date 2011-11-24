@@ -108,7 +108,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Create(Create model) {
 
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
-				ModelState.AddModelError("Name", "Need at least one name.");
+				ModelState.AddModelError("Names", "Need at least one name.");
 
 			if (model.Artists == null || !model.Artists.Any())
 				ModelState.AddModelError("Artists", "Need at least one artist.");

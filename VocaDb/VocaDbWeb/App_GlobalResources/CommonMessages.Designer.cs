@@ -97,8 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;p&gt;Do not enter artist names into the name field. Instead, use the artists list.&lt;/p&gt;
-        ///&lt;p&gt;If the entry has a non-English (for example Japanese) name, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.&lt;/p&gt;.
+        ///   Looks up a localized string similar to If the entry has a non-English (for example Japanese) name, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field..
         /// </summary>
         internal static string NameHelp {
             get {
@@ -112,6 +111,15 @@ namespace Resources {
         internal static string NameLanguageHelp {
             get {
                 return ResourceManager.GetString("NameLanguageHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not enter artist names into the name field. Instead, use the artists list..
+        /// </summary>
+        internal static string NoArtistsToName {
+            get {
+                return ResourceManager.GetString("NoArtistsToName", resourceCulture);
             }
         }
     }

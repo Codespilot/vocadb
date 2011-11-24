@@ -173,7 +173,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Create(Create model) {
 
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
-				ModelState.AddModelError("Name", "Need at least one name.");
+				ModelState.AddModelError("Names", "Need at least one name.");
 
 			if (!ModelState.IsValid)
 				return View(model);
