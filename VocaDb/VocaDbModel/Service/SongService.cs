@@ -775,7 +775,7 @@ namespace VocaDb.Model.Service {
 
 				var newOriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? session.Load<Song>(properties.OriginalVersion.Id) : null);
 
-				if ((song.OriginalVersion != null && newOriginalVersion == null) || !song.OriginalVersion.Equals(newOriginalVersion)) {
+				if (!Equals(song.OriginalVersion, newOriginalVersion)) {
 					song.OriginalVersion = newOriginalVersion;
 					diff.OriginalVersion = true;
 				}

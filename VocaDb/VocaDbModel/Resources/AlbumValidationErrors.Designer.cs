@@ -79,7 +79,16 @@ namespace VocaDb.Model.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to None of the names is allowed to be &apos;Unspecified&apos;.
+        ///   Looks up a localized string similar to Album type needs to be specified..
+        /// </summary>
+        internal static string NeedType {
+            get {
+                return ResourceManager.GetString("NeedType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Album needs at least one entry whose language isn&apos;t &apos;Unspecified&apos;..
         /// </summary>
         internal static string UnspecifiedNames {
             get {
