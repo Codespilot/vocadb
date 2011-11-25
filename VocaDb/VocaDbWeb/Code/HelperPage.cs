@@ -14,6 +14,10 @@ namespace VocaDb.Web.Code {
 			get { return ((System.Web.Mvc.WebViewPage)WebPageContext.Current.Page).Html; }
 		}
 
+		public static new UrlHelper Url {
+			get { return ((System.Web.Mvc.WebViewPage)WebPageContext.Current.Page).Url; }
+		}
+
 		public static ViewDataDictionary ViewData {
 			get {
 				return ((System.Web.Mvc.WebViewPage)WebPageContext.Current.Page).ViewData; 

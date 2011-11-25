@@ -11,6 +11,7 @@
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract album in ViewBag.Albums) {
 				<li>
+					@Helpers.DraftIcon(album)
 					@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })<br />
 					<span class="extraInfo">@album.ArtistString</span>
 				</li>

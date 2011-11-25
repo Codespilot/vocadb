@@ -42,6 +42,7 @@ if (Model.Albums.Any()) {
 @foreach (var album in Model.Albums) {
 	<tr>
 		<td>
+			@Helpers.DraftIcon(album)
 			@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
 			<span class="extraInfo">@album.ArtistString</span>
 		</td>
