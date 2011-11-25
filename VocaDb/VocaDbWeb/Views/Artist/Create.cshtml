@@ -65,14 +65,6 @@
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.Description)<br />
-					@Html.ValidationMessageFor(m => m.Description)
-				</div>
-				<div class="editor-field">
-					@Html.TextAreaFor(m => m.Description, 7, 70, null)<br />
-				</div>
-
-				<div class="editor-label">
 					External link (to artist's website, Hatsune Miku wiki, NND MyList etc.)
 				</div>
 				<div class="editor-field">
@@ -90,8 +82,10 @@
 					</td></tr></table>
 				</div>
 
-				@Html.CheckBoxFor(m => m.Draft)
-				@Html.LabelFor(m => m.Draft)
+				<p>
+					@Html.CheckBoxFor(m => m.Draft)
+					@Html.LabelFor(m => m.Draft)
+				</p>
 
 			</td><td class="alignTop" style="max-width: 250px">
 				@using (Html.BeginPanel()) {

@@ -142,10 +142,10 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
         public ActionResult Edit(SongEdit model) {
 
-			foreach (var link in model.WebLinks) {
+			/*foreach (var link in model.WebLinks) {
 				if (!UrlValidator.IsValid(link.Url))
 					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
-			}
+			}*/
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetSongForEdit(model.Id);

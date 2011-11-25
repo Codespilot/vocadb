@@ -21,7 +21,7 @@ namespace VocaDb.Web.Models.Artist {
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
 
-		[Display(Name = "Keep as draft")]
+		[Display(Name = "This entry is a draft")]
 		public bool Draft { get; set; }
 
 		[Display(Name = "Name in English")]

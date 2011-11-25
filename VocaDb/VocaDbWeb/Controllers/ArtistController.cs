@@ -176,10 +176,10 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("Names", "Need at least one name.");
 
 			if (string.IsNullOrWhiteSpace(model.Description) && string.IsNullOrWhiteSpace(model.WebLinkUrl))
-				ModelState.AddModelError("Description", "You need to enter a description OR external link");
+				ModelState.AddModelError("Description", "You need to enter a description OR external link.");
 
-			if (!UrlValidator.IsValid(model.WebLinkUrl))
-				ModelState.AddModelError("WebLinkUrl", model.WebLinkUrl + " is not a valid URL.");
+			//if (!string.IsNullOrWhiteSpace(model.WebLinkUrl) && !UrlValidator.IsValid(model.WebLinkUrl))
+			//	ModelState.AddModelError("WebLinkUrl", model.WebLinkUrl + " is not a valid URL.");
 
 			if (!ModelState.IsValid)
 				return View(model);
@@ -252,10 +252,10 @@ namespace VocaDb.Web.Controllers
 
 			}
 
-			foreach (var link in model.WebLinks) {
+			/*foreach (var link in model.WebLinks) {
 				if (!UrlValidator.IsValid(link.Url))
 					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
-			}
+			}*/
 
 			if (!ModelState.IsValid) {
 				SaveErrorsToTempData();
