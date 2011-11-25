@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Web.Models.Artist {
 
@@ -20,6 +21,9 @@ namespace VocaDb.Web.Models.Artist {
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
 
+		[Display(Name = "Keep as draft")]
+		public bool Draft { get; set; }
+
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
@@ -32,12 +36,22 @@ namespace VocaDb.Web.Models.Artist {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		[Display(Name = "Description")]
+		[StringLength(512)]
+		public string WebLinkDescription { get; set; }
+
+		[Display(Name = "URL")]
+		[StringLength(512)]
+		public string WebLinkUrl { get; set; }
+
 		public CreateArtistContract ToContract() {
 
 			return new CreateArtistContract {
 				ArtistType = this.ArtistType,
 				Description = this.Description ?? string.Empty,
-				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray()
+				Draft = this.Draft,
+				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray(),
+				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { Description = WebLinkDescription, Url = WebLinkUrl } : null)
 			};
 
 		}

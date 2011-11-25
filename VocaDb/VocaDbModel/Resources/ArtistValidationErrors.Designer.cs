@@ -22,14 +22,14 @@ namespace VocaDb.Model.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AlbumValidationErrors {
+    internal class ArtistValidationErrors {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AlbumValidationErrors() {
+        internal ArtistValidationErrors() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace VocaDb.Model.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Model.Resources.AlbumValidationErrors", typeof(AlbumValidationErrors).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Model.Resources.ArtistValidationErrors", typeof(ArtistValidationErrors).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,34 +61,16 @@ namespace VocaDb.Model.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Album needs at least one artist..
+        ///   Looks up a localized string similar to Artist needs a description OR at least one external link as a reference..
         /// </summary>
-        internal static string NeedArtist {
+        internal static string NeedReferences {
             get {
-                return ResourceManager.GetString("NeedArtist", resourceCulture);
+                return ResourceManager.GetString("NeedReferences", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Release year needs to be specified..
-        /// </summary>
-        internal static string NeedReleaseYear {
-            get {
-                return ResourceManager.GetString("NeedReleaseYear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Album needs a tracklist..
-        /// </summary>
-        internal static string NeedTracks {
-            get {
-                return ResourceManager.GetString("NeedTracks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Album type needs to be specified..
+        ///   Looks up a localized string similar to Artist type needs to be specified..
         /// </summary>
         internal static string NeedType {
             get {
@@ -97,7 +79,7 @@ namespace VocaDb.Model.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Album needs at least one entry whose language isn&apos;t &apos;Unspecified&apos;..
+        ///   Looks up a localized string similar to Artist needs at least one entry whose language isn&apos;t &apos;Unspecified&apos;..
         /// </summary>
         internal static string UnspecifiedNames {
             get {

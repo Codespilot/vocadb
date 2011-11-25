@@ -28,6 +28,7 @@ namespace VocaDb.Web.Models.Shared {
 
 		[Required]
 		[StringLength(512)]
+		[DataType(DataType.Url)]
 		public string Url { get; set; }
 
 		public WebLinkContract ToContract() {

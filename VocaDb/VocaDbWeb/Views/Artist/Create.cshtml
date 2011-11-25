@@ -12,7 +12,7 @@
 
 	@Helpers.ValidationSymmaryPanel("Unable to create artist. Correct the errors and try again.");
 	
-	@Helpers.NotificationPanel("Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name.")
+	@Helpers.NotificationPanel("Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name. You need to enter a description OR an external link for reference.")
 
 	<div>
 		<fieldset>
@@ -63,6 +63,35 @@
 				<div class="editor-field">
 					@Html.TextAreaFor(m => m.Description, 7, 70, null)<br />
 				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(m => m.Description)<br />
+					@Html.ValidationMessageFor(m => m.Description)
+				</div>
+				<div class="editor-field">
+					@Html.TextAreaFor(m => m.Description, 7, 70, null)<br />
+				</div>
+
+				<div class="editor-label">
+					External link (to artist's website, Hatsune Miku wiki, NND MyList etc.)
+				</div>
+				<div class="editor-field">
+					<table><tr><td>				
+					@Html.LabelFor(m => m.WebLinkDescription) (optional)
+					</td><td>
+					@Html.TextBoxFor(m => m.WebLinkDescription, new { maxlength = 512, size = 40 })<br />
+					</td></tr>
+
+					<tr><td>
+					@Html.LabelFor(m => m.WebLinkUrl) *
+					</td><td>
+					@Html.TextBoxFor(m => m.WebLinkUrl, new { maxlength = 512, size = 40 })<br />
+					@Html.ValidationMessageFor(m => m.WebLinkUrl)
+					</td></tr></table>
+				</div>
+
+				@Html.CheckBoxFor(m => m.Draft)
+				@Html.LabelFor(m => m.Draft)
 
 			</td><td class="alignTop" style="max-width: 250px">
 				@using (Html.BeginPanel()) {

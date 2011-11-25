@@ -238,6 +238,7 @@
     <Compile Include="Helpers\LocalizedStringHelper.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\UrlValidator.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Mapping\Albums\AlbumCommentMap.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
@@ -280,6 +281,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistTypeNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ArtistValidationErrors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistValidationErrors.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
@@ -289,6 +295,7 @@
     <Compile Include="Service\BBCode\BBElement.cs" />
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\EntryValidators\AlbumValidator.cs" />
+    <Compile Include="Service\EntryValidators\ArtistValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />
@@ -327,6 +334,10 @@
     <EmbeddedResource Include="Resources\ArtistTypeNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistTypeNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ArtistValidationErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArtistValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

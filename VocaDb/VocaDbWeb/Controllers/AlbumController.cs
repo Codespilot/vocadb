@@ -229,6 +229,11 @@ namespace VocaDb.Web.Controllers
 
 			}
 
+			foreach (var link in model.WebLinks) {
+				if (!UrlValidator.IsValid(link.Url))
+					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
+			}
+
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetAlbumForEdit(model.Id);
 				model.CopyNonEditableFields(oldContract);

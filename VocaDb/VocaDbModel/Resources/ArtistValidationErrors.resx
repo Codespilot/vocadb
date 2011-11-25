@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NeedArtist" xml:space="preserve">
-    <value>Album needs at least one artist.</value>
-  </data>
-  <data name="NeedReleaseYear" xml:space="preserve">
-    <value>Release year needs to be specified.</value>
-  </data>
-  <data name="NeedTracks" xml:space="preserve">
-    <value>Album needs a tracklist.</value>
+  <data name="NeedReferences" xml:space="preserve">
+    <value>Artist needs a description OR at least one external link as a reference.</value>
   </data>
   <data name="NeedType" xml:space="preserve">
-    <value>Album type needs to be specified.</value>
+    <value>Artist type needs to be specified.</value>
   </data>
   <data name="UnspecifiedNames" xml:space="preserve">
-    <value>Album needs at least one entry whose language isn't 'Unspecified'.</value>
+    <value>Artist needs at least one entry whose language isn't 'Unspecified'.</value>
   </data>
 </root>

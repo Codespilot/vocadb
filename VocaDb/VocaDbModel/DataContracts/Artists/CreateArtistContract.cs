@@ -8,7 +8,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public string Description { get; set; }
 
+		public bool Draft { get; set; }
+
 		public LocalizedStringContract[] Names { get; set; }
+
+		public WebLinkContract WebLink { get; set; }
 
 	}
 

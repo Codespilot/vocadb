@@ -175,6 +175,12 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
 				ModelState.AddModelError("Names", "Need at least one name.");
 
+			if (string.IsNullOrWhiteSpace(model.Description) && string.IsNullOrWhiteSpace(model.WebLinkUrl))
+				ModelState.AddModelError("Description", "You need to enter a description OR external link");
+
+			if (!UrlValidator.IsValid(model.WebLinkUrl))
+				ModelState.AddModelError("WebLinkUrl", model.WebLinkUrl + " is not a valid URL.");
+
 			if (!ModelState.IsValid)
 				return View(model);
 
@@ -244,6 +250,11 @@ namespace VocaDb.Web.Controllers
 
 				}
 
+			}
+
+			foreach (var link in model.WebLinks) {
+				if (!UrlValidator.IsValid(link.Url))
+					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
 			}
 
 			if (!ModelState.IsValid) {
