@@ -28,7 +28,13 @@
 }
 
 @if (Model.Draft) {
-	@Helpers.NotificationPanel(Resources.CommonMessages.Draft)<br />
+	using (Html.BeginHighlightPanel()) {
+		<p>
+			@Helpers.NotificationIcon()
+			<span>@Resources.CommonMessages.Draft</span>
+			<span>See the @Html.ActionLink("guide", "Index", "Help", null, null, null, null, null) for more information.</span>
+		</p>
+	}
 }
 
 <div id="tabs">
@@ -74,7 +80,7 @@
 					@Html.LinkList(Model.Circles, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 				</td>
 			</tr>
-			}
+   }
 
 			@if (Model.Labels.Any()) {
 			<tr>
@@ -83,7 +89,7 @@
 					@Html.LinkList(Model.Labels, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 				</td>
 			</tr>
-			}
+   }
 
 			@if (Model.OtherArtists.Any()) {
 			<tr>
@@ -92,7 +98,7 @@
 					@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
 				</td>
 			</tr>
-			}
+   }
 
 			@if (!string.IsNullOrEmpty(Model.Description)) {
 			<tr>
@@ -101,7 +107,7 @@
 					@Helpers.ConvertNewlinesToBreaks(Model.Description)
 				</td>	
 			</tr>
-			}
+   }
 
 			<tr>
 				<td>Type</td>
@@ -118,7 +124,7 @@
 					</span>
 					@if (Login.Manager.IsLoggedIn) {
 						<a href="#" id="editTags">Edit tags</a>
-					}				
+	 }				
 				</td>
 			</tr>
 
@@ -129,7 +135,7 @@
 					@Model.ReleaseDate.Formatted<br />
 				</td>	
 			</tr>
-			}
+   }
 
 		@if (!string.IsNullOrEmpty(Model.CatNum)) {
 			<tr>
@@ -138,7 +144,7 @@
 					@Model.CatNum<br />
 				</td>	
 			</tr>
-		}
+  }
 
 		@if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
 			<tr>
@@ -147,7 +153,7 @@
 					@Model.ReleaseEvent<br />
 				</td>	
 			</tr>
-		}
+  }
 
 		@if (Model.PVs.Any()) {
 		<tr>
@@ -155,10 +161,10 @@
 			<td>
 				@foreach (var pv in Model.PVs) {
 					<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
-				}			
+	}			
 			</td>
 		</tr>
-		}
+  }
 
 		@if (Model.WebLinks.Any()) {
 			<tr>
@@ -166,10 +172,10 @@
 				<td>
 					@foreach (var link in Model.WebLinks) {
 						<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
-		   }
+	 }
 				</td>	
 			</tr>
-		}
+  }
 		</table>
 
 		<table>
@@ -178,7 +184,7 @@
 				<td>
 					@Helpers.EmbedPV(Model.PrimaryPV, 250, 188)
 				</td>
-				}
+	}
 
 				<td>
 			
@@ -195,7 +201,7 @@
 								<br />
 								<span class="extraInfo">@song.Song.ArtistString</span>
 							</li>
-					 }
+	  }
 					</ul>
 					</div>
 				

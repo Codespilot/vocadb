@@ -22,6 +22,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.TranslatedName[languagePreference];
+			Status = album.Status;
 			Version = album.Version;
 
 		}
@@ -41,6 +42,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public EntryStatus Status { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }
