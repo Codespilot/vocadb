@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using NHibernate;
@@ -12,7 +11,6 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -261,9 +259,17 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("creating a new artist with name '{0}'", contract.Names.First().Value), session);
 
-				var artist = new Artist { ArtistType = contract.ArtistType, Description = contract.Description };
+				var artist = new Artist { 
+					ArtistType = contract.ArtistType, 
+					Description = contract.Description.Trim(), 
+					Status = contract.Draft ? EntryStatus.Draft : EntryStatus.Finished 
+				};
 
 				artist.Names.Init(contract.Names, artist);
+
+				if (contract.WebLink != null) {
+					artist.CreateWebLink(contract.WebLink.Description, contract.WebLink.Url);
+				}
 
 				session.Save(artist);
 

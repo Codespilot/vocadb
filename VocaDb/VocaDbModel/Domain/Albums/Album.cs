@@ -166,6 +166,9 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		/// <summary>
+		/// Original release date. Cannot be null.
+		/// </summary>
 		public virtual OptionalDateTime OriginalReleaseDate {
 			get {
 

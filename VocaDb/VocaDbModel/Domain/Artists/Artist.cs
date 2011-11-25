@@ -270,7 +270,7 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual ArtistWebLink CreateWebLink(string description, string url) {
 
 			ParamIs.NotNull(() => description);
-			ParamIs.NotNullOrEmpty(() => url);
+			ParamIs.NotNullOrWhiteSpace(() => url);
 
 			var link = new ArtistWebLink(this, description, url);
 			WebLinks.Add(link);

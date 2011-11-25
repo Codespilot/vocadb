@@ -23,6 +23,9 @@ namespace VocaDb.Model.Service.EntryValidators {
 			if (!album.Names.Names.Any(n => n.Language != ContentLanguageSelection.Unspecified))
 				errors.Add(AlbumValidationErrors.UnspecifiedNames);
 
+			if (album.OriginalReleaseDate.IsEmpty)
+				errors.Add(AlbumValidationErrors.NeedReleaseYear);
+
 			if (!album.Songs.Any())
 				errors.Add(AlbumValidationErrors.NeedTracks);
 

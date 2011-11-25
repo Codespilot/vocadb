@@ -10,6 +10,7 @@ using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Song;
 using System;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -140,6 +141,11 @@ namespace VocaDb.Web.Controllers
         // POST: /Song/Edit/5
         [HttpPost]
         public ActionResult Edit(SongEdit model) {
+
+			foreach (var link in model.WebLinks) {
+				if (!UrlValidator.IsValid(link.Url))
+					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
+			}
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetSongForEdit(model.Id);

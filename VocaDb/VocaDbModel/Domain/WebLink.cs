@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Helpers;
+using System;
 
 namespace VocaDb.Model.Domain {
 
@@ -52,7 +53,7 @@ namespace VocaDb.Model.Domain {
 		public WebLink(string description, string url) {
 
 			ParamIs.NotNull(() => description);
-			ParamIs.NotNullOrEmpty(() => url);
+			new Uri(url, UriKind.RelativeOrAbsolute);	// TODO: verify this.
 
 			Description = description;
 			Url = url;
@@ -87,7 +88,7 @@ namespace VocaDb.Model.Domain {
 		public virtual string Url {
 			get { return url; }
 			set {
-				ParamIs.NotNullOrEmpty(() => value);
+				ParamIs.NotNullOrWhiteSpace(() => value);
 				url = value;
 			}
 		}
