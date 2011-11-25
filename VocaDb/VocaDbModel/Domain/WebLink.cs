@@ -53,7 +53,7 @@ namespace VocaDb.Model.Domain {
 		public WebLink(string description, string url) {
 
 			ParamIs.NotNull(() => description);
-			new Uri(url, UriKind.RelativeOrAbsolute);	// TODO: verify this.
+			ParamIs.NotNullOrWhiteSpace(() => url);
 
 			Description = description;
 			Url = url;

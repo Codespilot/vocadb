@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace VocaDb.Model.Helpers {
 
@@ -9,7 +6,8 @@ namespace VocaDb.Model.Helpers {
 
 		public static bool IsValid(string urlString) {
 
-			ParamIs.NotNullOrWhiteSpace(() => urlString);
+			if (string.IsNullOrWhiteSpace(urlString))
+				return false;
 
 			try {
 				new Uri(urlString, UriKind.RelativeOrAbsolute);
