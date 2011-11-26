@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
@@ -19,6 +20,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			Deleted = artist.Deleted;
 			Description = artist.Description;
+			Draft = artist.Status == EntryStatus.Draft;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			LatestAlbums = new AlbumWithAdditionalNamesContract[] {};
@@ -40,6 +42,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public string Description { get; set; }
+
+		[DataMember]
+		public bool Draft { get; set; }
 
 		[DataMember]
 		public GroupForArtistContract[] Groups { get; set; }

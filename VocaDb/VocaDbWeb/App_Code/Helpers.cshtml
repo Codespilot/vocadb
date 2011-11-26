@@ -45,8 +45,22 @@
 }
 
 @helper DraftIcon(VocaDb.Model.DataContracts.Albums.AlbumContract album) {
-	if (album.Status == VocaDb.Model.Domain.EntryStatus.Draft) {
+	@Helpers.DraftIcon(album.Status)
+}
+
+@helper DraftIcon(VocaDb.Model.Domain.EntryStatus status) {
+	if (status == VocaDb.Model.Domain.EntryStatus.Draft) {
 		<img src="@Url.Content("~/Content/draft.png")" title="This entry is a draft" alt="draft" />
+	}
+}
+
+@helper DraftMessage() {
+	using (Html.BeginHighlightPanel()) {
+		<p>
+			@Helpers.NotificationIcon()
+			<span>@Resources.CommonMessages.Draft</span>
+			<span>See the @Html.ActionLink("guide", "Index", "Help", null, null, null, null, null) for more information.</span>
+		</p>
 	}
 }
 

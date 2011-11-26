@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using Newtonsoft.Json;
@@ -18,6 +19,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			ArtistType = artist.ArtistType;
 			Id = artist.Id;
 			Name = artist.TranslatedName[preference];
+			Status = artist.Status;
 			Version = artist.Version;
 
 		}
@@ -31,6 +33,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public EntryStatus Status { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }

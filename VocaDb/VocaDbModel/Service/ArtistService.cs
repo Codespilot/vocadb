@@ -28,7 +28,9 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
 
 		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
-			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults,
+			bool draftsOnly, bool getTotalCount, 
+			NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -39,6 +41,9 @@ namespace VocaDb.Model.Service {
 				var q = session.QueryOver(() => art)
 					//.Left.JoinAlias(a => a.Names, () => names)
 					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Status == EntryStatus.Draft);
 
 				if (filterByArtistType)
 					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
@@ -53,7 +58,7 @@ namespace VocaDb.Model.Service {
 				var contracts = artists.Select(s => new ArtistWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes) : 0);
+				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
 
 				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count);
 
@@ -64,24 +69,13 @@ namespace VocaDb.Model.Service {
 				var directQ = session.Query<Artist>()
 					.Where(s => !s.Deleted);
 
+				if (draftsOnly)
+					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
+
 				if (artistTypes.Any())
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-					
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English == query
-							|| s.Names.SortNames.Romaji == query
-							|| s.Names.SortNames.Japanese == query);
-
-				} else {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query));
-
-				}
+				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 					
 				var direct = directQ
 					.OrderBy(s => s.Names.SortNames.Romaji)
@@ -91,6 +85,9 @@ namespace VocaDb.Model.Service {
 
 				var additionalNamesQ = session.Query<ArtistName>()
 					.Where(m => !m.Artist.Deleted);
+
+				if (draftsOnly)
+					additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
 				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
@@ -120,7 +117,7 @@ namespace VocaDb.Model.Service {
 					.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes) : 0);
+				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
 
 				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count);
 
@@ -128,15 +125,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private int GetArtistCount(ISession session, string query, ArtistType[] artistTypes) {
+		private int GetArtistCount(ISession session, string query, ArtistType[] artistTypes, bool draftsOnly, 
+			NameMatchMode nameMatchMode) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
-				return session.Query<Artist>()
+				var q = session.Query<Artist>()
 					.Where(s => 
 						!s.Deleted
-						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType)))
-					.Count();
+						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType)));
+
+				if (draftsOnly)
+					q = q.Where(a => a.Status == EntryStatus.Draft);
+
+				return q.Count();
 
 			}
 
@@ -146,26 +148,18 @@ namespace VocaDb.Model.Service {
 			if (artistTypes.Any())
 				directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
-			if (query.Length < 3) {
+			if (draftsOnly)
+				directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
-				directQ = directQ.Where(s =>
-					s.Names.SortNames.English == query
-						|| s.Names.SortNames.Romaji == query
-						|| s.Names.SortNames.Japanese == query);
-
-			} else {
-
-				directQ = directQ.Where(s =>
-					s.Names.SortNames.English.Contains(query)
-						|| s.Names.SortNames.Romaji.Contains(query)
-						|| s.Names.SortNames.Japanese.Contains(query));
-
-			}
+			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
 			var direct = directQ.ToArray();
 
 			var additionalNamesQ = session.Query<ArtistName>()
 				.Where(m => !m.Artist.Deleted);
+
+			if (draftsOnly)
+				additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
 			if (query.Length < 3) {
 
@@ -366,9 +360,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, int start, int maxResults, bool getTotalCount = false) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, int start, int maxResults, bool draftsOnly, bool getTotalCount) {
 
-			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, getTotalCount));
+			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, draftsOnly, getTotalCount));
 
 		}
 
@@ -378,7 +372,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = FindArtists(session, q, new ArtistType[] {}, 0, 1, false, NameMatchMode.Exact);
+					var result = FindArtists(session, q, new ArtistType[] {}, 0, 1, false, false, NameMatchMode.Exact);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -658,6 +652,11 @@ namespace VocaDb.Model.Service {
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
 					diff.Picture = true;
+				}
+
+				if (artist.Status != properties.Status) {
+					artist.Status = properties.Status;
+					diff.Status = true;
 				}
 
 				var nameDiff = artist.Names.Sync(properties.Names, artist);

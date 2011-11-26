@@ -28,13 +28,7 @@
 }
 
 @if (Model.Draft) {
-	using (Html.BeginHighlightPanel()) {
-		<p>
-			@Helpers.NotificationIcon()
-			<span>@Resources.CommonMessages.Draft</span>
-			<span>See the @Html.ActionLink("guide", "Index", "Help", null, null, null, null, null) for more information.</span>
-		</p>
-	}
+	@Helpers.DraftMessage()
 }
 
 <div id="tabs">

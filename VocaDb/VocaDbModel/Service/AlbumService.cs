@@ -132,29 +132,13 @@ namespace VocaDb.Model.Service {
 
 			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
-			/*if (query.Length < 3) {
-
-				directQ = directQ.Where(s =>
-					s.Names.SortNames.English == query
-						|| s.Names.SortNames.Romaji == query
-						|| s.Names.SortNames.Japanese == query);
-
-			} else {
-
-				directQ = directQ.Where(s =>
-					s.Names.SortNames.English.Contains(query)
-						|| s.Names.SortNames.Romaji.Contains(query)
-						|| s.Names.SortNames.Japanese.Contains(query)
-						|| s.ArtistString.Japanese.Contains(query)
-						|| s.ArtistString.Romaji.Contains(query)
-						|| s.ArtistString.English.Contains(query));
-
-			}*/
-
 			var direct = directQ.ToArray();
 
 			var additionalNamesQ = session.Query<AlbumName>()
 				.Where(m => !m.Album.Deleted);
+
+			if (draftsOnly)
+				additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
 
 			if (query.Length < 3) {
 

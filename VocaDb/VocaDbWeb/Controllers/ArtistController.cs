@@ -62,13 +62,13 @@ namespace VocaDb.Web.Controllers
 
         //
         // GET: /Artist/
-		public ActionResult Index(string filter, ArtistType? artistType, int? page) {
+		public ActionResult Index(string filter, ArtistType? artistType, bool? draftsOnly, int? page) {
 
 			var result = Service.FindArtists(filter, 
 				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
-				((page ?? 1) - 1) * 30, 30, true);
+				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true);
 
-			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, page);
+			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, draftsOnly, page);
 
 			return View(model);
 
@@ -122,7 +122,7 @@ namespace VocaDb.Web.Controllers
 				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
 				: new ArtistType[] {};
 
-			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20);
+			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false);
 
 			return Json(albums.Items);
 

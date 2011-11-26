@@ -20,6 +20,10 @@
 	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)
 }
 
+@if (Model.Draft) {
+	@Helpers.DraftMessage()
+}
+
 <div id="tabs">
 
 	<ul>

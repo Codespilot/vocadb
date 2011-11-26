@@ -18,6 +18,10 @@
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
+@if (Model.DraftsOnly) {
+	@Helpers.NotificationPanel(Resources.CommonMessages.Drafts)
+}
+
 @using (Html.BeginForm("Index", "Artist")) {
 	
 <p>
@@ -25,6 +29,8 @@
 	&nbsp; 
 	@Html.DropDownListFor(a => a.ArtistType, new SelectList(Model.FilterableArtistTypes, "Key", "Value", Model.ArtistType))
 	&nbsp;
+	@Html.CheckBoxFor(m => m.DraftsOnly)
+	@Html.LabelFor(m => m.DraftsOnly)
 	<input type="submit" value="Apply" />
 </p>
 
@@ -41,6 +47,7 @@ if (Model.Artists.Any()) {
 @foreach (var artist in Model.Artists) {
 	<tr>
 		<td>
+			@Helpers.DraftIcon(artist.Status)
 			@Html.ActionLink(artist.Name, "Details", new { id = artist.Id })<br />
 			<span class="extraInfo">@artist.AdditionalNames</span>
 		</td>
