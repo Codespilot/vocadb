@@ -131,6 +131,11 @@
 					</table>
 				</div>
 
+				<p title="Entries that are missing important information can be marked as drafts so that others can finish them.">
+					@Html.CheckBoxFor(m => m.Draft)
+					@Html.LabelFor(m => m.Draft)
+				</p>
+
 			</div>
 		</div>
 

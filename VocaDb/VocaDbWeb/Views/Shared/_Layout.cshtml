@@ -45,11 +45,12 @@
 					<li>@Html.ActionLink("Home", "Index", "Home")</li>
 					<li>
 						@Html.ActionLink("Artists", "Index", "Artist")
-						@if (Login.CanManageDb) {
 						<ul>
+							@if (Login.CanManageDb) {
 							<li>@Html.ActionLink("Add an artist", "Create", "Artist")</li>
+							}
+							<li>@Html.ActionLink("Drafts", "Index", "Artist", new { draftsOnly = true }, null)</li>
 						</ul>
-						}
 					</li>
 					<li>
 						@Html.ActionLink("Albums", "Index", "Album")

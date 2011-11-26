@@ -33,7 +33,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
 
-			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults).Items;
+			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, false).Items;
 
 		}
 
@@ -48,7 +48,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public ArtistDetailsContract GetArtistDetails(string term) {
 
-			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 1);
+			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 1, false, false);
 
 			if (!artists.Items.Any())
 				return null;

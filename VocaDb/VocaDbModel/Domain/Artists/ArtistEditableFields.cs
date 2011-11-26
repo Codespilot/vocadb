@@ -21,7 +21,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Picture			= 64,
 
-		WebLinks		= 128
+		Status			= 128,
+
+		WebLinks		= 256
 
 	}
 

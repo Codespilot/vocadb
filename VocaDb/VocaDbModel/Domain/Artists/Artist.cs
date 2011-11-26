@@ -13,7 +13,7 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class Artist : IEntryBase, IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
+	public class Artist : IEntryBase, IEntryWithNames, IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private IList<ArchivedArtistVersion> archivedVersions = new List<ArchivedArtistVersion>();
@@ -163,6 +163,10 @@ namespace VocaDb.Model.Domain.Artists {
 				ParamIs.NotNull(() => value);
 				names = value;
 			}
+		}
+
+		INameManager IEntryWithNames.Names {
+			get { return Names; }
 		}
 
 		public virtual PictureData Picture { get; set; }

@@ -8,6 +8,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
@@ -20,9 +21,11 @@ namespace VocaDb.Web.Models {
 
 		public ArtistIndex() {}
 
-		public ArtistIndex(PartialFindResult<ArtistWithAdditionalNamesContract> result, string filter, ArtistType artistType, int? page) {
+		public ArtistIndex(PartialFindResult<ArtistWithAdditionalNamesContract> result, string filter,
+			ArtistType artistType, bool? draftsOnly, int? page) {
 
 			Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
+			DraftsOnly = draftsOnly ?? false;
 			Filter = filter;
 			ArtistType = artistType;
 
@@ -33,6 +36,9 @@ namespace VocaDb.Web.Models {
 		public IPagedList<ArtistWithAdditionalNamesContract> Artists { get; set; }
 
 		public ArtistType ArtistType { get; set; }
+
+		[Display(Name = "Only drafts")]
+		public bool DraftsOnly { get; set; }
 
 		public string Filter { get; set; }
 
@@ -60,6 +66,7 @@ namespace VocaDb.Web.Models {
 			ArtistType = artist.ArtistType;
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
+			Draft = artist.Status == EntryStatus.Draft;
 			Groups = artist.Groups;
 			Id = artist.Id;
 			Name = artist.Name;
@@ -87,6 +94,9 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Description")]
 		public string Description { get; set; }
+
+		[Display(Name = "This entry is a draft")]
+		public bool Draft { get; set; }
 
 		[Display(Name = "Groups and circles")]
 		public IList<GroupForArtistContract> Groups { get; set; }
@@ -124,6 +134,7 @@ namespace VocaDb.Web.Models {
 				Groups = this.Groups.ToArray(),
 				Name = this.Name,
 				Names = this.Names.Select(l => l.ToContract()).ToArray(),
+				Status = (Draft ? EntryStatus.Draft : EntryStatus.Finished),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
