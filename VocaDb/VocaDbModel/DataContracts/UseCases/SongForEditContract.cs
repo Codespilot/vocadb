@@ -2,6 +2,7 @@
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.EntryValidators;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
@@ -15,10 +16,13 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ParamIs.NotNull(() => song);
 
 			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			ValidationResult = SongValidator.Validate(song);
 
 		}
 
 		public LocalizedStringWithIdContract[] Names { get; set; }
+
+		public ValidationResult ValidationResult { get; set; }
 
 	}
 

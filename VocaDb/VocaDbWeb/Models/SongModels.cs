@@ -8,6 +8,7 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
@@ -31,6 +32,7 @@ namespace VocaDb.Web.Models {
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions;
 			Deleted = contract.Deleted;
+			Draft = contract.Song.Status == EntryStatus.Draft;
 			Id = contract.Song.Id;
 			IsFavorited = contract.IsFavorited;
 			Lyrics = contract.Lyrics;
@@ -59,6 +61,8 @@ namespace VocaDb.Web.Models {
 		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
 
 		public bool Deleted { get; set; }
+
+		public bool Draft { get; set; }
 
 		public int Id { get; set; }
 
@@ -110,10 +114,9 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => song);
 
-			ArtistLinks = song.Artists;
 			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
+			Draft = song.Song.Status == EntryStatus.Draft;
 			Id = song.Song.Id;
-			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			Name = song.Song.Name;
 			NameEnglish = song.TranslatedName.English;
 			NameJapanese = song.TranslatedName.Japanese;
@@ -121,9 +124,10 @@ namespace VocaDb.Web.Models {
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
 			Notes = song.Notes;
 			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
-			PVs = song.PVs;
 			SongType = song.Song.SongType;
 			WebLinks = song.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
+
+			CopyNonEditableFields(song);
 
 		}
 
@@ -135,6 +139,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
+
+		public bool Draft { get; set; }
 
 		public int Id { get; set; }
 
@@ -173,13 +179,27 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }
 
+		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
+
 		[Display(Name = "Web links")]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
+
+		public void CopyNonEditableFields(SongForEditContract song) {
+
+			ParamIs.NotNull(() => song);
+
+			ArtistLinks = song.Artists;
+			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
+			PVs = song.PVs;
+			ValidationResult = song.ValidationResult;
+
+		}
 
 		public SongForEditContract ToContract() {
 
 			return new SongForEditContract {
 				Song = new SongContract {
+					Status = this.Draft ? EntryStatus.Draft : EntryStatus.Finished,
 					Id = this.Id,
 					Name = this.Name,
 					SongType = this.SongType

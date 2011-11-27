@@ -304,3 +304,9 @@ td.trackNameCol
 {
 	min-width: 200px;	
 }
+
+div.panel 
+{
+	padding: .7em;
+	margin: .5em;
+}

@@ -127,9 +127,9 @@
     <value>Album needs a tracklist.</value>
   </data>
   <data name="NeedType" xml:space="preserve">
-    <value>Album type needs to be specified.</value>
+    <value>Record type needs to be specified.</value>
   </data>
   <data name="UnspecifiedNames" xml:space="preserve">
-    <value>Album needs at least one entry whose language isn't 'Unspecified'.</value>
+    <value>Album needs at least one name whose language isn't 'Unspecified'.</value>
   </data>
 </root>

@@ -25,6 +25,10 @@
 	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)
 }
 
+@if (Model.Draft) {
+	@Helpers.DraftMessage("glsongs")
+}
+
 <div id="tabs">
 
 	<ul>

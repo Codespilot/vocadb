@@ -382,7 +382,10 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("creating a new song with name '{0}'", contract.Names.First().Value), session);
 
-				var song = new Song { SongType = contract.SongType };
+				var song = new Song { 
+					SongType = contract.SongType, 
+					Status = contract.Draft ? EntryStatus.Draft : EntryStatus.Finished 
+				};
 
 				song.Names.Init(contract.Names, song);
 
@@ -803,6 +806,11 @@ namespace VocaDb.Model.Service {
 
 				if (webLinkDiff.Changed)
 					diff.WebLinks = true;
+
+				if (song.Status != properties.Song.Status) {
+					song.Status = properties.Song.Status;
+					diff.Status = true;
+				}
 
 				AuditLog(string.Format("updated properties for {0} ({1})", song, diff.ChangedFieldsString), session);
 

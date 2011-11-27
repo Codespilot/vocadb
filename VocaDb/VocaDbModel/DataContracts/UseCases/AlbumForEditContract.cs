@@ -9,6 +9,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Service.EntryValidators;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
@@ -28,6 +29,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
+			ValidationResult = AlbumValidator.Validate(album);
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
@@ -55,6 +57,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public SongInAlbumEditContract[] Songs { get; set; }
 
 		public TranslatedStringContract TranslatedName { get; set; }
+
+		public ValidationResult ValidationResult { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }

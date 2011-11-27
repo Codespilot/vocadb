@@ -78,6 +78,8 @@ namespace VocaDb.Web.Models {
 
 			AllCircles = artist.AllCircles.ToDictionary(a => a.Id, a => a.Name);
 
+			CopyNonEditableFields(artist);
+
 		}
 
 		public IList<AlbumForArtistEditContract> AlbumLinks { get; set; }
@@ -120,8 +122,18 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
+
 		[Display(Name = "Web links")]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
+
+		public void CopyNonEditableFields(ArtistForEditContract artist) {
+
+			ParamIs.NotNull(() => artist);
+
+			ValidationResult = artist.ValidationResult;
+
+		}
 
 		public ArtistForEditContract ToContract() {
 

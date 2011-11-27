@@ -28,7 +28,7 @@
 }
 
 @if (Model.Draft) {
-	@Helpers.DraftMessage()
+	@Helpers.DraftMessage("glalbums")
 }
 
 <div id="tabs">
@@ -191,6 +191,7 @@
 								.&nbsp;
 								@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
 								&nbsp;
+								@Helpers.DraftIcon(song.Song.Status)
 								@Html.PVServiceIcons(song.Song.PVServices)
 								<br />
 								<span class="extraInfo">@song.Song.ArtistString</span>

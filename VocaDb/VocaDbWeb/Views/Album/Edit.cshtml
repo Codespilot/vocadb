@@ -18,6 +18,8 @@
 }
 }
 
+@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glalbums")
+
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
 @using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {

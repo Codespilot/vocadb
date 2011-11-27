@@ -120,6 +120,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Tracks")]
 		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
+		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
+
 		[Display(Name = "External links")]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
 
@@ -132,6 +134,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
 			PVs = album.PVs;
+			ValidationResult = album.ValidationResult;
 
 		}
 

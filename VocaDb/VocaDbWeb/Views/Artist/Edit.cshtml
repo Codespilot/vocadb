@@ -18,6 +18,8 @@
 }
 }
 
+@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glproducers")
+
 @Helpers.ValidationSymmaryPanel("Unable to save")
 
 @using (Html.BeginForm("EditBasicDetails", "Artist", FormMethod.Post, new { enctype = "multipart/form-data" })) {

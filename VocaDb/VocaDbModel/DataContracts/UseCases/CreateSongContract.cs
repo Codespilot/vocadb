@@ -7,6 +7,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public ArtistContract[] Artists { get; set; }
 
+		public bool Draft { get; set; }
+
 		public LocalizedStringContract[] Names { get; set; }
 
 		public string PVUrl { get; set; }
