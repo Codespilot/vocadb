@@ -23,7 +23,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		SongType		= 128,
 
-		WebLinks		= 128
+		WebLinks		= 256
 
 	}
 

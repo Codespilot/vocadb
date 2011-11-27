@@ -136,8 +136,27 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 				int count = 0;
+
+				var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var artist in artists) {
+
+					var result = ArtistValidator.Validate(artist);
+
+					if (result.Passed && artist.Status == EntryStatus.Draft) {
+						artist.Status = EntryStatus.Finished;
+						session.Update(artist);
+						count++;
+					} else if (!result.Passed && artist.Status == EntryStatus.Finished) {
+						artist.Status = EntryStatus.Draft;
+						session.Update(artist);
+						count++;
+					}
+
+				}
+
+				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 
 				foreach (var album in albums) {
 
