@@ -36,7 +36,7 @@
 
 if (Model.Artists.Any()) {
 	
-@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType }))
+@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }))
 
 <table>
 	<tr>
@@ -63,7 +63,7 @@ if (Model.Artists.Any()) {
 }
 </table>
 	
-@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType }))
+@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }))
 }
 
 if (!Model.Artists.Any()) {

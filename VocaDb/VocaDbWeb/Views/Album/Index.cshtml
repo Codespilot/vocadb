@@ -33,7 +33,7 @@
 
 if (Model.Albums.Any()) {
 	
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter }))
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
 
 <table>
 	<tr>
@@ -55,7 +55,7 @@ if (Model.Albums.Any()) {
 }
 </table>
 
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter }))
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
 }
 
 }
