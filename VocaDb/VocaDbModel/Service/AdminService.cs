@@ -174,6 +174,24 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var song in songs) {
+
+					var result = SongValidator.Validate(song);
+
+					if (result.Passed && song.Status == EntryStatus.Draft) {
+						song.Status = EntryStatus.Finished;
+						session.Update(song);
+						count++;
+					} else if (!result.Passed && song.Status == EntryStatus.Finished) {
+						song.Status = EntryStatus.Draft;
+						session.Update(song);
+						count++;
+					}
+
+				}
+
 				return count;
 
 			});
