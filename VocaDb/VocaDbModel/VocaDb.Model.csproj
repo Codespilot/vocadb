@@ -286,6 +286,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistValidationErrors.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\SongValidationErrors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongValidationErrors.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
@@ -296,6 +301,7 @@
     <Compile Include="Service\DatabaseConfiguration.cs" />
     <Compile Include="Service\EntryValidators\AlbumValidator.cs" />
     <Compile Include="Service\EntryValidators\ArtistValidator.cs" />
+    <Compile Include="Service\EntryValidators\SongValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />
@@ -338,6 +344,10 @@
     <EmbeddedResource Include="Resources\ArtistValidationErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistValidationErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SongValidationErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SongValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

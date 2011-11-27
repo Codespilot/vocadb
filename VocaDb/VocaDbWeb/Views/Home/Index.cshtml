@@ -11,7 +11,7 @@
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract album in ViewBag.Albums) {
 				<li>
-					@Helpers.DraftIcon(album)
+					@Helpers.DraftIcon(album.Status)
 					@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })<br />
 					<span class="extraInfo">@album.ArtistString</span>
 				</li>
@@ -23,6 +23,7 @@
 			<ul>
 			@foreach (VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract song in ViewBag.Songs) {
 				<li>
+					@Helpers.DraftIcon(song.Status)
 					@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 					@Html.PVServiceIcons(song.PVServices)
 					<br />

@@ -153,6 +153,15 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual bool Status {
+			get {
+				return IsSet(SongEditableFields.Status);
+			}
+			set {
+				Set(SongEditableFields.Status, value);
+			}
+		}
+
 		public virtual bool WebLinks {
 			get {
 				return IsSet(SongEditableFields.WebLinks);

@@ -18,6 +18,9 @@ namespace VocaDb.Web.Models.Song {
 		[Display(Name = "Artists")]
 		public IList<ArtistContract> Artists { get; set; }
 
+		[Display(Name = "This entry is a draft")]
+		public bool Draft { get; set; }
+
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
@@ -45,6 +48,7 @@ namespace VocaDb.Web.Models.Song {
 
 			return new CreateSongContract {
 				Artists = this.Artists.ToArray(),
+				Draft = this.Draft,
 				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray(),
 				PVUrl = this.PVUrl,
 				ReprintPVUrl = this.ReprintPVUrl,

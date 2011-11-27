@@ -50,17 +50,15 @@
 
 @helper DraftIcon(VocaDb.Model.Domain.EntryStatus status) {
 	if (status == VocaDb.Model.Domain.EntryStatus.Draft) {
-		<img src="@Url.Content("~/Content/draft.png")" title="This entry is a draft" alt="draft" />
+		<img src="@Url.Content("~/Content/draft.png")" title="This entry is a draft." alt="draft" />
 	}
 }
 
-@helper DraftMessage() {
+@helper DraftMessage(string section) {
 	using (Html.BeginHighlightPanel()) {
-		<p>
-			@Helpers.NotificationIcon()
-			<span>@Resources.CommonMessages.Draft</span>
-			<span>See the @Html.ActionLink("guide", "Index", "Help", null, null, null, null, null) for more information.</span>
-		</p>
+		@Helpers.NotificationIcon()
+		<span>@Resources.CommonMessages.Draft</span>
+		<span>See the <a href="@(Url.Action("Index", "Help") + "?guidelines+" + section)">guide</a> for more information.</span>
 	}
 }
 
@@ -76,16 +74,33 @@
 	
 }
 
+@helper EntryValidationMessage(bool draft, VocaDb.Model.Service.EntryValidators.ValidationResult validationResult, string helpSection) {
+	if (!validationResult.Passed || draft) {
+		using (Html.BeginHighlightPanel()) {
+			@Helpers.NotificationIcon()
+			if (!validationResult.Passed) {
+				<span>This entry is missing the following information:</span><br />
+				<ul>
+					@foreach (var line in validationResult.Errors) {
+						<li>@line</li>
+					}
+				</ul>
+			} else if (draft) {
+				<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
+			}
+			<span>See the <a href="@(Url.Action("Index", "Help") + "?guidelines+" + helpSection)">guide</a> for more information.</span>			
+		}
+	}
+}
+
 @helper NotificationIcon() {
 	<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 }
 
 @helper NotificationPanel(string message, string messageId = "") {
 	using (Html.BeginHighlightPanel()) {
-		<p>
-			@Helpers.NotificationIcon()
-			<span id="@messageId">@message</span>
-		</p>
+		@Helpers.NotificationIcon()
+		<span id="@messageId">@message</span>
 	}
 }
 

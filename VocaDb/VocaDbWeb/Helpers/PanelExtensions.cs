@@ -50,7 +50,7 @@ namespace VocaDb.Web.Helpers {
 
 			html.ViewContext.Writer.WriteLine(
 				"<div class=\"ui-widget\">" +
-				"<div class=\"" + panelClass + " ui-corner-all\" style=\"padding: 0 .7em;\">"
+				"<div class=\"" + panelClass + " ui-corner-all panel\">"
 			);
 
 		}

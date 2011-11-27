@@ -88,6 +88,11 @@
 					</table>
 				</div>
 
+				<p>
+					@Html.CheckBoxFor(m => m.Draft)
+					@Html.LabelFor(m => m.Draft)
+				</p>
+
 			</td><td class="alignTop" style="max-width: 250px">
 				@using (Html.BeginPanel()) {
 					<p>@Resources.CommonMessages.NoArtistsToName</p>

@@ -149,9 +149,7 @@ namespace VocaDb.Web.Controllers
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetSongForEdit(model.Id);
-				model.Lyrics = oldContract.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
-				model.ArtistLinks = oldContract.Artists;
-				model.PVs = oldContract.PVs;
+				model.CopyNonEditableFields(oldContract);
 				return View(model);				
 			}
 
