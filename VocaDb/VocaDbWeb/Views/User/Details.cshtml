@@ -40,6 +40,10 @@
 			@Model.Name<br />
 		</td>
 	</tr>
+	<tr>
+		<td>User level</td>
+		<td>@Model.</td>
+	</tr>
 	@if (Login.CanManageUsers || (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id)) {
 		<tr>
 			<td>Last login</td>

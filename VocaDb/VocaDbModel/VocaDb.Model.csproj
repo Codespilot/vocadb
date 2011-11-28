@@ -173,6 +173,7 @@
     <Compile Include="Domain\Tags\TagVote.cs" />
     <Compile Include="Domain\Users\PasswordResetRequest.cs" />
     <Compile Include="Domain\Users\UserEmailOptions.cs" />
+    <Compile Include="Domain\Users\UserGroup.cs" />
     <Compile Include="Domain\Users\UserMessage.cs" />
     <Compile Include="DataContracts\WebLinkContract.cs" />
     <Compile Include="Domain\Albums\AlbumComment.cs" />
