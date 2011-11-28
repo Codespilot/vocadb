@@ -24,6 +24,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			EffectivePermissions = user.EffectivePermissions;
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
+			GroupId = user.GroupId;
 			Id = user.Id;
 			Name = user.Name;
 			PreferredVideoService = user.PreferredVideoService;
@@ -50,6 +51,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public UserEmailOptions EmailOptions { get; set; }
+
+		[DataMember]
+		public UserGroupId GroupId { get; set; }
 
 		[DataMember]
 		public bool HasUnreadMessages { get; set; }

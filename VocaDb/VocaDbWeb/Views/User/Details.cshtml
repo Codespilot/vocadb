@@ -32,7 +32,7 @@
 
 <table>
 	<tr>
-		<td rowspan="6" class="alignTop">
+		<td rowspan="7" class="alignTop">
 			@Html.ProfileIcon(Model)
 		</td>
 		<td>Name</td>
@@ -42,7 +42,7 @@
 	</tr>
 	<tr>
 		<td>User level</td>
-		<td>@Model.GroupId</td>
+		<td>@Translate.UserGroups[Model.GroupId]</td>
 	</tr>
 	<tr>
 		<td>A member since</td>
@@ -63,6 +63,10 @@
 			<td>Active</td>
 			<td>@Model.Active</td>
 		</tr>
+		<tr>
+			<td>Effective permissions</td>
+			<td>@Model.EffectivePermissions</td>
+		</tr>	 
 	}
 </table>
 

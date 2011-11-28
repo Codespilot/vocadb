@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
 using Microsoft.Web.Helpers;
+using Resources;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
@@ -16,6 +18,7 @@ using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Web.Helpers.Support;
 
 namespace VocaDb.Web.Helpers {
 
@@ -80,6 +83,10 @@ namespace VocaDb.Web.Helpers {
 			return new SelectList(EnumVal<UserEmailOptions>.Values.ToDictionary(s => s, Translate.EmailOptions), "Key", "Value", selectedValue);
 		}
 
+		public static SelectList CreateEnumList<T>(object selectedValue, TranslateableEnum<T> enumType) where T : struct, IConvertible {
+			return new SelectList(enumType.ValuesAndNames, "Key", "Value", selectedValue);
+		}
+
 		public static SelectList CreateLanguageSelectionList(object selectedValue) {
 			return new SelectList(LanguageSelections, "Key", "Value", selectedValue);
 		}
@@ -110,6 +117,15 @@ namespace VocaDb.Web.Helpers {
 			Expression<Func<TModel, UserEmailOptions>> expression, object htmlAttributes = null, object selectedValue = null) {
 
 			return htmlHelper.DropDownListFor(expression, CreateEmailOptionsList(selectedValue), htmlAttributes);
+
+		}
+
+		public static MvcHtmlString EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper, 
+			Expression<Func<TModel, TEnum>> expression,
+			TranslateableEnum<TEnum> enumType, object htmlAttributes = null, object selectedValue = null) 
+			where TEnum : struct, IConvertible {
+
+			return htmlHelper.DropDownListFor(expression, CreateEnumList(selectedValue, enumType), htmlAttributes);
 
 		}
 

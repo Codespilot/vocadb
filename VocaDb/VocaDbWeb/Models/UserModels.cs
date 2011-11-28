@@ -132,6 +132,7 @@ namespace VocaDb.Web.Models {
 		public UserEdit(UserContract contract) {
 
 			Active = contract.Active;
+			GroupId = contract.GroupId;
 			Id = contract.Id;
 			Name = contract.Name;
 			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing && p != PermissionFlags.Default)
@@ -140,6 +141,9 @@ namespace VocaDb.Web.Models {
 		}
 
 		public bool Active { get; set; }
+
+		[Display(Name = "User group")]
+		public UserGroupId GroupId { get; set; }
 
 		public int Id { get; set; }
 
@@ -151,6 +155,7 @@ namespace VocaDb.Web.Models {
 
 			return new UserContract {
 				Active = this.Active,
+				GroupId = this.GroupId,
 				Id = this.Id,
 				Name = this.Name,
 				AdditionalPermissions = 

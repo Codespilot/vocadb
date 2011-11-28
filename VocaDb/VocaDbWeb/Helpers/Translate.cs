@@ -5,10 +5,14 @@ using VocaDb.Model.Domain.Globalization;
 using Resources;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Web.Helpers.Support;
 
 namespace VocaDb.Web.Helpers {
 
 	public static class Translate {
+
+		public static readonly TranslateableEnum<UserGroupId> UserGroups =
+			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);
 
 		public static string AlbumEditableField(AlbumEditableFields field) {
 

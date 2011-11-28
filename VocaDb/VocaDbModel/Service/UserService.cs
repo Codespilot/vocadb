@@ -372,7 +372,8 @@ namespace VocaDb.Model.Service {
 			UpdateEntity<User>(contract.Id, user => {
 
 				user.Active = contract.Active;
-				user.AdditionalPermissions = contract.AdditionalPermissions;               	
+				user.AdditionalPermissions = contract.AdditionalPermissions;
+				user.GroupId = contract.GroupId;
 
 			});
 
