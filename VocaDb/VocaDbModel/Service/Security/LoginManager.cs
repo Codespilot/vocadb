@@ -43,7 +43,7 @@ namespace VocaDb.Model.Service.Security {
 			if (flag == PermissionFlags.Nothing)
 				return true;
 
-			return (IsLoggedIn && LoggedUser.Active && LoggedUser.PermissionFlags.HasFlag(flag));
+			return (IsLoggedIn && LoggedUser.Active && LoggedUser.EffectivePermissions.HasFlag(flag));
 
 		}
 

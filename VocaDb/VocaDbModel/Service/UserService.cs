@@ -341,7 +341,8 @@ namespace VocaDb.Model.Service {
 				var message = sender.SendMessage(receiver, contract.Subject, contract.Body, contract.HighPriority);
 
 				if (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAll 
-					|| (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAdmins && sender.PermissionFlags.HasFlag(PermissionFlags.ManageUserBlocks))) {
+					|| (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAdmins 
+						&& sender.EffectivePermissions.HasFlag(PermissionFlags.ManageUserBlocks))) {
 
 					var mailer = new UserMessageMailer();
 					mailer.Send(messagesUrl, message);
@@ -371,7 +372,7 @@ namespace VocaDb.Model.Service {
 			UpdateEntity<User>(contract.Id, user => {
 
 				user.Active = contract.Active;
-				user.PermissionFlags = contract.PermissionFlags;               	
+				user.AdditionalPermissions = contract.AdditionalPermissions;               	
 
 			});
 
