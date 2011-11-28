@@ -39,14 +39,14 @@ namespace VocaDb.Model.Mapping.Songs {
 				c.Map(m => m.English, "ArtistStringEnglish").Length(500).Not.Nullable();
 			});
 
-			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All();
+			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllAlternateVersions).KeyColumn("[OriginalVersion]").Inverse();
-			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All();
+			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
-			HasMany(m => m.Lyrics).Inverse().Cascade.All();
-			HasMany(m => m.PVs).Inverse().Cascade.All();
+			HasMany(m => m.Lyrics).Inverse().Cascade.All().Cache.ReadWrite();
+			HasMany(m => m.PVs).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.UserFavorites).Inverse();
-			HasMany(m => m.WebLinks).Table("SongWebLinks").Inverse().Cascade.All();
+			HasMany(m => m.WebLinks).Table("SongWebLinks").Inverse().Cascade.All().Cache.ReadWrite();
 
 		}
 

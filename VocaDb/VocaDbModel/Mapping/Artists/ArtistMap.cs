@@ -18,12 +18,12 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.Version).Not.Nullable();
 
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums").Inverse().Cascade.All();
-			HasMany(m => m.AllGroups).Inverse().KeyColumn("[Member]").Cascade.All();
+			HasMany(m => m.AllGroups).Inverse().KeyColumn("[Member]").Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
-			HasMany(m => m.AllMembers).Inverse().KeyColumn("[Group]");
+			HasMany(m => m.AllMembers).Inverse().KeyColumn("[Group]").Cache.ReadWrite();
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
-			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All();
+			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All().Cache.ReadWrite();
 
 			Component(m => m.Names, c => {
 				c.HasMany(m => m.Names).Table("ArtistNames").KeyColumn("[Artist]").Inverse().Cascade.All().Cache.ReadWrite();
@@ -42,7 +42,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			});
 
 			Component(m => m.Tags, c => {
-				c.HasMany(m => m.Usages).Table("ArtistTagUsages").KeyColumn("[Artist]").Inverse().Cascade.AllDeleteOrphan();
+				c.HasMany(m => m.Usages).Table("ArtistTagUsages").KeyColumn("[Artist]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			});
 
 		}

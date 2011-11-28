@@ -41,22 +41,7 @@ namespace VocaDb.Model.Service {
 		protected IQueryable<T> AddNameMatchFilter<T>(IQueryable<T> criteria, string name, NameMatchMode matchMode) 
 			where T : IEntryWithNames {
 
-			if (matchMode == NameMatchMode.Exact || (matchMode == NameMatchMode.Auto && name.Length < 3)) {
-
-				return criteria.Where(s =>
-					s.Names.SortNames.English == name
-						|| s.Names.SortNames.Romaji == name
-						|| s.Names.SortNames.Japanese == name);
-
-			} else {
-
-				return criteria.Where(s =>
-					s.Names.SortNames.English.Contains(name)
-						|| s.Names.SortNames.Romaji.Contains(name)
-						|| s.Names.SortNames.Japanese.Contains(name));
-
-			}
-
+			return FindHelpers.AddSortNameFilter(criteria, name, matchMode);
 
 		}
 

@@ -11,8 +11,8 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Cache.ReadWrite();
 			Id(m => m.Id);
+
 			Map(m => m.Language).Not.Nullable();
-			//Map(m => m.Notes).Not.Nullable();
 			Map(m => m.Source).Not.Nullable();
 			Map(m => m.Value).Column("Text").Not.Nullable();
 			References(m => m.Song).Not.Nullable();

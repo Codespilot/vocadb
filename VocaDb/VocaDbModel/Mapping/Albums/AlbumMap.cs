@@ -40,7 +40,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			});
 
 			Component(m => m.Names, c => {
-				c.HasMany(m => m.Names).Table("AlbumNames").KeyColumn("[Album]").Inverse().Cascade.All().Cache.ReadWrite();
+				c.HasMany(m => m.Names).Table("AlbumNames").KeyColumn("[Album]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 				c.Component(m => m.SortNames, c2 => {
 					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
 					c2.Map(m => m.Japanese, "JapaneseName");
@@ -51,16 +51,16 @@ namespace VocaDb.Model.Mapping.Albums {
 			});
 
 			Component(m => m.Tags, c => {
-				c.HasMany(m => m.Usages).Table("AlbumTagUsages").KeyColumn("[Album]").Inverse().Cascade.AllDeleteOrphan();
+				c.HasMany(m => m.Usages).Table("AlbumTagUsages").KeyColumn("[Album]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			});
 
 			HasMany(m => m.AllArtists).Table("ArtistsForAlbums").Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("TrackNumber").Cache.ReadWrite();
 			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All().OrderBy("Created DESC");
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
-			HasMany(m => m.PVs).Inverse().Cascade.All();
+			HasMany(m => m.PVs).Inverse().Cascade.AllDeleteOrphan();
 			HasMany(m => m.UserCollections).Inverse();
-			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.All();
+			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 
 		}
 

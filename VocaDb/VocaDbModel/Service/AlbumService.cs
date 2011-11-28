@@ -110,7 +110,7 @@ namespace VocaDb.Model.Service {
 		}
 
 		private int GetAlbumCount(
-			ISession session, string query, bool draftsOnly, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+			ISession session, string query, bool draftsOnly, NameMatchMode nameMatchMode) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -140,15 +140,7 @@ namespace VocaDb.Model.Service {
 			if (draftsOnly)
 				additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
 
-			if (query.Length < 3) {
-
-				additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-			} else {
-
-				additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-			}
+			additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
 			var additionalNames = additionalNamesQ
 				.Select(m => m.Album)

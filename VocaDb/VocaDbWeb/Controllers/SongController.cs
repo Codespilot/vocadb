@@ -11,6 +11,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Song;
 using System;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -38,11 +39,11 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Song/
 
-        public ActionResult Index(string filter, int? page) {
+		public ActionResult Index(string filter, bool? draftsOnly, int? page) {
 
-        	var result = Service.Find(filter, ((page ?? 1) - 1)*30, 30, true);
+			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false);
 
-			var model = new Index(result, filter, page);
+			var model = new Index(result, filter, draftsOnly, page);
 
         	return View(model);
 
@@ -65,7 +66,11 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJsonByName(string term, bool alwaysExact = false) {
 
-			var songs = Service.Find(term, 0, 20, onlyByName: true, nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto));
+			var songs = Service.Find(term, 0, 20, 
+				draftOnly: false, 
+				getTotalCount: false, 
+				onlyByName: true, 
+				nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto));
 
 			return Json(songs);
 
@@ -233,6 +238,8 @@ namespace VocaDb.Web.Controllers
 
 			var contracts = lyrics.Select(l => l.ToContract());
 			var song = Service.UpdateLyrics(model.Id, contracts);
+
+			TempData.SetStatusMessage("Lyrics saved.");
 
 			return RedirectToAction("Edit", new { id = model.Id });
 

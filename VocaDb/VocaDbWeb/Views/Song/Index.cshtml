@@ -18,17 +18,22 @@
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
+@if (Model.DraftsOnly) {
+	@Helpers.NotificationPanel(Resources.CommonMessages.Drafts)
+}
+
 @using (Html.BeginForm("Index", "Song")) {
 	
 <p>
 	Filter: @Html.TextBoxFor(m => m.Filter) 
 	&nbsp; 
+	@Html.CheckBoxFor(m => m.DraftsOnly)
 	<input type="submit" value="Apply" />
 </p>
 
 if (Model.Songs.Any()) {
 	
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter }))
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
 <table>
 @foreach (var song in Model.Songs) {
 	<tr>
@@ -45,8 +50,8 @@ if (Model.Songs.Any()) {
 	</tr>	
 }
 </table>
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter }))
-	}
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
+}
 
 }
 @if (!Model.Songs.Any()) {
