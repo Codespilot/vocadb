@@ -224,6 +224,8 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
 		public ActionResult Edit(UserEdit model, IEnumerable<PermissionFlagEntry> permissions) {
 
+			LoginManager.VerifyPermission(PermissionFlags.ManageUsers);
+
 			model.Permissions = permissions.ToArray();
 			Service.UpdateUser(model.ToContract());
 

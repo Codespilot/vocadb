@@ -12,8 +12,15 @@
 @using(Html.BeginForm()) {	
 	@Html.HiddenFor(m => m.Id)
 	
-	@Html.CheckBoxFor(m => m.Active)
-	<text>Active</text>
+	<p>
+		@Html.CheckBoxFor(m => m.Active)
+		<text>Active</text>
+	</p>
+
+	<p>
+	@Html.LabelFor(m => m.GroupId)
+	@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups)
+	</p>
 	
 	<h3>Permissions</h3>
 	foreach (var entry in Model.Permissions) {	 

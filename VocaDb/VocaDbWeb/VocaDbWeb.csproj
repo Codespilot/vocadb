@@ -137,6 +137,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserEmailOptionsNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\UserGroupNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserGroupNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -159,6 +164,7 @@
     <Compile Include="Helpers\PanelExtensions.cs" />
     <Compile Include="Helpers\PVHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\Support\TranslateableEnum.cs" />
     <Compile Include="Helpers\TagsHelper.cs" />
     <Compile Include="Helpers\TempDataExtender.cs" />
     <Compile Include="Helpers\Translate.cs" />
@@ -773,6 +779,12 @@
     <Content Include="App_GlobalResources\CommonMessages.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\UserGroupNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserGroupNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
