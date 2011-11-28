@@ -8,6 +8,7 @@
 	<tr>
 		<th>Name</th>
 		<th>Created</th>
+		<th>Group</th>
 		<th></th>
 	</tr>
 @foreach (UserContract user in ViewBag.Users) {
@@ -17,6 +18,9 @@
 		</td>
 		<td>
 			@user.CreateDate
+		</td>
+		<td>
+			@Translate.UserGroups[user.GroupId]
 		</td>
 		<td>
 			@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageUsers)) {
