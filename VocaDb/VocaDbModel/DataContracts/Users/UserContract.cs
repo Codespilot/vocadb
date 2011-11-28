@@ -18,6 +18,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			ParamIs.NotNull(() => user);
 
 			Active = user.Active;
+			AdditionalPermissions = user.AdditionalPermissions;
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			EffectivePermissions = user.EffectivePermissions;
@@ -31,6 +32,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public bool Active { get; set; }
+
+		[DataMember]
+		public PermissionFlags AdditionalPermissions { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }

@@ -135,7 +135,7 @@ namespace VocaDb.Web.Models {
 			Id = contract.Id;
 			Name = contract.Name;
 			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing && p != PermissionFlags.Default)
-				.Select(p => new PermissionFlagEntry(p, contract.PermissionFlags.HasFlag(p))).ToArray();
+				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.HasFlag(p))).ToArray();
 
 		}
 
@@ -153,7 +153,7 @@ namespace VocaDb.Web.Models {
 				Active = this.Active,
 				Id = this.Id,
 				Name = this.Name,
-				PermissionFlags =
+				AdditionalPermissions = 
 					Permissions.Aggregate(PermissionFlags.Nothing,
 						(flags, item) => flags | (item.HasFlag ? item.PermissionType : PermissionFlags.Nothing))
 			};

@@ -29,8 +29,8 @@ namespace VocaDb.Model.Domain.Users {
 			Email = string.Empty;
 			EmailOptions = UserEmailOptions.PrivateMessagesFromAll;
 			LastLogin = DateTime.Now;
-			PermissionFlags = PermissionFlags.Default;
 			PreferredVideoService = PVService.Youtube;
+			GroupId = UserGroupId.Regular;
 
 		}
 
@@ -83,7 +83,7 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual PermissionFlags EffectivePermissions {
 			get {
-				return UserGroup.GetPermissions(GroupId) | PermissionFlags;
+				return UserGroup.GetPermissions(GroupId) | AdditionalPermissions;
 			}
 		}
 

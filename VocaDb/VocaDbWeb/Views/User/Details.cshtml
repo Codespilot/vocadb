@@ -32,7 +32,7 @@
 
 <table>
 	<tr>
-		<td rowspan="4">
+		<td rowspan="6" class="alignTop">
 			@Html.ProfileIcon(Model)
 		</td>
 		<td>Name</td>
@@ -42,7 +42,11 @@
 	</tr>
 	<tr>
 		<td>User level</td>
-		<td>@Model.</td>
+		<td>@Model.GroupId</td>
+	</tr>
+	<tr>
+		<td>A member since</td>
+		<td>@Model.CreateDate.ToShortDateString()</td>
 	</tr>
 	@if (Login.CanManageUsers || (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id)) {
 		<tr>
@@ -50,16 +54,16 @@
 			<td>@Model.LastLogin</td>
 		</tr>
 		<tr>
-			<td>Permissions</td>
-			<td>@Model.PermissionFlags</td>
+			<td>Additional permissions</td>
+			<td>@Model.AdditionalPermissions</td>
 		</tr>
- }
+	}
 	@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
 		<tr>
 			<td>Active</td>
 			<td>@Model.Active</td>
 		</tr>
- }
+	}
 </table>
 
 <br />
