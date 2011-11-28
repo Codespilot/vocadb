@@ -16,11 +16,12 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.DefaultLanguageSelection).Not.Nullable();
 			Map(m => m.Email).Length(50).Not.Nullable();
 			Map(m => m.EmailOptions).CustomType(typeof(UserEmailOptions)).Not.Nullable();
+			Map(m => m.GroupId).Column("[UserGroup]").Not.Nullable();
 			Map(m => m.LastLogin).Not.Nullable();
 			Map(m => m.Name).Length(100).Not.Nullable();
 			Map(m => m.NameLC).Length(100).Not.Nullable();
 			Map(m => m.Password).Not.Nullable();
-			Map(m => m.PermissionFlags).CustomType(typeof(PermissionFlags)).Not.Nullable();
+			Map(m => m.AdditionalPermissions).Column("[PermissionFlags]").CustomType(typeof(PermissionFlags)).Not.Nullable();
 			Map(m => m.PreferredVideoService).Not.Nullable();
 			Map(m => m.Salt).Not.Nullable();
 

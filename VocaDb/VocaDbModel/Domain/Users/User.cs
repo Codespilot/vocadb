@@ -46,6 +46,11 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual bool Active { get; set; }
 
+		/// <summary>
+		/// Additional user permissions. Base permissions are assigned through the user group.
+		/// </summary>
+		public virtual PermissionFlags AdditionalPermissions { get; set; }
+
 		public virtual IEnumerable<AlbumForUser> Albums {
 			get {
 				return AllAlbums.Where(a => !a.Album.Deleted);
@@ -63,9 +68,7 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual bool CanBeDisabled {
 			get {
 
-				return (!PermissionFlags.HasFlag(PermissionFlags.Admin) 
-					&& !PermissionFlags.HasFlag(PermissionFlags.ManageUserBlocks)
-					&& !PermissionFlags.HasFlag(PermissionFlags.ManageUsers));
+				return !EffectivePermissions.HasFlag(PermissionFlags.ManageUserBlocks);
 
 			}
 		}
@@ -76,6 +79,12 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual string DefaultName {
 			get { return Name; }
+		}
+
+		public virtual PermissionFlags EffectivePermissions {
+			get {
+				return UserGroup.GetPermissions(GroupId) | PermissionFlags;
+			}
 		}
 
 		public virtual string Email {
@@ -102,6 +111,8 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual int Id { get; set; }
 
+		public virtual UserGroupId GroupId { get; set; }
+
 		public virtual DateTime LastLogin { get; set; }
 
 		public virtual string Name {
@@ -127,8 +138,6 @@ namespace VocaDb.Model.Domain.Users {
 				password = value;
 			}
 		}
-
-		public virtual PermissionFlags PermissionFlags { get; set; }
 
 		public virtual PVService PreferredVideoService { get; set; }
 
