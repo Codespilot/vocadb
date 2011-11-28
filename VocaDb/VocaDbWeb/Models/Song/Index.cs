@@ -6,6 +6,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using PagedList;
+using System.ComponentModel.DataAnnotations;
 
 namespace VocaDb.Web.Models.Song {
 
@@ -13,13 +14,17 @@ namespace VocaDb.Web.Models.Song {
 
 		public Index() {}
 
-		public Index(PartialFindResult<SongWithAdditionalNamesContract> result, string filter, int? page) {
+		public Index(PartialFindResult<SongWithAdditionalNamesContract> result, string filter, bool? draftsOnly, int? page) {
 
+			DraftsOnly = draftsOnly ?? false;
 			Songs = new StaticPagedList<SongWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), 
 				page ?? 1, 30, result.TotalCount);
 			Filter = filter;
 
 		}
+
+		[Display(Name = "Only drafts")]
+		public bool DraftsOnly { get; set; }
 
 		public string Filter { get; set; }
 

@@ -303,6 +303,7 @@
     <Compile Include="Service\EntryValidators\ArtistValidator.cs" />
     <Compile Include="Service\EntryValidators\SongValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
+    <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />

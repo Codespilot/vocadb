@@ -29,14 +29,19 @@ namespace VocaDb.Model.Service {
 #pragma warning restore 169
 
 		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, int start, int maxResults,
-			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool onlyByName = false) {
+			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName) {
 
 			SongWithAdditionalNamesContract[] contracts;
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
-				contracts = session.Query<Song>()
-					.Where(s => !s.Deleted)
+				var q = session.Query<Song>()
+					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Status == EntryStatus.Draft);
+
+				contracts = q
 					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Skip(start)
 					.Take(maxResults)
@@ -50,6 +55,9 @@ namespace VocaDb.Model.Service {
 
 				var directQ = session.Query<Song>()
 					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
 				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
@@ -79,15 +87,10 @@ namespace VocaDb.Model.Service {
 				var additionalNamesQ = session.Query<SongName>()
 					.Where(m => !m.Song.Deleted);
 
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
+				if (draftsOnly)
+					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-				} else {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-				}
+				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
 				var additionalNames = additionalNamesQ
 					.Select(m => m.Song)
@@ -105,24 +108,31 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			int count = (getTotalCount ? GetSongCount(session, query, onlyByName) : 0);
+			int count = (getTotalCount ? GetSongCount(session, query, onlyByName, draftsOnly, nameMatchMode) : 0);
 
 			return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
 
 		}
 
-		private int GetSongCount(ISession session, string query, bool onlyByName = false) {
+		private int GetSongCount(ISession session, string query, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
-				return session.Query<Song>()
-					.Where(s => !s.Deleted)
-					.Count();
+				var q = session.Query<Song>()
+					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Status == EntryStatus.Draft);
+
+				return q.Count();
 
 			} else {
 
 				var directQ = session.Query<Song>()
 					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
 				if (query.Length < 3) {
 
@@ -149,16 +159,11 @@ namespace VocaDb.Model.Service {
 
 				var additionalNamesQ = session.Query<SongName>()
 					.Where(m => !m.Song.Deleted);
-					
-				if (query.Length < 3) {
 
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+				if (draftsOnly)
+					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
-				} else {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-				}
+				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
 				var additionalNames = additionalNamesQ
 					.Select(m => m.Song)
@@ -471,7 +476,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, 0, 1, false, NameMatchMode.Exact, true);
+					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, true);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -485,9 +490,9 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
-			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool onlyByName = false) {
+			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName) {
 
-			return HandleQuery(session => Find(session, query, start, maxResults, getTotalCount, nameMatchMode, onlyByName));
+			return HandleQuery(session => Find(session, query, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName));
 
 		}
 
@@ -541,48 +546,6 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(
 				session => new SongContract(session.Load<Song>(id), PermissionContext.LanguagePreference));
-
-		}
-
-		public int GetSongCount(string query) {
-
-			return HandleQuery(session => {
-
-				return GetSongCount(session, query);
-
-				/*if (string.IsNullOrWhiteSpace(query)) {
-
-					return session.Query<Song>()
-						.Where(s => !s.Deleted)
-						.Count();
-
-				}
-
-				//var artistForSong = (artistId != null ? session.Query<ArtistForSong>()
-				//	.Where(a => a.Artist.Id == artistId).Select(a => a.Song).ToArray() : null);
-
-				var direct = session.Query<Song>()
-					.Where(s => 
-						!s.Deleted &&
-						(string.IsNullOrEmpty(query)
-							|| s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query)
-						|| (s.ArtistString.Contains(query))
-						|| (s.NicoId == null || s.NicoId == query)))
-					.ToArray();
-
-				var additionalNames = session.Query<SongName>()
-					.Where(m => m.Value.Contains(query) && !m.Song.Deleted)
-					.Select(m => m.Song)
-					.Distinct()
-					.ToArray()
-					.Where(a => !direct.Contains(a))
-					.ToArray();
-
-				return direct.Count() + additionalNames.Count();*/
-
-			});
 
 		}
 

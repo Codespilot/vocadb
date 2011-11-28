@@ -63,11 +63,12 @@
 					</li>
 					<li>
 						@Html.ActionLink("Songs", "Index", "Song")
-						@if (Login.CanManageDb) {
 						<ul>
+							@if (Login.CanManageDb) {
 							<li>@Html.ActionLink("Submit a song", "Create", "Song")</li>
+							}
+							<li>@Html.ActionLink("Drafts", "Index", "Song", new { draftsOnly = true }, null)</li>
 						</ul>
-						}
 					</li>
 					<li>@Html.ActionLink("Tags", "Index", "Tag")</li>
 					<li>@Html.ActionLink("Help / About", "Index", "Help")</li>
