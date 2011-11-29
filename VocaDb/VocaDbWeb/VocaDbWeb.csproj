@@ -190,6 +190,7 @@
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\User\ComposeMessage.cs" />
     <Compile Include="Models\User\ForgotPassword.cs" />
+    <Compile Include="Models\User\Index.cs" />
     <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\QueryService.svc.cs">
