@@ -9,11 +9,14 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public SongInAlbum() {}
 
-		public SongInAlbum(Song song, Album album, int trackNumber) {
+		public SongInAlbum(Song song, Album album, int trackNumber, int discNumber) {
 			Song = song;
 			Album = album;
 			TrackNumber = trackNumber;
+			DiscNumber = discNumber;
 		}
+
+		public virtual int DiscNumber { get; set; }
 
 		public virtual int Id { get; set; }
 

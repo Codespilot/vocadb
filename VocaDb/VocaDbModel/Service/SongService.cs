@@ -308,6 +308,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Replaced by updating properties")]
 		public SongInAlbumContract CreateForAlbum(int albumId, string newSongName) {
 
 			ParamIs.NotNullOrWhiteSpace(() => newSongName);

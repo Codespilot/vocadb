@@ -13,6 +13,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			ParamIs.NotNull(() => songInAlbum);
 
 			ArtistString = songInAlbum.Song.ArtistString[languagePreference];
+			DiscNumber = songInAlbum.DiscNumber;
 			SongName = songInAlbum.Song.TranslatedName[languagePreference];
 			SongAdditionalNames = string.Join(", ", songInAlbum.Song.AllNames.Where(n => n != SongName));
 			SongId = songInAlbum.Song.Id;
@@ -41,6 +42,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 		public string ArtistString { get; set; }
+
+		public int DiscNumber { get; set; }
 
 		public string SongAdditionalNames { get; set; }
 

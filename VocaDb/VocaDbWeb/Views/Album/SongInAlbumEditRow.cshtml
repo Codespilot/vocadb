@@ -5,12 +5,16 @@
 	<td>
 		@{ var item = Html.BeginCollectionItem("Tracks"); }
 		@Html.HiddenFor(m => m.ArtistString)
+		@Html.HiddenFor(m => m.DiscNumber, new { @class = "songDiscNumberField" })
 		@Html.HiddenFor(m => m.SongInAlbumId)
 		@Html.HiddenFor(m => m.SongId, new { @class = "songId" })
 		@Html.HiddenFor(m => m.SongName)
 		@Html.HiddenFor(m => m.SongAdditionalNames)
 		@Html.HiddenFor(m => m.TrackNumber, new { @class = "songTrackNumberField" })
 		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
+	</td>
+	<td class="songDiscNumber">
+		@Model.DiscNumber
 	</td>
 	<td class="songTrackNumber">
 		@Model.TrackNumber
@@ -22,6 +26,9 @@
 		<span title="@Model.SongAdditionalNames">@Model.SongName</span><br />
 		}
 		<span class="extraInfo artistString">@Model.ArtistString</span>
+	</td><td>
+		<input type="checkbox" class="nextDiscCheck" @(Model.TrackNumber == 1 && Model.DiscNumber > 1 ? "checked=\"checked\"" : string.Empty) />
+		Next disc
 	</td><td>
 		@if (Model.SongId != 0) {
 			@Html.ActionLink("Edit song", "Edit", "Song", new { id = Model.SongId }, null)
