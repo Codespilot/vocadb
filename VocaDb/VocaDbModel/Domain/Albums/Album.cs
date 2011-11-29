@@ -143,6 +143,12 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
+		public virtual int LastDiscNumber {
+			get {
+				return (Songs.Any() ? Songs.Max(s => s.DiscNumber) : 1);
+			}
+		}
+
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }
 		}
@@ -225,21 +231,24 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		[Obsolete("Replaced by updating properties")]
 		public virtual SongInAlbum AddSong(Song song) {
 			
 			ParamIs.NotNull(() => song);
 
-			var trackNum = (Songs.Any() ? Songs.Max(s => s.TrackNumber) + 1 : 1);
+			var discNum = LastDiscNumber;
+			var trackNum = (Songs.Any(s => s.DiscNumber == discNum) 
+				? Songs.Where(s => s.DiscNumber == discNum).Max(s => s.TrackNumber) + 1 : 1);
 
-			return AddSong(song, trackNum);
+			return AddSong(song, trackNum, discNum);
 
 		}
 
-		public virtual SongInAlbum AddSong(Song song, int trackNum) {
+		public virtual SongInAlbum AddSong(Song song, int trackNum, int discNum) {
 
 			ParamIs.NotNull(() => song);
 
-			var track = new SongInAlbum(song, this, trackNum);
+			var track = new SongInAlbum(song, this, trackNum, discNum);
 			AllSongs.Add(track);
 			song.AllAlbums.Add(track);
 
@@ -490,7 +499,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 				var song = songGetter(newEntry);
 
-				var link = AddSong(song, newEntry.TrackNumber);
+				var link = AddSong(song, newEntry.TrackNumber, newEntry.DiscNumber);
 				created.Add(link);
 
 			}
@@ -500,7 +509,8 @@ namespace VocaDb.Model.Domain.Albums {
 				var entry = linkEntry;
 				var newEntry = newTracks.First(e => e.SongInAlbumId == entry.Id);
 
-				if (newEntry.TrackNumber != linkEntry.TrackNumber) {
+				if (newEntry.TrackNumber != linkEntry.TrackNumber || newEntry.DiscNumber != linkEntry.DiscNumber) {
+					linkEntry.DiscNumber = newEntry.DiscNumber;
 					linkEntry.TrackNumber = newEntry.TrackNumber;
 					edited.Add(linkEntry);
 				}

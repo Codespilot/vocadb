@@ -58,7 +58,7 @@ namespace VocaDb.Model.Service {
 					if (inspectedTrack.ExistingSong == null || !selectedSongIds.Contains(inspectedTrack.ExistingSong.Id)) {
 
 						song = new Song(inspectedTrack.ImportedTrack.Title);
-						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum);
+						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum, 1);
 
 						Services.Songs.Archive(session, song, SongArchiveReason.AutoImportedFromMikuDb, 
 							"Auto-imported from MikuDB for album '" + album.DefaultName + "'");
@@ -68,7 +68,7 @@ namespace VocaDb.Model.Service {
 					} else {
 						song = session.Load<Song>(inspectedTrack.ExistingSong.Id);
 						if (!album.HasSong(song))
-							session.Save(album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum));
+							session.Save(album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum, 1));
 					}
 
 				}

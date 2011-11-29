@@ -188,6 +188,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Replaced by updating properties")]
 		public SongInAlbumContract AddSong(int albumId, int songId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -720,7 +721,7 @@ namespace VocaDb.Model.Service {
 				songInAlbum.Album.ReorderTrack(songInAlbum, prevTrack);
 				session.Update(songInAlbum.Album);
 
-				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).Select(s => 
+				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber).Select(s => 
 					new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
 
 			});

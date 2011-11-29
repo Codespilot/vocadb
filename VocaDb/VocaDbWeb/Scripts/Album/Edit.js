@@ -62,11 +62,21 @@ function saveTrackProperties() {
 function songListChanged() {
 
 	var track = 1;
+	var disc = 1;
 
 	$("tr.trackRow").each(function () {
+
+		if ($(this).find(".nextDiscCheck").is(":checked")) {
+			disc++;
+			track = 1;
+		}
+
+		$(this).find(".songDiscNumberField").val(disc);
+		$(this).find(".songDiscNumber").html(disc);
 		$(this).find(".songTrackNumberField").val(track);
 		$(this).find(".songTrackNumber").html(track);
 		track++;
+
 	});
 
 	/*$(songList).each(function () {
@@ -90,6 +100,10 @@ function initPage(albumId) {
 	});
 
 	$("#editTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTrackProperties } });
+
+	$(".nextDiscCheck").live("click", function () {
+		songListChanged();
+	});
 
 	$("input.nameDelete").live("click", function () {
 

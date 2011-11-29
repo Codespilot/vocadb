@@ -219,13 +219,13 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual SongInAlbum AddAlbum(Album album, int trackNumber) {
+		/*public virtual SongInAlbum AddAlbum(Album album, int trackNumber) {
 
 			var link = new SongInAlbum(this, album, trackNumber);
 			AllAlbums.Add(link);
 			return link;
 
-		}
+		}*/
 
 		public virtual ArtistForSong AddArtist(Artist artist) {
 
