@@ -33,6 +33,8 @@
 
 if (Model.Albums.Any()) {
 	
+<p>Entries found: @Model.Albums.TotalItemCount</p>
+	
 @Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
 
 <table>

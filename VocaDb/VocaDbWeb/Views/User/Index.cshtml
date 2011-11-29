@@ -1,8 +1,11 @@
 ﻿@using VocaDb.Model.DataContracts.Users;
 @using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.User.Index
 @{
 	ViewBag.Title = "Users";
 }
+
+<p>Entries found: @Model.Users.Length</p>
 
 <table>
 	<tr>
@@ -11,7 +14,7 @@
 		<th>Group</th>
 		<th></th>
 	</tr>
-@foreach (UserContract user in ViewBag.Users) {
+@foreach (var user in Model.Users) {
 	<tr>
 		<td>
 			@Html.ActionLink(user.Name, "Details", new { id = user.Id })

@@ -81,8 +81,10 @@ namespace VocaDb.Web.Controllers
         // GET: /User/
 
         public ActionResult Index() {
-        	ViewBag.Users = Service.GetUsers();
-            return View();
+
+        	var users = Service.GetUsers();
+            return View(new Index(users));
+
         }
 
         //

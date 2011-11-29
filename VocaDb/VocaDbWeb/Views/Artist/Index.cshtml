@@ -36,6 +36,8 @@
 
 if (Model.Artists.Any()) {
 	
+<p>Entries found: @Model.Artists.TotalItemCount</p>
+	
 @Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }))
 
 <table>

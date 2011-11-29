@@ -34,6 +34,8 @@
 
 if (Model.Songs.Any()) {
 	
+<p>Entries found: @Model.Songs.TotalItemCount</p>
+	
 @Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
 <table>
 @foreach (var song in Model.Songs) {
