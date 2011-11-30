@@ -196,8 +196,8 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
-			: base(sessionFactory, permissionContext) {
+		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
+			: base(sessionFactory, permissionContext, entryLinkFactory) {
 
 		}
 
@@ -210,7 +210,8 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 				var song = session.Load<Song>(songId);
 
-				AuditLog(string.Format("linking {0} to {1}", artist, song), session);
+				AuditLog(string.Format("linking {0} to {1}", 
+					EntryLinkFactory.CreateEntryLink(artist), EntryLinkFactory.CreateEntryLink(song)), session);
 
 				var artistForSong = artist.AddSong(song);
 				session.Save(artistForSong);
@@ -425,9 +426,8 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Song>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", a), session);
+				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
-				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
 
 			}, skipLog: true);
@@ -671,20 +671,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void RemoveAlternateVersion(int songId) {
-
-			UpdateEntity<Song>(songId, (session, song) => {
-
-				AuditLog("removing " + song + " from all originals");
-
-				song.OriginalVersion = null;
-
-				session.Update(song);
-
-			}, PermissionFlags.ManageDatabase, true);
-
-		}
-
 		public string UpdateArtists(int songId, int[] artistIds) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -693,7 +679,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog("updating artists for " + song, session);
+				AuditLog("updating artists for " + EntryLinkFactory.CreateEntryLink(song), session);
 
 				var oldArtists = song.Artists.Select(a => a.Artist).ToArray();
 				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
@@ -776,7 +762,7 @@ namespace VocaDb.Model.Service {
 					diff.Status = true;
 				}
 
-				AuditLog(string.Format("updated properties for {0} ({1})", song, diff.ChangedFieldsString), session);
+				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
 
 				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 
@@ -828,7 +814,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				AuditLog(string.Format("updated properties for {0} ({1})", song, diff.ChangedFieldsString), session);
+				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
 
 				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 				session.Update(song);

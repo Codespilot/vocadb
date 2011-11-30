@@ -19,8 +19,8 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
 
-		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
-			: base(sessionFactory, permissionContext) {
+		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
+			: base(sessionFactory, permissionContext, entryLinkFactory) {
 
 		}
 
@@ -369,13 +369,15 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageUsers);
 
-			UpdateEntity<User>(contract.Id, user => {
+			UpdateEntity<User>(contract.Id, (session, user) => {
 
 				user.Active = contract.Active;
 				user.AdditionalPermissions = contract.AdditionalPermissions;
 				user.GroupId = contract.GroupId;
 
-			});
+				AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(user)), session);
+
+			}, skipLog: true);
 
 		}
 
@@ -410,6 +412,8 @@ namespace VocaDb.Model.Service {
 				user.PreferredVideoService = contract.PreferredVideoService;
 				user.SetEmail(contract.Email);
 				session.Update(user);
+
+				AuditLog(string.Format("updated settings for {0}", EntryLinkFactory.CreateEntryLink(user)), session);
 
 				return new UserContract(user);
 

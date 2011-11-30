@@ -198,8 +198,8 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
-			: base(sessionFactory, permissionContext) {}
+		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
+			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
 		public ArtistForAlbumContract AddAlbum(int artistId, int albumId) {
 
@@ -315,7 +315,9 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(artistId);
 				var author = GetLoggedUser(session);
 
-				AuditLog("creating comment for " + artist + ": '" + message.Substring(0, Math.Min(message.Length, 40)) + "'", session, author);
+				AuditLog(string.Format("creating comment for {0}: '{1}'", 
+					EntryLinkFactory.CreateEntryLink(artist), 
+					message.Truncate(60)), session, author);
 
 				var comment = artist.CreateComment(message, author);
 				session.Save(comment);
@@ -332,7 +334,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", a), session);
+				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -544,7 +546,8 @@ namespace VocaDb.Model.Service {
 				var source = session.Load<Artist>(sourceId);
 				var target = session.Load<Artist>(targetId);
 
-				AuditLog(string.Format("Merging {0} to {1}", source, target), session);
+				AuditLog(string.Format("Merging {0} to {1}", 
+					EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)), session);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -608,7 +611,8 @@ namespace VocaDb.Model.Service {
 				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
 				var artist = session.Load<Artist>(artistId);
 
-				AuditLog("tagging " + artist + " with " + string.Join(", ", tags), session, user);
+				AuditLog(string.Format("tagging {0} with {1}", 
+					EntryLinkFactory.CreateEntryLink(artist), string.Join(", ", tags)), session, user);
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 
@@ -632,7 +636,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(properties.Id);
 				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion()));
 
-				AuditLog(string.Format("updating properties for {0}", artist));
+				AuditLog(string.Format("updating properties for {0}", EntryLinkFactory.CreateEntryLink(artist)));
 
 				if (artist.ArtistType != properties.ArtistType) {
 					artist.ArtistType = properties.ArtistType;

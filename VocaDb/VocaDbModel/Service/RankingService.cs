@@ -10,8 +10,8 @@ namespace VocaDb.Model.Service {
 
 	public class RankingService : ServiceBase {
 
-		public RankingService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext)
-			: base(sessionFactory, permissionContext) {
+		public RankingService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
+			: base(sessionFactory, permissionContext, entryLinkFactory) {
 		}
 
 		public void CreateWVRPoll(RankingContract contract) {

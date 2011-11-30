@@ -12,8 +12,8 @@ namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
 
-		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
-			: base(sessionFactory, permissionContext) {}
+		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
+			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
 		public FrontPageContract GetFrontPageContent() {
 

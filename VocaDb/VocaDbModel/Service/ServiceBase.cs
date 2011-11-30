@@ -13,7 +13,9 @@ namespace VocaDb.Model.Service {
 
 	public abstract class ServiceBase {
 
-		private readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
+		private static readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
+
+		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly ISessionFactory sessionFactory;
 		private readonly IUserPermissionContext permissionContext;
 
@@ -45,13 +47,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected IEntryLinkFactory EntryLinkFactory {
+			get { return entryLinkFactory; }
+		}
+
 		protected IUserPermissionContext PermissionContext {
 			get { return permissionContext; }
 		}
 
 		protected ServiceModel Services {
 			get {
-				return new ServiceModel(sessionFactory, PermissionContext);
+				return new ServiceModel(sessionFactory, PermissionContext, entryLinkFactory);
 			}
 		}
 
@@ -135,10 +141,15 @@ namespace VocaDb.Model.Service {
 			return sessionFactory.OpenSession();
 		}
 
-		protected ServiceBase(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) {
+		protected ServiceBase(
+			ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) {
+
 			ParamIs.NotNull(() => sessionFactory);
+
 			this.sessionFactory = sessionFactory;
 			this.permissionContext = permissionContext;
+			this.entryLinkFactory = entryLinkFactory;
+
 		}
 
 		protected void DeleteEntity<TEntity>(int id, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
