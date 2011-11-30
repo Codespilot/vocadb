@@ -115,6 +115,7 @@ namespace VocaDb.Model.Service.MikuDb {
 
 			var lines = cell.InnerText.Split(new[] { "<br>", "<br />", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
+			int discNum = 1;
 			var tracks = new List<ImportedAlbumTrack>();
 			foreach (var line in lines) {
 
@@ -129,10 +130,15 @@ namespace VocaDb.Model.Service.MikuDb {
 
 				if (int.TryParse(trackText, out trackNum)) {
 
+					if (trackNum == 1 && tracks.Any())
+						discNum++;
+
 					var trackTitle = line.Substring(dotPos + 1, line.Length - dotPos - 1).Trim();
 					trackTitle = trackTitle.Replace("(lyrics)", string.Empty);
 
-					tracks.Add(new ImportedAlbumTrack { Title = HtmlEntity.DeEntitize(trackTitle), TrackNum = trackNum });
+					tracks.Add(new ImportedAlbumTrack { 
+						DiscNum = discNum, Title = HtmlEntity.DeEntitize(trackTitle), TrackNum = trackNum 
+					});
 
 				}
 
