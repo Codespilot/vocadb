@@ -107,10 +107,8 @@
 @helper ValidationSymmaryPanel(string message) {
 	if (!ViewData.ModelState.IsValid) {
 		using (Html.BeginErrorPanel()) {
-			<p>
-				<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-				@Html.ValidationSummary(false, message)
-			</p>
+			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+			@Html.ValidationSummary(false, message)
 		}
 	}
 }
