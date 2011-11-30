@@ -636,7 +636,7 @@ namespace VocaDb.Model.Service {
 				var artist = session.Load<Artist>(properties.Id);
 				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion()));
 
-				AuditLog(string.Format("updating properties for {0}", EntryLinkFactory.CreateEntryLink(artist)));
+				AuditLog(string.Format("updating properties for {0}", artist));
 
 				if (artist.ArtistType != properties.ArtistType) {
 					artist.ArtistType = properties.ArtistType;
@@ -741,7 +741,8 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				AuditLog(string.Format("updated properties for {0} ({1})", artist, diff.ChangedFieldsString), session);
+				AuditLog(string.Format("updated properties for {0} ({1})", 
+					EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString), session);
 
 				Archive(session, artist, diff, ArtistArchiveReason.PropertiesUpdated);
 				session.Update(artist);
