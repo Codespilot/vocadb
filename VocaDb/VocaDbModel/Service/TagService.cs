@@ -9,8 +9,8 @@ namespace VocaDb.Model.Service {
 
 	public class TagService : ServiceBase {
 
-		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
-			: base(sessionFactory, permissionContext) {}
+		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
+			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
 		public string[] FindTags(string query) {
 

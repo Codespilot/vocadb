@@ -143,6 +143,7 @@
       <DependentUpon>UserGroupNames.resx</DependentUpon>
     </Compile>
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
+    <Compile Include="Code\EntryAnchorFactory.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />

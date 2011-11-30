@@ -159,9 +159,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
-			: base(sessionFactory, permissionContext) {}
+		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
+			: base(sessionFactory, permissionContext,entryLinkFactory) {}
 
+		[Obsolete]
 		public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
 
 			ParamIs.NotNullOrEmpty(() => newArtistName);
@@ -292,7 +293,8 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(artistId);
-				AuditLog("creating a new album '" + newAlbumName + "' for " + artist, session);
+				AuditLog(string.Format("creating a new album '{0}' for {1}", 
+					newAlbumName, EntryLinkFactory.CreateEntryLink(artist)), session);
 
 				var album = new Album(newAlbumName);
 
@@ -324,7 +326,9 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(albumId);
 				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 
-				AuditLog("creating comment for " + album + ": '" + message.Substring(0, Math.Min(message.Length, 40)) + "'", session, agent.User);
+				AuditLog(string.Format("creating comment for {0}: '{1}'", 
+					EntryLinkFactory.CreateEntryLink(album), 
+					message.Truncate(60)), session, agent.User);
 
 				var comment = album.CreateComment(message, agent);
 				session.Save(comment);
@@ -346,7 +350,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
-				AuditLog("creating a PV for " + album, session);
+				AuditLog(string.Format("creating a PV for {0}", EntryLinkFactory.CreateEntryLink(album)), session);
 
 				var pv = album.CreatePV(result.Service, result.Id, pvType);
 				session.Save(pv);
@@ -363,7 +367,7 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Album>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", a), session);
+				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
@@ -598,7 +602,7 @@ namespace VocaDb.Model.Service {
 				var source = session.Load<Album>(sourceId);
 				var target = session.Load<Album>(targetId);
 
-				AuditLog(string.Format("Merging {0} to {1}", source, target), session);
+				AuditLog(string.Format("Merging {0} to {1}", EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)), session);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
@@ -707,6 +711,7 @@ namespace VocaDb.Model.Service {
 			
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public SongInAlbumContract[] ReorderTrack(int songInAlbumId, int? prevSongId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -821,7 +826,7 @@ namespace VocaDb.Model.Service {
 						return session.Load<Song>(contract.SongId);
 					else {
 
-						AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album), session);
+						AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, EntryLinkFactory.CreateEntryLink(album)), session);
 
 						var song = new Song(contract.SongName);
 						session.Save(song);
@@ -854,7 +859,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				AuditLog(string.Format("updated properties for {0} ({1})", album, diff.ChangedFieldsString), session);
+				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString), session);
 
 				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);
 				session.Update(album);

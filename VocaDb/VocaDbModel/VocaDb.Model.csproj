@@ -309,6 +309,7 @@
     <Compile Include="Service\Helpers\TagFactory.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
     <Compile Include="Service\Helpers\UserMessageMailer.cs" />
+    <Compile Include="Service\IEntryLinkFactory.cs" />
     <Compile Include="Service\MikuDbAlbumService.cs" />
     <Compile Include="Service\MikuDb\AlbumImporter.cs" />
     <Compile Include="Service\MikuDb\AlbumImportResult.cs" />

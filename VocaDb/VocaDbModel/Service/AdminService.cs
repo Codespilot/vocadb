@@ -19,8 +19,8 @@ namespace VocaDb.Model.Service {
 
 	public class AdminService : ServiceBase {
 
-		public AdminService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
-			: base(sessionFactory, permissionContext) {}
+		public AdminService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
+			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
 		public void CleanupOldAuditLogEntries() {
 
@@ -30,7 +30,7 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				var oldEntries = session.Query<AuditLogEntry>().Where(e => e.Time < DateTime.Now - TimeSpan.FromDays(7c)).ToArray();
+				var oldEntries = session.Query<AuditLogEntry>().Where(e => e.Time < DateTime.Now - TimeSpan.FromDays(7)).ToArray();
 
 				foreach (var entry in oldEntries)
 					session.Delete(entry);

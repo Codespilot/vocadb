@@ -8,6 +8,7 @@ using log4net;
 using NHibernate;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
+using VocaDb.Web.Code;
 
 namespace VocaDb.Web {
 
@@ -28,7 +29,7 @@ namespace VocaDb.Web {
 
 		public static ServiceModel Services {
 			get {
-				return new ServiceModel(SessionFactory, LoginManager);
+				return new ServiceModel(SessionFactory, LoginManager, new EntryAnchorFactory());
 			}
 		}
 
