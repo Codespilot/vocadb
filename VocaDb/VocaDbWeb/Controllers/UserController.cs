@@ -241,6 +241,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult Messages() {
 
 			var user = Service.GetUserWithMessages(LoggedUserId);
