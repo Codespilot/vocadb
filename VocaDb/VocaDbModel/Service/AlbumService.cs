@@ -260,7 +260,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				AuditLog(string.Format("creating a new album with name '{0}'", contract.Names.First().Value), session);
+				AuditLog(string.Format("creating a new album with name '{0}'", contract.Names.First().Value));
 
 				var album = new Album { DiscType = contract.DiscType };
 
@@ -275,6 +275,8 @@ namespace VocaDb.Model.Service {
 				album.UpdateArtistString();
 				Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
+
+				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(album)), session);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
 
@@ -746,7 +748,8 @@ namespace VocaDb.Model.Service {
 				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
 				var album = session.Load<Album>(albumId);
 
-				AuditLog("tagging " + album + " with " + string.Join(", ", tags), session, user);
+				AuditLog(string.Format("tagging {0} with {1}", 
+					EntryLinkFactory.CreateEntryLink(album), string.Join(", ", tags)), session, user);
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 

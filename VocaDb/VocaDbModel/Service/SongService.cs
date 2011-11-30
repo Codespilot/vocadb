@@ -225,6 +225,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -347,7 +348,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
-				AuditLog("creating a PV for " + song, session);
+				AuditLog(string.Format("creating a PV for {0}", EntryLinkFactory.CreateEntryLink(song)), session);
 
 				var pv = song.CreatePV(service, pvId, pvType);
 				session.Save(pv);
@@ -387,7 +388,7 @@ namespace VocaDb.Model.Service {
 				var pvResult = ParsePV(session, contract.PVUrl);
 				var reprintPvResult = ParsePV(session, contract.ReprintPVUrl);
 
-				AuditLog(string.Format("creating a new song with name '{0}'", contract.Names.First().Value), session);
+				AuditLog(string.Format("creating a new song with name '{0}'", contract.Names.First().Value));
 
 				var song = new Song { 
 					SongType = contract.SongType, 
@@ -413,6 +414,8 @@ namespace VocaDb.Model.Service {
 				song.UpdateArtistString();
 				Archive(session, song, SongArchiveReason.Created);
 				session.Update(song);
+
+				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(song)), session);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
 
