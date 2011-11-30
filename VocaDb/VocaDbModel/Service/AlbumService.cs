@@ -829,13 +829,16 @@ namespace VocaDb.Model.Service {
 						return session.Load<Song>(contract.SongId);
 					else {
 
-						AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, EntryLinkFactory.CreateEntryLink(album)), session);
+						AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
 
 						var song = new Song(contract.SongName);
 						session.Save(song);
 
 						Services.Songs.Archive(session, song, SongArchiveReason.Created, 
 							string.Format("Created for album '{0}'", album.DefaultName));
+
+						AuditLog(string.Format("created {0} for {1}", 
+							EntryLinkFactory.CreateEntryLink(song), EntryLinkFactory.CreateEntryLink(album)), session);
 
 						return song;
 

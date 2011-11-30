@@ -712,13 +712,16 @@ namespace VocaDb.Model.Service {
 
 					} else {
 
-						AuditLog(string.Format("creating a new album '{0}' to {1}", contract.AlbumName, artist), session);
+						AuditLog(string.Format("creating a new album '{0}' to {1}", contract.AlbumName, artist));
 
 						album = new Album(contract.AlbumName);
 						session.Save(album);
 
 						Services.Albums.Archive(session, album, AlbumArchiveReason.Created,
 							string.Format("Created for artist '{0}'", artist.DefaultName));
+
+						AuditLog(string.Format("created {0} for {1}", 
+							EntryLinkFactory.CreateEntryLink(album), EntryLinkFactory.CreateEntryLink(artist)), session);
 
 					}
 
