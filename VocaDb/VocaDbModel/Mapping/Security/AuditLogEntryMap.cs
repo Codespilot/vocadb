@@ -10,7 +10,7 @@ namespace VocaDb.Model.Mapping.Security {
 			Table("AuditLogEntries");
 			Id(m => m.Id);
 
-			Map(m => m.Action).Length(300).Not.Nullable();
+			Map(m => m.Action).Length(400).Not.Nullable();
 			Map(m => m.AgentName).Length(100).Not.Nullable();
 			Map(m => m.Time).Not.Nullable();
 			References(m => m.User).Nullable();

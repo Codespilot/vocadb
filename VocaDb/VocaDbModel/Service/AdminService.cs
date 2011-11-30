@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
+using System;
 
 namespace VocaDb.Model.Service {
 
@@ -20,6 +21,23 @@ namespace VocaDb.Model.Service {
 
 		public AdminService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext) 
 			: base(sessionFactory, permissionContext) {}
+
+		public void CleanupOldAuditLogEntries() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+
+			AuditLog("cleaning up audit log");
+
+			HandleTransaction(session => {
+
+				var oldEntries = session.Query<AuditLogEntry>().Where(e => e.Time < DateTime.Now - TimeSpan.FromDays(7c)).ToArray();
+
+				foreach (var entry in oldEntries)
+					session.Delete(entry);
+
+			});
+
+		}
 
 		public void GeneratePictureThumbs() {
 			
