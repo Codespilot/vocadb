@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts {
 			Created = archivedObjectVersion.Created;
 			Id = archivedObjectVersion.Id;
 			Notes = archivedObjectVersion.Notes;
+			Status = archivedObjectVersion.Status;
 			Version = archivedObjectVersion.Version;
 
 		}
@@ -30,6 +31,8 @@ namespace VocaDb.Model.DataContracts {
 		public int Id { get; set; }
 
 		public string Notes { get; set; }
+
+		public EntryStatus Status { get; set; }
 
 		public int Version { get; set; }
 

@@ -3,7 +3,7 @@
 
 @{ var item = Html.BeginCollectionItem("Tracks"); }
 
-	<span>@Model.ImportedTrack.TrackNum</span>. <span> @Model.ImportedTrack.Title</span>:
+	<span>(Disc @Model.ImportedTrack.DiscNum) @Model.ImportedTrack.TrackNum</span>. <span> @Model.ImportedTrack.Title</span>:
 	@if (Model.ExistingSong != null) {
 		@Html.HiddenFor(m => m.ExistingSong.Id)
 		@Html.CheckBoxFor(m => m.Selected)

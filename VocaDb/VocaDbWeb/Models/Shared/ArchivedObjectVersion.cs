@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Models.Shared {
 
@@ -14,6 +15,7 @@ namespace VocaDb.Web.Models.Shared {
 
 			Contract = contract;
 			Reason = reasonName;
+			Status = contract.Status;
 			ChangeMessage = changeMessage;
 
 		}
@@ -23,6 +25,8 @@ namespace VocaDb.Web.Models.Shared {
 		public ArchivedObjectVersionContract Contract { get; set; }
 
 		public string Reason { get; set; }
+
+		public EntryStatus Status { get; set; }
 
 	}
 
