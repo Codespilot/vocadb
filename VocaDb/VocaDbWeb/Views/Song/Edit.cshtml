@@ -11,7 +11,11 @@
 
 @section Toolbar {
 @if (Login.CanDeleteEntries) {
-	@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this song?\");" })
+	if (!Model.Deleted) {
+		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this song?\");" })
+	} else {
+		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })		
+	}
 }
 @if (Login.CanMergeEntries) {
 	@Html.ActionLink("Merge", "Merge", new { id = Model.Id }, new { id = "mergeLink" })
@@ -56,8 +60,8 @@
 								<th>Actions</th>
 							</tr>
 							@foreach (var name in Model.Names) {
-								Html.RenderPartial("LocalizedStringEditableRow", name);
-							}
+		   Html.RenderPartial("LocalizedStringEditableRow", name);
+	   }
 
 							@{ Html.RenderPartial("LocalizedStringNewRow"); }
 						</table>
@@ -94,7 +98,7 @@
 							<input type="button" id="acceptNewOriginalBtn" value="Set" />
 						</div>
 					</div>
-					}
+	 }
 			
 					<div class="editor-label">
 						@Html.LabelFor(m => m.WebLinks)
@@ -107,8 +111,8 @@
 								<th>Actions</th>
 							</tr>
 							@foreach (var webLink in Model.WebLinks) {
-								Html.RenderPartial("WebLinkEditRow", webLink);
-							}
+		   Html.RenderPartial("WebLinkEditRow", webLink);
+	   }
 							@{ Html.RenderPartial("WebLinkCreateRow"); }
 						</table>
 					</div>
@@ -123,15 +127,15 @@
 					</p>
 				</fieldset>
 			</div>
-		}
+  }
 	</div>
 
 	<div id="pvsTab">
 	
 		<table>
 		@foreach (var pv in Model.PVs) {
-			Html.RenderPartial("PVForSongEditRow", pv);
-		}
+	  Html.RenderPartial("PVForSongEditRow", pv);
+  }
 		<tr id="pvRow_new">
 			<td>
 				<p>Only Youtube and NicoNicoDouga are supported.</p>
@@ -164,8 +168,8 @@
 
 			<table>
 			@foreach (var album in Model.ArtistLinks) {
-			   Html.RenderPartial("ArtistForSongEditRow", album);
-		   }
+	   Html.RenderPartial("ArtistForSongEditRow", album);
+   }
 			
 			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 			</table>

@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			ParamIs.NotNull(() => artist);
 
 			ArtistType = artist.ArtistType;
+			Deleted = artist.Deleted;
 			Id = artist.Id;
 			Name = artist.TranslatedName[preference];
 			Status = artist.Status;
@@ -27,6 +28,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public ArtistType ArtistType { get; set; }
+
+		[DataMember]
+		public bool Deleted { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }

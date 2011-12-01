@@ -47,18 +47,6 @@ function saveTrackProperties() {
 
 }
 
-/*function updateTrackList(albumId, event, ui) {
-
-	var id = getId(ui.item);
-	var prev = $(ui.item).prev();
-	var prevId = getId(prev);
-
-	$.post("../../Album/ReorderTrack", { songInAlbumId: id, prevTrackId: prevId }, function (songList) {
-		songListChanged(songList);
-	});	
-
-}*/
-
 function songListChanged() {
 
 	var track = 1;
@@ -92,6 +80,7 @@ function initPage(albumId) {
 
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 	$("#tracksTableBody").sortable({
 		update: function (event, ui) {

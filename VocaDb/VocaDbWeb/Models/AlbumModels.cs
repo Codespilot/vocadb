@@ -74,6 +74,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
 
+		public bool Deleted { get; set; }
+
 		[Display(Name = "Description")]
 		public string Description { get; set; }
 
@@ -130,6 +132,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => album);
 
 			ArtistLinks = album.ArtistLinks;
+			Deleted = album.Deleted;
 			NameEnglish = album.TranslatedName.English;
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;

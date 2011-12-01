@@ -74,6 +74,14 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		public ActionResult Restore(int id) {
+
+			Service.Restore(id);
+
+			return RedirectToAction("Edit", new { id = id });
+
+		}
+
 		public PartialViewResult Songs(int id) {
 
 			var songs = Service.GetSongs(id);

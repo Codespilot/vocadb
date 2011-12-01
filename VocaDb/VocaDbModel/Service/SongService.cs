@@ -674,6 +674,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void Restore(int songId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+
+				song.Deleted = false;
+
+				AuditLog("restored " + EntryLinkFactory.CreateEntryLink(song), session);
+
+			});
+
+		}
+
 		public string UpdateArtists(int songId, int[] artistIds) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);

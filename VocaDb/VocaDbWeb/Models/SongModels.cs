@@ -140,6 +140,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
 
+		public bool Deleted { get; set; }
+
 		public bool Draft { get; set; }
 
 		public int Id { get; set; }
@@ -189,6 +191,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => song);
 
 			ArtistLinks = song.Artists;
+			Deleted = song.Deleted;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			PVs = song.PVs;
 			ValidationResult = song.ValidationResult;
