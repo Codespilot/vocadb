@@ -615,7 +615,8 @@ namespace VocaDb.Model.Service {
 				var source = session.Load<Song>(sourceId);
 				var target = session.Load<Song>(targetId);
 
-				AuditLog(string.Format("Merging {0} to {1}", source, target), session);
+				AuditLog(string.Format("Merging {0} to {1}", 
+					EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)), session);
 
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
