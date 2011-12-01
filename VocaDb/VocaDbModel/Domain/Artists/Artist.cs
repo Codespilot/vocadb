@@ -240,7 +240,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual ArchivedArtistVersion CreateArchivedVersion(XDocument data, ArtistDiff diff, AgentLoginData author, ArtistArchiveReason reason, string notes) {
 
-			var archived = new ArchivedArtistVersion(this, data, diff, author, Version, reason, notes);
+			var archived = new ArchivedArtistVersion(this, data, diff, author, Version, Status, reason, notes);
 			ArchivedVersions.Add(archived);
 			Version++;
 

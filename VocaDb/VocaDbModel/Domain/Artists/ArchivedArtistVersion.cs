@@ -21,8 +21,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public ArchivedArtistVersion() {}
 
-		public ArchivedArtistVersion(Artist artist, XDocument data, ArtistDiff diff, AgentLoginData author, int version, ArtistArchiveReason reason, string notes)
-			: base(data, author, version, notes) {
+		public ArchivedArtistVersion(Artist artist, XDocument data, ArtistDiff diff, AgentLoginData author, int version, EntryStatus status, 
+			ArtistArchiveReason reason, string notes)
+			: base(data, author, version, status, notes) {
 
 			Artist = artist;
 			Diff = diff;

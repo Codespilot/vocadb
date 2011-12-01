@@ -24,8 +24,9 @@ namespace VocaDb.Model.Domain.Albums {
 			Reason = AlbumArchiveReason.Unknown;
 		}
 
-		public ArchivedAlbumVersion(Album album, XDocument data, AlbumDiff diff, AgentLoginData author, int version, AlbumArchiveReason reason, string notes)
-			: base(data, author, version, notes) {
+		public ArchivedAlbumVersion(Album album, XDocument data, AlbumDiff diff, AgentLoginData author, int version, EntryStatus status,
+			AlbumArchiveReason reason, string notes)
+			: base(data, author, version, status, notes) {
 
 			Album = album;
 			Diff = diff;
