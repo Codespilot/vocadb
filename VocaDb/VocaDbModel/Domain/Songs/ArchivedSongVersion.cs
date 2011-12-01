@@ -23,8 +23,9 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public ArchivedSongVersion() { }
 
-		public ArchivedSongVersion(Song song, XDocument data, SongDiff diff, AgentLoginData author, int version, SongArchiveReason reason, string notes)
-			: base(data, author, version, notes) {
+		public ArchivedSongVersion(Song song, XDocument data, SongDiff diff, AgentLoginData author, int version, EntryStatus status, 
+			SongArchiveReason reason, string notes)
+			: base(data, author, version, status, notes) {
 
 			Song = song;
 			Diff = diff;

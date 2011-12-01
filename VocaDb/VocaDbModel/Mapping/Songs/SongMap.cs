@@ -63,6 +63,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.Data).Not.Nullable();
 			Map(m => m.Notes).Length(200).Not.Nullable();
 			Map(m => m.Reason).Length(30).Not.Nullable();
+			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
 			References(m => m.Author);

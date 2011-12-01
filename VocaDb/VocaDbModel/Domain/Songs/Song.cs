@@ -251,7 +251,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, SongDiff diff, AgentLoginData author, SongArchiveReason reason, string notes) {
 
-			var archived = new ArchivedSongVersion(this, data, diff, author, Version, reason, notes);
+			var archived = new ArchivedSongVersion(this, data, diff, author, Version, Status, reason, notes);
 			ArchivedVersions.Add(archived);
 			Version++;
 
