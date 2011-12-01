@@ -277,6 +277,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Restore(int id) {
+
+			Service.Restore(id);
+
+			return RedirectToAction("Edit", new { id = id });
+
+		}
+
 		public ActionResult Versions(int id) {
 
 			var contract = Service.GetSongWithArchivedVersions(id);

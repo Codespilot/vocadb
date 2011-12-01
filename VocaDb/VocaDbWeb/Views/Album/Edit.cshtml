@@ -11,7 +11,11 @@
 
 @section Toolbar {
 @if (Login.CanDeleteEntries) {
-	@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this album?\");" })
+	if (!Model.Deleted) {
+		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this album?\");" })
+	} else {
+		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })				
+	}
 }
 @if (Login.CanMergeEntries) {
 	@Html.ActionLink("Merge", "Merge", new { id = Model.Id }, new { id = "mergeLink" })
@@ -59,8 +63,8 @@
 						<th>Actions</th>
 					</tr>
 					@foreach (var name in Model.Names) {
-						Html.RenderPartial("LocalizedStringEditableRow", name);
-					}
+		 Html.RenderPartial("LocalizedStringEditableRow", name);
+	 }
 
 					@{ Html.RenderPartial("LocalizedStringNewRow"); }
 				</table>
@@ -151,8 +155,8 @@
 						<th>Actions</th>
 					</tr>
 					@foreach (var webLink in Model.WebLinks) {
-						Html.RenderPartial("WebLinkEditRow", webLink);
-					}
+		 Html.RenderPartial("WebLinkEditRow", webLink);
+	 }
 					@{ Html.RenderPartial("WebLinkCreateRow"); }
 				</table>
 			</div>
@@ -179,8 +183,8 @@
 				</thead>
 				<tbody id="tracksTableBody">
 				@foreach (var track in Model.Tracks) {
-					Html.RenderPartial("SongInAlbumEditRow", track);
-				}
+		Html.RenderPartial("SongInAlbumEditRow", track);
+	}
 				</tbody>
 			</table>
 			<h4>Add new</h4>
@@ -198,8 +202,8 @@
 				<legend>Connected artists</legend>
 				<table>
 					@foreach (var album in Model.ArtistLinks) {
-						 Html.RenderPartial("ArtistForAlbumEditRow", album);
-					 }
+		 Html.RenderPartial("ArtistForAlbumEditRow", album);
+	 }
 
 					@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 				</table>
@@ -214,8 +218,8 @@
 
 			<table>
 			@foreach (var pv in Model.PVs) {
-			   Html.RenderPartial("PVForSongEditRow", pv);
-		   }
+	   Html.RenderPartial("PVForSongEditRow", pv);
+   }
 			<tr id="pvRow_new">
 				<td>
 					<p>Only Youtube and NicoNicoDouga are supported.</p>

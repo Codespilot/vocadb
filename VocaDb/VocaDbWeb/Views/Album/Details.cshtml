@@ -27,7 +27,7 @@
 	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)<br />
 }
 
-@if (Model.Draft) {
+@if (Model.Draft && !Model.Deleted) {
 	@Helpers.DraftMessage("glalbums")
 }
 

@@ -3,6 +3,7 @@ function initPage(artistId) {
 
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
 	$("input.nameDelete").live("click", function () {

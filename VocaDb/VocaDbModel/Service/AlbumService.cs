@@ -735,6 +735,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void Restore(int albumId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var album = session.Load<Album>(albumId);
+
+				album.Deleted = false;
+
+				AuditLog("restored " + EntryLinkFactory.CreateEntryLink(album), session);
+
+			});
+
+		}
+
 		public TagUsageContract[] SaveTags(int albumId, string[] tags) {
 
 			ParamIs.NotNull(() => tags);

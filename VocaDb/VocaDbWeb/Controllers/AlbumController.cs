@@ -294,6 +294,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Restore(int id) {
+
+			Service.Restore(id);
+
+			return RedirectToAction("Edit", new { id = id });
+
+		}
+
 		[HttpPost]
 		public void DeleteComment(int commentId) {
 

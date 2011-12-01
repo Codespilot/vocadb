@@ -94,6 +94,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
 
+		public bool Deleted { get; set; }
+
 		[Display(Name = "Description")]
 		public string Description { get; set; }
 
@@ -131,6 +133,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => artist);
 
+			Deleted = artist.Deleted;
 			ValidationResult = artist.ValidationResult;
 
 		}

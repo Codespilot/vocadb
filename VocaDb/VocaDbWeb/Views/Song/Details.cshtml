@@ -25,7 +25,7 @@
 	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)
 }
 
-@if (Model.Draft) {
+@if (Model.Draft && !Model.Deleted) {
 	@Helpers.DraftMessage("glsongs")
 }
 
