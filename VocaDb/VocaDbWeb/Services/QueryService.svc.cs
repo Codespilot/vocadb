@@ -38,7 +38,7 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public AlbumContract GetAlbumDetails(string term) {
+		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term) {
 
 			var albums = Services.Albums.Find(term, 0, 1, false, false);
 			return albums.Items.FirstOrDefault();
