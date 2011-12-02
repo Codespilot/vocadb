@@ -29,6 +29,9 @@ namespace VocaDb.Model.Domain.Artists {
 			Diff = diff;
 			Reason = reason;
 
+			if (diff.IncludePicture)
+				Picture = artist.Picture;
+
 		}
 
 		public virtual Artist Artist {
@@ -43,6 +46,12 @@ namespace VocaDb.Model.Domain.Artists {
 			get { return diff; }
 			protected set { diff = value; }
 		}
+
+		public override IEntryDiff DiffBase {
+			get { return Diff; }
+		}
+
+		public virtual PictureData Picture { get; set; }
 
 		public virtual ArtistArchiveReason Reason { get; set; }
 

@@ -100,6 +100,11 @@ namespace VocaDb.Model.Mapping.Albums {
 			References(m => m.Album);
 			References(m => m.Author);
 
+			Component(m => m.CoverPicture, c => {
+				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
+				c.Map(m => m.Mime, "CoverPictureMime");
+			});
+
 			Component(m => m.Diff, c => {
 				c.Map(m => m.ChangedFieldsString, "ChangedFields").Length(100).Not.Nullable();
 				c.Map(m => m.IsSnapshot).Not.Nullable();

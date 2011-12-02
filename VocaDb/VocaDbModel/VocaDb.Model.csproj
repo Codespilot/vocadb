@@ -160,6 +160,7 @@
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\Globalization\INameManager.cs" />
+    <Compile Include="Domain\IEntryDiff.cs" />
     <Compile Include="Domain\IEntryWithNames.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />

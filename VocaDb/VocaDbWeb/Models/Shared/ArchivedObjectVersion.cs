@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using VocaDb.Model.DataContracts;
+﻿using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Models.Shared {

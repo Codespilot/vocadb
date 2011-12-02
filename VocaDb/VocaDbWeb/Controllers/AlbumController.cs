@@ -422,5 +422,14 @@ namespace VocaDb.Web.Controllers
 			return View(new Versions(contract));
 
 		}
+
+		public ActionResult ViewVersion(int id) {
+
+			var contract = Service.GetVersionDetails(id);
+
+			return View(contract);
+
+		}
+
     }
 }

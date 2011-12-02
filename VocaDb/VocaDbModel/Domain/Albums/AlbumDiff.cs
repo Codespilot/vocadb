@@ -3,7 +3,7 @@ using System;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class AlbumDiff {
+	public class AlbumDiff : IEntryDiff {
 
 		private bool IsSet(AlbumEditableFields field) {
 			return ChangedFields.HasFlag(field);
@@ -31,6 +31,17 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 			set {
 				Set(AlbumEditableFields.Artists, value);
+			}
+		}
+
+		public virtual string[] ChangedFieldNames {
+			get {
+
+				var fieldNames = EnumVal<AlbumEditableFields>.Values
+					.Where(f => f != AlbumEditableFields.Nothing && IsSet(f)).Select(f => f.ToString());
+
+				return fieldNames.ToArray();
+
 			}
 		}
 

@@ -27,6 +27,10 @@
 	}
 }
 
+@helper NameInfo(LocalizedStringContract name) {
+	<text>@Translate.ContentLanguageSelectionName(name.Language): @name.Value</text>
+}
+
 @helper ObjectRefList(string name, IEnumerable<ObjectRefContract> objRefs) {
 	DataRowList(name, DataFormatUtils.GenerateHtml(objRefs, objRef => MvcHtmlString.Create(objRef.NameHint + " [" + objRef.Id + "]")));
 }
@@ -44,60 +48,35 @@
 
 @helper PrintArchivedAlbumData(ArchivedAlbumContract data) {
 
-	<h3>Content</h3>
+	<fieldset>
+		<legend>Content</legend>
 	
-	<table>
-		@DataRow("Id", data.Id)
-		<tr>
-			<td>Primary names</td>
-			<td>
-				Non-English: @data.TranslatedName.Japanese<br />
-				Romanized: @data.TranslatedName.Romaji<br />
-				English: @data.TranslatedName.English
-			</td>
-		</tr>
-		@if (data.Names != null) {
-		<tr>
-			<td>Names</td>
-			<td>
-				<ul>
-				@foreach (var name in data.Names) {
-					<li>@name.Value (@Translate.ContentLanguageSelectionName(name.Language))</li>
+		<table>
+			@DataRow("Id", data.Id)
+			<tr>
+				<td>Primary names</td>
+				<td>
+					Non-English: @data.TranslatedName.Japanese<br />
+					Romanized: @data.TranslatedName.Romaji<br />
+					English: @data.TranslatedName.English
+				</td>
+			</tr>
+			@DataRowList("Names", DataFormatUtils.GenerateHtmlFromHelper(data.Names, NameInfo))
+			@DataRow("Description", data.Description)
+			@DataRow("Disc type", Translate.DiscTypeName(data.DiscType))
+			@if (data.OriginalRelease != null) {
+				if (data.OriginalRelease.ReleaseDate != null) {
+					DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted);
 				}
-				</ul>
-			</td>
-		</tr>
-		}
-		@DataRow("Description", data.Description)
-		@DataRow("Disc type", Translate.DiscTypeName(data.DiscType))
-		@if (data.OriginalRelease != null) {
-			if (data.OriginalRelease.ReleaseDate != null) {
-				DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted);
+				DataRow("Catalog number", data.OriginalRelease.CatNum);
+				DataRow("Release event", data.OriginalRelease.EventName);
 			}
-			DataRow("Catalog number", data.OriginalRelease.CatNum);
-			DataRow("Release event", data.OriginalRelease.EventName);
-		}
-		@if (data.WebLinks != null) {
-		<tr>
-			<td>External links</td>
-			<td>
-				<ul>
-				@foreach (var link in data.WebLinks) {
-					<li>
-						@if (!string.IsNullOrEmpty(link.Description)) {
-							@link.Description<text>: </text>
-						}
-						@link.Url
-					</li>
-				}
-				</ul>
-			</td>
-		</tr>
-		}
-		@DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, WebLinkInfo))
-		@ObjectRefList("Artists", data.Artists)
-		@DataRowList("Tracks", DataFormatUtils.GenerateHtml(data.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))
-		@DataRowList("PVs", DataFormatUtils.GenerateHtmlFromHelper(data.PVs, PVInfo))
-	</table>	
+			@DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, WebLinkInfo))
+			@ObjectRefList("Artists", data.Artists)
+			@DataRowList("Tracks", DataFormatUtils.GenerateHtml(data.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))
+			@DataRowList("PVs", DataFormatUtils.GenerateHtmlFromHelper(data.PVs, PVInfo))
+		</table>	
+
+	</fieldset>
 
 }

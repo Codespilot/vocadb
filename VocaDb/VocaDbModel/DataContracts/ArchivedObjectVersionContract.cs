@@ -16,6 +16,7 @@ namespace VocaDb.Model.DataContracts {
 			Author = (archivedObjectVersion.Author != null ? new UserContract(archivedObjectVersion.Author) : null);
 			Created = archivedObjectVersion.Created;
 			Id = archivedObjectVersion.Id;
+			IsSnapshot = archivedObjectVersion.DiffBase.IsSnapshot;
 			Notes = archivedObjectVersion.Notes;
 			Status = archivedObjectVersion.Status;
 			Version = archivedObjectVersion.Version;
@@ -29,6 +30,8 @@ namespace VocaDb.Model.DataContracts {
 		public DateTime Created { get; set; }
 
 		public int Id { get; set; }
+
+		public bool IsSnapshot { get; set; }
 
 		public string Notes { get; set; }
 

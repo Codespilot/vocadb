@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class ArtistDiff {
+	public class ArtistDiff : IEntryDiff {
 
 		private bool IsSet(ArtistEditableFields field) {
 			return ChangedFields.HasFlag(field);
