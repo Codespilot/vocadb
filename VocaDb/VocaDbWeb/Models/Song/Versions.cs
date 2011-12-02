@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model;
 using VocaDb.Web.Helpers;
@@ -12,7 +9,14 @@ namespace VocaDb.Web.Models.Song {
 
 	public class Versions {
 
-		private string GetChangeString(SongEditableFields fields) {
+		public static ArchivedObjectVersion CreateForSong(ArchivedSongVersionContract artist) {
+
+			return new ArchivedObjectVersion(artist, GetReasonName(artist.Reason, artist.Notes),
+				GetChangeString(artist.ChangedFields));
+
+		}
+
+		private static string GetChangeString(SongEditableFields fields) {
 
 			if (fields == SongEditableFields.Nothing)
 				return string.Empty;
@@ -24,7 +28,7 @@ namespace VocaDb.Web.Models.Song {
 
 		}
 
-		private string GetReasonName(SongArchiveReason reason, string notes) {
+		private static string GetReasonName(SongArchiveReason reason, string notes) {
 
 			if (reason == SongArchiveReason.Unknown)
 				return notes;
@@ -40,8 +44,7 @@ namespace VocaDb.Web.Models.Song {
 			ParamIs.NotNull(() => contract);
 
 			Song = contract;
-			ArchivedVersions = contract.ArchivedVersions.Select(a =>
-				new ArchivedObjectVersion(a, GetReasonName(a.Reason, a.Notes), GetChangeString(a.ChangedFields))).ToArray();
+			ArchivedVersions = contract.ArchivedVersions.Select(CreateForSong).ToArray();
 
 		}
 

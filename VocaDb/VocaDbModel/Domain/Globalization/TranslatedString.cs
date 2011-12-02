@@ -37,6 +37,18 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		}
 
+		public TranslatedString(ArchivedTranslatedStringContract contract)
+			: this() {
+
+			ParamIs.NotNull(() => contract);
+
+			DefaultLanguage = contract.DefaultLanguage;
+			Japanese = contract.Japanese;
+			Romaji = contract.Romaji;
+			English = contract.English;
+
+		}
+
 		public TranslatedString(TranslatedStringContract contract)
 			: this() {
 

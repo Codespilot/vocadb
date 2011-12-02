@@ -1,0 +1,25 @@
+﻿@using System.Web.Mvc;
+@using VocaDb.Model.DataContracts.Artists;
+@using VocaDb.Web.Helpers;
+@inherits VocaDb.Web.Code.HelperPage
+
+@helper PrintArchivedArtistData(ArchivedArtistContract data) {
+
+	<fieldset>
+		<legend>Content</legend>
+	
+		<table>
+			@ArchivedEntryHelpers.DataRow("Id", data.Id)
+			@ArchivedEntryHelpers.TranslatedNameRow(data.TranslatedName)
+			@ArchivedEntryHelpers.DataRowList("Names", DataFormatUtils.GenerateHtmlFromHelper(data.Names, ArchivedEntryHelpers.NameInfo))
+			@ArchivedEntryHelpers.DataRow("Description", data.Description)
+			@ArchivedEntryHelpers.DataRow("Artist type", Translate.ArtistTypeName(data.ArtistType))
+			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
+			@ArchivedEntryHelpers.ObjectRefList("Groups", data.Groups)
+			@ArchivedEntryHelpers.ObjectRefList("Members", data.Members)
+			@ArchivedEntryHelpers.ObjectRefList("Albums", data.Albums)
+		</table>	
+
+	</fieldset>
+
+}

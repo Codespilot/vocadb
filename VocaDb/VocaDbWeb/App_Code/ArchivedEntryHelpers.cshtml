@@ -1,0 +1,69 @@
+﻿@using System.Web.Mvc;
+@using VocaDb.Model.DataContracts;
+@using VocaDb.Model.DataContracts.Albums;
+@using VocaDb.Model.DataContracts.PVs;
+@using VocaDb.Web.Helpers;
+@inherits VocaDb.Web.Code.HelperPage
+
+@helper DataRow(string name, object val) {
+	<tr>
+		<td>@name</td>
+		<td>@val</td>
+	</tr>	
+}
+
+@helper DataRowList(string name, IEnumerable<MvcHtmlString> rows) {
+	if (rows != null) {
+	<tr>
+		<td>@name</td>
+		<td>
+			<ul>
+			@foreach (var row in rows) {
+				<li>@row</li>
+			}			
+			</ul>
+		</td>
+	</tr>	
+	}
+}
+
+@helper NameInfo(LocalizedStringContract name) {
+	<text>@Translate.ContentLanguageSelectionName(name.Language): @name.Value</text>
+}
+
+@helper ObjectRefList(string name, IEnumerable<ObjectRefContract> objRefs) {
+	DataRowList(name, DataFormatUtils.GenerateHtml(objRefs, objRef => MvcHtmlString.Create(objRef.NameHint + " [" + objRef.Id + "]")));
+}
+
+@helper PVInfo(ArchivedPVContract pv) {
+	<text>@pv.Service (@pv.PVType): @pv.PVId</text>
+}
+
+@helper TranslatedNameRow(TranslatedStringContract name) {
+	<tr>
+		<td>Primary names</td>
+		<td>
+			Non-English: @name.Japanese<br />
+			Romanized: @name.Romaji<br />
+			English: @name.English
+		</td>
+	</tr>
+}
+
+@helper TranslatedNameRow(ArchivedTranslatedStringContract name) {
+	<tr>
+		<td>Primary names</td>
+		<td>
+			Non-English: @name.Japanese<br />
+			Romanized: @name.Romaji<br />
+			English: @name.English
+		</td>
+	</tr>
+}
+
+@helper WebLinkInfo(ArchivedWebLinkContract link) {
+	if (!string.IsNullOrEmpty(link.Description)) {
+		@link.Description<text>: </text>
+	}
+	@link.Url
+}
