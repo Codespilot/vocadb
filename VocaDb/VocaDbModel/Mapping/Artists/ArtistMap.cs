@@ -71,6 +71,11 @@ namespace VocaDb.Model.Mapping.Artists {
 				c.Map(m => m.IsSnapshot).Not.Nullable();
 			});
 
+			Component(m => m.Picture, c => {
+				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue).LazyLoad();
+				c.Map(m => m.Mime, "PictureMime");
+			});
+
 		}
 
 	}

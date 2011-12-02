@@ -38,6 +38,10 @@ namespace VocaDb.Model.Domain.Songs {
 			protected set { diff = value; }
 		}
 
+		public override IEntryDiff DiffBase {
+			get { return Diff; }
+		}
+
 		public virtual SongArchiveReason Reason { get; set; }
 
 		public virtual Song Song {

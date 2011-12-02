@@ -592,6 +592,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArchivedAlbumVersionDetailsContract GetVersionDetails(int id) {
+
+			return HandleQuery(session =>
+				new ArchivedAlbumVersionDetailsContract(session.Load<ArchivedAlbumVersion>(id), PermissionContext.LanguagePreference));
+
+		}
+
 		public void Merge(int sourceId, int targetId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);

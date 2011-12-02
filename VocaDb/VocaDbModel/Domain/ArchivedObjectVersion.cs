@@ -5,15 +5,15 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain {
 
-	public class ArchivedObjectVersion {
+	public abstract class ArchivedObjectVersion {
 
 		private string notes;
 
-		public ArchivedObjectVersion() {
+		protected ArchivedObjectVersion() {
 			Created = DateTime.Now;
 		}
 
-		public ArchivedObjectVersion(XDocument data, AgentLoginData author, int version, EntryStatus status, string notes)
+		protected ArchivedObjectVersion(XDocument data, AgentLoginData author, int version, EntryStatus status, string notes)
 			: this() {
 
 			ParamIs.NotNull(() => data);
@@ -35,6 +35,8 @@ namespace VocaDb.Model.Domain {
 		public virtual DateTime Created { get; protected set; }
 
 		public virtual XDocument Data { get; protected set; }
+
+		public abstract IEntryDiff DiffBase { get; }
 
 		public virtual int Id { get; protected set; }
 

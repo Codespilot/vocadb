@@ -48,29 +48,35 @@
 
 @helper ArchivedObjectVersionProperties(VocaDb.Web.Models.Shared.ArchivedObjectVersion ver) {
 	
-	<h3>Properties</h3>
+	<fieldset>
+		<legend>Properties</legend>
 	
-	<table>
-		<tr>
-			<td>Version</td>
-			<td>@ver.Contract.Version</td>
-		</tr><tr>
-			<td>Status</td>
-			<td>@ver.Status</td>
-		</tr><tr>
-			<td>Created</td>
-			<td>@ver.Contract.Created</td>
-		</tr><tr>
-			<td>Author</td>
-			<td>@Html.UserLink(ver.Contract.Author, ver.Contract.AgentName)</td>
-		</tr><tr>
-			<td>Reason</td>
-			<td>@ver.Reason</td>
-		</tr><tr>
-			<td>Changed</td>
-			<td>@ver.ChangeMessage</td>
-		</tr>
-	</table>	
+		<table>
+			<tr>
+				<td>Version</td>
+				<td>@ver.Contract.Version</td>
+			</tr><tr>
+				<td>Status</td>
+				<td>@ver.Status</td>
+			</tr><tr>
+				<td>Snapshot</td>
+				<td>@ver.Contract.IsSnapshot</td>
+			</tr><tr>
+				<td>Created</td>
+				<td>@ver.Contract.Created</td>
+			</tr><tr>
+				<td>Author</td>
+				<td>@Html.UserLink(ver.Contract.Author, ver.Contract.AgentName)</td>
+			</tr><tr>
+				<td>Reason</td>
+				<td>@ver.Reason</td>
+			</tr><tr>
+				<td>Changed</td>
+				<td>@ver.ChangeMessage</td>
+			</tr>
+		</table>	
+
+	</fieldset>
 	
 }
 
