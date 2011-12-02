@@ -63,8 +63,8 @@
 						<th>Actions</th>
 					</tr>
 					@foreach (var name in Model.Names) {
-		 Html.RenderPartial("LocalizedStringEditableRow", name);
-	 }
+						 Html.RenderPartial("LocalizedStringEditableRow", name);
+					 }
 
 					@{ Html.RenderPartial("LocalizedStringNewRow"); }
 				</table>

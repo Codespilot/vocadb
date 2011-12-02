@@ -34,10 +34,12 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		/// <summary>
+		/// Album associated with this revision. Can be null.
+		/// </summary>
 		public virtual Album Album {
 			get { return album; }
 			protected set {
-				ParamIs.NotNull(() => value);
 				album = value;
 			}
 		}

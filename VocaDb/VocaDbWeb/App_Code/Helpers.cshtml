@@ -4,7 +4,7 @@
 @using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
 
-@helper ArchivedObjectVersions(IEnumerable<VocaDb.Web.Models.Shared.ArchivedObjectVersion> archivedVersions) {
+@helper ArchivedObjectVersions(IEnumerable<VocaDb.Web.Models.Shared.ArchivedObjectVersion> archivedVersions, Func<int, string> linkFunc = null) {
 	
 	<table>
 		<tr>
@@ -16,8 +16,17 @@
 		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Contract.Version)) {
 			<tr>
 				<td>
-					@ver.Contract.Version
-					(@ver.Status)
+					@if (linkFunc != null) {
+						<a href="@linkFunc(ver.Id)">
+						@ver.Contract.Version
+						(@ver.Status)		 
+						</a>
+					} else {
+						<text>
+						@ver.Contract.Version
+						(@ver.Status)
+						</text>
+					}
 				</td>
 				<td>
 					@ver.Contract.Created
@@ -33,6 +42,34 @@
 				</td>
 			</tr>
 		}
+	</table>	
+	
+}
+
+@helper ArchivedObjectVersionProperties(VocaDb.Web.Models.Shared.ArchivedObjectVersion ver) {
+	
+	<h3>Properties</h3>
+	
+	<table>
+		<tr>
+			<td>Version</td>
+			<td>@ver.Contract.Version</td>
+		</tr><tr>
+			<td>Status</td>
+			<td>@ver.Status</td>
+		</tr><tr>
+			<td>Created</td>
+			<td>@ver.Contract.Created</td>
+		</tr><tr>
+			<td>Author</td>
+			<td>@Html.UserLink(ver.Contract.Author, ver.Contract.AgentName)</td>
+		</tr><tr>
+			<td>Reason</td>
+			<td>@ver.Reason</td>
+		</tr><tr>
+			<td>Changed</td>
+			<td>@ver.ChangeMessage</td>
+		</tr>
 	</table>	
 	
 }
@@ -84,7 +121,7 @@
 				<ul>
 					@foreach (var line in validationResult.Errors) {
 						<li>@line</li>
-					}
+	 }
 				</ul>
 			} else if (draft) {
 				<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
