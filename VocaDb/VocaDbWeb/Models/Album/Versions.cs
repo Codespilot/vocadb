@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model;
 using VocaDb.Web.Models.Shared;
@@ -47,7 +44,7 @@ namespace VocaDb.Web.Models.Album {
 			ParamIs.NotNull(() => contract);
 
 			Album = contract;
-			ArchivedVersions = contract.ArchivedVersions.Select(a => CreateForAlbum(a)).ToArray();
+			ArchivedVersions = contract.ArchivedVersions.Select(CreateForAlbum).ToArray();
 
 		}
 

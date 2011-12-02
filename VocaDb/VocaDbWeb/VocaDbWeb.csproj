@@ -722,6 +722,11 @@
     <Content Include="Views\Artist\Songs.cshtml" />
     <Content Include="Views\Album\ViewVersion.cshtml" />
     <Content Include="App_Code\AlbumHelpers.cshtml" />
+    <Content Include="App_Code\ArchivedEntryHelpers.cshtml" />
+    <Content Include="App_Code\ArtistHelpers.cshtml" />
+    <Content Include="Views\Artist\ViewVersion.cshtml" />
+    <Content Include="App_Code\SongHelpers.cshtml" />
+    <Content Include="Views\Song\ViewVersion.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

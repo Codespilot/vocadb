@@ -10,4 +10,4 @@
 
 <p>Current version number is @Model.Song.Version (@Model.Song.Status).</p>
 
-@Helpers.ArchivedObjectVersions(Model.ArchivedVersions)
+@Helpers.ArchivedObjectVersions(Model.ArchivedVersions, id => Url.Action("ViewVersion", new { id = id }))
