@@ -159,6 +159,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DataFormatUtils.cs" />
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
     <Compile Include="Helpers\Login.cs" />
@@ -719,6 +720,8 @@
     <Content Include="Views\Tag\Index.cshtml" />
     <Content Include="Views\Artist\Albums.cshtml" />
     <Content Include="Views\Artist\Songs.cshtml" />
+    <Content Include="Views\Album\ViewVersion.cshtml" />
+    <Content Include="App_Code\AlbumHelpers.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

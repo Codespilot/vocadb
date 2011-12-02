@@ -1,0 +1,24 @@
+﻿@using VocaDb.Web.Models.Album;
+@model VocaDb.Model.DataContracts.Albums.ArchivedAlbumVersionDetailsContract
+
+@{
+	
+    ViewBag.Title = "Revision " + Model.Version + " for " + Model.Name;
+	
+	if (Model.Album != null) {
+		ViewBag.Parents = new[] { 
+			Html.ActionLink("Albums", "Index"), 
+			Html.ActionLink(Model.Album.Name, "Details", new { id = Model.Album.Id }),
+			Html.ActionLink("Revisions", "Versions", new { id = Model.Album.Id }) 
+		};
+	} else {
+		ViewBag.Parents = new[] { 
+			Html.ActionLink("Albums", "Index")
+		};
+	}
+
+}
+
+@Helpers.ArchivedObjectVersionProperties(Versions.CreateForAlbum(Model))
+
+@AlbumHelpers.PrintArchivedAlbumData(Model.Data)

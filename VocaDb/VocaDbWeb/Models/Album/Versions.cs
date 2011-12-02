@@ -12,7 +12,14 @@ namespace VocaDb.Web.Models.Album {
 
 	public class Versions {
 
-		private string GetChangeString(AlbumEditableFields fields) {
+		public static ArchivedObjectVersion CreateForAlbum(ArchivedAlbumVersionContract album) {
+
+			return new ArchivedObjectVersion(album, GetReasonName(album.Reason, album.Notes), 
+				GetChangeString(album.ChangedFields));
+
+		}
+
+		private static string GetChangeString(AlbumEditableFields fields) {
 
 			if (fields == AlbumEditableFields.Nothing)
 				return string.Empty;
@@ -24,7 +31,7 @@ namespace VocaDb.Web.Models.Album {
 
 		}
 
-		private string GetReasonName(AlbumArchiveReason reason, string notes) {
+		private static string GetReasonName(AlbumArchiveReason reason, string notes) {
 
 			if (reason == AlbumArchiveReason.Unknown)
 				return notes;
@@ -40,8 +47,7 @@ namespace VocaDb.Web.Models.Album {
 			ParamIs.NotNull(() => contract);
 
 			Album = contract;
-			ArchivedVersions = contract.ArchivedVersions.Select(a => 
-				new ArchivedObjectVersion(a, GetReasonName(a.Reason, a.Notes), GetChangeString(a.ChangedFields))).ToArray();
+			ArchivedVersions = contract.ArchivedVersions.Select(a => CreateForAlbum(a)).ToArray();
 
 		}
 
