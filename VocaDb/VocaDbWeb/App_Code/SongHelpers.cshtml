@@ -3,6 +3,10 @@
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper LyricsInfo(LyricsForSongContract lyrics) {
+	<text>@lyrics.Language (@lyrics.Source)</text>
+}
+
 @helper PrintArchivedSongData(ArchivedSongContract data) {
 
 	<fieldset>
@@ -14,9 +18,11 @@
 			@ArchivedEntryHelpers.DataRowList("Names", DataFormatUtils.GenerateHtmlFromHelper(data.Names, ArchivedEntryHelpers.NameInfo))
 			@ArchivedEntryHelpers.DataRow("Notes", data.Notes)
 			@ArchivedEntryHelpers.DataRow("Song type", data.SongType)
+			@ArchivedEntryHelpers.DataRow("Original version", ArchivedEntryHelpers.ObjectRefInfo(data.OriginalVersion))
 			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
 			@ArchivedEntryHelpers.ObjectRefList("Artists", data.Artists)
 			@ArchivedEntryHelpers.DataRowList("PVs", DataFormatUtils.GenerateHtmlFromHelper(data.PVs, ArchivedEntryHelpers.PVInfo))
+			@ArchivedEntryHelpers.DataRowList("Lyrics", DataFormatUtils.GenerateHtmlFromHelper(data.Lyrics, LyricsInfo))
 		</table>	
 
 	</fieldset>

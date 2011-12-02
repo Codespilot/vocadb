@@ -31,8 +31,14 @@
 	<text>@Translate.ContentLanguageSelectionName(name.Language): @name.Value</text>
 }
 
+@helper ObjectRefInfo(ObjectRefContract objRef) {
+	if (objRef != null) {
+	<text>@objRef.NameHint [@objRef.Id]</text>
+	}
+}
+
 @helper ObjectRefList(string name, IEnumerable<ObjectRefContract> objRefs) {
-	DataRowList(name, DataFormatUtils.GenerateHtml(objRefs, objRef => MvcHtmlString.Create(objRef.NameHint + " [" + objRef.Id + "]")));
+	DataRowList(name, DataFormatUtils.GenerateHtmlFromHelper(objRefs, ObjectRefInfo));
 }
 
 @helper PVInfo(ArchivedPVContract pv) {
@@ -41,22 +47,30 @@
 
 @helper TranslatedNameRow(TranslatedStringContract name) {
 	<tr>
+		<td>Original language:</td>
+		<td>@Translate.ContentLanguageSelectionName(name.DefaultLanguage)</td>
+	</tr>
+	<tr>
 		<td>Primary names</td>
 		<td>
 			Non-English: @name.Japanese<br />
 			Romanized: @name.Romaji<br />
-			English: @name.English
+			English: @name.English<br />
 		</td>
 	</tr>
 }
 
 @helper TranslatedNameRow(ArchivedTranslatedStringContract name) {
 	<tr>
+		<td>Original language:</td>
+		<td>@name.DefaultLanguage</td>
+	</tr>
+	<tr>
 		<td>Primary names</td>
 		<td>
 			Non-English: @name.Japanese<br />
 			Romanized: @name.Romaji<br />
-			English: @name.English
+			English: @name.English<br />
 		</td>
 	</tr>
 }
