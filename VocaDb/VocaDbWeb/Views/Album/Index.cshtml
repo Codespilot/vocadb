@@ -24,7 +24,7 @@
 @using (Html.BeginForm("Index", "Album")) {
 	
 <p>
-	Filter: @Html.TextBoxFor(m => m.Filter) 
+	Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp;
 	@Html.CheckBoxFor(m => m.DraftsOnly)
 	@Html.LabelFor(m => m.DraftsOnly)
