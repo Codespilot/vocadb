@@ -83,7 +83,12 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual PermissionFlags EffectivePermissions {
 			get {
+
+				if (!Active)
+					return PermissionFlags.Nothing;
+
 				return UserGroup.GetPermissions(GroupId) | AdditionalPermissions;
+
 			}
 		}
 

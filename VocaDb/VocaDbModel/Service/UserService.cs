@@ -4,8 +4,11 @@ using System.Runtime.Serialization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -18,6 +21,23 @@ namespace VocaDb.Model.Service {
 	public class UserService : ServiceBase {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
+
+		private UserDetailsContract GetUserDetails(ISession session, User user) {
+
+			var details = new UserDetailsContract(user, PermissionContext.LanguagePreference);
+
+			details.CommentCount
+				= session.Query<AlbumComment>().Where(c => c.Author == user && !c.Album.Deleted).Count()
+				+ session.Query<ArtistComment>().Where(c => c.Author == user && !c.Artist.Deleted).Count();
+
+			details.EditCount
+				= session.Query<ArchivedAlbumVersion>().Where(c => c.Author == user && !c.Album.Deleted).Count()
+				+ session.Query<ArchivedArtistVersion>().Where(c => c.Author == user && !c.Artist.Deleted).Count()
+				+ session.Query<ArchivedSongVersion>().Where(c => c.Author == user && !c.Song.Deleted).Count();
+
+			return details;
+
+		}
 
 		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
@@ -171,6 +191,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public CommentContract[] GetComments(int userId) {
+
+			return HandleQuery(session => {
+
+				var user = session.Load<User>(userId);
+
+				var comments = session.Query<AlbumComment>()
+					.Where(c => c.Author == user && !c.Album.Deleted).OrderByDescending(c => c.Created).ToArray().Cast<Comment>()
+					.Concat(session.Query<ArtistComment>()
+						.Where(c => c.Author == user && !c.Artist.Deleted)).OrderByDescending(c => c.Created).ToArray();
+
+				return comments.Select(c => new CommentContract(c)).ToArray();
+
+			});
+
+		}
+
 		public UserMessageContract GetMessageDetails(int messageId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
@@ -206,7 +243,7 @@ namespace VocaDb.Model.Service {
 
 		public UserDetailsContract GetUserDetails(int id) {
 
-			return HandleQuery(session => new UserDetailsContract(session.Load<User>(id), PermissionContext.LanguagePreference));
+			return HandleQuery(session => GetUserDetails(session, session.Load<User>(id)));
 
 		}
 
@@ -227,7 +264,9 @@ namespace VocaDb.Model.Service {
 
 		public UserDetailsContract GetUserByNameNonSensitive(string name) {
 
-			return HandleQuery(session => new UserDetailsContract(session.Query<User>().ToArray().First(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)), PermissionContext.LanguagePreference));
+			return HandleQuery(session => 
+				GetUserDetails(session, session.Query<User>().ToArray()
+				.First(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))));
 
 		}
 

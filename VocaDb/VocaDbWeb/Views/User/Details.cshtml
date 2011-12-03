@@ -75,9 +75,15 @@
 <div id="tabs">
 
 	<ul>
+		<li><a href="#stats">Statistics</a></li>
 		<li><a href="#collection">Collection</a></li>
 		<li><a href="#favorites">Favorites</a></li>
 	</ul>
+
+	<div id="stats">
+		<p>Comments: @Model.CommentCount</p>
+		<p>Edits: @Model.EditCount</p>
+	</div>
 
 	<div id="collection">
 		<table>

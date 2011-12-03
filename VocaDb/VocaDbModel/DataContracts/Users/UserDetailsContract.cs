@@ -20,6 +20,10 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public AlbumForUserContract[] AlbumLinks { get; set; }
 
+		public int CommentCount { get; set; }
+
+		public int EditCount { get; set; }
+
 		public FavoriteSongForUserContract[] FavoriteSongs { get; set; }
 
 		public DateTime LastLogin { get; set; }
