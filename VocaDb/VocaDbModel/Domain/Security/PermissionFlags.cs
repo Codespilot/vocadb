@@ -42,8 +42,6 @@ namespace VocaDb.Model.Domain.Security {
 
 		ViewAuditLog		= 512,
 
-		Default			= (EditProfile | ManageDatabase)
-
 	}
 
 	public static class PermissionFlagsExtender {

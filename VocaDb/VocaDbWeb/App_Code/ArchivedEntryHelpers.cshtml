@@ -38,7 +38,7 @@
 }
 
 @helper ObjectRefList(string name, IEnumerable<ObjectRefContract> objRefs) {
-	DataRowList(name, DataFormatUtils.GenerateHtmlFromHelper(objRefs, ObjectRefInfo));
+	@DataRowList(name, DataFormatUtils.GenerateHtmlFromHelper(objRefs, ObjectRefInfo));
 }
 
 @helper PVInfo(ArchivedPVContract pv) {

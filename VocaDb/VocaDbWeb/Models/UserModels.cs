@@ -135,7 +135,7 @@ namespace VocaDb.Web.Models {
 			GroupId = contract.GroupId;
 			Id = contract.Id;
 			Name = contract.Name;
-			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing && p != PermissionFlags.Default)
+			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing)
 				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.HasFlag(p))).ToArray();
 
 		}
