@@ -51,7 +51,7 @@ namespace VocaDb.Web.Models.Artist {
 				Description = this.Description ?? string.Empty,
 				Draft = this.Draft,
 				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray(),
-				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { Description = WebLinkDescription, Url = WebLinkUrl } : null)
+				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { Description = WebLinkDescription ?? string.Empty, Url = WebLinkUrl } : null)
 			};
 
 		}

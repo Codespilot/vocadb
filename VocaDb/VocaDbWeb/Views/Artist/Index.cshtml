@@ -25,7 +25,7 @@
 @using (Html.BeginForm("Index", "Artist")) {
 	
 <p>
-	Filter: @Html.TextBoxFor(m => m.Filter) 
+	Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp; 
 	@Html.DropDownListFor(a => a.ArtistType, new SelectList(Model.FilterableArtistTypes, "Key", "Value", Model.ArtistType))
 	&nbsp;
