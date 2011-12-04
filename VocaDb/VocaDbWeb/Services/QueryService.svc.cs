@@ -23,13 +23,7 @@ namespace VocaDb.Web.Services {
 			}
 		}
 
-		/*[OperationContract]
-		public bool CheckAuthentication(string name, string pass) {
-
-			var result = Services.Users.CheckAuthentication(name, pass, null);
-
-		}*/
-
+		#region Common queries
 		[OperationContract]
 		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
 
@@ -46,6 +40,14 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public AlbumWithAdditionalNamesContract GetAlbumById(int id) {
+
+			var album = Services.Albums.GetAlbumWithAdditionalNames(id);
+			return album;
+
+		}
+
+		[OperationContract]
 		public ArtistDetailsContract GetArtistDetails(string term) {
 
 			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 1, false, false);
@@ -58,11 +60,30 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public ArtistWithAdditionalNamesContract GetArtistById(int id) {
+
+			var artist = Services.Artists.GetArtistWithAdditionalNames(id);
+			return artist;
+
+		}
+
+		[OperationContract]
+		public SongWithAdditionalNamesContract GetSongById(int id) {
+
+			var song = Services.Songs.GetSongWithAdditionalNames(id);
+			return song;
+
+		}
+		#endregion
+
+		#region MikuDB-specific queries (TODO: move elsewhere)
+		[OperationContract]
 		public LyricsForSongContract GetRandomSongLyrics() {
 
 			return Services.Songs.GetRandomSongWithLyricsDetails();
 
 		}
+		#endregion
 
 	}
 }
