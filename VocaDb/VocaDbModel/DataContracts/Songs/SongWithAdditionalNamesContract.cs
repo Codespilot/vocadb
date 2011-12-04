@@ -5,7 +5,7 @@ using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class SongWithAdditionalNamesContract : SongContract {
 
 		public SongWithAdditionalNamesContract(Song song, ContentLanguagePreference languagePreference)
