@@ -1,0 +1,10 @@
+﻿@model VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[]
+
+<ul>
+@foreach (var song in Model) {
+	<li>
+		@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })<br />
+		<span class="extraInfo">@song.ArtistString</span>
+	</li>
+}
+</ul>	

@@ -145,6 +145,7 @@
     <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
+    <Compile Include="DataContracts\Users\UserForMySettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Albums\AlbumArchiveReason.cs" />

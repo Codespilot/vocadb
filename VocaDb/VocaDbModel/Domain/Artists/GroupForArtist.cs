@@ -40,6 +40,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual void Delete() {
 
+			Group.AllMembers.Remove(this);
 			Member.AllGroups.Remove(this);
 
 		}

@@ -76,48 +76,21 @@
 
 	<ul>
 		<li><a href="#stats">Statistics</a></li>
-		<li><a href="#collection">Collection</a></li>
-		<li><a href="#favorites">Favorites</a></li>
+		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })" title="Collection"><span>Collection (@Model.AlbumCollectionCount)</span></a></li>
+		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>Favorite songs (@Model.FavoriteSongCount)</span></a></li>
 	</ul>
 
 	<div id="stats">
+		<p>Submissions: @Model.SubmitCount</p>
+		<p>Total edits: @Model.EditCount</p>
 		<p>Comments: @Model.CommentCount</p>
-		<p>Edits: @Model.EditCount</p>
+		<p>Tag votes: @Model.TagVotes</p>
 	</div>
 
-	<div id="collection">
-		<table>
-			<tr>
-				<th colspan="2">Album</th>
-				<th>Media type</th>
-			</tr>
-			@foreach (var album in Model.AlbumLinks) {
-			<tr>
-				<td>
-					<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
-				</td>
-				<td>
-					@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
-					<br />
-					<span class="extraInfo">@album.Album.ArtistString</span>
-				</td>
-				<td>
-					@Translate.MediaTypeName(album.MediaType)
-				</td>	
-			</tr>
-   }	
-		</table>
+	<div id="Collection">
 	</div>
 
-	<div id="favorites">
-		<ul>
-		@foreach (var song in Model.FavoriteSongs) {
-			<li>
-				@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })<br />
-				<span class="extraInfo">@song.Song.ArtistString</span>
-			</li>
-  }
-		</ul>	
+	<div id="Favorite_songs">
 	</div>
 </div>
 
@@ -125,7 +98,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>

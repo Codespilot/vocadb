@@ -12,6 +12,7 @@ namespace VocaDb.Web.Models.Artist {
 		public Create() {
 			ArtistType = ArtistType.Producer;
 			Description = string.Empty;
+			WebLinkDescription = string.Empty;
 		}
 
 		[Display(Name = "Please write a short description about this artist (optional, but recommended)")]
@@ -51,7 +52,9 @@ namespace VocaDb.Web.Models.Artist {
 				Description = this.Description ?? string.Empty,
 				Draft = this.Draft,
 				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray(),
-				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { Description = WebLinkDescription ?? string.Empty, Url = WebLinkUrl } : null)
+				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { 
+					Description = WebLinkDescription ?? string.Empty, Url = WebLinkUrl 
+				} : null)
 			};
 
 		}

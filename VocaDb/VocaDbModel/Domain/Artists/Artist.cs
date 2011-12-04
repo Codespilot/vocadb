@@ -221,6 +221,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 			var link = new GroupForArtist(grp, this);
 			AllGroups.Add(link);
+			grp.AllMembers.Add(link);
 
 			return link;
 
