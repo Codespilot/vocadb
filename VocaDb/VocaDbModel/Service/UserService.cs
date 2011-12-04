@@ -212,8 +212,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => 
 				session.Load<User>(userId)
-					.Albums.ToArray()
+					.Albums
 					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
+					.OrderBy(a => a.Album.Name)
 					.ToArray());
 
 		}
@@ -239,8 +240,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session =>
 				session.Load<User>(userId)
-					.FavoriteSongs.ToArray()
+					.FavoriteSongs
 					.Select(a => new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference))
+					.OrderBy(s => s.Name)
 					.ToArray());
 
 		}
