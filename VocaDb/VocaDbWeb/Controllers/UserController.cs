@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.Web.Helpers;
@@ -36,9 +35,25 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Users; }
 		}
 
-		private UserDetailsContract GetUserDetails() {
+		private UserForMySettingsContract GetUserForMySettings() {
 
-			return Service.GetUserDetails(LoginManager.LoggedUser.Id);
+			return Service.GetUserForMySettings(LoginManager.LoggedUser.Id);
+
+		}
+
+		public ActionResult AlbumCollection(int id) {
+
+			var albums = Service.GetAlbumCollection(id);
+
+			return PartialView(albums);
+
+		}
+
+		public ActionResult FavoriteSongs(int id) {
+
+			var songs = Service.GetFavoriteSongs(id);
+
+			return PartialView(songs);
 
 		}
 
@@ -255,7 +270,7 @@ namespace VocaDb.Web.Controllers
 
 			LoginManager.VerifyPermission(PermissionFlags.EditProfile);			
 
-			var user = GetUserDetails();
+			var user = GetUserForMySettings();
 
 			return View(new MySettingsModel(user));
 
@@ -270,14 +285,14 @@ namespace VocaDb.Web.Controllers
 				return new HttpStatusCodeResult(403);
 
 			if (!ModelState.IsValid)
-				return View(new MySettingsModel(GetUserDetails()));
+				return View(new MySettingsModel(GetUserForMySettings()));
 
 			if (!string.IsNullOrEmpty(model.Email)) {
 				try {
 					new MailAddress(model.Email);
 				} catch (FormatException) {
 					ModelState.AddModelError("Email", "Invalid email address");
-					return View(new MySettingsModel(GetUserDetails()));
+					return View(new MySettingsModel(GetUserForMySettings()));
 				}
 			}
 
@@ -288,7 +303,7 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("OldPass", x.Message);				
 			}
 
-			return View(new MySettingsModel(GetUserDetails()));
+			return View(new MySettingsModel(GetUserForMySettings()));
 
 		}
 
@@ -374,32 +389,6 @@ namespace VocaDb.Web.Controllers
 			Service.RemoveSongFromFavorites(LoggedUserId, songId);
 
 		}
-
-        //
-        // GET: /User/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /User/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
- 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
 		public ActionResult Disable(int id) {
 

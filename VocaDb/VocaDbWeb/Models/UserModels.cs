@@ -49,7 +49,7 @@ namespace VocaDb.Web.Models {
 
 		public MySettingsModel() {}
 
-		public MySettingsModel(UserDetailsContract user) {
+		public MySettingsModel(UserForMySettingsContract user) {
 			
 			ParamIs.NotNull(() => user);
 
@@ -61,7 +61,7 @@ namespace VocaDb.Web.Models {
 			Username = user.Name;
 
 			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
-			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, l => Translate.ContentLanguagePreferenceName(l));
+			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
 			AllVideoServices = EnumVal<PVService>.Values;
 
 		}

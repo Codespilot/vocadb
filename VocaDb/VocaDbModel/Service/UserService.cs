@@ -5,6 +5,8 @@ using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -12,6 +14,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Security;
@@ -24,7 +27,13 @@ namespace VocaDb.Model.Service {
 
 		private UserDetailsContract GetUserDetails(ISession session, User user) {
 
-			var details = new UserDetailsContract(user, PermissionContext.LanguagePreference);
+			var details = new UserDetailsContract(user);
+
+			details.AlbumCollectionCount
+				= session.Query<AlbumForUser>().Where(c => c.User == user && !c.Album.Deleted).Count();
+
+			details.FavoriteSongCount
+				= session.Query<FavoriteSongForUser>().Where(c => c.User == user && !c.Song.Deleted).Count();
 
 			details.CommentCount
 				= session.Query<AlbumComment>().Where(c => c.Author == user && !c.Album.Deleted).Count()
@@ -34,6 +43,14 @@ namespace VocaDb.Model.Service {
 				= session.Query<ArchivedAlbumVersion>().Where(c => c.Author == user && !c.Album.Deleted).Count()
 				+ session.Query<ArchivedArtistVersion>().Where(c => c.Author == user && !c.Artist.Deleted).Count()
 				+ session.Query<ArchivedSongVersion>().Where(c => c.Author == user && !c.Song.Deleted).Count();
+
+			details.SubmitCount
+				= session.Query<ArchivedAlbumVersion>().Where(c => c.Author == user && c.Version == 0 && !c.Album.Deleted).Count()
+				+ session.Query<ArchivedArtistVersion>().Where(c => c.Author == user && c.Version == 0 && !c.Artist.Deleted).Count()
+				+ session.Query<ArchivedSongVersion>().Where(c => c.Author == user && c.Version == 0 && !c.Song.Deleted).Count();
+
+			details.TagVotes
+				= session.Query<TagVote>().Where(t => t.User == user).Count();
 
 			return details;
 
@@ -191,6 +208,16 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumForUserContract[] GetAlbumCollection(int userId) {
+
+			return HandleQuery(session => 
+				session.Load<User>(userId)
+					.Albums.ToArray()
+					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
+					.ToArray());
+
+		}
+
 		public CommentContract[] GetComments(int userId) {
 
 			return HandleQuery(session => {
@@ -205,6 +232,16 @@ namespace VocaDb.Model.Service {
 				return comments.Select(c => new CommentContract(c)).ToArray();
 
 			});
+
+		}
+
+		public SongWithAdditionalNamesContract[] GetFavoriteSongs(int userId) {
+
+			return HandleQuery(session =>
+				session.Load<User>(userId)
+					.FavoriteSongs.ToArray()
+					.Select(a => new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference))
+					.ToArray());
 
 		}
 
@@ -244,6 +281,12 @@ namespace VocaDb.Model.Service {
 		public UserDetailsContract GetUserDetails(int id) {
 
 			return HandleQuery(session => GetUserDetails(session, session.Load<User>(id)));
+
+		}
+
+		public UserForMySettingsContract GetUserForMySettings(int id) {
+
+			return HandleQuery(session => new UserForMySettingsContract(session.Load<User>(id), PermissionContext.LanguagePreference));
 
 		}
 

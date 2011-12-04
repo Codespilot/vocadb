@@ -1,0 +1,24 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Users.AlbumForUserContract[]
+
+<table>
+	<tr>
+		<th colspan="2">Album</th>
+		<th>Media type</th>
+	</tr>
+	@foreach (var album in Model) {
+	<tr>
+		<td>
+			<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
+		</td>
+		<td>
+			@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
+			<br />
+			<span class="extraInfo">@album.Album.ArtistString</span>
+		</td>
+		<td>
+			@Translate.MediaTypeName(album.MediaType)
+		</td>	
+	</tr>
+}	
+</table>

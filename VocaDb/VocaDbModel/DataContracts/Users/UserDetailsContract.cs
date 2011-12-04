@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
@@ -9,24 +7,28 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public UserDetailsContract() {}
 
-		public UserDetailsContract(User user, ContentLanguagePreference languagePreference) 
+		public UserDetailsContract(User user) 
 			: base(user) {
 
-			AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
-			FavoriteSongs = user.FavoriteSongs.Select(f => new FavoriteSongForUserContract(f, languagePreference)).OrderBy(s => s.Song.Name).ToArray();
+			//AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
+			//FavoriteSongs = user.FavoriteSongs.Select(f => new FavoriteSongForUserContract(f, languagePreference)).OrderBy(s => s.Song.Name).ToArray();
 			LastLogin = user.LastLogin;
 
 		}
 
-		public AlbumForUserContract[] AlbumLinks { get; set; }
+		public int AlbumCollectionCount { get; set; }
 
 		public int CommentCount { get; set; }
 
 		public int EditCount { get; set; }
 
-		public FavoriteSongForUserContract[] FavoriteSongs { get; set; }
+		public int FavoriteSongCount { get; set; }
 
 		public DateTime LastLogin { get; set; }
+
+		public int SubmitCount { get; set; }
+
+		public int TagVotes { get; set; }
 
 	}
 }
