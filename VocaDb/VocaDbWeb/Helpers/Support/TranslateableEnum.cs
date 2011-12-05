@@ -33,6 +33,12 @@ namespace VocaDb.Web.Helpers.Support {
 			} 
 		}
 
+		public string GetAllNameNames(TEnum flags) {
+
+			return string.Join(", ", Values.Where(f => EnumVal<TEnum>.FlagIsSet(flags, f)).Select(f => GetName(f)));
+
+		}
+
 		public string GetName(TEnum val) {
 			return resourceManager().GetString(val.ToString());
 		}

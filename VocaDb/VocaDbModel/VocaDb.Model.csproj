@@ -118,6 +118,7 @@
     <Compile Include="DataContracts\PVs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageContract.cs" />
+    <Compile Include="DataContracts\UnifiedCommentContract.cs" />
     <Compile Include="DataContracts\UseCases\AlbumForArtistEditContract.cs" />
     <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />

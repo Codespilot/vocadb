@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
 using System;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Service {
 
@@ -111,6 +112,25 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				return entries;
+
+			});
+
+		}
+
+		public UnifiedCommentContract[] GetRecentComments() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+			const int maxComments = 50;
+
+			return HandleQuery(session => {
+
+				var albumComments = session.Query<AlbumComment>().Where(c => !c.Album.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
+				var artistComments = session.Query<ArtistComment>().Where(c => !c.Artist.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
+
+				var combined = albumComments.Select(c => new UnifiedCommentContract(c, PermissionContext.LanguagePreference)).Concat(
+					artistComments.Select(c => new UnifiedCommentContract(c, PermissionContext.LanguagePreference))).OrderByDescending(c => c.Created).Take(maxComments);
+
+				return combined.ToArray();
 
 			});
 

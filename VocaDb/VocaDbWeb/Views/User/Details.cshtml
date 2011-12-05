@@ -55,7 +55,7 @@
 		</tr>
 		<tr>
 			<td>Additional permissions</td>
-			<td>@Model.AdditionalPermissions</td>
+			<td>@Translate.PermissionFlagNames.GetAllNameNames(Model.AdditionalPermissions)</td>
 		</tr>
 	}
 	@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
@@ -65,7 +65,7 @@
 		</tr>
 		<tr>
 			<td>Effective permissions</td>
-			<td>@Model.EffectivePermissions</td>
+			<td>@Translate.PermissionFlagNames.GetAllNameNames(Model.EffectivePermissions)</td>
 		</tr>	 
 	}
 </table>

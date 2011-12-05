@@ -1,0 +1,23 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.Admin.CommentViewModel[]
+
+@{
+	ViewBag.Title = "Recent comments";
+}
+
+<table>
+	<tr>
+		<th>Time</th>
+		<th>Author</th>
+		<th>Target</th>
+		<th>Message</th>
+	</tr>
+@foreach (var comment in Model) {
+	<tr>
+		<td>@comment.Comment.Created</td>
+		<td>@Html.UserLink(comment.Comment.Author, comment.Comment.AuthorName)</td>
+		<td><a href="@comment.TargetUrl">@comment.TargetName</a></td>
+		<td>@Helpers.ConvertNewlinesToBreaks(comment.Comment.Message)</td>
+	</tr>
+}
+</table>
