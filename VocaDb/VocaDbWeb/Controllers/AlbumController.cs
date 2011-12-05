@@ -27,6 +27,14 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Albums; }
 		}
 
+		public ActionResult ArchivedVersionCoverPicture(int id) {
+
+			var contract = Service.GetArchivedAlbumPicture(id);
+
+			return Picture(contract);
+
+		}
+
 		[HttpPost]
 		public ActionResult CreatePVForAlbumByUrl(int albumId, string pvUrl) {
 

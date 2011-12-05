@@ -41,6 +41,14 @@
 	@DataRowList(name, DataFormatUtils.GenerateHtmlFromHelper(objRefs, ObjectRefInfo));
 }
 
+@helper PictureRow(string name, string url) {
+	<tr>
+		<td>@name</td>
+		<td><img src="@url" alt="@name" class="coverPic" /></td>
+	</tr>	
+
+}
+
 @helper PVInfo(ArchivedPVContract pv) {
 	<text>@pv.Service (@pv.PVType): @pv.PVId</text>
 }

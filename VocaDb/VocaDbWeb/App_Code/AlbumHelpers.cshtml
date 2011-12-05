@@ -3,13 +3,14 @@
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
 
-@helper PrintArchivedAlbumData(ArchivedAlbumContract data) {
+@helper PrintArchivedAlbumData(int archivedEntryId, ArchivedAlbumContract data) {
 
 	<fieldset>
 		<legend>Content</legend>
 	
 		<table>
-			@ArchivedEntryHelpers.DataRow("Id", data.Id)
+			@ArchivedEntryHelpers.DataRow("Album Id", data.Id)
+			@ArchivedEntryHelpers.PictureRow("Cover", Url.Action("ArchivedVersionCoverPicture", "Album", new { id = archivedEntryId }))
 			@ArchivedEntryHelpers.TranslatedNameRow(data.TranslatedName)
 			@ArchivedEntryHelpers.DataRowList("Names", DataFormatUtils.GenerateHtmlFromHelper(data.Names, ArchivedEntryHelpers.NameInfo))
 			@ArchivedEntryHelpers.DataRow("Description", data.Description)
