@@ -35,6 +35,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult ArchivedVersionPicture(int id) {
+
+			var contract = Service.GetArchivedArtistPicture(id);
+
+			return Picture(contract);
+
+		}
+
 		[HttpPost]
 		public PartialViewResult CreateArtistContractRow(int artistId) {
 
@@ -148,9 +156,7 @@ namespace VocaDb.Web.Controllers
 
 			var artist = Service.GetArtistPicture(id, Size.Empty);
 
-			Response.Cache.SetETag(string.Format("Artist{0}v{1}", id, artist.Version));
-
-			return Picture(artist.CoverPicture, artist.Name);
+			return Picture(artist);
 
 		}
 
@@ -158,9 +164,7 @@ namespace VocaDb.Web.Controllers
 
 			var artist = Service.GetArtistPicture(id, pictureThumbSize);
 
-			Response.Cache.SetETag(string.Format("Artist{0}v{1}t", id, artist.Version));
-
-			return Picture(artist.CoverPicture, artist.Name);
+			return Picture(artist);
 
 		}
 

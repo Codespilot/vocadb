@@ -1,10 +1,10 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.PermissionFlagEntry
 
+<p>
 @using (Html.BeginCollectionItem("permissions")) {
 	@Html.HiddenFor(m => m.PermissionType)
 	@Html.CheckBoxFor(m => m.HasFlag)
 	@Translate.PermissionFlagNames[Model.PermissionType]
 }
-
-<br />
+</p>

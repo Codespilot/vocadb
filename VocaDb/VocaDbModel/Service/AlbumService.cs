@@ -534,6 +534,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryForPictureDisplayContract GetArchivedAlbumPicture(int archivedVersionId) {
+
+			return HandleQuery(session =>
+				EntryForPictureDisplayContract.Create(session.Load<ArchivedAlbumVersion>(archivedVersionId)));
+
+		}
+
 		public CommentContract[] GetComments(int albumId) {
 
 			return HandleQuery(session => {
@@ -553,11 +560,10 @@ namespace VocaDb.Model.Service {
 		/// <param name="id">Album Id.</param>
 		/// <param name="requestedSize">Requested size. If Empty, original size will be returned.</param>
 		/// <returns>Data contract for the picture. Can be null if there is no picture.</returns>
-		public AlbumWithCoverPictureContract GetCoverPicture(int id, Size requestedSize) {
+		public EntryForPictureDisplayContract GetCoverPicture(int id, Size requestedSize) {
 
-			return HandleQuery(session => 
-				new AlbumWithCoverPictureContract(
-					session.Load<Album>(id), PermissionContext.LanguagePreference, requestedSize));
+			return HandleQuery(session =>
+				EntryForPictureDisplayContract.Create(session.Load<Album>(id), PermissionContext.LanguagePreference, requestedSize));
 
 		}
 
