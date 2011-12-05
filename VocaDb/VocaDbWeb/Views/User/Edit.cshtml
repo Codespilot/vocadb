@@ -12,20 +12,25 @@
 @using(Html.BeginForm()) {	
 	@Html.HiddenFor(m => m.Id)
 	
-	<p>
-		@Html.CheckBoxFor(m => m.Active)
-		<text>Active</text>
-	</p>
+	<fieldset>
+		<legend>Account settings</legend>
+		<p>
+			@Html.CheckBoxFor(m => m.Active)
+			<text>Active</text>
+		</p>
 
-	<p>
-	@Html.LabelFor(m => m.GroupId)
-	@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups)
-	</p>
+		<p>
+		@Html.LabelFor(m => m.GroupId)
+		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups)
+		</p>
+	</fieldset>
 	
-	<h3>Permissions</h3>
-	foreach (var entry in Model.Permissions) {	 
-		Html.RenderPartial("PermissionEditRow", entry);											 
-	}
+	<fieldset>
+		<legend>Additional permissions</legend>
+		foreach (var entry in Model.Permissions) {	 
+			Html.RenderPartial("PermissionEditRow", entry);											 
+		}
+	</fieldset>
 	
 	<input type="submit" value="Save" />
 	

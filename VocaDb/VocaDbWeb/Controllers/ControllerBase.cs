@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Security;
+using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model;
 
 namespace VocaDb.Web.Controllers {
 
@@ -15,6 +17,16 @@ namespace VocaDb.Web.Controllers {
 
 		protected LoginManager LoginManager {
 			get { return MvcApplication.LoginManager; }
+		}
+
+		protected ActionResult Picture(EntryForPictureDisplayContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			Response.Cache.SetETag(string.Format("Artist{0}{1}v{2}", contract.EntryType, contract.EntryId, contract.Version));
+
+			return Picture(contract.Picture, contract.Name);
+
 		}
 
 		protected ActionResult Picture(PictureContract pictureData, string title) {

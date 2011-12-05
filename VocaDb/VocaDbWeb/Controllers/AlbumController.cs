@@ -112,10 +112,7 @@ namespace VocaDb.Web.Controllers
 
 			var album = Service.GetCoverPicture(id, Size.Empty);
 
-			//Response.Cache.SetExpires(DateTime.Now + imageExpirationTime);
-			Response.Cache.SetETag(string.Format("Album{0}v{1}", id, album.Version));
-
-			return Picture(album.CoverPicture, album.Name);
+			return Picture(album);
 
 		}
 
@@ -123,10 +120,7 @@ namespace VocaDb.Web.Controllers
 
 			var album = Service.GetCoverPicture(id, pictureThumbSize);
 
-			//Response.Cache.SetExpires(DateTime.Now + imageExpirationTime);
-			Response.Cache.SetETag(string.Format("Album{0}v{1}t", id, album.Version));
-
-			return Picture(album.CoverPicture, album.Name);
+			return Picture(album);
 
 		}
 

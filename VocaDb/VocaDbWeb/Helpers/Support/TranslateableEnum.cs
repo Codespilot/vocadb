@@ -33,9 +33,9 @@ namespace VocaDb.Web.Helpers.Support {
 			} 
 		}
 
-		public string GetAllNameNames(TEnum flags) {
+		public string GetAllNameNames(TEnum flags, params TEnum[] except) {
 
-			return string.Join(", ", Values.Where(f => EnumVal<TEnum>.FlagIsSet(flags, f)).Select(f => GetName(f)));
+			return string.Join(", ", Values.Where(f => !except.Contains(f) && EnumVal<TEnum>.FlagIsSet(flags, f)).Select(f => GetName(f)));
 
 		}
 

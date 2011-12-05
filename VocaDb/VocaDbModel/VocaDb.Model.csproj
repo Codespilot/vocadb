@@ -121,6 +121,7 @@
     <Compile Include="DataContracts\UnifiedCommentContract.cs" />
     <Compile Include="DataContracts\UseCases\AlbumForArtistEditContract.cs" />
     <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
+    <Compile Include="DataContracts\UseCases\EntryForPictureDisplayContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
     <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
