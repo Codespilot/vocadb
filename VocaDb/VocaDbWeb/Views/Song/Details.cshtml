@@ -29,22 +29,27 @@
 	@Helpers.DraftMessage("glsongs")
 }
 
+@if (Model.PrimaryPV != null) {
+	using (Html.BeginPanel()) {
+		Html.RenderPartial("EmbeddedPV", Model.PrimaryPV);
+	}
+}
+
 <div id="tabs">
 
 	<ul>
 		<li><a href="#basicInfoTab">Basic info</a></li>
-		@if (Model.Lyrics.Any()) {
+		@if (Model.Lyrics.Length > 3) {
 		<li><a href="#lyricsTab">Lyrics</a></li>
+		} else {
+			foreach (var lyrics in Model.Lyrics) {
+				<li><a href="@("#lyricsTab_" + lyrics.Id)">@lyrics.Language lyrics</a></li>
+			}
 		}
 	</ul>
 
 	<div id="basicInfoTab">
 		<table>
-			@if (Model.PrimaryPV != null) {
-			<tr>
-				@{ Html.RenderPartial("EmbeddedPV", Model.PrimaryPV); }
-			</tr>
-			}
 			<tr>
 				<td>Name</td>
 				<td>
@@ -133,41 +138,33 @@
 					@Helpers.ConvertNewlinesToBreaks(Model.Notes)
 				</td>	
 			</tr>
-			}
-			
-			@if (Model.Lyrics.Any()) {
-				<tr>
-					<td>Lyrics</td>
-					<td>
-						<div id="lyricsAccordion">
-							@foreach (var lyrics in Model.Lyrics) {
-								<p><a href="#">@lyrics.Language</a></p>
-								<div>
-									@if (!string.IsNullOrEmpty(lyrics.Source)) {
-										<span>(from @lyrics.Source)</span><br /><br />
-									}
-
-									@Helpers.ConvertNewlinesToBreaks(lyrics.Value)
-								</div>
-							}
-						</div>
-					</td>
-				</tr>
-			}
+			}			
 		</table>
 	</div>
 
-	<div id="lyricsTab">
-	@foreach (var lyrics in Model.Lyrics) {
-		<h3><text>@lyrics.Language</text>
-		@if (!string.IsNullOrEmpty(lyrics.Source)) {
-			<text>(from @lyrics.Source)</text>
+	@if (Model.Lyrics.Length > 3) {
+		<div id="lyricsTab" style="height: 400px; overflow: scroll">
+		@foreach (var lyrics in Model.Lyrics) {
+			<h3>@lyrics.Language</h3>
+			if (!string.IsNullOrEmpty(lyrics.Source)) {
+				<p>(from @lyrics.Source)</p>
+			}
+			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
+			<hr />
 		}
-		</h3>
-		<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
-		<hr />
+		</div>
+	} else {
+
+		foreach (var lyrics in Model.Lyrics) {
+			<div id="@("lyricsTab_" + lyrics.Id)" style="height: 400px; overflow: scroll">
+			@if (!string.IsNullOrEmpty(lyrics.Source)) {
+				<p>(from @lyrics.Source)</p>
+			}
+			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
+			</div>
+		}
+	 	 	 
 	}
-	</div>
 </div>
 
 <script type="text/javascript" src="../../Scripts/Song/Details.js"></script>
