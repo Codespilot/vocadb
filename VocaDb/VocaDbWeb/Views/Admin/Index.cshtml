@@ -13,6 +13,9 @@
 @Html.ActionLink("View audit log", "ViewAuditLog")
 </p>
 }
+@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
+<p>@Html.ActionLink("View recent comments", "RecentComments")</p>	
+}
 <br />
 
 @if (Login.Manager.HasPermission(PermissionFlags.Admin)) {

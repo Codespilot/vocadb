@@ -1,15 +1,35 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using NHibernate.Mapping;
 using NHibernate.Persister.Collection;
 using NHibernate.Persister.Entity;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
+using VocaDb.Web.Models.Admin;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Web.Controllers
 {
     public class AdminController : ControllerBase
     {
+
+		private CommentViewModel CreateCommentView(UnifiedCommentContract contract) {
+
+			string name;
+			string url;
+
+			if (contract.Album != null) {
+				name = contract.Album.Name;
+				url = Url.Action("Details", "Album", new { id = contract.Album.Id });
+			} else {
+				name = contract.Artist.Name;
+				url = Url.Action("Details", "Artist", new { id = contract.Artist.Id });
+			}
+
+			return new CommentViewModel(contract, name, url);
+				
+		}
 
     	private AdminService Service {
 			get { return MvcApplication.Services.Admin; }
@@ -32,6 +52,15 @@ namespace VocaDb.Web.Controllers
 			Service.GeneratePictureThumbs();
 
 			return RedirectToAction("Index");
+
+		}
+
+		public ActionResult RecentComments() {
+
+			var comments = Service.GetRecentComments();
+			var models = comments.Select(c => CreateCommentView(c)).ToArray();
+
+			return View(models);
 
 		}
 

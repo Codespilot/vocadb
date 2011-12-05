@@ -122,6 +122,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscTypeNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\PermissionFlagNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PermissionFlagNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -171,6 +176,7 @@
     <Compile Include="Helpers\TempDataExtender.cs" />
     <Compile Include="Helpers\Translate.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
+    <Compile Include="Models\Admin\CommentViewModel.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />
@@ -729,6 +735,7 @@
     <Content Include="Views\Song\ViewVersion.cshtml" />
     <Content Include="Views\User\AlbumCollection.cshtml" />
     <Content Include="Views\User\FavoriteSongs.cshtml" />
+    <Content Include="Views\Admin\RecentComments.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
@@ -797,6 +804,12 @@
     <Content Include="App_GlobalResources\UserGroupNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UserGroupNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\PermissionFlagNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PermissionFlagNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@
 @using (Html.BeginCollectionItem("permissions")) {
 	@Html.HiddenFor(m => m.PermissionType)
 	@Html.CheckBoxFor(m => m.HasFlag)
-	@Html.DisplayFor(m => m.PermissionType)
+	@Translate.PermissionFlagNames[Model.PermissionType]
 }
 
 <br />
