@@ -460,6 +460,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public int? FindByMikuDbId(int mikuDbId) {
+
+			return HandleQuery(session => {
+
+				var link = session.Query<AlbumWebLink>().FirstOrDefault(w => w.Url.Contains("mikudb.com/" + mikuDbId + "/"));
+
+				return (link != null ? (int?)link.Album.Id : null);
+
+			});
+
+		}
+
 		public AlbumWithAdditionalNamesContract FindByNames(string[] query) {
 
 			return HandleQuery(session => {

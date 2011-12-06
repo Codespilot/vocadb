@@ -16,18 +16,16 @@
 		<legend>Account settings</legend>
 		<p>
 			@Html.CheckBoxFor(m => m.Active)
-			<text>Active</text>
+			Active
 		</p>
 
-		<p>
 		@Html.LabelFor(m => m.GroupId)
 		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups)
-		</p>
 	</fieldset>
 	
 	<fieldset>
 		<legend>Additional permissions</legend>
-		foreach (var entry in Model.Permissions) {	 
+		@foreach (var entry in Model.Permissions) {	 
 			Html.RenderPartial("PermissionEditRow", entry);											 
 		}
 	</fieldset>
