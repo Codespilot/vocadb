@@ -93,6 +93,23 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult MikuDbRedirect(int id) {
+
+			var albumId = Service.FindByMikuDbId(id);
+
+			if (albumId == null) {
+
+				TempData.SetStatusMessage("Sorry, album not found! Maybe it hasn't been imported yet.");
+				return RedirectToAction("Index", "Home");
+
+			} else {
+
+				return RedirectToAction("Details", new { id = albumId });
+
+			}
+
+		}
+
         //
         // GET: /Album/Details/5
 
