@@ -358,7 +358,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual ArchivedAlbumVersion GetLatestVersionWithField(AlbumEditableFields field, int lastVersion) {
 
 			return ArchivedVersions
-				.Where(a => a.Version <= lastVersion && a.Diff != null && (a.Diff.IsIncluded(field) || a.Diff.IsSnapshot))
+				.Where(a => a.Version <= lastVersion && a.Diff != null && (a.Diff.IsIncluded(field)))
 				.OrderByDescending(m => m.Version)
 				.FirstOrDefault();
 
