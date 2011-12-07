@@ -62,12 +62,13 @@ namespace VocaDb.Model.Service {
 					if (inspectedTrack.ExistingSong == null || !selectedSongIds.Contains(inspectedTrack.ExistingSong.Id)) {
 
 						song = new Song(inspectedTrack.ImportedTrack.Title);
+						session.Save(song);
 						album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum, inspectedTrack.ImportedTrack.DiscNum);
 
 						Services.Songs.Archive(session, song, SongArchiveReason.AutoImportedFromMikuDb, 
 							"Auto-imported from MikuDB for album '" + album.DefaultName + "'");
 
-						session.Save(song);
+						session.Update(song);
 
 					} else {
 						song = session.Load<Song>(inspectedTrack.ExistingSong.Id);
