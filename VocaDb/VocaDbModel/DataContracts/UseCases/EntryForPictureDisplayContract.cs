@@ -32,7 +32,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 			var data = XmlHelper.DeserializeFromXml<ArchivedAlbumContract>(archivedVersion.Data);
 			var name = data.TranslatedName.Default;
-			PictureContract pic;
+			PictureContract pic = null;
 
 			if (archivedVersion.CoverPicture != null) {
 				pic = new PictureContract(archivedVersion.CoverPicture, Size.Empty);
