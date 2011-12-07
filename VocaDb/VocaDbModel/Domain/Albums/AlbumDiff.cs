@@ -5,15 +5,11 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class AlbumDiff : IEntryDiff {
 
-		private bool IsSet(AlbumEditableFields field) {
-			return ChangedFields.HasFlag(field);
-		}
-
 		private void Set(AlbumEditableFields field, bool val) {
 
-			if (val && !IsSet(field))
+			if (val && !IsChanged(field))
 				ChangedFields |= field;
-			else if (!val && IsSet(field))
+			else if (!val && IsChanged(field))
 				ChangedFields -= field;
 
 		}
@@ -27,7 +23,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool Artists {
 			get {
-				return IsSet(AlbumEditableFields.Artists);
+				return IsChanged(AlbumEditableFields.Artists);
 			}
 			set {
 				Set(AlbumEditableFields.Artists, value);
@@ -38,7 +34,7 @@ namespace VocaDb.Model.Domain.Albums {
 			get {
 
 				var fieldNames = EnumVal<AlbumEditableFields>.Values
-					.Where(f => f != AlbumEditableFields.Nothing && IsSet(f)).Select(f => f.ToString());
+					.Where(f => f != AlbumEditableFields.Nothing && IsChanged(f)).Select(f => f.ToString());
 
 				return fieldNames.ToArray();
 
@@ -48,7 +44,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual string ChangedFieldsString {
 			get {
 
-				var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(f => f != AlbumEditableFields.Nothing && IsSet(f));
+				var fieldNames = EnumVal<AlbumEditableFields>.Values.Where(f => f != AlbumEditableFields.Nothing && IsChanged(f));
 				return string.Join(",", fieldNames);
 
 			}
@@ -74,7 +70,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool Cover {
 			get {
-				return IsSet(AlbumEditableFields.Cover);
+				return IsChanged(AlbumEditableFields.Cover);
 			}
 			set {
 				Set(AlbumEditableFields.Cover, value);
@@ -83,7 +79,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool Description {
 			get {
-				return IsSet(AlbumEditableFields.Description);
+				return IsChanged(AlbumEditableFields.Description);
 			}
 			set {
 				Set(AlbumEditableFields.Description, value);
@@ -92,7 +88,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool DiscType {
 			get {
-				return IsSet(AlbumEditableFields.DiscType);
+				return IsChanged(AlbumEditableFields.DiscType);
 			}
 			set {
 				Set(AlbumEditableFields.DiscType, value);
@@ -140,7 +136,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool Names {
 			get {
-				return IsSet(AlbumEditableFields.Names);
+				return IsChanged(AlbumEditableFields.Names);
 			}
 			set {
 				Set(AlbumEditableFields.Names, value);
@@ -149,7 +145,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool OriginalName {
 			get {
-				return IsSet(AlbumEditableFields.OriginalName);
+				return IsChanged(AlbumEditableFields.OriginalName);
 			}
 			set {
 				Set(AlbumEditableFields.OriginalName, value);
@@ -158,7 +154,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool OriginalRelease {
 			get {
-				return IsSet(AlbumEditableFields.OriginalRelease);
+				return IsChanged(AlbumEditableFields.OriginalRelease);
 			}
 			set {
 				Set(AlbumEditableFields.OriginalRelease, value);
@@ -167,7 +163,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool Status {
 			get {
-				return IsSet(AlbumEditableFields.Status);
+				return IsChanged(AlbumEditableFields.Status);
 			}
 			set {
 				Set(AlbumEditableFields.Status, value);
@@ -176,7 +172,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool Tracks {
 			get {
-				return IsSet(AlbumEditableFields.Tracks);
+				return IsChanged(AlbumEditableFields.Tracks);
 			}
 			set {
 				Set(AlbumEditableFields.Tracks, value);
@@ -185,11 +181,35 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool WebLinks {
 			get {
-				return IsSet(AlbumEditableFields.WebLinks);
+				return IsChanged(AlbumEditableFields.WebLinks);
 			}
 			set {
 				Set(AlbumEditableFields.WebLinks, value);
 			}		
+		}
+
+		/// <summary>
+		/// Checks whether a specific field changed in this diff.
+		/// </summary>
+		/// <param name="field">Field to be checked.</param>
+		/// <returns>True if the field was changed, otherwise false.</returns>
+		public bool IsChanged(AlbumEditableFields field) {
+			return ChangedFields.HasFlag(field);
+		}
+
+		/// <summary>
+		/// Checks whether a specific field is included in this diff.
+		/// </summary>
+		/// <param name="field">Field to be checked.</param>
+		/// <returns>True if the field is included, otherwise false.</returns><
+		/// <remarks>
+		/// Snapshots include all fields except the Cover.
+		/// Other fields are commonly included only they are changed.
+		/// </remarks>
+		public bool IsIncluded(AlbumEditableFields field) {
+
+			return (field != AlbumEditableFields.Cover ? (IsSnapshot || IsChanged(field)) : IncludeCover);
+
 		}
 
 	}

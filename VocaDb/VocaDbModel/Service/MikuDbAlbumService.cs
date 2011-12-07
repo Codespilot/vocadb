@@ -29,11 +29,13 @@ namespace VocaDb.Model.Service {
 			AuditLog(string.Format("accepting imported album '{0}'", acceptedAlbum.ImportedAlbum.Title), session);
 
 			Album album;
+			var diff = new AlbumDiff();
 
 			if (acceptedAlbum.ExistingAlbum == null) {
 
 				album = new Album(acceptedAlbum.ImportedAlbum.Title);
 				album.DiscType = DiscType.Unknown;
+				diff.Names = true;
 				session.Save(album);
 
 			} else {
@@ -44,8 +46,10 @@ namespace VocaDb.Model.Service {
 
 				var artist = session.Load<Artist>(inspectedArtist.ExistingArtist.Id);
 
-				if (!artist.HasAlbum(album))
+				if (!artist.HasAlbum(album)) {
 					session.Save(artist.AddAlbum(album));
+					diff.Artists = true;
+				}
 
 			}
 
@@ -72,6 +76,8 @@ namespace VocaDb.Model.Service {
 					}
 
 				}
+
+				diff.Tracks = true;
 	
 			}
 
@@ -80,16 +86,21 @@ namespace VocaDb.Model.Service {
 
 			if (importedAlbum.CoverPicture != null && album.CoverPicture == null) {
 				album.CoverPicture = importedAlbum.CoverPicture;
+				diff.Cover = true;
 			}
 
-			if (acceptedAlbum.ImportedAlbum.Data.ReleaseYear != null && album.OriginalReleaseDate.Year == null)
+			if (acceptedAlbum.ImportedAlbum.Data.ReleaseYear != null && album.OriginalReleaseDate.Year == null) {
 				album.OriginalReleaseDate.Year = acceptedAlbum.ImportedAlbum.Data.ReleaseYear;
+				diff.OriginalRelease = true;
+			}
 
-			if (!album.WebLinks.Any(w => w.Url.Contains("mikudb.com")))
+			if (!album.WebLinks.Any(w => w.Url.Contains("mikudb.com"))) {
 				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl);
+				diff.WebLinks = true;
+			}
 
 			album.UpdateArtistString();
-			Services.Albums.Archive(session, album, new AlbumDiff { Cover = true }, AlbumArchiveReason.AutoImportedFromMikuDb);
+			Services.Albums.Archive(session, album, diff, AlbumArchiveReason.AutoImportedFromMikuDb);
 
 			session.Update(album);
 			session.Update(importedAlbum);

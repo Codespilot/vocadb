@@ -9,6 +9,11 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public static ArchivedAlbumVersion Create(Album album, AlbumDiff diff, AgentLoginData author, AlbumArchiveReason reason, string notes) {
 
+			ParamIs.NotNull(() => album);
+			ParamIs.NotNull(() => diff);
+			ParamIs.NotNull(() => author);
+			ParamIs.NotNull(() => notes);
+
 			var contract = new ArchivedAlbumContract(album, diff);
 			var data = XmlHelper.SerializeToXml(contract);
 
@@ -28,6 +33,8 @@ namespace VocaDb.Model.Domain.Albums {
 			AlbumArchiveReason reason, string notes)
 			: base(data, author, version, status, notes) {
 
+			ParamIs.NotNull(() => diff);
+
 			Album = album;
 			Diff = diff;
 			Reason = reason;
@@ -38,11 +45,12 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		/// <summary>
-		/// Album associated with this revision. Can be null.
+		/// Album associated with this revision. Cannot be null.
 		/// </summary>
 		public virtual Album Album {
 			get { return album; }
 			protected set {
+				ParamIs.NotNull(() => value);
 				album = value;
 			}
 		}

@@ -355,6 +355,15 @@ namespace VocaDb.Model.Domain.Albums {
 			return ArchivedVersions.OrderByDescending(m => m.Created).FirstOrDefault();
 		}
 
+		public virtual ArchivedAlbumVersion GetLatestVersionWithField(AlbumEditableFields field, int lastVersion) {
+
+			return ArchivedVersions
+				.Where(a => a.Version <= lastVersion && a.Diff != null && (a.Diff.IsIncluded(field) || a.Diff.IsSnapshot))
+				.OrderByDescending(m => m.Version)
+				.FirstOrDefault();
+
+		}
+
 		public virtual bool HasArtist(Artist artist) {
 
 			ParamIs.NotNull(() => artist);
