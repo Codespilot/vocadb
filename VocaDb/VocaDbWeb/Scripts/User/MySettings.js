@@ -31,10 +31,15 @@ function initPage(userId) {
 
 			});
 
-			//addOption(albumList, "", "Create new album named '" + findTerm + "'");
-
 		});
 
+	});
+
+	$("input#albumAddName").bind("paste", function (e) {
+		var elem = $(this);
+		setTimeout(function () {
+			$(elem).trigger("keyup");
+		}, 0);
 	});
 
 	$("#albumAddBtn").click(function () {
