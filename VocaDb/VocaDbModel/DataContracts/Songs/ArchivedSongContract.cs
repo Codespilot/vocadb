@@ -1,13 +1,50 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArchivedSongContract {
+
+		private static void DoIfExists(ArchivedSongVersion version, SongEditableFields field,
+			XmlCache<ArchivedSongContract> xmlCache, Action<ArchivedSongContract> func) {
+
+			var versionWithField = version.GetLatestVersionWithField(field);
+
+			if (versionWithField != null && versionWithField.Data != null) {
+				var data = xmlCache.Deserialize(versionWithField.Version, versionWithField.Data);
+				func(data);
+			}
+
+		}
+
+		public static ArchivedSongContract GetAllProperties(ArchivedSongVersion version) {
+
+			var data = new ArchivedSongContract();
+			var xmlCache = new XmlCache<ArchivedSongContract>();
+			var thisVersion = xmlCache.Deserialize(version.Version, version.Data);
+
+			data.Id = thisVersion.Id;
+			data.NicoId = thisVersion.NicoId;
+			data.Notes = thisVersion.Notes;
+			data.OriginalVersion = thisVersion.OriginalVersion;
+			data.SongType = thisVersion.SongType;
+			data.TranslatedName = thisVersion.TranslatedName;
+
+			DoIfExists(version, SongEditableFields.Artists, xmlCache, v => data.Artists = v.Artists);
+			DoIfExists(version, SongEditableFields.Lyrics, xmlCache, v => data.Lyrics = v.Lyrics);
+			DoIfExists(version, SongEditableFields.Names, xmlCache, v => data.Names = v.Names);
+			DoIfExists(version, SongEditableFields.PVs, xmlCache, v => data.PVs = v.PVs);
+			DoIfExists(version, SongEditableFields.WebLinks, xmlCache, v => data.WebLinks = v.WebLinks);
+
+			return data;
+
+		}
 
 		public ArchivedSongContract() { }
 
@@ -25,7 +62,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 			OriginalVersion = (song.OriginalVersion != null ? new ObjectRefContract(song.OriginalVersion) : null);
 			PVs = (diff.IncludePVs ? song.PVs.Select(p => new ArchivedPVContract(p)).ToArray() : null);
 			SongType = song.SongType;
-			Status = song.Status;
 			TranslatedName = new ArchivedTranslatedStringContract(song.TranslatedName);
 			WebLinks = (diff.IncludeWebLinks ? song.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray() : null);
 			
@@ -57,9 +93,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public SongType SongType { get; set; }
-
-		[DataMember]
-		public EntryStatus Status { get; set; }
 
 		[DataMember]
 		public ArchivedTranslatedStringContract TranslatedName { get; set; }

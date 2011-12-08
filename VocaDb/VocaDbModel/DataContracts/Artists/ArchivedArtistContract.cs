@@ -2,11 +2,45 @@
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Artists;
 using System;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArchivedArtistContract {
+
+		private static void DoIfExists(ArchivedArtistVersion version, ArtistEditableFields field, 
+			XmlCache<ArchivedArtistContract> xmlCache, Action<ArchivedArtistContract> func) {
+
+			var versionWithField = version.GetLatestVersionWithField(field);
+
+			if (versionWithField != null && versionWithField.Data != null) {
+				var data = xmlCache.Deserialize(versionWithField.Version, versionWithField.Data);
+				func(data);
+			}
+
+		}
+
+		public static ArchivedArtistContract GetAllProperties(ArchivedArtistVersion version) {
+
+			var data = new ArchivedArtistContract();
+			var xmlCache = new XmlCache<ArchivedArtistContract>();
+			var thisVersion = xmlCache.Deserialize(version.Version, version.Data);
+
+			data.ArtistType = thisVersion.ArtistType;
+			data.Groups = thisVersion.Groups;
+			data.Id = thisVersion.Id;
+			data.Members = thisVersion.Members;
+			data.TranslatedName = thisVersion.TranslatedName;
+
+			DoIfExists(version, ArtistEditableFields.Albums, xmlCache, v => data.Albums = v.Albums);
+			DoIfExists(version, ArtistEditableFields.Description, xmlCache, v => data.Description = v.Description);
+			DoIfExists(version, ArtistEditableFields.Names, xmlCache, v => data.Names = v.Names);
+			DoIfExists(version, ArtistEditableFields.WebLinks, xmlCache, v => data.WebLinks = v.WebLinks);
+
+			return data;
+
+		}
 
 		public ArchivedArtistContract() {}
 
@@ -21,9 +55,6 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Group)).ToArray();
 			Members = artist.Members.Select(m => new ObjectRefContract(m.Member)).ToArray();
 			Names = (diff.IncludeNames ? artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
-			//Picture = (diff.IncludePicture && artist.Picture != null ? new PictureDataContract(artist.Picture) : null);
-			//Songs = artist.Songs.Select(s => new ObjectRefContract(s.Song)).ToArray();
-			//StartDate = artist.StartDate;
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			WebLinks = (diff.IncludeWebLinks ? artist.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray() : null);
 
