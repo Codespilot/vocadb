@@ -11,17 +11,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public ArchivedAlbumVersionDetailsContract(ArchivedAlbumVersion archived, ContentLanguagePreference languagePreference)
 			: base(archived) {
 
-			Album = (archived.Album != null ? new AlbumContract(archived.Album, languagePreference) : null);
-			Data = XmlHelper.DeserializeFromXml<ArchivedAlbumContract>(archived.Data);
+			Album = new AlbumContract(archived.Album, languagePreference);
+			Data = ArchivedAlbumContract.GetAllProperties(archived);
 
-			if (Album != null) {
-				Name = Album.Name;
-			} else if (Data.TranslatedName != null) {
-
-				var translatedName = new TranslatedString(Data.TranslatedName);
-				Name = translatedName[languagePreference];
-
-			}
+			Name = Album.Name;
 
 		}
 

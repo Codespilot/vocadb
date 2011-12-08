@@ -3,11 +3,46 @@ using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Helpers;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArchivedAlbumContract {
+
+		private static void DoIfExists(ArchivedAlbumVersion version, AlbumEditableFields field, XmlCache<ArchivedAlbumContract> xmlCache, Action<ArchivedAlbumContract> func) {
+
+			var versionWithField = version.GetLatestVersionWithField(field);
+
+			if (versionWithField != null && versionWithField.Data != null) {
+				var data = xmlCache.Deserialize(versionWithField.Version, versionWithField.Data);
+				func(data);
+			}
+
+		}
+
+		public static ArchivedAlbumContract GetAllProperties(ArchivedAlbumVersion version) {
+
+			var data = new ArchivedAlbumContract();
+			var xmlCache = new XmlCache<ArchivedAlbumContract>();
+			var thisVersion = xmlCache.Deserialize(version.Version, version.Data);
+
+			data.DiscType = thisVersion.DiscType;
+			data.Id = thisVersion.Id;
+			data.PVs = thisVersion.PVs;
+			data.TranslatedName = thisVersion.TranslatedName;
+
+			DoIfExists(version, AlbumEditableFields.Artists, xmlCache, v => data.Artists = v.Artists);
+			DoIfExists(version, AlbumEditableFields.Description, xmlCache, v => data.Description = v.Description);
+			DoIfExists(version, AlbumEditableFields.OriginalRelease, xmlCache, v => data.OriginalRelease = v.OriginalRelease);
+			DoIfExists(version, AlbumEditableFields.Names, xmlCache, v => data.Names = v.Names);
+			DoIfExists(version, AlbumEditableFields.Tracks, xmlCache, v => data.Songs = v.Songs);
+			DoIfExists(version, AlbumEditableFields.WebLinks, xmlCache, v => data.WebLinks = v.WebLinks);
+
+			return data;
+
+		}
 
 		public ArchivedAlbumContract() { }
 

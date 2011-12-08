@@ -2,10 +2,11 @@
 using VocaDb.Model.DataContracts.Albums;
 using System.Xml.Linq;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ArchivedAlbumVersion : ArchivedObjectVersion {
+	public class ArchivedAlbumVersion : ArchivedObjectVersion, IArchivedObjectVersionWithFields<AlbumEditableFields> {
 
 		public static ArchivedAlbumVersion Create(Album album, AlbumDiff diff, AgentLoginData author, AlbumArchiveReason reason, string notes) {
 
@@ -67,6 +68,19 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual AlbumArchiveReason Reason { get; set; }
+
+		public ArchivedAlbumVersion GetLatestVersionWithField(AlbumEditableFields field) {
+
+			if (IsIncluded(field))
+				return this;
+
+			return Album.ArchivedVersionsManager.GetLatestVersionWithField(AlbumEditableFields.Cover, Version);
+
+		}
+
+		public bool IsIncluded(AlbumEditableFields field) {
+			return (Diff != null && Data != null && Diff.IsIncluded(field));
+		}
 
 	}
 

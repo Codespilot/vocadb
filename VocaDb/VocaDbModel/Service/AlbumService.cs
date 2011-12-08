@@ -811,7 +811,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(properties.Id);
-				var diff = new AlbumDiff(DoSnapshot(album.GetLatestVersion()));
+				var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion()));
 
 				AuditLog(string.Format("updating properties for {0}", album));
 
