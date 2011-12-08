@@ -11,12 +11,14 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.Domain.Albums {
 
 	public class Album : IEntryBase, IEntryWithNames, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
-		private IList<ArchivedAlbumVersion> archivedVersions = new List<ArchivedAlbumVersion>();
+		private ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields> archivedVersions 
+			= new ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields>();
 		private TranslatedString artistString;
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
 		private IList<AlbumComment> comments = new List<AlbumComment>();
@@ -84,7 +86,7 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual IList<ArchivedAlbumVersion> ArchivedVersions {
+		public virtual ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields> ArchivedVersionsManager {
 			get { return archivedVersions; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -259,7 +261,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual ArchivedAlbumVersion CreateArchivedVersion(XDocument data, AlbumDiff diff, AgentLoginData author, AlbumArchiveReason reason, string notes) {
 
 			var archived = new ArchivedAlbumVersion(this, data, diff, author, Version, Status, reason, notes);
-			ArchivedVersions.Add(archived);
+			ArchivedVersionsManager.Add(archived);
 			Version++;
 
 			return archived;
@@ -349,19 +351,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public override int GetHashCode() {
 			return base.GetHashCode();
-		}
-
-		public virtual ArchivedAlbumVersion GetLatestVersion() {
-			return ArchivedVersions.OrderByDescending(m => m.Created).FirstOrDefault();
-		}
-
-		public virtual ArchivedAlbumVersion GetLatestVersionWithField(AlbumEditableFields field, int lastVersion) {
-
-			return ArchivedVersions
-				.Where(a => a.Version <= lastVersion && a.Diff != null && (a.Diff.IsIncluded(field)))
-				.OrderByDescending(m => m.Version)
-				.FirstOrDefault();
-
 		}
 
 		public virtual bool HasArtist(Artist artist) {

@@ -156,6 +156,7 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />
     <Compile Include="Domain\Artists\ArtistArchiveReason.cs" />
     <Compile Include="Domain\Artists\ArtistComment.cs" />
     <Compile Include="Domain\Artists\ArtistEditableFields.cs" />
@@ -165,7 +166,8 @@
     <Compile Include="Domain\EntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\Globalization\INameManager.cs" />
-    <Compile Include="Domain\IEntryDiff.cs" />
+    <Compile Include="Domain\Versioning\IArchivedObjectVersionWithFields.cs" />
+    <Compile Include="Domain\Versioning\IEntryDiff.cs" />
     <Compile Include="Domain\IEntryWithNames.cs" />
     <Compile Include="Domain\PVs\PV.cs" />
     <Compile Include="Domain\Songs\AlternateVersionForSong.cs" />
@@ -200,7 +202,7 @@
     <Compile Include="Domain\MikuDb\AlbumStatus.cs" />
     <Compile Include="Domain\MikuDb\MikuDbAlbum.cs" />
     <Compile Include="Domain\Security\AgentLoginData.cs" />
-    <Compile Include="Domain\ArchivedObjectVersion.cs" />
+    <Compile Include="Domain\Versioning\ArchivedObjectVersion.cs" />
     <Compile Include="Domain\Artists\Artist.cs" />
     <Compile Include="Domain\Artists\ArtistName.cs" />
     <Compile Include="Domain\Artists\ArtistType.cs" />
@@ -340,6 +342,7 @@
     <Compile Include="Service\SongService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Service\VideoServices\VideoUrlParseResult.cs" />
+    <Compile Include="Utils\XmlCache.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

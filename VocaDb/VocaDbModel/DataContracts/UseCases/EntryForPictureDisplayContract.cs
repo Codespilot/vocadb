@@ -32,18 +32,11 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 			var data = XmlHelper.DeserializeFromXml<ArchivedAlbumContract>(archivedVersion.Data);
 			var name = data.TranslatedName.Default;
+			var versionWithPic = archivedVersion.GetLatestVersionWithField(AlbumEditableFields.Cover);
 			PictureContract pic = null;
 
-			if (archivedVersion.CoverPicture != null) {
-				pic = new PictureContract(archivedVersion.CoverPicture, Size.Empty);
-			} else {
-
-				var versionWithPic = archivedVersion.Album.GetLatestVersionWithField(AlbumEditableFields.Cover, archivedVersion.Version);
-
-				if (versionWithPic != null && versionWithPic.CoverPicture != null)
-					pic = new PictureContract(versionWithPic.CoverPicture, Size.Empty);
-
-			}
+			if (versionWithPic != null && versionWithPic.CoverPicture != null)
+				pic = new PictureContract(versionWithPic.CoverPicture, Size.Empty);
 
 			return new EntryForPictureDisplayContract(EntryType.Album, data.Id, name, archivedVersion.Version, pic);
 
