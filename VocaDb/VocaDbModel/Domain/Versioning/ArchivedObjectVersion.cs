@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 
-namespace VocaDb.Model.Domain {
+namespace VocaDb.Model.Domain.Versioning {
 
 	public abstract class ArchivedObjectVersion {
 

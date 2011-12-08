@@ -1,6 +1,7 @@
 ﻿using System;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.DataContracts {
 

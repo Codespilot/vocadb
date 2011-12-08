@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Globalization;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
 
@@ -17,7 +18,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
 		private IList<Song> alternateVersions = new List<Song>();
-		private IList<ArchivedSongVersion> archivedVersions = new List<ArchivedSongVersion>();
+		private ArchivedVersionManager<ArchivedSongVersion, SongEditableFields> archivedVersions
+			= new ArchivedVersionManager<ArchivedSongVersion, SongEditableFields>();
 		private TranslatedString artistString;
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
@@ -112,7 +114,7 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual IList<ArchivedSongVersion> ArchivedVersions {
+		public virtual ArchivedVersionManager<ArchivedSongVersion, SongEditableFields> ArchivedVersionsManager {
 			get { return archivedVersions; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -252,7 +254,7 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, SongDiff diff, AgentLoginData author, SongArchiveReason reason, string notes) {
 
 			var archived = new ArchivedSongVersion(this, data, diff, author, Version, Status, reason, notes);
-			ArchivedVersions.Add(archived);
+			ArchivedVersionsManager.Add(archived);
 			Version++;
 
 			return archived;
@@ -346,7 +348,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public virtual ArchivedSongVersion GetLatestVersion() {
-			return ArchivedVersions.OrderByDescending(m => m.Created).FirstOrDefault();
+			return ArchivedVersionsManager.GetLatestVersion();
 		}
 
 		public virtual bool HasArtist(Artist artist) {

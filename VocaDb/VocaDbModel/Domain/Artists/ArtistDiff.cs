@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Linq;
+using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.Domain.Artists {
 
 	public class ArtistDiff : IEntryDiff {
 
-		private bool IsSet(ArtistEditableFields field) {
+		private bool IsChanged(ArtistEditableFields field) {
 			return ChangedFields.HasFlag(field);
 		}
 
 		private void Set(ArtistEditableFields field, bool val) {
 
-			if (val && !IsSet(field))
+			if (val && !IsChanged(field))
 				ChangedFields |= field;
-			else if (!val && IsSet(field))
+			else if (!val && IsChanged(field))
 				ChangedFields -= field;
 
 		}
@@ -27,7 +28,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Albums {
 			get {
-				return IsSet(ArtistEditableFields.Albums);
+				return IsChanged(ArtistEditableFields.Albums);
 			}
 			set {
 				Set(ArtistEditableFields.Albums, value);
@@ -36,7 +37,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool ArtistType {
 			get {
-				return IsSet(ArtistEditableFields.ArtistType);
+				return IsChanged(ArtistEditableFields.ArtistType);
 			}
 			set {
 				Set(ArtistEditableFields.ArtistType, value);
@@ -48,7 +49,7 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual string ChangedFieldsString {
 			get {
 
-				var fieldNames = EnumVal<ArtistEditableFields>.Values.Where(f => f != ArtistEditableFields.Nothing && IsSet(f));
+				var fieldNames = EnumVal<ArtistEditableFields>.Values.Where(f => f != ArtistEditableFields.Nothing && IsChanged(f));
 				return string.Join(",", fieldNames);
 
 			}
@@ -72,7 +73,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Description {
 			get {
-				return IsSet(ArtistEditableFields.Description);
+				return IsChanged(ArtistEditableFields.Description);
 			}
 			set {
 				Set(ArtistEditableFields.Description, value);
@@ -81,7 +82,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Groups {
 			get {
-				return IsSet(ArtistEditableFields.Groups);
+				return IsChanged(ArtistEditableFields.Groups);
 			}
 			set {
 				Set(ArtistEditableFields.Groups, value);
@@ -123,7 +124,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Names {
 			get {
-				return IsSet(ArtistEditableFields.Names);
+				return IsChanged(ArtistEditableFields.Names);
 			}
 			set {
 				Set(ArtistEditableFields.Names, value);
@@ -132,7 +133,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool OriginalName {
 			get {
-				return IsSet(ArtistEditableFields.OriginalName);
+				return IsChanged(ArtistEditableFields.OriginalName);
 			}
 			set {
 				Set(ArtistEditableFields.OriginalName, value);
@@ -141,7 +142,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Picture {
 			get {
-				return IsSet(ArtistEditableFields.Picture);
+				return IsChanged(ArtistEditableFields.Picture);
 			}
 			set {
 				Set(ArtistEditableFields.Picture, value);
@@ -150,7 +151,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool Status {
 			get {
-				return IsSet(ArtistEditableFields.Status);
+				return IsChanged(ArtistEditableFields.Status);
 			}
 			set {
 				Set(ArtistEditableFields.Status, value);
@@ -159,11 +160,26 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool WebLinks {
 			get {
-				return IsSet(ArtistEditableFields.WebLinks);
+				return IsChanged(ArtistEditableFields.WebLinks);
 			}
 			set {
 				Set(ArtistEditableFields.WebLinks, value);
 			}
+		}
+
+		/// <summary>
+		/// Checks whether a specific field is included in this diff.
+		/// </summary>
+		/// <param name="field">Field to be checked.</param>
+		/// <returns>True if the field is included, otherwise false.</returns><
+		/// <remarks>
+		/// Snapshots include all fields except the Cover.
+		/// Other fields are commonly included only they are changed.
+		/// </remarks>
+		public bool IsIncluded(ArtistEditableFields field) {
+
+			return (field != ArtistEditableFields.Picture ? (IsSnapshot || IsChanged(field)) : IncludePicture);
+
 		}
 
 	}

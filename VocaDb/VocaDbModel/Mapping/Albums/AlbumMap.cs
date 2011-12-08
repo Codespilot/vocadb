@@ -17,9 +17,8 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
-			Component(m => m.ArchivedVersionsManager, c => {
-				c.HasMany(m => m.Versions).KeyColumn("[Album]").Inverse().Cascade.All().OrderBy("Created DESC");
-			});
+			Component(m => m.ArchivedVersionsManager, 
+				c => c.HasMany(m => m.Versions).KeyColumn("[Album]").Inverse().Cascade.All().OrderBy("Created DESC"));
 
 			Component(m => m.ArtistString, c => {
 				c.Map(m => m.Japanese, "ArtistString").Length(500).Not.Nullable();

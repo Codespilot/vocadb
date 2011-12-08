@@ -20,10 +20,12 @@ namespace VocaDb.Model.Mapping.Artists {
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums").Inverse().Cascade.All();
 			HasMany(m => m.AllGroups).Inverse().KeyColumn("[Member]").Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllSongs).Table("ArtistsForSongs").Inverse().Cascade.All();
-			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.AllMembers).Inverse().KeyColumn("[Group]").Cache.ReadWrite();
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All().Cache.ReadWrite();
+
+			Component(m => m.ArchivedVersionsManager, 
+				c => c.HasMany(m => m.Versions).KeyColumn("[Artist]").Inverse().Cascade.All().OrderBy("Created DESC"));
 
 			Component(m => m.Names, c => {
 				c.HasMany(m => m.Names).Table("ArtistNames").KeyColumn("[Artist]").Inverse().Cascade.All().Cache.ReadWrite();

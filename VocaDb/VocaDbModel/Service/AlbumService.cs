@@ -549,7 +549,8 @@ namespace VocaDb.Model.Service {
 		public EntryForPictureDisplayContract GetArchivedAlbumPicture(int archivedVersionId) {
 
 			return HandleQuery(session =>
-				EntryForPictureDisplayContract.Create(session.Load<ArchivedAlbumVersion>(archivedVersionId)));
+				EntryForPictureDisplayContract.Create(
+				session.Load<ArchivedAlbumVersion>(archivedVersionId), PermissionContext.LanguagePreference));
 
 		}
 

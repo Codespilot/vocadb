@@ -1,4 +1,4 @@
-﻿namespace VocaDb.Model.Domain {
+﻿namespace VocaDb.Model.Domain.Versioning {
 
 	public interface IEntryDiff {
 
