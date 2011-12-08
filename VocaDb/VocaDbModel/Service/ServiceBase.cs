@@ -5,6 +5,7 @@ using NHibernate;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Service.Helpers;
 using System.Collections.Generic;
 using VocaDb.Model.DataContracts.Users;

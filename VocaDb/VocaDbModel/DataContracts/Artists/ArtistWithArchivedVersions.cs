@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			ParamIs.NotNull(() => artist);
 
-			ArchivedVersions = artist.ArchivedVersions.Select(a => new ArchivedArtistVersionContract(a)).ToArray();
+			ArchivedVersions = artist.ArchivedVersionsManager.Versions.Select(a => new ArchivedArtistVersionContract(a)).ToArray();
 
 		}
 

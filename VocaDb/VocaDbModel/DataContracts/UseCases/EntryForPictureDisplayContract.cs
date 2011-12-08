@@ -26,19 +26,20 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
-		public static EntryForPictureDisplayContract Create(ArchivedAlbumVersion archivedVersion) {
+		public static EntryForPictureDisplayContract Create(ArchivedAlbumVersion archivedVersion, 
+			ContentLanguagePreference languagePreference) {
 
 			ParamIs.NotNull(() => archivedVersion);
 
-			var data = XmlHelper.DeserializeFromXml<ArchivedAlbumContract>(archivedVersion.Data);
-			var name = data.TranslatedName.Default;
+			var name = archivedVersion.Album.TranslatedName[languagePreference];
 			var versionWithPic = archivedVersion.GetLatestVersionWithField(AlbumEditableFields.Cover);
 			PictureContract pic = null;
 
 			if (versionWithPic != null && versionWithPic.CoverPicture != null)
 				pic = new PictureContract(versionWithPic.CoverPicture, Size.Empty);
 
-			return new EntryForPictureDisplayContract(EntryType.Album, data.Id, name, archivedVersion.Version, pic);
+			return new EntryForPictureDisplayContract(
+				EntryType.Album, archivedVersion.Album.Id, name, archivedVersion.Version, pic);
 
 		}
 
@@ -53,15 +54,19 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
-		public static EntryForPictureDisplayContract Create(ArchivedArtistVersion archivedVersion) {
+		public static EntryForPictureDisplayContract Create(ArchivedArtistVersion archivedVersion, 
+			ContentLanguagePreference languagePreference) {
 
 			ParamIs.NotNull(() => archivedVersion);
 
-			var data = XmlHelper.DeserializeFromXml<ArchivedArtistContract>(archivedVersion.Data);
-			var name = data.TranslatedName.Default;
-			var pic = (archivedVersion.Picture != null ? new PictureContract(archivedVersion.Picture, Size.Empty) : null);
+			var name = archivedVersion.Artist.TranslatedName[languagePreference];
+			var versionWithPic = archivedVersion.GetLatestVersionWithField(ArtistEditableFields.Picture);
+			PictureContract pic = null;
 
-			return new EntryForPictureDisplayContract(EntryType.Artist, data.Id, name, archivedVersion.Version, pic);
+			if (versionWithPic != null && versionWithPic.Picture != null)
+				pic = new PictureContract(versionWithPic.Picture, Size.Empty);
+
+			return new EntryForPictureDisplayContract(EntryType.Artist, archivedVersion.Artist.Id, name, archivedVersion.Version, pic);
 
 		}
 

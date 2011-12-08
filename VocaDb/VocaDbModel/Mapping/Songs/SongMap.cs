@@ -23,6 +23,9 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			References(m => m.OriginalVersion).Nullable();
 
+			Component(m => m.ArchivedVersionsManager,
+				c => c.HasMany(m => m.Versions).KeyColumn("[Song]").Inverse().Cascade.All().OrderBy("Created DESC"));
+
 			Component(m => m.Names, c => {
 				c.HasMany(m => m.Names).Table("SongNames").KeyColumn("[Song]").Inverse().Cascade.All().Cache.ReadWrite();
 				c.Component(m => m.SortNames, c2 => {
@@ -42,7 +45,6 @@ namespace VocaDb.Model.Mapping.Songs {
 			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllAlternateVersions).KeyColumn("[OriginalVersion]").Inverse();
 			HasMany(m => m.AllArtists).Table("ArtistsForSongs").Inverse().Cascade.All().Cache.ReadWrite();
-			HasMany(m => m.ArchivedVersions).Inverse().Cascade.All();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.PVs).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.UserFavorites).Inverse();

@@ -1,11 +1,12 @@
 ﻿using System.Xml.Linq;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class ArchivedArtistVersion : ArchivedObjectVersion {
+	public class ArchivedArtistVersion : ArchivedObjectVersion, IArchivedObjectVersionWithFields<ArtistEditableFields> {
 
 		public static ArchivedArtistVersion Create(Artist artist, ArtistDiff diff, AgentLoginData author, ArtistArchiveReason reason, string notes) {
 
@@ -54,6 +55,19 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual PictureData Picture { get; set; }
 
 		public virtual ArtistArchiveReason Reason { get; set; }
+
+		public virtual ArchivedArtistVersion GetLatestVersionWithField(ArtistEditableFields field) {
+
+			if (IsIncluded(field))
+				return this;
+
+			return Artist.ArchivedVersionsManager.GetLatestVersionWithField(field, Version);
+
+		}
+
+		public virtual bool IsIncluded(ArtistEditableFields field) {
+			return (Diff != null && Data != null && Diff.IsIncluded(field));
+		}
 
 	}
 }

@@ -69,16 +69,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual AlbumArchiveReason Reason { get; set; }
 
-		public ArchivedAlbumVersion GetLatestVersionWithField(AlbumEditableFields field) {
+		public virtual ArchivedAlbumVersion GetLatestVersionWithField(AlbumEditableFields field) {
 
 			if (IsIncluded(field))
 				return this;
 
-			return Album.ArchivedVersionsManager.GetLatestVersionWithField(AlbumEditableFields.Cover, Version);
+			return Album.ArchivedVersionsManager.GetLatestVersionWithField(field, Version);
 
 		}
 
-		public bool IsIncluded(AlbumEditableFields field) {
+		public virtual bool IsIncluded(AlbumEditableFields field) {
 			return (Diff != null && Data != null && Diff.IsIncluded(field));
 		}
 
