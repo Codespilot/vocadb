@@ -1,5 +1,4 @@
 ﻿using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Albums {
@@ -13,7 +12,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			Album = new AlbumContract(archived.Album, languagePreference);
 			Data = ArchivedAlbumContract.GetAllProperties(archived);
-
 			Name = Album.Name;
 
 		}

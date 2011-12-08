@@ -16,17 +16,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public ArchivedSongVersionDetailsContract(ArchivedSongVersion archived, ContentLanguagePreference languagePreference)
 			: base(archived) {
 
-			Song = (archived.Song != null ? new SongContract(archived.Song, languagePreference) : null);
-			Data = XmlHelper.DeserializeFromXml<ArchivedSongContract>(archived.Data);
-
-			if (Song != null) {
-				Name = Song.Name;
-			} else if (Data.TranslatedName != null) {
-
-				var translatedName = new TranslatedString(Data.TranslatedName);
-				Name = translatedName[languagePreference];
-
-			}
+			Song = new SongContract(archived.Song, languagePreference);
+			Data = ArchivedSongContract.GetAllProperties(archived);
+			Name = Song.Name;
 
 		}
 
