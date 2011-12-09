@@ -1,22 +1,22 @@
-﻿@using VocaDb.Web.Models.Artist;
+﻿@using VocaDb.Web.Helpers;
+@using VocaDb.Web.Models.Artist;
 @model VocaDb.Model.DataContracts.Artists.ArchivedArtistVersionDetailsContract
 
 @{
 	
     ViewBag.Title = "Revision " + Model.Version + " for " + Model.Name;
-	
-	if (Model.Artist != null) {
-		ViewBag.Parents = new[] { 
-			Html.ActionLink("Artist", "Index"), 
-			Html.ActionLink(Model.Artist.Name, "Details", new { id = Model.Artist.Id }),
-			Html.ActionLink("Revisions", "Versions", new { id = Model.Artist.Id }) 
-		};
-	} else {
-		ViewBag.Parents = new[] { 
-			Html.ActionLink("Artist", "Index")
-		};
-	}
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Artist", "Index"), 
+		Html.ActionLink(Model.Artist.Name, "Details", new { id = Model.Artist.Id }),
+		Html.ActionLink("Revisions", "Versions", new { id = Model.Artist.Id }) 
+	};
 
+}
+
+@section Toolbar {
+@if (Login.CanRevertEntryVersions) {
+	@Html.ActionLink("Revert to this version", "RevertToVersion", new { archivedArtistVersionId = Model.Id }, new { id = "revertLink" })
+}
 }
 
 @Helpers.ArchivedObjectVersionProperties(Versions.CreateForArtist(Model))

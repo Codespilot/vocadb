@@ -15,6 +15,7 @@ using System.Drawing;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Web.Models.Artist;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -87,6 +88,16 @@ namespace VocaDb.Web.Controllers
 			Service.Restore(id);
 
 			return RedirectToAction("Edit", new { id = id });
+
+		}
+
+		public ActionResult RevertToVersion(int archivedArtistVersionId) {
+
+			var result = Service.RevertToVersion(archivedArtistVersionId);
+
+			TempData.SetStatusMessage(string.Join("\n", result.Warnings));
+
+			return RedirectToAction("Edit", new { id = result.Id });
 
 		}
 

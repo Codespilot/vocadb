@@ -13,7 +13,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Merged,
 
-		PropertiesUpdated
+		PropertiesUpdated,
+
+		Reverted
 
 	}
 

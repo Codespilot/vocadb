@@ -326,6 +326,7 @@ namespace VocaDb.Model.Domain.Albums {
 				throw new ArgumentException("Artist is not attached to album", "artistForAlbum");
 
 			AllArtists.Remove(artistForAlbum);
+			artistForAlbum.Artist.AllAlbums.Remove(artistForAlbum);
 			UpdateArtistString();
 
 		}

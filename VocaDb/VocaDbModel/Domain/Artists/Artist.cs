@@ -366,7 +366,7 @@ namespace VocaDb.Model.Domain.Artists {
 			var created = new List<ArtistForAlbum>();
 
 			foreach (var removed in albumDiff.Removed) {
-				removed.Album.DeleteArtistForAlbum(removed);
+				removed.Delete();
 				AllAlbums.Remove(removed);
 			}
 

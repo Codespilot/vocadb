@@ -43,6 +43,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanRevertEntryVersions {
+			get {
+				return Manager.HasPermission(PermissionFlags.RestoreEntries);
+			}
+		}
+
 		public static LoginManager Manager {
 			get {
 				return MvcApplication.LoginManager;

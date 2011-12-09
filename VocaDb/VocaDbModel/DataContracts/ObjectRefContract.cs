@@ -30,5 +30,9 @@ namespace VocaDb.Model.DataContracts {
 		[DataMember]
 		public string NameHint { get; set; }
 
+		public override string ToString() {
+			return NameHint + " [" + Id + "]";
+		}
+
 	}
 }

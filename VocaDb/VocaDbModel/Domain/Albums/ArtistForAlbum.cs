@@ -32,6 +32,10 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
+		public virtual void Delete() {
+			Album.DeleteArtistForAlbum(this);
+		}
+
 		public virtual bool Equals(ArtistForAlbum another) {
 
 			if (another == null)
