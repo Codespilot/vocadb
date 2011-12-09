@@ -15,7 +15,7 @@
 }
 
 @if (VocaDb.Web.Helpers.Login.CanManageDb) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
+	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editSongLink" });
 }
 
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
@@ -87,6 +87,20 @@
 				</td>
 			</tr>
 			}
+			
+			<tr>
+				<td>Tags</td>
+				<td>
+					<span id="tagList">
+						@{ Html.RenderPartial("TagList", Model.Tags); }
+					</span>
+					@if (Login.Manager.IsLoggedIn) {
+						<a href="#" id="editTags">Edit tags</a>
+					}				
+				</td>
+			</tr>
+
+
 			@if (Model.PVs.Any()) {
 			<tr>
 				<td>PVs</td>
@@ -165,6 +179,14 @@
 		}
 	 	 	 
 	}
+</div>
+
+<div id="editTagsPopup" style="display:none;" title="Tags">
+
+	<input type="hidden" id="editTagsSongId" />
+
+	<div id="editTagsContent"></div>
+
 </div>
 
 <script type="text/javascript" src="../../Scripts/Song/Details.js"></script>

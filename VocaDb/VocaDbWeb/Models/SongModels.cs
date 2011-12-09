@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
@@ -28,6 +29,8 @@ namespace VocaDb.Web.Models {
 
 		public SongDetails(SongDetailsContract contract) {
 
+			ParamIs.NotNull(() => contract);
+
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions;
@@ -44,6 +47,7 @@ namespace VocaDb.Web.Models {
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
+			Tags = contract.Tags;
 			WebLinks = contract.WebLinks;
 
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
@@ -90,6 +94,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }
+
+		public TagUsageContract[] Tags { get; set; }
 
 		[Display(Name = "External links")]
 		public WebLinkContract[] WebLinks { get; set; }

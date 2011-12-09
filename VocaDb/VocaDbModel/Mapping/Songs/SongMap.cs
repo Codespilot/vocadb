@@ -36,6 +36,10 @@ namespace VocaDb.Model.Mapping.Songs {
 				});
 			});
 
+			Component(m => m.Tags, c => {
+				c.HasMany(m => m.Usages).KeyColumn("[Song]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
+			});
+
 			Component(m => m.ArtistString, c => {
 				c.Map(m => m.Japanese, "ArtistString").Length(500).Not.Nullable();
 				c.Map(m => m.Romaji, "ArtistStringRomaji").Length(500).Not.Nullable();

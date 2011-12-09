@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Tags {
 
@@ -13,6 +14,7 @@ namespace VocaDb.Model.Domain.Tags {
 
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
 		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
+		private Iesi.Collections.Generic.ISet<SongTagUsage> songTagUsages = new Iesi.Collections.Generic.HashedSet<SongTagUsage>();
 
 		public Tag() { }
 
@@ -70,6 +72,20 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public override int GetHashCode() {
 			return Name.ToLowerInvariant().GetHashCode();
+		}
+
+		public virtual Iesi.Collections.Generic.ISet<SongTagUsage> AllSongTagUsages {
+			get { return songTagUsages; }
+			set {
+				ParamIs.NotNull(() => value);
+				songTagUsages = value;
+			}
+		}
+
+		public virtual IEnumerable<SongTagUsage> SongTagUsages {
+			get {
+				return AllSongTagUsages.Where(a => !a.Song.Deleted);
+			}
 		}
 
 	}
