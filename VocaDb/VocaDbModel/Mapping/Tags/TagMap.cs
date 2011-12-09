@@ -12,6 +12,7 @@ namespace VocaDb.Model.Mapping.Tags {
 
 			HasMany(m => m.AllAlbumTagUsages).Inverse();
 			HasMany(m => m.AllArtistTagUsages).Inverse();
+			HasMany(m => m.AllSongTagUsages).Inverse();
 
 		}
 

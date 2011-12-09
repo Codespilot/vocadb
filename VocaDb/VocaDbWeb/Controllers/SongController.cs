@@ -285,6 +285,25 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult TagSelections(int songId) {
+
+			var contract = Service.GetTagSelections(songId, LoginManager.LoggedUser.Id);
+
+			return PartialView(contract);
+
+		}
+
+		[HttpPost]
+		public PartialViewResult TagSelections(int songId, string tagNames) {
+
+			string[] tagNameParts = (tagNames != null ? tagNames.Split(',').Where(s => s != string.Empty).ToArray() : new string[] { });
+
+			var tagUsages = Service.SaveTags(songId, tagNameParts);
+
+			return PartialView("TagList", tagUsages);
+
+		}
+
 		public ActionResult Versions(int id) {
 
 			var contract = Service.GetSongWithArchivedVersions(id);

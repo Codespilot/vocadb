@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -14,6 +15,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using log4net;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
@@ -603,6 +605,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
+
+			return HandleQuery(session => {
+
+				var tagsInUse = session.Query<SongTagUsage>().Where(a => a.Song.Id == albumId).ToArray();
+				var tagVotes = session.Query<SongTagVote>().Where(a => a.User.Id == userId && a.Usage.Song.Id == albumId).ToArray();
+
+				var tagSelections = tagsInUse.Select(t =>
+					new TagSelectionContract(t.Tag.Name, t.Votes.Any(v => tagVotes.Any(v.Equals))));
+
+				return tagSelections.ToArray();
+
+			});
+
+		}
+
 		public ArchivedSongVersionDetailsContract GetVersionDetails(int id) {
 
 			return HandleQuery(session =>
@@ -693,6 +711,32 @@ namespace VocaDb.Model.Service {
 				song.Deleted = false;
 
 				AuditLog("restored " + EntryLinkFactory.CreateEntryLink(song), session);
+
+			});
+
+		}
+
+		public TagUsageContract[] SaveTags(int songId, string[] tags) {
+
+			ParamIs.NotNull(() => tags);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				tags = tags.Distinct(new CaseInsensitiveStringComparer()).ToArray();
+
+				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
+				var song = session.Load<Song>(songId);
+
+				AuditLog(string.Format("tagging {0} with {1}",
+					EntryLinkFactory.CreateEntryLink(song), string.Join(", ", tags)), session, user);
+
+				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
+
+				song.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new SongTagUsageFactory(session, song));
+
+				return song.Tags.Usages.OrderByDescending(u => u.Count).Take(3).Select(t => new TagUsageContract(t)).ToArray();
 
 			});
 
@@ -849,6 +893,27 @@ namespace VocaDb.Model.Service {
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
 
 			});
+
+		}
+
+	}
+
+	public class SongTagUsageFactory : ITagUsageFactory<SongTagUsage> {
+
+		private readonly Song song;
+		private readonly ISession session;
+
+		public SongTagUsageFactory(ISession session, Song song) {
+			this.session = session;
+			this.song = song;
+		}
+
+		public SongTagUsage CreateTagUsage(Tag tag) {
+
+			var usage = new SongTagUsage(song, tag);
+			session.Save(usage);
+
+			return usage;
 
 		}
 

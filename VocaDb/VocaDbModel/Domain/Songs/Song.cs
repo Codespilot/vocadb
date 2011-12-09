@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Globalization;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
@@ -26,6 +27,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private NameManager<SongName> names = new NameManager<SongName>();
 		private string notes;
 		private IList<PVForSong> pvs = new List<PVForSong>();
+		private TagManager<SongTagUsage> tags = new TagManager<SongTagUsage>();
 		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
 
@@ -193,6 +195,14 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual SongType SongType { get; set; }
 
 		public virtual EntryStatus Status { get; set; }
+
+		public virtual TagManager<SongTagUsage> Tags {
+			get { return tags; }
+			set {
+				ParamIs.NotNull(() => value);
+				tags = value;
+			}
+		}
 
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }

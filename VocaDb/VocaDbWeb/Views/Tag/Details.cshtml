@@ -20,3 +20,11 @@
 		<li>@Html.ActionLink(usage.Album.Name + " (" + usage.Count + ")", "Details", "Album", new { id = usage.Album.Id }, null)</li>
 	}
 </ul>
+
+<h2>Songs</h2>
+
+<ul>
+	@foreach (var usage in Model.Songs) {
+		<li>@Html.ActionLink(usage.Song.Name + " (" + usage.Count + ")", "Details", "Song", new { id = usage.Song.Id }, null)</li>
+	}
+</ul>

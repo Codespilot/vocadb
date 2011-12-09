@@ -85,6 +85,7 @@
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
+    <Compile Include="DataContracts\Songs\SongTagUsageContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumEditContract.cs" />
@@ -157,6 +158,8 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\Songs\SongTagUsage.cs" />
+    <Compile Include="Domain\Songs\SongTagVote.cs" />
     <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />
     <Compile Include="Domain\Artists\ArtistArchiveReason.cs" />
     <Compile Include="Domain\Artists\ArtistComment.cs" />
@@ -270,6 +273,8 @@
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
+    <Compile Include="Mapping\Songs\SongTagUsageMap.cs" />
+    <Compile Include="Mapping\Songs\SongTagVoteMap.cs" />
     <Compile Include="Mapping\Tags\TagMap.cs" />
     <Compile Include="Mapping\Tags\TagUsageMap.cs" />
     <Compile Include="Mapping\Tags\TagVoteMap.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Globalization;
 
@@ -19,6 +20,8 @@ namespace VocaDb.Model.DataContracts.Tags {
 			Artists = tag.ArtistTagUsages.OrderByDescending(a => a.Count)
 				.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
 			Name = tag.Name;
+			Songs = tag.SongTagUsages.OrderByDescending(a => a.Count)
+				.Select(a => new SongTagUsageContract(a, languagePreference)).ToArray();
 
 		}
 
@@ -27,6 +30,8 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public ArtistTagUsageContract[] Artists { get; set; }
 
 		public string Name { get; set; }
+
+		public SongTagUsageContract[] Songs { get; set; }
 
 	}
 
