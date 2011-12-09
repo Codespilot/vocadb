@@ -132,7 +132,7 @@
 				}
 				
 				@if (TempData.StatusMessage() != null) {
-					@Helpers.NotificationPanel(TempData.StatusMessage().ToString())
+					@Helpers.NotificationPanel(TempData.StatusMessage())
 				}
 		
 				@RenderBody()

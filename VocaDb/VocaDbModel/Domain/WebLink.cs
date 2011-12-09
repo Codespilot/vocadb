@@ -45,6 +45,27 @@ namespace VocaDb.Model.Domain {
 
 		}
 
+		public static CollectionDiff<T, T> SyncByValue<T>(IList<T> oldLinks, IEnumerable<ArchivedWebLinkContract> newLinks, IWebLinkFactory<T> webLinkFactory)
+			where T : WebLink {
+
+			var diff = CollectionHelper.Diff(oldLinks, newLinks, (n1, n2) => n1.ContentEquals(n2));
+			var created = new List<T>();
+
+			foreach (var n in diff.Removed) {
+				oldLinks.Remove(n);
+			}
+
+			foreach (var linkEntry in diff.Added) {
+
+				var n = webLinkFactory.CreateWebLink(linkEntry.Description, linkEntry.Url);
+				created.Add(n);
+
+			}
+
+			return new CollectionDiff<T, T>(created, diff.Removed, diff.Unchanged);
+
+		}
+
 		private string description;
 		private string url;
 
@@ -94,6 +115,15 @@ namespace VocaDb.Model.Domain {
 		}
 
 		public virtual bool ContentEquals(WebLink another) {
+
+			if (another == null)
+				return false;
+
+			return (Url == another.Url && Description == another.Description);
+
+		}
+
+		public virtual bool ContentEquals(ArchivedWebLinkContract another) {
 
 			if (another == null)
 				return false;

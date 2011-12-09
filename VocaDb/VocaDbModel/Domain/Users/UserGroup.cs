@@ -14,10 +14,10 @@ namespace VocaDb.Model.Domain.Users {
 			limited.Permissions | PermissionFlags.ManageDatabase);
 
 		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted, 
-			regular.Permissions | PermissionFlags.DeleteEntries | PermissionFlags.MergeEntries | PermissionFlags.RestoreEntries);
+			regular.Permissions | PermissionFlags.DeleteEntries | PermissionFlags.MergeEntries);
 
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator, 
-			trusted.Permissions | PermissionFlags.ManageUserBlocks | PermissionFlags.ViewAuditLog);
+			trusted.Permissions | PermissionFlags.RestoreEntries | PermissionFlags.ManageUserBlocks | PermissionFlags.ViewAuditLog);
 
 		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin, 
 			mod.Permissions | PermissionFlags.Admin | PermissionFlags.ManageUsers | PermissionFlags.MikuDbImport);

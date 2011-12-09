@@ -20,6 +20,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.DataContracts.Albums;
 using System.Drawing;
 using VocaDb.Model.Helpers;
+using System.Collections.Generic;
 
 namespace VocaDb.Model.Service {
 
@@ -627,6 +628,101 @@ namespace VocaDb.Model.Service {
 				artist.Deleted = false;
 
 				AuditLog("restored " + EntryLinkFactory.CreateEntryLink(artist), session);
+
+			});
+
+		}
+
+		public EntryRevertedContract RevertToVersion(int archivedArtistVersionId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.RestoreEntries);
+
+			return HandleTransaction(session => {
+
+				var archivedVersion = session.Load<ArchivedArtistVersion>(archivedArtistVersionId);
+				var fullProperties = ArchivedArtistContract.GetAllProperties(archivedVersion);
+				var artist = archivedVersion.Artist;
+				var warnings = new List<string>();
+
+				artist.ArtistType = fullProperties.ArtistType;
+				artist.Description = fullProperties.Description;
+				artist.TranslatedName.DefaultLanguage = fullProperties.TranslatedName.DefaultLanguage;
+
+				var versionWithPic = archivedVersion.GetLatestVersionWithField(ArtistEditableFields.Picture);
+
+				if (versionWithPic != null)
+					artist.Picture = versionWithPic.Picture;
+
+				var albumDiff = CollectionHelper.Diff(artist.AllAlbums, fullProperties.Albums, (a1, a2) => (a1.Id == a2.Id));
+
+				foreach (var objRef in albumDiff.Added) {
+
+					var album = session.Get<Album>(objRef.Id);
+
+					if (album != null) {
+						if (!artist.HasAlbum(album))
+							session.Save(artist.AddAlbum(album));
+					} else {
+						warnings.Add("Referenced album " + objRef + " not found");
+					}
+
+				}
+
+				foreach (var albumForArtist in albumDiff.Removed) {
+					albumForArtist.Delete();
+					session.Delete(albumForArtist);
+				}
+
+				var groupDiff = CollectionHelper.Diff(artist.AllGroups, fullProperties.Groups, (g1, g2) => g1.Id == g2.Id);
+
+				foreach (var objRef in groupDiff.Added) {
+
+					var grp = session.Get<Artist>(objRef.Id);
+
+					if (grp != null) {
+						if (!artist.HasGroup(grp))
+							session.Save(artist.AddGroup(grp));
+					} else {
+						warnings.Add("Referenced artist " + objRef + " not found");
+					}
+
+				}
+
+				foreach (var groupForArtist in groupDiff.Removed) {
+					groupForArtist.Delete();
+					session.Delete(groupForArtist);
+				}
+
+				var membersDiff = CollectionHelper.Diff(artist.AllMembers, fullProperties.Members, (g1, g2) => g1.Id == g2.Id);
+
+				foreach (var objRef in membersDiff.Added) {
+
+					var member = session.Get<Artist>(objRef.Id);
+
+					if (member != null) {
+						if (!member.HasGroup(artist))
+							session.Save(member.AddGroup(artist));
+					} else {
+						warnings.Add("Referenced artist " + objRef + " not found");
+					}
+
+				}
+
+				foreach (var groupForArtist in membersDiff.Removed) {
+					groupForArtist.Delete();
+					session.Delete(groupForArtist);
+				}
+
+				var nameDiff = artist.Names.SyncByContent(fullProperties.Names, artist);
+				SessionHelper.Sync(session, nameDiff);
+
+				var webLinkDiff = WebLink.SyncByValue(artist.WebLinks, fullProperties.WebLinks, artist);
+				SessionHelper.Sync(session, webLinkDiff);
+
+				Archive(session, artist, ArtistArchiveReason.Reverted);
+				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(artist) + " to revision " + archivedVersion.Version, session);
+
+				return new EntryRevertedContract(artist, warnings);
 
 			});
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using VocaDb.Model.DataContracts;
 namespace VocaDb.Model.Domain.Globalization {
 
 	public class LocalizedString : IEquatable<LocalizedString> {
@@ -29,6 +30,12 @@ namespace VocaDb.Model.Domain.Globalization {
 		}
 
 		public virtual bool ContentEquals(LocalizedString another) {
+
+			return (another != null && another.Language == Language && another.Value == Value);
+
+		}
+
+		public virtual bool ContentEquals(LocalizedStringContract another) {
 
 			return (another != null && another.Language == Language && another.Value == Value);
 
