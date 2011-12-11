@@ -445,6 +445,9 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
 
+			if (songIds == null || artistIds == null || !songIds.Any() || !artistIds.Any())
+				return Content(string.Empty);
+
 			var artistStrings = MvcApplication.Services.Songs.UpdateArtistsForMultipleTracks(songIds, artistIds, add);
 
 			return Json(artistStrings);

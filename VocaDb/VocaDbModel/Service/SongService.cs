@@ -744,6 +744,8 @@ namespace VocaDb.Model.Service {
 
 		public string UpdateArtists(int songId, int[] artistIds) {
 
+			ParamIs.NotNull(() => artistIds);
+
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
@@ -782,6 +784,9 @@ namespace VocaDb.Model.Service {
 		}
 
 		public KeyValuePair<int, string>[] UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
+
+			ParamIs.NotNull(() => songIds);
+			ParamIs.NotNull(() => artistIds);
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
