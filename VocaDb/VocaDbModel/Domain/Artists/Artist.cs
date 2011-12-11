@@ -209,6 +209,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 			ParamIs.NotNull(() => album);
 
+			if (HasAlbum(album))
+				throw new InvalidOperationException(string.Format("{0} has already been added for {1}", album, this));
+
 			var link = new ArtistForAlbum(album, this);
 			AllAlbums.Add(link);
 			album.AllArtists.Add(link);

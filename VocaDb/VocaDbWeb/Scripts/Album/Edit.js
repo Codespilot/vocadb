@@ -1,6 +1,8 @@
 ﻿
 function showTrackPropertiesPopup(albumId, songId) {
 
+	$("#multipleTrackPropertiesContent").html("");
+
 	$.get("../../Album/TrackProperties", { albumId: albumId, songId: songId }, function (content) {
 
 		$("#trackPropertiesContent").html(content);
@@ -41,6 +43,87 @@ function saveTrackProperties() {
 
 		});
 
+	});
+
+	return false;
+
+}
+
+function showMultipleTrackPropertiesPopup(albumId) {
+
+	$("#trackPropertiesContent").html("");
+
+	$.get("../../Album/MultipleTrackProperties", { albumId: albumId }, function (content) {
+
+		$("#multipleTrackPropertiesContent").html(content);
+
+		$("input.artistSelection").button();
+
+		$("#editMultipleTrackPropertiesPopup").dialog("open");
+
+	});
+
+	return false;
+
+}
+
+function addArtistsToSelectedTracks() {
+
+	updateArtistsForMultipleTracks(true);
+
+}
+
+function removeArtistsFromSelectedTracks() {
+
+	updateArtistsForMultipleTracks(false);
+
+}
+
+function updateArtistsForMultipleTracks(add) {
+
+	$("#editMultipleTrackPropertiesPopup").dialog("close");
+
+	var trackPropertiesRows = $("#multipleTrackPropertiesContent input.artistSelection:checked");
+	var artistIds = new Array();
+
+	$(trackPropertiesRows).each(function () {
+
+		var id = $(this).parent().find("input.artistSelectionArtistId").val();
+		artistIds.push(id);
+
+	});
+
+	var songRows = $("#tracksTable input.trackSelection:checked");
+	var songIds = new Array();
+	$(songRows).each(function () {
+		var id = $(this).parent().parent().find("input.songId").val();
+		songIds.push(id);
+	});
+
+	$.ajax({
+		type: "POST",
+		url: "../../Album/UpdateArtistsForMultipleTracks",
+		dataType: "json",
+		traditional: true,
+		data: { songIds: songIds, artistIds: artistIds, add: add },
+		success: function (artistStrings) {
+
+			$(artistStrings).each(function () {
+
+				var songId = this.Key;
+				var artistString = this.Value;
+
+				var trackRows = $("tr.trackRow:has(input[type='hidden'][class='songId'][value='" + songId + "'])");
+
+				trackRows.each(function () {
+
+					$(this).find("span.artistString").text(artistString);
+
+				});
+
+			});
+
+		}
 	});
 
 	return false;
@@ -89,6 +172,9 @@ function initPage(albumId) {
 	});
 
 	$("#editTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTrackProperties } });
+	$("#editMultipleTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: {
+		"Add to tracks": addArtistsToSelectedTracks, "Remove from tracks": removeArtistsFromSelectedTracks
+	} });
 
 	$(".nextDiscCheck").live("click", function () {
 		songListChanged();
@@ -203,6 +289,20 @@ function initPage(albumId) {
 			$("tr#artistRow_" + id).remove();
 
 		});
+
+	});
+
+	$("#selectAllTracksCheck").change(function () {
+
+		var checked = $("#selectAllTracksCheck").is(':checked');
+		$("input.trackSelection").attr('checked', checked);
+
+	});
+
+	$("#editSelectedTracksLink").click(function () {
+
+		showMultipleTrackPropertiesPopup(albumId);
+		return false;
 
 	});
 

@@ -110,6 +110,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult MultipleTrackProperties(int albumId) {
+
+			var contract = Service.GetArtists(albumId);
+
+			return PartialView(contract);
+
+		}
+
         //
         // GET: /Album/Details/5
 
@@ -431,6 +439,15 @@ namespace VocaDb.Web.Controllers
 
 			var artistString = MvcApplication.Services.Songs.UpdateArtists(songId, ids);
 			return Content(artistString);
+
+		}
+
+		[HttpPost]
+		public ActionResult UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
+
+			var artistStrings = MvcApplication.Services.Songs.UpdateArtistsForMultipleTracks(songIds, artistIds, add);
+
+			return Json(artistStrings);
 
 		}
 

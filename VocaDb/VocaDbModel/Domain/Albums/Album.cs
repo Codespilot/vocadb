@@ -233,6 +233,14 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual ArtistForAlbum AddArtist(Artist artist) {
+
+			ParamIs.NotNull(() => artist);
+
+			return artist.AddAlbum(this);
+
+		}
+
 		[Obsolete("Replaced by updating properties")]
 		public virtual SongInAlbum AddSong(Song song) {
 			
