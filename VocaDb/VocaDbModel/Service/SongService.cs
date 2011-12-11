@@ -781,6 +781,50 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public KeyValuePair<int, string>[] UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			return HandleTransaction(session => {
+
+				var songs = session.Query<Song>().Where(s => songIds.Contains(s.Id)).ToArray();
+				var artists = session.Query<Artist>().Where(s => artistIds.Contains(s.Id)).ToArray();
+				var artistStrings = new List<KeyValuePair<int, string>>(songIds.Length);
+
+				foreach (var song in songs) {
+
+					AuditLog("updating artists for " + EntryLinkFactory.CreateEntryLink(song), session);
+
+					var changed = false;
+
+					foreach (var artist in artists) {
+
+						if (add && !song.HasArtist(artist)) {
+							session.Save(song.AddArtist(artist));
+							changed = true;
+						} else if (!add && song.HasArtist(artist)) {
+							var link = song.RemoveArtist(artist);
+							if (link != null) {
+								session.Delete(link);
+								changed = true;
+							}
+						}
+
+					}
+
+					if (changed) {
+						song.UpdateArtistString();
+						session.Update(song);
+						artistStrings.Add(new KeyValuePair<int, string>(song.Id, song.ArtistString[PermissionContext.LanguagePreference]));
+					}
+				}
+
+				return artistStrings.ToArray();
+
+			});
+
+		}
+
 		public SongForEditContract UpdateBasicProperties(SongForEditContract properties) {
 
 			ParamIs.NotNull(() => properties);

@@ -43,7 +43,7 @@
 		<li><a href="#lyricsTab">Lyrics</a></li>
 		} else {
 			foreach (var lyrics in Model.Lyrics) {
-				<li><a href="@("#lyricsTab_" + lyrics.Id)">@lyrics.Language lyrics</a></li>
+				<li><a href="@("#lyricsTab_" + lyrics.Id)">@Translate.ContentLanguageSelectionName(lyrics.Language) lyrics</a></li>
 			}
 		}
 	</ul>

@@ -175,6 +175,7 @@
 				<thead>
 					<tr>
 						<th></th>
+						<th><input type="checkbox" id="selectAllTracksCheck" /></th>
 						<th>Disc</th>
 						<th>Track</th>
 						<th>Name</th>
@@ -187,6 +188,10 @@
 	}
 				</tbody>
 			</table>
+
+			<br />
+			<a href="#" id="editSelectedTracksLink">Set artists for selected tracks</a>
+
 			<h4>Add new</h4>
 			<p>Note: do not write the artist into the track name. Artists will be specified separately.</p>
 			<table>
@@ -247,6 +252,12 @@
 <div id="editTrackPropertiesPopup" style="display:none;" title="Track properties">
 
 	<div id="trackPropertiesContent"></div>
+
+</div>
+
+<div id="editMultipleTrackPropertiesPopup" style="display:none;" title="Track properties">
+
+	<div id="multipleTrackPropertiesContent"></div>
 
 </div>
 

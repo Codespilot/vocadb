@@ -736,6 +736,7 @@
     <Content Include="Views\User\AlbumCollection.cshtml" />
     <Content Include="Views\User\FavoriteSongs.cshtml" />
     <Content Include="Views\Admin\RecentComments.cshtml" />
+    <Content Include="Views\Album\MultipleTrackProperties.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
