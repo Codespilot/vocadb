@@ -590,6 +590,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongWithAdditionalNamesContract GetSongWithPV(PVService service, string pvId) {
+
+			return HandleQuery(session => {
+
+				var pv = session.Query<PVForSong>().FirstOrDefault(p => p.Service == service && p.PVId == pvId);
+
+				return (pv != null ? new SongWithAdditionalNamesContract(pv.Song, PermissionContext.LanguagePreference) : null);
+
+			});
+
+		}
+
 		public SongContract[] GetSongs(string filter, int start, int count) {
 
 			return HandleQuery(session => session.Query<Song>()
