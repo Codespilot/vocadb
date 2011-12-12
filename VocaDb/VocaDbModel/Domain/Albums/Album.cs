@@ -452,6 +452,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public virtual void ReorderTrack(SongInAlbum songInAlbum, SongInAlbum prevTrack) {
 
 			ParamIs.NotNull(() => songInAlbum);
@@ -479,15 +480,6 @@ namespace VocaDb.Model.Domain.Albums {
 				}
 
 			}
-
-			/*var oldTrackNum = songInAlbum.TrackNumber;
-			var newTrackNum = (prevTrack != null ? prevTrack.TrackNumber + 1 : 1);
-			songInAlbum.TrackNumber = newTrackNum;
-
-			var moved = Songs.Where(s => !s.Equals(songInAlbum) && s.TrackNumber >= newTrackNum && s.TrackNumber <= oldTrackNum);
-
-			foreach (var song in moved)
-				song.TrackNumber++;*/
 
 		}
 
