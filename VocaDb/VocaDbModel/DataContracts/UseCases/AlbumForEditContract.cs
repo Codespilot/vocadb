@@ -27,7 +27,9 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Names = album.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
-			Songs = album.Songs.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
+			Songs = album.Songs
+				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
+				.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			ValidationResult = AlbumValidator.Validate(album);
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();

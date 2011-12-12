@@ -14,7 +14,9 @@
 		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 	</td>
 	<td>
+		@if (Model.SongId != 0) {
 		<input type="checkbox" class="trackSelection" />
+		}
 	</td>
 	<td class="songDiscNumber">
 		@Model.DiscNumber

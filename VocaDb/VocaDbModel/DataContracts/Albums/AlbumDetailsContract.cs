@@ -22,7 +22,8 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
-			Songs = album.Songs.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
+			Songs = album.Songs
+				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
 				.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
 			Tags = album.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(3).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
