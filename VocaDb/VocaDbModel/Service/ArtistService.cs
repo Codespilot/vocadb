@@ -439,7 +439,9 @@ namespace VocaDb.Model.Service {
 					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				contract.LatestComments = session.Query<ArtistComment>().Where(c => c.Artist.Id == id).OrderByDescending(c => c.Created).Take(3)
+				contract.LatestComments = session.Query<ArtistComment>()
+					.Where(c => c.Artist.Id == id).OrderByDescending(c => c.Created).Take(3)
+					.ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
 
 				return contract;
