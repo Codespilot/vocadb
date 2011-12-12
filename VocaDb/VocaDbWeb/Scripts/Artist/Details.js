@@ -62,6 +62,7 @@ function initPage(artistId) {
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
+		return false;
 	});
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });

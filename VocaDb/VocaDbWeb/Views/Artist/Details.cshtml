@@ -117,14 +117,18 @@
 			@{ Html.RenderPartial("Songs", Model.LatestSongs); }  
 		</ul>	
 		}
+
+		<h3>Latest comments</h3>
 		
 		@if (Model.LatestComments.Any()) {
-
-			<h3>Latest comments</h3>
 	  
 			foreach (var comment in Model.LatestComments) {
-				Html.RenderPartial("Comment", comment);
+				@Helpers.PrintComment(comment, false);
 			}			
+	  
+		} else {
+	  
+			<p>Nothing yet!</p>
 	  
 		}
 		

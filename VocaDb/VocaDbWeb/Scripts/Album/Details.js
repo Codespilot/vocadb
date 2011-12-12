@@ -110,6 +110,7 @@ function initPage(albumId) {
 	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
+		return false;
 	});
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections } });

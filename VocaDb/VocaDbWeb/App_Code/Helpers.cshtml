@@ -21,12 +21,12 @@
 						@ver.Contract.Version
 						(@ver.Status)		 
 						</a>
-					} else {
+	 } else {
 						<text>
 						@ver.Contract.Version
 						(@ver.Status)
 						</text>
-					}
+	 }
 				</td>
 				<td>
 					@ver.Contract.Created
@@ -38,10 +38,10 @@
 					@ver.Reason
 					@if (!string.IsNullOrEmpty(ver.ChangeMessage)) {
 						@(" (" + ver.ChangeMessage + ")")
-					}
+	 }
 				</td>
 			</tr>
-		}
+  }
 	</table>	
 	
 }
@@ -146,6 +146,25 @@
 		@Helpers.NotificationIcon()
 		<span id="@messageId">@message</span>
 	}
+}
+
+@helper PrintComment(VocaDb.Model.DataContracts.CommentContract contract, bool allowDelete) {	
+	<div>
+		<h3>
+			@Html.ProfileIcon(contract.Author, 25)
+			@Html.UserLink(contract.Author, contract.AuthorName)
+			&nbsp;-&nbsp;
+			@contract.Created
+
+			@if (allowDelete && Login.CanDeleteComment(contract)) {
+				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">Delete</a>
+			}
+		</h3>
+		<p>
+			@Helpers.ConvertNewlinesToBreaks(contract.Message)
+		</p>
+		<hr />
+	</div>	
 }
 
 @helper ValidationSymmaryPanel(string message) {

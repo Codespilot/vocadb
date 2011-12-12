@@ -507,7 +507,9 @@ namespace VocaDb.Model.Service {
 					contract.UserHasAlbum = session.Query<AlbumForUser>()
 						.Any(a => a.Album.Id == id && a.User.Id == PermissionContext.LoggedUser.Id);
 				contract.CommentCount = session.Query<AlbumComment>().Where(c => c.Album.Id == id).Count();
-				contract.LatestComments = session.Query<AlbumComment>().Where(c => c.Album.Id == id).OrderByDescending(c => c.Created).Take(3)
+				contract.LatestComments = session.Query<AlbumComment>()
+					.Where(c => c.Album.Id == id)
+					.OrderByDescending(c => c.Created).Take(3).ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
 
 				return contract;
