@@ -158,6 +158,7 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\IEntryWithIntId.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
     <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />

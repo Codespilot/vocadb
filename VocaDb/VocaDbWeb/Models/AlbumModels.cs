@@ -184,6 +184,7 @@ namespace VocaDb.Web.Models {
 			DiscType = contract.DiscType;
 			Draft = contract.Status == EntryStatus.Draft;
 			Id = contract.Id;
+			LatestComments = contract.LatestComments;
 			Locked = contract.Status == EntryStatus.Locked;
 			Name = contract.Name;
 			PVs = contract.PVs;
@@ -229,6 +230,8 @@ namespace VocaDb.Web.Models {
 		public int Id { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Labels { get; set; }
+
+		public CommentContract[] LatestComments { get; set; }
 
 		public bool Locked { get; set; }
 

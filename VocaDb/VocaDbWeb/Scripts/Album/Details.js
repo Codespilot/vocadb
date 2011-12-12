@@ -108,6 +108,9 @@ function initPage(albumId) {
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
+	$("#viewCommentsLink").click(function () {
+		$("#tabs").tabs("select", 1);
+	});
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections } });
 

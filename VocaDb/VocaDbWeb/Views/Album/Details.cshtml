@@ -204,6 +204,20 @@
 			</tr>
 		</table>
 
+		@if (Model.LatestComments.Any()) {
+
+			<h3>Latest comments</h3>
+	  
+			foreach (var comment in Model.LatestComments) {
+				Html.RenderPartial("Comment", comment);
+			}			
+	  
+		}
+		
+		<p>
+			<a href="#" id="viewCommentsLink">View all comments</a>
+		</p>
+
 	</div>
 
 	<div id="Discussion">

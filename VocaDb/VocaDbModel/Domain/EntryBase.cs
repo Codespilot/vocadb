@@ -2,13 +2,11 @@
 
 namespace VocaDb.Model.Domain {
 
-	public interface IEntryBase {
+	public interface IEntryBase : IEntryWithIntId {
 
 		string DefaultName { get; }
 
 		EntryType EntryType { get; }
-
-		int Id { get; }
 
 	}
 

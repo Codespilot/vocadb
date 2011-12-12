@@ -3,6 +3,9 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -23,6 +26,34 @@ namespace VocaDb.Model.Service.Helpers {
 				return new AgentLoginData(permissionContext.Name);
 
 			}			
+
+		}
+
+		public static void RestoreObjectRefs<TExisting, TEntry>(ISession session, IList<string> warnings, IEnumerable<TExisting> existing,
+			IEnumerable<ObjectRefContract> objRefs, Func<TExisting, ObjectRefContract, bool> equality, 
+			Func<TEntry, TExisting> createEntryFunc, Action<TExisting> deleteFunc) {
+
+			var diff = CollectionHelper.Diff(existing, objRefs, equality);
+
+			foreach (var objRef in diff.Added) {
+
+				var album = session.Get<TEntry>(objRef.Id);
+
+				if (album != null) {
+					var added = createEntryFunc(album);
+					if (added != null)
+						session.Save(added);
+				} else {
+					warnings.Add("Referenced " + typeof(TEntry).Name + " " + objRef + " not found");
+				}
+
+			}
+
+			foreach (var removed in diff.Removed) {
+				deleteFunc(removed);
+				session.Delete(removed);
+			}
+
 
 		}
 

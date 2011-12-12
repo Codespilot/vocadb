@@ -46,7 +46,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public GroupForArtistContract[] Groups { get; set; }
 
 		[DataMember]
-		public TranslatedStringContract TranslatedName { get; set; }
+		public CommentContract[] LatestComments { get; set; }
 
 		[DataMember]
 		public GroupForArtistContract[] Members { get; set; }
@@ -59,6 +59,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public TagUsageContract[] Tags { get; set; }
+
+		[DataMember]
+		public TranslatedStringContract TranslatedName { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }
