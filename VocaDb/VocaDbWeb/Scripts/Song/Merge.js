@@ -21,7 +21,8 @@ function initPage(songId) {
 
 				if (this.Id != songId) {
 					addOption(songList, this.Id, this.Name
-						+ (this.AdditionalNames != "" ? " (" + this.AdditionalNames + ")" : ""));
+						+ (this.AdditionalNames != "" ? " (" + this.AdditionalNames + ")" : "") 
+						+ (this.ArtistString != "" ? " (by " + this.ArtistString + ")" : ""));
 				}
 
 			});
