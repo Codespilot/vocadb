@@ -439,6 +439,9 @@ namespace VocaDb.Model.Service {
 					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
+				contract.LatestComments = session.Query<ArtistComment>().Where(c => c.Artist.Id == id).OrderByDescending(c => c.Created).Take(3)
+					.Select(c => new CommentContract(c)).ToArray();
+
 				return contract;
 
 			});
@@ -648,74 +651,35 @@ namespace VocaDb.Model.Service {
 				artist.Description = fullProperties.Description;
 				artist.TranslatedName.DefaultLanguage = fullProperties.TranslatedName.DefaultLanguage;
 
+				// Picture
 				var versionWithPic = archivedVersion.GetLatestVersionWithField(ArtistEditableFields.Picture);
 
 				if (versionWithPic != null)
 					artist.Picture = versionWithPic.Picture;
 
-				var albumDiff = CollectionHelper.Diff(artist.AllAlbums, fullProperties.Albums, (a1, a2) => (a1.Id == a2.Id));
+				// Albums
+				SessionHelper.RestoreObjectRefs<ArtistForAlbum, Album>(
+					session, warnings, artist.AllAlbums, fullProperties.Albums, (a1, a2) => (a1.Album.Id == a2.Id),
+					album => (!artist.HasAlbum(album) ? artist.AddAlbum(album) : null),
+					albumForArtist => albumForArtist.Delete());
 
-				foreach (var objRef in albumDiff.Added) {
+				// Groups
+				SessionHelper.RestoreObjectRefs<GroupForArtist, Artist>(
+					session, warnings, artist.AllGroups, fullProperties.Groups, (a1, a2) => (a1.Group.Id == a2.Id),
+					grp => (!artist.HasGroup(grp) ? artist.AddGroup(grp) : null),
+					groupForArtist => groupForArtist.Delete());
 
-					var album = session.Get<Album>(objRef.Id);
+				// Members
+				SessionHelper.RestoreObjectRefs<GroupForArtist, Artist>(
+					session, warnings, artist.AllMembers, fullProperties.Members, (a1, a2) => (a1.Member.Id == a2.Id),
+					member => (!artist.HasMember(member) ? artist.AddMember(member) : null),
+					groupForArtist => groupForArtist.Delete());
 
-					if (album != null) {
-						if (!artist.HasAlbum(album))
-							session.Save(artist.AddAlbum(album));
-					} else {
-						warnings.Add("Referenced album " + objRef + " not found");
-					}
-
-				}
-
-				foreach (var albumForArtist in albumDiff.Removed) {
-					albumForArtist.Delete();
-					session.Delete(albumForArtist);
-				}
-
-				var groupDiff = CollectionHelper.Diff(artist.AllGroups, fullProperties.Groups, (g1, g2) => g1.Id == g2.Id);
-
-				foreach (var objRef in groupDiff.Added) {
-
-					var grp = session.Get<Artist>(objRef.Id);
-
-					if (grp != null) {
-						if (!artist.HasGroup(grp))
-							session.Save(artist.AddGroup(grp));
-					} else {
-						warnings.Add("Referenced artist " + objRef + " not found");
-					}
-
-				}
-
-				foreach (var groupForArtist in groupDiff.Removed) {
-					groupForArtist.Delete();
-					session.Delete(groupForArtist);
-				}
-
-				var membersDiff = CollectionHelper.Diff(artist.AllMembers, fullProperties.Members, (g1, g2) => g1.Id == g2.Id);
-
-				foreach (var objRef in membersDiff.Added) {
-
-					var member = session.Get<Artist>(objRef.Id);
-
-					if (member != null) {
-						if (!member.HasGroup(artist))
-							session.Save(member.AddGroup(artist));
-					} else {
-						warnings.Add("Referenced artist " + objRef + " not found");
-					}
-
-				}
-
-				foreach (var groupForArtist in membersDiff.Removed) {
-					groupForArtist.Delete();
-					session.Delete(groupForArtist);
-				}
-
+				// Names
 				var nameDiff = artist.Names.SyncByContent(fullProperties.Names, artist);
 				SessionHelper.Sync(session, nameDiff);
 
+				// Weblinks
 				var webLinkDiff = WebLink.SyncByValue(artist.WebLinks, fullProperties.WebLinks, artist);
 				SessionHelper.Sync(session, webLinkDiff);
 

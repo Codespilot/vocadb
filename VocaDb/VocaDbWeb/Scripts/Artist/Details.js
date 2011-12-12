@@ -60,6 +60,9 @@ function initPage(artistId) {
 	$("#editArtistLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
+	$("#viewCommentsLink").click(function () {
+		$("#tabs").tabs("select", 1);
+	});
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });
 

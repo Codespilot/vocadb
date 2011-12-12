@@ -42,6 +42,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public string Description { get; set; }
 
 		[DataMember]
+		public CommentContract[] LatestComments { get; set; }
+
+		[DataMember]
 		public AlbumReleaseContract OriginalRelease { get; set; }
 
 		[DataMember]

@@ -232,6 +232,14 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
+		public virtual GroupForArtist AddMember(Artist member) {
+
+			ParamIs.NotNull(() => member);
+
+			return member.AddGroup(this);
+
+		}
+
 		public virtual ArtistForSong AddSong(Song song) {
 
 			ParamIs.NotNull(() => song);
@@ -335,6 +343,14 @@ namespace VocaDb.Model.Domain.Artists {
 			ParamIs.NotNull(() => grp);
 
 			return Groups.Any(a => a.Group.Equals(grp));
+
+		}
+
+		public virtual bool HasMember(Artist member) {
+
+			ParamIs.NotNull(() => member);
+
+			return Members.Any(a => a.Member.Equals(member));
 
 		}
 
