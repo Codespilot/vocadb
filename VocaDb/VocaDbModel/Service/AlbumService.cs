@@ -163,7 +163,7 @@ namespace VocaDb.Model.Service {
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
 
-		[Obsolete]
+		// Not in use currently. Might be re-enabled in the future.
 		public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
 
 			ParamIs.NotNullOrEmpty(() => newArtistName);

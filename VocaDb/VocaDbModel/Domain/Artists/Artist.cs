@@ -209,8 +209,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 			ParamIs.NotNull(() => album);
 
-			if (HasAlbum(album))
-				throw new InvalidOperationException(string.Format("{0} has already been added for {1}", album, this));
+			// Check is too slow for now
+			//if (HasAlbum(album))
+			//	throw new InvalidOperationException(string.Format("{0} has already been added for {1}", album, this));
 
 			var link = new ArtistForAlbum(album, this);
 			AllAlbums.Add(link);
@@ -330,6 +331,14 @@ namespace VocaDb.Model.Domain.Artists {
 			return ArchivedVersionsManager.GetLatestVersion();
 		}
 
+		/// <summary>
+		/// Checks whether this artist has a specific album.
+		/// </summary>
+		/// <param name="album">Album to be checked. Cannot be null.</param>
+		/// <returns>True if the artist has the album. Otherwise false.</returns>
+		/// <remarks>
+		/// This check can be slow if the artist has too many albums and the collection needs to be loaded.
+		/// </remarks>
 		public virtual bool HasAlbum(Album album) {
 
 			ParamIs.NotNull(() => album);

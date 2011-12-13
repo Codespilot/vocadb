@@ -207,9 +207,14 @@ namespace VocaDb.Model.Service {
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
 
 			return HandleTransaction(session => {
-				
+
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
+
+				var hasAlbum = session.Query<ArtistForAlbum>().Any(a => a.Artist.Id == artistId && a.Album.Id == albumId);
+
+				if (hasAlbum)
+					throw new LinkAlreadyExistsException(artist + " already has " + album);
 
 				AuditLog(string.Format("adding {0} for {1}", 
 					EntryLinkFactory.CreateEntryLink(album), EntryLinkFactory.CreateEntryLink(artist)), session);

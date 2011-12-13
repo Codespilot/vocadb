@@ -206,10 +206,11 @@ namespace VocaDb.Web.Controllers
 			ParamIs.NotNullOrEmpty(() => pvUrl);
 
 			try {
+
 				var contract = Service.CreatePVForSong(songId, pvUrl, type);
 				var view = RenderPartialViewToString("PVForSongEditRow", contract);
 				return Json(new GenericResponse<string>(view));
-				//return PartialView("PVForSongEditRow", contract);
+
 			} catch (VideoParseException x) {
 				return Json(new GenericResponse<string>(false, x.Message));
 			}

@@ -402,13 +402,13 @@ function initPage(albumId) {
 
 		$.post("../../Album/CreatePVForAlbumByUrl", { albumId: albumId, pvUrl: pvUrl }, function (response) {
 
-			if (!response.Successful) {
-				alert(response.Message);
+			var result = handleGenericResponse(response);
+
+			if (result == null)
 				return;
-			}
 
 			var addRow = $("#pvRow_new");
-			addRow.before(response.Result);
+			addRow.before(result);
 
 		});
 

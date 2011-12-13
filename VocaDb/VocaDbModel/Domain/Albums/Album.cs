@@ -362,6 +362,11 @@ namespace VocaDb.Model.Domain.Albums {
 			return base.GetHashCode();
 		}
 
+		/// <summary>
+		/// Checks whether this album has a specific artist.
+		/// </summary>
+		/// <param name="artist">Artist to be checked. Cannot be null.</param>
+		/// <returns>True if the artist has this album. Otherwise false.</returns>
 		public virtual bool HasArtist(Artist artist) {
 
 			ParamIs.NotNull(() => artist);
