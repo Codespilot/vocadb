@@ -53,7 +53,7 @@ namespace VocaDb.Model.Service {
 
 				var count = (getTotalCount ? GetAlbumCount(session, query, draftsOnly, nameMatchMode) : 0);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, null, false);
 
 			} else {
 
@@ -104,7 +104,7 @@ namespace VocaDb.Model.Service {
 
 				var count = (getTotalCount ? GetAlbumCount(session, query, draftsOnly, nameMatchMode) : 0);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count);
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, null, false);
 
 			}
 

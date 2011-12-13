@@ -271,14 +271,20 @@ namespace VocaDb.Model.Service {
 
 	public class PartialFindResult<T> {
 
-		public PartialFindResult(T[] items, int totalCount) {
+		public PartialFindResult(T[] items, int totalCount, string term, bool foundExactMatch) {
 
 			Items = items;
 			TotalCount = totalCount;
+			Term = term;
+			FoundExactMatch = foundExactMatch;
 
 		}
 
+		public bool FoundExactMatch { get; set; }
+
 		public T[] Items { get; set; }
+
+		public string Term { get; set; }
 
 		public int TotalCount { get; set; }
 

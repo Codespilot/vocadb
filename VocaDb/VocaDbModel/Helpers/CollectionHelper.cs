@@ -21,6 +21,12 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static IEnumerable<T> MoveToTop<T>(IEnumerable<T> source, T top) {
+
+			return Enumerable.Repeat(top, 1).Concat(source.Except(Enumerable.Repeat(top, 1)));
+
+		}
+
 		public static IEnumerable<T> RemovedItems<T>(IEnumerable<T> old, IEnumerable<T> newItems) {
 
 			return old.Where(i => !newItems.Contains(i));

@@ -1,14 +1,23 @@
-﻿function initAddNewLinkRowCtl(prefix, entityName, searchUrl) {
+﻿function initLinkRowCtl(nameBoxElem, idElem, findListElem, acceptElem, allowCreateNew, entityName, searchUrl, createOptionHtml, acceptSelection) {
 
-	var findListId = "#" + prefix + "AddList";
-	var nameBoxId = "input#" + prefix + "AddName";
+	$(findListElem).jqxListBox({ width: '400', height: '350' });
 
-	$(nameBoxId).keyup(function () {
+	$(findListElem).bind('select', function (event) {
+
+		var item = $(findListElem).jqxListBox('getItem', args.index);
+
+		if (item != null) {
+			$(idElem).val(item.value);
+		}
+
+	});
+
+	$(nameBoxElem).keyup(function () {
 
 		var findList = $(findListId);
 		var findTerm = $(this).val();
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm.length)) {
 
 			$(findList).empty();
 			return;
@@ -18,6 +27,7 @@
 		$.post(searchUrl, { term: findTerm }, function (results) {
 
 			$(findList).empty();
+			var rows = new Array();
 
 			$(results).each(function () {
 
