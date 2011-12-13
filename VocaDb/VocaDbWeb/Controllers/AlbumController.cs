@@ -351,7 +351,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete]
+		[Obsolete("Not allowed anymore")]
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewArtist(int albumId, string newArtistName) {
 
