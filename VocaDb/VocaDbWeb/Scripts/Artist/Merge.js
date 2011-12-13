@@ -30,7 +30,7 @@ function initPage(artistId) {
 
 	});
 
-	$("input:submit").click(function () {
+	$("#mergeBtn").click(function () {
 
 		var targetArtistId = $("#artistList").val();
 

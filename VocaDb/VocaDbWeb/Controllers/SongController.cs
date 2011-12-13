@@ -264,16 +264,16 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Merge(int id, int? songList) {
+		public ActionResult Merge(int id, int? targetSongId) {
 
-			if (songList == null) {
+			if (targetSongId == null) {
 				ModelState.AddModelError("songList", "Song must be selected");
 				return Merge(id);
 			}
 
-			Service.Merge(id, songList.Value);
+			Service.Merge(id, targetSongId.Value);
 
-			return RedirectToAction("Edit", new { id = songList.Value });
+			return RedirectToAction("Edit", new { id = targetSongId.Value });
 
 		}
 

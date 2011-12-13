@@ -30,7 +30,7 @@ function initPage(albumId) {
 
 	});
 
-	$("input:submit").click(function () {
+	$("#mergeBtn").click(function () {
 
 		var targetAlbumId = $("#albumList").val();
 
