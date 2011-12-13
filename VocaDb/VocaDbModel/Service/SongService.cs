@@ -31,9 +31,12 @@ namespace VocaDb.Model.Service {
 #pragma warning restore 169
 
 		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, int start, int maxResults,
-			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName) {
+			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, bool moveExactToTop) {
+
+			var originalQuery = query;
 
 			SongWithAdditionalNamesContract[] contracts;
+			bool foundExactMatch = false;
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -102,17 +105,30 @@ namespace VocaDb.Model.Service {
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 
-				contracts = direct.Concat(additionalNames)
+				var entries = direct.Concat(additionalNames)
 					.Skip(start)
-					.Take(maxResults)
-					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.Take(maxResults);
+
+				if (moveExactToTop) {
+					
+					var exactMatch = entries.FirstOrDefault(
+						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
+
+					if (exactMatch != null) {
+						entries = CollectionHelper.MoveToTop(entries, exactMatch);
+						foundExactMatch = true;
+					}
+
+				}
+
+				contracts = entries.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			}
 
 			int count = (getTotalCount ? GetSongCount(session, query, onlyByName, draftsOnly, nameMatchMode) : 0);
 
-			return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count);
+			return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
 
 		}
 
@@ -482,7 +498,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, true);
+					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, true, false);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -498,7 +514,8 @@ namespace VocaDb.Model.Service {
 		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
 			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName) {
 
-			return HandleQuery(session => Find(session, query, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName));
+			return HandleQuery(session => 
+				Find(session, query, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName, true));
 
 		}
 

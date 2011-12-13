@@ -13,27 +13,29 @@ function initPage(songId) {
 			$("#targetSongId").val(item.value);
 		}
 
-	}); 
+	});
 
 	$("input#songName").keyup(function () {
 
 		var findTerm = $(this).val();
 		var songList = $("#songList");
 
-		if (findTerm.length == 0) {
+		if (isNullOrWhiteSpace(findTerm)) {
 
-			$(songList).empty();
+			$(songList).jqxListBox({ source: new Array() });
 			return;
 
 		}
 
 		$.post("../../Song/FindJsonByName", { term: findTerm }, function (results) {
 
+			if ($("input#songName").val() != results.Term)
+				return;
+
 			//$(songList).empty();
 			var rows = new Array();
 
 			$(results.Items).each(function () {
-
 
 				if (this.Id != songId) {
 					rows.push({ value: this.Id, html: "<div tabIndex=0 style='padding: 1px;'><input type='hidden' class='songId' value='" + this.Id + "' /><div>" + this.Name + "</div><div>" + this.ArtistString + "</div></div>", title: this.AdditionalNames });
