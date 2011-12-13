@@ -10,17 +10,27 @@
 
 }
 
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+
 @using (Html.BeginForm()) {
 
-@Helpers.NotificationPanel("Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.")
+	@Helpers.NotificationPanel("Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.")
 
-<p>
+	<input type="hidden" name="targetSongId" id="targetSongId" />
+	
+	<div>
 	@Html.TextBox("songName", string.Empty, new { id = "songName", maxlength = "128" })<br />
-	@Html.DropDownList("songList", new SelectList(new object[] {}), null, new { id="songList", size = 5 })
+	<div id="songList"></div>
 	@Html.ValidationMessage("songList")
-</p>
+	</div>
 
-<input type="submit" value="Merge" />
+	<br />
+
+	<input type="submit" id="mergeBtn" value="Merge" />
 	
 }
 
@@ -28,7 +38,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>
