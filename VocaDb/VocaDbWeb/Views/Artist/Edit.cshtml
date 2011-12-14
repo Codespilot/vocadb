@@ -153,7 +153,7 @@
 			<tr id="albumRow_new">
 				<td>
 					<input type="text" maxlength="128" id="albumAddName" /><br />
-					<select id="albumAddList" size="5" />
+					<div id="albumAddList" />
 				</td>
 				<td>
 					<input type="button" id="albumAddBtn" value="Add" />
@@ -170,6 +170,13 @@
 
 }
 
+
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Edit.js")"></script>
 <script type="text/javascript">
 

@@ -66,7 +66,36 @@ function initPage(artistId) {
 
 	});
 
-	$("input#albumAddName").keyup(function () {
+	function createAlbumOptionHtml(item) {
+
+		return "<div tabIndex=0 style='padding: 1px;'><div>" + item.Name + "</div><div>" + item.ArtistString + "</div></div>";
+
+	}
+
+	function createAlbumTitle(item) {
+
+		return item.AdditionalNames;
+
+	}
+
+	function acceptAlbumSelection(albumId, term) {
+
+		if (isNullOrWhiteSpace(albumId)) {
+			$.post("../../Artist/AddNewAlbum", { artistId: artistId, newAlbumName: term }, albumAdded);
+		} else {
+			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
+		}
+		
+	}
+
+	var albumAddList = $("#albumAddList");
+	var albumAddName = $("input#albumAddName");
+	var albumAddBtn = $("#albumAddBtn");
+
+	initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson", createAlbumOptionHtml, createAlbumTitle,
+		{ allowCreateNew: true, acceptBtnElem: albumAddBtn, acceptSelection: acceptAlbumSelection });
+
+	/*$("input#albumAddName").keyup(function () {
 
 		var findTerm = $(this).val();
 		var albumList = $("#albumAddList");
@@ -117,14 +146,13 @@ function initPage(artistId) {
 			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
 		}
 
-	});
+	});*/
 
 	function albumAdded(row) {
 
 		var addRow = $("#albumRow_new");
 		addRow.before(row);
-		$("input#albumAddName").val("");
-		$("#albumAddList").empty();
+		//$("input#albumAddName").val("");
 
 	}
 
