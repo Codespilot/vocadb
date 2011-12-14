@@ -1,8 +1,6 @@
 ﻿
 function initPage(songId) {
 
-	var source = new Array();
-
 	$("#songList").jqxListBox({ width: '400', height: '350' });
 
 	$('#songList').bind('select', function (event) {
@@ -39,10 +37,6 @@ function initPage(songId) {
 
 				if (this.Id != songId) {
 					rows.push({ value: this.Id, html: "<div tabIndex=0 style='padding: 1px;'><input type='hidden' class='songId' value='" + this.Id + "' /><div>" + this.Name + "</div><div>" + this.ArtistString + "</div></div>", title: this.AdditionalNames });
-					//$(songList).jqxListBox('insertAt', "<div tabIndex=0 style='padding: 1px;'><div>" + this.Name + "</div><div>" + this.ArtistString + "</div></div>", 1);
-					/*addOption(songList, this.Id, this.Name
-					+ (this.AdditionalNames != "" ? " (" + this.AdditionalNames + ")" : "") 
-					+ (this.ArtistString != "" ? " (by " + this.ArtistString + ")" : ""));*/
 				}
 
 			});
