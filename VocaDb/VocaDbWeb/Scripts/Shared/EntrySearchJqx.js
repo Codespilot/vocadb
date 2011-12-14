@@ -142,6 +142,10 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, creat
 			var selectedId = "";
 
 			var selectedIndex = $(findListElem).jqxListBox('getSelectedIndex');
+
+			if (selectedIndex < 0)
+				return;
+
 			var item = null;
 
 			item = $(findListElem).jqxListBox('getItem', selectedIndex);
