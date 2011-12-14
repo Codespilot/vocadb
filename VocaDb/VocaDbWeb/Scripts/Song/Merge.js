@@ -1,7 +1,25 @@
 ﻿
 function initPage(songId) {
 
-	$("#songList").jqxListBox({ width: '400', height: '350' });
+	function createOptionHtml(item) {
+
+		return "<div tabIndex=0 style='padding: 1px;'><input type='hidden' class='songId' value='" + item.Id + "' /><div>" + item.Name + "</div><div>" + item.ArtistString + "</div></div>";
+
+	}
+
+	function createTitle(item) {
+
+		return item.AdditionalNames;
+
+	}
+
+	var songList = $("#songList");
+	var songName = $("input#songName");
+	var songIdBox = $("#targetSongId");
+
+	initEntrySearch(songName, songList, "Song", "../../Song/FindJsonByName", createOptionHtml, createTitle, { idElem: songIdBox });
+
+	/*$("#songList").jqxListBox({ width: '400', height: '350' });
 
 	$('#songList').bind('select', function (event) {
 
@@ -45,7 +63,7 @@ function initPage(songId) {
 
 		});
 
-	});
+	});*/
 
 	$("#mergeBtn").click(function () {
 

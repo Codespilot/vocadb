@@ -87,7 +87,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.Find(term, 0, 20, false, false).Items;
+			var albums = Service.Find(term, 0, 20, false, false);
 
 			return Json(albums);
 

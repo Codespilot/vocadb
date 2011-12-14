@@ -16,7 +16,7 @@ function initAddForm(addName, addButton, albumList, allowAddNew) {
 
 			$(albumList).empty();
 
-			$(results).each(function () {
+			$(results.Items).each(function () {
 
 				addOption(albumList, this.Id, this.Name);
 

@@ -17,7 +17,7 @@ function initPage(albumId) {
 
 			$(albumList).empty();
 
-			$(results).each(function () {
+			$(results.Items).each(function () {
 
 				if (this.Id != albumId) {
 					addOption(albumList, this.Id, this.Name
