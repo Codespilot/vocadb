@@ -206,10 +206,11 @@
 			<fieldset>
 				<legend>Connected artists</legend>
 				<table>
+					<tbody id="artistsTableBody">
 					@foreach (var album in Model.ArtistLinks) {
 						 Html.RenderPartial("ArtistForAlbumEditRow", album);
 					 }
-
+					</tbody>
 				</table>
 				@Helpers.EntrySearchBox("artistAdd", false);
 				<br />
