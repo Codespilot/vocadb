@@ -233,10 +233,10 @@ function initPage(albumId) {
 
 	}
 
-	function acceptArtistSelection(songId, term) {
+	function acceptArtistSelection(artistId, term) {
 
 		if (isNullOrWhiteSpace(artistId)) {
-			//$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: findTerm }, artistAdded);
+			//$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: term }, artistAdded);
 		} else {
 			$.post("../../Album/AddExistingArtist", { albumId: albumId, artistId: artistId }, artistAdded);
 		}
