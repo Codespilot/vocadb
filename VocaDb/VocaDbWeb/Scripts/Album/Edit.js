@@ -252,8 +252,8 @@ function initPage(albumId) {
 
 	function artistAdded(row) {
 
-		var addRow = $("#artistRow_new");
-		addRow.before(row);
+		var artistsTable = $("#artistsTableBody");
+		artistsTable.append(row);
 
 	}
 
