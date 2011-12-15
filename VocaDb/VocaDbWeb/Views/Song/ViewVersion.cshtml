@@ -29,3 +29,11 @@
 @Helpers.ArchivedObjectVersionProperties(Versions.CreateForSong(Model))
 
 @SongHelpers.PrintArchivedSongData(Model.Data)
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#revertLink").button({ icons: { primary: 'ui-icon-arrowrefresh-1-w'} });
+	});
+
+</script>
