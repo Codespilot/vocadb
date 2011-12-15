@@ -650,8 +650,11 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var archivedVersion = session.Load<ArchivedArtistVersion>(archivedArtistVersionId);
-				var fullProperties = ArchivedArtistContract.GetAllProperties(archivedVersion);
 				var artist = archivedVersion.Artist;
+
+				AuditLog("reverting " + artist + " to version " + archivedVersion.Version);
+
+				var fullProperties = ArchivedArtistContract.GetAllProperties(archivedVersion);
 				var warnings = new List<string>();
 
 				artist.ArtistType = fullProperties.ArtistType;
@@ -683,12 +686,16 @@ namespace VocaDb.Model.Service {
 					groupForArtist => groupForArtist.Delete());
 
 				// Names
-				var nameDiff = artist.Names.SyncByContent(fullProperties.Names, artist);
-				SessionHelper.Sync(session, nameDiff);
+				if (fullProperties.Names != null) {
+					var nameDiff = artist.Names.SyncByContent(fullProperties.Names, artist);
+					SessionHelper.Sync(session, nameDiff);
+				}
 
 				// Weblinks
-				var webLinkDiff = WebLink.SyncByValue(artist.WebLinks, fullProperties.WebLinks, artist);
-				SessionHelper.Sync(session, webLinkDiff);
+				if (fullProperties.WebLinks != null) {
+					var webLinkDiff = WebLink.SyncByValue(artist.WebLinks, fullProperties.WebLinks, artist);
+					SessionHelper.Sync(session, webLinkDiff);
+				}
 
 				Archive(session, artist, ArtistArchiveReason.Reverted);
 				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(artist) + " to revision " + archivedVersion.Version, session);

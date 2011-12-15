@@ -496,7 +496,7 @@ namespace VocaDb.Model.Domain.Albums {
 			var edited = new List<SongInAlbum>();
 
 			foreach (var n in diff.Removed) {
-				AllSongs.Remove(n);
+				n.Delete();
 			}
 
 			foreach (var newEntry in diff.Added) {

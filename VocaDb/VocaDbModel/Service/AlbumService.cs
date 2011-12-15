@@ -789,6 +789,82 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryRevertedContract RevertToVersion(int archivedAlbumVersionId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.RestoreEntries);
+
+			return HandleTransaction(session => {
+
+				var archivedVersion = session.Load<ArchivedAlbumVersion>(archivedAlbumVersionId);
+				var album = archivedVersion.Album;
+
+				AuditLog("reverting " + album + " to version " + archivedVersion.Version);
+
+				var fullProperties = ArchivedAlbumContract.GetAllProperties(archivedVersion);
+				var warnings = new List<string>();
+
+				album.Description = fullProperties.Description;
+				album.DiscType = fullProperties.DiscType;
+				album.TranslatedName.DefaultLanguage = fullProperties.TranslatedName.DefaultLanguage;
+
+				// Picture
+				var versionWithPic = archivedVersion.GetLatestVersionWithField(AlbumEditableFields.Cover);
+
+				if (versionWithPic != null)
+					album.CoverPicture = versionWithPic.CoverPicture;
+
+				// Original release
+				album.OriginalRelease = (fullProperties.OriginalRelease != null ? new AlbumRelease(fullProperties.OriginalRelease) : null);
+
+				// Artists
+				SessionHelper.RestoreObjectRefs<ArtistForAlbum, Artist>(
+					session, warnings, album.AllArtists, fullProperties.Artists, (a1, a2) => (a1.Artist.Id == a2.Id),
+					artist => (!artist.HasAlbum(album) ? artist.AddAlbum(album) : null),
+					albumForArtist => albumForArtist.Delete());
+
+				// Songs
+				SessionHelper.RestoreObjectRefs<SongInAlbum, Song, SongInAlbumRefContract>(
+					session, warnings, album.AllSongs, fullProperties.Songs, (a1, a2) => (a1.Song.Id == a2.Id),
+					(song, songRef) => (!album.HasSong(song) ? album.AddSong(song, songRef.TrackNumber, songRef.DiscNumber) : null),
+					songInAlbum => songInAlbum.Delete());
+
+				// Names
+				if (fullProperties.Names != null) {
+					var nameDiff = album.Names.SyncByContent(fullProperties.Names, album);
+					SessionHelper.Sync(session, nameDiff);
+				}
+
+				// Weblinks
+				if (fullProperties.WebLinks != null) {
+					var webLinkDiff = WebLink.SyncByValue(album.WebLinks, fullProperties.WebLinks, album);
+					SessionHelper.Sync(session, webLinkDiff);
+				}
+
+				// PVs
+				if (fullProperties.PVs != null) {
+
+					var pvDiff = CollectionHelper.Diff(album.PVs, fullProperties.PVs, (p1, p2) => (p1.PVId == p2.PVId && p1.Service == p2.Service));
+
+					foreach (var pv in pvDiff.Added) {
+						session.Save(album.CreatePV(pv.Service, pv.PVId, pv.PVType));
+					}
+
+					foreach (var pv in pvDiff.Removed) {
+						pv.OnDelete();
+						session.Delete(pv);
+					}
+
+				}
+
+				Archive(session, album, AlbumArchiveReason.Reverted);
+				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(album) + " to revision " + archivedVersion.Version, session);
+
+				return new EntryRevertedContract(album, warnings);
+
+			});
+
+		}
+
 		public TagUsageContract[] SaveTags(int albumId, string[] tags) {
 
 			ParamIs.NotNull(() => tags);

@@ -15,7 +15,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		AutoImportedFromMikuDb,
 
-		PropertiesUpdated
+		PropertiesUpdated,
+
+		Reverted
 
 	}
 

@@ -53,6 +53,13 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual void Delete() {
+
+			Album.AllSongs.Remove(this);
+			Song.AllAlbums.Remove(this);
+
+		}
+
 		public override bool Equals(object obj) {
 			return Equals(obj as SongInAlbum);
 		}
