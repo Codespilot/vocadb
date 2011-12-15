@@ -19,6 +19,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public AlbumRelease(ArchivedAlbumReleaseContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			CatNum = contract.CatNum;
+			ReleaseDate = (contract.ReleaseDate != null ? OptionalDateTime.Create(contract.ReleaseDate) : null);
+			EventName = contract.EventName;
+
+		}
+
 		public virtual string CatNum {
 			get { return catNum; }
 			set { catNum = value; }

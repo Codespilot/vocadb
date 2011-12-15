@@ -5,6 +5,7 @@ using VocaDb.Model.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Service.Helpers {
@@ -33,6 +34,18 @@ namespace VocaDb.Model.Service.Helpers {
 			IEnumerable<ObjectRefContract> objRefs, Func<TExisting, ObjectRefContract, bool> equality, 
 			Func<TEntry, TExisting> createEntryFunc, Action<TExisting> deleteFunc) {
 
+			RestoreObjectRefs<TExisting, TEntry, ObjectRefContract>(session, warnings, existing, objRefs, equality, (entry, ex) 
+				=> createEntryFunc(entry), deleteFunc);
+
+		}
+
+		public static void RestoreObjectRefs<TExisting, TEntry, TObjRef>(ISession session, IList<string> warnings, IEnumerable<TExisting> existing,
+			IEnumerable<TObjRef> objRefs, Func<TExisting, TObjRef, bool> equality,
+			Func<TEntry, TObjRef, TExisting> createEntryFunc, Action<TExisting> deleteFunc) where TObjRef : ObjectRefContract {
+
+			if (objRefs == null)
+				objRefs = Enumerable.Empty<TObjRef>();
+
 			var diff = CollectionHelper.Diff(existing, objRefs, equality);
 
 			foreach (var objRef in diff.Added) {
@@ -40,7 +53,7 @@ namespace VocaDb.Model.Service.Helpers {
 				var album = session.Get<TEntry>(objRef.Id);
 
 				if (album != null) {
-					var added = createEntryFunc(album);
+					var added = createEntryFunc(album, objRef);
 					if (added != null)
 						session.Save(added);
 				} else {

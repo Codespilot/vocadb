@@ -33,6 +33,14 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual void Delete() {
+
+			Artist.AllSongs.Remove(this);
+			Song.AllArtists.Remove(this);
+			Song.UpdateArtistString();
+
+		}
+
 		public virtual bool Equals(ArtistForSong another) {
 
 			if (another == null)

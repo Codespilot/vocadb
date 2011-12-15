@@ -329,6 +329,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult RevertToVersion(int archivedAlbumVersionId) {
+
+			var result = Service.RevertToVersion(archivedAlbumVersionId);
+
+			TempData.SetStatusMessage(string.Join("\n", result.Warnings));
+
+			return RedirectToAction("Edit", new { id = result.Id });
+
+		}
+
 		[HttpPost]
 		public void DeleteComment(int commentId) {
 

@@ -17,6 +17,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		PropertiesUpdated,
 
+		Reverted
+
 	}
 
 }

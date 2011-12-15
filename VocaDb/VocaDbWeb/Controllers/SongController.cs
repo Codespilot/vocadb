@@ -286,6 +286,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult RevertToVersion(int archivedSongVersionId) {
+
+			var result = Service.RevertToVersion(archivedSongVersionId);
+
+			TempData.SetStatusMessage(string.Join("\n", result.Warnings));
+
+			return RedirectToAction("Edit", new { id = result.Id });
+
+		}
+
 		public PartialViewResult TagSelections(int songId) {
 
 			var contract = Service.GetTagSelections(songId, LoginManager.LoggedUser.Id);

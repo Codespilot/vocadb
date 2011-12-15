@@ -745,6 +745,95 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryRevertedContract RevertToVersion(int archivedSongVersionId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.RestoreEntries);
+
+			return HandleTransaction(session => {
+
+				var archivedVersion = session.Load<ArchivedSongVersion>(archivedSongVersionId);
+				var song = archivedVersion.Song;
+
+				AuditLog("reverting " + song + " to version " + archivedVersion.Version);
+
+				var fullProperties = ArchivedSongContract.GetAllProperties(archivedVersion);
+				var warnings = new List<string>();
+
+				song.NicoId = fullProperties.NicoId;
+				song.Notes = fullProperties.Notes;
+				song.SongType = fullProperties.SongType;
+				song.TranslatedName.DefaultLanguage = fullProperties.TranslatedName.DefaultLanguage;
+
+				// Artists
+				SessionHelper.RestoreObjectRefs<ArtistForSong, Artist>(
+					session, warnings, song.AllArtists, fullProperties.Artists, (a1, a2) => (a1.Artist.Id == a2.Id),
+					artist => (!song.HasArtist(artist) ? song.AddArtist(artist) : null),
+					artistForSong => artistForSong.Delete());
+
+				// Names
+				if (fullProperties.Names != null) {
+					var nameDiff = song.Names.SyncByContent(fullProperties.Names, song);
+					SessionHelper.Sync(session, nameDiff);
+				}
+
+				// Weblinks
+				if (fullProperties.WebLinks != null) {
+					var webLinkDiff = WebLink.SyncByValue(song.WebLinks, fullProperties.WebLinks, song);
+					SessionHelper.Sync(session, webLinkDiff);
+				}
+
+				// Lyrics
+				if (fullProperties.Lyrics != null) {
+
+					var lyricsDiff = CollectionHelper.Diff(song.Lyrics, fullProperties.Lyrics, (p1, p2) => (p1.Id == p2.Id));
+
+					foreach (var lyrics in lyricsDiff.Added) {
+						session.Save(song.CreateLyrics(lyrics.Language, lyrics.Value, lyrics.Source));
+					}
+
+					foreach (var lyrics in lyricsDiff.Removed) {
+						song.Lyrics.Remove(lyrics);
+						session.Delete(lyrics);
+					}
+
+					foreach (var lyrics in lyricsDiff.Unchanged) {
+
+						var newLyrics = fullProperties.Lyrics.First(l => l.Id == lyrics.Id);
+
+						lyrics.Language = newLyrics.Language;
+						lyrics.Source = newLyrics.Source;
+						lyrics.Value = newLyrics.Value;
+						session.Update(lyrics);
+
+					}
+
+				}
+
+				// PVs
+				if (fullProperties.PVs != null) {
+
+					var pvDiff = CollectionHelper.Diff(song.PVs, fullProperties.PVs, (p1, p2) => (p1.PVId == p2.PVId && p1.Service == p2.Service));
+
+					foreach (var pv in pvDiff.Added) {
+						session.Save(song.CreatePV(pv.Service, pv.PVId, pv.PVType));
+					}
+
+					foreach (var pv in pvDiff.Removed) {
+						pv.OnDelete();
+						session.Delete(pv);
+					}
+
+				}
+
+				Archive(session, song, SongArchiveReason.Reverted);
+				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(song) + " to revision " + archivedVersion.Version, session);
+
+				return new EntryRevertedContract(song, warnings);
+
+			});
+
+		}
+
 		public TagUsageContract[] SaveTags(int songId, string[] tags) {
 
 			ParamIs.NotNull(() => tags);
