@@ -95,77 +95,16 @@ function initPage(artistId) {
 	initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson", createAlbumOptionHtml, createAlbumTitle,
 		{ allowCreateNew: true, acceptBtnElem: albumAddBtn, acceptSelection: acceptAlbumSelection });
 
-	/*$("input#albumAddName").keyup(function () {
-
-		var findTerm = $(this).val();
-		var albumList = $("#albumAddList");
-
-		if (isNullOrWhiteSpace(findTerm)) {
-
-			$(albumList).empty();
-			return;
-
-		}
-
-		$.post("../../Album/FindJson", { term: findTerm }, function (results) {
-
-			$(albumList).empty();
-
-			$(results).each(function () {
-
-				addOption(albumList, this.Id, this.Name);
-
-			});
-
-			addOption(albumList, "", "Create new album named '" + findTerm + "'");
-
-		});
-
-	});
-
-	$("input#albumAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#albumAddBtn").click(function () {
-
-		var findTerm = $("input#albumAddName").val();
-		var albumList = $("#albumAddList");
-
-		if (isNullOrWhiteSpace(findTerm))
-			return;
-
-		var albumId = $(albumList).val();
-
-		if (albumId == "") {
-			$.post("../../Artist/AddNewAlbum", { artistId : artistId, newAlbumName: findTerm }, albumAdded);
-		} else {
-			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
-		}
-
-	});*/
-
 	function albumAdded(row) {
 
 		var addRow = $("#albumRow_new");
 		addRow.before(row);
-		//$("input#albumAddName").val("");
 
 	}
 
 	$("input.albumRemove").live("click", function () {
 
 		$(this).parent().parent().remove();
-
-		/*var id = getId(this);
-		$.post("../../Album/DeleteArtistForAlbum", { artistForAlbumId: id }, function () {
-
-		$("tr#albumRow_" + id).remove();
-
-		});*/
 
 	});
 

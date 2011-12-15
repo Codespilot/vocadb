@@ -17,7 +17,7 @@ function initPage(artistId) {
 
 			$(artistList).empty();
 
-			$(results).each(function () {
+			$(results.Items).each(function () {
 
 				if (this.Id != artistId) {
 					addOption(artistList, this.Id, this.Name 

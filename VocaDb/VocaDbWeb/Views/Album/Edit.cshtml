@@ -194,9 +194,9 @@
 
 			<h4>Add new</h4>
 			<p>Note: do not write the artist into the track name. Artists will be specified separately.</p>
-			<table>
-				@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "song", Prefix = "song", FirstColSpan = 1 }); }
-			</table>
+			@Helpers.EntrySearchBox("songAdd", false);
+			<br />
+			<input type="button" id="songAddAcceptBtn" value="Add" />
 		</div>
 
 		<div id="artistsTab">
@@ -207,11 +207,13 @@
 				<legend>Connected artists</legend>
 				<table>
 					@foreach (var album in Model.ArtistLinks) {
-		 Html.RenderPartial("ArtistForAlbumEditRow", album);
-	 }
+						 Html.RenderPartial("ArtistForAlbumEditRow", album);
+					 }
 
-					@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
 				</table>
+				@Helpers.EntrySearchBox("artistAdd", false);
+				<br />
+				<input type="button" id="artistAddAcceptBtn" value="Add" />
 			</fieldset>
 		</div>
 
