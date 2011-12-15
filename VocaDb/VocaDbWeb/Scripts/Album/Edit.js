@@ -221,63 +221,39 @@ function initPage(albumId) {
 
 	});
 
-	$("input#artistAddName").keyup(function () {
+	function createArtistOptionHtml(item) {
 
-		var findTerm = $(this).val();
-		var artistList = $("#artistAddList");
+		return "<div tabIndex=0 style='padding: 1px;'><div>" + item.Name + "</div><div>" + item.AdditionalNames + "</div></div>";
 
-		if (isNullOrWhiteSpace(findTerm)) {
+	}
 
-			$(artistList).empty();
-			return;
+	function createArtistTitle(item) {
 
-		}
+		return "";
 
-		$.post("../../Artist/FindJson", { term: findTerm }, function (results) {
+	}
 
-			$(artistList).empty();
+	function acceptArtistSelection(songId, term) {
 
-			$(results).each(function () {
-
-				addOption(artistList, this.Id, this.Name);
-
-			});
-
-		});
-
-	});
-
-	$("input#artistAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#artistAddBtn").click(function () {
-
-		var findTerm = $("input#artistAddName").val();
-		var artistList = $("#artistAddList");
-
-		if (isNullOrWhiteSpace(findTerm))
-			return;
-
-		var artistId = $(artistList).val();
-
-		if (artistId == "") {
+		if (isNullOrWhiteSpace(artistId)) {
 			//$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: findTerm }, artistAdded);
 		} else {
 			$.post("../../Album/AddExistingArtist", { albumId: albumId, artistId: artistId }, artistAdded);
 		}
 
-	});
+	}
+
+	var artistAddList = $("#artistAddList");
+	var artistAddName = $("input#artistAddName");
+	var artistAddBtn = $("#artistAddAcceptBtn");
+
+	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson", createArtistOptionHtml, createArtistTitle,
+		{ allowCreateNew: false, acceptBtnElem: artistAddBtn, acceptSelection: acceptArtistSelection });
 
 	function artistAdded(row) {
 
 		var addRow = $("#artistRow_new");
 		addRow.before(row);
-		$("input#artistAddName").val("");
-		$("#artistAddList").empty();
 
 	}
 
@@ -306,65 +282,39 @@ function initPage(albumId) {
 
 	});
 
-	$("input#songAddName").keyup(function () {
+	function createSongOptionHtml(item) {
 
-		var findTerm = $(this).val();
-		var songList = $("#songAddList");
+		return "<div tabIndex=0 style='padding: 1px;'><div>" + item.Name + "</div><div>" + item.ArtistString + "</div></div>";
 
-		if (isNullOrWhiteSpace(findTerm)) {
+	}
 
-			$(songList).empty();
-			return;
+	function createSongTitle(item) {
 
-		}
+		return item.AdditionalNames;
 
-		$.post("../../Song/FindJsonByName", { term: findTerm }, function (results) {
+	}
 
-			$(songList).empty();
+	function acceptSongSelection(songId, term) {
 
-			$(results.Items).each(function () {
-
-				addOption(songList, this.Id, this.Name + (this.ArtistString != "" ? " (by " + this.ArtistString + ")" : ""));
-
-			});
-
-			addOption(songList, "", "Create new song named '" + findTerm + "'");
-
-		});
-
-	});
-
-	$("input#songAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#songAddBtn").click(function () {
-
-		var findTerm = $("input#songAddName").val();
-		var songList = $("#songAddList");
-
-		if (isNullOrWhiteSpace(findTerm))
-			return;
-
-		var songId = $(songList).val();
-
-		if (songId == "") {
-			$.post("../../Album/AddNewSong", { albumId: albumId, newSongName: findTerm }, songAdded);
+		if (isNullOrWhiteSpace(songId)) {
+			$.post("../../Album/AddNewSong", { albumId: albumId, newSongName: term }, songAdded);
 		} else {
 			$.post("../../Album/AddExistingSong", { albumId: albumId, songId: songId }, songAdded);
 		}
 
-	});
+	}
+
+	var songAddList = $("#songAddList");
+	var songAddName = $("input#songAddName");
+	var songAddBtn = $("#songAddAcceptBtn");
+
+	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName", createSongOptionHtml, createSongTitle,
+		{ allowCreateNew: true, acceptBtnElem: songAddBtn, acceptSelection: acceptSongSelection });
 
 	function songAdded(row) {
 
 		var tracksTable = $("#tracksTableBody");
 		tracksTable.append(row);
-		$("input#songAddName").val("");
-		$("#songAddList").empty();
 		songListChanged();
 
 	}
@@ -373,12 +323,6 @@ function initPage(albumId) {
 
 		$(this).parent().parent().remove();
 		songListChanged();
-
-		/*var id = getId(this);
-		$.post("../../Album/DeleteSongInAlbum", { songInAlbumId: id }, function (songList) {
-
-
-		});*/
 
 	});
 

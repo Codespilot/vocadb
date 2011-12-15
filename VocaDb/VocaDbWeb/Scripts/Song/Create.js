@@ -36,7 +36,7 @@ function initPage() {
 
 			$(artistList).empty();
 
-			$(results).each(function () {
+			$(results.Items).each(function () {
 
 				addOption(artistList, this.Id, this.Name);
 

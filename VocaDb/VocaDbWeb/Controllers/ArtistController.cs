@@ -151,7 +151,7 @@ namespace VocaDb.Web.Controllers
 
 			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false);
 
-			return Json(albums.Items);
+			return Json(albums);
 
 		}
 

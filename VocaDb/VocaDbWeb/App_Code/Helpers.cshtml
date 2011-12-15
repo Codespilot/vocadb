@@ -137,6 +137,19 @@
 	}
 }
 
+@helper EntrySearchBox(string prefix, bool includeIdBox) {
+	
+	if (includeIdBox) {
+	<input type="hidden" name="@(prefix + "Id")" id="@(prefix + "Id")" />	 
+	}
+	
+	<div>
+	@Html.TextBox(prefix + "Name", string.Empty, new { id = prefix + "Name", maxlength = "128" })<br />
+	<div id="@(prefix + "List")"></div>
+	</div>
+
+}
+
 @helper NotificationIcon() {
 	<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 }
@@ -158,7 +171,7 @@
 
 			@if (allowDelete && Login.CanDeleteComment(contract)) {
 				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">Delete</a>
-			}
+   }
 		</h3>
 		<p>
 			@Helpers.ConvertNewlinesToBreaks(contract.Message)
