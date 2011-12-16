@@ -167,22 +167,31 @@
 			@Helpers.NotificationPanel("Note that you can tag artists for a song much faster after tagging the album first")
 
 			<table>
+				<tbody id="artistsTableBody">
 			@foreach (var album in Model.ArtistLinks) {
 	   Html.RenderPartial("ArtistForSongEditRow", album);
    }
-			
-			@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
+				</tbody>
 			</table>
+			@Helpers.EntrySearchBox("artistAdd", false);
+			<br />
+			<input type="button" id="artistAddAcceptBtn" value="Add" />
 		</fieldset>
 	</div>
 
 </div>
 
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Edit.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>

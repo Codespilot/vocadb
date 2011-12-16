@@ -150,13 +150,6 @@ function songListChanged() {
 
 	});
 
-	/*$(songList).each(function () {
-
-		var trackNumElem = $("#songTrackNumber_" + this.Id);
-		$(trackNumElem).html(this.TrackNumber);
-
-	});*/
-
 }
 
 function initPage(albumId) {
@@ -221,18 +214,6 @@ function initPage(albumId) {
 
 	});
 
-	function createArtistOptionHtml(item) {
-
-		return "<div tabIndex=0 style='padding: 1px;'><div>" + item.Name + "</div><div>" + item.AdditionalNames + "</div></div>";
-
-	}
-
-	function createArtistTitle(item) {
-
-		return "";
-
-	}
-
 	function acceptArtistSelection(artistId, term) {
 
 		if (isNullOrWhiteSpace(artistId)) {
@@ -247,8 +228,14 @@ function initPage(albumId) {
 	var artistAddName = $("input#artistAddName");
 	var artistAddBtn = $("#artistAddAcceptBtn");
 
-	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson", createArtistOptionHtml, createArtistTitle,
-		{ allowCreateNew: false, acceptBtnElem: artistAddBtn, acceptSelection: acceptArtistSelection });
+	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
+		{ 
+			allowCreateNew: false, 
+			acceptBtnElem: artistAddBtn, 
+			acceptSelection: acceptArtistSelection,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.AdditionalNames }
+		});
 
 	function artistAdded(row) {
 
@@ -282,18 +269,6 @@ function initPage(albumId) {
 
 	});
 
-	function createSongOptionHtml(item) {
-
-		return "<div tabIndex=0 style='padding: 1px;'><div>" + item.Name + "</div><div>" + item.ArtistString + "</div></div>";
-
-	}
-
-	function createSongTitle(item) {
-
-		return item.AdditionalNames;
-
-	}
-
 	function acceptSongSelection(songId, term) {
 
 		if (isNullOrWhiteSpace(songId)) {
@@ -308,8 +283,15 @@ function initPage(albumId) {
 	var songAddName = $("input#songAddName");
 	var songAddBtn = $("#songAddAcceptBtn");
 
-	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName", createSongOptionHtml, createSongTitle,
-		{ allowCreateNew: true, acceptBtnElem: songAddBtn, acceptSelection: acceptSongSelection });
+	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName",
+		{
+			allowCreateNew: true,
+			acceptBtnElem: songAddBtn,
+			acceptSelection: acceptSongSelection,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.ArtistString },
+			createTitle: function (item) { return item.AdditionalNames }
+		});
 
 	function songAdded(row) {
 

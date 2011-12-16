@@ -34,7 +34,7 @@ function clearFindList(findListElem) {
 
 }
 
-function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, createOptionHtml, createTitle, params) {
+function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, params) {
 
 	var w = 400;
 	var h = 350;
@@ -42,6 +42,11 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, creat
 	var acceptBtnElem = null;
 	var allowCreateNew = false;
 	var acceptSelection = null;
+	var extraQueryParams = null;
+	var createOptionFirstRow = null;
+	var createOptionSecondRow = null;
+	var createOptionHtml = null;
+	var createTitle = null;
 
 	if (params != null) {
 
@@ -62,6 +67,14 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, creat
 
 		if (params.idElem != null)
 			idElem = params.idElem;
+
+		if (params.extraQueryParams != null)
+			extraQueryParams = params.extraQueryParams;
+
+		createOptionFirstRow = params.createOptionFirstRow;
+		createOptionSecondRow = params.createOptionSecondRow;
+		createOptionHtml = params.createOptionHtml;
+		createTitle = params.createTitle;
 
 	}
 
@@ -90,7 +103,12 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, creat
 
 		}
 
-		$.post(searchUrl, { term: findTerm }, function (results) {
+		var queryParams = { term: findTerm };
+
+		if (extraQueryParams != null)
+			jQuery.extend(queryParams, extraQueryParams);
+
+		$.post(searchUrl, queryParams, function (results) {
 
 			if (results.Term != null && $(nameBoxElem).val() != results.Term)
 				return;
@@ -99,10 +117,26 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, creat
 
 			$(results.Items).each(function () {
 
-				var html = createOptionHtml(this);
+				var html = null;
+
+				if (createOptionHtml != null) {
+					html = createOptionHtml(this);
+				} else if (createOptionFirstRow != null && createOptionSecondRow != null) {
+					var firstRow = createOptionFirstRow(this);
+					var secondRow = createOptionSecondRow(this);
+					html = "<div tabIndex=0 style='padding: 1px;'><div>" + firstRow + "</div><div>" + secondRow + "</div></div>";
+				} else if (createOptionFirstRow != null) {
+					var firstRow = createOptionFirstRow(this);
+					html = "<div tabIndex=0 style='padding: 1px;'><div>" + firstRow + "</div></div>";
+				}
+
+				var title = null;
+
+				if (createTitle != null)
+					title = createTitle(this);
 
 				if (html != null)
-					rows.push({ value: this.Id, html: html, title: createTitle(this) });
+					rows.push({ value: this.Id, html: html, title: title });
 
 			});
 
