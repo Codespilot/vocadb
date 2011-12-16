@@ -96,7 +96,31 @@ function initPage(songId) {
 
 	});
 
-	$("input#artistAddName").keyup(function () {
+	function acceptArtistSelection(artistId, term) {
+
+		if (!isNullOrWhiteSpace(artistId)) {
+			$.post("../../Song/AddExistingArtist", { songId: songId, artistId: artistId }, artistAdded);
+		} else {
+			//$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: term }, artistAdded);
+		}
+
+	}
+
+	var artistAddList = $("#artistAddList");
+	var artistAddName = $("input#artistAddName");
+	var artistAddBtn = $("#artistAddAcceptBtn");
+
+	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
+		{
+			allowCreateNew: false,
+			acceptBtnElem: artistAddBtn,
+			acceptSelection: acceptArtistSelection,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.AdditionalNames },
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown" }
+		});
+
+	/*$("input#artistAddName").keyup(function () {
 
 		var findTerm = $(this).val();
 		var artistList = $("#artistAddList");
@@ -147,14 +171,14 @@ function initPage(songId) {
 			$.post("../../Song/AddExistingArtist", { songId: songId, artistId: artistId }, artistAdded);
 		}
 
-	});
+	});*/
 
 	function artistAdded(row) {
 
-		var addRow = $("#artistRow_new");
-		addRow.before(row);
-		$("input#artistAddName").val("");
-		$("#artistAddList").empty();
+		var artistsTable = $("#artistsTableBody");
+		artistsTable.append(row);
+		//$("input#artistAddName").val("");
+		//$("#artistAddList").empty();
 
 	}
 
