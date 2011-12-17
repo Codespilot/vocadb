@@ -33,6 +33,8 @@ namespace VocaDb.Model.Service {
 			bool draftsOnly, bool getTotalCount, 
 			NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
+			string originalQuery = query;
+
 			if (string.IsNullOrWhiteSpace(query)) {
 
 				bool filterByArtistType = artistTypes.Any();
@@ -61,7 +63,7 @@ namespace VocaDb.Model.Service {
 
 				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
 
-				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, null, false);
+				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, originalQuery, false);
 
 			} else {
 
@@ -120,7 +122,7 @@ namespace VocaDb.Model.Service {
 
 				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
 
-				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, null, false);
+				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, originalQuery, false);
 
 			}
 

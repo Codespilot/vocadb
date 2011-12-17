@@ -20,7 +20,33 @@ function initPage() {
 
 	});
 
-	$("input#artistAddName").keyup(function () {
+	function acceptArtistSelection(artistId, term) {
+
+		if (!isNullOrWhiteSpace(artistId)) {
+			$.post("../../Artist/CreateArtistContractRow", { artistId: artistId }, function (row) {
+				var artistsTable = $("#artistsTableBody");
+				artistsTable.append(row);
+			});
+		}
+
+	}
+
+	var artistAddList = $("#artistAddList");
+	var artistAddName = $("input#artistAddName");
+	var artistAddBtn = $("#artistAddAcceptBtn");
+
+	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
+		{
+			allowCreateNew: false,
+			acceptBtnElem: artistAddBtn,
+			acceptSelection: acceptArtistSelection,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.AdditionalNames },
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown" },
+			height: 300
+		});
+
+	/*$("input#artistAddName").keyup(function () {
 
 		var findTerm = $(this).val();
 		var artistList = $("#artistAddList");
@@ -71,7 +97,7 @@ function initPage() {
 			
 		});
 
-	});
+	});*/
 
 	$("input.artistRemove").live("click", function () {
 
