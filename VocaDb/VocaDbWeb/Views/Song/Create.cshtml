@@ -79,13 +79,18 @@
 				<div class="editor-field">
 					@Html.ValidationMessage("Artists")
 					<table>
-					@if (Model != null && Model.Artists != null) {
-						foreach (var artist in Model.Artists) {
-							Html.RenderPartial("ArtistContractRow", artist);
+						<tbody id="artistsTableBody">
+						@if (Model != null && Model.Artists != null) {
+							foreach (var artist in Model.Artists) {
+								Html.RenderPartial("ArtistContractRow", artist);
+							}
 						}
-					}
-					@{ Html.RenderPartial("AddNewLinkRow", new VocaDb.Web.Models.AddNewLinkRowModel { EntityName = "artist", Prefix = "artist" }); }
+						</tbody>
 					</table>
+					<br />
+					@Helpers.EntrySearchBox("artistAdd", false)
+					<br />
+					<input type="button" id="artistAddAcceptBtn" value="Add" />
 				</div>
 
 				<p>
@@ -108,6 +113,12 @@
 	
 }
 
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Create.js")"></script>
 <script type="text/javascript">
 
