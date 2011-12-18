@@ -1,38 +1,20 @@
 ﻿
 function initPage(artistId) {
 
-	$("input#artistName").keyup(function () {
+	var artistList = $("#artistList");
+	var artistName = $("input#artistName");
+	var targetArtistId = $("#targetArtistId");
 
-		var findTerm = $(this).val();
-		var artistList = $("#artistList");
-
-		if (findTerm.length == 0) {
-
-			$(artistList).empty();
-			return;
-
-		}
-
-		$.post("../../Artist/FindJson", { term: findTerm }, function (results) {
-
-			$(artistList).empty();
-
-			$(results.Items).each(function () {
-
-				if (this.Id != artistId) {
-					addOption(artistList, this.Id, this.Name 
-						+ (this.AdditionalNames != "" ? " (" + this.AdditionalNames + ")" : ""));
-				}
-
-			});
-
+	initEntrySearch(artistName, artistList, "Artist", "../../Artist/FindJson",
+		{
+			idElem: targetArtistId,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.AdditionalNames }
 		});
-
-	});
 
 	$("#mergeBtn").click(function () {
 
-		var targetArtistId = $("#artistList").val();
+		var targetArtistId = $("#targetArtistId").val();
 
 		if (targetArtistId == null || targetArtistId == "") {
 			alert("Artist must be selected!");

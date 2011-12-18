@@ -11,24 +11,36 @@
 
 @using (Html.BeginForm()) {
 
-<p>
-	Choose the entry which this one will be merged to. All references will be pointed to that new entry.
-</p>
+	<p>
+		Choose the entry which this one will be merged to. All references will be pointed to that new entry.
+	</p>
 
-<p>
-	<input name="albumName" type="text" maxlength="128" id="albumName" /><br />
-	<select name="albumList" id="albumList" size="5" />
-</p>
+	<input type="hidden" name="targetAlbumId" id="targetAlbumId" />
 
-<input type="submit" id="mergeBtn" value="Merge" />
+	<div>
+	@Html.TextBox("albumName", string.Empty, new { id = "albumName", maxlength = "128" })<br />
+	<div id="albumList"></div>
+	@Html.ValidationMessage("albumList")
+	</div>
+
+	<br />
+	
+	<input type="submit" id="mergeBtn" value="Merge" />
 	
 }
 
+
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Album/Merge.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>
