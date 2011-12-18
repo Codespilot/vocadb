@@ -10,8 +10,6 @@
 
 }
 
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
-
 @using (Html.BeginForm()) {
 
 	@Helpers.NotificationPanel("Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.")
@@ -30,6 +28,7 @@
 	
 }
 
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
