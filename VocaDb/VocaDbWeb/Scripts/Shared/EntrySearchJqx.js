@@ -124,10 +124,12 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 				} else if (createOptionFirstRow != null && createOptionSecondRow != null) {
 					var firstRow = createOptionFirstRow(this);
 					var secondRow = createOptionSecondRow(this);
-					html = "<div tabIndex=0 style='padding: 1px;'><div>" + firstRow + "</div><div>" + secondRow + "</div></div>";
+					if (firstRow != null)
+						html = "<div tabIndex=0 style='padding: 1px;'><div>" + firstRow + "</div><div>" + secondRow + "</div></div>";
 				} else if (createOptionFirstRow != null) {
 					var firstRow = createOptionFirstRow(this);
-					html = "<div tabIndex=0 style='padding: 1px;'><div>" + firstRow + "</div></div>";
+					if (firstRow != null)
+						html = "<div tabIndex=0 style='padding: 1px;'><div>" + firstRow + "</div></div>";
 				}
 
 				var title = null;

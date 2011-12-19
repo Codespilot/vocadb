@@ -54,7 +54,34 @@ function initPage(songId) {
 
 	});
 
-	$("#changeOriginalName").keyup(function () {
+	function acceptOriginalSong(artistId, term) {
+
+		$("#changeOriginalPanel").hide();
+		var newOriginalId = $("#changeOriginalId").val();
+
+		$.post("../../Song/CreateSongLink", { songId: newOriginalId }, function (content) {
+			$("#originalContent").html(content);
+		});
+
+	}
+
+	var acceptNewOriginalBtn = $("#acceptNewOriginalBtn");
+	var changeOriginalList = $("#changeOriginalList");
+	var changeOriginalName = $("input#changeOriginalName");
+	var changeOriginalId = $("#changeOriginalId");
+
+	initEntrySearch(changeOriginalName, changeOriginalList, "Song", "../../Song/FindJsonByName",
+		{
+			acceptBtnElem: acceptNewOriginalBtn,
+			acceptSelection: acceptOriginalSong,
+			idElem: changeOriginalId,
+			createOptionFirstRow: function (item) { return item.Name; },
+			createOptionSecondRow: function (item) { return item.ArtistString; },
+			createTitle: function (item) { return item.AdditionalNames; },
+			height: 250
+		});
+
+	/*$("#changeOriginalName").keyup(function () {
 
 		var changeOriginalList = $("#changeOriginalList");
 		var term = $(this).val();
@@ -94,7 +121,7 @@ function initPage(songId) {
 			$("#originalContent").html(content);
 		});
 
-	});
+	});*/
 
 	function acceptArtistSelection(artistId, term) {
 

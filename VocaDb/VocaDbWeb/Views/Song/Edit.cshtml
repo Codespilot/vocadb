@@ -93,8 +93,12 @@
 						<input id="changeOriginalBtn" type="button" value="Change" />
 
 						<div id="changeOriginalPanel" style="display:none;">
-							<input type="text" maxlength="128" size="30" id="changeOriginalName" /><br />
-							<select id="changeOriginalList" size="6" /><br />
+							<div>
+								<input type="hidden" id="changeOriginalId" />
+								<input type="text" maxlength="128" size="30" id="changeOriginalName" /><br />
+								<div id="changeOriginalList" />
+							</div>
+							<br />
 							<input type="button" id="acceptNewOriginalBtn" value="Set" />
 						</div>
 					</div>
