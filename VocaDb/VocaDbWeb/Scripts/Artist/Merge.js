@@ -8,8 +8,8 @@ function initPage(artistId) {
 	initEntrySearch(artistName, artistList, "Artist", "../../Artist/FindJson",
 		{
 			idElem: targetArtistId,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.AdditionalNames }
+			createOptionFirstRow: function (item) { return (item.Id != artistId ? item.Name : null); },
+			createOptionSecondRow: function (item) { return item.AdditionalNames; }
 		});
 
 	$("#mergeBtn").click(function () {

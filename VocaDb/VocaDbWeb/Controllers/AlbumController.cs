@@ -408,7 +408,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult Merge(int id, int targetAlbumId) {
 
-			Service.Merge(id, targetAlbumId);
+			//Service.Merge(id, targetAlbumId);
 
 			return RedirectToAction("Edit", new { id = targetAlbumId });
 

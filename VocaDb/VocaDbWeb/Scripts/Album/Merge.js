@@ -8,9 +8,9 @@ function initPage(albumId) {
 	initEntrySearch(albumName, albumList, "Album", "../../Album/FindJson",
 		{
 			idElem: targetAlbumId,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.ArtistString },
-			createTitle: function (item) { return item.AdditionalNames }
+			createOptionFirstRow: function (item) { return (item.Id != albumId ? item.Name : null); },
+			createOptionSecondRow: function (item) { return item.ArtistString; },
+			createTitle: function (item) { return item.AdditionalNames; }
 		});	
 
 	/*$("input#albumName").keyup(function () {
