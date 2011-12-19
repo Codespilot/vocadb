@@ -406,11 +406,11 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Merge(int id, int albumList) {
+		public ActionResult Merge(int id, int targetAlbumId) {
 
-			Service.Merge(id, albumList);
+			Service.Merge(id, targetAlbumId);
 
-			return RedirectToAction("Edit", new { id = albumList });
+			return RedirectToAction("Edit", new { id = targetAlbumId });
 
 		}
 
