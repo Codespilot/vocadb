@@ -70,10 +70,12 @@ function initPage(artistId) {
 			allowCreateNew: false,
 			acceptBtnElem: groupAddBtn,
 			acceptSelection: acceptGroupSelection,
+			autoHide: true,
 			createOptionFirstRow: function (item) { return item.Name },
 			createOptionSecondRow: function (item) { return item.AdditionalNames },
 			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup" },
-			height: 250
+			height: 200,
+			width: 350
 		});
 
 	/*$("#groupAddBtn").click(function () {
