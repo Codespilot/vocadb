@@ -99,26 +99,23 @@
 				</div>
 
 				@if (Model.ArtistType != ArtistType.Circle && Model.ArtistType != ArtistType.Label) {
-					<table>
-						<tr><td>
-							@Html.LabelFor(m => m.Groups)
-						</td><td>
-							<table>
-								@foreach (var grp in Model.Groups) {
-			Html.RenderPartial("GroupForArtistEditRow", grp);
-		}
-								<tr id="groupRow_new">
-									<td>
-										@Html.DropDownList("groupAddGroup", new SelectList(Model.AllCircles, "Key", "Value"), new { id = "groupAddGroup" })
-									</td>
-									<td>
-										<input type="button" id="groupAddBtn" value="Add" />
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr></table>
-	}
+					<div class="editor-label">
+						@Html.LabelFor(m => m.Groups)
+					</div>
+					<div class="editor-field">
+						<table>
+							<tbody id="groupTableBody">
+							@foreach (var grp in Model.Groups) {
+								Html.RenderPartial("GroupForArtistEditRow", grp);
+							}
+							</tbody>
+						</table>
+
+						@Helpers.EntrySearchBox("groupAdd", false);
+						<br />
+						<input type="button" id="groupAddBtn" value="Add" />
+					</div>
+				}
 			
 				<div class="editor-label">
 					@Html.LabelFor(m => m.WebLinks)

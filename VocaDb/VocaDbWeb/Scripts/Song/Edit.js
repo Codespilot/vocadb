@@ -147,59 +147,6 @@ function initPage(songId) {
 			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown" }
 		});
 
-	/*$("input#artistAddName").keyup(function () {
-
-		var findTerm = $(this).val();
-		var artistList = $("#artistAddList");
-
-		if (isNullOrWhiteSpace(findTerm)) {
-
-			$(artistList).empty();
-			return;
-
-		}
-
-		$.post("../../Artist/FindJson", { term: findTerm, artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown" }, function (results) {
-
-			$(artistList).empty();
-
-			$(results.Items).each(function () {
-
-				addOption(artistList, this.Id, this.Name);
-
-			});
-
-			//addOption(artistList, "", "Create new artist named '" + findTerm + "'");
-
-		});
-
-	});
-
-	$("input#artistAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#artistAddBtn").click(function () {
-
-		var findTerm = $("input#artistAddName").val();
-		var artistList = $("#artistAddList");
-
-		if (isNullOrWhiteSpace(findTerm))
-			return;
-
-		var artistId = $(artistList).val();
-
-		if (artistId == "") {
-			//$.post("../../Song/AddNewArtist", { songId: songId, newArtistName: findTerm }, artistAdded);
-		} else {
-			$.post("../../Song/AddExistingArtist", { songId: songId, artistId: artistId }, artistAdded);
-		}
-
-	});*/
-
 	function artistAdded(row) {
 
 		var artistsTable = $("#artistsTableBody");

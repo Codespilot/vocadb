@@ -76,8 +76,6 @@ namespace VocaDb.Web.Models {
 			Names = artist.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
-			AllCircles = artist.AllCircles.ToDictionary(a => a.Id, a => a.Name);
-
 			CopyNonEditableFields(artist);
 
 		}
@@ -85,8 +83,6 @@ namespace VocaDb.Web.Models {
 		public IList<AlbumForArtistEditContract> AlbumLinks { get; set; }
 
 		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }
-
-		public Dictionary<int, string> AllCircles { get; set; }
 
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
