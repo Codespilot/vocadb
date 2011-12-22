@@ -14,13 +14,10 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public ArtistForEditContract() { }
 
-		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference, IEnumerable<Artist> allCircles)
+		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			ParamIs.NotNull(() => allCircles);
-
 			AlbumLinks = artist.Albums.Select(a => new AlbumForArtistEditContract(a, languagePreference)).OrderBy(a => a.AlbumName).ToArray();
-			AllCircles = allCircles.OrderBy(a => a.TranslatedName[languagePreference]).Select(a => new ArtistContract(a, languagePreference)).ToArray();
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
@@ -34,9 +31,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		[DataMember]
 		public AlbumForArtistEditContract[] AlbumLinks { get; set; }
-
-		[DataMember]
-		public ArtistContract[] AllCircles { get; set; }
 
 		[DataMember]
 		public string AllNames { get; set; }

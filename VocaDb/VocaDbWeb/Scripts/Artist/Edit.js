@@ -49,7 +49,34 @@ function initPage(artistId) {
 
 	});
 
-	$("#groupAddBtn").click(function () {
+	function acceptGroupSelection(groupId, term) {
+
+		if (!isNullOrWhiteSpace(artistId)) {
+			$.post("../../Artist/AddCircle", { artistId: artistId, circleId: groupId }, function (row) {
+
+				$("#groupTableBody").append(row);
+
+			});
+		}
+
+	}
+
+	var groupAddList = $("#groupAddList");
+	var groupAddName = $("input#groupAddName");
+	var groupAddBtn = $("#groupAddBtn");
+
+	initEntrySearch(groupAddName, groupAddList, "Artist", "../../Artist/FindJson",
+		{
+			allowCreateNew: false,
+			acceptBtnElem: groupAddBtn,
+			acceptSelection: acceptGroupSelection,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.AdditionalNames },
+			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup" },
+			height: 250
+		});
+
+	/*$("#groupAddBtn").click(function () {
 
 		var groupId = $("#groupAddGroup").val();
 		$.post("../../Artist/AddCircle", { artistId: artistId, circleId: groupId }, function (row) {
@@ -58,7 +85,7 @@ function initPage(artistId) {
 
 		});
 
-	});
+	});*/
 
 	$("input.groupRemove").live("click", function () {
 
