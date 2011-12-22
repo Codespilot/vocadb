@@ -42,6 +42,7 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 	var acceptBtnElem = null;
 	var allowCreateNew = false;
 	var acceptSelection = null;
+	var autoHide = false;
 	var extraQueryParams = null;
 	var createOptionFirstRow = null;
 	var createOptionSecondRow = null;
@@ -65,6 +66,9 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 		if (params.acceptSelection != null)
 			acceptSelection = params.acceptSelection;
 
+		if (params.autoHide != null)
+			autoHide = params.autoHide;
+
 		if (params.idElem != null)
 			idElem = params.idElem;
 
@@ -79,6 +83,9 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 	}
 
 	$(findListElem).jqxListBox({ width: w, height: h });
+
+	if (autoHide)
+		$(findListElem).hide();
 
 	if (idElem != null) {
 		$(findListElem).bind('select', function (event) {
@@ -152,6 +159,7 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 				$(findListElem).jqxListBox({ disabled: false });
 			}
 
+			$(findListElem).show();
 			$(findListElem).jqxListBox('selectIndex', -1);
 			$(findListElem).jqxListBox('ensureVisible', 0);
 			$(findListElem).jqxListBox({ source: rows });
@@ -192,6 +200,9 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 
 			$(nameBoxElem).val("");
 			clearFindList(findListElem);
+
+			if (autoHide)
+				$(findListElem).hide();
 
 			acceptSelection(selectedId, findTerm);
 
