@@ -136,6 +136,8 @@
 
 	<div id="pvsTab">
 	
+		@Helpers.NotificationPanel("Changes on this tab are saved immediately.")<br />
+
 		<table>
 		@foreach (var pv in Model.PVs) {
 	  Html.RenderPartial("PVForSongEditRow", pv);
@@ -165,6 +167,9 @@
 	</div>
 
 	<div id="artistsTab">
+
+		@Helpers.NotificationPanel("Changes on this tab are saved immediately.")<br />
+
 		<fieldset>
 			<legend>Connected performers and producers</legend>
 

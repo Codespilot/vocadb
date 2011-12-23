@@ -81,48 +81,6 @@ function initPage(songId) {
 			height: 250
 		});
 
-	/*$("#changeOriginalName").keyup(function () {
-
-		var changeOriginalList = $("#changeOriginalList");
-		var term = $(this).val();
-
-		if (isNullOrWhiteSpace(term)) {
-			$(changeOriginalList).empty();
-			return;
-		}
-
-		$.post("../../Song/FindJsonByName", { term: term }, function (results) {
-
-			$(changeOriginalList).empty();
-
-			$(results.Items).each(function () {
-
-				addOption(changeOriginalList, this.Id, formatSongName(this));
-
-			});
-
-		});
-
-	});
-
-	$("input#changeOriginalName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#acceptNewOriginalBtn").click(function () {
-
-		$("#changeOriginalPanel").hide();
-		var newOriginalId = $("#changeOriginalList").val();
-
-		$.post("../../Song/CreateSongLink", { songId: newOriginalId }, function (content) {
-			$("#originalContent").html(content);
-		});
-
-	});*/
-
 	function acceptArtistSelection(artistId, term) {
 
 		if (!isNullOrWhiteSpace(artistId)) {
