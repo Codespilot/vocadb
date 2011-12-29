@@ -78,6 +78,7 @@ function initPage(songId) {
 			createOptionFirstRow: function (item) { return item.Name; },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },
+			extraQueryParams: { ignoredIds: JSON.stringify(songId) },
 			height: 250
 		});
 
