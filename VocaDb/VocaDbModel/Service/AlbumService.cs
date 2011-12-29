@@ -938,7 +938,7 @@ namespace VocaDb.Model.Service {
 				if (album.OriginalRelease == null)
 					album.OriginalRelease = new AlbumRelease();
 
-				if (album.OriginalRelease.Equals(newOriginalRelease)) {
+				if (!album.OriginalRelease.Equals(newOriginalRelease)) {
 					album.OriginalRelease = newOriginalRelease;
 					diff.OriginalRelease = true;
 				}

@@ -56,7 +56,7 @@ namespace VocaDb.Model.Domain.Albums {
 			if (another == null)
 				return IsEmpty;
 
-			return (Equals(CatNum, another.CatNum) && ReleaseDate != another.ReleaseDate && Equals(EventName, another.EventName));
+			return (Equals(CatNum, another.CatNum) && Equals(ReleaseDate, another.ReleaseDate) && Equals(EventName, another.EventName));
 
 		}
 
