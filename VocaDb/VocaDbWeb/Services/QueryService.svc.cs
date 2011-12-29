@@ -76,6 +76,14 @@ namespace VocaDb.Web.Services {
 			return song;
 
 		}
+
+		[OperationContract]
+		public SongWithAdditionalNamesContract GetSongDetails(string term) {
+
+			var songs = Services.Songs.Find(term, 0, 1, false, false,NameMatchMode.Auto, false, null);
+			return songs.Items.FirstOrDefault();
+
+		}
 		#endregion
 
 		#region MikuDB-specific queries (TODO: move elsewhere)
