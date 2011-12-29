@@ -41,7 +41,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, bool? draftsOnly, int? page) {
 
-			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false);
+			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false, null);
 
 			var model = new Index(result, filter, draftsOnly, page);
 
@@ -64,13 +64,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult FindJsonByName(string term, bool alwaysExact = false) {
+		public ActionResult FindJsonByName(string term, bool alwaysExact = false, int[] ignoredIds = null) {
 
 			var songs = Service.Find(term, 0, 20, 
 				draftOnly: false, 
 				getTotalCount: false, 
 				onlyByName: true, 
-				nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto));
+				nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto), 
+				ignoredIds: ignoredIds);
 
 			return Json(songs);
 

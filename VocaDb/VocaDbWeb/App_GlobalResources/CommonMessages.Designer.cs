@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If the entry has a non-English (for example Japanese) name, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field..
+        ///   Looks up a localized string similar to If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field..
         /// </summary>
         internal static string NameHelp {
             get {

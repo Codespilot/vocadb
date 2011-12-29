@@ -30,18 +30,34 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
 #pragma warning restore 169
 
+		/// <summary>
+		/// Finds songs based on criteria.
+		/// </summary>
+		/// <param name="session">Open session. Canot be null.</param>
+		/// <param name="query">Query search string. Can be null or empty, in which case no filtering by name is done.</param>
+		/// <param name="start">0-based order number of the first item to be returned.</param>
+		/// <param name="maxResults">Maximum number of results to be returned.</param>
+		/// <param name="draftsOnly">Whether to return only entries with a draft status.</param>
+		/// <param name="getTotalCount">Whether to return the total number of entries matching the criteria.</param>
+		/// <param name="nameMatchMode">Mode for name maching. Ignored when query string is null or empty.</param>
+		/// <param name="onlyByName">Whether to search items only by name, and not for example NicoId. Ignored when query string is null or empty.</param>
+		/// <param name="moveExactToTop">Whether to move exact match to the top of search results.</param>
+		/// <param name="ignoreIds">List of entries to be ignored. Can be null in which case no filtering is done.</param>
+		/// <returns></returns>
 		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, int start, int maxResults,
-			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, bool moveExactToTop) {
+			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, bool moveExactToTop, int[] ignoreIds) {
 
 			var originalQuery = query;
 
 			SongWithAdditionalNamesContract[] contracts;
 			bool foundExactMatch = false;
+			ignoreIds = ignoreIds ?? new int[] { };
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
 				var q = session.Query<Song>()
-					.Where(s => !s.Deleted);
+					.Where(s => !s.Deleted 
+						&& !ignoreIds.Contains(s.Id));
 
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
@@ -121,7 +137,9 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				contracts = entries.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+				contracts = entries
+					.Where(e => !ignoreIds.Contains(e.Id))
+					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			}
@@ -498,7 +516,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, true, false);
+					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, true, false, null);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -512,10 +530,10 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
-			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName) {
+			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, int[] ignoredIds) {
 
 			return HandleQuery(session => 
-				Find(session, query, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName, true));
+				Find(session, query, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName, true, ignoredIds));
 
 		}
 
