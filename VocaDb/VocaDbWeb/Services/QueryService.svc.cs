@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
@@ -98,6 +99,12 @@ namespace VocaDb.Web.Services {
 		public SongWithAdditionalNamesContract GetSongWithPV(PVService service, string pvId) {
 			return Services.Songs.GetSongWithPV(service, pvId);
 		}
+
+		[OperationContract]
+		public UserContract GetUser(string name, string accessKey) {
+			return Services.Users.CheckAccessWithKey(name, accessKey);
+		}
+
 		#endregion
 
 	}

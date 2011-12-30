@@ -247,6 +247,7 @@
     <Compile Include="Domain\Songs\SongWebLink.cs" />
     <Compile Include="Domain\WebLink.cs" />
     <Compile Include="EnumVal.cs" />
+    <Compile Include="Helpers\AlphaPassGenerator.cs" />
     <Compile Include="Helpers\ArtistHelper.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\HtmlRequestHelper.cs" />

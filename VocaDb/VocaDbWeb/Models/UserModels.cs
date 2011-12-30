@@ -60,11 +60,14 @@ namespace VocaDb.Web.Models {
 			PreferredVideoService = user.PreferredVideoService;
 			Username = user.Name;
 
+			AccessKey = user.HashedAccessKey;
 			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
 			AllVideoServices = EnumVal<PVService>.Values;
 
 		}
+
+		public string AccessKey { get; set; }
 
 		public AlbumForUserEditModel[] AlbumLinks { get; set; }
 

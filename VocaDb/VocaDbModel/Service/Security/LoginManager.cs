@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
@@ -18,6 +19,14 @@ namespace VocaDb.Model.Service.Security {
 		public static string GetHashedPass(string name, string pass, int salt) {
 
 			return FormsAuthentication.HashPasswordForStoringInConfigFile(name + pass + salt, "sha1");
+
+		}
+
+		public static string GetHashedAccessKey(string key) {
+
+			var salt = ConfigurationManager.AppSettings["AccessKeySalt"] ?? string.Empty;
+
+			return FormsAuthentication.HashPasswordForStoringInConfigFile(key + salt, "sha1");
 
 		}
 

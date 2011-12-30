@@ -11,6 +11,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
+			Map(m => m.AccessKey).Length(20).Not.Nullable();
 			Map(m => m.Active).Not.Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.DefaultLanguageSelection).Not.Nullable();
