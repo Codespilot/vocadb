@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Users {
 
 	public class User : IEntryBase, IEquatable<User> {
 
+		private string accessKey;
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private string email;
 		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
@@ -42,6 +44,16 @@ namespace VocaDb.Model.Domain.Users {
 			Password = pass;
 			Salt = salt;
 
+			AccessKey = new AlphaPassGenerator(true, true, true).Generate(20);
+
+		}
+
+		public virtual string AccessKey {
+			get { return accessKey; }
+			set {
+				ParamIs.NotNullOrEmpty(() => value);
+				accessKey = value; 
+			}
 		}
 
 		public virtual bool Active { get; set; }

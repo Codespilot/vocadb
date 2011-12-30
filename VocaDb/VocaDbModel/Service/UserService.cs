@@ -115,6 +115,27 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public UserContract CheckAccessWithKey(string name, string accessKey) {
+
+			return HandleQuery(session => {
+
+				var lc = name.ToLowerInvariant();
+				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
+
+				if (user == null)
+					return null;
+
+				var hashed = LoginManager.GetHashedAccessKey(user.AccessKey);
+
+				if (accessKey != hashed)
+					return null;
+
+				return new UserContract(user);
+
+			});
+
+		}
+
 		public UserContract CheckAuthentication(string name, string pass, string hostname) {
 
 			return HandleTransaction(session => {

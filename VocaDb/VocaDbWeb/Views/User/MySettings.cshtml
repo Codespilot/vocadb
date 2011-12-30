@@ -13,6 +13,7 @@
 	<ul>
 		<li><a href="#accountSettings">Account settings</a></li>
 		<li><a href="#myCollection">My collection</a></li>
+		<li><a href="#connectivity">Connectivity</a></li>
 	</ul>
 
 	<div id="accountSettings">
@@ -102,13 +103,20 @@
 		</table>
 		
 	</div>
+
+	<div id="connectivity">
+	
+		<h4>Access key</h4>
+		<p>@Model.AccessKey</p>
+
+	</div>
 </div>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/User/MySettings.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>
