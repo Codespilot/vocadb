@@ -5,6 +5,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 	public class PVForSong : PV {
 
+		private string author;
+		private string name;
 		private Song song;
 
 		public PVForSong() { }
@@ -12,8 +14,26 @@ namespace VocaDb.Model.Domain.Songs {
 		public PVForSong(Song song, PVService service, string pvId, PVType pvType)
 			: base(service, pvId, pvType) {
 
+			Author = string.Empty;
+			Name = string.Empty;
 			Song = song;
 
+		}
+
+		public virtual string Author {
+			get { return author; }
+			set {
+				ParamIs.NotNull(() => value);
+				author = value;
+			}
+		}
+
+		public virtual string Name {
+			get { return name; }
+			set {
+				ParamIs.NotNull(() => value);
+				name = value;
+			}
 		}
 
 		public virtual Song Song {

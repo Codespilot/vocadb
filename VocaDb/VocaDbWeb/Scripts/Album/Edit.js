@@ -244,7 +244,7 @@ function initPage(albumId) {
 
 	}
 
-	$("input.artistRemove").live("click", function () {
+	$("a.artistRemove").live("click", function () {
 
 		var id = getId(this);
 		$.post("../../Album/DeleteArtistForAlbum", { artistForAlbumId: id }, function () {
@@ -252,6 +252,8 @@ function initPage(albumId) {
 			$("tr#artistRow_" + id).remove();
 
 		});
+
+		return false;
 
 	});
 
@@ -301,10 +303,12 @@ function initPage(albumId) {
 
 	}
 
-	$("input.songRemove").live("click", function () {
+	$("a.songRemove").live("click", function () {
 
 		$(this).parent().parent().remove();
 		songListChanged();
+
+		return false;
 
 	});
 
@@ -338,9 +342,11 @@ function initPage(albumId) {
 
 		});
 
+		return false;
+
 	});
 
-	$("input.pvRemove").live("click", function () {
+	$("a.pvRemove").live("click", function () {
 
 		var id = getId(this);
 		$.post("../../Album/DeletePVForAlbum", { pvForAlbumId: id }, function () {
@@ -348,6 +354,8 @@ function initPage(albumId) {
 			$("tr#pvRow_" + id).remove();
 
 		});
+
+		return false;
 
 	});
 

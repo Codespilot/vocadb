@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
+﻿using System.Runtime.Serialization;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.PVs {
 
@@ -15,7 +12,6 @@ namespace VocaDb.Model.DataContracts.PVs {
 			ParamIs.NotNull(() => pv);
 
 			Id = pv.Id;
-			Name = pv.Name;
 			PVId = pv.PVId;
 			Service = pv.Service;
 			PVType = pv.PVType;
@@ -25,7 +21,18 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 		}
 
+		public PVContract(PVForSong pv)
+			: this((PV)pv) {
+
+			Author = pv.Author;
+			Name = pv.Name;
+
+		}
+
 		public PVContract() { }
+
+		[DataMember]
+		public string Author { get; set; }
 
 		[DataMember]
 		public string DisplayName { get; set; }

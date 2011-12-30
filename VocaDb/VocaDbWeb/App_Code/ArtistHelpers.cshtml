@@ -1,4 +1,5 @@
 ﻿@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
@@ -23,4 +24,34 @@
 
 	</fieldset>
 
+}
+
+@helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums) {
+
+	<ul>
+	@foreach (var album in albums) {
+		<li>
+			@Helpers.DraftIcon(album)
+			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+			(added @album.CreateDate).		
+			<br />
+			<span class="extraInfo">@album.ArtistString</span>
+		</li>
+	}
+	</ul>
+	
+}
+
+@helper Songs(VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[] songs) {
+
+	<ul>
+	@foreach (var song in songs) {
+		<li>
+			@Html.PVServiceIcons(song.PVServices)
+			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+			(added @song.CreateDate).
+		</li>
+	}
+	</ul>
+	
 }

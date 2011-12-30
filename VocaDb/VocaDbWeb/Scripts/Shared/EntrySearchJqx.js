@@ -206,6 +206,8 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 
 			acceptSelection(selectedId, findTerm);
 
+			return false;
+
 		});
 	}
 
