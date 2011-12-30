@@ -3,12 +3,4 @@
 
 <p>@Model.Length song(s).</p>
 
-<ul>
-@foreach (var song in Model) {
-	<li>
-		@Html.PVServiceIcons(song.PVServices)
-		@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
-		(added @song.CreateDate).
-	</li>
-}
-</ul>
+@ArtistHelpers.Songs(Model)

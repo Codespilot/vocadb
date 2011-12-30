@@ -34,14 +34,9 @@
 	</td><td>
 		<input type="checkbox" class="nextDiscCheck" @(Model.TrackNumber == 1 && Model.DiscNumber > 1 ? "checked=\"checked\"" : string.Empty) />
 		Next disc
-	</td><td>
-		@if (Model.SongId != 0) {
-			@Html.ActionLink("Edit song", "Edit", "Song", new { id = Model.SongId }, null)
-		} else {
-			<span>NEW</span>
-		}
 		@{ item.Dispose(); }
 	</td><td>
-		<input type="button" class="songRemove" value="Remove" />
+		<a href="@Url.Action("Edit", "Song", new { id = Model.SongId })" target="_blank" title="Open for edit" class="editSongLink iconLink editLink">Edit</a>
+		<a href="#" class="songRemove iconLink removeLink" title="Remove from album">Remove</a>
 	</td>
 </tr>

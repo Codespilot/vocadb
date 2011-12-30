@@ -190,32 +190,32 @@
 			</table>
 
 			<br />
-			<a href="#" id="editSelectedTracksLink">Set artists for selected tracks</a>
+			<a href="#" class="textLink editLink" id="editSelectedTracksLink">Set artists for selected tracks</a>
 
 			<h4>Add new</h4>
 			<p>Note: do not write the artist into the track name. Artists will be specified separately.</p>
 			@Helpers.EntrySearchBox("songAdd", false);
 			<br />
-			<input type="button" id="songAddAcceptBtn" value="Add" />
+			<a href="#" class="textLink addLink" id="songAddAcceptBtn">Add</a>
 		</div>
 
 		<div id="artistsTab">
 
 			@Helpers.NotificationPanel("Changes on this tab are saved immediately.")<br />
 
-			<fieldset>
-				<legend>Connected artists</legend>
-				<table>
-					<tbody id="artistsTableBody">
-					@foreach (var album in Model.ArtistLinks) {
-						 Html.RenderPartial("ArtistForAlbumEditRow", album);
-					 }
-					</tbody>
-				</table>
-				@Helpers.EntrySearchBox("artistAdd", false)
-				<br />
-				<input type="button" id="artistAddAcceptBtn" value="Add" />
-			</fieldset>
+			<table>
+				<tbody id="artistsTableBody">
+				@foreach (var album in Model.ArtistLinks) {
+						Html.RenderPartial("ArtistForAlbumEditRow", album);
+					}
+				</tbody>
+			</table>
+
+			<h4>Add artist</h4>
+
+			@Helpers.EntrySearchBox("artistAdd", false)
+			<br />
+			<a href="#" id="artistAddAcceptBtn" class="textLink addLink">Add</a>
 		</div>
 
 		<div id="pvsTab">
@@ -237,7 +237,7 @@
 					</p>
 				</td>
 				<td>
-					<input type="button" class="pvAddNew" id="pvAdd" value="Add" />				
+					<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
 				</td>
 			</tr>
 			</table>

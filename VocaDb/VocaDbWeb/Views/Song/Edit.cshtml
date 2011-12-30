@@ -139,26 +139,26 @@
 		@Helpers.NotificationPanel("Changes on this tab are saved immediately.")<br />
 
 		<table>
-		@foreach (var pv in Model.PVs) {
-	  Html.RenderPartial("PVForSongEditRow", pv);
-  }
-		<tr id="pvRow_new">
-			<td>
-				<p>Only Youtube and NicoNicoDouga are supported.</p>
-				<p>
-				URL:
-				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
-				</p>
-				<p>
-				Type:
-				@Html.DropDownList("pvType_new", new SelectList(Model.AllPVTypes), new { id = "pvType_new" })
-				</p>
-			</td>
-			<td>
-				<input type="button" class="pvAddNew" id="pvAdd" value="Add" />				
-			</td>
-		</tr>
+			<tbody id="pvTableBody">
+			@foreach (var pv in Model.PVs) {
+				  Html.RenderPartial("PVForSongEditRow", pv);
+			  }
+			</tbody>
 		</table>
+
+		<h4>Add PV</h4>
+
+		<p>Only Youtube and NicoNicoDouga are supported.</p>
+		<p>
+		URL:
+		@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
+		</p>
+		<p>
+		Type:
+		@Html.EnumDropDownList("pvType_new", Translate.PVTypeNames, new { id = "pvType_new" })
+		</p>
+
+		<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
 	
 	</div>
 
@@ -168,24 +168,21 @@
 
 	<div id="artistsTab">
 
-		@Helpers.NotificationPanel("Changes on this tab are saved immediately.")<br />
+		@Helpers.NotificationPanel("Changes on this tab are saved immediately.")
+		@Helpers.NotificationPanel("Note that you can tag artists for a song much faster after tagging the album first")<br />
 
-		<fieldset>
-			<legend>Connected performers and producers</legend>
-
-			@Helpers.NotificationPanel("Note that you can tag artists for a song much faster after tagging the album first")
-
-			<table>
-				<tbody id="artistsTableBody">
+		<table>
+			<tbody id="artistsTableBody">
 			@foreach (var album in Model.ArtistLinks) {
-	   Html.RenderPartial("ArtistForSongEditRow", album);
-   }
-				</tbody>
-			</table>
-			@Helpers.EntrySearchBox("artistAdd", false);
-			<br />
-			<input type="button" id="artistAddAcceptBtn" value="Add" />
-		</fieldset>
+				Html.RenderPartial("ArtistForSongEditRow", album);
+			}
+			</tbody>
+		</table>
+
+		<h4>Add artist</h4>
+		@Helpers.EntrySearchBox("artistAdd", false);
+		<br />
+		<a href="#" id="artistAddAcceptBtn" class="textLink addLink">Add</a>
 	</div>
 
 </div>

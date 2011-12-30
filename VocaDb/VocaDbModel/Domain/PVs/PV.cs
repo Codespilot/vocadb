@@ -4,11 +4,9 @@ namespace VocaDb.Model.Domain.PVs {
 
 	public class PV : IEquatable<PV> {
 
-		private string name;
 		private string pvId;
 
 		public PV() {
-			Name = string.Empty;
 			pvId = string.Empty;
 			Service = PVService.Youtube;
 			PVType = PVType.Other;
@@ -24,13 +22,6 @@ namespace VocaDb.Model.Domain.PVs {
 		}
 
 		public virtual int Id { get; set; }
-
-		public virtual string Name {
-			get { return name; }
-			set {
-				name = value;
-			}
-		}
 
 		public virtual string PVId {
 			get { return pvId; }

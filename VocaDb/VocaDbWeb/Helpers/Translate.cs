@@ -1,4 +1,5 @@
 ﻿using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Resources;
 using VocaDb.Model.Domain.Globalization;
@@ -14,6 +15,9 @@ namespace VocaDb.Web.Helpers {
 
 		public static readonly TranslateableEnum<PermissionFlags> PermissionFlagNames =
 			new TranslateableEnum<PermissionFlags>(() => Resources.PermissionFlagNames.ResourceManager);
+
+		public static readonly TranslateableEnum<PVType> PVTypeNames =
+			new TranslateableEnum<PVType>(() => Resources.PVTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<UserGroupId> UserGroups =
 			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);

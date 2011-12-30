@@ -115,7 +115,7 @@ function initPage(songId) {
 
 	}
 
-	$("input.artistRemove").live("click", function () {
+	$("a.artistRemove").live("click", function () {
 
 		var id = getId(this);
 		$.post("../../Song/DeleteArtistForSong", { artistForSongId: id }, function () {
@@ -123,6 +123,8 @@ function initPage(songId) {
 			$("tr#artistRow_" + id).remove();
 
 		});
+
+		return false;
 
 	});
 
@@ -141,14 +143,16 @@ function initPage(songId) {
 				return;
 			}
 
-			var addRow = $("#pvRow_new");
-			addRow.before(response.Result);
+			var addRow = $("#pvTableBody");
+			addRow.append(response.Result);
 
 		});
 
+		return false;
+
 	});
 
-	$("input.pvRemove").live("click", function () {
+	$("a.pvRemove").live("click", function () {
 
 		var id = getId(this);
 		$.post("../../Song/DeletePVForSong", { pvForSongId: id }, function () {
@@ -156,7 +160,9 @@ function initPage(songId) {
 			$("tr#pvRow_" + id).remove();
 
 		});
-		
+
+		return false;
+
 	});
 
 	$("#lyricsAdd").click(function () {
