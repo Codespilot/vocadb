@@ -13,38 +13,9 @@ function initPage(albumId) {
 			createTitle: function (item) { return item.AdditionalNames; }
 		});	
 
-	/*$("input#albumName").keyup(function () {
-
-		var findTerm = $(this).val();
-		var albumList = $("#albumList");
-
-		if (findTerm.length == 0) {
-
-			$(albumList).empty();
-			return;
-
-		}
-
-		$.post("../../Album/FindJson", { term: findTerm }, function (results) {
-
-			$(albumList).empty();
-
-			$(results.Items).each(function () {
-
-				if (this.Id != albumId) {
-					addOption(albumList, this.Id, this.Name
-						+ (this.AdditionalNames != "" ? " (" + this.AdditionalNames + ")" : ""));
-				}
-
-			});
-
-		});
-
-	});*/
-
 	$("#mergeBtn").click(function () {
 
-		var targetAlbumId = $("#albumList").val();
+		var targetAlbumId = $("#targetAlbumId").val();
 
 		if (targetAlbumId == null || targetAlbumId == "") {
 			alert("Album must be selected!");
