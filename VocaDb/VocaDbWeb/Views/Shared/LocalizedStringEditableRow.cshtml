@@ -5,7 +5,7 @@
 	<td>
 		@{ var item = Html.BeginCollectionItem("Names"); }
 		@Html.HiddenFor(m => m.Id)
-		@Html.TextBoxFor(m => m.Value, new { maxlength = 128, @class = "nameEdit" })<br />
+		@Html.TextBoxFor(m => m.Value, new { maxlength = 128, size = 50, @class = "nameEdit" })<br />
 		@Html.ValidationMessageFor(m => m.Value)
 	</td>
 	<td>
@@ -13,6 +13,6 @@
 		@{ item.Dispose(); }
 	</td>
 	<td>
-		<input type="button" class="nameDelete" value="Delete" />
+		<a href="#" class="nameDelete textLink deleteLink">Delete</a>
 	</td>
 </tr>

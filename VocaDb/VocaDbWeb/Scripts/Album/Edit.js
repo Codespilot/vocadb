@@ -173,46 +173,8 @@ function initPage(albumId) {
 		songListChanged();
 	});
 
-	$("input.nameDelete").live("click", function () {
-
-		$(this).parent().parent().remove();
-
-	});
-
-	$("input#nameAdd").click(function () {
-
-		var newNameVal = $("input#nameEdit_new").val();
-		var newLangId = $("select#nameLanguage_new").val();
-
-		$.post("../../Shared/CreateName", { nameVal: newNameVal, language: newLangId }, function (row) {
-
-			$("#nameRow_new").before(row);
-			$("input#nameEdit_new").val("");
-
-		});
-
-	});
-
-	$("input.webLinkDelete").live("click", function () {
-
-		$(this).parent().parent().remove();
-
-	});
-
-	$("input#webLinkAdd").click(function () {
-
-		var newDescription = $("input#webLinkDescription_new").val();
-		var newUrl = $("input#webLinkUrl_new").val();
-
-		$.post("../../Shared/CreateWebLink", { description: newDescription, url: newUrl }, function (row) {
-
-			$("#webLinkRow_new").before(row);
-			$("input#webLinkDescription_new").val("");
-			$("input#webLinkUrl_new").val("");
-
-		});
-
-	});
+	initNamesList();
+	initWebLinksList();
 
 	function acceptArtistSelection(artistId, term) {
 

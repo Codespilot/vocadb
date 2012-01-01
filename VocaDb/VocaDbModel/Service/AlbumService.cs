@@ -919,7 +919,8 @@ namespace VocaDb.Model.Service {
 					diff.OriginalName = true;
 				}
 
-				var nameDiff = album.Names.Sync(properties.Names, album);
+				var validNames = properties.Names.Where(n => !string.IsNullOrWhiteSpace(n.Value)).ToArray();
+				var nameDiff = album.Names.Sync(validNames, album);
 				SessionHelper.Sync(session, nameDiff);
 
 				album.Names.UpdateSortNames();

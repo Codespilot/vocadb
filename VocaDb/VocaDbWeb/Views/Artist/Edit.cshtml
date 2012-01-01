@@ -54,18 +54,7 @@
 					@Html.LabelFor(m => m.Names)
 				</div>
 				<div class="editor-field">
-					<table>
-						<tr>
-							<th>Name *</th>
-							<th>Language</th>
-							<th>Actions</th>
-						</tr>
-						@foreach (var name in Model.Names) {
-		  Html.RenderPartial("LocalizedStringEditableRow", name);
-	  }
-
-						@{ Html.RenderPartial("LocalizedStringNewRow"); }
-					</table>
+					@Helpers.NamesList(Model.Names)
 				</div>
 
 				<div class="editor-label">
@@ -113,7 +102,7 @@
 
 						@Helpers.EntrySearchBox("groupAdd", false)
 						<br />
-						<input type="button" id="groupAddBtn" value="Add" />
+						<a href="#" class="textLink addLink" id="groupAddBtn">Add</a>
 					</div>
 				}
 			
@@ -121,17 +110,7 @@
 					@Html.LabelFor(m => m.WebLinks)
 				</div>
 				<div class="editor-field">
-					<table>
-						<tr>
-							<th>Description</th>
-							<th>URL *</th>
-							<th>Actions</th>
-						</tr>
-						@foreach (var webLink in Model.WebLinks) {
-		  Html.RenderPartial("WebLinkEditRow", webLink);
-	  }
-						@{ Html.RenderPartial("WebLinkCreateRow"); }
-					</table>
+					@Helpers.WebLinksList(Model.WebLinks)
 				</div>
 
 				<p title="Entries that are missing important information can be marked as drafts so that others can finish them.">
@@ -144,19 +123,17 @@
 
 		<div id="discoTab">
 			<table>
-			@foreach (var album in Model.AlbumLinks) {
-	   Html.RenderPartial("ArtistForAlbumRow", album);
-   }
-			<tr id="albumRow_new">
-				<td>
-					<input type="text" maxlength="128" id="albumAddName" /><br />
-					<div id="albumAddList" />
-				</td>
-				<td>
-					<input type="button" id="albumAddBtn" value="Add" />
-				</td>
-			</tr>
+				<tbody id="albumTableBody">
+				@foreach (var album in Model.AlbumLinks) {
+				   Html.RenderPartial("ArtistForAlbumRow", album);
+			   }
+				</tbody>
 			</table>
+
+			<h4>Add album</h4>
+			@Helpers.EntrySearchBox("albumAdd", false)
+			<br />
+			<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
 		</div>
 
 	</div>
@@ -168,6 +145,7 @@
 }
 
 
+@section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
@@ -178,7 +156,8 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id); 
 	});
 
 </script>
+}

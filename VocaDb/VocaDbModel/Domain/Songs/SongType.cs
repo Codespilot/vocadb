@@ -8,7 +8,9 @@
 
 		Remix		= 2,
 
-		Cover		= 4
+		Cover		= 4,
+
+		Mashup		= 8
 
 	}
 

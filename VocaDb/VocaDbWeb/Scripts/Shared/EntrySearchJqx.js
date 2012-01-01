@@ -1,27 +1,4 @@
-﻿/*var EntrySearchParams = function () {
-
-	this.width = 400;
-	this.height = 350;
-
-};
-
-function initEntrySearchP(params) {
-
-	var nameBoxElem = params.nameBoxElem;
-	var idElem = params.idElem;
-	var findListElem = params.findListElem;
-	var acceptBtnElem = params.acceptBtnElem;
-	var allowCreateNew = params.allowCreateNew;
-	var entityName = params.entityName;
-	var searchUrl = params.searchUrl;
-	var createOptionHtml = params.createOptionHtml;
-	var createTitle = params.createTitle;
-	var acceptSelection = params.acceptSelection;
-
-	initEntrySearch(nameBoxElem, idElem, findListElem, acceptBtnElem, allowCreateNew, entityName, searchUrl, createOptionHtml, createTitle, acceptSelection);
-
-}*/
-
+﻿
 function clearFindList(findListElem) {
 
 	$(findListElem).jqxListBox('selectIndex', -1);
@@ -181,14 +158,14 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 			var findTerm = $(nameBoxElem).val();
 
 			if (isNullOrWhiteSpace(findTerm))
-				return;
+				return false;
 
 			var selectedId = "";
 
 			var selectedIndex = $(findListElem).jqxListBox('getSelectedIndex');
 
 			if (selectedIndex < 0)
-				return;
+				return false;
 
 			var item = null;
 

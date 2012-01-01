@@ -6,48 +6,8 @@ function initPage(artistId) {
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
-	$("input.nameDelete").live("click", function () {
-
-		$(this).parent().parent().remove();
-
-	});
-
-	$("input#nameAdd").click(function () {
-
-		var aId = artistId;
-		var newNameVal = $("input#nameEdit_new").val();
-		var newLangId = $("select#nameLanguage_new").val();
-
-		$.post("../../Shared/CreateName", { nameVal: newNameVal, language: newLangId }, function (row) {
-
-			$("#nameRow_new").before(row);
-			$("input#nameEdit_new").val("");
-
-		});
-
-	});
-
-	$("input.webLinkDelete").live("click", function () {
-
-		$(this).parent().parent().remove();
-
-	});
-
-	$("input#webLinkAdd").click(function () {
-
-		var aId = artistId;
-		var newDescription = $("input#webLinkDescription_new").val();
-		var newUrl = $("input#webLinkUrl_new").val();
-
-		$.post("../../Shared/CreateWebLink", { artistId: aId, description: newDescription, url: newUrl }, function (row) {
-
-			$("#webLinkRow_new").before(row);
-			$("input#webLinkDescription_new").val("");
-			$("input#webLinkUrl_new").val("");
-
-		});
-
-	});
+	initNamesList();
+	initWebLinksList();
 
 	function acceptGroupSelection(groupId, term) {
 
@@ -78,20 +38,10 @@ function initPage(artistId) {
 			width: 350
 		});
 
-	/*$("#groupAddBtn").click(function () {
-
-		var groupId = $("#groupAddGroup").val();
-		$.post("../../Artist/AddCircle", { artistId: artistId, circleId: groupId }, function (row) {
-
-			$("#groupRow_new").before(row);
-
-		});
-
-	});*/
-
-	$("input.groupRemove").live("click", function () {
+	$("a.groupRemove").live("click", function () {
 
 		$(this).parent().parent().remove();		
+		return false;
 
 	});
 
@@ -107,7 +57,7 @@ function initPage(artistId) {
 
 	var albumAddList = $("#albumAddList");
 	var albumAddName = $("input#albumAddName");
-	var albumAddBtn = $("#albumAddBtn");
+	var albumAddBtn = $("#albumAddAcceptBtn");
 
 	initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson",
 		{
@@ -121,14 +71,14 @@ function initPage(artistId) {
 
 	function albumAdded(row) {
 
-		var addRow = $("#albumRow_new");
-		addRow.before(row);
+		$("#albumTableBody").append(row);
 
 	}
 
-	$("input.albumRemove").live("click", function () {
+	$("a.albumRemove").live("click", function () {
 
 		$(this).parent().parent().remove();
+		return false;
 
 	});
 
