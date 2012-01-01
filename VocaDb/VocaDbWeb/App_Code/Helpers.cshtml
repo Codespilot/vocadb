@@ -150,6 +150,28 @@
 
 }
 
+@helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Name (required)</th>
+				<th>Language</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody id="namesListBody">
+			@foreach (var name in names) {
+				RenderPartialExtensions.RenderPartial(Html, "LocalizedStringEditableRow", name);
+			}
+		</tbody>
+
+	</table>
+	
+	<a href="#" id="nameAdd" class="textLink addLink">New row</a>
+
+}
+
 @helper NotificationIcon() {
 	<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 }
@@ -202,5 +224,26 @@
 	}, true);
 </script>
 <link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />	
+	
+}
+
+@helper WebLinksList(IEnumerable<VocaDb.Web.Models.Shared.WebLinkDisplay> webLinks) {
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Description</th>
+				<th>URL (required)</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody id="webLinksListBody">
+			@foreach (var webLink in webLinks) {
+				Html.RenderPartial("WebLinkEditRow", webLink);
+			}
+		</tbody>
+	</table>
+	
+	<a href="#" id="webLinkAdd" class="textLink addLink">New row</a>
 	
 }

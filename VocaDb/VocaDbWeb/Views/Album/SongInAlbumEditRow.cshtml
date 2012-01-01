@@ -2,7 +2,7 @@
 @model VocaDb.Model.DataContracts.Songs.SongInAlbumEditContract
 
 <tr class="trackRow ui-state-default">
-	<td>
+	<td style="cursor: move">
 		@{ var item = Html.BeginCollectionItem("Tracks"); }
 		@Html.HiddenFor(m => m.ArtistString)
 		@Html.HiddenFor(m => m.DiscNumber, new { @class = "songDiscNumberField" })

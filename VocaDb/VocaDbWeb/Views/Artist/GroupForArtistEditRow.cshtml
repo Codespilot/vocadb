@@ -1,7 +1,7 @@
 ﻿@model VocaDb.Model.DataContracts.Artists.GroupForArtistContract
 @using VocaDb.Web.Helpers
 
-<tr id="@("groupRow_" + Model.Id)">
+<tr>
 	<td>
 		@using (Html.BeginCollectionItem("Groups")) {
 			@Html.HiddenFor(m => m.Id);
@@ -10,6 +10,6 @@
 		}
 	</td>
 	<td>
-		<input type="button" class="groupRemove" id="@("groupRemove_" + Model.Id)" value="Remove" />
+		<a href="#" class="groupRemove textLink removeLink">Remove</a>
 	</td>
 </tr>

@@ -22,6 +22,24 @@
 }
 }
 
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id);
+	});
+
+</script>
+}
+
+
 @Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glalbums")
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
@@ -56,18 +74,7 @@
 				@Html.LabelFor(m => m.Names)
 			</div>
 			<div class="editor-field">
-				<table>
-					<tr>
-						<th>Name *</th>
-						<th>Language</th>
-						<th>Actions</th>
-					</tr>
-					@foreach (var name in Model.Names) {
-						 Html.RenderPartial("LocalizedStringEditableRow", name);
-					 }
-
-					@{ Html.RenderPartial("LocalizedStringNewRow"); }
-				</table>
+				@Helpers.NamesList(Model.Names)
 			</div>
 
 			<div class="editor-label">
@@ -148,17 +155,7 @@
 				@Html.LabelFor(m => m.WebLinks)
 			</div>
 			<div class="editor-field">
-				<table>
-					<tr>
-						<th>Description</th>
-						<th>URL *</th>
-						<th>Actions</th>
-					</tr>
-					@foreach (var webLink in Model.WebLinks) {
-		 Html.RenderPartial("WebLinkEditRow", webLink);
-	 }
-					@{ Html.RenderPartial("WebLinkCreateRow"); }
-				</table>
+				@Helpers.WebLinksList(Model.WebLinks)
 			</div>
 
 			<p title="Entries that are missing important information can be marked as drafts so that others can finish them.">
@@ -263,19 +260,3 @@
 	<div id="multipleTrackPropertiesContent"></div>
 
 </div>
-
-
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
-<script type="text/javascript">
-
-	$(document).ready(function() { 
-		initPage(@Model.Id);
-	});
-
-</script>

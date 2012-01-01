@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
@@ -43,7 +39,10 @@ namespace VocaDb.Web.Models {
 
 	public class LocalizedStringEdit {
 
-		public LocalizedStringEdit() { }
+		public LocalizedStringEdit() {
+			Language = ContentLanguageSelection.Unspecified;
+			Value = string.Empty;
+		}
 
 		public LocalizedStringEdit(LocalizedStringWithIdContract contract) {
 

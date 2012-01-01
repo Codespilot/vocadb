@@ -16,6 +16,20 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult CreateNewName() {
+
+			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit());
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult CreateNewWebLink() {
+
+			return PartialView("WebLinkEditRow", new WebLinkDisplay());
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult CreateWebLink(string description, string url) {
 
 			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url });
