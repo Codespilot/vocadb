@@ -135,11 +135,14 @@ function initPage(songId) {
 
 		});
 
+		return false;
+
 	});
 
 	$("a.deleteLyrics").live("click", function () {
 
 		$(this).parent().remove();
+		return false;
 
 	});
 

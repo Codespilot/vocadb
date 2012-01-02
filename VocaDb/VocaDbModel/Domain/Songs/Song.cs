@@ -420,7 +420,32 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public CollectionDiffWithValue<LyricsForSong, LyricsForSong> SyncLyrics(IEnumerable<LyricsForSongContract> newLyrics) {
+		public virtual CollectionDiff<ArtistForSong, ArtistForSong> SyncArtists(
+			IEnumerable<ArtistForSongContract> newArtists, Func<ArtistForSongContract, Artist> artistGetter) {
+
+			ParamIs.NotNull(() => newArtists);
+
+			var diff = CollectionHelper.Diff(Artists, newArtists, (n1, n2) => n1.Id == n2.Id);
+			var created = new List<ArtistForSong>();
+
+			foreach (var n in diff.Removed) {
+				n.Delete();
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var artist = artistGetter(newEntry);
+
+				var l = AddArtist(artist);
+				created.Add(l);
+
+			}
+
+			return new CollectionDiff<ArtistForSong, ArtistForSong>(created, diff.Removed, diff.Unchanged);
+
+		}
+
+		public virtual CollectionDiffWithValue<LyricsForSong, LyricsForSong> SyncLyrics(IEnumerable<LyricsForSongContract> newLyrics) {
 
 			ParamIs.NotNull(() => newLyrics);
 

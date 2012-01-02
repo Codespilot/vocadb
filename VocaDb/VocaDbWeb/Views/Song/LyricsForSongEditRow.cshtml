@@ -5,6 +5,7 @@
 
 	@using (Html.BeginCollectionItem("Lyrics")) {
 	<p>
+	@Html.HiddenFor(m => m.Id)
 	@Html.LabelFor(m => m.Language):
 	@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
 

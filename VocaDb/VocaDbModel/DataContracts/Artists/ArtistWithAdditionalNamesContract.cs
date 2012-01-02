@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		}
 
 		[DataMember]
-		public string AdditionalNames { get; private set; }
+		public string AdditionalNames { get; set; }
 
 	}
 

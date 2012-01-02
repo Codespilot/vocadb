@@ -241,7 +241,7 @@ namespace VocaDb.Web.Models {
 
 	}*/
 
-	public class LyricsEditorModel {
+	/*public class LyricsEditorModel {
 
 		public LyricsEditorModel() {}
 
@@ -256,7 +256,7 @@ namespace VocaDb.Web.Models {
 
 		public LyricsForSongModel[] Lyrics { get; set; }
 
-	}
+	}*/
 
 	public class LyricsForSongModel {
 		
