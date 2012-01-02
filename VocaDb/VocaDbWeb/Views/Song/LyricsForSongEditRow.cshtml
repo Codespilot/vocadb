@@ -1,9 +1,9 @@
 ﻿@using VocaDb.Web.Helpers
 @model VocaDb.Web.Models.LyricsForSongModel
 
-<div id="@("lyricsRow_" + Model.Id)">
+<div>
 
-	@using (Html.BeginCollectionItem("lyrics")) {
+	@using (Html.BeginCollectionItem("Lyrics")) {
 	<p>
 	@Html.LabelFor(m => m.Language):
 	@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
@@ -18,7 +18,7 @@
 	 
 	<br />
 
-	<input type="button" class="deleteLyrics" id="@("deleteLyrics_" + Model.Id)" value="Delete" />
+	<a href="#" class="deleteLyrics textLink deleteLink">Delete</a>
 	<hr />
 
 </div>

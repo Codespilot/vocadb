@@ -1018,6 +1018,12 @@ namespace VocaDb.Model.Service {
 					diff.Status = true;
 				}
 
+				var lyricsDiff = song.SyncLyrics(properties.Lyrics);
+				SessionHelper.Sync(session, lyricsDiff);
+
+				if (lyricsDiff.Changed)
+					diff.Lyrics = true;
+
 				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
 
 				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
@@ -1029,6 +1035,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public SongForEditContract UpdateLyrics(int songId, IEnumerable<LyricsForSongContract> lyrics) {
 			
 			ParamIs.NotNull(() => lyrics);

@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.DataContracts.Songs;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -416,6 +417,43 @@ namespace VocaDb.Model.Domain.Songs {
 			DeleteArtistForSong(link);
 
 			return link;
+
+		}
+
+		public CollectionDiffWithValue<LyricsForSong, LyricsForSong> SyncLyrics(IEnumerable<LyricsForSongContract> newLyrics) {
+
+			ParamIs.NotNull(() => newLyrics);
+
+			var diff = CollectionHelper.Diff(Lyrics, newLyrics, (n1, n2) => n1.Id == n2.Id);
+			var created = new List<LyricsForSong>();
+			var edited = new List<LyricsForSong>();
+
+			foreach (var n in diff.Removed) {
+				Lyrics.Remove(n);
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var l = CreateLyrics(newEntry.Language, newEntry.Value, newEntry.Source);
+				created.Add(l);
+
+			}
+
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newLyrics.First(e => e.Id == entry.Id);
+
+				if (!entry.ContentEquals(newEntry)) {
+					linkEntry.Language = newEntry.Language;
+					linkEntry.Source = newEntry.Source;
+					linkEntry.Value = newEntry.Value;
+					edited.Add(linkEntry);
+				}
+
+			}
+
+			return new CollectionDiffWithValue<LyricsForSong, LyricsForSong>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 
