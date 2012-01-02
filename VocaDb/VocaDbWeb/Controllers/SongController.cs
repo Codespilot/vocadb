@@ -235,6 +235,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		/*
 		[HttpPost]
 		[Obsolete("Integrated to song editing")]
 		public ActionResult EditLyrics(LyricsEditorModel model, IEnumerable<LyricsForSongModel> lyrics) {
@@ -248,7 +249,7 @@ namespace VocaDb.Web.Controllers
 
 			return RedirectToAction("Edit", new { id = model.Id });
 
-		}
+		}*/
 
         //
         // GET: /Song/Delete/5

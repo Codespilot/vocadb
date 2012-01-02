@@ -145,7 +145,7 @@
 		<div id="lyricsTab">
 
 			@foreach (var lyrics in Model.Lyrics) {
-				@{ Html.RenderPartial("LyricsForSongEditRow", lyrics); }
+				Html.RenderPartial("LyricsForSongEditRow", lyrics);
 			}
 			<a href="#" class="lyricsAddNew textLink addLink" id="lyricsAdd">Add row</a>
 
@@ -153,7 +153,6 @@
 
 		<div id="artistsTab">
 
-			@Helpers.NotificationPanel("Changes on this tab are saved immediately.")
 			@using (@Html.BeginPanel()) {
 				<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
 			}

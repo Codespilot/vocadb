@@ -237,6 +237,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to properties saving")]
 		public ArtistForSongContract AddArtist(int songId, int artistId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -261,7 +262,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete]
+		[Obsolete("Disabled")]
 		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -1017,6 +1018,15 @@ namespace VocaDb.Model.Service {
 					song.Status = properties.Song.Status;
 					diff.Status = true;
 				}
+
+				var artistGetter = new Func<ArtistForSongContract, Artist>(artistForSong => 
+					session.Load<Artist>(artistForSong.Artist.Id));
+
+				var artistsDiff = song.SyncArtists(properties.Artists, artistGetter);
+				SessionHelper.Sync(session, artistsDiff);
+
+				if (artistsDiff.Changed)
+					diff.Artists = true;
 
 				var lyricsDiff = song.SyncLyrics(properties.Lyrics);
 				SessionHelper.Sync(session, lyricsDiff);

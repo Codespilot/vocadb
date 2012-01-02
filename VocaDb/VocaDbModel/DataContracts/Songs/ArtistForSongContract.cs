@@ -8,6 +8,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 	[DataContract]
 	public class ArtistForSongContract {
 
+		public ArtistForSongContract() { }
+
 		public ArtistForSongContract(ArtistForSong artistForSong, ContentLanguagePreference languagePreference) {
 			
 			ParamIs.NotNull(() => artistForSong);
