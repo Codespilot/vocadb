@@ -1,11 +1,18 @@
-﻿@model VocaDb.Model.DataContracts.Songs.ArtistForSongContract
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Songs.ArtistForSongContract
 
-<tr id="@("artistRow_" + Model.Id)">
+<tr>
 	<td>
-		@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
-		<span class="extraInfo">@Model.Artist.AdditionalNames</span>
+		@using (Html.BeginCollectionItem("Artists")) {
+			@Html.HiddenFor(m => m.Id);
+			@Html.HiddenFor(m => m.Artist.Id);
+			@Html.HiddenFor(m => m.Artist.AdditionalNames);
+			@Html.HiddenFor(m => m.Artist.Name);									
+			@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
+			<span class="extraInfo">@Model.Artist.AdditionalNames</span>
+		}
 	</td>
 	<td>
-		<a href="#" class="artistRemove textLink removeLink" id="@("artistRemove_" + Model.Id)">Remove</a>
+		<a href="#" class="artistRemove textLink removeLink">Remove</a>
 	</td>
 </tr>

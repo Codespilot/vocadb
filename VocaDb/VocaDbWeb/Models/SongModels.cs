@@ -106,6 +106,7 @@ namespace VocaDb.Web.Models {
 
 		public SongEdit() {
 
+			ArtistLinks = new List<ArtistForSongContract>();
 			Lyrics = new List<LyricsForSongModel>();
 			Names = new List<LocalizedStringEdit>();
 			PVs = new List<PVContract>();
@@ -121,6 +122,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => song);
 
+			ArtistLinks = song.Artists;
 			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
 			Draft = song.Song.Status == EntryStatus.Draft;
 			Id = song.Song.Id;
@@ -143,7 +145,7 @@ namespace VocaDb.Web.Models {
 
 		public PVService[] AllVideoServices { get; set; }
 
-		public ArtistForSongContract[] ArtistLinks { get; set; }
+		public IList<ArtistForSongContract> ArtistLinks { get; set; }
 
 		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
@@ -198,7 +200,6 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => song);
 
-			ArtistLinks = song.Artists;
 			Deleted = song.Deleted;
 			PVs = song.PVs;
 			ValidationResult = song.ValidationResult;
@@ -214,6 +215,7 @@ namespace VocaDb.Web.Models {
 					Name = this.Name,
 					SongType = this.SongType
 				},
+				Artists = this.ArtistLinks.ToArray(),
 				Lyrics = this.Lyrics.Select(l => l.ToContract()).ToArray(),
 				Names = this.Names.Select(n => n.ToContract()).ToArray(),
 				Notes = this.Notes ?? string.Empty,
