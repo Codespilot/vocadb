@@ -17,6 +17,15 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		public ArtistForSongContract(ArtistWithAdditionalNamesContract artistContract) {
+
+			ParamIs.NotNull(() => artistContract);
+
+			Artist = artistContract;
+
+		}
+
+
 		[DataMember]
 		public ArtistWithAdditionalNamesContract Artist { get; set; }
 
