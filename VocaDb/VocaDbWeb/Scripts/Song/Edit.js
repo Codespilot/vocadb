@@ -129,11 +129,7 @@ function initPage(songId) {
 
 	$("#lyricsAdd").click(function () {
 
-		var lang = $("#lyricsLanguage_new").val();
-		var source = $("#lyricsSource_new").val();
-		var value = $("#lyricsValue_new").val();
-
-		$.post("../../Song/CreateLyrics", { }, function (html) {
+		$.post("../../Song/CreateLyrics", null, function (html) {
 
 			$("#lyricsAdd").before(html);
 
@@ -141,7 +137,7 @@ function initPage(songId) {
 
 	});
 
-	$(".deleteLyrics").live("click", function () {
+	$("a.deleteLyrics").live("click", function () {
 
 		$(this).parent().remove();
 

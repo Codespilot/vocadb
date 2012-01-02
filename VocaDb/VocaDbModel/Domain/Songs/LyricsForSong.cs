@@ -1,5 +1,6 @@
 ﻿using System;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.DataContracts.Songs;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -43,6 +44,15 @@ namespace VocaDb.Model.Domain.Songs {
 				ParamIs.NotNull(() => value);
 				source = value;
 			}
+		}
+
+		public virtual bool ContentEquals(LyricsForSongContract contract) {
+
+			if (contract == null)
+				return false;
+
+			return (Language == contract.Language && Source == contract.Source && Value == contract.Value);
+
 		}
 
 		public virtual bool Equals(LyricsForSong another) {

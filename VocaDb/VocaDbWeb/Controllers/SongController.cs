@@ -234,6 +234,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[Obsolete("Integrated to song editing")]
 		public ActionResult EditLyrics(LyricsEditorModel model, IEnumerable<LyricsForSongModel> lyrics) {
 
 			lyrics = lyrics ?? new LyricsForSongModel[] {};
