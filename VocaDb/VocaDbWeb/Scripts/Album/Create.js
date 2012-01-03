@@ -60,62 +60,10 @@ function initPage() {
 			height: 300
 		});
 
-	/*$("input#artistAddName").keyup(function () {
-
-		var findTerm = $(this).val();
-		var artistList = $("#artistAddList");
-
-		if (isNullOrWhiteSpace(findTerm)) {
-
-			$(artistList).empty();
-			return;
-
-		}
-
-		$.post("../../Artist/FindJson", { term: findTerm }, function (results) {
-
-			$(artistList).empty();
-
-			$(results.Items).each(function () {
-
-				addOption(artistList, this.Id, this.Name);
-
-			});
-
-		});
-
-	});
-
-	$("input#artistAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#artistAddBtn").click(function () {
-
-		var findTerm = $("input#artistAddName").val();
-		var artistList = $("#artistAddList");
-		var artistId = $(artistList).val();
-
-		if (isNullOrWhiteSpace(findTerm) || artistId == "")
-			return;
-
-		$.post("../../Artist/CreateArtistContractRow", { artistId: artistId }, function (row) {
-
-			var addRow = $("#artistRow_new");
-			addRow.before(row);
-			$("input#artistAddName").val("");
-			$("#artistAddList").empty();
-
-		});
-
-	});*/
-
-	$("input.artistRemove").live("click", function () {
+	$("a.artistRemove").live("click", function () {
 
 		$(this).parent().parent().remove();
+		return false;
 
 	});
 
