@@ -1,14 +1,22 @@
 ﻿@model VocaDb.Model.DataContracts.PVs.PVContract
 @using VocaDb.Web.Helpers;
 
-<tr id="@("pvRow_" + Model.Id)">
+<tr>
 	<td>
+		@using (Html.BeginCollectionItem("PVs")) {
+			Html.HiddenFor(m => m.DisplayName);
+			Html.HiddenFor(m => m.Id);
+			Html.HiddenFor(m => m.PVId);
+			Html.HiddenFor(m => m.PVType);
+			Html.HiddenFor(m => m.Service);	  
+			Html.HiddenFor(m => m.Url);
+		}
 		<a href="@Model.Url">@Model.DisplayName</a>
 	</td>
 	<td>
 		@Model.PVType
 	</td>
 	<td>
-		<a href="#" class="pvRemove textLink deleteLink" id="@("pvRemove_" + Model.Id)">Delete</a>
+		<a href="#" class="pvRemove textLink deleteLink">Delete</a>
 	</td>
 </tr>

@@ -79,13 +79,14 @@ function initPage(songId) {
 
 	$("a.artistRemove").live("click", function () {
 
-		var id = getId(this);
+		/*var id = getId(this);
 		$.post("../../Song/DeleteArtistForSong", { artistForSongId: id }, function () {
 
 			$("tr#artistRow_" + id).remove();
 
-		});
+		});*/
 
+		$(this).parent().parent().remove();
 		return false;
 
 	});
@@ -116,13 +117,14 @@ function initPage(songId) {
 
 	$("a.pvRemove").live("click", function () {
 
-		var id = getId(this);
+		/*var id = getId(this);
 		$.post("../../Song/DeletePVForSong", { pvForSongId: id }, function () {
 
 			$("tr#pvRow_" + id).remove();
 
-		});
+		});*/
 
+		$(this).parent().parent().remove();
 		return false;
 
 	});

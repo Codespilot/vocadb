@@ -141,7 +141,10 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool PVs {
 			get {
-				return true;
+				return IsChanged(SongEditableFields.PVs);
+			}
+			set {
+				Set(SongEditableFields.PVs, value);
 			}
 		}
 

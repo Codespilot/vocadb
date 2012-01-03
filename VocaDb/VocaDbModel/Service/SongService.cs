@@ -401,6 +401,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public PVContract CreatePVForSong(int songId, string pvUrl, PVType pvType) {
 
 			ParamIs.NotNullOrEmpty(() => pvUrl);
@@ -474,6 +475,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrating to saving properties")]
 		public void DeleteArtistForSong(int artistForSongId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -492,6 +494,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to saving properties"]
 		public void DeletePvForSong(int pvForSongId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -1027,6 +1030,12 @@ namespace VocaDb.Model.Service {
 
 				if (artistsDiff.Changed)
 					diff.Artists = true;
+
+				var pvDiff = song.SyncPVs(properties.PVs);
+				SessionHelper.Sync(session, pvDiff);
+
+				if (pvDiff.Changed)
+					diff.PVs = true;
 
 				var lyricsDiff = song.SyncLyrics(properties.Lyrics);
 				SessionHelper.Sync(session, lyricsDiff);

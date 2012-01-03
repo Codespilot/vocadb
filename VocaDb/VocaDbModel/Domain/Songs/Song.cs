@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -479,6 +480,41 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 
 			return new CollectionDiffWithValue<LyricsForSong, LyricsForSong>(created, diff.Removed, diff.Unchanged, edited);
+
+		}
+
+		public virtual CollectionDiffWithValue<PVForSong, PVForSong> SyncPVs(IEnumerable<PVContract> newPVs) {
+
+			ParamIs.NotNull(() => newPVs);
+
+			var diff = CollectionHelper.Diff(PVs, newPVs, (n1, n2) => n1.Id == n2.Id);
+			var created = new List<PVForSong>();
+			var edited = new List<PVForSong>();
+
+			foreach (var n in diff.Removed) {
+				PVs.Remove(n);
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType);
+				created.Add(l);
+
+			}
+
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newPVs.First(e => e.Id == entry.Id);
+
+				if (!entry.ContentEquals(newEntry)) {
+					linkEntry.Name = newEntry.Name;
+					edited.Add(linkEntry);
+				}
+
+			}
+
+			return new CollectionDiffWithValue<PVForSong, PVForSong>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 

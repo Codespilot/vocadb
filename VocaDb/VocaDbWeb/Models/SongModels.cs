@@ -134,6 +134,7 @@ namespace VocaDb.Web.Models {
 			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
 			Notes = song.Notes;
 			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
+			PVs = song.PVs;
 			SongType = song.Song.SongType;
 			WebLinks = song.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
@@ -201,7 +202,6 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => song);
 
 			Deleted = song.Deleted;
-			PVs = song.PVs;
 			ValidationResult = song.ValidationResult;
 
 		}
@@ -220,6 +220,7 @@ namespace VocaDb.Web.Models {
 				Names = this.Names.Select(n => n.ToContract()).ToArray(),
 				Notes = this.Notes ?? string.Empty,
 				OriginalVersion = this.OriginalVersion ?? new SongWithAdditionalNamesContract { Id = OriginalVersionId },
+				PVs = this.PVs.ToArray(),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),

@@ -12,6 +12,7 @@ using VocaDb.Web.Models.Song;
 using System;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers;
+using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Web.Controllers
 {
@@ -185,6 +186,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete("Integrating to saving properties")]
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteArtistForSong(int artistForSongId) {
 
@@ -210,7 +212,10 @@ namespace VocaDb.Web.Controllers
 
 			try {
 
-				var contract = Service.CreatePVForSong(songId, pvUrl, type);
+				var result = VideoServiceHelper.ParseByUrl(pvUrl);
+				var contract = new PVContract(result, type);
+
+				//var contract = Service.CreatePVForSong(songId, pvUrl, type);
 				var view = RenderPartialViewToString("PVForSongEditRow", contract);
 				return Json(new GenericResponse<string>(view));
 
@@ -220,6 +225,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		[HttpPost]
 		public void DeletePVForSong(int pvForSongId) {
 
