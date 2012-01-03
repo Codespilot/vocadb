@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Serialization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.DataContracts.PVs {
 
@@ -27,6 +28,19 @@ namespace VocaDb.Model.DataContracts.PVs {
 			Author = pv.Author;
 			Name = pv.Name;
 
+		}
+
+		public PVContract(VideoUrlParseResult parseResult, PVType type) {
+
+			ParamIs.NotNull(() => parseResult);
+
+			PVId = parseResult.Id;
+			Service = parseResult.Service;
+			PVType = type;
+
+			Url = PV.GetUrl(Service, PVId);
+			DisplayName = Service + " (" + PVType + ")";
+			
 		}
 
 		public PVContract() { }

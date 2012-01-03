@@ -4,6 +4,19 @@ namespace VocaDb.Model.Domain.PVs {
 
 	public class PV : IEquatable<PV> {
 
+		public static string GetUrl(PVService service, string pvId) {
+
+			switch (service) {
+				case PVService.Youtube:
+					return "http://youtu.be/" + pvId;
+				case PVService.NicoNicoDouga:
+					return "http://nicovideo.jp/watch/" + pvId;
+				default:
+					return pvId;
+			}
+
+		}
+
 		private string pvId;
 
 		public PV() {
@@ -37,16 +50,7 @@ namespace VocaDb.Model.Domain.PVs {
 
 		public virtual string Url {
 			get {
-
-				switch (Service) {
-					case PVService.Youtube:
-						return "http://youtu.be/" + pvId;
-					case PVService.NicoNicoDouga:
-						return "http://nicovideo.jp/watch/" + pvId;
-					default:
-						return pvId;
-				}
-
+				return GetUrl(Service, PVId);
 			}
 		}
 

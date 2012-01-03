@@ -1,5 +1,6 @@
 ﻿using System;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -42,6 +43,15 @@ namespace VocaDb.Model.Domain.Songs {
 				ParamIs.NotNull(() => value);
 				song = value;
 			}
+		}
+
+		public virtual bool ContentEquals(PVContract pv) {
+
+			if (pv == null)
+				return false;
+
+			return (Name == pv.Name);
+
 		}
 
 		public virtual bool Equals(PVForSong another) {
