@@ -494,7 +494,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Integrated to saving properties"]
+		[Obsolete("Integrated to saving properties")]
 		public void DeletePvForSong(int pvForSongId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
