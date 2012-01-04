@@ -15,6 +15,7 @@ using System.Drawing;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Web.Controllers
 {
@@ -41,9 +42,14 @@ namespace VocaDb.Web.Controllers
 			ParamIs.NotNullOrEmpty(() => pvUrl);
 
 			try {
-				var contract = Service.CreatePV(albumId, pvUrl, PVType.Other);
+				//var contract = Service.CreatePV(albumId, pvUrl, PVType.Other);
+
+				var result = VideoServiceHelper.ParseByUrl(pvUrl);
+				var contract = new PVContract(result, PVType.Other);
+
 				var view = RenderPartialViewToString("PVForSongEditRow", contract);
 				return Json(new GenericResponse<string>(view));
+
 			} catch (VideoParseException x) {
 				return Json(new GenericResponse<string>(false, x.Message));
 			}

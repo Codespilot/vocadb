@@ -299,8 +299,7 @@ function initPage(albumId) {
 			if (result == null)
 				return;
 
-			var addRow = $("#pvRow_new");
-			addRow.before(result);
+			$("#pvTableBody").append(result);
 
 		});
 
@@ -310,13 +309,14 @@ function initPage(albumId) {
 
 	$("a.pvRemove").live("click", function () {
 
-		var id = getId(this);
+		/*var id = getId(this);
 		$.post("../../Album/DeletePVForAlbum", { pvForAlbumId: id }, function () {
 
 			$("tr#pvRow_" + id).remove();
 
-		});
+		});*/
 
+		$(this).parent().parent().remove();
 		return false;
 
 	});

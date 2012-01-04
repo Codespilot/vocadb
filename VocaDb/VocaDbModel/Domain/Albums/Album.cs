@@ -12,6 +12,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Versioning;
+using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -485,6 +486,29 @@ namespace VocaDb.Model.Domain.Albums {
 				}
 
 			}
+
+		}
+
+		public virtual CollectionDiffWithValue<PVForAlbum, PVForAlbum> SyncPVs(IEnumerable<PVContract> newPVs) {
+
+			ParamIs.NotNull(() => newPVs);
+
+			var diff = CollectionHelper.Diff(PVs, newPVs, (n1, n2) => n1.Id == n2.Id);
+			var created = new List<PVForAlbum>();
+			var edited = new List<PVForAlbum>();
+
+			foreach (var n in diff.Removed) {
+				PVs.Remove(n);
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType);
+				created.Add(l);
+
+			}
+
+			return new CollectionDiffWithValue<PVForAlbum, PVForAlbum>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 
