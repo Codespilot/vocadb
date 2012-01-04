@@ -7,7 +7,29 @@
 
 function initPage(userId) {
 
-	$("#tabs").tabs();	
+	$("#tabs").tabs();
+
+	function acceptAlbumSelection(albumId, term) {
+
+		if (!isNullOrWhiteSpace(albumId)) {
+			$.post("../../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
+		}
+
+	}
+
+	var albumAddList = $("#albumAddList");
+	var albumAddName = $("input#albumAddName");
+	var albumAddBtn = $("#albumAddAcceptBtn");
+
+	initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson",
+		{
+			allowCreateNew: false,
+			acceptBtnElem: albumAddBtn,
+			acceptSelection: acceptAlbumSelection,
+			createOptionFirstRow: function (item) { return item.Name },
+			createOptionSecondRow: function (item) { return item.ArtistString },
+			createTitle: function (item) { return item.AdditionalNames }
+		});
 
 	/*$("input#albumAddName").keyup(function () {
 
@@ -63,7 +85,7 @@ function initPage(userId) {
 	function albumAdded(row) {
 
 		$("#albumTableBody").append(row);
-		var newRow = $("albumTableBody tr:last");
+		var newRow = $("#albumTableBody tr:last");
 		$(newRow).find("select.albumMediaType").change(onChangeAlbumMediaType);
 		/*var addRow = $("#albumRow_new");
 		addRow.before(row);
@@ -77,11 +99,10 @@ function initPage(userId) {
 	$("a.albumRemove").live("click", function () {
 
 		var id = getId(this);
-		$.post("../User/DeleteAlbumForUser", { albumForUserId: id }, function () {
+		$.post("../User/DeleteAlbumForUser", { albumForUserId: id });
+		$(this).parent().parent().remove();
 
-			$(this).parent().parent().remove();
-
-		});
+		return false;
 
 	});
 
