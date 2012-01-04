@@ -225,6 +225,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Disabled")]
 		public AlbumContract Create(string name) {
 
 			ParamIs.NotNullOrWhiteSpace(() => name);

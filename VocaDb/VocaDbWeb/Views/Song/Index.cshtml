@@ -64,11 +64,6 @@ if (Model.Songs.Any()) {
 
 }
 
-@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
-	using (Html.BeginForm("CreateQuick", "Song")) {
-		Html.RenderPartial("ObjectCreateForm", new ObjectCreate());
-	}
-}
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
 <script type="text/javascript">

@@ -68,11 +68,6 @@ if (Model.Albums.Any()) {
 
 }
 
-@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
-	using (Html.BeginForm("CreateQuick", "Album")) {
-		Html.RenderPartial("ObjectCreateForm", new ObjectCreate());
-	}
-}
 
 <script type="text/javascript">
 

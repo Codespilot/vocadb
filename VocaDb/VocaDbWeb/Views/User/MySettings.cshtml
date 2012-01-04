@@ -95,13 +95,18 @@
 	<div id="myCollection">
 
 		<table>
-		@foreach (var album in Model.AlbumLinks) {
-			Html.RenderPartial("AlbumForUserSettingsRow", album);
-		}
-			
-		@{ Html.RenderPartial("AddNewLinkRow", new AddNewLinkRowModel { EntityName = "album", Prefix = "album" }); }
+			<tbody id="albumTableBody">
+				@foreach (var album in Model.AlbumLinks) {
+					Html.RenderPartial("AlbumForUserSettingsRow", album);
+				}
+			</tbody>
 		</table>
 		
+		<h4>Add album</h4>
+		@Helpers.EntrySearchBox("albumAdd", false)
+		<br />
+		<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
+			
 	</div>
 
 	<div id="connectivity">

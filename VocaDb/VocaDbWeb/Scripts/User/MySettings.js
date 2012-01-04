@@ -9,7 +9,7 @@ function initPage(userId) {
 
 	$("#tabs").tabs();	
 
-	$("input#albumAddName").keyup(function () {
+	/*$("input#albumAddName").keyup(function () {
 
 		var findTerm = $(this).val();
 		var albumList = $("#albumAddList");
@@ -58,25 +58,28 @@ function initPage(userId) {
 			$.post("../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
 		}
 
-	});
+	});*/
 
 	function albumAdded(row) {
 
-		var addRow = $("#albumRow_new");
+		$("#albumTableBody").append(row);
+		var newRow = $("albumTableBody tr:last");
+		$(newRow).find("select.albumMediaType").change(onChangeAlbumMediaType);
+		/*var addRow = $("#albumRow_new");
 		addRow.before(row);
 		var newRow = $(addRow).prev();
 		$(newRow).find("select.albumMediaType").change(onChangeAlbumMediaType);
 		$("input#albumAddName").val("");
-		$("#albumAddList").empty();
+		$("#albumAddList").empty();*/
 
 	}
 
-	$("input.albumRemove").live("click", function () {
+	$("a.albumRemove").live("click", function () {
 
 		var id = getId(this);
 		$.post("../User/DeleteAlbumForUser", { albumForUserId: id }, function () {
 
-			$("tr#albumRow_" + id).remove();
+			$(this).parent().parent().remove();
 
 		});
 
