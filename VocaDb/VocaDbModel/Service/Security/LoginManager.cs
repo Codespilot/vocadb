@@ -64,7 +64,15 @@ namespace VocaDb.Model.Service.Security {
 
 		public ContentLanguagePreference LanguagePreference {
 			get {
+
+				ContentLanguagePreference lp;
+
+				if (!string.IsNullOrEmpty(HttpContext.Current.Request.Params["lang"]) 
+					&& Enum.TryParse(HttpContext.Current.Request.Params["lang"], out lp))
+					return lp;
+
 				return (LoggedUser != null ? LoggedUser.DefaultLanguageSelection : ContentLanguagePreference.Default);
+
 			}
 		}
 
