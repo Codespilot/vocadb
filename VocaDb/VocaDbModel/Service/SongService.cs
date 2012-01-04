@@ -322,6 +322,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Disabled")]
 		public SongContract Create(string name) {
 
 			ParamIs.NotNullOrWhiteSpace(() => name);

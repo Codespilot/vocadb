@@ -76,11 +76,6 @@ if (!Model.Artists.Any()) {
 }
 }
 
-@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.Admin)) {
-	using (Html.BeginForm("CreateQuick", "Artist")) {
-		Html.RenderPartial("ObjectCreateForm", new ObjectCreate());	
-	}
-}
 
 <script type="text/javascript">
 

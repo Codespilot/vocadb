@@ -56,6 +56,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		[HttpPost]
 		public void DeletePVForAlbum(int pvForAlbumId) {
 
@@ -175,6 +176,7 @@ namespace VocaDb.Web.Controllers
         //
         // POST: /Album/Create
 
+		[Obsolete("Disabled")]
         [HttpPost]
         public ActionResult CreateQuick(ObjectCreate model)
         {

@@ -287,6 +287,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Disabled")]
 		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
 
 			ParamIs.NotNullOrWhiteSpace(() => name);
