@@ -342,6 +342,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public PVContract CreatePV(int albumId, string pvUrl, PVType pvType) {
 
 			ParamIs.NotNullOrEmpty(() => pvUrl);
@@ -436,6 +437,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public void DeletePv(int pvForAlbumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -995,6 +997,12 @@ namespace VocaDb.Model.Service {
 					diff.Tracks = true;
 
 				}
+
+				var pvDiff = album.SyncPVs(properties.PVs);
+				SessionHelper.Sync(session, pvDiff);
+
+				if (pvDiff.Changed)
+					diff.PVs = true;
 
 				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString), session);
 

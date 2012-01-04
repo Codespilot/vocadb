@@ -64,7 +64,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool IncludeArtists {
 			get {
-				return true;
+				return (IsSnapshot || Artists);
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool IncludePVs {
 			get {
-				return true;
+				return (IsSnapshot || PVs);
 			}
 		}
 

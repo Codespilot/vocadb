@@ -121,6 +121,12 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool IncludePVs {
+			get {
+				return (IsSnapshot || PVs);
+			}
+		}
+
 		public virtual bool IncludeTracks {
 			get {
 				return (IsSnapshot || Tracks);
@@ -159,6 +165,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 			set {
 				Set(AlbumEditableFields.OriginalRelease, value);
+			}
+		}
+
+		public virtual bool PVs {
+			get {
+				return IsChanged(AlbumEditableFields.PVs);
+			}
+			set {
+				Set(AlbumEditableFields.PVs, value);
 			}
 		}
 

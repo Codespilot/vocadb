@@ -217,27 +217,23 @@
 
 		<div id="pvsTab">
 	
-			@Helpers.NotificationPanel("Changes on this tab are saved immediately.")<br />
-
 			<p>You can use this page to add advertisements or crossfades related to this album.</p>
 
 			<table>
-			@foreach (var pv in Model.PVs) {
-	   Html.RenderPartial("PVForSongEditRow", pv);
-   }
-			<tr id="pvRow_new">
-				<td>
-					<p>Only Youtube and NicoNicoDouga are supported.</p>
-					<p>
-					URL:
-					@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
-					</p>
-				</td>
-				<td>
-					<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
-				</td>
-			</tr>
+				<tbody id="pvTableBody">
+					@foreach (var pv in Model.PVs) {
+						Html.RenderPartial("PVForSongEditRow", pv);
+					}
+				</tbody>
 			</table>
+
+			<p>Only Youtube and NicoNicoDouga are supported.</p>
+			<p>
+			URL:
+			@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
+			</p>
+
+			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
 	
 		</div>
 
