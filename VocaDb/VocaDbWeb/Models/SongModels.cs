@@ -220,7 +220,7 @@ namespace VocaDb.Web.Models {
 				Names = this.Names.Select(n => n.ToContract()).ToArray(),
 				Notes = this.Notes ?? string.Empty,
 				OriginalVersion = this.OriginalVersion ?? new SongWithAdditionalNamesContract { Id = OriginalVersionId },
-				PVs = this.PVs.ToArray(),
+				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),

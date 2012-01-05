@@ -3,5 +3,5 @@
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post)) {
 	<p>@Html.TextBox("globalSearchTerm")</p>
 	<p>@Html.DropDownListFor(m => m.ObjectType, new SelectList(Model.AllObjectTypes))</p>	
-	<p><button type="submit" class="textLink searchLink">Search</button></p>
+	<p><button type="submit">Search</button></p>
 }

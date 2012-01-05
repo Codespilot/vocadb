@@ -220,6 +220,14 @@
 			<p>You can use this page to add advertisements or crossfades related to this album.</p>
 
 			<table>
+				<thead>
+					<tr>
+						<th>Service</th>
+						<th>Type</th>
+						<th>Name</th>
+						<th></th>
+					</tr>
+				</thead>
 				<tbody id="pvTableBody">
 					@foreach (var pv in Model.PVs) {
 						Html.RenderPartial("PVForSongEditRow", pv);

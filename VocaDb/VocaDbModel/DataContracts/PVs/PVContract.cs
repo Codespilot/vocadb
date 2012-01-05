@@ -70,6 +70,11 @@ namespace VocaDb.Model.DataContracts.PVs {
 		[DataMember]
 		public string Url { get; set; }
 
+		public PVContract NullToEmpty() {
+			Name = Name ?? string.Empty;
+			return this;
+		}
+
 	}
 
 }

@@ -159,7 +159,7 @@ namespace VocaDb.Web.Models {
 						Year = this.ReleaseYear
 					}
 				},
-				PVs = this.PVs.ToArray(),
+				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),
 				Songs = Tracks.ToArray(),
 				Status = (this.Draft ? EntryStatus.Draft : EntryStatus.Finished),
 				TranslatedName = new TranslatedStringContract(
