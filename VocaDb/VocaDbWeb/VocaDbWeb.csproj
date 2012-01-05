@@ -218,6 +218,7 @@
     <Content Include="Content\Icons\edit.png" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\Icons\remove.png" />
+    <Content Include="Content\Icons\search.png" />
     <Content Include="Content\Styles\Icons.css" />
     <Content Include="Content\jquery.tooltip.css" />
     <Content Include="Content\miku2.jpg" />

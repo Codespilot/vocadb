@@ -509,6 +509,18 @@ namespace VocaDb.Model.Domain.Albums {
 
 			}
 
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newPVs.First(e => e.Id == entry.Id);
+
+				if (!entry.ContentEquals(newEntry)) {
+					linkEntry.Name = newEntry.Name;
+					edited.Add(linkEntry);
+				}
+
+			}
+
 			return new CollectionDiffWithValue<PVForAlbum, PVForAlbum>(created, diff.Removed, diff.Unchanged, edited);
 
 		}

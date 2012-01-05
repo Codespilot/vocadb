@@ -69,7 +69,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, int? page, bool? draftsOnly) {
 
-			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true);
+			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, false);
 
 			var model = new Index(result, filter, page, draftsOnly);
 
@@ -94,7 +94,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.Find(term, 0, 20, false, false);
+			var albums = Service.Find(term, 0, 20, false, false, true);
 
 			return Json(albums);
 

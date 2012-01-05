@@ -32,7 +32,7 @@ namespace VocaDb.Model.Service {
 
 		private PartialFindResult<AlbumWithAdditionalNamesContract> Find(
 			ISession session, string query, int start, int maxResults, bool draftsOnly,
-			bool getTotalCount = false, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+			bool getTotalCount, NameMatchMode nameMatchMode, bool moveExactToTop) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -56,6 +56,9 @@ namespace VocaDb.Model.Service {
 				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, null, false);
 
 			} else {
+
+				var originalQuery = query;
+				bool foundExactMatch = false;
 
 				query = query.Trim();
 
@@ -96,15 +99,29 @@ namespace VocaDb.Model.Service {
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 
-				var contracts = direct.Concat(additionalNames)
+				var entries = direct.Concat(additionalNames)
 					.Skip(start)
-					.Take(maxResults)
+					.Take(maxResults);
+
+				if (moveExactToTop) {
+
+					var exactMatch = entries.FirstOrDefault(
+						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
+
+					if (exactMatch != null) {
+						entries = CollectionHelper.MoveToTop(entries, exactMatch);
+						foundExactMatch = true;
+					}
+
+				}
+
+				var contracts = entries
 					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 				var count = (getTotalCount ? GetAlbumCount(session, query, draftsOnly, nameMatchMode) : 0);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, null, false);
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
 
 			}
 
@@ -458,9 +475,10 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(
-			string query, int start, int maxResults, bool draftsOnly, bool getTotalCount) {
+			string query, int start, int maxResults, bool draftsOnly, bool getTotalCount, bool moveExactToTop) {
 
-			return HandleQuery(session => Find(session, query, start, maxResults, draftsOnly, getTotalCount));
+			return HandleQuery(session => Find(session, query, start, maxResults, draftsOnly, getTotalCount, 
+				NameMatchMode.Auto, moveExactToTop));
 
 		}
 
@@ -482,7 +500,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact);
+					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, false);
 
 					if (result.Items.Any())
 						return result.Items.First();

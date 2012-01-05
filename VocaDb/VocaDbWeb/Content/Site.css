@@ -263,7 +263,7 @@ div.panel {
 /* Links */
 
 button.textLink {
-	background:none!important;
+	background:none;
 	border:none; 
 	padding:0!important;
 	border-bottom:1px solid #444;	
