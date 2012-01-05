@@ -16,7 +16,7 @@ namespace VocaDb.Model.Service.VideoServices {
 		public PVService Service { get; private set; }
 
 		public virtual string GetVideoTitle(string id) {
-			return null;
+			return string.Empty;
 		}
 
 		public bool IsValidFor(string url) {

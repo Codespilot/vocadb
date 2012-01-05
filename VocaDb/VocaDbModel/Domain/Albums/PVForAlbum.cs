@@ -8,8 +8,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public PVForAlbum() { }
 
-		public PVForAlbum(Album album, PVService service, string pvId, PVType pvType)
-			: base(service, pvId, pvType) {
+		public PVForAlbum(Album album, PVService service, string pvId, PVType pvType, string name)
+			: base(service, pvId, pvType, name) {
 
 			Album = album;
 

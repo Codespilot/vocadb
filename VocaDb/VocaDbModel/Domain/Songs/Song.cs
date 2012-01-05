@@ -296,11 +296,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual PVForSong CreatePV(PVService service, string pvId, PVType pvType) {
+		public virtual PVForSong CreatePV(PVService service, string pvId, PVType pvType, string name) {
 
 			ParamIs.NotNullOrEmpty(() => pvId);
+			ParamIs.NotNull(() => name);
 
-			var pv = new PVForSong(this, service, pvId, pvType);
+			var pv = new PVForSong(this, service, pvId, pvType, name);
 			PVs.Add(pv);
 			UpdatePVServices();
 
@@ -497,7 +498,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 			foreach (var newEntry in diff.Added) {
 
-				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType);
+				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType, newEntry.Name);
 				created.Add(l);
 
 			}

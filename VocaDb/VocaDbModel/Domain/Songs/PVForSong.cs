@@ -7,16 +7,14 @@ namespace VocaDb.Model.Domain.Songs {
 	public class PVForSong : PV {
 
 		private string author;
-		private string name;
 		private Song song;
 
 		public PVForSong() { }
 
-		public PVForSong(Song song, PVService service, string pvId, PVType pvType)
-			: base(service, pvId, pvType) {
+		public PVForSong(Song song, PVService service, string pvId, PVType pvType, string name)
+			: base(service, pvId, pvType, name) {
 
 			Author = string.Empty;
-			Name = string.Empty;
 			Song = song;
 
 		}
@@ -29,29 +27,12 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual string Name {
-			get { return name; }
-			set {
-				ParamIs.NotNull(() => value);
-				name = value;
-			}
-		}
-
 		public virtual Song Song {
 			get { return song; }
 			set {
 				ParamIs.NotNull(() => value);
 				song = value;
 			}
-		}
-
-		public virtual bool ContentEquals(PVContract pv) {
-
-			if (pv == null)
-				return false;
-
-			return (Name == pv.Name);
-
 		}
 
 		public virtual bool Equals(PVForSong another) {

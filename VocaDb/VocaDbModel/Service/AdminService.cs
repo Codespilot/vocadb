@@ -249,7 +249,7 @@ namespace VocaDb.Model.Service {
 				foreach (var song in songs) {
 
 					if (!string.IsNullOrEmpty(song.NicoId) && !song.PVs.Any())
-						session.Save(song.CreatePV(PVService.NicoNicoDouga, song.NicoId, PVType.Original));
+						session.Save(song.CreatePV(PVService.NicoNicoDouga, song.NicoId, PVType.Original, string.Empty));
 
 					song.UpdateNicoId();
 

@@ -187,7 +187,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete("Integrating to saving properties")]
+		[Obsolete("Integrated to saving properties")]
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteArtistForSong(int artistForSongId) {
 
@@ -195,7 +195,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete]
+		[Obsolete("Integrated to saving properties")]
 		public PartialViewResult CreatePVForSong(int songId, PVService service, string pvId, PVType type) {
 
 			ParamIs.NotNullOrEmpty(() => pvId);

@@ -300,11 +300,12 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public virtual PVForAlbum CreatePV(PVService service, string pvId, PVType pvType) {
+		public virtual PVForAlbum CreatePV(PVService service, string pvId, PVType pvType, string name) {
 
 			ParamIs.NotNullOrEmpty(() => pvId);
+			ParamIs.NotNull(() => name);
 
-			var pv = new PVForAlbum(this, service, pvId, pvType);
+			var pv = new PVForAlbum(this, service, pvId, pvType, name);
 			PVs.Add(pv);
 
 			return pv;
@@ -503,7 +504,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 			foreach (var newEntry in diff.Added) {
 
-				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType);
+				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType, newEntry.Name);
 				created.Add(l);
 
 			}
