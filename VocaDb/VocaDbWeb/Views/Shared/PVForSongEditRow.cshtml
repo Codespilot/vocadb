@@ -3,7 +3,7 @@
 
 <tr>
 	<td>
-		@using (Html.BeginCollectionItem("PVs")) {
+		@{ var item = Html.BeginCollectionItem("PVs"); }
 			Html.HiddenFor(m => m.DisplayName);
 			Html.HiddenFor(m => m.Id);
 			Html.HiddenFor(m => m.PVId);
@@ -15,6 +15,10 @@
 	</td>
 	<td>
 		@Model.PVType
+		@{ item.Dispose(); }
+	</td>
+	<td>
+		@Html.TextBoxFor(m => m.Name)
 	</td>
 	<td>
 		<a href="#" class="pvRemove textLink deleteLink">Delete</a>

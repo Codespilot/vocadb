@@ -1,4 +1,5 @@
 ﻿using System;
+using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.PVs {
 
@@ -17,24 +18,35 @@ namespace VocaDb.Model.Domain.PVs {
 
 		}
 
+		private string name;
 		private string pvId;
 
 		public PV() {
 			pvId = string.Empty;
+			Name = string.Empty;
 			Service = PVService.Youtube;
 			PVType = PVType.Other;
 		}
 
-		public PV(PVService service, string pvId, PVType pvType)
+		public PV(PVService service, string pvId, PVType pvType, string name)
 			: this() {
 
 			Service = service;
 			PVId = pvId;
 			PVType = pvType;
+			Name = name;
 
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual string Name {
+			get { return name; }
+			set {
+				ParamIs.NotNull(() => value);
+				name = value;
+			}
+		}
 
 		public virtual string PVId {
 			get { return pvId; }
@@ -52,6 +64,15 @@ namespace VocaDb.Model.Domain.PVs {
 			get {
 				return GetUrl(Service, PVId);
 			}
+		}
+
+		public virtual bool ContentEquals(PVContract pv) {
+
+			if (pv == null)
+				return false;
+
+			return (Name == pv.Name);
+
 		}
 
 		public virtual bool Equals(PV another) {

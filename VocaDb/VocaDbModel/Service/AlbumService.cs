@@ -357,7 +357,7 @@ namespace VocaDb.Model.Service {
 				var album = session.Load<Album>(albumId);
 				AuditLog(string.Format("creating a PV for {0}", EntryLinkFactory.CreateEntryLink(album)), session);
 
-				var pv = album.CreatePV(result.Service, result.Id, pvType);
+				var pv = album.CreatePV(result.Service, result.Id, pvType, string.Empty);
 				session.Save(pv);
 
 				return new PVContract(pv);
@@ -849,7 +849,7 @@ namespace VocaDb.Model.Service {
 					var pvDiff = CollectionHelper.Diff(album.PVs, fullProperties.PVs, (p1, p2) => (p1.PVId == p2.PVId && p1.Service == p2.Service));
 
 					foreach (var pv in pvDiff.Added) {
-						session.Save(album.CreatePV(pv.Service, pv.PVId, pv.PVType));
+						session.Save(album.CreatePV(pv.Service, pv.PVId, pv.PVType, pv.Name));
 					}
 
 					foreach (var pv in pvDiff.Removed) {

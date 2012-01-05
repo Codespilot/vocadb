@@ -13,12 +13,13 @@ namespace VocaDb.Model.DataContracts.PVs {
 			ParamIs.NotNull(() => pv);
 
 			Id = pv.Id;
+			Name = pv.Name;
 			PVId = pv.PVId;
 			Service = pv.Service;
 			PVType = pv.PVType;
 			Url = pv.Url;
 
-			DisplayName = Service + " (" + PVType + ")";
+			DisplayName = (!string.IsNullOrEmpty(Name) ? Name : Service.ToString()) + " (" + PVType + ")";
 
 		}
 
@@ -26,7 +27,6 @@ namespace VocaDb.Model.DataContracts.PVs {
 			: this((PV)pv) {
 
 			Author = pv.Author;
-			Name = pv.Name;
 
 		}
 
@@ -34,6 +34,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 			ParamIs.NotNull(() => parseResult);
 
+			Name = parseResult.Title;
 			PVId = parseResult.Id;
 			Service = parseResult.Service;
 			PVType = type;
