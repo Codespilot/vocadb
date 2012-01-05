@@ -28,6 +28,13 @@ namespace VocaDb.Web.Services {
 
 		#region Common queries
 		[OperationContract]
+		public AlbumWithAdditionalNamesContract[] FindAlbums(string term, int maxResults) {
+
+			return Services.Albums.Find(term, 0, maxResults, false, false).Items;
+
+		}
+
+		[OperationContract]
 		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
 
 			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, false).Items;
