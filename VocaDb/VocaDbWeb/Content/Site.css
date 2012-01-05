@@ -262,6 +262,13 @@ div.panel {
 
 /* Links */
 
+button.textLink {
+	background:none!important;
+	border:none; 
+	padding:0!important;
+	border-bottom:1px solid #444;	
+}
+
 .textLink {
 	display: -moz-inline-box;
 	display: inline-block;
