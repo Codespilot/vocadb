@@ -7,16 +7,20 @@ namespace VocaDb.Model.Service.VideoServices {
 	public class VideoService : IVideoService {
 
 		private readonly RegexLinkMatcher[] linkMatchers;
+		private readonly IVideoServiceParser parser;
 
-		public VideoService(PVService service, RegexLinkMatcher[] linkMatchers) {
+		public VideoService(PVService service, IVideoServiceParser parser, RegexLinkMatcher[] linkMatchers) {
 			Service = service;
+			this.parser = parser;
 			this.linkMatchers = linkMatchers;
 		}
 
 		public PVService Service { get; private set; }
 
-		public virtual string GetVideoTitle(string id) {
-			return string.Empty;
+		public virtual VideoTitleParseResult GetVideoTitle(string id) {
+
+			return (parser != null ? parser.GetTitle(id) : null);
+
 		}
 
 		public bool IsValidFor(string url) {
@@ -44,7 +48,9 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		public VideoUrlParseResult ParseById(string id) {
 
-			return new VideoUrlParseResult(Service, id, GetVideoTitle(id));
+			var titleResult = GetVideoTitle(id);
+
+			return new VideoUrlParseResult(Service, id, titleResult.Title ?? string.Empty);
 
 		}
 

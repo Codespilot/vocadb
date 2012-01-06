@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using VocaDb.Model.Domain.PVs;
-using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public static class VideoServiceHelper {
 
 		private static readonly VideoService[] services = new[] { 
-			new VideoService(PVService.Youtube, new[] {
+			new VideoService(PVService.Youtube, new YoutubeParser(), new[] {
 				new RegexLinkMatcher("www.youtube.com/watch?v={0}", @"youtube.com/watch?\S*v=(\S{11})"),
 				new RegexLinkMatcher("youtu.be/{0}", @"youtu.be/(\S{11})")
 			}),
-			new VideoService(PVService.NicoNicoDouga, new[] {
+			new VideoService(PVService.NicoNicoDouga, null, new[] {
 				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/([a-z]{2}\d{4,10})"),
 				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/(\d{6,12})")
 			})
