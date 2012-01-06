@@ -443,6 +443,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 			}
 
+			UpdateArtistString();
+
 			return new CollectionDiff<ArtistForSong, ArtistForSong>(created, diff.Removed, diff.Unchanged);
 
 		}
