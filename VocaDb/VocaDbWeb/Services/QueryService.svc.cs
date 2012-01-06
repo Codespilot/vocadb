@@ -44,7 +44,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term) {
 
-			var albums = Services.Albums.Find(term, 0, 1, false, false, true);
+			var albums = Services.Albums.Find(term, 0, 10, false, false, true);
 			return albums.Items.FirstOrDefault();
 
 		}
@@ -60,7 +60,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public ArtistDetailsContract GetArtistDetails(string term) {
 
-			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 1, false, false);
+			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 10, false, false);
 
 			if (!artists.Items.Any())
 				return null;
@@ -88,7 +88,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public SongWithAdditionalNamesContract GetSongDetails(string term) {
 
-			var songs = Services.Songs.Find(term, 0, 1, false, false,NameMatchMode.Auto, false, null);
+			var songs = Services.Songs.Find(term, 0, 10, false, false,NameMatchMode.Auto, false, null);
 			return songs.Items.FirstOrDefault();
 
 		}
