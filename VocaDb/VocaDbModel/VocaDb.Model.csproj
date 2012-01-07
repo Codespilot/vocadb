@@ -334,6 +334,7 @@
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />
+    <Compile Include="Service\VideoServices\NicoParser.cs" />
     <Compile Include="Service\VideoServices\RegexLinkMatcher.cs" />
     <Compile Include="Service\Helpers\SessionHelper.cs" />
     <Compile Include="Service\Helpers\SongTagger.cs" />

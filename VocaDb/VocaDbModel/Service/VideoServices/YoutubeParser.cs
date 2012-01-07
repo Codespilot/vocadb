@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 using System.Text;
 using HtmlAgilityPack;
@@ -12,7 +9,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		public VideoTitleParseResult GetTitle(string id) {
 
-			var url = string.Format("youtu.be/{0}", id);
+			var url = string.Format("http://youtu.be/{0}", id);
 
 			string videoTitle = null;
 			var request = WebRequest.Create(url);
@@ -70,26 +67,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			doc.Load(htmlStream, encoding);
 
 			// Video title element (could use page title as well...)
-			var titleText = GetVideoTitle(doc);
-
-			if (string.IsNullOrEmpty(titleText))
-				return null;
-
-			var builder = new StringBuilder(titleText);
-
-			var authorElem = doc.DocumentNode.SelectSingleNode("//a[@class = 'author']");
-			var authorText = (authorElem != null ? authorElem.InnerText : null);
-
-			if (!string.IsNullOrEmpty(authorText))
-				builder.Append(" by " + authorText);
-
-			var dateElem = doc.DocumentNode.SelectSingleNode("//span[@id = 'eow-date']");
-			var dateText = (dateElem != null ? dateElem.InnerText : null);
-
-			if (!string.IsNullOrEmpty(dateText))
-				builder.Append(" at " + dateText);
-
-			return builder.ToString();
+			return GetVideoTitle(doc);
 
 		}
 
