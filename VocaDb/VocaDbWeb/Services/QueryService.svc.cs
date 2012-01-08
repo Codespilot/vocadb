@@ -42,6 +42,13 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public SongWithAdditionalNamesContract[] FindSongs(string term, int maxResults) {
+
+			return Services.Songs.Find(term, 0, maxResults, false, false, NameMatchMode.Auto, false, null).Items;
+
+		}
+
+		[OperationContract]
 		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term) {
 
 			var albums = Services.Albums.Find(term, 0, 10, false, false, true);
@@ -92,6 +99,15 @@ namespace VocaDb.Web.Services {
 			return songs.Items.FirstOrDefault();
 
 		}
+
+		[OperationContract]
+		public UserContract GetUserInfo(string name) {
+
+			var users = Services.Users.FindUsersByName(name);
+			return users.FirstOrDefault();
+
+		}
+
 		#endregion
 
 		#region MikuDB-specific queries (TODO: move elsewhere)

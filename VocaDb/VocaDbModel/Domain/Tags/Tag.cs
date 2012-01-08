@@ -14,11 +14,15 @@ namespace VocaDb.Model.Domain.Tags {
 
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
 		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
+		private string categoryName;
 		private Iesi.Collections.Generic.ISet<SongTagUsage> songTagUsages = new Iesi.Collections.Generic.HashedSet<SongTagUsage>();
 
-		public Tag() { }
+		public Tag() {
+			CategoryName = string.Empty;
+		}
 
-		public Tag(string name) {
+		public Tag(string name)
+			: this() {
 
 			if (!TagNameRegex.IsMatch(name))
 				throw new ArgumentException("Tag name must contain only word characters", "name");
@@ -52,6 +56,14 @@ namespace VocaDb.Model.Domain.Tags {
 		public virtual IEnumerable<ArtistTagUsage> ArtistTagUsages {
 			get {
 				return AllArtistTagUsages.Where(a => !a.Artist.Deleted);
+			}
+		}
+
+		public virtual string CategoryName {
+			get { return categoryName; }
+			set {
+				ParamIs.NotNull(() => value);
+				categoryName = value; 
 			}
 		}
 
