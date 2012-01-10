@@ -738,8 +738,8 @@
     <Content Include="Views\Shared\TagList.cshtml" />
     <Content Include="Views\Tag\Details.cshtml" />
     <Content Include="Views\Tag\Index.cshtml" />
-    <Content Include="Views\Artist\Albums.cshtml" />
-    <Content Include="Views\Artist\Songs.cshtml" />
+    <Content Include="Views\Shared\Albums.cshtml" />
+    <Content Include="Views\Shared\Songs.cshtml" />
     <Content Include="Views\Album\ViewVersion.cshtml" />
     <Content Include="App_Code\AlbumHelpers.cshtml" />
     <Content Include="App_Code\ArchivedEntryHelpers.cshtml" />
@@ -751,6 +751,7 @@
     <Content Include="Views\User\FavoriteSongs.cshtml" />
     <Content Include="Views\Admin\RecentComments.cshtml" />
     <Content Include="Views\Album\MultipleTrackProperties.cshtml" />
+    <Content Include="Views\Shared\Artists.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
