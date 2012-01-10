@@ -46,6 +46,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TagCategoryContract[] GetTagsByCategories() {
+
+			return HandleQuery(session => {
+				
+				var tags = session.Query<Tag>().OrderBy(t => t.Name).GroupBy(t => t.CategoryName).OrderBy(c => c.Key).ToArray();
+				var tagsByCategories = tags.Select(t => new TagCategoryContract(t.Key, t)).ToArray();
+
+				return tagsByCategories;
+
+			});
+
+		}
+
 	}
 
 }

@@ -51,9 +51,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index() {
 
-			var tagNames = Service.GetTagNames();
+			var tags = Service.GetTagsByCategories();
 
-			return View(tagNames);
+			return View(tags);
 
 		}
 

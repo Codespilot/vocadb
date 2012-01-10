@@ -15,12 +15,12 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 			ParamIs.NotNull(() => tag);
 
-			Albums = tag.AlbumTagUsages.OrderByDescending(a => a.Count)
+			Albums = tag.AlbumTagUsages.OrderByDescending(a => a.Count).Take(15)
 				.Select(a => new AlbumTagUsageContract(a, languagePreference)).ToArray();
-			Artists = tag.ArtistTagUsages.OrderByDescending(a => a.Count)
+			Artists = tag.ArtistTagUsages.OrderByDescending(a => a.Count).Take(15)
 				.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
 			Name = tag.Name;
-			Songs = tag.SongTagUsages.OrderByDescending(a => a.Count)
+			Songs = tag.SongTagUsages.OrderByDescending(a => a.Count).Take(15)
 				.Select(a => new SongTagUsageContract(a, languagePreference)).ToArray();
 
 		}

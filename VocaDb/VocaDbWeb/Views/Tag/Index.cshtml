@@ -1,11 +1,19 @@
-﻿@model string[]
+﻿@model VocaDb.Model.DataContracts.Tags.TagCategoryContract[]
 
 @{
     ViewBag.Title = "Tags";
 }
 
-@foreach (var tagName in Model) {
-<span class="tag">
-	@Html.ActionLink(tagName, "Details", new { id = tagName })
-</span>
+@foreach (var category in Model) {
+
+	if (category.Name != string.Empty) {
+		<h3>@category.Name</h3>
+	}
+	
+	foreach (var tag in category.Tags) {
+		<span class="tag">
+			@Html.ActionLink(tag.Name, "Details", new { id = tag.Name })
+		</span>
+	}
+	
 }

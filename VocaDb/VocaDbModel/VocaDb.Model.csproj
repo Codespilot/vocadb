@@ -89,6 +89,8 @@
     <Compile Include="DataContracts\Songs\ArchivedSongVersionContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumEditContract.cs" />
+    <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
+    <Compile Include="DataContracts\Tags\TagContract.cs" />
     <Compile Include="DataContracts\Tags\TagDetailsContract.cs" />
     <Compile Include="DataContracts\Tags\TagSelectionContract.cs" />
     <Compile Include="DataContracts\ArchivedObjectVersionContract.cs" />
