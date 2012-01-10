@@ -5,26 +5,50 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Tags", "Index") };	
 }
 
-<h2>Artists</h2>
+<div id="tabs">
 
-<ul>
-	@foreach (var usage in Model.Artists) {
-		<li>@Html.ActionLink(usage.Artist.Name + " (" + usage.Count + ")", "Details", "Artist", new { id = usage.Artist.Id }, null)</li>
-	}
-</ul>
+	<ul>
+		<li><a href="#overviewTab">Overview</a></li>
+		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">Artists</a></li>
+		<li><a href="@Url.Action("Albums", "Tag", new { id = Model.Name })" title="Albums">Albums</a></li>
+		<li><a href="@Url.Action("Songs", "Tag", new { id = Model.Name })" title="Songs">Songs</a></li>
+	</ul>
 
-<h2>Albums</h2>
+	<div id="overviewTab">
 
-<ul>
-	@foreach (var usage in Model.Albums) {
-		<li>@Html.ActionLink(usage.Album.Name + " (" + usage.Count + ")", "Details", "Album", new { id = usage.Album.Id }, null)</li>
-	}
-</ul>
+		<h2>Artists</h2>
 
-<h2>Songs</h2>
+		<ul>
+			@foreach (var usage in Model.Artists) {
+				<li>@Html.ActionLink(usage.Artist.Name + " (" + usage.Count + ")", "Details", "Artist", new { id = usage.Artist.Id }, null)</li>
+			}
+		</ul>
 
-<ul>
-	@foreach (var usage in Model.Songs) {
-		<li>@Html.ActionLink(usage.Song.Name + " (" + usage.Count + ")", "Details", "Song", new { id = usage.Song.Id }, null)</li>
-	}
-</ul>
+		<h2>Albums</h2>
+
+		<ul>
+			@foreach (var usage in Model.Albums) {
+				<li>@Html.ActionLink(usage.Album.Name + " (" + usage.Count + ")", "Details", "Album", new { id = usage.Album.Id }, null)</li>
+			}
+		</ul>
+
+		<h2>Songs</h2>
+
+		<ul>
+			@foreach (var usage in Model.Songs) {
+				<li>@Html.ActionLink(usage.Song.Name + " (" + usage.Count + ")", "Details", "Song", new { id = usage.Song.Id }, null)</li>
+			}
+		</ul>
+
+	</div>
+
+	<div id="Artists">
+	</div>
+
+	<div id="Albums">
+	</div>
+
+	<div id="Songs">
+	</div>
+
+</div>

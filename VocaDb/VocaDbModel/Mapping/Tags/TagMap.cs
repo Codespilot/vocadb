@@ -8,7 +8,9 @@ namespace VocaDb.Model.Mapping.Tags {
 		public TagMap() {
 
 			Cache.NonStrictReadWrite();
-			Id(m => m.Name).Column("[Name]").GeneratedBy.Assigned();
+			Id(m => m.Name).Column("[Name]").Length(30).GeneratedBy.Assigned();
+
+			Map(m => m.CategoryName).Length(30).Not.Nullable();
 
 			HasMany(m => m.AllAlbumTagUsages).Inverse();
 			HasMany(m => m.AllArtistTagUsages).Inverse();
