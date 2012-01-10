@@ -404,8 +404,11 @@ namespace VocaDb.Model.Service {
 			// TODO: sorting could be done in DB
 
 			return HandleQuery(session =>
-				session.Load<Artist>(artistId).Albums.Select(a => 
-					new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference)).OrderBy(a => a.Name).ToArray());
+				session.Load<Artist>(artistId).Albums
+					.Take(maxEntryCount)
+					.Select(a => 
+						new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference))
+						.OrderBy(a => a.Name).ToArray());
 
 		}
 
@@ -534,8 +537,11 @@ namespace VocaDb.Model.Service {
 			// TODO: sorting could be done in DB
 
 			return HandleQuery(session =>
-				session.Load<Artist>(artistId).Songs.Select(a => 
-					new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference)).OrderBy(s => s.Name).ToArray());
+				session.Load<Artist>(artistId).Songs
+					.Take(maxEntryCount)
+					.Select(a => 
+						new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference))
+						.OrderBy(s => s.Name).ToArray());
 
 		}
 

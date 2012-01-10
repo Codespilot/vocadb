@@ -5,40 +5,57 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Tags", "Index") };	
 }
 
+@section BodyScripts {
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#tabs").tabs();		
+	});
+
+</script>
+}
+
+
 <div id="tabs">
 
 	<ul>
 		<li><a href="#overviewTab">Overview</a></li>
-		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">Artists</a></li>
-		<li><a href="@Url.Action("Albums", "Tag", new { id = Model.Name })" title="Albums">Albums</a></li>
-		<li><a href="@Url.Action("Songs", "Tag", new { id = Model.Name })" title="Songs">Songs</a></li>
+		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">All artists (@Model.ArtistCount)</a></li>
+		<li><a href="@Url.Action("Albums", "Tag", new { id = Model.Name })" title="Albums">All albums (@Model.AlbumCount)</a></li>
+		<li><a href="@Url.Action("Songs", "Tag", new { id = Model.Name })" title="Songs">All songs (@Model.SongCount)</a></li>
 	</ul>
 
 	<div id="overviewTab">
 
-		<h2>Artists</h2>
+		@if (Model.Artists.Any()) {
+		<h4>Top artists</h4>
 
 		<ul>
 			@foreach (var usage in Model.Artists) {
 				<li>@Html.ActionLink(usage.Artist.Name + " (" + usage.Count + ")", "Details", "Artist", new { id = usage.Artist.Id }, null)</li>
 			}
 		</ul>
+		}
 
-		<h2>Albums</h2>
+		@if (Model.Albums.Any()) {
+		<h4>Top albums</h4>
 
 		<ul>
 			@foreach (var usage in Model.Albums) {
 				<li>@Html.ActionLink(usage.Album.Name + " (" + usage.Count + ")", "Details", "Album", new { id = usage.Album.Id }, null)</li>
 			}
 		</ul>
+		}
 
-		<h2>Songs</h2>
+		@if (Model.Songs.Any()) {
+		<h4>Top songs</h4>
 
 		<ul>
 			@foreach (var usage in Model.Songs) {
 				<li>@Html.ActionLink(usage.Song.Name + " (" + usage.Count + ")", "Details", "Song", new { id = usage.Song.Id }, null)</li>
 			}
 		</ul>
+		}
 
 	</div>
 

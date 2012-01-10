@@ -42,6 +42,20 @@
 	
 }
 
+@helper Artists(VocaDb.Model.DataContracts.Artists.ArtistWithAdditionalNamesContract[] artists) {
+
+	<ul>
+	@foreach (var artist in artists) {
+		<li>
+			@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)
+			<br />
+			<span class="extraInfo">@artist.AdditionalNames</span>
+		</li>
+	}
+	</ul>
+	
+}
+
 @helper Songs(VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[] songs) {
 
 	<ul>

@@ -1,9 +1,16 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -32,6 +39,36 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumWithAdditionalNamesContract[] GetAlbums(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session =>
+				session.Query<AlbumTagUsage>().Where(a => a.Tag.Name == tagName)
+					.Select(t => new AlbumWithAdditionalNamesContract(t.Album, PermissionContext.LanguagePreference)).ToArray());
+
+		}
+
+		public ArtistWithAdditionalNamesContract[] GetArtists(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session => 
+				session.Query<ArtistTagUsage>().Where(a => a.Tag.Name == tagName)
+					.Select(t => new ArtistWithAdditionalNamesContract(t.Artist, PermissionContext.LanguagePreference)).ToArray());
+
+		}
+
+		public SongWithAdditionalNamesContract[] GetSongs(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session =>
+				session.Query<SongTagUsage>().Where(a => a.Tag.Name == tagName)
+					.Select(t => new SongWithAdditionalNamesContract(t.Song, PermissionContext.LanguagePreference)).ToArray());
+
+		}
+
 		public TagDetailsContract GetTagDetails(string tagName) {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
@@ -49,9 +86,18 @@ namespace VocaDb.Model.Service {
 		public TagCategoryContract[] GetTagsByCategories() {
 
 			return HandleQuery(session => {
-				
-				var tags = session.Query<Tag>().OrderBy(t => t.Name).GroupBy(t => t.CategoryName).OrderBy(c => c.Key).ToArray();
-				var tagsByCategories = tags.Select(t => new TagCategoryContract(t.Key, t)).ToArray();
+
+				var tags = session.Query<Tag>()
+					.OrderBy(t => t.Name)
+					.ToArray()					
+					.GroupBy(t => t.CategoryName)
+					.ToArray();
+
+				var empty = tags.Where(c => c.Key == string.Empty);
+
+				var tagsByCategories = tags
+					.Except(empty).Concat(empty)
+					.Select(t => new TagCategoryContract(t.Key, t)).ToArray();
 
 				return tagsByCategories;
 

@@ -17,6 +17,7 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
 
 		private readonly IEntryLinkFactory entryLinkFactory;
+		protected const int maxEntryCount = 500;
 		private readonly ISessionFactory sessionFactory;
 		private readonly IUserPermissionContext permissionContext;
 

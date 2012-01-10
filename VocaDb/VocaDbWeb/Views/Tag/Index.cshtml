@@ -8,6 +8,8 @@
 
 	if (category.Name != string.Empty) {
 		<h3>@category.Name</h3>
+	} else {
+		<h3>Unsorted</h3>
 	}
 	
 	foreach (var tag in category.Tags) {
