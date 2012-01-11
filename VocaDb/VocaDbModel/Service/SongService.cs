@@ -463,23 +463,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public int CreateSongList(string name) {
+		private SongList CreateSongList(ISession session, SongListForEditContract contract) {
 
-			ParamIs.NotNullOrWhiteSpace(() => name);
+			var user = GetLoggedUser(session);
+			var newList = new SongList(contract.Name, user);
+			newList.Description = contract.Description;
+			session.Save(newList);
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			var songDiff = newList.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
+			SessionHelper.Sync(session, songDiff);
 
-			return HandleTransaction(session => {
+			session.Update(newList);
 
-				var user = GetLoggedUser(session);
-				var newList = new SongList(name, user);
-				session.Save(newList);
+			AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(newList)), session, user);
 
-				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(newList)), session, user);
-
-				return newList.Id;
-
-			});
+			return newList;
 
 		}
 
@@ -531,6 +529,26 @@ namespace VocaDb.Model.Service {
 
 				session.Delete(pvForSong);
 				session.Update(pvForSong.Song);
+
+			});
+
+		}
+
+		public void DeleteSongList(int listId) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			HandleTransaction(session => {
+
+				var user = GetLoggedUser(session);
+				var list = session.Load<SongList>(listId);
+
+				if (!PermissionContext.HasPermission(PermissionFlags.ManageUserBlocks))
+					VerifyResourceAccess(list.Author);
+
+				session.Delete(list);
+
+				AuditLog(string.Format("deleted {0}", list.ToString()), session, user);
 
 			});
 
@@ -640,7 +658,14 @@ namespace VocaDb.Model.Service {
 
 		public SongListDetailsContract GetSongListDetails(int listId) {
 
-			return HandleQuery(session => new SongListDetailsContract(session.Load<SongList>(listId), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new SongListDetailsContract(
+				session.Load<SongList>(listId), PermissionContext.LanguagePreference));
+
+		}
+
+		public SongListForEditContract GetSongListForEdit(int listId) {
+
+			return HandleQuery(session => new SongListForEditContract(session.Load<SongList>(listId), PermissionContext.LanguagePreference));
 
 		}
 
@@ -1130,6 +1155,46 @@ namespace VocaDb.Model.Service {
 				session.Update(song);
 
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public int UpdateSongList(SongListForEditContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			return HandleTransaction(session => {
+
+				var user = GetLoggedUser(session);
+				SongList list;
+
+				if (contract.Id == 0) {
+
+					list = CreateSongList(session, contract);
+					
+				} else {
+
+					list = session.Load<SongList>(contract.Id);
+
+					if (!PermissionContext.HasPermission(PermissionFlags.ManageUserBlocks))
+						VerifyResourceAccess(list.Author);
+
+					list.Description = contract.Description;
+					list.Name = contract.Name;
+
+					var songDiff = list.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
+					SessionHelper.Sync(session, songDiff);
+
+					session.Update(list);
+
+					AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(list)), session, user);
+
+				}
+
+				return list.Id;
 
 			});
 

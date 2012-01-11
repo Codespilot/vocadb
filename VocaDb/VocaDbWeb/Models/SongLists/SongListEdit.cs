@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model;
@@ -11,16 +9,17 @@ namespace VocaDb.Web.Models.SongLists {
 	public class SongListEdit {
 
 		public SongListEdit() {
-			SongLinks = new List<SongInListContract>();
+			SongLinks = new List<SongInListEditContract>();
 		}
 
-		public SongListEdit(SongListDetailsContract contract) {
+		public SongListEdit(SongListForEditContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
 			Description = contract.Description;
 			Id = contract.Id;
 			Name = contract.Name;
+			SongLinks = contract.SongLinks;
 
 		}
 
@@ -36,7 +35,18 @@ namespace VocaDb.Web.Models.SongLists {
 		public string Name { get; set; }
 
 		[Display(Name = "Songs")]
-		public IList<SongInListContract> SongLinks { get; set; }
+		public IList<SongInListEditContract> SongLinks { get; set; }
+
+		public SongListForEditContract ToContract() {
+
+			return new SongListForEditContract {
+				Description = this.Description ?? string.Empty,
+				Id = this.Id,
+				Name = this.Name,
+				SongLinks = this.SongLinks.ToArray()
+			};
+
+		}
 
 	}
 

@@ -1,40 +1,25 @@
 ﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Songs.SongInListContract
+@model VocaDb.Model.DataContracts.Songs.SongInListEditContract
 
 <tr class="trackRow ui-state-default">
 	<td style="cursor: move">
 		@{ var item = Html.BeginCollectionItem("SongLinks"); }
-		@Html.HiddenFor(m => m.SongInAlbumId)
+		@Html.HiddenFor(m => m.SongInListId)
 		@Html.HiddenFor(m => m.SongId, new { @class = "songId" })
 		@Html.HiddenFor(m => m.SongName)
 		@Html.HiddenFor(m => m.SongAdditionalNames)
-		@Html.HiddenFor(m => m.TrackNumber, new { @class = "songTrackNumberField" })
+		@Html.HiddenFor(m => m.Order, new { @class = "songOrderField" })
 		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 	</td>
-	<td>
-		@if (Model.SongId != 0) {
-		<input type="checkbox" class="trackSelection" />
-		}
-	</td>
-	<td class="songDiscNumber">
-		@Model.DiscNumber
-	</td>
-	<td class="songTrackNumber">
-		@Model.TrackNumber
+	<td class="songOrder">
+		@Model.Order
 	</td>
 	<td class="trackNameCol">
-		@if (Model.SongId != 0) {
-		<a href="#" class="editTrackProperties" title="@Model.SongAdditionalNames">@Model.SongName</a><br />
-		} else {
 		<span title="@Model.SongAdditionalNames">@Model.SongName</span><br />
-		}
-		<span class="extraInfo artistString">@Model.ArtistString</span>
-	</td><td>
-		<input type="checkbox" class="nextDiscCheck" @(Model.TrackNumber == 1 && Model.DiscNumber > 1 ? "checked=\"checked\"" : string.Empty) />
-		Next disc
+		<span class="extraInfo artistString">@Model.SongArtistString</span>
 		@{ item.Dispose(); }
 	</td><td>
 		<a href="@Url.Action("Edit", "Song", new { id = Model.SongId })" target="_blank" title="Open for edit" class="editSongLink iconLink editLink">Edit</a>
-		<a href="#" class="songRemove iconLink removeLink" title="Remove from album">Remove</a>
+		<a href="#" class="songRemove iconLink removeLink" title="Remove from list">Remove</a>
 	</td>
 </tr>

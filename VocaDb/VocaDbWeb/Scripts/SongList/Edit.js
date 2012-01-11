@@ -1,7 +1,35 @@
 ﻿
+function songListChanged() {
+
+	var track = 1;
+
+	$("tr.trackRow").each(function () {
+
+		$(this).find(".songOrderField").val(track);
+		$(this).find(".songOrder").html(track);
+		track++;
+
+	});
+
+}
+
 function initPage(listId) {
 
 	$("#tabs").tabs();
+	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+	$("#songsTableBody").sortable({
+		update: function (event, ui) {
+			songListChanged();
+		}
+	});
+
+	function acceptSongSelection(songId, term) {
+
+		if (!isNullOrWhiteSpace(songId)) {
+			$.post("../../SongList/AddSong", { songId: songId }, songAdded);
+		}
+
+	}
 
 	var songAddList = $("#songAddList");
 	var songAddName = $("input#songAddName");

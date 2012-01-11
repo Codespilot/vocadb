@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -17,9 +18,12 @@ namespace VocaDb.Model.Domain.Songs {
 			Description = string.Empty;
 		}
 
-		public SongList(string name, User author) {
+		public SongList(string name, User author)
+			: this() {
+
 			Name = name;
 			Author = author;
+
 		}
 
 		public virtual IList<SongInList> AllSongs {
@@ -70,6 +74,52 @@ namespace VocaDb.Model.Domain.Songs {
 			get {
 				return AllSongs.Where(s => !s.Song.Deleted);
 			}
+		}
+
+		public virtual SongInList AddSong(Song song, int order) {
+
+			ParamIs.NotNull(() => song);
+
+			var link = new SongInList(song, this, order);
+			AllSongs.Add(link);
+			return link;
+
+		}
+
+		public virtual CollectionDiffWithValue<SongInList, SongInList> SyncSongs(
+			IEnumerable<SongInListEditContract> newTracks, Func<SongInListEditContract, Song> songGetter) {
+
+			var diff = CollectionHelper.Diff(SongLinks, newTracks, (n1, n2) => n1.Id == n2.SongInListId);
+			var created = new List<SongInList>();
+			var edited = new List<SongInList>();
+
+			foreach (var n in diff.Removed) {
+				n.Delete();
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var song = songGetter(newEntry);
+
+				var link = AddSong(song, newEntry.Order);
+				created.Add(link);
+
+			}
+
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newTracks.First(e => e.SongInListId == entry.Id);
+
+				if (newEntry.Order != linkEntry.Order) {
+					linkEntry.Order = newEntry.Order;
+					edited.Add(linkEntry);
+				}
+
+			}
+
+			return new CollectionDiffWithValue<SongInList, SongInList>(created, diff.Removed, diff.Unchanged, edited);
+
 		}
 
 		public override string ToString() {
