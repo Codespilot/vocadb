@@ -1,0 +1,81 @@
+﻿@using VocaDb.Web.Models.SongLists;
+@using VocaDb.Web.Helpers;
+@model SongListEdit
+@{
+	ViewBag.Title = "Edit list - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Albums", "Index"), 
+		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+@section Toolbar {
+	@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this list?\");" })
+}
+
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/SongList/Edit.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id);
+	});
+
+</script>
+}
+
+@using (Html.BeginForm("Edit", "SongList", FormMethod.Post)) {
+	@Html.HiddenFor(m => m.Id)
+
+	<div id="tabs">
+
+		<ul>
+			<li><a href="#propertiesTab">Properties</a></li>
+			<li><a href="#songsTab">Songs</a></li>
+		</ul>
+
+		<div id="propertiesTab">
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Name)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.Name, new { size = 40 })
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Description)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(m => m.Description, new { cols = 40, rows = 5 })
+			</div>
+
+		</div>
+
+		<div id="songsTab">
+
+			<table id="songsTable">
+				<tbody id="songsTableBody">
+				@foreach (var track in Model.SongLinks) {
+					Html.RenderPartial("SongInAlbumEditRow", track);
+				}
+				</tbody>
+			</table>
+
+			<br />
+
+			<h4>Add new</h4>
+			@Helpers.EntrySearchBox("songAdd", false);
+			<br />
+			<a href="#" class="textLink addLink" id="songAddAcceptBtn">Add</a>
+
+		</div>
+
+	</div>
+}

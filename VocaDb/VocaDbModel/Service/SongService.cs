@@ -463,6 +463,26 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public int CreateSongList(string name) {
+
+			ParamIs.NotNullOrWhiteSpace(() => name);
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			return HandleTransaction(session => {
+
+				var user = GetLoggedUser(session);
+				var newList = new SongList(name, user);
+				session.Save(newList);
+
+				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(newList)), session, user);
+
+				return newList.Id;
+
+			});
+
+		}
+
 		public void Delete(int id) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
@@ -615,6 +635,12 @@ namespace VocaDb.Model.Service {
 		public SongForEditContract GetSongForEdit(int songId) {
 
 			return HandleQuery(session => new SongForEditContract(session.Load<Song>(songId), PermissionContext.LanguagePreference));
+
+		}
+
+		public SongListDetailsContract GetSongListDetails(int listId) {
+
+			return HandleQuery(session => new SongListDetailsContract(session.Load<SongList>(listId), PermissionContext.LanguagePreference));
 
 		}
 
