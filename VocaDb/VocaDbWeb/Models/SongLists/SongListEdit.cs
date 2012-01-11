@@ -16,12 +16,15 @@ namespace VocaDb.Web.Models.SongLists {
 
 			ParamIs.NotNull(() => contract);
 
+			CurrentName = contract.Name;
 			Description = contract.Description;
 			Id = contract.Id;
 			Name = contract.Name;
 			SongLinks = contract.SongLinks;
 
 		}
+
+		public string CurrentName { get; set; }
 
 		[Display(Name = "Description")]
 		[StringLength(2000)]

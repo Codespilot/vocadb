@@ -6,9 +6,9 @@
 	var isNew = (Model.Id == 0);
 	
 	if (!isNew) {
-		ViewBag.Title = "Edit list - " + Model.Name;
+		ViewBag.Title = "Edit list - " + Model.CurrentName;
 		ViewBag.Parents = new[] { 
-			LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+			LinkExtensions.ActionLink(Html, Model.CurrentName, "Details", new { id = Model.Id }) 
 		};
 	} else {
 		ViewBag.Title = "Create a custom list";		
@@ -42,6 +42,7 @@
 
 @using (Html.BeginForm("Edit", "SongList", FormMethod.Post)) {
 	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenFor(m => m.CurrentName)
 
 	<p>
 		<input type="submit" value="Save changes" />

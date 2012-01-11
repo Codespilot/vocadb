@@ -4,7 +4,9 @@
 		   
 @{
 	ViewBag.Title = "Song list - " + Model.Name;
-	ViewBag.Parents = new[] { Html.ActionLink(Model.Author.Name, "Details", "User", new { id = Model.Author.Id }, null) };
+	ViewBag.Parents = new[] { 
+		Html.ActionLink(Model.Author.Name, "Details", "User", new { id = Model.Author.Id }, null) 
+	};
 	
 	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Author.Id && Login.User.Active);
 	
