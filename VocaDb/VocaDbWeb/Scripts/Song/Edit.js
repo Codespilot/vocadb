@@ -65,7 +65,7 @@ function initPage(songId) {
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name },
 			createOptionSecondRow: function (item) { return item.AdditionalNames },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown" }
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown,OtherGroup" }
 		});
 
 	function artistAdded(row) {

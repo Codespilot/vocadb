@@ -101,6 +101,14 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public SongListContract GetSongListById(int id) {
+
+			var list = Services.Songs.GetSongList(id);
+			return list;
+
+		}
+
+		[OperationContract]
 		public UserContract GetUserInfo(string name) {
 
 			var users = Services.Users.FindUsersByName(name);

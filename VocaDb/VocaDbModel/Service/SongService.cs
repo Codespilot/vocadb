@@ -656,6 +656,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongListContract GetSongList(int listId) {
+
+			return HandleQuery(session => new SongListContract(session.Load<SongList>(listId)));
+
+		}
+
 		public SongListDetailsContract GetSongListDetails(int listId) {
 
 			return HandleQuery(session => new SongListDetailsContract(
