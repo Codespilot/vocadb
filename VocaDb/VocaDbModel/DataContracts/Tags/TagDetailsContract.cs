@@ -7,15 +7,12 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Tags {
 
-	public class TagDetailsContract {
+	public class TagDetailsContract : TagContract {
 
 		public TagDetailsContract() { }
 
-		public TagDetailsContract(Tag tag, ContentLanguagePreference languagePreference) {
-
-			ParamIs.NotNull(() => tag);
-
-			Name = tag.Name;
+		public TagDetailsContract(Tag tag, ContentLanguagePreference languagePreference)
+			: base(tag) {
 
 			AlbumCount = tag.AllAlbumTagUsages.Count;
 			Albums = tag.AlbumTagUsages.OrderByDescending(a => a.Count).Take(15)
@@ -24,6 +21,8 @@ namespace VocaDb.Model.DataContracts.Tags {
 			ArtistCount = tag.AllArtistTagUsages.Count;
 			Artists = tag.ArtistTagUsages.OrderByDescending(a => a.Count).Take(15)
 				.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
+
+			CategoryName = tag.CategoryName;
 
 			SongCount = tag.AllSongTagUsages.Count;
 			Songs = tag.SongTagUsages.OrderByDescending(a => a.Count).Take(15)
@@ -39,7 +38,7 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 		public ArtistTagUsageContract[] Artists { get; set; }
 
-		public string Name { get; set; }
+		public string CategoryName { get; set; }
 
 		public SongTagUsageContract[] Songs { get; set; }
 

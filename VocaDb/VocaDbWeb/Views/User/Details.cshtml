@@ -8,11 +8,14 @@
 	ViewBag.Title = "User details - " + Model.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Users", "Index"), 
-	};		
+	};
+
+	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
+			
 }
 
 @section Toolbar {
-@if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active) {
+@if (ownProfile) {
 	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
 	@Html.ActionLink("Messages", "Messages", null, new { id = "messagesLink" });
 }
@@ -48,7 +51,7 @@
 		<td>A member since</td>
 		<td>@Model.CreateDate.ToShortDateString()</td>
 	</tr>
-	@if (Login.CanManageUsers || (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id)) {
+	@if (Login.CanManageUsers || ownProfile) {
 		<tr>
 			<td>Last login</td>
 			<td>@Model.LastLogin</td>
@@ -78,6 +81,7 @@
 		<li><a href="#stats">Statistics</a></li>
 		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })" title="Collection"><span>Collection (@Model.AlbumCollectionCount)</span></a></li>
 		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>Favorite songs (@Model.FavoriteSongCount)</span></a></li>
+		<li><a href="#customLists">Custom lists</a></li>
 	</ul>
 
 	<div id="stats">
@@ -92,6 +96,26 @@
 
 	<div id="Favorite_songs">
 	</div>
+
+	<div id="customLists">
+		<table>
+			@foreach (var list in Model.SongLists) {
+				<tr>
+					<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
+					<td>
+						@if (ownProfile || Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
+							<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
+						}
+					</td>
+				</tr>
+			}
+		</table>
+
+		@if (ownProfile) {
+			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">Create new list</a>
+		}
+	</div>
+
 </div>
 
 <script type="text/javascript" src="../../Scripts/User/Details.js"></script>

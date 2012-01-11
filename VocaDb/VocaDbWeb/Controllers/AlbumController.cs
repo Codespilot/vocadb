@@ -283,12 +283,9 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Integrated to saving properties")]
 		public PartialViewResult AddNewSong(int albumId, string newSongName) {
 
 			ParamIs.NotNullOrWhiteSpace(() => newSongName);
-
-			//var link = MvcApplication.Services.Songs.CreateForAlbum(albumId, newSongName);
 
 			var link = new SongInAlbumEditContract(newSongName.Trim());
 
@@ -297,10 +294,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Integrated to saving properties")]
 		public PartialViewResult AddExistingSong(int albumId, int songId) {
-
-			//var link = Service.AddSong(albumId, songId);
 
 			var songContract = MvcApplication.Services.Songs.GetSongWithAdditionalNames(songId);
 			var link = new SongInAlbumEditContract(songContract);

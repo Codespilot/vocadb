@@ -19,7 +19,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			References(m => m.Author).Not.Nullable();
 
-			HasMany(m => m.SongLinks)
+			HasMany(m => m.AllSongs)
 				.KeyColumn("[List]")
 				.OrderBy("[Order]")
 				.Inverse().Cascade.AllDeleteOrphan()

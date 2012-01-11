@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Songs;
+﻿using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
 	public class SongListContract {
 
-		public SongListContract() { }
+		public SongListContract() {
+			Name = Description = string.Empty;
+		}
 
 		public SongListContract(SongList list) {
 

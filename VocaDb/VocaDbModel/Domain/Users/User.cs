@@ -22,6 +22,7 @@ namespace VocaDb.Model.Domain.Users {
 		private string password;
 		private IList<UserMessage> receivedMessages = new List<UserMessage>();
 		private IList<UserMessage> sentMessages = new List<UserMessage>();
+		private IList<SongList> songLists = new List<SongList>();
 
 		public User() {
 
@@ -175,6 +176,14 @@ namespace VocaDb.Model.Domain.Users {
 			set {
 				ParamIs.NotNull(() => value);
 				sentMessages = value;
+			}
+		}
+
+		public virtual IList<SongList> SongLists {
+			get { return songLists; }
+			set {
+				ParamIs.NotNull(() => value);
+				songLists = value; 
 			}
 		}
 

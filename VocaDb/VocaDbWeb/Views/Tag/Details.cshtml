@@ -27,6 +27,10 @@
 
 	<div id="overviewTab">
 
+		@if (Model.CategoryName != string.Empty){
+		<p>Category: @Model.CategoryName</p>
+		}
+
 		@if (Model.Artists.Any()) {
 		<h4>Top artists</h4>
 
