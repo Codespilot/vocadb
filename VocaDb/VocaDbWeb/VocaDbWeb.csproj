@@ -164,6 +164,7 @@
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
+    <Compile Include="Controllers\SongListController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -196,6 +197,7 @@
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
     <Compile Include="Models\Shared\WebLinkDisplay.cs" />
+    <Compile Include="Models\SongLists\SongListEdit.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\Song\Create.cs" />
     <Compile Include="Models\Song\Index.cs" />
@@ -417,6 +419,7 @@
     <Content Include="Scripts\Shared\DiscussionTab.js" />
     <Content Include="Scripts\Shared\NamesList.js" />
     <Content Include="Scripts\Shared\WebLinksList.js" />
+    <Content Include="Scripts\SongList\Edit.js" />
     <Content Include="Scripts\Song\Create.js" />
     <Content Include="Scripts\Song\Details.js" />
     <Content Include="Scripts\Song\Edit.js" />
@@ -752,6 +755,9 @@
     <Content Include="Views\Admin\RecentComments.cshtml" />
     <Content Include="Views\Album\MultipleTrackProperties.cshtml" />
     <Content Include="Views\Shared\Artists.cshtml" />
+    <Content Include="Views\SongList\Edit.cshtml" />
+    <Content Include="Views\SongList\Details.cshtml" />
+    <Content Include="Views\SongList\SongInListEditRow.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

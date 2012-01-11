@@ -17,7 +17,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			try {
 				return Encoding.GetEncoding(encodingStr);
-			} catch (ArgumentException x) {
+			} catch (ArgumentException) {
 				return Encoding.UTF8;
 			}
 

@@ -7,13 +7,15 @@ namespace VocaDb.Model.Domain {
 
 	public enum EntryType {
 
-		Album	= 1,
+		Album		= 1,
 
-		Artist	= 2,
+		Artist		= 2,
 
-		Song	= 4,
+		Song		= 4,
 
-		User	= 8
+		SongList	= 8,
+
+		User		= 16
 
 	}
 }
