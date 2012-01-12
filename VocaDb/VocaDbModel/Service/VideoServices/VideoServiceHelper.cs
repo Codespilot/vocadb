@@ -16,6 +16,12 @@ namespace VocaDb.Model.Service.VideoServices {
 			})
 		};
 
+		public static string GetNicoSoundUrl(string nicoId) {
+
+			return string.Format("http://nicosound.anyap.info/sound/{0}", nicoId);
+
+		}
+
 		public static VideoUrlParseResult ParseByUrl(string url) {
 
 			var service = services.FirstOrDefault(s => s.IsValidFor(url));

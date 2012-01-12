@@ -526,6 +526,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 			}
 
+			UpdateNicoId();
 			UpdatePVServices();
 
 			return new CollectionDiffWithValue<PVForSong, PVForSong>(created, diff.Removed, diff.Unchanged, edited);

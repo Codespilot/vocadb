@@ -8,6 +8,15 @@ namespace VocaDb.Model.DataContracts {
 
 		public WebLinkContract() {}
 
+		public WebLinkContract(string url, string description) {
+
+			Url = url;
+			Description = description;
+
+			DescriptionOrUrl = !string.IsNullOrEmpty(description) ? description : url;
+
+		}
+
 		public WebLinkContract(WebLink link) {
 			
 			ParamIs.NotNull(() => link);

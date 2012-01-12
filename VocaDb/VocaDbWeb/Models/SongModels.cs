@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 
@@ -54,6 +55,11 @@ namespace VocaDb.Web.Models {
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
+
+			if (!string.IsNullOrEmpty(NicoId))
+				WebLinks = WebLinks.Concat(new[] { 
+					new WebLinkContract(VideoServiceHelper.GetNicoSoundUrl(NicoId), "Check for a download link on NicoSound") 
+				}).ToArray();
 
 		}
 
