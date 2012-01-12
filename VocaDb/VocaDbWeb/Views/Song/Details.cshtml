@@ -13,11 +13,6 @@
 	<a href="#" id="addFavoriteLink" style="@(Model.IsFavorited ? "display: none;" : "")">Add to favorites</a>
 	<a href="#" id="removeFavoriteLink" style="@(Model.IsFavorited ? "" : "display: none;")">Remove from favorites</a>
 	<a href="#" id="addToListLink">Add to custom list</a>
-
-	<div id="addToListPanel">
-		<select id="addtoListSelect"></select>
-		<a href="#" class="textLink acceptLink" id="acceptAddLink">Save</a>
-	</div>
 }
 
 @if (VocaDb.Web.Helpers.Login.CanManageDb) {
@@ -26,6 +21,10 @@
 
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
+
+<div id="addToListDialog" style="display:none" title="Add to list">
+	<select id="addtoListSelect"></select>
+</div>
 
 @if (Model.Deleted) {
 	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)

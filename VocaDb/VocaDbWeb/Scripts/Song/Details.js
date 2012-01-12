@@ -58,11 +58,27 @@ function initPage(songId) {
 
 	$("#addFavoriteLink").button({ icons: { primary: 'ui-icon-heart'} });
 	$("#removeFavoriteLink").button({ icons: { primary: 'ui-icon-close'} });
+	$("#addToListLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#editSongLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });
+	$("#addToListDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: { "Save": function () {
+
+		$("#addToListDialog").dialog("close");
+
+		var listId = $("#addtoListSelect").val();
+
+		if (listId == null)
+			return;
+
+		$.post("../../Song/AddSongToList", { listId: listId, songId: songId }, null);		
+
+	}}});
+
+	var addToListLinkPos = $("#addToListLink").offset();
+	$("#addToListDialog").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top + 35]);
 
 	$("#addFavoriteLink").click(function () {
 
@@ -95,24 +111,19 @@ function initPage(songId) {
 		$.get("../../Song/SongListsForUser", { ignoreSongId: songId }, function (lists) {
 
 			var addtoListSelect = $("#addtoListSelect");
+			addtoListSelect.html("");
 
-			$(lists).each(function() {
+			$(lists).each(function () {
 
 				addOption(addtoListSelect, this.Id, this.Name);
 
 			});
 
-			$("#addToListPanel").show();
+			$("#addToListDialog").dialog("open");
 
 		});
 
-	});
-
-	$("#acceptAddLink").click(function () {
-
-		$("#addToListPanel").hide();		
-
-
+		return false;
 
 	});
 

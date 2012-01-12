@@ -23,9 +23,10 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Songs; }
 		}
 
+		[HttpPost]
 		public void AddSongToList(int listId, int songId) {
 
-			
+			Service.AddSongToList(listId, songId);
 
 		}
 

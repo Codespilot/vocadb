@@ -680,11 +680,12 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var ignoredSong = session.Load<SongInList>(ignoreSongId);
+				var ignoredSong = session.Load<Song>(ignoreSongId);
 
 				return session.Query<SongList>()
-					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id && !l.AllSongs.Contains(ignoredSong))
+					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id)
 					.OrderBy(l => l.Name).ToArray()
+					.Where(l => !l.AllSongs.Any(s => s.Song.Equals(ignoredSong)))
 					.Select(l => new SongListContract(l)).ToArray();
 
 			});
