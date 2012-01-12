@@ -11,8 +11,8 @@
 
 @section Toolbar {
 @if (Login.Manager.IsLoggedIn) {
-<a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">Add album to collection</a>
-<a href="#" id="removeAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Remove album from collection</a>
+<a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">Add to my collection</a>
+<a href="#" id="removeAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Remove from my collection</a>
 }
 	
 @if (Login.CanManageDb) {

@@ -22,9 +22,8 @@ namespace VocaDb.Web.Controllers
 
     	private int LoggedUserId {
     		get {
-    			
-				if (!LoginManager.IsLoggedIn)
-					throw new InvalidOperationException("Not logged in");
+
+				LoginManager.VerifyLogin();
 
     			return LoginManager.LoggedUser.Id;
 

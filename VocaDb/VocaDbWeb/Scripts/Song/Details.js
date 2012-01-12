@@ -90,6 +90,32 @@ function initPage(songId) {
 
 	});
 
+	$("#addToListLink").click(function () {
+
+		$.get("../../Song/SongListsForUser", { ignoreSongId: songId }, function (lists) {
+
+			var addtoListSelect = $("#addtoListSelect");
+
+			$(lists).each(function() {
+
+				addOption(addtoListSelect, this.Id, this.Name);
+
+			});
+
+			$("#addToListPanel").show();
+
+		});
+
+	});
+
+	$("#acceptAddLink").click(function () {
+
+		$("#addToListPanel").hide();		
+
+
+
+	});
+
 	$("#editTags").click(function () {
 
 		$.get("../../Song/TagSelections", { songId: songId }, function (content) {

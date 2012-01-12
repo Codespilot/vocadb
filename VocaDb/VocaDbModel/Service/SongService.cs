@@ -287,26 +287,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*public SongContract AddAlternateVersion(int songId, int addedSongId) {
+		public void AddSongToList(int listId, int songId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
 			HandleTransaction(session => {
 
+				var list = session.Load<SongList>(listId);
+
+				if (!PermissionContext.HasPermission(PermissionFlags.ManageUserBlocks))
+					VerifyResourceAccess(list.Author);
+
 				var song = session.Load<Song>(songId);
-				var addedSong = session.Load<Song>(addedSongId);
 
-				AuditLog("adding " + addedSong + " to " + song);
-
-				song.AddAlternateVersion(addedSong);
-
-				session.Update(addedSong);
-
-				return new SongContract(addedSong, PermissionContext.LanguagePreference);
+				var link = list.AddSong(song);
+				session.Save(link);
 
 			});
 
-		}*/
+		}
 
 		public void Archive(ISession session, Song song, SongDiff diff, SongArchiveReason reason, string notes = "") {
 
@@ -675,6 +674,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongListContract[] GetSongListsForCurrentUser(int ignoreSongId) {
+
+			PermissionContext.VerifyLogin();
+
+			return HandleQuery(session => {
+
+				var ignoredSong = session.Load<SongInList>(ignoreSongId);
+
+				return session.Query<SongList>()
+					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id && !l.AllSongs.Contains(ignoredSong))
+					.OrderBy(l => l.Name).ToArray()
+					.Select(l => new SongListContract(l)).ToArray();
+
+			});
+
+		}
+
 		public SongWithAdditionalNamesContract GetSongWithAdditionalNames(int id) {
 
 			return HandleQuery(
@@ -753,40 +769,54 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("Merging {0} to {1}", 
 					EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)), session);
 
+				// Names
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
 					session.Save(name);
 				}
 
+				// Weblinks
 				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
 					var link = target.CreateWebLink(w.Description, w.Url);
 					session.Save(link);
 				}
 
+				// PVs
 				var pvs = source.PVs.Where(a => !target.HasPV(a.Service, a.PVId));
 				foreach (var p in pvs) {
 					var pv = target.CreatePV(p.Service, p.PVId, p.PVType, p.Name);
 					session.Save(pv);
 				}
 
+				// Artist links
 				var artists = source.Artists.Where(a => !target.HasArtist(a.Artist)).ToArray();
 				foreach (var a in artists) {
 					a.Move(target);
 					session.Update(a);
 				}
 
+				// Album links
 				var albums = source.Albums.Where(s => !target.IsOnAlbum(s.Album)).ToArray();
 				foreach (var s in albums) {
 					s.Move(target);
 					session.Update(s);
 				}
 
+				// Favorites
 				var userFavorites = source.UserFavorites.Where(a => !target.IsFavoritedBy(a.User)).ToArray();
 				foreach (var u in userFavorites) {
 					u.Move(target);
 					session.Update(u);
 				}
 
+				// Custom lists
+				var songLists = source.ListLinks.ToArray();
+				foreach (var s in songLists) {
+					s.ChangeSong(target);
+					session.Update(s);
+				}
+
+				// Other properties
 				if (target.OriginalVersion == null)
 					target.OriginalVersion = source.OriginalVersion;
 

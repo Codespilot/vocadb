@@ -21,6 +21,8 @@ namespace VocaDb.Model.Domain.Security {
 
 		bool HasPermission(PermissionFlags flag);
 
+		void VerifyLogin();
+
 		void VerifyPermission(PermissionFlags flag);
 
 	}

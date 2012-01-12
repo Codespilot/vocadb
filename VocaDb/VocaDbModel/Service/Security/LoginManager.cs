@@ -94,6 +94,13 @@ namespace VocaDb.Model.Service.Security {
 			}
 		}
 
+		public void VerifyLogin() {
+
+			if (!IsLoggedIn)
+				throw new NotAllowedException("Must be logged in.");
+
+		}
+
 		public void VerifyPermission(PermissionFlags flag) {
 
 			if (!HasPermission(flag)) {
