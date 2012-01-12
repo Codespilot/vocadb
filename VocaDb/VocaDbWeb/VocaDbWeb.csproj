@@ -696,7 +696,6 @@
     <Content Include="Views\Shared\LocalizedStringNewRow.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\PVForSongEditRow.cshtml" />
-    <Content Include="Views\Shared\EmbeddedPV.cshtml" />
     <Content Include="Views\Shared\GlobalSearchBox.cshtml" />
     <Content Include="Views\Song\LyricsEditor.cshtml" />
     <Content Include="Views\Shared\ObjectCreateForm.cshtml" />
