@@ -29,8 +29,7 @@ namespace VocaDb.Model.Service {
 
 		protected User GetLoggedUser(ISession session) {
 
-			if (!PermissionContext.IsLoggedIn)
-				throw new InvalidOperationException("Must be logged in");
+			PermissionContext.VerifyLogin();
 
 			return session.Load<User>(PermissionContext.LoggedUser.Id);
 
@@ -237,8 +236,7 @@ namespace VocaDb.Model.Service {
 
 		private void VerifyResourceAccess(IEnumerable<int> ownerIds) {
 
-			if (!PermissionContext.IsLoggedIn)
-				throw new NotAllowedException("Must be logged in.");
+			PermissionContext.VerifyLogin();
 
 			if (!ownerIds.Contains(PermissionContext.LoggedUser.Id))
 				throw new NotAllowedException("You do not have access to this resource.");

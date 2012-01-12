@@ -25,6 +25,7 @@ namespace VocaDb.Model.Domain.Songs {
 			= new ArchivedVersionManager<ArchivedSongVersion, SongEditableFields>();
 		private TranslatedString artistString;
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
+		private IList<SongInList> lists = new List<SongInList>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private NameManager<SongName> names = new NameManager<SongName>();
 		private string notes;
@@ -157,6 +158,14 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual IList<SongInList> ListLinks {
+			get { return lists; }
+			set {
+				ParamIs.NotNull(() => value);
+				lists = value;
+			}
+		}
 
 		public virtual IList<LyricsForSong> Lyrics {
 			get { return lyrics; }

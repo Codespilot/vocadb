@@ -23,6 +23,12 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Songs; }
 		}
 
+		public void AddSongToList(int listId, int songId) {
+
+			
+
+		}
+
 		[HttpPost]
 		public PartialViewResult CreateSongLink(int? songId) {
 
@@ -75,6 +81,13 @@ namespace VocaDb.Web.Controllers
 				ignoredIds: ignoredIds);
 
 			return Json(songs);
+
+		}
+
+		public ActionResult SongListsForUser(int ignoreSongId) {
+
+			var result = Service.GetSongListsForCurrentUser(ignoreSongId);
+			return Json(result);
 
 		}
 

@@ -40,6 +40,19 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual int Order { get; set; }
 
+		public virtual void ChangeSong(Song target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target.Equals(Song))
+				return;
+
+			Song.ListLinks.Remove(this);
+			target.ListLinks.Add(this);
+			Song = target;
+
+		}
+
 		public virtual bool Equals(SongInList another) {
 
 			if (another == null)
@@ -58,6 +71,7 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual void Delete() {
 
 			List.AllSongs.Remove(this);
+			Song.ListLinks.Remove(this);
 
 		}
 
