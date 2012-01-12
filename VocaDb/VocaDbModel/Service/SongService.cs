@@ -447,7 +447,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				if (reprintPvResult != null) {
-					session.Save(song.CreatePV(reprintPvResult.Service, reprintPvResult.Id, PVType.Reprint, pvResult.Title));
+					session.Save(song.CreatePV(reprintPvResult.Service, reprintPvResult.Id, PVType.Reprint, reprintPvResult.Title));
 				}
 
 				song.UpdateArtistString();

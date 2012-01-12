@@ -58,7 +58,8 @@ namespace VocaDb.Web.Models {
 
 			if (!string.IsNullOrEmpty(NicoId))
 				WebLinks = WebLinks.Concat(new[] { 
-					new WebLinkContract(VideoServiceHelper.GetNicoSoundUrl(NicoId), "Check for a download link on NicoSound") 
+					new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(NicoId), "Check NicoSound for a download link"),
+					new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(NicoId), "Check NicoMimi for a download link")
 				}).ToArray();
 
 		}
