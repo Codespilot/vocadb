@@ -36,7 +36,7 @@
 
 @if (Model.PrimaryPV != null) {
 	using (Html.BeginPanel()) {
-		Html.RenderPartial("EmbeddedPV", Model.PrimaryPV);
+		@Helpers.EmbedPV(Model.PrimaryPV)
 	}
 }
 
