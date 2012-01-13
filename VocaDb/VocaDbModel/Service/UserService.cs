@@ -168,10 +168,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract Create(string name, string pass, string hostname) {
+		public UserContract Create(string name, string pass, string email, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNullOrEmpty(() => pass);
+			ParamIs.NotNull(() => email);
 
 			return HandleTransaction(session => {
 
@@ -183,7 +184,7 @@ namespace VocaDb.Model.Service {
 
 				var salt = new Random().Next();
 				var hashed = LoginManager.GetHashedPass(lc, pass, salt);
-				var user = new User(name, hashed, salt);
+				var user = new User(name, hashed, email, salt);
 				session.Save(user);
 
 				AuditLog("registered from " + hostname, session, user);
