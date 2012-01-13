@@ -238,25 +238,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateNicoIds() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
-
-			AuditLog("updating NicoIDs");
-
-			HandleTransaction(session => {
-
-				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
-
-				foreach (var song in songs) {
-
-					if (!string.IsNullOrEmpty(song.NicoId) && !song.PVs.Any())
-						session.Save(song.CreatePV(PVService.NicoNicoDouga, song.NicoId, PVType.Original, string.Empty));
-
-					song.UpdateNicoId();
-
-					session.Update(song);
-				}
-
-			});
+			UpdatePVIcons();
 
 		}
 
@@ -272,11 +254,13 @@ namespace VocaDb.Model.Service {
 
 				foreach (var song in songs) {
 
+					var nicoId = song.NicoId;
 					var old = song.PVServices;
 
+					song.UpdateNicoId();
 					song.UpdatePVServices();
 
-					if (song.PVServices != old)
+					if (song.NicoId != nicoId || song.PVServices != old)
 						session.Update(song);
 
 				}

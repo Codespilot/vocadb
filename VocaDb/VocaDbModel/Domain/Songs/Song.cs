@@ -312,6 +312,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 			var pv = new PVForSong(this, service, pvId, pvType, name);
 			PVs.Add(pv);
+
+			UpdateNicoId();
 			UpdatePVServices();
 
 			return pv;
@@ -504,7 +506,7 @@ namespace VocaDb.Model.Domain.Songs {
 			var edited = new List<PVForSong>();
 
 			foreach (var n in diff.Removed) {
-				PVs.Remove(n);
+				n.OnDelete();
 			}
 
 			foreach (var newEntry in diff.Added) {
@@ -526,8 +528,9 @@ namespace VocaDb.Model.Domain.Songs {
 
 			}
 
-			UpdateNicoId();
-			UpdatePVServices();
+			// Already done at add/delete
+			//UpdateNicoId();
+			//UpdatePVServices();
 
 			return new CollectionDiffWithValue<PVForSong, PVForSong>(created, diff.Removed, diff.Unchanged, edited);
 
