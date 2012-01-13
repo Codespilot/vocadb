@@ -40,7 +40,7 @@ function initPage(listId) {
 			allowCreateNew: false,
 			acceptBtnElem: songAddBtn,
 			acceptSelection: acceptSongSelection,
-			createOptionFirstRow: function (item) { return item.Name },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")" },
 			createOptionSecondRow: function (item) { return item.ArtistString },
 			createTitle: function (item) { return item.AdditionalNames }
 		});
