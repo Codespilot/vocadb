@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -47,6 +49,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public PVServices PVServices { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SongType SongType { get; set; }
 
 		[DataMember]

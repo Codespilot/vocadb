@@ -252,7 +252,7 @@ function initPage(albumId) {
 			allowCreateNew: true,
 			acceptBtnElem: songAddBtn,
 			acceptSelection: acceptSongSelection,
-			createOptionFirstRow: function (item) { return item.Name },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")" },
 			createOptionSecondRow: function (item) { return item.ArtistString },
 			createTitle: function (item) { return item.AdditionalNames }
 		});
