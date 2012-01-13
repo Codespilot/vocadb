@@ -56,10 +56,12 @@ namespace VocaDb.Web.Models {
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
 
-			if (!string.IsNullOrEmpty(NicoId))
+			var nicoPvId = PVHelper.GetNicoId(PVs, NicoId);
+
+			if (!string.IsNullOrEmpty(nicoPvId))
 				WebLinks = WebLinks.Concat(new[] { 
-					new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(NicoId), "Check NicoSound for a download link"),
-					new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(NicoId), "Check NicoMimi for a download link")
+					new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), "Check NicoSound for a download link"),
+					new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(nicoPvId), "Check NicoMimi for a download link")
 				}).ToArray();
 
 		}

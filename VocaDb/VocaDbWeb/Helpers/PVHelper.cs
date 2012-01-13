@@ -8,6 +8,17 @@ namespace VocaDb.Web.Helpers {
 
 	public static class PVHelper {
 
+		public static string GetNicoId(IEnumerable<PVContract> pvs, string nicoId) {
+
+			var nicoPV = pvs.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVType == PVType.Original);
+
+			if (nicoPV != null)
+				return nicoPV.PVId;
+
+			return nicoId;
+
+		}
+
 		public static PVContract PrimaryPV(IEnumerable<PVContract> pvs) {
 
 			ParamIs.NotNull(() => pvs);

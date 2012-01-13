@@ -37,12 +37,13 @@ namespace VocaDb.Model.Domain.Users {
 
 		}
 
-		public User(string name, string pass, int salt)
+		public User(string name, string pass, string email, int salt)
 			: this() {
 
 			Name = name;
 			NameLC = name.ToLowerInvariant();
 			Password = pass;
+			Email = email;
 			Salt = salt;
 
 			AccessKey = new AlphaPassGenerator(true, true, true).Generate(20);

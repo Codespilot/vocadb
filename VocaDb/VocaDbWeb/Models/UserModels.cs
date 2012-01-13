@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -10,12 +9,16 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
-using VocaDb.Model.Domain.Songs;
 using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models {
 
 	public class RegisterModel {
+
+		[Display(Name = "Email address (optional, but required for password resets)")]
+		[DataType(DataType.EmailAddress)]
+		[StringLength(50)]
+		public string Email { get; set; }
 
 		[Required]
 		[Display(Name = "Username")]

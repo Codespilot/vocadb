@@ -203,7 +203,7 @@ namespace VocaDb.Web.Controllers
 			if (ModelState.IsValid) {
 				// Attempt to register the user
 
-				var user = Service.Create(model.UserName, model.Password, CfHelper.GetRealIp(Request));
+				var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, CfHelper.GetRealIp(Request));
 
 				if (user == null) {
 					ModelState.AddModelError("UserName", "Username is already taken.");
