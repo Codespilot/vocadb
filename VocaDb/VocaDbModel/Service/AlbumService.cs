@@ -68,7 +68,22 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
-				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
+
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English == query
+							|| s.Names.SortNames.Romaji == query
+							|| s.Names.SortNames.Japanese == query);
+
+				} else {
+
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English.Contains(query)
+							|| s.Names.SortNames.Romaji.Contains(query)
+							|| s.Names.SortNames.Japanese.Contains(query)
+						|| (s.OriginalRelease.CatNum != null && s.OriginalRelease.CatNum.Contains(query)));
+
+				}
 
 				var direct = directQ
 					.OrderBy(s => s.Names.SortNames.Romaji)

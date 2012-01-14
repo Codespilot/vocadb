@@ -34,14 +34,16 @@
 
 <div class="tracklist">
 	<ul>
-		@foreach (var song in Model.Songs) {
+		@foreach (var link in Model.SongLinks) {
 			<li>
-				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+				@link.Order
+				.&nbsp;
+				@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, new { title = link.Song.AdditionalNames })
 				&nbsp;
-				@Helpers.DraftIcon(song.Status)
-				@Html.PVServiceIcons(song.PVServices)
+				@Helpers.DraftIcon(link.Song.Status)
+				@Html.PVServiceIcons(link.Song.PVServices)
 				<br />
-				<span class="extraInfo">@song.ArtistString</span>
+				<span class="extraInfo">@link.Song.ArtistString</span>
 			</li>
 	}
 	</ul>

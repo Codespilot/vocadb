@@ -118,6 +118,18 @@
 	
 }
 
+@helper EmbedPVThumb(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 340, int height = 185) {	
+	if (pv != null) {
+		if (pv.Service == VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga) {
+		<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
+		}
+		
+		if (pv.Service == VocaDb.Model.Domain.PVs.PVService.Youtube) {
+			EmbedPV(pv, width, height);
+		}
+	}
+}
+
 @helper EntryValidationMessage(bool draft, VocaDb.Model.Service.EntryValidators.ValidationResult validationResult, string helpSection) {
 	if (!validationResult.Passed || draft) {
 		using (Html.BeginHighlightPanel()) {
@@ -239,8 +251,8 @@
 		</thead>
 		<tbody id="webLinksListBody">
 			@foreach (var webLink in webLinks) {
-				Html.RenderPartial("WebLinkEditRow", webLink);
-			}
+	   Html.RenderPartial("WebLinkEditRow", webLink);
+   }
 		</tbody>
 	</table>
 	
