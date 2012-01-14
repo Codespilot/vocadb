@@ -85,6 +85,7 @@
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
+    <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListContract.cs" />
     <Compile Include="DataContracts\Songs\SongListDetailsContract.cs" />

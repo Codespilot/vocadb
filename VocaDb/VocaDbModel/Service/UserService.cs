@@ -110,8 +110,18 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
-			UpdateEntity<User>(userId, (session, user) 
-				=> user.AddSongToFavorites(session.Load<Song>(songId)));
+			HandleTransaction(session => {
+
+				var user = session.Load<User>(userId);
+				var song = session.Load<Song>(songId);
+
+				user.AddSongToFavorites(song);
+
+				session.Update(user);
+
+				AuditLog(string.Format("added {0} to favorites", song), session, user);
+
+			});
 
 		}
 

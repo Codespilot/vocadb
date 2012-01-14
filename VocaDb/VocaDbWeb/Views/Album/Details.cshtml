@@ -45,7 +45,7 @@
 				<td rowspan="12">
 					<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
 						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
-					</a>
+					</a><br />
 				</td>
 				<td>Name</td>
 				<td>
@@ -176,7 +176,7 @@
 			<tr>
 				@if (Model.PrimaryPV != null) {
 				<td>
-					@Helpers.EmbedPV(Model.PrimaryPV, 250, 188)
+					@Helpers.EmbedPVThumb(Model.PrimaryPV, 250, 220)
 				</td>
 	}
 

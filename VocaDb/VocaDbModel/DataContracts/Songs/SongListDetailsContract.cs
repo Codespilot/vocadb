@@ -13,12 +13,12 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongListDetailsContract(SongList songList, ContentLanguagePreference languagePreference)
 			: base(songList) {
 
-			Songs = songList.SongLinks.Select(s => new SongWithAdditionalNamesContract(s.Song, languagePreference)).ToArray();
+			SongLinks = songList.SongLinks.Select(s => new SongInListContract(s, languagePreference)).ToArray();
 
 		}
 
 		[DataMember]
-		public SongWithAdditionalNamesContract[] Songs { get; set; }
+		public SongInListContract[] SongLinks { get; set; }
 
 	}
 
