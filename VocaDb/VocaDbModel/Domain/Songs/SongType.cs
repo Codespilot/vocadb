@@ -10,7 +10,9 @@
 
 		Cover		= 4,
 
-		Mashup		= 8
+		Mashup		= 8,
+
+		Other		= 16
 
 	}
 
