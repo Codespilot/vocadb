@@ -13,6 +13,12 @@ namespace VocaDb.Web.Helpers {
 
 	public static class Translate {
 
+		public static readonly TranslateableEnum<PurchaseStatus> AlbumCollectionStatusNames =
+			new TranslateableEnum<PurchaseStatus>(() => Resources.AlbumCollectionStatusNames.ResourceManager);
+
+		public static readonly TranslateableEnum<MediaType> AlbumMediaTypeNames =
+			new TranslateableEnum<MediaType>(() => Resources.AlbumMediaTypeNames.ResourceManager);
+
 		public static readonly TranslateableEnum<PermissionFlags> PermissionFlagNames =
 			new TranslateableEnum<PermissionFlags>(() => Resources.PermissionFlagNames.ResourceManager);
 
@@ -73,21 +79,6 @@ namespace VocaDb.Web.Helpers {
 		public static string EmailOptions(UserEmailOptions emailOptions) {
 
 			return UserEmailOptionsNames.ResourceManager.GetString(emailOptions.ToString());
-
-		}
-
-		public static string MediaTypeName(MediaType mediaType) {
-
-			switch (mediaType) {
-				case MediaType.DigitalDownload:
-					return "Digital download";
-
-				case MediaType.PhysicalDisc:
-					return "Physical disc";
-
-				default:
-					return "Other";
-			}
 
 		}
 

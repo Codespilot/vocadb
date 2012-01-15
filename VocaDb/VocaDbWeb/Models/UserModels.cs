@@ -35,7 +35,7 @@ namespace VocaDb.Web.Models {
 
 	public class LoginModel {
 
-		[Display(Name = "Keep me logged in on this computer")]
+		[Display(Name = "Keep me logged in from this computer")]
 		public bool KeepLoggedIn { get; set; }
 
 		[Required]

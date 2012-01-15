@@ -33,7 +33,7 @@
     </compilation>
 
     <authentication mode="Forms">
-      <forms loginUrl="~/User/Login" timeout="2880" />
+      <forms defaultUrl="~/" loginUrl="~/User/Login" timeout="2880" />
     </authentication>
 
     <pages>

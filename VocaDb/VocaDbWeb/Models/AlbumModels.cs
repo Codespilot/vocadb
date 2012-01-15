@@ -6,11 +6,13 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts.Tags;
@@ -192,8 +194,13 @@ namespace VocaDb.Web.Models {
 			PVs = contract.PVs;
 			Songs = contract.Songs;
 			Tags = contract.Tags;
-			UserHasAlbum = contract.UserHasAlbum;
+			UserHasAlbum = contract.AlbumForUser != null;
 			WebLinks = contract.WebLinks;
+
+			if (contract.AlbumForUser != null) {
+				AlbumMediaType = contract.AlbumForUser.MediaType;
+				AlbumPurchaseStatus = contract.AlbumForUser.PurchaseStatus;
+			}
 
 			if (contract.OriginalRelease != null) {
 				CatNum = contract.OriginalRelease.CatNum;
@@ -214,6 +221,10 @@ namespace VocaDb.Web.Models {
 		}
 
 		public string AdditionalNames { get; set; }
+
+		public MediaType AlbumMediaType { get; set; }
+
+		public PurchaseStatus AlbumPurchaseStatus { get; set; }
 
 		public string CatNum { get; set; }
 

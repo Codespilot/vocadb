@@ -2,10 +2,10 @@
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Tags;
-using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
@@ -29,6 +29,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
+
+		[DataMember]
+		public AlbumForUserContract AlbumForUser { get; set; }
 
 		[DataMember]
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
@@ -56,9 +59,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public TagUsageContract[] Tags { get; set; }
-
-		[DataMember]
-		public bool UserHasAlbum { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }

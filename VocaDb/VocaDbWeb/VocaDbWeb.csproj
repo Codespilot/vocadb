@@ -92,10 +92,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumArchiveReasonNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\AlbumCollectionStatusNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumCollectionStatusNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\AlbumEditableFieldNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumEditableFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\AlbumMediaTypeNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumMediaTypeNames.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\ArtistArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -837,6 +847,18 @@
     <Content Include="App_GlobalResources\PVTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PVTypeNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\AlbumMediaTypeNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumMediaTypeNames.Designer.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\AlbumCollectionStatusNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumCollectionStatusNames.Designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

@@ -15,6 +15,16 @@ namespace VocaDb.Web.Controllers {
 
 		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
 
+		protected int LoggedUserId {
+			get {
+
+				LoginManager.VerifyLogin();
+
+				return LoginManager.LoggedUser.Id;
+
+			}
+		}
+
 		protected LoginManager LoginManager {
 			get { return MvcApplication.LoginManager; }
 		}

@@ -103,7 +103,7 @@ function tabLoaded(albumId, event, ui) {
 function initPage(albumId) {
 
 	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
-	$("#removeAlbumLink").button({ icons: { primary: 'ui-icon-close'} });
+	$("#updateAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#editAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
@@ -121,15 +121,43 @@ function initPage(albumId) {
 		}
 	});
 
+	$("#editCollectionDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: { "Save": function () {
+
+		$("#editCollectionDialog").dialog("close");
+
+		var status = $("#collectionStatusSelect").val();
+		var mediaType = $("#collectionMediaSelect").val();
+
+		$.post("../../User/UpdateAlbumForUser", { albumId: albumId, collectionStatus: status, mediaType: mediaType }, null);
+
+		if (status == "Nothing") {
+			$("#updateAlbumLink").hide();
+			$("#addAlbumLink").show();
+		} else {
+			$("#addAlbumLink").hide();
+			$("#updateAlbumLink").show();
+		}
+
+	}}});
+
+	var addAlbumLinkPos;
+	if ($("#addAlbumLink").is(":visible"))
+		addAlbumLinkPos = $("#addAlbumLink").offset();
+	else
+		addAlbumLinkPos = $("#updateAlbumLink").offset();
+
+	$("#editCollectionDialog").dialog("option", "position", [addAlbumLinkPos.left, addAlbumLinkPos.top + 35]);
+
 	$("#addAlbumLink").click(function () {
 
-		$.post("../../User/AddExistingAlbum", { albumId: albumId }, function (result) {
+		$("#editCollectionDialog").dialog("open");
+		return false;
 
-			$("#removeAlbumLink").show();
-			$("#addAlbumLink").hide();
+	});
 
-		});
+	$("#updateAlbumLink").click(function () {
 
+		$("#editCollectionDialog").dialog("open");
 		return false;
 
 	});

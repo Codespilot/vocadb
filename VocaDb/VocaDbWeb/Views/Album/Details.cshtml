@@ -12,7 +12,7 @@
 @section Toolbar {
 @if (Login.Manager.IsLoggedIn) {
 <a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">Add to my collection</a>
-<a href="#" id="removeAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Remove from my collection</a>
+<a href="#" id="updateAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Update in my collection</a>
 }
 	
 @if (Login.CanManageDb) {
@@ -234,6 +234,11 @@
 
 	<div id="editTagsContent"></div>
 
+</div>
+
+<div id="editCollectionDialog" style="display:none" title="Edit album in collection">
+	<p>Status: @Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect" }, Model.AlbumPurchaseStatus)</p>
+	<p>Media type: @Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect" }, Model.AlbumMediaType)</p>
 </div>
 
 <script type="text/javascript" src="../../Scripts/Album/Details.js"></script>
