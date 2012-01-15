@@ -20,16 +20,6 @@ namespace VocaDb.Web.Controllers
     public class UserController : ControllerBase
     {
 
-    	private int LoggedUserId {
-    		get {
-
-				LoginManager.VerifyLogin();
-
-    			return LoginManager.LoggedUser.Id;
-
-    		}
-    	}
-
 		private UserService Service {
 			get { return MvcApplication.Services.Users; }
 		}
@@ -143,7 +133,12 @@ namespace VocaDb.Web.Controllers
 
 					FormsAuthentication.SetAuthCookie(model.UserName, model.KeepLoggedIn);
 
-					return RedirectToAction("Index", "Home");
+					var redirectUrl = FormsAuthentication.GetRedirectUrl(model.UserName, true);
+
+					if (redirectUrl != null)
+						return Redirect(redirectUrl);
+					else
+						return RedirectToAction("Index", "Home");
 
 				}
 
@@ -265,6 +260,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult MySettings() {
 
 			LoginManager.VerifyPermission(PermissionFlags.EditProfile);			
@@ -346,12 +342,20 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public void UpdateAlbumForUser(int albumid, PurchaseStatus collectionStatus, MediaType mediaType) {
+
+			Service.UpdateAlbumForUser(LoggedUserId, albumid, collectionStatus, mediaType);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 			
 			Service.UpdateAlbumForUserMediaType(albumForUserId, mediaType);
 
 		}
 
+		[Obsolete("Disabled")]
     	[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddNewAlbum(string newAlbumName) {
 

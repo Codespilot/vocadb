@@ -45,6 +45,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Id(m => m.Id);
 
 			Map(m => m.MediaType).Not.Nullable();
+			Map(m => m.PurchaseStatus).Not.Nullable();
 
 			References(m => m.Album).Not.Nullable();
 			References(m => m.User).Not.Nullable();

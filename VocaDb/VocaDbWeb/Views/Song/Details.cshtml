@@ -22,10 +22,6 @@
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 
-<div id="addToListDialog" style="display:none" title="Add to list">
-	<select id="addtoListSelect"></select>
-</div>
-
 @if (Model.Deleted) {
 	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)
 }
@@ -192,6 +188,10 @@
 
 	<div id="editTagsContent"></div>
 
+</div>
+
+<div id="addToListDialog" style="display:none" title="Add to list">
+	<select id="addtoListSelect"></select>
 </div>
 
 <script type="text/javascript" src="../../Scripts/Song/Details.js"></script>

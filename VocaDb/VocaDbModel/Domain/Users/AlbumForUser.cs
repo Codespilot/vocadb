@@ -9,13 +9,16 @@ namespace VocaDb.Model.Domain.Users {
 
 		public AlbumForUser() {
 			MediaType = MediaType.PhysicalDisc;
+			PurchaseStatus = PurchaseStatus.Owned;
 		}
 
-		public AlbumForUser(User user, Album album)
+		public AlbumForUser(User user, Album album, PurchaseStatus status, MediaType mediaType)
 			: this() {
 
 			User = user;
 			Album = album;
+			PurchaseStatus = status;
+			MediaType = mediaType;
 
 		}
 
@@ -31,12 +34,21 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual MediaType MediaType { get; set; }
 
+		public virtual PurchaseStatus PurchaseStatus { get; set; }
+
 		public virtual User User {
 			get { return user; }
 			set {
 				ParamIs.NotNull(() => value);
 				user = value;
 			}
+		}
+
+		public virtual void Delete() {
+
+			Album.UserCollections.Remove(this);
+			User.AllAlbums.Remove(this);
+
 		}
 
 		public virtual bool Equals(AlbumForUser another) {

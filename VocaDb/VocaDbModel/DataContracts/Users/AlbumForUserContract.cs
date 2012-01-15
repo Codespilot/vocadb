@@ -5,6 +5,7 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class AlbumForUserContract {
 
 		public AlbumForUserContract(AlbumForUser albumForUser, ContentLanguagePreference languagePreference) {
@@ -14,6 +15,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			Album = new AlbumWithAdditionalNamesContract(albumForUser.Album, languagePreference);
 			Id = albumForUser.Id;
 			MediaType = albumForUser.MediaType;
+			PurchaseStatus = albumForUser.PurchaseStatus;
 			User = new UserContract(albumForUser.User);
 
 		}
@@ -26,6 +28,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public MediaType MediaType { get; set; }
+
+		[DataMember]
+		public PurchaseStatus PurchaseStatus { get; set; }
 
 		[DataMember]
 		public UserContract User { get; set; }

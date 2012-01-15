@@ -4,6 +4,7 @@
 <table>
 	<tr>
 		<th colspan="2">Album</th>
+		<th>Status</th>
 		<th>Media type</th>
 	</tr>
 	@foreach (var album in Model) {
@@ -17,7 +18,10 @@
 			<span class="extraInfo">@album.Album.ArtistString</span>
 		</td>
 		<td>
-			@Translate.MediaTypeName(album.MediaType)
+			@Translate.AlbumCollectionStatusNames.GetName(album.PurchaseStatus)
+		</td>
+		<td>
+			@Translate.AlbumMediaTypeNames.GetName(album.MediaType)
 		</td>	
 	</tr>
 }	

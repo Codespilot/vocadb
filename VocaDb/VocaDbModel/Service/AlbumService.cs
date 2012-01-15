@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.PVs;
@@ -539,9 +540,11 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var contract = new AlbumDetailsContract(session.Load<Album>(id), PermissionContext.LanguagePreference);
-				if (PermissionContext.LoggedUser != null)
-					contract.UserHasAlbum = session.Query<AlbumForUser>()
-						.Any(a => a.Album.Id == id && a.User.Id == PermissionContext.LoggedUser.Id);
+				if (PermissionContext.LoggedUser != null) {
+					var albumForUser = session.Query<AlbumForUser>()
+						.FirstOrDefault(a => a.Album.Id == id && a.User.Id == PermissionContext.LoggedUser.Id);
+					contract.AlbumForUser = (albumForUser != null ? new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference) : null);
+				}
 				contract.CommentCount = session.Query<AlbumComment>().Where(c => c.Album.Id == id).Count();
 				contract.LatestComments = session.Query<AlbumComment>()
 					.Where(c => c.Album.Id == id)

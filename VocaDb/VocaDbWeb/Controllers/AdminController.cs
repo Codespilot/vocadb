@@ -1,8 +1,5 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
-using NHibernate.Mapping;
-using NHibernate.Persister.Collection;
-using NHibernate.Persister.Entity;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
@@ -116,6 +113,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult ViewAuditLog() {
 
 			LoginManager.VerifyPermission(PermissionFlags.ViewAuditLog);

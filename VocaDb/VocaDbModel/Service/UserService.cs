@@ -72,7 +72,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("adding {0} for {1}", album, user), session);
 
-				var albumForUser = user.AddAlbum(album);
+				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc);
 				session.Save(albumForUser);
 
 				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
@@ -81,6 +81,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Disabled")]
 		public AlbumForUserContract AddAlbum(int userId, string newAlbumName) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
@@ -94,7 +95,7 @@ namespace VocaDb.Model.Service {
 				var album = new Album(newAlbumName);
 
 				session.Save(album);
-				var albumForUser = user.AddAlbum(album);
+				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc);
 				session.Update(user);
 
 				Services.Albums.Archive(session, album, AlbumArchiveReason.Created);
@@ -466,6 +467,45 @@ namespace VocaDb.Model.Service {
 				}
 
 				session.Save(message);
+
+			});
+
+		}
+
+		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, MediaType mediaType) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			HandleTransaction(session => {
+
+				var albumForUser = session.Query<AlbumForUser>()
+					.FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
+
+				if (albumForUser != null && status == PurchaseStatus.Nothing) {
+
+					AuditLog("deleting " + albumForUser, session);
+					albumForUser.Delete();
+					session.Delete(albumForUser);
+
+				} else if (albumForUser == null) {
+
+					var user = session.Load<User>(userId);
+					var album = session.Load<Album>(albumId);
+
+					albumForUser = user.AddAlbum(album, status, mediaType);
+					session.Save(albumForUser);
+
+					AuditLog(string.Format("added {0} for {1}", album, user), session);
+
+				} else {
+
+					albumForUser.MediaType = mediaType;
+					albumForUser.PurchaseStatus = status;
+					session.Update(albumForUser);
+
+					AuditLog("updated " + albumForUser, session);
+
+				}
 
 			});
 
