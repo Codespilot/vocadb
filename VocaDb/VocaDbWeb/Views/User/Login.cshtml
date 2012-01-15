@@ -24,6 +24,10 @@
                 @Html.ValidationMessageFor(m => m.Password)
             </div>
 
+			<br />
+            @Html.CheckBoxFor(m => m.KeepLoggedIn)&nbsp;
+            @Html.LabelFor(m => m.KeepLoggedIn)
+
             <p>
                 <input type="submit" value="Log in" />
             </p>
