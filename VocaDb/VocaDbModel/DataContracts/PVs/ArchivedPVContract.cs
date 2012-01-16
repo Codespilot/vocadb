@@ -13,6 +13,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 			ParamIs.NotNull(() => pv);
 
+			Name = pv.Name;
 			PVId = pv.PVId;
 			Service = pv.Service;
 			PVType = pv.PVType;
@@ -23,7 +24,6 @@ namespace VocaDb.Model.DataContracts.PVs {
 			: this((PV)pv) {
 
 			Author = pv.Author;
-			Name = pv.Name;
 
 		}
 
