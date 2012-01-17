@@ -6,9 +6,7 @@
 
 		RichText		= 2,
 
-		EntryCreated	= 4,
-
-		EntryUpdated	= 8
+		EntryEdited		= 4
 
 	}
 }
