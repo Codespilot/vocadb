@@ -15,6 +15,23 @@
 
 		public int Id { get; set; }
 
+		public bool Equals(EntryRef another) {
+
+			if (another == null)
+				return false;
+
+			return (EntryType == another.EntryType && Id == another.Id);
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as EntryRef);
+		}
+
+		public override int GetHashCode() {
+			return (EntryType.ToString() + "_" + Id).GetHashCode();
+		}
+
 	}
 
 }

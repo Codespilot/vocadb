@@ -70,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContracts\Activityfeed\ActivityEntryContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumTagUsageContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
+    <Compile Include="DataContracts\EntryRefContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListContract.cs" />
@@ -160,8 +162,9 @@
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntry.cs" />
-    <Compile Include="Domain\Activityfeed\EntryCreatedEntry.cs" />
-    <Compile Include="Domain\Activityfeed\PaintextEntry.cs" />
+    <Compile Include="Domain\Activityfeed\ActivityfeedManager.cs" />
+    <Compile Include="Domain\Activityfeed\EntryEditedEntry.cs" />
+    <Compile Include="Domain\Activityfeed\PlaintextEntry.cs" />
     <Compile Include="Domain\Albums\AlbumArchiveReason.cs" />
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
@@ -273,6 +276,7 @@
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\UrlValidator.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
+    <Compile Include="Mapping\Activityfeed\ActivityEntryMap.cs" />
     <Compile Include="Mapping\Albums\AlbumCommentMap.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumTagUsageMap.cs" />

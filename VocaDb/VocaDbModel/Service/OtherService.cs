@@ -7,6 +7,8 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.DataContracts.Activityfeed;
+using VocaDb.Model.Domain.Activityfeed;
 
 namespace VocaDb.Model.Service {
 
@@ -14,6 +16,18 @@ namespace VocaDb.Model.Service {
 
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
+
+		public ActivityEntryContract GetActivityEntries(int maxEntries) {
+
+			return HandleQuery(session => {
+
+				var entries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries);
+
+				return new ActivityEntryContract(null);
+
+			});
+
+		}
 
 		public FrontPageContract GetFrontPageContent() {
 
