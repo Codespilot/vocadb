@@ -1052,6 +1052,7 @@ namespace VocaDb.Model.Service {
 					if (changed) {
 						song.UpdateArtistString();
 						session.Update(song);
+						AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
 						artistStrings.Add(new KeyValuePair<int, string>(song.Id, song.ArtistString[PermissionContext.LanguagePreference]));
 					}
 				}

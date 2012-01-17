@@ -6,6 +6,7 @@ using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Domain.Security;
@@ -26,8 +27,6 @@ namespace VocaDb.Model.Service {
 
 		private AlbumContract AcceptImportedAlbum(ISession session, InspectedAlbum acceptedAlbum, int[] selectedSongIds) {
 			
-			AuditLog(string.Format("accepting imported album '{0}'", acceptedAlbum.ImportedAlbum.Title), session);
-
 			Album album;
 			var diff = new AlbumDiff();
 
@@ -101,6 +100,10 @@ namespace VocaDb.Model.Service {
 			}
 
 			album.UpdateArtistString();
+
+			AuditLog(string.Format("accepted imported album '{0}'", acceptedAlbum.ImportedAlbum.Title), session);
+			AddEntryEditedEntry(session, album, EntryEditEvent.Created);
+
 			Services.Albums.Archive(session, album, diff, AlbumArchiveReason.AutoImportedFromMikuDb);
 
 			session.Update(album);

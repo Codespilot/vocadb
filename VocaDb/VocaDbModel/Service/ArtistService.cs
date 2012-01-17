@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -280,6 +281,7 @@ namespace VocaDb.Model.Service {
 				session.Update(artist);
 
 				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(artist)), session);
+				AddEntryEditedEntry(session, artist, EntryEditEvent.Created);
 
 				return new ArtistContract(artist, PermissionContext.LanguagePreference);
 
@@ -832,6 +834,7 @@ namespace VocaDb.Model.Service {
 
 						AuditLog(string.Format("created {0} for {1}", 
 							EntryLinkFactory.CreateEntryLink(album), EntryLinkFactory.CreateEntryLink(artist)), session);
+						AddEntryEditedEntry(session, album, EntryEditEvent.Created);
 
 					}
 
@@ -859,6 +862,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("updated properties for {0} ({1})", 
 					EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString), session);
+				AddEntryEditedEntry(session, artist, EntryEditEvent.Updated);
 
 				Archive(session, artist, diff, ArtistArchiveReason.PropertiesUpdated);
 				session.Update(artist);
