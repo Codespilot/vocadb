@@ -180,6 +180,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ActivityFeedRenderer.cs" />
     <Compile Include="Helpers\DataFormatUtils.cs" />
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
@@ -767,6 +768,7 @@
     <Content Include="Views\SongList\Edit.cshtml" />
     <Content Include="Views\SongList\Details.cshtml" />
     <Content Include="Views\SongList\SongInListEditRow.cshtml" />
+    <Content Include="App_Code\ActivityfeedHelpers.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

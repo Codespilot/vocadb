@@ -8,6 +8,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -455,6 +456,7 @@ namespace VocaDb.Model.Service {
 				session.Update(song);
 
 				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(song)), session);
+				AddEntryEditedEntry(session, song, EntryEditEvent.Created);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
 
@@ -1134,6 +1136,7 @@ namespace VocaDb.Model.Service {
 					diff.Lyrics = true;
 
 				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
+				AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
 
 				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 

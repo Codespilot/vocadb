@@ -36,6 +36,21 @@ namespace VocaDb.Model.Domain.Activityfeed {
 			}
 		}
 
+		public override void Accept(IActivityEntryVisitor visitor) {
+			visitor.Visit(this);
+		}
+
+		public override bool IsDuplicate(ActivityEntry entry) {
+
+			var editedEntry = (EntryEditedEntry)entry;
+
+			if (editedEntry == null)
+				return false;
+
+			return (editedEntry.Author.Equals(Author) && editedEntry.EntryRef.Equals(EntryRef));
+
+		}
+
 	}
 
 	public enum EntryEditEvent {

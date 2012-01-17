@@ -33,6 +33,10 @@ namespace VocaDb.Model.Domain.Activityfeed {
 			}
 		}
 
+		public override void Accept(IActivityEntryVisitor visitor) {
+			visitor.Visit(this);
+		}
+
 	}
 
 }

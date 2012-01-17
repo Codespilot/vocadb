@@ -2,6 +2,8 @@
 
 	public class EntryRef {
 
+		public EntryRef() { }
+
 		public EntryRef(IEntryBase entryBase) {
 
 			ParamIs.NotNull(() => entryBase);

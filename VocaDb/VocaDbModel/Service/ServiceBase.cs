@@ -2,7 +2,9 @@
 using System.Linq;
 using log4net;
 using NHibernate;
+using NHibernate.Linq;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Versioning;
@@ -60,6 +62,25 @@ namespace VocaDb.Model.Service {
 			get {
 				return new ServiceModel(sessionFactory, PermissionContext, entryLinkFactory);
 			}
+		}
+
+		protected void AddActivityfeedEntry(ISession session, ActivityEntry entry) {
+
+			var latestEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(10).ToArray();
+
+			if (latestEntries.Any(e => e.IsDuplicate(entry)))
+				return;
+
+			session.Save(entry);
+
+		}
+
+		protected void AddEntryEditedEntry(ISession session, IEntryBase entryBase, EntryEditEvent editEvent) {
+
+			var user = GetLoggedUser(session);
+			var entry = new EntryEditedEntry(user, false, new EntryRef(entryBase), editEvent);
+			AddActivityfeedEntry(session, entry);
+
 		}
 
 		protected void AuditLog(string doingWhat) {

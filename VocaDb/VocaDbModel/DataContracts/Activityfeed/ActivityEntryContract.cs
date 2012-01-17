@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.DataContracts.Users;
 
@@ -15,14 +12,15 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 
 			Author = new UserContract(entry.Author);
 			CreateDate = entry.CreateDate;
+			EntryType = entry.EntryType;
 			Sticky = entry.Sticky;
 
 		}
 
-		public ActivityEntryContract(EntryEditedEntry entry, string displayName, string additionalNames)
-			: this((ActivityEntry)entry) {
+		public ActivityEntryContract(EntryEditedEntry entry, EntryName name)
+			: this(entry) {
 
-			EntryEditedProperties = new EntryEditedPropertiesContract(entry, displayName, additionalNames);
+			EntryEditedProperties = new EntryEditedPropertiesContract(entry, name);
 
 		}
 
@@ -39,6 +37,8 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 
 		public EntryEditedPropertiesContract EntryEditedProperties { get; set; }
 
+		public ActivityEntryType EntryType { get; set; }
+
 		public PaintextEntryPropertiesContract PlaintextProperties { get; set; }
 
 		public bool Sticky { get; set; }
@@ -47,19 +47,23 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 
 	public class EntryEditedPropertiesContract {
 
-		public EntryEditedPropertiesContract(EntryEditedEntry entry, string displayName, string additionalNames) {
+		public EntryEditedPropertiesContract(EntryEditedEntry entry, EntryName name) {
 
 			ParamIs.NotNull(() => entry);
+			ParamIs.NotNull(() => name);
 
+			EditEvent = entry.EditEvent;
 			EntryRef = new EntryRefContract(entry.EntryRef);
-			DisplayName = displayName;
-			AdditionalNames = additionalNames;
+			DisplayName = name.DisplayName;
+			AdditionalNames = name.DisplayName;
 
 		}
 
 		public string AdditionalNames { get; set; }
 
 		public string DisplayName { get; set; }
+
+		public EntryEditEvent EditEvent { get; set; }
 
 		public EntryRefContract EntryRef { get; set; }
 
