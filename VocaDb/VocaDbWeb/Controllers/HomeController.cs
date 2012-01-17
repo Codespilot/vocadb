@@ -15,11 +15,13 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index() {
 
-        	var result = MvcApplication.Services.Other.GetFrontPageContent();
+        	/*var result = MvcApplication.Services.Other.GetFrontPageContent();
         	ViewBag.Albums = result.LatestAlbums;
-        	ViewBag.Songs = result.LatestSongs;
+        	ViewBag.Songs = result.LatestSongs;*/
 
-            return View();
+			var contract = MvcApplication.Services.Other.GetActivityEntries(20);
+
+            return View(contract);
 
         }
 

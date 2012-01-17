@@ -31,11 +31,11 @@ namespace VocaDb.Model.Mapping.Activityfeed {
 			DiscriminatorValue("EntryEdited");
 
 			Component(m => m.EntryRef, c => {
-				c.Map(m => m.EntryType);
-				c.Map(m => m.Id);
+				c.Map(m => m.EntryType).Column("[EntryEditedEntryRefType]");
+				c.Map(m => m.Id).Column("[EntryEditedEntryRefId]");
 			});
 
-			Map(m => m.EditEvent).Not.Nullable();
+			Map(m => m.EditEvent).Column("[EntryEditedEditEvent]").Not.Nullable();
 
 		}
 
@@ -47,7 +47,7 @@ namespace VocaDb.Model.Mapping.Activityfeed {
 
 			DiscriminatorValue("Plaintext");
 
-			Map(m => m.Text).Not.Nullable();
+			Map(m => m.Text).Column("[TextEntryText]").Not.Nullable();
 
 		}
 

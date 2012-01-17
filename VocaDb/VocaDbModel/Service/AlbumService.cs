@@ -12,6 +12,7 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
@@ -312,6 +313,7 @@ namespace VocaDb.Model.Service {
 				session.Update(album);
 
 				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(album)), session);
+				AddEntryEditedEntry(session, album, EntryEditEvent.Created);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
 
@@ -1009,6 +1011,7 @@ namespace VocaDb.Model.Service {
 
 						AuditLog(string.Format("created {0} for {1}", 
 							EntryLinkFactory.CreateEntryLink(song), EntryLinkFactory.CreateEntryLink(album)), session);
+						AddEntryEditedEntry(session, song, EntryEditEvent.Created);
 
 						return song;
 
@@ -1042,6 +1045,7 @@ namespace VocaDb.Model.Service {
 					diff.PVs = true;
 
 				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString), session);
+				AddEntryEditedEntry(session, album, EntryEditEvent.Updated);
 
 				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);
 				session.Update(album);

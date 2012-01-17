@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Activityfeed {
@@ -10,11 +7,11 @@ namespace VocaDb.Model.Domain.Activityfeed {
 
 		private User author;
 
-		public ActivityEntry() {
+		protected ActivityEntry() {
 			CreateDate = DateTime.Now;
 		}
 
-		public ActivityEntry(User author, bool sticky)	
+		protected ActivityEntry(User author, bool sticky)	
 			: this() {
 
 			Author = author;
@@ -37,6 +34,12 @@ namespace VocaDb.Model.Domain.Activityfeed {
 		public virtual int Id { get; set; }
 
 		public virtual bool Sticky { get; set; }
+
+		public abstract void Accept(IActivityEntryVisitor visitor);
+
+		public virtual bool IsDuplicate(ActivityEntry entry) {
+			return false;
+		}
 
 	}
 

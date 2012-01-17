@@ -1,0 +1,45 @@
+﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using VocaDb.Model.Domain.Songs;
+@using VocaDb.Web.Helpers;
+@using VocaDb.Model.DataContracts.Activityfeed;
+@using VocaDb.Model.Domain.Activityfeed;
+@using VocaDb.Model.DataContracts;
+
+@helper EntryLink(EntryEditedPropertiesContract entryProperties) {
+	@Html.ActionLink(entryProperties.DisplayName, "Details", entryProperties.EntryRef.EntryType.ToString(), new { id = entryProperties.EntryRef.Id }, new { title = entryProperties.AdditionalNames })
+}
+
+@helper ActivityEntry(ActivityEntryContract entryContract) {
+	switch (entryContract.EntryType) {
+		case ActivityEntryType.EntryEdited:
+			if (entryContract.EntryEditedProperties.EditEvent == EntryEditEvent.Created) {
+				<span>Created a new </span>
+			} else {
+				<span>Updated </span>
+			}
+			<span>@entryContract.EntryEditedProperties.EntryRef.EntryType:</span>
+			<span>@EntryLink(entryContract.EntryEditedProperties)</span> 
+			<span>-</span>
+			@entryContract.CreateDate
+			<span>by</span>
+			@Html.ProfileIcon(entryContract.Author, 25)
+			@Html.UserLink(entryContract.Author, entryContract.Author.Name)
+break;
+
+		case ActivityEntryType.Plaintext:
+			<div class="messageTitle ui-widget-header ui-corner-all">
+			<div class="messageTitleText">
+				@Html.ProfileIcon(entryContract.Author, 25)
+				@Html.UserLink(entryContract.Author, entryContract.Author.Name)
+				<span> at </span>
+				@entryContract.CreateDate
+			</div>	
+			</div>	
+			<p class="messageContent">
+			<span>@Helpers.ConvertNewlinesToBreaks(entryContract.PlaintextProperties.Text)</span>
+			</p>
+	break;
+	}	
+}
