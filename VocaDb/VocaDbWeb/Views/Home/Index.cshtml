@@ -1,16 +1,14 @@
 ﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Activityfeed.ActivityEntryContract[]
+@model VocaDb.Model.DataContracts.UseCases.FrontPageContract
 
 <h3>Welcome to the Vocaloid Database!</h3>
 
-@Helpers.NotificationPanel("This site is currently in beta testing. Short downtimes and small bugs are to be expected.")
+@foreach (var entry in Model.NewsEntries) {
+	@ActivityfeedHelpers.NewsEntry(entry);
+}
 
-@foreach (var entry in Model) {
-
-	<div class="message ui-tabs ui-widget ui-widget-content ui-corner-all">
-		@ActivityfeedHelpers.ActivityEntry(entry)
-	</div>
-	
+@foreach (var entry in Model.ActivityEntries) {
+	@ActivityfeedHelpers.ActivityEntry(entry);
 }
 
 <h3>Search the whole site using Google custom search</h3>

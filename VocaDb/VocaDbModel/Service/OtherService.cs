@@ -17,7 +17,7 @@ namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
 
-		private EntryName GetEntryName(ISession session, EntryRef entryRef) {
+		/*private EntryName GetEntryName(ISession session, EntryRef entryRef) {
 
 			switch (entryRef.EntryType) {
 				case EntryType.Album: {
@@ -44,7 +44,7 @@ namespace VocaDb.Model.Service {
 
 			return EntryName.Empty;
 
-		}
+		}*/
 
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
@@ -53,15 +53,11 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var entries = session.Query<ActivityEntry>().Where(a => a.Sticky).OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
+				var entries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
 
-				if (entries.Length < maxEntries)
-					entries = entries.Concat(session.Query<ActivityEntry>().Where(a => !a.Sticky)
-						.OrderByDescending(a => a.CreateDate).Take(maxEntries)).ToArray();
+				var contracts = entries.Select(e => new ActivityEntryContract(e, PermissionContext.LanguagePreference)).ToArray();
 
-				var factory = new ActivityEntryContractFactory(entryRef => GetEntryName(session, entryRef));
-
-				return entries.Select(factory.Create).ToArray();
+				return contracts;
 
 			});
 
@@ -69,12 +65,16 @@ namespace VocaDb.Model.Service {
 
 		public FrontPageContract GetFrontPageContent() {
 
-			return HandleQuery(session => new FrontPageContract(
-				session.Query<Album>().Where(a => !a.Deleted)
-					.OrderByDescending(a => a.CreateDate).Take(15),
-				session.Query<Song>().Where(s => !s.Deleted)
-					.OrderByDescending(s => s.CreateDate).Take(15), 
-				PermissionContext.LanguagePreference));
+			const int maxEntries = 20;
+
+			return HandleQuery(session => {
+
+				var activityEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
+				var newsEntries = session.Query<NewsEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
+
+				return new FrontPageContract(activityEntries, newsEntries, PermissionContext.LanguagePreference);
+
+			});
 
 		}
 

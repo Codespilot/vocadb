@@ -71,7 +71,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\Activityfeed\ActivityEntryContract.cs" />
-    <Compile Include="DataContracts\Activityfeed\ActivityEntryContractFactory.cs" />
+    <Content Include="DataContracts\Activityfeed\ActivityEntryContractFactory.cs" />
+    <Compile Include="DataContracts\Activityfeed\NewsEntryContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumTagUsageContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
+    <Compile Include="DataContracts\EntryNameContract.cs" />
     <Compile Include="DataContracts\EntryRefContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
@@ -164,9 +166,11 @@
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntry.cs" />
     <Compile Include="Domain\Activityfeed\ActivityfeedManager.cs" />
-    <Compile Include="Domain\Activityfeed\EntryEditedEntry.cs" />
+    <Content Include="Domain\Activityfeed\EntryEditedEntry.cs" />
+    <Compile Include="Domain\Activityfeed\GenericActivityEntry.cs" />
     <Compile Include="Domain\Activityfeed\IActivityEntryVisitor.cs" />
-    <Compile Include="Domain\Activityfeed\PlaintextEntry.cs" />
+    <Compile Include="Domain\Activityfeed\NewsEntry.cs" />
+    <Content Include="Domain\Activityfeed\PlaintextEntry.cs" />
     <Compile Include="Domain\Albums\AlbumArchiveReason.cs" />
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
@@ -280,6 +284,7 @@
     <Compile Include="Helpers\UrlValidator.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Mapping\Activityfeed\ActivityEntryMap.cs" />
+    <Compile Include="Mapping\Activityfeed\NewsEntryMap.cs" />
     <Compile Include="Mapping\Albums\AlbumCommentMap.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumTagUsageMap.cs" />

@@ -4,6 +4,7 @@ using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Helpers {
 
@@ -13,11 +14,11 @@ namespace VocaDb.Model.Helpers {
 			return string.Join(", ", names.Where(n => n != display));
 		}
 
-		public static EntryName GetName(IEntryWithNames entry, ContentLanguagePreference languagePreference) {
+		public static EntryNameContract GetName(INameManager nameManager, ContentLanguagePreference languagePreference) {
 
-			var primary = entry.Names.SortNames[languagePreference];
+			var primary = nameManager.SortNames[languagePreference];
 
-			return new EntryName(primary, GetAdditionalNames(entry.Names.AllValues, primary));
+			return new EntryNameContract(primary, GetAdditionalNames(nameManager.AllValues, primary));
 
 		}
 

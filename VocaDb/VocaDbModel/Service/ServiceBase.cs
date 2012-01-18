@@ -11,6 +11,9 @@ using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Service.Helpers;
 using System.Collections.Generic;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service {
 
@@ -75,11 +78,27 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void AddEntryEditedEntry(ISession session, IEntryBase entryBase, EntryEditEvent editEvent) {
+		protected void AddEntryEditedEntry(ISession session, Album entry, EntryEditEvent editEvent) {
 
 			var user = GetLoggedUser(session);
-			var entry = new EntryEditedEntry(user, false, new EntryRef(entryBase), editEvent);
-			AddActivityfeedEntry(session, entry);
+			var activityEntry = new AlbumActivityEntry(entry, editEvent, user);
+			AddActivityfeedEntry(session, activityEntry);
+
+		}
+
+		protected void AddEntryEditedEntry(ISession session, Artist entry, EntryEditEvent editEvent) {
+
+			var user = GetLoggedUser(session);
+			var activityEntry = new ArtistActivityEntry(entry, editEvent, user);
+			AddActivityfeedEntry(session, activityEntry);
+
+		}
+
+		protected void AddEntryEditedEntry(ISession session, Song entry, EntryEditEvent editEvent) {
+
+			var user = GetLoggedUser(session);
+			var activityEntry = new SongActivityEntry(entry, editEvent, user);
+			AddActivityfeedEntry(session, activityEntry);
 
 		}
 

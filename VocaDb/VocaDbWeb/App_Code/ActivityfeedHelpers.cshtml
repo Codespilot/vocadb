@@ -7,39 +7,43 @@
 @using VocaDb.Model.Domain.Activityfeed;
 @using VocaDb.Model.DataContracts;
 
-@helper EntryLink(EntryEditedPropertiesContract entryProperties) {
+@helper EntryLink(ActivityEntryContract entryProperties) {
 	@Html.ActionLink(entryProperties.DisplayName, "Details", entryProperties.EntryRef.EntryType.ToString(), new { id = entryProperties.EntryRef.Id }, new { title = entryProperties.AdditionalNames })
 }
 
-@helper ActivityEntry(ActivityEntryContract entryContract) {
-	switch (entryContract.EntryType) {
-		case ActivityEntryType.EntryEdited:
-			if (entryContract.EntryEditedProperties.EditEvent == EntryEditEvent.Created) {
-				<span>Created a new </span>
-			} else {
-				<span>Updated </span>
-			}
-			<span>@entryContract.EntryEditedProperties.EntryRef.EntryType:</span>
-			<span>@EntryLink(entryContract.EntryEditedProperties)</span> 
-			<span>-</span>
-			@entryContract.CreateDate
-			<span>by</span>
-			@Html.ProfileIcon(entryContract.Author, 25)
-			@Html.UserLink(entryContract.Author, entryContract.Author.Name)
-break;
+@helper ActivityEntry(ActivityEntryContract entry) {
+	<div class="message ui-tabs ui-widget ui-widget-content ui-corner-all">
+		@if (entry.EditEvent == EntryEditEvent.Created) {
+			<span>Created a new </span>
+		} else {
+			<span>Updated </span>
+		}
+		<span>@entry.EntryRef.EntryType:</span>
+		<span>@EntryLink(entry)</span> 
+		<span>-</span>
+		@entry.CreateDate
+		<span>by</span>
+		@Html.ProfileIcon(entry.Author, 25)
+		@Html.UserLink(entry.Author, entry.Author.Name)
+	</div>
+}
 
-		case ActivityEntryType.Plaintext:
-			<div class="messageTitle ui-widget-header ui-corner-all">
+@helper NewsEntry(NewsEntryContract entry) {
+
+	var panelClass = entry.Important ? "ui-state-highlight " : string.Empty;
+	
+	<div class="@(panelClass + " message ui-tabs ui-widget ui-widget-content ui-corner-all")">
+		<div class="messageTitle ui-widget-header ui-corner-all">
 			<div class="messageTitleText">
-				@Html.ProfileIcon(entryContract.Author, 25)
-				@Html.UserLink(entryContract.Author, entryContract.Author.Name)
+				@Html.ProfileIcon(entry.Author, 25)
+				@Html.UserLink(entry.Author, entry.Author.Name)
 				<span> at </span>
-				@entryContract.CreateDate
+				@entry.CreateDate
 			</div>	
-			</div>	
-			<p class="messageContent">
-			<span>@Helpers.ConvertNewlinesToBreaks(entryContract.PlaintextProperties.Text)</span>
-			</p>
-	break;
-	}	
+		</div>	
+		<p class="messageContent">
+		<span>@Helpers.ConvertNewlinesToBreaks(entry.Text)</span>
+		</p>
+	</div>
+	
 }
