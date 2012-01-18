@@ -2,9 +2,11 @@
 
 	public interface IActivityEntryVisitor {
 
-		void Visit(EntryEditedEntry entry);
+		void Visit(AlbumActivityEntry entry);
 
-		void Visit(PlaintextEntry entry);
+		void Visit(ArtistActivityEntry entry);
+
+		void Visit(SongActivityEntry entry);
 
 	}
 }

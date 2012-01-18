@@ -100,6 +100,15 @@ namespace VocaDb.Model.Domain.Globalization {
 			return Names.GetEnumerator();
 		}
 
+		public EntryNameContract GetEntryName(ContentLanguagePreference languagePreference) {
+
+			var display = SortNames[languagePreference];
+			var additional = string.Join(", ", AllValues.Where(n => n != display));
+
+			return new EntryNameContract(display, additional);
+
+		}
+
 		public virtual bool HasName(LocalizedString name) {
 
 			return Names.Any(n => n.ContentEquals(name));

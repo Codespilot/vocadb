@@ -1,5 +1,6 @@
 ﻿using System;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Activityfeed {
 
@@ -11,11 +12,11 @@ namespace VocaDb.Model.Domain.Activityfeed {
 			CreateDate = DateTime.Now;
 		}
 
-		protected ActivityEntry(User author, bool sticky)	
+		protected ActivityEntry(User author, EntryEditEvent editEvent)	
 			: this() {
 
 			Author = author;
-			Sticky = sticky;
+			EditEvent = editEvent;
 
 		}
 
@@ -29,17 +30,29 @@ namespace VocaDb.Model.Domain.Activityfeed {
 
 		public virtual DateTime CreateDate { get; set; }
 
-		public abstract ActivityEntryType EntryType { get; }
+		public virtual EntryEditEvent EditEvent { get; set; }
+
+		public abstract IEntryBase EntryBase { get; }
+
+		public abstract INameManager EntryNames { get; }
+
+		public abstract EntryType EntryType { get; }
 
 		public virtual int Id { get; set; }
-
-		public virtual bool Sticky { get; set; }
 
 		public abstract void Accept(IActivityEntryVisitor visitor);
 
 		public virtual bool IsDuplicate(ActivityEntry entry) {
 			return false;
 		}
+
+	}
+
+	public enum EntryEditEvent {
+
+		Created,
+
+		Updated
 
 	}
 

@@ -14,9 +14,11 @@ namespace VocaDb.Model.Mapping.Activityfeed {
 			DiscriminateSubClassesOnColumn("[EntryType]");
 			Table("ActivityEntries");
 			Id(m => m.Id);
+			Cache.ReadWrite();
 
 			Map(m => m.CreateDate).Not.Nullable();
-			Map(m => m.Sticky).Not.Nullable();
+			Map(m => m.EditEvent).Not.Nullable();
+			Map(m => m.EntryType).Not.Nullable();
 
 			References(m => m.Author).Not.Nullable();
 
@@ -24,30 +26,37 @@ namespace VocaDb.Model.Mapping.Activityfeed {
 
 	}
 
-	public class EntryEditedEntryMap : SubclassMap<EntryEditedEntry> {
+	public class AlbumActivityEntryMap : SubclassMap<AlbumActivityEntry> {
 
-		public EntryEditedEntryMap() {
+		public AlbumActivityEntryMap() {
 
-			DiscriminatorValue("EntryEdited");
+			DiscriminatorValue("Album");
 
-			Component(m => m.EntryRef, c => {
-				c.Map(m => m.EntryType).Column("[EntryEditedEntryRefType]");
-				c.Map(m => m.Id).Column("[EntryEditedEntryRefId]");
-			});
-
-			Map(m => m.EditEvent).Column("[EntryEditedEditEvent]").Not.Nullable();
+			References(m => m.Entry).Column("[Album]").Not.Nullable();
 
 		}
 
 	}
 
-	public class PlaintextEntryMap : SubclassMap<PlaintextEntry> {
+	public class ArtistActivityEntryMap : SubclassMap<ArtistActivityEntry> {
 
-		public PlaintextEntryMap() {
+		public ArtistActivityEntryMap() {
 
-			DiscriminatorValue("Plaintext");
+			DiscriminatorValue("Artist");
 
-			Map(m => m.Text).Column("[TextEntryText]").Not.Nullable();
+			References(m => m.Entry).Column("[Artist]").Not.Nullable();
+
+		}
+
+	}
+
+	public class SongActivityEntryMap : SubclassMap<SongActivityEntry> {
+
+		public SongActivityEntryMap() {
+
+			DiscriminatorValue("Song");
+
+			References(m => m.Entry).Column("[Song]").Not.Nullable();
 
 		}
 

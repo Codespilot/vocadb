@@ -8,6 +8,15 @@ namespace VocaDb.Model.DataContracts {
 
 	public class EntryRefContract {
 
+		public EntryRefContract(IEntryBase entryBase) {
+
+			ParamIs.NotNull(() => entryBase);
+
+			EntryType = entryBase.EntryType;
+			Id = entryBase.Id;
+
+		}
+
 		public EntryRefContract(EntryRef entryRef) {
 
 			ParamIs.NotNull(() => entryRef);

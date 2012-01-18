@@ -7,12 +7,12 @@ using VocaDb.Model.Domain.Activityfeed;
 
 namespace VocaDb.Model.DataContracts.Activityfeed {
 
-	public class ActivityEntryContractFactory : IActivityEntryVisitor {
+	/*public class ActivityEntryContractFactory : IActivityEntryVisitor {
 
 		private ActivityEntryContract contract;
 		private readonly Func<EntryRef, EntryName> entryNameGetter;
 
-		void IActivityEntryVisitor.Visit(EntryEditedEntry entry) {
+		void IActivityEntryVisitor.Visit(AlbumActivityEntry entry) {
 			var name = entryNameGetter(entry.EntryRef);
 			contract = new ActivityEntryContract(entry, name);
 		}
@@ -28,7 +28,7 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 		public ActivityEntryContract Create(ActivityEntry entry) {
 			entry.Accept(this);
 			return contract;
-		}
+		}*/
 
 	}
 
