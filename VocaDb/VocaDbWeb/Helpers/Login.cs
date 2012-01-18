@@ -43,6 +43,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanModerateUsers {
+			get {
+				return Manager.HasPermission(PermissionFlags.ManageUserBlocks);
+			}
+		}
+
 		public static bool CanRevertEntryVersions {
 			get {
 				return Manager.HasPermission(PermissionFlags.RestoreEntries);

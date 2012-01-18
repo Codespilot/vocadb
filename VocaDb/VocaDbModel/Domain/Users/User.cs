@@ -27,6 +27,7 @@ namespace VocaDb.Model.Domain.Users {
 		public User() {
 
 			Active = true;
+			AnonymousActivity = false;
 			CreateDate = DateTime.Now;
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
@@ -78,6 +79,8 @@ namespace VocaDb.Model.Domain.Users {
 				albums = value;
 			}
 		}
+
+		public virtual bool AnonymousActivity { get; set; }
 
 		public virtual bool CanBeDisabled {
 			get {
