@@ -43,7 +43,7 @@ namespace VocaDb.Model.Domain.Activityfeed {
 		public abstract void Accept(IActivityEntryVisitor visitor);
 
 		public virtual bool IsDuplicate(ActivityEntry entry) {
-			return false;
+			return (Author.Equals(entry.Author) && EntryBase.Equals(entry.EntryBase));
 		}
 
 	}

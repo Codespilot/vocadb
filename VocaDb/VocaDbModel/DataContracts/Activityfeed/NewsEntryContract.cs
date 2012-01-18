@@ -13,12 +13,15 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 
 			ParamIs.NotNull(() => newsEntry);
 
+			Anonymous = newsEntry.Anonymous;
 			Author = new UserContract(newsEntry.Author);
 			CreateDate = newsEntry.CreateDate;
 			Important = newsEntry.Important;
 			Text = newsEntry.Text;
 
 		}
+
+		public bool Anonymous { get; set; }
 
 		public UserContract Author { get; set; }
 

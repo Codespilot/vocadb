@@ -11,7 +11,8 @@ namespace VocaDb.Model.Domain.Activityfeed {
 		private string text;
 		private User author;
 
-		public NewsEntry() { 
+		public NewsEntry() {
+			Anonymous = true;
 			CreateDate = DateTime.Now;
 		}
 
@@ -22,6 +23,8 @@ namespace VocaDb.Model.Domain.Activityfeed {
 			Author = author;
 
 		}
+
+		public virtual bool Anonymous { get; set; }
 
 		public virtual User Author {
 			get { return author; }
