@@ -18,7 +18,6 @@ namespace VocaDb.Model.Mapping.Activityfeed {
 
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.EditEvent).Not.Nullable();
-			Map(m => m.EntryType).Not.Nullable();
 
 			References(m => m.Author).Not.Nullable();
 

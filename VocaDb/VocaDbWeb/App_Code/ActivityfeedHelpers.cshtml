@@ -35,14 +35,19 @@
 	<div class="@(panelClass + " message ui-tabs ui-widget ui-widget-content ui-corner-all")">
 		<div class="messageTitle ui-widget-header ui-corner-all">
 			<div class="messageTitleText">
-				@Html.ProfileIcon(entry.Author, 25)
-				@Html.UserLink(entry.Author, entry.Author.Name)
-				<span> at </span>
+				@if (!entry.Anonymous) {
+					@Html.ProfileIcon(entry.Author, 25)
+					@Html.UserLink(entry.Author, entry.Author.Name)
+					<span> at </span>
+				}
 				@entry.CreateDate
 			</div>	
 		</div>	
 		<p class="messageContent">
-		<span>@Helpers.ConvertNewlinesToBreaks(entry.Text)</span>
+			@if (entry.Important) {
+				@Helpers.NotificationIcon()
+			}
+			<span>@Helpers.ConvertNewlinesToBreaks(entry.Text)</span>
 		</p>
 	</div>
 	
