@@ -59,6 +59,7 @@ namespace VocaDb.Web.Models {
 			
 			ParamIs.NotNull(() => user);
 
+			AnonymousActivity = user.AnonymousActivity;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
@@ -80,6 +81,9 @@ namespace VocaDb.Web.Models {
 		public Dictionary<ContentLanguagePreference, string> AllLanguages { get; set; }
 
 		public PVService[] AllVideoServices { get; set; }
+
+		[Display(Name= "Do not show my name in the recent activity list")]
+		public bool AnonymousActivity { get; set; }
 
 		[Display(Name = "Preferred display language")]
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
@@ -119,6 +123,7 @@ namespace VocaDb.Web.Models {
 		public UpdateUserSettingsContract ToContract() {
 
 			return new UpdateUserSettingsContract {
+				AnonymousActivity = this.AnonymousActivity,
 				Id = this.Id,
 				Name = Username,
 				DefaultLanguageSelection = this.DefaultLanguageSelection,

@@ -563,6 +563,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				user.AnonymousActivity = contract.AnonymousActivity;
 				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
 				user.EmailOptions = contract.EmailOptions;
 				user.PreferredVideoService = contract.PreferredVideoService;

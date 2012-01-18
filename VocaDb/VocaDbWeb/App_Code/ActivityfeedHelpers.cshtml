@@ -22,9 +22,11 @@
 		<span>@EntryLink(entry)</span> 
 		<span>-</span>
 		@entry.CreateDate
-		<span>by</span>
-		@Html.ProfileIcon(entry.Author, 25)
-		@Html.UserLink(entry.Author, entry.Author.Name)
+		@if (!entry.Author.AnonymousActivity || Login.CanModerateUsers) {
+			<span>by</span>
+			@Html.ProfileIcon(entry.Author, 25)
+			@Html.UserLink(entry.Author, entry.Author.Name)
+		}
 	</div>
 }
 
@@ -35,7 +37,7 @@
 	<div class="@(panelClass + " message ui-tabs ui-widget ui-widget-content ui-corner-all")">
 		<div class="messageTitle ui-widget-header ui-corner-all">
 			<div class="messageTitleText">
-				@if (!entry.Anonymous) {
+				@if (!entry.Anonymous || Login.CanModerateUsers) {
 					@Html.ProfileIcon(entry.Author, 25)
 					@Html.UserLink(entry.Author, entry.Author.Name)
 					<span> at </span>

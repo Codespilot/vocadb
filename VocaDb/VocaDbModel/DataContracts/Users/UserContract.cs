@@ -18,6 +18,7 @@ namespace VocaDb.Model.DataContracts.Users {
 
 			Active = user.Active;
 			AdditionalPermissions = user.AdditionalPermissions;
+			AnonymousActivity = user.AnonymousActivity;
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			EffectivePermissions = user.EffectivePermissions;
@@ -35,6 +36,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public PermissionFlags AdditionalPermissions { get; set; }
+
+		[DataMember]
+		public bool AnonymousActivity { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }

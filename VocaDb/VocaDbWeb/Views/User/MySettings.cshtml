@@ -58,6 +58,11 @@
 						@Html.DropDownListFor(m => m.PreferredVideoService, new SelectList(Model.AllVideoServices, Model.PreferredVideoService))
 					</div>
 
+					<p>
+						@Html.CheckBoxFor(m => m.AnonymousActivity)
+						@Html.LabelFor(m => m.AnonymousActivity)
+					</p>
+
 					<div class="editor-label">
 						@Html.LabelFor(m => m.OldPass)
 						(required for changing password.)
