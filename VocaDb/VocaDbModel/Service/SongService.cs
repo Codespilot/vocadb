@@ -984,8 +984,6 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog("updating artists for " + EntryLinkFactory.CreateEntryLink(song), session);
-
 				var oldArtists = song.Artists.Select(a => a.Artist).ToArray();
 				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
 
@@ -1007,6 +1005,10 @@ namespace VocaDb.Model.Service {
 					song.UpdateArtistString();
 					Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
 					session.Update(song);
+
+					AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);
+					AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
+
 				}
 
 				return song.ArtistString[PermissionContext.LanguagePreference];
@@ -1030,8 +1032,6 @@ namespace VocaDb.Model.Service {
 
 				foreach (var song in songs) {
 
-					AuditLog("updating artists for " + EntryLinkFactory.CreateEntryLink(song), session);
-
 					var changed = false;
 
 					foreach (var artist in artists) {
@@ -1050,10 +1050,15 @@ namespace VocaDb.Model.Service {
 					}
 
 					if (changed) {
+
 						song.UpdateArtistString();
 						session.Update(song);
 						AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
 						artistStrings.Add(new KeyValuePair<int, string>(song.Id, song.ArtistString[PermissionContext.LanguagePreference]));
+
+						AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);
+						AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
+
 					}
 				}
 
