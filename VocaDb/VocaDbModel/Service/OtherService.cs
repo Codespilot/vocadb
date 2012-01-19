@@ -17,35 +17,6 @@ namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
 
-		/*private EntryName GetEntryName(ISession session, EntryRef entryRef) {
-
-			switch (entryRef.EntryType) {
-				case EntryType.Album: {
-					var entry = session.Load<Album>(entryRef.Id);
-					return NameHelper.GetName(entry, PermissionContext.LanguagePreference);
-				}
-
-				case EntryType.Artist: {
-						var entry = session.Load<Artist>(entryRef.Id);
-						return NameHelper.GetName(entry, PermissionContext.LanguagePreference);
-					}
-
-				case EntryType.Song: {
-						var entry = session.Load<Song>(entryRef.Id);
-						return NameHelper.GetName(entry, PermissionContext.LanguagePreference);
-					}
-
-				case EntryType.SongList: {
-						var entry = session.Load<SongList>(entryRef.Id);
-						return new EntryName(entry.Name);
-					}
-				
-			}
-
-			return EntryName.Empty;
-
-		}*/
-
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
@@ -65,14 +36,29 @@ namespace VocaDb.Model.Service {
 
 		public FrontPageContract GetFrontPageContent() {
 
-			const int maxEntries = 20;
+			const int maxNewsEntries = 5;
+			const int maxActivityEntries = 25;
 
 			return HandleQuery(session => {
 
-				var activityEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
-				var newsEntries = session.Query<NewsEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
+				var activityEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxActivityEntries).ToArray();
+				var newsEntries = session.Query<NewsEntry>().OrderByDescending(a => a.CreateDate).Take(maxNewsEntries).ToArray();
 
 				return new FrontPageContract(activityEntries, newsEntries, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public NewsEntryContract[] GetNewsEntries(int maxEntries) {
+
+			return HandleQuery(session => {
+
+				var entries = session.Query<NewsEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
+
+				var contracts = entries.Select(e => new NewsEntryContract(e)).ToArray();
+
+				return contracts;
 
 			});
 

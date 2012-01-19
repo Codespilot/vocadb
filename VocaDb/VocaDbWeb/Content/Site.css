@@ -238,9 +238,13 @@ span.tag {
 	margin-bottom: 5px;
 }
 
-div.message {
+div.message, div.activityEntry, div.newsEntry {
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+div.activityEntry {
+	min-height: 30px;	
 }
 
 div.messageTitleText, p.messageContent {

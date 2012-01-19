@@ -3,13 +3,13 @@
 
 <h3>Welcome to the Vocaloid Database!</h3>
 
-<h4>News</h4>
+<h4>News @Html.ActionLink("(view all)", "Index", "NewsEntry")</h4>
 
 @foreach (var entry in Model.NewsEntries) {
 	@ActivityfeedHelpers.NewsEntry(entry);
 }
 
-<h4>Recent activity</h4>
+<h4>Recent activity @Html.ActionLink("(view all)", "Index", "ActivityEntry")</h4>
 
 @foreach (var entry in Model.ActivityEntries) {
 	@ActivityfeedHelpers.ActivityEntry(entry);
