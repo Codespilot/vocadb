@@ -12,7 +12,7 @@
 }
 
 @helper ActivityEntry(ActivityEntryContract entry) {
-	<div class="message ui-tabs ui-widget ui-widget-content ui-corner-all">
+	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
 		@if (entry.EditEvent == EntryEditEvent.Created) {
 			<span>Created a new </span>
 		} else {
@@ -20,11 +20,15 @@
 		}
 		<span>@entry.EntryRef.EntryType:</span>
 		<span>@EntryLink(entry)</span> 
+		@if (!string.IsNullOrEmpty(entry.ArtistString)) {
+			<span> by @entry.ArtistString</span>
+		}
 		<span>-</span>
 		@entry.CreateDate
 		@if (!entry.Author.AnonymousActivity || Login.CanModerateUsers) {
 			<span>by</span>
-			@Html.ProfileIcon(entry.Author, 25)
+			@Html.ProfileIcon(entry.Author, 20)
+			<text>&nbsp;</text>
 			@Html.UserLink(entry.Author, entry.Author.Name)
 		}
 	</div>
@@ -34,11 +38,12 @@
 
 	var panelClass = entry.Important ? "ui-state-highlight " : string.Empty;
 	
-	<div class="@(panelClass + " message ui-tabs ui-widget ui-widget-content ui-corner-all")">
+	<div class="@(panelClass + " message newsEntry ui-tabs ui-widget ui-widget-content ui-corner-all")">
 		<div class="messageTitle ui-widget-header ui-corner-all">
 			<div class="messageTitleText">
 				@if (!entry.Anonymous || Login.CanModerateUsers) {
-					@Html.ProfileIcon(entry.Author, 25)
+					@Html.ProfileIcon(entry.Author, 20)
+					<text>&nbsp;</text>
 					@Html.UserLink(entry.Author, entry.Author.Name)
 					<span> at </span>
 				}
@@ -48,7 +53,7 @@
 		<p class="messageContent">
 			@if (entry.Important) {
 				@Helpers.NotificationIcon()
-			}
+   }
 			<span>@Helpers.ConvertNewlinesToBreaks(entry.Text)</span>
 		</p>
 	</div>

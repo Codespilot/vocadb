@@ -165,6 +165,7 @@
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
     <Compile Include="Code\HelperPage.cs" />
+    <Compile Include="Controllers\ActivityEntryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
+    <Compile Include="Controllers\NewsEntryController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\SongListController.cs" />
@@ -769,6 +771,8 @@
     <Content Include="Views\SongList\Details.cshtml" />
     <Content Include="Views\SongList\SongInListEditRow.cshtml" />
     <Content Include="App_Code\ActivityfeedHelpers.cshtml" />
+    <Content Include="Views\NewsEntry\Index.cshtml" />
+    <Content Include="Views\ActivityEntry\Index.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

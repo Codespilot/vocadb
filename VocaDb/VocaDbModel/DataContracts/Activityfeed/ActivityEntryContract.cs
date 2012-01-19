@@ -3,10 +3,24 @@ using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Activityfeed {
 
 	public class ActivityEntryContract {
+
+		private string GetArtistString(IEntryBase entry, ContentLanguagePreference languagePreference) {
+
+			if (entry is Album)
+				return ((Album)entry).ArtistString[languagePreference];
+			else if (entry is Song)
+				return ((Song)entry).ArtistString[languagePreference];
+			else
+				return null;
+
+		}
 
 		public ActivityEntryContract(ActivityEntry entry, ContentLanguagePreference languagePreference) {
 
@@ -15,6 +29,7 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 			var name = entry.EntryNames.GetEntryName(languagePreference);
 
 			AdditionalNames = name.AdditionalNames;
+			ArtistString = GetArtistString(entry.EntryBase, languagePreference);
 			Author = new UserContract(entry.Author);
 			CreateDate = entry.CreateDate;
 			DisplayName = name.DisplayName;
@@ -24,6 +39,8 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 		}
 
 		public string AdditionalNames { get; set; }
+
+		public string ArtistString { get; set; }
 
 		public UserContract Author { get; set; }
 
@@ -36,36 +53,5 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 		public EntryRefContract EntryRef { get; set; }
 
 	}
-
-	/*public class EntryEditedPropertiesContract {
-
-		public EntryEditedPropertiesContract(EntryEditedEntry entry, EntryName name) {
-
-			ParamIs.NotNull(() => entry);
-			ParamIs.NotNull(() => name);
-
-			EditEvent = entry.EditEvent;
-			EntryRef = new EntryRefContract(entry.EntryRef);
-			DisplayName = name.DisplayName;
-			AdditionalNames = name.DisplayName;
-
-		}
-
-
-	}
-
-	public class PaintextEntryPropertiesContract {
-
-		public PaintextEntryPropertiesContract(PlaintextEntry entry) {
-
-			ParamIs.NotNull(() => entry);
-
-			Text = entry.Text;
-
-		}
-
-		public string Text { get; set; }
-
-	}*/
 
 }
