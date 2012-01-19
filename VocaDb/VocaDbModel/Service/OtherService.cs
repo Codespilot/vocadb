@@ -1,17 +1,10 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
-using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.UseCases;
-using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
-using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
-using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service {
 

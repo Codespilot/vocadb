@@ -14,7 +14,7 @@ namespace VocaDb.Web.Controllers
         public ActionResult Index()
         {
 
-			var entries = MvcApplication.Services.Other.GetActivityEntries(500);
+			var entries = MvcApplication.Services.Other.GetActivityEntries(100);
 
 			return View(entries);
 
