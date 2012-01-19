@@ -28,8 +28,9 @@
 		@if (!entry.Author.AnonymousActivity || Login.CanModerateUsers) {
 			<span>by</span>
 			@Html.ProfileIcon(entry.Author, 20)
-			<text>&nbsp;</text>
-			@Html.UserLink(entry.Author, entry.Author.Name)
+			<span>
+	  		@Html.UserLink(entry.Author, entry.Author.Name)
+			</span>
 		}
 	</div>
 }
@@ -43,8 +44,9 @@
 			<div class="messageTitleText">
 				@if (!entry.Anonymous || Login.CanModerateUsers) {
 					@Html.ProfileIcon(entry.Author, 20)
-					<text>&nbsp;</text>
+					<span>
 					@Html.UserLink(entry.Author, entry.Author.Name)
+					</span>
 					<span> at </span>
 				}
 				@entry.CreateDate

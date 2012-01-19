@@ -9,7 +9,7 @@
 	@ActivityfeedHelpers.NewsEntry(entry);
 }
 
-<h4>Recent activity @Html.ActionLink("(view all)", "Index", "ActivityEntry")</h4>
+<h4>Recent activity @Html.ActionLink("(view more)", "Index", "ActivityEntry")</h4>
 
 @foreach (var entry in Model.ActivityEntries) {
 	@ActivityfeedHelpers.ActivityEntry(entry);
