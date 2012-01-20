@@ -33,5 +33,7 @@ namespace VocaDb.Model.DataContracts.Ranking {
 		[DataMember]
 		public int SortIndex { get; set; }
 
+		public string Url { get; set; }
+
 	}
 }

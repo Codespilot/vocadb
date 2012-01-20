@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using VocaDb.Model.DataContracts.Ranking;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Service.Rankings {
 
@@ -15,10 +16,7 @@ namespace VocaDb.Model.Service.Rankings {
 
 		private string GetNicoId(string nicoUrl) {
 
-			var lastSlashPos = nicoUrl.LastIndexOf('/');
-			var nicoId = nicoUrl.Substring(lastSlashPos + 1);
-
-			return nicoId;
+			return VideoService.NicoNicoDouga.GetIdByUrl(nicoUrl);
 
 		}
 
@@ -31,7 +29,7 @@ namespace VocaDb.Model.Service.Rankings {
 			var doc = new HtmlDocument();
 			doc.Load(htmlStream, encoding);
 
-			var middleElem = doc.DocumentNode.SelectSingleNode("//td[@id = 'middle']");
+			var middleElem = doc.DocumentNode.SelectSingleNode("//td[@id = 'main']");
 			//var headLineElems = middleElem.("//div[contains(class, post-headline)]");
 			var titleDiv = middleElem.SelectSingleNode("div[2]/div[1]/h1");
 			var titleText = titleDiv.InnerText;

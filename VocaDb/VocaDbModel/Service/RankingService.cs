@@ -1,10 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using NHibernate.Linq;
 using NHibernate;
 using VocaDb.Model.DataContracts.Ranking;
+using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Ranking;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.Rankings;
 
 namespace VocaDb.Model.Service {
 
@@ -12,6 +17,33 @@ namespace VocaDb.Model.Service {
 
 		public RankingService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
+		}
+
+		public int CreateSongListFromWVR(string url) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			var parsed = new NNDWVRParser().GetSongs(url);
+
+			return HandleTransaction(session => {
+
+				var list = new SongList("Weekly Vocaloid ranking #" + parsed.WVRId, GetLoggedUser(session)) { Description = parsed.Name };
+				session.Save(list);
+
+				foreach (var entry in parsed.Songs) {
+
+					var song = session.Query<PVForSong>()
+						.Where(p => p.Service == PVService.NicoNicoDouga && p.PVId == entry.NicoId)
+						.First().Song;
+
+					session.Save(list.AddSong(song));
+
+				}
+
+				return list.Id;
+
+			});
+
 		}
 
 		public void CreateWVRPoll(RankingContract contract) {
@@ -59,5 +91,80 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public WVRListResult ParseWVRList(string url) {
+
+			var parsed = new NNDWVRParser().GetSongs(url);
+
+			return HandleQuery(session => {
+
+				var songs = new List<WVRListEntryResult>();
+
+				foreach (var entry in parsed.Songs) {
+
+					var pv = session.Query<PVForSong>()
+						.Where(p => p.Service == PVService.NicoNicoDouga && p.PVId == entry.NicoId)
+						.FirstOrDefault();
+
+					var song = pv != null ? new SongWithAdditionalNamesContract(pv.Song, PermissionContext.LanguagePreference) : null;
+
+					songs.Add(new WVRListEntryResult(entry.NicoId, entry.SortIndex, entry.Name, entry.Url, song));
+
+				}
+
+				return new WVRListResult(parsed.Name, parsed.WVRId, songs);
+
+			});
+
+		}
+
 	}
+
+	public class WVRListResult {
+
+		public WVRListResult(string name, int wvrNumber, IEnumerable<WVRListEntryResult> entries) {
+
+			Name = name;
+			WVRNumber = wvrNumber;
+			Entries = entries.ToArray();
+
+		}
+
+		public WVRListEntryResult[] Entries { get; set; }
+
+		public string Name { get; set; }
+
+		public int WVRNumber { get; set; }
+
+		public bool IsIncomplete {
+			get {
+				return Entries.Any(e => e.Song == null);
+			}
+		}
+
+	}
+
+	public class WVRListEntryResult {
+
+		public WVRListEntryResult(string nicoId, int order, string name, string url, SongWithAdditionalNamesContract song) {
+
+			NicoId = nicoId;
+			Order = order;
+			Name = name;
+			Url = url;
+			Song = song;
+
+		}
+
+		public string Name { get; set; }
+
+		public string NicoId { get; set; }
+
+		public int Order { get; set; }
+
+		public SongWithAdditionalNamesContract Song { get; set; }
+
+		public string Url { get; set; }
+
+	}
+
 }

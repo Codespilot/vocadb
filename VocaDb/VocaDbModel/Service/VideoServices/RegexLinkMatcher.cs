@@ -36,9 +36,13 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public string MakeLink(string url) {
+		public string MakeLinkFromUrl(string url) {
 
-			var id = GetId(url);
+			return MakeLinkFromId(GetId(url));
+
+		}
+
+		public string MakeLinkFromId(string id) {
 
 			return string.Format(baseUrl, id);
 

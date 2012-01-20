@@ -26,6 +26,31 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult CreateFromWVR() {
+
+			var model = new CreateFromWVR();
+			return View(model);
+
+		}
+
+		[HttpPost]
+		public ActionResult CreateFromWVR(CreateFromWVR model, bool commit) {
+
+			if (commit) {
+				var listId = MvcApplication.Services.Rankings.CreateSongListFromWVR(model.Url);
+				return RedirectToAction("Details", "SongList", new { id = listId });
+			}
+
+			var parseResult = MvcApplication.Services.Rankings.ParseWVRList(model.Url);
+			model.ListResult = parseResult;
+
+			if (parseResult.IsIncomplete)
+				ModelState.AddModelError("ListResult", "Some of the songs are missing");
+
+			return View(model);
+
+		}
+
 		public ActionResult Delete(int id) {
 
 			Service.DeleteSongList(id);

@@ -78,7 +78,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual SongInList AddSong(Song song) {
 
-			var order = (SongLinks.Any() ? SongLinks.Max(s => s.Order) + 1 : 0);
+			var order = (SongLinks.Any() ? SongLinks.Max(s => s.Order) + 1 : 1);
 			return AddSong(song, order);
 
 		}

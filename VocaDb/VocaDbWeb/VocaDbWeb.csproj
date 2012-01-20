@@ -210,6 +210,7 @@
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
     <Compile Include="Models\Shared\WebLinkDisplay.cs" />
+    <Compile Include="Models\SongLists\CreateFromWVR.cs" />
     <Compile Include="Models\SongLists\SongListEdit.cs" />
     <Compile Include="Models\SongModels.cs" />
     <Compile Include="Models\Song\Create.cs" />
@@ -773,6 +774,7 @@
     <Content Include="App_Code\ActivityfeedHelpers.cshtml" />
     <Content Include="Views\NewsEntry\Index.cshtml" />
     <Content Include="Views\ActivityEntry\Index.cshtml" />
+    <Content Include="Views\SongList\CreateFromWVR.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
