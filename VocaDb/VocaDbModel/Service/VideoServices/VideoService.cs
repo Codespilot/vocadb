@@ -1,10 +1,21 @@
 ﻿using System.Linq;
 using VocaDb.Model.Domain.PVs;
-using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public class VideoService : IVideoService {
+
+		public static VideoService NicoNicoDouga =
+			new VideoService(PVService.NicoNicoDouga, new NicoParser(), new[] {
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/([a-z]{2}\d{4,10})"),
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/(\d{6,12})")
+			});
+
+		public static VideoService Youtube =
+			new VideoService(PVService.Youtube, new YoutubeParser(), new[] {
+				new RegexLinkMatcher("youtu.be/{0}", @"youtu.be/(\S{11})"),
+				new RegexLinkMatcher("www.youtube.com/watch?v={0}", @"youtube.com/watch?\S*v=(\S{11})"),
+			});
 
 		private readonly RegexLinkMatcher[] linkMatchers;
 		private readonly IVideoServiceParser parser;
@@ -16,6 +27,24 @@ namespace VocaDb.Model.Service.VideoServices {
 		}
 
 		public PVService Service { get; private set; }
+
+		public virtual string GetIdByUrl(string url) {
+
+			var matcher = linkMatchers.FirstOrDefault(m => m.IsMatch(url));
+
+			if (matcher == null)
+				return null;
+
+			return matcher.GetId(url);
+
+		}
+
+		public virtual string GetUrlById(string id) {
+
+			var matcher = linkMatchers.First();
+			return matcher.MakeLinkFromId(id);
+
+		}
 
 		public virtual VideoTitleParseResult GetVideoTitle(string id) {
 
@@ -35,12 +64,10 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		public VideoUrlParseResult ParseByUrl(string url) {
 
-			var matcher = linkMatchers.FirstOrDefault(m => m.IsMatch(url));
+			var id = GetIdByUrl(url);
 
-			if (matcher == null)
+			if (id == null)
 				throw new VideoParseException("No matcher defined for URL '" + url + "'");
-
-			var id = matcher.GetId(url);
 
 			return ParseById(id);
 

@@ -29,7 +29,7 @@
 }
 
 @if (!string.IsNullOrWhiteSpace(Model.Description)) {
-	<p>@Model.Description</p>
+	<p>@Helpers.ConvertNewlinesToBreaks(Model.Description)</p>
 }
 
 <div class="tracklist">
