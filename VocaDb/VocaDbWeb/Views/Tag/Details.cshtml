@@ -9,12 +9,18 @@
 <script type="text/javascript">
 
 	$(document).ready(function() {
-		$("#tabs").tabs();		
+		$("#tabs").tabs();
+		$("#editTagLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	});
 
 </script>
 }
 
+@section Toolbar {
+	@if (VocaDb.Web.Helpers.Login.CanManageDb) {
+		@Html.ActionLink("Edit", "Edit", new { id = Model.Name }, new { id = "editTagLink" });
+	}
+}
 
 <div id="tabs">
 

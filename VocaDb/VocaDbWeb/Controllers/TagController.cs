@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service;
+using VocaDb.Web.Models.Tag;
 
 namespace VocaDb.Web.Controllers
 {
@@ -55,9 +56,35 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Edit(string id) {
+			var model = new TagEdit(Service.GetTagForEdit(id));
+			return View(model);
+		}
+
+		[HttpPost]
+		public ActionResult Edit(TagEdit model) {
+			
+			if (!ModelState.IsValid) {
+				var contract = Service.GetTagForEdit(model.Name);
+				model.CopyNonEditableProperties(contract);
+				return View(model);
+			}
+
+			Service.UpdateTag(model.ToContract());
+
+			return RedirectToAction("Details", new { id = model.Name });
+
+		}
+
 		public ActionResult Find(string term) {
 
 			return Json(Service.FindTags(term));
+
+		}
+
+		public ActionResult FindCategories(string term) {
+
+			return Json(Service.FindCategories(term));
 
 		}
 
