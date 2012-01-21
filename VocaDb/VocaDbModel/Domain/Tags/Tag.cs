@@ -107,6 +107,10 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public override string ToString() {
+			return string.Format("tag '{0}'", Name);
+		}
+
 	}
 
 }
