@@ -43,47 +43,47 @@
 			<td class="menu">
 				<h2>VocaDB</h2>
 				<ul>
-					<li>@Html.ActionLink("Home", "Index", "Home")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
 					<li>
-						@Html.ActionLink("Artists", "Index", "Artist")
+						@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")
 						<ul>
 							@if (Login.CanManageDb) {
-							<li>@Html.ActionLink("Add an artist", "Create", "Artist")</li>
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.AddArtist, "Create", "Artist")</li>
 							}
-							<li>@Html.ActionLink("Drafts", "Index", "Artist", new { draftsOnly = true }, null)</li>
+							<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Artist", new { draftsOnly = true }, null)</li>
 						</ul>
 					</li>
 					<li>
-						@Html.ActionLink("Albums", "Index", "Album")
+						@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album")
 						<ul>
 							@if (Login.CanManageDb) {
-							<li>@Html.ActionLink("Submit an album", "Create", "Album")</li>
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
 							}
-							<li>@Html.ActionLink("Drafts", "Index", "Album", new { draftsOnly = true }, null)</li>
+							<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Album", new { draftsOnly = true }, null)</li>
 						</ul>
 					</li>
 					<li>
-						@Html.ActionLink("Songs", "Index", "Song")
+						@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")
 						<ul>
 							@if (Login.CanManageDb) {
-							<li>@Html.ActionLink("Submit a song", "Create", "Song")</li>
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
 							}
-							<li>@Html.ActionLink("Drafts", "Index", "Song", new { draftsOnly = true }, null)</li>
+							<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Song", new { draftsOnly = true }, null)</li>
 						</ul>
 					</li>
-					<li>@Html.ActionLink("Tags", "Index", "Tag")</li>
-					<li>@Html.ActionLink("Help / About", "Index", "Help")</li>
+					<li>@Html.ActionLink(ViewRes.SharedStrings.Tags, "Index", "Tag")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
 					@if (Login.Manager.HasPermission(PermissionFlags.MikuDbImport)) {
-					<li>@Html.ActionLink("MikuDbAlbum", "Index", "MikuDbAlbum")</li>		 
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 
 					}
 					@if (Login.CanAccessManageMenu) {
-					<li>@Html.ActionLink("Manage", "Index", "Admin")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.Manage, "Index", "Admin")</li>
 					}
 					@if (!Login.Manager.IsLoggedIn) {
-					<li>@Html.ActionLink("Log in", "Login", "User")</li>
-					<li>@Html.ActionLink("Register", "Create", "User")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.LogIn, "Login", "User")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
 					} else {
-					<li>@Html.ActionLink("Log out", "Logout", "User")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>
 					}
 				</ul>
 				@if (Login.Manager.IsLoggedIn) {
@@ -94,7 +94,7 @@
 				@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel()); }
 				
 				<br /><br />
-				<h3>Related sites</h3>
+				<h3>@ViewRes._LayoutStrings.RelatedSites</h3>
 				<ul>
 					<li><a href="http://mikuchan.org">mikuchan</a></li>
 					<li><a href="http://mikudb.com">MikuDB</a></li>

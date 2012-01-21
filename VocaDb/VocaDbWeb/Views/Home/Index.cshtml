@@ -1,15 +1,15 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.UseCases.FrontPageContract
 
-<h3>Welcome to the Vocaloid Database!</h3>
+<h3>@ViewRes.IndexStrings.Welcome</h3>
 
-<h4>News @Html.ActionLink("(view all)", "Index", "NewsEntry")</h4>
+<h4>@ViewRes.IndexStrings.News @Html.ActionLink(ViewRes.IndexStrings.ViewAll, "Index", "NewsEntry")</h4>
 
 @foreach (var entry in Model.NewsEntries) {
 	@ActivityfeedHelpers.NewsEntry(entry);
 }
 
-<h4>Recent activity @Html.ActionLink("(view more)", "Index", "ActivityEntry")</h4>
+<h4>@ViewRes.IndexStrings.RecentActivity @Html.ActionLink(ViewRes.IndexStrings.ViewMore, "Index", "ActivityEntry")</h4>
 
 @foreach (var entry in Model.ActivityEntries) {
 	@ActivityfeedHelpers.ActivityEntry(entry);
