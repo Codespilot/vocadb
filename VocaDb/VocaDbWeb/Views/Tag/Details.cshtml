@@ -33,6 +33,10 @@
 
 	<div id="overviewTab">
 
+		@if (Model.Description != string.Empty) {
+		<p>@Model.Description</p>
+		}
+
 		@if (Model.CategoryName != string.Empty){
 		<p>Category: @Model.CategoryName</p>
 		}
