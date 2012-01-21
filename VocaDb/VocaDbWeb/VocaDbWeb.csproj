@@ -216,6 +216,7 @@
     <Compile Include="Models\Song\Create.cs" />
     <Compile Include="Models\Song\Index.cs" />
     <Compile Include="Models\Song\Versions.cs" />
+    <Compile Include="Models\Tag\TagEdit.cs" />
     <Compile Include="Models\UserModels.cs" />
     <Compile Include="Models\User\ComposeMessage.cs" />
     <Compile Include="Models\User\ForgotPassword.cs" />
@@ -790,6 +791,7 @@
     <Content Include="Views\NewsEntry\Index.cshtml" />
     <Content Include="Views\ActivityEntry\Index.cshtml" />
     <Content Include="Views\SongList\CreateFromWVR.cshtml" />
+    <Content Include="Views\Tag\Edit.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

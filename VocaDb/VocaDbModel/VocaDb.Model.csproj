@@ -133,6 +133,7 @@
     <Compile Include="DataContracts\Security\AuditLogEntryContract.cs" />
     <Compile Include="DataContracts\PVs\ArchivedPVContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
+    <Compile Include="DataContracts\Tags\TagForEditContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageContract.cs" />
     <Compile Include="DataContracts\UnifiedCommentContract.cs" />
     <Compile Include="DataContracts\UseCases\AlbumForArtistEditContract.cs" />

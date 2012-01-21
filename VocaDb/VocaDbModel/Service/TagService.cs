@@ -10,7 +10,6 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.DataContracts.Tags;
-using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -18,6 +17,26 @@ namespace VocaDb.Model.Service {
 
 		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
+
+		public string[] FindCategories(string query) {
+
+			if (string.IsNullOrWhiteSpace(query))
+				return new string[] { };
+
+			return HandleQuery(session => {
+
+				string[] tags;
+
+				if (query.Length < 3)
+					tags = session.Query<Tag>().Where(t => t.CategoryName == query).Select(t => t.CategoryName).Distinct().ToArray();
+				else
+					tags = session.Query<Tag>().Where(t => t.CategoryName.Contains(query)).Select(t => t.CategoryName).Distinct().ToArray();
+
+				return tags;
+
+			});
+
+		}
 
 		public string[] FindTags(string query) {
 
@@ -77,6 +96,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TagForEditContract GetTagForEdit(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session => new TagForEditContract(session.Load<Tag>(tagName), 
+				session.Query<Tag>().Select(t => t.CategoryName).OrderBy(t => t).Distinct().ToArray()));
+
+		}
+
 		public string[] GetTagNames() {
 
 			return HandleQuery(session => session.Query<Tag>().OrderBy(t => t.Name).Select(t => t.Name).ToArray());
@@ -100,6 +128,27 @@ namespace VocaDb.Model.Service {
 					.Select(t => new TagCategoryContract(t.Key, t)).ToArray();
 
 				return tagsByCategories;
+
+			});
+
+		}
+
+		public void UpdateTag(TagDetailsContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			HandleTransaction(session => {
+
+				var tag = session.Load<Tag>(contract.Name);
+
+				tag.CategoryName = contract.CategoryName;
+				tag.Description = contract.Description;
+
+				AuditLog("updated " + tag, session);
+
+				session.Update(tag);
 
 			});
 

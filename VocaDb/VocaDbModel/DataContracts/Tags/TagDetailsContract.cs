@@ -22,8 +22,6 @@ namespace VocaDb.Model.DataContracts.Tags {
 			Artists = tag.ArtistTagUsages.OrderByDescending(a => a.Count).Take(15)
 				.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
 
-			CategoryName = tag.CategoryName;
-
 			SongCount = tag.AllSongTagUsages.Count;
 			Songs = tag.SongTagUsages.OrderByDescending(a => a.Count).Take(15)
 				.Select(a => new SongTagUsageContract(a, languagePreference)).ToArray();
@@ -37,8 +35,6 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public AlbumTagUsageContract[] Albums { get; set; }
 
 		public ArtistTagUsageContract[] Artists { get; set; }
-
-		public string CategoryName { get; set; }
 
 		public SongTagUsageContract[] Songs { get; set; }
 

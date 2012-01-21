@@ -15,10 +15,12 @@ namespace VocaDb.Model.Domain.Tags {
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
 		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
 		private string categoryName;
+		private string description;
 		private Iesi.Collections.Generic.ISet<SongTagUsage> songTagUsages = new Iesi.Collections.Generic.HashedSet<SongTagUsage>();
 
 		public Tag() {
 			CategoryName = string.Empty;
+			Description = string.Empty;
 		}
 
 		public Tag(string name)
@@ -65,6 +67,11 @@ namespace VocaDb.Model.Domain.Tags {
 				ParamIs.NotNull(() => value);
 				categoryName = value; 
 			}
+		}
+
+		public virtual string Description {
+			get { return description; }
+			set { description = value; }
 		}
 
 		public virtual string Name { get; set; }
