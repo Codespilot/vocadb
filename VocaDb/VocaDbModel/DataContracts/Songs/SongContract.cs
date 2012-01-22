@@ -20,6 +20,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ArtistString = song.ArtistString.GetBestMatch(languagePreference, song.TranslatedName.DefaultLanguage);
 			CreateDate = song.CreateDate;
+			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
 			Name = song.TranslatedName[languagePreference];
 			NicoId = song.NicoId;
@@ -35,6 +36,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }
+
+		[DataMember]
+		public int FavoritedTimes { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
