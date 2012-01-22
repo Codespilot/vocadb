@@ -150,4 +150,13 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Aiheeseen liittyviä sivustoja</value>
   </data>
+  <data name="TopFavoritedSongs" xml:space="preserve">
+    <value>Suosituimmat kappaleet</value>
+  </data>
+  <data name="UnreadMessages" xml:space="preserve">
+    <value>Sinulla on lukemattomia viestejä</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Tervetuloa</value>
+  </data>
 </root>

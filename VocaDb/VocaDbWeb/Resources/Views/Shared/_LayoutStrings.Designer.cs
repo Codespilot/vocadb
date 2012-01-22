@@ -158,5 +158,32 @@ namespace ViewRes {
                 return ResourceManager.GetString("RelatedSites", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top favorited songs.
+        /// </summary>
+        public static string TopFavoritedSongs {
+            get {
+                return ResourceManager.GetString("TopFavoritedSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unread messages.
+        /// </summary>
+        public static string UnreadMessages {
+            get {
+                return ResourceManager.GetString("UnreadMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
     }
 }

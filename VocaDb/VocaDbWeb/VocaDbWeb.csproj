@@ -792,6 +792,7 @@
     <Content Include="Views\ActivityEntry\Index.cshtml" />
     <Content Include="Views\SongList\CreateFromWVR.cshtml" />
     <Content Include="Views\Tag\Edit.cshtml" />
+    <Content Include="Views\Song\TopFavorited.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />

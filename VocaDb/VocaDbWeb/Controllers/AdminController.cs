@@ -113,6 +113,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UpdateSongFavoritedTimes() {
+
+			Service.UpdateSongFavoritedTimes();
+			TempData.SetStatusMessage("Updated favorited song counts");
+			return RedirectToAction("Index");
+
+		}
+
 		[Authorize]
 		public ActionResult ViewAuditLog() {
 

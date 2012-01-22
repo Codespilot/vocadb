@@ -157,6 +157,8 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual int FavoritedTimes { get; set; }
+
 		public virtual int Id { get; set; }
 
 		public virtual IList<SongInList> ListLinks {

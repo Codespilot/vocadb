@@ -341,6 +341,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult TopFavorited() {
+
+			var songs = Service.GetTopFavoritedSongs(100);
+
+			return View(songs);
+
+		}
+
 		public ActionResult Versions(int id) {
 
 			var contract = Service.GetSongWithArchivedVersions(id);

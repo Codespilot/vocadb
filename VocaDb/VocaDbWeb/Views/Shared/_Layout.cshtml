@@ -69,6 +69,7 @@
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
 							}
 							<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Song", new { draftsOnly = true }, null)</li>
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.TopFavoritedSongs, "TopFavorited", "Song")</li>
 						</ul>
 					</li>
 					<li>@Html.ActionLink(ViewRes.SharedStrings.Tags, "Index", "Tag")</li>
@@ -87,7 +88,7 @@
 					}
 				</ul>
 				@if (Login.Manager.IsLoggedIn) {
-					<p class="user">Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
+					<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
 				}
 				
 				<br />

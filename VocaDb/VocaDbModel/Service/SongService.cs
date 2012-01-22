@@ -750,6 +750,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongWithAdditionalNamesContract[] GetTopFavoritedSongs(int maxResults) {
+
+			return HandleQuery(session => {
+
+				var songs = session.Query<Song>()
+					.Where(s => s.FavoritedTimes > 0)
+					.OrderByDescending(s => s.FavoritedTimes)
+					.Take(maxResults).ToArray();
+
+				return songs.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray();
+
+			});
+
+		}
+
 		public ArchivedSongVersionDetailsContract GetVersionDetails(int id) {
 
 			return HandleQuery(session =>

@@ -1,0 +1,8 @@
+﻿@model VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[]
+
+@{
+    ViewBag.Title = "Top favorited songs";
+	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };	
+}
+
+@{ Html.RenderPartial("Songs", Model); }
