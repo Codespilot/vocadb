@@ -2,6 +2,7 @@
 @using System.Web.Mvc.Html;
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Web.Helpers;
+@using VocaDb.Model.DataContracts.Songs;
 @inherits VocaDb.Web.Code.HelperPage
 
 @helper PrintArchivedArtistData(int archivedEntryId, ArchivedArtistContract data) {
@@ -57,13 +58,17 @@
 }
 
 @helper Songs(VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[] songs) {
+	@Songs(songs, s => "(added " + s.CreateDate + ")")
+}
+
+@helper Songs(SongWithAdditionalNamesContract[] songs, Func<SongWithAdditionalNamesContract, string> extraData) {
 
 	<ul>
 	@foreach (var song in songs) {
 		<li>
 			@Html.PVServiceIcons(song.PVServices)
 			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
-			(added @song.CreateDate).
+			@extraData(song)
 		</li>
 	}
 	</ul>

@@ -5,4 +5,4 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };	
 }
 
-@{ Html.RenderPartial("Songs", Model); }
+@ArtistHelpers.Songs(Model, s => "(" + s.FavoritedTimes + " times)")
