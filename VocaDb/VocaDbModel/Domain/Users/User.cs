@@ -208,6 +208,7 @@ namespace VocaDb.Model.Domain.Users {
 
 			var link = new FavoriteSongForUser(this, song);
 			FavoriteSongs.Add(link);
+			song.FavoritedTimes++;
 
 			return link;
 

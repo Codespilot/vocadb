@@ -36,6 +36,14 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public virtual void Delete() {
+
+			Song.UserFavorites.Remove(this);
+			User.FavoriteSongs.Remove(this);
+			Song.FavoritedTimes--;
+
+		}
+
 		public virtual bool Equals(FavoriteSongForUser another) {
 
 			if (another == null)
@@ -66,7 +74,9 @@ namespace VocaDb.Model.Domain.Users {
 			if (target.Equals(Song))
 				return;
 
+			Song.FavoritedTimes--;
 			Song.UserFavorites.Remove(this);
+			target.FavoritedTimes++;
 			target.UserFavorites.Add(this);
 			Song = target;
 

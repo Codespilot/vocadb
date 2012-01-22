@@ -126,6 +126,9 @@
   <data name="Drafts" xml:space="preserve">
     <value>Luonnokset</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Hae</value>
+  </data>
   <data name="Songs" xml:space="preserve">
     <value>Kappaleet</value>
   </data>

@@ -11,6 +11,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
 using System;
@@ -233,6 +234,30 @@ namespace VocaDb.Model.Service {
 				return count;
 
 			});
+
+		}
+
+		public void UpdateSongFavoritedTimes() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+
+			AuditLog("updating song favorites");
+
+			HandleTransaction(session => {
+
+				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var song in songs) {
+
+					var oldVal = song.FavoritedTimes;
+					song.FavoritedTimes = session.Query<FavoriteSongForUser>().Count(s => s.Song.Id == song.Id);
+					if (oldVal != song.FavoritedTimes)
+						session.Update(song);
+
+				}
+
+			});
+			
 
 		}
 

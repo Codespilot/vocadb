@@ -150,4 +150,13 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Related sites</value>
   </data>
+  <data name="TopFavoritedSongs" xml:space="preserve">
+    <value>Top favorited songs</value>
+  </data>
+  <data name="UnreadMessages" xml:space="preserve">
+    <value>You have unread messages</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
 </root>

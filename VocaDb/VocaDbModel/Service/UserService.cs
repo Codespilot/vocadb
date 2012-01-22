@@ -381,8 +381,10 @@ namespace VocaDb.Model.Service {
 
 				AuditLog("deleting " + link, session);
 
-				if (link != null)
+				if (link != null) {
+					link.Delete();
 					session.Delete(link);
+				}
 
 			});
 
