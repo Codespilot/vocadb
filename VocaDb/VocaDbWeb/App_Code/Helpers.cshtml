@@ -214,6 +214,16 @@
 	</div>	
 }
 
+@helper Stars(int current, int max) {
+	for (int i = 1; i <= max; ++i) {
+		if (current >= i) {
+			<img src="@Url.Content("~/Content/star.png")" alt="*" />
+		} else {
+			<img src="@Url.Content("~/Content/star_disabled.png")" alt="" />
+		}
+	}
+}
+
 @helper ValidationSymmaryPanel(string message) {
 	if (!ViewData.ModelState.IsValid) {
 		using (Html.BeginErrorPanel()) {

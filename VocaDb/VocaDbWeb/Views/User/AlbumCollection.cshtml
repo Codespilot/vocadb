@@ -6,6 +6,7 @@
 		<th colspan="2">Album</th>
 		<th>Status</th>
 		<th>Media type</th>
+		<th>Rating</th>
 	</tr>
 	@foreach (var album in Model) {
 	<tr>
@@ -23,6 +24,9 @@
 		<td>
 			@Translate.AlbumMediaTypeNames.GetName(album.MediaType)
 		</td>	
+		<td>
+			@Helpers.Stars(album.Rating, 5)
+		</td>
 	</tr>
 }	
 </table>
