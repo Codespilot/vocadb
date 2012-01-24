@@ -191,11 +191,11 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
-		public virtual AlbumForUser AddAlbum(Album album, PurchaseStatus status, MediaType mediaType) {
+		public virtual AlbumForUser AddAlbum(Album album, PurchaseStatus status, MediaType mediaType, int rating) {
 
 			ParamIs.NotNull(() => album);
 
-			var link = new AlbumForUser(this, album, status, mediaType);
+			var link = new AlbumForUser(this, album, status, mediaType, rating);
 			AllAlbums.Add(link);
 
 			return link;

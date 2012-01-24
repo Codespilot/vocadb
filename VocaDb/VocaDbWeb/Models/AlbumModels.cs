@@ -200,6 +200,7 @@ namespace VocaDb.Web.Models {
 			if (contract.AlbumForUser != null) {
 				AlbumMediaType = contract.AlbumForUser.MediaType;
 				AlbumPurchaseStatus = contract.AlbumForUser.PurchaseStatus;
+				CollectionRating = contract.AlbumForUser.Rating;
 			}
 
 			if (contract.OriginalRelease != null) {
@@ -229,6 +230,8 @@ namespace VocaDb.Web.Models {
 		public string CatNum { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Circles { get; set; }
+
+		public int CollectionRating { get; set; }
 
 		public int CommentCount { get; set; }
 

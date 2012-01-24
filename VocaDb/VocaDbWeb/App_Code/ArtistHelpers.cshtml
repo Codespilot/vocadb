@@ -61,14 +61,20 @@
 	@Songs(songs, s => "(added " + s.CreateDate + ")")
 }
 
-@helper Songs(SongWithAdditionalNamesContract[] songs, Func<SongWithAdditionalNamesContract, string> extraData) {
+@helper Songs(SongWithAdditionalNamesContract[] songs, Func<SongWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
 
 	<ul>
 	@foreach (var song in songs) {
 		<li>
 			@Html.PVServiceIcons(song.PVServices)
 			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+			@if (extraData != null) {
 			@extraData(song)
+			}
+			@if (showArtists) {
+				<br />
+				<span class="extraInfo">@song.ArtistString</span>
+			}
 		</li>
 	}
 	</ul>

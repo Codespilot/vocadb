@@ -342,9 +342,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public void UpdateAlbumForUser(int albumid, PurchaseStatus collectionStatus, MediaType mediaType) {
+		public void UpdateAlbumForUser(int albumid, PurchaseStatus collectionStatus, MediaType mediaType, int rating) {
 
-			Service.UpdateAlbumForUser(LoggedUserId, albumid, collectionStatus, mediaType);
+			Service.UpdateAlbumForUser(LoggedUserId, albumid, collectionStatus, mediaType, rating);
 
 		}
 
