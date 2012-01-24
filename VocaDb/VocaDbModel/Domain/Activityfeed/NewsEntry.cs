@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Activityfeed {
@@ -14,6 +11,7 @@ namespace VocaDb.Model.Domain.Activityfeed {
 		public NewsEntry() {
 			Anonymous = true;
 			CreateDate = DateTime.Now;
+			Stickied = false;
 		}
 
 		public NewsEntry(string text, User author)
@@ -39,6 +37,8 @@ namespace VocaDb.Model.Domain.Activityfeed {
 		public virtual int Id { get; set; }
 
 		public virtual bool Important { get; set; }
+
+		public virtual bool Stickied { get; set; }
 
 		public virtual string Text {
 			get { return text; }

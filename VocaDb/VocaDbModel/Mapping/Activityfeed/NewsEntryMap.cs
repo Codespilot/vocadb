@@ -13,6 +13,7 @@ namespace VocaDb.Model.Mapping.Activityfeed {
 
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Important).Not.Nullable();
+			Map(m => m.Stickied).Not.Nullable();
 			Map(m => m.Text).Not.Nullable();
 
 			References(m => m.Author).Not.Nullable();
