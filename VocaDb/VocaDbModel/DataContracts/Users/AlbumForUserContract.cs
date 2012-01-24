@@ -16,6 +16,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			Id = albumForUser.Id;
 			MediaType = albumForUser.MediaType;
 			PurchaseStatus = albumForUser.PurchaseStatus;
+			Rating = albumForUser.Rating;
 			User = new UserContract(albumForUser.User);
 
 		}
@@ -31,6 +32,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public PurchaseStatus PurchaseStatus { get; set; }
+
+		[DataMember]
+		public int Rating { get; set; }
 
 		[DataMember]
 		public UserContract User { get; set; }

@@ -100,7 +100,7 @@ function tabLoaded(albumId, event, ui) {
 
 }
 
-function initPage(albumId) {
+function initPage(albumId, collectionRating) {
 
 	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#updateAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
@@ -112,6 +112,12 @@ function initPage(albumId) {
 		$("#tabs").tabs("select", 1);
 		return false;
 	});
+
+	$("#collectionRating").jqxRating();
+
+	if (collectionRating != 0) {
+		$('#collectionRating').jqxRating({ value: collectionRating });
+	}
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections } });
 
@@ -127,8 +133,9 @@ function initPage(albumId) {
 
 		var status = $("#collectionStatusSelect").val();
 		var mediaType = $("#collectionMediaSelect").val();
+		var rating = $("#collectionRating").jqxRating('getValue');
 
-		$.post("../../User/UpdateAlbumForUser", { albumId: albumId, collectionStatus: status, mediaType: mediaType }, null);
+		$.post("../../User/UpdateAlbumForUser", { albumId: albumId, collectionStatus: status, mediaType: mediaType, rating: rating }, null);
 
 		if (status == "Nothing") {
 			$("#updateAlbumLink").hide();

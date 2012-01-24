@@ -72,7 +72,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("adding {0} for {1}", album, user), session);
 
-				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc);
+				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc, AlbumForUser.NotRated);
 				session.Save(albumForUser);
 
 				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
@@ -95,7 +95,7 @@ namespace VocaDb.Model.Service {
 				var album = new Album(newAlbumName);
 
 				session.Save(album);
-				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc);
+				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc, AlbumForUser.NotRated);
 				session.Update(user);
 
 				Services.Albums.Archive(session, album, AlbumArchiveReason.Created);
@@ -474,7 +474,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, MediaType mediaType) {
+		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, MediaType mediaType, int rating) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
 
@@ -494,7 +494,7 @@ namespace VocaDb.Model.Service {
 					var user = session.Load<User>(userId);
 					var album = session.Load<Album>(albumId);
 
-					albumForUser = user.AddAlbum(album, status, mediaType);
+					albumForUser = user.AddAlbum(album, status, mediaType, rating);
 					session.Save(albumForUser);
 
 					AuditLog(string.Format("added {0} for {1}", album, user), session);
@@ -503,6 +503,7 @@ namespace VocaDb.Model.Service {
 
 					albumForUser.MediaType = mediaType;
 					albumForUser.PurchaseStatus = status;
+					albumForUser.Rating = rating;
 					session.Update(albumForUser);
 
 					AuditLog("updated " + albumForUser, session);

@@ -5,4 +5,4 @@
 	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };	
 }
 
-@ArtistHelpers.Songs(Model, s => "(" + s.FavoritedTimes + " times)")
+@ArtistHelpers.Songs(Model, s => "(" + s.FavoritedTimes + " times)", true)

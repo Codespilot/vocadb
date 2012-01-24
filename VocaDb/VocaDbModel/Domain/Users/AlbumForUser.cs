@@ -4,21 +4,25 @@ namespace VocaDb.Model.Domain.Users {
 
 	public class AlbumForUser {
 
+		public const int NotRated = 0;
+
 		private Album album;
 		private User user;
 
 		public AlbumForUser() {
 			MediaType = MediaType.PhysicalDisc;
+			Rating = NotRated;
 			PurchaseStatus = PurchaseStatus.Owned;
 		}
 
-		public AlbumForUser(User user, Album album, PurchaseStatus status, MediaType mediaType)
+		public AlbumForUser(User user, Album album, PurchaseStatus status, MediaType mediaType, int rating)
 			: this() {
 
 			User = user;
 			Album = album;
 			PurchaseStatus = status;
 			MediaType = mediaType;
+			Rating = rating;
 
 		}
 
@@ -35,6 +39,8 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual MediaType MediaType { get; set; }
 
 		public virtual PurchaseStatus PurchaseStatus { get; set; }
+
+		public virtual int Rating { get; set; }
 
 		public virtual User User {
 			get { return user; }
