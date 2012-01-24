@@ -29,13 +29,16 @@ namespace VocaDb.Model.Service {
 
 		public FrontPageContract GetFrontPageContent() {
 
-			const int maxNewsEntries = 5;
+			const int maxNewsEntries = 4;
 			const int maxActivityEntries = 25;
 
 			return HandleQuery(session => {
 
 				var activityEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxActivityEntries).ToArray();
-				var newsEntries = session.Query<NewsEntry>().OrderByDescending(a => a.CreateDate).Take(maxNewsEntries).ToArray();
+				var newsEntries = session.Query<NewsEntry>().Where(n => n.Stickied).OrderByDescending(a => a.CreateDate).Take(maxNewsEntries).ToArray();
+
+				if (newsEntries.Length < maxNewsEntries)
+					newsEntries = newsEntries.Concat(session.Query<NewsEntry>().Where(n => !n.Stickied).OrderByDescending(a => a.CreateDate).Take(maxNewsEntries - newsEntries.Length)).ToArray();
 
 				return new FrontPageContract(activityEntries, newsEntries, PermissionContext.LanguagePreference);
 
