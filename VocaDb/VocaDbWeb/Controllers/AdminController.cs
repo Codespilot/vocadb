@@ -79,6 +79,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UpdateAlbumRatingTotals() {
+
+			Service.UpdateAlbumRatingTotals();
+			TempData.SetStatusMessage("Updated album rating totals");
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult UpdateArtistStrings() {
 			
 			Service.UpdateArtistStrings();

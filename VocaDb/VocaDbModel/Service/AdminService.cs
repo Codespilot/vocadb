@@ -137,6 +137,31 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateAlbumRatingTotals() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+
+			AuditLog("updating album rating totals");
+
+			HandleTransaction(session => {
+
+				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var album in albums) {
+
+					var oldCount = album.RatingCount;
+					var oldTotal = album.RatingTotal;
+					album.UpdateRatingTotals();
+					if (oldCount != album.RatingCount || oldTotal != album.RatingTotal)
+						session.Update(album);
+
+				}
+
+			});
+
+
+		}
+
 		public void UpdateArtistStrings() {
 
 			PermissionContext.VerifyPermission(PermissionFlags.Admin);
