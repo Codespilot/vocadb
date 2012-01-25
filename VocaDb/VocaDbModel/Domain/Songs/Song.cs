@@ -552,6 +552,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual void UpdateFavoritedTimes() {
+
+			FavoritedTimes = UserFavorites.Count;
+
+		}
+
 		public virtual void UpdateNicoId() {
 
 			var originalPv = PVs.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVType == PVType.Original);
