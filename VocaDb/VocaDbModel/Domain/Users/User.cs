@@ -197,6 +197,7 @@ namespace VocaDb.Model.Domain.Users {
 
 			var link = new AlbumForUser(this, album, status, mediaType, rating);
 			AllAlbums.Add(link);
+			album.UpdateRatingTotals();
 
 			return link;
 

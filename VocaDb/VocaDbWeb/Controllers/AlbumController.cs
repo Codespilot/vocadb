@@ -313,16 +313,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[HttpPost]
-		[Obsolete("Integrated to saving properties")]
-		public ActionResult ReorderTrack(int songInAlbumId, int? prevTrackId) {
-
-			var songs = Service.ReorderTrack(songInAlbumId, prevTrackId);
-
-			return Json(songs);
-
-		}
-
 		public ActionResult Restore(int id) {
 
 			Service.Restore(id);

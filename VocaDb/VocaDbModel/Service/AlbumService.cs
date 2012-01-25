@@ -752,68 +752,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete]
-		public SongInAlbumContract[] MoveSongDown(int songInAlbumId) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
-
-				AuditLog("moving down " + songInAlbum, session);
-
-				songInAlbum.Album.MoveSongDown(songInAlbum);
-				session.Update(songInAlbum.Album);
-
-				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
-
-			});
-
-		}
-
-		[Obsolete]
-		public SongInAlbumContract[] MoveSongUp(int songInAlbumId) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
-
-				AuditLog("moving up " + songInAlbum, session);
-
-				songInAlbum.Album.MoveSongUp(songInAlbum);
-				session.Update(songInAlbum.Album);
-
-				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
-
-			});
-			
-		}
-
-		[Obsolete("Integrated to saving properties")]
-		public SongInAlbumContract[] ReorderTrack(int songInAlbumId, int? prevSongId) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
-				var prevTrack = (prevSongId != null ? session.Load<SongInAlbum>(prevSongId.Value) : null);
-
-				AuditLog("reordering " + songInAlbum, session);
-
-				songInAlbum.Album.ReorderTrack(songInAlbum, prevTrack);
-				session.Update(songInAlbum.Album);
-
-				return songInAlbum.Album.Songs.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber).Select(s => 
-					new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
-
-			});
-
-		}
-
 		public void Restore(int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
@@ -896,6 +834,9 @@ namespace VocaDb.Model.Service {
 					}
 
 				}
+
+				album.UpdateArtistString();
+				album.UpdateRatingTotals();
 
 				Archive(session, album, AlbumArchiveReason.Reverted);
 				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(album) + " to revision " + archivedVersion.Version, session);

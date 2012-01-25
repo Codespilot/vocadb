@@ -954,6 +954,8 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				song.UpdateFavoritedTimes();
+
 				Archive(session, song, SongArchiveReason.Reverted);
 				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(song) + " to revision " + archivedVersion.Version, session);
 

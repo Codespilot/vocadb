@@ -54,6 +54,7 @@ namespace VocaDb.Model.Domain.Users {
 
 			Album.UserCollections.Remove(this);
 			User.AllAlbums.Remove(this);
+			Album.UpdateRatingTotals();
 
 		}
 
@@ -85,8 +86,10 @@ namespace VocaDb.Model.Domain.Users {
 				return;
 
 			Album.UserCollections.Remove(this);
+			album.UpdateRatingTotals();
 			Album = target;
 			target.UserCollections.Add(this);
+			target.UpdateRatingTotals();
 
 		}
 

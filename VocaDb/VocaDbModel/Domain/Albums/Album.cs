@@ -200,6 +200,10 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual int RatingCount { get; set; }
+
+		public virtual int RatingTotal { get; set; }
+
 		public virtual IEnumerable<SongInAlbum> Songs {
 			get {
 				return AllSongs.Where(s => !s.Song.Deleted);
@@ -410,40 +414,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		[Obsolete]
-		public virtual void MoveSongDown(SongInAlbum songInAlbum) {
-
-			ParamIs.NotNull(() => songInAlbum);
-
-			if (!songInAlbum.Album.Equals(this))
-				throw new ArgumentException("Song is not in album");
-
-			var next = Songs.FirstOrDefault(s => s.TrackNumber == songInAlbum.TrackNumber + 1);
-
-			if (next != null) {
-				next.TrackNumber--;
-				songInAlbum.TrackNumber++;				
-			}
-
-		}
-
-		[Obsolete]
-		public virtual void MoveSongUp(SongInAlbum songInAlbum) {
-
-			ParamIs.NotNull(() => songInAlbum);
-
-			if (!songInAlbum.Album.Equals(this))
-				throw new ArgumentException("Song is not in album");
-
-			var prev = Songs.FirstOrDefault(s => s.TrackNumber == songInAlbum.TrackNumber - 1);
-
-			if (prev != null) {
-				prev.TrackNumber++;
-				songInAlbum.TrackNumber--;				
-			}
-
-		}
-
 		public virtual void OnSongDeleting(SongInAlbum songInAlbum) {
 			
 			ParamIs.NotNull(() => songInAlbum);
@@ -456,37 +426,6 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 
 			AllSongs.Remove(songInAlbum);
-
-		}
-
-		[Obsolete("Integrated to saving properties")]
-		public virtual void ReorderTrack(SongInAlbum songInAlbum, SongInAlbum prevTrack) {
-
-			ParamIs.NotNull(() => songInAlbum);
-
-			if (!songInAlbum.Album.Equals(this))
-				throw new ArgumentException("Song is not in album");
-
-			int trackNum = 1;
-
-			if (Equals(prevTrack, null)) {
-				songInAlbum.TrackNumber = trackNum;
-				trackNum++;
-			}
-
-			foreach (var track in Songs) {
-
-				if (!track.Equals(songInAlbum)) {
-					track.TrackNumber = trackNum;
-					trackNum++;
-				}
-				
-				if (Equals(track, prevTrack)) {
-					songInAlbum.TrackNumber = trackNum;
-					trackNum++;
-				}
-
-			}
 
 		}
 
@@ -569,6 +508,13 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual void UpdateArtistString() {
 
 			ArtistString = ArtistHelper.GetArtistString(ArtistList);
+
+		}
+
+		public virtual void UpdateRatingTotals() {
+
+			RatingCount = UserCollections.Where(a => a.Rating != AlbumForUser.NotRated).Count();
+			RatingTotal = UserCollections.Sum(a => a.Rating);
 
 		}
 
