@@ -202,9 +202,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int RatingAverageInt { get; set; }
 
-		public virtual float RatingAverage {
+		public virtual double RatingAverage {
 			get {
-				return RatingAverageInt / 100.0f;
+				return Math.Round(RatingAverageInt / 100.0f, 2);
 			}
 			set {
 				RatingAverageInt = (int)(value * 100);
