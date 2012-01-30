@@ -489,7 +489,7 @@ namespace VocaDb.Model.Service {
 					albumForUser.Delete();
 					session.Delete(albumForUser);
 
-				} else if (albumForUser == null) {
+				} else if (albumForUser == null && status != PurchaseStatus.Nothing) {
 
 					var user = session.Load<User>(userId);
 					var album = session.Load<Album>(albumId);
@@ -499,7 +499,7 @@ namespace VocaDb.Model.Service {
 
 					AuditLog(string.Format("added {0} for {1}", album, user), session);
 
-				} else {
+				} else if (albumForUser != null) {
 
 					albumForUser.MediaType = mediaType;
 					albumForUser.PurchaseStatus = status;
