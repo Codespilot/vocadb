@@ -795,6 +795,7 @@
     <Content Include="Views\SongList\CreateFromWVR.cshtml" />
     <Content Include="Views\Tag\Edit.cshtml" />
     <Content Include="Views\Song\TopFavorited.cshtml" />
+    <Content Include="Views\Album\TopRated.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
