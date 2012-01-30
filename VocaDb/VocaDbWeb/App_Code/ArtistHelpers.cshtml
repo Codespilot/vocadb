@@ -3,6 +3,7 @@
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Model.DataContracts.Albums;
 @inherits VocaDb.Web.Code.HelperPage
 
 @helper PrintArchivedArtistData(int archivedEntryId, ArchivedArtistContract data) {
@@ -27,16 +28,21 @@
 
 }
 
-@helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums) {
+@helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums, 
+	Func<AlbumWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
 
 	<ul>
 	@foreach (var album in albums) {
 		<li>
 			@Helpers.DraftIcon(album)
 			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
-			(added @album.CreateDate).		
-			<br />
-			<span class="extraInfo">@album.ArtistString</span>
+			@if (extraData != null) {
+			@extraData(album)
+			}
+			@if (showArtists) {
+				<br />
+				<span class="extraInfo">@album.ArtistString</span>
+			}
 		</li>
 	}
 	</ul>

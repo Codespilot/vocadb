@@ -153,6 +153,9 @@
   <data name="TopFavoritedSongs" xml:space="preserve">
     <value>Top favorited songs</value>
   </data>
+  <data name="TopRatedAlbums" xml:space="preserve">
+    <value>Top rated albums</value>
+  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>You have unread messages</value>
   </data>

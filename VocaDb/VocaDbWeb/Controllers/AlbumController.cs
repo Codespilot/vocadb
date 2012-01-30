@@ -425,6 +425,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult TopRated() {
+
+			var albums = Service.GetTopRatedAlbums(100);
+
+			return View(albums);
+
+		}
+
 		public PartialViewResult TrackProperties(int albumId, int songId) {
 
 			var contract = Service.GetTrackProperties(albumId, songId);

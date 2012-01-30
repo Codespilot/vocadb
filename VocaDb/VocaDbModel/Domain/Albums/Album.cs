@@ -200,6 +200,17 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual int RatingAverageInt { get; set; }
+
+		public virtual float RatingAverage {
+			get {
+				return RatingAverageInt / 100.0f;
+			}
+			set {
+				RatingAverageInt = (int)(value * 100);
+			}
+		}
+
 		public virtual int RatingCount { get; set; }
 
 		public virtual int RatingTotal { get; set; }
@@ -515,6 +526,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 			RatingCount = UserCollections.Where(a => a.Rating != AlbumForUser.NotRated).Count();
 			RatingTotal = UserCollections.Sum(a => a.Rating);
+			RatingAverageInt = RatingCount > 0 ? (RatingTotal * 100 / RatingCount) : 0;
 
 		}
 
