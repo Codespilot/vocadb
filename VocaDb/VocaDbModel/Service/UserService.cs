@@ -503,8 +503,12 @@ namespace VocaDb.Model.Service {
 
 					albumForUser.MediaType = mediaType;
 					albumForUser.PurchaseStatus = status;
-					albumForUser.Rating = rating;
 					session.Update(albumForUser);
+
+					if (albumForUser.Rating != rating) {
+						albumForUser.Rating = rating;
+						albumForUser.Album.UpdateRatingTotals();
+					}
 
 					AuditLog("updated " + albumForUser, session);
 
