@@ -29,7 +29,7 @@
 }
 
 @helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums, 
-	Func<AlbumWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
+	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false) {
 
 	<ul>
 	@foreach (var album in albums) {
