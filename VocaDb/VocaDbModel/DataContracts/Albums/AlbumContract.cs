@@ -46,7 +46,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public string Name { get; set; }
 
 		[DataMember]
-		public float RatingAverage { get; set; }
+		public double RatingAverage { get; set; }
 
 		[DataMember]
 		public int RatingCount { get; set; }
