@@ -192,6 +192,8 @@ namespace VocaDb.Web.Models {
 			Locked = contract.Status == EntryStatus.Locked;
 			Name = contract.Name;
 			PVs = contract.PVs;
+			RatingAverage = contract.RatingAverage;
+			RatingCount = contract.RatingCount;
 			Songs = contract.Songs;
 			Tags = contract.Tags;
 			UserHasAlbum = contract.AlbumForUser != null;
@@ -260,6 +262,10 @@ namespace VocaDb.Web.Models {
 		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
 
 		public PVContract[] PVs { get; set; }
+
+		public double RatingAverage { get; set; }
+
+		public int RatingCount { get; set; }
 
 		public string ReleaseEvent { get; set; }
 
