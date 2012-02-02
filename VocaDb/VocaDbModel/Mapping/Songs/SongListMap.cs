@@ -37,6 +37,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
+			Map(m => m.Notes).Length(200).Not.Nullable();
 			Map(m => m.Order).Not.Nullable();
 
 			References(m => m.List).Not.Nullable();

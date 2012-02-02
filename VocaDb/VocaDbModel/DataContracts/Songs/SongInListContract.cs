@@ -10,11 +10,14 @@ namespace VocaDb.Model.DataContracts.Songs {
 			ParamIs.NotNull(() => songInList);
 
 			Order = songInList.Order;
+			Notes = songInList.Notes;
 			Song = new SongWithAdditionalNamesContract(songInList.Song, languagePreference);
 
 		}
 
 		public int Order { get; set; }
+
+		public string Notes { get; set; }
 
 		public SongWithAdditionalNamesContract Song { get; set; }
 

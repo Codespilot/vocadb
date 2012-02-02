@@ -118,8 +118,9 @@ namespace VocaDb.Model.Domain.Songs {
 				var entry = linkEntry;
 				var newEntry = newTracks.First(e => e.SongInListId == entry.Id);
 
-				if (newEntry.Order != linkEntry.Order) {
+				if (newEntry.Order != linkEntry.Order || newEntry.Notes != linkEntry.Notes) {
 					linkEntry.Order = newEntry.Order;
+					linkEntry.Notes = newEntry.Notes;
 					edited.Add(linkEntry);
 				}
 

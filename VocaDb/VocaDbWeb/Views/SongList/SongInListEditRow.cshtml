@@ -17,6 +17,9 @@
 	<td class="trackNameCol">
 		<span title="@Model.SongAdditionalNames">@Model.SongName</span><br />
 		<span class="extraInfo artistString">@Model.SongArtistString</span>
+	</td>
+	<td>
+		@Html.TextBoxFor(m => m.Notes)
 		@{ item.Dispose(); }
 	</td><td>
 		<a href="@Url.Action("Edit", "Song", new { id = Model.SongId })" target="_blank" title="Open for edit" class="editSongLink iconLink editLink">Edit</a>
