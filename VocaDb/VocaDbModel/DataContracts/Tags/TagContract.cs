@@ -1,7 +1,9 @@
-﻿using VocaDb.Model.Domain.Tags;
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.DataContracts.Tags {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class TagContract {
 
 		public TagContract() { }
@@ -16,10 +18,13 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 		}
 
+		[DataMember]
 		public string CategoryName { get; set; }
 
+		[DataMember]
 		public string Description { get; set; }
 
+		[DataMember]
 		public string Name { get; set; }
 
 	}

@@ -88,6 +88,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TagContract GetTag(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session => new TagContract(session.Load<Tag>(tagName)));
+
+		}
+
 		public TagDetailsContract GetTagDetails(string tagName) {
 
 			ParamIs.NotNullOrEmpty(() => tagName);

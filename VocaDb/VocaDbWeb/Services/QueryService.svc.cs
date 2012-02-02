@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
@@ -105,6 +106,14 @@ namespace VocaDb.Web.Services {
 
 			var list = Services.Songs.GetSongList(id);
 			return list;
+
+		}
+
+		[OperationContract]
+		public TagContract GetTagByName(string name) {
+
+			var tag = Services.Tags.GetTag(name);
+			return tag;
 
 		}
 
