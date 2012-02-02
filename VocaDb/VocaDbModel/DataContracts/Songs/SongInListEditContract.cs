@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Globalization;
 
@@ -17,6 +14,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			SongInListId = songInList.Id;
 			Order = songInList.Order;
+			Notes = songInList.Notes;
 			SongName = songInList.Song.TranslatedName[languagePreference];
 			SongAdditionalNames = string.Join(", ", songInList.Song.AllNames.Where(n => n != SongName));
 			SongArtistString = songInList.Song.ArtistString[languagePreference];
@@ -33,9 +31,17 @@ namespace VocaDb.Model.DataContracts.Songs {
 			SongAdditionalNames = songContract.AdditionalNames;
 			SongArtistString = songContract.ArtistString;
 
+			Notes = string.Empty;
+
 		}
 
 		public int Order { get; set; }
+
+		private string notes;
+		public string Notes {
+			get { return notes; }
+			set { notes = value ?? string.Empty; }
+		}
 
 		public string SongAdditionalNames { get; set; }
 

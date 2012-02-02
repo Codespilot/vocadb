@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace VocaDb.Model.Domain.Songs {
+﻿namespace VocaDb.Model.Domain.Songs {
 
 	public class SongInList {
 
 		private SongList list;
+		private string notes;
 		private Song song;
 
-		public SongInList() {}
+		public SongInList() {
+			Notes = string.Empty;
+		}
 
 		public SongInList(Song song, SongList list, int order) {
 
@@ -35,6 +33,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				list = value;
+			}
+		}
+
+		public virtual string Notes {
+			get { return notes; }
+			set {
+				ParamIs.NotNull(() => value);
+				notes = value; 
 			}
 		}
 

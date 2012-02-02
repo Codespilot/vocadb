@@ -42,6 +42,10 @@
 				&nbsp;
 				@Helpers.DraftIcon(link.Song.Status)
 				@Html.PVServiceIcons(link.Song.PVServices)
+				@if (!string.IsNullOrEmpty(link.Notes)) {
+					<text>&nbsp;</text>
+					<text>(</text>@link.Notes<text>)</text>
+				}
 				<br />
 				<span class="extraInfo">@link.Song.ArtistString</span>
 			</li>
