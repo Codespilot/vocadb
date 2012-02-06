@@ -38,6 +38,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult EditEntries(int id, bool? onlySubmissions) {
+
+			var user = Service.GetUserWithActivityEntries(id, 100, onlySubmissions ?? true);
+
+			return View(user);
+
+		}
+
 		public ActionResult FavoriteSongs(int id) {
 
 			var songs = Service.GetFavoriteSongs(id);
