@@ -167,6 +167,7 @@
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserForMySettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
+    <Compile Include="DataContracts\Users\UserWithActivityEntriesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntry.cs" />
     <Compile Include="Domain\Activityfeed\ActivityfeedManager.cs" />

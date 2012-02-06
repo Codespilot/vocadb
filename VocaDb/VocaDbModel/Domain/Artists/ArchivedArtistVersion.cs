@@ -3,6 +3,7 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Activityfeed;
 
 namespace VocaDb.Model.Domain.Artists {
 
@@ -50,6 +51,16 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public override IEntryDiff DiffBase {
 			get { return Diff; }
+		}
+
+		public override EntryEditEvent EditEvent {
+			get {
+				return (Reason == ArtistArchiveReason.Created ? EntryEditEvent.Created : EntryEditEvent.Updated);
+			}
+		}
+
+		public override IEntryWithNames EntryBase {
+			get { return Artist; }
 		}
 
 		public virtual PictureData Picture { get; set; }

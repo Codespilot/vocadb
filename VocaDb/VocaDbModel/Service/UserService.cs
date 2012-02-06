@@ -18,6 +18,8 @@ using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Security;
+using VocaDb.Model.Domain.Versioning;
+using VocaDb.Model.DataContracts.Activityfeed;
 
 namespace VocaDb.Model.Service {
 
@@ -345,6 +347,39 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => 
 				GetUserDetails(session, session.Query<User>().ToArray()
 				.First(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))));
+
+		}
+
+		private IQueryable<T> AddFilter<T>(IQueryable<T> query, int userId, int maxCount, bool onlySubmissions) where T : ArchivedObjectVersion {
+
+			query = query.Where(q => q.Author.Id == userId);
+
+			if (onlySubmissions)
+				query = query.Where(q => q.Version == 0);
+
+			query = query.OrderByDescending(q => q.Created);
+
+			query = query.Take(maxCount);
+
+			return query;
+
+		}
+
+		public UserWithActivityEntriesContract GetUserWithActivityEntries(int id, int maxCount, bool onlySubmissions) {
+
+			return HandleQuery(session => {
+
+				var user = session.Load<User>(id);
+				var activity = 
+					AddFilter(session.Query<ArchivedAlbumVersion>(), id, maxCount, onlySubmissions).ToArray().Cast<ArchivedObjectVersion>().Concat(
+					AddFilter(session.Query<ArchivedArtistVersion>(), id, maxCount, onlySubmissions).ToArray()).Concat(
+					AddFilter(session.Query<ArchivedSongVersion>(), id, maxCount, onlySubmissions).ToArray());
+
+				var activityContracts = activity.OrderByDescending(a => a.Created).Take(maxCount).Select(a => new ActivityEntryContract(a, PermissionContext.LanguagePreference)).ToArray();
+
+				return new UserWithActivityEntriesContract(user, activityContracts, PermissionContext.LanguagePreference);
+
+			});
 
 		}
 

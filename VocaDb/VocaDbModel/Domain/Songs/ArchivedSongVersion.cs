@@ -3,6 +3,7 @@ using VocaDb.Model.DataContracts.Songs;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Activityfeed;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -39,6 +40,16 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public override IEntryDiff DiffBase {
 			get { return Diff; }
+		}
+
+		public override EntryEditEvent EditEvent {
+			get {
+				return (Reason == SongArchiveReason.Created ? EntryEditEvent.Created : EntryEditEvent.Updated);
+			}
+		}
+
+		public override IEntryWithNames EntryBase {
+			get { return Song; }
 		}
 
 		public virtual SongArchiveReason Reason { get; set; }

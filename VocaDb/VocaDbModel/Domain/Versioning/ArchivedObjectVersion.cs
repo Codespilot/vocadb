@@ -2,6 +2,8 @@
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Activityfeed;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Versioning {
 
@@ -37,6 +39,10 @@ namespace VocaDb.Model.Domain.Versioning {
 		public virtual XDocument Data { get; protected set; }
 
 		public abstract IEntryDiff DiffBase { get; }
+
+		public abstract EntryEditEvent EditEvent { get; }
+
+		public abstract IEntryWithNames EntryBase { get; }
 
 		public virtual int Id { get; protected set; }
 

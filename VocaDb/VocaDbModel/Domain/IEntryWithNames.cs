@@ -2,7 +2,7 @@
 
 namespace VocaDb.Model.Domain {
 
-	public interface IEntryWithNames {
+	public interface IEntryWithNames : IEntryBase {
 
 		INameManager Names { get; }
 

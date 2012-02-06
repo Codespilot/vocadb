@@ -85,8 +85,12 @@
 	</ul>
 
 	<div id="stats">
-		<p>Submissions: @Model.SubmitCount</p>
-		<p>Total edits: @Model.EditCount</p>
+		<p>
+			@Html.ActionLink("Submissions: " + Model.SubmitCount, "EntryEdits", new { id = Model.Id, onlySubmissions = true })			
+		</p>
+		<p>
+			@Html.ActionLink("Total edits: " + Model.EditCount, "EntryEdits", new { id = Model.Id, onlySubmissions = false })						
+		</p>
 		<p>Comments: @Model.CommentCount</p>
 		<p>Tag votes: @Model.TagVotes</p>
 	</div>
