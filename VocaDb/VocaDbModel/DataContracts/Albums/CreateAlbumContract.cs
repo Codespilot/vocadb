@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.DataContracts.Artists;
+﻿using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.DataContracts.Albums {

@@ -11,6 +11,7 @@
 	};
 
 	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
+	var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
 			
 }
 
@@ -86,10 +87,20 @@
 
 	<div id="stats">
 		<p>
-			@Html.ActionLink("Submissions: " + Model.SubmitCount, "EntryEdits", new { id = Model.Id, onlySubmissions = true })			
+			@{ var submitText = "Submissions: " + Model.SubmitCount; }
+			@if (canSeeDetailedStats) {
+				<text>@Html.ActionLink(submitText, "EntryEdits", new { id = Model.Id, onlySubmissions = true })</text>
+			} else {
+				<text>@submitText</text>
+			}
 		</p>
 		<p>
-			@Html.ActionLink("Total edits: " + Model.EditCount, "EntryEdits", new { id = Model.Id, onlySubmissions = false })						
+			@{ var editText = "Total edits: " + Model.EditCount; }
+			@if (canSeeDetailedStats) {
+				@Html.ActionLink(editText, "EntryEdits", new { id = Model.Id, onlySubmissions = false })
+			} else {
+				<text>@editText</text>
+			}
 		</p>
 		<p>Comments: @Model.CommentCount</p>
 		<p>Tag votes: @Model.TagVotes</p>
