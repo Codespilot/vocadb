@@ -38,7 +38,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult EditEntries(int id, bool? onlySubmissions) {
+		public ActionResult EntryEdits(int id, bool? onlySubmissions) {
 
 			var user = Service.GetUserWithActivityEntries(id, 100, onlySubmissions ?? true);
 

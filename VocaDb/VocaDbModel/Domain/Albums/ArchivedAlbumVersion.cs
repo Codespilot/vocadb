@@ -70,7 +70,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public override EntryEditEvent EditEvent {
 			get { 
-				return (Reason == AlbumArchiveReason.Created ? EntryEditEvent.Created : EntryEditEvent.Updated); 
+				return (Reason == AlbumArchiveReason.Created || Reason == AlbumArchiveReason.AutoImportedFromMikuDb 
+					? EntryEditEvent.Created : EntryEditEvent.Updated);
 			}
 		}
 

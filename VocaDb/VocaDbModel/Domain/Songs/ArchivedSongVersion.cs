@@ -44,7 +44,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public override EntryEditEvent EditEvent {
 			get {
-				return (Reason == SongArchiveReason.Created ? EntryEditEvent.Created : EntryEditEvent.Updated);
+				return (Reason == SongArchiveReason.Created || Reason == SongArchiveReason.AutoImportedFromMikuDb ? 
+					EntryEditEvent.Created : EntryEditEvent.Updated);
 			}
 		}
 
