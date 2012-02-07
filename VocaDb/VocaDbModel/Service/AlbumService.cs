@@ -819,7 +819,7 @@ namespace VocaDb.Model.Service {
 				// Songs
 				SessionHelper.RestoreObjectRefs<SongInAlbum, Song, SongInAlbumRefContract>(
 					session, warnings, album.AllSongs, fullProperties.Songs, (a1, a2) => (a1.Song.Id == a2.Id),
-					(song, songRef) => (!album.HasSong(song) ? album.AddSong(song, songRef.TrackNumber, songRef.DiscNumber) : null),
+					(song, songRef) => (!album.HasSong(song) ? album.AddSong(song, songRef.TrackNumber, Math.Min(songRef.DiscNumber, 1)) : null),
 					songInAlbum => songInAlbum.Delete());
 
 				// Names
