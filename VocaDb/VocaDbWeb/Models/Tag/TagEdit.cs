@@ -28,11 +28,14 @@ namespace VocaDb.Web.Models.Tag {
 		[StringLength(200)]
 		public string Description { get; set; }
 
+		public bool IsEmpty { get; set; }
+
 		public string Name { get; set; }
 
 		public void CopyNonEditableProperties(TagForEditContract contract) {
 
 			AllCategoryNames = contract.AllCategoryNames;
+			IsEmpty = contract.IsEmpty;
 
 		}
 

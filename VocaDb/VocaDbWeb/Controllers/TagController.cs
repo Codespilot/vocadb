@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Tags;
@@ -45,6 +46,16 @@ namespace VocaDb.Web.Controllers
 			var view = RenderPartialViewToString("TagSelection", new TagSelectionContract(name, true));
 
 			return Json(new GenericResponse<string>(view));
+
+		}
+
+		public ActionResult Delete(string id) {
+
+			Service.Delete(id);
+
+			TempData.SetStatusMessage("Tag deleted");
+
+			return RedirectToAction("Index");
 
 		}
 
