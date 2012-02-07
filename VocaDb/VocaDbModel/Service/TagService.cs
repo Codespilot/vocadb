@@ -18,6 +18,24 @@ namespace VocaDb.Model.Service {
 		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
+		public void Delete(string name) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+
+			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
+
+			HandleTransaction(session => {
+
+				var tag = session.Load<Tag>(name);
+
+				AuditLog("deleted " + tag, session);
+
+				session.Delete(tag);
+
+			});
+
+		}
+
 		public string[] FindCategories(string query) {
 
 			if (string.IsNullOrWhiteSpace(query))
@@ -108,8 +126,18 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
 
-			return HandleQuery(session => new TagForEditContract(session.Load<Tag>(tagName), 
-				session.Query<Tag>().Select(t => t.CategoryName).OrderBy(t => t).Distinct().ToArray()));
+			return HandleQuery(session => {
+
+				var inUse = session.Query<ArtistTagUsage>().Any(a => a.Tag.Name == tagName) ||
+					session.Query<AlbumTagUsage>().Any(a => a.Tag.Name == tagName) ||
+					session.Query<SongTagUsage>().Any(a => a.Tag.Name == tagName);
+
+				var contract = new TagForEditContract(session.Load<Tag>(tagName),
+					session.Query<Tag>().Select(t => t.CategoryName).OrderBy(t => t).Distinct().ToArray(), !inUse);
+
+				return contract;
+
+			});
 
 		}
 

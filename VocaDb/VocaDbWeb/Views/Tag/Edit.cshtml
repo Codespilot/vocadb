@@ -1,4 +1,5 @@
-﻿@model VocaDb.Web.Models.Tag.TagEdit
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.Tag.TagEdit
 
 @{
     ViewBag.Title = "Edit tag - " + Model.Name;
@@ -15,6 +16,12 @@
 	});
 
 </script>
+}
+
+@section Toolbar {
+@if (Login.CanDeleteEntries && Model.IsEmpty) {
+	@Html.ActionLink("Delete", "Delete", new { id = Model.Name }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this tag?\");" })
+}
 }
 
 @using (Html.BeginForm()) {
