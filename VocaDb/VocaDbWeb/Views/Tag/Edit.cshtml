@@ -3,13 +3,17 @@
 
 @{
     ViewBag.Title = "Edit tag - " + Model.Name;
-	ViewBag.Parents = new[] { Html.ActionLink("Tags", "Index") };	
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Tags", "Index"),
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Name }) 		
+	};	
 }
 
 @section BodyScripts {
 <script type="text/javascript">
 
 	$(document).ready(function () {
+		$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 		$("#categoryName").autocomplete({
 			source: "../../Tag/FindCategories"
 		});
