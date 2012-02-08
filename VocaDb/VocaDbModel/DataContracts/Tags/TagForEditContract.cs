@@ -17,6 +17,6 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public string[] AllCategoryNames { get; set; }
 
 		public bool IsEmpty { get; set; }
-
+	
 	}
 }
