@@ -107,14 +107,14 @@
 		@if (Model.LatestAlbums.Any()) {
 		<h3>Recently added albums</h3>
 		<ul>
-			@ArtistHelpers.Albums(Model.LatestAlbums);
+			@ArtistHelpers.Albums(Model.LatestAlbums)
 		</ul>
 		}
 
 		@if (Model.LatestSongs.Any()) {
 		<h3>Recently added songs</h3>
 		<ul>
-			@ArtistHelpers.Songs(Model.LatestSongs);
+			@ArtistHelpers.Songs(Model.LatestSongs)
 		</ul>	
 		}
 
