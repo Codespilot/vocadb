@@ -173,20 +173,28 @@ namespace VocaDb.Model.Service {
 				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 
 				foreach (var album in albums) {
+
+					var old = album.ArtistString;
+
 					album.UpdateArtistString();
+
+					if (album.ArtistString != old)
+						session.Update(album);
+
 				}
 
 				var songs = session.Query<Song>().Where(s => !s.Deleted).ToArray();
 
 				foreach (var song in songs) {
+
+					var old = song.ArtistString;
+
 					song.UpdateArtistString();
+
+					if (song.ArtistString != old)
+						session.Update(song);
+
 				}
-
-				foreach (var album in albums)
-					session.Update(album);
-
-				foreach (var song in songs)
-					session.Update(song);
 
 			});
 
