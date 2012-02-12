@@ -453,6 +453,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		public void UpdateArtistForAlbumIsSupport(int artistForAlbumId, bool isSupport) {
+
+			Service.UpdateArtistForAlbumIsSupport(artistForAlbumId, isSupport);
+
+		}
+
+		[HttpPost]
 		public ActionResult UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
 
 			if (songIds == null || artistIds == null || !songIds.Any() || !artistIds.Any())

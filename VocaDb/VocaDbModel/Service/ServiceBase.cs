@@ -262,6 +262,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected void VerifyManageDatabase() {
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+		}
+
 		protected void VerifyResourceAccess(params User[] owners) {
 
 			VerifyResourceAccess(owners.Select(o => o.Id));

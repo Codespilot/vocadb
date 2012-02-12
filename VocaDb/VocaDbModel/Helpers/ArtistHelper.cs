@@ -23,28 +23,39 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist
 		};
 
-		public static TranslatedString GetArtistString(IEnumerable<Artist> artists) {
+		public static TranslatedString GetArtistString(IEnumerable<IArtistWithSupport> artists) {
 
-			if (artists.Count() >= 4)
-				return new TranslatedString("Various artists", "Various artists", "Various artists");
+			ParamIs.NotNull(() => artists);
 
-			var producers = artists.Where(a => ProducerTypes.Contains(a.ArtistType)).Select(m => m.TranslatedName);
-			var performers = artists.Where(a => VocalistTypes.Contains(a.ArtistType)).Select(m => m.TranslatedName);
+			var matched = artists.Where(a => a.Artist.ArtistType != ArtistType.Label && !a.IsSupport).Select(a => a.Artist).ToArray();
+			var producers = matched.Where(a => ProducerTypes.Contains(a.ArtistType));
+			var performers = matched.Where(a => VocalistTypes.Contains(a.ArtistType));
+			const string various = "Various artists";
 
-			if (producers.Any() && performers.Any()) {
+			if (producers.Count() >= 4 || (!producers.Any() && performers.Count() >= 4))
+				return new TranslatedString(various, various, various);
 
-				return TranslatedString.Create(lang => string.Format("{0} feat. {1}", 
-					string.Join(", ", producers.Select(p => p[lang])), 
-					string.Join(", ", performers.Select(p => p[lang]))));
+			var performerNames = performers.Select(m => m.TranslatedName);
+			var producerNames =	producers.Select(m => m.TranslatedName);
+
+			if (producers.Any() && performers.Any() && producers.Count() + performers.Count() >= 5) {
+
+				return TranslatedString.Create(lang => string.Format("{0} feat. various",
+					string.Join(", ", producerNames.Select(p => p[lang]))));
+
+			} else if (producers.Any() && performers.Any()) {
+
+				return TranslatedString.Create(lang => string.Format("{0} feat. {1}",
+					string.Join(", ", producerNames.Select(p => p[lang])),
+					string.Join(", ", performerNames.Select(p => p[lang]))));
 
 			} else {
 
-				return TranslatedString.Create(lang => string.Join(", ", artists.Select(a => a.TranslatedName[lang])));
+				return TranslatedString.Create(lang => string.Join(", ", matched.Select(a => a.TranslatedName[lang])));
 
 			}
 
 		}
-
 
 	}
 

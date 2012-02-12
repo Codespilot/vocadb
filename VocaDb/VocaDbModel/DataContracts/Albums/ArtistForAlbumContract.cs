@@ -15,6 +15,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Album = new AlbumWithAdditionalNamesContract(artistForAlbum.Album, languagePreference);
 			Artist = new ArtistWithAdditionalNamesContract(artistForAlbum.Artist, languagePreference);
 			Id = artistForAlbum.Id;
+			IsSupport = artistForAlbum.IsSupport;
 
 		}
 
@@ -26,6 +27,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public bool IsSupport { get; set; }
 
 	}
 

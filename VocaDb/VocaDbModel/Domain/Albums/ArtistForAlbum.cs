@@ -1,17 +1,24 @@
-﻿using VocaDb.Model.Domain.Artists;
+﻿using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ArtistForAlbum {
+	public class ArtistForAlbum : IArtistWithSupport {
 
 		private Artist artist;
 		private Album album;
 
-		public ArtistForAlbum() { }
+		public ArtistForAlbum() {
+			IsSupport = false;
+			Notes = string.Empty;
+		}
 
-		public ArtistForAlbum(Album album, Artist artist) {
+		public ArtistForAlbum(Album album, Artist artist)
+			: this() {
+
 			Album = album;
 			Artist = artist;
+
 		}
 
 		public virtual Album Album {
@@ -31,6 +38,26 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual bool IsSupport { get; set; }
+
+		private string notes;
+		public virtual string Notes {
+			get { return notes; }
+			set {
+				ParamIs.NotNull(() => value);
+				notes = value; 
+			}
+		}
+
+		public virtual bool ContentEquals(ArtistForAlbumContract contract) {
+
+			if (contract == null)
+				return false;
+
+			return (IsSupport == contract.IsSupport);
+
+		}
 
 		public virtual void Delete() {
 			Album.DeleteArtistForAlbum(this);

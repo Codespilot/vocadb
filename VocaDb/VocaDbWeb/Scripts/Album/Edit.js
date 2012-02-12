@@ -158,6 +158,15 @@ function initPage(albumId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
+
+	$(".isSupportCheck").live("change", function () {
+
+		var id = getId(this);
+		var isSupport = $(this).is(":checked");
+		$.post("../../Album/UpdateArtistForAlbumIsSupport", { artistForAlbumId: id, isSupport: isSupport });
+
+	});
+
 	$("#tracksTableBody").sortable({
 		update: function (event, ui) {
 			songListChanged();
