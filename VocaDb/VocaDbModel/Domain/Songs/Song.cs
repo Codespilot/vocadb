@@ -439,13 +439,14 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual CollectionDiff<ArtistForSong, ArtistForSong> SyncArtists(
+		public virtual CollectionDiffWithValue<ArtistForSong, ArtistForSong> SyncArtists(
 			IEnumerable<ArtistForSongContract> newArtists, Func<ArtistForSongContract, Artist> artistGetter) {
 
 			ParamIs.NotNull(() => newArtists);
 
 			var diff = CollectionHelper.Diff(Artists, newArtists, (n1, n2) => n1.Id == n2.Id);
 			var created = new List<ArtistForSong>();
+			var edited = new List<ArtistForSong>();
 
 			foreach (var n in diff.Removed) {
 				n.Delete();
@@ -460,9 +461,21 @@ namespace VocaDb.Model.Domain.Songs {
 
 			}
 
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newArtists.First(e => e.Id == entry.Id);
+
+				if (!linkEntry.ContentEquals(newEntry)) {
+					linkEntry.IsSupport = newEntry.IsSupport;
+					edited.Add(linkEntry);
+				}
+
+			}
+
 			UpdateArtistString();
 
-			return new CollectionDiff<ArtistForSong, ArtistForSong>(created, diff.Removed, diff.Unchanged);
+			return new CollectionDiffWithValue<ArtistForSong, ArtistForSong>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 
@@ -548,7 +561,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual void UpdateArtistString() {
 
-			ArtistString = ArtistHelper.GetArtistString(ArtistList);
+			ArtistString = ArtistHelper.GetArtistString(Artists);
 
 		}
 

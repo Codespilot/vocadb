@@ -6,6 +6,10 @@
 		<span class="extraInfo">@Model.Artist.AdditionalNames</span>
 	</td>
 	<td>
+		@Html.CheckBoxFor(m => m.IsSupport, new { @class = "isSupportCheck", id="isSupportCheck_" + Model.Id })
+		@Html.LabelFor(m => m.IsSupport, "Support")
+	</td>
+	<td>
 		<a href="#" class="artistRemove textLink removeLink" id="@("artistRemove_" + Model.Id)">Remove</a>
 	</td>
 </tr>

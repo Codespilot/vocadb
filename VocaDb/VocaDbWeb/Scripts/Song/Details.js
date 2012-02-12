@@ -78,7 +78,9 @@ function initPage(songId) {
 	}}});
 
 	var addToListLinkPos = $("#addToListLink").offset();
-	$("#addToListDialog").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top + 35]);
+	if (addToListLinkPos != null) {
+		$("#addToListDialog").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top + 35]);
+	}
 
 	$("#addFavoriteLink").click(function () {
 

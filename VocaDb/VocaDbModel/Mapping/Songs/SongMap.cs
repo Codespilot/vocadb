@@ -111,6 +111,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Cache.ReadWrite();
 
 			Id(m => m.Id);
+			Map(m => m.IsSupport).Not.Nullable();
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.Song).Not.Nullable();
 

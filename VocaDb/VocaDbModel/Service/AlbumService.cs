@@ -888,6 +888,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateArtistForAlbumIsSupport(int artistForAlbumId, bool isSupport) {
+
+			VerifyManageDatabase();
+
+			HandleTransaction(session => {
+				
+				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
+
+				artistForAlbum.IsSupport = isSupport;
+				artistForAlbum.Album.UpdateArtistString();
+
+				AuditLog("updated IsSupport for " + artistForAlbum);
+
+				session.Update(artistForAlbum.Album);
+
+			});
+
+		}
+
 		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, PictureDataContract pictureData) {
 
 			ParamIs.NotNull(() => properties);

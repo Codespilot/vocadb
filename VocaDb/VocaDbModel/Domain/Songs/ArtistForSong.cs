@@ -1,18 +1,26 @@
 ﻿using System;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class ArtistForSong : IEquatable<ArtistForSong> {
+	public class ArtistForSong : IEquatable<ArtistForSong>, IArtistWithSupport {
 
 		private Artist artist;
+		private string notes;
 		private Song song;
 
-		public ArtistForSong() {}
+		public ArtistForSong() {
+			IsSupport = false;
+			Notes = string.Empty;
+		}
 
-		public ArtistForSong(Song song, Artist artist) {
+		public ArtistForSong(Song song, Artist artist)
+			: this() {
+
 			Song = song;
 			Artist = artist;
+
 		}
 
 		public virtual Artist Artist {
@@ -25,12 +33,31 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual int Id { get; set; }
 
+		public virtual bool IsSupport { get; set; }
+
+		public virtual string Notes {
+			get { return notes; }
+			set {
+				ParamIs.NotNull(() => value);
+				notes = value; 
+			}
+		}
+
 		public virtual Song Song {
 			get { return song; }
 			set {
 				ParamIs.NotNull(() => value);
 				song = value;
 			}
+		}
+
+		public virtual bool ContentEquals(ArtistForSongContract contract) {
+
+			if (contract == null)
+				return false;
+
+			return (IsSupport == contract.IsSupport);
+
 		}
 
 		public virtual void Delete() {
