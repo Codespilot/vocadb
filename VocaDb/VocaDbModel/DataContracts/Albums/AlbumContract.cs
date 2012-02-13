@@ -9,7 +9,15 @@ using VocaDb.Model.Domain;
 namespace VocaDb.Model.DataContracts.Albums {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class AlbumContract {
+	public class AlbumContract : IEntryWithStatus {
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		EntryType IEntryBase.EntryType {
+			get { return EntryType.Album; }
+		}
 
 		public AlbumContract() { }
 

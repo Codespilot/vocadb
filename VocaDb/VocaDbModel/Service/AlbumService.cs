@@ -911,11 +911,12 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => properties);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(properties.Id);
+
+				VerifyEntryEdit(album);
+
 				var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion()));
 
 				AuditLog(string.Format("updating properties for {0}", album));
