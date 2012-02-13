@@ -8,6 +8,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model;
+using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Controllers {
 
@@ -27,6 +28,10 @@ namespace VocaDb.Web.Controllers {
 
 		protected LoginManager LoginManager {
 			get { return MvcApplication.LoginManager; }
+		}
+
+		protected ServiceModel Services {
+			get { return MvcApplication.Services; }
 		}
 
 		protected ActionResult Picture(EntryForPictureDisplayContract contract) {
