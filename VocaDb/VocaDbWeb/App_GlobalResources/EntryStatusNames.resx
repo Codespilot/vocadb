@@ -123,8 +123,8 @@
   <data name="Draft" xml:space="preserve">
     <value>Draft</value>
   </data>
-  <data name="Finalized" xml:space="preserve">
-    <value>Finalized</value>
+  <data name="Finished" xml:space="preserve">
+    <value>Finished</value>
   </data>
   <data name="Locked" xml:space="preserve">
     <value>Locked</value>
