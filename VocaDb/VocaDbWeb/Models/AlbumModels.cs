@@ -18,6 +18,7 @@ using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Web.Models.Shared;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Models {
 
@@ -42,7 +43,6 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			DiscType = album.DiscType;
-			Draft = album.Status == EntryStatus.Draft;
 			Id = album.Id;
 			Name = album.Name;
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
@@ -67,7 +67,7 @@ namespace VocaDb.Web.Models {
 
 		public DiscType[] AllDiscTypes { get; set; }
 
-		public Dictionary<int, string> AllLabels { get; set; }
+		public EntryStatus[] AllowedEntryStatuses { get; set; }
 
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
@@ -85,9 +85,6 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Record type")]
 		public DiscType DiscType { get; set; }
-
-		[Display(Name = "This entry is a draft")]
-		public bool Draft { get; set; }
 
 		public int Id { get; set; }
 
@@ -123,6 +120,9 @@ namespace VocaDb.Web.Models {
 		[StringLength(50)]
 		public string ReleaseEvent { get; set; }
 
+		[Display(Name = "Status")]
+		public EntryStatus Status { get; set; }
+
 		[Display(Name = "Tracks")]
 		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
@@ -135,6 +135,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => album);
 
+			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			ArtistLinks = album.ArtistLinks;
 			Deleted = album.Deleted;
 			NameEnglish = album.TranslatedName.English;
@@ -163,7 +164,7 @@ namespace VocaDb.Web.Models {
 				},
 				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),
 				Songs = Tracks.ToArray(),
-				Status = (this.Draft ? EntryStatus.Draft : EntryStatus.Finished),
+				Status = this.Status,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
@@ -182,6 +183,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => contract);
 
 			AdditionalNames = contract.AdditionalNames;
+			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract);
 			CommentCount = contract.CommentCount;
 			Description = contract.Description;
 			Deleted = contract.Deleted;
@@ -189,7 +191,6 @@ namespace VocaDb.Web.Models {
 			Draft = contract.Status == EntryStatus.Draft;
 			Id = contract.Id;
 			LatestComments = contract.LatestComments;
-			Locked = contract.Status == EntryStatus.Locked;
 			Name = contract.Name;
 			PVs = contract.PVs;
 			RatingAverage = contract.RatingAverage;
@@ -229,6 +230,8 @@ namespace VocaDb.Web.Models {
 
 		public PurchaseStatus AlbumPurchaseStatus { get; set; }
 
+		public bool CanEdit { get; set; }
+
 		public string CatNum { get; set; }
 
 		public ArtistWithAdditionalNamesContract[] Circles { get; set; }
@@ -250,8 +253,6 @@ namespace VocaDb.Web.Models {
 		public ArtistWithAdditionalNamesContract[] Labels { get; set; }
 
 		public CommentContract[] LatestComments { get; set; }
-
-		public bool Locked { get; set; }
 
 		public string Name { get; set; }
 

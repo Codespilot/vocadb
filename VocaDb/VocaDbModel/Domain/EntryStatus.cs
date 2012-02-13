@@ -6,7 +6,9 @@
 
 		Finished	= 1,
 
-		Locked		= 2
+		Approved	= 2,
+
+		Locked		= 4
 
 	}
 

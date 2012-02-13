@@ -135,6 +135,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscTypeNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\EntryStatusNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryStatusNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\PermissionFlagNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -895,6 +900,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_GlobalResources\EntryStatusNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryStatusNames.Designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

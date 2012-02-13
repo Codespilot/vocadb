@@ -9,7 +9,7 @@
 }
 
 @section Toolbar {
-@if (VocaDb.Web.Helpers.Login.CanManageDb) {
+@if (Login.CanEdit(Model)) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editArtistLink" });
 }
 

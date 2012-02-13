@@ -15,7 +15,7 @@
 <a href="#" id="updateAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Update in my collection</a>
 }
 	
-@if (Login.CanManageDb) {
+@if (Model.CanEdit) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
 

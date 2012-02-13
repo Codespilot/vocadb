@@ -262,6 +262,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected void VerifyEntryEdit(IEntryWithStatus entry) {
+
+			EntryPermissionManager.VerifyEdit(PermissionContext, entry);
+
+		}
+
 		protected void VerifyManageDatabase() {
 
 			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);

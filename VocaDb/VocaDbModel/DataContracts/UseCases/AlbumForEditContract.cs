@@ -20,7 +20,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public AlbumForEditContract(Album album, IEnumerable<Artist> allLabels , ContentLanguagePreference languagePreference)
 			: base(album, languagePreference) {
 
-			AllLabels = allLabels.Select(l => new ArtistContract(l, languagePreference)).ToArray();
+			//AllLabels = allLabels.Select(l => new ArtistContract(l, languagePreference)).ToArray();
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			Deleted = album.Deleted;
 			Description = album.Description;
@@ -36,7 +36,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
-		public ArtistContract[] AllLabels { get; set; }
+		//public ArtistContract[] AllLabels { get; set; }
 
 		[DataMember]
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }

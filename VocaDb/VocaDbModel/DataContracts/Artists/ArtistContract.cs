@@ -8,7 +8,15 @@ using Newtonsoft.Json.Converters;
 namespace VocaDb.Model.DataContracts.Artists {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class ArtistContract {
+	public class ArtistContract : IEntryWithStatus {
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		EntryType IEntryBase.EntryType {
+			get { return EntryType.Artist; }
+		}
 
 		public ArtistContract() {}
 

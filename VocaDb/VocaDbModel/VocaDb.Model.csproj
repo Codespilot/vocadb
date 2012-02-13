@@ -186,8 +186,10 @@
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
     <Compile Include="Domain\EntryRef.cs" />
     <Compile Include="Domain\IEntryWithIntId.cs" />
+    <Compile Include="Domain\IEntryWithStatus.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
+    <Compile Include="Domain\Security\EntryPermissionManager.cs" />
     <Compile Include="Domain\Songs\SongInList.cs" />
     <Compile Include="Domain\Songs\SongList.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />

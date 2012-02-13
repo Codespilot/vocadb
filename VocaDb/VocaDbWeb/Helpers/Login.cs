@@ -3,6 +3,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Helpers {
 
@@ -73,6 +74,14 @@ namespace VocaDb.Web.Helpers {
 
 			return Manager.HasPermission(PermissionFlags.ManageUserBlocks)
 				|| (comment.Author != null && User != null && comment.Author.Id == User.Id);
+
+		}
+
+		public static bool CanEdit(IEntryWithStatus entry) {
+
+			ParamIs.NotNull(() => entry);
+
+			return EntryPermissionManager.CanEdit(Manager, entry);
 
 		}
 

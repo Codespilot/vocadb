@@ -23,7 +23,7 @@ namespace VocaDb.Web.Helpers.Support {
 
 		public Dictionary<TEnum, string> ValuesAndNames {
 			get {
-				return Values.ToDictionary(t => t, GetName);
+				return GetValuesAndNames(Values);
 			}
 		}
 
@@ -41,6 +41,10 @@ namespace VocaDb.Web.Helpers.Support {
 
 		public string GetName(TEnum val) {
 			return resourceManager().GetString(val.ToString());
+		}
+
+		public Dictionary<TEnum, string> GetValuesAndNames(TEnum[] values) {
+			return values.ToDictionary(t => t, GetName);
 		}
 
 	}

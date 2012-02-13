@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Web.Helpers.Support;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Helpers {
 
@@ -18,6 +19,9 @@ namespace VocaDb.Web.Helpers {
 
 		public static readonly TranslateableEnum<MediaType> AlbumMediaTypeNames =
 			new TranslateableEnum<MediaType>(() => Resources.AlbumMediaTypeNames.ResourceManager);
+
+		public static readonly TranslateableEnum<EntryStatus> EntryStatusNames =
+			new TranslateableEnum<EntryStatus>(() => Resources.EntryStatusNames.ResourceManager);
 
 		public static readonly TranslateableEnum<PermissionFlags> PermissionFlagNames =
 			new TranslateableEnum<PermissionFlags>(() => Resources.PermissionFlagNames.ResourceManager);
