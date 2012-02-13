@@ -25,7 +25,7 @@ namespace VocaDb.Web.Controllers
 		private readonly Size pictureThumbSize = new Size(250, 250);
 
 		private AlbumService Service {
-			get { return MvcApplication.Services.Albums; }
+			get { return Services.Albums; }
 		}
 
 		public ActionResult ArchivedVersionCoverPicture(int id) {
