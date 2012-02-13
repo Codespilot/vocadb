@@ -257,6 +257,7 @@
     <Content Include="Content\draft.png" />
     <Content Include="Content\Icons\edit.png" />
     <Content Include="Content\favicon.ico" />
+    <Content Include="Content\Icons\help.png" />
     <Content Include="Content\Icons\remove.png" />
     <Content Include="Content\Icons\search.png" />
     <Content Include="Content\star.png" />

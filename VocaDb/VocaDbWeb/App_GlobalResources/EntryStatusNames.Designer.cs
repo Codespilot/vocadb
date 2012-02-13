@@ -79,11 +79,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finalized.
+        ///   Looks up a localized string similar to Finished.
         /// </summary>
-        internal static string Finalized {
+        internal static string Finished {
             get {
-                return ResourceManager.GetString("Finalized", resourceCulture);
+                return ResourceManager.GetString("Finished", resourceCulture);
             }
         }
         

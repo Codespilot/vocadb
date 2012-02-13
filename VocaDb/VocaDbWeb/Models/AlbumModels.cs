@@ -86,6 +86,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Record type")]
 		public DiscType DiscType { get; set; }
 
+		public bool Draft { get; set; }
+
 		public int Id { get; set; }
 
 		public string Name { get; set; }
@@ -138,6 +140,7 @@ namespace VocaDb.Web.Models {
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			ArtistLinks = album.ArtistLinks;
 			Deleted = album.Deleted;
+			Draft = album.Status == EntryStatus.Draft;
 			NameEnglish = album.TranslatedName.English;
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
