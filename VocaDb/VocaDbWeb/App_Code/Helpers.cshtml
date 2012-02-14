@@ -1,6 +1,7 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 @using System.Web.Mvc;
 @using System.Web.Mvc.Html;
+@using VocaDb.Model.Domain;
 @using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
 
@@ -162,6 +163,11 @@
 
 }
 
+@helper HelpMessage(string message) {
+	<span class="helpIcon" title="@message" />
+}
+
+
 @helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {
 	
 	<table>
@@ -174,8 +180,8 @@
 		</thead>
 		<tbody id="namesListBody">
 			@foreach (var name in names) {
-				RenderPartialExtensions.RenderPartial(Html, "LocalizedStringEditableRow", name);
-			}
+	   RenderPartialExtensions.RenderPartial(Html, "LocalizedStringEditableRow", name);
+   }
 		</tbody>
 
 	</table>
@@ -222,6 +228,24 @@
 			<img src="@Url.Content("~/Content/star_disabled.png")" alt="" />
 		}
 	}
+}
+
+@helper EntryStatusMessage(EntryStatus status) {
+	switch (status) {
+		case EntryStatus.Draft:
+			<span title="Draft entries are missing some required information.">
+				<span class="draftIcon" />
+				Draft
+			</span>
+			break;
+		case EntryStatus.Approved:
+			<span title="Approved entries are inspected by the staff members. Only trusted users can edit approved entries.">
+				<span class="acceptIcon" />
+				Approved
+			</span>
+			break;
+
+	}	
 }
 
 @helper ValidationSymmaryPanel(string message) {

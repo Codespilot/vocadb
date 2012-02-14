@@ -1094,6 +1094,9 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(properties.Song.Id);
+
+				VerifyEntryEdit(song);
+
 				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion()));
 
 				AuditLog(string.Format("updating properties for {0}", song));

@@ -15,9 +15,11 @@
 	<a href="#" id="addToListLink">Add to custom list</a>
 }
 
-@if (VocaDb.Web.Helpers.Login.CanManageDb) {
+@if (Model.CanEdit) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editSongLink" });
 }
+
+@if (Model
 
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }

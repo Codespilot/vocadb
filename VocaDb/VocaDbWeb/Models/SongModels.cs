@@ -17,6 +17,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Models {
 
@@ -35,6 +36,7 @@ namespace VocaDb.Web.Models {
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions;
+			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract.Song);
 			Deleted = contract.Deleted;
 			Draft = contract.Song.Status == EntryStatus.Draft;
 			Id = contract.Song.Id;
@@ -72,6 +74,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Alternate versions")]
 		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+
+		public bool CanEdit { get; set; }
 
 		public bool Deleted { get; set; }
 
@@ -133,7 +137,6 @@ namespace VocaDb.Web.Models {
 
 			ArtistLinks = song.Artists;
 			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
-			Draft = song.Song.Status == EntryStatus.Draft;
 			Id = song.Song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			Name = song.Song.Name;
@@ -145,11 +148,14 @@ namespace VocaDb.Web.Models {
 			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
 			PVs = song.PVs;
 			SongType = song.Song.SongType;
+			Status = song.Song.Status;
 			WebLinks = song.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			CopyNonEditableFields(song);
 
 		}
+
+		public EntryStatus[] AllowedEntryStatuses { get; set; }
 
 		public PVType[] AllPVTypes { get; set; }
 
@@ -201,6 +207,9 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }
 
+		[Display(Name = "Entry status")]
+		public EntryStatus Status { get; set; }
+
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "Web links")]
@@ -210,7 +219,9 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => song);
 
+			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			Deleted = song.Deleted;
+			Draft = song.Song.Status == EntryStatus.Draft;
 			ValidationResult = song.ValidationResult;
 
 		}
@@ -219,7 +230,7 @@ namespace VocaDb.Web.Models {
 
 			return new SongForEditContract {
 				Song = new SongContract {
-					Status = this.Draft ? EntryStatus.Draft : EntryStatus.Finished,
+					Status = this.Status,
 					Id = this.Id,
 					Name = this.Name,
 					SongType = this.SongType

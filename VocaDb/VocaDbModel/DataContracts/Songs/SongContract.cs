@@ -10,7 +10,15 @@ using VocaDb.Model.Domain.Songs;
 namespace VocaDb.Model.DataContracts.Songs {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class SongContract {
+	public class SongContract : IEntryWithStatus {
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		EntryType IEntryBase.EntryType {
+			get { return EntryType.Song; }
+		}
 
 		public SongContract() {}
 

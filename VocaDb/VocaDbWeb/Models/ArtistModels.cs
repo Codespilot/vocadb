@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Models {
 
@@ -66,7 +67,6 @@ namespace VocaDb.Web.Models {
 			ArtistType = artist.ArtistType;
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
-			Draft = artist.Status == EntryStatus.Draft;
 			Groups = artist.Groups;
 			Id = artist.Id;
 			Name = artist.Name;
@@ -74,6 +74,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = artist.TranslatedName.Japanese;
 			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
+			Status = artist.Status;
 			WebLinks = artist.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			CopyNonEditableFields(artist);
@@ -83,6 +84,8 @@ namespace VocaDb.Web.Models {
 		public IList<AlbumForArtistEditContract> AlbumLinks { get; set; }
 
 		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }
+
+		public EntryStatus[] AllowedEntryStatuses { get; set; }
 
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
@@ -120,6 +123,9 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		[Display(Name = "Entry status")]
+		public EntryStatus Status { get; set; }
+
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "Web links")]
@@ -129,7 +135,9 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => artist);
 
+			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			Deleted = artist.Deleted;
+			Draft = artist.Status == EntryStatus.Draft;
 			ValidationResult = artist.ValidationResult;
 
 		}
@@ -145,7 +153,7 @@ namespace VocaDb.Web.Models {
 				Groups = this.Groups.ToArray(),
 				Name = this.Name,
 				Names = this.Names.Select(l => l.ToContract()).ToArray(),
-				Status = (Draft ? EntryStatus.Draft : EntryStatus.Finished),
+				Status = this.Status,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()

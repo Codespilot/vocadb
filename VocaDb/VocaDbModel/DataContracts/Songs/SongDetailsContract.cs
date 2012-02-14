@@ -5,6 +5,7 @@ using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
