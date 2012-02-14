@@ -744,11 +744,12 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => properties);
 			ParamIs.NotNull(() => permissionContext);
 
-			permissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
-
 			HandleTransaction(session => {
 
 				var artist = session.Load<Artist>(properties.Id);
+
+				VerifyEntryEdit(artist);
+
 				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion()));
 
 				AuditLog(string.Format("updating properties for {0}", artist));

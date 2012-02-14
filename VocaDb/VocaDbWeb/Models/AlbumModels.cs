@@ -47,6 +47,7 @@ namespace VocaDb.Web.Models {
 			Name = album.Name;
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
 			PVs = album.PVs;
+			Status = album.Status;
 			Tracks = album.Songs;
 			WebLinks = album.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
@@ -122,7 +123,7 @@ namespace VocaDb.Web.Models {
 		[StringLength(50)]
 		public string ReleaseEvent { get; set; }
 
-		[Display(Name = "Status")]
+		[Display(Name = "Entry status")]
 		public EntryStatus Status { get; set; }
 
 		[Display(Name = "Tracks")]

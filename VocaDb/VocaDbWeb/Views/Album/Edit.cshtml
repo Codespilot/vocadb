@@ -163,7 +163,7 @@
 			</div>
 			<div class="editor-field">
 				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
-				<p>Entries that are missing important information can be marked as drafts so that others can finish them.</p>
+				@Helpers.HelpMessage("Entries that are missing important information can be marked as drafts so that others can finish them.")
 			</div>
 
 		</div>

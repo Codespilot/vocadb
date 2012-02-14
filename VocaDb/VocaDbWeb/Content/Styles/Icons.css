@@ -1,6 +1,14 @@
-﻿.acceptLink	{ background-image: url(../Icons/accept.png); }
+﻿.acceptLink, .acceptIcon { background-image: url(../Icons/accept.png); }
 .addLink	{ background-image: url(../Icons/add.png); }
 .deleteLink	{ background-image: url(../Icons/delete.png); }
+.draftIcon	{ background-image: url(../draft.png); }
 .editLink	{ background-image: url(../Icons/edit.png); }
+.helpLink, .helpIcon { background-image: url(../Icons/help.png); }
 .removeLink	{ background-image: url(../Icons/remove.png); }
 .searchLink	{ background-image: url(../Icons/search.png); }
+
+span.helpIcon {
+	width:32px; 
+	height: 32px;
+	cursor: help;
+}
