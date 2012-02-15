@@ -238,9 +238,17 @@
 				Draft
 			</span>
 			break;
+			
+		case EntryStatus.Finished:
+			<span title="Finished entries contain all the required information but haven't been approved yet.">
+				<span class="asteriskIcon" />
+				Finished
+			</span>
+			break;
+
 		case EntryStatus.Approved:
 			<span title="Approved entries are inspected by the staff members. Only trusted users can edit approved entries.">
-				<span class="acceptIcon" />
+				<span class="tickIcon" />
 				Approved
 			</span>
 			break;

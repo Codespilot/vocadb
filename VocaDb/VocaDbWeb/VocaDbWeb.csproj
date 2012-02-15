@@ -253,6 +253,7 @@
   <ItemGroup>
     <Content Include="Content\Icons\accept.png" />
     <Content Include="Content\Icons\add.png" />
+    <Content Include="Content\Icons\asterisk_yellow.png" />
     <Content Include="Content\Icons\delete.png" />
     <Content Include="Content\draft.png" />
     <Content Include="Content\Icons\edit.png" />
@@ -260,6 +261,7 @@
     <Content Include="Content\Icons\help.png" />
     <Content Include="Content\Icons\remove.png" />
     <Content Include="Content\Icons\search.png" />
+    <Content Include="Content\Icons\tick.png" />
     <Content Include="Content\star.png" />
     <Content Include="Content\star_disabled.png" />
     <Content Include="Content\Styles\Icons.css" />

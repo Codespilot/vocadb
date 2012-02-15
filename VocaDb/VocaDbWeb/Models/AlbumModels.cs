@@ -200,6 +200,7 @@ namespace VocaDb.Web.Models {
 			RatingAverage = contract.RatingAverage;
 			RatingCount = contract.RatingCount;
 			Songs = contract.Songs;
+			Status = contract.Status;
 			Tags = contract.Tags;
 			UserHasAlbum = contract.AlbumForUser != null;
 			WebLinks = contract.WebLinks;
@@ -277,6 +278,8 @@ namespace VocaDb.Web.Models {
 		public OptionalDateTimeContract ReleaseDate { get; set; }
 
 		public SongInAlbumContract[] Songs { get; set; }
+
+		public EntryStatus Status { get; set; }
 
 		public TagUsageContract[] Tags { get; set; }
 

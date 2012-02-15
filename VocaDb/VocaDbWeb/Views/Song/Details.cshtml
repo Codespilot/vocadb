@@ -19,7 +19,7 @@
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editSongLink" });
 }
 
-@if (Model
+@Helpers.EntryStatusMessage(Model.Status)
 
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }

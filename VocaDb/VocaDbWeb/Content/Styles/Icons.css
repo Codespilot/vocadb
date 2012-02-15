@@ -1,4 +1,5 @@
 ﻿.acceptLink, .acceptIcon { background-image: url(../Icons/accept.png); }
+.asteriskIcon { background-image: url(../Icons/asterisk_yellow.png); }
 .addLink	{ background-image: url(../Icons/add.png); }
 .deleteLink	{ background-image: url(../Icons/delete.png); }
 .draftIcon	{ background-image: url(../draft.png); }
@@ -6,6 +7,7 @@
 .helpLink, .helpIcon { background-image: url(../Icons/help.png); }
 .removeLink	{ background-image: url(../Icons/remove.png); }
 .searchLink	{ background-image: url(../Icons/search.png); }
+.tickLink, .tickIcon { background-image: url(../Icons/tick.png); }
 
 span.helpIcon {
 	width:32px; 

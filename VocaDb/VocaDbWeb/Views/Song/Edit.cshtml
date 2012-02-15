@@ -103,10 +103,13 @@
 				@Helpers.WebLinksList(Model.WebLinks)
 			</div>
 
-			<p title="Entries that are missing important information can be marked as drafts so that others can finish them.">
-				@Html.CheckBoxFor(m => m.Draft)
-				@Html.LabelFor(m => m.Draft)
-			</p>
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Status)
+			</div>
+			<div class="editor-field">
+				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+				@Helpers.HelpMessage("Entries that are missing important information can be marked as drafts so that others can finish them.")
+			</div>
 
 		</div>
 
