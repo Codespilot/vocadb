@@ -16,7 +16,7 @@ namespace VocaDb.Web.API.v1 {
         {
             context.MapRoute(
                 "ApiV1",
-                "api/v1/{controller}Api/{action}/{id}",
+                "api/v1/{controller}/{action}/{id}",
 				new { action = "Index", id = UrlParameter.Optional });
         }
 
