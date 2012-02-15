@@ -19,9 +19,9 @@
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editSongLink" });
 }
 
-@Helpers.EntryStatusMessage(Model.Status)
-
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+
+@Helpers.EntryStatusMessage(Model.Status)
 }
 
 @if (Model.Deleted) {
