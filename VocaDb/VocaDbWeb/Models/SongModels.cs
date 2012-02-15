@@ -50,6 +50,7 @@ namespace VocaDb.Web.Models {
 			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
+			Status = contract.Song.Status;
 			Tags = contract.Tags;
 			WebLinks = contract.WebLinks;
 
@@ -107,6 +108,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }
+
+		public EntryStatus Status { get; set; }
 
 		public TagUsageContract[] Tags { get; set; }
 
