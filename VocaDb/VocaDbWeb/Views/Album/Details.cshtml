@@ -21,6 +21,8 @@
 
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 @Html.ActionLink("Download track info as CSV", "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
+
+@Helpers.EntryStatusMessage(Model.Status)
 }
 
 @if (Model.Deleted) {
