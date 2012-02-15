@@ -10,9 +10,12 @@
 .tickLink, .tickIcon { background-image: url(../Icons/tick.png); }
 
 span.icon {
+	background-position: 3px 7px;
+	background-repeat: no-repeat;
 	display: inline-block;
 	width: 16px;
 	height: 16px;
+	padding: 3px;
 }
 
 span.helpIcon {
