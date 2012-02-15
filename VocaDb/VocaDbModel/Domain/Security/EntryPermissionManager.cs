@@ -13,7 +13,7 @@ namespace VocaDb.Model.Domain.Security {
 		private static EntryStatus[] trustedStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished, EntryStatus.Approved };
 
 		private static bool IsTrusted(IUserPermissionContext permissionContext) {
-			return permissionContext.HasPermission(PermissionFlags.ManageDatabase);
+			return permissionContext.HasPermission(PermissionFlags.DeleteEntries);
 		}
 
 		public static EntryStatus[] AllowedEntryStatuses(IUserPermissionContext permissionContext) {

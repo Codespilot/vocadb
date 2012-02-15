@@ -164,7 +164,7 @@
 }
 
 @helper HelpMessage(string message) {
-	<span class="helpIcon" title="@message" />
+	<span class="helpIcon" title="@message"></span>
 }
 
 
@@ -234,21 +234,21 @@
 	switch (status) {
 		case EntryStatus.Draft:
 			<span title="Draft entries are missing some required information.">
-				<span class="draftIcon" />
+				<span class="icon draftIcon"></span>
 				Draft
 			</span>
 			break;
 			
 		case EntryStatus.Finished:
 			<span title="Finished entries contain all the required information but haven't been approved yet.">
-				<span class="asteriskIcon" />
+				<span class="icon asteriskIcon"></span>
 				Finished
 			</span>
 			break;
 
 		case EntryStatus.Approved:
 			<span title="Approved entries are inspected by the staff members. Only trusted users can edit approved entries.">
-				<span class="tickIcon" />
+				<span class="icon tickIcon"></span>
 				Approved
 			</span>
 			break;

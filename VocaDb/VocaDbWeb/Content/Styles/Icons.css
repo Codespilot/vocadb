@@ -9,8 +9,15 @@
 .searchLink	{ background-image: url(../Icons/search.png); }
 .tickLink, .tickIcon { background-image: url(../Icons/tick.png); }
 
+span.icon {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
 span.helpIcon {
-	width:32px; 
-	height: 32px;
+	display: inline-block;
+	width: 16px; 
+	height: 16px;
 	cursor: help;
 }
