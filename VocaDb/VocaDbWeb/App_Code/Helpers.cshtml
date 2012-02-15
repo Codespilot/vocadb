@@ -119,7 +119,7 @@
 	
 }
 
-@helper EmbedPVThumb(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 340, int height = 185) {	
+@helper EmbedPVThumb(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 340, int height = 200) {	
 	if (pv != null) {
 		if (pv.Service == VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga) {
 		<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
