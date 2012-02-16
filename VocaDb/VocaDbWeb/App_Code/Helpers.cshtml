@@ -22,12 +22,12 @@
 						@ver.Contract.Version
 						(@ver.Status)		 
 						</a>
-	 } else {
+					} else {
 						<text>
 						@ver.Contract.Version
 						(@ver.Status)
 						</text>
-	 }
+					}
 				</td>
 				<td>
 					@ver.Contract.Created
@@ -163,10 +163,51 @@
 
 }
 
+@helper EntryStatusMessage(EntryStatus status) {
+	switch (status) {
+		case EntryStatus.Draft:
+			<span title="Draft entries are missing some required information.">
+				<span class="icon draftIcon"></span>
+				Draft
+			</span>
+			break;
+			
+		case EntryStatus.Finished:
+			<span title="Finished entries contain all the required information but haven't been approved yet.">
+				<span class="icon asteriskIcon"></span>
+				Finished
+			</span>
+			break;
+
+		case EntryStatus.Approved:
+			<span title="Approved entries are inspected by the staff members. Only trusted users can edit approved entries.">
+				<span class="icon tickIcon"></span>
+				Approved
+			</span>
+			break;
+
+	}	
+}
+
+@helper GoogleSiteSearch() {
+	
+<div id="cse" style="width: 100%;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+	google.load('search', '1', { language: 'en' });
+	google.setOnLoadCallback(function () {
+		var customSearchControl = new google.search.CustomSearchControl('010575853430721629857:uosxb117-zg');
+		customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+		customSearchControl.draw('cse');
+	}, true);
+</script>
+<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />	
+	
+}
+
 @helper HelpMessage(string message) {
 	<span class="helpIcon" title="@message"></span>
 }
-
 
 @helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {
 	
@@ -230,32 +271,6 @@
 	}
 }
 
-@helper EntryStatusMessage(EntryStatus status) {
-	switch (status) {
-		case EntryStatus.Draft:
-			<span title="Draft entries are missing some required information.">
-				<span class="icon draftIcon"></span>
-				Draft
-			</span>
-			break;
-			
-		case EntryStatus.Finished:
-			<span title="Finished entries contain all the required information but haven't been approved yet.">
-				<span class="icon asteriskIcon"></span>
-				Finished
-			</span>
-			break;
-
-		case EntryStatus.Approved:
-			<span title="Approved entries are inspected by the staff members. Only trusted users can edit approved entries.">
-				<span class="icon tickIcon"></span>
-				Approved
-			</span>
-			break;
-
-	}	
-}
-
 @helper ValidationSymmaryPanel(string message) {
 	if (!ViewData.ModelState.IsValid) {
 		using (Html.BeginErrorPanel()) {
@@ -263,22 +278,6 @@
 			@Html.ValidationSummary(false, message)
 		}
 	}
-}
-
-@helper GoogleSiteSearch() {
-	
-<div id="cse" style="width: 100%;">Loading</div>
-<script src="http://www.google.com/jsapi" type="text/javascript"></script>
-<script type="text/javascript">
-	google.load('search', '1', { language: 'en' });
-	google.setOnLoadCallback(function () {
-		var customSearchControl = new google.search.CustomSearchControl('010575853430721629857:uosxb117-zg');
-		customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
-		customSearchControl.draw('cse');
-	}, true);
-</script>
-<link rel="stylesheet" href="http://www.google.com/cse/style/look/default.css" type="text/css" />	
-	
 }
 
 @helper WebLinksList(IEnumerable<VocaDb.Web.Models.Shared.WebLinkDisplay> webLinks) {
