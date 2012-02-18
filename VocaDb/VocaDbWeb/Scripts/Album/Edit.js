@@ -158,6 +158,7 @@ function initPage(albumId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
+	$("#statusHelp").tooltip();
 
 	$(".isSupportCheck").live("change", function () {
 

@@ -108,7 +108,7 @@
 			</div>
 			<div class="editor-field">
 				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
-				@Helpers.HelpMessage("Entries that are missing important information can be marked as drafts so that others can finish them.")
+				@Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
 			</div>
 
 		</div>
@@ -192,6 +192,10 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Edit.js")"></script>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/jquery.tooltip.css")" type="text/css" />
+<script src="@Url.Content("~/Scripts/jquery.tooltip.min.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
 
 	$(document).ready(function() { 

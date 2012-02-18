@@ -1129,7 +1129,8 @@ namespace VocaDb.Model.Service {
 				if (nameDiff.Changed)
 					diff.Names = true;
 
-				var webLinkDiff = WebLink.Sync(song.WebLinks, properties.WebLinks, song);
+				var validWebLinks = properties.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
+				var webLinkDiff = WebLink.Sync(song.WebLinks, validWebLinks, song);
 				SessionHelper.Sync(session, webLinkDiff);
 
 				if (webLinkDiff.Changed)
