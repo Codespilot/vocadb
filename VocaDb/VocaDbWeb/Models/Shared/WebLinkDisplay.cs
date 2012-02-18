@@ -26,7 +26,6 @@ namespace VocaDb.Web.Models.Shared {
 
 		public int Id { get; set; }
 
-		[Required]
 		[StringLength(512)]
 		[DataType(DataType.Url)]
 		public string Url { get; set; }

@@ -205,8 +205,12 @@
 	
 }
 
-@helper HelpMessage(string message) {
-	<span class="helpIcon" title="@message"></span>
+@helper HelpMessage(string message, string id = null) {
+	if (string.IsNullOrEmpty(id)) {
+		<span class="helpIcon" title="@message"></span>
+	} else {
+		<span class="helpIcon" title="@message" id="@id"></span>	 
+	}
 }
 
 @helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {
