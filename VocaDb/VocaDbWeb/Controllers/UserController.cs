@@ -363,15 +363,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete("Disabled")]
-    	[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddNewAlbum(string newAlbumName) {
-
-			var link = Service.AddAlbum(LoggedUserId, newAlbumName);
-			return PartialView("AlbumForUserSettingsRow", new AlbumForUserEditModel(link));
-
-		}
-
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingAlbum(int albumId) {
 
