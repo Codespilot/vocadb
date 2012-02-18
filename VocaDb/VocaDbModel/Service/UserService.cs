@@ -63,6 +63,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		// For quick-adding the album on user page
 		public AlbumForUserContract AddAlbum(int userId, int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
@@ -76,32 +77,6 @@ namespace VocaDb.Model.Service {
 
 				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc, AlbumForUser.NotRated);
 				session.Save(albumForUser);
-
-				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
-		[Obsolete("Disabled")]
-		public AlbumForUserContract AddAlbum(int userId, string newAlbumName) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
-
-			return HandleTransaction(session => {
-
-				var user = session.Load<User>(userId);
-
-				AuditLog(string.Format("creating a new album '{0}' for {1}", newAlbumName, user), session);
-
-				var album = new Album(newAlbumName);
-
-				session.Save(album);
-				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc, AlbumForUser.NotRated);
-				session.Update(user);
-
-				Services.Albums.Archive(session, album, AlbumArchiveReason.Created);
-				session.Update(album);
 
 				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
 
@@ -531,6 +506,7 @@ namespace VocaDb.Model.Service {
 
 					albumForUser = user.AddAlbum(album, status, mediaType, rating);
 					session.Save(albumForUser);
+					session.Update(album);
 
 					AuditLog(string.Format("added {0} for {1}", album, user), session);
 
@@ -543,6 +519,7 @@ namespace VocaDb.Model.Service {
 					if (albumForUser.Rating != rating) {
 						albumForUser.Rating = rating;
 						albumForUser.Album.UpdateRatingTotals();
+						session.Update(albumForUser.Album);
 					}
 
 					AuditLog("updated " + albumForUser, session);

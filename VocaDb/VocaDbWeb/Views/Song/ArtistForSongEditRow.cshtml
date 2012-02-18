@@ -3,18 +3,18 @@
 
 <tr>
 	<td>
-		@using (Html.BeginCollectionItem("ArtistLinks")) {
-			@Html.HiddenFor(m => m.Id);
-			@Html.HiddenFor(m => m.Artist.Id);
-			@Html.HiddenFor(m => m.Artist.AdditionalNames);
-			@Html.HiddenFor(m => m.Artist.Name);									
-			@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
-			<span class="extraInfo">@Model.Artist.AdditionalNames</span>
-		}
+		@{ var item = Html.BeginCollectionItem("ArtistLinks"); }
+		@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.Artist.Id)
+		@Html.HiddenFor(m => m.Artist.AdditionalNames)
+		@Html.HiddenFor(m => m.Artist.Name)								
+		@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
+		<span class="extraInfo">@Model.Artist.AdditionalNames</span>
 	</td>
 	<td>
 		@Html.CheckBoxFor(m => m.IsSupport)
 		@Html.LabelFor(m => m.IsSupport, "Support")
+		@{ item.Dispose(); }
 	</td>
 	<td>
 		<a href="#" class="artistRemove textLink removeLink">Remove</a>
