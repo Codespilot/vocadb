@@ -75,6 +75,7 @@ namespace VocaDb.Web.Models {
 			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
 			Status = artist.Status;
+			TooManyAlbums = artist.TooManyAlbums;
 			WebLinks = artist.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			CopyNonEditableFields(artist);
@@ -126,6 +127,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Entry status")]
 		public EntryStatus Status { get; set; }
 
+		public bool TooManyAlbums { get; set; }
+
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "Web links")]
@@ -154,6 +157,7 @@ namespace VocaDb.Web.Models {
 				Name = this.Name,
 				Names = this.Names.Select(l => l.ToContract()).ToArray(),
 				Status = this.Status,
+				TooManyAlbums = this.TooManyAlbums,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()

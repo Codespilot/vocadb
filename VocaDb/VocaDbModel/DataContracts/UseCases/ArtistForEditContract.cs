@@ -12,12 +12,19 @@ namespace VocaDb.Model.DataContracts.UseCases {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArtistForEditContract : ArtistWithAdditionalNamesContract {
 
+		public const int MaxAlbums = 200;
+
 		public ArtistForEditContract() { }
 
 		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			AlbumLinks = artist.Albums.Select(a => new AlbumForArtistEditContract(a, languagePreference)).OrderBy(a => a.AlbumName).ToArray();
+			if (artist.Albums.Count() <= MaxAlbums)
+				AlbumLinks = artist.Albums.Select(a => new AlbumForArtistEditContract(a, languagePreference)).OrderBy(a => a.AlbumName).ToArray();
+			else {
+				TooManyAlbums = true;
+			}
+
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
@@ -49,6 +56,9 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		[DataMember]
 		public LocalizedStringWithIdContract[] Names { get; set; }
+
+		[DataMember]
+		public bool TooManyAlbums { get; set; }
 
 		public ValidationResult ValidationResult { get; set; }
 
