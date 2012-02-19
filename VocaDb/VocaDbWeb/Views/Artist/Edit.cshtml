@@ -29,6 +29,7 @@
 @using (Html.BeginForm("EditBasicDetails", "Artist", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
+	@Html.HiddenFor(m => m.TooManyAlbums)
 
 	<p>
 		<input type="submit" value="Save changes" />
@@ -125,18 +126,22 @@
 		</div>
 
 		<div id="discoTab">
-			<table>
-				<tbody id="albumTableBody">
-				@foreach (var album in Model.AlbumLinks) {
-				   Html.RenderPartial("ArtistForAlbumRow", album);
-			   }
-				</tbody>
-			</table>
+			@if (!Model.TooManyAlbums) {
+				<table>
+					<tbody id="albumTableBody">
+					@foreach (var album in Model.AlbumLinks) {
+					   Html.RenderPartial("ArtistForAlbumRow", album);
+				   }
+					</tbody>
+				</table>
 
-			<h4>Add album</h4>
-			@Helpers.EntrySearchBox("albumAdd", false)
-			<br />
-			<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
+				<h4>Add album</h4>
+				@Helpers.EntrySearchBox("albumAdd", false)
+				<br />
+				<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
+			} else {
+				@Helpers.NotificationPanel("Album list editing is disabled for artists with too many albums.")
+			}
 		</div>
 
 	</div>

@@ -844,21 +844,24 @@ namespace VocaDb.Model.Service {
 
 				});
 
-				var albumDiff = artist.SyncAlbums(properties.AlbumLinks, albumGetter);
+				if (properties.AlbumLinks != null && !properties.TooManyAlbums && artist.Albums.Count() <= ArtistForEditContract.MaxAlbums) {
+					var albumDiff = artist.SyncAlbums(properties.AlbumLinks, albumGetter);
 
-				SessionHelper.Sync(session, albumDiff);
+					SessionHelper.Sync(session, albumDiff);
 
-				if (albumDiff.Changed) {
+					if (albumDiff.Changed) {
 
-					diff.Albums = true;
+						diff.Albums = true;
 
-					var add = string.Join(", ", albumDiff.Added.Select(i => i.Album.ToString()));
-					var rem = string.Join(", ", albumDiff.Removed.Select(i => i.Album.ToString()));
+						var add = string.Join(", ", albumDiff.Added.Select(i => i.Album.ToString()));
+						var rem = string.Join(", ", albumDiff.Removed.Select(i => i.Album.ToString()));
 
-					var str = string.Format("edited albums (added: {0}, removed: {1})", add, rem)
-						.Truncate(300);
+						var str = string.Format("edited albums (added: {0}, removed: {1})", add, rem)
+							.Truncate(300);
 
-					AuditLog(str, session);
+						AuditLog(str, session);
+
+					}
 
 				}
 
