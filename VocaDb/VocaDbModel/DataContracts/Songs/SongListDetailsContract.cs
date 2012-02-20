@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
@@ -10,10 +11,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongListDetailsContract() {}
 
-		public SongListDetailsContract(SongList songList, ContentLanguagePreference languagePreference)
-			: base(songList) {
+		public SongListDetailsContract(SongList list, IUserPermissionContext permissionContext)
+			: base(list, permissionContext) {
 
-			SongLinks = songList.SongLinks.Select(s => new SongInListContract(s, languagePreference)).ToArray();
+			SongLinks = list.SongLinks.Select(s => new SongInListContract(s, permissionContext.LanguagePreference)).ToArray();
 
 		}
 

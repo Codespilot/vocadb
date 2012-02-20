@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Users;
-using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Security {
 
 	public static class EntryPermissionManager {
 
-		private static EntryStatus[] allPermissions = EnumVal<EntryStatus>.Values;
-		private static EntryStatus[] normalStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished };
-		private static EntryStatus[] trustedStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished, EntryStatus.Approved };
+		private static readonly EntryStatus[] allPermissions = EnumVal<EntryStatus>.Values;
+		private static readonly EntryStatus[] normalStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished };
+		private static readonly EntryStatus[] trustedStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished, EntryStatus.Approved };
 
 		private static bool IsMod(IUserPermissionContext permissionContext) {
 			return permissionContext.HasPermission(PermissionFlags.ManageUserBlocks);
@@ -36,6 +33,24 @@ namespace VocaDb.Model.Domain.Security {
 
 		}
 
+		public static bool CanCreateFeaturedLists(IUserPermissionContext permissionContext) {
+
+			return IsTrusted(permissionContext);
+
+		}
+
+		public static bool CanEdit(IUserPermissionContext permissionContext, SongList songList) {
+
+			if (IsMod(permissionContext))
+				return true;
+
+			if (songList.FeaturedCategory != SongListFeaturedCategory.Nothing && IsTrusted(permissionContext))
+				return true;
+
+			return (permissionContext.Equals(songList.Author));
+
+		}
+
 		public static bool CanEdit(IUserPermissionContext permissionContext, IEntryWithStatus entry) {
 
 			ParamIs.NotNull(() => entry);
@@ -53,12 +68,24 @@ namespace VocaDb.Model.Domain.Security {
 
 		}
 
-		public static void VerifyEdit(IUserPermissionContext permissionContext, IEntryWithStatus entry) {
+		public static void VerifyAccess<T>(IUserPermissionContext permissionContext, T entry, Func<IUserPermissionContext, T, bool> accessCheck) where T : class, IEntryBase {
 
 			ParamIs.NotNull(() => entry);
 
-			if (!CanEdit(permissionContext, entry))
-				throw new NotAllowedException();				
+			if (!accessCheck(permissionContext, entry))
+				throw new NotAllowedException();
+
+		}
+
+		public static void VerifyEdit(IUserPermissionContext permissionContext, SongList entry) {
+
+			VerifyAccess(permissionContext, entry, CanEdit);
+
+		}
+
+		public static void VerifyEdit(IUserPermissionContext permissionContext, IEntryWithStatus entry) {
+
+			VerifyAccess(permissionContext, entry, CanEdit);
 
 		}
 

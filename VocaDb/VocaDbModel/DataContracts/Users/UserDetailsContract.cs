@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
@@ -9,13 +10,13 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public UserDetailsContract() {}
 
-		public UserDetailsContract(User user) 
+		public UserDetailsContract(User user, IUserPermissionContext permissionContext) 
 			: base(user) {
 
 			//AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
 			//FavoriteSongs = user.FavoriteSongs.Select(f => new FavoriteSongForUserContract(f, languagePreference)).OrderBy(s => s.Song.Name).ToArray();
 			LastLogin = user.LastLogin;
-			SongLists = user.SongLists.Select(l => new SongListContract(l)).ToArray();
+			SongLists = user.SongLists.Select(l => new SongListContract(l, permissionContext)).ToArray();
 
 		}
 

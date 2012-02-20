@@ -29,6 +29,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<PVType> PVTypeNames =
 			new TranslateableEnum<PVType>(() => Resources.PVTypeNames.ResourceManager);
 
+		public static readonly TranslateableEnum<SongListFeaturedCategory> SongListFeaturedCategoryNames =
+			new TranslateableEnum<SongListFeaturedCategory>(() => Resources.SongListFeaturedCategoryNames.ResourceManager);
+
 		public static readonly TranslateableEnum<UserGroupId> UserGroups =
 			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);
 

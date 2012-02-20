@@ -29,7 +29,7 @@ namespace VocaDb.Model.Service {
 
 		private UserDetailsContract GetUserDetails(ISession session, User user) {
 
-			var details = new UserDetailsContract(user);
+			var details = new UserDetailsContract(user, PermissionContext);
 
 			details.AlbumCollectionCount
 				= session.Query<AlbumForUser>().Where(c => c.User == user && !c.Album.Deleted).Count();

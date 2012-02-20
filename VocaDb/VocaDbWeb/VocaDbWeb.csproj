@@ -160,6 +160,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongEditableFieldNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongListFeaturedCategoryNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongListFeaturedCategoryNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -907,6 +912,10 @@
     <Content Include="App_GlobalResources\EntryStatusNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EntryStatusNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongListFeaturedCategoryNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongListFeaturedCategoryNames.Designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">

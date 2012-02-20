@@ -3,6 +3,8 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model;
+using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Models.SongLists {
 
@@ -18,17 +20,25 @@ namespace VocaDb.Web.Models.SongLists {
 
 			CurrentName = contract.Name;
 			Description = contract.Description;
+			FeaturedCategory = contract.FeaturedCategory;
 			Id = contract.Id;
 			Name = contract.Name;
 			SongLinks = contract.SongLinks;
 
+			CanCreateFeaturedLists = EntryPermissionManager.CanCreateFeaturedLists(MvcApplication.LoginManager);
+
 		}
+
+		public bool CanCreateFeaturedLists { get; set; }
 
 		public string CurrentName { get; set; }
 
 		[Display(Name = "Description")]
 		[StringLength(2000)]
 		public string Description { get; set; }
+
+		[Display(Name = "Featured category")]
+		public SongListFeaturedCategory FeaturedCategory { get; set; }
 
 		public int Id { get; set; }
 
@@ -44,6 +54,7 @@ namespace VocaDb.Web.Models.SongLists {
 
 			return new SongListForEditContract {
 				Description = this.Description ?? string.Empty,
+				FeaturedCategory = this.FeaturedCategory,
 				Id = this.Id,
 				Name = this.Name,
 				SongLinks = this.SongLinks.ToArray()

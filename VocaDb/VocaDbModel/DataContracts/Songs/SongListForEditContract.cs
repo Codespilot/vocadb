@@ -1,7 +1,6 @@
 ﻿using System.Linq;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.DataContracts.Users;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
@@ -11,12 +10,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 			SongLinks = new SongInListEditContract[] {};
 		}
 
-		public SongListForEditContract(SongList songList, ContentLanguagePreference languagePreference)
-			: base(songList) {
+		public SongListForEditContract(SongList songList, IUserPermissionContext permissionContext)
+			: base(songList, permissionContext) {
 
-			SongLinks = songList.SongLinks.Select(s => new SongInListEditContract(s, languagePreference)).ToArray();
+			SongLinks = songList.SongLinks.Select(s => new SongInListEditContract(s, permissionContext.LanguagePreference)).ToArray();
 
 		}
+
 
 		public SongInListEditContract[] SongLinks { get; set; }
 
