@@ -1,5 +1,6 @@
 ﻿using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Security {
 
@@ -18,6 +19,8 @@ namespace VocaDb.Model.Domain.Security {
 		/// Name of the currently acting agent. Cannot be null or empty.
 		/// </summary>
 		string Name { get; }
+
+		UserGroupId UserGroupId { get; }
 
 		bool HasPermission(PermissionFlags flag);
 

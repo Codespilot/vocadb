@@ -844,7 +844,11 @@ namespace VocaDb.Model.Service {
 
 				});
 
-				if (properties.AlbumLinks != null && !properties.TooManyAlbums && artist.Albums.Count() <= ArtistForEditContract.MaxAlbums) {
+				if (properties.AlbumLinks != null 
+					&& !properties.TooManyAlbums
+					&& (properties.AlbumLinks.Any() || artist.Albums.Count() < ArtistForEditContract.MaxAlbums / 2)  
+					&& artist.Albums.Count() <= ArtistForEditContract.MaxAlbums) {
+
 					var albumDiff = artist.SyncAlbums(properties.AlbumLinks, albumGetter);
 
 					SessionHelper.Sync(session, albumDiff);

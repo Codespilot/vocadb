@@ -126,6 +126,9 @@
   <data name="Moderator" xml:space="preserve">
     <value>Moderator</value>
   </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nothing</value>
+  </data>
   <data name="Regular" xml:space="preserve">
     <value>Regular user</value>
   </data>
