@@ -43,6 +43,7 @@
 @using (Html.BeginForm("Edit", "SongList", FormMethod.Post)) {
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.CurrentName)
+	@Html.HiddenFor(m => m.CanCreateFeaturedLists)
 
 	<p>
 		<input type="submit" value="Save changes" />
@@ -71,6 +72,15 @@
 			<div class="editor-field">
 				@Html.TextAreaFor(m => m.Description, new { cols = 60, rows = 4 })
 			</div>
+
+			@if (Model.CanCreateFeaturedLists) {
+				<div class="editor-label">
+					@Html.LabelFor(m => m.FeaturedCategory)
+				</div>
+				<div class="editor-field">
+					@Html.EnumDropDownListFor(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames)
+				</div>
+			}
 
 		</div>
 

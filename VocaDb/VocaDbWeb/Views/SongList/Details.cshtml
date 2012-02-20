@@ -8,12 +8,10 @@
 		Html.ActionLink(Model.Author.Name, "Details", "User", new { id = Model.Author.Id }, null) 
 	};
 	
-	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Author.Id && Login.User.Active);
-	
 }
 
 @section Toolbar {	
-@if (ownProfile || Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionFlags.ManageUserBlocks)) {
+@if (Model.CanEdit) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editListLink" });
 }
 }

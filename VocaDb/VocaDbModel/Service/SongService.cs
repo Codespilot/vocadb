@@ -469,6 +469,10 @@ namespace VocaDb.Model.Service {
 			var user = GetLoggedUser(session);
 			var newList = new SongList(contract.Name, user);
 			newList.Description = contract.Description;
+
+			if (EntryPermissionManager.CanCreateFeaturedLists(PermissionContext))
+				newList.FeaturedCategory = contract.FeaturedCategory;
+
 			session.Save(newList);
 
 			var songDiff = newList.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
@@ -659,20 +663,20 @@ namespace VocaDb.Model.Service {
 
 		public SongListContract GetSongList(int listId) {
 
-			return HandleQuery(session => new SongListContract(session.Load<SongList>(listId)));
+			return HandleQuery(session => new SongListContract(session.Load<SongList>(listId), PermissionContext));
 
 		}
 
 		public SongListDetailsContract GetSongListDetails(int listId) {
 
 			return HandleQuery(session => new SongListDetailsContract(
-				session.Load<SongList>(listId), PermissionContext.LanguagePreference));
+				session.Load<SongList>(listId), PermissionContext));
 
 		}
 
 		public SongListForEditContract GetSongListForEdit(int listId) {
 
-			return HandleQuery(session => new SongListForEditContract(session.Load<SongList>(listId), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new SongListForEditContract(session.Load<SongList>(listId), PermissionContext));
 
 		}
 
@@ -688,7 +692,7 @@ namespace VocaDb.Model.Service {
 					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id)
 					.OrderBy(l => l.Name).ToArray()
 					.Where(l => !l.AllSongs.Any(s => s.Song.Equals(ignoredSong)))
-					.Select(l => new SongListContract(l)).ToArray();
+					.Select(l => new SongListContract(l, PermissionContext)).ToArray();
 
 			});
 
@@ -1246,11 +1250,13 @@ namespace VocaDb.Model.Service {
 
 					list = session.Load<SongList>(contract.Id);
 
-					if (!PermissionContext.HasPermission(PermissionFlags.ManageUserBlocks))
-						VerifyResourceAccess(list.Author);
+					EntryPermissionManager.VerifyEdit(PermissionContext, list);
 
 					list.Description = contract.Description;
 					list.Name = contract.Name;
+
+					if (EntryPermissionManager.CanCreateFeaturedLists(PermissionContext))
+						list.FeaturedCategory = contract.FeaturedCategory;
 
 					var songDiff = list.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
 					SessionHelper.Sync(session, songDiff);

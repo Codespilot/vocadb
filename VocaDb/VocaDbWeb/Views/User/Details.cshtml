@@ -118,7 +118,7 @@
 				<tr>
 					<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
 					<td>
-						@if (ownProfile || Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
+						@if (list.CanEdit) {
 							<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
 						}
 					</td>

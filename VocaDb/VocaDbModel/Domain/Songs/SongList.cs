@@ -60,6 +60,8 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual SongListFeaturedCategory FeaturedCategory { get; set; }
+
 		public virtual int Id { get; set; }
 
 		public virtual string Name {
@@ -131,7 +133,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return "song list '" + Name + "' [" + Id + "]";
+			return string.Format("song list '{0}' [{1}]", Name, Id);
 		}
 
 	}
