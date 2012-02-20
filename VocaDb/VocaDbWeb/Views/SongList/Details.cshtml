@@ -32,6 +32,8 @@
 	<p>@Helpers.ConvertNewlinesToBreaks(Model.Description)</p>
 }
 
+<p>@Model.SongLinks.Count() song(s).</p>
+
 <div class="tracklist">
 	<ul>
 		@foreach (var link in Model.SongLinks) {
