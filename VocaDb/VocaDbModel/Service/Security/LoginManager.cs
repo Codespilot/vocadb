@@ -7,6 +7,7 @@ using log4net;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service.Security {
 
@@ -91,6 +92,17 @@ namespace VocaDb.Model.Service.Security {
 		public string Name {
 			get {
 				return User.Identity.Name;
+			}
+		}
+
+		public UserGroupId UserGroupId {
+			get {
+
+				if (LoggedUser == null)
+					return UserGroupId.Nothing;
+
+				return LoggedUser.GroupId;
+
 			}
 		}
 

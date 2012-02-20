@@ -9,8 +9,13 @@ namespace VocaDb.Model.Domain.Security {
 
 	public static class EntryPermissionManager {
 
+		private static EntryStatus[] allPermissions = EnumVal<EntryStatus>.Values;
 		private static EntryStatus[] normalStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished };
 		private static EntryStatus[] trustedStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished, EntryStatus.Approved };
+
+		private static bool IsMod(IUserPermissionContext permissionContext) {
+			return permissionContext.HasPermission(PermissionFlags.ManageUserBlocks);
+		}
 
 		private static bool IsTrusted(IUserPermissionContext permissionContext) {
 			return permissionContext.HasPermission(PermissionFlags.DeleteEntries);
@@ -20,6 +25,9 @@ namespace VocaDb.Model.Domain.Security {
 
 			if (!permissionContext.HasPermission(PermissionFlags.ManageDatabase))
 				return new EntryStatus[] {};
+
+			if (IsMod(permissionContext))
+				return allPermissions;
 
 			if (IsTrusted(permissionContext))
 				return trustedStatusPermissions;
@@ -34,6 +42,9 @@ namespace VocaDb.Model.Domain.Security {
 
 			if (!permissionContext.HasPermission(PermissionFlags.ManageDatabase))
 				return false;
+
+			if (IsMod(permissionContext))
+				return true;
 
 			if (IsTrusted(permissionContext))
 				return (trustedStatusPermissions.Contains(entry.Status));
