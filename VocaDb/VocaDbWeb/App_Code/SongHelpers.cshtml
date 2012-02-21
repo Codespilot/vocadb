@@ -33,9 +33,9 @@
 @helper SongLists(IEnumerable<SongListContract> songLists) {
 	
 	<table>
-		@foreach (var list in Model.SongLists) {
+		@foreach (var list in songLists) {
 			<tr>
-				<td>@LinkExtensions.ActionLink(Html, list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
+				<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
 				<td>
 					@if (list.CanEdit) {
 						<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
