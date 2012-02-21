@@ -8,12 +8,12 @@
 <div id="tabs">
 	<ul>
 @foreach (var cat in Model) {
-		<li><a href="@("#" + cat.Category + "tab")">@Translate.SongListFeaturedCategoryNames[cat.Category]</a></li>
+		<li><a href="@("#" + cat.Category + "Tab")">@Translate.SongListFeaturedCategoryNames[cat.Category]</a></li>
 }
 	</ul>	
 
 @foreach (var cat in Model) {
-	<div id="@("#" + cat.Category + "tab")">
+	<div id="@(cat.Category + "Tab")" style="padding:10px;">
 
 		@SongHelpers.SongLists(cat.Lists)
 
@@ -21,3 +21,11 @@
 }
 
 </div>
+
+@section BodyScripts {
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#tabs").tabs();
+	});
+</script>
+}
