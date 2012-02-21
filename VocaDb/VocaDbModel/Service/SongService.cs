@@ -667,6 +667,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongListsByCategoryContract[] GetSongListsByCategory() {
+
+			return HandleQuery(session => {
+
+				var lists = session.Query<SongList>().Where(l => l.FeaturedCategory != SongListFeaturedCategory.Nothing).GroupBy(l => l.FeaturedCategory).ToArray();
+
+				return lists.Select(l => new SongListsByCategoryContract(l.Key, l, PermissionContext)).ToArray();
+
+			});
+
+		}
+
 		public SongListDetailsContract GetSongListDetails(int listId) {
 
 			return HandleQuery(session => new SongListDetailsContract(

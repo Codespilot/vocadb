@@ -35,7 +35,7 @@
 	<table>
 		@foreach (var list in Model.SongLists) {
 			<tr>
-				<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
+				<td>@LinkExtensions.ActionLink(Html, list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
 				<td>
 					@if (list.CanEdit) {
 						<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
