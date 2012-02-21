@@ -93,5 +93,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Featured() {
+
+			var lists = Service.GetSongListsByCategory();
+
+			return View(lists);
+
+		}
+
     }
 }
