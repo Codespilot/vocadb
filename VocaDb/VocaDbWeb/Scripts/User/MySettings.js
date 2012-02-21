@@ -9,6 +9,25 @@ function initPage(userId) {
 
 	$("#tabs").tabs();
 
+	$(".collectionRating").jqxRating();
+
+	$(".ratingVal").each(function() {
+
+		var val = $(this).val();
+
+		$(this).parent().find(".collectionRating").jqxRating({ value: val });
+
+	});
+
+	$(".collectionRating").bind('change', function (event) {
+
+		var id = getId($(this).parent().parent());
+		var val = event.value;
+
+		$.post("../User/UpdateAlbumForUserRating", { albumForUserId: id, rating: val });
+
+	});
+
 	function acceptAlbumSelection(albumId, term) {
 
 		if (!isNullOrWhiteSpace(albumId)) {

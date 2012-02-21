@@ -208,6 +208,7 @@ namespace VocaDb.Web.Models {
 			Album = contract.Album;
 			Id = contract.Id;
 			MediaType = contract.MediaType;
+			Rating = contract.Rating;
 
 		}
 
@@ -219,6 +220,7 @@ namespace VocaDb.Web.Models {
 
 		public MediaType MediaType { get; set; }
 
+		public int Rating { get; set; }
 
 	}
 

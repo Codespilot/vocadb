@@ -4,6 +4,10 @@
 	<td>@Html.ActionLink(Model.Album.Name, "Edit", "Album", new { id = Model.Album.Id }, null)</td>
 	<td>@Html.DropDownListFor(m => m.MediaType, new SelectList(Model.AllMediaTypes, Model.MediaType), new { id = "albumMediaType_" + Model.Id, @class = "albumMediaType" })</td>
 	<td>
+		@Html.HiddenFor(m => m.Rating, new { @class = "ratingVal" })
+		<div class="collectionRating"></div>
+	</td>
+	<td>
 		<a href="#" class="albumRemove textLink removeLink" id="@("albumRemove_" + Model.Id)">Remove</a>
 	</td>
 </tr>
