@@ -126,6 +126,9 @@
   <data name="Drafts" xml:space="preserve">
     <value>Luonnokset</value>
   </data>
+  <data name="FeaturedSongLists" xml:space="preserve">
+    <value>Julkiset kappalelistat</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Hae</value>
   </data>

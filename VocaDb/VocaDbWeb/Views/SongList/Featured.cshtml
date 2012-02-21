@@ -1,0 +1,23 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Songs.SongListsByCategoryContract[]
+
+@{
+    ViewBag.Title = "Featured song lists";
+}
+
+<div id="tabs">
+	<ul>
+@foreach (var cat in Model) {
+		<li><a href="@("#" + cat.Category + "tab")">@Translate.SongListFeaturedCategoryNames[cat.Category]</a></li>
+}
+	</ul>	
+
+@foreach (var cat in Model) {
+	<div id="@("#" + cat.Category + "tab")">
+
+		@SongHelpers.SongLists(cat.Lists)
+
+	</div>
+}
+
+</div>

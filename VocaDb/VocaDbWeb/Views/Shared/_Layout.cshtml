@@ -73,6 +73,7 @@
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.TopFavoritedSongs, "TopFavorited", "Song")</li>
 						</ul>
 					</li>
+					<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
 					<li>@Html.ActionLink(ViewRes.SharedStrings.Tags, "Index", "Tag")</li>
 					<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
 					@if (Login.Manager.HasPermission(PermissionFlags.MikuDbImport)) {

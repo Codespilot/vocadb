@@ -1,7 +1,8 @@
-﻿@using System.Web.Mvc;
+﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Web.Helpers;
-@inherits VocaDb.Web.Code.HelperPage
 
 @helper LyricsInfo(LyricsForSongContract lyrics) {
 	<text>@lyrics.Language (@lyrics.Source)</text>
@@ -26,5 +27,22 @@
 		</table>	
 
 	</fieldset>
+
+}
+
+@helper SongLists(IEnumerable<SongListContract> songLists) {
+	
+	<table>
+		@foreach (var list in Model.SongLists) {
+			<tr>
+				<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
+				<td>
+					@if (list.CanEdit) {
+						<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
+					}
+				</td>
+			</tr>
+		}
+	</table>
 
 }

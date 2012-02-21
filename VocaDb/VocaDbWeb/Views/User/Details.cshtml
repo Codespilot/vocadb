@@ -113,18 +113,7 @@
 	</div>
 
 	<div id="customLists">
-		<table>
-			@foreach (var list in Model.SongLists) {
-				<tr>
-					<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
-					<td>
-						@if (list.CanEdit) {
-							<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
-						}
-					</td>
-				</tr>
-			}
-		</table>
+		@SongHelpers.SongLists(Model.SongLists)
 
 		@if (ownProfile) {
 			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">Create new list</a>
