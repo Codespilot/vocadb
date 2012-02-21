@@ -364,6 +364,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public void UpdateAlbumForUserRating(int albumForUserId, int rating) {
+
+			Service.UpdateAlbumForUserRating(albumForUserId, rating);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingAlbum(int albumId) {
 
 			var link = Service.AddAlbum(LoggedUserId, albumId);

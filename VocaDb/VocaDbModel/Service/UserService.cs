@@ -538,6 +538,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateAlbumForUserRating(int albumForUserId, int rating) {
+
+			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+
+			HandleTransaction(session => {
+
+				var albumForUser = session.Load<AlbumForUser>(albumForUserId);
+
+				albumForUser.Rating = rating;
+				albumForUser.Album.UpdateRatingTotals();
+				session.Update(albumForUser.Album);
+
+			});
+
+		}
+
 		public void UpdateUser(UserContract contract) {
 
 			ParamIs.NotNull(() => contract);
