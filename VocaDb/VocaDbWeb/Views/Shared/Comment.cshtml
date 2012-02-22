@@ -4,7 +4,7 @@
 <div>
 	<h3>
 		@Html.ProfileIcon(Model.Author, 25)
-		@Html.UserLink(Model.Author, Model.AuthorName)
+		@UserHelpers.UserLink(Model.Author)
 		&nbsp;-&nbsp;
 		@Model.Created
 

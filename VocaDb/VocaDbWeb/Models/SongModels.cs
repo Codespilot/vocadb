@@ -37,10 +37,12 @@ namespace VocaDb.Web.Models {
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions;
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract.Song);
+			CommentCount = contract.CommentCount;
 			Deleted = contract.Deleted;
 			Draft = contract.Song.Status == EntryStatus.Draft;
 			Id = contract.Song.Id;
 			IsFavorited = contract.IsFavorited;
+			LatestComments = contract.LatestComments;
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
@@ -78,6 +80,8 @@ namespace VocaDb.Web.Models {
 
 		public bool CanEdit { get; set; }
 
+		public int CommentCount { get; set; }
+
 		public bool Deleted { get; set; }
 
 		public bool Draft { get; set; }
@@ -85,6 +89,8 @@ namespace VocaDb.Web.Models {
 		public int Id { get; set; }
 
 		public bool IsFavorited { get; set; }
+
+		public CommentContract[] LatestComments { get; set; }
 
 		public LyricsForSongContract[] Lyrics { get; set; }
 

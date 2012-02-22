@@ -30,6 +30,22 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult Comments(int id) {
+
+			var comments = Service.GetComments(id);
+			return PartialView("DiscussionContent", comments);
+
+		}
+
+		[HttpPost]
+		public PartialViewResult CreateComment(int songId, string message) {
+
+			var comment = Service.CreateComment(songId, message);
+
+			return PartialView("Comment", comment);
+
+		}
+
 		[HttpPost]
 		public PartialViewResult CreateSongLink(int? songId) {
 
@@ -41,6 +57,13 @@ namespace VocaDb.Web.Controllers
 				song = Service.GetSongWithAdditionalNames(songId.Value);
 
 			return PartialView("SongLink", song);
+
+		}
+
+		[HttpPost]
+		public void DeleteComment(int commentId) {
+
+			Service.DeleteComment(commentId);
 
 		}
 

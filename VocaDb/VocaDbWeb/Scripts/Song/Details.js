@@ -54,6 +54,51 @@ function saveTagSelections() {
 
 }
 
+function tabLoaded(songId, event, ui) {
+
+	$("#tabs").tabs("url", 1, "");
+
+	$("#createComment").click(function () {
+
+		var message = $("#newCommentMessage").val();
+
+		if (message == "") {
+			alert("Message cannot be empty");
+			return false;
+		}
+
+		$("#newCommentMessage").val("");
+
+		$.post("../../Song/CreateComment", { songId: songId, message: message }, function (result) {
+
+			$("#newCommentPanel").after(result);
+
+		});
+
+		return false;
+
+	});
+
+	$("a.deleteComment").live("click", function () {
+
+		if (!confirm("Are you sure you want to delete this comment?"))
+			return false;
+
+		var btn = this;
+		var id = getId(this);
+
+		$.post("../../Song/DeleteComment", { commentId: id }, function () {
+
+			$(btn).parent().parent().remove();
+
+		});
+
+		return false;
+
+	});
+
+}
+
 function initPage(songId) {
 
 	$("#addFavoriteLink").button({ icons: { primary: 'ui-icon-heart'} });
@@ -62,6 +107,16 @@ function initPage(songId) {
 	$("#editSongLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
+	$("#viewCommentsLink").click(function () {
+		$("#tabs").tabs("select", 1);
+		return false;
+	});
+
+	$("#tabs").tabs({
+		load: function (event, ui) {
+			tabLoaded(songId, event, ui);
+		}
+	});
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });
 	$("#addToListDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: { "Save": function () {

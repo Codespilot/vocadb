@@ -191,6 +191,7 @@
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
     <Compile Include="Domain\Security\EntryPermissionManager.cs" />
+    <Compile Include="Domain\Songs\SongComment.cs" />
     <Compile Include="Domain\Songs\SongInList.cs" />
     <Compile Include="Domain\Songs\SongList.cs" />
     <Compile Include="Domain\Songs\SongListFeaturedCategory.cs" />
@@ -315,6 +316,7 @@
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
+    <Compile Include="Mapping\Songs\SongCommentMap.cs" />
     <Compile Include="Mapping\Songs\SongListMap.cs" />
     <Compile Include="Mapping\Songs\SongTagUsageMap.cs" />
     <Compile Include="Mapping\Songs\SongTagVoteMap.cs" />
