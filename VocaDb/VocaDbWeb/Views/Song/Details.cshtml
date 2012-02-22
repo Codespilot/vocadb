@@ -49,6 +49,7 @@
 				<li><a href="@("#lyricsTab_" + lyrics.Id)">@Translate.ContentLanguageSelectionName(lyrics.Language) lyrics</a></li>
 	  }
   }
+		<li><a href="@Url.Action("Comments", "Song", new { id = Model.Id })" title="Discussion">Discussion (@Model.CommentCount)</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -157,6 +158,25 @@
 			</tr>
    }			
 		</table>
+
+		<h3>Latest comments</h3>
+		
+		@if (Model.LatestComments.Any()) {
+	  
+			foreach (var comment in Model.LatestComments) {
+				@Helpers.PrintComment(comment, false);
+			}			
+	  
+		} else {
+	  
+			<p>Nothing yet!</p>
+	  
+		}
+		
+		<p>
+			<a href="#" id="viewCommentsLink">View all comments</a>
+		</p>
+
 	</div>
 
 	@if (Model.Lyrics.Length > 3) {
@@ -180,6 +200,9 @@
 			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
 			</div>
 	 }
+	 
+	<div id="Discussion">
+	</div>	 
 
  }
 </div>
@@ -198,10 +221,6 @@
 
 <script type="text/javascript" src="../../Scripts/Song/Details.js"></script>
 <script type="text/javascript">
-
-	$(function () {
-		$("#tabs").tabs();
-	});
 
 	$(document).ready(function() { 
 		initPage(@Model.Id);

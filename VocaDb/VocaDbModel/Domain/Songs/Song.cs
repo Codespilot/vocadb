@@ -25,6 +25,7 @@ namespace VocaDb.Model.Domain.Songs {
 			= new ArchivedVersionManager<ArchivedSongVersion, SongEditableFields>();
 		private TranslatedString artistString;
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
+		private IList<SongComment> comments = new List<SongComment>();
 		private IList<SongInList> lists = new List<SongInList>();
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private NameManager<SongName> names = new NameManager<SongName>();
@@ -141,6 +142,13 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual IList<SongComment> Comments {
+			get { return comments; }
+			set {
+				ParamIs.NotNull(() => value);
+				comments = value;
+			}
+		}
 		public virtual DateTime CreateDate { get; protected set; }
 
 		public virtual string DefaultName {
@@ -285,6 +293,18 @@ namespace VocaDb.Model.Domain.Songs {
 			Version++;
 
 			return archived;
+
+		}
+
+		public virtual SongComment CreateComment(string message, AgentLoginData loginData) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+			ParamIs.NotNull(() => loginData);
+
+			var comment = new SongComment(this, message, loginData);
+			Comments.Add(comment);
+
+			return comment;
 
 		}
 

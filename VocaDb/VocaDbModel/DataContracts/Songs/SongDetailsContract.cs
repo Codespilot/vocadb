@@ -46,10 +46,16 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public ArtistForSongContract[] Artists { get; set; }
 
 		[DataMember]
+		public int CommentCount { get; set; }
+
+		[DataMember]
 		public bool Deleted { get; set; }
 
 		[DataMember]
 		public bool IsFavorited { get; set; }
+
+		[DataMember]
+		public CommentContract[] LatestComments { get; set; }
 
 		[DataMember]
 		public LyricsForSongContract[] Lyrics { get; set; }

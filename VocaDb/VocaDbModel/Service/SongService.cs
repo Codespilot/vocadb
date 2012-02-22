@@ -348,6 +348,32 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public CommentContract CreateComment(int songId, string message) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+
+			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+
+			message = message.Trim();
+
+			return HandleTransaction(session => {
+
+				var song = session.Load<Song>(songId);
+				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+
+				AuditLog(string.Format("creating comment for {0}: '{1}'",
+					EntryLinkFactory.CreateEntryLink(song),
+					message.Truncate(60)), session, agent.User);
+
+				var comment = song.CreateComment(message, agent);
+				session.Save(comment);
+
+				return new CommentContract(comment);
+
+			});
+
+		}
+
 		[Obsolete("Replaced by updating properties")]
 		public SongInAlbumContract CreateForAlbum(int albumId, string newSongName) {
 
@@ -519,6 +545,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void DeleteComment(int commentId) {
+
+			HandleTransaction(session => {
+
+				var comment = session.Load<SongComment>(commentId);
+				var user = GetLoggedUser(session);
+
+				AuditLog("deleting " + comment, session, user);
+
+				if (!user.Equals(comment.Author))
+					PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+
+				comment.Song.Comments.Remove(comment);
+				session.Delete(comment);
+
+			});
+
+		}
+
 		[Obsolete("Integrated to saving properties")]
 		public void DeletePvForSong(int pvForSongId) {
 
@@ -619,6 +664,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public CommentContract[] GetComments(int songId) {
+
+			return HandleQuery(session => {
+
+				return session.Query<SongComment>()
+					.Where(c => c.Song.Id == songId)
+					.OrderByDescending(c => c.Created)
+					.Select(c => new CommentContract(c)).ToArray();
+
+			});
+
+		}
+
 		public LyricsForSongContract GetRandomSongWithLyricsDetails() {
 
 			return HandleQuery(session => {
@@ -648,6 +706,12 @@ namespace VocaDb.Model.Service {
 				if (PermissionContext.LoggedUser != null)
 					contract.IsFavorited = session.Query<FavoriteSongForUser>()
 						.Any(s => s.Song.Id == songId && s.User.Id == PermissionContext.LoggedUser.Id);
+
+				contract.CommentCount = session.Query<SongComment>().Where(c => c.Song.Id == songId).Count();
+				contract.LatestComments = session.Query<SongComment>()
+					.Where(c => c.Song.Id == songId)
+					.OrderByDescending(c => c.Created).Take(3).ToArray()
+					.Select(c => new CommentContract(c)).ToArray();
 
 				return contract;
 

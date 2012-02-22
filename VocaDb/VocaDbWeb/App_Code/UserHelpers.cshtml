@@ -1,0 +1,9 @@
+﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using VocaDb.Model.DataContracts.Users;
+@using VocaDb.Web.Helpers;
+
+@helper UserLink(UserContract user) {
+	Html.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null);
+}
