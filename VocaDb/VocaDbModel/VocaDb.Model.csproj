@@ -318,6 +318,7 @@
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
+    <Content Include="Mapping\Security\PermissionTokenMap.cs" />
     <Compile Include="Mapping\Songs\SongCommentMap.cs" />
     <Compile Include="Mapping\Songs\SongListMap.cs" />
     <Compile Include="Mapping\Songs\SongTagUsageMap.cs" />

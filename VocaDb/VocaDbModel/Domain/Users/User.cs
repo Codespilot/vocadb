@@ -95,7 +95,7 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual bool CanBeDisabled {
 			get {
 
-				return !EffectivePermissions.Has(PermissionFlags.ManageUserBlocks);
+				return !EffectivePermissions.Has(PermissionToken.DisableUsers);
 
 			}
 		}

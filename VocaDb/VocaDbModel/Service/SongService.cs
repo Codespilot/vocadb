@@ -241,7 +241,7 @@ namespace VocaDb.Model.Service {
 		[Obsolete("Integrated to properties saving")]
 		public ArtistForSongContract AddArtist(int songId, int artistId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -266,7 +266,7 @@ namespace VocaDb.Model.Service {
 		[Obsolete("Disabled")]
 		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -290,14 +290,13 @@ namespace VocaDb.Model.Service {
 
 		public void AddSongToList(int listId, int songId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
 				var list = session.Load<SongList>(listId);
 
-				if (!PermissionContext.HasPermission(PermissionFlags.ManageUserBlocks))
-					VerifyResourceAccess(list.Author);
+				VerifyResourceAccess(list.Author);
 
 				var song = session.Load<Song>(songId);
 
@@ -327,7 +326,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrWhiteSpace(() => name);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			name = name.Trim();
 
@@ -352,7 +351,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => message);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
 
 			message = message.Trim();
 
@@ -379,7 +378,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrWhiteSpace(() => newSongName);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			newSongName = newSongName.Trim();
 
@@ -408,7 +407,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => pvId);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -447,7 +446,7 @@ namespace VocaDb.Model.Service {
 			if (contract.Names == null || !contract.Names.Any())
 				throw new ArgumentException("Album needs at least one name", "contract");
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -514,22 +513,20 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int id) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
-
 			UpdateEntity<Song>(id, (session, a) => {
 
 				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
 				a.Delete();
 
-			}, skipLog: true);
+			}, PermissionToken.DeleteEntries, skipLog: true);
 
 		}
 
 		[Obsolete("Integrating to saving properties")]
 		public void DeleteArtistForSong(int artistForSongId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			HandleTransaction(session => {
 
@@ -555,7 +552,7 @@ namespace VocaDb.Model.Service {
 				AuditLog("deleting " + comment, session, user);
 
 				if (!user.Equals(comment.Author))
-					PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+					PermissionContext.VerifyPermission(PermissionToken.DeleteComments);
 
 				comment.Song.Comments.Remove(comment);
 				session.Delete(comment);
@@ -567,7 +564,7 @@ namespace VocaDb.Model.Service {
 		[Obsolete("Integrated to saving properties")]
 		public void DeletePvForSong(int pvForSongId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			HandleTransaction(session => {
 
@@ -586,15 +583,14 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteSongList(int listId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
 				var user = GetLoggedUser(session);
 				var list = session.Load<SongList>(listId);
 
-				if (!PermissionContext.HasPermission(PermissionFlags.ManageUserBlocks))
-					VerifyResourceAccess(list.Author);
+				VerifyResourceAccess(list.Author);
 
 				session.Delete(list);
 
@@ -854,7 +850,7 @@ namespace VocaDb.Model.Service {
 
 		public void Merge(int sourceId, int targetId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);
+			PermissionContext.VerifyPermission(PermissionToken.MergeEntries);
 
 			if (sourceId == targetId)
 				throw new ArgumentException("Source and target songs can't be the same", "targetId");
@@ -940,7 +936,7 @@ namespace VocaDb.Model.Service {
 
 		public void Restore(int songId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);
 
 			HandleTransaction(session => {
 
@@ -956,7 +952,7 @@ namespace VocaDb.Model.Service {
 
 		public EntryRevertedContract RevertToVersion(int archivedSongVersionId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.RestoreEntries);
+			PermissionContext.VerifyPermission(PermissionToken.RestoreRevisions);
 
 			return HandleTransaction(session => {
 
@@ -1049,7 +1045,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => tags);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -1075,7 +1071,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => artistIds);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -1119,7 +1115,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => songIds);
 			ParamIs.NotNull(() => artistIds);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -1169,7 +1165,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => properties);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -1311,7 +1307,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			return HandleTransaction(session => {
 

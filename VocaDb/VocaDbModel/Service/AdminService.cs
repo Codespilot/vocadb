@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using NHibernate;
@@ -8,7 +7,6 @@ using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -21,12 +19,16 @@ namespace VocaDb.Model.Service {
 
 	public class AdminService : ServiceBase {
 
+		private void VerifyAdmin() {
+			PermissionContext.VerifyPermission(PermissionToken.Admin);
+		}
+
 		public AdminService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
 		public void CleanupOldAuditLogEntries() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+			VerifyAdmin();
 
 			AuditLog("cleaning up audit log");
 
@@ -42,8 +44,8 @@ namespace VocaDb.Model.Service {
 		}
 
 		public void GeneratePictureThumbs() {
-			
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+
+			VerifyAdmin();
 
 			AuditLog("generating thumbnails");
 
@@ -120,7 +122,7 @@ namespace VocaDb.Model.Service {
 
 		public UnifiedCommentContract[] GetRecentComments() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+			PermissionContext.VerifyPermission(PermissionToken.ReadRecentComments);
 			const int maxComments = 50;
 
 			return HandleQuery(session => {
@@ -139,7 +141,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateAlbumRatingTotals() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+			VerifyAdmin();
 
 			AuditLog("updating album rating totals");
 
@@ -164,7 +166,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateArtistStrings() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+			VerifyAdmin();
 
 			HandleTransaction(session => {
 
@@ -202,7 +204,7 @@ namespace VocaDb.Model.Service {
 
 		public int UpdateEntryStatuses() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+			VerifyAdmin();
 
 			AuditLog("updating entry statuses");
 
@@ -272,7 +274,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateSongFavoritedTimes() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+			VerifyAdmin();
 
 			AuditLog("updating song favorites");
 
@@ -302,7 +304,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdatePVIcons() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.Admin);
+			VerifyAdmin();
 
 			AuditLog("updating PVServices");
 

@@ -28,7 +28,7 @@
 	<text>&nbsp;</text>
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });
 }
-@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks) && Login.User.Id != Model.Id && Model.Active) {
+@if (Login.Manager.HasPermission(PermissionToken.DisableUsers) && Login.User.Id != Model.Id && Model.Active) {
 	<text>&nbsp;</text>
 	@Html.ActionLink("Disable", "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
 }
@@ -59,17 +59,17 @@
 		</tr>
 		<tr>
 			<td>Additional permissions</td>
-			<td>@Translate.PermissionFlagNames.GetAllNameNames(Model.AdditionalPermissions, PermissionFlags.Nothing)</td>
+			<td>@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)</td>
 		</tr>
 	}
-	@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
+	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
 		<tr>
 			<td>Active</td>
 			<td>@Model.Active</td>
 		</tr>
 		<tr>
 			<td>Effective permissions</td>
-			<td>@Translate.PermissionFlagNames.GetAllNameNames(Model.EffectivePermissions, PermissionFlags.Nothing)</td>
+			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
 		</tr>	 
 	}
 </table>

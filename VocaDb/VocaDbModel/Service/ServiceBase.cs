@@ -193,7 +193,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void DeleteEntity<TEntity>(int id, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
+		protected void DeleteEntity<TEntity>(int id, PermissionToken permissionFlags, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
 			AuditLog(string.Format("is about to delete {0} with Id {1}", typeName, id));
@@ -214,7 +214,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void UpdateEntity<TEntity>(int id, Action<TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
+		protected void UpdateEntity<TEntity>(int id, Action<TEntity> func, PermissionToken permissionFlags, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
 
@@ -238,7 +238,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func, PermissionFlags permissionFlags = PermissionFlags.Nothing, bool skipLog = false) {
+		protected void UpdateEntity<TEntity>(int id, Action<ISession, TEntity> func, PermissionToken permissionFlags, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
 
@@ -270,7 +270,7 @@ namespace VocaDb.Model.Service {
 
 		protected void VerifyManageDatabase() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.ManageDatabase);
 
 		}
 

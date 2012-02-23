@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Domain.Users {
 
 	public class UserGroup {
 
-		private static readonly UserGroup limited = new UserGroup(UserGroupId.Limited, PermissionFlags.EditProfile);
+		private static readonly UserGroup limited = new UserGroup(UserGroupId.Limited, PermissionToken.EditProfile);
 
 		private static readonly UserGroup regular = new UserGroup(UserGroupId.Regular,
-			limited.Permissions.PermissionBitArray | PermissionFlags.ManageDatabase);
+			limited, PermissionToken.CreateComments, PermissionToken.ManageDatabase);
 
 		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted,
-			regular.Permissions.PermissionBitArray | PermissionFlags.DeleteEntries | PermissionFlags.MergeEntries);
+			regular, PermissionToken.DeleteEntries, PermissionToken.EditFeaturedLists, PermissionToken.MergeEntries);
 
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
-			trusted.Permissions.PermissionBitArray | PermissionFlags.RestoreEntries | PermissionFlags.ManageUserBlocks | PermissionFlags.ViewAuditLog);
+			trusted, PermissionToken.AccessManageMenu, PermissionToken.DesignatedStaff, PermissionToken.RestoreRevisions, PermissionToken.DisableUsers, 
+			PermissionToken.ViewAuditLog, PermissionToken.DeleteComments, PermissionToken.ReadRecentComments);
 
 		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin,
-			mod.Permissions.PermissionBitArray | PermissionFlags.Admin | PermissionFlags.ManageUsers | PermissionFlags.MikuDbImport);
+			mod, PermissionToken.Admin, PermissionToken.ManageUserPermissions, PermissionToken.MikuDbImport);
 
 		private static readonly Dictionary<UserGroupId, UserGroup> groups = new[] {
 			limited, regular, trusted, mod, admin
@@ -41,7 +40,12 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
-		public UserGroup(UserGroupId id, PermissionFlags permissions) {
+		public UserGroup(UserGroupId id, UserGroup parent, params PermissionToken[] permissions) {
+			this.Id = id;
+			this.Permissions = parent.Permissions + new PermissionCollection(permissions);
+		}
+
+		public UserGroup(UserGroupId id, params PermissionToken[] permissions) {
 			this.Id = id;
 			this.Permissions = new PermissionCollection(permissions);
 		}

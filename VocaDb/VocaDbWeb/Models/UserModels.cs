@@ -149,8 +149,8 @@ namespace VocaDb.Web.Models {
 			GroupId = contract.GroupId;
 			Id = contract.Id;
 			Name = contract.Name;
-			Permissions = EnumVal<PermissionFlags>.Values.Where(p => p != PermissionFlags.Nothing)
-				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.HasFlag(p))).ToArray();
+			Permissions = PermissionToken.All
+				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.Has(p))).ToArray();
 
 		}
 
@@ -172,9 +172,7 @@ namespace VocaDb.Web.Models {
 				GroupId = this.GroupId,
 				Id = this.Id,
 				Name = this.Name,
-				AdditionalPermissions = 
-					Permissions.Aggregate(PermissionFlags.Nothing,
-						(flags, item) => flags | (item.HasFlag ? item.PermissionType : PermissionFlags.Nothing))
+				AdditionalPermissions = new PermissionCollection(Permissions.Where(p => p.HasFlag).Select(p => p.PermissionType))
 			};
 
 		}
@@ -185,14 +183,14 @@ namespace VocaDb.Web.Models {
 
 		public PermissionFlagEntry() {}
 
-		public PermissionFlagEntry(PermissionFlags permissionType, bool hasFlag) {
+		public PermissionFlagEntry(PermissionToken permissionType, bool hasFlag) {
 			PermissionType = permissionType;
 			HasFlag = hasFlag;
 		}
 
 		public bool HasFlag { get; set; }
 
-		public PermissionFlags PermissionType { get; set; }
+		public PermissionToken PermissionType { get; set; }
 
 	}
 

@@ -22,11 +22,11 @@ namespace VocaDb.Model.Domain.Security {
 
 		UserGroupId UserGroupId { get; }
 
-		bool HasPermission(PermissionFlags flag);
+		bool HasPermission(PermissionToken flag);
 
 		void VerifyLogin();
 
-		void VerifyPermission(PermissionFlags flag);
+		void VerifyPermission(PermissionToken flag);
 
 	}
 

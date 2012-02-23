@@ -130,6 +130,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="App_GlobalResources\PermissionTokenNames.designer.cs">
+      <DependentUpon>PermissionTokenNames.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="App_GlobalResources\DiscTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -918,6 +923,10 @@
     <Content Include="App_GlobalResources\SongListFeaturedCategoryNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongListFeaturedCategoryNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PermissionTokenNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PermissionTokenNames.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">

@@ -21,7 +21,7 @@ namespace VocaDb.Model.Service {
 
 		public int CreateSongListFromWVR(string url) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			var parsed = new NNDWVRParser().GetSongs(url);
 

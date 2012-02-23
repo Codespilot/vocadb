@@ -22,7 +22,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => name);
 
-			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
+			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);
 
 			HandleTransaction(session => {
 
@@ -173,7 +173,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.ManageDatabase);
 
 			HandleTransaction(session => {
 

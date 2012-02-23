@@ -207,7 +207,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistForAlbumContract AddAlbum(int artistId, int albumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -257,7 +257,7 @@ namespace VocaDb.Model.Service {
 			if (contract.Names == null || !contract.Names.Any())
 				throw new ArgumentException("Artist needs at least one name", "contract");
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 
@@ -295,7 +295,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNullOrWhiteSpace(() => name);
 			ParamIs.NotNull(() => permissionContext);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			name = name.Trim();
 
@@ -320,7 +320,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => message);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
 
 			message = message.Trim();
 
@@ -344,8 +344,6 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int id) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.DeleteEntries);
-
 			UpdateEntity<Artist>(id, (session, a) => {
 
 				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
@@ -353,7 +351,7 @@ namespace VocaDb.Model.Service {
 				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
 			                         
-			}, skipLog: true);
+			}, PermissionToken.DeleteEntries, skipLog: true);
 
 		}
 
@@ -367,7 +365,7 @@ namespace VocaDb.Model.Service {
 				AuditLog("deleting " + comment, session, user);
 
 				if (!user.Equals(comment.Author))
-					PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
+					PermissionContext.VerifyPermission(PermissionToken.DeleteComments);
 
 				comment.Artist.Comments.Remove(comment);
 				session.Delete(comment);
@@ -572,7 +570,7 @@ namespace VocaDb.Model.Service {
 
 		public void Merge(int sourceId, int targetId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MergeEntries);
+			PermissionContext.VerifyPermission(PermissionToken.MergeEntries);
 
 			if (sourceId == targetId)
 				throw new ArgumentException("Source and target artists can't be the same", "targetId");
@@ -636,7 +634,7 @@ namespace VocaDb.Model.Service {
 
 		public void Restore(int artistId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);
 
 			HandleTransaction(session => {
 
@@ -652,7 +650,7 @@ namespace VocaDb.Model.Service {
 
 		public EntryRevertedContract RevertToVersion(int archivedArtistVersionId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.RestoreEntries);
+			PermissionContext.VerifyPermission(PermissionToken.RestoreRevisions);
 
 			return HandleTransaction(session => {
 
@@ -717,7 +715,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => tags);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageDatabase);
+			VerifyManageDatabase();
 
 			return HandleTransaction(session => {
 

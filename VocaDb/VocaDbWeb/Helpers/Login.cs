@@ -12,47 +12,44 @@ namespace VocaDb.Web.Helpers {
 		public static bool CanAccessManageMenu {
 			get {
 
-				return Manager.HasPermission(PermissionFlags.Admin)
-					|| Manager.HasPermission(PermissionFlags.ManageUserBlocks)
-					|| Manager.HasPermission(PermissionFlags.ManageUsers)
-					|| Manager.HasPermission(PermissionFlags.ViewAuditLog);
+				return Manager.HasPermission(PermissionToken.AccessManageMenu);
 
 			}
 		}
 
 		public static bool CanDeleteEntries {
 			get {
-				return Manager.HasPermission(PermissionFlags.DeleteEntries);
+				return Manager.HasPermission(PermissionToken.DeleteEntries);
 			}
 		}
 
 		public static bool CanManageDb {
 			get {
-				return Manager.HasPermission(PermissionFlags.ManageDatabase);
+				return Manager.HasPermission(PermissionToken.ManageDatabase);
 			}
 		}
 
 		public static bool CanManageUsers {
 			get {
-				return Manager.HasPermission(PermissionFlags.ManageUsers);
+				return Manager.HasPermission(PermissionToken.ManageUserPermissions);
 			}
 		}
 
 		public static bool CanMergeEntries {
 			get {
-				return Manager.HasPermission(PermissionFlags.MergeEntries);
+				return Manager.HasPermission(PermissionToken.MergeEntries);
 			}
 		}
 
 		public static bool CanModerateUsers {
 			get {
-				return Manager.HasPermission(PermissionFlags.ManageUserBlocks);
+				return Manager.HasPermission(PermissionToken.DisableUsers);
 			}
 		}
 
 		public static bool CanRevertEntryVersions {
 			get {
-				return Manager.HasPermission(PermissionFlags.RestoreEntries);
+				return Manager.HasPermission(PermissionToken.RestoreRevisions);
 			}
 		}
 
@@ -72,7 +69,7 @@ namespace VocaDb.Web.Helpers {
 
 			ParamIs.NotNull(() => comment);
 
-			return Manager.HasPermission(PermissionFlags.ManageUserBlocks)
+			return Manager.HasPermission(PermissionToken.DeleteComments)
 				|| (comment.Author != null && User != null && comment.Author.Id == User.Id);
 
 		}

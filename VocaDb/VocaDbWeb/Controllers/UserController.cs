@@ -226,11 +226,12 @@ namespace VocaDb.Web.Controllers
         
         //
         // GET: /User/Edit/5
- 
-        public ActionResult Edit(int id)
+
+		[Authorize]
+		public ActionResult Edit(int id)
         {
 
-			LoginManager.VerifyPermission(PermissionFlags.ManageUsers);
+			LoginManager.VerifyPermission(PermissionToken.ManageUserPermissions);
 
         	var user = Service.GetUser(id);
             return View(new UserEdit(user));
@@ -239,11 +240,11 @@ namespace VocaDb.Web.Controllers
 
         //
         // POST: /User/Edit/5
-
+		[Authorize]
         [HttpPost]
 		public ActionResult Edit(UserEdit model, IEnumerable<PermissionFlagEntry> permissions) {
 
-			LoginManager.VerifyPermission(PermissionFlags.ManageUsers);
+			LoginManager.VerifyPermission(PermissionToken.ManageUserPermissions);
 
 			model.Permissions = permissions.ToArray();
 			Service.UpdateUser(model.ToContract());
@@ -271,7 +272,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult MySettings() {
 
-			LoginManager.VerifyPermission(PermissionFlags.EditProfile);			
+			LoginManager.VerifyPermission(PermissionToken.EditProfile);			
 
 			var user = GetUserForMySettings();
 
