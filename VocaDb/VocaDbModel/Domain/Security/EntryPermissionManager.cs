@@ -10,41 +10,30 @@ namespace VocaDb.Model.Domain.Security {
 		private static readonly EntryStatus[] normalStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished };
 		private static readonly EntryStatus[] trustedStatusPermissions = new[] { EntryStatus.Draft, EntryStatus.Finished, EntryStatus.Approved };
 
-		private static bool IsMod(IUserPermissionContext permissionContext) {
-			return permissionContext.HasPermission(PermissionFlags.ManageUserBlocks);
-		}
-
-		private static bool IsTrusted(IUserPermissionContext permissionContext) {
-			return permissionContext.HasPermission(PermissionFlags.DeleteEntries);
-		}
-
 		public static EntryStatus[] AllowedEntryStatuses(IUserPermissionContext permissionContext) {
 
-			if (!permissionContext.HasPermission(PermissionFlags.ManageDatabase))
-				return new EntryStatus[] {};
-
-			if (IsMod(permissionContext))
+			if (permissionContext.HasPermission(PermissionToken.LockEntries))
 				return allPermissions;
 
-			if (IsTrusted(permissionContext))
+			if (permissionContext.HasPermission(PermissionToken.ApproveEntries))
 				return trustedStatusPermissions;
 
-			return normalStatusPermissions;
+			if (permissionContext.HasPermission(PermissionToken.ManageDatabase))
+				return normalStatusPermissions;
+
+			return new EntryStatus[] {};
 
 		}
 
 		public static bool CanCreateFeaturedLists(IUserPermissionContext permissionContext) {
 
-			return IsTrusted(permissionContext);
+			return permissionContext.HasPermission(PermissionToken.EditFeaturedLists);
 
 		}
 
 		public static bool CanEdit(IUserPermissionContext permissionContext, SongList songList) {
 
-			if (IsMod(permissionContext))
-				return true;
-
-			if (songList.FeaturedCategory != SongListFeaturedCategory.Nothing && IsTrusted(permissionContext))
+			if (songList.FeaturedCategory != SongListFeaturedCategory.Nothing && permissionContext.HasPermission(PermissionToken.EditFeaturedLists))
 				return true;
 
 			return (permissionContext.Equals(songList.Author));
@@ -55,13 +44,13 @@ namespace VocaDb.Model.Domain.Security {
 
 			ParamIs.NotNull(() => entry);
 
-			if (!permissionContext.HasPermission(PermissionFlags.ManageDatabase))
+			if (!permissionContext.HasPermission(PermissionToken.ManageDatabase))
 				return false;
 
-			if (IsMod(permissionContext))
+			if (permissionContext.HasPermission(PermissionToken.LockEntries))
 				return true;
 
-			if (IsTrusted(permissionContext))
+			if (permissionContext.HasPermission(PermissionToken.ApproveEntries))
 				return (trustedStatusPermissions.Contains(entry.Status));
 
 			return (normalStatusPermissions.Contains(entry.Status));

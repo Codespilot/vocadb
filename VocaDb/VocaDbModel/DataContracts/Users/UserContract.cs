@@ -17,11 +17,11 @@ namespace VocaDb.Model.DataContracts.Users {
 			ParamIs.NotNull(() => user);
 
 			Active = user.Active;
-			AdditionalPermissions = user.AdditionalPermissions.PermissionBitArray;
+			AdditionalPermissions = user.AdditionalPermissions;
 			AnonymousActivity = user.AnonymousActivity;
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
-			EffectivePermissions = user.EffectivePermissions.PermissionBitArray;
+			EffectivePermissions = user.EffectivePermissions;
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
@@ -35,7 +35,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		public bool Active { get; set; }
 
 		[DataMember]
-		public PermissionFlags AdditionalPermissions { get; set; }
+		public PermissionCollection AdditionalPermissions { get; set; }
 
 		[DataMember]
 		public bool AnonymousActivity { get; set; }
@@ -47,7 +47,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
 		[DataMember]
-		public PermissionFlags EffectivePermissions { get; set; }
+		public PermissionCollection EffectivePermissions { get; set; }
 
 		[DataMember]
 		public string Email { get; set; }

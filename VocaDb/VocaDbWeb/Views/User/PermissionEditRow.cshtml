@@ -3,8 +3,8 @@
 
 <p>
 @using (Html.BeginCollectionItem("permissions")) {
-	@Html.HiddenFor(m => m.PermissionType)
+	@Html.HiddenFor(m => m.PermissionType.Id)
 	@Html.CheckBoxFor(m => m.HasFlag)
-	@Translate.PermissionFlagNames[Model.PermissionType]
+	@Translate.PermissionTokenName(Model.PermissionType)
 }
 </p>

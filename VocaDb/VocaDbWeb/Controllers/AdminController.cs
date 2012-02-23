@@ -34,11 +34,11 @@ namespace VocaDb.Web.Controllers
 
         //
         // GET: /Admin/
-
-        public ActionResult Index()
+		[Authorize]
+		public ActionResult Index()
         {
 
-			LoginManager.VerifyPermission(PermissionFlags.ManageDatabase);
+			LoginManager.VerifyPermission(PermissionToken.AccessManageMenu);
 
             return View();
 
@@ -132,7 +132,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult ViewAuditLog() {
 
-			LoginManager.VerifyPermission(PermissionFlags.ViewAuditLog);
+			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);
 
 			var entries = Service.GetAuditLog();
 

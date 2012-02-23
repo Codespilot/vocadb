@@ -263,7 +263,7 @@ namespace VocaDb.Model.Service {
 
 		public AlbumContract[] AcceptImportedAlbums(int[] importedAlbumIds, int[] selectedSongIds) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport | PermissionFlags.ManageDatabase);
+			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
 
 			return HandleTransaction(session => {
 
@@ -286,9 +286,7 @@ namespace VocaDb.Model.Service {
 
 		public void Delete(int importedAlbumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
-
-			DeleteEntity<MikuDbAlbum>(importedAlbumId);
+			DeleteEntity<MikuDbAlbum>(importedAlbumId, PermissionToken.MikuDbImport);
 
 		}
 
@@ -318,7 +316,7 @@ namespace VocaDb.Model.Service {
 
 		public int ImportNew() {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
+			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
 
 			MikuDbAlbumContract[] existing = HandleQuery(session => session.Query<MikuDbAlbum>().Select(a => new MikuDbAlbumContract(a)).ToArray());
 
@@ -354,7 +352,7 @@ namespace VocaDb.Model.Service {
 
 		public void ImportOne(string url) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
+			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
 
 			MikuDbAlbumContract[] existing = HandleQuery(session => session.Query<MikuDbAlbum>().Select(a => new MikuDbAlbumContract(a)).ToArray());
 
@@ -385,9 +383,7 @@ namespace VocaDb.Model.Service {
 
 		public void SkipAlbum(int importedAlbumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.MikuDbImport);
-
-			UpdateEntity<MikuDbAlbum>(importedAlbumId, a => a.Status = AlbumStatus.Skipped);
+			UpdateEntity<MikuDbAlbum>(importedAlbumId, a => a.Status = AlbumStatus.Skipped, PermissionToken.MikuDbImport);
 
 		}
 

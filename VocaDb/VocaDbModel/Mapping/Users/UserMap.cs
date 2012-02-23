@@ -27,7 +27,12 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.Salt).Not.Nullable();
 
 			Component(m => m.AdditionalPermissions, c => {
-				c.Map(m => m.PermissionBitArray).Column("[PermissionFlags]").CustomType(typeof(PermissionFlags)).Not.Nullable();
+				c.HasMany(m => m.Permissions)
+					.Table("UserAdditionalPermissions")
+					.AsSet()
+					.KeyColumn("[User]")
+					.Component(a => a.Map(m => m.Id)
+						.Column("[PermissionId]"));
 			});
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All();

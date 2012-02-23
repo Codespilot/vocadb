@@ -66,7 +66,7 @@ namespace VocaDb.Model.Service {
 		// For quick-adding the album on user page
 		public AlbumForUserContract AddAlbum(int userId, int albumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			return HandleTransaction(session => {
 
@@ -86,7 +86,7 @@ namespace VocaDb.Model.Service {
 
 		public void AddSongToFavorites(int userId, int songId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -185,15 +185,11 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteAlbumForUser(int albumForUserId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
-
-			DeleteEntity<AlbumForUser>(albumForUserId);
+			DeleteEntity<AlbumForUser>(albumForUserId, PermissionToken.EditProfile);
 
 		}
 
 		public void DisableUser(int userId) {
-
-			PermissionContext.VerifyPermission(PermissionFlags.ManageUserBlocks);
 
 			UpdateEntity<User>(userId, user => {
 
@@ -202,7 +198,7 @@ namespace VocaDb.Model.Service {
 
 				user.Active = false;
 
-			});
+			}, PermissionToken.DisableUsers);
 
 		}
 
@@ -259,7 +255,7 @@ namespace VocaDb.Model.Service {
 
 		public UserMessageContract GetMessageDetails(int messageId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			return HandleTransaction(session => {
 
@@ -366,7 +362,7 @@ namespace VocaDb.Model.Service {
 
 		public void RemoveAlbumFromUser(int userId, int albumId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -383,7 +379,7 @@ namespace VocaDb.Model.Service {
 
 		public void RemoveSongFromFavorites(int userId, int songId) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -452,7 +448,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -471,7 +467,7 @@ namespace VocaDb.Model.Service {
 
 				if (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAll 
 					|| (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAdmins 
-						&& sender.EffectivePermissions.Has(PermissionFlags.ManageUserBlocks))) {
+						&& sender.EffectivePermissions.Has(PermissionToken.DesignatedStaff))) {
 
 					var mailer = new UserMessageMailer();
 					mailer.Send(messagesUrl, message);
@@ -486,7 +482,7 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, MediaType mediaType, int rating) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -532,15 +528,13 @@ namespace VocaDb.Model.Service {
 
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
-
-			UpdateEntity<AlbumForUser>(albumForUserId, albumForUser => albumForUser.MediaType = mediaType);
+			UpdateEntity<AlbumForUser>(albumForUserId, albumForUser => albumForUser.MediaType = mediaType, PermissionToken.EditProfile);
 
 		}
 
 		public void UpdateAlbumForUserRating(int albumForUserId, int rating) {
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			HandleTransaction(session => {
 
@@ -558,17 +552,15 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
-			PermissionContext.VerifyPermission(PermissionFlags.ManageUsers);
-
 			UpdateEntity<User>(contract.Id, (session, user) => {
 
 				user.Active = contract.Active;
-				user.AdditionalPermissions = new PermissionCollection(contract.AdditionalPermissions);
+				user.AdditionalPermissions = contract.AdditionalPermissions;
 				user.GroupId = contract.GroupId;
 
 				AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(user)), session);
 
-			}, skipLog: true);
+			}, PermissionToken.ManageUserPermissions, skipLog: true);
 
 		}
 
@@ -576,7 +568,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => contract);
 
-			PermissionContext.VerifyPermission(PermissionFlags.EditProfile);
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
 			return HandleTransaction(session => {
 

@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.Artists;
+﻿using System.Linq;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Resources;
@@ -44,6 +45,12 @@ namespace VocaDb.Web.Helpers {
 		public static string AlbumArchiveReason(AlbumArchiveReason reason) {
 
 			return AlbumArchiveReasonNames.ResourceManager.GetString(reason.ToString());
+
+		}
+
+		public static string AllPermissionTokenNames(PermissionCollection collection) {
+
+			return string.Join(", ", collection.PermissionTokens.Select(p => PermissionTokenNames.ResourceManager.GetString(p.Name)));
 
 		}
 
@@ -98,6 +105,12 @@ namespace VocaDb.Web.Helpers {
 		public static string SongEditableField(SongEditableFields field) {
 
 			return SongEditableFieldNames.ResourceManager.GetString(field.ToString());
+
+		}
+
+		public static string PermissionTokenName(PermissionToken token) {
+
+			return PermissionTokenNames.ResourceManager.GetString(token.Name);
 
 		}
 

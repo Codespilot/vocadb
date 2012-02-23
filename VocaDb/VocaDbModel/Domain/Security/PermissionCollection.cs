@@ -1,71 +1,60 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Collections;
 
 namespace VocaDb.Model.Domain.Security {
 
-	public class PermissionCollection : IEnumerable<PermissionFlags> {
+	public class PermissionCollection : IEnumerable<PermissionToken> {
 
-		private readonly ISet<PermissionFlags> permissions = new HashSet<PermissionFlags>();
+		public static PermissionCollection operator +(PermissionCollection left, PermissionCollection right) {
+			return left.Merge(right);
+		}
 
-		private void AddAll(IEnumerable<PermissionFlags> flags) {
+		private Iesi.Collections.Generic.ISet<PermissionToken> permissions = new Iesi.Collections.Generic.HashedSet<PermissionToken>();
+
+		private void AddAll(IEnumerable<PermissionToken> flags) {
 
 			foreach (var flag in flags)
 				permissions.Add(flag);
 
 		}
 
-		private void AddAll(PermissionFlags flags) {
-
-			AddAll(EnumVal<PermissionFlags>.Values.Where(f => flags.IsSet(f)));
-
-		}
-
 		public PermissionCollection() { }
 
-		public PermissionCollection(IEnumerable<PermissionFlags> permissions)
+		public PermissionCollection(IEnumerable<PermissionToken> permissions)
 			: this() {
 			AddAll(permissions);
 		}
 
-		public PermissionCollection(PermissionFlags permissionBitArray)
-			: this() {
-			AddAll(permissionBitArray);
+		public Iesi.Collections.Generic.ISet<PermissionToken> Permissions {
+			get { return permissions; }
+			protected set {
+				ParamIs.NotNull(() => value);
+				permissions = value;
+			}
 		}
 
-		public IEnumerable<PermissionFlags> Permissions {
+		public IEnumerable<PermissionToken> PermissionTokens {
 			get { return permissions; }
 		}
 
-		public PermissionFlags PermissionBitArray {
-			get {
-				return Permissions.Aggregate((list, item) => list |= item);
-			}
-			set {
-				permissions.Clear();
-				AddAll(value);
-			}
-		}
-
-		public IEnumerator<PermissionFlags> GetEnumerator() {
-			return Permissions.GetEnumerator();
+		public IEnumerator<PermissionToken> GetEnumerator() {
+			return PermissionTokens.GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator() {
 			return GetEnumerator();
 		}
 
-		public bool Has(PermissionFlags flag) {
+		public bool Has(PermissionToken flag) {
 
-			return (flag == PermissionFlags.Nothing || permissions.Contains(flag));
+			return (flag == PermissionToken.Nothing || permissions.Contains(flag));
 
 		}
 
 		public PermissionCollection Merge(PermissionCollection collection) {
 
-			return new PermissionCollection(Permissions.Concat(collection.Permissions));
+			return new PermissionCollection(PermissionTokens.Concat(collection.PermissionTokens));
 
 		}
 

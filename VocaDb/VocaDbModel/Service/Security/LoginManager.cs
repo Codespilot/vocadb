@@ -48,12 +48,12 @@ namespace VocaDb.Model.Service.Security {
 			}
 		}
 
-		public bool HasPermission(PermissionFlags flag) {
+		public bool HasPermission(PermissionToken token) {
 
-			if (flag == PermissionFlags.Nothing)
+			if (token == PermissionToken.Nothing)
 				return true;
 
-			return (IsLoggedIn && LoggedUser.Active && LoggedUser.EffectivePermissions.HasFlag(flag));
+			return (IsLoggedIn && LoggedUser.Active && LoggedUser.EffectivePermissions.Has(token));
 
 		}
 
@@ -113,7 +113,7 @@ namespace VocaDb.Model.Service.Security {
 
 		}
 
-		public void VerifyPermission(PermissionFlags flag) {
+		public void VerifyPermission(PermissionToken flag) {
 
 			if (!HasPermission(flag)) {
 				log.Warn(string.Format("User '{0}' does not have the requested permission '{1}'", Name, flag));
