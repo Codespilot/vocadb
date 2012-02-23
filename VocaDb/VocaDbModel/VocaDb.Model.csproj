@@ -191,6 +191,8 @@
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
     <Compile Include="Domain\Security\EntryPermissionManager.cs" />
+    <Compile Include="Domain\Security\PermissionCollection.cs" />
+    <Compile Include="Domain\Security\PermissionToken.cs" />
     <Compile Include="Domain\Songs\SongComment.cs" />
     <Compile Include="Domain\Songs\SongInList.cs" />
     <Compile Include="Domain\Songs\SongList.cs" />

@@ -14,6 +14,7 @@ namespace VocaDb.Model.Domain.Users {
 	public class User : IEntryBase, IEquatable<User> {
 
 		private string accessKey;
+		private PermissionCollection additionalPermissions = new PermissionCollection();
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private string email;
 		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
@@ -64,7 +65,16 @@ namespace VocaDb.Model.Domain.Users {
 		/// <summary>
 		/// Additional user permissions. Base permissions are assigned through the user group.
 		/// </summary>
-		public virtual PermissionFlags AdditionalPermissions { get; set; }
+		public virtual PermissionCollection AdditionalPermissions {
+			get {
+				return additionalPermissions;
+			}
+			set {
+				additionalPermissions = value ?? new PermissionCollection();
+			}
+		}
+
+		//public virtual PermissionFlags AdditionalPermissions { get; set; }
 
 		public virtual IEnumerable<AlbumForUser> Albums {
 			get {
@@ -85,7 +95,7 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual bool CanBeDisabled {
 			get {
 
-				return !EffectivePermissions.HasFlag(PermissionFlags.ManageUserBlocks);
+				return !EffectivePermissions.Has(PermissionFlags.ManageUserBlocks);
 
 			}
 		}
@@ -98,13 +108,23 @@ namespace VocaDb.Model.Domain.Users {
 			get { return Name; }
 		}
 
-		public virtual PermissionFlags EffectivePermissions {
+		/*public virtual PermissionFlags EffectivePermissions {
 			get {
 
 				if (!Active)
 					return PermissionFlags.Nothing;
 
 				return UserGroup.GetPermissions(GroupId) | AdditionalPermissions;
+
+			}
+		}*/
+		public virtual PermissionCollection EffectivePermissions {
+			get {
+
+				if (!Active)
+					return new PermissionCollection();
+
+				return UserGroup.GetPermissions(GroupId).Merge(AdditionalPermissions);
 
 			}
 		}

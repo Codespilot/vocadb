@@ -126,7 +126,7 @@ namespace VocaDb.Model.Service {
 			if (latestVersion == null)
 				return true;
 
-			return ((((latestVersion.Version + 1) % 5) == 0) || DateTime.Now - latestVersion.Created >= TimeSpan.FromDays(7));
+			return ((((latestVersion.Version + 1) % 5) == 0) || DateTime.Now - latestVersion.Created >= TimeSpan.FromDays(14));
 
 		}
 
