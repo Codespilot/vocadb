@@ -10,26 +10,26 @@ namespace VocaDb.Model.Domain.Users {
 
 		private static readonly UserGroup limited = new UserGroup(UserGroupId.Limited, PermissionFlags.EditProfile);
 
-		private static readonly UserGroup regular = new UserGroup(UserGroupId.Regular, 
-			limited.Permissions | PermissionFlags.ManageDatabase);
+		private static readonly UserGroup regular = new UserGroup(UserGroupId.Regular,
+			limited.Permissions.PermissionBitArray | PermissionFlags.ManageDatabase);
 
-		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted, 
-			regular.Permissions | PermissionFlags.DeleteEntries | PermissionFlags.MergeEntries);
+		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted,
+			regular.Permissions.PermissionBitArray | PermissionFlags.DeleteEntries | PermissionFlags.MergeEntries);
 
-		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator, 
-			trusted.Permissions | PermissionFlags.RestoreEntries | PermissionFlags.ManageUserBlocks | PermissionFlags.ViewAuditLog);
+		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
+			trusted.Permissions.PermissionBitArray | PermissionFlags.RestoreEntries | PermissionFlags.ManageUserBlocks | PermissionFlags.ViewAuditLog);
 
-		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin, 
-			mod.Permissions | PermissionFlags.Admin | PermissionFlags.ManageUsers | PermissionFlags.MikuDbImport);
+		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin,
+			mod.Permissions.PermissionBitArray | PermissionFlags.Admin | PermissionFlags.ManageUsers | PermissionFlags.MikuDbImport);
 
 		private static readonly Dictionary<UserGroupId, UserGroup> groups = new[] {
 			limited, regular, trusted, mod, admin
 		}.ToDictionary(g => g.Id);
 
-		public static PermissionFlags GetPermissions(UserGroupId groupId) {
+		public static PermissionCollection GetPermissions(UserGroupId groupId) {
 
 			if (!groups.ContainsKey(groupId))
-				return PermissionFlags.Nothing;
+				return new PermissionCollection();
 
 			return groups[groupId].Permissions;
 
@@ -43,12 +43,17 @@ namespace VocaDb.Model.Domain.Users {
 
 		public UserGroup(UserGroupId id, PermissionFlags permissions) {
 			this.Id = id;
+			this.Permissions = new PermissionCollection(permissions);
+		}
+
+		public UserGroup(UserGroupId id, PermissionCollection permissions) {
+			this.Id = id;
 			this.Permissions = permissions;
 		}
 
 		public UserGroupId Id { get; private set; }
 
-		public PermissionFlags Permissions { get; private set; }
+		public PermissionCollection Permissions { get; private set; }
 
 	}
 

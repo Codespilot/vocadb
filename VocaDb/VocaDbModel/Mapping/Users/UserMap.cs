@@ -23,9 +23,12 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.Name).Length(100).Not.Nullable();
 			Map(m => m.NameLC).Length(100).Not.Nullable();
 			Map(m => m.Password).Not.Nullable();
-			Map(m => m.AdditionalPermissions).Column("[PermissionFlags]").CustomType(typeof(PermissionFlags)).Not.Nullable();
 			Map(m => m.PreferredVideoService).Not.Nullable();
 			Map(m => m.Salt).Not.Nullable();
+
+			Component(m => m.AdditionalPermissions, c => {
+				c.Map(m => m.PermissionBitArray).Column("[PermissionFlags]").CustomType(typeof(PermissionFlags)).Not.Nullable();
+			});
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
 			HasMany(m => m.FavoriteSongs).Inverse().Cascade.All();

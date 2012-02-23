@@ -17,11 +17,11 @@ namespace VocaDb.Model.DataContracts.Users {
 			ParamIs.NotNull(() => user);
 
 			Active = user.Active;
-			AdditionalPermissions = user.AdditionalPermissions;
+			AdditionalPermissions = user.AdditionalPermissions.PermissionBitArray;
 			AnonymousActivity = user.AnonymousActivity;
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
-			EffectivePermissions = user.EffectivePermissions;
+			EffectivePermissions = user.EffectivePermissions.PermissionBitArray;
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
