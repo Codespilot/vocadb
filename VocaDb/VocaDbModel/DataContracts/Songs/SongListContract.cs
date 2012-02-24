@@ -6,14 +6,14 @@ using VocaDb.Model.Domain.Songs;
 namespace VocaDb.Model.DataContracts.Songs {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class SongListContract {
+	public class SongListContract : SongListBaseContract {
 
 		public SongListContract() {
-			Name = Description = string.Empty;
+			Description = string.Empty;
 		}
 
 		public SongListContract(SongList list, IUserPermissionContext permissionContext)
-			: this() {
+			: base(list) {
 
 			ParamIs.NotNull(() => list);
 
@@ -21,8 +21,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 			CanEdit = EntryPermissionManager.CanEdit(permissionContext, list);
 			Description = list.Description;
 			FeaturedCategory = list.FeaturedCategory;
-			Id = list.Id;
-			Name = list.Name;
 
 		}
 
@@ -37,12 +35,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public SongListFeaturedCategory FeaturedCategory { get; set; }
-
-		[DataMember]
-		public int Id { get; set; }
-
-		[DataMember]
-		public string Name { get; set; }
 
 	}
 }

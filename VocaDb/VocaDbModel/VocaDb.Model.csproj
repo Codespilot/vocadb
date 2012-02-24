@@ -96,6 +96,7 @@
     <Compile Include="DataContracts\Security\PermissionTokenContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
+    <Compile Include="DataContracts\Songs\SongListBaseContract.cs" />
     <Compile Include="DataContracts\Songs\SongListContract.cs" />
     <Compile Include="DataContracts\Songs\SongListDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongListForEditContract.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
     <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
+    <Compile Include="DataContracts\Users\UserBaseContract.cs" />
     <Compile Include="DataContracts\Users\UserDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongContract.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />

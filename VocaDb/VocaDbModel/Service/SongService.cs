@@ -752,7 +752,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongListContract[] GetSongListsForCurrentUser(int ignoreSongId) {
+		public SongListBaseContract[] GetSongListsForCurrentUser(int ignoreSongId) {
 
 			PermissionContext.VerifyLogin();
 
@@ -761,10 +761,10 @@ namespace VocaDb.Model.Service {
 				var ignoredSong = session.Load<Song>(ignoreSongId);
 
 				return session.Query<SongList>()
-					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id)
+					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id && l.FeaturedCategory == SongListFeaturedCategory.Nothing)
 					.OrderBy(l => l.Name).ToArray()
 					.Where(l => !l.AllSongs.Any(s => s.Song.Equals(ignoredSong)))
-					.Select(l => new SongListContract(l, PermissionContext)).ToArray();
+					.Select(l => new SongListBaseContract(l)).ToArray();
 
 			});
 

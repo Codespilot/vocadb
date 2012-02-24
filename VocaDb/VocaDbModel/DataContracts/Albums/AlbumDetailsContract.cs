@@ -52,9 +52,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumReleaseContract OriginalRelease { get; set; }
 
 		[DataMember]
-		public UserContract Owner { get; set; }
-
-		[DataMember]
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]

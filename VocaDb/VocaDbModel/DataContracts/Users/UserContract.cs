@@ -8,11 +8,12 @@ using VocaDb.Model.Domain.Users;
 namespace VocaDb.Model.DataContracts.Users {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class UserContract {
+	public class UserContract : UserBaseContract {
 
 		public UserContract() {}
 
-		public UserContract(User user) {
+		public UserContract(User user)
+			: base(user) {
 
 			ParamIs.NotNull(() => user);
 
@@ -25,8 +26,6 @@ namespace VocaDb.Model.DataContracts.Users {
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
-			Id = user.Id;
-			Name = user.Name;
 			PreferredVideoService = user.PreferredVideoService;
 
 		}
@@ -60,12 +59,6 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public bool HasUnreadMessages { get; set; }
-
-		[DataMember]
-		public int Id { get; set; }
-
-		[DataMember]
-		public string Name { get; set; }
 
 		[DataMember]
 		public PVService PreferredVideoService { get; set; }
