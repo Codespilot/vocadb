@@ -31,7 +31,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public AlbumWithAdditionalNamesContract[] FindAlbums(string term, int maxResults) {
 
-			return Services.Albums.Find(term, 0, maxResults, false, false, true).Items;
+			return Services.Albums.Find(term, 0, maxResults, false, false, moveExactToTop: true).Items;
 
 		}
 
@@ -50,9 +50,16 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public string[] FindTags(string term, int maxResults) {
+
+			return Services.Tags.FindTags(term);
+
+		}
+
+		[OperationContract]
 		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term) {
 
-			var albums = Services.Albums.Find(term, 0, 10, false, false, true);
+			var albums = Services.Albums.Find(term, 0, 10, false, false, moveExactToTop: true);
 			return albums.Items.FirstOrDefault();
 
 		}

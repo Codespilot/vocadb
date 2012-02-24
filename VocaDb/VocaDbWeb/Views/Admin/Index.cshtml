@@ -8,17 +8,17 @@
 <p>
 @Html.ActionLink("View users list", "Index", "User")
 </p>
-@if (Login.Manager.HasPermission(PermissionFlags.ViewAuditLog)) {
+@if (Login.Manager.HasPermission(PermissionToken.ViewAuditLog)) {
 <p>
 @Html.ActionLink("View audit log", "ViewAuditLog")
 </p>
 }
-@if (Login.Manager.HasPermission(PermissionFlags.ManageUserBlocks)) {
+@if (Login.Manager.HasPermission(PermissionToken.ReadRecentComments)) {
 <p>@Html.ActionLink("View recent comments", "RecentComments")</p>	
 }
 <br />
 
-@if (Login.Manager.HasPermission(PermissionFlags.Admin)) {
+@if (Login.Manager.HasPermission(PermissionToken.Admin)) {
 <h3>Database maintenance tasks</h3>
 <p>
 @Html.ActionLink("Refresh NHibernate cache", "RefreshDbCache")

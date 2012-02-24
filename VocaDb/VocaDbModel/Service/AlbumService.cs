@@ -491,10 +491,10 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(
-			string query, int start, int maxResults, bool draftsOnly, bool getTotalCount, bool moveExactToTop) {
+			string query, int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool moveExactToTop = false) {
 
-			return HandleQuery(session => Find(session, query, start, maxResults, draftsOnly, getTotalCount, 
-				NameMatchMode.Auto, moveExactToTop));
+			return HandleQuery(session => Find(session, query, start, maxResults, draftsOnly, getTotalCount,
+				nameMatchMode, moveExactToTop));
 
 		}
 
