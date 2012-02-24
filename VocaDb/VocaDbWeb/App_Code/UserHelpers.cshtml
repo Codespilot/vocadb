@@ -4,6 +4,6 @@
 @using VocaDb.Model.DataContracts.Users;
 @using VocaDb.Web.Helpers;
 
-@helper UserLink(UserContract user) {
+@helper UserLink(UserBaseContract user) {
 	Html.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null);
 }
