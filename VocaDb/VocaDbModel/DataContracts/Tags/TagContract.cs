@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 			CategoryName = tag.CategoryName;
 			Description = tag.Description;
-			Name = tag.Name;
+			Name = tag.TagName;
 
 		}
 

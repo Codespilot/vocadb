@@ -15,6 +15,17 @@ namespace VocaDb.Model.Service {
 
 	public class TagService : ServiceBase {
 
+		private Tag GetTag(ISession session, string name) {
+
+			var tag = session.Load<Tag>(name);
+
+			if (name != tag.TagName)
+				tag = session.Load<Tag>(tag.TagName);
+
+			return tag;
+
+		}
+
 		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
@@ -110,7 +121,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
 
-			return HandleQuery(session => new TagContract(session.Get<Tag>(tagName)));
+			return HandleQuery(session => new TagContract(GetTag(session, tagName)));
 
 		}
 
@@ -118,7 +129,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
 
-			return HandleQuery(session => new TagDetailsContract(session.Load<Tag>(tagName), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new TagDetailsContract(GetTag(session, tagName), PermissionContext.LanguagePreference));
 
 		}
 

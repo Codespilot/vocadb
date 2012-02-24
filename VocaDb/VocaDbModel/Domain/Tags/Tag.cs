@@ -76,6 +76,8 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public virtual string Name { get; set; }
 
+		public virtual string TagName { get; set; }
+
 		public virtual bool Equals(Tag tag) {
 
 			if (tag == null)
