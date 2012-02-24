@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts {
 
 			ParamIs.NotNull(() => comment);
 
-			Author = (comment.Author != null ? new UserContract(comment.Author) : null);
+			Author = (comment.Author != null ? new UserBaseContract(comment.Author) : null);
 			AuthorName = comment.AuthorName;
 			Created = comment.Created;
 			Id = comment.Id;
@@ -23,7 +23,7 @@ namespace VocaDb.Model.DataContracts {
 		}
 
 		[DataMember]
-		public UserContract Author { get; set; }
+		public UserBaseContract Author { get; set; }
 
 		[DataMember]
 		public string AuthorName { get; set; }
