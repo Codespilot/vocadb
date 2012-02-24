@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace VocaDb.Model.Domain.Security {
 
@@ -43,6 +44,14 @@ namespace VocaDb.Model.Domain.Security {
 			DesignatedStaff, DisableUsers, EditFeaturedLists, EditProfile, LockEntries,
 			ManageDatabase, ManageUserPermissions, MergeEntries, MikuDbImport, RestoreRevisions, ViewAuditLog
 		};
+
+		public static string GetNameById(Guid id) {
+			return All.First(t => t.Id == id).Name;
+		}
+
+		public static PermissionToken GetById(Guid id) {
+			return All.First(t => t.Id == id);
+		}
 
 		public static bool operator ==(PermissionToken left, PermissionToken right) {
 			return left.Equals(right);

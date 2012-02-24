@@ -338,6 +338,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\unknown.png" />
+    <Content Include="Content\vocaDB-title.png" />
     <Content Include="Content\youtube.png" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />

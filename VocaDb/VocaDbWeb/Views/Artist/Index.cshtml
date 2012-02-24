@@ -57,7 +57,7 @@ if (Model.Artists.Any()) {
 			@Translate.ArtistTypeName(artist.ArtistType)
 		</td>
 		<td>
-			@if (Login.CanManageDb) {
+			@if (Login.CanEdit(artist)) {
 				@Html.ActionLink("Edit", "Edit", new { id = artist.Id })
    }
 		</td>

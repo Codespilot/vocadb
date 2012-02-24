@@ -49,7 +49,7 @@ if (Model.Albums.Any()) {
 			<span class="extraInfo">@album.ArtistString</span>
 		</td>
 		<td>
-			@if (Login.CanManageDb) {
+			@if (Login.CanEdit(album)) {
 				@Html.ActionLink("Edit", "Edit", new { id = album.Id })
    }
 		</td>
