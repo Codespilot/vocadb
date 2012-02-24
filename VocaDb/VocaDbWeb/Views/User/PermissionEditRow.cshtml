@@ -2,9 +2,12 @@
 @model VocaDb.Web.Models.PermissionFlagEntry
 
 <p>
-@using (Html.BeginCollectionItem("permissions")) {
+@using (Html.BeginCollectionItem("Permissions")) {
 	@Html.HiddenFor(m => m.PermissionType.Id)
 	@Html.CheckBoxFor(m => m.HasFlag)
 	@Translate.PermissionTokenName(Model.PermissionType)
+	if (Model.HasPermission) {
+		<span>(already granted)</span>
+	}
 }
 </p>

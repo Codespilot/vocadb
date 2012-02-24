@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
+using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
@@ -141,6 +142,7 @@ namespace VocaDb.Web.Models {
 	public class UserEdit {
 
 		public UserEdit() {
+			Permissions = new List<PermissionFlagEntry>();
 		}
 
 		public UserEdit(UserContract contract) {
@@ -150,7 +152,7 @@ namespace VocaDb.Web.Models {
 			Id = contract.Id;
 			Name = contract.Name;
 			Permissions = PermissionToken.All
-				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.Has(p))).ToArray();
+				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.Has(p), contract.EffectivePermissions.Has(p))).ToArray();
 
 		}
 
@@ -163,7 +165,7 @@ namespace VocaDb.Web.Models {
 
 		public string Name { get; set; }
 
-		public PermissionFlagEntry[] Permissions { get; set; }
+		public IList<PermissionFlagEntry> Permissions { get; set; }
 
 		public UserContract ToContract() {
 
@@ -172,7 +174,7 @@ namespace VocaDb.Web.Models {
 				GroupId = this.GroupId,
 				Id = this.Id,
 				Name = this.Name,
-				AdditionalPermissions = new PermissionCollection(Permissions.Where(p => p.HasFlag).Select(p => p.PermissionType))
+				AdditionalPermissions = new PermissionCollection(Permissions.Where(p => p.HasFlag).Select(p => PermissionToken.GetById(p.PermissionType.Id)))
 			};
 
 		}
@@ -183,14 +185,17 @@ namespace VocaDb.Web.Models {
 
 		public PermissionFlagEntry() {}
 
-		public PermissionFlagEntry(PermissionToken permissionType, bool hasFlag) {
-			PermissionType = permissionType;
+		public PermissionFlagEntry(PermissionToken permissionType, bool hasFlag, bool hasPermission) {
+			PermissionType = new PermissionTokenContract(permissionType);
 			HasFlag = hasFlag;
+			HasPermission = hasPermission;
 		}
 
 		public bool HasFlag { get; set; }
 
-		public PermissionToken PermissionType { get; set; }
+		public bool HasPermission { get; set; }
+
+		public PermissionTokenContract PermissionType { get; set; }
 
 	}
 

@@ -46,7 +46,7 @@ if (Model.Songs.Any()) {
 			<span class="extraInfo">@song.ArtistString</span>
 		</td>
 		<td>
-			@if (VocaDb.Web.Helpers.Login.CanManageDb) {
+			@if (Login.CanEdit(song)) {
 				@Html.ActionLink("Edit", "Edit", new { id = song.Id })
    }		
 		</td>

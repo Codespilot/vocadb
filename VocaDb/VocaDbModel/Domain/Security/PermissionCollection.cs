@@ -10,7 +10,7 @@ namespace VocaDb.Model.Domain.Security {
 			return left.Merge(right);
 		}
 
-		private Iesi.Collections.Generic.ISet<PermissionToken> permissions = new Iesi.Collections.Generic.HashedSet<PermissionToken>();
+		private Iesi.Collections.Generic.ISet<PermissionToken> permissions;
 
 		private void AddAll(IEnumerable<PermissionToken> flags) {
 
@@ -19,11 +19,17 @@ namespace VocaDb.Model.Domain.Security {
 
 		}
 
-		public PermissionCollection() { }
+		public PermissionCollection() {
+			permissions = new Iesi.Collections.Generic.HashedSet<PermissionToken>();
+		}
 
-		public PermissionCollection(IEnumerable<PermissionToken> permissions)
-			: this() {
+		public PermissionCollection(IEnumerable<PermissionToken> permissions) {
+			this.permissions = new Iesi.Collections.Generic.HashedSet<PermissionToken>();
 			AddAll(permissions);
+		}
+
+		public PermissionCollection(ICollection<PermissionToken> permissions) {
+			this.permissions = new Iesi.Collections.Generic.HashedSet<PermissionToken>(permissions);
 		}
 
 		public Iesi.Collections.Generic.ISet<PermissionToken> Permissions {
@@ -54,7 +60,12 @@ namespace VocaDb.Model.Domain.Security {
 
 		public PermissionCollection Merge(PermissionCollection collection) {
 
-			return new PermissionCollection(PermissionTokens.Concat(collection.PermissionTokens));
+			ParamIs.NotNull(() => collection);
+
+			if (!collection.Permissions.Any())
+				return this;
+
+			return new PermissionCollection(Permissions.Concat(collection.Permissions));
 
 		}
 

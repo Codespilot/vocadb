@@ -93,6 +93,7 @@
     <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
     <Compile Include="DataContracts\EntryNameContract.cs" />
     <Compile Include="DataContracts\EntryRefContract.cs" />
+    <Compile Include="DataContracts\Security\PermissionTokenContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListContract.cs" />
