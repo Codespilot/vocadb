@@ -42,7 +42,7 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken[] All = { 
 			AccessManageMenu, Admin, ApproveEntries, CreateComments, DeleteComments, DeleteEntries, 
 			DesignatedStaff, DisableUsers, EditFeaturedLists, EditProfile, LockEntries,
-			ManageDatabase, ManageUserPermissions, MergeEntries, MikuDbImport, RestoreRevisions, ViewAuditLog
+			ManageDatabase, ManageUserPermissions, MergeEntries, MikuDbImport, ReadRecentComments, RestoreRevisions, ViewAuditLog
 		};
 
 		public static string GetNameById(Guid id) {
