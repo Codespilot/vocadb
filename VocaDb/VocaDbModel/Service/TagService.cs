@@ -110,7 +110,7 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
 
-			return HandleQuery(session => new TagContract(session.Load<Tag>(tagName)));
+			return HandleQuery(session => new TagContract(session.Get<Tag>(tagName)));
 
 		}
 

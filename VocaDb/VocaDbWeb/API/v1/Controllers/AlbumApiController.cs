@@ -26,7 +26,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		public ActionResult Index(string query, int? start) {
 
-			var entries = Service.Find(query, start ?? 0, maxResults, false, false, false);
+			var entries = Service.Find(query, start ?? 0, maxResults, false, false);
 
 			return Json(entries);
 

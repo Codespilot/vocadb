@@ -74,8 +74,6 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
-		//public virtual PermissionFlags AdditionalPermissions { get; set; }
-
 		public virtual IEnumerable<AlbumForUser> Albums {
 			get {
 				return AllAlbums.Where(a => !a.Album.Deleted);
@@ -108,16 +106,6 @@ namespace VocaDb.Model.Domain.Users {
 			get { return Name; }
 		}
 
-		/*public virtual PermissionFlags EffectivePermissions {
-			get {
-
-				if (!Active)
-					return PermissionFlags.Nothing;
-
-				return UserGroup.GetPermissions(GroupId) | AdditionalPermissions;
-
-			}
-		}*/
 		public virtual PermissionCollection EffectivePermissions {
 			get {
 

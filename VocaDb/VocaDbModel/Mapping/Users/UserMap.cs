@@ -32,7 +32,8 @@ namespace VocaDb.Model.Mapping.Users {
 					.AsSet()
 					.KeyColumn("[User]")
 					.Component(a => a.Map(m => m.Id)
-						.Column("[PermissionId]"));
+						.Column("[PermissionId]"))
+					.Cache.ReadWrite();
 			});
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
