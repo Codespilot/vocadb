@@ -189,7 +189,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserContract user, int size = 80) {
+		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserBaseContract user, int size = 80) {
 
 			if (user != null && !string.IsNullOrEmpty(user.Email))
 				return Gravatar.GetHtml(user.Email, size);
@@ -212,7 +212,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		public static MvcHtmlString UserLink(this HtmlHelper htmlHelper, UserContract user, string name) {
+		public static MvcHtmlString UserLink(this HtmlHelper htmlHelper, UserBaseContract user, string name) {
 
 			return (user != null ? htmlHelper.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null) : MvcHtmlString.Create(name));
 

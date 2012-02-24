@@ -23,7 +23,6 @@ namespace VocaDb.Model.DataContracts.Users {
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			EffectivePermissions = user.EffectivePermissions;
-			Email = user.Email;
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
 			PreferredVideoService = user.PreferredVideoService;
@@ -47,9 +46,6 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public PermissionCollection EffectivePermissions { get; set; }
-
-		[DataMember]
-		public string Email { get; set; }
 
 		[DataMember]
 		public UserEmailOptions EmailOptions { get; set; }
