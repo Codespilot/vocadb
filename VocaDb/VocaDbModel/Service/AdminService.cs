@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
@@ -26,18 +27,20 @@ namespace VocaDb.Model.Service {
 		public AdminService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
-		public void CleanupOldAuditLogEntries() {
+		public int CleanupOldLogEntries() {
 
 			VerifyAdmin();
 
-			AuditLog("cleaning up audit log");
+			AuditLog("cleaning up old log");
 
-			HandleTransaction(session => {
+			return HandleTransaction(session => {
 
-				var oldEntries = session.Query<AuditLogEntry>().Where(e => e.Time < DateTime.Now - TimeSpan.FromDays(7)).ToArray();
+				var oldEntries = session.Query<ActivityEntry>().OrderByDescending(e => e.CreateDate).Skip(200).ToArray();
 
 				foreach (var entry in oldEntries)
 					session.Delete(entry);
+
+				return oldEntries.Length;
 
 			});
 
