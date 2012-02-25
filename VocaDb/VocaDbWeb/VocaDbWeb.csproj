@@ -261,6 +261,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\Icons\accept.png" />
     <Content Include="Content\Icons\add.png" />
     <Content Include="Content\Icons\asterisk_yellow.png" />

@@ -118,6 +118,10 @@ function initPage(songId) {
 		}
 	});
 
+	$("#pvLoader")
+		.ajaxStart(function () { $(this).show(); })
+		.ajaxStop(function () { $(this).hide(); });
+
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });
 	$("#addToListDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: { "Save": function () {
 

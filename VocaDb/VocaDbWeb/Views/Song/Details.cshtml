@@ -22,6 +22,8 @@
 @Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
 @Helpers.EntryStatusMessage(Model.Status)
+
+@Helpers.AjaxLoader("pvLoader")	
 }
 
 @if (Model.Deleted) {
@@ -162,16 +164,16 @@
 		<h3>Latest comments</h3>
 		
 		@if (Model.LatestComments.Any()) {
-	  
-			foreach (var comment in Model.LatestComments) {
+
+	  foreach (var comment in Model.LatestComments) {
 				@Helpers.PrintComment(comment, false);
-			}			
-	  
-		} else {
+	  }
+
+  } else {
 	  
 			<p>Nothing yet!</p>
 	  
-		}
+  }
 		
 		<p>
 			<a href="#" id="viewCommentsLink">View all comments</a>

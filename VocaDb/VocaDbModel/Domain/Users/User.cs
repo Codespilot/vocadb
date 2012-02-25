@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Mail;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
@@ -242,6 +243,15 @@ namespace VocaDb.Model.Domain.Users {
 
 		public override int GetHashCode() {
 			return NameLC.GetHashCode();
+		}
+
+		public virtual bool IsTheSameUser(UserContract contract) {
+
+			if (contract == null)
+				return false;
+
+			return (Id == contract.Id);
+
 		}
 
 		public virtual UserMessage SendMessage(User to, string subject, string body, bool highPriority) {

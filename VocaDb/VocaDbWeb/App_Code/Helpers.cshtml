@@ -5,6 +5,10 @@
 @using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
 
+@helper AjaxLoader(string id) {
+	<img id="@id" src="@Url.Content("~/Content/ajax-loader.gif")" alt="loading..." style="display:none;" />
+}
+
 @helper ArchivedObjectVersions(IEnumerable<VocaDb.Web.Models.Shared.ArchivedObjectVersion> archivedVersions, Func<int, string> linkFunc = null) {
 	
 	<table>
