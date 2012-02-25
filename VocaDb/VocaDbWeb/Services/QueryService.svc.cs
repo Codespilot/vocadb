@@ -136,6 +136,11 @@ namespace VocaDb.Web.Services {
 
 		#region MikuDB-specific queries (TODO: move elsewhere)
 		[OperationContract]
+		public AlbumWithAdditionalNamesContract GetAlbumByLinkUrl(string url) {
+			return Services.Albums.GetAlbumByLink(url);
+		}
+
+		[OperationContract]
 		public LyricsForSongContract GetRandomSongLyrics() {
 
 			return Services.Songs.GetRandomSongWithLyricsDetails();

@@ -535,6 +535,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumWithAdditionalNamesContract GetAlbumByLink(string link) {
+
+			return HandleQuery(session => {
+
+				var webLink = session.Query<AlbumWebLink>().FirstOrDefault(p => p.Url.Contains(link));
+
+				return (webLink != null ? new AlbumWithAdditionalNamesContract(webLink.Album, PermissionContext.LanguagePreference) : null);
+
+			});
+
+		}
+
 		public AlbumDetailsContract GetAlbumDetails(int id) {
 
 			return HandleQuery(session => {
