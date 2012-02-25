@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.DataContracts.Security {
+
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PermissionTokenContract {
 
 		public PermissionTokenContract() { }
@@ -13,8 +16,10 @@ namespace VocaDb.Model.DataContracts.Security {
 
 		}
 
+		[DataMember]
 		public Guid Id { get; set; }
 
+		[DataMember]
 		public string Name { get; set; }
 
 	}

@@ -53,7 +53,7 @@ namespace VocaDb.Model.Service.Security {
 			if (token == PermissionToken.Nothing)
 				return true;
 
-			return (IsLoggedIn && LoggedUser.Active && LoggedUser.EffectivePermissions.Has(token));
+			return (IsLoggedIn && LoggedUser.Active && LoggedUser.EffectivePermissions.Contains(token));
 
 		}
 

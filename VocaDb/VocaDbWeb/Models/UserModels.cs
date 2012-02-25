@@ -152,7 +152,7 @@ namespace VocaDb.Web.Models {
 			Id = contract.Id;
 			Name = contract.Name;
 			Permissions = PermissionToken.All
-				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.Has(p), contract.EffectivePermissions.Has(p))).ToArray();
+				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.Contains(p), contract.EffectivePermissions.Contains(p))).ToArray();
 
 		}
 
@@ -174,7 +174,7 @@ namespace VocaDb.Web.Models {
 				GroupId = this.GroupId,
 				Id = this.Id,
 				Name = this.Name,
-				AdditionalPermissions = new PermissionCollection(Permissions.Where(p => p.HasFlag).Select(p => PermissionToken.GetById(p.PermissionType.Id)))
+				AdditionalPermissions = new HashSet<PermissionToken>(Permissions.Where(p => p.HasFlag).Select(p => PermissionToken.GetById(p.PermissionType.Id)))
 			};
 
 		}
