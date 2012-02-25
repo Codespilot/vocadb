@@ -494,6 +494,7 @@ namespace VocaDb.Model.Service {
 					AuditLog("deleting " + albumForUser, session);
 					albumForUser.Delete();
 					session.Delete(albumForUser);
+					session.Update(albumForUser.Album);
 
 				} else if (albumForUser == null && status != PurchaseStatus.Nothing) {
 
