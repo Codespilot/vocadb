@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
@@ -46,9 +47,9 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		public static string AllPermissionTokenNames(PermissionCollection collection) {
+		public static string AllPermissionTokenNames(IEnumerable<PermissionToken> tokens) {
 
-			return string.Join(", ", collection.PermissionTokens.Select(PermissionTokenName));
+			return string.Join(", ", tokens.Select(PermissionTokenName));
 
 		}
 

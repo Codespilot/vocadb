@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -18,11 +19,11 @@ namespace VocaDb.Model.DataContracts.Users {
 			ParamIs.NotNull(() => user);
 
 			Active = user.Active;
-			AdditionalPermissions = user.AdditionalPermissions;
+			AdditionalPermissions = new HashSet<PermissionToken>(user.AdditionalPermissions.PermissionTokens);
 			AnonymousActivity = user.AnonymousActivity;
 			CreateDate = user.CreateDate;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
-			EffectivePermissions = user.EffectivePermissions;
+			EffectivePermissions = new HashSet<PermissionToken>(user.EffectivePermissions.PermissionTokens);
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
 			PreferredVideoService = user.PreferredVideoService;
@@ -33,7 +34,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		public bool Active { get; set; }
 
 		[DataMember]
-		public PermissionCollection AdditionalPermissions { get; set; }
+		public HashSet<PermissionToken> AdditionalPermissions { get; set; }
 
 		[DataMember]
 		public bool AnonymousActivity { get; set; }
@@ -45,7 +46,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
 
 		[DataMember]
-		public PermissionCollection EffectivePermissions { get; set; }
+		public HashSet<PermissionToken> EffectivePermissions { get; set; }
 
 		[DataMember]
 		public UserEmailOptions EmailOptions { get; set; }

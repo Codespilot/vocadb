@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Domain.Security {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public struct PermissionToken : IEquatable<PermissionToken> {
 
-		private readonly Guid id;
-		private readonly string name;
+		private Guid id;
+		private string name;
 
 		private static PermissionToken New(string guid, string name) {
 			return new PermissionToken(new Guid(guid), name);
@@ -66,12 +69,16 @@ namespace VocaDb.Model.Domain.Security {
 			this.name = name;
 		}
 
+		[DataMember]
 		public Guid Id {
 			get { return id; }
+			set { id = value; }
 		}
 
+		[DataMember]
 		public string Name {
 			get { return name; }
+			set { name = value; }
 		}
 
 		public bool Equals(PermissionToken token) {

@@ -555,7 +555,7 @@ namespace VocaDb.Model.Service {
 			UpdateEntity<User>(contract.Id, (session, user) => {
 
 				user.Active = contract.Active;
-				user.AdditionalPermissions = contract.AdditionalPermissions;
+				user.AdditionalPermissions = new PermissionCollection(contract.AdditionalPermissions.Select(p => PermissionToken.GetById(p.Id)));
 				user.GroupId = contract.GroupId;
 
 				AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(user)), session);
