@@ -36,7 +36,7 @@ namespace VocaDb.Model.Domain.Security {
 			if (songList.FeaturedCategory != SongListFeaturedCategory.Nothing && permissionContext.HasPermission(PermissionToken.EditFeaturedLists))
 				return true;
 
-			return (permissionContext.Equals(songList.Author));
+			return (songList.Author.IsTheSameUser(permissionContext.LoggedUser));
 
 		}
 

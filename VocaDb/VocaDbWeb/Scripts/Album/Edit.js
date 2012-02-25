@@ -159,6 +159,9 @@ function initPage(albumId) {
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 	$("#statusHelp").tooltip();
+	$("#pvLoader")
+		.ajaxStart(function() { $(this).show(); })
+		.ajaxStop(function() { $(this).hide(); });
 
 	$(".isSupportCheck").live("change", function () {
 
