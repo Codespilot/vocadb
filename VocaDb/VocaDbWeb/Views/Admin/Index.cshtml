@@ -21,6 +21,9 @@
 @if (Login.Manager.HasPermission(PermissionToken.Admin)) {
 <h3>Database maintenance tasks</h3>
 <p>
+@Html.ActionLink("Cleanup old log entries", "CleanupOldLogEntries")
+</p>
+<p>
 @Html.ActionLink("Refresh NHibernate cache", "RefreshDbCache")
 </p>
 <p>

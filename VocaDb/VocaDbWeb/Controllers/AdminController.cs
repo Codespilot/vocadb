@@ -32,6 +32,16 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Admin; }
     	}
 
+		public ActionResult CleanupOldLogEntries() {
+
+			var count = Service.CleanupOldLogEntries();
+
+			TempData.SetStatusMessage("Cleanup complete - " + count + " entries removed.");
+
+			return RedirectToAction("Index");
+
+		}
+
         //
         // GET: /Admin/
 		[Authorize]
