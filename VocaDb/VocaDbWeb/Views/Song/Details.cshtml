@@ -5,6 +5,7 @@
 @model SongDetails
 @{
 	ViewBag.Title = "Song details - " + Model.Name;
+	ViewBag.Subtitle = Model.ArtistString;
 	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };
 }
 

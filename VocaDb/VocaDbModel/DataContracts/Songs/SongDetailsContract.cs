@@ -22,6 +22,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Albums = song.Albums.Select(a => new AlbumWithAdditionalNamesContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
 			AlternateVersions = song.AlternateVersions.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
 			Artists = song.AllArtists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
+			ArtistString = song.ArtistString[languagePreference];
 			Deleted = song.Deleted;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 			Notes = song.Notes;
@@ -44,6 +45,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public ArtistForSongContract[] Artists { get; set; }
+
+		[DataMember]
+		public string ArtistString { get; set; }
 
 		[DataMember]
 		public int CommentCount { get; set; }

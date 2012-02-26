@@ -36,6 +36,7 @@ namespace VocaDb.Web.Models {
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions;
+			ArtistString = contract.ArtistString;
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract.Song);
 			CommentCount = contract.CommentCount;
 			Deleted = contract.Deleted;
@@ -77,6 +78,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Alternate versions")]
 		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+
+		public string ArtistString { get; set; }
 
 		public bool CanEdit { get; set; }
 

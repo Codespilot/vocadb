@@ -187,6 +187,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => contract);
 
 			AdditionalNames = contract.AdditionalNames;
+			ArtistString = contract.ArtistString;
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract);
 			CommentCount = contract.CommentCount;
 			Description = contract.Description;
@@ -234,6 +235,8 @@ namespace VocaDb.Web.Models {
 		public MediaType AlbumMediaType { get; set; }
 
 		public PurchaseStatus AlbumPurchaseStatus { get; set; }
+
+		public string ArtistString { get; set; }
 
 		public bool CanEdit { get; set; }
 
