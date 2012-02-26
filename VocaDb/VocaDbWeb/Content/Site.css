@@ -331,3 +331,7 @@ input + .textLink {
 .showInfoLink {
 	cursor: help;
 }
+
+h2.pageTitle {
+	margin-bottom: 10px;
+}

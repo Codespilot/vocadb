@@ -32,7 +32,7 @@ namespace VocaDb.Model.Service {
 		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
 			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults,
 			bool draftsOnly, bool getTotalCount, 
-			NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+			NameMatchMode nameMatchMode = NameMatchMode.Auto, bool moveExactToTop = false) {
 
 			string originalQuery = query;
 
@@ -115,15 +115,30 @@ namespace VocaDb.Model.Service {
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 
-				var contracts = direct.Concat(additionalNames)
+				var entries = direct.Concat(additionalNames)
 					.Skip(start)
-					.Take(maxResults)
-					.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.Take(maxResults);
+
+				bool foundExactMatch = false;
+
+				if (moveExactToTop) {
+
+					var exactMatch = entries.FirstOrDefault(
+						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
+
+					if (exactMatch != null) {
+						entries = CollectionHelper.MoveToTop(entries, exactMatch);
+						foundExactMatch = true;
+					}
+
+				}
+
+				var contracts = entries.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
 
-				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, originalQuery, false);
+				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
 
 			}
 

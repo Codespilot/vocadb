@@ -116,7 +116,10 @@
 						</span>
 					}
 				}
-				<h2>@ViewBag.Title</h2>
+				<h2 class="pageTitle">@ViewBag.Title</h2>
+				@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
+					<span class="pageSubtitle">@ViewBag.Subtitle</span>
+				}
 
 				@if (IsSectionDefined("Toolbar")) {
 					<p>

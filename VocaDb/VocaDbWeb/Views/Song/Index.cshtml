@@ -42,7 +42,7 @@ if (Model.Songs.Any()) {
 	<tr>
 		<td>
 			@Helpers.DraftIcon(song.Status)
-			@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })<br />
+			@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@song.SongType)<br />
 			<span class="extraInfo">@song.ArtistString</span>
 		</td>
 		<td>
