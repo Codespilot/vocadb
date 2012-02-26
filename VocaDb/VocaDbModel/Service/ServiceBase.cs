@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Serialization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Security;
@@ -320,6 +322,7 @@ namespace VocaDb.Model.Service {
 
 	}
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PartialFindResult<T> {
 
 		public PartialFindResult(T[] items, int totalCount, string term, bool foundExactMatch) {
@@ -331,12 +334,16 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[DataMember]
 		public bool FoundExactMatch { get; set; }
 
+		[DataMember]
 		public T[] Items { get; set; }
 
+		[DataMember]
 		public string Term { get; set; }
 
+		[DataMember]
 		public int TotalCount { get; set; }
 
 	}
