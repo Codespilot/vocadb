@@ -29,23 +29,23 @@ namespace VocaDb.Web.Services {
 
 		#region Common queries
 		[OperationContract]
-		public AlbumWithAdditionalNamesContract[] FindAlbums(string term, int maxResults) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults) {
 
-			return Services.Albums.Find(term, 0, maxResults, false, false, moveExactToTop: true).Items;
-
-		}
-
-		[OperationContract]
-		public ArtistWithAdditionalNamesContract[] FindArtists(string term, int maxResults) {
-
-			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, false).Items;
+			return Services.Albums.Find(term, 0, maxResults, false, true, moveExactToTop: true);
 
 		}
 
 		[OperationContract]
-		public SongWithAdditionalNamesContract[] FindSongs(string term, int maxResults) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string term, int maxResults) {
 
-			return Services.Songs.Find(term, 0, maxResults, false, false, NameMatchMode.Auto, false, null).Items;
+			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, true);
+
+		}
+
+		[OperationContract]
+		public PartialFindResult<SongWithAdditionalNamesContract> FindSongs(string term, int maxResults) {
+
+			return Services.Songs.Find(term, 0, maxResults, false, true, NameMatchMode.Auto, false, null);
 
 		}
 
