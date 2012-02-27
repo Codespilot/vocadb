@@ -50,6 +50,10 @@
 					<span> at </span>
 				}
 				@entry.CreateDate
+
+				@if (Login.CanEditNews) {
+					@Html.ActionLink("Edit", "Edit", "NewsEntry", new { id = entry.Id }, null)
+				}
 			</div>	
 		</div>	
 		<p class="messageContent">

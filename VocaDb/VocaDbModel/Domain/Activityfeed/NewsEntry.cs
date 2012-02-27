@@ -14,11 +14,14 @@ namespace VocaDb.Model.Domain.Activityfeed {
 			Stickied = false;
 		}
 
-		public NewsEntry(string text, User author)
+		public NewsEntry(string text, User author, bool anonymous, bool important, bool stickied)
 			: this() {
 
 			Text = text;
 			Author = author;
+			Anonymous = anonymous;
+			Important = important;
+			Stickied = stickied;
 
 		}
 
@@ -46,6 +49,10 @@ namespace VocaDb.Model.Domain.Activityfeed {
 				ParamIs.NotNullOrEmpty(() => value);
 				text = value;
 			}
+		}
+
+		public override string ToString() {
+			return string.Format("news entry [{0}]", Id);
 		}
 
 	}

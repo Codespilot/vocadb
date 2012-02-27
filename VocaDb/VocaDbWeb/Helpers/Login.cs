@@ -23,6 +23,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanEditNews {
+			get {
+				return Manager.HasPermission(PermissionToken.EditNews);
+			}
+		}
+
 		public static bool CanManageDb {
 			get {
 				return Manager.HasPermission(PermissionToken.ManageDatabase);

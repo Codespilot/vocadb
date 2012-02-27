@@ -378,6 +378,7 @@
     <Compile Include="Service\MikuDbAlbumService.cs" />
     <Compile Include="Service\MikuDb\AlbumImporter.cs" />
     <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
+    <Compile Include="Service\NewsEntryService.cs" />
     <Compile Include="Service\Rankings\NNDWVRParser.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />

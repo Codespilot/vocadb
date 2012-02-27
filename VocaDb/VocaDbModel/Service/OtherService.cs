@@ -46,19 +46,5 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public NewsEntryContract[] GetNewsEntries(int maxEntries) {
-
-			return HandleQuery(session => {
-
-				var entries = session.Query<NewsEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
-
-				var contracts = entries.Select(e => new NewsEntryContract(e)).ToArray();
-
-				return contracts;
-
-			});
-
-		}
-
 	}
 }
