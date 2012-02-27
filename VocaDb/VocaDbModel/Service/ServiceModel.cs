@@ -39,6 +39,12 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		public NewsEntryService NewsEntry {
+			get {
+				return new NewsEntryService(sessionFactory, permissionContext, entryLinkFactory);
+			}
+		}
+
 		public OtherService Other {
 			get {
 				return new OtherService(sessionFactory, permissionContext, entryLinkFactory);

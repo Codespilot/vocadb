@@ -8,3 +8,7 @@
 @foreach (var entry in Model) {
 	@ActivityfeedHelpers.NewsEntry(entry);
 }
+
+@if (Login.CanEditNews) {
+	@Html.ActionLink("Create new entry", "Edit", "NewsEntry", null, new { @class = "textLink addLink" })
+}

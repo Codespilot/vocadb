@@ -225,6 +225,7 @@
     <Compile Include="Models\Artist\Versions.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
+    <Compile Include="Models\NewsEntry\NewsEntryEdit.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
     <Compile Include="Models\Shared\WebLinkDisplay.cs" />
@@ -823,6 +824,7 @@
     <Content Include="Views\User\EntryEdits.cshtml" />
     <Content Include="Views\SongList\Featured.cshtml" />
     <Content Include="App_Code\UserHelpers.cshtml" />
+    <Content Include="Views\NewsEntry\Edit.cshtml" />
     <None Include="Web.config.default" />
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
