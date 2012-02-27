@@ -142,7 +142,10 @@
     <value>Disable users</value>
   </data>
   <data name="EditFeaturedLists" xml:space="preserve">
-    <value>Edit featured songlists</value>
+    <value>Manage featured songlists</value>
+  </data>
+  <data name="EditNews" xml:space="preserve">
+    <value>Manage news</value>
   </data>
   <data name="EditProfile" xml:space="preserve">
     <value>Edit personal profile</value>
