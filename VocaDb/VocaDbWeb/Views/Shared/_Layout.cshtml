@@ -41,7 +41,9 @@
 	<table>
 		<tr>
 			<td class="menu">
-				<img src="@Url.Content("~/Content/vocadb-title.png")" alt="VocaDB" title="VocaDB" />
+				<a href="@Url.Action("Index", "Home")">
+					<img src="@Url.Content("~/Content/vocadb-title.png")" alt="VocaDB" title="VocaDB" />
+				</a>
 				<ul>
 					<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
 					<li>
