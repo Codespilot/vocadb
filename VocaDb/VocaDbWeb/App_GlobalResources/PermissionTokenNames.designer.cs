@@ -133,11 +133,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit featured songlists.
+        ///   Looks up a localized string similar to Manage featured songlists.
         /// </summary>
         internal static string EditFeaturedLists {
             get {
                 return ResourceManager.GetString("EditFeaturedLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage news.
+        /// </summary>
+        internal static string EditNews {
+            get {
+                return ResourceManager.GetString("EditNews", resourceCulture);
             }
         }
         
