@@ -683,6 +683,10 @@ namespace VocaDb.Model.Service {
 					return null;
 
 				var song = session.Load<Song>(songContract.Id);
+
+				if (!song.Lyrics.Any())
+					return null;
+
 				var lyrics = song.Lyrics[new Random().Next(song.Lyrics.Count)];
 
 				return new LyricsForSongContract(lyrics);
