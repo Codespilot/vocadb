@@ -677,17 +677,22 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var songContract = Find(session, query, 0, 10, false, false, NameMatchMode.Auto, false, true, null).Items.FirstOrDefault();
+				var songContract = Find(session, query, 0, 10, false, false, NameMatchMode.Auto, false, true, null).Items;
 
-				if (songContract == null)
+				if (!songContract.Any())
+					return null;
+				
+				var songIds = songContract.Select(s => s.Id).ToArray();
+
+				var songs = session.Query<Song>().Where(s => songIds.Contains(s.Id)).ToArray();
+				var allLyrics = songs.SelectMany(s => s.Lyrics).ToArray();
+
+				//var song = session.Query<Song>().Where(s => s.Id) session.Load<Song>(songContract.Id);)
+
+				if (!allLyrics.Any())
 					return null;
 
-				var song = session.Load<Song>(songContract.Id);
-
-				if (!song.Lyrics.Any())
-					return null;
-
-				var lyrics = song.Lyrics[new Random().Next(song.Lyrics.Count)];
+				var lyrics = allLyrics[new Random().Next(allLyrics.Length)];
 
 				return new LyricsForSongContract(lyrics);
 
