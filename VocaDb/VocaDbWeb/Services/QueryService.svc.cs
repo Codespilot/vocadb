@@ -141,9 +141,12 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public LyricsForSongContract GetRandomSongLyrics() {
+		public LyricsForSongContract GetRandomSongLyrics(string query) {
 
-			return Services.Songs.GetRandomSongWithLyricsDetails();
+			if (string.IsNullOrEmpty(query))
+				return Services.Songs.GetRandomSongWithLyricsDetails();
+			else
+				return Services.Songs.GetRandomLyricsForSong(query);
 
 		}
 

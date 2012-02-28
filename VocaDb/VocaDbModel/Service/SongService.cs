@@ -673,6 +673,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public LyricsForSongContract GetRandomLyricsForSong(string query) {
+
+			return HandleQuery(session => {
+
+				var songContract = Find(session, query, 0, 10, false, false, NameMatchMode.Auto, false, true, null).Items.FirstOrDefault();
+
+				if (songContract == null)
+					return null;
+
+				var song = session.Load<Song>(songContract.Id);
+				var lyrics = song.Lyrics[new Random().Next(song.Lyrics.Count)];
+
+				return new LyricsForSongContract(lyrics);
+
+			});
+
+		}
+
 		public LyricsForSongContract GetRandomSongWithLyricsDetails() {
 
 			return HandleQuery(session => {
