@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using PagedList;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
-using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Helpers;
@@ -75,7 +72,7 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.FindArtists(filter, 
 				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
-				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true);
+				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false);
 
 			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, draftsOnly, page);
 
@@ -149,7 +146,7 @@ namespace VocaDb.Web.Controllers
 				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
 				: new ArtistType[] {};
 
-			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false);
+			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, true);
 
 			return Json(albums);
 

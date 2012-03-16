@@ -389,9 +389,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, int start, int maxResults, bool draftsOnly, bool getTotalCount) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, 
+			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool moveExactToTop) {
 
-			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, draftsOnly, getTotalCount));
+			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, draftsOnly, getTotalCount, nameMatchMode, moveExactToTop));
 
 		}
 
