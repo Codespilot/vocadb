@@ -938,18 +938,21 @@
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_LayoutStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ru.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
