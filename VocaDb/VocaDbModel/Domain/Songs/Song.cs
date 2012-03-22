@@ -23,7 +23,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<Song> alternateVersions = new List<Song>();
 		private ArchivedVersionManager<ArchivedSongVersion, SongEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedSongVersion, SongEditableFields>();
-		private TranslatedString artistString;
+		private TranslatedStringWithDefault artistString;
 		private IList<ArtistForSong> artists = new List<ArtistForSong>();
 		private IList<SongComment> comments = new List<SongComment>();
 		private IList<SongInList> lists = new List<SongInList>();
@@ -42,7 +42,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public Song() {
-			ArtistString = new TranslatedString(string.Empty, string.Empty, string.Empty);
+			ArtistString = new TranslatedStringWithDefault(string.Empty, string.Empty, string.Empty, string.Empty);
 			CreateDate = DateTime.Now;
 			Deleted = false;
 			Notes = string.Empty;
@@ -134,7 +134,7 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
-		public virtual TranslatedString ArtistString {
+		public virtual TranslatedStringWithDefault ArtistString {
 			get { return artistString; }
 			set {
 				ParamIs.NotNull(() => value);

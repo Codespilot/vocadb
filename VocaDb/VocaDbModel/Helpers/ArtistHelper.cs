@@ -23,7 +23,7 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist
 		};
 
-		public static TranslatedString GetArtistString(IEnumerable<IArtistWithSupport> artists) {
+		public static TranslatedStringWithDefault GetArtistString(IEnumerable<IArtistWithSupport> artists) {
 
 			ParamIs.NotNull(() => artists);
 
@@ -33,25 +33,25 @@ namespace VocaDb.Model.Helpers {
 			const string various = "Various artists";
 
 			if (producers.Count() >= 4 || (!producers.Any() && performers.Count() >= 4))
-				return new TranslatedString(various, various, various);
+				return new TranslatedStringWithDefault(various, various, various, various);
 
 			var performerNames = performers.Select(m => m.TranslatedName);
 			var producerNames =	producers.Select(m => m.TranslatedName);
 
 			if (producers.Any() && performers.Any() && producers.Count() + performers.Count() >= 5) {
 
-				return TranslatedString.Create(lang => string.Format("{0} feat. various",
+				return TranslatedStringWithDefault.Create(lang => string.Format("{0} feat. various",
 					string.Join(", ", producerNames.Select(p => p[lang]))));
 
 			} else if (producers.Any() && performers.Any()) {
 
-				return TranslatedString.Create(lang => string.Format("{0} feat. {1}",
+				return TranslatedStringWithDefault.Create(lang => string.Format("{0} feat. {1}",
 					string.Join(", ", producerNames.Select(p => p[lang])),
 					string.Join(", ", performerNames.Select(p => p[lang]))));
 
 			} else {
 
-				return TranslatedString.Create(lang => string.Join(", ", matched.Select(a => a.TranslatedName[lang])));
+				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => a.TranslatedName[lang])));
 
 			}
 

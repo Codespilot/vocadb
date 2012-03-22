@@ -63,11 +63,12 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
 
-				contracts = q
-					.OrderBy(s => s.Names.SortNames.Romaji)
+				var songs = q.OrderBy(s => s.Names.SortNames.Romaji)
 					.Skip(start)
 					.Take(maxResults)
-					.ToArray()
+					.ToArray();
+
+				contracts = songs
 					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
@@ -123,6 +124,7 @@ namespace VocaDb.Model.Service {
 					.Where(a => !direct.Contains(a));
 
 				var entries = direct.Concat(additionalNames)
+					.Where(e => !ignoreIds.Contains(e.Id))
 					.Skip(start)
 					.Take(maxResults);
 
@@ -138,8 +140,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				contracts = entries
-					.Where(e => !ignoreIds.Contains(e.Id))
+				contracts = entries				
 					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 

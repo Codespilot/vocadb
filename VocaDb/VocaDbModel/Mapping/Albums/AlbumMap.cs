@@ -27,6 +27,7 @@ namespace VocaDb.Model.Mapping.Albums {
 				c.Map(m => m.Japanese, "ArtistString").Length(500).Not.Nullable();
 				c.Map(m => m.Romaji, "ArtistStringRomaji").Length(500).Not.Nullable();
 				c.Map(m => m.English, "ArtistStringEnglish").Length(500).Not.Nullable();
+				c.Map(m => m.Default, "ArtistStringDefault").Length(500).Not.Nullable();
 			});
 
 			Component(m => m.CoverPicture, c => {

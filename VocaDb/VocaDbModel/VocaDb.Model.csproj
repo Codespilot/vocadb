@@ -189,6 +189,7 @@
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
     <Compile Include="Domain\EntryRef.cs" />
+    <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
     <Compile Include="Domain\IEntryWithIntId.cs" />
     <Compile Include="Domain\IEntryWithStatus.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
