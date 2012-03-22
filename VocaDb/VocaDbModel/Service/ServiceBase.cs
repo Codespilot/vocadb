@@ -297,7 +297,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-
 	}
 
 	/// <summary>
@@ -306,17 +305,19 @@ namespace VocaDb.Model.Service {
 	public enum NameMatchMode {
 
 		/// <summary>
-		/// Automatically choose match mode based on query term length
+		/// Automatically choose match mode based on query term length.
 		/// </summary>
 		Auto,
 
 		/// <summary>
-		/// Always partial matching
+		/// Always partial matching.
+		/// Wildcards are allowed.
 		/// </summary>
 		Partial,
 
 		/// <summary>
-		/// Always exact matching (still case-insensitive)
+		/// Always exact matching (usually still case-insensitive).
+		/// Wildcards are not allowed.
 		/// </summary>
 		Exact
 

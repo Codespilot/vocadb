@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using VocaDb.Web.Controllers;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.API.v1.Controllers {
 
-	public class AlbumApiController : VocaDb.Web.Controllers.ControllerBase {
+	public class AlbumApiController : Web.Controllers.ControllerBase {
 
 		private const int maxResults = 25;
 
@@ -24,9 +19,11 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		}
 
-		public ActionResult Index(string query, int? start) {
+		public ActionResult Index(string query, 
+			int start = 0, bool getTotalCount = false, 
+			NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			var entries = Service.Find(query, start ?? 0, maxResults, false, false);
+			var entries = Service.Find(query, start, maxResults, false, getTotalCount);
 
 			return Json(entries);
 
