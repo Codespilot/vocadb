@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.Users;
@@ -29,23 +24,23 @@ namespace VocaDb.Web.Services {
 
 		#region Common queries
 		[OperationContract]
-		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Albums.Find(term, 0, maxResults, false, true, moveExactToTop: true);
-
-		}
-
-		[OperationContract]
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string term, int maxResults) {
-
-			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, true, NameMatchMode.Auto, true);
+			return Services.Albums.Find(term, 0, maxResults, false, true, moveExactToTop: true, nameMatchMode: nameMatchMode);
 
 		}
 
 		[OperationContract]
-		public PartialFindResult<SongWithAdditionalNamesContract> FindSongs(string term, int maxResults) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Songs.Find(term, 0, maxResults, false, true, NameMatchMode.Auto, false, null);
+			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, true, nameMatchMode, true);
+
+		}
+
+		[OperationContract]
+		public PartialFindResult<SongWithAdditionalNamesContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+
+			return Services.Songs.Find(term, 0, maxResults, false, true, nameMatchMode, false, null);
 
 		}
 
