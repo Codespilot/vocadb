@@ -45,6 +45,7 @@ namespace VocaDb.Model.Mapping.Songs {
 				c.Map(m => m.Japanese, "ArtistString").Length(500).Not.Nullable();
 				c.Map(m => m.Romaji, "ArtistStringRomaji").Length(500).Not.Nullable();
 				c.Map(m => m.English, "ArtistStringEnglish").Length(500).Not.Nullable();
+				c.Map(m => m.Default, "ArtistStringDefault").Length(500).Not.Nullable();
 			});
 
 			HasMany(m => m.AllAlbums).Table("SongsInAlbums").Inverse().Cascade.All().Cache.ReadWrite();

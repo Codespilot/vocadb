@@ -58,7 +58,7 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		}
 
-		public string this[ContentLanguageSelection language] {
+		public virtual string this[ContentLanguageSelection language] {
 			get {
 				
 				switch (language) {
@@ -69,7 +69,7 @@ namespace VocaDb.Model.Domain.Globalization {
 					case ContentLanguageSelection.Romaji:
 						return Romaji;
 					default:
-						return Japanese;
+						return Default;
 				}
 
 			}
@@ -86,7 +86,7 @@ namespace VocaDb.Model.Domain.Globalization {
 						Romaji = value;
 						break;
 					default:
-						Japanese = value;
+						Default = value;
 						break;
 				}
 
@@ -134,6 +134,24 @@ namespace VocaDb.Model.Domain.Globalization {
 		public virtual string Default {
 			get {
 				return GetDefaultOrFirst();
+			}
+			set {
+
+				switch (DefaultLanguage) {
+					case ContentLanguageSelection.English:
+						English = value;
+						break;
+					case ContentLanguageSelection.Japanese:
+						Japanese = value;
+						break;
+					case ContentLanguageSelection.Romaji:
+						Romaji = value;
+						break;
+					default:
+						Japanese = value;
+						break;
+				}
+
 			}
 		}
 
