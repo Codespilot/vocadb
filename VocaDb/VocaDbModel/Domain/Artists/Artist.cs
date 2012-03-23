@@ -26,6 +26,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private NameManager<ArtistName> names = new NameManager<ArtistName>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
 		private TagManager<ArtistTagUsage> tags = new TagManager<ArtistTagUsage>();
+		private IList<ArtistForUser> users = new List<ArtistForUser>();
 		private IList<ArtistWebLink> webLinks = new List<ArtistWebLink>();
 
 		public Artist() {
@@ -188,6 +189,14 @@ namespace VocaDb.Model.Domain.Artists {
 			set {
 				ParamIs.NotNull(() => value);
 				tags = value;
+			}
+		}
+
+		public virtual IList<ArtistForUser> Users {
+			get { return users; }
+			set {
+				ParamIs.NotNull(() => value);
+				users = value; 
 			}
 		}
 

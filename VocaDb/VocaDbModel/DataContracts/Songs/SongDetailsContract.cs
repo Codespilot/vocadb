@@ -6,6 +6,7 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
@@ -28,7 +29,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Notes = song.Notes;
 			OriginalVersion = (song.OriginalVersion != null ? new SongWithAdditionalNamesContract(song.OriginalVersion, languagePreference) : null);
 			PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
-			Tags = song.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(3).ToArray();
+			Tags = song.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(Tag.MaxDisplayedTags).ToArray();
 			TranslatedName = new TranslatedStringContract(song.TranslatedName);
 			WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 

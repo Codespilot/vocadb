@@ -638,6 +638,12 @@ namespace VocaDb.Model.Service {
 					session.Update(s);
 				}
 
+				var users = source.Users.ToArray();
+				foreach (var u in users) {
+					u.Move(target);
+					session.Update(u);
+				}
+
 				if (target.Description == string.Empty)
 					target.Description = source.Description;
 
@@ -752,7 +758,7 @@ namespace VocaDb.Model.Service {
 
 				artist.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new ArtistTagUsageFactory(session, artist));
 
-				return artist.Tags.Usages.OrderByDescending(u => u.Count).Take(3).Select(t => new TagUsageContract(t)).ToArray();
+				return artist.Tags.Usages.OrderByDescending(u => u.Count).Take(Tag.MaxDisplayedTags).Select(t => new TagUsageContract(t)).ToArray();
 
 			});
 
