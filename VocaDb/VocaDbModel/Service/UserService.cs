@@ -20,6 +20,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.DataContracts.Activityfeed;
+using VocaDb.Model.DataContracts.Artists;
 
 namespace VocaDb.Model.Service {
 
@@ -33,6 +34,9 @@ namespace VocaDb.Model.Service {
 
 			details.AlbumCollectionCount
 				= session.Query<AlbumForUser>().Where(c => c.User == user && !c.Album.Deleted).Count();
+
+			details.ArtistCount
+				= session.Query<ArtistForUser>().Where(c => c.User == user && !c.Artist.Deleted).Count();
 
 			details.FavoriteSongCount
 				= session.Query<FavoriteSongForUser>().Where(c => c.User == user && !c.Song.Deleted).Count();
@@ -240,6 +244,17 @@ namespace VocaDb.Model.Service {
 					.Albums
 					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
 					.OrderBy(a => a.Album.Name)
+					.ToArray());
+
+		}
+
+		public ArtistWithAdditionalNamesContract[] GetArtists(int userId) {
+
+			return HandleQuery(session =>
+				session.Load<User>(userId)
+					.Artists
+					.Select(a => new ArtistWithAdditionalNamesContract(a.Artist, PermissionContext.LanguagePreference))
+					.OrderBy(s => s.Name)
 					.ToArray());
 
 		}

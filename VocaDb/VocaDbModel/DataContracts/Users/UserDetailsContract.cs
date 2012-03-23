@@ -22,6 +22,8 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public int AlbumCollectionCount { get; set; }
 
+		public int ArtistCount { get; set; }
+
 		public int CommentCount { get; set; }
 
 		public int EditCount { get; set; }
