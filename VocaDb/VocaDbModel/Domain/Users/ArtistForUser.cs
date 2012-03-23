@@ -39,6 +39,7 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual void Delete() {
 
 			User.AllArtists.Remove(this);
+			Artist.Users.Remove(this);
 
 		}
 
@@ -72,7 +73,9 @@ namespace VocaDb.Model.Domain.Users {
 			if (target.Equals(Artist))
 				return;
 
+			Artist.Users.Remove(this);
 			Artist = target;
+			target.Users.Add(this);
 
 		}
 

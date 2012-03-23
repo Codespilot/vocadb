@@ -10,6 +10,7 @@ namespace VocaDb.Model.Domain.Tags {
 
 	public class Tag : IEquatable<Tag> {
 
+		public const int MaxDisplayedTags = 4;
 		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_]+$");
 
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();

@@ -47,6 +47,8 @@ namespace VocaDb.Model.Mapping.Artists {
 				c.HasMany(m => m.Usages).Table("ArtistTagUsages").KeyColumn("[Artist]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			});
 
+			HasMany(m => m.Users).Inverse();
+
 		}
 
 	}

@@ -6,6 +6,7 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
@@ -25,7 +26,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			LatestAlbums = new AlbumWithAdditionalNamesContract[] {};
 			LatestSongs = new SongWithAdditionalNamesContract[] { };
 			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
-			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(3).ToArray();
+			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(Tag.MaxDisplayedTags).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
