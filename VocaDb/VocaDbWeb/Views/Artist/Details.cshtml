@@ -9,6 +9,11 @@
 }
 
 @section Toolbar {
+@if (Login.Manager.IsLoggedIn) {
+	<a href="#" id="addToUserLink" style="@(Model.IsAdded ? "display: none;" : "")">Follow</a>
+	<a href="#" id="removeFromUserLink" style="@(Model.IsAdded ? "" : "display: none;")">Unfollow</a>
+}
+
 @if (Login.CanEdit(Model)) {
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editArtistLink" });
 }

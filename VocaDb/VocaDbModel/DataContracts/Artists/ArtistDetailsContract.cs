@@ -46,6 +46,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public GroupForArtistContract[] Groups { get; set; }
 
 		[DataMember]
+		public bool IsAdded { get; set; }
+
+		[DataMember]
 		public CommentContract[] LatestComments { get; set; }
 
 		[DataMember]

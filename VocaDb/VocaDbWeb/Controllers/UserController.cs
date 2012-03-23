@@ -30,6 +30,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void AddArtistForUser(int artistId) {
+
+			Service.AddArtist(LoggedUserId, artistId);
+
+		}
+
 		public ActionResult AlbumCollection(int id) {
 
 			var albums = Service.GetAlbumCollection(id);
@@ -315,6 +322,13 @@ namespace VocaDb.Web.Controllers
 		public void RemoveAlbumFromUser(int albumId) {
 			
 			Service.RemoveAlbumFromUser(LoggedUserId, albumId);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public void RemoveArtistFromUser(int artistId) {
+
+			Service.RemoveArtistFromUser(LoggedUserId, artistId);
 
 		}
 
