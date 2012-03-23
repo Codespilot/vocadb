@@ -48,14 +48,16 @@ namespace VocaDb.Web.Models {
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;
-			OtherArtists = contract.Artists.Where(a => !ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			OriginalVersion = contract.OriginalVersion;
-			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).Select(a => a.Artist).ToArray();
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
 			Tags = contract.Tags;
 			WebLinks = contract.WebLinks;
+
+			Performers = contract.Artists.Select(a => a.Artist).Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
+			Producers = contract.Artists.Select(a => a.Artist).Where(a => a.ArtistType == Model.Domain.Artists.ArtistType.Producer).ToArray();
+			OtherArtists = contract.Artists.Select(a => a.Artist).Where(a => !Performers.Contains(a) && !Producers.Contains(a)).ToArray();
 
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
 
@@ -111,6 +113,8 @@ namespace VocaDb.Web.Models {
 		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
 
 		public PVContract PrimaryPV { get; set; }
+
+		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
 
 		[Display(Name = "PVs")]
 		public PVContract[] PVs { get; set; }

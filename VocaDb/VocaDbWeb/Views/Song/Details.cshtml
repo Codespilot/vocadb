@@ -72,6 +72,16 @@
 				</td>
 			</tr>
    }
+
+			@if (Model.Producers.Any()) {
+			<tr>
+				<td>Producers</td>
+				<td>
+					@Html.LinkList(Model.Producers, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+				</td>
+			</tr>
+   }
+			
 			@if (Model.OtherArtists.Any()) {
 			<tr>
 				<td>Other artists</td>
