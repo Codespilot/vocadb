@@ -45,6 +45,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Artists(int id) {
+
+			var artists = Service.GetArtists(id);
+
+			return PartialView(artists);
+
+		}
+
 		public ActionResult EntryEdits(int id, bool? onlySubmissions) {
 
 			var user = Service.GetUserWithActivityEntries(id, 100, onlySubmissions ?? true);

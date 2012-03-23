@@ -81,6 +81,7 @@
 	<ul>
 		<li><a href="#stats">Statistics</a></li>
 		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })" title="Collection"><span>Collection (@Model.AlbumCollectionCount)</span></a></li>
+		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>Followed artists (@Model.ArtistCount)</span></a></li>
 		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>Favorite songs (@Model.FavoriteSongCount)</span></a></li>
 		<li><a href="#customLists">Custom lists</a></li>
 	</ul>
@@ -107,6 +108,9 @@
 	</div>
 
 	<div id="Collection">
+	</div>
+
+	<div id="Followed_artists">
 	</div>
 
 	<div id="Favorite_songs">
