@@ -203,6 +203,7 @@
     <Compile Include="Domain\Songs\SongListFeaturedCategory.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
+    <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />
     <Compile Include="Domain\Artists\ArtistArchiveReason.cs" />

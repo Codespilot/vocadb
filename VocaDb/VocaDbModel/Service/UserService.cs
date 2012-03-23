@@ -84,6 +84,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void AddArtist(int userId, int artistId) {
+
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			HandleTransaction(session => {
+
+				var user = session.Load<User>(userId);
+				var artist = session.Load<Artist>(artistId);
+
+				user.AddArtist(artist);
+
+				session.Update(user);
+
+				AuditLog(string.Format("added {0} for {1}", artist, user), session, user);
+
+			});
+
+		}
+
 		public void AddSongToFavorites(int userId, int songId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
@@ -369,6 +388,23 @@ namespace VocaDb.Model.Service {
 				var link = session.Query<AlbumForUser>().FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
 
 				AuditLog("deleting " + link, session);
+
+				if (link != null)
+					session.Delete(link);
+
+			});
+
+		}
+
+		public void RemoveArtistFromUser(int userId, int artistId) {
+
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			HandleTransaction(session => {
+
+				var link = session.Query<ArtistForUser>().FirstOrDefault(a => a.Artist.Id == artistId && a.User.Id == userId);
+
+				AuditLog("removing " + link, session);
 
 				if (link != null)
 					session.Delete(link);

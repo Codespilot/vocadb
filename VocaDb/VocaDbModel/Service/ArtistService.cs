@@ -448,6 +448,11 @@ namespace VocaDb.Model.Service {
 			                   	
 				var contract = new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference);
 
+				if (PermissionContext.LoggedUser != null) {
+					contract.IsAdded = session.Query<ArtistForUser>()
+						.Any(s => s.Artist.Id == id && s.User.Id == PermissionContext.LoggedUser.Id);
+				}
+
 				contract.CommentCount = session.Query<ArtistComment>().Where(c => c.Artist.Id == id).Count();
 
 				contract.LatestAlbums = session.Query<ArtistForAlbum>()

@@ -57,6 +57,8 @@ function saveTagSelections() {
 
 function initPage(artistId) {
 
+	$("#addToUserLink").button({ icons: { primary: 'ui-icon-heart'} });
+	$("#removeFromUserLink").button({ icons: { primary: 'ui-icon-close'} });
 	$("#editArtistLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
@@ -78,6 +80,32 @@ function initPage(artistId) {
 			$("#tabs").tabs("option", "spinner", 'Loading...');
 
 		}
+	});
+
+	$("#addToUserLink").click(function () {
+
+		$.post("../../User/AddArtistForUser", { artistId: artistId }, function (result) {
+
+			$("#removeFromUserLink").show();
+			$("#addToUserLink").hide();
+
+		});
+
+		return false;
+
+	});
+
+	$("#removeFromUserLink").click(function () {
+
+		$.post("../../User/RemoveArtistFromUser", { artistId: artistId }, function (result) {
+
+			$("#addToUserLink").show();
+			$("#removeFromUserLink").hide();
+
+		});
+
+		return false;
+
 	});
 
 	$("#editTags").click(function () {

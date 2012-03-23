@@ -9,6 +9,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Users {
 
@@ -17,6 +18,7 @@ namespace VocaDb.Model.Domain.Users {
 		private string accessKey;
 		private PermissionCollection additionalPermissions = new PermissionCollection();
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
+		private IList<ArtistForUser> artists = new List<ArtistForUser>();
 		private string email;
 		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
 		private string name;
@@ -86,6 +88,20 @@ namespace VocaDb.Model.Domain.Users {
 			set {
 				ParamIs.NotNull(() => value);
 				albums = value;
+			}
+		}
+
+		public virtual IEnumerable<ArtistForUser> Artists {
+			get {
+				return AllArtists.Where(a => !a.Artist.Deleted);
+			}
+		}
+
+		public virtual IList<ArtistForUser> AllArtists {
+			get { return artists; }
+			set {
+				ParamIs.NotNull(() => value);
+				artists = value;
 			}
 		}
 
@@ -208,6 +224,17 @@ namespace VocaDb.Model.Domain.Users {
 			AllAlbums.Add(link);
 			album.UserCollections.Add(link);
 			album.UpdateRatingTotals();
+
+			return link;
+
+		}
+
+		public virtual ArtistForUser AddArtist(Artist artist) {
+
+			ParamIs.NotNull(() => artist);
+
+			var link = new ArtistForUser(this, artist);
+			AllArtists.Add(link);
 
 			return link;
 

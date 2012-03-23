@@ -36,8 +36,9 @@ namespace VocaDb.Model.Mapping.Users {
 					.Cache.ReadWrite();
 			});
 
-			HasMany(m => m.AllAlbums).Inverse().Cascade.All();
-			HasMany(m => m.FavoriteSongs).Inverse().Cascade.All();
+			HasMany(m => m.AllAlbums).Inverse().Cascade.All().Cache.ReadWrite();
+			HasMany(m => m.AllArtists).Inverse().Cascade.All().Cache.ReadWrite();
+			HasMany(m => m.FavoriteSongs).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.ReceivedMessages).KeyColumn("[Receiver]").OrderBy("Created DESC").Inverse().Cascade.All();
 			HasMany(m => m.SentMessages).KeyColumn("[Sender]").OrderBy("Created DESC").Inverse().Cascade.All();
 			HasMany(m => m.SongLists).KeyColumn("[Author]").OrderBy("Name").Inverse().Cascade.All();
@@ -59,6 +60,21 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.Rating).Not.Nullable();
 
 			References(m => m.Album).Not.Nullable();
+			References(m => m.User).Not.Nullable();
+
+		}
+
+	}
+
+	public class ArtistForUserMap : ClassMap<ArtistForUser> {
+
+		public ArtistForUserMap() {
+
+			Table("ArtistsForUsers");
+			Cache.ReadWrite();
+			Id(m => m.Id);
+
+			References(m => m.Artist).Not.Nullable();
 			References(m => m.User).Not.Nullable();
 
 		}
