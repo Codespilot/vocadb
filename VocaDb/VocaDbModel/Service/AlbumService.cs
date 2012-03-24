@@ -529,6 +529,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public string[] FindReleaseEvents(string query) {
+
+			return HandleQuery(session => {
+
+				return session.Query<Album>()
+					.Select(a => a.OriginalRelease.EventName)
+					.Where(e => e.StartsWith(query))
+					.OrderBy(e => e)
+					.Distinct()
+					.Take(10).ToArray();
+
+			});
+
+		}
+
 		public AlbumContract GetAlbum(int id) {
 
 			return HandleQuery(session => new AlbumContract(session.Load<Album>(id), PermissionContext.LanguagePreference));

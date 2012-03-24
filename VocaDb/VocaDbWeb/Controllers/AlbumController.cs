@@ -92,6 +92,12 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult FindReleaseEvents(string term) {
+
+			return Json(Service.FindReleaseEvents(term));
+
+		}
+
 		public ActionResult FindJson(string term) {
 
 			var albums = Service.Find(term, 0, 20, false, false, moveExactToTop: true);

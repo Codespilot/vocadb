@@ -161,7 +161,11 @@ function initPage(albumId) {
 	$("#statusHelp").tooltip();
 	$("#pvLoader")
 		.ajaxStart(function() { $(this).show(); })
-		.ajaxStop(function() { $(this).hide(); });
+		.ajaxStop(function () { $(this).hide(); });
+
+	$("#releaseEvent").autocomplete({
+		source: "../../Album/FindReleaseEvents"
+	});
 
 	$(".isSupportCheck").live("change", function () {
 
