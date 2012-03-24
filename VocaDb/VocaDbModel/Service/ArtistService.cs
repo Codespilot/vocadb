@@ -180,15 +180,7 @@ namespace VocaDb.Model.Service {
 			if (draftsOnly)
 				additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
-			if (query.Length < 3) {
-
-				additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-			} else {
-
-				additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-			}
+			additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
 			if (artistTypes.Any())
 				additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));

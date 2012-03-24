@@ -56,6 +56,14 @@
 		</mailSettings>
 	</system.net>
 
+	<location path="Content/miku2.jpg">
+		<system.webServer>
+			<staticContent>
+				<clientCache cacheControlMode="UseMaxAge" cacheControlMaxAge="365.00:00:00"/>
+			</staticContent>
+		</system.webServer>
+	</location>
+
 	<system.webServer>
     <validation validateIntegratedModeConfiguration="false"/>
     <modules runAllManagedModulesForAllRequests="true"/>

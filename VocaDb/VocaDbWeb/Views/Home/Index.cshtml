@@ -1,6 +1,10 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.UseCases.FrontPageContract
 
+@{
+	ViewBag.DisplayGPlus = true;
+}
+
 <h3>@ViewRes.IndexStrings.Welcome</h3>
 
 <h4>@ViewRes.IndexStrings.News @Html.ActionLink(ViewRes.IndexStrings.ViewAll, "Index", "NewsEntry")</h4>
