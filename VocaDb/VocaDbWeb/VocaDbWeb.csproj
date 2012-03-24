@@ -825,7 +825,9 @@
     <Content Include="Views\SongList\Featured.cshtml" />
     <Content Include="App_Code\UserHelpers.cshtml" />
     <Content Include="Views\NewsEntry\Edit.cshtml" />
-    <None Include="Web.config.default" />
+    <None Include="Web.config.default">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Web.Debug.config.default" />
     <None Include="Web.Release.config.default" />
   </ItemGroup>
