@@ -12,11 +12,12 @@ namespace VocaDb.Model.Domain.Users {
 			limited, PermissionToken.CreateComments, PermissionToken.ManageDatabase);
 
 		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted,
-			regular, PermissionToken.ApproveEntries, PermissionToken.DeleteEntries, PermissionToken.EditFeaturedLists, PermissionToken.MergeEntries);
+			regular, PermissionToken.ApproveEntries, PermissionToken.DeleteEntries, PermissionToken.EditFeaturedLists, 
+			PermissionToken.ManageEventSeries, PermissionToken.MergeEntries);
 
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
-			trusted, PermissionToken.AccessManageMenu, PermissionToken.DeleteComments, PermissionToken.DesignatedStaff, PermissionToken.DisableUsers, 
-			PermissionToken.EditNews,
+			trusted, PermissionToken.AccessManageMenu, PermissionToken.DeleteComments, PermissionToken.DesignatedStaff, 
+			PermissionToken.DisableUsers, PermissionToken.EditNews,
 			PermissionToken.LockEntries, PermissionToken.ReadRecentComments, PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);
 
 		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin,

@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
@@ -655,6 +656,30 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session =>
 				EntryForPictureDisplayContract.Create(session.Load<Album>(id), PermissionContext.LanguagePreference, requestedSize));
+
+		}
+
+		/*public ReleaseEventDetailsContract GetReleaseEventDetailsByName(string name) {
+
+			return HandleQuery(session => new ReleaseEventDetailsContract(session.Query<ReleaseEvent>().F(r => r.Name == name)));
+
+		}*/
+
+		public ReleaseEventSeriesWithEventsContract[] GetReleaseEventsBySeries() {
+
+			return HandleQuery(session => {
+
+				var allEvents = session.Query<ReleaseEvent>().OrderBy(e => e.Name).ToArray();
+				var series = session.Query<ReleaseEventSeries>().OrderBy(e => e.Name).ToArray();
+
+				var seriesContracts = series.Select(s => new ReleaseEventSeriesWithEventsContract(s, allEvents.Where(e => series.Equals(e.Series))));
+				var ungrouped = allEvents.Where(e => e.Series == null);
+				
+				return seriesContracts.Concat(new[] { new ReleaseEventSeriesWithEventsContract { 
+					Name = string.Empty, 
+					Events = ungrouped.Select(e => new ReleaseEventDetailsContract(e)).ToArray() } }).ToArray();
+
+			});
 
 		}
 
