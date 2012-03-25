@@ -35,6 +35,10 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanManageEventSeries {
+			get { return Manager.HasPermission(PermissionToken.ManageEventSeries); }
+		}
+
 		public static bool CanManageUsers {
 			get {
 				return Manager.HasPermission(PermissionToken.ManageUserPermissions);

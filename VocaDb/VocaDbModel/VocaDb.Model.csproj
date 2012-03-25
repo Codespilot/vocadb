@@ -87,6 +87,9 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
+    <Compile Include="DataContracts\ReleaseEvents\ReleaseEventDetailsContract.cs" />
+    <Compile Include="DataContracts\ReleaseEvents\ReleaseEventSeriesContract.cs" />
+    <Compile Include="DataContracts\ReleaseEvents\ReleaseEventSeriesWithEventsContract.cs" />
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionDetailsContract.cs" />
@@ -186,6 +189,9 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
+    <Compile Include="Domain\Albums\ReleaseEvent.cs" />
+    <Compile Include="Domain\Albums\ReleaseEventSeries.cs" />
+    <Compile Include="Domain\Albums\ReleaseEventSeriesAlias.cs" />
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
     <Compile Include="Domain\EntryRef.cs" />
@@ -310,6 +316,7 @@
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Domain\Albums\DiscType.cs" />
     <Compile Include="Mapping\Albums\PVForAlbumMap.cs" />
+    <Compile Include="Mapping\Albums\ReleaseEventMap.cs" />
     <Compile Include="Mapping\Artists\ArtistCommentMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
     <Compile Include="Mapping\Artists\ArtistNameMap.cs" />

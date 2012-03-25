@@ -1,0 +1,31 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventSeriesWithEventsContract[]
+
+@{
+    ViewBag.Title = "Events";
+}
+
+@foreach (var series in Model) {
+
+	<h3>
+	@if (!string.IsNullOrEmpty(series.Name)) {
+		@series.Name
+	} else {
+		<text>Ungrouped</text>
+	}
+	</h3>
+	if (!string.IsNullOrEmpty(series.Description)) {
+		<p>@series.Description</p>
+	}
+	
+	<ul>
+	@foreach (var ev in series.Events) {
+		<li>@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })</li>
+	}
+	</ul>
+	
+}
+
+@if (Login.CanManageEventSeries) {
+	@Html.ActionLink("Create series", "Edit", null, new { @class = "textLink createLink" })
+}
