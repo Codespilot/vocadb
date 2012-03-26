@@ -37,5 +37,11 @@ namespace VocaDb.Web.Controllers
             return View();
         }
 
+		public ActionResult SeriesEdit() {
+
+			var series = Service.Get
+
+		}
+
     }
 }

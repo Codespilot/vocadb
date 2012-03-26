@@ -683,6 +683,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ReleaseEventSeriesForEditContract GetReleaseEventSeriesForEdit(int id) {
+
+			return HandleQuery(session => new ReleaseEventSeriesForEditContract(session.Load<ReleaseEventSeries>(id)));
+
+		}
+
 		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
 
 			return HandleQuery(session => {
