@@ -1,4 +1,7 @@
 User-agent: *
+Disallow: /Album/ViewVersion/
+Disallow: /Artist/ViewVersion/
+Disallow: /Song/ViewVersion/
 Disallow: /ViewNicoVideo.aspx
 Disallow: /ListPolls.aspx
 Disallow: /ListSongs.aspx
