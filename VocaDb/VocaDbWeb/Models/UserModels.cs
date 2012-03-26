@@ -24,6 +24,7 @@ namespace VocaDb.Web.Models {
 		[Required]
 		[Display(Name = "Username")]
 		[StringLength(100, MinimumLength = 3)]
+		[RegularExpression("[a-zA-Z0-9_]+")]
 		public string UserName { get; set; }
 
 		[Required]
