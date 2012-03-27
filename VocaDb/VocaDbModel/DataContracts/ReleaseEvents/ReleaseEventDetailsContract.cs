@@ -1,10 +1,11 @@
 ﻿using System;
-using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 	public class ReleaseEventDetailsContract {
+
+		public ReleaseEventDetailsContract() { }
 
 		public ReleaseEventDetailsContract(ReleaseEvent releaseEvent) {
 
@@ -15,8 +16,11 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 			Id = releaseEvent.Id;
 			Name = releaseEvent.Name;
 			Series = (releaseEvent.Series != null ? new ReleaseEventSeriesContract(releaseEvent.Series) : null);
+			SeriesNumber = releaseEvent.SeriesNumber;
 
 		}
+
+		public ReleaseEventSeriesContract[] AllSeries { get; set; }
 
 		public DateTime Date { get; set; }
 
@@ -27,6 +31,8 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 		public string Name { get; set; }
 
 		public ReleaseEventSeriesContract Series { get; set; }
+
+		public int SeriesNumber { get; set; }
 
 	}
 }

@@ -24,12 +24,24 @@
 	
 	<ul>
 	@foreach (var ev in series.Events) {
-		<li>@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })</li>
+		<li>
+			@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })
+
+			@if (Login.CanManageDb) {
+				<text>&nbsp;</text>
+				@Html.ActionLink("Edit", "Edit", new { id = ev.Id }, new { @class = "textLink editLink" })
+			}
+		</li>
 	}
 	</ul>
 	
+	if (Login.CanManageDb) {
+		@Html.ActionLink("Create event", "Edit", new { seriesId = series.Id != 0 ? (int?)series.Id : null }, new { @class = "textLink addLink" })
+	}
+	
 }
 
+<br />
 @if (Login.CanManageEventSeries) {
 	@Html.ActionLink("Create series", "EditSeries", null, new { @class = "textLink addLink" })
 }

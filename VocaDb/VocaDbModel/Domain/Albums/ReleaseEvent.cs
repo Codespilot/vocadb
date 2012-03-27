@@ -13,10 +13,27 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = string.Empty;
 		}
 
-		public ReleaseEvent(string name)
+		public ReleaseEvent(string description, DateTime date, string name)
 			: this() {
 
+			ParamIs.NotNullOrEmpty(() => name);
+
+			Description = description;
+			Date = date;
 			Name = name;
+
+		}
+
+		public ReleaseEvent(string description, DateTime date, ReleaseEventSeries series, int seriesNumber)
+			: this() {
+
+			ParamIs.NotNull(() => series);
+
+			Description = description;
+			Date = date;
+			Series = series;
+			SeriesNumber = seriesNumber;
+			Name = series.GetEventName(seriesNumber);
 
 		}
 
@@ -46,6 +63,33 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual int SeriesNumber { get; set; }
+
+		public virtual bool Equals(ReleaseEvent another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			if (Id == 0)
+				return false;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as ReleaseEvent);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
+		public override string ToString() {
+			return string.Format("release event '{0}' [{1}]", Name, Id);
+		}
 
 	}
 }
