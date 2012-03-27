@@ -1,4 +1,4 @@
-﻿@model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventSeriesForEditContract
+﻿@model VocaDb.Web.Models.Event.SeriesEdit
 
 @{
 	
@@ -6,18 +6,19 @@
 
 	if (!isNew) {
 		ViewBag.Title = "Edit series - " + Model.Name;
-		ViewBag.Parents = new[] { 
-			Html.ActionLink("Events", "EventsBySeries")
-		};
 	} else {
 		ViewBag.Title = "Create a new series";
 	}
+
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Events", "EventsBySeries")
+	};
 	
 }
 
 @section Toolbar {
 	@if (!isNew) {
-		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this series?\");" })
+		@Html.ActionLink("Delete", "DeleteSeries", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this series?\");" })
 	}
 }
 
@@ -25,7 +26,6 @@
 
 @using (Html.BeginForm()) {
 	@Html.HiddenFor(m => m.Id)
-	@Html.HiddenFor(m => m.Name)
 
 	<p>
 		<input type="submit" value="Save changes" />
@@ -52,7 +52,7 @@
 	<div class="editor-field">
 		<ul id="aliases">
 			@foreach (var alias in Model.Aliases) {
-				@{ Html.RenderPartial("AliasForSeries", alias); }
+				Html.RenderPartial("AliasForSeries", alias);
 			}
 		</ul>
 	

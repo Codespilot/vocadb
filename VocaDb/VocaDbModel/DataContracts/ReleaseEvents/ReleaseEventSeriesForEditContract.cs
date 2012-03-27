@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 	public class ReleaseEventSeriesForEditContract : ReleaseEventSeriesContract {
 
-		public ReleaseEventSeriesForEditContract() {}
+		public ReleaseEventSeriesForEditContract() {
+			Aliases = new string[] {};
+		}
 
 		public ReleaseEventSeriesForEditContract(ReleaseEventSeries series) : base(series) {
 

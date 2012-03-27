@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using VocaDb.Model.Service;
 using VocaDb.Model.DataContracts.ReleaseEvents;
+using VocaDb.Web.Models.Event;
 
 namespace VocaDb.Web.Controllers
 {
@@ -26,7 +27,35 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult AliasForSeries(string name) {
 
-			return PartialView(name);
+			return PartialView("AliasForSeries", name);
+
+		}
+
+		public ActionResult DeleteSeries(int id) {
+
+			Service.DeleteSeries(id);
+
+			return RedirectToAction("EventsBySeries");
+
+		}
+
+		public ActionResult EditSeries(int? id) {
+
+			var contract = (id != null ? Service.GetReleaseEventSeriesForEdit(id.Value) : new ReleaseEventSeriesForEditContract());
+			return View(new SeriesEdit(contract));
+
+		}
+
+		[HttpPost]
+		public ActionResult EditSeries(SeriesEdit model) {
+
+			if (!ModelState.IsValid) {
+				return View(model);
+			}
+
+			Service.UpdateSeries(model.ToContract());
+
+			return RedirectToAction("EventsBySeries");
 
 		}
 
@@ -44,22 +73,6 @@ namespace VocaDb.Web.Controllers
         {
             return View();
         }
-
-		public ActionResult SeriesEdit(int? id) {
-
-			var series = (id != null ? Service.GetReleaseEventSeriesForEdit(id.Value) : new ReleaseEventSeriesForEditContract());
-			return View(series);
-
-		}
-
-		[HttpPost]
-		public ActionResult SeriesEdit(ReleaseEventSeriesForEditContract model) {
-
-			Service.UpdateSeries(model);
-
-			return RedirectToAction("EventsBySeries");
-
-		}
 
     }
 }

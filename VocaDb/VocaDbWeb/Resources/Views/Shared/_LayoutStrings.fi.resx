@@ -150,6 +150,9 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Aiheeseen liittyviä sivustoja</value>
   </data>
+  <data name="ReleaseEvents" xml:space="preserve">
+    <value>Tapahtumat</value>
+  </data>
   <data name="TopFavoritedSongs" xml:space="preserve">
     <value>Suosituimmat kappaleet</value>
   </data>

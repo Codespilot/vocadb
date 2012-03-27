@@ -4,8 +4,8 @@
 <li>
 	@using (Html.BeginCollectionItem("Aliases")) {
 		@Html.HiddenFor(m => m);
-		@Model
+		<span>@Model</span>
 	}
-	<a href="#" class="aliasRemove iconLink deleteLink" title="Delete alias">Delete</a>
+	<a href="#" class="aliasRemove textLink deleteLink" title="Delete alias">Delete</a>
 </li>
 
