@@ -11,11 +11,14 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 			ParamIs.NotNull(() => series);
 
 			Description = series.Description;
+			Id = series.Id;
 			Name = series.Name;
 
 		}
 
 		public string Description { get; set; }
+
+		public int Id { get; set; }
 
 		public string Name { get; set; }
 

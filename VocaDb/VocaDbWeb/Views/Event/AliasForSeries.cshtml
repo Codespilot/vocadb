@@ -1,0 +1,11 @@
+﻿@using VocaDb.Web.Helpers;
+@model string
+
+<li>
+	@using (Html.BeginCollectionItem("Aliases")) {
+		@Html.HiddenFor(m => m);
+		@Model
+	}
+	<a href="#" class="aliasRemove iconLink deleteLink" title="Delete alias">Delete</a>
+</li>
+

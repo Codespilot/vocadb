@@ -57,6 +57,12 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		public ReleaseEventService ReleaseEvents {
+			get {
+				return new ReleaseEventService(sessionFactory, permissionContext, entryLinkFactory);
+			}
+		}
+
 		public SongService Songs {
 			get {
 				return new SongService(sessionFactory, permissionContext, entryLinkFactory);

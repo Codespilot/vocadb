@@ -44,5 +44,8 @@ namespace VocaDb.Model.Domain.Albums {
 			get { return series; }
 			set { series = value; }
 		}
+
+		public virtual int SeriesNumber { get; set; }
+
 	}
 }
