@@ -178,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage event series.
+        /// </summary>
+        internal static string ManageEventSeries {
+            get {
+                return ResourceManager.GetString("ManageEventSeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage user permissions.
         /// </summary>
         internal static string ManageUserPermissions {

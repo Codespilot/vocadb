@@ -156,6 +156,9 @@
   <data name="ManageDatabase" xml:space="preserve">
     <value>Manage database</value>
   </data>
+  <data name="ManageEventSeries" xml:space="preserve">
+    <value>Manage event series</value>
+  </data>
   <data name="ManageUserPermissions" xml:space="preserve">
     <value>Manage user permissions</value>
   </data>
