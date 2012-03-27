@@ -95,6 +95,10 @@ namespace VocaDb.Model.Domain.Albums {
 			return base.GetHashCode();
 		}
 
+		public virtual string GetEventName(int number) {
+			return string.Format("{0} {1}", Name, number);
+		}
+
 		public override string ToString() {
 			return string.Format("release event series '{0}' [{1}]", Name, Id);
 		}

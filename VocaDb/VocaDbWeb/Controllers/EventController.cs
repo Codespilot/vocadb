@@ -31,9 +31,48 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Delete(int id) {
+
+			Service.DeleteEvent(id);
+
+			return RedirectToAction("EventsBySeries");
+
+		}
+
 		public ActionResult DeleteSeries(int id) {
 
 			Service.DeleteSeries(id);
+
+			return RedirectToAction("EventsBySeries");
+
+		}
+
+		public ActionResult Details(int id) {
+
+			var ev = Service.GetReleaseEventDetails(id);
+			return View(ev);
+
+		}
+
+		public ActionResult Edit(int? id, int? seriesId) {
+
+			var model = (id != null ? new EventEdit(Service.GetReleaseEventForEdit(id.Value)) 
+				: new EventEdit(seriesId != null ? Service.GetReleaseEventSeriesForEdit(seriesId.Value): null));
+
+			return View(model);
+
+		}
+
+		[HttpPost]
+		public ActionResult Edit(EventEdit model) {
+
+			if (!ModelState.IsValid) {
+				var contract = Service.GetReleaseEventForEdit(model.Id);
+				model.CopyNonEditableProperties(contract);
+				return View(model);
+			}
+
+			Service.UpdateEvent(model.ToContract());
 
 			return RedirectToAction("EventsBySeries");
 
