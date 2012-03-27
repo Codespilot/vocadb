@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -12,6 +14,19 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public ReleaseEventSeries() {
 			Description = string.Empty;
+		}
+
+		public ReleaseEventSeries(string name, string description, IEnumerable<string> aliases)
+			: this() {
+
+			ParamIs.NotNull(() => aliases);
+
+			Name = name;
+			Description = description;
+
+			foreach (var a in aliases)
+				CreateAlias(a);
+
 		}
 
 		public virtual IList<ReleaseEventSeriesAlias> Aliases {
@@ -48,6 +63,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual ReleaseEventSeriesAlias CreateAlias(string alias) {
+
+			var a = new ReleaseEventSeriesAlias(this, alias);
+			Aliases.Add(a);
+
+			return a;
+
+		}
+
 		public virtual bool Equals(ReleaseEventSeries another) {
 
 			if (another == null)
@@ -70,6 +94,25 @@ namespace VocaDb.Model.Domain.Albums {
 		public override int GetHashCode() {
 			return base.GetHashCode();
 		}
+
+		public override string ToString() {
+			return "release event series [" + Id + "]";
+		}
+
+		public virtual void UpdateAliases(IEnumerable<string> aliases) {
+
+			ParamIs.NotNull(() => aliases);
+
+			var diff = CollectionHelper.Diff(Aliases, aliases, (a1, a2) => a1.Name.Equals(a2));
+
+			foreach (var added in diff.Added)
+				CreateAlias(added);
+
+			foreach (var removed in diff.Removed)
+				Aliases.Remove(removed);
+
+		}
+
 	}
 
 }

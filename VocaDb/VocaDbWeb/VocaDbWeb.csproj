@@ -224,6 +224,7 @@
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\Artist\Create.cs" />
     <Compile Include="Models\Artist\Versions.cs" />
+    <Compile Include="Models\Event\EventEdit.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\NewsEntry\NewsEntryEdit.cs" />
@@ -356,6 +357,7 @@
     <Content Include="Scripts\Artist\Details.js" />
     <Content Include="Scripts\Artist\Edit.js" />
     <Content Include="Scripts\Artist\Merge.js" />
+    <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.5.1.min.js" />
@@ -829,6 +831,8 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\EventsBySeries.cshtml" />
     <Content Include="Views\Event\SeriesEdit.cshtml" />
+    <Content Include="Views\Event\AliasForSeries.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
     </None>

@@ -659,36 +659,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*public ReleaseEventDetailsContract GetReleaseEventDetailsByName(string name) {
-
-			return HandleQuery(session => new ReleaseEventDetailsContract(session.Query<ReleaseEvent>().F(r => r.Name == name)));
-
-		}*/
-
-		public ReleaseEventSeriesWithEventsContract[] GetReleaseEventsBySeries() {
-
-			return HandleQuery(session => {
-
-				var allEvents = session.Query<ReleaseEvent>().OrderBy(e => e.Name).ToArray();
-				var series = session.Query<ReleaseEventSeries>().OrderBy(e => e.Name).ToArray();
-
-				var seriesContracts = series.Select(s => new ReleaseEventSeriesWithEventsContract(s, allEvents.Where(e => series.Equals(e.Series))));
-				var ungrouped = allEvents.Where(e => e.Series == null);
-				
-				return seriesContracts.Concat(new[] { new ReleaseEventSeriesWithEventsContract { 
-					Name = string.Empty, 
-					Events = ungrouped.Select(e => new ReleaseEventDetailsContract(e)).ToArray() } }).ToArray();
-
-			});
-
-		}
-
-		public ReleaseEventSeriesForEditContract GetReleaseEventSeriesForEdit(int id) {
-
-			return HandleQuery(session => new ReleaseEventSeriesForEditContract(session.Load<ReleaseEventSeries>(id)));
-
-		}
-
 		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
 
 			return HandleQuery(session => {
