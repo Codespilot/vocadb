@@ -10,6 +10,10 @@
 	<h3>
 	@if (!string.IsNullOrEmpty(series.Name)) {
 		@series.Name
+		<text>&nbsp;</text>
+		if (Login.CanManageEventSeries) {
+			@Html.ActionLink("Edit", "EditSeries", new { id = series.Id })
+		}
 	} else {
 		<text>Ungrouped</text>
 	}
@@ -27,5 +31,5 @@
 }
 
 @if (Login.CanManageEventSeries) {
-	@Html.ActionLink("Create series", "Edit", null, new { @class = "textLink createLink" })
+	@Html.ActionLink("Create series", "EditSeries", null, new { @class = "textLink addLink" })
 }

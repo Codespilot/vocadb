@@ -225,6 +225,7 @@
     <Compile Include="Models\Artist\Create.cs" />
     <Compile Include="Models\Artist\Versions.cs" />
     <Compile Include="Models\Event\EventEdit.cs" />
+    <Compile Include="Models\Event\SeriesEdit.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\NewsEntry\NewsEntryEdit.cs" />
@@ -830,7 +831,7 @@
     <Content Include="Views\NewsEntry\Edit.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\EventsBySeries.cshtml" />
-    <Content Include="Views\Event\SeriesEdit.cshtml" />
+    <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <None Include="Web.config.default">

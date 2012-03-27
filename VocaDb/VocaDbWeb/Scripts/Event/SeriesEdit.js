@@ -1,7 +1,9 @@
 ﻿
 function initPage() {
 
-	$("#createAliasLink").click() {
+	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+
+	$("#createAliasLink").click(function () {
 
 		var alias = $("#newAliasName").val();
 
@@ -10,13 +12,13 @@ function initPage() {
 			return false;
 		}
 
-		$.post("../../Event/AliasForSeries", { name: alias }, function(row) {
+		$.post("../../Event/AliasForSeries", { name: alias }, function (row) {
 			$("#aliases").append(row);
 		});
 
 		return false;
 
-	}
+	});
 
 	$("a.aliasRemove").live("click", function () {
 

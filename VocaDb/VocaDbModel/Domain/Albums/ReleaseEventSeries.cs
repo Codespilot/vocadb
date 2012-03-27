@@ -96,7 +96,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return "release event series [" + Id + "]";
+			return string.Format("release event series '{0}' [{1}]", Name, Id);
 		}
 
 		public virtual void UpdateAliases(IEnumerable<string> aliases) {

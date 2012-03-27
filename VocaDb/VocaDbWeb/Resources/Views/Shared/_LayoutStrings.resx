@@ -150,6 +150,9 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Related sites</value>
   </data>
+  <data name="ReleaseEvents" xml:space="preserve">
+    <value>Events</value>
+  </data>
   <data name="TopFavoritedSongs" xml:space="preserve">
     <value>Top favorited songs</value>
   </data>

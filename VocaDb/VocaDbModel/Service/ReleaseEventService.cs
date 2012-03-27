@@ -21,6 +21,12 @@ namespace VocaDb.Model.Service {
 
 		}*/
 
+		public void DeleteSeries(int id) {
+
+			DeleteEntity<ReleaseEventSeries>(id, PermissionToken.ManageEventSeries);
+
+		}
+
 		public ReleaseEventSeriesWithEventsContract[] GetReleaseEventsBySeries() {
 
 			return HandleQuery(session => {
