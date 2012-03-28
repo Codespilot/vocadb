@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace VocaDb.Model.Domain.Albums {
 
 	public class ReleaseEvent {
 
+		private IList<Album> albums = new List<Album>();
 		private string description;
 		private string name;
 		private ReleaseEventSeries series;
@@ -35,6 +37,14 @@ namespace VocaDb.Model.Domain.Albums {
 			SeriesNumber = seriesNumber;
 			Name = series.GetEventName(seriesNumber);
 
+		}
+
+		public virtual IList<Album> Albums {
+			get { return albums; }
+			set {
+				ParamIs.NotNull(() => value);
+				albums = value; 
+			}
 		}
 
 		public virtual DateTime Date { get; set; }
