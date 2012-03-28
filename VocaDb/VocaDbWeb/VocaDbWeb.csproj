@@ -835,6 +835,8 @@
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Event\Find.cshtml" />
+    <Content Include="Views\Event\SeriesDetails.cshtml" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
     </None>

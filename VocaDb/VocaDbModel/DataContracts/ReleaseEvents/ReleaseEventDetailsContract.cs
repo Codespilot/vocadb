@@ -5,7 +5,10 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 	public class ReleaseEventDetailsContract {
 
-		public ReleaseEventDetailsContract() { }
+		public ReleaseEventDetailsContract() {
+			Date = DateTime.Now;
+			Description = string.Empty;
+		}
 
 		public ReleaseEventDetailsContract(ReleaseEvent releaseEvent) {
 

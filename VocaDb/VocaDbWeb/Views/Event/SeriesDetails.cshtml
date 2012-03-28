@@ -1,0 +1,40 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventSeriesDetailsContract
+
+@{
+	
+    ViewBag.Title = "Event series - " + Model.Name;
+	ViewBag.Subtitle = string.Join(", ", Model.Aliases);
+
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Events", "EventsBySeries")
+	};	
+	
+}
+
+@section Toolbar {
+	@if (Login.CanManageEventSeries) {
+		@Html.ActionLink("Edit", "EditSeries", new { id = Model.Id }, new { id = "editEventLink" })
+	}
+}
+
+@if (!string.IsNullOrEmpty(Model.Description)) {
+	<p>@Model.Description</p>
+}
+
+<h3>Events</h3>
+<ul>
+@foreach (var ev in Model.Events) {
+	<li>@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })</li>
+}
+</ul>
+
+@section BodyScripts {
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#editEventLink").button({ icons: { primary: 'ui-icon-wrench'} });
+	});
+
+</script>
+}

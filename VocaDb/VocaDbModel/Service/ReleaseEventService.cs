@@ -7,10 +7,13 @@ using NHibernate.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.Domain.Albums;
+using System.Text.RegularExpressions;
 
 namespace VocaDb.Model.Service {
 
 	public class ReleaseEventService : ServiceBase {
+
+		private static readonly Regex eventNameRegex = new Regex(@"(.+)(\d+)");
 
 		public ReleaseEventService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
@@ -30,6 +33,50 @@ namespace VocaDb.Model.Service {
 		public void DeleteSeries(int id) {
 
 			DeleteEntity<ReleaseEventSeries>(id, PermissionToken.ManageEventSeries);
+
+		}
+
+		public ReleaseEventFindResultContract Find(string query) {
+
+			return HandleQuery(session => {
+
+				// Attempt to match exact name
+				var ev = session.Query<ReleaseEvent>().FirstOrDefault(e => e.Name == query);
+
+				if (ev != null)
+					return new ReleaseEventFindResultContract(ev);
+
+				var match = eventNameRegex.Match(query);
+
+				if (match.Success) {
+
+					var seriesName = match.Groups[1].Value;
+					var seriesNumber = int.Parse(match.Groups[2].Value);
+
+					// Attempt to match series + series number
+					ev = session.Query<ReleaseEvent>().FirstOrDefault(e => (seriesName.Contains(e.Series.Name) 
+						|| e.Series.Aliases.Any(a => seriesName.Contains(a.Name))) && e.SeriesNumber == seriesNumber);
+
+					if (ev != null)
+						return new ReleaseEventFindResultContract(ev);
+
+					// Attempt to match just the series
+					var series = session.Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.Contains(s.Name) || s.Aliases.Any(a => seriesName.Contains(a.Name)));
+
+					if (series != null)
+						return new ReleaseEventFindResultContract(series, seriesNumber, query);
+
+				}
+
+				var events = session.Query<ReleaseEvent>().Where(e => query.Contains(e.Name) || e.Name.Contains(query)).Take(2).ToArray();
+
+				if (events.Length != 1) {
+					return new ReleaseEventFindResultContract(query);
+				}
+
+				return new ReleaseEventFindResultContract(events[0]);
+
+			});
 
 		}
 
