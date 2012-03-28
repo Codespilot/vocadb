@@ -105,6 +105,33 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Find(string query) {
+
+			var result = Service.Find(query);
+
+			if (result.EventId != 0) {
+				return RedirectToAction("Details", new { id = result.EventId });
+			}
+
+			return View(result);
+
+		}
+
+		[HttpPost]
+		public ActionResult Find(ReleaseEventFindResultContract model) {
+
+			if (!ModelState.IsValid) {
+				return View(model);
+			}
+
+			var contract = new ReleaseEventDetailsContract { Name = model.EventName, Series = model.Series, SeriesNumber = model.SeriesNumber };
+
+			var id = Service.UpdateEvent(contract);
+
+			return RedirectToAction("Edit", new { id = id });
+
+		}
+
         //
         // GET: /Event/
 

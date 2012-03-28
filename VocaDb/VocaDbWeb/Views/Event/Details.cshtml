@@ -18,7 +18,7 @@
 }
 
 @if (Model.Series != null) {
-	<p>Series: @Model.Series.Name</p>
+	<p>Series: @Html.ActionLink(Model.Series.Name, "SeriesDetails", new { id = Model.Series.Id })</p>
 }
 
 <p>Occurrence date: @Model.Date.ToShortDateString()</p>
@@ -28,7 +28,6 @@
 }
 
 @section BodyScripts {
-<script type="text/javascript" src="@Url.Content("~/Scripts/Event/SeriesEdit.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function () {

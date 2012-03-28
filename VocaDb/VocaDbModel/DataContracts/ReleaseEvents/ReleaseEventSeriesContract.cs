@@ -4,9 +4,12 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 	public class ReleaseEventSeriesContract {
 
-		public ReleaseEventSeriesContract() { }
+		public ReleaseEventSeriesContract() {
+			Description = string.Empty;
+		}
 
-		public ReleaseEventSeriesContract(ReleaseEventSeries series) {
+		public ReleaseEventSeriesContract(ReleaseEventSeries series)
+			: this() {
 
 			ParamIs.NotNull(() => series);
 
