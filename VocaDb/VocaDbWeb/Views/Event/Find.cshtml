@@ -5,7 +5,7 @@
     ViewBag.Title = "Find event - " + Model.EventName;
 }
 
-@Helpers.NotificationPanel("Sorry, an event with this name could not be found. It probably hasn't been added to the database yet.");
+@Helpers.NotificationPanel("Sorry, an event with this name could not be found. It probably hasn't been added to the database yet.")
 
 @if (Login.CanManageDb) {
 
@@ -33,6 +33,7 @@
 		
 		}
 	
+		<br /><br />
 		<input type="submit" value="Create event" />
 	
 	}

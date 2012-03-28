@@ -84,15 +84,16 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var allEvents = session.Query<ReleaseEvent>().OrderBy(e => e.Name).ToArray();
+				var allEvents = session.Query<ReleaseEvent>().OrderBy(e => e.Date).ToArray();
 				var series = session.Query<ReleaseEventSeries>().OrderBy(e => e.Name).ToArray();
 
-				var seriesContracts = series.Select(s => new ReleaseEventSeriesWithEventsContract(s, allEvents.Where(e => s.Equals(e.Series))));
+				var seriesContracts = series.Select(s => 
+					new ReleaseEventSeriesWithEventsContract(s, allEvents.Where(e => s.Equals(e.Series)), PermissionContext.LanguagePreference));
 				var ungrouped = allEvents.Where(e => e.Series == null);
 
 				return seriesContracts.Concat(new[] { new ReleaseEventSeriesWithEventsContract { 
 					Name = string.Empty, 
-					Events = ungrouped.Select(e => new ReleaseEventDetailsContract(e)).ToArray() } }).ToArray();
+					Events = ungrouped.Select(e => new ReleaseEventDetailsContract(e, PermissionContext.LanguagePreference)).ToArray() } }).ToArray();
 
 			});
 
@@ -100,16 +101,22 @@ namespace VocaDb.Model.Service {
 
 		public ReleaseEventDetailsContract GetReleaseEventDetails(int id) {
 
-			return HandleQuery(session => new ReleaseEventDetailsContract(session.Load<ReleaseEvent>(id)));
+			return HandleQuery(session => new ReleaseEventDetailsContract(session.Load<ReleaseEvent>(id), PermissionContext.LanguagePreference));
 
 		}
 
 		public ReleaseEventDetailsContract GetReleaseEventForEdit(int id) {
 
 			return HandleQuery(session => new ReleaseEventDetailsContract(
-				session.Load<ReleaseEvent>(id)) {
+				session.Load<ReleaseEvent>(id), PermissionContext.LanguagePreference) {
 					AllSeries = session.Query<ReleaseEventSeries>().Select(s => new ReleaseEventSeriesContract(s)).ToArray()
 				});
+
+		}
+
+		public ReleaseEventSeriesDetailsContract GetReleaseEventSeriesDetails(int id) {
+
+			return HandleQuery(session => new ReleaseEventSeriesDetailsContract(session.Load<ReleaseEventSeries>(id), PermissionContext.LanguagePreference));
 
 		}
 

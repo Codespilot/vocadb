@@ -140,5 +140,12 @@ namespace VocaDb.Web.Controllers
             return View();
         }
 
+		public ActionResult SeriesDetails(int id) {
+
+			var series = Service.GetReleaseEventSeriesDetails(id);
+			return View(series);
+
+		}
+
     }
 }

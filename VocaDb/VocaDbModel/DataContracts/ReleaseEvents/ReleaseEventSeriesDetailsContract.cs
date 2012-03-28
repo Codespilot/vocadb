@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
@@ -10,8 +8,8 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 		public ReleaseEventSeriesDetailsContract() { }
 
-		public ReleaseEventSeriesDetailsContract(ReleaseEventSeries series)
-			: base(series) {
+		public ReleaseEventSeriesDetailsContract(ReleaseEventSeries series, ContentLanguagePreference languagePreference)
+			: base(series, languagePreference) {
 
 			Aliases = series.Aliases.Select(a => a.Name).ToArray();
 
