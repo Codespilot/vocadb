@@ -933,10 +933,10 @@ namespace VocaDb.Model.Service {
 
 				var albums = session.Query<Album>().Where(a => a.OriginalRelease.EventName == old).ToArray();
 
-				/*foreach (var a in albums) {
+				foreach (var a in albums) {
 					a.OriginalRelease.EventName = newName;
 					session.Update(a);
-				}*/
+				}
 
 			});
 
