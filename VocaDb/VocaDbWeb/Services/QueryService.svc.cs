@@ -115,7 +115,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public TagContract GetTagByName(string name) {
 
-			var tag = Services.Tags.GetTag(name);
+			var tag = Services.Tags.FindTag(name);
 			return tag;
 
 		}

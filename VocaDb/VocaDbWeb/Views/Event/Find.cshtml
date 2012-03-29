@@ -13,6 +13,8 @@
 	
 	using (Html.BeginForm()) {
 	
+		Html.Hidden("query");
+		
 		if (Model.Series != null) {
 
 			@Html.HiddenFor(m => m.Series.Id)
@@ -27,12 +29,14 @@
 		} else {
 
 			<input type="radio" name="EventTarget" value="Ungrouped" checked="checked" />
-		
-			<text>Name:</text>
-			@Html.TextBoxFor(m => m.EventName)
-		
-		}
 	
+		}
+		
+		<br />
+		
+		<text>Name:</text>
+		@Html.TextBoxFor(m => m.EventName)
+			
 		<br /><br />
 		<input type="submit" value="Create event" />
 	
