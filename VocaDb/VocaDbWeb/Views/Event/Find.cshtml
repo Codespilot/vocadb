@@ -7,7 +7,7 @@
 
 @Helpers.NotificationPanel("Sorry, an event with this name could not be found. It probably hasn't been added to the database yet.")
 
-@if (Login.CanManageDb) {
+@if (Login.CanManageDb && !string.IsNullOrEmpty(Model.EventName)) {
 
 	<p>You may add the event to the database.</p>
 	
@@ -26,15 +26,12 @@
 			<text>, number</text>	 
 			@Html.TextBoxFor(m => m.SeriesNumber)
 	 
-		} else {
-
-			<input type="radio" name="EventTarget" value="Ungrouped" checked="checked" />
+			<br /><br />
+			<input type="radio" name="EventTarget" value="Ungrouped" />
 	
 		}
-		
-		<br />
-		
-		<text>Name:</text>
+			
+		<text>Ungrouped event named:</text>
 		@Html.TextBoxFor(m => m.EventName)
 			
 		<br /><br />

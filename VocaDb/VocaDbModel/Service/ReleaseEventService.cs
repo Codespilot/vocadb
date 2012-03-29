@@ -13,7 +13,7 @@ namespace VocaDb.Model.Service {
 
 	public class ReleaseEventService : ServiceBase {
 
-		private static readonly Regex eventNameRegex = new Regex(@"(.+)(\d+)");
+		private static readonly Regex eventNameRegex = new Regex(@"(.[^\d]+)(\d+)");
 
 		public ReleaseEventService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
@@ -50,18 +50,21 @@ namespace VocaDb.Model.Service {
 
 				if (match.Success) {
 
-					var seriesName = match.Groups[1].Value;
+					var seriesName = match.Groups[1].Value.Trim();
 					var seriesNumber = int.Parse(match.Groups[2].Value);
 
 					// Attempt to match series + series number
-					ev = session.Query<ReleaseEvent>().FirstOrDefault(e => (seriesName.Contains(e.Series.Name) 
-						|| e.Series.Aliases.Any(a => seriesName.Contains(a.Name))) && e.SeriesNumber == seriesNumber);
+					var results = session.Query<ReleaseEvent>().Where(e => (seriesName.Contains(e.Series.Name) || e.Series.Name.Contains(seriesName)
+						|| e.Series.Aliases.Any(a => seriesName.Contains(a.Name) || a.Name.Contains(seriesName))) && e.SeriesNumber == seriesNumber).ToArray();
 
-					if (ev != null)
-						return new ReleaseEventFindResultContract(ev);
+					if (results.Length > 1)
+						return new ReleaseEventFindResultContract();
+
+					if (results.Length == 1)
+						return new ReleaseEventFindResultContract(results[0]);
 
 					// Attempt to match just the series
-					var series = session.Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.Contains(s.Name) || s.Aliases.Any(a => seriesName.Contains(a.Name)));
+					var series = session.Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.Contains(s.Name) || s.Name.Contains(seriesName) || s.Aliases.Any(a => seriesName.Contains(a.Name) || a.Name.Contains(seriesName)));
 
 					if (series != null)
 						return new ReleaseEventFindResultContract(series, seriesNumber, query);
@@ -71,7 +74,7 @@ namespace VocaDb.Model.Service {
 				var events = session.Query<ReleaseEvent>().Where(e => query.Contains(e.Name) || e.Name.Contains(query)).Take(2).ToArray();
 
 				if (events.Length != 1) {
-					return new ReleaseEventFindResultContract(query);
+					return new ReleaseEventFindResultContract();
 				}
 
 				return new ReleaseEventFindResultContract(events[0]);

@@ -15,6 +15,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 			ParamIs.NotNull(() => releaseEvent);
 
 			EventId = releaseEvent.Id;
+			EventName = releaseEvent.Name;
 
 		}
 
