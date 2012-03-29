@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Resources;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
@@ -234,6 +235,33 @@ namespace VocaDb.Web.Helpers {
 		public static void RenderPartialTyped<T>(this HtmlHelper htmlHelper, string partialViewName, T model) {
 
 			htmlHelper.RenderPartial(partialViewName, model);
+
+		}
+
+		public static string ReplaceUrisWithLinks(string text) {
+
+			var parsed = new StringBuilder(text);
+			var regex = new Regex(@"http[s]?\:[a-zA-Z0-9_\#\-\.\:\/\%\?\&\=\+]+");
+
+			var matches = regex.Matches(text);
+
+			var indexOffset = 0;
+
+			foreach (Match match in matches) {
+
+				Uri uri;
+
+				if (Uri.TryCreate(match.Value, UriKind.Absolute, out uri)) {
+
+					var link = "<a href='" + match.Value + "'>" + match.Value + "</a>";
+					parsed.Replace(match.Value, link, match.Index + indexOffset, match.Length);
+
+					indexOffset += (link.Length - match.Value.Length);
+
+				}
+			}
+
+			return parsed.ToString();
 
 		}
 
