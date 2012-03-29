@@ -110,7 +110,12 @@ namespace VocaDb.Web.Controllers
 			var result = Service.Find(query);
 
 			if (result.EventId != 0) {
+
+				if (result.EventName != query)
+					Services.Albums.UpdateAllReleaseEventNames(query, result.EventName);
+
 				return RedirectToAction("Details", new { id = result.EventId });
+
 			}
 
 			return View(result);
@@ -118,17 +123,31 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Find(ReleaseEventFindResultContract model) {
+		public ActionResult Find(ReleaseEventFindResultContract model, string query, string EventTarget) {
+
+			bool skipSeries = false;
+
+			if (EventTarget != "Series") {
+
+				skipSeries = true;
+
+				if (string.IsNullOrEmpty(model.EventName))
+					ModelState.AddModelError("EventName", "Name must be specified");
+
+			}
 
 			if (!ModelState.IsValid) {
 				return View(model);
 			}
 
-			var contract = new ReleaseEventDetailsContract { Name = model.EventName, Series = model.Series, SeriesNumber = model.SeriesNumber };
+			var contract = new ReleaseEventDetailsContract { Name = model.EventName, Series = (skipSeries ? null : model.Series), SeriesNumber = model.SeriesNumber };
 
-			var id = Service.UpdateEvent(contract);
+			var ev = Service.UpdateEvent(contract);
 
-			return RedirectToAction("Edit", new { id = id });
+			if (query != ev.Name)
+				Services.Albums.UpdateAllReleaseEventNames(query, ev.Name);
+
+			return RedirectToAction("Edit", new { id = ev.Id });
 
 		}
 

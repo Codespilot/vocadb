@@ -67,6 +67,33 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TagContract FindTag(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session => {
+
+				Tag[] tags;
+
+				if (tagName.Length < 3)
+					tags = session.Query<Tag>().Where(t => t.Name == tagName).Take(1).ToArray();
+				else
+					tags = session.Query<Tag>().Where(t => t.Name.Contains(tagName)).Take(10).ToArray();
+
+				var match = tags.FirstOrDefault(t => t.Name.Equals(tagName, System.StringComparison.InvariantCultureIgnoreCase));
+
+				if (match == null)
+					match = tags.FirstOrDefault();
+				
+				if (match == null)
+					return null;
+
+				return new TagContract(match);
+
+			});
+
+		}
+
 		public string[] FindTags(string query) {
 
 			if (string.IsNullOrWhiteSpace(query))
@@ -114,14 +141,6 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session =>
 				session.Query<SongTagUsage>().Where(a => a.Tag.Name == tagName)
 					.Select(t => new SongWithAdditionalNamesContract(t.Song, PermissionContext.LanguagePreference)).ToArray());
-
-		}
-
-		public TagContract GetTag(string tagName) {
-
-			ParamIs.NotNullOrEmpty(() => tagName);
-
-			return HandleQuery(session => new TagContract(GetTag(session, tagName)));
 
 		}
 

@@ -87,6 +87,7 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
+    <Compile Include="DataContracts\ReleaseEvents\ReleaseEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventDetailsContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventFindResultContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventSeriesContract.cs" />

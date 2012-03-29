@@ -126,7 +126,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public int UpdateEvent(ReleaseEventDetailsContract contract) {
+		public ReleaseEventContract UpdateEvent(ReleaseEventDetailsContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -162,7 +162,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				return ev.Id;
+				return new ReleaseEventContract(ev);
 
 			});
 
