@@ -19,7 +19,7 @@
 }
 
 @if (!string.IsNullOrEmpty(Model.Description)) {
-	<p>@Model.Description</p>
+	<p>@HtmlHelpers.FormatText(Model.Description)</p>
 }
 
 <h3>Events</h3>

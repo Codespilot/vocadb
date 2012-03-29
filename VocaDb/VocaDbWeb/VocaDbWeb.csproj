@@ -832,6 +832,7 @@
     <Content Include="Views\NewsEntry\Edit.cshtml" />
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\EventsBySeries.cshtml" />
+    <Content Include="App_Code\HtmlHelpers.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
