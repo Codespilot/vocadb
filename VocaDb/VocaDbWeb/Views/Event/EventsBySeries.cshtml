@@ -19,7 +19,7 @@
 	}
 	</h3>
 	if (!string.IsNullOrEmpty(series.Description)) {
-		<p>@series.Description</p>
+		<p>@HtmlHelpers.FormatText(series.Description)</p>
 	}
 	
 	<ul>
