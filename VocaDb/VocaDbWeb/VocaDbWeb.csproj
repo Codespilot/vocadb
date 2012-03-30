@@ -130,6 +130,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="App_GlobalResources\EntryTypeNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryTypeNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EntryTypeNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryTypeNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\PermissionTokenNames.designer.cs">
       <DependentUpon>PermissionTokenNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -481,6 +491,7 @@
     <Content Include="Scripts\Shared\DiscussionTab.js" />
     <Content Include="Scripts\Shared\NamesList.js" />
     <Content Include="Scripts\Shared\WebLinksList.js" />
+    <Content Include="Scripts\Shared\GlobalSearchBox.js" />
     <Content Include="Scripts\SongList\Edit.js" />
     <Content Include="Scripts\Song\Create.js" />
     <Content Include="Scripts\Song\Details.js" />
@@ -946,6 +957,14 @@
     <Content Include="App_GlobalResources\PermissionTokenNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PermissionTokenNames.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EntryTypeNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryTypeNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EntryTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
