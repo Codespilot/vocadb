@@ -12,7 +12,7 @@ $(document).ready(function () {
 					entryFindCallback(response, results);
 				});
 			} else if (entryType == "Artist") {
-				$.post("../../Artist/FindJson", { term: term }, function (results) {
+				$.post("../../Artist/FindNames", { term: term }, function (results) {
 					entryFindCallback(response, results);
 				});
 			} else if (entryType == "Song") {
@@ -29,8 +29,8 @@ $(document).ready(function () {
 
 function entryFindCallback(response, results) {
 
-	$.map(results.Items, function( item ) {
+	response($.map(results.Items, function( item ) {
 		return item.Name; 
-	});
+	}));
 
 }

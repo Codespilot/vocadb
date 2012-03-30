@@ -66,6 +66,12 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult FindNames(string query) {
+
+			return Json(Service.FindNames(query, 15));
+
+		}
+
         //
         // GET: /Artist/
 		public ActionResult Index(string filter, ArtistType? artistType, bool? draftsOnly, int? page) {
