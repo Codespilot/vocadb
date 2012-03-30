@@ -407,6 +407,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public string[] FindNames(string query, int maxResults) {
+
+			if (string.IsNullOrWhiteSpace(query))
+				return new string[] {};
+
+			return HandleQuery(session => {
+
+				var names = session.Query<ArtistName>().Where(a => a.Value.Contains(query) && !a.Artist.Deleted).Select(n => n.Value).Take(maxResults).ToArray();
+				return names;
+
+			});
+
+		}
+
 		public AlbumWithAdditionalNamesContract[] GetAlbums(int artistId) {
 
 			// TODO: sorting could be done in DB
