@@ -71,6 +71,10 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, moveExactToTop: false);
 
+			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
+				return RedirectToAction("Details", new { id = result.Items[0].Id });
+			}
+
 			var model = new Index(result, filter, page, draftsOnly);
 
             return View(model);

@@ -80,6 +80,10 @@ namespace VocaDb.Web.Controllers
 				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
 				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false);
 
+			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
+				return RedirectToAction("Details", new { id = result.Items[0].Id });
+			}
+
 			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, draftsOnly, page);
 
 			return View(model);
