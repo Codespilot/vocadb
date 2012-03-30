@@ -661,6 +661,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public string[] FindNames(string query, int maxResults) {
+
+			if (string.IsNullOrWhiteSpace(query))
+				return new string[] { };
+
+			return HandleQuery(session => {
+
+				var names = session.Query<SongName>().Where(a => a.Value.Contains(query) && !a.Song.Deleted).Select(n => n.Value).Take(maxResults).ToArray();
+				return names;
+
+			});
+
+		}
+
 		public CommentContract[] GetComments(int songId) {
 
 			return HandleQuery(session => {

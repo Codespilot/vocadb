@@ -29,7 +29,7 @@ $(document).ready(function () {
 
 function entryFindCallback(response, results) {
 
-	response($.map(results.Items, function( item ) {
+	response($.map(results, function( item ) {
 		return item.Name; 
 	}));
 
