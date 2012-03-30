@@ -537,7 +537,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var names = session.Query<AlbumName>().Where(a => a.Value.Contains(query) && !a.Album.Deleted).Select(n => n.Value).Take(maxResults).ToArray();
+				var names = session.Query<AlbumName>().Where(a => a.Value.Contains(query) && !a.Album.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
 				return names;
 
 			});
