@@ -10,9 +10,16 @@ namespace VocaDb.Web.Helpers.Support {
 	public class TranslateableEnum<TEnum> where TEnum : struct, IConvertible {
 
 		private readonly Func<ResourceManager> resourceManager;
+		private readonly TEnum[] values;
 
 		public TranslateableEnum(Func<ResourceManager> resourceManager) {
 			this.resourceManager = resourceManager;
+			this.values = EnumVal<TEnum>.Values;
+		}
+
+		public TranslateableEnum(Func<ResourceManager> resourceManager, IEnumerable<TEnum> values) {
+			this.resourceManager = resourceManager;
+			this.values = values.ToArray();
 		}
 
 		public string this[TEnum val] {
@@ -28,9 +35,7 @@ namespace VocaDb.Web.Helpers.Support {
 		}
 
 		public TEnum[] Values {
-			get { 
-				return EnumVal<TEnum>.Values; 
-			} 
+			get { return values; }
 		}
 
 		public string GetAllNameNames(TEnum flags, params TEnum[] except) {

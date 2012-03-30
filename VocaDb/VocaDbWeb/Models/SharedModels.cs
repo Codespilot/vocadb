@@ -2,6 +2,8 @@
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model;
+using VocaDb.Web.Helpers.Support;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Models {
 
@@ -16,14 +18,14 @@ namespace VocaDb.Web.Models {
 	public class GlobalSearchBoxModel {
 
 		public GlobalSearchBoxModel() {
-			AllObjectTypes = EnumVal<SearchObjectType>.Values;
+			AllObjectTypes = new TranslateableEnum<EntryType>(() => Resources.EntryTypeNames.ResourceManager, new[] { EntryType.Artist, EntryType.Album, EntryType.Song });
 		}
 
-		public SearchObjectType[] AllObjectTypes { get; set; }
+		public TranslateableEnum<EntryType> AllObjectTypes { get; set; }
 
 		public string GlobalSearchTerm { get; set; }
 
-		public SearchObjectType ObjectType { get; set; }
+		public EntryType ObjectType { get; set; }
 
 	}
 
