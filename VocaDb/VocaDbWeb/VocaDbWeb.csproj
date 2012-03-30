@@ -967,7 +967,7 @@
       <LastGenOutput>EntryTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Home\IndexStrings.jp.resx" />
+    <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
@@ -982,7 +982,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.jp.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_LayoutStrings.Designer.cs</LastGenOutput>
