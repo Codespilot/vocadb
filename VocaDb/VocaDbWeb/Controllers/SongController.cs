@@ -95,6 +95,12 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult FindNames(string query) {
+
+			return Json(Service.FindNames(query, 15));
+
+		}
+
 		public ActionResult FindJsonByName(string term, bool alwaysExact = false, int[] ignoredIds = null) {
 
 			var songs = Service.Find(term, 0, 20, 

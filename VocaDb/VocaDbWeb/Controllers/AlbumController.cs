@@ -92,6 +92,12 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult FindNames(string query) {
+
+			return Json(Service.FindNames(query, 15));
+
+		}
+
 		public ActionResult FindReleaseEvents(string term) {
 
 			return Json(Service.FindReleaseEvents(term));
