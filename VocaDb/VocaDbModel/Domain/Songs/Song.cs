@@ -17,7 +17,7 @@ using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class Song : IEntryBase, IEntryWithNames, IEntryWithStatus, INameFactory<SongName>, IWebLinkFactory<SongWebLink>, IEquatable<Song> {
+	public class Song : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, INameFactory<SongName>, IWebLinkFactory<SongWebLink>, IEquatable<Song> {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
 		private IList<Song> alternateVersions = new List<Song>();

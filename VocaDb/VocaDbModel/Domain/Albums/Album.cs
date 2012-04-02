@@ -16,7 +16,7 @@ using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class Album : IEntryBase, IEntryWithNames, IEntryWithStatus, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
+	public class Album : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
 		private ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields> archivedVersions 
 			= new ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields>();
