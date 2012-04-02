@@ -15,6 +15,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
 using System;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Service.DataSharing;
 
 namespace VocaDb.Model.Service {
 
@@ -41,6 +42,25 @@ namespace VocaDb.Model.Service {
 					session.Delete(entry);
 
 				return oldEntries.Length;
+
+			});
+
+		}
+
+		public void CreateXmlDump() {
+
+			VerifyAdmin();
+
+			AuditLog("creating XML dump");
+
+			HandleQuery(session => {
+
+				var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
+				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
+				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
+
+				var dumper = new XmlDumper();
+				dumper.Create(@"C:\inetpub\wwwroot\vocadb\dump.zip", artists, albums, songs);
 
 			});
 

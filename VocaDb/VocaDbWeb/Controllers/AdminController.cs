@@ -42,6 +42,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult CreateXmlDump() {
+
+			Service.CreateXmlDump();
+
+			TempData.SetStatusMessage("Dump created");
+
+			return RedirectToAction("Index");
+
+		}
+
         //
         // GET: /Admin/
 		[Authorize]

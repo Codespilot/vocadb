@@ -132,6 +132,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected void HandleQuery(Action<ISession> func, string failMsg = "Unexpected NHibernate error") {
+
+			try {
+				using (var session = OpenSession()) {
+					func(session);
+				}
+			} catch (HibernateException x) {
+				log.Error(failMsg, x);
+				throw;
+			}
+
+		}
+
 		protected T HandleQuery<T>(Func<ISession, T> func, string failMsg = "Unexpected NHibernate error") {
 			
 			try {
