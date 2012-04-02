@@ -126,6 +126,9 @@
   <data name="Drafts" xml:space="preserve">
     <value>Drafts</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="FeaturedSongLists" xml:space="preserve">
     <value>Featured song lists</value>
   </data>

@@ -55,12 +55,14 @@ namespace VocaDb.Model.Service {
 
 			HandleQuery(session => {
 
-				var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
+				var dumper = new XmlDumper();
+				dumper.Create(@"C:\inetpub\wwwroot\vocadb\dump.zip", session);
+
+				/*var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
 				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
 				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
 
-				var dumper = new XmlDumper();
-				dumper.Create(@"C:\inetpub\wwwroot\vocadb\dump.zip", artists, albums, songs);
+				dumper.Create(@"C:\inetpub\wwwroot\vocadb\dump.zip", artists, albums, songs);*/
 
 			});
 

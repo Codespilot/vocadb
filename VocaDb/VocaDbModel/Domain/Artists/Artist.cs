@@ -14,7 +14,7 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Artists {
 
-	public class Artist : IEntryBase, IEntryWithNames, IEntryWithStatus, IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
+	public class Artist : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private ArchivedVersionManager<ArchivedArtistVersion, ArtistEditableFields> archivedVersions
