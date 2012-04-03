@@ -34,7 +34,7 @@
 	<div id="overviewTab">
 
 		@if (Model.Description != string.Empty) {
-		<p>@Model.Description</p>
+		<p>@HtmlHelpers.FormatText(Model.Description)</p>
 		}
 
 		@if (Model.CategoryName != string.Empty){
