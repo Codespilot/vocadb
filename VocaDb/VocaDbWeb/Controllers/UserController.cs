@@ -322,7 +322,9 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("OldPass", x.Message);				
 			}
 
-			return View(new MySettingsModel(GetUserForMySettings()));
+			TempData.SetStatusMessage("Settings updated");
+
+			return RedirectToAction("Profile", new { id = user.Name });
 
 		}
 
