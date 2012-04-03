@@ -24,7 +24,7 @@
 <p>Occurrence date: @Model.Date.ToShortDateString()</p>
 
 @if (!string.IsNullOrEmpty(Model.Description)) {
-	@Model.Description
+	@HtmlHelpers.FormatText(Model.Description)
 }
 
 <h3>Albums</h3>
