@@ -114,7 +114,7 @@ namespace VocaDb.Model.Service.DataSharing {
 				a => new ArchivedAlbumContract(a, new AlbumDiff()));
 
 			var songLoader = new Loader<Song, ArchivedSongContract>("/Songs/",
-				(first, max) => session.Query<Song>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray(),
+				(first, max) => { session.Clear(); return session.Query<Song>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray(); },
 				a => new ArchivedSongContract(a, new SongDiff()));
 
 			using (var package = Package.Open(path, FileMode.Create)) {
