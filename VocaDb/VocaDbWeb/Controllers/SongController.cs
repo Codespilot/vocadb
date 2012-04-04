@@ -67,9 +67,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-        //
-        // GET: /Song/
-
 		public ActionResult Index(string filter, bool? draftsOnly, int? page) {
 
 			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false, null);

@@ -68,6 +68,8 @@ namespace VocaDb.Web.Controllers
 			
 			Service.GeneratePictureThumbs();
 
+			TempData.SetStatusMessage("Picture thumbnails recreated.");
+
 			return RedirectToAction("Index");
 
 		}

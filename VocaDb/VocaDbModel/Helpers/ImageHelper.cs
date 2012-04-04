@@ -89,50 +89,44 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
-		public static Image ResizeToFixedSize(Image imgPhoto, int Width, int Height) {
+		public static Image ResizeToFixedSize(Image imgPhoto, int width, int height) {
+
 			int sourceWidth = imgPhoto.Width;
 			int sourceHeight = imgPhoto.Height;
-			int sourceX = 0;
-			int sourceY = 0;
-			int destX = 0;
-			int destY = 0;
 
-			float nPercent = 0;
-			float nPercentW = 0;
-			float nPercentH = 0;
+			double nPercent;
+			var nPercentW = ((double)width / (double)sourceWidth);
+			var nPercentH = ((double)height / (double)sourceHeight);
 
-			nPercentW = ((float)Width / (float)sourceWidth);
-			nPercentH = ((float)Height / (float)sourceHeight);
 			if (nPercentH < nPercentW) {
 				nPercent = nPercentH;
-				//destX = Convert.ToInt16((Width -
-				//			  (sourceWidth * nPercent)) / 2);
 			} else {
 				nPercent = nPercentW;
-				//destY = Convert.ToInt16((Height -
-				//			  (sourceHeight * nPercent)) / 2);
 			}
 
-			int destWidth = Width = (int)(sourceWidth * nPercent);
-			int destHeight = Height = (int)(sourceHeight * nPercent);
+			int destWidth = width = (int)(sourceWidth * nPercent);
+			int destHeight = height = (int)(sourceHeight * nPercent);
 
-			var bmPhoto = new Bitmap(Width, Height,
-							  PixelFormat.Format24bppRgb);
+			var bmPhoto = new Bitmap(width, height,
+							  PixelFormat.Format32bppArgb);
 			bmPhoto.SetResolution(imgPhoto.HorizontalResolution,
 							 imgPhoto.VerticalResolution);
 
-			Graphics grPhoto = Graphics.FromImage(bmPhoto);
-			grPhoto.Clear(Color.Transparent);
-			grPhoto.InterpolationMode =
-					InterpolationMode.HighQualityBicubic;
+			using (var grPhoto = Graphics.FromImage(bmPhoto)) {
 
-			grPhoto.DrawImage(imgPhoto,
-				new Rectangle(destX, destY, destWidth, destHeight),
-				new Rectangle(sourceX, sourceY, sourceWidth, sourceHeight),
-				GraphicsUnit.Pixel);
+				grPhoto.Clear(Color.Transparent);
+				grPhoto.InterpolationMode =
+						InterpolationMode.HighQualityBicubic;
 
-			grPhoto.Dispose();
+				grPhoto.DrawImage(imgPhoto,
+					new Rectangle(0, 0, destWidth, destHeight),
+					new Rectangle(0, 0, sourceWidth, sourceHeight),
+					GraphicsUnit.Pixel);
+
+			}
+
 			return bmPhoto;
+
 		}
 	}
 

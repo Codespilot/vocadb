@@ -70,6 +70,7 @@ namespace VocaDb.Model.Service {
 
 				query = query.Trim();
 
+				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
 				var directQ = session.Query<Artist>()
 					.Where(s => !s.Deleted);
 
