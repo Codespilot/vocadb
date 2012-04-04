@@ -116,9 +116,10 @@ namespace VocaDb.Model.Service {
 				var user = session.Load<User>(userId);
 				var song = session.Load<Song>(songId);
 
-				user.AddSongToFavorites(song);
+				var link = user.AddSongToFavorites(song);
 
-				session.Update(user);
+				session.Save(link);
+				session.Update(song);
 
 				AuditLog(string.Format("added {0} to favorites", song), session, user);
 
@@ -439,8 +440,11 @@ namespace VocaDb.Model.Service {
 				AuditLog("deleting " + link, session);
 
 				if (link != null) {
+
 					link.Delete();
 					session.Delete(link);
+					session.Update(link.Song);
+
 				}
 
 			});
