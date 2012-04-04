@@ -71,7 +71,7 @@
 		@Html.LabelFor(m => m.Date)
 	</div>
 	<div class="editor-field">
-		@Html.TextBox("Date", Model.Date.ToShortDateString(), new { size = 20, id = "date" })
+		@Html.TextBox("Date", (Model.Date != null ? Model.Date.Value.ToString(VocaDb.Web.Code.CultureInvariantDateTimeModelBinder.Format) : string.Empty), new { size = 20, id = "date" })
 		@Html.ValidationMessageFor(m => m.Date)
 	</div>
 	

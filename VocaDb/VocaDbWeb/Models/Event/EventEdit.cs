@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.ReleaseEvents;
+using System.Web.Mvc;
+using VocaDb.Web.Code;
 
 namespace VocaDb.Web.Models.Event {
 
@@ -36,8 +38,8 @@ namespace VocaDb.Web.Models.Event {
 
 		public ReleaseEventSeriesContract[] AllSeries { get; set; }
 
-		[Required]
-		public DateTime Date { get; set; }
+		[CultureInvariantDateTimeModelBinder("Date")]
+		public DateTime? Date { get; set; }
 
 		public string Description { get; set; }
 

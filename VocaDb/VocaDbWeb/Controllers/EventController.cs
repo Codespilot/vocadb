@@ -18,12 +18,6 @@ namespace VocaDb.Web.Controllers
 			}
 		}
 
-		/*public ActionResult Details(int index) {
-
-
-
-		}*/
-
 		[HttpPost]
 		public PartialViewResult AliasForSeries(string name) {
 

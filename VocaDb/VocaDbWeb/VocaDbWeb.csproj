@@ -191,6 +191,7 @@
       <DependentUpon>UserGroupNames.resx</DependentUpon>
     </Compile>
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
+    <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />
