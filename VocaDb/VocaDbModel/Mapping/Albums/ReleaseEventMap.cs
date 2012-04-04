@@ -36,7 +36,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.Name).Length(50).Not.Nullable();
 
 			HasMany(m => m.Aliases).KeyColumn("[Series]").Inverse().Cascade.All().Cache.ReadWrite();
-			HasMany(m => m.Events).OrderBy("[Date]").KeyColumn("[Series]").Inverse();
+			HasMany(m => m.Events).OrderBy("[SeriesNumber]").KeyColumn("[Series]").Inverse();
 
 		}
 

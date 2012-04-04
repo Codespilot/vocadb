@@ -87,12 +87,12 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var allEvents = session.Query<ReleaseEvent>().OrderBy(e => e.Date).ToArray();
+				var allEvents = session.Query<ReleaseEvent>().ToArray();
 				var series = session.Query<ReleaseEventSeries>().OrderBy(e => e.Name).ToArray();
 
 				var seriesContracts = series.Select(s => 
 					new ReleaseEventSeriesWithEventsContract(s, allEvents.Where(e => s.Equals(e.Series)), PermissionContext.LanguagePreference));
-				var ungrouped = allEvents.Where(e => e.Series == null);
+				var ungrouped = allEvents.Where(e => e.Series == null).OrderBy(e => e.Name);
 
 				return seriesContracts.Concat(new[] { new ReleaseEventSeriesWithEventsContract { 
 					Name = string.Empty, 
