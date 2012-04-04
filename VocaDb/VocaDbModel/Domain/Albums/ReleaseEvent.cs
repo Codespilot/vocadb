@@ -15,7 +15,7 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = string.Empty;
 		}
 
-		public ReleaseEvent(string description, DateTime date, string name)
+		public ReleaseEvent(string description, DateTime? date, string name)
 			: this() {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -26,7 +26,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public ReleaseEvent(string description, DateTime date, ReleaseEventSeries series, int seriesNumber)
+		public ReleaseEvent(string description, DateTime? date, ReleaseEventSeries series, int seriesNumber)
 			: this() {
 
 			ParamIs.NotNull(() => series);
@@ -47,7 +47,7 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual DateTime Date { get; set; }
+		public virtual DateTime? Date { get; set; }
 
 		public virtual string Description {
 			get { return description; }
