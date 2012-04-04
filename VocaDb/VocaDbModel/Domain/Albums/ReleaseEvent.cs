@@ -11,7 +11,6 @@ namespace VocaDb.Model.Domain.Albums {
 		private ReleaseEventSeries series;
 
 		public ReleaseEvent() {
-			Date = DateTime.Now;
 			Description = string.Empty;
 		}
 

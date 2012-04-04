@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 			ParamIs.NotNull(() => events);
 
-			Events = events.Select(e => new ReleaseEventDetailsContract(e, languagePreference)).ToArray();
+			Events = events.OrderBy(e => e.SeriesNumber).Select(e => new ReleaseEventDetailsContract(e, languagePreference)).ToArray();
 
 		}
 

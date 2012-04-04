@@ -21,7 +21,9 @@
 	<p>Series: @Html.ActionLink(Model.Series.Name, "SeriesDetails", new { id = Model.Series.Id })</p>
 }
 
-<p>Occurrence date: @Model.Date.ToShortDateString()</p>
+@if (Model.Date != null) {
+	<p>Occurrence date: @Model.Date.Value.ToShortDateString()</p>
+}
 
 @if (!string.IsNullOrEmpty(Model.Description)) {
 	@HtmlHelpers.FormatText(Model.Description)
