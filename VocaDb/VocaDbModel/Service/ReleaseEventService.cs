@@ -26,7 +26,7 @@ namespace VocaDb.Model.Service {
 
 		public void DeleteEvent(int id) {
 
-			DeleteEntity<ReleaseEvent>(id, PermissionToken.ManageDatabase);
+			DeleteEntity<ReleaseEvent>(id, PermissionToken.DeleteEntries);
 
 		}
 
