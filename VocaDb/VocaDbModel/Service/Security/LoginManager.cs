@@ -8,6 +8,8 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using System.Globalization;
+using System.Threading;
 
 namespace VocaDb.Model.Service.Security {
 
@@ -39,6 +41,13 @@ namespace VocaDb.Model.Service.Security {
 				throw new InvalidOperationException("Must be authenticated");
 
 			HttpContext.Current.User = new VocaDbPrincipal(HttpContext.Current.User.Identity, user);
+
+			if (!string.IsNullOrEmpty(user.Language)) {
+				try {
+					var culture = CultureInfo.GetCultureInfo(user.Language);
+					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
+				} catch (ArgumentException) { }
+			}
 
 		}
 

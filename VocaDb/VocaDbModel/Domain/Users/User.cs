@@ -21,6 +21,7 @@ namespace VocaDb.Model.Domain.Users {
 		private IList<ArtistForUser> artists = new List<ArtistForUser>();
 		private string email;
 		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
+		private string language;
 		private string name;
 		private string nameLc;
 		private string password;
@@ -159,6 +160,14 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual int Id { get; set; }
 
 		public virtual UserGroupId GroupId { get; set; }
+
+		public virtual string Language {
+			get { return language; }
+			set {
+				ParamIs.NotNull(() => value);
+				language = value;
+			}
+		}
 
 		public virtual DateTime LastLogin { get; set; }
 
