@@ -26,6 +26,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			EffectivePermissions = new HashSet<PermissionToken>(user.EffectivePermissions.PermissionTokens);
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
+			Language = user.Language;
 			PreferredVideoService = user.PreferredVideoService;
 
 		}
@@ -56,6 +57,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public bool HasUnreadMessages { get; set; }
+
+		[DataMember]
+		public string Language { get; set; }
 
 		[DataMember]
 		public PVService PreferredVideoService { get; set; }
