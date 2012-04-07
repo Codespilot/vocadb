@@ -16,6 +16,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 			get { return Name; }
 		}
 
+		bool IDeletableEntry.Deleted {
+			get { return false; }
+		}
+
 		EntryType IEntryBase.EntryType {
 			get { return EntryType.Song; }
 		}

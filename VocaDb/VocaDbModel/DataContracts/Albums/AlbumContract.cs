@@ -15,6 +15,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 			get { return Name; }
 		}
 
+		bool IDeletableEntry.Deleted {
+			get { return false; }
+		}
+
 		EntryType IEntryBase.EntryType {
 			get { return EntryType.Album; }
 		}

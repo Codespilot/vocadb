@@ -19,7 +19,10 @@ namespace VocaDb.Model.Service {
 
 				var entries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
 
-				var contracts = entries.Select(e => new ActivityEntryContract(e, PermissionContext.LanguagePreference)).ToArray();
+				var contracts = entries
+					.Where(e => !e.EntryBase.Deleted)
+					.Select(e => new ActivityEntryContract(e, PermissionContext.LanguagePreference))
+					.ToArray();
 
 				return contracts;
 
@@ -34,7 +37,12 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var activityEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxActivityEntries).ToArray();
+				var activityEntries = session.Query<ActivityEntry>()
+					.OrderByDescending(a => a.CreateDate)
+					.Take(maxActivityEntries)
+					.ToArray()
+					.Where(a => !a.EntryBase.Deleted);
+
 				var newsEntries = session.Query<NewsEntry>().Where(n => n.Stickied).OrderByDescending(a => a.CreateDate).Take(maxNewsEntries).ToArray();
 
 				if (newsEntries.Length < maxNewsEntries)

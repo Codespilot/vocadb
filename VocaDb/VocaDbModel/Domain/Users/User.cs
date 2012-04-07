@@ -124,6 +124,10 @@ namespace VocaDb.Model.Domain.Users {
 			get { return Name; }
 		}
 
+		public virtual bool Deleted {
+			get { return !Active; }
+		}
+
 		public virtual PermissionCollection EffectivePermissions {
 			get {
 
