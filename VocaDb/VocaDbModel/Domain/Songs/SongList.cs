@@ -46,6 +46,10 @@ namespace VocaDb.Model.Domain.Songs {
 			get { return Name; }
 		}
 
+		public virtual bool Deleted {
+			get { return false; }
+		}
+
 		public virtual string Description {
 			get { return description; }
 			set {

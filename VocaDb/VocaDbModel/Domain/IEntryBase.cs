@@ -2,7 +2,7 @@
 
 namespace VocaDb.Model.Domain {
 
-	public interface IEntryBase : IEntryWithIntId {
+	public interface IEntryBase : IDeletableEntry {
 
 		string DefaultName { get; }
 
