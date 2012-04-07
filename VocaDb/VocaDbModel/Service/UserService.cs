@@ -381,7 +381,10 @@ namespace VocaDb.Model.Service {
 					AddFilter(session.Query<ArchivedArtistVersion>(), id, maxCount, onlySubmissions).ToArray()).Concat(
 					AddFilter(session.Query<ArchivedSongVersion>(), id, maxCount, onlySubmissions).ToArray());
 
-				var activityContracts = activity.OrderByDescending(a => a.Created).Take(maxCount).Select(a => new ActivityEntryContract(a, PermissionContext.LanguagePreference)).ToArray();
+				var activityContracts = activity
+					.Where(a => !a.EntryBase.Deleted)
+					.OrderByDescending(a => a.Created).Take(maxCount)
+					.Select(a => new ActivityEntryContract(a, PermissionContext.LanguagePreference)).ToArray();
 
 				return new UserWithActivityEntriesContract(user, activityContracts, PermissionContext.LanguagePreference);
 
