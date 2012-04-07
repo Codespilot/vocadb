@@ -69,7 +69,7 @@ namespace VocaDb.Web.Controllers
 
         //
         // GET: /SongList/Edit/
-
+        [Authorize]
         public ActionResult Edit(int? id)
         {
 
@@ -81,7 +81,9 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpPost]
-		public ActionResult Edit(SongListEdit model) {
+        [Authorize]
+        public ActionResult Edit(SongListEdit model)
+        {
 
 			if (!ModelState.IsValid) {
 				return View(model);

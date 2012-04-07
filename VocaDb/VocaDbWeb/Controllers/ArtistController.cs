@@ -244,8 +244,9 @@ namespace VocaDb.Web.Controllers
         
         //
         // GET: /Artist/Edit/5
- 
-        public ActionResult Edit(int id) {
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
 
 			RestoreErrorsFromTempData();
         	var model = new ArtistEdit(Service.GetArtistForEdit(id));
@@ -255,9 +256,9 @@ namespace VocaDb.Web.Controllers
 
         //
         // POST: /Artist/Edit/5
-
         [HttpPost]
-		public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
+        [Authorize]
+        public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
         {
 
             PictureDataContract pictureData = null;

@@ -67,13 +67,17 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Edit(string id) {
+        [Authorize]
+        public ActionResult Edit(string id)
+        {
 			var model = new TagEdit(Service.GetTagForEdit(id));
 			return View(model);
 		}
 
 		[HttpPost]
-		public ActionResult Edit(TagEdit model) {
+        [Authorize]
+        public ActionResult Edit(TagEdit model)
+        {
 			
 			if (!ModelState.IsValid) {
 				var contract = Service.GetTagForEdit(model.Name);
