@@ -44,7 +44,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Edit(int? id, int? seriesId) {
+        [Authorize]
+        public ActionResult Edit(int? id, int? seriesId)
+        {
 
 			var model = (id != null ? new EventEdit(Service.GetReleaseEventForEdit(id.Value)) 
 				: new EventEdit(seriesId != null ? Service.GetReleaseEventSeriesForEdit(seriesId.Value): null));
@@ -54,7 +56,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Edit(EventEdit model) {
+        [Authorize]
+        public ActionResult Edit(EventEdit model)
+        {
 
 			if (!ModelState.IsValid) {
 				var contract = Service.GetReleaseEventForEdit(model.Id);
@@ -68,7 +72,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult EditSeries(int? id) {
+        [Authorize]
+        public ActionResult EditSeries(int? id)
+        {
 
 			var contract = (id != null ? Service.GetReleaseEventSeriesForEdit(id.Value) : new ReleaseEventSeriesForEditContract());
 			return View(new SeriesEdit(contract));
@@ -76,7 +82,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult EditSeries(SeriesEdit model) {
+        [Authorize]
+        public ActionResult EditSeries(SeriesEdit model)
+        {
 
 			if (!ModelState.IsValid) {
 				return View(model);

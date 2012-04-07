@@ -183,6 +183,7 @@ namespace VocaDb.Web.Controllers
        
         //
         // GET: /Song/Edit/5 
+        [Authorize]
         public ActionResult Edit(int id)
         {
 			var model = new SongEdit(Service.GetSongForEdit(id));
@@ -192,7 +193,9 @@ namespace VocaDb.Web.Controllers
         //
         // POST: /Song/Edit/5
         [HttpPost]
-        public ActionResult Edit(SongEdit model) {
+        [Authorize]
+        public ActionResult Edit(SongEdit model)
+        {
 
 			/*foreach (var link in model.WebLinks) {
 				if (!UrlValidator.IsValid(link.Url))

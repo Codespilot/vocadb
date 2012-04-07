@@ -238,7 +238,7 @@ namespace VocaDb.Web.Controllers
 
         //
         // GET: /Album/Edit/5
- 
+        [Authorize]
         public ActionResult Edit(int id) {
 
         	var album = Service.GetAlbumForEdit(id);
@@ -251,7 +251,8 @@ namespace VocaDb.Web.Controllers
         // POST: /Album/Edit/5
 
         [HttpPost]
-		public ActionResult Edit(AlbumEdit model)
+        [Authorize]
+        public ActionResult Edit(AlbumEdit model)
         {
 
 			if (!OptionalDateTime.IsValid(model.ReleaseYear, model.ReleaseDay, model.ReleaseMonth))
