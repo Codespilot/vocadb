@@ -7,16 +7,23 @@ namespace VocaDb.Model.Helpers {
 
 	public static class ArtistHelper {
 
-		public static readonly ArtistType[] ArtistTypes = new[] {
-			ArtistType.Producer
-		};
-
-		public static readonly ArtistType[] LabelTypes = new[] {
+		/// <summary>
+		/// Artist types able to work as groups/circles for an artist.
+		/// </summary>
+		public static readonly ArtistType[] ArtistGroupTypes = new[] {
 			ArtistType.Circle, ArtistType.Label, ArtistType.OtherGroup
 		};
 
 		public static readonly ArtistType[] ProducerTypes = new[] {
 			ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup
+		};
+
+		/// <summary>
+		/// Artists allowed for a song.
+		/// </summary>
+		public static readonly ArtistType[] SongArtistTypes = new[] {
+			ArtistType.Unknown, ArtistType.OtherGroup, ArtistType.OtherVocalist,
+			ArtistType.Producer, ArtistType.UTAU, ArtistType.Vocaloid
 		};
 
 		public static readonly ArtistType[] VocalistTypes = new[] {

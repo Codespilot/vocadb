@@ -806,7 +806,7 @@ namespace VocaDb.Model.Service {
 				return session.Query<SongList>()
 					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id && l.FeaturedCategory == SongListFeaturedCategory.Nothing)
 					.OrderBy(l => l.Name).ToArray()
-					.Where(l => !l.AllSongs.Any(s => s.Song.Equals(ignoredSong)))
+					.Where(l => !ignoredSong.ListLinks.Any(i => i.List.Equals(l)))
 					.Select(l => new SongListBaseContract(l)).ToArray();
 
 			});

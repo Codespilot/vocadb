@@ -99,6 +99,29 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual bool Equals(SongList another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			if (Id == 0)
+				return false;
+
+			return this.Id == another.Id;
+
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as SongList);
+		}
+
+		public override int GetHashCode() {
+			return base.GetHashCode();
+		}
+
 		public virtual CollectionDiffWithValue<SongInList, SongInList> SyncSongs(
 			IEnumerable<SongInListEditContract> newTracks, Func<SongInListEditContract, Song> songGetter) {
 
