@@ -63,14 +63,14 @@
 			<tr>
 				<td>Vocalists</td>
 				<td>
-					@Html.LinkList(Model.Vocalists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+					@ArtistHelpers.ArtistList(Model.Vocalists)
 				</td>
 			</tr>
 
 			<tr>
 				<td>Producers</td>
 				<td>
-					@Html.LinkList(Model.Producers, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+					@ArtistHelpers.ArtistList(Model.Producers)
 				</td>
 			</tr>
 
@@ -78,7 +78,7 @@
 			<tr>
 				<td>Circle</td>
 				<td>
-					@Html.LinkList(Model.Circles, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+					@ArtistHelpers.ArtistList(Model.Circles)
 				</td>
 			</tr>
    }
@@ -87,7 +87,7 @@
 			<tr>
 				<td>Label(s)</td>
 				<td>
-					@Html.LinkList(Model.Labels, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+					@ArtistHelpers.ArtistList(Model.Labels)
 				</td>
 			</tr>
    }
@@ -96,7 +96,7 @@
 			<tr>
 				<td>Other artists</td>
 				<td>
-					@Html.LinkList(Model.OtherArtists, artist => Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames }))
+					@ArtistHelpers.ArtistList(Model.OtherArtists)
 				</td>
 			</tr>
    }

@@ -6,6 +6,38 @@
 @using VocaDb.Model.DataContracts.Albums;
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper ArtistList(IEnumerable<ArtistForAlbumContract> artists) {
+	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
+	foreach (var artist in ordered) {
+		if (artist.IsSupport) {
+			@("(")
+		}
+		@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+		if (artist.IsSupport) {
+			@(")")
+		}
+		if (artist != ordered.Last()) {
+			@(", ")
+		}
+	}
+}
+
+@helper ArtistList(IEnumerable<ArtistForSongContract> artists) {
+	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
+	foreach (var artist in ordered) {
+		if (artist.IsSupport) {
+			@("(")
+		}
+		@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+		if (artist.IsSupport) {
+			@(")")
+		}
+		if (artist != ordered.Last()) {
+			@(", ")
+		}
+	}
+}
+
 @helper PrintArchivedArtistData(int archivedEntryId, ArchivedArtistContract data) {
 
 	<fieldset>
@@ -28,7 +60,7 @@
 
 }
 
-@helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums, 
+@helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums,
 	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false) {
 
 	<ul>
@@ -38,13 +70,13 @@
 			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 			@if (extraData != null) {
 			@extraData(album)
-			}
+   }
 			@if (showArtists) {
 				<br />
 				<span class="extraInfo">@album.ArtistString</span>
-			}
+   }
 		</li>
-	}
+ }
 	</ul>
 	
 }
@@ -58,7 +90,7 @@
 			<br />
 			<span class="extraInfo">@artist.AdditionalNames</span>
 		</li>
-	}
+ }
 	</ul>
 	
 }
@@ -76,13 +108,13 @@
 			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 			@if (extraData != null) {
 			@extraData(song)
-			}
+   }
 			@if (showArtists) {
 				<br />
 				<span class="extraInfo">@song.ArtistString</span>
-			}
+   }
 		</li>
-	}
+ }
 	</ul>
 	
 }

@@ -937,7 +937,7 @@ namespace VocaDb.Model.Service {
 			old = old.Trim();
 			newName = newName.Trim();
 
-			if (old.Equals(newName, StringComparison.InvariantCultureIgnoreCase))
+			if (old.Equals(newName))
 				return;
 
 			VerifyManageDatabase();
