@@ -20,6 +20,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private ArchivedVersionManager<ArchivedArtistVersion, ArtistEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedArtistVersion, ArtistEditableFields>();
 		private IList<ArtistComment> comments = new List<ArtistComment>();
+		private User createdBy;
 		private string description;
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
@@ -31,6 +32,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public Artist() {
 			ArtistType = ArtistType.Unknown;
+			CreateDate = DateTime.Now;
 			Deleted = false;
 			Description = string.Empty;
 			StartDate = null;
@@ -114,6 +116,16 @@ namespace VocaDb.Model.Domain.Artists {
 				comments = value;
 			}
 		}
+
+		public virtual User CreatedBy {
+			get { return createdBy; }
+			set {
+				ParamIs.NotNull(() => value);
+				createdBy = value; 
+			}
+		}
+
+		public virtual DateTime CreateDate { get; set; }
 
 		public virtual bool Deleted { get; set; }
 

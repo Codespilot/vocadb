@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.PVs;
@@ -24,6 +25,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			AlternateVersions = song.AlternateVersions.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
 			Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
 			ArtistString = song.ArtistString[languagePreference];
+			CreateDate = song.CreateDate;
 			Deleted = song.Deleted;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 			Notes = song.Notes;
@@ -52,6 +54,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int CommentCount { get; set; }
+
+		[DataMember]
+		public DateTime CreateDate { get; set; }
 
 		[DataMember]
 		public bool Deleted { get; set; }

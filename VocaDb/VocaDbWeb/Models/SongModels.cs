@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VocaDb.Model;
@@ -39,6 +40,7 @@ namespace VocaDb.Web.Models {
 			ArtistString = contract.ArtistString;
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract.Song);
 			CommentCount = contract.CommentCount;
+			CreateDate = contract.CreateDate;
 			Deleted = contract.Deleted;
 			Draft = contract.Song.Status == EntryStatus.Draft;
 			Id = contract.Song.Id;
@@ -86,6 +88,8 @@ namespace VocaDb.Web.Models {
 		public bool CanEdit { get; set; }
 
 		public int CommentCount { get; set; }
+
+		public DateTime CreateDate { get; set; }
 
 		public bool Deleted { get; set; }
 

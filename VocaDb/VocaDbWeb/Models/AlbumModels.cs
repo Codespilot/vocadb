@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VocaDb.Model;
@@ -190,6 +191,7 @@ namespace VocaDb.Web.Models {
 			ArtistString = contract.ArtistString;
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract);
 			CommentCount = contract.CommentCount;
+			CreateDate = contract.CreateDate;
 			Description = contract.Description;
 			Deleted = contract.Deleted;
 			DiscType = contract.DiscType;
@@ -247,6 +249,8 @@ namespace VocaDb.Web.Models {
 		public int CollectionRating { get; set; }
 
 		public int CommentCount { get; set; }
+
+		public DateTime CreateDate { get; set; }
 
 		public bool Deleted { get; set; }
 

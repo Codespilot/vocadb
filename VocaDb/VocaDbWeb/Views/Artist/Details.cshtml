@@ -44,7 +44,7 @@
 
 		<table>
 			<tr>
-				<td rowspan="6">
+				<td rowspan="7">
 					<a href="@Url.Action("Picture", new { id = Model.Id })">
 						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
 					</a>
@@ -92,13 +92,20 @@
 					}
 				</td>	
 			</tr>
-		}
+	   
+			<tr>
+				<td>Addition date</td>
+				<td>
+					@Model.CreateDate
+				</td>	
+			</tr>	   
+   }
 		@if (Model.Groups.Any()) {
 			<tr>
 				<td>Circles and labels</td>
 				<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames }))</td>
 			</tr>
-		}
+  }
 		</table>
 	
 
@@ -107,37 +114,37 @@
 		<ul>
 			@foreach (var member in Model.Members) {
 				<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Member.Id }, new { title = member.Member.AdditionalNames })</li>
-			}
+   }
 		</ul>
-		}
+  }
 
 		@if (Model.LatestAlbums.Any()) {
 		<h3>Recently added albums</h3>
 		<ul>
 			@ArtistHelpers.Albums(Model.LatestAlbums)
 		</ul>
-		}
+  }
 
 		@if (Model.LatestSongs.Any()) {
 		<h3>Recently added songs</h3>
 		<ul>
 			@ArtistHelpers.Songs(Model.LatestSongs)
 		</ul>	
-		}
+  }
 
 		<h3>Latest comments</h3>
 		
 		@if (Model.LatestComments.Any()) {
-	  
-			foreach (var comment in Model.LatestComments) {
+
+	  foreach (var comment in Model.LatestComments) {
 				@Helpers.PrintComment(comment, false);
-			}			
-	  
-		} else {
+	  }
+
+  } else {
 	  
 			<p>Nothing yet!</p>
 	  
-		}
+  }
 		
 		<p>
 			<a href="#" id="viewCommentsLink">View all comments</a>

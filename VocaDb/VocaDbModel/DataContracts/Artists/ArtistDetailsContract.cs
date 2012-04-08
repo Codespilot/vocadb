@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
@@ -19,6 +20,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			: base(artist, languagePreference) {
 
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
+			CreateDate = artist.CreateDate;
 			Description = artist.Description;
 			Draft = artist.Status == EntryStatus.Draft;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
@@ -36,6 +38,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public int CommentCount { get; set; }
+
+		[DataMember]
+		public DateTime CreateDate { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }
