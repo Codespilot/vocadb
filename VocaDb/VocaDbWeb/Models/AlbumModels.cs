@@ -220,13 +220,13 @@ namespace VocaDb.Web.Models {
 				ReleaseDate = contract.OriginalRelease.ReleaseDate;
 			}
 
-			var artists = contract.ArtistLinks.Select(a => a.Artist);
+			var artists = contract.ArtistLinks;
 
-			Circles = artists.Where(a => a.ArtistType == ArtistType.Circle).ToArray();
-			Labels = artists.Where(a => a.ArtistType == ArtistType.Label).ToArray();
-			OtherArtists = artists.Where(a => a.ArtistType == ArtistType.Unknown || a.ArtistType == ArtistType.OtherGroup).ToArray();
-			Producers = artists.Where(a => a.ArtistType == ArtistType.Producer).ToArray();
-			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
+			Circles = artists.Where(a => a.Artist.ArtistType == ArtistType.Circle).ToArray();
+			Labels = artists.Where(a => a.Artist.ArtistType == ArtistType.Label).ToArray();
+			OtherArtists = artists.Where(a => a.Artist.ArtistType == ArtistType.Unknown || a.Artist.ArtistType == ArtistType.OtherGroup).ToArray();
+			Producers = artists.Where(a => a.Artist.ArtistType == ArtistType.Producer).ToArray();
+			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).ToArray();
 
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
 
@@ -244,7 +244,7 @@ namespace VocaDb.Web.Models {
 
 		public string CatNum { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] Circles { get; set; }
+		public ArtistForAlbumContract[] Circles { get; set; }
 
 		public int CollectionRating { get; set; }
 
@@ -262,17 +262,17 @@ namespace VocaDb.Web.Models {
 
 		public int Id { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] Labels { get; set; }
+		public ArtistForAlbumContract[] Labels { get; set; }
 
 		public CommentContract[] LatestComments { get; set; }
 
 		public string Name { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
+		public ArtistForAlbumContract[] OtherArtists { get; set; }
 
 		public PVContract PrimaryPV { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
+		public ArtistForAlbumContract[] Producers { get; set; }
 
 		public PVContract[] PVs { get; set; }
 
@@ -292,7 +292,7 @@ namespace VocaDb.Web.Models {
 
 		public bool UserHasAlbum { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] Vocalists { get; set; }
+		public ArtistForAlbumContract[] Vocalists { get; set; }
 
 		public WebLinkContract[] WebLinks { get; set; }
 

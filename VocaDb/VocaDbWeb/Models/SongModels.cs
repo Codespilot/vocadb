@@ -57,9 +57,9 @@ namespace VocaDb.Web.Models {
 			Tags = contract.Tags;
 			WebLinks = contract.WebLinks;
 
-			Performers = contract.Artists.Select(a => a.Artist).Where(a => ArtistHelper.VocalistTypes.Contains(a.ArtistType)).ToArray();
-			Producers = contract.Artists.Select(a => a.Artist).Where(a => a.ArtistType == Model.Domain.Artists.ArtistType.Producer).ToArray();
-			OtherArtists = contract.Artists.Select(a => a.Artist).Where(a => !Performers.Contains(a) && !Producers.Contains(a)).ToArray();
+			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).ToArray();
+			Producers = contract.Artists.Where(a => a.Artist.ArtistType == Model.Domain.Artists.ArtistType.Producer).ToArray();
+			OtherArtists = contract.Artists.Where(a => !Performers.Contains(a) && !Producers.Contains(a)).ToArray();
 
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
 
@@ -109,16 +109,16 @@ namespace VocaDb.Web.Models {
 
 		public string Notes { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] OtherArtists { get; set; }
+		public ArtistForSongContract[] OtherArtists { get; set; }
 
 		[Display(Name = "Original version")]
 		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] Performers { get; set; }
+		public ArtistForSongContract[] Performers { get; set; }
 
 		public PVContract PrimaryPV { get; set; }
 
-		public ArtistWithAdditionalNamesContract[] Producers { get; set; }
+		public ArtistForSongContract[] Producers { get; set; }
 
 		[Display(Name = "PVs")]
 		public PVContract[] PVs { get; set; }

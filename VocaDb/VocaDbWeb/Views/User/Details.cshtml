@@ -18,6 +18,7 @@
 @section Toolbar {
 @if (ownProfile) {
 	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
+	@Html.Raw("&nbsp;")
 	@Html.ActionLink("Messages", "Messages", null, new { id = "messagesLink" });
 }
 
@@ -25,11 +26,11 @@
 	//@Html.ActionLink("Compose message", "Messages", null, null, null, "composeTab", new { ReceiverName = Model.Name }, new { id = "composeMessageLink" });
 }
 @if (Login.CanManageUsers) {
-	<text>&nbsp;</text>
+	@Html.Raw("&nbsp;")
 	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });
 }
 @if (Login.Manager.HasPermission(PermissionToken.DisableUsers) && Login.User.Id != Model.Id && Model.Active) {
-	<text>&nbsp;</text>
+	@Html.Raw("&nbsp;")
 	@Html.ActionLink("Disable", "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
 }
 }
@@ -61,7 +62,7 @@
 			<td>Additional permissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)</td>
 		</tr>
-	}
+ }
 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
 		<tr>
 			<td>Active</td>
@@ -71,7 +72,7 @@
 			<td>Effective permissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
 		</tr>	 
-	}
+ }
 </table>
 
 <br />
@@ -91,17 +92,17 @@
 			@{ var submitText = "Submissions: " + Model.SubmitCount; }
 			@if (canSeeDetailedStats) {
 				<text>@Html.ActionLink(submitText, "EntryEdits", new { id = Model.Id, onlySubmissions = true })</text>
-			} else {
+   } else {
 				<text>@submitText</text>
-			}
+   }
 		</p>
 		<p>
 			@{ var editText = "Total edits: " + Model.EditCount; }
 			@if (canSeeDetailedStats) {
 				@Html.ActionLink(editText, "EntryEdits", new { id = Model.Id, onlySubmissions = false })
-			} else {
+   } else {
 				<text>@editText</text>
-			}
+   }
 		</p>
 		<p>Comments: @Model.CommentCount</p>
 		<p>Tag votes: @Model.TagVotes</p>
@@ -121,7 +122,7 @@
 
 		@if (ownProfile) {
 			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">Create new list</a>
-		}
+  }
 	</div>
 
 </div>
