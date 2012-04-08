@@ -641,9 +641,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistContract[] GetArtists(int albumId) {
+		public ArtistContract[] GetArtists(int albumId, ArtistType[] types) {
 
-			return HandleQuery(session => session.Load<Album>(albumId).Artists
+			return HandleQuery(session => session.Load<Album>(albumId).Artists.Where(a => types.Contains(a.Artist.ArtistType))
 				.Select(a => new ArtistContract(a.Artist, PermissionContext.LanguagePreference)).ToArray());
 
 		}
@@ -709,9 +709,11 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var artists = session.Query<ArtistForAlbum>().Where(a => a.Album.Id == albumId).Where(a => !a.Artist.Deleted).Select(a => a.Artist).ToArray();
+				var artists = session.Query<ArtistForAlbum>()
+					.Where(a => a.Album.Id == albumId && !a.Artist.Deleted && ArtistHelper.SongArtistTypes.Contains(a.Artist.ArtistType))
+					.Select(a => a.Artist)
+					.ToArray();
 				var song = session.Load<Song>(songId);
-				//var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
 
 				return new TrackPropertiesContract(song, 
 					artists, PermissionContext.LanguagePreference);

@@ -135,7 +135,7 @@ namespace VocaDb.Web.Controllers
 
 		public PartialViewResult MultipleTrackProperties(int albumId) {
 
-			var contract = Service.GetArtists(albumId);
+			var contract = Service.GetArtists(albumId, ArtistHelper.SongArtistTypes);
 
 			return PartialView(contract);
 
