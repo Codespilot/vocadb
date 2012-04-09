@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.DataContracts.ReleaseEvents {
@@ -9,7 +6,6 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 	public class ReleaseEventContract {
 
 		public ReleaseEventContract() {
-			Date = DateTime.Now;
 			Description = string.Empty;
 		}
 
