@@ -144,6 +144,7 @@ namespace VocaDb.Model.Service {
 					if (contract.Series != null) {
 						var series = session.Load<ReleaseEventSeries>(contract.Series.Id);
 						ev = new ReleaseEvent(contract.Description, contract.Date, series, contract.SeriesNumber);
+						series.Events.Add(ev);
 					} else {
 						ev = new ReleaseEvent(contract.Description, contract.Date, contract.Name);
 					}
