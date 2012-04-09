@@ -214,6 +214,9 @@
 					</ul>
 					</div>
 				
+					@if (!Model.Songs.Any()) {
+						<p>No tracklist provided. Any registered user is able to add one.</p>
+					}
 				</td>
 			</tr>
 		</table>
