@@ -21,6 +21,16 @@ namespace VocaDb.Web {
 		private static ISessionFactory sessionFactory;
 		private const string sessionFactoryLock = "lock";
 
+		public static bool IsAjaxRequest(HttpRequest request) {
+
+			if (request == null) {
+				throw new ArgumentNullException("request");
+			}
+
+			return (request["X-Requested-With"] == "XMLHttpRequest") || ((request.Headers != null) && (request.Headers["X-Requested-With"] == "XMLHttpRequest"));
+
+		}
+
 		public static LoginManager LoginManager {
 			get {
 				return new LoginManager();
@@ -54,7 +64,7 @@ namespace VocaDb.Web {
 				if (HttpContext.Current.User != null && HttpContext.Current.User.Identity.IsAuthenticated) {
 					if (HttpContext.Current.User.Identity is FormsIdentity && !(HttpContext.Current.User is VocaDbPrincipal)) {
 						var id = (FormsIdentity)HttpContext.Current.User.Identity;
-						var user = Services.Users.GetUserByName(id.Name);
+						var user = Services.Users.GetUserByName(id.Name, IsAjaxRequest(Request));
 						LoginManager.SetLoggedUser(user);
 					}
 				}

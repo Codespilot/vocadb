@@ -28,6 +28,7 @@
 		<a href="@Model.SourceUrl">@Model.Title</a><br />
 		@Model.Created<br />
 		<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" /><br />
+		@Html.ActionLink("Import", "PrepareForImport", new { id = Model.Id })
 		@Html.ActionLink("Skip", "SkipAlbum", new { id = Model.Id })
 		@Html.ActionLink("Delete", "Delete", new { id = Model.Id })
 	</td>

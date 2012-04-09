@@ -40,6 +40,15 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[HttpGet]
+		public ActionResult PrepareForImport(int id) {
+
+			var result = Service.Inspect(new[] { id });
+
+			return View("PrepareForImport", new PrepareAlbumsForImport(result));
+
+		}
+
 		[HttpPost]
 		public ActionResult PrepareForImport(IEnumerable<MikuDbAlbumContract> albums) {
 
