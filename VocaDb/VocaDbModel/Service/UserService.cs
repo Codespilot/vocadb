@@ -333,14 +333,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract GetUserByName(string name) {
+		public UserContract GetUserByName(string name, bool skipMessages) {
 
 			return HandleQuery(session => {
 
 				var user = session.Query<User>().First(u => u.Name.Equals(name));
 				var contract = new UserContract(user);
 
-				contract.HasUnreadMessages = session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Id == user.Id);
+				contract.HasUnreadMessages = (!skipMessages && session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Id == user.Id));
 
 				return contract;
 
