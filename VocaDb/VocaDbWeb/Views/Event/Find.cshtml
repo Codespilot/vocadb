@@ -18,6 +18,7 @@
 		if (Model.Series != null) {
 
 			@Html.HiddenFor(m => m.Series.Id)
+			@Html.HiddenFor(m => m.Series.Name)
 			
 			<input type="radio" name="EventTarget" value="Series" checked="checked" />
 	 

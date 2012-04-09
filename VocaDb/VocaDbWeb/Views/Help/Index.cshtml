@@ -121,20 +121,20 @@
 			<li>"Non-English" covers all languages that aren't English or romanized, for example Japanese.</li>
 			<li>"Romanized" is for foreign names written in the Latin (western) alphabet. Usually this means Romaji.</li>
 			<li>"English" is for official names in English and known translations of foreign names.</li>
-			<li>"Unspecified" language should not be used, as it's only for cases when the language hasn't been specified yet (for example if the entry has been imported from another system).</li>
+			<li>"Unspecified" is for names where the language doesn't matter or it's unknown. Unspecified names will never be used as display names of an entry if another name is provided.</li>
 		</ul>
 		<p>
 			If the original language is English, the name should be written to the English language field, otherwise it's written to the "Non-English" language field.
 			If those names have commonly used romanizations or English translations, those can be entered as well to make it easier for the international audience to find
 			and understand those names. 
-			Multiple names can be specified for each language option, in which case the first name will be used as the primary display name for that language.
+			Sometimes an entry may have multiple names in one language, for example producer's real name and artist name. In this case the additional names can be marked as "Unspecified" so that they won't be used as display names regardless of user's display option.
 		</p>
 		<p>
 			Registered users can set their display language, so that they will always see the names in that language, if available.
 			Unregistered users and users who haven't set their display language will see the original names, which may be either English or something else. 
 			For example, if the non-English name of an artist is ナナホシ, the romanized name is nanahoshi and the default language option is "Original", then by default users will see ナナホシ unless they have chosen to prefer romanized names instead.
 		</p>
-		<p>Usually there is no need to add composite names, and those names should broken into separate fields.</p>
+		<p>Generally there is no need to add composite names, and those names should broken into separate fields.</p>
 		<p><input type="text" class="incorrect-example-input"value="cosMo@Bousou-P(暴走P)" size="23" readonly="readonly" /> is incorrect: every field should contain only one name.</p>
 
 		<h4>Entry statuses</h4>
@@ -146,6 +146,9 @@
 			<br /><br />
 			After the entry has been finished it can be approved by a trusted user or staff member. Most properties of approved entries cannot be edited by users with
 			normal permissions. Tags can still be edited by anyone and comments can be added. Trusted users are also able to change the status back from Approved to Finished or even Draft.
+			<br />
+			<b>A note for trusted users regarding entry approval: </b>You're encouraged to mark the entry as Approved when you've checked that all the necessary information is provided and
+			it's correct. However, songs shouldn't be marked as approved until they have lyrics. When approving albums, make sure that ALL the artists have been added.
 		</p>
 
 		<h3 id="glproducers">Producers</h3>
@@ -200,13 +203,21 @@
 			Circles and labels are generally NOT credited for individual songs, unless it's clear that the whole group worked on that song.
 		</p>
 		<p>
-			In the case of a remix or cover, the original composer of the song does NOT need to be added to the artists list of that song. 
-			Instead, if the original is a Vocaloid song, add the original song to the database and link the derived version to that original, or if the original is not a Vocaloid song, you may mention the composer in the notes.		
+			In the case of a remix or cover, the original composer/lyricist of the song does NOT need to be added to the artists list of that song. 
+			Instead, if the original is a Vocaloid song, add the original song to the database and link the derived version to that original, or if the original is not a Vocaloid song, you may mention the composer in the notes.
+			If the original isn't a Vocaloid song, you may add the composer as an artist as well, but it's not required.
+		</p>
+
+		<h4>Song types</h4>
+		<p>
+			The most important distinction is between Original and others. Original always means that the song is completely original production.
+			If the song uses material from existing sources, it's derived work and not original. Instrumental versions of songs should be marked as
+			Other.
 		</p>
 
 		<h4 id="glpv">PV types</h4>
 		<ul>
-			<li>"Original" - the first video with that song, usually uploaded by author himself (may lack any animation).</li>
+			<li>"Original" - the first video with that song, usually uploaded by author himself (may lack any animation). There may be multiple Original PVs if all are uploaded by the producer.</li>
 			<li>"Reprint" - should be identical to "Original"; most often it's a YouTube reprint of original NND video.</li>
 			<li>"Other" - any following PV with animation, MMD versions etc. May be much better known than original one.</li>
 		</ul>
