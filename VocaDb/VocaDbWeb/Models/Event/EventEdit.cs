@@ -10,7 +10,6 @@ namespace VocaDb.Web.Models.Event {
 	public class EventEdit {
 
 		public EventEdit() {
-			Date = DateTime.Now;
 			Description = string.Empty;
 		}
 

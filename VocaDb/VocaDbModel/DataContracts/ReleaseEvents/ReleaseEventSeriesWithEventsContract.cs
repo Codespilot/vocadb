@@ -13,7 +13,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 		public ReleaseEventSeriesWithEventsContract(ReleaseEventSeries series, ContentLanguagePreference languagePreference)
 			: base(series) {
 
-			Events = series.Events.Select(e => new ReleaseEventDetailsContract(e, languagePreference)).ToArray();
+				Events = series.Events.Select(e => new ReleaseEventContract(e)).ToArray();
 		
 		}
 
@@ -22,11 +22,11 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 			ParamIs.NotNull(() => events);
 
-			Events = events.OrderBy(e => e.SeriesNumber).Select(e => new ReleaseEventDetailsContract(e, languagePreference)).ToArray();
+			Events = events.OrderBy(e => e.SeriesNumber).Select(e => new ReleaseEventContract(e)).ToArray();
 
 		}
 
-		public ReleaseEventDetailsContract[] Events { get; set; }
+		public ReleaseEventContract[] Events { get; set; }
 
 	}
 }

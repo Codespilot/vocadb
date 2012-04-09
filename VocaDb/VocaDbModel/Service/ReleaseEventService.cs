@@ -96,7 +96,7 @@ namespace VocaDb.Model.Service {
 
 				return seriesContracts.Concat(new[] { new ReleaseEventSeriesWithEventsContract { 
 					Name = string.Empty, 
-					Events = ungrouped.Select(e => new ReleaseEventDetailsContract(e, PermissionContext.LanguagePreference)).ToArray() } }).ToArray();
+					Events = ungrouped.Select(e => new ReleaseEventContract(e)).ToArray() } }).ToArray();
 
 			});
 
