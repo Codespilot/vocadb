@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>Альбомы</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Артисты</value>
-  </data>
-  <data name="Drafts" xml:space="preserve">
-    <value>Черновики</value>
-  </data>
-  <data name="FeaturedSongLists" xml:space="preserve">
-    <value>Отмеченные списки песен</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Поиск</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Песни</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Ярлыки</value>
-  </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>Наиболее популярные песни</value>
-  </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>Альбомы с наивысшими оценками</value>
+  <data name="FavoritedTimes" xml:space="preserve">
+    <value>kertaa</value>
   </data>
 </root>

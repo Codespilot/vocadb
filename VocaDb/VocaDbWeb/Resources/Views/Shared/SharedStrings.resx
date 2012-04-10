@@ -156,6 +156,12 @@
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
   </data>
+  <data name="TopFavoritedSongs" xml:space="preserve">
+    <value>Top favorited songs</value>
+  </data>
+  <data name="TopRatedAlbums" xml:space="preserve">
+    <value>Top rated albums</value>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
   </data>

@@ -178,6 +178,24 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Top favorited songs.
+        /// </summary>
+        public static string TopFavoritedSongs {
+            get {
+                return ResourceManager.GetString("TopFavoritedSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top rated albums.
+        /// </summary>
+        public static string TopRatedAlbums {
+            get {
+                return ResourceManager.GetString("TopRatedAlbums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
         public static string Type {

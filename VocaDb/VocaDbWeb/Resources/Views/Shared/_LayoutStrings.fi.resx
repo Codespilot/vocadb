@@ -153,12 +153,6 @@
   <data name="ReleaseEvents" xml:space="preserve">
     <value>Tapahtumat</value>
   </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>Suosituimmat kappaleet</value>
-  </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>Suosituimmat albumit</value>
-  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>Sinulla on lukemattomia viestejä</value>
   </data>

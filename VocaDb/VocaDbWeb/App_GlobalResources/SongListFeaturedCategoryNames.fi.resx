@@ -117,31 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>Альбомы</value>
+  <data name="Concerts" xml:space="preserve">
+    <value>Konserttien settilistat</value>
   </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Артисты</value>
+  <data name="Nothing" xml:space="preserve">
+    <value>Ei mitään</value>
   </data>
-  <data name="Drafts" xml:space="preserve">
-    <value>Черновики</value>
+  <data name="Other" xml:space="preserve">
+    <value>Muut</value>
   </data>
-  <data name="FeaturedSongLists" xml:space="preserve">
-    <value>Отмеченные списки песен</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Поиск</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Песни</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Ярлыки</value>
-  </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>Наиболее популярные песни</value>
-  </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>Альбомы с наивысшими оценками</value>
+  <data name="VocaloidRanking" xml:space="preserve">
+    <value>Vocaloid ranking -listat</value>
   </data>
 </root>
