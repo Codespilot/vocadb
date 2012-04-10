@@ -37,6 +37,7 @@ namespace VocaDb.Model.Domain.Users {
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
 			EmailOptions = UserEmailOptions.PrivateMessagesFromAll;
+			Language = string.Empty;
 			LastLogin = DateTime.Now;
 			PreferredVideoService = PVService.Youtube;
 			GroupId = UserGroupId.Regular;
