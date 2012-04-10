@@ -190,6 +190,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongTypeNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongTypeNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongTypeNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1015,6 +1020,10 @@
     <Content Include="App_GlobalResources\SongTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongTypeNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">

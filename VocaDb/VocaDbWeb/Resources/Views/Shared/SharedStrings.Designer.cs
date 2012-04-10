@@ -185,5 +185,14 @@ namespace ViewRes {
                 return ResourceManager.GetString("Type", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsorted.
+        /// </summary>
+        public static string Unsorted {
+            get {
+                return ResourceManager.GetString("Unsorted", resourceCulture);
+            }
+        }
     }
 }
