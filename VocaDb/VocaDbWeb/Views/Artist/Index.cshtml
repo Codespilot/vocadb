@@ -7,12 +7,12 @@
 @using PagedList;
 @model ArtistIndex
 @{
-	ViewBag.Title = "Artists";
+	ViewBag.Title = @ViewRes.SharedStrings.Artists;
 }
 
 @section Toolbar {
 @if (Login.CanManageDb) {
-	@Html.ActionLink("Add an artist", "Create", null, new { id = "createLink" })
+	@Html.ActionLink(ViewRes.Artist.IndexStrings.AddArtist, "Create", null, new { id = "createLink" })
 }
 }
 
@@ -25,26 +25,26 @@
 @using (Html.BeginForm("Index", "Artist")) {
 	
 <p>
-	Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp; 
 	@Html.DropDownListFor(a => a.ArtistType, new SelectList(Model.FilterableArtistTypes, "Key", "Value", Model.ArtistType))
 	&nbsp;
 	@Html.CheckBoxFor(m => m.DraftsOnly)
 	@Html.LabelFor(m => m.DraftsOnly)
-	<button type="submit">Apply</button>
+	<button type="submit">@ViewRes.SharedStrings.Apply</button>
 </p>
 
 if (Model.Artists.Any()) {
 	
-<p>Entries found: @Model.Artists.TotalItemCount</p>
+<p>@ViewRes.SharedStrings.EntriesFound: @Model.Artists.TotalItemCount</p>
 	
 @Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }))
 
 <table>
 	<tr>
-		<th>Name</th>
-		<th>Type</th>
-		<th>Actions</th>
+		<th>@ViewRes.SharedStrings.Name</th>
+		<th>@ViewRes.SharedStrings.Type</th>
+		<th>@ViewRes.SharedStrings.Actions</th>
 	</tr>
 @foreach (var artist in Model.Artists) {
 	<tr>
@@ -58,7 +58,7 @@ if (Model.Artists.Any()) {
 		</td>
 		<td>
 			@if (Login.CanEdit(artist)) {
-				@Html.ActionLink("Edit", "Edit", new { id = artist.Id })
+				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = artist.Id })
    }
 		</td>
 	</tr>
@@ -70,7 +70,7 @@ if (Model.Artists.Any()) {
 
 if (!Model.Artists.Any()) {
 
-	<p>No results! Try a different query or Google custom search.</p>
+	<p>@ViewRes.SharedStrings.NoResults</p>
 	@Helpers.GoogleSiteSearch()
 
 }

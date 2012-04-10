@@ -38,7 +38,7 @@ namespace VocaDb.Web.Models {
 
 		public ArtistType ArtistType { get; set; }
 
-		[Display(Name = "Only drafts")]
+		[Display(ResourceType = typeof(ViewRes.EntryIndexStrings), Name = "OnlyDrafts")]
 		public bool DraftsOnly { get; set; }
 
 		public string Filter { get; set; }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Home {
+namespace ViewRes.Artist {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ViewRes.Home {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Home.IndexStrings", typeof(IndexStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Artist.IndexStrings", typeof(IndexStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to News.
+        ///   Looks up a localized string similar to Add an artist.
         /// </summary>
-        public static string News {
+        public static string AddArtist {
             get {
-                return ResourceManager.GetString("News", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recent activity.
-        /// </summary>
-        public static string RecentActivity {
-            get {
-                return ResourceManager.GetString("RecentActivity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to view all.
-        /// </summary>
-        public static string ViewAll {
-            get {
-                return ResourceManager.GetString("ViewAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to view more.
-        /// </summary>
-        public static string ViewMore {
-            get {
-                return ResourceManager.GetString("ViewMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to the Vocaloid Database!.
-        /// </summary>
-        public static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("AddArtist", resourceCulture);
             }
         }
     }

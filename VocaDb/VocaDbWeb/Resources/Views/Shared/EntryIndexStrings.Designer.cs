@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Home {
+namespace ViewRes {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes.Home {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class IndexStrings {
+    public class EntryIndexStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal IndexStrings() {
+        internal EntryIndexStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes.Home {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Home.IndexStrings", typeof(IndexStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.EntryIndexStrings", typeof(EntryIndexStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,20 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to News.
+        ///   Looks up a localized string similar to No results! Try a different query or Google custom search..
         /// </summary>
-        public static string News {
+        public static string NoResults {
             get {
-                return ResourceManager.GetString("News", resourceCulture);
+                return ResourceManager.GetString("NoResults", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recent activity.
+        ///   Looks up a localized string similar to Only drafts.
         /// </summary>
-        public static string RecentActivity {
+        public static string OnlyDrafts {
             get {
-                return ResourceManager.GetString("RecentActivity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to view all.
-        /// </summary>
-        public static string ViewAll {
-            get {
-                return ResourceManager.GetString("ViewAll", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to view more.
-        /// </summary>
-        public static string ViewMore {
-            get {
-                return ResourceManager.GetString("ViewMore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Welcome to the Vocaloid Database!.
-        /// </summary>
-        public static string Welcome {
-            get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("OnlyDrafts", resourceCulture);
             }
         }
     }
