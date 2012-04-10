@@ -7,36 +7,36 @@
 @model VocaDb.Web.Models.Song.Index
 
 @{
-    ViewBag.Title = "Songs";
+	ViewBag.Title = @ViewRes.SharedStrings.Songs;
 }
 
 @section Toolbar {
 @if (Login.CanManageDb) {
-	@Html.ActionLink("Submit a new song", "Create", null, new { id = "createLink" })
+	@Html.ActionLink(ViewRes.Song.IndexStrings.AddSong, "Create", null, new { id = "createLink" })
 }
 }
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
 @if (Model.DraftsOnly) {
-	@Helpers.NotificationPanel(Resources.CommonMessages.Drafts)
+	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
 @using (Html.BeginForm("Index", "Song")) {
 	
 <p>
-	Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp; 
 	@Html.CheckBoxFor(m => m.DraftsOnly)
 	@Html.LabelFor(m => m.DraftsOnly)
-	<button type="submit">Apply</button>
+	<button type="submit">@ViewRes.SharedStrings.Apply</button>
 </p>
 
 if (Model.Songs.Any()) {
 	
-<p>Entries found: @Model.Songs.TotalItemCount</p>
+<p>@ViewRes.SharedStrings.EntriesFound: @Model.Songs.TotalItemCount</p>
 	
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 <table>
 @foreach (var song in Model.Songs) {
 	<tr>
@@ -47,19 +47,19 @@ if (Model.Songs.Any()) {
 		</td>
 		<td>
 			@if (Login.CanEdit(song)) {
-				@Html.ActionLink("Edit", "Edit", new { id = song.Id })
+				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id })
    }		
 		</td>
 	</tr>	
 }
 </table>
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 }
 
 }
 @if (!Model.Songs.Any()) {
 
-	<p>No results! Try a different query or Google custom search.</p>
+	<p>@ViewRes.EntryIndexStrings.NoResults</p>
 	@Helpers.GoogleSiteSearch()
 
 }

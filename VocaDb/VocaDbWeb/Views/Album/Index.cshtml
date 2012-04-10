@@ -6,40 +6,40 @@
 @using PagedList;
 @model VocaDb.Web.Models.Album.Index
 @{
-    ViewBag.Title = "Albums";
+	ViewBag.Title = @ViewRes.SharedStrings.Albums;
 }
 
 @section Toolbar {
 @if (Login.CanManageDb) {
-	@Html.ActionLink("Submit a new album", "Create", null, new { id = "createLink" })
+	@Html.ActionLink(ViewRes.Album.IndexStrings.AddAlbum, "Create", null, new { id = "createLink" })
 }
 }
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
 @if (Model.DraftsOnly) {
-	@Helpers.NotificationPanel(Resources.CommonMessages.Drafts)
+	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
 @using (Html.BeginForm("Index", "Album")) {
 	
 <p>
-	Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp;
 	@Html.CheckBoxFor(m => m.DraftsOnly)
 	@Html.LabelFor(m => m.DraftsOnly)
-	<button type="submit">Apply</button>
+	<button type="submit">@ViewRes.SharedStrings.Apply</button>
 </p>
 
 if (Model.Albums.Any()) {
 	
-<p>Entries found: @Model.Albums.TotalItemCount</p>
+<p>@ViewRes.SharedStrings.EntriesFound: @Model.Albums.TotalItemCount</p>
 	
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 
 <table>
 	<tr>
-		<th>Name</th>
+		<th>@ViewRes.SharedStrings.Name</th>
 	</tr>
 @foreach (var album in Model.Albums) {
 	<tr>
@@ -50,20 +50,20 @@ if (Model.Albums.Any()) {
 		</td>
 		<td>
 			@if (Login.CanEdit(album)) {
-				@Html.ActionLink("Edit", "Edit", new { id = album.Id })
+				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = album.Id })
    }
 		</td>
 	</tr>
 }
 </table>
 
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }))
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 }
 
 }
 @if (!Model.Albums.Any()) {
 
-	<p>No results! Try a different query or Google custom search.</p>
+	<p>@ViewRes.EntryIndexStrings.NoResults</p>
 	@Helpers.GoogleSiteSearch()
 
 }

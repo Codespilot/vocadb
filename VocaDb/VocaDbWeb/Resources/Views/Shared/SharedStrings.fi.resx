@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Actions" xml:space="preserve">
+    <value>Toiminnot</value>
+  </data>
   <data name="Albums" xml:space="preserve">
     <value>Albumit</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Käytä</value>
   </data>
   <data name="Artists" xml:space="preserve">
     <value>Artistit</value>
@@ -126,8 +132,20 @@
   <data name="Drafts" xml:space="preserve">
     <value>Luonnokset</value>
   </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
+  <data name="EntriesFound" xml:space="preserve">
+    <value>Tietueita löytynyt</value>
+  </data>
   <data name="FeaturedSongLists" xml:space="preserve">
     <value>Julkiset kappalelistat</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Suodatus</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nimi</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Hae</value>
@@ -137,5 +155,8 @@
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tägit</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tyyppi</value>
   </data>
 </root>

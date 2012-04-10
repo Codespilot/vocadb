@@ -433,6 +433,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ArtistTypeNames.fi.resx" />
     <EmbeddedResource Include="Resources\ArtistTypeNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistTypeNames.Designer.cs</LastGenOutput>

@@ -19,7 +19,7 @@
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
 @if (Model.DraftsOnly) {
-	@Helpers.NotificationPanel(Resources.CommonMessages.Drafts)
+	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
 @using (Html.BeginForm("Index", "Artist")) {
@@ -38,7 +38,7 @@ if (Model.Artists.Any()) {
 	
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Artists.TotalItemCount</p>
 	
-@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }))
+@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 
 <table>
 	<tr>
@@ -65,12 +65,12 @@ if (Model.Artists.Any()) {
 }
 </table>
 	
-@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }))
+@Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 }
 
 if (!Model.Artists.Any()) {
 
-	<p>@ViewRes.SharedStrings.NoResults</p>
+	<p>@ViewRes.EntryIndexStrings.NoResults</p>
 	@Helpers.GoogleSiteSearch()
 
 }

@@ -18,25 +18,25 @@ namespace VocaDb.Web.Helpers {
 	public static class Translate {
 
 		public static readonly TranslateableEnum<PurchaseStatus> AlbumCollectionStatusNames =
-			new TranslateableEnum<PurchaseStatus>(() => Resources.AlbumCollectionStatusNames.ResourceManager);
+			new TranslateableEnum<PurchaseStatus>(() => global::Resources.AlbumCollectionStatusNames.ResourceManager);
 
 		public static readonly TranslateableEnum<MediaType> AlbumMediaTypeNames =
-			new TranslateableEnum<MediaType>(() => Resources.AlbumMediaTypeNames.ResourceManager);
+			new TranslateableEnum<MediaType>(() => global::Resources.AlbumMediaTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<EntryStatus> EntryStatusNames =
-			new TranslateableEnum<EntryStatus>(() => Resources.EntryStatusNames.ResourceManager);
+			new TranslateableEnum<EntryStatus>(() => global::Resources.EntryStatusNames.ResourceManager);
 
 		public static readonly TranslateableEnum<EntryType> EntryTypeNames =
-			new TranslateableEnum<EntryType>(() => Resources.EntryTypeNames.ResourceManager);
+			new TranslateableEnum<EntryType>(() => global::Resources.EntryTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<PVType> PVTypeNames =
-			new TranslateableEnum<PVType>(() => Resources.PVTypeNames.ResourceManager);
+			new TranslateableEnum<PVType>(() => global::Resources.PVTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<SongListFeaturedCategory> SongListFeaturedCategoryNames =
-			new TranslateableEnum<SongListFeaturedCategory>(() => Resources.SongListFeaturedCategoryNames.ResourceManager);
+			new TranslateableEnum<SongListFeaturedCategory>(() => global::Resources.SongListFeaturedCategoryNames.ResourceManager);
 
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
-			new TranslateableEnum<SongType>(() => Resources.SongTypeNames.ResourceManager);
+			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<UserGroupId> UserGroups =
 			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);
