@@ -1189,7 +1189,6 @@ namespace VocaDb.Model.Service {
 
 						song.UpdateArtistString();
 						session.Update(song);
-						AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
 						artistStrings.Add(new KeyValuePair<int, string>(song.Id, song.ArtistString[PermissionContext.LanguagePreference]));
 
 						AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);

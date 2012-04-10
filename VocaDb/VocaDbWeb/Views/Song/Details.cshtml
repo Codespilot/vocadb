@@ -155,7 +155,7 @@
 				<td>@Html.LabelFor(m => m.AlternateVersions)</td>
 				<td>
 					@foreach (var alternateVersion in Model.AlternateVersions) {
-						@Html.ActionLink(alternateVersion.Name, "Details", new { id = alternateVersion.Id }, new { title = alternateVersion.AdditionalNames })<br />
+						@Html.ActionLink(alternateVersion.Name, "Details", new { id = alternateVersion.Id }, new { title = alternateVersion.AdditionalNames }) @("(" + @Translate.SongTypeNames[alternateVersion.SongType] + ")")<br />
 						@alternateVersion.ArtistString<br />
 	 }			
 				</td>
