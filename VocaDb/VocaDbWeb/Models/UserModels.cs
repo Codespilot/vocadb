@@ -11,6 +11,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Web.Helpers;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Web.Models {
 
@@ -71,6 +72,7 @@ namespace VocaDb.Web.Models {
 
 			AccessKey = user.HashedAccessKey;
 			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
+			AllInterfaceLanguages = InterfaceLanguage.Cultures.ToDictionaryWithEmpty(string.Empty, "(Automatic)", c => c.Name, c => c.EnglishName + " (" + c.NativeName + ")");
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
 			AllVideoServices = EnumVal<PVService>.Values;
 
@@ -79,6 +81,8 @@ namespace VocaDb.Web.Models {
 		public string AccessKey { get; set; }
 
 		public AlbumForUserEditModel[] AlbumLinks { get; set; }
+
+		public Dictionary<string, string> AllInterfaceLanguages { get; set; }
 
 		public Dictionary<ContentLanguagePreference, string> AllLanguages { get; set; }
 
@@ -92,6 +96,9 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Email options for private messages")]
 		public UserEmailOptions EmailOptions { get; set; }
+
+		[Display(Name = "Interface language")]
+		public string InterfaceLanguageSelection { get; set; }
 
 		[Display(Name = "Preferred video service")]
 		public PVService PreferredVideoService { get; set; }
@@ -131,6 +138,7 @@ namespace VocaDb.Web.Models {
 				DefaultLanguageSelection = this.DefaultLanguageSelection,
 				Email = this.Email ?? string.Empty,
 				EmailOptions = this.EmailOptions,
+				Language = this.InterfaceLanguageSelection,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
 				NewPass = this.NewPass

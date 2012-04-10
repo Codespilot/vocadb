@@ -55,6 +55,13 @@
 					</div>
 
 					<div class="editor-label">
+						@Html.LabelFor(m => m.InterfaceLanguageSelection)
+					</div>
+					<div class="editor-field">
+						@Html.DropDownListFor(m => m.InterfaceLanguageSelection, new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.InterfaceLanguageSelection))
+					</div>
+
+					<div class="editor-label">
 						@Html.LabelFor(m => m.PreferredVideoService)
 					</div>
 					<div class="editor-field">
