@@ -72,7 +72,10 @@ namespace VocaDb.Web.Models {
 
 			AccessKey = user.HashedAccessKey;
 			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
-			AllInterfaceLanguages = InterfaceLanguage.Cultures.ToDictionaryWithEmpty(string.Empty, "(Automatic)", c => c.Name, c => c.EnglishName + " (" + c.NativeName + ")");
+			AllInterfaceLanguages = InterfaceLanguage.Cultures
+				.ToKeyValuePairsWithEmpty(string.Empty, "(Automatic)", c => c.Name, c => c.EnglishName + " (" + c.NativeName + ")")
+				.OrderBy(k => k.Value)
+				.ToArray();
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
 			AllVideoServices = EnumVal<PVService>.Values;
 
@@ -82,7 +85,7 @@ namespace VocaDb.Web.Models {
 
 		public AlbumForUserEditModel[] AlbumLinks { get; set; }
 
-		public Dictionary<string, string> AllInterfaceLanguages { get; set; }
+		public KeyValuePair<string, string>[] AllInterfaceLanguages { get; set; }
 
 		public Dictionary<ContentLanguagePreference, string> AllLanguages { get; set; }
 
@@ -138,7 +141,7 @@ namespace VocaDb.Web.Models {
 				DefaultLanguageSelection = this.DefaultLanguageSelection,
 				Email = this.Email ?? string.Empty,
 				EmailOptions = this.EmailOptions,
-				Language = this.InterfaceLanguageSelection,
+				Language = this.InterfaceLanguageSelection ?? string.Empty,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
 				NewPass = this.NewPass
