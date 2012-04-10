@@ -70,15 +70,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These entries are marked as drafts which means they are missing some information. .
-        /// </summary>
-        internal static string Drafts {
-            get {
-                return ResourceManager.GetString("Drafts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This entry has been deleted. It is still temporarily accessible, but won&apos;t show up in any of the listings..
         /// </summary>
         internal static string EntryDeleted {

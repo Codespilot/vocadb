@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes {
+namespace VocaDb.Web.Resources.Other {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace ViewRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EntryIndexStrings {
+    internal class PagedListStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EntryIndexStrings() {
+        internal PagedListStrings() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.EntryIndexStrings", typeof(EntryIndexStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Other.PagedListStrings", typeof(PagedListStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace ViewRes {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,29 +61,38 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These entries are marked as drafts which means they are missing some information. .
+        ///   Looks up a localized string similar to First.
         /// </summary>
-        public static string Drafts {
+        internal static string First {
             get {
-                return ResourceManager.GetString("Drafts", resourceCulture);
+                return ResourceManager.GetString("First", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No results! Try a different query or Google custom search..
+        ///   Looks up a localized string similar to Last.
         /// </summary>
-        public static string NoResults {
+        internal static string Last {
             get {
-                return ResourceManager.GetString("NoResults", resourceCulture);
+                return ResourceManager.GetString("Last", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only drafts.
+        ///   Looks up a localized string similar to Next.
         /// </summary>
-        public static string OnlyDrafts {
+        internal static string Next {
             get {
-                return ResourceManager.GetString("OnlyDrafts", resourceCulture);
+                return ResourceManager.GetString("Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous.
+        /// </summary>
+        internal static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
             }
         }
     }

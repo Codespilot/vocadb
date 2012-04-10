@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes {
+namespace ViewRes.Song {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EntryIndexStrings {
+    public class IndexStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EntryIndexStrings() {
+        internal IndexStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.EntryIndexStrings", typeof(EntryIndexStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Song.IndexStrings", typeof(IndexStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,11 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to These entries are marked as drafts which means they are missing some information. .
+        ///   Looks up a localized string similar to Submit a new song.
         /// </summary>
-        public static string Drafts {
+        public static string AddSong {
             get {
-                return ResourceManager.GetString("Drafts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No results! Try a different query or Google custom search..
-        /// </summary>
-        public static string NoResults {
-            get {
-                return ResourceManager.GetString("NoResults", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only drafts.
-        /// </summary>
-        public static string OnlyDrafts {
-            get {
-                return ResourceManager.GetString("OnlyDrafts", resourceCulture);
+                return ResourceManager.GetString("AddSong", resourceCulture);
             }
         }
     }

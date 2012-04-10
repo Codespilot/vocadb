@@ -23,7 +23,7 @@ namespace VocaDb.Web.Models.Song {
 
 		}
 
-		[Display(Name = "Only drafts")]
+		[Display(ResourceType = typeof(ViewRes.EntryIndexStrings), Name = "OnlyDrafts")]
 		public bool DraftsOnly { get; set; }
 
 		public string Filter { get; set; }
