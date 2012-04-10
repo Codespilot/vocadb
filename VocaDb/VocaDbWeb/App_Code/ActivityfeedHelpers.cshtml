@@ -14,19 +14,19 @@
 @helper ActivityEntry(ActivityEntryContract entry) {
 	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
 		@if (entry.EditEvent == EntryEditEvent.Created) {
-			<span>Created a new </span>
+			<span>@HelperRes.ActivityFeedHelperStrings.CreatedNew </span>
 		} else {
-			<span>Updated </span>
+			<span>@HelperRes.ActivityFeedHelperStrings.Updated </span>
 		}
-		<span>@entry.EntryRef.EntryType:</span>
+		<span>@Translate.EntryTypeNames[entry.EntryRef.EntryType]:</span>
 		<span>@EntryLink(entry)</span> 
 		@if (!string.IsNullOrEmpty(entry.ArtistString)) {
-			<span> by @entry.ArtistString</span>
+			<span> @HelperRes.ActivityFeedHelperStrings.ByArtist @entry.ArtistString</span>
 		}
 		<span>-</span>
 		@entry.CreateDate
 		@if (!entry.Author.AnonymousActivity || Login.CanModerateUsers) {
-			<span>by</span>
+			<span>@HelperRes.ActivityFeedHelperStrings.ByUser</span>
 			@Html.ProfileIcon(entry.Author, 20)
 			<span>
 	  		@Html.UserLink(entry.Author, entry.Author.Name)
@@ -47,12 +47,12 @@
 					<span>
 					@Html.UserLink(entry.Author, entry.Author.Name)
 					</span>
-					<span> at </span>
+					<span> @HelperRes.ActivityFeedHelperStrings.At </span>
 				}
 				@entry.CreateDate
 
 				@if (Login.CanEditNews) {
-					@Html.ActionLink("Edit", "Edit", "NewsEntry", new { id = entry.Id }, null)
+					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", "NewsEntry", new { id = entry.Id }, null)
 				}
 			</div>	
 		</div>	

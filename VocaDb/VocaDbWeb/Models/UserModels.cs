@@ -67,6 +67,7 @@ namespace VocaDb.Web.Models {
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
 			Id = user.Id;
+			InterfaceLanguageSelection = user.Language;
 			PreferredVideoService = user.PreferredVideoService;
 			Username = user.Name;
 

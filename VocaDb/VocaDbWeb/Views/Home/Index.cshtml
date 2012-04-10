@@ -5,15 +5,15 @@
 	ViewBag.DisplayGPlus = true;
 }
 
-<h3>@ViewRes.IndexStrings.Welcome</h3>
+<h3>@ViewRes.Home.IndexStrings.Welcome</h3>
 
-<h4>@ViewRes.IndexStrings.News @Html.ActionLink(ViewRes.IndexStrings.ViewAll, "Index", "NewsEntry")</h4>
+<h4>@ViewRes.Home.IndexStrings.News @Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry")</h4>
 
 @foreach (var entry in Model.NewsEntries) {
 	@ActivityfeedHelpers.NewsEntry(entry);
 }
 
-<h4>@ViewRes.IndexStrings.RecentActivity @Html.ActionLink(ViewRes.IndexStrings.ViewMore, "Index", "ActivityEntry")</h4>
+<h4>@ViewRes.Home.IndexStrings.RecentActivity @Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "ActivityEntry")</h4>
 
 @foreach (var entry in Model.ActivityEntries) {
 	@ActivityfeedHelpers.ActivityEntry(entry);

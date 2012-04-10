@@ -26,6 +26,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<EntryStatus> EntryStatusNames =
 			new TranslateableEnum<EntryStatus>(() => Resources.EntryStatusNames.ResourceManager);
 
+		public static readonly TranslateableEnum<EntryType> EntryTypeNames =
+			new TranslateableEnum<EntryType>(() => Resources.EntryTypeNames.ResourceManager);
+
 		public static readonly TranslateableEnum<PVType> PVTypeNames =
 			new TranslateableEnum<PVType>(() => Resources.PVTypeNames.ResourceManager);
 

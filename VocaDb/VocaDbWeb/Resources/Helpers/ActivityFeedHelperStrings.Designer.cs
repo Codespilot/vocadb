@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Home {
+namespace HelperRes {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes.Home {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class IndexStrings {
+    public class ActivityFeedHelperStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal IndexStrings() {
+        internal ActivityFeedHelperStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes.Home {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Home.IndexStrings", typeof(IndexStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Helpers.ActivityFeedHelperStrings", typeof(ActivityFeedHelperStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,47 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to News.
+        ///   Looks up a localized string similar to at.
         /// </summary>
-        public static string News {
+        public static string At {
             get {
-                return ResourceManager.GetString("News", resourceCulture);
+                return ResourceManager.GetString("At", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recent activity.
+        ///   Looks up a localized string similar to by.
         /// </summary>
-        public static string RecentActivity {
+        public static string ByArtist {
             get {
-                return ResourceManager.GetString("RecentActivity", resourceCulture);
+                return ResourceManager.GetString("ByArtist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to view all.
+        ///   Looks up a localized string similar to by.
         /// </summary>
-        public static string ViewAll {
+        public static string ByUser {
             get {
-                return ResourceManager.GetString("ViewAll", resourceCulture);
+                return ResourceManager.GetString("ByUser", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to view more.
+        ///   Looks up a localized string similar to Created a new.
         /// </summary>
-        public static string ViewMore {
+        public static string CreatedNew {
             get {
-                return ResourceManager.GetString("ViewMore", resourceCulture);
+                return ResourceManager.GetString("CreatedNew", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to the Vocaloid Database!.
+        ///   Looks up a localized string similar to Updated.
         /// </summary>
-        public static string Welcome {
+        public static string Updated {
             get {
-                return ResourceManager.GetString("Welcome", resourceCulture);
+                return ResourceManager.GetString("Updated", resourceCulture);
             }
         }
     }
