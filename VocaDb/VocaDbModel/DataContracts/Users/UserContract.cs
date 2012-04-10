@@ -11,7 +11,9 @@ namespace VocaDb.Model.DataContracts.Users {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class UserContract : UserBaseContract {
 
-		public UserContract() {}
+		public UserContract() {
+			Language = string.Empty;
+		}
 
 		public UserContract(User user)
 			: base(user) {

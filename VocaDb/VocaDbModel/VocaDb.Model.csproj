@@ -202,6 +202,7 @@
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
     <Compile Include="Domain\EntryRef.cs" />
+    <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
     <Compile Include="Domain\IDeletableEntry.cs" />
     <Compile Include="Domain\IEntryWithIntId.cs" />
@@ -306,6 +307,7 @@
     <Compile Include="Helpers\AlphaPassGenerator.cs" />
     <Compile Include="Helpers\ArtistHelper.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
+    <Compile Include="Helpers\EnumerableExtender.cs" />
     <Compile Include="Helpers\HtmlRequestHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\LambdaComparer.cs" />
