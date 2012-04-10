@@ -156,6 +156,12 @@
   <data name="Tags" xml:space="preserve">
     <value>Tägit</value>
   </data>
+  <data name="TopFavoritedSongs" xml:space="preserve">
+    <value>Suosituimmat kappaleet</value>
+  </data>
+  <data name="TopRatedAlbums" xml:space="preserve">
+    <value>Suosituimmat albumit</value>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Tyyppi</value>
   </data>

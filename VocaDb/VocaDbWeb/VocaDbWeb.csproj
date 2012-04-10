@@ -185,6 +185,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongListFeaturedCategoryNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongListFeaturedCategoryNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongListFeaturedCategoryNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -287,6 +292,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\Views\Album\TopRatedStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TopRatedStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Artist\IndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -301,6 +311,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryIndexStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Shared\MiscStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MiscStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Shared\SharedStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1025,6 +1040,10 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\SongListFeaturedCategoryNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongListFeaturedCategoryNames.fi.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1040,6 +1059,12 @@
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TopRatedStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.fi.resx" />
@@ -1062,6 +1087,13 @@
       <LastGenOutput>EntryIndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\MiscStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\MiscStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MiscStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\MiscStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -38,7 +38,7 @@
 				<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
 				<td>
 					@if (list.CanEdit) {
-						<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">Edit</a>
+						<a href="@Url.Action("Edit", "SongList", new { id = list.Id })" class="textLink editLink">@ViewRes.SharedStrings.Edit</a>
 					}
 				</td>
 			</tr>

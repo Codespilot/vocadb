@@ -150,12 +150,6 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Тематические сайты</value>
   </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>Наиболее популярные песни</value>
-  </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>Альбомы с наивысшими оценками</value>
-  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>У вас есть непрочитанные сообщения</value>
   </data>
