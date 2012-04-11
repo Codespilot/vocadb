@@ -22,13 +22,13 @@ namespace VocaDb.Web.Models {
 		[StringLength(50)]
 		public string Email { get; set; }
 
-		[Required]
+		[Required(ErrorMessageResourceType = typeof(ViewRes.User.CreateStrings), ErrorMessageResourceName = "UsernameIsRequired")]
 		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Username")]
 		[StringLength(100, MinimumLength = 3)]
 		[RegularExpression("[a-zA-Z0-9_]+")]
 		public string UserName { get; set; }
 
-		[Required]
+		[Required(ErrorMessageResourceType = typeof(ViewRes.User.CreateStrings), ErrorMessageResourceName = "PasswordIsRequired")]
 		[DataType(DataType.Password)]
 		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Password")]
 		[StringLength(100, MinimumLength = 5)]
@@ -41,12 +41,12 @@ namespace VocaDb.Web.Models {
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "KeepMeLoggedIn")]
 		public bool KeepLoggedIn { get; set; }
 
-		[Required]
+		[Required(ErrorMessageResourceType = typeof(ViewRes.User.LoginStrings), ErrorMessageResourceName = "UsernameIsRequired")]
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "Username")]
 		[StringLength(100, MinimumLength = 3)]
 		public string UserName { get; set; }
 
-		[Required]
+		[Required(ErrorMessageResourceType = typeof(ViewRes.User.LoginStrings), ErrorMessageResourceName = "PasswordIsRequired")]
 		[DataType(DataType.Password)]
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "Password")]
 		[StringLength(100)]
