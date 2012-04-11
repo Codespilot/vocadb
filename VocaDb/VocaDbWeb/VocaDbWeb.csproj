@@ -911,7 +911,6 @@
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Find.cshtml" />
     <Content Include="Views\Event\SeriesDetails.cshtml" />
-    <Content Include="Views\User\AlbumsForUserSettings.cshtml" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
     </None>

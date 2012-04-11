@@ -45,14 +45,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult AlbumsForUserSettings(int id) {
-
-			var albums = Service.GetAlbumCollection(id).Select(a => new AlbumForUserEditModel(a)).ToArray();
-
-			return PartialView(albums);
-
-		}
-
 		public ActionResult Artists(int id) {
 
 			var artists = Service.GetArtists(id);
