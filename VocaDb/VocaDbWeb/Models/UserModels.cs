@@ -17,20 +17,20 @@ namespace VocaDb.Web.Models {
 
 	public class RegisterModel {
 
-		[Display(Name = "Email address (optional, but required for password resets)")]
+		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Email")]
 		[DataType(DataType.EmailAddress)]
 		[StringLength(50)]
 		public string Email { get; set; }
 
 		[Required]
-		[Display(Name = "Username")]
+		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Username")]
 		[StringLength(100, MinimumLength = 3)]
 		[RegularExpression("[a-zA-Z0-9_]+")]
 		public string UserName { get; set; }
 
 		[Required]
 		[DataType(DataType.Password)]
-		[Display(Name = "Password")]
+		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Password")]
 		[StringLength(100, MinimumLength = 5)]
 		public string Password { get; set; }
 
@@ -38,17 +38,17 @@ namespace VocaDb.Web.Models {
 
 	public class LoginModel {
 
-		[Display(Name = "Keep me logged in from this computer")]
+		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "KeepMeLoggedIn")]
 		public bool KeepLoggedIn { get; set; }
 
 		[Required]
-		[Display(Name = "Username")]
+		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "Username")]
 		[StringLength(100, MinimumLength = 3)]
 		public string UserName { get; set; }
 
 		[Required]
 		[DataType(DataType.Password)]
-		[Display(Name = "Password")]
+		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "Password")]
 		[StringLength(100)]
 		public string Password { get; set; }
 
