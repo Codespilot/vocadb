@@ -50,68 +50,11 @@ function initPage(userId) {
 			createTitle: function (item) { return item.AdditionalNames }
 		});
 
-	/*$("input#albumAddName").keyup(function () {
-
-		var findTerm = $(this).val();
-		var albumList = $("#albumAddList");
-
-		if (isNullOrWhiteSpace(findTerm)) {
-
-			$(albumList).empty();
-			return;
-
-		}
-
-		$.post("../Album/FindJson", { term: findTerm }, function (results) {
-
-			$(albumList).empty();
-
-			$(results.Items).each(function () {
-
-				addOption(albumList, this.Id, this.Name);
-
-			});
-
-		});
-
-	});
-
-	$("input#albumAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
-
-	$("#albumAddBtn").click(function () {
-
-		var findTerm = $("input#albumAddName").val();
-		var albumList = $("#albumAddList");
-
-		if (isNullOrWhiteSpace(findTerm))
-			return;
-
-		var albumId = $(albumList).val();
-
-		if (albumId == "") {
-			//$.post("../User/AddNewAlbum", { newAlbumName: findTerm }, albumAdded);
-		} else {
-			$.post("../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
-		}
-
-	});*/
-
 	function albumAdded(row) {
 
 		$("#albumTableBody").append(row);
 		var newRow = $("#albumTableBody tr:last");
 		$(newRow).find("select.albumMediaType").change(onChangeAlbumMediaType);
-		/*var addRow = $("#albumRow_new");
-		addRow.before(row);
-		var newRow = $(addRow).prev();
-		$(newRow).find("select.albumMediaType").change(onChangeAlbumMediaType);
-		$("input#albumAddName").val("");
-		$("#albumAddList").empty();*/
 
 	}
 
