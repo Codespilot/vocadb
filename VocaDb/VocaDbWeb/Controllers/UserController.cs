@@ -216,7 +216,7 @@ namespace VocaDb.Web.Controllers
         {
 
 			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"]))
-				ModelState.AddModelError("CAPTCHA", "CAPTCHA is invalid.");
+				ModelState.AddModelError("CAPTCHA", ViewRes.User.CreateStrings.CaptchaInvalid);
 
 			if (ModelState.IsValid) {
 				// Attempt to register the user
@@ -224,7 +224,7 @@ namespace VocaDb.Web.Controllers
 				var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, CfHelper.GetRealIp(Request));
 
 				if (user == null) {
-					ModelState.AddModelError("UserName", "Username is already taken.");
+					ModelState.AddModelError("UserName", ViewRes.User.CreateStrings.UsernameTaken);
 				} else {
 
 					FormsAuthentication.SetAuthCookie(model.UserName, false);

@@ -1,9 +1,9 @@
 ﻿@model VocaDb.Web.Models.LoginModel
 @{
-	ViewBag.Title = "Log in";
+	ViewBag.Title = ViewRes.User.LoginStrings.Login;
 }
 
-@Helpers.ValidationSymmaryPanel("Unable to log in.")
+@Helpers.ValidationSymmaryPanel(ViewRes.User.LoginStrings.UnableToLogin)
 
 @using (Html.BeginForm()) {
     <div>
@@ -29,13 +29,13 @@
             @Html.LabelFor(m => m.KeepLoggedIn)
 
             <p>
-                <input type="submit" value="Log in" />
+                <input type="submit" value="@ViewRes.User.LoginStrings.Login" />
             </p>
         </fieldset>
     </div>
 
 }
 
-No account? @Html.ActionLink("Register here", "Create") . <br />
+@ViewRes.User.LoginStrings.NoAccount @Html.ActionLink(ViewRes.User.LoginStrings.RegisterHere, "Create") . <br />
 
-Forgot password? @Html.ActionLink("Reset it here", "ForgotPassword") .
+@ViewRes.User.LoginStrings.ForgotPassword @Html.ActionLink(ViewRes.User.LoginStrings.ResetPass, "ForgotPassword") .

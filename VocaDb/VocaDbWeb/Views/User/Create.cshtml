@@ -3,10 +3,10 @@
 
 @model VocaDb.Web.Models.RegisterModel
 @{
-	ViewBag.Title = "Register";
+	ViewBag.Title = ViewRes.User.CreateStrings.Register;
 }
 
-@Helpers.ValidationSymmaryPanel("Registration was unsuccessful.")
+@Helpers.ValidationSymmaryPanel(ViewRes.User.CreateStrings.RegistrationUnsuccessful)
 
 @using (Html.BeginForm()) {
     <div>
@@ -45,7 +45,7 @@
             </div>
 
             <p>
-                <input type="submit" value="Register" />
+                <input type="submit" value="@ViewRes.User.CreateStrings.Register" />
             </p>
         </fieldset>
     </div>
