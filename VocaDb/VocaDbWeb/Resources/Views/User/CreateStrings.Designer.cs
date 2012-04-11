@@ -70,6 +70,15 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string DoRegister {
+            get {
+                return ResourceManager.GetString("DoRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email address (optional, but required for password resets).
         /// </summary>
         public static string Email {
@@ -84,6 +93,15 @@ namespace ViewRes.User {
         public static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required..
+        /// </summary>
+        public static string PasswordIsRequired {
+            get {
+                return ResourceManager.GetString("PasswordIsRequired", resourceCulture);
             }
         }
         
@@ -111,6 +129,15 @@ namespace ViewRes.User {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username is required..
+        /// </summary>
+        public static string UsernameIsRequired {
+            get {
+                return ResourceManager.GetString("UsernameIsRequired", resourceCulture);
             }
         }
         

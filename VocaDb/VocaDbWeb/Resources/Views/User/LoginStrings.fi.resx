@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DoLogin" xml:space="preserve">
+    <value>Kirjaudu sisään</value>
+  </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Unohditko salasanasi?</value>
   </data>
   <data name="KeepMeLoggedIn" xml:space="preserve">
-    <value>Muista kirjautumiseni tältä koneelta</value>
+    <value>Muista kirjautumiseni tältä koneelta.</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Sisäänkirjautuminen</value>
@@ -132,6 +135,9 @@
   <data name="Password" xml:space="preserve">
     <value>Salasana</value>
   </data>
+  <data name="PasswordIsRequired" xml:space="preserve">
+    <value>Salasana on pakollinen.</value>
+  </data>
   <data name="RegisterHere" xml:space="preserve">
     <value>Luo se täällä</value>
   </data>
@@ -139,9 +145,12 @@
     <value>Resetoi se täällä</value>
   </data>
   <data name="UnableToLogin" xml:space="preserve">
-    <value>Sisäänkirjautuminen ei onnistu.</value>
+    <value>Sisäänkirjautuminen ei onnistunut.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Käyttäjätunnus</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>Käyttäjätunnus on pakollinen.</value>
   </data>
 </root>
