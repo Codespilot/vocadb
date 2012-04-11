@@ -14,8 +14,8 @@
 <div id="tabs">
 
 	<ul>
-		<li><a href="#accountSettings">Account settings</a></li>
-		<li><a href="#myCollection">My collection</a></li>
+		<li><a href="#accountSettings">Settings</a></li>
+		<li><a href="@Url.Action("AlbumsForUserSettings", "User", new { id = Model.Id })" title="Collection"><span>My collection</span></a></li>
 		<li><a href="#connectivity">Connectivity</a></li>
 	</ul>
 
@@ -24,6 +24,7 @@
 			@Html.HiddenFor(m => m.Id)
 			<div>
 				<fieldset>
+					<legend>Account</legend>
 					<div class="editor-label">
 						@Html.LabelFor(m => m.Username)
 					</div>
@@ -39,7 +40,9 @@
 						@Html.TextBoxFor(m => m.Email)
 						@Html.ValidationMessageFor(m => m.Email)
 					</div>
-
+				</fieldset>
+				<fieldset>
+					<legend>Privacy</legend>
 					<div class="editor-label">
 						@Html.LabelFor(m => m.EmailOptions)
 					</div>
@@ -47,6 +50,13 @@
 						@Html.EmailOptionsDropDownListFor(m => m.EmailOptions)
 					</div>
 
+					<p>
+						@Html.CheckBoxFor(m => m.AnonymousActivity)
+						@Html.LabelFor(m => m.AnonymousActivity)
+					</p>
+				</fieldset>
+				<fieldset>
+					<legend>Language and interface</legend>
 					<div class="editor-label">
 						@Html.LabelFor(m => m.DefaultLanguageSelection)
 					</div>
@@ -67,12 +77,9 @@
 					<div class="editor-field">
 						@Html.DropDownListFor(m => m.PreferredVideoService, new SelectList(Model.AllVideoServices, Model.PreferredVideoService))
 					</div>
-
-					<p>
-						@Html.CheckBoxFor(m => m.AnonymousActivity)
-						@Html.LabelFor(m => m.AnonymousActivity)
-					</p>
-
+				</fieldset>
+				<fieldset>
+					<legend>Password</legend>
 					<div class="editor-label">
 						@Html.LabelFor(m => m.OldPass)
 						(required for changing password.)
@@ -99,29 +106,15 @@
  						@Html.ValidationMessageFor(m => m.NewPassAgain)
 				   </div>
 
-					<p>
-						<input type="submit" value="Save" />
-					</p>
 				</fieldset>
+				<p>
+					<input type="submit" value="Save" />
+				</p>
 			</div>
 		}
 	</div>
 
-	<div id="myCollection">
-
-		<table>
-			<tbody id="albumTableBody">
-				@foreach (var album in Model.AlbumLinks) {
-					Html.RenderPartial("AlbumForUserSettingsRow", album);
-				}
-			</tbody>
-		</table>
-		
-		<h4>Add album</h4>
-		@Helpers.EntrySearchBox("albumAdd", false)
-		<br />
-		<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
-			
+	<div id="Collection">			
 	</div>
 
 	<div id="connectivity">
