@@ -7,99 +7,55 @@
 
 function initPage(userId) {
 
-	$("#tabs").tabs();
+	$("#tabs").tabs({
+		load: function (event, ui) {
 
-	$(".collectionRating").jqxRating();
+			$("#tabs").tabs("url", ui.index, "");
 
-	$(".ratingVal").each(function() {
+			$(".collectionRating").jqxRating();
 
-		var val = $(this).val();
+			$(".ratingVal").each(function () {
 
-		$(this).parent().find(".collectionRating").jqxRating({ value: val });
+				var val = $(this).val();
 
-	});
-
-	$(".collectionRating").bind('change', function (event) {
-
-		var id = getId($(this).parent().parent());
-		var val = event.value;
-
-		$.post("../User/UpdateAlbumForUserRating", { albumForUserId: id, rating: val });
-
-	});
-
-	function acceptAlbumSelection(albumId, term) {
-
-		if (!isNullOrWhiteSpace(albumId)) {
-			$.post("../../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
-		}
-
-	}
-
-	var albumAddList = $("#albumAddList");
-	var albumAddName = $("input#albumAddName");
-	var albumAddBtn = $("#albumAddAcceptBtn");
-
-	initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson",
-		{
-			allowCreateNew: false,
-			acceptBtnElem: albumAddBtn,
-			acceptSelection: acceptAlbumSelection,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.ArtistString },
-			createTitle: function (item) { return item.AdditionalNames }
-		});
-
-	/*$("input#albumAddName").keyup(function () {
-
-		var findTerm = $(this).val();
-		var albumList = $("#albumAddList");
-
-		if (isNullOrWhiteSpace(findTerm)) {
-
-			$(albumList).empty();
-			return;
-
-		}
-
-		$.post("../Album/FindJson", { term: findTerm }, function (results) {
-
-			$(albumList).empty();
-
-			$(results.Items).each(function () {
-
-				addOption(albumList, this.Id, this.Name);
+				$(this).parent().find(".collectionRating").jqxRating({ value: val });
 
 			});
 
-		});
+			$(".collectionRating").bind('change', function (event) {
 
-	});
+				var id = getId($(this).parent().parent());
+				var val = event.value;
 
-	$("input#albumAddName").bind("paste", function (e) {
-		var elem = $(this);
-		setTimeout(function () {
-			$(elem).trigger("keyup");
-		}, 0);
-	});
+				$.post("../User/UpdateAlbumForUserRating", { albumForUserId: id, rating: val });
 
-	$("#albumAddBtn").click(function () {
+			});
 
-		var findTerm = $("input#albumAddName").val();
-		var albumList = $("#albumAddList");
+			function acceptAlbumSelection(albumId, term) {
 
-		if (isNullOrWhiteSpace(findTerm))
-			return;
+				if (!isNullOrWhiteSpace(albumId)) {
+					$.post("../../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
+				}
 
-		var albumId = $(albumList).val();
+			}
 
-		if (albumId == "") {
-			//$.post("../User/AddNewAlbum", { newAlbumName: findTerm }, albumAdded);
-		} else {
-			$.post("../User/AddExistingAlbum", { albumId: albumId }, albumAdded);
+			var albumAddList = $("#albumAddList");
+			var albumAddName = $("input#albumAddName");
+			var albumAddBtn = $("#albumAddAcceptBtn");
+
+			initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson", {
+				allowCreateNew: false,
+				acceptBtnElem: albumAddBtn,
+				acceptSelection: acceptAlbumSelection,
+				createOptionFirstRow: function (item) { return item.Name },
+				createOptionSecondRow: function (item) { return item.ArtistString },
+				createTitle: function (item) { return item.AdditionalNames }
+			});
+
+			$("select.albumMediaType").change(onChangeAlbumMediaType);
+
 		}
-
-	});*/
+	});
 
 	function albumAdded(row) {
 
@@ -124,7 +80,5 @@ function initPage(userId) {
 		return false;
 
 	});
-
-	$("select.albumMediaType").change(onChangeAlbumMediaType);
 
 }
