@@ -123,6 +123,9 @@
   <data name="BasicInfoTab" xml:space="preserve">
     <value>Perustiedot</value>
   </data>
+  <data name="ConfirmDeleteComment" xml:space="preserve">
+    <value>Haluatko varmasti poistaa tämän kommentin?</value>
+  </data>
   <data name="DiscussionTab" xml:space="preserve">
     <value>Keskustelu</value>
   </data>

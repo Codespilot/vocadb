@@ -117,28 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DraftIconTitle" xml:space="preserve">
+    <value>Tämä merkintä on luonnos.</value>
+  </data>
   <data name="DraftMessage" xml:space="preserve">
     <value>Tämä merkintä on luonnos. Voit auttaa muokkaamalla merkintää ja lisäämällä puuttuvat tiedot.</value>
   </data>
   <data name="SeeGuide" xml:space="preserve">
-    <value>guide</value>
+    <value>ohjeesta</value>
   </data>
   <data name="SeeGuidePost" xml:space="preserve">
-    <value>for more information.</value>
+    <value>.</value>
   </data>
   <data name="SeeGuidePre" xml:space="preserve">
-    <value>See the</value>
+    <value>Katso lisätietoja</value>
   </data>
   <data name="StatusDescriptionApproved" xml:space="preserve">
-    <value>Approved entries have been inspected by a trusted user. Editing of approved entries is limited.</value>
+    <value>Hyväksytyt merkinnät ovat luotetun käyttäjän tarkastamia. Hyväksyttyjen merkintöjen muokkaaminen on mahdollista vain rajoitetusti.</value>
   </data>
   <data name="StatusDescriptionDraft" xml:space="preserve">
-    <value>Draft entries are missing some required information.</value>
+    <value>Luonnos-tilassa olevista merkinnöistä puuttuu jotain tietoja.</value>
   </data>
   <data name="StatusDescriptionFinished" xml:space="preserve">
-    <value>Finished entries contain all the required information but haven't been approved yet.</value>
+    <value>Valmis-tilassa olevat merkinnät sisältävät kaikki vaaditut tiedot, mutta niitä ei vielä ole hyväksytty.</value>
   </data>
   <data name="StatusDescriptionLocked" xml:space="preserve">
-    <value>Locked entries can only be edited by staff members.</value>
+    <value>Lukitut merkinnät ovat vain ylläpidon muokattavissa.</value>
   </data>
 </root>

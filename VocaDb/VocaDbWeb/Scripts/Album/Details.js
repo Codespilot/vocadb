@@ -55,7 +55,7 @@ function saveTagSelections() {
 
 }
 
-function tabLoaded(albumId, event, ui) {
+function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 	$("#tabs").tabs("url", 1, "");
 
@@ -82,7 +82,7 @@ function tabLoaded(albumId, event, ui) {
 
 	$("a.deleteComment").live("click", function () {
 
-		if (!confirm("Are you sure you want to delete this comment?"))
+		if (!confirm(confirmDeleteStr))
 			return false;
 
 		var btn = this;
@@ -100,7 +100,7 @@ function tabLoaded(albumId, event, ui) {
 
 }
 
-function initPage(albumId, collectionRating) {
+function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
 
 	$("#addAlbumLink").button({ icons: { primary: 'ui-icon-star'} });
 	$("#updateAlbumLink").button({ icons: { primary: 'ui-icon-wrench'} });
@@ -119,15 +119,15 @@ function initPage(albumId, collectionRating) {
 		$('#collectionRating').jqxRating({ value: collectionRating });
 	}
 
-	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections } });
+	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: saveStr, click: saveTagSelections }] });
 
 	$("#tabs").tabs({
 		load: function(event, ui) {
-			tabLoaded(albumId, event, ui);
+			tabLoaded(albumId, event, ui, confirmDeleteStr);
 		}
 	});
 
-	$("#editCollectionDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: { "Save": function () {
+	$("#editCollectionDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: [{ text: saveStr, click: function () {
 
 		$("#editCollectionDialog").dialog("close");
 
@@ -145,7 +145,7 @@ function initPage(albumId, collectionRating) {
 			$("#updateAlbumLink").show();
 		}
 
-	}}});
+	}}]});
 
 	var addAlbumLinkPos;
 	if ($("#addAlbumLink").is(":visible"))

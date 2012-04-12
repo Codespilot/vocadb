@@ -99,7 +99,7 @@
 
 @helper DraftIcon(VocaDb.Model.Domain.EntryStatus status) {
 	if (status == VocaDb.Model.Domain.EntryStatus.Draft) {
-		<img src="@Url.Content("~/Content/draft.png")" title="This entry is a draft." alt="draft" />
+		<img src="@Url.Content("~/Content/draft.png")" title="@HelperRes.HelperStrings.DraftIconTitle" alt="draft" />
 	}
 }
 

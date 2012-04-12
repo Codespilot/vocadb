@@ -61,6 +61,15 @@ namespace HelperRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This entry is a draft..
+        /// </summary>
+        public static string DraftIconTitle {
+            get {
+                return ResourceManager.GetString("DraftIconTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This entry is a draft. You can help by editing the entry and adding the missing information..
         /// </summary>
         public static string DraftMessage {

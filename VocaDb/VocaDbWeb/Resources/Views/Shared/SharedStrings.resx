@@ -132,6 +132,9 @@
   <data name="Artists" xml:space="preserve">
     <value>Artists</value>
   </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
