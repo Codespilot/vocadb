@@ -79,6 +79,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this comment?.
+        /// </summary>
+        public static string ConfirmDeleteComment {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Discussion.
         /// </summary>
         public static string DiscussionTab {

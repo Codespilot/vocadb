@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models.Tag;
+using VocaDb.Web.Resources.Controllers;
 
 namespace VocaDb.Web.Controllers
 {
@@ -36,12 +37,12 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Create(string name) {
 
 			if (string.IsNullOrWhiteSpace(name))
-				return Json(new GenericResponse<string>(false, "Tag name cannot be empty"));
+				return Json(new GenericResponse<string>(false, TagControllerStrings.TagNameError));
 
 			name = name.Trim();
 
 			if (!Tag.TagNameRegex.IsMatch(name))
-				return Json(new GenericResponse<string>(false, "Tag name may contain only word characters"));
+				return Json(new GenericResponse<string>(false, TagControllerStrings.TagNameError));
 
 			var view = RenderPartialViewToString("TagSelection", new TagSelectionContract(name, true));
 

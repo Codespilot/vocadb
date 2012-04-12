@@ -113,7 +113,7 @@
 			<tr>
 				<td>@ViewRes.SharedStrings.Type</td>
 				<td>
-					@Model.DiscType<br />
+					@Translate.DiscTypeName(Model.DiscType)<br />
 				</td>	
 			</tr>
 
@@ -245,7 +245,7 @@
 	</div>
 </div>
 
-<div id="editTagsPopup" style="display:none;" title="Tags">
+<div id="editTagsPopup" style="display:none;" title="@ViewRes.SharedStrings.Tags">
 
 	<input type="hidden" id="editTagsAlbumId" />
 
@@ -266,7 +266,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id, @Model.CollectionRating);
+		initPage(@Model.Id, @Model.CollectionRating, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment");
 	});
 
 </script>

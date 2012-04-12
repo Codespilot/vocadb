@@ -117,31 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DraftIconTitle" xml:space="preserve">
-    <value>This entry is a draft.</value>
+  <data name="AddComment" xml:space="preserve">
+    <value>Add comment</value>
   </data>
-  <data name="DraftMessage" xml:space="preserve">
-    <value>This entry is a draft. You can help by editing the entry and adding the missing information.</value>
-  </data>
-  <data name="SeeGuide" xml:space="preserve">
-    <value>guide</value>
-  </data>
-  <data name="SeeGuidePost" xml:space="preserve">
-    <value>for more information.</value>
-  </data>
-  <data name="SeeGuidePre" xml:space="preserve">
-    <value>See the</value>
-  </data>
-  <data name="StatusDescriptionApproved" xml:space="preserve">
-    <value>Approved entries have been inspected by a trusted user. Editing of approved entries is limited.</value>
-  </data>
-  <data name="StatusDescriptionDraft" xml:space="preserve">
-    <value>Draft entries are missing some required information.</value>
-  </data>
-  <data name="StatusDescriptionFinished" xml:space="preserve">
-    <value>Finished entries contain all the required information but haven't been approved yet.</value>
-  </data>
-  <data name="StatusDescriptionLocked" xml:space="preserve">
-    <value>Locked entries can only be edited by staff members.</value>
+  <data name="NewComment" xml:space="preserve">
+    <value>New comment</value>
   </data>
 </root>
