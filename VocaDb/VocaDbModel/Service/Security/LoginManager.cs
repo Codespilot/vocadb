@@ -42,20 +42,6 @@ namespace VocaDb.Model.Service.Security {
 
 			HttpContext.Current.User = new VocaDbPrincipal(HttpContext.Current.User.Identity, user);
 
-			if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Params["culture"])) {
-
-				try {
-					var culture = CultureInfo.GetCultureInfo(HttpContext.Current.Request.Params["culture"]);
-					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
-				} catch (ArgumentException) { }
-
-			} else if (!string.IsNullOrEmpty(user.Language)) {
-				try {
-					var culture = CultureInfo.GetCultureInfo(user.Language);
-					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
-				} catch (ArgumentException) { }
-			}
-
 		}
 
 		protected IPrincipal User {
@@ -120,6 +106,24 @@ namespace VocaDb.Model.Service.Security {
 				return LoggedUser.GroupId;
 
 			}
+		}
+
+		public void InitLanguage() {
+
+			if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Params["culture"])) {
+
+				try {
+					var culture = CultureInfo.GetCultureInfo(HttpContext.Current.Request.Params["culture"]);
+					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
+				} catch (ArgumentException) { }
+
+			} else if (IsLoggedIn && !string.IsNullOrEmpty(user.Language)) {
+				try {
+					var culture = CultureInfo.GetCultureInfo(user.Language);
+					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
+				} catch (ArgumentException) { }
+			}
+
 		}
 
 		public void VerifyLogin() {
