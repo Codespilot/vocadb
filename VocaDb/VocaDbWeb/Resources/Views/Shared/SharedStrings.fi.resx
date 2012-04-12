@@ -120,6 +120,9 @@
   <data name="Actions" xml:space="preserve">
     <value>Toiminnot</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Lisää</value>
+  </data>
   <data name="Albums" xml:space="preserve">
     <value>Albumit</value>
   </data>
@@ -128,6 +131,9 @@
   </data>
   <data name="Artists" xml:space="preserve">
     <value>Artistit</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Kuvaus</value>
   </data>
   <data name="Drafts" xml:space="preserve">
     <value>Luonnokset</value>
@@ -164,5 +170,8 @@
   </data>
   <data name="Type" xml:space="preserve">
     <value>Tyyppi</value>
+  </data>
+  <data name="Unsorted" xml:space="preserve">
+    <value>Lajittelemattomat</value>
   </data>
 </root>

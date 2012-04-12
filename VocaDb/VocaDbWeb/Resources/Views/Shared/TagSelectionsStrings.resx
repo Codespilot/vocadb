@@ -117,28 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Circle" xml:space="preserve">
-    <value>Doujin-piiri</value>
+  <data name="AddTag" xml:space="preserve">
+    <value>Add tag</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Levy-yhtiö</value>
-  </data>
-  <data name="OtherGroup" xml:space="preserve">
-    <value>Muu ryhmä</value>
-  </data>
-  <data name="OtherVocalist" xml:space="preserve">
-    <value>Muu laulaja</value>
-  </data>
-  <data name="Producer" xml:space="preserve">
-    <value>Tuottaja</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Ei määritelty</value>
-  </data>
-  <data name="UTAU" xml:space="preserve">
-    <value>UTAUloidi</value>
-  </data>
-  <data name="Vocaloid" xml:space="preserve">
-    <value>Vocaloidi</value>
+  <data name="Info" xml:space="preserve">
+    <value>Tags may contain only alphanumeric characters and underscores.</value>
   </data>
 </root>

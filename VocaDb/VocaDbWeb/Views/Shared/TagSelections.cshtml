@@ -2,7 +2,7 @@
 
 <div class="trackProperties">
 
-	<p>Tags may contain only alphanumeric characters and underscores.</p>
+	<p>@ViewRes.TagSelectionsStrings.Info</p>
 
 	<div id="tagSelections">
 	@foreach (var tagSelection in Model) {
@@ -11,9 +11,9 @@
 	</div>
 
 	<p>
-		Add tag:
+		@ViewRes.TagSelectionsStrings.AddTag:
 		<input type="text" id="newTagName" maxlength="30" />
-		<input type="button" id="addNewTag" value="Add" />
+		<input type="button" id="addNewTag" value="@ViewRes.SharedStrings.Add" />
 	</p>
 
 </div>
