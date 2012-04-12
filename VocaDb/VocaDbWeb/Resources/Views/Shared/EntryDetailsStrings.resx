@@ -117,28 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Circle" xml:space="preserve">
-    <value>Doujin-piiri</value>
+  <data name="AdditionDate" xml:space="preserve">
+    <value>Addition date</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Levy-yhtiö</value>
+  <data name="BasicInfoTab" xml:space="preserve">
+    <value>Basic info</value>
   </data>
-  <data name="OtherGroup" xml:space="preserve">
-    <value>Muu ryhmä</value>
+  <data name="DiscussionTab" xml:space="preserve">
+    <value>Discussion</value>
   </data>
-  <data name="OtherVocalist" xml:space="preserve">
-    <value>Muu laulaja</value>
+  <data name="EditTags" xml:space="preserve">
+    <value>Edit tags</value>
   </data>
-  <data name="Producer" xml:space="preserve">
-    <value>Tuottaja</value>
+  <data name="ExternalLinks" xml:space="preserve">
+    <value>External links</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Ei määritelty</value>
+  <data name="LatestComments" xml:space="preserve">
+    <value>Latest comments</value>
   </data>
-  <data name="UTAU" xml:space="preserve">
-    <value>UTAUloidi</value>
+  <data name="NoComments" xml:space="preserve">
+    <value>Nothing yet!</value>
   </data>
-  <data name="Vocaloid" xml:space="preserve">
-    <value>Vocaloidi</value>
+  <data name="ViewAllComments" xml:space="preserve">
+    <value>View all comments</value>
+  </data>
+  <data name="ViewModifications" xml:space="preserve">
+    <value>View modifications</value>
   </data>
 </root>

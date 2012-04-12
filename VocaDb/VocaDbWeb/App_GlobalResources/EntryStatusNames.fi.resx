@@ -117,28 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Circle" xml:space="preserve">
-    <value>Doujin-piiri</value>
+  <data name="Approved" xml:space="preserve">
+    <value>Hyväksytty</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Levy-yhtiö</value>
+  <data name="Draft" xml:space="preserve">
+    <value>Luonnos</value>
   </data>
-  <data name="OtherGroup" xml:space="preserve">
-    <value>Muu ryhmä</value>
+  <data name="Finished" xml:space="preserve">
+    <value>Valmis</value>
   </data>
-  <data name="OtherVocalist" xml:space="preserve">
-    <value>Muu laulaja</value>
-  </data>
-  <data name="Producer" xml:space="preserve">
-    <value>Tuottaja</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Ei määritelty</value>
-  </data>
-  <data name="UTAU" xml:space="preserve">
-    <value>UTAUloidi</value>
-  </data>
-  <data name="Vocaloid" xml:space="preserve">
-    <value>Vocaloidi</value>
+  <data name="Locked" xml:space="preserve">
+    <value>Lukittu</value>
   </data>
 </root>

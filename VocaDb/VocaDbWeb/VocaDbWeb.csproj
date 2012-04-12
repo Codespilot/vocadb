@@ -100,6 +100,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumCollectionStatusNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\AlbumCollectionStatusNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumCollectionStatusNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\AlbumEditableFieldNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -109,6 +114,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumMediaTypeNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\AlbumMediaTypeNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumMediaTypeNames.fi.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\ArtistArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -129,6 +139,11 @@
       <DependentUpon>ContentLanguageSelectionNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\EntryStatusNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryStatusNames.fi.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\EntryStatusNames.ja.designer.cs">
       <AutoGen>True</AutoGen>
@@ -287,6 +302,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PagedListStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Album\DetailsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DetailsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Album\IndexStrings.Designer.cs">
       <DependentUpon>IndexStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -307,6 +327,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Shared\EntryDetailsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryDetailsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Shared\EntryIndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -321,6 +346,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SharedStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Shared\TagSelectionsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagSelectionsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Shared\_LayoutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1055,6 +1085,18 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongListFeaturedCategoryNames.fi.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\EntryStatusNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryStatusNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlbumMediaTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumMediaTypeNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlbumCollectionStatusNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumCollectionStatusNames.fi.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1065,6 +1107,12 @@
     <EmbeddedResource Include="Resources\Other\PagedListStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PagedListStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.resx">
@@ -1092,6 +1140,12 @@
       <CustomToolNamespace>ViewRes.Home</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntryDetailsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1112,6 +1166,12 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\TagSelectionsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\TagSelectionsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TagSelectionsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.resx">

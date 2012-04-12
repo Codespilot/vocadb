@@ -22,10 +22,11 @@ namespace VocaDb.Web.Models.Tag {
 		public string[] AllCategoryNames { get; set; }
 
 		[Display(Name = "Category")]
+		[StringLength(30)]
 		public string CategoryName { get; set; }
 
 		[Display(Name = "Description")]
-		[StringLength(200)]
+		[StringLength(400)]
 		public string Description { get; set; }
 
 		public bool IsEmpty { get; set; }

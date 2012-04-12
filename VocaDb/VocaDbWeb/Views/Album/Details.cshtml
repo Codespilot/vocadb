@@ -5,23 +5,23 @@
 @model AlbumDetails
 		   
 @{
-	ViewBag.Title = "Album details - " + Model.Name;
+	ViewBag.Title = ViewRes.Album.DetailsStrings.AlbumDetails + " - " + Model.Name;
 	ViewBag.Subtitle = Model.ArtistString;	
-	ViewBag.Parents = new[] { Html.ActionLink("Albums", "Index") };
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
 }
 
 @section Toolbar {
 @if (Login.Manager.IsLoggedIn) {
-<a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">Add to my collection</a>
-<a href="#" id="updateAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">Update in my collection</a>
+<a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">@ViewRes.Album.DetailsStrings.AddToCollection</a>
+<a href="#" id="updateAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">@ViewRes.Album.DetailsStrings.UpdateCollection</a>
 }
 	
 @if (Model.CanEdit) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
 }
 
-@Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
-@Html.ActionLink("Download track info as CSV", "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
+@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+@Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
 
 @Helpers.EntryStatusMessage(Model.Status)
 }
@@ -37,8 +37,8 @@
 <div id="tabs">
 
 	<ul>
-		<li><a href="#basicInfoTab">Basic info</a></li>
-		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">Discussion (@Model.CommentCount)</a></li>
+		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
+		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -47,28 +47,28 @@
 			<tr>
 				<td rowspan="14">
 					<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
-						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
 					</a><br />
 					@if (Model.RatingCount > 0) {
 						@Helpers.Stars((int)Model.RatingAverage, 5)<br />
-						<text>(</text>@Model.RatingCount <text>ratings)</text>
+						<text>(</text>@Model.RatingCount <text>@ViewRes.Album.DetailsStrings.Ratings)</text>
 					}
 				</td>
-				<td>Name</td>
+				<td>@ViewRes.SharedStrings.Name</td>
 				<td>
 					@Model.Name<br />
 					<span class="extraInfo">@Model.AdditionalNames</span>
 				</td>
 			</tr>
 			<tr>
-				<td>Vocalists</td>
+				<td>@ViewRes.Album.DetailsStrings.Vocalists</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.Vocalists)
 				</td>
 			</tr>
 
 			<tr>
-				<td>Producers</td>
+				<td>@ViewRes.Album.DetailsStrings.Producers</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.Producers)
 				</td>
@@ -76,7 +76,7 @@
 
 			@if (Model.Circles.Any()) {
 			<tr>
-				<td>Circle</td>
+				<td>@ViewRes.Album.DetailsStrings.Circle</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.Circles)
 				</td>
@@ -85,7 +85,7 @@
 
 			@if (Model.Labels.Any()) {
 			<tr>
-				<td>Label(s)</td>
+				<td>@ViewRes.Album.DetailsStrings.Labels</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.Labels)
 				</td>
@@ -94,7 +94,7 @@
 
 			@if (Model.OtherArtists.Any()) {
 			<tr>
-				<td>Other artists</td>
+				<td>@ViewRes.Album.DetailsStrings.OtherArtists</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.OtherArtists)
 				</td>
@@ -103,7 +103,7 @@
 
 			@if (!string.IsNullOrEmpty(Model.Description)) {
 			<tr>
-				<td>Description</td>
+				<td>@ViewRes.SharedStrings.Description</td>
 				<td>
 					@Helpers.ConvertNewlinesToBreaks(Model.Description)
 				</td>	
@@ -111,27 +111,27 @@
    }
 
 			<tr>
-				<td>Type</td>
+				<td>@ViewRes.SharedStrings.Type</td>
 				<td>
 					@Model.DiscType<br />
 				</td>	
 			</tr>
 
 			<tr>
-				<td>Tags</td>
+				<td>@ViewRes.SharedStrings.Tags</td>
 				<td>
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
 					@if (Login.Manager.IsLoggedIn) {
-						<a href="#" id="editTags">Edit tags</a>
+						<a href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 	 }				
 				</td>
 			</tr>
 
 			@if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
 			<tr>
-				<td>Release date</td>
+				<td>@ViewRes.Album.DetailsStrings.ReleaseDate</td>
 				<td>
 					@Model.ReleaseDate.Formatted<br />
 				</td>	
@@ -140,7 +140,7 @@
 
 		@if (!string.IsNullOrEmpty(Model.CatNum)) {
 			<tr>
-				<td>Catalog number</td>
+				<td>@ViewRes.Album.DetailsStrings.CatalogNumber</td>
 				<td>
 					@Model.CatNum<br />
 				</td>	
@@ -149,7 +149,7 @@
 
 		@if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
 			<tr>
-				<td>Release event</td>
+				<td>@ViewRes.Album.DetailsStrings.ReleaseEvent</td>
 				<td>
 					@Html.ActionLink(Model.ReleaseEvent, "Find", "Event", new { query = Model.ReleaseEvent }, null)<br />
 				</td>	
@@ -158,7 +158,7 @@
 
 		@if (Model.PVs.Any()) {
 		<tr>
-			<td>Ads / crossfades</td>
+			<td>@ViewRes.Album.DetailsStrings.PVs</td>
 			<td>
 				@foreach (var pv in Model.PVs) {
 					<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
@@ -169,7 +169,7 @@
 
 		@if (Model.WebLinks.Any()) {
 			<tr>
-				<td>External links</td>
+				<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
 				<td>
 					@foreach (var link in Model.WebLinks) {
 						<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
@@ -179,7 +179,7 @@
   }
   
 			<tr>
-				<td>Addition date</td>
+				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
 				<td>
 					@Model.CreateDate
 				</td>	
@@ -196,7 +196,7 @@
 
 				<td>
 			
-					<h3>Tracklist</h3>
+					<h3>@ViewRes.Album.DetailsStrings.Tracklist</h3>
 					<div class="tracklist">
 					<ul>
 						@foreach (var song in Model.Songs) {
@@ -215,13 +215,13 @@
 					</div>
 				
 					@if (!Model.Songs.Any()) {
-						<p>No tracklist provided. Any registered user is able to add one.</p>
+						<p>@ViewRes.Album.DetailsStrings.NoTracklist</p>
 					}
 				</td>
 			</tr>
 		</table>
 
-		<h3>Latest comments</h3>
+		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
 		
 		@if (Model.LatestComments.Any()) {
 	  
@@ -231,12 +231,12 @@
 	  
 		} else {
 	  
-			<p>Nothing yet!</p>
+			<p>@ViewRes.EntryDetailsStrings.NoComments</p>
 	  
 		}
 		
 		<p>
-			<a href="#" id="viewCommentsLink">View all comments</a>
+			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>
 		</p>
 
 	</div>
@@ -253,10 +253,10 @@
 
 </div>
 
-<div id="editCollectionDialog" style="display:none" title="Edit album in collection">
-	<p>Status: @Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect" }, Model.AlbumPurchaseStatus)</p>
-	<p>Media type: @Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect" }, Model.AlbumMediaType)</p>
-	<div>Rating: <div id="collectionRating"></div></div>
+<div id="editCollectionDialog" style="display:none" title="@ViewRes.Album.DetailsStrings.EditAlbumInCollection">
+	<p>@ViewRes.Album.DetailsStrings.Status: @Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect" }, Model.AlbumPurchaseStatus)</p>
+	<p>@ViewRes.Album.DetailsStrings.MediaType: @Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect" }, Model.AlbumMediaType)</p>
+	<div>@ViewRes.Album.DetailsStrings.MyRating: <div id="collectionRating"></div></div>
 </div>
 
 <link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />

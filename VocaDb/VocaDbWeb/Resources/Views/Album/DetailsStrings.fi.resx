@@ -117,28 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddToCollection" xml:space="preserve">
+    <value>Lisää kokoelmaani</value>
+  </data>
+  <data name="AlbumDetails" xml:space="preserve">
+    <value>Albumin tiedot</value>
+  </data>
+  <data name="CatalogNumber" xml:space="preserve">
+    <value>Tuotenumero</value>
+  </data>
   <data name="Circle" xml:space="preserve">
     <value>Doujin-piiri</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Levy-yhtiö</value>
+  <data name="CoverPicture" xml:space="preserve">
+    <value>Kansikuva</value>
   </data>
-  <data name="OtherGroup" xml:space="preserve">
-    <value>Muu ryhmä</value>
+  <data name="DownloadTrackList" xml:space="preserve">
+    <value>Lataa kappaletiedot CSV-tiedostona</value>
   </data>
-  <data name="OtherVocalist" xml:space="preserve">
-    <value>Muu laulaja</value>
+  <data name="EditAlbumInCollection" xml:space="preserve">
+    <value>Muokkaa kokoelmassa</value>
   </data>
-  <data name="Producer" xml:space="preserve">
-    <value>Tuottaja</value>
+  <data name="Labels" xml:space="preserve">
+    <value>Levy-yhtiö(t)</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Ei määritelty</value>
+  <data name="MediaType" xml:space="preserve">
+    <value>Median tyyppi</value>
   </data>
-  <data name="UTAU" xml:space="preserve">
-    <value>UTAUloidi</value>
+  <data name="MyRating" xml:space="preserve">
+    <value>Arvostelu</value>
   </data>
-  <data name="Vocaloid" xml:space="preserve">
-    <value>Vocaloidi</value>
+  <data name="NoTracklist" xml:space="preserve">
+    <value>Ei kappalelistaa annettu. Kuka tahansa rekisteröitynyt käyttäjä voi täyttää listan.</value>
+  </data>
+  <data name="OtherArtists" xml:space="preserve">
+    <value>Muut artistit</value>
+  </data>
+  <data name="Producers" xml:space="preserve">
+    <value>Tuottajat</value>
+  </data>
+  <data name="PVs" xml:space="preserve">
+    <value>Mainokset / koosteet</value>
+  </data>
+  <data name="Ratings" xml:space="preserve">
+    <value>arvostelua</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Julkaisupäivä</value>
+  </data>
+  <data name="ReleaseEvent" xml:space="preserve">
+    <value>Julkaisutapahtuma</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Tila</value>
+  </data>
+  <data name="Tracklist" xml:space="preserve">
+    <value>Kappalelista</value>
+  </data>
+  <data name="UpdateCollection" xml:space="preserve">
+    <value>Päivitä kokoelmassani</value>
+  </data>
+  <data name="Vocalists" xml:space="preserve">
+    <value>Laulajat</value>
   </data>
 </root>

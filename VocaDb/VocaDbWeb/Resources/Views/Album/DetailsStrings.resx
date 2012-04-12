@@ -117,28 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddToCollection" xml:space="preserve">
+    <value>Add to my collection</value>
+  </data>
+  <data name="AlbumDetails" xml:space="preserve">
+    <value>Album details</value>
+  </data>
+  <data name="CatalogNumber" xml:space="preserve">
+    <value>Catalog number</value>
+  </data>
   <data name="Circle" xml:space="preserve">
-    <value>Doujin-piiri</value>
+    <value>Circle</value>
   </data>
-  <data name="Label" xml:space="preserve">
-    <value>Levy-yhtiö</value>
+  <data name="CoverPicture" xml:space="preserve">
+    <value>Cover picture</value>
   </data>
-  <data name="OtherGroup" xml:space="preserve">
-    <value>Muu ryhmä</value>
+  <data name="DownloadTrackList" xml:space="preserve">
+    <value>Download track info as CSV</value>
   </data>
-  <data name="OtherVocalist" xml:space="preserve">
-    <value>Muu laulaja</value>
+  <data name="EditAlbumInCollection" xml:space="preserve">
+    <value>Edit album in collection</value>
   </data>
-  <data name="Producer" xml:space="preserve">
-    <value>Tuottaja</value>
+  <data name="Labels" xml:space="preserve">
+    <value>Label(s)</value>
   </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Ei määritelty</value>
+  <data name="MediaType" xml:space="preserve">
+    <value>Media type</value>
   </data>
-  <data name="UTAU" xml:space="preserve">
-    <value>UTAUloidi</value>
+  <data name="MyRating" xml:space="preserve">
+    <value>Rating</value>
   </data>
-  <data name="Vocaloid" xml:space="preserve">
-    <value>Vocaloidi</value>
+  <data name="NoTracklist" xml:space="preserve">
+    <value>No tracklist provided. Any registered user is able to add one.</value>
+  </data>
+  <data name="OtherArtists" xml:space="preserve">
+    <value>Other artists</value>
+  </data>
+  <data name="Producers" xml:space="preserve">
+    <value>Producers</value>
+  </data>
+  <data name="PVs" xml:space="preserve">
+    <value>Ads / crossfades</value>
+  </data>
+  <data name="Ratings" xml:space="preserve">
+    <value>ratings</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Release date</value>
+  </data>
+  <data name="ReleaseEvent" xml:space="preserve">
+    <value>Release event</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Tracklist" xml:space="preserve">
+    <value>Tracklist</value>
+  </data>
+  <data name="UpdateCollection" xml:space="preserve">
+    <value>Update in my collection</value>
+  </data>
+  <data name="Vocalists" xml:space="preserve">
+    <value>Vocalists</value>
   </data>
 </root>
