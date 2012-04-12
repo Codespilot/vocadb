@@ -297,6 +297,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ActivityFeedHelperStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Helpers\HelperStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HelperStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Other\PagedListStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1101,6 +1106,12 @@
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ActivityFeedHelperStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>HelperRes</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Helpers\HelperStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Helpers\HelperStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>HelperStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>HelperRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Other\PagedListStrings.fi.resx" />
