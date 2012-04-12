@@ -68,6 +68,9 @@ namespace VocaDb.Web {
 						LoginManager.SetLoggedUser(user);
 					}
 				}
+
+				LoginManager.InitLanguage();
+
 			} catch (Exception x) {
 				log.Fatal("Error during authentication", x);
 			}
