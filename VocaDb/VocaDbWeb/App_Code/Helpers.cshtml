@@ -106,8 +106,8 @@
 @helper DraftMessage(string section) {
 	using (Html.BeginHighlightPanel()) {
 		@Helpers.NotificationIcon()
-		<span>@Resources.CommonMessages.Draft</span>
-		<span>See the <a href="@(Url.Action("Index", "Help") + "?guidelines+" + section)">guide</a> for more information.</span>
+		<span>@HelperRes.HelperStrings.DraftMessage</span>
+		<span>@HelperRes.HelperStrings.SeeGuidePre <a href="@(Url.Action("Index", "Help") + "?guidelines+" + section)">@HelperRes.HelperStrings.SeeGuide</a> @HelperRes.HelperStrings.SeeGuidePost</span>
 	}
 }
 
@@ -170,30 +170,30 @@
 @helper EntryStatusMessage(EntryStatus status) {
 	switch (status) {
 		case EntryStatus.Draft:
-			<span title="Draft entries are missing some required information.">
+			<span title="@HelperRes.HelperStrings.StatusDescriptionDraft">
 				<span class="icon draftIcon"></span>
-				Draft
+				@Translate.EntryStatusNames[EntryStatus.Draft]
 			</span>
 			break;
 			
 		case EntryStatus.Finished:
-			<span title="Finished entries contain all the required information but haven't been approved yet.">
+			<span title="@HelperRes.HelperStrings.StatusDescriptionFinished">
 				<span class="icon asteriskIcon"></span>
-				Finished
+				@Translate.EntryStatusNames[EntryStatus.Finished]
 			</span>
 			break;
 
 		case EntryStatus.Approved:
-			<span title="Approved entries have been inspected by the trusted users. Editing of approved entries is limited.">
+			<span title="@HelperRes.HelperStrings.StatusDescriptionApproved">
 				<span class="icon tickIcon"></span>
-				Approved
+				@Translate.EntryStatusNames[EntryStatus.Approved]
 			</span>
 			break;
 			
 		case EntryStatus.Locked:
-			<span title="Locked entries can only be edited by staff members.">
+			<span title="@HelperRes.HelperStrings.StatusDescriptionLocked">
 				<span class="icon lockIcon"></span>
-				Locked
+				@Translate.EntryStatusNames[EntryStatus.Locked]
 			</span>
 			break;
 
