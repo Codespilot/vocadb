@@ -117,13 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlbumCount" xml:space="preserve">
-    <value>albumi(a)</value>
+  <data name="AddToCustomList" xml:space="preserve">
+    <value>Lisää kappalelistaan</value>
   </data>
-  <data name="FavoritedTimes" xml:space="preserve">
-    <value>kertaa</value>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Lisää suosikeihin</value>
   </data>
-  <data name="SongCount" xml:space="preserve">
-    <value>kappale(tta)</value>
+  <data name="AddToList" xml:space="preserve">
+    <value>Lisää listaan</value>
+  </data>
+  <data name="AlternateVersions" xml:space="preserve">
+    <value>Muut versiot</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Sanoitukset</value>
+  </data>
+  <data name="LyricsFrom" xml:space="preserve">
+    <value>lähde: </value>
+  </data>
+  <data name="LyricsLC" xml:space="preserve">
+    <value>sanoitukset</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Huomautuksia</value>
+  </data>
+  <data name="OriginalVersion" xml:space="preserve">
+    <value>Alkuperäinen versio</value>
+  </data>
+  <data name="OtherArtists" xml:space="preserve">
+    <value>Muut artistit</value>
+  </data>
+  <data name="Producers" xml:space="preserve">
+    <value>Tuottajat</value>
+  </data>
+  <data name="RemoveFromFavorites" xml:space="preserve">
+    <value>Poista suosikeista</value>
+  </data>
+  <data name="SongDetails" xml:space="preserve">
+    <value>Kappaleen tiedot</value>
+  </data>
+  <data name="Vocalists" xml:space="preserve">
+    <value>Laulajat</value>
   </data>
 </root>

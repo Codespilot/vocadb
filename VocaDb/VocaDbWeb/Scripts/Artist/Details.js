@@ -55,7 +55,7 @@ function saveTagSelections() {
 
 }
 
-function initPage(artistId) {
+function initPage(artistId, saveStr) {
 
 	$("#addToUserLink").button({ icons: { primary: 'ui-icon-heart'} });
 	$("#removeFromUserLink").button({ icons: { primary: 'ui-icon-close'} });
@@ -67,7 +67,7 @@ function initPage(artistId) {
 		return false;
 	});
 
-	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });
+	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { text: saveStr, click: saveTagSelections} });
 
 	$("#tabs").tabs({
 		load: function (event, ui) {

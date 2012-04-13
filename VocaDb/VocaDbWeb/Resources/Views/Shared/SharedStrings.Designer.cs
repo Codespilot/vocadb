@@ -178,6 +178,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PVs.
+        /// </summary>
+        public static string PVs {
+            get {
+                return ResourceManager.GetString("PVs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

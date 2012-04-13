@@ -117,13 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlbumCount" xml:space="preserve">
-    <value>albumi(a)</value>
+  <data name="AllAlbums" xml:space="preserve">
+    <value>All albums</value>
   </data>
-  <data name="FavoritedTimes" xml:space="preserve">
-    <value>kertaa</value>
+  <data name="AllSongs" xml:space="preserve">
+    <value>All songs</value>
   </data>
-  <data name="SongCount" xml:space="preserve">
-    <value>kappale(tta)</value>
+  <data name="ArtistDetails" xml:space="preserve">
+    <value>Artist details</value>
+  </data>
+  <data name="ArtistPicture" xml:space="preserve">
+    <value>Artist picture</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Circles and labels</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Members</value>
+  </data>
+  <data name="RecentAlbums" xml:space="preserve">
+    <value>Recent albums</value>
+  </data>
+  <data name="RecentSongs" xml:space="preserve">
+    <value>Recent songs</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Unfollow</value>
   </data>
 </root>
