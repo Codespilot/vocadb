@@ -4,23 +4,23 @@
 @using VocaDb.Web.Helpers;
 @model SongDetails
 @{
-	ViewBag.Title = "Song details - " + Model.Name;
+	ViewBag.Title = ViewRes.Song.DetailsStrings.SongDetails + " - " + Model.Name;
 	ViewBag.Subtitle = Model.ArtistString;
-	ViewBag.Parents = new[] { Html.ActionLink("Songs", "Index") };
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
 }
 
 @section Toolbar {
 @if (Login.Manager.IsLoggedIn) {
-	<a href="#" id="addFavoriteLink" style="@(Model.IsFavorited ? "display: none;" : "")">Add to favorites</a>
-	<a href="#" id="removeFavoriteLink" style="@(Model.IsFavorited ? "" : "display: none;")">Remove from favorites</a>
-	<a href="#" id="addToListLink">Add to custom list</a>
+	<a href="#" id="addFavoriteLink" style="@(Model.IsFavorited ? "display: none;" : "")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+	<a href="#" id="removeFavoriteLink" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>
+	<a href="#" id="addToListLink">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
 }
 
 @if (Model.CanEdit) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editSongLink" });
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink" });
 }
 
-@Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
 @Helpers.EntryStatusMessage(Model.Status)
 
@@ -44,21 +44,21 @@
 <div id="tabs">
 
 	<ul>
-		<li><a href="#basicInfoTab">Basic info</a></li>
+		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
 		@if (Model.Lyrics.Length > 3) {
-		<li><a href="#lyricsTab">Lyrics</a></li>
+		<li><a href="#lyricsTab">@ViewRes.Song.DetailsStrings.Lyrics</a></li>
   } else {
 	  foreach (var lyrics in Model.Lyrics) {
-				<li><a href="@("#lyricsTab_" + lyrics.Id)">@Translate.ContentLanguageSelectionName(lyrics.Language) lyrics</a></li>
+				<li><a href="@("#lyricsTab_" + lyrics.Id)">@Translate.ContentLanguageSelectionName(lyrics.Language) @ViewRes.Song.DetailsStrings.LyricsLC</a></li>
 	  }
   }
-		<li><a href="@Url.Action("Comments", "Song", new { id = Model.Id })" title="Discussion">Discussion (@Model.CommentCount)</a></li>
+		<li><a href="@Url.Action("Comments", "Song", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
 		<table>
 			<tr>
-				<td>Name</td>
+				<td>@ViewRes.SharedStrings.Name</td>
 				<td>
 					@Model.Name<br />
 					<span class="extraInfo">@Model.AdditionalNames</span>
@@ -66,7 +66,7 @@
 			</tr>
 			@if (Model.Performers.Any()) {
 			<tr>
-				<td>Vocalists</td>
+				<td>@ViewRes.Song.DetailsStrings.Vocalists</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.Performers)
 				</td>
@@ -75,7 +75,7 @@
 
 			@if (Model.Producers.Any()) {
 			<tr>
-				<td>Producers</td>
+				<td>@ViewRes.Song.DetailsStrings.Producers</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.Producers)
 				</td>
@@ -84,7 +84,7 @@
 			
 			@if (Model.OtherArtists.Any()) {
 			<tr>
-				<td>Other artists</td>
+				<td>@ViewRes.Song.DetailsStrings.OtherArtists</td>
 				<td>
 					@ArtistHelpers.ArtistList(Model.OtherArtists)
 				</td>
@@ -92,13 +92,13 @@
    }
 
 			<tr>
-				<td>@Html.LabelFor(m => m.SongType)</td>
-				<td>@Html.DisplayFor(m => m.SongType)</td>
+				<td>@ViewRes.SharedStrings.Type</td>
+				<td>@Translate.SongTypeNames[Model.SongType]</td>
 			</tr>
 			
 			@if (Model.Albums.Any()) {
 			<tr>
-				<td>Albums</td>
+				<td>@ViewRes.SharedStrings.Albums</td>
 				<td>
 					@Html.LinkList(Model.Albums, album => Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames }))
 				</td>
@@ -106,13 +106,13 @@
    }
 			
 			<tr>
-				<td>Tags</td>
+				<td>@ViewRes.SharedStrings.Tags</td>
 				<td>
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
 					@if (Login.Manager.IsLoggedIn) {
-						<a href="#" id="editTags">Edit tags</a>
+						<a href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 	 }				
 				</td>
 			</tr>
@@ -120,7 +120,7 @@
 
 			@if (Model.PVs.Any()) {
 			<tr>
-				<td>PVs</td>
+				<td>@ViewRes.SharedStrings.PVs</td>
 				<td>
 					@foreach (var pv in Model.PVs) {
 						<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
@@ -131,7 +131,7 @@
 			
 			@if (Model.WebLinks.Any()) {
 			<tr>
-				<td>@Html.LabelFor(m => m.WebLinks)</td>
+				<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
 				<td>
 					@foreach (var link in Model.WebLinks) {
 						<a href="@link.Url">@link.DescriptionOrUrl</a><br />
@@ -142,7 +142,7 @@
 			
 			@if (Model.OriginalVersion != null) {
 			<tr>
-				<td>@Html.LabelFor(m => m.OriginalVersion)</td>
+				<td>@ViewRes.Song.DetailsStrings.OriginalVersion</td>
 				<td>
 					@Html.ActionLink(Model.OriginalVersion.Name, "Details", new { id = Model.OriginalVersion.Id }, new { title = Model.OriginalVersion.AdditionalNames })<br />
 					@Model.OriginalVersion.ArtistString
@@ -152,7 +152,7 @@
 
 			@if (Model.AlternateVersions.Any()) {
 			<tr>
-				<td>@Html.LabelFor(m => m.AlternateVersions)</td>
+				<td>@ViewRes.Song.DetailsStrings.AlternateVersions</td>
 				<td>
 					@foreach (var alternateVersion in Model.AlternateVersions) {
 						@Html.ActionLink(alternateVersion.Name, "Details", new { id = alternateVersion.Id }, new { title = alternateVersion.AdditionalNames }) @(" (" + @Translate.SongTypeNames[alternateVersion.SongType] + ")")<br />
@@ -164,7 +164,7 @@
 			
 			@if (!string.IsNullOrEmpty(Model.Notes)) {
 			<tr>
-				<td>Notes</td>
+				<td>@ViewRes.Song.DetailsStrings.Notes</td>
 				<td>
 					@Helpers.ConvertNewlinesToBreaks(Model.Notes)
 				</td>	
@@ -172,14 +172,14 @@
    }			
 
 			<tr>
-				<td>Addition date</td>
+				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
 				<td>
 					@Model.CreateDate
 				</td>	
 			</tr>
 		</table>
 
-		<h3>Latest comments</h3>
+		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
 		
 		@if (Model.LatestComments.Any()) {
 
@@ -189,12 +189,12 @@
 
   } else {
 	  
-			<p>Nothing yet!</p>
+			<p>@ViewRes.EntryDetailsStrings.NoComments</p>
 	  
   }
 		
 		<p>
-			<a href="#" id="viewCommentsLink">View all comments</a>
+			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>
 		</p>
 
 	</div>
@@ -215,7 +215,7 @@
 	 foreach (var lyrics in Model.Lyrics) {
 			<div id="@("lyricsTab_" + lyrics.Id)" style="height: 400px; overflow: scroll">
 			@if (!string.IsNullOrEmpty(lyrics.Source)) {
-				<p>(from @lyrics.Source)</p>
+				<p>(@ViewRes.Song.DetailsStrings.LyricsFrom @lyrics.Source)</p>
    }
 			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
 			</div>
@@ -227,7 +227,7 @@
  }
 </div>
 
-<div id="editTagsPopup" style="display:none;" title="Tags">
+<div id="editTagsPopup" style="display:none;" title="@ViewRes.SharedStrings.Tags">
 
 	<input type="hidden" id="editTagsSongId" />
 
@@ -235,7 +235,7 @@
 
 </div>
 
-<div id="addToListDialog" style="display:none" title="Add to list">
+<div id="addToListDialog" style="display:none" title="@ViewRes.Song.DetailsStrings.AddToList">
 	<select id="addtoListSelect"></select>
 </div>
 
@@ -243,7 +243,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id);
+		initPage(@Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment");
 	});
 
 </script>

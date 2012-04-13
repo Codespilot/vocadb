@@ -120,17 +120,14 @@ namespace VocaDb.Web.Models {
 
 		public ArtistForSongContract[] Producers { get; set; }
 
-		[Display(Name = "PVs")]
 		public PVContract[] PVs { get; set; }
 
-		[Display(Name = "Song type")]
 		public SongType SongType { get; set; }
 
 		public EntryStatus Status { get; set; }
 
 		public TagUsageContract[] Tags { get; set; }
 
-		[Display(Name = "External links")]
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}

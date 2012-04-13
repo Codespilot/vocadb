@@ -54,7 +54,7 @@ function saveTagSelections() {
 
 }
 
-function tabLoaded(songId, event, ui) {
+function tabLoaded(songId, event, ui, deleteCommentStr) {
 
 	$("#tabs").tabs("url", 1, "");
 
@@ -81,7 +81,7 @@ function tabLoaded(songId, event, ui) {
 
 	$("a.deleteComment").live("click", function () {
 
-		if (!confirm("Are you sure you want to delete this comment?"))
+		if (!confirm(deleteCommentStr))
 			return false;
 
 		var btn = this;
@@ -99,7 +99,7 @@ function tabLoaded(songId, event, ui) {
 
 }
 
-function initPage(songId) {
+function initPage(songId, saveStr, deleteCommentStr) {
 
 	$("#addFavoriteLink").button({ icons: { primary: 'ui-icon-heart'} });
 	$("#removeFavoriteLink").button({ icons: { primary: 'ui-icon-close'} });
@@ -114,7 +114,7 @@ function initPage(songId) {
 
 	$("#tabs").tabs({
 		load: function (event, ui) {
-			tabLoaded(songId, event, ui);
+			tabLoaded(songId, event, ui, deleteCommentStr);
 		}
 	});
 
@@ -122,8 +122,8 @@ function initPage(songId) {
 		.ajaxStart(function () { $(this).show(); })
 		.ajaxStop(function () { $(this).hide(); });
 
-	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTagSelections} });
-	$("#addToListDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: { "Save": function () {
+	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: saveStr, click: saveTagSelections}] });
+	$("#addToListDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: [{ text: saveStr, click: function () {
 
 		$("#addToListDialog").dialog("close");
 
@@ -134,7 +134,7 @@ function initPage(songId) {
 
 		$.post("../../Song/AddSongToList", { listId: listId, songId: songId }, null);		
 
-	}}});
+	}}]});
 
 	var addToListLinkPos = $("#addToListLink").offset();
 	if (addToListLinkPos != null) {

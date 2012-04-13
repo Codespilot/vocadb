@@ -61,11 +61,29 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to album(s).
+        /// </summary>
+        public static string AlbumCount {
+            get {
+                return ResourceManager.GetString("AlbumCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to times.
         /// </summary>
         public static string FavoritedTimes {
             get {
                 return ResourceManager.GetString("FavoritedTimes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to song(s).
+        /// </summary>
+        public static string SongCount {
+            get {
+                return ResourceManager.GetString("SongCount", resourceCulture);
             }
         }
     }

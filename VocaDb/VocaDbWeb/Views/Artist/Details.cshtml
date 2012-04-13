@@ -4,21 +4,21 @@
 @model ArtistDetailsContract
 
 @{
-	ViewBag.Title = "Artist details - " + Model.Name;
-	ViewBag.Parents = new[] { Html.ActionLink("Artists", "Index") };
+	ViewBag.Title = ViewRes.Artist.DetailsStrings.ArtistDetails + " - " + Model.Name;
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Artists, "Index") };
 }
 
 @section Toolbar {
 @if (Login.Manager.IsLoggedIn) {
-	<a href="#" id="addToUserLink" style="@(Model.IsAdded ? "display: none;" : "")">Follow</a>
-	<a href="#" id="removeFromUserLink" style="@(Model.IsAdded ? "" : "display: none;")">Unfollow</a>
+	<a href="#" id="addToUserLink" style="@(Model.IsAdded ? "display: none;" : "")">@ViewRes.Artist.DetailsStrings.Follow</a>
+	<a href="#" id="removeFromUserLink" style="@(Model.IsAdded ? "" : "display: none;")">@ViewRes.Artist.DetailsStrings.Unfollow</a>
 }
 
 @if (Login.CanEdit(Model)) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editArtistLink" });
+	@Html.ActionLink(@ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editArtistLink" });
 }
 
-@Html.ActionLink("View modifications", "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
 @Helpers.EntryStatusMessage(Model.Status)
 }
@@ -34,10 +34,10 @@
 <div id="tabs">
 
 	<ul>
-		<li><a href="#basicInfoTab">Basic info</a></li>
-		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">Discussion (@Model.CommentCount)</a></li>
-		<li><a href="@Url.Action("Albums", "Artist", new { id = Model.Id })" title="All albums"><span>All albums</span></a></li>
-		<li><a href="@Url.Action("Songs", "Artist", new { id = Model.Id })" title="All songs"><span>All songs</span></a></li>
+		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
+		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
+		<li><a href="@Url.Action("Albums", "Artist", new { id = Model.Id })" title="All albums"><span>@ViewRes.Artist.DetailsStrings.AllAlbums</span></a></li>
+		<li><a href="@Url.Action("Songs", "Artist", new { id = Model.Id })" title="All songs"><span>@ViewRes.Artist.DetailsStrings.AllSongs</span></a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -46,10 +46,10 @@
 			<tr>
 				<td rowspan="7">
 					<a href="@Url.Action("Picture", new { id = Model.Id })">
-						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="Artist picture" class="coverPic" />
+						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="@ViewRes.Artist.DetailsStrings.ArtistPicture" class="coverPic" />
 					</a>
 				</td>
-				<td>Name</td>
+				<td>@ViewRes.SharedStrings.Name</td>
 				<td>
 					@Model.Name<br />
 					<span class="extraInfo">@Model.AdditionalNames</span>
@@ -57,27 +57,27 @@
 			</tr>
 		@if (!string.IsNullOrEmpty(Model.Description)) {
 			<tr>
-				<td>Description</td>
+				<td>@ViewRes.SharedStrings.Description</td>
 				<td>
 					@Helpers.ConvertNewlinesToBreaks(Model.Description)
 				</td>	
 			</tr>
 		}
 			<tr>
-				<td>Type</td>
+				<td>@ViewRes.SharedStrings.Type</td>
 				<td>
 					@Translate.ArtistTypeName(Model.ArtistType)<br />
 				</td>	
 			</tr>
 
 			<tr>
-				<td>Tags</td>
+				<td>@ViewRes.SharedStrings.Tags</td>
 				<td>
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
 					@if (Login.Manager.IsLoggedIn) {
-						<a href="#" id="editTags">Edit tags</a>
+						<a href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 					}				
 				</td>
 			</tr>
@@ -85,7 +85,7 @@
 
 			@if (Model.WebLinks.Any()) {
 			<tr>
-				<td>Links</td>
+				<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
 				<td>
 					@foreach (var link in Model.WebLinks) {
 						<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
@@ -94,7 +94,7 @@
 			</tr>
 	   
 			<tr>
-				<td>Addition date</td>
+				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
 				<td>
 					@Model.CreateDate
 				</td>	
@@ -102,7 +102,7 @@
    }
 		@if (Model.Groups.Any()) {
 			<tr>
-				<td>Circles and labels</td>
+				<td>@ViewRes.Artist.DetailsStrings.Groups</td>
 				<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames }))</td>
 			</tr>
   }
@@ -110,7 +110,7 @@
 	
 
 		@if (Model.Members.Any()) {
-		<h3>Members</h3>
+		<h3>@ViewRes.Artist.DetailsStrings.Members</h3>
 		<ul>
 			@foreach (var member in Model.Members) {
 				<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Member.Id }, new { title = member.Member.AdditionalNames })</li>
@@ -119,20 +119,20 @@
   }
 
 		@if (Model.LatestAlbums.Any()) {
-		<h3>Recently added albums</h3>
+		<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
 		<ul>
 			@ArtistHelpers.Albums(Model.LatestAlbums)
 		</ul>
   }
 
 		@if (Model.LatestSongs.Any()) {
-		<h3>Recently added songs</h3>
+		<h3>@ViewRes.Artist.DetailsStrings.RecentSongs</h3>
 		<ul>
 			@ArtistHelpers.Songs(Model.LatestSongs)
 		</ul>	
   }
 
-		<h3>Latest comments</h3>
+		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
 		
 		@if (Model.LatestComments.Any()) {
 
@@ -142,12 +142,12 @@
 
   } else {
 	  
-			<p>Nothing yet!</p>
+			<p>@ViewRes.EntryDetailsStrings.NoComments</p>
 	  
   }
 		
 		<p>
-			<a href="#" id="viewCommentsLink">View all comments</a>
+			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>
 		</p>
 
 	</div>
@@ -163,7 +163,7 @@
 
 </div>
 
-<div id="editTagsPopup" style="display:none;" title="Tags">
+<div id="editTagsPopup" style="display:none;" title="@ViewRes.SharedStrings.Tags">
 
 	<input type="hidden" id="editTagsArtistId" />
 

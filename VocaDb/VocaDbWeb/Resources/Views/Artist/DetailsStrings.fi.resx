@@ -117,13 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlbumCount" xml:space="preserve">
-    <value>albumi(a)</value>
+  <data name="AllAlbums" xml:space="preserve">
+    <value>Kaikki albumit</value>
   </data>
-  <data name="FavoritedTimes" xml:space="preserve">
-    <value>kertaa</value>
+  <data name="AllSongs" xml:space="preserve">
+    <value>Kaikki kappaleet</value>
   </data>
-  <data name="SongCount" xml:space="preserve">
-    <value>kappale(tta)</value>
+  <data name="ArtistDetails" xml:space="preserve">
+    <value>Artistin tiedot</value>
+  </data>
+  <data name="ArtistPicture" xml:space="preserve">
+    <value>Artistin kuva</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Seuraa</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Piirit ja levy-yhtiöt</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Jäsenet</value>
+  </data>
+  <data name="RecentAlbums" xml:space="preserve">
+    <value>Uudet albumit</value>
+  </data>
+  <data name="RecentSongs" xml:space="preserve">
+    <value>Uudet kappaleet</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Lopeta seuraaminen</value>
   </data>
 </root>

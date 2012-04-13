@@ -1,5 +1,5 @@
 ﻿@model VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[]
 
-<p>@Model.Length album(s).</p>
+<p>@Model.Length @ViewRes.MiscStrings.AlbumCount.</p>
 
 @ArtistHelpers.Albums(Model, null, true)
