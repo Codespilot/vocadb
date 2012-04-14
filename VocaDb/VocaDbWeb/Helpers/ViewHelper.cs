@@ -101,7 +101,7 @@ namespace VocaDb.Web.Helpers {
 		}
 
 		public static SelectList CreateSongTypesList(object selectedValue) {
-			return new SelectList(EnumVal<SongType>.Values.ToDictionary(s => s, s => s.ToString()), "Key", "Value", selectedValue);
+			return new SelectList(EnumVal<SongType>.Values.ToDictionary(s => s, Translate.SongTypeNames.GetName), "Key", "Value", selectedValue);
 		}
 
 		public static MvcHtmlString ArtistTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,

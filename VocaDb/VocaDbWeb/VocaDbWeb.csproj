@@ -185,10 +185,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PermissionFlagNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\PVTypeDescriptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PVTypeDescriptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\PVTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PVTypeNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PVTypeNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PVTypeNames.fi.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\SongArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1130,6 +1140,14 @@
     <Content Include="App_GlobalResources\DiscTypeNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>DiscTypeNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PVTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PVTypeNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PVTypeDescriptions.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PVTypeDescriptions.Designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">

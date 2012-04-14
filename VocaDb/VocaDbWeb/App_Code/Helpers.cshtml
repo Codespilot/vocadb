@@ -200,6 +200,14 @@
 	}	
 }
 
+@helper FormatPVLink(VocaDb.Model.DataContracts.PVs.PVContract pv, bool type = true) {
+	<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.Name 
+	@if (type) {
+		@("(" + Translate.PVTypeNames[pv.PVType] + ")")
+	}
+	</a>
+}
+
 @helper GoogleSiteSearch() {
 	
 <div id="cse" style="width: 100%;">Loading</div>

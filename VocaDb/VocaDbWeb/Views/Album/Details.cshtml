@@ -161,7 +161,7 @@
 			<td>@ViewRes.Album.DetailsStrings.PVs</td>
 			<td>
 				@foreach (var pv in Model.PVs) {
-					<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @pv.DisplayName</a><br />
+					@Helpers.FormatPVLink(pv, false)<br />
 	}			
 			</td>
 		</tr>
