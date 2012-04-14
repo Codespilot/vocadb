@@ -19,8 +19,6 @@ namespace VocaDb.Model.DataContracts.PVs {
 			PVType = pv.PVType;
 			Url = pv.Url;
 
-			DisplayName = (!string.IsNullOrEmpty(Name) ? Name : Service.ToString()) + " (" + PVType + ")";
-
 		}
 
 		public PVContract(PVForSong pv)
@@ -40,7 +38,6 @@ namespace VocaDb.Model.DataContracts.PVs {
 			PVType = type;
 
 			Url = PV.GetUrl(Service, PVId);
-			DisplayName = Service + " (" + PVType + ")";
 			
 		}
 
@@ -48,9 +45,6 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 		[DataMember]
 		public string Author { get; set; }
-
-		[DataMember]
-		public string DisplayName { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
