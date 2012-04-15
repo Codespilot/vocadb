@@ -240,6 +240,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserGroupNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\UserGroupNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserGroupNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
@@ -426,6 +431,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CreateStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\User\DetailsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DetailsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\User\LoginStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1169,6 +1179,10 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PVTypeDescriptions.Designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\UserGroupNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserGroupNames.fi.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -1316,6 +1330,12 @@
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\DetailsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.fi.resx" />
