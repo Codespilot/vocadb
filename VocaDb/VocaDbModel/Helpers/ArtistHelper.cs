@@ -14,6 +14,14 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.Circle, ArtistType.Label, ArtistType.OtherGroup
 		};
 
+		/// <summary>
+		/// The roles of these artists can be customized
+		/// </summary>
+		public static readonly ArtistType[] CustomizableTypes = new[] {
+			ArtistType.OtherGroup, ArtistType.OtherVocalist, ArtistType.Producer, 
+			ArtistType.Unknown
+		};
+
 		public static readonly ArtistType[] ProducerTypes = new[] {
 			ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup
 		};
@@ -61,6 +69,12 @@ namespace VocaDb.Model.Helpers {
 				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => a.TranslatedName[lang])));
 
 			}
+
+		}
+
+		public static bool IsCustomizable(ArtistType at) {
+
+			return CustomizableTypes.Contains(at);
 
 		}
 

@@ -117,7 +117,7 @@ namespace VocaDb.Model.Service.Security {
 					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
 				} catch (ArgumentException) { }
 
-			} else if (IsLoggedIn && !string.IsNullOrEmpty(user.Language)) {
+			} else if (IsLoggedIn && !string.IsNullOrEmpty(LoggedUser.Language)) {
 				try {
 					var culture = CultureInfo.GetCultureInfo(user.Language);
 					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;

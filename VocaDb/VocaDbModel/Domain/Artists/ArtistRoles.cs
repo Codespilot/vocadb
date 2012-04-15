@@ -5,19 +5,23 @@ namespace VocaDb.Model.Domain.Artists {
 	[Flags]
 	public enum ArtistRoles {
 
-		Unspecified		= 0,
+		Default				= 0,
 
-		Composer		= 1,
+		Composer			= 1,
 
-		Arranger		= 2,
+		Arranger			= 2,
 
-		Lyricist		= 4,
+		Lyricist			= 4,
 
-		Performer		= 8,
+		Performer			= 8,
 
-		Illustrator		= 16,
+		Illustrator			= 16,
 
-		Other			= 32
+		Vocalist			= 32,
+
+		VoiceManipulator	= 64,
+
+		Other				= 128
 
 	}
 }
