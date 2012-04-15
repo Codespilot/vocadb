@@ -41,6 +41,35 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual ArtistCategories ArtistCategories {
+			get {
+
+				var at = Artist.ArtistType;
+
+				if (Roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(at)) {
+
+					return ArtistHelper.CategoriesForTypes[Artist.ArtistType];
+
+				} else {
+
+					var cat = ArtistCategories.Nothing;
+
+					if (Roles.HasFlag(ArtistRoles.Vocalist))
+						cat |= ArtistCategories.Vocalist;
+
+					if (Roles.HasFlag(ArtistRoles.Arranger) || Roles.HasFlag(ArtistRoles.Composer) || Roles.HasFlag(ArtistRoles.VoiceManipulator))
+						cat |= ArtistCategories.Producer;
+
+					if (cat == ArtistCategories.Nothing)
+						cat = ArtistCategories.Other;
+
+					return cat;
+
+				}
+
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual bool IsSupport { get; set; }
@@ -53,6 +82,17 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		/*public virtual bool IsProducer {
+			get {
+
+				if (Roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(Artist.ArtistType))
+					return ArtistHelper.ProducerTypes.Contains(Artist.ArtistType);
+
+				return Roles.HasFlag(ArtistRoles.Vocalist);
+
+			}
+		}
+
 		public virtual bool IsVocalist {
 			get {
 
@@ -62,7 +102,7 @@ namespace VocaDb.Model.Domain.Albums {
 				return Roles.HasFlag(ArtistRoles.Vocalist);
 
 			}
-		}
+		}*/
 
 		public virtual ArtistRoles Roles { get; set; }
 

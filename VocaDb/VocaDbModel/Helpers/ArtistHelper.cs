@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 
@@ -12,6 +13,17 @@ namespace VocaDb.Model.Helpers {
 		/// </summary>
 		public static readonly ArtistType[] ArtistGroupTypes = new[] {
 			ArtistType.Circle, ArtistType.Label, ArtistType.OtherGroup
+		};
+
+		public static readonly Dictionary<ArtistType, ArtistCategories> CategoriesForTypes = new Dictionary<ArtistType, ArtistCategories> {
+			{ ArtistType.Circle, ArtistCategories.Circle },
+			{ ArtistType.Label, ArtistCategories.Label },
+			{ ArtistType.OtherGroup, ArtistCategories.Circle },
+			{ ArtistType.OtherVocalist, ArtistCategories.Vocalist },
+			{ ArtistType.Producer, ArtistCategories.Producer },
+			{ ArtistType.Unknown, ArtistCategories.Other },
+			{ ArtistType.UTAU, ArtistCategories.Vocalist },
+			{ ArtistType.Vocaloid, ArtistCategories.Vocalist },
 		};
 
 		/// <summary>

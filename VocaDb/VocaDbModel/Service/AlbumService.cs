@@ -697,6 +697,7 @@ namespace VocaDb.Model.Service {
 				var albums = session.Query<Album>()
 					.Where(s => s.RatingCount > 0 && s.RatingAverageInt > 0)
 					.OrderByDescending(s => s.RatingAverageInt)
+					.OrderByDescending(s => s.RatingTotal)
 					.Take(maxResults).ToArray();
 
 				return albums.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray();
