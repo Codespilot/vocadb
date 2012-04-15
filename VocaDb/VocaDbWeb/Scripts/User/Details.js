@@ -1,12 +1,12 @@
 ﻿
-function initPage(userId) {
+function initPage(userId, loadingStr, confirmDisableStr) {
 
 	$("#tabs").tabs({
 		load: function (event, ui) {
 
 			// Load only once
 			$("#tabs").tabs("url", ui.index, "");
-			$("#tabs").tabs("option", "spinner", 'Loading...');
+			$("#tabs").tabs("option", "spinner", loadingStr);
 
 		}
 	});
@@ -19,7 +19,7 @@ function initPage(userId) {
 
 	$("#disableUserLink").click(function () {
 
-		return confirm("Are you sure you want to disable this user?");
+		return confirm(confirmDisableStr);
 
 	});
 

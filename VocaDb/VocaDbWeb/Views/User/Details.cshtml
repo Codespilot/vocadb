@@ -2,12 +2,13 @@
 @using VocaDb.Web;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security;
+@using R = ViewRes.User;
 @model UserDetailsContract
 		   
 @{
-	ViewBag.Title = "User details - " + Model.Name;
+	ViewBag.Title = R.DetailsStrings.UserDetails + " - " + Model.Name;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Users", "Index"), 
+		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
 	};
 
 	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
@@ -17,9 +18,9 @@
 
 @section Toolbar {
 @if (ownProfile) {
-	@Html.ActionLink("My settings", "MySettings", null, new { id = "mySettingsLink" });
+	@Html.ActionLink(R.DetailsStrings.MySettings, "MySettings", null, new { id = "mySettingsLink" });
 	@Html.Raw("&nbsp;")
-	@Html.ActionLink("Messages", "Messages", null, new { id = "messagesLink" });
+	@Html.ActionLink(R.DetailsStrings.Messages, "Messages", null, new { id = "messagesLink" });
 }
 
 @if (Login.Manager.IsLoggedIn && Login.User.Id != Model.Id && Login.User.Active) {
@@ -27,11 +28,11 @@
 }
 @if (Login.CanManageUsers) {
 	@Html.Raw("&nbsp;")
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editUserLink" });
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editUserLink" });
 }
 @if (Login.Manager.HasPermission(PermissionToken.DisableUsers) && Login.User.Id != Model.Id && Model.Active) {
 	@Html.Raw("&nbsp;")
-	@Html.ActionLink("Disable", "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
+	@Html.ActionLink(R.DetailsStrings.Disable, "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
 }
 }
 
@@ -40,36 +41,36 @@
 		<td rowspan="7" class="alignTop">
 			@Html.ProfileIcon(Model)
 		</td>
-		<td>Name</td>
+		<td>@ViewRes.SharedStrings.Name</td>
 		<td>
 			@Model.Name<br />
 		</td>
 	</tr>
 	<tr>
-		<td>User level</td>
+		<td>@R.DetailsStrings.UserGroup</td>
 		<td>@Translate.UserGroups[Model.GroupId]</td>
 	</tr>
 	<tr>
-		<td>A member since</td>
+		<td>@R.DetailsStrings.MemberSince</td>
 		<td>@Model.CreateDate.ToShortDateString()</td>
 	</tr>
 	@if (Login.CanManageUsers || ownProfile) {
 		<tr>
-			<td>Last login</td>
+			<td>@R.DetailsStrings.LastLogin</td>
 			<td>@Model.LastLogin</td>
 		</tr>
 		<tr>
-			<td>Additional permissions</td>
+			<td>@R.DetailsStrings.AdditionalPermissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)</td>
 		</tr>
  }
 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
 		<tr>
-			<td>Active</td>
+			<td>@R.DetailsStrings.Active</td>
 			<td>@Model.Active</td>
 		</tr>
 		<tr>
-			<td>Effective permissions</td>
+			<td>@R.DetailsStrings.EffectivePermissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
 		</tr>	 
  }
@@ -80,16 +81,16 @@
 <div id="tabs">
 
 	<ul>
-		<li><a href="#stats">Statistics</a></li>
-		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })" title="Collection"><span>Collection (@Model.AlbumCollectionCount)</span></a></li>
-		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>Followed artists (@Model.ArtistCount)</span></a></li>
-		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>Favorite songs (@Model.FavoriteSongCount)</span></a></li>
-		<li><a href="#customLists">Custom lists</a></li>
+		<li><a href="#stats">@R.DetailsStrings.StatsTab</a></li>
+		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })" title="Collection"><span>@R.DetailsStrings.CollectionTab (@Model.AlbumCollectionCount)</span></a></li>
+		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>@R.DetailsStrings.FollowedArtistsTab (@Model.ArtistCount)</span></a></li>
+		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>@R.DetailsStrings.FavoriteSongsTab (@Model.FavoriteSongCount)</span></a></li>
+		<li><a href="#customLists">@R.DetailsStrings.CustomListsTab</a></li>
 	</ul>
 
 	<div id="stats">
 		<p>
-			@{ var submitText = "Submissions: " + Model.SubmitCount; }
+			@{ var submitText = R.DetailsStrings.Submissions + ": " + Model.SubmitCount; }
 			@if (canSeeDetailedStats) {
 				<text>@Html.ActionLink(submitText, "EntryEdits", new { id = Model.Id, onlySubmissions = true })</text>
    } else {
@@ -97,15 +98,15 @@
    }
 		</p>
 		<p>
-			@{ var editText = "Total edits: " + Model.EditCount; }
+			@{ var editText = R.DetailsStrings.TotalEdits + ": " + Model.EditCount; }
 			@if (canSeeDetailedStats) {
 				@Html.ActionLink(editText, "EntryEdits", new { id = Model.Id, onlySubmissions = false })
    } else {
 				<text>@editText</text>
    }
 		</p>
-		<p>Comments: @Model.CommentCount</p>
-		<p>Tag votes: @Model.TagVotes</p>
+		<p>@R.DetailsStrings.Comments: @Model.CommentCount</p>
+		<p>@R.DetailsStrings.TagVotes: @Model.TagVotes</p>
 	</div>
 
 	<div id="Collection">
@@ -121,7 +122,7 @@
 		@SongHelpers.SongLists(Model.SongLists)
 
 		@if (ownProfile) {
-			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">Create new list</a>
+			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">@R.DetailsStrings.CreateNewList</a>
   }
 	</div>
 
@@ -131,7 +132,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id);
+		initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.DetailsStrings.ConfirmDisable");
 	});
 
 </script>
