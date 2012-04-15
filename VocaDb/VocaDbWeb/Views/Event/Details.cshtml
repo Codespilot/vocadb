@@ -3,33 +3,33 @@
 
 @{
 	
-	ViewBag.Title = "Event - " + Model.Name;
+	ViewBag.Title = ViewRes.Event.DetailsStrings.Event + " - " + Model.Name;
 
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Events", "EventsBySeries")
+		Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries")
 	};
 	
 }
 
 @section Toolbar {
 	@if (Login.CanManageDb) {
-		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editEventLink" })
+		@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editEventLink" })
 	}
 }
 
 @if (Model.Series != null) {
-	<p>Series: @Html.ActionLink(Model.Series.Name, "SeriesDetails", new { id = Model.Series.Id })</p>
+	<p>@ViewRes.Event.DetailsStrings.Series: @Html.ActionLink(Model.Series.Name, "SeriesDetails", new { id = Model.Series.Id })</p>
 }
 
 @if (Model.Date != null) {
-	<p>Occurrence date: @Model.Date.Value.ToShortDateString()</p>
+	<p>@ViewRes.Event.DetailsStrings.OccurrenceDate: @Model.Date.Value.ToShortDateString()</p>
 }
 
 @if (!string.IsNullOrEmpty(Model.Description)) {
 	@HtmlHelpers.FormatText(Model.Description)
 }
 
-<h3>Albums</h3>
+<h3>@ViewRes.SharedStrings.Albums</h3>
 <ul>
 	@ArtistHelpers.Albums(Model.Albums, showArtists : true)
 </ul>

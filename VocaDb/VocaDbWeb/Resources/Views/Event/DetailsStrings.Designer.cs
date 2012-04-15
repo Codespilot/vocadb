@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes {
+namespace ViewRes.Event {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MiscStrings {
+    public class DetailsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MiscStrings() {
+        internal DetailsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.MiscStrings", typeof(MiscStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Event.DetailsStrings", typeof(DetailsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,29 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to album(s).
+        ///   Looks up a localized string similar to Event.
         /// </summary>
-        public static string AlbumCount {
+        public static string Event {
             get {
-                return ResourceManager.GetString("AlbumCount", resourceCulture);
+                return ResourceManager.GetString("Event", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event series.
+        ///   Looks up a localized string similar to Occurrence date.
         /// </summary>
-        public static string EventSeries {
+        public static string OccurrenceDate {
             get {
-                return ResourceManager.GetString("EventSeries", resourceCulture);
+                return ResourceManager.GetString("OccurrenceDate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to times.
+        ///   Looks up a localized string similar to Series.
         /// </summary>
-        public static string FavoritedTimes {
+        public static string Series {
             get {
-                return ResourceManager.GetString("FavoritedTimes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to song(s).
-        /// </summary>
-        public static string SongCount {
-            get {
-                return ResourceManager.GetString("SongCount", resourceCulture);
+                return ResourceManager.GetString("Series", resourceCulture);
             }
         }
     }

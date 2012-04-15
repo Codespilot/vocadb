@@ -352,6 +352,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Event\DetailsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DetailsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Event\EventsBySeriesStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EventsBySeriesStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Event\FindStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FindStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Home\IndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1201,6 +1216,24 @@
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Artist</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Event\EventsBySeriesStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Event\EventsBySeriesStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EventsBySeriesStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Event\FindStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Event\FindStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FindStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
@@ -1235,6 +1268,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\MiscStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\SharedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedStrings.Designer.cs</LastGenOutput>

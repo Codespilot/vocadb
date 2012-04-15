@@ -2,7 +2,7 @@
 @model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventSeriesWithEventsContract[]
 
 @{
-    ViewBag.Title = "Events";
+	ViewBag.Title = ViewRes.SharedStrings.ReleaseEvents;
 }
 
 @foreach (var series in Model) {
@@ -12,10 +12,10 @@
 		@Html.ActionLink(series.Name, "SeriesDetails", new { id = series.Id })
 		<text>&nbsp;</text>
 		if (Login.CanManageEventSeries) {
-			@Html.ActionLink("Edit", "EditSeries", new { id = series.Id })
+			@Html.ActionLink(ViewRes.SharedStrings.Edit, "EditSeries", new { id = series.Id })
 		}
 	} else {
-		<text>Ungrouped</text>
+		<text>@ViewRes.SharedStrings.Unsorted</text>
 	}
 	</h3>
 	if (!string.IsNullOrEmpty(series.Description)) {
@@ -29,19 +29,19 @@
 
 			@if (Login.CanManageDb) {
 				<text>&nbsp;</text>
-				@Html.ActionLink("Edit", "Edit", new { id = ev.Id }, new { @class = "textLink editLink" })
+				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = ev.Id }, new { @class = "textLink editLink" })
 			}
 		</li>
 	}
 	</ul>
 	
 	if (Login.CanManageDb) {
-		@Html.ActionLink("Create event", "Edit", new { seriesId = series.Id != 0 ? (int?)series.Id : null }, new { @class = "textLink addLink" })
+		@Html.ActionLink(ViewRes.Event.EventsBySeriesStrings.CreateEvent, "Edit", new { seriesId = series.Id != 0 ? (int?)series.Id : null }, new { @class = "textLink addLink" })
 	}
 	
 }
 
 <br />
 @if (Login.CanManageEventSeries) {
-	@Html.ActionLink("Create series", "EditSeries", null, new { @class = "textLink addLink" })
+	@Html.ActionLink(ViewRes.Event.EventsBySeriesStrings.CreateSeries, "EditSeries", null, new { @class = "textLink addLink" })
 }

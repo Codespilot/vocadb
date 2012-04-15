@@ -120,6 +120,9 @@
   <data name="AlbumCount" xml:space="preserve">
     <value>album(s)</value>
   </data>
+  <data name="EventSeries" xml:space="preserve">
+    <value>Event series</value>
+  </data>
   <data name="FavoritedTimes" xml:space="preserve">
     <value>times</value>
   </data>

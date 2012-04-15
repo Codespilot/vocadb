@@ -3,18 +3,18 @@
 
 @{
 	
-    ViewBag.Title = "Event series - " + Model.Name;
+    ViewBag.Title = ViewRes.MiscStrings.EventSeries + " - " + Model.Name;
 	ViewBag.Subtitle = string.Join(", ", Model.Aliases);
 
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Events", "EventsBySeries")
+		Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries")
 	};	
 	
 }
 
 @section Toolbar {
 	@if (Login.CanManageEventSeries) {
-		@Html.ActionLink("Edit", "EditSeries", new { id = Model.Id }, new { id = "editEventLink" })
+		@Html.ActionLink(ViewRes.SharedStrings.Edit, "EditSeries", new { id = Model.Id }, new { id = "editEventLink" })
 	}
 }
 
@@ -22,7 +22,7 @@
 	<p>@HtmlHelpers.FormatText(Model.Description)</p>
 }
 
-<h3>Events</h3>
+<h3>@ViewRes.SharedStrings.ReleaseEvents</h3>
 <ul>
 @foreach (var ev in Model.Events) {
 	<li>@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })</li>

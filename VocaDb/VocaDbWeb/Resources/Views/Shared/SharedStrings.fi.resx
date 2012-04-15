@@ -159,6 +159,9 @@
   <data name="PVs" xml:space="preserve">
     <value>PV:t</value>
   </data>
+  <data name="ReleaseEvents" xml:space="preserve">
+    <value>Tapahtumat</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Tallenna</value>
   </data>
