@@ -187,6 +187,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Events.
+        /// </summary>
+        public static string ReleaseEvents {
+            get {
+                return ResourceManager.GetString("ReleaseEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

@@ -120,6 +120,9 @@
   <data name="AlbumCount" xml:space="preserve">
     <value>albumi(a)</value>
   </data>
+  <data name="EventSeries" xml:space="preserve">
+    <value>Tapahtumasarja</value>
+  </data>
   <data name="FavoritedTimes" xml:space="preserve">
     <value>kertaa</value>
   </data>

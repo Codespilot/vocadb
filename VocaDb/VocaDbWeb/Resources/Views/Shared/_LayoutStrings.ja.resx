@@ -150,9 +150,6 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>関連リンク</value>
   </data>
-  <data name="ReleaseEvents" xml:space="preserve">
-    <value>イベント</value>
-  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>You have unread messages</value>
   </data>

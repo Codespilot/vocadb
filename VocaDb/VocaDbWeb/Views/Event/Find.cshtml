@@ -2,14 +2,14 @@
 @model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventFindResultContract
 
 @{
-    ViewBag.Title = "Find event - " + Model.EventName;
+    ViewBag.Title = ViewRes.Event.FindStrings.EventNotFound + " - " + Model.EventName;
 }
 
-@Helpers.NotificationPanel("Sorry, an event with this name could not be found. It probably hasn't been added to the database yet.")
+@Helpers.NotificationPanel(ViewRes.Event.FindStrings.EventNotFound)
 
 @if (Login.CanManageDb && !string.IsNullOrEmpty(Model.EventName)) {
 
-	<p>You may add the event to the database.</p>
+	<p>@ViewRes.Event.FindStrings.YouMayAddTheEvent</p>
 	
 	using (Html.BeginForm()) {
 	
@@ -22,9 +22,9 @@
 			
 			<input type="radio" name="EventTarget" value="Series" checked="checked" />
 	 
-			<text>Series:</text>
+			<text>@ViewRes.Event.FindStrings.Series:</text>
 			@Html.ActionLink(Model.Series.Name, "SeriesDetails", new { id = Model.Series.Id })
-			<text>, number</text>	 
+			<text>, @ViewRes.Event.FindStrings.Number</text>	 
 			@Html.TextBoxFor(m => m.SeriesNumber)
 	 
 			<br /><br />
@@ -32,11 +32,11 @@
 	
 		}
 			
-		<text>Ungrouped event named:</text>
+		<text>@ViewRes.Event.FindStrings.UngroupedEventNamed</text>
 		@Html.TextBoxFor(m => m.EventName)
 			
 		<br /><br />
-		<input type="submit" value="Create event" />
+		<input type="submit" value="@ViewRes.Event.FindStrings.CreateEvent" />
 	
 	}
 	

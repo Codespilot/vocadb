@@ -150,9 +150,6 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Aiheeseen liittyviä sivustoja</value>
   </data>
-  <data name="ReleaseEvents" xml:space="preserve">
-    <value>Tapahtumat</value>
-  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>Sinulla on lukemattomia viestejä</value>
   </data>
