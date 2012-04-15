@@ -117,37 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionDate" xml:space="preserve">
-    <value>Lisäyspäivä</value>
+  <data name="Author" xml:space="preserve">
+    <value>Tekijä</value>
   </data>
-  <data name="BasicInfoTab" xml:space="preserve">
-    <value>Perustiedot</value>
+  <data name="Created" xml:space="preserve">
+    <value>Luotu</value>
   </data>
-  <data name="ConfirmDeleteComment" xml:space="preserve">
-    <value>Haluatko varmasti poistaa tämän kommentin?</value>
+  <data name="CurrentVersionIs" xml:space="preserve">
+    <value>Nykyinen versionumero on</value>
   </data>
-  <data name="DiscussionTab" xml:space="preserve">
-    <value>Keskustelu</value>
+  <data name="Notes" xml:space="preserve">
+    <value>Huomautuksia</value>
   </data>
-  <data name="EditTags" xml:space="preserve">
-    <value>Muokkaa tägejä</value>
-  </data>
-  <data name="ExternalLinks" xml:space="preserve">
-    <value>Ulkoiset linkit</value>
-  </data>
-  <data name="LatestComments" xml:space="preserve">
-    <value>Viimeisimmät kommentit</value>
-  </data>
-  <data name="NoComments" xml:space="preserve">
-    <value>Ei mitään vielä!</value>
-  </data>
-  <data name="Revisions" xml:space="preserve">
-    <value>Versiot</value>
-  </data>
-  <data name="ViewAllComments" xml:space="preserve">
-    <value>Näytä kaikki kommentit</value>
-  </data>
-  <data name="ViewModifications" xml:space="preserve">
-    <value>Näytä muokkaukset</value>
+  <data name="Version" xml:space="preserve">
+    <value>Versio</value>
   </data>
 </root>

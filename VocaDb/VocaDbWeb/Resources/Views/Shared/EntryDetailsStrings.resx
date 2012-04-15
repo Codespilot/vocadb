@@ -141,6 +141,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Nothing yet!</value>
   </data>
+  <data name="Revisions" xml:space="preserve">
+    <value>Revisions</value>
+  </data>
   <data name="ViewAllComments" xml:space="preserve">
     <value>View all comments</value>
   </data>

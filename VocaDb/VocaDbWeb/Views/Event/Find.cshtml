@@ -33,7 +33,7 @@
 		}
 			
 		<text>@ViewRes.Event.FindStrings.UngroupedEventNamed</text>
-		@Html.TextBoxFor(m => m.EventName)
+		@Html.TextBoxFor(m => m.EventName, new { size = 30 })
 			
 		<br /><br />
 		<input type="submit" value="@ViewRes.Event.FindStrings.CreateEvent" />

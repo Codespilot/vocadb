@@ -1,13 +1,13 @@
 ﻿@model VocaDb.Web.Models.Song.Versions
 
 @{
-	ViewBag.Title = "Revisions - " + Model.Song.Name;
+	ViewBag.Title = ViewRes.EntryDetailsStrings.Revisions + " - " + Model.Song.Name;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Songs", "Index"), 
+		Html.ActionLink(ViewRes.SharedStrings.Songs, "Index"), 
 		LinkExtensions.ActionLink(Html, Model.Song.Name, "Details", new { id = Model.Song.Id }) 
 	};
 }
 
-<p>Current version number is @Model.Song.Version (@Model.Song.Status).</p>
+@ArchivedEntryHelpers.CurrentVersionMessage(Model.Song.Version, Model.Song.Status)
 
 @Helpers.ArchivedObjectVersions(Model.ArchivedVersions, id => Url.Action("ViewVersion", new { id = id }))

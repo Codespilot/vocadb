@@ -372,6 +372,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArchivedObjectVersionsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Shared\DiscussionContentStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1242,6 +1247,12 @@
       <CustomToolNamespace>ViewRes.Home</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArchivedObjectVersionsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

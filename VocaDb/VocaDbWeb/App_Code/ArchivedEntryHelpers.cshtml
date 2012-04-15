@@ -2,8 +2,13 @@
 @using VocaDb.Model.DataContracts;
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Model.DataContracts.PVs;
+@using VocaDb.Model.Domain;
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
+
+@helper CurrentVersionMessage(int version, EntryStatus status) {
+	<p>@ViewRes.ArchivedObjectVersionsStrings.CurrentVersionIs @version (@Translate.EntryStatusNames[status]).</p>	
+}
 
 @helper DataRow(string name, object val) {
 	<tr>
@@ -20,7 +25,7 @@
 			<ul>
 			@foreach (var row in rows) {
 				<li>@row</li>
-			}			
+   }			
 			</ul>
 		</td>
 	</tr>	
