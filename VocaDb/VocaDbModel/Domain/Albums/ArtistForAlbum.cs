@@ -1,5 +1,7 @@
 ﻿using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Helpers;
+using System.Linq;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -7,10 +9,12 @@ namespace VocaDb.Model.Domain.Albums {
 
 		private Artist artist;
 		private Album album;
+		private string notes;
 
 		public ArtistForAlbum() {
 			IsSupport = false;
 			Notes = string.Empty;
+			Roles = ArtistRoles.Default;
 		}
 
 		public ArtistForAlbum(Album album, Artist artist)
@@ -41,7 +45,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual bool IsSupport { get; set; }
 
-		private string notes;
 		public virtual string Notes {
 			get { return notes; }
 			set {
@@ -49,6 +52,19 @@ namespace VocaDb.Model.Domain.Albums {
 				notes = value; 
 			}
 		}
+
+		public virtual bool IsVocalist {
+			get {
+
+				if (Roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(Artist.ArtistType))
+					return ArtistHelper.VocalistTypes.Contains(Artist.ArtistType);
+
+				return Roles.HasFlag(ArtistRoles.Vocalist);
+
+			}
+		}
+
+		public virtual ArtistRoles Roles { get; set; }
 
 		public virtual bool ContentEquals(ArtistForAlbumContract contract) {
 
