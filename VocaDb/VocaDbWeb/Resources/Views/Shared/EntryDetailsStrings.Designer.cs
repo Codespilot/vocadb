@@ -133,6 +133,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Revisions.
+        /// </summary>
+        public static string Revisions {
+            get {
+                return ResourceManager.GetString("Revisions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View all comments.
         /// </summary>
         public static string ViewAllComments {

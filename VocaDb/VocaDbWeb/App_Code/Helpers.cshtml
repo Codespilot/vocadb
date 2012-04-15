@@ -13,10 +13,10 @@
 	
 	<table>
 		<tr>
-			<th>Version</th>
-			<th>Created</th>
-			<th>Author</th>
-			<th>Notes</th>
+			<th>@ViewRes.ArchivedObjectVersionsStrings.Version</th>
+			<th>@ViewRes.ArchivedObjectVersionsStrings.Created</th>
+			<th>@ViewRes.ArchivedObjectVersionsStrings.Author</th>
+			<th>@ViewRes.ArchivedObjectVersionsStrings.Notes</th>
 		</tr>
 		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Contract.Version)) {
 			<tr>
@@ -24,12 +24,12 @@
 					@if (linkFunc != null) {
 						<a href="@linkFunc(ver.Id)">
 						@ver.Contract.Version
-						(@ver.Status)		 
+						(@Translate.EntryStatusNames[ver.Status])
 						</a>
 					} else {
 						<text>
 						@ver.Contract.Version
-						(@ver.Status)
+						(@Translate.EntryStatusNames[ver.Status])
 						</text>
 					}
 				</td>
