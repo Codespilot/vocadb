@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using ViewRes;
+using ViewRes.Artist;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Helpers;
@@ -15,33 +17,33 @@ namespace VocaDb.Web.Models.Artist {
 			WebLinkDescription = string.Empty;
 		}
 
-		[Display(Name = "Please write a short description about this artist (optional, but recommended)")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "Description")]
 		[StringLength(1000)]
 		public string Description { get; set; }
 
-		[Display(Name = "Artist type")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "ArtistType")]
 		public ArtistType ArtistType { get; set; }
 
-		[Display(Name = "This entry is a draft")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "Draft")]
 		public bool Draft { get; set; }
 
-		[Display(Name = "Name in English")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "EnglishName")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
-		[Display(Name = "Non-English name")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "NonEnglishName")]
 		[StringLength(255)]
 		public string NameOriginal { get; set; }
 
-		[Display(Name = "Romanized name")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "RomajiName")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		[Display(Name = "Description")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "WebLinkDescription")]
 		[StringLength(512)]
 		public string WebLinkDescription { get; set; }
 
-		[Display(Name = "URL")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "WebLinkURL")]
 		[StringLength(512)]
 		public string WebLinkUrl { get; set; }
 

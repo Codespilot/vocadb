@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Song {
+namespace ViewRes.Artist {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ViewRes.Song {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Song.CreateStrings", typeof(CreateStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Artist.CreateStrings", typeof(CreateStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,25 +61,43 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producers and vocalists associated with this song..
+        ///   Looks up a localized string similar to Add an artist.
         /// </summary>
-        public static string ArtistDesc {
+        public static string AddArtist {
             get {
-                return ResourceManager.GetString("ArtistDesc", resourceCulture);
+                return ResourceManager.GetString("AddArtist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Artists (need at least 1).
+        ///   Looks up a localized string similar to Please make sure the entry you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name. You need to enter a description OR an external link for reference..
         /// </summary>
-        public static string ArtistsInfo {
+        public static string ArtistInfo {
             get {
-                return ResourceManager.GetString("ArtistsInfo", resourceCulture);
+                return ResourceManager.GetString("ArtistInfo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This entry is a draft.
+        ///   Looks up a localized string similar to Artist type.
+        /// </summary>
+        public static string ArtistType {
+            get {
+                return ResourceManager.GetString("ArtistType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please write a short description about this artist (optional, but recommended).
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This entry is a draft..
         /// </summary>
         public static string Draft {
             get {
@@ -88,56 +106,47 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the original PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to External link (to artist&apos;s website, Hatsune Miku wiki, NND MyList etc.).
         /// </summary>
-        public static string OriginalPV {
+        public static string ExternalLink {
             get {
-                return ResourceManager.GetString("OriginalPV", resourceCulture);
+                return ResourceManager.GetString("ExternalLink", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the reprint of the PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to (optional).
         /// </summary>
-        public static string ReprintPV {
+        public static string Optional {
             get {
-                return ResourceManager.GetString("ReprintPV", resourceCulture);
+                return ResourceManager.GetString("Optional", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make sure the song you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name and artist. Link to the original PV is very desirable..
+        ///   Looks up a localized string similar to Unable to create artist. Correct the errors and try again..
         /// </summary>
-        public static string SongInfo {
+        public static string UnableToCreateArtist {
             get {
-                return ResourceManager.GetString("SongInfo", resourceCulture);
+                return ResourceManager.GetString("UnableToCreateArtist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Song type.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
-        public static string SongType {
+        public static string WebLinkDescription {
             get {
-                return ResourceManager.GetString("SongType", resourceCulture);
+                return ResourceManager.GetString("WebLinkDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit a new song.
+        ///   Looks up a localized string similar to URL.
         /// </summary>
-        public static string SubmitSong {
+        public static string WebLinkURL {
             get {
-                return ResourceManager.GetString("SubmitSong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to create song. Correct the errors and try again..
-        /// </summary>
-        public static string UnableToCreateSong {
-            get {
-                return ResourceManager.GetString("UnableToCreateSong", resourceCulture);
+                return ResourceManager.GetString("WebLinkURL", resourceCulture);
             }
         }
     }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Song {
+namespace ViewRes.Album {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ViewRes.Song {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Song.CreateStrings", typeof(CreateStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Album.CreateStrings", typeof(CreateStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,16 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producers and vocalists associated with this song..
+        ///   Looks up a localized string similar to Please make sure the entry you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name and artist..
+        /// </summary>
+        public static string AlbumInfo {
+            get {
+                return ResourceManager.GetString("AlbumInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Producers and vocalists associated with this album..
         /// </summary>
         public static string ArtistDesc {
             get {
@@ -79,65 +88,29 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This entry is a draft.
+        ///   Looks up a localized string similar to Disc type.
         /// </summary>
-        public static string Draft {
+        public static string DiscType {
             get {
-                return ResourceManager.GetString("Draft", resourceCulture);
+                return ResourceManager.GetString("DiscType", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the original PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to Submit a new album.
         /// </summary>
-        public static string OriginalPV {
+        public static string SubmitAlbum {
             get {
-                return ResourceManager.GetString("OriginalPV", resourceCulture);
+                return ResourceManager.GetString("SubmitAlbum", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the reprint of the PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to Unable to create album. Correct the errors and try again..
         /// </summary>
-        public static string ReprintPV {
+        public static string UnableToCreateAlbum {
             get {
-                return ResourceManager.GetString("ReprintPV", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please make sure the song you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name and artist. Link to the original PV is very desirable..
-        /// </summary>
-        public static string SongInfo {
-            get {
-                return ResourceManager.GetString("SongInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Song type.
-        /// </summary>
-        public static string SongType {
-            get {
-                return ResourceManager.GetString("SongType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit a new song.
-        /// </summary>
-        public static string SubmitSong {
-            get {
-                return ResourceManager.GetString("SubmitSong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to create song. Correct the errors and try again..
-        /// </summary>
-        public static string UnableToCreateSong {
-            get {
-                return ResourceManager.GetString("UnableToCreateSong", resourceCulture);
+                return ResourceManager.GetString("UnableToCreateAlbum", resourceCulture);
             }
         }
     }

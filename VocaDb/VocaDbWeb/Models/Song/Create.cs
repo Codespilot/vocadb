@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using ViewRes;
+using ViewRes.Song;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Songs;
@@ -15,33 +17,33 @@ namespace VocaDb.Web.Models.Song {
 			SongType = SongType.Original;
 		}
 
-		[Display(Name = "Artists")]
+		[Display(ResourceType = typeof(SharedStrings), Name = "Artists")]
 		public IList<ArtistContract> Artists { get; set; }
 
-		[Display(Name = "This entry is a draft")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "Draft")]
 		public bool Draft { get; set; }
 
-		[Display(Name = "Name in English")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "EnglishName")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
-		[Display(Name = "Non-English name")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "NonEnglishName")]
 		[StringLength(255)]
 		public string NameOriginal { get; set; }
 
-		[Display(Name = "URL to the original PV (NicoNicoDouga or Youtube)")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "OriginalPV")]
 		[StringLength(255)]
 		public string PVUrl { get; set; }
 
-		[Display(Name = "Romanized name")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "RomajiName")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
-		[Display(Name = "URL to the reprint of the PV (NicoNicoDouga or Youtube)")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "ReprintPV")]
 		[StringLength(255)]
 		public string ReprintPVUrl { get; set; }
 
-		[Display(Name = "Song type")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "SongType")]
 		public SongType SongType { get; set; }
 
 		public CreateSongContract ToContract() {

@@ -332,6 +332,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PagedListStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Album\CreateStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Album\DetailsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -346,6 +351,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TopRatedStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Artist\CreateStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Artist\DetailsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -386,6 +396,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscussionContentStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Shared\EntryCreateStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryCreateStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Shared\EntryDetailsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1215,6 +1230,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PagedListStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\CreateStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\CreateStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1232,6 +1253,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TopRatedStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Artist</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.resx">
@@ -1283,6 +1310,12 @@
       <LastGenOutput>DiscussionContentStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\EntryCreateStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\EntryCreateStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntryCreateStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1324,6 +1357,7 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Song\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Song\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>

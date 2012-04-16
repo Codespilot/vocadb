@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using ViewRes;
+using ViewRes.Album;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Albums;
@@ -15,21 +17,21 @@ namespace VocaDb.Web.Models.Album {
 			DiscType = DiscType.Unknown;
 		}
 
-		[Display(Name = "Artists")]
+		[Display(ResourceType = typeof(SharedStrings), Name = "Artists")]
 		public IList<ArtistContract> Artists { get; set; }
 
-		[Display(Name = "Disc type")]
+		[Display(ResourceType = typeof(CreateStrings), Name = "DiscType")]
 		public DiscType DiscType { get; set; }
 
-		[Display(Name = "Name in English")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "EnglishName")]
 		[StringLength(255)]
 		public string NameEnglish { get; set; }
 
-		[Display(Name = "Non-English name")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "NonEnglishName")]
 		[StringLength(255)]
 		public string NameOriginal { get; set; }
 
-		[Display(Name = "Romanized name")]
+		[Display(ResourceType = typeof(EntryCreateStrings), Name = "RomajiName")]
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 

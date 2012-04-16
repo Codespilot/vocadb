@@ -1,25 +1,26 @@
 ﻿@using VocaDb.Web.Helpers;
+@using R = ViewRes.Song;
 @model VocaDb.Web.Models.Song.Create
 
 @{
-    ViewBag.Title = "Submit a new song";
+    ViewBag.Title = R.CreateStrings.SubmitSong;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Songs", "Index")
+		Html.ActionLink(ViewRes.SharedStrings.Songs, "Index")
 	};	
 }
 
 @using (Html.BeginForm("Create", "Song", FormMethod.Post)) {
 
-	@Helpers.ValidationSymmaryPanel("Unable to create song. Correct the errors and try again.");
+	@Helpers.ValidationSymmaryPanel(R.CreateStrings.UnableToCreateSong);
 	
-	@Helpers.NotificationPanel("Please make sure the song you're about to submit hasn't been added before. You need to enter at least one name and artist. Link to the original PV is very desirable.")
+	@Helpers.NotificationPanel(R.CreateStrings.SongInfo)
 																							
 	<div>
 		<fieldset>
 			<table><tr><td class="alignTop">
 
 				<div class="editor-label">
-					Name (need at least one)
+					@ViewRes.EntryCreateStrings.Name
 				</div>
 
 				<div class="editor-field">
@@ -74,8 +75,8 @@
 				</div>
 
 				<div class="editor-label">
-					<span>Artists (need at least 1)</span><br />
-					<span class="extraInfo">Producers and vocalists associated with this song.</span>
+					<span>@R.CreateStrings.ArtistsInfo</span><br />
+					<span class="extraInfo">@R.CreateStrings.ArtistDesc</span>
 				</div>
 				<div class="editor-field">
 					@Html.ValidationMessage("Artists")
@@ -91,7 +92,7 @@
 					<br />
 					@Helpers.EntrySearchBox("artistAdd", false)
 					<br />
-					<a href="#" class="textLink addLink" id="artistAddAcceptBtn">Add</a>
+					<a href="#" class="textLink addLink" id="artistAddAcceptBtn">@ViewRes.SharedStrings.Add</a>
 				</div>
 
 				<p>
@@ -101,14 +102,14 @@
 
 			</td><td class="alignTop" style="max-width: 250px">
 				@using (Html.BeginPanel()) {
-					<p>@Resources.CommonMessages.NoArtistsToName</p>
-					<p>@Resources.CommonMessages.NameHelp</p>
+					<p>@ViewRes.EntryCreateStrings.NoArtistsToName</p>
+					<p>@ViewRes.EntryCreateStrings.NameHelp</p>
 				}
 			</td></tr></table>
 
 		</fieldset>
 
-		<input type="submit" value="Save" />
+		<input type="submit" value="@ViewRes.SharedStrings.Save" />
 
 	</div>
 	

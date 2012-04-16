@@ -1,25 +1,26 @@
 ﻿@using VocaDb.Web.Helpers;
+@using R = ViewRes.Album;
 @model VocaDb.Web.Models.Album.Create
 
 @{
-    ViewBag.Title = "Submit a new album";
+    ViewBag.Title = R.CreateStrings.SubmitAlbum;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Albums", "Index")
+		Html.ActionLink(ViewRes.SharedStrings.Albums, "Index")
 	};	
 }
 
 @using (Html.BeginForm("Create", "Album", FormMethod.Post)) {
 
-	@Helpers.ValidationSymmaryPanel("Unable to create album. Correct the errors and try again.");
+	@Helpers.ValidationSymmaryPanel(R.CreateStrings.UnableToCreateAlbum);
 	
-	@Helpers.NotificationPanel("Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name and artist.")
+	@Helpers.NotificationPanel(R.CreateStrings.AlbumInfo)
 																							
 	<div>
 		<fieldset>
 			<table><tr><td class="alignTop">
 
 				<div class="editor-label">
-					Name (need at least one)
+					@ViewRes.EntryCreateStrings.Name
 				</div>
 
 				<div class="editor-field">
@@ -58,8 +59,8 @@
 			</div>
 
 			<div class="editor-label">
-				<span>Artists (need at least one)</span><br />
-				<span class="extraInfo">Producers, vocalists and circles responsible for this album.</span>
+				<span>@R.CreateStrings.ArtistsInfo</span><br />
+				<span class="extraInfo">@R.CreateStrings.ArtistDesc</span>
 			</div>
 			<div class="editor-field">
 				@Html.ValidationMessage("Artists")
@@ -75,19 +76,19 @@
 				<br />
 				@Helpers.EntrySearchBox("artistAdd", false)
 				<br />
-				<a href="#" class="textLink addLink" id="artistAddAcceptBtn">Add</a>
+				<a href="#" class="textLink addLink" id="artistAddAcceptBtn">@ViewRes.SharedStrings.Add</a>
 			</div>
 
 			</td><td class="alignTop" style="max-width: 250px">
 				@using (Html.BeginPanel()) {
-					<p>@Resources.CommonMessages.NoArtistsToName</p>
-					<p>@Resources.CommonMessages.NameHelp</p>
+					<p>@ViewRes.EntryCreateStrings.NoArtistsToName</p>
+					<p>@ViewRes.EntryCreateStrings.NameHelp</p>
 				}
 			</td></tr></table>
 
 		</fieldset>
 
-		<input type="submit" value="Save" />
+		<input type="submit" value="@ViewRes.SharedStrings.Save" />
 
 	</div>
 	
