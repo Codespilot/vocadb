@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Song {
+namespace ViewRes {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes.Song {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CreateStrings {
+    public class EntryCreateStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CreateStrings() {
+        internal EntryCreateStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes.Song {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Song.CreateStrings", typeof(CreateStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.EntryCreateStrings", typeof(EntryCreateStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,56 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producers and vocalists associated with this song..
+        ///   Looks up a localized string similar to Name in English.
         /// </summary>
-        public static string ArtistDesc {
+        public static string EnglishName {
             get {
-                return ResourceManager.GetString("ArtistDesc", resourceCulture);
+                return ResourceManager.GetString("EnglishName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Artists (need at least 1).
+        ///   Looks up a localized string similar to Name (need at least one).
         /// </summary>
-        public static string ArtistsInfo {
+        public static string Name {
             get {
-                return ResourceManager.GetString("ArtistsInfo", resourceCulture);
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This entry is a draft.
+        ///   Looks up a localized string similar to If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field..
         /// </summary>
-        public static string Draft {
+        public static string NameHelp {
             get {
-                return ResourceManager.GetString("Draft", resourceCulture);
+                return ResourceManager.GetString("NameHelp", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the original PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to Do not enter artist names into the name field. Instead, use the artists list..
         /// </summary>
-        public static string OriginalPV {
+        public static string NoArtistsToName {
             get {
-                return ResourceManager.GetString("OriginalPV", resourceCulture);
+                return ResourceManager.GetString("NoArtistsToName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the reprint of the PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to Non-English name.
         /// </summary>
-        public static string ReprintPV {
+        public static string NonEnglishName {
             get {
-                return ResourceManager.GetString("ReprintPV", resourceCulture);
+                return ResourceManager.GetString("NonEnglishName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make sure the song you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name and artist. Link to the original PV is very desirable..
+        ///   Looks up a localized string similar to Romanized name.
         /// </summary>
-        public static string SongInfo {
+        public static string RomajiName {
             get {
-                return ResourceManager.GetString("SongInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Song type.
-        /// </summary>
-        public static string SongType {
-            get {
-                return ResourceManager.GetString("SongType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit a new song.
-        /// </summary>
-        public static string SubmitSong {
-            get {
-                return ResourceManager.GetString("SubmitSong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to create song. Correct the errors and try again..
-        /// </summary>
-        public static string UnableToCreateSong {
-            get {
-                return ResourceManager.GetString("UnableToCreateSong", resourceCulture);
+                return ResourceManager.GetString("RomajiName", resourceCulture);
             }
         }
     }

@@ -165,6 +165,9 @@
   <data name="ReleaseEvents" xml:space="preserve">
     <value>Tapahtumat</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Poista</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Tallenna</value>
   </data>

@@ -1,25 +1,26 @@
 ﻿@using VocaDb.Web.Helpers;
+@using R = ViewRes.Artist;
 @model VocaDb.Web.Models.Artist.Create
 
 @{
-	ViewBag.Title = "Add an artist";
+	ViewBag.Title = R.CreateStrings.AddArtist;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Artists", "Index")
+		Html.ActionLink(ViewRes.SharedStrings.Artists, "Index")
 	};	
 }
 
 @using (Html.BeginForm("Create", "Artist", FormMethod.Post)) {
 
-	@Helpers.ValidationSymmaryPanel("Unable to create artist. Correct the errors and try again.");
+	@Helpers.ValidationSymmaryPanel(R.CreateStrings.UnableToCreateArtist);
 	
-	@Helpers.NotificationPanel("Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name. You need to enter a description OR an external link for reference.")
+	@Helpers.NotificationPanel(R.CreateStrings.ArtistInfo)
 
 	<div>
 		<fieldset>
 			<table><tr><td class="alignTop">
 
 				<div class="editor-label">
-					Name (need at least one)
+					@ViewRes.EntryCreateStrings.Name
 				</div>
 
 				<div class="editor-field">
@@ -65,11 +66,11 @@
 				</div>
 
 				<div class="editor-label">
-					External link (to artist's website, Hatsune Miku wiki, NND MyList etc.)
+					@R.CreateStrings.ExternalLink
 				</div>
 				<div class="editor-field">
 					<table><tr><td>				
-					@Html.LabelFor(m => m.WebLinkDescription) (optional)
+					@Html.LabelFor(m => m.WebLinkDescription) @R.CreateStrings.Optional
 					</td><td>
 					@Html.TextBoxFor(m => m.WebLinkDescription, new { maxlength = 512, size = 40 })<br />
 					</td></tr>
@@ -89,13 +90,13 @@
 
 			</td><td class="alignTop" style="max-width: 250px">
 				@using (Html.BeginPanel()) {
-					<p>@Resources.CommonMessages.NameHelp)</p>
+					<p>@ViewRes.EntryCreateStrings.NameHelp</p>
 				}
 			</td></tr></table>
 
 		</fieldset>
 
-		<input type="submit" value="Save" />
+		<input type="submit" value="@ViewRes.SharedStrings.Save" />
 
 	</div>	
 	

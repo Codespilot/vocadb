@@ -117,82 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Actions" xml:space="preserve">
-    <value>Actions</value>
-  </data>
-  <data name="Add" xml:space="preserve">
-    <value>Add</value>
-  </data>
-  <data name="Albums" xml:space="preserve">
-    <value>Albums</value>
-  </data>
-  <data name="Apply" xml:space="preserve">
-    <value>Apply</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Drafts" xml:space="preserve">
-    <value>Drafts</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="EntriesFound" xml:space="preserve">
-    <value>Entries found</value>
-  </data>
-  <data name="FeaturedSongLists" xml:space="preserve">
-    <value>Featured song lists</value>
-  </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Filter</value>
-  </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading...</value>
+  <data name="EnglishName" xml:space="preserve">
+    <value>Name in English</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Name (need at least one)</value>
   </data>
-  <data name="PVs" xml:space="preserve">
-    <value>PVs</value>
+  <data name="NameHelp" xml:space="preserve">
+    <value>If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.</value>
   </data>
-  <data name="ReleaseEvents" xml:space="preserve">
-    <value>Events</value>
+  <data name="NoArtistsToName" xml:space="preserve">
+    <value>Do not enter artist names into the name field. Instead, use the artists list.</value>
   </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+  <data name="NonEnglishName" xml:space="preserve">
+    <value>Non-English name</value>
   </data>
-  <data name="Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>Songs</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
-  </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>Top favorited songs</value>
-  </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>Top rated albums</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="Unsorted" xml:space="preserve">
-    <value>Unsorted</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
+  <data name="RomajiName" xml:space="preserve">
+    <value>Romanized name</value>
   </data>
 </root>
