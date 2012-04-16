@@ -194,7 +194,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Messages");
 			}
 
-			TempData.SetStatusMessage("Message has been sent");
+			TempData.SetStatusMessage(ViewRes.User.MessagesStrings.MessageSent);
 
 			return RedirectToAction("Messages");
 

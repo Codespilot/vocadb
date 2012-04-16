@@ -10,7 +10,7 @@
 		<div class="messageTitleText">
 			@Model.Subject<br />
 			@Model.Created
-			<span> from </span>
+			<span> @ViewRes.User.MessagesStrings.FromLC </span>
 			@Html.ProfileIcon(Model.Sender, 25)
 			@Html.UserLink(Model.Sender, Model.Sender.Name)
 		</div>
@@ -19,7 +19,7 @@
 		@Helpers.ConvertNewlinesToBreaks(Model.Body)
 	</p>
 
-	<a href="#" id="replyMessage">Reply</a>
+	<a href="#" id="replyMessage">@ViewRes.User.MessagesStrings.Reply</a>
 
 	<script type="text/javascript">
 

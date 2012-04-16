@@ -1,7 +1,8 @@
-﻿@model VocaDb.Model.DataContracts.Users.UserWithMessagesContract
+﻿@using R = ViewRes.User;
+@model VocaDb.Model.DataContracts.Users.UserWithMessagesContract
 
 @{
-    ViewBag.Title = "Messages";
+    ViewBag.Title = R.MessagesStrings.Messages;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
 	};		
@@ -12,7 +13,7 @@
 <script type="text/javascript" src="@Url.Content("~/Content/jqwidgets/jqxcore.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Content/jqwidgets/jqxexpander.js")"></script>-->
 
-@Helpers.ValidationSymmaryPanel("Error while sending message")
+@Helpers.ValidationSymmaryPanel(R.MessagesStrings.MessageSendError)
 
 <div id="viewMessage" style="display:none;">
 
@@ -21,18 +22,18 @@
 <div id="tabs">
 
 	<ul>
-		<li><a href="#receivedTab">Received</a></li>
-		<li><a href="#sentTab">Sent</a></li>
-		<li><a href="#composeTab">Compose</a></li>
+		<li><a href="#receivedTab">@R.MessagesStrings.Received</a></li>
+		<li><a href="#sentTab">@R.MessagesStrings.Sent</a></li>
+		<li><a href="#composeTab">@R.MessagesStrings.Compose</a></li>
 	</ul>
 
 	<div id="receivedTab">
-		<p>Click subject to view the message.</p>
+		<p>@R.MessagesStrings.ClickSubjectToView</p>
 		<table>
 			<tr>
-				<th>Date</th>
-				<th>From</th>
-				<th>Subject</th>
+				<th>@R.MessagesStrings.Date</th>
+				<th>@R.MessagesStrings.From</th>
+				<th>@R.MessagesStrings.Subject</th>
 			</tr>
 			@foreach (var message in Model.ReceivedMessages) {
 				<tr>
@@ -55,12 +56,12 @@
 	</div>
 
 	<div id="sentTab">
-		<p>Click subject to view the message.</p>
+		<p>@R.MessagesStrings.ClickSubjectToView</p>
 		<table>
 			<tr>
-				<th>Date</th>
-				<th>To</th>
-				<th>Subject</th>
+				<th>@R.MessagesStrings.Date</th>
+				<th>@R.MessagesStrings.To</th>
+				<th>@R.MessagesStrings.Subject</th>
 			</tr>
 			@foreach (var message in Model.SentMessages) {
 				<tr>
