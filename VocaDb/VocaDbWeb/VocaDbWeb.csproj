@@ -417,6 +417,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_LayoutStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Song\CreateStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CreateStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Song\DetailsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -441,6 +446,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\User\MessagesStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MessagesStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
@@ -1314,6 +1324,11 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Song\CreateStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1342,6 +1357,12 @@
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\MessagesStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\MessagesStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MessagesStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
