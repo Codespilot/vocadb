@@ -97,6 +97,9 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	background-color: #e0f8ff;
 	border: groove #48CCCD 2px;
 	opacity: 0.9; /*float: left;*/
+	/*background: aliceBlue;
+	border: solid #BAE8FF 2px;	
+	opacity: 0.9;*/
 	margin-bottom: 0px;
 	margin-left: 5px;
 	margin-right: 0px;
@@ -104,16 +107,24 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .rightFrame td {
-	font-weight: bold;
+	/*font-weight: bold;*/
 	color: #000000;
 }
 
 .rightFrame a {
-	color: #003399;
+	color: #003399 !important;
 	margin-bottom: 5px;
 	margin-left: 0px;
 	margin-right: 0px;
 	margin-top: 0px;
+}
+
+.rightFrame a:visited {
+	color: #001155 !important;
+}
+
+.rightFrame a:hover {
+	color: #0065B2 !important;	
 }
 
 .rightFrame li {
@@ -127,6 +138,8 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	background: #b9e9f7;
 	border: groove #48CCCD 2px;
 	opacity: 0.9;
+	/*background: aliceBlue;
+	border: solid #BAE8FF 2px;*/
 	float: left;
 }
 
@@ -158,16 +171,21 @@ ul {
 	color: #21758a;
 }
 
+.menu a:hover {
+	color: #2F8897 !important;
+	text-decoration: underline;
+}
+
+.menu a:visited {
+	color: #1C5D74;
+}
+
 .user a {
 	text-decoration: none;
 	color: #003366;
 	border-bottom-color: #333333;
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
-}
-
-.menu a:hover {
-	text-decoration: underline;
 }
 
 .user a:hover {
@@ -179,14 +197,6 @@ ul {
 
 .user a:visited {
 	color: #003366;
-}
-
-.menu a:visited {
-	color: #21758a;
-}
-
-.rightFrame a:visited {
-	color: #003399;
 }
 
 .recentAlbums a {
