@@ -8,7 +8,19 @@ using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Tags {
 
-	public class Tag : IEquatable<Tag> {
+	public class Tag : IEquatable<Tag>, IEntryBase {
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		bool IDeletableEntry.Deleted {
+			get { return false; }
+		}
+
+		int IEntryWithIntId.Id {
+			get { return GetHashCode(); }
+		}
 
 		public const int MaxDisplayedTags = 4;
 		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_]+$");
@@ -73,6 +85,10 @@ namespace VocaDb.Model.Domain.Tags {
 		public virtual string Description {
 			get { return description; }
 			set { description = value; }
+		}
+
+		public virtual EntryType EntryType {
+			get { return EntryType.Tag; }
 		}
 
 		public virtual string Name { get; set; }

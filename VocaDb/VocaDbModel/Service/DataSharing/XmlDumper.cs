@@ -14,6 +14,9 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.ReleaseEvents;
+using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.DataContracts.Tags;
 
 namespace VocaDb.Model.Service.DataSharing {
 
@@ -70,7 +73,7 @@ namespace VocaDb.Model.Service.DataSharing {
 
 		}
 
-		private void DumpXml<T>(T contract, Package package, string folder, int id) {
+		/*private void DumpXml<T>(T contract, Package package, string folder, int id) {
 
 			var partUri = PackUriHelper.CreatePartUri(new Uri(folder + id + ".xml", UriKind.Relative));
 
@@ -101,7 +104,7 @@ namespace VocaDb.Model.Service.DataSharing {
 			var contract = new ArchivedSongContract(song, new SongDiff());
 			DumpXml(contract, package, "/Songs/", song.Id);
 
-		}
+		}*/
 
 		public void Create(string path, ISession session) {
 
@@ -117,17 +120,31 @@ namespace VocaDb.Model.Service.DataSharing {
 				(first, max) => { session.Clear(); return session.Query<Song>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray(); },
 				a => new ArchivedSongContract(a, new SongDiff()));
 
+			var eventSeriesLoader = new Loader<ReleaseEventSeries, ArchivedEventSeriesContract>("/EventSeries/",
+				(first, max) => { session.Clear(); return session.Query<ReleaseEventSeries>().Skip(first).Take(max).ToArray(); },
+				a => new ArchivedEventSeriesContract(a));
+
+			var eventLoader = new Loader<ReleaseEvent, ArchivedEventContract>("/Events/",
+				(first, max) => { session.Clear(); return session.Query<ReleaseEvent>().Skip(first).Take(max).ToArray(); },
+				a => new ArchivedEventContract(a));
+
+			var tagLoader = new Loader<Tag, ArchivedTagContract>("/Tags/",
+				(first, max) => { session.Clear(); return session.Query<Tag>().Skip(first).Take(max).ToArray(); },
+				a => new ArchivedTagContract(a));
+
 			using (var package = Package.Open(path, FileMode.Create)) {
 
 				artistLoader.Dump(package);
 				albumLoader.Dump(package);
 				songLoader.Dump(package);
+				eventSeriesLoader.Dump(package);
+				eventLoader.Dump(package);
 
 			}
 
 		}
 
-		public void Create(string path, IEnumerable<Artist> artists, IEnumerable<Album> albums, IEnumerable<Song> songs) {
+		/*public void Create(string path, IEnumerable<Artist> artists, IEnumerable<Album> albums, IEnumerable<Song> songs) {
 
 			using (var package = Package.Open(path, FileMode.Create)) {
 
@@ -145,7 +162,7 @@ namespace VocaDb.Model.Service.DataSharing {
 
 			}
 
-		}
+		}*/
 
 	}
 

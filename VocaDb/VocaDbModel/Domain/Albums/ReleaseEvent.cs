@@ -3,7 +3,15 @@ using System.Collections.Generic;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ReleaseEvent {
+	public class ReleaseEvent : IEntryBase {
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		bool IDeletableEntry.Deleted {
+			get { return false; }
+		}
 
 		private IList<Album> albums = new List<Album>();
 		private string description;
@@ -54,6 +62,10 @@ namespace VocaDb.Model.Domain.Albums {
 				ParamIs.NotNull(() => value);
 				description = value; 
 			}
+		}
+
+		public virtual EntryType EntryType {
+			get { return EntryType.ReleaseEvent; }
 		}
 
 		public virtual int Id { get; set; }
