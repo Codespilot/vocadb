@@ -227,6 +227,10 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public virtual ArtistForAlbum AddAlbum(Album album) {
+			return AddAlbum(album, false, ArtistRoles.Default);
+		}
+
+		public virtual ArtistForAlbum AddAlbum(Album album, bool support, ArtistRoles roles) {
 
 			ParamIs.NotNull(() => album);
 
@@ -234,7 +238,7 @@ namespace VocaDb.Model.Domain.Artists {
 			//if (HasAlbum(album))
 			//	throw new InvalidOperationException(string.Format("{0} has already been added for {1}", album, this));
 
-			var link = new ArtistForAlbum(album, this);
+			var link = new ArtistForAlbum(album, this, support, roles);
 			AllAlbums.Add(link);
 			album.AllArtists.Add(link);
 
@@ -263,10 +267,14 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public virtual ArtistForSong AddSong(Song song) {
+			return AddSong(song, false, ArtistRoles.Default);
+		}
+
+		public virtual ArtistForSong AddSong(Song song, bool support, ArtistRoles roles) {
 
 			ParamIs.NotNull(() => song);
 
-			var link = new ArtistForSong(song, this);
+			var link = new ArtistForSong(song, this, support, roles);
 			AllSongs.Add(link);
 			song.AllArtists.Add(link);
 

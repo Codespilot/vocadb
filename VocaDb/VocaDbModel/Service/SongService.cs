@@ -1013,9 +1013,9 @@ namespace VocaDb.Model.Service {
 				song.TranslatedName.DefaultLanguage = fullProperties.TranslatedName.DefaultLanguage;
 
 				// Artists
-				SessionHelper.RestoreObjectRefs<ArtistForSong, Artist>(
+				SessionHelper.RestoreObjectRefs<ArtistForSong, Artist, ArchivedArtistForSongContract>(
 					session, warnings, song.AllArtists, fullProperties.Artists, (a1, a2) => (a1.Artist.Id == a2.Id),
-					artist => (!song.HasArtist(artist) ? song.AddArtist(artist) : null),
+					(artist, artistRef) => (!song.HasArtist(artist) ? artist.AddSong(song, artistRef.IsSupport, artistRef.Roles) : null),
 					artistForSong => artistForSong.Delete());
 
 				// Names
