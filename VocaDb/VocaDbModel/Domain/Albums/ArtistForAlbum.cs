@@ -17,11 +17,13 @@ namespace VocaDb.Model.Domain.Albums {
 			Roles = ArtistRoles.Default;
 		}
 
-		public ArtistForAlbum(Album album, Artist artist)
+		public ArtistForAlbum(Album album, Artist artist, bool support, ArtistRoles roles)
 			: this() {
 
 			Album = album;
 			Artist = artist;
+			IsSupport = support;
+			Roles = roles;
 
 		}
 

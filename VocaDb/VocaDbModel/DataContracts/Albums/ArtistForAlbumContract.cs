@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Artists;
 
@@ -14,8 +15,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			Album = new AlbumWithAdditionalNamesContract(artistForAlbum.Album, languagePreference);
 			Artist = new ArtistWithAdditionalNamesContract(artistForAlbum.Artist, languagePreference);
+			Categories = artistForAlbum.ArtistCategories;
 			Id = artistForAlbum.Id;
 			IsSupport = artistForAlbum.IsSupport;
+			Roles = artistForAlbum.Roles;
 
 		}
 
@@ -26,10 +29,16 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public ArtistWithAdditionalNamesContract Artist { get; set; }
 
 		[DataMember]
+		public ArtistCategories Categories { get; set; }
+
+		[DataMember]
 		public int Id { get; set; }
 
 		[DataMember]
 		public bool IsSupport { get; set; }
+
+		[DataMember]
+		public ArtistRoles Roles { get; set; }
 
 	}
 

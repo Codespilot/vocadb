@@ -855,9 +855,9 @@ namespace VocaDb.Model.Service {
 				album.OriginalRelease = (fullProperties.OriginalRelease != null ? new AlbumRelease(fullProperties.OriginalRelease) : null);
 
 				// Artists
-				SessionHelper.RestoreObjectRefs<ArtistForAlbum, Artist>(
+				SessionHelper.RestoreObjectRefs<ArtistForAlbum, Artist, ArchivedArtistForAlbumContract>(
 					session, warnings, album.AllArtists, fullProperties.Artists, (a1, a2) => (a1.Artist.Id == a2.Id),
-					artist => (!artist.HasAlbum(album) ? artist.AddAlbum(album) : null),
+					(artist, albumRef) => (!artist.HasAlbum(album) ? artist.AddAlbum(album, albumRef.IsSupport, albumRef.Roles) : null),
 					albumForArtist => albumForArtist.Delete());
 
 				// Songs

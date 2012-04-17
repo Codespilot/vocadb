@@ -9,7 +9,7 @@ namespace VocaDb.Model.Utils {
 
 	public class XmlCache<T> {
 
-		private IDictionary<int, T> cached = new Dictionary<int, T>();
+		private readonly IDictionary<int, T> cached = new Dictionary<int, T>();
 
 		public T Deserialize(int key, XDocument doc) {
 

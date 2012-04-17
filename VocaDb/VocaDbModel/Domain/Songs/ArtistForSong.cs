@@ -15,11 +15,13 @@ namespace VocaDb.Model.Domain.Songs {
 			Notes = string.Empty;
 		}
 
-		public ArtistForSong(Song song, Artist artist)
+		public ArtistForSong(Song song, Artist artist, bool support, ArtistRoles roles)
 			: this() {
 
 			Song = song;
 			Artist = artist;
+			IsSupport = support;
+			Roles = roles;
 
 		}
 
@@ -42,6 +44,8 @@ namespace VocaDb.Model.Domain.Songs {
 				notes = value; 
 			}
 		}
+
+		public virtual ArtistRoles Roles { get; set; }
 
 		public virtual Song Song {
 			get { return song; }
