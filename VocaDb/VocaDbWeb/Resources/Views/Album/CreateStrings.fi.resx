@@ -129,6 +129,9 @@
   <data name="DiscType" xml:space="preserve">
     <value>Levyn tyyppi</value>
   </data>
+  <data name="NeedArtist" xml:space="preserve">
+    <value>Tarvitaan ainakin yksi artisti.</value>
+  </data>
   <data name="SubmitAlbum" xml:space="preserve">
     <value>Lisää albumi</value>
   </data>

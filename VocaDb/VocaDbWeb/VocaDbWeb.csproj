@@ -432,6 +432,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_LayoutStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\SongList\DetailsStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DetailsStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Song\CreateStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1357,6 +1362,12 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\SongList\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\SongList\DetailsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.SongList</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Song\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

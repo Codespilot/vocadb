@@ -129,6 +129,9 @@
   <data name="DiscType" xml:space="preserve">
     <value>Disc type</value>
   </data>
+  <data name="NeedArtist" xml:space="preserve">
+    <value>Need at least one artist.</value>
+  </data>
   <data name="SubmitAlbum" xml:space="preserve">
     <value>Submit a new album</value>
   </data>

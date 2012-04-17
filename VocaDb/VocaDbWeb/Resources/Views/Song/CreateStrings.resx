@@ -126,6 +126,9 @@
   <data name="Draft" xml:space="preserve">
     <value>This entry is a draft</value>
   </data>
+  <data name="NeedArtist" xml:space="preserve">
+    <value>Need at least one artist.</value>
+  </data>
   <data name="OriginalPV" xml:space="preserve">
     <value>URL to the original PV (NicoNicoDouga or Youtube)</value>
   </data>

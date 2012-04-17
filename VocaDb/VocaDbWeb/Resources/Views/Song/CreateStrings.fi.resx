@@ -126,6 +126,9 @@
   <data name="Draft" xml:space="preserve">
     <value>Tämä merkintä on luonnos</value>
   </data>
+  <data name="NeedArtist" xml:space="preserve">
+    <value>Tarvitaan ainakin yksi artisti.</value>
+  </data>
   <data name="OriginalPV" xml:space="preserve">
     <value>Osoite alkuperäiseen videoon (NicoNicoDouga tai Youtube)</value>
   </data>

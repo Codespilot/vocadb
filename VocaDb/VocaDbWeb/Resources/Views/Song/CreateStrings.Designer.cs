@@ -88,6 +88,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Need at least one artist..
+        /// </summary>
+        public static string NeedArtist {
+            get {
+                return ResourceManager.GetString("NeedArtist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to URL to the original PV (NicoNicoDouga or Youtube).
         /// </summary>
         public static string OriginalPV {

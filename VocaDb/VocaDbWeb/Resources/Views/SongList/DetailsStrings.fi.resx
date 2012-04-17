@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EnglishName" xml:space="preserve">
-    <value>Nimi englanniksi</value>
+  <data name="SongList" xml:space="preserve">
+    <value>Kappalelista</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Nimi (tarvitaan vähintään yksi)</value>
-  </data>
-  <data name="NameHelp" xml:space="preserve">
-    <value>Jos alkuperäinen nimi on kirjoitettu jollain muulla kielellä kuin englanniksi, tai jos kieli on tuntematon, kirjoita se alkuperäiskielisen nimen kenttään. Jos tunnettu, kirjoita myös romanisoitu nimi. Jos alkuperäinen nimi on kirjoitettu englanniksi, tai jos nimelle on tiedossa englanninkielinen käännös, kirjoita tämä nimi englanninkielisen nimen kenttään.</value>
-  </data>
-  <data name="NeedName" xml:space="preserve">
-    <value>Tarvitaan ainakin yksi nimi.</value>
-  </data>
-  <data name="NoArtistsToName" xml:space="preserve">
-    <value>Älä kirjoita artistin nimeä nimikenttään. Käytä artistilistaa.</value>
-  </data>
-  <data name="NonEnglishName" xml:space="preserve">
-    <value>Alkuperäiskielinen nimi</value>
-  </data>
-  <data name="RomajiName" xml:space="preserve">
-    <value>Romanisoitu nimi</value>
+  <data name="Songs" xml:space="preserve">
+    <value>kappale(tta)</value>
   </data>
 </root>

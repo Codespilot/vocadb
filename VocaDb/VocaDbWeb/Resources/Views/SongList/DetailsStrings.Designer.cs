@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Album {
+namespace ViewRes.SongList {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes.Album {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CreateStrings {
+    public class DetailsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CreateStrings() {
+        internal DetailsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes.Album {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Album.CreateStrings", typeof(CreateStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.SongList.DetailsStrings", typeof(DetailsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,20 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make sure the entry you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name and artist..
+        ///   Looks up a localized string similar to Song list.
         /// </summary>
-        public static string AlbumInfo {
+        public static string SongList {
             get {
-                return ResourceManager.GetString("AlbumInfo", resourceCulture);
+                return ResourceManager.GetString("SongList", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producers and vocalists associated with this album..
+        ///   Looks up a localized string similar to song(s).
         /// </summary>
-        public static string ArtistDesc {
+        public static string Songs {
             get {
-                return ResourceManager.GetString("ArtistDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Artists (need at least 1).
-        /// </summary>
-        public static string ArtistsInfo {
-            get {
-                return ResourceManager.GetString("ArtistsInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disc type.
-        /// </summary>
-        public static string DiscType {
-            get {
-                return ResourceManager.GetString("DiscType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Need at least one artist..
-        /// </summary>
-        public static string NeedArtist {
-            get {
-                return ResourceManager.GetString("NeedArtist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit a new album.
-        /// </summary>
-        public static string SubmitAlbum {
-            get {
-                return ResourceManager.GetString("SubmitAlbum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to create album. Correct the errors and try again..
-        /// </summary>
-        public static string UnableToCreateAlbum {
-            get {
-                return ResourceManager.GetString("UnableToCreateAlbum", resourceCulture);
+                return ResourceManager.GetString("Songs", resourceCulture);
             }
         }
     }

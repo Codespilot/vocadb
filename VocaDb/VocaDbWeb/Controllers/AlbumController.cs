@@ -221,10 +221,10 @@ namespace VocaDb.Web.Controllers
 
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) 
 				&& string.IsNullOrWhiteSpace(model.NameEnglish))
-				ModelState.AddModelError("Names", "Need at least one name.");
+				ModelState.AddModelError("Names", ViewRes.EntryCreateStrings.NeedName);
 
 			if (model.Artists == null || !model.Artists.Any())
-				ModelState.AddModelError("Artists", "Need at least one artist.");
+				ModelState.AddModelError("Artists", ViewRes.Album.CreateStrings.NeedArtist);
 
 			if (!ModelState.IsValid)
 				return View(model);
