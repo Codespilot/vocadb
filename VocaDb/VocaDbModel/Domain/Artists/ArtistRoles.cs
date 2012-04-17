@@ -7,21 +7,45 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Default				= 0,
 
-		Composer			= 1,
+		/// <summary>
+		/// Usually associated with remixes/covers
+		/// </summary>
+		Arranger			= 1,
 
-		Arranger			= 2,
+		Composer			= 2,
 
-		Lyricist			= 4,
+		/// <summary>
+		/// Usually circle/label
+		/// </summary>
+		Distributor			= 4,
 
-		Performer			= 8,
+		/// <summary>
+		/// PVs, cover art, booklet
+		/// </summary>
+		Illustrator			= 8,
 
-		Illustrator			= 16,
+		/// <summary>
+		/// Plays instruments
+		/// </summary>
+		Instrumentalist		= 16,
 
-		Vocalist			= 32,
+		Lyricist			= 32,
 
-		VoiceManipulator	= 64,
+		Mastering			= 64,
 
-		Other				= 128
+		/// <summary>
+		/// Usually circle/label
+		/// </summary>
+		Publisher			= 128,
+
+		Vocalist			= 256,
+
+		/// <summary>
+		/// Vocaloid voice manipulator
+		/// </summary>
+		VoiceManipulator	= 512,
+
+		Other				= 1024
 
 	}
 }
