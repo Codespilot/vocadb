@@ -67,7 +67,7 @@ function initPage(artistId, saveStr) {
 		return false;
 	});
 
-	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { text: saveStr, click: saveTagSelections} });
+	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: saveStr, click: saveTagSelections}] });
 
 	$("#tabs").tabs({
 		load: function (event, ui) {
