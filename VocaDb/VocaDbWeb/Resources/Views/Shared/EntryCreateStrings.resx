@@ -126,6 +126,9 @@
   <data name="NameHelp" xml:space="preserve">
     <value>If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.</value>
   </data>
+  <data name="NeedName" xml:space="preserve">
+    <value>Need at least one name.</value>
+  </data>
   <data name="NoArtistsToName" xml:space="preserve">
     <value>Do not enter artist names into the name field. Instead, use the artists list.</value>
   </data>

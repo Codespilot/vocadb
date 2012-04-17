@@ -1,9 +1,10 @@
 ﻿@using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Web.Helpers;
+@using R = ViewRes.SongList;
 @model SongListDetailsContract
 		   
 @{
-	ViewBag.Title = "Song list - " + Model.Name;
+	ViewBag.Title = R.DetailsStrings.SongList + " - " + Model.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(Model.Author.Name, "Details", "User", new { id = Model.Author.Id }, null) 
 	};
@@ -12,7 +13,7 @@
 
 @section Toolbar {	
 @if (Model.CanEdit) {
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { id = "editListLink" });
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editListLink" });
 }
 }
 
@@ -30,7 +31,7 @@
 	<p>@Helpers.ConvertNewlinesToBreaks(Model.Description)</p>
 }
 
-<p>@Model.SongLinks.Count() song(s).</p>
+<p>@Model.SongLinks.Count() @R.DetailsStrings.Songs.</p>
 
 <div class="tracklist">
 	<ul>

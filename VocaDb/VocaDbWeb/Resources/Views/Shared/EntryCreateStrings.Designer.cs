@@ -88,6 +88,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Need at least one name..
+        /// </summary>
+        public static string NeedName {
+            get {
+                return ResourceManager.GetString("NeedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do not enter artist names into the name field. Instead, use the artists list..
         /// </summary>
         public static string NoArtistsToName {

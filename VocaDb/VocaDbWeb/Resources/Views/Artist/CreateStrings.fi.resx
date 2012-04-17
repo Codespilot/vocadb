@@ -135,6 +135,9 @@
   <data name="ExternalLink" xml:space="preserve">
     <value>Ulkoinen linkki (artistin kotisivulle, wikiin tai NND:n MyListiin)</value>
   </data>
+  <data name="NeedWebLinkOrDescription" xml:space="preserve">
+    <value>Sinun täytyy syöttää kuvaus TAI antaa linkki.</value>
+  </data>
   <data name="Optional" xml:space="preserve">
     <value>(vapaaehtoinen)</value>
   </data>

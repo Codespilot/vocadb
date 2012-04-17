@@ -115,6 +115,15 @@ namespace ViewRes.Artist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You need to enter a description OR external link..
+        /// </summary>
+        public static string NeedWebLinkOrDescription {
+            get {
+                return ResourceManager.GetString("NeedWebLinkOrDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (optional).
         /// </summary>
         public static string Optional {

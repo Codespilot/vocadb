@@ -203,10 +203,10 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Create(Create model) {
 
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
-				ModelState.AddModelError("Names", "Need at least one name.");
+				ModelState.AddModelError("Names", ViewRes.EntryCreateStrings.NeedName);
 
 			if (string.IsNullOrWhiteSpace(model.Description) && string.IsNullOrWhiteSpace(model.WebLinkUrl))
-				ModelState.AddModelError("Description", "You need to enter a description OR external link.");
+				ModelState.AddModelError("Description", ViewRes.Artist.CreateStrings.NeedWebLinkOrDescription);
 
 			//if (!string.IsNullOrWhiteSpace(model.WebLinkUrl) && !UrlValidator.IsValid(model.WebLinkUrl))
 			//	ModelState.AddModelError("WebLinkUrl", model.WebLinkUrl + " is not a valid URL.");

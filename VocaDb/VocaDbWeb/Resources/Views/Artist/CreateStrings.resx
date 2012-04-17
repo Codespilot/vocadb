@@ -135,6 +135,9 @@
   <data name="ExternalLink" xml:space="preserve">
     <value>External link (to artist's website, Hatsune Miku wiki, NND MyList etc.)</value>
   </data>
+  <data name="NeedWebLinkOrDescription" xml:space="preserve">
+    <value>You need to enter a description OR external link.</value>
+  </data>
   <data name="Optional" xml:space="preserve">
     <value>(optional)</value>
   </data>
