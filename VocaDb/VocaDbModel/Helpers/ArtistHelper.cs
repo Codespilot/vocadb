@@ -84,6 +84,35 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static ArtistCategories GetCategories(ArtistType type, ArtistRoles roles) {
+
+			if (roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(type)) {
+
+				return ArtistHelper.CategoriesForTypes[type];
+
+			} else {
+
+				var cat = ArtistCategories.Nothing;
+
+				if (roles.HasFlag(ArtistRoles.Vocalist))
+					cat |= ArtistCategories.Vocalist;
+
+				if (roles.HasFlag(ArtistRoles.Arranger) || roles.HasFlag(ArtistRoles.Composer) || roles.HasFlag(ArtistRoles.VoiceManipulator))
+					cat |= ArtistCategories.Producer;
+
+				if (roles.HasFlag(ArtistRoles.Distributor) || roles.HasFlag(ArtistRoles.Publisher))
+					cat |= ArtistCategories.Circle;
+
+				if (cat == ArtistCategories.Nothing)
+					cat = ArtistCategories.Other;
+
+				return cat;
+
+			}
+
+
+		}
+
 		public static bool IsCustomizable(ArtistType at) {
 
 			return CustomizableTypes.Contains(at);

@@ -43,30 +43,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual ArtistCategories ArtistCategories {
 			get {
-
-				var at = Artist.ArtistType;
-
-				if (Roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(at)) {
-
-					return ArtistHelper.CategoriesForTypes[Artist.ArtistType];
-
-				} else {
-
-					var cat = ArtistCategories.Nothing;
-
-					if (Roles.HasFlag(ArtistRoles.Vocalist))
-						cat |= ArtistCategories.Vocalist;
-
-					if (Roles.HasFlag(ArtistRoles.Arranger) || Roles.HasFlag(ArtistRoles.Composer) || Roles.HasFlag(ArtistRoles.VoiceManipulator))
-						cat |= ArtistCategories.Producer;
-
-					if (cat == ArtistCategories.Nothing)
-						cat = ArtistCategories.Other;
-
-					return cat;
-
-				}
-
+				return ArtistHelper.GetCategories(Artist.ArtistType, Roles);
 			}
 		}
 
