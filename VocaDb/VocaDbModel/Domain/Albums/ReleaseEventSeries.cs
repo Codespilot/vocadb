@@ -5,7 +5,15 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ReleaseEventSeries : IEquatable<ReleaseEventSeries> {
+	public class ReleaseEventSeries : IEntryBase, IEquatable<ReleaseEventSeries> {
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		bool IDeletableEntry.Deleted {
+			get { return false; }
+		}
 
 		private IList<ReleaseEventSeriesAlias> aliases = new List<ReleaseEventSeriesAlias>();
 		private string description;
@@ -43,6 +51,10 @@ namespace VocaDb.Model.Domain.Albums {
 				ParamIs.NotNull(() => value);
 				description = value; 
 			}
+		}
+
+		public virtual EntryType EntryType {
+			get { return EntryType.ReleaseEventSeries; }
 		}
 
 		public virtual IList<ReleaseEvent> Events {
