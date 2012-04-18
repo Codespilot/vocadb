@@ -28,7 +28,10 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var user = GetLoggedUser(session);
-				var list = new SongList("Weekly Vocaloid ranking #" + parsed.WVRId, user) { Description = parsed.Name };
+				var list = new SongList("Weekly Vocaloid ranking #" + parsed.WVRId, user) { 
+					Description = parsed.Name, 
+					FeaturedCategory = SongListFeaturedCategory.VocaloidRanking 
+				};
 				session.Save(list);
 
 				foreach (var entry in parsed.Songs) {

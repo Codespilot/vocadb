@@ -130,7 +130,7 @@
     <value>Muu laulaja</value>
   </data>
   <data name="Producer" xml:space="preserve">
-    <value>Tuottaja</value>
+    <value>Musiikintuottaja</value>
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Ei määritelty</value>
@@ -140,5 +140,11 @@
   </data>
   <data name="Vocaloid" xml:space="preserve">
     <value>Vocaloidi</value>
+  </data>
+  <data name="Animator" xml:space="preserve">
+    <value>Animoija</value>
+  </data>
+  <data name="OtherIndividual" xml:space="preserve">
+    <value>Muu henkilö</value>
   </data>
 </root>
