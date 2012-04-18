@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drama PV.
+        /// </summary>
+        internal static string DramaPV {
+            get {
+                return ResourceManager.GetString("DramaPV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mashup.
         /// </summary>
         internal static string Mashup {
@@ -79,7 +88,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Original.
+        ///   Looks up a localized string similar to Music PV.
+        /// </summary>
+        internal static string MusicPV {
+            get {
+                return ResourceManager.GetString("MusicPV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original song.
         /// </summary>
         internal static string Original {
             get {

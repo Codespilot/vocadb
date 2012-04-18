@@ -19,13 +19,17 @@
 		/// </summary>
 		Producer,
 
+		Animator,
+
 		Vocaloid,
 
 		UTAU,
 
 		OtherVocalist,
 
-		OtherGroup
+		OtherGroup,
+
+		OtherIndividual
 
 	}
 }

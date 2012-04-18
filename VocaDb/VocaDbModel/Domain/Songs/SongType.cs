@@ -12,7 +12,11 @@
 
 		Mashup		= 8,
 
-		Other		= 16
+		MusicPV		= 16,
+
+		DramaPV		= 32,
+
+		Other		= 64
 
 	}
 

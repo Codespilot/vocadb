@@ -127,7 +127,7 @@
     <value>Other vocalist</value>
   </data>
   <data name="Producer" xml:space="preserve">
-    <value>Producer</value>
+    <value>Music producer</value>
   </data>
   <data name="Unknown" xml:space="preserve">
     <value>Not specified</value>
@@ -140,5 +140,11 @@
   </data>
   <data name="OtherGroup" xml:space="preserve">
     <value>Other group</value>
+  </data>
+  <data name="Animator" xml:space="preserve">
+    <value>Animation producer</value>
+  </data>
+  <data name="OtherIndividual" xml:space="preserve">
+    <value>Other individual</value>
   </data>
 </root>

@@ -120,11 +120,17 @@
   <data name="Cover" xml:space="preserve">
     <value>Cover</value>
   </data>
+  <data name="DramaPV" xml:space="preserve">
+    <value>Drama PV</value>
+  </data>
   <data name="Mashup" xml:space="preserve">
     <value>Mashup</value>
   </data>
+  <data name="MusicPV" xml:space="preserve">
+    <value>Music PV</value>
+  </data>
   <data name="Original" xml:space="preserve">
-    <value>Original</value>
+    <value>Original song</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
