@@ -241,7 +241,7 @@ namespace VocaDb.Web.Helpers {
 		public static string ReplaceUrisWithLinks(string text) {
 
 			var parsed = new StringBuilder(text);
-			var regex = new Regex(@"http[s]?\:[a-zA-Z0-9_\#\-\.\:\/\%\?\&\=\+]+");
+			var regex = new Regex(@"http[s]?\:[a-zA-Z0-9_\#\-\.\:\/\%\?\&\=\+\(\)]+");
 
 			var matches = regex.Matches(text);
 
