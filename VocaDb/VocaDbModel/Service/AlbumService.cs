@@ -971,7 +971,7 @@ namespace VocaDb.Model.Service {
 				artistForAlbum.IsSupport = isSupport;
 				artistForAlbum.Album.UpdateArtistString();
 
-				AuditLog("updated IsSupport for " + artistForAlbum);
+				AuditLog("updated IsSupport for " + artistForAlbum, session);
 
 				session.Update(artistForAlbum.Album);
 
