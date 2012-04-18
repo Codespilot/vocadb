@@ -45,14 +45,16 @@ namespace VocaDb.Model.Service {
 		/// <param name="moveExactToTop">Whether to move exact match to the top of search results.</param>
 		/// <param name="ignoreIds">List of entries to be ignored. Can be null in which case no filtering is done.</param>
 		/// <returns></returns>
-		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, int start, int maxResults,
-			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, bool moveExactToTop, int[] ignoreIds) {
+		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, SongType[] songTypes, 
+			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, 
+			bool moveExactToTop, int[] ignoreIds) {
 
 			var originalQuery = query;
 
 			SongWithAdditionalNamesContract[] contracts;
 			bool foundExactMatch = false;
 			ignoreIds = ignoreIds ?? new int[] { };
+			bool filterByType = songTypes.Any();
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -62,6 +64,9 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.SongType));
 
 				var songs = q.OrderBy(s => s.Names.SortNames.Romaji)
 					.Skip(start)
@@ -82,6 +87,9 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
 				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
@@ -115,6 +123,9 @@ namespace VocaDb.Model.Service {
 					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
+
+				if (filterByType)
+					additionalNamesQ = additionalNamesQ.Where(m => songTypes.Contains(m.Song.SongType));
 
 				var additionalNames = additionalNamesQ
 					.Select(m => m.Song)
@@ -608,7 +619,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, 0, 1, false, false, NameMatchMode.Exact, true, false, null);
+					var result = Find(session, q, new SongType[] {}, 0, 1, false, false, NameMatchMode.Exact, true, false, null);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -621,11 +632,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, int start, int maxResults, 
+		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, SongType[] songTypes, int start, int maxResults, 
 			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, int[] ignoredIds) {
 
 			return HandleQuery(session => 
-				Find(session, query, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName, true, ignoredIds));
+				Find(session, query, songTypes, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName, true, ignoredIds));
 
 		}
 
@@ -693,7 +704,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var songContract = Find(session, query, 0, 10, false, false, NameMatchMode.Auto, false, true, null).Items;
+				var songContract = Find(session, query, new SongType[] {}, 0, 10, false, false, NameMatchMode.Auto, false, true, null).Items;
 
 				if (!songContract.Any())
 					return null;

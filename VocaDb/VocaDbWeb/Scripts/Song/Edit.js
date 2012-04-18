@@ -44,7 +44,10 @@ function initPage(songId) {
 			createOptionFirstRow: function (item) { return item.Name; },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },
-			extraQueryParams: { ignoredIds: JSON.stringify(songId) },
+			extraQueryParams: {
+				ignoredIds: JSON.stringify(songId),
+				songTypes: "Unspecified,Original,Remix,Cover,Mashup,Other"
+			},
 			height: 250
 		});
 
@@ -69,7 +72,7 @@ function initPage(songId) {
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name },
 			createOptionSecondRow: function (item) { return item.AdditionalNames },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown,OtherGroup" }
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown,Animator,OtherGroup,OtherIndividual" }
 		});
 
 	function artistAdded(row) {

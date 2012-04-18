@@ -42,7 +42,7 @@ function initPage() {
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name },
 			createOptionSecondRow: function (item) { return item.AdditionalNames },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,OtherGroup,Unknown" },
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,OtherGroup,Unknown,Animator,OtherIndividual" },
 			height: 300
 		});
 

@@ -270,7 +270,8 @@ function initPage(albumId) {
 			acceptSelection: acceptSongSelection,
 			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")" },
 			createOptionSecondRow: function (item) { return item.ArtistString },
-			createTitle: function (item) { return item.AdditionalNames }
+			createTitle: function (item) { return item.AdditionalNames },
+			extraQueryParams: { songTypes: "Unspecified,Original,Remix,Cover,Mashup,Other" }
 		});
 
 	function songAdded(row) {
