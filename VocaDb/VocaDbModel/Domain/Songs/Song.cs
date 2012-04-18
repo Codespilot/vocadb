@@ -474,7 +474,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 				var artist = artistGetter(newEntry);
 
-				var l = AddArtist(artist);
+				var l = artist.AddSong(this, newEntry.IsSupport, ArtistRoles.Default);
 				created.Add(l);
 
 			}
