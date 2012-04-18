@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 
@@ -40,7 +41,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public PartialFindResult<SongWithAdditionalNamesContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Songs.Find(term, 0, maxResults, false, true, nameMatchMode, false, null);
+			return Services.Songs.Find(term, new SongType[] {}, 0, maxResults, false, true, nameMatchMode, false, null);
 
 		}
 
@@ -99,7 +100,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public SongWithAdditionalNamesContract GetSongDetails(string term) {
 
-			var songs = Services.Songs.Find(term, 0, 10, false, false,NameMatchMode.Auto, false, null);
+			var songs = Services.Songs.Find(term, new SongType[] {}, 0, 10, false, false,NameMatchMode.Auto, false, null);
 			return songs.Items.FirstOrDefault();
 
 		}

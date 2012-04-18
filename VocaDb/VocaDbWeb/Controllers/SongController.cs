@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
@@ -69,7 +70,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, bool? draftsOnly, int? page) {
 
-			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false, null);
+			var result = Service.Find(filter, new SongType[] {}, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false, null);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
@@ -102,9 +103,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult FindJsonByName(string term, bool alwaysExact = false, int[] ignoredIds = null) {
+		public ActionResult FindJsonByName(string term, string songTypes, bool alwaysExact = false, int[] ignoredIds = null) {
 
-			var songs = Service.Find(term, 0, 20, 
+			var typeVals = !string.IsNullOrEmpty(songTypes)
+				? songTypes.Split(',').Select(EnumVal<SongType>.Parse).ToArray()
+				: new SongType[] { };
+
+			var songs = Service.Find(term, typeVals, 0, 20, 
 				draftOnly: false, 
 				getTotalCount: false, 
 				onlyByName: true, 
