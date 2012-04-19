@@ -96,7 +96,7 @@
 }
 
 @helper Songs(VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[] songs) {
-	@Songs(songs, s => "(added " + s.CreateDate.ToShortDateString() + ")")
+	@Songs(songs, s => "(" + HelperRes.HelperStrings.Added + " " + s.CreateDate.ToShortDateString() + ")")
 }
 
 @helper Songs(SongWithAdditionalNamesContract[] songs, Func<SongWithAdditionalNamesContract, string> extraData, bool showArtists = false) {

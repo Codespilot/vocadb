@@ -1,8 +1,9 @@
-﻿@model VocaDb.Model.DataContracts.Tags.TagDetailsContract
+﻿@using R = ViewRes.Tag;
+@model VocaDb.Model.DataContracts.Tags.TagDetailsContract
 
 @{
-    ViewBag.Title = "Tag details - " + Model.Name;
-	ViewBag.Parents = new[] { Html.ActionLink("Tags", "Index") };	
+    ViewBag.Title = R.DetailsStrings.TagDetails + " - " + Model.Name;
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Tags, "Index") };	
 }
 
 @section BodyScripts {
@@ -18,17 +19,17 @@
 
 @section Toolbar {
 	@if (VocaDb.Web.Helpers.Login.CanManageDb) {
-		@Html.ActionLink("Edit", "Edit", new { id = Model.Name }, new { id = "editTagLink" });
+		@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink" });
 	}
 }
 
 <div id="tabs">
 
 	<ul>
-		<li><a href="#overviewTab">Overview</a></li>
-		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">All artists (@Model.ArtistCount)</a></li>
-		<li><a href="@Url.Action("Albums", "Tag", new { id = Model.Name })" title="Albums">All albums (@Model.AlbumCount)</a></li>
-		<li><a href="@Url.Action("Songs", "Tag", new { id = Model.Name })" title="Songs">All songs (@Model.SongCount)</a></li>
+		<li><a href="#overviewTab">@R.DetailsStrings.Overview</a></li>
+		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
+		<li><a href="@Url.Action("Albums", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
+		<li><a href="@Url.Action("Songs", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
 	</ul>
 
 	<div id="overviewTab">
@@ -38,11 +39,11 @@
 		}
 
 		@if (Model.CategoryName != string.Empty){
-		<p>Category: @Model.CategoryName</p>
+		<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
 		}
 
 		@if (Model.Artists.Any()) {
-		<h4>Top artists</h4>
+		<h4>@R.DetailsStrings.TopArtists</h4>
 
 		<ul>
 			@foreach (var usage in Model.Artists) {
@@ -52,7 +53,7 @@
 		}
 
 		@if (Model.Albums.Any()) {
-		<h4>Top albums</h4>
+		<h4>@R.DetailsStrings.TopAlbums</h4>
 
 		<ul>
 			@foreach (var usage in Model.Albums) {
@@ -62,7 +63,7 @@
 		}
 
 		@if (Model.Songs.Any()) {
-		<h4>Top songs</h4>
+		<h4>@R.DetailsStrings.TopSongs</h4>
 
 		<ul>
 			@foreach (var usage in Model.Songs) {
