@@ -169,6 +169,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PV.
+        /// </summary>
+        public static string PVDetails {
+            get {
+                return ResourceManager.GetString("PVDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove from favorites.
         /// </summary>
         public static string RemoveFromFavorites {
@@ -178,7 +187,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Song details.
+        ///   Looks up a localized string similar to Song.
         /// </summary>
         public static string SongDetails {
             get {

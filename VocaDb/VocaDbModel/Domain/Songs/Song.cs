@@ -579,7 +579,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual void UpdateArtistString() {
 
-			ArtistString = ArtistHelper.GetArtistString(Artists, ArtistHelper.IsAnimation(SongType));
+			ArtistString = ArtistHelper.GetArtistString(Artists, SongHelper.IsAnimation(SongType));
 
 		}
 

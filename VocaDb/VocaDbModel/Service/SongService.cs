@@ -158,13 +158,15 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			int count = (getTotalCount ? GetSongCount(session, query, onlyByName, draftsOnly, nameMatchMode) : 0);
+			int count = (getTotalCount ? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode) : 0);
 
 			return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
 
 		}
 
-		private int GetSongCount(ISession session, string query, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode) {
+		private int GetSongCount(ISession session, string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode) {
+
+			bool filterByType = songTypes.Any();
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -173,6 +175,9 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.SongType));
 
 				return q.Count();
 
@@ -183,6 +188,9 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
 				if (query.Length < 3) {
 
@@ -212,6 +220,9 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					additionalNamesQ = additionalNamesQ.Where(s => songTypes.Contains(s.Song.SongType));
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 

@@ -153,11 +153,14 @@
   <data name="Producers" xml:space="preserve">
     <value>Producers</value>
   </data>
+  <data name="PVDetails" xml:space="preserve">
+    <value>PV</value>
+  </data>
   <data name="RemoveFromFavorites" xml:space="preserve">
     <value>Remove from favorites</value>
   </data>
   <data name="SongDetails" xml:space="preserve">
-    <value>Song details</value>
+    <value>Song</value>
   </data>
   <data name="Vocalists" xml:space="preserve">
     <value>Vocalists</value>
