@@ -518,7 +518,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual void UpdateArtistString() {
 
-			ArtistString = ArtistHelper.GetArtistString(Artists);
+			ArtistString = ArtistHelper.GetArtistString(Artists, false);
 
 		}
 

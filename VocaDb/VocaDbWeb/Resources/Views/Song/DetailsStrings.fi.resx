@@ -129,6 +129,9 @@
   <data name="AlternateVersions" xml:space="preserve">
     <value>Muut versiot</value>
   </data>
+  <data name="Animators" xml:space="preserve">
+    <value>Animoijat</value>
+  </data>
   <data name="Lyrics" xml:space="preserve">
     <value>Sanoitukset</value>
   </data>

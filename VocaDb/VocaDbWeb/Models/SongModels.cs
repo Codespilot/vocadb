@@ -19,6 +19,7 @@ using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Web.Models {
 
@@ -57,9 +58,12 @@ namespace VocaDb.Web.Models {
 			Tags = contract.Tags;
 			WebLinks = contract.WebLinks;
 
-			Performers = contract.Artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).ToArray();
-			Producers = contract.Artists.Where(a => a.Artist.ArtistType == Model.Domain.Artists.ArtistType.Producer).ToArray();
-			OtherArtists = contract.Artists.Where(a => !Performers.Contains(a) && !Producers.Contains(a)).ToArray();
+			Animators = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Animator)).ToArray();
+			Performers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Vocalist)).ToArray();
+			Producers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Producer)).ToArray();
+			OtherArtists = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Circle) 
+				|| a.Categories.HasFlag(ArtistCategories.Label) 
+				|| a.Categories.HasFlag(ArtistCategories.Other)).ToArray();
 
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
 
@@ -82,6 +86,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Alternate versions")]
 		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+
+		public ArtistForSongContract[] Animators { get; set; }
 
 		public string ArtistString { get; set; }
 

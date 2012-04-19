@@ -6,5 +6,7 @@
 
 		bool IsSupport { get; }
 
+		ArtistRoles Roles { get; }
+
 	}
 }
