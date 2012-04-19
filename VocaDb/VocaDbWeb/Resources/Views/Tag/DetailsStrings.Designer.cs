@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HelperRes {
+namespace ViewRes.Tag {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace HelperRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class HelperStrings {
+    public class DetailsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal HelperStrings() {
+        internal DetailsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace HelperRes {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Helpers.HelperStrings", typeof(HelperStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Tag.DetailsStrings", typeof(DetailsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,92 +61,83 @@ namespace HelperRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to added.
+        ///   Looks up a localized string similar to All albums.
         /// </summary>
-        public static string Added {
+        public static string AllAlbums {
             get {
-                return ResourceManager.GetString("Added", resourceCulture);
+                return ResourceManager.GetString("AllAlbums", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This entry is a draft..
+        ///   Looks up a localized string similar to All artists.
         /// </summary>
-        public static string DraftIconTitle {
+        public static string AllArtists {
             get {
-                return ResourceManager.GetString("DraftIconTitle", resourceCulture);
+                return ResourceManager.GetString("AllArtists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This entry is a draft. You can help by editing the entry and adding the missing information..
+        ///   Looks up a localized string similar to All songs.
         /// </summary>
-        public static string DraftMessage {
+        public static string AllSongs {
             get {
-                return ResourceManager.GetString("DraftMessage", resourceCulture);
+                return ResourceManager.GetString("AllSongs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to guide.
+        ///   Looks up a localized string similar to Category.
         /// </summary>
-        public static string SeeGuide {
+        public static string Category {
             get {
-                return ResourceManager.GetString("SeeGuide", resourceCulture);
+                return ResourceManager.GetString("Category", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to for more information..
+        ///   Looks up a localized string similar to Overview.
         /// </summary>
-        public static string SeeGuidePost {
+        public static string Overview {
             get {
-                return ResourceManager.GetString("SeeGuidePost", resourceCulture);
+                return ResourceManager.GetString("Overview", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to See the.
+        ///   Looks up a localized string similar to Tag details.
         /// </summary>
-        public static string SeeGuidePre {
+        public static string TagDetails {
             get {
-                return ResourceManager.GetString("SeeGuidePre", resourceCulture);
+                return ResourceManager.GetString("TagDetails", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approved entries have been inspected by a trusted user. Editing of approved entries is limited..
+        ///   Looks up a localized string similar to Top albums.
         /// </summary>
-        public static string StatusDescriptionApproved {
+        public static string TopAlbums {
             get {
-                return ResourceManager.GetString("StatusDescriptionApproved", resourceCulture);
+                return ResourceManager.GetString("TopAlbums", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Draft entries are missing some required information..
+        ///   Looks up a localized string similar to Top artists.
         /// </summary>
-        public static string StatusDescriptionDraft {
+        public static string TopArtists {
             get {
-                return ResourceManager.GetString("StatusDescriptionDraft", resourceCulture);
+                return ResourceManager.GetString("TopArtists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Finished entries contain all the required information but haven&apos;t been approved yet..
+        ///   Looks up a localized string similar to Top songs.
         /// </summary>
-        public static string StatusDescriptionFinished {
+        public static string TopSongs {
             get {
-                return ResourceManager.GetString("StatusDescriptionFinished", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locked entries can only be edited by staff members..
-        /// </summary>
-        public static string StatusDescriptionLocked {
-            get {
-                return ResourceManager.GetString("StatusDescriptionLocked", resourceCulture);
+                return ResourceManager.GetString("TopSongs", resourceCulture);
             }
         }
     }
