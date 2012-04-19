@@ -3,10 +3,25 @@ using System.Linq;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Helpers {
 
 	public static class ArtistHelper {
+
+		private static bool IsProducerRole(IArtistWithSupport link, bool isAnimation) {
+
+			return IsProducerRole(GetCategories(link.Artist.ArtistType, link.Roles), isAnimation);
+
+		}
+
+		private static bool IsProducerRole(ArtistCategories categories, bool isAnimation) {
+
+			return (categories.HasFlag(ArtistCategories.Producer) 
+				|| categories.HasFlag(ArtistCategories.Circle) 
+				|| (isAnimation && categories.HasFlag(ArtistCategories.Animator)));
+
+		}
 
 		/// <summary>
 		/// Artist types able to work as groups/circles for an artist.
@@ -16,7 +31,7 @@ namespace VocaDb.Model.Helpers {
 		};
 
 		public static readonly Dictionary<ArtistType, ArtistCategories> CategoriesForTypes = new Dictionary<ArtistType, ArtistCategories> {
-			{ ArtistType.Animator, ArtistCategories.Producer },
+			{ ArtistType.Animator, ArtistCategories.Animator },
 			{ ArtistType.Circle, ArtistCategories.Circle },
 			{ ArtistType.Label, ArtistCategories.Label },
 			{ ArtistType.OtherGroup, ArtistCategories.Circle },
@@ -52,13 +67,13 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist
 		};
 
-		public static TranslatedStringWithDefault GetArtistString(IEnumerable<IArtistWithSupport> artists) {
+		public static TranslatedStringWithDefault GetArtistString(IEnumerable<IArtistWithSupport> artists, bool isAnimation) {
 
 			ParamIs.NotNull(() => artists);
 
-			var matched = artists.Where(a => a.Artist.ArtistType != ArtistType.Label && !a.IsSupport).Select(a => a.Artist).ToArray();
-			var producers = matched.Where(a => ProducerTypes.Contains(a.ArtistType));
-			var performers = matched.Where(a => VocalistTypes.Contains(a.ArtistType));
+			var matched = artists.Where(a => a.Artist.ArtistType != ArtistType.Label && !a.IsSupport).ToArray();
+			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).Select(a => a.Artist);
+			var performers = matched.Where(a => GetCategories(a.Artist.ArtistType, a.Roles).HasFlag(ArtistCategories.Vocalist)).Select(a => a.Artist);
 			const string various = "Various artists";
 
 			if (producers.Count() >= 4 || (!producers.Any() && performers.Count() >= 4))
@@ -80,7 +95,7 @@ namespace VocaDb.Model.Helpers {
 
 			} else {
 
-				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => a.TranslatedName[lang])));
+				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => a.Artist.TranslatedName[lang])));
 
 			}
 
@@ -105,6 +120,9 @@ namespace VocaDb.Model.Helpers {
 				if (roles.HasFlag(ArtistRoles.Distributor) || roles.HasFlag(ArtistRoles.Publisher))
 					cat |= ArtistCategories.Circle;
 
+				if (roles.HasFlag(ArtistRoles.Animator))
+					cat |= ArtistCategories.Animator;
+
 				if (cat == ArtistCategories.Nothing)
 					cat = ArtistCategories.Other;
 
@@ -113,6 +131,10 @@ namespace VocaDb.Model.Helpers {
 			}
 
 
+		}
+
+		public static bool IsAnimation(SongType songType) {
+			return (songType == SongType.DramaPV || songType == SongType.MusicPV);
 		}
 
 		public static bool IsCustomizable(ArtistType at) {

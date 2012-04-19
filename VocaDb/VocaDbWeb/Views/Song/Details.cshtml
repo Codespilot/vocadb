@@ -81,6 +81,15 @@
 				</td>
 			</tr>
    }
+   
+			@if (Model.Animators.Any()) {
+			<tr>
+				<td>@ViewRes.Song.DetailsStrings.Animators</td>
+				<td>
+					@ArtistHelpers.ArtistList(Model.Animators)
+				</td>
+			</tr>
+			}
 			
 			@if (Model.OtherArtists.Any()) {
 			<tr>

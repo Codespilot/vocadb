@@ -1,6 +1,7 @@
 ﻿using System;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -30,6 +31,12 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				artist = value;
+			}
+		}
+
+		public virtual ArtistCategories ArtistCategories {
+			get {
+				return ArtistHelper.GetCategories(Artist.ArtistType, Roles);
 			}
 		}
 

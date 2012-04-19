@@ -222,11 +222,11 @@ namespace VocaDb.Web.Models {
 
 			var artists = contract.ArtistLinks;
 
-			Circles = artists.Where(a => a.Artist.ArtistType == ArtistType.Circle).ToArray();
-			Labels = artists.Where(a => a.Artist.ArtistType == ArtistType.Label).ToArray();
-			OtherArtists = artists.Where(a => a.Artist.ArtistType == ArtistType.Unknown || a.Artist.ArtistType == ArtistType.OtherGroup).ToArray();
-			Producers = artists.Where(a => a.Artist.ArtistType == ArtistType.Producer).ToArray();
-			Vocalists = artists.Where(a => ArtistHelper.VocalistTypes.Contains(a.Artist.ArtistType)).ToArray();
+			Circles = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Circle)).ToArray();
+			Labels = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Label)).ToArray();
+			Producers = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Producer)).ToArray();
+			Vocalists = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Vocalist)).ToArray();
+			OtherArtists = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Other) || a.Categories.HasFlag(ArtistCategories.Animator)).ToArray();
 
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
 

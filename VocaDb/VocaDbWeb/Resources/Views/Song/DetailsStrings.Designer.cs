@@ -97,6 +97,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Animators.
+        /// </summary>
+        public static string Animators {
+            get {
+                return ResourceManager.GetString("Animators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lyrics.
         /// </summary>
         public static string Lyrics {

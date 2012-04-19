@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VocaDb.Model.Domain.Albums {
+namespace VocaDb.Model.Domain.Artists {
 
 	[Flags]
 	public enum ArtistCategories {
@@ -11,11 +11,13 @@ namespace VocaDb.Model.Domain.Albums {
 
 		Producer	= 2,
 
-		Label		= 4,
+		Animator	= 4,
 
-		Circle		= 8,
+		Label		= 8,
 
-		Other		= 16
+		Circle		= 16,
+
+		Other		= 32
 
 	}
 
