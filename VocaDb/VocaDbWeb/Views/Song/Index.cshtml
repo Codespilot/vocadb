@@ -27,6 +27,8 @@
 <p>
 	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp; 
+	@Html.SongTypeDropDownListFor(a => a.SongType)
+	&nbsp; 
 	@Html.CheckBoxFor(m => m.DraftsOnly)
 	@Html.LabelFor(m => m.DraftsOnly)
 	<button type="submit">@ViewRes.SharedStrings.Apply</button>

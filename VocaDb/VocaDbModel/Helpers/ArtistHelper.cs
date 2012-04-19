@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Helpers {
 
@@ -131,10 +129,6 @@ namespace VocaDb.Model.Helpers {
 			}
 
 
-		}
-
-		public static bool IsAnimation(SongType songType) {
-			return (songType == SongType.DramaPV || songType == SongType.MusicPV);
 		}
 
 		public static bool IsCustomizable(ArtistType at) {

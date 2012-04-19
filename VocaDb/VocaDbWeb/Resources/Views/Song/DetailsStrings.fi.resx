@@ -153,11 +153,14 @@
   <data name="Producers" xml:space="preserve">
     <value>Tuottajat</value>
   </data>
+  <data name="PV" xml:space="preserve">
+    <value>Video</value>
+  </data>
   <data name="RemoveFromFavorites" xml:space="preserve">
     <value>Poista suosikeista</value>
   </data>
   <data name="SongDetails" xml:space="preserve">
-    <value>Kappaleen tiedot</value>
+    <value>Kappale</value>
   </data>
   <data name="Vocalists" xml:space="preserve">
     <value>Laulajat</value>

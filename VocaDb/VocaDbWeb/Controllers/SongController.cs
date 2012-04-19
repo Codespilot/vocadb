@@ -68,15 +68,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Index(string filter, bool? draftsOnly, int? page) {
+		public ActionResult Index(string filter, SongType? songType, bool? draftsOnly, int? page) {
 
-			var result = Service.Find(filter, new SongType[] {}, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false, null);
+			var result = Service.Find(filter, songType != null && songType != SongType.Unspecified ? new[] { songType.Value } : new SongType[] { }, 
+				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false, null);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
-			var model = new Index(result, filter, draftsOnly, page);
+			var model = new Index(result, filter, songType ?? SongType.Unspecified, draftsOnly, page);
 
         	return View(model);
 

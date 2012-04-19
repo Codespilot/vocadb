@@ -133,7 +133,7 @@ namespace ViewRes.Artist {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recent songs.
+        ///   Looks up a localized string similar to Recent songs / PVs.
         /// </summary>
         public static string RecentSongs {
             get {
