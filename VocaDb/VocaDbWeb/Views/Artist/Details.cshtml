@@ -66,7 +66,7 @@
 			<tr>
 				<td>@ViewRes.SharedStrings.Type</td>
 				<td>
-					@Translate.ArtistTypeName(Model.ArtistType)<br />
+					@Html.ActionLink(Translate.ArtistTypeName(Model.ArtistType), "Index", new { artistType = Model.ArtistType })<br />
 				</td>	
 			</tr>
 
