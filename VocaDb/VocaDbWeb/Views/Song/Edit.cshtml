@@ -158,12 +158,19 @@
 		</div>
 
 		<div id="artistsTab">
-
 			@using (@Html.BeginPanel()) {
 				<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
 			}
 
 			<table>
+				<thead>
+					<tr>
+						<td>Artist</td>
+						<td>Support</td>
+						<td>Roles</td>
+						<td>Actions</td>
+					</tr>
+				</thead>
 				<tbody id="artistsTableBody">
 				@foreach (var album in Model.ArtistLinks) {
 		Html.RenderPartial("ArtistForSongEditRow", album);
@@ -184,6 +191,19 @@
 	</p>
 	
 }
+
+<div id="editArtistRolesPopup" style="display:none;" title="Artist roles">
+
+	<div id="artistRowNumber" />
+
+	@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
+		@Html.CheckBox("artistRole_" + role.Key.ToString(), new { id = "artistRole_" + role.Key.ToString() })
+		@role.Value
+		<br />
+	}
+
+</div>
+
 
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
