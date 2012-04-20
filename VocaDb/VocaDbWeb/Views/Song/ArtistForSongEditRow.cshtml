@@ -5,10 +5,11 @@
 <tr>
 	<td>
 		@{ var item = Html.BeginCollectionItem("ArtistLinks"); }
-		@Html.HiddenFor(m => m.Id, new { @class = "artistId" })
-		@Html.HiddenFor(m => m.Artist.Id)
+		@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.Artist.Id, new { @class = "artistId" })
 		@Html.HiddenFor(m => m.Artist.AdditionalNames)
 		@Html.HiddenFor(m => m.Artist.Name)								
+		@Html.HiddenFor(m => m.Artist.ArtistType)								
 		@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
 		<span class="extraInfo">@Model.Artist.AdditionalNames</span>
 	</td>
@@ -25,8 +26,10 @@
 				}
 			}
 		</div>
-		@{ item.Dispose(); }		
-		<a href="#" class="artistRolesEdit textLink editLink">Edit</a>
+		@{ item.Dispose(); }
+		@if (VocaDb.Model.Helpers.ArtistHelper.IsCustomizable(Model.Artist.ArtistType)) {
+			<a href="#" class="artistRolesEdit textLink editLink">Customize</a>
+		}
 	</td>
 	<td>
 		<a href="#" class="artistRemove textLink removeLink">Remove</a>
