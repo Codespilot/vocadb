@@ -23,6 +23,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<MediaType> AlbumMediaTypeNames =
 			new TranslateableEnum<MediaType>(() => global::Resources.AlbumMediaTypeNames.ResourceManager);
 
+		public static readonly TranslateableEnum<ArtistRoles> ArtistRoleNames =
+			new TranslateableEnum<ArtistRoles>(() => global::Resources.ArtistRoleNames.ResourceManager);
+
 		public static readonly TranslateableEnum<EntryStatus> EntryStatusNames =
 			new TranslateableEnum<EntryStatus>(() => global::Resources.EntryStatusNames.ResourceManager);
 

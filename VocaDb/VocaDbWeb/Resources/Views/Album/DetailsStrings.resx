@@ -121,7 +121,7 @@
     <value>Add to my collection</value>
   </data>
   <data name="AlbumDetails" xml:space="preserve">
-    <value>Album details</value>
+    <value>Album</value>
   </data>
   <data name="CatalogNumber" xml:space="preserve">
     <value>Catalog number</value>

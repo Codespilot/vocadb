@@ -70,7 +70,7 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Album details.
+        ///   Looks up a localized string similar to Album.
         /// </summary>
         public static string AlbumDetails {
             get {

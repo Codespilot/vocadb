@@ -130,6 +130,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistEditableFieldNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ArtistRoleNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistRoleNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ArtistRoleNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistRoleNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1217,6 +1227,14 @@
     <Content Include="App_GlobalResources\UserGroupNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UserGroupNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ArtistRoleNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistRoleNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ArtistRoleNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistRoleNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">
