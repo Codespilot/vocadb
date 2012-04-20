@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Helpers;
+﻿@using VocaDb.Model;
+@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Songs.ArtistForSongContract
 
 <tr>
@@ -14,7 +15,18 @@
 	<td>
 		@Html.CheckBoxFor(m => m.IsSupport)
 		@Html.LabelFor(m => m.IsSupport, "Support")
-		@{ item.Dispose(); }
+	</td>
+	<td>
+		@Html.HiddenFor(m => m.Roles)
+		<div id="rolesList">
+			@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
+				if (Model.Roles.HasFlag(role.Key)) {
+					@role.Value<br />
+				}
+			}
+		</div>
+		@{ item.Dispose(); }		
+		<a href="#" class="artistRolesEdit textLink editLink">Edit</a>
 	</td>
 	<td>
 		<a href="#" class="artistRemove textLink removeLink">Remove</a>

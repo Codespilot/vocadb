@@ -10,6 +10,13 @@ function initPage(songId) {
 		.ajaxStart(function () { $(this).show(); })
 		.ajaxStop(function () { $(this).hide(); });
 
+	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": function () { 
+	
+		// TODO
+
+	}}});
+
+
 	initNamesList();
 	initWebLinksList();
 
@@ -79,23 +86,22 @@ function initPage(songId) {
 
 		var artistsTable = $("#artistsTableBody");
 		artistsTable.append(row);
-		//$("input#artistAddName").val("");
-		//$("#artistAddList").empty();
 
 	}
 
 	$("a.artistRemove").live("click", function () {
 
-		/*var id = getId(this);
-		$.post("../../Song/DeleteArtistForSong", { artistForSongId: id }, function () {
-
-			$("tr#artistRow_" + id).remove();
-
-		});*/
-
 		$(this).parent().parent().remove();
 		return false;
 
+	});
+
+	$("a.artistRolesEdit").live("click", function () {
+
+		// TODO
+
+		$("#editArtistRolesPopup").dialog("open");
+		
 	});
 
 	$("#pvAdd").click(function () {
