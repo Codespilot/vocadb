@@ -124,7 +124,7 @@
     <value>Kaikki kappaleet</value>
   </data>
   <data name="ArtistDetails" xml:space="preserve">
-    <value>Artistin tiedot</value>
+    <value>Artisti</value>
   </data>
   <data name="ArtistPicture" xml:space="preserve">
     <value>Artistin kuva</value>

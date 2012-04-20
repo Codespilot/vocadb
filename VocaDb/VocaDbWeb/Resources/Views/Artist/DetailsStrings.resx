@@ -124,7 +124,7 @@
     <value>All songs</value>
   </data>
   <data name="ArtistDetails" xml:space="preserve">
-    <value>Artist details</value>
+    <value>Artist</value>
   </data>
   <data name="ArtistPicture" xml:space="preserve">
     <value>Artist picture</value>

@@ -93,12 +93,6 @@
 				</td>	
 			</tr>
 	   
-			<tr>
-				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
-				<td>
-					@Model.CreateDate
-				</td>	
-			</tr>	   
    }
 		@if (Model.Groups.Any()) {
 			<tr>
@@ -106,6 +100,14 @@
 				<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames }))</td>
 			</tr>
   }
+  
+			<tr>
+				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
+				<td>
+					@Model.CreateDate
+				</td>	
+			</tr>	   
+
 		</table>
 	
 

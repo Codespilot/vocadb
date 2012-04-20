@@ -117,67 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddToCollection" xml:space="preserve">
-    <value>Lisää kokoelmaani</value>
+  <data name="Animator" xml:space="preserve">
+    <value>Animoija</value>
   </data>
-  <data name="AlbumDetails" xml:space="preserve">
-    <value>Albumi</value>
+  <data name="Arranger" xml:space="preserve">
+    <value>Sovittaja</value>
   </data>
-  <data name="CatalogNumber" xml:space="preserve">
-    <value>Tuotenumero</value>
+  <data name="Composer" xml:space="preserve">
+    <value>Säveltäjä</value>
   </data>
-  <data name="Circle" xml:space="preserve">
-    <value>Doujin-piiri</value>
+  <data name="Default" xml:space="preserve">
+    <value>Oletus</value>
   </data>
-  <data name="CoverPicture" xml:space="preserve">
-    <value>Kansikuva</value>
+  <data name="Distributor" xml:space="preserve">
+    <value>Jakelija</value>
   </data>
-  <data name="DownloadTrackList" xml:space="preserve">
-    <value>Lataa kappaletiedot CSV-tiedostona</value>
+  <data name="Illustrator" xml:space="preserve">
+    <value>Kuvittaja</value>
   </data>
-  <data name="EditAlbumInCollection" xml:space="preserve">
-    <value>Muokkaa kokoelmassa</value>
+  <data name="Instrumentalist" xml:space="preserve">
+    <value>Instrumentalisti</value>
   </data>
-  <data name="Labels" xml:space="preserve">
-    <value>Levy-yhtiö(t)</value>
+  <data name="Lyricist" xml:space="preserve">
+    <value>Sanoittaja</value>
   </data>
-  <data name="MediaType" xml:space="preserve">
-    <value>Median tyyppi</value>
+  <data name="Mastering" xml:space="preserve">
+    <value>Masteroija</value>
   </data>
-  <data name="MyRating" xml:space="preserve">
-    <value>Arvostelu</value>
+  <data name="Other" xml:space="preserve">
+    <value>Muu</value>
   </data>
-  <data name="NoTracklist" xml:space="preserve">
-    <value>Ei kappalelistaa annettu. Kuka tahansa rekisteröitynyt käyttäjä voi täyttää listan.</value>
+  <data name="Publisher" xml:space="preserve">
+    <value>Julkaisija</value>
   </data>
-  <data name="OtherArtists" xml:space="preserve">
-    <value>Muut artistit</value>
+  <data name="Vocalist" xml:space="preserve">
+    <value>Laulaja</value>
   </data>
-  <data name="Producers" xml:space="preserve">
-    <value>Tuottajat</value>
-  </data>
-  <data name="PVs" xml:space="preserve">
-    <value>Mainokset / koosteet</value>
-  </data>
-  <data name="Ratings" xml:space="preserve">
-    <value>arvostelua</value>
-  </data>
-  <data name="ReleaseDate" xml:space="preserve">
-    <value>Julkaisupäivä</value>
-  </data>
-  <data name="ReleaseEvent" xml:space="preserve">
-    <value>Julkaisutapahtuma</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Tila</value>
-  </data>
-  <data name="Tracklist" xml:space="preserve">
-    <value>Kappalelista</value>
-  </data>
-  <data name="UpdateCollection" xml:space="preserve">
-    <value>Päivitä kokoelmassani</value>
-  </data>
-  <data name="Vocalists" xml:space="preserve">
-    <value>Laulajat</value>
+  <data name="VoiceManipulator" xml:space="preserve">
+    <value>Äänen manipuloija</value>
   </data>
 </root>

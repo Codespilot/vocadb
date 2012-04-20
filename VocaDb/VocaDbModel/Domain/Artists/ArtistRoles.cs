@@ -2,6 +2,10 @@
 
 namespace VocaDb.Model.Domain.Artists {
 
+	/// <summary>
+	/// Possible artist roles for albums and songs.
+	/// Saved into database as a bitarray.
+	/// </summary>
 	[Flags]
 	public enum ArtistRoles {
 
