@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Web.Models.Event;
@@ -109,7 +110,7 @@ namespace VocaDb.Web.Controllers
 
 			if (result.EventId != 0) {
 
-				if (result.EventName != query)
+				if (result.EventName != query && LoginManager.HasPermission(PermissionToken.ManageDatabase))
 					Services.Albums.UpdateAllReleaseEventNames(query, result.EventName);
 
 				return RedirectToAction("Details", new { id = result.EventId });
