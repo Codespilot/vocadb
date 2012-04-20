@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 
@@ -114,6 +115,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Id(m => m.Id);
 			Map(m => m.IsSupport).Not.Nullable();
+			Map(m => m.Roles).CustomType(typeof(ArtistRoles)).Not.Nullable();
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.Song).Not.Nullable();
 
