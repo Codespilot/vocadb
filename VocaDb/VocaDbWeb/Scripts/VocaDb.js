@@ -44,3 +44,7 @@ function isNullOrWhiteSpace(str) {
 	return !(/\S/.test(str));
 
 }
+
+String.prototype.trim = function () {
+	return this.replace(/^\s*/, "").replace(/\s*$/, "");
+}

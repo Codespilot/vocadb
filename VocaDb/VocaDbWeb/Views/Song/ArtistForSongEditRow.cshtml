@@ -5,7 +5,7 @@
 <tr>
 	<td>
 		@{ var item = Html.BeginCollectionItem("ArtistLinks"); }
-		@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.Id, new { @class = "artistId" })
 		@Html.HiddenFor(m => m.Artist.Id)
 		@Html.HiddenFor(m => m.Artist.AdditionalNames)
 		@Html.HiddenFor(m => m.Artist.Name)								
@@ -17,8 +17,8 @@
 		@Html.LabelFor(m => m.IsSupport, "Support")
 	</td>
 	<td>
-		@Html.HiddenFor(m => m.Roles)
-		<div id="rolesList">
+		@Html.HiddenFor(m => m.Roles, new { @class = "artistRoles" })
+		<div class="artistRolesList">
 			@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
 				if (Model.Roles.HasFlag(role.Key)) {
 					@role.Value<br />
