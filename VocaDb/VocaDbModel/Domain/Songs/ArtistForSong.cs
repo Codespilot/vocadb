@@ -67,7 +67,7 @@ namespace VocaDb.Model.Domain.Songs {
 			if (contract == null)
 				return false;
 
-			return (IsSupport == contract.IsSupport);
+			return (IsSupport == contract.IsSupport && Roles == contract.Roles);
 
 		}
 
