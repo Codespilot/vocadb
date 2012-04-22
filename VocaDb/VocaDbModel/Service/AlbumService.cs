@@ -604,7 +604,7 @@ namespace VocaDb.Model.Service {
 
 			return
 				HandleQuery(session =>
-					new AlbumForEditContract(session.Load<Album>(id), GetAllLabels(session), PermissionContext.LanguagePreference));
+					new AlbumForEditContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
 
 		}
 
@@ -979,6 +979,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateArtistForAlbumRoles(int artistForAlbumId, ArtistRoles roles) {
+
+			VerifyManageDatabase();
+
+			HandleTransaction(session => {
+
+				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
+
+				artistForAlbum.Roles = roles;
+				artistForAlbum.Album.UpdateArtistString();
+
+				AuditLog("updated roles for " + artistForAlbum, session);
+
+				session.Update(artistForAlbum.Album);
+
+			});
+
+		}
+
 		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, PictureDataContract pictureData) {
 
 			ParamIs.NotNull(() => properties);
@@ -1098,7 +1117,7 @@ namespace VocaDb.Model.Service {
 
 				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);
 				session.Update(album);
-				return new AlbumForEditContract(album, GetAllLabels(session), PermissionContext.LanguagePreference);
+				return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
 
 			});
 

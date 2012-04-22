@@ -319,6 +319,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var list = session.Load<SongList>(listId);
+				//var order = session.Query<SongInList>().Where(s => s.List.Equals(list)).Max(s => s.Order) + 1;
 
 				VerifyResourceAccess(list.Author);
 

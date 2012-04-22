@@ -3,6 +3,6 @@
 
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post)) {
 	<p>@Html.TextBox("globalSearchTerm", string.Empty, new { id = "globalSearchTerm", size = 25 })</p>
-	<p>@Html.EnumDropDownListFor(m => m.ObjectType, Model.AllObjectTypes, new { id = "globalSearchEntryType" })</p>	
+	<p>@Html.EnumDropDownListFor(m => m.ObjectType, Model.AllObjectTypes, new { id = "globalSearchEntryType" }, Model.ObjectType)</p>	
 	<p><button type="submit">@ViewRes.SharedStrings.Search</button></p>
 }
