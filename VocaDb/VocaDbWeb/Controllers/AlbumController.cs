@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
@@ -473,6 +474,15 @@ namespace VocaDb.Web.Controllers
 		public void UpdateArtistForAlbumIsSupport(int artistForAlbumId, bool isSupport) {
 
 			Service.UpdateArtistForAlbumIsSupport(artistForAlbumId, isSupport);
+
+		}
+
+		[HttpPost]
+		public void UpdateArtistForAlbumRoles(int artistForAlbumId, ArtistRoles[] roles) {
+
+			var rolesBitField = roles.Aggregate(ArtistRoles.Default, (list, item) => list |= item);
+
+			Service.UpdateArtistForAlbumRoles(artistForAlbumId, rolesBitField);
 
 		}
 

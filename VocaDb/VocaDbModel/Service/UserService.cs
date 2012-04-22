@@ -97,6 +97,11 @@ namespace VocaDb.Model.Service {
 				var user = session.Load<User>(userId);
 				var artist = session.Load<Artist>(artistId);
 
+				var exists = session.Query<ArtistForUser>().Any(u => u.User.Equals(user) && u.Artist.Equals(artist));
+
+				if (exists)
+					return;
+
 				user.AddArtist(artist);
 
 				session.Update(user);

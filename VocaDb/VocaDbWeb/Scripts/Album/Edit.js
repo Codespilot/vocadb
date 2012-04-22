@@ -174,6 +174,59 @@ function initPage(albumId) {
 
 	});
 
+	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 550, modal: true, buttons: { "Save": function () {
+
+		var artistId = $("#rolesArtistId").val();
+		var checkedRoles = $("#editArtistRolesPopup input.artistRoleCheck:checked").map(function () {
+			return $(this).attr("id").split("_")[1];
+		}).toArray();
+
+		var idField = $("#artistsTableBody input.artistId[value='" + artistId + "']");
+		var row = idField.parent().parent();
+		row.find("input.artistRoles").val(checkedRoles.join(","));
+		row.find("div.artistRolesList").html(checkedRoles.join("<br />"));
+
+		$.ajax({
+			type: "POST",
+			url: "../../Album/UpdateArtistForAlbumRoles",
+			dataType: "json",
+			traditional: true,
+			data: { artistForAlbumId: artistId, roles: checkedRoles }
+		});
+
+		$("#editArtistRolesPopup").dialog("close");
+
+	} 
+	}
+	});
+
+	$("input.artistRoleCheck").button();
+
+	$("a.artistRolesEdit").live("click", function () {
+
+		var row = $(this).parent().parent();
+
+		var id = row.find("input.artistId").val();
+		$("#rolesArtistId").val(id);
+
+		var roles = row.find("input.artistRoles").val().split(",");
+		$("#editArtistRolesPopup input.artistRoleCheck").each(function () {
+			$(this).removeAttr("checked");
+			$(this).button("refresh");
+		});
+
+		$(roles).each(function () {
+			var check = $("#editArtistRolesPopup #artistRole_" + this.trim());
+			$(check).attr("checked", "checked");
+			$(check).button("refresh");
+		});
+
+		$("#editArtistRolesPopup").dialog("open");
+
+		return false;
+
+	});
+
 	$("#tracksTableBody").sortable({
 		update: function (event, ui) {
 			songListChanged();

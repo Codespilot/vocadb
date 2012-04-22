@@ -24,9 +24,7 @@ function initPage(songId) {
 
 		$("#editArtistRolesPopup").dialog("close");
 
-	}
-	}
-	});
+	}}});
 
 	$("input.artistRoleCheck").button();
 
