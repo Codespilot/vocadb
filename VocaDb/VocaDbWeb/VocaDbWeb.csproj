@@ -1241,12 +1241,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TagControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ActivityFeedHelperStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>HelperRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1258,66 +1260,77 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PagedListStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Other\PagedListStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TopRatedStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Artist</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Artist</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Artist</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Event\EventsBySeriesStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Event\EventsBySeriesStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EventsBySeriesStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Event\EventsBySeriesStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Event\FindStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Event\FindStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FindStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Event\FindStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
@@ -1332,30 +1345,35 @@
       <LastGenOutput>ArchivedObjectVersionsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DiscussionContentStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryCreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryCreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EntryCreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\EntryCreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EntryDetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EntryIndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\MiscStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\MiscStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1377,6 +1395,7 @@
       <LastGenOutput>TagSelectionsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\TagSelectionsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.resx">
@@ -1391,54 +1410,63 @@
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.SongList</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\SongList\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Song\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Song\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Song\CreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Song\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Song\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Song\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Tag</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\CreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\LoginStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MessagesStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ru.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
