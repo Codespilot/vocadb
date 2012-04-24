@@ -180,4 +180,7 @@
   <data name="Vocalists" xml:space="preserve">
     <value>Vocalists</value>
   </data>
+  <data name="Disc" xml:space="preserve">
+    <value>Disc</value>
+  </data>
 </root>

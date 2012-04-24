@@ -23,7 +23,7 @@
 				ArchivedEntryHelpers.DataRow("Release event", data.OriginalRelease.EventName);
 			}
 			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
-			@ArchivedEntryHelpers.ObjectRefList("Artists", data.Artists)
+			@ArchivedEntryHelpers.DataRowList("Artists", DataFormatUtils.GenerateHtml(data.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
 			@ArchivedEntryHelpers.DataRowList("Tracks", DataFormatUtils.GenerateHtml(data.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))
 			@ArchivedEntryHelpers.DataRowList("PVs", DataFormatUtils.GenerateHtmlFromHelper(data.PVs, ArchivedEntryHelpers.PVInfo))
 		</table>	

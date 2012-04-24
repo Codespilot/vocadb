@@ -106,6 +106,15 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disc.
+        /// </summary>
+        public static string Disc {
+            get {
+                return ResourceManager.GetString("Disc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download track info as CSV.
         /// </summary>
         public static string DownloadTrackList {

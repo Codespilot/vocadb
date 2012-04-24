@@ -14,7 +14,7 @@ namespace VocaDb.Web.Helpers {
 			if (source == null)
 				return null;
 
-			return source.Select(s => transform(s));
+			return source.Select(transform);
 
 		}
 

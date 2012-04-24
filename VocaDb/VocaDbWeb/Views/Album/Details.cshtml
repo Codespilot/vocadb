@@ -2,6 +2,7 @@
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models;
+@using R = ViewRes.Album;
 @model AlbumDetails
 		   
 @{
@@ -198,8 +199,12 @@
 			
 					<h3>@ViewRes.Album.DetailsStrings.Tracklist</h3>
 					<div class="tracklist">
+						@foreach (var disc in Model.Songs) {
+							if (Model.Songs.Count() > 1) {
+								<h4>@R.DetailsStrings.Disc @disc.Key</h4>
+							}
 					<ul>
-						@foreach (var song in Model.Songs) {
+						@foreach (var song in disc) {
 							<li>
 								@song.TrackNumber
 								.&nbsp;
@@ -212,6 +217,8 @@
 							</li>
 	  }
 					</ul>
+						}
+
 					</div>
 				
 					@if (!Model.Songs.Any()) {
