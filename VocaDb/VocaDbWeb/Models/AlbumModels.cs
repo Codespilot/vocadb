@@ -202,7 +202,7 @@ namespace VocaDb.Web.Models {
 			PVs = contract.PVs;
 			RatingAverage = contract.RatingAverage;
 			RatingCount = contract.RatingCount;
-			Songs = contract.Songs;
+			Songs = contract.Songs.GroupBy(s => s.DiscNumber).ToArray();
 			Status = contract.Status;
 			Tags = contract.Tags;
 			UserHasAlbum = contract.AlbumForUser != null;
@@ -284,7 +284,7 @@ namespace VocaDb.Web.Models {
 
 		public OptionalDateTimeContract ReleaseDate { get; set; }
 
-		public SongInAlbumContract[] Songs { get; set; }
+		public IGrouping<int, SongInAlbumContract>[] Songs { get; set; }
 
 		public EntryStatus Status { get; set; }
 

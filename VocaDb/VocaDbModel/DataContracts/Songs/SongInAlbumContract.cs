@@ -13,11 +13,15 @@ namespace VocaDb.Model.DataContracts.Songs {
 			
 			ParamIs.NotNull(() => songInAlbum);
 
+			DiscNumber = songInAlbum.DiscNumber;
 			Id = songInAlbum.Id;
 			Song = new SongWithAdditionalNamesContract(songInAlbum.Song, languagePreference);
 			TrackNumber = songInAlbum.TrackNumber;
 
 		}
+
+		[DataMember]
+		public int DiscNumber { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
