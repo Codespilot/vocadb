@@ -84,13 +84,26 @@ namespace VocaDb.Web {
 			if (ex == null)
 				return;
 
+			if (ex is ObjectNotFoundException && HttpContext.Current != null) {
+				Response.StatusCode = 404;
+				Response.StatusDescription = "Entity not found";
+				Response.TrySkipIisCustomErrors = true;
+				Server.ClearError();
+				HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error", action = "NotFound" });
+				return;
+			}
+
 			var request = (HttpContext.Current.Request != null ? " (" + HttpContext.Current.Request.RawUrl + " from " + HttpContext.Current.Request.UserHostAddress + ")" : string.Empty);
 
 			log.Error("Unhandled exception" + request, ex);
 
+			Server.ClearError();
+			HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error" });
+
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
+			//filters.Add(new HandleErrorAttribute { ExceptionType = typeof(ObjectNotFoundException), View = "NotFound" });
 			filters.Add(new HandleErrorAttribute());
 		}
 
