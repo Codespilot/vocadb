@@ -12,6 +12,7 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -431,7 +432,29 @@ namespace VocaDb.Model.Service {
 					.Take(maxEntryCount)
 					.Select(a => 
 						new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference))
-						.OrderBy(a => a.Name).ToArray());
+						.OrderBy(a => a.Name).ToArray()
+				
+			);
+
+		}
+
+		public AlbumWithAdditionalNamesContract[] GetAlbums(int artistId, int start, int maxItems) {
+
+			return HandleQuery(session => {
+
+				/*return LocalizedStringHelper.Order(session.Load<Artist>(artistId).Albums.Select(a => a.Album), PermissionContext.LanguagePreference)
+					.Skip(start)
+					.Take(maxItems)
+					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();*/
+
+				var q = session.Query<ArtistForAlbum>().Where(a => a.Artist.Id == artistId).Select(a => a.Album);
+
+				q = FindHelpers.AddOrder(q, PermissionContext.LanguagePreference);
+				q = q.Skip(start).Take(maxItems);
+
+				return q.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
+
+			});
 
 		}
 

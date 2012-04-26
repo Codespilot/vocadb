@@ -10,12 +10,13 @@
 			Notes = string.Empty;
 		}
 
-		public SongInList(Song song, SongList list, int order)
+		public SongInList(Song song, SongList list, int order, string notes)
 			: this() {
 
 			Song = song;
 			List = list;
 			Order = order;
+			Notes = notes;
 
 		}
 

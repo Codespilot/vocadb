@@ -38,6 +38,11 @@ namespace VocaDb.Model.Service {
 
 		public ReleaseEventFindResultContract Find(string query) {
 
+			if (string.IsNullOrEmpty(query))
+				return null;
+
+			query = query.Trim().Normalize(NormalizationForm.FormKC);	// Replaces fullwidth characters with ASCII
+
 			return HandleQuery(session => {
 
 				// Attempt to match exact name
@@ -51,7 +56,7 @@ namespace VocaDb.Model.Service {
 				if (match.Success) {
 
 					var seriesName = match.Groups[1].Value.Trim();
-					var seriesNumber = int.Parse(match.Groups[2].Value);
+					var seriesNumber = Convert.ToInt32(match.Groups[2].Value);
 
 					// Attempt to match series + series number
 					var results = session.Query<ReleaseEvent>().Where(e => (seriesName.Contains(e.Series.Name) || e.Series.Name.Contains(seriesName)
