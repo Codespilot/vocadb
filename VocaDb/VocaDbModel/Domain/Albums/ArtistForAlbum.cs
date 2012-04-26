@@ -1,11 +1,11 @@
-﻿using VocaDb.Model.DataContracts.Albums;
+﻿using System;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Helpers;
-using System.Linq;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ArtistForAlbum : IArtistWithSupport {
+	public class ArtistForAlbum : IArtistWithSupport, IEquatable<ArtistForAlbum> {
 
 		private Artist artist;
 		private Album album;
@@ -60,28 +60,6 @@ namespace VocaDb.Model.Domain.Albums {
 				notes = value; 
 			}
 		}
-
-		/*public virtual bool IsProducer {
-			get {
-
-				if (Roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(Artist.ArtistType))
-					return ArtistHelper.ProducerTypes.Contains(Artist.ArtistType);
-
-				return Roles.HasFlag(ArtistRoles.Vocalist);
-
-			}
-		}
-
-		public virtual bool IsVocalist {
-			get {
-
-				if (Roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(Artist.ArtistType))
-					return ArtistHelper.VocalistTypes.Contains(Artist.ArtistType);
-
-				return Roles.HasFlag(ArtistRoles.Vocalist);
-
-			}
-		}*/
 
 		public virtual ArtistRoles Roles { get; set; }
 

@@ -15,6 +15,7 @@ namespace VocaDb.Web.Controllers {
 	public class ControllerBase : Controller {
 
 		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
+		protected const int entriesPerPage = 30;
 
 		protected int LoggedUserId {
 			get {

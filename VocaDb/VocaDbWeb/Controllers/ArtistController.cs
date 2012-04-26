@@ -33,6 +33,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult AlbumsPaged(int id, int? start, int? maxItems) {
+
+			var albums = Service.GetAlbums(id, start ?? 0, maxItems ?? entriesPerPage);
+
+			return PartialView("Albums", albums);
+
+		}
+
 		public ActionResult ArchivedVersionPicture(int id) {
 
 			var contract = Service.GetArchivedArtistPicture(id);

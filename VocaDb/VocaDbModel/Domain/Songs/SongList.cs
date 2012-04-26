@@ -85,15 +85,15 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual SongInList AddSong(Song song) {
 
 			var order = (SongLinks.Any() ? SongLinks.Max(s => s.Order) + 1 : 1);
-			return AddSong(song, order);
+			return AddSong(song, order, string.Empty);
 
 		}
 
-		public virtual SongInList AddSong(Song song, int order) {
+		public virtual SongInList AddSong(Song song, int order, string notes) {
 
 			ParamIs.NotNull(() => song);
 
-			var link = new SongInList(song, this, order);
+			var link = new SongInList(song, this, order, notes);
 			AllSongs.Add(link);
 			return link;
 
@@ -137,7 +137,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 				var song = songGetter(newEntry);
 
-				var link = AddSong(song, newEntry.Order);
+				var link = AddSong(song, newEntry.Order, newEntry.Notes ?? string.Empty);
 				created.Add(link);
 
 			}

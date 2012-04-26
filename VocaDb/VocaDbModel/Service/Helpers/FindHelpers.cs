@@ -32,6 +32,17 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<T> AddOrder<T>(IQueryable<T> criteria, ContentLanguagePreference languagePreference) where T : IEntryWithNames {
+
+			if (languagePreference == ContentLanguagePreference.Japanese)
+				return criteria.OrderBy(e => e.Names.SortNames.Japanese);
+			else if (languagePreference == ContentLanguagePreference.English)
+				return criteria.OrderBy(e => e.Names.SortNames.English);
+			else
+				return criteria.OrderBy(e => e.Names.SortNames.Japanese);
+
+		}
+
 		/// <summary>
 		/// Adds a filter for entry's SortName.
 		/// </summary>
