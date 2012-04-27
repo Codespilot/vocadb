@@ -293,6 +293,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PartialFindResult<SongWithAdditionalNamesContract> GetFavoriteSongs(int userId, int start, int maxItems) {
+
+			return HandleQuery(session => {
+
+				var q = session.Query<FavoriteSongForUser>().Where(a => !a.Song.Deleted && a.User.Id == userId);
+
+				var resultQ = FindHelpers.AddOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
+				resultQ = resultQ.Skip(start).Take(maxItems);
+
+				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
+				var totalCount = q.Count();
+
+				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, totalCount);
+
+			});
+		}
+
 		public UserMessageContract GetMessageDetails(int messageId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);

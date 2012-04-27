@@ -6,12 +6,15 @@ using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.Web.Helpers;
+using MvcPaging;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Models;
+using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.User;
 using VocaDb.Web.Helpers;
 
@@ -66,6 +69,16 @@ namespace VocaDb.Web.Controllers
 			var songs = Service.GetFavoriteSongs(id);
 
 			return PartialView(songs);
+
+		}
+
+		public ActionResult FavoriteSongsPaged(int id, int? page) {
+
+			var pageIndex = (page - 1) ?? 0;
+			var result = Service.GetFavoriteSongs(id, pageIndex * entriesPerPage, entriesPerPage);
+			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "FavoriteSongsPaged", "Favorite_songs");
+
+			return PartialView("PagedSongs", data);
 
 		}
 

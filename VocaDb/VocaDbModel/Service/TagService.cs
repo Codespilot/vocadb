@@ -124,6 +124,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PartialFindResult<AlbumWithAdditionalNamesContract> GetAlbums(string tagName, int start, int maxItems) {
+
+			return HandleQuery(session => {
+
+				var q = session.Query<AlbumTagUsage>().Where(a => !a.Album.Deleted && a.Tag.Name == tagName);
+
+				IQueryable<AlbumTagUsage> resultQ = q.OrderByDescending(t => t.Count);
+				resultQ = resultQ.Skip(start).Take(maxItems);
+
+				var contracts = resultQ.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference)).ToArray();
+				var totalCount = q.Count();
+
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, totalCount);
+
+			});
+		}
+
 		public ArtistWithAdditionalNamesContract[] GetArtists(string tagName) {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
@@ -142,6 +159,23 @@ namespace VocaDb.Model.Service {
 				session.Query<SongTagUsage>().Where(a => a.Tag.Name == tagName)
 					.Select(t => new SongWithAdditionalNamesContract(t.Song, PermissionContext.LanguagePreference)).ToArray());
 
+		}
+
+		public PartialFindResult<SongWithAdditionalNamesContract> GetSongs(string tagName, int start, int maxItems) {
+
+			return HandleQuery(session => {
+
+				var q = session.Query<SongTagUsage>().Where(a => !a.Song.Deleted && a.Tag.Name == tagName);
+
+				IQueryable<SongTagUsage> resultQ = q.OrderByDescending(t => t.Count);
+				resultQ = resultQ.Skip(start).Take(maxItems);
+
+				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference)).ToArray();
+				var totalCount = q.Count();
+
+				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, totalCount);
+
+			});
 		}
 
 		public TagDetailsContract GetTagDetails(string tagName) {

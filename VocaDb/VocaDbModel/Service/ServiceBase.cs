@@ -339,10 +339,16 @@ namespace VocaDb.Model.Service {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PartialFindResult<T> {
 
-		public PartialFindResult(T[] items, int totalCount, string term, bool foundExactMatch) {
+		public PartialFindResult(T[] items, int totalCount) {
 
 			Items = items;
 			TotalCount = totalCount;
+
+		}
+
+		public PartialFindResult(T[] items, int totalCount, string term, bool foundExactMatch)
+			: this(items, totalCount) {
+
 			Term = term;
 			FoundExactMatch = foundExactMatch;
 

@@ -60,11 +60,10 @@
 
 }
 
-@helper Albums(VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[] albums,
+@helper AlbumItems(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
 	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false) {
-
-	<ul>
-	@foreach (var album in albums) {
+	
+	foreach (var album in albums) {
 		<li>
 			@Helpers.DraftIcon(album)
 			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
@@ -77,6 +76,14 @@
    }
 		</li>
  }
+	 
+}
+
+@helper Albums(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
+	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false, string listId = null) {
+
+	<ul @{ if (!string.IsNullOrEmpty(listId)) { @("id=" + listId); } }>
+		@AlbumItems(albums, extraData, showArtists)
 	</ul>
 	
 }
@@ -99,7 +106,7 @@
 	@Songs(songs, s => "(" + HelperRes.HelperStrings.Added + " " + s.CreateDate.ToShortDateString() + ")")
 }
 
-@helper Songs(SongWithAdditionalNamesContract[] songs, Func<SongWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
+@helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs, Func<SongWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
 
 	<ul>
 	@foreach (var song in songs) {

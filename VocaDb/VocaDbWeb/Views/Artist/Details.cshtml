@@ -37,7 +37,7 @@
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
 		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
 		<li><a href="@Url.Action("AlbumsPaged", "Artist", new { id = Model.Id })" title="All albums"><span>@ViewRes.Artist.DetailsStrings.AllAlbums</span></a></li>
-		<li><a href="@Url.Action("Songs", "Artist", new { id = Model.Id })" title="All songs"><span>@ViewRes.Artist.DetailsStrings.AllSongs</span></a></li>
+		<li><a href="@Url.Action("SongsPaged", "Artist", new { id = Model.Id })" title="All songs"><span>@ViewRes.Artist.DetailsStrings.AllSongs</span></a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -173,8 +173,10 @@
 
 </div>
 
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/DiscussionTab.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Details.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
