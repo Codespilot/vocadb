@@ -11,11 +11,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ArtistTagUsageContract(ArtistTagUsage tagUsage, ContentLanguagePreference languagePreference)
 			: base(tagUsage) {
 
-			Artist = new ArtistContract(tagUsage.Artist, languagePreference);
+			Artist = new ArtistWithAdditionalNamesContract(tagUsage.Artist, languagePreference);
 
 		}
 
-		public ArtistContract Artist { get; set; }
+		public ArtistWithAdditionalNamesContract Artist { get; set; }
 
 	}
 }

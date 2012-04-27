@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Globalization;
 
@@ -11,20 +15,19 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 		public TagDetailsContract() { }
 
-		public TagDetailsContract(Tag tag, ContentLanguagePreference languagePreference)
+		public TagDetailsContract(Tag tag, 
+			IEnumerable<ArtistTagUsage> artists, int artistCount, IEnumerable<AlbumTagUsage> albums, int albumCount,
+			IEnumerable<SongTagUsage> songs, int songCount, ContentLanguagePreference languagePreference)
 			: base(tag) {
 
-			AlbumCount = tag.AllAlbumTagUsages.Count;
-			Albums = tag.AlbumTagUsages.OrderByDescending(a => a.Count).Take(15)
-				.Select(a => new AlbumTagUsageContract(a, languagePreference)).ToArray();
+			Albums = albums.Select(a => new AlbumTagUsageContract(a, languagePreference)).ToArray();
+			AlbumCount = albumCount;
 
-			ArtistCount = tag.AllArtistTagUsages.Count;
-			Artists = tag.ArtistTagUsages.OrderByDescending(a => a.Count).Take(15)
-				.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
+			Artists = artists.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
+			ArtistCount = artistCount;
 
-			SongCount = tag.AllSongTagUsages.Count;
-			Songs = tag.SongTagUsages.OrderByDescending(a => a.Count).Take(15)
-				.Select(a => new SongTagUsageContract(a, languagePreference)).ToArray();
+			Songs = songs.Select(a => new SongTagUsageContract(a, languagePreference)).ToArray();
+			SongCount = songCount;
 
 		}
 

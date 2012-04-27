@@ -11,11 +11,11 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumTagUsageContract(AlbumTagUsage tagUsage, ContentLanguagePreference languagePreference)
 			: base(tagUsage) {
 
-			Album = new AlbumContract(tagUsage.Album, languagePreference);
+			Album = new AlbumWithAdditionalNamesContract(tagUsage.Album, languagePreference);
 
 		}
 
-		public AlbumContract Album { get; set; } 
+		public AlbumWithAdditionalNamesContract Album { get; set; } 
 
 	}
 

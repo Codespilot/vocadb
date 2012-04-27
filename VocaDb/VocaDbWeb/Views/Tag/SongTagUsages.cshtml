@@ -1,0 +1,13 @@
+﻿@model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Songs.SongTagUsageContract>
+
+<p>@Model.Items.TotalItemCount @ViewRes.MiscStrings.SongCount.</p>
+
+<div class="pager">
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
+</div>
+
+@TagHelpers.SongTagUsages(Model.Items)
+
+<div class="pager">
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
+</div>

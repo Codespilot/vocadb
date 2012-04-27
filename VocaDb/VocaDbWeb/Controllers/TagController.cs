@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts;
@@ -32,19 +33,29 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult AlbumsPaged(string id, int? page) {
+		public PartialViewResult AlbumTagUsages(string id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetAlbums(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "Albums");
+			var data = new PagingData<AlbumTagUsageContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumTagUsages", "Albums");
 
-			return PartialView("PagedAlbums", data);
+			return PartialView("AlbumTagUsages", data);
 
 		}
 
 		public PartialViewResult Artists(string id) {
 
 			return PartialView(Service.GetArtists(id));
+
+		}
+
+		public PartialViewResult ArtistTagUsages(string id, int? page) {
+
+			var pageIndex = (page - 1) ?? 0;
+			var result = Service.GetArtists(id, pageIndex * entriesPerPage, entriesPerPage);
+			var data = new PagingData<ArtistTagUsageContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "ArtistTagUsages", "Albums");
+
+			return PartialView("ArtistTagUsages", data);
 
 		}
 
@@ -132,13 +143,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult SongsPaged(string id, int? page) {
+		public PartialViewResult SongTagUsages(string id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetSongs(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongsPaged", "Songs");
+			var data = new PagingData<SongTagUsageContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongTagUsages", "Songs");
 
-			return PartialView("PagedSongs", data);
+			return PartialView("SongTagUsages", data);
 
 		}
 

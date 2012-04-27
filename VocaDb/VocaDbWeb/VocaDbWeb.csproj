@@ -1068,6 +1068,7 @@
     <Content Include="App_Code\HtmlHelpers.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="App_Code\TagHelpers.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -1078,6 +1079,9 @@
     <Content Include="Views\Shared\AlbumItems.cshtml" />
     <Content Include="Views\Shared\PagedSongs.cshtml" />
     <Content Include="Views\SongList\SongsInListPaged.cshtml" />
+    <Content Include="Views\Tag\ArtistTagUsages.cshtml" />
+    <Content Include="Views\Tag\AlbumTagUsages.cshtml" />
+    <Content Include="Views\Tag\SongTagUsages.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

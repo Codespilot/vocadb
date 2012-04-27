@@ -88,12 +88,15 @@
 	
 }
 
-@helper Artists(VocaDb.Model.DataContracts.Artists.ArtistWithAdditionalNamesContract[] artists) {
+@helper Artists(IEnumerable<VocaDb.Model.DataContracts.Artists.ArtistWithAdditionalNamesContract> artists, Func<ArtistWithAdditionalNamesContract, string> extraData = null) {
 
 	<ul>
 	@foreach (var artist in artists) {
 		<li>
 			@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)
+			@if (extraData != null) {
+				@extraData(artist)
+			}
 			<br />
 			<span class="extraInfo">@artist.AdditionalNames</span>
 		</li>
