@@ -238,6 +238,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private PartialFindResult<SongInListContract> GetSongsInList(ISession session, int listId, int start, int maxItems) {
+
+			var q = session.Query<SongInList>().Where(a => !a.Song.Deleted && a.List.Id == listId);
+
+			IQueryable<SongInList> resultQ = q.OrderBy(s => s.Order);
+			resultQ = resultQ.Skip(start).Take(maxItems);
+
+			var contracts = resultQ.ToArray().Select(a => new SongInListContract(a, PermissionContext.LanguagePreference)).ToArray();
+			var totalCount = q.Count();
+
+			return new PartialFindResult<SongInListContract>(contracts, totalCount);
+
+		}
+
 		private VideoUrlParseResult ParsePV(ISession session, string url) {
 
 			if (string.IsNullOrEmpty(url))
@@ -808,8 +822,8 @@ namespace VocaDb.Model.Service {
 		public SongListDetailsContract GetSongListDetails(int listId) {
 
 			return HandleQuery(session => new SongListDetailsContract(
-				session.Load<SongList>(listId), PermissionContext));
-
+				session.Load<SongList>(listId), GetSongsInList(session, listId, 0, maxEntryCount), PermissionContext));
+		
 		}
 
 		public SongListForEditContract GetSongListForEdit(int listId) {
@@ -833,6 +847,12 @@ namespace VocaDb.Model.Service {
 					.Select(l => new SongListBaseContract(l)).ToArray();
 
 			});
+
+		}
+
+		public PartialFindResult<SongInListContract> GetSongsInList(int listId, int start, int maxItems) {
+
+			return HandleQuery(session => GetSongsInList(session, listId, start, maxItems));
 
 		}
 

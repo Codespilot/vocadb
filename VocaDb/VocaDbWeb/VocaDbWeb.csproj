@@ -41,6 +41,9 @@
     <Reference Include="Microsoft.Web.Helpers">
       <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
     </Reference>
+    <Reference Include="MvcPaging">
+      <HintPath>..\packages\MvcPaging.2.0.1\lib\net40\MvcPaging.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -309,6 +312,7 @@
     <Compile Include="Models\NewsEntry\NewsEntryEdit.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
+    <Compile Include="Models\Shared\PagingData.cs" />
     <Compile Include="Models\Shared\WebLinkDisplay.cs" />
     <Compile Include="Models\SongLists\CreateFromWVR.cs" />
     <Compile Include="Models\SongLists\SongListEdit.cs" />
@@ -514,6 +518,7 @@
     <Content Include="Content\nico.png" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\star5.png" />
+    <Content Include="Content\Styles\Pager.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1069,6 +1074,11 @@
     <Content Include="Views\Event\Find.cshtml" />
     <Content Include="Views\Event\SeriesDetails.cshtml" />
     <Content Include="Views\User\AlbumsForUserSettings.cshtml" />
+    <Content Include="Views\Shared\PagedAlbums.cshtml" />
+    <Content Include="Views\Shared\AlbumItems.cshtml" />
+    <Content Include="Views\Shared\PagedSongs.cshtml" />
+    <Content Include="Views\SongList\SongsInListPaged.cshtml" />
+    <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
     </None>

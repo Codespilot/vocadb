@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcPaging;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.SongLists;
 
 namespace VocaDb.Web.Controllers
 {
     public class SongListController : ControllerBase
     {
+
+		public const int SongsPerPage = 50;
 
 		private SongService Service {
 			get { return MvcApplication.Services.Songs; }
@@ -100,6 +104,16 @@ namespace VocaDb.Web.Controllers
 			var lists = Service.GetSongListsByCategory();
 
 			return View(lists);
+
+		}
+
+		public ActionResult SongsPaged(int id, int? page) {
+
+			var pageIndex = (page - 1) ?? 0;
+			var result = Service.GetSongsInList(id, pageIndex * SongsPerPage, SongsPerPage);
+			var data = new PagingData<SongInListContract>(result.Items.ToPagedList(pageIndex, SongsPerPage, result.TotalCount), id, "SongsPaged", "songsInList");
+
+			return PartialView("SongsInListPaged", data);
 
 		}
 

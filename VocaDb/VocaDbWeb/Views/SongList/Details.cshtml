@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Web.Helpers;
+@using MvcPaging;
 @using R = ViewRes.SongList;
 @model SongListDetailsContract
 		   
@@ -18,6 +19,8 @@
 }
 
 @section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -31,25 +34,8 @@
 	<p>@Helpers.ConvertNewlinesToBreaks(Model.Description)</p>
 }
 
-<p>@Model.SongLinks.Count() @R.DetailsStrings.Songs.</p>
+<p>@Model.SongLinks.TotalCount @R.DetailsStrings.Songs.</p>
 
-<div class="tracklist">
-	<ul>
-		@foreach (var link in Model.SongLinks) {
-			<li>
-				@link.Order
-				.&nbsp;
-				@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, new { title = link.Song.AdditionalNames })
-				&nbsp;
-				@Helpers.DraftIcon(link.Song.Status)
-				@Html.PVServiceIcons(link.Song.PVServices)
-				@if (!string.IsNullOrEmpty(link.Notes)) {
-					<text>&nbsp;</text>
-					<text>(</text>@link.Notes<text>)</text>
-				}
-				<br />
-				<span class="extraInfo">@link.Song.ArtistString</span>
-			</li>
-	}
-	</ul>
+<div id="songsInList">
+@{ Html.RenderPartial("SongsInListPaged", new VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Songs.SongInListContract>(Model.SongLinks.Items.ToPagedList(0, 50, Model.SongLinks.TotalCount), Model.Id, "SongsPaged", "songsInList")); }
 </div>

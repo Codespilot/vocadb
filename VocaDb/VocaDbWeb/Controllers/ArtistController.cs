@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
@@ -13,6 +15,8 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Web.Models.Artist;
 using VocaDb.Web.Helpers;
+using MvcPaging;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
 {
@@ -33,11 +37,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult AlbumsPaged(int id, int? start, int? maxItems) {
+		public PartialViewResult AlbumsPaged(int id, int? page) {
 
-			var albums = Service.GetAlbums(id, start ?? 0, maxItems ?? entriesPerPage);
+			var pageIndex = (page - 1) ?? 0;
+			var result = Service.GetAlbums(id, pageIndex * entriesPerPage, entriesPerPage);
+			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "All_albums");
 
-			return PartialView("Albums", albums);
+			return PartialView("PagedAlbums", data);
 
 		}
 
@@ -121,6 +127,16 @@ namespace VocaDb.Web.Controllers
 			var songs = Service.GetSongs(id);
 
 			return PartialView(songs);
+
+		}
+
+		public PartialViewResult SongsPaged(int id, int? page) {
+
+			var pageIndex = (page - 1) ?? 0;
+			var result = Service.GetSongs(id, pageIndex * entriesPerPage, entriesPerPage);
+			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongsPaged", "All_songs");
+
+			return PartialView("PagedSongs", data);
 
 		}
 

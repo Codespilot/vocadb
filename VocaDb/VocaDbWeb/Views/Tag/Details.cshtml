@@ -7,6 +7,8 @@
 }
 
 @section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() {
@@ -28,8 +30,8 @@
 	<ul>
 		<li><a href="#overviewTab">@R.DetailsStrings.Overview</a></li>
 		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
-		<li><a href="@Url.Action("Albums", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
-		<li><a href="@Url.Action("Songs", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
+		<li><a href="@Url.Action("AlbumsPaged", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
+		<li><a href="@Url.Action("SongsPaged", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
 	</ul>
 
 	<div id="overviewTab">

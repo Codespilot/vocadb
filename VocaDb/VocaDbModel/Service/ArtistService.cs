@@ -438,7 +438,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumWithAdditionalNamesContract[] GetAlbums(int artistId, int start, int maxItems) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> GetAlbums(int artistId, int start, int maxItems) {
 
 			return HandleQuery(session => {
 
@@ -447,12 +447,15 @@ namespace VocaDb.Model.Service {
 					.Take(maxItems)
 					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();*/
 
-				var q = session.Query<ArtistForAlbum>().Where(a => a.Artist.Id == artistId).Select(a => a.Album);
+				var q = session.Query<ArtistForAlbum>().Where(a => !a.Album.Deleted && a.Artist.Id == artistId);
 
-				q = FindHelpers.AddOrder(q, PermissionContext.LanguagePreference);
-				q = q.Skip(start).Take(maxItems);
+				var resultQ = FindHelpers.AddOrder(q.Select(a => a.Album), PermissionContext.LanguagePreference);
+				resultQ = resultQ.Skip(start).Take(maxItems);
 
-				return q.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
+				var contracts = resultQ.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
+				var totalCount = q.Count();
+
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, totalCount);
 
 			});
 
@@ -593,6 +596,24 @@ namespace VocaDb.Model.Service {
 					.Select(a => 
 						new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference))
 						.OrderBy(s => s.Name).ToArray());
+
+		}
+
+		public PartialFindResult<SongWithAdditionalNamesContract> GetSongs(int artistId, int start, int maxItems) {
+
+			return HandleQuery(session => {
+
+				var q = session.Query<ArtistForSong>().Where(a => !a.Song.Deleted && a.Artist.Id == artistId);
+
+				var resultQ = FindHelpers.AddOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
+				resultQ = resultQ.Skip(start).Take(maxItems);
+
+				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
+				var totalCount = q.Count();
+
+				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, totalCount);
+
+			});
 
 		}
 
