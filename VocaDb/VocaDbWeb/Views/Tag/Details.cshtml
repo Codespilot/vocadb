@@ -11,8 +11,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script type="text/javascript">
 
-	$(document).ready(function() {
-		$("#tabs").tabs();
+	$(document).ready(function () {
+		$("#tabs").tabs({ load: function (event, ui) { $("#tabs").tabs("url", ui.index, ""); } });
 		$("#editTagLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	});
 
@@ -29,9 +29,9 @@
 
 	<ul>
 		<li><a href="#overviewTab">@R.DetailsStrings.Overview</a></li>
-		<li><a href="@Url.Action("Artists", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
-		<li><a href="@Url.Action("AlbumsPaged", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
-		<li><a href="@Url.Action("SongsPaged", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
+		<li><a href="@Url.Action("ArtistTagUsages", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
+		<li><a href="@Url.Action("AlbumTagUsages", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
+		<li><a href="@Url.Action("SongTagUsages", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
 	</ul>
 
 	<div id="overviewTab">
@@ -47,31 +47,19 @@
 		@if (Model.Artists.Any()) {
 		<h4>@R.DetailsStrings.TopArtists</h4>
 
-		<ul>
-			@foreach (var usage in Model.Artists) {
-				<li>@Html.ActionLink(usage.Artist.Name + " (" + usage.Count + ")", "Details", "Artist", new { id = usage.Artist.Id }, null)</li>
-			}
-		</ul>
+			@TagHelpers.ArtistTagUsages(Model.Artists)
 		}
 
 		@if (Model.Albums.Any()) {
 		<h4>@R.DetailsStrings.TopAlbums</h4>
 
-		<ul>
-			@foreach (var usage in Model.Albums) {
-				<li>@Html.ActionLink(usage.Album.Name + " (" + usage.Count + ")", "Details", "Album", new { id = usage.Album.Id }, null)</li>
-			}
-		</ul>
+			@TagHelpers.AlbumTagUsages(Model.Albums)
 		}
 
 		@if (Model.Songs.Any()) {
 		<h4>@R.DetailsStrings.TopSongs</h4>
 
-		<ul>
-			@foreach (var usage in Model.Songs) {
-				<li>@Html.ActionLink(usage.Song.Name + " (" + usage.Count + ")", "Details", "Song", new { id = usage.Song.Id }, null)</li>
-			}
-		</ul>
+			@TagHelpers.SongTagUsages(Model.Songs)
 		}
 
 	</div>

@@ -70,6 +70,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to artist(s).
+        /// </summary>
+        public static string ArtistCount {
+            get {
+                return ResourceManager.GetString("ArtistCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Event series.
         /// </summary>
         public static string EventSeries {

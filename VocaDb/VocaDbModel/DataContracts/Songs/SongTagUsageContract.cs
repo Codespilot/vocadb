@@ -11,11 +11,11 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongTagUsageContract(SongTagUsage tagUsage, ContentLanguagePreference languagePreference)
 			: base(tagUsage) {
 
-			Song = new SongContract(tagUsage.Song, languagePreference);
+			Song = new SongWithAdditionalNamesContract(tagUsage.Song, languagePreference);
 
 		}
 
-		public SongContract Song { get; set; } 
+		public SongWithAdditionalNamesContract Song { get; set; } 
 
 	}
 

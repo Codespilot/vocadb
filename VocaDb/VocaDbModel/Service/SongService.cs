@@ -822,7 +822,7 @@ namespace VocaDb.Model.Service {
 		public SongListDetailsContract GetSongListDetails(int listId) {
 
 			return HandleQuery(session => new SongListDetailsContract(
-				session.Load<SongList>(listId), GetSongsInList(session, listId, 0, maxEntryCount), PermissionContext));
+				session.Load<SongList>(listId), GetSongsInList(session, listId, 0, 50), PermissionContext));
 		
 		}
 

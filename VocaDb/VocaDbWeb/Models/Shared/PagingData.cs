@@ -1,4 +1,5 @@
-﻿using MvcPaging;
+﻿using System;
+using MvcPaging;
 
 namespace VocaDb.Web.Models.Shared {
 
@@ -20,8 +21,6 @@ namespace VocaDb.Web.Models.Shared {
 		public string ContainerName { get; set; }
 
 		public object Id { get; set; }
-
-		//public string 
 
 		public IPagedList<T> Items { get; set; }
 		 
