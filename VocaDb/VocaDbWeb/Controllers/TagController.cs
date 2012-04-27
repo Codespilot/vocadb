@@ -53,7 +53,7 @@ namespace VocaDb.Web.Controllers
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetArtists(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<ArtistTagUsageContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "ArtistTagUsages", "Albums");
+			var data = new PagingData<ArtistTagUsageContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "ArtistTagUsages", "Artists");
 
 			return PartialView("ArtistTagUsages", data);
 
