@@ -8,6 +8,7 @@ namespace VocaDb.Model.Domain.Globalization {
 
 	public class NameManager<T> : INameManager, IEnumerable<T> where T : LocalizedStringWithId {
 
+		private string additionalNamesString;
 		private IList<T> names = new List<T>();
 		private TranslatedString sortNames = new TranslatedString();
 
@@ -51,6 +52,14 @@ namespace VocaDb.Model.Domain.Globalization {
 			if (string.IsNullOrEmpty(SortNames[language]))
 				SortNames[language] = Names.First().Value;
 
+		}
+
+		public virtual string AdditionalNamesString {
+			get { return additionalNamesString; }
+			set {
+				ParamIs.NotNull(() => value);
+				additionalNamesString = value; 
+			}
 		}
 
 		public virtual IEnumerable<string> AllValues {
@@ -215,7 +224,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			var languages = new[] { ContentLanguageSelection.Japanese, ContentLanguageSelection.Romaji, ContentLanguageSelection.English };
 
 			foreach (var l in languages)
-				SetValueFor(l);		
+				SetValueFor(l);
+
+			var additionalNames = Names.Where(n => !SortNames.All.Contains(n.Value));
+			AdditionalNamesString = string.Join(", ", additionalNames);
 
 		}
 
