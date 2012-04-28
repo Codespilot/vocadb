@@ -94,13 +94,13 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				var user = session.Load<User>(userId);
-				var artist = session.Load<Artist>(artistId);
-
-				var exists = session.Query<ArtistForUser>().Any(u => u.User.Equals(user) && u.Artist.Equals(artist));
+				var exists = session.Query<ArtistForUser>().Any(u => u.User.Id == userId && u.Artist.Id == artistId);
 
 				if (exists)
 					return;
+
+				var user = session.Load<User>(userId);
+				var artist = session.Load<Artist>(artistId);
 
 				user.AddArtist(artist);
 
