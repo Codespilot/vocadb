@@ -101,6 +101,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UpdateAdditionalNames() {
+
+			Service.UpdateAdditionalNames();
+			TempData.SetStatusMessage("Updated additional names strings");
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult UpdateAlbumRatingTotals() {
 
 			Service.UpdateAlbumRatingTotals();
