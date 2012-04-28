@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongWithAdditionalNamesContract(Song song, ContentLanguagePreference languagePreference)
 			: base(song, languagePreference) {
 
-			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != Name));
+			AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
 
 		}
 

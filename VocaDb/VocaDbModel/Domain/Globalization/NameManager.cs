@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Helpers;
 using System.Collections;
@@ -98,6 +99,15 @@ namespace VocaDb.Model.Domain.Globalization {
 
 			if (update)
 				UpdateSortNames();
+
+		}
+
+		public string GetAdditionalNamesStringForLanguage(ContentLanguagePreference languagePreference) {
+
+			var display = SortNames[languagePreference];
+			var different = SortNames.All.Where(s => s != display).Distinct();
+
+			return string.Join(", ", different.Concat(Enumerable.Repeat(AdditionalNamesString, 1)));
 
 		}
 
@@ -226,7 +236,7 @@ namespace VocaDb.Model.Domain.Globalization {
 			foreach (var l in languages)
 				SetValueFor(l);
 
-			var additionalNames = Names.Where(n => !SortNames.All.Contains(n.Value));
+			var additionalNames = Names.Select(n => n.Value).Where(n => !SortNames.All.Contains(n));
 			AdditionalNamesString = string.Join(", ", additionalNames);
 
 		}

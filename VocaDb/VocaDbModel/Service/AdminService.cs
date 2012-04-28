@@ -164,6 +164,54 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateAdditionalNames() {
+
+			VerifyAdmin();
+
+			AuditLog("updating additional names strings");
+
+			HandleTransaction(session => {
+
+				var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var artist in artists) {
+
+					var old = artist.Names.AdditionalNamesString;
+					artist.Names.UpdateSortNames();
+
+					if (old != artist.Names.AdditionalNamesString)
+						session.Update(artist);
+
+				}
+
+				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var album in albums) {
+
+					var old = album.Names.AdditionalNamesString;
+					album.Names.UpdateSortNames();
+
+					if (old != album.Names.AdditionalNamesString)
+						session.Update(album);
+
+				}
+
+				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
+
+				foreach (var song in songs) {
+
+					var old = song.Names.AdditionalNamesString;
+					song.Names.UpdateSortNames();
+
+					if (old != song.Names.AdditionalNamesString)
+						session.Update(song);
+
+				}
+
+			});
+
+		}
+
 		public void UpdateAlbumRatingTotals() {
 
 			VerifyAdmin();

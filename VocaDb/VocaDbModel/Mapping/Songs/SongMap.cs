@@ -29,6 +29,7 @@ namespace VocaDb.Model.Mapping.Songs {
 				c => c.HasMany(m => m.Versions).KeyColumn("[Song]").Inverse().Cascade.All().OrderBy("Created DESC"));
 
 			Component(m => m.Names, c => {
+				c.Map(m => m.AdditionalNamesString).Not.Nullable().Length(1024);
 				c.HasMany(m => m.Names).Table("SongNames").KeyColumn("[Song]").Inverse().Cascade.All().Cache.ReadWrite();
 				c.Component(m => m.SortNames, c2 => {
 					c2.Map(m => m.DefaultLanguage, "DefaultNameLanguage");
