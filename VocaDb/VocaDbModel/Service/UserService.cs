@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -160,15 +161,21 @@ namespace VocaDb.Model.Service {
 				var lc = name.ToLowerInvariant();
 				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
 
-				if (user == null)
+				if (user == null) {
+					AuditLog(string.Format("failed login from {0}.", hostname), session, name);
+					Thread.Sleep(2000);
 					return null;
+				}
 
 				var hashed = LoginManager.GetHashedPass(lc, pass, user.Salt);
 
-				if (user.Password != hashed)
+				if (user.Password != hashed) {
+					AuditLog(string.Format("failed login from {0}.", hostname), session, name);
+					Thread.Sleep(2000);
 					return null;
+				}
 
-				AuditLog("logged in from " + hostname, session, user);
+				AuditLog(string.Format("logged in from {0}.", hostname), session, user);
 
 				user.UpdateLastLogin();
 				session.Update(user);
