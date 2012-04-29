@@ -5,6 +5,11 @@
     ViewBag.Title = "Activity entries";
 }
 
-@foreach (var entry in Model) {
-	@ActivityfeedHelpers.ActivityEntry(entry);
+<div id="activityEntriesPaged">
+	@{ Html.RenderAction("EntriesPaged"); }
+</div>
+
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 }

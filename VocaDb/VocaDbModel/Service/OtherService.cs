@@ -13,18 +13,26 @@ namespace VocaDb.Model.Service {
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
-		public ActivityEntryContract[] GetActivityEntries(int maxEntries) {
+		public PartialFindResult<ActivityEntryContract> GetActivityEntries(int maxEntries) {
+
+			return GetActivityEntries(0, maxEntries);
+
+		}
+
+		public PartialFindResult<ActivityEntryContract> GetActivityEntries(int start, int maxEntries) {
 
 			return HandleQuery(session => {
 
-				var entries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(maxEntries).ToArray();
+				var entries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Skip(start).Take(maxEntries).ToArray();
 
 				var contracts = entries
 					.Where(e => !e.EntryBase.Deleted)
 					.Select(e => new ActivityEntryContract(e, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				return contracts;
+				var count = session.Query<ActivityEntry>().Count();
+
+				return new PartialFindResult<ActivityEntryContract>(contracts, count);
 
 			});
 

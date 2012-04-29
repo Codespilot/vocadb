@@ -1082,6 +1082,7 @@
     <Content Include="Views\Tag\ArtistTagUsages.cshtml" />
     <Content Include="Views\Tag\AlbumTagUsages.cshtml" />
     <Content Include="Views\Tag\SongTagUsages.cshtml" />
+    <Content Include="Views\Shared\ActivityEntriesPaged.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
