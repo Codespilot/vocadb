@@ -107,7 +107,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			var display = SortNames[languagePreference];
 			var different = SortNames.All.Where(s => s != display).Distinct();
 
-			return string.Join(", ", different.Concat(Enumerable.Repeat(AdditionalNamesString, 1)));
+			if (!string.IsNullOrEmpty(AdditionalNamesString))
+				return string.Join(", ", different.Concat(Enumerable.Repeat(AdditionalNamesString, 1)));
+			else
+				return string.Join(", ", different);
 
 		}
 

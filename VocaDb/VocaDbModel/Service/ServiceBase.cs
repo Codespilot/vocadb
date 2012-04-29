@@ -28,9 +28,9 @@ namespace VocaDb.Model.Service {
 		private readonly ISessionFactory sessionFactory;
 		private readonly IUserPermissionContext permissionContext;
 
-		private string GetAuditLogMessage(string doingWhat) {
+		private string GetAuditLogMessage(string doingWhat, string who) {
 
-			return string.Format("'{0}' {1}", PermissionContext.Name, doingWhat);
+			return string.Format("'{0}' {1}", who, doingWhat);
 
 		}
 
@@ -106,7 +106,26 @@ namespace VocaDb.Model.Service {
 
 		protected void AuditLog(string doingWhat) {
 
-			log.Info(GetAuditLogMessage(doingWhat));
+			AuditLog(doingWhat, PermissionContext.Name);
+
+		}
+
+		protected void AuditLog(string doingWhat, string who) {
+
+			log.Info(GetAuditLogMessage(doingWhat, who));
+
+		}
+
+		protected void AuditLog(string doingWhat, ISession session, string who) {
+
+			ParamIs.NotNull(() => session);
+
+			AuditLog(doingWhat, who);
+
+			var agentLoginData = new AgentLoginData(who);
+			var entry = new AuditLogEntry(agentLoginData, doingWhat);
+
+			session.Save(entry);
 
 		}
 
@@ -114,9 +133,8 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => session);
 
-			AuditLog(doingWhat);
-
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext, user);
+			AuditLog(agentLoginData.Name);
 			var entry = new AuditLogEntry(agentLoginData, doingWhat);
 
 			session.Save(entry);
