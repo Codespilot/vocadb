@@ -333,13 +333,17 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var list = session.Load<SongList>(listId);
-				//var order = session.Query<SongInList>().Where(s => s.List.Equals(list)).Max(s => s.Order) + 1;
+				var items = session.Query<SongInList>().Where(s => s.List.Id == listId);
+				int order = 1;
+
+				if (items.Any())
+					order = items.Max(s => s.Order) + 1;
 
 				VerifyResourceAccess(list.Author);
 
 				var song = session.Load<Song>(songId);
 
-				var link = list.AddSong(song);
+				var link = list.AddSong(song, order, string.Empty);
 				session.Save(link);
 
 			});
