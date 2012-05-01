@@ -37,7 +37,7 @@ namespace VocaDb.Web.Models {
 
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
-			AlternateVersions = contract.AlternateVersions;
+			AlternateVersions = contract.AlternateVersions.Where(a => a.SongType != SongType.Original).ToArray();
 			ArtistString = contract.ArtistString;
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract.Song);
 			CommentCount = contract.CommentCount;
@@ -51,7 +51,7 @@ namespace VocaDb.Web.Models {
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;
-			OriginalVersion = contract.OriginalVersion;
+			OriginalVersion = (contract.Song.SongType != SongType.Original ? contract.OriginalVersion : null);
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
