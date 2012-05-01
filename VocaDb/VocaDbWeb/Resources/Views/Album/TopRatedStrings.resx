@@ -118,9 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Average" xml:space="preserve">
-    <value>среднее</value>
+    <value>average</value>
   </data>
   <data name="RatedTimes" xml:space="preserve">
-    <value>о {0} times</value>
+    <value>rated {0} times</value>
   </data>
 </root>
