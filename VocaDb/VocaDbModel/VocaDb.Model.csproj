@@ -200,6 +200,7 @@
     <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
+    <Compile Include="Domain\Albums\OtherArtistForAlbum.cs" />
     <Compile Include="Domain\Artists\ArtistCategories.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
     <Compile Include="Domain\Albums\ReleaseEvent.cs" />
@@ -332,6 +333,7 @@
     <Compile Include="Mapping\Albums\AlbumTagVoteMap.cs" />
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />
     <Compile Include="Domain\Albums\DiscType.cs" />
+    <Compile Include="Mapping\Albums\OtherArtistForAlbumMap.cs" />
     <Compile Include="Mapping\Albums\PVForAlbumMap.cs" />
     <Compile Include="Mapping\Albums\ReleaseEventMap.cs" />
     <Compile Include="Mapping\Artists\ArtistCommentMap.cs" />
