@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NHibernate;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain;
 
@@ -34,12 +35,28 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public static IQueryable<T> AddOrder<T>(IQueryable<T> criteria, ContentLanguagePreference languagePreference) where T : IEntryWithNames {
 
-			if (languagePreference == ContentLanguagePreference.Japanese)
-				return criteria.OrderBy(e => e.Names.SortNames.Japanese);
-			else if (languagePreference == ContentLanguagePreference.English)
-				return criteria.OrderBy(e => e.Names.SortNames.English);
-			else
-				return criteria.OrderBy(e => e.Names.SortNames.Japanese);
+			switch (languagePreference) {
+				case ContentLanguagePreference.Japanese:
+					return criteria.OrderBy(e => e.Names.SortNames.Japanese);
+				case ContentLanguagePreference.English:
+					return criteria.OrderBy(e => e.Names.SortNames.English);
+				default:
+					return criteria.OrderBy(e => e.Names.SortNames.Japanese);
+			}
+
+		}
+
+		public static IQueryOver<TRoot, TSubType> AddOrder<TRoot, TSubType>(IQueryOver<TRoot, TSubType> criteria, 
+			ContentLanguagePreference languagePreference) where TSubType : IEntryWithNames {
+
+			switch (languagePreference) {
+				case ContentLanguagePreference.Japanese:
+					return criteria.OrderBy(e => e.Names.SortNames.Japanese).Asc;
+				case ContentLanguagePreference.English:
+					return criteria.OrderBy(e => e.Names.SortNames.English).Asc;
+				default:
+					return criteria.OrderBy(e => e.Names.SortNames.Japanese).Asc;
+			}
 
 		}
 

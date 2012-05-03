@@ -68,7 +68,9 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
-				var songs = q.OrderBy(s => s.Names.SortNames.Romaji)
+				q = FindHelpers.AddOrder(q, PermissionContext.LanguagePreference);
+
+				var songs = q
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
@@ -112,9 +114,9 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var direct = directQ
-					.OrderBy(s => s.Names.SortNames.Romaji)
-					.ToArray();
+				directQ = FindHelpers.AddOrder(directQ, PermissionContext.LanguagePreference);
+
+				var direct = directQ.ToArray();
 
 				var additionalNamesQ = session.Query<SongName>()
 					.Where(m => !m.Song.Deleted);
@@ -127,9 +129,8 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					additionalNamesQ = additionalNamesQ.Where(m => songTypes.Contains(m.Song.SongType));
 
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Song)
-					.OrderBy(s => s.Names.SortNames.Romaji)
+				var additionalNames = FindHelpers.AddOrder(additionalNamesQ
+					.Select(m => m.Song), PermissionContext.LanguagePreference)
 					.Distinct()
 					//.Take(maxResults)
 					.ToArray()

@@ -7,7 +7,6 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
-using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
@@ -31,7 +30,9 @@ namespace VocaDb.Model.Service {
 
 	public class AlbumService : ServiceBase {
 
+// ReSharper disable UnusedMember.Local
 		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumService));
+// ReSharper restore UnusedMember.Local
 
 		private PartialFindResult<AlbumWithAdditionalNamesContract> Find(
 			ISession session, string query, int start, int maxResults, bool draftsOnly,
@@ -45,8 +46,9 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					albumsQ = albumsQ.Where(a => a.Status == EntryStatus.Draft);
 
+				albumsQ = FindHelpers.AddOrder(albumsQ, PermissionContext.LanguagePreference);
+
 				var albums = albumsQ
-					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
@@ -89,7 +91,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var direct = directQ
+				var direct = FindHelpers.AddOrder(directQ, PermissionContext.LanguagePreference)
 					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Take(maxResults)
 					.ToArray();
@@ -110,9 +112,8 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Album)
-					.OrderBy(s => s.Names.SortNames.Romaji)
+				var additionalNames = FindHelpers.AddOrder(additionalNamesQ
+					.Select(m => m.Album), PermissionContext.LanguagePreference)
 					.Distinct()
 					.Take(maxResults)
 					.ToArray()

@@ -7,7 +7,7 @@
 	@if (Model.ExistingSong != null) {
 		@Html.HiddenFor(m => m.ExistingSong.Id)
 		@Html.CheckBoxFor(m => m.Selected)
-		<span>@Html.ActionLink(Model.ExistingSong.Name, "Details", "Song", new { id = Model.ExistingSong.Id }, new { title = Model.ExistingSong.AdditionalNames })</span>
+		<span>@Html.ActionLink(Model.ExistingSong.Name + " - " + Model.ExistingSong.ArtistString, "Details", "Song", new { id = Model.ExistingSong.Id }, new { title = Model.ExistingSong.AdditionalNames })</span>
 	} else {
 		<span>(no match)</span>
 	}

@@ -12,7 +12,6 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -28,7 +27,9 @@ namespace VocaDb.Model.Service {
 
 	public class ArtistService : ServiceBase {
 
+// ReSharper disable UnusedMember.Local
 		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
+// ReSharper restore UnusedMember.Local
 
 		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
 			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults,
@@ -53,8 +54,9 @@ namespace VocaDb.Model.Service {
 				if (filterByArtistType)
 					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
 
+				q = FindHelpers.AddOrder(q, PermissionContext.LanguagePreference);
+
 				var artists = q
-					.OrderBy(s => s.Names.SortNames.Romaji).Asc
 					.TransformUsing(new DistinctRootEntityResultTransformer())
 					.Skip(start)
 					.Take(maxResults)
@@ -82,9 +84,9 @@ namespace VocaDb.Model.Service {
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
 				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
-					
+				directQ = FindHelpers.AddOrder(directQ, PermissionContext.LanguagePreference);	
+
 				var direct = directQ
-					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Take(maxResults)
 					//.FetchMany(s => s.Names)
 					.ToArray();
@@ -108,9 +110,8 @@ namespace VocaDb.Model.Service {
 				if (artistTypes.Any())
 					additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
 
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Artist)
-					.OrderBy(s => s.Names.SortNames.Romaji)
+				var additionalNames = FindHelpers.AddOrder(additionalNamesQ
+					.Select(m => m.Artist), PermissionContext.LanguagePreference)
 					.Distinct()
 					.Take(maxResults)
 					//.FetchMany(s => s.Names)
