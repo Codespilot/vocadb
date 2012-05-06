@@ -1,7 +1,10 @@
 User-agent: *
 Disallow: /Album/MikuDbRedirect/
+Disallow: /Album/Versions/
 Disallow: /Album/ViewVersion/
+Disallow: /Artist/Versions/
 Disallow: /Artist/ViewVersion/
+Disallow: /Song/Versions/
 Disallow: /Song/ViewVersion/
 Disallow: /ViewNicoVideo.aspx
 Disallow: /ListPolls.aspx

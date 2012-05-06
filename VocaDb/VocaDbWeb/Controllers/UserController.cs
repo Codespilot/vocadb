@@ -74,9 +74,11 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FavoriteSongsPaged(int id, int? page) {
 
+			const int songsPerPage = 50;
+
 			var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetFavoriteSongs(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "FavoriteSongsPaged", "Favorite_songs");
+			var result = Service.GetFavoriteSongs(id, pageIndex * songsPerPage, songsPerPage);
+			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, songsPerPage, result.TotalCount), id, "FavoriteSongsPaged", "Favorite_songs");
 
 			return PartialView("PagedSongs", data);
 
