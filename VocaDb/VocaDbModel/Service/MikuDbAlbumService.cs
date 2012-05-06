@@ -153,20 +153,11 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrEmpty(artistName))
 				return null;
 
-			var direct = session.Query<Artist>()
-				.Where(
-					s => !s.Deleted &&
-					(s.Names.SortNames.English == artistName
-						|| s.Names.SortNames.Romaji == artistName
-						|| s.Names.SortNames.Japanese == artistName))
-				.FirstOrDefault();
-
-			if (direct != null)
-				return direct;
+			if (artistName.EndsWith("P"))
+				artistName = artistName.Substring(0, artistName.Length - 1);
 
 			var additionalNames = session.Query<ArtistName>()
-				.Where(m => !m.Artist.Deleted && m.Value == artistName)
-				.FirstOrDefault();
+				.FirstOrDefault(m => !m.Artist.Deleted && (m.Value == artistName || m.Value == artistName + "P"));
 
 			if (additionalNames != null)
 				return additionalNames.Artist;
