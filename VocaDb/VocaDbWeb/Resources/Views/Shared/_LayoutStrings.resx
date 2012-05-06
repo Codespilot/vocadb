@@ -150,6 +150,9 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Related sites</value>
   </data>
+  <data name="SocialSites" xml:space="preserve">
+    <value>Social sites</value>
+  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>You have unread messages</value>
   </data>

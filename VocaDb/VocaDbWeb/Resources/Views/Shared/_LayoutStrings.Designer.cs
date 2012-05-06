@@ -160,6 +160,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Social sites.
+        /// </summary>
+        public static string SocialSites {
+            get {
+                return ResourceManager.GetString("SocialSites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You have unread messages.
         /// </summary>
         public static string UnreadMessages {
