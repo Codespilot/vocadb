@@ -217,6 +217,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult Create() {
 
 			return View(new Create());

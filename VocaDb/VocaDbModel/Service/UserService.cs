@@ -289,6 +289,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public SongWithAdditionalNamesContract[] GetFavoriteSongs(int userId) {
 
 			return HandleQuery(session =>
