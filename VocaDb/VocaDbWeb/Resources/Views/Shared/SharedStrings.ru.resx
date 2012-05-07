@@ -129,6 +129,9 @@
   <data name="Apply" xml:space="preserve">
     <value>Применить</value>
   </data>
+  <data name="ArtistName" xml:space="preserve">
+    <value>Название (имя)</value>
+  </data>
   <data name="Artists" xml:space="preserve">
     <value>Артисты</value>
   </data>

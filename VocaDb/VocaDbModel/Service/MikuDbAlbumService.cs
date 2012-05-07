@@ -166,7 +166,34 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private Song FindSong(ISession session, string songName) {
+		/// <summary>
+		/// Finds the best match for a song.
+		/// </summary>
+		/// <param name="songs"></param>
+		/// <param name="artists"></param>
+		/// <returns></returns>
+		private Song FindMatch(Song[] songs, IEnumerable<Artist> artists) {
+
+			if (songs.Length == 0)
+				return null;
+
+			if (songs.Length == 1)
+				return songs.First();
+
+			var match = songs.FirstOrDefault(s => s.Artists.Any(a => a.Artist.ArtistType != ArtistType.Vocaloid && artists.Any(a2 => a.Artist.Equals(a2))));
+			return match ?? songs.First();
+
+		}
+
+		private Song FindSong(ISession session, string songName, IEnumerable<Artist> artists) {
+
+			var nameMatch = session.Query<SongName>()
+				.Where(m => !m.Song.Deleted && m.Value == songName)
+				.Select(a => a.Song)
+				.ToArray();
+
+			if (nameMatch.Any())
+				return FindMatch(nameMatch, artists);
 
 			var direct = session.Query<Song>()
 				.Where(
@@ -174,17 +201,10 @@ namespace VocaDb.Model.Service {
 					(s.Names.SortNames.English == songName
 						|| s.Names.SortNames.Romaji == songName
 						|| s.Names.SortNames.Japanese == songName))
-				.FirstOrDefault();
+				.ToArray();
 
-			if (direct != null)
-				return direct;
-
-			var additionalNames = session.Query<SongName>()
-				.Where(m => !m.Song.Deleted && m.Value == songName)
-				.FirstOrDefault();
-
-			if (additionalNames != null)
-				return additionalNames.Song;
+			if (direct.Any())
+				return FindMatch(direct, artists);
 
 			return null;
 
@@ -209,10 +229,12 @@ namespace VocaDb.Model.Service {
 				.Select(a => InspectArtist(session, a))
 				.ToArray();
 
+			var matchedArtists = artists.Where(a => a.ExistingArtist != null).Select(a => a.ExistingArtist).ToArray();
+
 			InspectedTrack[] tracks = null;
 
 			if (albumMatch == null || !albumMatch.Songs.Any())
-				tracks = data.Tracks.Select(t => InspectTrack(session, t)).ToArray();
+				tracks = data.Tracks.Select(t => InspectTrack(session, t, matchedArtists)).ToArray();
 
 
 			var result = new InspectedAlbum(importedContract);
@@ -220,30 +242,30 @@ namespace VocaDb.Model.Service {
 			if (albumMatch != null)
 				result.ExistingAlbum = new AlbumWithAdditionalNamesContract(albumMatch, PermissionContext.LanguagePreference);
 
-			result.Artists = artists;
+			result.Artists = artists.Select(a => a.InspectedArtist).ToArray();
 			result.Tracks = tracks;
 
 			return result;
 
 		}
 
-		private InspectedArtist InspectArtist(ISession session, string name) {
+		private ArtistInspectResult InspectArtist(ISession session, string name) {
 
-			var inspected = new InspectedArtist(name);
+			//var inspected = new InspectedArtist(name);
 
 			var matched = FindArtist(session, name);
 
-			if (matched != null)
-				inspected.ExistingArtist = new ArtistWithAdditionalNamesContract(matched, PermissionContext.LanguagePreference);
+			//if (matched != null)
+			//	inspected.ExistingArtist = new ArtistWithAdditionalNamesContract(matched, PermissionContext.LanguagePreference);
 
-			return inspected;
+			return new ArtistInspectResult(name, matched, PermissionContext.LanguagePreference);
 
 		}
 
-		private InspectedTrack InspectTrack(ISession session, ImportedAlbumTrack importedTrack) {
+		private InspectedTrack InspectTrack(ISession session, ImportedAlbumTrack importedTrack, IEnumerable<Artist> artists) {
 
 			var inspected = new InspectedTrack(importedTrack);
-			var existingSong = FindSong(session, importedTrack.Title);
+			var existingSong = FindSong(session, importedTrack.Title, artists);
 
 			if (existingSong != null)
 				inspected.ExistingSong = new SongWithAdditionalNamesContract(existingSong, PermissionContext.LanguagePreference);
@@ -379,4 +401,24 @@ namespace VocaDb.Model.Service {
 		}
 
 	}
+
+	public class ArtistInspectResult {
+
+		public ArtistInspectResult(string name, Artist existing, ContentLanguagePreference languagePreference) {
+
+			InspectedArtist = new InspectedArtist(name);
+
+			ExistingArtist = existing;
+
+			if (existing != null)
+				InspectedArtist.ExistingArtist = new ArtistWithAdditionalNamesContract(existing, languagePreference);
+
+		}
+
+		public Artist ExistingArtist { get; set; }
+
+		public InspectedArtist InspectedArtist { get; set; }
+
+	}
+
 }

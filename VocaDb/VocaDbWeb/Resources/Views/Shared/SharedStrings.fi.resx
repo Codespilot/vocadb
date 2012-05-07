@@ -129,6 +129,9 @@
   <data name="Apply" xml:space="preserve">
     <value>Käytä</value>
   </data>
+  <data name="ArtistName" xml:space="preserve">
+    <value>Nimi</value>
+  </data>
   <data name="Artists" xml:space="preserve">
     <value>Artistit</value>
   </data>
