@@ -97,6 +97,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string ArtistName {
+            get {
+                return ResourceManager.GetString("ArtistName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artists.
         /// </summary>
         public static string Artists {

@@ -126,6 +126,9 @@
   <data name="AddSong" xml:space="preserve">
     <value>Lisää kappale</value>
   </data>
+  <data name="FollowUser" xml:space="preserve">
+    <value>Seuraa käyttäjää</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Ohjeet / tietoja</value>
   </data>

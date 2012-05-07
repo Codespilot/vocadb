@@ -88,6 +88,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Follow user.
+        /// </summary>
+        public static string FollowUser {
+            get {
+                return ResourceManager.GetString("FollowUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help / About.
         /// </summary>
         public static string Help {
