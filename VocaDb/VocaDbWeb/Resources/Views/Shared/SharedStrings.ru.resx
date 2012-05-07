@@ -157,7 +157,7 @@
     <value>Загрузка...</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название (имя)</value>
   </data>
   <data name="PVs" xml:space="preserve">
     <value>PV</value>
