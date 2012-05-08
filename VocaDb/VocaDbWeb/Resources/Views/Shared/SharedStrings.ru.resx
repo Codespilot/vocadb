@@ -130,7 +130,7 @@
     <value>Применить</value>
   </data>
   <data name="ArtistName" xml:space="preserve">
-    <value>Название (имя)</value>
+    <value>Имя</value>
   </data>
   <data name="Artists" xml:space="preserve">
     <value>Артисты</value>
@@ -160,7 +160,7 @@
     <value>Загрузка...</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Название (имя)</value>
+    <value>Название</value>
   </data>
   <data name="PVs" xml:space="preserve">
     <value>PV</value>
