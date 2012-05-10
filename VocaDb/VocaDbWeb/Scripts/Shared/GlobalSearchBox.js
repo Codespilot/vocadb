@@ -5,10 +5,10 @@ $(document).ready(function () {
 		source: function (request, response) {
 
 			var term = request.term;
-			var entryType = $("#globalSearchEntryType").val();
+			var entryType = $("input[@name = 'globalSearchEntryType']:checked").val(); // $("#globalSearchEntryType").val();
 
 			if (entryType == "Album") {
-				$.post("../../Album/FindJson", { term: term }, function (results) {
+				$.post("../../Album/FindNames", { term: term }, function (results) {
 					entryFindCallback(response, results);
 				});
 			} else if (entryType == "Artist") {
@@ -16,7 +16,7 @@ $(document).ready(function () {
 					entryFindCallback(response, results);
 				});
 			} else if (entryType == "Song") {
-				$.post("../../Song/FindJsonByName", { term: term }, function (results) {
+				$.post("../../Song/FindNames", { term: term }, function (results) {
 					entryFindCallback(response, results);
 				});
 			}

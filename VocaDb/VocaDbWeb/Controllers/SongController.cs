@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
@@ -77,6 +78,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
+			SetSearchEntryType(EntryType.Song);
 			var model = new Index(result, filter, songType ?? SongType.Unspecified, draftsOnly, page);
 
         	return View(model);
@@ -132,7 +134,8 @@ namespace VocaDb.Web.Controllers
         // GET: /Song/Details/5
 
         public ActionResult Details(int id) {
-        	var model = new SongDetails(Service.GetSongDetails(id));
+			SetSearchEntryType(EntryType.Song);
+			var model = new SongDetails(Service.GetSongDetails(id));
             return View(model);
         }
 

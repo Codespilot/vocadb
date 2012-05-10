@@ -289,6 +289,10 @@
     <Compile Include="Helpers\Login.cs" />
     <Compile Include="Helpers\PanelExtensions.cs" />
     <Compile Include="Helpers\PVHelper.cs" />
+    <Compile Include="Helpers\RadioButtonHelpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers\SearchHelpers.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\Support\TranslateableEnum.cs" />
     <Compile Include="Helpers\TagsHelper.cs" />

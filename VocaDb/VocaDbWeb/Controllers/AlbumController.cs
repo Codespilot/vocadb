@@ -77,6 +77,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			var model = new Index(result, filter, page, draftsOnly);
+			SetSearchEntryType(EntryType.Album);
 
             return View(model);
 
@@ -146,7 +147,8 @@ namespace VocaDb.Web.Controllers
         // GET: /Album/Details/5
 
         public ActionResult Details(int id) {
-        	var model = Service.GetAlbumDetails(id);
+			SetSearchEntryType(EntryType.Album);
+			var model = Service.GetAlbumDetails(id);
             return View(new AlbumDetails(model));
         }
 

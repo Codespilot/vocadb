@@ -345,3 +345,7 @@ input + .textLink {
 h2.pageTitle {
 	margin-bottom: 10px;
 }
+
+.globalSearchBox {
+	margin: 10px;
+}
