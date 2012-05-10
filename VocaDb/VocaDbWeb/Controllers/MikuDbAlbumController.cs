@@ -41,6 +41,7 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpGet]
+		[Authorize]
 		public ActionResult PrepareForImport(int id) {
 
 			var result = Service.Inspect(new[] { id });
@@ -50,6 +51,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public ActionResult PrepareForImport(IEnumerable<MikuDbAlbumContract> albums) {
 
 			var selectedIds = (albums != null ? albums.Where(a => a.Selected).Select(a => a.Id).ToArray() : new int[] {});
@@ -60,6 +62,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public ActionResult ImportOne(string AlbumUrl) {
 			
 			Service.ImportOne(AlbumUrl);
@@ -68,6 +71,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult ImportNew() {
 
 			Service.ImportNew();
@@ -77,6 +81,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums, IEnumerable<InspectedTrack> Tracks) {
 
 			var ids = albums.Select(a => a.ImportedAlbum.Id).ToArray();
@@ -88,6 +93,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult Delete(int id) {
 
 			Service.Delete(id);
@@ -95,6 +101,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult SkipAlbum(int id) {
 
 			Service.SkipAlbum(id);
