@@ -180,4 +180,7 @@
   <data name="UserGroup" xml:space="preserve">
     <value>Пользовательская группа</value>
   </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Имя</value>
+  </data>
 </root>
