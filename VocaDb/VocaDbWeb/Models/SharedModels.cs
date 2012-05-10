@@ -17,8 +17,15 @@ namespace VocaDb.Web.Models {
 
 	public class GlobalSearchBoxModel {
 
-		public GlobalSearchBoxModel() {
+		public GlobalSearchBoxModel()
+			: this(EntryType.Artist, string.Empty) { }
+
+		public GlobalSearchBoxModel(EntryType? objectType, string searchTerm) {
+
 			AllObjectTypes = new TranslateableEnum<EntryType>(() => global::Resources.EntryTypeNames.ResourceManager, new[] { EntryType.Artist, EntryType.Album, EntryType.Song });
+			ObjectType = objectType ?? EntryType.Artist;
+			GlobalSearchTerm = searchTerm ?? string.Empty;
+
 		}
 
 		public TranslateableEnum<EntryType> AllObjectTypes { get; set; }

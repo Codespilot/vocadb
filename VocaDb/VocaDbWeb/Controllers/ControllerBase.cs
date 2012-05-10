@@ -4,6 +4,7 @@ using System.IO;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.UseCases;
@@ -111,6 +112,12 @@ namespace VocaDb.Web.Controllers {
 				= ViewData.ModelState.Select(m => new ModelStateErrors(m.Key, m.Value)).ToArray() };
 
 			TempData["ModelErrors"] = list;
+
+		}
+
+		protected void SetSearchEntryType(EntryType entryType) {
+
+			ViewData["GlobalSearchObjectType"] = entryType;
 
 		}
 

@@ -116,9 +116,6 @@
 	 }
 				
 					<br />
-					@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel()); }
-				
-					<br />
 					<h3>@ViewRes._LayoutStrings.RelatedSites</h3>
 					<ul>
 						<li><a href="http://mikudb.com">MikuDB</a></li>
@@ -141,23 +138,26 @@
 	 }
 				</td>
 				<td class="rightFrame">
+					
+					@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
+
 					@if (ViewBag.Parents != null) {
-		 foreach (MvcHtmlString link in ViewBag.Parents) {
+						foreach (MvcHtmlString link in ViewBag.Parents) {
 							<span>
 								@link &gt;&gt;
 							</span>
-		 }
-	 }
+						}
+					}
 					<h2 class="pageTitle">@ViewBag.Title</h2>
 					@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
 						<span class="pageSubtitle">@ViewBag.Subtitle</span>
-	 }
+					}
 
 					@if (IsSectionDefined("Toolbar")) {
 						<p>
 							@RenderSection("Toolbar")
 						</p>
-	 }
+					}
 				
 					@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
 						<div class="ui-widget">
@@ -168,11 +168,11 @@
 								</p>
 							</div>
 						</div>
-	 }
+					}
 				
 					@if (TempData.StatusMessage() != null) {
 						@Helpers.NotificationPanel(TempData.StatusMessage())
-	 }
+					}
 		
 					@RenderBody()
 				</td>
