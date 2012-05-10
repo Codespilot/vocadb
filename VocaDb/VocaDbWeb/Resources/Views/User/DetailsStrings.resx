@@ -180,4 +180,7 @@
   <data name="UserGroup" xml:space="preserve">
     <value>User group</value>
   </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>
