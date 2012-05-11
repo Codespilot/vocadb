@@ -162,7 +162,7 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
 			Id = song.Song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
-			Name = song.Song.Name;
+			//Name = song.Song.Name;
 			NameEnglish = song.TranslatedName.English;
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
@@ -245,6 +245,7 @@ namespace VocaDb.Web.Models {
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			Deleted = song.Deleted;
 			Draft = song.Song.Status == EntryStatus.Draft;
+			Name = song.Song.Name;
 			ValidationResult = song.ValidationResult;
 
 		}

@@ -27,7 +27,6 @@
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
 @using (Html.BeginForm("Edit", "Song", FormMethod.Post)) {
-	@Html.HiddenFor(m => m.Name)
 	@Html.HiddenFor(m => m.Id)
 
 	<p>
