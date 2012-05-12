@@ -152,7 +152,7 @@ function songListChanged() {
 
 }
 
-function initPage(albumId) {
+function initPage(albumId, discType) {
 
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
@@ -315,16 +315,17 @@ function initPage(albumId) {
 	var songAddList = $("#songAddList");
 	var songAddName = $("input#songAddName");
 	var songAddBtn = $("#songAddAcceptBtn");
+	var songTypes = "Unspecified,Original,Remix,Cover,Mashup,Other" + (discType == "Video" ? ",MusicPV,DramaPV" : "");
 
 	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName",
 		{
 			allowCreateNew: true,
 			acceptBtnElem: songAddBtn,
 			acceptSelection: acceptSongSelection,
-			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")" },
-			createOptionSecondRow: function (item) { return item.ArtistString },
-			createTitle: function (item) { return item.AdditionalNames },
-			extraQueryParams: { songTypes: "Unspecified,Original,Remix,Cover,Mashup,Other" }
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
+			createOptionSecondRow: function (item) { return item.ArtistString; },
+			createTitle: function (item) { return item.AdditionalNames; },
+			extraQueryParams: { songTypes: songTypes }
 		});
 
 	function songAdded(row) {
