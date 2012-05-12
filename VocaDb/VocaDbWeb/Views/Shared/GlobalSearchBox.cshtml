@@ -2,9 +2,9 @@
 @model VocaDb.Web.Models.GlobalSearchBoxModel
 
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post)) {
-	@Html.TextBox("globalSearchTerm", string.Empty, new { id = "globalSearchTerm", @class = "globalSearchBox", size = 50 })
+	@Html.EnumRadioButtonListFor(m => m.ObjectType, Model.AllObjectTypes, new Dictionary<string, object> { { "class", "globalSearchEntryType" } }, Model.ObjectType)
 	@Html.Raw("&nbsp;")
-	@Html.EnumRadioButtonListFor(m => m.ObjectType, Model.AllObjectTypes, new Dictionary<string, object>{{ "class", "globalSearchEntryType" }}, Model.ObjectType)
+	@Html.TextBox("globalSearchTerm", string.Empty, new { id = "globalSearchTerm", @class = "globalSearchBox", size = 50 })
 	@Html.Raw("&nbsp;")
 	<button type="submit">@ViewRes.SharedStrings.Search</button>
 }

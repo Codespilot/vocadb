@@ -135,4 +135,7 @@
   <data name="Unknown" xml:space="preserve">
     <value>Ei määritelty</value>
   </data>
+  <data name="Video" xml:space="preserve">
+    <value>Video</value>
+  </data>
 </root>

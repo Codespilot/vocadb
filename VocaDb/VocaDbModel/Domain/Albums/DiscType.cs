@@ -12,7 +12,9 @@
 
 		Compilation	= 8,
 
-		Other		= 16
+		Video		= 16,
+
+		Other		= 32
 
 	}
 
