@@ -112,7 +112,7 @@
 			<tr>
 				<td>@ViewRes.SharedStrings.Type</td>
 				<td>
-					@Translate.DiscTypeName(Model.DiscType)<br />
+					@Html.ActionLink(Translate.DiscTypeName(Model.DiscType), "Index", new { discType = Model.DiscType })<br />
 				</td>	
 			</tr>
 

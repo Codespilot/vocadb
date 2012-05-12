@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.API.v1.Controllers {
@@ -19,11 +20,11 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		}
 
-		public ActionResult Index(string query, 
+		public ActionResult Index(string query, DiscType discType,
 			int start = 0, bool getTotalCount = false, 
 			NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			var entries = Service.Find(query, start, maxResults, false, getTotalCount);
+			var entries = Service.Find(query, discType, start, maxResults, false, getTotalCount);
 
 			return Json(entries);
 

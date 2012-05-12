@@ -6,6 +6,7 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
@@ -27,7 +28,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Albums.Find(term, 0, maxResults, false, true, moveExactToTop: true, nameMatchMode: nameMatchMode);
+			return Services.Albums.Find(term, DiscType.Unknown, 0, maxResults, false, true, moveExactToTop: true, nameMatchMode: nameMatchMode);
 
 		}
 
@@ -55,7 +56,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term) {
 
-			var albums = Services.Albums.Find(term, 0, 10, false, false, moveExactToTop: true);
+			var albums = Services.Albums.Find(term, DiscType.Unknown, 0, 10, false, false, moveExactToTop: true);
 			return albums.Items.FirstOrDefault();
 
 		}
