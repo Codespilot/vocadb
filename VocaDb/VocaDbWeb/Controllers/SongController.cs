@@ -299,22 +299,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		/*
-		[HttpPost]
-		[Obsolete("Integrated to song editing")]
-		public ActionResult EditLyrics(LyricsEditorModel model, IEnumerable<LyricsForSongModel> lyrics) {
-
-			lyrics = lyrics ?? new LyricsForSongModel[] {};
-
-			var contracts = lyrics.Select(l => l.ToContract());
-			var song = Service.UpdateLyrics(model.Id, contracts);
-
-			TempData.SetStatusMessage("Lyrics saved.");
-
-			return RedirectToAction("Edit", new { id = model.Id });
-
-		}*/
-
         //
         // GET: /Song/Delete/5
 

@@ -5,7 +5,6 @@ using System.Linq;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
@@ -14,7 +13,6 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
@@ -273,35 +271,6 @@ namespace VocaDb.Web.Models {
 		}
 
 	}
-
-	/*public class PVForSongModel {
-
-		public PVForSongModel() { }
-
-		public PVForSongModel(PVForSongContract contract) {
-
-		}
-
-		public int Id { get; set; }
-
-	}*/
-
-	/*public class LyricsEditorModel {
-
-		public LyricsEditorModel() {}
-
-		public LyricsEditorModel(SongEdit model) {
-
-			Id = model.Id;
-			Lyrics = model.Lyrics;
-
-		}
-
-		public int Id { get; set; }
-
-		public LyricsForSongModel[] Lyrics { get; set; }
-
-	}*/
 
 	public class LyricsForSongModel {
 		
