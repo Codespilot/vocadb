@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
@@ -68,15 +69,17 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Album/
 
-		public ActionResult Index(string filter, int? page, bool? draftsOnly) {
+		public ActionResult Index(string filter, DiscType? discType, int? page, bool? draftsOnly) {
 
-			var result = Service.Find(filter, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, moveExactToTop: false);
+			var dType = discType ?? DiscType.Unknown;
+
+			var result = Service.Find(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, moveExactToTop: false);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
-			var model = new Index(result, filter, page, draftsOnly);
+			var model = new Index(result, filter, dType, page, draftsOnly);
 			SetSearchEntryType(EntryType.Album);
 
             return View(model);
@@ -112,7 +115,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.Find(term, 0, 20, false, false, moveExactToTop: true);
+			var albums = Service.Find(term, DiscType.Unknown, 0, 20, false, false, moveExactToTop: true);
 
 			return Json(albums);
 
