@@ -18,14 +18,6 @@
 				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 				<br />
 				<span class="extraInfo">@album.ArtistString</span>
-				@if (displayRating) {
-					<br />
-					@ViewRes.Album.TopRatedStrings.Average
-					@album.RatingAverage
-					@(", ")
-					@string.Format(ViewRes.Album.TopRatedStrings.RatedTimes, album.RatingCount)
-					@(".")
-				}
 				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
 					<br />
 					<span>@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted</span>

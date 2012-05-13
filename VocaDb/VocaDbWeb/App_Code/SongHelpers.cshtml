@@ -30,6 +30,30 @@
 
 }
 
+@helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs) {
+	
+	<table>
+		@foreach (var song in songs) {
+		<tr>
+			<td>
+				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+				<a href="@Url.Action("Details", "Song", new { id = song.Id })">
+					<img src="@song.ThumbUrl" alt="Thumb" class="coverPicThumb" />
+				</a>
+				}
+			</td>
+			<td>
+				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+				<br />
+				<span class="extraInfo">@song.ArtistString</span>
+			</td>
+	   </tr>
+	 }	
+	</table>
+	
+	
+}
+
 @helper SongLists(IEnumerable<SongListContract> songLists) {
 	
 	<table>
