@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Helpers;
+@using R = ViewRes.Home;
 @model VocaDb.Model.DataContracts.UseCases.FrontPageContract
 
 @{
@@ -6,6 +7,19 @@
 }
 
 <h3>@ViewRes.Home.IndexStrings.Welcome</h3>
+
+<table>
+	<tr>
+		<td class="alignTop">
+			<h4>@R.IndexStrings.NewAlbums</h4>
+			@AlbumHelpers.AlbumList(Model.NewAlbums, false, true)
+		</td>
+		<td class="alignTop">
+			<h4>@R.IndexStrings.TopAlbums</h4>
+			@AlbumHelpers.AlbumList(Model.TopAlbums, false, true)
+		</td>
+	</tr>
+</table>
 
 <h4>@ViewRes.Home.IndexStrings.News @Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry")</h4>
 

@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using VocaDb.Model.Domain.PVs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -8,6 +10,8 @@ namespace VocaDb.Model.Service.VideoServices {
 			VideoService.NicoNicoDouga,
 			VideoService.Youtube
 		};
+
+		public static readonly Dictionary<PVService, VideoService> Services = services.ToDictionary(s => s.Service);
 
 		public static VideoUrlParseResult ParseByUrl(string url) {
 

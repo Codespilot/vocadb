@@ -294,6 +294,10 @@
 	}
 }
 
+@helper Stars(double current, int max) {
+	@Stars((int)Math.Round(current), max)
+}
+
 @helper ValidationSymmaryPanel(string message) {
 	if (!ViewData.ModelState.IsValid) {
 		using (Html.BeginErrorPanel()) {

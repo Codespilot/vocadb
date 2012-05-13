@@ -117,25 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewAlbums" xml:space="preserve">
-    <value>New albums</value>
-  </data>
-  <data name="News" xml:space="preserve">
-    <value>News</value>
-  </data>
-  <data name="RecentActivity" xml:space="preserve">
-    <value>Recent activity</value>
-  </data>
-  <data name="TopAlbums" xml:space="preserve">
-    <value>Top albums</value>
-  </data>
-  <data name="ViewAll" xml:space="preserve">
-    <value>view all</value>
-  </data>
-  <data name="ViewMore" xml:space="preserve">
-    <value>view more</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome to the Vocaloid Database!</value>
+  <data name="Released" xml:space="preserve">
+    <value>Released</value>
   </data>
 </root>

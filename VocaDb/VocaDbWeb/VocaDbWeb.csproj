@@ -341,6 +341,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ActivityFeedHelperStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Helpers\AlbumHelpersStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumHelpersStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Helpers\HelperStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1281,6 +1286,12 @@
       <CustomToolNamespace>HelperRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Helpers\AlbumHelpersStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Helpers\AlbumHelpersStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlbumHelpersStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>HelperRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -431,7 +431,9 @@
     <Compile Include="Service\ServiceModel.cs" />
     <Compile Include="Service\SongService.cs" />
     <Compile Include="Service\UserService.cs" />
+    <Compile Include="Service\VideoServices\VideoServiceNND.cs" />
     <Compile Include="Service\VideoServices\VideoServiceUrlFactory.cs" />
+    <Compile Include="Service\VideoServices\VideoServiceYoutube.cs" />
     <Compile Include="Service\VideoServices\VideoUrlParseResult.cs" />
     <Compile Include="Service\VideoServices\YoutubeParser.cs" />
     <Compile Include="Utils\XmlCache.cs" />

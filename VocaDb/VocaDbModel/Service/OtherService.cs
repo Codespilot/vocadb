@@ -2,6 +2,7 @@
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
@@ -41,7 +42,7 @@ namespace VocaDb.Model.Service {
 		public FrontPageContract GetFrontPageContent() {
 
 			const int maxNewsEntries = 4;
-			const int maxActivityEntries = 25;
+			const int maxActivityEntries = 20;
 
 			return HandleQuery(session => {
 
@@ -56,7 +57,20 @@ namespace VocaDb.Model.Service {
 				if (newsEntries.Length < maxNewsEntries)
 					newsEntries = newsEntries.Concat(session.Query<NewsEntry>().Where(n => !n.Stickied).OrderByDescending(a => a.CreateDate).Take(maxNewsEntries - newsEntries.Length)).ToArray();
 
-				return new FrontPageContract(activityEntries, newsEntries, PermissionContext.LanguagePreference);
+				var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
+					.OrderByDescending(a => a.RatingAverageInt)
+					.OrderByDescending(a => a.RatingCount)
+					.Take(10).ToArray();
+				var newAlbums = session.Query<Album>().Where(a => !a.Deleted 
+					&& a.OriginalRelease.ReleaseDate.Year != null 
+					&& a.OriginalRelease.ReleaseDate.Month != null 
+					&& a.OriginalRelease.ReleaseDate.Day != null)
+					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
+					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Day)
+					.Take(10).ToArray();
+
+				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, PermissionContext.LanguagePreference);
 
 			});
 
