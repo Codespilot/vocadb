@@ -88,6 +88,15 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recently added songs with videos.
+        /// </summary>
+        public static string RecentSongs {
+            get {
+                return ResourceManager.GetString("RecentSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top albums.
         /// </summary>
         public static string TopAlbums {
