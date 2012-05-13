@@ -117,18 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EntryDeleted" xml:space="preserve">
-    <value>This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.</value>
+  <data name="Admin" xml:space="preserve">
+    <value>Администратор</value>
   </data>
-  <data name="EntryStatusExplanation" xml:space="preserve">
-    <value>Draft = entry is missing crucial information. This status indicates that you're requesting additional information to be added or corrected.&lt;br /&gt;
-Finished = The entry has all the necessary information, but it hasn't been inspected by a trusted user yet.&lt;br /&gt;
-Approved = The entry has been inspected and approved by a trusted user. Approved entries can only be edited by trusted users.</value>
+  <data name="Limited" xml:space="preserve">
+    <value>Пользователь с ограниченным набором прав</value>
   </data>
-  <data name="Locked" xml:space="preserve">
-    <value>This entry is locked, meaning that only moderators are allowed to edit it.</value>
+  <data name="Moderator" xml:space="preserve">
+    <value>Модератор</value>
   </data>
-  <data name="NameLanguageHelp" xml:space="preserve">
-    <value>Choose the language for this name. "Original" is the name in original language that isn't English, for example Japanese. If the original language is English, do not input a name in the "Original" language.</value>
+  <data name="Nothing" xml:space="preserve">
+    <value>Ничто</value>
+  </data>
+  <data name="Regular" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="Trusted" xml:space="preserve">
+    <value>Доверенный пользователь</value>
   </data>
 </root>

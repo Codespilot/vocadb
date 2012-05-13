@@ -117,18 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EntryDeleted" xml:space="preserve">
-    <value>This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.</value>
+  <data name="Artists" xml:space="preserve">
+    <value>Артисты</value>
   </data>
-  <data name="EntryStatusExplanation" xml:space="preserve">
-    <value>Draft = entry is missing crucial information. This status indicates that you're requesting additional information to be added or corrected.&lt;br /&gt;
-Finished = The entry has all the necessary information, but it hasn't been inspected by a trusted user yet.&lt;br /&gt;
-Approved = The entry has been inspected and approved by a trusted user. Approved entries can only be edited by trusted users.</value>
+  <data name="Cover" xml:space="preserve">
+    <value>Обложка</value>
   </data>
-  <data name="Locked" xml:space="preserve">
-    <value>This entry is locked, meaning that only moderators are allowed to edit it.</value>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="NameLanguageHelp" xml:space="preserve">
-    <value>Choose the language for this name. "Original" is the name in original language that isn't English, for example Japanese. If the original language is English, do not input a name in the "Original" language.</value>
+  <data name="DiscType" xml:space="preserve">
+    <value>Тип диска</value>
+  </data>
+  <data name="Names" xml:space="preserve">
+    <value>Названия</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Прочее</value>
+  </data>
+  <data name="OriginalName" xml:space="preserve">
+    <value>Оригинальное название</value>
+  </data>
+  <data name="OriginalRelease" xml:space="preserve">
+    <value>Дата первого выпуска</value>
+  </data>
+  <data name="PVs" xml:space="preserve">
+    <value>Видео</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="Tracks" xml:space="preserve">
+    <value>Песни</value>
+  </data>
+  <data name="WebLinks" xml:space="preserve">
+    <value>Внешние ссылки</value>
   </data>
 </root>

@@ -117,18 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EntryDeleted" xml:space="preserve">
-    <value>This entry has been deleted. It is still temporarily accessible, but won't show up in any of the listings.</value>
+  <data name="Animator" xml:space="preserve">
+    <value>Аниматор</value>
   </data>
-  <data name="EntryStatusExplanation" xml:space="preserve">
-    <value>Draft = entry is missing crucial information. This status indicates that you're requesting additional information to be added or corrected.&lt;br /&gt;
-Finished = The entry has all the necessary information, but it hasn't been inspected by a trusted user yet.&lt;br /&gt;
-Approved = The entry has been inspected and approved by a trusted user. Approved entries can only be edited by trusted users.</value>
+  <data name="Arranger" xml:space="preserve">
+    <value>Аранжировщик</value>
   </data>
-  <data name="Locked" xml:space="preserve">
-    <value>This entry is locked, meaning that only moderators are allowed to edit it.</value>
+  <data name="Composer" xml:space="preserve">
+    <value>Композитор</value>
   </data>
-  <data name="NameLanguageHelp" xml:space="preserve">
-    <value>Choose the language for this name. "Original" is the name in original language that isn't English, for example Japanese. If the original language is English, do not input a name in the "Original" language.</value>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Distributor" xml:space="preserve">
+    <value>Распространитель</value>
+  </data>
+  <data name="Illustrator" xml:space="preserve">
+    <value>Иллюстратор</value>
+  </data>
+  <data name="Instrumentalist" xml:space="preserve">
+    <value>Инструменталист</value>
+  </data>
+  <data name="Lyricist" xml:space="preserve">
+    <value>Автор лирики</value>
+  </data>
+  <data name="Mastering" xml:space="preserve">
+    <value>Сведение</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Другое</value>
+  </data>
+  <data name="Publisher" xml:space="preserve">
+    <value>Издатель</value>
+  </data>
+  <data name="Vocalist" xml:space="preserve">
+    <value>Вокалист</value>
+  </data>
+  <data name="VoiceManipulator" xml:space="preserve">
+    <value>Программист вокала</value>
   </data>
 </root>
