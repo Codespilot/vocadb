@@ -1,21 +1,13 @@
 ﻿using System;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Domain.PVs {
 
 	public class PV : IEquatable<PV> {
 
 		public static string GetUrl(PVService service, string pvId) {
-
-			switch (service) {
-				case PVService.Youtube:
-					return "http://youtu.be/" + pvId;
-				case PVService.NicoNicoDouga:
-					return "http://nicovideo.jp/watch/" + pvId;
-				default:
-					return pvId;
-			}
-
+			return VideoServiceHelper.Services[service].GetUrlById(pvId);
 		}
 
 		private string name;

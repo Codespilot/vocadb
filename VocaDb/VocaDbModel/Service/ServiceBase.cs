@@ -171,7 +171,7 @@ namespace VocaDb.Model.Service {
 				}
 			} catch (HibernateException x) {
 				log.Error(failMsg, x);
-			throw;
+				throw;
 			}
 
 		}

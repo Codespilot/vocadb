@@ -39,6 +39,8 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Status = album.Status;
 			Version = album.Version;
 
+			ReleaseDate = new OptionalDateTimeContract(album.OriginalReleaseDate);
+
 		}
 
 		[DataMember]
@@ -62,6 +64,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int RatingCount { get; set; }
+
+		[DataMember]
+		public OptionalDateTimeContract ReleaseDate { get; set; }
 
 		[DataMember]
 		public EntryStatus Status { get; set; }

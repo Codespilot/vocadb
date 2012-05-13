@@ -85,8 +85,13 @@ img.coverPic {
 }
 
 img.coverPicIcon {
-	max-width: 25px;
-	max-height: 25px;
+	max-width: 35px;
+	max-height: 35px;
+}
+
+img.coverPicThumb {
+	max-width: 70px;
+	max-height: 70px;
 }
 
 table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {

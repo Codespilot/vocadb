@@ -1,7 +1,41 @@
 ﻿@using System.Web.Mvc;
+@using System.Web.Mvc.Html
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
+
+@helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums, bool displayRating, bool displayReleaseDate) {
+	
+	<table>
+		@foreach (var album in albums) {
+		<tr>
+			<td>
+				<a href="@Url.Action("Details", "Album", new { id = album.Id })">
+					<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" class="coverPicThumb" />
+				</a>
+			</td>
+			<td>
+				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+				<br />
+				<span class="extraInfo">@album.ArtistString</span>
+				@if (displayRating) {
+					<br />
+					@ViewRes.Album.TopRatedStrings.Average
+					@album.RatingAverage
+					@(", ")
+					@string.Format(ViewRes.Album.TopRatedStrings.RatedTimes, album.RatingCount)
+					@(".")
+				}
+				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
+					<br />
+					<span>@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted</span>
+				}
+			</td>
+	   </tr>
+	 }	
+	</table>
+		
+}
 
 @helper PrintArchivedAlbumData(int archivedEntryId, ArchivedAlbumContract data) {
 
@@ -16,12 +50,12 @@
 			@ArchivedEntryHelpers.DataRow("Description", data.Description)
 			@ArchivedEntryHelpers.DataRow("Disc type", Translate.DiscTypeName(data.DiscType))
 			@if (data.OriginalRelease != null) {
-				if (data.OriginalRelease.ReleaseDate != null) {
-					ArchivedEntryHelpers.DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted);
-				}
-				ArchivedEntryHelpers.DataRow("Catalog number", data.OriginalRelease.CatNum);
-				ArchivedEntryHelpers.DataRow("Release event", data.OriginalRelease.EventName);
-			}
+	   if (data.OriginalRelease.ReleaseDate != null) {
+		   ArchivedEntryHelpers.DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted);
+	   }
+	   ArchivedEntryHelpers.DataRow("Catalog number", data.OriginalRelease.CatNum);
+	   ArchivedEntryHelpers.DataRow("Release event", data.OriginalRelease.EventName);
+   }
 			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
 			@ArchivedEntryHelpers.DataRowList("Artists", DataFormatUtils.GenerateHtml(data.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
 			@ArchivedEntryHelpers.DataRowList("Tracks", DataFormatUtils.GenerateHtml(data.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))

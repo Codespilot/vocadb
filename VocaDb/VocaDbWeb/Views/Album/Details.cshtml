@@ -49,7 +49,7 @@
 						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
 					</a><br />
 					@if (Model.RatingCount > 0) {
-						@Helpers.Stars((int)Model.RatingAverage, 5)<br />
+						@Helpers.Stars(Model.RatingAverage, 5)<br />
 						<text>(</text>@Model.RatingCount <text>@ViewRes.Album.DetailsStrings.Ratings)</text>
 					}
 				</td>
