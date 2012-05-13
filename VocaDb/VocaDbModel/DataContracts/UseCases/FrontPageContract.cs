@@ -13,11 +13,12 @@ namespace VocaDb.Model.DataContracts.UseCases {
 	public class FrontPageContract {
 
 		public FrontPageContract(IEnumerable<ActivityEntry> activityEntries, IEnumerable<NewsEntry> newsEntries,
-			IEnumerable<Album> newAlbums, IEnumerable<Album> topAlbums,
+			IEnumerable<Album> newAlbums, IEnumerable<Album> topAlbums, IEnumerable<Song> newSongs,
 			ContentLanguagePreference languagePreference) {
 
 			ActivityEntries = activityEntries.Select(e => new ActivityEntryContract(e, languagePreference)).ToArray();
 			NewAlbums = newAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).ToArray();
+			NewSongs = newSongs.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
 			NewsEntries = newsEntries.Select(e => new NewsEntryContract(e)).ToArray();
 			TopAlbums = topAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).ToArray();
 
@@ -28,6 +29,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public AlbumWithAdditionalNamesContract[] NewAlbums { get; set; }	
 
 		public NewsEntryContract[] NewsEntries { get; set; }
+
+		public SongWithAdditionalNamesContract[] NewSongs { get; set; }
 
 		public AlbumWithAdditionalNamesContract[] TopAlbums { get; set; }
 

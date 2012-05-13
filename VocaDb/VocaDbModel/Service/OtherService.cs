@@ -3,9 +3,11 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service {
 
@@ -70,7 +72,11 @@ namespace VocaDb.Model.Service {
 					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Day)
 					.Take(10).ToArray();
 
-				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, PermissionContext.LanguagePreference);
+				var newSongs = session.Query<Song>().Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
+					.OrderByDescending(s => s.CreateDate)
+					.Take(20).ToArray();
+
+				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, PermissionContext.LanguagePreference);
 
 			});
 

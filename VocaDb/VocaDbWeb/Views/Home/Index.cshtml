@@ -21,6 +21,19 @@
 	</tr>
 </table>
 
+<h4>Recently added songs with videos</h4>
+<table>
+	<tr>
+		<td class="alignTop">
+			@SongHelpers.Songs(Model.NewSongs.Take(10))
+		</td>
+		<td class="alignTop">
+			@SongHelpers.Songs(Model.NewSongs.Skip(10))
+		</td>
+	</tr>
+</table>
+
+
 <h4>@ViewRes.Home.IndexStrings.News @Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry")</h4>
 
 @foreach (var entry in Model.NewsEntries) {

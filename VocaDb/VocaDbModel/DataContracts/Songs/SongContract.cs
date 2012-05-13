@@ -6,6 +6,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
@@ -41,6 +42,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Status = song.Status;
 			Version = song.Version;
 
+			// TODO: Used on the front page. Should be moved elsewhere.
+			var primaryPv = VideoServiceHelper.PrimaryPV(song.PVs);
+			ThumbUrl = (primaryPv != null ? VideoServiceHelper.Services[primaryPv.Service].GetThumbUrlById(primaryPv.PVId) : string.Empty);
+
 		}
 
 		[DataMember]
@@ -70,6 +75,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public EntryStatus Status { get; set; }
+
+		[DataMember]
+		public string ThumbUrl { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }

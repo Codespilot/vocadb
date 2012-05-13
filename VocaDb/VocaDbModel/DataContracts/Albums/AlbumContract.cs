@@ -39,6 +39,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Status = album.Status;
 			Version = album.Version;
 
+			// Used on the front page, might be moved.
 			ReleaseDate = new OptionalDateTimeContract(album.OriginalReleaseDate);
 
 		}
