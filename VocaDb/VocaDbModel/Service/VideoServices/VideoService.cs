@@ -48,7 +48,7 @@ namespace VocaDb.Model.Service.VideoServices {
 		public string GetUrlById(string id) {
 
 			var matcher = linkMatchers.First();
-			return matcher.MakeLinkFromId(id);
+			return "http://" + matcher.MakeLinkFromId(id);
 
 		}
 
