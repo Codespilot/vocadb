@@ -598,6 +598,7 @@
     <Content Include="Content\unknown.png" />
     <Content Include="Content\vocaDB-title.png" />
     <Content Include="Content\youtube.png" />
+    <Content Include="opensearch.xml" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -1446,6 +1447,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_LayoutStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\SongList\DetailsStrings.fi.resx" />
