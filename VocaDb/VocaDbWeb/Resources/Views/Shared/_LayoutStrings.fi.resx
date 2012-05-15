@@ -153,6 +153,9 @@
   <data name="RelatedSites" xml:space="preserve">
     <value>Aiheeseen liittyviä sivustoja</value>
   </data>
+  <data name="Services" xml:space="preserve">
+    <value>Palvelut</value>
+  </data>
   <data name="SocialSites" xml:space="preserve">
     <value>Sosiaaliset verkostot</value>
   </data>

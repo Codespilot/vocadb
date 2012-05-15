@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Activityfeed;
@@ -15,6 +16,30 @@ namespace VocaDb.Model.Service {
 
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
+
+		/*public string[] FindNames(string query) {
+
+			if (string.IsNullOrWhiteSpace(query))
+				return new string[] {};
+
+			int maxResults = 15;
+
+			return HandleQuery(session => {
+
+				var artistNames = session.Query<ArtistName>().Where(a => a.Value.Contains(query) 
+					&& !a.Artist.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+
+				var albumNames = session.Query<AlbumName>().Where(a => a.Value.Contains(query)
+					&& !a.Album.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+
+				var songNames = session.Query<SongName>().Where(a => a.Value.Contains(query)
+					&& !a.Song.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+
+				//var allNames = artistNames.
+
+			});
+
+		}*/
 
 		public PartialFindResult<ActivityEntryContract> GetActivityEntries(int maxEntries) {
 
