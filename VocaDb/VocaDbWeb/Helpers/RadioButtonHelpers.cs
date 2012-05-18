@@ -130,6 +130,11 @@ namespace VocaDb.Web.Helpers {
 
 			var sb = new StringBuilder();
 
+			var labelBuilder = new TagBuilder("label");
+			//labelBuilder.MergeAttribute("for", inputId);
+			labelBuilder.MergeAttributes(htmlAttributes);
+			labelBuilder.InnerHtml = listItem.Text;
+
 			var builder = new TagBuilder("input");
 			if (listItem.Selected) builder.MergeAttribute("checked", "checked");
 			builder.MergeAttribute("type", "radio");
@@ -137,8 +142,10 @@ namespace VocaDb.Web.Helpers {
 			builder.MergeAttribute("id", inputIdSb.ToString());
 			builder.MergeAttribute("name", name);
 			builder.MergeAttributes(htmlAttributes);
-			sb.Append(builder.ToString(TagRenderMode.SelfClosing));
-			sb.Append(RadioButtonLabel(inputIdSb.ToString(), listItem.Text, htmlAttributes));
+			labelBuilder.InnerHtml = builder.ToString(TagRenderMode.SelfClosing) + listItem.Text;
+			sb.Append(labelBuilder.ToString());
+			//sb.Append(builder.ToString(TagRenderMode.SelfClosing));
+			//sb.Append(RadioButtonLabel(inputIdSb.ToString(), listItem.Text, htmlAttributes));
 			//sb.Append("<br>");
 
 			return sb.ToString();

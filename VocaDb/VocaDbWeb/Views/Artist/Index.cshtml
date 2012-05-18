@@ -22,16 +22,19 @@
 	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
-@using (Html.BeginForm("Index", "Artist")) {
+@using (Html.BeginForm("Index", "Artist", FormMethod.Post, new { @class = "form-inline" })) {
 	
 <p>
 	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp; 
 	@Html.DropDownListFor(a => a.ArtistType, new SelectList(Model.FilterableArtistTypes, "Key", "Value", Model.ArtistType))
 	&nbsp;
-	@Html.CheckBoxFor(m => m.DraftsOnly)
-	@Html.LabelFor(m => m.DraftsOnly)
-	<button type="submit">@ViewRes.SharedStrings.Apply</button>
+	<label class="checkbox">
+		@Html.CheckBoxFor(m => m.DraftsOnly)
+		@ViewRes.EntryIndexStrings.OnlyDrafts
+	</label>
+	&nbsp;
+	<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
 </p>
 
 if (Model.Artists.Any()) {

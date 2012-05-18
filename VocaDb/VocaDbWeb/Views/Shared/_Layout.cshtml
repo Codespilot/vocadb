@@ -1,10 +1,12 @@
 ﻿@using VocaDb.Web.Helpers
 @using VocaDb.Model.Domain.Security
 
+@* ReSharper disable ConditionIsAlwaysTrueOrFalse *@
 @{
 	var displaySocialLinks = (ViewBag.DisplaySocialLinks == true);
 	
 }
+@* ReSharper restore ConditionIsAlwaysTrueOrFalse *@
 
 <!DOCTYPE html>
 <html>
@@ -14,12 +16,14 @@
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
 
 	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Styles/Icons.css")" rel="stylesheet" type="text/css" />
 	<link href="@Url.Content("~/Content/themes/base/jquery-ui.css")" rel="stylesheet" type="text/css" />
 	<link rel="search" type="application/opensearchdescription+xml" title="VocaDB albums" href="/albumsearch.xml" />
 
     <script src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/ui/minified/jquery-ui.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/VocaDb.js")" type="text/javascript"></script>
 	<script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
@@ -45,7 +49,7 @@
 		</script>
 </head>
 
-	<body>
+	<body style="padding-top: 40px">
 		
 		@if (displaySocialLinks) {
 			<div id="fb-root"></div>
@@ -57,6 +61,21 @@
 			fjs.parentNode.insertBefore(js, fjs);
 			} (document, 'script', 'facebook-jssdk'));</script>		
   }
+  
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<div class="brand">@Html.ActionLink("VocaDB", "Index", "Home")</div>
+				<ul class="nav">
+					<li>@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")</li>				
+					<li>@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album")</li>				
+					<li>@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")</li>				
+					<li>@Html.ActionLink(ViewRes.SharedStrings.Tags, "Index", "Tag")</li>
+				</ul>
+				@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
+			</div>
+		</div>
+	</div>
 
 		<table>
 			<tr>
@@ -145,8 +164,6 @@
 	 }
 				</td>
 				<td class="rightFrame">
-					
-					@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
 
 					@if (ViewBag.Parents != null) {
 						foreach (MvcHtmlString link in ViewBag.Parents) {
