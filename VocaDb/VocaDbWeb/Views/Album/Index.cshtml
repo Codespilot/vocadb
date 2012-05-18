@@ -21,19 +21,22 @@
 	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
-@using (Html.BeginForm("Index", "Album")) {
+@using (Html.BeginForm("Index", "Album", FormMethod.Post, new { @class = "form-inline" })) {
 	
 <p>
 	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp;
 	@Html.DiscTypeDropDownListFor(m => m.DiscType)
 	&nbsp;
-	@Html.CheckBoxFor(m => m.DraftsOnly)
-	@Html.LabelFor(m => m.DraftsOnly)
-	<button type="submit">@ViewRes.SharedStrings.Apply</button>
+	<label class="checkbox">
+		@Html.CheckBoxFor(m => m.DraftsOnly)
+		@ViewRes.EntryIndexStrings.OnlyDrafts
+	</label>
+	&nbsp;
+	<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
 </p>
 
-if (Model.Albums.Any()) {
+	if (Model.Albums.Any()) {
 	
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Albums.TotalItemCount</p>
 	
@@ -60,7 +63,7 @@ if (Model.Albums.Any()) {
 </table>
 
 @Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
-}
+	}
 
 }
 @if (!Model.Albums.Any()) {

@@ -507,6 +507,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Icons\accept.png" />
     <Content Include="Content\Icons\add.png" />
     <Content Include="Content\Icons\asterisk_yellow.png" />
@@ -519,6 +523,8 @@
     <Content Include="Content\Icons\remove.png" />
     <Content Include="Content\Icons\search.png" />
     <Content Include="Content\Icons\tick.png" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\star.png" />
     <Content Include="Content\star_disabled.png" />
     <Content Include="Content\Styles\Icons.css" />
@@ -613,6 +619,8 @@
     <Content Include="Scripts\Artist\Details.js" />
     <Content Include="Scripts\Artist\Edit.js" />
     <Content Include="Scripts\Artist\Merge.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Event\Edit.js" />
     <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />

@@ -354,3 +354,13 @@ h2.pageTitle {
 .globalSearchBox {
 	margin: 10px;
 }
+
+/* Bootstrap-specific */
+.navbar .nav-radio {
+	color: #BBBBBB;	
+	padding: 8px;
+}
+
+.navbar .btn {
+	margin: 5px 0 0 0 !important;
+}
