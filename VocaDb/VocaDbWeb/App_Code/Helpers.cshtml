@@ -114,7 +114,7 @@
 @helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315) {
 	
 	if (pv.Service == VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga) {
-		<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))" defer></script>
+		<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))"></script>
 	}
 
 	if (pv.Service == VocaDb.Model.Domain.PVs.PVService.Youtube) {

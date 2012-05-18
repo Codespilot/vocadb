@@ -1,4 +1,5 @@
-﻿@model VocaDb.Web.Models.LoginModel
+﻿@using R = ViewRes.User;
+@model VocaDb.Web.Models.LoginModel
 @{
 	ViewBag.Title = ViewRes.User.LoginStrings.Login;
 }
@@ -25,11 +26,14 @@
             </div>
 
 			<br />
-            @Html.CheckBoxFor(m => m.KeepLoggedIn)&nbsp;
-            @Html.LabelFor(m => m.KeepLoggedIn)
+			<label class="checkbox inline">
+				@Html.CheckBoxFor(m => m.KeepLoggedIn)
+				@R.LoginStrings.KeepMeLoggedIn
+			</label>
+			<br /><br />
 
             <p>
-                <input type="submit" value="@ViewRes.User.LoginStrings.DoLogin" />
+                <input type="submit" class="btn btn-primary" value="@ViewRes.User.LoginStrings.DoLogin" />
             </p>
         </fieldset>
     </div>

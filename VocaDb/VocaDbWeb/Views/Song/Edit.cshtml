@@ -30,7 +30,7 @@
 	@Html.HiddenFor(m => m.Id)
 
 	<p>
-		<input type="submit" value="Save changes" />
+		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>
 	
 	<div id="tabs">
@@ -62,7 +62,7 @@
 				@Html.LabelFor(m => m.Notes)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Notes, 6, 70, null)
+				@Html.TextAreaFor(m => m.Notes, 6, 70, new { @class = "span4" })
 			</div>
 
 			<div class="editor-label">
@@ -186,7 +186,7 @@
 	</div>
 	
 	<p>
-		<input type="submit" value="Save changes" />
+		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>
 	
 }

@@ -104,7 +104,7 @@
 				@Html.LabelFor(m => m.Description)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Description, 7, 70, null)
+				@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span4" })
 			</div>
 
 			<div class="editor-label">
@@ -261,7 +261,7 @@
 	</div>
 
 	<p>
-		<input type="submit" value="Save changes" />
+		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>
 	
 }
