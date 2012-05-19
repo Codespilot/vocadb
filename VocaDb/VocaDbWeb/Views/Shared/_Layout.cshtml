@@ -79,11 +79,11 @@
 	
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span2 menu well">
+				<div class="span2 menu well sidebar-nav">
 					<a href="@Url.Action("Index", "Home")">
 						<img src="@Url.Content("~/Content/vocadb-title.png")" alt="VocaDB" title="VocaDB" />
 					</a>
-					<ul>
+					<ul class="nav nav-list">
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
 						<li>
 							@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")
@@ -132,6 +132,7 @@
 						}
 					</ul>
 					@if (Login.Manager.IsLoggedIn) {
+						<br />
 						<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
 					}
 				
