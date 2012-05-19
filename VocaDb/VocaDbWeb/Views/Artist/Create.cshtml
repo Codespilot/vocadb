@@ -28,21 +28,21 @@
 				<table><tr><td>				
 				@Html.LabelFor(m => m.NameOriginal)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "nameField span4", maxlength = 255, size = 40 })<br />
+				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "nameField span12", maxlength = 255, size = 40 })<br />
 				@Html.ValidationMessageFor(m => m.NameOriginal)
 				</td></tr>
 
 				<tr><td>
 				@Html.LabelFor(m => m.NameRomaji)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "nameField span4", maxlength = 255, size = 40 })<br />
+				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "nameField span12", maxlength = 255, size = 40 })<br />
 				@Html.ValidationMessageFor(m => m.NameRomaji)
 				</td></tr>
 					
 				<tr><td>
 				@Html.LabelFor(m => m.NameEnglish)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "nameField span4", maxlength = 255, size = 40 })<br />
+				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "nameField span12", maxlength = 255, size = 40 })<br />
 				@Html.ValidationMessageFor(m => m.NameEnglish)
 				</td></tr></table>
 			</div>
@@ -61,7 +61,7 @@
 				@Html.LabelFor(m => m.Description)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span6" })<br />
+				@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span12" })<br />
 			</div>
 
 			<div class="editor-label">
@@ -71,13 +71,13 @@
 				<table><tr><td>				
 					@R.CreateStrings.WebLinkDescription @R.CreateStrings.Optional
 				</td><td>
-					@Html.TextBoxFor(m => m.WebLinkDescription, new { maxlength = 512, size = 40, @class = "span4" })<br />
+					@Html.TextBoxFor(m => m.WebLinkDescription, new { maxlength = 512, size = 40, @class = "span12" })<br />
 				</td></tr>
 
 				<tr><td>
 					@R.CreateStrings.WebLinkURL *
 				</td><td>
-				@Html.TextBoxFor(m => m.WebLinkUrl, new { maxlength = 512, size = 40, @class = "span4" })<br />
+				@Html.TextBoxFor(m => m.WebLinkUrl, new { maxlength = 512, size = 40, @class = "span12" })<br />
 				@Html.ValidationMessageFor(m => m.WebLinkUrl)
 				</td></tr></table>
 			</div>
