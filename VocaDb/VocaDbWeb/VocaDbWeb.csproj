@@ -525,6 +525,7 @@
     <Content Include="Content\Icons\tick.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\Site-bs.css" />
     <Content Include="Content\star.png" />
     <Content Include="Content\star_disabled.png" />
     <Content Include="Content\Styles\Icons.css" />

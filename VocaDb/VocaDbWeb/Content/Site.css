@@ -364,3 +364,7 @@ h2.pageTitle {
 .navbar .btn {
 	margin: 5px 0 0 0 !important;
 }
+
+.well {
+	padding: 13px !important;
+}

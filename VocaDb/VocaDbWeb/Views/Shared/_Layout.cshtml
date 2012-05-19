@@ -49,7 +49,7 @@
 		</script>
 </head>
 
-	<body style="padding-top: 40px">
+	<body style="padding-top: 50px">
 		
 		@if (displaySocialLinks) {
 			<div id="fb-root"></div>
@@ -76,10 +76,10 @@
 			</div>
 		</div>
 	</div>
-
-		<table>
-			<tr>
-				<td class="menu">
+	
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2 menu well">
 					<a href="@Url.Action("Index", "Home")">
 						<img src="@Url.Content("~/Content/vocadb-title.png")" alt="VocaDB" title="VocaDB" />
 					</a>
@@ -90,7 +90,7 @@
 							<ul>
 								@if (Login.CanManageDb) {
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddArtist, "Create", "Artist")</li>
-		}
+								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Artist", new { draftsOnly = true }, null)</li>
 							</ul>
 						</li>
@@ -99,7 +99,7 @@
 							<ul>
 								@if (Login.CanManageDb) {
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
-		}
+								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Album", new { draftsOnly = true }, null)</li>
 								<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "TopRated", "Album")</li>
 								<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
@@ -110,7 +110,7 @@
 							<ul>
 								@if (Login.CanManageDb) {
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
-		}
+								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Song", new { draftsOnly = true }, null)</li>
 								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "TopFavorited", "Song")</li>
 							</ul>
@@ -120,28 +120,29 @@
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
 						@if (Login.Manager.HasPermission(PermissionToken.MikuDbImport)) {
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 
-	  }
+						}
 						@if (Login.CanAccessManageMenu) {
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.Manage, "Index", "Admin")</li>
-	  }
+						}
 						@if (!Login.Manager.IsLoggedIn) {
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogIn, "Login", "User")</li>
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
-	  } else {
+						} else {
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>
-	  }
+						}
 					</ul>
 					@if (Login.Manager.IsLoggedIn) {
 						<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
-	 }
+					}
 				
 					<br />
-					<h3>@ViewRes._LayoutStrings.Services</h3>
+					<h4>@ViewRes._LayoutStrings.Services</h4>
 					<ul>
 						<li><a href="irc://irc.rizon.net/mikuchan">IRC channel on Rizon</a></li>
 					</ul>
-
-					<h3>@ViewRes._LayoutStrings.RelatedSites</h3>
+					
+					<br />
+					<h4>@ViewRes._LayoutStrings.RelatedSites</h4>
 					<ul>
 						<li><a href="http://mikudb.com">MikuDB</a></li>
 						<li><a href="http://vocaloidism.com">Vocaloidism</a></li>
@@ -152,7 +153,7 @@
 					
 					<br />
 					@if (displaySocialLinks) {
-						<h3>@ViewRes._LayoutStrings.SocialSites</h3>
+						<h4>@ViewRes._LayoutStrings.SocialSites</h4>
 		 		 
 						<div class="fb-like" data-href="https://www.facebook.com/vocadb" data-send="true" data-layout="button_count" data-width="200" data-show-faces="true"></div>
 						<br /><br />
@@ -161,49 +162,58 @@
 						<a href="https://twitter.com/VocaDB" class="twitter-follow-button" data-show-count="false" data-lang="@UICulture">@ViewRes._LayoutStrings.FollowUser @@VocaDB</a>
 						<script>	!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
 		 
-	 }
-				</td>
-				<td class="rightFrame">
+					}
+				</div>
+				<div class="span10 rightFrame well">
 
-					@if (ViewBag.Parents != null) {
-						foreach (MvcHtmlString link in ViewBag.Parents) {
-							<span>
-								@link &gt;&gt;
-							</span>
-						}
-					}
-					<h2 class="pageTitle">@ViewBag.Title</h2>
-					@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
-						<span class="pageSubtitle">@ViewBag.Subtitle</span>
-					}
+							@if (ViewBag.Parents != null) {
+								var arr = (MvcHtmlString[])ViewBag.Parents;
+								<ul class="breadcrumb">
+								@foreach (var link in arr) {
+									<li>
+										@link 
+										@if (link != arr.Last()) {
+											<span class="divider">/</span>
+										}
+									</li>
+								}
+								</ul>
+							}
+							@if (!string.IsNullOrEmpty(ViewBag.Title)) {
+								<h2 class="pageTitle">@ViewBag.Title
+								@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
+									<small>&nbsp;@ViewBag.Subtitle</small>
+								}
+								</h2>
+							}
 
-					@if (IsSectionDefined("Toolbar")) {
-						<p>
-							@RenderSection("Toolbar")
-						</p>
-					}
-				
-					@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
-						<div class="ui-widget">
-							<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
+							@if (IsSectionDefined("Toolbar")) {
 								<p>
-									@Helpers.NotificationIcon()
-									<span>@Html.ActionLink("You have unread messages", "Messages", "User")</span>
+									@RenderSection("Toolbar")
 								</p>
-							</div>
-						</div>
-					}
+							}
 				
-					@if (TempData.StatusMessage() != null) {
-						@Helpers.NotificationPanel(TempData.StatusMessage())
-					}
+							@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
+								<div class="ui-widget">
+									<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
+										<p>
+											@Helpers.NotificationIcon()
+											<span>@Html.ActionLink("You have unread messages", "Messages", "User")</span>
+										</p>
+									</div>
+								</div>
+							}
+				
+							@if (TempData.StatusMessage() != null) {
+								@Helpers.NotificationPanel(TempData.StatusMessage())
+							}
 		
-					@RenderBody()
-				</td>
-			</tr>
-		</table>  
+							@RenderBody()
+						</div>
+			</div>  
+		</div>
 
-		<script src="@Url.Content("~/Scripts/Shared/NamesList.js")" type="text/javascript"></script>
+	<script src="@Url.Content("~/Scripts/Shared/NamesList.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/Shared/WebLinksList.js")" type="text/javascript"></script>
 		<script src="@Url.Content("~/Scripts/Shared/GlobalSearchBox.js")" type="text/javascript"></script>
 		@if (IsSectionDefined("BodyScripts")) {
