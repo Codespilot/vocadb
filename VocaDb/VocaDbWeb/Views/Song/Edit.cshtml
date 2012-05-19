@@ -16,6 +16,7 @@
 	} else {
 		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })		
 	}
+	@Html.Raw("&nbsp");
 }
 @if (Login.CanMergeEntries) {
 	@Html.ActionLink("Merge", "Merge", new { id = Model.Id }, new { id = "mergeLink" })
@@ -185,6 +186,7 @@
 
 	</div>
 	
+	<br />
 	<p>
 		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>
