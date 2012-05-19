@@ -55,6 +55,9 @@ namespace VocaDb.Model.Service {
 						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Day);
 				case AlbumSortRule.AdditionDate:
 					return criteria.OrderByDescending(a => a.CreateDate);
+				case AlbumSortRule.RatingAverage:
+					return criteria.OrderByDescending(a => a.RatingAverageInt)
+						.OrderByDescending(a => a.RatingCount);
 			}
 
 			return criteria;
@@ -1211,7 +1214,9 @@ namespace VocaDb.Model.Service {
 
 		ReleaseDate,
 
-		AdditionDate
+		AdditionDate,
+
+		RatingAverage
 
 	}
 

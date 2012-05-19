@@ -4,6 +4,7 @@
 @using VocaDb.Model.DataContracts.Albums;
 @using PagedList.Mvc;
 @using PagedList;
+@using R = ViewRes.Album;
 @model VocaDb.Web.Models.Album.Index
 @{
 	ViewBag.Title = @ViewRes.SharedStrings.Albums;
@@ -49,7 +50,8 @@
 	<thead>
 		<tr>
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
-			<th>@Html.ActionLink("Release date", "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
+			<th>@Html.ActionLink(R.IndexStrings.ReleaseDate, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage })</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -74,6 +76,13 @@
 							}
 						</span>
 					}				
+				</td>
+				<td>
+					@if (album.RatingCount > 0) {
+						@Helpers.Stars(album.RatingAverage, 5)
+						<br /> 
+						@album.RatingCount @R.IndexStrings.Times
+					}
 				</td>
 				<td>
 					@if (Login.CanEdit(album)) {

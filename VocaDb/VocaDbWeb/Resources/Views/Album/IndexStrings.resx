@@ -120,4 +120,13 @@
   <data name="AddAlbum" xml:space="preserve">
     <value>Submit a new album</value>
   </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Release date</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>time(s)</value>
+  </data>
 </root>
