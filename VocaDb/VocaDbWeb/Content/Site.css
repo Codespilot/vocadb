@@ -146,6 +146,7 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	/*background: aliceBlue;
 	border: solid #BAE8FF 2px;*/
 	float: left;
+	/*width: 300px !important;*/
 }
 
 ul {
