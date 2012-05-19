@@ -1210,6 +1210,8 @@ namespace VocaDb.Model.Service {
 
 	public enum AlbumSortRule {
 
+		None,
+
 		Name,
 
 		ReleaseDate,

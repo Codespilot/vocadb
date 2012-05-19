@@ -120,4 +120,10 @@
   <data name="AddSong" xml:space="preserve">
     <value>Submit a new song</value>
   </data>
+  <data name="Favorited" xml:space="preserve">
+    <value>Favorited</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>time(s)</value>
+  </data>
 </root>
