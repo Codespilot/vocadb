@@ -42,33 +42,47 @@ if (Model.Songs.Any()) {
 	
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Songs.TotalItemCount</p>
 	
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 <br />
 	
 <table class="table table-striped">
-	<tbody>
-@foreach (var song in Model.Songs) {
+	<thead>
 		<tr>
-			<td>
-				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
-					@SongHelpers.SongIconLink(song)
-				}
-			</td>
-			<td>
-				@Helpers.DraftIcon(song.Status)
-				@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@song.SongType)<br />
-				<span class="extraInfo">@song.ArtistString</span>
-			</td>
-			<td>
-				@if (Login.CanEdit(song)) {
-					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id })
-				}		
-			</td>
-		</tr>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.Name })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Favorited, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
+			<th>
+				@if (Login.CanManageDb) {
+					@ViewRes.SharedStrings.Actions
 	}
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var song in Model.Songs) {
+			<tr>
+				<td>
+					@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+						@SongHelpers.SongIconLink(song)
+	 }
+				</td>
+				<td>
+					@Helpers.DraftIcon(song.Status)
+					@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@song.SongType)<br />
+					<span class="extraInfo">@song.ArtistString</span>
+				</td>
+				<td>
+					@song.FavoritedTimes @R.IndexStrings.Times
+				</td>
+				<td>
+					@if (Login.CanEdit(song)) {
+						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id })
+	 }		
+				</td>
+			</tr>
+  }
 	</tbody>	
 </table>
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 }
 
 }

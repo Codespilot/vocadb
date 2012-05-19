@@ -31,6 +31,21 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
 #pragma warning restore 169
 
+		private IQueryable<Song> AddOrder(IQueryable<Song> criteria, SongSortRule sortRule, ContentLanguagePreference languagePreference) {
+
+			switch (sortRule) {
+				case SongSortRule.Name:
+					return FindHelpers.AddNameOrder(criteria, languagePreference);
+				case SongSortRule.AdditionDate:
+					return criteria.OrderByDescending(a => a.CreateDate);
+				case SongSortRule.FavoritedTimes:
+					return criteria.OrderByDescending(a => a.FavoritedTimes);
+			}
+
+			return criteria;
+
+		}
+
 		/// <summary>
 		/// Finds songs based on criteria.
 		/// </summary>
@@ -46,7 +61,7 @@ namespace VocaDb.Model.Service {
 		/// <param name="ignoreIds">List of entries to be ignored. Can be null in which case no filtering is done.</param>
 		/// <returns></returns>
 		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, SongType[] songTypes, 
-			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, 
+			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, bool onlyByName, 
 			bool moveExactToTop, int[] ignoreIds) {
 
 			var originalQuery = query;
@@ -68,7 +83,7 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
-				q = FindHelpers.AddNameOrder(q, PermissionContext.LanguagePreference);
+				q = AddOrder(q, sortRule, LanguagePreference);
 
 				var songs = q
 					.Skip(start)
@@ -114,7 +129,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				directQ = FindHelpers.AddNameOrder(directQ, PermissionContext.LanguagePreference);
+				directQ = AddOrder(directQ, sortRule, LanguagePreference);
 
 				var direct = directQ.ToArray();
 
@@ -129,8 +144,8 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					additionalNamesQ = additionalNamesQ.Where(m => songTypes.Contains(m.Song.SongType));
 
-				var additionalNames = FindHelpers.AddNameOrder(additionalNamesQ
-					.Select(m => m.Song), PermissionContext.LanguagePreference)
+				var additionalNames = AddOrder(additionalNamesQ
+					.Select(m => m.Song), sortRule, PermissionContext.LanguagePreference)
 					.Distinct()
 					//.Take(maxResults)
 					.ToArray()
@@ -650,7 +665,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, new SongType[] {}, 0, 1, false, false, NameMatchMode.Exact, true, false, null);
+					var result = Find(session, q, new SongType[] {}, 0, 1, false, false, NameMatchMode.Exact, SongSortRule.Name, true, false, null);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -664,10 +679,10 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, SongType[] songTypes, int start, int maxResults, 
-			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool onlyByName, int[] ignoredIds) {
+			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, bool onlyByName, int[] ignoredIds) {
 
 			return HandleQuery(session => 
-				Find(session, query, songTypes, start, maxResults, draftOnly, getTotalCount, nameMatchMode, onlyByName, true, ignoredIds));
+				Find(session, query, songTypes, start, maxResults, draftOnly, getTotalCount, nameMatchMode, sortRule, onlyByName, true, ignoredIds));
 
 		}
 
@@ -735,7 +750,8 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var songContract = Find(session, query, new SongType[] {}, 0, 10, false, false, NameMatchMode.Auto, false, true, null).Items;
+				var songContract = Find(session, query, new SongType[] {}, 0, 10, false, false, 
+					NameMatchMode.Auto, SongSortRule.Name, false, true, null).Items;
 
 				if (!songContract.Any())
 					return null;
@@ -1455,6 +1471,18 @@ namespace VocaDb.Model.Service {
 			return usage;
 
 		}
+
+	}
+
+	public enum SongSortRule {
+
+		None,
+
+		Name,
+
+		AdditionDate,
+
+		FavoritedTimes
 
 	}
 

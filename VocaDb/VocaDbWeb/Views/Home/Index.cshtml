@@ -11,17 +11,17 @@
 <table>
 	<tr>
 		<td class="alignTop">
-			<h4>@R.IndexStrings.NewAlbums</h4>
+			<h4>@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
 			@AlbumHelpers.AlbumList(Model.NewAlbums, false, true)
 		</td>
 		<td class="alignTop">
-			<h4>@R.IndexStrings.TopAlbums</h4>
+			<h4>@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
 			@AlbumHelpers.AlbumList(Model.TopAlbums, false, true)
 		</td>
 	</tr>
 </table>
 
-<h4>@R.IndexStrings.RecentSongs</h4>
+<h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song"))</h4>
 <table>
 	<tr>
 		<td class="alignTop">

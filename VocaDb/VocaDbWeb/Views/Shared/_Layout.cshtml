@@ -101,7 +101,7 @@
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
 								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Album", new { draftsOnly = true }, null)</li>
-								<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "TopRated", "Album")</li>
+								<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
 								<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
 							</ul>
 						</li>
@@ -112,7 +112,7 @@
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
 								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Song", new { draftsOnly = true }, null)</li>
-								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "TopFavorited", "Song")</li>
+								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes }, null)</li>
 							</ul>
 						</li>
 						<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
