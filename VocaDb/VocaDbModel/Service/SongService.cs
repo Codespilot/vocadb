@@ -68,7 +68,7 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
-				q = FindHelpers.AddOrder(q, PermissionContext.LanguagePreference);
+				q = FindHelpers.AddNameOrder(q, PermissionContext.LanguagePreference);
 
 				var songs = q
 					.Skip(start)
@@ -114,7 +114,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				directQ = FindHelpers.AddOrder(directQ, PermissionContext.LanguagePreference);
+				directQ = FindHelpers.AddNameOrder(directQ, PermissionContext.LanguagePreference);
 
 				var direct = directQ.ToArray();
 
@@ -129,7 +129,7 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					additionalNamesQ = additionalNamesQ.Where(m => songTypes.Contains(m.Song.SongType));
 
-				var additionalNames = FindHelpers.AddOrder(additionalNamesQ
+				var additionalNames = FindHelpers.AddNameOrder(additionalNamesQ
 					.Select(m => m.Song), PermissionContext.LanguagePreference)
 					.Distinct()
 					//.Take(maxResults)

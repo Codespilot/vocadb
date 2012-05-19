@@ -4,15 +4,19 @@
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper AlbumIconLink(AlbumContract album) {
+	<a href="@Url.Action("Details", "Album", new { id = album.Id })">
+		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" class="coverPicThumb" />
+	</a>		
+}
+
 @helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums, bool displayRating, bool displayReleaseDate) {
 	
 	<table>
 		@foreach (var album in albums) {
 		<tr>
 			<td>
-				<a href="@Url.Action("Details", "Album", new { id = album.Id })">
-					<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" class="coverPicThumb" />
-				</a>
+				@AlbumIconLink(album)
 			</td>
 			<td>
 				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
@@ -21,10 +25,10 @@
 				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
 					<br />
 					<span>@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted</span>
-				}
+	}
 			</td>
 	   </tr>
-	 }	
+  }	
 	</table>
 		
 }

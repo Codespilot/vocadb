@@ -54,7 +54,7 @@ namespace VocaDb.Model.Service {
 				if (filterByArtistType)
 					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
 
-				q = FindHelpers.AddOrder(q, PermissionContext.LanguagePreference);
+				q = FindHelpers.AddNameOrder(q, PermissionContext.LanguagePreference);
 
 				var artists = q
 					.TransformUsing(new DistinctRootEntityResultTransformer())
@@ -87,7 +87,7 @@ namespace VocaDb.Model.Service {
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
 				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
-				directQ = FindHelpers.AddOrder(directQ, PermissionContext.LanguagePreference);	
+				directQ = FindHelpers.AddNameOrder(directQ, PermissionContext.LanguagePreference);	
 
 				var direct = directQ
 					.Take(maxResults)
@@ -113,7 +113,7 @@ namespace VocaDb.Model.Service {
 				if (artistTypes.Any())
 					additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
 
-				var additionalNames = FindHelpers.AddOrder(additionalNamesQ
+				var additionalNames = FindHelpers.AddNameOrder(additionalNamesQ
 					.Select(m => m.Artist), PermissionContext.LanguagePreference)
 					.Distinct()
 					.Take(maxResults)
@@ -466,7 +466,7 @@ namespace VocaDb.Model.Service {
 
 				var q = session.Query<ArtistForAlbum>().Where(a => !a.Album.Deleted && a.Artist.Id == artistId);
 
-				var resultQ = FindHelpers.AddOrder(q.Select(a => a.Album), PermissionContext.LanguagePreference);
+				var resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Album), PermissionContext.LanguagePreference);
 				resultQ = resultQ.Skip(start).Take(maxItems);
 
 				var contracts = resultQ.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
@@ -622,7 +622,7 @@ namespace VocaDb.Model.Service {
 
 				var q = session.Query<ArtistForSong>().Where(a => !a.Song.Deleted && a.Artist.Id == artistId);
 
-				var resultQ = FindHelpers.AddOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
+				var resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
 				resultQ = resultQ.Skip(start).Take(maxItems);
 
 				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();

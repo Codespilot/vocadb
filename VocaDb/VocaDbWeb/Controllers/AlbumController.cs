@@ -69,17 +69,19 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Album/
 
-		public ActionResult Index(string filter, DiscType? discType, int? page, bool? draftsOnly) {
+		public ActionResult Index(string filter, DiscType? discType, AlbumSortRule? sort, int? page, bool? draftsOnly) {
 
 			var dType = discType ?? DiscType.Unknown;
+			var sortRule = sort ?? AlbumSortRule.Name;
 
-			var result = Service.Find(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, moveExactToTop: false);
+			var result = Service.Find(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
+				true, moveExactToTop: false, sortRule: sortRule);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
-			var model = new Index(result, filter, dType, page, draftsOnly);
+			var model = new Index(result, filter, dType, sortRule, page, draftsOnly);
 			SetSearchEntryType(EntryType.Album);
 
             return View(model);

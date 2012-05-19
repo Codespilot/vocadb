@@ -33,7 +33,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<T> AddOrder<T>(IQueryable<T> criteria, ContentLanguagePreference languagePreference) where T : IEntryWithNames {
+		public static IQueryable<T> AddNameOrder<T>(IQueryable<T> criteria, ContentLanguagePreference languagePreference) where T : IEntryWithNames {
 
 			switch (languagePreference) {
 				case ContentLanguagePreference.Japanese:
@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryOver<TRoot, TSubType> AddOrder<TRoot, TSubType>(IQueryOver<TRoot, TSubType> criteria, 
+		public static IQueryOver<TRoot, TSubType> AddNameOrder<TRoot, TSubType>(IQueryOver<TRoot, TSubType> criteria, 
 			ContentLanguagePreference languagePreference) where TSubType : IEntryWithNames {
 
 			switch (languagePreference) {

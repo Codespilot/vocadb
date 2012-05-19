@@ -30,6 +30,12 @@
 
 }
 
+@helper SongIconLink(SongContract song) {
+	<a href="@Url.Action("Details", "Song", new { id = song.Id })">
+		<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
+	</a>		
+}
+
 @helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs) {
 	
 	<table>

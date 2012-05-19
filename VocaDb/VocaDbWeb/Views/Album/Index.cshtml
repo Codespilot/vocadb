@@ -22,6 +22,7 @@
 }
 
 @using (Html.BeginForm("Index", "Album", FormMethod.Post, new { @class = "form-inline" })) {
+	@Html.HiddenFor(m => m.Sort)
 	
 <p>
 	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
@@ -40,26 +41,48 @@
 	
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Albums.TotalItemCount</p>
 	
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = Model.Sort }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 
-<table>
-	<tr>
-		<th>@ViewRes.SharedStrings.Name</th>
-	</tr>
-@foreach (var album in Model.Albums) {
-	<tr>
-		<td>
-			@Helpers.DraftIcon(album)
-			@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
-			<span class="extraInfo">@album.ArtistString</span>
-		</td>
-		<td>
-			@if (Login.CanEdit(album)) {
-				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = album.Id })
-   }
-		</td>
-	</tr>
-}
+<br />
+	
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { page = Model.Page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
+			<th>@Html.ActionLink("Release date", "Index", new { page = Model.Page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var album in Model.Albums) {
+			<tr>
+				<td>
+					@AlbumHelpers.AlbumIconLink(album)
+				</td>
+				<td>
+					@Helpers.DraftIcon(album)
+					@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
+					<small class="extraInfo">@album.ArtistString</small><br />
+					<small class="extraInfo">@Translate.DiscTypeName(album.DiscType)</small>
+				</td>
+				<td>
+					@if (!album.ReleaseDate.IsEmpty) {
+						<span>
+							@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted
+							@if (!string.IsNullOrEmpty(album.ReleaseEvent)) {
+								<br />
+								@Html.ActionLink(album.ReleaseEvent, "Find", "Event", new { query = album.ReleaseEvent }, null)
+							}
+						</span>
+					}				
+				</td>
+				<td>
+					@if (Login.CanEdit(album)) {
+						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = album.Id })
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
 </table>
 
 @Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
