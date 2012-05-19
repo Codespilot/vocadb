@@ -120,4 +120,13 @@
   <data name="AddAlbum" xml:space="preserve">
     <value>Lisää albumi</value>
   </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Arvostelu</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Julkaisupäivä</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>kerta(a)</value>
+  </data>
 </root>
