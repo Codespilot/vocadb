@@ -48,8 +48,8 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { page = Model.Page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
-			<th>@Html.ActionLink("Release date", "Index", new { page = Model.Page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
+			<th>@Html.ActionLink("Release date", "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -85,7 +85,7 @@
 	</tbody>
 </table>
 
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+	@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = Model.Sort }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 
 }
