@@ -14,13 +14,16 @@ namespace VocaDb.Web.Models.Album {
 
 		public Index() {}
 
-		public Index(PartialFindResult<AlbumWithAdditionalNamesContract> result, string filter, DiscType discType, int? page, bool? draftsOnly) {
+		public Index(PartialFindResult<AlbumWithAdditionalNamesContract> result, string filter, DiscType discType, 
+			AlbumSortRule sortRule, int? page, bool? draftsOnly) {
 
-			Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), 
-				page ?? 1, 30, result.TotalCount);
+			Page = page ?? 1;
+			Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items, 
+				Page, 30, result.TotalCount);
 			DiscType = discType;
 			DraftsOnly = draftsOnly ?? false;
 			Filter = filter;
+			Sort = sortRule;
 
 		}
 
@@ -32,6 +35,10 @@ namespace VocaDb.Web.Models.Album {
 		public bool DraftsOnly { get; set; }
 
 		public string Filter { get; set; }
+
+		public int Page { get; set; }
+
+		public AlbumSortRule Sort { get; set; }
 
 	}
 

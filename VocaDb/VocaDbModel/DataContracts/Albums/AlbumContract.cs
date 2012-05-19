@@ -36,11 +36,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Name = album.TranslatedName[languagePreference];
 			RatingAverage = album.RatingAverage;
 			RatingCount = album.RatingCount;
+			ReleaseDate = new OptionalDateTimeContract(album.OriginalReleaseDate);
+			ReleaseEvent = album.OriginalReleaseEventName;
 			Status = album.Status;
 			Version = album.Version;
-
-			// Used on the front page, might be moved.
-			ReleaseDate = new OptionalDateTimeContract(album.OriginalReleaseDate);
 
 		}
 
@@ -68,6 +67,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public OptionalDateTimeContract ReleaseDate { get; set; }
+
+		[DataMember]
+		public string ReleaseEvent { get; set; }
 
 		[DataMember]
 		public EntryStatus Status { get; set; }

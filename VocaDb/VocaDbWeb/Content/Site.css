@@ -65,7 +65,7 @@ textarea {
 }
 
 /* Custom styles */
-span.extraInfo {
+span.extraInfo, small.extraInfo {
 	color: #222222;
 	font-size: small;
 }

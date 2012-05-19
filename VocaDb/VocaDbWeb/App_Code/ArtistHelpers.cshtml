@@ -6,6 +6,12 @@
 @using VocaDb.Model.DataContracts.Albums;
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper ArtistIconLink(ArtistContract artist) {
+	<a href="@Url.Action("Details", "Artist", new { id = artist.Id })">
+		<img src="@Url.Action("PictureThumb", "Artist", new { id = artist.Id })" alt="Thumb" class="coverPicThumb" />
+	</a>		
+}
+
 @helper ArtistList(IEnumerable<ArtistForAlbumContract> artists) {
 	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
 	foreach (var artist in ordered) {

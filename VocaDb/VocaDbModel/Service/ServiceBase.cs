@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.Serialization;
+using VocaDb.Model.Domain.Globalization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -57,6 +58,10 @@ namespace VocaDb.Model.Service {
 
 		protected IEntryLinkFactory EntryLinkFactory {
 			get { return entryLinkFactory; }
+		}
+
+		protected ContentLanguagePreference LanguagePreference {
+			get { return PermissionContext.LanguagePreference; }
 		}
 
 		protected IUserPermissionContext PermissionContext {

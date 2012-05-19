@@ -26,7 +26,7 @@
 @using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-inline" })) {
 	
 <p>
-	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30, @class = "span3" }) 
+	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
 	&nbsp; 
 	@Html.SongTypeDropDownListFor(a => a.SongType)
 	&nbsp; 
@@ -43,21 +43,30 @@ if (Model.Songs.Any()) {
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Songs.TotalItemCount</p>
 	
 @Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
-<table>
+<br />
+	
+<table class="table table-striped">
+	<tbody>
 @foreach (var song in Model.Songs) {
-	<tr>
-		<td>
-			@Helpers.DraftIcon(song.Status)
-			@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@song.SongType)<br />
-			<span class="extraInfo">@song.ArtistString</span>
-		</td>
-		<td>
-			@if (Login.CanEdit(song)) {
-				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id })
-   }		
-		</td>
-	</tr>	
-}
+		<tr>
+			<td>
+				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+					@SongHelpers.SongIconLink(song)
+				}
+			</td>
+			<td>
+				@Helpers.DraftIcon(song.Status)
+				@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@song.SongType)<br />
+				<span class="extraInfo">@song.ArtistString</span>
+			</td>
+			<td>
+				@if (Login.CanEdit(song)) {
+					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id })
+				}		
+			</td>
+		</tr>
+	}
+	</tbody>	
 </table>
 @Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 }

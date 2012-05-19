@@ -42,30 +42,38 @@ if (Model.Artists.Any()) {
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Artists.TotalItemCount</p>
 	
 @Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
-
-<table>
-	<tr>
-		<th>@ViewRes.SharedStrings.ArtistName</th>
-		<th>@ViewRes.SharedStrings.Type</th>
-		<th>@ViewRes.SharedStrings.Actions</th>
-	</tr>
-@foreach (var artist in Model.Artists) {
-	<tr>
-		<td>
-			@Helpers.DraftIcon(artist.Status)
-			@Html.ActionLink(artist.Name, "Details", new { id = artist.Id })<br />
-			<span class="extraInfo">@artist.AdditionalNames</span>
-		</td>
-		<td>
-			@Translate.ArtistTypeName(artist.ArtistType)
-		</td>
-		<td>
-			@if (Login.CanEdit(artist)) {
-				@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = artist.Id })
-   }
-		</td>
-	</tr>
-}
+<br />
+	
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="2">@ViewRes.SharedStrings.ArtistName</th>
+			<th>@ViewRes.SharedStrings.Type</th>
+			<th>@ViewRes.SharedStrings.Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+	@foreach (var artist in Model.Artists) {
+		<tr>
+			<td>
+				@ArtistHelpers.ArtistIconLink(artist)
+			</td>
+			<td>
+				@Helpers.DraftIcon(artist.Status)
+				@Html.ActionLink(artist.Name, "Details", new { id = artist.Id })<br />
+				<span class="extraInfo">@artist.AdditionalNames</span>
+			</td>
+			<td>
+				@Translate.ArtistTypeName(artist.ArtistType)
+			</td>
+			<td>
+				@if (Login.CanEdit(artist)) {
+					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = artist.Id })
+				}
+			</td>
+		</tr>
+	}
+	</tbody>
 </table>
 	
 @Html.PagedListPager(Model.Artists, page => Url.Action("Index", new { page, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)

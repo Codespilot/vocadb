@@ -307,7 +307,7 @@ namespace VocaDb.Model.Service {
 
 				var q = session.Query<FavoriteSongForUser>().Where(a => !a.Song.Deleted && a.User.Id == userId);
 
-				var resultQ = FindHelpers.AddOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
+				var resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
 				resultQ = resultQ.Skip(start).Take(maxItems);
 
 				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();

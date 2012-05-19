@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.Domain.Globalization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -42,9 +43,35 @@ namespace VocaDb.Model.Service {
 			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
 		}
 
+		private IQueryable<Album> AddOrder(IQueryable<Album> criteria, AlbumSortRule sortRule, ContentLanguagePreference languagePreference) {
+
+			switch (sortRule) {
+				case AlbumSortRule.Name:
+					return FindHelpers.AddNameOrder(criteria, languagePreference);
+				case AlbumSortRule.ReleaseDate:
+					return AddReleaseRestriction(criteria)
+						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
+						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Day);
+				case AlbumSortRule.AdditionDate:
+					return criteria.OrderByDescending(a => a.CreateDate);
+			}
+
+			return criteria;
+
+		}
+
+		private IQueryable<Album> AddReleaseRestriction(IQueryable<Album> criteria) {
+
+			return criteria.Where(a => a.OriginalRelease.ReleaseDate.Year != null
+				&& a.OriginalRelease.ReleaseDate.Month != null
+				&& a.OriginalRelease.ReleaseDate.Day != null);
+
+		}
+
 		private PartialFindResult<AlbumWithAdditionalNamesContract> Find(
 			ISession session, string query, DiscType discType, int start, int maxResults, bool draftsOnly,
-			bool getTotalCount, NameMatchMode nameMatchMode, bool moveExactToTop) {
+			bool getTotalCount, NameMatchMode nameMatchMode, AlbumSortRule sortRule, bool moveExactToTop) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -56,17 +83,17 @@ namespace VocaDb.Model.Service {
 
 				albumsQ = AddDiscTypeRestriction(albumsQ, discType);
 
-				albumsQ = FindHelpers.AddOrder(albumsQ, PermissionContext.LanguagePreference);
+				albumsQ = AddOrder(albumsQ, sortRule, LanguagePreference);
 
 				var albums = albumsQ
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
 
-				var contracts = albums.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+				var contracts = albums.Select(s => new AlbumWithAdditionalNamesContract(s, LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode) : 0);
+				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
 
 				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, null, false);
 
@@ -103,7 +130,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var direct = FindHelpers.AddOrder(directQ, PermissionContext.LanguagePreference)
+				var direct = AddOrder(directQ, sortRule, LanguagePreference)
 					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Take(maxResults)
 					.ToArray();
@@ -126,8 +153,8 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var additionalNames = FindHelpers.AddOrder(additionalNamesQ
-					.Select(m => m.Album), PermissionContext.LanguagePreference)
+				var additionalNames = AddOrder(additionalNamesQ
+					.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
 					.Distinct()
 					.Take(maxResults)
 					.ToArray()
@@ -153,7 +180,7 @@ namespace VocaDb.Model.Service {
 					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode) : 0);
+				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
 
 				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
 
@@ -162,7 +189,7 @@ namespace VocaDb.Model.Service {
 		}
 
 		private int GetAlbumCount(
-			ISession session, string query, DiscType discType, bool draftsOnly, NameMatchMode nameMatchMode) {
+			ISession session, string query, DiscType discType, bool draftsOnly, NameMatchMode nameMatchMode, AlbumSortRule sortRule) {
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -171,6 +198,9 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					albumQ = albumQ.Where(a => a.Status == EntryStatus.Draft);
+
+				if (sortRule == AlbumSortRule.ReleaseDate)
+					albumQ = AddReleaseRestriction(albumQ);
 
 				albumQ = AddDiscTypeRestriction(albumQ, discType);
 
@@ -183,6 +213,9 @@ namespace VocaDb.Model.Service {
 
 			if (draftsOnly)
 				directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
+
+			if (sortRule == AlbumSortRule.ReleaseDate)
+				directQ = AddReleaseRestriction(directQ);
 
 			directQ = AddDiscTypeRestriction(directQ, discType);
 
@@ -200,8 +233,12 @@ namespace VocaDb.Model.Service {
 
 			additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
-			var additionalNames = additionalNamesQ
-				.Select(m => m.Album)
+			var additionalNamesAlbumQ = additionalNamesQ.Select(a => a.Album);
+
+			if (sortRule == AlbumSortRule.ReleaseDate)
+				additionalNamesAlbumQ = AddReleaseRestriction(additionalNamesAlbumQ);
+
+			var additionalNames = additionalNamesAlbumQ
 				.Distinct()
 				.ToArray()
 				.Where(a => !direct.Contains(a))
@@ -514,10 +551,11 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(
-			string query, DiscType discType, int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode = NameMatchMode.Auto, bool moveExactToTop = false) {
+			string query, DiscType discType, int start, int maxResults, bool draftsOnly, bool getTotalCount, 
+			NameMatchMode nameMatchMode = NameMatchMode.Auto, AlbumSortRule sortRule = AlbumSortRule.Name, bool moveExactToTop = false) {
 
 			return HandleQuery(session => Find(session, query, discType, start, maxResults, draftsOnly, getTotalCount,
-				nameMatchMode, moveExactToTop));
+				nameMatchMode, sortRule, moveExactToTop));
 
 		}
 
@@ -539,7 +577,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Exact, false);
+					var result = Find(session, q, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Exact, AlbumSortRule.Name, false);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -1164,6 +1202,16 @@ namespace VocaDb.Model.Service {
 			return usage;
 
 		}
+
+	}
+
+	public enum AlbumSortRule {
+
+		Name,
+
+		ReleaseDate,
+
+		AdditionDate
 
 	}
 
