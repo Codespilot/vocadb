@@ -52,6 +52,7 @@
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
 			<th>@Html.ActionLink(R.IndexStrings.ReleaseDate, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
 			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage })</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>

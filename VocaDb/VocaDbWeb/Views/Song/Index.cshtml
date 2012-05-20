@@ -24,6 +24,7 @@
 }
 
 @using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-inline" })) {
+	@Html.HiddenFor(m => m.SortRule)
 	
 <p>
 	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
@@ -38,7 +39,7 @@
 	<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
 </p>
 
-if (Model.Songs.Any()) {
+	if (Model.Songs.Any()) {
 	
 <p>@ViewRes.SharedStrings.EntriesFound: @Model.Songs.TotalItemCount</p>
 	
@@ -50,11 +51,7 @@ if (Model.Songs.Any()) {
 		<tr>
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.Name })</th>
 			<th>@Html.ActionLink(R.IndexStrings.Favorited, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
-			<th>
-				@if (Login.CanManageDb) {
-					@ViewRes.SharedStrings.Actions
-	}
-			</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -83,7 +80,7 @@ if (Model.Songs.Any()) {
 	</tbody>	
 </table>
 @Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
-}
+	}
 
 }
 @if (!Model.Songs.Any()) {

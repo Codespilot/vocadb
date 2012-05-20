@@ -8,8 +8,10 @@
 		<span class="extraInfo">@Model.Artist.AdditionalNames</span>
 	</td>
 	<td>
-		@Html.CheckBoxFor(m => m.IsSupport, new { @class = "isSupportCheck", id="isSupportCheck_" + Model.Id })
-		@Html.LabelFor(m => m.IsSupport, "Support")
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.IsSupport, new { @class = "isSupportCheck", id="isSupportCheck_" + Model.Id })
+			Support
+		</label>
 	</td>
 	<td>
 		@Html.HiddenFor(m => m.Roles, new { @class = "artistRoles" })
