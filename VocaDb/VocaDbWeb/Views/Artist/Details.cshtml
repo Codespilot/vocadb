@@ -121,6 +121,7 @@
   }
 
 		@if (Model.LatestAlbums.Any()) {
+		<br />
 		<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
 		<ul>
 			@ArtistHelpers.Albums(Model.LatestAlbums)
@@ -128,6 +129,7 @@
   }
 
 		@if (Model.LatestSongs.Any()) {
+		<br />
 		<h3>@ViewRes.Artist.DetailsStrings.RecentSongs</h3>
 		<ul>
 			@ArtistHelpers.Songs(Model.LatestSongs)

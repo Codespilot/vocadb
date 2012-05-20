@@ -26,6 +26,7 @@
 
 @Helpers.ValidationSymmaryPanel("Unable to save")
 
+<br />
 @using (Html.BeginForm("EditBasicDetails", "Artist", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
@@ -145,6 +146,7 @@
 		</div>
 
 	</div>
+	<br />
 	
 	<p>
 		<input type="submit" class="btn btn-primary" value="Save changes" />

@@ -53,6 +53,7 @@
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
+<br />
 @using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
@@ -219,7 +220,8 @@
 					}
 				</tbody>
 			</table>
-
+			
+			<br />
 			<h4>Add artist</h4>
 
 			@Helpers.EntrySearchBox("artistAdd", false)
@@ -260,6 +262,7 @@
 
 	</div>
 
+	<br />
 	<p>
 		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>

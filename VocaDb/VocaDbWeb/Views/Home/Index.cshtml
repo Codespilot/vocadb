@@ -21,7 +21,7 @@
 	</tr>
 </table>
 
-<h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song"))</h4>
+<h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.AdditionDate }, null))</h4>
 <table>
 	<tr>
 		<td class="alignTop">
