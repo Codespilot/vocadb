@@ -369,3 +369,7 @@ h2.pageTitle {
 .well {
 	padding: 13px !important;
 }
+
+div.comment p {
+	padding-top: 5px;
+}
