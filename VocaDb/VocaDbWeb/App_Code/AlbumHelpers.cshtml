@@ -47,10 +47,10 @@
 			@ArchivedEntryHelpers.DataRow("Disc type", Translate.DiscTypeName(data.DiscType))
 			@if (data.OriginalRelease != null) {
 	   if (data.OriginalRelease.ReleaseDate != null) {
-		   ArchivedEntryHelpers.DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted);
+		   @ArchivedEntryHelpers.DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted)
 	   }
-	   ArchivedEntryHelpers.DataRow("Catalog number", data.OriginalRelease.CatNum);
-	   ArchivedEntryHelpers.DataRow("Release event", data.OriginalRelease.EventName);
+	   @ArchivedEntryHelpers.DataRow("Catalog number", data.OriginalRelease.CatNum)
+	   @ArchivedEntryHelpers.DataRow("Release event", data.OriginalRelease.EventName)
    }
 			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
 			@ArchivedEntryHelpers.DataRowList("Artists", DataFormatUtils.GenerateHtml(data.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
