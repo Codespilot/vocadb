@@ -15,7 +15,7 @@ namespace VocaDb.Web.Models.Album {
 		public Index() {}
 
 		public Index(PartialFindResult<AlbumWithAdditionalNamesContract> result, string filter, DiscType discType, 
-			AlbumSortRule sortRule, int? page, bool? draftsOnly) {
+			AlbumSortRule sortRule, EntryViewMode view, int? page, bool? draftsOnly) {
 
 			Page = page ?? 1;
 			Albums = new StaticPagedList<AlbumWithAdditionalNamesContract>(result.Items, 
@@ -24,6 +24,7 @@ namespace VocaDb.Web.Models.Album {
 			DraftsOnly = draftsOnly ?? false;
 			Filter = filter;
 			Sort = sortRule;
+			View = view;
 
 		}
 
@@ -39,6 +40,8 @@ namespace VocaDb.Web.Models.Album {
 		public int Page { get; set; }
 
 		public AlbumSortRule Sort { get; set; }
+
+		public EntryViewMode View { get; set; }
 
 	}
 

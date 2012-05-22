@@ -120,6 +120,9 @@
   <data name="Drafts" xml:space="preserve">
     <value>Nämä tietueet on merkattu luonnoksiksi, eli niistä puuttuu jotain tietoja.</value>
   </data>
+  <data name="ManageDeleted" xml:space="preserve">
+    <value>Hallitse poistettuja merkintöjä</value>
+  </data>
   <data name="NoResults" xml:space="preserve">
     <value>Ei tuloksia! Kokeile toista kyselyä tai Googlen sivustohakua.</value>
   </data>

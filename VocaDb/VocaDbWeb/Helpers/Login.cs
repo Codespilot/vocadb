@@ -57,6 +57,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool CanMoveToTrash {
+			get {
+				return Manager.HasPermission(PermissionToken.MoveToTrash);
+			}
+		}
+
 		public static bool CanRevertEntryVersions {
 			get {
 				return Manager.HasPermission(PermissionToken.RestoreRevisions);

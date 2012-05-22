@@ -84,6 +84,12 @@ img.coverPic {
 	max-height: 250px;
 }
 
+a.coverPic {
+	width: 250px;
+	height: 250px;	
+	display: block;
+}
+
 img.coverPicIcon {
 	max-width: 35px;
 	max-height: 35px;
@@ -93,6 +99,13 @@ img.coverPicThumb {
 	max-width: 70px;
 	max-height: 70px;
 }
+
+a.coverPicThumb {
+	width: 70px;
+	height: 70px;	
+	display: block;
+}
+
 
 table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	vertical-align: top;

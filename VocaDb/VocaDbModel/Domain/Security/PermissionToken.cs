@@ -37,6 +37,7 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken ManageDatabase =			New("d762d720-79ef-4e60-8397-1d638c26d82b", "ManageDatabase");
 		public static readonly PermissionToken MergeEntries =			New("eb336a5b-8455-4048-bc3a-8003dc522dc5", "MergeEntries");
 		public static readonly PermissionToken MikuDbImport =			New("0b879c57-5eba-462a-b842-d9f7dd0befd8", "MikuDbImport");
+		public static readonly PermissionToken MoveToTrash =			New("99c333a2-ea0a-4a7b-91cb-ceef6f667389", "MoveToTrash");
 		public static readonly PermissionToken ReadRecentComments =		New("325697d5-0c04-46e9-b614-eadec420a86d", "ReadRecentComments");
 		public static readonly PermissionToken RestoreRevisions =		New("e99a1e1c-1742-48c1-877b-17cb2964e8bc", "RestoreRevisions");
 		public static readonly PermissionToken ViewAuditLog	=			New("8d3d5395-12c9-440a-8120-4911034b9a7e", "ViewAuditLog");
@@ -47,7 +48,7 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken[] All = { 
 			AccessManageMenu, Admin, ApproveEntries, CreateComments, DeleteComments, DeleteEntries, 
 			DesignatedStaff, DisableUsers, EditFeaturedLists, EditNews, EditProfile, LockEntries, ManageDatabase, 
-			ManageEventSeries, ManageUserPermissions, MergeEntries, MikuDbImport, ReadRecentComments, RestoreRevisions, 
+			ManageEventSeries, ManageUserPermissions, MergeEntries, MikuDbImport, MoveToTrash, ReadRecentComments, RestoreRevisions, 
 			ViewAuditLog
 		};
 

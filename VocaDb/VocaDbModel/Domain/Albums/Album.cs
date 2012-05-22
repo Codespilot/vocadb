@@ -376,6 +376,28 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		/// <summary>
+		/// Cleans up all links etc.
+		/// </summary>
+		public virtual void DeleteLinks() {
+
+			var artists = AllArtists.ToArray();
+			foreach (var artist in artists)
+				artist.Delete();
+
+			var songs = AllSongs.ToArray();
+			foreach (var song in songs)
+				song.Delete();
+
+			var users = UserCollections.ToArray();
+			foreach (var user in users)
+				user.Delete();
+
+			//ArchivedVersionsManager.Clear();
+			//Comments.Clear();
+
+		}
+
 		public virtual bool Equals(Album another) {
 
 			if (another == null)

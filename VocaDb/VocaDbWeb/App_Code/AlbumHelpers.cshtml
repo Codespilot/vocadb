@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc;
 @using System.Web.Mvc.Html
+@using System.Web.Routing
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
@@ -31,6 +32,25 @@
   }	
 	</table>
 		
+}
+
+@helper AlbumThumbs(IEnumerable<AlbumWithAdditionalNamesContract> albums) {
+	
+	<ul class="thumbnails">
+		@foreach (var album in albums) {
+		<li class="span2">
+			<div class="thumbnail">
+				<a href="@Url.Action("Details", "Album", new { id = album.Id })" class="coverPicThumb">
+					<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" />
+				</a>
+				<div class="caption">
+					<h5>@album.Name</h5>					
+				</div>
+			</div>
+		</li>
+		}
+	</ul>
+	
 }
 
 @helper PrintArchivedAlbumData(int archivedEntryId, ArchivedAlbumContract data) {

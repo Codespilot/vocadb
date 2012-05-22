@@ -168,6 +168,9 @@
   <data name="MikuDbImport" xml:space="preserve">
     <value>MikuDB import</value>
   </data>
+  <data name="MoveToTrash" xml:space="preserve">
+    <value>Move to trash</value>
+  </data>
   <data name="Nothing" xml:space="preserve">
     <value>Nothing</value>
   </data>

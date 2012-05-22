@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using MvcPaging;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -18,6 +20,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
 {
@@ -69,10 +72,11 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Album/
 
-		public ActionResult Index(string filter, DiscType? discType, AlbumSortRule? sort, int? page, bool? draftsOnly) {
+		public ActionResult Index(string filter, DiscType? discType, AlbumSortRule? sort, EntryViewMode? view, int? page, bool? draftsOnly) {
 
 			var dType = discType ?? DiscType.Unknown;
 			var sortRule = sort ?? AlbumSortRule.Name;
+			var viewMode = view ?? EntryViewMode.Details;
 
 			var result = Service.Find(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
 				true, moveExactToTop: false, sortRule: sortRule);
@@ -81,7 +85,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
-			var model = new Index(result, filter, dType, sortRule, page, draftsOnly);
+			var model = new Index(result, filter, dType, sortRule, viewMode, page, draftsOnly);
 			SetSearchEntryType(EntryType.Album);
 
             return View(model);
@@ -400,6 +404,29 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult Deleted() {
+
+			var result = Service.GetDeleted(0, entriesPerPage);
+
+			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(0, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
+
+			return View(data);
+
+		}
+
+		[Authorize]
+		public ActionResult DeletedPaged(int? page) {
+
+			var p = (page - 1) ?? 0;
+			var result = Service.GetDeleted(p * entriesPerPage, entriesPerPage);
+
+			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(p, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
+
+			return PartialView("PagedAlbums", data);
+
+		}
+
 		public ActionResult MassTagSongs(int id) {
 
 			var album = Service.GetAlbumDetails(id);
@@ -429,6 +456,17 @@ namespace VocaDb.Web.Controllers
 			Service.Merge(id, targetAlbumId);
 
 			return RedirectToAction("Edit", new { id = targetAlbumId });
+
+		}
+
+		[Authorize]
+		public ActionResult MoveToTrash(int id) {
+
+			Service.MoveToTrash(id);
+
+			TempData.SetStatusMessage("Entry moved to trash");
+
+			return RedirectToAction("Deleted");
 
 		}
 

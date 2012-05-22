@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web;
+﻿@using VocaDb.Model.Service
+@using VocaDb.Web;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models;
 @using VocaDb.Model.DataContracts.Albums;
@@ -13,6 +14,8 @@
 @section Toolbar {
 @if (Login.CanManageDb) {
 	@Html.ActionLink(ViewRes.Album.IndexStrings.AddAlbum, "Create", null, new { id = "createLink" })
+	@Html.Raw("&nbsp")
+	@Html.ActionLink(ViewRes.EntryIndexStrings.ManageDeleted, "Deleted", null, new { id = "manageDeletedLink" })
 }
 }
 
@@ -56,42 +59,46 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var album in Model.Albums) {
-			<tr>
-				<td>
-					@AlbumHelpers.AlbumIconLink(album)
-				</td>
-				<td>
-					@Helpers.DraftIcon(album)
-					@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
-					<small class="extraInfo">@album.ArtistString</small><br />
-					<small class="extraInfo">@Translate.DiscTypeName(album.DiscType)</small>
-				</td>
-				<td>
-					@if (!album.ReleaseDate.IsEmpty) {
-						<span>
-							@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted
-							@if (!string.IsNullOrEmpty(album.ReleaseEvent)) {
-								<br />
-								@Html.ActionLink(album.ReleaseEvent, "Find", "Event", new { query = album.ReleaseEvent }, null)
-							}
-						</span>
-					}				
-				</td>
-				<td>
-					@if (album.RatingCount > 0) {
-						@Helpers.Stars(album.RatingAverage, 5)
-						<br /> 
-						@album.RatingCount @R.IndexStrings.Times
-					}
-				</td>
-				<td>
-					@if (Login.CanEdit(album)) {
-						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = album.Id })
-					}
-				</td>
-			</tr>
+		@if (Model.View == EntryViewMode.Details) {
+	  foreach (var album in Model.Albums) {
+				<tr>
+					<td>
+						@AlbumHelpers.AlbumIconLink(album)
+					</td>
+					<td>
+						@Helpers.DraftIcon(album)
+						@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
+						<small class="extraInfo">@album.ArtistString</small><br />
+						<small class="extraInfo">@Translate.DiscTypeName(album.DiscType)</small>
+					</td>
+					<td>
+						@if (!album.ReleaseDate.IsEmpty) {
+							<span>
+								@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted
+								@if (!string.IsNullOrEmpty(album.ReleaseEvent)) {
+									<br />
+									@Html.ActionLink(album.ReleaseEvent, "Find", "Event", new { query = album.ReleaseEvent }, null)
 		}
+							</span>
+	  }				
+					</td>
+					<td>
+						@if (album.RatingCount > 0) {
+							@Helpers.Stars(album.RatingAverage, 5)
+							<br /> 
+							@album.RatingCount @R.IndexStrings.Times
+	  }
+					</td>
+					<td>
+						@if (Login.CanEdit(album)) {
+							@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = album.Id })
+	  }
+					</td>
+				</tr>
+	  }
+  } else {
+			@AlbumHelpers.AlbumThumbs(Model.Albums)
+  }
 	</tbody>
 </table>
 
@@ -111,6 +118,7 @@
 
 	$(document).ready(function () {
 		$("#createLink").button({ icons: { primary: 'ui-icon-plusthick'} });
+		$("#manageDeletedLink").button({ icons: { primary: 'ui-icon-trash'} });
 	});
 
 </script>
