@@ -28,6 +28,10 @@ namespace VocaDb.Model.Domain.Versioning {
 
 		}
 
+		public virtual void Clear() {
+			Versions.Clear();
+		}
+
 		public virtual TVersion GetLatestVersion() {
 			return Versions.OrderByDescending(m => m.Created).FirstOrDefault();
 		}

@@ -225,6 +225,7 @@
     <Compile Include="Domain\Songs\SongListFeaturedCategory.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
+    <Compile Include="Domain\TrashedEntry.cs" />
     <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />
@@ -356,6 +357,7 @@
     <Compile Include="Mapping\Tags\TagMap.cs" />
     <Compile Include="Mapping\Tags\TagUsageMap.cs" />
     <Compile Include="Mapping\Tags\TagVoteMap.cs" />
+    <Compile Include="Mapping\TrashedEntryMap.cs" />
     <Compile Include="Mapping\Users\PasswordResetRequestMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
@@ -398,6 +400,7 @@
     <Compile Include="Service\EntryValidators\ArtistValidator.cs" />
     <Compile Include="Service\EntryValidators\SongValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
+    <Compile Include="Service\EntryViewMode.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />

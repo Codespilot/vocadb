@@ -736,6 +736,28 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PartialFindResult<AlbumWithAdditionalNamesContract> GetDeleted(int start, int maxEntries) {
+
+			return HandleQuery(session => {
+
+				var albums = session
+					.Query<Album>()
+					.Where(a => a.Deleted)
+					.Skip(start)
+					.Take(maxEntries)
+					.ToArray()
+					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.ToArray();
+
+				var count = session
+					.Query<Album>().Count(a => a.Deleted);
+
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(albums, count);
+
+			});
+
+		}
+
 		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
 
 			return HandleQuery(session => {
@@ -868,6 +890,31 @@ namespace VocaDb.Model.Service {
 
 				session.Update(source);
 				session.Update(target);
+
+			});
+
+		}
+
+		public int MoveToTrash(int albumId) {
+
+			PermissionContext.VerifyPermission(PermissionToken.MoveToTrash);
+
+			return HandleTransaction(session => {
+
+				var album = session.Load<Album>(albumId);
+
+				AuditLog(string.Format("moving {0} to trash", album), session);
+
+				var archived = new ArchivedAlbumContract(album, new AlbumDiff());
+				var data = XmlHelper.SerializeToXml(archived);
+				var trashed = new TrashedEntry(album, data, GetLoggedUser(session));
+
+				session.Save(trashed);
+
+				album.DeleteLinks();
+				session.Delete(album);
+
+				return trashed.Id;
 
 			});
 

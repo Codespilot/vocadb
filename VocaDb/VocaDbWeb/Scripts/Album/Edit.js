@@ -153,9 +153,10 @@ function songListChanged() {
 }
 
 function initPage(albumId, discType) {
-
+	
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
+	$("#trashLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 	$("#statusHelp").tooltip();
 	$("#pvLoader")

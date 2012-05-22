@@ -120,6 +120,9 @@
   <data name="Drafts" xml:space="preserve">
     <value>These entries are marked as drafts which means they are missing some information. </value>
   </data>
+  <data name="ManageDeleted" xml:space="preserve">
+    <value>Manage  deleted entries</value>
+  </data>
   <data name="NoResults" xml:space="preserve">
     <value>No results! Try a different query or Google custom search.</value>
   </data>
