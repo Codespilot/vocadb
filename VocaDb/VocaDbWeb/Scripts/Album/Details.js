@@ -14,7 +14,7 @@ function initDialog() {
 		if (name == "")
 			return false;
 
-		$("#newTagName").val("")
+		$("#newTagName").val("");
 
 		$.post("../../Tag/Create", { name: name }, function (response) {
 
@@ -127,7 +127,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
 		}
 	});
 
-	$("#editCollectionDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: [{ text: saveStr, click: function () {
+	$("#editCollectionDialog").dialog({ autoOpen: false, width: 320, modal: false, buttons: [{ text: saveStr, click: function () {
 
 		$("#editCollectionDialog").dialog("close");
 
