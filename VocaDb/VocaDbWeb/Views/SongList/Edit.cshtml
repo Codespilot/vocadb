@@ -45,9 +45,7 @@
 	@Html.HiddenFor(m => m.CurrentName)
 	@Html.HiddenFor(m => m.CanCreateFeaturedLists)
 
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 	<div id="tabs">
 
@@ -80,7 +78,7 @@
 				<div class="editor-field">
 					@Html.EnumDropDownListFor(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames)
 				</div>
-			}
+   }
 
 		</div>
 
@@ -89,8 +87,8 @@
 			<table id="songsTable">
 				<tbody id="songsTableBody">
 				@foreach (var track in Model.SongLinks) {
-					Html.RenderPartial("SongInListEditRow", track);
-				}
+		Html.RenderPartial("SongInListEditRow", track);
+	}
 				</tbody>
 			</table>
 
@@ -106,8 +104,6 @@
 	</div>
 	
 	<br />
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 }

@@ -74,11 +74,6 @@ td {
 	padding: 5px;
 }
 
-td.menu {
-	width: 200px;
-	vertical-align: top;
-}
-
 img.coverPic {
 	max-width: 250px;
 	max-height: 250px;
@@ -160,6 +155,7 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	border: solid #BAE8FF 2px;*/
 	float: left;
 	/*width: 300px !important;*/
+	vertical-align: top;	
 }
 
 ul {
@@ -385,4 +381,10 @@ h2.pageTitle {
 
 div.comment p {
 	padding-top: 5px;
+}
+
+.row-fluid {
+	max-width: 1600px;	
+	margin-left: auto;
+	margin-right: auto;
 }

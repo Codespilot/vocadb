@@ -38,34 +38,41 @@
 	@Html.HiddenFor(m => m.Id)
 
 	<p>
-		<input type="submit" value="Save changes" />
+		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>
 
 	<div class="editor-label">
 		@Html.LabelFor(m => m.Text)
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaFor(m => m.Text, new { cols = 60, rows = 6 })<br />
+		@Html.TextAreaFor(m => m.Text, new { cols = 60, rows = 6, @class = "span4" })<br />
 		@Html.ValidationMessageFor(m => m.Text)
 	</div>
 	
 	<div class="editor-field">
-		@Html.CheckBoxFor(m => m.Anonymous)
-		@Html.LabelFor(m => m.Anonymous)
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.Anonymous)
+			Anonymous
+		</label>
 	</div>
 	
 	<div class="editor-field">
-		@Html.CheckBoxFor(m => m.Important)
-		@Html.LabelFor(m => m.Important)
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.Important)
+			Important
+		</label>
 	</div>
 	
 	<div class="editor-field">
-		@Html.CheckBoxFor(m => m.Stickied)
-		@Html.LabelFor(m => m.Stickied)
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.Stickied)
+			Stickied
+		</label>
 	</div>
 	
+	<br />
 	<p>
-		<input type="submit" value="Save changes" />
+		<input type="submit" class="btn btn-primary" value="Save changes" />
 	</p>
 	
 }

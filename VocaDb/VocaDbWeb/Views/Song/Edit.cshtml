@@ -31,9 +31,7 @@
 @using (Html.BeginForm("Edit", "Song", FormMethod.Post)) {
 	@Html.HiddenFor(m => m.Id)
 
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 	<div id="tabs">
 
@@ -95,7 +93,7 @@
 					<input type="button" id="acceptNewOriginalBtn" value="Set" />
 				</div>
 			</div>
-}
+   }
 			
 			<div class="editor-label">
 				@Html.LabelFor(m => m.WebLinks)
@@ -152,8 +150,8 @@
 		<div id="lyricsTab">
 
 			@foreach (var lyrics in Model.Lyrics) {
-				Html.RenderPartial("LyricsForSongEditRow", lyrics);
-			}
+	   Html.RenderPartial("LyricsForSongEditRow", lyrics);
+   }
 			<a href="#" class="lyricsAddNew textLink addLink" id="lyricsAdd">Add row</a>
 
 		</div>
@@ -161,7 +159,7 @@
 		<div id="artistsTab">
 			@using (@Html.BeginPanel()) {
 				<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
-			}
+   }
 
 			<table>
 				<thead>
@@ -188,9 +186,7 @@
 	</div>
 	
 	<br />
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 }
 
@@ -203,7 +199,7 @@
 			@Html.CheckBox("artistRole_" + role.Key.ToString(), new { id = "artistRole_" + role.Key.ToString(), @class = "artistRoleCheck" })
 			@Html.Label("artistRole_" + role.Key.ToString(), role.Value)
 		</span>
-	}
+ }
 
 </div>
 

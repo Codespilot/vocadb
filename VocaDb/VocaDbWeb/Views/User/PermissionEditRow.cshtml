@@ -4,10 +4,12 @@
 <p>
 @using (Html.BeginCollectionItem("Permissions")) {
 	@Html.HiddenFor(m => m.PermissionType.Id)
-	@Html.CheckBoxFor(m => m.HasFlag)
-	@Html.LabelFor(m => m.HasFlag, Translate.PermissionTokenName(Model.PermissionType))
-	if (Model.HasPermission) {
-		<span>(already granted)</span>
-	}
+	<label class="checkbox inline">
+		@Html.CheckBoxFor(m => m.HasFlag)
+		@Translate.PermissionTokenName(Model.PermissionType)
+		@if (Model.HasPermission) {
+			<span>(already granted)</span>
+		}
+	</label>
 }
 </p>
