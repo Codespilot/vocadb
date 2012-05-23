@@ -14,8 +14,10 @@
 @section Toolbar {
 @if (Login.CanManageDb) {
 	@Html.ActionLink(ViewRes.Album.IndexStrings.AddAlbum, "Create", null, new { id = "createLink" })
-	@Html.Raw("&nbsp")
-	@Html.ActionLink(ViewRes.EntryIndexStrings.ManageDeleted, "Deleted", null, new { id = "manageDeletedLink" })
+	if (Login.CanDeleteEntries) {
+		@Html.Raw("&nbsp")
+		@Html.ActionLink(ViewRes.EntryIndexStrings.ManageDeleted, "Deleted", null, new { id = "manageDeletedLink" })
+	}
 }
 }
 

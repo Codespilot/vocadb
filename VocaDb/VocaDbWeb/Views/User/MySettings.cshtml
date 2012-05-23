@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
+@using R = ViewRes.User;
 @model MySettingsModel
 
 @{
@@ -69,8 +70,10 @@
 					</div>
 
 					<p>
-						@Html.CheckBoxFor(m => m.AnonymousActivity)
-						@Html.LabelFor(m => m.AnonymousActivity)
+						<label class="checkbox inline">
+							@Html.CheckBoxFor(m => m.AnonymousActivity)
+							Do not show my name in the recent activity list
+						</label>
 					</p>
 
 					<div class="editor-label">
@@ -98,10 +101,9 @@
 						@Html.PasswordFor(m => m.NewPassAgain)
  						@Html.ValidationMessageFor(m => m.NewPassAgain)
 				   </div>
-
-					<p>
-						<input type="submit" class="btn btn-primary" value="Save" />
-					</p>
+				   
+				   <br />
+					@Helpers.SaveBtn()
 				</fieldset>
 			</div>
 		}

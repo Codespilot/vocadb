@@ -63,9 +63,7 @@
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
 
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 	<div id="tabs">
 
@@ -206,12 +204,11 @@
 
 			<br />
 			<a href="#" class="textLink editLink" id="editSelectedTracksLink">Set artists for selected tracks</a>
-
+			
+			<br /><br />
 			<h4>Add new</h4>
 			<p>Note: do not write the artist name or track number into the track name. Artists will be specified separately.</p>
-			@Helpers.EntrySearchBox("songAdd", false)
-			<br />
-			<a href="#" class="textLink addLink" id="songAddAcceptBtn">Add</a>
+			@Helpers.EntrySearchBox("songAdd", false, "Add")
 		</div>
 
 		<div id="artistsTab">
@@ -229,9 +226,7 @@
 			<br />
 			<h4>Add artist</h4>
 
-			@Helpers.EntrySearchBox("artistAdd", false)
-			<br />
-			<a href="#" id="artistAddAcceptBtn" class="textLink addLink">Add</a>
+			@Helpers.EntrySearchBox("artistAdd", false, "Add")
 		</div>
 
 		<div id="pvsTab">
@@ -268,9 +263,7 @@
 	</div>
 
 	<br />
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 }
 	

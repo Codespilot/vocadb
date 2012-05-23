@@ -89,11 +89,10 @@
 					</tbody>
 				</table>
 				<br />
-				@Helpers.EntrySearchBox("artistAdd", false)
-				<br />
-				<a href="#" class="textLink addLink" id="artistAddAcceptBtn">@ViewRes.SharedStrings.Add</a>
+				@Helpers.EntrySearchBox("artistAdd", false, ViewRes.SharedStrings.Add)
 			</div>
-
+			
+			<br />
 			<p>
 				<label class="checkbox inline">
 					@Html.CheckBoxFor(m => m.Draft)
@@ -109,7 +108,7 @@
 		</td></tr></table>
 		
 		<br />
-		<input type="submit" class="btn btn-primary" value="@ViewRes.SharedStrings.Save" />
+		<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
 
 	</div>
 	

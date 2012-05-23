@@ -32,9 +32,7 @@
 	@Html.HiddenFor(m => m.Name)
 	@Html.HiddenFor(m => m.TooManyAlbums)
 
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 	<div id="tabs">
 
@@ -97,8 +95,8 @@
 						<table>
 							<tbody id="groupTableBody">
 							@foreach (var grp in Model.Groups) {
-								Html.RenderPartial("GroupForArtistEditRow", grp);
-							}
+		   Html.RenderPartial("GroupForArtistEditRow", grp);
+	   }
 							</tbody>
 						</table>
 
@@ -106,7 +104,7 @@
 						<br />
 						<a href="#" class="textLink addLink" id="groupAddBtn">Add</a>
 					</div>
-				}
+	}
 			
 				<div class="editor-label">
 					@Html.LabelFor(m => m.WebLinks)
@@ -131,8 +129,8 @@
 				<table>
 					<tbody id="albumTableBody">
 					@foreach (var album in Model.AlbumLinks) {
-					   Html.RenderPartial("ArtistForAlbumRow", album);
-				   }
+		 Html.RenderPartial("ArtistForAlbumRow", album);
+	 }
 					</tbody>
 				</table>
 
@@ -140,17 +138,15 @@
 				@Helpers.EntrySearchBox("albumAdd", false)
 				<br />
 				<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
-			} else {
+   } else {
 				@Helpers.NotificationPanel("Album list editing is disabled for artists with too many albums.")
-			}
+   }
 		</div>
 
 	</div>
 	<br />
 	
-	<p>
-		<input type="submit" class="btn btn-primary" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 
 }
 

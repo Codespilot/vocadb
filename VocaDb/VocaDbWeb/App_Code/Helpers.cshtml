@@ -158,15 +158,19 @@
 	}
 }
 
-@helper EntrySearchBox(string prefix, bool includeIdBox) {
+@helper EntrySearchBox(string prefix, bool includeIdBox, string addBtnText = null) {
 	
 	if (includeIdBox) {
 	<input type="hidden" name="@(prefix + "Id")" id="@(prefix + "Id")" />	 
 	}
 	
 	<div>
-	@Html.TextBox(prefix + "Name", string.Empty, new { id = prefix + "Name", maxlength = "128" })<br />
-	<div id="@(prefix + "List")"></div>
+		@Html.TextBox(prefix + "Name", string.Empty, new { id = prefix + "Name", maxlength = "128" })
+		@if (!string.IsNullOrEmpty(addBtnText))	{
+			<a href="#" class="textLink addLink" id="artistAddAcceptBtn">@addBtnText</a>	 
+		}
+		<br />
+		<div id="@(prefix + "List")"></div>
 	</div>
 
 }
@@ -178,28 +182,28 @@
 				<span class="icon draftIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Draft]
 			</span>
-			break;
-			
+break;
+
 		case EntryStatus.Finished:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionFinished">
 				<span class="icon asteriskIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Finished]
 			</span>
-			break;
+break;
 
 		case EntryStatus.Approved:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionApproved">
 				<span class="icon tickIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Approved]
 			</span>
-			break;
-			
+break;
+
 		case EntryStatus.Locked:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionLocked">
 				<span class="icon lockIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Locked]
 			</span>
-			break;
+break;
 
 	}	
 }
@@ -208,7 +212,7 @@
 	<a href="@pv.Url"><img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @(!string.IsNullOrEmpty(pv.Name) ? pv.Name : pv.Service.ToString())
 	@if (type) {
 		@("(" + Translate.PVTypeNames[pv.PVType] + ")")
-	}
+ }
 	</a>
 }
 
@@ -279,7 +283,7 @@
 
 			@if (allowDelete && Login.CanDeleteComment(contract)) {
 				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">Delete</a>
-			}
+   }
 		</h3>
 		
 		<p>
@@ -287,6 +291,15 @@
 		</p>
 		<hr />
 	</div>	
+}
+
+@helper SaveBtn() {
+	<p>
+		<button type="submit" class="btn btn-primary">
+			<i class="icon-ok icon-white"></i>
+			&nbsp;Save changes
+		</button>	
+	</p>
 }
 
 @helper Stars(int current, int max) {

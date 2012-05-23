@@ -31,9 +31,7 @@
 @using (Html.BeginForm()) {
 	@Html.HiddenFor(m => m.Name)
 
-	<p>
-		<input type="submit" value="Save changes" />
-	</p>
+	@Helpers.SaveBtn()
 	
 	<div class="editor-label">
 		@Html.LabelFor(m => m.CategoryName)
@@ -47,12 +45,11 @@
 		@Html.LabelFor(m => m.Description)
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 4 })<br />
+		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 4, @class = "span4" })<br />
 		@Html.ValidationMessageFor(m => m.Description)
 	</div>
 	
-	<p>
-		<input type="submit" value="Save changes" />
-	</p>
+	<br />
+	@Helpers.SaveBtn()
 	
 }
