@@ -25,21 +25,21 @@
 			<div class="editor-field">
 				@Html.ValidationMessage("Names")
 
-				<table><tr><td>				
+				<table><tr><td class="formLabel">				
 				@Html.LabelFor(m => m.NameOriginal)
 				</td><td>
 				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "nameField span12", maxlength = 255, size = 40 })<br />
 				@Html.ValidationMessageFor(m => m.NameOriginal)
 				</td></tr>
 
-				<tr><td>
+				<tr><td class="formLabel">
 				@Html.LabelFor(m => m.NameRomaji)
 				</td><td>
 				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "nameField span12", maxlength = 255, size = 40 })<br />
 				@Html.ValidationMessageFor(m => m.NameRomaji)
 				</td></tr>
 					
-				<tr><td>
+				<tr><td class="formLabel">
 				@Html.LabelFor(m => m.NameEnglish)
 				</td><td>
 				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "nameField span12", maxlength = 255, size = 40 })<br />

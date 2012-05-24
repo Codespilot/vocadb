@@ -11,9 +11,7 @@
 }
 
 @section Toolbar {
-@if (Login.CanManageDb) {
-	@Html.ActionLink(ViewRes.Artist.IndexStrings.AddArtist, "Create", null, new { id = "createLink" })
-}
+	@Html.ActionLink(ViewRes.Artist.IndexStrings.AddArtist, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
 }
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
@@ -68,7 +66,7 @@ if (Model.Artists.Any()) {
 			</td>
 			<td>
 				@if (Login.CanEdit(artist)) {
-					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = artist.Id })
+					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = artist.Id }, new { @class = "textLink editLink" })
 				}
 			</td>
 		</tr>
@@ -91,7 +89,7 @@ if (!Model.Artists.Any()) {
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		$("#createLink").button({ icons: { primary: 'ui-icon-plusthick'} });		
+		$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });		
 	});
 
 </script>

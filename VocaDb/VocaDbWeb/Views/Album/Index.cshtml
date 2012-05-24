@@ -12,13 +12,11 @@
 }
 
 @section Toolbar {
-@if (Login.CanManageDb) {
-	@Html.ActionLink(ViewRes.Album.IndexStrings.AddAlbum, "Create", null, new { id = "createLink" })
-	if (Login.CanDeleteEntries) {
+	@Html.ActionLink(ViewRes.Album.IndexStrings.AddAlbum, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@if (Login.CanDeleteEntries) {
 		@Html.Raw("&nbsp")
 		@Html.ActionLink(ViewRes.EntryIndexStrings.ManageDeleted, "Deleted", null, new { id = "manageDeletedLink" })
 	}
-}
 }
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
@@ -119,7 +117,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		$("#createLink").button({ icons: { primary: 'ui-icon-plusthick'} });
+		$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });
 		$("#manageDeletedLink").button({ icons: { primary: 'ui-icon-trash'} });
 	});
 
