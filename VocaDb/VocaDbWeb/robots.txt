@@ -1,11 +1,15 @@
 User-agent: *
+Disallow: /Album/Comments/
 Disallow: /Album/MikuDbRedirect/
 Disallow: /Album/Versions/
 Disallow: /Album/ViewVersion/
+Disallow: /Artist/Comments/
 Disallow: /Artist/Versions/
 Disallow: /Artist/ViewVersion/
+Disallow: /Song/Comments/
 Disallow: /Song/Versions/
 Disallow: /Song/ViewVersion/
+Disallow: /User/FavoriteSongs/
 Disallow: /ViewNicoVideo.aspx
 Disallow: /ListPolls.aspx
 Disallow: /ListSongs.aspx
