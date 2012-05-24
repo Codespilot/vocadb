@@ -23,6 +23,11 @@
 		<priority>0.7</priority>
 	</url>
 	<url>
+		<loc>http://vocadb.net/Album&amp;sort=RatingAverage</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
 		<loc>http://vocadb.net/Song</loc>
 		<changefreq>weekly</changefreq>
 		<priority>0.5</priority>
@@ -31,6 +36,11 @@
 		<loc>http://vocadb.net/Song&amp;sort=AdditionDate</loc>
 		<changefreq>daily</changefreq>
 		<priority>0.7</priority>
+	</url>
+	<url>
+		<loc>http://vocadb.net/Song&amp;sort=FavoritedTimes</loc>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
 	</url>
 	<url>
 		<loc>http://vocadb.net/SongList/Featured</loc>
