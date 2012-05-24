@@ -945,6 +945,7 @@
     <Content Include="Scripts\User\MySettings.js" />
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />
+    <Content Include="sitemap.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
