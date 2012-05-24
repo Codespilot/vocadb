@@ -29,6 +29,23 @@ namespace VocaDb.Model.Service {
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
 
+		private IQueryable<User> AddOrder(IQueryable<User> criteria, UserSortRule sortRule) {
+
+			switch (sortRule) {
+				case UserSortRule.Name:
+					return criteria.OrderBy(u => u.Name);
+				case UserSortRule.RegisterDate:
+					return criteria.OrderBy(u => u.CreateDate);
+				case UserSortRule.Group:
+					return criteria
+						.OrderBy(u => u.GroupId)
+						.ThenBy(u => u.Name);
+			}
+
+			return criteria;
+
+		}
+
 		private UserDetailsContract GetUserDetails(ISession session, User user) {
 
 			var details = new UserDetailsContract(user, PermissionContext);
@@ -339,9 +356,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract[] GetUsers() {
+		public UserContract[] GetUsers(UserGroupId groupId, UserSortRule sortRule) {
 
-			return HandleQuery(session => session.Query<User>().Select(u => new UserContract(u)).ToArray());
+			return HandleQuery(session => AddOrder(session.Query<User>()
+				.Where(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId)), sortRule)
+				.Select(u => new UserContract(u))
+				.ToArray());
 
 		}
 
@@ -714,6 +734,16 @@ namespace VocaDb.Model.Service {
 
 		protected UserNotFoundException(SerializationInfo info, StreamingContext context) 
 			: base(info, context) {}
+
+	}
+
+	public enum UserSortRule {
+
+		RegisterDate,
+
+		Name,
+
+		Group
 
 	}
 

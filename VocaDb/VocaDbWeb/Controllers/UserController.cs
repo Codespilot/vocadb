@@ -122,10 +122,13 @@ namespace VocaDb.Web.Controllers
 			//
         // GET: /User/
 
-        public ActionResult Index() {
+        public ActionResult Index(Index model, UserSortRule? sort = null) {
 
-        	var users = Service.GetUsers();
-            return View(new Index(users));
+			var groupId = model.GroupId;
+			var sortRule = sort ?? UserSortRule.RegisterDate;
+
+        	var users = Service.GetUsers(groupId, sortRule);
+			return View(new Index(users, groupId));
 
         }
 
