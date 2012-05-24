@@ -313,7 +313,9 @@ break;
 }
 
 @helper Stars(double current, int max) {
-	@Stars((int)Math.Round(current), max)
+	<span title="@Math.Round(current, 2)">
+		@Stars((int)Math.Round(current), max)
+	</span>
 }
 
 @helper ValidationSymmaryPanel(string message) {

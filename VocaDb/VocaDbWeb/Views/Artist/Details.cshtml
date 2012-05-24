@@ -9,14 +9,10 @@
 }
 
 @section Toolbar {
-@if (Login.Manager.IsLoggedIn) {
-	<a href="#" id="addToUserLink" style="@(Model.IsAdded ? "display: none;" : "")">@ViewRes.Artist.DetailsStrings.Follow</a>
-	<a href="#" id="removeFromUserLink" style="@(Model.IsAdded ? "" : "display: none;")">@ViewRes.Artist.DetailsStrings.Unfollow</a>
-}
+<a href="#" id="addToUserLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsAdded ? "display: none;" : "")">@ViewRes.Artist.DetailsStrings.Follow</a>
+<a href="#" id="removeFromUserLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsAdded ? "" : "display: none;")">@ViewRes.Artist.DetailsStrings.Unfollow</a>
 
-@if (Login.CanEdit(Model)) {
-	@Html.ActionLink(@ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editArtistLink" });
-}
+@Html.ActionLink(@ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editArtistLink", @class = (Login.CanEdit(Model) ? "" : "disabled") })
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
@@ -76,9 +72,7 @@
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
-					@if (Login.Manager.IsLoggedIn) {
-						<a href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
-					}				
+					<a href="#" id="editTags" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.EntryDetailsStrings.EditTags</a>
 				</td>
 			</tr>
 
