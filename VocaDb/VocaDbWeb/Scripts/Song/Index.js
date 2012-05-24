@@ -1,6 +1,6 @@
 ﻿
 function initPage() {
 
-	$("#createLink").button({ icons: { primary: 'ui-icon-plusthick'} });
+	$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });
 
 }

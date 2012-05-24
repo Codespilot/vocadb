@@ -1,4 +1,5 @@
 ﻿@using R = ViewRes.Tag;
+@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Tags.TagDetailsContract
 
 @{
@@ -13,16 +14,14 @@
 
 	$(document).ready(function () {
 		$("#tabs").tabs({ load: function (event, ui) { $("#tabs").tabs("url", ui.index, ""); } });
-		$("#editTagLink").button({ icons: { primary: 'ui-icon-wrench'} });
+		$("#editTagLink").button({ disabled: $("#editTagLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	});
 
 </script>
 }
 
 @section Toolbar {
-	@if (VocaDb.Web.Helpers.Login.CanManageDb) {
-		@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink" });
-	}
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink", @class = (Login.CanManageDb ? "" : "disabled") })
 }
 
 <div id="tabs">

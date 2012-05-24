@@ -1413,6 +1413,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EntryCreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryCreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.fi.resx" />

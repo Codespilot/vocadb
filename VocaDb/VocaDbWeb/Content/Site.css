@@ -289,6 +289,11 @@ div.panel {
 	margin: .5em;
 }
 
+.formLabel {
+	vertical-align: top;
+	padding-top: 10px;	
+}
+
 /* Links */
 
 button.textLink {

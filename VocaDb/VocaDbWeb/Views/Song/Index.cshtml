@@ -12,9 +12,7 @@
 }
 
 @section Toolbar {
-@if (Login.CanManageDb) {
-	@Html.ActionLink(ViewRes.Song.IndexStrings.AddSong, "Create", null, new { id = "createLink" })
-}
+	@Html.ActionLink(ViewRes.Song.IndexStrings.AddSong, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
 }
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
@@ -72,7 +70,7 @@
 				</td>
 				<td>
 					@if (Login.CanEdit(song)) {
-						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id })
+						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id }, new { @class = "textLink editLink" })
 	 }		
 				</td>
 			</tr>
