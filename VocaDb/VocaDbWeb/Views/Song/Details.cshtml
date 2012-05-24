@@ -15,15 +15,11 @@
 }
 
 @section Toolbar {
-@if (Login.Manager.IsLoggedIn) {
-	<a href="#" id="addFavoriteLink" style="@(Model.IsFavorited ? "display: none;" : "")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
-	<a href="#" id="removeFavoriteLink" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>
-	<a href="#" id="addToListLink">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
-}
+<a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "display: none;" : "")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+<a href="#" id="removeFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>
+<a href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
 
-@if (Model.CanEdit) {
-	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink" });
-}
+@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink", @class = (Model.CanEdit ? "" : "disabled") })
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
@@ -125,9 +121,7 @@
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
-					@if (Login.Manager.IsLoggedIn) {
-						<a href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
-	 }				
+					<a href="#" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 				</td>
 			</tr>
 

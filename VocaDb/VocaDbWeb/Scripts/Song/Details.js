@@ -101,11 +101,11 @@ function tabLoaded(songId, event, ui, deleteCommentStr) {
 
 function initPage(songId, saveStr, deleteCommentStr) {
 
-	$("#addFavoriteLink").button({ icons: { primary: 'ui-icon-heart'} });
-	$("#removeFavoriteLink").button({ icons: { primary: 'ui-icon-close'} });
-	$("#addToListLink").button({ icons: { primary: 'ui-icon-star'} });
-	$("#editSongLink").button({ icons: { primary: 'ui-icon-wrench'} });
-	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
+	$("#addFavoriteLink").button({ disabled: $("#addFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
+	$("#removeFavoriteLink").button({ disabled: $("#removeFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-close'} });
+	$("#addToListLink").button({ disabled: $("#addToListLink").hasClass("disabled"), icons: { primary: 'ui-icon-star'} });
+	$("#editSongLink").button({ disabled: $("#editSongLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
+	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);

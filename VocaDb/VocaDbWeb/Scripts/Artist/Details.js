@@ -57,11 +57,11 @@ function saveTagSelections() {
 
 function initPage(artistId, saveStr) {
 
-	$("#addToUserLink").button({ icons: { primary: 'ui-icon-heart'} });
-	$("#removeFromUserLink").button({ icons: { primary: 'ui-icon-close'} });
-	$("#editArtistLink").button({ icons: { primary: 'ui-icon-wrench'} });
+	$("#addToUserLink").button({ disabled: $("#addToUserLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
+	$("#removeFromUserLink").button({ disabled: $("#removeFromUserLink").hasClass("disabled"), icons: { primary: 'ui-icon-close'} });
+	$("#editArtistLink").button({ disabled: $("#editArtistLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
-	$("#editTags").button({ icons: { primary: 'ui-icon-tag'} });
+	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
 		return false;

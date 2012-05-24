@@ -10,14 +10,11 @@
 }
 
 @section Toolbar {
-@if (Login.Manager.IsLoggedIn) {
-<a href="#" id="addAlbumLink" style="@(Model.UserHasAlbum ? "display: none;" : "")">@ViewRes.Album.DetailsStrings.AddToCollection</a>
-<a href="#" id="updateAlbumLink" style="@(Model.UserHasAlbum ? "" : "display: none;")">@ViewRes.Album.DetailsStrings.UpdateCollection</a>
-}
+
+<a href="#" id="addAlbumLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.UserHasAlbum ? "display: none;" : "")">@ViewRes.Album.DetailsStrings.AddToCollection</a>
+<a href="#" id="updateAlbumLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.UserHasAlbum ? "" : "display: none;")">@ViewRes.Album.DetailsStrings.UpdateCollection</a>
 	
-@if (Model.CanEdit) {
-	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editAlbumLink" });
-}
+@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editAlbumLink", @class = (Model.CanEdit ? "" : "disabled") })
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 @Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
@@ -122,9 +119,7 @@
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
-					@if (Login.Manager.IsLoggedIn) {
-						<a href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
-	 }				
+					<a href="#" id="editTags" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.EntryDetailsStrings.EditTags</a>
 				</td>
 			</tr>
 
