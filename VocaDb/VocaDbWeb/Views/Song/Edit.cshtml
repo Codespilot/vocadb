@@ -134,12 +134,12 @@
 
 			<p>Only Youtube and NicoNicoDouga are supported.</p>
 			<p>
-			URL:
-			@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40 })
+				URL:
+				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
 			</p>
 			<p>
 			Type:
-			@Html.EnumDropDownList("pvType_new", Translate.PVTypeDescriptions, new { id = "pvType_new" })
+			@Html.EnumDropDownList("pvType_new", Translate.PVTypeDescriptions, new { id = "pvType_new", @class = "input-xlarge" })
 			</p>
 
 			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
