@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Default" xml:space="preserve">
-    <value>Оригинальное</value>
+    <value>Оригинальный</value>
   </data>
   <data name="English" xml:space="preserve">
-    <value>Английское</value>
+    <value>Английский</value>
   </data>
   <data name="Japanese" xml:space="preserve">
-    <value>Неанглийское</value>
+    <value>Неанглийский</value>
   </data>
   <data name="Romaji" xml:space="preserve">
-    <value>Транслитерированное на английский</value>
+    <value>Транслитерированный (на английский)</value>
   </data>
   <data name="Unspecified" xml:space="preserve">
-    <value>Неопределённое</value>
+    <value>Неопределённый</value>
   </data>
 </root>
