@@ -11,13 +11,18 @@ namespace VocaDb.Model.Service.VideoServices {
 				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/(\d{6,12})")
 			});
 
+		public static readonly VideoService SoundCloud =
+			new VideoServiceSoundCloud(PVService.SoundCloud, null, new[] {
+				new RegexLinkMatcher("soundcloud.com/{0}", @"soundcloud.com/(\S+)"),
+			});
+
 		public static readonly VideoService Youtube =
 			new VideoServiceYoutube(PVService.Youtube, new YoutubeParser(), new[] {
 				new RegexLinkMatcher("youtu.be/{0}", @"youtu.be/(\S{11})"),
 				new RegexLinkMatcher("www.youtube.com/watch?v={0}", @"youtube.com/watch?\S*v=(\S{11})"),
 			});
 
-		private readonly RegexLinkMatcher[] linkMatchers;
+		protected readonly RegexLinkMatcher[] linkMatchers;
 		private readonly IVideoServiceParser parser;
 
 		protected VideoService(PVService service, IVideoServiceParser parser, RegexLinkMatcher[] linkMatchers) {
@@ -26,9 +31,9 @@ namespace VocaDb.Model.Service.VideoServices {
 			this.linkMatchers = linkMatchers;
 		}
 
-		public PVService Service { get; set; }
+		public PVService Service { get; private set; }
 
-		public string GetIdByUrl(string url) {
+		public virtual string GetIdByUrl(string url) {
 
 			var matcher = linkMatchers.FirstOrDefault(m => m.IsMatch(url));
 
@@ -45,14 +50,14 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public string GetUrlById(string id) {
+		public virtual string GetUrlById(string id) {
 
 			var matcher = linkMatchers.First();
 			return "http://" + matcher.MakeLinkFromId(id);
 
 		}
 
-		public VideoTitleParseResult GetVideoTitle(string id) {
+		public virtual VideoTitleParseResult GetVideoTitle(string id) {
 
 			return (parser != null ? parser.GetTitle(id) : null);
 
@@ -68,7 +73,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			return (service == Service);
 		}
 
-		public VideoUrlParseResult ParseByUrl(string url) {
+		public virtual VideoUrlParseResult ParseByUrl(string url) {
 
 			var id = GetIdByUrl(url);
 
@@ -79,7 +84,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public VideoUrlParseResult ParseById(string id) {
+		public virtual VideoUrlParseResult ParseById(string id) {
 
 			var titleResult = GetVideoTitle(id);
 

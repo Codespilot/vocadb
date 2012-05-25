@@ -117,13 +117,20 @@
 
 @helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315) {
 	
-	if (pv.Service == VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga) {
-		<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))"></script>
-	}
+	switch (pv.Service) {
+		case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
+			<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))"></script>
+			break;
 
-	if (pv.Service == VocaDb.Model.Domain.PVs.PVService.Youtube) {
-		<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@pv.PVId?wmode=transparent" frameborder="0" wmode="Opaque" allowfullscreen></iframe>
-	}	
+		case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
+			var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+			<iframe width="@width" height="@height" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2@(scId)&amp;auto_play=false&amp;show_artwork=true&amp;color=ff7700"></iframe>
+			break;
+
+		case VocaDb.Model.Domain.PVs.PVService.Youtube:
+			<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@pv.PVId?wmode=transparent" frameborder="0" wmode="Opaque" allowfullscreen></iframe>
+			break;
+	}
 	
 }
 
@@ -132,7 +139,7 @@
 		if (pv.Service == VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga) {
 		<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
 		}
-		
+
 		if (pv.Service == VocaDb.Model.Domain.PVs.PVService.Youtube) {
 			EmbedPV(pv, width, height);
 		}
@@ -166,9 +173,9 @@
 	
 	<div>
 		@Html.TextBox(prefix + "Name", string.Empty, new { id = prefix + "Name", maxlength = "128" })
-		@if (!string.IsNullOrEmpty(addBtnText))	{
+		@if (!string.IsNullOrEmpty(addBtnText)) {
 			<a href="#" class="textLink addLink" id="@(prefix + "AcceptBtn")">@addBtnText</a>	 
-		}
+  }
 		<br />
 		<div id="@(prefix + "List")"></div>
 	</div>
@@ -314,7 +321,7 @@ break;
 
 @helper Stars(double current, int max) {
 	<span title="@Math.Round(current, 2)">
-		@Stars((int)Math.Round(current), max)
+		@Stars((int)Math.Round(current, MidpointRounding.AwayFromZero), max)
 	</span>
 }
 

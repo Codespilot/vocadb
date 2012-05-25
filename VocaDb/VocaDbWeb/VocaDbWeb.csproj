@@ -1311,6 +1311,7 @@
       <LastGenOutput>HelperStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>HelperRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Helpers\HelperStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Other\PagedListStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Other\PagedListStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
