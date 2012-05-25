@@ -1504,6 +1504,7 @@
       <LastGenOutput>AlbumHelpersStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>HelperRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Helpers\AlbumHelpersStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
