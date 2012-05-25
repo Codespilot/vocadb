@@ -142,7 +142,7 @@
     <value>Управление</value>
   </data>
   <data name="MikuDbAlbum" xml:space="preserve">
-    <value>MikuDbAlbum</value>
+    <value>Альбомы с MikuDB</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Зарегистрироваться</value>
@@ -154,6 +154,6 @@
     <value>У вас есть непрочитанные сообщения</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Привет</value>
+    <value>Привет,</value>
   </data>
 </root>

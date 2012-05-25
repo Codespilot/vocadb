@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="TagNameError" xml:space="preserve">
-    <value>Название метки может содержать только буквы и не должно быть пустым.</value>
+    <value>Название метки может содержать только английские буквы и не должно быть пустым.</value>
   </data>
 </root>
