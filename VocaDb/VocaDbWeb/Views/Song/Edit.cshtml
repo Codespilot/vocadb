@@ -38,7 +38,7 @@
 		<ul>
 			<li><a href="#basicInfoTab">Basic info</a></li>
 			<li><a href="#artistsTab">Artists</a></li>
-			<li><a href="#pvsTab">PVs</a></li>
+			<li><a href="#pvsTab">Media</a></li>
 			<li><a href="#lyricsTab">Lyrics</a></li>
 		</ul>
 
@@ -129,10 +129,11 @@
 	}
 				</tbody>
 			</table>
+			
+			<br />
+			<h4>Add media</h4>
 
-			<h4>Add PV</h4>
-
-			<p>Only Youtube and NicoNicoDouga are supported.</p>
+			<p>Supported services: Youtube, NicoNicoDouga and SoundCloud.</p>
 			<p>
 				URL:
 				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
@@ -176,11 +177,10 @@
 	}
 				</tbody>
 			</table>
-
-			<h4>Add artist</h4>
-			@Helpers.EntrySearchBox("artistAdd", false)
+			
 			<br />
-			<a href="#" id="artistAddAcceptBtn" class="textLink addLink">Add</a>
+			<h4>Add artist</h4>
+			@Helpers.EntrySearchBox("artistAdd", false, "Add")
 		</div>
 
 	</div>

@@ -2,21 +2,21 @@
 @using R = ViewRes.User;
 @model VocaDb.Web.Models.User.Index
 @{
-	ViewBag.Title = "Users";
+	ViewBag.Title = ViewRes.SharedStrings.Users;
 }
 
 @using (Html.BeginForm("Index", "User", FormMethod.Post, new { @class = "form-inline" })) {
 
 	<p>
-		Filter by group: 
+		@ViewRes.SharedStrings.Filter 
 		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups, null, Model.GroupId)
 		
-		<button type="submit" class="btn">Apply</button>
+		<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
 	</p>
 
 }
 
-<p>Entries found: @Model.Users.Length</p>
+<p>@ViewRes.SharedStrings.EntriesFound @Model.Users.Length</p>
 	
 <table class="table table-striped">
 	<thead>
@@ -53,7 +53,7 @@
 			<td>
 				@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.ManageUserPermissions)) {
 					<text>&nbsp;</text>
-					@Html.ActionLink("Edit", "Edit", new { id = user.Id }, new { @class = "textLink editLink" });	
+					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = user.Id }, new { @class = "textLink editLink" });	
 				}
 			</td>
 		</tr>
