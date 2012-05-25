@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Admin" xml:space="preserve">
-    <value>Задания администрирования базы данных</value>
+    <value>Администрирование</value>
   </data>
   <data name="DeleteEntries" xml:space="preserve">
-    <value>Удалить записи</value>
+    <value>Удаление записей</value>
   </data>
   <data name="EditProfile" xml:space="preserve">
-    <value>Редактировать личный профиль</value>
+    <value>Редактирование профилей</value>
   </data>
   <data name="ManageDatabase" xml:space="preserve">
     <value>Управление базой данных</value>
@@ -133,21 +133,21 @@
     <value>Модерация пользователей</value>
   </data>
   <data name="ManageUsers" xml:space="preserve">
-    <value>Управлять всеми пользователями</value>
+    <value>Управление пользователями</value>
   </data>
   <data name="MergeEntries" xml:space="preserve">
-    <value>Объединить записи</value>
+    <value>Объединение записей</value>
   </data>
   <data name="MikuDbImport" xml:space="preserve">
     <value>Импорт из MikuDB</value>
   </data>
   <data name="Nothing" xml:space="preserve">
-    <value>Ничего</value>
+    <value>Нет</value>
   </data>
   <data name="RestoreEntries" xml:space="preserve">
-    <value>Восстановить ревизии</value>
+    <value>Восстановление записей</value>
   </data>
   <data name="ViewAuditLog" xml:space="preserve">
-    <value>Открыть журнал событий</value>
+    <value>Просмотр журнала событий</value>
   </data>
 </root>

@@ -121,37 +121,37 @@
     <value>Меню управления доступом</value>
   </data>
   <data name="Admin" xml:space="preserve">
-    <value>Задания администрирования базы данных</value>
+    <value>Администрирование</value>
   </data>
   <data name="ApproveEntries" xml:space="preserve">
-    <value>Одобрить записи</value>
+    <value>Одобрение записей</value>
   </data>
   <data name="CreateComments" xml:space="preserve">
-    <value>Прокомментировать</value>
+    <value>Комментирование</value>
   </data>
   <data name="DeleteComments" xml:space="preserve">
-    <value>Удалить комментарии</value>
+    <value>Удаление комментариев</value>
   </data>
   <data name="DeleteEntries" xml:space="preserve">
-    <value>Удалить записи</value>
+    <value>Удаление записей</value>
   </data>
   <data name="DesignatedStaff" xml:space="preserve">
     <value>Назначенный участник команды</value>
   </data>
   <data name="DisableUsers" xml:space="preserve">
-    <value>Заблокировать пользователей</value>
+    <value>Блокирование пользователей</value>
   </data>
   <data name="EditFeaturedLists" xml:space="preserve">
     <value>Управление отмеченными списками песен</value>
   </data>
   <data name="EditNews" xml:space="preserve">
-    <value>Управление новостями</value>
+    <value>Редактирование новостей</value>
   </data>
   <data name="EditProfile" xml:space="preserve">
-    <value>Редактировать личный профиль</value>
+    <value>Редактирование профилей</value>
   </data>
   <data name="LockEntries" xml:space="preserve">
-    <value>Заблокировать записи</value>
+    <value>Блокирование записей</value>
   </data>
   <data name="ManageDatabase" xml:space="preserve">
     <value>Управление базой данных</value>
@@ -163,19 +163,19 @@
     <value>Управление правами пользователей</value>
   </data>
   <data name="MergeEntries" xml:space="preserve">
-    <value>Объединить записи</value>
+    <value>Объединение записей</value>
   </data>
   <data name="MikuDbImport" xml:space="preserve">
     <value>Импорт из MikuDB</value>
   </data>
   <data name="Nothing" xml:space="preserve">
-    <value>Ничего</value>
+    <value>Нет</value>
   </data>
   <data name="ReadRecentComments" xml:space="preserve">
-    <value>Читать последние комментарии</value>
+    <value>Просмотр последних комментариев</value>
   </data>
   <data name="RestoreRevisions" xml:space="preserve">
-    <value>Восстановить ревизии</value>
+    <value>Откат к предыдущим версиям</value>
   </data>
   <data name="ViewAuditLog" xml:space="preserve">
     <value>Просмотр журнала событий</value>

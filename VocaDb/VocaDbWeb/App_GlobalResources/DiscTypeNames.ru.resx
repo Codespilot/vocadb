@@ -133,6 +133,9 @@
     <value>Сингл</value>
   </data>
   <data name="Unknown" xml:space="preserve">
-    <value>Не указано</value>
+    <value>Неизвестно</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>Видео</value>
   </data>
 </root>
