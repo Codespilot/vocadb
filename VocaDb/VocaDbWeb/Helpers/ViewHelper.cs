@@ -190,6 +190,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		[Obsolete]
 		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserBaseContract user, int size = 80) {
 
 			if (user != null && !string.IsNullOrEmpty(user.Email))
