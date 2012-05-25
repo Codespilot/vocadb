@@ -222,10 +222,12 @@ namespace VocaDb.Web.Helpers {
 		public static string VideoServiceLinkUrl(this HtmlHelper htmlHelper, PVService service) {
 
 			switch (service) {
-				case PVService.Youtube:
-					return UrlHelper.GenerateContentUrl("~/Content/youtube.png", new HttpContextWrapper(HttpContext.Current));
 				case PVService.NicoNicoDouga:
 					return UrlHelper.GenerateContentUrl("~/Content/nico.png", new HttpContextWrapper(HttpContext.Current));
+				case PVService.SoundCloud:
+					return UrlHelper.GenerateContentUrl("~/Content/Icons/soundcloud.png", new HttpContextWrapper(HttpContext.Current));
+				case PVService.Youtube:
+					return UrlHelper.GenerateContentUrl("~/Content/youtube.png", new HttpContextWrapper(HttpContext.Current));
 				default:
 					return string.Empty;
 			}
