@@ -98,6 +98,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumArchiveReasonNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\AlbumArchiveReasonNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumArchiveReasonNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\AlbumCollectionStatusNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -108,10 +113,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumCollectionStatusNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\AlbumCollectionStatusNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumCollectionStatusNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\AlbumEditableFieldNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumEditableFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\AlbumEditableFieldNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumEditableFieldNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\AlbumMediaTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -123,15 +138,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumMediaTypeNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\AlbumMediaTypeNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumMediaTypeNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ArtistArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistArchiveReasonNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ArtistArchiveReasonNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistArchiveReasonNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ArtistEditableFieldNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistEditableFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\ArtistEditableFieldNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistEditableFieldNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\ArtistRoleNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -143,20 +173,40 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistRoleNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ArtistRoleNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistRoleNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CommonMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\CommonMessages.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommonMessages.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\ContentLanguageSelectionNames.Designer.cs">
       <DependentUpon>ContentLanguageSelectionNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="App_GlobalResources\ContentLanguageSelectionNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContentLanguageSelectionNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\DiscTypeNames.fi.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscTypeNames.fi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\DiscTypeNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiscTypeNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\EntryStatusNames.fi.designer.cs">
       <AutoGen>True</AutoGen>
@@ -168,6 +218,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryStatusNames.ja.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\EntryStatusNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryStatusNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\EntryTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -177,6 +232,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryTypeNames.fi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EntryTypeNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryTypeNames.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PermissionFlagNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PermissionFlagNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\PermissionTokenNames.designer.cs">
       <DependentUpon>PermissionTokenNames.resx</DependentUpon>
@@ -198,10 +263,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PermissionFlagNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\PermissionTokenNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PermissionTokenNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\PVTypeDescriptions.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PVTypeDescriptions.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\PVTypeDescriptions.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PVTypeDescriptions.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\PVTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -213,15 +288,30 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PVTypeNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\PVTypeNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PVTypeNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SongArchiveReasonNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongArchiveReasonNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongArchiveReasonNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongEditableFieldNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SongEditableFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SongEditableFieldNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongEditableFieldNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\SongListFeaturedCategoryNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -233,6 +323,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongListFeaturedCategoryNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongListFeaturedCategoryNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongListFeaturedCategoryNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -243,10 +338,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongTypeNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongTypeNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongTypeNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserEmailOptionsNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\UserEmailOptionsNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserEmailOptionsNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\UserGroupNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -257,6 +362,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserGroupNames.fi.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\UserGroupNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserGroupNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
@@ -522,6 +632,7 @@
     <Content Include="Content\Icons\lock.png" />
     <Content Include="Content\Icons\remove.png" />
     <Content Include="Content\Icons\search.png" />
+    <Content Include="Content\Icons\soundcloud.png" />
     <Content Include="Content\Icons\tick.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
@@ -1285,6 +1396,94 @@
     <Content Include="App_GlobalResources\ArtistRoleNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistRoleNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongListFeaturedCategoryNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongListFeaturedCategoryNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongTypeNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\UserEmailOptionsNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserEmailOptionsNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\UserGroupNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserGroupNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PermissionTokenNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PermissionTokenNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PVTypeDescriptions.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PVTypeDescriptions.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PVTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PVTypeNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongArchiveReasonNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongArchiveReasonNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongEditableFieldNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongEditableFieldNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ArtistRoleNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistRoleNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\CommonMessages.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>CommonMessages.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ContentLanguageSelectionNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ContentLanguageSelectionNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\DiscTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DiscTypeNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EntryStatusNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryStatusNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EntryTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryTypeNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PermissionFlagNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PermissionFlagNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlbumArchiveReasonNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumArchiveReasonNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlbumCollectionStatusNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumCollectionStatusNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlbumEditableFieldNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumEditableFieldNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlbumMediaTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumMediaTypeNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ArtistArchiveReasonNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistArchiveReasonNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ArtistEditableFieldNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistEditableFieldNames.ru.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">
