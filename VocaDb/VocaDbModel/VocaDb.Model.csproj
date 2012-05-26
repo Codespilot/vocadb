@@ -162,6 +162,7 @@
     <Compile Include="DataContracts\Tags\TagUsageContract.cs" />
     <Compile Include="DataContracts\UnifiedCommentContract.cs" />
     <Compile Include="DataContracts\UseCases\AlbumForArtistEditContract.cs" />
+    <Compile Include="DataContracts\UseCases\AllEntriesSearchResult.cs" />
     <Compile Include="DataContracts\UseCases\ArtistSelectionForTrackContract.cs" />
     <Compile Include="DataContracts\UseCases\EntryForPictureDisplayContract.cs" />
     <Compile Include="DataContracts\UseCases\EntryRevertedContract.cs" />
@@ -409,6 +410,7 @@
     <Compile Include="Service\EntryValidators\SongValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\EntryViewMode.cs" />
+    <Compile Include="Service\Helpers\QueryableExtender.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />

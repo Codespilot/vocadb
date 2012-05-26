@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Globalization;
@@ -360,7 +361,7 @@ namespace VocaDb.Model.Service {
 	}
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class PartialFindResult<T> {
+	public class PartialFindResult<T> : IEnumerable<T> {
 
 		public PartialFindResult(T[] items, int totalCount) {
 
@@ -388,6 +389,14 @@ namespace VocaDb.Model.Service {
 
 		[DataMember]
 		public int TotalCount { get; set; }
+
+		IEnumerator IEnumerable.GetEnumerator() {
+			return GetEnumerator();
+		}
+
+		public IEnumerator<T> GetEnumerator() {
+			return Items.Cast<T>().GetEnumerator();
+		}
 
 	}
 
