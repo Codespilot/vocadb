@@ -1041,6 +1041,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PVContract PVForSong(int pvId) {
+
+			return HandleQuery(session => new PVContract(session.Load<PVForSong>(pvId)));
+
+		}
+
 		public void Restore(int songId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);

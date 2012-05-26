@@ -1229,6 +1229,8 @@
     <Content Include="Views\Tag\SongTagUsages.cshtml" />
     <Content Include="Views\Shared\ActivityEntriesPaged.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Shared\PVEmbedDynamic.cshtml" />
+    <Content Include="Views\Shared\PVEmbedNND.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

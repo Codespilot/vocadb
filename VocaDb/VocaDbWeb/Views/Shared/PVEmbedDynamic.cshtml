@@ -1,0 +1,8 @@
+﻿@using VocaDb.Model.Domain.PVs
+@model VocaDb.Model.DataContracts.PVs.PVContract
+
+@if (Model.Service == PVService.NicoNicoDouga) {
+	<iframe width="570" height="325" frameborder="0" scrolling="no" src="@Url.Action("PVEmbedNND", "Song", new { pvId = Model.Id })"></iframe>
+} else {
+	@Helpers.EmbedPV(Model)
+}

@@ -2,13 +2,14 @@
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
+@using R = ViewRes.Song;
 @model SongDetails
 @{
 	
 	if (VocaDb.Model.Helpers.SongHelper.IsAnimation(Model.SongType)) {
 		ViewBag.Title = ViewRes.Song.DetailsStrings.PVDetails + " - " + Model.Name;
 	} else {
-		ViewBag.Title = ViewRes.Song.DetailsStrings.SongDetails + " - " + Model.Name;		
+		ViewBag.Title = ViewRes.Song.DetailsStrings.SongDetails + " - " + Model.Name;
 	}
 	ViewBag.Subtitle = Model.ArtistString;
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
@@ -36,11 +37,13 @@
 	@Helpers.DraftMessage("glsongs")
 }
 
-@if (Model.PrimaryPV != null) {
-	using (Html.BeginPanel()) {
-		@Helpers.EmbedPV(Model.PrimaryPV)
+<div id="pvPlayer">
+	@if (Model.PrimaryPV != null) {
+		using (Html.BeginPanel()) {
+			@Helpers.EmbedPV(Model.PrimaryPV)
+		}
 	}
-}
+</div>
 
 <div id="tabs">
 
@@ -90,7 +93,7 @@
 					@ArtistHelpers.ArtistList(Model.Animators)
 				</td>
 			</tr>
-			}
+   }
 			
 			@if (Model.OtherArtists.Any()) {
 			<tr>
@@ -131,8 +134,15 @@
 				<td>@ViewRes.SharedStrings.Media</td>
 				<td>
 					@foreach (var pv in Model.PVs) {
-						@Helpers.FormatPVLink(pv)<br />
-	 }			
+						<!--@Helpers.FormatPVLink(pv)<br />-->
+						<a href="#" class="pvLink" id="pv_@(pv.Id)">
+							<img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @(!string.IsNullOrEmpty(pv.Name) ? pv.Name : pv.Service.ToString())
+							@("(" + Translate.PVTypeNames[pv.PVType] + ")")
+						</a>
+						@Html.Raw("&nbsp;")
+						@("(")<a href="@pv.Url">@R.DetailsStrings.ViewExternal</a>@(")")
+						<br />
+					}			
 				</td>
 			</tr>
    }

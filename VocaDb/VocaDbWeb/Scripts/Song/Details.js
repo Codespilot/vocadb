@@ -205,4 +205,15 @@ function initPage(songId, saveStr, deleteCommentStr) {
 
 	});
 
+	$(".pvLink").click(function () {
+
+		var id = getId(this);
+		$.post("../../Song/PVForSong", { pvId: id }, function (content) {
+			$("#pvPlayer").html(content);
+		});
+
+		return false;
+
+	});
+
 }
