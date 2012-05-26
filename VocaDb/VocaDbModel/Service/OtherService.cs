@@ -1,6 +1,9 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -9,6 +12,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -17,29 +21,102 @@ namespace VocaDb.Model.Service {
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
-		/*public string[] FindNames(string query) {
+		public string[] FindNames(string query) {
 
 			if (string.IsNullOrWhiteSpace(query))
 				return new string[] {};
 
-			int maxResults = 15;
+			const int maxResults = 15;
 
 			return HandleQuery(session => {
 
-				var artistNames = session.Query<ArtistName>().Where(a => a.Value.Contains(query) 
-					&& !a.Artist.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+				var artistNames = session.Query<ArtistName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Where(a => !a.Artist.Deleted)
+					.Select(n => n.Value)
+					.OrderBy(n => n)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
 
-				var albumNames = session.Query<AlbumName>().Where(a => a.Value.Contains(query)
-					&& !a.Album.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+				var albumNames = session.Query<AlbumName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Where(a => !a.Album.Deleted)
+					.Select(n => n.Value)
+					.OrderBy(n => n)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
 
-				var songNames = session.Query<SongName>().Where(a => a.Value.Contains(query)
-					&& !a.Song.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+				var songNames = session.Query<SongName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Where(a => !a.Song.Deleted)
+					.Select(n => n.Value)
+					.OrderBy(n => n)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
 
-				//var allNames = artistNames.
+				var allNames = artistNames
+					.Concat(albumNames)
+					.Concat(songNames)
+					.OrderBy(n => n)
+					.Distinct();
+
+				return allNames.ToArray();
 
 			});
 
-		}*/
+		}
+
+		public AllEntriesSearchResult Find(string query, int maxResults, bool getTotalCount) {
+
+			if (string.IsNullOrWhiteSpace(query))
+				return new AllEntriesSearchResult();
+
+			return HandleQuery(session => {
+
+				var artists = session.Query<ArtistName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Where(a => !a.Artist.Deleted)
+					.Select(n => n.Artist)
+					.AddNameOrder(LanguagePreference)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
+
+				var albums = session.Query<AlbumName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Where(a => !a.Album.Deleted)
+					.Select(n => n.Album)
+					.AddNameOrder(LanguagePreference)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
+
+				var songs = session.Query<SongName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Where(a => !a.Song.Deleted)
+					.Select(n => n.Song)
+					.AddNameOrder(LanguagePreference)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
+
+				var artistResult = new PartialFindResult<ArtistWithAdditionalNamesContract>(
+					artists.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), 0);
+
+				var albumResult = new PartialFindResult<AlbumWithAdditionalNamesContract>(
+					albums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), 0);
+
+				var songResult = new PartialFindResult<SongWithAdditionalNamesContract>(
+					songs.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), 0);
+
+				return new AllEntriesSearchResult(albumResult, artistResult, songResult);
+
+			});
+
+		}
 
 		public PartialFindResult<ActivityEntryContract> GetActivityEntries(int maxEntries) {
 
