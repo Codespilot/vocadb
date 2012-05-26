@@ -14,34 +14,34 @@
 
 }
 
-@if (Model.Artists.Any()) {
+@if (Model.Artists.Items.Any()) {
 
 	<h3>
 		@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@ArtistHelpers.Artists(Model.Artists)
+	@ArtistHelpers.Artists(Model.Artists.Items)
 	
 }
 
-@if (Model.Albums.Any()) {
+@if (Model.Albums.Items.Any()) {
 
 	<br />
 	<h3>
 		@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@AlbumHelpers.AlbumList(Model.Albums, false, true)
+	@AlbumHelpers.AlbumList(Model.Albums.Items, false, true)
 	
 }
 
-@if (Model.Songs.Any()) {
+@if (Model.Songs.Items.Any()) {
 
 	<br />
 	<h3>
 		@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@SongHelpers.Songs(Model.Songs)
+	@SongHelpers.Songs(Model.Songs.Items)
 	
 }
