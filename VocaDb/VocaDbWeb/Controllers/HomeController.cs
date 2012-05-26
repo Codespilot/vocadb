@@ -35,6 +35,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Search(string filter) {
 
+			filter = filter ?? string.Empty;
 			var result = Services.Other.Find(filter, 15, true);
 			var model = new SearchEntries(filter, result.Albums, result.Artists, result.Songs);
 

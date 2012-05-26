@@ -363,6 +363,10 @@ namespace VocaDb.Model.Service {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PartialFindResult<T> : IEnumerable<T> {
 
+		public PartialFindResult() { 
+			Items = new T[] {};
+		} 
+
 		public PartialFindResult(T[] items, int totalCount) {
 
 			Items = items;
