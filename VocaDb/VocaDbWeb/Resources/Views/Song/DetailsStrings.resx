@@ -165,4 +165,7 @@
   <data name="Vocalists" xml:space="preserve">
     <value>Vocalists</value>
   </data>
+  <data name="ViewExternal" xml:space="preserve">
+    <value>View on external site</value>
+  </data>
 </root>

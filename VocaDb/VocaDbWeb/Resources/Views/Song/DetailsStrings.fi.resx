@@ -165,4 +165,7 @@
   <data name="Vocalists" xml:space="preserve">
     <value>Laulajat</value>
   </data>
+  <data name="ViewExternal" xml:space="preserve">
+    <value>Katso ulkopuolisella sivustolla</value>
+  </data>
 </root>

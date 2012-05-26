@@ -196,6 +196,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to View on external site.
+        /// </summary>
+        public static string ViewExternal {
+            get {
+                return ResourceManager.GetString("ViewExternal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vocalists.
         /// </summary>
         public static string Vocalists {

@@ -71,7 +71,7 @@
 			<li><a href="#basicInfoTab">Basic info</a></li>
 			<li><a href="#artistsTab">Artists</a></li>
 			<li><a href="#tracksTab">Tracks</a></li>
-			<li><a href="#pvsTab">Videos</a></li>
+			<li><a href="#pvsTab">Media</a></li>
 		</ul>
 
 		<div id="basicInfoTab">
@@ -125,7 +125,7 @@
 						@Html.LabelFor(m => m.ReleaseYear)
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10", maxlength = 4 })<br />
+						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10", maxlength = 4, @class = "input-small" })<br />
 						@Html.ValidationMessageFor(m => m.ReleaseYear)
 					</div>				
 				</td>
@@ -134,7 +134,7 @@
 						@Html.LabelFor(m => m.ReleaseMonth)
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4", maxlength = 2 })<br />
+						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
 						@Html.ValidationMessageFor(m => m.ReleaseMonth)
 					</div>				
 				</td>
@@ -143,7 +143,7 @@
 						@Html.LabelFor(m => m.ReleaseDay)
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4", maxlength = 2 })<br />
+						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
 						@Html.ValidationMessageFor(m => m.ReleaseDay)
 					</div>				
 				</td>
@@ -249,7 +249,9 @@
 				</tbody>
 			</table>
 
-			<p>Only Youtube and NicoNicoDouga are supported.</p>
+			<br />
+			<h4>Add media</h4>
+			<p>Supported services: Youtube, NicoNicoDouga and SoundCloud.</p>
 			<p>
 			URL:
 			@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })

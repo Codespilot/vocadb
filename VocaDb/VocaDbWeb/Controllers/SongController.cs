@@ -334,6 +334,20 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public PartialViewResult PVForSong(int pvId) {
+
+			var pv = Service.PVForSong(pvId);
+			return PartialView("PVEmbedDynamic", pv);
+
+		}
+
+		public PartialViewResult PVEmbedNND(int pvId) {
+
+			var pv = Service.PVForSong(pvId);
+			return PartialView("PVEmbedNND", pv);
+
+		}
+
 		public ActionResult Restore(int id) {
 
 			Service.Restore(id);
