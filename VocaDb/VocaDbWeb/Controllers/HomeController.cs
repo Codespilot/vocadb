@@ -7,9 +7,9 @@ namespace VocaDb.Web.Controllers
     public class HomeController : ControllerBase
     {
 
-		public ActionResult FindNames(string filter) {
+		public ActionResult FindNames(string term) {
 
-			var result = Services.Other.FindNames(filter);
+			var result = Services.Other.FindNames(term);
 
 			return Json(result);
 
