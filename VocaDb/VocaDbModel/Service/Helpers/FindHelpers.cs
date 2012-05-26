@@ -41,7 +41,7 @@ namespace VocaDb.Model.Service.Helpers {
 				case ContentLanguagePreference.English:
 					return criteria.OrderBy(e => e.Names.SortNames.English);
 				default:
-					return criteria.OrderBy(e => e.Names.SortNames.Japanese);
+					return criteria.OrderBy(e => e.Names.SortNames.Romaji);
 			}
 
 		}
@@ -55,7 +55,7 @@ namespace VocaDb.Model.Service.Helpers {
 				case ContentLanguagePreference.English:
 					return criteria.OrderBy(e => e.Names.SortNames.English).Asc;
 				default:
-					return criteria.OrderBy(e => e.Names.SortNames.Japanese).Asc;
+					return criteria.OrderBy(e => e.Names.SortNames.Romaji).Asc;
 			}
 
 		}

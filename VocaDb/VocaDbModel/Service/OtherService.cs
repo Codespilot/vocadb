@@ -76,7 +76,8 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var artists = session.Query<ArtistName>()
+				var artists = 
+					session.Query<ArtistName>()
 					.AddEntryNameFilter(query, NameMatchMode.Auto)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
@@ -85,7 +86,14 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
-				var albums = session.Query<AlbumName>()
+				var artistCount = (getTotalCount ?
+					session.Query<ArtistName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Count(a => !a.Artist.Deleted) 
+					: 0);
+
+				var albums = 
+					session.Query<AlbumName>()
 					.AddEntryNameFilter(query, NameMatchMode.Auto)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Album)
@@ -94,7 +102,14 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
-				var songs = session.Query<SongName>()
+				var albumCount = (getTotalCount ?
+					session.Query<AlbumName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Count(a => !a.Album.Deleted)
+					: 0);
+
+				var songs = 
+					session.Query<SongName>()
 					.AddEntryNameFilter(query, NameMatchMode.Auto)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Song)
@@ -103,14 +118,20 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
+				var songCount = (getTotalCount ?
+					session.Query<SongName>()
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.Count(a => !a.Song.Deleted)
+					: 0);
+
 				var artistResult = new PartialFindResult<ArtistWithAdditionalNamesContract>(
-					artists.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), 0);
+					artists.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), artistCount);
 
 				var albumResult = new PartialFindResult<AlbumWithAdditionalNamesContract>(
-					albums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), 0);
+					albums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), albumCount);
 
 				var songResult = new PartialFindResult<SongWithAdditionalNamesContract>(
-					songs.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), 0);
+					songs.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), songCount);
 
 				return new AllEntriesSearchResult(albumResult, artistResult, songResult);
 

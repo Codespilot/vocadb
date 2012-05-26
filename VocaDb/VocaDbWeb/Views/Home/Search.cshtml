@@ -1,7 +1,7 @@
 ﻿@model VocaDb.Web.Models.Home.SearchEntries
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = ViewRes.MiscStrings.Search;
 }
 
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "form-inline" })) {
@@ -17,7 +17,7 @@
 @if (Model.Artists.Items.Any()) {
 
 	<h3>
-		@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist", new { filter = Model.Filter }, null)
+		@Html.ActionLink(ViewRes.SharedStrings.Artists + " (" + Model.Artists.TotalCount + ")", "Index", "Artist", new { filter = Model.Filter }, null)
 	</h3>
 	
 	@ArtistHelpers.Artists(Model.Artists.Items)
@@ -28,7 +28,7 @@
 
 	<br />
 	<h3>
-		@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album", new { filter = Model.Filter }, null)
+		@Html.ActionLink(ViewRes.SharedStrings.Albums + " (" + Model.Albums.TotalCount + ")", "Index", "Album", new { filter = Model.Filter }, null)
 	</h3>
 	
 	@AlbumHelpers.AlbumList(Model.Albums.Items, false, true)
@@ -39,7 +39,7 @@
 
 	<br />
 	<h3>
-		@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song", new { filter = Model.Filter }, null)
+		@Html.ActionLink(ViewRes.SharedStrings.Songs + " (" + Model.Songs.TotalCount + ")", "Index", "Song", new { filter = Model.Filter }, null)
 	</h3>
 	
 	@SongHelpers.Songs(Model.Songs.Items)

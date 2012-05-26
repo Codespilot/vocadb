@@ -129,6 +129,9 @@
   <data name="FavoritedTimes" xml:space="preserve">
     <value>times</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
   <data name="SongCount" xml:space="preserve">
     <value>song(s)</value>
   </data>
