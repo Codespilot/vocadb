@@ -112,6 +112,7 @@ namespace VocaDb.Web {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
 
+			routes.MapRoute("Search", "Search/{filter}", new { controller = "Home", action = "Search" });
 			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters
