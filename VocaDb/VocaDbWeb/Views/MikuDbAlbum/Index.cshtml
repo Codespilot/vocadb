@@ -22,7 +22,7 @@
 	<p>Download one album from MikuDB: </p>
 	@Html.TextBox("AlbumUrl", null, new { size = 30, maxlength = 255 })
 	
-	<input type="submit" value="Download" />
+	<button type="submit" class="btn">Download</button>
 	
 }
 	
@@ -32,14 +32,14 @@
 	Status:
 	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses))
 	&nbsp;
-	<input type="submit" value="Apply" />
+	<button type="submit" class="btn">Apply</button>
 </p>
 
 }
 
 @using (Html.BeginForm("PrepareForImport", "MikuDbAlbum")) {
 	
-	<input type="submit" value="Import selected" />
+	<button type="submit" class="btn">Import selected</button>
 		
 	<table>
 		<tr>
