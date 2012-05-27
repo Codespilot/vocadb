@@ -23,12 +23,13 @@ namespace VocaDb.Web.Models {
 		public ArtistIndex() {}
 
 		public ArtistIndex(PartialFindResult<ArtistWithAdditionalNamesContract> result, string filter,
-			ArtistType artistType, bool? draftsOnly, int? page) {
+			ArtistType artistType, bool? draftsOnly, ArtistSortRule sort, int? page) {
 
-			Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items.OrderBy(a => a.Name), page ?? 1, 30, result.TotalCount);
+			Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items, page ?? 1, 30, result.TotalCount);
 			DraftsOnly = draftsOnly ?? false;
 			Filter = filter;
 			ArtistType = artistType;
+			Sort = sort;
 
 			FilterableArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
 
@@ -44,6 +45,8 @@ namespace VocaDb.Web.Models {
 		public string Filter { get; set; }
 
 		public Dictionary<ArtistType, string> FilterableArtistTypes { get; set; }
+
+		public ArtistSortRule Sort { get; set; }
 
 	}
 

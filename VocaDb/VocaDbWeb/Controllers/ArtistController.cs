@@ -88,17 +88,18 @@ namespace VocaDb.Web.Controllers
 
         //
         // GET: /Artist/
-		public ActionResult Index(string filter, ArtistType? artistType, bool? draftsOnly, int? page) {
+		public ActionResult Index(string filter, ArtistType? artistType, bool? draftsOnly, ArtistSortRule? sort, int? page) {
 
+			var sortRule = sort ?? ArtistSortRule.Name;
 			var result = Service.FindArtists(filter, 
 				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
-				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, false);
+				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
-			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, draftsOnly, page);
+			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, draftsOnly, sortRule, page);
 
 			return View(model);
 
@@ -180,7 +181,7 @@ namespace VocaDb.Web.Controllers
 				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
 				: new ArtistType[] {};
 
-			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, true);
+			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
 
 			return Json(albums);
 

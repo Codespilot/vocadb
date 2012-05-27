@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using VocaDb.Model.Domain.Globalization;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -31,10 +32,36 @@ namespace VocaDb.Model.Service {
 		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
 // ReSharper restore UnusedMember.Local
 
+		private IQueryable<Artist> AddOrder(IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
+
+			switch (sortRule) {
+				case ArtistSortRule.Name:
+					return FindHelpers.AddNameOrder(criteria, languagePreference);
+				case ArtistSortRule.AdditionDate:
+					return criteria.OrderByDescending(a => a.CreateDate);
+			}
+
+			return criteria;
+
+		}
+
+		private IQueryOver<Artist, Artist> AddOrder(IQueryOver<Artist, Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
+
+			switch (sortRule) {
+				case ArtistSortRule.Name:
+					return FindHelpers.AddNameOrder(criteria, languagePreference);
+				case ArtistSortRule.AdditionDate:
+					return criteria.OrderBy(a => a.CreateDate).Desc;
+			}
+
+			return criteria;
+
+		}
+
 		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
 			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults,
 			bool draftsOnly, bool getTotalCount, 
-			NameMatchMode nameMatchMode = NameMatchMode.Auto, bool moveExactToTop = false) {
+			NameMatchMode nameMatchMode, ArtistSortRule sortRule, bool moveExactToTop) {
 
 			string originalQuery = query;
 
@@ -54,7 +81,7 @@ namespace VocaDb.Model.Service {
 				if (filterByArtistType)
 					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
 
-				q = FindHelpers.AddNameOrder(q, PermissionContext.LanguagePreference);
+				q = AddOrder(q, sortRule, PermissionContext.LanguagePreference);
 
 				var artists = q
 					.TransformUsing(new DistinctRootEntityResultTransformer())
@@ -87,7 +114,7 @@ namespace VocaDb.Model.Service {
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
 				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
-				directQ = FindHelpers.AddNameOrder(directQ, PermissionContext.LanguagePreference);	
+				directQ = AddOrder(directQ, sortRule, PermissionContext.LanguagePreference);	
 
 				var direct = directQ
 					.Take(maxResults)
@@ -113,8 +140,8 @@ namespace VocaDb.Model.Service {
 				if (artistTypes.Any())
 					additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
 
-				var additionalNames = FindHelpers.AddNameOrder(additionalNamesQ
-					.Select(m => m.Artist), PermissionContext.LanguagePreference)
+				var additionalNames = AddOrder(additionalNamesQ
+					.Select(m => m.Artist), sortRule, PermissionContext.LanguagePreference)
 					.Distinct()
 					.Take(maxResults)
 					//.FetchMany(s => s.Names)
@@ -401,9 +428,10 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, 
-			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, bool moveExactToTop) {
+			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, ArtistSortRule sortRule, bool moveExactToTop) {
 
-			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, draftsOnly, getTotalCount, nameMatchMode, moveExactToTop));
+			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, draftsOnly, 
+				getTotalCount, nameMatchMode, sortRule, moveExactToTop));
 
 		}
 
@@ -413,7 +441,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = FindArtists(session, q, new ArtistType[] {}, 0, 1, false, false, NameMatchMode.Exact);
+					var result = FindArtists(session, q, new ArtistType[] {}, 0, 1, false, false, NameMatchMode.Exact, ArtistSortRule.Name, true);
 
 					if (result.Items.Any())
 						return result.Items.First();
@@ -998,5 +1026,14 @@ namespace VocaDb.Model.Service {
 
 	}
 
+	public enum ArtistSortRule {
+
+		None,
+
+		Name,
+
+		AdditionDate
+
+	}
 
 }
