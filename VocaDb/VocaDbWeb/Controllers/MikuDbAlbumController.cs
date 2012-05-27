@@ -44,7 +44,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult PrepareForImport(int id) {
 
-			var result = Service.Inspect(new[] { id });
+			var result = Service.Inspect(new[] { new ImportedAlbumOptions(id) });
 
 			return View("PrepareForImport", new PrepareAlbumsForImport(result));
 
@@ -54,7 +54,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult PrepareForImport(IEnumerable<MikuDbAlbumContract> albums) {
 
-			var selectedIds = (albums != null ? albums.Where(a => a.Selected).Select(a => a.Id).ToArray() : new int[] {});
+			var selectedIds = (albums != null ? albums.Where(a => a.Selected).Select(a => new ImportedAlbumOptions(a.Id)).ToArray() : new ImportedAlbumOptions[] {});
 			var result = Service.Inspect(selectedIds);
 
 			return View("PrepareForImport", new PrepareAlbumsForImport(result));
@@ -82,9 +82,18 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
-		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums, IEnumerable<InspectedTrack> Tracks) {
+		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums, IEnumerable<InspectedTrack> Tracks, string commit) {
 
-			var ids = albums.Select(a => a.ImportedAlbum.Id).ToArray();
+			if (commit != "Accept") {
+
+				var options = albums.Select(a => new ImportedAlbumOptions(a)).ToArray();
+				var inspectResult = Service.Inspect(options);
+
+				return View("PrepareForImport", new PrepareAlbumsForImport(inspectResult));
+
+			}
+
+			var ids = albums.Select(a => new ImportedAlbumOptions(a)).ToArray();
 			var selectedSongIds = (Tracks != null ? Tracks.Where(t => t.Selected).Select(t => t.ExistingSong.Id).ToArray() : new int[] {});
 
 			var result = Service.AcceptImportedAlbums(ids, selectedSongIds);

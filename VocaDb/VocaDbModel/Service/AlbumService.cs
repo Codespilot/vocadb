@@ -134,7 +134,6 @@ namespace VocaDb.Model.Service {
 				}
 
 				var direct = AddOrder(directQ, sortRule, LanguagePreference)
-					.OrderBy(s => s.Names.SortNames.Romaji)
 					.Take(maxResults)
 					.ToArray();
 

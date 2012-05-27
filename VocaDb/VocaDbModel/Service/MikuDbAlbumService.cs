@@ -30,7 +30,7 @@ namespace VocaDb.Model.Service {
 			Album album;
 			var diff = new AlbumDiff();
 
-			if (acceptedAlbum.ExistingAlbum == null) {
+			if (acceptedAlbum.MergedAlbum == null) {
 
 				album = new Album(acceptedAlbum.ImportedAlbum.Title);
 				album.DiscType = DiscType.Unknown;
@@ -38,7 +38,7 @@ namespace VocaDb.Model.Service {
 				session.Save(album);
 
 			} else {
-				album = session.Load<Album>(acceptedAlbum.ExistingAlbum.Id);
+				album = session.Load<Album>(acceptedAlbum.MergedAlbum.Id);
 			}
 
 			foreach (var inspectedArtist in acceptedAlbum.Artists.Where(a => a.ExistingArtist != null)) {
@@ -113,38 +113,26 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private Album FindAlbum(ISession session, MikuDbAlbum imported) {
+		private Album[] FindAlbums(ISession session, MikuDbAlbum imported) {
 
-			Album albumMatch = null;
-			var webLinkMatch = session.Query<AlbumWebLink>().FirstOrDefault(w => w.Url == imported.SourceUrl);
+			var webLinkMatches = session.Query<AlbumWebLink>()
+				.Where(w => w.Url == imported.SourceUrl)
+				.Select(w => w.Album)
+				.ToArray();
 
-			if (webLinkMatch == null) {
+			var nameMatchDirect = session.Query<Album>()
+				.Where(s => !s.Deleted
+				&& ((s.Names.SortNames.English == imported.Title)
+					|| (s.Names.SortNames.Romaji == imported.Title)
+					|| (s.Names.SortNames.Japanese == imported.Title)))
+				.ToArray();
 
-				var nameMatchDirect = session.Query<Album>()
-					.Where(s => !s.Deleted
-					&& ((s.Names.SortNames.English == imported.Title)
-						|| (s.Names.SortNames.Romaji == imported.Title)
-						|| (s.Names.SortNames.Japanese == imported.Title)))
-					.FirstOrDefault();
+			var nameMatchAdditional = session.Query<AlbumName>()
+				.Where(m => !m.Album.Deleted && m.Value == imported.Title)
+				.Select(a => a.Album)
+				.ToArray();
 
-				if (nameMatchDirect != null) {
-					albumMatch = nameMatchDirect;
-				} else {
-
-					var nameMatchAdditional = session.Query<AlbumName>()
-						.Where(m => !m.Album.Deleted && m.Value == imported.Title)
-						.FirstOrDefault();
-
-					if (nameMatchAdditional != null)
-						albumMatch = nameMatchAdditional.Album;
-
-				}
-
-			} else {
-				albumMatch = webLinkMatch.Album;
-			}
-
-			return albumMatch;
+			return webLinkMatches.Union(nameMatchDirect).Union(nameMatchAdditional).ToArray();
 
 		}
 
@@ -210,17 +198,31 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private InspectedAlbum[] Inspect(ISession session, int[] importedAlbumIds) {
+		private InspectedAlbum[] Inspect(ISession session, ImportedAlbumOptions[] importedAlbumIds) {
 
-			var importedAlbums = session.Query<MikuDbAlbum>().Where(a => importedAlbumIds.Contains(a.Id)).ToArray();
+			var ids = importedAlbumIds.Select(i => i.ImportedDbAlbumId).ToArray();
+			var importedAlbums = session.Query<MikuDbAlbum>().Where(a => ids.Contains(a.Id)).ToArray();
 
-			return importedAlbums.Select(s => Inspect(session, s)).ToArray();
+			return importedAlbums.Select(s => Inspect(session, s, importedAlbumIds.First(a => a.ImportedDbAlbumId == s.Id).MergedAlbumId)).ToArray();
 
 		}
 
-		private InspectedAlbum Inspect(ISession session, MikuDbAlbum imported) {
+		private InspectedAlbum Inspect(ISession session, MikuDbAlbum imported, int? mergedAlbumId) {
 
-			var albumMatch = FindAlbum(session, imported);
+			Album albumMatch;
+			var foundAlbums = FindAlbums(session, imported);
+			switch (mergedAlbumId) {
+				case null:
+					albumMatch = foundAlbums.FirstOrDefault();
+					break;
+				case 0:
+					albumMatch = null;
+					break;
+				default:
+					albumMatch = session.Load<Album>(mergedAlbumId);
+					//foundAlbums = foundAlbums.Union(new[] { albumMatch }).ToArray();
+					break;
+			}
 
 			var importedContract = new MikuDbAlbumContract(imported);
 			var data = importedContract.Data;
@@ -239,8 +241,13 @@ namespace VocaDb.Model.Service {
 
 			var result = new InspectedAlbum(importedContract);
 
-			if (albumMatch != null)
-				result.ExistingAlbum = new AlbumWithAdditionalNamesContract(albumMatch, PermissionContext.LanguagePreference);
+			if (albumMatch != null) {
+				result.MergedAlbum = new AlbumWithAdditionalNamesContract(albumMatch, PermissionContext.LanguagePreference);
+				result.MergedAlbumId = albumMatch.Id;
+			}
+
+			result.ExistingAlbums = foundAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+				.Concat(new[] { new AlbumWithAdditionalNamesContract { Name = "Nothing" } }).ToArray();
 
 			result.Artists = artists.Select(a => a.InspectedArtist).ToArray();
 			result.Tracks = tracks;
@@ -274,7 +281,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumContract[] AcceptImportedAlbums(int[] importedAlbumIds, int[] selectedSongIds) {
+		public AlbumContract[] AcceptImportedAlbums(ImportedAlbumOptions[] importedAlbumIds, int[] selectedSongIds) {
 
 			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
 
@@ -384,9 +391,9 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		} 
+		}
 
-		public InspectedAlbum[] Inspect(int[] importedAlbumIds) {
+		public InspectedAlbum[] Inspect(ImportedAlbumOptions[] importedAlbumIds) {
 
 			ParamIs.NotNull(() => importedAlbumIds);
 

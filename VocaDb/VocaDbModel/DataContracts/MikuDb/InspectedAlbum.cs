@@ -17,9 +17,13 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public InspectedArtist[] Artists { get; set; }
 
-		public AlbumWithAdditionalNamesContract ExistingAlbum { get; set; }
+		public AlbumWithAdditionalNamesContract[] ExistingAlbums { get; set; }
 
 		public MikuDbAlbumContract ImportedAlbum { get; set; }
+
+		public AlbumWithAdditionalNamesContract MergedAlbum { get; set; }
+
+		public int? MergedAlbumId { get; set; }
 
 		public InspectedTrack[] Tracks { get; set; }
 
