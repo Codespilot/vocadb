@@ -35,7 +35,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, true, nameMatchMode, true);
+			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, true, nameMatchMode, ArtistSortRule.Name, true);
 
 		}
 
@@ -73,7 +73,7 @@ namespace VocaDb.Web.Services {
 		public ArtistDetailsContract GetArtistDetails(string term) {
 
 			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 10, 
-				false, false, NameMatchMode.Auto, true);
+				false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
 
 			if (!artists.Items.Any())
 				return null;
