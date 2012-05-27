@@ -12,8 +12,11 @@
 				<img src="@Url.Action("CoverPicture", new { id = Model.ImportedAlbum.Id })" alt="Cover picture" class="coverPic" />			
 				<p>
 					Existing album:<br /> 
-					@if (Model.ExistingAlbum != null) { 
-						<span>@Html.ActionLink(Model.ExistingAlbum.Name, "Details", "Album", new { id = Model.ExistingAlbum.Id }, new { title = Model.ExistingAlbum.AdditionalNames })</span> 
+					@Html.DropDownListFor(m => m.MergedAlbumId, new SelectList(Model.ExistingAlbums, "Id", "Name", Model.MergedAlbumId))
+					<button type="submit" name="commit" value="No">Update</button>
+					<br />
+					@if (Model.MergedAlbum != null) { 
+						<span>@Html.ActionLink(Model.MergedAlbum.Name, "Details", "Album", new { id = Model.MergedAlbum.Id }, new { title = Model.MergedAlbum.AdditionalNames })</span> 
 					} else {
 						<span>(no match)</span>
 					}
