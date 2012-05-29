@@ -36,7 +36,7 @@
 	</a>		
 }
 
-@helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs) {
+@helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs, bool songType = false) {
 	
 	<table>
 		@foreach (var song in songs) {
@@ -50,6 +50,7 @@
 			</td>
 			<td>
 				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+				(@Translate.SongTypeNames[song.SongType])
 				<br />
 				<span class="extraInfo">@song.ArtistString</span>
 			</td>

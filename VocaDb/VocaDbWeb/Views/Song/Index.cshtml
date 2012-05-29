@@ -62,7 +62,7 @@
 				</td>
 				<td>
 					@Helpers.DraftIcon(song.Status)
-					@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@song.SongType)<br />
+					@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@Translate.SongTypeNames[song.SongType])<br />
 					<span class="extraInfo">@song.ArtistString</span>
 				</td>
 				<td>

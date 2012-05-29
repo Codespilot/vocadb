@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "form-inline" })) {
 	
 	<p>
-		@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+		@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30, id = "searchBox" }) 
 		&nbsp;
 		<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
 	</p>
@@ -20,7 +20,7 @@
 		@Html.ActionLink(ViewRes.SharedStrings.Artists + " (" + Model.Artists.TotalCount + ")", "Index", "Artist", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@ArtistHelpers.Artists(Model.Artists.Items)
+	@ArtistHelpers.Artists(Model.Artists.Items, true)
 	
 }
 
@@ -31,7 +31,7 @@
 		@Html.ActionLink(ViewRes.SharedStrings.Albums + " (" + Model.Albums.TotalCount + ")", "Index", "Album", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@AlbumHelpers.AlbumList(Model.Albums.Items, false, true)
+	@AlbumHelpers.AlbumList(Model.Albums.Items, false, true, true)
 	
 }
 
@@ -42,6 +42,25 @@
 		@Html.ActionLink(ViewRes.SharedStrings.Songs + " (" + Model.Songs.TotalCount + ")", "Index", "Song", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@SongHelpers.Songs(Model.Songs.Items)
+	@SongHelpers.Songs(Model.Songs.Items, true)
 	
+}
+
+@if (!Model.Albums.Items.Any() && !Model.Artists.Items.Any() && !Model.Songs.Items.Any()) {
+
+	<p>@ViewRes.EntryIndexStrings.NoResults</p>
+	@Helpers.GoogleSiteSearch()
+
+}
+
+@section BodyScripts {
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		
+		$("#searchBox").autocomplete({ source: "@Url.Action("FindNames")" });
+
+	});
+
+</script>
 }

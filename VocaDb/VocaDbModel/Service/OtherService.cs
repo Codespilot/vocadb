@@ -26,7 +26,7 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrWhiteSpace(query))
 				return new string[] {};
 
-			const int maxResults = 15;
+			const int maxResults = 10;
 
 			return HandleQuery(session => {
 
@@ -60,8 +60,9 @@ namespace VocaDb.Model.Service {
 				var allNames = artistNames
 					.Concat(albumNames)
 					.Concat(songNames)
+					.Distinct()
 					.OrderBy(n => n)
-					.Distinct();
+					.Take(maxResults);
 
 				return allNames.ToArray();
 
