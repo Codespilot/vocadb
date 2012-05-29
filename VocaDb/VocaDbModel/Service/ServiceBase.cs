@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Globalization;
@@ -181,7 +181,7 @@ namespace VocaDb.Model.Service {
 			}
 
 		}
-
+		
 		protected T HandleTransaction<T>(Func<ISession, T> func, string failMsg = "Unexpected NHibernate error") {
 
 			try {
@@ -200,11 +200,46 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected T HandleTransaction<T>(Func<ISession, T> func, IsolationLevel isolationLevel, string failMsg = "Unexpected NHibernate error") {
+
+			try {
+				using (var session = OpenSession())
+				using (var tx = session.BeginTransaction(isolationLevel)) {
+
+					var val = func(session);
+					tx.Commit();
+					return val;
+
+				}
+			} catch (HibernateException x) {
+				log.Error(failMsg, x);
+				throw;
+			}
+
+		}
+
 		protected void HandleTransaction(Action<ISession> func, string failMsg = "Unexpected NHibernate error") {
 
 			try {
 				using (var session = OpenSession())
 				using (var tx = session.BeginTransaction()) {
+
+					func(session);
+					tx.Commit();
+
+				}
+			} catch (HibernateException x) {
+				log.Error(failMsg, x);
+				throw;
+			}
+
+		}
+
+		protected void HandleTransaction(Action<ISession> func, IsolationLevel isolationLevel, string failMsg = "Unexpected NHibernate error") {
+
+			try {
+				using (var session = OpenSession())
+				using (var tx = session.BeginTransaction(isolationLevel)) {
 
 					func(session);
 					tx.Commit();

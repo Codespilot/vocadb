@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Artists;
+﻿using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using System.Drawing;
-using VocaDb.Model.Helpers;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.DataContracts.Albums;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 

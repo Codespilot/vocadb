@@ -40,7 +40,7 @@ namespace VocaDb.Web.Controllers {
 
 			ParamIs.NotNull(() => contract);
 
-			Response.Cache.SetETag(string.Format("Artist{0}{1}v{2}", contract.EntryType, contract.EntryId, contract.Version));
+			Response.Cache.SetETag(string.Format("{0}{1}v{2}", contract.EntryType, contract.EntryId, contract.Version));
 
 			return Picture(contract.Picture, contract.Name);
 

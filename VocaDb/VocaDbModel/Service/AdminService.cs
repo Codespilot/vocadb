@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using NHibernate;
@@ -130,7 +131,7 @@ namespace VocaDb.Model.Service {
 
 		public AuditLogEntryContract[] GetAuditLog() {
 
-			return HandleQuery(session => {
+			return HandleTransaction(session => {
 
 				var entries = session.Query<AuditLogEntry>()
 					.OrderByDescending(e => e.Time)
@@ -141,7 +142,7 @@ namespace VocaDb.Model.Service {
 
 				return entries;
 
-			});
+			}, IsolationLevel.ReadUncommitted);
 
 		}
 
