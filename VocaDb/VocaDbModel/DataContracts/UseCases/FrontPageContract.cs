@@ -12,6 +12,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class FrontPageContract {
 
+		public FrontPageContract() { }
+
 		public FrontPageContract(IEnumerable<ActivityEntry> activityEntries, IEnumerable<NewsEntry> newsEntries,
 			IEnumerable<Album> newAlbums, IEnumerable<Album> topAlbums, IEnumerable<Song> newSongs,
 			ContentLanguagePreference languagePreference) {

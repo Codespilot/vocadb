@@ -8,7 +8,7 @@ function initPage(songId) {
 	initEntrySearch(songName, songList, "Song", "../../Song/FindJsonByName",
 		{
 			idElem: songIdBox,
-			createOptionFirstRow: function (item) { return item.Name; },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },
 			extraQueryParams: { ignoredIds: JSON.stringify(songId) }

@@ -9,10 +9,10 @@ namespace VocaDb.Model.Domain {
 			if (ReferenceEquals(p1, null) && ReferenceEquals(p2, null))
 				return true;
 
-			if (!ReferenceEquals(p1, null))
-				return p1.Equals(p2);
-			else
-				return p2.Equals(p1);
+			if (ReferenceEquals(p1, null) || ReferenceEquals(p2, null))
+				return false;
+
+			return p1.Equals(p2);
 
 		}
 
@@ -85,6 +85,18 @@ namespace VocaDb.Model.Domain {
 		}
 
 		public virtual int? Month { get; set; }
+
+		/// <summary>
+		/// Sortable datetime for database (not currently in use).
+		/// </summary>
+		public virtual DateTime SortableDateTime {
+			get {
+				return new DateTime(Year ?? 1970, Month ?? 1, Day ?? 1);
+			}
+// ReSharper disable ValueParameterNotUsed
+			protected set { }
+// ReSharper restore ValueParameterNotUsed
+		}
 
 		public virtual int? Year { get; set; }
 

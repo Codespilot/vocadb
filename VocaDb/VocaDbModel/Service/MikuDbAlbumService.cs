@@ -310,10 +310,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public MikuDbAlbumContract[] GetAlbums(AlbumStatus status) {
+		public MikuDbAlbumContract[] GetAlbums(AlbumStatus status, int start, int maxEntries) {
 
-			return HandleQuery(session => session.Query<MikuDbAlbum>()
+			return HandleQuery(session => session
+				.Query<MikuDbAlbum>()
 				.Where(a => a.Status == status)
+				.OrderByDescending(a => a.Created)
+				.Skip(start)
+				.Take(maxEntries)
+				.ToArray()
 				.Select(a => new MikuDbAlbumContract(a))
 				.ToArray());
 

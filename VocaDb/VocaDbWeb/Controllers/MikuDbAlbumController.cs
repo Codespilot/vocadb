@@ -10,7 +10,7 @@ using VocaDb.Web.Models.MikuDbAlbums;
 
 namespace VocaDb.Web.Controllers
 {
-    public class MikuDbAlbumController : Controller
+    public class MikuDbAlbumController : ControllerBase
     {
 
     	private MikuDbAlbumService Service {
@@ -33,8 +33,9 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index(AlbumStatus? status) {
 
-        	var albums = Service.GetAlbums(status ?? AlbumStatus.New);
-			var model = new Index(albums, status ?? AlbumStatus.New);
+			var s = status ?? AlbumStatus.New;
+        	var albums = Service.GetAlbums(s, 0, entriesPerPage);
+			var model = new Index(albums, s);
 
             return View(model);
 
