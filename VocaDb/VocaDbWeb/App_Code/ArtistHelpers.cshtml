@@ -94,12 +94,17 @@
 	
 }
 
-@helper Artists(IEnumerable<VocaDb.Model.DataContracts.Artists.ArtistWithAdditionalNamesContract> artists, Func<ArtistWithAdditionalNamesContract, string> extraData = null) {
+@helper Artists(IEnumerable<VocaDb.Model.DataContracts.Artists.ArtistWithAdditionalNamesContract> artists,
+	bool showType = false,
+	Func<ArtistWithAdditionalNamesContract, string> extraData = null) {
 
 	<ul>
 	@foreach (var artist in artists) {
 		<li>
 			@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)
+			@if (showType) {
+				@("(")@Translate.ArtistTypeName(artist.ArtistType)@(")")
+			}
 			@if (extraData != null) {
 				@extraData(artist)
 			}

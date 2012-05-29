@@ -11,7 +11,8 @@
 	</a>		
 }
 
-@helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums, bool displayRating, bool displayReleaseDate) {
+@helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums, 
+	bool displayRating, bool displayReleaseDate, bool displayType = false) {
 	
 	<table>
 		@foreach (var album in albums) {
@@ -21,6 +22,7 @@
 			</td>
 			<td>
 				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+				(@Translate.DiscTypeName(album.DiscType))
 				<br />
 				<span class="extraInfo">@album.ArtistString</span>
 				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
