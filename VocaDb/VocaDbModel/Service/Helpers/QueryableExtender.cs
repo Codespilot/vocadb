@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -22,6 +23,18 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<AlbumForUser> AddNameOrder(this IQueryable<AlbumForUser> criteria, ContentLanguagePreference languagePreference) {
+
+			switch (languagePreference) {
+				case ContentLanguagePreference.Japanese:
+					return criteria.OrderBy(e => e.Album.Names.SortNames.Japanese);
+				case ContentLanguagePreference.English:
+					return criteria.OrderBy(e => e.Album.Names.SortNames.English);
+				default:
+					return criteria.OrderBy(e => e.Album.Names.SortNames.Romaji);
+			}
+
+		}
 	}
 
 }
