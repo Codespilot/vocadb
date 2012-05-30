@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
+using VocaDb.Model.Utils;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.User;
@@ -42,7 +43,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult AlbumCollection(int id) {
 
-			var albums = Service.GetAlbumCollection(id);
+			var albums = Service.GetAlbumCollection(id, 0, 50);
 
 			return PartialView(albums);
 
@@ -109,7 +110,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			try {
-				Service.RequestPasswordReset(model.Username, model.Email, ConfigurationManager.AppSettings["HostAddress"] + Url.Action("ResetPassword", "User"));
+				Service.RequestPasswordReset(model.Username, model.Email, AppConfig.HostAddress + Url.Action("ResetPassword", "User"));
 				TempData.SetStatusMessage("Password reset message has been sent");
 				return RedirectToAction("Login");
 			} catch (UserNotFoundException) {
@@ -205,7 +206,7 @@ namespace VocaDb.Web.Controllers
 			var contract = model.ToContract(LoggedUserId);
 
 			try {
-				Service.SendMessage(contract, ConfigurationManager.AppSettings["HostAddress"] + Url.Action("Messages", "User"));
+				Service.SendMessage(contract, AppConfig.HostAddress + Url.Action("Messages", "User"));
 			} catch (UserNotFoundException x) {
 				ModelState.AddModelError("ReceiverName", x.Message);
 				SaveErrorsToTempData();

@@ -255,9 +255,20 @@
 </div>
 
 <div id="editCollectionDialog" style="display:none" title="@ViewRes.Album.DetailsStrings.EditAlbumInCollection">
-	<p>@ViewRes.Album.DetailsStrings.Status: @Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect" }, Model.AlbumPurchaseStatus)</p>
-	<p>@ViewRes.Album.DetailsStrings.MediaType: @Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect" }, Model.AlbumMediaType)</p>
-	<div>@ViewRes.Album.DetailsStrings.MyRating: <div id="collectionRating"></div></div>
+
+	@ViewRes.Album.DetailsStrings.Status: 
+	@Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect", @class = "input-medium" }, Model.AlbumPurchaseStatus)
+	<br />
+
+	@ViewRes.Album.DetailsStrings.MediaType:
+	@Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect", @class = "input-medium" }, Model.AlbumMediaType)
+
+	<div>
+		@ViewRes.Album.DetailsStrings.MyRating: 
+		<div id="collectionRating"></div>
+		@Html.Raw("&nbsp;")
+		<a href="#" id="removeRating" class="textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
+	</div>
 </div>
 
 @section BodyScripts {

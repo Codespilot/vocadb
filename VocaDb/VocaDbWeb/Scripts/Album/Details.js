@@ -119,6 +119,14 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
 		$('#collectionRating').jqxRating({ value: collectionRating });
 	}
 
+	$("#removeRating").click(function () {
+
+		$('#collectionRating').jqxRating({ value: 0 });
+
+		return false;
+
+	});
+
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: saveStr, click: saveTagSelections }] });
 
 	$("#tabs").tabs({

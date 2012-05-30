@@ -6,13 +6,11 @@ using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -27,7 +25,9 @@ namespace VocaDb.Model.Service {
 
 	public class UserService : ServiceBase {
 
+// ReSharper disable UnusedMember.Local
 		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
+// ReSharper restore UnusedMember.Local
 
 		private IQueryable<User> AddOrder(IQueryable<User> criteria, UserSortRule sortRule) {
 
@@ -267,14 +267,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumForUserContract[] GetAlbumCollection(int userId) {
+		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(int userId, int start, int maxEntries) {
 
-			return HandleQuery(session => 
-				session.Load<User>(userId)
-					.Albums
+			return HandleQuery(session => {
+
+				var albums = session.Query<AlbumForUser>()
+					.Where(a => a.User.Id == userId && a.PurchaseStatus != PurchaseStatus.Nothing)
+					.AddNameOrder(LanguagePreference)
+					.Skip(start)
+					.Take(maxEntries)
+					.ToArray()
 					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
-					.OrderBy(a => a.Album.Name)
-					.ToArray());
+					.ToArray();
+
+				var count = (albums.Length < maxEntries) ? session.Query<AlbumForUser>()
+					.Count(a => a.User.Id == userId && a.PurchaseStatus != PurchaseStatus.Nothing) : albums.Length;
+
+				return new PartialFindResult<AlbumForUserContract>(albums, count);
+
+			});
 
 		}
 
@@ -597,14 +608,16 @@ namespace VocaDb.Model.Service {
 				var albumForUser = session.Query<AlbumForUser>()
 					.FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
 
-				if (albumForUser != null && status == PurchaseStatus.Nothing) {
+				// Delete
+				if (albumForUser != null && status == PurchaseStatus.Nothing && rating == 0) {
 
 					AuditLog("deleting " + albumForUser, session);
 					albumForUser.Delete();
 					session.Delete(albumForUser);
 					session.Update(albumForUser.Album);
 
-				} else if (albumForUser == null && status != PurchaseStatus.Nothing) {
+				// Add
+				} else if (albumForUser == null && (status != PurchaseStatus.Nothing || rating != 0)) {
 
 					var user = session.Load<User>(userId);
 					var album = session.Load<Album>(albumId);
@@ -615,6 +628,7 @@ namespace VocaDb.Model.Service {
 
 					AuditLog(string.Format("added {0} for {1}", album, user), session);
 
+				// Update
 				} else if (albumForUser != null) {
 
 					albumForUser.MediaType = mediaType;
@@ -714,7 +728,6 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-
 	}
 
 	public class InvalidPasswordException : Exception {

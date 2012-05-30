@@ -451,6 +451,7 @@
     <Compile Include="Service\VideoServices\VideoServiceYoutube.cs" />
     <Compile Include="Service\VideoServices\VideoUrlParseResult.cs" />
     <Compile Include="Service\VideoServices\YoutubeParser.cs" />
+    <Compile Include="Utils\AppConfig.cs" />
     <Compile Include="Utils\XmlCache.cs" />
   </ItemGroup>
   <ItemGroup />
