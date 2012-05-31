@@ -117,17 +117,13 @@
 		@if (Model.LatestAlbums.Any()) {
 		<br />
 		<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
-		<ul>
-			@ArtistHelpers.Albums(Model.LatestAlbums)
-		</ul>
+		@AlbumHelpers.AlbumGrid(Model.LatestAlbums, 2, false, true, true)
   }
 
 		@if (Model.LatestSongs.Any()) {
 		<br />
 		<h3>@ViewRes.Artist.DetailsStrings.RecentSongs</h3>
-		<ul>
-			@ArtistHelpers.Songs(Model.LatestSongs)
-		</ul>	
+		@SongHelpers.SongGrid(Model.LatestSongs, 2, true)
   }
 
 		<br />

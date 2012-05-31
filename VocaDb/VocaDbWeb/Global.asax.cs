@@ -114,7 +114,7 @@ namespace VocaDb.Web {
 
 			routes.MapRoute("Search", "Search/{filter}", new { controller = "Home", action = "Search", filter = UrlParameter.Optional });
 			routes.MapRoute("Song", "S/{id}", new { controller = "Song", action = "Details" });
-			routes.MapRoute("User", "User/{id}", new { controller = "User", action = "Profile" });
+			routes.MapRoute("User", "Profile/{id}", new { controller = "User", action = "Profile" });
 
 			routes.MapRoute(
 				"Default", // Route name

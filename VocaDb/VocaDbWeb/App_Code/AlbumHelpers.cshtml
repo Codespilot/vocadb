@@ -22,7 +22,9 @@
 			</td>
 			<td>
 				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
-				(@Translate.DiscTypeName(album.DiscType))
+				@if (displayType) {
+					@("(")@Translate.DiscTypeName(album.DiscType)@(")")
+				}
 				<br />
 				<span class="extraInfo">@album.ArtistString</span>
 				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
@@ -34,6 +36,43 @@
   }	
 	</table>
 		
+}
+
+@helper AlbumGrid(IEnumerable<AlbumWithAdditionalNamesContract> albums, int columns,
+	bool displayRating, bool displayReleaseDate, bool displayType = false) {
+	
+	<table>
+		@{ int i = 0; }
+	
+		@foreach (var album in albums) {
+			if (i % columns == 0) {
+				@Html.Raw("<tr>")
+			}
+			<td>
+				@AlbumIconLink(album)
+			</td>
+			<td>
+				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+				@if (displayType) {
+					@("(")@Translate.DiscTypeName(album.DiscType)@(")")
+				}
+				<br />
+				<span class="extraInfo">@album.ArtistString</span>
+				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
+					<br />
+					<span>@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted</span>
+				}
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+	</table>
+			
 }
 
 @helper AlbumThumbs(IEnumerable<AlbumWithAdditionalNamesContract> albums) {
@@ -50,7 +89,7 @@
 				</div>
 			</div>
 		</li>
-		}
+  }
 	</ul>
 	
 }

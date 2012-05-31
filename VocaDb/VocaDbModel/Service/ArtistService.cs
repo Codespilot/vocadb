@@ -537,7 +537,7 @@ namespace VocaDb.Model.Service {
 					.Where(s => !s.Album.Deleted && s.Artist.Id == id)
 					.Select(s => s.Album)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(15).ToArray()
+					.Take(14).ToArray()
 					.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
@@ -545,7 +545,7 @@ namespace VocaDb.Model.Service {
 					.Where(s => !s.Song.Deleted && s.Artist.Id == id)
 					.Select(s => s.Song)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(15).ToArray()
+					.Take(14).ToArray()
 					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
