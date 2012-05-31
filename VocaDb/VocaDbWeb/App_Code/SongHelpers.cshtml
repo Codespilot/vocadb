@@ -61,6 +61,43 @@
 	
 }
 
+@helper SongGrid(IEnumerable<SongWithAdditionalNamesContract> songs, int columns,
+	bool displayType = false) {
+	
+	<table>
+		@{ int i = 0; }
+	
+		@foreach (var song in songs) {
+			if (i % columns == 0) {
+				@Html.Raw("<tr>")
+			}
+			<td>
+				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+				<a href="@Url.Action("Details", "Song", new { id = song.Id })">
+					<img src="@song.ThumbUrl" alt="Thumb" class="coverPicThumb" />
+				</a>
+				}
+			</td>
+			<td>
+				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+				@if (displayType) {
+					@("(")@Translate.SongTypeNames[song.SongType]@(")")
+				}
+				<br />
+				<span class="extraInfo">@song.ArtistString</span>
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+	</table>
+			
+}
+
 @helper SongLists(IEnumerable<SongListContract> songLists) {
 	
 	<table>

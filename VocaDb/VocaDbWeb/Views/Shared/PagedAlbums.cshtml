@@ -6,7 +6,7 @@
 @Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
 </div>
 
-@ArtistHelpers.Albums(Model.Items, null, true)
+@AlbumHelpers.AlbumList(Model.Items, true, true, true)
 
 <div class="pager">
 @Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
