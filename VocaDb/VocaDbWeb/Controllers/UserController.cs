@@ -41,11 +41,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult AlbumCollection(int id) {
+		public ActionResult AlbumCollection(int id, int count, int? page) {
 
-			var albums = Service.GetAlbumCollection(id, 0, 50);
+			const int entriesPerPage = 50;
+			var pageIndex = (page - 1) ?? 0;
+			var albums = Service.GetAlbumCollection(id, entriesPerPage * pageIndex, entriesPerPage);
+			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, count), id, "AlbumCollection", "Collection");
 
-			return PartialView(albums);
+			return PartialView(paged);
 
 		}
 

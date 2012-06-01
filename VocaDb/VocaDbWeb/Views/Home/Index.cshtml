@@ -22,16 +22,7 @@
 </table>
 
 <h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.AdditionDate }, null))</h4>
-<table>
-	<tr>
-		<td class="alignTop">
-			@SongHelpers.Songs(Model.NewSongs.Take(10))
-		</td>
-		<td class="alignTop">
-			@SongHelpers.Songs(Model.NewSongs.Skip(10))
-		</td>
-	</tr>
-</table>
+@SongHelpers.SongGrid(Model.NewSongs, 2)
 
 <br />
 <h4>@ViewRes.Home.IndexStrings.News (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry"))</h4>

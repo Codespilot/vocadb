@@ -1,11 +1,8 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
-@using System.Web.Mvc;
 @using System.Web.Mvc.Html;
-@using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Activityfeed;
 @using VocaDb.Model.Domain.Activityfeed;
-@using VocaDb.Model.DataContracts;
 
 @helper EntryLink(ActivityEntryContract entryProperties) {
 	@Html.ActionLink(entryProperties.DisplayName, "Details", entryProperties.EntryRef.EntryType.ToString(), new { id = entryProperties.EntryRef.Id }, new { title = entryProperties.AdditionalNames })
@@ -13,6 +10,7 @@
 
 @helper ActivityEntry(ActivityEntryContract entry) {
 	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
+		<p>
 		@if (entry.EditEvent == EntryEditEvent.Created) {
 			<span>@HelperRes.ActivityFeedHelperStrings.CreatedNew </span>
 		} else {
@@ -32,6 +30,7 @@
 	  		@Html.UserLink(entry.Author, entry.Author.Name)
 			</span>
 		}
+		</p>
 	</div>
 }
 

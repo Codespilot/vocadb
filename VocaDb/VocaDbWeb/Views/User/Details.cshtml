@@ -82,7 +82,7 @@
 
 	<ul>
 		<li><a href="#stats">@R.DetailsStrings.StatsTab</a></li>
-		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })" title="Collection"><span>@R.DetailsStrings.CollectionTab (@Model.AlbumCollectionCount)</span></a></li>
+		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })" title="Collection"><span>@R.DetailsStrings.CollectionTab (@Model.AlbumCollectionCount)</span></a></li>
 		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>@R.DetailsStrings.FollowedArtistsTab (@Model.ArtistCount)</span></a></li>
 		<li><a href="@Url.Action("FavoriteSongsPaged", "User", new { id = Model.Id })" title="Favorite songs"><span>@R.DetailsStrings.FavoriteSongsTab (@Model.FavoriteSongCount)</span></a></li>
 		<li><a href="#customLists">@R.DetailsStrings.CustomListsTab</a></li>
