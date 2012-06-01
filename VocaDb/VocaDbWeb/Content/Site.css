@@ -370,6 +370,10 @@ h2.pageTitle {
 	margin: 10px;
 }
 
+div.activityEntry p {
+	margin: 4px;	
+}
+
 /* Bootstrap-specific */
 .navbar .nav-radio {
 	color: #BBBBBB;	

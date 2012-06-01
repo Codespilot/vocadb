@@ -280,10 +280,10 @@ namespace VocaDb.Model.Service {
 					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				var count = (albums.Length < maxEntries) ? session.Query<AlbumForUser>()
-					.Count(a => a.User.Id == userId && a.PurchaseStatus != PurchaseStatus.Nothing) : albums.Length;
+				//var count = (albums.Length < maxEntries) ? albums.Length : session.Query<AlbumForUser>()
+				//	.Count(a => a.User.Id == userId && a.PurchaseStatus != PurchaseStatus.Nothing);
 
-				return new PartialFindResult<AlbumForUserContract>(albums, count);
+				return new PartialFindResult<AlbumForUserContract>(albums, 0);
 
 			});
 

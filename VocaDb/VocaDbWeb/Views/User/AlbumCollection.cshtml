@@ -1,5 +1,9 @@
 ﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Users.AlbumForUserContract[]
+@model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Users.AlbumForUserContract>
+
+<div class="pager">
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("count", Model.Items.TotalItemCount))
+</div>
 
 <table>
 	<tr>
@@ -8,7 +12,7 @@
 		<th>Media type</th>
 		<th>Rating</th>
 	</tr>
-	@foreach (var album in Model) {
+	@foreach (var album in Model.Items) {
 	<tr>
 		<td>
 			<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Album.Id })" alt="Cover" class="coverPicIcon" />
@@ -30,3 +34,7 @@
 	</tr>
 }	
 </table>
+
+<div class="pager">
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("count", Model.Items.TotalItemCount))
+</div>
