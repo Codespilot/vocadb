@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
+using VocaDb.Model.Service.Paging;
 using log4net;
 using NHibernate;
 using NHibernate.Linq;
@@ -267,23 +268,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(int userId, int start, int maxEntries) {
+		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(int userId, PurchaseStatus status, PagingProperties paging) {
 
 			return HandleQuery(session => {
 
 				var albums = session.Query<AlbumForUser>()
-					.Where(a => a.User.Id == userId && a.PurchaseStatus != PurchaseStatus.Nothing)
+					.Where(a => a.User.Id == userId && status == PurchaseStatus.Nothing || (a.PurchaseStatus == status))
 					.AddNameOrder(LanguagePreference)
-					.Skip(start)
-					.Take(maxEntries)
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
 					.ToArray()
 					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
-				//var count = (albums.Length < maxEntries) ? albums.Length : session.Query<AlbumForUser>()
-				//	.Count(a => a.User.Id == userId && a.PurchaseStatus != PurchaseStatus.Nothing);
+				var count = paging.GetTotalCount ? session.Query<AlbumForUser>()
+					.Count(a => a.User.Id == userId && status == PurchaseStatus.Nothing || (a.PurchaseStatus == status)) : 0;
 
-				return new PartialFindResult<AlbumForUserContract>(albums, 0);
+				return new PartialFindResult<AlbumForUserContract>(albums, count);
 
 			});
 
@@ -367,12 +368,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract[] GetUsers(UserGroupId groupId, UserSortRule sortRule) {
+		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, UserSortRule sortRule, PagingProperties paging) {
 
-			return HandleQuery(session => AddOrder(session.Query<User>()
-				.Where(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId)), sortRule)
-				.Select(u => new UserContract(u))
-				.ToArray());
+			return HandleQuery(session => {
+
+				var users = AddOrder(session.Query<User>()
+					.Where(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId)), sortRule)
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray()
+					.Select(u => new UserContract(u))
+					.ToArray();
+
+				var count = paging.GetTotalCount ? session.Query<User>()
+					.Count(u => groupId == UserGroupId.Nothing || u.GroupId == groupId) : 0;
+
+				return new PartialFindResult<UserContract>(users, count);
+
+			});
 
 		}
 

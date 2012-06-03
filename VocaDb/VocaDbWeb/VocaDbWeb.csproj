@@ -592,6 +592,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DetailsStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\User\AlbumCollectionStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumCollectionStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\User\CreateStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1231,6 +1236,7 @@
     <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Shared\PVEmbedDynamic.cshtml" />
     <Content Include="Views\Shared\PVEmbedNND.cshtml" />
+    <Content Include="Views\User\UserListPaged.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
@@ -1693,6 +1699,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.fi.resx" />
@@ -1702,6 +1709,12 @@
       <CustomToolNamespace>ViewRes.Tag</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\User\AlbumCollectionStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\AlbumCollectionStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlbumCollectionStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

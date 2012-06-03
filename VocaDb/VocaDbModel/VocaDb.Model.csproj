@@ -422,6 +422,7 @@
     <Compile Include="Service\MikuDb\AlbumImporter.cs" />
     <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
     <Compile Include="Service\NewsEntryService.cs" />
+    <Compile Include="Service\Paging\PagingProperties.cs" />
     <Compile Include="Service\Rankings\NNDWVRParser.cs" />
     <Compile Include="Service\ReleaseEventService.cs" />
     <Compile Include="Service\TagService.cs" />

@@ -59,7 +59,7 @@ function initPage(songId) {
 			acceptBtnElem: acceptNewOriginalBtn,
 			acceptSelection: acceptOriginalSong,
 			idElem: changeOriginalId,
-			createOptionFirstRow: function (item) { return item.Name; },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },
 			extraQueryParams: {

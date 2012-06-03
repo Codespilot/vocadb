@@ -12,6 +12,7 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Models;
@@ -45,7 +46,7 @@ namespace VocaDb.Web.Controllers
 
 			const int entriesPerPage = 50;
 			var pageIndex = (page - 1) ?? 0;
-			var albums = Service.GetAlbumCollection(id, entriesPerPage * pageIndex, entriesPerPage);
+			var albums = Service.GetAlbumCollection(id, PurchaseStatus.Nothing, PagingProperties.CreateFromPage(pageIndex, entriesPerPage, false));
 			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, count), id, "AlbumCollection", "Collection");
 
 			return PartialView(paged);
@@ -68,6 +69,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete]
 		public ActionResult FavoriteSongs(int id) {
 
 			var songs = Service.GetFavoriteSongs(id);
@@ -126,13 +128,14 @@ namespace VocaDb.Web.Controllers
 			//
         // GET: /User/
 
-        public ActionResult Index(Index model, UserSortRule? sort = null) {
+        public ActionResult Index(Index model, UserSortRule? sort = null, int? page = null) {
 
+			var pageIndex = (page - 1) ?? 0;
 			var groupId = model.GroupId;
 			var sortRule = sort ?? UserSortRule.RegisterDate;
 
-        	var users = Service.GetUsers(groupId, sortRule);
-			return View(new Index(users, groupId));
+        	var users = Service.GetUsers(groupId, sortRule, PagingProperties.CreateFromPage(pageIndex, 300, true));
+			return View(new Index(users.Items, groupId));
 
         }
 
