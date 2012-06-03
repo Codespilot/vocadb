@@ -123,6 +123,9 @@
   <data name="DramaPV" xml:space="preserve">
     <value>Drama PV</value>
   </data>
+  <data name="Instrumental" xml:space="preserve">
+    <value>Instrumental</value>
+  </data>
   <data name="Mashup" xml:space="preserve">
     <value>Mashup</value>
   </data>

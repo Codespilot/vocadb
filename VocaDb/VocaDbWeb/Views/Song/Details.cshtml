@@ -16,6 +16,14 @@
 }
 
 @section Toolbar {
+<div id="pvPlayer">
+	@if (Model.PrimaryPV != null) {
+		using (Html.BeginPanel()) {
+			@Helpers.EmbedPV(Model.PrimaryPV)
+		}
+	}
+</div>
+
 <a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "display: none;" : "")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
 <a href="#" id="removeFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>
 <a href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
@@ -36,14 +44,6 @@
 @if (Model.Draft && !Model.Deleted) {
 	@Helpers.DraftMessage("glsongs")
 }
-
-<div id="pvPlayer">
-	@if (Model.PrimaryPV != null) {
-		using (Html.BeginPanel()) {
-			@Helpers.EmbedPV(Model.PrimaryPV)
-		}
-	}
-</div>
 
 <div id="tabs">
 

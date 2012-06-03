@@ -36,11 +36,6 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	}}]});
 
-	var addToListLinkPos = $("#addToListLink").offset();
-	if (addToListLinkPos != null) {
-		$("#addToListDialog").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top + 35]);
-	}
-
 	$("#addFavoriteLink").click(function () {
 
 		$.post(hostAddress + "/User/AddSongToFavorites", { songId: songId }, function (result) {
@@ -71,6 +66,11 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 		$.get(hostAddress + "/Song/SongListsForUser", { ignoreSongId: songId }, function (lists) {
 
+			var addToListLinkPos = $("#addToListLink").offset();
+			if (addToListLinkPos != null) {
+				$("#addToListDialog").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top - $(window).scrollTop() + 35]);
+			}
+
 			var addtoListSelect = $("#addtoListSelect");
 			addtoListSelect.html("");
 
@@ -98,6 +98,15 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 			initDialog();
 
 			$("#editTagsPopup").dialog("open");
+
+			var pvPlayer = $("#pvPlayer");
+			//var pvPlayerTop = pvPlayer.offset().top;
+			//var pvPlayerHeight = pvPlayer.outerHeight();
+			var pvPlayerBottom = pvPlayer.offset().top + pvPlayer.outerHeight() - $(window).scrollTop();
+			var centerTop = (($(window).height() - $("#editTagsPopup").outerHeight()) / 2);
+			var left = (($(window).width() - $("#editTagsPopup").outerWidth()) / 2);
+			var top = Math.max(centerTop, pvPlayerBottom);
+			$("#editTagsPopup").dialog("option", "position", [left, top]);
 
 		});
 
