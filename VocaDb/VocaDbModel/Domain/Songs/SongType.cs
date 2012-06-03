@@ -2,21 +2,23 @@
 
 	public enum SongType {
 
-		Unspecified	= 0,
+		Unspecified		= 0,
 
-		Original	= 1,
+		Original		= 1,
 
-		Remix		= 2,
+		Remix			= 2,
 
-		Cover		= 4,
+		Cover			= 4,
 
-		Mashup		= 8,
+		Instrumental	= 8,
 
-		MusicPV		= 16,
+		Mashup			= 16,
 
-		DramaPV		= 32,
+		MusicPV			= 32,
 
-		Other		= 64
+		DramaPV			= 64,
+
+		Other			= 128
 
 	}
 

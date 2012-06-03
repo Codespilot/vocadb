@@ -70,8 +70,10 @@ namespace VocaDb.Model.Helpers {
 			ParamIs.NotNull(() => artists);
 
 			var matched = artists.Where(a => a.Artist.ArtistType != ArtistType.Label && !a.IsSupport).ToArray();
-			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).Select(a => a.Artist);
-			var performers = matched.Where(a => GetCategories(a.Artist.ArtistType, a.Roles).HasFlag(ArtistCategories.Vocalist)).Select(a => a.Artist);
+			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).Select(a => a.Artist).ToArray();
+			var performers = matched.Where(a => GetCategories(a.Artist.ArtistType, a.Roles).HasFlag(ArtistCategories.Vocalist) 
+				&& !producers.Contains(a.Artist)).Select(a => a.Artist).ToArray();
+
 			const string various = "Various artists";
 
 			if (producers.Count() >= 4 || (!producers.Any() && performers.Count() >= 4))
