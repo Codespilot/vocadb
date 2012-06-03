@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddSong" xml:space="preserve">
-    <value>Lisää kappale</value>
+  <data name="Album" xml:space="preserve">
+    <value>Albumi</value>
   </data>
-  <data name="Favorited" xml:space="preserve">
-    <value>Suosikeissa</value>
+  <data name="MediaType" xml:space="preserve">
+    <value>Media</value>
   </data>
-  <data name="Times" xml:space="preserve">
-    <value>kerta(a)</value>
+  <data name="Rating" xml:space="preserve">
+    <value>Arvostelu</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Tilanne</value>
   </data>
 </root>
