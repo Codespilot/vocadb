@@ -894,7 +894,8 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var pv = session.Query<PVForSong>().FirstOrDefault(p => p.Service == service && p.PVId == pvId);
+				var pv = session.Query<PVForSong>()
+					.FirstOrDefault(p => p.Service == service && p.PVId == pvId && !p.Song.Deleted);
 
 				return (pv != null ? new SongWithAdditionalNamesContract(pv.Song, PermissionContext.LanguagePreference) : null);
 

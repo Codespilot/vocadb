@@ -565,7 +565,8 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var link = session.Query<AlbumWebLink>().FirstOrDefault(w => w.Url.Contains("mikudb.com/" + mikuDbId + "/"));
+				var link = session.Query<AlbumWebLink>()
+					.FirstOrDefault(w => !w.Album.Deleted && w.Url.Contains("mikudb.com/" + mikuDbId + "/"));
 
 				return (link != null ? (int?)link.Album.Id : null);
 
