@@ -1,10 +1,12 @@
-﻿using VocaDb.Model.DataContracts.Albums;
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class AllEntriesSearchResult {
 
 		public AllEntriesSearchResult()
@@ -21,10 +23,13 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Songs = songs;
 		}
 
+		[DataMember]
 		public PartialFindResult<AlbumWithAdditionalNamesContract> Albums { get; set; }
 
+		[DataMember]
 		public PartialFindResult<ArtistWithAdditionalNamesContract> Artists { get; set; }
 
+		[DataMember]
 		public PartialFindResult<SongWithAdditionalNamesContract> Songs { get; set; }
 
 
