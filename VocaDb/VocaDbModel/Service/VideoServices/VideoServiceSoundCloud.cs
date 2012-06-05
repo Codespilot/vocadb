@@ -6,10 +6,13 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using VocaDb.Model.Domain.PVs;
+using log4net;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public class VideoServiceSoundCloud : VideoService {
+
+		private static readonly ILog log = LogManager.GetLogger(typeof(VideoServiceSoundCloud));
 
 		public VideoServiceSoundCloud(PVService service, IVideoServiceParser parser, RegexLinkMatcher[] linkMatchers) 
 			: base(service, parser, linkMatchers) {}
@@ -29,9 +32,14 @@ namespace VocaDb.Model.Service.VideoServices {
 			var request = WebRequest.Create(apiUrl);
 			XDocument doc;
 
-			using (var response = request.GetResponse())
-			using (var stream = response.GetResponseStream()) {
-				doc = XDocument.Load(stream);
+			try {
+				using (var response = request.GetResponse())
+				using (var stream = response.GetResponseStream()) {
+					doc = XDocument.Load(stream);
+				}
+			} catch (WebException x) {
+				log.Warn("Unable to load SoundCloud URL " + url, x);
+				throw new VideoParseException("Unable to load SoundCloud URL: " + x.Message, x);
 			}
 
 			var trackId = doc.XPathSelectElement("//track/id").Value;
@@ -52,6 +60,9 @@ namespace VocaDb.Model.Service.VideoServices {
 
 	}
 
+	/// <summary>
+	/// Composite SoundCloud ID. Contains both the track Id and the relative URL (for direct links).
+	/// </summary>
 	public class SoundCloudId {
 
 		public SoundCloudId(string trackId, string soundCloudUrl) {
@@ -79,10 +90,20 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
+		/// <summary>
+		/// Relative URL, for example tamagotaso/nightcruise
+		/// </summary>
 		public string SoundCloudUrl { get; set; }
 
+		/// <summary>
+		/// Track ID, for example 8431571
+		/// </summary>
 		public string TrackId { get; set; }
 
+		/// <summary>
+		/// Gets the composite ID string with both the relative URL and track Id.
+		/// </summary>
+		/// <returns>Composite ID, for example "8431571 tamagotaso/nightcruise"</returns>
 		public override string  ToString() {
 			return string.Format("{0} {1}", TrackId, SoundCloudUrl);
 		}

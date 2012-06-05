@@ -78,7 +78,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			var id = GetIdByUrl(url);
 
 			if (id == null)
-				throw new VideoParseException("No matcher defined for URL '" + url + "'");
+				throw new VideoParseException(string.Format("No matcher defined for URL '{0}'", url));
 
 			return ParseById(id);
 
