@@ -75,12 +75,6 @@
 			
 }
 
-@helper AlbumThumb(AlbumContract album) {
-	<a href="@Url.Action("Details", "Album", new { id = album.Id })" class="coverPicThumb">
-		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" />
-	</a>	
-}
-
 @helper AlbumThumbs(IEnumerable<AlbumWithAdditionalNamesContract> albums) {
 	
 	<ul class="thumbnails">

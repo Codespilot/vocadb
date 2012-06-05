@@ -13,7 +13,7 @@
 			<li>
 				<div class="albumListItem">
 					<div class="thumbnail">
-						@AlbumHelpers.AlbumThumb(link.Album)
+						@AlbumHelpers.AlbumIconLink(link.Album)
 					</div>
 					@Html.ActionLink(link.Album.Name, "Details", "Album", new { id = link.Album.Id }, null)
 					@(" (" + link.Count + ")")
@@ -59,7 +59,7 @@
 				<div class="songListItem">
 					@if (!string.IsNullOrEmpty(link.Song.ThumbUrl)) {
 						<div class="thumbnail">
-							@SongHelpers.SongThumb(link.Song)
+							@SongHelpers.SongIconLink(link.Song)
 						</div>
 					}
 									

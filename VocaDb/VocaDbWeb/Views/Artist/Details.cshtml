@@ -106,25 +106,21 @@
 	
 
 		@if (Model.Members.Any()) {
-		<h3>@ViewRes.Artist.DetailsStrings.Members</h3>
-		<ul>
-			@foreach (var member in Model.Members) {
-				<li>@Html.ActionLink(member.Member.Name, "Details", new { id = member.Member.Id }, new { title = member.Member.AdditionalNames })</li>
-   }
-		</ul>
-  }
+			<h3>@ViewRes.Artist.DetailsStrings.Members</h3>
+			@ArtistHelpers.ArtistGrid(Model.Members.Select(g => g.Member), 3, true)
+		}
 
 		@if (Model.LatestAlbums.Any()) {
-		<br />
-		<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
-		@AlbumHelpers.AlbumGrid(Model.LatestAlbums, 2, false, true, true)
-  }
+			<br />
+			<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
+			@AlbumHelpers.AlbumGrid(Model.LatestAlbums, 2, false, true, true)
+	  }
 
 		@if (Model.LatestSongs.Any()) {
-		<br />
-		<h3>@ViewRes.Artist.DetailsStrings.RecentSongs</h3>
-		@SongHelpers.SongGrid(Model.LatestSongs, 2, true)
-  }
+			<br />
+			<h3>@ViewRes.Artist.DetailsStrings.RecentSongs</h3>
+			@SongHelpers.SongGrid(Model.LatestSongs, 2, true)
+	  }
 
 		<br />
 		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>

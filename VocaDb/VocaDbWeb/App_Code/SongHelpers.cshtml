@@ -43,7 +43,7 @@
 		<tr>
 			<td>
 				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
-					@SongThumb(song)
+					@SongIconLink(song)
 				}
 			</td>
 			<td>
@@ -111,10 +111,4 @@
 		}
 	</table>
 
-}
-
-@helper SongThumb(SongContract song) {
-	<a href="@Url.Action("Details", "Song", new { id = song.Id })">
-		<img src="@song.ThumbUrl" alt="Thumb" class="coverPicThumb" />
-	</a>	
 }
