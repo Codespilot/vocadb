@@ -6,6 +6,41 @@
 @using VocaDb.Model.DataContracts.Albums;
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper ArtistGrid(IEnumerable<ArtistWithAdditionalNamesContract> artists, int columns,
+	bool displayType = false) {
+	
+	<table>
+		@{ int i = 0; }
+	
+		@foreach (var artist in artists) {
+			if (i % columns == 0) {
+				@Html.Raw("<tr>")
+			}
+			<td>
+				@ArtistIconLink(artist)
+			</td>
+			<td>
+				@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames })
+				@if (displayType) {
+					@("(")@Translate.ArtistTypeName(artist.ArtistType)@(")")
+				}
+				@if (!string.IsNullOrEmpty(artist.AdditionalNames)) {
+					<br />
+					<span class="extraInfo">@artist.AdditionalNames</span>
+				}
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+	</table>
+			
+}
+
 @helper ArtistIconLink(ArtistContract artist) {
 	<a href="@Url.Action("Details", "Artist", new { id = artist.Id })">
 		<img src="@Url.Action("PictureThumb", "Artist", new { id = artist.Id })" alt="Thumb" class="coverPicThumb" />
