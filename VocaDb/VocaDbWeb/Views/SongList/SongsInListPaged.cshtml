@@ -9,11 +9,10 @@
 	<ul>
 		@foreach (var link in Model.Items) {
 			<li>
+				<div class="songListItem">
 				@if (!string.IsNullOrEmpty(link.Song.ThumbUrl)) {
 					<div class="thumbnail">
-						<a href="@Url.Action("Details", "Song", new { id = link.Song.Id })">
-							<img src="@link.Song.ThumbUrl" alt="Thumb" class="coverPicThumb" />
-						</a>
+						@SongHelpers.SongThumb(link.Song)
 					</div>
 				}				
 
@@ -29,6 +28,7 @@
 	}
 				<br />
 				<span class="extraInfo">@link.Song.ArtistString</span>
+				</div>
 			</li>
   }
 	</ul>

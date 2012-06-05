@@ -374,6 +374,27 @@ div.activityEntry p {
 	margin: 4px;	
 }
 
+/* Lists */
+div.albumListItem {
+	display: block;
+	min-height: 85px;
+}
+
+div.albumListItem div.thumbnail {
+	float: left;
+	margin-right: 5px;
+}
+
+div.songListItem {
+	display: block;
+	min-height: 70px;
+}
+
+div.songListItem div.thumbnail {
+	float: left;
+	margin-right: 5px;
+}
+
 /* Bootstrap-specific */
 .navbar .nav-radio {
 	color: #BBBBBB;	
