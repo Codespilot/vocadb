@@ -8,6 +8,8 @@
 
 		VocaloidRanking,
 
+		Pools,
+
 		Other,
 
 	}
