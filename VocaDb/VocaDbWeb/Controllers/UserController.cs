@@ -116,10 +116,10 @@ namespace VocaDb.Web.Controllers
 
 			try {
 				Service.RequestPasswordReset(model.Username, model.Email, AppConfig.HostAddress + Url.Action("ResetPassword", "User"));
-				TempData.SetStatusMessage("Password reset message has been sent");
+				TempData.SetStatusMessage("Password reset message has been sent.");
 				return RedirectToAction("Login");
 			} catch (UserNotFoundException) {
-				ModelState.AddModelError("Username", "Username or email doesn't match");
+				ModelState.AddModelError("Username", "Username or email doesn't match.");
 				return View();
 			}
 
@@ -394,6 +394,8 @@ namespace VocaDb.Web.Controllers
 
 			var user = Service.ResetPassword(model.RequestId, model.NewPass);
 			FormsAuthentication.SetAuthCookie(user.Name, false);
+
+			TempData.SetStatusMessage("Password reset successfully!");
 
 			return RedirectToAction("Index", "Home");
 
