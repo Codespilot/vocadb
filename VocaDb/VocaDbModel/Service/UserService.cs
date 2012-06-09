@@ -145,7 +145,8 @@ namespace VocaDb.Model.Service {
 				session.Save(link);
 				session.Update(song);
 
-				AuditLog(string.Format("added {0} to favorites", song), session, user);
+				AuditLog(string.Format("added {0} to favorites", EntryLinkFactory.CreateEntryLink(song)), 
+					session, user);
 
 			});
 
@@ -612,7 +613,8 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, MediaType mediaType, int rating) {
+		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, 
+			MediaType mediaType, int rating) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
@@ -624,7 +626,9 @@ namespace VocaDb.Model.Service {
 				// Delete
 				if (albumForUser != null && status == PurchaseStatus.Nothing && rating == 0) {
 
-					AuditLog("deleting " + albumForUser, session);
+					AuditLog(string.Format("deleting {0} for {1}", 
+						CreateEntryLink(albumForUser.Album), albumForUser.User), session);
+
 					albumForUser.Delete();
 					session.Delete(albumForUser);
 					session.Update(albumForUser.Album);
@@ -639,7 +643,7 @@ namespace VocaDb.Model.Service {
 					session.Save(albumForUser);
 					session.Update(album);
 
-					AuditLog(string.Format("added {0} for {1}", album, user), session);
+					AuditLog(string.Format("added {0} for {1}", CreateEntryLink(album), user), session);
 
 				// Update
 				} else if (albumForUser != null) {
@@ -654,7 +658,8 @@ namespace VocaDb.Model.Service {
 						session.Update(albumForUser.Album);
 					}
 
-					AuditLog("updated " + albumForUser, session);
+					AuditLog(string.Format("updated {0} for {1}", 
+						CreateEntryLink(albumForUser.Album), albumForUser.User), session);
 
 				}
 

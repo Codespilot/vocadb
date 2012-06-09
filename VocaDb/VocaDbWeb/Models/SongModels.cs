@@ -50,6 +50,7 @@ namespace VocaDb.Web.Models {
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;
 			OriginalVersion = (contract.Song.SongType != SongType.Original ? contract.OriginalVersion : null);
+			Pools = contract.Pools;
 			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
@@ -119,6 +120,8 @@ namespace VocaDb.Web.Models {
 		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
 
 		public ArtistForSongContract[] Performers { get; set; }
+
+		public SongListBaseContract[] Pools { get; set; }
 
 		public PVContract PrimaryPV { get; set; }
 

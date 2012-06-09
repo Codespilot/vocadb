@@ -127,7 +127,17 @@
 					<a href="#" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 				</td>
 			</tr>
-
+			
+			@if (Model.Pools.Any()) {
+				<tr>
+					<td>Pools</td>
+					<td>
+						@foreach (var pool in Model.Pools) {
+							@Html.ActionLink(pool.Name, "Details", "SongList", new {id = pool.Id})
+						}
+					</td>
+				</tr>
+			}	   
 
 			@if (Model.PVs.Any()) {
 			<tr>
