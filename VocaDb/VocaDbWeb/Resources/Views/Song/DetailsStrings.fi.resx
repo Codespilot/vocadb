@@ -168,4 +168,7 @@
   <data name="ViewExternal" xml:space="preserve">
     <value>Katso ulkopuolisella sivustolla</value>
   </data>
+  <data name="Pools" xml:space="preserve">
+    <value>Joukot</value>
+  </data>
 </root>

@@ -168,4 +168,7 @@
   <data name="ViewExternal" xml:space="preserve">
     <value>View on external site</value>
   </data>
+  <data name="Pools" xml:space="preserve">
+    <value>Pools</value>
+  </data>
 </root>

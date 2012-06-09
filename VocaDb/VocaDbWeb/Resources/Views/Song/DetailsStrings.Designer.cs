@@ -160,6 +160,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pools.
+        /// </summary>
+        public static string Pools {
+            get {
+                return ResourceManager.GetString("Pools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Producers.
         /// </summary>
         public static string Producers {
