@@ -6,7 +6,6 @@ using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.DataContracts.Songs {
@@ -30,6 +29,15 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 			Notes = song.Notes;
 			OriginalVersion = (song.OriginalVersion != null ? new SongWithAdditionalNamesContract(song.OriginalVersion, languagePreference) : null);
+
+			// TODO (PERF): this might be handled through a special query if the list is long
+			Pools =
+				song.ListLinks
+				.Where(l => l.List.FeaturedCategory == SongListFeaturedCategory.Pools)
+				.OrderBy(l => l.List.Name).Take(3)
+				.Select(l => new SongListBaseContract(l.List))
+				.ToArray();
+
 			PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
 			Tags = song.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(Tag.MaxDisplayedTags).ToArray();
 			TranslatedName = new TranslatedStringContract(song.TranslatedName);
@@ -75,6 +83,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
+
+		[DataMember]
+		public SongListBaseContract[] Pools { get; set; }
 
 		[DataMember]
 		public PVContract[] PVs { get; set; }

@@ -30,6 +30,10 @@ namespace VocaDb.Model.Service {
 		private readonly ISessionFactory sessionFactory;
 		private readonly IUserPermissionContext permissionContext;
 
+		protected string CreateEntryLink(IEntryBase entry) {
+			return EntryLinkFactory.CreateEntryLink(entry);
+		}
+
 		private string GetAuditLogMessage(string doingWhat, string who) {
 
 			return string.Format("'{0}' {1}", who, doingWhat);

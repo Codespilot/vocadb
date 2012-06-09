@@ -1221,7 +1221,9 @@ namespace VocaDb.Model.Service {
 				if (pvDiff.Changed)
 					diff.PVs = true;
 
-				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString), session);
+				AuditLog(string.Format("updated properties for {0} ({1})", 
+					CreateEntryLink(album), diff.ChangedFieldsString), session);
+
 				AddEntryEditedEntry(session, album, EntryEditEvent.Updated);
 
 				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);
