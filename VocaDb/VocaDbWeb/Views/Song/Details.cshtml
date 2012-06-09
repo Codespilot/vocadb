@@ -130,10 +130,10 @@
 			
 			@if (Model.Pools.Any()) {
 				<tr>
-					<td>Pools</td>
+					<td>@R.DetailsStrings.Pools</td>
 					<td>
 						@foreach (var pool in Model.Pools) {
-							@Html.ActionLink(pool.Name, "Details", "SongList", new {id = pool.Id})
+							@Html.ActionLink(pool.Name, "Details", "SongList", new {id = pool.Id}, null)
 						}
 					</td>
 				</tr>
