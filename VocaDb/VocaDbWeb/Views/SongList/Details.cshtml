@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Helpers;
 @using MvcPaging;
 @using R = ViewRes.SongList;
@@ -6,10 +7,16 @@
 		   
 @{
 	ViewBag.Title = R.DetailsStrings.SongList + " - " + Model.Name;
-	ViewBag.Parents = new[] { 
-		Html.ActionLink(Model.Author.Name, "Details", "User", new { id = Model.Author.Id }, null) 
-	};
-	
+	if (Model.FeaturedCategory == SongListFeaturedCategory.Nothing) {
+		ViewBag.Parents = new[] {
+			Html.ActionLink(Model.Author.Name, "Details", "User", new {id = Model.Author.Id}, null)
+		};
+	} else {
+		ViewBag.Parents = new[] {
+			Html.ActionLink(Translate.SongListFeaturedCategoryNames[Model.FeaturedCategory], "Featured", "SongList")
+		};		
+	}
+
 }
 
 @section Toolbar {	
