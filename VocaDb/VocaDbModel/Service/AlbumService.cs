@@ -612,6 +612,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				return session.Query<Album>()
+					.Where(a => !a.Deleted)
 					.Select(a => a.OriginalRelease.EventName)
 					.Where(e => e.StartsWith(query))
 					.OrderBy(e => e)
@@ -807,10 +808,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArchivedAlbumVersionDetailsContract GetVersionDetails(int id) {
+		public ArchivedAlbumVersionDetailsContract GetVersionDetails(int id, int comparedVersionId) {
 
 			return HandleQuery(session =>
-				new ArchivedAlbumVersionDetailsContract(session.Load<ArchivedAlbumVersion>(id), PermissionContext.LanguagePreference));
+				new ArchivedAlbumVersionDetailsContract(session.Load<ArchivedAlbumVersion>(id), 
+					(comparedVersionId != 0 ? session.Load<ArchivedAlbumVersion>(comparedVersionId) : null), PermissionContext.LanguagePreference));
 
 		}
 

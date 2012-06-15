@@ -52,30 +52,30 @@ namespace VocaDb.Model.Service {
 			var details = new UserDetailsContract(user, PermissionContext);
 
 			details.AlbumCollectionCount
-				= session.Query<AlbumForUser>().Where(c => c.User == user && !c.Album.Deleted).Count();
+				= session.Query<AlbumForUser>().Count(c => c.User == user && !c.Album.Deleted);
 
 			details.ArtistCount
-				= session.Query<ArtistForUser>().Where(c => c.User == user && !c.Artist.Deleted).Count();
+				= session.Query<ArtistForUser>().Count(c => c.User == user && !c.Artist.Deleted);
 
 			details.FavoriteSongCount
-				= session.Query<FavoriteSongForUser>().Where(c => c.User == user && !c.Song.Deleted).Count();
+				= session.Query<FavoriteSongForUser>().Count(c => c.User == user && !c.Song.Deleted);
 
 			details.CommentCount
-				= session.Query<AlbumComment>().Where(c => c.Author == user && !c.Album.Deleted).Count()
-				+ session.Query<ArtistComment>().Where(c => c.Author == user && !c.Artist.Deleted).Count();
+				= session.Query<AlbumComment>().Count(c => c.Author == user && !c.Album.Deleted)
+				+ session.Query<ArtistComment>().Count(c => c.Author == user && !c.Artist.Deleted);
 
 			details.EditCount
-				= session.Query<ArchivedAlbumVersion>().Where(c => c.Author == user && !c.Album.Deleted).Count()
-				+ session.Query<ArchivedArtistVersion>().Where(c => c.Author == user && !c.Artist.Deleted).Count()
-				+ session.Query<ArchivedSongVersion>().Where(c => c.Author == user && !c.Song.Deleted).Count();
+				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && !c.Album.Deleted)
+				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && !c.Artist.Deleted)
+				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && !c.Song.Deleted);
 
 			details.SubmitCount
-				= session.Query<ArchivedAlbumVersion>().Where(c => c.Author == user && c.Version == 0 && !c.Album.Deleted).Count()
-				+ session.Query<ArchivedArtistVersion>().Where(c => c.Author == user && c.Version == 0 && !c.Artist.Deleted).Count()
-				+ session.Query<ArchivedSongVersion>().Where(c => c.Author == user && c.Version == 0 && !c.Song.Deleted).Count();
+				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Album.Deleted)
+				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Artist.Deleted)
+				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Song.Deleted);
 
 			details.TagVotes
-				= session.Query<TagVote>().Where(t => t.User == user).Count();
+				= session.Query<TagVote>().Count(t => t.User == user);
 
 			return details;
 

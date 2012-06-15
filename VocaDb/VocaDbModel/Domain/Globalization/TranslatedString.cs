@@ -20,6 +20,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		}
 
+		public static TranslatedString Create(string uniform) {
+			return new TranslatedString(uniform, uniform, uniform);
+		}
+
 		private string english;
 		private string original;
 		private string romaji;

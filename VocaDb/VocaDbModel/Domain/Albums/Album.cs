@@ -35,7 +35,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		protected IEnumerable<Artist> ArtistList {
 			get {
-				return Artists.Select(a => a.Artist);
+				return Artists.Where(a => a.Artist != null).Select(a => a.Artist);
 			}
 		}
 

@@ -94,29 +94,26 @@
 	
 }
 
-@helper PrintArchivedAlbumData(int archivedEntryId, ArchivedAlbumContract data) {
+@helper PrintArchivedAlbumData(int archivedEntryId, ArchivedAlbumContract data, int compareToEntryId, ArchivedAlbumContract compareToData) {
 
 	<fieldset>
 		<legend>Content</legend>
 	
 		<table>
 			@ArchivedEntryHelpers.DataRow("Album Id", data.Id)
-			@ArchivedEntryHelpers.PictureRow("Cover", Url.Action("ArchivedVersionCoverPicture", "Album", new { id = archivedEntryId }))
-			@ArchivedEntryHelpers.TranslatedNameRow(data.TranslatedName)
+			@ArchivedEntryHelpers.PictureRow("Cover", Url.Action("ArchivedVersionCoverPicture", "Album", new { id = archivedEntryId }), 
+				compareToEntryId != 0 ? Url.Action("ArchivedVersionCoverPicture", "Album", new { id = compareToEntryId }) : null)
+			@ArchivedEntryHelpers.TranslatedNameRow(data.TranslatedName, compareToData != null ? compareToData.TranslatedName : null)
 			@ArchivedEntryHelpers.DataRowList("Names", DataFormatUtils.GenerateHtmlFromHelper(data.Names, ArchivedEntryHelpers.NameInfo))
-			@ArchivedEntryHelpers.DataRow("Description", data.Description)
-			@ArchivedEntryHelpers.DataRow("Disc type", Translate.DiscTypeName(data.DiscType))
-			@if (data.OriginalRelease != null) {
-	   if (data.OriginalRelease.ReleaseDate != null) {
-		   @ArchivedEntryHelpers.DataRow("Release date", data.OriginalRelease.ReleaseDate.Formatted)
-	   }
-	   @ArchivedEntryHelpers.DataRow("Catalog number", data.OriginalRelease.CatNum)
-	   @ArchivedEntryHelpers.DataRow("Release event", data.OriginalRelease.EventName)
-   }
-			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
-			@ArchivedEntryHelpers.DataRowList("Artists", DataFormatUtils.GenerateHtml(data.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
-			@ArchivedEntryHelpers.DataRowList("Tracks", DataFormatUtils.GenerateHtml(data.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))
-			@ArchivedEntryHelpers.DataRowList("PVs", DataFormatUtils.GenerateHtmlFromHelper(data.PVs, ArchivedEntryHelpers.PVInfo))
+			@ArchivedEntryHelpers.DataRow("Description", data, compareToData, d => d.Description)
+			@ArchivedEntryHelpers.DataRow("Disc type", data, compareToData,d => Translate.DiscTypeName(d.DiscType))
+		    @ArchivedEntryHelpers.DataRow("Release date", data, compareToData, d => d.OriginalRelease != null && d.OriginalRelease.ReleaseDate != null ? ArchivedEntryHelpers.FormatReleaseDate(d.OriginalRelease.ReleaseDate) : string.Empty)
+			@ArchivedEntryHelpers.DataRow("Catalog number", data, compareToData, d => d.OriginalRelease != null ? d.OriginalRelease.CatNum : string.Empty)
+			@ArchivedEntryHelpers.DataRow("Release event", data, compareToData, d => d.OriginalRelease != null ? d.OriginalRelease.EventName : string.Empty)
+			@ArchivedEntryHelpers.DataRowList("External links", data, compareToData, d => DataFormatUtils.GenerateHtmlFromHelper(d.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
+			@ArchivedEntryHelpers.DataRowList("Artists", data, compareToData, d => DataFormatUtils.GenerateHtml(d.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
+			@ArchivedEntryHelpers.DataRowList("Tracks", data, compareToData, d => DataFormatUtils.GenerateHtml(d.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))
+			@ArchivedEntryHelpers.DataRowList("PVs", data, compareToData, d => DataFormatUtils.GenerateHtmlFromHelper(d.PVs, ArchivedEntryHelpers.PVInfo))
 		</table>	
 
 	</fieldset>
