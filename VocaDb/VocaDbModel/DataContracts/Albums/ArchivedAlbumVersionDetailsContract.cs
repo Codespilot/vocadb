@@ -14,15 +14,16 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Album = new AlbumContract(archived.Album, languagePreference);
 			ArchivedVersion = new ArchivedAlbumVersionContract(archived);
 			ComparedVersion = comparedVersion != null ? new ArchivedAlbumVersionContract(comparedVersion) : null; 
-			ComparedVersionData = (comparedVersion != null ? ArchivedAlbumContract.GetAllProperties(comparedVersion) : null);
-			ComparedVersionId = (comparedVersion != null ? comparedVersion.Id : 0);
-			Data = ArchivedAlbumContract.GetAllProperties(archived);
 			Name = Album.Name;
 
 			ComparableVersions = archived.Album.ArchivedVersionsManager.Versions
 				.Where(v => v != archived)
 				.Select(a => new ArchivedObjectVersionContract(a))
 				.ToArray();
+
+			Versions = ComparedAlbumsContract.Create(archived, comparedVersion);
+
+			ComparedVersionId = Versions.SecondId;
 
 		}
 
@@ -34,13 +35,11 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public ArchivedAlbumVersionContract ComparedVersion { get; set; }
 
-		public ArchivedAlbumContract ComparedVersionData { get; set; }
-
 		public int ComparedVersionId { get; set; }
 
-		public ArchivedAlbumContract Data { get; set; }
-
 		public string Name { get; set; }
+
+		public ComparedAlbumsContract Versions { get; set; }
 
 	}
 

@@ -678,10 +678,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArchivedArtistVersionDetailsContract GetVersionDetails(int id) {
+		public ArchivedArtistVersionDetailsContract GetVersionDetails(int id, int comparedVersionId) {
 
 			return HandleQuery(session =>
-				new ArchivedArtistVersionDetailsContract(session.Load<ArchivedArtistVersion>(id), PermissionContext.LanguagePreference));
+				new ArchivedArtistVersionDetailsContract(session.Load<ArchivedArtistVersion>(id),
+					comparedVersionId != 0 ? session.Load<ArchivedArtistVersion>(comparedVersionId) : null, PermissionContext.LanguagePreference));
 
 		}
 

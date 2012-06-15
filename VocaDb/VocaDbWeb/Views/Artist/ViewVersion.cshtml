@@ -4,7 +4,7 @@
 
 @{
 	
-    ViewBag.Title = "Revision " + Model.Version + " for " + Model.Name;
+    ViewBag.Title = "Revision " + Model.ArchivedVersion.Version + " for " + Model.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Artist", "Index"), 
 		Html.ActionLink(Model.Artist.Name, "Details", new { id = Model.Artist.Id }),
@@ -15,13 +15,21 @@
 
 @section Toolbar {
 @if (Login.CanRevertEntryVersions) {
-	@Html.ActionLink("Revert to this version", "RevertToVersion", new { archivedArtistVersionId = Model.Id }, new { id = "revertLink", onclick = "return confirm(\"Are you sure you want to revert to this version?\");" })
+	@Html.ActionLink("Revert to this version", "RevertToVersion", new { archivedArtistVersionId = Model.ArchivedVersion.Id }, new { id = "revertLink", onclick = "return confirm(\"Are you sure you want to revert to this version?\");" })
 }
 }
 
-@Helpers.ArchivedObjectVersionProperties(Versions.CreateForArtist(Model))
+@if (Model.ComparableVersions.Any()) {
+	using (Html.BeginForm("ViewVersion", "Artist", FormMethod.Post, new { @class = "form form-inline" })) {
+		<p>Compare to: @Html.DropDownListFor(m => m.ComparedVersionId, new SelectList(Model.ComparableVersions, "Id", "Version", Model.ComparedVersionId), new { @class = "input-small" })
+		<button type="submit" class="btn btn-primary">Compare</button></p>
+	}
+}
 
-@ArtistHelpers.PrintArchivedArtistData(Model.Id, Model.Data)
+@Helpers.ArchivedObjectVersionProperties(Versions.CreateForArtist(Model.ArchivedVersion), 
+	Model.ComparedVersion != null ? Versions.CreateForArtist(Model.ComparedVersion) : null)
+
+@ArtistHelpers.PrintArchivedArtistData(Model.Versions)
 
 <script type="text/javascript">
 

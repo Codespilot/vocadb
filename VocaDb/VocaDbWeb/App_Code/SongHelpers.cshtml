@@ -8,22 +8,22 @@
 	<text>@lyrics.Language (@lyrics.Source)</text>
 }
 
-@helper PrintArchivedSongData(ArchivedSongContract data) {
+@helper PrintArchivedSongData(ComparedSongsContract comparedSongs) {
 
 	<fieldset>
 		<legend>Content</legend>
 	
 		<table>
-			@ArchivedEntryHelpers.DataRow("Id", data.Id)
-			@ArchivedEntryHelpers.TranslatedNameRow(data.TranslatedName)
-			@ArchivedEntryHelpers.DataRowList("Names", DataFormatUtils.GenerateHtmlFromHelper(data.Names, ArchivedEntryHelpers.NameInfo))
-			@ArchivedEntryHelpers.DataRow("Notes", data.Notes)
-			@ArchivedEntryHelpers.DataRow("Song type", data.SongType)
-			@ArchivedEntryHelpers.DataRow("Original version", ArchivedEntryHelpers.ObjectRefInfo(data.OriginalVersion))
-			@ArchivedEntryHelpers.DataRowList("External links", DataFormatUtils.GenerateHtmlFromHelper(data.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
-			@ArchivedEntryHelpers.DataRowList("Artists", DataFormatUtils.GenerateHtml(data.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
-			@ArchivedEntryHelpers.DataRowList("PVs", DataFormatUtils.GenerateHtmlFromHelper(data.PVs, ArchivedEntryHelpers.PVInfo))
-			@ArchivedEntryHelpers.DataRowList("Lyrics", DataFormatUtils.GenerateHtmlFromHelper(data.Lyrics, LyricsInfo))
+			@ArchivedEntryHelpers.DataRow("Id", comparedSongs.FirstData.Id)
+			@ArchivedEntryHelpers.TranslatedNameRow(comparedSongs, d => d.TranslatedName)
+			@ArchivedEntryHelpers.DataRowList("Names", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.Names, ArchivedEntryHelpers.NameInfo))
+			@ArchivedEntryHelpers.DataRow("Notes", comparedSongs, d => d.Notes)
+			@ArchivedEntryHelpers.DataRow("Song type", comparedSongs, d => d.SongType)
+			@ArchivedEntryHelpers.DataRow("Original version", comparedSongs, d => ArchivedEntryHelpers.ObjectRefInfo(d.OriginalVersion))
+			@ArchivedEntryHelpers.DataRowList("External links", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
+			@ArchivedEntryHelpers.DataRowList("Artists", comparedSongs, d => DataFormatUtils.GenerateHtml(d.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
+			@ArchivedEntryHelpers.DataRowList("PVs", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.PVs, ArchivedEntryHelpers.PVInfo))
+			@ArchivedEntryHelpers.DataRowList("Lyrics", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.Lyrics, LyricsInfo))
 		</table>	
 
 	</fieldset>

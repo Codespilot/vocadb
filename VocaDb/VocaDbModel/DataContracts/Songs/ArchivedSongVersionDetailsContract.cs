@@ -1,32 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.DataContracts.Artists;
+﻿using System.Linq;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
-	public class ArchivedSongVersionDetailsContract : ArchivedSongVersionContract {
+	public class ArchivedSongVersionDetailsContract {
 
 		public ArchivedSongVersionDetailsContract() { }
 
-		public ArchivedSongVersionDetailsContract(ArchivedSongVersion archived, ContentLanguagePreference languagePreference)
-			: base(archived) {
+		public ArchivedSongVersionDetailsContract(ArchivedSongVersion archived, ArchivedSongVersion comparedVersion, ContentLanguagePreference languagePreference) {
 
+			ArchivedVersion = new ArchivedSongVersionContract(archived);
+			ComparedVersion = comparedVersion != null ? new ArchivedSongVersionContract(comparedVersion) : null;
+			ComparedVersionId = comparedVersion != null ? comparedVersion.Id : 0;
 			Song = new SongContract(archived.Song, languagePreference);
-			Data = ArchivedSongContract.GetAllProperties(archived);
 			Name = Song.Name;
+
+			ComparableVersions = archived.Song.ArchivedVersionsManager.Versions
+				.Where(v => v != archived)
+				.Select(a => new ArchivedObjectVersionContract(a))
+				.ToArray();
+
+			Versions = ComparedSongsContract.Create(archived, comparedVersion);
+
+			ComparedVersionId = Versions.SecondId;
 
 		}
 
-		public ArchivedSongContract Data { get; set; }
+		public ArchivedSongVersionContract ArchivedVersion { get; set; }
+
+		public ArchivedObjectVersionContract[] ComparableVersions { get; set; }
+
+		public ArchivedSongVersionContract ComparedVersion { get; set; }
+
+		public int ComparedVersionId { get; set; }
 
 		public string Name { get; set; }
 
 		public SongContract Song { get; set; }
+
+		public ComparedSongsContract Versions { get; set; }
+
 
 	}
 

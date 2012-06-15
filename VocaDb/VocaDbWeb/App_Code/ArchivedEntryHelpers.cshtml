@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc;
 @using VocaDb.Model.DataContracts;
-@using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Model.DataContracts.PVs;
+@using VocaDb.Model.DataContracts.Versioning
 @using VocaDb.Model.Domain;
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
@@ -16,7 +16,24 @@
 		return DataRow(name, val1, val2);
 		
     }
-	
+
+	public static HelperResult DataRow<T>(string name, ComparedVersionsContract<T> comparedVersions, Func<T, object> valGetter)
+		where T : class {
+
+		var val1 = valGetter(comparedVersions.FirstData);
+		var val2 = (comparedVersions.SecondData != null ? valGetter(comparedVersions.SecondData) : null);
+
+		return DataRow(name, val1, val2);
+
+	}
+
+	public static HelperResult DataRowD<T>(string name, ComparedVersionsContract<T> comparedVersions, Func<T, object> valGetter)
+		where T : class {
+
+		return DataRow(name, comparedVersions, valGetter);
+
+	}	
+
 	public static HelperResult DataRowList<T>(string name, T primary, T compared, Func<T, IEnumerable<MvcHtmlString>> valGetter)
 		where T : class {
 
@@ -26,12 +43,60 @@
 		return DataRowList(name, val1, val2);
 			
 	}
-	
+
+	public static HelperResult DataRowList<T>(string name, ComparedVersionsContract<T> comparedVersions, Func<T, IEnumerable<MvcHtmlString>> valGetter)
+		where T : class {
+
+		var val1 = valGetter(comparedVersions.FirstData);
+		var val2 = (comparedVersions.SecondData != null ? valGetter(comparedVersions.SecondData) : null);
+
+		return DataRowList(name, val1, val2);
+
+	}
+		
 	public static string FormatReleaseDate(OptionalDateTimeContract contract) {
 		return OptionalDateTime.ToDateTime(contract.Year, contract.Month, contract.Day).ToShortDateString();
-	}	
-}
+	}
 
+	public static HelperResult ObjectRefList<T>(string name, ComparedVersionsContract<T> comparedVersions, 
+		Func<T, IEnumerable<ObjectRefContract>> valGetter) where T : class {
+		
+		return DataRowList(name, comparedVersions, d => DataFormatUtils.GenerateHtmlFromHelper(valGetter(d), ObjectRefInfo));
+		
+	}
+
+	public static HelperResult PictureRow<T>(string name, ComparedVersionsContract<T> comparedVersions, Func<int, string> urlGetter)
+		where T : class {
+
+		var val1 = urlGetter(comparedVersions.FirstId);
+		var val2 = (comparedVersions.SecondId != 0 ? urlGetter(comparedVersions.SecondId) : null);
+
+		return PictureRow(name, val1, val2);
+				
+	}
+	
+	public static HelperResult TranslatedNameRow<T>(ComparedVersionsContract<T> comparedVersions, Func<T, TranslatedStringContract> valGetter)
+		where T : class {
+
+		var val1 = valGetter(comparedVersions.FirstData);
+		var val2 = comparedVersions.SecondData != null ? valGetter(comparedVersions.SecondData) : null;
+
+		return TranslatedNameRow(val1, val2);
+		
+	}
+
+	public static HelperResult TranslatedNameRow<T>(ComparedVersionsContract<T> comparedVersions, Func<T, ArchivedTranslatedStringContract> valGetter)
+		where T : class {
+
+		var val1 = valGetter(comparedVersions.FirstData);
+		var val2 = comparedVersions.SecondData != null ? valGetter(comparedVersions.SecondData) : null;
+
+		return TranslatedNameRow(val1, val2);
+
+	}
+	
+}
+	
 @helper CurrentVersionMessage(int version, EntryStatus status) {
 	<p>@ViewRes.ArchivedObjectVersionsStrings.CurrentVersionIs @version (@Translate.EntryStatusNames[status]).</p>	
 }

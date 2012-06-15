@@ -35,7 +35,7 @@
 
 @Helpers.ArchivedObjectVersionProperties(Versions.CreateForAlbum(Model.ArchivedVersion), Model.ComparedVersion != null ? Versions.CreateForAlbum(Model.ComparedVersion) : null)
 
-@AlbumHelpers.PrintArchivedAlbumData(Model.ArchivedVersion.Id, Model.Data, Model.ComparedVersion != null ? Model.ComparedVersion.Id : 0, Model.ComparedVersionData)
+@AlbumHelpers.PrintArchivedAlbumData(Model.Versions)
 
 <script type="text/javascript">
 
