@@ -55,7 +55,8 @@
 	
 }
 
-@helper ArchivedObjectVersionProperties(VocaDb.Web.Models.Shared.ArchivedObjectVersion ver) {
+@helper ArchivedObjectVersionProperties(VocaDb.Web.Models.Shared.ArchivedObjectVersion ver, 
+VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 	
 	<fieldset>
 		<legend>Properties</legend>
@@ -64,24 +65,59 @@
 			<tr>
 				<td>Version</td>
 				<td>@ver.Contract.Version</td>
+				<td>
+					@if (compareTo != null) {
+						@compareTo.Contract.Version
+					}
+				</td>
 			</tr><tr>
 				<td>Status</td>
 				<td>@ver.Status</td>
+				<td>
+					@if (compareTo != null) {
+						@compareTo.Status
+					}
+				</td>
 			</tr><tr>
 				<td>Snapshot</td>
 				<td>@ver.Contract.IsSnapshot</td>
+				<td>
+					@if (compareTo != null) {
+						@compareTo.Contract.IsSnapshot
+					}
+				</td>
 			</tr><tr>
 				<td>Created</td>
 				<td>@ver.Contract.Created</td>
+				<td>
+					@if (compareTo != null) {
+						@compareTo.Contract.Created
+					}
+				</td>
 			</tr><tr>
 				<td>Author</td>
 				<td>@Html.UserLink(ver.Contract.Author, ver.Contract.AgentName)</td>
+				<td>
+					@if (compareTo != null) {
+						@Html.UserLink(compareTo.Contract.Author, compareTo.Contract.AgentName)
+					}
+				</td>
 			</tr><tr>
 				<td>Reason</td>
 				<td>@ver.Reason</td>
+				<td>
+					@if (compareTo != null) {
+						@compareTo.Reason
+					}
+				</td>
 			</tr><tr>
 				<td>Changed</td>
 				<td>@ver.ChangeMessage</td>
+				<td>
+					@if (compareTo != null) {
+						@compareTo.ChangeMessage
+					}
+				</td>
 			</tr>
 		</table>	
 
@@ -120,16 +156,16 @@
 	switch (pv.Service) {
 		case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 			<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))"></script>
-			break;
+								   break;
 
 		case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
-			var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+								   var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 			<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=true&amp;color=ff7700"></iframe>
-			break;
+																																										  break;
 
 		case VocaDb.Model.Domain.PVs.PVService.Youtube:
 			<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@pv.PVId" frameborder="0" wmode="Opaque" allowfullscreen></iframe>
-			break;
+																		break;
 	}
 	
 }
@@ -139,16 +175,16 @@
 		switch (pv.Service) {
 			case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 				<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
-				break;
+																		  break;
 
 			case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
-				var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+																		  var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 				<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=false&amp;color=ff7700"></iframe>			
-				break;
-				
+																																										   break;
+
 			case VocaDb.Model.Domain.PVs.PVService.Youtube:
-				EmbedPV(pv, width, height);
-				break;
+																																										   EmbedPV(pv, width, height);
+																																										   break;
 		}
 	}
 }

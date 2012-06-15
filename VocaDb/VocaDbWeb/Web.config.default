@@ -46,6 +46,8 @@
         <add namespace="System.Web.WebPages"/>
       </namespaces>
     </pages>
+
+		<httpRuntime relaxedUrlToFileSystemMapping="true"/>
   </system.web>
 
 	<system.net>

@@ -14,6 +14,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			CatNum = release.CatNum;
 			ReleaseDate = (release.ReleaseDate != null ? new OptionalDateTimeContract(release.ReleaseDate) : null);
+			ReleaseDate.Formatted = string.Empty;
 			EventName = release.EventName;
 
 		}

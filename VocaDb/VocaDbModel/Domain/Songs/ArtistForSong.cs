@@ -44,6 +44,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool IsSupport { get; set; }
 
+		public virtual string Name { get; set; }
+
 		public virtual string Notes {
 			get { return notes; }
 			set {

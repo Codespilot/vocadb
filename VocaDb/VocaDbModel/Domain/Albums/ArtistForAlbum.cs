@@ -38,7 +38,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual Artist Artist {
 			get { return artist; }
 			set {
-				ParamIs.NotNull(() => value);
+				//ParamIs.NotNull(() => value);
 				artist = value;
 			}
 		}
@@ -52,6 +52,8 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual int Id { get; set; }
 
 		public virtual bool IsSupport { get; set; }
+
+		public virtual string Name { get; set; }
 
 		public virtual string Notes {
 			get { return notes; }

@@ -111,6 +111,13 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		/*public static MvcHtmlString DataRow<T>(this HtmlHelper htmlHelper,
+			string name, T primary, T compared, Func<T> valGetter) {
+
+
+
+		}*/
+
 		public static MvcHtmlString DiscTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, DiscType>> expression, object htmlAttributes = null, object selectedValue = null) {
 

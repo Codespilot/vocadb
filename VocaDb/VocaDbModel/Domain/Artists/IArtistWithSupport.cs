@@ -6,6 +6,8 @@
 
 		bool IsSupport { get; }
 
+		string Name { get; }
+
 		ArtistRoles Roles { get; }
 
 	}

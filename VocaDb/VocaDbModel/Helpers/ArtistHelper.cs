@@ -7,9 +7,15 @@ namespace VocaDb.Model.Helpers {
 
 	public static class ArtistHelper {
 
+		private static TranslatedString GetTranslatedName(IArtistWithSupport link) {
+
+			return (link.Artist != null ? link.Artist.TranslatedName : TranslatedString.Create(link.Name));
+
+		}
+
 		private static bool IsProducerRole(IArtistWithSupport link, bool isAnimation) {
 
-			return IsProducerRole(GetCategories(link.Artist.ArtistType, link.Roles), isAnimation);
+			return IsProducerRole(GetCategories(link), isAnimation);
 
 		}
 
@@ -18,6 +24,17 @@ namespace VocaDb.Model.Helpers {
 			return (categories.HasFlag(ArtistCategories.Producer) 
 				|| categories.HasFlag(ArtistCategories.Circle) 
 				|| (isAnimation && categories.HasFlag(ArtistCategories.Animator)));
+
+		}
+
+		private static bool IsValidCreditableArtist(IArtistWithSupport artist) {
+
+			if (artist.IsSupport)
+				return false;
+
+			var cat = GetCategories(artist);
+
+			return (cat != ArtistCategories.Nothing && cat != ArtistCategories.Label);
 
 		}
 
@@ -69,9 +86,9 @@ namespace VocaDb.Model.Helpers {
 
 			ParamIs.NotNull(() => artists);
 
-			var matched = artists.Where(a => a.Artist.ArtistType != ArtistType.Label && !a.IsSupport).ToArray();
+			var matched = artists.Where(IsValidCreditableArtist).ToArray();
 			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).Select(a => a.Artist).ToArray();
-			var performers = matched.Where(a => GetCategories(a.Artist.ArtistType, a.Roles).HasFlag(ArtistCategories.Vocalist) 
+			var performers = matched.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist) 
 				&& !producers.Contains(a.Artist)).Select(a => a.Artist).ToArray();
 
 			const string various = "Various artists";
@@ -101,11 +118,19 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static ArtistCategories GetCategories(IArtistWithSupport artist) {
+
+			ParamIs.NotNull(() => artist);
+
+			return GetCategories(artist.Artist != null ? artist.Artist.ArtistType : ArtistType.Unknown, artist.Roles);
+
+		}
+
 		public static ArtistCategories GetCategories(ArtistType type, ArtistRoles roles) {
 
-			if (roles == ArtistRoles.Default || !ArtistHelper.IsCustomizable(type)) {
+			if (roles == ArtistRoles.Default || !IsCustomizable(type)) {
 
-				return ArtistHelper.CategoriesForTypes[type];
+				return CategoriesForTypes[type];
 
 			} else {
 

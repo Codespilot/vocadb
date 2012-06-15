@@ -52,6 +52,12 @@ namespace VocaDb.Model.Domain {
 
 		}
 
+		public static DateTime ToDateTime(int? year, int? month, int? day) {
+
+			return new DateTime(year ?? 0, month ?? 1, day ?? 1);
+
+		}
+
 		public static void Validate(int? year, int? day, int? month) {
 
 			if (!IsValid(year, day, month))
@@ -126,7 +132,7 @@ namespace VocaDb.Model.Domain {
 
 		public DateTime ToDateTime() {
 
-			return new DateTime(Year ?? 0, Month ?? 1, Day ?? 1);
+			return ToDateTime(Year, Month, Day);
 
 		}
 
