@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
 using Microsoft.Web.Helpers;
-using Resources;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
@@ -15,7 +13,6 @@ using System.Web;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
-using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Users;
@@ -110,13 +107,6 @@ namespace VocaDb.Web.Helpers {
 			return htmlHelper.DropDownListFor(expression, CreateArtistTypesList(selectedValue), htmlAttributes);
 
 		}
-
-		/*public static MvcHtmlString DataRow<T>(this HtmlHelper htmlHelper,
-			string name, T primary, T compared, Func<T> valGetter) {
-
-
-
-		}*/
 
 		public static MvcHtmlString DiscTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, DiscType>> expression, object htmlAttributes = null, object selectedValue = null) {

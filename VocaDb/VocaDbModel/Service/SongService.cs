@@ -949,10 +949,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArchivedSongVersionDetailsContract GetVersionDetails(int id) {
+		public ArchivedSongVersionDetailsContract GetVersionDetails(int id, int comparedVersionId) {
 
 			return HandleQuery(session =>
-				new ArchivedSongVersionDetailsContract(session.Load<ArchivedSongVersion>(id), PermissionContext.LanguagePreference));
+				new ArchivedSongVersionDetailsContract(session.Load<ArchivedSongVersion>(id),
+					comparedVersionId != 0 ? session.Load<ArchivedSongVersion>(comparedVersionId) : null, 
+					PermissionContext.LanguagePreference));
 
 		}
 

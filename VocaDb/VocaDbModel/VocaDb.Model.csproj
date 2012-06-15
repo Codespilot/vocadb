@@ -95,9 +95,11 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedArtistForAlbumContract.cs" />
+    <Compile Include="DataContracts\Albums\ComparedAlbumsContract.cs" />
     <Compile Include="DataContracts\Albums\ExportedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
+    <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventSeriesContract.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="DataContracts\EntryRefContract.cs" />
     <Compile Include="DataContracts\Security\PermissionTokenContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedArtistForSongContract.cs" />
+    <Compile Include="DataContracts\Songs\ComparedSongsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListBaseContract.cs" />
@@ -198,6 +201,7 @@
     <Compile Include="DataContracts\Users\UserWithActivityEntriesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="DataContracts\VersioningInfoContract.cs" />
+    <Compile Include="DataContracts\Versioning\ComparedVersionsContract.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntry.cs" />
     <Compile Include="Domain\Activityfeed\ActivityfeedManager.cs" />
     <Content Include="Domain\Activityfeed\EntryEditedEntry.cs" />
