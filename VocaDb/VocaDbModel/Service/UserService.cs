@@ -274,7 +274,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var albums = session.Query<AlbumForUser>()
-					.Where(a => a.User.Id == userId && !a.Album.Deleted && status == PurchaseStatus.Nothing || (a.PurchaseStatus == status))
+					.Where(a => a.User.Id == userId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status))
 					.AddNameOrder(LanguagePreference)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
