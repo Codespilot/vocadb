@@ -283,7 +283,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var count = paging.GetTotalCount ? session.Query<AlbumForUser>()
-					.Count(a => a.User.Id == userId && !a.Album.Deleted && status == PurchaseStatus.Nothing || (a.PurchaseStatus == status)) : 0;
+					.Count(a => a.User.Id == userId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status)) : 0;
 
 				return new PartialFindResult<AlbumForUserContract>(albums, count);
 
