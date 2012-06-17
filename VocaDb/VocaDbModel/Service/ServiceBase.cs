@@ -144,7 +144,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => session);
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext, user);
-			AuditLog(agentLoginData.Name);
+			AuditLog(doingWhat, agentLoginData.Name);
 			var entry = new AuditLogEntry(agentLoginData, doingWhat);
 
 			session.Save(entry);
