@@ -70,6 +70,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public bool Deleted { get; set; }
 
 		[DataMember]
+		public int Hits { get; set; }
+
+		[DataMember]
 		public bool IsFavorited { get; set; }
 
 		[DataMember]

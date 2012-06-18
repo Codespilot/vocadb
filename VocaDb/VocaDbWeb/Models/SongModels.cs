@@ -42,6 +42,8 @@ namespace VocaDb.Web.Models {
 			CreateDate = contract.CreateDate;
 			Deleted = contract.Deleted;
 			Draft = contract.Song.Status == EntryStatus.Draft;
+			FavoritedTimes = contract.Song.FavoritedTimes;
+			Hits = contract.Hits;
 			Id = contract.Song.Id;
 			IsFavorited = contract.IsFavorited;
 			LatestComments = contract.LatestComments;
@@ -99,6 +101,10 @@ namespace VocaDb.Web.Models {
 		public bool Deleted { get; set; }
 
 		public bool Draft { get; set; }
+
+		public int FavoritedTimes { get; set; }
+
+		public int Hits { get; set; }
 
 		public int Id { get; set; }
 

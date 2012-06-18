@@ -171,4 +171,7 @@
   <data name="Pools" xml:space="preserve">
     <value>Joukot</value>
   </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>suosikki(a)</value>
+  </data>
 </root>

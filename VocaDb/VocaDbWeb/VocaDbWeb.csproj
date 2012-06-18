@@ -409,6 +409,7 @@
     <Compile Include="Helpers\TempDataExtender.cs" />
     <Compile Include="Helpers\Translate.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
+    <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Models\Admin\CommentViewModel.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\Album\Create.cs" />

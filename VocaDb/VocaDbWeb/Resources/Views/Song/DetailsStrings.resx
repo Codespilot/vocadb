@@ -171,4 +171,7 @@
   <data name="Pools" xml:space="preserve">
     <value>Pools</value>
   </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>favorite(s)</value>
+  </data>
 </root>

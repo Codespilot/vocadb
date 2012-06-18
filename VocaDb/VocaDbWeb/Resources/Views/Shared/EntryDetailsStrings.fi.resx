@@ -135,6 +135,9 @@
   <data name="ExternalLinks" xml:space="preserve">
     <value>Ulkoiset linkit</value>
   </data>
+  <data name="Hits" xml:space="preserve">
+    <value>osuma(a)</value>
+  </data>
   <data name="LatestComments" xml:space="preserve">
     <value>Viimeisimmät kommentit</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="Revisions" xml:space="preserve">
     <value>Versiot</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Tilastoja</value>
   </data>
   <data name="ViewAllComments" xml:space="preserve">
     <value>Näytä kaikki kommentit</value>

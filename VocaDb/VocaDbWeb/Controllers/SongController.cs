@@ -137,9 +137,13 @@ namespace VocaDb.Web.Controllers
         // GET: /Song/Details/5
 
         public ActionResult Details(int id) {
+
 			SetSearchEntryType(EntryType.Song);
-			var model = new SongDetails(Service.GetSongDetails(id));
+
+			var model = new SongDetails(Service.GetSongDetails(id, WebHelper.IsValidHit(Request.UserAgent) ? CfHelper.GetRealIp(Request) : string.Empty));
+
             return View(model);
+
         }
 
         //
