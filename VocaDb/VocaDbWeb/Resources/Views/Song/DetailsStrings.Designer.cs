@@ -106,6 +106,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to favorite(s).
+        /// </summary>
+        public static string Favorites {
+            get {
+                return ResourceManager.GetString("Favorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lyrics.
         /// </summary>
         public static string Lyrics {

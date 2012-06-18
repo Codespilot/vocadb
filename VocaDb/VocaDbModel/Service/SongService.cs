@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using NHibernate;
+using NHibernate.Hql.Ast.ANTLR;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
@@ -794,21 +796,47 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongDetailsContract GetSongDetails(int songId) {
+		public SongDetailsContract GetSongDetails(int songId, string hostname) {
 
 			return HandleQuery(session => {
 
-				var contract = new SongDetailsContract(session.Load<Song>(songId), PermissionContext.LanguagePreference);
+				var song = session.Load<Song>(songId);
+				var contract = new SongDetailsContract(song, PermissionContext.LanguagePreference);
+				int agentNum = 0;
+				var user = PermissionContext.LoggedUser;
 
-				if (PermissionContext.LoggedUser != null)
+				if (user != null) {
+
 					contract.IsFavorited = session.Query<FavoriteSongForUser>()
-						.Any(s => s.Song.Id == songId && s.User.Id == PermissionContext.LoggedUser.Id);
+						.Any(s => s.Song.Id == songId && s.User.Id == user.Id);
 
-				contract.CommentCount = session.Query<SongComment>().Where(c => c.Song.Id == songId).Count();
+					agentNum = user.Id;
+
+				} else if (!string.IsNullOrEmpty(hostname)) {
+					agentNum = hostname.GetHashCode();
+				}
+
+				contract.CommentCount = session.Query<SongComment>().Count(c => c.Song.Id == songId);
 				contract.LatestComments = session.Query<SongComment>()
 					.Where(c => c.Song.Id == songId)
 					.OrderByDescending(c => c.Created).Take(3).ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
+				contract.Hits = session.Query<SongHit>().Count(h => h.Song.Id == songId);
+
+				if (agentNum != 0) {
+					using (var tx = session.BeginTransaction(IsolationLevel.ReadUncommitted)) {
+
+						var isHit = session.Query<SongHit>().Any(h => h.Song.Id == songId && h.Agent == agentNum);
+
+						if (!isHit) {
+							var hit = new SongHit(song, agentNum);
+							session.Save(hit);
+						}
+
+						tx.Commit();
+
+					}
+				}
 
 				return contract;
 

@@ -198,6 +198,14 @@
 				</td>	
 			</tr>
    }			
+   
+			<tr>
+				<td>@ViewRes.EntryDetailsStrings.Stats</td>
+				<td>
+					@Model.FavoritedTimes @R.DetailsStrings.Favorites,
+					@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits).
+				</td>
+			</tr>
 
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
