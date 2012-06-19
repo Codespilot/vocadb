@@ -27,6 +27,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public ArtistForAlbum(Album album, string name, bool support, ArtistRoles roles)
+			: this() {
+
+			Album = album;
+			IsSupport = support;
+			Name = name;
+			Roles = roles;
+
+		}
+
 		public virtual Album Album {
 			get { return album; }
 			set {
@@ -65,14 +75,23 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual ArtistRoles Roles { get; set; }
 
-		public virtual bool ContentEquals(ArtistForAlbumContract contract) {
+		public virtual bool ArtistLinkEquals(ArtistForAlbum another) {
+
+			if (another == null)
+				return false;
+
+			return ((Artist != null && Artist.Equals(another.Artist)) || (Artist == null && another.Artist == null && Name == another.Name));
+
+		}
+
+		/*public virtual bool ContentEquals(ArtistForAlbumContract contract) {
 
 			if (contract == null)
 				return false;
 
-			return (IsSupport == contract.IsSupport);
+			return (IsSupport == contract.IsSupport && Roles == contract.Roles);
 
-		}
+		}*/
 
 		public virtual void Delete() {
 			Album.DeleteArtistForAlbum(this);

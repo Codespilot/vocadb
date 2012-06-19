@@ -87,17 +87,17 @@ namespace VocaDb.Model.Helpers {
 			ParamIs.NotNull(() => artists);
 
 			var matched = artists.Where(IsValidCreditableArtist).ToArray();
-			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).Select(a => a.Artist).ToArray();
+			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).ToArray();
 			var performers = matched.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist) 
-				&& !producers.Contains(a.Artist)).Select(a => a.Artist).ToArray();
+				&& !producers.Contains(a)).ToArray();
 
 			const string various = "Various artists";
 
 			if (producers.Count() >= 4 || (!producers.Any() && performers.Count() >= 4))
 				return new TranslatedStringWithDefault(various, various, various, various);
 
-			var performerNames = performers.Select(m => m.TranslatedName);
-			var producerNames =	producers.Select(m => m.TranslatedName);
+			var performerNames = performers.Select(GetTranslatedName);
+			var producerNames =	producers.Select(GetTranslatedName);
 
 			if (producers.Any() && performers.Any() && producers.Count() + performers.Count() >= 5) {
 

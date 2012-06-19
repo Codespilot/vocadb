@@ -9,10 +9,17 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public ArchivedArtistForAlbumContract() {}
 
-		public ArchivedArtistForAlbumContract(ArtistForAlbum entry) : base(entry.Artist) {
+		public ArchivedArtistForAlbumContract(ArtistForAlbum entry) {
 
 			Roles = entry.Roles;
 			IsSupport = entry.IsSupport;
+
+			if (entry.Artist != null) {
+				Id = entry.Artist.Id;
+				NameHint = entry.Artist.DefaultName;
+			} else {
+				NameHint = entry.Name;
+			}
 
 		}
 
