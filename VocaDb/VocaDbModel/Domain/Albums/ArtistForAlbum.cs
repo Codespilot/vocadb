@@ -55,7 +55,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual ArtistCategories ArtistCategories {
 			get {
-				return ArtistHelper.GetCategories(Artist.ArtistType, Roles);
+				return ArtistHelper.GetCategories(this);
 			}
 		}
 
