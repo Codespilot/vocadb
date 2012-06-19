@@ -33,11 +33,11 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
 
-		protected IEnumerable<Artist> ArtistList {
+		/*protected IEnumerable<Artist> ArtistList {
 			get {
 				return Artists.Where(a => a.Artist != null).Select(a => a.Artist);
 			}
-		}
+		}*/
 
 		public Album() {
 			ArtistString = new TranslatedStringWithDefault(string.Empty, string.Empty, string.Empty, string.Empty);
@@ -98,7 +98,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual IEnumerable<ArtistForAlbum> Artists {
 			get {
-				return AllArtists.Where(a => !a.Artist.Deleted);
+				return AllArtists.Where(a => a.Artist == null || !a.Artist.Deleted);
 			}
 		}
 
@@ -277,6 +277,18 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public virtual ArtistForAlbum AddArtist(string name, bool isSupport, ArtistRoles roles) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+
+			var link = new ArtistForAlbum(this, name, isSupport, roles);
+
+			AllArtists.Add(link);
+
+			return link;
+
+		}
+
 		[Obsolete("Replaced by updating properties")]
 		public virtual SongInAlbum AddSong(Song song) {
 			
@@ -371,7 +383,10 @@ namespace VocaDb.Model.Domain.Albums {
 				throw new ArgumentException("Artist is not attached to album", "artistForAlbum");
 
 			AllArtists.Remove(artistForAlbum);
-			artistForAlbum.Artist.AllAlbums.Remove(artistForAlbum);
+
+			if (artistForAlbum.Artist != null)
+				artistForAlbum.Artist.AllAlbums.Remove(artistForAlbum);
+
 			UpdateArtistString();
 
 		}
@@ -418,22 +433,21 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		/// <summary>
 		/// Checks whether this album has a specific artist.
 		/// </summary>
-		/// <param name="artist">Artist to be checked. Cannot be null.</param>
+		/// <param name="artistForAlbum">Artist to be checked. Cannot be null.</param>
 		/// <returns>True if the artist has this album. Otherwise false.</returns>
-		public virtual bool HasArtist(Artist artist) {
+		public virtual bool HasArtistForAlbum(ArtistForAlbum artistForAlbum) {
 
-			ParamIs.NotNull(() => artist);
+			ParamIs.NotNull(() => artistForAlbum);
 
-			return Artists.Any(a => a.Artist.Equals(artist));
+			return Artists.Any(a => a.ArtistLinkEquals(artistForAlbum));
 
 		}
-
 
 		public virtual bool HasName(LocalizedString name) {
 

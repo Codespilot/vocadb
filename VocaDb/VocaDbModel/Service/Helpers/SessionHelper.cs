@@ -32,7 +32,8 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public static void RestoreObjectRefs<TExisting, TEntry>(ISession session, IList<string> warnings, IEnumerable<TExisting> existing,
 			IEnumerable<ObjectRefContract> objRefs, Func<TExisting, ObjectRefContract, bool> equality, 
-			Func<TEntry, TExisting> createEntryFunc, Action<TExisting> deleteFunc) {
+			Func<TEntry, TExisting> createEntryFunc, Action<TExisting> deleteFunc)
+			where TEntry : class where TExisting : class {
 
 			RestoreObjectRefs<TExisting, TEntry, ObjectRefContract>(session, warnings, existing, objRefs, equality, (entry, ex) 
 				=> createEntryFunc(entry), deleteFunc);
@@ -41,7 +42,8 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public static void RestoreObjectRefs<TExisting, TEntry, TObjRef>(ISession session, IList<string> warnings, IEnumerable<TExisting> existing,
 			IEnumerable<TObjRef> objRefs, Func<TExisting, TObjRef, bool> equality,
-			Func<TEntry, TObjRef, TExisting> createEntryFunc, Action<TExisting> deleteFunc) where TObjRef : ObjectRefContract {
+			Func<TEntry, TObjRef, TExisting> createEntryFunc, Action<TExisting> deleteFunc) 
+			where TObjRef : ObjectRefContract where TEntry : class where TExisting : class {
 
 			if (objRefs == null)
 				objRefs = Enumerable.Empty<TObjRef>();
@@ -50,14 +52,24 @@ namespace VocaDb.Model.Service.Helpers {
 
 			foreach (var objRef in diff.Added) {
 
-				var album = session.Get<TEntry>(objRef.Id);
+				if (objRef.Id != 0) {
 
-				if (album != null) {
-					var added = createEntryFunc(album, objRef);
+					var entry = session.Get<TEntry>(objRef.Id);
+
+					if (entry != null) {
+						var added = createEntryFunc(entry, objRef);
+						if (added != null)
+							session.Save(added);
+					} else {
+						warnings.Add("Referenced " + typeof(TEntry).Name + " " + objRef + " not found");
+					}
+
+				} else {
+
+					var added = createEntryFunc(null, objRef);
 					if (added != null)
 						session.Save(added);
-				} else {
-					warnings.Add("Referenced " + typeof(TEntry).Name + " " + objRef + " not found");
+
 				}
 
 			}

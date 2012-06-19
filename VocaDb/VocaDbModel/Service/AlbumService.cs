@@ -256,10 +256,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private ArtistForAlbum RestoreArtistRef(Album album, Artist artist, ArchivedArtistForAlbumContract albumRef) {
+
+			if (artist != null) {
+
+				return (!artist.HasAlbum(album) ? artist.AddAlbum(album, albumRef.IsSupport, albumRef.Roles) : null);
+
+			} else {
+
+				return album.AddArtist(albumRef.NameHint, albumRef.IsSupport, albumRef.Roles);
+
+			}
+
+		}
+
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
 
-		// Not in use currently. Might be re-enabled in the future.
 		public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
 
 			ParamIs.NotNullOrEmpty(() => newArtistName);
@@ -269,13 +282,11 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
-				var artist = new Artist(newArtistName);
 
-				AuditLog(string.Format("creating a new artist '{0}' to {1}", newArtistName, album), session);
+				AuditLog(string.Format("adding custom artist '{0}' to {1}", newArtistName, album), session);
 
-				var artistForAlbum = artist.AddAlbum(album);
-				Services.Artists.Archive(session, artist, ArtistArchiveReason.Created, "Created for album '" + album.DefaultName + "'");
-				session.Save(artist);
+				var artistForAlbum = album.AddArtist(newArtistName, false, ArtistRoles.Default);
+				session.Save(artistForAlbum);
 
 				album.UpdateArtistString();
 				session.Update(album);
@@ -706,7 +717,7 @@ namespace VocaDb.Model.Service {
 
 		public ArtistContract[] GetArtists(int albumId, ArtistType[] types) {
 
-			return HandleQuery(session => session.Load<Album>(albumId).Artists.Where(a => types.Contains(a.Artist.ArtistType))
+			return HandleQuery(session => session.Load<Album>(albumId).Artists.Where(a => a.Artist != null && types.Contains(a.Artist.ArtistType))
 				.Select(a => new ArtistContract(a.Artist, PermissionContext.LanguagePreference)).ToArray());
 
 		}
@@ -796,7 +807,8 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var artists = session.Query<ArtistForAlbum>()
-					.Where(a => a.Album.Id == albumId && !a.Artist.Deleted && ArtistHelper.SongArtistTypes.Contains(a.Artist.ArtistType))
+					.Where(a => a.Album.Id == albumId && a.Artist != null && !a.Artist.Deleted 
+						&& ArtistHelper.SongArtistTypes.Contains(a.Artist.ArtistType))
 					.Select(a => a.Artist)
 					.ToArray();
 				var song = session.Load<Song>(songId);
@@ -840,7 +852,7 @@ namespace VocaDb.Model.Service {
 					session.Save(link);
 				}
 
-				var artists = source.Artists.Where(a => !target.HasArtist(a.Artist)).ToArray();
+				var artists = source.Artists.Where(a => !target.HasArtistForAlbum(a)).ToArray();
 				foreach (var a in artists) {
 					a.Move(target);
 					session.Update(a);
@@ -967,8 +979,9 @@ namespace VocaDb.Model.Service {
 
 				// Artists
 				SessionHelper.RestoreObjectRefs<ArtistForAlbum, Artist, ArchivedArtistForAlbumContract>(
-					session, warnings, album.AllArtists, fullProperties.Artists, (a1, a2) => (a1.Artist.Id == a2.Id),
-					(artist, albumRef) => (!artist.HasAlbum(album) ? artist.AddAlbum(album, albumRef.IsSupport, albumRef.Roles) : null),
+					session, warnings, album.AllArtists, fullProperties.Artists, 
+					(a1, a2) => (a1.Artist != null && a1.Artist.Id == a2.Id) || (a1.Artist == null && a2.Id == 0 && a1.Name == a2.NameHint),
+					(artist, albumRef) => RestoreArtistRef(album, artist, albumRef),
 					albumForArtist => albumForArtist.Delete());
 
 				// Songs

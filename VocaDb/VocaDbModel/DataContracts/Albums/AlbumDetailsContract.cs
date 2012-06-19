@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumDetailsContract(Album album, ContentLanguagePreference languagePreference)
 			: base(album, languagePreference) {
 
-			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
+			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			Deleted = album.Deleted;
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);

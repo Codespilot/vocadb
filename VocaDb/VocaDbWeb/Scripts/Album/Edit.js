@@ -249,7 +249,7 @@ function initPage(albumId, discType) {
 	function acceptArtistSelection(artistId, term) {
 
 		if (isNullOrWhiteSpace(artistId)) {
-			//$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: term }, artistAdded);
+			$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: term }, artistAdded);
 		} else {
 			$.post("../../Album/AddExistingArtist", { albumId: albumId, artistId: artistId }, artistAdded);
 		}
@@ -262,7 +262,7 @@ function initPage(albumId, discType) {
 
 	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
 		{ 
-			allowCreateNew: false, 
+			allowCreateNew: true, 
 			acceptBtnElem: artistAddBtn, 
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name },
