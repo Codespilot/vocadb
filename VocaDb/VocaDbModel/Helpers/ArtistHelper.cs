@@ -112,7 +112,7 @@ namespace VocaDb.Model.Helpers {
 
 			} else {
 
-				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => a.Artist.TranslatedName[lang])));
+				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => GetTranslatedName(a)[lang])));
 
 			}
 
