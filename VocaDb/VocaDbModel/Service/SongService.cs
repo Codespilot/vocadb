@@ -289,6 +289,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private ArtistForSong RestoreArtistRef(Song song, Artist artist, ArchivedArtistForSongContract albumRef) {
+
+			if (artist != null) {
+
+				return (!artist.HasSong(song) ? artist.AddSong(song, albumRef.IsSupport, albumRef.Roles) : null);
+
+			} else {
+
+				return song.AddArtist(albumRef.NameHint, albumRef.IsSupport, albumRef.Roles);
+
+			}
+
+		}
+
 		public SongService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
 
@@ -319,7 +333,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Disabled")]
+		[Obsolete("Integrated to saving properties")]
 		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
 
 			VerifyManageDatabase();
@@ -328,12 +342,10 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				AuditLog(string.Format("creating new artist {0} to {1}", newArtistName, song), session);
+				AuditLog(string.Format("creating custom artist {0} to {1}", newArtistName, song), session);
 
-				var artist = new Artist(newArtistName);
-
-				var artistForSong = artist.AddSong(song);
-				session.Save(artist);
+				var artistForSong = song.AddArtist(newArtistName, false, ArtistRoles.Default);
+				session.Save(artistForSong);
 
 				song.UpdateArtistString();
 				session.Update(song);
@@ -1021,7 +1033,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				// Artist links
-				var artists = source.Artists.Where(a => !target.HasArtist(a.Artist)).ToArray();
+				var artists = source.Artists.Where(a => !target.HasArtistLink(a)).ToArray();
 				foreach (var a in artists) {
 					a.Move(target);
 					session.Update(a);
@@ -1115,8 +1127,9 @@ namespace VocaDb.Model.Service {
 
 				// Artists
 				SessionHelper.RestoreObjectRefs<ArtistForSong, Artist, ArchivedArtistForSongContract>(
-					session, warnings, song.AllArtists, fullProperties.Artists, (a1, a2) => (a1.Artist.Id == a2.Id),
-					(artist, artistRef) => (!song.HasArtist(artist) ? artist.AddSong(song, artistRef.IsSupport, artistRef.Roles) : null),
+					session, warnings, song.AllArtists, fullProperties.Artists,
+					(a1, a2) => (a1.Artist != null && a1.Artist.Id == a2.Id) || (a1.Artist == null && a2.Id == 0 && a1.Name == a2.NameHint),
+					(artist, artistRef) => RestoreArtistRef(song, artist, artistRef),
 					artistForSong => artistForSong.Delete());
 
 				// Names

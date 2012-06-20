@@ -15,10 +15,11 @@ namespace VocaDb.Model.DataContracts.Songs {
 			
 			ParamIs.NotNull(() => artistForSong);
 
-			Artist = new ArtistWithAdditionalNamesContract(artistForSong.Artist, languagePreference);
+			Artist = (artistForSong.Artist != null ? new ArtistWithAdditionalNamesContract(artistForSong.Artist, languagePreference) : null);
 			Categories = artistForSong.ArtistCategories;
 			Id = artistForSong.Id;
 			IsSupport = artistForSong.IsSupport;
+			Name = artistForSong.Name;
 			Roles = artistForSong.Roles;
 
 		}
@@ -31,6 +32,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		public ArtistForSongContract(string name) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+
+			Name = name;
+
+		}
 
 		[DataMember]
 		public ArtistWithAdditionalNamesContract Artist { get; set; }
@@ -43,6 +51,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public bool IsSupport { get; set; }
+
+		[DataMember]
+		public string Name { get; set; }
 
 		[DataMember]
 		public ArtistRoles Roles { get; set; }

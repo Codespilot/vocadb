@@ -26,17 +26,27 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public ArtistForSong(Song song, string name, bool support, ArtistRoles roles)
+			: this() {
+
+			Song = song;
+			IsSupport = support;
+			Name = name;
+			Roles = roles;
+
+		}
+
 		public virtual Artist Artist {
 			get { return artist; }
 			set {
-				ParamIs.NotNull(() => value);
+				//ParamIs.NotNull(() => value);
 				artist = value;
 			}
 		}
 
 		public virtual ArtistCategories ArtistCategories {
 			get {
-				return ArtistHelper.GetCategories(Artist.ArtistType, Roles);
+				return ArtistHelper.GetCategories(this);
 			}
 		}
 
@@ -64,6 +74,15 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual bool ArtistLinkEquals(ArtistForSong another) {
+
+			if (another == null)
+				return false;
+
+			return ((Artist != null && Artist.Equals(another.Artist)) || (Artist == null && another.Artist == null && Name == another.Name));
+
+		}
+
 		public virtual bool ContentEquals(ArtistForSongContract contract) {
 
 			if (contract == null)
@@ -75,7 +94,9 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual void Delete() {
 
-			Artist.AllSongs.Remove(this);
+			if (Artist != null)
+				Artist.AllSongs.Remove(this);
+
 			Song.AllArtists.Remove(this);
 			Song.UpdateArtistString();
 
@@ -101,7 +122,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public virtual void Move(Artist target) {
@@ -111,7 +132,9 @@ namespace VocaDb.Model.Domain.Songs {
 			if (target.Equals(Artist))
 				return;
 
-			Artist.AllSongs.Remove(this);
+			if (Artist != null)
+				Artist.AllSongs.Remove(this);
+
 			Artist = target;
 			target.AllSongs.Add(this);
 
@@ -131,7 +154,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return Artist + " for " + Song;
+			return string.Format("{0} for {1}", Artist != null ? Artist.ToString() : Name, Song);
 		}
 
 	}

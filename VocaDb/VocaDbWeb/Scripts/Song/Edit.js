@@ -74,7 +74,7 @@ function initPage(songId) {
 		if (!isNullOrWhiteSpace(artistId)) {
 			$.post("../../Song/AddExistingArtist", { songId: songId, artistId: artistId }, artistAdded);
 		} else {
-			//$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: term }, artistAdded);
+			$.post("../../Song/AddNewArtist", { songId: songId, newArtistName: term }, artistAdded);
 		}
 
 	}
@@ -85,7 +85,7 @@ function initPage(songId) {
 
 	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
 		{
-			allowCreateNew: false,
+			allowCreateNew: true,
 			acceptBtnElem: artistAddBtn,
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name },

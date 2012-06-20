@@ -144,7 +144,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return string.Format("{0} for {1}", Artist, Album);
+			return string.Format("{0} for {1}", Artist != null ? Artist.ToString() : Name, Album);
 		}
 
 	}
