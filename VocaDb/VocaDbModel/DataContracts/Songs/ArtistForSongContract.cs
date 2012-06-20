@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Categories = artistForSong.ArtistCategories;
 			Id = artistForSong.Id;
 			IsSupport = artistForSong.IsSupport;
-			Name = artistForSong.Name;
+			Name = (Artist != null ? Artist.Name : artistForSong.Name);
 			Roles = artistForSong.Roles;
 
 		}

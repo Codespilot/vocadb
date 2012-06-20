@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != Song.Name).Distinct());
 			Albums = song.Albums.Select(a => new AlbumWithAdditionalNamesContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
 			AlternateVersions = song.AlternateVersions.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
-			Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Artist.Name).ToArray();
+			Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			ArtistString = song.ArtistString[languagePreference];
 			CreateDate = song.CreateDate;
 			Deleted = song.Deleted;
