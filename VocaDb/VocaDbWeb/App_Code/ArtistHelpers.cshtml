@@ -73,7 +73,11 @@
 		if (artist.IsSupport) {
 			@("(")
 		}
-		@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+		if (artist.Artist != null) {
+			@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+		} else {
+			@artist.Name		
+		}
 		if (artist.IsSupport) {
 			@(")")
 		}
@@ -108,7 +112,7 @@
 @helper AlbumItems(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
 	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false) {
 	
-	foreach (var album in albums) {
+		foreach (var album in albums) {
 		<li>
 			@Helpers.DraftIcon(album)
 			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
@@ -120,14 +124,15 @@
 				<span class="extraInfo">@album.ArtistString</span>
    }
 		</li>
- }
+		}
 	 
 }
 
 @helper Albums(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
 	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false, string listId = null) {
 
-	<ul @{ if (!string.IsNullOrEmpty(listId)) { @("id=" + listId); } }>
+	<ul @{ if (!string.IsNullOrEmpty(listId)) { @("id=" + listId);
+		} }>
 		@AlbumItems(albums, extraData, showArtists)
 	</ul>
 	
@@ -143,10 +148,10 @@
 			@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)
 			@if (showType) {
 				@("(")@Translate.ArtistTypeName(artist.ArtistType)@(")")
-			}
+   }
 			@if (extraData != null) {
 				@extraData(artist)
-			}
+   }
 			<br />
 			<span class="extraInfo">@artist.AdditionalNames</span>
 		</li>
