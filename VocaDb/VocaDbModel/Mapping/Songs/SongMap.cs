@@ -115,9 +115,10 @@ namespace VocaDb.Model.Mapping.Songs {
 			Cache.ReadWrite();
 
 			Id(m => m.Id);
+			Map(m => m.Name).Nullable();
 			Map(m => m.IsSupport).Not.Nullable();
 			Map(m => m.Roles).CustomType(typeof(ArtistRoles)).Not.Nullable();
-			References(m => m.Artist).Not.Nullable();
+			References(m => m.Artist).Nullable();
 			References(m => m.Song).Not.Nullable();
 
 		}

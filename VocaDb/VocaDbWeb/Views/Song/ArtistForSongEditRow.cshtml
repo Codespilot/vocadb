@@ -6,12 +6,16 @@
 	<td>
 		@{ var item = Html.BeginCollectionItem("ArtistLinks"); }
 		@Html.HiddenFor(m => m.Id)
-		@Html.HiddenFor(m => m.Artist.Id, new { @class = "artistId" })
-		@Html.HiddenFor(m => m.Artist.AdditionalNames)
-		@Html.HiddenFor(m => m.Artist.Name)								
-		@Html.HiddenFor(m => m.Artist.ArtistType)								
-		@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
-		<span class="extraInfo">@Model.Artist.AdditionalNames</span>
+		@if (Model.Artist != null) {
+			@Html.HiddenFor(m => m.Artist.Id, new { @class = "artistId" })
+			@Html.HiddenFor(m => m.Artist.AdditionalNames)
+			@Html.HiddenFor(m => m.Artist.Name)								
+			@Html.HiddenFor(m => m.Artist.ArtistType)								
+			@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
+			<span class="extraInfo">@Model.Artist.AdditionalNames</span>
+		} else {
+			@Model.Name
+		}
 	</td>
 	<td>
 		@Html.CheckBoxFor(m => m.IsSupport)
@@ -27,7 +31,7 @@
 			}
 		</div>
 		@{ item.Dispose(); }
-		@if (VocaDb.Model.Helpers.ArtistHelper.IsCustomizable(Model.Artist.ArtistType)) {
+		@if (Model.Artist == null || VocaDb.Model.Helpers.ArtistHelper.IsCustomizable(Model.Artist.ArtistType)) {
 			<a href="#" class="artistRolesEdit textLink editLink">Customize</a>
 		}
 	</td>

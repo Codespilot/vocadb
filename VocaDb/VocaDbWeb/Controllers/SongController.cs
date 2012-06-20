@@ -243,10 +243,10 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete]
 		public PartialViewResult AddNewArtist(int songId, string newArtistName) {
 
-			var link = Service.AddArtist(songId, newArtistName);
+			//var link = Service.AddArtist(songId, newArtistName);
+			var link = new ArtistForSongContract(newArtistName);
 			return PartialView("ArtistForSongEditRow", link);
 
 		}

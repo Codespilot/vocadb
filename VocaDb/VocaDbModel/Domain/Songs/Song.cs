@@ -37,7 +37,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		protected IEnumerable<Artist> ArtistList {
 			get {
-				return Artists.Select(a => a.Artist);
+				return Artists.Where(a => a.Artist != null).Select(a => a.Artist);
 			}
 		}
 
@@ -130,7 +130,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual IEnumerable<ArtistForSong> Artists {
 			get {
-				return AllArtists.Where(a => !a.Artist.Deleted);
+				return AllArtists.Where(a => a.Artist == null || !a.Artist.Deleted);
 			}
 		}
 
@@ -272,6 +272,17 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual ArtistForSong AddArtist(string name, bool isSupport, ArtistRoles roles) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+
+			var link = new ArtistForSong(this, name, isSupport, roles);
+
+			AllArtists.Add(link);
+
+			return link;
+
+		}
 		public virtual void AddAlternateVersion(Song song) {
 
 			ParamIs.NotNull(() => song);
@@ -404,6 +415,19 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		/// <summary>
+		/// Checks whether this song has a specific artist.
+		/// </summary>
+		/// <param name="artistLink">Artist to be checked. Cannot be null.</param>
+		/// <returns>True if the artist has this album. Otherwise false.</returns>
+		public virtual bool HasArtistLink(ArtistForSong artistLink) {
+
+			ParamIs.NotNull(() => artistLink);
+
+			return Artists.Any(a => a.ArtistLinkEquals(artistLink));
+
+		}
+
 		public virtual bool HasName(LocalizedString name) {
 
 			ParamIs.NotNull(() => name);
@@ -472,9 +496,16 @@ namespace VocaDb.Model.Domain.Songs {
 
 			foreach (var newEntry in diff.Added) {
 
-				var artist = artistGetter(newEntry);
+				ArtistForSong l;
 
-				var l = artist.AddSong(this, newEntry.IsSupport, newEntry.Roles);
+				if (newEntry.Artist != null) {
+					var artist = artistGetter(newEntry);
+
+					l = artist.AddSong(this, newEntry.IsSupport, newEntry.Roles);
+				} else {
+					l = AddArtist(newEntry.Name, newEntry.IsSupport, newEntry.Roles);
+				}
+
 				created.Add(l);
 
 			}
