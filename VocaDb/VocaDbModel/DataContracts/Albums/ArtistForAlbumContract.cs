@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Categories = artistForAlbum.ArtistCategories;
 			Id = artistForAlbum.Id;
 			IsSupport = artistForAlbum.IsSupport;
-			Name = artistForAlbum.Name;
+			Name = (Artist != null ? Artist.Name : artistForAlbum.Name);
 			Roles = artistForAlbum.Roles;
 
 		}
