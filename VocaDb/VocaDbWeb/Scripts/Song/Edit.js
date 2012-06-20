@@ -17,8 +17,9 @@ function initPage(songId) {
 			return $(this).attr("id").split("_")[1];
 		}).toArray();
 
-		var idField = $("#artistsTableBody input.artistId[value='" + artistId + "']");
-		var row = idField.parent().parent();
+		//var idField = $("#artistsTableBody input.artistId[value='" + artistId + "']");
+		//var row = idField.parent().parent();
+		var row = $("#artistsTableBody tr:eq(" + artistId + ")");
 		row.find("input.artistRoles").val(checkedRoles.join(","));
 		row.find("div.artistRolesList").html(checkedRoles.join("<br />"));
 
@@ -111,7 +112,7 @@ function initPage(songId) {
 
 		var row = $(this).parent().parent();
 
-		var id = row.find("input.artistId").val();
+		var id = row.index(); //row.find("input.artistId").val();
 		$("#rolesArtistId").val(id);
 
 		var roles = row.find("input.artistRoles").val().split(",");

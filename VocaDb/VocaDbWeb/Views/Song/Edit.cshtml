@@ -192,7 +192,7 @@
 
 <div id="editArtistRolesPopup" style="display:none;" title="Artist roles">
 
-	<div id="rolesArtistId" />
+	<input type="hidden" id="rolesArtistId" />
 
 	@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
 		<span class="tag">
