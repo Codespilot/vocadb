@@ -10,4 +10,4 @@
 
 @ArchivedEntryHelpers.CurrentVersionMessage(Model.Song.Version, Model.Song.Status)
 
-@Helpers.ArchivedObjectVersions(Model.ArchivedVersions, id => Url.Action("ViewVersion", new { id = id }))
+@ArchivedEntryHelpers.ArchivedObjectVersions(Model.ArchivedVersions, id => Url.Action("ViewVersion", new { id = id }))

@@ -120,6 +120,9 @@
   <data name="Author" xml:space="preserve">
     <value>Tekijä</value>
   </data>
+  <data name="Changes" xml:space="preserve">
+    <value>Muutokset</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Luotu</value>
   </data>
@@ -127,7 +130,7 @@
     <value>Nykyinen versionumero on</value>
   </data>
   <data name="Notes" xml:space="preserve">
-    <value>Huomautuksia</value>
+    <value>Huom.</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Versio</value>
