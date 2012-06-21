@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain;
+﻿using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
 
 	public class EntryRefContract {
+
+		public EntryRefContract() { }
 
 		public EntryRefContract(IEntryBase entryBase) {
 

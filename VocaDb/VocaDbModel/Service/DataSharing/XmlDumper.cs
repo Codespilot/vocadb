@@ -139,6 +139,7 @@ namespace VocaDb.Model.Service.DataSharing {
 				songLoader.Dump(package);
 				eventSeriesLoader.Dump(package);
 				eventLoader.Dump(package);
+				tagLoader.Dump(package);
 
 			}
 

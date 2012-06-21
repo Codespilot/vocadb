@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Albums;
 
@@ -20,7 +17,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 			Description = ev.Description;
 			Id = ev.Id;
 			Name = ev.Name;
-			Series = (ev.Series != null ? new EntryRefContract(ev.Series) : null);
+			Series = (ev.Series != null ? new ObjectRefContract(ev.Series) : null);
 			SeriesNumber = ev.SeriesNumber;
 
 		}
@@ -38,7 +35,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 		public string Name { get; set; }
 
 		[DataMember]
-		public EntryRefContract Series { get; set; }
+		public ObjectRefContract Series { get; set; }
 
 		[DataMember]
 		public int SeriesNumber { get; set; }
