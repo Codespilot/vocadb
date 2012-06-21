@@ -30,6 +30,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
 				.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
+			UpdateNotes = string.Empty;
 			ValidationResult = AlbumValidator.Validate(album);
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
@@ -58,6 +59,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public SongInAlbumEditContract[] Songs { get; set; }
 
 		public TranslatedStringContract TranslatedName { get; set; }
+
+		public string UpdateNotes { get; set; }
 
 		public ValidationResult ValidationResult { get; set; }
 

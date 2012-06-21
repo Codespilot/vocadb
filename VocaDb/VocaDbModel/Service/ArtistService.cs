@@ -991,11 +991,14 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				AuditLog(string.Format("updated properties for {0} ({1})", 
-					EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString), session);
+				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString)
+					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
+					.Truncate(400);
+
+				AuditLog(logStr, session);
 				AddEntryEditedEntry(session, artist, EntryEditEvent.Updated);
 
-				Archive(session, artist, diff, ArtistArchiveReason.PropertiesUpdated);
+				Archive(session, artist, diff, ArtistArchiveReason.PropertiesUpdated, properties.UpdateNotes);
 				session.Update(artist);
 
 				return true;

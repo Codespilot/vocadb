@@ -130,6 +130,8 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Tracks")]
 		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
+		public string UpdateNotes { get; set; }
+
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "External links")]
@@ -172,6 +174,7 @@ namespace VocaDb.Web.Models {
 				Status = this.Status,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
+				UpdateNotes = this.UpdateNotes ?? string.Empty,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
 			};
 
