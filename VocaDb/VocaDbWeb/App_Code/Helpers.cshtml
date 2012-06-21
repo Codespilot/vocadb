@@ -9,52 +9,6 @@
 	<img id="@id" src="@Url.Content("~/Content/ajax-loader.gif")" alt="loading..." style="display:none;" />
 }
 
-@helper ArchivedObjectVersions(IEnumerable<VocaDb.Web.Models.Shared.ArchivedObjectVersion> archivedVersions, Func<int, string> linkFunc = null) {
-	
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>@ViewRes.ArchivedObjectVersionsStrings.Version</th>
-				<th>@ViewRes.ArchivedObjectVersionsStrings.Created</th>
-				<th>@ViewRes.ArchivedObjectVersionsStrings.Author</th>
-				<th>@ViewRes.ArchivedObjectVersionsStrings.Notes</th>
-			</tr>
-		</thead>
-		<tbody>
-		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Contract.Version)) {
-			<tr>
-				<td>
-					@if (linkFunc != null) {
-						<a href="@linkFunc(ver.Id)">
-							@ver.Contract.Version
-							(@Translate.EntryStatusNames[ver.Status])
-						</a>
-					} else {
-						<text>
-							@ver.Contract.Version
-							(@Translate.EntryStatusNames[ver.Status])
-						</text>
-					}
-				</td>
-				<td>
-					@ver.Contract.Created
-				</td>
-				<td>
-					@Html.UserLink(ver.Contract.Author, ver.Contract.AgentName)
-				</td>
-				<td>
-					@ver.Reason
-					@if (!string.IsNullOrEmpty(ver.ChangeMessage)) {
-						@(" (" + ver.ChangeMessage + ")")
-					}
-				</td>
-			</tr>
-		}
-		</tbody>
-	</table>	
-	
-}
-
 @helper ConvertNewlinesToBreaks(string text) {
 	var lines = text.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.None);
 	foreach (var line in lines) {

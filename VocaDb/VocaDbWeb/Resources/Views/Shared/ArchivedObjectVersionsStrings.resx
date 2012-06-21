@@ -120,6 +120,9 @@
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
+  <data name="Changes" xml:space="preserve">
+    <value>Changes</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Created</value>
   </data>
