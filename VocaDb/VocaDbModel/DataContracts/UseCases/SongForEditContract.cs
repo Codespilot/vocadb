@@ -17,10 +17,13 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			ValidationResult = SongValidator.Validate(song);
+			UpdateNotes = string.Empty;
 
 		}
 
 		public LocalizedStringWithIdContract[] Names { get; set; }
+
+		public string UpdateNotes { get; set; }
 
 		public ValidationResult ValidationResult { get; set; }
 

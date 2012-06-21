@@ -11,6 +11,7 @@ namespace VocaDb.Web.Models.Shared {
 
 			Contract = contract;
 			Id = contract.Id;
+			Notes = contract.Notes;
 			Reason = reasonName;
 			Status = contract.Status;
 			ChangeMessage = changeMessage;
@@ -22,6 +23,8 @@ namespace VocaDb.Web.Models.Shared {
 		public ArchivedObjectVersionContract Contract { get; set; }
 
 		public int Id { get; set; }
+
+		public string Notes { get; set; }
 
 		public string Reason { get; set; }
 

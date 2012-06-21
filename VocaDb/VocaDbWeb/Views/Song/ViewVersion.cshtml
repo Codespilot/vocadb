@@ -33,7 +33,7 @@
 	}
 }
 
-@Helpers.ArchivedObjectVersionProperties(Versions.CreateForSong(Model.ArchivedVersion), 
+@ArchivedEntryHelpers.ArchivedObjectVersionProperties(Versions.CreateForSong(Model.ArchivedVersion), 
 	Model.ComparedVersion != null ? Versions.CreateForSong(Model.ComparedVersion) : null)
 
 @SongHelpers.PrintArchivedSongData(Model.Versions)

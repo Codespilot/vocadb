@@ -1397,7 +1397,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
 				AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
 
-				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
+				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated, properties.UpdateNotes);
 
 				session.Update(song);
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
