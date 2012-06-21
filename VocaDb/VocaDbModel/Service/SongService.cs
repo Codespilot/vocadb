@@ -1394,7 +1394,11 @@ namespace VocaDb.Model.Service {
 				if (lyricsDiff.Changed)
 					diff.Lyrics = true;
 
-				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
+				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString)
+					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
+					.Truncate(400);
+
+				AuditLog(logStr, session);
 				AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
 
 				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated, properties.UpdateNotes);

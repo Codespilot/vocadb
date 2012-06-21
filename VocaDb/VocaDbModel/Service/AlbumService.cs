@@ -1236,12 +1236,15 @@ namespace VocaDb.Model.Service {
 				if (pvDiff.Changed)
 					diff.PVs = true;
 
-				AuditLog(string.Format("updated properties for {0} ({1})", 
-					CreateEntryLink(album), diff.ChangedFieldsString), session);
+				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
+					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
+					.Truncate(400);
+
+				AuditLog(logStr, session);
 
 				AddEntryEditedEntry(session, album, EntryEditEvent.Updated);
 
-				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated);
+				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated, properties.UpdateNotes);
 				session.Update(album);
 				return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
 

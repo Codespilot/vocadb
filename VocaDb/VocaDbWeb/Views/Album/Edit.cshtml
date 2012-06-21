@@ -1,6 +1,6 @@
 ﻿@using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
-@model  AlbumEdit
+@model AlbumEdit
 @{
 	ViewBag.Title = "Edit album - " + Model.Name;
 	ViewBag.Parents = new[] { 
@@ -263,7 +263,11 @@
 		</div>
 
 	</div>
-
+	<br />
+	
+	<p>Update notes (optional)</p>
+	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xlarge" })	
+	
 	<br />
 	@Helpers.SaveBtn()
 	
