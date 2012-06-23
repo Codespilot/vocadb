@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
+using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
@@ -7,6 +9,8 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Utils;
+using VocaDb.Web.Code.Feeds;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
@@ -316,6 +320,19 @@ namespace VocaDb.Web.Controllers
 			return RedirectToAction("Index");
 
         }
+
+		public FeedResult LatestVideos() {
+
+			var songs = Service.GetNewSongsWithVideos();
+			var items = songs.Select(s => 
+				new SyndicationItem(s.Name, RenderPartialViewToString("SongItem", s), 
+					VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = s.Id }))));
+
+			var feed = new SyndicationFeed("Latest songs with videos", string.Empty, VocaUriBuilder.CreateAbsolute(Url.Action("Index")), items);
+
+			return new FeedResult(new Atom10FeedFormatter(feed));
+
+		}
 
 		public ActionResult Merge(int id) {
 

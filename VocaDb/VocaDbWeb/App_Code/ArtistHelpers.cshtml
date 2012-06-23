@@ -47,7 +47,7 @@
 	</a>		
 }
 
-@helper ArtistList(IEnumerable<ArtistForAlbumContract> artists) {
+@helper ArtistList(IEnumerable<ArtistForAlbumContract> artists, bool showRoles = false) {
 	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
 	foreach (var artist in ordered) {
 		if (artist.IsSupport) {
@@ -67,7 +67,7 @@
 	}
 }
 
-@helper ArtistList(IEnumerable<ArtistForSongContract> artists) {
+@helper ArtistList(IEnumerable<ArtistForSongContract> artists, bool showRoles = false) {
 	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
 	foreach (var artist in ordered) {
 		if (artist.IsSupport) {
@@ -85,6 +85,12 @@
 			@(", ")
 		}
 	}
+}
+
+@helper ArtistRolesList(IEnumerable<VocaDb.Model.Domain.Artists.ArtistRoles> roles) {
+	
+	
+	
 }
 
 @helper PrintArchivedArtistData(ComparedArtistsContract comparedArtists) {

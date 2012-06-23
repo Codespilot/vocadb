@@ -41,12 +41,19 @@ namespace VocaDb.Model.Service {
 				album = session.Load<Album>(acceptedAlbum.MergedAlbum.Id);
 			}
 
-			foreach (var inspectedArtist in acceptedAlbum.Artists.Where(a => a.ExistingArtist != null)) {
+			foreach (var inspectedArtist in acceptedAlbum.Artists) {
 
-				var artist = session.Load<Artist>(inspectedArtist.ExistingArtist.Id);
+				if (inspectedArtist.ExistingArtist != null) {
 
-				if (!artist.HasAlbum(album)) {
-					session.Save(artist.AddAlbum(album));
+					var artist = session.Load<Artist>(inspectedArtist.ExistingArtist.Id);
+
+					if (!artist.HasAlbum(album)) {
+						session.Save(artist.AddAlbum(album));
+						diff.Artists = true;
+					}
+
+				} else {
+					album.AddArtist(inspectedArtist.Name, false, ArtistRoles.Default);
 					diff.Artists = true;
 				}
 

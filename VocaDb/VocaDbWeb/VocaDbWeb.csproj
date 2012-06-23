@@ -371,6 +371,7 @@
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
+    <Compile Include="Code\Feeds\FeedResult.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />
@@ -1238,6 +1239,7 @@
     <Content Include="Views\Shared\PVEmbedDynamic.cshtml" />
     <Content Include="Views\Shared\PVEmbedNND.cshtml" />
     <Content Include="Views\User\UserListPaged.cshtml" />
+    <Content Include="Views\Song\SongItem.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

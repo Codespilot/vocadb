@@ -760,6 +760,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongContract[] GetNewSongsWithVideos() {
+
+			return HandleQuery(session => session
+				.Query<Song>()
+				.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
+					.OrderByDescending(s => s.CreateDate)
+					.Take(20).ToArray()
+					.Select(s => new SongContract(s, LanguagePreference))
+					.ToArray());
+
+		}
+
 		public LyricsForSongContract GetRandomLyricsForSong(string query) {
 
 			return HandleQuery(session => {
