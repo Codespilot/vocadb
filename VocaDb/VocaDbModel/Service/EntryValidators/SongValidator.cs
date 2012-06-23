@@ -17,10 +17,10 @@ namespace VocaDb.Model.Service.EntryValidators {
 			if (song.SongType == SongType.Unspecified)
 				errors.Add(SongValidationErrors.NeedType);
 
-			if (!song.Artists.Any())
+			if (song.Artists.All(a => a.Artist == null))
 				errors.Add(SongValidationErrors.NeedArtist);
 
-			if (!song.Names.Names.Any(n => n.Language != ContentLanguageSelection.Unspecified))
+			if (song.Names.Names.All(n => n.Language == ContentLanguageSelection.Unspecified))
 				errors.Add(SongValidationErrors.UnspecifiedNames);
 
 			return new ValidationResult(errors);

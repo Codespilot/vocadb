@@ -17,10 +17,10 @@ namespace VocaDb.Model.Service.EntryValidators {
 			if (album.DiscType == DiscType.Unknown)
 				errors.Add(AlbumValidationErrors.NeedType);
 
-			if (!album.Artists.Any())
+			if (album.Artists.All(a => a.Artist == null))
 				errors.Add(AlbumValidationErrors.NeedArtist);
 
-			if (!album.Names.Names.Any(n => n.Language != ContentLanguageSelection.Unspecified))
+			if (album.Names.Names.All(n => n.Language == ContentLanguageSelection.Unspecified))
 				errors.Add(AlbumValidationErrors.UnspecifiedNames);
 
 			if (album.OriginalReleaseDate.IsEmpty)

@@ -7,6 +7,7 @@ using System.Web.Mvc.Html;
 using System.Linq.Expressions;
 using Microsoft.Web.Helpers;
 using VocaDb.Model;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using System.Web;
@@ -145,6 +146,18 @@ namespace VocaDb.Web.Helpers {
 			where TEnum : struct, IConvertible {
 
 			return htmlHelper.DropDownListFor(expression, CreateEnumList(selectedValue, values), htmlAttributes);
+
+		}
+
+		public static int GetComparedEntryId(ArchivedObjectVersionContract archivedVersion, int comparedEntryId, 
+			IEnumerable<ArchivedObjectVersionContract> allVersions) {
+
+			if (comparedEntryId != 0)
+				return comparedEntryId;
+
+			var nextVersion = allVersions.FirstOrDefault(v => v.Version == archivedVersion.Version - 1);
+
+			return (nextVersion ?? archivedVersion).Id;
 
 		}
 

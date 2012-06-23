@@ -31,6 +31,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => song);
 
+			AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
 			ArtistString = song.ArtistString.GetBestMatch(languagePreference);
 			CreateDate = song.CreateDate;
 			FavoritedTimes = song.FavoritedTimes;
@@ -47,6 +48,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 			ThumbUrl = (primaryPv != null ? VideoServiceHelper.Services[primaryPv.Service].GetThumbUrlById(primaryPv.PVId) : string.Empty);
 
 		}
+
+		[DataMember]
+		public string AdditionalNames { get; private set; }
 
 		[DataMember]
 		public string ArtistString { get; set; }

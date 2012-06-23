@@ -11,14 +11,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongWithAdditionalNamesContract(Song song, ContentLanguagePreference languagePreference)
 			: base(song, languagePreference) {
 
-			AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
-
 		}
 
 		public SongWithAdditionalNamesContract() { }
-
-		[DataMember]
-		public string AdditionalNames { get; private set; }
 
 	}
 }
