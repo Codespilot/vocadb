@@ -326,7 +326,7 @@ namespace VocaDb.Web.Controllers
 			var songs = Service.GetNewSongsWithVideos();
 			var items = songs.Select(s => 
 				new SyndicationItem(s.Name, new TextSyndicationContent(RenderPartialViewToString("SongItem", s), TextSyndicationContentKind.Html), 
-					VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = s.Id })), null, DateTimeOffset.Now));
+					VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = s.Id })), s.Id.ToString(), s.CreateDate));
 
 			var feed = new SyndicationFeed("Latest songs with videos", string.Empty, VocaUriBuilder.CreateAbsolute(Url.Action("Index")), items);
 

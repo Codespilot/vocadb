@@ -54,7 +54,7 @@ namespace VocaDb.Model.Domain {
 
 		public static DateTime ToDateTime(int? year, int? month, int? day) {
 
-			return new DateTime(year ?? 0, month ?? 1, day ?? 1);
+			return new DateTime(year ?? DateTime.MinValue.Year, month ?? 1, day ?? 1);
 
 		}
 
