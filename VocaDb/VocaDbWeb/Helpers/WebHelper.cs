@@ -2,7 +2,7 @@
 
 namespace VocaDb.Web.Helpers {
 
-	public class WebHelper {
+	public static class WebHelper {
 
 		private static readonly string[] forbiddenUserAgents = new[] {
 			"Googlebot", "bingbot"

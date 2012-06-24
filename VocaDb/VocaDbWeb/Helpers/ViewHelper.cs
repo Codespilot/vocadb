@@ -123,6 +123,10 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static MvcHtmlString Encode(this HtmlHelper htmlHelper, string str) {
+			return new MvcHtmlString(HttpUtility.HtmlEncode(str));
+		}
+
 		public static MvcHtmlString EnumDropDownList<TEnum>(this HtmlHelper htmlHelper, string name,
 			TranslateableEnum<TEnum> enumType, object htmlAttributes = null, object selectedValue = null)
 			where TEnum : struct, IConvertible {
@@ -226,7 +230,8 @@ namespace VocaDb.Web.Helpers {
 
 		public static MvcHtmlString UserLink(this HtmlHelper htmlHelper, UserBaseContract user, string name) {
 
-			return (user != null ? htmlHelper.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null) : MvcHtmlString.Create(name));
+			return (user != null ? htmlHelper.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null) 
+				: Encode(htmlHelper, name));
 
 		}
 
@@ -277,20 +282,6 @@ namespace VocaDb.Web.Helpers {
 			return parsed.ToString();
 
 		}
-
-		/*public static MvcHtmlString ValidationSymmaryPanel(this HtmlHelper htmlHelper, string message) {
-
-			if (!HttpContext.Current.ViewData.ModelState.IsValid) {
-			<div class="ui-widget">
-				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
-					@Html.ValidationSummary(false, "Unable to save properties.")
-				</div>
-			</div>
-			} else {
-				return null;
-			}
-
-		}*/
 
 	}
 
