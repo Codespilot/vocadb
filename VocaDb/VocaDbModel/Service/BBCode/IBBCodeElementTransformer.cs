@@ -7,7 +7,7 @@ namespace VocaDb.Model.Service.BBCode {
 
 	public interface IBBCodeElementTransformer {
 
-		string ApplyTransform(string bbCode);
+		void ApplyTransform(StringBuilder bbCode);
 
 	}
 
