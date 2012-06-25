@@ -1,25 +1,34 @@
-﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Security.AuditLogEntryContract[]
-
+﻿
 @{
     ViewBag.Title = "View audit log";
 }
 
-<table>
-	<tr>
-		<th>Time</th>
-		<th>User</th>
-		<th>Action</th>
-	</tr>
-	@foreach (var entry in Model) {
+<div >
+	<table id="logEntries">
 		<tr>
-			<td>@entry.Time</td>
-			<td>
-				@Html.UserLink(entry.User, entry.AgentName)
-			</td>
-			<td>
-				@Html.Raw(entry.Action)
-			</td>
-		</tr> 
-	}
-</table>
+			<th>Time</th>
+			<th>User</th>
+			<th>Action</th>
+		</tr>		
+		@{ Html.RenderAction("AuditLogEntries"); }
+	</table>
+</div>
+
+<a href="#" id="loadMoreLink">Load more</a>
+@Html.Hidden("start", 0)
+
+@section BodyScripts {
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#loadMoreLink").click(function () {
+			$.post("AuditLogEntries", { start: $("#start").val() }, function (result) {
+				$("#logEntries").append(result);
+				$("#start").val(parseInt($("#start").val()) + 200);
+			});
+			return false;
+		});
+	});
+
+</script>
+}
