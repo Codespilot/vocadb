@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace VocaDb.Model.Service.BBCode {
 
 	public class SimpleBBCodeTransformer : IBBCodeElementTransformer {
 
-		public static string ReplaceSimpleTag(string bbCode, string bbTagName, string htmlTagName) {
+		public static void ReplaceSimpleTag(StringBuilder bbCode, string bbTagName, string htmlTagName) {
 
-			return BBCodeConverter.RegexReplace(bbCode, String.Format(@"\[{0}\]([^\]]+)\[\/{0}\]", bbTagName), String.Format("<{0}>$1</{0}>", htmlTagName));
+			BBCodeConverter.RegexReplace(bbCode, new Regex(String.Format(@"\[{0}\]([^\]]+)\[\/{0}\]", bbTagName)), 
+				match => String.Format("<{0}>{1}</{0}>", htmlTagName, match));
 
 		}
 
@@ -18,9 +21,9 @@ namespace VocaDb.Model.Service.BBCode {
 			this.htmlTagName = htmlTagName;
 		}
 
-		public string ApplyTransform(string bbCode) {
+		public void ApplyTransform(StringBuilder bbCode) {
 
-			return ReplaceSimpleTag(bbCode, bbTagName, htmlTagName);
+			ReplaceSimpleTag(bbCode, bbTagName, htmlTagName);
 
 		}
 

@@ -59,7 +59,7 @@
 			@if (entry.Important) {
 				@Helpers.NotificationIcon()
    }
-			<span>@Helpers.ConvertNewlinesToBreaks(entry.Text)</span>
+			<span>@HtmlHelpers.FormatText(entry.Text)</span>
 		</p>
 	</div>
 	

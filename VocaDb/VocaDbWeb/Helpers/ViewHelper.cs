@@ -17,6 +17,8 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Service.BBCode;
+using VocaDb.Web.Code.BBCode;
 using VocaDb.Web.Helpers.Support;
 
 namespace VocaDb.Web.Helpers {
@@ -204,6 +206,12 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static string ParseBBCode(string bbCode) {
+
+			return new BBCodeCache(DefaultBBCodeConverter.Create()).GetHtml(bbCode);
+
+		}
+
 		[Obsolete]
 		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserBaseContract user, int size = 80) {
 
@@ -258,28 +266,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static string ReplaceUrisWithLinks(string text) {
 
-			var parsed = new StringBuilder(text);
-			var regex = new Regex(@"http[s]?\:[a-zA-Z0-9_\#\-\.\:\/\%\?\&\=\+\(\)]+");
-
-			var matches = regex.Matches(text);
-
-			var indexOffset = 0;
-
-			foreach (Match match in matches) {
-
-				Uri uri;
-
-				if (Uri.TryCreate(match.Value, UriKind.Absolute, out uri)) {
-
-					var link = "<a href='" + match.Value + "'>" + match.Value + "</a>";
-					parsed.Replace(match.Value, link, match.Index + indexOffset, match.Length);
-
-					indexOffset += (link.Length - match.Value.Length);
-
-				}
-			}
-
-			return parsed.ToString();
+			return AutoLinkTransformer.ReplaceUrisWithLinks(text);
 
 		}
 

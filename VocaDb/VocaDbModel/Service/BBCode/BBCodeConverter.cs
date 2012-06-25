@@ -13,9 +13,25 @@ namespace VocaDb.Model.Service.BBCode {
 
 		private readonly IBBCodeElementTransformer[] transformers;
 
-		public static string RegexReplace(string bbCode, string pattern, string replacement) {
+		public static void RegexReplace(StringBuilder bbCode, Regex regex, Func<string, string> replacementFunc) {
 
-			return Regex.Replace(bbCode, pattern, replacement, RegexOptions.Multiline | RegexOptions.CultureInvariant);
+			var matches = regex.Matches(bbCode.ToString());
+
+			var indexOffset = 0;
+
+			foreach (Match match in matches) {
+
+				var result = replacementFunc(match.Value);
+
+				if (result != match.Value) {
+					bbCode.Replace(match.Value, result, match.Index + indexOffset, match.Length);
+					indexOffset += (result.Length - match.Value.Length);
+				}
+
+			}
+
+
+			//return Regex.Replace(bbCode, pattern, replacement, RegexOptions.Multiline | RegexOptions.CultureInvariant);
 
 		}
 
@@ -28,10 +44,13 @@ namespace VocaDb.Model.Service.BBCode {
 
 		public string ConvertToHtml(string bbCode) {
 
-			foreach (var transformer in transformers)
-				bbCode = transformer.ApplyTransform(bbCode);
+			var replaced = new StringBuilder(bbCode);
 
-			return bbCode;
+			foreach (var transformer in transformers)
+				transformer.ApplyTransform(replaced);
+				//bbCode = transformer.ApplyTransform(bbCode);
+
+			return replaced.ToString();
 
 		}
 	}
