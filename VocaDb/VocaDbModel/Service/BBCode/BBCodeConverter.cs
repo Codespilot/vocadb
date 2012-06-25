@@ -19,11 +19,6 @@ namespace VocaDb.Model.Service.BBCode {
 
 		}
 
-		public static string ReplaceSimpleTag(string bbCode, string bbTagName, string htmlTagName) {
-
-			return RegexReplace(bbCode, string.Format(@"\[{0}\]([^\]]+)\[\/{0}\]", bbTagName), string.Format("<{0}>$1</{0}>", htmlTagName));
-
-		}
 
 		public BBCodeConverter(IEnumerable<IBBCodeElementTransformer> transformers) {
 
@@ -39,7 +34,6 @@ namespace VocaDb.Model.Service.BBCode {
 			return bbCode;
 
 		}
-
 	}
 
 }

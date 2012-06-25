@@ -1221,6 +1221,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="App_Code\TagHelpers.cshtml" />
     <Content Include="Views\Album\Deleted.cshtml" />
+    <Content Include="Views\Admin\AuditLogEntries.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
