@@ -50,10 +50,10 @@ namespace VocaDb.Model.Service {
 			try {
 				return config.BuildSessionFactory();
 			} catch (ArgumentException x) {
-				log.Error("Error while building session factory", x);
+				log.ErrorException("Error while building session factory", x);
 				throw;
 			} catch (FluentConfigurationException x) {
-				log.Error("Error while building session factory", x);
+				log.ErrorException("Error while building session factory", x);
 				throw;
 			}
 

@@ -136,7 +136,7 @@ namespace VocaDb.Model.Service.Security {
 		public void VerifyPermission(PermissionToken flag) {
 
 			if (!HasPermission(flag)) {
-				log.Warn(string.Format("User '{0}' does not have the requested permission '{1}'", Name, flag));
+				log.Warn("User '{0}' does not have the requested permission '{1}'", Name, flag);
 				throw new NotAllowedException();				
 			}
 

@@ -167,7 +167,7 @@ namespace VocaDb.Model.Service {
 					func(session);
 				}
 			} catch (HibernateException x) {
-				log.Error(failMsg, x);
+				log.ErrorException(failMsg, x);
 				throw;
 			}
 
@@ -180,7 +180,7 @@ namespace VocaDb.Model.Service {
 					return func(session);
 				}
 			} catch (HibernateException x) {
-				log.Error(failMsg, x);
+				log.ErrorException(failMsg, x);
 				throw;
 			}
 
@@ -198,7 +198,7 @@ namespace VocaDb.Model.Service {
 
 				}
 			} catch (HibernateException x) {
-				log.Error(failMsg, x);
+				log.ErrorException(failMsg, x);
 				throw;
 			}
 
@@ -216,7 +216,7 @@ namespace VocaDb.Model.Service {
 
 				}
 			} catch (HibernateException x) {
-				log.Error(failMsg, x);
+				log.ErrorException(failMsg, x);
 				throw;
 			}
 
@@ -233,7 +233,7 @@ namespace VocaDb.Model.Service {
 
 				}
 			} catch (HibernateException x) {
-				log.Error(failMsg, x);
+				log.ErrorException(failMsg, x);
 				throw;
 			}
 
@@ -250,7 +250,7 @@ namespace VocaDb.Model.Service {
 
 				}
 			} catch (HibernateException x) {
-				log.Error(failMsg, x);
+				log.ErrorException(failMsg, x);
 				throw;
 			}
 
