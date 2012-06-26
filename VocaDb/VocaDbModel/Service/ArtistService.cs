@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using NLog;
 using VocaDb.Model.Domain.Globalization;
-using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using NHibernate.Transform;
@@ -29,7 +29,7 @@ namespace VocaDb.Model.Service {
 	public class ArtistService : ServiceBase {
 
 // ReSharper disable UnusedMember.Local
-		private static readonly ILog log = LogManager.GetLogger(typeof(ArtistService));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 // ReSharper restore UnusedMember.Local
 
 		private IQueryable<Artist> AddOrder(IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {

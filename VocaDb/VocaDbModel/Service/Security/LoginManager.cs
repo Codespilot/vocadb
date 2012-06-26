@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
-using log4net;
+using NLog;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
@@ -15,7 +15,7 @@ namespace VocaDb.Model.Service.Security {
 
 	public class LoginManager : IUserPermissionContext {
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(LoginManager));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private UserContract user;
 

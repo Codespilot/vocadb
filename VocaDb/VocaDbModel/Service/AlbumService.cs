@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NLog;
 using VocaDb.Model.Domain.Globalization;
-using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -32,7 +32,7 @@ namespace VocaDb.Model.Service {
 	public class AlbumService : ServiceBase {
 
 // ReSharper disable UnusedMember.Local
-		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumService));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 // ReSharper restore UnusedMember.Local
 
 		private IQueryable<Album> AddDiscTypeRestriction(IQueryable<Album> query, DiscType discType) {

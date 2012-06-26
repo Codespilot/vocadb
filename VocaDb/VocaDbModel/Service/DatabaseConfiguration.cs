@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using log4net;
+using NLog;
 using NHibernate;
 using VocaDb.Model.Mapping;
 using VocaDb.Model.Mapping.Songs;
@@ -11,7 +11,7 @@ namespace VocaDb.Model.Service {
 
 	public class DatabaseConfiguration {
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(DatabaseConfiguration));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private static string ConnectionStringName {
 			get {

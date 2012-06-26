@@ -9,6 +9,7 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			Cache.ReadOnly();
 			Id(m => m.Id);
+			ReadOnly();
 
 			Map(m => m.Agent).Not.Nullable();
 			References(m => m.Song).Not.Nullable();

@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using NLog;
 using VocaDb.Model.Domain.PVs;
-using log4net;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public class VideoServiceSoundCloud : VideoService {
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(VideoServiceSoundCloud));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		public VideoServiceSoundCloud(PVService service, IVideoServiceParser parser, RegexLinkMatcher[] linkMatchers) 
 			: base(service, parser, linkMatchers) {}

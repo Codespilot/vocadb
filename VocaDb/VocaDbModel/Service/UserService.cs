@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
+using NLog;
 using VocaDb.Model.Service.Paging;
-using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -27,7 +27,7 @@ namespace VocaDb.Model.Service {
 	public class UserService : ServiceBase {
 
 // ReSharper disable UnusedMember.Local
-		private static readonly ILog log = LogManager.GetLogger(typeof(UserService));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 // ReSharper restore UnusedMember.Local
 
 		private IQueryable<User> AddOrder(IQueryable<User> criteria, UserSortRule sortRule) {

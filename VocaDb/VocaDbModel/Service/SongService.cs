@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using NHibernate;
-using NHibernate.Hql.Ast.ANTLR;
 using NHibernate.Linq;
+using NLog;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
@@ -17,7 +17,6 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
-using log4net;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
@@ -30,7 +29,7 @@ namespace VocaDb.Model.Service {
 	public class SongService : ServiceBase {
 
 #pragma warning disable 169
-		private static readonly ILog log = LogManager.GetLogger(typeof(SongService));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 #pragma warning restore 169
 
 		private IQueryable<Song> AddOrder(IQueryable<Song> criteria, SongSortRule sortRule, ContentLanguagePreference languagePreference) {

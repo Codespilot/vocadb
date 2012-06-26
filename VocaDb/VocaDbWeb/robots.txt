@@ -9,6 +9,7 @@ Disallow: /Artist/ViewVersion/
 Disallow: /Song/Comments/
 Disallow: /Song/Versions/
 Disallow: /Song/ViewVersion/
+Disallow: /User/AlbumCollection/
 Disallow: /User/FavoriteSongs/
 Disallow: /ViewNicoVideo.aspx
 Disallow: /ListPolls.aspx
