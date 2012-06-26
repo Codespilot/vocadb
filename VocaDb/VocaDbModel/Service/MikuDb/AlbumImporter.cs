@@ -209,7 +209,7 @@ namespace VocaDb.Model.Service.MikuDb {
 			try {
 				doc = HtmlRequestHelper.Download(url);	
 			} catch (WebException x) {
-				log.Warn("Unable to download album post '" + url + "'", x);
+				log.WarnException("Unable to download album post '" + url + "'", x);
 				throw;
 			}
 
@@ -272,7 +272,7 @@ namespace VocaDb.Model.Service.MikuDb {
 			try {
 				albumIndex = HtmlRequestHelper.Download(albumIndexUrl);
 			} catch (WebException x) {
-				log.Warn("Unable to read albums index", x);
+				log.WarnException("Unable to read albums index", x);
 				throw;
 			}
 
