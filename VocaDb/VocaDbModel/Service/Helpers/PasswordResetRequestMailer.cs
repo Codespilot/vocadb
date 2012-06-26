@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Mail;
-using System.Text;
-using log4net;
+using NLog;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service.Helpers {
 
 	public class PasswordResetRequestMailer {
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(PasswordResetRequestMailer));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		public void Send(string resetUrl, PasswordResetRequest request) {
 

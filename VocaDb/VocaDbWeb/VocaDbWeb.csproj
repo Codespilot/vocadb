@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Helpers">
       <HintPath>..\packages\microsoft-web-helpers.1.15\lib\Microsoft.Web.Helpers.dll</HintPath>
     </Reference>
@@ -56,6 +52,9 @@
     </Reference>
     <Reference Include="NHibernate.Caches.SysCache2">
       <HintPath>..\Libs\NHibernate.Caches.SysCache2.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.10\lib\net40\PagedList.dll</HintPath>
@@ -1094,6 +1093,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Code\Security\" />
+    <Folder Include="logs\" />
     <Folder Include="Scripts\MikuDbAlbums\" />
   </ItemGroup>
   <ItemGroup>
@@ -1225,6 +1225,12 @@
     <Content Include="App_Code\TagHelpers.cshtml" />
     <Content Include="Views\Album\Deleted.cshtml" />
     <Content Include="Views\Admin\AuditLogEntries.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

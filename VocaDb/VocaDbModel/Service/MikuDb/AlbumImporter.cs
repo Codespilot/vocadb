@@ -5,7 +5,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using HtmlAgilityPack;
-using log4net;
+using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Helpers;
@@ -15,7 +15,7 @@ namespace VocaDb.Model.Service.MikuDb {
 	public class AlbumImporter {
 
 		private const string albumIndexUrl = "http://mikudb.com/album-index/";
-		private static readonly ILog log = LogManager.GetLogger(typeof(AlbumImporter));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private const int maxResults = 5;
 
 		private readonly HashSet<string> existingUrls;

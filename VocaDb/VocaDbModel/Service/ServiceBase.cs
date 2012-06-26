@@ -2,8 +2,8 @@
 using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
+using NLog;
 using VocaDb.Model.Domain.Globalization;
-using log4net;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -23,7 +23,7 @@ namespace VocaDb.Model.Service {
 
 	public abstract class ServiceBase {
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(ServiceBase));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private readonly IEntryLinkFactory entryLinkFactory;
 		protected const int maxEntryCount = 500;

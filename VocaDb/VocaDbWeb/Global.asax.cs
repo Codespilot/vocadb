@@ -3,8 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Web.Mvc.Html;
-using log4net;
+using NLog;
 using NHibernate;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
@@ -17,7 +16,7 @@ namespace VocaDb.Web {
 
 	public class MvcApplication : System.Web.HttpApplication {
 
-		private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private static ISessionFactory sessionFactory;
 		private const string sessionFactoryLock = "lock";
 
@@ -129,8 +128,6 @@ namespace VocaDb.Web {
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
-
-			log4net.Config.XmlConfigurator.Configure();
 
 		}
 	}

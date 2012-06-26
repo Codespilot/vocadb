@@ -49,9 +49,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\Libs\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -63,6 +60,9 @@
     </Reference>
     <Reference Include="NHibernate.Caches.SysCache2">
       <HintPath>..\Libs\NHibernate.Caches.SysCache2.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="RSS.NET">
       <HintPath>..\Libs\RSS.NET.dll</HintPath>
@@ -463,7 +463,9 @@
     <Compile Include="Utils\VocaUriBuilder.cs" />
     <Compile Include="Utils\XmlCache.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AlbumValidationErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
