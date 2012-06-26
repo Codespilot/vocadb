@@ -54,6 +54,9 @@ namespace VocaDb.Web.Code.BBCode {
 
 		public string GetHtml(string rawValue, string key) {
 
+			if (string.IsNullOrEmpty(rawValue))
+				return rawValue;
+
 			var cached = Get(key);
 
 			if (cached != null && cached.Raw == rawValue)

@@ -30,7 +30,7 @@ namespace VocaDb.Model.Service {
 					.UseReflectionOptimizer()
 #endif
 				)
-				.ProxyFactoryFactory<NHibernate.ByteCode.Castle.ProxyFactoryFactory>()
+				//.ProxyFactoryFactory<NHibernate.ByteCode.Castle.ProxyFactoryFactory>()
 				.Cache(c => c
 					.ProviderClass<NHibernate.Caches.SysCache2.SysCacheProvider>()
 					.UseSecondLevelCache()

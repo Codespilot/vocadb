@@ -20,7 +20,11 @@ namespace VocaDb.Model.Mapping {
 		public void Apply(IIdentityInstance instance) {
 
 			instance.Column("Id");
-			instance.GeneratedBy.Identity();
+			if (instance.Type == typeof(int) || instance.Type == typeof(long)) {
+				instance.GeneratedBy.Identity();
+			} else {
+				instance.GeneratedBy.Assigned();
+			}
 	
 		}
 
