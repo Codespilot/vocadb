@@ -525,7 +525,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public void UpdateArtistForAlbumRoles(int artistForAlbumId, ArtistRoles[] roles) {
 
-			var rolesBitField = roles.Aggregate(ArtistRoles.Default, (list, item) => list |= item);
+			var rolesBitField = (roles != null ? roles.Aggregate(ArtistRoles.Default, (list, item) => list |= item) : ArtistRoles.Default);
 
 			Service.UpdateArtistForAlbumRoles(artistForAlbumId, rolesBitField);
 
