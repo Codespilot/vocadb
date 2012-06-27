@@ -7,10 +7,15 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Error/
 
-        public ActionResult Index()
+        public ActionResult Index(int? code)
         {
-			Response.StatusCode = 500;
+
+			if (code == 404)
+				return RedirectToAction("NotFound");
+
+			Response.StatusCode = code ?? 500;
             return View();
+
         }
 
 		public ActionResult NotFound() {
