@@ -92,6 +92,13 @@ namespace VocaDb.Web {
 				return;
 			}
 
+			var httpException = ex as HttpException;
+			if (httpException != null) {
+				Server.ClearError();
+				HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error", code = httpException.GetHttpCode() });
+				return;
+			}
+
 			var request = (HttpContext.Current.Request != null ? " (" + HttpContext.Current.Request.RawUrl + " from " + HttpContext.Current.Request.UserHostAddress + ")" : string.Empty);
 
 			log.ErrorException("Unhandled exception" + request, ex);
