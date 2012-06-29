@@ -429,6 +429,9 @@
     <Compile Include="Service\Paging\PagingProperties.cs" />
     <Compile Include="Service\Rankings\NNDWVRParser.cs" />
     <Compile Include="Service\ReleaseEventService.cs" />
+    <Compile Include="Service\Search\SearchParser.cs" />
+    <Compile Include="Service\Search\SearchQuery.cs" />
+    <Compile Include="Service\Search\SearchWord.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />

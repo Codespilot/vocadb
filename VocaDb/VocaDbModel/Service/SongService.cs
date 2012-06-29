@@ -61,13 +61,13 @@ namespace VocaDb.Model.Service {
 		/// <param name="moveExactToTop">Whether to move exact match to the top of search results.</param>
 		/// <param name="ignoreIds">List of entries to be ignored. Can be null in which case no filtering is done.</param>
 		/// <returns></returns>
-		private PartialFindResult<SongWithAdditionalNamesContract> Find(ISession session, string query, SongType[] songTypes, 
+		private PartialFindResult<Song> Find(ISession session, string query, SongType[] songTypes, 
 			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, bool onlyByName, 
 			bool moveExactToTop, int[] ignoreIds) {
 
 			var originalQuery = query;
 
-			SongWithAdditionalNamesContract[] contracts;
+			Song[] songs;
 			bool foundExactMatch = false;
 			ignoreIds = ignoreIds ?? new int[] { };
 			bool filterByType = songTypes.Any();
@@ -86,13 +86,9 @@ namespace VocaDb.Model.Service {
 
 				q = AddOrder(q, sortRule, LanguagePreference);
 
-				var songs = q
+				songs = q
 					.Skip(start)
 					.Take(maxResults)
-					.ToArray();
-
-				contracts = songs
-					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			} else {
@@ -155,7 +151,8 @@ namespace VocaDb.Model.Service {
 				var entries = direct.Concat(additionalNames)
 					.Where(e => !ignoreIds.Contains(e.Id))
 					.Skip(start)
-					.Take(maxResults);
+					.Take(maxResults)
+					.ToArray();
 
 				if (moveExactToTop) {
 					
@@ -163,21 +160,19 @@ namespace VocaDb.Model.Service {
 						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
 
 					if (exactMatch != null) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch);
+						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
 						foundExactMatch = true;
 					}
 
 				}
 
-				contracts = entries				
-					.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
+				songs = entries;
 
 			}
 
 			int count = (getTotalCount ? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode) : 0);
 
-			return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
+			return new PartialFindResult<Song>(songs, count, originalQuery, foundExactMatch);
 
 		}
 
@@ -681,7 +676,7 @@ namespace VocaDb.Model.Service {
 					var result = Find(session, q, new SongType[] {}, 0, 1, false, false, NameMatchMode.Exact, SongSortRule.Name, true, false, null);
 
 					if (result.Items.Any())
-						return result.Items.First();
+						return new SongWithAdditionalNamesContract(result.Items.First(), PermissionContext.LanguagePreference);
 
 				}
 
@@ -694,8 +689,15 @@ namespace VocaDb.Model.Service {
 		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, SongType[] songTypes, int start, int maxResults, 
 			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, bool onlyByName, int[] ignoredIds) {
 
-			return HandleQuery(session => 
-				Find(session, query, songTypes, start, maxResults, draftOnly, getTotalCount, nameMatchMode, sortRule, onlyByName, true, ignoredIds));
+			return HandleQuery(session => {
+
+				var result = Find(session, query, songTypes, start, maxResults, draftOnly, getTotalCount, nameMatchMode, sortRule, onlyByName, true, ignoredIds);
+
+				return new PartialFindResult<SongWithAdditionalNamesContract>(result.Items.Select(
+					s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray(), 
+					result.TotalCount, result.Term, result.FoundExactMatch);
+
+			});
 
 		}
 
@@ -985,6 +987,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Not used anymore")]
 		public SongWithAdditionalNamesContract[] GetTopFavoritedSongs(int maxResults) {
 
 			return HandleQuery(session => {
