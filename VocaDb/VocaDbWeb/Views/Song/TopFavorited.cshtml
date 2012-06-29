@@ -1,8 +1,0 @@
-﻿@model VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[]
-
-@{
-	ViewBag.Title = ViewRes.SharedStrings.TopFavoritedSongs;
-	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };	
-}
-
-@ArtistHelpers.Songs(Model, s => "(" + s.FavoritedTimes + " " + ViewRes.MiscStrings.FavoritedTimes + ")", true)

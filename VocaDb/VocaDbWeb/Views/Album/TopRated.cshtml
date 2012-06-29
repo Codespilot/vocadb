@@ -1,8 +1,0 @@
-﻿@model VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract[]
-
-@{
-    ViewBag.Title = ViewRes.SharedStrings.TopRatedAlbums;
-	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };	
-}
-
-@ArtistHelpers.Albums(Model, s => "(" + ViewRes.Album.TopRatedStrings.Average + " " + s.RatingAverage + ", " + string.Format(ViewRes.Album.TopRatedStrings.RatedTimes, s.RatingCount) + ")", true)

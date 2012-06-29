@@ -72,7 +72,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private PartialFindResult<AlbumWithAdditionalNamesContract> Find(
+		private PartialFindResult<Album> Find(
 			ISession session, string query, DiscType discType, int start, int maxResults, bool draftsOnly,
 			bool getTotalCount, NameMatchMode nameMatchMode, AlbumSortRule sortRule, bool moveExactToTop) {
 
@@ -93,12 +93,9 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
-				var contracts = albums.Select(s => new AlbumWithAdditionalNamesContract(s, LanguagePreference))
-					.ToArray();
-
 				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, null, false);
+				return new PartialFindResult<Album>(albums, count, null, false);
 
 			} else {
 
@@ -164,7 +161,8 @@ namespace VocaDb.Model.Service {
 
 				var entries = direct.Concat(additionalNames)
 					.Skip(start)
-					.Take(maxResults);
+					.Take(maxResults)
+					.ToArray();
 
 				if (moveExactToTop) {
 
@@ -172,19 +170,15 @@ namespace VocaDb.Model.Service {
 						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
 
 					if (exactMatch != null) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch);
+						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
 						foundExactMatch = true;
 					}
 
 				}
 
-				var contracts = entries
-					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
-
 				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
+				return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
 
 			}
 
@@ -567,8 +561,16 @@ namespace VocaDb.Model.Service {
 			string query, DiscType discType, int start, int maxResults, bool draftsOnly, bool getTotalCount, 
 			NameMatchMode nameMatchMode = NameMatchMode.Auto, AlbumSortRule sortRule = AlbumSortRule.Name, bool moveExactToTop = false) {
 
-			return HandleQuery(session => Find(session, query, discType, start, maxResults, draftsOnly, getTotalCount,
-				nameMatchMode, sortRule, moveExactToTop));
+			return HandleQuery(session => {
+				
+				var results = Find(session, query, discType, start, maxResults, draftsOnly, getTotalCount,
+					nameMatchMode, sortRule, moveExactToTop);
+
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(
+					results.Items.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(),
+					results.TotalCount, results.Term, results.FoundExactMatch);
+
+			});
 
 		}
 
@@ -594,9 +596,24 @@ namespace VocaDb.Model.Service {
 					var result = Find(session, q, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Exact, AlbumSortRule.Name, false);
 
 					if (result.Items.Any())
-						return result.Items.First();
+						return new AlbumWithAdditionalNamesContract(result.Items.First(), PermissionContext.LanguagePreference);
 
 				}
+
+				return null;
+
+			});
+
+		}
+
+		public AlbumDetailsContract FindFirstDetails(string query) {
+
+			return HandleQuery(session => {
+
+				var result = Find(session, query, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Auto, AlbumSortRule.Name, true);
+
+				if (result.Items.Any())
+					return new AlbumDetailsContract(result.Items.First(), PermissionContext.LanguagePreference);
 
 				return null;
 
@@ -786,6 +803,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Not used anymore")]
 		public AlbumWithAdditionalNamesContract[] GetTopRatedAlbums(int maxResults) {
 
 			return HandleQuery(session => {

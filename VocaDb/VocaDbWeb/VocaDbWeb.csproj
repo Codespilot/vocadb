@@ -1211,8 +1211,6 @@
     <Content Include="Views\ActivityEntry\Index.cshtml" />
     <Content Include="Views\SongList\CreateFromWVR.cshtml" />
     <Content Include="Views\Tag\Edit.cshtml" />
-    <Content Include="Views\Song\TopFavorited.cshtml" />
-    <Content Include="Views\Album\TopRated.cshtml" />
     <Content Include="Views\User\EntryEdits.cshtml" />
     <Content Include="Views\SongList\Featured.cshtml" />
     <Content Include="App_Code\UserHelpers.cshtml" />

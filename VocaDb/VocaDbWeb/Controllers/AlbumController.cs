@@ -488,14 +488,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult TopRated() {
-
-			var albums = Service.GetTopRatedAlbums(100);
-
-			return View(albums);
-
-		}
-
 		public PartialViewResult TrackProperties(int albumId, int songId) {
 
 			var contract = Service.GetTrackProperties(albumId, songId);
@@ -508,7 +500,7 @@ namespace VocaDb.Web.Controllers
 		public ContentResult TrackProperties(int songId, string artistIds) {
 
 			var idStr = artistIds.Split(',');
-			var ids = idStr.Where(i => !string.IsNullOrEmpty(i)).Select(i => int.Parse(i)).ToArray();
+			var ids = idStr.Where(i => !string.IsNullOrEmpty(i)).Select(int.Parse).ToArray();
 
 			var artistString = MvcApplication.Services.Songs.UpdateArtists(songId, ids);
 			return Content(artistString);
