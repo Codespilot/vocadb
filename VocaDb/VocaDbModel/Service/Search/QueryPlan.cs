@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace VocaDb.Model.Service.Search {
 
-	public class SearchQuery {
+	public class QueryPlan {
 
 		private readonly SearchWord[] words;
 
-		public SearchQuery(IEnumerable<SearchWord> words) {
+		public QueryPlan(IEnumerable<SearchWord> words) {
 			this.words = words.ToArray();
 		}
 

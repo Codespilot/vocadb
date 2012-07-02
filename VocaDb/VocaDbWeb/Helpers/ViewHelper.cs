@@ -208,7 +208,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static string ParseBBCode(string bbCode) {
 
-			return new BBCodeCache(DefaultBBCodeConverter.Create()).GetHtml(bbCode);
+			return new BBCodeCache(BBCodeConverters.Default()).GetHtml(bbCode);
 
 		}
 

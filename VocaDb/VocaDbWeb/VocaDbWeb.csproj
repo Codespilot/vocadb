@@ -368,7 +368,7 @@
       <DependentUpon>UserGroupNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="Code\BBCode\BBCodeCache.cs" />
-    <Compile Include="Code\BBCode\DefaultBBCodeConverter.cs" />
+    <Compile Include="Code\BBCode\BBCodeConverters.cs" />
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
     <Compile Include="Code\BBCode\EntryPropertyHtmlCache.cs" />
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />

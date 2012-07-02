@@ -36,6 +36,14 @@ function handleGenericResponse(response) {
 
 }
 
+function htmlDecode(value) {
+	if (value) {
+		return $('<div />').html(value).text();
+	} else {
+		return '';
+	}
+}
+
 function isNullOrWhiteSpace(str) {
 
 	if (str == null || str.length == 0)

@@ -30,13 +30,12 @@ namespace VocaDb.Model.Service.BBCode {
 
 			}
 
-
-			//return Regex.Replace(bbCode, pattern, replacement, RegexOptions.Multiline | RegexOptions.CultureInvariant);
-
 		}
 
 
 		public BBCodeConverter(IEnumerable<IBBCodeElementTransformer> transformers) {
+
+			ParamIs.NotNull(() => transformers);
 
 			this.transformers = transformers.ToArray();
 
@@ -48,7 +47,6 @@ namespace VocaDb.Model.Service.BBCode {
 
 			foreach (var transformer in transformers)
 				transformer.ApplyTransform(replaced);
-				//bbCode = transformer.ApplyTransform(bbCode);
 
 			return replaced.ToString();
 
