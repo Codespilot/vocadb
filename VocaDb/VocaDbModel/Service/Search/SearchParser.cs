@@ -21,12 +21,12 @@ namespace VocaDb.Model.Service.Search {
 
 		}
 
-		public static SearchQuery ParseQuery(string query) {
+		public static QueryPlan ParseQuery(string query) {
 
 			var words = query.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
-				.Select(ParseWord);
+				.Select(ParseWord).Distinct();
 
-			return new SearchQuery(words);
+			return new QueryPlan(words);
 
 		}
 

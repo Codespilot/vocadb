@@ -4,6 +4,10 @@ using System.Text.RegularExpressions;
 
 namespace VocaDb.Model.Service.BBCode {
 
+	/// <summary>
+	/// Replaces a BBCode tag with a simple HTML tag. Doesn't support attributes.
+	/// For example: [b]Bold text[/b] -> &lt;b&gt;Bold text&lt;/b&gt;
+	/// </summary>
 	public class SimpleBBCodeTransformer : IBBCodeElementTransformer {
 
 		public static void ReplaceSimpleTag(StringBuilder bbCode, string bbTagName, string htmlTagName) {

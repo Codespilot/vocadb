@@ -24,6 +24,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Artists;
 using System.Drawing;
 using System;
+using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Tags;
 
@@ -69,6 +70,120 @@ namespace VocaDb.Model.Service {
 			return criteria.Where(a => a.OriginalRelease.ReleaseDate.Year != null
 				&& a.OriginalRelease.ReleaseDate.Month != null
 				&& a.OriginalRelease.ReleaseDate.Day != null);
+
+		}
+
+		private PartialFindResult<Album> FindAdvanced(
+			ISession session, QueryPlan query, DiscType discType, int start, int maxResults, bool draftsOnly,
+			bool getTotalCount, NameMatchMode nameMatchMode, AlbumSortRule sortRule, bool moveExactToTop) {
+
+			/*if (string.IsNullOrWhiteSpace(query)) {
+
+				var albumsQ = session.Query<Album>()
+					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					albumsQ = albumsQ.Where(a => a.Status == EntryStatus.Draft);
+
+				albumsQ = AddDiscTypeRestriction(albumsQ, discType);
+
+				albumsQ = AddOrder(albumsQ, sortRule, LanguagePreference);
+
+				var albums = albumsQ
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
+				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
+
+				return new PartialFindResult<Album>(albums, count, null, false);
+
+			} else {
+
+				var originalQuery = query;
+				bool foundExactMatch = false;
+
+				query = query.Trim();
+
+				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
+				var directQ = session.Query<Album>()
+					.Where(s => !s.Deleted);
+
+				if (draftsOnly)
+					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
+
+				directQ = AddDiscTypeRestriction(directQ, discType);
+
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
+
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English == query
+							|| s.Names.SortNames.Romaji == query
+							|| s.Names.SortNames.Japanese == query);
+
+				} else {
+
+					directQ = directQ.Where(s =>
+						s.Names.SortNames.English.Contains(query)
+							|| s.Names.SortNames.Romaji.Contains(query)
+							|| s.Names.SortNames.Japanese.Contains(query)
+						|| (s.OriginalRelease.CatNum != null && s.OriginalRelease.CatNum.Contains(query)));
+
+				}
+
+				var direct = AddOrder(directQ, sortRule, LanguagePreference)
+					.Take(maxResults)
+					.ToArray();
+
+				var additionalNamesQ = session.Query<AlbumName>()
+					.Where(m => !m.Album.Deleted);
+
+				if (draftsOnly)
+					additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
+
+				additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
+
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
+
+					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
+
+				} else {
+
+					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
+
+				}
+
+				var additionalNames = AddOrder(additionalNamesQ
+					.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray()
+					.Where(a => !direct.Contains(a));
+
+				var entries = direct.Concat(additionalNames)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
+				if (moveExactToTop) {
+
+					var exactMatch = entries.FirstOrDefault(
+						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
+
+					if (exactMatch != null) {
+						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
+						foundExactMatch = true;
+					}
+
+				}
+
+				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
+
+				return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
+
+			}*/
+
+				return null;
 
 		}
 

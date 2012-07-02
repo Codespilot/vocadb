@@ -38,7 +38,7 @@
 }
 
 @if (!string.IsNullOrWhiteSpace(Model.Description)) {
-	<p>@Helpers.ConvertNewlinesToBreaks(Model.Description)</p>
+	<p>@HtmlHelpers.FormatText(Model.Description)</p>
 }
 
 <p>@Model.SongLinks.TotalCount @R.DetailsStrings.Songs.</p>

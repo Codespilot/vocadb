@@ -40,7 +40,7 @@ namespace VocaDb.Model.Service.BBCode {
 			Uri uri;
 
 			if (Uri.TryCreate(text, UriKind.Absolute, out uri)) {
-				return "<a href='" + text + "'>" + text + "</a>";
+				return string.Format("<a href='{0}'>{0}</a>", text);
 			} else {
 				return text;
 			}
