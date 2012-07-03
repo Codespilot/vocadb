@@ -106,7 +106,8 @@
 			<ul>
 				<li>Avoid submitting entries that already exist in the database. Duplicates have to be deleted or merged by the staff.</li>
 				<li>This is a database for Vocaloid-related content. UTAU and Vocaloid-related collaborations are accepted, but totally unrelated content will be deleted.</li>
-				<li>Download links to file-sharing sites that provide no useful information (like Mediafire/Megaupload/Torrents) are NOT allowed. Links to informative blogs/forums/wikis (like MikuDB/Miku;Zen) are allowed.</li>
+				<li>Download links to illegal file-sharing sites that provide no useful information (like Mediafire/Megaupload/Torrents) are NOT allowed. Links to informative blogs/forums/wikis (like MikuDB/Miku;Zen) ARE allowed.</li>
+				<li>Direct download links to media files (such as .mp3) are NOT allowed, even if they're official and legal. If the song/video is officially distributed, link to the artist's official download page (for example on piapro) instead.</li>
 			</ul>
 
 		<h4>How can I add new producers, albums and songs?</h4>
@@ -151,14 +152,17 @@
 			it's correct. However, songs shouldn't be marked as approved until they have lyrics. When approving albums, make sure that ALL the artists have been added.
 		</p>
 
-		<h3 id="glproducers">Producers</h3>
+		<h3 id="glproducers">Artists and producers</h3>
 		<h4 id="glartisttypes">Artist types</h4>
+			Every artist has a classification which also determines the artist's default roles. Roles can be overridden per album and per song -basis, but in many cases the artist is involved only in one role.
 			<ul>
 				<li>"Producer" - the person who created the song (and in the case of a Vocaloid song, usually the vocals as well using Vocaloid). Not necessarily the original composer.</li>
+				<li>"Animator" - person who primarily animates PVs.</li>
 				<li>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</li>
 				<li>"Label" - a commercial company that publishes albums for other artists.</li>
 				<li>"Other group" - group that releases albums via Labels.</li>
 				<li>"Other vocalist" - human singers (NND vocalists).</li>
+				<li>"Other individual" - other people such as lyricists and illustrators.</li>
 			</ul>
 
 		<h4>Completed artist entries should meet the following criteria:</h4>
@@ -182,12 +186,18 @@
 		<p>
 			When linking artists to albums, at the very least you should add the responsible circle (usually there's only one) and vocalists.
 			Invidividual producers and the associated record label (if any) can be added as well. At the moment all artist types may be linked to albums.
+			<br />
+			Sometimes it's necessary to credit people that aren't in the database, and it doesn't make sense to add an entry for them. 
+			For example if the song in the database is a remix/cover and the original isn't a Vocaloid song, the original composer doesn't need to be added to the database, 
+			but should be credited nevertheless.
+			These "extra artists" can then be assigned into roles just like artists that are in the database. However, for all Vocaloid-related artists,
+			it's necessary to create an entry for that artist.
 		</p>
 
 		<h4>Completed album entries should meet the following criteria:</h4>
 		<ul>
 			<li>The album has at least one name whose language option isn't "Unspecified".</li>
-			<li>The album has at least one artist (usually there should be at least one producer and one vocalist).</li>
+			<li>The album has at least one artist that is in the database. Usually there should be at least one producer and one vocalist. Extra artists that aren't in the database are not counted.</li>
 			<li>Album type isn't "Unspecified". Try to find the correct type.</li>
 			<li>The album has has at least a release year.</li>
 			<li>The album has a tracklist.</li>
@@ -203,9 +213,12 @@
 			Circles and labels are generally NOT credited for individual songs, unless it's clear that the whole group worked on that song.
 		</p>
 		<p>
-			In the case of a remix or cover, the original composer/lyricist of the song does NOT need to be added to the artists list of that song. 
-			Instead, if the original is a Vocaloid song, add the original song to the database and link the derived version to that original, or if the original is not a Vocaloid song, you may mention the composer in the notes.
-			If the original isn't a Vocaloid song, you may add the composer as an artist as well, but it's not required.
+			In the case of a remix or cover, the original composer/lyricist of the song does not need to be credited if the  
+			original song is in the database.
+			<br />
+			If the original is a Vocaloid song, add the original song to the database and link the derived version to that original, 
+			or if the original is not a Vocaloid song, add the composer as an "extra artist" (see album guide for more information).
+			Remember to set the artist's role properly to Composer/Lyricist.
 		</p>
 
 		<h4>Song types</h4>

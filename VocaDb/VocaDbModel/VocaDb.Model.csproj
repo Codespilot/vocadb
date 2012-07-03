@@ -368,8 +368,6 @@
     <Compile Include="Mapping\Songs\SongTagUsageMap.cs" />
     <Compile Include="Mapping\Songs\SongTagVoteMap.cs" />
     <Compile Include="Mapping\Tags\TagMap.cs" />
-    <Compile Include="Mapping\Tags\TagUsageMap.cs" />
-    <Compile Include="Mapping\Tags\TagVoteMap.cs" />
     <Compile Include="Mapping\TrashedEntryMap.cs" />
     <Compile Include="Mapping\Users\PasswordResetRequestMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />

@@ -52,7 +52,8 @@ namespace VocaDb.Model.Domain.Tags {
 		}
 
 		public override int GetHashCode() {
-			return (Tag.Name + "_" + Entry.EntryType + Entry.Id).GetHashCode();
+			var format = string.Format("{0}_{1}{2}", Tag.Name, Entry.EntryType, Entry.Id);
+			return format.GetHashCode();
 		}
 
 		public virtual bool HasVoteByUser(User user) {

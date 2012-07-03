@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.DataContracts.Songs {

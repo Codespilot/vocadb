@@ -885,7 +885,12 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var lists = session.Query<SongList>().Where(l => l.FeaturedCategory != SongListFeaturedCategory.Nothing).GroupBy(l => l.FeaturedCategory).ToArray();
+				var lists = session.Query<SongList>()
+					.Where(l => l.FeaturedCategory != SongListFeaturedCategory.Nothing)
+					.OrderBy(l => l.Name)
+					.GroupBy(l => l.FeaturedCategory)
+					.ToArray()
+					.OrderBy(c => c.Key);
 
 				return lists.Select(l => new SongListsByCategoryContract(l.Key, l, PermissionContext)).ToArray();
 

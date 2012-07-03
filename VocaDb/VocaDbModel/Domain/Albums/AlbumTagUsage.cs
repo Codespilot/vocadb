@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
@@ -54,6 +53,15 @@ namespace VocaDb.Model.Domain.Albums {
 			Count++;
 
 			return vote;
+
+		}
+
+		public virtual void Delete() {
+
+			Album.Tags.Usages.Remove(this);
+			Tag.AllAlbumTagUsages.Remove(this);
+			Votes.Clear();
+			Count = 0;
 
 		}
 
