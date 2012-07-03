@@ -39,7 +39,9 @@ namespace VocaDb.Model.Service {
 
 				var tag = session.Load<Tag>(name);
 
-				AuditLog("deleted " + tag, session);
+				tag.Delete();
+
+				AuditLog(string.Format("deleted {0}", tag), session);
 
 				session.Delete(tag);
 

@@ -6,9 +6,9 @@ namespace VocaDb.Model.Domain.Tags {
 
 		private User user;
 
-		public TagVote() { }
+		protected TagVote() { }
 
-		public TagVote(User user) {
+		protected TagVote(User user) {
 			User = user;
 		}
 
@@ -44,7 +44,7 @@ namespace VocaDb.Model.Domain.Tags {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 	}

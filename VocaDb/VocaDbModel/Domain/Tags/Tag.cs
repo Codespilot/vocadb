@@ -95,6 +95,19 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public virtual string TagName { get; set; }
 
+		public virtual void Delete() {
+
+			while (AllAlbumTagUsages.Any())
+				AllAlbumTagUsages.First().Delete();
+
+			while (AllArtistTagUsages.Any())
+				AllArtistTagUsages.First().Delete();
+
+			while (AllSongTagUsages.Any())
+				AllSongTagUsages.First().Delete();
+
+		}
+
 		public virtual bool Equals(Tag tag) {
 
 			if (tag == null)

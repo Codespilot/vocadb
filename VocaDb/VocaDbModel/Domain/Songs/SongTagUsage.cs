@@ -56,6 +56,15 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public virtual void Delete() {
+
+			Song.Tags.Usages.Remove(this);
+			Tag.AllSongTagUsages.Remove(this);
+			Votes.Clear();
+			Count = 0;
+
+		}
+
 		public virtual SongTagVote FindVote(User user) {
 
 			return Votes.FirstOrDefault(v => v.User.Equals(user));
