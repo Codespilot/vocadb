@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Mapping.Artists {
@@ -15,7 +11,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			Id(m => m.Id);
 
 			Map(m => m.Created).Not.Nullable();
-			Map(m => m.Message).Length(200).Not.Nullable();
+			Map(m => m.Message).Length(800).Not.Nullable();
 
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.Author).Not.Nullable();
