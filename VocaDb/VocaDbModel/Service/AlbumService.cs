@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using NLog;
 using VocaDb.Model.Domain.Globalization;
@@ -1259,128 +1260,134 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => properties);
 
-			return HandleTransaction(session => {
+			return HandleQuery(session => {
+				using (var tx = session.BeginTransaction()) {
 
-				var album = session.Load<Album>(properties.Id);
+					var album = session.Load<Album>(properties.Id);
 
-				VerifyEntryEdit(album);
+					VerifyEntryEdit(album);
 
-				var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion()));
+					var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion()));
 
-				AuditLog(string.Format("updating properties for {0}", album));
+					AuditLog(string.Format("updating properties for {0}", album));
 
-				if (album.DiscType != properties.DiscType) {
-					album.DiscType = properties.DiscType;
-					diff.DiscType = true;
-				}
+					if (album.DiscType != properties.DiscType) {
+						album.DiscType = properties.DiscType;
+						diff.DiscType = true;
+					}
 
-				if (album.Description != properties.Description) {
-					album.Description = properties.Description;
-					diff.Description = true;
-				}
+					if (album.Description != properties.Description) {
+						album.Description = properties.Description;
+						diff.Description = true;
+					}
 
-				if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
-					album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
-					diff.OriginalName = true;
-				}
+					if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
+						album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+						diff.OriginalName = true;
+					}
 
-				var validNames = properties.Names.Where(n => !string.IsNullOrWhiteSpace(n.Value)).ToArray();
-				var nameDiff = album.Names.Sync(validNames, album);
-				SessionHelper.Sync(session, nameDiff);
+					var validNames = properties.Names.Where(n => !string.IsNullOrWhiteSpace(n.Value)).ToArray();
+					var nameDiff = album.Names.Sync(validNames, album);
+					SessionHelper.Sync(session, nameDiff);
 
-				album.Names.UpdateSortNames();
+					album.Names.UpdateSortNames();
 
-				if (nameDiff.Changed)
-					diff.Names = true;
+					if (nameDiff.Changed)
+						diff.Names = true;
 
-				var validWebLinks = properties.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
-				var webLinkDiff = WebLink.Sync(album.WebLinks, validWebLinks, album);
-				SessionHelper.Sync(session, webLinkDiff);
+					var validWebLinks = properties.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
+					var webLinkDiff = WebLink.Sync(album.WebLinks, validWebLinks, album);
+					SessionHelper.Sync(session, webLinkDiff);
 
-				if (webLinkDiff.Changed)
-					diff.WebLinks = true;
+					if (webLinkDiff.Changed)
+						diff.WebLinks = true;
 
-				var newOriginalRelease = (properties.OriginalRelease != null ? new AlbumRelease(properties.OriginalRelease) : new AlbumRelease());
+					var newOriginalRelease = (properties.OriginalRelease != null ? new AlbumRelease(properties.OriginalRelease) : new AlbumRelease());
 
-				if (album.OriginalRelease == null)
-					album.OriginalRelease = new AlbumRelease();
+					if (album.OriginalRelease == null)
+						album.OriginalRelease = new AlbumRelease();
 
-				if (!album.OriginalRelease.Equals(newOriginalRelease)) {
-					album.OriginalRelease = newOriginalRelease;
-					diff.OriginalRelease = true;
-				}
+					if (!album.OriginalRelease.Equals(newOriginalRelease)) {
+						album.OriginalRelease = newOriginalRelease;
+						diff.OriginalRelease = true;
+					}
 
-				if (pictureData != null) {
-					album.CoverPictureData = new PictureData(pictureData);
-					diff.Cover = true;
-				}
+					if (pictureData != null) {
+						album.CoverPictureData = new PictureData(pictureData);
+						diff.Cover = true;
+					}
 
-				if (album.Status != properties.Status) {
-					album.Status = properties.Status;
-					diff.Status = true;
-				}
+					if (album.Status != properties.Status) {
+						album.Status = properties.Status;
+						diff.Status = true;
+					}
 
-				var songGetter = new Func<SongInAlbumEditContract, Song>(contract => {
+					var songGetter = new Func<SongInAlbumEditContract, Song>(contract => {
 
-					if (contract.SongId != 0)
-						return session.Load<Song>(contract.SongId);
-					else {
+						if (contract.SongId != 0)
+							return session.Load<Song>(contract.SongId);
+						else {
 
-						AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
+							AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
 
-						var song = new Song(contract.SongName);
-						session.Save(song);
+							var song = new Song(contract.SongName);
+							session.Save(song);
 
-						Services.Songs.Archive(session, song, SongArchiveReason.Created, 
-							string.Format("Created for album '{0}'", album.DefaultName));
+							Services.Songs.Archive(session, song, SongArchiveReason.Created,
+								string.Format("Created for album '{0}'", album.DefaultName));
 
-						AuditLog(string.Format("created {0} for {1}", 
-							EntryLinkFactory.CreateEntryLink(song), EntryLinkFactory.CreateEntryLink(album)), session);
-						AddEntryEditedEntry(session, song, EntryEditEvent.Created);
+							AuditLog(string.Format("created {0} for {1}",
+								EntryLinkFactory.CreateEntryLink(song), EntryLinkFactory.CreateEntryLink(album)), session);
+							AddEntryEditedEntry(session, song, EntryEditEvent.Created);
 
-						return song;
+							return song;
+
+						}
+
+					});
+
+					var tracksDiff = album.SyncSongs(properties.Songs, songGetter);
+
+					SessionHelper.Sync(session, tracksDiff);
+
+					if (tracksDiff.Changed) {
+
+						var add = string.Join(", ", tracksDiff.Added.Select(i => i.Song.ToString()));
+						var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
+						var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
+
+						var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit)
+							.Truncate(300);
+
+						AuditLog(str, session);
+
+						diff.Tracks = true;
 
 					}
 
-				});
+					var picsDiff = album.SyncPictures(properties.Pictures, GetLoggedUser(session));
+					SessionHelper.Sync(session, picsDiff);
+					ImageHelper.GenerateThumbsAndMoveImages(EntryType.Album, picsDiff.Added);
 
-				var tracksDiff = album.SyncSongs(properties.Songs, songGetter);
+					var pvDiff = album.SyncPVs(properties.PVs);
+					SessionHelper.Sync(session, pvDiff);
 
-				SessionHelper.Sync(session, tracksDiff);
+					if (pvDiff.Changed)
+						diff.PVs = true;
 
-				if (tracksDiff.Changed) {
+					var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
+						+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
+						.Truncate(400);
 
-					var add = string.Join(", ", tracksDiff.Added.Select(i => i.Song.ToString()));
-					var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
-					var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
+					AuditLog(logStr, session);
 
-					var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit)
-						.Truncate(300);
+					AddEntryEditedEntry(session, album, EntryEditEvent.Updated);
 
-					AuditLog(str, session);
-
-					diff.Tracks = true;
-
+					Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated, properties.UpdateNotes);
+					session.Update(album);
+					tx.Commit();
+					return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
 				}
-
-				var pvDiff = album.SyncPVs(properties.PVs);
-				SessionHelper.Sync(session, pvDiff);
-
-				if (pvDiff.Changed)
-					diff.PVs = true;
-
-				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
-					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
-					.Truncate(400);
-
-				AuditLog(logStr, session);
-
-				AddEntryEditedEntry(session, album, EntryEditEvent.Updated);
-
-				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated, properties.UpdateNotes);
-				session.Update(album);
-				return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
-
 			});
 
 		}

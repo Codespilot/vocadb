@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -352,9 +353,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public virtual AlbumPictureFile CreatePicture(string name, User author) {
+		public virtual AlbumPictureFile CreatePicture(string name, string mime, User author) {
 
-			var f = new AlbumPictureFile(name, author, this);
+			var f = new AlbumPictureFile(name, mime, author, this);
 			Pictures.Add(f);
 
 			if (CoverPicture == null)
@@ -510,6 +511,43 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 
 			AllSongs.Remove(songInAlbum);
+
+		}
+
+		public virtual CollectionDiffWithValue<AlbumPictureFile, AlbumPictureFile> SyncPictures(
+			IEnumerable<EntryPictureFileContract> newPictures, User user) {
+
+			ParamIs.NotNull(() => newPictures);
+
+			var diff = CollectionHelper.Diff(Pictures, newPictures, (n1, n2) => n1.Id == n2.Id);
+			var created = new List<AlbumPictureFile>();
+			var edited = new List<AlbumPictureFile>();
+
+			foreach (var n in diff.Removed) {
+				Pictures.Remove(n);
+			}
+
+			foreach (var newEntry in diff.Added) {
+
+				var l = CreatePicture(newEntry.Name, newEntry.Mime, user);
+				l.UploadedFile = newEntry.FileName;
+				created.Add(l);
+
+			}
+
+			foreach (var linkEntry in diff.Unchanged) {
+
+				var entry = linkEntry;
+				var newEntry = newPictures.First(e => e.Id == entry.Id);
+
+				if (entry.Name != newEntry.Name) {
+					linkEntry.Name = newEntry.Name;
+					edited.Add(linkEntry);
+				}
+
+			}
+
+			return new CollectionDiffWithValue<AlbumPictureFile, AlbumPictureFile>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.IO;
 using System.Drawing;
 using System.Net.Mime;
+using System.Web;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -21,6 +22,22 @@ namespace VocaDb.Model.Helpers {
 
 		public static string[] AllowedExtensions {
 			get { return allowedExt; }
+		}
+
+		public static void GenerateThumbsAndMoveImages(EntryType entryType, IEnumerable<EntryPictureFile> newPictures) {
+
+			foreach (var pic in newPictures) {
+
+				var path = GetImagePath(entryType, pic);
+
+				File.Move(pic.UploadedFile, path);
+				using (var original = Image.FromFile(path)) {
+					var thumb = ResizeToFixedSize(original, 250, 250);
+					thumb.Save(GetImagePathThumb(entryType, pic));
+				}
+
+			}
+
 		}
 
 		public static PictureThumbContract[] GenerateThumbs(Stream input, int[] sizes) {
@@ -72,13 +89,25 @@ namespace VocaDb.Model.Helpers {
 
 		public static string GetImagePath(EntryType entryType, EntryPictureFileContract picture) {
 
-			return string.Format("EntryImg/{0}/{1}", entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
+			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime)));
 
 		}
 
 		public static string GetImagePathThumb(EntryType entryType, EntryPictureFileContract picture) {
 
-			return string.Format("EntryImg/{0}/{1}", entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
+			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime)));
+
+		}
+
+		public static string GetImagePath(EntryType entryType, EntryPictureFile picture) {
+
+			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime)));
+
+		}
+
+		public static string GetImagePathThumb(EntryType entryType, EntryPictureFile picture) {
+
+			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime)));
 
 		}
 

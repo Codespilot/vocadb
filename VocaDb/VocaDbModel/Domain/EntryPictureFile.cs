@@ -32,10 +32,11 @@ namespace VocaDb.Model.Domain {
 			Created = DateTime.Now;
 		}
 
-		protected EntryPictureFile(string name, User author)
+		protected EntryPictureFile(string name, string mime, User author)
 			: this() {
 
 			Name = name;
+			Mime = mime;
 			Author = author;
 
 		}
@@ -75,10 +76,12 @@ namespace VocaDb.Model.Domain {
 		public virtual string Name {
 			get { return name; }
 			set { 
-				ParamIs.NotNullOrEmpty(() => value);
+				ParamIs.NotNull(() => value);
 				name = value; 
 			}
 		}
+
+		public virtual string UploadedFile { get; set; }
 
 	}
 
