@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts;
@@ -273,31 +274,45 @@ namespace VocaDb.Web.Controllers
 
             PictureDataContract pictureData = null;
 
-			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
+			var coverPicUpload = Request.Files["coverPicUpload"];
 
-				var file = Request.Files[0];
+			if (Request.Files.Count > 0 && coverPicUpload != null && coverPicUpload.ContentLength > 0) {
 
-				if (file.ContentLength > ImageHelper.MaxImageSizeBytes) {
+				if (coverPicUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
 					ModelState.AddModelError("CoverPicture", "Picture file is too large.");
 				}
 
-				if (!ImageHelper.IsValidImageExtension(file.FileName)) {
+				if (!ImageHelper.IsValidImageExtension(coverPicUpload.FileName)) {
 					ModelState.AddModelError("CoverPicture", "Picture format is not valid.");
 				}
 
 				if (ModelState.IsValid) {
 
 					pictureData = ImageHelper.GetOriginalAndResizedImages(
-						file.InputStream, file.ContentLength, file.ContentType);
+						coverPicUpload.InputStream, coverPicUpload.ContentLength, coverPicUpload.ContentType);
 
 				}
 
 			}
 
-			/*foreach (var link in model.WebLinks) {
-				if (!UrlValidator.IsValid(link.Url))
-					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
-			}*/
+			var additionalPics = Enumerable.Range(0, Request.Files.Count)
+				.Select(i => Request.Files.Get(i))
+				.Where(f => f.FileName != coverPicUpload.FileName)
+				.ToArray();
+			var newPics = model.Pictures.Where(p => p.Id == 0).ToArray();
+
+			for (int i = 0; i < additionalPics.Length; ++i) {
+
+				if (i >= newPics.Length)
+					break;
+
+				var file = additionalPics[i];
+
+				newPics[i].FileName = file.FileName;
+				newPics[i].Mime = file.ContentType;
+				newPics[i].ContentLength = file.ContentLength;
+
+			}
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetAlbumForEdit(model.Id);

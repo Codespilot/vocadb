@@ -42,7 +42,7 @@ namespace VocaDb.Model.Domain.Albums {
 			Reason = reason;
 
 			if (diff.IncludeCover)
-				CoverPicture = album.CoverPicture;
+				CoverPicture = album.CoverPictureData;
 
 		}
 

@@ -351,15 +351,33 @@ function initPage(albumId, discType) {
 		var songId = $(this).parent().parent().find("input.songId").val();
 
 		if (songId == 0)
-			return;
+			return false;
 
 		return showTrackPropertiesPopup(albumId, songId);
 
 	});
 
+	$("#picAdd").click(function () {
+
+		$.post("../../Shared/CreateEntryPictureFile", null, function (row) {
+
+			$("#picturesTableBody").append(row);
+
+		});
+
+		return false;
+		
+	});
+
+	$("a.picRemove").live("click", function () {
+
+		$(this).parent().parent().remove();
+		return false;
+
+	});
+
 	$("#pvAdd").click(function () {
 
-		var service = $("#pvService_new").val();
 		var pvUrl = $("#pvUrl_new").val();
 
 		$("#pvUrl_new").val("");
@@ -380,13 +398,6 @@ function initPage(albumId, discType) {
 	});
 
 	$("a.pvRemove").live("click", function () {
-
-		/*var id = getId(this);
-		$.post("../../Album/DeletePVForAlbum", { pvForAlbumId: id }, function () {
-
-			$("tr#pvRow_" + id).remove();
-
-		});*/
 
 		$(this).parent().parent().remove();
 		return false;

@@ -91,8 +91,8 @@ namespace VocaDb.Model.Service {
 			var importedAlbum = session.Load<MikuDbAlbum>(acceptedAlbum.ImportedAlbum.Id);
 			importedAlbum.Status = AlbumStatus.Approved;
 
-			if (importedAlbum.CoverPicture != null && album.CoverPicture == null) {
-				album.CoverPicture = importedAlbum.CoverPicture;
+			if (importedAlbum.CoverPicture != null && album.CoverPictureData == null) {
+				album.CoverPictureData = importedAlbum.CoverPicture;
 				diff.Cover = true;
 			}
 

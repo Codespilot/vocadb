@@ -31,7 +31,7 @@ namespace VocaDb.Model.Mapping.Albums {
 				c.Map(m => m.Default, "ArtistStringDefault").Length(500).Not.Nullable();
 			});
 
-			Component(m => m.CoverPicture, c => {
+			Component(m => m.CoverPictureData, c => {
 				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
 				c.Map(m => m.Mime, "CoverPictureMime").LazyLoad();
 				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "CoverPictureThumb250Bytes").Length(int.MaxValue).LazyLoad());
@@ -67,6 +67,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("DiscNumber, TrackNumber").Cache.ReadWrite();
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.OtherArtists).Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
+			HasMany(m => m.Pictures).Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			HasMany(m => m.PVs).Inverse().Cascade.AllDeleteOrphan();
 			HasMany(m => m.UserCollections).Inverse();
 			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();

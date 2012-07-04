@@ -28,6 +28,7 @@ namespace VocaDb.Web.Models {
 		public AlbumEdit() {
 			
 			Names = new List<LocalizedStringEdit>();
+			Pictures = new List<EntryPictureFileContract>();
 			PVs = new List<PVContract>();
 			Tracks = new List<SongInAlbumEditContract>();
 			WebLinks = new List<WebLinkDisplay>();
@@ -47,6 +48,7 @@ namespace VocaDb.Web.Models {
 			Id = album.Id;
 			Name = album.Name;
 			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
+			Pictures = album.Pictures;
 			PVs = album.PVs;
 			Status = album.Status;
 			Tracks = album.Songs;
@@ -105,6 +107,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Name in Romaji")]
 		public string NameRomaji { get; set; }
+
+		public IList<EntryPictureFileContract> Pictures { get; set; }
 
 		[Display(Name = "PVs")]
 		public IList<PVContract> PVs { get; set; }
@@ -169,6 +173,7 @@ namespace VocaDb.Web.Models {
 						Year = this.ReleaseYear
 					}
 				},
+				Pictures = this.Pictures.Select(p => p.NullToEmpty()).ToArray(),
 				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),
 				Songs = Tracks.ToArray(),
 				Status = this.Status,
