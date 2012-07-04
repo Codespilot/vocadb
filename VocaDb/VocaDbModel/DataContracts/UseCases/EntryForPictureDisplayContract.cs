@@ -13,7 +13,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ParamIs.NotNull(() => album);
 
 			var name = album.TranslatedName[languagePreference];
-			var pic = (album.CoverPicture != null ? new PictureContract(album.CoverPicture, requestedSize) : null);
+			var pic = (album.CoverPictureData != null ? new PictureContract(album.CoverPictureData, requestedSize) : null);
 
 			return new EntryForPictureDisplayContract(EntryType.Album, album.Id, name, album.Version, pic);
 

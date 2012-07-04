@@ -71,6 +71,7 @@
 			<li><a href="#basicInfoTab">Basic info</a></li>
 			<li><a href="#artistsTab">Artists</a></li>
 			<li><a href="#tracksTab">Tracks</a></li>
+			<li><a href="#picsTab">Pictures</a></li>
 			<li><a href="#pvsTab">Media</a></li>
 		</ul>
 
@@ -99,7 +100,7 @@
 						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
 					</td><td>
 						<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions) . Maximum size is 5 MB.</p>
-						<input type="file" id="pictureUpload" name="pictureUpload" />
+						<input type="file" id="coverPicUpload" name="coverPicUpload" />
 					</td></tr>
 				</table>
 			</div>
@@ -227,6 +228,20 @@
 			<h4>Add artist</h4>
 
 			@Helpers.EntrySearchBox("artistAdd", false, "Add")
+		</div>
+		
+		<div id="picsTab">
+			
+			<table>
+				<tbody id="picturesTableBody">
+					@foreach (var pic in Model.Pictures) {
+						Html.RenderPartialTyped("EntryPictureFileEditRow", pic);
+					}
+				</tbody>
+			</table>
+			
+			<a href="#" id="picAdd" class="addLink textLink">Create new</a>
+
 		</div>
 
 		<div id="pvsTab">

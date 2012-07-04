@@ -27,17 +27,12 @@ namespace VocaDb.Model.Domain.Albums {
 		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<OtherArtistForAlbum> otherArtists = new List<OtherArtistForAlbum>();
+		private IList<AlbumPictureFile> pictures = new List<AlbumPictureFile>();
 		private IList<PVForAlbum> pvs = new List<PVForAlbum>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 		private TagManager<AlbumTagUsage> tags = new TagManager<AlbumTagUsage>();
 		private IList<AlbumForUser> userCollections = new List<AlbumForUser>();
 		private IList<AlbumWebLink> webLinks = new List<AlbumWebLink>();
-
-		/*protected IEnumerable<Artist> ArtistList {
-			get {
-				return Artists.Where(a => a.Artist != null).Select(a => a.Artist);
-			}
-		}*/
 
 		public Album() {
 			ArtistString = new TranslatedStringWithDefault(string.Empty, string.Empty, string.Empty, string.Empty);
@@ -117,7 +112,9 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual PictureData CoverPicture { get; set; }
+		public virtual AlbumPictureFile CoverPicture { get; set; }
+
+		public virtual PictureData CoverPictureData { get; set; }
 
 		public virtual DateTime CreateDate { get; set; }
 
@@ -209,6 +206,14 @@ namespace VocaDb.Model.Domain.Albums {
 			set {
 				ParamIs.NotNull(() => value);
 				otherArtists = value; 
+			}
+		}
+
+		public virtual IList<AlbumPictureFile> Pictures {
+			get { return pictures; }
+			set { 
+				ParamIs.NotNull(() => value);
+				pictures = value; 
 			}
 		}
 
@@ -344,6 +349,18 @@ namespace VocaDb.Model.Domain.Albums {
 			Names.Add(name);
 
 			return name;
+
+		}
+
+		public virtual AlbumPictureFile CreatePicture(string name, User author) {
+
+			var f = new AlbumPictureFile(name, author, this);
+			Pictures.Add(f);
+
+			if (CoverPicture == null)
+				CoverPicture = f;
+
+			return f;
 
 		}
 

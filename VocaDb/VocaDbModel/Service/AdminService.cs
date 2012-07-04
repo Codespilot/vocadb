@@ -82,12 +82,12 @@ namespace VocaDb.Model.Service {
 
 				foreach (var album in albums) {
 					
-					if (album.CoverPicture != null && album.CoverPicture.Bytes != null) {
+					if (album.CoverPictureData != null && album.CoverPictureData.Bytes != null) {
 						
-						using (var stream = new MemoryStream(album.CoverPicture.Bytes)) {
+						using (var stream = new MemoryStream(album.CoverPictureData.Bytes)) {
 							var thumbs = ImageHelper.GenerateThumbs(stream, new[] {250});
 							if (thumbs.Any()) {
-								album.CoverPicture.Thumb250 = new PictureThumb250(thumbs.First().Bytes);
+								album.CoverPictureData.Thumb250 = new PictureThumb250(thumbs.First().Bytes);
 								changed.Add(album);
 							}
 						}

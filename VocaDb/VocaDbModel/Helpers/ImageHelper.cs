@@ -5,7 +5,11 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.IO;
 using System.Drawing;
+using System.Net.Mime;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Helpers {
 
@@ -52,17 +56,41 @@ namespace VocaDb.Model.Helpers {
 		public static string GetExtensionFromMime(string mime) {
 
 			switch (mime) {
-				case "image/jpeg":
+				case MediaTypeNames.Image.Jpeg:
 					return ".jpg";
 				case "image/png":
 					return ".png";
-				case "image/gif":
+				case MediaTypeNames.Image.Gif:
 					return ".gif";
 				case "image/bmp":
 					return ".bmp";
 				default:
 					return null;
 			}
+
+		}
+
+		public static string GetImagePath(EntryType entryType, EntryPictureFileContract picture) {
+
+			return string.Format("EntryImg/{0}/{1}", entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
+
+		}
+
+		public static string GetImagePathThumb(EntryType entryType, EntryPictureFileContract picture) {
+
+			return string.Format("EntryImg/{0}/{1}", entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
+
+		}
+
+		public static string GetImageUrl(EntryType entryType, EntryPictureFileContract picture) {
+
+			return string.Format("{0}/EntryImg/{1}/{2}", AppConfig.HostAddress, entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
+
+		}
+
+		public static string GetImageUrlThumb(EntryType entryType, EntryPictureFileContract picture) {
+
+			return string.Format("{0}/EntryImg/{1}/{2}", AppConfig.HostAddress, entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
 
 		}
 

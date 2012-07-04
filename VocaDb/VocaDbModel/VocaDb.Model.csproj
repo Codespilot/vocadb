@@ -97,6 +97,7 @@
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
+    <Compile Include="DataContracts\EntryPictureFileContract.cs" />
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventSeriesContract.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Domain\Albums\AlbumArchiveReason.cs" />
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
+    <Compile Include="Domain\Albums\AlbumPictureFile.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\OtherArtistForAlbum.cs" />
@@ -219,6 +221,7 @@
     <Compile Include="Domain\Albums\ReleaseEventSeriesAlias.cs" />
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
+    <Compile Include="Domain\EntryPictureFile.cs" />
     <Compile Include="Domain\EntryRef.cs" />
     <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
@@ -342,6 +345,7 @@
     <Compile Include="Mapping\Activityfeed\NewsEntryMap.cs" />
     <Compile Include="Mapping\Albums\AlbumCommentMap.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
+    <Compile Include="Mapping\Albums\AlbumPictureFileMap.cs" />
     <Compile Include="Mapping\Albums\AlbumTagUsageMap.cs" />
     <Compile Include="Mapping\Albums\AlbumTagVoteMap.cs" />
     <Compile Include="Mapping\Albums\AlbumWebLinkMap.cs" />

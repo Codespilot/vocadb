@@ -1105,7 +1105,7 @@ namespace VocaDb.Model.Service {
 				var versionWithPic = archivedVersion.GetLatestVersionWithField(AlbumEditableFields.Cover);
 
 				if (versionWithPic != null)
-					album.CoverPicture = versionWithPic.CoverPicture;
+					album.CoverPictureData = versionWithPic.CoverPicture;
 
 				// Original release
 				album.OriginalRelease = (fullProperties.OriginalRelease != null ? new AlbumRelease(fullProperties.OriginalRelease) : null);
@@ -1311,7 +1311,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				if (pictureData != null) {
-					album.CoverPicture = new PictureData(pictureData);
+					album.CoverPictureData = new PictureData(pictureData);
 					diff.Cover = true;
 				}
 

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Shared;
@@ -7,6 +8,13 @@ namespace VocaDb.Web.Controllers
 {
     public class SharedController : Controller
     {
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult CreateEntryPictureFile() {
+
+			return PartialView("EntryPictureFileEditRow", new EntryPictureFileContract());
+
+		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult CreateName(string nameVal, ContentLanguageSelection language) {
