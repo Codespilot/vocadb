@@ -307,12 +307,16 @@ namespace VocaDb.Web.Controllers
 					break;
 
 				var file = additionalPics[i];
+				var temp = System.IO.Path.GetTempFileName();
+				file.SaveAs(temp);
 
-				newPics[i].FileName = file.FileName;
+				newPics[i].FileName = temp;
 				newPics[i].Mime = file.ContentType;
 				newPics[i].ContentLength = file.ContentLength;
 
 			}
+
+			CollectionHelper.RemoveAll(model.Pictures, p => string.IsNullOrEmpty(p.FileName));
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetAlbumForEdit(model.Id);

@@ -8,8 +8,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public AlbumPictureFile() { }
 
-		public AlbumPictureFile(string name, User author, Album album) 
-			: base(name, author) {
+		public AlbumPictureFile(string name, string mime, User author, Album album) 
+			: base(name, mime, author) {
 
 			this.album = album;
 

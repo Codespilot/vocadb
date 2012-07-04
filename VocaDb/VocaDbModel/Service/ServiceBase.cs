@@ -204,6 +204,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected T HandleTransaction<T>(Func<ISession, ITransaction, T> func, string failMsg = "Unexpected NHibernate error") {
+
+			try {
+				using (var session = OpenSession())
+				using (var tx = session.BeginTransaction()) {
+
+					var val = func(session, tx);
+					tx.Commit();
+					return val;
+
+				}
+			} catch (HibernateException x) {
+				log.ErrorException(failMsg, x);
+				throw;
+			}
+
+		}
+
 		protected T HandleTransaction<T>(Func<ISession, T> func, IsolationLevel isolationLevel, string failMsg = "Unexpected NHibernate error") {
 
 			try {

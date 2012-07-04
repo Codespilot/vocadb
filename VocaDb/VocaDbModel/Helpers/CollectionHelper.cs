@@ -27,6 +27,26 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static void RemoveAll<T>(IList<T> list, Func<T, bool> pred) {
+
+			bool changed = true;
+
+			while (changed) {
+
+				changed = false;
+
+				foreach (var item in list) {
+					if (pred(item)) {
+						list.Remove(item);
+						changed = true;
+						break;
+					}
+				}
+
+			}
+
+		}
+
 		public static IEnumerable<T> RemovedItems<T>(IEnumerable<T> old, IEnumerable<T> newItems) {
 
 			return old.Where(i => !newItems.Contains(i));
