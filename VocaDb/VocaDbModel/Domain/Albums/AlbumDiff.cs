@@ -121,6 +121,12 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool IncludePictures {
+			get {
+				return (IsSnapshot || Pictures);
+			}
+		}
+
 		public virtual bool IncludePVs {
 			get {
 				return (IsSnapshot || PVs);
@@ -165,6 +171,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 			set {
 				Set(AlbumEditableFields.OriginalRelease, value);
+			}
+		}
+
+		public virtual bool Pictures {
+			get {
+				return IsChanged(AlbumEditableFields.Pictures);
+			}
+			set {
+				Set(AlbumEditableFields.Pictures, value);
 			}
 		}
 

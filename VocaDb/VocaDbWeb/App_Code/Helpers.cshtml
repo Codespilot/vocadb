@@ -1,6 +1,7 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 @using System.Web.Mvc;
 @using System.Web.Mvc.Html;
+@using VocaDb.Model.DataContracts
 @using VocaDb.Model.Domain;
 @using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
@@ -59,18 +60,24 @@
 		switch (pv.Service) {
 			case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 				<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
-																		  break;
+				break;
 
 			case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
-																		  var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+				var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 				<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=false&amp;color=ff7700"></iframe>			
-																																										   break;
+				break;
 
 			case VocaDb.Model.Domain.PVs.PVService.Youtube:
-																																										   EmbedPV(pv, width, height);
-																																										   break;
+				EmbedPV(pv, width, height);
+				break;
 		}
 	}
+}
+
+@helper EntryPictureFileLink(EntryType entryType, EntryPictureFileContract entryPictureFile) {
+	<a href="@VocaDb.Model.Helpers.ImageHelper.GetImageUrl(entryType, entryPictureFile)">
+		<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(entryType, entryPictureFile)" alt="Preview" class="coverPic" />
+	</a>
 }
 
 @helper EntryValidationMessage(bool draft, VocaDb.Model.Service.EntryValidators.ValidationResult validationResult, string helpSection) {

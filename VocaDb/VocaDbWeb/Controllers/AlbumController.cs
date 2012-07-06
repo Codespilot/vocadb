@@ -316,7 +316,7 @@ namespace VocaDb.Web.Controllers
 
 			}
 
-			CollectionHelper.RemoveAll(model.Pictures, p => string.IsNullOrEmpty(p.FileName));
+			CollectionHelper.RemoveAll(model.Pictures, p => p.Id == 0 && string.IsNullOrEmpty(p.FileName));
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetAlbumForEdit(model.Id);

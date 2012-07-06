@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Helpers;
+﻿@using VocaDb.Model.Domain
+@using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models;
 @using R = ViewRes.Album;
 @model AlbumDetails
@@ -42,9 +43,28 @@
 		<table class="properties">
 			<tr>
 				<td rowspan="14">
-					<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
-						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
-					</a><br />
+					<div id="picCarousel" class="carousel slide">
+					  <!-- Carousel items -->
+					  <div class="carousel-inner">
+						<div class="active item">
+							<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
+								<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
+							</a>
+						</div>
+						@foreach (var pic in Model.Pictures) {
+							<div class="item">
+								@Helpers.EntryPictureFileLink(EntryType.Album, pic)
+								<div class="carousel-caption">
+									<h4>@pic.Name</h4>
+								</div>
+							</div>
+						}
+					  </div>
+					  <!-- Carousel nav -->
+					  <a class="carousel-control left" href="#picCarousel" data-slide="prev">&lsaquo;</a>
+					  <a class="carousel-control right" href="#picCarousel" data-slide="next">&rsaquo;</a>
+					</div>					
+					<br />
 					@if (Model.RatingCount > 0) {
 						@Helpers.Stars(Model.RatingAverage, 5)<br />
 						<text>(</text>@Model.RatingCount <text>@ViewRes.Album.DetailsStrings.Ratings)</text>

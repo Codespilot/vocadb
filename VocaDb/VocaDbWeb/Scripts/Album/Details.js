@@ -113,6 +113,8 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
 		return false;
 	});
 
+	$('#picCarousel').carousel();
+
 	$("#collectionRating").jqxRating();
 
 	if (collectionRating != 0) {

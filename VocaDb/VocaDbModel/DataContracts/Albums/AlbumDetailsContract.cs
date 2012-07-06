@@ -23,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Deleted = album.Deleted;
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
+			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs
 				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
@@ -52,6 +53,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public AlbumReleaseContract OriginalRelease { get; set; }
+
+		[DataMember]
+		public EntryPictureFileContract[] Pictures { get; set; }
 
 		[DataMember]
 		public PVContract[] PVs { get; set; }

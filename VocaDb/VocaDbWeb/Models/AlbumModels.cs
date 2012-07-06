@@ -207,6 +207,7 @@ namespace VocaDb.Web.Models {
 			Id = contract.Id;
 			LatestComments = contract.LatestComments;
 			Name = contract.Name;
+			Pictures = contract.Pictures;
 			PVs = contract.PVs;
 			RatingAverage = contract.RatingAverage;
 			RatingCount = contract.RatingCount;
@@ -277,6 +278,8 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		public ArtistForAlbumContract[] OtherArtists { get; set; }
+
+		public EntryPictureFileContract[] Pictures { get; set; }
 
 		public PVContract PrimaryPV { get; set; }
 
