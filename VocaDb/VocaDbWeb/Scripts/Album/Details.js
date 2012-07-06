@@ -113,7 +113,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
 		return false;
 	});
 
-	$('#picCarousel').carousel();
+	$('#picCarousel').carousel({ interval: false });
 
 	$("#collectionRating").jqxRating();
 
