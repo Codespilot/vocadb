@@ -1369,6 +1369,9 @@ namespace VocaDb.Model.Service {
 					SessionHelper.Sync(session, picsDiff);
 					ImageHelper.GenerateThumbsAndMoveImages(EntryType.Album, picsDiff.Added);
 
+					if (picsDiff.Changed)
+						diff.Pictures = true;
+
 					var pvDiff = album.SyncPVs(properties.PVs);
 					SessionHelper.Sync(session, pvDiff);
 

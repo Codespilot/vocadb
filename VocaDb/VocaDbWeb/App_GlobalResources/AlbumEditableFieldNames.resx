@@ -141,6 +141,9 @@
   <data name="OriginalRelease" xml:space="preserve">
     <value>Original release</value>
   </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Pictures</value>
+  </data>
   <data name="PVs" xml:space="preserve">
     <value>PVs</value>
   </data>

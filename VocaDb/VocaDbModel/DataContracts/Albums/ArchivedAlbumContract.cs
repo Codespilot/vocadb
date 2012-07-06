@@ -65,6 +65,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DoIfExists(version, AlbumEditableFields.Description, xmlCache, v => data.Description = v.Description);
 			DoIfExists(version, AlbumEditableFields.OriginalRelease, xmlCache, v => data.OriginalRelease = v.OriginalRelease);
 			DoIfExists(version, AlbumEditableFields.Names, xmlCache, v => data.Names = v.Names);
+			DoIfExists(version, AlbumEditableFields.Pictures, xmlCache, v => data.Pictures = v.Pictures);
 			DoIfExists(version, AlbumEditableFields.PVs, xmlCache, v => data.PVs = v.PVs);
 			DoIfExists(version, AlbumEditableFields.Tracks, xmlCache, v => data.Songs = v.Songs);
 			DoIfExists(version, AlbumEditableFields.WebLinks, xmlCache, v => data.WebLinks = v.WebLinks);
@@ -85,6 +86,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			OriginalRelease = (album.OriginalRelease != null && !album.OriginalRelease.IsEmpty ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
+			Pictures = (diff.IncludePictures ? album.Pictures.Select(p => new ArchivedEntryPictureFileContract(p)).ToArray() : null);
 			PVs = (diff.IncludePVs ? album.PVs.Select(p => new ArchivedPVContract(p)).ToArray() : null);
 			Names = (diff.IncludeNames ? album.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
 			Songs = (diff.IncludeTracks ? album.Songs.Select(s => new SongInAlbumRefContract(s)).ToArray() : null);
@@ -110,6 +112,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public ArchivedAlbumReleaseContract OriginalRelease { get; set; }
+
+		[DataMember]
+		public ArchivedEntryPictureFileContract[] Pictures { get; set; }
 
 		[DataMember]
 		public ArchivedPVContract[] PVs { get; set; }
