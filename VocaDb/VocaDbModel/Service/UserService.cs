@@ -87,6 +87,7 @@ namespace VocaDb.Model.Service {
 		}
 
 		// For quick-adding the album on user page
+		[Obsolete]
 		public AlbumForUserContract AddAlbum(int userId, int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
@@ -667,12 +668,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 
 			UpdateEntity<AlbumForUser>(albumForUserId, albumForUser => albumForUser.MediaType = mediaType, PermissionToken.EditProfile);
 
 		}
 
+		[Obsolete]
 		public void UpdateAlbumForUserRating(int albumForUserId, int rating) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);

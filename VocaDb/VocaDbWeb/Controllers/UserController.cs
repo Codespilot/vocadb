@@ -409,6 +409,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete]
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 			
 			Service.UpdateAlbumForUserMediaType(albumForUserId, mediaType);
@@ -416,6 +417,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete]
 		public void UpdateAlbumForUserRating(int albumForUserId, int rating) {
 
 			Service.UpdateAlbumForUserRating(albumForUserId, rating);
@@ -423,6 +425,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete]
 		public PartialViewResult AddExistingAlbum(int albumId) {
 
 			var link = Service.AddAlbum(LoggedUserId, albumId);

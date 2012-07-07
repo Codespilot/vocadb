@@ -12,14 +12,11 @@ namespace VocaDb.Model.DataContracts.Users {
 		public UserForMySettingsContract(User user, ContentLanguagePreference languagePreference)
 			: base(user) {
 
-			AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).ToArray();
 			HashedAccessKey = LoginManager.GetHashedAccessKey(user.AccessKey);
 
 		}
 
 		public string HashedAccessKey { get; set; }
-
-		public AlbumForUserContract[] AlbumLinks { get; set; }
 
 	}
 }
