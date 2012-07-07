@@ -2,6 +2,7 @@
 @using System.Web.Mvc.Html
 @using System.Web.Routing
 @using VocaDb.Model.DataContracts.Albums;
+@using VocaDb.Model.Domain.Users
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
 
@@ -11,7 +12,7 @@
 	</a>		
 }
 
-@helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums, 
+@helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums,
 	bool displayRating, bool displayReleaseDate, bool displayType = false) {
 	
 	<table>
@@ -24,7 +25,7 @@
 				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 				@if (displayType) {
 					@("(")@Translate.DiscTypeName(album.DiscType)@(")")
-				}
+	}
 				<br />
 				<span class="extraInfo">@album.ArtistString</span>
 				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
@@ -45,9 +46,9 @@
 		@{ int i = 0; }
 	
 		@foreach (var album in albums) {
-			if (i % columns == 0) {
+	  if (i % columns == 0) {
 				@Html.Raw("<tr>")
-			}
+	  }
 			<td>
 				@AlbumIconLink(album)
 			</td>
@@ -55,22 +56,22 @@
 				@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 				@if (displayType) {
 					@("(")@Translate.DiscTypeName(album.DiscType)@(")")
-				}
+	}
 				<br />
 				<span class="extraInfo">@album.ArtistString</span>
 				@if (displayReleaseDate && !album.ReleaseDate.IsEmpty) {
 					<br />
 					<span>@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted</span>
-				}
+	}
 			</td>
 			{ i++; }
 			if (i % columns == 0) {
 				@Html.Raw("</tr>")
 			}
-		}
+  }
 		@if (i % columns != 0) {
 			@Html.Raw("</tr>")
-		}
+  }
 	</table>
 			
 }
@@ -91,6 +92,27 @@
 		</li>
   }
 	</ul>
+	
+}
+
+@helper EditCollectionDialog(PurchaseStatus purchaseStatus, MediaType mediaType) {
+	
+<div id="editCollectionDialog" style="display:none" title="@ViewRes.Album.DetailsStrings.EditAlbumInCollection">
+
+	@ViewRes.Album.DetailsStrings.Status: 
+	@Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect", @class = "input-medium" }, purchaseStatus)
+	<br />
+
+	@ViewRes.Album.DetailsStrings.MediaType:
+	@Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect", @class = "input-medium" }, mediaType)
+
+	<div>
+		@ViewRes.Album.DetailsStrings.MyRating: 
+		<div id="collectionRating"></div>
+		@Html.Raw("&nbsp;")
+		<a href="#" id="removeRating" class="textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
+	</div>
+</div>
 	
 }
 

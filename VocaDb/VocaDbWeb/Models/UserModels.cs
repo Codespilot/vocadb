@@ -72,7 +72,6 @@ namespace VocaDb.Web.Models {
 			Username = user.Name;
 
 			AccessKey = user.HashedAccessKey;
-			AlbumLinks = user.AlbumLinks.Select(a => new AlbumForUserEditModel(a)).ToArray();
 			AllInterfaceLanguages = InterfaceLanguage.Cultures
 				.ToKeyValuePairsWithEmpty(string.Empty, "(Automatic)", c => c.Name, c => c.EnglishName + " (" + c.NativeName + ")")
 				.OrderBy(k => k.Value)
@@ -83,8 +82,6 @@ namespace VocaDb.Web.Models {
 		}
 
 		public string AccessKey { get; set; }
-
-		public AlbumForUserEditModel[] AlbumLinks { get; set; }
 
 		public KeyValuePair<string, string>[] AllInterfaceLanguages { get; set; }
 

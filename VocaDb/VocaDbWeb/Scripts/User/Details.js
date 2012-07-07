@@ -23,4 +23,43 @@ function initPage(userId, loadingStr, confirmDisableStr) {
 
 	});
 
+	$("#removeRating").click(function () {
+
+		$('#collectionRating').jqxRating({ value: 0 });
+		return false;
+
+	});
+
+	$("#editCollectionDialog").dialog({ autoOpen: false, width: 320, modal: true, buttons: [{ text: "Save", click: function () {
+
+		$("#editCollectionDialog").dialog("close");
+
+		var albumId = $("#collectionAlbumEditId").val();
+		var status = $("#collectionStatusSelect").val();
+		var mediaType = $("#collectionMediaSelect").val();
+		var rating = $("#collectionRating").jqxRating('getValue');
+
+		$.post("../../User/UpdateAlbumForUser", { albumId: albumId, collectionStatus: status, mediaType: mediaType, rating: rating }, null);
+
+	} 
+	}]
+	});
+
+	$(".editAlbumLink").live("click", function () {
+
+		var dataCol = $(this).parent().parent().find("td")[0];
+		var albumId = $(dataCol).find(".albumId").val();
+		var albumPurchaseStatus = $(dataCol).find(".albumPurchaseStatus").val();
+		var albumMediaType = $(dataCol).find(".albumMediaType").val();
+		var albumRating = $(dataCol).find(".albumRating").val();
+
+		$("#collectionAlbumEditId").val(albumId);
+		$("#collectionStatusSelect").val(albumPurchaseStatus);
+		$("#collectionMediaSelect").val(albumMediaType);
+		$('#collectionRating').jqxRating({ value: albumRating });
+
+		$("#editCollectionDialog").dialog("open");
+		return false;
+
+	});
 }

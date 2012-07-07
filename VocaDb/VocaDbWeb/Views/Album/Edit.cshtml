@@ -232,6 +232,9 @@
 		
 		<div id="picsTab">
 			
+			<p>Please only upload pictures relevant to this album, nothing else.</p>
+			<p>Allowed types: @string.Join(", ", VocaDb.Model.Helpers.ImageHelper.AllowedExtensions) . Maximum size is 5 MB.</p>
+
 			<table>
 				<tbody id="picturesTableBody">
 					@foreach (var pic in Model.Pictures) {

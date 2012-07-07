@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Model.DataContracts.Users;
+@using VocaDb.Model.Domain.Users
 @using VocaDb.Web;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security;
@@ -128,8 +129,16 @@
 
 </div>
 
+@Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
+
+@AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
+
+@section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="../../Scripts/jqwidgets/jqxrating.js"></script>
 <script type="text/javascript" src="../../Scripts/User/Details.js"></script>
 <script type="text/javascript">
 
@@ -138,3 +147,4 @@
 	});
 
 </script>
+}

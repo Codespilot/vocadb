@@ -274,22 +274,7 @@
 
 </div>
 
-<div id="editCollectionDialog" style="display:none" title="@ViewRes.Album.DetailsStrings.EditAlbumInCollection">
-
-	@ViewRes.Album.DetailsStrings.Status: 
-	@Html.EnumDropDownList("collectionStatusSelect", Translate.AlbumCollectionStatusNames, new { id = "collectionStatusSelect", @class = "input-medium" }, Model.AlbumPurchaseStatus)
-	<br />
-
-	@ViewRes.Album.DetailsStrings.MediaType:
-	@Html.EnumDropDownList("collectionMediaSelect", Translate.AlbumMediaTypeNames, new { id = "collectionMediaSelect", @class = "input-medium" }, Model.AlbumMediaType)
-
-	<div>
-		@ViewRes.Album.DetailsStrings.MyRating: 
-		<div id="collectionRating"></div>
-		@Html.Raw("&nbsp;")
-		<a href="#" id="removeRating" class="textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
-	</div>
-</div>
+@AlbumHelpers.EditCollectionDialog(Model.AlbumPurchaseStatus, Model.AlbumMediaType)
 
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />

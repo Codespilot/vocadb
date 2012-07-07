@@ -79,6 +79,9 @@ namespace VocaDb.Model.Service.Security {
 			}
 		}
 
+		/// <summary>
+		/// Currently logged in user. Can be null.
+		/// </summary>
 		public UserContract LoggedUser {
 			get {
 
