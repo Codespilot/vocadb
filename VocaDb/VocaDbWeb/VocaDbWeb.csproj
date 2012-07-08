@@ -1250,6 +1250,7 @@
     <Content Include="Views\User\UserListPaged.cshtml" />
     <Content Include="Views\Song\SongItem.cshtml" />
     <Content Include="Views\Shared\EntryPictureFileEditRow.cshtml" />
+    <Content Include="Views\Shared\Stars.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

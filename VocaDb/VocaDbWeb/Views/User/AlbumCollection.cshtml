@@ -13,36 +13,44 @@
 		<th>@ViewRes.User.AlbumCollectionStrings.Rating</th>
 		<th></th>
 	</tr>
-	@foreach (var album in Model.Items) {
-	<tr>
-		<td>
-			<input type="hidden" class="albumId" value="@album.Album.Id" />
-			<input type="hidden" class="albumPurchaseStatus" value="@album.PurchaseStatus" />
-			<input type="hidden" class="albumMediaType" value="@album.MediaType" />
-			<input type="hidden" class="albumRating" value="@album.Rating" />
-			@AlbumHelpers.AlbumIconLink(album.Album)
-		</td>
-		<td>
-			@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
-			<br />
-			<span class="extraInfo">@album.Album.ArtistString</span>
-		</td>
-		<td>
-			@Translate.AlbumCollectionStatusNames.GetName(album.PurchaseStatus)
-		</td>
-		<td>
-			@Translate.AlbumMediaTypeNames.GetName(album.MediaType)
-		</td>	
-		<td>
-			@Helpers.Stars(album.Rating, 5)
-		</td>
-		<td>
-			@if (Login.Manager.IsLoggedIn && album.User.Id == Login.User.Id) {
-				<a href="#" class="editAlbumLink editLink textLink">@ViewRes.SharedStrings.Edit</a>
-			}
-		</td>
-	</tr>
-}	
+	<tbody id="albumCollectionTableBody">
+		@foreach (var album in Model.Items) {
+		<tr>
+			<td>
+				<input type="hidden" class="albumId" value="@album.Album.Id" />
+				<input type="hidden" class="albumPurchaseStatus" value="@album.PurchaseStatus" />
+				<input type="hidden" class="albumMediaType" value="@album.MediaType" />
+				<input type="hidden" class="albumRating" value="@album.Rating" />
+				@AlbumHelpers.AlbumIconLink(album.Album)
+			</td>
+			<td>
+				@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
+				<br />
+				<span class="extraInfo">@album.Album.ArtistString</span>
+			</td>
+			<td>
+				<div class="albumPurchaseStatusField">
+					@Translate.AlbumCollectionStatusNames.GetName(album.PurchaseStatus)
+				</div>
+			</td>
+			<td>
+				<div class="albumMediaTypeField">
+					@Translate.AlbumMediaTypeNames.GetName(album.MediaType)
+				</div>
+			</td>	
+			<td>
+				<div class="albumRatingField">
+					@Helpers.Stars(album.Rating, 5)				
+				</div>
+			</td>
+			<td>
+				@if (Login.Manager.IsLoggedIn && album.User.Id == Login.User.Id) {
+					<a href="#" class="editAlbumLink editLink textLink">@ViewRes.SharedStrings.Edit</a>
+				}
+			</td>
+		</tr>
+	}	
+	</tbody>
 </table>
 
 <div class="pager">

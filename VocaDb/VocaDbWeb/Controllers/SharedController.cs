@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Web.Models;
@@ -41,6 +42,12 @@ namespace VocaDb.Web.Controllers
 		public PartialViewResult CreateWebLink(string description, string url) {
 
 			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url });
+
+		}
+
+		public PartialViewResult Stars(int current, int max) {
+
+			return PartialView(new Tuple<int, int>(current, max));
 
 		}
 
