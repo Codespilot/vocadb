@@ -41,7 +41,22 @@ function initPage(userId, loadingStr, confirmDisableStr) {
 
 		$.post("../../User/UpdateAlbumForUser", { albumId: albumId, collectionStatus: status, mediaType: mediaType, rating: rating }, null);
 
-	} 
+		var idField = $("#albumCollectionTableBody input.albumId[value='" + albumId + "']");
+		var dataRow = $(idField).parent().parent();
+		var dataCol = $(dataRow).find("td")[0];
+		$(dataCol).find(".albumPurchaseStatus").val(status);
+		$(dataCol).find(".albumMediaType").val(mediaType);
+		$(dataCol).find(".albumRating").val(rating);
+		var collectionName = $("#collectionStatusSelect option:selected").text();
+		var mediaName = $("#collectionMediaSelect option:selected").text();
+		$(dataRow).find(".albumPurchaseStatusField").text(collectionName);
+		$(dataRow).find(".albumMediaTypeField").text(mediaName);
+
+		$.get("../../Shared/Stars", { current: rating, max: 5 }, function (res) {
+			$(dataRow).find(".albumRatingField").html(res);
+		});
+
+	}
 	}]
 	});
 
