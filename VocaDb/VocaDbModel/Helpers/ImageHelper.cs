@@ -17,6 +17,7 @@ namespace VocaDb.Model.Helpers {
 	public static class ImageHelper {
 
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
+		private const int defaultThumbSize = 250;
 
 		public const int MaxImageSizeBytes = 5 * 1024 * 1024;	// 5 MB
 
@@ -29,11 +30,18 @@ namespace VocaDb.Model.Helpers {
 			foreach (var pic in newPictures) {
 
 				var path = GetImagePath(entryType, pic);
+				var thumbPath = GetImagePathThumb(entryType, pic);
 
 				File.Move(pic.UploadedFile, path);
 				using (var original = Image.FromFile(path)) {
-					var thumb = ResizeToFixedSize(original, 250, 250);
-					thumb.Save(GetImagePathThumb(entryType, pic));
+
+					if (original.Width > defaultThumbSize || original.Height > defaultThumbSize) {
+						var thumb = ResizeToFixedSize(original, defaultThumbSize, defaultThumbSize);
+						thumb.Save(thumbPath);
+					} else {
+						File.Copy(path, thumbPath);
+					}
+
 				}
 
 			}

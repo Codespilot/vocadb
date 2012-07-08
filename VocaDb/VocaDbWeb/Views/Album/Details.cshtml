@@ -45,17 +45,19 @@
 				<td rowspan="14">
 					<div id="picCarousel" class="carousel slide">
 						<div class="carousel-inner">
-							<div class="active item">
+							<div class="active item thumbItem">
 								<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
 									<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
 								</a>
 							</div>
 							@foreach (var pic in Model.Pictures) {
-								<div class="item">
+								<div class="item thumbItem">
 									@Helpers.EntryPictureFileLink(EntryType.Album, pic)
-									<div class="carousel-caption">
-										<h4>@pic.Name</h4>
-									</div>
+									@if (!string.IsNullOrEmpty(pic.Name)) {
+										<div class="carousel-caption">
+											<h4>@pic.Name</h4>
+										</div>
+									}
 								</div>
 							}
 						</div>
