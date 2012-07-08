@@ -101,6 +101,10 @@ a.coverPicThumb {
 	display: block;
 }
 
+div.thumbItem {
+	width: 250px;
+	height: 250px;	
+}
 
 table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	vertical-align: top;
