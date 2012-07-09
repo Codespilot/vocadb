@@ -77,8 +77,9 @@ namespace VocaDb.Web.Controllers
 
 			var sortRule = sort ?? SongSortRule.Name;
 
-			var result = Service.Find(filter, songType != null && songType != SongType.Unspecified ? new[] { songType.Value } : new SongType[] { }, 
-				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false, null);
+			var result = Service.FindWithAlbum(new SongQueryParams(filter, 
+				songType != null && songType != SongType.Unspecified ? new[] { songType.Value } : new SongType[] { }, 
+				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false, false, null));
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
@@ -118,13 +119,14 @@ namespace VocaDb.Web.Controllers
 				? songTypes.Split(',').Select(EnumVal<SongType>.Parse).ToArray()
 				: new SongType[] { };
 
-			var songs = Service.Find(term, typeVals, 0, 20, 
-				draftOnly: false, 
+			var songs = Service.Find(new SongQueryParams(term, typeVals, 0, 20, 
+				draftsOnly: false, 
 				getTotalCount: false, 
 				onlyByName: true, 
 				nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto), 
 				sortRule: SongSortRule.Name, 
-				ignoredIds: ignoredIds);
+				ignoredIds: ignoredIds,
+				moveExactToTop: false));
 
 			return Json(songs);
 

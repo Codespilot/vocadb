@@ -63,7 +63,10 @@
 				<td>
 					@Helpers.DraftIcon(song.Status)
 					@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@Translate.SongTypeNames[song.SongType])<br />
-					<span class="extraInfo">@song.ArtistString</span>
+					<span class="extraInfo">@song.ArtistString</span><br />
+					@if (song.Album != null) {
+					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
+					}
 				</td>
 				<td>
 					@song.FavoritedTimes @R.IndexStrings.Times

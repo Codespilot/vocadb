@@ -1,4 +1,14 @@
 ﻿
+var SongList = function (data) {
+
+	this.id = data.Id;
+	this.currentName = data.Name;
+	this.name = ko.observable(data.Name);
+	this.description = ko.observable(data.Description);
+	this.featuredCategory = ko.observable(data.FeaturedCategory);
+
+};
+
 function songListChanged() {
 
 	var track = 1;

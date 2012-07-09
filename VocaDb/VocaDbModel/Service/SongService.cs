@@ -22,6 +22,8 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Service {
@@ -51,26 +53,27 @@ namespace VocaDb.Model.Service {
 		/// Finds songs based on criteria.
 		/// </summary>
 		/// <param name="session">Open session. Canot be null.</param>
-		/// <param name="query">Query search string. Can be null or empty, in which case no filtering by name is done.</param>
-		/// <param name="start">0-based order number of the first item to be returned.</param>
-		/// <param name="maxResults">Maximum number of results to be returned.</param>
-		/// <param name="draftsOnly">Whether to return only entries with a draft status.</param>
-		/// <param name="getTotalCount">Whether to return the total number of entries matching the criteria.</param>
-		/// <param name="nameMatchMode">Mode for name maching. Ignored when query string is null or empty.</param>
-		/// <param name="onlyByName">Whether to search items only by name, and not for example NicoId. Ignored when query string is null or empty.</param>
-		/// <param name="moveExactToTop">Whether to move exact match to the top of search results.</param>
-		/// <param name="ignoreIds">List of entries to be ignored. Can be null in which case no filtering is done.</param>
+		/// <param name="queryParams">Query parameters. Cannot be null.</param>
 		/// <returns></returns>
-		private PartialFindResult<Song> Find(ISession session, string query, SongType[] songTypes, 
-			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, bool onlyByName, 
-			bool moveExactToTop, int[] ignoreIds) {
+		private PartialFindResult<Song> Find(ISession session, SongQueryParams queryParams) {
 
-			var originalQuery = query;
+			ParamIs.NotNull(() => queryParams);
 
+			var draftsOnly = queryParams.Common.DraftOnly;
+			var getTotalCount = queryParams.Paging.GetTotalCount;
+			var ignoreIds = queryParams.IgnoredIds ?? new int[] { };
+			var moveExactToTop = queryParams.Common.MoveExactToTop;
+			var nameMatchMode = queryParams.Common.NameMatchMode;
+			var onlyByName = queryParams.Common.OnlyByName;
+			var query = queryParams.Common.Query;
+			var songTypes = queryParams.SongTypes;
+			var sortRule = queryParams.SortRule;
+			var start = queryParams.Paging.Start;
+			var maxResults = queryParams.Paging.MaxEntries;
+
+			bool filterByType = songTypes.Any();
 			Song[] songs;
 			bool foundExactMatch = false;
-			ignoreIds = ignoreIds ?? new int[] { };
-			bool filterByType = songTypes.Any();
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -172,7 +175,7 @@ namespace VocaDb.Model.Service {
 
 			int count = (getTotalCount ? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode) : 0);
 
-			return new PartialFindResult<Song>(songs, count, originalQuery, foundExactMatch);
+			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, foundExactMatch);
 
 		}
 
@@ -667,16 +670,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongWithAdditionalNamesContract FindFirst(string[] query) {
+		public T FindFirst<T>(Func<Song, T> fac, string[] query)
+			where T : SongContract {
 
 			return HandleQuery(session => {
 
 				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
 
-					var result = Find(session, q, new SongType[] {}, 0, 1, false, false, NameMatchMode.Exact, SongSortRule.Name, true, false, null);
+					var result = Find(session,
+						new SongQueryParams {
+							Common = new CommonSearchParams {
+								Query = q, NameMatchMode = NameMatchMode.Exact, OnlyByName = true
+							},
+							Paging = new PagingProperties(0, 10, false)
+						});
 
 					if (result.Items.Any())
-						return new SongWithAdditionalNamesContract(result.Items.First(), PermissionContext.LanguagePreference);
+						return fac(result.Items.First());
 
 				}
 
@@ -686,18 +696,35 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> Find(string query, SongType[] songTypes, int start, int maxResults, 
-			bool draftOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, bool onlyByName, int[] ignoredIds) {
+		public SongWithAdditionalNamesContract FindFirst(string[] query) {
+
+			return FindFirst(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), query);
+
+		}
+
+		public PartialFindResult<T> Find<T>(Func<Song, T> fac, SongQueryParams queryParams)
+			where T : SongContract {
 
 			return HandleQuery(session => {
 
-				var result = Find(session, query, songTypes, start, maxResults, draftOnly, getTotalCount, nameMatchMode, sortRule, onlyByName, true, ignoredIds);
+				var result = Find(session, queryParams);
 
-				return new PartialFindResult<SongWithAdditionalNamesContract>(result.Items.Select(
-					s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray(), 
+				return new PartialFindResult<T>(result.Items.Select(fac).ToArray(),
 					result.TotalCount, result.Term, result.FoundExactMatch);
 
 			});
+
+		}
+
+		public PartialFindResult<SongWithAdditionalNamesContract> Find(SongQueryParams queryParams) {
+
+			return Find(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), queryParams);
+
+		}
+
+		public PartialFindResult<SongWithAlbumContract> FindWithAlbum(SongQueryParams queryParams) {
+
+			return Find(s => new SongWithAlbumContract(s, PermissionContext.LanguagePreference), queryParams);
 
 		}
 
@@ -777,8 +804,8 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var songContract = Find(session, query, new SongType[] {}, 0, 10, false, false, 
-					NameMatchMode.Auto, SongSortRule.Name, false, true, null).Items;
+				var songContract = Find(session, new SongQueryParams(query, new SongType[] {}, 0, 10, false, false, 
+					NameMatchMode.Auto, SongSortRule.Name, false, true, null)).Items;
 
 				if (!songContract.Any())
 					return null;
@@ -1523,6 +1550,49 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
+
+	}
+
+	public class SongQueryParams {
+
+		public SongQueryParams() {
+
+			Common = new CommonSearchParams();
+			Paging = new PagingProperties(0, 30, true);
+
+		}
+
+		/// <param name="query">Query search string. Can be null or empty, in which case no filtering by name is done.</param>
+		/// <param name="start">0-based order number of the first item to be returned.</param>
+		/// <param name="maxResults">Maximum number of results to be returned.</param>
+		/// <param name="draftsOnly">Whether to return only entries with a draft status.</param>
+		/// <param name="getTotalCount">Whether to return the total number of entries matching the criteria.</param>
+		/// <param name="nameMatchMode">Mode for name maching. Ignored when query string is null or empty.</param>
+		/// <param name="onlyByName">Whether to search items only by name, and not for example NicoId. Ignored when query string is null or empty.</param>
+		/// <param name="moveExactToTop">Whether to move exact match to the top of search results.</param>
+		/// <param name="ignoredIds">List of entries to be ignored. Can be null in which case no filtering is done.</param>
+		public SongQueryParams(string query, SongType[] songTypes, int start, int maxResults,
+			bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, SongSortRule sortRule, 
+			bool onlyByName, bool moveExactToTop, int[] ignoredIds) {
+
+			Common = new CommonSearchParams(query, draftsOnly, nameMatchMode, onlyByName, moveExactToTop);
+			Paging = new PagingProperties(start, maxResults, getTotalCount);
+
+			SongTypes = songTypes ?? new SongType[] {};
+			SortRule = sortRule;
+			IgnoredIds = ignoredIds ?? new int[] {};
+
+		}
+
+		public CommonSearchParams Common { get; set; }
+
+		public int[] IgnoredIds { get; set; }
+
+		public PagingProperties Paging { get; set; }
+
+		public SongType[] SongTypes { get; set; }
+
+		public SongSortRule SortRule { get; set; }
 
 	}
 

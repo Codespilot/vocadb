@@ -129,6 +129,7 @@
     <Compile Include="DataContracts\Songs\ArchivedSongVersionContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumEditContract.cs" />
+    <Compile Include="DataContracts\Songs\SongWithAlbumContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
     <Compile Include="DataContracts\Tags\TagContract.cs" />
@@ -434,6 +435,7 @@
     <Compile Include="Service\ReleaseEventService.cs" />
     <Compile Include="Service\Search\AlbumArtistFilter.cs" />
     <Compile Include="Service\Search\AlbumSearchProperty.cs" />
+    <Compile Include="Service\Search\CommonSearchParams.cs" />
     <Compile Include="Service\Search\SearchParser.cs" />
     <Compile Include="Service\Search\QueryPlan.cs" />
     <Compile Include="Service\Search\SearchWord.cs" />

@@ -55,6 +55,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Data(int id) {
+
+			var list = Service.GetSongListForEdit(id);
+			return Json(list);
+
+		}
+
 		public ActionResult Delete(int id) {
 
 			Service.DeleteSongList(id);

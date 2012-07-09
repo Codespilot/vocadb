@@ -95,6 +95,10 @@
 	
 }
 
+@helper DetailsLink(AlbumWithAdditionalNamesContract album) {
+	@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
+}
+
 @helper EditCollectionDialog(PurchaseStatus purchaseStatus, MediaType mediaType) {
 	
 <div id="editCollectionDialog" style="display:none" title="@ViewRes.Album.DetailsStrings.EditAlbumInCollection">
