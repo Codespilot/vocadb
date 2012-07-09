@@ -42,7 +42,7 @@
 		@Html.ActionLink(ViewRes.SharedStrings.Songs + " (" + Model.Songs.TotalCount + ")", "Index", "Song", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@SongHelpers.Songs(Model.Songs.Items, true)
+	@SongHelpers.Songs(Model.Songs.Items, true, true)
 	
 }
 

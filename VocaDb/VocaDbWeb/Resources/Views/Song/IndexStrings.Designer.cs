@@ -79,6 +79,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From album.
+        /// </summary>
+        public static string FromAlbum {
+            get {
+                return ResourceManager.GetString("FromAlbum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to time(s).
         /// </summary>
         public static string Times {

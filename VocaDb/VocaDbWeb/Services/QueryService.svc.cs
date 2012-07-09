@@ -55,9 +55,10 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public PartialFindResult<SongWithAdditionalNamesContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+		public PartialFindResult<SongWithAlbumContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Songs.Find(term, new SongType[] {}, 0, maxResults, false, true, nameMatchMode, SongSortRule.Name, false, null);
+			return Services.Songs.FindWithAlbum(new SongQueryParams(
+				term, new SongType[] {}, 0, maxResults, false, true, nameMatchMode, SongSortRule.Name, false, true, null));
 
 		}
 
@@ -114,9 +115,9 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public SongWithAdditionalNamesContract GetSongDetails(string term) {
+		public SongWithAlbumContract GetSongDetails(string term) {
 
-			var songs = Services.Songs.Find(term, new SongType[] {}, 0, 10, false, false,NameMatchMode.Auto, SongSortRule.Name, false, null);
+			var songs = Services.Songs.FindWithAlbum(new SongQueryParams(term, new SongType[] {}, 0, 10, false, false, NameMatchMode.Auto, SongSortRule.Name, false, true, null));
 			return songs.Items.FirstOrDefault();
 
 		}

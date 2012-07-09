@@ -67,7 +67,7 @@
 					</td>
 					<td>
 						@Helpers.DraftIcon(album)
-						@Html.ActionLink(album.Name, "Details", new { id = album.Id }, new { title = album.AdditionalNames })<br />
+						@AlbumHelpers.DetailsLink(album)<br />
 						<small class="extraInfo">@album.ArtistString</small><br />
 						<small class="extraInfo">@Translate.DiscTypeName(album.DiscType)</small>
 					</td>

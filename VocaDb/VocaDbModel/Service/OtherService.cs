@@ -131,8 +131,8 @@ namespace VocaDb.Model.Service {
 				var albumResult = new PartialFindResult<AlbumWithAdditionalNamesContract>(
 					albums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), albumCount);
 
-				var songResult = new PartialFindResult<SongWithAdditionalNamesContract>(
-					songs.Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), songCount);
+				var songResult = new PartialFindResult<SongWithAlbumContract>(
+					songs.Select(a => new SongWithAlbumContract(a, PermissionContext.LanguagePreference)).ToArray(), songCount);
 
 				return new AllEntriesSearchResult(albumResult, artistResult, songResult);
 

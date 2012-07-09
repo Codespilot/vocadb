@@ -858,6 +858,8 @@
     <Content Include="Scripts\jqwidgets\styles\jqx.energyblue.css" />
     <Content Include="Scripts\jqwidgets\styles\jqx.shinyblack.css" />
     <Content Include="Scripts\jqwidgets\styles\jqx.summer.css" />
+    <Content Include="Scripts\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.js" />

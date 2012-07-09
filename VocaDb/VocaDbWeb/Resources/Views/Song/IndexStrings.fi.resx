@@ -123,6 +123,9 @@
   <data name="Favorited" xml:space="preserve">
     <value>Suosikeissa</value>
   </data>
+  <data name="FromAlbum" xml:space="preserve">
+    <value>Albumilta</value>
+  </data>
   <data name="Times" xml:space="preserve">
     <value>kerta(a)</value>
   </data>
