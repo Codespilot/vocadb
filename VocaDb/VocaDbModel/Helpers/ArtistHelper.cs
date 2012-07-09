@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -115,6 +116,23 @@ namespace VocaDb.Model.Helpers {
 				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => GetTranslatedName(a)[lang])));
 
 			}
+
+		}
+
+		/// <summary>
+		/// Returns the canonized artist name. Basically this means removing any P suffixes.
+		/// </summary>
+		/// <param name="name">Artist name that may be canonized or not. Can be null or empty, in which case nothing is done.</param>
+		/// <returns>Canonized artist name.</returns>
+		public static string GetCanonizedName(string name) {
+
+			if (string.IsNullOrEmpty(name))
+				return name;
+
+			var queryWithoutP = (name.EndsWith("-P", StringComparison.InvariantCultureIgnoreCase) ? name.Substring(0, name.Length - 2) : name);
+			queryWithoutP = (queryWithoutP.EndsWith("P", StringComparison.InvariantCultureIgnoreCase) ? queryWithoutP.Substring(0, queryWithoutP.Length - 1) : queryWithoutP);
+
+			return queryWithoutP;
 
 		}
 
