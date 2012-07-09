@@ -19,6 +19,7 @@ namespace VocaDb.Model.Domain.Users {
 		private PermissionCollection additionalPermissions = new PermissionCollection();
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private IList<ArtistForUser> artists = new List<ArtistForUser>();
+		private string culture;
 		private string email;
 		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
 		private string language;
@@ -34,6 +35,7 @@ namespace VocaDb.Model.Domain.Users {
 			Active = true;
 			AnonymousActivity = false;
 			CreateDate = DateTime.Now;
+			Culture = string.Empty;
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
 			EmailOptions = UserEmailOptions.PrivateMessagesFromAll;
@@ -118,6 +120,14 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public virtual DateTime CreateDate { get; set; }
+
+		public virtual string Culture {
+			get { return culture; }
+			set { 
+				ParamIs.NotNull(() => value);
+				culture = value; 
+			}
+		}
 
 		public virtual ContentLanguagePreference DefaultLanguageSelection { get; set; }
 

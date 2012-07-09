@@ -104,6 +104,15 @@
 			</div>
 
 			<div class="editor-label">
+				<label>
+				@R.MySettings.CultureName
+				</label>
+			</div>
+			<div class="editor-field">
+				@Html.DropDownListFor(m => m.CultureSelection, new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.CultureSelection))
+			</div>
+
+			<div class="editor-label">
 				@Html.LabelFor(m => m.PreferredVideoService)
 			</div>
 			<div class="editor-field">

@@ -19,6 +19,27 @@ namespace VocaDb.Model.Service.Security {
 
 		private UserContract user;
 
+		private void SetCultureSafe(string name, bool culture, bool uiCulture) {
+
+			if (string.IsNullOrEmpty(name))
+				return;
+
+			try {
+
+				var c = CultureInfo.GetCultureInfo(name);
+
+				if (culture)
+					Thread.CurrentThread.CurrentCulture = c;
+
+				if (uiCulture)
+					Thread.CurrentThread.CurrentUICulture = c;
+
+			} catch (ArgumentException x) { 
+				log.WarnException("Unable to set culture", x);
+			}
+
+		}
+
 		public static string GetHashedPass(string name, string pass, int salt) {
 
 			return FormsAuthentication.HashPasswordForStoringInConfigFile(name + pass + salt, "sha1");
@@ -115,16 +136,12 @@ namespace VocaDb.Model.Service.Security {
 
 			if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Params["culture"])) {
 
-				try {
-					var culture = CultureInfo.GetCultureInfo(HttpContext.Current.Request.Params["culture"]);
-					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
-				} catch (ArgumentException) { }
+				var cName = HttpContext.Current.Request.Params["culture"];
+				SetCultureSafe(cName, true, true);
 
-			} else if (IsLoggedIn && !string.IsNullOrEmpty(LoggedUser.Language)) {
-				try {
-					var culture = CultureInfo.GetCultureInfo(user.Language);
-					Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = culture;
-				} catch (ArgumentException) { }
+			} else if (IsLoggedIn) {
+				SetCultureSafe(LoggedUser.Culture, true, false);
+				SetCultureSafe(LoggedUser.Language, false, true);
 			}
 
 		}

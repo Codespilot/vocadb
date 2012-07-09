@@ -24,6 +24,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			AdditionalPermissions = new HashSet<PermissionToken>(user.AdditionalPermissions.PermissionTokens);
 			AnonymousActivity = user.AnonymousActivity;
 			CreateDate = user.CreateDate;
+			Culture = user.Culture;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			EffectivePermissions = new HashSet<PermissionToken>(user.EffectivePermissions.PermissionTokens);
 			EmailOptions = user.EmailOptions;
@@ -44,6 +45,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }
+
+		[DataMember]
+		public string Culture { get; set; }
 
 		[DataMember]
 		public ContentLanguagePreference DefaultLanguageSelection { get; set; }
