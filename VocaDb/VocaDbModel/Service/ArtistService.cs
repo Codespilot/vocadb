@@ -100,8 +100,7 @@ namespace VocaDb.Model.Service {
 
 				query = query.Trim();
 
-				var queryWithoutP = (query.EndsWith("-P", StringComparison.InvariantCultureIgnoreCase) ? query.Substring(0, query.Length - 2) : query);
-				queryWithoutP = (queryWithoutP.EndsWith("P", StringComparison.InvariantCultureIgnoreCase) ? queryWithoutP.Substring(0, queryWithoutP.Length - 1) : queryWithoutP);
+				var queryWithoutP = ArtistHelper.GetCanonizedName(query);
 
 				// Note: Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
 				var directQ = session.Query<Artist>()

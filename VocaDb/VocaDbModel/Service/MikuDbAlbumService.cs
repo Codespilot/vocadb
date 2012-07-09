@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.MikuDb;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -148,11 +149,11 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrEmpty(artistName))
 				return null;
 
-			if (artistName.EndsWith("P"))
-				artistName = artistName.Substring(0, artistName.Length - 1);
+			artistName = ArtistHelper.GetCanonizedName(artistName);
 
 			var additionalNames = session.Query<ArtistName>()
-				.FirstOrDefault(m => !m.Artist.Deleted && (m.Value == artistName || m.Value == artistName + "P"));
+				.FirstOrDefault(m => !m.Artist.Deleted 
+					&& (m.Value == artistName || m.Value == artistName + "P" || m.Value == artistName + "-P"));
 
 			if (additionalNames != null)
 				return additionalNames.Artist;
