@@ -718,7 +718,7 @@ namespace VocaDb.Model.Service {
 
 				var user = session.Load<User>(contract.Id);
 
-				AuditLog("Updating settings for " + user);
+				AuditLog(string.Format("Updating settings for {0}", user));
 
 				VerifyResourceAccess(user);
 
@@ -735,6 +735,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				user.AnonymousActivity = contract.AnonymousActivity;
+				user.Culture = contract.Culture;
 				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
 				user.EmailOptions = contract.EmailOptions;
 				user.Language = contract.Language;

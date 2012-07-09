@@ -621,6 +621,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessagesStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\User\MySettings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MySettings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
     </Compile>
@@ -1759,6 +1764,11 @@
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\User\MySettings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MySettings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

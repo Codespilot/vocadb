@@ -15,6 +15,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.Active).Not.Nullable();
 			Map(m => m.AnonymousActivity).Not.Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
+			Map(m => m.Culture).Not.Nullable();
 			Map(m => m.DefaultLanguageSelection).Not.Nullable();
 			Map(m => m.Email).Length(50).Not.Nullable();
 			Map(m => m.EmailOptions).CustomType(typeof(UserEmailOptions)).Not.Nullable();
