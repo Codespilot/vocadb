@@ -25,7 +25,9 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Domain.Artists;
 using System.Drawing;
 using System;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search;
+using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Tags;
 
@@ -75,116 +77,37 @@ namespace VocaDb.Model.Service {
 		}
 
 		private PartialFindResult<Album> FindAdvanced(
-			ISession session, QueryPlan query, DiscType discType, int start, int maxResults, bool draftsOnly,
-			bool getTotalCount, NameMatchMode nameMatchMode, AlbumSortRule sortRule, bool moveExactToTop) {
+			ISession session, string query, PagingProperties paging, AlbumSortRule sortRule) {
 
-			/*if (string.IsNullOrWhiteSpace(query)) {
+			var queryPlan = new AlbumQueryBuilder().BuildPlan(query);
+			return FindAdvanced(session, queryPlan, paging, sortRule);
 
-				var albumsQ = session.Query<Album>()
-					.Where(s => !s.Deleted);
+		}
 
-				if (draftsOnly)
-					albumsQ = albumsQ.Where(a => a.Status == EntryStatus.Draft);
+		private PartialFindResult<Album> FindAdvanced(
+			ISession session, QueryPlan<Album> queryPlan, PagingProperties paging, AlbumSortRule sortRule) {
 
-				albumsQ = AddDiscTypeRestriction(albumsQ, discType);
+			if (!queryPlan.Any())
+				return new PartialFindResult<Album>(new Album[] {}, 0);
 
-				albumsQ = AddOrder(albumsQ, sortRule, LanguagePreference);
+			List<Album> albums = null;
 
-				var albums = albumsQ
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
+			foreach (var filter in queryPlan) {
 
-				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
+				if (albums == null)
+					albums = filter.GetResults(session);
+				else
+					filter.FilterResults(albums, session);
 
-				return new PartialFindResult<Album>(albums, count, null, false);
+			}
 
-			} else {
+			var result = albums
+				.Skip(paging.Start)
+				.Take(paging.MaxEntries)
+				.ToArray();
 
-				var originalQuery = query;
-				bool foundExactMatch = false;
+			return new PartialFindResult<Album>(result, albums.Count);
 
-				query = query.Trim();
-
-				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
-				var directQ = session.Query<Album>()
-					.Where(s => !s.Deleted);
-
-				if (draftsOnly)
-					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
-
-				directQ = AddDiscTypeRestriction(directQ, discType);
-
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English == query
-							|| s.Names.SortNames.Romaji == query
-							|| s.Names.SortNames.Japanese == query);
-
-				} else {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query)
-						|| (s.OriginalRelease.CatNum != null && s.OriginalRelease.CatNum.Contains(query)));
-
-				}
-
-				var direct = AddOrder(directQ, sortRule, LanguagePreference)
-					.Take(maxResults)
-					.ToArray();
-
-				var additionalNamesQ = session.Query<AlbumName>()
-					.Where(m => !m.Album.Deleted);
-
-				if (draftsOnly)
-					additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-				additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
-
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-				} else {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-				}
-
-				var additionalNames = AddOrder(additionalNamesQ
-					.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
-					.Distinct()
-					.Take(maxResults)
-					.ToArray()
-					.Where(a => !direct.Contains(a));
-
-				var entries = direct.Concat(additionalNames)
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
-
-				if (moveExactToTop) {
-
-					var exactMatch = entries.FirstOrDefault(
-						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
-
-					if (exactMatch != null) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
-						foundExactMatch = true;
-					}
-
-				}
-
-				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
-
-				return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
-
-			}*/
-
-				return null;
 
 		}
 
@@ -681,6 +604,21 @@ namespace VocaDb.Model.Service {
 				
 				var results = Find(session, query, discType, start, maxResults, draftsOnly, getTotalCount,
 					nameMatchMode, sortRule, moveExactToTop);
+
+				return new PartialFindResult<AlbumWithAdditionalNamesContract>(
+					results.Items.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(),
+					results.TotalCount, results.Term, results.FoundExactMatch);
+
+			});
+
+		}
+
+		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAdvanced(
+			string query, PagingProperties paging, AlbumSortRule sortRule) {
+
+			return HandleQuery(session => {
+
+				var results = FindAdvanced(session, query, paging, sortRule);
 
 				return new PartialFindResult<AlbumWithAdditionalNamesContract>(
 					results.Items.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(),

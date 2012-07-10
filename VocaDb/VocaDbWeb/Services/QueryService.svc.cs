@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Service.Paging;
 
 namespace VocaDb.Web.Services {
 
@@ -30,6 +31,13 @@ namespace VocaDb.Web.Services {
 		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			return Services.Albums.Find(term, DiscType.Unknown, 0, maxResults, false, true, moveExactToTop: true, nameMatchMode: nameMatchMode);
+
+		}
+
+		[OperationContract]
+		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbumsAdvanced(string term, int maxResults) {
+
+			return Services.Albums.FindAdvanced(term, new PagingProperties(0, maxResults, true), AlbumSortRule.Name);
 
 		}
 
