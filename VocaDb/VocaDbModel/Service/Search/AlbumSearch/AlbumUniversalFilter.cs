@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain.Albums;
@@ -40,6 +39,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 					&& n.Album.ArtistString.Romaji.Contains(term)
 					&& n.Album.ArtistString.English.Contains(term))
 				.Select(a => a.Album)
+				.Distinct()
 				.ToList();
 
 			/*return session.Query<AlbumName>()

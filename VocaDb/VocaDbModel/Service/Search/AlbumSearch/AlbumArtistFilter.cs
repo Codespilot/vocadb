@@ -33,6 +33,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				.Where(an => an.Value.Contains(artistName))
 				.SelectMany(an => an.Artist.AllAlbums)
 				.Select(an => an.Album)
+				.Distinct()
 				.ToList();
 
 		}
