@@ -104,7 +104,7 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Interface language")]
 		public string InterfaceLanguageSelection { get; set; }
 
-		[Display(Name = "Preferred video service")]
+		[Display(Name = "Preferred streaming service")]
 		public PVService PreferredVideoService { get; set; }
 
 		[Display(Name = "Email")]

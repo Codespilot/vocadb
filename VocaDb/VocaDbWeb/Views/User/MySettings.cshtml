@@ -90,13 +90,6 @@
 		<div id="interface">
 		
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DefaultLanguageSelection)
-			</div>
-			<div class="editor-field">
-				@Html.LanguagePreferenceDropDownListFor(m => m.DefaultLanguageSelection)
-			</div>
-
-			<div class="editor-label">
 				@Html.LabelFor(m => m.InterfaceLanguageSelection)
 			</div>
 			<div class="editor-field">
@@ -110,6 +103,13 @@
 			</div>
 			<div class="editor-field">
 				@Html.DropDownListFor(m => m.CultureSelection, new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.CultureSelection))
+			</div>
+			
+			<div class="editor-label">
+				@Html.LabelFor(m => m.DefaultLanguageSelection)
+			</div>
+			<div class="editor-field">
+				@Html.LanguagePreferenceDropDownListFor(m => m.DefaultLanguageSelection)
 			</div>
 
 			<div class="editor-label">
