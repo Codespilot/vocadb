@@ -433,11 +433,18 @@
     <Compile Include="Service\Paging\PagingProperties.cs" />
     <Compile Include="Service\Rankings\NNDWVRParser.cs" />
     <Compile Include="Service\ReleaseEventService.cs" />
-    <Compile Include="Service\Search\AlbumArtistFilter.cs" />
-    <Compile Include="Service\Search\AlbumSearchProperty.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumArtistFilter.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumNameFilter.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumQueryBuilder.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumTagFilter.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumUniversalFilter.cs" />
+    <Compile Include="Service\Search\ISearchFilter.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumSearchProperty.cs" />
     <Compile Include="Service\Search\CommonSearchParams.cs" />
-    <Compile Include="Service\Search\SearchParser.cs" />
+    <Compile Include="Service\Search\QueryCost.cs" />
     <Compile Include="Service\Search\QueryPlan.cs" />
+    <Compile Include="Service\Search\SearchParser.cs" />
+    <Compile Include="Service\Search\SearchWordCollection.cs" />
     <Compile Include="Service\Search\SearchWord.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
@@ -491,6 +498,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SongValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\Search\Artist\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

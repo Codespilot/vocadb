@@ -5,9 +5,8 @@
 		private readonly string propertyName;
 		private readonly string value;
 
-		public SearchWord(string val) {
-			value = val;
-		}
+		public SearchWord(string val) 
+			: this(string.Empty, val) {}
 
 		public SearchWord(string propName, string val) {
 			propertyName = propName;
