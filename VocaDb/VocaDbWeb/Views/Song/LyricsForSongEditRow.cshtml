@@ -6,14 +6,17 @@
 	@using (Html.BeginCollectionItem("Lyrics")) {
 	<p>
 	@Html.HiddenFor(m => m.Id)
-	@Html.LabelFor(m => m.Language):
-	@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
-
-	@Html.LabelFor(m => m.Source):
-	@Html.TextBoxFor(m => m.Source, new { size = 45 })
+	<label>
+		Language:
+		@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
+	</label>
+	<label>
+		Source:
+		@Html.TextBoxFor(m => m.Source, new { size = 45 })
+	</label>
 	</p>
 	
-	@Html.TextAreaFor(m => m.Value, 30, 65, null)
+	@Html.TextAreaFor(m => m.Value, 30, 65, new { @class = "input-xxlarge" })
 
 	}
 	 
