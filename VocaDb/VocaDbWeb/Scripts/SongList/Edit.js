@@ -1,32 +1,44 @@
 ﻿
-var SongList = function (data) {
+var Song = function (data) {
 
-	this.id = data.Id;
-	this.currentName = data.Name;
-	this.name = ko.observable(data.Name);
-	this.description = ko.observable(data.Description);
-	this.featuredCategory = ko.observable(data.FeaturedCategory);
+	this.SongInListId = data.SongInListId;
+	this.Notes = ko.observable(data.Notes);
+	this.Order = ko.observable(data.Order);
+	this.SongId = data.SongId;
+	this.SongName = data.SongName;
+	this.SongAdditionalNames = data.SongAdditionalNames;
+	this.SongArtistString = data.SongArtistString;
 
 };
 
-function songListChanged() {
+function SongListViewModel(data) {
 
-	var track = 1;
+	var self = this;
 
-	$("tr.trackRow").each(function () {
+	this.Id = data.Id;
+	this.CurrentName = data.Name;
+	this.Name = ko.observable(data.Name);
+	this.Description = ko.observable(data.Description);
+	this.FeaturedCategory = ko.observable(data.FeaturedCategory);
+	this.SongLinks = ko.observableArray([]);
 
-		$(this).find(".songOrderField").val(track);
-		$(this).find(".songOrder").html(track);
-		track++;
+	var mappedSongs = $.map(data.SongLinks, function (item) { return new Song(item); });
+	this.SongLinks(mappedSongs);
 
-	});
+	function songListChanged() {
 
-}
+		var track = 1;
 
-function initPage(listId) {
+		$("tr.trackRow").each(function () {
 
-	$("#tabs").tabs();
-	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+			var songLink = ko.dataFor(this);
+			songLink.Order(track);
+			track++;
+
+		});
+
+	}
+
 	$("#songsTableBody").sortable({
 		update: function (event, ui) {
 			songListChanged();
@@ -50,25 +62,35 @@ function initPage(listId) {
 			allowCreateNew: false,
 			acceptBtnElem: songAddBtn,
 			acceptSelection: acceptSongSelection,
-			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")" },
-			createOptionSecondRow: function (item) { return item.ArtistString },
-			createTitle: function (item) { return item.AdditionalNames }
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
+			createOptionSecondRow: function (item) { return item.ArtistString; },
+			createTitle: function (item) { return item.AdditionalNames; }
 		});
 
 	function songAdded(row) {
 
-		$("#songsTableBody").append(row);
+		self.SongLinks.push(new Song(row));
 		songListChanged();
 
 	}
 
-	$("a.songRemove").live("click", function () {
+	this.removeSong = function (songLink) { self.SongLinks.remove(songLink); };
 
-		$(this).parent().parent().remove();
-		songListChanged();
+	this.save = function () {
+		ko.utils.postJson(location.href, { model: ko.toJS(self) });
+	};
 
-		return false;
+};
 
+function initPage(listId) {
+
+	$("#tabs").tabs();
+	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
+
+	$.getJSON("/SongList/Data", { id: listId }, function (songListData) {
+		var viewModel = new SongListViewModel(songListData);
+		ko.applyBindings(viewModel);
+		$("#songListForm").validate({ submitHandler: function () { viewModel.save(); } });
 	});
 
 }

@@ -374,6 +374,7 @@
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
     <Compile Include="Code\Feeds\FeedResult.cs" />
+    <Compile Include="Code\FromJsonAttribute.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />

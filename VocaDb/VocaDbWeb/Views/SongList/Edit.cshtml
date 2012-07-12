@@ -27,6 +27,8 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<!--<script type="text/javascript" src="@Url.Content("~/Scripts/knockout-sortable.js")"></script>-->
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/SongList/Edit.js")"></script>
 <script type="text/javascript">
@@ -40,7 +42,7 @@
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
-@using (Html.BeginForm("Edit", "SongList", FormMethod.Post)) {
+@using (Html.BeginForm("Edit", "SongList", FormMethod.Post, new { id = "songListForm" })) {
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.CurrentName)
 	@Html.HiddenFor(m => m.CanCreateFeaturedLists)
@@ -60,15 +62,14 @@
 				@Html.LabelFor(m => m.Name)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.Name, new { size = 40 })<br />
-				@Html.ValidationMessageFor(m => m.Name)
+				<input type="text" data-bind="value: Name" class="required input-xlarge" minlength="1" size="40" />
 			</div>
 
 			<div class="editor-label">
 				@Html.LabelFor(m => m.Description)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Description, new { cols = 60, rows = 4 })
+				<textarea data-bind="value: Description" rows="5" cols="60" class="input-xxlarge"></textarea>
 			</div>
 
 			@if (Model.CanCreateFeaturedLists) {
@@ -76,7 +77,7 @@
 					@Html.LabelFor(m => m.FeaturedCategory)
 				</div>
 				<div class="editor-field">
-					@Html.EnumDropDownListFor(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames)
+					@Html.EnumDropDownListFor(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:FeaturedCategory" } })
 				</div>
    }
 
@@ -85,10 +86,24 @@
 		<div id="songsTab">
 
 			<table id="songsTable">
-				<tbody id="songsTableBody">
-				@foreach (var track in Model.SongLinks) {
-		Html.RenderPartial("SongInListEditRow", track);
-	}
+				<tbody id="songsTableBody" data-bind="foreach: SongLinks">
+					<tr class="trackRow ui-state-default">
+						<td style="cursor: move">
+							<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
+						</td>
+						<td>
+							<span class="songOrder" data-bind="text: Order"></span>
+						</td>
+						<td class="trackNameCol">
+							<span data-bind="title:SongAdditionalNames, text:SongName"></span><br />
+							<span class="extraInfo" data-bind="text: SongArtistString"></span>
+						</td>
+						<td>
+							<input type="text" data-bind="value:Notes" />
+						</td><td>
+							<a href="#" class="iconLink removeLink" title="Remove from list" data-bind="click: $parent.removeSong">Remove</a>
+						</td>						
+					</tr>
 				</tbody>
 			</table>
 

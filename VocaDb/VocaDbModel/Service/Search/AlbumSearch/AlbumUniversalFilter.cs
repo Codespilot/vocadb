@@ -4,6 +4,7 @@ using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Service.Search.AlbumSearch {
 
@@ -32,14 +33,23 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		public List<Album> GetResults(ISession session) {
 
-			return session.Query<AlbumName>()
-				.Where(n => n.Value.Contains(term) ||
-					n.Album.ArtistString.Default.Contains(term)
-					&& n.Album.ArtistString.Japanese.Contains(term)
-					&& n.Album.ArtistString.Romaji.Contains(term)
-					&& n.Album.ArtistString.English.Contains(term))
-				.Select(a => a.Album)
+			var nameRes = session.Query<AlbumName>().Where(n => n.Value.Contains(term))
+				.Select(n => n.Album)
 				.Distinct()
+				.ToList();
+				
+			var artistRes = session.Query<ArtistName>()
+				.Where(an => an.Value.Contains(term))
+				.SelectMany(an => an.Artist.AllAlbums)
+				.Select(an => an.Album)
+				.Distinct()
+				.ToList();
+
+			var albumRes = session.Query<Album>()
+				.Where(an => an.OriginalRelease.CatNum.Contains(term))
+				.ToList();
+
+			return nameRes.Union(artistRes).Union(albumRes)
 				.ToList();
 
 			/*return session.Query<AlbumName>()
