@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Security;
@@ -12,9 +14,11 @@ namespace VocaDb.Web.Models.SongLists {
 
 		public SongListEdit() {
 			SongLinks = new List<SongInListEditContract>();
+			CanCreateFeaturedLists = EntryPermissionManager.CanCreateFeaturedLists(MvcApplication.LoginManager);
 		}
 
-		public SongListEdit(SongListForEditContract contract) {
+		public SongListEdit(SongListForEditContract contract)
+			: this() {
 
 			ParamIs.NotNull(() => contract);
 
@@ -38,6 +42,7 @@ namespace VocaDb.Web.Models.SongLists {
 		public string Description { get; set; }
 
 		[Display(Name = "Featured category")]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SongListFeaturedCategory FeaturedCategory { get; set; }
 
 		public int Id { get; set; }

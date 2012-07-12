@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Web.Code;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.SongLists;
 
@@ -21,12 +22,14 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddSong(int songId) {
+		public ActionResult AddSong(int songId) {
 
 			var songContract = MvcApplication.Services.Songs.GetSongWithAdditionalNames(songId);
 			var link = new SongInListEditContract(songContract);
 
-			return PartialView("SongInListEditRow", link);
+			return Json(link);
+
+			//return PartialView("SongInListEditRow", link);
 
 		}
 
@@ -84,7 +87,7 @@ namespace VocaDb.Web.Controllers
         public ActionResult Edit(int? id)
         {
 
-			var contract = id != null ? Service.GetSongListForEdit(id.Value) : new SongListForEditContract();
+			var contract = id != null ? Service.GetSongListForEdit(id.Value, false) : new SongListForEditContract();
 			var model = new SongListEdit(contract);
 
             return View(model);
@@ -93,7 +96,7 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
         [Authorize]
-        public ActionResult Edit(SongListEdit model)
+        public ActionResult Edit([FromJson] SongListEdit model)
         {
 
 			if (!ModelState.IsValid) {
@@ -102,6 +105,7 @@ namespace VocaDb.Web.Controllers
 
 			var listId = Service.UpdateSongList(model.ToContract());
 
+			//return RedirectToAction("Details", new { id = model.Id });
 			return RedirectToAction("Details", new { id = listId });
 
 		}
