@@ -66,6 +66,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual SongListFeaturedCategory FeaturedCategory { get; set; }
 
+		public virtual bool FeaturedList {
+			get {
+				return FeaturedCategory != SongListFeaturedCategory.Nothing;
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual string Name {

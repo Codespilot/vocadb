@@ -14,7 +14,7 @@ namespace VocaDb.Web.Models.SongLists {
 
 		public SongListEdit() {
 			SongLinks = new List<SongInListEditContract>();
-			CanCreateFeaturedLists = EntryPermissionManager.CanCreateFeaturedLists(MvcApplication.LoginManager);
+			CanCreateFeaturedLists = EntryPermissionManager.CanManageFeaturedLists(MvcApplication.LoginManager);
 		}
 
 		public SongListEdit(SongListForEditContract contract)
@@ -29,7 +29,7 @@ namespace VocaDb.Web.Models.SongLists {
 			Name = contract.Name;
 			SongLinks = contract.SongLinks;
 
-			CanCreateFeaturedLists = EntryPermissionManager.CanCreateFeaturedLists(MvcApplication.LoginManager);
+			CanCreateFeaturedLists = EntryPermissionManager.CanManageFeaturedLists(MvcApplication.LoginManager);
 
 		}
 

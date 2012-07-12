@@ -565,7 +565,7 @@ namespace VocaDb.Model.Service {
 			var newList = new SongList(contract.Name, user);
 			newList.Description = contract.Description;
 
-			if (EntryPermissionManager.CanCreateFeaturedLists(PermissionContext))
+			if (EntryPermissionManager.CanManageFeaturedLists(PermissionContext))
 				newList.FeaturedCategory = contract.FeaturedCategory;
 
 			session.Save(newList);
@@ -1533,7 +1533,7 @@ namespace VocaDb.Model.Service {
 					list.Description = contract.Description;
 					list.Name = contract.Name;
 
-					if (EntryPermissionManager.CanCreateFeaturedLists(PermissionContext))
+					if (EntryPermissionManager.CanManageFeaturedLists(PermissionContext))
 						list.FeaturedCategory = contract.FeaturedCategory;
 
 					var songDiff = list.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
