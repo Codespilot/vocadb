@@ -103,9 +103,10 @@ namespace VocaDb.Web {
 
 			log.ErrorException("Unhandled exception" + request, ex);
 
+#if !DEBUG
 			Server.ClearError();
 			HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error" });
-
+#endif
 		}
 
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters) {

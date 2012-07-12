@@ -58,9 +58,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Data(int id) {
+		public ActionResult Data(int id = 0) {
 
-			var list = Service.GetSongListForEdit(id);
+			var list = (id != 0 ? Service.GetSongListForEdit(id) : new SongListForEditContract());
 			return Json(list);
 
 		}

@@ -25,15 +25,9 @@ namespace VocaDb.Model.Domain.Security {
 
 		}
 
-		public static bool CanCreateFeaturedLists(IUserPermissionContext permissionContext) {
-
-			return permissionContext.HasPermission(PermissionToken.EditFeaturedLists);
-
-		}
-
 		public static bool CanEdit(IUserPermissionContext permissionContext, SongList songList) {
 
-			if (songList.FeaturedCategory != SongListFeaturedCategory.Nothing && permissionContext.HasPermission(PermissionToken.EditFeaturedLists))
+			if (songList.FeaturedList && CanManageFeaturedLists(permissionContext))
 				return true;
 
 			return (songList.Author.IsTheSameUser(permissionContext.LoggedUser));
@@ -54,6 +48,12 @@ namespace VocaDb.Model.Domain.Security {
 				return (trustedStatusPermissions.Contains(entry.Status));
 
 			return (normalStatusPermissions.Contains(entry.Status));
+
+		}
+
+		public static bool CanManageFeaturedLists(IUserPermissionContext permissionContext) {
+
+			return permissionContext.HasPermission(PermissionToken.EditFeaturedLists);
 
 		}
 
