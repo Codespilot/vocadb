@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -149,16 +151,24 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrEmpty(artistName))
 				return null;
 
-			artistName = ArtistHelper.GetCanonizedName(artistName);
+			var artistMatch = QueryArtist(session, artistName);
 
-			var additionalNames = session.Query<ArtistName>()
-				.FirstOrDefault(m => !m.Artist.Deleted 
-					&& (m.Value == artistName || m.Value == artistName + "P" || m.Value == artistName + "-P"));
+			if (artistMatch == null) {
 
-			if (additionalNames != null)
-				return additionalNames.Artist;
+				var normalized = artistName.Normalize(NormalizationForm.FormKC);
+				var compositeRegex = new Regex(@"\S+\((\S+)\)");
+				var match = compositeRegex.Match(normalized);
 
-			return null;
+				if (match.Success) {
+
+					var resolvedName = match.Groups[1].Value;
+					artistMatch = QueryArtist(session, resolvedName);
+
+				}
+
+			}
+
+			return artistMatch;
 
 		}
 
@@ -286,6 +296,18 @@ namespace VocaDb.Model.Service {
 				inspected.ExistingSong = new SongWithAdditionalNamesContract(existingSong, PermissionContext.LanguagePreference);
 
 			return inspected;
+
+		}
+
+		private Artist QueryArtist(ISession session, string artistName) {
+
+			artistName = ArtistHelper.GetCanonizedName(artistName);
+
+			return session.Query<ArtistName>()
+				.Where(m => !m.Artist.Deleted
+					&& (m.Value == artistName || m.Value == artistName + "P" || m.Value == artistName + "-P"))
+				.Select(an => an.Artist)
+				.FirstOrDefault();
 
 		}
 
