@@ -36,6 +36,7 @@
 	<ul>
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
 		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
+		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@Model.Pictures.Length)</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -46,9 +47,7 @@
 					<div id="picCarousel" class="carousel slide">
 						<div class="carousel-inner">
 							<div class="active item thumbItem">
-								<a href="@Url.Action("CoverPicture", new { id = Model.Id })">
-									<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
-								</a>
+								@AlbumHelpers.CoverLink(Model.Id)
 							</div>
 							@foreach (var pic in Model.Pictures) {
 								<div class="item thumbItem">
@@ -266,6 +265,26 @@
 
 	<div id="Discussion">
 	</div>
+	
+	<div id="picturesTab">
+		
+		<ul class="thumbs">
+			@foreach (var pic in Model.Pictures) {
+			<li>
+				<a href="@VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Album, pic)">
+					<div class="pictureFrame">
+						<img align="middle" src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Album, pic)" alt="Preview" class="coverPic" />										
+					</div>
+				</a>
+				@if (!string.IsNullOrEmpty(pic.Name)) {
+					<p>@pic.Name</p>
+				}
+			</li>
+			}
+		</ul>
+		
+	</div>
+
 </div>
 
 <div id="editTagsPopup" style="display:none;" title="@ViewRes.SharedStrings.Tags">
