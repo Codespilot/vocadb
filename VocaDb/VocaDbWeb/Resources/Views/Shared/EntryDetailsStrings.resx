@@ -144,6 +144,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Nothing yet!</value>
   </data>
+  <data name="PicturesTab" xml:space="preserve">
+    <value>Pictures</value>
+  </data>
   <data name="Revisions" xml:space="preserve">
     <value>Revisions</value>
   </data>

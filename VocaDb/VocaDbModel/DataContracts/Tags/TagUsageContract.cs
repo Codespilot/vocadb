@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Tags;
+﻿using VocaDb.Model.Domain.Tags;
 using System.Runtime.Serialization;
 
 namespace VocaDb.Model.DataContracts.Tags {

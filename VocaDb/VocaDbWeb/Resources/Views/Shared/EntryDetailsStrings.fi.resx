@@ -144,6 +144,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Ei mitään vielä!</value>
   </data>
+  <data name="PicturesTab" xml:space="preserve">
+    <value>Kuvat</value>
+  </data>
   <data name="Revisions" xml:space="preserve">
     <value>Versiot</value>
   </data>

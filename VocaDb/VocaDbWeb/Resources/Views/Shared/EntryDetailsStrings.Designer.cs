@@ -142,6 +142,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pictures.
+        /// </summary>
+        public static string PicturesTab {
+            get {
+                return ResourceManager.GetString("PicturesTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revisions.
         /// </summary>
         public static string Revisions {

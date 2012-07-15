@@ -95,6 +95,12 @@
 	
 }
 
+@helper CoverLink(int id) {
+	<a href="@Url.Action("CoverPicture", "Album", new { id = id })">
+		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
+	</a>
+}
+
 @helper DetailsLink(AlbumWithAdditionalNamesContract album) {
 	@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 }
