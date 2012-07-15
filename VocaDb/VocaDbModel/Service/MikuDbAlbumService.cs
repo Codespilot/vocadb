@@ -156,8 +156,13 @@ namespace VocaDb.Model.Service {
 			if (artistMatch == null) {
 
 				var normalized = artistName.Normalize(NormalizationForm.FormKC);
-				var compositeRegex = new Regex(@"\S+\((\S+)\)");
+				var compositeRegex = new Regex(@"\S+\((\S+)\)");	// catch name(name)
 				var match = compositeRegex.Match(normalized);
+
+				if (!match.Success) {
+					compositeRegex = new Regex(@"\S+[/@](\S+)");	// catch name/name and name@name
+					match = compositeRegex.Match(normalized);
+				}
 
 				if (match.Success) {
 
