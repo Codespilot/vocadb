@@ -120,6 +120,9 @@
   <data name="AdditionDate" xml:space="preserve">
     <value>Lisäyspäivä</value>
   </data>
+  <data name="AllPictures" xml:space="preserve">
+    <value>Kaikki kuvat</value>
+  </data>
   <data name="BasicInfoTab" xml:space="preserve">
     <value>Perustiedot</value>
   </data>

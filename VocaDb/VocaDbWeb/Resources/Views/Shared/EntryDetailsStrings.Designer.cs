@@ -70,6 +70,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All pictures.
+        /// </summary>
+        public static string AllPictures {
+            get {
+                return ResourceManager.GetString("AllPictures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Basic info.
         /// </summary>
         public static string BasicInfoTab {
