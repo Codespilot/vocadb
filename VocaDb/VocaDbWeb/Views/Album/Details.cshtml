@@ -6,7 +6,7 @@
 		   
 @{
 	ViewBag.Title = ViewRes.Album.DetailsStrings.AlbumDetails + " - " + Model.Name;
-	ViewBag.Subtitle = Model.ArtistString;	
+	ViewBag.Subtitle = Model.ArtistString;
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
 }
 
@@ -36,7 +36,7 @@
 	<ul>
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
 		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
-		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@Model.Pictures.Length)</a></li>
+		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@(Model.Pictures.Length + 1))</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -56,20 +56,20 @@
 										<div class="carousel-caption">
 											<h4>@pic.Name</h4>
 										</div>
-									}
+		 }
 								</div>
-							}
+	   }
 						</div>
 						@if (Model.Pictures.Any()) {
 							<a class="carousel-control left" href="#picCarousel" data-slide="prev">&lsaquo;</a>
 							<a class="carousel-control right" href="#picCarousel" data-slide="next">&rsaquo;</a>
-						}
+	  }
 					</div>					
-					<br />
+					
 					@if (Model.RatingCount > 0) {
 						@Helpers.Stars(Model.RatingAverage, 5)<br />
 						<text>(</text>@Model.RatingCount <text>@ViewRes.Album.DetailsStrings.Ratings)</text>
-					}
+	 }
 				</td>
 				<td>@ViewRes.SharedStrings.Name</td>
 				<td>
@@ -214,9 +214,9 @@
 					<h3>@ViewRes.Album.DetailsStrings.Tracklist</h3>
 					<div class="tracklist">
 						@foreach (var disc in Model.Songs) {
-							if (Model.Songs.Count() > 1) {
+		  if (Model.Songs.Count() > 1) {
 								<h4>@R.DetailsStrings.Disc @disc.Key</h4>
-							}
+		  }
 					<ul>
 						@foreach (var song in disc) {
 							<li>
@@ -231,13 +231,13 @@
 							</li>
 	  }
 					</ul>
-						}
+	  }
 
 					</div>
 				
 					@if (!Model.Songs.Any()) {
 						<p>@ViewRes.Album.DetailsStrings.NoTracklist</p>
-					}
+	 }
 				</td>
 			</tr>
 		</table>
@@ -246,16 +246,16 @@
 		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
 		
 		@if (Model.LatestComments.Any()) {
-	  
-			foreach (var comment in Model.LatestComments) {
+
+	  foreach (var comment in Model.LatestComments) {
 				@Helpers.PrintComment(comment, false);
-			}			
-	  
-		} else {
+	  }
+
+  } else {
 	  
 			<p>@ViewRes.EntryDetailsStrings.NoComments</p>
 	  
-		}
+  }
 		
 		<p>
 			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>
@@ -268,18 +268,28 @@
 	
 	<div id="picturesTab">
 		
-		<ul class="thumbs">
-			@foreach (var pic in Model.Pictures) {
+		@helper PicItem(string url, string thumbUrl, string caption) {
+	
 			<li>
-				<a href="@VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Album, pic)">
+				<a href="@url">
 					<div class="pictureFrame">
-						<img align="middle" src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Album, pic)" alt="Preview" class="coverPic" />										
+						<img src="@thumbUrl" alt="Preview" class="coverPic" />										
 					</div>
 				</a>
-				@if (!string.IsNullOrEmpty(pic.Name)) {
-					<p>@pic.Name</p>
+				@if (!string.IsNullOrEmpty(caption)) {
+					<p>@caption</p>
 				}
 			</li>
+	  	  
+		}
+
+		<ul class="thumbs">
+			@PicItem(Url.Action("CoverPicture", "Album", new { id = Model.Id }),
+				Url.Action("CoverPictureThumb", "Album", new { id = Model.Id }), 
+				ViewRes.Album.DetailsStrings.CoverPicture)
+			@foreach (var pic in Model.Pictures) {
+			   @PicItem(VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Album, pic),
+				   VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Album, pic), pic.Name)
 			}
 		</ul>
 		

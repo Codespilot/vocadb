@@ -120,6 +120,9 @@
   <data name="AdditionDate" xml:space="preserve">
     <value>Addition date</value>
   </data>
+  <data name="AllPictures" xml:space="preserve">
+    <value>All pictures</value>
+  </data>
   <data name="BasicInfoTab" xml:space="preserve">
     <value>Basic info</value>
   </data>
