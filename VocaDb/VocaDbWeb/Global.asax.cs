@@ -101,7 +101,8 @@ namespace VocaDb.Web {
 
 			var request = (HttpContext.Current.Request != null ? " (" + HttpContext.Current.Request.RawUrl + " from " + HttpContext.Current.Request.UserHostAddress + ")" : string.Empty);
 
-			log.ErrorException("Unhandled exception" + request, ex);
+			if (!(ex is HibernateException))
+				log.ErrorException("Unhandled exception" + request, ex);
 
 #if !DEBUG
 			Server.ClearError();

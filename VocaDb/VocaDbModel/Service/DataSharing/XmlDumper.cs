@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain;
@@ -24,7 +22,7 @@ namespace VocaDb.Model.Service.DataSharing {
 
 		public class Loader<TEntry, TContract> where TEntry : IEntryWithIntId {
 
-			private const int maxEntries = 2000;
+			private const int maxEntries = 1000;
 			private readonly string folder;
 			private readonly Func<TEntry, TContract> contractFunc;
 			private readonly Func<int, int, TEntry[]> loadFunc;
