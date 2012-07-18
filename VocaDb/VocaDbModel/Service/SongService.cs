@@ -671,7 +671,7 @@ namespace VocaDb.Model.Service {
 		}
 
 		public T FindFirst<T>(Func<Song, T> fac, string[] query)
-			where T : SongContract {
+			where T : class {
 
 			return HandleQuery(session => {
 
@@ -699,6 +699,12 @@ namespace VocaDb.Model.Service {
 		public SongWithAdditionalNamesContract FindFirst(string[] query) {
 
 			return FindFirst(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), query);
+
+		}
+
+		public SongDetailsContract FindFirstDetails(string query) {
+
+			return FindFirst(s => new SongDetailsContract(s, PermissionContext.LanguagePreference), new[]{ query });
 
 		}
 
@@ -1559,6 +1565,7 @@ namespace VocaDb.Model.Service {
 
 			Common = new CommonSearchParams();
 			Paging = new PagingProperties(0, 30, true);
+			SongTypes = new SongType[] {};
 
 		}
 
