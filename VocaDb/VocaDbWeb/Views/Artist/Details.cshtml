@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Model.Domain
 @using VocaDb.Web.Helpers;
 @model ArtistDetailsContract
 
@@ -32,6 +33,7 @@
 	<ul>
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
 		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
+		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@(Model.Pictures.Length + 1))</a></li>
 		<li><a href="@Url.Action("AlbumsPaged", "Artist", new { id = Model.Id })" title="All albums"><span>@ViewRes.Artist.DetailsStrings.AllAlbums</span></a></li>
 		<li><a href="@Url.Action("SongsPaged", "Artist", new { id = Model.Id })" title="All songs"><span>@ViewRes.Artist.DetailsStrings.AllSongs</span></a></li>
 	</ul>
@@ -145,7 +147,20 @@
 
 	<div id="Discussion">
 	</div>
-
+	
+	<div id="picturesTab">
+		
+		<ul class="thumbs">
+			@Helpers.ThumbItem(Url.Action("Picture", "Artist", new { id = Model.Id }),
+				Url.Action("PictureThumb", "Artist", new { id = Model.Id }), 
+				ViewRes.Album.DetailsStrings.CoverPicture)
+			@foreach (var pic in Model.Pictures) {
+			   @Helpers.ThumbItem(VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Artist, pic),
+					VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Artist, pic), pic.Name)
+			}
+		</ul>
+		
+	</div>
 	<div id="All_albums">
 	</div>
 

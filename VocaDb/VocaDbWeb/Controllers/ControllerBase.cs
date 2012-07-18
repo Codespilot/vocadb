@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
@@ -43,6 +45,60 @@ namespace VocaDb.Web.Controllers {
 			Response.Cache.SetETag(string.Format("{0}{1}v{2}", contract.EntryType, contract.EntryId, contract.Version));
 
 			return Picture(contract.Picture, contract.Name);
+
+		}
+
+		protected void ParseAdditionalPictures(HttpPostedFileBase mainPic, IList<EntryPictureFileContract> pictures) {
+
+			var additionalPics = Enumerable.Range(0, Request.Files.Count)
+				.Select(i => Request.Files.Get(i))
+				.Where(f => f.FileName != mainPic.FileName)
+				.ToArray();
+			var newPics = pictures.Where(p => p.Id == 0).ToArray();
+
+			for (int i = 0; i < additionalPics.Length; ++i) {
+
+				if (i >= newPics.Length)
+					break;
+
+				var file = additionalPics[i];
+				var temp = Path.GetTempFileName();
+				file.SaveAs(temp);
+
+				newPics[i].FileName = temp;
+				newPics[i].Mime = file.ContentType;
+				newPics[i].ContentLength = file.ContentLength;
+
+			}
+
+			CollectionHelper.RemoveAll(pictures, p => p.Id == 0 && string.IsNullOrEmpty(p.FileName));
+
+		}
+
+		protected PictureDataContract ParseMainPicture(HttpPostedFileBase pictureUpload) {
+
+			PictureDataContract pictureData = null;
+
+			if (Request.Files.Count > 0 && pictureUpload != null && pictureUpload.ContentLength > 0) {
+
+				if (pictureUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
+					ModelState.AddModelError("CoverPicture", "Picture file is too large.");
+				}
+
+				if (!ImageHelper.IsValidImageExtension(pictureUpload.FileName)) {
+					ModelState.AddModelError("CoverPicture", "Picture format is not valid.");
+				}
+
+				if (ModelState.IsValid) {
+
+					pictureData = ImageHelper.GetOriginalAndResizedImages(
+						pictureUpload.InputStream, pictureUpload.ContentLength, pictureUpload.ContentType);
+
+				}
+
+			}
+
+			return pictureData;
 
 		}
 

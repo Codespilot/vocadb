@@ -36,6 +36,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			DoIfExists(version, ArtistEditableFields.Albums, xmlCache, v => data.Albums = v.Albums);
 			DoIfExists(version, ArtistEditableFields.Description, xmlCache, v => data.Description = v.Description);
 			DoIfExists(version, ArtistEditableFields.Names, xmlCache, v => data.Names = v.Names);
+			DoIfExists(version, ArtistEditableFields.Pictures, xmlCache, v => data.Pictures = v.Pictures);
 			DoIfExists(version, ArtistEditableFields.WebLinks, xmlCache, v => data.WebLinks = v.WebLinks);
 
 			return data;
@@ -55,6 +56,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Group)).ToArray();
 			Members = artist.Members.Select(m => new ObjectRefContract(m.Member)).ToArray();
 			Names = (diff.IncludeNames ? artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
+			Pictures = (diff.IncludePictures ? artist.Pictures.Select(p => new ArchivedEntryPictureFileContract(p)).ToArray() : null);
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			WebLinks = (diff.IncludeWebLinks ? artist.WebLinks.Select(l => new ArchivedWebLinkContract(l)).ToArray() : null);
 
@@ -81,14 +83,8 @@ namespace VocaDb.Model.DataContracts.Artists {
 		[DataMember]
 		public LocalizedStringContract[] Names { get; set; }
 
-		//[DataMember]
-		//public PictureDataContract Picture { get; set; }
-
-		//[DataMember]
-		//public ObjectRefContract[] Songs { get; set; }
-
-		//[DataMember]
-		//public DateTime? StartDate { get; set; }
+		[DataMember]
+		public ArchivedEntryPictureFileContract[] Pictures { get; set; }
 
 		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }

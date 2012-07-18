@@ -57,6 +57,7 @@ namespace VocaDb.Web.Models {
 			AlbumLinks = new List<AlbumForArtistEditContract>();
 			Groups = new List<GroupForArtistContract>();
 			Names = new List<LocalizedStringEdit>();
+			Pictures = new List<EntryPictureFileContract>();
 			WebLinks = new List<WebLinkDisplay>();
 
 			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
@@ -77,6 +78,7 @@ namespace VocaDb.Web.Models {
 			NameJapanese = artist.TranslatedName.Japanese;
 			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
+			Pictures = artist.Pictures;
 			Status = artist.Status;
 			TooManyAlbums = artist.TooManyAlbums;
 			WebLinks = artist.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
@@ -127,6 +129,8 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		public IList<EntryPictureFileContract> Pictures { get; set; }
+
 		[Display(Name = "Entry status")]
 		public EntryStatus Status { get; set; }
 
@@ -161,6 +165,7 @@ namespace VocaDb.Web.Models {
 				Groups = this.Groups.ToArray(),
 				Name = this.Name,
 				Names = this.Names.Select(l => l.ToContract()).ToArray(),
+				Pictures = this.Pictures.Select(p => p.NullToEmpty()).ToArray(),
 				Status = this.Status,
 				TooManyAlbums = this.TooManyAlbums,
 				TranslatedName = new TranslatedStringContract(

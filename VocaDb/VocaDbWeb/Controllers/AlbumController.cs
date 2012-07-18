@@ -272,51 +272,10 @@ namespace VocaDb.Web.Controllers
 			if (!OptionalDateTime.IsValid(model.ReleaseYear, model.ReleaseDay, model.ReleaseMonth))
 				ModelState.AddModelError("ReleaseYear", "Invalid date");
 
-            PictureDataContract pictureData = null;
-
 			var coverPicUpload = Request.Files["coverPicUpload"];
+			PictureDataContract pictureData = ParseMainPicture(coverPicUpload);
 
-			if (Request.Files.Count > 0 && coverPicUpload != null && coverPicUpload.ContentLength > 0) {
-
-				if (coverPicUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
-					ModelState.AddModelError("CoverPicture", "Picture file is too large.");
-				}
-
-				if (!ImageHelper.IsValidImageExtension(coverPicUpload.FileName)) {
-					ModelState.AddModelError("CoverPicture", "Picture format is not valid.");
-				}
-
-				if (ModelState.IsValid) {
-
-					pictureData = ImageHelper.GetOriginalAndResizedImages(
-						coverPicUpload.InputStream, coverPicUpload.ContentLength, coverPicUpload.ContentType);
-
-				}
-
-			}
-
-			var additionalPics = Enumerable.Range(0, Request.Files.Count)
-				.Select(i => Request.Files.Get(i))
-				.Where(f => f.FileName != coverPicUpload.FileName)
-				.ToArray();
-			var newPics = model.Pictures.Where(p => p.Id == 0).ToArray();
-
-			for (int i = 0; i < additionalPics.Length; ++i) {
-
-				if (i >= newPics.Length)
-					break;
-
-				var file = additionalPics[i];
-				var temp = System.IO.Path.GetTempFileName();
-				file.SaveAs(temp);
-
-				newPics[i].FileName = temp;
-				newPics[i].Mime = file.ContentType;
-				newPics[i].ContentLength = file.ContentLength;
-
-			}
-
-			CollectionHelper.RemoveAll(model.Pictures, p => p.Id == 0 && string.IsNullOrEmpty(p.FileName));
+			ParseAdditionalPictures(coverPicUpload, model.Pictures);
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetAlbumForEdit(model.Id);

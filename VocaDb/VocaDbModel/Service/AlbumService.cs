@@ -1303,7 +1303,7 @@ namespace VocaDb.Model.Service {
 
 					}
 
-					var picsDiff = album.SyncPictures(properties.Pictures, GetLoggedUser(session));
+					var picsDiff = album.Pictures.SyncPictures(properties.Pictures, GetLoggedUser(session), album.CreatePicture);
 					SessionHelper.Sync(session, picsDiff);
 					ImageHelper.GenerateThumbsAndMoveImages(EntryType.Album, picsDiff.Added);
 

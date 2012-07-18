@@ -259,6 +259,21 @@ break;
 	</span>
 }
 
+@helper ThumbItem(string url, string thumbUrl, string caption) {
+	
+	<li>
+		<a href="@url">
+			<div class="pictureFrame">
+				<img src="@thumbUrl" alt="Preview" class="coverPic" />										
+			</div>
+		</a>
+		@if (!string.IsNullOrEmpty(caption)) {
+			<p>@caption</p>
+		}
+	</li>
+	  	  
+}
+
 @helper ValidationSymmaryPanel(string message) {
 	if (!ViewData.ModelState.IsValid) {
 		using (Html.BeginErrorPanel()) {

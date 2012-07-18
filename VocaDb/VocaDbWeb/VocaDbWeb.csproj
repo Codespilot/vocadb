@@ -1102,6 +1102,7 @@
   <ItemGroup>
     <Folder Include="Code\Security\" />
     <Folder Include="EntryImg\Album\" />
+    <Folder Include="EntryImg\Artist\" />
     <Folder Include="logs\" />
     <Folder Include="Scripts\MikuDbAlbums\" />
   </ItemGroup>
@@ -1544,7 +1545,9 @@
       <LastGenOutput>HelperStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>HelperRes</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Helpers\HelperStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Helpers\HelperStrings.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Other\PagedListStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Other\PagedListStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

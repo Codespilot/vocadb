@@ -28,6 +28,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			LatestAlbums = new AlbumWithAdditionalNamesContract[] {};
 			LatestSongs = new SongWithAdditionalNamesContract[] { };
 			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
+			Pictures = artist.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(Tag.MaxDisplayedTags).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
@@ -65,6 +66,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public SongWithAdditionalNamesContract[] LatestSongs { get; set; }
+
+		[DataMember]
+		public EntryPictureFileContract[] Pictures { get; set; }
 
 		[DataMember]
 		public TagUsageContract[] Tags { get; set; }

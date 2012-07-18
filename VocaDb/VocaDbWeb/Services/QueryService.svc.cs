@@ -115,18 +115,18 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public SongWithAdditionalNamesContract GetSongById(int id) {
+		public SongDetailsContract GetSongById(int id) {
 
-			var song = Services.Songs.GetSongWithAdditionalNames(id);
+			var song = Services.Songs.GetSongDetails(id, null);
 			return song;
 
 		}
 
 		[OperationContract]
-		public SongWithAlbumContract GetSongDetails(string term) {
+		public SongDetailsContract GetSongDetails(string term) {
 
-			var songs = Services.Songs.FindWithAlbum(new SongQueryParams(term, new SongType[] {}, 0, 10, false, false, NameMatchMode.Auto, SongSortRule.Name, false, true, null));
-			return songs.Items.FirstOrDefault();
+			var song = Services.Songs.FindFirstDetails(term);
+			return song;
 
 		}
 

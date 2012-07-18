@@ -287,33 +287,10 @@ namespace VocaDb.Web.Controllers
         public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
         {
 
-            PictureDataContract pictureData = null;
+			var coverPicUpload = Request.Files["pictureUpload"];
+			PictureDataContract pictureData = ParseMainPicture(coverPicUpload);
 
-			if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0) {
-
-				var file = Request.Files[0];
-
-				if (file.ContentLength > ImageHelper.MaxImageSizeBytes) {
-					ModelState.AddModelError("Picture", "Picture file is too large.");
-				}
-
-				if (!ImageHelper.IsValidImageExtension(file.FileName)) {
-					ModelState.AddModelError("Picture", "Picture format is not valid.");
-				}
-
-				if (ModelState.IsValid) {
-
-					pictureData = ImageHelper.GetOriginalAndResizedImages(
-						file.InputStream, file.ContentLength, file.ContentType);
-
-				}
-
-			}
-
-			/*foreach (var link in model.WebLinks) {
-				if (!UrlValidator.IsValid(link.Url))
-					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
-			}*/
+			ParseAdditionalPictures(coverPicUpload, model.Pictures);
 
 			if (!ModelState.IsValid) {
 				SaveErrorsToTempData();

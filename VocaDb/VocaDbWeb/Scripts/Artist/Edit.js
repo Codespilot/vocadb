@@ -46,6 +46,25 @@ function initPage(artistId) {
 
 	});
 
+	$("#picAdd").click(function () {
+
+		$.post("../../Shared/CreateEntryPictureFile", null, function (row) {
+
+			$("#picturesTableBody").append(row);
+
+		});
+
+		return false;
+
+	});
+
+	$("a.picRemove").live("click", function () {
+
+		$(this).parent().parent().remove();
+		return false;
+
+	});
+
 	function acceptAlbumSelection(albumId, term) {
 
 		if (isNullOrWhiteSpace(albumId)) {

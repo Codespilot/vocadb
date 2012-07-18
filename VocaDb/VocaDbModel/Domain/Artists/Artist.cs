@@ -25,6 +25,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
 		private NameManager<ArtistName> names = new NameManager<ArtistName>();
+		private EntryPictureFileManager<ArtistPictureFile> pictureManager = new EntryPictureFileManager<ArtistPictureFile>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
 		private TagManager<ArtistTagUsage> tags = new TagManager<ArtistTagUsage>();
 		private IList<ArtistForUser> users = new List<ArtistForUser>();
@@ -186,6 +187,14 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual PictureData Picture { get; set; }
 
+		public virtual EntryPictureFileManager<ArtistPictureFile> Pictures {
+			get { return pictureManager; }
+			set {
+				ParamIs.NotNull(() => value);
+				pictureManager = value;
+			}
+		}
+
 		public virtual IEnumerable<ArtistForSong> Songs {
 			get {
 				return AllSongs.Where(s => !s.Song.Deleted);
@@ -312,6 +321,15 @@ namespace VocaDb.Model.Domain.Artists {
 			Names.Add(name);
 
 			return name;
+
+		}
+
+		public virtual ArtistPictureFile CreatePicture(string name, string mime, User author) {
+
+			var f = new ArtistPictureFile(name, mime, author, this);
+			Pictures.Add(f);
+
+			return f;
 
 		}
 

@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Helpers;
+﻿@using VocaDb.Model.Helpers
+@using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Artists;
 @model  VocaDb.Web.Models.ArtistEdit
 @{
@@ -38,6 +39,7 @@
 
 		<ul>
 			<li><a href="#basicInfoTab">Basic info</a></li>
+			<li><a href="#picsTab">Pictures</a></li>
 			<li><a href="#discoTab">Discography</a></li>
 		</ul>
 
@@ -122,6 +124,23 @@
 				</div>
 
 			</div>
+		</div>
+		
+		<div id="picsTab">
+			
+			<p>Please only upload pictures relevant to this artist, nothing else.</p>
+			<p>Allowed types: @string.Join(", ", ImageHelper.AllowedExtensions) . Maximum size is @ImageHelper.MaxImageSizeMB MB.</p>
+
+			<table>
+				<tbody id="picturesTableBody">
+					@foreach (var pic in Model.Pictures) {
+						Html.RenderPartialTyped("EntryPictureFileEditRow", pic);
+					}
+				</tbody>
+			</table>
+			
+			<a href="#" id="picAdd" class="addLink textLink">Create new</a>
+
 		</div>
 
 		<div id="discoTab">
