@@ -95,7 +95,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult FindDuplicate(string term1, string term2, string term3) {
 
-			var result = Service.FindFirst(new[] { term1, term2, term3 });
+			var result = Service.FindFirst(new[] { term1, term2, term3 }, NameMatchMode.Exact);
 
 			if (result != null) {
 				return PartialView("DuplicateEntryMessage",
