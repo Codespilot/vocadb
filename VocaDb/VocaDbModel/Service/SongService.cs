@@ -670,7 +670,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public T FindFirst<T>(Func<Song, T> fac, string[] query)
+		public T FindFirst<T>(Func<Song, T> fac, string[] query, NameMatchMode nameMatchMode)
 			where T : class {
 
 			return HandleQuery(session => {
@@ -680,7 +680,7 @@ namespace VocaDb.Model.Service {
 					var result = Find(session,
 						new SongQueryParams {
 							Common = new CommonSearchParams {
-								Query = q, NameMatchMode = NameMatchMode.Exact, OnlyByName = true
+								Query = q, NameMatchMode = nameMatchMode, OnlyByName = true
 							},
 							Paging = new PagingProperties(0, 10, false)
 						});
@@ -696,15 +696,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongWithAdditionalNamesContract FindFirst(string[] query) {
+		public SongWithAdditionalNamesContract FindFirst(string[] query, NameMatchMode nameMatchMode) {
 
-			return FindFirst(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), query);
+			return FindFirst(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), query, nameMatchMode);
 
 		}
 
-		public SongDetailsContract FindFirstDetails(string query) {
+		public SongDetailsContract FindFirstDetails(string query, NameMatchMode nameMatchMode) {
 
-			return FindFirst(s => new SongDetailsContract(s, PermissionContext.LanguagePreference), new[]{ query });
+			return FindFirst(s => new SongDetailsContract(s, PermissionContext.LanguagePreference), new[]{ query }, nameMatchMode);
 
 		}
 
