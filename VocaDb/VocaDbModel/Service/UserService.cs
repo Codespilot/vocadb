@@ -81,6 +81,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private string MakeGeoIpToolLink(string hostname) {
+
+			return string.Format("<a href='http://www.geoiptool.com/en/?IP={0}'>{0}</a>", hostname);
+
+		}
+
 		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
 
@@ -182,7 +188,7 @@ namespace VocaDb.Model.Service {
 				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
 
 				if (user == null) {
-					AuditLog(string.Format("failed login from {0}.", hostname), session, name);
+					AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), session, name);
 					Thread.Sleep(2000);
 					return null;
 				}
@@ -190,12 +196,12 @@ namespace VocaDb.Model.Service {
 				var hashed = LoginManager.GetHashedPass(lc, pass, user.Salt);
 
 				if (user.Password != hashed) {
-					AuditLog(string.Format("failed login from {0}.", hostname), session, name);
+					AuditLog(string.Format("failed login from {0} - wrong password.", MakeGeoIpToolLink(hostname)), session, name);
 					Thread.Sleep(2000);
 					return null;
 				}
 
-				AuditLog(string.Format("logged in from {0}.", hostname), session, user);
+				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
 
 				user.UpdateLastLogin();
 				session.Update(user);
@@ -231,7 +237,7 @@ namespace VocaDb.Model.Service {
 				var user = new User(name, hashed, email, salt);
 				session.Save(user);
 
-				AuditLog("registered from " + hostname, session, user);
+				AuditLog(string.Format("registered from {0}.", MakeGeoIpToolLink(hostname)), session, user);
 
 				return new UserContract(user);
 

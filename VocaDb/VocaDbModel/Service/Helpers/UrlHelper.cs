@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -13,9 +10,9 @@ namespace VocaDb.Model.Service.Helpers {
 				return partialLink;
 
 			if (assumeWww && !partialLink.StartsWith("www.", StringComparison.InvariantCultureIgnoreCase))
-				return "http://www." + partialLink;
+				return string.Format("http://www.{0}", partialLink);
 
-			return "http://" + partialLink;
+			return string.Format("http://{0}", partialLink);
 
 		}
 
