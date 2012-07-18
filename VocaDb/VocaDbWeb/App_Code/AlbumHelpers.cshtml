@@ -144,6 +144,7 @@
 			@ArchivedEntryHelpers.DataRowList("External links", comparedAlbums, d => DataFormatUtils.GenerateHtmlFromHelper(d.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
 			@ArchivedEntryHelpers.DataRowList("Artists", comparedAlbums, d => DataFormatUtils.GenerateHtml(d.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
 			@ArchivedEntryHelpers.DataRowList("Tracks", comparedAlbums, d => DataFormatUtils.GenerateHtml(d.Songs, song => MvcHtmlString.Create("(Disc " + song.DiscNumber + ") " + song.TrackNumber + ". " + song.NameHint + " [" + song.Id + "]")))
+			@ArchivedEntryHelpers.DataRowList("Pictures", comparedAlbums, d => DataFormatUtils.GenerateHtmlFromHelper(d.Pictures, ArchivedEntryHelpers.PictureFileInfo))
 			@ArchivedEntryHelpers.DataRowList("PVs", comparedAlbums, d => DataFormatUtils.GenerateHtmlFromHelper(d.PVs, ArchivedEntryHelpers.PVInfo))
 		</table>	
 

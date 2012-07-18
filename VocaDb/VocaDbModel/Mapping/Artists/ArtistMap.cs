@@ -52,7 +52,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			});
 
 			Component(m => m.Pictures, c => {
-				c.HasMany(m => m.Pictures).KeyColumn("[Artist]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
+				c.HasMany(m => m.Pictures).KeyColumn("[Artist]").Inverse().Cascade.All().Cache.ReadWrite();
 			});
 
 			Component(m => m.Tags, c => {

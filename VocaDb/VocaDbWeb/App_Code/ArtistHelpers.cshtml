@@ -108,6 +108,7 @@
 			@ArchivedEntryHelpers.DataRowList("External links", comparedArtists, d => DataFormatUtils.GenerateHtmlFromHelper(d.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
 			@ArchivedEntryHelpers.ObjectRefList("Groups", comparedArtists, d => d.Groups)
 			@ArchivedEntryHelpers.ObjectRefList("Members", comparedArtists, d => d.Members)
+			@ArchivedEntryHelpers.DataRowList("Pictures", comparedArtists, d => DataFormatUtils.GenerateHtmlFromHelper(d.Pictures, ArchivedEntryHelpers.PictureFileInfo))
 			@ArchivedEntryHelpers.ObjectRefList("Albums", comparedArtists, d => d.Albums)
 		</table>	
 
