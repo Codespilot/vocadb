@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain;
+﻿using System.IO;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -29,6 +30,8 @@ namespace VocaDb.Model.DataContracts {
 		public string Mime { get; set; }
 
 		public string Name { get; set; }
+
+		public Stream UploadedFile { get; set; }
 
 		public EntryPictureFileContract NullToEmpty() {
 			Name = Name ?? string.Empty;
