@@ -40,7 +40,7 @@ namespace VocaDb.Model.Domain {
 			foreach (var newEntry in diff.Added) {
 
 				var l = picFactory(newEntry.Name, newEntry.Mime, user);
-				l.UploadedFile = newEntry.FileName;
+				l.UploadedFile = newEntry.UploadedFile;
 				created.Add(l);
 
 			}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 
@@ -83,7 +84,7 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
-		public virtual string UploadedFile { get; set; }
+		public virtual Stream UploadedFile { get; set; }
 
 	}
 

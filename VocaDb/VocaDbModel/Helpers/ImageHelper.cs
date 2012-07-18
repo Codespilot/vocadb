@@ -9,7 +9,6 @@ using System.Net.Mime;
 using System.Web;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Helpers {
@@ -30,11 +29,18 @@ namespace VocaDb.Model.Helpers {
 
 			foreach (var pic in newPictures) {
 
+				if (pic.UploadedFile == null)
+					continue;
+
 				var path = GetImagePath(entryType, pic);
 				var thumbPath = GetImagePathThumb(entryType, pic);
 
-				File.Move(pic.UploadedFile, path);
-				using (var original = Image.FromFile(path)) {
+				using (var f = File.Create(path)) {
+					pic.UploadedFile.CopyTo(f);
+				}
+				pic.UploadedFile.Seek(0, SeekOrigin.Begin);
+
+				using (var original = Image.FromStream(pic.UploadedFile)) {					
 
 					if (original.Width > defaultThumbSize || original.Height > defaultThumbSize) {
 						var thumb = ResizeToFixedSize(original, defaultThumbSize, defaultThumbSize);

@@ -62,16 +62,15 @@ namespace VocaDb.Web.Controllers {
 					break;
 
 				var file = additionalPics[i];
-				var temp = Path.GetTempFileName();
-				file.SaveAs(temp);
 
-				newPics[i].FileName = temp;
+				newPics[i].FileName = file.FileName;
+				newPics[i].UploadedFile = file.InputStream;
 				newPics[i].Mime = file.ContentType;
 				newPics[i].ContentLength = file.ContentLength;
 
 			}
 
-			CollectionHelper.RemoveAll(pictures, p => p.Id == 0 && string.IsNullOrEmpty(p.FileName));
+			CollectionHelper.RemoveAll(pictures, p => p.Id == 0 && p.UploadedFile == null);
 
 		}
 
