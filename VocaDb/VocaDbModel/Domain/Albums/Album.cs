@@ -28,7 +28,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<OtherArtistForAlbum> otherArtists = new List<OtherArtistForAlbum>();
-		private IList<AlbumPictureFile> pictures = new List<AlbumPictureFile>();
+		private EntryPictureFileManager<AlbumPictureFile> pictureManager = new EntryPictureFileManager<AlbumPictureFile>(); 
 		private IList<PVForAlbum> pvs = new List<PVForAlbum>();
 		private IList<SongInAlbum> songs = new List<SongInAlbum>();
 		private TagManager<AlbumTagUsage> tags = new TagManager<AlbumTagUsage>();
@@ -210,11 +210,11 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual IList<AlbumPictureFile> Pictures {
-			get { return pictures; }
+		public virtual EntryPictureFileManager<AlbumPictureFile> Pictures {
+			get { return pictureManager; }
 			set { 
 				ParamIs.NotNull(() => value);
-				pictures = value; 
+				pictureManager = value; 
 			}
 		}
 
@@ -514,42 +514,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public virtual CollectionDiffWithValue<AlbumPictureFile, AlbumPictureFile> SyncPictures(
-			IEnumerable<EntryPictureFileContract> newPictures, User user) {
-
-			ParamIs.NotNull(() => newPictures);
-
-			var diff = CollectionHelper.Diff(Pictures, newPictures, (n1, n2) => n1.Id == n2.Id);
-			var created = new List<AlbumPictureFile>();
-			var edited = new List<AlbumPictureFile>();
-
-			foreach (var n in diff.Removed) {
-				Pictures.Remove(n);
-			}
-
-			foreach (var newEntry in diff.Added) {
-
-				var l = CreatePicture(newEntry.Name, newEntry.Mime, user);
-				l.UploadedFile = newEntry.FileName;
-				created.Add(l);
-
-			}
-
-			foreach (var linkEntry in diff.Unchanged) {
-
-				var entry = linkEntry;
-				var newEntry = newPictures.First(e => e.Id == entry.Id);
-
-				if (entry.Name != newEntry.Name) {
-					linkEntry.Name = newEntry.Name;
-					edited.Add(linkEntry);
-				}
-
-			}
-
-			return new CollectionDiffWithValue<AlbumPictureFile, AlbumPictureFile>(created, diff.Removed, diff.Unchanged, edited);
-
-		}
 
 		public virtual CollectionDiffWithValue<PVForAlbum, PVForAlbum> SyncPVs(IEnumerable<PVContract> newPVs) {
 

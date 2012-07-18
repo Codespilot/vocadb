@@ -10,6 +10,7 @@ namespace VocaDb.Model.DataContracts {
 
 			ParamIs.NotNull(() => picture);
 
+			EntryType = picture.EntryType;
 			FileName = picture.FileName;
 			Id = picture.Id;
 			Mime = picture.Mime;
@@ -18,6 +19,8 @@ namespace VocaDb.Model.DataContracts {
 		}
 
 		public int ContentLength { get; set; }
+
+		public EntryType EntryType { get; set; }
 
 		public string FileName { get; set; }
 

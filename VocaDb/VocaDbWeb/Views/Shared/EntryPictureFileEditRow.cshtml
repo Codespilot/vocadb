@@ -1,13 +1,13 @@
 ﻿@model VocaDb.Model.DataContracts.EntryPictureFileContract
-@using VocaDb.Model.Domain
 @using VocaDb.Web.Helpers;
 
 <tr>
 	<td>
 		@{ var item = Html.BeginCollectionItem("Pictures"); }
 		@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.EntryType)
 		@if (Model.Id != 0) {
-			<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Album, Model)" alt="Preview" class="coverPicThumb" />
+			<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(Model.EntryType, Model)" alt="Preview" class="coverPicThumb" />
 		} else {
 			<input type="file" name="pictureUpload" />
 		}

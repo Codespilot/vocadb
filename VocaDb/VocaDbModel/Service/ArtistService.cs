@@ -937,6 +937,13 @@ namespace VocaDb.Model.Service {
 				if (groupsDiff.Changed)
 					diff.Groups = true;
 
+				var picsDiff = artist.Pictures.SyncPictures(properties.Pictures, GetLoggedUser(session), artist.CreatePicture);
+				SessionHelper.Sync(session, picsDiff);
+				ImageHelper.GenerateThumbsAndMoveImages(EntryType.Artist, picsDiff.Added);
+
+				if (picsDiff.Changed)
+					diff.Pictures = true;
+
 				var albumGetter = new Func<AlbumForArtistEditContract, Album>(contract => {
 
 					Album album;

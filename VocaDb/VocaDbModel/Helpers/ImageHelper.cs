@@ -19,7 +19,8 @@ namespace VocaDb.Model.Helpers {
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
 		private const int defaultThumbSize = 250;
 
-		public const int MaxImageSizeBytes = 5 * 1024 * 1024;	// 5 MB
+		public const int MaxImageSizeMB = 5;
+		public const int MaxImageSizeBytes = MaxImageSizeMB * 1024 * 1024;	// 5 MB
 
 		public static string[] AllowedExtensions {
 			get { return allowedExt; }

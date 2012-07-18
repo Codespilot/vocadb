@@ -97,6 +97,15 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search the whole site using Google custom search.
+        /// </summary>
+        public static string SearchSite {
+            get {
+                return ResourceManager.GetString("SearchSite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Top albums.
         /// </summary>
         public static string TopAlbums {

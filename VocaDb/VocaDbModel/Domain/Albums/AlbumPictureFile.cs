@@ -22,6 +22,11 @@ namespace VocaDb.Model.Domain.Albums {
 				album = value; 
 			}
 		}
+
+		public override EntryType EntryType {
+			get { return EntryType.Album; }
+		}
+
 	}
 
 }

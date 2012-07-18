@@ -268,27 +268,12 @@
 	
 	<div id="picturesTab">
 		
-		@helper PicItem(string url, string thumbUrl, string caption) {
-	
-			<li>
-				<a href="@url">
-					<div class="pictureFrame">
-						<img src="@thumbUrl" alt="Preview" class="coverPic" />										
-					</div>
-				</a>
-				@if (!string.IsNullOrEmpty(caption)) {
-					<p>@caption</p>
-				}
-			</li>
-	  	  
-		}
-
 		<ul class="thumbs">
-			@PicItem(Url.Action("CoverPicture", "Album", new { id = Model.Id }),
+			@Helpers.ThumbItem(Url.Action("CoverPicture", "Album", new { id = Model.Id }),
 				Url.Action("CoverPictureThumb", "Album", new { id = Model.Id }), 
 				ViewRes.Album.DetailsStrings.CoverPicture)
 			@foreach (var pic in Model.Pictures) {
-			   @PicItem(VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Album, pic),
+			   @Helpers.ThumbItem(VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Album, pic),
 				   VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Album, pic), pic.Name)
 			}
 		</ul>

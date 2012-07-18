@@ -139,7 +139,10 @@
     <value>Original name</value>
   </data>
   <data name="Picture" xml:space="preserve">
-    <value>Picture</value>
+    <value>Main picture</value>
+  </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Pictures</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>

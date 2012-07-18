@@ -129,6 +129,9 @@
   <data name="RecentSongs" xml:space="preserve">
     <value>Recently added songs with videos</value>
   </data>
+  <data name="SearchSite" xml:space="preserve">
+    <value>Search the whole site using Google custom search</value>
+  </data>
   <data name="TopAlbums" xml:space="preserve">
     <value>Top albums</value>
   </data>

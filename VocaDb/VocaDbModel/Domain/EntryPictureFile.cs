@@ -51,6 +51,8 @@ namespace VocaDb.Model.Domain {
 
 		public virtual DateTime Created { get; set; }
 
+		public abstract EntryType EntryType { get; }
+
 		public virtual string FileName {
 			get {
 				return GetFileName(Id, Mime);

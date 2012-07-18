@@ -107,6 +107,12 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual bool IncludePictures {
+			get {
+				return (IsSnapshot || Pictures);
+			}
+		}
+
 		public virtual bool IncludeWebLinks {
 			get {
 				return (IsSnapshot || WebLinks);
@@ -149,6 +155,14 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual bool Pictures {
+			get {
+				return IsChanged(ArtistEditableFields.Pictures);
+			}
+			set {
+				Set(ArtistEditableFields.Pictures, value);
+			}
+		}
 		public virtual bool Status {
 			get {
 				return IsChanged(ArtistEditableFields.Status);
@@ -171,7 +185,7 @@ namespace VocaDb.Model.Domain.Artists {
 		/// Checks whether a specific field is included in this diff.
 		/// </summary>
 		/// <param name="field">Field to be checked.</param>
-		/// <returns>True if the field is included, otherwise false.</returns><
+		/// <returns>True if the field is included, otherwise false.</returns>
 		/// <remarks>
 		/// Snapshots include all fields except the Cover.
 		/// Other fields are commonly included only they are changed.
