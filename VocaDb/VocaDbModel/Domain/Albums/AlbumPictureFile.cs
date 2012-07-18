@@ -27,6 +27,19 @@ namespace VocaDb.Model.Domain.Albums {
 			get { return EntryType.Album; }
 		}
 
+		public virtual void Move(Album target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target == Album)
+				return;
+
+			Album.Pictures.Remove(this);
+			Album = target;
+			target.Pictures.Add(this);
+
+		}
+
 	}
 
 }

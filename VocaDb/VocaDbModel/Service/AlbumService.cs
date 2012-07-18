@@ -936,6 +936,12 @@ namespace VocaDb.Model.Service {
 					session.Update(s);
 				}
 
+				var pictures = source.Pictures.ToArray();
+				foreach (var p in pictures) {
+					p.Move(target);
+					session.Update(p);
+				}
+
 				var userCollections = source.UserCollections.Where(a => !target.IsInUserCollection(a.User)).ToArray();
 				foreach (var u in userCollections) {
 					u.Move(target);
@@ -971,8 +977,7 @@ namespace VocaDb.Model.Service {
 				target.UpdateArtistString();
 				target.Names.UpdateSortNames();
 
-				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
-				Archive(session, target, AlbumArchiveReason.Merged);
+				Archive(session, target, AlbumArchiveReason.Merged, string.Format("Merged from {0}", source));
 
 				session.Update(source);
 				session.Update(target);
@@ -1316,7 +1321,8 @@ namespace VocaDb.Model.Service {
 					if (pvDiff.Changed)
 						diff.PVs = true;
 
-					var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
+					var logStr = string.Format("updated properties for {0} ({1})", 
+						EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
 						+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
 						.Truncate(400);
 

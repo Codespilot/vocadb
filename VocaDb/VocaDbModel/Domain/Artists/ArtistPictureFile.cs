@@ -27,6 +27,19 @@ namespace VocaDb.Model.Domain.Artists {
 			get { return EntryType.Artist; }
 		}
 
+		public virtual void Move(Artist target) {
+
+			ParamIs.NotNull(() => target);
+
+			if (target == Artist)
+				return;
+
+			Artist.Pictures.Remove(this);
+			Artist = target;
+			target.Pictures.Add(this);
+
+		}
+
 	}
 
 }

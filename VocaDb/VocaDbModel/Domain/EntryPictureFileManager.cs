@@ -69,6 +69,10 @@ namespace VocaDb.Model.Domain {
 			return Pictures.GetEnumerator();
 		}
 
+		public virtual bool Remove(T item) {
+			return Pictures.Remove(item);
+		}
+
 	}
 
 }

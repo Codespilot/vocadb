@@ -734,6 +734,12 @@ namespace VocaDb.Model.Service {
 					session.Update(s);
 				}
 
+				var pictures = source.Pictures.ToArray();
+				foreach (var p in pictures) {
+					p.Move(target);
+					session.Update(p);
+				}
+
 				var users = source.Users.ToArray();
 				foreach (var u in users) {
 					u.Move(target);
@@ -745,8 +751,7 @@ namespace VocaDb.Model.Service {
 
 				source.Deleted = true;
 
-				//Archive(session, source, "Merged to '" + target.DefaultName + "'");
-				Archive(session, target, ArtistArchiveReason.Merged, "Merged from '" + source.DefaultName + "'");
+				Archive(session, target, ArtistArchiveReason.Merged, string.Format("Merged from '{0}'", source.DefaultName));
 
 				session.Update(source);
 				session.Update(target);

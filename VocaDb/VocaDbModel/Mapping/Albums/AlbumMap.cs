@@ -60,7 +60,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			});
 
 			Component(m => m.Pictures, c => {
-				c.HasMany(m => m.Pictures).KeyColumn("[Album]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
+				c.HasMany(m => m.Pictures).KeyColumn("[Album]").Inverse().Cascade.All().Cache.ReadWrite();
 			});
 
 			Component(m => m.Tags, c => {
