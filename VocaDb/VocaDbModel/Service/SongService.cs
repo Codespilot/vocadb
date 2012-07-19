@@ -948,12 +948,15 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyLogin();
 
+			var canEditPools = PermissionContext.HasPermission(PermissionToken.EditFeaturedLists);
+
 			return HandleQuery(session => {
 
 				var ignoredSong = session.Load<Song>(ignoreSongId);
 
 				return session.Query<SongList>()
-					.Where(l => l.Author.Id == PermissionContext.LoggedUser.Id && l.FeaturedCategory == SongListFeaturedCategory.Nothing)
+					.Where(l => (l.Author.Id == PermissionContext.LoggedUser.Id && l.FeaturedCategory == SongListFeaturedCategory.Nothing) 
+						|| (canEditPools && l.FeaturedCategory == SongListFeaturedCategory.Pools))
 					.OrderBy(l => l.Name).ToArray()
 					.Where(l => !ignoredSong.ListLinks.Any(i => i.List.Equals(l)))
 					.Select(l => new SongListBaseContract(l)).ToArray();
