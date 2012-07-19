@@ -8,7 +8,7 @@
 	if (!isNew) {
 		ViewBag.Title = "Edit list - " + Model.CurrentName;
 		ViewBag.Parents = new[] { 
-			LinkExtensions.ActionLink(Html, Model.CurrentName, "Details", new { id = Model.Id }) 
+			Html.ActionLink(Model.CurrentName, "Details", new { id = Model.Id }) 
 		};
 	} else {
 		ViewBag.Title = "Create a custom list";		
@@ -27,7 +27,6 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
-<!--<script type="text/javascript" src="@Url.Content("~/Scripts/knockout-sortable.js")"></script>-->
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/SongList/Edit.js")"></script>
@@ -77,7 +76,7 @@
 					@Html.LabelFor(m => m.FeaturedCategory)
 				</div>
 				<div class="editor-field">
-					@Html.EnumDropDownListFor(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:FeaturedCategory" } })
+					@Html.EnumDropDownListForDic(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:FeaturedCategory" } })
 				</div>
    }
 
@@ -118,6 +117,7 @@
 
 	</div>
 	
+	<textarea data-bind="value: ko.toJSON($root)"></textarea>
 	<br />
 	@Helpers.SaveBtn()
 	
