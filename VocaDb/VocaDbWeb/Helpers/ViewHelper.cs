@@ -148,7 +148,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static MvcHtmlString EnumDropDownListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, TEnum>> expression,
-			TranslateableEnum<TEnum> enumType, IDictionary<string, object> htmlAttributes = null, object selectedValue = null)
+			TranslateableEnum<TEnum> enumType, IDictionary<string, object> htmlAttributes, object selectedValue)
 			where TEnum : struct, IConvertible {
 
 			return htmlHelper.DropDownListFor(expression, CreateEnumList(selectedValue, enumType), htmlAttributes);
