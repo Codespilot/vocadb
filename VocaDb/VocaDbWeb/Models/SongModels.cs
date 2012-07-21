@@ -286,13 +286,15 @@ namespace VocaDb.Web.Models {
 
 	public class LyricsForSongModel {
 		
-		public LyricsForSongModel() {}
+		public LyricsForSongModel() {
+			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
+		}
 
-		public LyricsForSongModel(LyricsForSongContract contract) {
+		public LyricsForSongModel(LyricsForSongContract contract)
+			: this() {
 			
 			ParamIs.NotNull(() => contract);
 
-			AllLanguages = EnumVal<ContentLanguageSelection>.Values;
 			Id = contract.Id;
 			Language = contract.Language;
 			Source = contract.Source;
