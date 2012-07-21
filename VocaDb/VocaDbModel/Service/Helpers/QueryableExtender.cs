@@ -1,14 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.Helpers {
 
 	public static class QueryableExtender {
+
+		public static IQueryable<ArtistName> AddArtistNameFilter(this IQueryable<ArtistName> query, string originalQuery, string canonizedName, NameMatchMode matchMode) {
+
+			canonizedName = canonizedName ?? ArtistHelper.GetCanonizedName(originalQuery);
+
+			if (matchMode == NameMatchMode.Exact || (matchMode == NameMatchMode.Auto && originalQuery.Length < 3)) {
+
+				return query.Where(m => m.Value == canonizedName 
+					|| m.Value == string.Format("{0}P", canonizedName) 
+					|| m.Value == string.Format("{0}-P", canonizedName));
+
+			} else {
+
+				return query.Where(m => m.Value.Contains(canonizedName));
+
+			}
+
+		}
 
 		public static IQueryable<T> AddEntryNameFilter<T>(this IQueryable<T> query, string nameFilter, NameMatchMode matchMode)
 			where T : LocalizedString {

@@ -227,6 +227,7 @@
     <Compile Include="Domain\EntryPictureFile.cs" />
     <Compile Include="Domain\EntryPictureFileManager.cs" />
     <Compile Include="Domain\EntryRef.cs" />
+    <Compile Include="Domain\EntryReport.cs" />
     <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
     <Compile Include="Domain\IDeletableEntry.cs" />
@@ -242,6 +243,7 @@
     <Compile Include="Domain\Songs\SongInList.cs" />
     <Compile Include="Domain\Songs\SongList.cs" />
     <Compile Include="Domain\Songs\SongListFeaturedCategory.cs" />
+    <Compile Include="Domain\Songs\SongReport.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
     <Compile Include="Domain\TrashedEntry.cs" />

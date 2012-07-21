@@ -144,6 +144,9 @@
   <data name="EffectivePermissions" xml:space="preserve">
     <value>Effective permissions</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="FavoriteSongsTab" xml:space="preserve">
     <value>Favorite songs</value>
   </data>
@@ -182,5 +185,8 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="VisibleOnlyToMe" xml:space="preserve">
+    <value>Visible only to me and staff.</value>
   </data>
 </root>

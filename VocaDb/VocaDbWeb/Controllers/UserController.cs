@@ -367,6 +367,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult ResetAccesskey() {
+
+			Service.ResetAccessKey();
+			TempData.SetStatusMessage("Access key reset");
+			return RedirectToAction("MySettings");
+
+		}
+
 		public ActionResult ResetPassword(Guid id) {
 
 			var model = new ResetPassword();

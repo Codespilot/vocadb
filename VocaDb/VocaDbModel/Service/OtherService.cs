@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
@@ -75,11 +76,13 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrWhiteSpace(query))
 				return new AllEntriesSearchResult();
 
+			var canonized = ArtistHelper.GetCanonizedName(query);
+
 			return HandleQuery(session => {
 
 				var artists = 
 					session.Query<ArtistName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddArtistNameFilter(query, canonized, NameMatchMode.Auto)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.AddNameOrder(LanguagePreference)
@@ -89,7 +92,7 @@ namespace VocaDb.Model.Service {
 
 				var artistCount = (getTotalCount ?
 					session.Query<ArtistName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddArtistNameFilter(query, canonized, NameMatchMode.Auto)
 					.Count(a => !a.Artist.Deleted) 
 					: 0);
 

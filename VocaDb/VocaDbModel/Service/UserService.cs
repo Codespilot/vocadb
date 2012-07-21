@@ -560,6 +560,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void ResetAccessKey() {
+
+			PermissionContext.VerifyLogin();
+
+			HandleTransaction(session => {
+
+				var user = GetLoggedUser(session);
+				user.GenerateAccessKey();
+
+				session.Update(user);
+
+				AuditLog("reset access key", session);
+
+			});
+
+		}
+
 		public UserContract ResetPassword(Guid requestId, string password) {
 
 			ParamIs.NotNullOrEmpty(() => password);

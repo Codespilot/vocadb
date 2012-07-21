@@ -100,8 +100,6 @@ namespace VocaDb.Model.Service {
 
 				query = query.Trim();
 
-				var queryWithoutP = ArtistHelper.GetCanonizedName(query);
-
 				// Note: Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
 				var directQ = session.Query<Artist>()
 					.Where(s => !s.Deleted);
@@ -126,15 +124,7 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value == queryWithoutP || m.Value == queryWithoutP + "P" || m.Value == queryWithoutP + "-P");
-
-				} else {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(queryWithoutP));
-
-				}
+				additionalNamesQ = additionalNamesQ.AddArtistNameFilter(query, null, nameMatchMode);
 
 				if (artistTypes.Any())
 					additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));

@@ -142,6 +142,15 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Favorite songs.
         /// </summary>
         public static string FavoriteSongsTab {
@@ -255,6 +264,15 @@ namespace ViewRes.User {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Visible only to me and staff..
+        /// </summary>
+        public static string VisibleOnlyToMe {
+            get {
+                return ResourceManager.GetString("VisibleOnlyToMe", resourceCulture);
             }
         }
     }
