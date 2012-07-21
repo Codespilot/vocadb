@@ -39,7 +39,7 @@
 
 <table>
 	<tr>
-		<td rowspan="7" class="alignTop">
+		<td rowspan="8" class="alignTop">
 			@UserHelpers.ProfileIcon(Model)
 		</td>
 		<td>@R.DetailsStrings.UserName</td>
@@ -58,12 +58,16 @@
 	@if (Login.CanManageUsers || ownProfile) {
 		<tr>
 			<td>@R.DetailsStrings.LastLogin</td>
-			<td>@Model.LastLogin</td>
+			<td>@Model.LastLogin (@R.DetailsStrings.VisibleOnlyToMe)</td>
 		</tr>
 		<tr>
 			<td>@R.DetailsStrings.AdditionalPermissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)</td>
 		</tr>
+		<tr>
+			<td>@R.DetailsStrings.Email</td>
+			<td>@Model.Email (@R.DetailsStrings.VisibleOnlyToMe)</td>
+		</tr>	 
  }
 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
 		<tr>

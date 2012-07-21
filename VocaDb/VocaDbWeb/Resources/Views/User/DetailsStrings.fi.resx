@@ -144,6 +144,9 @@
   <data name="EffectivePermissions" xml:space="preserve">
     <value>Voimassaolevat oikeudet</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Sähköposti</value>
+  </data>
   <data name="FavoriteSongsTab" xml:space="preserve">
     <value>Suosikkikappaleet</value>
   </data>
@@ -182,5 +185,8 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Tunnus</value>
+  </data>
+  <data name="VisibleOnlyToMe" xml:space="preserve">
+    <value>Näkyy vain minulle ja ylläpitäjille.</value>
   </data>
 </root>

@@ -55,7 +55,7 @@ namespace VocaDb.Model.Domain.Users {
 			Email = email;
 			Salt = salt;
 
-			AccessKey = new AlphaPassGenerator(true, true, true).Generate(20);
+			GenerateAccessKey();
 
 		}
 
@@ -291,6 +291,12 @@ namespace VocaDb.Model.Domain.Users {
 
 		public override bool Equals(object obj) {
 			return Equals(obj as User);
+		}
+
+		public virtual void GenerateAccessKey() {
+
+			AccessKey = new AlphaPassGenerator(true, true, true).Generate(20);
+
 		}
 
 		public override int GetHashCode() {

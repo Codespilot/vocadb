@@ -124,7 +124,11 @@
 		<div id="connectivity">
 	
 			<h4>Access key</h4>
-			<p>@Model.AccessKey</p>
+			<p>
+				@Model.AccessKey
+				
+				@Html.ActionLink("Reset", "ResetAccesskey", "User", new { onclick = "return confirm(\"Really reset code?\");" })
+			</p>
 
 		</div>
 	</div>
