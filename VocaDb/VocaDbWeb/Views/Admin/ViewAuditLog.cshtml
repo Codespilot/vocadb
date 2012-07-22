@@ -1,6 +1,15 @@
-﻿
+﻿@model VocaDb.Web.Models.Admin.ViewAuditLogModel
+
 @{
     ViewBag.Title = "View audit log";
+}
+
+@using (Html.BeginForm("ViewAuditLog", "Admin", FormMethod.Post, new { @class = "form-inline" })) {
+
+	@Html.TextBoxFor(m => m.Filter, new { id = "filter" })
+
+	<button type="submit" class="btn btn-primary">Filter</button>
+	
 }
 
 <div >
@@ -10,7 +19,7 @@
 			<th>User</th>
 			<th>Action</th>
 		</tr>		
-		@{ Html.RenderAction("AuditLogEntries"); }
+		@{ Html.RenderAction("AuditLogEntries", new { filter = Model.Filter }); }
 	</table>
 </div>
 
@@ -22,7 +31,7 @@
 
 	$(document).ready(function () {
 		$("#loadMoreLink").click(function () {
-			$.post("AuditLogEntries", { start: $("#start").val() }, function (result) {
+			$.post("AuditLogEntries", { start: $("#start").val(), filter: $("#filter").val() }, function (result) {
 				$("#logEntries").append(result);
 				$("#start").val(parseInt($("#start").val()) + 200);
 			});
