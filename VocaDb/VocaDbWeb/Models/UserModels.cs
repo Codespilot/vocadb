@@ -137,7 +137,7 @@ namespace VocaDb.Web.Models {
 
 			return new UpdateUserSettingsContract {
 				AnonymousActivity = this.AnonymousActivity,
-				Culture = this.CultureSelection,
+				Culture = this.CultureSelection ?? string.Empty,
 				Id = this.Id,
 				Name = Username,
 				DefaultLanguageSelection = this.DefaultLanguageSelection,
