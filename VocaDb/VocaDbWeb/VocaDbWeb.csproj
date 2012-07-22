@@ -415,6 +415,7 @@
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Models\Admin\CommentViewModel.cs" />
+    <Compile Include="Models\Admin\ViewAuditLogModel.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />

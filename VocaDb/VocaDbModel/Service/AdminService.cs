@@ -129,11 +129,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AuditLogEntryContract[] GetAuditLog(int start, int maxEntries) {
+		public AuditLogEntryContract[] GetAuditLog(string filter, int start, int maxEntries) {
 
 			return HandleTransaction(session => {
 
 				var entries = session.Query<AuditLogEntry>()
+					.Where(e => string.IsNullOrEmpty(filter) || e.Action.Contains(filter) || e.AgentName == filter)
 					.OrderByDescending(e => e.Time)
 					.Skip(start)
 					.Take(maxEntries)
