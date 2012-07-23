@@ -8,9 +8,27 @@ namespace VocaDb.Model.Domain {
 		private string hostname;
 		private string notes;
 
+		protected EntryReport() {
+			Created = DateTime.Now;
+			Notes = string.Empty;
+		}
+
+		protected EntryReport(User user, string hostname, string notes)
+			: this() {
+
+			User = user;
+			Hostname = hostname;
+			Notes = notes;
+
+		}
+
 		public virtual DateTime Created { get; set; }
 
-		public virtual EntryType EntryType { get; set; }
+		public abstract IEntryBase EntryBase { get; }
+
+		public virtual EntryType EntryType {
+			get { return EntryBase.EntryType; }
+		}
 
 		public virtual string Hostname {
 			get { return hostname; }

@@ -86,6 +86,10 @@ namespace VocaDb.Model.Domain {
 
 		public virtual Stream UploadedFile { get; set; }
 
+		public override string ToString() {
+			return string.Format("Picture file {0} [{1}]", Name, Id);
+		}
+
 	}
 
 }

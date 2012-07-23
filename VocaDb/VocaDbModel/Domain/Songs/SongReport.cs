@@ -1,8 +1,23 @@
-﻿namespace VocaDb.Model.Domain.Songs {
+﻿using VocaDb.Model.Domain.Users;
+
+namespace VocaDb.Model.Domain.Songs {
 
 	public class SongReport : EntryReport {
 
 		private Song song;
+
+		public SongReport() { }
+
+		public SongReport(Song song, User user, string hostname, string notes) 
+			: base(user, hostname, notes) {
+
+			Song = song;
+
+		}
+
+		public override IEntryBase EntryBase {
+			get { return Song; }
+		}
 
 		public virtual SongReportType ReportType { get; set; }
 
@@ -18,13 +33,15 @@
 
 	public enum SongReportType {
 
-		BrokenPV		= 0,
+		BrokenPV		= 1,
 
-		InvalidInfo		= 1,
+		InvalidInfo		= 2,
 
-		InAppropriate	= 2,
+		Duplicate		= 3,
 
-		Other			= 3
+		InAppropriate	= 4,
+
+		Other			= 5
 
 	}
 

@@ -35,12 +35,6 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
 
-		protected IEnumerable<Artist> ArtistList {
-			get {
-				return Artists.Where(a => a.Artist != null).Select(a => a.Artist);
-			}
-		}
-
 		public Song() {
 			ArtistString = new TranslatedStringWithDefault(string.Empty, string.Empty, string.Empty, string.Empty);
 			CreateDate = DateTime.Now;
@@ -125,6 +119,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				archivedVersions = value;
+			}
+		}
+
+		public virtual IEnumerable<Artist> ArtistList {
+			get {
+				return Artists
+					.Where(a => a.Artist != null)
+					.Select(a => a.Artist);
 			}
 		}
 
