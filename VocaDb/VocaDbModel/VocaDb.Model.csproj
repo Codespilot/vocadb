@@ -99,6 +99,8 @@
     <Compile Include="DataContracts\ArchivedEntryPictureFileContract.cs" />
     <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
     <Compile Include="DataContracts\EntryPictureFileContract.cs" />
+    <Compile Include="DataContracts\EntryRefWithNameContract.cs" />
+    <Compile Include="DataContracts\EntryReportContract.cs" />
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventSeriesContract.cs" />

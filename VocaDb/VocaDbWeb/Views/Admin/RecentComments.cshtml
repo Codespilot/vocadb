@@ -3,6 +3,9 @@
 
 @{
 	ViewBag.Title = "Recent comments";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Manage", "Index"), 
+	};		
 }
 
 <table>

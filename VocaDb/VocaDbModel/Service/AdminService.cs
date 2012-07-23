@@ -69,6 +69,38 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void DeleteEntryReports(int[] reportIds) {
+
+			ParamIs.NotNull(() => reportIds);
+
+			PermissionContext.VerifyPermission(PermissionToken.ManageEntryReports);
+
+			HandleTransaction(session => {
+
+				var reports = session.Query<EntryReport>().Where(r => reportIds.Contains(r.Id)).ToArray();
+
+				foreach (var report in reports)
+					session.Delete(report);
+
+			});
+
+		}
+
+		public EntryReportContract[] GetEntryReports() {
+
+			PermissionContext.VerifyPermission(PermissionToken.ManageEntryReports);
+
+			return HandleQuery(session => {
+
+				var reports = session.Query<EntryReport>().OrderByDescending(r => r.Created).Take(200).ToArray();
+				var fac = new EntryReportContractFactory();
+
+				return reports.Select(r => fac.Create(r, PermissionContext.LanguagePreference)).ToArray();
+
+			});
+
+		}
+
 		public void GeneratePictureThumbs() {
 
 			VerifyAdmin();

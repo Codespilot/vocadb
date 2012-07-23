@@ -1,0 +1,37 @@
+﻿@model EntryReportContract[]
+@using VocaDb.Model.DataContracts
+@using VocaDb.Web.Helpers;
+
+@helper TypeName(EntryReportContract contract) {
+	@Translate.SongReportTypeNames[contract.SongReportType]
+}
+
+@{
+    ViewBag.Title = "View entry reports";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Manage", "Index"), 
+	};		
+}
+
+<table>
+	<tr>
+		<th>Time</th>
+		<th>Author</th>
+		<th>Entry</th>
+		<th>Type</th>
+		<th>Notes</th>
+		<th>Actions</th>
+	</tr>
+	<tbody>
+	@foreach (var r in Model) {
+		<tr>
+			<td>@r.Created</td>
+			<td>@Html.UserLink(r.User, r.Hostname)</td>
+			<td>@Helpers.EntryLink(r.Entry)</td>
+			<td>@TypeName(r)</td>
+			<td>@r.Notes</td>
+			<td>@Html.ActionLink("Delete", "DeleteEntryReport", new { id = r.Id })</td>
+		</tr>
+	}		
+	</tbody>
+</table>

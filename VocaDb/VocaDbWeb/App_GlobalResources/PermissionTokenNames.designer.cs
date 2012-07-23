@@ -178,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage entry reports.
+        /// </summary>
+        internal static string ManageEntryReports {
+            get {
+                return ResourceManager.GetString("ManageEntryReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage event series.
         /// </summary>
         internal static string ManageEventSeries {

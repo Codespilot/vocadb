@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "View audit log";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Manage", "Index"), 
+	};	
 }
 
 @using (Html.BeginForm("ViewAuditLog", "Admin", FormMethod.Post, new { @class = "form-inline" })) {
