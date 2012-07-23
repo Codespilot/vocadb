@@ -32,6 +32,8 @@
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
+<a href="#" id="reportEntryLink">@ViewRes.EntryDetailsStrings.ReportAnError</a>
+
 @Helpers.EntryStatusMessage(Model.Status)
 
 @Helpers.AjaxLoader("pvLoader")	
@@ -274,6 +276,20 @@
 
 <div id="addToListDialog" style="display:none" title="@ViewRes.Song.DetailsStrings.AddToList">
 	<select id="addtoListSelect" size="6"></select>
+</div>
+
+<div id="reportSongPopup" style="display:none;" title="@ViewRes.EntryDetailsStrings.ReportAnError">
+	
+	<label>
+		@ViewRes.EntryDetailsStrings.ReportType
+	</label>
+	@Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" })
+	
+	<label>
+		@ViewRes.EntryDetailsStrings.ReportNotes
+	</label>
+	@Html.TextArea("reportNotes", new { id = "reportNotes", @class = "input-xlarge" })
+
 </div>
 
 <script type="text/javascript" src="../../Scripts/Song/Details.js"></script>

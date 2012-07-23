@@ -53,6 +53,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		public void CreateReport(int songId, SongReportType reportType, string notes) {
+
+			Service.CreateReport(songId, reportType, CfHelper.GetRealIp(Request), notes ?? string.Empty);
+
+		}
+
+		[HttpPost]
 		public PartialViewResult CreateSongLink(int? songId) {
 
 			SongWithAdditionalNamesContract song;

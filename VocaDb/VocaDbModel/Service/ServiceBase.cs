@@ -126,6 +126,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		protected void AuditLog(string doingWhat, ISession session, AgentLoginData who) {
+
+			ParamIs.NotNull(() => session);
+			ParamIs.NotNull(() => who);
+
+			AuditLog(doingWhat, who.Name);
+
+			var entry = new AuditLogEntry(who, doingWhat);
+
+			session.Save(entry);
+
+		}
+
 		protected void AuditLog(string doingWhat, ISession session, string who) {
 
 			ParamIs.NotNull(() => session);

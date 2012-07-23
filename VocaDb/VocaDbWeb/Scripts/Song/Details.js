@@ -5,6 +5,7 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 	$("#removeFavoriteLink").button({ disabled: $("#removeFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-close'} });
 	$("#addToListLink").button({ disabled: $("#addToListLink").hasClass("disabled"), icons: { primary: 'ui-icon-star'} });
 	$("#editSongLink").button({ disabled: $("#editSongLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
+	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#viewCommentsLink").click(function () {
@@ -35,6 +36,19 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 		$.post(hostAddress + "/Song/AddSongToList", { listId: listId, songId: songId }, null);		
 
 	}}]});
+
+
+	$("#reportSongPopup").dialog({ autoOpen: false, width: 300, modal: false, buttons: [{ text: saveStr, click: function () {
+
+		$("#reportSongPopup").dialog("close");
+
+		var reportType = $("#reportType").val();
+		var notes = $("#reportNotes").val();
+
+		$.post(hostAddress + "/Song/CreateReport", { songId: songId, reportType: reportType, notes: notes });
+
+	}}]});
+
 
 	$("#addFavoriteLink").click(function () {
 
@@ -84,6 +98,18 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 		});
 
+		return false;
+
+	});
+
+	$("#reportEntryLink").click(function () {
+
+		var addToListLinkPos = $("#reportEntryLink").offset();
+		if (addToListLinkPos != null) {
+			$("#reportSongPopup").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top - $(window).scrollTop() + 35]);
+		}
+
+		$("#reportSongPopup").dialog("open");
 		return false;
 
 	});

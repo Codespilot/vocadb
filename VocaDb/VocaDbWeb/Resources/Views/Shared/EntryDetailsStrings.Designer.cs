@@ -160,6 +160,33 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Report an error.
+        /// </summary>
+        public static string ReportAnError {
+            get {
+                return ResourceManager.GetString("ReportAnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        public static string ReportNotes {
+            get {
+                return ResourceManager.GetString("ReportNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report type.
+        /// </summary>
+        public static string ReportType {
+            get {
+                return ResourceManager.GetString("ReportType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Revisions.
         /// </summary>
         public static string Revisions {

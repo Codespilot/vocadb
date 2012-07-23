@@ -21,6 +21,13 @@ namespace VocaDb.Model.Domain.Security {
 
 		}
 
+		public AgentLoginData(User user, string name) {
+
+			User = user;
+			Name = name;
+
+		}
+
 		public string Name { get; private set; }
 
 		public User User { get; private set; }
