@@ -35,6 +35,8 @@ namespace VocaDb.Model.Domain {
 			set { hostname = value; }
 		}
 
+		public virtual int Id { get; set; }
+
 		public virtual string Notes {
 			get { return notes; }
 			set {

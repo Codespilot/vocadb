@@ -509,6 +509,33 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public bool CreateReport(int songId, SongReportType reportType, string hostname, string notes) {
+
+			ParamIs.NotNull(() => hostname);
+			ParamIs.NotNull(() => notes);
+
+			return HandleTransaction(session => {
+
+				var loggedUserId = PermissionContext.LoggedUserId;
+				var existing = session.Query<SongReport>()
+					.FirstOrDefault(r => r.Song.Id == songId && ((loggedUserId != 0 && r.User.Id == loggedUserId) || r.Hostname == hostname));
+
+				if (existing != null)
+					return false;
+
+				var song = session.Load<Song>(songId);
+				var report = new SongReport(song, reportType, GetLoggedUserOrDefault(session), hostname, notes);
+
+				var msg =  string.Format("reported {0}: {1} - {2}", song, reportType, notes);
+				AuditLog(msg.Truncate(200), session, new AgentLoginData(GetLoggedUserOrDefault(session), hostname));
+
+				session.Save(report);
+				return true;
+
+			}, IsolationLevel.ReadUncommitted);
+
+		}
+
 		public SongContract Create(CreateSongContract contract) {
 
 			ParamIs.NotNull(() => contract);

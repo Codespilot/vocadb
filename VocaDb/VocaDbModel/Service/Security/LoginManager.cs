@@ -115,6 +115,12 @@ namespace VocaDb.Model.Service.Security {
 			}
 		}
 
+		public int LoggedUserId {
+			get {
+				return (LoggedUser != null ? LoggedUser.Id : 0);
+			}
+		}
+
 		public string Name {
 			get {
 				return User.Identity.Name;

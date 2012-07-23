@@ -150,6 +150,15 @@
   <data name="PicturesTab" xml:space="preserve">
     <value>Pictures</value>
   </data>
+  <data name="ReportAnError" xml:space="preserve">
+    <value>Report an error</value>
+  </data>
+  <data name="ReportNotes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="ReportType" xml:space="preserve">
+    <value>Report type</value>
+  </data>
   <data name="Revisions" xml:space="preserve">
     <value>Revisions</value>
   </data>

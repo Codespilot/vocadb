@@ -117,58 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionDate" xml:space="preserve">
-    <value>Lisäyspäivä</value>
+  <data name="BrokenPV" xml:space="preserve">
+    <value>Broken PV</value>
   </data>
-  <data name="AllPictures" xml:space="preserve">
-    <value>Kaikki kuvat</value>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Duplicate entry</value>
   </data>
-  <data name="BasicInfoTab" xml:space="preserve">
-    <value>Perustiedot</value>
+  <data name="Inappropriate" xml:space="preserve">
+    <value>Inappropriate content</value>
   </data>
-  <data name="ConfirmDeleteComment" xml:space="preserve">
-    <value>Haluatko varmasti poistaa tämän kommentin?</value>
+  <data name="InvalidInfo" xml:space="preserve">
+    <value>Invalid or missing information</value>
   </data>
-  <data name="DiscussionTab" xml:space="preserve">
-    <value>Keskustelu</value>
-  </data>
-  <data name="EditTags" xml:space="preserve">
-    <value>Muokkaa tägejä</value>
-  </data>
-  <data name="ExternalLinks" xml:space="preserve">
-    <value>Ulkoiset linkit</value>
-  </data>
-  <data name="Hits" xml:space="preserve">
-    <value>osuma(a)</value>
-  </data>
-  <data name="LatestComments" xml:space="preserve">
-    <value>Viimeisimmät kommentit</value>
-  </data>
-  <data name="NoComments" xml:space="preserve">
-    <value>Ei mitään vielä!</value>
-  </data>
-  <data name="PicturesTab" xml:space="preserve">
-    <value>Kuvat</value>
-  </data>
-  <data name="ReportAnError" xml:space="preserve">
-    <value>Raportoi virheestä</value>
-  </data>
-  <data name="ReportNotes" xml:space="preserve">
-    <value>Lisätietoja</value>
-  </data>
-  <data name="ReportType" xml:space="preserve">
-    <value>Raportin tyyppi</value>
-  </data>
-  <data name="Revisions" xml:space="preserve">
-    <value>Versiot</value>
-  </data>
-  <data name="Stats" xml:space="preserve">
-    <value>Tilastoja</value>
-  </data>
-  <data name="ViewAllComments" xml:space="preserve">
-    <value>Näytä kaikki kommentit</value>
-  </data>
-  <data name="ViewModifications" xml:space="preserve">
-    <value>Näytä muokkaukset</value>
+  <data name="Other" xml:space="preserve">
+    <value>Other (specify in notes)</value>
   </data>
 </root>

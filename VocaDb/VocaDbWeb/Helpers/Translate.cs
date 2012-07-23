@@ -41,6 +41,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<SongListFeaturedCategory> SongListFeaturedCategoryNames =
 			new TranslateableEnum<SongListFeaturedCategory>(() => global::Resources.SongListFeaturedCategoryNames.ResourceManager);
 
+		public static readonly TranslateableEnum<SongReportType> SongReportTypeNames =
+			new TranslateableEnum<SongReportType>(() => global::Resources.SongReportTypeNames.ResourceManager);
+
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
 			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);
 

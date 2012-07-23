@@ -327,6 +327,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongListFeaturedCategoryNames.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\SongReportTypeNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongReportTypeNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\SongReportTypeNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongReportTypeNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1518,6 +1528,14 @@
     <Content Include="App_GlobalResources\ArtistEditableFieldNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistEditableFieldNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongReportTypeNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongReportTypeNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\SongReportTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongReportTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">

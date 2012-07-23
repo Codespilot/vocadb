@@ -8,10 +8,11 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public SongReport() { }
 
-		public SongReport(Song song, User user, string hostname, string notes) 
+		public SongReport(Song song, SongReportType reportType, User user, string hostname, string notes) 
 			: base(user, hostname, notes) {
 
 			Song = song;
+			ReportType = reportType;
 
 		}
 
@@ -39,7 +40,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		Duplicate		= 3,
 
-		InAppropriate	= 4,
+		Inappropriate	= 4,
 
 		Other			= 5
 
