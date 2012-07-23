@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Web;
 using NHibernate;
 using NHibernate.Linq;
 using NLog;
@@ -432,7 +433,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("creating comment for {0}: '{1}'",
 					EntryLinkFactory.CreateEntryLink(song),
-					message.Truncate(60)), session, agent.User);
+					HttpUtility.HtmlEncode(message.Truncate(60))), session, agent.User);
 
 				var comment = song.CreateComment(message, agent);
 				session.Save(comment);
@@ -524,9 +525,9 @@ namespace VocaDb.Model.Service {
 					return false;
 
 				var song = session.Load<Song>(songId);
-				var report = new SongReport(song, reportType, GetLoggedUserOrDefault(session), hostname, notes);
+				var report = new SongReport(song, reportType, GetLoggedUserOrDefault(session), hostname, notes.Truncate(200));
 
-				var msg =  string.Format("reported {0}: {1} - {2}", song, reportType, notes);
+				var msg =  string.Format("reported {0} as {1} ({2})", EntryLinkFactory.CreateEntryLink(song), reportType, HttpUtility.HtmlEncode(notes));
 				AuditLog(msg.Truncate(200), session, new AgentLoginData(GetLoggedUserOrDefault(session), hostname));
 
 				session.Save(report);
