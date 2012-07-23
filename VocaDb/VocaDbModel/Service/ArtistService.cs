@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using NLog;
 using VocaDb.Model.Domain.Globalization;
 using NHibernate;
@@ -372,8 +373,8 @@ namespace VocaDb.Model.Service {
 				var author = GetLoggedUser(session);
 
 				AuditLog(string.Format("creating comment for {0}: '{1}'", 
-					EntryLinkFactory.CreateEntryLink(artist), 
-					message.Truncate(60)), session, author);
+					EntryLinkFactory.CreateEntryLink(artist),
+					HttpUtility.HtmlEncode(message.Truncate(60))), session, author);
 
 				var comment = artist.CreateComment(message, author);
 				session.Save(comment);
