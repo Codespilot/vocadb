@@ -4,7 +4,7 @@
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left" })) {
 	@Html.EnumRadioButtonListFor(m => m.ObjectType, Model.AllObjectTypes, new Dictionary<string, object> { { "class", "globalSearchEntryType nav-radio" } }, Model.ObjectType)
 	@Html.Raw("&nbsp;")
-	@Html.TextBox("globalSearchTerm", string.Empty, new { id = "globalSearchTerm", @class = "globalSearchBox search-query span3", size = 50 })
+	@Html.TextBox("globalSearchTerm", string.Empty, new { id = "globalSearchTerm", @class = "globalSearchBox search-query span3", size = 50, placeholder = @ViewRes.SharedStrings.Search })
 	@Html.Raw("&nbsp;")
 	<button type="submit" class="btn">@ViewRes.SharedStrings.Search</button>
 }

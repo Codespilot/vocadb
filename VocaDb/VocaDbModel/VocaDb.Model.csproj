@@ -346,6 +346,7 @@
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Helpers\UrlValidator.cs" />
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
     <Compile Include="Mapping\Activityfeed\ActivityEntryMap.cs" />
     <Compile Include="Mapping\Activityfeed\NewsEntryMap.cs" />

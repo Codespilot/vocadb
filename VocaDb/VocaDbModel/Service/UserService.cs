@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using NLog;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Paging;
 using NHibernate;
 using NHibernate.Linq;
@@ -76,6 +77,9 @@ namespace VocaDb.Model.Service {
 
 			details.TagVotes
 				= session.Query<TagVote>().Count(t => t.User == user);
+
+			details.Power = UserHelper.GetPower(details, user);
+			details.Level = UserHelper.GetLevel(details.Power);
 
 			return details;
 

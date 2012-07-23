@@ -156,6 +156,9 @@
   <data name="LastLogin" xml:space="preserve">
     <value>Last login</value>
   </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
   <data name="MemberSince" xml:space="preserve">
     <value>A member since</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="MySettings" xml:space="preserve">
     <value>My settings</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Power</value>
   </data>
   <data name="StatsTab" xml:space="preserve">
     <value>Statistics</value>
