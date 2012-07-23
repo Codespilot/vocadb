@@ -35,6 +35,10 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public DateTime LastLogin { get; set; }
 
+		public int Level { get; set; }
+
+		public int Power { get; set; }
+
 		public SongListContract[] SongLists { get; set; }
 
 		public int SubmitCount { get; set; }

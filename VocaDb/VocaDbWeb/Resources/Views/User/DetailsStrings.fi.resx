@@ -156,6 +156,9 @@
   <data name="LastLogin" xml:space="preserve">
     <value>Viimeinen kirjautuminen</value>
   </data>
+  <data name="Level" xml:space="preserve">
+    <value>Taso</value>
+  </data>
   <data name="MemberSince" xml:space="preserve">
     <value>Liittymispäivä</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="MySettings" xml:space="preserve">
     <value>Omat asetukset</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Voima</value>
   </data>
   <data name="StatsTab" xml:space="preserve">
     <value>Tilastot</value>
