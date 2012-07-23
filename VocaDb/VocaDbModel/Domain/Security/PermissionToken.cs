@@ -32,9 +32,10 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken EditNews =				New("c7f03d3f-7b4b-4149-b390-a0cafb7f284f", "EditNews");
 		public static readonly PermissionToken EditProfile =			New("4f79b01a-7154-4a7f-bc87-a8a9259a9905", "EditProfile");
 		public static readonly PermissionToken LockEntries =			New("eb02e92e-207f-4330-a763-6bafd2cedde1", "LockEntries");
+		public static readonly PermissionToken ManageDatabase =			New("d762d720-79ef-4e60-8397-1d638c26d82b", "ManageDatabase");
+		public static readonly PermissionToken ManageEntryReports =		New("f9eb1d22-9142-4a04-9238-f4ebe5f1fc17", "ManageEntryReports");
 		public static readonly PermissionToken ManageEventSeries =		New("cf39509b-b9c5-4efc-9b13-2743ffec9aac", "ManageEventSeries");
 		public static readonly PermissionToken ManageUserPermissions =	New("c0eb147e-10f5-4fea-9b19-b412ef613479", "ManageUserPermissions");
-		public static readonly PermissionToken ManageDatabase =			New("d762d720-79ef-4e60-8397-1d638c26d82b", "ManageDatabase");
 		public static readonly PermissionToken MergeEntries =			New("eb336a5b-8455-4048-bc3a-8003dc522dc5", "MergeEntries");
 		public static readonly PermissionToken MikuDbImport =			New("0b879c57-5eba-462a-b842-d9f7dd0befd8", "MikuDbImport");
 		public static readonly PermissionToken MoveToTrash =			New("99c333a2-ea0a-4a7b-91cb-ceef6f667389", "MoveToTrash");
@@ -47,7 +48,7 @@ namespace VocaDb.Model.Domain.Security {
 		/// </summary>
 		public static readonly PermissionToken[] All = { 
 			AccessManageMenu, Admin, ApproveEntries, CreateComments, DeleteComments, DeleteEntries, 
-			DesignatedStaff, DisableUsers, EditFeaturedLists, EditNews, EditProfile, LockEntries, ManageDatabase, 
+			DesignatedStaff, DisableUsers, EditFeaturedLists, EditNews, EditProfile, LockEntries, ManageDatabase, ManageEntryReports,
 			ManageEventSeries, ManageUserPermissions, MergeEntries, MikuDbImport, MoveToTrash, ReadRecentComments, RestoreRevisions, 
 			ViewAuditLog
 		};

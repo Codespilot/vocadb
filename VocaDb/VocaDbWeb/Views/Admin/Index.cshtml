@@ -2,7 +2,7 @@
 @using VocaDb.Model.Domain.Security;
 
 @{
-    ViewBag.Title = "Admin menu";
+    ViewBag.Title = "Site management";
 }
 <h3>Common tasks</h3>
 <p>
@@ -15,6 +15,9 @@
 }
 @if (Login.Manager.HasPermission(PermissionToken.ReadRecentComments)) {
 <p>@Html.ActionLink("View recent comments", "RecentComments")</p>	
+}
+@if (Login.Manager.HasPermission(PermissionToken.ManageEntryReports)) {
+<p>@Html.ActionLink("Manage entry reports", "ViewEntryReports")</p>	
 }
 <br />
 

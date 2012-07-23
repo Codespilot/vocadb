@@ -63,6 +63,18 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult DeleteEntryReport(int id) {
+
+			LoginManager.VerifyPermission(PermissionToken.ManageEntryReports);
+
+			Service.DeleteEntryReports(new[] { id });
+			TempData.SetStatusMessage("Reports deleted");
+
+			return RedirectToAction("ViewEntryReports");
+
+		}
+
         //
         // GET: /Admin/
 		[Authorize]
@@ -176,6 +188,17 @@ namespace VocaDb.Web.Controllers
 			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);
 
 			return View(model ?? new ViewAuditLogModel());
+
+		}
+
+		[Authorize]
+		public ActionResult ViewEntryReports() {
+
+			LoginManager.VerifyPermission(PermissionToken.ManageEntryReports);
+
+			var reports = Service.GetEntryReports();
+
+			return View(reports);
 
 		}
 

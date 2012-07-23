@@ -24,7 +24,7 @@ namespace VocaDb.Model.Domain {
 
 		public virtual DateTime Created { get; set; }
 
-		public abstract IEntryBase EntryBase { get; }
+		public abstract IEntryWithNames EntryBase { get; }
 
 		public virtual EntryType EntryType {
 			get { return EntryBase.EntryType; }

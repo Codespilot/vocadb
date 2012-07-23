@@ -1251,6 +1251,7 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Admin\ViewEntryReports.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

@@ -36,6 +36,10 @@
 	}
 }
 
+@helper EntryLink(EntryRefWithNameContract entryRef) {
+	@Html.ActionLink(entryRef.Name.DisplayName, "Details", entryRef.EntryType.ToString(), new { id = entryRef.Id }, new { title = entryRef.Name.AdditionalNames })	
+}
+
 @helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315) {
 	
 	switch (pv.Service) {
@@ -60,16 +64,16 @@
 		switch (pv.Service) {
 			case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 				<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
-				break;
+																		  break;
 
 			case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
-				var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+																		  var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 				<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=false&amp;color=ff7700"></iframe>			
-				break;
+																																										   break;
 
 			case VocaDb.Model.Domain.PVs.PVService.Youtube:
-				EmbedPV(pv, width, height);
-				break;
+																																										   EmbedPV(pv, width, height);
+																																										   break;
 		}
 	}
 }
@@ -269,7 +273,7 @@ break;
 		</a>
 		@if (!string.IsNullOrEmpty(caption)) {
 			<p>@caption</p>
-		}
+  }
 	</li>
 	  	  
 }
