@@ -6,7 +6,9 @@ using System.Linq;
 using System.IO;
 using System.Drawing;
 using System.Net.Mime;
+using System.Runtime.Serialization;
 using System.Web;
+using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Utils;
@@ -17,6 +19,16 @@ namespace VocaDb.Model.Helpers {
 
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
 		private const int defaultThumbSize = 250;
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
+		private static Image OpenImage(Stream stream) {
+			try {
+				return Image.FromStream(stream);
+			} catch (ArgumentException x) {
+				log.Error("Unable to open image", x);
+				throw new InvalidPictureException("Unable to open image", x);
+			}
+		}
 
 		public const int MaxImageSizeMB = 5;
 		public const int MaxImageSizeBytes = MaxImageSizeMB * 1024 * 1024;	// 5 MB
@@ -40,7 +52,7 @@ namespace VocaDb.Model.Helpers {
 				}
 				pic.UploadedFile.Seek(0, SeekOrigin.Begin);
 
-				using (var original = Image.FromStream(pic.UploadedFile)) {					
+				using (var original = OpenImage(pic.UploadedFile)) {
 
 					if (original.Width > defaultThumbSize || original.Height > defaultThumbSize) {
 						var thumb = ResizeToFixedSize(original, defaultThumbSize, defaultThumbSize);
@@ -59,7 +71,7 @@ namespace VocaDb.Model.Helpers {
 
 			var thumbs = new List<PictureThumbContract>(sizes.Length);
 
-			using (var original = Image.FromStream(input)) {
+			using (var original = OpenImage(input)) {
 
 				foreach (var size in sizes) {
 
@@ -200,6 +212,13 @@ namespace VocaDb.Model.Helpers {
 			return bmPhoto;
 
 		}
+	}
+
+	public class InvalidPictureException : Exception {
+		public InvalidPictureException() {}
+		public InvalidPictureException(string message) : base(message) {}
+		public InvalidPictureException(string message, Exception innerException) : base(message, innerException) {}
+		protected InvalidPictureException(SerializationInfo info, StreamingContext context) : base(info, context) {}
 	}
 
 }

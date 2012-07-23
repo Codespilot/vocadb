@@ -1289,7 +1289,7 @@ namespace VocaDb.Model.Service {
 
 				var song = session.Load<Song>(songId);
 
-				var oldArtists = song.Artists.Select(a => a.Artist).Where(a => a != null).ToArray();
+				var oldArtists = song.ArtistList.ToArray();
 				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
 
 				var artistDiff = CollectionHelper.Diff(oldArtists, artists, (a, a2) => a.Id == a2.Id);

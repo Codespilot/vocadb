@@ -288,7 +288,7 @@ namespace VocaDb.Web.Controllers
         {
 
 			var coverPicUpload = Request.Files["pictureUpload"];
-			PictureDataContract pictureData = ParseMainPicture(coverPicUpload);
+			PictureDataContract pictureData = ParseMainPicture(coverPicUpload, "Picture");
 
 			ParseAdditionalPictures(coverPicUpload, model.Pictures);
 

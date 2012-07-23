@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using NLog;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -15,6 +16,8 @@ using VocaDb.Model.Helpers;
 namespace VocaDb.Model.Domain.Artists {
 
 	public class Artist : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, IEquatable<Artist>, INameFactory<ArtistName>, IWebLinkFactory<ArtistWebLink> {
+
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private ArchivedVersionManager<ArchivedArtistVersion, ArtistEditableFields> archivedVersions
@@ -328,6 +331,8 @@ namespace VocaDb.Model.Domain.Artists {
 
 			var f = new ArtistPictureFile(name, mime, author, this);
 			Pictures.Add(f);
+
+			log.Info(string.Format("{0} created {1}", author, f));
 
 			return f;
 

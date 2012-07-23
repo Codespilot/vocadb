@@ -63,9 +63,17 @@ namespace VocaDb.Web.Controllers {
 
 				var file = additionalPics[i];
 
+				if (file.ContentLength > ImageHelper.MaxImageSizeBytes) {
+					ModelState.AddModelError("Pictures", "Picture file is too large.");
+				}
+
+				if (!ImageHelper.IsValidImageExtension(file.FileName)) {
+					ModelState.AddModelError("Pictures", "Picture format is not valid.");
+				}
+
 				newPics[i].FileName = file.FileName;
 				newPics[i].UploadedFile = file.InputStream;
-				newPics[i].Mime = file.ContentType;
+				newPics[i].Mime = file.ContentType ?? string.Empty;
 				newPics[i].ContentLength = file.ContentLength;
 
 			}
@@ -74,24 +82,24 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
-		protected PictureDataContract ParseMainPicture(HttpPostedFileBase pictureUpload) {
+		protected PictureDataContract ParseMainPicture(HttpPostedFileBase pictureUpload, string fieldName) {
 
 			PictureDataContract pictureData = null;
 
 			if (Request.Files.Count > 0 && pictureUpload != null && pictureUpload.ContentLength > 0) {
 
 				if (pictureUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
-					ModelState.AddModelError("CoverPicture", "Picture file is too large.");
+					ModelState.AddModelError(fieldName, "Picture file is too large.");
 				}
 
 				if (!ImageHelper.IsValidImageExtension(pictureUpload.FileName)) {
-					ModelState.AddModelError("CoverPicture", "Picture format is not valid.");
+					ModelState.AddModelError(fieldName, "Picture format is not valid.");
 				}
 
 				if (ModelState.IsValid) {
 
 					pictureData = ImageHelper.GetOriginalAndResizedImages(
-						pictureUpload.InputStream, pictureUpload.ContentLength, pictureUpload.ContentType);
+						pictureUpload.InputStream, pictureUpload.ContentLength, pictureUpload.ContentType ?? string.Empty);
 
 				}
 
