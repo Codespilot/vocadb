@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
 using System.Web;
 using NLog;
@@ -382,6 +383,34 @@ namespace VocaDb.Model.Service {
 				return new CommentContract(comment);
 
 			});
+
+		}
+
+		public bool CreateReport(int artistId, ArtistReportType reportType, string hostname, string notes) {
+
+			ParamIs.NotNull(() => hostname);
+			ParamIs.NotNull(() => notes);
+
+			return HandleTransaction(session => {
+
+				var loggedUserId = PermissionContext.LoggedUserId;
+				var existing = session.Query<ArtistReport>()
+					.FirstOrDefault(r => r.Artist.Id == artistId
+						&& ((loggedUserId != 0 && r.User.Id == loggedUserId) || r.Hostname == hostname));
+
+				if (existing != null)
+					return false;
+
+				var artist = session.Load<Artist>(artistId);
+				var report = new ArtistReport(artist, reportType, GetLoggedUserOrDefault(session), hostname, notes.Truncate(200));
+
+				var msg = string.Format("reported {0} as {1} ({2})", EntryLinkFactory.CreateEntryLink(artist), reportType, HttpUtility.HtmlEncode(notes));
+				AuditLog(msg.Truncate(200), session, new AgentLoginData(GetLoggedUserOrDefault(session), hostname));
+
+				session.Save(report);
+				return true;
+
+			}, IsolationLevel.ReadUncommitted);
 
 		}
 

@@ -37,19 +37,6 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	}}]});
 
-
-	$("#reportSongPopup").dialog({ autoOpen: false, width: 300, modal: false, buttons: [{ text: saveStr, click: function () {
-
-		$("#reportSongPopup").dialog("close");
-
-		var reportType = $("#reportType").val();
-		var notes = $("#reportNotes").val();
-
-		$.post(hostAddress + "/Song/CreateReport", { songId: songId, reportType: reportType, notes: notes });
-
-	}}]});
-
-
 	$("#addFavoriteLink").click(function () {
 
 		$.post(hostAddress + "/User/AddSongToFavorites", { songId: songId }, function (result) {
@@ -102,17 +89,7 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	});
 
-	$("#reportEntryLink").click(function () {
-
-		var addToListLinkPos = $("#reportEntryLink").offset();
-		if (addToListLinkPos != null) {
-			$("#reportSongPopup").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top - $(window).scrollTop() + 35]);
-		}
-
-		$("#reportSongPopup").dialog("open");
-		return false;
-
-	});
+	initReportEntryPopup(saveStr, hostAddress + "/Song/CreateReport", { songId: songId });
 
 	$("#editTags").click(function () {
 

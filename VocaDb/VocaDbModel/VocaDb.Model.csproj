@@ -215,6 +215,7 @@
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
     <Compile Include="Domain\Albums\AlbumPictureFile.cs" />
+    <Compile Include="Domain\Albums\AlbumReport.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\OtherArtistForAlbum.cs" />
@@ -224,6 +225,7 @@
     <Compile Include="Domain\Albums\ReleaseEvent.cs" />
     <Compile Include="Domain\Albums\ReleaseEventSeries.cs" />
     <Compile Include="Domain\Albums\ReleaseEventSeriesAlias.cs" />
+    <Compile Include="Domain\Artists\ArtistReport.cs" />
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
     <Compile Include="Domain\EntryPictureFile.cs" />

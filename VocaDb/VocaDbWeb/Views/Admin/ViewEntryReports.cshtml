@@ -1,13 +1,24 @@
 ﻿@model EntryReportContract[]
 @using VocaDb.Model.DataContracts
+@using VocaDb.Model.Domain
 @using VocaDb.Web.Helpers;
 
 @helper TypeName(EntryReportContract contract) {
-	@Translate.SongReportTypeNames[contract.SongReportType]
+	switch (contract.Entry.EntryType) {
+		case EntryType.Album:
+			@Translate.AlbumReportTypeNames[contract.AlbumReportType]
+			break;
+		case EntryType.Artist:
+			@Translate.ArtistReportTypeNames[contract.ArtistReportType]
+			break;
+		case EntryType.Song:
+			@Translate.SongReportTypeNames[contract.SongReportType]
+			break;
+	}
 }
 
 @{
-    ViewBag.Title = "View entry reports";
+	ViewBag.Title = "View entry reports";
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Manage", "Index"), 
 	};		

@@ -23,6 +23,12 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<MediaType> AlbumMediaTypeNames =
 			new TranslateableEnum<MediaType>(() => global::Resources.AlbumMediaTypeNames.ResourceManager);
 
+		public static readonly TranslateableEnum<AlbumReportType> AlbumReportTypeNames =
+			new TranslateableEnum<AlbumReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
+
+		public static readonly TranslateableEnum<ArtistReportType> ArtistReportTypeNames =
+			new TranslateableEnum<ArtistReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
+
 		public static readonly TranslateableEnum<ArtistRoles> ArtistRoleNames =
 			new TranslateableEnum<ArtistRoles>(() => global::Resources.ArtistRoleNames.ResourceManager);
 
@@ -42,7 +48,7 @@ namespace VocaDb.Web.Helpers {
 			new TranslateableEnum<SongListFeaturedCategory>(() => global::Resources.SongListFeaturedCategoryNames.ResourceManager);
 
 		public static readonly TranslateableEnum<SongReportType> SongReportTypeNames =
-			new TranslateableEnum<SongReportType>(() => global::Resources.SongReportTypeNames.ResourceManager);
+			new TranslateableEnum<SongReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
 			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);

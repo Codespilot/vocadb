@@ -20,6 +20,8 @@
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 @Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
 
+<a href="#" id="reportEntryLink">@ViewRes.EntryDetailsStrings.ReportAnError</a>
+
 @Helpers.EntryStatusMessage(Model.Status)
 }
 
@@ -292,15 +294,19 @@
 
 @AlbumHelpers.EditCollectionDialog(Model.AlbumPurchaseStatus, Model.AlbumMediaType)
 
+@EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.AlbumReportTypeNames, new { id = "reportType" }))
+
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
 <script type="text/javascript" src="../../Scripts/Album/Details.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
 <script type="text/javascript" src="../../Scripts/jqwidgets/jqxrating.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id, @Model.CollectionRating, "@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)");
+		initPage(@Model.Id, @Model.CollectionRating, 
+			"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", "@VocaDb.Model.Utils.AppConfig.HostAddress");
 	});
 
 </script>

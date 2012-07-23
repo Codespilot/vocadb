@@ -55,12 +55,13 @@ function saveTagSelections() {
 
 }
 
-function initPage(artistId, saveStr) {
+function initPage(artistId, saveStr, hostAddress) {
 
 	$("#addToUserLink").button({ disabled: $("#addToUserLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
 	$("#removeFromUserLink").button({ disabled: $("#removeFromUserLink").hasClass("disabled"), icons: { primary: 'ui-icon-close'} });
 	$("#editArtistLink").button({ disabled: $("#editArtistLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
+	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
@@ -107,6 +108,8 @@ function initPage(artistId, saveStr) {
 		return false;
 
 	});
+
+	initReportEntryPopup(saveStr, hostAddress + "/Artist/CreateReport", { artistId: artistId });
 
 	$("#editTags").click(function () {
 
