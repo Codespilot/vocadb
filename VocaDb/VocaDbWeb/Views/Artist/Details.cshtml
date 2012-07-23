@@ -1,5 +1,4 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
-@using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.Domain
 @using VocaDb.Web.Helpers;
 @model ArtistDetailsContract
@@ -16,6 +15,8 @@
 @Html.ActionLink(@ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editArtistLink", @class = (Login.CanEdit(Model) ? "" : "disabled") })
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+
+<a href="#" id="reportEntryLink">@ViewRes.EntryDetailsStrings.ReportAnError</a>
 
 @Helpers.EntryStatusMessage(Model.Status)
 }
@@ -177,15 +178,18 @@
 
 </div>
 
+@EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.ArtistReportTypeNames, new { id = "reportType" }))
+
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/DiscussionTab.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Details.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id, "@ViewRes.SharedStrings.Save");
+		initPage(@Model.Id, "@ViewRes.SharedStrings.Save", "@VocaDb.Model.Utils.AppConfig.HostAddress");
 	});
 
 </script>

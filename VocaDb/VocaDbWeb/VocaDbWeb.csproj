@@ -327,15 +327,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongListFeaturedCategoryNames.ru.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\SongReportTypeNames.Designer.cs">
+    <Compile Include="App_GlobalResources\EntryReportTypeNames.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SongReportTypeNames.resx</DependentUpon>
+      <DependentUpon>EntryReportTypeNames.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\SongReportTypeNames.fi.designer.cs">
+    <Compile Include="App_GlobalResources\EntryReportTypeNames.fi.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SongReportTypeNames.fi.resx</DependentUpon>
+      <DependentUpon>EntryReportTypeNames.fi.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -884,6 +884,7 @@
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />
     <Content Include="Scripts\Shared\NamesList.js" />
+    <Content Include="Scripts\Shared\ReportEntryPopup.js" />
     <Content Include="Scripts\Shared\WebLinksList.js" />
     <Content Include="Scripts\Shared\GlobalSearchBox.js" />
     <Content Include="Scripts\SongList\Edit.js" />
@@ -1248,6 +1249,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="App_Code\EntryDetailsHelpers.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1530,13 +1532,13 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistEditableFieldNames.ru.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\SongReportTypeNames.resx">
+    <Content Include="App_GlobalResources\EntryReportTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SongReportTypeNames.Designer.cs</LastGenOutput>
+      <LastGenOutput>EntryReportTypeNames.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\SongReportTypeNames.fi.resx">
+    <Content Include="App_GlobalResources\EntryReportTypeNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SongReportTypeNames.fi.designer.cs</LastGenOutput>
+      <LastGenOutput>EntryReportTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">

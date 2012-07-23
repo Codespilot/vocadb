@@ -62,6 +62,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		public void CreateReport(int albumId, AlbumReportType reportType, string notes) {
+
+			Service.CreateReport(albumId, reportType, CfHelper.GetRealIp(Request), notes ?? string.Empty);
+
+		}
+
 		[Obsolete("Integrated to saving properties")]
 		[HttpPost]
 		public void DeletePVForAlbum(int pvForAlbumId) {

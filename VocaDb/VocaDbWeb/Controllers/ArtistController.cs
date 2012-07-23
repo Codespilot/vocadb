@@ -74,6 +74,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		public void CreateReport(int artistId, ArtistReportType reportType, string notes) {
+
+			Service.CreateReport(artistId, reportType, CfHelper.GetRealIp(Request), notes ?? string.Empty);
+
+		}
+
+		[HttpPost]
 		public void DeleteComment(int commentId) {
 
 			Service.DeleteComment(commentId);

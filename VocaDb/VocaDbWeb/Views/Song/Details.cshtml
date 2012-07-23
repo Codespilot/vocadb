@@ -1,6 +1,4 @@
-﻿@using VocaDb.Model.DataContracts.Artists;
-@using VocaDb.Model.DataContracts.Songs;
-@using VocaDb.Web.Models;
+﻿@using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Song;
 @model SongDetails
@@ -278,21 +276,10 @@
 	<select id="addtoListSelect" size="6"></select>
 </div>
 
-<div id="reportSongPopup" style="display:none;" title="@ViewRes.EntryDetailsStrings.ReportAnError">
-	
-	<label>
-		@ViewRes.EntryDetailsStrings.ReportType
-	</label>
-	@Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" })
-	
-	<label>
-		@ViewRes.EntryDetailsStrings.ReportNotes
-	</label>
-	@Html.TextArea("reportNotes", new { id = "reportNotes", @class = "input-xlarge" })
+@EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" }))
 
-</div>
-
-<script type="text/javascript" src="../../Scripts/Song/Details.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Details.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 

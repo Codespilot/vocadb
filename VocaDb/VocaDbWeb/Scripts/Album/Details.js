@@ -100,14 +100,15 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 }
 
-function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
+function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddress) {
 
 	$("#addAlbumLink").button({ disabled: $("#addAlbumLink").hasClass("disabled"), icons: { primary: 'ui-icon-star'} });
 	$("#updateAlbumLink").button({ disabled: $("#updateAlbumLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	$("#editAlbumLink").button({ disabled: $("#editAlbumLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
-	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
+	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
+	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
 		return false;
@@ -191,6 +192,8 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr) {
 		return false;
 
 	});
+
+	initReportEntryPopup(saveStr, hostAddress + "/Album/CreateReport", { albumId: albumId });
 
 	$("#editTags").click(function () {
 

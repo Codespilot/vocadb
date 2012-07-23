@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FluentNHibernate.Mapping;
+﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Mapping {
@@ -25,6 +23,34 @@ namespace VocaDb.Model.Mapping {
 
 	}
 
+	public class AlbumReportMap : SubclassMap<AlbumReport> {
+
+		public AlbumReportMap() {
+
+			DiscriminatorValue("Album");
+
+			Map(m => m.ReportType).Not.Nullable();
+
+			References(m => m.Album).Not.Nullable();
+
+		}
+
+	}
+
+	public class ArtistReportMap : SubclassMap<ArtistReport> {
+
+		public ArtistReportMap() {
+
+			DiscriminatorValue("Artist");
+
+			Map(m => m.ReportType).Not.Nullable();
+
+			References(m => m.Artist).Not.Nullable();
+
+		}
+
+	}
+
 	public class SongReportMap : SubclassMap<SongReport> {
 
 		public SongReportMap() {
@@ -36,7 +62,6 @@ namespace VocaDb.Model.Mapping {
 			References(m => m.Song).Not.Nullable();
 
 		}
-
 
 	}
 

@@ -1,6 +1,8 @@
 ﻿using System;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
@@ -21,12 +23,30 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		public EntryReportContract(AlbumReport report, ContentLanguagePreference languagePreference)
+			: this((EntryReport)report, languagePreference) {
+
+			AlbumReportType = report.ReportType;
+
+		}
+
+		public EntryReportContract(ArtistReport report, ContentLanguagePreference languagePreference)
+			: this((EntryReport)report, languagePreference) {
+
+			ArtistReportType = report.ReportType;
+
+		}
+
 		public EntryReportContract(SongReport songReport, ContentLanguagePreference languagePreference)
 			: this((EntryReport)songReport, languagePreference) {
 
 			SongReportType = songReport.ReportType;
 
 		}
+
+		public AlbumReportType AlbumReportType { get; set; }
+
+		public ArtistReportType ArtistReportType { get; set; }
 
 		public DateTime Created { get; set; }
 
@@ -47,6 +67,12 @@ namespace VocaDb.Model.DataContracts {
 	public class EntryReportContractFactory {
 
 		public EntryReportContract Create(EntryReport report, ContentLanguagePreference languagePreference) {
+
+			if (report is AlbumReport)
+				return new EntryReportContract((AlbumReport)report, languagePreference);
+
+			if (report is ArtistReport)
+				return new EntryReportContract((ArtistReport)report, languagePreference);
 
 			if (report is SongReport)
 				return new EntryReportContract((SongReport)report, languagePreference);
