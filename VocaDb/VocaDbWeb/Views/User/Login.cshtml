@@ -40,10 +40,11 @@
 
 }
 
+@ViewRes.User.LoginStrings.NoAccount @Html.ActionLink(ViewRes.User.LoginStrings.RegisterHere, "Create"). <br />
+
+@ViewRes.User.LoginStrings.ForgotPassword @Html.ActionLink(ViewRes.User.LoginStrings.ResetPass, "ForgotPassword"). <br />
+
+<br />
 <a href="@Url.Action("LoginTwitter")">
 	<img src="@Url.Content("~/Content/Sign-in-with-Twitter-darker.png")" alt="Sign in with Twitter" />
 </a>
-
-@ViewRes.User.LoginStrings.NoAccount @Html.ActionLink(ViewRes.User.LoginStrings.RegisterHere, "Create"). <br />
-
-@ViewRes.User.LoginStrings.ForgotPassword @Html.ActionLink(ViewRes.User.LoginStrings.ResetPass, "ForgotPassword").
