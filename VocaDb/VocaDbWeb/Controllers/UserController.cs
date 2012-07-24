@@ -5,6 +5,8 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Security;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OAuth.Messages;
 using Microsoft.Web.Helpers;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Songs;
@@ -223,9 +225,12 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult LoginTwitterComplete() {
 
-			var twitterSignIn = new TwitterConsumer().TwitterSignIn;
+			var response = new TwitterConsumer().ProcessUserAuthorization();
 
-			var response = twitterSignIn.ProcessUserAuthorization();
+			if (response == null) {
+				ModelState.AddModelError("Authentication", "Unable to process authentication. Verify that cookies are enabled and try again.");
+				return View("Login");
+			}
 
 			var user = Service.CheckTwitterAuthentication(response.AccessToken, Hostname);
 

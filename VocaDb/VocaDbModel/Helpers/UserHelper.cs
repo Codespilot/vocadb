@@ -9,6 +9,9 @@ namespace VocaDb.Model.Helpers {
 
 		public static int GetLevel(int power) {
 
+			if (power <= 0)
+				return 0;
+
 			return (int)Math.Log(power, Math.E);
 
 		}
