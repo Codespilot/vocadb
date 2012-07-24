@@ -164,14 +164,18 @@ namespace VocaDb.Web.Controllers
         // GET: /Album/Details/5
 
         public ActionResult Details(int id) {
+
 			SetSearchEntryType(EntryType.Album);
-			var model = Service.GetAlbumDetails(id);
+
+			var model = Service.GetAlbumDetails(id, WebHelper.IsValidHit(Request.UserAgent) ? CfHelper.GetRealIp(Request) : string.Empty);
+
             return View(new AlbumDetails(model));
+
         }
 
 		public FileContentResult DownloadTags(int id) {
 
-			var album = Service.GetAlbumDetails(id);
+			var album = Service.GetAlbumDetails(id, null);
 
 			return File(Encoding.Unicode.GetBytes(TagsHelper.GetAlbumTags(album)), "text/csv", album.Name + ".csv");
 
@@ -411,9 +415,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete]
 		public ActionResult MassTagSongs(int id) {
 
-			var album = Service.GetAlbumDetails(id);
+			var album = Service.GetAlbumDetails(id, null);
 			return View(new MassTagSongs(album));
 
 		}
