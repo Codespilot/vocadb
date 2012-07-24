@@ -15,6 +15,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Utils;
+using VocaDb.Web.Code.Security;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.User;
@@ -32,6 +33,18 @@ namespace VocaDb.Web.Controllers
 		private UserForMySettingsContract GetUserForMySettings() {
 
 			return Service.GetUserForMySettings(LoginManager.LoggedUser.Id);
+
+		}
+
+		private bool HandleCreate(UserContract user) {
+
+			if (user == null) {
+				ModelState.AddModelError("UserName", ViewRes.User.CreateStrings.UsernameTaken);
+				return false;
+			} else {
+				FormsAuthentication.SetAuthCookie(user.Name, false);
+				return true;
+			}
 
 		}
 
@@ -196,6 +209,50 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public void LoginTwitter() {
+			
+			var twitterSignIn = new TwitterConsumer().TwitterSignIn;
+
+			var uri = new Uri(new Uri(AppConfig.HostAddress), Url.Action("LoginTwitterComplete"));
+			var request = twitterSignIn.PrepareRequestUserAuthorization(uri, null, null);
+			var response = twitterSignIn.Channel.PrepareResponse(request);
+
+			response.Send();
+
+		}
+
+		public ActionResult LoginTwitterComplete() {
+
+			var twitterSignIn = new TwitterConsumer().TwitterSignIn;
+
+			var response = twitterSignIn.ProcessUserAuthorization();
+
+			var user = Service.CheckTwitterAuthentication(response.AccessToken, Hostname);
+
+			if (user == null) {
+				return View(new RegisterOpenAuthModel(response.AccessToken, response.ExtraData["screen_name"]));
+			}
+
+			HandleCreate(user);
+
+			return RedirectToAction("Index", "Home");
+
+		}
+
+		[HttpPost]
+		public ActionResult LoginTwitterComplete(RegisterOpenAuthModel model) {
+
+			if (ModelState.IsValid) {
+				var user = Service.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty, Hostname);
+
+				if (HandleCreate(user))
+					return RedirectToAction("Index", "Home");
+			}
+
+			return View(model);
+
+		}
+
 		public ActionResult Logout() {
 			FormsAuthentication.SignOut();
 			return RedirectToAction("Index", "Home");
@@ -246,17 +303,10 @@ namespace VocaDb.Web.Controllers
 			if (ModelState.IsValid) {
 				// Attempt to register the user
 
-				var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, CfHelper.GetRealIp(Request));
+				var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname);
 
-				if (user == null) {
-					ModelState.AddModelError("UserName", ViewRes.User.CreateStrings.UsernameTaken);
-				} else {
-
-					FormsAuthentication.SetAuthCookie(model.UserName, false);
-
+				if (HandleCreate(user))
 					return RedirectToAction("Index", "Home");
-
-				}
 
 			}
 

@@ -16,6 +16,8 @@
 		<add key="ConnectionStringName" value="" />
 		<add key="ReCAPTCHAKey" value="" />
 		<add key="HostAddress" value="http://vocadb.net" />
+		<add key="twitterConsumerKey" value="" />
+		<add key="twitterConsumerSecret" value="" />
 	</appSettings>
 
 	<connectionStrings>

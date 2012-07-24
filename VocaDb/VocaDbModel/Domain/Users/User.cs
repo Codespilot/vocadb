@@ -25,6 +25,7 @@ namespace VocaDb.Model.Domain.Users {
 		private string language;
 		private string name;
 		private string nameLc;
+		private UserOptions options;
 		private string password;
 		private IList<UserMessage> receivedMessages = new List<UserMessage>();
 		private IList<UserMessage> sentMessages = new List<UserMessage>();
@@ -39,10 +40,11 @@ namespace VocaDb.Model.Domain.Users {
 			DefaultLanguageSelection = ContentLanguagePreference.Default;
 			Email = string.Empty;
 			EmailOptions = UserEmailOptions.PrivateMessagesFromAll;
+			GroupId = UserGroupId.Regular;
 			Language = string.Empty;
 			LastLogin = DateTime.Now;
+			Options = new UserOptions(this);
 			PreferredVideoService = PVService.Youtube;
-			GroupId = UserGroupId.Regular;
 
 		}
 
@@ -202,10 +204,17 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public virtual UserOptions Options {
+			get { return options; }
+			set {
+				options = value ?? new UserOptions(this);
+			}
+		}
+
 		public virtual string Password {
 			get { return password; }
 			set {
-				ParamIs.NotNullOrEmpty(() => value);
+				ParamIs.NotNull(() => value);
 				password = value;
 			}
 		}

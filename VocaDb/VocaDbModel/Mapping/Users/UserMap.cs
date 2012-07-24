@@ -38,12 +38,30 @@ namespace VocaDb.Model.Mapping.Users {
 					.Cache.ReadWrite();
 			});
 
+			HasOne(m => m.Options).Cascade.All();
+
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllArtists).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.FavoriteSongs).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.ReceivedMessages).KeyColumn("[Receiver]").OrderBy("Created DESC").Inverse().Cascade.All();
 			HasMany(m => m.SentMessages).KeyColumn("[Sender]").OrderBy("Created DESC").Inverse().Cascade.All();
 			HasMany(m => m.SongLists).KeyColumn("[Author]").OrderBy("Name").Inverse().Cascade.All();
+
+		}
+
+	}
+
+	public class UserOptionsMap : ClassMap<UserOptions> {
+
+		UserOptionsMap() {
+
+			Table("UserOptions");
+			Cache.ReadWrite();
+			Id(m => m.Id);
+
+			References(m => m.User).Unique();
+			Map(m => m.TwitterOAuthToken).Not.Nullable();
+			Map(m => m.TwitterOAuthTokenSecret).Not.Nullable();
 
 		}
 
