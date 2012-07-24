@@ -14,7 +14,6 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
-using System;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.DataSharing;
 
@@ -191,9 +190,12 @@ namespace VocaDb.Model.Service {
 
 				var albumComments = session.Query<AlbumComment>().Where(c => !c.Album.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
 				var artistComments = session.Query<ArtistComment>().Where(c => !c.Artist.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
+				var songComments = session.Query<SongComment>().Where(c => !c.Song.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
 
-				var combined = albumComments.Select(c => new UnifiedCommentContract(c, PermissionContext.LanguagePreference)).Concat(
-					artistComments.Select(c => new UnifiedCommentContract(c, PermissionContext.LanguagePreference))).OrderByDescending(c => c.Created).Take(maxComments);
+				var combined = albumComments.Cast<Comment>().Concat(artistComments).Concat(songComments)
+					.OrderByDescending(c => c.Created)
+					.Take(maxComments)
+					.Select(c => new UnifiedCommentContract(c));
 
 				return combined.ToArray();
 

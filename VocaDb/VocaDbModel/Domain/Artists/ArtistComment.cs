@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Users;
+﻿using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Domain.Artists {
@@ -28,6 +24,10 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public override IEntryBase Entry {
+			get { return Artist; }
+		}
+
 		public virtual bool Equals(ArtistComment another) {
 
 			if (another == null)
@@ -48,7 +48,7 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public override string ToString() {
