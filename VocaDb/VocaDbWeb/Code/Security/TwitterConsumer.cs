@@ -4,11 +4,15 @@ using System.Web;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OAuth;
 using DotNetOpenAuth.OAuth.ChannelElements;
+using DotNetOpenAuth.OAuth.Messages;
+using NLog;
 using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Code.Security {
 
 	public class TwitterConsumer {
+
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		/// <summary>
 		/// Gets a value indicating whether the Twitter consumer key and secret are set in the web.config file.
@@ -55,6 +59,17 @@ namespace VocaDb.Web.Code.Security {
 			get {
 				return new WebConsumer(SignInWithTwitterServiceDescription, TokenManager);
 			}
+		}
+
+		public AuthorizedTokenResponse ProcessUserAuthorization() {
+
+			try {
+				return TwitterSignIn.ProcessUserAuthorization();
+			} catch (ProtocolException x) {
+				log.Error("Unable to process Twitter authentication", x);
+				return null;
+			}
+
 		}
 
 	}
