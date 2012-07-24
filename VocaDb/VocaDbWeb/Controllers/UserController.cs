@@ -228,7 +228,7 @@ namespace VocaDb.Web.Controllers
 			var response = new TwitterConsumer().ProcessUserAuthorization();
 
 			if (response == null) {
-				ModelState.AddModelError("Authentication", "Unable to process authentication. Verify that cookies are enabled and try again.");
+				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);
 				return View("Login");
 			}
 
