@@ -1,12 +1,12 @@
 ﻿@model VocaDb.Web.Models.User.RegisterOpenAuthModel
 
 @{
-    ViewBag.Title = "Sign in using Twitter";
+    ViewBag.Title = ViewRes.User.LoginUsingAuthStrings.LoginUsingTwitter;
 }
 
 @Helpers.ValidationSymmaryPanel(ViewRes.User.LoginStrings.UnableToLogin)
 
-<p>Almost done! You need to choose a username for VocaDB.</p>
+<p>@ViewRes.User.LoginUsingAuthStrings.AlmostDone</p>
 
 @using (Html.BeginForm()) {
 	

@@ -639,6 +639,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\User\LoginUsingAuthStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LoginUsingAuthStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\User\MessagesStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1799,6 +1804,12 @@
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\User\LoginUsingAuthStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\LoginUsingAuthStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginUsingAuthStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
