@@ -196,6 +196,13 @@
   }
   
 			<tr>
+				<td>@ViewRes.EntryDetailsStrings.Stats</td>
+				<td>
+					@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits).
+				</td>
+			</tr>
+
+			<tr>
 				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
 				<td>
 					@Model.CreateDate

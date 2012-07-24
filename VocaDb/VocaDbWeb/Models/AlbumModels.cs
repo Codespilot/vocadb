@@ -204,6 +204,7 @@ namespace VocaDb.Web.Models {
 			Deleted = contract.Deleted;
 			DiscType = contract.DiscType;
 			Draft = contract.Status == EntryStatus.Draft;
+			Hits = contract.Hits;
 			Id = contract.Id;
 			LatestComments = contract.LatestComments;
 			Name = contract.Name;
@@ -268,6 +269,8 @@ namespace VocaDb.Web.Models {
 		public DiscType DiscType { get; set; }
 
 		public bool Draft { get; set; }
+
+		public int Hits { get; set; }
 
 		public int Id { get; set; }
 

@@ -239,9 +239,9 @@
 	@if (Model.Lyrics.Length > 3) {
 		<div id="lyricsTab" style="height: 400px; overflow: scroll">
 		@foreach (var lyrics in Model.Lyrics) {
-			<h3>@lyrics.Language</h3>
+			<h3>@Translate.ContentLanguageSelectionName(lyrics.Language)</h3>
 	  if (!string.IsNullOrEmpty(lyrics.Source)) {
-				<p>(from @lyrics.Source)</p>
+				<p>(@R.DetailsStrings.LyricsFrom @lyrics.Source)</p>
 	  }
 			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
 			<hr />
@@ -252,7 +252,7 @@
 	 foreach (var lyrics in Model.Lyrics) {
 			<div id="@("lyricsTab_" + lyrics.Id)" style="height: 400px; overflow: scroll">
 			@if (!string.IsNullOrEmpty(lyrics.Source)) {
-				<p>(@ViewRes.Song.DetailsStrings.LyricsFrom @lyrics.Source)</p>
+				<p>(@R.DetailsStrings.LyricsFrom @lyrics.Source)</p>
    }
 			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
 			</div>

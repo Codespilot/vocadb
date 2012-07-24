@@ -753,21 +753,50 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumDetailsContract GetAlbumDetails(int id) {
+		public AlbumDetailsContract GetAlbumDetails(int id, string hostname) {
 
 			return HandleQuery(session => {
 
-				var contract = new AlbumDetailsContract(session.Load<Album>(id), PermissionContext.LanguagePreference);
-				if (PermissionContext.LoggedUser != null) {
+				var album = session.Load<Album>(id);
+				var contract = new AlbumDetailsContract(album, PermissionContext.LanguagePreference);
+
+				var user = PermissionContext.LoggedUser;
+
+				if (user != null) {
+
 					var albumForUser = session.Query<AlbumForUser>()
-						.FirstOrDefault(a => a.Album.Id == id && a.User.Id == PermissionContext.LoggedUser.Id);
+						.FirstOrDefault(a => a.Album.Id == id && a.User.Id == user.Id);
+
 					contract.AlbumForUser = (albumForUser != null ? new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference) : null);
+
 				}
-				contract.CommentCount = session.Query<AlbumComment>().Where(c => c.Album.Id == id).Count();
+
+				contract.CommentCount = session.Query<AlbumComment>().Count(c => c.Album.Id == id);
 				contract.LatestComments = session.Query<AlbumComment>()
 					.Where(c => c.Album.Id == id)
 					.OrderByDescending(c => c.Created).Take(3).ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
+				contract.Hits = session.Query<AlbumHit>().Count(h => h.Album.Id == id);
+
+				if (user != null || !string.IsNullOrEmpty(hostname)) {
+
+					var agentNum = (user != null ? user.Id : hostname.GetHashCode());
+
+					using (var tx = session.BeginTransaction(IsolationLevel.ReadUncommitted)) {
+
+						var isHit = session.Query<AlbumHit>().Any(h => h.Album.Id == id && h.Agent == agentNum);
+
+						if (!isHit) {
+							var hit = new AlbumHit(album, agentNum);
+							session.Save(hit);
+						}
+
+						tx.Commit();
+
+					}
+
+				}
+
 
 				return contract;
 

@@ -14,7 +14,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		public ActionResult Details(int id) {
 
-			var album = Service.GetAlbumDetails(id);
+			var album = Service.GetAlbumDetails(id, null);
 
 			return Json(album);
 
