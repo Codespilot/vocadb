@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.DataContracts.Albums;
 
 namespace VocaDb.Web.Models.Admin {
 
+	[Obsolete]
 	public class CommentViewModel {
 
 		public CommentViewModel(CommentContract comment, string targetName, string targetUrl) {

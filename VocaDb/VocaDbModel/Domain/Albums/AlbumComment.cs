@@ -23,6 +23,10 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public override IEntryBase Entry {
+			get { return Album; }
+		}
+
 		public virtual bool Equals(AlbumComment another) {
 
 			if (another == null)
@@ -43,7 +47,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public override string ToString() {

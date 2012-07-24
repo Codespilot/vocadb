@@ -98,6 +98,7 @@
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\ArchivedEntryPictureFileContract.cs" />
     <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
+    <Compile Include="DataContracts\EntryBaseContract.cs" />
     <Compile Include="DataContracts\EntryPictureFileContract.cs" />
     <Compile Include="DataContracts\EntryRefWithNameContract.cs" />
     <Compile Include="DataContracts\EntryReportContract.cs" />

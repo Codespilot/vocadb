@@ -4,16 +4,16 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain {
 
-	public class Comment {
+	public abstract class Comment {
 
 		private string authorName;
 		private string message;
 
-		public Comment() {
+		protected Comment() {
 			Created = DateTime.Now;
 		}
 
-		public Comment(string message, AgentLoginData loginData)
+		protected Comment(string message, AgentLoginData loginData)
 			: this() {
 
 			ParamIs.NotNull(() => loginData);
@@ -35,6 +35,8 @@ namespace VocaDb.Model.Domain {
 		}
 
 		public virtual DateTime Created { get; set; }
+
+		public abstract IEntryBase Entry { get; }
 
 		public virtual int Id { get; set; }
 

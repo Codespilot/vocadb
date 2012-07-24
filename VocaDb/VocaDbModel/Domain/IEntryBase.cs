@@ -1,6 +1,4 @@
-﻿using VocaDb.Model.Domain.Globalization;
-
-namespace VocaDb.Model.Domain {
+﻿namespace VocaDb.Model.Domain {
 
 	public interface IEntryBase : IDeletableEntry {
 

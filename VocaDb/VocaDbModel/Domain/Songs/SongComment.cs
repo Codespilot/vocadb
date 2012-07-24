@@ -14,6 +14,10 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		public override IEntryBase Entry {
+			get { return Song; }
+		}
+
 		public virtual Song Song {
 			get { return song; }
 			set {
@@ -42,7 +46,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public override string ToString() {

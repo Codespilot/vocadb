@@ -40,6 +40,10 @@
 	@Html.ActionLink(entryRef.Name.DisplayName, "Details", entryRef.EntryType.ToString(), new { id = entryRef.Id }, new { title = entryRef.Name.AdditionalNames })	
 }
 
+@helper EntryLink(EntryBaseContract entry) {
+	@Html.ActionLink(entry.DefaultName, "Details", entry.EntryType.ToString(), new { id = entry.Id }, null)	
+}
+
 @helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315) {
 	
 	switch (pv.Service) {

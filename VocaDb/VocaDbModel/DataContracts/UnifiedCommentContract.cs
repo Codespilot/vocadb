@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Artists;
+﻿using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -14,7 +6,16 @@ namespace VocaDb.Model.DataContracts {
 
 		public UnifiedCommentContract() { }
 
-		public UnifiedCommentContract(AlbumComment comment, ContentLanguagePreference languagePreference)
+		public UnifiedCommentContract(Comment comment)
+			: base(comment) {
+
+			Entry = new EntryBaseContract(comment.Entry);
+
+		}
+
+		public EntryBaseContract Entry { get; set; }
+
+		/*public UnifiedCommentContract(AlbumComment comment, ContentLanguagePreference languagePreference)
 			: base(comment) {
 
 			Album = new AlbumContract(comment.Album, languagePreference);
@@ -28,9 +29,18 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		public UnifiedCommentContract(SongComment comment, ContentLanguagePreference languagePreference)
+			: base(comment) {
+
+			Artist = new ArtistContract(comment.Song, languagePreference);
+
+		}
+
 		public AlbumContract Album { get; set; }
 
 		public ArtistContract Artist { get; set; }
+
+		public ArtistContract Artist { get; set; }*/
 
 	}
 
