@@ -12,6 +12,7 @@ using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model;
 using VocaDb.Model.Service;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers {
 
@@ -19,6 +20,12 @@ namespace VocaDb.Web.Controllers {
 
 		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
 		protected const int entriesPerPage = 30;
+
+		protected string Hostname {
+			get {
+				return CfHelper.GetRealIp(Request);
+			}
+		}
 
 		protected int LoggedUserId {
 			get {

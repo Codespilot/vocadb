@@ -216,6 +216,27 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public UserContract CheckTwitterAuthentication(string accessToken, string hostname) {
+
+			return HandleTransaction(session => {
+
+				var user = session.Query<UserOptions>().Where(u => u.TwitterOAuthToken == accessToken)
+					.Select(a => a.User).FirstOrDefault();
+
+				if (user == null)
+					return null;
+
+				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
+
+				user.UpdateLastLogin();
+				session.Update(user);
+
+				return new UserContract(user);
+
+			});
+
+		}
+
 		public bool CheckPasswordResetRequest(Guid requestId) {
 
 			return HandleQuery(session => session.Query<PasswordResetRequest>().Any(r => r.Id == requestId));
@@ -242,6 +263,32 @@ namespace VocaDb.Model.Service {
 				session.Save(user);
 
 				AuditLog(string.Format("registered from {0}.", MakeGeoIpToolLink(hostname)), session, user);
+
+				return new UserContract(user);
+
+			});
+
+		}
+
+		public UserContract CreateTwitter(string authToken, string name, string email, string hostname) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+			ParamIs.NotNull(() => email);
+
+			return HandleTransaction(session => {
+
+				var lc = name.ToLowerInvariant();
+				var existing = session.Query<User>().FirstOrDefault(u => u.NameLC == lc);
+
+				if (existing != null)
+					return null;
+
+				var salt = new Random().Next();
+				var user = new User(name, string.Empty, email, salt);
+				user.Options.TwitterOAuthToken = authToken;
+				session.Save(user);
+
+				AuditLog(string.Format("registered from {0} using Twitter.", MakeGeoIpToolLink(hostname)), session, user);
 
 				return new UserContract(user);
 
@@ -751,7 +798,7 @@ namespace VocaDb.Model.Service {
 
 				if (!string.IsNullOrEmpty(contract.NewPass)) {
 
-					var oldHashed = LoginManager.GetHashedPass(user.NameLC, contract.OldPass, user.Salt);
+					var oldHashed = (!string.IsNullOrEmpty(user.Password) ? LoginManager.GetHashedPass(user.NameLC, contract.OldPass, user.Salt) : string.Empty);
 
 					if (user.Password != oldHashed)
 						throw new InvalidPasswordException();

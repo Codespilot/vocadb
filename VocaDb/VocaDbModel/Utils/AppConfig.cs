@@ -4,9 +4,25 @@ namespace VocaDb.Model.Utils {
 
 	public static class AppConfig {
 
+		private static string Val(string key) {
+			return ConfigurationManager.AppSettings[key];
+		}
+
 		public static string HostAddress {
 			get {
-				return ConfigurationManager.AppSettings["HostAddress"];
+				return Val("HostAddress");
+			}
+		}
+
+		public static string TwitterConsumerKey {
+			get {
+				return Val("TwitterConsumerKey");
+			}
+		}
+
+		public static string TwitterConsumerSecret {
+			get {
+				return Val("TwitterConsumerSecret");
 			}
 		}
 
