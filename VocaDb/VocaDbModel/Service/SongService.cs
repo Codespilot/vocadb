@@ -800,9 +800,18 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrWhiteSpace(query))
 				return new string[] { };
 
+			query = query.Trim();
+
 			return HandleQuery(session => {
 
-				var names = session.Query<SongName>().Where(a => a.Value.Contains(query) && !a.Song.Deleted).Select(n => n.Value).Distinct().Take(maxResults).ToArray();
+				var names = session.Query<SongName>()
+					.Where(a => a.Value.Contains(query) && !a.Song.Deleted)
+					.Select(n => n.Value)
+					.Distinct()
+					.OrderBy(n => n)
+					.Take(maxResults)
+					.ToArray();
+
 				return names;
 
 			});
