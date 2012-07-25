@@ -717,8 +717,8 @@ namespace VocaDb.Model.Service {
 				var names = session.Query<AlbumName>()
 					.Where(a => a.Value.Contains(query) && !a.Album.Deleted)
 					.Select(n => n.Value)
-					.Distinct()
 					.OrderBy(n => n)
+					.Distinct()
 					.Take(maxResults)
 					.ToArray();
 
