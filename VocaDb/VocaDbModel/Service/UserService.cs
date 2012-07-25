@@ -63,7 +63,8 @@ namespace VocaDb.Model.Service {
 
 			details.CommentCount
 				= session.Query<AlbumComment>().Count(c => c.Author == user && !c.Album.Deleted)
-				+ session.Query<ArtistComment>().Count(c => c.Author == user && !c.Artist.Deleted);
+				+ session.Query<ArtistComment>().Count(c => c.Author == user && !c.Artist.Deleted)
+				+ session.Query<SongComment>().Count(c => c.Author == user && !c.Song.Deleted);
 
 			details.EditCount
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && !c.Album.Deleted)
