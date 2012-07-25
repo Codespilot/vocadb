@@ -27,6 +27,7 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrWhiteSpace(query))
 				return new string[] {};
 
+			query = query.Trim();
 			const int maxResults = 10;
 
 			return HandleQuery(session => {
