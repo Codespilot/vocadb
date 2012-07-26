@@ -49,7 +49,10 @@
       </namespaces>
     </pages>
 
-		<httpRuntime relaxedUrlToFileSystemMapping="true"/>
+		<httpRuntime 
+			relaxedUrlToFileSystemMapping="true"
+			maxRequestLength="10240"
+		/>
   </system.web>
 
 	<system.net>

@@ -30,8 +30,8 @@ namespace VocaDb.Model.Helpers {
 			}
 		}
 
-		public const int MaxImageSizeMB = 5;
-		public const int MaxImageSizeBytes = MaxImageSizeMB * 1024 * 1024;	// 5 MB
+		public const int MaxImageSizeMB = 8;
+		public const int MaxImageSizeBytes = MaxImageSizeMB * 1024 * 1024;
 
 		public static string[] AllowedExtensions {
 			get { return allowedExt; }
