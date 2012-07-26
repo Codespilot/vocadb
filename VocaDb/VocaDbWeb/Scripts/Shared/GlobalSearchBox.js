@@ -5,7 +5,7 @@ $(document).ready(function () {
 		source: function (request, response) {
 
 			var term = request.term;
-			var entryType = $("input[@name = 'globalSearchEntryType']:checked").val(); // $("#globalSearchEntryType").val();
+			var entryType = $("input[@name = 'globalSearchEntryType']:checked").val();
 
 			if (entryType == "Album") {
 				$.post("../../Album/FindNames", { term: term }, function (results) {
@@ -21,6 +21,10 @@ $(document).ready(function () {
 				});
 			}
 
+		},
+		select: function (event, ui) {
+			$("#globalSearchTerm").val(ui.item.value);
+			$("#globalSearchBox").submit();
 		}
 	});
 
