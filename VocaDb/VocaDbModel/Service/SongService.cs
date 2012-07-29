@@ -273,7 +273,10 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrEmpty(url))
 				return null;
 
-			var pvResult = VideoServiceHelper.ParseByUrl(url);
+			var pvResult = VideoServiceHelper.ParseByUrl(url, true);
+
+			if (!pvResult.IsOk)
+				throw pvResult.Exception;
 
 			var existing = session.Query<PVForSong>().FirstOrDefault(
 				s => s.Service == pvResult.Service && s.PVId == pvResult.Id && !s.Song.Deleted);
@@ -499,16 +502,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Integrated to saving properties")]
 		public PVContract CreatePVForSong(int songId, string pvUrl, PVType pvType) {
 
 			ParamIs.NotNullOrEmpty(() => pvUrl);
 
-			var result = VideoServiceHelper.ParseByUrl(pvUrl);
+			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
 
 			return CreatePVForSong(songId, result.Service, result.Id, pvType);
 
-		}
+		}*/
 
 		public bool CreateReport(int songId, SongReportType reportType, string hostname, string notes) {
 
@@ -719,6 +723,38 @@ namespace VocaDb.Model.Service {
 				}
 
 				return null;
+
+			});
+
+		}
+
+		public EntryRefWithNameContract[] FindDuplicates(string[] anyName, string[] anyPv) {
+
+			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
+			var pvs = anyPv.Select(p => VideoServiceHelper.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
+
+			if (!names.Any() && !pvs.Any())
+				return new EntryRefWithNameContract[] {};
+
+			return HandleQuery(session => {
+
+				var nameMatches = (names.Any() ? session.Query<SongName>()
+					.Where(n => names.Contains(n.Value))
+					.Select(n => n.Song)
+					.Where(n => !n.Deleted)
+					.Distinct()
+					.Take(10)
+					.ToArray() : new Song[] { });
+
+				var pvMatches = pvs.Select(pv => session.Query<PVForSong>()
+					.Where(p => p.PVId == pv.Id && p.Service == pv.Service)
+					.Select(n => n.Song)
+					.FirstOrDefault(n => !n.Deleted))
+					.Where(p => p != null);
+
+				return nameMatches.Union(pvMatches)
+					.Select(s => new EntryRefWithNameContract(s, PermissionContext.LanguagePreference))
+					.ToArray();
 
 			});
 

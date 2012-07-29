@@ -100,14 +100,12 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpPost]
-		public ActionResult FindDuplicate(string term1, string term2, string term3) {
+		public ActionResult FindDuplicate(string term1, string term2, string term3, string pv1, string pv2) {
 
-			var result = Service.FindFirst(new[] { term1, term2, term3 }, NameMatchMode.Exact);
+			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, new[] { pv1, pv2 });
 
-			if (result != null) {
-				return PartialView("DuplicateEntryMessage",
-					new KeyValuePair<string, string>(result.Name,
-						Url.Action("Details", new { id = result.Id })));
+			if (result.Any()) {
+				return PartialView("DuplicateEntryMessage", result);
 			} else {
 				return Content("Ok");
 			}
@@ -286,20 +284,16 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {
 
-			ParamIs.NotNullOrEmpty(() => pvUrl);
+			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
 
-			try {
-
-				var result = VideoServiceHelper.ParseByUrl(pvUrl);
-				var contract = new PVContract(result, type);
-
-				//var contract = Service.CreatePVForSong(songId, pvUrl, type);
-				var view = RenderPartialViewToString("PVForSongEditRow", contract);
-				return Json(new GenericResponse<string>(view));
-
-			} catch (VideoParseException x) {
-				return Json(new GenericResponse<string>(false, x.Message));
+			if (!result.IsOk) {
+				return Json(new GenericResponse<string>(false, result.Exception.Message));
 			}
+
+			var contract = new PVContract(result, type);
+
+			var view = RenderPartialViewToString("PVForSongEditRow", contract);
+			return Json(new GenericResponse<string>(view));
 
 		}
 

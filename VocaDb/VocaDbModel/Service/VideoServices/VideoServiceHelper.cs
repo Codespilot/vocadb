@@ -69,14 +69,15 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public static VideoUrlParseResult ParseByUrl(string url) {
+		public static VideoUrlParseResult ParseByUrl(string url, bool getTitle) {
 
 			var service = services.FirstOrDefault(s => s.IsValidFor(url));
 
-			if (service == null)
-				throw new VideoParseException("No video service defined for URL '" + url + "'");
+			if (service == null) {
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.NoMatcher);
+			}
 
-			return service.ParseByUrl(url);
+			return service.ParseByUrl(url, getTitle);
 
 		}
 

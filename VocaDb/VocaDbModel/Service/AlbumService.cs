@@ -486,6 +486,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Integrated to saving properties")]
 		public PVContract CreatePV(int albumId, string pvUrl, PVType pvType) {
 
@@ -494,6 +495,9 @@ namespace VocaDb.Model.Service {
 			VerifyManageDatabase();
 
 			var result = VideoServiceHelper.ParseByUrl(pvUrl);
+
+			if (!result.IsOk)
+				throw result.Exception;
 
 			return HandleTransaction(session => {
 
@@ -507,7 +511,7 @@ namespace VocaDb.Model.Service {
 
 			});
 			
-		}
+		}*/
 
 		public bool CreateReport(int albumId, AlbumReportType reportType, string hostname, string notes) {
 
@@ -685,6 +689,29 @@ namespace VocaDb.Model.Service {
 				}
 
 				return null;
+
+			});
+
+		}
+
+		public EntryRefWithNameContract[] FindDuplicates(string[] anyName) {
+
+			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
+
+			if (!names.Any())
+				return new EntryRefWithNameContract[] { };
+
+			return HandleQuery(session => {
+
+				return session.Query<AlbumName>()
+					.Where(n => names.Contains(n.Value))
+					.Select(n => n.Album)
+					.Where(n => !n.Deleted)
+					.Distinct()
+					.Take(10)
+					.ToArray()
+					.Select(n => new EntryRefWithNameContract(n, PermissionContext.LanguagePreference))
+					.ToArray();
 
 			});
 

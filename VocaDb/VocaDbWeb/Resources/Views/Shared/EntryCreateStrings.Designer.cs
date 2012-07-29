@@ -70,6 +70,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Possible matching entries found in the database. Please verify that these are not duplicates..
+        /// </summary>
+        public static string FoundPossibleDuplicates {
+            get {
+                return ResourceManager.GetString("FoundPossibleDuplicates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Need at least one..
         /// </summary>
         public static string Name {
