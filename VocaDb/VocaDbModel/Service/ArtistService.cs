@@ -473,6 +473,29 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryRefWithNameContract[] FindDuplicates(string[] anyName) {
+
+			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
+
+			if (!names.Any())
+				return new EntryRefWithNameContract[] {};
+
+			return HandleQuery(session => {
+
+				return session.Query<ArtistName>()
+					.Where(n => names.Contains(n.Value))
+					.Select(n => n.Artist)
+					.Where(n => !n.Deleted)
+					.Distinct()
+					.Take(10)
+					.ToArray()
+					.Select(n => new EntryRefWithNameContract(n, PermissionContext.LanguagePreference))
+					.ToArray();
+
+			});
+
+		}
+
 		public string[] FindNames(string query, int maxResults) {
 
 			if (string.IsNullOrWhiteSpace(query))

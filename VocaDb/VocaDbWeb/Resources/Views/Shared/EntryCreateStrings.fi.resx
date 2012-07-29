@@ -120,6 +120,9 @@
   <data name="EnglishName" xml:space="preserve">
     <value>Nimi englanniksi</value>
   </data>
+  <data name="FoundPossibleDuplicates" xml:space="preserve">
+    <value>Tietokannasta löytyi yksi tai useampi merkintä näillä tiedoilla. Tarkista ettei lisäämäsi merkintä ole jokin näistä.</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nimi (tarvitaan vähintään yksi)</value>
   </data>

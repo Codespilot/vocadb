@@ -1,13 +1,15 @@
 ﻿
 function initPage() {
 
-	$("input.nameField").focusout(function () {
+	$("input.dupeField").focusout(function () {
 
 		var term1 = $("#nameOriginal").val();
 		var term2 = $("#nameRomaji").val();
 		var term3 = $("#nameEnglish").val();
+		var pv1 = $("#pv1").val();
+		var pv2 = $("#pv2").val();
 
-		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3 }, function (result) {
+		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2 }, function (result) {
 
 			if (result != "Ok") {
 				$("#duplicateSongWarning").html(result);

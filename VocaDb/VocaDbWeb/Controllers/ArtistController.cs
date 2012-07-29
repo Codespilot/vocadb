@@ -170,12 +170,10 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult FindDuplicate(string term1, string term2, string term3) {
 
-			var result = Service.FindByNames(new[] { term1, term2, term3 });
+			var result = Service.FindDuplicates(new[] { term1, term2, term3 });
 
-			if (result != null) {
-				return PartialView("DuplicateEntryMessage",
-					new KeyValuePair<string, string>(result.Name,
-						Url.Action("Details", new { id = result.Id })));
+			if (result.Any()) {
+				return PartialView("DuplicateEntryMessage", result);
 			} else {
 				return Content("Ok");
 			}

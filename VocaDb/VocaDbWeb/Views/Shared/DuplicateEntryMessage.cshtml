@@ -1,10 +1,14 @@
 ﻿@using VocaDb.Web.Helpers;
-@model System.Collections.Generic.KeyValuePair<string, string>
+@model VocaDb.Model.DataContracts.EntryRefWithNameContract[]
 
 @using (Html.BeginHighlightPanel()) {
 	<p>
 		@Helpers.NotificationIcon()
-		An entry called <a href="@Model.Value">@Model.Key</a> already exists. 
-		Make sure you're not creating a duplicate.
+		@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
+		<ul>
+		@foreach (var e in Model) {
+			<li>@Helpers.EntryLink(e)</li>
+		}
+		</ul>
 	</p>
 }

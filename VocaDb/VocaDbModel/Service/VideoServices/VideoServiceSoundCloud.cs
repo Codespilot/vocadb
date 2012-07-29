@@ -37,18 +37,18 @@ namespace VocaDb.Model.Service.VideoServices {
 				}
 			} catch (WebException x) {
 				log.WarnException("Unable to load SoundCloud URL " + url, x);
-				throw new VideoParseException("Unable to load SoundCloud URL: " + x.Message, x);
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException("Unable to load SoundCloud URL: " + x.Message, x));
 			}
 
 			var trackId = doc.XPathSelectElement("//track/id").Value;
 			var title = doc.XPathSelectElement("//track/title").Value;
 			var id = new SoundCloudId(trackId, url);
 
-			return new VideoUrlParseResult(PVService.SoundCloud, id.ToString(), title);
+			return VideoUrlParseResult.CreateOk(url, PVService.SoundCloud, id.ToString(), title);
 
 		}
 
-		public override VideoUrlParseResult ParseByUrl(string url) {
+		public override VideoUrlParseResult ParseByUrl(string url, bool getTitle) {
 
 			var soundCloudUrl = linkMatchers[0].GetId(url);
 
