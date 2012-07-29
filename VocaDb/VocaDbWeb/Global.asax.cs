@@ -123,11 +123,11 @@ namespace VocaDb.Web {
 
 			// Invalid routes
 			routes.MapRoute("AlbumDetailsError", "Album/Details/{id}",
-				new { controller = "Error", action = "NotFound" }, new { id = "[a-z]+" });
+				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 			routes.MapRoute("ArtistDetailsError", "Artist/Details/{id}",
-				new { controller = "Error", action = "NotFound" }, new { id = "[a-z]+" });
+				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 			routes.MapRoute("SongDetailsError", "Song/Details/{id}",
-				new { controller = "Error", action = "NotFound" }, new { id = "[a-z]+" });
+				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 
 			// Special routes
 			routes.MapRoute("Search", "Search/{filter}", 
