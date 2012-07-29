@@ -32,6 +32,9 @@ namespace VocaDb.Model.Domain.Versioning {
 
 		public virtual string AgentName { get; protected set; }
 
+		/// <summary>
+		/// User who created this version. Can be null.
+		/// </summary>
 		public virtual User Author { get; protected set; }
 
 		public virtual DateTime Created { get; protected set; }
