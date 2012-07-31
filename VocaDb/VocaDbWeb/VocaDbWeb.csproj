@@ -1677,6 +1677,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
@@ -1705,6 +1706,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
@@ -1829,6 +1831,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Song\IndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Song\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Song\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>

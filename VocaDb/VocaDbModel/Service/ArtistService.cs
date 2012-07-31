@@ -996,7 +996,7 @@ namespace VocaDb.Model.Service {
 
 				var picsDiff = artist.Pictures.SyncPictures(properties.Pictures, GetLoggedUser(session), artist.CreatePicture);
 				SessionHelper.Sync(session, picsDiff);
-				ImageHelper.GenerateThumbsAndMoveImages(EntryType.Artist, picsDiff.Added);
+				ImageHelper.GenerateThumbsAndMoveImages(picsDiff.Added);
 
 				if (picsDiff.Changed)
 					diff.Pictures = true;
