@@ -199,7 +199,7 @@
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>
 				<td>
-					@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits).
+					@Model.Hits @ViewRes.EntryDetailsStrings.Hits. @string.Format(R.DetailsStrings.OwnedBy, Model.OwnedBy). @string.Format(R.DetailsStrings.WishlistedBy, Model.WishlistedBy).
 				</td>
 			</tr>
 

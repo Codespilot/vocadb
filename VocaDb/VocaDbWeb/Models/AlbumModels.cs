@@ -208,6 +208,7 @@ namespace VocaDb.Web.Models {
 			Id = contract.Id;
 			LatestComments = contract.LatestComments;
 			Name = contract.Name;
+			OwnedBy = contract.OwnedCount;
 			Pictures = contract.Pictures;
 			PVs = contract.PVs;
 			RatingAverage = contract.RatingAverage;
@@ -217,6 +218,7 @@ namespace VocaDb.Web.Models {
 			Tags = contract.Tags;
 			UserHasAlbum = contract.AlbumForUser != null;
 			WebLinks = contract.WebLinks;
+			WishlistedBy = contract.WishlistCount;
 
 			if (contract.AlbumForUser != null) {
 				AlbumMediaType = contract.AlbumForUser.MediaType;
@@ -282,6 +284,8 @@ namespace VocaDb.Web.Models {
 
 		public ArtistForAlbumContract[] OtherArtists { get; set; }
 
+		public int OwnedBy { get; set; }
+
 		public EntryPictureFileContract[] Pictures { get; set; }
 
 		public PVContract PrimaryPV { get; set; }
@@ -309,6 +313,8 @@ namespace VocaDb.Web.Models {
 		public ArtistForAlbumContract[] Vocalists { get; set; }
 
 		public WebLinkContract[] WebLinks { get; set; }
+
+		public int WishlistedBy { get; set; }
 
 	}
 
