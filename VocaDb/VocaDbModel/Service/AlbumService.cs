@@ -1305,7 +1305,7 @@ namespace VocaDb.Model.Service {
 
 					VerifyEntryEdit(album);
 
-					var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion()));
+					var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion(), GetLoggedUser(session)));
 
 					AuditLog(string.Format("updating properties for {0}", album));
 

@@ -1356,11 +1356,11 @@ namespace VocaDb.Model.Service {
 
 			ParamIs.NotNull(() => artistIds);
 
-			VerifyManageDatabase();
-
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
+
+				VerifyEntryEdit(song);
 
 				var oldArtists = song.ArtistList.ToArray();
 				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
@@ -1378,7 +1378,7 @@ namespace VocaDb.Model.Service {
 
 				if (artistDiff.Changed) {
 
-					var diff = new SongDiff(DoSnapshot(song.GetLatestVersion())) { Artists = true };
+					var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session))) { Artists = true };
 
 					song.UpdateArtistString();
 					Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
@@ -1457,7 +1457,7 @@ namespace VocaDb.Model.Service {
 
 				VerifyEntryEdit(song);
 
-				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion()));
+				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session)));
 
 				AuditLog(string.Format("updating properties for {0}", song));
 
@@ -1538,6 +1538,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Integrated to saving properties")]
 		public SongForEditContract UpdateLyrics(int songId, IEnumerable<LyricsForSongContract> lyrics) {
 			
@@ -1548,7 +1549,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var song = session.Load<Song>(songId);
-				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion())) { Lyrics = true };	// TODO: actually check if they changed
+				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session))) { Lyrics = true };	// TODO: actually check if they changed
 
 				AuditLog("updating lyrics for " + song);
 
@@ -1589,7 +1590,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public int UpdateSongList(SongListForEditContract contract) {
 

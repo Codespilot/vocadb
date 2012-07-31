@@ -928,7 +928,7 @@ namespace VocaDb.Model.Service {
 
 				VerifyEntryEdit(artist);
 
-				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion()));
+				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion(), GetLoggedUser(session)));
 
 				AuditLog(string.Format("updating properties for {0}", artist));
 
