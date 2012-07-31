@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,31 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewAlbums" xml:space="preserve">
-    <value>新しいアルバム</value>
+  <data name="Animator" xml:space="preserve">
+    <value>動画のプロデューサー</value>
   </data>
-  <data name="News" xml:space="preserve">
-    <value>ニュース</value>
+  <data name="Circle" xml:space="preserve">
+    <value>サークル</value>
   </data>
-  <data name="RecentActivity" xml:space="preserve">
-    <value>最近の活動</value>
+  <data name="Label" xml:space="preserve">
+    <value>ラベル</value>
   </data>
-  <data name="RecentSongs" xml:space="preserve">
-    <value>最近加えられて動画付けた曲</value>
+  <data name="OtherGroup" xml:space="preserve">
+    <value>Other group</value>
   </data>
-  <data name="SearchSite" xml:space="preserve">
-    <value>Google Custom SearchでVocaDBを検索する</value>
+  <data name="OtherIndividual" xml:space="preserve">
+    <value>Other individual</value>
   </data>
-  <data name="TopAlbums" xml:space="preserve">
-    <value>最も人気のあるアルバム</value>
+  <data name="OtherVocalist" xml:space="preserve">
+    <value>他のボカリスト</value>
   </data>
-  <data name="ViewAll" xml:space="preserve">
-    <value>すべてを表示</value>
+  <data name="Producer" xml:space="preserve">
+    <value>音楽プロデューサー</value>
   </data>
-  <data name="ViewMore" xml:space="preserve">
-    <value>もっと見る</value>
+  <data name="Unknown" xml:space="preserve">
+    <value>Not specified</value>
   </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>ボカロデータベースへようこそ！</value>
+  <data name="UTAU" xml:space="preserve">
+    <value>UTAUloid</value>
+  </data>
+  <data name="Vocaloid" xml:space="preserve">
+    <value>Vocaloid</value>
   </data>
 </root>

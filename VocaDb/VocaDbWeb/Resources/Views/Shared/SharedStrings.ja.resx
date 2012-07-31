@@ -120,6 +120,9 @@
   <data name="Albums" xml:space="preserve">
     <value>アルバム</value>
   </data>
+  <data name="ArtistName" xml:space="preserve">
+    <value>アーティスト名</value>
+  </data>
   <data name="Artists" xml:space="preserve">
     <value>アーティスト</value>
   </data>
@@ -149,5 +152,8 @@
   </data>
   <data name="TopRatedAlbums" xml:space="preserve">
     <value>最も人気のあるアルバム</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>タイプ</value>
   </data>
 </root>
