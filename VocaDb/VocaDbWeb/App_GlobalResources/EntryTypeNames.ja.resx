@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,49 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddAlbum" xml:space="preserve">
-    <value>Submit an album</value>
+  <data name="Album" xml:space="preserve">
+    <value>アルバム</value>
   </data>
-  <data name="AddArtist" xml:space="preserve">
-    <value>Add an artist</value>
+  <data name="Artist" xml:space="preserve">
+    <value>アーティスト</value>
   </data>
-  <data name="AddSong" xml:space="preserve">
-    <value>Submit a song</value>
+  <data name="Song" xml:space="preserve">
+    <value>曲</value>
   </data>
-  <data name="Help" xml:space="preserve">
-    <value>サポート / DBについて</value>
+  <data name="SongList" xml:space="preserve">
+    <value>曲目リスト</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>ホーム</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>ログイン</value>
-  </data>
-  <data name="LogOut" xml:space="preserve">
-    <value>ログアウト</value>
-  </data>
-  <data name="Manage" xml:space="preserve">
-    <value>マネージ</value>
-  </data>
-  <data name="MikuDbAlbum" xml:space="preserve">
-    <value>MikuDbAlbum</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>登録する</value>
-  </data>
-  <data name="RelatedSites" xml:space="preserve">
-    <value>関連リンク</value>
-  </data>
-  <data name="Services" xml:space="preserve">
-    <value>サービス</value>
-  </data>
-  <data name="SocialSites" xml:space="preserve">
-    <value>ソーシャルサイト</value>
-  </data>
-  <data name="UnreadMessages" xml:space="preserve">
-    <value>You have unread messages</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>ようこそ</value>
+  <data name="User" xml:space="preserve">
+    <value>ユーザー</value>
   </data>
 </root>
