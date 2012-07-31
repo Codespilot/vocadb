@@ -18,8 +18,21 @@ namespace VocaDb.Model.Helpers {
 	public static class ImageHelper {
 
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
+		private const int defaultSmallThumbSize = 70;
 		private const int defaultThumbSize = 250;
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
+		private static string GetImagePath(EntryType entryType, string fileName) {
+
+			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, fileName));
+
+		}
+
+		private static string GetImageUrl(EntryType entryType, string fileName) {
+
+			return string.Format("{0}/EntryImg/{1}/{2}", AppConfig.HostAddress, entryType, fileName);
+
+		}
 
 		private static Image OpenImage(Stream stream) {
 			try {
@@ -46,6 +59,7 @@ namespace VocaDb.Model.Helpers {
 
 				var path = GetImagePath(entryType, pic);
 				var thumbPath = GetImagePathThumb(entryType, pic);
+				var smallThumbPath = GetImagePathSmallThumb(entryType, pic);
 
 				using (var f = File.Create(path)) {
 					pic.UploadedFile.CopyTo(f);
@@ -59,6 +73,13 @@ namespace VocaDb.Model.Helpers {
 						thumb.Save(thumbPath);
 					} else {
 						File.Copy(path, thumbPath);
+					}
+
+					if (original.Width > defaultSmallThumbSize || original.Height > defaultSmallThumbSize) {
+						var thumb = ResizeToFixedSize(original, defaultSmallThumbSize, defaultSmallThumbSize);
+						thumb.Save(smallThumbPath);
+					} else {
+						File.Copy(path, smallThumbPath);
 					}
 
 				}
@@ -115,39 +136,31 @@ namespace VocaDb.Model.Helpers {
 		}
 
 		public static string GetImagePath(EntryType entryType, EntryPictureFileContract picture) {
-
-			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime)));
-
+			return GetImagePath(entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
 		}
 
 		public static string GetImagePathThumb(EntryType entryType, EntryPictureFileContract picture) {
-
-			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime)));
-
+			return GetImagePath(entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
 		}
 
 		public static string GetImagePath(EntryType entryType, EntryPictureFile picture) {
+			return GetImagePath(entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
+		}
 
-			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime)));
-
+		public static string GetImagePathSmallThumb(EntryType entryType, EntryPictureFile picture) {
+			return GetImagePath(entryType, EntryPictureFile.GetFileNameSmallThumb(picture.Id, picture.Mime));
 		}
 
 		public static string GetImagePathThumb(EntryType entryType, EntryPictureFile picture) {
-
-			return HttpContext.Current.Server.MapPath(string.Format("~\\EntryImg\\{0}\\{1}", entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime)));
-
+			return GetImagePath(entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
 		}
 
 		public static string GetImageUrl(EntryType entryType, EntryPictureFileContract picture) {
-
-			return string.Format("{0}/EntryImg/{1}/{2}", AppConfig.HostAddress, entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
-
+			return GetImageUrl(entryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
 		}
 
 		public static string GetImageUrlThumb(EntryType entryType, EntryPictureFileContract picture) {
-
-			return string.Format("{0}/EntryImg/{1}/{2}", AppConfig.HostAddress, entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
-
+			return GetImageUrl(entryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
 		}
 
 		public static PictureDataContract GetOriginalAndResizedImages(Stream input, int length, string contentType) {

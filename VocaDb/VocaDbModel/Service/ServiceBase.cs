@@ -164,12 +164,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected bool DoSnapshot(ArchivedObjectVersion latestVersion) {
+		protected bool DoSnapshot(ArchivedObjectVersion latestVersion, User user) {
 
 			if (latestVersion == null)
 				return true;
 
-			return ((((latestVersion.Version + 1) % 5) == 0) || DateTime.Now - latestVersion.Created >= TimeSpan.FromDays(14));
+			return ((((latestVersion.Version + 1) % 5) == 0) || !user.Equals(latestVersion.Author));
 
 		}
 

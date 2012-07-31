@@ -15,6 +15,10 @@ namespace VocaDb.Model.Domain {
 			return string.Format("{0}{1}", id, GetExtension(mime));
 		}
 
+		public static string GetFileNameSmallThumb(int id, string mime) {
+			return string.Format("{0}-st{1}", id, GetExtension(mime));
+		}
+
 		public static string GetFileNameThumb(int id, string mime) {
 			return string.Format("{0}-t{1}", id, GetExtension(mime));
 		}
