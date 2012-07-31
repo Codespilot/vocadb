@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddAlbum" xml:space="preserve">
-    <value>Submit an album</value>
+    <value>アルバムを提出する</value>
   </data>
   <data name="AddArtist" xml:space="preserve">
-    <value>Add an artist</value>
+    <value>アーチストを加える</value>
   </data>
   <data name="AddSong" xml:space="preserve">
-    <value>Submit a song</value>
+    <value>曲を提出する</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>サポート / DBについて</value>

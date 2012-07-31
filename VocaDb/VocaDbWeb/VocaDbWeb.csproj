@@ -1632,6 +1632,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ActivityFeedHelperStrings.Designer.cs</LastGenOutput>
@@ -1639,6 +1640,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Helpers\AlbumHelpersStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Helpers\AlbumHelpersStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Helpers\AlbumHelpersStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumHelpersStrings.Designer.cs</LastGenOutput>

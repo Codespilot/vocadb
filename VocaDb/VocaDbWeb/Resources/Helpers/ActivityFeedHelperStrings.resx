@@ -127,9 +127,9 @@
     <value>by</value>
   </data>
   <data name="CreatedNew" xml:space="preserve">
-    <value>Created a new</value>
+    <value>Created a new {0}:</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Updated</value>
+    <value>Updated {0}:</value>
   </data>
 </root>

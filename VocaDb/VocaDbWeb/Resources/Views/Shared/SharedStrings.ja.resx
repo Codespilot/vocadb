@@ -144,6 +144,9 @@
   <data name="Tags" xml:space="preserve">
     <value>タグ</value>
   </data>
+  <data name="TopFavoritedSongs" xml:space="preserve">
+    <value>一番人気した曲</value>
+  </data>
   <data name="TopRatedAlbums" xml:space="preserve">
     <value>最も人気のあるアルバム</value>
   </data>

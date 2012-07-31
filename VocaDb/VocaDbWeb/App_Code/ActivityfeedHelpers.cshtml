@@ -12,11 +12,10 @@
 	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
 		<p>
 		@if (entry.EditEvent == EntryEditEvent.Created) {
-			<span>@HelperRes.ActivityFeedHelperStrings.CreatedNew </span>
+			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.CreatedNew, Translate.EntryTypeNames[entry.EntryRef.EntryType])</span>
 		} else {
-			<span>@HelperRes.ActivityFeedHelperStrings.Updated </span>
+			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.Updated, Translate.EntryTypeNames[entry.EntryRef.EntryType])</span>
 		}
-		<span>@Translate.EntryTypeNames[entry.EntryRef.EntryType]:</span>
 		<span>@EntryLink(entry)</span> 
 		@if (!string.IsNullOrEmpty(entry.ArtistString)) {
 			<span> @HelperRes.ActivityFeedHelperStrings.ByArtist @entry.ArtistString</span>
@@ -47,12 +46,12 @@
 					@Html.UserLink(entry.Author, entry.Author.Name)
 					</span>
 					<span> @HelperRes.ActivityFeedHelperStrings.At </span>
-				}
+	}
 				@entry.CreateDate
 
 				@if (Login.CanEditNews) {
 					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", "NewsEntry", new { id = entry.Id }, null)
-				}
+	}
 			</div>	
 		</div>	
 		<p class="messageContent">

@@ -117,19 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>kello</value>
-  </data>
-  <data name="ByArtist" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="ByUser" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>Luotu uusi {0}:</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>Päivitetty {0}:</value>
+  <data name="Released" xml:space="preserve">
+    <value>発売された</value>
   </data>
 </root>

@@ -127,9 +127,9 @@
     <value>пользователем</value>
   </data>
   <data name="CreatedNew" xml:space="preserve">
-    <value>Добавлено:</value>
+    <value>Добавлено {0}:</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Обновлено:</value>
+    <value>Обновлено {0}:</value>
   </data>
 </root>
