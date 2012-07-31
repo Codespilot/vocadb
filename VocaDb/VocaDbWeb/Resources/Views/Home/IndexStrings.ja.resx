@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="NewAlbums" xml:space="preserve">
+    <value>新しいアルバム</value>
+  </data>
   <data name="News" xml:space="preserve">
     <value>ニュース</value>
   </data>
   <data name="RecentActivity" xml:space="preserve">
     <value>最近の活動</value>
+  </data>
+  <data name="RecentSongs" xml:space="preserve">
+    <value>最近加えられて動画付けた曲</value>
+  </data>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>最も人気のあるアルバム</value>
   </data>
   <data name="ViewAll" xml:space="preserve">
     <value>すべてを表示</value>

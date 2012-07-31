@@ -117,7 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Albums" xml:space="preserve">
+    <value>アルバム</value>
+  </data>
+  <data name="Artists" xml:space="preserve">
+    <value>アーティスト</value>
+  </data>
+  <data name="Drafts" xml:space="preserve">
+    <value>ドラフト</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>エディト</value>
+  </data>
+  <data name="FeaturedSongLists" xml:space="preserve">
+    <value>注目曲リスト</value>
+  </data>
   <data name="ReleaseEvents" xml:space="preserve">
     <value>イベント</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>サーチ</value>
+  </data>
+  <data name="Songs" xml:space="preserve">
+    <value>曲</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="TopRatedAlbums" xml:space="preserve">
+    <value>最も人気のあるアルバム</value>
   </data>
 </root>
