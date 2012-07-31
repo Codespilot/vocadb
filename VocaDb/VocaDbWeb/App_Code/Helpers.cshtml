@@ -82,9 +82,9 @@
 	}
 }
 
-@helper EntryPictureFileLink(EntryType entryType, EntryPictureFileContract entryPictureFile) {
-	<a href="@VocaDb.Model.Helpers.ImageHelper.GetImageUrl(entryType, entryPictureFile)">
-		<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(entryType, entryPictureFile)" alt="Preview" class="coverPic" />
+@helper EntryPictureFileLink(EntryPictureFileContract entryPictureFile) {
+	<a href="@VocaDb.Model.Helpers.ImageHelper.GetImageUrl(entryPictureFile)">
+		<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(entryPictureFile)" alt="Preview" class="coverPic" />
 	</a>
 }
 

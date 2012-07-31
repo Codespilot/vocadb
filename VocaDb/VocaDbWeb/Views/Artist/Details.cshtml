@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.Domain
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @model ArtistDetailsContract
 
@@ -156,8 +157,7 @@
 				Url.Action("PictureThumb", "Artist", new { id = Model.Id }), 
 				ViewRes.Album.DetailsStrings.CoverPicture)
 			@foreach (var pic in Model.Pictures) {
-			   @Helpers.ThumbItem(VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Artist, pic),
-					VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Artist, pic), pic.Name)
+			   @Helpers.ThumbItem(ImageHelper.GetImageUrl(pic), ImageHelper.GetImageUrlThumb(pic), pic.Name)
 			}
 		</ul>
 		

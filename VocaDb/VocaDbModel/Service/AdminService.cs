@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using NHibernate;
@@ -42,6 +43,64 @@ namespace VocaDb.Model.Service {
 					session.Delete(entry);
 
 				return oldEntries.Length;
+
+			});
+
+		}
+
+		public void CreateMissingThumbs() {
+
+			VerifyAdmin();
+
+			HandleQuery(session => {
+
+				var artistPic = session.Query<ArtistPictureFile>().ToArray();
+
+				foreach (var pic in artistPic) {
+
+					var thumbFile = ImageHelper.GetImagePathSmallThumb(pic);
+					var origPath = ImageHelper.GetImagePath(pic);
+
+					if (File.Exists(origPath) && !File.Exists(thumbFile)) {
+
+						using (var original = Image.FromFile(ImageHelper.GetImagePath(pic))) {
+
+							if (original.Width > ImageHelper.DefaultSmallThumbSize || original.Height > ImageHelper.DefaultSmallThumbSize) {
+								var thumb = ImageHelper.ResizeToFixedSize(original, ImageHelper.DefaultSmallThumbSize, ImageHelper.DefaultSmallThumbSize);
+								thumb.Save(thumbFile);
+							} else {
+								File.Copy(origPath, thumbFile);
+							}
+
+						}
+
+					}
+
+				}
+
+				var albumPic = session.Query<AlbumPictureFile>().ToArray();
+
+				foreach (var pic in albumPic) {
+
+					var thumbFile = ImageHelper.GetImagePathSmallThumb(pic);
+					var origPath = ImageHelper.GetImagePath(pic);
+
+					if (File.Exists(origPath) && !File.Exists(thumbFile)) {
+
+						using (var original = Image.FromFile(ImageHelper.GetImagePath(pic))) {
+
+							if (original.Width > ImageHelper.DefaultSmallThumbSize || original.Height > ImageHelper.DefaultSmallThumbSize) {
+								var thumb = ImageHelper.ResizeToFixedSize(original, ImageHelper.DefaultSmallThumbSize, ImageHelper.DefaultSmallThumbSize);
+								thumb.Save(thumbFile);
+							} else {
+								File.Copy(origPath, thumbFile);
+							}
+
+						}
+
+					}
+
+				}
 
 			});
 

@@ -8,7 +8,7 @@
 		@Html.HiddenFor(m => m.EntryType)
 		@Html.HiddenFor(m => m.Mime)
 		@if (Model.Id != 0) {
-			<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(Model.EntryType, Model)" alt="Preview" class="coverPicThumb" />
+			<img src="@VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(Model)" alt="Preview" class="coverPicThumb" />
 		} else {
 			<input type="file" name="pictureUpload" />
 		}

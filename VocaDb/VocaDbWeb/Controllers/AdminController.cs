@@ -34,6 +34,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult CreateMissingThumbs() {
+
+			Service.CreateMissingThumbs();
+
+			TempData.SetStatusMessage("Operation completed");
+
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult CreateXmlDump() {
 
 			Service.CreateXmlDump();

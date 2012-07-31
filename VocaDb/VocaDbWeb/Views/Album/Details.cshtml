@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Model.Domain
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models;
 @using R = ViewRes.Album;
@@ -53,7 +54,7 @@
 							</div>
 							@foreach (var pic in Model.Pictures) {
 								<div class="item thumbItem">
-									@Helpers.EntryPictureFileLink(EntryType.Album, pic)
+									@Helpers.EntryPictureFileLink(pic)
 									@if (!string.IsNullOrEmpty(pic.Name)) {
 										<div class="carousel-caption">
 											<h4>@pic.Name</h4>
@@ -282,8 +283,7 @@
 				Url.Action("CoverPictureThumb", "Album", new { id = Model.Id }), 
 				ViewRes.Album.DetailsStrings.CoverPicture)
 			@foreach (var pic in Model.Pictures) {
-			   @Helpers.ThumbItem(VocaDb.Model.Helpers.ImageHelper.GetImageUrl(EntryType.Album, pic),
-				   VocaDb.Model.Helpers.ImageHelper.GetImageUrlThumb(EntryType.Album, pic), pic.Name)
+			   @Helpers.ThumbItem(ImageHelper.GetImageUrl(pic), ImageHelper.GetImageUrlThumb(pic), pic.Name)
 			}
 		</ul>
 		
