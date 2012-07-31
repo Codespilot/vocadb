@@ -183,4 +183,10 @@
   <data name="Disc" xml:space="preserve">
     <value>Levy</value>
   </data>
+  <data name="OwnedBy" xml:space="preserve">
+    <value>Omistettu {0} kertaa</value>
+  </data>
+  <data name="WishlistedBy" xml:space="preserve">
+    <value>Toivottu {0} kertaa</value>
+  </data>
 </root>

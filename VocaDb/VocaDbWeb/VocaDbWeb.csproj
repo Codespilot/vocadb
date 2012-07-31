@@ -426,6 +426,7 @@
     <Compile Include="Code\BBCode\EntryPropertyHtmlCache.cs" />
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
+    <Compile Include="Code\ErrorLogger.cs" />
     <Compile Include="Code\Feeds\FeedResult.cs" />
     <Compile Include="Code\FromJsonAttribute.cs" />
     <Compile Include="Code\HelperPage.cs" />
@@ -1306,6 +1307,8 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Admin\ViewEntryReports.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Error\_Layout.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

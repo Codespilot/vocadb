@@ -5,6 +5,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using NLog;
 using NHibernate;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Code;
@@ -76,6 +77,21 @@ namespace VocaDb.Web {
 
 		}
 
+		private void HandleHttpError(int code, string description = null) {
+
+			ErrorLogger.LogHttpError(Request, code);
+
+			Server.ClearError();
+			Response.StatusCode = code;
+
+			if (!string.IsNullOrEmpty(description))
+				Response.StatusDescription = description;
+
+			Response.RedirectToRoute("Default",
+				new { controller = "Error", code, redirect = true });
+
+		}
+
 		protected void Application_Error(object sender, EventArgs e) {
 
 			var ex = HttpContext.Current.Server.GetLastError();
@@ -83,30 +99,30 @@ namespace VocaDb.Web {
 			if (ex == null)
 				return;
 
-			if (ex is ObjectNotFoundException && HttpContext.Current != null) {
-				Response.StatusCode = 404;
-				Response.StatusDescription = "Entity not found";
-				Response.TrySkipIisCustomErrors = true;
-				Server.ClearError();
-				HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error", action = "NotFound" });
+			if (ex is ObjectNotFoundException) {
+				HandleHttpError(ErrorLogger.Code_NotFound, "Entity not found");
+				return;
+			}
+
+			if (ex is NotAllowedException) {
+				HandleHttpError(ErrorLogger.Code_Forbidden, ex.Message);
 				return;
 			}
 
 			var httpException = ex as HttpException;
 			if (httpException != null) {
-				Server.ClearError();
-				HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error", code = httpException.GetHttpCode() });
+				var code = httpException.GetHttpCode();
+				HandleHttpError(code);
 				return;
 			}
 
-			var request = (HttpContext.Current.Request != null ? " (" + HttpContext.Current.Request.RawUrl + " from " + HttpContext.Current.Request.UserHostAddress + ")" : string.Empty);
-
+			// No need to log NHibernate exceptions twice
 			if (!(ex is HibernateException))
-				log.ErrorException("Unhandled exception" + request, ex);
+				ErrorLogger.LogException(Request, ex);
 
 #if !DEBUG
 			Server.ClearError();
-			HttpContext.Current.Response.RedirectToRoute("Default", new { controller = "Error" });
+			Response.RedirectToRoute("Default", new { controller = "Error", redirect = true });
 #endif
 		}
 

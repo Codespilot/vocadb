@@ -161,7 +161,7 @@ namespace VocaDb.Web.Controllers
 
 			SetSearchEntryType(EntryType.Album);
 
-			var model = Service.GetAlbumDetails(id, WebHelper.IsValidHit(Request.UserAgent) ? CfHelper.GetRealIp(Request) : string.Empty);
+			var model = Service.GetAlbumDetails(id, WebHelper.IsValidHit(Request) ? WebHelper.GetRealHost(Request) : string.Empty);
 
             return View(new AlbumDetails(model));
 

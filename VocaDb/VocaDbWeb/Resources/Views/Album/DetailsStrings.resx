@@ -183,4 +183,10 @@
   <data name="Disc" xml:space="preserve">
     <value>Disc</value>
   </data>
+  <data name="OwnedBy" xml:space="preserve">
+    <value>Owned by {0}</value>
+  </data>
+  <data name="WishlistedBy" xml:space="preserve">
+    <value>Wishlisted by {0}</value>
+  </data>
 </root>

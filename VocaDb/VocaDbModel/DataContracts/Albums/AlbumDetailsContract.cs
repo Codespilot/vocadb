@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
@@ -23,6 +24,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Deleted = album.Deleted;
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
+			OwnedCount = album.UserCollections.Count(a => a.PurchaseStatus == PurchaseStatus.Owned);
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs
@@ -30,6 +32,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 				.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
 			Tags = album.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(Tag.MaxDisplayedTags).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
+			WishlistCount = album.UserCollections.Count(a => a.PurchaseStatus == PurchaseStatus.Wishlisted);
 
 		}
 
@@ -58,6 +61,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumReleaseContract OriginalRelease { get; set; }
 
 		[DataMember]
+		public int OwnedCount { get; set; }
+
+		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }
 
 		[DataMember]
@@ -71,6 +77,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }
+
+		[DataMember]
+		public int WishlistCount { get; set; }
 
 	}
 

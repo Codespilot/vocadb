@@ -72,7 +72,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.OtherArtists).Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			HasMany(m => m.PVs).Inverse().Cascade.AllDeleteOrphan();
-			HasMany(m => m.UserCollections).Inverse();
+			HasMany(m => m.UserCollections).Inverse().Cache.ReadWrite();
 			HasMany(m => m.WebLinks).Table("AlbumWebLinks").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 
 		}
