@@ -66,7 +66,7 @@ namespace VocaDb.Web.Code.Security {
 			try {
 				return TwitterSignIn.ProcessUserAuthorization();
 			} catch (ProtocolException x) {
-				log.Error("Unable to process Twitter authentication", x);
+				log.ErrorException("Unable to process Twitter authentication", x);
 				return null;
 			}
 

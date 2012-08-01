@@ -21,7 +21,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			} else {
 
-				return query.Where(m => m.Value.Contains(canonizedName));
+				return FindHelpers.AddEntryNameFilter(query, originalQuery, matchMode);
 
 			}
 

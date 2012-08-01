@@ -7,7 +7,6 @@ namespace VocaDb.Web.Controllers
     public class ErrorController : ControllerBase
     {
 
-
         //
         // GET: /Error/
 

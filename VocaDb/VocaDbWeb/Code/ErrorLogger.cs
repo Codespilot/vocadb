@@ -19,21 +19,21 @@ namespace VocaDb.Web.Code {
 
 		}
 
-		public static void LogHttpError(HttpRequestBase request, int code) {
+		public static void LogHttpError(HttpRequestBase request, int code, LogLevel level = null) {
 
-			log.Warn(RequestInfo(string.Format("HTTP error code {0} for", code), request));
-
-		}
-
-		public static void LogHttpError(HttpRequest request, int code) {
-
-			log.Warn(RequestInfo(string.Format("HTTP error code {0} for", code), new HttpRequestWrapper(request)));
+			log.Log(level ?? LogLevel.Warn, RequestInfo(string.Format("HTTP error code {0} for", code), request));
 
 		}
 
-		public static void LogException(HttpRequest request, Exception ex) {
+		public static void LogHttpError(HttpRequest request, int code, LogLevel level = null) {
 
-			log.ErrorException(RequestInfo("Exception for", new HttpRequestWrapper(request)), ex);
+			LogHttpError(new HttpRequestWrapper(request), code, level);
+
+		}
+
+		public static void LogException(HttpRequest request, Exception ex, LogLevel level = null) {
+
+			log.LogException(level ?? LogLevel.Error, RequestInfo("Exception for", new HttpRequestWrapper(request)), ex);
 
 		}
 
