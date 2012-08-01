@@ -290,6 +290,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PermissionFlagNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\PermissionTokenNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PermissionTokenNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\PermissionTokenNames.ru.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1627,6 +1632,10 @@
     <Content Include="App_GlobalResources\AlbumCollectionStatusNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>AlbumCollectionStatusNames.ja.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\PermissionTokenNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>PermissionTokenNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">
