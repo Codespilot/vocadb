@@ -5,6 +5,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using NLog;
 using NHibernate;
+using VocaDb.Model;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
@@ -17,15 +18,12 @@ namespace VocaDb.Web {
 
 	public class MvcApplication : System.Web.HttpApplication {
 
-		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private static ISessionFactory sessionFactory;
 		private const string sessionFactoryLock = "lock";
 
 		public static bool IsAjaxRequest(HttpRequest request) {
 
-			if (request == null) {
-				throw new ArgumentNullException("request");
-			}
+			ParamIs.NotNull(() => request);
 
 			return (request["X-Requested-With"] == "XMLHttpRequest") || ((request.Headers != null) && (request.Headers["X-Requested-With"] == "XMLHttpRequest"));
 
@@ -72,7 +70,7 @@ namespace VocaDb.Web {
 				LoginManager.InitLanguage();
 
 			} catch (Exception x) {
-				log.FatalException("Error during authentication", x);
+				ErrorLogger.LogException(Request, x, LogLevel.Fatal);
 			}
 
 		}

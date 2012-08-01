@@ -183,15 +183,7 @@ namespace VocaDb.Model.Service {
 
 				additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
 
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value == query);
-
-				} else {
-
-					additionalNamesQ = additionalNamesQ.Where(m => m.Value.Contains(query));
-
-				}
+				additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
 
 				var additionalNames = AddOrder(additionalNamesQ
 					.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)

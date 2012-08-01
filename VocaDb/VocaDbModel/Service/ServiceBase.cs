@@ -426,7 +426,12 @@ namespace VocaDb.Model.Service {
 		/// Always exact matching (usually still case-insensitive).
 		/// Wildcards are not allowed.
 		/// </summary>
-		Exact
+		Exact,
+
+		/// <summary>
+		/// Allow breaking the search string into words separated by whitespace.
+		/// </summary>
+		Words
 
 	}
 
