@@ -20,6 +20,9 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			References(m => m.Series).Nullable();
 
+			Component(m => m.ArchivedVersionsManager,
+				c => c.HasMany(m => m.Versions).KeyColumn("[Event]").Inverse().Cascade.All().OrderBy("Created DESC"));
+
 		}
 
 	}
@@ -52,6 +55,30 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Map(m => m.Name).Length(50).Not.Nullable();
 			References(m => m.Series).Column("[Series]").Not.Nullable();
+
+		}
+
+	}
+
+	public class ArchivedReleaseEventVersionMap : ClassMap<ArchivedReleaseEventVersion> {
+
+		public ArchivedReleaseEventVersionMap() {
+
+			Id(m => m.Id);
+
+			Map(m => m.CommonEditEvent).Length(30).Not.Nullable();
+			Map(m => m.Created).Not.Nullable();
+			Map(m => m.Date).Not.Nullable();
+			Map(m => m.Description).Length(400).Not.Nullable();
+			Map(m => m.Name).Not.Nullable();
+			Map(m => m.SeriesNumber).Not.Nullable();
+
+			References(m => m.Author).Not.Nullable();
+			References(m => m.ReleaseEvent).Column("[Event]").Not.Nullable();
+
+			Component(m => m.Diff, c => {
+				c.Map(m => m.ChangedFieldsString, "ChangedFields").Length(100).Not.Nullable();
+			});
 
 		}
 
