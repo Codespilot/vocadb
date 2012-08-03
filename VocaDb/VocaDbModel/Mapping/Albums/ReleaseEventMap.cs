@@ -64,11 +64,12 @@ namespace VocaDb.Model.Mapping.Albums {
 
 		public ArchivedReleaseEventVersionMap() {
 
+			Table("ArchivedEventVersions");
 			Id(m => m.Id);
 
 			Map(m => m.CommonEditEvent).Length(30).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
-			Map(m => m.Date).Not.Nullable();
+			Map(m => m.Date).Nullable();
 			Map(m => m.Description).Length(400).Not.Nullable();
 			Map(m => m.Name).Not.Nullable();
 			Map(m => m.SeriesNumber).Not.Nullable();

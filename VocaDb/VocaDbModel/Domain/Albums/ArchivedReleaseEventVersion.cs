@@ -12,7 +12,9 @@ namespace VocaDb.Model.Domain.Albums {
 		private string name;
 		private ReleaseEvent releaseEvent;
 
-		public ArchivedReleaseEventVersion() { }
+		public ArchivedReleaseEventVersion() {
+			Status = EntryStatus.Finished;
+		}
 
 		public ArchivedReleaseEventVersion(ReleaseEvent releaseEvent, ReleaseEventDiff diff, AgentLoginData author,
 			EntryEditEvent commonEditEvent)
@@ -27,6 +29,7 @@ namespace VocaDb.Model.Domain.Albums {
 			Description = releaseEvent.Description;
 			Name = releaseEvent.Name;
 			SeriesNumber = releaseEvent.SeriesNumber;
+			Status = EntryStatus.Finished;
 
 		}
 

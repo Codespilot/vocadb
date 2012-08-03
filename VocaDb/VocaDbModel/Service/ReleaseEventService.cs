@@ -171,9 +171,9 @@ namespace VocaDb.Model.Service {
 						ev = new ReleaseEvent(contract.Description, contract.Date, contract.Name);
 					}
 
-					Archive(session, ev, new ReleaseEventDiff(), EntryEditEvent.Created);
-
 					session.Save(ev);
+
+					Archive(session, ev, new ReleaseEventDiff(), EntryEditEvent.Created);
 
 					AuditLog("created " + ev, session);
 
@@ -199,9 +199,9 @@ namespace VocaDb.Model.Service {
 					ev.Name = contract.Name;
 					ev.SeriesNumber = contract.SeriesNumber;
 
-					Archive(session, ev, diff, EntryEditEvent.Updated);
-
 					session.Update(ev);
+
+					Archive(session, ev, diff, EntryEditEvent.Updated);
 
 					AuditLog("updated " + ev, session);
 
