@@ -230,6 +230,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DiscTypeNames.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\EntryEditEventNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryEditEventNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\EntryStatusNames.fi.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -330,6 +335,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PVTypeNames.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ReleaseEventEditableFieldNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReleaseEventEditableFieldNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -394,6 +404,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SongTypeNames.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TagEditableFieldNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagEditableFieldNames.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1335,6 +1350,8 @@
     <Content Include="Views\Shared\EntryPictureFileEditRow.cshtml" />
     <Content Include="Views\Shared\Stars.cshtml" />
     <Content Include="Views\User\LoginTwitterComplete.cshtml" />
+    <Content Include="Views\Tag\Versions.cshtml" />
+    <Content Include="Views\Event\Versions.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
@@ -1636,6 +1653,18 @@
     <Content Include="App_GlobalResources\PermissionTokenNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PermissionTokenNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EntryEditEventNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryEditEventNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\TagEditableFieldNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TagEditableFieldNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ReleaseEventEditableFieldNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ReleaseEventEditableFieldNames.Designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">

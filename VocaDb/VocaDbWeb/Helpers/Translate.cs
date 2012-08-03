@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Resources;
 using VocaDb.Model.Domain.Globalization;
@@ -32,6 +34,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<ArtistRoles> ArtistRoleNames =
 			new TranslateableEnum<ArtistRoles>(() => global::Resources.ArtistRoleNames.ResourceManager);
 
+		public static readonly TranslateableEnum<EntryEditEvent> EntryEditEventNames =
+			new TranslateableEnum<EntryEditEvent>(() => global::Resources.EntryEditEventNames.ResourceManager);
+
 		public static readonly TranslateableEnum<EntryStatus> EntryStatusNames =
 			new TranslateableEnum<EntryStatus>(() => global::Resources.EntryStatusNames.ResourceManager);
 
@@ -44,6 +49,12 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<PVType> PVTypeNames =
 			new TranslateableEnum<PVType>(() => global::Resources.PVTypeNames.ResourceManager);
 
+		public static readonly TranslateableEnum<ReleaseEventEditableFields> ReleaseEventEditableFieldNames =
+			new TranslateableEnum<ReleaseEventEditableFields>(() => global::Resources.ReleaseEventEditableFieldNames.ResourceManager);
+
+		public static readonly TranslateableEnum<SongEditableFields> SongEditableFieldNames =
+			new TranslateableEnum<SongEditableFields>(() => global::Resources.SongEditableFieldNames.ResourceManager);
+
 		public static readonly TranslateableEnum<SongListFeaturedCategory> SongListFeaturedCategoryNames =
 			new TranslateableEnum<SongListFeaturedCategory>(() => global::Resources.SongListFeaturedCategoryNames.ResourceManager);
 
@@ -52,6 +63,9 @@ namespace VocaDb.Web.Helpers {
 
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
 			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);
+
+		public static readonly TranslateableEnum<TagEditableFields> TagEditableFieldNames =
+			new TranslateableEnum<TagEditableFields>(() => global::Resources.TagEditableFieldNames.ResourceManager);
 
 		public static readonly TranslateableEnum<UserGroupId> UserGroups =
 			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);
@@ -124,7 +138,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static string SongEditableField(SongEditableFields field) {
 
-			return SongEditableFieldNames.ResourceManager.GetString(field.ToString());
+			return SongEditableFieldNames[field];
 
 		}
 

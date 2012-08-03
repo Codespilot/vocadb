@@ -153,5 +153,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Versions(string id) {
+
+			var contract = Service.GetTagWithArchivedVersions(id);
+
+			return View(contract);
+
+		}
+
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.DataContracts {
@@ -16,6 +17,7 @@ namespace VocaDb.Model.DataContracts {
 			AgentName = archivedObjectVersion.AgentName;
 			Author = (archivedObjectVersion.Author != null ? new UserContract(archivedObjectVersion.Author) : null);
 			Created = archivedObjectVersion.Created;
+			EditEvent = archivedObjectVersion.EditEvent;
 			Id = archivedObjectVersion.Id;
 			IsSnapshot = archivedObjectVersion.DiffBase.IsSnapshot;
 			Notes = archivedObjectVersion.Notes;
@@ -29,6 +31,8 @@ namespace VocaDb.Model.DataContracts {
 		public UserContract Author { get; set; }
 
 		public DateTime Created { get; set; }
+
+		public EntryEditEvent EditEvent { get; set; }
 
 		public int Id { get; set; }
 

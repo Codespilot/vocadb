@@ -132,6 +132,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ReleaseEventWithArchivedVersionsContract GetReleaseEventWithArchivedVersions(int id) {
+
+			return HandleQuery(session =>
+				new ReleaseEventWithArchivedVersionsContract(session.Load<ReleaseEvent>(id)));
+
+		}
+
 		public ReleaseEventSeriesDetailsContract GetReleaseEventSeriesDetails(int id) {
 
 			return HandleQuery(session => new ReleaseEventSeriesDetailsContract(session.Load<ReleaseEventSeries>(id), PermissionContext.LanguagePreference));

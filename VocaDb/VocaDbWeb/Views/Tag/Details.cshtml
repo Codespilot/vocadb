@@ -15,6 +15,7 @@
 	$(document).ready(function () {
 		$("#tabs").tabs({ load: function (event, ui) { $("#tabs").tabs("url", ui.index, ""); } });
 		$("#editTagLink").button({ disabled: $("#editTagLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
+		$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	});
 
 </script>
@@ -22,6 +23,7 @@
 
 @section Toolbar {
 	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Name }, new { id = "viewVersions" })
 }
 
 <div id="tabs">

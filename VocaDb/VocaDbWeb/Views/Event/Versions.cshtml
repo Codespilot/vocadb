@@ -1,0 +1,14 @@
+﻿@using VocaDb.Web.Helpers
+@using VocaDb.Web.Models.Shared
+@model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventWithArchivedVersionsContract
+
+@{
+	ViewBag.Title = ViewRes.EntryDetailsStrings.Revisions + " - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+@ArchivedEntryHelpers.ArchivedObjectVersions(Model.ArchivedVersions.Select(
+	a => new ArchivedObjectVersion(a, Translate.ReleaseEventEditableFieldNames[a.ChangedFields]))))

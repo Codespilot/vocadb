@@ -257,6 +257,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public TagWithArchivedVersionsContract GetTagWithArchivedVersions(string tagName) {
+
+			return HandleQuery(session => 
+				new TagWithArchivedVersionsContract(GetTag(session, tagName)));
+
+		}
+
 		public TagCategoryContract[] GetTagsByCategories() {
 
 			return HandleQuery(session => {

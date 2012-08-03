@@ -21,10 +21,7 @@ namespace VocaDb.Web.Models.Song {
 			if (fields == SongEditableFields.Nothing)
 				return string.Empty;
 
-			var fieldNames = EnumVal<SongEditableFields>.Values.Where(f =>
-				f != SongEditableFields.Nothing && fields.HasFlag(f)).Select(Translate.SongEditableField);
-
-			return string.Join(", ", fieldNames);
+			return Translate.SongEditableFieldNames.GetAllNameNames(fields, SongEditableFields.Nothing);
 
 		}
 
