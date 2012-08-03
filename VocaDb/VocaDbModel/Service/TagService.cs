@@ -4,12 +4,14 @@ using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -28,6 +30,14 @@ namespace VocaDb.Model.Service {
 
 		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
+
+		public void Archive(ISession session, Tag tag, TagDiff diff, EntryEditEvent reason) {
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+			var archived = tag.CreateArchivedVersion(diff, agentLoginData, reason);
+			session.Save(archived);
+
+		}
 
 		public void Delete(string name) {
 
@@ -278,11 +288,19 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var tag = session.Load<Tag>(contract.Name);
+				var diff = new TagDiff();
+
+				if (tag.CategoryName != contract.CategoryName)
+					diff.CategoryName = true;
+
+				if (tag.Description != contract.Description)
+					diff.Description = true;
 
 				tag.CategoryName = contract.CategoryName;
 				tag.Description = contract.Description;
 
 				AuditLog("updated " + tag, session);
+				Archive(session, tag, diff, EntryEditEvent.Updated);
 
 				session.Update(tag);
 

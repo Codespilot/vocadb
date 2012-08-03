@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web;
 using NLog;
 
@@ -6,9 +7,9 @@ namespace VocaDb.Web.Code {
 
 	public static class ErrorLogger {
 
-		public const int Code_Forbidden = 403;
-		public const int Code_NotFound = 404;
-		public const int Code_InternalServerError = 500;
+		public const int Code_Forbidden = (int)HttpStatusCode.Forbidden;
+		public const int Code_NotFound = (int)HttpStatusCode.NotFound;
+		public const int Code_InternalServerError = (int)HttpStatusCode.InternalServerError;
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 

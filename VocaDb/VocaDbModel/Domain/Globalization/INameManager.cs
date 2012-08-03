@@ -7,7 +7,7 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		IEnumerable<string> AllValues { get; }
 
-		IEnumerable<LocalizedStringWithId> Names { get; }
+		//IEnumerable<LocalizedStringWithId> Names { get; }
 
 		TranslatedString SortNames { get; }
 

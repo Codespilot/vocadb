@@ -1212,7 +1212,7 @@ namespace VocaDb.Model.Service {
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 
-				album.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new AlbumTagUsageFactory(session, album));
+				album.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new AlbumTagUsageFactory(session, album));
 
 				return album.Tags.Usages.OrderByDescending(u => u.Count).Take(Tag.MaxDisplayedTags).Select(t => new TagUsageContract(t)).ToArray();
 

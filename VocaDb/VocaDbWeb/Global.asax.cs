@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -98,12 +99,12 @@ namespace VocaDb.Web {
 				return;
 
 			if (ex is ObjectNotFoundException) {
-				HandleHttpError(ErrorLogger.Code_NotFound, "Entity not found");
+				HandleHttpError((int)HttpStatusCode.NotFound, "Entity not found");
 				return;
 			}
 
 			if (ex is NotAllowedException) {
-				HandleHttpError(ErrorLogger.Code_Forbidden, ex.Message);
+				HandleHttpError((int)HttpStatusCode.Forbidden, ex.Message);
 				return;
 			}
 
