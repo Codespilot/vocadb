@@ -2,6 +2,8 @@
 
 	public interface IEntryDiff {
 
+		//string[] ChangedFieldNames { get; }
+
 		string ChangedFieldsString { get; }
 
 		bool IsSnapshot { get; }

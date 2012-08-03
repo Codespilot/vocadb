@@ -1,5 +1,6 @@
 ﻿using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models.Shared {
 
@@ -13,6 +14,17 @@ namespace VocaDb.Web.Models.Shared {
 			Id = contract.Id;
 			Notes = contract.Notes;
 			Reason = reasonName;
+			Status = contract.Status;
+			ChangeMessage = changeMessage;
+
+		}
+
+		public ArchivedObjectVersion(ArchivedObjectVersionContract contract, string changeMessage) {
+
+			Contract = contract;
+			Id = contract.Id;
+			Notes = contract.Notes;
+			Reason = Translate.EntryEditEventNames[contract.EditEvent];
 			Status = contract.Status;
 			ChangeMessage = changeMessage;
 

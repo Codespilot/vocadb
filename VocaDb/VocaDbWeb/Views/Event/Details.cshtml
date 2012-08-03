@@ -13,6 +13,7 @@
 
 @section Toolbar {
 	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editEventLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 
 @if (Model.Series != null) {
@@ -37,6 +38,7 @@
 
 	$(document).ready(function () {
 		$("#editEventLink").button({ disabled: $("#editEventLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
+		$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	});
 
 </script>

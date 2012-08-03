@@ -1,0 +1,14 @@
+﻿@using VocaDb.Web.Helpers
+@using VocaDb.Web.Models.Shared
+@model VocaDb.Model.DataContracts.Tags.TagWithArchivedVersionsContract
+
+@{
+	ViewBag.Title = ViewRes.EntryDetailsStrings.Revisions + " - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink(ViewRes.SharedStrings.Tags, "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Name }) 
+	};
+}
+
+@ArchivedEntryHelpers.ArchivedObjectVersions(Model.ArchivedVersions.Select(
+	a => new ArchivedObjectVersion(a, Translate.TagEditableFieldNames[a.ChangedFields]))))

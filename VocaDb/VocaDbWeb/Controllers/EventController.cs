@@ -165,5 +165,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Versions(int id) {
+
+			var contract = Service.GetReleaseEventWithArchivedVersions(id);
+
+			return View(contract);
+
+		}
+
     }
 }

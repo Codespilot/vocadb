@@ -105,6 +105,7 @@
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventSeriesContract.cs" />
+    <Compile Include="DataContracts\ReleaseEvents\ArchivedEventVersionContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventDetailsContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventFindResultContract.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
     <Compile Include="DataContracts\EntryNameContract.cs" />
     <Compile Include="DataContracts\EntryRefContract.cs" />
+    <Compile Include="DataContracts\ReleaseEvents\ReleaseEventWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\Security\PermissionTokenContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\ComparedSongsContract.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="DataContracts\Songs\SongInAlbumEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithAlbumContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
+    <Compile Include="DataContracts\Tags\ArchivedTagVersionContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
     <Compile Include="DataContracts\Tags\TagContract.cs" />
     <Compile Include="DataContracts\Tags\TagDetailsContract.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="DataContracts\Songs\SongWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\Tags\TagForEditContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageContract.cs" />
+    <Compile Include="DataContracts\Tags\TagWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\UnifiedCommentContract.cs" />
     <Compile Include="DataContracts\UseCases\AlbumForArtistEditContract.cs" />
     <Compile Include="DataContracts\UseCases\AllEntriesSearchResult.cs" />
@@ -204,6 +208,7 @@
     <Compile Include="DataContracts\Users\UserWithActivityEntriesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="DataContracts\VersioningInfoContract.cs" />
+    <Compile Include="DataContracts\Versioning\ArchivedObjectVersionWithFieldsContract.cs" />
     <Compile Include="DataContracts\Versioning\ComparedVersionsContract.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntry.cs" />
     <Compile Include="Domain\Activityfeed\ActivityfeedManager.cs" />
