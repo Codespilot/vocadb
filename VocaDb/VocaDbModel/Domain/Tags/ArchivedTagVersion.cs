@@ -11,7 +11,9 @@ namespace VocaDb.Model.Domain.Tags {
 		private TagDiff diff;
 		private Tag tag;
 
-		public ArchivedTagVersion() { }
+		public ArchivedTagVersion() { 
+			Status = EntryStatus.Finished;
+		}
 
 		public ArchivedTagVersion(Tag tag, TagDiff diff, AgentLoginData author,
 			EntryEditEvent commonEditEvent)
@@ -24,6 +26,7 @@ namespace VocaDb.Model.Domain.Tags {
 			CommonEditEvent = commonEditEvent;
 			CategoryName = tag.CategoryName;
 			Description = tag.Description;
+			Status = EntryStatus.Finished;
 
 		}
 
