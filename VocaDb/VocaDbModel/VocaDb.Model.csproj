@@ -235,6 +235,7 @@
     <Compile Include="Domain\EntryRef.cs" />
     <Compile Include="Domain\EntryReport.cs" />
     <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
+    <Compile Include="Domain\Globalization\SingleNameManager.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
     <Compile Include="Domain\IDeletableEntry.cs" />
     <Compile Include="Domain\IEntryWithIntId.cs" />
@@ -252,6 +253,9 @@
     <Compile Include="Domain\Songs\SongReport.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
+    <Compile Include="Domain\Tags\ArchivedTagVersion.cs" />
+    <Compile Include="Domain\Tags\TagDiff.cs" />
+    <Compile Include="Domain\Tags\TagEditableFields.cs" />
     <Compile Include="Domain\TrashedEntry.cs" />
     <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />

@@ -1344,7 +1344,7 @@ namespace VocaDb.Model.Service {
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 
-				song.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new SongTagUsageFactory(session, song));
+				song.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new SongTagUsageFactory(session, song));
 
 				return song.Tags.Usages.OrderByDescending(u => u.Count).Take(Tag.MaxDisplayedTags).Select(t => new TagUsageContract(t)).ToArray();
 
@@ -1429,7 +1429,10 @@ namespace VocaDb.Model.Service {
 
 					if (changed) {
 
+						var diff = new SongDiff { Artists = true };
 						song.UpdateArtistString();
+						Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
+
 						session.Update(song);
 						artistStrings.Add(new KeyValuePair<int, string>(song.Id, song.ArtistString[PermissionContext.LanguagePreference]));
 

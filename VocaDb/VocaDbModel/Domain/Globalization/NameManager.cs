@@ -81,9 +81,9 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
-		IEnumerable<LocalizedStringWithId> INameManager.Names {
-			get { return Names; }
-		}
+		//IEnumerable<LocalizedStringWithId> INameManager.Names {
+		//	get { return Names; }
+		//}
 
 		public virtual TranslatedString SortNames {
 			get { return sortNames; }

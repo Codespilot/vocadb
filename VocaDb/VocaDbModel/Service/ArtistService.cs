@@ -898,7 +898,7 @@ namespace VocaDb.Model.Service {
 
 				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
 
-				artist.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session), new ArtistTagUsageFactory(session, artist));
+				artist.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new ArtistTagUsageFactory(session, artist));
 
 				return artist.Tags.Usages.OrderByDescending(u => u.Count).Take(Tag.MaxDisplayedTags).Select(t => new TagUsageContract(t)).ToArray();
 

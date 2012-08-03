@@ -18,7 +18,6 @@ namespace VocaDb.Model.Domain.Versioning {
 		protected ArchivedObjectVersion(XDocument data, AgentLoginData author, int version, EntryStatus status, string notes)
 			: this() {
 
-			ParamIs.NotNull(() => data);
 			ParamIs.NotNull(() => author);
 
 			Data = data;

@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.Domain.Tags {
 
-	public class Tag : IEquatable<Tag>, IEntryBase {
+	public class Tag : IEquatable<Tag>, IEntryWithNames {
 
 		string IEntryBase.DefaultName {
 			get { return Name; }
@@ -22,10 +26,18 @@ namespace VocaDb.Model.Domain.Tags {
 			get { return GetHashCode(); }
 		}
 
+		INameManager IEntryWithNames.Names {
+			get {
+				return new SingleNameManager(TagName);
+			}
+		}
+
 		public const int MaxDisplayedTags = 4;
 		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_-]+$");
 
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
+		private ArchivedVersionManager<ArchivedTagVersion, TagEditableFields> archivedVersions
+			= new ArchivedVersionManager<ArchivedTagVersion, TagEditableFields>();		
 		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
 		private string categoryName;
 		private string description;
@@ -68,6 +80,14 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public virtual ArchivedVersionManager<ArchivedTagVersion, TagEditableFields> ArchivedVersionsManager {
+			get { return archivedVersions; }
+			set {
+				ParamIs.NotNull(() => value);
+				archivedVersions = value;
+			}
+		}
+
 		public virtual IEnumerable<ArtistTagUsage> ArtistTagUsages {
 			get {
 				return AllArtistTagUsages.Where(a => !a.Artist.Deleted);
@@ -94,6 +114,15 @@ namespace VocaDb.Model.Domain.Tags {
 		public virtual string Name { get; set; }
 
 		public virtual string TagName { get; set; }
+
+		public virtual ArchivedTagVersion CreateArchivedVersion(TagDiff diff, AgentLoginData author, EntryEditEvent reason) {
+
+			var archived = new ArchivedTagVersion(this, diff, author, reason);
+			ArchivedVersionsManager.Add(archived);
+
+			return archived;
+
+		}
 
 		public virtual void Delete() {
 
