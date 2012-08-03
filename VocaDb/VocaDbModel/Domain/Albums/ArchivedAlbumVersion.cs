@@ -35,6 +35,7 @@ namespace VocaDb.Model.Domain.Albums {
 			AlbumArchiveReason reason, string notes)
 			: base(data, author, version, status, notes) {
 
+			ParamIs.NotNull(() => data);
 			ParamIs.NotNull(() => diff);
 
 			Album = album;

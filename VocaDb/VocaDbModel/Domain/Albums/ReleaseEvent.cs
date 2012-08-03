@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using VocaDb.Model.Domain.Activityfeed;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ReleaseEvent : IEntryBase {
+	public class ReleaseEvent : IEntryWithNames {
 
 		string IEntryBase.DefaultName {
 			get { return Name; }
@@ -13,7 +18,15 @@ namespace VocaDb.Model.Domain.Albums {
 			get { return false; }
 		}
 
+		INameManager IEntryWithNames.Names {
+			get { 
+				return new SingleNameManager(Name); 
+			}
+		}
+
 		private IList<Album> albums = new List<Album>();
+		private ArchivedVersionManager<ArchivedReleaseEventVersion, ReleaseEventEditableFields> archivedVersions
+			= new ArchivedVersionManager<ArchivedReleaseEventVersion, ReleaseEventEditableFields>();
 		private string description;
 		private string name;
 		private ReleaseEventSeries series;
@@ -54,6 +67,14 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual ArchivedVersionManager<ArchivedReleaseEventVersion, ReleaseEventEditableFields> ArchivedVersionsManager {
+			get { return archivedVersions; }
+			set {
+				ParamIs.NotNull(() => value);
+				archivedVersions = value;
+			}
+		}
+
 		public virtual DateTime? Date { get; set; }
 
 		public virtual string Description {
@@ -84,6 +105,15 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual int SeriesNumber { get; set; }
+
+		public virtual ArchivedReleaseEventVersion CreateArchivedVersion(ReleaseEventDiff diff, AgentLoginData author, EntryEditEvent reason) {
+
+			var archived = new ArchivedReleaseEventVersion(this, diff, author, reason);
+			ArchivedVersionsManager.Add(archived);
+
+			return archived;
+
+		}
 
 		public virtual bool Equals(ReleaseEvent another) {
 

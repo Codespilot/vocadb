@@ -27,6 +27,8 @@ namespace VocaDb.Model.Domain.Songs {
 			SongArchiveReason reason, string notes)
 			: base(data, author, version, status, notes) {
 
+			ParamIs.NotNull(() => data);
+
 			Song = song;
 			Diff = diff;
 			Reason = reason;

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.Domain.Albums;
 using System.Text.RegularExpressions;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -23,6 +25,14 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => new ReleaseEventDetailsContract(session.Query<ReleaseEvent>().F(r => r.Name == name)));
 
 		}*/
+
+		public void Archive(ISession session, ReleaseEvent releaseEvent, ReleaseEventDiff diff, EntryEditEvent reason) {
+
+			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+			var archived = releaseEvent.CreateArchivedVersion(diff, agentLoginData, reason);
+			session.Save(archived);
+
+		}
 
 		public void DeleteEvent(int id) {
 
@@ -154,6 +164,8 @@ namespace VocaDb.Model.Service {
 						ev = new ReleaseEvent(contract.Description, contract.Date, contract.Name);
 					}
 
+					Archive(session, ev, new ReleaseEventDiff(), EntryEditEvent.Created);
+
 					session.Save(ev);
 
 					AuditLog("created " + ev, session);
@@ -161,11 +173,28 @@ namespace VocaDb.Model.Service {
 				} else {
 
 					ev = session.Load<ReleaseEvent>(contract.Id);
+					var diff = new ReleaseEventDiff();
+
+					if (ev.Date != contract.Date)
+						diff.Date = true;
+
+					if (ev.Description != contract.Description)
+						diff.Description = true;
+
+					if (ev.Name != contract.Name)
+						diff.Name = true;
+
+					if (ev.SeriesNumber != contract.SeriesNumber)
+						diff.SeriesNumber = true;
 
 					ev.Date = contract.Date;
 					ev.Description = contract.Description;
 					ev.Name = contract.Name;
 					ev.SeriesNumber = contract.SeriesNumber;
+
+					Archive(session, ev, diff, EntryEditEvent.Updated);
+
+					session.Update(ev);
 
 					AuditLog("updated " + ev, session);
 
