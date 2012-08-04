@@ -458,6 +458,7 @@
     <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
     <Compile Include="Service\NewsEntryService.cs" />
     <Compile Include="Service\Paging\PagingProperties.cs" />
+    <Compile Include="Service\Rankings\InvalidFeedException.cs" />
     <Compile Include="Service\Rankings\NNDWVRParser.cs" />
     <Compile Include="Service\ReleaseEventService.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumArtistFilter.cs" />

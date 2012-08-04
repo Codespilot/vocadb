@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Rankings;
 using VocaDb.Web.Code;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.SongLists;
@@ -48,7 +49,13 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Details", "SongList", new { id = listId });
 			}
 
-			var parseResult = MvcApplication.Services.Rankings.ParseWVRList(model.Url);
+			WVRListResult parseResult;
+			try {
+				parseResult = MvcApplication.Services.Rankings.ParseWVRList(model.Url);
+			} catch (InvalidFeedException x) {
+				ModelState.AddModelError("Url", x);
+				return View(model);
+			}
 			model.ListResult = parseResult;
 
 			if (parseResult.IsIncomplete)

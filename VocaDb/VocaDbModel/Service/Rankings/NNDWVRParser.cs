@@ -16,6 +16,10 @@ namespace VocaDb.Model.Service.Rankings {
 
 			var feed = RssFeed.Read(url);
 
+			if (feed.Exceptions.LastException != null) {
+				throw new InvalidFeedException("Unable to parse feed", feed.Exceptions.LastException);
+			}
+
 			var result = new RankingContract();
 			var channel = feed.Channels[0];
 			result.Name = channel.Title;
