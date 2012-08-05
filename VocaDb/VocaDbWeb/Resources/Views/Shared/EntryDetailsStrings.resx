@@ -162,6 +162,9 @@
   <data name="Revisions" xml:space="preserve">
     <value>Revisions</value>
   </data>
+  <data name="ShowAllTags" xml:space="preserve">
+    <value>Show all</value>
+  </data>
   <data name="Stats" xml:space="preserve">
     <value>Statistics</value>
   </data>
