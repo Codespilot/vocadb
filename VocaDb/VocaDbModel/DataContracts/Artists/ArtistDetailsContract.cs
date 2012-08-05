@@ -29,7 +29,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			LatestSongs = new SongWithAdditionalNamesContract[] { };
 			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
 			Pictures = artist.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
-			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).Take(Tag.MaxDisplayedTags).ToArray();
+			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}

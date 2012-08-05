@@ -1214,7 +1214,7 @@ namespace VocaDb.Model.Service {
 
 				album.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new AlbumTagUsageFactory(session, album));
 
-				return album.Tags.Usages.OrderByDescending(u => u.Count).Take(Tag.MaxDisplayedTags).Select(t => new TagUsageContract(t)).ToArray();
+				return album.Tags.Usages.OrderByDescending(u => u.Count).Select(t => new TagUsageContract(t)).ToArray();
 
 			});
 
