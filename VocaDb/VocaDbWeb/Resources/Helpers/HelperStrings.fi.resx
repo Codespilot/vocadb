@@ -126,6 +126,9 @@
   <data name="DraftMessage" xml:space="preserve">
     <value>Tämä merkintä on luonnos. Voit auttaa muokkaamalla merkintää ja lisäämällä puuttuvat tiedot.</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Tallenna muutokset</value>
+  </data>
   <data name="SeeGuide" xml:space="preserve">
     <value>ohjeesta</value>
   </data>

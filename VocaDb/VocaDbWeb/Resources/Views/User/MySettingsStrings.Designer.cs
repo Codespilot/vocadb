@@ -61,11 +61,38 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access key.
+        /// </summary>
+        public static string AccessKey {
+            get {
+                return ResourceManager.GetString("AccessKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account settings.
         /// </summary>
         public static string AccountSettings {
             get {
                 return ResourceManager.GetString("AccountSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not show my name in the recent activity list.
+        /// </summary>
+        public static string AnonymousActivity {
+            get {
+                return ResourceManager.GetString("AnonymousActivity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Automatic).
+        /// </summary>
+        public static string Automatic {
+            get {
+                return ResourceManager.GetString("Automatic", resourceCulture);
             }
         }
         
@@ -84,6 +111,24 @@ namespace ViewRes.User {
         public static string CultureName {
             get {
                 return ResourceManager.GetString("CultureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Current password.
+        /// </summary>
+        public static string CurrentPass {
+            get {
+                return ResourceManager.GetString("CurrentPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preferred display language.
+        /// </summary>
+        public static string DefaultLanguageSelection {
+            get {
+                return ResourceManager.GetString("DefaultLanguageSelection", resourceCulture);
             }
         }
         
@@ -115,6 +160,15 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (fill if changing password.).
+        /// </summary>
+        public static string FillIfChangingPassword {
+            get {
+                return ResourceManager.GetString("FillIfChangingPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interface.
         /// </summary>
         public static string Interface {
@@ -124,11 +178,101 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Interface language.
+        /// </summary>
+        public static string InterfaceLanguageSelection {
+            get {
+                return ResourceManager.GetString("InterfaceLanguageSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid email address.
+        /// </summary>
+        public static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to My settings.
         /// </summary>
         public static string MySettingsTitle {
             get {
                 return ResourceManager.GetString("MySettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password.
+        /// </summary>
+        public static string NewPass {
+            get {
+                return ResourceManager.GetString("NewPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New password again.
+        /// </summary>
+        public static string NewPassAgain {
+            get {
+                return ResourceManager.GetString("NewPassAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords must match.
+        /// </summary>
+        public static string PasswordsMustMatch {
+            get {
+                return ResourceManager.GetString("PasswordsMustMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preferred streaming service.
+        /// </summary>
+        public static string PreferredVideoService {
+            get {
+                return ResourceManager.GetString("PreferredVideoService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Really reset code?.
+        /// </summary>
+        public static string ReallyReset {
+            get {
+                return ResourceManager.GetString("ReallyReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (required for changing password.).
+        /// </summary>
+        public static string RequiredForChangingPassword {
+            get {
+                return ResourceManager.GetString("RequiredForChangingPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings updated.
+        /// </summary>
+        public static string SettingsUpdated {
+            get {
+                return ResourceManager.GetString("SettingsUpdated", resourceCulture);
             }
         }
         

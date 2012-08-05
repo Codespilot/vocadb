@@ -1928,10 +1928,12 @@
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MySettingsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
