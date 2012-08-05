@@ -4,16 +4,16 @@
 @model MySettingsModel
 
 @{
-    ViewBag.Title = "My settings";
+    ViewBag.Title = R.MySettingsStrings.MySettingsTitle;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
 		Html.ActionLink(Model.Username, "Profile", new { id = Model.Username }) 
 	};		
 }
 
-@Html.ValidationSummary(true, "Unable to save settings. Please correct the errors and try again.")
+@Html.ValidationSummary(true, R.MySettingsStrings.UnableToSave)
 
-@using (Html.BeginForm(@R.MySettings.MySettingsTitle, "User", FormMethod.Post)) {
+@using (Html.BeginForm("MySettings", "User", FormMethod.Post)) {
 	@Html.HiddenFor(m => m.Id)
 
 	@Helpers.SaveBtn()
@@ -21,23 +21,23 @@
 	<div id="tabs">
 
 		<ul>
-			<li><a href="#accountSettings">Account settings</a></li>
-			<li><a href="#interface">Interface</a></li>
-			<li><a href="#connectivity">Connectivity</a></li>
+			<li><a href="#accountSettings">@R.MySettingsStrings.AccountSettings</a></li>
+			<li><a href="#interface">@R.MySettingsStrings.Interface</a></li>
+			<li><a href="#connectivity">@R.MySettingsStrings.Connectivity</a></li>
 		</ul>
 
 		<div id="accountSettings">
 			<div>
 				<div class="editor-label">
-					@Html.LabelFor(m => m.Username)
+					@R.MySettingsStrings.Username
 				</div>
 				<div class="editor-field">
 					@Html.DisplayFor(m => m.Username)
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.Email)
-					(optional, used by gravatar and password resets)
+					@R.MySettingsStrings.Email
+					@R.MySettingsStrings.EmailNote
 				</div>
 				<div class="editor-field">
 					@Html.TextBoxFor(m => m.Email)
@@ -45,7 +45,7 @@
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.EmailOptions)
+					@R.MySettingsStrings.EmailOptions
 				</div>
 				<div class="editor-field">
 					@Html.EmailOptionsDropDownListFor(m => m.EmailOptions)
@@ -98,7 +98,7 @@
 
 			<div class="editor-label">
 				<label>
-				@R.MySettings.CultureName
+				@R.MySettingsStrings.CultureName
 				</label>
 			</div>
 			<div class="editor-field">

@@ -706,10 +706,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MessagesStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Views\User\MySettings.Designer.cs">
+    <Compile Include="Resources\Views\User\MySettingsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MySettings.resx</DependentUpon>
+      <DependentUpon>MySettingsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
@@ -1698,6 +1698,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Other\PagedListStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Other\PagedListStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Other\PagedListStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PagedListStrings.Designer.cs</LastGenOutput>
@@ -1927,9 +1928,9 @@
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\User\MySettings.resx">
+    <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MySettings.Designer.cs</LastGenOutput>
+      <LastGenOutput>MySettingsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>

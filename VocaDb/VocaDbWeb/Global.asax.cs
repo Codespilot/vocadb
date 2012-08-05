@@ -98,24 +98,29 @@ namespace VocaDb.Web {
 			if (ex == null)
 				return;
 
+			// NHibernate missing entity exceptions. Usually caused by an invalid or deleted Id. This error has been logged already.
 			if (ex is ObjectNotFoundException) {
-				HandleHttpError((int)HttpStatusCode.NotFound, "Entity not found");
+				HandleHttpError(ErrorLogger.Code_NotFound, "Entity not found");
 				return;
 			}
 
+			// Insufficient privileges. This error has been logged already.
 			if (ex is NotAllowedException) {
-				HandleHttpError((int)HttpStatusCode.Forbidden, ex.Message);
+				HandleHttpError(ErrorLogger.Code_Forbidden, ex.Message);
 				return;
 			}
 
+			// Generic HTTP exception. Can be 404 or something else.
 			var httpException = ex as HttpException;
-			if (httpException != null) {
+			if (httpException != null && !(ex is HttpCompileException)) {
+				
 				var code = httpException.GetHttpCode();
 				HandleHttpError(code);
 				return;
+
 			}
 
-			// No need to log NHibernate exceptions twice
+			// Generic NHibernate exception. This error has been logged already.
 			if (!(ex is HibernateException))
 				ErrorLogger.LogException(Request, ex);
 
