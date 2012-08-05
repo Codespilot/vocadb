@@ -120,4 +120,13 @@
   <data name="AddSong" xml:space="preserve">
     <value>曲を提出する</value>
   </data>
+  <data name="Favorited" xml:space="preserve">
+    <value>Favorited</value>
+  </data>
+  <data name="FromAlbum" xml:space="preserve">
+    <value>From album</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>time(s)</value>
+  </data>
 </root>

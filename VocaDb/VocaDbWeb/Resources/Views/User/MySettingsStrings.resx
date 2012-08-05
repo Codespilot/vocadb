@@ -129,11 +129,20 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EmailNote" xml:space="preserve">
+    <value>(optional, used by gravatar and password resets)</value>
+  </data>
+  <data name="EmailOptions" xml:space="preserve">
+    <value>Email options for private messages</value>
+  </data>
   <data name="Interface" xml:space="preserve">
     <value>Interface</value>
   </data>
   <data name="MySettingsTitle" xml:space="preserve">
     <value>My settings</value>
+  </data>
+  <data name="UnableToSave" xml:space="preserve">
+    <value>Unable to save settings. Please correct the errors and try again.</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>

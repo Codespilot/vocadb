@@ -22,14 +22,14 @@ namespace ViewRes.User {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MySettings {
+    public class MySettingsStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MySettings() {
+        internal MySettingsStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes.User {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.User.MySettings", typeof(MySettings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.User.MySettingsStrings", typeof(MySettingsStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -97,6 +97,24 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (optional, used by gravatar and password resets).
+        /// </summary>
+        public static string EmailNote {
+            get {
+                return ResourceManager.GetString("EmailNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email options for private messages.
+        /// </summary>
+        public static string EmailOptions {
+            get {
+                return ResourceManager.GetString("EmailOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interface.
         /// </summary>
         public static string Interface {
@@ -111,6 +129,15 @@ namespace ViewRes.User {
         public static string MySettingsTitle {
             get {
                 return ResourceManager.GetString("MySettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to save settings. Please correct the errors and try again..
+        /// </summary>
+        public static string UnableToSave {
+            get {
+                return ResourceManager.GetString("UnableToSave", resourceCulture);
             }
         }
         
