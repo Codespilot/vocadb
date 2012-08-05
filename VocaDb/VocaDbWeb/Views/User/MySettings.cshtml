@@ -54,13 +54,13 @@
 				<p>
 					<label class="checkbox inline">
 						@Html.CheckBoxFor(m => m.AnonymousActivity)
-						Do not show my name in the recent activity list
+						@R.MySettingsStrings.AnonymousActivity
 					</label>
 				</p>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.OldPass)
-					(required for changing password.)
+					@R.MySettingsStrings.CurrentPass
+					@R.MySettingsStrings.RequiredForChangingPassword
 				</div>
 				<div class="editor-field">
 					@Html.PasswordFor(m => m.OldPass)
@@ -68,8 +68,8 @@
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.NewPass)
-					(fill if changing password.)
+					@R.MySettingsStrings.NewPass
+					@R.MySettingsStrings.FillIfChangingPassword
 				</div>
 				<div class="editor-field">
 					@Html.PasswordFor(m => m.NewPass)
@@ -77,7 +77,7 @@
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.NewPassAgain)
+					@R.MySettingsStrings.NewPassAgain
 				</div>
 				<div class="editor-field">
 					@Html.PasswordFor(m => m.NewPassAgain)
@@ -90,10 +90,12 @@
 		<div id="interface">
 		
 			<div class="editor-label">
-				@Html.LabelFor(m => m.InterfaceLanguageSelection)
+				@R.MySettingsStrings.InterfaceLanguageSelection
 			</div>
 			<div class="editor-field">
-				@Html.DropDownListFor(m => m.InterfaceLanguageSelection, new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.InterfaceLanguageSelection))
+				@Html.DropDownListFor(m => m.InterfaceLanguageSelection,
+					new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.InterfaceLanguageSelection), 
+					new { @class = "input-xlarge" })
 			</div>
 
 			<div class="editor-label">
@@ -102,18 +104,20 @@
 				</label>
 			</div>
 			<div class="editor-field">
-				@Html.DropDownListFor(m => m.CultureSelection, new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.CultureSelection))
+				@Html.DropDownListFor(m => m.CultureSelection,
+					new SelectList(Model.AllInterfaceLanguages, "Key", "Value", Model.CultureSelection),
+					new { @class = "input-xlarge" })
 			</div>
 			
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DefaultLanguageSelection)
+				@R.MySettingsStrings.DefaultLanguageSelection
 			</div>
 			<div class="editor-field">
 				@Html.LanguagePreferenceDropDownListFor(m => m.DefaultLanguageSelection)
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.PreferredVideoService)
+				@R.MySettingsStrings.PreferredVideoService
 			</div>
 			<div class="editor-field">
 				@Html.DropDownListFor(m => m.PreferredVideoService, new SelectList(Model.AllVideoServices, Model.PreferredVideoService))
@@ -123,11 +127,11 @@
 
 		<div id="connectivity">
 	
-			<h4>Access key</h4>
+			<h4>@R.MySettingsStrings.AccessKey</h4>
 			<p>
 				@Model.AccessKey
 				
-				@Html.ActionLink("Reset", "ResetAccesskey", "User", new { onclick = "return confirm(\"Really reset code?\");" })
+				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");" })
 			</p>
 
 		</div>

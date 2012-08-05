@@ -390,7 +390,7 @@ namespace VocaDb.Web.Controllers
 				try {
 					new MailAddress(model.Email);
 				} catch (FormatException) {
-					ModelState.AddModelError("Email", "Invalid email address");
+					ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.InvalidEmail);
 					return View(new MySettingsModel(GetUserForMySettings()));
 				}
 			}
@@ -402,7 +402,7 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("OldPass", x.Message);				
 			}
 
-			TempData.SetStatusMessage("Settings updated");
+			TempData.SetStatusMessage(ViewRes.User.MySettingsStrings.SettingsUpdated);
 
 			return RedirectToAction("Profile", new { id = user.Name });
 

@@ -222,7 +222,7 @@ break;
 	}
 }
 
-@helper PrintComment(VocaDb.Model.DataContracts.CommentContract contract, bool allowDelete) {	
+@helper PrintComment(CommentContract contract, bool allowDelete) {	
 	<div class="comment">
 		<h3>
 			@Html.ProfileIcon(contract.Author, 25)
@@ -236,7 +236,7 @@ break;
 		</h3>
 		
 		<p>
-			@Helpers.ConvertNewlinesToBreaks(contract.Message)
+			@ConvertNewlinesToBreaks(contract.Message)
 		</p>
 		<hr />
 	</div>	
@@ -246,7 +246,7 @@ break;
 	<p>
 		<button type="submit" class="btn btn-primary">
 			<i class="icon-ok icon-white"></i>
-			&nbsp;Save changes
+			&nbsp;@HelperRes.HelperStrings.SaveChanges
 		</button>	
 	</p>
 }

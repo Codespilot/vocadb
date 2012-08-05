@@ -74,7 +74,7 @@ namespace VocaDb.Web.Models {
 
 			AccessKey = user.HashedAccessKey;
 			AllInterfaceLanguages = InterfaceLanguage.Cultures
-				.ToKeyValuePairsWithEmpty(string.Empty, "(Automatic)", c => c.Name, c => c.EnglishName + " (" + c.NativeName + ")")
+				.ToKeyValuePairsWithEmpty(string.Empty, ViewRes.User.MySettingsStrings.Automatic, c => c.Name, c => c.NativeName + " (" + c.EnglishName + ")")
 				.OrderBy(k => k.Value)
 				.ToArray();
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
@@ -124,7 +124,7 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "New password")]
 		[DataType(DataType.Password)]
-		[Compare("NewPassAgain", ErrorMessage = "Passwords must match")]
+		[Compare("NewPassAgain", ErrorMessageResourceType = typeof(ViewRes.User.MySettingsStrings), ErrorMessageResourceName = "PasswordsMustMatch")]
 		[StringLength(100)]
 		public string NewPass { get; set; }
 

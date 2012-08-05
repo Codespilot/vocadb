@@ -118,81 +118,81 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccessKey" xml:space="preserve">
-    <value>Access key</value>
+    <value>Pääsytunnus</value>
   </data>
   <data name="AccountSettings" xml:space="preserve">
-    <value>Account settings</value>
+    <value>Tunnuksen asetukset</value>
   </data>
   <data name="AnonymousActivity" xml:space="preserve">
-    <value>Do not show my name in the recent activity list</value>
+    <value>Älä näytä nimeäni viimeaikaisten muutosten listassa.</value>
   </data>
   <data name="Automatic" xml:space="preserve">
-    <value>(Automatic)</value>
+    <value>(Automaattinen)</value>
   </data>
   <data name="Connectivity" xml:space="preserve">
-    <value>Connectivity</value>
+    <value>Yhteydet</value>
   </data>
   <data name="CultureName" xml:space="preserve">
-    <value>Date and number formatting</value>
+    <value>Päiväysten ja numeroiden esitystapa</value>
   </data>
   <data name="CurrentPass" xml:space="preserve">
-    <value>Current password</value>
+    <value>Nykyinen salasana</value>
   </data>
   <data name="DefaultLanguageSelection" xml:space="preserve">
-    <value>Preferred display language</value>
+    <value>Toivottu käännöskieli</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Sähköposti</value>
   </data>
   <data name="EmailNote" xml:space="preserve">
-    <value>(optional, used by gravatar and password resets)</value>
+    <value>(salainen ja vapaaehtoinen, käytetään Gravataria ja salasanojen resetointia varten)</value>
   </data>
   <data name="EmailOptions" xml:space="preserve">
-    <value>Email options for private messages</value>
+    <value>Sähköpostiasetukset yksityisviestejä varten</value>
   </data>
   <data name="FillIfChangingPassword" xml:space="preserve">
-    <value>(fill if changing password.)</value>
+    <value>(täytä jos vaihdat salasanaa)</value>
   </data>
   <data name="Interface" xml:space="preserve">
-    <value>Interface</value>
+    <value>Käyttöliittymä</value>
   </data>
   <data name="InterfaceLanguageSelection" xml:space="preserve">
-    <value>Interface language</value>
+    <value>Käyttöliittymän kieli</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>Invalid email address</value>
+    <value>Virheellinen sähköpostiosoite</value>
   </data>
   <data name="MySettingsTitle" xml:space="preserve">
-    <value>My settings</value>
+    <value>Omat asetukset</value>
   </data>
   <data name="NewPass" xml:space="preserve">
-    <value>New password</value>
+    <value>Uusi salasana</value>
   </data>
   <data name="NewPassAgain" xml:space="preserve">
-    <value>New password again</value>
+    <value>Uusi salasana uudestaan</value>
   </data>
   <data name="PasswordsMustMatch" xml:space="preserve">
-    <value>Passwords must match</value>
+    <value>Salasanojen tulee vastata</value>
   </data>
   <data name="PreferredVideoService" xml:space="preserve">
-    <value>Preferred streaming service</value>
+    <value>Toivottu mediantoistopalvelu</value>
   </data>
   <data name="ReallyReset" xml:space="preserve">
-    <value>Really reset code?</value>
+    <value>Haluatko varmasti resetoida?</value>
   </data>
   <data name="RequiredForChangingPassword" xml:space="preserve">
-    <value>(required for changing password.)</value>
+    <value>(vaaditaan salasanan vaihtamiseen)</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Resetoi</value>
   </data>
   <data name="SettingsUpdated" xml:space="preserve">
-    <value>Settings updated</value>
+    <value>Asetukset päivitetty</value>
   </data>
   <data name="UnableToSave" xml:space="preserve">
-    <value>Unable to save settings. Please correct the errors and try again.</value>
+    <value>Asetusten tallentaminen ei onnistu. Korjaa virheet ja yritä uudelleen.</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Käyttäjätunnus</value>
   </data>
 </root>
