@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Helpers
+﻿@using VocaDb.Model.Domain.Albums
+@using VocaDb.Web.Helpers
 @using VocaDb.Web.Models.Shared
 @model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventWithArchivedVersionsContract
 
@@ -11,4 +12,4 @@
 }
 
 @ArchivedEntryHelpers.ArchivedObjectVersions(Model.ArchivedVersions.Select(
-	a => new ArchivedObjectVersion(a, Translate.ReleaseEventEditableFieldNames[a.ChangedFields])))
+	a => new ArchivedObjectVersion(a, Translate.ReleaseEventEditableFieldNames.GetAllNameNames(a.ChangedFields, ReleaseEventEditableFields.Nothing))))

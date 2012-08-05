@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Helpers
+﻿@using VocaDb.Model.Domain.Tags
+@using VocaDb.Web.Helpers
 @using VocaDb.Web.Models.Shared
 @model VocaDb.Model.DataContracts.Tags.TagWithArchivedVersionsContract
 
@@ -11,4 +12,4 @@
 }
 
 @ArchivedEntryHelpers.ArchivedObjectVersions(Model.ArchivedVersions.Select(
-	a => new ArchivedObjectVersion(a, Translate.TagEditableFieldNames[a.ChangedFields])))
+	a => new ArchivedObjectVersion(a, Translate.TagEditableFieldNames.GetAllNameNames(a.ChangedFields, TagEditableFields.Nothing))))
