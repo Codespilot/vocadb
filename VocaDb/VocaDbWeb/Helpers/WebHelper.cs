@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 using NLog;
+using VocaDb.Web.Code;
 
 namespace VocaDb.Web.Helpers {
 
@@ -23,7 +24,7 @@ namespace VocaDb.Web.Helpers {
 			var ua = request.UserAgent;
 
 			if (string.IsNullOrEmpty(ua)) {
-				log.Warn("Blank user agent from {0}", GetRealHost(request));
+				log.Warn(ErrorLogger.RequestInfo("Blank user agent from", request));
 				return false;
 			}
 

@@ -203,7 +203,8 @@ namespace VocaDb.Model.Service {
 
 					Archive(session, ev, diff, EntryEditEvent.Updated);
 
-					AuditLog("updated " + ev, session);
+					var logStr = string.Format("updated properties for {0} ({1})", CreateEntryLink(ev), diff.ChangedFieldsString);
+					AuditLog(logStr, session);
 
 				}
 

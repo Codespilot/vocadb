@@ -1,5 +1,4 @@
 ﻿using System;
-using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Helpers;
 
@@ -7,7 +6,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class ArtistForAlbum : IArtistWithSupport, IEquatable<ArtistForAlbum> {
 
-		private Artist artist;
 		private Album album;
 		private string notes;
 
@@ -45,17 +43,17 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual Artist Artist {
-			get { return artist; }
-			set {
-				//ParamIs.NotNull(() => value);
-				artist = value;
-			}
-		}
+		public virtual Artist Artist { get; set; }
 
 		public virtual ArtistCategories ArtistCategories {
 			get {
 				return ArtistHelper.GetCategories(this);
+			}
+		}
+
+		public virtual string ArtistToStringOrName {
+			get {
+				return Artist != null ? Artist.ToString() : Name;
 			}
 		}
 
@@ -84,15 +82,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		/*public virtual bool ContentEquals(ArtistForAlbumContract contract) {
-
-			if (contract == null)
-				return false;
-
-			return (IsSupport == contract.IsSupport && Roles == contract.Roles);
-
-		}*/
-
 		public virtual void Delete() {
 			Album.DeleteArtistForAlbum(this);
 		}
@@ -105,6 +94,9 @@ namespace VocaDb.Model.Domain.Albums {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}
@@ -114,14 +106,14 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public virtual void Move(Album target) {
 
 			ParamIs.NotNull(() => target);
 
-			if (target.Equals(Artist))
+			if (target.Equals(Album))
 				return;
 
 			Album.AllArtists.Remove(this);
@@ -144,7 +136,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return string.Format("{0} for {1}", Artist != null ? Artist.ToString() : Name, Album);
+			return string.Format("{0} for {1}", ArtistToStringOrName, Album);
 		}
 
 	}

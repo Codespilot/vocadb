@@ -1,9 +1,12 @@
 ﻿using System;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Security {
 
 	public class AuditLogEntry {
+
+		public const int MaxActionLength = 400;
 
 		private string action;
 		private string agentName;
@@ -16,8 +19,9 @@ namespace VocaDb.Model.Domain.Security {
 			: this() {
 			
 			ParamIs.NotNull(() => agentLoginData);
+			ParamIs.NotNullOrEmpty(() => action);
 
-			Action = action;
+			Action = action.Truncate(MaxActionLength);
 			AgentName = agentLoginData.Name;
 			User = agentLoginData.User;
 
