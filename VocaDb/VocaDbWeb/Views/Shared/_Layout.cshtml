@@ -117,7 +117,7 @@
 							</ul>
 						</li>
 						<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
-						<li>@Html.ActionLink(ViewRes.SharedStrings.Tags, "Index", "Tag")</li>
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.Tags, "Index", "Tag")</li>
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
 						@if (Login.Manager.HasPermission(PermissionToken.MikuDbImport)) {
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 

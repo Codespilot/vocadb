@@ -159,6 +159,9 @@
   <data name="SocialSites" xml:space="preserve">
     <value>Sosiaaliset verkostot</value>
   </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Tägit / genret</value>
+  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>Sinulla on lukemattomia viestejä</value>
   </data>
