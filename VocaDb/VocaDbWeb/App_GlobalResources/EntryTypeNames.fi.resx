@@ -129,6 +129,9 @@
   <data name="SongList" xml:space="preserve">
     <value>Kappalelista</value>
   </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>Mitä tahansa</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>Käyttäjä</value>
   </data>

@@ -7,7 +7,11 @@ $(document).ready(function () {
 			var term = request.term;
 			var entryType = $("input[@name = 'globalSearchEntryType']:checked").val();
 
-			if (entryType == "Album") {
+			if (entryType == "Undefined") {
+				$.post("../../Home/FindNames", { term: term }, function (results) {
+					entryFindCallback(response, results);
+				});
+			} else if (entryType == "Album") {
 				$.post("../../Album/FindNames", { term: term }, function (results) {
 					entryFindCallback(response, results);
 				});

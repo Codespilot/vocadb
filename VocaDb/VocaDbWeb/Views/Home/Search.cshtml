@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Search", "Home", FormMethod.Post, new { @class = "form-inline" })) {
 	
 	<p>
-		@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30, id = "searchBox" }) 
+		@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { @class = "input-xlarge", size = 30, id = "searchBox" }) 
 		&nbsp;
 		<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
 	</p>

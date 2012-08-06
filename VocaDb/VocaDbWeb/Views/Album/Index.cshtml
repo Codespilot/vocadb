@@ -1,10 +1,6 @@
 ﻿@using VocaDb.Model.Service
-@using VocaDb.Web;
 @using VocaDb.Web.Helpers;
-@using VocaDb.Web.Models;
-@using VocaDb.Model.DataContracts.Albums;
 @using PagedList.Mvc;
-@using PagedList;
 @using R = ViewRes.Album;
 @model VocaDb.Web.Models.Album.Index
 @{
@@ -48,6 +44,8 @@
 @Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = Model.Sort }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 
 <br />
+
+if (Model.View == EntryViewMode.Details) {
 	
 <table class="table table-striped">
 	<thead>
@@ -59,8 +57,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if (Model.View == EntryViewMode.Details) {
-	  foreach (var album in Model.Albums) {
+	  @foreach (var album in Model.Albums) {
 				<tr>
 					<td>
 						@AlbumHelpers.AlbumIconLink(album)
@@ -96,12 +93,16 @@
 					</td>
 				</tr>
 	  }
-  } else {
-			@AlbumHelpers.AlbumThumbs(Model.Albums)
-  }
+
 	</tbody>
 </table>
 
+  } else {
+	<div style="display: block">
+			@AlbumHelpers.AlbumThumbs(Model.Albums)
+	</div>
+  }
+  	  
 	@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = Model.Sort }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 

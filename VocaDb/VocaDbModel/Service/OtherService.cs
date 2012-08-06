@@ -94,7 +94,10 @@ namespace VocaDb.Model.Service {
 				var artistCount = (getTotalCount ?
 					session.Query<ArtistName>()
 					.AddArtistNameFilter(query, canonized, NameMatchMode.Auto)
-					.Count(a => !a.Artist.Deleted) 
+					.Where(a => !a.Artist.Deleted)
+					.Select(n => n.Artist)
+					.Distinct()
+					.Count() 
 					: 0);
 
 				var albums = 
@@ -110,7 +113,10 @@ namespace VocaDb.Model.Service {
 				var albumCount = (getTotalCount ?
 					session.Query<AlbumName>()
 					.AddEntryNameFilter(query, NameMatchMode.Auto)
-					.Count(a => !a.Album.Deleted)
+					.Where(a => !a.Album.Deleted)
+					.Select(n => n.Album)
+					.Distinct()
+					.Count()
 					: 0);
 
 				var songs = 
@@ -126,7 +132,10 @@ namespace VocaDb.Model.Service {
 				var songCount = (getTotalCount ?
 					session.Query<SongName>()
 					.AddEntryNameFilter(query, NameMatchMode.Auto)
-					.Count(a => !a.Song.Deleted)
+					.Where(a => !a.Song.Deleted)
+					.Select(n => n.Song)
+					.Distinct()
+					.Count()
 					: 0);
 
 				var artistResult = new PartialFindResult<ArtistWithAdditionalNamesContract>(
