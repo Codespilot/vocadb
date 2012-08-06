@@ -156,6 +156,9 @@
   <data name="SocialSites" xml:space="preserve">
     <value>ソーシャルサイト</value>
   </data>
+  <data name="Tags" xml:space="preserve">
+    <value>タグ</value>
+  </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>You have unread messages</value>
   </data>
