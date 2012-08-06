@@ -15,7 +15,7 @@ namespace VocaDb.Web.Helpers {
 				return (EntryType)htmlHelper.ViewData["GlobalSearchObjectType"];
 			}
 
-			return EntryType.Artist;
+			return EntryType.Undefined;
 
 		}
 

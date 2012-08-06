@@ -32,6 +32,11 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public PartialFindResult<SongWithAlbumContract> Songs { get; set; }
 
+		public bool OnlyOneItem {
+			get {
+				return (Albums.Items.Length + Artists.Items.Length + Songs.Items.Length == 1);
+			}
+		}
 
 	}
 

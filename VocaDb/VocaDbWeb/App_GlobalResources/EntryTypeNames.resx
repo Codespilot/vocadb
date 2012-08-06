@@ -129,6 +129,9 @@
   <data name="SongList" xml:space="preserve">
     <value>Song list</value>
   </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>Anything</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
   </data>

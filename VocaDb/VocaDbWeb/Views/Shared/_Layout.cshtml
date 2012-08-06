@@ -67,12 +67,12 @@
 		<div class="navbar-inner">
 			<div class="container">
 				<div class="brand">@Html.ActionLink("VocaDB", "Index", "Home")</div>
-				<ul class="nav">
+				<!--<ul class="nav">
 					<li>@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")</li>				
 					<li>@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album")</li>				
 					<li>@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")</li>				
 					<li>@Html.ActionLink(ViewRes.SharedStrings.Tags, "Index", "Tag")</li>
-				</ul>
+				</ul>-->
 				@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
 			</div>
 		</div>
