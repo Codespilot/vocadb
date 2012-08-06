@@ -129,13 +129,14 @@
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogIn, "Login", "User")</li>
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
 						} else {
+							<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>
-						}
+	  }
 					</ul>
 					@if (Login.Manager.IsLoggedIn) {
 						<br />
 						<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
-					}
+	 }
 				
 					<br />
 					<h4>@ViewRes._LayoutStrings.Services</h4>
@@ -165,36 +166,36 @@
 						<a href="https://twitter.com/VocaDB" class="twitter-follow-button" data-show-count="false" data-lang="@UICulture">@ViewRes._LayoutStrings.FollowUser @@VocaDB</a>
 						<script>	!function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");</script>
 		 
-					}
+	 }
 				</div>
 				<div class="span10 rightFrame well">
 
 							@if (ViewBag.Parents != null) {
-								var arr = (MvcHtmlString[])ViewBag.Parents;
+		   var arr = (MvcHtmlString[])ViewBag.Parents;
 								<ul class="breadcrumb">
 								@foreach (var link in arr) {
 									<li>
 										@link 
 										@if (link != arr.Last()) {
 											<span class="divider">/</span>
-										}
+		  }
 									</li>
-								}
+		}
 								</ul>
-							}
+	   }
 							@if (!string.IsNullOrEmpty(ViewBag.Title)) {
 								<h2 class="pageTitle">@ViewBag.Title
 								@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
 									<small>&nbsp;@ViewBag.Subtitle</small>
-								}
+		}
 								</h2>
-							}
+	   }
 
 							@if (IsSectionDefined("Toolbar")) {
 								<p>
 									@RenderSection("Toolbar")
 								</p>
-							}
+	   }
 				
 							@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
 								<div class="ui-widget">
@@ -205,11 +206,11 @@
 										</p>
 									</div>
 								</div>
-							}
+	   }
 				
 							@if (TempData.StatusMessage() != null) {
 								@Helpers.NotificationPanel(TempData.StatusMessage())
-							}
+	   }
 		
 							@RenderBody()
 						</div>

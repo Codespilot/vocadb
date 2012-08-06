@@ -7,7 +7,6 @@ namespace VocaDb.Model.Domain.Songs {
 
 	public class ArtistForSong : IEquatable<ArtistForSong>, IArtistWithSupport {
 
-		private Artist artist;
 		private string notes;
 		private Song song;
 
@@ -36,17 +35,17 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual Artist Artist {
-			get { return artist; }
-			set {
-				//ParamIs.NotNull(() => value);
-				artist = value;
-			}
-		}
+		public virtual Artist Artist { get; set; }
 
 		public virtual ArtistCategories ArtistCategories {
 			get {
 				return ArtistHelper.GetCategories(this);
+			}
+		}
+
+		public virtual string ArtistToStringOrName {
+			get {
+				return Artist != null ? Artist.ToString() : Name;
 			}
 		}
 
@@ -154,7 +153,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return string.Format("{0} for {1}", Artist != null ? Artist.ToString() : Name, Song);
+			return string.Format("{0} for {1}", ArtistToStringOrName, Song);
 		}
 
 	}

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Linq;
 using System.Web;
 using NLog;
@@ -10,7 +9,6 @@ using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
@@ -18,7 +16,6 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -30,7 +27,6 @@ using System;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.Search.AlbumSearch;
-using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Service {
@@ -310,7 +306,7 @@ namespace VocaDb.Model.Service {
 
 				var album = session.Load<Album>(albumId);
 
-				AuditLog(string.Format("adding custom artist '{0}' to {1}", newArtistName, album), session);
+				AuditLog(string.Format("adding custom artist '{0}' to {1}", newArtistName, CreateEntryLink(album)), session);
 
 				var artistForAlbum = album.AddArtist(newArtistName, false, ArtistRoles.Default);
 				session.Save(artistForAlbum);
@@ -1255,13 +1251,14 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 				
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
+				var album = artistForAlbum.Album;
 
 				artistForAlbum.IsSupport = isSupport;
-				artistForAlbum.Album.UpdateArtistString();
+				album.UpdateArtistString();
 
-				AuditLog("updated IsSupport for " + artistForAlbum, session);
+				AuditLog(string.Format("updated IsSupport for {0} on {1}", artistForAlbum.ArtistToStringOrName, CreateEntryLink(album)), session);
 
-				session.Update(artistForAlbum.Album);
+				session.Update(album);
 
 			});
 
@@ -1274,13 +1271,14 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
+				var album = artistForAlbum.Album;
 
 				artistForAlbum.Roles = roles;
-				artistForAlbum.Album.UpdateArtistString();
+				album.UpdateArtistString();
 
-				AuditLog("updated roles for " + artistForAlbum, session);
+				AuditLog(string.Format("updated roles for {0} on {1}", artistForAlbum.ArtistToStringOrName, CreateEntryLink(album)), session);
 
-				session.Update(artistForAlbum.Album);
+				session.Update(album);
 
 			});
 

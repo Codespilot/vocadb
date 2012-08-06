@@ -11,6 +11,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
@@ -306,7 +307,8 @@ namespace VocaDb.Model.Service {
 				tag.CategoryName = contract.CategoryName;
 				tag.Description = contract.Description;
 
-				AuditLog("updated " + tag, session);
+				var logStr = string.Format("updated properties for {0} ({1})", tag, diff.ChangedFieldsString);
+				AuditLog(logStr, session);
 				Archive(session, tag, diff, EntryEditEvent.Updated);
 
 				session.Update(tag);
