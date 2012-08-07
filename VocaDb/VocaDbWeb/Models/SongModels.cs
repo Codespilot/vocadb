@@ -57,7 +57,7 @@ namespace VocaDb.Web.Models {
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
 			Tags = contract.Tags;
-			WebLinks = contract.WebLinks;
+			WebLinks = contract.WebLinks.ToList();
 
 			Animators = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Animator)).ToArray();
 			Performers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Vocalist)).ToArray();
@@ -73,11 +73,21 @@ namespace VocaDb.Web.Models {
 
 			var nicoPvId = PVHelper.GetNicoId(PVs, NicoId);
 
-			if (!string.IsNullOrEmpty(nicoPvId))
-				WebLinks = WebLinks.Concat(new[] { 
-					new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), "Check NicoSound for a download link"),
-					new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(nicoPvId), "Check NicoMimi for a download link")
-				}).ToArray();
+			if (!string.IsNullOrEmpty(nicoPvId)) {
+				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), "Check NicoSound for a download link"));
+				//WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(nicoPvId), "Check NicoMimi for a download link"));
+			}
+
+			if (PVs.All(p => p.Service != PVService.Youtube)) {
+
+				var nicoPV = VideoServiceHelper.PrimaryPV(PVs, PVService.NicoNicoDouga);
+				var query = (nicoPV != null)
+					? nicoPV.Name
+					: ArtistString + " " + Name;
+
+				WebLinks.Add(new WebLinkContract("http://www.youtube.com/results?search_query=" + query, "Search Youtube"));
+
+			}
 
 		}
 
@@ -141,7 +151,7 @@ namespace VocaDb.Web.Models {
 
 		public TagUsageContract[] Tags { get; set; }
 
-		public WebLinkContract[] WebLinks { get; set; }
+		public IList<WebLinkContract> WebLinks { get; set; }
 
 	}
 
