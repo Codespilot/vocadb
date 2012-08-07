@@ -26,7 +26,7 @@ namespace VocaDb.Web.Helpers {
 
 			if (string.IsNullOrEmpty(ua)) {
 				log.Warn(ErrorLogger.RequestInfo("Blank user agent from", request));
-				throw new NotAllowedException();
+				return false;
 			}
 
 			return !forbiddenUserAgents.Any(ua.Contains);

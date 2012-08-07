@@ -351,7 +351,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
+		[HttpPost]
 		public void DeleteArtistForAlbum(int artistForAlbumId) {
 
 			Service.DeleteArtistForAlbum(artistForAlbumId);

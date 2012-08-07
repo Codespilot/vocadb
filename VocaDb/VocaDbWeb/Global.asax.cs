@@ -14,11 +14,9 @@ using VocaDb.Web.Code;
 
 namespace VocaDb.Web {
 
-	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-	// visit http://go.microsoft.com/?LinkId=9394801
+	public class MvcApplication : HttpApplication {
 
-	public class MvcApplication : System.Web.HttpApplication {
-
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private static ISessionFactory sessionFactory;
 		private const string sessionFactoryLock = "lock";
 
@@ -72,6 +70,16 @@ namespace VocaDb.Web {
 
 			} catch (Exception x) {
 				ErrorLogger.LogException(Request, x, LogLevel.Fatal);
+			}
+
+		}
+
+		protected void Application_BeginRequest(object sender, EventArgs e) {
+
+			var ua = Request.UserAgent;
+			if (string.IsNullOrEmpty(ua)) {
+				log.Warn(ErrorLogger.RequestInfo("Blank user agent from", new HttpRequestWrapper(Request)));
+				throw new NotAllowedException();
 			}
 
 		}
