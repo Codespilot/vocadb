@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
+using System.Web;
 using NLog;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Paging;
@@ -70,6 +71,11 @@ namespace VocaDb.Model.Service {
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && !c.Album.Deleted)
 				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && !c.Artist.Deleted)
 				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && !c.Song.Deleted);
+
+			details.LatestComments = session.Query<UserComment>()
+				.Where(c => c.User == user).OrderByDescending(c => c.Created).Take(3)
+				.ToArray()
+				.Select(c => new CommentContract(c)).ToArray();
 
 			details.SubmitCount
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Album.Deleted)
@@ -271,6 +277,32 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public CommentContract CreateComment(int userId, string message) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+
+			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
+
+			message = message.Trim();
+
+			return HandleTransaction(session => {
+
+				var user = session.Load<User>(userId);
+				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
+
+				AuditLog(string.Format("creating comment for {0}: '{1}'",
+					EntryLinkFactory.CreateEntryLink(user),
+					HttpUtility.HtmlEncode(message)), session, agent.User);
+
+				var comment = user.CreateComment(message, agent);
+				session.Save(comment);
+
+				return new CommentContract(comment);
+
+			});
+
+		}
+
 		public UserContract CreateTwitter(string authToken, string name, string email, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -300,6 +332,25 @@ namespace VocaDb.Model.Service {
 		public void DeleteAlbumForUser(int albumForUserId) {
 
 			DeleteEntity<AlbumForUser>(albumForUserId, PermissionToken.EditProfile);
+
+		}
+
+		public void DeleteComment(int commentId) {
+
+			HandleTransaction(session => {
+
+				var comment = session.Load<UserComment>(commentId);
+				var user = GetLoggedUser(session);
+
+				AuditLog("deleting " + comment, session, user);
+
+				if (!user.Equals(comment.Author) && !user.Equals(comment.User))
+					PermissionContext.VerifyPermission(PermissionToken.DeleteComments);
+
+				comment.User.Comments.Remove(comment);
+				session.Delete(comment);
+
+			});
 
 		}
 

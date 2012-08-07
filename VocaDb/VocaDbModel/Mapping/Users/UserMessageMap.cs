@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Users;
+﻿using VocaDb.Model.Domain.Users;
 using FluentNHibernate.Mapping;
 
 namespace VocaDb.Model.Mapping.Users {

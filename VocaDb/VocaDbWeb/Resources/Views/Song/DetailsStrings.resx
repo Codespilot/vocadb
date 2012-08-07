@@ -174,4 +174,10 @@
   <data name="Favorites" xml:space="preserve">
     <value>favorite(s)</value>
   </data>
+  <data name="CheckNicoSound" xml:space="preserve">
+    <value>Check NicoSound for a download link</value>
+  </data>
+  <data name="SearchYoutube" xml:space="preserve">
+    <value>Search Youtube</value>
+  </data>
 </root>

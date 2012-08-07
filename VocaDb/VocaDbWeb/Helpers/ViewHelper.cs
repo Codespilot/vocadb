@@ -221,7 +221,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		[Obsolete]
+		[Obsolete("User HTML helper")]
 		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserBaseContract user, int size = 80) {
 
 			if (user != null && !string.IsNullOrEmpty(user.Email))
@@ -245,6 +245,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		[Obsolete("User HTML helper")]
 		public static MvcHtmlString UserLink(this HtmlHelper htmlHelper, UserBaseContract user, string name) {
 
 			return (user != null ? htmlHelper.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null) 

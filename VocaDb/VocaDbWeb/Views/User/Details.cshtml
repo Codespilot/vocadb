@@ -134,6 +134,24 @@
 
 </div>
 
+<br />
+<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
+
+<div id="comments">
+	@foreach (var comment in Model.LatestComments) {
+		@Helpers.PrintComment(comment, true, ownProfile)
+	}
+</div>
+
+@if (Login.CanManageDb) {
+<div id="newCommentPanel">
+	<h3>@ViewRes.DiscussionContentStrings.NewComment</h3>
+	@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5" })
+	<a href="#" class="textLink addLink" id="createComment">@ViewRes.DiscussionContentStrings.AddComment</a>
+	<hr />
+</div>
+}
+
 @Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
 
 @AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
@@ -148,7 +166,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.DetailsStrings.ConfirmDisable");
+		initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.DetailsStrings.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
 	});
 
 </script>

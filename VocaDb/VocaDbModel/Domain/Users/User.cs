@@ -19,6 +19,7 @@ namespace VocaDb.Model.Domain.Users {
 		private PermissionCollection additionalPermissions = new PermissionCollection();
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();
 		private IList<ArtistForUser> artists = new List<ArtistForUser>();
+		private IList<UserComment> comments = new List<UserComment>();
 		private string culture;
 		private string email;
 		private IList<FavoriteSongForUser> favoriteSongs = new List<FavoriteSongForUser>();
@@ -118,6 +119,14 @@ namespace VocaDb.Model.Domain.Users {
 
 				return !EffectivePermissions.Has(PermissionToken.DisableUsers);
 
+			}
+		}
+
+		public virtual IList<UserComment> Comments {
+			get { return comments; }
+			set {
+				ParamIs.NotNull(() => value);
+				comments = value;
 			}
 		}
 
@@ -283,6 +292,18 @@ namespace VocaDb.Model.Domain.Users {
 			song.FavoritedTimes++;
 
 			return link;
+
+		}
+
+		public virtual UserComment CreateComment(string message, AgentLoginData loginData) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+			ParamIs.NotNull(() => loginData);
+
+			var comment = new UserComment(this, message, loginData);
+			Comments.Add(comment);
+
+			return comment;
 
 		}
 

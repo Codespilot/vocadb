@@ -318,7 +318,23 @@ namespace VocaDb.Web.Controllers
 			return View(model);
             
         }
-        
+
+		[HttpPost]
+		public PartialViewResult CreateComment(int entryId, string message) {
+
+			var comment = Service.CreateComment(entryId, message);
+
+			return PartialView("Comment", comment);
+
+		}
+
+		[HttpPost]
+		public void DeleteComment(int commentId) {
+
+			Service.DeleteComment(commentId);
+
+		}
+
         //
         // GET: /User/Edit/5
 

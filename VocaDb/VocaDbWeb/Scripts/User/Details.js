@@ -1,5 +1,5 @@
 ﻿
-function initPage(userId, loadingStr, confirmDisableStr) {
+function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 
 	$("#tabs").tabs({
 		load: function (event, ui) {
@@ -77,4 +77,46 @@ function initPage(userId, loadingStr, confirmDisableStr) {
 		return false;
 
 	});
+
+	// Comments
+	$("#createComment").click(function () {
+
+		var message = $("#newCommentMessage").val();
+
+		if (message == "") {
+			alert("Message cannot be empty");
+			return false;
+		}
+
+		$("#newCommentMessage").val("");
+
+		$.post(hostAddress + "/User/CreateComment", { entryId: userId, message: message }, function (result) {
+
+			$("#comments").prepend(result);
+
+		});
+
+		return false;
+
+	});
+
+	$("a.deleteComment").live("click", function () {
+
+		if (!confirm("Are you sure you want to delete this comment?"))
+			return false;
+
+		var btn = this;
+		var id = getId(this);
+
+		$.post(hostAddress + "/User/DeleteComment", { commentId: id }, function () {
+
+			$(btn).parent().parent().remove();
+
+		});
+
+		return false;
+
+	});
+
+
 }

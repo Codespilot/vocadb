@@ -222,15 +222,15 @@ break;
 	}
 }
 
-@helper PrintComment(CommentContract contract, bool allowDelete) {	
+@helper PrintComment(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {	
 	<div class="comment">
 		<h3>
-			@Html.ProfileIcon(contract.Author, 25)
-			@Html.UserLink(contract.Author, contract.AuthorName)
+			@UserHelpers.ProfileIcon(contract.Author, 25)
+			@UserHelpers.UserLink(contract.Author)
 			&nbsp;-&nbsp;
 			@contract.Created
 
-			@if (allowDelete && Login.CanDeleteComment(contract)) {
+			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
 				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">Delete</a>
    }
 		</h3>
