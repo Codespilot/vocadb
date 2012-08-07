@@ -267,6 +267,7 @@
     <Compile Include="Domain\TrashedEntry.cs" />
     <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
+    <Compile Include="Domain\Users\UserComment.cs" />
     <Compile Include="Domain\Users\UserOptions.cs" />
     <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />
     <Compile Include="Domain\Artists\ArtistArchiveReason.cs" />
@@ -403,6 +404,7 @@
     <Compile Include="Mapping\Tags\TagMap.cs" />
     <Compile Include="Mapping\TrashedEntryMap.cs" />
     <Compile Include="Mapping\Users\PasswordResetRequestMap.cs" />
+    <Compile Include="Mapping\Users\UserCommentMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
     <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />

@@ -74,7 +74,7 @@ namespace VocaDb.Web.Models {
 			var nicoPvId = PVHelper.GetNicoId(PVs, NicoId);
 
 			if (!string.IsNullOrEmpty(nicoPvId)) {
-				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), "Check NicoSound for a download link"));
+				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), ViewRes.Song.DetailsStrings.CheckNicoSound));
 				//WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(nicoPvId), "Check NicoMimi for a download link"));
 			}
 
@@ -85,7 +85,7 @@ namespace VocaDb.Web.Models {
 					? nicoPV.Name
 					: ArtistString + " " + Name;
 
-				WebLinks.Add(new WebLinkContract("http://www.youtube.com/results?search_query=" + query, "Search Youtube"));
+				WebLinks.Add(new WebLinkContract("http://www.youtube.com/results?search_query=" + query, ViewRes.Song.DetailsStrings.SearchYoutube));
 
 			}
 

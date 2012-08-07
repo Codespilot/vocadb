@@ -1,13 +1,11 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
-@using System.Web.Mvc;
 @using System.Web.Mvc.Html;
 @using Microsoft.Web.Helpers
 @using VocaDb.Model.DataContracts.Users;
-@using VocaDb.Web.Helpers;
 
 @helper ProfileIcon(UserBaseContract user, int size = 80) {
 	if (user != null && !string.IsNullOrEmpty(user.Email)) {
-		<div style="width: @(size)px; height: @(size)px">
+		<div style="width: @(size)px; height: @(size)px; display: inline-block">
 			@Gravatar.GetHtml(user.Email, size)
 		</div>
 	}

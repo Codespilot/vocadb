@@ -106,6 +106,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Check NicoSound for a download link.
+        /// </summary>
+        public static string CheckNicoSound {
+            get {
+                return ResourceManager.GetString("CheckNicoSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to favorite(s).
         /// </summary>
         public static string Favorites {
@@ -201,6 +210,15 @@ namespace ViewRes.Song {
         public static string RemoveFromFavorites {
             get {
                 return ResourceManager.GetString("RemoveFromFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search Youtube.
+        /// </summary>
+        public static string SearchYoutube {
+            get {
+                return ResourceManager.GetString("SearchYoutube", resourceCulture);
             }
         }
         

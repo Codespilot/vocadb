@@ -70,7 +70,7 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 		$("#newCommentMessage").val("");
 
-		$.post("../../Album/CreateComment", { albumId: albumId, message: message }, function (result) {
+		$.post("../../Album/CreateComment", { entryId: albumId, message: message }, function (result) {
 
 			$("#newCommentPanel").after(result);
 

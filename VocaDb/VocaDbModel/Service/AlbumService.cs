@@ -463,7 +463,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("creating comment for {0}: '{1}'", 
 					EntryLinkFactory.CreateEntryLink(album), 
-					HttpUtility.HtmlEncode(message.Truncate(60))), session, agent.User);
+					HttpUtility.HtmlEncode(message)), session, agent.User);
 
 				var comment = album.CreateComment(message, agent);
 				session.Save(comment);
