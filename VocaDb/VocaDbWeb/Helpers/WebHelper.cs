@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 using NLog;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Web.Code;
 
 namespace VocaDb.Web.Helpers {
@@ -25,7 +26,7 @@ namespace VocaDb.Web.Helpers {
 
 			if (string.IsNullOrEmpty(ua)) {
 				log.Warn(ErrorLogger.RequestInfo("Blank user agent from", request));
-				return false;
+				throw new NotAllowedException();
 			}
 
 			return !forbiddenUserAgents.Any(ua.Contains);
