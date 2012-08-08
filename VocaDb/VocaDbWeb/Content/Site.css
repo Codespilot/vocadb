@@ -108,7 +108,7 @@ div.thumbItem {
 	height: 250px;	
 }
 
-ul.thumbs {
+ul.thumbs, ul.smallThumbs {
 	list-style: none;	
 	display: block;
 	overflow: hidden;
@@ -126,7 +126,7 @@ ul.thumbs li {
 	overflow: hidden;	
 }
 
-div.pictureFrame {
+ul.thumbs div.pictureFrame {
 	position: relative;
 	display: block;
 	width: 250px;
@@ -136,6 +136,30 @@ div.pictureFrame {
 	border: 1px solid lightgray;	
 }
 
+ul.smallThumbs li {
+	position: relative;
+	float: left;
+	display: inline;
+	width: 155px;
+	height: 190px;
+	margin: 0 9px 0 0;
+	overflow: hidden;	
+}
+
+ul.smallThumbs div.pictureFrame {
+	position: relative;
+	display: block;
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	cursor: pointer;
+	border: 1px solid lightgray;	
+}
+
+ul.smallThumbs div.pictureFrame img {
+	zoom: 0.6;
+}
+
 /* Layout */
 
 table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
@@ -143,9 +167,9 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .rightFrame {
-	background-color: #e0f8ff;
-	border: groove #48CCCD 2px;
-	opacity: 0.9; /*float: left;*/
+	background-color: #E8FAFF;
+	border: solid #B1DDE1 2px;
+	opacity: 0.95; /*float: left;*/
 	/*background: aliceBlue;
 	border: solid #BAE8FF 2px;	
 	opacity: 0.9;*/
@@ -184,9 +208,9 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .menu {
-	background: #b9e9f7;
-	border: groove #48CCCD 2px;
-	opacity: 0.9;
+	background: #CDECF4;
+	border: solid #8AD7D8 2px;
+	opacity: 0.95;
 	/*background: aliceBlue;
 	border: solid #BAE8FF 2px;*/
 	float: left;
@@ -433,8 +457,38 @@ div.songListItem div.thumbnail {
 
 /* Bootstrap-specific */
 .navbar .nav-radio {
-	color: #BBBBBB;	
+	color: #0DC69B;	
 	padding: 8px;
+}
+
+.navbar div.brand a:visited {	
+	color: #08C;
+}
+
+.navbar-search {
+	margin-top: 0px;	
+}
+
+.navbar-search .search-query {
+	background-color: #005B5B;
+	color: -webkit-input-placeholder(#0DC69B)
+}
+
+.navbar-search .search-query::-webkit-input-placeholder {
+    color: #0DC69B;
+}
+
+.navbar-search .search-query:-moz-placeholder {
+    color: #0DC69B;
+}
+
+.navbar-inner {
+	background-color: #0D2B35;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#133D4C), to(#081A21));	
+	background-image: -webkit-linear-gradient(top, #133D4C, #081A21);
+	background-image: -o-linear-gradient(top, #133D4C, #081A21);
+	background-image: -moz-linear-gradient(center top , #133D4C, #081A21);
+	background-image: linear-gradient(top, #133D4C, #081A21);
 }
 
 .navbar .btn {

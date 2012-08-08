@@ -78,19 +78,11 @@
 
 @helper AlbumThumbs(IEnumerable<AlbumWithAdditionalNamesContract> albums) {
 	
-	<ul class="thumbnails">
+	<ul class="smallThumbs">
 		@foreach (var album in albums) {
-		<li class="span2">
-			<div class="thumbnail">
-				<a href="@Url.Action("Details", "Album", new { id = album.Id })" class="coverPicThumb">
-					<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" />
-				</a>
-				<div class="caption">
-					<h5>@album.Name</h5>					
-				</div>
-			</div>
-		</li>
-  }
+			@Helpers.ThumbItem(Url.Action("Details", "Album", new { id = album.Id }),
+				Url.Action("CoverPictureThumb", "Album", new { id = album.Id }), album.Name)	  
+		}
 	</ul>
 	
 }

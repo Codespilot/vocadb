@@ -1,10 +1,13 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.GlobalSearchBoxModel
 
-@using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left", id = "globalSearchBox" })) {
+@using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left navbar-search", id = "globalSearchBox" })) {
 	@Html.EnumRadioButtonListFor(m => m.ObjectType, Model.AllObjectTypes, new Dictionary<string, object> { { "class", "globalSearchEntryType nav-radio" } }, Model.ObjectType)
 	@Html.Raw("&nbsp;")
 	@Html.TextBox("globalSearchTerm", string.Empty, new { id = "globalSearchTerm", @class = "globalSearchBox search-query span3", size = 50, placeholder = @ViewRes.SharedStrings.Search })
 	@Html.Raw("&nbsp;")
-	<button type="submit" class="btn">@ViewRes.SharedStrings.Search</button>
+	<button type="submit" class="btn btn-info">
+		<i class="icon-search"></i>
+		@ViewRes.SharedStrings.Search
+	</button>
 }
