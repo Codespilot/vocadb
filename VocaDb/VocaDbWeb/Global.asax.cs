@@ -74,15 +74,9 @@ namespace VocaDb.Web {
 
 		}
 
-		protected void Application_BeginRequest(object sender, EventArgs e) {
+		/*protected void Application_BeginRequest(object sender, EventArgs e) {
 
-			var ua = Request.UserAgent;
-			if (string.IsNullOrEmpty(ua)) {
-				log.Warn(ErrorLogger.RequestInfo("Blank user agent from", new HttpRequestWrapper(Request)));
-				throw new NotAllowedException();
-			}
-
-		}
+		}*/
 
 		private void HandleHttpError(int code, string description = null) {
 

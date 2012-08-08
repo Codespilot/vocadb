@@ -78,6 +78,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, DiscType? discType, AlbumSortRule? sort, EntryViewMode? view, int? page, bool? draftsOnly) {
 
+			WebHelper.VerifyUserAgent(Request);
 			var dType = discType ?? DiscType.Unknown;
 			var sortRule = sort ?? AlbumSortRule.Name;
 			var viewMode = view ?? EntryViewMode.Details;
@@ -159,6 +160,7 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Details(int id) {
 
+			WebHelper.VerifyUserAgent(Request);
 			SetSearchEntryType(EntryType.Album);
 
 			var model = Service.GetAlbumDetails(id, WebHelper.IsValidHit(Request) ? WebHelper.GetRealHost(Request) : string.Empty);

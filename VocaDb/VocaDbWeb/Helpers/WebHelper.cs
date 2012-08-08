@@ -33,6 +33,16 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static void VerifyUserAgent(HttpRequestBase request) {
+
+			var ua = request.UserAgent;
+			if (string.IsNullOrEmpty(ua)) {
+				log.Warn(ErrorLogger.RequestInfo("Blank user agent from", request));
+				throw new NotAllowedException();
+			}
+
+		}
+
 	}
 
 }
