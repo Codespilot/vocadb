@@ -97,6 +97,7 @@ namespace VocaDb.Web.Controllers
         // GET: /Artist/
 		public ActionResult Index(string filter, ArtistType? artistType, bool? draftsOnly, ArtistSortRule? sort, int? page) {
 
+			WebHelper.VerifyUserAgent(Request);
 			var sortRule = sort ?? ArtistSortRule.Name;
 			var result = Service.FindArtists(filter, 
 				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
@@ -196,7 +197,8 @@ namespace VocaDb.Web.Controllers
         // GET: /Artist/Details/5
 
         public ActionResult Details(int id) {
-        	var model = Service.GetArtistDetails(id);
+			WebHelper.VerifyUserAgent(Request);
+			var model = Service.GetArtistDetails(id);
             return View(model);
         }
 

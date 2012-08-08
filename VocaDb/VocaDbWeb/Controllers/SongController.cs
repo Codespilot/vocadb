@@ -82,6 +82,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, int? page) {
 
+			WebHelper.VerifyUserAgent(Request);
 			var sortRule = sort ?? SongSortRule.Name;
 
 			var result = Service.FindWithAlbum(new SongQueryParams(filter, 
@@ -149,6 +150,7 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Details(int id) {
 
+			WebHelper.VerifyUserAgent(Request);
 			SetSearchEntryType(EntryType.Song);
 
 			var model = new SongDetails(Service.GetSongDetails(id, WebHelper.IsValidHit(Request) ? WebHelper.GetRealHost(Request) : string.Empty));
