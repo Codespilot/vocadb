@@ -43,6 +43,7 @@ namespace VocaDb.Web.Code.Security {
 					string consumerKey = AppConfig.TwitterConsumerKey;
 					string consumerSecret = AppConfig.TwitterConsumerSecret;
 					if (IsTwitterConsumerConfigured) {
+						log.Info("Creating token manager");
 						tokenManager = new InMemoryTokenManager(consumerKey, consumerSecret);
 						store["TwitterShortTermUserSessionTokenManager"] = tokenManager;
 					} else {
@@ -64,6 +65,7 @@ namespace VocaDb.Web.Code.Security {
 		public AuthorizedTokenResponse ProcessUserAuthorization() {
 
 			try {
+				log.Info("Processing Twitter authorization");
 				return TwitterSignIn.ProcessUserAuthorization();
 			} catch (ProtocolException x) {
 				log.ErrorException("Unable to process Twitter authentication", x);
