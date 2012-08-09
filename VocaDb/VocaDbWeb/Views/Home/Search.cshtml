@@ -46,7 +46,22 @@
 	
 }
 
-@if (!Model.Albums.Items.Any() && !Model.Artists.Items.Any() && !Model.Songs.Items.Any()) {
+@if (Model.Tags.Items.Any()) {
+
+	<br />
+	<h3>
+		@Html.ActionLink(ViewRes.SharedStrings.Tags + " (" + Model.Tags.TotalCount + ")", "Index", "Tag")
+	</h3>
+
+	<ul>
+		@foreach (var tag in Model.Tags.Items) {
+			<li>@Html.ActionLink(tag.Name, "Details", "Tag", new { id = tag.Name }, null)</li>
+		}
+	</ul>	
+	
+}
+
+@if (!Model.Albums.Items.Any() && !Model.Artists.Items.Any() && !Model.Songs.Items.Any() && !Model.Tags.Items.Any()) {
 
 	<p>@ViewRes.EntryIndexStrings.NoResults</p>
 	@Helpers.GoogleSiteSearch()

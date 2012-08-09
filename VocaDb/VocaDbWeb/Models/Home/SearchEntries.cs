@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Models.Home {
@@ -11,12 +12,14 @@ namespace VocaDb.Web.Models.Home {
 
 		public SearchEntries(string filter,
 			PartialFindResult<AlbumWithAdditionalNamesContract> albums, PartialFindResult<ArtistWithAdditionalNamesContract> artists,
-			PartialFindResult<SongWithAlbumContract> songs) {
+			PartialFindResult<SongWithAlbumContract> songs,
+			PartialFindResult<TagContract> tags) {
 
 			Filter = filter;
 			Albums = albums;
 			Artists = artists;
 			Songs = songs;
+			Tags = tags;
 
 		}
 
@@ -27,6 +30,8 @@ namespace VocaDb.Web.Models.Home {
 		public string Filter { get; set; }
 
 		public PartialFindResult<SongWithAlbumContract> Songs { get; set; }
+
+		public PartialFindResult<TagContract> Tags { get; set; }
 
 	}
 

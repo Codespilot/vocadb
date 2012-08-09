@@ -5,6 +5,7 @@ using System.Text;
 using NHibernate;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -20,21 +21,18 @@ namespace VocaDb.Model.Service.Helpers {
 		/// <param name="nameFilter"></param>
 		/// <param name="matchMode"></param>
 		/// <returns></returns>
-		public static IQueryable<T> AddEntryNameFilter<T>(IQueryable<T> query, string nameFilter, NameMatchMode matchMode)
+		public static IQueryable<T> AddEntryNameFilter<T>(IQueryable<T> query, string nameFilter, NameMatchMode matchMode, string[] words = null)
 			where T : LocalizedString {
 
-			if (matchMode == NameMatchMode.Exact || (matchMode == NameMatchMode.Auto && nameFilter.Length < 3)) {
+			switch (GetMatchMode(nameFilter, matchMode)) {
+				case NameMatchMode.Exact:
+					return query.Where(m => m.Value == nameFilter);
 
-				return query.Where(m => m.Value == nameFilter);
+				case NameMatchMode.Partial:
+					return query.Where(m => m.Value.Contains(nameFilter));
 
-			} else {
-
-				if (matchMode == NameMatchMode.Auto || matchMode == NameMatchMode.Words) {
-
-					var words = nameFilter
-						.Split(new[] { ' ' }, MaxSearchWords, StringSplitOptions.RemoveEmptyEntries)
-						.Distinct()
-						.ToArray();
+				case NameMatchMode.Words:
+					words = words ?? GetQueryWords(nameFilter);
 
 					switch (words.Length) {
 						case 1:
@@ -56,20 +54,11 @@ namespace VocaDb.Model.Service.Helpers {
 							query = query.Where(q => q.Value.Contains(words[0]) && q.Value.Contains(words[1]) && q.Value.Contains(words[2]) && q.Value.Contains(words[3]) && q.Value.Contains(words[4]) && q.Value.Contains(words[5]));
 							break;
 					}
-
-					/*foreach (var word in words) {
-						query = query.Where(q => q.Value.Contains(word));
-					}*/
-
 					return query;
 
-				} else {
-
-					return query.Where(m => m.Value.Contains(nameFilter));
-
-				}
-
 			}
+
+			return query;
 
 		}
 
@@ -100,6 +89,21 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Tag> AddNameFilter(IQueryable<Tag> criteria, string name, NameMatchMode matchMode) {
+
+			if (ExactMatch(name, matchMode)) {
+
+				return criteria.Where(t => t.Name == name);
+
+			} else {
+
+				return criteria.Where(t => t.Name.Contains(name));
+
+			}
+
+
+		}
+
 		/// <summary>
 		/// Adds a filter for entry's SortName.
 		/// </summary>
@@ -111,7 +115,7 @@ namespace VocaDb.Model.Service.Helpers {
 		public static IQueryable<T> AddSortNameFilter<T>(IQueryable<T> criteria, string name, NameMatchMode matchMode)
 			where T : IEntryWithNames {
 
-			if (matchMode == NameMatchMode.Exact || (matchMode == NameMatchMode.Auto && name.Length < 3)) {
+			if (ExactMatch(name, matchMode)) {
 
 				return criteria.Where(s =>
 					s.Names.SortNames.English == name
@@ -126,6 +130,35 @@ namespace VocaDb.Model.Service.Helpers {
 						|| s.Names.SortNames.Japanese.Contains(name));
 
 			}
+
+		}
+
+		public static bool ExactMatch(string query, NameMatchMode matchMode) {
+			return GetMatchMode(query, matchMode) == NameMatchMode.Exact;
+		}
+
+		public static NameMatchMode GetMatchMode(string query, NameMatchMode matchMode) {
+
+			if (matchMode == NameMatchMode.Exact || (matchMode == NameMatchMode.Auto && query.Length < 3)) {
+				return NameMatchMode.Exact;
+			} else {
+
+				if (matchMode == NameMatchMode.Auto || matchMode == NameMatchMode.Words) {
+					return NameMatchMode.Words;
+				} else {
+					return NameMatchMode.Partial;
+				}
+
+			}
+
+		}
+
+		public static string[] GetQueryWords(string query) {
+
+			return query
+				.Split(new[] { ' ' }, MaxSearchWords, StringSplitOptions.RemoveEmptyEntries)
+				.Distinct()
+				.ToArray();
 
 		}
 

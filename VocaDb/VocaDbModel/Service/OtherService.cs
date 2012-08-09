@@ -4,6 +4,7 @@ using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -12,6 +13,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 
@@ -59,9 +61,18 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
+				var tagNames =
+					session.Query<Tag>()
+					.Where(t => t.Name.Contains(query))
+					.OrderBy(t => t.Name)
+					.Select(t => t.Name)
+					.Take(maxResults)
+					.ToArray();
+
 				var allNames = artistNames
 					.Concat(albumNames)
 					.Concat(songNames)
+					.Concat(tagNames)
 					.Distinct()
 					.OrderBy(n => n)
 					.Take(maxResults);
@@ -78,12 +89,13 @@ namespace VocaDb.Model.Service {
 				return new AllEntriesSearchResult();
 
 			var canonized = ArtistHelper.GetCanonizedName(query);
+			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto);
 
 			return HandleQuery(session => {
 
 				var artists = 
 					session.Query<ArtistName>()
-					.AddArtistNameFilter(query, canonized, NameMatchMode.Auto)
+					.AddArtistNameFilter(query, canonized, matchMode)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.AddNameOrder(LanguagePreference)
@@ -93,7 +105,7 @@ namespace VocaDb.Model.Service {
 
 				var artistCount = (getTotalCount ?
 					session.Query<ArtistName>()
-					.AddArtistNameFilter(query, canonized, NameMatchMode.Auto)
+					.AddArtistNameFilter(query, canonized, matchMode)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.Distinct()
@@ -102,7 +114,7 @@ namespace VocaDb.Model.Service {
 
 				var albums = 
 					session.Query<AlbumName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(query, matchMode)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Album)
 					.AddNameOrder(LanguagePreference)
@@ -112,7 +124,7 @@ namespace VocaDb.Model.Service {
 
 				var albumCount = (getTotalCount ?
 					session.Query<AlbumName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(query, matchMode)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Album)
 					.Distinct()
@@ -121,7 +133,7 @@ namespace VocaDb.Model.Service {
 
 				var songs = 
 					session.Query<SongName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(query, matchMode)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Song)
 					.AddNameOrder(LanguagePreference)
@@ -131,9 +143,23 @@ namespace VocaDb.Model.Service {
 
 				var songCount = (getTotalCount ?
 					session.Query<SongName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(query, matchMode)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Song)
+					.Distinct()
+					.Count()
+					: 0);
+
+				var tags =
+					session.Query<Tag>()
+					.Where(t => t.Name.Contains(query))
+					.OrderBy(t => t.Name)
+					.Take(maxResults)
+					.ToArray();
+
+				var tagCount = (getTotalCount ?
+					session.Query<Tag>()
+					.Where(t => t.Name.Contains(query))
 					.Distinct()
 					.Count()
 					: 0);
@@ -147,7 +173,10 @@ namespace VocaDb.Model.Service {
 				var songResult = new PartialFindResult<SongWithAlbumContract>(
 					songs.Select(a => new SongWithAlbumContract(a, PermissionContext.LanguagePreference)).ToArray(), songCount);
 
-				return new AllEntriesSearchResult(albumResult, artistResult, songResult);
+				var tagResult = new PartialFindResult<TagContract>(
+					tags.Select(a => new TagContract(a)).ToArray(), tagCount);
+
+				return new AllEntriesSearchResult(query, albumResult, artistResult, songResult, tagResult);
 
 			});
 

@@ -59,9 +59,12 @@ namespace VocaDb.Web.Controllers
 				if (result.Songs.Items.Length == 1)
 					return RedirectToAction("Details", "Song", new { id = result.Songs.Items[0].Id });
 
+				if (result.Tags.Items.Length == 1)
+					return RedirectToAction("Details", "Tag", new { id = result.Tags.Items[0].Name });
+
 			}
 
-			var model = new SearchEntries(filter, result.Albums, result.Artists, result.Songs);
+			var model = new SearchEntries(filter, result.Albums, result.Artists, result.Songs, result.Tags);
 
 			return View(model);
 
