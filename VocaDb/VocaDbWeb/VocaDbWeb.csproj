@@ -465,6 +465,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
     <Compile Include="Controllers\NewsEntryController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\SongListController.cs" />
