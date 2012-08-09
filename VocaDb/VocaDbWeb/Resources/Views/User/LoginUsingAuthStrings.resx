@@ -126,4 +126,7 @@
   <data name="LoginUsingTwitter" xml:space="preserve">
     <value>Sign in using Twitter</value>
   </data>
+  <data name="SignInCancelled" xml:space="preserve">
+    <value>Sign-in cancelled.</value>
+  </data>
 </root>

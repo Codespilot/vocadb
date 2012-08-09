@@ -126,4 +126,7 @@
   <data name="LoginUsingTwitter" xml:space="preserve">
     <value>Kirjaudu käyttäen Twitteriä</value>
   </data>
+  <data name="SignInCancelled" xml:space="preserve">
+    <value>Kirjautuminen peruutettu.</value>
+  </data>
 </root>

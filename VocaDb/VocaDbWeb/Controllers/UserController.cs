@@ -225,6 +225,14 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult LoginTwitterComplete() {
 
+			// Denied authorization
+			var param = Request.QueryString["denied"];
+
+			if (!string.IsNullOrEmpty(param)) {
+				TempData.SetStatusMessage(ViewRes.User.LoginUsingAuthStrings.SignInCancelled);
+				return View("Login");
+			}
+
 			var response = new TwitterConsumer().ProcessUserAuthorization();
 
 			if (response == null) {

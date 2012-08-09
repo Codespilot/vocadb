@@ -86,5 +86,14 @@ namespace ViewRes.User {
                 return ResourceManager.GetString("LoginUsingTwitter", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign-in cancelled..
+        /// </summary>
+        public static string SignInCancelled {
+            get {
+                return ResourceManager.GetString("SignInCancelled", resourceCulture);
+            }
+        }
     }
 }
