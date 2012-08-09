@@ -220,6 +220,7 @@ namespace VocaDb.Web.Controllers
 			var response = twitterSignIn.Channel.PrepareResponse(request);
 
 			response.Send();
+			Response.End();
 
 		}
 
