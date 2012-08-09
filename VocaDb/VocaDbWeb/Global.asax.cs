@@ -114,7 +114,7 @@ namespace VocaDb.Web {
 
 			// Generic HTTP exception. Can be 404 or something else.
 			var httpException = ex as HttpException;
-			if (httpException != null && !(ex is HttpCompileException)) {
+			if (httpException != null && !(ex is HttpCompileException) && httpException.GetHttpCode() != ErrorLogger.Code_InternalServerError) {
 				
 				var code = httpException.GetHttpCode();
 				HandleHttpError(code);
