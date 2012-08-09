@@ -152,8 +152,8 @@ namespace VocaDb.Web {
 				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 
 			// Special routes
-			routes.MapRoute("Search", "Search/{filter}", 
-				new { controller = "Home", action = "Search", filter = UrlParameter.Optional });
+			//routes.MapRoute("Search", "Search/{filter}", 
+			//	new { controller = "Home", action = "Search", filter = UrlParameter.Optional });	// Doesn't work well with certain chars
 			routes.MapRoute("Song", "S/{id}", new { controller = "Song", action = "Details" }, new { id = "[0-9]+" });
 			routes.MapRoute("User", "Profile/{id}", new { controller = "User", action = "Profile" });
 
