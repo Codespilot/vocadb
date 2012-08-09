@@ -155,7 +155,7 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index()
         {
-			return RedirectToRoute("EventsBySeries");
+			return RedirectToAction("EventsBySeries");
         }
 
 		public ActionResult SeriesDetails(int id) {
