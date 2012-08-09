@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using DotNetOpenAuth.OAuth.ChannelElements;
 using DotNetOpenAuth.OAuth.Messages;
 using DotNetOpenAuth.OpenId.Extensions.OAuth;
+using NLog;
 
 namespace VocaDb.Web.Code.Security {
 	/// <summary>
@@ -22,6 +23,8 @@ namespace VocaDb.Web.Code.Security {
 	/// Twitter APIs except to authenticate, since that access token is only useful once.
 	/// </remarks>
 	internal class InMemoryTokenManager : IConsumerTokenManager, IOpenIdOAuthTokenManager {
+
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private Dictionary<string, string> tokensAndSecrets = new Dictionary<string, string>();
 
 		/// <summary>
@@ -61,6 +64,7 @@ namespace VocaDb.Web.Code.Security {
 		/// </returns>
 		/// <exception cref="ArgumentException">Thrown if the secret cannot be found for the given token.</exception>
 		public string GetTokenSecret(string token) {
+			log.Info("Requesting secret for token " + token);
 			return this.tokensAndSecrets[token];
 		}
 
@@ -78,6 +82,7 @@ namespace VocaDb.Web.Code.Security {
 		/// method.
 		/// </remarks>
 		public void StoreNewRequestToken(UnauthorizedTokenRequest request, ITokenSecretContainingMessage response) {
+			log.Info("Storing token " + response.Token);
 			this.tokensAndSecrets[response.Token] = response.TokenSecret;
 		}
 
@@ -105,6 +110,7 @@ namespace VocaDb.Web.Code.Security {
 		/// </para>
 		/// </remarks>
 		public void ExpireRequestTokenAndStoreNewAccessToken(string consumerKey, string requestToken, string accessToken, string accessTokenSecret) {
+			log.Info("Expiring tokens");
 			this.tokensAndSecrets.Remove(requestToken);
 			this.tokensAndSecrets[accessToken] = accessTokenSecret;
 		}
@@ -135,6 +141,7 @@ namespace VocaDb.Web.Code.Security {
 		/// send a follow-up request for the access token.</para>
 		/// </remarks>
 		public void StoreOpenIdAuthorizedRequestToken(string consumerKey, AuthorizationApprovedResponse authorization) {
+			log.Info("Storing openId auth request token " + authorization.RequestToken);
 			this.tokensAndSecrets[authorization.RequestToken] = string.Empty;
 		}
 
