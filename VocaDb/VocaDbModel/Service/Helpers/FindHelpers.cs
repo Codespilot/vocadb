@@ -21,7 +21,8 @@ namespace VocaDb.Model.Service.Helpers {
 		/// <param name="nameFilter"></param>
 		/// <param name="matchMode"></param>
 		/// <returns></returns>
-		public static IQueryable<T> AddEntryNameFilter<T>(IQueryable<T> query, string nameFilter, NameMatchMode matchMode, string[] words = null)
+		public static IQueryable<T> AddEntryNameFilter<T>(IQueryable<T> query, string nameFilter, 
+			NameMatchMode matchMode, string[] words = null)
 			where T : LocalizedString {
 
 			switch (GetMatchMode(nameFilter, matchMode)) {

@@ -32,10 +32,14 @@ namespace VocaDb.Model.Service {
 			query = query.Trim();
 			const int maxResults = 10;
 
+			var canonized = ArtistHelper.GetCanonizedName(query);
+			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto);
+			var words = (matchMode == NameMatchMode.Words ? FindHelpers.GetQueryWords(query) : null);
+
 			return HandleQuery(session => {
 
 				var artistNames = session.Query<ArtistName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(canonized, NameMatchMode.Auto, words)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -44,7 +48,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var albumNames = session.Query<AlbumName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(query, NameMatchMode.Auto, words)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -53,7 +57,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var songNames = session.Query<SongName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto)
+					.AddEntryNameFilter(query, NameMatchMode.Auto, words)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -88,14 +92,17 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrWhiteSpace(query))
 				return new AllEntriesSearchResult();
 
+			query = query.Trim();
+
 			var canonized = ArtistHelper.GetCanonizedName(query);
 			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto);
+			var words = (matchMode == NameMatchMode.Words ? FindHelpers.GetQueryWords(query) : null);
 
 			return HandleQuery(session => {
 
 				var artists = 
 					session.Query<ArtistName>()
-					.AddArtistNameFilter(query, canonized, matchMode)
+					.AddArtistNameFilter(query, canonized, matchMode, words)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.AddNameOrder(LanguagePreference)
@@ -105,7 +112,7 @@ namespace VocaDb.Model.Service {
 
 				var artistCount = (getTotalCount ?
 					session.Query<ArtistName>()
-					.AddArtistNameFilter(query, canonized, matchMode)
+					.AddArtistNameFilter(query, canonized, matchMode, words)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.Distinct()
@@ -114,7 +121,7 @@ namespace VocaDb.Model.Service {
 
 				var albums = 
 					session.Query<AlbumName>()
-					.AddEntryNameFilter(query, matchMode)
+					.AddEntryNameFilter(query, matchMode, words)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Album)
 					.AddNameOrder(LanguagePreference)
@@ -124,7 +131,7 @@ namespace VocaDb.Model.Service {
 
 				var albumCount = (getTotalCount ?
 					session.Query<AlbumName>()
-					.AddEntryNameFilter(query, matchMode)
+					.AddEntryNameFilter(query, matchMode, words)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Album)
 					.Distinct()
@@ -133,7 +140,7 @@ namespace VocaDb.Model.Service {
 
 				var songs = 
 					session.Query<SongName>()
-					.AddEntryNameFilter(query, matchMode)
+					.AddEntryNameFilter(query, matchMode, words)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Song)
 					.AddNameOrder(LanguagePreference)
@@ -143,7 +150,7 @@ namespace VocaDb.Model.Service {
 
 				var songCount = (getTotalCount ?
 					session.Query<SongName>()
-					.AddEntryNameFilter(query, matchMode)
+					.AddEntryNameFilter(query, matchMode, words)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Song)
 					.Distinct()
