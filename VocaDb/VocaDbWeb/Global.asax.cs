@@ -112,14 +112,12 @@ namespace VocaDb.Web {
 				return;
 			}
 
-			// Generic HTTP exception. Can be 404 or something else.
+			// Not found (usually by the controller). We get these a lot.
 			var httpException = ex as HttpException;
-			if (httpException != null && !(ex is HttpCompileException) && httpException.GetHttpCode() != ErrorLogger.Code_InternalServerError) {
-				
-				var code = httpException.GetHttpCode();
+			var code = (httpException != null ? httpException.GetHttpCode() : 0);
+			if (httpException != null && code == ErrorLogger.Code_NotFound) {				
 				HandleHttpError(code);
 				return;
-
 			}
 
 			// Generic NHibernate exception. This error has been logged already.

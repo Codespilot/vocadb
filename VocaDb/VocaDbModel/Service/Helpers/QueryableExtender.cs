@@ -28,10 +28,11 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<T> AddEntryNameFilter<T>(this IQueryable<T> query, string nameFilter, NameMatchMode matchMode)
+		public static IQueryable<T> AddEntryNameFilter<T>(this IQueryable<T> query, string nameFilter, NameMatchMode matchMode,
+			string[] words = null)
 			where T : LocalizedString {
 
-			return FindHelpers.AddEntryNameFilter(query, nameFilter, matchMode);
+			return FindHelpers.AddEntryNameFilter(query, nameFilter, matchMode, words);
 
 		}
 
