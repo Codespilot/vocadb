@@ -68,18 +68,20 @@
 				@R.CreateStrings.ExternalLink
 			</div>
 			<div class="editor-field">
-				<table><tr><td class="formLabel">				
-					@R.CreateStrings.WebLinkDescription @R.CreateStrings.Optional
-				</td><td>
-					@Html.TextBoxFor(m => m.WebLinkDescription, new { maxlength = 512, size = 40, @class = "span12" })
-				</td></tr>
-
-				<tr><td class="formLabel">
-					@R.CreateStrings.WebLinkURL *
-				</td><td>
-				@Html.TextBoxFor(m => m.WebLinkUrl, new { maxlength = 512, size = 40, @class = "span12" })<br />
-				@Html.ValidationMessageFor(m => m.WebLinkUrl)
-				</td></tr></table>
+				<table>
+					<tr><td class="formLabel">
+						@R.CreateStrings.WebLinkURL *
+					</td><td>
+					@Html.TextBoxFor(m => m.WebLinkUrl, new { id = "webLinkUrl", maxlength = 512, size = 40, @class = "span12" })<br />
+					@Html.ValidationMessageFor(m => m.WebLinkUrl)
+					</td></tr>
+					
+					<tr><td class="formLabel">				
+						@R.CreateStrings.WebLinkDescription @R.CreateStrings.Optional
+					</td><td>
+						@Html.TextBoxFor(m => m.WebLinkDescription, new { id = "webLinkDesc", maxlength = 512, size = 40, @class = "span12" })
+					</td></tr>
+				</table>
 			</div>
 
 			<p>

@@ -1156,6 +1156,8 @@
     <Content Include="Scripts\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\Messages.js" />
     <Content Include="Scripts\User\MySettings.js" />
@@ -1257,7 +1259,6 @@
     <Content Include="Views\Shared\ArtistContractRow.cshtml" />
     <Content Include="Views\Song\Merge.cshtml" />
     <Content Include="Views\Shared\WebLinkEditRow.cshtml" />
-    <Content Include="Views\Shared\WebLinkCreateRow.cshtml" />
     <Content Include="Views\Song\Versions.cshtml" />
     <Content Include="Views\Album\Versions.cshtml" />
     <Content Include="Views\Artist\Versions.cshtml" />
