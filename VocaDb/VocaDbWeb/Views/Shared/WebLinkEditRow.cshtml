@@ -5,10 +5,10 @@
 	<td>
 		@{ var item = Html.BeginCollectionItem("WebLinks"); }
 		@Html.HiddenFor(m => m.Id)
-		@Html.TextBoxFor(m => m.Description, new { maxlength = 512, @class = "webLinkDescription" })
+		@Html.TextBoxFor(m => m.Url, new { maxlength = 512, size = 50, @class = "webLinkUrl input-xlarge" })
 	</td>
 	<td>
-		@Html.TextBoxFor(m => m.Url, new { maxlength = 512, size = 50, @class = "webLinkUrl input-xlarge" })
+		@Html.TextBoxFor(m => m.Description, new { maxlength = 512, @class = "webLinkDescription" })
 		@{ item.Dispose(); }
 	</td>
 	<td>

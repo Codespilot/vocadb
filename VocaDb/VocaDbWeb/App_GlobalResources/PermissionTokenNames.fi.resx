@@ -121,7 +121,7 @@
     <value>Hallintavalikon käyttö</value>
   </data>
   <data name="Admin" xml:space="preserve">
-    <value>Tietokanna ylläpitotoiminnot</value>
+    <value>Tietokannan ylläpitotoiminnot</value>
   </data>
   <data name="ApproveEntries" xml:space="preserve">
     <value>Merkintöjen hyväksyntä</value>
@@ -181,7 +181,7 @@
     <value>Uusien kommenttien tarkastelu</value>
   </data>
   <data name="RestoreRevisions" xml:space="preserve">
-    <value>Merkintojen palauttaminen</value>
+    <value>Merkintöjen palauttaminen</value>
   </data>
   <data name="ViewAuditLog" xml:space="preserve">
     <value>Käyttölokin tarkastelu</value>

@@ -124,6 +124,7 @@ namespace VocaDb.Web {
 			if (!(ex is HibernateException))
 				ErrorLogger.LogException(Request, ex);
 
+			// Redirect user to generic error page in release mode or display detailed message in debug mode
 #if !DEBUG
 			Server.ClearError();
 			Response.RedirectToRoute("Default", new { controller = "Error", redirect = true });
