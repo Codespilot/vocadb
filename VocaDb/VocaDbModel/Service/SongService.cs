@@ -841,7 +841,8 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var names = session.Query<SongName>()
-					.Where(a => a.Value.Contains(query) && !a.Song.Deleted)
+					.Where(a => !a.Song.Deleted)
+					.AddEntryNameFilter(query, NameMatchMode.Auto)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
 					.Distinct()
