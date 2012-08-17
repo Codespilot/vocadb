@@ -124,7 +124,7 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "New password")]
 		[DataType(DataType.Password)]
-		[Compare("NewPassAgain", ErrorMessageResourceType = typeof(ViewRes.User.MySettingsStrings), ErrorMessageResourceName = "PasswordsMustMatch")]
+		[System.ComponentModel.DataAnnotations.Compare("NewPassAgain", ErrorMessageResourceType = typeof(ViewRes.User.MySettingsStrings), ErrorMessageResourceName = "PasswordsMustMatch")]
 		[StringLength(100)]
 		public string NewPass { get; set; }
 
