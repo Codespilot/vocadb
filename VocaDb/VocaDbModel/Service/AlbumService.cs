@@ -1302,6 +1302,7 @@ namespace VocaDb.Model.Service {
 
 					if (album.DiscType != properties.DiscType) {
 						album.DiscType = properties.DiscType;
+						album.UpdateArtistString();
 						diff.DiscType = true;
 					}
 
