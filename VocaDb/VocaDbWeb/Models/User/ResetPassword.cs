@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace VocaDb.Web.Models.User {
 
@@ -9,7 +8,7 @@ namespace VocaDb.Web.Models.User {
 		[Required]
 		[Display(Name = "New password")]
 		[DataType(DataType.Password)]
-		[Compare("NewPassAgain", ErrorMessage = "Passwords must match")]
+		[System.Web.Mvc.Compare("NewPassAgain", ErrorMessage = "Passwords must match")]
 		[StringLength(100, MinimumLength = 5)]
 		public string NewPass { get; set; }
 

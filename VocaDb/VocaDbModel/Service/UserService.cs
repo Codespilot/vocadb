@@ -514,7 +514,7 @@ namespace VocaDb.Model.Service {
 
 		public UserForMySettingsContract GetUserForMySettings(int id) {
 
-			return HandleQuery(session => new UserForMySettingsContract(session.Load<User>(id), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new UserForMySettingsContract(session.Load<User>(id)));
 
 		}
 
