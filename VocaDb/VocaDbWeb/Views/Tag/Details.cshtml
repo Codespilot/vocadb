@@ -30,9 +30,15 @@
 
 	<ul>
 		<li><a href="#overviewTab">@R.DetailsStrings.Overview</a></li>
+        @if (Model.Artists.Any()) {
 		<li><a href="@Url.Action("ArtistTagUsages", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
+        }
+        @if (Model.Albums.Any()) {
 		<li><a href="@Url.Action("AlbumTagUsages", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
+        }
+        @if (Model.Songs.Any()) {
 		<li><a href="@Url.Action("SongTagUsages", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
+        }
 	</ul>
 
 	<div id="overviewTab">
@@ -64,14 +70,20 @@
 		}
 
 	</div>
-
+    
+    @if (Model.Artists.Any()) {
 	<div id="Artists">
 	</div>
-
+    }
+    
+    @if (Model.Albums.Any()) {
 	<div id="Albums">
 	</div>
-
+    }
+    
+    @if (Model.Songs.Any()) {
 	<div id="Songs">
 	</div>
+    }
 
 </div>

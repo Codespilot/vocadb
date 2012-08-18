@@ -81,11 +81,11 @@ namespace VocaDb.Web.Models {
 			if (PVs.All(p => p.Service != PVService.Youtube)) {
 
 				var nicoPV = VideoServiceHelper.PrimaryPV(PVs, PVService.NicoNicoDouga);
-				var query = (nicoPV != null)
+				var query = (nicoPV != null && !string.IsNullOrEmpty(nicoPV.Name))
 					? nicoPV.Name
-					: ArtistString + " " + Name;
+					: string.Format("{0} {1}", ArtistString, Name);
 
-				WebLinks.Add(new WebLinkContract("http://www.youtube.com/results?search_query=" + query, ViewRes.Song.DetailsStrings.SearchYoutube));
+				WebLinks.Add(new WebLinkContract(string.Format("http://www.youtube.com/results?search_query={0}", query), ViewRes.Song.DetailsStrings.SearchYoutube));
 
 			}
 
