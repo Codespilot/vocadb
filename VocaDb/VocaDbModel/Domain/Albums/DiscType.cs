@@ -10,11 +10,13 @@
 
 		EP			= 4,
 
-		Compilation	= 8,
+		SplitAlbum	= 8,
 
-		Video		= 16,
+		Compilation	= 16,
 
-		Other		= 32
+		Video		= 32,
+
+		Other		= 64
 
 	}
 

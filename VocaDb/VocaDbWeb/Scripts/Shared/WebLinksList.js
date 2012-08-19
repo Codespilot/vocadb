@@ -3,6 +3,7 @@ function initWebLinksList() {
 
 	var linkMatchers = [
 		{ url: "www.amazon.co.jp/", desc: "Amazon" },
+		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan" },
 		{ url: "karent.jp/", desc: "KarenT" },
 		{ url: "mikudb.com/", desc: "MikuDB" },
 		{ url: "www5.atwiki.jp/hmiku/pages/", desc: "MikuWiki" },

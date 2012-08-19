@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Split album.
+        /// </summary>
+        internal static string SplitAlbum {
+            get {
+                return ResourceManager.GetString("SplitAlbum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not specified.
         /// </summary>
         internal static string Unknown {
