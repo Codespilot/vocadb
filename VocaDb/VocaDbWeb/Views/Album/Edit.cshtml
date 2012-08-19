@@ -117,7 +117,7 @@
 				@Html.LabelFor(m => m.DiscType)
 			</div>
 			<div class="editor-field">
-				@Html.DropDownListFor(m => m.DiscType, new SelectList(Model.AllDiscTypes, Model.DiscType))
+				@Html.DiscTypeDropDownListFor(m => m.DiscType, Model.DiscType)
 			</div>
 
 			<table><tr>
