@@ -86,7 +86,7 @@
 				<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
 				<td>
 					@foreach (var link in Model.WebLinks) {
-						<a href='@link.Url'>@link.DescriptionOrUrl</a><br />
+						<a class="extLink" href='@link.Url'>@link.DescriptionOrUrl</a><br />
 					}
 				</td>	
 			</tr>

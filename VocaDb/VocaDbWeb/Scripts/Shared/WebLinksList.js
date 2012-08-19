@@ -12,6 +12,7 @@ function initWebLinksList() {
 		{ url: "piapro.jp/", desc: "Piapro" },
 		{ url: "toranoana.jp/mailorder/article/", desc: "Toranoana" },
 		{ url: "twitter.com/", desc: "Twitter" },
+		{ url: "vgmdb.net/", desc: "VGMdb" },
 		{ url: "vocaloid.wikia.com/wiki/", desc: "Vocaloid Wiki" },
 		{ url: "youtube.com/user/", desc: "Youtube Channel" }
 	];

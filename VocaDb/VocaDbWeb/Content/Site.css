@@ -455,6 +455,24 @@ div.songListItem div.thumbnail {
 	margin-right: 5px;
 }
 
+
+/* External links */
+a.extLink[href^="http://www.amazon.co.jp/"] {
+	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
+    padding: 2px 0 2px 20px;
+}
+
+a.extLink[href^="http://www.cdjapan.co.jp/"] {
+	background: url("/Content/ExtIcons/cdjapan.png") no-repeat left 50%;
+    padding: 2px 0 2px 20px;
+}
+
+a.extLink[href^="http://www.toranoana.jp/"] {
+	background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
+    padding: 2px 0 2px 20px;
+}
+
+
 /* Bootstrap-specific */
 .navbar .nav-radio {
 	color: #0DC69B;	
