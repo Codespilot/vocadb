@@ -735,8 +735,14 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ExtIcons\amazon.png" />
+    <Content Include="Content\ExtIcons\atwiki.png" />
     <Content Include="Content\ExtIcons\cdjapan.png" />
+    <Content Include="Content\ExtIcons\karent.png" />
+    <Content Include="Content\ExtIcons\piapro.png" />
+    <Content Include="Content\ExtIcons\pixiv.png" />
     <Content Include="Content\ExtIcons\tora.png" />
+    <Content Include="Content\ExtIcons\twitter.png" />
+    <Content Include="Content\ExtIcons\vocawiki.png" />
     <Content Include="Content\Icons\accept.png" />
     <Content Include="Content\Icons\add.png" />
     <Content Include="Content\Icons\asterisk_yellow.png" />
