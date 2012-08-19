@@ -457,59 +457,53 @@ div.songListItem div.thumbnail {
 
 
 /* External links */
+a.extLink {
+	background: url("/Content/Icons/world.png") no-repeat left 50%;
+    padding: 2px 0 2px 20px;
+}
+
 a.extLink[href^="http://www.amazon.co.jp/"] {
 	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://www5.atwiki.jp/hmiku/pages/"] {
 	background: url("/Content/ExtIcons/atwiki.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://www.cdjapan.co.jp/"] {
 	background: url("/Content/ExtIcons/cdjapan.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://karent.jp/"] {
 	background: url("/Content/ExtIcons/karent.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://www.nicovideo.jp/"] {
 	background: url("/Content/nico.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://piapro.jp/"] {
 	background: url("/Content/ExtIcons/piapro.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://www.pixiv.net/"] {
 	background: url("/Content/ExtIcons/pixiv.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://www.toranoana.jp/"] {
 	background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
-a.extLink[href^="https://twitter.com/"] {
+a.extLink[href*="twitter.com/"] {
 	background: url("/Content/ExtIcons/twitter.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://www.youtube.com/"] {
 	background: url("/Content/youtube.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="http://vocaloid.wikia.com/wiki/"] {
 	background: url("/Content/ExtIcons/vocawiki.png") no-repeat left 50%;
-    padding: 2px 0 2px 20px;
 }
 
 
