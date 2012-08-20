@@ -20,4 +20,6 @@ function initPage() {
 
 	});
 
+	initWebLinksList();
+
 }
