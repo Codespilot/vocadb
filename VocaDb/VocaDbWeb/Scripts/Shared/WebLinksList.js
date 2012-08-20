@@ -41,7 +41,12 @@ function initWebLinksList() {
 
 	$("input.webLinkUrl").live("change", function () {
 
-		var descBox = $(this).parent().parent().find("input.webLinkDescription");
+	    var descBox = $(this).parent().parent().find("input.webLinkDescription");
+
+        // TODO: this is quite a hack to support artist creation page. Should be done using knockoutjs to be honest.
+	    if (descBox.length == 0)
+	        descBox = $(this).parent().parent().parent().find("input.webLinkDescription");
+
 		var url = $(this).val();
 
 		if ($(descBox).val() == "") {

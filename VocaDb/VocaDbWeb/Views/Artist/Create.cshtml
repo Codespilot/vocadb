@@ -72,14 +72,14 @@
 					<tr><td class="formLabel">
 						@R.CreateStrings.WebLinkURL *
 					</td><td>
-					@Html.TextBoxFor(m => m.WebLinkUrl, new { id = "webLinkUrl", maxlength = 512, size = 40, @class = "span12" })<br />
+					@Html.TextBoxFor(m => m.WebLinkUrl, new { id = "webLinkUrl", maxlength = 512, size = 40, @class = "span12 webLinkUrl" })<br />
 					@Html.ValidationMessageFor(m => m.WebLinkUrl)
 					</td></tr>
 					
 					<tr><td class="formLabel">				
 						@R.CreateStrings.WebLinkDescription @R.CreateStrings.Optional
 					</td><td>
-						@Html.TextBoxFor(m => m.WebLinkDescription, new { id = "webLinkDesc", maxlength = 512, size = 40, @class = "span12" })
+						@Html.TextBoxFor(m => m.WebLinkDescription, new { id = "webLinkDesc", maxlength = 512, size = 40, @class = "span12 webLinkDescription" })
 					</td></tr>
 				</table>
 			</div>
