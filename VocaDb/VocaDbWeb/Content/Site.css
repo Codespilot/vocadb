@@ -478,6 +478,14 @@ a.extLink[href^="http://karent.jp/"] {
 	background: url("/Content/ExtIcons/karent.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www.melonbooks.co.jp/"] {
+	background: url("/Content/ExtIcons/melonbooks.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://mikudb.com/"] {
+	background: url("/Content/ExtIcons/mikudb.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www.nicovideo.jp/"] {
 	background: url("/Content/nico.png") no-repeat left 50%;
 }
@@ -496,6 +504,10 @@ a.extLink[href^="http://www.toranoana.jp/"] {
 
 a.extLink[href*="twitter.com/"] {
 	background: url("/Content/ExtIcons/twitter.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://www.yesasia.com/"] {
+	background: url("/Content/ExtIcons/yesasia.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://www.youtube.com/"] {

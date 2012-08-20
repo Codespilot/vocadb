@@ -3,8 +3,10 @@ function initWebLinksList() {
 
 	var linkMatchers = [
 		{ url: "www.amazon.co.jp/", desc: "Amazon" },
+		{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop" },
 		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan" },
 		{ url: "karent.jp/", desc: "KarenT" },
+		{ url: "www.melonbooks.co.jp/", desc: "Melonbooks" },
 		{ url: "mikudb.com/", desc: "MikuDB" },
 		{ url: "www5.atwiki.jp/hmiku/pages/", desc: "MikuWiki" },
 		{ url: "nicovideo.jp/user/", desc: "NND Account" },
@@ -14,7 +16,8 @@ function initWebLinksList() {
 		{ url: "twitter.com/", desc: "Twitter" },
 		{ url: "vgmdb.net/", desc: "VGMdb" },
 		{ url: "vocaloid.wikia.com/wiki/", desc: "Vocaloid Wiki" },
-		{ url: "youtube.com/user/", desc: "Youtube Channel" }
+		{ url: "www.yesasia.com/", desc: "YesAsia" },
+	    { url: "youtube.com/user/", desc: "Youtube Channel" }
 	];
 
 	$("#webLinkAdd").click(function () {
