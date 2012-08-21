@@ -466,7 +466,7 @@ a.extLink[href^="http://www.amazon.co.jp/"] {
 	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
 }
 
-a.extLink[href^="http://www5.atwiki.jp/hmiku/pages/"] {
+a.extLink[href^="http://www5.atwiki.jp/hmiku/"] {
 	background: url("/Content/ExtIcons/atwiki.png") no-repeat left 50%;
 }
 
@@ -478,7 +478,7 @@ a.extLink[href^="http://karent.jp/"] {
 	background: url("/Content/ExtIcons/karent.png") no-repeat left 50%;
 }
 
-a.extLink[href^="http://www.melonbooks.co.jp/"] {
+a.extLink[href^="http://shop.melonbooks.co.jp/"] {
 	background: url("/Content/ExtIcons/melonbooks.png") no-repeat left 50%;
 }
 
@@ -496,6 +496,10 @@ a.extLink[href^="http://piapro.jp/"] {
 
 a.extLink[href^="http://www.pixiv.net/"] {
 	background: url("/Content/ExtIcons/pixiv.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://soundcloud.com/"] {
+	background: url("/Content/Icons/soundcloud.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://www.toranoana.jp/"] {
