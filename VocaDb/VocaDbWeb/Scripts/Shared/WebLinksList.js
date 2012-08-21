@@ -5,6 +5,7 @@ function initWebLinksList() {
 		{ url: "www.amazon.co.jp/", desc: "Amazon" },
 		{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop" },
 		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan" },
+		{ url: "www.facebook.com/", desc: "Facebook" },
 		{ url: "karent.jp/", desc: "KarenT" },
 		{ url: "shop.melonbooks.co.jp/", desc: "Melonbooks" },
 		{ url: "mikudb.com/", desc: "MikuDB" },

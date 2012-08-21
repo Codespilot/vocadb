@@ -474,6 +474,10 @@ a.extLink[href^="http://www.cdjapan.co.jp/"] {
 	background: url("/Content/ExtIcons/cdjapan.png") no-repeat left 50%;
 }
 
+a.extLink[href*="www.facebook.com/"] {
+	background: url("/Content/ExtIcons/facebook.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://karent.jp/"] {
 	background: url("/Content/ExtIcons/karent.png") no-repeat left 50%;
 }
