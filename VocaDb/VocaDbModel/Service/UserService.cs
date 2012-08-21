@@ -250,6 +250,34 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public bool ConnectTwitter(string authToken, int twitterId, string twitterName, string hostname) {
+
+			ParamIs.NotNullOrEmpty(() => authToken);
+			ParamIs.NotNullOrEmpty(() => hostname);
+
+			return HandleTransaction(session => {
+
+				var user = session.Query<UserOptions>().Where(u => u.TwitterOAuthToken == authToken)
+					.Select(a => a.User).FirstOrDefault();
+
+				if (user != null)
+					return false;
+
+				user = GetLoggedUser(session);
+
+				user.Options.TwitterId = twitterId;
+				user.Options.TwitterName = twitterName;
+				user.Options.TwitterOAuthToken = authToken;
+				session.Update(user);
+
+				AuditLog(string.Format("connected to twitter from {0}.", MakeGeoIpToolLink(hostname)), session, user);
+
+				return true;
+
+			});
+
+		}
+
 		public UserContract Create(string name, string pass, string email, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -303,7 +331,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract CreateTwitter(string authToken, string name, string email, string hostname) {
+		public UserContract CreateTwitter(string authToken, string name, string email, int twitterId, string twitterName, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNull(() => email);
@@ -318,6 +346,8 @@ namespace VocaDb.Model.Service {
 
 				var salt = new Random().Next();
 				var user = new User(name, string.Empty, email, salt);
+				user.Options.TwitterId = twitterId;
+				user.Options.TwitterName = twitterName;
 				user.Options.TwitterOAuthToken = authToken;
 				session.Save(user);
 

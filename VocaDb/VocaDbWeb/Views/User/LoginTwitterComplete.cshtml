@@ -10,7 +10,10 @@
 
 @using (Html.BeginForm()) {
 	
+    @Html.AntiForgeryToken()
 	@Html.HiddenFor(m => m.AccessToken)
+    @Html.HiddenFor(m => m.TwitterId)
+    @Html.HiddenFor(m => m.TwitterName)
 	
     <div class="editor-label">
         @Html.LabelFor(m => m.UserName)

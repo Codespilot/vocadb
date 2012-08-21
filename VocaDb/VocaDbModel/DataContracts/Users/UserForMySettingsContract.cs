@@ -11,10 +11,16 @@ namespace VocaDb.Model.DataContracts.Users {
 			: base(user) {
 
 			HashedAccessKey = LoginManager.GetHashedAccessKey(user.AccessKey);
+			TwitterId = user.Options.TwitterId;
+			TwitterName = user.Options.TwitterName;
 
 		}
 
 		public string HashedAccessKey { get; set; }
+
+		public int TwitterId { get; set; }
+
+		public string TwitterName { get; set; }
 
 	}
 }

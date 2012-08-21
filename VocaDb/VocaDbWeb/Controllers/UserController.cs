@@ -76,6 +76,55 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public void ConnectTwitter() {
+
+			// Make sure session ID is initialized
+			// ReSharper disable UnusedVariable
+			var sessionId = Session.SessionID;
+			// ReSharper restore UnusedVariable
+
+			var twitterSignIn = new TwitterConsumer().TwitterSignIn;
+
+			var uri = new Uri(new Uri(AppConfig.HostAddress), Url.Action("ConnectTwitterComplete"));
+			var request = twitterSignIn.PrepareRequestUserAuthorization(uri, null, null);
+			var response = twitterSignIn.Channel.PrepareResponse(request);
+
+			response.Send();
+			Response.End();
+
+		}
+
+		public ActionResult ConnectTwitterComplete() {
+
+			// Denied authorization
+			var param = Request.QueryString["denied"];
+
+			if (!string.IsNullOrEmpty(param)) {
+				TempData.SetStatusMessage(ViewRes.User.LoginUsingAuthStrings.SignInCancelled);
+				return View("MySettings");
+			}
+
+			var response = new TwitterConsumer().ProcessUserAuthorization();
+
+			if (response == null) {
+				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);
+				return View("MySettings");
+			}
+
+			int twitterId;
+			int.TryParse(response.ExtraData["user_id"], out twitterId);
+			var twitterName = response.ExtraData["screen_name"];
+
+			if (Service.ConnectTwitter(response.AccessToken, twitterId, twitterName, WebHelper.GetRealHost(Request))) {
+				TempData.SetStatusMessage("Connected successfully");
+			} else {
+				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);
+			}
+
+			return RedirectToAction("MySettings");
+
+		}
+
 		public ActionResult EntryEdits(int id, bool? onlySubmissions) {
 
 			var user = Service.GetUserWithActivityEntries(id, 100, onlySubmissions ?? true);
@@ -213,6 +262,11 @@ namespace VocaDb.Web.Controllers
 
 		public void LoginTwitter() {
 			
+			// Make sure session ID is initialized
+// ReSharper disable UnusedVariable
+			var sessionId = Session.SessionID;
+// ReSharper restore UnusedVariable
+
 			var twitterSignIn = new TwitterConsumer().TwitterSignIn;
 
 			var uri = new Uri(new Uri(AppConfig.HostAddress), Url.Action("LoginTwitterComplete"));
@@ -244,7 +298,10 @@ namespace VocaDb.Web.Controllers
 			var user = Service.CheckTwitterAuthentication(response.AccessToken, Hostname);
 
 			if (user == null) {
-				return View(new RegisterOpenAuthModel(response.AccessToken, response.ExtraData["screen_name"]));
+				int twitterId;
+				int.TryParse(response.ExtraData["user_id"], out twitterId);
+				var twitterName = response.ExtraData["screen_name"];
+				return View(new RegisterOpenAuthModel(response.AccessToken, twitterName, twitterId, twitterName));
 			}
 
 			HandleCreate(user);
@@ -254,13 +311,17 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public ActionResult LoginTwitterComplete(RegisterOpenAuthModel model) {
 
 			if (ModelState.IsValid) {
-				var user = Service.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty, Hostname);
+
+				var user = Service.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty, 
+					model.TwitterId, model.TwitterName, Hostname);
 
 				if (HandleCreate(user))
 					return RedirectToAction("Index", "Home");
+
 			}
 
 			return View(model);
