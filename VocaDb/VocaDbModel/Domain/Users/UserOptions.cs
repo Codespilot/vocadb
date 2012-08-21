@@ -4,10 +4,11 @@
 
 		private string oauthToken;
 		private string oauthTokenSecret;
+		private string twitterName;
 		private User user;
 
 		public UserOptions() {
-			TwitterOAuthToken = TwitterOAuthTokenSecret = string.Empty;
+			TwitterName = TwitterOAuthToken = TwitterOAuthTokenSecret = string.Empty;
 		}
 
 		public UserOptions(User user)
@@ -18,6 +19,16 @@
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual int TwitterId { get; set; }
+
+		public virtual string TwitterName {
+			get { return twitterName; }
+			set { 
+				ParamIs.NotNull(() => value);
+				twitterName = value; 
+			}
+		}
 
 		public virtual string TwitterOAuthToken {
 			get { return oauthToken; }

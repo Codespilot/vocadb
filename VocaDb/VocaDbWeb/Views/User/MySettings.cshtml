@@ -127,12 +127,24 @@
 
 		<div id="connectivity">
 	
-			<h4>@R.MySettingsStrings.AccessKey</h4>
-			<p>
+			<div class="editor-label">
+				@R.MySettingsStrings.AccessKey				
+			</div>
+			<div class="editor-field">
 				@Model.AccessKey
-				
-				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");", @class = "textLink refreshLink" })
-			</p>
+				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");", @class = "textLink refreshLink" })				
+            </div>
+
+			<div class="editor-label">
+				Twitter
+			</div>
+			<div class="editor-field">
+				@if (!string.IsNullOrEmpty(Model.TwitterName)) {
+                    @Model.TwitterName
+                } else {
+				    @Html.ActionLink(R.MySettingsStrings.Connect, "ConnectTwitter", "User", new { @class = "textLink addLink" })
+                }
+            </div>
 
 		</div>
 	</div>

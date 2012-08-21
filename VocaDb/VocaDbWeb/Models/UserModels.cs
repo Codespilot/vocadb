@@ -70,6 +70,7 @@ namespace VocaDb.Web.Models {
 			Id = user.Id;
 			InterfaceLanguageSelection = user.Language;
 			PreferredVideoService = user.PreferredVideoService;
+			TwitterName = user.TwitterName;
 			Username = user.Name;
 
 			AccessKey = user.HashedAccessKey;
@@ -132,6 +133,8 @@ namespace VocaDb.Web.Models {
 		[DataType(DataType.Password)]
 		[StringLength(100)]
 		public string NewPassAgain { get; set; }
+
+		public string TwitterName { get; set; }
 
 		public UpdateUserSettingsContract ToContract() {
 

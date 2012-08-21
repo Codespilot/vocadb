@@ -38,7 +38,7 @@ namespace VocaDb.Model.Mapping.Users {
 					.Cache.ReadWrite();
 			});
 
-			HasOne(m => m.Options).Cascade.All();
+			HasOne(m => m.Options).PropertyRef(o => o.User).Constrained().Cascade.All();
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllArtists).Inverse().Cascade.All().Cache.ReadWrite();
@@ -60,7 +60,9 @@ namespace VocaDb.Model.Mapping.Users {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
-			References(m => m.User).Unique();
+			References(m => m.User).Column("[User]").Unique();
+			Map(m => m.TwitterId).Not.Nullable();
+			Map(m => m.TwitterName).Not.Nullable();
 			Map(m => m.TwitterOAuthToken).Not.Nullable();
 			Map(m => m.TwitterOAuthTokenSecret).Not.Nullable();
 

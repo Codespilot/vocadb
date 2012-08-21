@@ -129,6 +129,9 @@
   <data name="Automatic" xml:space="preserve">
     <value>(Automaattinen)</value>
   </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Yhdistä</value>
+  </data>
   <data name="Connectivity" xml:space="preserve">
     <value>Yhteydet</value>
   </data>

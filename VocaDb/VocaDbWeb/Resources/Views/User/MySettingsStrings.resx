@@ -129,6 +129,9 @@
   <data name="Automatic" xml:space="preserve">
     <value>(Automatic)</value>
   </data>
+  <data name="Connect" xml:space="preserve">
+    <value>Connect</value>
+  </data>
   <data name="Connectivity" xml:space="preserve">
     <value>Connectivity</value>
   </data>
