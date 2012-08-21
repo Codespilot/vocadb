@@ -38,7 +38,7 @@ namespace VocaDb.Model.Mapping.Users {
 					.Cache.ReadWrite();
 			});
 
-			HasOne(m => m.Options).PropertyRef(o => o.User).Constrained().Cascade.All();
+			HasOne(m => m.Options).PropertyRef(o => o.User).Cascade.All();
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllArtists).Inverse().Cascade.All().Cache.ReadWrite();
