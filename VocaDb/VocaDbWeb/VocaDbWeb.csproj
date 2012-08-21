@@ -737,6 +737,7 @@
     <Content Include="Content\ExtIcons\amazon.png" />
     <Content Include="Content\ExtIcons\atwiki.png" />
     <Content Include="Content\ExtIcons\cdjapan.png" />
+    <Content Include="Content\ExtIcons\facebook.png" />
     <Content Include="Content\ExtIcons\karent.png" />
     <Content Include="Content\ExtIcons\melonbooks.png" />
     <Content Include="Content\ExtIcons\mikudb.png" />
@@ -748,6 +749,7 @@
     <Content Include="Content\ExtIcons\yesasia.png" />
     <Content Include="Content\Icons\accept.png" />
     <Content Include="Content\Icons\add.png" />
+    <Content Include="Content\Icons\arrow_refresh.png" />
     <Content Include="Content\Icons\asterisk_yellow.png" />
     <Content Include="Content\Icons\delete.png" />
     <Content Include="Content\draft.png" />

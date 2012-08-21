@@ -131,7 +131,7 @@
 			<p>
 				@Model.AccessKey
 				
-				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");" })
+				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");", @class = "textLink refreshLink" })
 			</p>
 
 		</div>

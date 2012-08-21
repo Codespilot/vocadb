@@ -6,6 +6,7 @@
 .editLink	{ background-image: url(../Icons/edit.png); }
 .helpLink, .helpIcon { background-image: url(../Icons/help.png); }
 .lockLink, .lockIcon { background-image: url(../Icons/lock.png); }
+.refreshLink	{ background-image: url(../Icons/arrow_refresh.png); }
 .removeLink	{ background-image: url(../Icons/remove.png); }
 .searchLink	{ background-image: url(../Icons/search.png); }
 .tickLink, .tickIcon { background-image: url(../Icons/tick.png); }
