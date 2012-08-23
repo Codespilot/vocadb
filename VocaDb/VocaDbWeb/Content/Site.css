@@ -462,6 +462,10 @@ a.extLink {
     padding: 2px 0 2px 20px;
 }
 
+a.extLink[href^="mailto:"] {
+	background: url("/Content/Icons/email.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www.amazon.co.jp/"] {
 	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
 }

@@ -56,9 +56,19 @@ namespace VocaDb.Web.Models {
 
 	public class MySettingsModel {
 
-		public MySettingsModel() {}
+		public MySettingsModel() {
 
-		public MySettingsModel(UserForMySettingsContract user) {
+			AllInterfaceLanguages = InterfaceLanguage.Cultures
+				.ToKeyValuePairsWithEmpty(string.Empty, ViewRes.User.MySettingsStrings.Automatic, c => c.Name, c => c.NativeName + " (" + c.EnglishName + ")")
+				.OrderBy(k => k.Value)
+				.ToArray();
+			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
+			AllVideoServices = EnumVal<PVService>.Values;
+
+		}
+
+		public MySettingsModel(UserForMySettingsContract user)
+			: this() {
 			
 			ParamIs.NotNull(() => user);
 
@@ -67,6 +77,8 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
+			HasPassword = user.HasPassword;
+			HasTwitterToken = user.HasTwitterToken;
 			Id = user.Id;
 			InterfaceLanguageSelection = user.Language;
 			PreferredVideoService = user.PreferredVideoService;
@@ -74,12 +86,6 @@ namespace VocaDb.Web.Models {
 			Username = user.Name;
 
 			AccessKey = user.HashedAccessKey;
-			AllInterfaceLanguages = InterfaceLanguage.Cultures
-				.ToKeyValuePairsWithEmpty(string.Empty, ViewRes.User.MySettingsStrings.Automatic, c => c.Name, c => c.NativeName + " (" + c.EnglishName + ")")
-				.OrderBy(k => k.Value)
-				.ToArray();
-			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
-			AllVideoServices = EnumVal<PVService>.Values;
 
 		}
 
@@ -101,6 +107,10 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Email options for private messages")]
 		public UserEmailOptions EmailOptions { get; set; }
+
+		public bool HasPassword { get; set; }
+
+		public bool HasTwitterToken { get; set; }
 
 		[Display(Name = "Interface language")]
 		public string InterfaceLanguageSelection { get; set; }
