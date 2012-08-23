@@ -40,8 +40,14 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException("Unable to load SoundCloud URL: " + x.Message, x));
 			}
 
-			var trackId = doc.XPathSelectElement("//track/id").Value;
-			var title = doc.XPathSelectElement("//track/title").Value;
+			var trackIdElem = doc.XPathSelectElement("//track/id");
+			var titleElem = doc.XPathSelectElement("//track/title");
+
+			if (trackIdElem == null || titleElem == null)
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Unable to load SoundCloud URL: Invalid response.");
+
+			var trackId = trackIdElem.Value;
+			var title = titleElem.Value;
 			var id = new SoundCloudId(trackId, url);
 
 			return VideoUrlParseResult.CreateOk(url, PVService.SoundCloud, id.ToString(), title);
