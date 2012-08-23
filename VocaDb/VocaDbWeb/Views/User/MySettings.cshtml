@@ -14,7 +14,13 @@
 @Html.ValidationSummary(true, R.MySettingsStrings.UnableToSave)
 
 @using (Html.BeginForm("MySettings", "User", FormMethod.Post)) {
+    
 	@Html.HiddenFor(m => m.Id)
+    @Html.HiddenFor(m => m.Username)
+    @Html.HiddenFor(m => m.HasPassword)
+    @Html.HiddenFor(m => m.HasTwitterToken)
+    @Html.HiddenFor(m => m.AccessKey)
+    @Html.HiddenFor(m => m.TwitterName)
 
 	@Helpers.SaveBtn()
 	
@@ -57,7 +63,8 @@
 						@R.MySettingsStrings.AnonymousActivity
 					</label>
 				</p>
-
+                
+                @if (Model.HasPassword) {
 				<div class="editor-label">
 					@R.MySettingsStrings.CurrentPass
 					@R.MySettingsStrings.RequiredForChangingPassword
@@ -66,6 +73,7 @@
 					@Html.PasswordFor(m => m.OldPass)
 					@Html.ValidationMessageFor(m => m.OldPass)
 				</div>
+                }
 
 				<div class="editor-label">
 					@R.MySettingsStrings.NewPass
@@ -139,7 +147,7 @@
 				Twitter
 			</div>
 			<div class="editor-field">
-				@if (!string.IsNullOrEmpty(Model.TwitterName)) {
+				@if (Model.HasTwitterToken) {
                     @Model.TwitterName
                 } else {
 				    @Html.ActionLink(R.MySettingsStrings.Connect, "ConnectTwitter", "User", new { @class = "textLink addLink" })

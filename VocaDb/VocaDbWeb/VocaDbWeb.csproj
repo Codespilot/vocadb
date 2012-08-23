@@ -755,6 +755,7 @@
     <Content Include="Content\draft.png" />
     <Content Include="Content\Icons\edit.png" />
     <Content Include="Content\favicon.ico" />
+    <Content Include="Content\Icons\email.png" />
     <Content Include="Content\Icons\help.png" />
     <Content Include="Content\Icons\lock.png" />
     <Content Include="Content\Icons\remove.png" />
