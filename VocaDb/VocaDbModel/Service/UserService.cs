@@ -214,7 +214,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
 
-				user.UpdateLastLogin();
+				user.UpdateLastLogin(hostname);
 				session.Update(user);
 
 				return new UserContract(user);
@@ -235,7 +235,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
 
-				user.UpdateLastLogin();
+				user.UpdateLastLogin(hostname);
 				session.Update(user);
 
 				return new UserContract(user);
@@ -295,6 +295,7 @@ namespace VocaDb.Model.Service {
 				var salt = new Random().Next();
 				var hashed = LoginManager.GetHashedPass(lc, pass, salt);
 				var user = new User(name, hashed, email, salt);
+				user.UpdateLastLogin(hostname);
 				session.Save(user);
 
 				AuditLog(string.Format("registered from {0}.", MakeGeoIpToolLink(hostname)), session, user);
@@ -349,6 +350,7 @@ namespace VocaDb.Model.Service {
 				user.Options.TwitterId = twitterId;
 				user.Options.TwitterName = twitterName;
 				user.Options.TwitterOAuthToken = authToken;
+				user.UpdateLastLogin(hostname);
 				session.Save(user);
 
 				AuditLog(string.Format("registered from {0} using Twitter.", MakeGeoIpToolLink(hostname)), session, user);

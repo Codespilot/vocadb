@@ -61,9 +61,10 @@ namespace VocaDb.Model.Mapping.Users {
 			Id(m => m.Id);
 
 			References(m => m.User).Column("[User]").Unique();
+			Map(m => m.LastLoginAddress).Length(20).Not.Nullable();
 			Map(m => m.TwitterId).Not.Nullable();
-			Map(m => m.TwitterName).Not.Nullable();
-			Map(m => m.TwitterOAuthToken).Not.Nullable();
+			Map(m => m.TwitterName).Length(200).Not.Nullable();
+			Map(m => m.TwitterOAuthToken).Length(70).Not.Nullable();
 			Map(m => m.TwitterOAuthTokenSecret).Not.Nullable();
 
 		}

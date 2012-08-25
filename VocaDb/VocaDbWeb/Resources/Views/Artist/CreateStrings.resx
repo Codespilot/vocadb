@@ -141,6 +141,9 @@
   <data name="Optional" xml:space="preserve">
     <value>(optional)</value>
   </data>
+  <data name="Picture" xml:space="preserve">
+    <value>Picture</value>
+  </data>
   <data name="UnableToCreateArtist" xml:space="preserve">
     <value>Unable to create artist. Correct the errors and try again.</value>
   </data>

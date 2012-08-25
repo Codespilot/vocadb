@@ -124,6 +124,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allowed types: {0}. Maximum size is {1} MB..
+        /// </summary>
+        public static string PictureInfo {
+            get {
+                return ResourceManager.GetString("PictureInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Romanized name.
         /// </summary>
         public static string RomajiName {

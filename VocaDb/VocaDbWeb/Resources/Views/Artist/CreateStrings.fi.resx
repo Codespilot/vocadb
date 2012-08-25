@@ -141,6 +141,9 @@
   <data name="Optional" xml:space="preserve">
     <value>(vapaaehtoinen)</value>
   </data>
+  <data name="Picture" xml:space="preserve">
+    <value>Kuva</value>
+  </data>
   <data name="UnableToCreateArtist" xml:space="preserve">
     <value>Artistin luominen ei onnistu. Tarkista virheet ja yritä uudestaan.</value>
   </data>

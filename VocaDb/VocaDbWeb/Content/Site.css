@@ -478,6 +478,10 @@ a.extLink[href^="http://www.cdjapan.co.jp/"] {
 	background: url("/Content/ExtIcons/cdjapan.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www.discogs.com/"] {
+	background: url("/Content/ExtIcons/discogs.png") no-repeat left 50%;
+}
+
 a.extLink[href*="www.facebook.com/"] {
 	background: url("/Content/ExtIcons/facebook.png") no-repeat left 50%;
 }
@@ -516,6 +520,10 @@ a.extLink[href^="http://www.toranoana.jp/"] {
 
 a.extLink[href*="twitter.com/"] {
 	background: url("/Content/ExtIcons/twitter.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://vgmdb.net/"] {
+	background: url("/Content/ExtIcons/vgmdb.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://www.yesasia.com/"] {

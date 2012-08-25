@@ -2,13 +2,14 @@
 
 	public class UserOptions {
 
+		private string lastLoginAddress;
 		private string oauthToken;
 		private string oauthTokenSecret;
 		private string twitterName;
 		private User user;
 
 		public UserOptions() {
-			TwitterName = TwitterOAuthToken = TwitterOAuthTokenSecret = string.Empty;
+			LastLoginAddress = TwitterName = TwitterOAuthToken = TwitterOAuthTokenSecret = string.Empty;
 		}
 
 		public UserOptions(User user)
@@ -19,6 +20,14 @@
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual string LastLoginAddress {
+			get { return lastLoginAddress; }
+			set { 
+				ParamIs.NotNull(() => value);
+				lastLoginAddress = value; 
+			}
+		}
 
 		public virtual int TwitterId { get; set; }
 

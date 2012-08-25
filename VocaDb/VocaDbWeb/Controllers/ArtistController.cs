@@ -241,22 +241,21 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrWhiteSpace(model.Description) && string.IsNullOrWhiteSpace(model.WebLinkUrl))
 				ModelState.AddModelError("Description", ViewRes.Artist.CreateStrings.NeedWebLinkOrDescription);
 
-			//if (!string.IsNullOrWhiteSpace(model.WebLinkUrl) && !UrlValidator.IsValid(model.WebLinkUrl))
-			//	ModelState.AddModelError("WebLinkUrl", model.WebLinkUrl + " is not a valid URL.");
+			var coverPicUpload = Request.Files["pictureUpload"];
+			PictureDataContract pictureData = ParseMainPicture(coverPicUpload, "Picture");
 
 			if (!ModelState.IsValid)
 				return View(model);
 
 			var contract = model.ToContract();
+			contract.PictureData = pictureData;
 
 			var album = Service.Create(contract);
 			return RedirectToAction("Details", new { id = album.Id });
 
 		}
 
-        //
-        // POST: /Artist/Create
-
+		/*
 		[Obsolete("Disabled")]
 		[HttpPost]
         public ActionResult CreateQuick(ObjectCreate model)
@@ -273,7 +272,7 @@ namespace VocaDb.Web.Controllers
 
 			}
 
-        }
+        }*/
         
         //
         // GET: /Artist/Edit/5

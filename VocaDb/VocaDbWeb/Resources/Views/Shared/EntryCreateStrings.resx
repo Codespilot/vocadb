@@ -138,6 +138,9 @@
   <data name="NonEnglishName" xml:space="preserve">
     <value>Non-English name</value>
   </data>
+  <data name="PictureInfo" xml:space="preserve">
+    <value>Allowed types: {0}. Maximum size is {1} MB.</value>
+  </data>
   <data name="RomajiName" xml:space="preserve">
     <value>Romanized name</value>
   </data>
