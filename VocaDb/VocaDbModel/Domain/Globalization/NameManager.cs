@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Helpers;
 using System.Collections;
@@ -13,12 +12,16 @@ namespace VocaDb.Model.Domain.Globalization {
 		private IList<T> names = new List<T>();
 		private TranslatedString sortNames = new TranslatedString();
 
+		private T FirstName(ContentLanguageSelection languageSelection) {
+			return Names.FirstOrDefault(n => n.Language == languageSelection);
+		}
+
 		private T GetDefaultName() {
 
 			if (!Names.Any())
 				return null;
 
-			var name = Names.FirstOrDefault(n => n.Language == sortNames.DefaultLanguage);
+			var name = FirstName(sortNames.DefaultLanguage);
 			
 			return name ?? Names.First();
 
@@ -29,14 +32,17 @@ namespace VocaDb.Model.Domain.Globalization {
 			if (!Names.Any())
 				return null;
 
-			var name = Names.FirstOrDefault(n => n.Language == languageSelection);
+			var name = FirstName(languageSelection);
+
+			// Substitute English with Romaji
+			if (name == null && languageSelection == ContentLanguageSelection.English)
+				name = FirstName(ContentLanguageSelection.Romaji);
+
+			// Substitute Romaji with English
+			if (name == null && languageSelection == ContentLanguageSelection.Romaji)
+				name = FirstName(ContentLanguageSelection.English);
 
 			return name ?? GetDefaultName();
-
-			/*if (name == null)
-				name = Names.FirstOrDefault(n => n.Language == ContentLanguageSelection.Unspecified);
-
-			return name;*/
 
 		}
 
@@ -80,10 +86,6 @@ namespace VocaDb.Model.Domain.Globalization {
 				names = value;
 			}
 		}
-
-		//IEnumerable<LocalizedStringWithId> INameManager.Names {
-		//	get { return Names; }
-		//}
 
 		public virtual TranslatedString SortNames {
 			get { return sortNames; }

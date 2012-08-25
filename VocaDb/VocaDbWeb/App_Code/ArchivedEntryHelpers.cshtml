@@ -3,6 +3,7 @@
 @using VocaDb.Model.DataContracts.PVs;
 @using VocaDb.Model.DataContracts.Versioning
 @using VocaDb.Model.Domain;
+@using VocaDb.Model.Domain.Globalization
 @using VocaDb.Web.Helpers;
 @inherits VocaDb.Web.Code.HelperPage
 
@@ -300,25 +301,25 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 @helper TranslatedNameRow(TranslatedStringContract name, TranslatedStringContract compareToName = null) {
 	<tr>
 		<td>Original language:</td>
-		<td>@name.DefaultLanguage</td>
+		<td>@Translate.ContentLanguageSelectionName(name.DefaultLanguage)</td>
 		<td>
 			@if (compareToName != null) {
-				@compareToName.DefaultLanguage
+				@Translate.ContentLanguageSelectionName(compareToName.DefaultLanguage)
 			}
 		</td>
 	</tr>
 	<tr>
 		<td>Primary names</td>
 		<td>
-			Non-English: @name.Japanese<br />
-			Romanized: @name.Romaji<br />
-			English: @name.English<br />
+			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese): @name.Japanese<br />
+			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji): @name.Romaji<br />
+			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.English): @name.English<br />
 		</td>
 		<td>
 			@if (compareToName != null) {
-				@("Non-English:" + compareToName.Japanese)<br />
-				@("Romanized:" + compareToName.Romaji)<br />
-				@("English:" + compareToName.English)<br />
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese) + ": " + compareToName.Japanese)<br />
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji) + ": " + compareToName.Romaji)<br />
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.English) + ": " +  compareToName.English)<br />
 			}
 		</td>
 	</tr>
@@ -327,25 +328,25 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 @helper TranslatedNameRow(ArchivedTranslatedStringContract name, ArchivedTranslatedStringContract compareToName = null) {
 	<tr>
 		<td>Original language:</td>
-		<td>@name.DefaultLanguage</td>
+		<td>@Translate.ContentLanguageSelectionName(name.DefaultLanguage)</td>
 		<td>
 			@if (compareToName != null) {
-				@compareToName.DefaultLanguage
+				@Translate.ContentLanguageSelectionName(compareToName.DefaultLanguage)
 			}
 		</td>
 	</tr>
 	<tr>
 		<td>Primary names</td>
 		<td>
-			Non-English: @name.Japanese<br />
-			Romanized: @name.Romaji<br />
-			English: @name.English<br />
+			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese): @name.Japanese<br />
+			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji): @name.Romaji<br />
+			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.English): @name.English<br />
 		</td>
 		<td>
 			@if (compareToName != null) {
-				@("Non-English:" + compareToName.Japanese)<br />
-				@("Romanized:" + compareToName.Romaji)<br />
-				@("English:" + compareToName.English)<br />
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese) + ": " + compareToName.Japanese)<br />
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji) + ": " + compareToName.Romaji)<br />
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.English) + ": " +  compareToName.English)<br />
 			}
 		</td>
 	</tr>
