@@ -138,6 +138,9 @@
   <data name="NonEnglishName" xml:space="preserve">
     <value>Alkuperäiskielinen nimi</value>
   </data>
+  <data name="PictureInfo" xml:space="preserve">
+    <value>Sallitut tiedostotyypit: {0}. Suurin sallittu tiedostokoko on {1} MB.</value>
+  </data>
   <data name="RomajiName" xml:space="preserve">
     <value>Romanisoitu nimi</value>
   </data>

@@ -369,8 +369,9 @@ namespace VocaDb.Model.Domain.Users {
 			return string.Format("user '{0}' [{1}]", Name, Id);
 		}
 
-		public virtual void UpdateLastLogin() {
+		public virtual void UpdateLastLogin(string host) {
 			LastLogin = DateTime.Now;
+			Options.LastLoginAddress = host;
 		}
 
 	}

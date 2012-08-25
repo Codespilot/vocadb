@@ -304,6 +304,10 @@ namespace VocaDb.Model.Service {
 
 				artist.Names.Init(contract.Names, artist);
 
+				if (contract.PictureData != null) {
+					artist.Picture = new PictureData(contract.PictureData);
+				}
+
 				if (contract.WebLink != null) {
 					artist.CreateWebLink(contract.WebLink.Description, contract.WebLink.Url);
 				}
@@ -322,6 +326,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Disabled")]
 		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
 
@@ -347,7 +352,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public CommentContract CreateComment(int artistId, string message) {
 

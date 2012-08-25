@@ -8,6 +8,10 @@
 		   
 @{
 	ViewBag.Title = R.DetailsStrings.UserDetails + " - " + Model.Name;
+    if (!Model.Active) {
+        ViewBag.Subtitle = R.DetailsStrings.AccountDisabled;
+    }
+        
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
 	};
@@ -70,10 +74,6 @@
 		</tr>	 
  }
 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
-		<tr>
-			<td>@R.DetailsStrings.Active</td>
-			<td>@Model.Active</td>
-		</tr>
 		<tr>
 			<td>@R.DetailsStrings.EffectivePermissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
