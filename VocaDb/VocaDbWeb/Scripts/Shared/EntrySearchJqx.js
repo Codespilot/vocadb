@@ -62,7 +62,12 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 	$(findListElem).jqxListBox({ width: w, height: h });
 
 	if (autoHide)
-		$(findListElem).hide();
+	    $(findListElem).hide();
+
+	$(findListElem).dblclick(function () {
+	    if (acceptBtnElem != null)
+	        $(acceptBtnElem).click();
+	});
 
 	if (idElem != null) {
 		$(findListElem).bind('select', function (event) {
