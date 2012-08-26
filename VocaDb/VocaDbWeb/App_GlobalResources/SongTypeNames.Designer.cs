@@ -124,6 +124,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remaster.
+        /// </summary>
+        internal static string Remaster {
+            get {
+                return ResourceManager.GetString("Remaster", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remix.
         /// </summary>
         internal static string Remix {

@@ -6,19 +6,21 @@
 
 		Original		= 1,
 
-		Remix			= 2,
+		Remaster		= 2,
 
-		Cover			= 4,
+		Remix			= 4,
 
-		Instrumental	= 8,
+		Cover			= 8,
 
-		Mashup			= 16,
+		Instrumental	= 16,
 
-		MusicPV			= 32,
+		Mashup			= 32,
 
-		DramaPV			= 64,
+		MusicPV			= 64,
 
-		Other			= 128
+		DramaPV			= 128,
+
+		Other			= 256
 
 	}
 
