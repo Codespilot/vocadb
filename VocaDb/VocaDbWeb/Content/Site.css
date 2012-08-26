@@ -470,6 +470,10 @@ a.extLink[href^="http://www.amazon.co.jp/"] {
 	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://ameblo.jp/"] {
+	background: url("/Content/ExtIcons/ameblo.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www5.atwiki.jp/hmiku/"] {
 	background: url("/Content/ExtIcons/atwiki.png") no-repeat left 50%;
 }
@@ -496,6 +500,10 @@ a.extLink[href^="http://shop.melonbooks.co.jp/"] {
 
 a.extLink[href^="http://mikudb.com/"] {
 	background: url("/Content/ExtIcons/mikudb.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://com.nicovideo.jp/community/"] {
+	background: url("/Content/nico.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://www.nicovideo.jp/"] {

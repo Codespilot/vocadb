@@ -3,6 +3,7 @@ function initWebLinksList() {
 
 	var linkMatchers = [
 		{ url: "www.amazon.co.jp/", desc: "Amazon" },
+		{ url: "ameblo.jp/", desc: "Blog" },
 		{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop" },
 		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan" },
 		{ url: "www.discogs.com/", desc: "Discogs" },
@@ -12,6 +13,7 @@ function initWebLinksList() {
 		{ url: "mikudb.com/", desc: "MikuDB" },
 		{ url: "www5.atwiki.jp/hmiku/pages/", desc: "MikuWiki" },
 		{ url: "nicovideo.jp/user/", desc: "NND Account" },
+        { url: "com.nicovideo.jp/community/", desc: "NND Community" },
 		{ url: "nicovideo.jp/mylist/", desc: "NND MyList" },
 		{ url: "piapro.jp/", desc: "Piapro" },
 		{ url: "soundcloud.com/", desc: "SoundCloud" },
@@ -22,6 +24,8 @@ function initWebLinksList() {
 		{ url: "www.yesasia.com/", desc: "YesAsia" },
 	    { url: "youtube.com/user/", desc: "Youtube Channel" }
 	];
+
+	var linkDescriptions = _.map(linkMatchers, function (matcher) { return matcher.desc; });
 
 	$("#webLinkAdd").click(function () {
 
@@ -41,6 +45,8 @@ function initWebLinksList() {
 		return false;
 
 	});
+
+	$("input.webLinkDescription").autocomplete({ source: linkDescriptions, delay: 0 });
 
 	$("input.webLinkUrl").live("change", function () {
 
