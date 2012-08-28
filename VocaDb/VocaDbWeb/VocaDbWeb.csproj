@@ -539,6 +539,16 @@
     <Compile Include="Models\User\RegisterOpenAuthModel.cs" />
     <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Ajax\AlbumStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Ajax\SharedStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SharedStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Controllers\TagControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -989,6 +999,7 @@
     <Content Include="Scripts\PagedList\PagedList.Mvc.Template.html" />
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />
+    <Content Include="Scripts\Shared\Messages.js" />
     <Content Include="Scripts\Shared\NamesList.js" />
     <Content Include="Scripts\Shared\ReportEntryPopup.js" />
     <Content Include="Scripts\Shared\WebLinksList.js" />
@@ -1699,6 +1710,18 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ReleaseEventEditableFieldNames.Designer.cs</LastGenOutput>
     </Content>
+    <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlbumStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AjaxRes</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ajax\SharedStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Ajax\SharedStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SharedStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AjaxRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>

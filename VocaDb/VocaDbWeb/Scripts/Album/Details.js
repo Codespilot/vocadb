@@ -156,6 +156,8 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 			$("#updateAlbumLink").show();
 		}
 
+		vdb.ui.showSuccessMessage(vdb.resources.album.addedToCollection);
+
 	}}]});
 
 	var addAlbumLinkPos;

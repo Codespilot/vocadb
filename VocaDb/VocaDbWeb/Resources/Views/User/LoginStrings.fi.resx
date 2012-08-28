@@ -153,4 +153,7 @@
   <data name="UsernameIsRequired" xml:space="preserve">
     <value>Käyttäjätunnus on pakollinen.</value>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Tervetuloa takaisin, {0}!</value>
+  </data>
 </root>
