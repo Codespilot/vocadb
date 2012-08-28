@@ -456,6 +456,45 @@ div.songListItem div.thumbnail {
 }
 
 
+/* Messages */
+#messages .wrapper {
+  z-index: 2000;
+  position: absolute;
+  left: 50%;
+}
+
+#messages.fixed .wrapper {
+  position: fixed;
+  top: 50px;
+}
+
+#messages .alert {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  display: none;
+  float: left;
+  clear: left;
+  position: relative;
+  width: 320px;
+  left: -50%;
+  border: 0;
+}
+
+#messages #ajaxLoadingMessage {
+  display: none;
+  background: #fff9af;
+  position: absolute;
+  padding: 5px;
+  width: 100px;
+  left: -55px;
+  text-align: center;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+
 /* External links */
 a.extLink {
 	background: url("/Content/Icons/world.png") no-repeat left 50%;

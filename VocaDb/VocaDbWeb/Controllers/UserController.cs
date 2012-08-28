@@ -241,8 +241,10 @@ namespace VocaDb.Web.Controllers
 
 				if (user == null) {
 					ModelState.AddModelError("", "Username or password doesn't match");
+					//TempData.SetErrorMessage("Username or password doesn't match");
 				} else {
 
+					TempData.SetSuccessMessage(string.Format(ViewRes.User.LoginStrings.Welcome, user.Name));
 					FormsAuthentication.SetAuthCookie(model.UserName, model.KeepLoggedIn);
 
 					var redirectUrl = FormsAuthentication.GetRedirectUrl(model.UserName, true);

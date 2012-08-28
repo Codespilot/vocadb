@@ -167,5 +167,14 @@ namespace ViewRes.User {
                 return ResourceManager.GetString("UsernameIsRequired", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome back, {0}!.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
     }
 }

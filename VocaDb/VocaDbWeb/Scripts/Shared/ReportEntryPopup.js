@@ -15,6 +15,8 @@ function initReportEntryPopup(saveStr, createReportUrl, params) {
 
 		$.post(createReportUrl, queryParams);
 
+		vdb.ui.showSuccessMessage(vdb.resources.shared.reportSent);
+
 	}}]});
 
 	$("#reportEntryLink").click(function () {
