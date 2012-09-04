@@ -21,6 +21,9 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 		public int? ReleaseYear { get; set; }
 
 		[DataMember]
+		public string Title { get; set; }
+
+		[DataMember]
 		public ImportedAlbumTrack[] Tracks { get; set; }
 
 		[DataMember]

@@ -282,7 +282,12 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Details.js")"></script>
 <script type="text/javascript">
 
-	$(document).ready(function() { 
+    $(document).ready(function() { 
+
+        vdb.resources.song = {
+            addedToList: '@Html.Raw(AjaxRes.SongStrings.AddedToList)'
+        };
+
 		initPage(@Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress" );
 	});
 

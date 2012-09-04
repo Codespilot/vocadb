@@ -33,7 +33,9 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 		if (listId == null)
 			return;
 
-		$.post(hostAddress + "/Song/AddSongToList", { listId: listId, songId: songId }, null);		
+		$.post(hostAddress + "/Song/AddSongToList", { listId: listId, songId: songId }, null);
+
+		vdb.ui.showSuccessMessage(vdb.resources.song.addedToList);
 
 	}}]});
 

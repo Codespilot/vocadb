@@ -99,6 +99,7 @@
     <Compile Include="DataContracts\Albums\ExportedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
+    <Compile Include="DataContracts\Albums\ParseAlbumFileResultContract.cs" />
     <Compile Include="DataContracts\ArchivedEntryPictureFileContract.cs" />
     <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
     <Compile Include="DataContracts\EntryBaseContract.cs" />
@@ -452,6 +453,7 @@
     <Compile Include="Service\EntryValidators\SongValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\EntryViewMode.cs" />
+    <Compile Include="Service\Helpers\AlbumFileParser.cs" />
     <Compile Include="Service\Helpers\QueryableExtender.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
