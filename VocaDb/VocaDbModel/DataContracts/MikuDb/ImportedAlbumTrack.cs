@@ -10,6 +10,9 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 		}
 
 		[DataMember]
+		public string[] ArtistNames { get; set; }
+
+		[DataMember]
 		public int DiscNum { get; set; }
 
 		[DataMember]
@@ -17,6 +20,9 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		[DataMember]
 		public int TrackNum { get; set; }
+
+		[DataMember]
+		public string[] VocalistNames { get; set; }
 
 	}
 

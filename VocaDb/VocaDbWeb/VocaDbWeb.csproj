@@ -549,6 +549,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SharedStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Ajax\SongStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Controllers\TagControllerStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1373,6 +1378,7 @@
     <Content Include="Views\Admin\ViewEntryReports.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\Error\_Layout.cshtml" />
+    <Content Include="Views\Album\ImportFromFile.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -1720,6 +1726,12 @@
     <EmbeddedResource Include="Resources\Ajax\SharedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AjaxRes</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ajax\SongStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Ajax\SongStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SongStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AjaxRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />

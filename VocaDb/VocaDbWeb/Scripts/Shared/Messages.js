@@ -52,7 +52,7 @@
             if ($("#successMessageString").text() !== "") this.showSuccessMessage();
             if ($("#errorMessageString").text() !== "") this.showErrorMessage();
             if ($("#warnMessageString").text() !== "") this.showWarnMessage();
-            ajaxLoadingMessage = $("#ajaxLoadingMessage");
+            /*ajaxLoadingMessage = $("#ajaxLoadingMessage");
             loadingCount = 0;
             return $(document).bind("ajaxStart", function () {
                 ajaxLoadingMessage.show();
@@ -60,7 +60,7 @@
             }).bind("ajaxStop", function () {
                 loadingCount--;
                 if (loadingCount === 0) ajaxLoadingMessage.hide();
-            });
+            });*/
         },
         _positionMessageWrapper: function () {
             var messages;

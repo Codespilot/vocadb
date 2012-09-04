@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
 using VocaDb.Model;
@@ -70,6 +71,34 @@ namespace VocaDb.Web.Controllers
 		public void DeletePVForAlbum(int pvForAlbumId) {
 
 			Service.DeletePv(pvForAlbumId);
+
+		}
+
+		[HttpGet]
+		public ActionResult ImportFromFile(int? id) {
+
+			var album = (id != null ? Service.GetAlbum(id.Value) : null);
+
+			var contract = new ParseAlbumFileResultContract(album);
+
+			return View(contract);
+
+		}
+
+		[HttpPost]
+		public ActionResult ImportFromFileParse(int? id) {
+
+			if (Request.Files.Count == 0)
+				return RedirectToAction("ImportFromFile", new { id });
+
+			var file = Request.Files[0];
+
+			var parser = new AlbumFileParser();
+			var imported = parser.Parse(file.InputStream);
+			var album = (id != null ? Service.GetAlbum(id.Value) : null);
+			var contract = new ParseAlbumFileResultContract(album) { Imported = imported };
+
+			return View("ImportFromFile", contract);
 
 		}
 
