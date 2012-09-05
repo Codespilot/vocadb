@@ -25,6 +25,8 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public int? MergedAlbumId { get; set; }
 
+		public bool MergeTracks { get; set; }
+
 		public InspectedTrack[] Tracks { get; set; }
 
 	}

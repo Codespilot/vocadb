@@ -25,6 +25,16 @@
 	<button type="submit" class="btn">Download</button>
 	
 }
+
+@using (Html.BeginForm("ImportFromFile", "MikuDbAlbum", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+
+	<p>Parse from CSV file: </p>
+    <input type="file" name="albumCsv" />
+	
+	<button type="submit" class="btn">Parse</button>
+	
+}
+
 	
 @using (Html.BeginForm("Index", "MikuDbAlbum")) {
 	

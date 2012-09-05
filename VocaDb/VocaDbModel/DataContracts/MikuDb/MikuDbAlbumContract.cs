@@ -6,9 +6,12 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 	public class MikuDbAlbumContract {
 
-		public MikuDbAlbumContract() {}
+		public MikuDbAlbumContract() {
+			SourceUrl = Title = string.Empty;
+		}
 
-		public MikuDbAlbumContract(MikuDbAlbum album) {
+		public MikuDbAlbumContract(MikuDbAlbum album)
+			: this() {
 			
 			ParamIs.NotNull(() => album);
 
@@ -20,6 +23,17 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 			Title = album.Title;
 
 			Selected = (Status == AlbumStatus.New);
+
+		}
+
+		public MikuDbAlbumContract(ImportedAlbumDataContract data)
+			: this() {
+
+			ParamIs.NotNull(() => data);
+
+			Data = data;
+			Created = DateTime.Now;
+			Title = data.Title;
 
 		}
 

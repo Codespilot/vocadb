@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Linq;
+using System.Runtime.Serialization;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.DataContracts.MikuDb {
 
@@ -11,6 +14,14 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		[DataMember]
 		public string[] ArtistNames { get; set; }
+
+		public string ArtistString {
+			get {
+				var producers = ArtistNames.Select(n => new CustomArtist(n, ArtistRoles.Composer));
+				var vocalists = VocalistNames.Select(n => new CustomArtist(n, ArtistRoles.Vocalist));
+				return ArtistHelper.GetArtistString(producers.Concat(vocalists), false).Default;
+			}
+		}
 
 		[DataMember]
 		public int DiscNum { get; set; }

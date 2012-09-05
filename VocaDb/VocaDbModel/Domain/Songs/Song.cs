@@ -335,7 +335,15 @@ namespace VocaDb.Model.Domain.Songs {
 
 			ParamIs.NotNullOrEmpty(() => val);
 
-			var name = new SongName(this, new LocalizedString(val, language));
+			return CreateName(new LocalizedString(val, language));
+
+		}
+
+		public virtual SongName CreateName(LocalizedString localizedString) {
+
+			ParamIs.NotNull(() => localizedString);
+
+			var name = new SongName(this, localizedString);
 			Names.Add(name);
 
 			return name;
