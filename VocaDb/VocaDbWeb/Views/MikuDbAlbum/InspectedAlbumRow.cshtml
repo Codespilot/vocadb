@@ -41,6 +41,9 @@
 				</ul>
 
 				<h4>Tracks</h4>
+                @Html.CheckBoxFor(m => m.MergeTracks)
+                Merge tracks
+
 				@if (Model.Tracks != null) {
 				<div class="tracklist">
 					<ul>

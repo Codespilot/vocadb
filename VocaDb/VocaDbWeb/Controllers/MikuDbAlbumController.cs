@@ -64,6 +64,20 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
+		public ActionResult ImportFromFile() {
+
+			if (Request.Files.Count == 0)
+				return RedirectToAction("Index");
+
+			var file = Request.Files[0];
+			var id = Service.ImportFromFile(file.InputStream);
+
+			return RedirectToAction("PrepareForImport", new { id });
+
+		}
+
+		[HttpPost]
+		[Authorize]
 		public ActionResult ImportOne(string AlbumUrl) {
 			
 			Service.ImportOne(AlbumUrl);

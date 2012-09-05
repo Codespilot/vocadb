@@ -8,6 +8,17 @@ namespace VocaDb.Model.Service.Helpers {
 
 	public class AlbumFileParser {
 
+		private string[] GetArtistNames(string artistString) {
+
+			var names = artistString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+			if (names.Length == 1)
+				names = artistString.Split(new[] { " & " }, StringSplitOptions.RemoveEmptyEntries);
+
+			return names;
+
+		}
+
 		private ImportedAlbumTrack ParseTrack(DataRow dataRow, int nextTrackNum) {
 
 			var track = new ImportedAlbumTrack();
@@ -30,7 +41,7 @@ namespace VocaDb.Model.Service.Helpers {
 				if (featPos != -1) {
 
 					var vocaloidName = artist.Substring(featPos + 5, artist.Length - featPos - 5).Trim();
-					track.VocalistNames = vocaloidName.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+					track.VocalistNames = GetArtistNames(vocaloidName);
 					artist = artist.Substring(0, featPos).Trim();
 
 				} else {
@@ -39,7 +50,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 				}
 
-				artists.AddRange(artist.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
+				artists.AddRange(GetArtistNames(artist));
 
 			}
 
@@ -82,6 +93,8 @@ namespace VocaDb.Model.Service.Helpers {
 
 			}
 
+			album.ArtistNames = tracks.SelectMany(t => t.ArtistNames).Distinct().ToArray();
+			album.VocalistNames = tracks.SelectMany(t => t.VocalistNames).Distinct().ToArray();
 			album.Tracks = tracks.OrderBy(t => t.TrackNum).ToArray();
 			return album;
 
