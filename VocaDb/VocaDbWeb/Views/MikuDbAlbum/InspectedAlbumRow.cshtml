@@ -26,6 +26,10 @@
 				}			
 			</td>
 			<td>
+				<p>
+					Language for names:
+                    @Html.LanguageSelectionDropDownListFor(m => m.SelectedLanguage, null, true)
+				</p>
 				<h4>Artists</h4>
 				<ul>
 				@foreach (var artist in Model.Artists) {
