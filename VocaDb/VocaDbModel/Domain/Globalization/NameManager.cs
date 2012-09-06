@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Helpers;
@@ -136,6 +137,12 @@ namespace VocaDb.Model.Domain.Globalization {
 		public virtual bool HasName(LocalizedString name) {
 
 			return Names.Any(n => n.ContentEquals(name));
+
+		}
+
+		public virtual bool HasName(string val) {
+
+			return Names.Any(n => n.Value.Equals(val, StringComparison.InvariantCultureIgnoreCase));
 
 		}
 

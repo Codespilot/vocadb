@@ -2,6 +2,7 @@
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.MikuDb {
 
@@ -26,6 +27,8 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 		public int? MergedAlbumId { get; set; }
 
 		public bool MergeTracks { get; set; }
+
+		public ContentLanguageSelection SelectedLanguage { get; set; }
 
 		public InspectedTrack[] Tracks { get; set; }
 
