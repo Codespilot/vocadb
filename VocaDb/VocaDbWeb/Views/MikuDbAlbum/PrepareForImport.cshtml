@@ -6,10 +6,27 @@
 
 @using (Html.BeginForm("AcceptImported", "MikuDbAlbum")) {
 
-foreach (var album in Model.Albums) {
-	Html.RenderPartial("InspectedAlbumRow", album);
+    foreach (var album in Model.Albums) {
+	    Html.RenderPartial("InspectedAlbumRow", album);
+    }
+
+    <button type="submit" class="btn btn-primary" name="commit" value="Accept">Accept</button>
+
 }
 
-<button type="submit" class="btn btn-primary" name="commit" value="Accept">Accept</button>
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/MikuDbAlbums/PrepareForImport.js")"></script>
+<script type="text/javascript">
 
+	$(document).ready(function() { 
+		initPage();
+	});
+
+</script>
 }

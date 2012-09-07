@@ -24,7 +24,6 @@
 	@using (Html.BeginCollectionItem("albums")) {
 	<td>
 		@Html.HiddenFor(m => m.Id)
-		@Html.CheckBoxFor(m => m.Selected)
 		<a href="@Model.SourceUrl">@Model.Title</a><br />
 		@Model.Created<br />
 		<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" /><br />

@@ -184,6 +184,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Name(int id) {
+
+			var contract = Service.GetAlbum(id);
+			return Content(contract.Name);
+
+		}
+
         //
         // GET: /Album/Details/5
 

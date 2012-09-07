@@ -12,7 +12,7 @@
 				<img src="@Url.Action("CoverPicture", new { id = Model.ImportedAlbum.Id })" alt="Cover picture" class="coverPic" />			
 				<p>
 					Existing album:<br /> 
-					@Html.DropDownListFor(m => m.MergedAlbumId, new SelectList(Model.ExistingAlbums, "Id", "Name", Model.MergedAlbumId))
+					@Html.DropDownListFor(m => m.MergedAlbumId, new SelectList(Model.ExistingAlbums, "Id", "Name", Model.MergedAlbumId), new { id = "mergedAlbumId" })
 					<button type="submit" name="commit" value="No">Update</button>
 					<br />
 					@if (Model.MergedAlbum != null) { 
@@ -21,6 +21,7 @@
 						<span>(no match)</span>
 					}
 				</p>
+                @Helpers.EntrySearchBox("albumSearch", false, "Set")
 				@if (Model.ImportedAlbum.Data.ReleaseYear != null) {
 					<p>Release year: @Model.ImportedAlbum.Data.ReleaseYear</p>
 				}			
