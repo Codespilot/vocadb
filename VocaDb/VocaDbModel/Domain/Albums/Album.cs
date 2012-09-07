@@ -454,6 +454,10 @@ namespace VocaDb.Model.Domain.Albums {
 			return Id.GetHashCode();
 		}
 
+		public virtual SongInAlbum GetSongByTrackNum(int trackNum) {
+			return Songs.FirstOrDefault(s => s.TrackNumber == trackNum);
+		}
+
 		/// <summary>
 		/// Checks whether this album has a specific artist.
 		/// </summary>

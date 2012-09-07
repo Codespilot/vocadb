@@ -71,7 +71,7 @@ namespace VocaDb.Model.Service {
 
 					Song song;
 
-					if (inspectedTrack.ExistingSong == null || !selectedSongIds.Contains(inspectedTrack.ExistingSong.Id)) {
+					if (NewTrack(inspectedTrack, selectedSongIds, album)) {
 
 						song = new Song(inspectedTrack.ImportedTrack.Title);
 						session.Save(song);
@@ -335,7 +335,7 @@ namespace VocaDb.Model.Service {
 		private InspectedTrack InspectTrack(ISession session, ImportedAlbumTrack importedTrack, IEnumerable<Artist> artists, Album album) {
 
 			var inspected = new InspectedTrack(importedTrack);
-			var existingTrack = album != null ? album.Songs.FirstOrDefault(s => s.TrackNumber == importedTrack.TrackNum) : null;
+			var existingTrack = album != null ? album.GetSongByTrackNum(importedTrack.TrackNum) : null;
 
 			var existingSong = existingTrack != null ? existingTrack.Song
 				: FindSong(session, importedTrack.Title, artists);
@@ -346,6 +346,19 @@ namespace VocaDb.Model.Service {
 			inspected.Selected = existingTrack != null;
 
 			return inspected;
+
+		}
+
+		private bool NewTrack(InspectedTrack inspectedTrack, int[] selectedSongIds, Album album) {
+
+			if (inspectedTrack.ExistingSong == null)
+				return true;
+
+			var albumTrack = album.GetSongByTrackNum(inspectedTrack.ImportedTrack.TrackNum);
+			if (albumTrack != null)
+				return false;
+
+			return !selectedSongIds.Contains(inspectedTrack.ExistingSong.Id);
 
 		}
 

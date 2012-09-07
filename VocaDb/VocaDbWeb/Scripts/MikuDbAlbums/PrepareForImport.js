@@ -7,6 +7,7 @@ function initPage() {
 
             $("#mergedAlbumId").append("<option value='" + albumId + "'>" + name + "</option>");
             $("#mergedAlbumId").val(albumId);
+            $("#updateAlbumBtn").click();
 
         });
 
