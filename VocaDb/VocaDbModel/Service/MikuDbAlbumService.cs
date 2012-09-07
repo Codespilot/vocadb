@@ -160,7 +160,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private Album[] FindAlbums(ISession session, MikuDbAlbum imported) {
+		private List<Album> FindAlbums(ISession session, MikuDbAlbum imported) {
 
 			var webLinkMatches = session.Query<AlbumWebLink>()
 				.Where(w => w.Url == imported.SourceUrl)
@@ -179,7 +179,7 @@ namespace VocaDb.Model.Service {
 				.Select(a => a.Album)
 				.ToArray();
 
-			return webLinkMatches.Union(nameMatchDirect).Union(nameMatchAdditional).ToArray();
+			return webLinkMatches.Union(nameMatchDirect).Union(nameMatchAdditional).ToList();
 
 		}
 
@@ -285,7 +285,8 @@ namespace VocaDb.Model.Service {
 					break;
 				default:
 					albumMatch = session.Load<Album>(options.MergedAlbumId);
-					//foundAlbums = foundAlbums.Union(new[] { albumMatch }).ToArray();
+					if (!foundAlbums.Contains(albumMatch))
+						foundAlbums.Add(albumMatch);
 					break;
 			}
 

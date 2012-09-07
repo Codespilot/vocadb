@@ -998,6 +998,7 @@
     <Content Include="Scripts\jqwidgets\styles\jqx.summer.css" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\PagedList\PagedList.Mvc.js" />
@@ -1239,7 +1240,6 @@
     <Folder Include="EntryImg\Album\" />
     <Folder Include="EntryImg\Artist\" />
     <Folder Include="logs\" />
-    <Folder Include="Scripts\MikuDbAlbums\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
