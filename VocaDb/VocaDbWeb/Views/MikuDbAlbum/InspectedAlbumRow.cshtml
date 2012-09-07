@@ -13,7 +13,7 @@
 				<p>
 					Existing album:<br /> 
 					@Html.DropDownListFor(m => m.MergedAlbumId, new SelectList(Model.ExistingAlbums, "Id", "Name", Model.MergedAlbumId), new { id = "mergedAlbumId" })
-					<button type="submit" name="commit" value="No">Update</button>
+					<button id="updateAlbumBtn" type="submit" name="commit" value="No">Update</button>
 					<br />
 					@if (Model.MergedAlbum != null) { 
 						<span>@Html.ActionLink(Model.MergedAlbum.Name, "Details", "Album", new { id = Model.MergedAlbum.Id }, new { title = Model.MergedAlbum.AdditionalNames })</span> 
