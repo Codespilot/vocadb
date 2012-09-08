@@ -66,7 +66,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult ImportFromFile() {
 
-			if (Request.Files.Count == 0)
+			if (Request.Files.Count == 0 || Request.Files[0].ContentLength == 0)
 				return RedirectToAction("Index");
 
 			var file = Request.Files[0];

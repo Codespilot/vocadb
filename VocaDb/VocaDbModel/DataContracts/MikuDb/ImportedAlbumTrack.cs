@@ -10,6 +10,7 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public ImportedAlbumTrack() {
 			DiscNum = 1;
+			ArtistNames = VocalistNames = new string[] { };
 		}
 
 		[DataMember]
@@ -34,6 +35,10 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		[DataMember]
 		public string[] VocalistNames { get; set; }
+
+		public override string ToString() {
+			return string.Format("Imported track {0} ({1})", Title, ArtistString);
+		}
 
 	}
 

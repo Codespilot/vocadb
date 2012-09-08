@@ -10,10 +10,10 @@ namespace VocaDb.Model.Service.Helpers {
 
 		private string[] GetArtistNames(string artistString) {
 
-			var names = artistString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+			//var names = artistString.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-			if (names.Length == 1)
-				names = artistString.Split(new[] { " & " }, StringSplitOptions.RemoveEmptyEntries);
+			//if (names.Length == 1)
+			var names = artistString.Split(new[] { ", ", " & " }, StringSplitOptions.RemoveEmptyEntries);
 
 			return names;
 
@@ -59,11 +59,12 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public ImportedAlbumDataContract Parse(Stream input) {
+		public MikuDbAlbumContract Parse(Stream input) {
 
-			var album = new ImportedAlbumDataContract();
 			var tracks = new List<ImportedAlbumTrack>();
 			var parser = new DataRowParser();
+			var data = new ImportedAlbumDataContract();
+			data.Title = "Unknown";
 
 			using (var reader = new StreamReader(input)) {
 
@@ -78,11 +79,11 @@ namespace VocaDb.Model.Service.Helpers {
 
 						var albumName = dataRow.GetString(AlbumFileField.Album, string.Empty);
 						if (albumName != string.Empty)
-							album.Title = albumName;
+							data.Title = albumName;
 
 						var year = dataRow.GetIntOrDefault(AlbumFileField.Year, 0);
 						if (year != 0)
-							album.ReleaseYear = year;
+							data.ReleaseYear = year;
 
 						var track = ParseTrack(dataRow, tracks.Count);
 						tracks.Add(track);
@@ -93,10 +94,11 @@ namespace VocaDb.Model.Service.Helpers {
 
 			}
 
-			album.ArtistNames = tracks.SelectMany(t => t.ArtistNames).Distinct().ToArray();
-			album.VocalistNames = tracks.SelectMany(t => t.VocalistNames).Distinct().ToArray();
-			album.Tracks = tracks.OrderBy(t => t.TrackNum).ToArray();
-			return album;
+			data.ArtistNames = tracks.SelectMany(t => t.ArtistNames).Distinct().ToArray();
+			data.VocalistNames = tracks.SelectMany(t => t.VocalistNames).Distinct().ToArray();
+			data.Tracks = tracks.OrderBy(t => t.TrackNum).ToArray();
+
+			return new MikuDbAlbumContract(data);
 
 		}
 
