@@ -13,10 +13,6 @@ namespace VocaDb.Model.Domain.Globalization {
 		private IList<T> names = new List<T>();
 		private TranslatedString sortNames = new TranslatedString();
 
-		private T FirstName(ContentLanguageSelection languageSelection) {
-			return Names.FirstOrDefault(n => n.Language == languageSelection);
-		}
-
 		private T GetDefaultName() {
 
 			if (!Names.Any())
@@ -105,6 +101,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		}
 
+		public T FirstName(ContentLanguageSelection languageSelection) {
+			return Names.FirstOrDefault(n => n.Language == languageSelection);
+		}
+
 		public string GetAdditionalNamesStringForLanguage(ContentLanguagePreference languagePreference) {
 
 			var display = SortNames[languagePreference];
@@ -138,6 +138,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 			return Names.Any(n => n.ContentEquals(name));
 
+		}
+
+		public virtual bool HasNameForLanguage(ContentLanguageSelection language) {
+			return FirstName(language) != null;
 		}
 
 		public virtual bool HasName(string val) {

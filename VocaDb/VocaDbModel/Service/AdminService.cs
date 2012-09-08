@@ -266,7 +266,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating additional names strings");
+			AuditLog("updating sort names");
 
 			HandleTransaction(session => {
 
@@ -274,11 +274,8 @@ namespace VocaDb.Model.Service {
 
 				foreach (var artist in artists) {
 
-					var old = artist.Names.AdditionalNamesString;
 					artist.Names.UpdateSortNames();
-
-					if (old != artist.Names.AdditionalNamesString)
-						session.Update(artist);
+					session.Update(artist);
 
 				}
 
@@ -286,11 +283,8 @@ namespace VocaDb.Model.Service {
 
 				foreach (var album in albums) {
 
-					var old = album.Names.AdditionalNamesString;
 					album.Names.UpdateSortNames();
-
-					if (old != album.Names.AdditionalNamesString)
-						session.Update(album);
+					session.Update(album);
 
 				}
 
@@ -298,11 +292,8 @@ namespace VocaDb.Model.Service {
 
 				foreach (var song in songs) {
 
-					var old = song.Names.AdditionalNamesString;
 					song.Names.UpdateSortNames();
-
-					if (old != song.Names.AdditionalNamesString)
-						session.Update(song);
+					session.Update(song);
 
 				}
 

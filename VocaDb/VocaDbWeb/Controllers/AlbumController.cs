@@ -85,23 +85,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[HttpPost]
-		public ActionResult ImportFromFileParse(int? id) {
-
-			if (Request.Files.Count == 0)
-				return RedirectToAction("ImportFromFile", new { id });
-
-			var file = Request.Files[0];
-
-			var parser = new AlbumFileParser();
-			var imported = parser.Parse(file.InputStream);
-			var album = (id != null ? Service.GetAlbum(id.Value) : null);
-			var contract = new ParseAlbumFileResultContract(album) { Imported = imported };
-
-			return View("ImportFromFile", contract);
-
-		}
-
         //
         // GET: /Album/
 

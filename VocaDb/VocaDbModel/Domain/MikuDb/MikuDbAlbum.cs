@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Linq;
 using VocaDb.Model.DataContracts.MikuDb;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.MikuDb {
@@ -41,6 +42,8 @@ namespace VocaDb.Model.Domain.MikuDb {
 
 		public virtual int Id { get; set; }
 
+		//public virtual ContentLanguageSelection Language { get; set; }
+
 		public virtual string SourceUrl {
 			get { return sourceUrl; }
 			set { sourceUrl = value; }
@@ -70,7 +73,7 @@ namespace VocaDb.Model.Domain.MikuDb {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public override string ToString() {
