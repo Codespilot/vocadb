@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using VocaDb.Model.DataContracts.MikuDb;
 
 namespace VocaDb.Model.Service.Helpers {
 
 	public class AlbumFileParser {
+
+		private readonly Regex numRegex = new Regex(@"(\d+)");
 
 		private string[] GetArtistNames(string artistString) {
 
@@ -24,7 +27,12 @@ namespace VocaDb.Model.Service.Helpers {
 			var track = new ImportedAlbumTrack();
 
 			track.Title = dataRow.GetString(AlbumFileField.Title);
-			track.TrackNum = dataRow.GetIntOrDefault(AlbumFileField.Track, nextTrackNum);
+			var trackNumMatch = numRegex.Match(dataRow.GetString(AlbumFileField.Track, string.Empty));
+			if (trackNumMatch.Success)
+				track.TrackNum = int.Parse(trackNumMatch.Groups[1].Value);
+			else
+				track.TrackNum = nextTrackNum;
+
 			var artists = new List<string>();
 
 			var composer = dataRow.GetString(AlbumFileField.Composer, string.Empty);
@@ -85,7 +93,7 @@ namespace VocaDb.Model.Service.Helpers {
 						if (year != 0)
 							data.ReleaseYear = year;
 
-						var track = ParseTrack(dataRow, tracks.Count);
+						var track = ParseTrack(dataRow, tracks.Count + 1);
 						tracks.Add(track);
 
 					}

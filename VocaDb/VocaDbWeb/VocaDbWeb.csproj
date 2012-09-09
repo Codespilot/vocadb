@@ -755,6 +755,7 @@
     <Content Include="Content\ExtIcons\cdjapan.png" />
     <Content Include="Content\ExtIcons\discogs.png" />
     <Content Include="Content\ExtIcons\facebook.png" />
+    <Content Include="Content\ExtIcons\itunes.png" />
     <Content Include="Content\ExtIcons\karent.png" />
     <Content Include="Content\ExtIcons\melonbooks.png" />
     <Content Include="Content\ExtIcons\mikudb.png" />

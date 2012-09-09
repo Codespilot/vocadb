@@ -3,11 +3,13 @@ function initWebLinksList() {
 
 	var linkMatchers = [
 		{ url: "www.amazon.co.jp/", desc: "Amazon" },
+		{ url: "www.amazon.com/", desc: "Amazon" },
 		{ url: "ameblo.jp/", desc: "Blog" },
 		{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop" },
 		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan" },
 		{ url: "www.discogs.com/", desc: "Discogs" },
 		{ url: "www.facebook.com/", desc: "Facebook" },
+		{ url: "itunes.apple.com/", desc: "iTunes" },
 		{ url: "karent.jp/", desc: "KarenT" },
 		{ url: "shop.melonbooks.co.jp/", desc: "Melonbooks" },
 		{ url: "mikudb.com/", desc: "MikuDB" },
