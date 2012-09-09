@@ -509,6 +509,10 @@ a.extLink[href^="http://www.amazon.co.jp/"] {
 	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www.amazon.com/"] {
+	background: url("/Content/ExtIcons/amazon.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://ameblo.jp/"] {
 	background: url("/Content/ExtIcons/ameblo.png") no-repeat left 50%;
 }
@@ -527,6 +531,10 @@ a.extLink[href^="http://www.discogs.com/"] {
 
 a.extLink[href*="www.facebook.com/"] {
 	background: url("/Content/ExtIcons/facebook.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://itunes.apple.com/"] {
+	background: url("/Content/ExtIcons/itunes.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://karent.jp/"] {
