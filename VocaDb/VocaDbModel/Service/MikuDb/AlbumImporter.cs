@@ -73,6 +73,27 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
+		private string ParseArtist(string artistName) {
+
+			artistName = artistName.Trim();
+
+			if (string.IsNullOrEmpty(artistName) || artistName == "-")
+				return string.Empty;
+
+			return artistName;
+
+		}
+
+		private string[] ParseArtists(string artistString) {
+
+			return artistString
+				.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+				.Select(s => s.Trim())
+				.Where(s => s != "-")
+				.ToArray();
+
+		}
+
 		private void ParseInfoBox(ImportedAlbumDataContract data, HtmlNode infoBox) {
 
 			var text = infoBox.InnerHtml;
@@ -86,17 +107,17 @@ namespace VocaDb.Model.Service.MikuDb {
 
 				if (LineMatch(stripped, "Artist") || LineMatch(stripped, "Artists")) {
 
-					var artists = stripped.Substring(8).Split(',').Select(s => s.Trim()).ToArray();
+					var artists = ParseArtists(stripped.Substring(8));
 					data.ArtistNames = artists;
 
 				} else if (LineMatch(stripped, "Vocals")) {
 
-					var vocals = stripped.Substring(8).Split(',').Select(s => s.Trim()).ToArray();
+					var vocals = ParseArtists(stripped.Substring(8));
 					data.VocalistNames = vocals;
 
 				} else if (LineMatch(stripped, "Circle")) {
 
-					var artists = stripped.Substring(8).Trim();
+					var artists = ParseArtist(stripped.Substring(8));
 					data.CircleName = artists;
 
 				} else if (LineMatch(stripped, "Year")) {
