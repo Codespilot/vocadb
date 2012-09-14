@@ -17,7 +17,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.FavoritedTimes).Not.Nullable();
 			Map(m => m.NicoId).Nullable();
-			Map(m => m.Notes).Length(300).Not.Nullable();
+			Map(m => m.Notes).Length(800).Not.Nullable();
 			Map(m => m.PVServices).CustomType(typeof(PVServices)).Not.Nullable();
 			Map(m => m.SongType).Not.Nullable();
 			Map(m => m.Status).CustomType(typeof(EntryStatus)).Not.Nullable();

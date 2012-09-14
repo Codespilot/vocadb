@@ -233,7 +233,7 @@ namespace VocaDb.Web.Models {
 		public string NameRomaji { get; set; }
 
 		[Display(Name = "Notes")]
-		[StringLength(300)]
+		[StringLength(800)]
 		public string Notes { get; set; }
 
 		[Display(Name = "Original version")]
