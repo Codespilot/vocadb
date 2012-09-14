@@ -638,12 +638,15 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				var link = session.Query<ArtistForUser>().FirstOrDefault(a => a.Artist.Id == artistId && a.User.Id == userId);
+				var link = session.Query<ArtistForUser>()
+					.FirstOrDefault(a => a.Artist.Id == artistId && a.User.Id == userId);
 
-				AuditLog("removing " + link, session);
+				AuditLog(string.Format("removing {0}", link), session);
 
-				if (link != null)
+				if (link != null) {
+					link.Delete();
 					session.Delete(link);
+				}
 
 			});
 
