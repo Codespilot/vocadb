@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Artists;
+﻿using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Users {
 
@@ -63,7 +59,7 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public virtual void Move(Artist target) {
