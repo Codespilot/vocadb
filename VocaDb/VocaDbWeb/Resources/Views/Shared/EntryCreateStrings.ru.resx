@@ -142,6 +142,6 @@
     <value>Допустимые типы: {0}. Максимальный размер - {1} MB.</value>
   </data>
   <data name="RomajiName" xml:space="preserve">
-    <value>Транслитерация на английский</value>
+    <value>Транслит.</value>
   </data>
 </root>

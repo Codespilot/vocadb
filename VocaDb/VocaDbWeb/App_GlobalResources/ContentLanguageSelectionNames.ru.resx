@@ -127,7 +127,7 @@
     <value>Неанглийский</value>
   </data>
   <data name="Romaji" xml:space="preserve">
-    <value>Транслитерированный (на английский)</value>
+    <value>Транслит.</value>
   </data>
   <data name="Unspecified" xml:space="preserve">
     <value>Неопределённый</value>
