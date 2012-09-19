@@ -183,4 +183,10 @@
   <data name="Disc" xml:space="preserve">
     <value>Диск</value>
   </data>
+  <data name="OwnedBy" xml:space="preserve">
+    <value>Купили: {0}</value>
+  </data>
+  <data name="WishlistedBy" xml:space="preserve">
+    <value>Хотели бы купить: {0}</value>
+  </data>
 </root>

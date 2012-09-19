@@ -126,6 +126,9 @@
   <data name="AddSong" xml:space="preserve">
     <value>Добавить песню</value>
   </data>
+  <data name="FollowUser" xml:space="preserve">
+    <value>Следить за пользователем</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Помощь / Справка</value>
   </data>
@@ -149,6 +152,15 @@
   </data>
   <data name="RelatedSites" xml:space="preserve">
     <value>Тематические сайты</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Вспомогательные ресурсы</value>
+  </data>
+  <data name="SocialSites" xml:space="preserve">
+    <value>Социальные сайты</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Метки / жанры</value>
   </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>У вас есть непрочитанные сообщения</value>

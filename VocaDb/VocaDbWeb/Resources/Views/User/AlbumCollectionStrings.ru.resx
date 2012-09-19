@@ -120,19 +120,13 @@
   <data name="Album" xml:space="preserve">
     <value>Альбом</value>
   </data>
-  <data name="Artist" xml:space="preserve">
-    <value>Артист</value>
+  <data name="MediaType" xml:space="preserve">
+    <value>Тип носителя</value>
   </data>
-  <data name="Song" xml:space="preserve">
-    <value>Песня</value>
+  <data name="Rating" xml:space="preserve">
+    <value>Рейтинг</value>
   </data>
-  <data name="SongList" xml:space="preserve">
-    <value>Список песен</value>
-  </data>
-  <data name="Undefined" xml:space="preserve">
-    <value>Прочее</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Пользователь</value>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
   </data>
 </root>

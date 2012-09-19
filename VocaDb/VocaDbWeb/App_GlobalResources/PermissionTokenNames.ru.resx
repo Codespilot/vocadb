@@ -156,6 +156,9 @@
   <data name="ManageDatabase" xml:space="preserve">
     <value>Управление базой данных</value>
   </data>
+  <data name="ManageEntryReports" xml:space="preserve">
+    <value>Управление отчётами о записях</value>
+  </data>
   <data name="ManageEventSeries" xml:space="preserve">
     <value>Управление сериями мероприятий</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="MikuDbImport" xml:space="preserve">
     <value>Импорт из MikuDB</value>
+  </data>
+  <data name="MoveToTrash" xml:space="preserve">
+    <value>Отправить в мусор</value>
   </data>
   <data name="Nothing" xml:space="preserve">
     <value>Нет</value>

@@ -133,13 +133,13 @@
     <value>Аниматоры</value>
   </data>
   <data name="Lyrics" xml:space="preserve">
-    <value>Текст песни</value>
+    <value>Слова</value>
   </data>
   <data name="LyricsFrom" xml:space="preserve">
     <value>из</value>
   </data>
   <data name="LyricsLC" xml:space="preserve">
-    <value>текст песни</value>
+    <value>слова</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>Заметки</value>
@@ -164,5 +164,20 @@
   </data>
   <data name="Vocalists" xml:space="preserve">
     <value>Вокалисты</value>
+  </data>
+  <data name="ViewExternal" xml:space="preserve">
+    <value>Посмотреть на другом сайте</value>
+  </data>
+  <data name="Pools" xml:space="preserve">
+    <value>Группы</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>любимое(ые)</value>
+  </data>
+  <data name="CheckNicoSound" xml:space="preserve">
+    <value>Поискать ссылку на скачивание на NicoSound</value>
+  </data>
+  <data name="SearchYoutube" xml:space="preserve">
+    <value>Поиск на YouTube</value>
   </data>
 </root>

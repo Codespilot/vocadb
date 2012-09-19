@@ -123,6 +123,9 @@
   <data name="Favorited" xml:space="preserve">
     <value>Отмечено как любимое</value>
   </data>
+  <data name="FromAlbum" xml:space="preserve">
+    <value>Из албома</value>
+  </data>
   <data name="Times" xml:space="preserve">
     <value>раз(а)</value>
   </data>

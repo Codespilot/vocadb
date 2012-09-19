@@ -141,6 +141,9 @@
   <data name="Picture" xml:space="preserve">
     <value>Изображение</value>
   </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>Статус</value>
   </data>

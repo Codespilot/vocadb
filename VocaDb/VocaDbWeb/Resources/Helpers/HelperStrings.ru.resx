@@ -126,6 +126,9 @@
   <data name="DraftMessage" xml:space="preserve">
     <value>Эта запись - черновик. Вы можете помочь, отредактировав её и добавив недостающую информацию.</value>
   </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
   <data name="SeeGuide" xml:space="preserve">
     <value>справкой</value>
   </data>

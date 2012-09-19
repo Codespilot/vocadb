@@ -120,6 +120,9 @@
   <data name="Drafts" xml:space="preserve">
     <value>Данные записи отмечены как "черновики", потому что в них не хватает основной информации.</value>
   </data>
+  <data name="ManageDeleted" xml:space="preserve">
+    <value>Управление удалёнными записями</value>
+  </data>
   <data name="NoResults" xml:space="preserve">
     <value>По запросу ничего не найдено! Попробуйте по-другому или с помощью поиска Google по сайту.</value>
   </data>

@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Album" xml:space="preserve">
-    <value>Альбом</value>
+  <data name="AlmostDone" xml:space="preserve">
+    <value>Почти всё! Осталось выбрать имя пользователя для VocaDB.</value>
   </data>
-  <data name="Artist" xml:space="preserve">
-    <value>Артист</value>
+  <data name="AuthError" xml:space="preserve">
+    <value>Аутентификация не удалась. Пожалуйста, проверьте, включены ли cookies в вашем браузере и попробуйте снова.</value>
   </data>
-  <data name="Song" xml:space="preserve">
-    <value>Песня</value>
+  <data name="LoginUsingTwitter" xml:space="preserve">
+    <value>Войти с помощью Twitter</value>
   </data>
-  <data name="SongList" xml:space="preserve">
-    <value>Список песен</value>
-  </data>
-  <data name="Undefined" xml:space="preserve">
-    <value>Прочее</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Пользователь</value>
+  <data name="SignInCancelled" xml:space="preserve">
+    <value>Вход прерван.</value>
   </data>
 </root>

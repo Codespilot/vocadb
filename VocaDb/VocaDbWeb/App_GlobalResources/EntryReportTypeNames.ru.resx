@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Album" xml:space="preserve">
-    <value>Альбом</value>
+  <data name="BrokenPV" xml:space="preserve">
+    <value>Устаревшая ссылка на видео</value>
   </data>
-  <data name="Artist" xml:space="preserve">
-    <value>Артист</value>
+  <data name="Duplicate" xml:space="preserve">
+    <value>Дубликат</value>
   </data>
-  <data name="Song" xml:space="preserve">
-    <value>Песня</value>
+  <data name="Inappropriate" xml:space="preserve">
+    <value>Недопустимый материал</value>
   </data>
-  <data name="SongList" xml:space="preserve">
-    <value>Список песен</value>
+  <data name="InvalidInfo" xml:space="preserve">
+    <value>Неверная или неполная информация</value>
   </data>
-  <data name="Undefined" xml:space="preserve">
-    <value>Прочее</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Пользователь</value>
+  <data name="Other" xml:space="preserve">
+    <value>Прочее (опишите в сноске)</value>
   </data>
 </root>

@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="NewAlbums" xml:space="preserve">
+    <value>Новые альбомы</value>
+  </data>
   <data name="News" xml:space="preserve">
     <value>Новости</value>
   </data>
   <data name="RecentActivity" xml:space="preserve">
     <value>Последние действия</value>
+  </data>
+  <data name="RecentSongs" xml:space="preserve">
+    <value>Недавно добавленные песни с видео</value>
+  </data>
+  <data name="SearchSite" xml:space="preserve">
+    <value>Поиск по сайту с помощью Google</value>
+  </data>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>Наиболее оценённые альбомы</value>
   </data>
   <data name="ViewAll" xml:space="preserve">
     <value>показать все</value>

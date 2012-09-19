@@ -153,4 +153,7 @@
   <data name="UsernameIsRequired" xml:space="preserve">
     <value>Нужно ввести имя пользователя.</value>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Привет снова, {0}!</value>
+  </data>
 </root>

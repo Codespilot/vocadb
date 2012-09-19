@@ -120,11 +120,17 @@
   <data name="AlbumCount" xml:space="preserve">
     <value>альбом(ы)</value>
   </data>
+  <data name="ArtistCount" xml:space="preserve">
+    <value>артист(ы)</value>
+  </data>
   <data name="EventSeries" xml:space="preserve">
     <value>Название серии мероприятий</value>
   </data>
   <data name="FavoritedTimes" xml:space="preserve">
     <value>раз(а)</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
   </data>
   <data name="SongCount" xml:space="preserve">
     <value>песни (песен)</value>
