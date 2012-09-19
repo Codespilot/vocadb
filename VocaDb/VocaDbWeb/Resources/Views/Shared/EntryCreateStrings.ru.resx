@@ -120,6 +120,9 @@
   <data name="EnglishName" xml:space="preserve">
     <value>Название на английском</value>
   </data>
+  <data name="FoundPossibleDuplicates" xml:space="preserve">
+    <value>В базе найдены похожие записи. Пожалуйста, удостоверьтесь, что не добавляете дубликат.</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Название (нужно хотя бы 1)</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="NonEnglishName" xml:space="preserve">
     <value>Неанглийское название</value>
+  </data>
+  <data name="PictureInfo" xml:space="preserve">
+    <value>Допустимые типы: {0}. Максимальный размер - {1} MB.</value>
   </data>
   <data name="RomajiName" xml:space="preserve">
     <value>Транслитерация на английский</value>

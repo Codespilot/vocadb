@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountDisabled" xml:space="preserve">
+    <value>Аккаунт заблокирован</value>
+  </data>
   <data name="Active" xml:space="preserve">
     <value>Активен</value>
   </data>
@@ -144,6 +147,9 @@
   <data name="EffectivePermissions" xml:space="preserve">
     <value>Активные права</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="FavoriteSongsTab" xml:space="preserve">
     <value>Любимые песни</value>
   </data>
@@ -153,6 +159,9 @@
   <data name="LastLogin" xml:space="preserve">
     <value>Предыдущий вход в систему</value>
   </data>
+  <data name="Level" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
   <data name="MemberSince" xml:space="preserve">
     <value>Зарегистрирован с</value>
   </data>
@@ -161,6 +170,9 @@
   </data>
   <data name="MySettings" xml:space="preserve">
     <value>Мои настройки</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Значимость</value>
   </data>
   <data name="StatsTab" xml:space="preserve">
     <value>Статистика</value>
@@ -182,5 +194,8 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="VisibleOnlyToMe" xml:space="preserve">
+    <value>Видно только мне и модераторам.</value>
   </data>
 </root>

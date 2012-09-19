@@ -132,6 +132,9 @@
   <data name="Single" xml:space="preserve">
     <value>Сингл</value>
   </data>
+  <data name="SplitAlbum" xml:space="preserve">
+    <value>Сплит</value>
+  </data>
   <data name="Unknown" xml:space="preserve">
     <value>Неизвестно</value>
   </data>

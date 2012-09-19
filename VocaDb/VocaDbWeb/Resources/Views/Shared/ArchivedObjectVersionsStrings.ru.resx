@@ -120,6 +120,9 @@
   <data name="Author" xml:space="preserve">
     <value>Автор</value>
   </data>
+  <data name="Changes" xml:space="preserve">
+    <value>Изменения</value>
+  </data>
   <data name="Created" xml:space="preserve">
     <value>Добавлено:</value>
   </data>

@@ -123,6 +123,9 @@
   <data name="DramaPV" xml:space="preserve">
     <value>Драматическое PV</value>
   </data>
+  <data name="Instrumental" xml:space="preserve">
+    <value>Без вокала</value>
+  </data>
   <data name="Mashup" xml:space="preserve">
     <value>Компиляция (Mashup)</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="Other" xml:space="preserve">
     <value>Прочее</value>
+  </data>
+  <data name="Remaster" xml:space="preserve">
+    <value>Новое сведение</value>
   </data>
   <data name="Remix" xml:space="preserve">
     <value>Ремикс</value>

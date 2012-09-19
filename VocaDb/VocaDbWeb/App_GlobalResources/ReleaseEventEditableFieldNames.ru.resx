@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Album" xml:space="preserve">
-    <value>Альбом</value>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
   </data>
-  <data name="Artist" xml:space="preserve">
-    <value>Артист</value>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="Song" xml:space="preserve">
-    <value>Песня</value>
+  <data name="Name" xml:space="preserve">
+    <value>Название</value>
   </data>
-  <data name="SongList" xml:space="preserve">
-    <value>Список песен</value>
-  </data>
-  <data name="Undefined" xml:space="preserve">
-    <value>Прочее</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Пользователь</value>
+  <data name="SeriesNumber" xml:space="preserve">
+    <value>Порядковый номер</value>
   </data>
 </root>
