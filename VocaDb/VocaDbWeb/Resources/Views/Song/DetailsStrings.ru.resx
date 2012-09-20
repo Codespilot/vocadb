@@ -133,13 +133,13 @@
     <value>Аниматоры</value>
   </data>
   <data name="Lyrics" xml:space="preserve">
-    <value>Слова</value>
+    <value>Текст</value>
   </data>
   <data name="LyricsFrom" xml:space="preserve">
     <value>из</value>
   </data>
   <data name="LyricsLC" xml:space="preserve">
-    <value>слова</value>
+    <value>текст</value>
   </data>
   <data name="Notes" xml:space="preserve">
     <value>Заметки</value>
