@@ -266,6 +266,8 @@
     <Compile Include="Domain\Songs\SongReport.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
+    <Compile Include="Domain\Songs\SongVote.cs" />
+    <Compile Include="Domain\Songs\SongVoteScore.cs" />
     <Compile Include="Domain\Tags\ArchivedTagVersion.cs" />
     <Compile Include="Domain\Tags\TagDiff.cs" />
     <Compile Include="Domain\Tags\TagEditableFields.cs" />
@@ -522,20 +524,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AlbumValidationErrors.ru.resx" />
     <EmbeddedResource Include="Resources\ArtistTypeNames.fi.resx" />
     <EmbeddedResource Include="Resources\ArtistTypeNames.ja.resx" />
     <EmbeddedResource Include="Resources\ArtistTypeNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistTypeNames.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ArtistTypeNames.ru.resx" />
     <EmbeddedResource Include="Resources\ArtistValidationErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ArtistValidationErrors.ru.resx" />
     <EmbeddedResource Include="Resources\SongValidationErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SongValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Search\Artist\" />

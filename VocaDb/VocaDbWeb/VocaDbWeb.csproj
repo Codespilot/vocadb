@@ -247,6 +247,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryEditEventNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\EntryEditEventNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryEditEventNames.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\EntryReportTypeNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryReportTypeNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\EntryStatusNames.fi.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -352,6 +362,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ReleaseEventEditableFieldNames.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ReleaseEventEditableFieldNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReleaseEventEditableFieldNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -421,6 +436,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TagEditableFieldNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\TagEditableFieldNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TagEditableFieldNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\UserEmailOptionsNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1717,24 +1737,43 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ReleaseEventEditableFieldNames.Designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\EntryEditEventNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryEditEventNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EntryReportTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EntryReportTypeNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ReleaseEventEditableFieldNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ReleaseEventEditableFieldNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\TagEditableFieldNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>TagEditableFieldNames.ru.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AjaxRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ajax\AlbumStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Ajax\SharedStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\SharedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SharedStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AjaxRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ajax\SharedStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Ajax\SongStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\SongStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SongStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>AjaxRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ajax\SongStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -1963,6 +2002,7 @@
       <LastGenOutput>AlbumCollectionStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\AlbumCollectionStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1990,6 +2030,7 @@
       <LastGenOutput>LoginUsingAuthStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\LoginUsingAuthStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -2004,6 +2045,7 @@
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.ru.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
