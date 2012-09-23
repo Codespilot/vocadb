@@ -180,4 +180,10 @@
   <data name="SearchYoutube" xml:space="preserve">
     <value>Etsi Youtubesta</value>
   </data>
+  <data name="OriginalMedia" xml:space="preserve">
+    <value>Alkup. media</value>
+  </data>
+  <data name="OtherMedia" xml:space="preserve">
+    <value>Muu media</value>
+  </data>
 </root>
