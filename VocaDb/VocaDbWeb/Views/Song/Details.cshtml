@@ -14,7 +14,7 @@
 }
 
 @section Toolbar {
-@if (Model.PVs.Any()) {
+@if (Model.OriginalPVs.Any() || Model.OtherPVs.Any()) {
 	using (Html.BeginPanel()) {
 		<div id="pvPlayer">
 		@Helpers.EmbedPV(Model.PrimaryPV)
@@ -139,23 +139,23 @@
 				</tr>
 			}	   
 
-			@if (Model.PVs.Any()) {
+			@if (Model.OriginalPVs.Any()) {
 			<tr>
-				<td>@ViewRes.SharedStrings.Media</td>
+				<td>@R.DetailsStrings.OriginalMedia</td>
 				<td>
-					@foreach (var pv in Model.PVs) {
-						<!--@Helpers.FormatPVLink(pv)<br />-->
-						<a href="#" class="pvLink" id="pv_@(pv.Id)">
-							<img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> @(!string.IsNullOrEmpty(pv.Name) ? pv.Name : pv.Service.ToString())
-							@("(" + Translate.PVTypeNames[pv.PVType] + ")")
-						</a>
-						@Html.Raw("&nbsp;")
-						@("(")<a href="@pv.Url">@R.DetailsStrings.ViewExternal</a>@(")")
-						<br />
-					}			
+					@EntryDetailsHelpers.PVList(Model.OriginalPVs, false)		
 				</td>
 			</tr>
-   }
+            }
+
+			@if (Model.OtherPVs.Any()) {
+			<tr>
+				<td>@R.DetailsStrings.OtherMedia</td>
+				<td>
+					@EntryDetailsHelpers.PVList(Model.OtherPVs, true)		
+				</td>
+			</tr>
+            }
 			
 			@if (Model.WebLinks.Any()) {
 			<tr>

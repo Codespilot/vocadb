@@ -160,6 +160,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Original media.
+        /// </summary>
+        public static string OriginalMedia {
+            get {
+                return ResourceManager.GetString("OriginalMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Original version.
         /// </summary>
         public static string OriginalVersion {
@@ -174,6 +183,15 @@ namespace ViewRes.Song {
         public static string OtherArtists {
             get {
                 return ResourceManager.GetString("OtherArtists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other media.
+        /// </summary>
+        public static string OtherMedia {
+            get {
+                return ResourceManager.GetString("OtherMedia", resourceCulture);
             }
         }
         

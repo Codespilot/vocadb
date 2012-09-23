@@ -1,7 +1,26 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using VocaDb.Model.DataContracts.PVs
+@using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
-			  
+	
+@helper PVList(IEnumerable<PVContract> pvs, bool showPVType) {
+    
+ 	foreach (var pv in pvs) {
+		<a href="#" class="pvLink" id="pv_@(pv.Id)">
+			<img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" />
+            @(!string.IsNullOrEmpty(pv.Name) ? pv.Name : pv.Service.ToString())
+            @if (showPVType) {
+			    @("(" + Translate.PVTypeNames[pv.PVType] + ")")
+            }
+		</a>
+		@Html.Raw("&nbsp;")
+		@("(")<a href="@pv.Url">@ViewRes.Song.DetailsStrings.ViewExternal</a>@(")")
+		<br />
+	}			
+       
+}
+		  
 @helper ReportEntryPopup(MvcHtmlString reportTypesDropdown) {
 	
 <div id="reportEntryPopup" style="display:none;" title="@ViewRes.EntryDetailsStrings.ReportAnError">

@@ -53,7 +53,6 @@ namespace VocaDb.Web.Models {
 			Notes = contract.Notes;
 			OriginalVersion = (contract.Song.SongType != SongType.Original ? contract.OriginalVersion : null);
 			Pools = contract.Pools;
-			PVs = contract.PVs;
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
 			Tags = contract.Tags;
@@ -66,26 +65,31 @@ namespace VocaDb.Web.Models {
 				|| a.Categories.HasFlag(ArtistCategories.Label) 
 				|| a.Categories.HasFlag(ArtistCategories.Other)).ToArray();
 
-			PrimaryPV = PVHelper.PrimaryPV(PVs);
+			var pvs = contract.PVs;
+
+			OriginalPVs = pvs.Where(p => p.PVType == PVType.Original).ToArray();
+			OtherPVs = pvs.Where(p => p.PVType != PVType.Original).ToArray();
+			PrimaryPV = PVHelper.PrimaryPV(pvs);
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
 
-			var nicoPvId = PVHelper.GetNicoId(PVs, NicoId);
+			var nicoPvId = PVHelper.GetNicoId(pvs, NicoId);
 
 			if (!string.IsNullOrEmpty(nicoPvId)) {
-				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), ViewRes.Song.DetailsStrings.CheckNicoSound));
-				//WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoMimi.CreateUrl(nicoPvId), "Check NicoMimi for a download link"));
+				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), 
+					ViewRes.Song.DetailsStrings.CheckNicoSound));
 			}
 
-			if (PVs.All(p => p.Service != PVService.Youtube)) {
+			if (pvs.All(p => p.Service != PVService.Youtube)) {
 
-				var nicoPV = VideoServiceHelper.PrimaryPV(PVs, PVService.NicoNicoDouga);
+				var nicoPV = VideoServiceHelper.PrimaryPV(pvs, PVService.NicoNicoDouga);
 				var query = (nicoPV != null && !string.IsNullOrEmpty(nicoPV.Name))
 					? nicoPV.Name
 					: string.Format("{0} {1}", ArtistString, Name);
 
-				WebLinks.Add(new WebLinkContract(string.Format("http://www.youtube.com/results?search_query={0}", query), ViewRes.Song.DetailsStrings.SearchYoutube));
+				WebLinks.Add(new WebLinkContract(string.Format("http://www.youtube.com/results?search_query={0}", query), 
+					ViewRes.Song.DetailsStrings.SearchYoutube));
 
 			}
 
@@ -132,8 +136,12 @@ namespace VocaDb.Web.Models {
 
 		public ArtistForSongContract[] OtherArtists { get; set; }
 
+		public PVContract[] OriginalPVs { get; set; }
+
 		[Display(Name = "Original version")]
 		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
+
+		public PVContract[] OtherPVs { get; set; }
 
 		public ArtistForSongContract[] Performers { get; set; }
 
@@ -142,8 +150,6 @@ namespace VocaDb.Web.Models {
 		public PVContract PrimaryPV { get; set; }
 
 		public ArtistForSongContract[] Producers { get; set; }
-
-		public PVContract[] PVs { get; set; }
 
 		public SongType SongType { get; set; }
 

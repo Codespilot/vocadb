@@ -180,4 +180,10 @@
   <data name="SearchYoutube" xml:space="preserve">
     <value>Search Youtube</value>
   </data>
+  <data name="OriginalMedia" xml:space="preserve">
+    <value>Original media</value>
+  </data>
+  <data name="OtherMedia" xml:space="preserve">
+    <value>Other media</value>
+  </data>
 </root>
