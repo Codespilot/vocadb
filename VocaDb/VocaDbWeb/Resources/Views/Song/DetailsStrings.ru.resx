@@ -172,7 +172,7 @@
     <value>Группы</value>
   </data>
   <data name="Favorites" xml:space="preserve">
-    <value>любимое(ые)</value>
+    <value>пользователям нравится</value>
   </data>
   <data name="CheckNicoSound" xml:space="preserve">
     <value>Поискать ссылку на скачивание на NicoSound</value>

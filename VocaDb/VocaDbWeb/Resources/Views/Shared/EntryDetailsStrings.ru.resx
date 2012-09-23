@@ -139,7 +139,7 @@
     <value>Внешние ссылки</value>
   </data>
   <data name="Hits" xml:space="preserve">
-    <value>hit(s)</value>
+    <value>просмотров</value>
   </data>
   <data name="LatestComments" xml:space="preserve">
     <value>Последние комментарии</value>
