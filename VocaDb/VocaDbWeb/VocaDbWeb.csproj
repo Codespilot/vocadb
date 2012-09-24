@@ -2057,6 +2057,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MySettingsStrings.Designer.cs</LastGenOutput>
