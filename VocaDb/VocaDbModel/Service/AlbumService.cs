@@ -941,23 +941,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Not used anymore")]
-		public AlbumWithAdditionalNamesContract[] GetTopRatedAlbums(int maxResults) {
-
-			return HandleQuery(session => {
-
-				var albums = session.Query<Album>()
-					.Where(s => s.RatingCount > 0 && s.RatingAverageInt > 0)
-					.OrderByDescending(s => s.RatingAverageInt)
-					.OrderByDescending(s => s.RatingTotal)
-					.Take(maxResults).ToArray();
-
-				return albums.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray();
-
-			});
-
-		}
-
 		public TrackPropertiesContract GetTrackProperties(int albumId, int songId) {
 
 			return HandleQuery(session => {
