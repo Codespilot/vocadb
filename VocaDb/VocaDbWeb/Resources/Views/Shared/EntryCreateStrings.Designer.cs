@@ -79,7 +79,7 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Need at least one..
+        ///   Looks up a localized string similar to Name (need at least one).
         /// </summary>
         public static string Name {
             get {

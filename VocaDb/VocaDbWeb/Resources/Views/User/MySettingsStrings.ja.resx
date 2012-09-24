@@ -117,31 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EnglishName" xml:space="preserve">
-    <value>Name in English</value>
-  </data>
-  <data name="FoundPossibleDuplicates" xml:space="preserve">
-    <value>Possible matching entries found in the database. Please verify that these are not duplicates.</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name (need at least one)</value>
-  </data>
-  <data name="NameHelp" xml:space="preserve">
-    <value>If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.</value>
-  </data>
-  <data name="NeedName" xml:space="preserve">
-    <value>Need at least one name.</value>
-  </data>
-  <data name="NoArtistsToName" xml:space="preserve">
-    <value>Do not enter artist names into the name field. Instead, use the artists list.</value>
-  </data>
-  <data name="NonEnglishName" xml:space="preserve">
-    <value>Non-English name</value>
-  </data>
-  <data name="PictureInfo" xml:space="preserve">
-    <value>Allowed types: {0}. Maximum size is {1} MB.</value>
-  </data>
-  <data name="RomajiName" xml:space="preserve">
-    <value>Romanized name</value>
+  <data name="MySettingsTitle" xml:space="preserve">
+    <value>アカウント設定</value>
   </data>
 </root>
