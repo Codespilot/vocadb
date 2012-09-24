@@ -476,7 +476,7 @@ namespace VocaDb.Web.Controllers
 
 		public PartialViewResult TagSelections(int albumId) {
 
-			var contract = Service.GetTagSelections(albumId, LoginManager.LoggedUser.Id);
+			var contract = Service.GetTagSelections(albumId, LoginManager.LoggedUserId);
 
 			return PartialView(contract);
 

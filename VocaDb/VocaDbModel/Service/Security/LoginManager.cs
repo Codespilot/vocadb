@@ -15,6 +15,8 @@ namespace VocaDb.Model.Service.Security {
 
 	public class LoginManager : IUserPermissionContext {
 
+		public const int InvalidId = 0;
+
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private UserContract user;
@@ -115,9 +117,12 @@ namespace VocaDb.Model.Service.Security {
 			}
 		}
 
+		/// <summary>
+		/// Logged user Id or InvalidId if no user is logged in.
+		/// </summary>
 		public int LoggedUserId {
 			get {
-				return (LoggedUser != null ? LoggedUser.Id : 0);
+				return (LoggedUser != null ? LoggedUser.Id : InvalidId);
 			}
 		}
 
