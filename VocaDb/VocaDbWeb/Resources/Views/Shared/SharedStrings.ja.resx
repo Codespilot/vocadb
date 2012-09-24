@@ -127,10 +127,10 @@
     <value>アーティスト</value>
   </data>
   <data name="Drafts" xml:space="preserve">
-    <value>ドラフト</value>
+    <value>下書き</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>エディト</value>
+    <value>編集</value>
   </data>
   <data name="FeaturedSongLists" xml:space="preserve">
     <value>注目曲リスト</value>
@@ -148,7 +148,7 @@
     <value>タグ</value>
   </data>
   <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>一番人気した曲</value>
+    <value>人気の高い曲</value>
   </data>
   <data name="TopRatedAlbums" xml:space="preserve">
     <value>最も人気のあるアルバム</value>

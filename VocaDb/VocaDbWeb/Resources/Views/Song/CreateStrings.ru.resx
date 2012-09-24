@@ -126,8 +126,14 @@
   <data name="Draft" xml:space="preserve">
     <value>Данная запись - черновик</value>
   </data>
+  <data name="NameHelp" xml:space="preserve">
+    <value>Тип названия "Неанглийское" - для названий (имён) на любом другом языке (японский, русский и т.д.), включая неопознанный пользователем язык. Добавление транслитерации неанглийского названия (имени) на английский (romanized) весьма желательно.</value>
+  </data>
   <data name="NeedArtist" xml:space="preserve">
     <value>Нужно указать хотя бы одного артиста.</value>
+  </data>
+  <data name="NoArtistsToName" xml:space="preserve">
+    <value>Не добавляйте артистов в поле названия - для этого есть список артистов.</value>
   </data>
   <data name="OriginalPV" xml:space="preserve">
     <value>Ссылка на оригинальное PV (NicoNicoDouga или Youtube)</value>

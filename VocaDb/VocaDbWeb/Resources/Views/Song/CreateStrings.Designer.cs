@@ -88,11 +88,29 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field..
+        /// </summary>
+        public static string NameHelp {
+            get {
+                return ResourceManager.GetString("NameHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Need at least one artist..
         /// </summary>
         public static string NeedArtist {
             get {
                 return ResourceManager.GetString("NeedArtist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do not enter artist names into the name field. Instead, use the artists list..
+        /// </summary>
+        public static string NoArtistsToName {
+            get {
+                return ResourceManager.GetString("NoArtistsToName", resourceCulture);
             }
         }
         

@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="GlArtistAnimator" xml:space="preserve">
+    <value>"Animator" - person who primarily animates PVs.</value>
+  </data>
+  <data name="GlArtistCircle" xml:space="preserve">
+    <value>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</value>
+  </data>
+  <data name="GlArtistCompletedTitle" xml:space="preserve">
+    <value>Completed artist entries should meet the following criteria:</value>
+  </data>
+  <data name="GlArtistHasDescription" xml:space="preserve">
+    <value>The artist has a description OR at least one external link (to a wiki, artist's NND MyList etc.)</value>
+  </data>
+  <data name="GlArtistLabel" xml:space="preserve">
+    <value>"Label" - a commercial company that publishes albums for other artists.</value>
+  </data>
+  <data name="GlArtistNameNotUnspecified" xml:space="preserve">
+    <value>The artist has at least one name whose language option isn't "Unspecified".</value>
+  </data>
+  <data name="GlArtistOtherGroup" xml:space="preserve">
+    <value>"Other group" - group that releases albums via Labels.</value>
+  </data>
+  <data name="GlArtistOtherIndividual" xml:space="preserve">
+    <value>"Other individual" - other people such as lyricists and illustrators.</value>
+  </data>
+  <data name="GlArtistOtherVocalist" xml:space="preserve">
+    <value>"Other vocalist" - human singers (NND vocalists).</value>
+  </data>
+  <data name="GlArtistPictureChoosing" xml:space="preserve">
+    <value>When adding pictures to artists, keep in mind all the pictures should be related to the artist himself, not his works. Do not upload album covers for artist entries. 
+ That said, there is no common rule for choosing the main picture of an artist. Photos of the artist himself as well as official logos are preferred. You may upload any number of these pictures as additional pictures for the artist, provided that they're relevant enough.
+Copyrighted pictures or pictures of artists may be taken down if the copyright holder requests it.
+If no better picture is provided, any picture found on the artist's official profile, for example on twitter, is accepted as well.</value>
+  </data>
+  <data name="GlArtistPictureTitle" xml:space="preserve">
+    <value>Artist pictures</value>
+  </data>
+  <data name="GlArtistProducer" xml:space="preserve">
+    <value>"Producer" - the person who created the song (and in the case of a Vocaloid song, usually the vocals as well using Vocaloid). Not necessarily the original composer.</value>
+  </data>
+  <data name="GlArtistRoles" xml:space="preserve">
+    <value>Every artist has a classification which also determines the artist's default roles. Roles can be overridden per album and per song -basis, but in many cases the artist is involved only in one role.</value>
+  </data>
+  <data name="GlArtistsTitle" xml:space="preserve">
+    <value>Artists, producers and Vocaloids</value>
+  </data>
+  <data name="GlArtistTypeNotUnspecified" xml:space="preserve">
+    <value>Artist type isn't "Unspecified".</value>
+  </data>
+  <data name="GlArtistTypesTitle" xml:space="preserve">
+    <value>Artist types</value>
+  </data>
+  <data name="GlAvoidDirectDownload" xml:space="preserve">
+    <value>Direct download links to media files (such as .mp3) are generally not allowed, even if they're official and legal. If the song/video is officially distributed, link to the artist's official download page (for example on piapro) instead.</value>
+  </data>
+  <data name="GlAvoidDuplicates" xml:space="preserve">
+    <value>Avoid submitting entries that already exist in the database. Duplicates have to be deleted or merged by the staff.</value>
+  </data>
+  <data name="GlAvoidFileSharing" xml:space="preserve">
+    <value>Download links to illegal file-sharing sites that provide no useful information (like Mediafire/Megaupload/Torrents) are NOT allowed. Links to informative blogs/forums/wikis (like MikuDB/Miku;Zen) ARE allowed.</value>
+  </data>
+  <data name="GlAvoidOfftopic" xml:space="preserve">
+    <value>This is a database for Vocaloid-related content. UTAU and Vocaloid-related collaborations are accepted, but totally unrelated content will be deleted.</value>
+  </data>
+  <data name="GlEditApprovedWithCaution" xml:space="preserve">
+    <value>When editing entries that are finalized or approved (not drafts), make sure you have a good reason, and preferably state that reason in the edit notes unless it's obvious.</value>
+  </data>
+  <data name="GlGeneralTitle" xml:space="preserve">
+    <value>General principles</value>
+  </data>
+  <data name="GlHowCanIAddEntriesTitle" xml:space="preserve">
+    <value>How can I add new producers, albums and songs?</value>
+  </data>
+  <data name="GlNamesEnglish" xml:space="preserve">
+    <value>"English" is for official names in English and known translations of foreign names.</value>
+  </data>
+  <data name="GlNamesHow" xml:space="preserve">
+    <value>All names should primarily be written in the original language, which usually means Japanese, but it can also be for example English or Korean. The system supports 3 language options:</value>
+  </data>
+  <data name="GlNamesNonEnglish" xml:space="preserve">
+    <value>"Non-English" covers original names in all languages that aren't English or romanized, for example Japanese.</value>
+  </data>
+  <data name="GlNamesRomaji" xml:space="preserve">
+    <value>"Romanized" is for foreign original names written in the Latin (western) alphabet. Usually this means Romaji.</value>
+  </data>
+  <data name="GlNamesTitle" xml:space="preserve">
+    <value>Names and translations</value>
+  </data>
+  <data name="GlNamesUnspecified" xml:space="preserve">
+    <value>"Unspecified" is for names where the language doesn't matter or it's unknown. Unspecified names will never be used as display names of an entry if another name is provided.</value>
+  </data>
+  <data name="GlRegister" xml:space="preserve">
+    <value>Register and use links in main navigation panel or buttons in producer, album and song list pages.</value>
+  </data>
+</root>

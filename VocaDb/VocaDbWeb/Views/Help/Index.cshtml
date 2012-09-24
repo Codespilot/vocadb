@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Help / About";
+﻿@using R = ViewRes.Help;
+@{
+    ViewBag.Title = "Help / About";    
 }
 
 <div id="tabs">
@@ -114,28 +115,25 @@
 	</div>
 	
 	<div id="guidelines">
-		<h3 id="glmain">General principles</h3>
+		<h3 id="glmain">@R.IndexStrings.GlGeneralTitle</h3>
 			<ul>
-				<li>Avoid submitting entries that already exist in the database. Duplicates have to be deleted or merged by the staff.</li>
-				<li>When editing entries that are finalized or approved (not drafts), make sure you have a good reason, and preferably state that reason in the edit notes unless it's obvious.</li>
-				<li>This is a database for Vocaloid-related content. UTAU and Vocaloid-related collaborations are accepted, but totally unrelated content will be deleted.</li>
-				<li>Download links to illegal file-sharing sites that provide no useful information (like Mediafire/Megaupload/Torrents) are NOT allowed. Links to informative blogs/forums/wikis (like MikuDB/Miku;Zen) ARE allowed.</li>
-				<li>Direct download links to media files (such as .mp3) are generally not allowed, even if they're official and legal. If the song/video is officially distributed, link to the artist's official download page (for example on piapro) instead.</li>
+				<li>@R.IndexStrings.GlAvoidDuplicates</li>
+				<li>@R.IndexStrings.GlEditApprovedWithCaution</li>
+				<li>@R.IndexStrings.GlAvoidOfftopic</li>
+				<li>@R.IndexStrings.GlAvoidFileSharing</li>
+				<li>@R.IndexStrings.GlAvoidDirectDownload</li>
 			</ul>
 
-		<h4>How can I add new producers, albums and songs?</h4>
-		<p>Register and use links in main navigation panel or buttons in producer, album and song list pages.</p>
+		<h4>@R.IndexStrings.GlHowCanIAddEntriesTitle</h4>
+		<p>@R.IndexStrings.GlRegister</p>
 
-		<h4>Names and translations</h4>
-		<p>
-			All names should primarily be written in the original language, which usually means Japanese, but it can also be for example English or Korean. 
-			The system supports 3 language options:
-		</p>
+		<h4>@R.IndexStrings.GlNamesTitle</h4>
+		<p>@R.IndexStrings.GlNamesHow</p>
 		<ul>
-			<li>"Non-English" covers original names in all languages that aren't English or romanized, for example Japanese.</li>
-			<li>"Romanized" is for foreign original names written in the Latin (western) alphabet. Usually this means Romaji.</li>
-			<li>"English" is for official names in English and known translations of foreign names.</li>
-			<li>"Unspecified" is for names where the language doesn't matter or it's unknown. Unspecified names will never be used as display names of an entry if another name is provided.</li>
+			<li>@R.IndexStrings.GlNamesNonEnglish</li>
+			<li>@R.IndexStrings.GlNamesRomaji</li>
+			<li>@R.IndexStrings.GlNamesEnglish</li>
+			<li>@R.IndexStrings.GlNamesUnspecified</li>
 		</ul>
 		<p>
 			If the original language is English, the name should be written to the English language field, otherwise it's written to the "Non-English" language field.
@@ -174,37 +172,31 @@
 		</p>
 		
 		<br />
-		<h3 id="glproducers">Artists, producers and Vocaloids</h3>
-		<h4 id="glartisttypes">Artist types</h4>
+		<h3 id="glproducers">@R.IndexStrings.GlArtistsTitle</h3>
+		<h4 id="glartisttypes">@R.IndexStrings.GlArtistTypesTitle</h4>
             <p>
-			Every artist has a classification which also determines the artist's default roles. 
-            Roles can be overridden per album and per song -basis, but in many cases the artist is involved only in one role.
+			@R.IndexStrings.GlArtistRoles
             </p>
 			<ul>
-				<li>"Producer" - the person who created the song (and in the case of a Vocaloid song, usually the vocals as well using Vocaloid). Not necessarily the original composer.</li>
-				<li>"Animator" - person who primarily animates PVs.</li>
-				<li>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</li>
-				<li>"Label" - a commercial company that publishes albums for other artists.</li>
-				<li>"Other group" - group that releases albums via Labels.</li>
-				<li>"Other vocalist" - human singers (NND vocalists).</li>
-				<li>"Other individual" - other people such as lyricists and illustrators.</li>
+				<li>@R.IndexStrings.GlArtistProducer</li>
+				<li>@R.IndexStrings.GlArtistAnimator</li>
+				<li>@R.IndexStrings.GlArtistCircle</li>
+				<li>@R.IndexStrings.GlArtistLabel</li>
+				<li>@R.IndexStrings.GlArtistOtherGroup</li>
+				<li>@R.IndexStrings.GlArtistOtherVocalist</li>
+				<li>@R.IndexStrings.GlArtistOtherIndividual</li>
 			</ul>
         
-        <h4>Artist pictures</h4>
-            <p>
-            When adding pictures to artists, keep in mind all the pictures should be related to the artist himself, not his works. Do not upload album covers for artist entries.
-            <br />
-            That said, there is no common rule for choosing the main picture of an artist. Photos of the artist himself as well as official logos are preferred.
-            You may upload any number of these pictures as additional pictures for the artist, provided that they're relevant enough.
-            <br />
-            If no better picture is provided, any picture found on the artist's official profile, for example on twitter, is accepted as well.
-            </p>
+        <h4>@R.IndexStrings.GlArtistPictureTitle</h4>
+        <p>
+        @Helpers.ConvertNewlinesToBreaks(R.IndexStrings.GlArtistPictureChoosing)
+        </p>
 
-		<h4>Completed artist entries should meet the following criteria:</h4>
+		<h4>@R.IndexStrings.GlArtistCompletedTitle</h4>
 		<ul>
-			<li>The artist has at least one name whose language option isn't "Unspecified".</li>
-			<li>Artist type isn't "Unspecified".</li>
-			<li>The artist has a description OR at least one external link (to a wiki, artist's NND MyList etc.)</li>
+			<li>@R.IndexStrings.GlArtistNameNotUnspecified</li>
+			<li>@R.IndexStrings.GlArtistTypeNotUnspecified</li>
+			<li>@R.IndexStrings.GlArtistHasDescription</li>
 		</ul>
 		
 		<br />

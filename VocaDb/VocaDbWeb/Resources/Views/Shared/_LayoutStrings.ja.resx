@@ -121,10 +121,10 @@
     <value>アルバムを提出する</value>
   </data>
   <data name="AddArtist" xml:space="preserve">
-    <value>アーチストを加える</value>
+    <value>アーティストの追加</value>
   </data>
   <data name="AddSong" xml:space="preserve">
-    <value>曲を提出する</value>
+    <value>曲の登録</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>サポート / DBについて</value>
