@@ -1787,7 +1787,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ja.resx" />
+    <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ActivityFeedHelperStrings.Designer.cs</LastGenOutput>
@@ -1819,7 +1821,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Other\PagedListStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
@@ -1834,7 +1838,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
@@ -1849,7 +1855,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
@@ -1967,7 +1975,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\TagSelectionsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_LayoutStrings.Designer.cs</LastGenOutput>

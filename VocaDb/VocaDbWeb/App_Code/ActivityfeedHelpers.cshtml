@@ -8,15 +8,31 @@
 	@Html.ActionLink(entryProperties.DisplayName, "Details", entryProperties.EntryRef.EntryType.ToString(), new { id = entryProperties.EntryRef.Id }, new { title = entryProperties.AdditionalNames })
 }
 
-@helper ActivityEntry(ActivityEntryContract entry) {
-	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
-		<p>
-		@if (entry.EditEvent == EntryEditEvent.Created) {
+@helper EntryType(ActivityEntryContract entry) {
+    
+    var tr = @HelperRes.ActivityFeedHelperStrings.ResourceManager.GetString(entry.EditEvent.ToString() + entry.EntryRef.EntryType);
+    
+    if (!string.IsNullOrEmpty(tr)) {
+        
+       <span>@tr</span> 
+        
+    } else {
+     
+		if (entry.EditEvent == EntryEditEvent.Created) {
 			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.CreatedNew, Translate.EntryTypeNames[entry.EntryRef.EntryType])</span>
 		} else {
 			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.Updated, Translate.EntryTypeNames[entry.EntryRef.EntryType])</span>
 		}
-		<span>@EntryLink(entry)</span> 
+           
+    }
+    
+}
+
+@helper ActivityEntry(ActivityEntryContract entry) {
+	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
+		<p>
+		@EntryType(entry)
+		<span>@EntryLink(entry)</span>         
 		@if (!string.IsNullOrEmpty(entry.ArtistString)) {
 			<span> @HelperRes.ActivityFeedHelperStrings.ByArtist @entry.ArtistString</span>
 		}

@@ -215,7 +215,6 @@
     <Compile Include="DataContracts\Versioning\ArchivedObjectVersionWithFieldsContract.cs" />
     <Compile Include="DataContracts\Versioning\ComparedVersionsContract.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntry.cs" />
-    <Compile Include="Domain\Activityfeed\ActivityfeedManager.cs" />
     <Content Include="Domain\Activityfeed\EntryEditedEntry.cs" />
     <Compile Include="Domain\Activityfeed\GenericActivityEntry.cs" />
     <Compile Include="Domain\Activityfeed\IActivityEntryVisitor.cs" />
