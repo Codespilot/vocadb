@@ -123,6 +123,13 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
+		public SongDetailsContract GetSongDetailsByNameArtistAndAlbum(string name, string artist, string album) {
+
+			return Services.Songs.XGetSongByNameArtistAndAlbum(name, artist, album);
+
+		}
+
+		[OperationContract]
 		public SongDetailsContract GetSongDetails(string term) {
 
 			var song = Services.Songs.FindFirstDetails(term, NameMatchMode.Partial);

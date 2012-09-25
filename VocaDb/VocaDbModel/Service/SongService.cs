@@ -1638,6 +1638,70 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongDetailsContract XGetSongByNameArtistAndAlbum(string name, string artist, string album) {
+
+			return HandleQuery(session => {
+
+				var matches = session.Query<SongName>().Where(n => n.Value == name)
+					.Select(n => n.Song)
+					.ToArray();
+
+				Artist[] artists = null;
+
+				if (!string.IsNullOrEmpty(artist)) {
+
+					artists = session.Query<ArtistName>()
+						.AddArtistNameFilter(artist, null, NameMatchMode.Auto)
+						.Select(n => n.Artist)
+						.Take(10)
+						.ToArray();
+
+				}
+
+				if (artists != null && artists.Any())
+					matches = matches.Where(s => s.ArtistList.Any(a => artists.Contains(a))).ToArray();
+
+				Album[] albums = null;
+
+				if (!string.IsNullOrEmpty(album)) {
+
+					albums = session.Query<AlbumName>()
+						.AddEntryNameFilter(album, NameMatchMode.Auto)
+						.Select(n => n.Album)
+						.Take(10)
+						.ToArray();
+
+				}
+
+				if (albums != null && albums.Any())
+					matches = matches.Where(s => s.Albums.Any(a => albums.Contains(a.Album))).ToArray();
+
+				if (matches.Length == 1)
+					return new SongDetailsContract(matches.First(), PermissionContext.LanguagePreference);
+
+				if (matches.Length == 0)
+					return null;
+
+				matches = session.Query<SongName>()
+					.AddEntryNameFilter(name, NameMatchMode.Auto)
+					.Select(n => n.Song)
+					.ToArray();
+
+				if (artists != null && artists.Any())
+					matches = matches.Where(s => s.ArtistList.Any(a => artists.Contains(a))).ToArray();
+
+				if (albums != null && albums.Any())
+					matches = matches.Where(s => s.Albums.Any(a => albums.Contains(a.Album))).ToArray();
+
+				if (matches.Length == 1)
+					return new SongDetailsContract(matches.First(), PermissionContext.LanguagePreference);
+
+				return null;
+
+			});
+
+		}
+
 	}
 
 	public class SongQueryParams {
