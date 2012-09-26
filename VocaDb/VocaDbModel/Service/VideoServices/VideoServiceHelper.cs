@@ -10,7 +10,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		private static readonly VideoService[] services = new[] { 
 			VideoService.NicoNicoDouga,
 			VideoService.SoundCloud,
-			VideoService.Youtube
+			VideoService.Youtube,
+			VideoService.Vimeo
 		};
 
 		public static readonly Dictionary<PVService, VideoService> Services = services.ToDictionary(s => s.Service);

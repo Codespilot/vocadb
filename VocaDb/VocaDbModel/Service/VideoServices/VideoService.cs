@@ -24,6 +24,11 @@ namespace VocaDb.Model.Service.VideoServices {
 				new RegexLinkMatcher("www.youtube.com/watch?v={0}", @"youtube.com/watch?\S*v=(\S{11})"),
 			});
 
+		public static readonly VideoService Vimeo =
+			new VideoService(PVService.Vimeo, new VimeoParser(), new[] {
+				new RegexLinkMatcher("vimeo.com/{0}", @"vimeo.com/(\d+)"),
+			});
+
 		protected readonly RegexLinkMatcher[] linkMatchers;
 		private readonly IVideoServiceParser parser;
 
