@@ -59,27 +59,31 @@
 		case VocaDb.Model.Domain.PVs.PVService.Youtube:
 			<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@pv.PVId" frameborder="0" wmode="Opaque" allowfullscreen></iframe>
 																		break;
-	}
+                                                                        
+		case VocaDb.Model.Domain.PVs.PVService.Vimeo:
+            <iframe src="http://player.vimeo.com/video/@pv.PVId" width="@width" height="@height" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <p><a href="http://vimeo.com/@pv.PVId">@pv.Name</a>.</p>
+            break;
+    }
 	
 }
 
 @helper EmbedPVThumb(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 340, int height = 200) {	
-	if (pv != null) {
-		switch (pv.Service) {
-			case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
+    if (pv != null) {
+        switch (pv.Service) {
+            case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 				<iframe width="@width" height="@height" src="http://ext.nicovideo.jp/thumb/@pv.PVId" scrolling="no" style="border:solid 1px #CCC;" frameborder="0"></iframe>
-																		  break;
+                break;
 
-			case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
-																		  var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+            case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
+                var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 				<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=false&amp;color=ff7700"></iframe>			
-																																										   break;
+                break;
 
-			case VocaDb.Model.Domain.PVs.PVService.Youtube:
-																																										   EmbedPV(pv, width, height);
-																																										   break;
-		}
-	}
+            case VocaDb.Model.Domain.PVs.PVService.Youtube:
+                EmbedPV(pv, width, height);
+                break;
+        }
+    }
 }
 
 @helper EntryPictureFileLink(EntryPictureFileContract entryPictureFile) {
@@ -89,29 +93,29 @@
 }
 
 @helper EntryValidationMessage(bool draft, VocaDb.Model.Service.EntryValidators.ValidationResult validationResult, string helpSection) {
-	if (!validationResult.Passed || draft) {
-		using (Html.BeginHighlightPanel()) {
+    if (!validationResult.Passed || draft) {
+        using (Html.BeginHighlightPanel()) {
 			@Helpers.NotificationIcon()
-			if (!validationResult.Passed) {
+            if (!validationResult.Passed) {
 				<span>This entry is missing the following information:</span><br />
 				<ul>
 					@foreach (var line in validationResult.Errors) {
 						<li>@line</li>
-	 }
+     }
 				</ul>
-			} else if (draft) {
+            } else if (draft) {
 				<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
-			}
+            }
 			<span>See the <a href="@(Url.Action("Index", "Help") + "?guidelines+" + helpSection)">guide</a> for more information.</span>			
-		}
-	}
+        }
+    }
 }
 
 @helper EntrySearchBox(string prefix, bool includeIdBox, string addBtnText = null) {
 	
-	if (includeIdBox) {
+    if (includeIdBox) {
 	<input type="hidden" name="@(prefix + "Id")" id="@(prefix + "Id")" />	 
-	}
+    }
 	
 	<div>
 		@Html.TextBox(prefix + "Name", string.Empty, new { id = prefix + "Name", maxlength = "128" })
@@ -125,36 +129,36 @@
 }
 
 @helper EntryStatusMessage(EntryStatus status) {
-	switch (status) {
-		case EntryStatus.Draft:
+    switch (status) {
+        case EntryStatus.Draft:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionDraft">
 				<span class="icon draftIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Draft]
 			</span>
-break;
+            break;
 
-		case EntryStatus.Finished:
+        case EntryStatus.Finished:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionFinished">
 				<span class="icon asteriskIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Finished]
 			</span>
-break;
+            break;
 
-		case EntryStatus.Approved:
+        case EntryStatus.Approved:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionApproved">
 				<span class="icon tickIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Approved]
 			</span>
-break;
+            break;
 
-		case EntryStatus.Locked:
+        case EntryStatus.Locked:
 			<span title="@HelperRes.HelperStrings.StatusDescriptionLocked">
 				<span class="icon lockIcon"></span>
 				@Translate.EntryStatusNames[EntryStatus.Locked]
 			</span>
-break;
+            break;
 
-	}	
+    }	
 }
 
 @helper FormatPVLink(VocaDb.Model.DataContracts.PVs.PVContract pv, bool type = true) {
@@ -182,11 +186,11 @@ break;
 }
 
 @helper HelpMessage(string message, string id = null) {
-	if (string.IsNullOrEmpty(id)) {
+    if (string.IsNullOrEmpty(id)) {
 		<span class="helpIcon" title="@message"></span>
-	} else {
+    } else {
 		<span class="helpIcon" title="@message" id="@id"></span>	 
-	}
+    }
 }
 
 @helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {
@@ -201,7 +205,7 @@ break;
 		</thead>
 		<tbody id="namesListBody">
 			@foreach (var name in names) {
-	   RenderPartialExtensions.RenderPartial(Html, "LocalizedStringEditableRow", name);
+       RenderPartialExtensions.RenderPartial(Html, "LocalizedStringEditableRow", name);
    }
 		</tbody>
 
@@ -216,10 +220,10 @@ break;
 }
 
 @helper NotificationPanel(string message, string messageId = "") {
-	using (Html.BeginHighlightPanel()) {
+    using (Html.BeginHighlightPanel()) {
 		@Helpers.NotificationIcon()
 		<span id="@messageId">@message</span>
-	}
+    }
 }
 
 @helper PrintComment(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {	
@@ -252,13 +256,13 @@ break;
 }
 
 @helper Stars(int current, int max) {
-	for (int i = 1; i <= max; ++i) {
-		if (current >= i) {
+    for (int i = 1; i <= max; ++i) {
+        if (current >= i) {
 			<img src="@Url.Content("~/Content/star.png")" alt="*" />
-		} else {
+        } else {
 			<img src="@Url.Content("~/Content/star_disabled.png")" alt="" />
-		}
-	}
+        }
+    }
 }
 
 @helper Stars(double current, int max) {
@@ -283,12 +287,12 @@ break;
 }
 
 @helper ValidationSymmaryPanel(string message) {
-	if (!ViewData.ModelState.IsValid) {
-		using (Html.BeginErrorPanel()) {
+    if (!ViewData.ModelState.IsValid) {
+        using (Html.BeginErrorPanel()) {
 			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 			@Html.ValidationSummary(false, message)
-		}
-	}
+        }
+    }
 }
 
 @helper WebLinksList(IEnumerable<VocaDb.Web.Models.Shared.WebLinkDisplay> webLinks) {
@@ -303,7 +307,7 @@ break;
 		</thead>
 		<tbody id="webLinksListBody">
 			@foreach (var webLink in webLinks) {
-	   Html.RenderPartial("WebLinkEditRow", webLink);
+       Html.RenderPartial("WebLinkEditRow", webLink);
    }
 		</tbody>
 	</table>
