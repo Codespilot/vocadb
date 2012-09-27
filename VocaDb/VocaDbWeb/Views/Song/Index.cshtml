@@ -39,7 +39,7 @@
 
 	if (Model.Songs.Any()) {
 	
-<p>@ViewRes.SharedStrings.EntriesFound: @Model.Songs.TotalItemCount</p>
+<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
 	
 @Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 <br />

@@ -1,6 +1,6 @@
 ﻿@model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Activityfeed.ActivityEntryContract>
 
-<p>@ViewRes.SharedStrings.EntriesFound @Model.Items.TotalItemCount</p>
+<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Items.TotalItemCount)</p>
 
 <div class="pager">
 @Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action))

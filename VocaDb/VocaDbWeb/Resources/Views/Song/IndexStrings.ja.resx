@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddSong" xml:space="preserve">
-    <value>曲を提出する</value>
+    <value>曲を登録する</value>
   </data>
   <data name="Favorited" xml:space="preserve">
     <value>Favorited</value>

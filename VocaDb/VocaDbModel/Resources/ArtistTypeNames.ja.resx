@@ -124,7 +124,7 @@
     <value>サークル</value>
   </data>
   <data name="Label" xml:space="preserve">
-    <value>ラベル</value>
+    <value>レーベル</value>
   </data>
   <data name="OtherGroup" xml:space="preserve">
     <value>他のグループ</value>
@@ -142,7 +142,7 @@
     <value>特定されていない</value>
   </data>
   <data name="UTAU" xml:space="preserve">
-    <value>UTAUloid</value>
+    <value>UTAU</value>
   </data>
   <data name="Vocaloid" xml:space="preserve">
     <value>Vocaloid</value>

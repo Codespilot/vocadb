@@ -121,10 +121,10 @@
     <value>アルバムの登録</value>
   </data>
   <data name="Rating" xml:space="preserve">
-    <value>Rating</value>
+    <value>評価</value>
   </data>
   <data name="ReleaseDate" xml:space="preserve">
-    <value>Release date</value>
+    <value>リリース日</value>
   </data>
   <data name="Times" xml:space="preserve">
     <value>time(s)</value>
