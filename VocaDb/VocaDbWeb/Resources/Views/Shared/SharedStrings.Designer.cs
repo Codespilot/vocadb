@@ -151,7 +151,7 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entries found.
+        ///   Looks up a localized string similar to Entries found: {0}.
         /// </summary>
         public static string EntriesFound {
             get {

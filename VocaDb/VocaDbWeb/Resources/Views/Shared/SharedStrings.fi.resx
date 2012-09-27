@@ -148,7 +148,7 @@
     <value>Muokkaa</value>
   </data>
   <data name="EntriesFound" xml:space="preserve">
-    <value>Tietueita löytynyt</value>
+    <value>{0} tietuetta löytynyt</value>
   </data>
   <data name="FeaturedSongLists" xml:space="preserve">
     <value>Julkiset kappalelistat</value>

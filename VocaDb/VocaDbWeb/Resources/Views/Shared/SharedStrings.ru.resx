@@ -148,7 +148,7 @@
     <value>Редактировать</value>
   </data>
   <data name="EntriesFound" xml:space="preserve">
-    <value>Записей найдено</value>
+    <value>Записей найдено: {0}</value>
   </data>
   <data name="FeaturedSongLists" xml:space="preserve">
     <value>Отмеченные списки песен</value>

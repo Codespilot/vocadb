@@ -120,11 +120,17 @@
   <data name="Albums" xml:space="preserve">
     <value>アルバム</value>
   </data>
+  <data name="Apply" xml:space="preserve">
+    <value>表示</value>
+  </data>
   <data name="ArtistName" xml:space="preserve">
     <value>アーティスト名</value>
   </data>
   <data name="Artists" xml:space="preserve">
     <value>アーティスト</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>概要</value>
   </data>
   <data name="Drafts" xml:space="preserve">
     <value>下書き</value>
@@ -132,8 +138,17 @@
   <data name="Edit" xml:space="preserve">
     <value>編集</value>
   </data>
+  <data name="EntriesFound" xml:space="preserve">
+    <value>{0}件登録されています</value>
+  </data>
   <data name="FeaturedSongLists" xml:space="preserve">
     <value>注目曲リスト</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>絞り込む</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>タイトル</value>
   </data>
   <data name="ReleaseEvents" xml:space="preserve">
     <value>イベント</value>
