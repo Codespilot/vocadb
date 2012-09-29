@@ -1,62 +1,60 @@
 ﻿@{
-    ViewBag.Title = "Help / About";
+    ViewBag.Title = "サポート / DBについて";
 }
 
 <div id="tabs">
 
 	<ul>
-		<li><a href="#aboutvocadb">VocaDB</a></li>
+		<li><a href="#aboutvocadb">VocaDBについて</a></li>
 		<li><a href="#aboutvocaloid">Vocaloid</a></li>
-		<li><a href="#guidelines">Guidelines</a></li>
+		<li><a href="#guidelines">ガイドライン</a></li>
 	</ul>
 
 	<div id="aboutvocadb">
-		<h4 id="vocadbdescription">What is VocaDB?</h4>
-			<p>Vocaloid Database is aimed to be a specialized and unified source of information about Vocaloid songs, albums and producers.</p>
-			<p>Wiki, blogs and forums aren't suitable for storing, managing and effective search through a net of crosslinks between songs, producers, circles, vocaloids and PV's, and that information is scattered and duplicated across many websites in different languages.</p>
-			<p>VocaDB was created as a custom solution for information about Vocaloid music and a <a href="#vocadbmetadata" title="">service</a> for other websites like MikuDB and Vocaloid Wiki.</p>
+		<h4 id="vocadbdescription">VocaDBとは</h4>
+			<p>Vocaloid Database (VocaDB／VOCALOIDデータベース) は"VOCALOIDの曲やアルバム、アーティストに特化した総合情報源となることを目指しています。</p>
+			<p>wiki、ブログ、フォーラムは、言語の異なる様々なウェブサイトに散在／増殖する楽曲・プロデューサー・サークル・VOCALOID-PV・関連する情報を管理し効率的に検索したり、それらを蓄えておくには適していません。</p>
+			<p>VocaDBは、VOCALOID音楽に関する情報のための独自のシステムとして、また（MikuDBやVocaloid Wikiのように）他のウェブサイトへサービスを提供するものとして生み出されました。</p>
 			
 		<br />
-		<h4 id="vocadbfeatures">Can I download Vocaloid music here?</h4>
-			<p>No, VocaDB does not store any Vocaloid music files and does not provide any direct download links.</p>
-			<p>See <a href="#" onclick="guidelines();" title="">main guidelines section</a> for more details.</p>
+		<h4 id="vocadbfeatures">このサイトでVOCALOIDの曲をダウンロード出来ますか？</h4>
+			<p>いいえ、VocaDBには音楽ファイルは置いていませんし、ダウンロードリンクも提供していません。</p>
+			<p>詳しくはガイドラインを御覧下さい。</p>
 			
 		<br />
-		<h4 id="whatCanIDo">What can I do here?</h4>
-			<p>You can browse and search for Vocaloid songs, producers, circles, PVs and song lyrics.</p>
-			<p>Register (it's free and fast) to be able to:</p>
+		<h4 id="whatCanIDo">このサイトで何が出来ますか？</h4>
+			<p>VOCALOID曲、プロデューサー、サークル、PV、歌詞の検索が出来ます。</p>
+			<p>また、このサイトに登録しアカウントを取得すれば（無料で簡単に行えます）以下のことが出来るようになります。</p>
 			<ul>
-				<li>customize your display language and date formatting</li>
-				<li><a href="#" onclick="guidelines();" title="">contribute information to VocaDB</a></li>
-				<li>add songs to your favorites and songlists</li>
-				<li>list personal collections of Vocaloid albums</li>
-				<li>participate in the discussions</li>
-				<li>tag albums, artists and songs</li>
-				<li>and more</li>
+				<li>表示言語や日付の表示形式を変更</li>
+				<li>VocaDBに情報を書き込むこと</li>
+				<li>登録されている曲をお気に入りや曲リストに追加すること</li>
+				<li>VOCALOIDアルバムのコレクションリストを作ること</li>
+				<li>意見交換に参加すること</li>
+				<li>アルバム・アーティスト・曲にタグを付けること</li>
+				<li>他</li>
 			</ul>
 		
 		<br />
-		<h4 id="contribute">How can I report errors and add information to VocaDB?</h4>
-			<p>
-				If you encounter incorrect or missing information, you can let us know by using the reporting feature, or better yet, create an account and 
-				<a href="#" onclick="guidelines();" title="">correct it</a> yourself. 
-				If you have a technical problem with the site, please <a href="#contactus" title="">contact us</a>.
-			</p>
+		<h4 id="contribute">情報の誤りを報告するには、情報を追加するにはどうすれば良いですか？</h4>
+		<p>
+			もしデータベースに存在する情報に誤りや不足が有ったら、レポート機能を使用して管理スタッフに知らせることが出来ますが、あなた自身がアカウントを取得して修正した方が良いでしょう。サイトの技術的な問題が生じた場合は管理スタッフに御連絡下さい。
+		</p>
 			
 		<br />
-		<h4 id="vocadbmetadata">Can other sites get information from VocaDB?</h4>
-			<p>Yes, VocaDB has open interfaces and provides custom metadata request services - please <a href="#contactus" title="">contact</a> developers for details.</p>
+		<h4 id="vocadbmetadata">他のサイトでVocaDBからの情報を使用しても良いですか？</h4>
+		<p>はい。VocaDBは他の同種のサービスにも情報を提供しやすいように作られています。詳しくは開発者にお問い合わせ下さい</p>
 			
 		<br />
-		<h4 id="staff">Staff</h4>
+		<h4 id="staff">運営・管理スタッフ</h4>
 			<ul>
-				<li><a href="http://www.mikuchan.org/" title="">riipah</a> - founder, developer</li>
-				<li><a href="http://www.mikudb.com/" title="">Zakudono</a> - developer, contributor</li>
-				<li>digited - contributor</li>
-				<li><a href="http://youtube.com/user/salanos">SaLaNoS - artist</a></li>
+				<li><a href="http://www.mikuchan.org/" title="">riipah</a> - 設立者, 開発者</li>
+				<li><a href="http://www.mikudb.com/" title="">Zakudono</a> - 開発者, 情報寄稿者</li>
+				<li>digited - 情報寄稿者</li>
+				<li><a href="http://youtube.com/user/salanos">SaLaNoS - アーティスト</a></li>
 			</ul>
 		<br />
-		<h4 id="contactus">Contact Us</h4>
+		<h4 id="contactus">お問い合わせ</h4>
 			<a href="mailto:support@vocadb.net" title="">support@vocadb.net</a><br />
 			<a href="http://www.vocaloidotaku.net/index.php?/topic/25685-vocadb-vocaloid-database" title="">Discussion thead at VocaloidOtaku</a><br />
 			<a href="http://code.google.com/p/vocadb" title="">Google code</a><br />
@@ -116,26 +114,25 @@
 	<div id="guidelines">
 		<h3 id="glmain">General principles</h3>
 			<ul>
-				<li>Avoid submitting entries that already exist in the database. Duplicates have to be deleted or merged by the staff.</li>
-				<li>When editing entries that are finalized or approved (not drafts), make sure you have a good reason, and preferably state that reason in the edit notes unless it's obvious.</li>
-				<li>This is a database for Vocaloid-related content. UTAU and Vocaloid-related collaborations are accepted, but totally unrelated content will be deleted.</li>
-				<li>Download links to illegal file-sharing sites that provide no useful information (like Mediafire/Megaupload/Torrents) are NOT allowed. Links to informative blogs/forums/wikis (like MikuDB/Miku;Zen) ARE allowed.</li>
-				<li>Direct download links to media files (such as .mp3) are generally not allowed, even if they're official and legal. If the song/video is officially distributed, link to the artist's official download page (for example on piapro) instead.</li>
+				<li>既にデータベースに存在する事柄を新規に登録することは避けて下さい。同じ物について複数の項目が出来てしまっている場合はスタッフが削除あるいは一つの項目に統合します。</li>
+				<li>完成もしくは承認された（下書きの状態ではない）記事を編集する際は、あなたがそれに手を加える適切な理由が有るのか、よく考えて下さい。そして、敢えて手を加える理由が誰の目にも明らかな場合を除いて、なるべく記事を編集した理由をはっきり示して下さい。</li>
+				<li>これはVOCALOIDに関連するコンテンツのためのデータベースです。UTAUやVOCALOIDの関わるコラボレーションは承認されますが、全くVOCALOIDに関係の無いコンテンツは削除されます。</li>
+				<li>有用な情報をもたらさない不正なファイル共有サイト（例：Mediafire、Megaupload、Torrents）へのダウンロードリンクを貼ることは“認められていません”。有益な情報源であるブログ、フォーラム、wiki等(例：MikuDB、Miku;Zen)へのリンクは“認められています”。</li>
+				<li>メディアファイル（mp3等）へ直接リンクすることは、それが公式・合法のものであっても基本的に認められていません。もし公式に楽曲や動画を配布しているのであれば、直リンクの代わりにそのアーティストの使用している正規のダウンロードページ（例：ピアプロ）へのリンクを貼って下さい。</li>
 			</ul>
 
-		<h4>How can I add new producers, albums and songs?</h4>
-		<p>Register and use links in main navigation panel or buttons in producer, album and song list pages.</p>
+		<h4>どうすれば新しくアーティスト（プロデューサー）、アルバム、曲を追加出来るのですか？</h4>
+		<p>このサイトに登録し、トップページ左のメニューにあるリンク、または「アーティスト」、「アルバム」、「曲」それぞれのリストページにあるボタンから追加出来ます。</p>
 
-		<h4>Names and translations</h4>
+		<h4>名前と訳</h4>
 		<p>
-			All names should primarily be written in the original language, which usually means Japanese, but it can also be for example English or Korean. 
-			The system supports 3 language options:
+			全ての名前は第一にオリジナルの言語――多くの場合日本語で記載されているのでしょうが、例えば英語や韓国語の場合もあるでしょう。このデータベースには３つの言語オプションを用意してあります。：
 		</p>
 		<ul>
-			<li>"Non-English" covers original names in all languages that aren't English or romanized, for example Japanese.</li>
-			<li>"Romanized" is for foreign original names written in the Latin (western) alphabet. Usually this means Romaji.</li>
-			<li>"English" is for official names in English and known translations of foreign names.</li>
-			<li>"Unspecified" is for names where the language doesn't matter or it's unknown. Unspecified names will never be used as display names of an entry if another name is provided.</li>
+			<li>"英語以外の言語"はオリジナルのタイトルが英語とローマ字以外の全ての言語、例えば日本語等の場合に使用します。</li>
+			<li>"ローマ字表記"は、どの国の人にも読めるようにオリジナルの名前をアルファベットで記すものです。</li>
+			<li>"英語"は正式名が英語である場合や正式名の英訳が判っている場合に使用します。</li>
+			<li>"不明な言語"は意味を持たない言葉や未知の言語に対応しています。不明な言語による名称は他の言語の名称が設定されている場合は項目名として表示されることはありません。</li>
 		</ul>
 		<p>
 			If the original language is English, the name should be written to the English language field, otherwise it's written to the "Non-English" language field.
@@ -174,38 +171,36 @@
 		</p>
 		
 		<br />
-		<h3 id="glproducers">Artists, producers and Vocaloids</h3>
-		<h4 id="glartisttypes">Artist types</h4>
+		<h3 id="glproducers">アーティスト、プロデューサー、そしてVOCALOID</h3>
+		<h4 id="glartisttypes">アーティストの種類</h4>
             <p>
-			Every artist has a classification which also determines the artist's default roles. 
-            Roles can be overridden per album and per song -basis, but in many cases the artist is involved only in one role.
+			全てのアーティストは、彼もしくは彼女が作品の中で何の役割を担う人なのか判断するための分類がなされています。
+            その役割はアルバムや曲ごとに違ってくる可能性は有りますが、多くの場合、アーティストは一つの役割に深く関わります。
             </p>
 			<ul>
-				<li>"Producer" - the person who created the song (and in the case of a Vocaloid song, usually the vocals as well using Vocaloid). Not necessarily the original composer.</li>
-				<li>"Animator" - person who primarily animates PVs.</li>
-				<li>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</li>
-				<li>"Label" - a commercial company that publishes albums for other artists.</li>
-				<li>"Other group" - group that releases albums via Labels.</li>
-				<li>"Other vocalist" - human singers (NND vocalists).</li>
-				<li>"Other individual" - other people such as lyricists and illustrators.</li>
+				<li>"プロデューサー" - 曲（VOCALOID曲の場合、通常はボーカルにVOCALOIDを使用します）を作る人。必ずしもオリジナルの作曲家とは限りません。</li>
+				<li>"アニメーター" - 主にアニメーションPVを制作する人。</li>
+				<li>"サークル" - 同人イベント(コミケやボーマス等)で自主出版・自主販売を行うグループ。</li>
+				<li>"レーベル" - その他のアーティスト達のアルバムを出版する営利会社。</li>
+				<li>"その他のグループ" - レーベルからアルバムをリリースするグループ。</li>
+				<li>"その他のボーカル" - 人間のシンガー（ニコニコ動画における歌い手）。</li>
+				<li>"その他の個人" - 作詞家やイラストレーターなど、その他の人々。</li>
 			</ul>
         
-        <h4>Artist pictures</h4>
-            <p>
-            When adding pictures to artists, keep in mind all the pictures should be related to the artist himself, not his works. Do not upload album covers for artist entries.
+        <h4>アーティスト画像</h4>
+        <p>
+            アーティストに画像を追加する時は、その画像が彼もしくは彼女の作品（曲）にではなくアーティスト自身に関連深いものを選ぶよう心掛けて下さい。アーティストの項目にアルバムのジャケット画像をアップロードしないこと。とは言え、アーティストのメイン画像を選ぶに当たって共通のルールがあるわけではありません。アーティスト自身の写真や公式ロゴが望ましいです。アーティストに十分関連する画像であればいくつ追加しても構いません。
             <br />
-            That said, there is no common rule for choosing the main picture of an artist. Photos of the artist himself as well as official logos are preferred.
-            You may upload any number of these pictures as additional pictures for the artist, provided that they're relevant enough.
-            Copyrighted pictures or pictures of artists may be taken down if the copyright holder requests it.
+            画像の使用に問題がある場合は削除します。
             <br />
-            If no better picture is provided, any picture found on the artist's official profile, for example on twitter, is accepted as well.
-            </p>
+            もし適した画像が無ければ、アーティストの公式プロフィールにあるどんな画像でも――例えばツイッター等の画像でも可能です。
+        </p>
 
-		<h4>Completed artist entries should meet the following criteria:</h4>
+		<h4>アーティストの項目が完成されるには、以下の基準を満たしていなければなりません：</h4>
 		<ul>
-			<li>The artist has at least one name whose language option isn't "Unspecified".</li>
-			<li>Artist type isn't "Unspecified".</li>
-			<li>The artist has a description OR at least one external link (to a wiki, artist's NND MyList etc.)</li>
+			<li>アーティストは少なくとも一つは不明な言語によらない名前を持っていること</li>
+			<li>アーティストの種類が“不明”ではないこと</li>
+			<li>アーティストに説明、または一つ以上の外部リンク（wiki、ニコニコ動画のマイリスト等）が記載されていること</li>
 		</ul>
 		
 		<br />

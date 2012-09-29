@@ -61,11 +61,67 @@ namespace ViewRes.Help {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No, VocaDB does not store any Vocaloid music files and does not provide any direct download links.
+        ///See main guidelines section for more details..
+        /// </summary>
+        public static string GeCanIDownloadMusicHereText {
+            get {
+                return ResourceManager.GetString("GeCanIDownloadMusicHereText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can I download Vocaloid music here?.
+        /// </summary>
+        public static string GeCanIDownloadMusicHereTitle {
+            get {
+                return ResourceManager.GetString("GeCanIDownloadMusicHereTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can browse and search for Vocaloid songs, producers, circles, PVs and song lyrics.&lt;br /&gt;
+        ///Register (it&apos;s free and fast) to be able to:&lt;br /&gt;
+        ///			&lt;ul&gt;
+        ///				&lt;li&gt;customize your display language and date formatting&lt;/li&gt;
+        ///				&lt;li&gt;&lt;a href=&quot;#&quot; onclick=&quot;guidelines();&quot; title=&quot;&quot;&gt;contribute information to VocaDB&lt;/a&gt;&lt;/li&gt;
+        ///				&lt;li&gt;add songs to your favorites and songlists&lt;/li&gt;
+        ///				&lt;li&gt;list personal collections of Vocaloid albums&lt;/li&gt;
+        ///				&lt;li&gt;participate in the discussions&lt;/li&gt;
+        ///				&lt;li&gt;tag albums, artists and son [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string GeWhatCanIDoHereText {
+            get {
+                return ResourceManager.GetString("GeWhatCanIDoHereText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What can I do here?.
+        /// </summary>
+        public static string GeWhatCanIDoHereTitle {
+            get {
+                return ResourceManager.GetString("GeWhatCanIDoHereTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vocaloid Database is aimed to be a specialized and unified source of information about Vocaloid songs, albums and producers.
+        ///Wiki, blogs and forums aren&apos;t suitable for storing, managing and effective search through a net of crosslinks between songs, producers, circles, vocaloids and PV&apos;s, and that information is scattered and duplicated across many websites in different languages.
+        ///VocaDB was created as a custom solution for information about Vocaloid music and a service for other websites like MikuDB and  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string GeWhatIsVocaDbText {
+            get {
+                return ResourceManager.GetString("GeWhatIsVocaDbText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What is VocaDB?.
         /// </summary>
-        public static string GeWhatIsVocaDb {
+        public static string GeWhatIsVocaDbTitle {
             get {
-                return ResourceManager.GetString("GeWhatIsVocaDb", resourceCulture);
+                return ResourceManager.GetString("GeWhatIsVocaDbTitle", resourceCulture);
             }
         }
         
@@ -344,9 +400,9 @@ namespace ViewRes.Help {
         /// <summary>
         ///   Looks up a localized string similar to VocaDB.
         /// </summary>
-        public static string TabVocaDB {
+        public static string TabVocaDb {
             get {
-                return ResourceManager.GetString("TabVocaDB", resourceCulture);
+                return ResourceManager.GetString("TabVocaDb", resourceCulture);
             }
         }
     }
