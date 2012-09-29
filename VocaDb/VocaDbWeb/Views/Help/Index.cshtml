@@ -1,5 +1,7 @@
-﻿@{
+﻿@using VocaDb.Web.Helpers
+@{
     ViewBag.Title = "Help / About";
+    var contributors = new[] { "digited", "Zakudono", "salanos", "kyllakivi", "Goship", "mi.chan" };
 }
 
 <div id="tabs">
@@ -49,12 +51,10 @@
 			
 		<br />
 		<h4 id="staff">Staff</h4>
-			<ul>
-				<li><a href="http://www.mikuchan.org/" title="">riipah</a> - founder, developer</li>
-				<li><a href="http://www.mikudb.com/" title="">Zakudono</a> - developer, contributor</li>
-				<li>digited - contributor</li>
-				<li><a href="http://youtube.com/user/salanos">SaLaNoS - artist</a></li>
-			</ul>
+        <p>Founded and developed by <a href="Profile/riipah" title="">riipah</a>.</p>
+        <p>Major contributors: @Html.LinkList(contributors, u => Html.ActionLink(u, "Profile", "User", new { id = u }, null)).</p>
+        <p>Japanese translation by <a href="Profile/northernusako" title="">OdangoP/northernusako</a>.</p>
+
 		<br />
 		<h4 id="contactus">Contact Us</h4>
 			<a href="mailto:support@vocadb.net" title="">support@vocadb.net</a><br />
@@ -176,30 +176,38 @@
 		<br />
 		<h3 id="glproducers">Artists, producers and Vocaloids</h3>
 		<h4 id="glartisttypes">Artist types</h4>
-            <p>
-			Every artist has a classification which also determines the artist's default roles. 
-            Roles can be overridden per album and per song -basis, but in many cases the artist is involved only in one role.
-            </p>
-			<ul>
-				<li>"Producer" - the person who created the song (and in the case of a Vocaloid song, usually the vocals as well using Vocaloid). Not necessarily the original composer.</li>
-				<li>"Animator" - person who primarily animates PVs.</li>
-				<li>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</li>
-				<li>"Label" - a commercial company that publishes albums for other artists.</li>
-				<li>"Other group" - group that releases albums via Labels.</li>
-				<li>"Other vocalist" - human singers (NND vocalists).</li>
-				<li>"Other individual" - other people such as lyricists and illustrators.</li>
-			</ul>
+        <p>
+		Every artist has a classification which also determines the artist's default roles. 
+        Roles can be overridden per album and per song -basis, but in many cases the artist is involved only in one role.
+        </p>
+		<ul>
+			<li>"Producer" - the person who created the song (and in the case of a Vocaloid song, usually the vocals as well using Vocaloid). Not necessarily the original composer.</li>
+			<li>"Animator" - person who primarily animates PVs.</li>
+			<li>"Circle" - group that self-publishes and sells albums only at doujin events (Comiket or Vocaloid Master).</li>
+			<li>"Label" - a commercial company that publishes albums for other artists.</li>
+			<li>"Other group" - group that releases albums via Labels.</li>
+			<li>"Other vocalist" - human singers (NND vocalists).</li>
+			<li>"Other individual" - other people such as lyricists and illustrators.</li>
+		</ul>
         
         <h4>Artist pictures</h4>
-            <p>
-            When adding pictures to artists, keep in mind all the pictures should be related to the artist himself, not his works. Do not upload album covers for artist entries.
-            <br />
-            That said, there is no common rule for choosing the main picture of an artist. Photos of the artist himself as well as official logos are preferred.
-            You may upload any number of these pictures as additional pictures for the artist, provided that they're relevant enough.
-            Copyrighted pictures or pictures of artists may be taken down if the copyright holder requests it.
-            <br />
-            If no better picture is provided, any picture found on the artist's official profile, for example on twitter, is accepted as well.
-            </p>
+        <p>
+        When adding pictures to artists, keep in mind all the pictures should be related to the artist himself, not his works. Do not upload album covers for artist entries.
+        <br />
+        That said, there is no common rule for choosing the main picture of an artist. Photos of the artist himself as well as official logos are preferred.
+        You may upload any number of these pictures as additional pictures for the artist, provided that they're relevant enough.
+        Copyrighted pictures or pictures of artists may be taken down if the copyright holder requests it.
+        <br />
+        If no better picture is provided, any picture found on the artist's official profile, for example on twitter, is accepted as well.
+        </p>
+
+        <h4>Should I create an entry for artist's personal circle?</h4>
+        <p>
+            Many Vocaloid artists have a personal band/circle through which they publish their albums. Often there are no other members in this circle.
+            In this case it's not necessary to create a separate entry for that personal circle, but it's not wrong either, and might be a good idea
+            if the artist has separate websites/blogs for himself and his circle. If there is no separate entry for the circle, the circle name
+            can be included as an alias for that artist. In that case it would be advisable to mention this in the notes.
+        </p>
 
 		<h4>Completed artist entries should meet the following criteria:</h4>
 		<ul>
@@ -272,7 +280,7 @@
 
 		<h4 id="glpv">Song embeds and PVs</h4>
 		<p>
-			Songs may contain links to any number of embedded media files such as Promotional Videos (PVs) on NicoNicoDouga (NND) or Youtube, or songs on SoundCloud, 
+			Songs may contain links to any number of embedded media files such as Promotional Videos (PVs) on NicoNicoDouga (NND), Youtube or Vimeo, or songs on SoundCloud, 
 			provided that they're related to that song.<br />
 			Very often Vocaloid artists themselves upload their songs to NND, and sometimes to Youtube/SoundCloud as well, in which case these uploads are called "original".
 			Original uploads, if available, are highly preferred to any others.<br />
