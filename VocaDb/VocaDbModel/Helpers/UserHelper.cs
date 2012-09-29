@@ -29,9 +29,9 @@ namespace VocaDb.Model.Helpers {
 				detailsContract.EditCount / 4
 				+ detailsContract.SubmitCount / 2
 				+ detailsContract.TagVotes * 2
-				+ detailsContract.AlbumCollectionCount * 5
-				+ ownedAlbumCount * 10
-				+ albumRatingCount * 2
+				+ detailsContract.AlbumCollectionCount * 2
+				+ ownedAlbumCount * 5
+				+ albumRatingCount * 3
 				+ detailsContract.FavoriteSongCount * 2
 				+ detailsContract.CommentCount * 4
 				+ songListCount * 5;
