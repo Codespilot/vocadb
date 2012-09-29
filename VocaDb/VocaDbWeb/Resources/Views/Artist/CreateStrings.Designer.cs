@@ -115,6 +115,24 @@ namespace ViewRes.Artist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name (need at least one).
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field..
+        /// </summary>
+        public static string NameHelp {
+            get {
+                return ResourceManager.GetString("NameHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You need to enter a description OR external link..
         /// </summary>
         public static string NeedWebLinkOrDescription {

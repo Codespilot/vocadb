@@ -123,6 +123,9 @@
   <data name="NonEnglishName" xml:space="preserve">
     <value>英語以外の名前</value>
   </data>
+  <data name="PictureInfo" xml:space="preserve">
+    <value>対応形式 {0}. 最大{1}MBまで</value>
+  </data>
   <data name="RomajiName" xml:space="preserve">
     <value>ローマ字表記</value>
   </data>

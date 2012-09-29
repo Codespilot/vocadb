@@ -61,11 +61,20 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Producers and vocalists associated with this song..
+        ///   Looks up a localized string similar to Producers, vocalists and Vocaloids associated with this song..
         /// </summary>
         public static string ArtistDesc {
             get {
                 return ResourceManager.GetString("ArtistDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the artist cannot be found it probably hasn&apos;t been added yet. Check other possible spellings of that artist&apos;s name, and if you&apos;re confident there&apos;s no entry yet, please create one using the &quot;Add an artist&quot; menu. You can do this after the song has already been created. You can&apos;t create the artist on this page..
+        /// </summary>
+        public static string ArtistHelp {
+            get {
+                return ResourceManager.GetString("ArtistHelp", resourceCulture);
             }
         }
         
@@ -84,6 +93,15 @@ namespace ViewRes.Song {
         public static string Draft {
             get {
                 return ResourceManager.GetString("Draft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name (need at least one).
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         

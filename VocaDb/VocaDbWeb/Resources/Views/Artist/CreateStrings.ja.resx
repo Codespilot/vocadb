@@ -123,7 +123,31 @@
   <data name="ArtistInfo" xml:space="preserve">
     <value>新たに登録する前に、そのアーティストが既に登録されていないか確認して下さい。少なくとも一つは名前を記入しなければなりません。そのアーティストの説明、または、彼もしくは彼女に関する外部リンクを記入する必要があります。</value>
   </data>
+  <data name="ArtistType" xml:space="preserve">
+    <value>アーティストのタイプ</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>このアーティストについて一言説明を書いて下さい。（任意ですが、記入を推奨します。）</value>
+  </data>
+  <data name="Draft" xml:space="preserve">
+    <value>この項目は下書き（書きかけ）の状態です。</value>
+  </data>
+  <data name="ExternalLink" xml:space="preserve">
+    <value>外部リンク（アーティストのウェブサイト、初音ミクwiki、ニコ動マイリスト、等）</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>アーティスト名（１つは記入して下さい）</value>
+  </data>
+  <data name="NameHelp" xml:space="preserve">
+    <value>曲名が英語以外の言語（例えば日本語）もしくは使用言語が不明の場合は、"英語以外"(Non-English)の所に記入して下さい。もし判ればローマ字の項に読み方を書いて下さい。曲の正式名が英語の場合、または英訳が判る場合は"英語名"の所に記入して下さい。</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Picture" xml:space="preserve">
+    <value>画像</value>
+  </data>
+  <data name="WebLinkDescription" xml:space="preserve">
+    <value>リンクの説明</value>
   </data>
 </root>

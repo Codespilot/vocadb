@@ -135,6 +135,12 @@
   <data name="ExternalLink" xml:space="preserve">
     <value>Внешняя ссылка (на вебсайт артиста, Hatsune Miku wiki, NND MyList и т.д.)</value>
   </data>
+  <data name="Name" xml:space="preserve">
+    <value>Название (нужно хотя бы 1)</value>
+  </data>
+  <data name="NameHelp" xml:space="preserve">
+    <value>Тип названия "Неанглийское" - для названий (имён) на любом другом языке (японский, русский и т.д.), включая неопознанный пользователем язык. Добавление транслитерации неанглийского названия (имени) на английский (romanized) весьма желательно.</value>
+  </data>
   <data name="NeedWebLinkOrDescription" xml:space="preserve">
     <value>Нужно добавить или описание, или ссылку на сайт с описанием.</value>
   </data>

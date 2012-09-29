@@ -118,13 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArtistDesc" xml:space="preserve">
-    <value>Producers and vocalists associated with this song.</value>
+    <value>Producers, vocalists and Vocaloids associated with this song.</value>
+  </data>
+  <data name="ArtistHelp" xml:space="preserve">
+    <value>If the artist cannot be found it probably hasn't been added yet. Check other possible spellings of that artist's name, and if you're confident there's no entry yet, please create one using the "Add an artist" menu. You can do this after the song has already been created. You can't create the artist on this page.</value>
   </data>
   <data name="ArtistsInfo" xml:space="preserve">
     <value>Artists (need at least 1)</value>
   </data>
   <data name="Draft" xml:space="preserve">
     <value>This entry is a draft</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name (need at least one)</value>
   </data>
   <data name="NameHelp" xml:space="preserve">
     <value>If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.</value>

@@ -61,6 +61,15 @@ namespace ViewRes.Help {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to What is VocaDB?.
+        /// </summary>
+        public static string GeWhatIsVocaDb {
+            get {
+                return ResourceManager.GetString("GeWhatIsVocaDb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;Animator&quot; - person who primarily animates PVs..
         /// </summary>
         public static string GlArtistAnimator {
@@ -329,6 +338,15 @@ namespace ViewRes.Help {
         public static string GlRegister {
             get {
                 return ResourceManager.GetString("GlRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to VocaDB.
+        /// </summary>
+        public static string TabVocaDB {
+            get {
+                return ResourceManager.GetString("TabVocaDB", resourceCulture);
             }
         }
     }
