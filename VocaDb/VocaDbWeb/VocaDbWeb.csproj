@@ -1441,6 +1441,7 @@
     <Content Include="Views\User\LoginTwitterComplete.cshtml" />
     <Content Include="Views\Tag\Versions.cshtml" />
     <Content Include="Views\Event\Versions.cshtml" />
+    <Content Include="Views\Help\Index.ja.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

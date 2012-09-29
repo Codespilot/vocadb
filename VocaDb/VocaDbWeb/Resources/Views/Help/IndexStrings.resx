@@ -210,10 +210,38 @@ If no better picture is provided, any picture found on the artist's official pro
   <data name="GlRegister" xml:space="preserve">
     <value>Register and use links in main navigation panel or buttons in producer, album and song list pages.</value>
   </data>
-  <data name="GeWhatIsVocaDb" xml:space="preserve">
+  <data name="GeWhatIsVocaDbTitle" xml:space="preserve">
     <value>What is VocaDB?</value>
   </data>
-  <data name="TabVocaDB" xml:space="preserve">
+  <data name="TabVocaDb" xml:space="preserve">
     <value>VocaDB</value>
+  </data>
+  <data name="GeCanIDownloadMusicHereText" xml:space="preserve">
+    <value>No, VocaDB does not store any Vocaloid music files and does not provide any direct download links.
+See main guidelines section for more details.</value>
+  </data>
+  <data name="GeCanIDownloadMusicHereTitle" xml:space="preserve">
+    <value>Can I download Vocaloid music here?</value>
+  </data>
+  <data name="GeWhatCanIDoHereText" xml:space="preserve">
+    <value>You can browse and search for Vocaloid songs, producers, circles, PVs and song lyrics.&lt;br /&gt;
+Register (it's free and fast) to be able to:&lt;br /&gt;
+			&lt;ul&gt;
+				&lt;li&gt;customize your display language and date formatting&lt;/li&gt;
+				&lt;li&gt;&lt;a href="#" onclick="guidelines();" title=""&gt;contribute information to VocaDB&lt;/a&gt;&lt;/li&gt;
+				&lt;li&gt;add songs to your favorites and songlists&lt;/li&gt;
+				&lt;li&gt;list personal collections of Vocaloid albums&lt;/li&gt;
+				&lt;li&gt;participate in the discussions&lt;/li&gt;
+				&lt;li&gt;tag albums, artists and songs&lt;/li&gt;
+				&lt;li&gt;and more&lt;/li&gt;
+			&lt;/ul&gt;</value>
+  </data>
+  <data name="GeWhatCanIDoHereTitle" xml:space="preserve">
+    <value>What can I do here?</value>
+  </data>
+  <data name="GeWhatIsVocaDbText" xml:space="preserve">
+    <value>Vocaloid Database is aimed to be a specialized and unified source of information about Vocaloid songs, albums and producers.
+Wiki, blogs and forums aren't suitable for storing, managing and effective search through a net of crosslinks between songs, producers, circles, vocaloids and PV's, and that information is scattered and duplicated across many websites in different languages.
+VocaDB was created as a custom solution for information about Vocaloid music and a service for other websites like MikuDB and Vocaloid Wiki.</value>
   </data>
 </root>

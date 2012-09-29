@@ -209,10 +209,10 @@
   <data name="GlRegister" xml:space="preserve">
     <value>このサイトに登録し、トップページ左のメニューにあるリンク、または「アーティスト」、「アルバム」、「曲」それぞれのリストページにあるボタンから追加出来ます。</value>
   </data>
-  <data name="GeWhatIsVocaDb" xml:space="preserve">
+  <data name="GeWhatIsVocaDbTitle" xml:space="preserve">
     <value>VocaDBとは</value>
   </data>
-  <data name="TabVocaDB" xml:space="preserve">
+  <data name="TabVocaDb" xml:space="preserve">
     <value>VocaDBについて</value>
   </data>
 </root>
