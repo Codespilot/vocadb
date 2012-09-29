@@ -660,11 +660,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FindStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Views\Help\IndexStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IndexStrings.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\Views\Home\IndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1279,6 +1274,7 @@
     <Folder Include="EntryImg\Album\" />
     <Folder Include="EntryImg\Artist\" />
     <Folder Include="logs\" />
+    <Folder Include="Resources\Views\Help\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1930,12 +1926,6 @@
       <CustomToolNamespace>ViewRes.Event</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Event\FindStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Help\IndexStrings.ja.resx" />
-    <EmbeddedResource Include="Resources\Views\Help\IndexStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ViewRes.Help</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
