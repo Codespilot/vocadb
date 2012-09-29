@@ -210,4 +210,10 @@ If no better picture is provided, any picture found on the artist's official pro
   <data name="GlRegister" xml:space="preserve">
     <value>Register and use links in main navigation panel or buttons in producer, album and song list pages.</value>
   </data>
+  <data name="GeWhatIsVocaDb" xml:space="preserve">
+    <value>What is VocaDB?</value>
+  </data>
+  <data name="TabVocaDB" xml:space="preserve">
+    <value>VocaDB</value>
+  </data>
 </root>

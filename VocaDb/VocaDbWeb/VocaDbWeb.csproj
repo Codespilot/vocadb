@@ -197,6 +197,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistRoleNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\ArtistRoleNames.ja.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistRoleNames.ja.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ArtistRoleNames.ru.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1772,6 +1777,10 @@
     <Content Include="App_GlobalResources\SongTypeNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongTypeNames.ja.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\ArtistRoleNames.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistRoleNames.ja.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">

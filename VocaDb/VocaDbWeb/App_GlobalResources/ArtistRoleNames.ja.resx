@@ -117,46 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddArtist" xml:space="preserve">
-    <value>Add an artist</value>
+  <data name="Animator" xml:space="preserve">
+    <value>動画</value>
   </data>
-  <data name="ArtistInfo" xml:space="preserve">
-    <value>Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name. You need to enter a description OR an external link for reference.</value>
+  <data name="Arranger" xml:space="preserve">
+    <value>編曲</value>
   </data>
-  <data name="ArtistType" xml:space="preserve">
-    <value>Artist type</value>
+  <data name="Composer" xml:space="preserve">
+    <value>作曲</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>Please write a short description about this artist (optional, but recommended)</value>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
   </data>
-  <data name="Draft" xml:space="preserve">
-    <value>This entry is a draft.</value>
+  <data name="Distributor" xml:space="preserve">
+    <value>Distributor</value>
   </data>
-  <data name="ExternalLink" xml:space="preserve">
-    <value>External link (to artist's website, Hatsune Miku wiki, NND MyList etc.)</value>
+  <data name="Illustrator" xml:space="preserve">
+    <value>イラスト</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Name (need at least one)</value>
+  <data name="Instrumentalist" xml:space="preserve">
+    <value>演奏</value>
   </data>
-  <data name="NameHelp" xml:space="preserve">
-    <value>If the entry has a non-English (for example Japanese) name, or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or the there is a known English translation, input that into the English name field.</value>
+  <data name="Lyricist" xml:space="preserve">
+    <value>作詞</value>
   </data>
-  <data name="NeedWebLinkOrDescription" xml:space="preserve">
-    <value>You need to enter a description OR external link.</value>
+  <data name="Mastering" xml:space="preserve">
+    <value>マスタリング</value>
   </data>
-  <data name="Optional" xml:space="preserve">
-    <value>(optional)</value>
+  <data name="Other" xml:space="preserve">
+    <value>その他</value>
   </data>
-  <data name="Picture" xml:space="preserve">
-    <value>Picture</value>
+  <data name="Publisher" xml:space="preserve">
+    <value>Publisher</value>
   </data>
-  <data name="UnableToCreateArtist" xml:space="preserve">
-    <value>Unable to create artist. Correct the errors and try again.</value>
+  <data name="Vocalist" xml:space="preserve">
+    <value>ボーカル</value>
   </data>
-  <data name="WebLinkDescription" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="WebLinkURL" xml:space="preserve">
-    <value>URL</value>
+  <data name="VoiceManipulator" xml:space="preserve">
+    <value>調声</value>
   </data>
 </root>
