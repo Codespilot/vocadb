@@ -1927,7 +1927,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Event\FindStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ja.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>

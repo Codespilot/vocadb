@@ -127,7 +127,7 @@
     <value>最近の活動</value>
   </data>
   <data name="RecentSongs" xml:space="preserve">
-    <value>最近加えられて動画付けた曲</value>
+    <value>最近追加された動画</value>
   </data>
   <data name="SearchSite" xml:space="preserve">
     <value>Google Custom SearchでVocaDBを検索する</value>
