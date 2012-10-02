@@ -1,11 +1,12 @@
-﻿@using VocaDb.Web.Helpers;
+﻿@using VocaDb.Model.Domain.Security
+@using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.UserEdit
 
 @{
 	ViewBag.Title = "Edit user - " + Model.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Users", "Index"), 
-		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
 	};	
 }
 
@@ -20,15 +21,19 @@
 		</p>
 
 		@Html.LabelFor(m => m.GroupId)
-		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups)
+		@Html.EnumDropDownListFor(m => m.GroupId, Model.EditableGroups)
 	</fieldset>
-	
+
+    if (EntryPermissionManager.CanEditAdditionalPermissions(Login.Manager)) {
+ 	
 	<fieldset>
 		<legend>Additional permissions</legend>
 		@foreach (var entry in Model.Permissions) {	 
 			Html.RenderPartial("PermissionEditRow", entry);											 
 		}
 	</fieldset>
+        
+    }
 	
 	@Helpers.SaveBtn()
 	

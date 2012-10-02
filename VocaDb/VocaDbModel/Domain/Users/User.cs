@@ -187,6 +187,15 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual UserGroupId GroupId { get; set; }
 
+		/// <summary>
+		/// User's group. Cannot be null.
+		/// </summary>
+		public virtual UserGroup Group {
+			get {
+				return UserGroup.GetGroup(GroupId);
+			}
+		}
+
 		public virtual string Language {
 			get { return language; }
 			set {

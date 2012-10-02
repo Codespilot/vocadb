@@ -429,7 +429,9 @@ namespace VocaDb.Web.Controllers
 
 			LoginManager.VerifyPermission(PermissionToken.ManageUserPermissions);
 
-			model.Permissions = permissions.ToArray();
+			if (permissions != null)
+				model.Permissions = permissions.ToArray();
+
 			Service.UpdateUser(model.ToContract());
 
         	return RedirectToAction("Details", new {id = model.Id});
