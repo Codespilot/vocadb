@@ -859,9 +859,22 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<User>(contract.Id, (session, user) => {
 
+				if (!EntryPermissionManager.CanEditUser(PermissionContext, user.GroupId)) {
+					var loggedUser = GetLoggedUser(session);
+					var msg = string.Format("{0} (level {1}) not allowed to edit {2}", loggedUser, loggedUser.GroupId, user);
+					log.Error(msg);
+					throw new NotAllowedException(msg);
+				}
+
+				if (EntryPermissionManager.CanEditGroupTo(PermissionContext, contract.GroupId)) {
+					user.GroupId = contract.GroupId;
+				}
+
+				if (EntryPermissionManager.CanEditAdditionalPermissions(PermissionContext)) {
+					user.AdditionalPermissions = new PermissionCollection(contract.AdditionalPermissions.Select(p => PermissionToken.GetById(p.Id)));
+				}
+
 				user.Active = contract.Active;
-				user.AdditionalPermissions = new PermissionCollection(contract.AdditionalPermissions.Select(p => PermissionToken.GetById(p.Id)));
-				user.GroupId = contract.GroupId;
 
 				AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(user)), session);
 

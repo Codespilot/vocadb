@@ -31,7 +31,7 @@
 @if (Login.Manager.IsLoggedIn && Login.User.Id != Model.Id && Login.User.Active) {
 	//@Html.ActionLink("Compose message", "Messages", null, null, null, "composeTab", new { ReceiverName = Model.Name }, new { id = "composeMessageLink" });
 }
-@if (Login.CanManageUsers) {
+@if (Login.CanManageUsers && EntryPermissionManager.CanEditUser(Login.Manager, Model.GroupId)) {
 	@Html.Raw("&nbsp;")
 	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editUserLink" });
 }

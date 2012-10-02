@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Security {
 
@@ -48,6 +49,29 @@ namespace VocaDb.Model.Domain.Security {
 				return (trustedStatusPermissions.Contains(entry.Status));
 
 			return (normalStatusPermissions.Contains(entry.Status));
+
+		}
+
+		public static bool CanEditAdditionalPermissions(IUserPermissionContext permissionContext) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			return permissionContext.UserGroupId == UserGroupId.Admin;
+		}
+
+		public static bool CanEditGroupTo(IUserPermissionContext permissionContext, UserGroupId groupId) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			return permissionContext.UserGroupId == UserGroupId.Admin || permissionContext.UserGroupId > groupId;
+
+		}
+
+		public static bool CanEditUser(IUserPermissionContext permissionContext, UserGroupId groupId) {
+
+			ParamIs.NotNull(() => permissionContext);
+
+			return CanEditGroupTo(permissionContext, groupId);
 
 		}
 

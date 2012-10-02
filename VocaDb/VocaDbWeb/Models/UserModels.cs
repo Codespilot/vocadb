@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Helpers.Support;
 
 namespace VocaDb.Web.Models {
 
@@ -169,10 +170,16 @@ namespace VocaDb.Web.Models {
 	public class UserEdit {
 
 		public UserEdit() {
+
+			var groups = EnumVal<UserGroupId>.Values.Where(g => EntryPermissionManager.CanEditGroupTo(Login.Manager, g)).ToArray();
+			EditableGroups = new TranslateableEnum<UserGroupId>(() => global::Resources.UserGroupNames.ResourceManager, groups);
+
 			Permissions = new List<PermissionFlagEntry>();
+
 		}
 
-		public UserEdit(UserContract contract) {
+		public UserEdit(UserContract contract)
+			: this() {
 
 			Active = contract.Active;
 			GroupId = contract.GroupId;
@@ -184,6 +191,8 @@ namespace VocaDb.Web.Models {
 		}
 
 		public bool Active { get; set; }
+
+		public TranslateableEnum<UserGroupId> EditableGroups { get; set; }
 
 		[Display(Name = "User group")]
 		public UserGroupId GroupId { get; set; }

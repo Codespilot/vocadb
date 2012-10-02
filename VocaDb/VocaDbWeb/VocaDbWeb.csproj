@@ -620,6 +620,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DetailsStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Album\EditStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EditStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Album\IndexStrings.Designer.cs">
       <DependentUpon>IndexStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1859,6 +1864,11 @@
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\EditStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EditStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ja.resx">
       <SubType>Designer</SubType>
