@@ -476,6 +476,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Integrated to saving properties")]
 		public PVContract CreatePVForSong(int songId, PVService service, string pvId, PVType pvType) {
 
@@ -500,7 +501,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		/*
 		[Obsolete("Integrated to saving properties")]
@@ -571,11 +572,11 @@ namespace VocaDb.Model.Service {
 				}
 
 				if (pvResult != null) {
-					session.Save(song.CreatePV(pvResult.Service, pvResult.Id, PVType.Original, pvResult.Title));
+					session.Save(song.CreatePV(new PVContract(pvResult, PVType.Original)));
 				}
 
 				if (reprintPvResult != null) {
-					session.Save(song.CreatePV(reprintPvResult.Service, reprintPvResult.Id, PVType.Reprint, reprintPvResult.Title));
+					session.Save(song.CreatePV(new PVContract(reprintPvResult, PVType.Reprint)));
 				}
 
 				song.UpdateArtistString();
@@ -1157,7 +1158,7 @@ namespace VocaDb.Model.Service {
 				// PVs
 				var pvs = source.PVs.Where(a => !target.HasPV(a.Service, a.PVId));
 				foreach (var p in pvs) {
-					var pv = target.CreatePV(p.Service, p.PVId, p.PVType, p.Name);
+					var pv = target.CreatePV(new PVContract(p));
 					session.Save(pv);
 				}
 
@@ -1306,7 +1307,7 @@ namespace VocaDb.Model.Service {
 					var pvDiff = CollectionHelper.Diff(song.PVs, fullProperties.PVs, (p1, p2) => (p1.PVId == p2.PVId && p1.Service == p2.Service));
 
 					foreach (var pv in pvDiff.Added) {
-						session.Save(song.CreatePV(pv.Service, pv.PVId, pv.PVType, pv.Name));
+						session.Save(song.CreatePV(new PVContract(pv)));
 					}
 
 					foreach (var pv in pvDiff.Removed) {

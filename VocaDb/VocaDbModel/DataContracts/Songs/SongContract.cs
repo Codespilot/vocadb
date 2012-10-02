@@ -44,8 +44,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Version = song.Version;
 
 			// TODO: Used on the front page. Should be moved elsewhere.
-			var primaryPv = VideoServiceHelper.PrimaryPV(song.PVs);
-			ThumbUrl = (primaryPv != null ? VideoServiceHelper.Services[primaryPv.Service].GetThumbUrlById(primaryPv.PVId) : string.Empty);
+			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs);
 
 		}
 

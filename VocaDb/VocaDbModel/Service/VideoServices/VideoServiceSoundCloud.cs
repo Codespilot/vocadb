@@ -5,6 +5,7 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 using NLog;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -48,9 +49,11 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var trackId = trackIdElem.Value;
 			var title = titleElem.Value;
+			var author = XmlHelper.GetNodeTextOrEmpty(doc, "//track/user/username");
+			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//track/artwork-url");
 			var id = new SoundCloudId(trackId, url);
 
-			return VideoUrlParseResult.CreateOk(url, PVService.SoundCloud, id.ToString(), title);
+			return VideoUrlParseResult.CreateOk(url, PVService.SoundCloud, id.ToString(), VideoTitleParseResult.CreateSuccess(title, author, thumbUrl));
 
 		}
 

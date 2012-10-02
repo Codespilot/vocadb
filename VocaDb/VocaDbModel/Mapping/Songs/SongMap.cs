@@ -167,10 +167,12 @@ namespace VocaDb.Model.Mapping.Songs {
 			Table("PVsForSongs");
 			Id(m => m.Id);
 
+			Map(m => m.Author).Length(50).Not.Nullable();
 			Map(m => m.Name).Length(200).Not.Nullable();
 			Map(m => m.PVId).Length(255).Not.Nullable();
 			Map(m => m.PVType).Not.Nullable();
 			Map(m => m.Service).Not.Nullable();
+			Map(m => m.ThumbUrl).Length(255).Not.Nullable();
 
 			References(m => m.Song).Not.Nullable();
 

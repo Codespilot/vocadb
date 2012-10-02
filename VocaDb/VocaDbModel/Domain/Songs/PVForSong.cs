@@ -1,30 +1,23 @@
-﻿using System;
+﻿using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.PVs;
-using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Songs {
 
 	public class PVForSong : PV {
 
-		private string author;
 		private Song song;
+		private string thumbUrl;
 
-		public PVForSong() { }
-
-		public PVForSong(Song song, PVService service, string pvId, PVType pvType, string name)
-			: base(service, pvId, pvType, name) {
-
-			Author = string.Empty;
-			Song = song;
-
+		public PVForSong() {
+			ThumbUrl = string.Empty;
 		}
 
-		public virtual string Author {
-			get { return author; }
-			set {
-				ParamIs.NotNull(() => value);
-				author = value;
-			}
+		public PVForSong(Song song, PVContract contract)
+			: base(contract) {
+
+			Song = song;
+			ThumbUrl = contract.ThumbUrl ?? string.Empty;
+
 		}
 
 		public virtual Song Song {
@@ -33,6 +26,22 @@ namespace VocaDb.Model.Domain.Songs {
 				ParamIs.NotNull(() => value);
 				song = value;
 			}
+		}
+
+		public virtual string ThumbUrl {
+			get { return thumbUrl; }
+			set { 
+				ParamIs.NotNull(() => value);
+				thumbUrl = value; 
+			}
+		}
+
+		public override void CopyMetaFrom(PVContract contract) {
+
+			base.CopyMetaFrom(contract);
+
+			ThumbUrl = contract.ThumbUrl;
+
 		}
 
 		public virtual bool Equals(PVForSong another) {

@@ -4,10 +4,12 @@
 <tr>
 	<td>
 		@{ var item = Html.BeginCollectionItem("PVs"); }
+        @Html.HiddenFor(m => m.Author)
 		@Html.HiddenFor(m => m.Id)
 		@Html.HiddenFor(m => m.PVId)
 		@Html.HiddenFor(m => m.PVType)
 		@Html.HiddenFor(m => m.Service)  
+        @Html.HiddenFor(m => m.ThumbUrl)
 		@Html.HiddenFor(m => m.Url)
 		<a href="@Model.Url">@Model.Service</a>
 	</td>
@@ -17,6 +19,9 @@
 	<td>
 		@Html.TextBoxFor(m => m.Name, new { size = 40, @class = "input-xlarge" })
 		@{ item.Dispose(); }
+	</td>
+    <td>
+		@Model.Author
 	</td>
 	<td>
 		<a href="#" class="pvRemove textLink deleteLink">Delete</a>

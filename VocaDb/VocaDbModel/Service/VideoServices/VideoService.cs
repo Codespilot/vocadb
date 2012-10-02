@@ -92,11 +92,11 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public virtual VideoUrlParseResult ParseById(string id, string url, bool getTitle) {
+		public virtual VideoUrlParseResult ParseById(string id, string url, bool getMeta) {
 
-			var title = (getTitle ? GetVideoTitle(id).Title ?? string.Empty : string.Empty);
+			var meta = (getMeta ? GetVideoTitle(id) : VideoTitleParseResult.Empty);
 
-			return VideoUrlParseResult.CreateOk(url, Service, id, title);
+			return VideoUrlParseResult.CreateOk(url, Service, id, meta);
 
 		}
 

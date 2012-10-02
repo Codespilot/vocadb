@@ -33,12 +33,14 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		private VideoUrlParseResult(string url, PVService service, string id, string title) {
+		private VideoUrlParseResult(string url, PVService service, string id, VideoTitleParseResult meta) {
 
 			Url = url;
 			Service = service;
 			Id = id;
-			Title = title;
+			Title = meta.Title ?? string.Empty;
+			Author = meta.Author ?? string.Empty;
+			ThumbUrl = meta.ThumbUrl ?? string.Empty;
 
 			ResultType = VideoUrlParseResultType.Ok;
 
@@ -56,11 +58,13 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public static VideoUrlParseResult CreateOk(string url, PVService service, string id, string title) {
+		public static VideoUrlParseResult CreateOk(string url, PVService service, string id, VideoTitleParseResult meta) {
 
-			return new VideoUrlParseResult(url, service, id, title);
+			return new VideoUrlParseResult(url, service, id, meta);
 
 		}
+
+		public string Author { get; set; }
 
 		/// <summary>
 		/// Exception. Cannot be null or result type is anything but Ok.
@@ -78,6 +82,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		public PVService Service { get; set; }
 
 		public string Title { get; set; }
+
+		public string ThumbUrl { get; set; }
 
 		public string Url { get; set; }
 

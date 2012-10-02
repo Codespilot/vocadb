@@ -8,10 +8,13 @@ namespace VocaDb.Model.DataContracts.PVs {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PVContract {
 
+		public PVContract() { }
+
 		public PVContract(PV pv) {
 
 			ParamIs.NotNull(() => pv);
 
+			Author = pv.Author;
 			Id = pv.Id;
 			Name = pv.Name;
 			PVId = pv.PVId;
@@ -21,10 +24,22 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 		}
 
+		public PVContract(ArchivedPVContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			Author = contract.Author;
+			Name = contract.Name;
+			PVId = contract.PVId;
+			Service = contract.Service;
+			PVType = contract.PVType;
+
+		}
+
 		public PVContract(PVForSong pv)
 			: this((PV)pv) {
 
-			Author = pv.Author;
+			ThumbUrl = pv.ThumbUrl;
 
 		}
 
@@ -32,16 +47,16 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 			ParamIs.NotNull(() => parseResult);
 
+			Author = parseResult.Author;
 			Name = parseResult.Title;
 			PVId = parseResult.Id;
 			Service = parseResult.Service;
+			ThumbUrl = parseResult.ThumbUrl;
 			PVType = type;
 
 			Url = PV.GetUrl(Service, PVId);
 			
 		}
-
-		public PVContract() { }
 
 		[DataMember]
 		public string Author { get; set; }
@@ -60,6 +75,9 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 		[DataMember]
 		public PVType PVType { get; set; }
+
+		[DataMember]
+		public string ThumbUrl { get; set; }
 
 		[DataMember]
 		public string Url { get; set; }

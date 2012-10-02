@@ -11,6 +11,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
+			Map(m => m.Author).Length(50).Not.Nullable();
 			Map(m => m.Name).Length(200).Not.Nullable();
 			Map(m => m.PVId).Length(255).Not.Nullable();
 			Map(m => m.PVType).Not.Nullable();

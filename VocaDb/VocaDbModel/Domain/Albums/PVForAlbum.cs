@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.PVs;
+﻿using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.Domain.PVs;
 
 namespace VocaDb.Model.Domain.Albums {
 
@@ -8,8 +9,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public PVForAlbum() { }
 
-		public PVForAlbum(Album album, PVService service, string pvId, PVType pvType, string name)
-			: base(service, pvId, pvType, name) {
+		public PVForAlbum(Album album, PVContract contract)
+			: base(contract) {
 
 			Album = album;
 

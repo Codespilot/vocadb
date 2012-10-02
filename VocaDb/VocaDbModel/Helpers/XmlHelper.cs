@@ -1,10 +1,26 @@
 ﻿using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml.XPath;
 
 namespace VocaDb.Model.Helpers {
 
 	public static class XmlHelper {
+
+		public static string GetNodeTextOrEmpty(XElement node) {
+
+			if (node == null)
+				return string.Empty;
+
+			return node.Value;
+
+		}
+
+		public static string GetNodeTextOrEmpty(XDocument doc, string xpath) {
+
+			return GetNodeTextOrEmpty(doc.XPathSelectElement(xpath));
+
+		}
 
 		public static XDocument SerializeToXml<T>(T obj) {
 

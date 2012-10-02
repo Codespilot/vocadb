@@ -10,24 +10,37 @@ namespace VocaDb.Model.Domain.PVs {
 			return VideoServiceHelper.Services[service].GetUrlById(pvId);
 		}
 
+		private string author;
 		private string name;
 		private string pvId;
 
 		public PV() {
+			Author = string.Empty;
 			pvId = string.Empty;
 			Name = string.Empty;
 			Service = PVService.Youtube;
 			PVType = PVType.Other;
 		}
 
-		public PV(PVService service, string pvId, PVType pvType, string name)
+		public PV(PVContract contract)
 			: this() {
 
-			Service = service;
-			PVId = pvId;
-			PVType = pvType;
-			Name = name;
+			ParamIs.NotNull(() => contract);
 
+			Service = contract.Service;
+			PVId = contract.PVId;
+			PVType = contract.PVType;
+			Name = contract.Name;
+			Author = contract.Author ?? string.Empty;
+
+		}
+
+		public virtual string Author {
+			get { return author; }
+			set {
+				ParamIs.NotNull(() => value);
+				author = value;
+			}
 		}
 
 		public virtual int Id { get; set; }
@@ -67,6 +80,16 @@ namespace VocaDb.Model.Domain.PVs {
 
 		}
 
+		public virtual void CopyMetaFrom(PVContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			Author = contract.Author;
+			Name = contract.Name;
+			PVType = contract.PVType;
+
+		}
+
 		public virtual bool Equals(PV another) {
 
 			if (another == null)
@@ -87,7 +110,7 @@ namespace VocaDb.Model.Domain.PVs {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public override string ToString() {

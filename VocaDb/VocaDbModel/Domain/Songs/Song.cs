@@ -350,12 +350,11 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual PVForSong CreatePV(PVService service, string pvId, PVType pvType, string name) {
+		public virtual PVForSong CreatePV(PVContract contract) {
 
-			ParamIs.NotNullOrEmpty(() => pvId);
-			ParamIs.NotNull(() => name);
+			ParamIs.NotNull(() => contract);
 
-			var pv = new PVForSong(this, service, pvId, pvType, name);
+			var pv = new PVForSong(this, contract);
 			PVs.Add(pv);
 
 			UpdateNicoId();
@@ -590,7 +589,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 			foreach (var newEntry in diff.Added) {
 
-				var l = CreatePV(newEntry.Service, newEntry.PVId, newEntry.PVType, newEntry.Name);
+				var l = CreatePV(newEntry);
 				created.Add(l);
 
 			}
@@ -601,7 +600,7 @@ namespace VocaDb.Model.Domain.Songs {
 				var newEntry = newPVs.First(e => e.Id == entry.Id);
 
 				if (!entry.ContentEquals(newEntry)) {
-					linkEntry.Name = newEntry.Name;
+					linkEntry.CopyMetaFrom(newEntry);
 					edited.Add(linkEntry);
 				}
 
