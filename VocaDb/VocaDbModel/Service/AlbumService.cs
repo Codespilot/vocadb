@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using NLog;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.Globalization;
 using NHibernate;
 using NHibernate.Linq;
@@ -1152,7 +1153,7 @@ namespace VocaDb.Model.Service {
 					var pvDiff = CollectionHelper.Diff(album.PVs, fullProperties.PVs, (p1, p2) => (p1.PVId == p2.PVId && p1.Service == p2.Service));
 
 					foreach (var pv in pvDiff.Added) {
-						session.Save(album.CreatePV(pv.Service, pv.PVId, pv.PVType, pv.Name));
+						session.Save(album.CreatePV(new PVContract(pv)));
 					}
 
 					foreach (var pv in pvDiff.Removed) {

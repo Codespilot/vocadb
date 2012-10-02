@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public class VimeoParser : IVideoServiceParser {
-
-
 
 		public VideoTitleParseResult GetTitle(string id) {
 
@@ -41,7 +35,10 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoTitleParseResult.CreateError("Vimeo (error): title element not found");
 			}
 
-			return VideoTitleParseResult.CreateSuccess(titleElem.Value);
+			var author = XmlHelper.GetNodeTextOrEmpty(doc, "videos/video/user_name");
+			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "videos/video/thumbnail_small");
+
+			return VideoTitleParseResult.CreateSuccess(titleElem.Value, author, thumbUrl);
 
 		}
 

@@ -13,7 +13,8 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			try {
 				var video = request.Retrieve<Video>(videoEntryUrl);
-				return VideoTitleParseResult.CreateSuccess(video.Title);
+				var thumbUrl = video.Thumbnails.Count > 0 ? video.Thumbnails[0].Url : string.Empty;
+				return VideoTitleParseResult.CreateSuccess(video.Title, video.Author, thumbUrl);
 			} catch (Exception x) {
 				return VideoTitleParseResult.CreateError(x.Message);
 			}

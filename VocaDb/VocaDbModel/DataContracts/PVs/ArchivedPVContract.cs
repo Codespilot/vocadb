@@ -7,12 +7,16 @@ namespace VocaDb.Model.DataContracts.PVs {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArchivedPVContract {
 
-		public ArchivedPVContract() {}
+		public ArchivedPVContract() {
+			Author = ThumbUrl = string.Empty;
+		}
 
-		public ArchivedPVContract(PV pv) {
+		public ArchivedPVContract(PV pv)
+			: this() {
 
 			ParamIs.NotNull(() => pv);
 
+			Author = pv.Author;
 			Name = pv.Name;
 			PVId = pv.PVId;
 			Service = pv.Service;
@@ -23,7 +27,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 		public ArchivedPVContract(PVForSong pv)
 			: this((PV)pv) {
 
-			Author = pv.Author;
+			ThumbUrl = pv.ThumbUrl;
 
 		}
 
@@ -41,6 +45,9 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 		[DataMember]
 		public PVType PVType { get; set; }
+
+		[DataMember]
+		public string ThumbUrl { get; set; }
 
 	}
 

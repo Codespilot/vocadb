@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -15,6 +16,24 @@ namespace VocaDb.Model.Service.VideoServices {
 		};
 
 		public static readonly Dictionary<PVService, VideoService> Services = services.ToDictionary(s => s.Service);
+
+		public static string GetThumbUrl(PVForSong pv) {
+
+			return Services[pv.Service].GetThumbUrlById(pv.PVId);
+
+		}
+
+		public static string GetThumbUrl(IEnumerable<PVForSong> pvs) {
+
+			var pv = pvs.FirstOrDefault(p => p.PVType == PVType.Original && !string.IsNullOrEmpty(p.ThumbUrl));
+			if (pv == null)
+				pv = pvs.FirstOrDefault(p => p.PVType == PVType.Original);
+			if (pv == null)
+				pv = pvs.FirstOrDefault();
+
+			return (pv != null ? (!string.IsNullOrEmpty(pv.ThumbUrl) ? pv.ThumbUrl : GetThumbUrl(pv)) : string.Empty);
+
+		}
 
 		public static PVContract PrimaryPV(IEnumerable<PVContract> pvs, PVService? preferredService = null) {
 

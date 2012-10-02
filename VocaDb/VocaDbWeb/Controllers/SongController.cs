@@ -272,6 +272,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		/*
 		[Obsolete("Integrated to saving properties")]
 		public PartialViewResult CreatePVForSong(int songId, PVService service, string pvId, PVType type) {
 
@@ -281,7 +282,7 @@ namespace VocaDb.Web.Controllers
 
 			return PartialView("PVForSongEditRow", contract);
 
-		}
+		}*/
 
 		[HttpPost]
 		public ActionResult CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {

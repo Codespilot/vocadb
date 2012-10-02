@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using HtmlAgilityPack;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -22,6 +23,44 @@ namespace VocaDb.Model.Service.VideoServices {
 	}
 
 	public static class NicoHelper {
+
+		private static string GetUserName(Stream htmlStream, Encoding encoding) {
+
+			var doc = new HtmlDocument();
+			doc.Load(htmlStream, encoding);
+
+			var titleElem = doc.DocumentNode.SelectSingleNode("//html/body/div/p[2]/a/strong");
+
+			var titleText = (titleElem != null ? titleElem.InnerText : null);
+
+			return (titleText != null ? HtmlEntity.DeEntitize(titleText) : null);
+
+		}
+
+		public static string GetUserName(string userId) {
+
+			var url = string.Format("http://ext.nicovideo.jp/thumb_user/{0}", userId);
+
+			var request = WebRequest.Create(url);
+			WebResponse response;
+
+			try {
+				response = request.GetResponse();
+			} catch (WebException x) {
+				return null;
+			}
+
+			var enc = GetEncoding(response.Headers[HttpResponseHeader.ContentEncoding]);
+
+			try {
+				using (var stream = response.GetResponseStream()) {
+					return GetUserName(stream, enc);
+				}
+			} finally {
+				response.Close();
+			}
+
+		}
 
 		public static VideoTitleParseResult GetTitleAPI(string id) {
 
@@ -57,7 +96,11 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoTitleParseResult.CreateError("NicoVideo (error): title element not found");
 			}
 
-			return VideoTitleParseResult.CreateSuccess(titleElem.Value);
+			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/thumbnail_url");
+			var userId = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/user_id");
+			var author = GetUserName(userId);
+
+			return VideoTitleParseResult.CreateSuccess(titleElem.Value, author, thumbUrl);
 
 		}
 
@@ -86,7 +129,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			}
 
 			if (!string.IsNullOrEmpty(videoTitle)) {
-				return VideoTitleParseResult.CreateSuccess(videoTitle);
+				return VideoTitleParseResult.CreateSuccess(videoTitle, null, null);
 			} else {
 				return VideoTitleParseResult.CreateError("Title element not found");
 			}
