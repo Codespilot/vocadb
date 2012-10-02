@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Model.Helpers
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
+@using R = ViewRes.Album;
 @model AlbumEdit
 @{
 	ViewBag.Title = "Edit album - " + Model.Name;
@@ -57,7 +58,7 @@
 
 @Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glalbums")
 
-@Helpers.ValidationSymmaryPanel("Unable to save properties.")
+@Helpers.ValidationSymmaryPanel(R.EditStrings.UnableToSaveProperties)
 
 <br />
 @using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
@@ -69,62 +70,62 @@
 	<div id="tabs">
 
 		<ul>
-			<li><a href="#basicInfoTab">Basic info</a></li>
-			<li><a href="#artistsTab">Artists</a></li>
-			<li><a href="#tracksTab">Tracks</a></li>
-			<li><a href="#picsTab">Pictures</a></li>
-			<li><a href="#pvsTab">Media</a></li>
+			<li><a href="#basicInfoTab">@R.EditStrings.BasicInfoTab</a></li>
+			<li><a href="#artistsTab">@R.EditStrings.ArtistsTab</a></li>
+			<li><a href="#tracksTab">@R.EditStrings.TracksTab</a></li>
+			<li><a href="#picsTab">@R.EditStrings.PicturesTab</a></li>
+			<li><a href="#pvsTab">@R.EditStrings.MediaTab</a></li>
 		</ul>
 
 		<div id="basicInfoTab">
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DefaultLanguageSelection)
+				@Html.LabelFor(m => m.DefaultLanguageSelection, R.EditStrings.BaDefaultLanguageSelection)
 			</div>
 			<div class="editor-field">
 				@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Names)
+				@Html.LabelFor(m => m.Names, R.EditStrings.BaNames)
 			</div>
 			<div class="editor-field">
 				@Helpers.NamesList(Model.Names)
 			</div>
 
 			<div class="editor-label">
-				<label>Main cover picture</label>
+				<label>@R.EditStrings.BaMainCoverPicture</label>
 			</div>
 			<div class="editor-field">
 				<table>
 					<tr><td>
-						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@R.EditStrings.ImagePreview" class="coverPic" />
 					</td><td>
-						<p>Allowed types: @string.Join(", ", ImageHelper.AllowedExtensions) . Maximum size is @ImageHelper.MaxImageSizeMB MB.</p>
+						<p>@string.Format(R.EditStrings.BaPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)</p>
 						<input type="file" id="coverPicUpload" name="coverPicUpload" />
 					</td></tr>
 				</table>
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Description)
+				@Html.LabelFor(m => m.Description, R.EditStrings.BaDescription)
 			</div>
 			<div class="editor-field">
 				@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span4" })
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DiscType)
+				@Html.LabelFor(m => m.DiscType, R.EditStrings.BaDiscType)
 			</div>
 			<div class="editor-field">
 				@Html.DiscTypeDropDownListFor(m => m.DiscType, Model.DiscType)
 			</div>
 
 			<table><tr>
-				<td>Release Date:</td>
+				<td>@R.EditStrings.BaReleaseDate</td>
 				<td>
 					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseYear)
+						@Html.LabelFor(m => m.ReleaseYear, R.EditStrings.BaReleaseYear)
 					</div>
 					<div class="editor-field">
 						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10", maxlength = 4, @class = "input-small" })<br />
@@ -133,7 +134,7 @@
 				</td>
 				<td>
 					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseMonth)
+						@Html.LabelFor(m => m.ReleaseMonth, R.EditStrings.BaReleaseMonth)
 					</div>
 					<div class="editor-field">
 						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
@@ -142,7 +143,7 @@
 				</td>
 				<td>
 					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseDay)
+						@Html.LabelFor(m => m.ReleaseDay, R.EditStrings.BaReleaseDay)
 					</div>
 					<div class="editor-field">
 						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
@@ -152,7 +153,7 @@
 			</tr></table>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.CatNum)
+				@Html.LabelFor(m => m.CatNum, R.EditStrings.BaCatNum)
 			</div>
 			<div class="editor-field">
 				@Html.TextBoxFor(m => m.CatNum)
@@ -160,21 +161,21 @@
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.ReleaseEvent)
+				@Html.LabelFor(m => m.ReleaseEvent, R.EditStrings.BaReleaseEvent)
 			</div>
 			<div class="editor-field">
 				@Html.TextBoxFor(m => m.ReleaseEvent, new { id = "releaseEvent", size = 30 })
 			</div>
 			
 			<div class="editor-label">
-				@Html.LabelFor(m => m.WebLinks)
+				@Html.LabelFor(m => m.WebLinks, R.EditStrings.BaWebLinks)
 			</div>
 			<div class="editor-field">
 				@Helpers.WebLinksList(Model.WebLinks)
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Status)
+				@Html.LabelFor(m => m.Status, R.EditStrings.BaStatus)
 			</div>
 			<div class="editor-field">
 				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
@@ -184,16 +185,16 @@
 		</div>
 
 		<div id="tracksTab">
-			<p>Click track name to edit artists (new songs need to be saved first).</p>
+			<p>@R.EditStrings.TrTrackNameHelp</p>
 
 			<table id="tracksTable">
 				<thead>
 					<tr>
 						<th></th>
 						<th><input type="checkbox" id="selectAllTracksCheck" /></th>
-						<th>Disc</th>
-						<th>Track</th>
-						<th>Name</th>
+						<th>@R.EditStrings.TrDiscHead</th>
+						<th>@R.EditStrings.TrTrackHead</th>
+						<th>@R.EditStrings.TrNameHead</th>
 						<th colspan="3" />
 					</tr>
 				</thead>
@@ -205,12 +206,12 @@
 			</table>
 
 			<br />
-			<a href="#" class="textLink editLink" id="editSelectedTracksLink">Set artists for selected tracks</a>
+			<a href="#" class="textLink editLink" id="editSelectedTracksLink">@R.EditStrings.TrSetArtists</a>
 			
 			<br /><br />
-			<h4>Add new</h4>
-			<p>Note: do not write the artist name or track number into the track name. Artists will be specified separately.</p>
-			@Helpers.EntrySearchBox("songAdd", false, "Add")
+			<h4>@R.EditStrings.AddNew</h4>
+			<p>@R.EditStrings.TrAddTrackHelp</p>
+			@Helpers.EntrySearchBox("songAdd", false, ViewRes.SharedStrings.Add)
 		</div>
 
 		<div id="artistsTab">
@@ -258,6 +259,7 @@
 						<th>Service</th>
 						<th>Type</th>
 						<th>Name</th>
+                        <th>Author</th>
 						<th></th>
 					</tr>
 				</thead>
