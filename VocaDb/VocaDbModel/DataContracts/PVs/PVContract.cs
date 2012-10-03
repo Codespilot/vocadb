@@ -83,7 +83,9 @@ namespace VocaDb.Model.DataContracts.PVs {
 		public string Url { get; set; }
 
 		public PVContract NullToEmpty() {
+			Author = Author ?? string.Empty;
 			Name = Name ?? string.Empty;
+			ThumbUrl = ThumbUrl ?? string.Empty;
 			return this;
 		}
 
