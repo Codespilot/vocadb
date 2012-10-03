@@ -208,7 +208,7 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
-				if (query.Length < 3) {
+				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
 
 					directQ = directQ.Where(s =>
 						s.Names.SortNames.English == query
@@ -774,7 +774,7 @@ namespace VocaDb.Model.Service {
 		}
 
 		public PartialFindResult<T> Find<T>(Func<Song, T> fac, SongQueryParams queryParams)
-			where T : SongContract {
+			where T : class {
 
 			return HandleQuery(session => {
 
@@ -1059,16 +1059,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongWithAdditionalNamesContract GetSongWithPV(PVService service, string pvId) {
+		public T GetSongWithPV<T>(Func<Song, T> fac, PVService service, string pvId) 
+			where T : class {
 
 			return HandleQuery(session => {
 
 				var pv = session.Query<PVForSong>()
 					.FirstOrDefault(p => p.Service == service && p.PVId == pvId && !p.Song.Deleted);
 
-				return (pv != null ? new SongWithAdditionalNamesContract(pv.Song, PermissionContext.LanguagePreference) : null);
+				return (pv != null ? fac(pv.Song) : null);
 
 			});
+
+		}
+		public SongWithAdditionalNamesContract GetSongWithPV(PVService service, string pvId) {
+
+			return GetSongWithPV(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), service, pvId);
 
 		}
 

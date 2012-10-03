@@ -14,11 +14,11 @@
 			GetTotalCount = getTotalCount;
 		}
 
-		public bool GetTotalCount { get; private set; }
+		public bool GetTotalCount { get; set; }
 
-		public int MaxEntries { get; private set; }
+		public int MaxEntries { get; set; }
 
-		public int Start { get; private set; }
+		public int Start { get; set; }
 
 	}
 }

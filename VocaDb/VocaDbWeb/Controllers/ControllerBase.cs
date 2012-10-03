@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
@@ -188,6 +189,21 @@ namespace VocaDb.Web.Controllers {
 		protected void SetSearchEntryType(EntryType entryType) {
 
 			ViewData["GlobalSearchObjectType"] = entryType;
+
+		}
+
+		protected ActionResult Xml<T>(T obj) where T : class {
+
+			if (obj == null)
+				return new EmptyResult();
+
+			var doc = XmlHelper.SerializeToXml(obj);
+
+			return new ContentResult {
+				ContentType = "text/xml",
+				Content = doc.ToString(),
+				ContentEncoding = Encoding.UTF8
+			};
 
 		}
 
