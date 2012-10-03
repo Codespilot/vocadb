@@ -49,7 +49,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 		[DataMember]
-		public string AdditionalNames { get; private set; }
+		public string AdditionalNames { get; set; }
 
 		[DataMember]
 		public string ArtistString { get; set; }

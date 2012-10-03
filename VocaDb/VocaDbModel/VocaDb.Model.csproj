@@ -143,6 +143,7 @@
     <Compile Include="DataContracts\Songs\ArchivedSongVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithAlbumContract.cs" />
+    <Compile Include="DataContracts\Songs\SongForApiContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagVersionContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />

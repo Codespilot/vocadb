@@ -14,10 +14,16 @@ namespace VocaDb.Web.API.v1 {
  
         public override void RegisterArea(AreaRegistrationContext context)
         {
+
+			context.MapRoute(
+				"SongApi",
+				"api/v1/Song/{action}/{id}",
+				new { action = "Index", controller = "SongApi", id = UrlParameter.Optional });
+
             context.MapRoute(
-                "ApiV1",
-                "api/v1/{controller}/{action}/{id}",
-				new { action = "Index", id = UrlParameter.Optional });
+                "AlbumApi",
+                "api/v1/Album/{action}/{id}",
+				new { action = "Index", controller = "AlbumApi", id = UrlParameter.Optional });
         }
 
 	}
