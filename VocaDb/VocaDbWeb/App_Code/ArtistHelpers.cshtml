@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc;
 @using System.Web.Mvc.Html;
 @using VocaDb.Model.DataContracts.Artists;
+@using VocaDb.Model.Domain.Artists
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.DataContracts.Albums;
@@ -78,6 +79,9 @@
 		} else {
 			@artist.Name		
 		}
+        if (showRoles && artist.Roles != ArtistRoles.Default) {
+			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.Roles, ArtistRoles.Default) + ")")
+		}
 		if (artist.IsSupport) {
 			@(")")
 		}
@@ -85,12 +89,6 @@
 			@(", ")
 		}
 	}
-}
-
-@helper ArtistRolesList(IEnumerable<VocaDb.Model.Domain.Artists.ArtistRoles> roles) {
-	
-	
-	
 }
 
 @helper PrintArchivedArtistData(ComparedArtistsContract comparedArtists) {
