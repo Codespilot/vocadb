@@ -212,7 +212,7 @@ namespace VocaDb.Web.Controllers
 			return View(model);
 		}
 
-		public ActionResult Profile(string id) {
+		public new ActionResult Profile(string id) {
 
 			var model = Service.GetUserByNameNonSensitive(id);
 			return View("Details", model);
