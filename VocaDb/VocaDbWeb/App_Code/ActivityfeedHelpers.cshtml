@@ -10,7 +10,7 @@
 
 @helper EntryType(ActivityEntryContract entry) {
     
-    var tr = @HelperRes.ActivityFeedHelperStrings.ResourceManager.GetString(entry.EditEvent.ToString() + entry.EntryRef.EntryType);
+    var tr = HelperRes.ActivityFeedHelperStrings.ResourceManager.GetString(entry.EditEvent.ToString() + entry.EntryRef.EntryType);
     
     if (!string.IsNullOrEmpty(tr)) {
         
