@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts;
@@ -13,7 +12,6 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
-using VocaDb.Model.Service.Helpers;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
 using VocaDb.Model;
@@ -71,17 +69,6 @@ namespace VocaDb.Web.Controllers
 		public void DeletePVForAlbum(int pvForAlbumId) {
 
 			Service.DeletePv(pvForAlbumId);
-
-		}
-
-		[HttpGet]
-		public ActionResult ImportFromFile(int? id) {
-
-			var album = (id != null ? Service.GetAlbum(id.Value) : null);
-
-			var contract = new ParseAlbumFileResultContract(album);
-
-			return View(contract);
 
 		}
 
