@@ -116,8 +116,6 @@ namespace VocaDb.Model.Service {
 				directQ = AddOrder(directQ, sortRule, PermissionContext.LanguagePreference);	
 
 				var direct = directQ
-					.Take(maxResults)
-					//.FetchMany(s => s.Names)
 					.ToArray();
 
 				var additionalNamesQ = session.Query<ArtistName>()

@@ -46,6 +46,27 @@ namespace VocaDb.Model.Service {
 			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
 		}
 
+		private IQueryable<Album> AddNameMatchFilter(IQueryable<Album> criteria, string name, NameMatchMode matchMode) {
+
+			if (FindHelpers.ExactMatch(name, matchMode)) {
+
+				return criteria.Where(s =>
+					s.Names.SortNames.English == name
+						|| s.Names.SortNames.Romaji == name
+						|| s.Names.SortNames.Japanese == name);
+
+			} else {
+
+				return criteria.Where(s =>
+					s.Names.SortNames.English.Contains(name)
+						|| s.Names.SortNames.Romaji.Contains(name)
+						|| s.Names.SortNames.Japanese.Contains(name)
+						|| (s.OriginalRelease.CatNum != null && s.OriginalRelease.CatNum.Contains(name)));
+
+			}
+
+		}
+
 		private IQueryable<Album> AddOrder(IQueryable<Album> criteria, AlbumSortRule sortRule, ContentLanguagePreference languagePreference) {
 
 			switch (sortRule) {
@@ -150,26 +171,9 @@ namespace VocaDb.Model.Service {
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
 
 				directQ = AddDiscTypeRestriction(directQ, discType);
-
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English == query
-							|| s.Names.SortNames.Romaji == query
-							|| s.Names.SortNames.Japanese == query);
-
-				} else {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query)
-						|| (s.OriginalRelease.CatNum != null && s.OriginalRelease.CatNum.Contains(query)));
-
-				}
+				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
 				var direct = AddOrder(directQ, sortRule, LanguagePreference)
-					.Take(maxResults)
 					.ToArray();
 
 				var additionalNamesQ = session.Query<AlbumName>()
