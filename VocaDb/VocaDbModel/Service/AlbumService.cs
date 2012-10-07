@@ -186,8 +186,8 @@ namespace VocaDb.Model.Service {
 
 				additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
 
-				var additionalNames = AddOrder(additionalNamesQ
-					.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
+				var additionalNames = 
+					AddOrder(additionalNamesQ.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
 					.Distinct()
 					.Take(maxResults)
 					.ToArray()
@@ -261,7 +261,7 @@ namespace VocaDb.Model.Service {
 
 			additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
 
-			additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
+			additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
 
 			var additionalNamesAlbumQ = additionalNamesQ.Select(a => a.Album);
 
@@ -275,12 +275,6 @@ namespace VocaDb.Model.Service {
 				.ToArray();
 
 			return direct.Count() + additionalNames.Count();
-
-		}
-
-		private IEnumerable<Artist> GetAllLabels(ISession session) {
-
-			return session.Query<Artist>().Where(a => a.ArtistType == ArtistType.Label);
 
 		}
 
