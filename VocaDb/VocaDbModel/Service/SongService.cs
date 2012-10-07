@@ -208,7 +208,7 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
-				if (nameMatchMode == NameMatchMode.Exact || (nameMatchMode == NameMatchMode.Auto && query.Length < 3)) {
+				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
 
 					directQ = directQ.Where(s =>
 						s.Names.SortNames.English == query
