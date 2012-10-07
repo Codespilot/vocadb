@@ -39,6 +39,14 @@ function initPage(songId) {
 
 	});
 
+	$("#clearOriginalBtn").click(function () {
+
+	    $.post("../../Song/CreateSongLink", function (content) {
+	        $("#originalContent").html(content);
+	    });
+
+	});
+
 	function acceptOriginalSong(artistId, term) {
 
 		$("#changeOriginalPanel").hide();
@@ -135,7 +143,6 @@ function initPage(songId) {
 
 	$("#pvAdd").click(function () {
 
-		var service = $("#pvService_new").val();
 		var pvUrl = $("#pvUrl_new").val();
 		var pvType = $("#pvType_new").val();
 
