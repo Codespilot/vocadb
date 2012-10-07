@@ -5,7 +5,7 @@
 	ViewBag.Title = "Edit song - " + Model.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Songs", "Index"), 
-		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
 	};
 }
 
@@ -16,7 +16,7 @@
 	} else {
 		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })		
 	}
-	@Html.Raw("&nbsp");
+	@Html.Raw("&nbsp")
 }
 @if (Login.CanMergeEntries) {
 	@Html.ActionLink("Merge", "Merge", new { id = Model.Id }, new { id = "mergeLink" })
@@ -82,6 +82,7 @@
 				</span>
 
 				<input id="changeOriginalBtn" type="button" value="Change" class="btn" />
+				<input id="clearOriginalBtn" type="button" value="Clear" class="btn" />
 
 				<div id="changeOriginalPanel" style="display:none;">
 					<div>
