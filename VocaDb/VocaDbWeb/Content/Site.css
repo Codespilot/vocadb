@@ -581,6 +581,10 @@ a.extLink[href^="http://vgmdb.net/"] {
 	background: url("/Content/ExtIcons/vgmdb.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://vimeo.com/"] {
+	background: url("/Content/ExtIcons/vimeo.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www.yesasia.com/"] {
 	background: url("/Content/ExtIcons/yesasia.png") no-repeat left 50%;
 }

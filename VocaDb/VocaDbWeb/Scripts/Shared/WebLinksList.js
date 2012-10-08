@@ -23,6 +23,7 @@ function initWebLinksList() {
 		{ url: "toranoana.jp/mailorder/article/", desc: "Toranoana" },
 		{ url: "twitter.com/", desc: "Twitter" },
 		{ url: "vgmdb.net/", desc: "VGMdb" },
+		{ url: "vimeo.com/", desc: "Vimeo" },
 		{ url: "vocaloid.wikia.com/wiki/", desc: "Vocaloid Wiki" },
 		{ url: "www.yesasia.com/", desc: "YesAsia" },
 	    { url: "youtube.com/user/", desc: "Youtube Channel" }
