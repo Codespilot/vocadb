@@ -42,9 +42,9 @@ function initPage() {
 			allowCreateNew: false,
 			acceptBtnElem: artistAddBtn,
 			acceptSelection: acceptArtistSelection,
-			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")" },
-			createOptionSecondRow: function (item) { return item.AdditionalNames },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,OtherGroup,Unknown,Animator,OtherIndividual" },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
+			createOptionSecondRow: function (item) { return item.AdditionalNames; },
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,OtherIndividual" },
 			height: 300
 		});
 
