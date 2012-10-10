@@ -70,6 +70,15 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add artist.
+        /// </summary>
+        public static string ArAddArtist {
+            get {
+                return ResourceManager.GetString("ArAddArtist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artists.
         /// </summary>
         public static string ArtistsTab {
@@ -214,6 +223,42 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes on this tab are saved immediately..
+        /// </summary>
+        public static string ChangesAreSavedImmediately {
+            get {
+                return ResourceManager.GetString("ChangesAreSavedImmediately", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this album?.
+        /// </summary>
+        public static string ConfirmDeleteAlbum {
+            get {
+                return ResourceManager.GetString("ConfirmDeleteAlbum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to move this album to trash?.
+        /// </summary>
+        public static string ConfirmMoveToTrash {
+            get {
+                return ResourceManager.GetString("ConfirmMoveToTrash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit album {0}.
+        /// </summary>
+        public static string EditTitle {
+            get {
+                return ResourceManager.GetString("EditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image preview.
         /// </summary>
         public static string ImagePreview {
@@ -232,11 +277,29 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move to trash.
+        /// </summary>
+        public static string MoveToTrash {
+            get {
+                return ResourceManager.GetString("MoveToTrash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pictures.
         /// </summary>
         public static string PicturesTab {
             get {
                 return ResourceManager.GetString("PicturesTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please only upload pictures relevant to this album, nothing else..
+        /// </summary>
+        public static string PiPicturesGuide {
+            get {
+                return ResourceManager.GetString("PiPicturesGuide", resourceCulture);
             }
         }
         
