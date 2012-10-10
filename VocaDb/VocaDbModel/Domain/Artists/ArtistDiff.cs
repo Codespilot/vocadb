@@ -91,7 +91,8 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual bool IncludeAlbums {
 			get {
-				return (IsSnapshot || Albums);
+				// Note: albums list not included anymore.
+				return Albums;
 			}
 		}
 

@@ -439,6 +439,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
+		[Obsolete]
 		public virtual CollectionDiff<ArtistForAlbum, ArtistForAlbum> SyncAlbums(
 			IEnumerable<AlbumForArtistEditContract> newAlbums, Func<AlbumForArtistEditContract, Album> albumGetter) {
 

@@ -819,6 +819,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Reverts an album to an earlier archived version.
+		/// </summary>
+		/// <param name="archivedArtistVersionId">Id of the archived version to be restored.</param>
+		/// <returns>Result of the revert operation, with possible warnings if any. Cannot be null.</returns>
+		/// <remarks>Requires the RestoreRevisions permission.</remarks>
 		public EntryRevertedContract RevertToVersion(int archivedArtistVersionId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.RestoreRevisions);
@@ -843,11 +849,13 @@ namespace VocaDb.Model.Service {
 				if (versionWithPic != null)
 					artist.Picture = versionWithPic.Picture;
 
+				/*
 				// Albums
 				SessionHelper.RestoreObjectRefs<ArtistForAlbum, Album>(
 					session, warnings, artist.AllAlbums, fullProperties.Albums, (a1, a2) => (a1.Album.Id == a2.Id),
 					album => (!artist.HasAlbum(album) ? artist.AddAlbum(album) : null),
 					albumForArtist => albumForArtist.Delete());
+				 */
 
 				// Groups
 				SessionHelper.RestoreObjectRefs<GroupForArtist, Artist>(
@@ -855,11 +863,13 @@ namespace VocaDb.Model.Service {
 					grp => (!artist.HasGroup(grp) ? artist.AddGroup(grp) : null),
 					groupForArtist => groupForArtist.Delete());
 
+				/*
 				// Members
 				SessionHelper.RestoreObjectRefs<GroupForArtist, Artist>(
 					session, warnings, artist.AllMembers, fullProperties.Members, (a1, a2) => (a1.Member.Id == a2.Id),
 					member => (!artist.HasMember(member) ? artist.AddMember(member) : null),
 					groupForArtist => groupForArtist.Delete());
+				 */
 
 				// Names
 				if (fullProperties.Names != null) {
@@ -874,7 +884,7 @@ namespace VocaDb.Model.Service {
 				}
 
 				Archive(session, artist, ArtistArchiveReason.Reverted);
-				AuditLog("reverted " + EntryLinkFactory.CreateEntryLink(artist) + " to revision " + archivedVersion.Version, session);
+				AuditLog(string.Format("reverted {0} to revision {1}", EntryLinkFactory.CreateEntryLink(artist), archivedVersion.Version), session);
 
 				return new EntryRevertedContract(artist, warnings);
 
@@ -992,6 +1002,7 @@ namespace VocaDb.Model.Service {
 				if (picsDiff.Changed)
 					diff.Pictures = true;
 
+				/*
 				var albumGetter = new Func<AlbumForArtistEditContract, Album>(contract => {
 
 					Album album;
@@ -1043,7 +1054,7 @@ namespace VocaDb.Model.Service {
 
 					}
 
-				}
+				}*/
 
 				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString)
 					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)

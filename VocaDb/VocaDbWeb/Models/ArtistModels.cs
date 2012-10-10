@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Newtonsoft.Json;
@@ -87,6 +88,7 @@ namespace VocaDb.Web.Models {
 
 		}
 
+		[Obsolete("Discography editing disabled for albums")]
 		public IList<AlbumForArtistEditContract> AlbumLinks { get; set; }
 
 		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }

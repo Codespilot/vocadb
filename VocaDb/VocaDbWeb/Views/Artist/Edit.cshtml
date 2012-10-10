@@ -40,7 +40,6 @@
 		<ul>
 			<li><a href="#basicInfoTab">Basic info</a></li>
 			<li><a href="#picsTab">Pictures</a></li>
-			<li><a href="#discoTab">Discography</a></li>
 		</ul>
 
 		<div id="basicInfoTab">
@@ -141,25 +140,6 @@
 			
 			<a href="#" id="picAdd" class="addLink textLink">Create new</a>
 
-		</div>
-
-		<div id="discoTab">
-			@if (!Model.TooManyAlbums) {
-				<table>
-					<tbody id="albumTableBody">
-					@foreach (var album in Model.AlbumLinks) {
-		 Html.RenderPartial("ArtistForAlbumRow", album);
-	 }
-					</tbody>
-				</table>
-
-				<h4>Add album</h4>
-				@Helpers.EntrySearchBox("albumAdd", false)
-				<br />
-				<a href="#" id="albumAddAcceptBtn" class="textLink addLink">Add</a>
-   } else {
-				@Helpers.NotificationPanel("Album list editing is disabled for artists with too many albums.")
-   }
 		</div>
 
 	</div>

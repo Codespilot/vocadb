@@ -716,6 +716,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryDetailsStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Shared\EntryEditStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryEditStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Shared\EntryIndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2002,6 +2007,11 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\EntryEditStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntryEditStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.resx">
