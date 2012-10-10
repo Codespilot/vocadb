@@ -97,9 +97,9 @@ function initPage(songId) {
 			allowCreateNew: true,
 			acceptBtnElem: artistAddBtn,
 			acceptSelection: acceptArtistSelection,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.AdditionalNames },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Unknown,Animator,OtherGroup,OtherIndividual" }
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
+			createOptionSecondRow: function (item) { return item.AdditionalNames; },
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,Unknown,Animator,OtherGroup,OtherIndividual" }
 		});
 
 	function artistAdded(row) {
@@ -165,13 +165,6 @@ function initPage(songId) {
 	});
 
 	$("a.pvRemove").live("click", function () {
-
-		/*var id = getId(this);
-		$.post("../../Song/DeletePVForSong", { pvForSongId: id }, function () {
-
-			$("tr#pvRow_" + id).remove();
-
-		});*/
 
 		$(this).parent().parent().remove();
 		return false;
