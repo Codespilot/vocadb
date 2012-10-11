@@ -17,11 +17,11 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			if (artist.Albums.Count() <= MaxAlbums)
+			/*if (artist.Albums.Count() <= MaxAlbums)
 				AlbumLinks = artist.Albums.Select(a => new AlbumForArtistEditContract(a, languagePreference)).OrderBy(a => a.AlbumName).ToArray();
 			else {
 				TooManyAlbums = true;
-			}
+			}*/
 
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			Description = artist.Description;
@@ -36,8 +36,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
-		[DataMember]
-		public AlbumForArtistEditContract[] AlbumLinks { get; set; }
+		//[DataMember]
+		//public AlbumForArtistEditContract[] AlbumLinks { get; set; }
 
 		[DataMember]
 		public string AllNames { get; set; }

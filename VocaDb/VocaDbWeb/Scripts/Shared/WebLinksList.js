@@ -11,6 +11,7 @@ function initWebLinksList() {
 		{ url: "www.facebook.com/", desc: "Facebook" },
 		{ url: "itunes.apple.com/", desc: "iTunes" },
 		{ url: "karent.jp/", desc: "KarenT" },
+		{ url: "listen.jp/store/", desc: "Listen Japan" },
 		{ url: "shop.melonbooks.co.jp/", desc: "Melonbooks" },
 		{ url: "mikudb.com/", desc: "MikuDB" },
 		{ url: "www5.atwiki.jp/hmiku/pages/", desc: "MikuWiki" },
