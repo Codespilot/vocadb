@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
+using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Web.API.v1.Controllers
 {
@@ -41,6 +44,20 @@ namespace VocaDb.Web.API.v1.Controllers
 			var songs = Service.Find(s => new SongForApiContract(s, lang ?? ContentLanguagePreference.Default), param);
 
 			return Xml(songs);
+
+		}
+
+		public ActionResult ParsePVUrl(string pvUrl) {
+
+			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
+
+			if (!result.IsOk) {
+				return Json(new GenericResponse<string>(false, result.Exception.Message));
+			}
+
+			var contract = new PVContract(result, PVType.Original);
+
+			return Json(contract);
 
 		}
 
