@@ -55,7 +55,6 @@ namespace VocaDb.Web.Models {
 
 		public ArtistEdit() {
 
-			AlbumLinks = new List<AlbumForArtistEditContract>();
 			Groups = new List<GroupForArtistContract>();
 			Names = new List<LocalizedStringEdit>();
 			Pictures = new List<EntryPictureFileContract>();
@@ -68,7 +67,8 @@ namespace VocaDb.Web.Models {
 		public ArtistEdit(ArtistForEditContract artist)
 			: this() {
 
-			AlbumLinks = artist.AlbumLinks;
+			ParamIs.NotNull(() => artist);
+
 			ArtistType = artist.ArtistType;
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
@@ -87,9 +87,6 @@ namespace VocaDb.Web.Models {
 			CopyNonEditableFields(artist);
 
 		}
-
-		[Obsolete("Discography editing disabled for albums")]
-		public IList<AlbumForArtistEditContract> AlbumLinks { get; set; }
 
 		public Dictionary<ArtistType, string> AllArtistTypes { get; set; }
 
@@ -161,7 +158,6 @@ namespace VocaDb.Web.Models {
 			return new ArtistForEditContract {
 				
 				Id = this.Id,
-				AlbumLinks = this.AlbumLinks.ToArray(),
 				ArtistType = this.ArtistType,
 				Description =  this.Description ?? string.Empty,
 				Groups = this.Groups.ToArray(),
