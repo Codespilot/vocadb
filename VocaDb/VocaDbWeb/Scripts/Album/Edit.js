@@ -316,7 +316,7 @@ function initPage(albumId, discType) {
 	var songAddList = $("#songAddList");
 	var songAddName = $("input#songAddName");
 	var songAddBtn = $("#songAddAcceptBtn");
-	var songTypes = "Unspecified,Original,Remix,Cover,Mashup,Other" + (discType == "Video" ? ",MusicPV,DramaPV" : "");
+	var songTypes = "Unspecified,Original,Remaster,Remix,Cover,Mashup,Other" + (discType == "Video" ? ",MusicPV,DramaPV" : "");
 
 	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName",
 		{
