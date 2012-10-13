@@ -545,6 +545,7 @@
     </Compile>
     <Compile Include="Helpers\ActivityFeedRenderer.cs" />
     <Compile Include="Helpers\DataFormatUtils.cs" />
+    <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
     <Compile Include="Helpers\Login.cs" />

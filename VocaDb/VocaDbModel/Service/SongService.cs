@@ -50,6 +50,28 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private IQueryable<Song> AddTimeFilter(IQueryable<Song> criteria, TimeSpan timeFilter) {
+
+			if (timeFilter == TimeSpan.Zero)
+				return criteria;
+
+			var since = DateTime.Now - timeFilter;
+
+			return criteria.Where(t => t.CreateDate >= since);
+
+		}
+
+		private IQueryable<SongName> AddTimeFilter(IQueryable<SongName> criteria, TimeSpan timeFilter) {
+
+			if (timeFilter == TimeSpan.Zero)
+				return criteria;
+
+			var since = DateTime.Now - timeFilter;
+
+			return criteria.Where(t => t.Song.CreateDate >= since);
+
+		}
+
 		/// <summary>
 		/// Finds songs based on criteria.
 		/// </summary>
@@ -88,6 +110,8 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
+				q = AddTimeFilter(q, queryParams.TimeFilter);
+
 				q = AddOrder(q, sortRule, LanguagePreference);
 
 				songs = q
@@ -108,6 +132,8 @@ namespace VocaDb.Model.Service {
 
 				if (filterByType)
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
+
+				directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
 
 				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
 
@@ -139,6 +165,8 @@ namespace VocaDb.Model.Service {
 
 				if (draftsOnly)
 					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				additionalNamesQ = AddTimeFilter(additionalNamesQ, queryParams.TimeFilter);
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
@@ -174,13 +202,13 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			int count = (getTotalCount ? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode) : 0);
+			int count = (getTotalCount ? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode, queryParams.TimeFilter) : 0);
 
 			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, foundExactMatch);
 
 		}
 
-		private int GetSongCount(ISession session, string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode) {
+		private int GetSongCount(ISession session, string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode, TimeSpan timeFilter) {
 
 			bool filterByType = songTypes.Any();
 
@@ -195,6 +223,8 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
+				q = AddTimeFilter(q, timeFilter);
+
 				return q.Count();
 
 			} else {
@@ -207,6 +237,8 @@ namespace VocaDb.Model.Service {
 
 				if (filterByType)
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
+
+				directQ = AddTimeFilter(directQ, timeFilter);
 
 				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
 
@@ -239,6 +271,8 @@ namespace VocaDb.Model.Service {
 
 				if (filterByType)
 					additionalNamesQ = additionalNamesQ.Where(s => songTypes.Contains(s.Song.SongType));
+
+				additionalNamesQ = AddTimeFilter(additionalNamesQ, timeFilter);
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
@@ -1740,6 +1774,7 @@ namespace VocaDb.Model.Service {
 			SongTypes = songTypes ?? new SongType[] {};
 			SortRule = sortRule;
 			IgnoredIds = ignoredIds ?? new int[] {};
+			TimeFilter = TimeSpan.Zero;
 
 		}
 
@@ -1752,6 +1787,8 @@ namespace VocaDb.Model.Service {
 		public SongType[] SongTypes { get; set; }
 
 		public SongSortRule SortRule { get; set; }
+
+		public TimeSpan TimeFilter { get; set; }
 
 	}
 
