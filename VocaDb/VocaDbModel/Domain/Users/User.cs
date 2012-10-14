@@ -291,14 +291,18 @@ namespace VocaDb.Model.Domain.Users {
 
 		}
 
-		public virtual FavoriteSongForUser AddSongToFavorites(Song song) {
+		public virtual FavoriteSongForUser AddSongToFavorites(Song song, SongVoteRating rating) {
 			
 			ParamIs.NotNull(() => song);
 
-			var link = new FavoriteSongForUser(this, song);
+			var link = new FavoriteSongForUser(this, song, rating);
 			FavoriteSongs.Add(link);
 			song.UserFavorites.Add(link);
-			song.FavoritedTimes++;
+
+			if (rating == SongVoteRating.Favorite)
+				song.FavoritedTimes++;
+
+			song.RatingScore += FavoriteSongForUser.GetRatingScore(rating);
 
 			return link;
 

@@ -32,6 +32,10 @@ namespace VocaDb.Model.Domain.Security {
 
 		public User User { get; private set; }
 
+		public override string ToString() {
+			return (User != null ? User.ToString() : Name);
+		}
+
 	}
 
 }

@@ -442,14 +442,15 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
+				var ratings = session.Query<FavoriteSongForUser>().Where(a => !a.Song.Deleted).GroupBy(s => s.Song.Id);
 
-				foreach (var song in songs) {
+				foreach (var songRating in ratings) {
 
-					var oldVal = song.FavoritedTimes;
-					song.FavoritedTimes = session.Query<FavoriteSongForUser>().Count(s => s.Song.Id == song.Id);
-					if (oldVal != song.FavoritedTimes)
-						session.Update(song);
+					var song = session.Load<Song>(songRating.Key);
+					song.FavoritedTimes = songRating.Count(r => r.Rating == SongVoteRating.Favorite);
+					song.RatingScore = songRating.Sum(r => FavoriteSongForUser.GetRatingScore(r.Rating));
+
+					session.Update(song);
 
 				}
 

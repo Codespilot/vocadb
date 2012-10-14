@@ -219,6 +219,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual PVServices PVServices { get; set; }
 
+		public virtual int RatingScore { get; set; }
+
 		public virtual SongType SongType { get; set; }
 
 		public virtual EntryStatus Status { get; set; }

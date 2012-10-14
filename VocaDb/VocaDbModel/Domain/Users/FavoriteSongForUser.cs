@@ -1,24 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Songs;
+﻿using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Domain.Users {
 
 	public class FavoriteSongForUser {
+
+		public static int GetRatingScore(SongVoteRating rating) {
+
+			switch (rating) {
+				case SongVoteRating.Favorite:
+					return 3;
+				case SongVoteRating.Like:
+					return 2;
+				case SongVoteRating.Dislike:
+					return -1;
+				default:
+					return 0;
+			}
+
+		}
 
 		private Song song;
 		private User user;
 
 		public FavoriteSongForUser() {}
 
-		public FavoriteSongForUser(User user, Song song) {
+		public FavoriteSongForUser(User user, Song song, SongVoteRating rating) {
+
 			User = user;
 			Song = song;
+			Rating = rating;
+
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual SongVoteRating Rating { get; set; }
 
 		public virtual Song Song {
 			get { return song; }
@@ -40,7 +56,8 @@ namespace VocaDb.Model.Domain.Users {
 
 			Song.UserFavorites.Remove(this);
 			User.FavoriteSongs.Remove(this);
-			Song.FavoritedTimes--;
+
+			SetRating(SongVoteRating.Nothing);
 
 		}
 
@@ -64,7 +81,7 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public override int GetHashCode() {
-			return base.GetHashCode();
+			return Id.GetHashCode();
 		}
 
 		public virtual void Move(Song target) {
@@ -74,11 +91,36 @@ namespace VocaDb.Model.Domain.Users {
 			if (target.Equals(Song))
 				return;
 
-			Song.FavoritedTimes--;
 			Song.UserFavorites.Remove(this);
-			target.FavoritedTimes++;
 			target.UserFavorites.Add(this);
+
+			if (Rating == SongVoteRating.Favorite) {
+				Song.FavoritedTimes--;
+				target.FavoritedTimes++;
+			}
+
+			Song.RatingScore -= GetRatingScore(Rating);
+			target.RatingScore += GetRatingScore(Rating);
+
 			Song = target;
+
+		}
+
+		public virtual void SetRating(SongVoteRating newRating) {
+
+			if (Rating == newRating)
+				return;
+
+			if (newRating == SongVoteRating.Favorite)
+				song.FavoritedTimes++;
+
+			if (Rating == SongVoteRating.Favorite)
+				song.FavoritedTimes--;
+
+			song.RatingScore -= GetRatingScore(Rating);
+			song.RatingScore += GetRatingScore(newRating);
+
+			Rating = newRating;
 
 		}
 

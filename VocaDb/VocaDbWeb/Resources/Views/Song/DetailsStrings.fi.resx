@@ -121,7 +121,7 @@
     <value>Lisää kappalelistaan</value>
   </data>
   <data name="AddToFavorites" xml:space="preserve">
-    <value>Lisää suosikeihin</value>
+    <value>Suosikki</value>
   </data>
   <data name="AddToList" xml:space="preserve">
     <value>Lisää listaan</value>
@@ -157,7 +157,7 @@
     <value>Video</value>
   </data>
   <data name="RemoveFromFavorites" xml:space="preserve">
-    <value>Poista suosikeista</value>
+    <value>Poista arvosteluni</value>
   </data>
   <data name="SongDetails" xml:space="preserve">
     <value>Kappale</value>
@@ -185,5 +185,8 @@
   </data>
   <data name="OtherMedia" xml:space="preserve">
     <value>Muu media</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Tykkää</value>
   </data>
 </root>
