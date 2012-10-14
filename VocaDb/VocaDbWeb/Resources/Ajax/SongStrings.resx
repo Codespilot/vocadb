@@ -120,4 +120,7 @@
   <data name="AddedToList" xml:space="preserve">
     <value>Added to list</value>
   </data>
+  <data name="ThanksForRating" xml:space="preserve">
+    <value>Thank you for rating!</value>
+  </data>
 </root>

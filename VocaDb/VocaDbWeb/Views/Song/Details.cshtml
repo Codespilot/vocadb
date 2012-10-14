@@ -23,8 +23,8 @@
 }
 
 <span id="ratingButtons" style="@(Model.IsFavorited ? "display: none;" : "")">
-    <a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
     <a href="#" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
+    <a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
 </span>
 <a href="#" id="removeFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
 <a href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
@@ -206,7 +206,9 @@
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>
 				<td>
 					@Model.FavoritedTimes @R.DetailsStrings.Favorites,
-					@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits).
+					@string.Format(@R.DetailsStrings.Likes, Model.LikedTimes),
+					@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits),
+                    @string.Format(@R.DetailsStrings.TotalScore, Model.RatingScore).
 				</td>
 			</tr>
 
@@ -288,7 +290,8 @@
     $(document).ready(function() { 
 
         vdb.resources.song = {
-            addedToList: '@Html.Raw(AjaxRes.SongStrings.AddedToList)'
+            addedToList: '@Html.Raw(AjaxRes.SongStrings.AddedToList)',
+            thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'
         };
 
 		initPage(@Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress" );

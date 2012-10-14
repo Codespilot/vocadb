@@ -39,6 +39,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Name = song.TranslatedName[languagePreference];
 			NicoId = song.NicoId;
 			PVServices = song.PVServices;
+			RatingScore = song.RatingScore;
 			SongType = song.SongType;
 			Status = song.Status;
 			Version = song.Version;
@@ -71,6 +72,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public PVServices PVServices { get; set; }
+
+		[DataMember]
+		public int RatingScore { get; set; }
 
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]

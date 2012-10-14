@@ -53,6 +53,7 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 			$("#removeFavoriteLink").show();
 			$("#ratingButtons").hide();
+			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
 
 		});
 
@@ -66,6 +67,7 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	        $("#removeFavoriteLink").show();
 	        $("#ratingButtons").hide();
+	        vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
 
 	    });
 

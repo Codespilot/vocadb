@@ -189,4 +189,10 @@
   <data name="Like" xml:space="preserve">
     <value>Tykkää</value>
   </data>
+  <data name="Likes" xml:space="preserve">
+    <value>{0} tykkäys(tä)</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>{0} pistettä yhteensä</value>
+  </data>
 </root>

@@ -68,5 +68,14 @@ namespace AjaxRes {
                 return ResourceManager.GetString("AddedToList", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for rating!.
+        /// </summary>
+        public static string ThanksForRating {
+            get {
+                return ResourceManager.GetString("ThanksForRating", resourceCulture);
+            }
+        }
     }
 }

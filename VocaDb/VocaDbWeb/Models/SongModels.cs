@@ -47,12 +47,14 @@ namespace VocaDb.Web.Models {
 			Id = contract.Song.Id;
 			IsFavorited = contract.IsFavorited;
 			LatestComments = contract.LatestComments;
+			LikedTimes = contract.LikeCount;
 			Lyrics = contract.Lyrics;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;
 			OriginalVersion = (contract.Song.SongType != SongType.Original ? contract.OriginalVersion : null);
 			Pools = contract.Pools;
+			RatingScore = contract.Song.RatingScore;
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
 			Tags = contract.Tags;
@@ -126,6 +128,8 @@ namespace VocaDb.Web.Models {
 
 		public CommentContract[] LatestComments { get; set; }
 
+		public int LikedTimes { get; set; }
+
 		public LyricsForSongContract[] Lyrics { get; set; }
 
 		public string Name { get; set; }
@@ -150,6 +154,8 @@ namespace VocaDb.Web.Models {
 		public PVContract PrimaryPV { get; set; }
 
 		public ArtistForSongContract[] Producers { get; set; }
+
+		public int RatingScore { get; set; }
 
 		public SongType SongType { get; set; }
 
