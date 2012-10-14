@@ -1,5 +1,6 @@
 ﻿using FluentNHibernate.Mapping;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Mapping.Users {
@@ -112,6 +113,8 @@ namespace VocaDb.Model.Mapping.Users {
 			Table("FavoriteSongsForUsers");
 			Cache.ReadWrite();
 			Id(m => m.Id);
+
+			Map(m => m.Rating).CustomType<SongVoteRating>().Not.Nullable();
 
 			References(m => m.Song).Not.Nullable();
 			References(m => m.User).Not.Nullable();

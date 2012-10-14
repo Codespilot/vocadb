@@ -44,6 +44,8 @@ namespace VocaDb.Model.Service {
 					return criteria.OrderByDescending(a => a.CreateDate);
 				case SongSortRule.FavoritedTimes:
 					return criteria.OrderByDescending(a => a.FavoritedTimes);
+				case SongSortRule.RatingScore:
+					return criteria.OrderByDescending(a => a.RatingScore);
 			}
 
 			return criteria;
@@ -1821,7 +1823,9 @@ namespace VocaDb.Model.Service {
 
 		AdditionDate,
 
-		FavoritedTimes
+		FavoritedTimes,
+
+		RatingScore
 
 	}
 

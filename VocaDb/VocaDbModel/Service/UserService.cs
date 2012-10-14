@@ -149,27 +149,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void AddSongToFavorites(int userId, int songId) {
-
-			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
-
-			HandleTransaction(session => {
-
-				var user = session.Load<User>(userId);
-				var song = session.Load<Song>(songId);
-
-				var link = user.AddSongToFavorites(song);
-
-				session.Save(link);
-				session.Update(song);
-
-				AuditLog(string.Format("added {0} to favorites", EntryLinkFactory.CreateEntryLink(song)), 
-					session, user);
-
-			});
-
-		}
-
 		public UserContract CheckAccessWithKey(string name, string accessKey) {
 
 			return HandleQuery(session => {
@@ -652,6 +631,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Merged to UpdateSongRating")]
 		public void RemoveSongFromFavorites(int userId, int songId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
@@ -848,6 +828,43 @@ namespace VocaDb.Model.Service {
 				albumForUser.Rating = rating;
 				albumForUser.Album.UpdateRatingTotals();
 				session.Update(albumForUser.Album);
+
+			});
+
+		}
+
+		public void UpdateSongRating(int userId, int songId, SongVoteRating rating) {
+
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			HandleTransaction(session => {
+
+				var existing = session.Query<FavoriteSongForUser>().FirstOrDefault(f => f.User.Id == userId && f.Song.Id == songId);
+				var user = session.Load<User>(userId);
+				var song = session.Load<Song>(songId);
+				var agent = new AgentLoginData(user);
+
+				if (existing != null) {
+
+					if (rating != SongVoteRating.Nothing) {
+						existing.Rating = rating;
+						session.Update(existing);
+					} else {
+						existing.Delete();
+						session.Delete(existing);
+					}
+
+				} else if (rating != SongVoteRating.Nothing) {
+
+					var link = user.AddSongToFavorites(song, rating);
+					session.Save(link);
+
+				}
+
+				session.Update(song);
+
+				AuditLog(string.Format("rating {0} as '{1}'", EntryLinkFactory.CreateEntryLink(song), rating),
+					session, agent);
 
 			});
 

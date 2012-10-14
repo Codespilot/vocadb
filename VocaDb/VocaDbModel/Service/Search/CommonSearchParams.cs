@@ -1,5 +1,8 @@
 ﻿namespace VocaDb.Model.Service.Search {
 
+	/// <summary>
+	/// Common search parameters for all entry types.
+	/// </summary>
 	public class CommonSearchParams {
 
 		public CommonSearchParams() {

@@ -22,8 +22,11 @@
 	}
 }
 
-<a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "display: none;" : "")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
-<a href="#" id="removeFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>
+<span id="ratingButtons" style="@(Model.IsFavorited ? "display: none;" : "")">
+    <a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+    <a href="#" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
+</span>
+<a href="#" id="removeFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
 <a href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
 
 @Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink", @class = (Model.CanEdit ? "" : "disabled") })

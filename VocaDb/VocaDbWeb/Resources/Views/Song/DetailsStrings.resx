@@ -121,7 +121,7 @@
     <value>Add to custom list</value>
   </data>
   <data name="AddToFavorites" xml:space="preserve">
-    <value>Add to favorites</value>
+    <value>Favorite</value>
   </data>
   <data name="AddToList" xml:space="preserve">
     <value>Add to list</value>
@@ -157,7 +157,7 @@
     <value>PV</value>
   </data>
   <data name="RemoveFromFavorites" xml:space="preserve">
-    <value>Remove from favorites</value>
+    <value>Clear my rating</value>
   </data>
   <data name="SongDetails" xml:space="preserve">
     <value>Song</value>
@@ -185,5 +185,8 @@
   </data>
   <data name="OtherMedia" xml:space="preserve">
     <value>Other media</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Like</value>
   </data>
 </root>

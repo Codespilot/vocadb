@@ -70,7 +70,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to favorites.
+        ///   Looks up a localized string similar to Favorite.
         /// </summary>
         public static string AddToFavorites {
             get {
@@ -120,6 +120,15 @@ namespace ViewRes.Song {
         public static string Favorites {
             get {
                 return ResourceManager.GetString("Favorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Like.
+        /// </summary>
+        public static string Like {
+            get {
+                return ResourceManager.GetString("Like", resourceCulture);
             }
         }
         
@@ -223,7 +232,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove from favorites.
+        ///   Looks up a localized string similar to Clear my rating.
         /// </summary>
         public static string RemoveFromFavorites {
             get {

@@ -270,8 +270,7 @@
     <Compile Include="Domain\Songs\SongReport.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
-    <Compile Include="Domain\Songs\SongVote.cs" />
-    <Compile Include="Domain\Songs\SongVoteScore.cs" />
+    <Compile Include="Domain\Songs\SongVoteRating.cs" />
     <Compile Include="Domain\Tags\ArchivedTagVersion.cs" />
     <Compile Include="Domain\Tags\TagDiff.cs" />
     <Compile Include="Domain\Tags\TagEditableFields.cs" />

@@ -1,8 +1,10 @@
 ﻿
 function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
+    $("#ratingButtons").buttonset();
 	$("#addFavoriteLink").button({ disabled: $("#addFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
-	$("#removeFavoriteLink").button({ disabled: $("#removeFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-close'} });
+	$("#addLikeLink").button({ disabled: $("#addLikeLink").hasClass("disabled"), icons: { primary: 'ui-icon-plus' } });
+	$("#removeFavoriteLink").button({ disabled: $("#removeFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-close' } });
 	$("#addToListLink").button({ disabled: $("#addToListLink").hasClass("disabled"), icons: { primary: 'ui-icon-star'} });
 	$("#editSongLink").button({ disabled: $("#editSongLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
@@ -39,12 +41,18 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	}}]});
 
+	function setRating(rating, callback) {
+
+	    $.post(hostAddress + "/User/AddSongToFavorites", { songId: songId, rating: rating }, callback);
+
+	}
+
 	$("#addFavoriteLink").click(function () {
 
-		$.post(hostAddress + "/User/AddSongToFavorites", { songId: songId }, function (result) {
+		setRating('Favorite', function (result) {
 
 			$("#removeFavoriteLink").show();
-			$("#addFavoriteLink").hide();
+			$("#ratingButtons").hide();
 
 		});
 
@@ -52,11 +60,24 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	});
 
+	$("#addLikeLink").click(function () {
+
+        setRating('Like', function (result) {
+
+	        $("#removeFavoriteLink").show();
+	        $("#ratingButtons").hide();
+
+	    });
+
+	    return false;
+
+	});
+
 	$("#removeFavoriteLink").click(function () {
 
-		$.post(hostAddress + "/User/RemoveSongFromFavorites", { songId: songId }, function (result) {
+		setRating('Nothing', function (result) {
 
-			$("#addFavoriteLink").show();
+		    $("#ratingButtons").show();
 			$("#removeFavoriteLink").hide();
 
 		});

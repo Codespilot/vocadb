@@ -12,6 +12,7 @@ using MvcPaging;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
@@ -595,16 +596,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public void AddSongToFavorites(int songId) {
+		public void AddSongToFavorites(int songId, SongVoteRating rating = SongVoteRating.Favorite) {
 
-			Service.AddSongToFavorites(LoggedUserId, songId);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void RemoveSongFromFavorites(int songId) {
-
-			Service.RemoveSongFromFavorites(LoggedUserId, songId);
+			Service.UpdateSongRating(LoggedUserId, songId, rating);
 
 		}
 
