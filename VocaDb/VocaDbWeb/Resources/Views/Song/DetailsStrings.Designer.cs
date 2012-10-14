@@ -133,6 +133,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} like(s).
+        /// </summary>
+        public static string Likes {
+            get {
+                return ResourceManager.GetString("Likes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lyrics.
         /// </summary>
         public static string Lyrics {
@@ -255,6 +264,15 @@ namespace ViewRes.Song {
         public static string SongDetails {
             get {
                 return ResourceManager.GetString("SongDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} total score.
+        /// </summary>
+        public static string TotalScore {
+            get {
+                return ResourceManager.GetString("TotalScore", resourceCulture);
             }
         }
         

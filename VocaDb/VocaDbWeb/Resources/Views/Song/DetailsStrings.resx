@@ -189,4 +189,10 @@
   <data name="Like" xml:space="preserve">
     <value>Like</value>
   </data>
+  <data name="Likes" xml:space="preserve">
+    <value>{0} like(s)</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>{0} total score</value>
+  </data>
 </root>
