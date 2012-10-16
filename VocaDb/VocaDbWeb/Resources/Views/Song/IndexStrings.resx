@@ -120,13 +120,16 @@
   <data name="AddSong" xml:space="preserve">
     <value>Submit a new song</value>
   </data>
-  <data name="Favorited" xml:space="preserve">
-    <value>Favorited</value>
+  <data name="Favorites" xml:space="preserve">
+    <value>{0} favorite(s).</value>
   </data>
   <data name="FromAlbum" xml:space="preserve">
     <value>From album</value>
   </data>
-  <data name="Times" xml:space="preserve">
-    <value>time(s)</value>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>{0} total score.</value>
   </data>
 </root>
