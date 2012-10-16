@@ -225,13 +225,16 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			int count = (getTotalCount ? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode, queryParams.TimeFilter) : 0);
+			int count = (getTotalCount 
+				? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode, queryParams.TimeFilter, queryParams.OnlyWithPVs) 
+				: 0);
 
 			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, foundExactMatch);
 
 		}
 
-		private int GetSongCount(ISession session, string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode, TimeSpan timeFilter) {
+		private int GetSongCount(ISession session, string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode, 
+			TimeSpan timeFilter, bool onlyWithPVs) {
 
 			bool filterByType = songTypes.Any();
 
@@ -247,6 +250,7 @@ namespace VocaDb.Model.Service {
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
 				q = AddTimeFilter(q, timeFilter);
+				q = AddPVFilter(q, onlyWithPVs);
 
 				return q.Count();
 
@@ -262,6 +266,7 @@ namespace VocaDb.Model.Service {
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
 				directQ = AddTimeFilter(directQ, timeFilter);
+				directQ = AddPVFilter(directQ, onlyWithPVs);
 
 				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
 
@@ -296,6 +301,7 @@ namespace VocaDb.Model.Service {
 					additionalNamesQ = additionalNamesQ.Where(s => songTypes.Contains(s.Song.SongType));
 
 				additionalNamesQ = AddTimeFilter(additionalNamesQ, timeFilter);
+				additionalNamesQ = AddPVFilter(additionalNamesQ, onlyWithPVs);
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 

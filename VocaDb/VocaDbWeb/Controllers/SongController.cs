@@ -80,17 +80,23 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, string since, int? page, SongViewMode view = SongViewMode.Details,
-			bool onlyWithPVs = false) {
+		public ActionResult Index(IndexParams indexParams) {
 
 			WebHelper.VerifyUserAgent(Request);
-			int pageSize = 30;
-			var sortRule = sort ?? SongSortRule.Name;
-			var timeFilter = DateTimeUtils.ParseFromSimpleString(since);
+
+			var pageSize = indexParams.pageSize;
+			var page = indexParams.page;
+			var sortRule = indexParams.sort;
+			var timeFilter = DateTimeUtils.ParseFromSimpleString(indexParams.since);
+			var filter = indexParams.filter;
+			var songType = indexParams.songType;
+			var draftsOnly = indexParams.draftsOnly;
+			var onlyWithPVs = indexParams.onlyWithPVs;
+			var view = indexParams.view;
 
 			var queryParams = new SongQueryParams(filter,
-				songType != null && songType != SongType.Unspecified ? new[] { songType.Value } : new SongType[] { },
-				((page ?? 1) - 1) * pageSize, pageSize, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false, false, null) {
+				songType != SongType.Unspecified ? new[] { songType } : new SongType[] { },
+				(page - 1) * pageSize, pageSize, draftsOnly, true, NameMatchMode.Auto, sortRule, false, false, null) {
 
 				TimeFilter = timeFilter,
 				OnlyWithPVs = onlyWithPVs
@@ -98,12 +104,12 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);
 
-			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
+			if (page == 1 && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
 			SetSearchEntryType(EntryType.Song);
-			var model = new Index(result, filter, songType ?? SongType.Unspecified, since, onlyWithPVs, sortRule, view, draftsOnly, page, pageSize);
+			var model = new Index(result, filter, songType, indexParams.since, onlyWithPVs, sortRule, view, draftsOnly, page, pageSize);
 
         	return View(model);
 
