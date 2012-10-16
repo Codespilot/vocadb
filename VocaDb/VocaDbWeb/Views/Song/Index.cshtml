@@ -96,7 +96,7 @@ if (Model.ViewMode == SongViewMode.Details) {
 			<tr>
 				<td>
                     @if (primaryPv != null) {
-                        @Helpers.EmbedPV(new PVContract { Service = PVService.NicoNicoDouga, PVId = song.NicoId})
+                        @Helpers.EmbedPV(primaryPv)
                     }
                 </td>
                 <td>
