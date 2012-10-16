@@ -53,7 +53,7 @@ if (Model.ViewMode == SongViewMode.Details) {
 	<thead>
 		<tr>
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.Name })</th>
-			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, onlyWithPVs = Model.OnlyWithPVs, sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -124,7 +124,7 @@ if (Model.ViewMode == SongViewMode.Details) {
     
 }
     
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly, view = Model.ViewMode }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly, onlyWithPVs = Model.OnlyWithPVs, view = Model.ViewMode }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 
 }

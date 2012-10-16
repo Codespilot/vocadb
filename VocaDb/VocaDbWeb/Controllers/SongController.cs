@@ -80,7 +80,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, string since, int? page, SongViewMode view = SongViewMode.Details) {
+		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, string since, int? page, SongViewMode view = SongViewMode.Details,
+			bool onlyWithPVs = false) {
 
 			WebHelper.VerifyUserAgent(Request);
 			int pageSize = 30;
@@ -91,7 +92,8 @@ namespace VocaDb.Web.Controllers
 				songType != null && songType != SongType.Unspecified ? new[] { songType.Value } : new SongType[] { },
 				((page ?? 1) - 1) * pageSize, pageSize, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false, false, null) {
 
-				TimeFilter = timeFilter
+				TimeFilter = timeFilter,
+				OnlyWithPVs = onlyWithPVs
 			};
 
 			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);
@@ -101,7 +103,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			SetSearchEntryType(EntryType.Song);
-			var model = new Index(result, filter, songType ?? SongType.Unspecified, sortRule, view, draftsOnly, page, pageSize);
+			var model = new Index(result, filter, songType ?? SongType.Unspecified, since, onlyWithPVs, sortRule, view, draftsOnly, page, pageSize);
 
         	return View(model);
 

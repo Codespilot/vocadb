@@ -52,6 +52,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private IQueryable<Song> AddPVFilter(IQueryable<Song> criteria, bool onlyWithPVs) {
+
+			if (onlyWithPVs)
+				return criteria.Where(t => t.PVServices != PVServices.Nothing);
+			else
+				return criteria;
+
+		}
+
+		private IQueryable<SongName> AddPVFilter(IQueryable<SongName> criteria, bool onlyWithPVs) {
+
+			if (onlyWithPVs)
+				return criteria.Where(t => t.Song.PVServices != PVServices.Nothing);
+			else
+				return criteria;
+
+		}
+
 		private IQueryable<Song> AddTimeFilter(IQueryable<Song> criteria, TimeSpan timeFilter) {
 
 			if (timeFilter == TimeSpan.Zero)
@@ -113,6 +131,7 @@ namespace VocaDb.Model.Service {
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
 				q = AddTimeFilter(q, queryParams.TimeFilter);
+				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
 				q = AddOrder(q, sortRule, LanguagePreference);
 
@@ -136,6 +155,7 @@ namespace VocaDb.Model.Service {
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
 				directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
+				directQ = AddPVFilter(directQ, queryParams.OnlyWithPVs);
 
 				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
 
@@ -169,6 +189,7 @@ namespace VocaDb.Model.Service {
 					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
 				additionalNamesQ = AddTimeFilter(additionalNamesQ, queryParams.TimeFilter);
+				additionalNamesQ = AddPVFilter(additionalNamesQ, queryParams.OnlyWithPVs);
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
@@ -1777,12 +1798,15 @@ namespace VocaDb.Model.Service {
 			SortRule = sortRule;
 			IgnoredIds = ignoredIds ?? new int[] {};
 			TimeFilter = TimeSpan.Zero;
+			OnlyWithPVs = false;
 
 		}
 
 		public CommonSearchParams Common { get; set; }
 
 		public int[] IgnoredIds { get; set; }
+
+		public bool OnlyWithPVs { get; set; }
 
 		public PagingProperties Paging { get; set; }
 

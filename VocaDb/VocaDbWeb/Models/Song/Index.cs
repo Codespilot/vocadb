@@ -12,14 +12,16 @@ namespace VocaDb.Web.Models.Song {
 
 		public Index() {}
 
-		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, SongType songType, SongSortRule sortRule, SongViewMode viewMode, bool? draftsOnly, int? page,
-			int pageSize) {
+		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, SongType songType, string timeFilter, bool onlyWithPVs, SongSortRule sortRule, SongViewMode viewMode, 
+			bool? draftsOnly, int? page, int pageSize) {
 
 			DraftsOnly = draftsOnly ?? false;
 			Songs = new StaticPagedList<SongWithAlbumAndPVsContract>(result.Items, 
 				page ?? 1, pageSize, result.TotalCount);
 			Filter = filter;
 			SongType = songType;
+			Since = timeFilter;
+			OnlyWithPVs = onlyWithPVs;
 			SortRule = sortRule;
 			ViewMode = viewMode;
 
@@ -32,11 +34,15 @@ namespace VocaDb.Web.Models.Song {
 
 		public Dictionary<SongType, string> FilterableArtistTypes { get; set; }
 
+		public bool OnlyWithPVs { get; set; }
+
 		public IPagedList<SongWithAlbumAndPVsContract> Songs { get; set; }
 
 		public SongType SongType { get; set; }
 
 		public SongSortRule SortRule { get; set; }
+
+		public string Since { get; set; }
 
 		public SongViewMode ViewMode { get; set; }
 
