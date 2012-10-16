@@ -1,9 +1,12 @@
-﻿@using VocaDb.Web;
+﻿@using VocaDb.Model.DataContracts.PVs
+@using VocaDb.Model.Domain.PVs
+@using VocaDb.Web;
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
 @using PagedList.Mvc;
 @using PagedList;
+@using VocaDb.Web.Models.Song
 @using R = ViewRes.Song;
 @model VocaDb.Web.Models.Song.Index
 
@@ -56,9 +59,15 @@
 		@foreach (var song in Model.Songs) {
 			<tr>
 				<td>
-					@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
-						@SongHelpers.SongIconLink(song)
-	 }
+					@if (Model.ViewMode == SongViewMode.Details) {
+                        if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+						     @SongHelpers.SongIconLink(song)
+	                    }
+                    } else {
+                        if (!string.IsNullOrEmpty(song.NicoId)) {
+							@Helpers.EmbedPV(new PVContract { Service = PVService.NicoNicoDouga, PVId = song.NicoId})
+						}
+                    }
 				</td>
 				<td>
 					@Helpers.DraftIcon(song.Status)
@@ -69,7 +78,7 @@
 					}
 				</td>
 				<td>
-                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
 					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
 				</td>
 				<td>
