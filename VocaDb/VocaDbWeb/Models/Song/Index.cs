@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Songs;
@@ -12,12 +13,13 @@ namespace VocaDb.Web.Models.Song {
 
 		public Index() {}
 
-		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, SongType songType, string timeFilter, bool onlyWithPVs, SongSortRule sortRule, SongViewMode viewMode, 
-			bool? draftsOnly, int? page, int pageSize) {
+		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, SongType songType, string timeFilter, bool onlyWithPVs, 
+			SongSortRule sortRule, SongViewMode viewMode, 
+			bool draftsOnly, int page, int pageSize) {
 
-			DraftsOnly = draftsOnly ?? false;
+			DraftsOnly = draftsOnly;
 			Songs = new StaticPagedList<SongWithAlbumAndPVsContract>(result.Items, 
-				page ?? 1, pageSize, result.TotalCount);
+				page, pageSize, result.TotalCount);
 			Filter = filter;
 			SongType = songType;
 			Since = timeFilter;
@@ -36,15 +38,63 @@ namespace VocaDb.Web.Models.Song {
 
 		public bool OnlyWithPVs { get; set; }
 
+		public string Since { get; set; }
+
 		public IPagedList<SongWithAlbumAndPVsContract> Songs { get; set; }
 
 		public SongType SongType { get; set; }
 
 		public SongSortRule SortRule { get; set; }
 
-		public string Since { get; set; }
-
 		public SongViewMode ViewMode { get; set; }
+
+	}
+
+	public class IndexParams {
+
+		public IndexParams() {
+
+			page = 1;
+			pageSize = 30;
+			sort = SongSortRule.Name;
+			songType = SongType.Unspecified;
+
+		}
+
+		public IndexParams(Index index, int page)
+			: this() {
+
+			ParamIs.NotNull(() => index);
+
+			draftsOnly = index.DraftsOnly;
+			filter = index.Filter;
+			onlyWithPVs = index.OnlyWithPVs;
+			pageSize = index.Songs.PageSize;
+			since = index.Since;
+			songType = index.SongType;
+			sort = index.SortRule;
+			view = index.ViewMode;
+			this.page = page;
+
+		}
+
+		public bool draftsOnly { get; set; }
+
+		public string filter { get; set; }
+
+		public bool onlyWithPVs { get; set; }
+
+		public int page { get; set; }
+
+		public int pageSize { get; set; }
+
+		public string since { get; set; }
+
+		public SongType songType { get; set; }
+
+		public SongSortRule sort { get; set; }
+
+		public SongViewMode view { get; set; }
 
 	}
 
