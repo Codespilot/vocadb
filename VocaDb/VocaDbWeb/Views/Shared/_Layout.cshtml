@@ -114,7 +114,7 @@
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
 								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.Drafts, "Index", "Song", new { draftsOnly = true }, null)</li>
-								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes }, null)</li>
+								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
 							</ul>
 						</li>
 						<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>

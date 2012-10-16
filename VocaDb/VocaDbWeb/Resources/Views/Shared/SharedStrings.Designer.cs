@@ -268,7 +268,7 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Top favorited songs.
+        ///   Looks up a localized string similar to Top rated songs.
         /// </summary>
         public static string TopFavoritedSongs {
             get {
