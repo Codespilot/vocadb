@@ -140,6 +140,33 @@ namespace VocaDb.Web.Controllers {
 	
 		}
 
+		protected new ActionResult Json(object obj, string jsonPCallback) {
+
+			if (string.IsNullOrEmpty(jsonPCallback))
+				return Json(obj);
+
+			return Content(string.Format("{0}({1})", jsonPCallback, JsonConvert.SerializeObject(obj)), "text/json");
+
+		}
+
+		protected ActionResult Object<T>(T obj, DataFormat format) where T : class {
+
+			if (format == DataFormat.Xml)
+				return Xml(obj);
+			else
+				return Json(obj);
+
+		}
+
+		protected ActionResult Object<T>(T obj, DataFormat format, string jsonPCallback) where T : class {
+
+			if (format == DataFormat.Xml)
+				return Xml(obj);
+			else
+				return Json(obj, jsonPCallback);
+
+		}
+
 		protected string RenderPartialViewToString(string viewName, object model) {
 
 			if (string.IsNullOrEmpty(viewName))
@@ -229,6 +256,16 @@ namespace VocaDb.Web.Controllers {
 		public string Key { get; set; }
 
 		public ModelErrorCollection Errors { get; set; }
+
+	}
+
+	public enum DataFormat {
+
+		Auto,
+
+		Json,
+
+		Xml
 
 	}
 

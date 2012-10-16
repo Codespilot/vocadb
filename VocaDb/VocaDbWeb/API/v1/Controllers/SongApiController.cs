@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Web.Controllers;
 
 namespace VocaDb.Web.API.v1.Controllers
 {
@@ -20,15 +21,17 @@ namespace VocaDb.Web.API.v1.Controllers
 			get { return Services.Songs; }
 		}
 
-		public ActionResult ByPV(PVService service, string pvId, ContentLanguagePreference? lang) {
+		public ActionResult ByPV(PVService service, string pvId, ContentLanguagePreference? lang, string callback, 
+			DataFormat format = DataFormat.Auto) {
 
 			var song = Service.GetSongWithPV(s => new SongForApiContract(s, lang ?? ContentLanguagePreference.Default), service, pvId);
 
-			return Xml(song);
+			return Object(song, format, callback);
 
 		}
 
-		public ActionResult ByName(string query, ContentLanguagePreference? lang, int? start, int? maxResults, NameMatchMode? nameMatchMode) {
+		public ActionResult ByName(string query, ContentLanguagePreference? lang, int? start, int? maxResults, NameMatchMode? nameMatchMode,
+			string callback, DataFormat format = DataFormat.Auto) {
 
 			var param = new SongQueryParams(query, new SongType[] {}, 0, defaultMax, false, true, NameMatchMode.Exact, SongSortRule.Name, true, false, new int[] {});
 
@@ -43,11 +46,11 @@ namespace VocaDb.Web.API.v1.Controllers
 
 			var songs = Service.Find(s => new SongForApiContract(s, lang ?? ContentLanguagePreference.Default), param);
 
-			return Xml(songs);
+			return Object(songs, format, callback);
 
 		}
 
-		public ActionResult ParsePVUrl(string pvUrl) {
+		public ActionResult ParsePVUrl(string pvUrl, string callback, DataFormat format = DataFormat.Auto) {
 
 			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
 
@@ -57,7 +60,7 @@ namespace VocaDb.Web.API.v1.Controllers
 
 			var contract = new PVContract(result, PVType.Original);
 
-			return Json(contract);
+			return Object(contract, format, callback);
 
 		}
 
