@@ -70,11 +70,11 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Favorited.
+        ///   Looks up a localized string similar to {0} favorite(s)..
         /// </summary>
-        public static string Favorited {
+        public static string Favorites {
             get {
-                return ResourceManager.GetString("Favorited", resourceCulture);
+                return ResourceManager.GetString("Favorites", resourceCulture);
             }
         }
         
@@ -88,11 +88,20 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to time(s).
+        ///   Looks up a localized string similar to Rating.
         /// </summary>
-        public static string Times {
+        public static string Rating {
             get {
-                return ResourceManager.GetString("Times", resourceCulture);
+                return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} total score..
+        /// </summary>
+        public static string TotalScore {
+            get {
+                return ResourceManager.GetString("TotalScore", resourceCulture);
             }
         }
     }

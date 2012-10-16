@@ -48,7 +48,7 @@
 	<thead>
 		<tr>
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.Name })</th>
-			<th>@Html.ActionLink(R.IndexStrings.Favorited, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new { filter = Model.Filter, songType = Model.SongType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -69,7 +69,8 @@
 					}
 				</td>
 				<td>
-					@song.FavoritedTimes @R.IndexStrings.Times
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)
+					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
 				</td>
 				<td>
 					@if (Login.CanEdit(song)) {
