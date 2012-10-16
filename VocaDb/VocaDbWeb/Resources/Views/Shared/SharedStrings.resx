@@ -187,7 +187,7 @@
     <value>Tags</value>
   </data>
   <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>Top favorited songs</value>
+    <value>Top rated songs</value>
   </data>
   <data name="TopRatedAlbums" xml:space="preserve">
     <value>Top rated albums</value>
