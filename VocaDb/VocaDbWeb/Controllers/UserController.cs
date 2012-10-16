@@ -137,9 +137,7 @@ namespace VocaDb.Web.Controllers
 		[Obsolete]
 		public ActionResult FavoriteSongs(int id) {
 
-			var songs = Service.GetFavoriteSongs(id);
-
-			return PartialView(songs);
+			return RedirectToAction("FavoriteSongsPaged", new { id });
 
 		}
 
@@ -148,10 +146,10 @@ namespace VocaDb.Web.Controllers
 			const int songsPerPage = 50;
 
 			var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetFavoriteSongs(id, pageIndex * songsPerPage, songsPerPage);
-			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, songsPerPage, result.TotalCount), id, "FavoriteSongsPaged", "Favorite_songs");
+			var result = Service.GetFavoriteSongs(id, PagingProperties.CreateFromPage(pageIndex, songsPerPage, true));
+			var data = new PagingData<FavoriteSongForUserContract>(result.Items.ToPagedList(pageIndex, songsPerPage, result.TotalCount), id, "FavoriteSongsPaged", "Favorite_songs");
 
-			return PartialView("PagedSongs", data);
+			return PartialView(data);
 
 		}
 

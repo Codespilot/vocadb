@@ -64,6 +64,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
 			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);
 
+		public static readonly TranslateableEnum<SongVoteRating> SongVoteRatingNames =
+			new TranslateableEnum<SongVoteRating>(() => global::Resources.SongVoteRatingNames.ResourceManager);
+
 		public static readonly TranslateableEnum<TagEditableFields> TagEditableFieldNames =
 			new TranslateableEnum<TagEditableFields>(() => global::Resources.TagEditableFieldNames.ResourceManager);
 

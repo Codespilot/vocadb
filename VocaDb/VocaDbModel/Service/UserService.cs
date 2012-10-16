@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Threading;
 using System.Web;
 using NLog;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Paging;
 using NHibernate;
@@ -452,19 +453,34 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> GetFavoriteSongs(int userId, int start, int maxItems) {
+		public PartialFindResult<FavoriteSongForUserContract> GetFavoriteSongs(int userId, PagingProperties paging) {
 
 			return HandleQuery(session => {
 
 				var q = session.Query<FavoriteSongForUser>().Where(a => !a.Song.Deleted && a.User.Id == userId);
 
-				var resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
-				resultQ = resultQ.Skip(start).Take(maxItems);
+				var sortedQ = q.OrderByDescending(r => r.Rating);// FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference)
+;
+				switch (PermissionContext.LanguagePreference) {
+					case ContentLanguagePreference.Japanese:
+						sortedQ = sortedQ.OrderBy(e => e.Song.Names.SortNames.Japanese);
+						break;
+					case ContentLanguagePreference.English:
+						sortedQ = sortedQ.OrderBy(e => e.Song.Names.SortNames.English);
+						break;
+					default:
+						sortedQ = sortedQ.OrderBy(e => e.Song.Names.SortNames.Romaji);
+						break;
+				}
 
-				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = q.Count();
+				var resultQ = sortedQ.Skip(paging.Start).Take(paging.MaxEntries);
 
-				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, totalCount);
+				//resultQ = resultQ.Skip(paging.Start).Take(paging.MaxEntries);
+
+				var contracts = resultQ.ToArray().Select(a => new FavoriteSongForUserContract(a, PermissionContext.LanguagePreference)).ToArray();
+				var totalCount = (paging.GetTotalCount ? q.Count() : 0);
+
+				return new PartialFindResult<FavoriteSongForUserContract>(contracts, totalCount);
 
 			});
 		}

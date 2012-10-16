@@ -117,85 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountDisabled" xml:space="preserve">
-    <value>Tunnus on poistettu käytöstä</value>
+  <data name="Favorite" xml:space="preserve">
+    <value>Suosikki</value>
   </data>
-  <data name="Active" xml:space="preserve">
-    <value>Aktiivinen</value>
-  </data>
-  <data name="AdditionalPermissions" xml:space="preserve">
-    <value>Lisäoikeudet</value>
-  </data>
-  <data name="CollectionTab" xml:space="preserve">
-    <value>Kokoelma</value>
-  </data>
-  <data name="Comments" xml:space="preserve">
-    <value>Kommentit</value>
-  </data>
-  <data name="ConfirmDisable" xml:space="preserve">
-    <value>Haluatko varmasti poistaa tämän tunnuksen käytöstä?</value>
-  </data>
-  <data name="CreateNewList" xml:space="preserve">
-    <value>Luo uusi lista</value>
-  </data>
-  <data name="CustomListsTab" xml:space="preserve">
-    <value>Kappalelistat</value>
-  </data>
-  <data name="Disable" xml:space="preserve">
-    <value>Poista käytöstä</value>
-  </data>
-  <data name="EffectivePermissions" xml:space="preserve">
-    <value>Voimassaolevat oikeudet</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Sähköposti</value>
-  </data>
-  <data name="FavoriteSongsTab" xml:space="preserve">
-    <value>Tykätyt kappaleet</value>
-  </data>
-  <data name="FollowedArtistsTab" xml:space="preserve">
-    <value>Seuratut artistit</value>
-  </data>
-  <data name="LastLogin" xml:space="preserve">
-    <value>Viimeinen kirjautuminen</value>
-  </data>
-  <data name="Level" xml:space="preserve">
-    <value>Taso</value>
-  </data>
-  <data name="MemberSince" xml:space="preserve">
-    <value>Liittymispäivä</value>
-  </data>
-  <data name="Messages" xml:space="preserve">
-    <value>Viestit</value>
-  </data>
-  <data name="MySettings" xml:space="preserve">
-    <value>Omat asetukset</value>
-  </data>
-  <data name="Power" xml:space="preserve">
-    <value>Voima</value>
-  </data>
-  <data name="StatsTab" xml:space="preserve">
-    <value>Tilastot</value>
-  </data>
-  <data name="Submissions" xml:space="preserve">
-    <value>Luotuja merkintöjä</value>
-  </data>
-  <data name="TagVotes" xml:space="preserve">
-    <value>Tägien ääniä</value>
-  </data>
-  <data name="TotalEdits" xml:space="preserve">
-    <value>Muokkauksia yhteensä</value>
-  </data>
-  <data name="UserDetails" xml:space="preserve">
-    <value>Käyttäjän tiedot</value>
-  </data>
-  <data name="UserGroup" xml:space="preserve">
-    <value>Käyttäjäryhmä</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>Tunnus</value>
-  </data>
-  <data name="VisibleOnlyToMe" xml:space="preserve">
-    <value>Näkyy vain minulle ja ylläpitäjille.</value>
+  <data name="Like" xml:space="preserve">
+    <value>Tykkää</value>
   </data>
 </root>

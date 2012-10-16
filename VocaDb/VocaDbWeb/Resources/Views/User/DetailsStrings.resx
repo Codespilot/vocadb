@@ -151,7 +151,7 @@
     <value>Email</value>
   </data>
   <data name="FavoriteSongsTab" xml:space="preserve">
-    <value>Favorite songs</value>
+    <value>Liked songs</value>
   </data>
   <data name="FollowedArtistsTab" xml:space="preserve">
     <value>Followed artists</value>
