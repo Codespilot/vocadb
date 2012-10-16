@@ -83,24 +83,25 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, string since, int? page, SongViewMode view = SongViewMode.Details) {
 
 			WebHelper.VerifyUserAgent(Request);
+			int pageSize = 30;
 			var sortRule = sort ?? SongSortRule.Name;
 			var timeFilter = DateTimeUtils.ParseFromSimpleString(since);
 
 			var queryParams = new SongQueryParams(filter,
 				songType != null && songType != SongType.Unspecified ? new[] { songType.Value } : new SongType[] { },
-				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false, false, null) {
+				((page ?? 1) - 1) * pageSize, pageSize, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false, false, null) {
 
 				TimeFilter = timeFilter
 			};
 
-			var result = Service.FindWithAlbum(queryParams);
+			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
 			SetSearchEntryType(EntryType.Song);
-			var model = new Index(result, filter, songType ?? SongType.Unspecified, sortRule, view, draftsOnly, page);
+			var model = new Index(result, filter, songType ?? SongType.Unspecified, sortRule, view, draftsOnly, page, pageSize);
 
         	return View(model);
 

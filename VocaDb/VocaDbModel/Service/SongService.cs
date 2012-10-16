@@ -829,9 +829,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAlbumContract> FindWithAlbum(SongQueryParams queryParams) {
+		public PartialFindResult<SongWithAlbumAndPVsContract> FindWithAlbum(SongQueryParams queryParams, bool getPVs) {
 
-			return Find(s => new SongWithAlbumContract(s, PermissionContext.LanguagePreference), queryParams);
+			return Find(s => new SongWithAlbumAndPVsContract(s, PermissionContext.LanguagePreference, getPVs), queryParams);
 
 		}
 

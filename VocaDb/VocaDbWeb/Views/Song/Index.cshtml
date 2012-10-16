@@ -44,9 +44,11 @@
 	
 <p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
 	
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly, view = Model.ViewMode }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 <br />
 	
+if (Model.ViewMode == SongViewMode.Details) {
+    
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -59,15 +61,9 @@
 		@foreach (var song in Model.Songs) {
 			<tr>
 				<td>
-					@if (Model.ViewMode == SongViewMode.Details) {
-                        if (!string.IsNullOrEmpty(song.ThumbUrl)) {
-						     @SongHelpers.SongIconLink(song)
-	                    }
-                    } else {
-                        if (!string.IsNullOrEmpty(song.NicoId)) {
-							@Helpers.EmbedPV(new PVContract { Service = PVService.NicoNicoDouga, PVId = song.NicoId})
-						}
-                    }
+                    @if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+						    @SongHelpers.SongIconLink(song)
+	                }
 				</td>
 				<td>
 					@Helpers.DraftIcon(song.Status)
@@ -90,7 +86,45 @@
   }
 	</tbody>	
 </table>
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+    
+} else {
+    
+<table class="table table-striped">
+	<tbody>
+		@foreach (var song in Model.Songs) {
+            var primaryPv = PVHelper.PrimaryPV(song.PVs);
+			<tr>
+				<td>
+                    @if (primaryPv != null) {
+                        @Helpers.EmbedPV(new PVContract { Service = PVService.NicoNicoDouga, PVId = song.NicoId})
+                    }
+                </td>
+                <td>
+					<h3>
+					    @Helpers.DraftIcon(song.Status)
+					    @Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })
+                    </h3>
+                    @Translate.SongTypeNames[song.SongType]
+                    <br />
+
+					<span class="extraInfo">@song.ArtistString</span><br />
+					@if (song.Album != null) {
+					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
+					}					
+                    <br />
+
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
+					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
+
+				</td>
+            </tr>
+        }    
+    </tbody>
+</table>    
+    
+}
+    
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", new { page, filter = Model.Filter, songType = Model.SongType, sort = Model.SortRule, draftsOnly = Model.DraftsOnly, view = Model.ViewMode }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 
 }
