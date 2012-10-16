@@ -63,10 +63,10 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public PartialFindResult<SongWithAlbumContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+		public PartialFindResult<SongWithAlbumAndPVsContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			return Services.Songs.FindWithAlbum(new SongQueryParams(
-				term, new SongType[] {}, 0, maxResults, false, true, nameMatchMode, SongSortRule.Name, false, true, null));
+				term, new SongType[] {}, 0, maxResults, false, true, nameMatchMode, SongSortRule.Name, false, true, null), false);
 
 		}
 
