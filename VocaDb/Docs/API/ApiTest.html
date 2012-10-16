@@ -1,0 +1,40 @@
+<html>
+<head><title>VocaDB API sample page</title></head>
+<body>
+
+    <table>
+        <tr>
+            <td>NND ID</td>
+            <td><input type="text" id="pvId" /></td>
+        </tr>
+    </table>
+
+    <button id="getBtn">Get</button><br />
+
+    <textarea cols="40" rows="20" id="result"></textarea>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="APIv1.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#getBtn").click(function () {
+
+                byPV("http://vocadb.net", "NicoNicoDouga", $("#pvId").val(), function (result) {
+
+                    var id = result.Id;
+                    var name = result.Name;
+                    var artists = result.ArtistString;
+                    $("#result").text("ID: " + id + "\nName: " + name + "\nArtists: " + artists);
+
+                });
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>
