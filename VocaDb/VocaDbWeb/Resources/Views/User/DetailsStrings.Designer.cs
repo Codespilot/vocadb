@@ -160,7 +160,7 @@ namespace ViewRes.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Favorite songs.
+        ///   Looks up a localized string similar to Liked songs.
         /// </summary>
         public static string FavoriteSongsTab {
             get {

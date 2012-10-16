@@ -1,5 +1,6 @@
 ﻿using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
@@ -11,13 +12,16 @@ namespace VocaDb.Model.DataContracts.Users {
 			ParamIs.NotNull(() => favoriteSongForUser);
 
 			Id = favoriteSongForUser.Id;
-			Song = new SongWithAdditionalNamesContract(favoriteSongForUser.Song, languagePreference);
+			Rating = favoriteSongForUser.Rating;
+			Song = new SongContract(favoriteSongForUser.Song, languagePreference);
 
 		}
 
 		public int Id { get; set; }
 
-		public SongWithAdditionalNamesContract Song { get; set; }
+		public SongVoteRating Rating { get; set; }
+
+		public SongContract Song { get; set; }
 
 	}
 

@@ -448,6 +448,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryReportTypeNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongVoteRatingNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongVoteRatingNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongVoteRatingNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongVoteRatingNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -846,11 +856,13 @@
     <Content Include="Content\Icons\edit.png" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\Icons\email.png" />
+    <Content Include="Content\Icons\heart.png" />
     <Content Include="Content\Icons\help.png" />
     <Content Include="Content\Icons\lock.png" />
     <Content Include="Content\Icons\remove.png" />
     <Content Include="Content\Icons\search.png" />
     <Content Include="Content\Icons\soundcloud.png" />
+    <Content Include="Content\Icons\star.png" />
     <Content Include="Content\Icons\tick.png" />
     <Content Include="Content\Icons\world.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
@@ -1416,7 +1428,6 @@
     <Content Include="App_Code\SongHelpers.cshtml" />
     <Content Include="Views\Song\ViewVersion.cshtml" />
     <Content Include="Views\User\AlbumCollection.cshtml" />
-    <Content Include="Views\User\FavoriteSongs.cshtml" />
     <Content Include="Views\Admin\RecentComments.cshtml" />
     <Content Include="Views\Album\MultipleTrackProperties.cshtml" />
     <Content Include="Views\Shared\Artists.cshtml" />
@@ -1475,6 +1486,7 @@
     <Content Include="Views\Tag\Versions.cshtml" />
     <Content Include="Views\Event\Versions.cshtml" />
     <Content Include="Views\Help\Index.ja.cshtml" />
+    <Content Include="Views\User\FavoriteSongsPaged.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
@@ -1815,6 +1827,14 @@
     <Content Include="App_GlobalResources\ArtistRoleNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistRoleNames.ja.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongVoteRatingNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongVoteRatingNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
