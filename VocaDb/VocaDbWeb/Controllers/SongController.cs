@@ -84,7 +84,7 @@ namespace VocaDb.Web.Controllers
 
 			WebHelper.VerifyUserAgent(Request);
 
-			var pageSize = indexParams.pageSize;
+			var pageSize = Math.Min(indexParams.pageSize, 30);
 			var page = indexParams.page;
 			var sortRule = indexParams.sort;
 			var timeFilter = DateTimeUtils.ParseFromSimpleString(indexParams.since);

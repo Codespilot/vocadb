@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
@@ -69,7 +70,7 @@ namespace VocaDb.Web.Models.Song {
 			draftsOnly = index.DraftsOnly;
 			filter = index.Filter;
 			onlyWithPVs = index.OnlyWithPVs;
-			pageSize = index.Songs.PageSize;
+			pageSize = Math.Min(index.Songs.PageSize, 30);
 			since = index.Since;
 			songType = index.SongType;
 			sort = index.SortRule;
