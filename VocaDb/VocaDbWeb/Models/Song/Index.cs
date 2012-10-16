@@ -15,7 +15,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public Index() {}
 
-		public Index(PartialFindResult<SongWithAlbumContract> result, string filter, SongType songType, SongSortRule sortRule, bool? draftsOnly, int? page) {
+		public Index(PartialFindResult<SongWithAlbumContract> result, string filter, SongType songType, SongSortRule sortRule, SongViewMode viewMode, bool? draftsOnly, int? page) {
 
 			DraftsOnly = draftsOnly ?? false;
 			Songs = new StaticPagedList<SongWithAlbumContract>(result.Items, 
@@ -23,6 +23,7 @@ namespace VocaDb.Web.Models.Song {
 			Filter = filter;
 			SongType = songType;
 			SortRule = sortRule;
+			ViewMode = viewMode;
 
 		}
 
@@ -39,5 +40,16 @@ namespace VocaDb.Web.Models.Song {
 
 		public SongSortRule SortRule { get; set; }
 
+		public SongViewMode ViewMode { get; set; }
+
 	}
+
+	public enum SongViewMode {
+
+		Details,
+
+		Preview
+
+	}
+
 }

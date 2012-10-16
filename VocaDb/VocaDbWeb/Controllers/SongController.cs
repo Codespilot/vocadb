@@ -80,7 +80,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, string since, int? page) {
+		public ActionResult Index(string filter, SongType? songType, SongSortRule? sort, bool? draftsOnly, string since, int? page, SongViewMode view = SongViewMode.Details) {
 
 			WebHelper.VerifyUserAgent(Request);
 			var sortRule = sort ?? SongSortRule.Name;
@@ -100,7 +100,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			SetSearchEntryType(EntryType.Song);
-			var model = new Index(result, filter, songType ?? SongType.Unspecified, sortRule, draftsOnly, page);
+			var model = new Index(result, filter, songType ?? SongType.Unspecified, sortRule, view, draftsOnly, page);
 
         	return View(model);
 
