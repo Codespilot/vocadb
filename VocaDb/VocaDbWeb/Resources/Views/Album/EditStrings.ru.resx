@@ -117,46 +117,109 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ArtistDesc" xml:space="preserve">
-    <value>Продюсеры и вокалисты, относящиеся к этой песне.</value>
+  <data name="AddNew" xml:space="preserve">
+    <value>Добавить новый</value>
   </data>
-  <data name="ArtistHelp" xml:space="preserve">
-    <value>Если найти артиста не удаётся, возможно, его нет в базе данных. Проверьте другие варианты его имени, и если уверены, что артиста в базе точно ещё нет, пожалуйста, добавьте его с помощью пункта "Добавить артиста" в главном меню сайта. Добавить артиста можно и после добавления песни. С данной страницы создать нового артиста нельзя.</value>
+  <data name="ArtistsTab" xml:space="preserve">
+    <value>Артисты</value>
   </data>
-  <data name="ArtistsInfo" xml:space="preserve">
-    <value>Артисты (минимум 1)</value>
+  <data name="BaCatNum" xml:space="preserve">
+    <value>Номер по каталогу</value>
   </data>
-  <data name="Draft" xml:space="preserve">
-    <value>Эта запись - черновик</value>
+  <data name="BaDefaultLanguageSelection" xml:space="preserve">
+    <value>Язык оригинала</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>Название (хотя бы одно)</value>
+  <data name="BaDescription" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="NameHelp" xml:space="preserve">
-    <value>Поле для "Неанглийского" названия - для названий на любом другом языке (включая японский и неопределённый пользователем). Добавление транслитерированного на английский названия ("ромадзи" если с японского) весьма приветствуется.</value>
+  <data name="BaDiscType" xml:space="preserve">
+    <value>Тип записи</value>
   </data>
-  <data name="NeedArtist" xml:space="preserve">
-    <value>Нужен хотя бы один артист.</value>
+  <data name="BaMainCoverPicture" xml:space="preserve">
+    <value>Основное изображение (обложка)</value>
   </data>
-  <data name="NoArtistsToName" xml:space="preserve">
-    <value>Название трека не должно содержать имени артиста - для этого есть отдельное специальное поле.</value>
+  <data name="BaNames" xml:space="preserve">
+    <value>Названия</value>
   </data>
-  <data name="OriginalPV" xml:space="preserve">
-    <value>Ссылка на оригинальное PV (NicoNicoDouga, Youtube или Vimeo)</value>
+  <data name="BaPictureInfo" xml:space="preserve">
+    <value>Допустимые типы: {0}. Максимальный размер файла: {1} MB.</value>
   </data>
-  <data name="ReprintPV" xml:space="preserve">
-    <value>Cсылка на копию (NicoNicoDouga, Youtube или Vimeo)</value>
+  <data name="BaReleaseDate" xml:space="preserve">
+    <value>Дата выпуска</value>
   </data>
-  <data name="SongInfo" xml:space="preserve">
-    <value>Пожалуйста, удостоверьтесь, что данной песни ещё нет в базе. Нужно указать хотя бы одного артиста. Также желательна ссылка на оригинальное видео (или Piapro/SoundCloud).</value>
+  <data name="BaReleaseDay" xml:space="preserve">
+    <value>День</value>
   </data>
-  <data name="SongType" xml:space="preserve">
-    <value>Тип песни</value>
+  <data name="BaReleaseEvent" xml:space="preserve">
+    <value>Выпущено к мероприятию</value>
   </data>
-  <data name="SubmitSong" xml:space="preserve">
-    <value>Добавить новую песню</value>
+  <data name="BaReleaseMonth" xml:space="preserve">
+    <value>Месяц</value>
   </data>
-  <data name="UnableToCreateSong" xml:space="preserve">
-    <value>Не удалось добавить песню. Исправьте данные и попробуйте снова.</value>
+  <data name="BaReleaseYear" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="BasicInfoTab" xml:space="preserve">
+    <value>Основная информация</value>
+  </data>
+  <data name="BaStatus" xml:space="preserve">
+    <value>Статус записи</value>
+  </data>
+  <data name="BaWebLinks" xml:space="preserve">
+    <value>Внешние ссылки</value>
+  </data>
+  <data name="ImagePreview" xml:space="preserve">
+    <value>Предпросмотр изображения</value>
+  </data>
+  <data name="MediaTab" xml:space="preserve">
+    <value>Медиа</value>
+  </data>
+  <data name="PicturesTab" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
+  <data name="TracksTab" xml:space="preserve">
+    <value>Треки</value>
+  </data>
+  <data name="TrAddTrackHelp" xml:space="preserve">
+    <value>Внимание: в названии трека должно быть только само название (без номера трека, автора, исполнителя и прочей дополнительной информации). Для остального есть специальные отдельные поля.</value>
+  </data>
+  <data name="TrDiscHead" xml:space="preserve">
+    <value>Диск</value>
+  </data>
+  <data name="TrNameHead" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="TrSetArtists" xml:space="preserve">
+    <value>Выбрать артистов для отмеченных треков</value>
+  </data>
+  <data name="TrTrackHead" xml:space="preserve">
+    <value>Трек</value>
+  </data>
+  <data name="TrTrackNameHelp" xml:space="preserve">
+    <value>Кликните по заголовку трека для редактирования его артистов (новые песни нужно сначала сохранить).</value>
+  </data>
+  <data name="UnableToSaveProperties" xml:space="preserve">
+    <value>Не удалось сохранить свойства.</value>
+  </data>
+  <data name="ArAddArtist" xml:space="preserve">
+    <value>Добавить артиста</value>
+  </data>
+  <data name="ChangesAreSavedImmediately" xml:space="preserve">
+    <value>Изменения в этой вкладке сораняются сразу же.</value>
+  </data>
+  <data name="ConfirmDeleteAlbum" xml:space="preserve">
+    <value>Действительно удалить запись с этим альбомом?</value>
+  </data>
+  <data name="ConfirmMoveToTrash" xml:space="preserve">
+    <value>Действительно отправить запись с этим альбомом в мусор?</value>
+  </data>
+  <data name="EditTitle" xml:space="preserve">
+    <value>Редактировать альбом {0}</value>
+  </data>
+  <data name="MoveToTrash" xml:space="preserve">
+    <value>Отправить в мусор</value>
+  </data>
+  <data name="PiPicturesGuide" xml:space="preserve">
+    <value>Просим вас добавлять только изображения, непосредственно относящиеся к этому альбому.</value>
   </data>
 </root>

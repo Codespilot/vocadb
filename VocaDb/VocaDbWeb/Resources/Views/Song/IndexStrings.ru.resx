@@ -121,12 +121,15 @@
     <value>Добавить новую песню</value>
   </data>
   <data name="Favorited" xml:space="preserve">
-    <value>Отмечено как любимое</value>
+    <value>{0} раз(а) в любимом.</value>
   </data>
   <data name="FromAlbum" xml:space="preserve">
-    <value>Из албома</value>
+    <value>Из альбома</value>
   </data>
-  <data name="Times" xml:space="preserve">
-    <value>раз(а)</value>
+  <data name="Rating" xml:space="preserve">
+    <value>Рейтинг</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>{0} баллов всего.</value>
   </data>
 </root>
