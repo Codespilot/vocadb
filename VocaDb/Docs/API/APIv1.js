@@ -9,3 +9,9 @@ function byPV(host, service, pvId, callback) {
     jQuery.get(host + "/Api/v1/Song/ByPV?service=" + service + "&pvId=" + pvId + "&format=JSON", null, callback, "jsonp");
 
 }
+
+function parsePVUrl(host, pvUrl, callback) {
+
+    jQuery.get(host + "/Api/v1/Song/ParsePVUrl?pvUrl=" + pvUrl + "&format=JSON", null, callback, "jsonp");
+
+}
