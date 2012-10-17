@@ -180,4 +180,19 @@
   <data name="SearchYoutube" xml:space="preserve">
     <value>Поиск на YouTube</value>
   </data>
+  <data name="OriginalMedia" xml:space="preserve">
+    <value>Оригинальное медиа</value>
+  </data>
+  <data name="OtherMedia" xml:space="preserve">
+    <value>Прочее медиа</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Нравится</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>{0} раз(а) понравилось</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>{0} баллов всего</value>
+  </data>
 </root>
