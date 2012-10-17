@@ -2,14 +2,34 @@
 <head><title>VocaDB API sample page</title></head>
 <body>
 
+	<h1>VocaDB API demo v0.2</h1>
+
+	<p>
+
+		<input size="40" type="text" id="pvUrl" />
+	
+		<button id="parseUrlBtn">Parse URL</button><br /><br />
+	
+	</p>
+
     <table>
+		<tr>
+			<td>Service</td>
+			<td>
+				<select id="pvService">
+					<option value="NicoNicoDouga">NicoNicoDouga</option>
+					<option value="Youtube">Youtube</option>
+					<option value="Vimeo">Vimeo</option>
+				</select>
+			</td>
+		</tr>
         <tr>
-            <td>NND ID</td>
+            <td>PV ID</td>
             <td><input type="text" id="pvId" /></td>
         </tr>
     </table>
 
-    <button id="getBtn">Get</button><br />
+    <button id="getBtn">Get info</button><br /><br />
 
     <textarea cols="40" rows="20" id="result"></textarea>
 
@@ -19,14 +39,35 @@
 
         $(document).ready(function () {
 
+			$("#parseUrlBtn").click(function() {
+			
+				parsePVUrl("http://vocadb.net", $("#pvUrl").val(), function (result) {
+				
+					if (result) {
+						
+						$("#pvService").val(result.Service);
+						$("#pvId").val(result.PVId);
+						
+						$("#getBtn").click();
+						
+					}
+				
+				});
+			
+			});
+		
             $("#getBtn").click(function () {
 
-                byPV("http://vocadb.net", "NicoNicoDouga", $("#pvId").val(), function (result) {
+                byPV("http://vocadb.net", $("#pvService").val(), $("#pvId").val(), function (result) {
 
-                    var id = result.Id;
-                    var name = result.Name;
-                    var artists = result.ArtistString;
-                    $("#result").text("ID: " + id + "\nName: " + name + "\nArtists: " + artists);
+					if (result) {
+						var id = result.Id;
+						var name = result.Name;
+						var artists = result.ArtistString;
+						$("#result").text("ID: " + id + "\nName: " + name + "\nArtists: " + artists);
+					} else {
+						$("#result").text("Not found or invalid!");						
+					}
 
                 });
 
