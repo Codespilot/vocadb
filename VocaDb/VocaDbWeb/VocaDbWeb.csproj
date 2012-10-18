@@ -458,6 +458,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongVoteRatingNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongVoteRatingNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongVoteRatingNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1836,6 +1841,10 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongVoteRatingNames.fi.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongVoteRatingNames.ru.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1921,6 +1930,7 @@
       <LastGenOutput>EditStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\EditStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ja.resx">
       <SubType>Designer</SubType>
@@ -2034,6 +2044,7 @@
       <LastGenOutput>EntryEditStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\EntryEditStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.resx">
