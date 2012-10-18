@@ -650,6 +650,12 @@ namespace VocaDb.Model.Domain.Songs {
 			if (PVs.Any(p => p.Service == PVService.Youtube))
 				services |= PVServices.Youtube;
 
+			if (PVs.Any(p => p.Service == PVService.SoundCloud))
+				services |= PVServices.SoundCloud;
+
+			if (PVs.Any(p => p.Service == PVService.Vimeo))
+				services |= PVServices.Vimeo;
+
 			PVServices = services;
 
 		}

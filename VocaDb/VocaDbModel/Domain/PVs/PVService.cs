@@ -2,6 +2,12 @@
 
 namespace VocaDb.Model.Domain.PVs {
 
+	/// <summary>
+	/// PV service identifier.
+	/// </summary>
+	/// <remarks>
+	/// These values are supposed to be serialized as strings.
+	/// </remarks>
 	public enum PVService {
 
 		NicoNicoDouga	= 1,
@@ -14,6 +20,12 @@ namespace VocaDb.Model.Domain.PVs {
 
 	}
 
+	/// <summary>
+	/// PV service flags.
+	/// </summary>
+	/// <remarks>
+	/// These values must not change because they're saved as a bit array in DB.
+	/// </remarks>
 	[Flags]
 	public enum PVServices {
 
