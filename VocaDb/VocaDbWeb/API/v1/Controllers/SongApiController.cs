@@ -30,6 +30,15 @@ namespace VocaDb.Web.API.v1.Controllers
 
 		}
 
+		public ActionResult ByPVBase(PVService service, string pvId, string callback,
+			DataFormat format = DataFormat.Auto) {
+
+			var song = Service.GetSongWithPV(s => new EntryBaseContract(s), service, pvId);
+
+			return Object(song, format, callback);
+
+		}
+
 		public ActionResult ByName(string query, ContentLanguagePreference? lang, int? start, int? maxResults, NameMatchMode? nameMatchMode,
 			string callback, DataFormat format = DataFormat.Auto) {
 
