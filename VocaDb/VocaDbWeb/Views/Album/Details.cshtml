@@ -236,7 +236,7 @@
 								@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
 								&nbsp;
 								@Helpers.DraftIcon(song.Song.Status)
-								@Html.PVServiceIcons(song.Song.PVServices)
+								@Helpers.PVServiceIcons(song.Song.PVServices)
                                 @if (song.Song.SongType != SongType.Original && song.Song.SongType != SongType.Unspecified) {
                                     @("(")@Translate.SongTypeNames[song.Song.SongType]@(")")
                                 }

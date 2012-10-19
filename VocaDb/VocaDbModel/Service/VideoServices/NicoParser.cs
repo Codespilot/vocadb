@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			try {
 				response = request.GetResponse();
-			} catch (WebException x) {
+			} catch (WebException) {
 				return null;
 			}
 

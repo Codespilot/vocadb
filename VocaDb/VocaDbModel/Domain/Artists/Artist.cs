@@ -44,15 +44,6 @@ namespace VocaDb.Model.Domain.Artists {
 			Version = 0;
 		}
 
-		public Artist(string unspecifiedName)
-			: this() {
-
-			ParamIs.NotNullOrEmpty(() => unspecifiedName);
-
-			Names.Add(new ArtistName(this, new LocalizedString(unspecifiedName, ContentLanguageSelection.Unspecified)));
-
-		}
-
 		public Artist(TranslatedString translatedName)
 			: this() {
 

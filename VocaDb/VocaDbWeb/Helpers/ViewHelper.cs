@@ -231,6 +231,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		[Obsolete]
 		public static MvcHtmlString PVServiceIcons(this HtmlHelper htmlHelper, PVServices services) {
 
 			var sb = new StringBuilder();

@@ -132,6 +132,9 @@
   <data name="Follow" xml:space="preserve">
     <value>Seuraa</value>
   </data>
+  <data name="FollowCount" xml:space="preserve">
+    <value>{0} käyttäjä(ä) seuraa tätä artistia.</value>
+  </data>
   <data name="Groups" xml:space="preserve">
     <value>Piirit ja levy-yhtiöt</value>
   </data>

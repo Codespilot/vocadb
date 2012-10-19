@@ -174,7 +174,7 @@
 	<ul>
 	@foreach (var song in songs) {
 		<li>
-			@Html.PVServiceIcons(song.PVServices)
+			@Helpers.PVServiceIcons(song.PVServices)
 			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 			@if (extraData != null) {
 			@extraData(song)

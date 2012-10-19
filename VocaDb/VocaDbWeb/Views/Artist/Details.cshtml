@@ -2,6 +2,7 @@
 @using VocaDb.Model.Domain
 @using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
+@using R = ViewRes.Artist;
 @model ArtistDetailsContract
 
 @{
@@ -44,7 +45,7 @@
 
 		<table>
 			<tr>
-				<td rowspan="7">
+				<td rowspan="8">
 					<a href="@Url.Action("Picture", new { id = Model.Id })">
 						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="@ViewRes.Artist.DetailsStrings.ArtistPicture" class="coverPic" />
 					</a>
@@ -99,6 +100,13 @@
 			</tr>
   }
   
+			<tr>
+				<td>@ViewRes.EntryDetailsStrings.Stats</td>
+				<td>
+					@string.Format(R.DetailsStrings.FollowCount, Model.FollowCount)
+				</td>
+			</tr>
+
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
 				<td>

@@ -458,6 +458,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Disabled")]
 		public SongContract Create(string name) {
 
@@ -482,7 +483,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public CommentContract CreateComment(int songId, string message) {
 
@@ -510,6 +511,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Replaced by updating properties")]
 		public SongInAlbumContract CreateForAlbum(int albumId, string newSongName) {
 
@@ -537,7 +539,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		/*
 		[Obsolete("Integrated to saving properties")]
