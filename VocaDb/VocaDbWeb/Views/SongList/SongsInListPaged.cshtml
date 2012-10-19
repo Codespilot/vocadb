@@ -21,7 +21,7 @@
 				@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, new { title = link.Song.AdditionalNames })
 				&nbsp;
 				@Helpers.DraftIcon(link.Song.Status)
-				@Html.PVServiceIcons(link.Song.PVServices)
+				@Helpers.PVServiceIcons(link.Song.PVServices)
 				@if (!string.IsNullOrEmpty(link.Notes)) {
 					<text>&nbsp;</text>
 					<text>(</text>@link.Notes<text>)</text>

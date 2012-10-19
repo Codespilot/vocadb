@@ -218,6 +218,7 @@ namespace VocaDb.Web.Controllers
         //
         // POST: /Album/Create
 
+		/*
 		[Obsolete("Disabled")]
         [HttpPost]
         public ActionResult CreateQuick(ObjectCreate model)
@@ -234,7 +235,7 @@ namespace VocaDb.Web.Controllers
 
 			}
 
-		}
+		}*/
 
 		[Authorize]
 		public ActionResult Create() {

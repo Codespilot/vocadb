@@ -23,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			CreateDate = artist.CreateDate;
 			Description = artist.Description;
 			Draft = artist.Status == EntryStatus.Draft;
+			FollowCount = artist.Users.Count;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			LatestAlbums = new AlbumWithAdditionalNamesContract[] {};
@@ -48,6 +49,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public bool Draft { get; set; }
+
+		[DataMember]
+		public int FollowCount { get; set; }
 
 		[DataMember]
 		public GroupForArtistContract[] Groups { get; set; }

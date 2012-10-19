@@ -45,12 +45,12 @@ namespace VocaDb.Model.Domain.Songs {
 			Status = EntryStatus.Draft;
 		}
 
-		public Song(string unspecifiedName)
+		public Song(LocalizedString name)
 			: this() {
 
-			ParamIs.NotNullOrEmpty(() => unspecifiedName);
+			ParamIs.NotNull(() => name);
 
-			Names.Add(new SongName(this, new LocalizedString(unspecifiedName, ContentLanguageSelection.Unspecified)));
+			Names.Add(new SongName(this, name));
 
 		}
 
@@ -644,17 +644,10 @@ namespace VocaDb.Model.Domain.Songs {
 
 			var services = PVServices.Nothing;
 
-			if (PVs.Any(p => p.Service == PVService.NicoNicoDouga))
-				services |= PVServices.NicoNicoDouga;
-
-			if (PVs.Any(p => p.Service == PVService.Youtube))
-				services |= PVServices.Youtube;
-
-			if (PVs.Any(p => p.Service == PVService.SoundCloud))
-				services |= PVServices.SoundCloud;
-
-			if (PVs.Any(p => p.Service == PVService.Vimeo))
-				services |= PVServices.Vimeo;
+			foreach (var service in EnumVal<PVService>.Values) {
+				if (PVs.Any(p => p.Service == service))
+					services |= (PVServices)service;
+			}
 
 			PVServices = services;
 

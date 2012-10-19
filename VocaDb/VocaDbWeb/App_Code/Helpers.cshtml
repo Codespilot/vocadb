@@ -1,8 +1,10 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 @using System.Web.Mvc;
 @using System.Web.Mvc.Html;
+@using VocaDb.Model
 @using VocaDb.Model.DataContracts
 @using VocaDb.Model.Domain;
+@using VocaDb.Model.Domain.PVs
 @using VocaDb.Model.Domain.Songs;
 @using VocaDb.Web.Helpers;
 
@@ -249,6 +251,18 @@
 		</p>
 		<hr />
 	</div>	
+}
+
+@helper PVServiceIcons(PVServices services) {
+    
+    foreach (var service in EnumVal<PVService>.Values.Where(service => services.HasFlag((PVServices)service))) {
+
+        var iconUrl = @Html.VideoServiceLinkUrl(service);
+        
+        <img src="@iconUrl" alt="@service.ToString()" title="@service.ToString()" />
+           
+    }
+    
 }
 
 @helper SaveBtn() {

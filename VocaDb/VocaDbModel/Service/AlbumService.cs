@@ -354,6 +354,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		[Obsolete("Disabled")]
 		public AlbumContract Create(string name) {
 
@@ -378,7 +379,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public AlbumContract Create(CreateAlbumContract contract) {
 
@@ -416,6 +417,8 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
+		[Obsolete]
 		public ArtistForAlbumContract CreateForArtist(int artistId, string newAlbumName) {
 
 			ParamIs.NotNullOrWhiteSpace(() => newAlbumName);
@@ -445,7 +448,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public CommentContract CreateComment(int albumId, string message) {
 
@@ -1342,7 +1345,7 @@ namespace VocaDb.Model.Service {
 
 							AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
 
-							var song = new Song(contract.SongName);
+							var song = new Song(new LocalizedString(contract.SongName, ContentLanguageSelection.Unspecified));
 							session.Save(song);
 
 							Services.Songs.Archive(session, song, SongArchiveReason.Created,

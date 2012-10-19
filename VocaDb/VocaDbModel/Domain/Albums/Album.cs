@@ -45,12 +45,12 @@ namespace VocaDb.Model.Domain.Albums {
 			Status = EntryStatus.Draft;
 		}
 
-		public Album(string unspecifiedName)
+		public Album(LocalizedString name)
 			: this() {
 
-			ParamIs.NotNullOrEmpty(() => unspecifiedName);
+			ParamIs.NotNull(() => name);
 
-			Names.Add(new AlbumName(this, new LocalizedString(unspecifiedName, ContentLanguageSelection.Unspecified)));
+			Names.Add(new AlbumName(this, name));
 
 		}
 

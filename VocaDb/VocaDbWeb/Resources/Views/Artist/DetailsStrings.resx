@@ -132,6 +132,9 @@
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
   </data>
+  <data name="FollowCount" xml:space="preserve">
+    <value>Followed by {0} user(s).</value>
+  </data>
   <data name="Groups" xml:space="preserve">
     <value>Circles and labels</value>
   </data>

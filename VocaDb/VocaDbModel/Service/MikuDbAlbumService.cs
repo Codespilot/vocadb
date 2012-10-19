@@ -38,7 +38,7 @@ namespace VocaDb.Model.Service {
 
 			if (acceptedAlbum.MergedAlbum == null) {
 
-				album = new Album(acceptedAlbum.ImportedAlbum.Title);
+				album = new Album(new LocalizedString(acceptedAlbum.ImportedAlbum.Title, languageSelection));
 				album.DiscType = DiscType.Unknown;
 				diff.Names = true;
 				session.Save(album);
@@ -121,7 +121,7 @@ namespace VocaDb.Model.Service {
 
 			if (NewTrack(inspectedTrack, selectedSongIds, album)) {
 
-				song = new Song(inspectedTrack.ImportedTrack.Title);
+				song = new Song(new LocalizedString(inspectedTrack.ImportedTrack.Title, languageSelection));
 				session.Save(song);
 				album.AddSong(song, inspectedTrack.ImportedTrack.TrackNum, inspectedTrack.ImportedTrack.DiscNum);
 				diff.Names = true;
