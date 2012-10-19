@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using VocaDb.Web.Controllers;
 
 namespace VocaDb.Web.API.v1 {
 
@@ -19,6 +16,11 @@ namespace VocaDb.Web.API.v1 {
 				"SongApi",
 				"api/v1/Song/{action}/{id}",
 				new { action = "Index", controller = "SongApi", id = UrlParameter.Optional });
+
+			/*context.MapRoute(
+				"SongApiJson",
+				"api/v1/Song/{action}.json",
+				new { action = "Index", controller = "SongApi", format = DataFormat.Json });*/
 
             context.MapRoute(
                 "AlbumApi",
