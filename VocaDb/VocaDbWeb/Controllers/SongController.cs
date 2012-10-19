@@ -392,6 +392,23 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult PVRedirect(PVService service, string pvId) {
+
+			var song = Service.GetSongWithPV(service, pvId);
+
+			if (song == null) {
+
+				TempData.SetWarnMessage("Sorry, song not found! Maybe it hasn't been added yet.");
+				return RedirectToAction("Index", "Home");
+
+			} else {
+
+				return RedirectToAction("Details", new { id = song.Id });
+
+			}
+
+		}
+
 		public ActionResult Restore(int id) {
 
 			Service.Restore(id);
