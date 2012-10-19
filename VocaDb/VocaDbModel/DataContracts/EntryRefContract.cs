@@ -1,7 +1,9 @@
-﻿using VocaDb.Model.Domain;
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class EntryRefContract {
 
 		public EntryRefContract() { }
@@ -24,8 +26,10 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		[DataMember]
 		public EntryType EntryType { get; set; }
 
+		[DataMember]
 		public int Id { get; set; }
 
 	}
