@@ -10,6 +10,12 @@ function byPV(host, service, pvId, callback) {
 
 }
 
+function byPVBase(host, service, pvId, callback) {
+
+    jQuery.get(host + "/Api/v1/Song/ByPVBase?format=JSON", { service: service, pvId: pvId }, callback, "jsonp");
+
+}
+
 function parsePVUrl(host, pvUrl, callback) {
 
     jQuery.get(host + "/Api/v1/Song/ParsePVUrl?format=JSON", { pvUrl: pvUrl }, callback, "jsonp");
