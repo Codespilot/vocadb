@@ -49,14 +49,14 @@
 			
 		<br />
 		<h4 id="staff">運営・管理スタッフ</h4>
-        <p>Founded and developed by <a href="Profile/riipah" title="">riipah</a>.</p>
+        <p>Founded and developed by @Html.ActionLink("riipah", "Profile", "User", new { id = "riipah" }, null).</p>
         <p>Major contributors: @Html.LinkList(contributors, u => Html.ActionLink(u, "Profile", "User", new { id = u }, null)).</p>
         <p>Japanese translation by <a href="http://www.youtube.com/watch?v=6Z73O2WH2jw">Japanese Ninja No.1</a>.</p>
 
 		<br />
 		<h4 id="contactus">お問い合わせ</h4>
 			<a href="mailto:support@vocadb.net" title="">support@vocadb.net</a><br />
-			<a href="http://www.vocaloidotaku.net/index.php?/topic/25685-vocadb-vocaloid-database" title="">Discussion thead at VocaloidOtaku</a><br />
+			<a href="http://www.vocaloidotaku.net/index.php?/topic/25685-vocadb-vocaloid-database" title="">Discussion thread at VocaloidOtaku</a><br />
 			<a href="http://code.google.com/p/vocadb" title="">Google code</a><br />
 		<br />
 		<br />
