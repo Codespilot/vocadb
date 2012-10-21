@@ -846,6 +846,7 @@
     <Content Include="Content\ExtIcons\mikudb.png" />
     <Content Include="Content\ExtIcons\piapro.png" />
     <Content Include="Content\ExtIcons\pixiv.png" />
+    <Content Include="Content\ExtIcons\rakuten.png" />
     <Content Include="Content\ExtIcons\tora.png" />
     <Content Include="Content\ExtIcons\twitter.png" />
     <Content Include="Content\ExtIcons\vgmdb.png" />
