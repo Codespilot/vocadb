@@ -20,6 +20,7 @@ function initWebLinksList() {
 		{ url: "nicovideo.jp/mylist/", desc: "NND MyList" },
 		{ url: "piapro.jp/", desc: "Piapro" },
 		{ url: "www.pixiv.net/member.php", desc: "Pixiv" },
+		{ url: "books.rakuten.co.jp/", desc: "Rakuten" },
 		{ url: "soundcloud.com/", desc: "SoundCloud" },
 		{ url: "toranoana.jp/mailorder/article/", desc: "Toranoana" },
 		{ url: "twitter.com/", desc: "Twitter" },

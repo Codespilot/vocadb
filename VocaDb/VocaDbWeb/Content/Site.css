@@ -568,6 +568,10 @@ a.extLink[href^="http://www.pixiv.net/"] {
 	background: url("/Content/ExtIcons/pixiv.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://books.rakuten.co.jp/"] {
+	background: url("/Content/ExtIcons/rakuten.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://soundcloud.com/"] {
 	background: url("/Content/Icons/soundcloud.png") no-repeat left 50%;
 }

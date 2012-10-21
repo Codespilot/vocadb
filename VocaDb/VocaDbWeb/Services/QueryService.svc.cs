@@ -86,9 +86,9 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public AlbumWithAdditionalNamesContract GetAlbumById(int id) {
+		public AlbumDetailsContract GetAlbumById(int id) {
 
-			var album = Services.Albums.GetAlbumWithAdditionalNames(id);
+			var album = Services.Albums.GetAlbumDetails(id, null);
 			return album;
 
 		}
@@ -107,9 +107,9 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public ArtistWithAdditionalNamesContract GetArtistById(int id) {
+		public ArtistDetailsContract GetArtistById(int id) {
 
-			var artist = Services.Artists.GetArtistWithAdditionalNames(id);
+			var artist = Services.Artists.GetArtistDetails(id);
 			return artist;
 
 		}
