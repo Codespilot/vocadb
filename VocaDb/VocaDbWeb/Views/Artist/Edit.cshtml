@@ -108,18 +108,23 @@
 	}
 			
 				<div class="editor-label">
-					@Html.LabelFor(m => m.WebLinks)
+					<label>
+					    @Html.DisplayNameFor(m => m.WebLinks)
+    				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
+                    </label>
 				</div>
 				<div class="editor-field">
 					@Helpers.WebLinksList(Model.WebLinks)
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.Status)
+					<label>
+					    @Html.DisplayNameFor(m => m.Status)
+					    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
+                    </label>
 				</div>
 				<div class="editor-field">
 					@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
-					@Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
 				</div>
 
 			</div>

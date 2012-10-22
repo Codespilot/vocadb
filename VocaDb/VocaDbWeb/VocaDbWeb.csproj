@@ -1568,6 +1568,7 @@
     <Content Include="App_GlobalResources\CommonMessages.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>CommonMessages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -2062,6 +2063,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EntryEditStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryEditStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryIndexStrings.fi.resx" />

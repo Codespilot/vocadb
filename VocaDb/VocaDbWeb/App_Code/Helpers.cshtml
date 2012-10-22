@@ -194,9 +194,9 @@
 
 @helper HelpMessage(string message, string id = null) {
     if (string.IsNullOrEmpty(id)) {
-		<span class="helpIcon" title="@message"></span>
+		<span class="helpIcon helpToolTip" title="@message"></span>
     } else {
-		<span class="helpIcon" title="@message" id="@id"></span>	 
+		<span class="helpIcon helpToolTip" title="@message" id="@id"></span>	 
     }
 }
 
