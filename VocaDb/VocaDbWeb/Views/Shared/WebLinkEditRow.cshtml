@@ -9,6 +9,9 @@
 	</td>
 	<td>
 		@Html.TextBoxFor(m => m.Description, new { maxlength = 512, @class = "webLinkDescription" })
+    </td>
+    <td>
+		@Html.EnumDropDownListFor(m => m.Category, Translate.WebLinkCategoryNames, new { @class = "webLinkCategory input-medium" })
 		@{ item.Dispose(); }
 	</td>
 	<td>

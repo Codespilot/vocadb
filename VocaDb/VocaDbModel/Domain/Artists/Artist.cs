@@ -329,12 +329,12 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
-		public virtual ArtistWebLink CreateWebLink(string description, string url) {
+		public virtual ArtistWebLink CreateWebLink(string description, string url, WebLinkCategory category) {
 
 			ParamIs.NotNull(() => description);
 			ParamIs.NotNullOrWhiteSpace(() => url);
 
-			var link = new ArtistWebLink(this, description, url);
+			var link = new ArtistWebLink(this, description, url, category);
 			WebLinks.Add(link);
 
 			return link;

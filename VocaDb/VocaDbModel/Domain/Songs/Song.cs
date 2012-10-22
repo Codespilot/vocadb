@@ -366,12 +366,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual SongWebLink CreateWebLink(string description, string url) {
+		public virtual SongWebLink CreateWebLink(string description, string url, WebLinkCategory category) {
 
 			ParamIs.NotNull(() => description);
 			ParamIs.NotNullOrEmpty(() => url);
 
-			var link = new SongWebLink(this, description, url);
+			var link = new SongWebLink(this, description, url, category);
 			WebLinks.Add(link);
 
 			return link;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Shared;
@@ -39,9 +40,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult CreateWebLink(string description, string url) {
+		public PartialViewResult CreateWebLink(string description, string url, WebLinkCategory category = WebLinkCategory.Other) {
 
-			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url });
+			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url, Category = category });
 
 		}
 

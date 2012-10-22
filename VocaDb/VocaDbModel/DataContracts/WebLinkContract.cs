@@ -4,14 +4,17 @@ using VocaDb.Model.Domain;
 namespace VocaDb.Model.DataContracts {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class WebLinkContract {
+	public class WebLinkContract : IWebLink {
 
-		public WebLinkContract() {}
+		public WebLinkContract() {
+			Category = WebLinkCategory.Other;
+		}
 
-		public WebLinkContract(string url, string description) {
+		public WebLinkContract(string url, string description, WebLinkCategory category) {
 
 			Url = url;
 			Description = description;
+			Category = category;
 
 			DescriptionOrUrl = !string.IsNullOrEmpty(description) ? description : url;
 
@@ -21,12 +24,16 @@ namespace VocaDb.Model.DataContracts {
 			
 			ParamIs.NotNull(() => link);
 
+			Category = link.Category;
 			Description = link.Description;
 			DescriptionOrUrl = link.DescriptionOrUrl;
 			Id = link.Id;
 			Url = link.Url;
 
 		}
+
+		[DataMember]
+		public WebLinkCategory Category { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }

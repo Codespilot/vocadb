@@ -73,6 +73,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<UserGroupId> UserGroups =
 			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);
 
+		public static readonly TranslateableEnum<WebLinkCategory> WebLinkCategoryNames =
+			new TranslateableEnum<WebLinkCategory>(() => global::Resources.WebLinkCategoryNames.ResourceManager);
+
 		public static string AlbumEditableField(AlbumEditableFields field) {
 
 			return AlbumEditableFieldNames.ResourceManager.GetString(field.ToString());

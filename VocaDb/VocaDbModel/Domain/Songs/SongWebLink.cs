@@ -6,8 +6,8 @@
 
 		public SongWebLink() { }
 
-		public SongWebLink(Song song, string description, string url)
-			: base(description, url) {
+		public SongWebLink(Song song, string description, string url, WebLinkCategory category)
+			: base(description, url, category) {
 
 			Song = song;
 

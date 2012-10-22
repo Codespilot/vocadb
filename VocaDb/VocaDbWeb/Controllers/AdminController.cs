@@ -148,6 +148,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UpdateLinkCategories() {
+
+			Service.UpdateWebLinkCategories();
+			TempData.SetStatusMessage("Updated link categories");
+
+			return RedirectToAction("Index");
+
+		}
+
 		public ActionResult UpdateNicoIds() {
 			
 			Service.UpdateNicoIds();

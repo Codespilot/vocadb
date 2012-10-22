@@ -6,8 +6,8 @@
 
 		public AlbumWebLink() { }
 
-		public AlbumWebLink(Album album, string description, string url)
-			: base(description, url) {
+		public AlbumWebLink(Album album, string description, string url, WebLinkCategory category)
+			: base(description, url, category) {
 
 			Album = album;
 

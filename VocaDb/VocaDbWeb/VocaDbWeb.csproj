@@ -523,6 +523,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserGroupNames.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\WebLinkCategoryNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebLinkCategoryNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\WebLinkCategoryNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebLinkCategoryNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\BBCode\BBCodeCache.cs" />
     <Compile Include="Code\BBCode\BBCodeConverters.cs" />
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
@@ -1845,6 +1855,14 @@
     <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongVoteRatingNames.ru.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\WebLinkCategoryNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>WebLinkCategoryNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\WebLinkCategoryNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>WebLinkCategoryNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">

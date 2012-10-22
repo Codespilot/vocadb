@@ -86,16 +86,29 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		/// <summary>
+		/// Entries that didn't exist in the old set but do exist in the new one.
+		/// </summary>
 		public T2[] Added { get; private set; }
 
+		/// <summary>
+		/// Whether the contents of the sets were changed.
+		/// </summary>
 		public virtual bool Changed {
 			get {
 				return (Added.Any() || Removed.Any());
 			}
 		}
 
+		/// <summary>
+		/// Entries that existed in the old set but not in the new.
+		/// </summary>
 		public T[] Removed { get; private set; }
 
+		/// <summary>
+		/// Entries that existed in both old and new sets.
+		/// Note: the contents of those entriers might still be changed, depending on equality.
+		/// </summary>
 		public T[] Unchanged { get; private set; }
 
 	}
@@ -118,6 +131,9 @@ namespace VocaDb.Model.Helpers {
 			}
 		}
 
+		/// <summary>
+		/// Entries that existed in both old and new sets AND whose contents were changed.
+		/// </summary>
 		public T[] Edited { get; private set; }
 
 	}
