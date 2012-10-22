@@ -168,18 +168,23 @@
 			</div>
 			
 			<div class="editor-label">
-				@Html.LabelFor(m => m.WebLinks, R.EditStrings.BaWebLinks)
+				<label>
+				    @R.EditStrings.BaWebLinks
+				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
+                </label>
 			</div>
 			<div class="editor-field">
 				@Helpers.WebLinksList(Model.WebLinks)
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Status, R.EditStrings.BaStatus)
+				<label>
+				    @R.EditStrings.BaStatus)
+				    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation)
+                </label>
 			</div>
 			<div class="editor-field">
 				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
-				@Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
 			</div>
 
 		</div>

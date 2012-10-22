@@ -117,6 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ExternalLinksQuickHelp" xml:space="preserve">
+    <value>External links relevant to this entry. Keep in mind no illegal/direct download links will be allowed!&lt;br /&gt;
+&lt;br /&gt;
+Fill in the URL first, and description and category will be guessed automatically if the domain is known.&lt;br /&gt;
+&lt;br /&gt;
+Official: artist's official site (usually blogs, websites, Facebook etc.).&lt;br /&gt;
+Commercial: authorized sales such as Amazon and CDJapan.&lt;br /&gt;
+Reference: fansites with useful information such as wikis.&lt;br /&gt;
+Other: for those that don't fit into anything above.&lt;br /&gt;</value>
+  </data>
   <data name="Merge" xml:space="preserve">
     <value>Merge</value>
   </data>

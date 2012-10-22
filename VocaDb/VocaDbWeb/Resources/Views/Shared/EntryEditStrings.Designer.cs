@@ -61,6 +61,22 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External links relevant to this entry. Keep in mind no illegal/direct download links will be allowed!&lt;br /&gt;
+        ///&lt;br /&gt;
+        ///Fill in the URL first, and description and category will be guessed automatically if the domain is known.&lt;br /&gt;
+        ///&lt;br /&gt;
+        ///Official: artist&apos;s official site (usually blogs, websites, Facebook etc.).&lt;br /&gt;
+        ///Commercial: authorized sales such as Amazon and CDJapan.&lt;br /&gt;
+        ///Reference: fansites with useful information such as wikis.&lt;br /&gt;
+        ///Other: for those that don&apos;t fit into anything above.&lt;br /&gt;.
+        /// </summary>
+        public static string ExternalLinksQuickHelp {
+            get {
+                return ResourceManager.GetString("ExternalLinksQuickHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Merge.
         /// </summary>
         public static string Merge {

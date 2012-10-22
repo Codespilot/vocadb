@@ -72,6 +72,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static string ConvertNewlinesToBreaks(this HtmlHelper html, string text) {
+
+			return text.Replace(Environment.NewLine, "<br />").Replace("\n", "<br />");
+
+		}
+
 		public static SelectList CreateArtistTypesList(object selectedValue) {
 			return new SelectList(EnumVal<ArtistType>.Values.ToDictionary(s => s, Translate.ArtistTypeName), "Key", "Value", selectedValue);
 		}
