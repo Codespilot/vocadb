@@ -6,7 +6,7 @@ using System;
 
 namespace VocaDb.Model.Domain {
 
-	public class WebLink {
+	public class WebLink : IWebLink {
 
 		public static CollectionDiffWithValue<T,T> Sync<T>(IList<T> oldLinks, IEnumerable<WebLinkContract> newLinks, IWebLinkFactory<T> webLinkFactory) 
 			where T : WebLink {
@@ -26,7 +26,8 @@ namespace VocaDb.Model.Domain {
 
 				if (old != null) {
 
-					if (old.Description != linkEntry.Description || old.Url != linkEntry.Url) {
+					if (!old.ContentEquals(linkEntry)) {
+						old.Category = linkEntry.Category;
 						old.Description = linkEntry.Description;
 						old.Url = linkEntry.Url;
 						edited.Add(old);
@@ -34,7 +35,7 @@ namespace VocaDb.Model.Domain {
 
 				} else {
 
-					var n = webLinkFactory.CreateWebLink(linkEntry.Description, linkEntry.Url);
+					var n = webLinkFactory.CreateWebLink(linkEntry.Description, linkEntry.Url, linkEntry.Category);
 					created.Add(n);
 
 				}
@@ -57,7 +58,7 @@ namespace VocaDb.Model.Domain {
 
 			foreach (var linkEntry in diff.Added) {
 
-				var n = webLinkFactory.CreateWebLink(linkEntry.Description, linkEntry.Url);
+				var n = webLinkFactory.CreateWebLink(linkEntry.Description, linkEntry.Url, linkEntry.Category);
 				created.Add(n);
 
 			}
@@ -71,15 +72,28 @@ namespace VocaDb.Model.Domain {
 
 		public WebLink() {}
 
-		public WebLink(string description, string url) {
+		public WebLink(string description, string url, WebLinkCategory category) {
 
 			ParamIs.NotNull(() => description);
 			ParamIs.NotNullOrWhiteSpace(() => url);
 
 			Description = description;
 			Url = url;
+			Category = category;
 
 		}
+
+		public WebLink(WebLinkContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			Category = contract.Category;
+			Description = contract.Description;
+			Url = contract.Url;
+
+		}
+
+		public virtual WebLinkCategory Category { get; set; }
 
 		/// <summary>
 		/// User-visible link description. Cannot be null.
@@ -101,7 +115,7 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
-		public virtual int Id { get; protected set; }
+		public virtual int Id { get; set; }
 
 		/// <summary>
 		/// Link URL. Cannot be null or empty.
@@ -114,27 +128,40 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
-		public virtual bool ContentEquals(WebLink another) {
+		public virtual bool ContentEquals(IWebLink another) {
 
 			if (another == null)
 				return false;
 
-			return (Url == another.Url && Description == another.Description);
-
-		}
-
-		public virtual bool ContentEquals(ArchivedWebLinkContract another) {
-
-			if (another == null)
-				return false;
-
-			return (Url == another.Url && Description == another.Description);
+			return (Url == another.Url && Description == another.Description && Category == another.Category);
 
 		}
 
 		public override string ToString() {
-			return "web link '" + Url + "'";
+			return string.Format("web link '{0}'", Url);
 		}
+
+	}
+
+	public interface IWebLink {
+
+		WebLinkCategory Category { get; set; }
+
+		string Description { get; set; }
+
+		string Url { get; set; }
+
+	}
+
+	public enum WebLinkCategory {
+
+		Official,
+
+		Commercial,
+
+		Reference,
+
+		Other
 
 	}
 

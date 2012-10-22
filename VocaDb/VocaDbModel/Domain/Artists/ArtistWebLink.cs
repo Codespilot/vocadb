@@ -6,8 +6,8 @@
 
 		public ArtistWebLink() {}
 
-		public ArtistWebLink(Artist artist, string description, string url) 
-			: base(description, url) {
+		public ArtistWebLink(Artist artist, string description, string url, WebLinkCategory category) 
+			: base(description, url, category) {
 
 			Artist = artist;
 

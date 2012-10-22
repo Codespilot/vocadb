@@ -80,7 +80,7 @@ namespace VocaDb.Web.Models {
 
 			if (!string.IsNullOrEmpty(nicoPvId)) {
 				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), 
-					ViewRes.Song.DetailsStrings.CheckNicoSound));
+					ViewRes.Song.DetailsStrings.CheckNicoSound, WebLinkCategory.Other));
 			}
 
 			if (pvs.All(p => p.Service != PVService.Youtube)) {
@@ -91,7 +91,7 @@ namespace VocaDb.Web.Models {
 					: string.Format("{0} {1}", ArtistString, Name);
 
 				WebLinks.Add(new WebLinkContract(string.Format("http://www.youtube.com/results?search_query={0}", query), 
-					ViewRes.Song.DetailsStrings.SearchYoutube));
+					ViewRes.Song.DetailsStrings.SearchYoutube, WebLinkCategory.Other));
 
 			}
 

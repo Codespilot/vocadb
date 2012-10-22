@@ -17,6 +17,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.DataSharing;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service {
 
@@ -489,6 +490,38 @@ namespace VocaDb.Model.Service {
 				}
 
 			});
+
+		}
+
+		private void UpdateWebLinkCategories<T>() where T : WebLink {
+
+			HandleTransaction(session => {
+
+				var catHelper = new WebLinkCategoryHelper();
+				var webLinks = session.Query<T>().Where(l => l.Category == WebLinkCategory.Other).ToArray();
+
+				foreach (var link in webLinks) {
+
+					var oldCat = link.Category;
+					link.Category = catHelper.GetCategory(link.Url);
+					if (link.Category != oldCat)
+						session.Update(link);
+
+				}
+
+			});
+
+		}
+
+		public void UpdateWebLinkCategories() {
+
+			VerifyAdmin();
+
+			AuditLog("Updating web link categories");
+
+			UpdateWebLinkCategories<AlbumWebLink>();
+			UpdateWebLinkCategories<ArtistWebLink>();
+			UpdateWebLinkCategories<SongWebLink>();
 
 		}
 

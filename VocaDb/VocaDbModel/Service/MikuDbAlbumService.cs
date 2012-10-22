@@ -95,7 +95,7 @@ namespace VocaDb.Model.Service {
 			}
 
 			if (!album.WebLinks.Any(w => w.Url.Contains("mikudb.com"))) {
-				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl);
+				album.CreateWebLink("MikuDB", acceptedAlbum.ImportedAlbum.SourceUrl, WebLinkCategory.Reference);
 				diff.WebLinks = true;
 			}
 
