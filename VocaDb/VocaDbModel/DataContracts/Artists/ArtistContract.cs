@@ -24,6 +24,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			ParamIs.NotNull(() => artist);
 
+			AdditionalNames = artist.Names.GetAdditionalNamesStringForLanguage(preference);
 			ArtistType = artist.ArtistType;
 			Deleted = artist.Deleted;
 			Id = artist.Id;
@@ -32,6 +33,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Version = artist.Version;
 
 		}
+
+		[DataMember]
+		public string AdditionalNames { get; set; }
 
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]

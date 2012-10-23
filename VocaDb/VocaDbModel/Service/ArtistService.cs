@@ -60,6 +60,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+
 		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
 			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults,
 			bool draftsOnly, bool getTotalCount, 
@@ -124,8 +125,7 @@ namespace VocaDb.Model.Service {
 
 				additionalNamesQ = additionalNamesQ.AddArtistNameFilter(query, null, nameMatchMode);
 
-				if (artistTypes.Any())
-					additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
+				additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
 				var additionalNames = AddOrder(additionalNamesQ
 					.Select(m => m.Artist), sortRule, PermissionContext.LanguagePreference)
@@ -204,8 +204,7 @@ namespace VocaDb.Model.Service {
 
 			additionalNamesQ = additionalNamesQ.AddArtistNameFilter(query, null, nameMatchMode);
 
-			if (artistTypes.Any())
-				additionalNamesQ = additionalNamesQ.Where(m => artistTypes.Contains(m.Artist.ArtistType));
+			additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
 			var additionalNames = additionalNamesQ
 				.Select(m => m.Artist)
@@ -444,20 +443,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistWithAdditionalNamesContract FindByNames(string[] query) {
+		public ArtistContract[] FindByNameAndType(string query, ArtistType[] types, int maxResults) {
 
 			return HandleQuery(session => {
 
-				foreach (var q in query.Where(q => !string.IsNullOrWhiteSpace(q))) {
-
-					var result = FindArtists(session, q, new ArtistType[] {}, 0, 1, false, false, NameMatchMode.Exact, ArtistSortRule.Name, true);
-
-					if (result.Items.Any())
-						return result.Items.First();
-
-				}
-
-				return null;
+				return session.Query<ArtistName>()
+					.AddArtistNameFilter(query)
+					.Where(a => !a.Artist.Deleted)
+					.FilterByArtistType(types)
+					.Select(n => n.Artist)
+					.AddNameOrder(PermissionContext.LanguagePreference)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray()
+					.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
+					.ToArray();
 
 			});
 
