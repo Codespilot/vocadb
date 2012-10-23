@@ -461,6 +461,7 @@
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\EntryViewMode.cs" />
     <Compile Include="Service\Helpers\AlbumFileParser.cs" />
+    <Compile Include="Service\Helpers\ArtistQueryableExtender.cs" />
     <Compile Include="Service\Helpers\QueryableExtender.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />

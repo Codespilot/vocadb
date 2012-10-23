@@ -187,9 +187,9 @@ namespace VocaDb.Web.Controllers
 				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
 				: new ArtistType[] {};
 
-			var albums = Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
+			var artists = new PartialFindResult<ArtistContract>(Service.FindByNameAndType(term, typeVals.ToArray(), 20), 0, term, false);  //Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
 
-			return Json(albums);
+			return Json(artists);
 
 		}
 

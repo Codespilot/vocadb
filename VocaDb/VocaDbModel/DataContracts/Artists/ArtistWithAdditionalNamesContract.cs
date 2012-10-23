@@ -13,12 +13,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ArtistWithAdditionalNamesContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			AdditionalNames = artist.Names.GetAdditionalNamesStringForLanguage(languagePreference); //string.Join(", ", artist.AllNames.Where(n => n != Name));
-
 		}
-
-		[DataMember]
-		public string AdditionalNames { get; set; }
 
 	}
 
