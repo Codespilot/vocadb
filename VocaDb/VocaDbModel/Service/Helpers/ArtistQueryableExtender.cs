@@ -12,7 +12,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			canonizedName = canonizedName ?? ArtistHelper.GetCanonizedName(originalQuery);
 
-			if (FindHelpers.ExactMatch(originalQuery, matchMode)) {
+			if (FindHelpers.ExactMatch(canonizedName, matchMode)) {
 
 				return query.Where(m => m.Value == canonizedName
 					|| m.Value == string.Format("{0}P", canonizedName)
