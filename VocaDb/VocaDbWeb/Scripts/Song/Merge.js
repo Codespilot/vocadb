@@ -8,10 +8,9 @@ function initPage(songId) {
 	initEntrySearch(songName, songList, "Song", "../../Song/FindJsonByName",
 		{
 			idElem: songIdBox,
-			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
+			createOptionFirstRow: function (item) { return (item.Id != songId ? item.Name + " (" + item.SongType + ")" : null); },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
-			createTitle: function (item) { return item.AdditionalNames; },
-			extraQueryParams: { ignoredIds: JSON.stringify(songId) }
+			createTitle: function (item) { return item.AdditionalNames; }
 		});
 
 	$("#mergeBtn").click(function () {
