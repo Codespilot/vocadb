@@ -102,7 +102,7 @@ namespace VocaDb.Model.Service {
 
 				var artists = 
 					session.Query<ArtistName>()
-					.AddArtistNameFilter(query, canonized, matchMode, words)
+					.FilterByArtistName(query, canonized, matchMode, words)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.AddNameOrder(LanguagePreference)
@@ -112,7 +112,7 @@ namespace VocaDb.Model.Service {
 
 				var artistCount = (getTotalCount ?
 					session.Query<ArtistName>()
-					.AddArtistNameFilter(query, canonized, matchMode, words)
+					.FilterByArtistName(query, canonized, matchMode, words)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.Distinct()

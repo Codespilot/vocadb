@@ -6,6 +6,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Web.Models.Artist {
 
@@ -55,7 +56,9 @@ namespace VocaDb.Web.Models.Artist {
 				Draft = this.Draft,
 				Names = LocalizedStringHelper.SkipNullAndEmpty(NameOriginal, NameRomaji, NameEnglish).ToArray(),
 				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { 
-					Description = WebLinkDescription ?? string.Empty, Url = WebLinkUrl 
+					Description = WebLinkDescription ?? string.Empty, 
+					Url = WebLinkUrl, 
+					Category = new WebLinkCategoryHelper().GetCategory(WebLinkUrl)
 				} : null)
 			};
 

@@ -7,7 +7,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 	public static class ArtistQueryableExtender {
 
-		public static IQueryable<ArtistName> AddArtistNameFilter(this IQueryable<ArtistName> query, string originalQuery,
+		public static IQueryable<ArtistName> FilterByArtistName(this IQueryable<ArtistName> query, string originalQuery,
 			string canonizedName = null, NameMatchMode matchMode = NameMatchMode.Auto, string[] words = null) {
 
 			canonizedName = canonizedName ?? ArtistHelper.GetCanonizedName(originalQuery);

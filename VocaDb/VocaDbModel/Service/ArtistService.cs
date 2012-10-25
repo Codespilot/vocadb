@@ -123,7 +123,7 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
-				additionalNamesQ = additionalNamesQ.AddArtistNameFilter(query, null, nameMatchMode);
+				additionalNamesQ = additionalNamesQ.FilterByArtistName(query, null, nameMatchMode);
 
 				additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
@@ -202,7 +202,7 @@ namespace VocaDb.Model.Service {
 			if (draftsOnly)
 				additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
-			additionalNamesQ = additionalNamesQ.AddArtistNameFilter(query, null, nameMatchMode);
+			additionalNamesQ = additionalNamesQ.FilterByArtistName(query, null, nameMatchMode);
 
 			additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
@@ -448,7 +448,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				return session.Query<ArtistName>()
-					.AddArtistNameFilter(query)
+					.FilterByArtistName(query)
 					.Where(a => !a.Artist.Deleted)
 					.FilterByArtistType(types)
 					.Select(n => n.Artist)
@@ -497,7 +497,7 @@ namespace VocaDb.Model.Service {
 
 				var names = session.Query<ArtistName>()
 					.Where(a => !a.Artist.Deleted)
-					.AddArtistNameFilter(query, null, NameMatchMode.Auto)
+					.FilterByArtistName(query)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
 					.Distinct()
