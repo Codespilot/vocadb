@@ -93,6 +93,9 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public WebLinkCategory GetCategory(string url) {
 
+			if (string.IsNullOrEmpty(url))
+				return WebLinkCategory.Other;
+
 			var matcher = categoryMatchers.FirstOrDefault(m => m.IsMatch(url));
 			return (matcher != null ? matcher.Category : WebLinkCategory.Other);
 

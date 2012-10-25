@@ -1723,7 +1723,7 @@ namespace VocaDb.Model.Service {
 				if (!string.IsNullOrEmpty(artist)) {
 
 					artists = session.Query<ArtistName>()
-						.AddArtistNameFilter(artist, null, NameMatchMode.Auto)
+						.FilterByArtistName(artist)
 						.Select(n => n.Artist)
 						.Take(10)
 						.ToArray();
