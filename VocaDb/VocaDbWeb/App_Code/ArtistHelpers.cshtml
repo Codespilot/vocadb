@@ -59,6 +59,9 @@
 		} else {
 			@artist.Name		
 		}
+        if (showRoles && artist.Roles != ArtistRoles.Default) {
+			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.Roles, ArtistRoles.Default) + ")")
+		}        
 		if (artist.IsSupport) {
 			@(")")
 		}
