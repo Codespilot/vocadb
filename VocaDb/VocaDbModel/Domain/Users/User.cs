@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Mail;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -13,7 +14,7 @@ using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class User : IEntryBase, IEquatable<User> {
+	public class User : IEntryBase, IEquatable<User>, IWebLinkFactory<UserWebLink> {
 
 		private string accessKey;
 		private PermissionCollection additionalPermissions = new PermissionCollection();
@@ -31,6 +32,7 @@ namespace VocaDb.Model.Domain.Users {
 		private IList<UserMessage> receivedMessages = new List<UserMessage>();
 		private IList<UserMessage> sentMessages = new List<UserMessage>();
 		private IList<SongList> songLists = new List<SongList>();
+		private IList<UserWebLink> webLinks = new List<UserWebLink>();
 
 		public User() {
 
@@ -267,6 +269,14 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public virtual IList<UserWebLink> WebLinks {
+			get { return webLinks; }
+			set { 
+				ParamIs.NotNull(() => value);
+				webLinks = value; 
+			}
+		}
+
 		public virtual AlbumForUser AddAlbum(Album album, PurchaseStatus status, MediaType mediaType, int rating) {
 
 			ParamIs.NotNull(() => album);
@@ -318,6 +328,21 @@ namespace VocaDb.Model.Domain.Users {
 
 			return comment;
 
+		}
+
+		public virtual UserWebLink CreateWebLink(WebLinkContract contract) {
+
+			ParamIs.NotNull(() => contract);
+
+			var link = new UserWebLink(this, contract);
+			WebLinks.Add(link);
+
+			return link;
+
+		}
+
+		public virtual UserWebLink CreateWebLink(string description, string url, WebLinkCategory category) {
+			return CreateWebLink(new WebLinkContract(url, description, category));
 		}
 
 		public virtual bool Equals(User another) {
