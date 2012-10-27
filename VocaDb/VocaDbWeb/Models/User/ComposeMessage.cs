@@ -10,7 +10,7 @@ namespace VocaDb.Web.Models.User {
 
 		[Display(ResourceType = typeof(MessagesStrings), Name = "Body")]
 		[Required]
-		[StringLength(2000)]
+		[StringLength(10000)]
 		public string Body { get; set; }
 
 		[Display(ResourceType = typeof(MessagesStrings), Name = "HighPriority")]
