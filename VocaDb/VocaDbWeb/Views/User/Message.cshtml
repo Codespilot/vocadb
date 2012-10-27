@@ -16,7 +16,7 @@
 		</div>
 	</div>
 	<p class="messageContent">
-		@Helpers.ConvertNewlinesToBreaks(Model.Body)
+		@HtmlHelpers.FormatText(Model.Body)
 	</p>
 
 	<a href="#" id="replyMessage">@ViewRes.User.MessagesStrings.Reply</a>
