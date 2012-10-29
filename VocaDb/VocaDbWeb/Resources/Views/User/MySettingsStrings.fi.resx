@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>Tietoja minusta</value>
+  </data>
   <data name="AccessKey" xml:space="preserve">
     <value>Pääsytunnus</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="EmailOptions" xml:space="preserve">
     <value>Sähköpostiasetukset yksityisviestejä varten</value>
   </data>
+  <data name="ExternalLinks" xml:space="preserve">
+    <value>Ulkoiset linkit</value>
+  </data>
   <data name="FillIfChangingPassword" xml:space="preserve">
     <value>(täytä jos vaihdat salasanaa)</value>
   </data>
@@ -164,6 +170,9 @@
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Virheellinen sähköpostiosoite</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Sijainti</value>
   </data>
   <data name="MySettingsTitle" xml:space="preserve">
     <value>Omat asetukset</value>
@@ -179,6 +188,9 @@
   </data>
   <data name="PreferredVideoService" xml:space="preserve">
     <value>Toivottu mediantoistopalvelu</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profiili</value>
   </data>
   <data name="ReallyReset" xml:space="preserve">
     <value>Haluatko varmasti resetoida?</value>

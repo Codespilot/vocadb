@@ -61,6 +61,15 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About me.
+        /// </summary>
+        public static string AboutMe {
+            get {
+                return ResourceManager.GetString("AboutMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Access key.
         /// </summary>
         public static string AccessKey {
@@ -169,6 +178,15 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to External links.
+        /// </summary>
+        public static string ExternalLinks {
+            get {
+                return ResourceManager.GetString("ExternalLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (fill if changing password.).
         /// </summary>
         public static string FillIfChangingPassword {
@@ -201,6 +219,15 @@ namespace ViewRes.User {
         public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
             }
         }
         
@@ -246,6 +273,15 @@ namespace ViewRes.User {
         public static string PreferredVideoService {
             get {
                 return ResourceManager.GetString("PreferredVideoService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
             }
         }
         

@@ -1,9 +1,18 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using VocaDb.Model.DataContracts
 @using VocaDb.Model.DataContracts.PVs
 @using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
 	
+@helper ExternalLinksList(IEnumerable<WebLinkContract> webLinks) {
+    
+    foreach (var link in webLinks) {
+        <a class="extLink" href="@link.Url">@link.DescriptionOrUrl</a><br />
+	}		
+    	    
+}
+
 @helper PVList(IEnumerable<PVContract> pvs, bool showPVType) {
     
  	foreach (var pv in pvs) {
