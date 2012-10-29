@@ -532,6 +532,10 @@ a.extLink[href^="http://www.cdjapan.co.jp/"] {
 	background: url("/Content/ExtIcons/cdjapan.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www.crypton.co.jp/"] {
+	background: url("/Content/ExtIcons/cfm.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www.discogs.com/"] {
 	background: url("/Content/ExtIcons/discogs.png") no-repeat left 50%;
 }
@@ -602,6 +606,10 @@ a.extLink[href^="http://vgmdb.net/"] {
 
 a.extLink[href^="http://vimeo.com/"] {
 	background: url("/Content/ExtIcons/vimeo.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://shop.vocaloidstore.com/"] {
+	background: url("/Content/ExtIcons/vocastore.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://www.yesasia.com/"] {

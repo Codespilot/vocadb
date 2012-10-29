@@ -58,6 +58,7 @@ namespace VocaDb.Model.Service.Helpers {
 		private readonly IList<CategoryMatcher> categoryMatchers = new List<CategoryMatcher>{
 			new CategoryMatcher(WebLinkCategory.Official, 
 				new StringMatcher("ameblo.jp/"),
+				new StringMatcher("www.crypton.co.jp/"),
 				new StringMatcher("www.facebook.com/"),
 				new StringMatcher("www.last.fm/"),
 				new StringMatcher("nicovideo.jp/user/"),
@@ -82,6 +83,7 @@ namespace VocaDb.Model.Service.Helpers {
 				new StringMatcher("shop.melonbooks.co.jp/"),
 				new StringMatcher("books.rakuten.co.jp/"),
 				new StringMatcher("toranoana.jp/mailorder/article/"),
+				new StringMatcher("shop.vocaloidstore.com/"),
 				new StringMatcher("www.yesasia.com/")
 			),
 			new CategoryMatcher(WebLinkCategory.Reference,
