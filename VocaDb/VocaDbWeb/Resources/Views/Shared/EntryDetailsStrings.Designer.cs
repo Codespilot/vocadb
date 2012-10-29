@@ -160,7 +160,7 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Other links.
+        ///   Looks up a localized string similar to Unofficial links.
         /// </summary>
         public static string OtherLinks {
             get {
