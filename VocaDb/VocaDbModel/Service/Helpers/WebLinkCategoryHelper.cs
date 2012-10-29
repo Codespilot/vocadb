@@ -55,10 +55,11 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		private IList<CategoryMatcher> categoryMatchers = new List<CategoryMatcher>{
+		private readonly IList<CategoryMatcher> categoryMatchers = new List<CategoryMatcher>{
 			new CategoryMatcher(WebLinkCategory.Official, 
 				new StringMatcher("ameblo.jp/"),
 				new StringMatcher("www.facebook.com/"),
+				new StringMatcher("www.last.fm/"),
 				new StringMatcher("nicovideo.jp/user/"),
 				new StringMatcher("com.nicovideo.jp/community/"),
 				new StringMatcher("nicovideo.jp/mylist/"),
