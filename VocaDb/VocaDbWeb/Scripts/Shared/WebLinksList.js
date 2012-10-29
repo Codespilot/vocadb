@@ -5,6 +5,7 @@ function initWebLinksList() {
 		{ url: "www.amazon.co.jp/", desc: "Amazon", cat: "Commercial" },
 		{ url: "www.amazon.com/", desc: "Amazon", cat: "Commercial" },
 		{ url: "ameblo.jp/", desc: "Blog", cat: "Official" },
+		{ url: "www.amiami.com/", desc: "AmiAmi", cat: "Commercial" },
 		{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop", cat: "Commercial" },
 		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan", cat: "Commercial" },
 		{ url: "www.discogs.com/", desc: "Discogs", cat: "Reference" },
