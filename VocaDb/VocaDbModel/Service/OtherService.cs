@@ -39,7 +39,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var artistNames = session.Query<ArtistName>()
-					.AddEntryNameFilter(canonized, NameMatchMode.Auto, words)
+					.FilterByArtistName(query, canonized, NameMatchMode.Auto, null)	// Can't use the existing words collection here as they are noncanonized
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -102,7 +102,7 @@ namespace VocaDb.Model.Service {
 
 				var artists = 
 					session.Query<ArtistName>()
-					.FilterByArtistName(query, canonized, matchMode, words)
+					.FilterByArtistName(query, canonized, matchMode, null) // Can't use the existing words collection here as they are noncanonized
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.AddNameOrder(LanguagePreference)
