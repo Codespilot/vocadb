@@ -151,7 +151,7 @@
     <value>Viralliset linkit</value>
   </data>
   <data name="OtherLinks" xml:space="preserve">
-    <value>Muut linkit</value>
+    <value>Epäviralliset linkit</value>
   </data>
   <data name="PicturesTab" xml:space="preserve">
     <value>Kuvat</value>
