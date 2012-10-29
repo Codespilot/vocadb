@@ -1,5 +1,4 @@
 ﻿using FluentNHibernate.Mapping;
-using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 
@@ -48,6 +47,7 @@ namespace VocaDb.Model.Mapping.Users {
 			HasMany(m => m.ReceivedMessages).KeyColumn("[Receiver]").OrderBy("Created DESC").Inverse().Cascade.All();
 			HasMany(m => m.SentMessages).KeyColumn("[Sender]").OrderBy("Created DESC").Inverse().Cascade.All();
 			HasMany(m => m.SongLists).KeyColumn("[Author]").OrderBy("Name").Inverse().Cascade.All();
+			HasMany(m => m.WebLinks).Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 
 		}
 
@@ -62,7 +62,9 @@ namespace VocaDb.Model.Mapping.Users {
 			Id(m => m.Id);
 
 			References(m => m.User).Column("[User]").Unique();
+			Map(m => m.AboutMe).Length(int.MaxValue).Not.Nullable();
 			Map(m => m.LastLoginAddress).Length(20).Not.Nullable();
+			Map(m => m.Location).Length(50).Not.Nullable();
 			Map(m => m.TwitterId).Not.Nullable();
 			Map(m => m.TwitterName).Length(200).Not.Nullable();
 			Map(m => m.TwitterOAuthToken).Length(70).Not.Nullable();

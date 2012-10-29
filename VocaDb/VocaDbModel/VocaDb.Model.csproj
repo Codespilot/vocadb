@@ -424,6 +424,7 @@
     <Compile Include="Mapping\Albums\AlbumMap.cs" />
     <Compile Include="Mapping\Songs\SongMap.cs" />
     <Compile Include="Mapping\Users\UserMessageMap.cs" />
+    <Compile Include="Mapping\Users\UserWebLinkMap.cs" />
     <Compile Include="ParamIs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\AlbumValidationErrors.Designer.cs">

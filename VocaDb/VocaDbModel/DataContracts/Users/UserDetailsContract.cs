@@ -15,14 +15,17 @@ namespace VocaDb.Model.DataContracts.Users {
 		public UserDetailsContract(User user, IUserPermissionContext permissionContext) 
 			: base(user) {
 
-			//AlbumLinks = user.Albums.Select(a => new AlbumForUserContract(a, languagePreference)).OrderBy(a => a.Album.Name).ToArray();
-			//FavoriteSongs = user.FavoriteSongs.Select(f => new FavoriteSongForUserContract(f, languagePreference)).OrderBy(s => s.Song.Name).ToArray();
+			AboutMe = user.Options.AboutMe;
 			LastLogin = user.LastLogin;
+			Location = user.Options.Location;
 			SongLists = user.SongLists
 				.Where(l => l.FeaturedCategory == SongListFeaturedCategory.Nothing)
 				.Select(l => new SongListContract(l, permissionContext)).ToArray();
+			WebLinks = user.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}
+
+		public string AboutMe { get; set; }
 
 		public int AlbumCollectionCount { get; set; }
 
@@ -41,6 +44,8 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public int Level { get; set; }
 
+		public string Location { get; set; }
+
 		public int Power { get; set; }
 
 		public SongListContract[] SongLists { get; set; }
@@ -48,6 +53,9 @@ namespace VocaDb.Model.DataContracts.Users {
 		public int SubmitCount { get; set; }
 
 		public int TagVotes { get; set; }
+
+		[DataMember]
+		public WebLinkContract[] WebLinks { get; set; }
 
 	}
 }

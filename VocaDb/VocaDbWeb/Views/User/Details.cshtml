@@ -43,7 +43,7 @@
 
 <table>
 	<tr>
-		<td rowspan="8" class="alignTop">
+		<td rowspan="11" class="alignTop">
 			@UserHelpers.ProfileIcon(Model)
 		</td>
 		<td>@R.DetailsStrings.UserName</td>
@@ -59,6 +59,26 @@
 		<td>@R.DetailsStrings.MemberSince</td>
 		<td>@Model.CreateDate.ToShortDateString()</td>
 	</tr>
+    @if (Model.WebLinks.Any()) {
+	<tr>
+		<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
+		<td>@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)</td>
+	</tr>
+    }
+    @if (!string.IsNullOrEmpty(Model.AboutMe)) {
+	<tr>
+		<td>@R.DetailsStrings.AboutMe</td>
+		<td>@HtmlHelpers.FormatText(Model.AboutMe)</td>
+	</tr>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Location)) {
+	<tr>
+		<td>@R.DetailsStrings.Location</td>
+		<td>@Model.Location</td>
+	</tr>
+    }
+
 	@if (Login.CanManageUsers || ownProfile) {
 		<tr>
 			<td>@R.DetailsStrings.LastLogin</td>

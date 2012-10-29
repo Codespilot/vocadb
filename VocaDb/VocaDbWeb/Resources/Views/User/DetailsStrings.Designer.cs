@@ -61,6 +61,15 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About me.
+        /// </summary>
+        public static string AboutMe {
+            get {
+                return ResourceManager.GetString("AboutMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account disabled.
         /// </summary>
         public static string AccountDisabled {
@@ -192,6 +201,15 @@ namespace ViewRes.User {
         public static string Level {
             get {
                 return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location.
+        /// </summary>
+        public static string Location {
+            get {
+                return ResourceManager.GetString("Location", resourceCulture);
             }
         }
         

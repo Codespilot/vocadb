@@ -96,6 +96,10 @@ img.coverPicThumb {
 	max-height: 70px;
 }
 
+div.songListItem img.coverPicThumb {
+	max-height: 60px;
+}
+
 a.coverPicThumb {
 	width: 70px;
 	height: 70px;	

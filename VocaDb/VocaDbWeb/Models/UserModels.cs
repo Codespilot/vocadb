@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
@@ -13,6 +14,7 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers.Support;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Models {
 
@@ -59,12 +61,15 @@ namespace VocaDb.Web.Models {
 
 		public MySettingsModel() {
 
+			AboutMe = string.Empty;
 			AllInterfaceLanguages = InterfaceLanguage.Cultures
 				.ToKeyValuePairsWithEmpty(string.Empty, ViewRes.User.MySettingsStrings.Automatic, c => c.Name, c => c.NativeName + " (" + c.EnglishName + ")")
 				.OrderBy(k => k.Value)
 				.ToArray();
 			AllLanguages = EnumVal<ContentLanguagePreference>.Values.ToDictionary(l => l, Translate.ContentLanguagePreferenceName);
 			AllVideoServices = EnumVal<PVService>.Values;
+			Location = string.Empty;
+			WebLinks = new List<WebLinkDisplay>();
 
 		}
 
@@ -73,6 +78,7 @@ namespace VocaDb.Web.Models {
 			
 			ParamIs.NotNull(() => user);
 
+			AboutMe = user.AboutMe;
 			AnonymousActivity = user.AnonymousActivity;
 			CultureSelection = user.Culture;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
@@ -82,13 +88,17 @@ namespace VocaDb.Web.Models {
 			HasTwitterToken = user.HasTwitterToken;
 			Id = user.Id;
 			InterfaceLanguageSelection = user.Language;
+			Location = user.Location;
 			PreferredVideoService = user.PreferredVideoService;
 			TwitterName = user.TwitterName;
 			Username = user.Name;
+			WebLinks = user.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			AccessKey = user.HashedAccessKey;
 
 		}
+
+		public string AboutMe { get; set; }
 
 		public string AccessKey { get; set; }
 
@@ -116,6 +126,9 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Interface language")]
 		public string InterfaceLanguageSelection { get; set; }
 
+		[StringLength(50)]
+		public string Location { get; set; }
+
 		[Display(Name = "Preferred streaming service")]
 		public PVService PreferredVideoService { get; set; }
 
@@ -128,6 +141,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Username")]
 		public string Username { get; set; }
+
+		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		[Display(Name = "Old password")]
 		[DataType(DataType.Password)]
@@ -150,6 +165,7 @@ namespace VocaDb.Web.Models {
 		public UpdateUserSettingsContract ToContract() {
 
 			return new UpdateUserSettingsContract {
+				AboutMe = this.AboutMe ?? string.Empty,
 				AnonymousActivity = this.AnonymousActivity,
 				Culture = this.CultureSelection ?? string.Empty,
 				Id = this.Id,
@@ -158,9 +174,11 @@ namespace VocaDb.Web.Models {
 				Email = this.Email ?? string.Empty,
 				EmailOptions = this.EmailOptions,
 				Language = this.InterfaceLanguageSelection ?? string.Empty,
+				Location = this.Location ?? string.Empty,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
-				NewPass = this.NewPass
+				NewPass = this.NewPass,
+				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 			};
 
 		}

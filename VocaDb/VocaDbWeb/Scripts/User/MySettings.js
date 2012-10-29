@@ -1,6 +1,7 @@
 ﻿
 function initPage() {
 
-	$("#tabs").tabs();
+    $("#tabs").tabs();
+    initWebLinksList();
 
 }

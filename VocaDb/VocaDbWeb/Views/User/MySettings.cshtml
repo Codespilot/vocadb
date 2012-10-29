@@ -29,6 +29,7 @@
 		<ul>
 			<li><a href="#accountSettings">@R.MySettingsStrings.AccountSettings</a></li>
 			<li><a href="#interface">@R.MySettingsStrings.Interface</a></li>
+			<li><a href="#profile">@R.MySettingsStrings.Profile</a></li>
 			<li><a href="#connectivity">@R.MySettingsStrings.Connectivity</a></li>
 		</ul>
 
@@ -129,6 +130,31 @@
 			</div>
 			<div class="editor-field">
 				@Html.DropDownListFor(m => m.PreferredVideoService, new SelectList(Model.AllVideoServices, Model.PreferredVideoService))
+			</div>
+
+		</div>
+        
+        <div id="profile">
+			
+ 			<div class="editor-label">
+				@R.MySettingsStrings.AboutMe
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(m => m.AboutMe, new { @class = "input-xlarge" })
+			</div>
+           
+ 			<div class="editor-label">
+				@R.MySettingsStrings.Location
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.Location, new { @class = "input-xlarge" })
+			</div>
+ 
+			<div class="editor-label">
+				@R.MySettingsStrings.ExternalLinks
+			</div>
+			<div class="editor-field">
+				@Helpers.WebLinksList(Model.WebLinks)
 			</div>
 
 		</div>

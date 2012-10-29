@@ -941,13 +941,19 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				user.Options.AboutMe = contract.AboutMe;
 				user.AnonymousActivity = contract.AnonymousActivity;
 				user.Culture = contract.Culture;
 				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
 				user.EmailOptions = contract.EmailOptions;
 				user.Language = contract.Language;
+				user.Options.Location = contract.Location;
 				user.PreferredVideoService = contract.PreferredVideoService;
 				user.SetEmail(contract.Email);
+
+				var webLinkDiff = WebLink.Sync(user.WebLinks, contract.WebLinks, user);
+				SessionHelper.Sync(session, webLinkDiff);
+
 				session.Update(user);
 
 				AuditLog(string.Format("updated settings for {0}", EntryLinkFactory.CreateEntryLink(user)), session);
