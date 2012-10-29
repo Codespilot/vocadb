@@ -21,7 +21,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			SongLists = user.SongLists
 				.Where(l => l.FeaturedCategory == SongListFeaturedCategory.Nothing)
 				.Select(l => new SongListContract(l, permissionContext)).ToArray();
-			WebLinks = user.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
+			WebLinks = user.WebLinks.OrderBy(w => w.DescriptionOrUrl).Select(w => new WebLinkContract(w)).ToArray();
 
 		}
 
