@@ -151,6 +151,24 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Official links.
+        /// </summary>
+        public static string OfficialLinks {
+            get {
+                return ResourceManager.GetString("OfficialLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other links.
+        /// </summary>
+        public static string OtherLinks {
+            get {
+                return ResourceManager.GetString("OtherLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pictures.
         /// </summary>
         public static string PicturesTab {

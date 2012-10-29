@@ -81,18 +81,8 @@
 				</td>
 			</tr>
 
-
-			@if (Model.WebLinks.Any()) {
-			<tr>
-				<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
-				<td>
-					@foreach (var link in Model.WebLinks) {
-						<a class="extLink" href='@link.Url'>@link.DescriptionOrUrl</a><br />
-					}
-				</td>	
-			</tr>
-	   
-   }
+        @EntryDetailsHelpers.ExternalLinksRows(Model.WebLinks)
+			
 		@if (Model.Groups.Any()) {
 			<tr>
 				<td>@ViewRes.Artist.DetailsStrings.Groups</td>
