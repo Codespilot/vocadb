@@ -520,6 +520,10 @@ a.extLink[href^="http://ameblo.jp/"] {
 	background: url("/Content/ExtIcons/ameblo.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www.amiami.com/"] {
+	background: url("/Content/ExtIcons/amiami.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www5.atwiki.jp/hmiku/"] {
 	background: url("/Content/ExtIcons/atwiki.png") no-repeat left 50%;
 }
