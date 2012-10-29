@@ -851,6 +851,7 @@
     <Content Include="Content\ExtIcons\facebook.png" />
     <Content Include="Content\ExtIcons\itunes.png" />
     <Content Include="Content\ExtIcons\karent.png" />
+    <Content Include="Content\ExtIcons\lastfm.png" />
     <Content Include="Content\ExtIcons\listenjapan.png" />
     <Content Include="Content\ExtIcons\melonbooks.png" />
     <Content Include="Content\ExtIcons\mikudb.png" />

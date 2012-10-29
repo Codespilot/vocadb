@@ -11,6 +11,7 @@ function initWebLinksList() {
 		{ url: "www.facebook.com/", desc: "Facebook", cat: "Official" },
 		{ url: "itunes.apple.com/", desc: "iTunes", cat: "Commercial" },
 		{ url: "karent.jp/", desc: "KarenT", cat: "Commercial" },
+		{ url: "last.fm/", desc: "Last.fm", cat: "Official" },
 		{ url: "listen.jp/store/", desc: "Listen Japan", cat: "Commercial" },
 		{ url: "shop.melonbooks.co.jp/", desc: "Melonbooks", cat: "Commercial" },
 		{ url: "mikudb.com/", desc: "MikuDB", cat: "Reference" },
