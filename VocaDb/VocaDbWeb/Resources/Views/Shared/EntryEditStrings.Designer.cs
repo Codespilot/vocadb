@@ -70,6 +70,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} is also editing this entry right now!.
+        /// </summary>
+        public static string ConcurrentEditWarningNow {
+            get {
+                return ResourceManager.GetString("ConcurrentEditWarningNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to External links relevant to this entry. Keep in mind no illegal/direct download links will be allowed!&lt;br /&gt;
         ///&lt;br /&gt;
         ///Fill in the URL first, and description and category will be guessed automatically if the domain is known.&lt;br /&gt;

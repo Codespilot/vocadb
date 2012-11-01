@@ -62,8 +62,17 @@ namespace VocaDb.Web.Controllers {
 
 			if (conflictingEditor.UserId != ConcurrentEntryEditManager.Nothing.UserId) {
 
-				var minutesAgo = DateTime.Now - conflictingEditor.Time;
-				TempData.SetStatusMessage(string.Format(ViewRes.EntryEditStrings.ConcurrentEditWarning, conflictingEditor.UserName, (int)minutesAgo.TotalMinutes));
+				var ago = DateTime.Now - conflictingEditor.Time;
+
+				if (ago.TotalMinutes < 1) {
+
+					TempData.SetStatusMessage(string.Format(ViewRes.EntryEditStrings.ConcurrentEditWarningNow, conflictingEditor.UserName));
+
+				} else {
+
+					TempData.SetStatusMessage(string.Format(ViewRes.EntryEditStrings.ConcurrentEditWarning, conflictingEditor.UserName, (int)ago.TotalMinutes));
+
+				}
 
 			}
 

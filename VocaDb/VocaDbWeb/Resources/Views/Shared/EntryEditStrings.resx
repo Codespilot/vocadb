@@ -120,6 +120,9 @@
   <data name="ConcurrentEditWarning" xml:space="preserve">
     <value>{0} also edited this entry {1} minute(s) ago.</value>
   </data>
+  <data name="ConcurrentEditWarningNow" xml:space="preserve">
+    <value>{0} is also editing this entry right now!</value>
+  </data>
   <data name="ExternalLinksQuickHelp" xml:space="preserve">
     <value>External links relevant to this entry. Keep in mind no illegal/direct download links will be allowed!&lt;br /&gt;
 &lt;br /&gt;
