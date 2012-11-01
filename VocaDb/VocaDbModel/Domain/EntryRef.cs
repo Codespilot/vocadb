@@ -1,6 +1,8 @@
-﻿namespace VocaDb.Model.Domain {
+﻿using System;
 
-	public class EntryRef {
+namespace VocaDb.Model.Domain {
+
+	public class EntryRef : IEquatable<EntryRef> {
 
 		public EntryRef() { }
 
@@ -11,6 +13,11 @@
 			EntryType = entryBase.EntryType;
 			Id = entryBase.Id;
 
+		}
+
+		public EntryRef(EntryType entryType, int id) {
+			EntryType = entryType;
+			Id = id;
 		}
 
 		public EntryType EntryType { get; set;  }

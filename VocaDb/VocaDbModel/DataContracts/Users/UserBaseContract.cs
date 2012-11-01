@@ -4,7 +4,7 @@ using VocaDb.Model.Domain.Users;
 namespace VocaDb.Model.DataContracts.Users {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class UserBaseContract {
+	public class UserBaseContract : IUser {
 
 		public UserBaseContract() { }
 

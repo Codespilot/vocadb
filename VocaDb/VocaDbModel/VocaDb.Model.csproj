@@ -277,6 +277,7 @@
     <Compile Include="Domain\Tags\TagEditableFields.cs" />
     <Compile Include="Domain\TrashedEntry.cs" />
     <Compile Include="Domain\Users\ArtistForUser.cs" />
+    <Compile Include="Domain\Users\IUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Users\UserComment.cs" />
     <Compile Include="Domain\Users\UserOptions.cs" />
@@ -464,6 +465,7 @@
     <Compile Include="Service\EntryViewMode.cs" />
     <Compile Include="Service\Helpers\AlbumFileParser.cs" />
     <Compile Include="Service\Helpers\ArtistQueryableExtender.cs" />
+    <Compile Include="Helpers\ConcurrentEntryEditManager.cs" />
     <Compile Include="Service\Helpers\QueryableExtender.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />

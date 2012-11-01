@@ -233,8 +233,12 @@ namespace VocaDb.Web.Controllers
         [Authorize]
         public ActionResult Edit(int id)
         {
+
+			CheckConcurrentEdit(EntryType.Song, id);
+
 			var model = new SongEdit(Service.GetSongForEdit(id));
 			return View(model);
+
 		}
 
         //
