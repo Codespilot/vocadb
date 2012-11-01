@@ -14,7 +14,7 @@ using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class User : IEntryBase, IEquatable<User>, IWebLinkFactory<UserWebLink> {
+	public class User : IEntryBase, IUser, IEquatable<User>, IWebLinkFactory<UserWebLink> {
 
 		private string accessKey;
 		private PermissionCollection additionalPermissions = new PermissionCollection();

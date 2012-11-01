@@ -269,8 +269,9 @@ namespace VocaDb.Web.Controllers
         [Authorize]
         public ActionResult Edit(int id) {
 
-        	var album = Service.GetAlbumForEdit(id);
+			CheckConcurrentEdit(EntryType.Album, id);
 
+        	var album = Service.GetAlbumForEdit(id);
 			return View(new AlbumEdit(album));
 
         }

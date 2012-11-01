@@ -8,6 +8,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 using System.Drawing;
@@ -281,6 +282,9 @@ namespace VocaDb.Web.Controllers
         {
 
 			RestoreErrorsFromTempData();
+
+			CheckConcurrentEdit(EntryType.Artist, id);
+
         	var model = new ArtistEdit(Service.GetArtistForEdit(id));
             return View(model);
 

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConcurrentEditWarning" xml:space="preserve">
+    <value>{0} also edited this entry {1} minute(s) ago.</value>
+  </data>
   <data name="ExternalLinksQuickHelp" xml:space="preserve">
     <value>External links relevant to this entry. Keep in mind no illegal/direct download links will be allowed!&lt;br /&gt;
 &lt;br /&gt;

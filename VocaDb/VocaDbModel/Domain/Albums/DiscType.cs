@@ -1,5 +1,8 @@
 ﻿namespace VocaDb.Model.Domain.Albums {
 
+	/// <summary>
+	/// Album disc type.
+	/// </summary>
 	public enum DiscType {
 
 		Unknown		= 0,

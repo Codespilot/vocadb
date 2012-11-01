@@ -56,6 +56,19 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
+		protected void CheckConcurrentEdit(EntryType entryType, int id) {
+
+			var conflictingEditor = ConcurrentEntryEditManager.CheckConcurrentEdits(new EntryRef(entryType, id), Login.User);
+
+			if (conflictingEditor.UserId != ConcurrentEntryEditManager.Nothing.UserId) {
+
+				var minutesAgo = DateTime.Now - conflictingEditor.Time;
+				TempData.SetStatusMessage(string.Format(ViewRes.EntryEditStrings.ConcurrentEditWarning, conflictingEditor.UserName, (int)minutesAgo.TotalMinutes));
+
+			}
+
+		}
+
 		protected void ParseAdditionalPictures(HttpPostedFileBase mainPic, IList<EntryPictureFileContract> pictures) {
 
 			var additionalPics = Enumerable.Range(0, Request.Files.Count)
