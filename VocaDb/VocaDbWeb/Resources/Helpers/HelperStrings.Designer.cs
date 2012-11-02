@@ -158,5 +158,41 @@ namespace HelperRes {
                 return ResourceManager.GetString("StatusDescriptionLocked", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string WebLinkCategoryTitle {
+            get {
+                return ResourceManager.GetString("WebLinkCategoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string WebLinkDescriptionTitle {
+            get {
+                return ResourceManager.GetString("WebLinkDescriptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New row.
+        /// </summary>
+        public static string WebLinkNewRow {
+            get {
+                return ResourceManager.GetString("WebLinkNewRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL (required).
+        /// </summary>
+        public static string WebLinkUrlTitle {
+            get {
+                return ResourceManager.GetString("WebLinkUrlTitle", resourceCulture);
+            }
+        }
     }
 }

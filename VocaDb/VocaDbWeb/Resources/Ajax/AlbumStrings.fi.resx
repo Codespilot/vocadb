@@ -120,4 +120,10 @@
   <data name="AddedToCollection" xml:space="preserve">
     <value>Lisätty kokoelmaan.</value>
   </data>
+  <data name="AddToTracks" xml:space="preserve">
+    <value>Lisää kappaleisiin</value>
+  </data>
+  <data name="RemoveFromTracks" xml:space="preserve">
+    <value>Poista kappaleilta</value>
+  </data>
 </root>

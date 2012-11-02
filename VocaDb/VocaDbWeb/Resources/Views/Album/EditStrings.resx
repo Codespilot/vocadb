@@ -222,4 +222,40 @@
   <data name="PiPicturesGuide" xml:space="preserve">
     <value>Please only upload pictures relevant to this album, nothing else.</value>
   </data>
+  <data name="ArtistRolesTitle" xml:space="preserve">
+    <value>Artist roles</value>
+  </data>
+  <data name="PiCreateNew" xml:space="preserve">
+    <value>Create new</value>
+  </data>
+  <data name="PvAdd" xml:space="preserve">
+    <value>Add media</value>
+  </data>
+  <data name="PvAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="PvIntro" xml:space="preserve">
+    <value>You can use this page to add advertisements or crossfades related to this album.</value>
+  </data>
+  <data name="PvName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="PvService" xml:space="preserve">
+    <value>Service</value>
+  </data>
+  <data name="PvSupportedServices" xml:space="preserve">
+    <value>Supported services: Youtube, NicoNicoDouga, Vimeo and SoundCloud.</value>
+  </data>
+  <data name="PvType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="PvURL" xml:space="preserve">
+    <value>URL:</value>
+  </data>
+  <data name="TrackPropertiesTitle" xml:space="preserve">
+    <value>Track properties</value>
+  </data>
+  <data name="ArtistsForSong" xml:space="preserve">
+    <value>Artists for song {0}</value>
+  </data>
 </root>

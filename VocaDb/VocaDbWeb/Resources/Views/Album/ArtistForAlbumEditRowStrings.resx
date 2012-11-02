@@ -117,49 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Added" xml:space="preserve">
-    <value>lisätty</value>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
   </data>
-  <data name="DraftIconTitle" xml:space="preserve">
-    <value>Tämä merkintä on luonnos.</value>
-  </data>
-  <data name="DraftMessage" xml:space="preserve">
-    <value>Tämä merkintä on luonnos. Voit auttaa muokkaamalla merkintää ja lisäämällä puuttuvat tiedot.</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Tallenna muutokset</value>
-  </data>
-  <data name="SeeGuide" xml:space="preserve">
-    <value>ohjeesta</value>
-  </data>
-  <data name="SeeGuidePost" xml:space="preserve">
-    <value>.</value>
-  </data>
-  <data name="SeeGuidePre" xml:space="preserve">
-    <value>Katso lisätietoja</value>
-  </data>
-  <data name="StatusDescriptionApproved" xml:space="preserve">
-    <value>Hyväksytyt merkinnät ovat luotetun käyttäjän tarkastamia. Hyväksyttyjen merkintöjen muokkaaminen on mahdollista vain rajoitetusti.</value>
-  </data>
-  <data name="StatusDescriptionDraft" xml:space="preserve">
-    <value>Luonnos-tilassa olevista merkinnöistä puuttuu jotain tietoja.</value>
-  </data>
-  <data name="StatusDescriptionFinished" xml:space="preserve">
-    <value>Valmis-tilassa olevat merkinnät sisältävät kaikki vaaditut tiedot, mutta niitä ei vielä ole hyväksytty.</value>
-  </data>
-  <data name="StatusDescriptionLocked" xml:space="preserve">
-    <value>Lukitut merkinnät ovat vain ylläpidon muokattavissa.</value>
-  </data>
-  <data name="WebLinkCategoryTitle" xml:space="preserve">
-    <value>Kategoria</value>
-  </data>
-  <data name="WebLinkDescriptionTitle" xml:space="preserve">
-    <value>Kuvaus</value>
-  </data>
-  <data name="WebLinkNewRow" xml:space="preserve">
-    <value>Uusi rivi</value>
-  </data>
-  <data name="WebLinkUrlTitle" xml:space="preserve">
-    <value>Osoite (vaadittu)</value>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
   </data>
 </root>

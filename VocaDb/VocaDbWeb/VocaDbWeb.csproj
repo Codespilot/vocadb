@@ -662,6 +662,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PagedListStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Album\ArtistForAlbumEditRowStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistForAlbumEditRowStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Album\CreateStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1932,6 +1937,12 @@
       <LastGenOutput>PagedListStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Other\PagedListStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\ArtistForAlbumEditRowStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\ArtistForAlbumEditRowStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArtistForAlbumEditRowStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ja.resx">
       <SubType>Designer</SubType>

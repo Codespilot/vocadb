@@ -14,7 +14,7 @@
 	<td>
 		<label class="checkbox inline">
 			@Html.CheckBoxFor(m => m.IsSupport, new { @class = "isSupportCheck", id="isSupportCheck_" + Model.Id })
-			Support
+			@ViewRes.Album.ArtistForAlbumEditRowStrings.Support
 		</label>
 	</td>
 	<td>
@@ -27,10 +27,10 @@
 			}
 		</div>
 		@if (Model.Artist == null || VocaDb.Model.Helpers.ArtistHelper.IsCustomizable(Model.Artist.ArtistType)) {
-			<a href="#" class="artistRolesEdit textLink editLink">Customize</a>
+			<a href="#" class="artistRolesEdit textLink editLink">@ViewRes.Album.ArtistForAlbumEditRowStrings.Customize</a>
 		}
 	</td>
 	<td>
-		<a href="#" class="artistRemove textLink removeLink" id="@("artistRemove_" + Model.Id)">Remove</a>
+		<a href="#" class="artistRemove textLink removeLink" id="@("artistRemove_" + Model.Id)">@ViewRes.SharedStrings.Remove</a>
 	</td>
 </tr>

@@ -68,5 +68,23 @@ namespace AjaxRes {
                 return ResourceManager.GetString("AddedToCollection", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to tracks.
+        /// </summary>
+        public static string AddToTracks {
+            get {
+                return ResourceManager.GetString("AddToTracks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove from tracks.
+        /// </summary>
+        public static string RemoveFromTracks {
+            get {
+                return ResourceManager.GetString("RemoveFromTracks", resourceCulture);
+            }
+        }
     }
 }
