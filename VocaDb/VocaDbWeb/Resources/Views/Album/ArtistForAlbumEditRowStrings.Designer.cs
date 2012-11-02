@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes {
+namespace ViewRes.Album {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class EntryEditStrings {
+    public class ArtistForAlbumEditRowStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EntryEditStrings() {
+        internal ArtistForAlbumEditRowStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.EntryEditStrings", typeof(EntryEditStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Album.ArtistForAlbumEditRowStrings", typeof(ArtistForAlbumEditRowStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,63 +61,20 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} also edited this entry {1} minute(s) ago..
+        ///   Looks up a localized string similar to Customize.
         /// </summary>
-        public static string ConcurrentEditWarning {
+        public static string Customize {
             get {
-                return ResourceManager.GetString("ConcurrentEditWarning", resourceCulture);
+                return ResourceManager.GetString("Customize", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is also editing this entry right now!.
+        ///   Looks up a localized string similar to Support.
         /// </summary>
-        public static string ConcurrentEditWarningNow {
+        public static string Support {
             get {
-                return ResourceManager.GetString("ConcurrentEditWarningNow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to External links relevant to this entry. Keep in mind no illegal/direct download links will be allowed!&lt;br /&gt;
-        ///&lt;br /&gt;
-        ///Fill in the URL first, and description and category will be guessed automatically if the domain is known.&lt;br /&gt;
-        ///&lt;br /&gt;
-        ///Official: artist&apos;s official site (usually blogs, websites, Facebook etc.).&lt;br /&gt;
-        ///Commercial: authorized sales such as Amazon and CDJapan.&lt;br /&gt;
-        ///Reference: fansites with useful information such as wikis.&lt;br /&gt;
-        ///Other: for those that don&apos;t fit into anything above.&lt;br /&gt;.
-        /// </summary>
-        public static string ExternalLinksQuickHelp {
-            get {
-                return ResourceManager.GetString("ExternalLinksQuickHelp", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Merge.
-        /// </summary>
-        public static string Merge {
-            get {
-                return ResourceManager.GetString("Merge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Restore.
-        /// </summary>
-        public static string Restore {
-            get {
-                return ResourceManager.GetString("Restore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update notes (optional).
-        /// </summary>
-        public static string UpdateNotes {
-            get {
-                return ResourceManager.GetString("UpdateNotes", resourceCulture);
+                return ResourceManager.GetString("Support", resourceCulture);
             }
         }
     }

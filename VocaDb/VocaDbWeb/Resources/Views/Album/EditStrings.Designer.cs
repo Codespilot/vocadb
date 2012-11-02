@@ -79,6 +79,24 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artist roles.
+        /// </summary>
+        public static string ArtistRolesTitle {
+            get {
+                return ResourceManager.GetString("ArtistRolesTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Artists for song {0}.
+        /// </summary>
+        public static string ArtistsForSong {
+            get {
+                return ResourceManager.GetString("ArtistsForSong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Artists.
         /// </summary>
         public static string ArtistsTab {
@@ -286,6 +304,15 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new.
+        /// </summary>
+        public static string PiCreateNew {
+            get {
+                return ResourceManager.GetString("PiCreateNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pictures.
         /// </summary>
         public static string PicturesTab {
@@ -300,6 +327,87 @@ namespace ViewRes.Album {
         public static string PiPicturesGuide {
             get {
                 return ResourceManager.GetString("PiPicturesGuide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add media.
+        /// </summary>
+        public static string PvAdd {
+            get {
+                return ResourceManager.GetString("PvAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Author.
+        /// </summary>
+        public static string PvAuthor {
+            get {
+                return ResourceManager.GetString("PvAuthor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can use this page to add advertisements or crossfades related to this album..
+        /// </summary>
+        public static string PvIntro {
+            get {
+                return ResourceManager.GetString("PvIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string PvName {
+            get {
+                return ResourceManager.GetString("PvName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service.
+        /// </summary>
+        public static string PvService {
+            get {
+                return ResourceManager.GetString("PvService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Supported services: Youtube, NicoNicoDouga, Vimeo and SoundCloud..
+        /// </summary>
+        public static string PvSupportedServices {
+            get {
+                return ResourceManager.GetString("PvSupportedServices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string PvType {
+            get {
+                return ResourceManager.GetString("PvType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to URL:.
+        /// </summary>
+        public static string PvURL {
+            get {
+                return ResourceManager.GetString("PvURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Track properties.
+        /// </summary>
+        public static string TrackPropertiesTitle {
+            get {
+                return ResourceManager.GetString("TrackPropertiesTitle", resourceCulture);
             }
         }
         

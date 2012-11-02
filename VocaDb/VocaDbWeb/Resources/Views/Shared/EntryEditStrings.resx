@@ -139,4 +139,7 @@ Other: for those that don't fit into anything above.&lt;br /&gt;</value>
   <data name="Restore" xml:space="preserve">
     <value>Restore</value>
   </data>
+  <data name="UpdateNotes" xml:space="preserve">
+    <value>Update notes (optional)</value>
+  </data>
 </root>

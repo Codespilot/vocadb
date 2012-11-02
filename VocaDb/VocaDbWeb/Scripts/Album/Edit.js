@@ -175,7 +175,7 @@ function initPage(albumId, discType) {
 
 	});
 
-	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 550, modal: true, buttons: { "Save": function () {
+	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 550, modal: true, buttons: [{ text: vdb.resources.shared.save, click: function () {
 
 		var artistId = $("#rolesArtistId").val();
 		var checkedRoles = $("#editArtistRolesPopup input.artistRoleCheck:checked").map(function () {
@@ -197,9 +197,7 @@ function initPage(albumId, discType) {
 
 		$("#editArtistRolesPopup").dialog("close");
 
-	} 
-	}
-	});
+	}}]});
 
 	$("input.artistRoleCheck").button();
 
@@ -234,10 +232,11 @@ function initPage(albumId, discType) {
 		}
 	});
 
-	$("#editTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: { "Save": saveTrackProperties } });
-	$("#editMultipleTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: {
-		"Add to tracks": addArtistsToSelectedTracks, "Remove from tracks": removeArtistsFromSelectedTracks
-	} });
+	$("#editTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: vdb.resources.shared.save, click: saveTrackProperties }]});
+	$("#editMultipleTrackPropertiesPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [
+        { text: vdb.resources.albumEdit.addToTracks, click: addArtistsToSelectedTracks },
+        { text: vdb.resources.albumEdit.removeFromTracks, click: removeArtistsFromSelectedTracks }
+	]});
 
 	$(".nextDiscCheck").live("click", function () {
 		songListChanged();

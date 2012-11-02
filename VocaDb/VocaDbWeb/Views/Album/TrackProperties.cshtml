@@ -2,7 +2,7 @@
 
 <div id="@("trackProperties_" + Model.Id)" class="trackProperties">
 
-	<h3>Artists for song @Model.Name</h3>
+	<h3>@string.Format(ViewRes.Album.EditStrings.ArtistsForSong, Model.Name)</h3>
 
 	<div id="artistSelections">
 	@foreach (var artist in Model.ArtistSelections) {

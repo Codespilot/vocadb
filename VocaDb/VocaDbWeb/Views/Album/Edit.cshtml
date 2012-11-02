@@ -38,8 +38,15 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
 
 <script type="text/javascript">
-	$(document).ready(function() { 
-		$("#tabs").tabs();
+    $(document).ready(function() { 
+
+        vdb.resources.albumEdit = {
+            addToTracks: '@Html.Raw(AjaxRes.AlbumStrings.AddToTracks)',
+            removeFromTracks: '@Html.Raw(AjaxRes.AlbumStrings.RemoveFromTracks)'
+        };
+
+        $("#tabs").tabs();
+
 	});
 </script>
 
@@ -250,21 +257,21 @@
 				</tbody>
 			</table>
 			
-			<a href="#" id="picAdd" class="addLink textLink">Create new</a>
+			<a href="#" id="picAdd" class="addLink textLink">@R.EditStrings.PiCreateNew</a>
 
 		</div>
 
 		<div id="pvsTab">
 	
-			<p>You can use this page to add advertisements or crossfades related to this album.</p>
+			<p>@R.EditStrings.PvIntro</p>
 
 			<table>
 				<thead>
 					<tr>
-						<th>Service</th>
-						<th>Type</th>
-						<th>Name</th>
-                        <th>Author</th>
+						<th>@R.EditStrings.PvService</th>
+						<th>@R.EditStrings.PvType</th>
+						<th>@R.EditStrings.PvName</th>
+                        <th>@R.EditStrings.PvAuthor</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -276,14 +283,14 @@
 			</table>
 
 			<br />
-			<h4>Add media</h4>
-			<p>Supported services: Youtube, NicoNicoDouga, Vimeo and SoundCloud.</p>
+			<h4>@R.EditStrings.PvAdd</h4>
+			<p>@R.EditStrings.PvSupportedServices</p>
 			<p>
-			URL:
+			@R.EditStrings.PvURL
 			@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
 			</p>
 
-			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
+			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">@ViewRes.SharedStrings.Add</a>
 			@Helpers.AjaxLoader("pvLoader")
 	
 		</div>
@@ -291,7 +298,7 @@
 	</div>
 	<br />
 	
-	<p>Update notes (optional)</p>
+	<p>@ViewRes.EntryEditStrings.UpdateNotes</p>
 	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xlarge" })	
 	
 	<br />
@@ -299,7 +306,7 @@
 	
 }
 	
-<div id="editArtistRolesPopup" style="display:none;" title="Artist roles">
+<div id="editArtistRolesPopup" style="display:none;" title="@R.EditStrings.ArtistRolesTitle">
 
 	<div id="rolesArtistId" />
 
@@ -312,13 +319,13 @@
 
 </div>
 
-<div id="editTrackPropertiesPopup" style="display:none;" title="Track properties">
+<div id="editTrackPropertiesPopup" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
 
 	<div id="trackPropertiesContent"></div>
 
 </div>
 
-<div id="editMultipleTrackPropertiesPopup" style="display:none;" title="Track properties">
+<div id="editMultipleTrackPropertiesPopup" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
 
 	<div id="multipleTrackPropertiesContent"></div>
 

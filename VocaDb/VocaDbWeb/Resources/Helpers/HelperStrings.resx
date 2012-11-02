@@ -150,4 +150,16 @@
   <data name="StatusDescriptionLocked" xml:space="preserve">
     <value>Locked entries can only be edited by staff members.</value>
   </data>
+  <data name="WebLinkCategoryTitle" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="WebLinkDescriptionTitle" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="WebLinkNewRow" xml:space="preserve">
+    <value>New row</value>
+  </data>
+  <data name="WebLinkUrlTitle" xml:space="preserve">
+    <value>URL (required)</value>
+  </data>
 </root>
