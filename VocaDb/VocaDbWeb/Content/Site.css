@@ -544,7 +544,7 @@ a.extLink[href*="www.facebook.com/"] {
 	background: url("/Content/ExtIcons/facebook.png") no-repeat left 50%;
 }
 
-a.extLink[href^="http://itunes.apple.com/"] {
+a.extLink[href^="http://itunes.apple.com/"], a.extLink[href^="https://itunes.apple.com/"] {
 	background: url("/Content/ExtIcons/itunes.png") no-repeat left 50%;
 }
 
@@ -566,6 +566,10 @@ a.extLink[href^="http://shop.melonbooks.co.jp/"] {
 
 a.extLink[href^="http://mikudb.com/"] {
 	background: url("/Content/ExtIcons/mikudb.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://mora.jp/"] {
+	background: url("/Content/ExtIcons/mora.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://com.nicovideo.jp/community/"] {

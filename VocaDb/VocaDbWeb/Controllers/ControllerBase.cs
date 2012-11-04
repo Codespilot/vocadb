@@ -21,6 +21,7 @@ namespace VocaDb.Web.Controllers {
 
 		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
 		protected const int entriesPerPage = 30;
+		protected const int invalidId = 0;
 
 		protected string Hostname {
 			get {

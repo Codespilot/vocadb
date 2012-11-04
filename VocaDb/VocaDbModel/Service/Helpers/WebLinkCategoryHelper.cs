@@ -81,6 +81,7 @@ namespace VocaDb.Model.Service.Helpers {
 				new StringMatcher("karent.jp/"),
 				new StringMatcher("listen.jp/store/"),
 				new StringMatcher("shop.melonbooks.co.jp/"),
+				new StringMatcher("mora.jp/"),
 				new StringMatcher("books.rakuten.co.jp/"),
 				new StringMatcher("toranoana.jp/mailorder/article/"),
 				new StringMatcher("shop.vocaloidstore.com/"),
