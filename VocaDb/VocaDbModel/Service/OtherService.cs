@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Albums;
@@ -230,24 +231,32 @@ namespace VocaDb.Model.Service {
 				var newsEntries = session.Query<NewsEntry>().Where(n => n.Stickied).OrderByDescending(a => a.CreateDate).Take(maxNewsEntries).ToArray();
 
 				if (newsEntries.Length < maxNewsEntries)
-					newsEntries = newsEntries.Concat(session.Query<NewsEntry>().Where(n => !n.Stickied).OrderByDescending(a => a.CreateDate).Take(maxNewsEntries - newsEntries.Length)).ToArray();
+					newsEntries = newsEntries.Concat(session.Query<NewsEntry>()
+						.Where(n => !n.Stickied)
+						.OrderByDescending(a => a.CreateDate)
+						.Take(maxNewsEntries - newsEntries.Length)).ToArray();
 
 				var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
 					.OrderByDescending(a => a.RatingAverageInt)
-					.OrderByDescending(a => a.RatingCount)
-					.Take(10).ToArray();
+					.ThenBy(a => a.RatingCount)
+					.Take(7).ToArray();
+
 				var newAlbums = session.Query<Album>().Where(a => !a.Deleted 
 					&& a.OriginalRelease.ReleaseDate.Year != null 
 					&& a.OriginalRelease.ReleaseDate.Month != null 
 					&& a.OriginalRelease.ReleaseDate.Day != null)
 					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
-					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Month)
-					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Day)
-					.Take(10).ToArray();
+					.ThenBy(a => a.OriginalRelease.ReleaseDate.Month)
+					.ThenBy(a => a.OriginalRelease.ReleaseDate.Day)
+					.Take(7).ToArray();
 
-				var newSongs = session.Query<Song>().Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
-					.OrderByDescending(s => s.CreateDate)
-					.Take(20).ToArray();
+				var cutoffDate = DateTime.Now - TimeSpan.FromDays(30);
+
+				var newSongs = session.Query<Song>()
+					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing && s.CreateDate >= cutoffDate)
+					.OrderByDescending(s => s.RatingScore)
+					.Take(4)
+					.ToArray();
 
 				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, PermissionContext.LanguagePreference);
 

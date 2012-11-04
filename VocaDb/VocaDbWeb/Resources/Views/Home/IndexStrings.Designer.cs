@@ -61,7 +61,7 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New albums.
+        ///   Looks up a localized string similar to Recent or upcoming albums.
         /// </summary>
         public static string NewAlbums {
             get {

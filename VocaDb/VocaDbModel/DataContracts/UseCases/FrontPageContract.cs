@@ -20,7 +20,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 			ActivityEntries = activityEntries.Select(e => new ActivityEntryContract(e, languagePreference)).ToArray();
 			NewAlbums = newAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).ToArray();
-			NewSongs = newSongs.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
+			NewSongs = newSongs.Select(s => new SongWithAlbumAndPVsContract(s, languagePreference, true)).ToArray();
 			NewsEntries = newsEntries.Select(e => new NewsEntryContract(e)).ToArray();
 			TopAlbums = topAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).ToArray();
 
@@ -32,7 +32,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public NewsEntryContract[] NewsEntries { get; set; }
 
-		public SongWithAdditionalNamesContract[] NewSongs { get; set; }
+		public SongWithAlbumAndPVsContract[] NewSongs { get; set; }
 
 		public AlbumWithAdditionalNamesContract[] TopAlbums { get; set; }
 
