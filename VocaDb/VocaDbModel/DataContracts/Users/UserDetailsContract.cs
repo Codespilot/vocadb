@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts.Users {
 
 			AboutMe = user.Options.AboutMe;
 			LastLogin = user.LastLogin;
+			LastLoginAddress = user.Options.LastLoginAddress;
 			Location = user.Options.Location;
 			SongLists = user.SongLists
 				.Where(l => l.FeaturedCategory == SongListFeaturedCategory.Nothing)
@@ -38,6 +39,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public int FavoriteSongCount { get; set; }
 
 		public DateTime LastLogin { get; set; }
+
+		public string LastLoginAddress { get; set; }
 
 		[DataMember]
 		public CommentContract[] LatestComments { get; set; }

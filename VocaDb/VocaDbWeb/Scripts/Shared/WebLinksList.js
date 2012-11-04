@@ -17,6 +17,7 @@ function initWebLinksList() {
 		{ url: "shop.melonbooks.co.jp/", desc: "Melonbooks", cat: "Commercial" },
 		{ url: "mikudb.com/", desc: "MikuDB", cat: "Reference" },
 		{ url: "www5.atwiki.jp/hmiku/pages/", desc: "MikuWiki", cat: "Reference" },
+		{ url: "mora.jp/", desc: "mora", cat: "Commercial" },
 		{ url: "nicovideo.jp/user/", desc: "NND Account", cat: "Official" },
         { url: "com.nicovideo.jp/community/", desc: "NND Community", cat: "Official" },
 		{ url: "nicovideo.jp/mylist/", desc: "NND MyList", cat: "Official" },

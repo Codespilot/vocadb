@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts;
@@ -164,7 +165,10 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Album/Details/5
 
-        public ActionResult Details(int id) {
+        public ActionResult Details(int id = invalidId) {
+
+			if (id == invalidId)
+				throw new HttpException(404, "No ID specified");
 
 			WebHelper.VerifyUserAgent(Request);
 			SetSearchEntryType(EntryType.Album);

@@ -7,17 +7,17 @@
 @model UserDetailsContract
 		   
 @{
-	ViewBag.Title = R.DetailsStrings.UserDetails + " - " + Model.Name;
+    ViewBag.Title = R.DetailsStrings.UserDetails + " - " + Model.Name;
     if (!Model.Active) {
         ViewBag.Subtitle = R.DetailsStrings.AccountDisabled;
     }
-        
-	ViewBag.Parents = new[] { 
+
+    ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
 	};
 
-	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
-	var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
+    var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
+    var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
 			
 }
 
@@ -29,7 +29,7 @@
 }
 
 @if (Login.Manager.IsLoggedIn && Login.User.Id != Model.Id && Login.User.Active) {
-	//@Html.ActionLink("Compose message", "Messages", null, null, null, "composeTab", new { ReceiverName = Model.Name }, new { id = "composeMessageLink" });
+    //@Html.ActionLink("Compose message", "Messages", null, null, null, "composeTab", new { ReceiverName = Model.Name }, new { id = "composeMessageLink" });
 }
 @if (Login.CanManageUsers && EntryPermissionManager.CanEditUser(Login.Manager, Model.GroupId)) {
 	@Html.Raw("&nbsp;")
@@ -82,7 +82,13 @@
 	@if (Login.CanManageUsers || ownProfile) {
 		<tr>
 			<td>@R.DetailsStrings.LastLogin</td>
-			<td>@Model.LastLogin (@R.DetailsStrings.VisibleOnlyToMe)</td>
+			<td>
+				@Model.LastLogin                 
+                @if (Login.CanManageUsers) {
+                    @("(")@Model.LastLoginAddress@(")")                    
+                }
+                (@R.DetailsStrings.VisibleOnlyToMe)
+			</td>
 		</tr>
 		<tr>
 			<td>@R.DetailsStrings.AdditionalPermissions</td>
@@ -93,12 +99,12 @@
 			<td>@Model.Email (@R.DetailsStrings.VisibleOnlyToMe)</td>
 		</tr>	 
  }
-	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
+ 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
 		<tr>
 			<td>@R.DetailsStrings.EffectivePermissions</td>
 			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
 		</tr>	 
- }
+  }
 </table>
 
 <br />
@@ -160,7 +166,7 @@
 <div id="comments">
 	@foreach (var comment in Model.LatestComments) {
 		@Helpers.PrintComment(comment, true, ownProfile)
-	}
+ }
 </div>
 
 @if (Login.CanManageDb) {
