@@ -164,9 +164,9 @@ ul.smallThumbs div.pictureFrame {
 	border: 1px solid lightgray;	
 }
 
-ul.smallThumbs div.pictureFrame img {
+/*ul.smallThumbs div.pictureFrame img {
 	zoom: 0.6;
-}
+}*/
 
 /* Layout */
 
@@ -642,6 +642,21 @@ div.pvViewerContent {
   width:565px;
   padding:10px;
   background-color:#333
+}
+
+div.pvViewerContent a {
+	color: white !important;
+	/*color: #46A7D9 !important;*/
+}
+
+div.pvViewerContent a:visited {
+	color: white !important;
+	/*color: #46A7D9 !important;*/
+}
+
+div.pvViewerContent a:hover {
+	color: white !important;
+	/*color: #69C9F0 !important;*/
 }
 
 ul.scrollable-navi {

@@ -10,7 +10,7 @@
 
 @if (Model.NewSongs.Any()) {
 <h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.AdditionDate }, null))</h4>
-
+    
 <ul id="songs-navi" class="scrollable-navi">
     @foreach (var song in Model.NewSongs) {
         <li id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)" class="alignTop">
@@ -21,8 +21,11 @@
     }
 </ul>
 
-<div id="songPVPlayer" class="pvViewerContent">
+<div id="songPreview" class="pvViewerContent">
+    <a class="btn btn-info" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.NewSongs.First().Id })">@R.IndexStrings.ViewSongInfo</a>
+	<div id="songPVPlayer">
 	@Helpers.EmbedPV(PVHelper.PrimaryPV(Model.NewSongs.First().PVs))
+    </div>
 </div>
 }
 

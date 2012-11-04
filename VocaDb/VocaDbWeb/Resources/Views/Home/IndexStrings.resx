@@ -127,7 +127,7 @@
     <value>Recent activity</value>
   </data>
   <data name="RecentSongs" xml:space="preserve">
-    <value>Recently added songs with videos</value>
+    <value>Popular PVs</value>
   </data>
   <data name="SearchSite" xml:space="preserve">
     <value>Search the whole site using Google custom search</value>
@@ -140,6 +140,9 @@
   </data>
   <data name="ViewMore" xml:space="preserve">
     <value>view more</value>
+  </data>
+  <data name="ViewSongInfo" xml:space="preserve">
+    <value>View song information</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to the Vocaloid Database!</value>
