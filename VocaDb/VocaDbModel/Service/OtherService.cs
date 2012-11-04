@@ -238,7 +238,7 @@ namespace VocaDb.Model.Service {
 
 				var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
 					.OrderByDescending(a => a.RatingAverageInt)
-					.ThenBy(a => a.RatingCount)
+					.ThenByDescending(a => a.RatingCount)
 					.Take(7).ToArray();
 
 				var newAlbums = session.Query<Album>().Where(a => !a.Deleted 
@@ -246,8 +246,8 @@ namespace VocaDb.Model.Service {
 					&& a.OriginalRelease.ReleaseDate.Month != null 
 					&& a.OriginalRelease.ReleaseDate.Day != null)
 					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
-					.ThenBy(a => a.OriginalRelease.ReleaseDate.Month)
-					.ThenBy(a => a.OriginalRelease.ReleaseDate.Day)
+					.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+					.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day)
 					.Take(7).ToArray();
 
 				var cutoffDate = DateTime.Now - TimeSpan.FromDays(30);
