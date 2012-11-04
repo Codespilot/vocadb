@@ -80,6 +80,11 @@ img.coverPic {
 	max-height: 250px;
 }
 
+div.pictureFrame img.coverPic {
+	max-width: 150px;
+	max-height: 150px;
+}
+
 a.coverPic {
 	width: 250px;
 	height: 250px;	
@@ -627,6 +632,60 @@ a.extLink[href^="http://www.youtube.com/"] {
 a.extLink[href^="http://vocaloid.wikia.com/wiki/"] {
 	background: url("/Content/ExtIcons/vocawiki.png") no-repeat left 50%;
 }
+
+
+/* PV viewer */
+div.pvViewerContent {
+  position:relative;
+  overflow:hidden;
+  height: 364px;
+  width:565px;
+  padding:10px;
+  background-color:#333
+}
+
+ul.scrollable-navi {
+  float:left;
+  padding:0px !important;
+  margin:0px !important;
+  margin-left:-45px;
+  background-color:#333;
+  }
+
+ul.scrollable-navi li {
+  background-color:#333;
+  border-top:1px solid #666;
+  clear:both;
+  color:#FFFFFF;
+  font-size:12px;
+  height:75px;
+  list-style-type:none;
+  list-style:none;
+  padding:10px;
+  width:190px;
+  cursor:pointer;
+	margin-top:0 !important;
+	margin-bottom: 0px;
+  }
+
+ul.scrollable-navi li:hover {
+  background-color:#444;
+  }
+
+ul.scrollable-navi li.active {
+  background-color:#555;
+  }
+
+ul.scrollable-navi img {
+  float:left;
+  margin-right:10px;
+  }
+
+ul.scrollable-navi strong {
+  display:block;
+  }
+
+
 
 
 /* Bootstrap-specific */

@@ -8,21 +8,30 @@
 
 <h3>@ViewRes.Home.IndexStrings.Welcome</h3>
 
-<table>
-	<tr>
-		<td class="alignTop">
-			<h4>@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
-			@AlbumHelpers.AlbumList(Model.NewAlbums, false, true)
-		</td>
-		<td class="alignTop">
-			<h4>@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
-			@AlbumHelpers.AlbumList(Model.TopAlbums, false, true)
-		</td>
-	</tr>
-</table>
-
+@if (Model.NewSongs.Any()) {
 <h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.AdditionDate }, null))</h4>
-@SongHelpers.SongGrid(Model.NewSongs, 2)
+
+<ul id="songs-navi" class="scrollable-navi">
+    @foreach (var song in Model.NewSongs) {
+        <li id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)" class="alignTop">
+			<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
+            <strong>@song.Name</strong>
+            @song.ArtistString				
+		</li>
+    }
+</ul>
+
+<div id="songPVPlayer" class="pvViewerContent">
+	@Helpers.EmbedPV(PVHelper.PrimaryPV(Model.NewSongs.First().PVs))
+</div>
+}
+
+<br />
+<h4>@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
+@AlbumHelpers.AlbumThumbs(Model.NewAlbums)
+
+<h4>@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
+@AlbumHelpers.AlbumThumbs(Model.TopAlbums)
 
 <br />
 <h4>@ViewRes.Home.IndexStrings.News (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry"))</h4>
@@ -41,3 +50,9 @@
 <br />
 <h4>@R.IndexStrings.SearchSite</h4>
 @Helpers.GoogleSiteSearch()
+
+@section BodyScripts {
+    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Home/Index.js")"></script>
+
+}

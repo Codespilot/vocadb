@@ -993,6 +993,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Event\Edit.js" />
     <Content Include="Scripts\Event\SeriesEdit.js" />
+    <Content Include="Scripts\Home\Index.js" />
     <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.5.1.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
@@ -2042,6 +2043,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Home</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.fi.resx" />
