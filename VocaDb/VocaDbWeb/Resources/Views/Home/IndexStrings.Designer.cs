@@ -88,7 +88,7 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recently added songs with videos.
+        ///   Looks up a localized string similar to Popular PVs.
         /// </summary>
         public static string RecentSongs {
             get {
@@ -129,6 +129,15 @@ namespace ViewRes.Home {
         public static string ViewMore {
             get {
                 return ResourceManager.GetString("ViewMore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View song information.
+        /// </summary>
+        public static string ViewSongInfo {
+            get {
+                return ResourceManager.GetString("ViewSongInfo", resourceCulture);
             }
         }
         

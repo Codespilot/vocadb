@@ -10,6 +10,7 @@ $(document).ready(function () {
         var id = getId(this);
         $.post("../Song/PVForSong", { pvId: id }, function (content) {
             $("#songPVPlayer").html(content);
+            $("#songLink").attr("href", "../Song/Details/" + id);
         });
 
     });
