@@ -778,7 +778,7 @@ namespace VocaDb.Model.Service {
 					var result = Find(session,
 						new SongQueryParams {
 							Common = new CommonSearchParams {
-								Query = q, NameMatchMode = nameMatchMode, OnlyByName = true
+								Query = q, NameMatchMode = nameMatchMode, OnlyByName = true, MoveExactToTop = true
 							},
 							Paging = new PagingProperties(0, 10, false)
 						});
