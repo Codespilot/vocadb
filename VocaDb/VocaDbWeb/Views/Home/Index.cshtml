@@ -14,6 +14,7 @@
 <ul id="songs-navi" class="scrollable-navi">
     @foreach (var song in Model.NewSongs) {
         <li id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)" class="alignTop">
+			<input type="hidden" class="songId" value="@song.Id" />
 			<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
             <strong>@song.Name</strong>
             @song.ArtistString				
