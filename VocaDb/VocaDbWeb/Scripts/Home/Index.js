@@ -8,9 +8,10 @@ $(document).ready(function () {
         $(this).addClass("active");
 
         var id = getId(this);
+        var songId = $(this).find(".songId").val();
         $.post("../Song/PVForSong", { pvId: id }, function (content) {
             $("#songPVPlayer").html(content);
-            $("#songLink").attr("href", "../Song/Details/" + id);
+            $("#songLink").attr("href", "../Song/Details/" + songId);
         });
 
     });
