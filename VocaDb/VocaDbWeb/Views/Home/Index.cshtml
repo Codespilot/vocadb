@@ -11,16 +11,26 @@
 @if (Model.NewSongs.Any()) {
 <h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.AdditionDate }, null))</h4>
     
-<ul id="songs-navi" class="scrollable-navi">
-    @foreach (var song in Model.NewSongs) {
-        <li id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)" class="alignTop">
-			<input type="hidden" class="songId" value="@song.Id" />
-			<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
-            <strong>@song.Name</strong>
-            @song.ArtistString				
-		</li>
-    }
-</ul>
+<div class="scrollable-navi">
+<a class="prev browse up"></a>
+<div class="scrollable vertical" id="songs-navi">
+	<div class="items">
+		@for (var i = 0; i * 4 < Model.NewSongs.Length; ++i) {
+		<div>
+            @foreach (var song in Model.NewSongs.Skip(i * 4).Take(4)) {
+                <div class="item" id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)" class="alignTop">
+			        <input type="hidden" class="songId" value="@song.Id" />
+			        <img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
+                    <strong>@song.Name</strong>
+                    @song.ArtistString				
+		        </div>
+            }
+        </div>
+        }
+    </div>
+</div>	
+<a class="next browse down"></a>    
+</div>
 
 <div id="songPreview" class="pvViewerContent">
     <a class="btn btn-info" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.NewSongs.First().Id })">@R.IndexStrings.ViewSongInfo</a>
@@ -57,6 +67,7 @@
 
 @section BodyScripts {
     
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tools.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/Home/Index.js")"></script>
 
 }
