@@ -660,6 +660,10 @@ div.pvViewerContent a:hover {
 	/*color: #69C9F0 !important;*/
 }
 
+div.pvViewerContent .songPreviewTitle {
+	color: white;
+}
+
 .scrollable-navi {
   float:left;
   padding:0px !important;
