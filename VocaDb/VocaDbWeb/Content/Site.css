@@ -639,7 +639,8 @@ div.pvViewerContent {
   position:relative;
   overflow:hidden;
   height: 461px;
-  width:565px;
+  min-width: 560px;
+  max-width: 565px;
   padding:10px;
   background-color:#333
 }
