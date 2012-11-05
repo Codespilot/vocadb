@@ -855,6 +855,7 @@
     <Content Include="Content\ExtIcons\cdjapan.png" />
     <Content Include="Content\ExtIcons\cfm.png" />
     <Content Include="Content\ExtIcons\discogs.png" />
+    <Content Include="Content\ExtIcons\exittunes.png" />
     <Content Include="Content\ExtIcons\facebook.png" />
     <Content Include="Content\ExtIcons\itunes.png" />
     <Content Include="Content\ExtIcons\karent.png" />
@@ -972,6 +973,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\unknown.png" />
+    <Content Include="Content\vert_large.png" />
     <Content Include="Content\vocaDB-title.png" />
     <Content Include="Content\youtube.png" />
     <Content Include="opensearch.xml" />

@@ -255,7 +255,7 @@ namespace VocaDb.Model.Service {
 				var newSongs = session.Query<Song>()
 					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing && s.CreateDate >= cutoffDate)
 					.OrderByDescending(s => s.RatingScore)
-					.Take(4)
+					.Take(16)
 					.ToArray();
 
 				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, PermissionContext.LanguagePreference);

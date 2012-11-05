@@ -1,10 +1,10 @@
 ﻿
 $(document).ready(function () {
 
-    $('#songs-navi li').click(function (e) {
+    $('#songs-navi .item').click(function (e) {
         e.preventDefault();
 
-        $("#songs-navi li").removeClass("active");
+        $("#songs-navi .item").removeClass("active");
         $(this).addClass("active");
 
         var id = getId(this);
@@ -16,6 +16,7 @@ $(document).ready(function () {
 
     });
 
-    $("#songs-navi li").eq(0).addClass("active");
+    $("#songs-navi .item").eq(0).addClass("active");
+    $(".scrollable").scrollable({ vertical: true, mousewheel: true });
 
 });
