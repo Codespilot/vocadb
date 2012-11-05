@@ -17,6 +17,6 @@ $(document).ready(function () {
     });
 
     $("#songs-navi .item").eq(0).addClass("active");
-    $(".scrollable").scrollable({ vertical: true, mousewheel: true });
+    $(".scrollable").scrollable({ vertical: true, mousewheel: true, keyboard: false });
 
 });
