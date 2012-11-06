@@ -495,6 +495,7 @@
     <Compile Include="Service\Search\SearchParser.cs" />
     <Compile Include="Service\Search\SearchWordCollection.cs" />
     <Compile Include="Service\Search\SearchWord.cs" />
+    <Compile Include="Service\Search\Song\SongQueryParams.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />

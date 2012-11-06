@@ -9,6 +9,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Search.Song;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Code.Feeds;
 using VocaDb.Web.Models;

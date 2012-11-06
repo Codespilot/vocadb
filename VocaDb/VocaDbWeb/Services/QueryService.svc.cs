@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Search.Song;
 
 namespace VocaDb.Web.Services {
 
