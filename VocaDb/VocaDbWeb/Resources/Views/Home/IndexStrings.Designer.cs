@@ -88,7 +88,7 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Popular PVs.
+        ///   Looks up a localized string similar to Highlighted PVs.
         /// </summary>
         public static string RecentSongs {
             get {

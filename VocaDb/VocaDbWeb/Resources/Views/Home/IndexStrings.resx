@@ -127,7 +127,7 @@
     <value>Recent activity</value>
   </data>
   <data name="RecentSongs" xml:space="preserve">
-    <value>Popular PVs</value>
+    <value>Highlighted PVs</value>
   </data>
   <data name="SearchSite" xml:space="preserve">
     <value>Search the whole site using Google custom search</value>

@@ -250,13 +250,20 @@ namespace VocaDb.Model.Service {
 					.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day)
 					.Take(7).ToArray();
 
-				var cutoffDate = DateTime.Now - TimeSpan.FromDays(30);
+				/*var cutoffDate = DateTime.Now - TimeSpan.FromDays(300);
 
 				var newSongs = session.Query<Song>()
 					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing && s.CreateDate >= cutoffDate)
 					.OrderByDescending(s => s.RatingScore)
 					.Take(16)
-					.ToArray();
+					.ToArray();*/
+
+				var newSongs = session.Query<Song>()
+					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
+					.OrderByDescending(s => s.CreateDate)
+					.Take(20)
+					.ToArray()
+					.OrderByDescending(s => s.RatingScore);
 
 				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, PermissionContext.LanguagePreference);
 

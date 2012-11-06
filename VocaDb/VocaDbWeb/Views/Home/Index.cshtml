@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Helpers;
+@using VocaDb.Web.Models.Song
 @using R = ViewRes.Home;
 @model VocaDb.Model.DataContracts.UseCases.FrontPageContract
 
@@ -9,10 +10,10 @@
 <h3>@ViewRes.Home.IndexStrings.Welcome</h3>
 
 @if (Model.NewSongs.Any()) {
-<h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null))</h4>
+<h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new IndexParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null))</h4>
     
 <div class="scrollable-navi">
-<a class="prev browse up"></a>
+<a class="prev browse up disabled"></a>
 <div class="scrollable vertical" id="songs-navi">
 	<div class="items">
 		@for (var i = 0; i * 4 < Model.NewSongs.Length; ++i) {
