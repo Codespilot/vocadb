@@ -262,7 +262,7 @@ namespace VocaDb.Model.Service {
 				var newSongs = session.Query<Song>()
 					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(28)
+					.Take(32)
 					.ToArray()
 					.OrderByDescending(s => s.RatingScore)
 					.Take(20)
