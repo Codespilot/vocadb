@@ -15,6 +15,7 @@ using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 
@@ -263,9 +264,13 @@ namespace VocaDb.Model.Service {
 					.OrderByDescending(s => s.CreateDate)
 					.Take(20)
 					.ToArray()
-					.OrderByDescending(s => s.RatingScore);
+					.OrderByDescending(s => s.RatingScore)
+					.ToArray();
 
-				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, PermissionContext.LanguagePreference);
+				var firstSongVote = (newSongs.Any() ? session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == newSongs.First().Id && s.User.Id == PermissionContext.LoggedUserId) : null);
+
+				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, 
+					firstSongVote != null ? firstSongVote.Rating : SongVoteRating.Nothing, PermissionContext.LanguagePreference);
 
 			});
 

@@ -664,6 +664,10 @@ div.pvViewerContent .songPreviewTitle {
 	color: white;
 }
 
+div.pvViewerContent .ratingButtons {
+	float: right;
+}
+
 .scrollable-navi {
   float:left;
   padding:0px !important;
