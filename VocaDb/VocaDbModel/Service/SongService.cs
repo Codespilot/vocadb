@@ -1144,6 +1144,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongWithPVAndVoteContract GetSongWithPVAndVote(int songId) {
+
+			return HandleQuery(session => {
+
+				var song = session.Load<Song>(songId);
+				var userId = PermissionContext.LoggedUserId;
+				var vote = session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == songId && s.User.Id == userId);
+
+				return new SongWithPVAndVoteContract(song, vote != null ? vote.Rating : SongVoteRating.Nothing, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 		public SongContract[] GetSongs(string filter, int start, int count) {
 
 			return HandleQuery(session => session.Query<Song>()

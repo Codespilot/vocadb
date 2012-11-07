@@ -1516,6 +1516,7 @@
     <Content Include="Views\Event\Versions.cshtml" />
     <Content Include="Views\Help\Index.ja.cshtml" />
     <Content Include="Views\User\FavoriteSongsPaged.cshtml" />
+    <Content Include="Views\Home\PVContent.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

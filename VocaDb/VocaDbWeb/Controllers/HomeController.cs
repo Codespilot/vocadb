@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Home;
@@ -40,6 +41,14 @@ namespace VocaDb.Web.Controllers
 			}
 
 			return RedirectToAction(action, controller, new {filter = model.GlobalSearchTerm});
+
+		}
+
+		public ActionResult PVContent(int songId) {
+
+			var song = Services.Songs.GetSongWithPVAndVote(songId);
+
+			return PartialView(song);
 
 		}
 

@@ -34,17 +34,7 @@
 </div>
 
 <div id="songPreview" class="pvViewerContent">
-	<h4 class="songPreviewTitle">
-		<span id="songPreviewName">
-		    @Model.NewSongs.First().Name			
-		</span>
-        &nbsp;
-        <small id="songPreviewArtists">@Model.NewSongs.First().ArtistString</small>
-	</h4>
-    <a class="btn btn-info" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.NewSongs.First().Id })">@R.IndexStrings.ViewSongInfo</a>
-	<div id="songPVPlayer">
-	@Helpers.EmbedPV(PVHelper.PrimaryPV(Model.NewSongs.First().PVs))
-    </div>
+	@{ Html.RenderPartial("PVContent", Model.FirstSong); }
 </div>
 }
 
@@ -75,6 +65,11 @@
 
 @section BodyScripts {
     
+    <script type="text/javascript">
+        vdb.resources.song = {
+            thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'
+        };
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tools.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/Home/Index.js")"></script>
 
