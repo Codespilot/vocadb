@@ -4,11 +4,14 @@
 
 <input type="hidden" class="songId" value="@Model.Id" />
 <h4 class="songPreviewTitle">
-	<span id="songPreviewName">
+	<span id="songPreviewName" title="@Model.AdditionalNames">
 		@Model.Name			
 	</span>
     &nbsp;
-    <small id="songPreviewArtists">@Model.ArtistString</small>
+    <small id="songPreviewArtists">
+		@Model.ArtistString
+        (@Translate.SongTypeNames[Model.SongType])
+	</small>
 </h4>
 <a class="btn btn-info" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.Id })">@ViewRes.Home.IndexStrings.ViewSongInfo</a>
 <span id="ratingButtons" class="ratingButtons" style="@((Model.Vote != SongVoteRating.Nothing ? "display: none;" : ""))">
