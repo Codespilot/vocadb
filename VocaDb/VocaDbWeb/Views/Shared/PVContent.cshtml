@@ -20,5 +20,5 @@
 </span>
 <a href="#" id="removeFavoriteLink" class="btn btn-inverse ratingButtons @(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@((Model.Vote != SongVoteRating.Nothing ? "" : "display: none;"))">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
 <div id="songPVPlayer">
-@{ Html.RenderPartial("PVEmbedDynamic", (PVHelper.PrimaryPV(Model.PVs))); }
+@{ Html.RenderPartial("PVEmbedDynamic", PVHelper.PrimaryPV(Model.PVs)); }
 </div>

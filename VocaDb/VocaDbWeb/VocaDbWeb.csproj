@@ -555,6 +555,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\ExtController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MikuDbAlbumController.cs" />
@@ -847,6 +848,7 @@
     <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\EmbedSong.css" />
     <Content Include="Content\ExtIcons\amazon.png" />
     <Content Include="Content\ExtIcons\ameblo.png" />
     <Content Include="Content\ExtIcons\amiami.png" />
@@ -1516,7 +1518,8 @@
     <Content Include="Views\Event\Versions.cshtml" />
     <Content Include="Views\Help\Index.ja.cshtml" />
     <Content Include="Views\User\FavoriteSongsPaged.cshtml" />
-    <Content Include="Views\Home\PVContent.cshtml" />
+    <Content Include="Views\Shared\PVContent.cshtml" />
+    <Content Include="Views\Ext\EmbedSong.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
