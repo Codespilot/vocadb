@@ -1,5 +1,5 @@
 ﻿@using VocaDb.Model.DataContracts.PVs
-@using VocaDb.Model.Domain.Songs
+@using VocaDb.Model.Service.Security
 @using VocaDb.Web.Helpers
 @model VocaDb.Model.DataContracts.Songs.SongWithPVAndVoteContract
 
@@ -48,7 +48,7 @@
   
     <div class="pvLinks">
     @foreach (var pv in mainPVs) {
-	    <a href="@Url.Action("EmbedSong", new { songId = Model.Id, pvId = pv.Id })">			
+	    <a href="@Url.Action("EmbedSong", new { songId = Model.Id, pvId = pv.Id, lang = Request.Params[LoginManager.LangParamName] })">			
     	    <div class="item@(pv.Id == current.Id ? " active" : string.Empty)">
 		        <img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" /> 
                 @pv.Service

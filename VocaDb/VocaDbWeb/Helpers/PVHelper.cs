@@ -18,6 +18,12 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static PVService? PreferredVideoService {
+			get {
+				return MvcApplication.LoginManager.IsLoggedIn ? (PVService?)MvcApplication.LoginManager.LoggedUser.PreferredVideoService : null;
+			}
+		}
+
 		public static PVContract[] GetMainPVs(PVContract[] allPvs) {
 
 			return EnumVal<PVService>.Values.Select(service => GetPV(allPvs, service)).Where(p => p != null).ToArray();
@@ -37,9 +43,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static PVContract PrimaryPV(IEnumerable<PVContract> pvs) {
 
-			var preferredService = MvcApplication.LoginManager.IsLoggedIn ? (PVService?)MvcApplication.LoginManager.LoggedUser.PreferredVideoService : null;
-
-			return VideoServiceHelper.PrimaryPV(pvs, preferredService);
+			return VideoServiceHelper.PrimaryPV(pvs, PreferredVideoService);
 
 		}
 

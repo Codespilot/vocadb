@@ -13,13 +13,26 @@ using System.Threading;
 
 namespace VocaDb.Model.Service.Security {
 
+	/// <summary>
+	/// Manages login and culture related properties per-request.
+	/// </summary>
 	public class LoginManager : IUserPermissionContext {
 
 		public const int InvalidId = 0;
+		public const string LangParamName = "lang";
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private UserContract user;
+
+		private ContentLanguagePreference OverrideLang {
+			get { return (ContentLanguagePreference)HttpContext.Current.Items["overrideLang"]; }
+			set { HttpContext.Current.Items["overrideLang"] = value; }
+		}
+
+		private bool OverrideUserLang {
+			get { return HttpContext.Current.Items.Contains("overrideLang"); }
+		}
 
 		private void SetCultureSafe(string name, bool culture, bool uiCulture) {
 
@@ -91,10 +104,13 @@ namespace VocaDb.Model.Service.Security {
 		public ContentLanguagePreference LanguagePreference {
 			get {
 
+				if (OverrideUserLang)
+					return OverrideLang;
+
 				ContentLanguagePreference lp;
 
-				if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Params["lang"]) 
-					&& Enum.TryParse(HttpContext.Current.Request.Params["lang"], out lp))
+				if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Params[LangParamName]) 
+					&& Enum.TryParse(HttpContext.Current.Request.Params[LangParamName], out lp))
 					return lp;
 
 				return (LoggedUser != null ? LoggedUser.DefaultLanguageSelection : ContentLanguagePreference.Default);
@@ -155,6 +171,10 @@ namespace VocaDb.Model.Service.Security {
 				SetCultureSafe(LoggedUser.Language, false, true);
 			}
 
+		}
+
+		public void OverrideLanguage(ContentLanguagePreference languagePreference) {
+			OverrideLang = languagePreference;
 		}
 
 		public void VerifyLogin() {
