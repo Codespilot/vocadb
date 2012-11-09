@@ -33,7 +33,7 @@
     <input type="hidden" class="songId" value="@Model.Id" />
     <h4 class="songPreviewTitle">
 	    <span id="songPreviewName" title="@Model.AdditionalNames">
-		    <a href="@Url.Action("Details", "Song", new { id = Model.Id })">@Model.Name</a>
+		    <a target="_top" href="@Url.Action("Details", "Song", new { id = Model.Id })">@Model.Name</a>
 	    </span>
         &nbsp;
         <small id="songPreviewArtists">
