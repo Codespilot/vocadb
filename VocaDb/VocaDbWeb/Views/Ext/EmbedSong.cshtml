@@ -33,7 +33,7 @@
     <input type="hidden" class="songId" value="@Model.Id" />
     <h4 class="songPreviewTitle">
 	    <span id="songPreviewName" title="@Model.AdditionalNames">
-		    @Model.Name			
+		    <a href="@Url.Action("Details", "Song", new { id = Model.Id })">@Model.Name</a>
 	    </span>
         &nbsp;
         <small id="songPreviewArtists">
@@ -41,7 +41,6 @@
             (@Translate.SongTypeNames[Model.SongType])
 	    </small>
     </h4>
-    <a class="btn btn-info" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.Id })">@ViewRes.Home.IndexStrings.ViewSongInfo</a>
     <div id="songPVPlayer">
     @{ Html.RenderPartial("PVEmbedDynamic", current); }
     </div>
