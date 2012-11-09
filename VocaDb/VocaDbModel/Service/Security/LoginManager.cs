@@ -31,7 +31,7 @@ namespace VocaDb.Model.Service.Security {
 		}
 
 		private bool OverrideUserLang {
-			get { return HttpContext.Current.Items.Contains("overrideLang"); }
+			get { return HttpContext.Current != null && HttpContext.Current.Items.Contains("overrideLang"); }
 		}
 
 		private void SetCultureSafe(string name, bool culture, bool uiCulture) {
