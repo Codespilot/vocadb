@@ -1,4 +1,8 @@
-﻿div.pvViewerContent {
+﻿body {
+	background-color: transparent;
+}
+
+div.pvViewerContent {
   overflow:hidden;
   padding:5px;
   background-color:#333
