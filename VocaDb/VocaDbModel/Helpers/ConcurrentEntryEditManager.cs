@@ -61,8 +61,6 @@ namespace VocaDb.Model.Helpers {
 			ParamIs.NotNull(() => entry);
 			ParamIs.NotNull(() => user);
 
-			ClearExpiredUsages();
-
 			lock (editors) {
 
 				if (editors.ContainsKey(entry))
@@ -93,6 +91,8 @@ namespace VocaDb.Model.Helpers {
 
 			ParamIs.NotNull(() => entry);
 			ParamIs.NotNull(() => user);
+
+            ClearExpiredUsages();
 
 			var editor = GetEditor(entry);
 
