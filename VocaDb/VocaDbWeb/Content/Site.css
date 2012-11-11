@@ -171,12 +171,11 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .rightFrame {
-	background-color: #E8FAFF;
+	/*background-color: #E8FAFF;
+	opacity: 0.95;*/
+	background-color: rgb(232, 250, 255);
+	background-color: rgba(232, 250, 255, 0.90);
 	border: solid #B1DDE1 2px;
-	opacity: 0.95; /*float: left;*/
-	/*background: aliceBlue;
-	border: solid #BAE8FF 2px;	
-	opacity: 0.9;*/
 	margin-bottom: 0px;
 	margin-left: 5px;
 	margin-right: 0px;
@@ -212,13 +211,12 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .menu {
-	background: #CDECF4;
+	/*background-color: #CDECF4;
+	opacity: 0.95;*/
+	background-color: rgb(205, 236, 244);
+	background-color: rgba(205, 236, 244, 0.90);
 	border: solid #8AD7D8 2px;
-	opacity: 0.95;
-	/*background: aliceBlue;
-	border: solid #BAE8FF 2px;*/
 	float: left;
-	/*width: 300px !important;*/
 	vertical-align: top;	
 }
 

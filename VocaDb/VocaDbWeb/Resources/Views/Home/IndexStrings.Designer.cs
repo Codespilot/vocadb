@@ -149,5 +149,14 @@ namespace ViewRes.Home {
                 return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The collaborative database with Vocaloid artists, discography, PVs and more..
+        /// </summary>
+        public static string WelcomeSubtitle {
+            get {
+                return ResourceManager.GetString("WelcomeSubtitle", resourceCulture);
+            }
+        }
     }
 }

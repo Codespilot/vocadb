@@ -39,6 +39,8 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public SongWithAlbumAndPVsContract[] NewSongs { get; set; }
 
+		public UnifiedCommentContract[] RecentComments { get; set; }
+
 		public AlbumWithAdditionalNamesContract[] TopAlbums { get; set; }
 
 	}
