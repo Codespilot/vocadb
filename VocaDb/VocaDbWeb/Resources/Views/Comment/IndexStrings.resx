@@ -117,37 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewAlbums" xml:space="preserve">
-    <value>Uudet tai tulevat albumit</value>
-  </data>
-  <data name="News" xml:space="preserve">
-    <value>Uutiset</value>
-  </data>
-  <data name="RecentActivity" xml:space="preserve">
-    <value>Viimeaikaiset tapahtumat</value>
-  </data>
-  <data name="RecentSongs" xml:space="preserve">
-    <value>Suositut videot</value>
-  </data>
-  <data name="SearchSite" xml:space="preserve">
-    <value>Hae koko sivustosta käyttäen Googlen kustomoitua hakua</value>
-  </data>
-  <data name="TopAlbums" xml:space="preserve">
-    <value>Suositut albumit</value>
-  </data>
-  <data name="ViewAll" xml:space="preserve">
-    <value>näytä kaikki</value>
-  </data>
-  <data name="ViewMore" xml:space="preserve">
-    <value>näytä lisää</value>
-  </data>
-  <data name="ViewSongInfo" xml:space="preserve">
-    <value>Katso kappaleen tiedot</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Tervetuloa Vocaloid-tietokantaan!</value>
-  </data>
-  <data name="WelcomeSubtitle" xml:space="preserve">
-    <value>Yhteistyöhön perustuva tietokanta joka käsittelee Vocaloid-artisteja, diskograa, videoita ja muuta.</value>
+  <data name="RecentComments" xml:space="preserve">
+    <value>Recent comments</value>
   </data>
 </root>

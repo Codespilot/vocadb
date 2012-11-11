@@ -7,7 +7,7 @@
 	ViewBag.DisplaySocialLinks = true;
 }
 
-<h3>@ViewRes.Home.IndexStrings.Welcome</h3>
+<h3>@R.IndexStrings.Welcome <small>@R.IndexStrings.WelcomeSubtitle</small></h3>
 
 @if (Model.NewSongs.Any()) {
 <h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new IndexParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null))</h4>

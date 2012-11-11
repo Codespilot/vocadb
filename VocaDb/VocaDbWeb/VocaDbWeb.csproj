@@ -552,6 +552,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -704,6 +705,11 @@
       <DependentUpon>DetailsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Artist\IndexStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Comment\IndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexStrings.resx</DependentUpon>
@@ -1494,6 +1500,7 @@
     <Content Include="Views\Admin\ViewEntryReports.cshtml" />
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\Error\_Layout.cshtml" />
+    <Content Include="Views\Comment\Index.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -2021,6 +2028,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Comment</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

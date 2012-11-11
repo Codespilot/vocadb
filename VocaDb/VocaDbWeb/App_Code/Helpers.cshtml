@@ -242,7 +242,7 @@
 			@contract.Created
 
 			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
-				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">Delete</a>
+				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
    }
 		</h3>
 		

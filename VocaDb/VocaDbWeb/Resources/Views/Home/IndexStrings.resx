@@ -147,4 +147,7 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to the Vocaloid Database!</value>
   </data>
+  <data name="WelcomeSubtitle" xml:space="preserve">
+    <value>The collaborative database with Vocaloid artists, discography, PVs and more.</value>
+  </data>
 </root>
