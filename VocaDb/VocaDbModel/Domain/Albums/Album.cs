@@ -409,16 +409,16 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		/// <summary>
-		/// Cleans up all links etc.
+		/// Cleans up all links to other entries so that this entry can be deleted.
 		/// </summary>
 		public virtual void DeleteLinks() {
 
-			var artists = AllArtists.ToArray();
-			foreach (var artist in artists)
+            var artistLinks = AllArtists.ToArray();
+			foreach (var artist in artistLinks)
 				artist.Delete();
 
-			var songs = AllSongs.ToArray();
-			foreach (var song in songs)
+            var songLinks = AllSongs.ToArray();
+			foreach (var song in songLinks)
 				song.Delete();
 
 			var users = UserCollections.ToArray();
