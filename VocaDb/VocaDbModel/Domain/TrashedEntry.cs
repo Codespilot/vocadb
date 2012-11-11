@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Users;
 
@@ -45,7 +42,10 @@ namespace VocaDb.Model.Domain {
 
 		public virtual string Name {
 			get { return name; }
-			set { name = value; }
+			set {
+                ParamIs.NotNullOrEmpty(() => value);
+			    name = value;
+			}
 		}
 
 		public virtual User User {
