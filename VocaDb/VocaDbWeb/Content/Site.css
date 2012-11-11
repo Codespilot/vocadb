@@ -80,7 +80,7 @@ img.coverPic {
 	max-height: 250px;
 }
 
-div.pictureFrame img.coverPic {
+ul.smallThumbs div.pictureFrame img.coverPic {
 	max-width: 150px;
 	max-height: 150px;
 }
@@ -163,10 +163,6 @@ ul.smallThumbs div.pictureFrame {
 	cursor: pointer;
 	border: 1px solid lightgray;	
 }
-
-/*ul.smallThumbs div.pictureFrame img {
-	zoom: 0.6;
-}*/
 
 /* Layout */
 
