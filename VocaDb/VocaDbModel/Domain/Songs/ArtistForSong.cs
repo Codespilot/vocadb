@@ -49,6 +49,12 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual ArtistRoles EffectiveRoles {
+			get {
+				return (Roles != ArtistRoles.Default || Artist == null) ? Roles : ArtistHelper.GetOtherArtistRoles(Artist.ArtistType);
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual bool IsSupport { get; set; }

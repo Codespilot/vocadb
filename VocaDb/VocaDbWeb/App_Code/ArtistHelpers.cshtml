@@ -59,8 +59,8 @@
 		} else {
 			@artist.Name		
 		}
-        if (showRoles && artist.Roles != ArtistRoles.Default) {
-			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.Roles, ArtistRoles.Default) + ")")
+        if (showRoles && artist.EffectiveRoles != ArtistRoles.Default) {
+			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.EffectiveRoles, ArtistRoles.Default) + ")")
 		}        
 		if (artist.IsSupport) {
 			@(")")
@@ -82,8 +82,8 @@
 		} else {
 			@artist.Name		
 		}
-        if (showRoles && artist.Roles != ArtistRoles.Default) {
-			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.Roles, ArtistRoles.Default) + ")")
+        if (showRoles && artist.EffectiveRoles != ArtistRoles.Default) {
+			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.EffectiveRoles, ArtistRoles.Default) + ")")
 		}
 		if (artist.IsSupport) {
 			@(")")
