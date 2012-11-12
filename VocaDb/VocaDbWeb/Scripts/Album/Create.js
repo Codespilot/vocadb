@@ -55,8 +55,8 @@ function initPage() {
 			allowCreateNew: false,
 			acceptBtnElem: artistAddBtn,
 			acceptSelection: acceptArtistSelection,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.AdditionalNames },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
+			createOptionSecondRow: function (item) { return item.AdditionalNames; },
 			height: 300
 		});
 

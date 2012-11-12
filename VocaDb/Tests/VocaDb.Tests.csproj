@@ -54,6 +54,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Domain\Albums\AlbumTests.cs" />
+    <Compile Include="Domain\Albums\ArtistForAlbumTests.cs" />
     <Compile Include="Domain\Artists\ArtistTests.cs" />
     <Compile Include="Domain\Songs\SongTests.cs" />
     <Compile Include="Domain\Users\UserTests.cs" />

@@ -1,5 +1,8 @@
 ﻿namespace VocaDb.Model.Domain.Artists {
 
+	/// <summary>
+	/// Artist type (category).
+	/// </summary>
 	public enum ArtistType {
 
 		Unknown,
@@ -20,6 +23,8 @@
 		Producer,
 
 		Animator,
+
+		Illustrator,
 
 		Vocaloid,
 

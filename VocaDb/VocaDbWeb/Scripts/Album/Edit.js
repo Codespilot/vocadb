@@ -264,8 +264,8 @@ function initPage(albumId, discType) {
 			allowCreateNew: true, 
 			acceptBtnElem: artistAddBtn, 
 			acceptSelection: acceptArtistSelection,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.AdditionalNames }
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
+			createOptionSecondRow: function (item) { return item.AdditionalNames; }
 		});
 
 	function artistAdded(row) {
