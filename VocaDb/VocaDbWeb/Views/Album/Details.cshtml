@@ -35,7 +35,7 @@
 	@Helpers.DraftMessage("glalbums")
 }
 
-<div id="tabs">
+<div id="tabs" itemscope itemtype="http://schema.org/MusicAlbum">
 
 	<ul>
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
@@ -54,7 +54,7 @@
 								@AlbumHelpers.CoverLink(Model.Id)
 							</div>
 							@foreach (var pic in Model.Pictures) {
-								<div class="item thumbItem">
+								<div class="item thumbItem" itemprop="image">
 									@Helpers.EntryPictureFileLink(pic)
 									@if (!string.IsNullOrEmpty(pic.Name)) {
 										<div class="carousel-caption">
@@ -80,7 +80,7 @@
 	                }
 				</td>
 				<td>@ViewRes.SharedStrings.Name</td>
-				<td>
+				<td itemprop="name">
 					@Model.Name<br />
 					<span class="extraInfo">@Model.AdditionalNames</span>
 				</td>
