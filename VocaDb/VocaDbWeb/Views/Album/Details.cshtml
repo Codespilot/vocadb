@@ -71,9 +71,13 @@
 					</div>					
 					
 					@if (Model.RatingCount > 0) {
-						@Helpers.Stars(Model.RatingAverage, 5)<br />
-						<text>(</text>@Model.RatingCount <text>@ViewRes.Album.DetailsStrings.Ratings)</text>
-	 }
+                        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+						    @Helpers.Stars(Model.RatingAverage, 5)<br />
+						    (@Model.RatingCount @ViewRes.Album.DetailsStrings.Ratings)
+                            <meta itemprop="ratingValue" content="@Model.RatingAverage" />
+                            <meta itemprop="ratingCount" content="@Model.RatingCount" />
+                        </div>
+	                }
 				</td>
 				<td>@ViewRes.SharedStrings.Name</td>
 				<td>
