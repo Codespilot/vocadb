@@ -27,6 +27,12 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static IEnumerable<T> MoveToTop<T>(IEnumerable<T> source, T[] top) {
+
+			return top.Concat(source.Except(top));
+
+		}
+
 		public static void RemoveAll<T>(IList<T> list, Func<T, bool> pred) {
 
 			bool changed = true;

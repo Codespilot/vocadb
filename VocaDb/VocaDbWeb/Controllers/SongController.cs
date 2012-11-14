@@ -97,7 +97,7 @@ namespace VocaDb.Web.Controllers
 
 			var queryParams = new SongQueryParams(filter,
 				songType != SongType.Unspecified ? new[] { songType } : new SongType[] { },
-				(page - 1) * pageSize, pageSize, draftsOnly, true, NameMatchMode.Auto, sortRule, false, false, null) {
+				(page - 1) * pageSize, pageSize, draftsOnly, true, indexParams.matchMode, sortRule, false, false, null) {
 
 				TimeFilter = timeFilter,
 				OnlyWithPVs = onlyWithPVs
@@ -110,7 +110,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			SetSearchEntryType(EntryType.Song);
-			var model = new Index(result, filter, songType, indexParams.since, onlyWithPVs, sortRule, view, draftsOnly, page, pageSize);
+			var model = new Index(result, filter, indexParams.matchMode, songType, indexParams.since, onlyWithPVs, sortRule, view, draftsOnly, page, pageSize);
 
         	return View(model);
 

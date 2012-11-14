@@ -53,6 +53,40 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private static IQueryable<Song> AddNameFilter(IQueryable<Song> directQ, string query, NameMatchMode nameMatchMode, bool onlyByName) {
+
+			var matchMode = FindHelpers.GetMatchMode(query, nameMatchMode);
+
+			if (matchMode == NameMatchMode.Exact) {
+
+				return directQ.Where(s =>
+					s.Names.SortNames.English == query
+						|| s.Names.SortNames.Romaji == query
+						|| s.Names.SortNames.Japanese == query);
+
+			} else if (matchMode == NameMatchMode.StartsWith) {
+
+				return directQ.Where(s =>
+					s.Names.SortNames.English.StartsWith(query)
+						|| s.Names.SortNames.Romaji.StartsWith(query)
+						|| s.Names.SortNames.Japanese.StartsWith(query));
+
+			} else {
+
+				return directQ.Where(s =>
+					s.Names.SortNames.English.Contains(query)
+						|| s.Names.SortNames.Romaji.Contains(query)
+						|| s.Names.SortNames.Japanese.Contains(query)
+						|| (!onlyByName &&
+							(s.ArtistString.Japanese.Contains(query)
+								|| s.ArtistString.Romaji.Contains(query)
+								|| s.ArtistString.English.Contains(query)))
+						|| (s.NicoId != null && s.NicoId == query));
+
+			}
+
+		}
+
 		private IQueryable<Song> AddPVFilter(IQueryable<Song> criteria, bool onlyWithPVs) {
 
 			if (onlyWithPVs)
@@ -158,26 +192,7 @@ namespace VocaDb.Model.Service {
 				directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
 				directQ = AddPVFilter(directQ, queryParams.OnlyWithPVs);
 
-				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English == query
-							|| s.Names.SortNames.Romaji == query
-							|| s.Names.SortNames.Japanese == query);
-
-				} else {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query)
-						|| (!onlyByName &&
-							(s.ArtistString.Japanese.Contains(query)
-							|| s.ArtistString.Romaji.Contains(query)
-							|| s.ArtistString.English.Contains(query)))
-						|| (s.NicoId != null && s.NicoId == query));
-
-				}
+				directQ = AddNameFilter(directQ, query, nameMatchMode, onlyByName);
 
 				directQ = AddOrder(directQ, sortRule, LanguagePreference);
 
@@ -212,10 +227,11 @@ namespace VocaDb.Model.Service {
 
 				if (moveExactToTop) {
 					
-					var exactMatch = entries.FirstOrDefault(
-						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
+					var exactMatch = entries
+						.Where(e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)))
+						.ToArray();
 
-					if (exactMatch != null) {
+					if (exactMatch.Any()) {
 						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
 						foundExactMatch = true;
 					}
@@ -269,26 +285,7 @@ namespace VocaDb.Model.Service {
 				directQ = AddTimeFilter(directQ, timeFilter);
 				directQ = AddPVFilter(directQ, onlyWithPVs);
 
-				if (FindHelpers.ExactMatch(query, nameMatchMode)) {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English == query
-							|| s.Names.SortNames.Romaji == query
-							|| s.Names.SortNames.Japanese == query);
-
-				} else {
-
-					directQ = directQ.Where(s =>
-						s.Names.SortNames.English.Contains(query)
-							|| s.Names.SortNames.Romaji.Contains(query)
-							|| s.Names.SortNames.Japanese.Contains(query)
-							|| (!onlyByName && 
-								(s.ArtistString.Japanese.Contains(query)
-								|| s.ArtistString.Romaji.Contains(query)
-								|| s.ArtistString.English.Contains(query)))
-							|| (s.NicoId != null && s.NicoId == query));
-
-				}
+				directQ = AddNameFilter(directQ, query, nameMatchMode, onlyByName);
 
 				var direct = directQ.ToArray();
 

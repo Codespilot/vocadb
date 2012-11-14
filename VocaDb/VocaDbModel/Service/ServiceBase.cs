@@ -423,6 +423,11 @@ namespace VocaDb.Model.Service {
 		Partial,
 
 		/// <summary>
+		/// Starts with.
+		/// </summary>
+		StartsWith,
+
+		/// <summary>
 		/// Always exact matching (usually still case-insensitive).
 		/// Wildcards are not allowed.
 		/// </summary>

@@ -32,6 +32,9 @@ namespace VocaDb.Model.Service.Helpers {
 				case NameMatchMode.Partial:
 					return query.Where(m => m.Value.Contains(nameFilter));
 
+				case NameMatchMode.StartsWith:
+					return query.Where(m => m.Value.StartsWith(nameFilter));
+
 				case NameMatchMode.Words:
 					words = words ?? GetQueryWords(nameFilter);
 
@@ -116,12 +119,21 @@ namespace VocaDb.Model.Service.Helpers {
 		public static IQueryable<T> AddSortNameFilter<T>(IQueryable<T> criteria, string name, NameMatchMode matchMode)
 			where T : IEntryWithNames {
 
-			if (ExactMatch(name, matchMode)) {
+			var mode = GetMatchMode(name, matchMode);
+
+			if (mode == NameMatchMode.Exact) {
 
 				return criteria.Where(s =>
 					s.Names.SortNames.English == name
 						|| s.Names.SortNames.Romaji == name
 						|| s.Names.SortNames.Japanese == name);
+
+			} else if (mode == NameMatchMode.StartsWith) {
+
+				return criteria.Where(s =>
+					s.Names.SortNames.English.StartsWith(name)
+						|| s.Names.SortNames.Romaji.StartsWith(name)
+						|| s.Names.SortNames.Japanese.StartsWith(name));
 
 			} else {
 
@@ -140,17 +152,13 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public static NameMatchMode GetMatchMode(string query, NameMatchMode matchMode) {
 
-			if (matchMode == NameMatchMode.Exact || (matchMode == NameMatchMode.Auto && query.Length < 3)) {
+			if (matchMode != NameMatchMode.Auto)
+				return matchMode;
+
+			if (query.Length < 3)
 				return NameMatchMode.Exact;
-			} else {
 
-				if (matchMode == NameMatchMode.Auto || matchMode == NameMatchMode.Words) {
-					return NameMatchMode.Words;
-				} else {
-					return NameMatchMode.Partial;
-				}
-
-			}
+			return NameMatchMode.Words;
 
 		}
 
