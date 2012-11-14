@@ -15,6 +15,8 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual SongVoteRating Rating { get; set; }
+
 		public virtual Song Song {
 			get { return song; }
 			set { 

@@ -290,6 +290,23 @@
 	</span>
 }
 
+@helper StarsMeta(int current, int max) {
+    for (int i = 1; i <= max; ++i) {
+        if (current >= i) {
+			<img class="rating" src="@Url.Content("~/Content/star.png")" alt="@current" />
+        } else {
+			<img class="rating" src="@Url.Content("~/Content/star_disabled.png")" alt="@current" />
+        }
+    }
+}
+
+@helper StarsMeta(double current, int max) {
+	<span title="@Math.Round(current, 2)">		
+        @StarsMeta((int)Math.Round(current, MidpointRounding.AwayFromZero), max)
+	</span>
+}
+
+
 @helper ThumbItem(string url, string thumbUrl, string caption) {
 	
 	<li>
