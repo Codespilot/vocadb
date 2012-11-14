@@ -14,7 +14,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public Index() {}
 
-		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, SongType songType, string timeFilter, bool onlyWithPVs, 
+		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, NameMatchMode nameMatchMode, SongType songType, string timeFilter, bool onlyWithPVs, 
 			SongSortRule sortRule, SongViewMode viewMode, 
 			bool draftsOnly, int page, int pageSize) {
 
@@ -22,6 +22,7 @@ namespace VocaDb.Web.Models.Song {
 			Songs = new StaticPagedList<SongWithAlbumAndPVsContract>(result.Items, 
 				page, pageSize, result.TotalCount);
 			Filter = filter;
+			NameMatchMode = nameMatchMode;
 			SongType = songType;
 			Since = timeFilter;
 			OnlyWithPVs = onlyWithPVs;
@@ -36,6 +37,8 @@ namespace VocaDb.Web.Models.Song {
 		public string Filter { get; set; }
 
 		public Dictionary<SongType, string> FilterableArtistTypes { get; set; }
+
+		public NameMatchMode NameMatchMode { get; set; }
 
 		public bool OnlyWithPVs { get; set; }
 
@@ -55,6 +58,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public IndexParams() {
 
+			matchMode = NameMatchMode.Auto;
 			page = 1;
 			pageSize = 30;
 			sort = SongSortRule.Name;
@@ -69,6 +73,7 @@ namespace VocaDb.Web.Models.Song {
 
 			draftsOnly = index.DraftsOnly;
 			filter = index.Filter;
+			matchMode = index.NameMatchMode;
 			onlyWithPVs = index.OnlyWithPVs;
 			pageSize = Math.Min(index.Songs.PageSize, 30);
 			since = index.Since;
@@ -82,6 +87,8 @@ namespace VocaDb.Web.Models.Song {
 		public bool draftsOnly { get; set; }
 
 		public string filter { get; set; }
+
+		public NameMatchMode matchMode { get; set; }
 
 		public bool onlyWithPVs { get; set; }
 

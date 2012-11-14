@@ -48,12 +48,21 @@ namespace VocaDb.Model.Service {
 
 		private IQueryable<Album> AddNameMatchFilter(IQueryable<Album> criteria, string name, NameMatchMode matchMode) {
 
-			if (FindHelpers.ExactMatch(name, matchMode)) {
+			var mode = FindHelpers.GetMatchMode(name, matchMode);
+
+			if (mode == NameMatchMode.Exact) {
 
 				return criteria.Where(s =>
 					s.Names.SortNames.English == name
 						|| s.Names.SortNames.Romaji == name
 						|| s.Names.SortNames.Japanese == name);
+
+			} else if (mode == NameMatchMode.StartsWith) {
+
+				return criteria.Where(s =>
+					s.Names.SortNames.English.StartsWith(name)
+						|| s.Names.SortNames.Romaji.StartsWith(name)
+						|| s.Names.SortNames.Japanese.StartsWith(name));
 
 			} else {
 

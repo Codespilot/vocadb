@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
@@ -10,6 +11,7 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Paging;
@@ -66,8 +68,12 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public PartialFindResult<SongWithAlbumAndPVsContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Songs.FindWithAlbum(new SongQueryParams(
-				term, new SongType[] {}, 0, maxResults, false, true, nameMatchMode, SongSortRule.Name, false, true, null), false);
+			var sampleSize = Math.Min(maxResults * 2, 30);
+
+			var results = Services.Songs.FindWithAlbum(new SongQueryParams(
+				term, new SongType[] {}, 0, sampleSize, false, true, nameMatchMode, SongSortRule.Name, false, true, null), false);
+
+			return new PartialFindResult<SongWithAlbumAndPVsContract>(results.Items.Take(maxResults).ToArray(), results.TotalCount, results.Term, results.FoundExactMatch);
 
 		}
 
