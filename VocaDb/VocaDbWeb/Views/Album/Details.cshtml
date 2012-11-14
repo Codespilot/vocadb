@@ -36,7 +36,7 @@
 }
 
 <div id="tabs" itemscope itemtype="http://schema.org/MusicAlbum">
-
+    
 	<ul>
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
 		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
@@ -72,10 +72,9 @@
 					
 					@if (Model.RatingCount > 0) {
                         <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-						    @Helpers.Stars(Model.RatingAverage, 5)<br />
-						    (@Model.RatingCount @ViewRes.Album.DetailsStrings.Ratings)
                             <meta itemprop="ratingValue" content="@Model.RatingAverage" />
-                            <meta itemprop="ratingCount" content="@Model.RatingCount" />
+						    @Helpers.StarsMeta(Model.RatingAverage, 5)<br />
+						    (<span itemprop="ratingCount">@Model.RatingCount</span> @ViewRes.Album.DetailsStrings.Ratings)
                         </div>
 	                }
 				</td>
