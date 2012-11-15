@@ -545,8 +545,10 @@
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
+    <Compile Include="Code\Security\BlockedIPManager.cs" />
     <Compile Include="Code\Security\InMemoryTokenManager.cs" />
     <Compile Include="Code\Security\Membership\VocaDbMembershipProvider.cs" />
+    <Compile Include="Code\Security\RestrictBlockedIPAttribute.cs" />
     <Compile Include="Code\Security\TwitterConsumer.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
@@ -1005,16 +1007,21 @@
     <Content Include="Scripts\Event\Edit.js" />
     <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\Home\Index.js" />
-    <Content Include="Scripts\jquery-1.5.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.5.1.js" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
     <Content Include="Scripts\jquery.tools.min.js" />
     <Content Include="Scripts\jquery.tooltip.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jqwidgets\globalization\jquery.glob.cs-CZ.js" />
     <Content Include="Scripts\jqwidgets\globalization\jquery.glob.de-DE.js" />
     <Content Include="Scripts\jqwidgets\globalization\jquery.glob.en-CA.js" />
@@ -1343,10 +1350,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\MicrosoftAjax.js" />
     <Content Include="Scripts\MicrosoftAjax.debug.js" />
     <Content Include="Scripts\MicrosoftMvcAjax.js" />

@@ -277,5 +277,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public IPRule[] GetIPRules() {
+
+			return HandleQuery(session => session.Query<IPRule>().ToArray());
+
+		}
+
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -11,14 +12,26 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Security;
 
 namespace VocaDb.Web {
 
 	public class MvcApplication : HttpApplication {
 
+		private static readonly BlockedIPManager blockedIpManager = new BlockedIPManager(LoadBlockedIPs);
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private static ISessionFactory sessionFactory;
 		private const string sessionFactoryLock = "lock";
+
+		private static string[] LoadBlockedIPs() {
+
+			return Services.Other.GetIPRules().Select(i => i.Address).ToArray();
+
+		}
+
+		public static bool IsAllowedIP(string host) {
+			return blockedIpManager.IsAllowed(host);
+		}
 
 		public static bool IsAjaxRequest(HttpRequest request) {
 
@@ -134,6 +147,7 @@ namespace VocaDb.Web {
 		public static void RegisterGlobalFilters(GlobalFilterCollection filters) {
 			//filters.Add(new HandleErrorAttribute { ExceptionType = typeof(ObjectNotFoundException), View = "NotFound" });
 			//filters.Add(new HandleErrorAttribute());
+			filters.Add(new RestrictBlockedIPAttribute());
 		}
 
 		public static void RegisterRoutes(RouteCollection routes) {
