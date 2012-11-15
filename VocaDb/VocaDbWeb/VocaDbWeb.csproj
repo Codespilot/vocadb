@@ -993,6 +993,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="albumsearch.xml" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\Admin\ManageIPRules.js" />
     <Content Include="Scripts\Album\AlbumSearchBox.js" />
     <Content Include="Scripts\Album\Create.js" />
     <Content Include="Scripts\Album\Edit.js" />
@@ -1504,6 +1505,7 @@
     <Content Include="Views\Error\Forbidden.cshtml" />
     <Content Include="Views\Error\_Layout.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
+    <Content Include="Views\Admin\ManageIPRules.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

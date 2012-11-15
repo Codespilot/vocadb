@@ -1,6 +1,8 @@
 ﻿using System.Web.Mvc;
+using Newtonsoft.Json;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
+using VocaDb.Web.Code;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Admin;
 
@@ -85,6 +87,29 @@ namespace VocaDb.Web.Controllers
 			TempData.SetStatusMessage("Picture thumbnails recreated.");
 
 			return RedirectToAction("Index");
+
+		}
+
+		[Authorize]
+		public ActionResult ManageIPRules() {
+
+			LoginManager.VerifyPermission(PermissionToken.ManageIPRules);
+
+			var rules = Services.Other.GetIPRules();
+			return View(rules);
+
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult ManageIPRules([FromJson] IPRule[] rules) {
+
+			LoginManager.VerifyPermission(PermissionToken.ManageIPRules);
+
+			Service.UpdateIPRules(rules);
+			MvcApplication.IPRules.Reset();
+			
+			return View(rules);
 
 		}
 

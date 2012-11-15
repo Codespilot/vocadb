@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage IP rules.
+        /// </summary>
+        internal static string ManageIPRules {
+            get {
+                return ResourceManager.GetString("ManageIPRules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Manage user permissions.
         /// </summary>
         internal static string ManageUserPermissions {

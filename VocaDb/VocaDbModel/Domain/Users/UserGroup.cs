@@ -23,12 +23,12 @@ namespace VocaDb.Model.Domain.Users {
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
 			trusted, PermissionToken.AccessManageMenu, PermissionToken.DeleteComments, PermissionToken.DesignatedStaff, 
 			PermissionToken.DisableUsers, PermissionToken.EditNews,
-			PermissionToken.LockEntries, PermissionToken.ManageEntryReports, PermissionToken.ManageUserPermissions, 
-			PermissionToken.MikuDbImport, PermissionToken.MoveToTrash, PermissionToken.ReadRecentComments, 
-			PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);
+			PermissionToken.LockEntries, PermissionToken.ManageIPRules, PermissionToken.ManageEntryReports, 
+			PermissionToken.ManageUserPermissions, PermissionToken.MikuDbImport, PermissionToken.MoveToTrash, 
+			PermissionToken.ReadRecentComments, PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);
 
 		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin,
-			mod, PermissionToken.Admin, PermissionToken.ManageUserPermissions);
+			mod, PermissionToken.Admin);
 
 		private static readonly Dictionary<UserGroupId, UserGroup> groups = new[] {
 			limited, regular, trusted, mod, admin

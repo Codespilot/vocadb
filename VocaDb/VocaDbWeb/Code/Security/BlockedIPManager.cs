@@ -25,6 +25,12 @@ namespace VocaDb.Web.Code.Security {
 
 		}
 
+		public void Reset() {
+			lock (ipsLock) {
+				ips = null;
+			}
+		}
+
 	}
 
 }

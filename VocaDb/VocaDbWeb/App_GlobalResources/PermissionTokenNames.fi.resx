@@ -162,6 +162,9 @@
   <data name="ManageEventSeries" xml:space="preserve">
     <value>Tapahtumajoukkojen hallinta</value>
   </data>
+  <data name="ManageIPRules" xml:space="preserve">
+    <value>IP-sääntöjen hallinta</value>
+  </data>
   <data name="ManageUserPermissions" xml:space="preserve">
     <value>Käyttöoikeuksien hallinta</value>
   </data>
