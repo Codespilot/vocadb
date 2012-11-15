@@ -29,16 +29,18 @@ namespace VocaDb.Web {
 
 		}
 
-		public static bool IsAllowedIP(string host) {
-			return blockedIpManager.IsAllowed(host);
-		}
-
 		public static bool IsAjaxRequest(HttpRequest request) {
 
 			ParamIs.NotNull(() => request);
 
 			return (request["X-Requested-With"] == "XMLHttpRequest") || ((request.Headers != null) && (request.Headers["X-Requested-With"] == "XMLHttpRequest"));
 
+		}
+
+		public static BlockedIPManager IPRules {
+			get {
+				return blockedIpManager;
+			}
 		}
 
 		public static LoginManager LoginManager {

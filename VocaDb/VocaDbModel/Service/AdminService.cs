@@ -460,6 +460,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateIPRules(IPRule[] rules) {
+
+			PermissionContext.VerifyPermission(PermissionToken.ManageIPRules);
+
+			AuditLog("updating IP rules");
+
+			HandleTransaction(session => {
+
+				var ipRules = session.Query<IPRule>().ToArray();
+				var diff = CollectionHelper.Diff(ipRules, rules, (r1, r2) => r1.Id == r2.Id);
+
+				SessionHelper.Sync(session, diff);
+
+			});
+
+		}
+
 		public void UpdateNicoIds() {
 
 			UpdatePVIcons();

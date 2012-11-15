@@ -9,7 +9,7 @@ namespace VocaDb.Web.Code.Security {
 
 		public override void OnActionExecuting(ActionExecutingContext filterContext) {
 
-			if (MvcApplication.IsAllowedIP(filterContext.HttpContext.Request.UserHostAddress))
+			if (MvcApplication.IPRules.IsAllowed(filterContext.HttpContext.Request.UserHostAddress))
 				return;
 
 			if (filterContext.ActionDescriptor.IsDefined(typeof(AuthorizeAttribute), false)) {
