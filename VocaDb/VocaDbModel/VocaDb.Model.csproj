@@ -262,6 +262,7 @@
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
     <Compile Include="Domain\Security\EntryPermissionManager.cs" />
+    <Compile Include="Domain\Security\IPRule.cs" />
     <Compile Include="Domain\Security\PermissionCollection.cs" />
     <Compile Include="Domain\Security\PermissionToken.cs" />
     <Compile Include="Domain\Songs\SongComment.cs" />
@@ -411,6 +412,7 @@
     <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
     <Content Include="Mapping\Security\PermissionTokenMap.cs" />
+    <Compile Include="Mapping\Security\IPRuleMap.cs" />
     <Compile Include="Mapping\Songs\SongCommentMap.cs" />
     <Compile Include="Mapping\Songs\SongHitMap.cs" />
     <Compile Include="Mapping\Songs\SongListMap.cs" />

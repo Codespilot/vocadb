@@ -388,6 +388,7 @@ namespace VocaDb.Web.Controllers
         }
 
 		[HttpPost]
+		[Authorize]
 		public PartialViewResult CreateComment(int entryId, string message) {
 
 			var comment = Service.CreateComment(entryId, message);
@@ -397,6 +398,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public void DeleteComment(int commentId) {
 
 			Service.DeleteComment(commentId);
