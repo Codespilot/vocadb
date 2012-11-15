@@ -3,6 +3,9 @@
 
 @{
     ViewBag.Title = "Manage IP rules";
+    ViewBag.Parents = new[] { 
+		Html.ActionLink("Manage", "Index"), 
+	};    
 }
 
 @section BodyScripts {
