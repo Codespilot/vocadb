@@ -65,7 +65,7 @@ namespace VocaDb.Model.Helpers {
 		/// </summary>
 		public static readonly ArtistType[] CustomizableTypes = new[] {
 			ArtistType.Animator, ArtistType.OtherGroup, ArtistType.OtherIndividual, 
-			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Unknown
+			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Illustrator, ArtistType.Unknown
 		};
 
 		public static readonly ArtistType[] ProducerTypes = new[] {
