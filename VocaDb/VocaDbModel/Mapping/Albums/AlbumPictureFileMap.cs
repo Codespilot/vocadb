@@ -10,8 +10,8 @@ namespace VocaDb.Model.Mapping.Albums {
 			Id(m => m.Id);
 
 			Map(m => m.Created).Not.Nullable();
-			Map(m => m.Mime).Not.Nullable();
-			Map(m => m.Name).Not.Nullable();
+			Map(m => m.Mime).Length(32).Not.Nullable();
+			Map(m => m.Name).Length(200).Not.Nullable();
 
 			References(m => m.Album).Not.Nullable();
 			References(m => m.Author).Not.Nullable();
