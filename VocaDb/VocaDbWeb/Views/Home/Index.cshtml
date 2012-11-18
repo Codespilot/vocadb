@@ -53,11 +53,23 @@
 }
 
 <br />
-<h4>@ViewRes.Home.IndexStrings.RecentActivity (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "ActivityEntry"))</h4>
+<div class="row-fluid">
+    <div class="span9">
+        <h4>@ViewRes.Home.IndexStrings.RecentActivity (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "ActivityEntry"))</h4>
 
-@foreach (var entry in Model.ActivityEntries) {
-	@ActivityfeedHelpers.ActivityEntry(entry);
-}
+        @foreach (var entry in Model.ActivityEntries) {
+	        @ActivityfeedHelpers.ActivityEntry(entry);
+        }            
+    </div>
+    <div class="span3">
+        <h4>@ViewRes.Comment.IndexStrings.RecentComments (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Comment"))</h4>
+            
+        @foreach (var comment in Model.RecentComments) {
+            @Helpers.EntryLink(comment.Entry)<br />
+            @Helpers.PrintComment(comment, false);
+        }
+    </div>
+</div>
 
 <br />
 <h4>@R.IndexStrings.SearchSite</h4>

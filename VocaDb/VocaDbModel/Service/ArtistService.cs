@@ -595,6 +595,7 @@ namespace VocaDb.Model.Service {
 					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport && s.Album.RatingAverageInt > 0)
 					.Select(s => s.Album)
 					.OrderByDescending(s => s.RatingAverageInt)
+					.ThenByDescending(s => s.RatingCount)
 					.Take(6).ToArray()
 					.Where(a => contract.LatestAlbums.All(a2 => a.Id != a2.Id))
 					.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
