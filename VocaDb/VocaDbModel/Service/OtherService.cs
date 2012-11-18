@@ -2,11 +2,13 @@
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
@@ -22,6 +24,23 @@ using VocaDb.Model.Service.Helpers;
 namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
+
+		private UnifiedCommentContract[] GetRecentComments(ISession session) {
+
+			const int maxComments = 6;
+
+			var albumComments = session.Query<AlbumComment>().Where(c => !c.Album.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
+			var artistComments = session.Query<ArtistComment>().Where(c => !c.Artist.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
+			var songComments = session.Query<SongComment>().Where(c => !c.Song.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
+
+			var combined = albumComments.Cast<Comment>().Concat(artistComments).Concat(songComments)
+				.OrderByDescending(c => c.Created)
+				.Take(maxComments)
+				.Select(c => new UnifiedCommentContract(c));
+
+			return combined.ToArray();
+
+		}
 
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
@@ -270,7 +289,9 @@ namespace VocaDb.Model.Service {
 
 				var firstSongVote = (newSongs.Any() ? session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == newSongs.First().Id && s.User.Id == PermissionContext.LoggedUserId) : null);
 
-				return new FrontPageContract(activityEntries, newsEntries, newAlbums, topAlbums, newSongs, 
+				var recentComments = GetRecentComments(session);
+
+				return new FrontPageContract(activityEntries, newsEntries, newAlbums, recentComments, topAlbums, newSongs, 
 					firstSongVote != null ? firstSongVote.Rating : SongVoteRating.Nothing, PermissionContext.LanguagePreference);
 
 			});
