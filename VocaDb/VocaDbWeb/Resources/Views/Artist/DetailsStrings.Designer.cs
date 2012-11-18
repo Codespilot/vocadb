@@ -151,6 +151,24 @@ namespace ViewRes.Artist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Popular albums.
+        /// </summary>
+        public static string TopAlbums {
+            get {
+                return ResourceManager.GetString("TopAlbums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Popular songs.
+        /// </summary>
+        public static string TopSongs {
+            get {
+                return ResourceManager.GetString("TopSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unfollow.
         /// </summary>
         public static string Unfollow {

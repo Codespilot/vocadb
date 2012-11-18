@@ -151,6 +151,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recent PVs.
+        /// </summary>
+        public static string NewPVs {
+            get {
+                return ResourceManager.GetString("NewPVs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Register.
         /// </summary>
         public static string Register {

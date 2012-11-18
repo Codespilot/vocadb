@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Web.Helpers
 @using VocaDb.Model.Domain.Security
+@using VocaDb.Web.Models.Song
 
 @* ReSharper disable ConditionIsAlwaysTrueOrFalse *@
 @{
@@ -110,7 +111,8 @@
 								@if (Login.CanManageDb) {
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
 								}
-								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
+								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new IndexParams { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
+								<li>@Html.ActionLink(ViewRes._LayoutStrings.NewPVs, "Index", "Song", new IndexParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null)</li>
 							</ul>
 						</li>
 						<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
