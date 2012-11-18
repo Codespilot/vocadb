@@ -243,7 +243,6 @@ namespace VocaDb.Model.Service {
 
 		public UnifiedCommentContract[] GetRecentComments() {
 
-			PermissionContext.VerifyPermission(PermissionToken.ReadRecentComments);
 			const int maxComments = 50;
 
 			return HandleQuery(session => {
