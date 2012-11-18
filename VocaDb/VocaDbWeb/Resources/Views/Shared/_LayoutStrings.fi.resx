@@ -147,6 +147,9 @@
   <data name="MikuDbAlbum" xml:space="preserve">
     <value>MikuDbAlbum</value>
   </data>
+  <data name="NewPVs" xml:space="preserve">
+    <value>Uudet videot</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Rekisteröidy</value>
   </data>

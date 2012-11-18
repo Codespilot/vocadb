@@ -576,19 +576,37 @@ namespace VocaDb.Model.Service {
 				contract.CommentCount = session.Query<ArtistComment>().Where(c => c.Artist.Id == id).Count();
 
 				contract.LatestAlbums = session.Query<ArtistForAlbum>()
-					.Where(s => !s.Album.Deleted && s.Artist.Id == id)
+					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport)
 					.Select(s => s.Album)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(14).ToArray()
-					.Select(s => new AlbumWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+					.Take(6).ToArray()
+					.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
 				contract.LatestSongs = session.Query<ArtistForSong>()
-					.Where(s => !s.Song.Deleted && s.Artist.Id == id)
+					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport)
 					.Select(s => s.Song)
 					.OrderByDescending(s => s.CreateDate)
-					.Take(14).ToArray()
-					.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
+					.Take(8).ToArray()
+					.Select(s => new SongContract(s, PermissionContext.LanguagePreference))
+					.ToArray();
+
+				contract.TopAlbums = session.Query<ArtistForAlbum>()
+					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport && s.Album.RatingAverageInt > 0)
+					.Select(s => s.Album)
+					.OrderByDescending(s => s.RatingAverageInt)
+					.Take(6).ToArray()
+					.Where(a => contract.LatestAlbums.All(a2 => a.Id != a2.Id))
+					.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
+					.ToArray();
+
+				contract.TopSongs = session.Query<ArtistForSong>()
+					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport && s.Song.RatingScore > 0)
+					.Select(s => s.Song)
+					.OrderByDescending(s => s.RatingScore)
+					.Take(8).ToArray()
+					.Where(a => contract.LatestSongs.All(a2 => a.Id != a2.Id))
+					.Select(s => new SongContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
 				contract.LatestComments = session.Query<ArtistComment>()

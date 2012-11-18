@@ -29,6 +29,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			ParamIs.NotNull(() => album);
 
+			AdditionalNames = album.Names.GetAdditionalNamesStringForLanguage(languagePreference);
 			ArtistString = album.ArtistString.GetBestMatch(languagePreference);
 			CreateDate = album.CreateDate;
 			DiscType = album.DiscType;
@@ -42,6 +43,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Version = album.Version;
 
 		}
+
+		[DataMember]
+		public string AdditionalNames { get; set; }
 
 		[DataMember]
 		public string ArtistString { get; set; }

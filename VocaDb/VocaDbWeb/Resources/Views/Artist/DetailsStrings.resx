@@ -147,6 +147,12 @@
   <data name="RecentSongs" xml:space="preserve">
     <value>Recent songs / PVs</value>
   </data>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>Popular albums</value>
+  </data>
+  <data name="TopSongs" xml:space="preserve">
+    <value>Popular songs</value>
+  </data>
   <data name="Unfollow" xml:space="preserve">
     <value>Unfollow</value>
   </data>

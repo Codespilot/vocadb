@@ -39,7 +39,7 @@
 		
 }
 
-@helper AlbumGrid(IEnumerable<AlbumWithAdditionalNamesContract> albums, int columns,
+@helper AlbumGrid(IEnumerable<AlbumContract> albums, int columns,
 	bool displayRating, bool displayReleaseDate, bool displayType = false) {
 	
 	<table>
@@ -76,7 +76,7 @@
 			
 }
 
-@helper AlbumThumbs(IEnumerable<AlbumWithAdditionalNamesContract> albums) {
+@helper AlbumThumbs(IEnumerable<AlbumContract> albums) {
 	
 	<ul class="smallThumbs">
 		@foreach (var album in albums) {
