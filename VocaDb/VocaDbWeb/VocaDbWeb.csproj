@@ -1533,6 +1533,7 @@
     <Content Include="Views\User\FavoriteSongsPaged.cshtml" />
     <Content Include="Views\Shared\PVContent.cshtml" />
     <Content Include="Views\Ext\EmbedSong.cshtml" />
+    <Content Include="Views\User\PagedUsers.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

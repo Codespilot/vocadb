@@ -96,11 +96,12 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoTitleParseResult.CreateError("NicoVideo (error): title element not found");
 			}
 
+			var title = HtmlEntity.DeEntitize(titleElem.Value);
 			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/thumbnail_url");
 			var userId = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/user_id");
 			var author = GetUserName(userId);
 
-			return VideoTitleParseResult.CreateSuccess(titleElem.Value, author, thumbUrl);
+			return VideoTitleParseResult.CreateSuccess(title, author, thumbUrl);
 
 		}
 

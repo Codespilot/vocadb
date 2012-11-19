@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 using Microsoft.Web.Helpers;
 using MvcPaging;
@@ -25,6 +26,8 @@ namespace VocaDb.Web.Controllers
 {
     public class UserController : ControllerBase
     {
+
+		private const int usersPerPage = 50;
 
 		private UserService Service {
 			get { return MvcApplication.Services.Users; }
@@ -194,8 +197,11 @@ namespace VocaDb.Web.Controllers
 			var groupId = model.GroupId;
 			var sortRule = sort ?? UserSortRule.RegisterDate;
 
-        	var users = Service.GetUsers(groupId, sortRule, PagingProperties.CreateFromPage(pageIndex, 300, true));
-			return View(new Index(users.Items, groupId));
+			var result = Service.GetUsers(groupId, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
+			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, result.TotalCount), null, "UsersPaged", "usersList");
+			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule, totalCount = result.TotalCount, action = "UsersPaged" });
+
+			return View(new Index(data, groupId));
 
         }
 
@@ -604,6 +610,17 @@ namespace VocaDb.Web.Controllers
 			Service.DisableUser(id);
 
 			return RedirectToAction("Details", new { id });
+
+		}
+
+		public PartialViewResult UsersPaged(UserGroupId groupId, UserSortRule sortRule, int totalCount, int? page) {
+
+			var pageIndex = (page - 1) ?? 0;
+			var result = Service.GetUsers(groupId, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, false));
+			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, totalCount), null, "UsersPaged", "usersList");
+			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule, totalCount, action = "UsersPaged" });
+
+			return PartialView("PagedUsers", data);
 
 		}
 

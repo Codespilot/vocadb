@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Web.Routing;
 using MvcPaging;
 
 namespace VocaDb.Web.Models.Shared {
@@ -23,6 +25,8 @@ namespace VocaDb.Web.Models.Shared {
 		public object Id { get; set; }
 
 		public IPagedList<T> Items { get; set; }
+
+		public RouteValueDictionary RouteValues { get; set; } 
 		 
 	}
 }
