@@ -2,6 +2,8 @@
 @using System.Web.Mvc.Html;
 @using Microsoft.Web.Helpers
 @using VocaDb.Model.DataContracts.Users;
+@using VocaDb.Model.Domain.Users
+@using VocaDb.Web.Helpers
 
 @helper ProfileIcon(UserBaseContract user, int size = 80) {
 	if (user != null && !string.IsNullOrEmpty(user.Email)) {
@@ -13,4 +15,51 @@
 
 @helper UserLink(UserBaseContract user) {
 	@Html.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null)
+}
+
+@helper UserTable(IEnumerable<UserContract> users, UserGroupId groupId) {
+
+    <table class="table table-striped">
+	    <thead>
+		    <tr>
+			    <th colspan="2">
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserName, "Index", "User", new { GroupId = groupId, sort = VocaDb.Model.Service.UserSortRule.Name }, null)
+			    </th>
+			    <th>
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.MemberSince, "Index", "User", new { GroupId = groupId, sort = VocaDb.Model.Service.UserSortRule.RegisterDate }, null)
+			    </th>
+			    <th>
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserGroup, "Index", "User", new { GroupId = groupId, sort = VocaDb.Model.Service.UserSortRule.Group }, null)
+			    </th>
+			    <th></th>
+		    </tr>
+	    </thead>
+	    <tbody>
+	    @foreach (var user in users) {
+		    <tr>
+			    <td>
+				    <a href="@Url.Action("Details", "User", new { id = user.Id })">
+					    @ProfileIcon(user)					
+				    </a>
+			    </td>
+			    <td>
+				    @Html.ActionLink(user.Name, "Details", "User", new { id = user.Id }, null)
+			    </td>
+			    <td>
+				    @user.CreateDate
+			    </td>
+			    <td>
+				    @Translate.UserGroups[user.GroupId]
+			    </td>
+			    <td>
+				    @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.ManageUserPermissions)) {
+					    <text>&nbsp;</text>
+					    @Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", "User", new { id = user.Id }, new { @class = "textLink editLink" });	
+				    }
+			    </td>
+		    </tr>
+	    }
+	    </tbody>
+    </table>    
+        
 }
