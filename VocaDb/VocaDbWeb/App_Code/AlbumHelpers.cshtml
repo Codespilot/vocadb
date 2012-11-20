@@ -81,7 +81,7 @@
 	<ul class="smallThumbs">
 		@foreach (var album in albums) {
 			@Helpers.ThumbItem(Url.Action("Details", "Album", new { id = album.Id }),
-				Url.Action("CoverPictureThumb", "Album", new { id = album.Id }), album.Name)	  
+				Url.Action("CoverPictureThumb", "Album", new { id = album.Id }), album.Name, album)	  
 		}
 	</ul>
 	

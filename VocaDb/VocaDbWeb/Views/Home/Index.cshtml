@@ -40,10 +40,14 @@
 
 <br />
 <h4>@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
-@AlbumHelpers.AlbumThumbs(Model.NewAlbums)
+<div id="newAlbums">
+    @AlbumHelpers.AlbumThumbs(Model.NewAlbums)    
+</div>
 
 <h4>@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
-@AlbumHelpers.AlbumThumbs(Model.TopAlbums)
+<div id="topAlbums">
+    @AlbumHelpers.AlbumThumbs(Model.TopAlbums)    
+</div>
 
 <br />
 <h4>@ViewRes.Home.IndexStrings.News (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry"))</h4>
@@ -77,6 +81,8 @@
 
 @section BodyScripts {
     
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/Scripts/jquery.qtip.css")" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.qtip.min.js")"></script>
     <script type="text/javascript">
         vdb.resources.song = {
             thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'

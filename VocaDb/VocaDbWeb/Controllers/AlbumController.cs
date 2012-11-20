@@ -162,6 +162,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult PopupContent(int id) {
+
+			var album = Service.GetAlbum(id);
+			return PartialView("AlbumPopupContent", album);
+
+		}
+
         //
         // GET: /Album/Details/5
 

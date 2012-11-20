@@ -115,13 +115,17 @@
 		@if (Model.LatestAlbums.Any()) {
 			<br />
 			<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
-			@AlbumHelpers.AlbumThumbs(Model.LatestAlbums)
+            <div id="newAlbums">                
+    			@AlbumHelpers.AlbumThumbs(Model.LatestAlbums)
+            </div>
         }
         
 		@if (Model.TopAlbums.Any()) {
 			<br />
 			<h3>@ViewRes.Artist.DetailsStrings.TopAlbums</h3>
-			@AlbumHelpers.AlbumThumbs(Model.TopAlbums)
+            <div id="topAlbums">
+			    @AlbumHelpers.AlbumThumbs(Model.TopAlbums)                
+            </div>
 	    }
         
 
@@ -193,10 +197,12 @@
 
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/Scripts/jquery.qtip.css")" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/DiscussionTab.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Details.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.qtip.min.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 
