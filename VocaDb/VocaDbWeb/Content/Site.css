@@ -111,6 +111,12 @@ a.coverPicThumb {
 	display: block;
 }
 
+div.thumbnail {
+	float: left;
+	margin-right: 5px;
+	border: none;
+}
+
 div.thumbItem {
 	width: 250px;
 	height: 250px;	
@@ -442,19 +448,9 @@ div.albumListItem {
 	min-height: 85px;
 }
 
-div.albumListItem div.thumbnail {
-	float: left;
-	margin-right: 5px;
-}
-
 div.songListItem {
 	display: block;
 	min-height: 70px;
-}
-
-div.songListItem div.thumbnail {
-	float: left;
-	margin-right: 5px;
 }
 
 

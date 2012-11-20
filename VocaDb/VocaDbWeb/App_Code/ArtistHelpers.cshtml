@@ -55,7 +55,7 @@
 			@("(")
 		}
 		if (artist.Artist != null) {
-			@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+			<a href="@Url.Action("Details", "Artist", new { id = artist.Artist.Id })" title="@artist.Artist.AdditionalNames" data-entry-id="@artist.Artist.Id">@artist.Artist.Name</a>
 		} else {
 			@artist.Name		
 		}
@@ -78,7 +78,7 @@
 			@("(")
 		}
 		if (artist.Artist != null) {
-			@Html.ActionLink(artist.Artist.Name, "Details", "Artist", new { id = artist.Artist.Id }, new { title = artist.Artist.AdditionalNames })
+			<a href="@Url.Action("Details", "Artist", new { id = artist.Artist.Id })" title="@artist.Artist.AdditionalNames" data-entry-id="@artist.Artist.Id">@artist.Artist.Name</a>
 		} else {
 			@artist.Name		
 		}

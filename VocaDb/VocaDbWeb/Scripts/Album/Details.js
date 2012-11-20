@@ -214,4 +214,27 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 
 	});
 
+	$("td.artistList a").each(function () {
+
+	    var elem = this;
+
+	    $(elem).qtip({
+	        content: {
+	            text: 'Loading...',
+	            ajax: {
+	                url: hostAddress + '/Artist/PopupContent',
+	                type: 'GET',
+	                data: { id: $(elem).data("entryId") }
+	            }
+	        },
+	        position: {
+	            viewport: $(window)
+	        },
+	        style: {
+	            classes: "tooltip-wide"
+	        }
+	    });
+
+	});
+
 }

@@ -74,7 +74,7 @@
 			@if (Model.Performers.Any()) {
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.Vocalists</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Performers)
 				</td>
 			</tr>
@@ -83,7 +83,7 @@
 			@if (Model.Producers.Any()) {
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.Producers</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Producers)
 				</td>
 			</tr>
@@ -92,7 +92,7 @@
 			@if (Model.Animators.Any()) {
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.Animators</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Animators)
 				</td>
 			</tr>
@@ -101,7 +101,7 @@
 			@if (Model.OtherArtists.Any()) {
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.OtherArtists</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.OtherArtists, true)
 				</td>
 			</tr>
@@ -274,8 +274,10 @@
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" }))
 
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/Scripts/jquery.qtip.css")" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Details.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.qtip.min.js")"></script>
 <script type="text/javascript">
 
     $(document).ready(function() { 

@@ -129,7 +129,7 @@ function initPage(artistId, saveStr, hostAddress) {
 	});
 
 	function albumToolTip(img) {
-	    $(img).qtip({
+	    $(img).parent().qtip({
 	        content: {
 	            text: 'Loading...',
 	            ajax: {

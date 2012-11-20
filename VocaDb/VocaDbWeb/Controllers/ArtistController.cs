@@ -219,6 +219,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult PopupContent(int id) {
+
+			var artist = Service.GetArtist(id);
+			return PartialView("ArtistPopupContent", artist);
+
+		}
+
 		public PartialViewResult Comments(int id) {
 
 			var comments = Service.GetComments(id);
