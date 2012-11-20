@@ -76,7 +76,9 @@ $(document).ready(function () {
                     data: { id: $(img).data("entryId") }
                 }
             },
-
+            position: {
+                viewport: $(window)
+            }
         });
     }
 

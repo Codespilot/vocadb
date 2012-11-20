@@ -138,7 +138,9 @@ function initPage(artistId, saveStr, hostAddress) {
 	                data: { id: $(img).data("entryId") }
 	            }
 	        },
-
+	        position: {
+	            viewport: $(window)
+	        }
 	    });
 	}
 
