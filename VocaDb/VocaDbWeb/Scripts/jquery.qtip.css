@@ -35,6 +35,10 @@
 	direction: ltr;
 }
 
+	.tooltip-wide {
+		min-width: 220px;
+	}
+
 	.ui-tooltip-content{
 		position: relative;
 		padding: 5px 9px;

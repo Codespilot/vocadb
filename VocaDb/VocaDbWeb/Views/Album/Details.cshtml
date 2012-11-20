@@ -86,14 +86,14 @@
 			</tr>
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.Vocalists</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Vocalists)
 				</td>
 			</tr>
 
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.Producers</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Producers)
 				</td>
 			</tr>
@@ -101,7 +101,7 @@
 			@if (Model.Circles.Any()) {
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.Circle</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Circles)
 				</td>
 			</tr>
@@ -110,7 +110,7 @@
 			@if (Model.Labels.Any()) {
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.Labels</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Labels)
 				</td>
 			</tr>
@@ -119,7 +119,7 @@
 			@if (Model.OtherArtists.Any()) {
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.OtherArtists</td>
-				<td>
+				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.OtherArtists, true)
 				</td>
 			</tr>
@@ -303,10 +303,12 @@
 
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+<link type="text/css" rel="stylesheet" href="@Url.Content("~/Scripts/jquery.qtip.css")" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
 <script type="text/javascript" src="../../Scripts/Album/Details.js"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
 <script type="text/javascript" src="../../Scripts/jqwidgets/jqxrating.js"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.qtip.min.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function() { 

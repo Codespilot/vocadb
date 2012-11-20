@@ -1,0 +1,15 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Model.DataContracts.Artists.ArtistContract
+
+<div class="thumbnail">
+    <img src="@Url.Action("PictureThumb", "Artist", new { id = Model.Id })" alt="Thumb" class="coverPicThumb" />
+</div>    
+
+@if (!string.IsNullOrEmpty(Model.AdditionalNames)) {
+<p>
+    @Model.AdditionalNames
+</p>
+}
+<p>
+    @Translate.ArtistTypeName(Model.ArtistType)<br />
+</p>    
