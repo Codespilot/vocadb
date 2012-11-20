@@ -1014,6 +1014,8 @@
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.js" />
     <Content Include="Scripts\jquery-ui-1.8.11.min.js" />
+    <Content Include="Scripts\jquery.qtip.css" />
+    <Content Include="Scripts\jquery.qtip.min.js" />
     <Content Include="Scripts\jquery.tools.min.js" />
     <Content Include="Scripts\jquery.tooltip.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1506,6 +1508,7 @@
     <Content Include="Views\Error\_Layout.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Admin\ManageIPRules.cshtml" />
+    <Content Include="Views\Album\AlbumPopupContent.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

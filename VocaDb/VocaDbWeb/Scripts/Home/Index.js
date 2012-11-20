@@ -66,4 +66,21 @@ $(document).ready(function () {
 
     });
 
+    function albumToolTip(img) {
+        $(img).qtip({
+            content: {
+                text: 'Loading...',
+                ajax: {
+                    url: '/Album/PopupContent',
+                    type: 'GET',
+                    data: { id: $(img).data("entryId") }
+                }
+            },
+
+        });
+    }
+
+    $("#newAlbums img").each(function () { albumToolTip(this); });
+    $("#topAlbums img").each(function () { albumToolTip(this); });
+
 });

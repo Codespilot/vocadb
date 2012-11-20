@@ -1,0 +1,18 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Model.DataContracts.Albums.AlbumContract
+
+@if (!string.IsNullOrEmpty(Model.AdditionalNames)) {
+<p>
+    @Model.AdditionalNames
+</p>
+}
+<p>
+    @Model.ArtistString<br />
+    @Translate.DiscTypeName(Model.DiscType)<br />
+</p>
+<p>
+    @HelperRes.AlbumHelpersStrings.Released @Model.ReleaseDate.Formatted
+</p>
+@if (Model.RatingCount > 0) {
+    @Helpers.Stars(Model.RatingAverage, 5) @("(" + Model.RatingCount + " " + ViewRes.Album.DetailsStrings.Ratings + ")")
+}
