@@ -10,9 +10,11 @@
     @Model.ArtistString<br />
     @Translate.DiscTypeName(Model.DiscType)<br />
 </p>
+@if (!Model.ReleaseDate.IsEmpty) {
 <p>
     @HelperRes.AlbumHelpersStrings.Released @Model.ReleaseDate.Formatted
 </p>
+}
 @if (Model.RatingCount > 0) {
     @Helpers.Stars(Model.RatingAverage, 5) @("(" + Model.RatingCount + " " + ViewRes.Album.DetailsStrings.Ratings + ")")
 }
