@@ -115,11 +115,12 @@
 			@if (Model.Albums.Any()) {
 			<tr>
 				<td>@ViewRes.SharedStrings.Albums</td>
-				<td>
-					@Html.LinkList(Model.Albums, album => Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames }))
+				<td id="albumList">
+					@Html.LinkList(Model.Albums, album => Html.ActionLink(album.Name, "Details", "Album", 
+                        new RouteValueDictionary { { "id", album.Id } }, new Dictionary<string, object> { { "title", album.AdditionalNames }, { "data-entry-id", album.Id }}))
 				</td>
 			</tr>
-   }
+            }
 			
 			<tr>
 				<td>@ViewRes.SharedStrings.Tags</td>
@@ -274,10 +275,8 @@
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" }))
 
-<link type="text/css" rel="stylesheet" href="@Url.Content("~/Scripts/jquery.qtip.css")" />
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Details.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.qtip.min.js")"></script>
 <script type="text/javascript">
 
     $(document).ready(function() { 
