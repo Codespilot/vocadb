@@ -128,23 +128,7 @@ function initPage(artistId, saveStr, hostAddress) {
 
 	});
 
-	function albumToolTip(img) {
-	    $(img).parent().qtip({
-	        content: {
-	            text: 'Loading...',
-	            ajax: {
-	                url: hostAddress + '/Album/PopupContent',
-	                type: 'GET',
-	                data: { id: $(img).data("entryId") }
-	            }
-	        },
-	        position: {
-	            viewport: $(window)
-	        }
-	    });
-	}
-
-	$("#newAlbums img").each(function () { albumToolTip(this); });
-	$("#topAlbums img").each(function () { albumToolTip(this); });
+	$("#newAlbums img").vdbAlbumToolTip();
+	$("#topAlbums img").vdbAlbumToolTip();
 
 }

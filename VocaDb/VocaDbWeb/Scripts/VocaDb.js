@@ -54,5 +54,63 @@ function isNullOrWhiteSpace(str) {
 }
 
 String.prototype.trim = function () {
-	return this.replace(/^\s*/, "").replace(/\s*$/, "");
-}
+    return this.replace(/^\s*/, "").replace(/\s*$/, "");
+};
+
+vdb = {};
+vdb.functions = vdb.functions || {};
+vdb.values = vdb.values || {};
+vdb.functions.mapUrl = function (relative) {
+    return vdb.values.hostAddress + relative;
+};
+
+(function ($) {
+    $.fn.vdbArtistToolTip = function () {
+
+        this.each(function () {
+            var elem = this;
+
+            $(elem).qtip({
+                content: {
+                    text: 'Loading...',
+                    ajax: {
+                        url: vdb.functions.mapUrl('/Artist/PopupContent'),
+                        type: 'GET',
+                        data: { id: $(elem).data("entryId") }
+                    }
+                },
+                position: {
+                    viewport: $(window)
+                },
+                style: {
+                    classes: "tooltip-wide"
+                }
+            });
+        });
+
+    };
+})(jQuery);
+
+(function ($) {
+    $.fn.vdbAlbumToolTip = function () {
+
+        this.each(function () {
+            var elem = this;
+
+            $(elem).qtip({
+                content: {
+                    text: 'Loading...',
+                    ajax: {
+                        url: vdb.functions.mapUrl('/Album/PopupContent'),
+                        type: 'GET',
+                        data: { id: $(elem).data("entryId") }
+                    }
+                },
+                position: {
+                    viewport: $(window)
+                }
+            });
+        });
+
+    };
+})(jQuery);
