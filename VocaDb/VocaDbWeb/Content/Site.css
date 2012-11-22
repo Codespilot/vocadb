@@ -216,6 +216,7 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	margin-top: 0px;
 }
 
+/* Menu */
 .menu {
 	/*background-color: #CDECF4;
 	opacity: 0.95;*/
@@ -261,6 +262,23 @@ ul {
 
 .menu a:visited {
 	color: #1C5D74;
+}
+
+#socialSites {
+	margin-left: 15px;
+}
+
+#socialSites img {
+	margin-left: 2px;
+}
+
+#banners {
+	margin-left: 10px;
+}
+
+#banners img {
+	margin: 3px;
+	max-width: 180px;
 }
 
 .user a {

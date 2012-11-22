@@ -187,7 +187,7 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Social sites.
+        ///   Looks up a localized string similar to Community.
         /// </summary>
         public static string SocialSites {
             get {
