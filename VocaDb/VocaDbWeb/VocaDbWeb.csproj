@@ -855,6 +855,7 @@
     <Content Include="Content\banners\facebook.png" />
     <Content Include="Content\banners\googleplus-icon.png" />
     <Content Include="Content\banners\mikuchan.jpg" />
+    <Content Include="Content\banners\mikudb.png" />
     <Content Include="Content\banners\mikufan_bannertest.png" />
     <Content Include="Content\banners\Twitter_Logo.png" />
     <Content Include="Content\banners\VirtualEmotions.png" />
