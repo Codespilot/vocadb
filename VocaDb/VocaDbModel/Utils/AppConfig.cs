@@ -20,6 +20,18 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
+		public static string ReCAPTCHAKey {
+			get {
+				return Val("ReCAPTCHAKey");
+			}
+		}
+
+		public static string ReCAPTCHAPublicKey {
+			get {
+				return Val("ReCAPTCHAPublicKey");
+			}
+		}
+
 		public static string TwitterConsumerKey {
 			get {
 				return Val("TwitterConsumerKey");
