@@ -14,6 +14,12 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
+		public static string LockdownMessage {
+			get {
+				return Val("LockdownMessage");
+			}
+		}
+
 		public static string TwitterConsumerKey {
 			get {
 				return Val("TwitterConsumerKey");

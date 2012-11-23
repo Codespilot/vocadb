@@ -269,8 +269,8 @@ ul {
 }
 
 #socialSites img {
-	margin-left: 2px;
-	margin-bottom: 5px;
+	margin-right: 3px;
+	margin-bottom: 8px;
 }
 
 #banners {
@@ -278,7 +278,7 @@ ul {
 }
 
 #banners img {
-	margin: 3px;
+	margin-bottom: 10px;
 }
 
 .user a {

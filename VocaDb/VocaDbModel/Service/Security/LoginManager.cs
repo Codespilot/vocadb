@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using System.Globalization;
 using System.Threading;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Service.Security {
 
@@ -91,7 +92,13 @@ namespace VocaDb.Model.Service.Security {
 			if (token == PermissionToken.Nothing)
 				return true;
 
-			return (IsLoggedIn && LoggedUser.Active && LoggedUser.EffectivePermissions.Contains(token));
+			if (!IsLoggedIn || !LoggedUser.Active)
+				return false;
+
+			if (token == PermissionToken.ManageDatabase && LockdownEnabled)
+				return false;
+
+			return (LoggedUser.EffectivePermissions.Contains(token));
 
 		}
 
@@ -115,6 +122,12 @@ namespace VocaDb.Model.Service.Security {
 
 				return (LoggedUser != null ? LoggedUser.DefaultLanguageSelection : ContentLanguagePreference.Default);
 
+			}
+		}
+
+		public bool LockdownEnabled {
+			get {
+				return !string.IsNullOrEmpty(AppConfig.LockdownMessage);
 			}
 		}
 

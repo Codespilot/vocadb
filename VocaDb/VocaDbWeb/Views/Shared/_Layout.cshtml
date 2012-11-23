@@ -1,13 +1,7 @@
-﻿@using VocaDb.Web.Helpers
+﻿@using VocaDb.Model.Utils
+@using VocaDb.Web.Helpers
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Models.Song
-
-@* ReSharper disable ConditionIsAlwaysTrueOrFalse *@
-@{
-	var displaySocialLinks = (ViewBag.DisplaySocialLinks == true);
-	
-}
-@* ReSharper restore ConditionIsAlwaysTrueOrFalse *@
 
 @helper Banner(string title, string url, string img) {
     <li><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></li>
@@ -150,7 +144,7 @@
 					</ul>					
 				</div>
 				<div class="span10 rightFrame well">
-
+                    
 							@if (ViewBag.Parents != null) {
 		   var arr = (MvcHtmlString[])ViewBag.Parents;
 								<ul class="breadcrumb">
@@ -164,6 +158,7 @@
 		}
 								</ul>
 	   }
+                                        
 							@if (!string.IsNullOrEmpty(ViewBag.Title)) {
 								<h2 class="pageTitle">@ViewBag.Title
 								@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
@@ -171,6 +166,12 @@
 		}
 								</h2>
 	   }
+                    
+                            @if (Login.Manager.LockdownEnabled) {
+                                <div class="alert">
+                                    @AppConfig.LockdownMessage
+                                </div>
+                            }
 
 							@if (IsSectionDefined("Toolbar")) {
 								<p>
@@ -209,7 +210,7 @@
                                     </div>
                                 </div>
                             </div>
-                                        		
+                                                            		
 							@if (!string.IsNullOrEmpty(TempData.StatusMessage())) {
 								@Helpers.NotificationPanel(TempData.StatusMessage())
 	   }
