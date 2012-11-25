@@ -133,7 +133,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the original PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to URL to the original PV (such as NicoNicoDouga or Youtube).
         /// </summary>
         public static string OriginalPV {
             get {
@@ -142,7 +142,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL to the reprint of the PV (NicoNicoDouga or Youtube).
+        ///   Looks up a localized string similar to URL to the reprint of the PV (such as NicoNicoDouga or Youtube).
         /// </summary>
         public static string ReprintPV {
             get {

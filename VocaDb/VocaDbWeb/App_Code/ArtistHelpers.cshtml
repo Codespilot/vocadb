@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc;
 @using System.Web.Mvc.Html;
+@using System.Web.Routing
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.Domain.Artists
 @using VocaDb.Web.Helpers;
@@ -48,6 +49,10 @@
 	</a>		
 }
 
+@helper ArtistLink(ArtistContract artist) {
+	@Html.ActionLink(artist.Name, "Details", "Artist", new RouteValueDictionary { { "id", artist.Id } }, new Dictionary<string, object> { { "title", artist.AdditionalNames }, { "data-entry-id", artist.Id } })
+}
+
 @helper ArtistList(IEnumerable<ArtistForAlbumContract> artists, bool showRoles = false) {
 	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
 	foreach (var artist in ordered) {
@@ -55,13 +60,13 @@
 			@("(")
 		}
 		if (artist.Artist != null) {
-			<a href="@Url.Action("Details", "Artist", new { id = artist.Artist.Id })" title="@artist.Artist.AdditionalNames" data-entry-id="@artist.Artist.Id">@artist.Artist.Name</a>
+			@ArtistLink(artist.Artist)
 		} else {
-			@artist.Name		
+			@artist.Name
 		}
-        if (showRoles && artist.EffectiveRoles != ArtistRoles.Default) {
+		if (showRoles && artist.EffectiveRoles != ArtistRoles.Default) {
 			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.EffectiveRoles, ArtistRoles.Default) + ")")
-		}        
+		}
 		if (artist.IsSupport) {
 			@(")")
 		}
@@ -78,11 +83,11 @@
 			@("(")
 		}
 		if (artist.Artist != null) {
-			<a href="@Url.Action("Details", "Artist", new { id = artist.Artist.Id })" title="@artist.Artist.AdditionalNames" data-entry-id="@artist.Artist.Id">@artist.Artist.Name</a>
+			@ArtistLink(artist.Artist)
 		} else {
-			@artist.Name		
+			@artist.Name
 		}
-        if (showRoles && artist.EffectiveRoles != ArtistRoles.Default) {
+		if (showRoles && artist.EffectiveRoles != ArtistRoles.Default) {
 			@(" (" + Translate.ArtistRoleNames.GetAllNameNames(artist.EffectiveRoles, ArtistRoles.Default) + ")")
 		}
 		if (artist.IsSupport) {

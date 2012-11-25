@@ -86,6 +86,7 @@
 									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
 								}
 								<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
+								<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
 								<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
 							</ul>
 						</li>

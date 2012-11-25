@@ -147,6 +147,9 @@
   <data name="MikuDbAlbum" xml:space="preserve">
     <value>MikuDbAlbum</value>
   </data>
+  <data name="NewAlbums" xml:space="preserve">
+    <value>New albums</value>
+  </data>
   <data name="NewPVs" xml:space="preserve">
     <value>Recent PVs</value>
   </data>
