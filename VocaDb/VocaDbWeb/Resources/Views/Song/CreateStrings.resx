@@ -142,10 +142,10 @@
     <value>Do not enter artist names into the name field. Instead, use the artists list.</value>
   </data>
   <data name="OriginalPV" xml:space="preserve">
-    <value>URL to the original PV (NicoNicoDouga or Youtube)</value>
+    <value>URL to the original PV (such as NicoNicoDouga or Youtube)</value>
   </data>
   <data name="ReprintPV" xml:space="preserve">
-    <value>URL to the reprint of the PV (NicoNicoDouga or Youtube)</value>
+    <value>URL to the reprint of the PV (such as NicoNicoDouga or Youtube)</value>
   </data>
   <data name="SongInfo" xml:space="preserve">
     <value>Please make sure the song you're about to submit hasn't been added before. You need to enter at least one name and artist. Link to the original PV is very desirable.</value>

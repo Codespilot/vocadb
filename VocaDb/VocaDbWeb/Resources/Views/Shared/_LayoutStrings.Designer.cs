@@ -151,6 +151,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New albums.
+        /// </summary>
+        public static string NewAlbums {
+            get {
+                return ResourceManager.GetString("NewAlbums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recent PVs.
         /// </summary>
         public static string NewPVs {
