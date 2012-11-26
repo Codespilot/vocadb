@@ -222,4 +222,40 @@
   <data name="PiPicturesGuide" xml:space="preserve">
     <value>Просим вас добавлять только изображения, непосредственно относящиеся к этому альбому.</value>
   </data>
+  <data name="ArtistRolesTitle" xml:space="preserve">
+    <value>Роли артистов</value>
+  </data>
+  <data name="PiCreateNew" xml:space="preserve">
+    <value>Создать новое</value>
+  </data>
+  <data name="PvAdd" xml:space="preserve">
+    <value>Добавить медиа</value>
+  </data>
+  <data name="PvAuthor" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="PvIntro" xml:space="preserve">
+    <value>Здесь вы можете добавить рекламные видео или компиляции (crossfade) для этого альбома.</value>
+  </data>
+  <data name="PvName" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="PvService" xml:space="preserve">
+    <value>Сервис</value>
+  </data>
+  <data name="PvSupportedServices" xml:space="preserve">
+    <value>Поддерживаемые сервисы: Youtube, NicoNicoDouga, Vimeo и SoundCloud.</value>
+  </data>
+  <data name="PvType" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="PvURL" xml:space="preserve">
+    <value>URL:</value>
+  </data>
+  <data name="TrackPropertiesTitle" xml:space="preserve">
+    <value>Свойства трека</value>
+  </data>
+  <data name="ArtistsForSong" xml:space="preserve">
+    <value>Артисты песни {0}</value>
+  </data>
 </root>

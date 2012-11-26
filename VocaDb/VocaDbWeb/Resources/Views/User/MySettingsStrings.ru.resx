@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutMe" xml:space="preserve">
+    <value>О себе</value>
+  </data>
   <data name="AccessKey" xml:space="preserve">
     <value>Ключ доступа</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="EmailOptions" xml:space="preserve">
     <value>Настройки Email для личных сообщений</value>
   </data>
+  <data name="ExternalLinks" xml:space="preserve">
+    <value>Внешние ссылки</value>
+  </data>
   <data name="FillIfChangingPassword" xml:space="preserve">
     <value>(заполняйте при смене пароля.)</value>
   </data>
@@ -164,6 +170,9 @@
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Неверный Email</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Откуда</value>
   </data>
   <data name="MySettingsTitle" xml:space="preserve">
     <value>Мои настройки</value>
@@ -179,6 +188,9 @@
   </data>
   <data name="PreferredVideoService" xml:space="preserve">
     <value>Предпочтительный аудио/видео-сервис</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Профиль</value>
   </data>
   <data name="ReallyReset" xml:space="preserve">
     <value>Действительно сбросить код?</value>

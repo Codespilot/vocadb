@@ -147,6 +147,12 @@
   <data name="NoComments" xml:space="preserve">
     <value>Пока что ни одного!</value>
   </data>
+  <data name="OfficialLinks" xml:space="preserve">
+    <value>Официальные ссылки</value>
+  </data>
+  <data name="OtherLinks" xml:space="preserve">
+    <value>Неофициальные ссылки</value>
+  </data>
   <data name="PicturesTab" xml:space="preserve">
     <value>Изображения</value>
   </data>

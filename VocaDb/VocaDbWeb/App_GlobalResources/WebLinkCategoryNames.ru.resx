@@ -117,13 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddedToCollection" xml:space="preserve">
-    <value>Добавлено в коллекцию.</value>
+  <data name="Commercial" xml:space="preserve">
+    <value>Коммерческая</value>
   </data>
-  <data name="AddToTracks" xml:space="preserve">
-    <value>Добавить к трекам</value>
+  <data name="Official" xml:space="preserve">
+    <value>Официальная</value>
   </data>
-  <data name="RemoveFromTracks" xml:space="preserve">
-    <value>Удалить из треков</value>
+  <data name="Other" xml:space="preserve">
+    <value>Прочая</value>
+  </data>
+  <data name="Reference" xml:space="preserve">
+    <value>Сторонняя</value>
   </data>
 </root>

@@ -141,7 +141,13 @@
   <data name="ViewMore" xml:space="preserve">
     <value>показать ещё</value>
   </data>
+  <data name="ViewSongInfo" xml:space="preserve">
+    <value>Перейти информации о песне</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>Добро пожаловать в Базу Данных по Вокалоидам!</value>
+  </data>
+  <data name="WelcomeSubtitle" xml:space="preserve">
+    <value>Развиваемая сообществом энциклопедия творчества, связанного с синтезированным вокалом и маскотами Vocaloid/UTAU (альбомы, артисты, видео и пр).</value>
   </data>
 </root>
