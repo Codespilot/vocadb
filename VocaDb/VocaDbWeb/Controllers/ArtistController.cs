@@ -197,10 +197,15 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Artist/Details/5
 
-        public ActionResult Details(int id) {
+        public ActionResult Details(int id = invalidId) {
+
+			if (id == invalidId)
+				return HttpNotFound();
+
 			WebHelper.VerifyUserAgent(Request);
 			var model = Service.GetArtistDetails(id);
             return View(model);
+
         }
 
 		public ActionResult Picture(int id) {

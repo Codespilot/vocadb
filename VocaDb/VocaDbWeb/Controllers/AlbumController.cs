@@ -162,7 +162,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult PopupContent(int id) {
+		public ActionResult PopupContent(int id = invalidId) {
+
+			if (id == invalidId)
+				return HttpNotFound();
 
 			var album = Service.GetAlbum(id);
 			return PartialView("AlbumPopupContent", album);
@@ -201,7 +204,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult CoverPicture(int id) {
+		public ActionResult CoverPicture(int id = invalidId) {
+
+			if (id == invalidId)
+				return HttpNotFound();
 
 			var album = Service.GetCoverPicture(id, Size.Empty);
 
@@ -209,7 +215,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult CoverPictureThumb(int id) {
+		public ActionResult CoverPictureThumb(int id = invalidId) {
+
+			if (id == invalidId) 
+				return HttpNotFound();
 
 			var album = Service.GetCoverPicture(id, pictureThumbSize);
 
@@ -225,28 +234,6 @@ namespace VocaDb.Web.Controllers
 			return PartialView("Comment", comment);
 
 		}
-
-        //
-        // POST: /Album/Create
-
-		/*
-		[Obsolete("Disabled")]
-        [HttpPost]
-        public ActionResult CreateQuick(ObjectCreate model)
-        {
-
-			if (ModelState.IsValid) {
-
-				var artist = Service.Create(model.Name);
-				return RedirectToAction("Edit", new { id = artist.Id });
-
-			} else {
-
-				return RedirectToAction("Index");
-
-			}
-
-		}*/
 
 		[Authorize]
 		public ActionResult Create() {
