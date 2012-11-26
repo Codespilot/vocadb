@@ -150,4 +150,16 @@
   <data name="StatusDescriptionLocked" xml:space="preserve">
     <value>Заблокированные записи могут быть отредактированными только пользователем с правами модератора.</value>
   </data>
+  <data name="WebLinkCategoryTitle" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="WebLinkDescriptionTitle" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="WebLinkNewRow" xml:space="preserve">
+    <value>Добавить строку</value>
+  </data>
+  <data name="WebLinkUrlTitle" xml:space="preserve">
+    <value>URL (обязательно)</value>
+  </data>
 </root>

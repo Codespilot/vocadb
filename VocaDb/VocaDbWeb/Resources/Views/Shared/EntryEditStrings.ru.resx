@@ -117,10 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConcurrentEditWarning" xml:space="preserve">
+    <value>{0} редактировал эту запись всего {1} минут(у/ы) назад.</value>
+  </data>
+  <data name="ConcurrentEditWarningNow" xml:space="preserve">
+    <value>{0} тоже редактирует сейчас эту запись!</value>
+  </data>
+  <data name="ExternalLinksQuickHelp" xml:space="preserve">
+    <value>Сторонние ссылки, относящиеся к этой записи. Пожалуйста, не добавляйте ссылки на нелегальные ресурсы и файлы напрямую (DDL)!&lt;br /&gt;
+&lt;br /&gt;
+Сперва введите URL, и если ресурс здесь часто используется, его писание и категория будут автомагически определены.&lt;br /&gt;
+&lt;br /&gt;
+Официальная: личный сайт/страница артиста (блог, сайт, страница Facebook и т.д.).&lt;br /&gt;
+Коммерческая: ссылка на страницу продажи авторизованного магазина, например, iTunes, Amazon или CDJapan.&lt;br /&gt;
+Сторонняя: фанатские сайты с полезной информацией (например, wiki).&lt;br /&gt;
+Прочая: для ссылок, не подходящих в прочие категории.&lt;br /&gt;</value>
+  </data>
   <data name="Merge" xml:space="preserve">
     <value>Объединить</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>Восстановить</value>
+  </data>
+  <data name="UpdateNotes" xml:space="preserve">
+    <value>Описание обновления (необязательное)</value>
   </data>
 </root>

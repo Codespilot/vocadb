@@ -162,6 +162,9 @@
   <data name="ManageEventSeries" xml:space="preserve">
     <value>Управление сериями мероприятий</value>
   </data>
+  <data name="ManageIPRules" xml:space="preserve">
+    <value>Управление правилами IP</value>
+  </data>
   <data name="ManageUserPermissions" xml:space="preserve">
     <value>Управление правами пользователей</value>
   </data>

@@ -147,4 +147,7 @@
   <data name="OtherIndividual" xml:space="preserve">
     <value>Другой автор</value>
   </data>
+  <data name="Illustrator" xml:space="preserve">
+    <value>Иллюстратор</value>
+  </data>
 </root>
