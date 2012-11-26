@@ -533,6 +533,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebLinkCategoryNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\WebLinkCategoryNames.ru.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebLinkCategoryNames.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="Code\BBCode\BBCodeCache.cs" />
     <Compile Include="Code\BBCode\BBCodeConverters.cs" />
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
@@ -1910,6 +1915,10 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>WebLinkCategoryNames.fi.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\WebLinkCategoryNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>WebLinkCategoryNames.ru.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1979,6 +1988,7 @@
       <LastGenOutput>ArtistForAlbumEditRowStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Album\ArtistForAlbumEditRowStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ja.resx">
       <SubType>Designer</SubType>
@@ -2053,6 +2063,7 @@
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Comment</CustomToolNamespace>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
