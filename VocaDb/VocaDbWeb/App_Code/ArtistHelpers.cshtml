@@ -122,6 +122,7 @@
 
 }
 
+<!-- TODO: not in use likely -->
 @helper AlbumItems(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
 	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false) {
 	
@@ -141,6 +142,7 @@
 	 
 }
 
+<!-- TODO: not in use likely -->
 @helper Albums(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
 	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false, string listId = null) {
 
@@ -173,10 +175,34 @@
 	
 }
 
+@helper ArtistList(IEnumerable<ArtistContract> artists, bool showType = false) {
+	
+	<table>
+		@foreach (var artist in artists) {
+		<tr>
+			<td>
+				@ArtistIconLink(artist)
+			</td>
+			<td>
+				@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)
+				@if (showType) {
+					@("(")@Translate.ArtistTypeName(artist.ArtistType)@(")")
+				}
+				<br />
+				<span class="extraInfo">@artist.AdditionalNames</span>
+			</td>
+	   </tr>
+		}	
+	</table>
+		
+}
+
+<!-- TODO: not in use likely -->
 @helper Songs(VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[] songs) {
 	@Songs(songs, s => "(" + HelperRes.HelperStrings.Added + " " + s.CreateDate.ToShortDateString() + ")")
 }
 
+<!-- TODO: not in use likely -->
 @helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs, Func<SongWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
 
 	<ul>

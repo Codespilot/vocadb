@@ -30,14 +30,6 @@ namespace VocaDb.Web.Controllers
     		get { return MvcApplication.Services.Artists; }
     	}
 
-		public PartialViewResult Albums(int id) {
-
-			var albums = Service.GetAlbums(id);
-
-			return PartialView(albums);
-
-		}
-
 		public PartialViewResult AlbumsPaged(int id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
@@ -132,14 +124,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult Songs(int id) {
-
-			var songs = Service.GetSongs(id);
-
-			return PartialView(songs);
-
-		}
-
 		public PartialViewResult SongsPaged(int id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
@@ -216,7 +200,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult PictureThumb(int id) {
+		public ActionResult PictureThumb(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var artist = Service.GetArtistPicture(id, pictureThumbSize);
 
@@ -267,25 +254,6 @@ namespace VocaDb.Web.Controllers
 			return RedirectToAction("Details", new { id = album.Id });
 
 		}
-
-		/*
-		[Obsolete("Disabled")]
-		[HttpPost]
-        public ActionResult CreateQuick(ObjectCreate model)
-        {
-
-			if (ModelState.IsValid) {
-
-				var artist = Service.Create(model.Name, MvcApplication.LoginManager);
-				return RedirectToAction("Edit", new { id = artist.Id });
-
-			} else {
-			
-				return RedirectToAction("Index");
-
-			}
-
-        }*/
         
         //
         // GET: /Artist/Edit/5

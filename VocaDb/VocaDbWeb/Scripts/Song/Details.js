@@ -254,6 +254,6 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 	}
 
 	$("td.artistList a").vdbArtistToolTip();
-	$("#albumList a").vdbAlbumToolTip();
+	$("#albumList a").vdbAlbumWithCoverToolTip();
 
 }

@@ -172,13 +172,23 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult PopupWithCoverContent(int id = invalidId) {
+
+			if (id == invalidId)
+				return HttpNotFound();
+
+			var album = Service.GetAlbum(id);
+			return PartialView("AlbumWithCoverPopupContent", album);
+
+		}
+
         //
         // GET: /Album/Details/5
 
         public ActionResult Details(int id = invalidId) {
 
 			if (id == invalidId)
-				throw new HttpException(404, "No ID specified");
+				return NoId();
 
 			WebHelper.VerifyUserAgent(Request);
 			SetSearchEntryType(EntryType.Album);

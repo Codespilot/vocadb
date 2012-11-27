@@ -164,7 +164,10 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Song/Details/5
 
-        public ActionResult Details(int id) {
+        public ActionResult Details(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			WebHelper.VerifyUserAgent(Request);
 			SetSearchEntryType(EntryType.Song);
@@ -174,29 +177,6 @@ namespace VocaDb.Web.Controllers
             return View(model);
 
         }
-
-        //
-        // POST: /Song/Create
-
-		/*
-		[Obsolete("Disabled")]
-		[HttpPost]
-		public ActionResult CreateQuick(ObjectCreate model)
-        {
-
-			if (ModelState.IsValid) {
-
-				var song = Service.Create(model.Name);
-				return RedirectToAction("Edit", new { id = song.Id });
-
-			} else {
-
-				return RedirectToAction("Index");
-
-			}
-
-        }
-		*/
 
 		[Authorize]
 		public ActionResult Create() {

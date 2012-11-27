@@ -47,6 +47,10 @@ namespace VocaDb.Web.Controllers {
 			get { return MvcApplication.Services; }
 		}
 
+		protected ActionResult NoId() {
+			return HttpNotFound("No ID specified");
+		}
+
 		protected ActionResult Picture(EntryForPictureDisplayContract contract) {
 
 			ParamIs.NotNull(() => contract);
