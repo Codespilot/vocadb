@@ -127,16 +127,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumWithAdditionalNamesContract[] GetAlbums(string tagName) {
-
-			ParamIs.NotNullOrEmpty(() => tagName);
-
-			return HandleQuery(session =>
-				session.Query<AlbumTagUsage>().Where(a => a.Tag.Name == tagName)
-					.Select(t => new AlbumWithAdditionalNamesContract(t.Album, PermissionContext.LanguagePreference)).ToArray());
-
-		}
-
 		public PartialFindResult<AlbumTagUsageContract> GetAlbums(string tagName, int start, int maxItems) {
 
 			return HandleQuery(session => {
@@ -152,16 +142,6 @@ namespace VocaDb.Model.Service {
 				return new PartialFindResult<AlbumTagUsageContract>(contracts, totalCount);
 
 			});
-		}
-
-		public ArtistWithAdditionalNamesContract[] GetArtists(string tagName) {
-
-			ParamIs.NotNullOrEmpty(() => tagName);
-
-			return HandleQuery(session => 
-				session.Query<ArtistTagUsage>().Where(a => a.Tag.Name == tagName)
-					.Select(t => new ArtistWithAdditionalNamesContract(t.Artist, PermissionContext.LanguagePreference)).ToArray());
-
 		}
 
 		public PartialFindResult<ArtistTagUsageContract> GetArtists(string tagName, int start, int maxItems) {
@@ -180,16 +160,6 @@ namespace VocaDb.Model.Service {
 				return new PartialFindResult<ArtistTagUsageContract>(contracts, totalCount);
 
 			});
-		}
-
-		public SongWithAdditionalNamesContract[] GetSongs(string tagName) {
-
-			ParamIs.NotNullOrEmpty(() => tagName);
-
-			return HandleQuery(session =>
-				session.Query<SongTagUsage>().Where(a => a.Tag.Name == tagName)
-					.Select(t => new SongWithAdditionalNamesContract(t.Song, PermissionContext.LanguagePreference)).ToArray());
-
 		}
 
 		public PartialFindResult<SongTagUsageContract> GetSongs(string tagName, int start, int maxItems) {

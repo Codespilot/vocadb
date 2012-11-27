@@ -510,21 +510,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumWithAdditionalNamesContract[] GetAlbums(int artistId) {
-
-			// TODO: sorting could be done in DB
-
-			return HandleQuery(session =>
-				session.Load<Artist>(artistId).Albums
-					.Take(maxEntryCount)
-					.Select(a => 
-						new AlbumWithAdditionalNamesContract(a.Album, PermissionContext.LanguagePreference))
-						.OrderBy(a => a.Name).ToArray()
-				
-			);
-
-		}
-
 		public PartialFindResult<AlbumWithAdditionalNamesContract> GetAlbums(int artistId, int start, int maxItems) {
 
 			return HandleQuery(session => {
@@ -689,19 +674,6 @@ namespace VocaDb.Model.Service {
 					.Select(c => new CommentContract(c)).ToArray();
 
 			});
-
-		}
-
-		public SongWithAdditionalNamesContract[] GetSongs(int artistId) {
-
-			// TODO: sorting could be done in DB
-
-			return HandleQuery(session =>
-				session.Load<Artist>(artistId).Songs
-					.Take(maxEntryCount)
-					.Select(a => 
-						new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference))
-						.OrderBy(s => s.Name).ToArray());
 
 		}
 

@@ -1525,6 +1525,7 @@
     <Content Include="Views\Admin\ManageIPRules.cshtml" />
     <Content Include="Views\Album\AlbumPopupContent.cshtml" />
     <Content Include="Views\Artist\ArtistPopupContent.cshtml" />
+    <Content Include="Views\Album\AlbumWithCoverPopupContent.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

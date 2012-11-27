@@ -80,6 +80,11 @@ img.coverPic {
 	max-height: 250px;
 }
 
+img.smallCover {
+	max-width: 150px;
+	max-height: 150px;
+}
+
 ul.smallThumbs div.pictureFrame img.coverPic {
 	max-width: 150px;
 	max-height: 150px;

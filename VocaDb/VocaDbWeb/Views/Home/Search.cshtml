@@ -20,7 +20,7 @@
 		@Html.ActionLink(ViewRes.SharedStrings.Artists + " (" + Model.Artists.TotalCount + ")", "Index", "Artist", new { filter = Model.Filter }, null)
 	</h3>
 	
-	@ArtistHelpers.Artists(Model.Artists.Items, true)
+	@ArtistHelpers.ArtistList(Model.Artists.Items, true)
 	
 }
 

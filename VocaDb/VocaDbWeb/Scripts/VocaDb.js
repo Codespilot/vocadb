@@ -114,3 +114,27 @@ vdb.functions.mapUrl = function (relative) {
 
     };
 })(jQuery);
+
+(function ($) {
+	$.fn.vdbAlbumWithCoverToolTip = function () {
+
+		this.each(function () {
+			var elem = this;
+
+			$(elem).qtip({
+				content: {
+					text: 'Loading...',
+					ajax: {
+						url: vdb.functions.mapUrl('/Album/PopupWithCoverContent'),
+						type: 'GET',
+						data: { id: $(elem).data("entryId") }
+					}
+				},
+				position: {
+					viewport: $(window)
+				}
+			});
+		});
+
+	};
+})(jQuery);
