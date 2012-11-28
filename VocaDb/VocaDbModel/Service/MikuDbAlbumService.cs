@@ -253,7 +253,7 @@ namespace VocaDb.Model.Service {
 			if (songs.Length == 1)
 				return songs.First();
 
-			var match = songs.FirstOrDefault(s => s.Artists.Any(a => a.Artist.ArtistType != ArtistType.Vocaloid && artists.Any(a2 => a.Artist.Equals(a2))));
+			var match = songs.FirstOrDefault(s => s.Artists.Any(a => a.Artist != null && a.Artist.ArtistType != ArtistType.Vocaloid && artists.Any(a2 => a.Artist.Equals(a2))));
 			return match ?? songs.First();
 
 		}
