@@ -147,6 +147,12 @@
   <data name="MikuDbAlbum" xml:space="preserve">
     <value>Альбомы с MikuDB</value>
   </data>
+  <data name="NewAlbums" xml:space="preserve">
+    <value>Новые альбомы</value>
+  </data>
+  <data name="NewPVs" xml:space="preserve">
+    <value>Недавние PV</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Зарегистрироваться</value>
   </data>
