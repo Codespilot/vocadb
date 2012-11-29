@@ -61,8 +61,11 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 
 	$(findListElem).jqxListBox({ width: w, height: h });
 
-	if (autoHide)
-	    $(findListElem).hide();
+	if (autoHide) {
+		$(findListElem).hide();
+		if (acceptBtnElem)
+			$(acceptBtnElem).hide();
+	}
 
 	$(findListElem).dblclick(function () {
 	    if (acceptBtnElem != null)
@@ -146,6 +149,9 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 			$(findListElem).jqxListBox('ensureVisible', 0);
 			$(findListElem).jqxListBox({ source: rows });
 
+			if (acceptBtnElem)
+				$(acceptBtnElem).show();
+
 		});
 
 	});
@@ -183,8 +189,11 @@ function initEntrySearch(nameBoxElem, findListElem, entityName, searchUrl, param
 			$(nameBoxElem).val("");
 			clearFindList(findListElem);
 
-			if (autoHide)
+			if (autoHide) {
 				$(findListElem).hide();
+				if (acceptBtnElem)
+					$(acceptBtnElem).hide();
+			}
 
 			acceptSelection(selectedId, findTerm);
 
