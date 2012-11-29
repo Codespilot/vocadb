@@ -9,7 +9,7 @@
 @helper ExternalLinksList(IEnumerable<WebLinkContract> webLinks, bool showCategory = false) {
     
     foreach (var link in webLinks) {
-        <a class="extLink" href="@link.Url">@link.DescriptionOrUrl</a>
+        <a class="extLink" href="@VocaDb.Model.Service.Helpers.UrlHelper.MakeLink(link.Url)">@link.DescriptionOrUrl</a>
         if (showCategory) {
             @("(")@Translate.WebLinkCategoryNames[link.Category]@(")")
         }
