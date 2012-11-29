@@ -24,7 +24,7 @@ function initPage(artistId) {
 
 	var groupAddList = $("#groupAddList");
 	var groupAddName = $("input#groupAddName");
-	var groupAddBtn = $("#groupAddBtn");
+	var groupAddBtn = $("#groupAddAcceptBtn");
 
 	initEntrySearch(groupAddName, groupAddList, "Artist", "../../Artist/FindJson",
 		{
