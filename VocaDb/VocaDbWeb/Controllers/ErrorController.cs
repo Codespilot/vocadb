@@ -16,7 +16,7 @@ namespace VocaDb.Web.Controllers
 				ErrorLogger.LogHttpError(Request, ErrorLogger.Code_Forbidden);
 
 			Response.StatusCode = ErrorLogger.Code_Forbidden;
-			return View();
+			return View("Forbidden");
 
 		}
 
@@ -26,16 +26,16 @@ namespace VocaDb.Web.Controllers
 			var realCode = code ?? ErrorLogger.Code_InternalServerError;
 
 			if (realCode == ErrorLogger.Code_Forbidden)
-				return RedirectToAction("Forbidden", new { redirect });
+				return Forbidden(redirect);
 
 			if (realCode == ErrorLogger.Code_NotFound)
-				return RedirectToAction("NotFound", new { redirect });
+				return NotFound(redirect);
 
 			if (redirect.HasValue && redirect.Value == false)
 				ErrorLogger.LogHttpError(Request, realCode);
 
 			Response.StatusCode = realCode;
-            return View();
+            return View("Index");
 
         }
 
@@ -45,7 +45,7 @@ namespace VocaDb.Web.Controllers
 				ErrorLogger.LogHttpError(Request, ErrorLogger.Code_NotFound);
 
 			Response.StatusCode = ErrorLogger.Code_NotFound;
-			return View();
+			return View("NotFound");
 
 		}
 
