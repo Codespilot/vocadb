@@ -133,7 +133,7 @@ namespace VocaDb.Model.Service {
 
 				var artistCount = (getTotalCount ?
 					session.Query<ArtistName>()
-					.FilterByArtistName(query, canonized, matchMode, words)
+					.FilterByArtistName(query, canonized, matchMode, null)
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Artist)
 					.Distinct()
