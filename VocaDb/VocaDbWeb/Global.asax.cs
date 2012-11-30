@@ -95,6 +95,7 @@ namespace VocaDb.Web {
 
 		private void HandleHttpError(int code, string description = null) {
 
+			// Log error here to get request info.
 			ErrorLogger.LogHttpError(Request, code);
 
 			Server.ClearError();
@@ -104,7 +105,7 @@ namespace VocaDb.Web {
 				Response.StatusDescription = description;
 
 			Response.RedirectToRoute("Default",
-				new { controller = "Error", code, redirect = true });
+				new { controller = "Error", action = "Index", code, redirect = true });
 
 		}
 
@@ -142,7 +143,7 @@ namespace VocaDb.Web {
 			// Redirect user to generic error page in release mode or display detailed message in debug mode
 #if !DEBUG
 			Server.ClearError();
-			Response.RedirectToRoute("Default", new { controller = "Error", redirect = true });
+			Response.RedirectToRoute("Default", new { controller = "Error", action = "Index", redirect = true });
 #endif
 		}
 
