@@ -88,6 +88,33 @@ namespace HelperRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string NameLangTitle {
+            get {
+                return ResourceManager.GetString("NameLangTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New row.
+        /// </summary>
+        public static string NameNewRow {
+            get {
+                return ResourceManager.GetString("NameNewRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name (required).
+        /// </summary>
+        public static string NameValueTitle {
+            get {
+                return ResourceManager.GetString("NameValueTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save changes.
         /// </summary>
         public static string SaveChanges {

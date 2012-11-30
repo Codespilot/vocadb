@@ -126,6 +126,15 @@
   <data name="DraftMessage" xml:space="preserve">
     <value>This entry is a draft. You can help by editing the entry and adding the missing information.</value>
   </data>
+  <data name="NameLangTitle" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="NameNewRow" xml:space="preserve">
+    <value>New row</value>
+  </data>
+  <data name="NameValueTitle" xml:space="preserve">
+    <value>Name (required)</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save changes</value>
   </data>
