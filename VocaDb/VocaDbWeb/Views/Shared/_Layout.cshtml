@@ -88,6 +88,7 @@
 								<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
 								<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Album", new { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
 								<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
+								<li>@Html.ActionLink(ViewRes._LayoutStrings.FreeAlbums, "Index", "Album", new { filter = "tag:free" }, null)</li>
 							</ul>
 						</li>
 						<li>

@@ -129,6 +129,9 @@
   <data name="FollowUser" xml:space="preserve">
     <value>Follow user</value>
   </data>
+  <data name="FreeAlbums" xml:space="preserve">
+    <value>Free download</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Help / About</value>
   </data>

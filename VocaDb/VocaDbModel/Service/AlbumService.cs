@@ -46,6 +46,14 @@ namespace VocaDb.Model.Service {
 			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
 		}
 
+		private IQueryable<AlbumTagUsage> AddDiscTypeRestriction(IQueryable<AlbumTagUsage> query, DiscType discType) {
+			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
+		}
+
+		private IQueryable<ArtistForAlbum> AddDiscTypeRestriction(IQueryable<ArtistForAlbum> query, DiscType discType) {
+			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
+		}
+
 		private IQueryable<Album> AddNameMatchFilter(IQueryable<Album> criteria, string name, NameMatchMode matchMode) {
 
 			var mode = FindHelpers.GetMatchMode(name, matchMode);
@@ -144,6 +152,10 @@ namespace VocaDb.Model.Service {
 			ISession session, string query, DiscType discType, int start, int maxResults, bool draftsOnly,
 			bool getTotalCount, NameMatchMode nameMatchMode, AlbumSortRule sortRule, bool moveExactToTop) {
 
+			Album[] entries;
+			string originalQuery = query;
+			bool foundExactMatch = false;
+
 			if (string.IsNullOrWhiteSpace(query)) {
 
 				var albumsQ = session.Query<Album>()
@@ -156,19 +168,47 @@ namespace VocaDb.Model.Service {
 
 				albumsQ = AddOrder(albumsQ, sortRule, LanguagePreference);
 
-				var albums = albumsQ
+				entries = albumsQ
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
 
-				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
+			// TODO: refactor using advanced search parser
+			} else if (query.StartsWith("tag:")) {
 
-				return new PartialFindResult<Album>(albums, count, null, false);
+				var tagName = query.Substring(4);
+
+				var tagQ = session.Query<AlbumTagUsage>()
+					.Where(m => !m.Album.Deleted && m.Tag.Name == tagName);
+
+				if (draftsOnly)
+					tagQ = tagQ.Where(a => a.Album.Status == EntryStatus.Draft);
+
+				tagQ = AddDiscTypeRestriction(tagQ, discType);
+				entries = AddOrder(tagQ.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
+			// TODO: refactor using advanced search parser
+			} else if (query.StartsWith("artist:")) {
+
+				int artistId;
+				int.TryParse(query.Substring(7), out artistId);
+
+				var albumQ = session.Query<ArtistForAlbum>()
+					.Where(m => !m.Album.Deleted && m.Artist.Id == artistId);
+
+				if (draftsOnly)
+					albumQ = albumQ.Where(a => a.Album.Status == EntryStatus.Draft);
+
+				albumQ = AddDiscTypeRestriction(albumQ, discType);
+				entries = AddOrder(albumQ.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
 
 			} else {
-
-				var originalQuery = query;
-				bool foundExactMatch = false;
 
 				query = query.Trim();
 
@@ -202,7 +242,7 @@ namespace VocaDb.Model.Service {
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 
-				var entries = direct.Concat(additionalNames)
+				entries = direct.Concat(additionalNames)
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
@@ -219,11 +259,12 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
-
-				return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
-
 			}
+
+			var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
+
+			return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
+
 
 		}
 
@@ -243,6 +284,38 @@ namespace VocaDb.Model.Service {
 
 				albumQ = AddDiscTypeRestriction(albumQ, discType);
 
+				return albumQ.Count();
+
+			}
+
+			if (query.StartsWith("tag:")) {
+
+				var tagName = query.Substring(4);
+
+				var tagQ = session.Query<AlbumTagUsage>()
+					.Where(m => !m.Album.Deleted && m.Tag.Name == tagName);
+
+				if (draftsOnly)
+					tagQ = tagQ.Where(a => a.Album.Status == EntryStatus.Draft);
+
+				tagQ = AddDiscTypeRestriction(tagQ, discType);
+
+				return tagQ.Count();
+
+			}
+
+			if (query.StartsWith("artist:")) {
+
+				int artistId;
+				int.TryParse(query.Substring(7), out artistId);
+
+				var albumQ = session.Query<ArtistForAlbum>()
+					.Where(m => !m.Album.Deleted && m.Artist.Id == artistId);
+
+				if (draftsOnly)
+					albumQ = albumQ.Where(a => a.Album.Status == EntryStatus.Draft);
+
+				albumQ = AddDiscTypeRestriction(albumQ, discType);
 				return albumQ.Count();
 
 			}
