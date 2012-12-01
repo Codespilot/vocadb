@@ -129,6 +129,9 @@
   <data name="FollowUser" xml:space="preserve">
     <value>Seuraa käyttäjää</value>
   </data>
+  <data name="FreeAlbums" xml:space="preserve">
+    <value>Ilmaiset lataukset</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>Ohjeet / tietoja</value>
   </data>

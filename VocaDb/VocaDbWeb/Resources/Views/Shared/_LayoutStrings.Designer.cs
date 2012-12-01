@@ -97,6 +97,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Free download.
+        /// </summary>
+        public static string FreeAlbums {
+            get {
+                return ResourceManager.GetString("FreeAlbums", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help / About.
         /// </summary>
         public static string Help {
