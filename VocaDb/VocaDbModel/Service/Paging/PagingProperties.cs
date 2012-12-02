@@ -1,5 +1,9 @@
-﻿namespace VocaDb.Model.Service.Paging {
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts;
 
+namespace VocaDb.Model.Service.Paging {
+
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PagingProperties {
 
 		public static PagingProperties CreateFromPage(int page, int entriesPerPage, bool getTotalCount) {
@@ -14,10 +18,13 @@
 			GetTotalCount = getTotalCount;
 		}
 
+		[DataMember]
 		public bool GetTotalCount { get; set; }
 
+		[DataMember]
 		public int MaxEntries { get; set; }
 
+		[DataMember]
 		public int Start { get; set; }
 
 	}

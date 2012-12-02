@@ -31,9 +31,10 @@ namespace VocaDb.Web.Services {
 
 		#region Common queries
 		[OperationContract]
-		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbums(string term, int maxResults, 
+			NameMatchMode nameMatchMode = NameMatchMode.Auto, AlbumSortRule sort = AlbumSortRule.NameThenReleaseDate) {
 
-			return Services.Albums.Find(term, DiscType.Unknown, 0, maxResults, false, true, moveExactToTop: true, nameMatchMode: nameMatchMode);
+			return Services.Albums.Find(term, DiscType.Unknown, 0, maxResults, false, true, moveExactToTop: true, nameMatchMode: nameMatchMode, sortRule: sort);
 
 		}
 
@@ -85,9 +86,9 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term) {
+		public AlbumWithAdditionalNamesContract GetAlbumDetails(string term, AlbumSortRule sort = AlbumSortRule.NameThenReleaseDate) {
 
-			var albums = Services.Albums.Find(term, DiscType.Unknown, 0, 10, false, false, moveExactToTop: true);
+			var albums = Services.Albums.Find(term, DiscType.Unknown, 0, 10, false, false, moveExactToTop: true, sortRule: sort);
 			return albums.Items.FirstOrDefault();
 
 		}
