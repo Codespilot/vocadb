@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Model.Service
 @using VocaDb.Web.Helpers;
 @using PagedList.Mvc;
+@using VocaDb.Web.Models.Album
 @using R = ViewRes.Album;
 @model VocaDb.Web.Models.Album.Index
 @{
@@ -41,7 +42,7 @@
 	
 <p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Albums.TotalItemCount)</p>
 	
-@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = Model.Sort }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 
 <br />
 
@@ -50,9 +51,9 @@ if (Model.View == EntryViewMode.Details) {
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
-			<th>@Html.ActionLink(R.IndexStrings.ReleaseDate, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
-			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new { filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage })</th>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
+			<th>@Html.ActionLink(R.IndexStrings.ReleaseDate, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage })</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -103,7 +104,7 @@ if (Model.View == EntryViewMode.Details) {
 	</div>
   }
   	  
-	@Html.PagedListPager(Model.Albums, page => Url.Action("Index", new { page, filter = Model.Filter, discType = Model.DiscType, draftsOnly = Model.DraftsOnly, sort = Model.Sort }), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+	@Html.PagedListPager(Model.Albums, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 
 }

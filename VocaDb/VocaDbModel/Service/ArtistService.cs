@@ -514,14 +514,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				/*return LocalizedStringHelper.Order(session.Load<Artist>(artistId).Albums.Select(a => a.Album), PermissionContext.LanguagePreference)
-					.Skip(start)
-					.Take(maxItems)
-					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();*/
-
 				var q = session.Query<ArtistForAlbum>().Where(a => !a.Album.Deleted && a.Artist.Id == artistId);
 
-				var resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Album), PermissionContext.LanguagePreference);
+				IQueryable<Album> resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Album), PermissionContext.LanguagePreference);
 				resultQ = resultQ.Skip(start).Take(maxItems);
 
 				var contracts = resultQ.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
@@ -683,7 +678,7 @@ namespace VocaDb.Model.Service {
 
 				var q = session.Query<ArtistForSong>().Where(a => !a.Song.Deleted && a.Artist.Id == artistId);
 
-				var resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
+				IQueryable<Song> resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
 				resultQ = resultQ.Skip(start).Take(maxItems);
 
 				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();

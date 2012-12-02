@@ -92,13 +92,18 @@ namespace VocaDb.Model.Service {
 				case AlbumSortRule.ReleaseDate:
 					return AddReleaseRestriction(criteria)
 						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
-						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Month)
-						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Day);
+						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day);
 				case AlbumSortRule.AdditionDate:
 					return criteria.OrderByDescending(a => a.CreateDate);
 				case AlbumSortRule.RatingAverage:
 					return criteria.OrderByDescending(a => a.RatingAverageInt)
-						.OrderByDescending(a => a.RatingCount);
+						.ThenByDescending(a => a.RatingCount);
+				case AlbumSortRule.NameThenReleaseDate:
+					return FindHelpers.AddNameOrder(criteria, languagePreference)
+						.ThenBy(a => a.OriginalRelease.ReleaseDate.Year)
+						.ThenBy(a => a.OriginalRelease.ReleaseDate.Month)
+						.ThenBy(a => a.OriginalRelease.ReleaseDate.Day);
 			}
 
 			return criteria;
@@ -238,7 +243,7 @@ namespace VocaDb.Model.Service {
 				var additionalNames = 
 					AddOrder(additionalNamesQ.Select(m => m.Album), sortRule, PermissionContext.LanguagePreference)
 					.Distinct()
-					.Take(maxResults)
+					.Take(maxResults)	// TODO: verify this
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 
@@ -1526,7 +1531,9 @@ namespace VocaDb.Model.Service {
 
 		AdditionDate,
 
-		RatingAverage
+		RatingAverage,
+
+		NameThenReleaseDate
 
 	}
 

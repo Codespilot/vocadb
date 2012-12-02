@@ -2,6 +2,9 @@
 
 namespace VocaDb.Model.Domain.Users {
 
+	/// <summary>
+	/// Followed artist
+	/// </summary>
 	public class ArtistForUser {
 
 		private Artist artist;

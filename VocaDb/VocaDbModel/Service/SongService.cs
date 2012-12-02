@@ -41,6 +41,7 @@ namespace VocaDb.Model.Service {
 			switch (sortRule) {
 				case SongSortRule.Name:
 					return FindHelpers.AddNameOrder(criteria, languagePreference);
+						//.ThenBy(a => a.CreateDate);
 				case SongSortRule.AdditionDate:
 					return criteria.OrderByDescending(a => a.CreateDate);
 				case SongSortRule.FavoritedTimes:
