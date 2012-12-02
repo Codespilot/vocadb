@@ -30,6 +30,15 @@ namespace VocaDb.Web.Controllers
     		get { return MvcApplication.Services.Artists; }
     	}
 
+		public ActionResult Albums(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
+
+			return RedirectToActionPermanent("AlbumsPaged", new { id });
+
+		}
+
 		public PartialViewResult AlbumsPaged(int id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
@@ -121,6 +130,15 @@ namespace VocaDb.Web.Controllers
 			TempData.SetStatusMessage(string.Join("\n", result.Warnings));
 
 			return RedirectToAction("Edit", new { id = result.Id });
+
+		}
+
+		public ActionResult Songs(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
+
+			return RedirectToActionPermanent("SongsPaged", new { id });
 
 		}
 
