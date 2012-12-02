@@ -46,7 +46,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult Stars(int current, int max) {
+		public PartialViewResult Stars(int current = 0, int max = 5) {
 
 			return PartialView(new Tuple<int, int>(current, max));
 
