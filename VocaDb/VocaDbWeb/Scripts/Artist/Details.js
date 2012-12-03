@@ -130,5 +130,6 @@ function initPage(artistId, saveStr, hostAddress) {
 
 	$("#newAlbums img").vdbAlbumToolTip();
 	$("#topAlbums img").vdbAlbumToolTip();
+	$("#groups a").vdbArtistToolTip();
 
 }

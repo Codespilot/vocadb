@@ -28,6 +28,7 @@ function initWebLinksList() {
 		{ url: "soundcloud.com/", desc: "SoundCloud", cat: "Official" },
 		{ url: "toranoana.jp/mailorder/article/", desc: "Toranoana", cat: "Commercial" },
 		{ url: "twitter.com/", desc: "Twitter", cat: "Official" },
+		{ url: "www24.atwiki.jp/utauuuta/pages/", desc: "UTAU wiki (JP)", cat: "Reference" },
 		{ url: "vgmdb.net/", desc: "VGMdb", cat: "Reference" },
 		{ url: "vimeo.com/", desc: "Vimeo", cat: "Official" },
 		{ url: "vocaloid.wikia.com/wiki/", desc: "Vocaloid Wiki", cat: "Reference" },

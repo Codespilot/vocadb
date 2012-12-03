@@ -86,9 +86,16 @@
 		@if (Model.Groups.Any()) {
 			<tr>
 				<td>@ViewRes.Artist.DetailsStrings.Groups</td>
-				<td>@Html.LinkList(Model.Groups, grp => Html.ActionLink(grp.Group.Name, "Details", new { id = grp.Group.Id }, new { title = grp.Group.AdditionalNames }))</td>
+				<td id="groups">
+					@foreach (var grp in Model.Groups) {
+						@ArtistHelpers.ArtistLink(grp.Group)
+						if (grp != Model.Groups.Last()) {
+							@(", ")
+						}
+					}
+				</td>
 			</tr>
-  }
+		}
   
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>

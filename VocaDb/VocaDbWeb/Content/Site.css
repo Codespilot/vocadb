@@ -626,6 +626,10 @@ a.extLink[href*="twitter.com/"] {
 	background: url("/Content/ExtIcons/twitter.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www24.atwiki.jp/utauuuta/pages/"] {
+	background: url("/Content/ExtIcons/atwiki.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://vgmdb.net/"] {
 	background: url("/Content/ExtIcons/vgmdb.png") no-repeat left 50%;
 }
