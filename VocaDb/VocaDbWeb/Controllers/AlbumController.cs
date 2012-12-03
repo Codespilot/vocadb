@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts;
@@ -211,7 +210,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult Comments(int id) {
+		public PartialViewResult Comments(int id = invalidId) {
 
 			var comments = Service.GetComments(id);
 			return PartialView("DiscussionContent", comments);
@@ -475,7 +474,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult TagSelections(int albumId) {
+		public PartialViewResult TagSelections(int albumId = invalidId) {
 
 			var contract = Service.GetTagSelections(albumId, LoginManager.LoggedUserId);
 
