@@ -137,6 +137,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Versions(string id) {
 
+			if (string.IsNullOrEmpty(id))
+				return NoId();
+
 			var contract = Service.GetTagWithArchivedVersions(id);
 
 			return View(contract);
