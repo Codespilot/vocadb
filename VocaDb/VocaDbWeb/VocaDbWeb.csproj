@@ -925,7 +925,6 @@
     <Content Include="Content\star.png" />
     <Content Include="Content\star_disabled.png" />
     <Content Include="Content\Styles\Icons.css" />
-    <Content Include="Content\jquery.tooltip.css" />
     <Content Include="Content\miku2.jpg" />
     <Content Include="Content\nico.png" />
     <Content Include="Content\PagedList.css" />
@@ -1032,7 +1031,6 @@
     <Content Include="Scripts\jquery.qtip.css" />
     <Content Include="Scripts\jquery.qtip.min.js" />
     <Content Include="Scripts\jquery.tools.min.js" />
-    <Content Include="Scripts\jquery.tooltip.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

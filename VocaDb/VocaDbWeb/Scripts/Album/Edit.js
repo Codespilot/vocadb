@@ -158,7 +158,7 @@ function initPage(albumId, discType) {
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#trashLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
-	$(".helpToolTip").tooltip();
+	$(".helpToolTip").qtip();
 	$("#pvLoader")
 		.ajaxStart(function() { $(this).show(); })
 		.ajaxStop(function () { $(this).hide(); });
