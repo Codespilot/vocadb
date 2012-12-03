@@ -1,21 +1,6 @@
 ﻿
 function initPage() {
 
-	/*$("input.nameField").tooltip({
-
-		position: "bottom center",
-
-		// a little tweaking of the position
-		offset: [5, 0],
-
-		// use the built-in fadeIn/fadeOut effect
-		effect: "fade",
-
-		// custom opacity setting
-		opacity: 0.8
-
-	});*/
-
 	$("input.nameField").focusout(function () {
 
 		var term1 = $("#nameOriginal").val();

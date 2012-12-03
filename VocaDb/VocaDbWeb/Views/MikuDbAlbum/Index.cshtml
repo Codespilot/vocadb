@@ -4,11 +4,6 @@
 	ViewBag.Title = "MikuDB albums";
 }
 
-<!--
-<link rel="stylesheet" href="@Url.Content("~/Content/jquery.tooltip.css")" type="text/css" />
-<script src="@Url.Content("~/Scripts/jquery.tooltip.min.js")" type="text/javascript"></script>
--->
-
 @section Toolbar {
 @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.MikuDbImport)) {
 	

@@ -5,7 +5,7 @@ function initPage(songId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
-	$(".helpToolTip").tooltip();
+	$(".helpToolTip").qtip();
 	$("#pvLoader")
 		.ajaxStart(function () { $(this).show(); })
 		.ajaxStop(function () { $(this).hide(); });
