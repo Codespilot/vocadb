@@ -2,14 +2,9 @@
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Song;
 @model SongDetails
-@{
-	
-	if (VocaDb.Model.Helpers.SongHelper.IsAnimation(Model.SongType)) {
-		ViewBag.Title = ViewRes.Song.DetailsStrings.PVDetails + " - " + Model.Name;
-	} else {
-		ViewBag.Title = ViewRes.Song.DetailsStrings.SongDetails + " - " + Model.Name;
-	}
-	ViewBag.Subtitle = Model.ArtistString;
+@{	
+	ViewBag.Title = Model.Name;
+	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.SongTypeNames[Model.SongType] + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
 }
 

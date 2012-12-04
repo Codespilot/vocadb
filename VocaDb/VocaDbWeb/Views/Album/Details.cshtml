@@ -7,8 +7,8 @@
 @model AlbumDetails
 		   
 @{
-	ViewBag.Title = ViewRes.Album.DetailsStrings.AlbumDetails + " - " + Model.Name;
-	ViewBag.Subtitle = Model.ArtistString;
+	ViewBag.Title = Model.Name;
+	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.DiscTypeName(Model.DiscType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
 }
 
