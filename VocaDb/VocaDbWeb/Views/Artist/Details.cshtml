@@ -6,7 +6,8 @@
 @model ArtistDetailsContract
 
 @{
-	ViewBag.Title = ViewRes.Artist.DetailsStrings.ArtistDetails + " - " + Model.Name;
+	ViewBag.Title = Model.Name;
+	ViewBag.Subtitle = "(" + Translate.ArtistTypeName(Model.ArtistType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Artists, "Index") };
 }
 

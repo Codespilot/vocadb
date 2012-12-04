@@ -99,7 +99,7 @@ if (Model.View == EntryViewMode.Details) {
 </table>
 
   } else {
-	<div style="display: block">
+	<div id="albums" style="display: block">
 			@AlbumHelpers.AlbumThumbs(Model.Albums)
 	</div>
   }
@@ -115,12 +115,6 @@ if (Model.View == EntryViewMode.Details) {
 
 }
 
-
-<script type="text/javascript">
-
-	$(document).ready(function () {
-		$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });
-		$("#manageDeletedLink").button({ icons: { primary: 'ui-icon-trash'} });
-	});
-
-</script>
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Index.js")"></script>
+}

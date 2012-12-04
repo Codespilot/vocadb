@@ -49,7 +49,7 @@ namespace VocaDb.Model.Service {
 		public ReleaseEventFindResultContract Find(string query) {
 
 			if (string.IsNullOrEmpty(query))
-				return null;
+				return new ReleaseEventFindResultContract();
 
 			query = query.Trim().Normalize(NormalizationForm.FormKC);	// Replaces fullwidth characters with ASCII
 

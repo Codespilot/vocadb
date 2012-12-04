@@ -1012,6 +1012,7 @@
     <Content Include="Scripts\Album\Create.js" />
     <Content Include="Scripts\Album\Edit.js" />
     <Content Include="Scripts\Album\Details.js" />
+    <Content Include="Scripts\Album\Index.js" />
     <Content Include="Scripts\Album\Merge.js" />
     <Content Include="Scripts\Artist\Create.js" />
     <Content Include="Scripts\Artist\Details.js" />
