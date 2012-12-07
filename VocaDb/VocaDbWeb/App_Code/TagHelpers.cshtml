@@ -2,6 +2,7 @@
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
 
 @helper AlbumTagUsages(IEnumerable<AlbumTagUsageContract> links, 
@@ -16,6 +17,7 @@
 						@AlbumHelpers.AlbumIconLink(link.Album)
 					</div>
 					@Html.ActionLink(link.Album.Name, "Details", "Album", new { id = link.Album.Id }, null)
+					@(" (" + Translate.DiscTypeName(link.Album.DiscType) + ")")
 					@(" (" + link.Count + ")")
 					@if (extraData != null) {
 						@extraData(link.Album)
@@ -42,6 +44,7 @@
 						@ArtistHelpers.ArtistIconLink(link.Artist)
 					</div>
 					@Html.ActionLink(link.Artist.Name, "Details", "Artist", new { id = link.Artist.Id }, null)
+					@(" (" + Translate.ArtistTypeName(link.Artist.ArtistType) + ")")
 					@(" (" + link.Count + ")")
 					@if (extraData != null) {
 						@extraData(link.Artist)
@@ -71,6 +74,7 @@
 					}
 									
 					@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, null)
+					@(" (" + Translate.SongTypeNames[link.Song.SongType] + ")")
 					@(" (" + link.Count + ")")
 					@if (extraData != null) {
 						@extraData(link.Song)
