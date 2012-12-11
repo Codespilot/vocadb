@@ -201,6 +201,12 @@
   <data name="UserName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="VerifiedAccount" xml:space="preserve">
+    <value>Verified artist</value>
+  </data>
+  <data name="VerifiedOwner" xml:space="preserve">
+    <value>Verified owner</value>
+  </data>
   <data name="VisibleOnlyToMe" xml:space="preserve">
     <value>Visible only to me and staff.</value>
   </data>

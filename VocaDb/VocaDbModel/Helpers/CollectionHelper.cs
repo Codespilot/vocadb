@@ -7,6 +7,15 @@ namespace VocaDb.Model.Helpers {
 
 	public static class CollectionHelper {
 
+		/// <summary>
+		/// Calculates a diff between two collections, including new, unchanged and deleted items.
+		/// </summary>
+		/// <typeparam name="T">Type of the original (current) collection.</typeparam>
+		/// <typeparam name="T2">Type of the new collection.</typeparam>
+		/// <param name="old">Original (current) collection. Cannot be null.</param>
+		/// <param name="newItems">New collection. Cannot be null.</param>
+		/// <param name="equality">Equality test. Cannot be null.</param>
+		/// <returns>Diff for the two collections. Cannot be null.</returns>
 		public static CollectionDiff<T, T2> Diff<T, T2>(IEnumerable<T> old, IEnumerable<T2> newItems, Func<T, T2, bool> equality) {
 
 			ParamIs.NotNull(() => old);
@@ -68,6 +77,35 @@ namespace VocaDb.Model.Helpers {
 		public static IEnumerable<T> SkipNull<T>(params T[] items) where T : class {
 
 			return items.Where(i => i != null);
+
+		}
+
+		/// <summary>
+		/// Syncs items in one collection with a new set.
+		/// Removes missing items from the old collection and adds missing new items.
+		/// </summary>
+		/// <typeparam name="T">Type of the original (current) collection.</typeparam>
+		/// <typeparam name="T2">Type of the new collection.</typeparam>
+		/// <param name="old">Original (current) collection. Cannot be null.</param>
+		/// <param name="newItems">New collection. Cannot be null.</param>
+		/// <param name="equality">Equality test. Cannot be null.</param>
+		/// <param name="fac">Factory method for the new item. Cannot be null.</param>
+		/// <returns>Diff for the two collections. Cannot be null.</returns>
+		public static CollectionDiff<T, T> Sync<T, T2>(IList<T> old, IEnumerable<T2> newItems, Func<T, T2, bool> equality, Func<T2, T> fac) {
+
+			var diff = Diff(old, newItems, equality);
+			var created = new List<T>();
+
+			foreach (var n in diff.Removed) {
+				old.Remove(n);
+			}
+
+			foreach (var linkEntry in diff.Added) {
+				var link = fac(linkEntry);
+				created.Add(link);
+			}
+
+			return new CollectionDiff<T, T>(created, diff.Removed, diff.Unchanged);
 
 		}
 

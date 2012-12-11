@@ -46,7 +46,7 @@
 
 		<table>
 			<tr>
-				<td rowspan="9">
+				<td rowspan="10">
 					<a href="@Url.Action("Picture", new { id = Model.Id })">
 						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="@ViewRes.Artist.DetailsStrings.ArtistPicture" class="coverPic" />
 					</a>
@@ -82,9 +82,23 @@
 				</td>
 			</tr>
 
-        @EntryDetailsHelpers.ExternalLinksRows(Model.WebLinks)
+			@EntryDetailsHelpers.ExternalLinksRows(Model.WebLinks)
 			
-		@if (Model.Groups.Any()) {
+			@if (Model.OwnerUsers.Any()) {
+				<tr>
+					<td>
+						@R.DetailsStrings.AuthoredBy						
+					</td>
+					<td>
+						@foreach (var user in Model.OwnerUsers) {
+							@UserHelpers.UserIconLink(user)
+							<br />
+						}						
+					</td>
+				</tr>
+			}
+
+			@if (Model.Groups.Any()) {
 			<tr>
 				<td>@ViewRes.Artist.DetailsStrings.Groups</td>
 				<td id="groups">
@@ -96,7 +110,7 @@
 					}
 				</td>
 			</tr>
-		}
+			}
   
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>
@@ -111,7 +125,7 @@
 					@Model.CreateDate
 				</td>	
 			</tr>	   
-
+			
 		</table>
 	
 
@@ -148,21 +162,21 @@
 			<h3>@ViewRes.Artist.DetailsStrings.TopSongs</h3>
 			@SongHelpers.SongGrid(Model.TopSongs, 2, true)
 	    }
-
+		
 		<br />
 		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
 		
 		@if (Model.LatestComments.Any()) {
 
-	  foreach (var comment in Model.LatestComments) {
-				@Helpers.PrintComment(comment, false);
-	  }
+		  foreach (var comment in Model.LatestComments) {
+					@Helpers.PrintComment(comment, false);
+		  }
 
-  } else {
+		} else {
 	  
 			<p>@ViewRes.EntryDetailsStrings.NoComments</p>
 	  
-  }
+		}
 		
 		<p>
 			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>

@@ -18,6 +18,7 @@
 
     var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
     var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
+	var verifiedAccount = (Model.OwnedArtistEntries.Any());
 			
 }
 
@@ -53,8 +54,21 @@
 	</tr>
 	<tr>
 		<td>@R.DetailsStrings.UserGroup</td>
-		<td>@Translate.UserGroups[Model.GroupId]</td>
+		<td>
+			@Translate.UserGroups[Model.GroupId]
+			@if (verifiedAccount) {
+				@(" - " + R.DetailsStrings.VerifiedAccount)
+			}
+		</td>
 	</tr>
+
+	@if (verifiedAccount) {
+	<tr>
+		<td>@R.DetailsStrings.VerifiedOwner</td>
+		<td>@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)</td>
+	</tr>
+	}
+
 	<tr>
 		<td>@R.DetailsStrings.MemberSince</td>
 		<td>@Model.CreateDate.ToShortDateString()</td>

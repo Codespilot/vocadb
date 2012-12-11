@@ -191,18 +191,19 @@ namespace VocaDb.Web.Models {
 
 			var groups = EnumVal<UserGroupId>.Values.Where(g => EntryPermissionManager.CanEditGroupTo(Login.Manager, g)).ToArray();
 			EditableGroups = new TranslateableEnum<UserGroupId>(() => global::Resources.UserGroupNames.ResourceManager, groups);
-
+			OwnedArtists = new List<ArtistForUserContract>();
 			Permissions = new List<PermissionFlagEntry>();
 
 		}
 
-		public UserEdit(UserContract contract)
+		public UserEdit(UserWithPermissionsContract contract)
 			: this() {
 
 			Active = contract.Active;
 			GroupId = contract.GroupId;
 			Id = contract.Id;
 			Name = contract.Name;
+			OwnedArtists = contract.OwnedArtistEntries;
 			Permissions = PermissionToken.All
 				.Select(p => new PermissionFlagEntry(p, contract.AdditionalPermissions.Contains(p), contract.EffectivePermissions.Contains(p))).ToArray();
 
@@ -219,15 +220,18 @@ namespace VocaDb.Web.Models {
 
 		public string Name { get; set; }
 
+		public IList<ArtistForUserContract> OwnedArtists { get; set; }
+
 		public IList<PermissionFlagEntry> Permissions { get; set; }
 
-		public UserContract ToContract() {
+		public UserWithPermissionsContract ToContract() {
 
-			return new UserContract {
+			return new UserWithPermissionsContract {
 				Active = this.Active,
 				GroupId = this.GroupId,
 				Id = this.Id,
 				Name = this.Name,
+				OwnedArtistEntries = OwnedArtists.ToArray(),
 				AdditionalPermissions = new HashSet<PermissionToken>(Permissions.Where(p => p.HasFlag).Select(p => PermissionToken.GetById(p.PermissionType.Id)))
 			};
 

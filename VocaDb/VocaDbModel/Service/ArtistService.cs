@@ -763,6 +763,12 @@ namespace VocaDb.Model.Service {
 					session.Update(s);
 				}
 
+				var ownerUsers = source.OwnerUsers.Where(s => !target.HasOwnerUser(s.User)).ToArray();
+				foreach (var u in ownerUsers) {
+					u.Move(target);
+					session.Update(u);
+				}
+
 				var pictures = source.Pictures.ToArray();
 				foreach (var p in pictures) {
 					p.Move(target);
