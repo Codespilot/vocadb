@@ -545,6 +545,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public UserWithPermissionsContract GetUserWithPermissions(int id) {
+
+			return HandleQuery(session => new UserWithPermissionsContract(session.Load<User>(id), LanguagePreference));
+
+		}
+
 		public UserContract GetUserByName(string name, bool skipMessages) {
 
 			return HandleQuery(session => {
@@ -886,7 +892,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateUser(UserContract contract) {
+		public void UpdateUser(UserWithPermissionsContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -906,6 +912,9 @@ namespace VocaDb.Model.Service {
 				if (EntryPermissionManager.CanEditAdditionalPermissions(PermissionContext)) {
 					user.AdditionalPermissions = new PermissionCollection(contract.AdditionalPermissions.Select(p => PermissionToken.GetById(p.Id)));
 				}
+
+				var diff = OwnedArtistForUser.Sync(user.AllOwnedArtists, contract.OwnedArtistEntries, a => user.AddOwnedArtist(session.Load<Artist>(a.Artist.Id)));
+				SessionHelper.Sync(session, diff);
 
 				user.Active = contract.Active;
 

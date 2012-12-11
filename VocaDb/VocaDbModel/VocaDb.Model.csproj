@@ -191,6 +191,7 @@
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
     <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
+    <Compile Include="DataContracts\Users\ArtistForUserContract.cs" />
     <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
     <Compile Include="DataContracts\Users\UserBaseContract.cs" />
     <Compile Include="DataContracts\Users\UserDetailsContract.cs" />
@@ -218,6 +219,7 @@
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithActivityEntriesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
+    <Compile Include="DataContracts\Users\UserWithPermissionsContract.cs" />
     <Compile Include="DataContracts\VersioningInfoContract.cs" />
     <Compile Include="DataContracts\Versioning\ArchivedObjectVersionWithFieldsContract.cs" />
     <Compile Include="DataContracts\Versioning\ComparedVersionsContract.cs" />
@@ -280,6 +282,7 @@
     <Compile Include="Domain\TrashedEntry.cs" />
     <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\IUser.cs" />
+    <Compile Include="Domain\Users\OwnedArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Users\UserComment.cs" />
     <Compile Include="Domain\Users\UserOptions.cs" />
@@ -420,6 +423,7 @@
     <Compile Include="Mapping\Songs\SongTagVoteMap.cs" />
     <Compile Include="Mapping\Tags\TagMap.cs" />
     <Compile Include="Mapping\TrashedEntryMap.cs" />
+    <Compile Include="Mapping\Users\OwnedArtistForUserMap.cs" />
     <Compile Include="Mapping\Users\PasswordResetRequestMap.cs" />
     <Compile Include="Mapping\Users\UserCommentMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />

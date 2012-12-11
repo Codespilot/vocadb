@@ -1,18 +1,30 @@
-﻿using VocaDb.Model.Domain.Artists;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Users {
 
 	/// <summary>
-	/// User following an artist.
+	/// User is a verified owner of an artist entry.
 	/// </summary>
-	public class ArtistForUser {
+	public class OwnedArtistForUser {
+
+		public static CollectionDiff<OwnedArtistForUser, OwnedArtistForUser> Sync(
+			IList<OwnedArtistForUser> oldLinks, IEnumerable<ArtistForUserContract> newLinks, Func<ArtistForUserContract, OwnedArtistForUser> fac) {
+
+			return CollectionHelper.Sync(oldLinks, newLinks, (n1, n2) => n1.Id == n2.Id, fac);
+
+		}
 
 		private Artist artist;
 		private User user;
 
-		public ArtistForUser() { }
+		public OwnedArtistForUser() { }
 
-		public ArtistForUser(User user, Artist artist) {
+		public OwnedArtistForUser(User user, Artist artist) {
 			User = user;
 			Artist = artist;
 		}
@@ -37,12 +49,12 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual void Delete() {
 
-			User.AllArtists.Remove(this);
-			Artist.Users.Remove(this);
+			User.AllOwnedArtists.Remove(this);
+			Artist.OwnerUsers.Remove(this);
 
 		}
 
-		public virtual bool Equals(ArtistForUser another) {
+		public virtual bool Equals(OwnedArtistForUser another) {
 
 			if (another == null)
 				return false;
@@ -58,7 +70,7 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public override bool Equals(object obj) {
-			return Equals(obj as ArtistForUser);
+			return Equals(obj as OwnedArtistForUser);
 		}
 
 		public override int GetHashCode() {
@@ -72,16 +84,15 @@ namespace VocaDb.Model.Domain.Users {
 			if (target.Equals(Artist))
 				return;
 
-			Artist.Users.Remove(this);
+			Artist.OwnerUsers.Remove(this);
 			Artist = target;
-			target.Users.Add(this);
+			target.OwnerUsers.Add(this);
 
 		}
 
 		public override string ToString() {
-			return string.Format("{0} for {1}", Artist, User);
+			return string.Format("Owned {0} for {1}", Artist, User);
 		}
 
 	}
-
 }

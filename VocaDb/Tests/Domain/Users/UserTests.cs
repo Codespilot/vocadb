@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Tests.Domain.Users {
@@ -19,6 +17,29 @@ namespace VocaDb.Tests.Domain.Users {
 		public void SetUp() {
 
 			user = new User();
+
+		}
+
+		[TestMethod]
+		public void AddOwnedArtist_New() {
+
+			var artist = new Artist { Id = 1 };
+
+			var result = user.AddOwnedArtist(artist);
+
+			Assert.IsNotNull(result, "result");
+			Assert.AreEqual(artist, result.Artist, "Artist");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(ArgumentException))]
+		public void AddOwnedArtist_AlreadyAdded() {
+
+			var artist = new Artist { Id = 1 };
+
+			user.AddOwnedArtist(artist);
+			user.AddOwnedArtist(artist);
 
 		}
 

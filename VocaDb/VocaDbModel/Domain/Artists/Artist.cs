@@ -28,6 +28,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
 		private NameManager<ArtistName> names = new NameManager<ArtistName>();
+		private IList<OwnedArtistForUser> ownerUsers = new List<OwnedArtistForUser>();
 		private EntryPictureFileManager<ArtistPictureFile> pictureManager = new EntryPictureFileManager<ArtistPictureFile>();
 		private IList<ArtistForSong> songs = new List<ArtistForSong>();
 		private TagManager<ArtistTagUsage> tags = new TagManager<ArtistTagUsage>();
@@ -179,6 +180,17 @@ namespace VocaDb.Model.Domain.Artists {
 			get { return Names; }
 		}
 
+		/// <summary>
+		/// List of users who are verifid owners of this artist. Cannot be null.
+		/// </summary>
+		public virtual IList<OwnedArtistForUser> OwnerUsers {
+			get { return ownerUsers; }
+			set {
+				ParamIs.NotNull(() => value);
+				ownerUsers = value;
+			}
+		}
+
 		public virtual PictureData Picture { get; set; }
 
 		public virtual EntryPictureFileManager<ArtistPictureFile> Pictures {
@@ -207,6 +219,9 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		/// <summary>
+		/// List of users who follow this artist. Cannot be null.
+		/// </summary>
 		public virtual IList<ArtistForUser> Users {
 			get { return users; }
 			set {
@@ -411,6 +426,14 @@ namespace VocaDb.Model.Domain.Artists {
 			ParamIs.NotNull(() => name);
 
 			return Names.HasName(name);
+
+		}
+
+		public virtual bool HasOwnerUser(User user) {
+
+			ParamIs.NotNull(() => user);
+
+			return OwnerUsers.Any(a => a.User.Equals(user));
 
 		}
 

@@ -13,6 +13,13 @@
 	}
 }
 
+@helper UserIconLink(UserBaseContract user, int size = 20) {	
+	<a href="@Url.Action("Profile", "User", new { id = user.Name })">
+		@ProfileIcon(user, size)
+		@user.Name
+	</a>
+}
+
 @helper UserLink(UserBaseContract user) {
 	@Html.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null)
 }

@@ -313,6 +313,24 @@ namespace ViewRes.User {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verified artist.
+        /// </summary>
+        public static string VerifiedAccount {
+            get {
+                return ResourceManager.GetString("VerifiedAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verified owner.
+        /// </summary>
+        public static string VerifiedOwner {
+            get {
+                return ResourceManager.GetString("VerifiedOwner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Visible only to me and staff..
         /// </summary>
         public static string VisibleOnlyToMe {

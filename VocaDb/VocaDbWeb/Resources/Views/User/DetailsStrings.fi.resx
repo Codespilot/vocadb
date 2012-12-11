@@ -201,6 +201,12 @@
   <data name="UserName" xml:space="preserve">
     <value>Tunnus</value>
   </data>
+  <data name="VerifiedAccount" xml:space="preserve">
+    <value>Vahvistettu artisti</value>
+  </data>
+  <data name="VerifiedOwner" xml:space="preserve">
+    <value>Vahvistettu omistaja</value>
+  </data>
   <data name="VisibleOnlyToMe" xml:space="preserve">
     <value>Näkyy vain minulle ja ylläpitäjille.</value>
   </data>

@@ -129,6 +129,9 @@
   <data name="ArtistPicture" xml:space="preserve">
     <value>Artistin kuva</value>
   </data>
+  <data name="AuthoredBy" xml:space="preserve">
+    <value>VocaDB-käyttäjä</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Seuraa</value>
   </data>
@@ -146,6 +149,12 @@
   </data>
   <data name="RecentSongs" xml:space="preserve">
     <value>Uudet kappaleet</value>
+  </data>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>Suositut albumit</value>
+  </data>
+  <data name="TopSongs" xml:space="preserve">
+    <value>Suositut kappaleet</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
     <value>Lopeta seuraaminen</value>

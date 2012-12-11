@@ -1353,6 +1353,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\User\Details.js" />
+    <Content Include="Scripts\User\Edit.js" />
     <Content Include="Scripts\User\Messages.js" />
     <Content Include="Scripts\User\MySettings.js" />
     <Content Include="Scripts\VocaDb.js" />
@@ -1553,6 +1554,7 @@
     <Content Include="Views\Shared\PVContent.cshtml" />
     <Content Include="Views\Ext\EmbedSong.cshtml" />
     <Content Include="Views\User\PagedUsers.cshtml" />
+    <Content Include="Views\User\OwnedArtistForUserEditRow.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

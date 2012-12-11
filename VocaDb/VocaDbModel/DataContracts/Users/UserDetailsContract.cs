@@ -8,12 +8,12 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
 
-	public class UserDetailsContract : UserContract {
+	public class UserDetailsContract : UserWithPermissionsContract {
 
 		public UserDetailsContract() {}
 
 		public UserDetailsContract(User user, IUserPermissionContext permissionContext) 
-			: base(user) {
+			: base(user, permissionContext.LanguagePreference) {
 
 			AboutMe = user.Options.AboutMe;
 			LastLogin = user.LastLogin;

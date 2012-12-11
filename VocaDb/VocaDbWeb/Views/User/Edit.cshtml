@@ -29,12 +29,34 @@
 	<fieldset>
 		<legend>Additional permissions</legend>
 		@foreach (var entry in Model.Permissions) {	 
-			Html.RenderPartial("PermissionEditRow", entry);											 
+			Html.RenderPartial("PermissionEditRow", entry);
 		}
 	</fieldset>
-        
+	        
     }
 	
+	<fieldset>
+		<legend>Owned artists</legend>
+		<table>
+			<tbody id="ownedArtistsTableBody">
+				@foreach (var entry in Model.OwnedArtists) {
+					Html.RenderPartial("OwnedArtistForUserEditRow", entry);
+				}				
+			</tbody>			
+		</table>
+		@Helpers.EntrySearchBox("ownedArtistAdd", false, ViewRes.SharedStrings.Add)
+	</fieldset>
+		
 	@Helpers.SaveBtn()
 	
+}
+
+@section BodyScripts {
+	<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets/styles/jqx.base.css")" type="text/css" />
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxcore.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxbuttons.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxscrollbar.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets/jqxlistbox.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/User/Edit.js")"></script>
 }

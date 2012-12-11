@@ -217,6 +217,16 @@ namespace VocaDb.Web.Controllers
 			return View(model);
 		}
 
+		[Authorize]
+		public PartialViewResult OwnedArtistForUserEditRow(int artistId) {
+
+			var artist = Services.Artists.GetArtist(artistId);
+			var ownedArtist = new ArtistForUserContract(artist);
+
+			return PartialView(ownedArtist);
+
+		}
+
 		public new ActionResult Profile(string id) {
 
 			var model = Service.GetUserByNameNonSensitive(id);
@@ -423,7 +433,7 @@ namespace VocaDb.Web.Controllers
 
 			LoginManager.VerifyPermission(PermissionToken.ManageUserPermissions);
 
-        	var user = Service.GetUser(id);
+        	var user = Service.GetUserWithPermissions(id);
             return View(new UserEdit(user));
 
         }

@@ -28,6 +28,7 @@ namespace VocaDb.Model.Domain.Users {
 		private string name;
 		private string nameLc;
 		private UserOptions options;
+		private IList<OwnedArtistForUser> ownedArtists = new List<OwnedArtistForUser>(); 
 		private string password;
 		private IList<UserMessage> receivedMessages = new List<UserMessage>();
 		private IList<UserMessage> sentMessages = new List<UserMessage>();
@@ -100,17 +101,34 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// List of artists followed by this user. This list does not include deleted entries. Cannot be null.
+		/// </summary>
 		public virtual IEnumerable<ArtistForUser> Artists {
 			get {
 				return AllArtists.Where(a => !a.Artist.Deleted);
 			}
 		}
 
+		/// <summary>
+		/// List of artists followed by this user. Includes deleted artists. Cannot be null.
+		/// </summary>
 		public virtual IList<ArtistForUser> AllArtists {
 			get { return artists; }
 			set {
 				ParamIs.NotNull(() => value);
 				artists = value;
+			}
+		}
+
+		/// <summary>
+		/// List of artists entries for which this user is a verified owner. Includes deleted artists. Cannot be null.
+		/// </summary>
+		public virtual IList<OwnedArtistForUser> AllOwnedArtists {
+			get { return ownedArtists; }
+			set {
+				ParamIs.NotNull(() => value);
+				ownedArtists = value;
 			}
 		}
 
@@ -231,6 +249,15 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// List of artists entries for which this user is a verified owner. Does not include deleted artists. Cannot be null.
+		/// </summary>
+		public virtual IEnumerable<OwnedArtistForUser> OwnedArtists {
+			get {
+				return AllOwnedArtists.Where(a => !a.Artist.Deleted);
+			}
+		}
+
 		public virtual string Password {
 			get { return password; }
 			set {
@@ -296,6 +323,23 @@ namespace VocaDb.Model.Domain.Users {
 
 			var link = new ArtistForUser(this, artist);
 			AllArtists.Add(link);
+
+			return link;
+
+		}
+
+		public virtual OwnedArtistForUser AddOwnedArtist(Artist artist) {
+
+			ParamIs.NotNull(() => artist);
+
+			var old = ownedArtists.FirstOrDefault(a => a.Artist.Equals(artist));
+
+			if (old != null)
+				throw new ArgumentException("Unable to add the same artist again", "artist");
+
+			var link = new OwnedArtistForUser(this, artist);
+			AllOwnedArtists.Add(link);
+			artist.OwnerUsers.Add(link);
 
 			return link;
 

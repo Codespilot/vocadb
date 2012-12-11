@@ -129,6 +129,9 @@
   <data name="ArtistPicture" xml:space="preserve">
     <value>Artist picture</value>
   </data>
+  <data name="AuthoredBy" xml:space="preserve">
+    <value>VocaDB account</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
   </data>

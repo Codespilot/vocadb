@@ -8,7 +8,7 @@
 @using VocaDb.Model.DataContracts.Albums;
 @inherits VocaDb.Web.Code.HelperPage
 
-@helper ArtistGrid(IEnumerable<ArtistWithAdditionalNamesContract> artists, int columns,
+@helper ArtistGrid(IEnumerable<ArtistContract> artists, int columns,
 	bool displayType = false) {
 	
 	<table>
