@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.Domain
 @using VocaDb.Model.Helpers
+@using VocaDb.Model.Service
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Artist;
 @model ArtistDetailsContract
@@ -136,7 +137,7 @@
 
 		@if (Model.LatestAlbums.Any()) {
 			<br />
-			<h3>@ViewRes.Artist.DetailsStrings.RecentAlbums</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "artist:" + Model.Id, sort = AlbumSortRule.AdditionDate }, null)</h3>
             <div id="newAlbums">                
     			@AlbumHelpers.AlbumThumbs(Model.LatestAlbums)
             </div>
@@ -144,7 +145,7 @@
         
 		@if (Model.TopAlbums.Any()) {
 			<br />
-			<h3>@ViewRes.Artist.DetailsStrings.TopAlbums</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "artist:" + Model.Id, sort = AlbumSortRule.RatingAverage }, null)</h3>
             <div id="topAlbums">
 			    @AlbumHelpers.AlbumThumbs(Model.TopAlbums)                
             </div>
@@ -153,13 +154,13 @@
 
 		@if (Model.LatestSongs.Any()) {
 			<br />
-			<h3>@ViewRes.Artist.DetailsStrings.RecentSongs</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentSongs, "Index", "Song", new VocaDb.Web.Models.Song.IndexRouteParams { filter = "artist:" + Model.Id, sort = SongSortRule.AdditionDate }, null)</h3>
 			@SongHelpers.SongGrid(Model.LatestSongs, 2, true)
 	    }
         
 		@if (Model.TopSongs.Any()) {
 			<br />
-			<h3>@ViewRes.Artist.DetailsStrings.TopSongs</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopSongs, "Index", "Song", new VocaDb.Web.Models.Song.IndexRouteParams { filter = "artist:" + Model.Id, sort = SongSortRule.RatingScore }, null)</h3>
 			@SongHelpers.SongGrid(Model.TopSongs, 2, true)
 	    }
 		

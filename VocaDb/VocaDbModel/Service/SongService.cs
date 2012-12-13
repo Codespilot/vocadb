@@ -97,6 +97,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private IQueryable<ArtistForSong> AddPVFilter(IQueryable<ArtistForSong> criteria, bool onlyWithPVs) {
+
+			if (onlyWithPVs)
+				return criteria.Where(t => t.Song.PVServices != PVServices.Nothing);
+			else
+				return criteria;
+
+		}
+
 		private IQueryable<SongName> AddPVFilter(IQueryable<SongName> criteria, bool onlyWithPVs) {
 
 			if (onlyWithPVs)
@@ -114,6 +123,17 @@ namespace VocaDb.Model.Service {
 			var since = DateTime.Now - timeFilter;
 
 			return criteria.Where(t => t.CreateDate >= since);
+
+		}
+
+		private IQueryable<ArtistForSong> AddTimeFilter(IQueryable<ArtistForSong> criteria, TimeSpan timeFilter) {
+
+			if (timeFilter == TimeSpan.Zero)
+				return criteria;
+
+			var since = DateTime.Now - timeFilter;
+
+			return criteria.Where(t => t.Song.CreateDate >= since);
 
 		}
 
@@ -172,6 +192,29 @@ namespace VocaDb.Model.Service {
 				q = AddOrder(q, sortRule, LanguagePreference);
 
 				songs = q
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
+			// TODO: refactor using advanced search parser
+			} else if (query.StartsWith("artist:")) {
+
+				int artistId;
+				int.TryParse(query.Substring(7), out artistId);
+
+				var q = session.Query<ArtistForSong>()
+					.Where(m => !m.Song.Deleted && m.Artist.Id == artistId);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.Song.SongType));
+
+				q = AddTimeFilter(q, queryParams.TimeFilter);
+				q = AddPVFilter(q, queryParams.OnlyWithPVs);
+
+				songs = AddOrder(q.Select(m => m.Song), sortRule, PermissionContext.LanguagePreference)
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
@@ -266,6 +309,26 @@ namespace VocaDb.Model.Service {
 
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
+
+				q = AddTimeFilter(q, timeFilter);
+				q = AddPVFilter(q, onlyWithPVs);
+
+				return q.Count();
+
+			// TODO: refactor using advanced search parser
+			} else if (query.StartsWith("artist:")) {
+
+				int artistId;
+				int.TryParse(query.Substring(7), out artistId);
+
+				var q = session.Query<ArtistForSong>()
+					.Where(m => !m.Song.Deleted && m.Artist.Id == artistId);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.Song.SongType));
 
 				q = AddTimeFilter(q, timeFilter);
 				q = AddPVFilter(q, onlyWithPVs);
