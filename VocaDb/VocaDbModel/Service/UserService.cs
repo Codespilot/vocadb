@@ -95,7 +95,7 @@ namespace VocaDb.Model.Service {
 
 		private string MakeGeoIpToolLink(string hostname) {
 
-			return string.Format("<a href='http://www.geoiptool.com/en/?IP={0}'>{0}</a>", hostname);
+			return string.Format("<a href='http://www.geoiptool.com/?IP={0}'>{0}</a>", hostname);
 
 		}
 
