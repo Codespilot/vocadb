@@ -97,6 +97,7 @@ namespace VocaDb.Model.Helpers {
 			var created = new List<T>();
 
 			foreach (var n in diff.Removed) {
+				// Note: this removes the item from the source collection directly, but not from any other collections.
 				old.Remove(n);
 			}
 
