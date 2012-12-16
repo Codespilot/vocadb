@@ -2060,6 +2060,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>

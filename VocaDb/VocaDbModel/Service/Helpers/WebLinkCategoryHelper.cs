@@ -59,6 +59,7 @@ namespace VocaDb.Model.Service.Helpers {
 			new CategoryMatcher(WebLinkCategory.Official, 
 				new StringMatcher("ameblo.jp/"),
 				new StringMatcher("www.crypton.co.jp/"),
+				new StringMatcher("exittunes.com/"),
 				new StringMatcher("www.facebook.com/"),
 				new StringMatcher("www.last.fm/"),
 				new StringMatcher("nicovideo.jp/user/"),

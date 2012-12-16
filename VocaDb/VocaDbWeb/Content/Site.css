@@ -558,6 +558,10 @@ a.extLink[href^="http://www.discogs.com/"] {
 	background: url("/Content/ExtIcons/discogs.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://exittunes.com/"] {
+	background: url("/Content/ExtIcons/exittunes.png") no-repeat left 50%;
+}
+
 a.extLink[href*="www.facebook.com/"] {
 	background: url("/Content/ExtIcons/facebook.png") no-repeat left 50%;
 }
