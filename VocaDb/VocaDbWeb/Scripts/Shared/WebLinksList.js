@@ -9,6 +9,7 @@ function initWebLinksList() {
 		{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop", cat: "Commercial" },
 		{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan", cat: "Commercial" },
 		{ url: "www.discogs.com/", desc: "Discogs", cat: "Reference" },
+		{ url: "exittunes.com/", desc: "Exit Tunes", cat: "Official" },
 		{ url: "www.facebook.com/", desc: "Facebook", cat: "Official" },
 		{ url: "itunes.apple.com/", desc: "iTunes", cat: "Commercial" },
 		{ url: "karent.jp/", desc: "KarenT", cat: "Commercial" },
