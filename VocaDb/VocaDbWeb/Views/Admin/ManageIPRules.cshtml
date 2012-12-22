@@ -1,8 +1,9 @@
 ﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
 @model VocaDb.Model.Domain.Security.IPRule[]
 
 @{
-    ViewBag.Title = "Manage IP rules";
+    ViewBag.Title = "Manage blocked IPs";
     ViewBag.Parents = new[] { 
 		Html.ActionLink("Manage", "Index"), 
 	};    
@@ -12,7 +13,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/Admin/ManageIPRules.js")"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var json = @Html.Raw(JsonConvert.SerializeObject(Model));
+        var json = @Html.Raw(JsonConvert.SerializeObject(Model, new JavaScriptDateTimeConverter()));
 		initPage(json);
 	});
 </script>    
@@ -22,11 +23,25 @@
     
     @Helpers.SaveBtn()
     
-    <table data-bind="foreach: rules">
-        <tr>
-            <td data-bind="text: Address"></td>
-            <td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Remove</a></td>
-        </tr>
+    <table>
+	    <thead>
+		    <tr>
+				<th>Address</th>
+				<th>Notes</th>
+				<th>Created</th>			    
+				<th></th>
+		    </tr>
+	    </thead>
+		<tbody data-bind="foreach: rules">
+			<tr>
+				<td data-bind="text: Address"></td>
+				<td>
+					<input type="text" data-bind="value: Notes" />
+				</td>
+				<td data-bind="text: CreatedFormatted"></td>
+				<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Remove</a></td>
+			</tr>			
+		</tbody>
     </table>
     <table>
         <tr data-bind="with: newRule">

@@ -470,6 +470,9 @@ namespace VocaDb.Model.Service {
 				var ipRules = session.Query<IPRule>().ToArray();
 				var diff = CollectionHelper.Diff(ipRules, rules, (r1, r2) => r1.Id == r2.Id);
 
+				foreach (var entry in diff.Unchanged)
+					entry.Notes = rules.First(r => r.Id == entry.Id).Notes;
+
 				SessionHelper.Sync(session, diff);
 
 			});
