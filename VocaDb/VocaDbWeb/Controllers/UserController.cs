@@ -200,11 +200,11 @@ namespace VocaDb.Web.Controllers
 			var groupId = model.GroupId;
 			var sortRule = sort ?? UserSortRule.RegisterDate;
 
-			var result = Service.GetUsers(groupId, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
+			var result = Service.GetUsers(groupId, model.Name, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
 			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, result.TotalCount), null, "UsersPaged", "usersList");
-			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule, totalCount = result.TotalCount, action = "UsersPaged" });
+			data.RouteValues = new RouteValueDictionary(new { groupId, name = model.Name, sortRule, totalCount = result.TotalCount, action = "UsersPaged" });
 
-			return View(new Index(data, groupId));
+			return View(new Index(data, groupId, model.Name));
 
         }
 
@@ -626,10 +626,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult UsersPaged(UserGroupId groupId, UserSortRule sortRule, int totalCount, int? page) {
+		public PartialViewResult UsersPaged(UserGroupId groupId, string name, UserSortRule sortRule, int totalCount, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetUsers(groupId, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, false));
+			var result = Service.GetUsers(groupId, name, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, false));
 			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, totalCount), null, "UsersPaged", "usersList");
 			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule, totalCount, action = "UsersPaged" });
 

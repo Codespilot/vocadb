@@ -24,19 +24,19 @@
 	@Html.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null)
 }
 
-@helper UserTable(IEnumerable<UserContract> users, UserGroupId groupId) {
+@helper UserTable(IEnumerable<UserContract> users, UserGroupId groupId, string name) {
 
     <table class="table table-striped">
 	    <thead>
 		    <tr>
 			    <th colspan="2">
-			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserName, "Index", "User", new { GroupId = groupId, sort = VocaDb.Model.Service.UserSortRule.Name }, null)
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserName, "Index", "User", new { GroupId = groupId, Name = name, sort = VocaDb.Model.Service.UserSortRule.Name }, null)
 			    </th>
 			    <th>
-			        @Html.ActionLink(ViewRes.User.DetailsStrings.MemberSince, "Index", "User", new { GroupId = groupId, sort = VocaDb.Model.Service.UserSortRule.RegisterDate }, null)
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.MemberSince, "Index", "User", new { GroupId = groupId, Name = name, sort = VocaDb.Model.Service.UserSortRule.RegisterDate }, null)
 			    </th>
 			    <th>
-			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserGroup, "Index", "User", new { GroupId = groupId, sort = VocaDb.Model.Service.UserSortRule.Group }, null)
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserGroup, "Index", "User", new { GroupId = groupId, Name = name, sort = VocaDb.Model.Service.UserSortRule.Group }, null)
 			    </th>
 			    <th></th>
 		    </tr>

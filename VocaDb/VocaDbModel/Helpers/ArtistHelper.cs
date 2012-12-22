@@ -167,6 +167,9 @@ namespace VocaDb.Model.Helpers {
 				if (roles.HasFlag(ArtistRoles.Animator))
 					cat |= ArtistCategories.Animator;
 
+				//if (roles.HasFlag(ArtistRoles.Illustrator) || roles.HasFlag(ArtistRoles.Lyricist) || roles.HasFlag(ArtistRoles.Mastering))
+				//	cat |= ArtistCategories.Other;
+
 				if (cat == ArtistCategories.Nothing)
 					cat = ArtistCategories.Other;
 
