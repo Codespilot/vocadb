@@ -148,6 +148,8 @@
     <Compile Include="DataContracts\Songs\SongWithPVAndVoteContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagVersionContract.cs" />
+    <Compile Include="DataContracts\Tags\TagUsageWithVotesContract.cs" />
+    <Compile Include="DataContracts\UseCases\EntryWithTagUsagesContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
     <Compile Include="DataContracts\Tags\TagContract.cs" />
     <Compile Include="DataContracts\Tags\TagDetailsContract.cs" />

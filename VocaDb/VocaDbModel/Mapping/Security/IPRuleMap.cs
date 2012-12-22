@@ -10,6 +10,8 @@ namespace VocaDb.Model.Mapping.Security {
 			Id(m => m.Id);
 
 			Map(m => m.Address).Not.Nullable();
+			Map(m => m.Created).Not.Nullable();
+			Map(m => m.Notes).Not.Nullable().Length(100);
 
 		}
 
