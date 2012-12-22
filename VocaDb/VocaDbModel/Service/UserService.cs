@@ -20,6 +20,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.DataContracts.Activityfeed;
@@ -506,12 +507,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, UserSortRule sortRule, PagingProperties paging) {
+		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, UserSortRule sortRule, PagingProperties paging) {
 
 			return HandleQuery(session => {
 
 				var users = AddOrder(session.Query<User>()
-					.Where(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId)), sortRule)
+					.Where(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId) && string.IsNullOrWhiteSpace(name) || u.Name.Contains(name)), sortRule)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
 					.ToArray()
@@ -519,7 +520,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var count = paging.GetTotalCount ? session.Query<User>()
-					.Count(u => groupId == UserGroupId.Nothing || u.GroupId == groupId) : 0;
+					.Count(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId) && string.IsNullOrWhiteSpace(name) || u.Name.Contains(name)) : 0;
 
 				return new PartialFindResult<UserContract>(users, count);
 
@@ -624,10 +625,10 @@ namespace VocaDb.Model.Service {
 
 				var link = session.Query<AlbumForUser>().FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
 
-				AuditLog("deleting " + link, session);
-
-				if (link != null)
+				if (link != null) {
+					AuditLog("deleting " + link, session);
 					session.Delete(link);
+				}
 
 			});
 
@@ -647,29 +648,6 @@ namespace VocaDb.Model.Service {
 				if (link != null) {
 					link.Delete();
 					session.Delete(link);
-				}
-
-			});
-
-		}
-
-		[Obsolete("Merged to UpdateSongRating")]
-		public void RemoveSongFromFavorites(int userId, int songId) {
-
-			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
-
-			HandleTransaction(session => {
-
-				var link = session.Query<FavoriteSongForUser>().FirstOrDefault(a => a.Song.Id == songId && a.User.Id == userId);
-
-				AuditLog("deleting " + link, session);
-
-				if (link != null) {
-
-					link.Delete();
-					session.Delete(link);
-					session.Update(link.Song);
-
 				}
 
 			});

@@ -9,12 +9,15 @@ namespace VocaDb.Web.Models.User {
 
 		public Index() { }
 
-		public Index(PagingData<UserContract> users, UserGroupId groupId) {
+		public Index(PagingData<UserContract> users, UserGroupId groupId, string name) {
 			Users = users;
 			GroupId = groupId;
+			Name = name;
 		}
 
 		public UserGroupId GroupId { get; set; }
+
+		public string Name { get; set; }
 
 		public PagingData<UserContract> Users { get; set; }
 

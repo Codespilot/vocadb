@@ -5,7 +5,7 @@
 @Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
 </div>
 
-@UserHelpers.UserTable(Model.Items, (UserGroupId)Model.RouteValues["groupId"])
+@UserHelpers.UserTable(Model.Items, (UserGroupId)Model.RouteValues["groupId"], (string)Model.RouteValues["name"])
 
 <div class="pager">
 @Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))

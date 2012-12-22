@@ -9,6 +9,7 @@
 
 	<p>
 		@ViewRes.SharedStrings.Filter 
+		@Html.TextBoxFor(m => m.Name, new { maxlength = "200" })
 		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups, null, Model.GroupId)
 		
 		<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
