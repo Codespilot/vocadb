@@ -29,6 +29,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private IQueryable<T> TagUsagesQuery<T>(ISession session, string tagName) where T : TagUsage {
+
+			return session.Query<T>().Where(a => a.Tag.Name == tagName);
+
+		}
+
 		public TagService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
@@ -187,14 +193,14 @@ namespace VocaDb.Model.Service {
 				
 				var tag = GetTag(session, tagName);
 
-				var artists = session.Query<ArtistTagUsage>().Where(a => a.Tag.Name == tagName).OrderByDescending(t => t.Count).Take(15).ToArray();
-				var artistCount = session.Query<ArtistTagUsage>().Where(a => a.Tag.Name == tagName).Count();
+				var artists = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
+				var artistCount = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).Count();
 
-				var albums = session.Query<AlbumTagUsage>().Where(a => a.Tag.Name == tagName).OrderByDescending(t => t.Count).Take(15).ToArray();
-				var albumCount = session.Query<AlbumTagUsage>().Where(a => a.Tag.Name == tagName).Count();
+				var albums = TagUsagesQuery<AlbumTagUsage>(session, tagName).Where(a => !a.Album.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
+				var albumCount = TagUsagesQuery<AlbumTagUsage>(session, tagName).Where(a => !a.Album.Deleted).Count();
 
-				var songs = session.Query<SongTagUsage>().Where(a => a.Tag.Name == tagName).OrderByDescending(t => t.Count).Take(15).ToArray();
-				var songCount = session.Query<SongTagUsage>().Where(a => a.Tag.Name == tagName).Count();
+				var songs = TagUsagesQuery<SongTagUsage>(session, tagName).Where(a => !a.Song.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
+				var songCount = TagUsagesQuery<SongTagUsage>(session, tagName).Where(a => !a.Song.Deleted).Count();
 
 				return new TagDetailsContract(tag, artists, artistCount, albums, albumCount, songs, songCount, 
 					PermissionContext.LanguagePreference);
