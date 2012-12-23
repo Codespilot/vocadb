@@ -3,6 +3,8 @@
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.DataContracts.Tags
+@using VocaDb.Model.Domain
+@using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
 
@@ -94,7 +96,7 @@
 	@Html.ActionLink(tagName, "Details", "Tag", new { id = tagName }, null)	
 }
 
-@helper TagUsagesManageTable(TagUsageWithVotesContract[] tagUsages) {
+@helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {
 	
 	<table>
 		<thead>
@@ -111,11 +113,13 @@
 				<td>@usage.Count</td>
 				<td>
 					@foreach (var user in usage.Votes) {
-						@UserHelpers.UserLink(user)<br />
+						@UserHelpers.UserIconLink(user)<br />
 					}
 				</td>
 				<td>
-					<a href="#" id="@("removeUsage_" + usage.Id)" class="removeLink textLink">Remove tag usage</a>
+					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
+						@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink" })
+					}
 				</td>
 			</tr>
 		}

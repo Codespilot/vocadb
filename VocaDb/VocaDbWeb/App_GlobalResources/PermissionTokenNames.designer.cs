@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove tag usages.
+        /// </summary>
+        internal static string RemoveTagUsages {
+            get {
+                return ResourceManager.GetString("RemoveTagUsages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restore revisions.
         /// </summary>
         internal static string RestoreRevisions {

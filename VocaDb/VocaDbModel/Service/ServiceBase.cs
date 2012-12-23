@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Service.Helpers;
@@ -320,6 +321,25 @@ namespace VocaDb.Model.Service {
 				session.Delete(entity);
 
 			}, "Unable to delete " + typeName);
+
+		}
+
+		protected int RemoveTagUsage<T>(long tagUsageId) where T : TagUsage {
+
+			PermissionContext.VerifyPermission(PermissionToken.RemoveTagUsages);
+
+			return HandleTransaction(session => {
+
+				var tagUsage = session.Load<T>(tagUsageId);
+
+				AuditLog(string.Format("removing {0}", tagUsage), session);
+
+				tagUsage.Delete();
+				session.Delete(tagUsage);
+
+				return tagUsage.Entry.Id;
+
+			});
 
 		}
 

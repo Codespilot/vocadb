@@ -565,6 +565,7 @@
     <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Service\Queries\" />
     <Folder Include="Service\Search\Artist\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

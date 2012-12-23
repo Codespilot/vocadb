@@ -672,6 +672,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryWithTagUsagesContract GetEntryWithTagUsages(int artistId) {
+
+			return HandleQuery(session => {
+
+				var artist = session.Load<Artist>(artistId);
+				return new EntryWithTagUsagesContract(artist, artist.Tags.Usages);
+
+			});
+
+		}
+
 		public PartialFindResult<SongWithAdditionalNamesContract> GetSongs(int artistId, int start, int maxItems) {
 
 			return HandleQuery(session => {
@@ -792,6 +803,12 @@ namespace VocaDb.Model.Service {
 				session.Update(target);
 
 			});
+
+		}
+
+		public int RemoveTagUsage(long tagUsageId) {
+
+			return RemoveTagUsage<ArtistTagUsage>(tagUsageId);
 
 		}
 

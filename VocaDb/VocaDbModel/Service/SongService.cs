@@ -914,9 +914,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> Find(SongQueryParams queryParams) {
+		public PartialFindResult<SongContract> Find(SongQueryParams queryParams) {
 
-			return Find(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), queryParams);
+			return Find(s => new SongContract(s, PermissionContext.LanguagePreference), queryParams);
 
 		}
 
@@ -996,15 +996,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryWithTagUsagesContract GetEntryWithTagUsages(int songId) {
+
+			return HandleQuery(session => {
+
+				var song = session.Load<Song>(songId);
+				return new EntryWithTagUsagesContract(song, song.Tags.Usages);
+
+			});
+
+		}
+
+		// Used for RSS feed. TODO: integrate with Find.
 		public SongContract[] GetNewSongsWithVideos() {
 
-			return HandleQuery(session => session
-				.Query<Song>()
-				.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
-					.OrderByDescending(s => s.CreateDate)
-					.Take(20).ToArray()
-					.Select(s => new SongContract(s, LanguagePreference))
-					.ToArray());
+			return Find(new SongQueryParams { OnlyWithPVs = true, Paging = new PagingProperties(0, 20, false) }).Items;
 
 		}
 
@@ -1364,6 +1370,12 @@ namespace VocaDb.Model.Service {
 		public PVContract PVForSong(int pvId) {
 
 			return HandleQuery(session => new PVContract(session.Load<PVForSong>(pvId)));
+
+		}
+
+		public int RemoveTagUsage(long tagUsageId) {
+
+			return RemoveTagUsage<SongTagUsage>(tagUsageId);
 
 		}
 

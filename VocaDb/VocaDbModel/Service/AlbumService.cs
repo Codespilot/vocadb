@@ -1178,6 +1178,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public int RemoveTagUsage(long tagUsageId) {
+
+			return RemoveTagUsage<AlbumTagUsage>(tagUsageId);
+
+		}
+
 		public void Restore(int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);

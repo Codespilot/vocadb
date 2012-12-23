@@ -32,6 +32,8 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public abstract TagVote CreateVote(User user);
 
+		public virtual void Delete() { }
+
 		public virtual bool Equals(TagUsage another) {
 
 			if (another == null)
