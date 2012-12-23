@@ -13,12 +13,16 @@ namespace VocaDb.Model.DataContracts.Tags {
 			ParamIs.NotNull(() => usage);
 
 			Count = usage.Count;
+			Id = usage.Id;
 			TagName = usage.Tag.Name;
 
 		}
 
 		[DataMember]
 		public int Count { get; set; }
+
+		[DataMember]
+		public long Id { get; set; }
 
 		[DataMember]
 		public string TagName { get; set; }

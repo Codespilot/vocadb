@@ -47,5 +47,9 @@ namespace VocaDb.Model.Domain.Tags {
 			return Id.GetHashCode();
 		}
 
+		public override string ToString() {
+			return string.Format("Vote for {0} by {1}", UsageBase, User);
+		}
+
 	}
 }
