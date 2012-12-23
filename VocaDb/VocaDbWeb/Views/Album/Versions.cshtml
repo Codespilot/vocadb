@@ -4,7 +4,7 @@
 	ViewBag.Title = ViewRes.EntryDetailsStrings.Revisions + " - " + Model.Album.Name;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Albums, "Index"), 
-		LinkExtensions.ActionLink(Html, Model.Album.Name, "Details", new { id = Model.Album.Id }) 
+		Html.ActionLink(Model.Album.Name, "Details", new { id = Model.Album.Id }) 
 	};
 }
 

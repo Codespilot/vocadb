@@ -207,6 +207,15 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[Authorize]
+		public ActionResult UpdateTagVoteCounts() {
+
+			var count = Service.UpdateTagVoteCounts();
+			TempData.SetStatusMessage(string.Format("Updated tag vote counts, {0} corrections made", count));
+			return RedirectToAction("Index");
+
+		}
+
+		[Authorize]
 		public ActionResult ViewAuditLog(ViewAuditLogModel model) {
 
 			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);

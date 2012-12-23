@@ -430,6 +430,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult ManageTagUsages(int id) {
+
+			var album = Service.GetEntryWithTagUsages(id);
+			return View(album);
+
+		}
+
 		[Obsolete]
 		public ActionResult MassTagSongs(int id) {
 

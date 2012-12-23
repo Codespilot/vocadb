@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.EntryValidators;
@@ -456,6 +457,47 @@ namespace VocaDb.Model.Service {
 
 			});
 			
+
+		}
+
+		private void UpdateVoteCounts<T>(ISession session, IEnumerable<T> usages, ref int count) where T : TagUsage {
+
+			foreach (var usage in usages) {
+
+				var realCount = usage.VotesBase.Count();
+
+				if (usage.Count != realCount) {
+					usage.Count = realCount;
+					session.Update(usage);
+					count++;
+				}
+
+			}
+
+		}
+
+		public int UpdateTagVoteCounts() {
+
+			VerifyAdmin();
+
+			AuditLog("updating tag vote counts");
+
+			int count = 0;
+
+			HandleTransaction(session => {
+
+				var artistUsages = session.Query<ArtistTagUsage>().Where(a => !a.Artist.Deleted).ToArray();
+				UpdateVoteCounts(session, artistUsages, ref count);
+
+				var albumUsages = session.Query<AlbumTagUsage>().Where(a => !a.Album.Deleted).ToArray();
+				UpdateVoteCounts(session, albumUsages, ref count);
+
+				var songUsages = session.Query<SongTagUsage>().Where(a => !a.Song.Deleted).ToArray();
+				UpdateVoteCounts(session, songUsages, ref count);
+
+			});
+
+			return count;
 
 		}
 

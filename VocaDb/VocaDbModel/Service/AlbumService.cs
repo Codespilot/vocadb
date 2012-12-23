@@ -1014,6 +1014,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public EntryWithTagUsagesContract GetEntryWithTagUsages(int albumId) {
+
+			return HandleQuery(session => { 
+				
+				var album = session.Load<Album>(albumId);
+				return new EntryWithTagUsagesContract(album, album.Tags.Usages);
+
+			});
+
+		}
+
 		public TagSelectionContract[] GetTagSelections(int albumId, int userId) {
 
 			return HandleQuery(session => {
