@@ -56,7 +56,7 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
-		public virtual void Delete() {
+		public override void Delete() {
 
 			Artist.Tags.Usages.Remove(this);
 			Tag.AllArtistTagUsages.Remove(this);

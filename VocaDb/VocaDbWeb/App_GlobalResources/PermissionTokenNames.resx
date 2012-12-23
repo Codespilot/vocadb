@@ -183,6 +183,9 @@
   <data name="ReadRecentComments" xml:space="preserve">
     <value>Read recent comments</value>
   </data>
+  <data name="RemoveTagUsages" xml:space="preserve">
+    <value>Remove tag usages</value>
+  </data>
   <data name="RestoreRevisions" xml:space="preserve">
     <value>Restore revisions</value>
   </data>
