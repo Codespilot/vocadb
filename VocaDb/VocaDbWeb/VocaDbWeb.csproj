@@ -1527,6 +1527,7 @@
     <Content Include="Views\Artist\ArtistPopupContent.cshtml" />
     <Content Include="Views\Album\AlbumWithCoverPopupContent.cshtml" />
     <Content Include="Views\Album\ManageTagUsages.cshtml" />
+    <Content Include="Views\Artist\ManageTagUsages.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -1556,6 +1557,7 @@
     <Content Include="Views\Ext\EmbedSong.cshtml" />
     <Content Include="Views\User\PagedUsers.cshtml" />
     <Content Include="Views\User\OwnedArtistForUserEditRow.cshtml" />
+    <Content Include="Views\Song\ManageTagUsages.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

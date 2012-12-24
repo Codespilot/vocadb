@@ -63,6 +63,7 @@ function initPage(artistId, saveStr, hostAddress) {
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
+	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
 		return false;

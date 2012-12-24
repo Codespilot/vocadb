@@ -9,7 +9,8 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 	$("#editSongLink").button({ disabled: $("#editSongLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
-	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
+	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
+	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock' } });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
 		return false;

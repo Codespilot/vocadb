@@ -109,6 +109,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
 	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
+	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewCommentsLink").click(function () {
 		$("#tabs").tabs("select", 1);
 		return false;
