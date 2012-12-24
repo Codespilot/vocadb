@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Security;
 @using R = ViewRes.Song;
 @model SongDetails
 @{	
@@ -124,6 +125,9 @@
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
 					<a href="#" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
+					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
+						@Html.ActionLink("Manage", "ManageTagUsages", new { id = Model.Id }, new { id = "manageTags" })
+					}
 				</td>
 			</tr>
 			

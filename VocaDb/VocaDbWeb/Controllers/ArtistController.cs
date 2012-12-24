@@ -115,6 +115,16 @@ namespace VocaDb.Web.Controllers
 
         }
 
+        [Authorize]
+        public ActionResult RemoveTagUsage(long id) {
+
+            var artistId = Service.RemoveTagUsage(id);
+            TempData.SetStatusMessage("Tag usage removed");
+
+            return RedirectToAction("ManageTagUsages", new { id = artistId });
+
+        }
+
 		public ActionResult Restore(int id) {
 
 			Service.Restore(id);
@@ -356,6 +366,14 @@ namespace VocaDb.Web.Controllers
 			Service.Delete(id);
 
             return RedirectToAction("Index");
+
+        }
+
+        [Authorize]
+        public ActionResult ManageTagUsages(int id) {
+
+            var artist = Service.GetEntryWithTagUsages(id);
+            return View(artist);
 
         }
 
