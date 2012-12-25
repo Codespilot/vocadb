@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Policy;
 using System.ServiceModel.Syndication;
+using System.Web;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
@@ -379,7 +381,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult PVEmbedNND(int pvId) {
+		public ActionResult PVEmbedNND(int pvId = invalidId) {
+
+		    if (pvId == invalidId)
+		        return NoId();
 
 			var pv = Service.PVForSong(pvId);
 			return PartialView("PVEmbedNND", pv);

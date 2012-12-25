@@ -1,0 +1,31 @@
+﻿using System.Web.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Web.Controllers;
+
+namespace VocaDb.Tests.Web.Controllers {
+
+	/// <summary>
+	/// Tests for <see cref="SongController"/>.
+	/// </summary>
+	[TestClass]
+	public class SongControllerTests {
+
+		private SongController controller;
+
+		[TestInitialize]
+		public void SetUp() {
+			controller = new SongController();
+		}
+
+		[TestMethod]
+		public void PVEmbedNND_NoId() {
+
+			var result = controller.PVEmbedNND();
+
+			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
+
+		}
+
+	}
+
+}
