@@ -38,7 +38,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Details(int id) {
+		public ActionResult Details(int id = invalidId) {
+
+		    if (id == invalidId)
+		        return NoId();
 
 			var ev = Service.GetReleaseEventDetails(id);
 			return View(ev);
