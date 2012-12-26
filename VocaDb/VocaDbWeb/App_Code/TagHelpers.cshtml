@@ -118,7 +118,7 @@
 				</td>
 				<td>
 					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
-						@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink" })
+						@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink", @onclick = "javascript: return confirm('Really delete?');" })
 					}
 				</td>
 			</tr>
