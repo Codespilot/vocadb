@@ -142,6 +142,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Manage.
+        /// </summary>
+        public static string ManageTags {
+            get {
+                return ResourceManager.GetString("ManageTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nothing yet!.
         /// </summary>
         public static string NoComments {

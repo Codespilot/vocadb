@@ -144,6 +144,9 @@
   <data name="LatestComments" xml:space="preserve">
     <value>Viimeisimmät kommentit</value>
   </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>Hallitse</value>
+  </data>
   <data name="NoComments" xml:space="preserve">
     <value>Ei mitään vielä!</value>
   </data>

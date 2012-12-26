@@ -126,7 +126,7 @@
 					</span>
 					<a href="#" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
-						@Html.ActionLink("Manage", "ManageTagUsages", new { id = Model.Id }, new { id = "manageTags" })
+						@Html.ActionLink(ViewRes.EntryDetailsStrings.ManageTags, "ManageTagUsages", new { id = Model.Id }, new { id = "manageTags" })
 					}
 				</td>
 			</tr>
