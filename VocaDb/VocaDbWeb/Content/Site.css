@@ -846,3 +846,16 @@ div.comment p {
 	margin-left: auto;
 	margin-right: auto;
 }
+
+form.form-topMargin {
+	margin-top: 18px;
+	margin-bottom: 0;
+}
+
+.form-horizontal .control-group {
+	margin-bottom: 7px;
+}
+
+.dropdown-menu li > a:hover {
+	color: white !important;
+}

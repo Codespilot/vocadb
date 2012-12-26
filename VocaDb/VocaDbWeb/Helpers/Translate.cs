@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using NHibernate.Hql.Ast.ANTLR;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts.Security;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
@@ -11,6 +13,7 @@ using VocaDb.Model.Domain.Globalization;
 using Resources;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service;
 using VocaDb.Web.Helpers.Support;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain;
@@ -60,6 +63,9 @@ namespace VocaDb.Web.Helpers {
 
 		public static readonly TranslateableEnum<SongReportType> SongReportTypeNames =
 			new TranslateableEnum<SongReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
+
+		public static readonly TranslateableEnum<SongSortRule> SongSortRuleNames =
+			new TranslateableEnum<SongSortRule>(() => global::Resources.SongSortRuleNames.ResourceManager, EnumVal<SongSortRule>.Values.Except(new [] { SongSortRule.None }));
 
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
 			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);

@@ -120,6 +120,18 @@
   <data name="AddedToList" xml:space="preserve">
     <value>Lisätty listaan</value>
   </data>
+  <data name="ArtistFilter" xml:space="preserve">
+    <value>artistilla</value>
+  </data>
+  <data name="OnlyWithPVsFilter" xml:space="preserve">
+    <value>vain videot</value>
+  </data>
+  <data name="SinceFilter" xml:space="preserve">
+    <value>uudempi kuin {0}</value>
+  </data>
+  <data name="SongTypeFilter" xml:space="preserve">
+    <value>kappaleen tyypillä '{0}'</value>
+  </data>
   <data name="ThanksForRating" xml:space="preserve">
     <value>Kiitos arvostelusta!</value>
   </data>

@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddedToList" xml:space="preserve">
-    <value>Added to list</value>
+  <data name="DraftsOnlyFilter" xml:space="preserve">
+    <value>vain vedokset</value>
   </data>
-  <data name="ArtistFilter" xml:space="preserve">
-    <value>artist</value>
+  <data name="ExactTitleFilter" xml:space="preserve">
+    <value>tarkalla nimellä '{0}'</value>
   </data>
-  <data name="OnlyWithPVsFilter" xml:space="preserve">
-    <value>PVs only</value>
+  <data name="FilterPre" xml:space="preserve">
+    <value>Suodatetaan</value>
   </data>
-  <data name="SinceFilter" xml:space="preserve">
-    <value>newer than {0}</value>
+  <data name="StartsWithTitleFilter" xml:space="preserve">
+    <value>alkaa nimellä '{0}'</value>
   </data>
-  <data name="SongTypeFilter" xml:space="preserve">
-    <value>song type '{0}'</value>
-  </data>
-  <data name="ThanksForRating" xml:space="preserve">
-    <value>Thank you for rating!</value>
+  <data name="TitleFilter" xml:space="preserve">
+    <value>nimellä '{0}'</value>
   </data>
 </root>

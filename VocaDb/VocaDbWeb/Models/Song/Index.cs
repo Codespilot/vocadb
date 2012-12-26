@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
@@ -100,6 +102,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public string since { get; set; }
 
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SongType? songType { get; set; }
 
 		public SongSortRule? sort { get; set; }

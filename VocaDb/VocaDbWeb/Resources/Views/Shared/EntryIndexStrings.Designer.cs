@@ -95,5 +95,14 @@ namespace ViewRes {
                 return ResourceManager.GetString("OnlyDrafts", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort by.
+        /// </summary>
+        public static string SortBy {
+            get {
+                return ResourceManager.GetString("SortBy", resourceCulture);
+            }
+        }
     }
 }

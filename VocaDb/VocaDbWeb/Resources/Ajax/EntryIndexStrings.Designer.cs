@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Song {
+namespace AjaxRes {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace ViewRes.Song {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class IndexStrings {
+    public class EntryIndexStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal IndexStrings() {
+        internal EntryIndexStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace ViewRes.Song {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Song.IndexStrings", typeof(IndexStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Ajax.EntryIndexStrings", typeof(EntryIndexStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,47 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit a new song.
+        ///   Looks up a localized string similar to draft status.
         /// </summary>
-        public static string AddSong {
+        public static string DraftsOnlyFilter {
             get {
-                return ResourceManager.GetString("AddSong", resourceCulture);
+                return ResourceManager.GetString("DraftsOnlyFilter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} favorite(s)..
+        ///   Looks up a localized string similar to exact title &apos;{0}&apos;.
         /// </summary>
-        public static string Favorites {
+        public static string ExactTitleFilter {
             get {
-                return ResourceManager.GetString("Favorites", resourceCulture);
+                return ResourceManager.GetString("ExactTitleFilter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to From album.
+        ///   Looks up a localized string similar to Filtering by.
         /// </summary>
-        public static string FromAlbum {
+        public static string FilterPre {
             get {
-                return ResourceManager.GetString("FromAlbum", resourceCulture);
+                return ResourceManager.GetString("FilterPre", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Showing all songs..
+        ///   Looks up a localized string similar to starting with title &apos;{0}&apos;.
         /// </summary>
-        public static string NoFilter {
+        public static string StartsWithTitleFilter {
             get {
-                return ResourceManager.GetString("NoFilter", resourceCulture);
+                return ResourceManager.GetString("StartsWithTitleFilter", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rating.
+        ///   Looks up a localized string similar to title &apos;{0}&apos;.
         /// </summary>
-        public static string Rating {
+        public static string TitleFilter {
             get {
-                return ResourceManager.GetString("Rating", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} total score..
-        /// </summary>
-        public static string TotalScore {
-            get {
-                return ResourceManager.GetString("TotalScore", resourceCulture);
+                return ResourceManager.GetString("TitleFilter", resourceCulture);
             }
         }
     }
