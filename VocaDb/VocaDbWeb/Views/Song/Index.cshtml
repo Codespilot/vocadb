@@ -1,4 +1,7 @@
-﻿@using VocaDb.Model.DataContracts.PVs
+﻿@using System.Globalization
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using VocaDb.Model.DataContracts.PVs
 @using VocaDb.Model.Domain.PVs
 @using VocaDb.Web;
 @using VocaDb.Web.Models;
@@ -20,27 +23,71 @@
 
 <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
 
-@if (Model.DraftsOnly) {
-	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
-}
-
-@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-inline" })) {
-	@Html.HiddenFor(m => m.SortRule)
+<div class="row-fluid">
 	
-<p>
-	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
-	&nbsp; 
-	@Html.SongTypeDropDownListFor(a => a.SongType)
-	&nbsp; 
-	<label class="checkbox">
-		@Html.CheckBoxFor(m => m.DraftsOnly)
-		@ViewRes.EntryIndexStrings.OnlyDrafts
-	</label>
-	&nbsp;
-	<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
-</p>
+	<div class="span3">
+		<form>
+			<div>
+				@ViewRes.EntryIndexStrings.SortBy
+				<div class="btn-group">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.SongSortRuleNames[Model.SortRule]
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
+							<li>@Html.ActionLink(sortRule.Value, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = sortRule.Key })</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
 
-	if (Model.Songs.Any()) {
+	<div class="alert alert-info span9">
+		<span style="display: none;" data-bind="visible: hasFilter, text: filterString"></span>
+		<span style="display: none;" data-bind="visible: noFilter">@R.IndexStrings.NoFilter</span>
+		<button class="btn dropdown-toggle" onclick="$('#filterForm').toggle();">@ViewRes.SharedStrings.Filter <span class="caret"></span></button>
+		@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-horizontal form-topMargin", @id = "filterForm", @style = "display: none;" })) {
+			@Html.HiddenFor(m => m.SortRule)
+		
+		<div class="control-group">
+			<div class="control-label">@ViewRes.SharedStrings.Name</div>
+			<div class="controls">
+				@Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="control-label">Song type</div>			
+			<div class="controls">
+				@Html.SongTypeDropDownListFor(a => a.SongType)
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+				@Html.CheckBoxFor(m => m.OnlyWithPVs)
+				Only with PVs
+				</label>
+			</div>	  
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+					@Html.CheckBoxFor(m => m.DraftsOnly)
+					@ViewRes.EntryIndexStrings.OnlyDrafts
+				</label>
+			</div>	  
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
+			</div>	  
+		</div>	  
+		}
+	</div>
+</div>
+	
+	@if (Model.Songs.Any()) {
 	
 <p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
 	
@@ -127,7 +174,6 @@ if (Model.ViewMode == SongViewMode.Details) {
 @Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 
-}
 @if (!Model.Songs.Any()) {
 
 	<p>@ViewRes.EntryIndexStrings.NoResults</p>
@@ -135,12 +181,19 @@ if (Model.ViewMode == SongViewMode.Details) {
 
 }
 
-
+@section BodyScripts {
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		initPage();
+
+		vdb.resources.entryIndex = @ResourceHelpers.ToJSON(AjaxRes.EntryIndexStrings.ResourceManager);
+		vdb.resources.song = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager);
+		vdb.resources.songTypes = @ResourceHelpers.ToJSON(Resources.SongTypeNames.ResourceManager);
+
+		var json = @Html.Raw(JsonConvert.SerializeObject(Model.RouteParams));
+		initPage(json);
 	});
 
 </script>
+}

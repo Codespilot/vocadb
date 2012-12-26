@@ -448,6 +448,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EntryReportTypeNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongSortRuleNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongSortRuleNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongSortRuleNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongSortRuleNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Songs\SongVoteRatingNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -588,6 +598,7 @@
     <Compile Include="Helpers\RadioButtonHelpers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helpers\ResourceHelpers.cs" />
     <Compile Include="Helpers\SearchHelpers.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\Support\TranslateableEnum.cs" />
@@ -635,6 +646,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Ajax\EntryIndexStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntryIndexStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Ajax\SharedStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1924,6 +1940,14 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>WebLinkCategoryNames.ru.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\Songs\SongSortRuleNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongSortRuleNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Songs\SongSortRuleNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongSortRuleNames.fi.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -1931,6 +1955,12 @@
       <CustomToolNamespace>AjaxRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Ajax\EntryIndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Ajax\EntryIndexStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EntryIndexStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>AjaxRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Ajax\SharedStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\SharedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

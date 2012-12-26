@@ -70,6 +70,42 @@ namespace AjaxRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to artist.
+        /// </summary>
+        public static string ArtistFilter {
+            get {
+                return ResourceManager.GetString("ArtistFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PVs only.
+        /// </summary>
+        public static string OnlyWithPVsFilter {
+            get {
+                return ResourceManager.GetString("OnlyWithPVsFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to newer than {0}.
+        /// </summary>
+        public static string SinceFilter {
+            get {
+                return ResourceManager.GetString("SinceFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to song type &apos;{0}&apos;.
+        /// </summary>
+        public static string SongTypeFilter {
+            get {
+                return ResourceManager.GetString("SongTypeFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thank you for rating!.
         /// </summary>
         public static string ThanksForRating {

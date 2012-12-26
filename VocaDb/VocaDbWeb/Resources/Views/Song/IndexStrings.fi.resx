@@ -126,6 +126,9 @@
   <data name="FromAlbum" xml:space="preserve">
     <value>Albumilta</value>
   </data>
+  <data name="NoFilter" xml:space="preserve">
+    <value>Näytetään kaikki kappaleet.</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Arvostelu</value>
   </data>

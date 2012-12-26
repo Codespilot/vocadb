@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddedToList" xml:space="preserve">
-    <value>Added to list</value>
+  <data name="AdditionDate" xml:space="preserve">
+    <value>Addition date</value>
   </data>
-  <data name="ArtistFilter" xml:space="preserve">
-    <value>artist</value>
+  <data name="FavoritedTimes" xml:space="preserve">
+    <value>Times favorited</value>
   </data>
-  <data name="OnlyWithPVsFilter" xml:space="preserve">
-    <value>PVs only</value>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="SinceFilter" xml:space="preserve">
-    <value>newer than {0}</value>
+  <data name="None" xml:space="preserve">
+    <value>Nothing</value>
   </data>
-  <data name="SongTypeFilter" xml:space="preserve">
-    <value>song type '{0}'</value>
-  </data>
-  <data name="ThanksForRating" xml:space="preserve">
-    <value>Thank you for rating!</value>
+  <data name="RatingScore" xml:space="preserve">
+    <value>Rating score</value>
   </data>
 </root>

@@ -126,6 +126,9 @@
   <data name="FromAlbum" xml:space="preserve">
     <value>From album</value>
   </data>
+  <data name="NoFilter" xml:space="preserve">
+    <value>Showing all songs.</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Rating</value>
   </data>
