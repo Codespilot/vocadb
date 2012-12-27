@@ -121,7 +121,7 @@
     <value>Lisätty listaan</value>
   </data>
   <data name="ArtistFilter" xml:space="preserve">
-    <value>artistilla</value>
+    <value>artistilla '{0}'</value>
   </data>
   <data name="OnlyWithPVsFilter" xml:space="preserve">
     <value>vain videot</value>

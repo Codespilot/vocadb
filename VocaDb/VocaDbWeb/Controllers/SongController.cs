@@ -103,7 +103,8 @@ namespace VocaDb.Web.Controllers
 				(page - 1) * pageSize, pageSize, draftsOnly, true, matchMode, sortRule, false, false, null) {
 
 				TimeFilter = timeFilter,
-				OnlyWithPVs = onlyWithPVs
+				OnlyWithPVs = onlyWithPVs,
+				ArtistId = indexParams.artistId ?? 0
 			};
 
 			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);

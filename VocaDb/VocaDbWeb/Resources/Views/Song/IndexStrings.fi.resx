@@ -120,6 +120,12 @@
   <data name="AddSong" xml:space="preserve">
     <value>Lisää kappale</value>
   </data>
+  <data name="ArtistFilter" xml:space="preserve">
+    <value>Artisti</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Tyhjennä</value>
+  </data>
   <data name="Favorites" xml:space="preserve">
     <value>{0} suosikki(a).</value>
   </data>

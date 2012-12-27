@@ -115,6 +115,16 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		public ActionResult Info(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
+
+			var artist = Service.GetArtist(id);
+			return Json(artist);
+
+		}
+
         [Authorize]
         public ActionResult RemoveTagUsage(long id) {
 

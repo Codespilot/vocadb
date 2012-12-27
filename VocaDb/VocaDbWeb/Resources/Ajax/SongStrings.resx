@@ -121,7 +121,7 @@
     <value>Added to list</value>
   </data>
   <data name="ArtistFilter" xml:space="preserve">
-    <value>artist</value>
+    <value>artist '{0}'</value>
   </data>
   <data name="OnlyWithPVsFilter" xml:space="preserve">
     <value>PVs only</value>

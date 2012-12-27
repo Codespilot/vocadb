@@ -30,7 +30,7 @@
 			<div>
 				@ViewRes.EntryIndexStrings.SortBy
 				<div class="btn-group">
-					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.SongSortRuleNames[Model.SortRule]
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.SongSortRuleNames[Model.Sort]
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu">
@@ -44,18 +44,34 @@
 	</div>
 
 	<div class="alert alert-info span9">
-		<span style="display: none;" data-bind="visible: hasFilter, text: filterString"></span>
-		<span style="display: none;" data-bind="visible: noFilter">@R.IndexStrings.NoFilter</span>
+		<span style="display: none;" data-bind="visible: filterString, text: filterString"></span>
+		<span style="display: none;" data-bind="visible: !filterString()">@R.IndexStrings.NoFilter</span>
 		<button class="btn dropdown-toggle" onclick="$('#filterForm').toggle();">@ViewRes.SharedStrings.Filter <span class="caret"></span></button>
 		@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-horizontal form-topMargin", @id = "filterForm", @style = "display: none;" })) {
-			@Html.HiddenFor(m => m.SortRule)
+			@Html.HiddenFor(m => m.Sort)
+			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
 		
-		<div class="control-group">
+		<div class="control-group" data-bind="visible: !artistId()">
 			<div class="control-label">@ViewRes.SharedStrings.Name</div>
 			<div class="controls">
-				@Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "size", 30 }, { "data-bind", "value:filter" } }) 
 			</div>
 		</div>
+		<div class="control-group" data-bind="visible: !artistId()">
+			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
+			<div class="controls">
+				<input type="text" id="artistNameSearch" data-bind="value:filterArtistName" />
+			</div>
+		</div>	  
+		<div class="control-group" data-bind="visible: artistId()">
+			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
+			<div class="controls">
+				<div class="input-append">
+					<input type="text" class="input-large" readonly="readonly" data-bind="value:filterArtistName" />					
+					<button type="button" class="btn" data-bind="click: clearArtist">@R.IndexStrings.Clear</button>
+				</div>
+			</div>
+		</div>	  
 		<div class="control-group">
 			<div class="control-label">@R.IndexStrings.SongTypeFilter</div>			
 			<div class="controls">

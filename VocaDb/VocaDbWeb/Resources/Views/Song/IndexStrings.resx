@@ -120,6 +120,12 @@
   <data name="AddSong" xml:space="preserve">
     <value>Submit a new song</value>
   </data>
+  <data name="ArtistFilter" xml:space="preserve">
+    <value>Artist</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
   <data name="Favorites" xml:space="preserve">
     <value>{0} favorite(s).</value>
   </data>

@@ -70,6 +70,24 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Artist.
+        /// </summary>
+        public static string ArtistFilter {
+            get {
+                return ResourceManager.GetString("ArtistFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string Clear {
+            get {
+                return ResourceManager.GetString("Clear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} favorite(s)..
         /// </summary>
         public static string Favorites {
