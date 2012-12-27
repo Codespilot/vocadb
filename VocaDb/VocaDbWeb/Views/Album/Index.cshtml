@@ -22,6 +22,28 @@
 	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
+<div class="row-fluid">
+	
+	<div class="span3">
+		<form>
+			<div>
+				@ViewRes.EntryIndexStrings.SortBy
+				<div class="btn-group">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.AlbumSortRuleNames[Model.Sort]
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						@foreach (var sortRule in Translate.AlbumSortRuleNames.ValuesAndNames) {
+							<li>@Html.ActionLink(sortRule.Value, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = sortRule.Key })</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+
 @using (Html.BeginForm("Index", "Album", FormMethod.Post, new { @class = "form-inline" })) {
 	@Html.HiddenFor(m => m.Sort)
 	
@@ -35,7 +57,7 @@
 		@ViewRes.EntryIndexStrings.OnlyDrafts
 	</label>
 	&nbsp;
-	<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
+	<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
 </p>
 
 	if (Model.Albums.Any()) {

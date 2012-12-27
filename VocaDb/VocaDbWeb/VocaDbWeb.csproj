@@ -193,6 +193,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumMediaTypeNames.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Albums\AlbumSortRuleNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumSortRuleNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Albums\AlbumSortRuleNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumSortRuleNames.fi.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ArtistArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,6 +242,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistRoleNames.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Artists\ArtistSortRuleNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistSortRuleNames.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Artists\ArtistSortRuleNames.fi.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistSortRuleNames.fi.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\CommonMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1947,6 +1967,22 @@
     <Content Include="App_GlobalResources\Songs\SongSortRuleNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongSortRuleNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Albums\AlbumSortRuleNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumSortRuleNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Albums\AlbumSortRuleNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumSortRuleNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Artists\ArtistSortRuleNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistSortRuleNames.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Artists\ArtistSortRuleNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ArtistSortRuleNames.fi.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">

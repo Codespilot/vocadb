@@ -16,6 +16,28 @@
 	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
 
+<div class="row-fluid">
+	
+	<div class="span3">
+		<form>
+			<div>
+				@ViewRes.EntryIndexStrings.SortBy
+				<div class="btn-group">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.ArtistSortRuleNames[Model.Sort]
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						@foreach (var sortRule in Translate.ArtistSortRuleNames.ValuesAndNames) {
+							<li>@Html.ActionLink(sortRule.Value, "Index", new { page = 1, filter = Model.Filter, artistType = Model.ArtistType, draftsOnly = Model.DraftsOnly, sort = sortRule.Key })</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+
 @using (Html.BeginForm("Index", "Artist", FormMethod.Post, new { @class = "form-inline" })) {
 	@Html.HiddenFor(m => m.Sort)
 	

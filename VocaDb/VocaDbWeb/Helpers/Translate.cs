@@ -31,11 +31,17 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<AlbumReportType> AlbumReportTypeNames =
 			new TranslateableEnum<AlbumReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
 
+		public static readonly TranslateableEnum<AlbumSortRule> AlbumSortRuleNames =
+			new TranslateableEnum<AlbumSortRule>(() => global::Resources.AlbumSortRuleNames.ResourceManager, new[] { AlbumSortRule.Name, AlbumSortRule.AdditionDate, AlbumSortRule.ReleaseDate, AlbumSortRule.RatingAverage });
+
 		public static readonly TranslateableEnum<ArtistReportType> ArtistReportTypeNames =
 			new TranslateableEnum<ArtistReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<ArtistRoles> ArtistRoleNames =
 			new TranslateableEnum<ArtistRoles>(() => global::Resources.ArtistRoleNames.ResourceManager);
+
+		public static readonly TranslateableEnum<ArtistSortRule> ArtistSortRuleNames =
+			new TranslateableEnum<ArtistSortRule>(() => global::Resources.ArtistSortRuleNames.ResourceManager, new[] { ArtistSortRule.Name, ArtistSortRule.AdditionDate });
 
 		public static readonly TranslateableEnum<EntryEditEvent> EntryEditEventNames =
 			new TranslateableEnum<EntryEditEvent>(() => global::Resources.EntryEditEventNames.ResourceManager);
@@ -65,7 +71,7 @@ namespace VocaDb.Web.Helpers {
 			new TranslateableEnum<SongReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<SongSortRule> SongSortRuleNames =
-			new TranslateableEnum<SongSortRule>(() => global::Resources.SongSortRuleNames.ResourceManager, EnumVal<SongSortRule>.Values.Except(new [] { SongSortRule.None }));
+			new TranslateableEnum<SongSortRule>(() => global::Resources.SongSortRuleNames.ResourceManager, new[] { SongSortRule.Name, SongSortRule.AdditionDate, SongSortRule.RatingScore, SongSortRule.FavoritedTimes,  });
 
 		public static readonly TranslateableEnum<SongType> SongTypeNames =
 			new TranslateableEnum<SongType>(() => global::Resources.SongTypeNames.ResourceManager);
