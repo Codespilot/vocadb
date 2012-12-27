@@ -174,7 +174,7 @@ namespace VocaDb.Model.Service {
 			Song[] songs;
 			bool foundExactMatch = false;
 
-			if (string.IsNullOrWhiteSpace(query)) {
+			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
 
 				var q = session.Query<Song>()
 					.Where(s => !s.Deleted 
@@ -196,11 +196,9 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
-			// TODO: refactor using advanced search parser
-			} else if (query.StartsWith("artist:")) {
+			} else if (queryParams.ArtistId != 0) {
 
-				int artistId;
-				int.TryParse(query.Substring(7), out artistId);
+				int artistId = queryParams.ArtistId;
 
 				var q = session.Query<ArtistForSong>()
 					.Where(m => !m.Song.Deleted && m.Artist.Id == artistId);
@@ -287,7 +285,7 @@ namespace VocaDb.Model.Service {
 			}
 
 			int count = (getTotalCount 
-				? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode, queryParams.TimeFilter, queryParams.OnlyWithPVs) 
+				? GetSongCount(session, query, songTypes, onlyByName, draftsOnly, nameMatchMode, queryParams.TimeFilter, queryParams.OnlyWithPVs, queryParams) 
 				: 0);
 
 			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, foundExactMatch);
@@ -295,11 +293,11 @@ namespace VocaDb.Model.Service {
 		}
 
 		private int GetSongCount(ISession session, string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode, 
-			TimeSpan timeFilter, bool onlyWithPVs) {
+			TimeSpan timeFilter, bool onlyWithPVs, SongQueryParams queryParams) {
 
 			bool filterByType = songTypes.Any();
 
-			if (string.IsNullOrWhiteSpace(query)) {
+			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
 
 				var q = session.Query<Song>()
 					.Where(s => !s.Deleted);
@@ -315,11 +313,9 @@ namespace VocaDb.Model.Service {
 
 				return q.Count();
 
-			// TODO: refactor using advanced search parser
-			} else if (query.StartsWith("artist:")) {
+			} else if (queryParams.ArtistId != 0) {
 
-				int artistId;
-				int.TryParse(query.Substring(7), out artistId);
+				int artistId = queryParams.ArtistId;
 
 				var q = session.Query<ArtistForSong>()
 					.Where(m => !m.Song.Deleted && m.Artist.Id == artistId);

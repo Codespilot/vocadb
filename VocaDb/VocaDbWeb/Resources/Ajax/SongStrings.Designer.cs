@@ -70,7 +70,7 @@ namespace AjaxRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to artist.
+        ///   Looks up a localized string similar to artist &apos;{0}&apos;.
         /// </summary>
         public static string ArtistFilter {
             get {

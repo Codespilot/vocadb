@@ -20,6 +20,7 @@ namespace VocaDb.Web.Models.Song {
 			SongSortRule sortRule, SongViewMode viewMode, 
 			bool draftsOnly, int page, int pageSize, IndexRouteParams routeParams) {
 
+			ArtistId = routeParams.artistId ?? 0;
 			DraftsOnly = draftsOnly;
 			Songs = new StaticPagedList<SongWithAlbumAndPVsContract>(result.Items, 
 				page, pageSize, result.TotalCount);
@@ -28,11 +29,13 @@ namespace VocaDb.Web.Models.Song {
 			SongType = songType;
 			Since = timeFilter;
 			OnlyWithPVs = onlyWithPVs;
-			SortRule = sortRule;
+			Sort = sortRule;
 			ViewMode = viewMode;
 			RouteParams = routeParams;
 
 		}
+
+		public int ArtistId { get; set; }
 
 		[Display(ResourceType = typeof(ViewRes.EntryIndexStrings), Name = "OnlyDrafts")]
 		public bool DraftsOnly { get; set; }
@@ -53,7 +56,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public SongType SongType { get; set; }
 
-		public SongSortRule SortRule { get; set; }
+		public SongSortRule Sort { get; set; }
 
 		public SongViewMode ViewMode { get; set; }
 
@@ -75,6 +78,7 @@ namespace VocaDb.Web.Models.Song {
 
 			ParamIs.NotNull(() => index);
 
+			artistId = index.artistId;
 			draftsOnly = index.draftsOnly;
 			filter = index.filter;
 			matchMode = index.matchMode;
@@ -87,6 +91,8 @@ namespace VocaDb.Web.Models.Song {
 			this.page = page;
 
 		}
+
+		public int? artistId { get; set; }
 
 		public bool? draftsOnly { get; set; }
 

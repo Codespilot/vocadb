@@ -43,6 +43,8 @@ namespace VocaDb.Model.Service.Search.Song {
 
 		}
 
+		public int ArtistId { get; set; }
+
 		public CommonSearchParams Common { get; set; }
 
 		public int[] IgnoredIds { get; set; }
