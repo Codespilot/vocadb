@@ -664,8 +664,8 @@ div.pvViewerContent {
   position:relative;
   overflow:hidden;
   height: 461px;
-  min-width: 560px;
-  max-width: 565px;
+  min-width: 555px;
+  max-width: 560px;
   padding:10px;
   background-color:#333
 }
@@ -707,14 +707,15 @@ div.pvViewerContent .ratingButtons {
   clear:both;
   color:#FFFFFF;
   font-size:12px;
-  height:75px;
+  height:81px;
   list-style-type:none;
   list-style:none;
-  padding:10px;
+  padding:7px;
   width:190px;
   cursor:pointer;
 	margin-top:0 !important;
-	margin-bottom: 0px;
+	margin-bottom: 0;
+	overflow: hidden;
   }
 
 .scrollable-navi .item:hover {

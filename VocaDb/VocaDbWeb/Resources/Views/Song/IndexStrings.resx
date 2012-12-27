@@ -129,8 +129,14 @@
   <data name="NoFilter" xml:space="preserve">
     <value>Showing all songs.</value>
   </data>
+  <data name="OnlyWithPVsFilter" xml:space="preserve">
+    <value>Only with PVs</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Rating</value>
+  </data>
+  <data name="SongTypeFilter" xml:space="preserve">
+    <value>Song type</value>
   </data>
   <data name="TotalScore" xml:space="preserve">
     <value>{0} total score.</value>

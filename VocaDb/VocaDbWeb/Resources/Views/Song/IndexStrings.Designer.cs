@@ -97,11 +97,29 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only with PVs.
+        /// </summary>
+        public static string OnlyWithPVsFilter {
+            get {
+                return ResourceManager.GetString("OnlyWithPVsFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rating.
         /// </summary>
         public static string Rating {
             get {
                 return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Song type.
+        /// </summary>
+        public static string SongTypeFilter {
+            get {
+                return ResourceManager.GetString("SongTypeFilter", resourceCulture);
             }
         }
         

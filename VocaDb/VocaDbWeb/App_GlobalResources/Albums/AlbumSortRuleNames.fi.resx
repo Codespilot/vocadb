@@ -117,28 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddSong" xml:space="preserve">
-    <value>Lisää kappale</value>
+  <data name="AdditionDate" xml:space="preserve">
+    <value>Lisäyspäivän mukaan</value>
   </data>
-  <data name="Favorites" xml:space="preserve">
-    <value>{0} suosikki(a).</value>
+  <data name="Name" xml:space="preserve">
+    <value>Nimen mukaan</value>
   </data>
-  <data name="FromAlbum" xml:space="preserve">
-    <value>Albumilta</value>
+  <data name="RatingAverage" xml:space="preserve">
+    <value>Arvostelun mukaan</value>
   </data>
-  <data name="NoFilter" xml:space="preserve">
-    <value>Näytetään kaikki kappaleet.</value>
-  </data>
-  <data name="OnlyWithPVsFilter" xml:space="preserve">
-    <value>Vain videot</value>
-  </data>
-  <data name="Rating" xml:space="preserve">
-    <value>Arvostelu</value>
-  </data>
-  <data name="SongTypeFilter" xml:space="preserve">
-    <value>Kappaleen tyyppi</value>
-  </data>
-  <data name="TotalScore" xml:space="preserve">
-    <value>{0} pistettä yhteensä.</value>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Julkaisupäivän mukaan</value>
   </data>
 </root>
