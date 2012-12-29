@@ -97,6 +97,7 @@
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
     <Compile Include="Web\Controllers\EventControllerTests.cs" />
     <Compile Include="Web\Controllers\SongControllerTests.cs" />
+    <Compile Include="Web\Controllers\SongListControllerTests.cs" />
     <Compile Include="Web\Controllers\TagControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>

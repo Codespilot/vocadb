@@ -169,6 +169,12 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual int FavoritedTimes { get; set; }
 
+		public virtual bool HasOriginalVersion {
+			get {
+				return SongType != SongType.Original && OriginalVersion != null;
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual IList<SongInList> ListLinks {
@@ -184,6 +190,20 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				lyrics = value;
+			}
+		}
+
+		/// <summary>
+		/// Lyrics for this song, either from the song entry itself, or its original version.
+		/// </summary>
+		public virtual IList<LyricsForSong> LyricsFromParents {
+			get {
+
+				if (SongType != SongType.Instrumental && HasOriginalVersion && !Lyrics.Any() && OriginalVersion.Lyrics.Any())
+					return OriginalVersion.Lyrics;
+
+				return Lyrics;
+
 			}
 		}
 
