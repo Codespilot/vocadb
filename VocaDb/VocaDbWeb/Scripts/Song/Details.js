@@ -129,13 +129,13 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 			$("#editTagsPopup").dialog("open");
 
 			var pvPlayer = $("#pvPlayer");
-			//var pvPlayerTop = pvPlayer.offset().top;
-			//var pvPlayerHeight = pvPlayer.outerHeight();
-			var pvPlayerBottom = pvPlayer.offset().top + pvPlayer.outerHeight() - $(window).scrollTop();
-			var centerTop = (($(window).height() - $("#editTagsPopup").outerHeight()) / 2);
-			var left = (($(window).width() - $("#editTagsPopup").outerWidth()) / 2);
-			var top = Math.max(centerTop, pvPlayerBottom);
-			$("#editTagsPopup").dialog("option", "position", [left, top]);
+			if (pvPlayer.length) {
+				var pvPlayerBottom = pvPlayer.offset().top + pvPlayer.outerHeight() - $(window).scrollTop();
+				var centerTop = (($(window).height() - $("#editTagsPopup").outerHeight()) / 2);
+				var left = (($(window).width() - $("#editTagsPopup").outerWidth()) / 2);
+				var top = Math.max(centerTop, pvPlayerBottom);
+				$("#editTagsPopup").dialog("option", "position", [left, top]);
+			}
 
 		});
 
@@ -158,20 +158,20 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 		$("input.tagSelection").button();
 
-		$("input#newTagName").autocomplete({
-			source: hostAddress + "/Tag/Find"
-		});
+		function addTag(tagName) {
 
-		$("input#addNewTag").click(function () {
-
-			var name = $("#newTagName").val();
-
-			if (name == "")
-				return false;
+			if (isNullOrWhiteSpace(tagName))
+				return;
 
 			$("#newTagName").val("");
 
-			$.post(hostAddress + "/Tag/Create", { name: name }, function (response) {
+			if ($("#tagSelection_" + tagName).length) {
+				$("#tagSelection_" + tagName).prop('checked', true);
+				$("#tagSelection_" + tagName).button("refresh");
+				return;
+			}
+
+			$.post(hostAddress + "/Tag/Create", { name: tagName }, function (response) {
 
 				if (!response.Successful) {
 					alert(response.Message);
@@ -182,6 +182,16 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 			});
 
+		}
+
+		$("input#newTagName").autocomplete({
+			source: hostAddress + "/Tag/Find",
+			select: function (event, ui) { addTag(ui.item.label); return false; }
+		});
+
+		$("#addNewTag").click(function () {
+
+			addTag($("#newTagName").val());
 			return false;
 
 		});

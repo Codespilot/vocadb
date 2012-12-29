@@ -1,22 +1,20 @@
 ﻿
 function initDialog() {
 
-	$("input.tagSelection").button();
+	function addTag(tagName) {
 
-	$("input#newTagName").autocomplete({
-		source: "../../Tag/Find"
-	});
+		if (isNullOrWhiteSpace(tagName))
+			return;
 
-	$("input#addNewTag").click(function () {
+		$("#newTagName").val("");
 
-		var name = $("#newTagName").val();
+		if ($("#tagSelection_" + tagName).length) {
+			$("#tagSelection_" + tagName).prop('checked', true);
+			$("#tagSelection_" + tagName).button("refresh");
+			return;
+		}
 
-		if (name == "")
-			return false;
-
-		$("#newTagName").val("")
-
-		$.post("../../Tag/Create", { name: name }, function (response) {
+		$.post("../../Tag/Create", { name: tagName }, function (response) {
 
 			if (!response.Successful) {
 				alert(response.Message);
@@ -27,6 +25,18 @@ function initDialog() {
 
 		});
 
+	}
+
+	$("input.tagSelection").button();
+
+	$("input#newTagName").autocomplete({
+		source: "../../Tag/Find",
+		select: function (event, ui) { addTag(ui.item.label); return false; }
+	});
+
+	$("#addNewTag").click(function () {
+
+		addTag($("#newTagName").val());
 		return false;
 
 	});
