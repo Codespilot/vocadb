@@ -48,7 +48,7 @@ namespace VocaDb.Web.Models {
 			IsFavorited = contract.IsFavorited;
 			LatestComments = contract.LatestComments;
 			LikedTimes = contract.LikeCount;
-			Lyrics = contract.Lyrics;
+			Lyrics = contract.LyricsFromParents;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;

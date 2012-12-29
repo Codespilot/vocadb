@@ -15,11 +15,14 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			
 			ParamIs.NotNull(() => song);
 
+			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
 			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			ValidationResult = SongValidator.Validate(song);
 			UpdateNotes = string.Empty;
 
 		}
+
+		public LyricsForSongContract[] Lyrics { get; set; }
 
 		public LocalizedStringWithIdContract[] Names { get; set; }
 

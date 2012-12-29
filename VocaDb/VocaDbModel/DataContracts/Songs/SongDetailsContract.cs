@@ -27,7 +27,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			CreateDate = song.CreateDate;
 			Deleted = song.Deleted;
 			LikeCount = song.UserFavorites.Count(f => f.Rating == SongVoteRating.Like);
-			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
+			LyricsFromParents = song.LyricsFromParents.Select(l => new LyricsForSongContract(l)).ToArray();
 			Notes = song.Notes;
 			OriginalVersion = (song.OriginalVersion != null ? new SongWithAdditionalNamesContract(song.OriginalVersion, languagePreference) : null);
 
@@ -83,7 +83,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public int LikeCount { get; set; }
 
 		[DataMember]
-		public LyricsForSongContract[] Lyrics { get; set; }
+		public LyricsForSongContract[] LyricsFromParents { get; set; }
 
 		[DataMember]
 		public string Notes { get; set; }

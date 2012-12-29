@@ -13,6 +13,7 @@ namespace VocaDb.Tests.Domain.Songs {
 	[TestClass]
 	public class SongTests {
 
+		private LyricsForSong lyrics;
 		private Song song;
 
 		private void CreatePV(PVService service) {
@@ -23,6 +24,7 @@ namespace VocaDb.Tests.Domain.Songs {
 		public void Setup() {
 
 			song = new Song();
+			lyrics = song.CreateLyrics(ContentLanguageSelection.Japanese, "Miku!", "miku");
 
 		}
 
@@ -35,6 +37,37 @@ namespace VocaDb.Tests.Domain.Songs {
 			Assert.IsTrue(song.Names.HasNameForLanguage(ContentLanguageSelection.Romaji), "Has name for Romaji");
 			Assert.IsFalse(song.Names.HasNameForLanguage(ContentLanguageSelection.English), "Does not have name for English");
 			Assert.AreEqual("song", song.Names.GetEntryName(ContentLanguagePreference.Romaji).DisplayName, "Display name");
+
+		}
+
+		[TestMethod]
+		public void LyricsFromParents_NoLyrics() {
+
+			var result = new Song().LyricsFromParents;
+
+			Assert.AreEqual(0, result.Count, "no lyrics");
+
+		}
+
+		[TestMethod]
+		public void LyricsFromParents_NoParent() {
+
+			var result = song.LyricsFromParents;
+
+			Assert.AreEqual(1, result.Count, "one entry");
+			Assert.AreSame(lyrics, result.First(), "returned lyrics from entry");
+
+		}
+
+		[TestMethod]
+		public void LyricsFromParents_FromParent() {
+
+			var derived = new Song();
+			derived.OriginalVersion = song;
+			var result = derived.LyricsFromParents;
+
+			Assert.AreEqual(1, result.Count, "one entry");
+			Assert.AreSame(lyrics, result.First(), "returned lyrics from entry");
 
 		}
 
