@@ -492,6 +492,7 @@
     <Compile Include="Service\Rankings\NNDWVRParser.cs" />
     <Compile Include="Service\ReleaseEventService.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumArtistFilter.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumArtistNameFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumNameFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumQueryBuilder.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumTagFilter.cs" />

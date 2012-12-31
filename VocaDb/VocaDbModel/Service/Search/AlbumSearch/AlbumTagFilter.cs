@@ -18,6 +18,12 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			get { return QueryCost.Medium; }
 		}
 
+		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
+
+			return query.Where(a => a.Tags.Usages.Any(u => u.Tag.Name == tagName));
+
+		}
+
 		public void FilterResults(List<Album> albums, ISession session) {
 
 			albums.RemoveAll(a => !(a.Tags.HasTag(tagName)));
@@ -30,6 +36,14 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				.Where(a => a.Tag.Name == tagName)
 				.Select(a => a.Album)
 				.ToList();
+
+		}
+
+		public IQueryable<Album> Query(ISession session) {
+
+			return session.Query<AlbumTagUsage>()
+				.Where(a => a.Tag.Name == tagName)
+				.Select(a => a.Album);
 
 		}
 

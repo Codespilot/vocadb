@@ -1069,8 +1069,10 @@ namespace VocaDb.Model.Service {
 
 				if (user != null) {
 
-					contract.IsFavorited = session.Query<FavoriteSongForUser>()
-						.Any(s => s.Song.Id == songId && s.User.Id == user.Id);
+					var rating = session.Query<FavoriteSongForUser>()
+						.FirstOrDefault(s => s.Song.Id == songId && s.User.Id == user.Id);
+
+					contract.UserRating = (rating != null ? rating.Rating : SongVoteRating.Nothing);
 
 					agentNum = user.Id;
 

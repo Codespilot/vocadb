@@ -27,6 +27,12 @@ namespace VocaDb.Web.Controllers
 			}
 		}
 
+		public ActionResult Albums(string id) {
+
+			return RedirectToActionPermanent("AlbumTagUsages", new { id });
+
+		}
+
 		public PartialViewResult AlbumTagUsages(string id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
@@ -44,6 +50,12 @@ namespace VocaDb.Web.Controllers
 			var data = new PagingData<ArtistTagUsageContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "ArtistTagUsages", "Artists");
 
 			return PartialView("ArtistTagUsages", data);
+
+		}
+
+		public ActionResult Artists(string id) {
+
+			return RedirectToActionPermanent("ArtistTagUsages", new { id });
 
 		}
 
@@ -122,6 +134,12 @@ namespace VocaDb.Web.Controllers
 			var tags = Service.GetTagsByCategories();
 
 			return View(tags);
+
+		}
+
+		public ActionResult Songs(string id) {
+
+			return RedirectToActionPermanent("SongTagUsages", new { id });
 
 		}
 

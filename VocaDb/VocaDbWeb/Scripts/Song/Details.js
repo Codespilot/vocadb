@@ -52,6 +52,8 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 		setRating('Favorite', function (result) {
 
+			$("#likedIcon").hide();
+			$("#favoritedIcon").show();
 			$("#removeFavoriteLink").show();
 			$("#ratingButtons").hide();
 			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
@@ -66,7 +68,9 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
         setRating('Like', function (result) {
 
-	        $("#removeFavoriteLink").show();
+        	$("#likedIcon").show();
+        	$("#favoritedIcon").hide();
+        	$("#removeFavoriteLink").show();
 	        $("#ratingButtons").hide();
 	        vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
 
@@ -80,7 +84,9 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 		setRating('Nothing', function (result) {
 
-		    $("#ratingButtons").show();
+			$("#likedIcon").hide();
+			$("#favoritedIcon").hide();
+			$("#ratingButtons").show();
 			$("#removeFavoriteLink").hide();
 
 		});

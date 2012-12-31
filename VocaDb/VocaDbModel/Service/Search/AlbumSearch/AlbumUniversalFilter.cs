@@ -64,6 +64,13 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		}
 
+		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
+			throw new NotImplementedException();
+		}
+
+		public IQueryable<Album> Query(ISession session) {
+			throw new NotImplementedException();
+		}
 	}
 
 }

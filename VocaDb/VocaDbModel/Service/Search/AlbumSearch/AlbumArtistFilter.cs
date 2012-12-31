@@ -1,42 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 	public class AlbumArtistFilter : ISearchFilter<Album> {
 
-		private readonly string artistName;
+		private readonly int artistId;
 
-		public AlbumArtistFilter(string artistName) {
-			this.artistName = artistName;
+		public AlbumArtistFilter(int artistId) {
+			this.artistId = artistId;
 		}
 
 		public QueryCost Cost {
-			get { return QueryCost.High; }
+			get { return QueryCost.Medium; }
 		}
 
-		public void FilterResults(List<Album> albums, ISession session) {
+		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
 
-			albums.RemoveAll(a => !(
-				a.Artists.Any(r => r.Artist.Names.Any(n => n.Value.IndexOf(artistName, StringComparison.InvariantCultureIgnoreCase) != -1))));
-
+			return query.Where(a => a.AllArtists.Any(u => u.Artist.Id == artistId));
+			
 		}
 
-		public List<Album> GetResults(ISession session) {
+		public IQueryable<Album> Query(ISession session) {
 
-			return session.Query<ArtistName>()
-				.Where(an => an.Value.Contains(artistName))
-				.SelectMany(an => an.Artist.AllAlbums)
-				.Select(an => an.Album)
-				.Distinct()
-				.ToList();
+			return session.Query<ArtistForAlbum>()
+				.Where(a => a.Artist.Id == artistId)
+				.Select(a => a.Album);
 
 		}
-
 	}
 }
