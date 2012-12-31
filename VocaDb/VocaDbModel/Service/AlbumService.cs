@@ -132,14 +132,14 @@ namespace VocaDb.Model.Service {
 			if (!queryPlan.Any())
 				return new PartialFindResult<Album>(new Album[] {}, 0);
 
-			List<Album> albums = null;
+			IQueryable<Album> albums = null;
 
 			foreach (var filter in queryPlan) {
 
 				if (albums == null)
-					albums = filter.GetResults(session);
+					albums = filter.Query(session);
 				else
-					filter.FilterResults(albums, session);
+					albums = filter.Filter(albums, session);
 
 			}
 
@@ -148,7 +148,7 @@ namespace VocaDb.Model.Service {
 				.Take(paging.MaxEntries)
 				.ToArray();
 
-			return new PartialFindResult<Album>(result, albums.Count);
+			return new PartialFindResult<Album>(result, albums.Count());
 
 
 		}

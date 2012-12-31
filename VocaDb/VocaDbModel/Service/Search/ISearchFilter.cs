@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using NHibernate;
 
 namespace VocaDb.Model.Service.Search {
@@ -7,9 +8,13 @@ namespace VocaDb.Model.Service.Search {
 
 		QueryCost Cost { get; }
 
-		void FilterResults(List<TEntry> albums, ISession session);
+		//void FilterResults(List<TEntry> albums, ISession session);
 
-		List<TEntry> GetResults(ISession session);
+		//List<TEntry> GetResults(ISession session);
+
+		IQueryable<TEntry> Filter(IQueryable<TEntry> query, ISession session);
+
+		IQueryable<TEntry> Query(ISession session);
 
 	}
 

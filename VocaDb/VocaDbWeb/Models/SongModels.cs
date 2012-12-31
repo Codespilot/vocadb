@@ -45,7 +45,7 @@ namespace VocaDb.Web.Models {
 			FavoritedTimes = contract.Song.FavoritedTimes;
 			Hits = contract.Hits;
 			Id = contract.Song.Id;
-			IsFavorited = contract.IsFavorited;
+			IsFavorited = contract.UserRating != SongVoteRating.Nothing;
 			LatestComments = contract.LatestComments;
 			LikedTimes = contract.LikeCount;
 			Lyrics = contract.LyricsFromParents;
@@ -58,6 +58,7 @@ namespace VocaDb.Web.Models {
 			SongType = contract.Song.SongType;
 			Status = contract.Song.Status;
 			Tags = contract.Tags;
+			UserRating = contract.UserRating;
 			WebLinks = contract.WebLinks.ToList();
 
 			Animators = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Animator)).ToArray();
@@ -162,6 +163,8 @@ namespace VocaDb.Web.Models {
 		public EntryStatus Status { get; set; }
 
 		public TagUsageContract[] Tags { get; set; }
+
+		public SongVoteRating UserRating { get; set; }
 
 		public IList<WebLinkContract> WebLinks { get; set; }
 

@@ -74,9 +74,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public int Hits { get; set; }
 
 		[DataMember]
-		public bool IsFavorited { get; set; }
-
-		[DataMember]
 		public CommentContract[] LatestComments { get; set; }
 
 		[DataMember]
@@ -105,6 +102,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public TranslatedStringContract TranslatedName { get; set; }
+
+		[DataMember]
+		public SongVoteRating UserRating { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }

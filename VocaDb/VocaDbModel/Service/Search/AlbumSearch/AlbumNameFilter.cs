@@ -4,6 +4,7 @@ using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.Search.AlbumSearch {
 
@@ -19,7 +20,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			get { return QueryCost.Medium; }
 		}
 
-		public void FilterResults(List<Album> albums, ISession session) {
+		/*public void FilterResults(List<Album> albums, ISession session) {
 
 			albums.RemoveAll(a => !(
 				a.Names.Any(n => names.All(n2 => n.Value.IndexOf(n2, StringComparison.InvariantCultureIgnoreCase) != -1))));
@@ -34,6 +35,21 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				q = q.Where(n => n.Value.Contains(n2));
 
 			return q.Select(n => n.Album).ToList();
+
+		}*/
+
+		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
+
+			return query.SelectMany(a => FindHelpers.AddEntryNameFilter(a.Names.Names.AsQueryable(), string.Empty, NameMatchMode.Words, names)).Select(n => n.Album);
+
+		}
+
+		public IQueryable<Album> Query(ISession session) {
+
+			var q = session.Query<AlbumName>();
+
+			return FindHelpers.AddEntryNameFilter(q, string.Empty, NameMatchMode.Words, names)
+				.Select(n => n.Album);
 
 		}
 

@@ -26,7 +26,7 @@ namespace VocaDb.Model.Service.Search {
 		}
 
 		public SearchWord[] TakeAll(string name) {
-			var match = Words.Where(w => !string.IsNullOrEmpty(w.PropertyName) && w.PropertyName.Equals(name, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+			var match = Words.Where(w => w.PropertyName != null && w.PropertyName.Equals(name, StringComparison.InvariantCultureIgnoreCase)).ToArray();
 			Words.RemoveAll(match.Contains);
 			return match;
 		}
