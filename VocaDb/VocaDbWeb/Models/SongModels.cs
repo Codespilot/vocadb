@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web.Mvc;
+using Newtonsoft.Json;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
@@ -127,6 +129,12 @@ namespace VocaDb.Web.Models {
 
 		public bool IsFavorited { get; set; }
 
+		public string Json {
+			get {
+				return JsonConvert.SerializeObject(new SongDetailsAjax(this));
+			}
+		}
+
 		public CommentContract[] LatestComments { get; set; }
 
 		public int LikedTimes { get; set; }
@@ -167,6 +175,19 @@ namespace VocaDb.Web.Models {
 		public SongVoteRating UserRating { get; set; }
 
 		public IList<WebLinkContract> WebLinks { get; set; }
+
+	}
+
+	public class SongDetailsAjax {
+
+		public SongDetailsAjax(SongDetails model) {
+			Id = model.Id;
+			UserRating = model.UserRating;
+		}
+
+		public int Id { get; set; }
+
+		public SongVoteRating UserRating { get; set; }
 
 	}
 

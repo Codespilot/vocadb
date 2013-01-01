@@ -36,5 +36,14 @@ namespace VocaDb.Tests.Service.Helpers {
 
 		}
 
+		[TestMethod]
+		public void MakeLink_Mailto() {
+
+			var result = UrlHelper.MakeLink("mailto:miku@vocadb.net");
+
+			Assert.AreEqual("mailto:miku@vocadb.net", result, "result");
+
+		}
+
 	}
 }

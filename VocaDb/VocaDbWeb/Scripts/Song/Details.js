@@ -1,5 +1,53 @@
 ﻿
-function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
+function DetailsViewModel(model) {
+
+	var self = this;
+
+	this.id = ko.observable(model.Id);
+	this.userRating = ko.observable(model.UserRating);
+
+	function setRating(rating, callback) {
+
+		var url = vdb.functions.mapUrl("/User/AddSongToFavorites");
+		$.post(url, { songId: self.id, rating: rating }, callback);
+		self.userRating(rating);
+
+	}
+
+	self.addFavorite = function () {
+
+		setRating('Favorite', function () {
+			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
+		});
+
+		return false;
+
+	};
+
+	self.addLike = function () {
+
+		setRating('Like', function () {
+			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
+		});
+
+		return false;
+
+	};
+
+	self.removeRating = function () {
+
+		setRating('Nothing');
+
+		return false;
+
+	};
+
+}
+
+function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
+
+	var viewModel = new DetailsViewModel(jsonModel);
+	ko.applyBindings(viewModel);
 
     $("#ratingButtons").buttonset();
 	$("#addFavoriteLink").button({ disabled: $("#addFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
@@ -42,58 +90,6 @@ function initPage(songId, saveStr, deleteCommentStr, hostAddress) {
 
 	}}]});
 
-	function setRating(rating, callback) {
-
-	    $.post(hostAddress + "/User/AddSongToFavorites", { songId: songId, rating: rating }, callback);
-
-	}
-
-	$("#addFavoriteLink").click(function () {
-
-		setRating('Favorite', function (result) {
-
-			$("#likedIcon").hide();
-			$("#favoritedIcon").show();
-			$("#removeFavoriteLink").show();
-			$("#ratingButtons").hide();
-			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
-
-		});
-
-		return false;
-
-	});
-
-	$("#addLikeLink").click(function () {
-
-        setRating('Like', function (result) {
-
-        	$("#likedIcon").show();
-        	$("#favoritedIcon").hide();
-        	$("#removeFavoriteLink").show();
-	        $("#ratingButtons").hide();
-	        vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
-
-	    });
-
-	    return false;
-
-	});
-
-	$("#removeFavoriteLink").click(function () {
-
-		setRating('Nothing', function (result) {
-
-			$("#likedIcon").hide();
-			$("#favoritedIcon").hide();
-			$("#ratingButtons").show();
-			$("#removeFavoriteLink").hide();
-
-		});
-
-		return false;
-
-	});
 
 	$("#addToListLink").click(function () {
 

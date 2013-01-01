@@ -4,6 +4,14 @@ namespace VocaDb.Model.Service.Helpers {
 
 	public static class UrlHelper {
 
+		private static bool IsFullLink(string str) {
+
+			return (str.StartsWith("http://", StringComparison.InvariantCultureIgnoreCase)
+				|| str.StartsWith("https://", StringComparison.InvariantCultureIgnoreCase)
+				|| str.StartsWith("mailto:", StringComparison.InvariantCultureIgnoreCase));
+
+		}
+
 		/// <summary>
 		/// Makes a proper URL from a possible URL without a http:// prefix.
 		/// </summary>
@@ -15,7 +23,7 @@ namespace VocaDb.Model.Service.Helpers {
 			if (string.IsNullOrEmpty(partialLink))
 				return partialLink;
 
-			if (partialLink.StartsWith("http://", StringComparison.InvariantCultureIgnoreCase) || partialLink.StartsWith("https://", StringComparison.InvariantCultureIgnoreCase))
+			if (IsFullLink(partialLink))
 				return partialLink;
 
 			if (assumeWww && !partialLink.StartsWith("www.", StringComparison.InvariantCultureIgnoreCase))
