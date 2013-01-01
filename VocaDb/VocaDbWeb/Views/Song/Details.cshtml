@@ -19,13 +19,13 @@
 	}
 }
 
-<span id="favoritedIcon" style="@(Model.UserRating != SongVoteRating.Favorite ? "display: none;" : "")" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
-<span id="likedIcon" style="@(Model.UserRating != SongVoteRating.Like ? "display: none;" : "")" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
-<span id="ratingButtons" style="@(Model.IsFavorited ? "display: none;" : "")">
-    <a href="#" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
-    <a href="#" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+<span data-bind="visible: userRating() == 'Favorite'" style="display: none;" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
+<span data-bind="visible: userRating() == 'Like'" style="display: none;" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
+<span data-bind="visible: userRating() == 'Nothing'" style="display: none;">
+    <a href="#" data-bind="click: addLike" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
+    <a href="#" data-bind="click: addFavorite" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
 </span>
-<a href="#" id="removeFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsFavorited ? "" : "display: none;")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
+<a href="#" data-bind="visible: userRating() != 'Nothing', click: removeRating" id="removeFavoriteLink" style="display: none;" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
 <a href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
 
 @Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink", @class = (Model.CanEdit ? "" : "disabled") })
@@ -288,7 +288,8 @@
             thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'
         };
 
-		initPage(@Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress" );
+    	var json = @Html.Raw(Model.Json);
+		initPage(json, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress" );
 	});
 
 </script>
