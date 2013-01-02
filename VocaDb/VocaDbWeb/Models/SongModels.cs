@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
@@ -187,6 +188,7 @@ namespace VocaDb.Web.Models {
 
 		public int Id { get; set; }
 
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SongVoteRating UserRating { get; set; }
 
 	}
