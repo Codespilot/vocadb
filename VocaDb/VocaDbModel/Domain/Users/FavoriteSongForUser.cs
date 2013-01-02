@@ -2,7 +2,7 @@
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class FavoriteSongForUser {
+	public class FavoriteSongForUser : ISongLink {
 
 		public static int GetRatingScore(SongVoteRating rating) {
 

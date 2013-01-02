@@ -36,24 +36,6 @@ namespace VocaDb.Model.Service {
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 #pragma warning restore 169
 
-		private IQueryable<Song> AddOrder(IQueryable<Song> criteria, SongSortRule sortRule, ContentLanguagePreference languagePreference) {
-
-			switch (sortRule) {
-				case SongSortRule.Name:
-					return FindHelpers.AddNameOrder(criteria, languagePreference);
-						//.ThenBy(a => a.CreateDate);
-				case SongSortRule.AdditionDate:
-					return criteria.OrderByDescending(a => a.CreateDate);
-				case SongSortRule.FavoritedTimes:
-					return criteria.OrderByDescending(a => a.FavoritedTimes);
-				case SongSortRule.RatingScore:
-					return criteria.OrderByDescending(a => a.RatingScore);
-			}
-
-			return criteria;
-
-		}
-
 		private static IQueryable<Song> AddNameFilter(IQueryable<Song> directQ, string query, NameMatchMode nameMatchMode, bool onlyByName) {
 
 			var matchMode = FindHelpers.GetMatchMode(query, nameMatchMode);
@@ -189,7 +171,7 @@ namespace VocaDb.Model.Service {
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
-				q = AddOrder(q, sortRule, LanguagePreference);
+				q = q.AddOrder(sortRule, LanguagePreference);
 
 				songs = q
 					.Skip(start)
@@ -212,7 +194,9 @@ namespace VocaDb.Model.Service {
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
-				songs = AddOrder(q.Select(m => m.Song), sortRule, PermissionContext.LanguagePreference)
+				songs = q
+					.Select(m => m.Song)
+					.AddOrder(sortRule, PermissionContext.LanguagePreference)
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
@@ -236,7 +220,7 @@ namespace VocaDb.Model.Service {
 
 				directQ = AddNameFilter(directQ, query, nameMatchMode, onlyByName);
 
-				directQ = AddOrder(directQ, sortRule, LanguagePreference);
+				directQ = directQ.AddOrder(sortRule, LanguagePreference);
 
 				var direct = directQ.ToArray();
 
@@ -254,8 +238,9 @@ namespace VocaDb.Model.Service {
 				if (filterByType)
 					additionalNamesQ = additionalNamesQ.Where(m => songTypes.Contains(m.Song.SongType));
 
-				var additionalNames = AddOrder(additionalNamesQ
-					.Select(m => m.Song), sortRule, PermissionContext.LanguagePreference)
+				var additionalNames = additionalNamesQ
+					.Select(m => m.Song)
+					.AddOrder(sortRule, PermissionContext.LanguagePreference)
 					.Distinct()
 					//.Take(maxResults)
 					.ToArray()
