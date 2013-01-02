@@ -21,6 +21,7 @@ using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search;
+using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.DataContracts.Activityfeed;
@@ -442,44 +443,28 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete]
-		public SongWithAdditionalNamesContract[] GetFavoriteSongs(int userId) {
+		public PartialFindResult<FavoriteSongForUserContract> GetFavoriteSongs(RatedSongQueryParams queryParams) {
 
-			return HandleQuery(session =>
-				session.Load<User>(userId)
-					.FavoriteSongs
-					.Select(a => new SongWithAdditionalNamesContract(a.Song, PermissionContext.LanguagePreference))
-					.OrderBy(s => s.Name)
-					.ToArray());
-
-		}
-
-		public PartialFindResult<FavoriteSongForUserContract> GetFavoriteSongs(int userId, PagingProperties paging) {
+			ParamIs.NotNull(() => queryParams);
 
 			return HandleQuery(session => {
 
-				var q = session.Query<FavoriteSongForUser>().Where(a => !a.Song.Deleted && a.User.Id == userId);
+				// Apply initial filter
+				var q = session.Query<FavoriteSongForUser>()
+					.Where(a => !a.Song.Deleted && a.User.Id == queryParams.UserId);
 
-				var sortedQ = q.OrderByDescending(r => r.Rating);// FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference)
-;
-				switch (PermissionContext.LanguagePreference) {
-					case ContentLanguagePreference.Japanese:
-						sortedQ = sortedQ.OrderBy(e => e.Song.Names.SortNames.Japanese);
-						break;
-					case ContentLanguagePreference.English:
-						sortedQ = sortedQ.OrderBy(e => e.Song.Names.SortNames.English);
-						break;
-					default:
-						sortedQ = sortedQ.OrderBy(e => e.Song.Names.SortNames.Romaji);
-						break;
-				}
+				// Group by rating if needed
+				if (queryParams.GroupByRating)
+					q = q.OrderByDescending(r => r.Rating);
 
-				var resultQ = sortedQ.Skip(paging.Start).Take(paging.MaxEntries);
+				// Add custom order
+				q = q.AddSongOrder(queryParams.SortRule, LanguagePreference);
 
-				//resultQ = resultQ.Skip(paging.Start).Take(paging.MaxEntries);
+				// Apply paging
+				var resultQ = q.Skip(queryParams.Paging.Start).Take(queryParams.Paging.MaxEntries);
 
 				var contracts = resultQ.ToArray().Select(a => new FavoriteSongForUserContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = (paging.GetTotalCount ? q.Count() : 0);
+				var totalCount = (queryParams.Paging.GetTotalCount ? q.Count() : 0);
 
 				return new PartialFindResult<FavoriteSongForUserContract>(contracts, totalCount);
 

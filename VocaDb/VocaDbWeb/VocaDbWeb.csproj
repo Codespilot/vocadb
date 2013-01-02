@@ -659,6 +659,7 @@
     <Compile Include="Models\User\ComposeMessage.cs" />
     <Compile Include="Models\User\ForgotPassword.cs" />
     <Compile Include="Models\User\Index.cs" />
+    <Compile Include="Models\User\FavoriteSongs.cs" />
     <Compile Include="Models\User\RegisterOpenAuthModel.cs" />
     <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1594,6 +1595,7 @@
     <Content Include="Views\User\PagedUsers.cshtml" />
     <Content Include="Views\User\OwnedArtistForUserEditRow.cshtml" />
     <Content Include="Views\Song\ManageTagUsages.cshtml" />
+    <Content Include="Views\User\FavoriteSongs.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

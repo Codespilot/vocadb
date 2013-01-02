@@ -5,7 +5,7 @@
 <p>@Model.Items.TotalItemCount @ViewRes.MiscStrings.SongCount.</p>
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
 </div>
 
 	<table>
@@ -34,5 +34,5 @@
 
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
 </div>

@@ -269,6 +269,7 @@
     <Compile Include="Domain\Security\IPRule.cs" />
     <Compile Include="Domain\Security\PermissionCollection.cs" />
     <Compile Include="Domain\Security\PermissionToken.cs" />
+    <Compile Include="Domain\Songs\ISongLink.cs" />
     <Compile Include="Domain\Songs\SongComment.cs" />
     <Compile Include="Domain\Songs\SongHit.cs" />
     <Compile Include="Domain\Songs\SongInList.cs" />
@@ -478,6 +479,7 @@
     <Compile Include="Service\Helpers\QueryableExtender.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
+    <Compile Include="Service\Helpers\SongQueryableExtender.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
     <Compile Include="Service\Helpers\UserMessageMailer.cs" />
@@ -506,6 +508,7 @@
     <Compile Include="Service\Search\SearchWordCollection.cs" />
     <Compile Include="Service\Search\SearchWord.cs" />
     <Compile Include="Service\Search\Song\SongQueryParams.cs" />
+    <Compile Include="Service\Search\User\RatedSongQueryParams.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />

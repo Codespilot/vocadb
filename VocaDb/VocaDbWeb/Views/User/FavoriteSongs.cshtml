@@ -1,0 +1,41 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Web.Models.User.FavoriteSongs
+
+@{
+    ViewBag.Title = "Rated songs for " + Model.User.Name;
+	ViewBag.Parents = new[] {
+		Html.ActionLink(Model.User.Name, "Details", "User", new {id = Model.User.Id}, null)
+	};	
+}
+
+<div class="row-fluid">
+	
+	<div class="span3">
+		<form>
+			<div>
+				@ViewRes.EntryIndexStrings.SortBy
+				<div class="btn-group">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.SongSortRuleNames[Model.Sort]
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
+							<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, sort = sortRule.Key })</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+
+<div id="Favorite_songs">
+@{ Html.RenderAction("FavoriteSongsPaged", new { id = Model.User.Id, sort = Model.Sort }); }
+</div>
+
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+}

@@ -2,6 +2,7 @@
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 
@@ -17,7 +18,8 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<T> AddNameOrder<T>(this IQueryable<T> criteria, ContentLanguagePreference languagePreference) where T : IEntryWithNames {
+		public static IQueryable<T> AddNameOrder<T>(this IQueryable<T> criteria, ContentLanguagePreference languagePreference) 
+			where T : IEntryWithNames {
 
 			return FindHelpers.AddNameOrder(criteria, languagePreference);
 
@@ -36,6 +38,19 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IOrderedQueryable<T> AddSongNameOrder<T>(this IQueryable<T> criteria, ContentLanguagePreference languagePreference)
+			where T : ISongLink {
+
+			switch (languagePreference) {
+				case ContentLanguagePreference.Japanese:
+					return criteria.OrderBy(e => e.Song.Names.SortNames.Japanese);
+				case ContentLanguagePreference.English:
+					return criteria.OrderBy(e => e.Song.Names.SortNames.English);
+				default:
+					return criteria.OrderBy(e => e.Song.Names.SortNames.Romaji);
+			}
+
+		}
 	}
 
 }
