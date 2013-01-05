@@ -84,6 +84,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
+		public virtual IEnumerable<LocalizedStringWithId> NamesBase {
+			get { return Names; }
+		}
+
 		public virtual TranslatedString SortNames {
 			get { return sortNames; }
 			set {
@@ -103,6 +107,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		public T FirstName(ContentLanguageSelection languageSelection) {
 			return Names.FirstOrDefault(n => n.Language == languageSelection);
+		}
+
+		public LocalizedStringWithId FirstNameBase(ContentLanguageSelection languageSelection) {
+			return FirstName(languageSelection);
 		}
 
 		public string GetAdditionalNamesStringForLanguage(ContentLanguagePreference languagePreference) {

@@ -91,10 +91,13 @@
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Names, R.EditStrings.BaNames)
+				<label>
+					@R.EditStrings.BaNames
+					@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)					
+				</label>
 			</div>
 			<div class="editor-field">
-				@Helpers.NamesList(Model.Names)
+				@Html.EditorFor(m => m.Names)
 			</div>
 
 			<div class="editor-label">

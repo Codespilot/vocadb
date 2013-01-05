@@ -1405,7 +1405,7 @@ namespace VocaDb.Model.Service {
 						diff.OriginalName = true;
 					}
 
-					var validNames = properties.Names.Where(n => !string.IsNullOrWhiteSpace(n.Value)).ToArray();
+					var validNames = properties.Names.AllNames;
 					var nameDiff = album.Names.Sync(validNames, album);
 					SessionHelper.Sync(session, nameDiff);
 

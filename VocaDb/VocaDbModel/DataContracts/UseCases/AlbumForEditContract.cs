@@ -23,7 +23,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			Deleted = album.Deleted;
 			Description = album.Description;
-			Names = album.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = new NameManagerEditContract(album.Names);
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
@@ -51,7 +51,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public AlbumReleaseContract OriginalRelease { get; set; }
 
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public NameManagerEditContract Names { get; set; }
 
 		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }

@@ -199,7 +199,7 @@ namespace VocaDb.Web.Models {
 
 			ArtistLinks = new List<ArtistForSongContract>();
 			Lyrics = new List<LyricsForSongModel>();
-			Names = new List<LocalizedStringEdit>();
+			Names = new NameManagerEditContract();
 			PVs = new List<PVContract>();
 			WebLinks = new List<WebLinkDisplay>();
 
@@ -217,11 +217,10 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
 			Id = song.Song.Id;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
-			//Name = song.Song.Name;
 			NameEnglish = song.TranslatedName.English;
 			NameJapanese = song.TranslatedName.Japanese;
 			NameRomaji = song.TranslatedName.Romaji;
-			Names = song.Names.Select(l => new LocalizedStringEdit(l)).ToArray();
+			Names = song.Names;
 			Notes = song.Notes;
 			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
 			PVs = song.PVs;
@@ -255,8 +254,8 @@ namespace VocaDb.Web.Models {
 
 		public string Name { get; set; }
 
-		[Display(Name = "Names")]
-		public IList<LocalizedStringEdit> Names { get; set; }
+		[Display(Name = "Names (at least one)")]
+		public NameManagerEditContract Names { get; set; }
 
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
@@ -318,7 +317,7 @@ namespace VocaDb.Web.Models {
 				},
 				Artists = this.ArtistLinks.ToArray(),
 				Lyrics = this.Lyrics.Select(l => l.ToContract()).ToArray(),
-				Names = this.Names.Select(n => n.ToContract()).ToArray(),
+				Names = this.Names,
 				Notes = this.Notes ?? string.Empty,
 				OriginalVersion = this.OriginalVersion ?? new SongWithAdditionalNamesContract { Id = OriginalVersionId },
 				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),

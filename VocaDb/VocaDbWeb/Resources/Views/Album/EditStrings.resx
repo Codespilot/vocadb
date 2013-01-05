@@ -139,7 +139,7 @@
     <value>Main cover picture</value>
   </data>
   <data name="BaNames" xml:space="preserve">
-    <value>Names</value>
+    <value>Names (at least one)</value>
   </data>
   <data name="BaPictureInfo" xml:space="preserve">
     <value>Allowed types: {0}. Maximum size is {1} MB.</value>

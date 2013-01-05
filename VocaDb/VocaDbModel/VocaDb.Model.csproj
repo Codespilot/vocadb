@@ -191,6 +191,7 @@
     <Compile Include="DataContracts\UseCases\EntryForPictureDisplayContract.cs" />
     <Compile Include="DataContracts\UseCases\EntryRevertedContract.cs" />
     <Compile Include="DataContracts\UseCases\FrontPageContract.cs" />
+    <Compile Include="DataContracts\UseCases\NameManagerEditContract.cs" />
     <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
     <Compile Include="DataContracts\Users\ArtistForUserContract.cs" />

@@ -967,7 +967,7 @@ namespace VocaDb.Model.Service {
 					diff.Status = true;
 				}
 
-				var nameDiff = artist.Names.Sync(properties.Names, artist);
+				var nameDiff = artist.Names.Sync(properties.Names.AllNames, artist);
 				SessionHelper.Sync(session, nameDiff);
 
 				if (nameDiff.Changed)

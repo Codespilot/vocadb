@@ -61,6 +61,15 @@ namespace ViewRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aliases (optional).
+        /// </summary>
+        public static string Aliases {
+            get {
+                return ResourceManager.GetString("Aliases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} also edited this entry {1} minute(s) ago..
         /// </summary>
         public static string ConcurrentEditWarning {
@@ -100,6 +109,17 @@ namespace ViewRes {
         public static string Merge {
             get {
                 return ResourceManager.GetString("Merge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If the original name is non-English (for example Japanese), or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or there is a known English translation, input that into the English name field.&lt;br /&gt;
+        ///&lt;br /&gt;
+        ///Note that you do not need to copy the missing names from others. The system will substitute those when needed. For example, lacking a romanized name, the system will automatica [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string NameHelp {
+            get {
+                return ResourceManager.GetString("NameHelp", resourceCulture);
             }
         }
         

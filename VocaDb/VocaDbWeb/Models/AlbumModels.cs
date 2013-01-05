@@ -27,7 +27,7 @@ namespace VocaDb.Web.Models {
 
 		public AlbumEdit() {
 			
-			Names = new List<LocalizedStringEdit>();
+			Names = new NameManagerEditContract();
 			Pictures = new List<EntryPictureFileContract>();
 			PVs = new List<PVContract>();
 			Tracks = new List<SongInAlbumEditContract>();
@@ -47,7 +47,7 @@ namespace VocaDb.Web.Models {
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.Name;
-			Names = album.Names.Select(n => new LocalizedStringEdit(n)).ToArray();
+			Names = album.Names;
 			Pictures = album.Pictures;
 			PVs = album.PVs;
 			Status = album.Status;
@@ -97,7 +97,7 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		[Display(Name = "Names")]
-		public IList<LocalizedStringEdit> Names { get; set; }
+		public NameManagerEditContract Names { get; set; }
 
 		[Display(Name = "Name in English")]
 		public string NameEnglish { get; set; }
@@ -163,7 +163,7 @@ namespace VocaDb.Web.Models {
 				DiscType = this.DiscType,
 				Id = this.Id,
 				Name = this.Name,
-				Names = this.Names.Select(n => n.ToContract()).ToArray(),
+				Names = this.Names,
 				OriginalRelease = new AlbumReleaseContract {
 					CatNum = this.CatNum,
 					EventName = this.ReleaseEvent,

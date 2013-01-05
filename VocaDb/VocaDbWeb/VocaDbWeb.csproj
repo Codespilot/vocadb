@@ -1596,6 +1596,9 @@
     <Content Include="Views\User\OwnedArtistForUserEditRow.cshtml" />
     <Content Include="Views\Song\ManageTagUsages.cshtml" />
     <Content Include="Views\User\FavoriteSongs.cshtml" />
+    <Content Include="Views\Shared\NameAliasEditRow.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\NameManagerEditContract.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\LocalizedStringWithIdContract.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
@@ -1607,6 +1610,7 @@
     <Content Include="App_GlobalResources\ContentLanguageSelectionNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ContentLanguageSelectionNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

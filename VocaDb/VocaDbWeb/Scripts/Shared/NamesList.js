@@ -13,6 +13,18 @@ function initNamesList() {
 
 	});
 
+	$("#nameAliasAdd").click(function () {
+
+		$.post("../../Shared/CreateNewAlias", function (row) {
+
+			$("#namesListBody").append(row);
+
+		});
+
+		return false;
+
+	});
+
 	$("a.nameDelete").live("click", function () {
 
 		$(this).parent().parent().remove();
