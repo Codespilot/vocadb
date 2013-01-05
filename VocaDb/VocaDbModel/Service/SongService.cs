@@ -1630,7 +1630,7 @@ namespace VocaDb.Model.Service {
 					diff.OriginalName = true;
 				}
 
-				var nameDiff = song.Names.Sync(properties.Names, song);
+				var nameDiff = song.Names.Sync(properties.Names.AllNames, song);
 				SessionHelper.Sync(session, nameDiff);
 
 				if (nameDiff.Changed)

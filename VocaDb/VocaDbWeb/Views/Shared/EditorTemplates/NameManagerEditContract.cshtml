@@ -1,0 +1,28 @@
+﻿@model VocaDb.Model.DataContracts.UseCases.NameManagerEditContract
+
+<table>
+	<tr>
+		<td>@Resources.ContentLanguageSelectionNames.Japanese</td>
+		<td>@Html.EditorFor(m => m.OriginalName)</td>
+	</tr>
+	<tr>
+		<td>@Resources.ContentLanguageSelectionNames.Romaji</td>
+		<td>@Html.EditorFor(m => m.RomajiName)</td>
+	</tr>
+	<tr>
+		<td>@Resources.ContentLanguageSelectionNames.English</td>
+		<td>@Html.EditorFor(m => m.EnglishName)</td>
+	</tr>
+</table>
+	
+<label>@ViewRes.EntryEditStrings.Aliases</label>
+
+<table>
+	<tbody id="namesListBody">
+		@foreach (var name in Model.Aliases) {
+			Html.RenderPartial("NameAliasEditRow", name);
+		}
+	</tbody>
+</table>
+	
+<a href="#" id="nameAliasAdd" class="textLink addLink">@HelperRes.HelperStrings.NameNewRow</a>

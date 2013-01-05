@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Aliases" xml:space="preserve">
+    <value>Aliases (optional)</value>
+  </data>
   <data name="ConcurrentEditWarning" xml:space="preserve">
     <value>{0} also edited this entry {1} minute(s) ago.</value>
   </data>
@@ -135,6 +138,13 @@ Other: for those that don't fit into anything above.&lt;br /&gt;</value>
   </data>
   <data name="Merge" xml:space="preserve">
     <value>Merge</value>
+  </data>
+  <data name="NameHelp" xml:space="preserve">
+    <value>If the original name is non-English (for example Japanese), or if the language of the name is unknown, input that into the Non-English name field. If known, input the romanized name as well. If the official name of the entry is in English, or there is a known English translation, input that into the English name field.&lt;br /&gt;
+&lt;br /&gt;
+Note that you do not need to copy the missing names from others. The system will substitute those when needed. For example, lacking a romanized name, the system will automatically use English.&lt;br /&gt;
+&lt;br /&gt;
+Additional names can be entered as aliases. Aliases don't have any specific language. See more in the guide.</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>Restore</value>

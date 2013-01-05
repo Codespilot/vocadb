@@ -28,7 +28,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
-			Names = artist.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = new NameManagerEditContract(artist.Names);
 			Pictures = artist.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			UpdateNotes = string.Empty;
 			ValidationResult = ArtistValidator.Validate(artist);
@@ -55,7 +55,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public GroupForArtistContract[] Members { get; set; }
 
 		[DataMember]
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public NameManagerEditContract Names { get; set; }
 
 		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }

@@ -26,5 +26,19 @@ namespace VocaDb.Model.Domain.Globalization {
 				return new[] { name }; 
 			}
 		}
+
+		public IEnumerable<LocalizedStringWithId> NamesBase {
+			get {
+				return new[] { new LocalizedStringWithId(name, ContentLanguageSelection.Unspecified) };
+			}
+		}
+
+		public LocalizedStringWithId FirstNameBase(ContentLanguageSelection languageSelection) {
+			return new LocalizedStringWithId(name, languageSelection);
+		}
+
+		public bool HasNameForLanguage(ContentLanguageSelection language) {
+			return true;
+		}
 	}
 }

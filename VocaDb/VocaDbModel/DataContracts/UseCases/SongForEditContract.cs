@@ -16,7 +16,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ParamIs.NotNull(() => song);
 
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray();
-			Names = song.Names.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
+			Names = new NameManagerEditContract(song.Names);
 			ValidationResult = SongValidator.Validate(song);
 			UpdateNotes = string.Empty;
 
@@ -24,7 +24,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public LyricsForSongContract[] Lyrics { get; set; }
 
-		public LocalizedStringWithIdContract[] Names { get; set; }
+		public NameManagerEditContract Names { get; set; }
 
 		public string UpdateNotes { get; set; }
 

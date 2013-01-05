@@ -7,11 +7,15 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		IEnumerable<string> AllValues { get; }
 
-		//IEnumerable<LocalizedStringWithId> Names { get; }
+		IEnumerable<LocalizedStringWithId> NamesBase { get; }
 
 		TranslatedString SortNames { get; }
 
+		LocalizedStringWithId FirstNameBase(ContentLanguageSelection languageSelection);
+
 		EntryNameContract GetEntryName(ContentLanguagePreference languagePreference);
+
+		bool HasNameForLanguage(ContentLanguageSelection language);
 
 	}
 

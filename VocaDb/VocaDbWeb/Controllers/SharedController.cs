@@ -26,6 +26,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public PartialViewResult CreateNewAlias(string nameVal) {
+
+			return PartialView("NameAliasEditRow", new LocalizedStringWithIdContract { Value = nameVal });
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult CreateNewName() {
 
 			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit());
