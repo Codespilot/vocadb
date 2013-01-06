@@ -8,7 +8,7 @@ using VocaDb.Model.Service.VideoServices;
 namespace VocaDb.Model.DataContracts.PVs {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class PVContract {
+	public class PVContract : IPV {
 
 		public PVContract() { }
 

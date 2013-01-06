@@ -51,6 +51,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public string Name { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public EntryStatus Status { get; set; }
 
 		[DataMember]

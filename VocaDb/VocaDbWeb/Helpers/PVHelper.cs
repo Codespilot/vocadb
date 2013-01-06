@@ -10,14 +10,6 @@ namespace VocaDb.Web.Helpers {
 
 	public static class PVHelper {
 
-		private static PVContract GetPV(PVContract[] allPvs, PVService service) {
-
-			return allPvs.FirstOrDefault(p => p.PVType == PVType.Original && p.Service == service)
-				?? allPvs.FirstOrDefault(p => p.PVType == PVType.Reprint && p.Service == service)
-				?? allPvs.FirstOrDefault(p => p.Service == service);
-
-		}
-
 		public static PVService? PreferredVideoService {
 			get {
 				return MvcApplication.LoginManager.IsLoggedIn ? (PVService?)MvcApplication.LoginManager.LoggedUser.PreferredVideoService : null;
@@ -26,7 +18,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static PVContract[] GetMainPVs(PVContract[] allPvs) {
 
-			return EnumVal<PVService>.Values.Select(service => GetPV(allPvs, service)).Where(p => p != null).ToArray();
+			return EnumVal<PVService>.Values.Select(service => VideoServiceHelper.GetPV(allPvs, service)).Where(p => p != null).ToArray();
 
 		}
 

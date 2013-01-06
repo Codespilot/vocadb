@@ -26,6 +26,13 @@ namespace VocaDb.Web.API.v1 {
                 "AlbumApi",
                 "api/v1/Album/{action}/{id}",
 				new { action = "Index", controller = "AlbumApi", id = UrlParameter.Optional });
+
+			context.MapRoute(
+				"ArtistApi",
+				"api/v1/Artist/{action}/{id}",
+				new { action = "Index", controller = "ArtistApi", id = UrlParameter.Optional });
+
+
         }
 
 	}

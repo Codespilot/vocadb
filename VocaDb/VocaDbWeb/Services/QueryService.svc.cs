@@ -15,6 +15,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Search.Artist;
 using VocaDb.Model.Service.Search.Song;
 
 namespace VocaDb.Web.Services {
@@ -55,7 +56,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
-			return Services.Artists.FindArtists(term, new ArtistType[] {}, 0, maxResults, false, true, nameMatchMode, ArtistSortRule.Name, true);
+			return Services.Artists.FindArtists(new ArtistQueryParams(term, new ArtistType[] {}, 0, maxResults, false, true, nameMatchMode, ArtistSortRule.Name, true));
 
 		}
 
@@ -104,8 +105,8 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public ArtistDetailsContract GetArtistDetails(string term) {
 
-			var artists = Services.Artists.FindArtists(term, new ArtistType[] {}, 0, 10, 
-				false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
+			var artists = Services.Artists.FindArtists(new ArtistQueryParams(term, new ArtistType[] {}, 0, 10, 
+				false, false, NameMatchMode.Auto, ArtistSortRule.Name, true));
 
 			if (!artists.Items.Any())
 				return null;

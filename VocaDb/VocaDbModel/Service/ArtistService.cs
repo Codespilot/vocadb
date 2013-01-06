@@ -25,6 +25,7 @@ using VocaDb.Model.DataContracts.Albums;
 using System.Drawing;
 using VocaDb.Model.Helpers;
 using System.Collections.Generic;
+using VocaDb.Model.Service.Search.Artist;
 
 namespace VocaDb.Model.Service {
 
@@ -61,10 +62,15 @@ namespace VocaDb.Model.Service {
 		}
 
 
-		private PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(
-			ISession session, string query, ArtistType[] artistTypes, int start, int maxResults,
-			bool draftsOnly, bool getTotalCount, 
-			NameMatchMode nameMatchMode, ArtistSortRule sortRule, bool moveExactToTop) {
+		private PartialFindResult<Artist> Find(
+			ISession session, ArtistQueryParams queryParams) {
+
+			var query = queryParams.Common.Query;
+			var artistTypes = queryParams.ArtistTypes;
+			var draftsOnly = queryParams.Common.DraftOnly;
+			var sortRule = queryParams.SortRule;
+			var start = queryParams.Paging.Start;
+			var maxResults = queryParams.Paging.MaxEntries;
 
 			string originalQuery = query;
 
@@ -90,12 +96,9 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.List();
 
-				var contracts = artists.Select(s => new ArtistWithAdditionalNamesContract(s, PermissionContext.LanguagePreference))
-					.ToArray();
+				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
 
-				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
-
-				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, originalQuery, false);
+				return new PartialFindResult<Artist>(artists.ToArray(), count, originalQuery, false);
 
 			} else {
 
@@ -111,7 +114,7 @@ namespace VocaDb.Model.Service {
 				if (artistTypes.Any())
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
-				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
+				directQ = AddNameMatchFilter(directQ, query, queryParams.Common.NameMatchMode);
 				directQ = AddOrder(directQ, sortRule, PermissionContext.LanguagePreference);	
 
 				var direct = directQ
@@ -123,7 +126,7 @@ namespace VocaDb.Model.Service {
 				if (draftsOnly)
 					additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
 
-				additionalNamesQ = additionalNamesQ.FilterByArtistName(query, null, nameMatchMode);
+				additionalNamesQ = additionalNamesQ.FilterByArtistName(query, null, queryParams.Common.NameMatchMode);
 
 				additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
@@ -141,7 +144,7 @@ namespace VocaDb.Model.Service {
 
 				bool foundExactMatch = false;
 
-				if (moveExactToTop) {
+				if (queryParams.Common.MoveExactToTop) {
 
 					var exactMatch = entries.FirstOrDefault(
 						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
@@ -153,19 +156,20 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				var contracts = entries.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
+				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
 
-				var count = (getTotalCount ? GetArtistCount(session, query, artistTypes, draftsOnly, nameMatchMode) : 0);
-
-				return new PartialFindResult<ArtistWithAdditionalNamesContract>(contracts, count, originalQuery, foundExactMatch);
+				return new PartialFindResult<Artist>(entries.ToArray(), count, originalQuery, foundExactMatch);
 
 			}
 
 		}
 
-		private int GetArtistCount(ISession session, string query, ArtistType[] artistTypes, bool draftsOnly, 
-			NameMatchMode nameMatchMode) {
+		private int GetArtistCount(ISession session, ArtistQueryParams queryParams) {
+
+			var query = queryParams.Common.Query;
+			var artistTypes = queryParams.ArtistTypes;
+			var draftsOnly = queryParams.Common.DraftOnly;
+			var nameMatchMode = queryParams.Common.NameMatchMode;
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -435,14 +439,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string query, ArtistType[] artistTypes, 
-			int start, int maxResults, bool draftsOnly, bool getTotalCount, NameMatchMode nameMatchMode, ArtistSortRule sortRule, bool moveExactToTop) {
+		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ArtistQueryParams queryParams) {
 
-			return HandleQuery(session => FindArtists(session, query, artistTypes, start, maxResults, draftsOnly, 
-				getTotalCount, nameMatchMode, sortRule, moveExactToTop));
+			return FindArtists(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference), queryParams);
 
 		}
 
+		public PartialFindResult<T> FindArtists<T>(Func<Artist, T> fac, ArtistQueryParams queryParams) {
+
+			return HandleQuery(session => {
+
+				var result = Find(session, queryParams);
+
+				return new PartialFindResult<T>(result.Items.Select(fac).ToArray(),
+					result.TotalCount, result.Term, result.FoundExactMatch);
+
+			});
+
+		}
 		public ArtistContract[] FindByNameAndType(string query, ArtistType[] types, int maxResults) {
 
 			return HandleQuery(session => {
