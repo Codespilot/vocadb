@@ -4,7 +4,7 @@ using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Domain.PVs {
 
-	public class PV : IEquatable<PV> {
+	public class PV : IEquatable<PV>, IPV {
 
 		public static string GetUrl(PVService service, string pvId) {
 			return VideoServiceHelper.Services[service].GetUrlById(pvId);

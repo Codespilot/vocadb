@@ -105,6 +105,7 @@
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ParseAlbumFileResultContract.cs" />
     <Compile Include="DataContracts\ArchivedEntryPictureFileContract.cs" />
+    <Compile Include="DataContracts\Artists\ArtistForApiContract.cs" />
     <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
     <Compile Include="DataContracts\EntryBaseContract.cs" />
     <Compile Include="DataContracts\EntryPictureFileContract.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Domain\IEntryWithStatus.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
+    <Compile Include="Domain\PVs\IPV.cs" />
     <Compile Include="Domain\Security\EntryPermissionManager.cs" />
     <Compile Include="Domain\Security\IPRule.cs" />
     <Compile Include="Domain\Security\PermissionCollection.cs" />
@@ -500,6 +502,7 @@
     <Compile Include="Service\Search\AlbumSearch\AlbumQueryBuilder.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumTagFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumUniversalFilter.cs" />
+    <Compile Include="Service\Search\Artist\ArtistQueryParams.cs" />
     <Compile Include="Service\Search\ISearchFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchProperty.cs" />
     <Compile Include="Service\Search\CommonSearchParams.cs" />
@@ -571,7 +574,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Service\Queries\" />
-    <Folder Include="Service\Search\Artist\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,6 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.DataContracts {
@@ -33,6 +35,7 @@ namespace VocaDb.Model.DataContracts {
 		}
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public WebLinkCategory Category { get; set; }
 
 		[DataMember]

@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Search.Artist;
 using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Helpers;
@@ -101,9 +102,11 @@ namespace VocaDb.Web.Controllers
 
 			WebHelper.VerifyUserAgent(Request);
 			var sortRule = sort ?? ArtistSortRule.Name;
-			var result = Service.FindArtists(filter, 
-				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] {}, 
+			var queryParams = new ArtistQueryParams(filter,
+				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] { },
 				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false);
+
+			var result = Service.FindArtists(queryParams);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
