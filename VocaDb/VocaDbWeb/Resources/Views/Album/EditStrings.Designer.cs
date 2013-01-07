@@ -151,7 +151,7 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Names (at least one).
+        ///   Looks up a localized string similar to Primary name (in one or more languages).
         /// </summary>
         public static string BaNames {
             get {

@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Security.Principal;
 using System.Web;
-using System.Web.Security;
 using NLog;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
@@ -58,7 +57,7 @@ namespace VocaDb.Model.Service.Security {
 
 		public static string GetHashedPass(string name, string pass, int salt) {
 
-			return FormsAuthentication.HashPasswordForStoringInConfigFile(name + pass + salt, "sha1");
+			return CryptoHelper.HashSHA1(name + pass + salt);
 
 		}
 
@@ -66,7 +65,7 @@ namespace VocaDb.Model.Service.Security {
 
 			var salt = ConfigurationManager.AppSettings["AccessKeySalt"] ?? string.Empty;
 
-			return FormsAuthentication.HashPasswordForStoringInConfigFile(key + salt, "sha1");
+			return CryptoHelper.HashSHA1(key + salt);
 
 		}
 
