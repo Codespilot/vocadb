@@ -39,7 +39,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult Comments(int id) {
+		public PartialViewResult Comments(int id = invalidId) {
 
 			var comments = Service.GetComments(id);
 			return PartialView("DiscussionContent", comments);

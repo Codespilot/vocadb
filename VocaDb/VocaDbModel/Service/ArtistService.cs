@@ -249,7 +249,7 @@ namespace VocaDb.Model.Service {
 				var hasAlbum = session.Query<ArtistForAlbum>().Any(a => a.Artist.Id == artistId && a.Album.Id == albumId);
 
 				if (hasAlbum)
-					throw new LinkAlreadyExistsException(artist + " already has " + album);
+					throw new LinkAlreadyExistsException(string.Format("{0} already has {1}", artist, album));
 
 				AuditLog(string.Format("adding {0} for {1}", 
 					EntryLinkFactory.CreateEntryLink(album), EntryLinkFactory.CreateEntryLink(artist)), session);
