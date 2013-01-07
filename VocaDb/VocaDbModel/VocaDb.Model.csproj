@@ -513,6 +513,7 @@
     <Compile Include="Service\Search\SearchWord.cs" />
     <Compile Include="Service\Search\Song\SongQueryParams.cs" />
     <Compile Include="Service\Search\User\RatedSongQueryParams.cs" />
+    <Compile Include="Service\Security\CryptoHelper.cs" />
     <Compile Include="Service\TagService.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />
