@@ -20,9 +20,11 @@ namespace VocaDb.Model.Service.VideoServices {
 		public static T GetPV<T>(T[] allPvs, PVService service) 
 			where T : class, IPV {
 
-			return allPvs.Where(p => p.Service == service).FirstOrDefault(p => p.PVType == PVType.Original)
-				?? allPvs.FirstOrDefault(p => p.PVType == PVType.Reprint)
-				?? allPvs.FirstOrDefault();
+			var servicePvs = allPvs.Where(p => p.Service == service).ToArray();
+
+			return servicePvs.FirstOrDefault(p => p.PVType == PVType.Original)
+				?? servicePvs.FirstOrDefault(p => p.PVType == PVType.Reprint)
+				?? servicePvs.FirstOrDefault();
 
 		}
 
