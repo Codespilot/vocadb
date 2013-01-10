@@ -141,7 +141,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public SongDetailsContract GetSongDetails(string term) {
 
-			var song = Services.Songs.FindFirstDetails(term, NameMatchMode.Partial);
+			var song = Services.Songs.FindFirstDetails(term, NameMatchMode.Auto);
 			return song;
 
 		}
