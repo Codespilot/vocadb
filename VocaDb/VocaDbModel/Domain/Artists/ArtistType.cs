@@ -26,6 +26,8 @@
 
 		Illustrator,
 
+		Lyricist,
+
 		Vocaloid,
 
 		UTAU,

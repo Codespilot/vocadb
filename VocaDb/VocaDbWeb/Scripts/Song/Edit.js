@@ -98,7 +98,7 @@ function initPage(songId) {
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
 			createOptionSecondRow: function (item) { return item.AdditionalNames; },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,Unknown,Animator,Illustrator,OtherGroup,OtherIndividual" }
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,Unknown,Animator,Illustrator,Lyricist,OtherGroup,OtherIndividual" }
 		});
 
 	function artistAdded(row) {

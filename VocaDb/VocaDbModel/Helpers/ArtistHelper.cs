@@ -51,6 +51,7 @@ namespace VocaDb.Model.Helpers {
 			{ ArtistType.Circle, ArtistCategories.Circle },
 			{ ArtistType.Illustrator, ArtistCategories.Other },
 			{ ArtistType.Label, ArtistCategories.Label },
+			{ ArtistType.Lyricist, ArtistCategories.Other },
 			{ ArtistType.OtherGroup, ArtistCategories.Circle },
 			{ ArtistType.OtherIndividual, ArtistCategories.Other },
 			{ ArtistType.OtherVocalist, ArtistCategories.Vocalist },
@@ -65,7 +66,7 @@ namespace VocaDb.Model.Helpers {
 		/// </summary>
 		public static readonly ArtistType[] CustomizableTypes = new[] {
 			ArtistType.Animator, ArtistType.OtherGroup, ArtistType.OtherIndividual, 
-			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Illustrator, ArtistType.Unknown
+			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Illustrator, ArtistType.Lyricist, ArtistType.Unknown
 		};
 
 		public static readonly ArtistType[] ProducerTypes = new[] {
@@ -77,7 +78,7 @@ namespace VocaDb.Model.Helpers {
 		/// </summary>
 		public static readonly ArtistType[] SongArtistTypes = new[] {
 			ArtistType.Unknown, ArtistType.OtherGroup, ArtistType.OtherVocalist,
-			ArtistType.Producer, ArtistType.UTAU, ArtistType.Vocaloid, ArtistType.Animator, ArtistType.Illustrator, ArtistType.OtherIndividual
+			ArtistType.Producer, ArtistType.UTAU, ArtistType.Vocaloid, ArtistType.Animator, ArtistType.Illustrator, ArtistType.Lyricist, ArtistType.OtherIndividual
 		};
 
 		public static readonly ArtistType[] VocalistTypes = new[] {
@@ -182,10 +183,16 @@ namespace VocaDb.Model.Helpers {
 
 		public static ArtistRoles GetOtherArtistRoles(ArtistType artistType) {
 
-			if (artistType == ArtistType.Illustrator)
-				return ArtistRoles.Illustrator;
+			switch (artistType) {
+				case ArtistType.Illustrator:
+					return ArtistRoles.Illustrator;
 
-			return ArtistRoles.Default;
+				case ArtistType.Lyricist:
+					return ArtistRoles.Lyricist;
+
+				default:
+					return ArtistRoles.Default;
+			}
 
 		}
 

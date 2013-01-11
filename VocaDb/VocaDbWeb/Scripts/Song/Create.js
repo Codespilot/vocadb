@@ -44,7 +44,7 @@ function initPage() {
 			acceptSelection: acceptArtistSelection,
 			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
 			createOptionSecondRow: function (item) { return item.AdditionalNames; },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,OtherIndividual" },
+			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
 			height: 300
 		});
 
