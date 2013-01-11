@@ -150,4 +150,7 @@
   <data name="Illustrator" xml:space="preserve">
     <value>Illustrator</value>
   </data>
+  <data name="Lyricist" xml:space="preserve">
+    <value>Lyricist</value>
+  </data>
 </root>
