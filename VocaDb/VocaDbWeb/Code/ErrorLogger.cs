@@ -31,6 +31,11 @@ namespace VocaDb.Web.Code {
 
 		}
 
+		public static void LogMessage(HttpRequestBase request, string msg, LogLevel level = null) {
+
+			log.Log(level ?? LogLevel.Error, RequestInfo(msg + " for", request));
+
+		}
 		public static string RequestInfo(string msg, HttpRequestBase request) {
 
 			return string.Format("{0} '{1}' [{2}], URL '{3}', UA '{4}', referrer '{5}'",

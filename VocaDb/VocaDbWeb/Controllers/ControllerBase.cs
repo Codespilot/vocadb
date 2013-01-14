@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -80,6 +81,15 @@ namespace VocaDb.Web.Controllers {
 				}
 
 			}
+
+		}
+
+		protected ActionResult HttpStatusCodeResult(HttpStatusCode code, string message) {
+
+			Response.StatusCode = (int)code;
+			Response.StatusDescription = message;
+
+			return Content((int)code + ": " + message);
 
 		}
 
