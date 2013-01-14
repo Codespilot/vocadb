@@ -2,7 +2,7 @@
 
 namespace VocaDb.Model.Domain.Globalization {
 
-	public class TranslatedStringWithDefault : TranslatedString {
+	public class TranslatedStringWithDefault : TranslatedString, IEquatable<TranslatedStringWithDefault> {
 
 		public new static TranslatedStringWithDefault Create(Func<ContentLanguageSelection, string> factory) {
 
@@ -69,6 +69,18 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
+		public bool Equals(TranslatedStringWithDefault other) {
+			return Default.Equals(other.Default) && English.Equals(other.English) && Japanese.Equals(other.Japanese) && Romaji.Equals(other.Romaji);
+		}
+
+		public override bool Equals(object obj) {
+			return Equals(obj as TranslatedStringWithDefault);
+		}
+
+		public override int GetHashCode() {
+			return (Default + English + Japanese + Romaji).GetHashCode();
+		}
+
 		public override string GetBestMatch(ContentLanguagePreference preference) {
 
 			return GetBestMatch(preference, ContentLanguageSelection.Unspecified);
@@ -79,6 +91,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 			return GetDefaultOrFirst(ContentLanguageSelection.Unspecified);
 
+		}
+
+		public override string ToString() {
+			return string.Format("Default: {0}, Japanese: {1}, Romaji: {2}, English: {3}", Default, Japanese, Romaji, English);
 		}
 
 	}

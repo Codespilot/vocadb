@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using MvcPaging;
@@ -12,6 +14,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.TagFormatting;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
 using VocaDb.Model;
@@ -204,9 +207,12 @@ namespace VocaDb.Web.Controllers
 
 		public FileContentResult DownloadTags(int id) {
 
-			var album = Service.GetAlbumDetails(id, null);
+			var album = Service.GetAlbum(id);
+			var tagString = Service.GetAlbumTagString(id, TagFormatter.TagFormatStrings[0]);
+			var enc = new UTF8Encoding(true);
+			var data = enc.GetPreamble().Concat(enc.GetBytes(tagString)).ToArray();
 
-			return File(Encoding.Unicode.GetBytes(TagsHelper.GetAlbumTags(album)), "text/csv", album.Name + ".csv");
+			return File(data, "text/csv", album.Name + ".csv");
 
 		}
 
@@ -390,9 +396,16 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddExistingArtist(int albumId, int artistId) {
+		public ActionResult AddExistingArtist(int albumId, int artistId) {
 
-			var link = MvcApplication.Services.Artists.AddAlbum(artistId, albumId);
+			ArtistForAlbumContract link;
+
+			try {
+				link = MvcApplication.Services.Artists.AddAlbum(artistId, albumId);
+			} catch (LinkAlreadyExistsException x) {
+				return HttpStatusCodeResult(HttpStatusCode.Conflict, x.Message);
+			}
+
 			return PartialView("ArtistForAlbumEditRow", link);
 
 		}

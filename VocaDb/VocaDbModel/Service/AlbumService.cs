@@ -29,6 +29,7 @@ using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Service.TagFormatting;
 
 namespace VocaDb.Model.Service {
 
@@ -849,9 +850,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public T GetAlbum<T>(int id, Func<Album, T> fac) {
+
+			return HandleQuery(session => fac(session.Load<Album>(id)));
+
+		}
+
 		public AlbumContract GetAlbum(int id) {
 
-			return HandleQuery(session => new AlbumContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
+			return GetAlbum(id, a => new AlbumContract(a, PermissionContext.LanguagePreference));
 
 		}
 
@@ -923,6 +930,12 @@ namespace VocaDb.Model.Service {
 			return
 				HandleQuery(session =>
 					new AlbumForEditContract(session.Load<Album>(id), PermissionContext.LanguagePreference));
+
+		}
+
+		public string GetAlbumTagString(int id, string format) {
+
+			return GetAlbum(id, a => new TagFormatter().ApplyFormat(a, format, PermissionContext.LanguagePreference));
 
 		}
 

@@ -8,6 +8,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using Microsoft.Web.Helpers;
 using MvcPaging;
+using NLog;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -17,6 +18,7 @@ using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Utils;
+using VocaDb.Web.Code;
 using VocaDb.Web.Code.Security;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Shared;
@@ -28,6 +30,7 @@ namespace VocaDb.Web.Controllers
     public class UserController : ControllerBase
     {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private const int usersPerPage = 50;
 
 		private UserService Service {
@@ -399,8 +402,10 @@ namespace VocaDb.Web.Controllers
         public ActionResult Create(RegisterModel model)
         {
 
-			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"]))
+			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"])) {
+				ErrorLogger.LogMessage(Request, "Invalid CAPTCHA");
 				ModelState.AddModelError("CAPTCHA", ViewRes.User.CreateStrings.CaptchaInvalid);
+			}
 
 			if (ModelState.IsValid) {
 				// Attempt to register the user

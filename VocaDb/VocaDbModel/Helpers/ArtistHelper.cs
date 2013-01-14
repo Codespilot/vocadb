@@ -115,7 +115,7 @@ namespace VocaDb.Model.Helpers {
 
 			} else {
 
-				return TranslatedStringWithDefault.Create(lang => string.Join(", ", matched.Select(a => GetTranslatedName(a)[lang])));
+				return TranslatedStringWithDefault.Create(lang => string.Join(", ", producers.Select(a => GetTranslatedName(a)[lang])));
 
 			}
 
@@ -193,6 +193,26 @@ namespace VocaDb.Model.Helpers {
 				default:
 					return ArtistRoles.Default;
 			}
+
+		}
+
+		public static string[] GetProducerNames(IEnumerable<IArtistWithSupport> artists, bool isAnimation, ContentLanguagePreference languagePreference) {
+
+			var matched = artists.Where(IsValidCreditableArtist).ToArray();
+			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).ToArray();
+			var names = producers.Select(p => GetTranslatedName(p).GetBestMatch(languagePreference)).ToArray();
+
+			return names;
+
+		}
+
+		public static string[] GetVocalistNames(IEnumerable<IArtistWithSupport> artists, ContentLanguagePreference languagePreference) {
+
+			var matched = artists.Where(IsValidCreditableArtist).ToArray();
+			var vocalists = matched.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist));
+			var names = vocalists.Select(p => GetTranslatedName(p).GetBestMatch(languagePreference)).ToArray();
+
+			return names;
 
 		}
 
