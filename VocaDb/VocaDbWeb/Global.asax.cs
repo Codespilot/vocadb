@@ -83,7 +83,10 @@ namespace VocaDb.Web {
 
 				LoginManager.InitLanguage();
 
+			} catch (HttpRequestValidationException x) {
+				ErrorLogger.LogMessage(Request, x.Message, LogLevel.Warn);
 			} catch (Exception x) {
+				// TODO: this should be processed using normal exception handling.
 				ErrorLogger.LogException(Request, x, LogLevel.Fatal);
 			}
 
