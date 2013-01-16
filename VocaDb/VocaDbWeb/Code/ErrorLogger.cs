@@ -46,7 +46,7 @@ namespace VocaDb.Web.Code {
 		public static string RequestInfo(string msg, HttpRequestBase request) {
 
 			return string.Format("{0} '{1}' [{2}], URL '{3}', UA '{4}', referrer '{5}'",
-				msg, request.UserHostAddress, request.UserHostName, request.RawUrl, request.UserAgent, request.UrlReferrer);
+				msg, request.UserHostAddress, request.UserHostName, request.Unvalidated.RawUrl, request.UserAgent, request.UrlReferrer);
 
 		}
 
