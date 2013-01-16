@@ -87,6 +87,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Details(string id) {
 
+			if (string.IsNullOrEmpty(id))
+				return NoId();
+
 			var contract = Service.GetTagDetails(id);
 
 			return View(contract);

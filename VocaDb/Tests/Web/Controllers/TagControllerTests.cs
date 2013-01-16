@@ -20,6 +20,15 @@ namespace VocaDb.Tests.Web.Controllers {
 		}
 
 		[TestMethod]
+		public void Details_Null() {
+
+			var result = controller.Details(null);
+
+			Assert.IsTrue(result is HttpNotFoundResult, "result is HttpNotFoundResult");
+
+		}
+
+		[TestMethod]
 		public void Versions_Null() {
 
 			var result = controller.Versions(null);

@@ -165,7 +165,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult SongsPaged(int id, int? page) {
+		public PartialViewResult SongsPaged(int id = invalidId, int? page = null) {
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetSongs(id, pageIndex * entriesPerPage, entriesPerPage);
@@ -175,7 +175,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult TagSelections(int artistId) {
+		public PartialViewResult TagSelections(int artistId = invalidId) {
 
 			var contract = Service.GetTagSelections(artistId, LoginManager.LoggedUserId);
 
