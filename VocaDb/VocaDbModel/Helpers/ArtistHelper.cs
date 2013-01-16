@@ -115,7 +115,7 @@ namespace VocaDb.Model.Helpers {
 
 			} else {
 
-				return TranslatedStringWithDefault.Create(lang => string.Join(", ", producers.Select(a => GetTranslatedName(a)[lang])));
+				return TranslatedStringWithDefault.Create(lang => string.Join(", ", (producers.Any() ? producers : performers).Select(a => GetTranslatedName(a)[lang])));
 
 			}
 
