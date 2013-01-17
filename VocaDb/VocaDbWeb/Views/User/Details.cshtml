@@ -99,7 +99,7 @@
 			<td>
 				@Model.LastLogin                 
                 @if (Login.CanManageUsers) {
-                    @("(")@Model.LastLoginAddress@(")")                    
+                    @("(")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
                 }
                 (@R.DetailsStrings.VisibleOnlyToMe)
 			</td>

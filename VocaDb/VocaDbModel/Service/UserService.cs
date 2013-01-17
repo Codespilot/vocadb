@@ -453,6 +453,9 @@ namespace VocaDb.Model.Service {
 				var q = session.Query<FavoriteSongForUser>()
 					.Where(a => !a.Song.Deleted && a.User.Id == queryParams.UserId);
 
+				if (queryParams.FilterByRating != SongVoteRating.Nothing)
+					q = q.Where(s => s.Rating == queryParams.FilterByRating);
+
 				// Group by rating if needed
 				if (queryParams.GroupByRating)
 					q = q.OrderByDescending(r => r.Rating);
