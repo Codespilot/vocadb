@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Service.Paging;
+﻿using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.Paging;
 
 namespace VocaDb.Model.Service.Search.User {
 
@@ -14,10 +15,13 @@ namespace VocaDb.Model.Service.Search.User {
 			Paging = paging;
 			UserId = userId;
 
+			FilterByRating = SongVoteRating.Nothing;
 			GroupByRating = true;
 			SortRule = SongSortRule.Name;
 
 		}
+
+		public SongVoteRating FilterByRating { get; set; }
 
 		/// <summary>
 		/// Group by rating.

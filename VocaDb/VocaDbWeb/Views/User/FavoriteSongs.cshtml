@@ -20,7 +20,7 @@
 					</button>
 					<ul class="dropdown-menu">
 						@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
-							<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, sort = sortRule.Key })</li>
+							<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, rating = Model.Rating, sort = sortRule.Key })</li>
 						}
 					</ul>
 				</div>
@@ -32,7 +32,7 @@
 
 
 <div id="Favorite_songs">
-@{ Html.RenderAction("FavoriteSongsPaged", new { id = Model.User.Id, sort = Model.Sort }); }
+@{ Html.RenderAction("FavoriteSongsPaged", new { id = Model.User.Id, rating = Model.Rating, sort = Model.Sort }); }
 </div>
 
 @section BodyScripts {
