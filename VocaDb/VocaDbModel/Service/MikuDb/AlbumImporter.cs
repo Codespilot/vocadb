@@ -193,15 +193,7 @@ namespace VocaDb.Model.Service.MikuDb {
 
 				var address = coverPicLink.Attributes["src"].Value;
 
-				var request = WebRequest.Create(address);
-				using (var response = request.GetResponse())
-				using (var stream = response.GetResponseStream()) {
-
-					var buf = StreamHelper.ReadStream(stream, response.ContentLength);
-
-					coverPicture = new PictureDataContract(buf, response.ContentType);
-
-				}
+				coverPicture = DownloadCoverPicture(address);
 
 			}
 
@@ -275,6 +267,45 @@ namespace VocaDb.Model.Service.MikuDb {
 			}
 
 			return list.ToArray();
+
+		}
+
+		private PictureDataContract DownloadCoverPicture(string url) {
+
+			WebRequest request;
+
+			if (url.Contains("-250x250")) {
+
+				var fullUrl = url.Replace("-250x250", string.Empty);
+
+				request = WebRequest.Create(fullUrl);
+				using (var response = (HttpWebResponse)request.GetResponse()) {
+
+					if (response.StatusCode != HttpStatusCode.NotFound) {
+
+						using (var stream = response.GetResponseStream()) {
+
+							var buf = StreamHelper.ReadStream(stream, response.ContentLength);
+
+							return new PictureDataContract(buf, response.ContentType);
+
+						}
+
+					}
+
+				}
+
+			}
+
+			request = WebRequest.Create(url);
+			using (var response = request.GetResponse())
+			using (var stream = response.GetResponseStream()) {
+
+				var buf = StreamHelper.ReadStream(stream, response.ContentLength);
+
+				return new PictureDataContract(buf, response.ContentType);
+
+			}
 
 		}
 
