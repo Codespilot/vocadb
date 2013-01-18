@@ -2,6 +2,7 @@
 function initWebLinksList() {
 
 	var linkMatchers = [
+		{ url: "alice-books.com/", desc: "Alice Books", cat: "Commercial" },
 		{ url: "www.amazon.co.jp/", desc: "Amazon", cat: "Commercial" },
 		{ url: "www.amazon.com/", desc: "Amazon", cat: "Commercial" },
 		{ url: "ameblo.jp/", desc: "Blog", cat: "Official" },
