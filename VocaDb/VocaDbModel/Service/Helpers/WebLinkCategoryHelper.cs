@@ -73,6 +73,7 @@ namespace VocaDb.Model.Service.Helpers {
 				new StringMatcher("youtube.com/user/")
 			),
 			new CategoryMatcher(WebLinkCategory.Commercial,
+				new StringMatcher("alice-books.com/"),
 				new StringMatcher("www.amazon.co.jp/"),
 				new StringMatcher("www.amazon.com/"),
 				new StringMatcher("www.amiami.com/"),
