@@ -197,6 +197,10 @@ if (Model.ViewMode == SongViewMode.Details) {
 
 }
 
+@section Head {
+	<link rel="alternate" type="application/rss+xml" title="RSS" href='@Url.Action("Feed", Model.CreateRouteParams(1))'>
+}
+
 @section BodyScripts {
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
 <script type="text/javascript">

@@ -333,16 +333,42 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public FeedResult LatestVideos() {
+		public FeedResult Feed(IndexRouteParams indexParams) {
 
-			var songs = Service.GetNewSongsWithVideos();
-			var items = songs.Select(s => 
-				new SyndicationItem(s.Name, new TextSyndicationContent(RenderPartialViewToString("SongItem", s), TextSyndicationContentKind.Html), 
+			WebHelper.VerifyUserAgent(Request);
+
+			var pageSize = (indexParams.pageSize.HasValue ? Math.Min(indexParams.pageSize.Value, 30) : 30);
+			var sortRule = indexParams.sort ?? SongSortRule.Name;
+			var timeFilter = DateTimeUtils.ParseFromSimpleString(indexParams.since);
+			var filter = indexParams.filter;
+			var songType = indexParams.songType ?? SongType.Unspecified;
+			var draftsOnly = indexParams.draftsOnly ?? false;
+			var matchMode = indexParams.matchMode ?? NameMatchMode.Auto;
+			var onlyWithPVs = indexParams.onlyWithPVs ?? false;
+
+			var queryParams = new SongQueryParams(filter,
+				songType != SongType.Unspecified ? new[] { songType } : new SongType[] { },
+				0, pageSize, draftsOnly, false, matchMode, sortRule, false, false, null) {
+
+					TimeFilter = timeFilter,
+					OnlyWithPVs = onlyWithPVs,
+					ArtistId = indexParams.artistId ?? 0,
+				};
+
+			var result = Service.Find(queryParams);
+			var items = result.Items.Select(s =>
+				new SyndicationItem(s.Name, new TextSyndicationContent(RenderPartialViewToString("SongItem", s), TextSyndicationContentKind.Html),
 					VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = s.Id })), s.Id.ToString(), s.CreateDate));
 
 			var feed = new SyndicationFeed("Latest songs with videos", string.Empty, VocaUriBuilder.CreateAbsolute(Url.Action("Index")), items);
 
 			return new FeedResult(new Atom10FeedFormatter(feed));
+
+		}
+
+		public FeedResult LatestVideos() {
+
+			return Feed(new IndexRouteParams { onlyWithPVs = true, pageSize = 20 });
 
 		}
 
