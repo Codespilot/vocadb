@@ -39,6 +39,7 @@ namespace VocaDb.Model.Service {
 			if (acceptedAlbum.MergedAlbum == null) {
 
 				album = new Album(new LocalizedString(acceptedAlbum.ImportedAlbum.Title, languageSelection));
+				album.Names.SortNames.DefaultLanguage = languageSelection;
 				album.DiscType = DiscType.Unknown;
 				diff.Names = true;
 				session.Save(album);

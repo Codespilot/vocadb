@@ -401,7 +401,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult PVForSong(int pvId) {
+		public ActionResult PVForSong(int pvId = invalidId) {
+
+			if (pvId == invalidId)
+				return NoId();
 
 			var pv = Service.PVForSong(pvId);
 			return PartialView("PVEmbedDynamic", pv);
