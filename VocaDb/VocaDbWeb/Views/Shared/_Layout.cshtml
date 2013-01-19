@@ -36,6 +36,8 @@
 	<script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
 	<script src="/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
 	
+	@RenderSection("Head", false)
+
 	<script type="text/javascript">
 
 		var _gaq = _gaq || [];
@@ -243,8 +245,6 @@
             vdb.ui.initAll();
 
         </script>
-		@if (IsSectionDefined("BodyScripts")) {
-			@RenderSection("BodyScripts")
-  }
+		@RenderSection("BodyScripts", false)
 	</body>
 </html>
