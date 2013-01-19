@@ -442,33 +442,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*
-		[Obsolete("Disabled")]
-		public AlbumContract Create(string name) {
-
-			ParamIs.NotNullOrWhiteSpace(() => name);
-
-			VerifyManageDatabase();
-
-			name = name.Trim();
-
-			return HandleTransaction(session => {
-
-				AuditLog(string.Format("creating a new artist with name '{0}'", name), session);
-
-				var album = new Album(name);
-
-				session.Save(album);
-
-				Archive(session, album, AlbumArchiveReason.Created);
-				session.Update(album);
-
-				return new AlbumContract(album, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
-
 		public AlbumContract Create(CreateAlbumContract contract) {
 
 			ParamIs.NotNull(() => contract);
