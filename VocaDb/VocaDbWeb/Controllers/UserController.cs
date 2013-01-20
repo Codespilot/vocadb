@@ -62,18 +62,39 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult AlbumCollection(int id = invalidId, int count = 0, int page = 1) {
+		public ActionResult AlbumCollection(AlbumCollectionRouteParams routeParams) {
+
+			var id = routeParams.id;
+
+			if (id == invalidId)
+				return NoId();
+
+			if (Request.IsAjaxRequest()) {
+				return AlbumCollectionPaged(routeParams);
+			} else {
+				return View(new AlbumCollection(Service.GetUser(id), routeParams));
+			}
+
+		}
+
+		public ActionResult AlbumCollectionPaged(AlbumCollectionRouteParams routeParams) {
+
+			var id = routeParams.id;
 
 			if (id == invalidId)
 				return NoId();
 
 			const int entriesPerPage = 50;
-			var pageIndex = (page - 1);
-			var queryParams = new AlbumCollectionQueryParams(id, PagingProperties.CreateFromPage(pageIndex, entriesPerPage, false));
+			var pageIndex = (routeParams.page - 1) ?? 0;
+			var queryParams = new AlbumCollectionQueryParams(id, PagingProperties.CreateFromPage(pageIndex, entriesPerPage, routeParams.count == 0)) { 
+				FilterByStatus = routeParams.purchaseStatus ?? PurchaseStatus.Nothing 
+			};
 			var albums = Service.GetAlbumCollection(queryParams);
-			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, count), id, "AlbumCollection", "Collection");
+			routeParams.count = (albums.TotalCount != 0 ? albums.TotalCount : routeParams.count);
+			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, routeParams.count), id, "AlbumCollection", "Collection");
+			paged.RouteValues = new RouteValueDictionary(new { action = "AlbumCollection", id, count = routeParams.count, purchaseStatus = routeParams.purchaseStatus });
 
-			return PartialView(paged);
+			return PartialView("AlbumCollectionPaged", paged);
 
 		}
 

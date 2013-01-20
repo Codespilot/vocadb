@@ -657,6 +657,7 @@
     <Compile Include="Models\Song\Versions.cs" />
     <Compile Include="Models\Tag\TagEdit.cs" />
     <Compile Include="Models\UserModels.cs" />
+    <Compile Include="Models\User\AlbumCollection.cs" />
     <Compile Include="Models\User\ComposeMessage.cs" />
     <Compile Include="Models\User\ForgotPassword.cs" />
     <Compile Include="Models\User\Index.cs" />
@@ -1525,7 +1526,7 @@
     <Content Include="Views\Artist\ViewVersion.cshtml" />
     <Content Include="App_Code\SongHelpers.cshtml" />
     <Content Include="Views\Song\ViewVersion.cshtml" />
-    <Content Include="Views\User\AlbumCollection.cshtml" />
+    <Content Include="Views\User\AlbumCollectionPaged.cshtml" />
     <Content Include="Views\Admin\RecentComments.cshtml" />
     <Content Include="Views\Album\MultipleTrackProperties.cshtml" />
     <Content Include="Views\Shared\Artists.cshtml" />
@@ -1601,6 +1602,7 @@
     <Content Include="Views\Shared\NameAliasEditRow.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\NameManagerEditContract.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocalizedStringWithIdContract.cshtml" />
+    <Content Include="Views\User\AlbumCollection.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
