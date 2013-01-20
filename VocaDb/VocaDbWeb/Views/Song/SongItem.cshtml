@@ -4,6 +4,5 @@
 <div style="float:left;">
 	@SongHelpers.SongIconLink(Model)
 </div>
-(@Translate.SongTypeNames[Model.SongType])
 <br />
-<small>@Model.ArtistString</small>
+<small>@Model.ArtistString (@Translate.SongTypeNames[Model.SongType])</small>
