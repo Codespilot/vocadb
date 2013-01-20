@@ -19,7 +19,8 @@ namespace VocaDb.Web.Code.Feeds {
 					VocaUriBuilder.CreateAbsolute(urlFac(song)), song.Id.ToString(), song.CreateDate);
 
 			item.Summary = new TextSyndicationContent(contentFac(song), TextSyndicationContentKind.Html);
-			item.ElementExtensions.Add(new XElement(mediaNs + "thumbnail", new XAttribute("url", song.ThumbUrl)));
+			if (!string.IsNullOrEmpty(song.ThumbUrl))
+				item.ElementExtensions.Add(new XElement(mediaNs + "thumbnail", new XAttribute("url", song.ThumbUrl)));
 
 			return item;
 
