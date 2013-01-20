@@ -18,6 +18,8 @@ namespace VocaDb.Web.Code.Feeds {
 			var item = new SyndicationItem(song.Name, new TextSyndicationContent(contentFac(song), TextSyndicationContentKind.Html),
 					VocaUriBuilder.CreateAbsolute(urlFac(song)), song.Id.ToString(), song.CreateDate);
 
+			//item.Summary = new TextSyndicationContent(string.Format("<img src='{0}' alt='{1}' title='{1}' />", song.ThumbUrl, song.Name), TextSyndicationContentKind.Html);
+			item.Summary = new TextSyndicationContent(contentFac(song), TextSyndicationContentKind.Html);
 			item.ElementExtensions.Add(new XElement(mediaNs + "thumbnail", new XAttribute("url", song.ThumbUrl)));
 
 			return item;
