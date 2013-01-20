@@ -837,13 +837,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public EntryRefWithNameContract[] FindDuplicates(string[] anyName, string[] anyPv) {
+		public EntryRefWithCommonPropertiesContract[] FindDuplicates(string[] anyName, string[] anyPv) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
 			var pvs = anyPv.Select(p => VideoServiceHelper.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
 
 			if (!names.Any() && !pvs.Any())
-				return new EntryRefWithNameContract[] {};
+				return new EntryRefWithCommonPropertiesContract[] { };
 
 			return HandleQuery(session => {
 
@@ -862,7 +862,7 @@ namespace VocaDb.Model.Service {
 					.Where(p => p != null);
 
 				return nameMatches.Union(pvMatches)
-					.Select(s => new EntryRefWithNameContract(s, PermissionContext.LanguagePreference))
+					.Select(s => new EntryRefWithCommonPropertiesContract(s, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			});

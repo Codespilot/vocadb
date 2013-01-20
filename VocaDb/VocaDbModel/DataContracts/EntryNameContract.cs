@@ -1,5 +1,8 @@
 ﻿namespace VocaDb.Model.DataContracts {
 
+	/// <summary>
+	/// Entry name (title) with primary display name and additional names.
+	/// </summary>
 	public class EntryNameContract {
 
 		public static EntryNameContract Empty {

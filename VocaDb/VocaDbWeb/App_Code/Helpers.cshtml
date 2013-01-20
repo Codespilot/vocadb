@@ -1,6 +1,7 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 @using System.Web.Mvc;
 @using System.Web.Mvc.Html;
+@using System.Web.Routing
 @using VocaDb.Model
 @using VocaDb.Model.DataContracts
 @using VocaDb.Model.Domain;
@@ -39,7 +40,7 @@
 }
 
 @helper EntryLink(EntryRefWithNameContract entryRef) {
-	@Html.ActionLink(entryRef.Name.DisplayName, "Details", entryRef.EntryType.ToString(), new { id = entryRef.Id }, new { title = entryRef.Name.AdditionalNames })	
+	@Html.ActionLink(entryRef.Name.DisplayName, "Details", entryRef.EntryType.ToString(), new RouteValueDictionary { { "id", entryRef.Id } }, new Dictionary<string, object> { { "title", entryRef.Name.AdditionalNames }, { "data-entry-id", entryRef.Id } })
 }
 
 @helper EntryLink(EntryBaseContract entry) {

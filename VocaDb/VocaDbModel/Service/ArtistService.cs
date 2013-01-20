@@ -477,13 +477,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public EntryRefWithNameContract[] FindDuplicates(string[] anyName, string url) {
+		public EntryRefWithCommonPropertiesContract[] FindDuplicates(string[] anyName, string url) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
 			var urlTrimmed = url != null ? url.Trim() : url;
 
 			if (!names.Any() && string.IsNullOrEmpty(url))
-				return new EntryRefWithNameContract[] {};
+				return new EntryRefWithCommonPropertiesContract[] { };
 
 			return HandleQuery(session => {
 
@@ -504,7 +504,7 @@ namespace VocaDb.Model.Service {
 					.ToArray() : new Artist[] {};
 
 				return nameMatches.Union(linkMatches)
-					.Select(n => new EntryRefWithNameContract(n, PermissionContext.LanguagePreference))
+					.Select(n => new EntryRefWithCommonPropertiesContract(n, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			});
