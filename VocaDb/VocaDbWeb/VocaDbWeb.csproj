@@ -577,6 +577,7 @@
     <Compile Include="Code\EntryAnchorFactory.cs" />
     <Compile Include="Code\ErrorLogger.cs" />
     <Compile Include="Code\Feeds\FeedResult.cs" />
+    <Compile Include="Code\Feeds\SongFeedFactory.cs" />
     <Compile Include="Code\FromJsonAttribute.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />

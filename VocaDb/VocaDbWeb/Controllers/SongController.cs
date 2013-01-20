@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security.Policy;
+﻿using System.Linq;
 using System.ServiceModel.Syndication;
-using System.Web;
 using System.Web.Mvc;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
@@ -19,7 +15,6 @@ using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Song;
 using System;
-using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts.PVs;
 
@@ -356,11 +351,12 @@ namespace VocaDb.Web.Controllers
 				};
 
 			var result = Service.Find(queryParams);
-			var items = result.Items.Select(s =>
-				new SyndicationItem(s.Name, new TextSyndicationContent(RenderPartialViewToString("SongItem", s), TextSyndicationContentKind.Html),
-					VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = s.Id })), s.Id.ToString(), s.CreateDate));
 
-			var feed = new SyndicationFeed("Latest songs with videos", string.Empty, VocaUriBuilder.CreateAbsolute(Url.Action("Index")), items);
+			var fac = new SongFeedFactory();
+			var feed = fac.Create(result.Items, 
+				VocaUriBuilder.CreateAbsolute(Url.Action("Index", indexParams)), 
+				song => RenderPartialViewToString("SongItem", song), 
+				song => Url.Action("Details", new { id = song.Id }));
 
 			return new FeedResult(new Atom10FeedFormatter(feed));
 
