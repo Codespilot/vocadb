@@ -1,58 +1,17 @@
-﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Users.AlbumForUserContract>
+﻿@model VocaDb.Web.Models.User.AlbumCollection
 
-<div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("count", Model.Items.TotalItemCount))
+@{
+    ViewBag.Title = "Album collection for " + Model.User.Name;
+	ViewBag.Parents = new[] {
+		Html.ActionLink(Model.User.Name, "Details", "User", new {id = Model.User.Id}, null)
+	};	
+}
+
+<div id="Collection">
+@{ Html.RenderAction("AlbumCollectionPaged", Model.RouteParams); }
 </div>
 
-<table>
-	<tr>
-		<th colspan="2">@ViewRes.User.AlbumCollectionStrings.Album</th>
-		<th>@ViewRes.User.AlbumCollectionStrings.Status</th>
-		<th>@ViewRes.User.AlbumCollectionStrings.MediaType</th>
-		<th>@ViewRes.User.AlbumCollectionStrings.Rating</th>
-		<th></th>
-	</tr>
-	<tbody id="albumCollectionTableBody">
-		@foreach (var album in Model.Items) {
-		<tr>
-			<td>
-				<input type="hidden" class="albumId" value="@album.Album.Id" />
-				<input type="hidden" class="albumPurchaseStatus" value="@album.PurchaseStatus" />
-				<input type="hidden" class="albumMediaType" value="@album.MediaType" />
-				<input type="hidden" class="albumRating" value="@album.Rating" />
-				@AlbumHelpers.AlbumIconLink(album.Album)
-			</td>
-			<td>
-				@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
-				<br />
-				<span class="extraInfo">@album.Album.ArtistString</span>
-			</td>
-			<td>
-				<div class="albumPurchaseStatusField">
-					@Translate.AlbumCollectionStatusNames.GetName(album.PurchaseStatus)
-				</div>
-			</td>
-			<td>
-				<div class="albumMediaTypeField">
-					@Translate.AlbumMediaTypeNames.GetName(album.MediaType)
-				</div>
-			</td>	
-			<td>
-				<div class="albumRatingField">
-					@Helpers.Stars(album.Rating, 5)				
-				</div>
-			</td>
-			<td>
-				@if (Login.Manager.IsLoggedIn && album.User.Id == Login.User.Id) {
-					<a href="#" class="editAlbumLink editLink textLink">@ViewRes.SharedStrings.Edit</a>
-				}
-			</td>
-		</tr>
-	}	
-	</tbody>
-</table>
-
-<div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("count", Model.Items.TotalItemCount))
-</div>
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+}
