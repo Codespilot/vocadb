@@ -209,7 +209,7 @@ if (Model.ViewMode == SongViewMode.Details) {
 
 		vdb.resources.entryIndex = @ResourceHelpers.ToJSON(AjaxRes.EntryIndexStrings.ResourceManager);
 		vdb.resources.song = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager);
-		vdb.resources.songTypes = @ResourceHelpers.ToJSON(Resources.SongTypeNames.ResourceManager);
+		vdb.resources.songTypes = @ResourceHelpers.ToJSON(VocaDb.Model.Resources.Songs.SongTypeNames.ResourceManager);
 
 		var json = @Html.Raw(JsonConvert.SerializeObject(Model.RouteParams));
 		initPage(json);
