@@ -69,7 +69,8 @@ namespace VocaDb.Web.Controllers
 
 			const int entriesPerPage = 50;
 			var pageIndex = (page - 1);
-			var albums = Service.GetAlbumCollection(id, PurchaseStatus.Nothing, PagingProperties.CreateFromPage(pageIndex, entriesPerPage, false));
+			var queryParams = new AlbumCollectionQueryParams(id, PagingProperties.CreateFromPage(pageIndex, entriesPerPage, false));
+			var albums = Service.GetAlbumCollection(queryParams);
 			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, count), id, "AlbumCollection", "Collection");
 
 			return PartialView(paged);

@@ -477,22 +477,33 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public EntryRefWithNameContract[] FindDuplicates(string[] anyName) {
+		public EntryRefWithNameContract[] FindDuplicates(string[] anyName, string url) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
+			var urlTrimmed = url != null ? url.Trim() : url;
 
-			if (!names.Any())
+			if (!names.Any() && string.IsNullOrEmpty(url))
 				return new EntryRefWithNameContract[] {};
 
 			return HandleQuery(session => {
 
-				return session.Query<ArtistName>()
+				var nameMatches = (names.Any() ? session.Query<ArtistName>()
 					.Where(n => names.Contains(n.Value))
 					.Select(n => n.Artist)
 					.Where(n => !n.Deleted)
 					.Distinct()
 					.Take(10)
-					.ToArray()
+					.ToArray() : new Artist[] {});
+
+				var linkMatches = !string.IsNullOrEmpty(urlTrimmed) ?
+					session.Query<ArtistWebLink>()
+					.Where(w => w.Url == urlTrimmed)
+					.Select(w => w.Artist)
+					.Distinct()
+					.Take(10)
+					.ToArray() : new Artist[] {};
+
+				return nameMatches.Union(linkMatches)
 					.Select(n => new EntryRefWithNameContract(n, PermissionContext.LanguagePreference))
 					.ToArray();
 

@@ -335,6 +335,17 @@
     }
 }
 
+@helper ValidationSymmaryDiv(string message) {
+    if (!ViewData.ModelState.IsValid) {
+        <div class="alert alert-error">
+			<h4>
+				@message
+			</h4>
+			@Html.ValidationSummary(false)
+        </div>
+    }
+}
+
 @helper WebLinksList(IEnumerable<VocaDb.Web.Models.Shared.WebLinkDisplay> webLinks) {
 	
 	<table>

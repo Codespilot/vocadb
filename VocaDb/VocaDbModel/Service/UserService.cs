@@ -393,12 +393,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(int userId, PurchaseStatus status, PagingProperties paging) {
+		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(AlbumCollectionQueryParams queryParams) {
+
+			ParamIs.NotNull(() => queryParams);
 
 			return HandleQuery(session => {
 
+				var status = queryParams.FilterByStatus;
+				var paging = queryParams.Paging;
+
 				var albums = session.Query<AlbumForUser>()
-					.Where(a => a.User.Id == userId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status))
+					.Where(a => a.User.Id == queryParams.UserId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status))
 					.AddNameOrder(LanguagePreference)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
@@ -407,7 +412,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var count = paging.GetTotalCount ? session.Query<AlbumForUser>()
-					.Count(a => a.User.Id == userId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status)) : 0;
+					.Count(a => a.User.Id == queryParams.UserId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status)) : 0;
 
 				return new PartialFindResult<AlbumForUserContract>(albums, count);
 

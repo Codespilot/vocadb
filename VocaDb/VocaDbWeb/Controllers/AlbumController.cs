@@ -277,7 +277,7 @@ namespace VocaDb.Web.Controllers
 			var contract = model.ToContract();
 
 			var album = Service.Create(contract);
-			return RedirectToAction("Details", new { id = album.Id });
+			return RedirectToAction("Edit", new { id = album.Id });
 
 		}
 

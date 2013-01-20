@@ -205,7 +205,7 @@ namespace VocaDb.Web.Controllers
 
 			try {
 				var song = Service.Create(contract);
-				return RedirectToAction("Details", new { id = song.Id });
+				return RedirectToAction("Edit", new { id = song.Id });
 			} catch (VideoParseException x) {
 				ModelState.AddModelError("PVUrl", x.Message);
 				return View(model);
