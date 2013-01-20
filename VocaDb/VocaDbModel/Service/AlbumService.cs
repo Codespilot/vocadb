@@ -745,12 +745,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public EntryRefWithNameContract[] FindDuplicates(string[] anyName) {
+		public EntryRefWithCommonPropertiesContract[] FindDuplicates(string[] anyName) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
 
 			if (!names.Any())
-				return new EntryRefWithNameContract[] { };
+				return new EntryRefWithCommonPropertiesContract[] { };
 
 			return HandleQuery(session => {
 
@@ -761,7 +761,7 @@ namespace VocaDb.Model.Service {
 					.Distinct()
 					.Take(10)
 					.ToArray()
-					.Select(n => new EntryRefWithNameContract(n, PermissionContext.LanguagePreference))
+					.Select(n => new EntryRefWithCommonPropertiesContract(n, PermissionContext.LanguagePreference))
 					.ToArray();
 
 			});

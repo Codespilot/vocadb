@@ -109,6 +109,7 @@
     <Compile Include="DataContracts\Artists\ComparedArtistsContract.cs" />
     <Compile Include="DataContracts\EntryBaseContract.cs" />
     <Compile Include="DataContracts\EntryPictureFileContract.cs" />
+    <Compile Include="DataContracts\EntryRefWithCommonPropertiesContract.cs" />
     <Compile Include="DataContracts\EntryRefWithNameContract.cs" />
     <Compile Include="DataContracts\EntryReportContract.cs" />
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
@@ -441,6 +442,26 @@
     <Compile Include="Mapping\Users\UserWebLinkMap.cs" />
     <Compile Include="ParamIs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Albums\DiscTypeNames.Designer.cs">
+      <DependentUpon>DiscTypeNames.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Albums\DiscTypeNames.fi.designer.cs">
+      <DependentUpon>DiscTypeNames.fi.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Albums\DiscTypeNames.ja.designer.cs">
+      <DependentUpon>DiscTypeNames.ja.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Albums\DiscTypeNames.ru.designer.cs">
+      <DependentUpon>DiscTypeNames.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\AlbumValidationErrors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -455,6 +476,26 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistValidationErrors.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Songs\SongTypeNames.Designer.cs">
+      <DependentUpon>SongTypeNames.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Songs\SongTypeNames.fi.designer.cs">
+      <DependentUpon>SongTypeNames.fi.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Songs\SongTypeNames.ja.designer.cs">
+      <DependentUpon>SongTypeNames.ja.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Songs\SongTypeNames.ru.designer.cs">
+      <DependentUpon>SongTypeNames.ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Resources\SongValidationErrors.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -552,6 +593,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Albums\DiscTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DiscTypeNames.fi.designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Albums\DiscTypeNames.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DiscTypeNames.ja.designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Albums\DiscTypeNames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DiscTypeNames.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Albums\DiscTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DiscTypeNames.ru.designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\AlbumValidationErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumValidationErrors.Designer.cs</LastGenOutput>
@@ -569,6 +626,23 @@
       <LastGenOutput>ArtistValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ArtistValidationErrors.ru.resx" />
+    <EmbeddedResource Include="Resources\Songs\SongTypeNames.fi.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongTypeNames.fi.designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Songs\SongTypeNames.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongTypeNames.ja.designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Songs\SongTypeNames.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SongTypeNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Songs\SongTypeNames.ru.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongTypeNames.ru.designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SongValidationErrors.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SongValidationErrors.Designer.cs</LastGenOutput>

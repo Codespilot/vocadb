@@ -13,6 +13,7 @@ function initPage() {
 			if (result != "Ok") {
 				$("#duplicateEntryWarning").html(result);
 				$("#duplicateEntryWarning").show();
+				$("#duplicateEntryWarning a").vdbArtistToolTip();
 			} else {
 				$("#duplicateEntryWarning").hide();
 			}

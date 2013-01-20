@@ -279,21 +279,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContentLanguageSelectionNames.ru.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\DiscTypeNames.fi.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DiscTypeNames.fi.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\DiscTypeNames.ja.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DiscTypeNames.ja.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\DiscTypeNames.ru.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DiscTypeNames.ru.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_GlobalResources\EntryEditEventNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -353,11 +338,6 @@
       <DependentUpon>PermissionTokenNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="App_GlobalResources\DiscTypeNames.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DiscTypeNames.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\EntryStatusNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -493,26 +473,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SongVoteRatingNames.ru.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\SongTypeNames.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SongTypeNames.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\SongTypeNames.fi.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SongTypeNames.fi.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\SongTypeNames.ja.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SongTypeNames.ja.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\SongTypeNames.ru.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SongTypeNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_GlobalResources\TagEditableFieldNames.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1618,12 +1578,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_GlobalResources\DiscTypeNames.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>DiscTypeNames.Designer.cs</LastGenOutput>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_GlobalResources\UserEmailOptionsNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UserEmailOptionsNames.Designer.cs</LastGenOutput>
@@ -1729,14 +1683,6 @@
       <LastGenOutput>EntryStatusNames.ja.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_GlobalResources\SongTypeNames.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SongTypeNames.Designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\SongTypeNames.fi.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SongTypeNames.fi.designer.cs</LastGenOutput>
-    </Content>
     <Content Include="App_GlobalResources\SongListFeaturedCategoryNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongListFeaturedCategoryNames.fi.designer.cs</LastGenOutput>
@@ -1752,10 +1698,6 @@
     <Content Include="App_GlobalResources\AlbumCollectionStatusNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>AlbumCollectionStatusNames.fi.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\DiscTypeNames.fi.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>DiscTypeNames.fi.designer.cs</LastGenOutput>
     </Content>
     <Content Include="App_GlobalResources\PVTypeNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -1780,10 +1722,6 @@
     <Content Include="App_GlobalResources\SongListFeaturedCategoryNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongListFeaturedCategoryNames.ru.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\SongTypeNames.ru.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SongTypeNames.ru.designer.cs</LastGenOutput>
     </Content>
     <Content Include="App_GlobalResources\UserEmailOptionsNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -1824,10 +1762,6 @@
     <Content Include="App_GlobalResources\ContentLanguageSelectionNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ContentLanguageSelectionNames.ru.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\DiscTypeNames.ru.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>DiscTypeNames.ru.designer.cs</LastGenOutput>
     </Content>
     <Content Include="App_GlobalResources\EntryStatusNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -1894,10 +1828,6 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EntryTypeNames.ja.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="App_GlobalResources\DiscTypeNames.ja.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>DiscTypeNames.ja.designer.cs</LastGenOutput>
-    </Content>
     <Content Include="App_GlobalResources\AlbumMediaTypeNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>AlbumMediaTypeNames.ja.designer.cs</LastGenOutput>
@@ -1937,10 +1867,6 @@
     <Content Include="App_GlobalResources\TagEditableFieldNames.ru.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>TagEditableFieldNames.ru.designer.cs</LastGenOutput>
-    </Content>
-    <Content Include="App_GlobalResources\SongTypeNames.ja.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>SongTypeNames.ja.designer.cs</LastGenOutput>
     </Content>
     <Content Include="App_GlobalResources\ArtistRoleNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
