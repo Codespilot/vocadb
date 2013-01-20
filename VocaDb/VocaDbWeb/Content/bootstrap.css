@@ -3131,7 +3131,7 @@ input[type="submit"].btn.btn-mini {
 .alert {
   padding: 8px 35px 8px 14px;
   margin-bottom: 18px;
-  color: #c09853;
+  color: #997843;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
@@ -3165,7 +3165,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .alert-info {
-  color: #3a87ad;
+  color: #2D6A87;
   background-color: #d9edf7;
   border-color: #bce8f1;
 }

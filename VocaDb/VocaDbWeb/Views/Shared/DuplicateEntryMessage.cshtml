@@ -1,7 +1,6 @@
-﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.EntryRefWithNameContract[]
+﻿@model VocaDb.Model.DataContracts.EntryRefWithNameContract[]
 
-@using (Html.BeginHighlightPanel()) {
+<div class="alert">
 	<p>
 		@Helpers.NotificationIcon()
 		@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
@@ -11,4 +10,4 @@
 		}
 		</ul>
 	</p>
-}
+</div>

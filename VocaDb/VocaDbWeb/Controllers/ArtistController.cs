@@ -195,9 +195,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult FindDuplicate(string term1, string term2, string term3) {
+		public ActionResult FindDuplicate(string term1, string term2, string term3, string linkUrl) {
 
-			var result = Service.FindDuplicates(new[] { term1, term2, term3 });
+			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, linkUrl);
 
 			if (result.Any()) {
 				return PartialView("DuplicateEntryMessage", result);
@@ -295,7 +295,7 @@ namespace VocaDb.Web.Controllers
 			contract.PictureData = pictureData;
 
 			var album = Service.Create(contract);
-			return RedirectToAction("Details", new { id = album.Id });
+			return RedirectToAction("Edit", new { id = album.Id });
 
 		}
         

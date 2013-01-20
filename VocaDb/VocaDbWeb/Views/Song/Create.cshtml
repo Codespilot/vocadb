@@ -11,12 +11,10 @@
 
 @using (Html.BeginForm("Create", "Song", FormMethod.Post)) {
 
-	@Helpers.ValidationSymmaryPanel(R.CreateStrings.UnableToCreateSong);
-	
-	@Helpers.NotificationPanel(R.CreateStrings.SongInfo)
-																							
-	<div>
-		<table><tr><td class="alignTop">
+	@Helpers.ValidationSymmaryDiv(R.CreateStrings.UnableToCreateSong);
+																								
+	<div class="row-fluid">
+		<div class="span5">
 
 			<div class="editor-label">
 				@R.CreateStrings.Name
@@ -28,26 +26,20 @@
 				<table><tr><td class="formLabel">				
 				@Html.LabelFor(m => m.NameOriginal)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "dupeField span12", maxlength = 255, size = 40 })<br />
-				@Html.ValidationMessageFor(m => m.NameOriginal)
+				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "dupeField span12", maxlength = 255, size = 40 })
 				</td></tr>
 
 				<tr><td class="formLabel">
 				@Html.LabelFor(m => m.NameRomaji)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "dupeField span12", maxlength = 255, size = 40 })<br />
-				@Html.ValidationMessageFor(m => m.NameRomaji)
+				@Html.TextBoxFor(m => m.NameRomaji, new { id = "nameRomaji", @class = "dupeField span12", maxlength = 255, size = 40 })
 				</td></tr>
 					
 				<tr><td class="formLabel">
 				@Html.LabelFor(m => m.NameEnglish)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "dupeField span12", maxlength = 255, size = 40 })<br />
-				@Html.ValidationMessageFor(m => m.NameEnglish)
+				@Html.TextBoxFor(m => m.NameEnglish, new { id = "nameEnglish", @class = "dupeField span12", maxlength = 255, size = 40 })
 				</td></tr></table>
-			</div>
-
-			<div id="duplicateSongWarning" style="display:none">
 			</div>
 
 			<div class="editor-label">
@@ -94,23 +86,30 @@
 			
 			<br />
 			<p>
-				<label class="checkbox inline">
+				<label class="checkbox">
 					@Html.CheckBoxFor(m => m.Draft)
 					@R.CreateStrings.Draft
 				</label>
 			</p>
+			
+			<br />
+			<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
 
-		</td><td class="alignTop" style="max-width: 250px">
-			@using (Html.BeginPanel()) {
+		</div>
+		
+		<div class="span3">
+			<div class="alert alert-info">
+				@R.CreateStrings.SongInfo		
+			</div>			     
+			<div class="alert alert-info">
 				<p>@R.CreateStrings.NoArtistsToName</p>
 				<p>@R.CreateStrings.NameHelp</p>
                 <p>@R.CreateStrings.ArtistHelp</p>
-			}
-		</td></tr></table>
+			</div>			
+			<div id="duplicateSongWarning" style="display:none">
+			</div>
+		</div>
 		
-		<br />
-		<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
-
 	</div>
 	
 }
