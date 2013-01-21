@@ -14,6 +14,9 @@ namespace VocaDb.Model.Service.EntryValidators {
 
 			var errors = new List<string>();
 
+			if (album.CoverPictureData == null)
+				errors.Add(AlbumValidationErrors.NeedCover);
+
 			if (album.DiscType == DiscType.Unknown)
 				errors.Add(AlbumValidationErrors.NeedType);
 

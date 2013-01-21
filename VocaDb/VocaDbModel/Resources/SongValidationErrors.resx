@@ -124,6 +124,6 @@
     <value>Song type needs to be specified.</value>
   </data>
   <data name="UnspecifiedNames" xml:space="preserve">
-    <value>Song needs at least one name whose language isn't 'Unspecified'.</value>
+    <value>Song needs a primary name.</value>
   </data>
 </root>
