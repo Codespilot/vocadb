@@ -120,6 +120,9 @@
   <data name="NeedArtist" xml:space="preserve">
     <value>Album needs at least one artist.</value>
   </data>
+  <data name="NeedCover" xml:space="preserve">
+    <value>Album needs a cover.</value>
+  </data>
   <data name="NeedReleaseYear" xml:space="preserve">
     <value>Release year needs to be specified.</value>
   </data>
@@ -130,6 +133,6 @@
     <value>Record type needs to be specified.</value>
   </data>
   <data name="UnspecifiedNames" xml:space="preserve">
-    <value>Album needs at least one name whose language isn't 'Unspecified'.</value>
+    <value>Album needs a primary name.</value>
   </data>
 </root>
