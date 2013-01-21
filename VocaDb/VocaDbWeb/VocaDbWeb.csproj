@@ -544,6 +544,7 @@
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
     <Compile Include="Code\Security\BlockedIPManager.cs" />
     <Compile Include="Code\Security\InMemoryTokenManager.cs" />
+    <Compile Include="Code\Security\LogFileReader.cs" />
     <Compile Include="Code\Security\Membership\VocaDbMembershipProvider.cs" />
     <Compile Include="Code\Security\RestrictBlockedIPAttribute.cs" />
     <Compile Include="Code\Security\TwitterConsumer.cs" />
@@ -590,6 +591,7 @@
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Models\Admin\CommentViewModel.cs" />
     <Compile Include="Models\Admin\ViewAuditLogModel.cs" />
+    <Compile Include="Models\Admin\ViewSysLog.cs" />
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />
@@ -1528,6 +1530,7 @@
     <Content Include="Views\Album\AlbumWithCoverPopupContent.cshtml" />
     <Content Include="Views\Album\ManageTagUsages.cshtml" />
     <Content Include="Views\Artist\ManageTagUsages.cshtml" />
+    <Content Include="Views\Admin\ViewSysLog.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

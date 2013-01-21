@@ -1,8 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Security;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Admin;
 
@@ -232,6 +234,19 @@ namespace VocaDb.Web.Controllers
 			var reports = Service.GetEntryReports();
 
 			return View(reports);
+
+		}
+
+		[Authorize]
+		public ActionResult ViewSysLog() {
+
+			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);
+
+			var logContents = new LogFileReader().GetLatestLogFileContents();
+
+			return Content(logContents, "text/plain");
+
+			//return View(new ViewSysLog(logContents));
 
 		}
 
