@@ -105,6 +105,7 @@ function initPage(songId) {
 
 		var artistsTable = $("#artistsTableBody");
 		artistsTable.append(row);
+		$("#artistsTableBody a.artistLink:last").vdbArtistToolTip();
 
 	}
 
@@ -188,5 +189,7 @@ function initPage(songId) {
 		return false;
 
 	});
+
+	$("#artistsTableBody a.artistLink").vdbArtistToolTip();
 
 }

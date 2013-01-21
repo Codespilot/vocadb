@@ -272,6 +272,7 @@ function initPage(albumId, discType) {
 
 		var artistsTable = $("#artistsTableBody");
 		artistsTable.append(row);
+		$("#artistsTableBody a.artistLink:last").vdbArtistToolTip();
 
 	}
 
@@ -402,5 +403,7 @@ function initPage(albumId, discType) {
 		return false;
 
 	});
+
+	$("#artistsTableBody a.artistLink").vdbArtistToolTip();
 
 }
