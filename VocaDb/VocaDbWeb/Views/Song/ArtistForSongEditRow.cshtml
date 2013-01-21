@@ -11,7 +11,8 @@
 			@Html.HiddenFor(m => m.Artist.AdditionalNames)
 			@Html.HiddenFor(m => m.Artist.Name)								
 			@Html.HiddenFor(m => m.Artist.ArtistType)								
-			@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
+			@ArtistHelpers.ArtistLink(Model.Artist)
+			<br />
 			<span class="extraInfo">@Model.Artist.AdditionalNames</span>
 		} else {
 			@Html.HiddenFor(m => m.Name)
@@ -19,8 +20,10 @@
 		}
 	</td>
 	<td>
-		@Html.CheckBoxFor(m => m.IsSupport)
-		@Html.LabelFor(m => m.IsSupport, "Support")
+		<label class="checkbox">
+			@Html.CheckBoxFor(m => m.IsSupport)
+			Support
+		</label>
 	</td>
 	<td>
 		@Html.HiddenFor(m => m.Roles, new { @class = "artistRoles" })

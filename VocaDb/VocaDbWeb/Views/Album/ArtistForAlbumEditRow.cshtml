@@ -5,7 +5,8 @@
 	<td>
 		@Html.Hidden("artistId_" + Model.Id, Model.Id, new { @class = "artistId" })
 		@if (Model.Artist != null) {
-			@Html.ActionLink(Model.Artist.Name, "Edit", "Artist", new { id = Model.Artist.Id }, null)<br />
+			@ArtistHelpers.ArtistLink(Model.Artist)
+			<br />
 			<span class="extraInfo">@Model.Artist.AdditionalNames</span>
 		} else {
 			@Model.Name

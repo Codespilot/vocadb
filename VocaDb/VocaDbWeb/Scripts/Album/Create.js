@@ -27,6 +27,7 @@ function initPage() {
 			$.post("../../Artist/CreateArtistContractRow", { artistId: artistId }, function (row) {
 				var artistsTable = $("#artistsTableBody");
 				artistsTable.append(row);
+				$("#artistsTableBody a.artistLink:last").vdbArtistToolTip();
 			});
 		}
 
@@ -52,5 +53,7 @@ function initPage() {
 		return false;
 
 	});
+
+	$("#artistsTableBody a.artistLink").vdbArtistToolTip();
 
 }
