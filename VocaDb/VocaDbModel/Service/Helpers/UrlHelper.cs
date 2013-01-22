@@ -33,6 +33,15 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static string MakePossileAffiliateLink(string partialLink) {
+
+			var link = MakeLink(partialLink);
+
+			//return Affiliate.AffiliateLinkGenerator.GenerateAffiliateLink(link);
+			return link;
+
+		}
+
 	}
 
 }

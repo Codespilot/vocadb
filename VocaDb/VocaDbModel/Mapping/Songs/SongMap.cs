@@ -99,7 +99,7 @@ namespace VocaDb.Model.Mapping.Songs {
 			Id(m => m.Id);
 
 			Map(m => m.Language).Not.Nullable();
-			Map(m => m.Value).Not.Nullable();
+			Map(m => m.Value).Length(255).Not.Nullable();
 
 			References(m => m.Song).Not.Nullable();
 
