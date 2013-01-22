@@ -11,7 +11,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Id(m => m.Id);
 
 			Map(m => m.Language).Not.Nullable();
-			Map(m => m.Value).Not.Nullable();
+			Map(m => m.Value).Length(255).Not.Nullable();
 
 			References(m => m.Album).Not.Nullable();
 

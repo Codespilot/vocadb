@@ -54,13 +54,13 @@
 		<div class="control-group" data-bind="visible: !artistId()">
 			<div class="control-label">@ViewRes.SharedStrings.Name</div>
 			<div class="controls">
-				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "size", 30 }, { "data-bind", "value:filter" } }) 
+				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "size", 30 }, { "data-bind", "value:filter" }, { "maxlength", 255 } }) 
 			</div>
 		</div>
 		<div class="control-group" data-bind="visible: !artistId()">
 			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
 			<div class="controls">
-				<input type="text" id="artistNameSearch" data-bind="value:filterArtistName" />
+				<input type="text" id="artistNameSearch" data-bind="value:filterArtistName" maxlength="255" />
 			</div>
 		</div>	  
 		<div class="control-group" data-bind="visible: artistId()">

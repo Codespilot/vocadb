@@ -503,6 +503,7 @@
       <DependentUpon>SongValidationErrors.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\AdminService.cs" />
+    <Compile Include="Service\Affiliate\AffiliateLinkGenerator.cs" />
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\BBCode\AutoLinkTransformer.cs" />

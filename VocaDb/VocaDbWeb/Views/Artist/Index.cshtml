@@ -42,7 +42,7 @@
 	@Html.HiddenFor(m => m.Sort)
 	
 <p>
-	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30 }) 
+	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30, maxlength = 255 }) 
 	&nbsp; 
 	@Html.DropDownListFor(a => a.ArtistType, new SelectList(Model.FilterableArtistTypes, "Key", "Value", Model.ArtistType))
 	&nbsp;
