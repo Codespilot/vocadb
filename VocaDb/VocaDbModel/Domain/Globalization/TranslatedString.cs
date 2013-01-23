@@ -135,6 +135,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}*/
 
+		/// <summary>
+		/// Name in the default language, or first available translation.
+		/// Can be null or empty, but only if there are no translations.
+		/// </summary>
 		public virtual string Default {
 			get {
 				return GetDefaultOrFirst();
@@ -226,11 +230,16 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		}
 
+		/// <summary>
+		/// Gets the translation matching the selected language, or the first translation if the specified language has no translation.
+		/// </summary>
+		/// <param name="defaultLanguage">Selected language. If this is Unspecified, DefaultLanguage will be used.</param>
+		/// <returns>Translated name for the selected language, or first translation. Can be null or empty, but only if there are no translations.</returns>
 		public virtual string GetDefaultOrFirst(ContentLanguageSelection defaultLanguage) {
 
-			var val = this[defaultLanguage];
+			var val = (defaultLanguage != ContentLanguageSelection.Unspecified || DefaultLanguage != ContentLanguageSelection.Unspecified ? this[defaultLanguage] : null);
 
-			return val ?? All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
+			return !string.IsNullOrEmpty(val) ? val : All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
 
 		}
 
