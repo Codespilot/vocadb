@@ -219,7 +219,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var album in albums) {
 					
-					if (album.CoverPictureData != null && album.CoverPictureData.Bytes != null) {
+					if (album.CoverPictureData != null && album.CoverPictureData.Bytes != null && !album.CoverPictureData.HasThumb(new Size(250, 250))) {
 						
 						using (var stream = new MemoryStream(album.CoverPictureData.Bytes)) {
 							var thumbs = ImageHelper.GenerateThumbs(stream, new[] {250});
@@ -245,7 +245,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var artist in artists) {
 
-					if (artist.Picture != null && artist.Picture.Bytes != null) {
+					if (artist.Picture != null && artist.Picture.Bytes != null && !artist.Picture.HasThumb(new Size(250, 250))) {
 
 						using (var stream = new MemoryStream(artist.Picture.Bytes)) {
 							var thumbs = ImageHelper.GenerateThumbs(stream, new[] { 250 });
