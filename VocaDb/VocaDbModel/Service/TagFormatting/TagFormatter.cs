@@ -26,10 +26,10 @@ namespace VocaDb.Model.Service.TagFormatting {
 			sb.Replace("%album%", GetField(album.Names.SortNames[languagePreference]));
 			sb.Replace("%artists%", GetField(track.Song.ArtistString[languagePreference]));
 			sb.Replace("%discnumber%", track.DiscNumber.ToString());
-			sb.Replace("%producers%", GetField(string.Join(", ", ArtistHelper.GetProducerNames(album.Artists, AlbumHelper.IsAnimation(album.DiscType), languagePreference))));
+			sb.Replace("%producers%", GetField(string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference))));
 			sb.Replace("%title%", GetField(track.Song.Names.SortNames[languagePreference]));
 			sb.Replace("%track%", track.TrackNumber.ToString());
-			sb.Replace("%vocalists%", GetField(string.Join(", ", ArtistHelper.GetVocalistNames(album.Artists, languagePreference))));
+			sb.Replace("%vocalists%", GetField(string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference))));
 
 			return sb.ToString();
 
