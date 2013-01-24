@@ -90,7 +90,7 @@ namespace VocaDb.Tests.Domain.Globalization {
 
 			var str = new TranslatedString();
 
-			Assert.AreEqual(null, str.Default, "result is null");
+			Assert.AreEqual(string.Empty, str.Default, "result is empty");
 
 		}
 

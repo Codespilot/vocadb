@@ -234,12 +234,12 @@ namespace VocaDb.Model.Domain.Globalization {
 		/// Gets the translation matching the selected language, or the first translation if the specified language has no translation.
 		/// </summary>
 		/// <param name="defaultLanguage">Selected language. If this is Unspecified, DefaultLanguage will be used.</param>
-		/// <returns>Translated name for the selected language, or first translation. Can be null or empty, but only if there are no translations.</returns>
+		/// <returns>Translated name for the selected language, or first translation. Cannot be null. Can be empty, but only if there are no translations.</returns>
 		public virtual string GetDefaultOrFirst(ContentLanguageSelection defaultLanguage) {
 
 			var val = (defaultLanguage != ContentLanguageSelection.Unspecified || DefaultLanguage != ContentLanguageSelection.Unspecified ? this[defaultLanguage] : null);
 
-			return !string.IsNullOrEmpty(val) ? val : All.FirstOrDefault(n => !string.IsNullOrEmpty(n));
+			return !string.IsNullOrEmpty(val) ? val : All.FirstOrDefault(n => !string.IsNullOrEmpty(n)) ?? string.Empty;
 
 		}
 

@@ -37,6 +37,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 
 		private static string GetField(string val) {
 
+			if (string.IsNullOrEmpty(val))
+				return string.Empty;
+
 			if (!val.Contains(";"))
 				return val;
 			else
