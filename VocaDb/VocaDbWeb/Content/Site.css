@@ -198,6 +198,7 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	color: #000000;
 }
 
+/* TODO: replace colors with defaults or edit bootstrap.css */
 .rightFrame a {
 	color: #003399 !important;
 	margin-bottom: 5px;
@@ -212,6 +213,18 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 
 .rightFrame a:hover {
 	color: #0065B2 !important;	
+}
+
+.rightFrame a.btn {
+	color: white !important;
+}
+
+.rightFrame a.btn:visited {
+	color: white !important;
+}
+
+.rightFrame a.btn:hover {
+	color: white !important;
 }
 
 .rightFrame li {

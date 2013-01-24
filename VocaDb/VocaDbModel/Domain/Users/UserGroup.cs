@@ -21,8 +21,8 @@ namespace VocaDb.Model.Domain.Users {
 			PermissionToken.ManageEventSeries, PermissionToken.MergeEntries);
 
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
-			trusted, PermissionToken.AccessManageMenu, PermissionToken.DeleteComments, PermissionToken.DesignatedStaff, 
-			PermissionToken.DisableUsers, PermissionToken.EditNews,
+			trusted, PermissionToken.AccessManageMenu, PermissionToken.BulkDeletePVs, PermissionToken.DeleteComments, 
+			PermissionToken.DesignatedStaff, PermissionToken.DisableUsers, PermissionToken.EditNews,
 			PermissionToken.LockEntries, PermissionToken.ManageIPRules, PermissionToken.ManageEntryReports, 
 			PermissionToken.ManageUserPermissions, PermissionToken.MikuDbImport, PermissionToken.MoveToTrash, 
 			PermissionToken.RemoveTagUsages, PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);

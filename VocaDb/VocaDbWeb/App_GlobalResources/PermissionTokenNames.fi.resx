@@ -126,6 +126,9 @@
   <data name="ApproveEntries" xml:space="preserve">
     <value>Merkintöjen hyväksyntä</value>
   </data>
+  <data name="BulkDeletePVs" xml:space="preserve">
+    <value>Videoiden massapoisto</value>
+  </data>
   <data name="CreateComments" xml:space="preserve">
     <value>Kommenttien luonti</value>
   </data>

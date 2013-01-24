@@ -590,6 +590,7 @@
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Models\Admin\CommentViewModel.cs" />
+    <Compile Include="Models\Admin\PVsByAuthor.cs" />
     <Compile Include="Models\Admin\ViewAuditLogModel.cs" />
     <Compile Include="Models\Admin\ViewSysLog.cs" />
     <Compile Include="Models\AlbumModels.cs" />
@@ -1531,6 +1532,7 @@
     <Content Include="Views\Album\ManageTagUsages.cshtml" />
     <Content Include="Views\Artist\ManageTagUsages.cshtml" />
     <Content Include="Views\Admin\ViewSysLog.cshtml" />
+    <Content Include="Views\Admin\PVsByAuthor.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

@@ -133,6 +133,7 @@
     <Compile Include="DataContracts\Security\PermissionTokenContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\ComparedSongsContract.cs" />
+    <Compile Include="DataContracts\Songs\PVForSongContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListBaseContract.cs" />

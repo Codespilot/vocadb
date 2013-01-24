@@ -6,6 +6,7 @@ using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts.Security;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
@@ -148,6 +149,48 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public int DeletePVsByAuthor(string author) {
+
+			PermissionContext.VerifyPermission(PermissionToken.BulkDeletePVs);
+
+			if (string.IsNullOrEmpty(author))
+				return 0;
+
+			return HandleTransaction(session => {
+
+				AuditLog(string.Format("deleting PVs by '{0}'.", author), session);
+
+				var pvs = session.Query<PVForSong>().Where(p => p.Author == author).ToArray();
+
+				foreach (var pv in pvs) {
+					pv.OnDelete();
+					session.Delete(pv);
+				}
+
+				return pvs.Length;
+
+			});
+
+		}
+
+		public string[] FindPVAuthorNames(string term) {
+
+			if (string.IsNullOrEmpty(term))
+				return new string[] {};
+
+			return HandleQuery(session => {
+
+				return session.Query<PVForSong>()
+					.Where(p => p.Author.Contains(term))
+					.OrderBy(p => p.Author)
+					.Select(p => p.Author)
+					.Distinct()
+					.ToArray();
+
+			});
+
+		}
+
 		public EntryReportContract[] GetEntryReports() {
 
 			PermissionContext.VerifyPermission(PermissionToken.ManageEntryReports);
@@ -239,6 +282,23 @@ namespace VocaDb.Model.Service {
 				return entries;
 
 			}, IsolationLevel.ReadUncommitted);
+
+		}
+
+		public PVForSongContract[] GetSongPVsByAuthor(string author) {
+
+			if (string.IsNullOrEmpty(author))
+				return new PVForSongContract[] {};
+
+			return HandleQuery(session => {
+
+				return session.Query<PVForSong>().Where(p => p.Author == author)
+					.Take(50)
+					.ToArray()
+					.Select(p => new PVForSongContract(p, LanguagePreference))
+					.ToArray();
+
+			});
 
 		}
 

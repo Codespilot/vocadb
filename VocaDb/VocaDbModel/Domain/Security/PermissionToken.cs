@@ -23,6 +23,7 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken AccessManageMenu =		New("b54de61d-9341-4435-8cb1-31e5e295d577", "AccessManageMenu");
 		public static readonly PermissionToken Admin =					New("1c98077f-f36f-4ef2-8cf3-cd9e347d389a", "Admin");
 		public static readonly PermissionToken ApproveEntries =			New("e3b4b909-5128-4a0e-9f26-2bf1d5e497ab", "ApproveEntries");
+		public static readonly PermissionToken BulkDeletePVs =			New("caa8f4d7-322e-44f7-ad79-7de767ef1128", "BulkDeletePVs");
 		public static readonly PermissionToken CreateComments =			New("be2deee9-ee12-48b4-a9a5-e369915fc156", "CreateComments");
 		public static readonly PermissionToken DeleteComments =			New("1b1dfcfa-6b96-4a8a-8aca-d76465439ffb", "DeleteComments");
 		public static readonly PermissionToken DeleteEntries =			New("cc51c6b6-be93-4942-a6e4-fdf88f4520b9", "DeleteEntries");
@@ -49,7 +50,7 @@ namespace VocaDb.Model.Domain.Security {
 		/// All tokens except Nothing
 		/// </summary>
 		public static readonly PermissionToken[] All = { 
-			AccessManageMenu, Admin, ApproveEntries, CreateComments, DeleteComments, DeleteEntries, 
+			AccessManageMenu, Admin, ApproveEntries, BulkDeletePVs, CreateComments, DeleteComments, DeleteEntries, 
 			DesignatedStaff, DisableUsers, EditFeaturedLists, EditNews, EditProfile, LockEntries, ManageDatabase, ManageEntryReports,
 			ManageEventSeries, ManageIPRules, ManageUserPermissions, MergeEntries, MikuDbImport, MoveToTrash, ReadRecentComments, RemoveTagUsages, 
 			RestoreRevisions, ViewAuditLog

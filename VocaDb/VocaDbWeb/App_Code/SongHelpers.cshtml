@@ -36,6 +36,10 @@
 	</a>		
 }
 
+@helper SongLink(SongContract song) {
+	@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+}
+
 @helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs, bool songType = false) {
 	
 	<table>
