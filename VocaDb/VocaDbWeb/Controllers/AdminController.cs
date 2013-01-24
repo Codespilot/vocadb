@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Web.Code;
@@ -70,6 +71,17 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult DeletePVsByAuthor(string author) {
+
+			var count = Service.DeletePVsByAuthor(author);
+
+			TempData.SetSuccessMessage(string.Format("Deleted {0} PVs by '{1}'.", count, author));
+
+			return View("PVsByAuthor", new PVsByAuthor(author ?? string.Empty, new PVForSongContract[] { }));
+
+		}
+
         //
         // GET: /Admin/
 		[Authorize]
@@ -112,6 +124,25 @@ namespace VocaDb.Web.Controllers
 			MvcApplication.IPRules.Reset();
 			
 			return View(rules);
+
+		}
+
+		public ActionResult PVAuthorNames(string term) {
+
+			var authors = Service.FindPVAuthorNames(term);
+
+			return Json(authors);
+
+		}
+
+		[Authorize]
+		public ActionResult PVsByAuthor(string author) {
+
+			var songs = Service.GetSongPVsByAuthor(author ?? string.Empty);
+
+			var model = new PVsByAuthor(author ?? string.Empty, songs);
+
+			return View(model);
 
 		}
 

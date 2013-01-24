@@ -126,6 +126,9 @@
   <data name="ApproveEntries" xml:space="preserve">
     <value>Approve entries</value>
   </data>
+  <data name="BulkDeletePVs" xml:space="preserve">
+    <value>Bulk delete PVs</value>
+  </data>
   <data name="CreateComments" xml:space="preserve">
     <value>Create comments</value>
   </data>
