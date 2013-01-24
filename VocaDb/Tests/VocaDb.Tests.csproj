@@ -96,6 +96,7 @@
     <Compile Include="Service\ArtistQueryableExtenderTests.cs" />
     <Compile Include="Service\Helpers\UrlHelperTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
+    <Compile Include="Web\Controllers\ArtistControllerTests.cs" />
     <Compile Include="Web\Controllers\EventControllerTests.cs" />
     <Compile Include="Web\Controllers\SongControllerTests.cs" />
     <Compile Include="Web\Controllers\SongListControllerTests.cs" />
