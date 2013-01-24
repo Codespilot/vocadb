@@ -21,7 +21,11 @@
 		@{ item.Dispose(); }
 	</td>
     <td>
-		@Model.Author
+	    @if (!string.IsNullOrEmpty(Model.Author) && Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.BulkDeletePVs)) {
+			@Html.ActionLink(Model.Author, "PVsByAuthor", "Admin", new { author = Model.Author }, null)		 
+		} else {
+			@Model.Author
+		}
 	</td>
 	<td>
 		<a href="#" class="pvRemove textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
