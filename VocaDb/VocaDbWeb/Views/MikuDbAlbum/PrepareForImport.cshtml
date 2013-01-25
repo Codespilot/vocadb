@@ -1,7 +1,10 @@
 ﻿@model VocaDb.Web.Models.MikuDbAlbums.PrepareAlbumsForImport
 
 @{
-    ViewBag.Title = "Importing albums";
+    ViewBag.Title = "Processing albums";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Imported albums", "Index"), 
+	};  	
 }
 
 @using (Html.BeginForm("AcceptImported", "MikuDbAlbum")) {
