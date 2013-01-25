@@ -15,7 +15,7 @@ namespace VocaDb.Model.Domain.Users {
 
 		}
 
-		public override IEntryBase Entry {
+		public override IEntryWithNames Entry {
 			get { return User; }
 		}
 

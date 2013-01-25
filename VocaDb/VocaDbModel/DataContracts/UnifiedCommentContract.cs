@@ -1,4 +1,5 @@
 ﻿using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -6,41 +7,14 @@ namespace VocaDb.Model.DataContracts {
 
 		public UnifiedCommentContract() { }
 
-		public UnifiedCommentContract(Comment comment)
+		public UnifiedCommentContract(Comment comment, ContentLanguagePreference languagePreference)
 			: base(comment) {
 
-			Entry = new EntryBaseContract(comment.Entry);
+			Entry = new EntryRefWithNameContract(comment.Entry, languagePreference);
 
 		}
 
-		public EntryBaseContract Entry { get; set; }
-
-		/*public UnifiedCommentContract(AlbumComment comment, ContentLanguagePreference languagePreference)
-			: base(comment) {
-
-			Album = new AlbumContract(comment.Album, languagePreference);
-
-		}
-
-		public UnifiedCommentContract(ArtistComment comment, ContentLanguagePreference languagePreference)
-			: base(comment) {
-
-			Artist = new ArtistContract(comment.Artist, languagePreference);
-
-		}
-
-		public UnifiedCommentContract(SongComment comment, ContentLanguagePreference languagePreference)
-			: base(comment) {
-
-			Artist = new ArtistContract(comment.Song, languagePreference);
-
-		}
-
-		public AlbumContract Album { get; set; }
-
-		public ArtistContract Artist { get; set; }
-
-		public ArtistContract Artist { get; set; }*/
+		public EntryRefWithNameContract Entry { get; set; }
 
 	}
 

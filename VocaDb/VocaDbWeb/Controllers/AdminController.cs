@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts.Songs;
@@ -143,14 +144,6 @@ namespace VocaDb.Web.Controllers
 			var model = new PVsByAuthor(author ?? string.Empty, songs);
 
 			return View(model);
-
-		}
-
-		public ActionResult RecentComments() {
-
-			var comments = Service.GetRecentComments();
-
-			return View(comments);
 
 		}
 

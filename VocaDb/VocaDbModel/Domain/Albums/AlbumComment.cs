@@ -23,7 +23,7 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public override IEntryBase Entry {
+		public override IEntryWithNames Entry {
 			get { return Album; }
 		}
 

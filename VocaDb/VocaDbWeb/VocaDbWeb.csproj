@@ -596,8 +596,6 @@
     <Compile Include="Models\AlbumModels.cs" />
     <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />
-    <Compile Include="Models\Album\MassTagSongs.cs" />
-    <Compile Include="Models\Album\TrackArtistSelectionsRow.cs" />
     <Compile Include="Models\Album\Versions.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\Artist\Create.cs" />
@@ -1458,9 +1456,6 @@
     <Content Include="Views\Artist\Versions.cshtml" />
     <Content Include="Views\Album\Create.cshtml" />
     <Content Include="Views\Help\Index.cshtml" />
-    <Content Include="Views\Album\MassTagSongs.cshtml" />
-    <Content Include="Views\Album\TrackArtistSelectionsRow.cshtml" />
-    <Content Include="Views\Album\TrackArtistSelection.cshtml" />
     <Content Include="Views\Admin\ViewAuditLog.cshtml" />
     <Content Include="Views\Artist\Create.cshtml" />
     <Content Include="Views\Shared\DiscussionContent.cshtml" />
@@ -1490,7 +1485,6 @@
     <Content Include="App_Code\SongHelpers.cshtml" />
     <Content Include="Views\Song\ViewVersion.cshtml" />
     <Content Include="Views\User\AlbumCollectionPaged.cshtml" />
-    <Content Include="Views\Admin\RecentComments.cshtml" />
     <Content Include="Views\Album\MultipleTrackProperties.cshtml" />
     <Content Include="Views\Shared\Artists.cshtml" />
     <Content Include="Views\SongList\Edit.cshtml" />
