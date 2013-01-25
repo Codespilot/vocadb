@@ -9,35 +9,37 @@
 	<table>
 		<tr>
 			<td>
-				<img src="@Url.Action("CoverPicture", new { id = Model.ImportedAlbum.Id })" alt="Cover picture" class="coverPic" />			
-				<p>
+				<img src="@Url.Action("CoverPicture", new { id = Model.ImportedAlbum.Id })" alt="Cover picture" class="coverPic" />
+				<br /><br />	
+				<p class="form-inline">
 					Existing album:<br /> 
 					@Html.DropDownListFor(m => m.MergedAlbumId, new SelectList(Model.ExistingAlbums, "Id", "Name", Model.MergedAlbumId), new { id = "mergedAlbumId" })
-					<button id="updateAlbumBtn" type="submit" name="commit" value="No">Update</button>
+					<button id="updateAlbumBtn" type="submit" class="btn" name="commit" value="No">Update</button>
 					<br />
 					@if (Model.MergedAlbum != null) { 
-						<span>@Html.ActionLink(Model.MergedAlbum.Name, "Details", "Album", new { id = Model.MergedAlbum.Id }, new { title = Model.MergedAlbum.AdditionalNames })</span> 
+						<span>@AlbumHelpers.AlbumLink(Model.MergedAlbum)</span>
 					} else {
 						<span>(no match)</span>
 					}
 				</p>
-                @Helpers.EntrySearchBox("albumSearch", false, "Set")
-				@if (Model.ImportedAlbum.Data.ReleaseYear != null) {
-					<p>Release year: @Model.ImportedAlbum.Data.ReleaseYear</p>
-				}			
+				<br />
+                @Helpers.EntrySearchBox("albumSearch", false, "Set")		
 			</td>
 			<td>
-				<p>
+				<p class="form-inline">
 					Language for names:
                     @Html.LanguageSelectionDropDownListFor(m => m.SelectedLanguage, null, true)
 				</p>
+				@if (Model.ImportedAlbum.Data.ReleaseYear != null) {
+					<p>Release year: @Model.ImportedAlbum.Data.ReleaseYear</p>
+				}
 				<h4>Artists</h4>
 				<ul>
 				@foreach (var artist in Model.Artists) {
 					<li>
 						@artist.Name: 
 						@if (artist.ExistingArtist != null) {
-							<span>@Html.ActionLink(artist.ExistingArtist.Name, "Details", "Artist", new { id = artist.ExistingArtist.Id }, new { title = artist.ExistingArtist.AdditionalNames })</span>
+							<span>@ArtistHelpers.ArtistLink(artist.ExistingArtist)</span>
 						} else {
 							<span>(no match)</span>
 						}
@@ -46,8 +48,10 @@
 				</ul>
 
 				<h4>Tracks</h4>
-                @Html.CheckBoxFor(m => m.MergeTracks)
-                Merge tracks
+				<label class="checkbox">
+					@Html.CheckBoxFor(m => m.MergeTracks)					
+					Merge tracks
+				</label>               
 
 				@if (Model.Tracks != null) {
 				<div class="tracklist">

@@ -215,15 +215,15 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	color: #0065B2 !important;	
 }
 
-.rightFrame a.btn {
+.rightFrame a.btn-danger {
 	color: white !important;
 }
 
-.rightFrame a.btn:visited {
+.rightFrame a.btn-danger:visited {
 	color: white !important;
 }
 
-.rightFrame a.btn:hover {
+.rightFrame a.btn-danger:hover {
 	color: white !important;
 }
 

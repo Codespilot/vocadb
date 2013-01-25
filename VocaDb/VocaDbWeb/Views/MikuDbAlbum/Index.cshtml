@@ -1,43 +1,43 @@
 ﻿@using VocaDb.Web.Helpers
 @model VocaDb.Web.Models.MikuDbAlbums.Index
 @{
-	ViewBag.Title = "MikuDB albums";
+	ViewBag.Title = "Imported albums";
 }
 
 @section Toolbar {
 @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.MikuDbImport)) {
 	
-@Html.ActionLink("Download new album info from MikuDB", "ImportNew", null, new { id = "importNewLink" })
+@Html.ActionLink("Download new albums from MikuDB", "ImportNew", null, new { id = "importNewLink" })
 
 }
 }
 
-@using (Html.BeginForm("ImportOne", "MikuDbAlbum")) {
+@using (Html.BeginForm("ImportOne", "MikuDbAlbum", FormMethod.Post, new { @class = "form form-inline" })) {
 
 	<p>Download one album from MikuDB: </p>
 	@Html.TextBox("AlbumUrl", null, new { size = 30, maxlength = 255 })
 	
-	<button type="submit" class="btn">Download</button>
+	<button type="submit" class="btn btn-primary">Download</button>
 	
 }
 
-@using (Html.BeginForm("ImportFromFile", "MikuDbAlbum", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+@using (Html.BeginForm("ImportFromFile", "MikuDbAlbum", FormMethod.Post, new { @class = "form form-inline", enctype = "multipart/form-data" })) {
 
 	<p>Parse from CSV file: </p>
     <input type="file" name="albumCsv" />
 	
-	<button type="submit" class="btn">Parse</button>
+	<button type="submit" class="btn btn-primary">Parse</button>
 	
 }
 
 	
-@using (Html.BeginForm("Index", "MikuDbAlbum")) {
+@using (Html.BeginForm("Index", "MikuDbAlbum", FormMethod.Post, new { @class = "form form-inline"})) {
 	
 <p>
-	Status:
-	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses))
+	Filter by status:
+	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses), new { @class = "input-medium" })
 	&nbsp;
-	<button type="submit" class="btn">Apply</button>
+	<button type="submit" class="btn btn-primary">Apply</button>
 </p>
 
 }

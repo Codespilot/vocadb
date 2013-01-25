@@ -96,9 +96,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult GeneratePictureThumbs() {
 			
-			Service.GeneratePictureThumbs();
+			var count = Service.GeneratePictureThumbs();
 
-			TempData.SetStatusMessage("Picture thumbnails recreated.");
+			TempData.SetStatusMessage(count + " picture thumbnails recreated.");
 
 			return RedirectToAction("Index");
 

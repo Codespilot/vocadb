@@ -15,6 +15,7 @@
 			@if (album.ReleaseYear != null) {
 				<span>Year: @album.ReleaseYear<br /></span>
 			}
+			<span>Imported: @Model.Created</span>
 		</p>
 	}
 
@@ -24,12 +25,19 @@
 	@using (Html.BeginCollectionItem("albums")) {
 	<td>
 		@Html.HiddenFor(m => m.Id)
-		<a href="@Model.SourceUrl">@Model.Title</a><br />
-		@Model.Created<br />
-		<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" /><br />
-		@Html.ActionLink("Import", "PrepareForImport", new { id = Model.Id })
-		@Html.ActionLink("Skip", "SkipAlbum", new { id = Model.Id })
-		@Html.ActionLink("Delete", "Delete", new { id = Model.Id })
+		<h4><a href="@Model.SourceUrl">@Model.Title</a></h4>
+		<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
+		<br /><br />
+		<a class="btn" href="@Url.Action("PrepareForImport", new { id = Model.Id })">
+			<i class="icon-ok"></i>
+			Process
+		</a>		
+		@Html.ActionLink("Skip", "SkipAlbum", new { id = Model.Id }, new { @class = "btn" })
+		<a class="btn" href="@Url.Action("Delete", new { id = Model.Id })">
+			<i class="icon-trash"></i>
+			Delete
+		</a>
+		<br />
 	</td>
 	<td>@ImportedAlbumData(Model.Data)</td>
 	<td>
