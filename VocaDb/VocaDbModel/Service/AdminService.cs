@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -304,27 +305,6 @@ namespace VocaDb.Model.Service {
 					.ToArray()
 					.Select(p => new PVForSongContract(p, LanguagePreference))
 					.ToArray();
-
-			});
-
-		}
-
-		public UnifiedCommentContract[] GetRecentComments() {
-
-			const int maxComments = 50;
-
-			return HandleQuery(session => {
-
-				var albumComments = session.Query<AlbumComment>().Where(c => !c.Album.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
-				var artistComments = session.Query<ArtistComment>().Where(c => !c.Artist.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
-				var songComments = session.Query<SongComment>().Where(c => !c.Song.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
-
-				var combined = albumComments.Cast<Comment>().Concat(artistComments).Concat(songComments)
-					.OrderByDescending(c => c.Created)
-					.Take(maxComments)
-					.Select(c => new UnifiedCommentContract(c));
-
-				return combined.ToArray();
 
 			});
 

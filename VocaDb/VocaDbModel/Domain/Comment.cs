@@ -36,7 +36,7 @@ namespace VocaDb.Model.Domain {
 
 		public virtual DateTime Created { get; set; }
 
-		public abstract IEntryBase Entry { get; }
+		public abstract IEntryWithNames Entry { get; }
 
 		public virtual int Id { get; set; }
 

@@ -25,9 +25,7 @@ namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
 
-		private UnifiedCommentContract[] GetRecentComments(ISession session) {
-
-			const int maxComments = 6;
+		private UnifiedCommentContract[] GetRecentComments(ISession session, int maxComments) {
 
 			var albumComments = session.Query<AlbumComment>().Where(c => !c.Album.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
 			var artistComments = session.Query<ArtistComment>().Where(c => !c.Artist.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
@@ -36,7 +34,7 @@ namespace VocaDb.Model.Service {
 			var combined = albumComments.Cast<Comment>().Concat(artistComments).Concat(songComments)
 				.OrderByDescending(c => c.Created)
 				.Take(maxComments)
-				.Select(c => new UnifiedCommentContract(c));
+				.Select(c => new UnifiedCommentContract(c, LanguagePreference));
 
 			return combined.ToArray();
 
@@ -289,7 +287,7 @@ namespace VocaDb.Model.Service {
 
 				var firstSongVote = (newSongs.Any() ? session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == newSongs.First().Id && s.User.Id == PermissionContext.LoggedUserId) : null);
 
-				var recentComments = GetRecentComments(session);
+				var recentComments = GetRecentComments(session, 6);
 
 				return new FrontPageContract(activityEntries, newsEntries, newAlbums, recentComments, topAlbums, newSongs, 
 					firstSongVote != null ? firstSongVote.Rating : SongVoteRating.Nothing, PermissionContext.LanguagePreference);
@@ -301,6 +299,12 @@ namespace VocaDb.Model.Service {
 		public IPRule[] GetIPRules() {
 
 			return HandleQuery(session => session.Query<IPRule>().ToArray());
+
+		}
+
+		public UnifiedCommentContract[] GetRecentComments() {
+
+			return HandleQuery(session => GetRecentComments(session, 50));
 
 		}
 

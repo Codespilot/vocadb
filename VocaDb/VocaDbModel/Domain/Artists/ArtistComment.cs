@@ -24,7 +24,7 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
-		public override IEntryBase Entry {
+		public override IEntryWithNames Entry {
 			get { return Artist; }
 		}
 

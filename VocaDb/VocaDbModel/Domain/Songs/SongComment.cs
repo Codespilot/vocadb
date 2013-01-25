@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Domain.Songs {
+
 	public class SongComment : Comment {
 
 		private Song song;
@@ -14,7 +15,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public override IEntryBase Entry {
+		public override IEntryWithNames Entry {
 			get { return Song; }
 		}
 

@@ -3,19 +3,20 @@ using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 
-namespace VocaDb.Web.Controllers
-{
-    public class CommentController : ControllerBase
-    {
+namespace VocaDb.Web.Controllers {
 
-		class EntryComparer : IEqualityComparer<EntryBaseContract> {
-			public bool Equals(EntryBaseContract x, EntryBaseContract y) {
+    public class CommentController : ControllerBase {
+
+		class EntryComparer : IEqualityComparer<EntryRefWithNameContract> {
+
+			public bool Equals(EntryRefWithNameContract x, EntryRefWithNameContract y) {
 				return x.EntryType == y.EntryType && x.Id == y.Id;
 			}
 
-			public int GetHashCode(EntryBaseContract obj) {
+			public int GetHashCode(EntryRefWithNameContract obj) {
 				return obj.Id;
 			}
+
 		}
 
         //
@@ -24,7 +25,7 @@ namespace VocaDb.Web.Controllers
         public ActionResult Index()
         {
 
-			var comments = Services.Admin.GetRecentComments();
+			var comments = Services.Other.GetRecentComments();
 			var grouped = comments.GroupBy(c => c.Entry, new EntryComparer());
 
 			return View(grouped);
