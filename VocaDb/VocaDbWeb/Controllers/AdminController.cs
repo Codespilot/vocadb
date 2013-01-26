@@ -123,6 +123,8 @@ namespace VocaDb.Web.Controllers
 
 			Service.UpdateIPRules(rules);
 			MvcApplication.IPRules.Reset();
+
+			TempData.SetSuccessMessage("IP rules updated.");
 			
 			return View(rules);
 
