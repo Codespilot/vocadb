@@ -364,7 +364,7 @@ namespace VocaDb.Web.Controllers
 
 		public FeedResult LatestVideos() {
 
-			return Feed(new IndexRouteParams { onlyWithPVs = true, pageSize = 20 });
+			return Feed(new IndexRouteParams { onlyWithPVs = true, pageSize = 20, sort = SongSortRule.AdditionDate });
 
 		}
 
