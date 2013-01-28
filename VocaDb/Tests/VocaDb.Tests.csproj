@@ -85,6 +85,7 @@
     <Compile Include="Domain\Albums\ArtistForAlbumTests.cs" />
     <Compile Include="Domain\Artists\ArtistTests.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringTests.cs" />
+    <Compile Include="Domain\PVs\PVManagerTests.cs" />
     <Compile Include="Domain\Songs\SongTests.cs" />
     <Compile Include="Domain\Users\OwnedArtistForUserTests.cs" />
     <Compile Include="Domain\Users\UserTests.cs" />

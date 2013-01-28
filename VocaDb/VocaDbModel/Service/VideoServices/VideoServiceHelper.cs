@@ -42,11 +42,21 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public static string GetThumbUrl(IEnumerable<PVForSong> pvs) {
+		public static string GetThumbUrl(IList<PVForSong> pvs) {
+
+			ParamIs.NotNull(() => pvs);
+
+			if (!pvs.Any())
+				return string.Empty;
 
 			var pv = pvs.FirstOrDefault(p => p.PVType == PVType.Original && !string.IsNullOrEmpty(p.ThumbUrl));
+
+			if (pv == null)
+				pv = pvs.FirstOrDefault(p => p.PVType == PVType.Reprint && !string.IsNullOrEmpty(p.ThumbUrl));
+
 			if (pv == null)
 				pv = pvs.FirstOrDefault(p => p.PVType == PVType.Original);
+
 			if (pv == null)
 				pv = pvs.FirstOrDefault();
 

@@ -47,7 +47,7 @@ namespace VocaDb.Model.Domain.Albums {
 			return base.GetHashCode();
 		}
 
-		public virtual void OnDelete() {
+		public override void OnDelete() {
 
 			Album.PVs.Remove(this);
 

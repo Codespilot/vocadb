@@ -40,6 +40,10 @@ namespace VocaDb.Model.Mapping.Songs {
 				});
 			});
 
+			Component(m => m.PVs, c => {
+				c.HasMany(m => m.PVs).KeyColumn("[Song]").Inverse().Cascade.All().Cache.ReadWrite();
+			});
+
 			Component(m => m.Tags, c => {
 				c.HasMany(m => m.Usages).KeyColumn("[Song]").Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			});
@@ -57,7 +61,6 @@ namespace VocaDb.Model.Mapping.Songs {
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.ListLinks).Inverse();
 			HasMany(m => m.Lyrics).Inverse().Cascade.All().Cache.ReadWrite();
-			HasMany(m => m.PVs).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.UserFavorites).Inverse();
 			HasMany(m => m.WebLinks).Table("SongWebLinks").Inverse().Cascade.All().Cache.ReadWrite();
 

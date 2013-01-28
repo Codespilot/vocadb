@@ -30,7 +30,7 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<LyricsForSong> lyrics = new List<LyricsForSong>();
 		private NameManager<SongName> names = new NameManager<SongName>();
 		private string notes;
-		private IList<PVForSong> pvs = new List<PVForSong>();
+		private PVManager<PVForSong> pvs = new PVManager<PVForSong>();
 		private TagManager<SongTagUsage> tags = new TagManager<SongTagUsage>();
 		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
@@ -229,7 +229,7 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual Song OriginalVersion { get; set; }
 
-		public virtual IList<PVForSong> PVs {
+		public virtual PVManager<PVForSong> PVs {
 			get { return pvs; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -597,42 +597,9 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
-		public virtual CollectionDiffWithValue<PVForSong, PVForSong> SyncPVs(IEnumerable<PVContract> newPVs) {
+		public virtual CollectionDiffWithValue<PVForSong, PVForSong> SyncPVs(IList<PVContract> newPVs) {
 
-			ParamIs.NotNull(() => newPVs);
-
-			var diff = CollectionHelper.Diff(PVs, newPVs, (n1, n2) => n1.Id == n2.Id);
-			var created = new List<PVForSong>();
-			var edited = new List<PVForSong>();
-
-			foreach (var n in diff.Removed) {
-				n.OnDelete();
-			}
-
-			foreach (var newEntry in diff.Added) {
-
-				var l = CreatePV(newEntry);
-				created.Add(l);
-
-			}
-
-			foreach (var linkEntry in diff.Unchanged) {
-
-				var entry = linkEntry;
-				var newEntry = newPVs.First(e => e.Id == entry.Id);
-
-				if (!entry.ContentEquals(newEntry)) {
-					linkEntry.CopyMetaFrom(newEntry);
-					edited.Add(linkEntry);
-				}
-
-			}
-
-			// Already done at add/delete
-			//UpdateNicoId();
-			//UpdatePVServices();
-
-			return new CollectionDiffWithValue<PVForSong, PVForSong>(created, diff.Removed, diff.Unchanged, edited);
+			return PVs.Sync(newPVs, CreatePV);
 
 		}
 
