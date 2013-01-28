@@ -67,7 +67,7 @@ namespace VocaDb.Model.Domain.Songs {
 			return base.GetHashCode();
 		}
 
-		public virtual void OnDelete() {
+		public override void OnDelete() {
 
 			Song.PVs.Remove(this);
 			Song.UpdateNicoId();

@@ -85,6 +85,15 @@ namespace VocaDb.Model.DataContracts.PVs {
 		[DataMember]
 		public string Url { get; set; }
 
+		public bool ContentEquals(PVContract pv) {
+
+			if (pv == null)
+				return false;
+
+			return (Name == pv.Name);
+
+		}
+
 		public PVContract NullToEmpty() {
 			Author = Author ?? string.Empty;
 			Name = Name ?? string.Empty;

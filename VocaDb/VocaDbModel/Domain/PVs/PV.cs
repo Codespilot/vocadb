@@ -4,7 +4,7 @@ using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Domain.PVs {
 
-	public class PV : IEquatable<PV>, IPV {
+	public class PV : IEquatable<PV>, IEditablePV {
 
 		public static string GetUrl(PVService service, string pvId) {
 			return VideoServiceHelper.Services[service].GetUrlById(pvId);
@@ -112,6 +112,8 @@ namespace VocaDb.Model.Domain.PVs {
 		public override int GetHashCode() {
 			return Id.GetHashCode();
 		}
+
+		public virtual void OnDelete() {}
 
 		public override string ToString() {
 			return string.Format("PV '{0}' [{1}]", PVId, Id);

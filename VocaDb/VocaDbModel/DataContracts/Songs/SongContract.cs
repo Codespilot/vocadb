@@ -45,7 +45,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Version = song.Version;
 
 			// TODO: Used on the front page. Should be moved elsewhere.
-			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs);
+			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
 
 		}
 
