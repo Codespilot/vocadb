@@ -235,23 +235,7 @@
 }
 
 @helper PrintComment(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {	
-	<div class="comment">
-		<h3>
-			@UserHelpers.ProfileIcon(contract.Author, 25)
-			@UserHelpers.UserLink(contract.Author)
-			&nbsp;-&nbsp;
-			@contract.Created
-
-			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
-				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
-   }
-		</h3>
-		
-		<p>
-			@ConvertNewlinesToBreaks(contract.Message)
-		</p>
-		<hr />
-	</div>	
+	@CommentHelpers.PrintComment(contract, allowDelete, alwaysAllowDelete)
 }
 
 @helper PVServiceIcons(PVServices services) {

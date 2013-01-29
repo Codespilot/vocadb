@@ -7,10 +7,21 @@
 
 @foreach (var entry in Model) {
     
-    @Helpers.EntryLink(entry.Key)<br />
-    
-    foreach (var comment in entry) {
-        @Helpers.PrintComment(comment, false);
-    }
+	<div class="row-fluid">
+		
+		<div class="span5">
+			@foreach (var comment in entry) {
+				@Helpers.PrintComment(comment, false);
+			}			
+		</div>
+
+		<div class="span5 item">
+		
+			@CommentHelpers.CommentEntryItem(entry.First())
+				
+		</div>
+		    		
+	</div>
+	<hr />
     
 }
