@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HelperRes {
+namespace VocaDb.Web.Resources.Views.Shared {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace HelperRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ActivityFeedHelperStrings {
+    internal class TimeStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActivityFeedHelperStrings() {
+        internal TimeStrings() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Helpers.ActivityFeedHelperStrings", typeof(ActivityFeedHelperStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Shared.TimeStrings", typeof(TimeStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace HelperRes {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,65 +61,38 @@ namespace HelperRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to at.
+        ///   Looks up a localized string similar to days.
         /// </summary>
-        public static string At {
+        internal static string Days {
             get {
-                return ResourceManager.GetString("At", resourceCulture);
+                return ResourceManager.GetString("Days", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to created a new {0}:.
+        ///   Looks up a localized string similar to hours.
         /// </summary>
-        public static string CreatedNew {
+        internal static string Hours {
             get {
-                return ResourceManager.GetString("CreatedNew", resourceCulture);
+                return ResourceManager.GetString("Hours", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to album.
+        ///   Looks up a localized string similar to minutes.
         /// </summary>
-        public static string EntryAlbum {
+        internal static string Minutes {
             get {
-                return ResourceManager.GetString("EntryAlbum", resourceCulture);
+                return ResourceManager.GetString("Minutes", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to artist.
+        ///   Looks up a localized string similar to {0} {1} ago.
         /// </summary>
-        public static string EntryArtist {
+        internal static string TimeAgo {
             get {
-                return ResourceManager.GetString("EntryArtist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to song.
-        /// </summary>
-        public static string EntrySong {
-            get {
-                return ResourceManager.GetString("EntrySong", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A contributor.
-        /// </summary>
-        public static string Someone {
-            get {
-                return ResourceManager.GetString("Someone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to updated {0}:.
-        /// </summary>
-        public static string Updated {
-            get {
-                return ResourceManager.GetString("Updated", resourceCulture);
+                return ResourceManager.GetString("TimeAgo", resourceCulture);
             }
         }
     }

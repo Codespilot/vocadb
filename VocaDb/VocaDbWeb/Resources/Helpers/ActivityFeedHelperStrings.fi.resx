@@ -118,18 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="At" xml:space="preserve">
-    <value>kello</value>
-  </data>
-  <data name="ByArtist" xml:space="preserve">
-    <value>-</value>
-  </data>
-  <data name="ByUser" xml:space="preserve">
     <value>-</value>
   </data>
   <data name="CreatedNew" xml:space="preserve">
-    <value>Luotu uusi {0}:</value>
+    <value>loi uuden {0}:</value>
+  </data>
+  <data name="EntryAlbum" xml:space="preserve">
+    <value>albumin</value>
+  </data>
+  <data name="EntryArtist" xml:space="preserve">
+    <value>artistin</value>
+  </data>
+  <data name="EntrySong" xml:space="preserve">
+    <value>kappaleen</value>
+  </data>
+  <data name="Someone" xml:space="preserve">
+    <value>Käyttäjä</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Päivitetty {0}:</value>
+    <value>päivitti {0}:</value>
   </data>
 </root>

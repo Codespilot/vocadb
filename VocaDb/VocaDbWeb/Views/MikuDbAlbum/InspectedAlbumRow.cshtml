@@ -1,8 +1,6 @@
 ﻿@using VocaDb.Web.Helpers
 @model VocaDb.Model.DataContracts.MikuDb.InspectedAlbum
 
-@using (Html.BeginCollectionItem("albums")) {
-
 <div>
 	<h3><a href="@Model.ImportedAlbum.SourceUrl">@Model.ImportedAlbum.Title</a></h3>
 	@Html.HiddenFor(m => m.ImportedAlbum.Id)
@@ -70,5 +68,3 @@
 		</tr>
 	</table>
 </div>
-
-}

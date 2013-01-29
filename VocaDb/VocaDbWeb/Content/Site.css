@@ -207,6 +207,10 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	margin-top: 0px;
 }
 
+.rightFrame a.btn {
+	margin-bottom: 0;
+}
+
 .rightFrame a:visited {
 	color: #001155 !important;
 }
@@ -373,7 +377,7 @@ div.message, div.activityEntry, div.newsEntry {
 }
 
 div.activityEntry {
-	min-height: 30px;	
+	min-height: 30px;
 }
 
 div.messageTitleText, p.messageContent {
@@ -718,6 +722,11 @@ div.pvViewerContent .ratingButtons {
   background-color:#333;
   }
 
+div.item {
+	padding:7px;
+	overflow: hidden;
+}
+
 .scrollable-navi .item {
   background-color:#333;
   border-top:1px solid #666;
@@ -727,12 +736,10 @@ div.pvViewerContent .ratingButtons {
   height:81px;
   list-style-type:none;
   list-style:none;
-  padding:7px;
   width:190px;
   cursor:pointer;
 	margin-top:0 !important;
 	margin-bottom: 0;
-	overflow: hidden;
   }
 
 .scrollable-navi .item:hover {
@@ -743,12 +750,12 @@ div.pvViewerContent .ratingButtons {
   background-color:#555;
   }
 
-.scrollable-navi img {
+div.item img {
   float:left;
   margin-right:10px;
   }
 
-.scrollable-navi strong {
+div.item strong {
   display:block;
   }
 

@@ -120,16 +120,22 @@
   <data name="At" xml:space="preserve">
     <value>at</value>
   </data>
-  <data name="ByArtist" xml:space="preserve">
-    <value>by</value>
-  </data>
-  <data name="ByUser" xml:space="preserve">
-    <value>by</value>
-  </data>
   <data name="CreatedNew" xml:space="preserve">
-    <value>Created a new {0}:</value>
+    <value>created a new {0}:</value>
+  </data>
+  <data name="EntryAlbum" xml:space="preserve">
+    <value>album</value>
+  </data>
+  <data name="EntryArtist" xml:space="preserve">
+    <value>artist</value>
+  </data>
+  <data name="EntrySong" xml:space="preserve">
+    <value>song</value>
+  </data>
+  <data name="Someone" xml:space="preserve">
+    <value>A contributor</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>Updated {0}:</value>
+    <value>updated {0}:</value>
   </data>
 </root>

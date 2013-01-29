@@ -236,7 +236,7 @@ namespace VocaDb.Model.Service {
 		public FrontPageContract GetFrontPageContent() {
 
 			const int maxNewsEntries = 4;
-			const int maxActivityEntries = 20;
+			const int maxActivityEntries = 15;
 
 			return HandleQuery(session => {
 

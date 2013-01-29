@@ -6,11 +6,11 @@ namespace VocaDb.Web.Models.MikuDbAlbums {
 
 		public PrepareAlbumsForImport() {}
 
-		public PrepareAlbumsForImport(InspectedAlbum[] albums) {
-			Albums = albums;
+		public PrepareAlbumsForImport(InspectedAlbum album) {
+			Album = album;
 		}
 
-		public InspectedAlbum[] Albums { get; set; }
+		public InspectedAlbum Album { get; set; }
 
 	}
 }

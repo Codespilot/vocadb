@@ -232,7 +232,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MikuDB import.
+        ///   Looks up a localized string similar to Album import.
         /// </summary>
         internal static string MikuDbImport {
             get {

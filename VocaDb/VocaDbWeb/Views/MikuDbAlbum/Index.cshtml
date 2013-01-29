@@ -34,13 +34,18 @@
 @using (Html.BeginForm("Index", "MikuDbAlbum", FormMethod.Post, new { @class = "form form-inline"})) {
 	
 <p>
-	Filter by status:
-	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses), new { @class = "input-medium" })
+	Filter:
+	@Html.TextBoxFor(m => m.TitleFilter)
+	@Html.DropDownListFor(m => m.Status, new SelectList(Model.AllStatuses, "Key", "Value"), new { @class = "input-medium" })
 	&nbsp;
 	<button type="submit" class="btn btn-primary">Apply</button>
 </p>
 
 }
+
+<div class="alert alert-info">
+	Import new albums from either MikuDB or CSV files, or manage imported albums (if any) using the buttons below.
+</div>
 
 @using (Html.BeginForm("PrepareForImport", "MikuDbAlbum")) {
 	

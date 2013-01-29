@@ -32,9 +32,7 @@ namespace VocaDb.Model.Domain.Activityfeed {
 
 		public virtual EntryEditEvent EditEvent { get; set; }
 
-		public abstract IEntryBase EntryBase { get; }
-
-		public abstract INameManager EntryNames { get; }
+		public abstract IEntryWithNames EntryBase { get; }
 
 		public abstract EntryType EntryType { get; }
 
