@@ -26,6 +26,7 @@
 }
 
 @helper ActivityEntry(ActivityEntryContract entry) {
+	var thumbUrl = Url.EntryThumbUrl(entry.EntryRef, entry.SongThumbUrl);
 	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
 		@if (!entry.Author.AnonymousActivity || Login.CanModerateUsers) {
 			@UserHelpers.UserIconLink(entry.Author)
@@ -36,9 +37,11 @@
 		@EntryType(entry)<br />
 
 		<div class="item">
+			@if (!string.IsNullOrEmpty(thumbUrl)) {
 			<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
-				<img src="@Url.EntryThumbUrl(entry.EntryRef, entry.SongThumbUrl)" alt="thumb" class="coverPicThumb" />
+				<img src="@thumbUrl" alt="thumb" class="coverPicThumb" />
 			</a>
+			}
 			<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
 				<strong>@entry.EntryRef.Name.DisplayName</strong>
 			</a>
