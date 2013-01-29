@@ -2,7 +2,7 @@
 @using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
 
-@helper CommentWithEntry(UnifiedCommentContract comment) {
+@helper CommentEntryItem(UnifiedCommentContract comment) {
 	
 	var entry = comment.Entry;
 	
@@ -17,6 +17,31 @@
 			<span>@comment.ArtistString</span>
 		}
 	</div>
-	@Helpers.PrintComment(comment, false);	
+		
+}
+
+@helper CommentWithEntryVertical(UnifiedCommentContract comment) {
 	
+	@CommentEntryItem(comment)
+	@PrintComment(comment, false);	
+	<hr />
+	
+}
+
+@helper PrintComment(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {	
+	<div class="comment">
+		<h3>
+			@UserHelpers.UserIconLink(contract.Author, 25)
+			&nbsp;-&nbsp;
+			@contract.Created
+
+			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
+				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
+   }
+		</h3>
+		
+		<p>
+			@Helpers.ConvertNewlinesToBreaks(contract.Message)
+		</p>
+	</div>	
 }
