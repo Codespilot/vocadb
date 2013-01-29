@@ -58,19 +58,18 @@
 
 <br />
 <div class="row-fluid">
-    <div class="span9">
+    <div class="span8">
         <h4>@ViewRes.Home.IndexStrings.RecentActivity (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "ActivityEntry"))</h4>
 
         @foreach (var entry in Model.ActivityEntries) {
 	        @ActivityfeedHelpers.ActivityEntry(entry);
         }            
     </div>
-    <div class="span3">
+    <div class="span4">
         <h4>@ViewRes.Comment.IndexStrings.RecentComments (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Comment"))</h4>
             
         @foreach (var comment in Model.RecentComments) {
-            @Helpers.EntryLink(comment.Entry)<br />
-            @Helpers.PrintComment(comment, false);
+			@CommentHelpers.CommentWithEntry(comment)
         }
     </div>
 </div>

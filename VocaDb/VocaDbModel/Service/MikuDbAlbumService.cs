@@ -22,6 +22,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Service.Paging;
 
 namespace VocaDb.Model.Service {
 
@@ -421,6 +422,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumContract AcceptImportedAlbum(ImportedAlbumOptions importedAlbum, int[] selectedSongIds) {
+
+			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
+
+			return HandleTransaction(session => {
+
+				var inspected = Inspect(session, importedAlbum);
+				var album = AcceptImportedAlbum(session, importedAlbum.SelectedLanguage, inspected, selectedSongIds);
+
+				return album;
+
+			});
+
+		}
+
 		public AlbumContract[] AcceptImportedAlbums(ImportedAlbumOptions[] importedAlbumIds, int[] selectedSongIds) {
 
 			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
@@ -450,14 +466,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public MikuDbAlbumContract[] GetAlbums(AlbumStatus status, int start, int maxEntries) {
+		public MikuDbAlbumContract[] GetAlbums(string title, AlbumStatus status, PagingProperties paging) {
 
 			return HandleQuery(session => session
 				.Query<MikuDbAlbum>()
-				.Where(a => a.Status == status)
+				.Where(a => (string.IsNullOrEmpty(title) || a.Title.Contains(title)) && a.Status == status)
 				.OrderByDescending(a => a.Created)
-				.Skip(start)
-				.Take(maxEntries)
+				.Skip(paging.Start)
+				.Take(paging.MaxEntries)
 				.ToArray()
 				.Select(a => new MikuDbAlbumContract(a))
 				.ToArray());
@@ -563,6 +579,14 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => importedAlbumIds);
 
 			return HandleQuery(session => Inspect(session, importedAlbumIds));
+
+		}
+
+		public InspectedAlbum Inspect(ImportedAlbumOptions importedAlbum) {
+
+			ParamIs.NotNull(() => importedAlbum);
+
+			return HandleQuery(session => Inspect(session, importedAlbum));
 
 		}
 

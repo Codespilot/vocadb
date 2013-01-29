@@ -548,6 +548,7 @@
     <Compile Include="Code\Security\Membership\VocaDbMembershipProvider.cs" />
     <Compile Include="Code\Security\RestrictBlockedIPAttribute.cs" />
     <Compile Include="Code\Security\TwitterConsumer.cs" />
+    <Compile Include="Code\TimeAgoStringBuilder.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
@@ -785,6 +786,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TagSelectionsStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\Shared\TimeStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Shared\_LayoutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1024,6 +1030,7 @@
     <Content Include="Scripts\Event\Edit.js" />
     <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\Home\Index.js" />
+    <Content Include="App_Code\CommentHelpers.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -2172,6 +2179,11 @@
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\TagSelectionsStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TimeStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx">
       <SubType>Designer</SubType>

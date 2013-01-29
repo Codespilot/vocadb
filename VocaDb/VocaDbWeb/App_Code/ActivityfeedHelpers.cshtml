@@ -1,12 +1,9 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 @using System.Web.Mvc.Html;
+@using VocaDb.Web.Code
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Activityfeed;
 @using VocaDb.Model.Domain.Activityfeed;
-
-@helper EntryLink(ActivityEntryContract entryProperties) {
-	@Html.ActionLink(entryProperties.DisplayName, "Details", entryProperties.EntryRef.EntryType.ToString(), new { id = entryProperties.EntryRef.Id }, new { title = entryProperties.AdditionalNames })
-}
 
 @helper EntryType(ActivityEntryContract entry) {
     
@@ -19,9 +16,9 @@
     } else {
      
 		if (entry.EditEvent == EntryEditEvent.Created) {
-			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.CreatedNew, Translate.EntryTypeNames[entry.EntryRef.EntryType])</span>
+			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.CreatedNew, HelperRes.ActivityFeedHelperStrings.ResourceManager.GetString("Entry" + entry.EntryRef.EntryType.ToString()))</span>
 		} else {
-			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.Updated, Translate.EntryTypeNames[entry.EntryRef.EntryType])</span>
+			<span>@string.Format(HelperRes.ActivityFeedHelperStrings.Updated, HelperRes.ActivityFeedHelperStrings.ResourceManager.GetString("Entry" + entry.EntryRef.EntryType.ToString()))</span>
 		}
            
     }
@@ -30,22 +27,29 @@
 
 @helper ActivityEntry(ActivityEntryContract entry) {
 	<div class="message activityEntry ui-tabs ui-widget ui-widget-content ui-corner-all">
-		<p>
-		@EntryType(entry)
-		<span>@EntryLink(entry)</span>         
-		@if (!string.IsNullOrEmpty(entry.ArtistString)) {
-			<span> @HelperRes.ActivityFeedHelperStrings.ByArtist @entry.ArtistString</span>
-		}
-		<span>-</span>
-		@entry.CreateDate
 		@if (!entry.Author.AnonymousActivity || Login.CanModerateUsers) {
-			<span>@HelperRes.ActivityFeedHelperStrings.ByUser</span>
-			@Html.ProfileIcon(entry.Author, 20)
-			<span>
-	  		@Html.UserLink(entry.Author, entry.Author.Name)
-			</span>
+			@UserHelpers.UserIconLink(entry.Author)
+		} else {
+			@HelperRes.ActivityFeedHelperStrings.Someone
 		}
-		</p>
+
+		@EntryType(entry)<br />
+
+		<div class="item">
+			<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
+				<img src="@Url.EntryThumbUrl(entry.EntryRef, entry.SongThumbUrl)" alt="thumb" class="coverPicThumb" />
+			</a>
+			<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
+				<strong>@entry.EntryRef.Name.DisplayName</strong>
+			</a>
+			@if (!string.IsNullOrEmpty(entry.ArtistString)) {
+			<span>@entry.ArtistString</span>
+			}
+			<br />
+			<small class="extraInfo">
+				@TimeAgoStringBuilder.FormatTimeAgo(DateTime.Now - entry.CreateDate)
+			</small>
+		</div>
 	</div>
 }
 
@@ -57,10 +61,7 @@
 		<div class="messageTitle ui-widget-header ui-corner-all">
 			<div class="messageTitleText">
 				@if (!entry.Anonymous || Login.CanModerateUsers) {
-					@Html.ProfileIcon(entry.Author, 20)
-					<span>
-					@Html.UserLink(entry.Author, entry.Author.Name)
-					</span>
+					@UserHelpers.UserIconLink(entry.Author)
 					<span> @HelperRes.ActivityFeedHelperStrings.At </span>
 	}
 				@entry.CreateDate

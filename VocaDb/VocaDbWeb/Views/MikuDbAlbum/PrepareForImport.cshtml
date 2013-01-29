@@ -1,4 +1,4 @@
-﻿@model VocaDb.Web.Models.MikuDbAlbums.PrepareAlbumsForImport
+﻿@model VocaDb.Model.DataContracts.MikuDb.InspectedAlbum
 
 @{
     ViewBag.Title = "Processing albums";
@@ -9,12 +9,14 @@
 
 @using (Html.BeginForm("AcceptImported", "MikuDbAlbum")) {
 
-    foreach (var album in Model.Albums) {
-	    Html.RenderPartial("InspectedAlbumRow", album);
-    }
+	Html.RenderPartial("InspectedAlbumRow", Model);
 
-    <button type="submit" class="btn btn-primary" name="commit" value="Accept">Accept</button>
-
+    <button type="submit" class="btn btn-primary" name="commit" value="Accept">Approve</button>
+	<a class="btn" href="@Url.Action("SkipAlbum", new { id = Model.ImportedAlbum.Id })">
+		<i class="icon-remove"></i>
+		Reject
+	</a>
+	
 }
 
 @section BodyScripts {

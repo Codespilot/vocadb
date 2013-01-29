@@ -13,7 +13,9 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public InspectedAlbum(MikuDbAlbumContract importedAlbum)
 			: this() {
+
 			ImportedAlbum = importedAlbum;
+
 		}
 
 		public InspectedArtist[] Artists { get; set; }

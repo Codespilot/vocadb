@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Paging;
+using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.MikuDbAlbums;
 
 namespace VocaDb.Web.Controllers
@@ -31,11 +33,11 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /MikuDb/
 
-        public ActionResult Index(AlbumStatus? status) {
+        public ActionResult Index(string titleFilter, AlbumStatus? status) {
 
 			var s = status ?? AlbumStatus.New;
-        	var albums = Service.GetAlbums(s, 0, entriesPerPage);
-			var model = new Index(albums, s);
+        	var albums = Service.GetAlbums(titleFilter, s, new PagingProperties(0, entriesPerPage, false));
+			var model = new Index(albums, titleFilter, s);
 
             return View(model);
 
@@ -45,12 +47,13 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult PrepareForImport(int id) {
 
-			var result = Service.Inspect(new[] { new ImportedAlbumOptions(id) });
+			var result = Service.Inspect(new[] { new ImportedAlbumOptions(id) }).First();
 
-			return View("PrepareForImport", new PrepareAlbumsForImport(result));
+			return View("PrepareForImport", result);
 
 		}
 
+		/*
 		[HttpPost]
 		[Authorize]
 		public ActionResult PrepareForImport(IEnumerable<MikuDbAlbumContract> albums) {
@@ -60,7 +63,7 @@ namespace VocaDb.Web.Controllers
 
 			return View("PrepareForImport", new PrepareAlbumsForImport(result));
 
-		}
+		}*/
 
 		[HttpPost]
 		[Authorize]
@@ -97,21 +100,24 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
-		public ActionResult AcceptImported(IEnumerable<InspectedAlbum> albums, IEnumerable<InspectedTrack> Tracks, string commit) {
+		public ActionResult AcceptImported(InspectedAlbum album, string commit) {
 
 			if (commit != "Accept") {
 
-				var options = albums.Select(a => new ImportedAlbumOptions(a)).ToArray();
+				//var options = albums.Select(a => new ImportedAlbumOptions(a)).ToArray();
+				var options = new ImportedAlbumOptions(album);
 				var inspectResult = Service.Inspect(options);
 
-				return View("PrepareForImport", new PrepareAlbumsForImport(inspectResult));
+				return View("PrepareForImport", inspectResult);
 
 			}
 
-			var ids = albums.Select(a => new ImportedAlbumOptions(a)).ToArray();
-			var selectedSongIds = (Tracks != null ? Tracks.Where(t => t.Selected).Select(t => t.ExistingSong.Id).ToArray() : new int[] {});
+			var ids = new ImportedAlbumOptions(album);
+			var selectedSongIds = (album.Tracks != null ? album.Tracks.Where(t => t.Selected).Select(t => t.ExistingSong.Id).ToArray() : new int[] { });
 
-			var result = Service.AcceptImportedAlbums(ids, selectedSongIds);
+			Service.AcceptImportedAlbum(ids, selectedSongIds);
+
+			TempData.SetSuccessMessage("Imported album approved successfully.");
 
 			return RedirectToAction("Index");
 
@@ -121,6 +127,9 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Delete(int id) {
 
 			Service.Delete(id);
+
+			TempData.SetSuccessMessage("Imported album deleted.");
+
 			return RedirectToAction("Index");
 
 		}
@@ -129,6 +138,9 @@ namespace VocaDb.Web.Controllers
 		public ActionResult SkipAlbum(int id) {
 
 			Service.SkipAlbum(id);
+
+			TempData.SetSuccessMessage("Imported album rejected.");
+
 			return RedirectToAction("Index");
 
 		}

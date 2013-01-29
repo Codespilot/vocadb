@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using VocaDb.Model.Domain.Users;
+﻿using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Activityfeed {
 
@@ -14,9 +9,9 @@ namespace VocaDb.Model.Domain.Activityfeed {
 
 		private T entry;
 
-		public GenericActivityEntry() { }
+		protected GenericActivityEntry() { }
 
-		public GenericActivityEntry(T entry, EntryEditEvent editEvent, User author)
+		protected GenericActivityEntry(T entry, EntryEditEvent editEvent, User author)
 			: base(author, editEvent) {
 
 			Entry = entry;
@@ -32,12 +27,8 @@ namespace VocaDb.Model.Domain.Activityfeed {
 			}
 		}
 
-		public override IEntryBase EntryBase {
+		public override IEntryWithNames EntryBase {
 			get { return Entry; }
-		}
-
-		public override INameManager EntryNames {
-			get { return Entry.Names; }
 		}
 
 		public override EntryType EntryType {

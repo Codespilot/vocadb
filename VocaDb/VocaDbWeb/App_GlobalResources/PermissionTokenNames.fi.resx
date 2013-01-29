@@ -175,7 +175,7 @@
     <value>Merkintöjen yhdistäminen</value>
   </data>
   <data name="MikuDbImport" xml:space="preserve">
-    <value>Tuonti MikuDB:stä</value>
+    <value>Albumien tuonti</value>
   </data>
   <data name="MoveToTrash" xml:space="preserve">
     <value>Merkintöjen siirtäminen roskakoriin</value>

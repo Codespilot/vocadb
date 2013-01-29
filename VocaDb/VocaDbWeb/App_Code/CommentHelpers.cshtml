@@ -1,0 +1,22 @@
+﻿@using VocaDb.Model.DataContracts
+@using VocaDb.Web.Helpers
+@inherits VocaDb.Web.Code.HelperPage
+
+@helper CommentWithEntry(UnifiedCommentContract comment) {
+	
+	var entry = comment.Entry;
+	
+	<div class="item">
+		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
+			<img src="@Url.EntryThumbUrl(entry, comment.SongThumbUrl)" alt="thumb" class="coverPicThumb" />
+		</a>
+		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
+			<strong>@entry.Name.DisplayName</strong>
+		</a>
+		@if (!string.IsNullOrEmpty(comment.ArtistString)) {
+			<span>@comment.ArtistString</span>
+		}
+	</div>
+	@Helpers.PrintComment(comment, false);	
+	
+}

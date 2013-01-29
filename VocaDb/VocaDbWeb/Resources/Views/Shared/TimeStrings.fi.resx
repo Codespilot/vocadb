@@ -117,31 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>-</value>
+  <data name="Days" xml:space="preserve">
+    <value>päivää</value>
   </data>
-  <data name="CreatedAlbum" xml:space="preserve">
-    <value>新しいアルバムが登録されました</value>
+  <data name="Hours" xml:space="preserve">
+    <value>tuntia</value>
   </data>
-  <data name="CreatedArtist" xml:space="preserve">
-    <value>新しいアーティストが追加されました</value>
+  <data name="Minutes" xml:space="preserve">
+    <value>minuuttia</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>{0}を樹立された</value>
-  </data>
-  <data name="CreatedSong" xml:space="preserve">
-    <value>新しい曲が登録されました</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>{0}を更新した</value>
-  </data>
-  <data name="UpdatedAlbum" xml:space="preserve">
-    <value>アルバムが更新されました</value>
-  </data>
-  <data name="UpdatedArtist" xml:space="preserve">
-    <value>アーティストが更新されました</value>
-  </data>
-  <data name="UpdatedSong" xml:space="preserve">
-    <value>曲が更新されました</value>
+  <data name="TimeAgo" xml:space="preserve">
+    <value>{0} {1} sitten</value>
   </data>
 </root>

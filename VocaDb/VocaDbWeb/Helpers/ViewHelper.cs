@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using Microsoft.Web.Helpers;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using System.Web;
@@ -167,6 +168,21 @@ namespace VocaDb.Web.Helpers {
 			where TEnum : struct, IConvertible {
 
 			return htmlHelper.DropDownListFor(expression, CreateEnumList(selectedValue, values), htmlAttributes);
+
+		}
+
+		public static string EntryThumbUrl(this UrlHelper url, EntryRefContract entry, string songThumbUrl) {
+
+			switch (entry.EntryType) {
+				case EntryType.Album:
+					return url.Action("CoverPictureThumb", "Album", new { id = entry.Id });
+				case EntryType.Artist:
+					return url.Action("PictureThumb", "Artist", new { id = entry.Id });
+				case EntryType.Song:
+					return songThumbUrl;
+				default:
+					return string.Empty;
+			}
 
 		}
 

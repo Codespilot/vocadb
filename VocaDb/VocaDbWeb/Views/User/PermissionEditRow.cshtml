@@ -4,7 +4,7 @@
 <p>
 @using (Html.BeginCollectionItem("Permissions")) {
 	@Html.HiddenFor(m => m.PermissionType.Id)
-	<label class="checkbox inline">
+	<label class="checkbox">
 		@Html.CheckBoxFor(m => m.HasFlag)
 		@Translate.PermissionTokenName(Model.PermissionType)
 		@if (Model.HasPermission) {
