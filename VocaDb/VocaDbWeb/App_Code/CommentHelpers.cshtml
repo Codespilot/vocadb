@@ -5,11 +5,14 @@
 @helper CommentEntryItem(UnifiedCommentContract comment) {
 	
 	var entry = comment.Entry;
+	var thumbUrl = Url.EntryThumbUrl(entry, comment.SongThumbUrl);
 	
 	<div class="item">
+		@if (!string.IsNullOrEmpty(thumbUrl)) {
 		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
-			<img src="@Url.EntryThumbUrl(entry, comment.SongThumbUrl)" alt="thumb" class="coverPicThumb" />
+			<img src="@thumbUrl" alt="thumb" class="coverPicThumb" />
 		</a>
+		}
 		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
 			<strong>@entry.Name.DisplayName</strong>
 		</a>
