@@ -12,7 +12,7 @@
 	Html.RenderPartial("InspectedAlbumRow", Model);
 
     <button type="submit" class="btn btn-primary" name="commit" value="Accept">Approve</button>
-	<a class="btn" href="@Url.Action("SkipAlbum", new { id = Model.ImportedAlbum.Id })">
+	<a class="btn btn-nomargin" href="@Url.Action("SkipAlbum", new { id = Model.ImportedAlbum.Id })">
 		<i class="icon-remove"></i>
 		Reject
 	</a>

@@ -10,7 +10,7 @@ namespace VocaDb.Model.Domain.PVs {
 	/// <summary>
 	/// Manages a collection of PVs.
 	/// </summary>
-	public class PVManager<T> : IEnumerable<T> where T : IEditablePV {
+	public class PVManager<T> : IEnumerable<T> where T : class, IEditablePV {
 
 		private IList<T> pvs = new List<T>();
 

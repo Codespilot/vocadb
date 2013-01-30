@@ -907,6 +907,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PartialFindResult<SongContract> FindWithThumbPreferNotNico(SongQueryParams queryParams) {
+
+			return Find(s => new SongContract(s, PermissionContext.LanguagePreference, VideoServiceHelper.GetThumbUrlPreferNotNico(s.PVs.PVs)), queryParams);
+
+		}
+
 		[Obsolete]
 		public SongContract[] FindByName(string term, int maxResults) {
 
