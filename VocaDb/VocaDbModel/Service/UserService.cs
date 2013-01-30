@@ -562,9 +562,20 @@ namespace VocaDb.Model.Service {
 
 		public UserDetailsContract GetUserByNameNonSensitive(string name) {
 
-			return HandleQuery(session => 
-				GetUserDetails(session, session.Query<User>().ToArray()
-				.First(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase))));
+			if (string.IsNullOrEmpty(name))
+				return null;
+
+			return HandleQuery(session => {
+
+				var user = session.Query<User>().ToArray()
+					.FirstOrDefault(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+
+				if (user == null)
+					return null;
+
+				return GetUserDetails(session, user);
+				
+			});
 
 		}
 
