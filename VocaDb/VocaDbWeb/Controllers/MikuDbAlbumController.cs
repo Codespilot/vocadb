@@ -83,7 +83,13 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult ImportOne(string AlbumUrl) {
 			
-			Service.ImportOne(AlbumUrl);
+			var result = Service.ImportOne(AlbumUrl);
+
+			if (result.AlbumContract != null) {
+				TempData.SetSuccessMessage("Album was imported successfully and is ready to be processed.");
+			} else if (!string.IsNullOrEmpty(result.Message)) {
+				TempData.SetWarnMessage(result.Message);
+			}
 
 			return RedirectToAction("Index");
 
@@ -92,7 +98,13 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult ImportNew() {
 
-			Service.ImportNew();
+			var count = Service.ImportNew();
+
+			if (count > 0) {
+				TempData.SetSuccessMessage(count + " album(s) were downloaded successfully and are ready to be processed.");
+			} else {
+				TempData.SetWarnMessage("No new albums to download.");
+			}
 
 			return RedirectToAction("Index");
 

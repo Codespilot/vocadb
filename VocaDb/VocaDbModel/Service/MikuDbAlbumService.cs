@@ -551,7 +551,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void ImportOne(string url) {
+		public AlbumImportResult ImportOne(string url) {
 
 			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
 
@@ -561,7 +561,7 @@ namespace VocaDb.Model.Service {
 			var imported = importer.ImportOne(url);
 
 			if (imported.AlbumContract == null)
-				return;
+				return imported;
 
 			HandleTransaction(session => {
 
@@ -571,6 +571,8 @@ namespace VocaDb.Model.Service {
 				session.Save(newAlbum);
 
 			});
+
+			return imported;
 
 		}
 
