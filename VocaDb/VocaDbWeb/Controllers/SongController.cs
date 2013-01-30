@@ -350,7 +350,7 @@ namespace VocaDb.Web.Controllers
 					ArtistId = indexParams.artistId ?? 0,
 				};
 
-			var result = Service.Find(queryParams);
+			var result = Service.FindWithThumbPreferNotNico(queryParams);
 
 			var fac = new SongFeedFactory();
 			var feed = fac.Create(result.Items, 

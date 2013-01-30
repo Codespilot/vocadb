@@ -27,7 +27,15 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongContract() {}
 
-		public SongContract(Song song, ContentLanguagePreference languagePreference) {
+		public SongContract(Song song, ContentLanguagePreference languagePreference)
+			: this(song, languagePreference, string.Empty) {
+
+			// TODO: Used on the front page. Should be moved elsewhere.
+			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
+
+		}
+
+		public SongContract(Song song, ContentLanguagePreference languagePreference, string thumbUrl) {
 
 			ParamIs.NotNull(() => song);
 
@@ -43,9 +51,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			SongType = song.SongType;
 			Status = song.Status;
 			Version = song.Version;
-
-			// TODO: Used on the front page. Should be moved elsewhere.
-			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
+			ThumbUrl = thumbUrl ?? string.Empty;
 
 		}
 

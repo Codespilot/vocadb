@@ -207,7 +207,7 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	margin-top: 0px;
 }
 
-.rightFrame a.btn {
+.rightFrame a.btn-nomargin {
 	margin-bottom: 0;
 }
 

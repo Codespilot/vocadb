@@ -64,6 +64,35 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
+		/// <summary>
+		/// Gets a thumb URL, preferring a service that's not NND (because nico thumbs don't work in RSS feeds etc.)
+		/// </summary>
+		/// <param name="pvs">List of PVs. Cannot be null.</param>
+		/// <returns>Thumb URL. Cannot be null. Can be empty if there's no PV.</returns>
+		public static string GetThumbUrlPreferNotNico(IList<PVForSong> pvs) {
+
+			ParamIs.NotNull(() => pvs);
+
+			if (!pvs.Any())
+				return string.Empty;
+
+			var notNico = pvs.Where(p => p.Service != PVService.NicoNicoDouga).ToArray();
+
+			var pv = notNico.FirstOrDefault(p => !string.IsNullOrEmpty(p.ThumbUrl) && (p.PVType == PVType.Original || p.PVType == PVType.Reprint));
+
+			if (pv == null)
+				pv = notNico.FirstOrDefault(p => !string.IsNullOrEmpty(p.ThumbUrl));
+
+			if (pv == null)
+				pv = pvs.FirstOrDefault(p => !string.IsNullOrEmpty(p.ThumbUrl));
+
+			if (pv == null)
+				pv = pvs.FirstOrDefault();
+
+			return (pv != null ? (!string.IsNullOrEmpty(pv.ThumbUrl) ? pv.ThumbUrl : GetThumbUrl(pv)) : string.Empty);
+
+		}
+
 		public static T PrimaryPV<T>(IEnumerable<T> pvs, PVService? preferredService = null) 
 			where T : class, IPV {
 
