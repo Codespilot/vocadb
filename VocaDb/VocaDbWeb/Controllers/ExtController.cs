@@ -9,7 +9,10 @@ namespace VocaDb.Web.Controllers
         // GET: /Ext/
 
 		[OutputCache(Duration = 600, VaryByParam = "songId;pvId;lang")]
-        public ActionResult EmbedSong(int songId, int pvId = invalidId) {
+        public ActionResult EmbedSong(int songId = invalidId, int pvId = invalidId) {
+
+			if (songId == invalidId)
+				return NoId();
 
 			if (string.IsNullOrEmpty(Request.Params[Model.Service.Security.LoginManager.LangParamName]))
 				LoginManager.OverrideLanguage(ContentLanguagePreference.Default);

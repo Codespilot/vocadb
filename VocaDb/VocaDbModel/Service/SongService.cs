@@ -655,7 +655,7 @@ namespace VocaDb.Model.Service {
 			ParamIs.NotNull(() => contract);
 
 			if (contract.Names == null || !contract.Names.Any())
-				throw new ArgumentException("Album needs at least one name", "contract");
+				throw new ArgumentException("Song needs at least one name", "contract");
 
 			VerifyManageDatabase();
 
