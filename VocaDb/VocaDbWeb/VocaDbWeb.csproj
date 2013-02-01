@@ -1532,6 +1532,7 @@
     <Content Include="Views\Artist\ManageTagUsages.cshtml" />
     <Content Include="Views\Admin\ViewSysLog.cshtml" />
     <Content Include="Views\Admin\PVsByAuthor.cshtml" />
+    <Content Include="Views\ActivityEntry\FollowedArtistActivity.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

@@ -505,6 +505,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongValidationErrors.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\ActivityFeedService.cs" />
     <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\Affiliate\AffiliateLinkGenerator.cs" />
     <Compile Include="Service\AlbumService.cs" />
