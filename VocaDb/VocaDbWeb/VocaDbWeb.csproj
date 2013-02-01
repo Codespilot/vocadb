@@ -1482,8 +1482,6 @@
     <Content Include="Views\Shared\TagList.cshtml" />
     <Content Include="Views\Tag\Details.cshtml" />
     <Content Include="Views\Tag\Index.cshtml" />
-    <Content Include="Views\Shared\Albums.cshtml" />
-    <Content Include="Views\Shared\Songs.cshtml" />
     <Content Include="Views\Album\ViewVersion.cshtml" />
     <Content Include="App_Code\AlbumHelpers.cshtml" />
     <Content Include="App_Code\ArchivedEntryHelpers.cshtml" />
@@ -1541,7 +1539,6 @@
     <Content Include="Views\Event\SeriesDetails.cshtml" />
     <Content Include="Views\User\AlbumsForUserSettings.cshtml" />
     <Content Include="Views\Shared\PagedAlbums.cshtml" />
-    <Content Include="Views\Shared\AlbumItems.cshtml" />
     <Content Include="Views\Shared\PagedSongs.cshtml" />
     <Content Include="Views\SongList\SongsInListPaged.cshtml" />
     <Content Include="Views\Tag\ArtistTagUsages.cshtml" />

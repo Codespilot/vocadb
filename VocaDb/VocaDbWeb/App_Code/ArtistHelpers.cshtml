@@ -122,59 +122,6 @@
 
 }
 
-<!-- TODO: not in use likely -->
-@helper AlbumItems(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
-	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false) {
-	
-		foreach (var album in albums) {
-		<li>
-			@Helpers.DraftIcon(album)
-			@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
-			@if (extraData != null) {
-			@extraData(album)
-   }
-			@if (showArtists) {
-				<br />
-				<span class="extraInfo">@album.ArtistString</span>
-   }
-		</li>
-		}
-	 
-}
-
-<!-- TODO: not in use likely -->
-@helper Albums(IEnumerable<VocaDb.Model.DataContracts.Albums.AlbumWithAdditionalNamesContract> albums,
-	Func<AlbumWithAdditionalNamesContract, string> extraData = null, bool showArtists = false, string listId = null) {
-
-	<ul @{ if (!string.IsNullOrEmpty(listId)) { @("id=" + listId);
-		} }>
-		@AlbumItems(albums, extraData, showArtists)
-	</ul>
-	
-}
-
-@helper Artists(IEnumerable<VocaDb.Model.DataContracts.Artists.ArtistWithAdditionalNamesContract> artists,
-	bool showType = false,
-	Func<ArtistWithAdditionalNamesContract, string> extraData = null) {
-
-	<ul>
-	@foreach (var artist in artists) {
-		<li>
-			@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, null)
-			@if (showType) {
-				@("(")@Translate.ArtistTypeName(artist.ArtistType)@(")")
-   }
-			@if (extraData != null) {
-				@extraData(artist)
-   }
-			<br />
-			<span class="extraInfo">@artist.AdditionalNames</span>
-		</li>
- }
-	</ul>
-	
-}
-
 @helper ArtistList(IEnumerable<ArtistContract> artists, bool showType = false) {
 	
 	<table>
@@ -195,30 +142,4 @@
 		}	
 	</table>
 		
-}
-
-<!-- TODO: not in use likely -->
-@helper Songs(VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract[] songs) {
-	@Songs(songs, s => "(" + HelperRes.HelperStrings.Added + " " + s.CreateDate.ToShortDateString() + ")")
-}
-
-<!-- TODO: not in use likely -->
-@helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs, Func<SongWithAdditionalNamesContract, string> extraData, bool showArtists = false) {
-
-	<ul>
-	@foreach (var song in songs) {
-		<li>
-			@Helpers.PVServiceIcons(song.PVServices)
-			@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
-			@if (extraData != null) {
-			@extraData(song)
-   }
-			@if (showArtists) {
-				<br />
-				<span class="extraInfo">@song.ArtistString</span>
-   }
-		</li>
- }
-	</ul>
-	
 }
