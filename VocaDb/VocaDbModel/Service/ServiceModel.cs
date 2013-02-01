@@ -15,6 +15,12 @@ namespace VocaDb.Model.Service {
 			this.entryLinkFactory = entryLinkFactory;
 		}
 
+		public ActivityFeedService ActivityFeed {
+			get {
+				return new ActivityFeedService(sessionFactory, permissionContext, entryLinkFactory);
+			}
+		}
+
 		public AdminService Admin {
 			get {
 				return new AdminService(sessionFactory, permissionContext, entryLinkFactory);

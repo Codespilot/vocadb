@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -13,7 +12,6 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
-using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -203,31 +201,6 @@ namespace VocaDb.Model.Service {
 					tags.Select(a => new TagContract(a)).ToArray(), tagCount);
 
 				return new AllEntriesSearchResult(query, albumResult, artistResult, songResult, tagResult);
-
-			});
-
-		}
-
-		public PartialFindResult<ActivityEntryContract> GetActivityEntries(int maxEntries) {
-
-			return GetActivityEntries(0, maxEntries);
-
-		}
-
-		public PartialFindResult<ActivityEntryContract> GetActivityEntries(int start, int maxEntries) {
-
-			return HandleQuery(session => {
-
-				var entries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Skip(start).Take(maxEntries).ToArray();
-
-				var contracts = entries
-					.Where(e => !e.EntryBase.Deleted)
-					.Select(e => new ActivityEntryContract(e, PermissionContext.LanguagePreference))
-					.ToArray();
-
-				var count = session.Query<ActivityEntry>().Count();
-
-				return new PartialFindResult<ActivityEntryContract>(contracts, count);
 
 			});
 

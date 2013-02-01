@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
@@ -15,17 +12,24 @@ namespace VocaDb.Web.Controllers
 
 		private const int entriesPerPage = 50;
 
-		private OtherService Service {
-			get { return MvcApplication.Services.Other; }
+		private ActivityFeedService Service {
+			get { return MvcApplication.Services.ActivityFeed; }
 		}
 
 		public ActionResult EntriesPaged(int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetActivityEntries(pageIndex * entriesPerPage, entriesPerPage);
+			var result = Service.GetActivityEntries(PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true));
 			var data = new PagingData<ActivityEntryContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), null, "EntriesPaged", "activityEntriesPaged");
 
 			return PartialView("ActivityEntriesPaged", data);
+
+		}
+
+		public ActionResult FollowedArtistActivity() {
+
+			var result = Service.GetFollowedArtistActivity(entriesPerPage);
+			return View(result.Items);
 
 		}
 
