@@ -29,59 +29,63 @@
 	</ul>
 
 	<div id="receivedTab">
-		<p>@R.MessagesStrings.ClickSubjectToView</p>
-		<table>
-			<tr>
-				<th>@R.MessagesStrings.Date</th>
-				<th>@R.MessagesStrings.From</th>
-				<th>@R.MessagesStrings.Subject</th>
-			</tr>
-			@foreach (var message in Model.ReceivedMessages) {
+		<table class="table messages">
+			<thead>
 				<tr>
+					<th>@R.MessagesStrings.Date</th>
+					<th>@R.MessagesStrings.From</th>
+					<th>@R.MessagesStrings.Subject</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var message in Model.ReceivedMessages) {
+				<tr id="@("viewFromMessage_" + message.Id)">
 					<td>@message.Created</td>
-					<td>@Html.ActionLink(message.Sender.Name, "Profile", new { id = message.Sender.Name })</td>
+					<td>@UserHelpers.IconAndName(message.Sender)</td>
 					<td>
 						@if (message.HighPriority) {
-							Helpers.NotificationIcon();
+							@Helpers.NotificationIcon();
 							<text>&nbsp;</text>
 						}
 						@if (!message.Read) {
 							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
 						}
 
-						<a href="#" class="viewMessage" id="@("viewFromMessage_" + message.Id)">@message.Subject</a>
+						@message.Subject
 					</td>
 				</tr>
 			}
+			</tbody>
 		</table>
 	</div>
 
 	<div id="sentTab">
-		<p>@R.MessagesStrings.ClickSubjectToView</p>
-		<table>
-			<tr>
-				<th>@R.MessagesStrings.Date</th>
-				<th>@R.MessagesStrings.To</th>
-				<th>@R.MessagesStrings.Subject</th>
-			</tr>
-			@foreach (var message in Model.SentMessages) {
+		<table class="table messages">
+			<thead>
 				<tr>
+					<th>@R.MessagesStrings.Date</th>
+					<th>@R.MessagesStrings.To</th>
+					<th>@R.MessagesStrings.Subject</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var message in Model.SentMessages) {
+				<tr id="@("viewToMessage_" + message.Id)">
 					<td>@message.Created</td>
-					<td>@Html.ActionLink(message.Receiver.Name, "Profile", new { id = message.Receiver.Name })</td>
+					<td>@UserHelpers.IconAndName(message.Receiver)</td>
 					<td>
-						<div class="message">
-							<div>
-								@if (message.HighPriority) {
-									Helpers.NotificationIcon();
-									<text>&nbsp;</text>
-								}
+						<div>
+							@if (message.HighPriority) {
+								@Helpers.NotificationIcon();
+								<text>&nbsp;</text>
+							}
 
-								<a href="#" class="viewMessage" id="@("viewToMessage_" + message.Id)">@message.Subject</a>
-							</div>
+							@message.Subject
 						</div>
 					</td>
 				</tr>
 			}
+			</tbody>
 		</table>
 	</div>
 
@@ -95,7 +99,7 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
-		initPage(@Model.Id) 
+		initPage(@Model.Id);
 	});
 
 </script>
