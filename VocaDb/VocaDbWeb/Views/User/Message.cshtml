@@ -9,10 +9,11 @@
 	<div class="messageTitle ui-widget-header ui-corner-all">
 		<div class="messageTitleText">
 			@Model.Subject<br />
-			@Model.Created
-			<span> @ViewRes.User.MessagesStrings.FromLC </span>
-			@Html.ProfileIcon(Model.Sender, 25)
-			@Html.UserLink(Model.Sender, Model.Sender.Name)
+			<span>@Model.Created.ToString().</span>
+			<span>@ViewRes.User.MessagesStrings.From</span>
+			<span>@UserHelpers.UserIconLink(Model.Sender, Model.Sender.Name).</span>
+			<span>@ViewRes.User.MessagesStrings.To</span>
+			<span>@UserHelpers.UserIconLink(Model.Receiver, Model.Receiver.Name).</span>
 		</div>
 	</div>
 	<p class="messageContent">

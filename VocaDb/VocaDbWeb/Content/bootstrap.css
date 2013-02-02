@@ -1518,6 +1518,22 @@ table {
   vertical-align: bottom;
 }
 
+.table tbody tr.success td {
+  background-color: #dff0d8;
+}
+
+.table tbody tr.error td {
+  background-color: #f2dede;
+}
+
+.table tbody tr.warning td {
+  background-color: #fcf8e3;
+}
+
+.table tbody tr.info td, .table tbody tr.info:hover td {
+  background-color: #d9edf7;
+}
+
 .table caption + thead tr:first-child th,
 .table caption + thead tr:first-child td,
 .table colgroup + thead tr:first-child th,

@@ -37,7 +37,7 @@
 	@foreach (var r in Model) {
 		<tr>
 			<td>@r.Created</td>
-			<td>@Html.UserLink(r.User, r.Hostname)</td>
+			<td>@UserHelpers.UserIconLink(r.User, r.Hostname)</td>
 			<td>@Helpers.EntryLink(r.Entry)</td>
 			<td>@TypeName(r)</td>
 			<td>@r.Notes</td>

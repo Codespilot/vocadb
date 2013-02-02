@@ -376,6 +376,10 @@ div.message, div.activityEntry, div.newsEntry {
 	margin-bottom: 5px;
 }
 
+div#viewMessage {
+	min-height: 200px;
+}
+
 div.activityEntry {
 	min-height: 30px;
 }
@@ -530,6 +534,10 @@ div.songListItem {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+
+table.messages tbody tr {
+	cursor: pointer;
 }
 
 

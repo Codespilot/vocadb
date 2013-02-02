@@ -268,14 +268,6 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		[Obsolete("User HTML helper")]
-		public static MvcHtmlString UserLink(this HtmlHelper htmlHelper, UserBaseContract user, string name) {
-
-			return (user != null ? htmlHelper.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null) 
-				: Encode(htmlHelper, name));
-
-		}
-
 		public static string VideoServiceLinkUrl(this HtmlHelper htmlHelper, PVService service) {
 
 			switch (service) {

@@ -2274,6 +2274,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MessagesStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\MySettingsStrings.fi.resx" />

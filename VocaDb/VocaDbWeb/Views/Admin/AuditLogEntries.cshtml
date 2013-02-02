@@ -1,11 +1,10 @@
-﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Security.AuditLogEntryContract[]
+﻿@model VocaDb.Model.DataContracts.Security.AuditLogEntryContract[]
 
 @foreach (var entry in Model) {
 	<tr>
 		<td>@entry.Time</td>
 		<td>
-			@Html.UserLink(entry.User, entry.AgentName)
+			@UserHelpers.UserLink(entry.User, entry.AgentName)
 		</td>
 		<td>
 			@Html.Raw(entry.Action)

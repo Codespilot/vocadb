@@ -32,7 +32,10 @@ function initPage() {
 		source: "../../User/FindByName"
 	});
 
-	$(".viewMessage").click(function () {
+	$("table.messages tr").click(function () {
+
+		$(this).parent().find("tr").removeClass("info");
+		$(this).addClass("info");
 
 		var id = getId(this);
 
