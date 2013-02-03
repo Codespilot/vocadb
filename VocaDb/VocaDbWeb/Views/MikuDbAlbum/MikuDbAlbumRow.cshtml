@@ -29,15 +29,15 @@
 		<img src="@Url.Action("CoverPicture", new { id = Model.Id })" alt="Cover picture" class="coverPic" />
 		<br /><br />
 		<a class="btn" title="Approve and process the album." href="@Url.Action("PrepareForImport", new { id = Model.Id })">
-			<i class="icon-ok"></i>
+			<i class="icon icon-ok"></i>
 			Process
 		</a>
 		<a class="btn" title="Mark the album as rejected. The album will remain in the system and won't be imported again automatically, but it can always be processed or deleted later." href="@Url.Action("SkipAlbum", new { id = Model.Id })">
-			<i class="icon-remove"></i>
+			<i class="icon icon-remove"></i>
 			Reject
 		</a>
 		<a class="btn" title="Delete the album from the system. It might be imported automatically again later." href="@Url.Action("Delete", new { id = Model.Id })">
-			<i class="icon-trash"></i>
+			<i class="icon icon-trash"></i>
 			Delete
 		</a>
 		<br />
