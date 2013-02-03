@@ -17,7 +17,7 @@
 		@Html.TextBoxFor(m => m.Subject, new { id = "newMessageSubject", size = 40, @class = "span3" })<br />
 		@Html.ValidationMessageFor(m => m.Subject)
 		
-		<label class="checkbox inline">
+		<label class="checkbox">
 			@Html.CheckBoxFor(m => m.HighPriority)
 			@ViewRes.User.MessagesStrings.HighPriority
 		</label>

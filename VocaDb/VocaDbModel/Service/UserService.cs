@@ -594,6 +594,46 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public PartialFindResult<UserMessageContract> GetReceivedMessages(int userId, PagingProperties paging) {
+
+			return HandleQuery(session => {
+
+				var query = session.Query<UserMessage>()
+					.Where(m => m.Receiver.Id == userId);
+
+				var messages = query
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray();
+
+				var count = (paging.GetTotalCount ? query.Count() : 0);
+
+				return new PartialFindResult<UserMessageContract>(messages.Select(m => new UserMessageContract(m)).ToArray(), count);
+
+			});
+
+		}
+
+		public PartialFindResult<UserMessageContract> GetSentMessages(int userId, PagingProperties paging) {
+
+			return HandleQuery(session => {
+
+				var query = session.Query<UserMessage>()
+					.Where(m => m.Sender.Id == userId);
+
+				var messages = query
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray();
+
+				var count = (paging.GetTotalCount ? query.Count() : 0);
+
+				return new PartialFindResult<UserMessageContract>(messages.Select(m => new UserMessageContract(m)).ToArray(), count);
+
+			});
+
+		}
+
 		public UserWithActivityEntriesContract GetUserWithActivityEntries(int id, int maxCount, bool onlySubmissions) {
 
 			return HandleQuery(session => {

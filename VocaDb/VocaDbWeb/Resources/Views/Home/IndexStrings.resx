@@ -142,7 +142,7 @@
     <value>view more</value>
   </data>
   <data name="ViewSongInfo" xml:space="preserve">
-    <value>View song information</value>
+    <value>Song info</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to the Vocaloid Database!</value>
