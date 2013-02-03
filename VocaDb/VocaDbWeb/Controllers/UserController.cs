@@ -497,7 +497,10 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public PartialViewResult Message(int messageId) {
+		public ActionResult Message(int messageId = invalidId) {
+
+			if (messageId == invalidId)
+				return NoId();
 
 			return PartialView("Message", Service.GetMessageDetails(messageId));
 
