@@ -13,7 +13,7 @@
         (@Translate.SongTypeNames[Model.SongType])
 	</small>
 </h4>
-<a class="btn btn-info" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.Id })">@ViewRes.Home.IndexStrings.ViewSongInfo</a>
+<span class="songPreviewTranslations">@Model.AdditionalNames</span>
 <span id="ratingButtons" class="ratingButtons" style="@((Model.Vote != SongVoteRating.Nothing ? "display: none;" : ""))">
     <a href="#" id="addLikeLink" class="btn btn-inverse @(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
     <a href="#" id="addFavoriteLink" class="btn btn-inverse @(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
@@ -22,3 +22,7 @@
 <div id="songPVPlayer">
 @{ Html.RenderPartial("PVEmbedDynamic", PVHelper.PrimaryPV(Model.PVs)); }
 </div>
+<a class="btn btn-info songInfoButton" id="songLink" href="@Url.Action("Details", "Song", new { id = Model.Id })">
+	<i class="icon icon-info-sign"></i>
+	@ViewRes.Home.IndexStrings.ViewSongInfo
+</a>

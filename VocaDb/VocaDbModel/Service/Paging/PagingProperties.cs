@@ -3,6 +3,9 @@ using VocaDb.Model.DataContracts;
 
 namespace VocaDb.Model.Service.Paging {
 
+	/// <summary>
+	/// Common query properties for paging.
+	/// </summary>
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PagingProperties {
 
@@ -25,12 +28,21 @@ namespace VocaDb.Model.Service.Paging {
 			GetTotalCount = getTotalCount;
 		}
 
+		/// <summary>
+		/// Whether to get the total number of entries.
+		/// </summary>
 		[DataMember]
 		public bool GetTotalCount { get; set; }
 
+		/// <summary>
+		/// Maximum number of entries per page.
+		/// </summary>
 		[DataMember]
 		public int MaxEntries { get; set; }
 
+		/// <summary>
+		/// Index of the first entry to be returned, starting from 0.
+		/// </summary>
 		[DataMember]
 		public int Start { get; set; }
 

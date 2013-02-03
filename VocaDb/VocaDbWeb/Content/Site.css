@@ -718,7 +718,17 @@ div.pvViewerContent .songPreviewTitle {
 	color: white;
 }
 
+div.pvViewerContent .songPreviewTranslations {
+	margin-left: 5px;
+	color: lightgray;
+	font-size: smaller;
+}
+
 div.pvViewerContent .ratingButtons {
+	float: right;
+}
+
+div.pvViewerContent .songInfoButton {
 	float: right;
 }
 
