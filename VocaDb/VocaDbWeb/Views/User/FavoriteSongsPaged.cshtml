@@ -24,7 +24,9 @@
                     <span class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
                 }
 				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
-				(@Translate.SongTypeNames[song.SongType])
+				&nbsp;
+				@Helpers.PVServiceIcons(song.PVServices)
+				<small>(@Translate.SongTypeNames[song.SongType])</small>
 				<br />
 				<span class="extraInfo">@song.ArtistString</span>
 			</td>

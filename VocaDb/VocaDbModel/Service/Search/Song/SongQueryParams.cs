@@ -9,6 +9,9 @@ namespace VocaDb.Model.Service.Search.Song {
 	/// </summary>
 	public class SongQueryParams {
 
+		private int[] ignoredIds;
+		private SongType[] songTypes;
+
 		public SongQueryParams() {
 
 			Common = new CommonSearchParams();
@@ -35,9 +38,9 @@ namespace VocaDb.Model.Service.Search.Song {
 			Common = new CommonSearchParams(query, draftsOnly, nameMatchMode, onlyByName, moveExactToTop);
 			Paging = new PagingProperties(start, maxResults, getTotalCount);
 
-			SongTypes = songTypes ?? new SongType[] {};
+			SongTypes = songTypes;
 			SortRule = sortRule;
-			IgnoredIds = ignoredIds ?? new int[] {};
+			IgnoredIds = ignoredIds;
 			TimeFilter = TimeSpan.Zero;
 			OnlyWithPVs = false;
 
@@ -47,13 +50,32 @@ namespace VocaDb.Model.Service.Search.Song {
 
 		public CommonSearchParams Common { get; set; }
 
-		public int[] IgnoredIds { get; set; }
+		/// <summary>
+		/// List of songs that should be ignored from search. Cannot be null. If set to empty, will be replaced with empty list.
+		/// If empty, no filtering is done by song IDs.
+		/// TODO: this isn't really in use anymore. Filtering by ID should be done after search.
+		/// </summary>
+		public int[] IgnoredIds {
+			get { return ignoredIds; }
+			set {
+				ignoredIds = value ?? new int[] { }; 
+			}
+		}
 
 		public bool OnlyWithPVs { get; set; }
 
 		public PagingProperties Paging { get; set; }
 
-		public SongType[] SongTypes { get; set; }
+		/// <summary>
+		/// List of song types that should be searched for. Cannot be null.
+		/// If empty, all song types are included.
+		/// </summary>
+		public SongType[] SongTypes {
+			get { return songTypes; }
+			set {
+				songTypes = value ?? new SongType[] { }; 
+			}
+		}
 
 		public SongSortRule SortRule { get; set; }
 
