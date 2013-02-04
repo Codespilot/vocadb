@@ -130,7 +130,10 @@ if (Model.ViewMode == SongViewMode.Details) {
 				</td>
 				<td>
 					@Helpers.DraftIcon(song.Status)
-					@Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames }) (@Translate.SongTypeNames[song.SongType])<br />
+					@SongHelpers.SongLink(song)
+					&nbsp;
+					@Helpers.PVServiceIcons(song.PVServices)
+					(@Translate.SongTypeNames[song.SongType])<br />
 					<span class="extraInfo">@song.ArtistString</span><br />
 					@if (song.Album != null) {
 					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
