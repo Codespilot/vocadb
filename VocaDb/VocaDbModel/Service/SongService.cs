@@ -142,7 +142,7 @@ namespace VocaDb.Model.Service {
 
 			var draftsOnly = queryParams.Common.DraftOnly;
 			var getTotalCount = queryParams.Paging.GetTotalCount;
-			var ignoreIds = queryParams.IgnoredIds ?? new int[] { };
+			var ignoreIds = queryParams.IgnoredIds;
 			var moveExactToTop = queryParams.Common.MoveExactToTop;
 			var nameMatchMode = queryParams.Common.NameMatchMode;
 			var onlyByName = queryParams.Common.OnlyByName;
