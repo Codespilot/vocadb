@@ -60,12 +60,12 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult CreateSongLink(int? songId) {
 
-			SongWithAdditionalNamesContract song;
+			SongContract song;
 
 			if (songId == null)
-				song = new SongWithAdditionalNamesContract();
+				song = new SongContract();
 			else
-				song = Service.GetSongWithAdditionalNames(songId.Value);
+				song = Service.GetSong(songId.Value);
 
 			return PartialView("SongLink", song);
 
@@ -227,11 +227,6 @@ namespace VocaDb.Web.Controllers
         [Authorize]
         public ActionResult Edit(SongEdit model)
         {
-
-			/*foreach (var link in model.WebLinks) {
-				if (!UrlValidator.IsValid(link.Url))
-					ModelState.AddModelError("WebLinks", link.Url + " is not a valid URL.");
-			}*/
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetSongForEdit(model.Id);

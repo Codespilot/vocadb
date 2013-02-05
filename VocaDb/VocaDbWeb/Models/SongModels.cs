@@ -153,7 +153,7 @@ namespace VocaDb.Web.Models {
 		public PVContract[] OriginalPVs { get; set; }
 
 		[Display(Name = "Original version")]
-		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
+		public SongContract OriginalVersion { get; set; }
 
 		public PVContract[] OtherPVs { get; set; }
 
@@ -200,6 +200,7 @@ namespace VocaDb.Web.Models {
 			ArtistLinks = new List<ArtistForSongContract>();
 			Lyrics = new List<LyricsForSongModel>();
 			Names = new NameManagerEditContract();
+			OriginalVersion = new SongContract();
 			PVs = new List<PVContract>();
 			WebLinks = new List<WebLinkDisplay>();
 
@@ -222,7 +223,7 @@ namespace VocaDb.Web.Models {
 			NameRomaji = song.TranslatedName.Romaji;
 			Names = song.Names;
 			Notes = song.Notes;
-			OriginalVersion = song.OriginalVersion ?? new SongWithAdditionalNamesContract();
+			OriginalVersion = song.OriginalVersion ?? new SongContract();
 			PVs = song.PVs;
 			SongType = song.Song.SongType;
 			Status = song.Song.Status;
@@ -274,7 +275,7 @@ namespace VocaDb.Web.Models {
 		public string Notes { get; set; }
 
 		[Display(Name = "Original version")]
-		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
+		public SongContract OriginalVersion { get; set; }
 
 		public int OriginalVersionId { get; set; }
 
@@ -319,7 +320,7 @@ namespace VocaDb.Web.Models {
 				Lyrics = this.Lyrics.Select(l => l.ToContract()).ToArray(),
 				Names = this.Names,
 				Notes = this.Notes ?? string.Empty,
-				OriginalVersion = this.OriginalVersion ?? new SongWithAdditionalNamesContract { Id = OriginalVersionId },
+				OriginalVersion = this.OriginalVersion != null && this.OriginalVersion.Id != 0 ? this.OriginalVersion : new SongContract { Id = OriginalVersionId },
 				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),
 				UpdateNotes = this.UpdateNotes ?? string.Empty,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
