@@ -1,10 +1,9 @@
-﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Songs.SongWithAdditionalNamesContract
+﻿@model VocaDb.Model.DataContracts.Songs.SongContract
 
 <span>
 	@if (Model != null && Model.Id != 0) {
 		@Html.Hidden("OriginalVersionId", Model.Id)
-		@Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
+		@SongHelpers.SongLink(Model)
 	} else {
 		<span>(nothing)</span>
 	 }

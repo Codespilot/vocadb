@@ -169,7 +169,7 @@
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.OriginalVersion</td>
 				<td>
-					@Html.ActionLink(Model.OriginalVersion.Name, "Details", new { id = Model.OriginalVersion.Id }, new { title = Model.OriginalVersion.AdditionalNames })<br />
+					@SongHelpers.SongLink(Model.OriginalVersion)<br />
 					@Model.OriginalVersion.ArtistString
 				</td>
 			</tr>

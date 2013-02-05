@@ -6,7 +6,6 @@ using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
@@ -29,7 +28,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			LikeCount = song.UserFavorites.Count(f => f.Rating == SongVoteRating.Like);
 			LyricsFromParents = song.LyricsFromParents.Select(l => new LyricsForSongContract(l)).ToArray();
 			Notes = song.Notes;
-			OriginalVersion = (song.OriginalVersion != null ? new SongWithAdditionalNamesContract(song.OriginalVersion, languagePreference) : null);
+			OriginalVersion = (song.OriginalVersion != null ? new SongContract(song.OriginalVersion, languagePreference) : null);
 
 			// TODO (PERF): this might be handled through a special query if the list is long
 			Pools =
@@ -86,7 +85,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string Notes { get; set; }
 
 		[DataMember]
-		public SongWithAdditionalNamesContract OriginalVersion { get; set; }
+		public SongContract OriginalVersion { get; set; }
 
 		[DataMember]
 		public SongListBaseContract[] Pools { get; set; }

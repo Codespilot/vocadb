@@ -12,7 +12,7 @@
 	</label>
 	<label>
 		Source:
-		@Html.TextBoxFor(m => m.Source, new { size = 45 })
+		@Html.TextBoxFor(m => m.Source, new Dictionary<string, object> { { "class", "input-xlarge" },  { "size", 45 }, { "maxlength", 255 }})
 	</label>
 	</p>
 	
