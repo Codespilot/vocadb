@@ -44,7 +44,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult PVContent(int songId) {
+		public ActionResult PVContent(int songId = invalidId) {
+
+			if (songId == invalidId)
+				return NoId();
 
 			var song = Services.Songs.GetSongWithPVAndVote(songId);
 
