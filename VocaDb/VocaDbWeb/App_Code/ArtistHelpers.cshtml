@@ -22,7 +22,7 @@
 				@ArtistIconLink(artist)
 			</td>
 			<td>
-				@Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.Id }, new { title = artist.AdditionalNames })
+				@ArtistLink(artist)
 				@if (displayType) {
 					@("(")@Translate.ArtistTypeName(artist.ArtistType)@(")")
 				}

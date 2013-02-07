@@ -52,21 +52,21 @@
 		}
 
 		@if (Model.Artists.Any()) {
-		<h4>@R.DetailsStrings.TopArtists</h4>
-
-			@TagHelpers.ArtistTagUsages(Model.Artists)
+			<br />
+			<h3>@R.DetailsStrings.TopArtists</h3>
+			@ArtistHelpers.ArtistGrid(Model.Artists.Select(a => a.Artist), 2, true)
 		}
 
 		@if (Model.Albums.Any()) {
-		<h4>@R.DetailsStrings.TopAlbums</h4>
-
-			@TagHelpers.AlbumTagUsages(Model.Albums)
+			<br />
+			<h3>@R.DetailsStrings.TopAlbums</h3>
+			@AlbumHelpers.AlbumGrid(Model.Albums.Select(a => a.Album), 2, false, false, true)
 		}
 
 		@if (Model.Songs.Any()) {
-		<h4>@R.DetailsStrings.TopSongs</h4>
-
-			@TagHelpers.SongTagUsages(Model.Songs)
+			<br />
+			<h3>@R.DetailsStrings.TopSongs</h3>
+			@SongHelpers.SongGrid(Model.Songs.Select(s => s.Song), 2, true)			
 		}
 
 	</div>
