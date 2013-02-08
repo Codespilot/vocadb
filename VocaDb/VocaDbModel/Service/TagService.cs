@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
+using NLog;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -18,14 +19,23 @@ namespace VocaDb.Model.Service {
 
 	public class TagService : ServiceBase {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
 		private Tag GetTag(ISession session, string name) {
 
-			var tag = session.Load<Tag>(name);
+			try {
 
-			if (name != tag.TagName)
-				tag = session.Load<Tag>(tag.TagName);
+				var tag = session.Load<Tag>(name);
 
-			return tag;
+				if (name != tag.TagName)
+					tag = session.Load<Tag>(tag.TagName);
+
+				return tag;
+
+			} catch (ObjectNotFoundException) {
+				log.Error(string.Format("Tag not found: {0}", name));
+				return null;
+			}
 
 		}
 
@@ -193,6 +203,9 @@ namespace VocaDb.Model.Service {
 				
 				var tag = GetTag(session, tagName);
 
+				if (tag == null)
+					return null;
+
 				var artists = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
 				var artistCount = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).Count();
 
@@ -236,8 +249,16 @@ namespace VocaDb.Model.Service {
 
 		public TagWithArchivedVersionsContract GetTagWithArchivedVersions(string tagName) {
 
-			return HandleQuery(session => 
-				new TagWithArchivedVersionsContract(GetTag(session, tagName)));
+			return HandleQuery(session => {
+
+				var tag = GetTag(session, tagName);
+
+				if (tag == null)
+					return null;
+
+				return new TagWithArchivedVersionsContract(tag);
+
+			});
 
 		}
 

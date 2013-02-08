@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
@@ -92,6 +88,9 @@ namespace VocaDb.Web.Controllers
 
 			var contract = Service.GetTagDetails(id);
 
+			if (contract == null)
+				return HttpNotFound();
+
 			return View(contract);
 
 		}
@@ -162,6 +161,9 @@ namespace VocaDb.Web.Controllers
 				return NoId();
 
 			var contract = Service.GetTagWithArchivedVersions(id);
+
+			if (contract == null)
+				return HttpNotFound();
 
 			return View(contract);
 
