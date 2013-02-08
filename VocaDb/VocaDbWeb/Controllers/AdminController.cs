@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Security;
 using VocaDb.Web.Helpers;
@@ -152,16 +153,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult RefreshDbCache() {
 
 			var sessionFactory = MvcApplication.SessionFactory;
-
-			var classMetadata = sessionFactory.GetAllClassMetadata();
-			foreach (var ep in classMetadata.Values) {
-				sessionFactory.EvictEntity(ep.EntityName);
-			}
- 
-			var collMetadata = sessionFactory.GetAllCollectionMetadata();
-			foreach (var acp in collMetadata.Values) {
-				sessionFactory.EvictCollection(acp.Role);
-			}
+			DatabaseHelper.ClearSecondLevelCache(sessionFactory);
 
 			return RedirectToAction("Index");
 

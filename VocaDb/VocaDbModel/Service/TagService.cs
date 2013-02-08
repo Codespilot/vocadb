@@ -33,7 +33,7 @@ namespace VocaDb.Model.Service {
 				return tag;
 
 			} catch (ObjectNotFoundException) {
-				log.Error(string.Format("Tag not found: {0}", name));
+				log.Warn("Tag not found: {0}", name);
 				return null;
 			}
 

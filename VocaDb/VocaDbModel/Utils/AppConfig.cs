@@ -8,6 +8,12 @@ namespace VocaDb.Model.Utils {
 			return ConfigurationManager.AppSettings[key];
 		}
 
+		public static string DbDumpFolder {
+			get {
+				return Val("DbDumpFolder");
+			}
+		}
+
 		public static string HostAddress {
 			get {
 				return Val("HostAddress");

@@ -80,6 +80,10 @@ namespace VocaDb.Model.Service {
 			}
 		}
 
+		protected ISessionFactory SessionFactory {
+			get { return sessionFactory; }
+		}
+
 		protected void AddActivityfeedEntry(ISession session, ActivityEntry entry) {
 
 			var latestEntries = session.Query<ActivityEntry>().OrderByDescending(a => a.CreateDate).Take(10).ToArray();
