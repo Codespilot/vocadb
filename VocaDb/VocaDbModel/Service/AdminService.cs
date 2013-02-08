@@ -21,6 +21,7 @@ using VocaDb.Model.Service.EntryValidators;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.DataSharing;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Service {
 
@@ -119,13 +120,8 @@ namespace VocaDb.Model.Service {
 			HandleQuery(session => {
 
 				var dumper = new XmlDumper();
-				dumper.Create(@"C:\inetpub\wwwroot\vocadb\dump.zip", session);
-
-				/*var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
-				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
-				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
-
-				dumper.Create(@"C:\inetpub\wwwroot\vocadb\dump.zip", artists, albums, songs);*/
+				var path = Path.Combine(AppConfig.DbDumpFolder, "dump.zip");
+				dumper.Create(path, session);
 
 			});
 

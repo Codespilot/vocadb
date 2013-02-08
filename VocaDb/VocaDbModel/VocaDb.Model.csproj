@@ -525,6 +525,7 @@
     <Compile Include="Service\Helpers\AlbumFileParser.cs" />
     <Compile Include="Service\Helpers\ArtistQueryableExtender.cs" />
     <Compile Include="Helpers\ConcurrentEntryEditManager.cs" />
+    <Compile Include="Service\Helpers\DatabaseHelper.cs" />
     <Compile Include="Service\Helpers\QueryableExtender.cs" />
     <Compile Include="Service\Helpers\FindHelpers.cs" />
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />

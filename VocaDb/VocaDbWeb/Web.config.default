@@ -14,6 +14,7 @@
     <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 		<add key="AccessKeySalt" value="" />
 		<add key="ConnectionStringName" value="" />
+		<add key="DbDumpFolder" value="C:\Temp" />
 		<add key="ReCAPTCHAKey" value="" />
 		<add key="HostAddress" value="http://vocadb.net" />
 		<add key="twitterConsumerKey" value="" />

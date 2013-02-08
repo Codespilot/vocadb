@@ -25,14 +25,14 @@ namespace VocaDb.Model.Service.DataSharing {
 
 		public class Loader<TEntry, TContract> where TEntry : IEntryWithIntId {
 
-			private const int maxEntries = 1000;
+			private const int maxEntries = 500;
 			private readonly string folder;
 			private readonly Func<TEntry, TContract> contractFunc;
 			private readonly Func<int, int, TEntry[]> loadFunc;
 
-			private void DumpXml<T>(T contract, Package package, int id) {
+			private void DumpXml<T>(T[] contract, Package package, int id) {
 
-				var partUri = PackUriHelper.CreatePartUri(new Uri(folder + id + ".xml", UriKind.Relative));
+				var partUri = PackUriHelper.CreatePartUri(new Uri(string.Format("{0}{1}.xml", folder, id), UriKind.Relative));
 
 				if (package.PartExists(partUri)) {
 					log.Warn("Duplicate path: {0}", partUri);
@@ -61,17 +61,12 @@ namespace VocaDb.Model.Service.DataSharing {
 				while (run) {
 
 					var entries = loadFunc(start, maxEntries);
+					var contracts = entries.Select(e => contractFunc(e)).ToArray();
+					DumpXml(contracts, package, start);
 
-					foreach (var entry in entries) {
-
-						var contract = contractFunc(entry);
-
-						DumpXml(contract, package, entry.Id);
-
-					}
-
-					start += entries.Length;
+					start += contracts.Length;
 					run = entries.Any();
+					GC.Collect();
 
 				}
 
