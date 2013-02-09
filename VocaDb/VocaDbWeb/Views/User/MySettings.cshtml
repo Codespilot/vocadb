@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Models
+﻿@using Newtonsoft.Json
+@using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
 @using R = ViewRes.User;
 @model MySettingsModel
@@ -154,7 +155,24 @@
 				@R.MySettingsStrings.ExternalLinks
 			</div>
 			<div class="editor-field">
-				@Helpers.WebLinksList(Model.WebLinks)
+				<table>
+					<thead>
+						<tr>
+							<th>@HelperRes.HelperStrings.WebLinkUrlTitle</th>
+							<th>@HelperRes.HelperStrings.WebLinkDescriptionTitle</th>
+							<th>@ViewRes.SharedStrings.Actions</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: webLinks">
+						<tr>
+							<td><input type="text" maxlength="512" class="webLinkUrl input-xlarge" data-bind="value: Url" /></td>
+							<td><input type="text" maxlength="512" class="webLinkDescription input-xlarge" data-bind="value: Description" /></td>
+							<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+	
+				<a href="#" class="textLink addLink" data-bind="click: add">@HelperRes.HelperStrings.WebLinkNewRow</a>
 			</div>
 
 		</div>
@@ -185,6 +203,8 @@
 	
 	<br />
 	@Helpers.SaveBtn()
+
+	<input type="hidden" id="webLinksJson" name="webLinksJson" data-bind="value: ko.toJSON(webLinks)" />
 	
 }
 
@@ -192,8 +212,9 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/User/MySettings.js")"></script>
 <script type="text/javascript">
 
-	$(document).ready(function() { 
-		initPage();
+	$(document).ready(function () {
+		var json = @Html.Raw(JsonConvert.SerializeObject(Model.WebLinks));
+		initPage(json);
 	});
 
 </script>
