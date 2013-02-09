@@ -230,8 +230,9 @@
         <script type="text/javascript">
             
             // TODO: move to a controller.
-            vdb = vdb || {};
-            vdb.values = { hostAddress: "@VocaDb.Model.Utils.AppConfig.HostAddress" };
+        	vdb = vdb || {};
+        	vdb.values = vdb.values || {};
+            vdb.values.hostAddress = '@VocaDb.Model.Utils.AppConfig.HostAddress';
             vdb.resources = vdb.resources || {};
 
             vdb.resources.album = {

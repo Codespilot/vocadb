@@ -528,12 +528,14 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult MySettings(MySettingsModel model) {
+		public ActionResult MySettings(MySettingsModel model, [FromJson] IList<WebLinkDisplay> webLinksJson) {
 
 			var user = LoginManager.LoggedUser;
 
 			if (user.Id != model.Id)
 				return new HttpStatusCodeResult(403);
+
+			model.WebLinks = webLinksJson;
 
 			if (!ModelState.IsValid)
 				return View(new MySettingsModel(GetUserForMySettings()));
@@ -555,7 +557,7 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
-			TempData.SetStatusMessage(ViewRes.User.MySettingsStrings.SettingsUpdated);
+			TempData.SetSuccessMessage(ViewRes.User.MySettingsStrings.SettingsUpdated);
 
 			return RedirectToAction("Profile", new { id = user.Name });
 
