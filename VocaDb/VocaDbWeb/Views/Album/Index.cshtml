@@ -16,8 +16,6 @@
 	}
 }
 
-<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" type="text/css" />
-
 @if (Model.DraftsOnly) {
 	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
 }
@@ -65,8 +63,6 @@
 <p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Albums.TotalItemCount)</p>
 	
 @Html.PagedListPager(Model.Albums, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
-
-<br />
 
 if (Model.View == EntryViewMode.Details) {
 	

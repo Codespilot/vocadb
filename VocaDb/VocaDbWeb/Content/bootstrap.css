@@ -4037,11 +4037,15 @@ input[type="submit"].btn.btn-mini {
   text-decoration: none;
   border: 1px solid #ddd;
   border-left-width: 0;
+  background-color: white;
 }
 
-.pagination a:hover,
-.pagination .active a {
+.pagination a:hover {
   background-color: #f5f5f5;
+}
+
+.pagination .active a {
+	background-color: #E5E5E5;
 }
 
 .pagination .active a {
@@ -4054,7 +4058,6 @@ input[type="submit"].btn.btn-mini {
 .pagination .disabled a:hover {
   color: #999999;
   cursor: default;
-  background-color: transparent;
 }
 
 .pagination li:first-child a {
