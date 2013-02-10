@@ -1567,6 +1567,7 @@
     <Content Include="Views\Shared\EditorTemplates\NameManagerEditContract.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocalizedStringWithIdContract.cshtml" />
     <Content Include="Views\User\AlbumCollection.cshtml" />
+    <Content Include="Views\Home\Chat.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Home;
@@ -8,6 +7,12 @@ namespace VocaDb.Web.Controllers
 {
     public class HomeController : ControllerBase
     {
+
+		public ActionResult Chat() {
+
+			return View();
+
+		}
 
 		public ActionResult FindNames(string term) {
 
