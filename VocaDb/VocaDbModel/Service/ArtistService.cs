@@ -221,19 +221,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete]
-		private T[] GetArtists<T>(Func<Artist, T> func) {
-
-			return HandleQuery(session => session
-				.Query<Artist>()
-				.Where(a => !a.Deleted)
-				.ToArray()
-				.OrderBy(a => a.DefaultName)
-				.Select(func)
-				.ToArray());
-
-		}
-
 		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
@@ -657,30 +644,6 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => new ArtistWithArchivedVersionsContract(
 				session.Load<Artist>(artistId), PermissionContext.LanguagePreference));
-
-		}
-
-		[Obsolete]
-		public ArtistContract[] GetArtists() {
-
-			return GetArtists(a => new ArtistContract(a, PermissionContext.LanguagePreference));
-
-		}
-
-		[Obsolete]
-		public ArtistWithAdditionalNamesContract[] GetArtistsWithAdditionalNames() {
-
-			return GetArtists(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference));
-
-		}
-
-		public ArtistContract[] GetCircles() {
-
-			return HandleQuery(session => session.Query<Artist>()
-				.Where(a => !a.Deleted && (a.ArtistType == ArtistType.Circle || a.ArtistType == ArtistType.Label))
-				.ToArray()
-				.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
-				.ToArray());
 
 		}
 

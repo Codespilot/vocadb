@@ -15,6 +15,7 @@ namespace VocaDb.Model.Service.Search.Song {
 		public SongQueryParams() {
 
 			Common = new CommonSearchParams();
+			IgnoredIds = new int[] {};
 			Paging = new PagingProperties(0, 30, true);
 			SongTypes = new SongType[] {};
 
