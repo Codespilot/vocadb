@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.Artist;
-using VocaDb.Model.Service.Search.Song;
 using VocaDb.Web.Controllers;
 
 namespace VocaDb.Web.API.v1.Controllers {

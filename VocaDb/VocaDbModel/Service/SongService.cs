@@ -994,13 +994,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		// Used for RSS feed. TODO: integrate with Find.
-		public SongContract[] GetNewSongsWithVideos() {
-
-			return Find(new SongQueryParams { OnlyWithPVs = true, Paging = new PagingProperties(0, 20, false) }).Items;
-
-		}
-
 		public LyricsForSongContract GetRandomLyricsForSong(string query) {
 
 			return HandleQuery(session => {
