@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
@@ -120,6 +121,13 @@ namespace VocaDb.Web.Services {
 
 			var artist = Services.Artists.GetArtistDetails(id);
 			return artist;
+
+		}
+
+		[OperationContract]
+		public ArtistForApiContract[] GetArtistsWithYoutubeChannels(ContentLanguagePreference languagePreference = ContentLanguagePreference.Default) {
+
+			return Services.Artists.GetArtistsWithYoutubeChannels(languagePreference);
 
 		}
 

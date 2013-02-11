@@ -647,6 +647,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public ArtistForApiContract[] GetArtistsWithYoutubeChannels(ContentLanguagePreference languagePreference) {
+
+			return HandleQuery(session => session.Query<ArtistWebLink>()
+				.Where(l => l.Url.Contains("youtube.com/user/"))
+				.Select(l => l.Artist)
+				.Distinct()
+				.ToArray()
+				.Select(a => new ArtistForApiContract(a, languagePreference, ArtistEditableFields.WebLinks))
+				.ToArray());
+
+		}
+
 		public CommentContract[] GetComments(int artistId) {
 
 			return HandleQuery(session => {
