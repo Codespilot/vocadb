@@ -650,7 +650,7 @@ namespace VocaDb.Model.Service {
 		public ArtistForApiContract[] GetArtistsWithYoutubeChannels(ContentLanguagePreference languagePreference) {
 
 			return HandleQuery(session => session.Query<ArtistWebLink>()
-				.Where(l => l.Url.Contains("youtube.com/user/"))
+				.Where(l => !l.Artist.Deleted && (l.Artist.ArtistType == ArtistType.Producer || l.Artist.ArtistType == ArtistType.Circle || l.Artist.ArtistType == ArtistType.Animator) && l.Url.Contains("youtube.com/user/"))
 				.Select(l => l.Artist)
 				.Distinct()
 				.ToArray()
