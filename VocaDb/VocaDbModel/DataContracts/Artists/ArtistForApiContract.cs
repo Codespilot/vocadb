@@ -24,6 +24,24 @@ namespace VocaDb.Model.DataContracts.Artists {
 			
 		}
 
+		public ArtistForApiContract(Artist artist, ContentLanguagePreference languagePreference, ArtistEditableFields includedFields)
+			: base(artist, languagePreference) {
+
+			CreateDate = artist.CreateDate;
+			Description = artist.Description;
+
+			if (includedFields.HasFlag(ArtistEditableFields.Groups)) {
+				Groups = artist.Groups.Select(g => new ArtistContract(g.Group, languagePreference)).ToArray();
+				Members = artist.Members.Select(m => new ArtistContract(m.Member, languagePreference)).ToArray();
+			}
+
+			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).ToArray();
+
+			if (includedFields.HasFlag(ArtistEditableFields.WebLinks))
+				WebLinks = artist.WebLinks.Select(w => new ArchivedWebLinkContract(w)).ToArray();
+
+		}
+
 		[DataMember]
 		public DateTime CreateDate { get; set; }
 
