@@ -260,7 +260,7 @@ namespace VocaDb.Model.Domain.Globalization {
 			foreach (var l in languages)
 				SetValueFor(l);
 
-			var additionalNames = Names.Select(n => n.Value).Where(n => !SortNames.All.Contains(n));
+			var additionalNames = Names.Select(n => n.Value).Where(n => !SortNames.All.Contains(n)).Distinct();
 			AdditionalNamesString = string.Join(", ", additionalNames);
 
 		}
