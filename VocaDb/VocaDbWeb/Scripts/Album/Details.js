@@ -135,7 +135,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 
 	$("#removeRating").click(function () {
 
-		$('#collectionRating').jqxRating({ value: 0 });
+		$("#collectionRating").jqxRating('setValue', 0);
 
 		return false;
 
