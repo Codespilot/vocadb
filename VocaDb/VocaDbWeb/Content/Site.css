@@ -835,6 +835,15 @@ a.disabled {
 
 
 
+/* jQuery UI */
+.ui-autocomplete {
+    max-height: 400px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+
 
 /* Bootstrap-specific */
 .navbar .nav-radio {
