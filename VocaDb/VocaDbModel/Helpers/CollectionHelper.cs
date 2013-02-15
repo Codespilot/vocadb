@@ -85,6 +85,21 @@ namespace VocaDb.Model.Helpers {
 		/// Removes missing items from the old collection and adds missing new items.
 		/// </summary>
 		/// <typeparam name="T">Type of the original (current) collection.</typeparam>
+		/// <param name="oldItems">Original (current) collection. Cannot be null.</param>
+		/// <param name="newItems">New collection. Cannot be null.</param>
+		/// <param name="equality">Equality comparer. Cannot be null.</param>
+		/// <returns>Diff for the two collections. Cannot be null.</returns>
+		public static CollectionDiff<T, T> Sync<T>(IList<T> oldItems, IList<T> newItems, IEqualityComparer<T> equality) {
+
+			return Sync(oldItems, newItems, equality.Equals, t => t);
+
+		}
+
+		/// <summary>
+		/// Syncs items in one collection with a new set.
+		/// Removes missing items from the old collection and adds missing new items.
+		/// </summary>
+		/// <typeparam name="T">Type of the original (current) collection.</typeparam>
 		/// <typeparam name="T2">Type of the new collection.</typeparam>
 		/// <param name="old">Original (current) collection. Cannot be null.</param>
 		/// <param name="newItems">New collection. Cannot be null.</param>
@@ -107,6 +122,62 @@ namespace VocaDb.Model.Helpers {
 			}
 
 			return new CollectionDiff<T, T>(created, diff.Removed, diff.Unchanged);
+
+		}
+
+		/// <summary>
+		/// Syncs items in one collection with a new set, comparing both identity and value.
+		/// Removes missing items from the old collection and adds missing new items.
+		/// Existing items that have been changed will be updated.
+		/// </summary>
+		/// <typeparam name="T">Type of the original (current) collection.</typeparam>
+		/// <typeparam name="T2">Type of the new collection.</typeparam>
+		/// <param name="oldItems">Original (current) collection. Cannot be null.</param>
+		/// <param name="newItems">New collection. Cannot be null.</param>
+		/// <param name="identityEquality">Identity equality test. Cannot be null.</param>
+		/// <param name="create">Factory method for creating a new item. Cannot be null.</param>
+		/// <param name="update">
+		/// Method for updating an existing item. 
+		/// First parameter is the old item to be updated and second parameter is the new state. 
+		/// Returns true if the old item was updated, or false if the items had equal content already. Cannot be null.</param>
+		/// <param name="remove">Callback for removing an old item if that didn't exist in the new list.</param>
+		/// <returns>Diff for the two collections. Cannot be null.</returns>
+		public static CollectionDiffWithValue<T, T> SyncWithContent<T, T2>(IList<T> oldItems, IList<T2> newItems, 
+			Func<T, T2, bool> identityEquality, Func<T2, T> create, Func<T, T2, bool> update, Action<T> remove) {
+
+			ParamIs.NotNull(() => oldItems);
+			ParamIs.NotNull(() => newItems);
+			ParamIs.NotNull(() => identityEquality);
+
+			var diff = Diff(oldItems, newItems, identityEquality);
+			var created = new List<T>();
+			var edited = new List<T>();
+
+			foreach (var removed in diff.Removed) {
+
+				if (remove != null)
+					remove(removed);
+
+				oldItems.Remove(removed);
+
+			}
+
+			foreach (var added in diff.Added) {
+				var newObject = create(added);
+				created.Add(newObject);
+			}
+
+			foreach (var oldItem in diff.Unchanged) {
+
+				var newItem = newItems.First(i => identityEquality(oldItem, i));
+
+				if (update(oldItem, newItem)) {
+					edited.Add(oldItem);
+				}
+
+			}
+
+			return new CollectionDiffWithValue<T, T>(created, diff.Removed, diff.Unchanged, edited);
 
 		}
 
@@ -158,6 +229,11 @@ namespace VocaDb.Model.Helpers {
 
 	}
 
+	/// <summary>
+	/// Difference between two collections, including value.
+	/// </summary>
+	/// <typeparam name="T">Type of the old collection.</typeparam>
+	/// <typeparam name="T2">Type of the new collection (may be the same as old).</typeparam>
 	public class CollectionDiffWithValue<T, T2> : CollectionDiff<T, T2> {
 
 		public CollectionDiffWithValue(IEnumerable<T2> added, IEnumerable<T> removed, 
