@@ -446,6 +446,9 @@ namespace VocaDb.Model.Service {
 		}
 		public ArtistContract[] FindByNameAndType(string query, ArtistType[] types, int maxResults) {
 
+			if (string.IsNullOrEmpty(query))
+				return new ArtistContract[] {};
+
 			return HandleQuery(session => {
 
 				return session.Query<ArtistName>()
