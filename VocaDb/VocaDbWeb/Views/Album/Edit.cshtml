@@ -30,18 +30,15 @@
 }
 
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets27/styles/jqx.base.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxcore.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxbuttons.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxscrollbar.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxlistbox.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
 
 <script type="text/javascript">
     $(document).ready(function() { 
 
         vdb.resources.albumEdit = {
-            addToTracks: '@Html.Raw(AjaxRes.AlbumStrings.AddToTracks)',
+        	addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)",
+			addNewSong: "@Html.Raw(AjaxRes.AlbumStrings.AddNewSong)",
+        	addToTracks: '@Html.Raw(AjaxRes.AlbumStrings.AddToTracks)',
             removeFromTracks: '@Html.Raw(AjaxRes.AlbumStrings.RemoveFromTracks)'
         };
 
@@ -223,7 +220,7 @@
 			<br /><br />
 			<h4>@R.EditStrings.AddNew</h4>
 			<p>@R.EditStrings.TrAddTrackHelp</p>
-			@Helpers.EntrySearchBox("songAdd", false, ViewRes.SharedStrings.Add)
+			@Helpers.EntrySearchNameBox("songAddName")
 		</div>
 
 		<div id="artistsTab">
@@ -240,8 +237,7 @@
 			
 			<br />
 			<h4>@R.EditStrings.ArAddArtist</h4>
-
-			@Helpers.EntrySearchBox("artistAdd", false, ViewRes.SharedStrings.Add)
+			@Helpers.EntrySearchNameBox("artistAddName")
 		</div>
 		
 		<div id="picsTab">

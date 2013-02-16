@@ -90,11 +90,8 @@
 				<div id="changeOriginalPanel" style="display:none;">
 					<div>
 						<input type="hidden" id="changeOriginalId" />
-						<input type="text" maxlength="128" size="30" id="changeOriginalName" /><br />
-						<div id="changeOriginalList"></div>
+						<input type="text" maxlength="128"  id="changeOriginalName" /><br />
 					</div>
-					<br />
-					<input type="button" class="btn" id="acceptNewOriginalBtn" value="Set" />
 				</div>
 			</div>
    }
@@ -190,7 +187,7 @@
 			
 			<br />
 			<h4>Add artist</h4>
-			@Helpers.EntrySearchBox("artistAdd", false, "Add")
+			@Helpers.EntrySearchNameBox("artistAddName")
 		</div>
 
 	</div>
@@ -219,17 +216,15 @@
 
 
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets27/styles/jqx.base.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxcore.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxbuttons.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxscrollbar.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxlistbox.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Edit.js")"></script>
 
 <script type="text/javascript">
 
-	$(document).ready(function() { 
+	$(document).ready(function () {
+		vdb.resources.song = {
+			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
+		};
 		initPage(@Model.Id);
 	});
 

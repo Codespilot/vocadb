@@ -255,7 +255,7 @@ namespace VocaDb.Model.Service {
 				if (moveExactToTop) {
 					
 					var exactMatch = entries
-						.Where(e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)))
+						.Where(e => e.Names.Any(n => n.Value.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)))
 						.ToArray();
 
 					if (exactMatch.Any()) {

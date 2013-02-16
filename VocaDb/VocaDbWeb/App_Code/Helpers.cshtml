@@ -136,6 +136,11 @@
 
 }
 
+@helper EntrySearchNameBox(string id, string cls = "input-xlarge") {
+	<input type="text" id="@id" maxlength="128" class="@cls" placeholder="@ViewRes.SharedStrings.Search" />	
+}
+
+
 @helper EntryStatusMessage(EntryStatus status) {
     switch (status) {
         case EntryStatus.Draft:

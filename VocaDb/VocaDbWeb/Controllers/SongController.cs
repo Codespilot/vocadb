@@ -147,7 +147,7 @@ namespace VocaDb.Web.Controllers
 				nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto), 
 				sortRule: SongSortRule.Name, 
 				ignoredIds: ignoredIds,
-				moveExactToTop: false));
+				moveExactToTop: true));
 
 			return Json(songs);
 

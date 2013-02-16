@@ -126,4 +126,7 @@
   <data name="RemoveFromTracks" xml:space="preserve">
     <value>Poista kappaleilta</value>
   </data>
+  <data name="AddNewSong" xml:space="preserve">
+    <value>Lisää uusi kappale nimeltä '{0}'</value>
+  </data>
 </root>
