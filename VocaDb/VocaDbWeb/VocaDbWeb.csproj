@@ -2324,6 +2324,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EditStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\EditStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />

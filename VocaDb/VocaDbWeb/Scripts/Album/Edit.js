@@ -261,9 +261,9 @@ function initPage(albumId, discType) {
 
 	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
 		{ 
-			allowCreateNew: true, 
 			acceptBtnElem: artistAddBtn, 
 			acceptSelection: acceptArtistSelection,
+			createNewItem: vdb.resources.albumEdit.addExtraArtist,
 			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
 			createOptionSecondRow: function (item) { return item.AdditionalNames; }
 		});
@@ -320,9 +320,9 @@ function initPage(albumId, discType) {
 
 	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName",
 		{
-			allowCreateNew: true,
 			acceptBtnElem: songAddBtn,
 			acceptSelection: acceptSongSelection,
+			createNewItem: vdb.resources.albumEdit.addNewSong,
 			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },

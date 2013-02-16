@@ -126,4 +126,7 @@
   <data name="RemoveFromTracks" xml:space="preserve">
     <value>Remove from tracks</value>
   </data>
+  <data name="AddNewSong" xml:space="preserve">
+    <value>Add new song called '{0}'</value>
+  </data>
 </root>
