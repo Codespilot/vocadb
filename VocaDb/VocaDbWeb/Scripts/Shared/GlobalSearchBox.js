@@ -5,7 +5,7 @@ $(document).ready(function () {
 		source: function (request, response) {
 
 			var term = request.term;
-			var entryType = $("input[@name = 'globalSearchEntryType']:checked").val();
+			var entryType = $("#globalSearchBox input.globalSearchEntryType:checked").val();
 
 			if (entryType == "Undefined") {
 				$.post("../../Home/FindNames", { term: term }, function (results) {

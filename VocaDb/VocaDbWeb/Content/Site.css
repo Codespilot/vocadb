@@ -836,11 +836,12 @@ a.disabled {
 
 
 /* jQuery UI */
-.ui-autocomplete {
+ul.ui-autocomplete {
     max-height: 400px;
     overflow-y: auto;
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
+	z-index: 1050;
 }
 
 
