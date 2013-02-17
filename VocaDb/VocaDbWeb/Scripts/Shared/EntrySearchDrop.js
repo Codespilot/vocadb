@@ -10,6 +10,7 @@
 	var createOptionSecondRow = null;
 	var createOptionHtml = null;
 	var createTitle = null;
+	var filter = null;
 
 	if (params != null) {
 
@@ -30,6 +31,9 @@
 
 		if (params.extraQueryParams != null)
 			extraQueryParams = params.extraQueryParams;
+
+		if (params.filter != null)
+			filter = params.filter;
 
 		createOptionFirstRow = params.createOptionFirstRow;
 		createOptionSecondRow = params.createOptionSecondRow;
@@ -74,7 +78,9 @@
 
 		$.post(searchUrl, queryParams, function (result) {
 
-			var mapped = $.map(result.Items, function (item) {
+			var filtered = (!filter ? result.Items : _.filter(result.Items, filter));
+
+			var mapped = $.map(filtered, function (item) {
 				return { label: item.Name, value: item.Id, data: item };
 			});
 

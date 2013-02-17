@@ -12,28 +12,25 @@
 
 @using (Html.BeginForm()) {
 
-	@Helpers.NotificationPanel("Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.")
+	<div class="alert alert-info">
+		Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.
+	</div>
 
 	<input type="hidden" name="targetSongId" id="targetSongId" />
 	
-	<div>
-	@Html.TextBox("songName", string.Empty, new { id = "songName", maxlength = "128" })<br />
-	<div id="songList"></div>
-	@Html.ValidationMessage("songList")
-	</div>
-
 	<br />
+	<div id="targetSong">		
+	</div><br />
+	
+	@Helpers.EntrySearchNameBox("songName")
+	
+	<br /><br />
 
 	<button type="submit" class="btn btn-primary" id="mergeBtn">Merge</button>
 	
 }
 
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets27/styles/jqx.base.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxcore.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxbuttons.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxscrollbar.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxlistbox.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Merge.js")"></script>
 <script type="text/javascript">
 

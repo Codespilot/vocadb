@@ -213,6 +213,7 @@ namespace VocaDb.Web.Controllers
 				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
 				: new ArtistType[] {};
 
+			// TODO: use Find
 			var artists = new PartialFindResult<ArtistContract>(Service.FindByNameAndType(term, typeVals.ToArray(), 20), 0, term, false);  //Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
 
 			return Json(artists);
@@ -403,6 +404,13 @@ namespace VocaDb.Web.Controllers
 			Service.Merge(id, targetArtistId);
 
 			return RedirectToAction("Edit", new { id = targetArtistId });
+
+		}
+
+		public ActionResult Name(int id) {
+
+			var contract = Service.GetArtist(id);
+			return Content(contract.Name);
 
 		}
 
