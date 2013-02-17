@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
@@ -13,7 +12,6 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.Artist;
 using VocaDb.Web.Models;
 using System.Drawing;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Web.Models.Artist;
 using VocaDb.Web.Helpers;
@@ -210,11 +208,11 @@ namespace VocaDb.Web.Controllers
 		public ActionResult FindJson(string term, string artistTypes) {
 
 			var typeVals = !string.IsNullOrEmpty(artistTypes)
-				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse)
+				? artistTypes.Split(',').Select(EnumVal<ArtistType>.Parse).ToArray()
 				: new ArtistType[] {};
 
-			// TODO: use Find
-			var artists = new PartialFindResult<ArtistContract>(Service.FindByNameAndType(term, typeVals.ToArray(), 20), 0, term, false);  //Service.FindArtists(term, typeVals.ToArray(), 0, 20, false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
+			var queryParams = new ArtistQueryParams(term, typeVals, 0, 20, false, false, NameMatchMode.Auto, ArtistSortRule.Name, true);
+			var artists = Service.FindArtists(queryParams);
 
 			return Json(artists);
 

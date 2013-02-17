@@ -140,17 +140,19 @@ namespace VocaDb.Model.Service {
 
 				var entries = direct.Concat(additionalNames)
 					.Skip(start)
-					.Take(maxResults);
+					.Take(maxResults)
+					.ToArray();
 
 				bool foundExactMatch = false;
 
 				if (queryParams.Common.MoveExactToTop) {
 
-					var exactMatch = entries.FirstOrDefault(
-						e => e.Names.Any(n => n.Value.Equals(query, StringComparison.InvariantCultureIgnoreCase)));
+					var exactMatch = entries
+						.Where(e => e.Names.Any(n => n.Value.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)))
+						.ToArray();
 
-					if (exactMatch != null) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch);
+					if (exactMatch.Any()) {
+						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
 						foundExactMatch = true;
 					}
 
@@ -440,30 +442,6 @@ namespace VocaDb.Model.Service {
 
 				return new PartialFindResult<T>(result.Items.Select(fac).ToArray(),
 					result.TotalCount, result.Term, result.FoundExactMatch);
-
-			});
-
-		}
-
-		[Obsolete("Replaced by Find")]
-		public ArtistContract[] FindByNameAndType(string query, ArtistType[] types, int maxResults) {
-
-			if (string.IsNullOrEmpty(query))
-				return new ArtistContract[] {};
-
-			return HandleQuery(session => {
-
-				return session.Query<ArtistName>()
-					.FilterByArtistName(query)
-					.Where(a => !a.Artist.Deleted)
-					.FilterByArtistType(types)
-					.Select(n => n.Artist)
-					.AddNameOrder(PermissionContext.LanguagePreference)
-					.Distinct()
-					.Take(maxResults)
-					.ToArray()
-					.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference))
-					.ToArray();
 
 			});
 
