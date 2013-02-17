@@ -1,7 +1,7 @@
 ﻿
 function initPage() {
 
-    function acceptArtistSelection(albumId, term) {
+    function acceptArtistSelection(albumId) {
 
         $.post("../../Album/Name", { id: albumId }, function (name) {
 
@@ -19,10 +19,8 @@ function initPage() {
 
     initEntrySearch(artistAddName, artistAddList, "Album", "../../Album/FindJson",
 		{
-		    allowCreateNew: false,
 		    acceptBtnElem: artistAddBtn,
 		    acceptSelection: acceptArtistSelection,
-            autoHide: true,
 		    createOptionFirstRow: function (item) { return item.Name; },
 		    createOptionSecondRow: function (item) { return item.AdditionalNames; }
 		});

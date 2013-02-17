@@ -44,7 +44,7 @@
 				}				
 			</tbody>			
 		</table>
-		@Helpers.EntrySearchBox("ownedArtistAdd", false, ViewRes.SharedStrings.Add)
+		@Helpers.EntrySearchNameBox("ownedArtistAddName")
 	</fieldset>
 		
 	@Helpers.SaveBtn()
@@ -52,11 +52,6 @@
 }
 
 @section BodyScripts {
-	<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets27/styles/jqx.base.css")" type="text/css" />
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxcore.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxbuttons.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxscrollbar.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxlistbox.js")"></script>
-	<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchJqx.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
 	<script type="text/javascript" src="@Url.Content("~/Scripts/User/Edit.js")"></script>
 }

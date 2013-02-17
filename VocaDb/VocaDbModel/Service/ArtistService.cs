@@ -444,6 +444,8 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
+
+		[Obsolete("Replaced by Find")]
 		public ArtistContract[] FindByNameAndType(string query, ArtistType[] types, int maxResults) {
 
 			if (string.IsNullOrEmpty(query))

@@ -28,10 +28,8 @@ function initPage(artistId) {
 
 	initEntrySearch(groupAddName, groupAddList, "Artist", "../../Artist/FindJson",
 		{
-			allowCreateNew: false,
 			acceptBtnElem: groupAddBtn,
 			acceptSelection: acceptGroupSelection,
-			autoHide: true,
 			createOptionFirstRow: function (item) { return item.Name },
 			createOptionSecondRow: function (item) { return item.AdditionalNames },
 			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup" },

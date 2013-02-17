@@ -25,7 +25,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 
 	$("#removeRating").click(function () {
 
-		$('#collectionRating').jqxRating({ value: 0 });
+		$('#collectionRating').jqxRating('setValue', 0);
 		return false;
 
 	});
@@ -72,6 +72,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 		$("#collectionStatusSelect").val(albumPurchaseStatus);
 		$("#collectionMediaSelect").val(albumMediaType);
 		$('#collectionRating').jqxRating({ value: albumRating });
+		$('#collectionRating').jqxRating('setValue', albumRating);
 
 		$("#editCollectionDialog").dialog("open");
 		return false;

@@ -45,7 +45,7 @@ function SongListViewModel(data) {
 		}
 	});
 
-	function acceptSongSelection(songId, term) {
+	function acceptSongSelection(songId) {
 
 		if (!isNullOrWhiteSpace(songId)) {
 			$.post("../../SongList/AddSong", { songId: songId }, songAdded);
@@ -59,7 +59,6 @@ function SongListViewModel(data) {
 
 	initEntrySearch(songAddName, songAddList, "Song", "../../Song/FindJsonByName",
 		{
-			allowCreateNew: false,
 			acceptBtnElem: songAddBtn,
 			acceptSelection: acceptSongSelection,
 			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
