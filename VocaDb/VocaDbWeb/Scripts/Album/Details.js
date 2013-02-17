@@ -67,7 +67,7 @@ function saveTagSelections() {
 
 function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
-	$("#tabs").tabs("url", 1, "");
+	vdb.functions.disableTabReload(ui.tab);
 
 	$("#createComment").click(function () {
 

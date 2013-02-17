@@ -223,7 +223,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
 	function tabLoaded(event, ui) {
 
-		$("#tabs").tabs("url", 1, "");
+		vdb.functions.disableTabReload(ui.tab);
 
 		$("#createComment").click(function () {
 

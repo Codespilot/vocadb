@@ -60,6 +60,11 @@ String.prototype.trim = function () {
 vdb = {};
 vdb.functions = vdb.functions || {};
 vdb.values = vdb.values || {};
+
+vdb.functions.disableTabReload = function (tab) {
+	tab.find("a").attr("href", "#" + tab.attr("aria-controls"));
+};
+
 vdb.functions.mapUrl = function (relative) {
     return vdb.values.hostAddress + relative;
 };
