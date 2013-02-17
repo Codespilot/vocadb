@@ -121,7 +121,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewCommentsLink").click(function () {
-		$("#tabs").tabs("select", 1);
+		$("#tabs").tabs("option", "active", 1);
 		return false;
 	});
 

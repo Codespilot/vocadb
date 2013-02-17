@@ -372,9 +372,9 @@
 
 <script type="text/javascript">
 
-	function aboutvocadb()   { $("#tabs").tabs('select', 0); }
-	function aboutvocaloid() { $("#tabs").tabs('select', 1); }
-	function guidelines()    { $("#tabs").tabs('select', 2); }
+	function aboutvocadb() { $("#tabs").tabs("option", "active", 0); }
+	function aboutvocaloid() { $("#tabs").tabs("option", "active", 1); }
+	function guidelines() { $("#tabs").tabs("option", "active", 2); }
 
 	$(function () {
 		var tabs = $("#tabs").tabs();
