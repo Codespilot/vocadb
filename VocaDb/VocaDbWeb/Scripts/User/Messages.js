@@ -14,7 +14,8 @@ function getMessage(messageId) {
 			var subject = $("#subject").val();
 			$("#newMessageSubject").val("Re: " + subject);
 
-			$("#tabs").tabs("select", "composeTab");
+			var index = $('#tabs ul').index($('#composeTab'));
+			$("#tabs").tabs("option", "active", index);
 
 			return false;
 

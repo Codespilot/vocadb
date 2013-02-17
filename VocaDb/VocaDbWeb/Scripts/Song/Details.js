@@ -60,7 +60,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock' } });
 	$("#viewCommentsLink").click(function () {
-		$("#tabs").tabs("select", 1);
+		$("#tabs").tabs("option", "active", 1);
 		return false;
 	});
 
