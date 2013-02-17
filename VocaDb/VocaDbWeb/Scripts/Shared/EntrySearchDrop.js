@@ -109,12 +109,12 @@
 		source: getItems,
 		select: selectItem
 	})
-	.data("autocomplete");
+	.data("ui-autocomplete");
 
 	if (auto) {
 		auto._renderItem = function (ul, item) {
 			return $("<li>")
-				.data("item.autocomplete", item)
+				.data("item.ui-autocomplete", item)
 				.append(createHtml(item))
 				.appendTo(ul);
 		};
