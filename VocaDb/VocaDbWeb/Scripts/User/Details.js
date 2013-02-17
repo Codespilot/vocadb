@@ -5,7 +5,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 		load: function (event, ui) {
 
 			// Load only once
-			$("#tabs").tabs("url", ui.index, "");
+			//$("#tabs").tabs("url", ui.index, "");
 			$("#tabs").tabs("option", "spinner", loadingStr);
 
 		}

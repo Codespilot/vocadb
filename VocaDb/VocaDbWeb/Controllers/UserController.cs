@@ -91,7 +91,7 @@ namespace VocaDb.Web.Controllers
 			};
 			var albums = Service.GetAlbumCollection(queryParams);
 			routeParams.count = (albums.TotalCount != 0 ? albums.TotalCount : routeParams.count);
-			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, routeParams.count), id, "AlbumCollection", "Collection");
+			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, routeParams.count), id, "AlbumCollection", "ui-tabs-1");
 			paged.RouteValues = new RouteValueDictionary(new { action = "AlbumCollection", id, count = routeParams.count, purchaseStatus = routeParams.purchaseStatus });
 
 			return PartialView("AlbumCollectionPaged", paged);
@@ -184,7 +184,7 @@ namespace VocaDb.Web.Controllers
 			var r = rating ?? SongVoteRating.Nothing;
 			var queryParams = new RatedSongQueryParams(id, PagingProperties.CreateFromPage(pageIndex, songsPerPage, true)) { FilterByRating = r, SortRule = sort };
 			var result = Service.GetFavoriteSongs(queryParams);
-			var data = new PagingData<FavoriteSongForUserContract>(result.Items.ToPagedList(pageIndex, songsPerPage, result.TotalCount), id, "FavoriteSongs", "Favorite_songs");
+			var data = new PagingData<FavoriteSongForUserContract>(result.Items.ToPagedList(pageIndex, songsPerPage, result.TotalCount), id, "FavoriteSongs", "ui-tabs-3");
 			data.RouteValues = new RouteValueDictionary(new { action = "FavoriteSongs", id, rating, sort });
 
 			return PartialView("FavoriteSongsPaged", data);

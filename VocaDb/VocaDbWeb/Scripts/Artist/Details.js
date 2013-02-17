@@ -87,8 +87,10 @@ function initPage(artistId, saveStr, hostAddress) {
 			if (ui.index == 1)
 				tabLoaded("../../Artist", artistId, event, ui);
 
+			//var aria = ui.tab.attr("aria-controls");
+
 			// Load only once
-			$("#tabs").tabs("url", ui.index, "");
+			//$("#tabs").tabs("href", ui.index, "");
 			$("#tabs").tabs("option", "spinner", 'Loading...');
 
 		}
