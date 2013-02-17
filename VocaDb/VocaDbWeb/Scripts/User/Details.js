@@ -4,8 +4,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 	$("#tabs").tabs({
 		load: function (event, ui) {
 
-			// Load only once
-			//$("#tabs").tabs("url", ui.index, "");
+			vdb.functions.disableTabReload(ui.tab);
 			$("#tabs").tabs("option", "spinner", loadingStr);
 
 		}
