@@ -42,7 +42,7 @@ namespace VocaDb.Web.Controllers
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetAlbums(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "All_albums");
+			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "ui-tabs-2");
 
 			return PartialView("PagedAlbums", data);
 
@@ -167,7 +167,7 @@ namespace VocaDb.Web.Controllers
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetSongs(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongsPaged", "All_songs");
+			var data = new PagingData<SongWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongsPaged", "ui-tabs-2");
 
 			return PartialView("PagedSongs", data);
 
