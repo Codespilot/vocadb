@@ -802,7 +802,7 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
-				return names;
+				return NameHelper.MoveExactNamesToTop(names, query);
 
 			});
 

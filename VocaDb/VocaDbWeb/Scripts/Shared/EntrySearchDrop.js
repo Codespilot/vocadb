@@ -42,6 +42,10 @@
 
 	}
 
+	function bold(text, term) {
+		return vdb.functions.boldCaseInsensitive(text, term);
+	}
+
 	function createHtml(item) {
 
 		var data = item.data;
@@ -51,6 +55,7 @@
 		}
 
 		var html = null;
+		var term = item.term;
 
 		if (createOptionHtml) {
 			html = createOptionHtml(data);
@@ -58,11 +63,11 @@
 			var firstRow = createOptionFirstRow(data);
 			var secondRow = createOptionSecondRow(data);
 			if (firstRow)
-				html = "<a><div>" + firstRow + "</div><div><small class='extraInfo'>" + secondRow + "</small></div></a>";
+				html = "<a><div>" + bold(firstRow, term) + "</div><div><small class='extraInfo'>" + secondRow + "</small></div></a>";
 		} else if (createOptionFirstRow) {
 			var firstRow = createOptionFirstRow(data);
 			if (firstRow)
-				html = "<a><div>" + firstRow + "</div></a>";
+				html = "<a><div>" + bold(firstRow, term) + "</div></a>";
 		}
 
 		return html;
@@ -81,7 +86,7 @@
 			var filtered = (!filter ? result.Items : _.filter(result.Items, filter));
 
 			var mapped = $.map(filtered, function (item) {
-				return { label: item.Name, value: item.Id, data: item };
+				return { label: item.Name, value: item.Id, data: item, term: par.term };
 			});
 
 			if (createNewItem)

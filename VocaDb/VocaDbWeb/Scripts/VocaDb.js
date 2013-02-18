@@ -69,6 +69,22 @@ vdb.functions.mapUrl = function (relative) {
     return vdb.values.hostAddress + relative;
 };
 
+vdb.functions.boldCaseInsensitive = function (text, term) {
+
+	if (!text || !term)
+		return text;
+
+	var index = text.toLowerCase().indexOf(term.toLowerCase());
+
+	if (index < 0)
+		return text;
+
+	var actualTerm = text.substring(index, index + term.length);
+
+	return text.replace(actualTerm, "<b>" + actualTerm + "</b>");
+
+};
+
 (function ($) {
     $.fn.vdbArtistToolTip = function () {
 

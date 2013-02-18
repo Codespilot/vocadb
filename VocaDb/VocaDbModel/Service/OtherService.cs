@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -96,9 +97,10 @@ namespace VocaDb.Model.Service {
 					.Concat(tagNames)
 					.Distinct()
 					.OrderBy(n => n)
-					.Take(maxResults);
+					.Take(maxResults)
+					.ToArray();
 
-				return allNames.ToArray();
+				return NameHelper.MoveExactNamesToTop(allNames, query);
 
 			});
 
