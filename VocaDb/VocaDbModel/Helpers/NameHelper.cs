@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Domain;
@@ -19,6 +20,17 @@ namespace VocaDb.Model.Helpers {
 			var primary = nameManager.SortNames[languagePreference];
 
 			return new EntryNameContract(primary, GetAdditionalNames(nameManager.AllValues, primary));
+
+		}
+
+		public static string[] MoveExactNamesToTop(string[] names, string term) {
+
+			if (names == null || !names.Any())
+				return names;
+
+			var exactMatch = names.Where(n => n.StartsWith(term, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+
+			return exactMatch.Any() ? CollectionHelper.MoveToTop(names, exactMatch).ToArray() : names;
 
 		}
 
