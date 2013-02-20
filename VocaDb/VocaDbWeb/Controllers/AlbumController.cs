@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using MvcPaging;
+using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
@@ -30,6 +31,7 @@ namespace VocaDb.Web.Controllers
     public class AlbumController : ControllerBase
     {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly Size pictureThumbSize = new Size(250, 250);
 
 		private AlbumService Service {
@@ -323,9 +325,12 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddNewSong(int albumId, string newSongName) {
+		public ActionResult AddNewSong(int albumId, string newSongName) {
 
-			ParamIs.NotNullOrWhiteSpace(() => newSongName);
+			if (string.IsNullOrWhiteSpace(newSongName)) {
+				log.Warn("Song name was null or whitespace");
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Song name cannot be null or whitespace");
+			}
 
 			var link = new SongInAlbumEditContract(newSongName.Trim());
 
