@@ -1,5 +1,9 @@
 ﻿
-function initPage() {
+function CreateSongViewModel() {
+
+	var self = this;
+
+	this.DupeEntries = ko.observableArray([]);
 
 	$("input.dupeField").focusout(function () {
 
@@ -11,16 +15,15 @@ function initPage() {
 
 		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2 }, function (result) {
 
-			if (result != "Ok") {
-				$("#duplicateSongWarning").html(result);
-				$("#duplicateSongWarning").show();
-			} else {
-				$("#duplicateSongWarning").hide();
-			}
+			self.DupeEntries(result);
 
 		});
 
 	});
+
+}
+
+function initPage() {
 
 	function acceptArtistSelection(artistId, term) {
 
@@ -57,5 +60,7 @@ function initPage() {
 	});
 
 	$("#artistsTableBody a.artistLink").vdbArtistToolTip();
+
+	ko.applyBindings(new CreateSongViewModel());
 
 }

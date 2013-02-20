@@ -141,6 +141,7 @@
     <Compile Include="DataContracts\Songs\SongListDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongListForEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListsByCategoryContract.cs" />
+    <Compile Include="DataContracts\Songs\SongMatchProperty.cs" />
     <Compile Include="DataContracts\Songs\SongTagUsageContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionDetailsContract.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagVersionContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageWithVotesContract.cs" />
+    <Compile Include="DataContracts\UseCases\DuplicateEntryResultContract.cs" />
     <Compile Include="DataContracts\UseCases\EntryWithTagUsagesContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
     <Compile Include="DataContracts\Tags\TagContract.cs" />

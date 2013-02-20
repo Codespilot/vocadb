@@ -15,6 +15,10 @@
 																								
 	<div class="row-fluid">
 		<div class="span5">
+			
+			<div class="alert alert-danger" data-bind="visible: _.find(DupeEntries(), function(item) { return item.MatchProperty == 'PV' })" style="display:none">
+				@R.CreateStrings.DuplicatePV
+			</div>
 
 			<div class="editor-label">
 				@R.CreateStrings.Name
@@ -105,9 +109,18 @@
 				<p>@R.CreateStrings.NoArtistsToName</p>
 				<p>@R.CreateStrings.NameHelp</p>
                 <p>@R.CreateStrings.ArtistHelp</p>
-			</div>			
-			<div id="duplicateSongWarning" style="display:none">
-			</div>
+			</div>	
+			
+			<div class="alert" style="display:none" data-bind="visible: DupeEntries().length > 0">
+				@Helpers.NotificationIcon()
+				@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
+				<ul data-bind="foreach: DupeEntries">
+					<li>
+						<a data-bind="text: Entry.Name.DisplayName, attr: { href: vdb.functions.mapUrl('/' + Entry.EntryType + '/Details/') + Entry.Id }"></a> 
+						(<span data-bind="text: Entry.EntryTypeName"></span>)
+					</li>
+				</ul>
+			</div>					
 		</div>
 		
 	</div>

@@ -120,11 +120,13 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, new[] { pv1, pv2 });
 
-			if (result.Any()) {
+			return Json(result);
+
+			/*if (result.Any()) {
 				return PartialView("DuplicateEntryMessage", result);
 			} else {
 				return Content("Ok");
-			}
+			}*/
 
 		}
 
