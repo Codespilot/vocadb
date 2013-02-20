@@ -32,6 +32,16 @@ namespace VocaDb.Model.Service {
 
 	public class SongService : ServiceBase {
 
+		class SongTupleEqualityComparer<T> : IEqualityComparer<System.Tuple<Song, T>> {
+			public bool Equals(System.Tuple<Song, T> x, System.Tuple<Song, T> y) {
+				return Equals(x.Item1, y.Item1);
+			}
+
+			public int GetHashCode(System.Tuple<Song, T> obj) {
+				return obj.Item1.GetHashCode();
+			}
+		}
+
 #pragma warning disable 169
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 #pragma warning restore 169
@@ -837,13 +847,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public EntryRefWithCommonPropertiesContract[] FindDuplicates(string[] anyName, string[] anyPv) {
+		public DuplicateEntryResultContract<SongMatchProperty>[] FindDuplicates(string[] anyName, string[] anyPv) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
 			var pvs = anyPv.Select(p => VideoServiceHelper.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
 
 			if (!names.Any() && !pvs.Any())
-				return new EntryRefWithCommonPropertiesContract[] { };
+				return new DuplicateEntryResultContract<SongMatchProperty>[] { };
 
 			return HandleQuery(session => {
 
@@ -853,16 +863,18 @@ namespace VocaDb.Model.Service {
 					.Where(n => !n.Deleted)
 					.Distinct()
 					.Take(10)
-					.ToArray() : new Song[] { });
+					.ToArray()
+					.Select(d => new System.Tuple<Song, SongMatchProperty>(d, SongMatchProperty.Title)) : new System.Tuple<Song, SongMatchProperty>[] { });
 
 				var pvMatches = pvs.Select(pv => session.Query<PVForSong>()
 					.Where(p => p.PVId == pv.Id && p.Service == pv.Service)
 					.Select(n => n.Song)
 					.FirstOrDefault(n => !n.Deleted))
-					.Where(p => p != null);
+					.Where(p => p != null)
+					.Select(d => new System.Tuple<Song, SongMatchProperty>(d, SongMatchProperty.PV));
 
-				return nameMatches.Union(pvMatches)
-					.Select(s => new EntryRefWithCommonPropertiesContract(s, PermissionContext.LanguagePreference))
+				return pvMatches.Union(nameMatches, new SongTupleEqualityComparer<SongMatchProperty>())
+					.Select(s => new DuplicateEntryResultContract<SongMatchProperty>(new EntryRefWithCommonPropertiesContract(s.Item1, PermissionContext.LanguagePreference), s.Item2))
 					.ToArray();
 
 			});

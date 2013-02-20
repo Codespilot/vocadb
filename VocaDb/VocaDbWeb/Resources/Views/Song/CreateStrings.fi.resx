@@ -126,6 +126,9 @@
   <data name="Draft" xml:space="preserve">
     <value>Tämä merkintä on luonnos</value>
   </data>
+  <data name="DuplicatePV" xml:space="preserve">
+    <value>Tämä video löytyy jo tietokannasta.</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nimi (tarvitaan vähintään yksi)</value>
   </data>
