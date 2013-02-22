@@ -17,7 +17,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.Artist;
-using VocaDb.Model.Service.Search.Song;
+using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Web.Services {
 

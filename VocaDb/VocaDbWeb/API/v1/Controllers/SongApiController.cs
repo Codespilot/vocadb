@@ -7,7 +7,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
-using VocaDb.Model.Service.Search.Song;
+using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Controllers;
 
