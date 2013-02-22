@@ -435,8 +435,13 @@ namespace VocaDb.Web.Controllers
 			}
 
 			if (ModelState.IsValid) {
-				// Attempt to register the user
 
+				if (!MvcApplication.IPRules.IsAllowed(Hostname)) {
+					ModelState.AddModelError("Restricted", "Sorry, access from your host is restricted. It is possible this restriction is no longer valid. If you think this is the case, please contact support.");
+					return View(model);
+				}
+
+				// Attempt to register the user
 				var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname);
 
 				if (HandleCreate(user))

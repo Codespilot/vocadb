@@ -666,24 +666,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<SongWithAdditionalNamesContract> GetSongs(int artistId, int start, int maxItems) {
-
-			return HandleQuery(session => {
-
-				var q = session.Query<ArtistForSong>().Where(a => !a.Song.Deleted && a.Artist.Id == artistId);
-
-				IQueryable<Song> resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Song), PermissionContext.LanguagePreference);
-				resultQ = resultQ.Skip(start).Take(maxItems);
-
-				var contracts = resultQ.ToArray().Select(a => new SongWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = q.Count();
-
-				return new PartialFindResult<SongWithAdditionalNamesContract>(contracts, totalCount);
-
-			});
-
-		}
-
 		public TagSelectionContract[] GetTagSelections(int artistId, int userId) {
 
 			return HandleQuery(session => {

@@ -40,7 +40,7 @@
 	@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 }
 
-@helper Songs(IEnumerable<SongWithAdditionalNamesContract> songs, bool songType = false) {
+@helper Songs(IEnumerable<SongContract> songs, bool songType = false) {
 	
 	<table>
 		@foreach (var song in songs) {
