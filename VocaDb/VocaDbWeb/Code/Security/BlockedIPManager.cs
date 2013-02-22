@@ -6,7 +6,7 @@ namespace VocaDb.Web.Code.Security {
 	public class BlockedIPManager {
 
 		private HashSet<string> ips;
-		private readonly string ipsLock = "lock";
+		private const string ipsLock = "lock";
 		private readonly Func<string[]> loadFunc;
 
 		public BlockedIPManager(Func<string[]> loadFunc) {
