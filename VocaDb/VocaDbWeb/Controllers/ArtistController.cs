@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artist;
 using VocaDb.Model.Service.Search.Song;
 using VocaDb.Web.Models;
@@ -43,8 +44,13 @@ namespace VocaDb.Web.Controllers
 		public PartialViewResult AlbumsPaged(int id, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetAlbums(id, pageIndex * entriesPerPage, entriesPerPage);
-			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "ui-tabs-2");
+			var queryParams = new AlbumQueryParams {
+				Paging = PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true),
+				SortRule = AlbumSortRule.Name,
+				ArtistId = id
+			};
+			var result = Services.Albums.Find(queryParams);
+			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "ui-tabs-2");
 
 			return PartialView("PagedAlbums", data);
 
@@ -170,6 +176,7 @@ namespace VocaDb.Web.Controllers
 			var pageIndex = (page - 1) ?? 0;
 			var queryParams = new SongQueryParams {
 				Paging = PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true),
+				SortRule = SongSortRule.Name,
 				ArtistId = id
 			};
 			var result = Services.Songs.Find(queryParams);

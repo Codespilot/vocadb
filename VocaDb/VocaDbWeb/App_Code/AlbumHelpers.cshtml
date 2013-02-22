@@ -16,7 +16,7 @@
 	@Html.ActionLink(album.Name, "Details", "Album", new RouteValueDictionary { { "id", album.Id } }, new Dictionary<string, object> { { "title", album.AdditionalNames }, { "data-entry-id", album.Id }, { "class", "albumLink" }})
 }
 
-@helper AlbumList(IEnumerable<AlbumWithAdditionalNamesContract> albums,
+@helper AlbumList(IEnumerable<AlbumContract> albums,
 	bool displayRating, bool displayReleaseDate, bool displayType = false) {
 	
 	<table>
@@ -97,7 +97,7 @@
 	</a>
 }
 
-@helper DetailsLink(AlbumWithAdditionalNamesContract album) {
+@helper DetailsLink(AlbumContract album) {
 	@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 }
 

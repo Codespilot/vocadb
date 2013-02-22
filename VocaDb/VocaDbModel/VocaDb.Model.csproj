@@ -549,6 +549,7 @@
     <Compile Include="Service\Search\AlbumSearch\AlbumArtistNameFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumNameFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumQueryBuilder.cs" />
+    <Compile Include="Service\Search\AlbumSearch\AlbumQueryParams.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumTagFilter.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumUniversalFilter.cs" />
     <Compile Include="Service\Search\Artist\ArtistQueryParams.cs" />
