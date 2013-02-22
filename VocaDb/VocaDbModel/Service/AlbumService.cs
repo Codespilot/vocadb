@@ -154,15 +154,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private PartialFindResult<Album> Find(
-			ISession session, string query, DiscType discType, int start, int maxResults, bool draftsOnly,
-			bool getTotalCount, NameMatchMode nameMatchMode, AlbumSortRule sortRule, bool moveExactToTop) {
+		private PartialFindResult<Album> Find(ISession session, AlbumQueryParams queryParams) {
+
+			var query = queryParams.Common.Query ?? string.Empty;
+			var discType = queryParams.AlbumType;
+			var start = queryParams.Paging.Start;
+			var maxResults = queryParams.Paging.MaxEntries;
+			var draftsOnly = queryParams.Common.DraftOnly;
+			var getTotalCount = queryParams.Paging.GetTotalCount;
+			var nameMatchMode = queryParams.Common.NameMatchMode;
+			var sortRule = queryParams.SortRule;
+			var moveExactToTop = queryParams.Common.MoveExactToTop;
 
 			Album[] entries;
 			string originalQuery = query;
 			bool foundExactMatch = false;
 
-			if (string.IsNullOrWhiteSpace(query)) {
+			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
 
 				var albumsQ = session.Query<Album>()
 					.Where(s => !s.Deleted);
@@ -197,10 +205,13 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 			// TODO: refactor using advanced search parser
-			} else if (query.StartsWith("artist:")) {
+			} else if (query.StartsWith("artist:") || queryParams.ArtistId != 0) {
 
 				int artistId;
-				int.TryParse(query.Substring(7), out artistId);
+				if (queryParams.ArtistId != 0)
+					artistId = queryParams.ArtistId;
+				else
+					int.TryParse(query.Substring(7), out artistId);
 
 				var albumQ = session.Query<ArtistForAlbum>()
 					.Where(m => !m.Album.Deleted && m.Artist.Id == artistId);
@@ -277,6 +288,8 @@ namespace VocaDb.Model.Service {
 
 		private int GetAlbumCount(
 			ISession session, string query, DiscType discType, bool draftsOnly, NameMatchMode nameMatchMode, AlbumSortRule sortRule) {
+
+			query = query ?? string.Empty;
 
 			if (string.IsNullOrWhiteSpace(query)) {
 
@@ -682,20 +695,28 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> Find(
-			string query, DiscType discType, int start, int maxResults, bool draftsOnly, bool getTotalCount, 
-			NameMatchMode nameMatchMode = NameMatchMode.Auto, AlbumSortRule sortRule = AlbumSortRule.Name, bool moveExactToTop = false) {
+		public PartialFindResult<AlbumContract> Find(AlbumQueryParams queryParams) {
+
+			ParamIs.NotNull(() => queryParams);
 
 			return HandleQuery(session => {
-				
-				var results = Find(session, query, discType, start, maxResults, draftsOnly, getTotalCount,
-					nameMatchMode, sortRule, moveExactToTop);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(
-					results.Items.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(),
+				var results = Find(session, queryParams);
+
+				return new PartialFindResult<AlbumContract>(
+					results.Items.Select(a => new AlbumContract(a, LanguagePreference)).ToArray(),
 					results.TotalCount, results.Term, results.FoundExactMatch);
 
 			});
+
+		}
+
+		public PartialFindResult<AlbumContract> Find(
+			string query, DiscType discType, int start, int maxResults, bool draftsOnly, bool getTotalCount, 
+			NameMatchMode nameMatchMode = NameMatchMode.Auto, AlbumSortRule sortRule = AlbumSortRule.Name, bool moveExactToTop = false) {
+
+			var queryParams = new AlbumQueryParams(query, discType, start, maxResults, draftsOnly, getTotalCount, nameMatchMode, sortRule, moveExactToTop);
+			return Find(queryParams);
 
 		}
 
@@ -727,6 +748,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		public AlbumWithAdditionalNamesContract FindByNames(string[] query) {
 
 			return HandleQuery(session => {
@@ -744,7 +766,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public EntryRefWithCommonPropertiesContract[] FindDuplicates(string[] anyName) {
 
@@ -773,7 +795,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var result = Find(session, query, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Auto, AlbumSortRule.Name, true);
+				var result = Find(session, new AlbumQueryParams(query, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Auto, AlbumSortRule.Name, true));
 
 				if (result.Items.Any())
 					return new AlbumDetailsContract(result.Items.First(), PermissionContext.LanguagePreference);

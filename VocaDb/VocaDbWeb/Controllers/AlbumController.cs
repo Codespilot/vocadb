@@ -416,7 +416,12 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddNewArtist(int albumId, string newArtistName) {
+		public ActionResult AddNewArtist(int albumId, string newArtistName) {
+
+			if (string.IsNullOrWhiteSpace(newArtistName)) {
+				log.Warn("Artist name was null or whitespace");
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Artist name cannot be null or whitespace");
+			}
 
 			var link = Service.AddArtist(albumId, newArtistName);
 			return PartialView("ArtistForAlbumEditRow", link);

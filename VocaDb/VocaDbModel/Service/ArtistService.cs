@@ -505,24 +505,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> GetAlbums(int artistId, int start, int maxItems) {
-
-			return HandleQuery(session => {
-
-				var q = session.Query<ArtistForAlbum>().Where(a => !a.Album.Deleted && a.Artist.Id == artistId);
-
-				IQueryable<Album> resultQ = FindHelpers.AddNameOrder(q.Select(a => a.Album), PermissionContext.LanguagePreference);
-				resultQ = resultQ.Skip(start).Take(maxItems);
-
-				var contracts = resultQ.ToArray().Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = q.Count();
-
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(contracts, totalCount);
-
-			});
-
-		}
-
 		public EntryForPictureDisplayContract GetArchivedArtistPicture(int archivedVersionId) {
 
 			return HandleQuery(session =>
