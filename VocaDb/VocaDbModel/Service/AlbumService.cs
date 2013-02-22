@@ -279,7 +279,7 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			var count = (getTotalCount ? GetAlbumCount(session, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
+			var count = (getTotalCount ? GetAlbumCount(session, queryParams, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
 
 			return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
 
@@ -287,11 +287,11 @@ namespace VocaDb.Model.Service {
 		}
 
 		private int GetAlbumCount(
-			ISession session, string query, DiscType discType, bool draftsOnly, NameMatchMode nameMatchMode, AlbumSortRule sortRule) {
+			ISession session, AlbumQueryParams queryParams, string query, DiscType discType, bool draftsOnly, NameMatchMode nameMatchMode, AlbumSortRule sortRule) {
 
 			query = query ?? string.Empty;
 
-			if (string.IsNullOrWhiteSpace(query)) {
+			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
 
 				var albumQ = session.Query<Album>()
 					.Where(s => !s.Deleted);
@@ -324,10 +324,13 @@ namespace VocaDb.Model.Service {
 
 			}
 
-			if (query.StartsWith("artist:")) {
+			if (query.StartsWith("artist:") || queryParams.ArtistId != 0) {
 
 				int artistId;
-				int.TryParse(query.Substring(7), out artistId);
+				if (queryParams.ArtistId != 0)
+					artistId = queryParams.ArtistId;
+				else
+					int.TryParse(query.Substring(7), out artistId);
 
 				var albumQ = session.Query<ArtistForAlbum>()
 					.Where(m => !m.Album.Deleted && m.Artist.Id == artistId);
