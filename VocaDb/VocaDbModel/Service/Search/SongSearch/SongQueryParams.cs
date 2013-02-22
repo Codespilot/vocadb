@@ -2,7 +2,7 @@ using System;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Paging;
 
-namespace VocaDb.Model.Service.Search.Song {
+namespace VocaDb.Model.Service.Search.SongSearch {
 
 	/// <summary>
 	/// Query parameters for songs

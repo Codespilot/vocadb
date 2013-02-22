@@ -561,7 +561,8 @@
     <Compile Include="Service\Search\SearchParser.cs" />
     <Compile Include="Service\Search\SearchWordCollection.cs" />
     <Compile Include="Service\Search\SearchWord.cs" />
-    <Compile Include="Service\Search\Song\SongQueryParams.cs" />
+    <Compile Include="Service\Search\SongSearch\SongQueryParams.cs" />
+    <Compile Include="Service\Search\SongSearch\SongSearch.cs" />
     <Compile Include="Service\Search\User\AlbumCollectionQueryParams.cs" />
     <Compile Include="Service\Search\User\RatedSongQueryParams.cs" />
     <Compile Include="Service\Security\CryptoHelper.cs" />

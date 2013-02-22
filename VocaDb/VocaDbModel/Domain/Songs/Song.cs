@@ -151,7 +151,7 @@ namespace VocaDb.Model.Domain.Songs {
 				comments = value;
 			}
 		}
-		public virtual DateTime CreateDate { get; protected set; }
+		public virtual DateTime CreateDate { get; set; }
 
 		public virtual string DefaultName {
 			get {
