@@ -146,7 +146,7 @@ namespace VocaDb.Web.Controllers
 				? songTypes.Split(',').Select(EnumVal<SongType>.Parse).ToArray()
 				: new SongType[] { };
 
-			var songs = Service.Find(new SongQueryParams(term, typeVals, 0, 20, 
+			var songs = Service.Find(new SongQueryParams(term, typeVals, 0, 40, 
 				draftsOnly: false, 
 				getTotalCount: false, 
 				onlyByName: true, 
