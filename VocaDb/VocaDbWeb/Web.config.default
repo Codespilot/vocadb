@@ -9,7 +9,7 @@
 		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,log4net" />
 	</configSections>
 	<appSettings>
-    <add key="webpages:Version" value="1.0.0.0"/>
+    <add key="webpages:Version" value="2.0.0.0"/>
     <add key="ClientValidationEnabled" value="true"/>
     <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 		<add key="AccessKeySalt" value="" />
@@ -25,7 +25,7 @@
 	</connectionStrings>
 
 	<system.web>
-    <compilation debug="true" targetFramework="4.0">
+    <compilation debug="true" targetFramework="4.5">
       <assemblies>
         <add assembly="System.Web.Abstractions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />
         <add assembly="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35" />

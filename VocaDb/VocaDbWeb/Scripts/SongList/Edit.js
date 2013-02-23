@@ -73,7 +73,10 @@ function SongListViewModel(data) {
 
 	}
 
-	this.removeSong = function (songLink) { self.SongLinks.remove(songLink); };
+	this.removeSong = function (songLink) {
+		self.SongLinks.remove(songLink);
+		songListChanged();
+	};
 
 	this.save = function () {
 		ko.utils.postJson(location.href, { model: ko.toJS(self) });
