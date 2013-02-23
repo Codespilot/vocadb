@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -18,7 +16,6 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.TagFormatting;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
-using VocaDb.Model;
 using System.Drawing;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
@@ -328,7 +325,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult AddNewSong(int albumId, string newSongName) {
 
 			if (string.IsNullOrWhiteSpace(newSongName)) {
-				log.Warn("Song name was null or whitespace");
+				log.Warn("Song name for album was null or whitespace");
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Song name cannot be null or whitespace");
 			}
 
@@ -419,7 +416,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult AddNewArtist(int albumId, string newArtistName) {
 
 			if (string.IsNullOrWhiteSpace(newArtistName)) {
-				log.Warn("Artist name was null or whitespace");
+				log.Warn("Artist name for album was null or whitespace");
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Artist name cannot be null or whitespace");
 			}
 
@@ -445,7 +442,7 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.GetDeleted(0, entriesPerPage);
 
-			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(0, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
+			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(0, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
 
 			return View(data);
 
@@ -457,7 +454,7 @@ namespace VocaDb.Web.Controllers
 			var p = (page - 1) ?? 0;
 			var result = Service.GetDeleted(p * entriesPerPage, entriesPerPage);
 
-			var data = new PagingData<AlbumWithAdditionalNamesContract>(result.Items.ToPagedList(p, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
+			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(p, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
 
 			return PartialView("PagedAlbums", data);
 

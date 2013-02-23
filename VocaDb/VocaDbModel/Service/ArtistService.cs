@@ -450,7 +450,7 @@ namespace VocaDb.Model.Service {
 		public EntryRefWithCommonPropertiesContract[] FindDuplicates(string[] anyName, string url) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
-			var urlTrimmed = url != null ? url.Trim() : url;
+			var urlTrimmed = url != null ? url.Trim() : null;
 
 			if (!names.Any() && string.IsNullOrEmpty(url))
 				return new EntryRefWithCommonPropertiesContract[] { };
