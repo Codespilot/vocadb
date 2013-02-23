@@ -1004,7 +1004,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> GetDeleted(int start, int maxEntries) {
+		public PartialFindResult<AlbumContract> GetDeleted(int start, int maxEntries) {
 
 			return HandleQuery(session => {
 
@@ -1014,13 +1014,13 @@ namespace VocaDb.Model.Service {
 					.Skip(start)
 					.Take(maxEntries)
 					.ToArray()
-					.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
+					.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 
 				var count = session
 					.Query<Album>().Count(a => a.Deleted);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(albums, count);
+				return new PartialFindResult<AlbumContract>(albums, count);
 
 			});
 

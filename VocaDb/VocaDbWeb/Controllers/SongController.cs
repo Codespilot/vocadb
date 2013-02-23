@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using System.Net;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
+using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
@@ -22,6 +24,8 @@ namespace VocaDb.Web.Controllers
 {
     public class SongController : ControllerBase
     {
+
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private SongService Service {
 			get { return MvcApplication.Services.Songs; }
@@ -254,9 +258,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddNewArtist(int songId, string newArtistName) {
+		public ActionResult AddNewArtist(int songId, string newArtistName) {
 
-			//var link = Service.AddArtist(songId, newArtistName);
+			if (string.IsNullOrWhiteSpace(newArtistName)) {
+				log.Warn("Artist name for song was null or whitespace");
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Artist name cannot be null or whitespace");
+			}
+
 			var link = new ArtistForSongContract(newArtistName);
 			return PartialView("ArtistForSongEditRow", link);
 
