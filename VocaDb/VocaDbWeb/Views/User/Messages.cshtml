@@ -85,7 +85,7 @@
 	</div>
 
 	<div id="composeTab">
-		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage()); }
+		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage(Model.ReceiverName)); }
 	</div>
 
 </div>

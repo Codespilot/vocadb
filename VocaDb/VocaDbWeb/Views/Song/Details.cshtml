@@ -21,7 +21,7 @@
 
 <span data-bind="visible: userRating() == 'Favorite'" style="display: none;" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
 <span data-bind="visible: userRating() == 'Like'" style="display: none;" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
-<span data-bind="visible: userRating() == 'Nothing'" style="display: none;">
+<span data-bind="visible: userRating() == 'Nothing'" style="display: none;" id="ratingButtons">
     <a href="#" data-bind="click: addLike" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
     <a href="#" data-bind="click: addFavorite" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
 </span>

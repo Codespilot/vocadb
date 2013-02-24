@@ -1,7 +1,7 @@
 ﻿using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Paging;
 
-namespace VocaDb.Model.Service.Search.Artist {
+namespace VocaDb.Model.Service.Search.Artists {
 
 	/// <summary>
 	/// Query parameters for artists

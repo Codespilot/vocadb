@@ -135,6 +135,9 @@
   <data name="Comments" xml:space="preserve">
     <value>Kommentit</value>
   </data>
+  <data name="ComposeMessage" xml:space="preserve">
+    <value>Kirjoita viesti</value>
+  </data>
   <data name="ConfirmDisable" xml:space="preserve">
     <value>Haluatko varmasti poistaa tämän tunnuksen käytöstä?</value>
   </data>
