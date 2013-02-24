@@ -11,7 +11,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.AlbumSearch;
-using VocaDb.Model.Service.Search.Artist;
+using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Web.Models;
 using System.Drawing;

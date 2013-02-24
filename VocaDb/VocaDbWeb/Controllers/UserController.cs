@@ -512,10 +512,11 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[Authorize]
-		public ActionResult Messages() {
+		public ActionResult Messages(string receiverName) {
 
 			var user = Service.GetUserWithMessages(LoggedUserId);
 			RestoreErrorsFromTempData();
+			user.ReceiverName = receiverName;
 
 			return View(user);
 

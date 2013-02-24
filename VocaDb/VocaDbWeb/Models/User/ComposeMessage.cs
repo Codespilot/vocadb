@@ -8,6 +8,10 @@ namespace VocaDb.Web.Models.User {
 
 		public ComposeMessage() { }
 
+		public ComposeMessage(string receiverName) {
+			ReceiverName = receiverName;
+		}
+
 		[Display(ResourceType = typeof(MessagesStrings), Name = "Body")]
 		[Required]
 		[StringLength(10000)]
