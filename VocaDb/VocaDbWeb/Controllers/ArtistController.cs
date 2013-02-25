@@ -104,13 +104,23 @@ namespace VocaDb.Web.Controllers
 
         //
         // GET: /Artist/
-		public ActionResult Index(string filter, ArtistType? artistType, bool? draftsOnly, ArtistSortRule? sort, int? page) {
+		public ActionResult Index(IndexRouteParams routeParams) {
 
 			WebHelper.VerifyUserAgent(Request);
-			var sortRule = sort ?? ArtistSortRule.Name;
+
+			var artistType = routeParams.artistType ?? ArtistType.Unknown;
+			var filter = routeParams.filter;
+			var page = routeParams.page;
+			var draftsOnly = routeParams.draftsOnly;
+			var matchMode = routeParams.matchMode ?? NameMatchMode.Auto;
+			var sortRule = routeParams.sort ?? ArtistSortRule.Name;
+
+			if (matchMode == NameMatchMode.Auto && filter != null && filter.Length <= 2)
+				matchMode = NameMatchMode.StartsWith;
+
 			var queryParams = new ArtistQueryParams(filter,
-				artistType != null && artistType != ArtistType.Unknown ? new[] { artistType.Value } : new ArtistType[] { },
-				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, NameMatchMode.Auto, sortRule, false);
+				artistType != ArtistType.Unknown ? new[] { artistType } : new ArtistType[] { },
+				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, matchMode, sortRule, false);
 
 			var result = Service.FindArtists(queryParams);
 
@@ -118,7 +128,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Details", new { id = result.Items[0].Id });
 			}
 
-			var model = new ArtistIndex(result, filter, artistType ?? ArtistType.Unknown, draftsOnly, sortRule, page);
+			var model = new ArtistIndex(result, filter, artistType, draftsOnly, sortRule, page, routeParams);
 
 			return View(model);
 
