@@ -114,7 +114,7 @@ namespace VocaDb.Model.Service {
 			query = query.Trim();
 
 			var canonized = ArtistHelper.GetCanonizedName(query);
-			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto);
+			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto, NameMatchMode.StartsWith);
 			var words = (matchMode == NameMatchMode.Words ? FindHelpers.GetQueryWords(query) : null);
 
 			return HandleQuery(session => {

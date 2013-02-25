@@ -150,13 +150,13 @@ namespace VocaDb.Model.Service.Helpers {
 			return GetMatchMode(query, matchMode) == NameMatchMode.Exact;
 		}
 
-		public static NameMatchMode GetMatchMode(string query, NameMatchMode matchMode) {
+		public static NameMatchMode GetMatchMode(string query, NameMatchMode matchMode, NameMatchMode defaultMode = NameMatchMode.Exact) {
 
 			if (matchMode != NameMatchMode.Auto)
 				return matchMode;
 
-			if (query.Length < 3)
-				return NameMatchMode.Exact;
+			if (query.Length < 3 && defaultMode != NameMatchMode.Auto)
+				return defaultMode;
 
 			return NameMatchMode.Words;
 
