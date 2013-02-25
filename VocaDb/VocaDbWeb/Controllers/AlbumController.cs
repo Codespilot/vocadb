@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.TagFormatting;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
@@ -85,11 +86,17 @@ namespace VocaDb.Web.Controllers
 			var page = routeParams.page;
 			var draftsOnly = routeParams.draftsOnly;
 			var dType = routeParams.discType ?? DiscType.Unknown;
+			var matchMode = routeParams.matchMode ?? NameMatchMode.Auto;
 			var sortRule = routeParams.sort ?? AlbumSortRule.Name;
 			var viewMode = routeParams.view ?? EntryViewMode.Details;
 
-			var result = Service.Find(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
-				true, moveExactToTop: false, sortRule: sortRule);
+			if (matchMode == NameMatchMode.Auto && filter != null && filter.Length <= 2)
+				matchMode = NameMatchMode.StartsWith;
+
+			var queryParams = new AlbumQueryParams(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
+				true, moveExactToTop: false, sortRule: sortRule, nameMatchMode: matchMode);
+
+			var result = Service.Find(queryParams);
 
 			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Details", new { id = result.Items[0].Id });

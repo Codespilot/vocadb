@@ -97,6 +97,9 @@ namespace VocaDb.Web.Controllers
 			var onlyWithPVs = indexParams.onlyWithPVs ?? false;
 			var view = indexParams.view ?? SongViewMode.Details;
 
+			if (matchMode == NameMatchMode.Auto && filter != null && filter.Length <= 2)
+				matchMode = NameMatchMode.StartsWith;
+
 			var queryParams = new SongQueryParams(filter,
 				songType != SongType.Unspecified ? new[] { songType } : new SongType[] { },
 				(page - 1) * pageSize, pageSize, draftsOnly, true, matchMode, sortRule, false, false, null) {

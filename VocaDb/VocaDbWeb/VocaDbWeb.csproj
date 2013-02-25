@@ -602,6 +602,7 @@
     <Compile Include="Models\Album\Versions.cs" />
     <Compile Include="Models\ArtistModels.cs" />
     <Compile Include="Models\Artist\Create.cs" />
+    <Compile Include="Models\Artist\Index.cs" />
     <Compile Include="Models\Artist\Versions.cs" />
     <Compile Include="Models\Event\EventEdit.cs" />
     <Compile Include="Models\Event\SeriesEdit.cs" />
