@@ -7,10 +7,10 @@ namespace VocaDb.Web.Code {
 
 		public static string FormatTimeAgo(TimeSpan timeSpan) {
 
-			if (timeSpan.Days > 1)
+			if (timeSpan.TotalDays >= 2)
 				return string.Format(TimeStrings.TimeAgo, (int)timeSpan.TotalDays, TimeStrings.Days);
 
-			if (timeSpan.Hours > 1)
+			if (timeSpan.TotalHours >= 2)
 				return string.Format(TimeStrings.TimeAgo, (int)timeSpan.TotalHours, TimeStrings.Hours);
 
 			return string.Format(TimeStrings.TimeAgo, (int)timeSpan.TotalMinutes, TimeStrings.Minutes);
