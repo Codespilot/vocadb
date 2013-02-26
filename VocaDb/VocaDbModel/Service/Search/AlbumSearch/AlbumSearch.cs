@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NHibernate;
-using NHibernate.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Model.Service.Search.AlbumSearch {
 

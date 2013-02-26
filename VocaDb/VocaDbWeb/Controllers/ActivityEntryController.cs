@@ -16,15 +16,24 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.ActivityFeed; }
 		}
 
-		public ActionResult EntriesPaged(int? page) {
+		public ActionResult Entries(int page = 1) {
+
+			var pageIndex = page - 1;
+			var result = Service.GetActivityEntries(PagingProperties.CreateFromPage(pageIndex, entriesPerPage, false));
+
+			return PartialView("ActivityEntryContracts", result.Items);
+
+		}
+
+		/*public ActionResult EntriesPaged(int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetActivityEntries(PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true));
-			var data = new PagingData<ActivityEntryContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), null, "EntriesPaged", "activityEntriesPaged");
+			var data = new PagingData<ActivityEntryContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), null, "Index", "activityEntriesPaged");
 
 			return PartialView("ActivityEntriesPaged", data);
 
-		}
+		}*/
 
 		public ActionResult FollowedArtistActivity() {
 
@@ -36,10 +45,15 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /ActivityEntry/
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
 
-			return View();
+			if (Request.IsAjaxRequest())
+				return Entries(page);
+			else {
+				ViewBag.Page = page;
+				return View();
+			}
 
         }
 

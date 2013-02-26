@@ -1,15 +1,32 @@
-﻿@using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Activityfeed.ActivityEntryContract[]
-
+﻿
 @{
     ViewBag.Title = "Activity entries";
+	var page = (int)ViewBag.Page;
 }
 
+<input type="hidden" id="page" value="@page"/>
+
 <div id="activityEntriesPaged">
-	@{ Html.RenderAction("EntriesPaged"); }
+	@{ Html.RenderAction("Entries", page); }
 </div>
 
+<hr />
+<h3>
+<a href="@Url.Action("Index", new { page = page + 1 })" id="loadMoreLink">View more</a>
+</h3>
+
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#loadMoreLink").click(function () {
+			$.get("ActivityEntry/Entries", { page: parseInt($("#page").val()) + 1 }, function (result) {
+				$("#activityEntriesPaged").append(result);
+				$("#page").val(parseInt($("#page").val()) + 1);
+			});
+			return false;
+		});
+	});
+
+</script>
 }

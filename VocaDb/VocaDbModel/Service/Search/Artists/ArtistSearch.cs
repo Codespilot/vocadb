@@ -8,14 +8,12 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Model.Service.Search.Artists {
 
 	public class ArtistSearch {
 
 		private readonly ContentLanguagePreference languagePreference;
-		private readonly IQuerySource querySource;
 
 		private ContentLanguagePreference LanguagePreference {
 			get { return languagePreference; }
