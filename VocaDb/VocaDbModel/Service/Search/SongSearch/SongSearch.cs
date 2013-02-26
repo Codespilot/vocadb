@@ -355,24 +355,4 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 	}
 
-	public interface IQuerySource {
-
-		IQueryable<T> Query<T>();
-
-	}
-
-	public class QuerySourceSession : IQuerySource {
-
-		private readonly ISession session;
-
-		public QuerySourceSession(ISession session) {
-			this.session = session;
-		}
-
-		public IQueryable<T> Query<T>() {
-			return session.Query<T>();
-		}
-
-	}
-
 }

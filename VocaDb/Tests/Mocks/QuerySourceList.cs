@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using VocaDb.Model.Service.Search.SongSearch;
+using VocaDb.Model.Service.Search;
 
 namespace VocaDb.Tests.Mocks {
 

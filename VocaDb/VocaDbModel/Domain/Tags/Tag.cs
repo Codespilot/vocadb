@@ -58,6 +58,8 @@ namespace VocaDb.Model.Domain.Tags {
 
 		}
 
+		public virtual Tag AliasedTo { get; set; }
+
 		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> AllAlbumTagUsages {
 			get { return albumTagUsages; }
 			set {
