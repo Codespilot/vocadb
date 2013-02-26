@@ -25,15 +25,17 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		/*public ActionResult EntriesPaged(int? page) {
+		public ActionResult EntriesPaged(int? page) {
 
-			var pageIndex = (page - 1) ?? 0;
+			return RedirectToActionPermanent("Index", new { page = page ?? 1 });
+
+			/*var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetActivityEntries(PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true));
 			var data = new PagingData<ActivityEntryContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), null, "Index", "activityEntriesPaged");
 
-			return PartialView("ActivityEntriesPaged", data);
+			return PartialView("ActivityEntriesPaged", data);*/
 
-		}*/
+		}
 
 		public ActionResult FollowedArtistActivity() {
 
