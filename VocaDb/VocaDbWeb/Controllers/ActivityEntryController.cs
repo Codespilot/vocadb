@@ -1,9 +1,6 @@
 ﻿using System.Web.Mvc;
-using MvcPaging;
-using VocaDb.Model.DataContracts.Activityfeed;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
-using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
 {
@@ -28,12 +25,6 @@ namespace VocaDb.Web.Controllers
 		public ActionResult EntriesPaged(int? page) {
 
 			return RedirectToActionPermanent("Index", new { page = page ?? 1 });
-
-			/*var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetActivityEntries(PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true));
-			var data = new PagingData<ActivityEntryContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), null, "Index", "activityEntriesPaged");
-
-			return PartialView("ActivityEntriesPaged", data);*/
 
 		}
 
