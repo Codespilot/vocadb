@@ -230,15 +230,18 @@ namespace VocaDb.Web.Controllers
 			//
         // GET: /User/
 
-        public ActionResult Index(Index model, UserSortRule? sort = null, int? page = null) {
+        public ActionResult Index(Index model, UserSortRule? sort = null, int totalCount = 0, int page = 1) {
 
-			var pageIndex = (page - 1) ?? 0;
+			if (Request.IsAjaxRequest())
+				return UsersPaged(model.GroupId, model.Name, sort ?? UserSortRule.RegisterDate, totalCount, page);
+
+			var pageIndex = page - 1;
 			var groupId = model.GroupId;
 			var sortRule = sort ?? UserSortRule.RegisterDate;
 
 			var result = Service.GetUsers(groupId, model.Name, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
-			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, result.TotalCount), null, "UsersPaged", "usersList");
-			data.RouteValues = new RouteValueDictionary(new { groupId, name = model.Name, sortRule, totalCount = result.TotalCount, action = "UsersPaged" });
+			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, result.TotalCount), null, "Index", "usersList");
+			data.RouteValues = new RouteValueDictionary(new { groupId, name = model.Name, sortRule, totalCount = result.TotalCount, action = "Index" });
 
 			return View(new Index(data, groupId, model.Name));
 
@@ -679,14 +682,17 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult UsersPaged(UserGroupId groupId, string name, UserSortRule sortRule, int totalCount, int? page) {
+		public ActionResult UsersPaged(UserGroupId groupId = UserGroupId.Nothing, string name = "", UserSortRule sortRule = UserSortRule.RegisterDate, int totalCount = 0, int page = 1) {
 
-			var pageIndex = (page - 1) ?? 0;
+			var pageIndex = page - 1;
 			var result = Service.GetUsers(groupId, name, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, false));
-			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, totalCount), null, "UsersPaged", "usersList");
-			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule, totalCount, action = "UsersPaged" });
+			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, totalCount), null, "Index", "usersList");
+			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule, totalCount, action = "Index" });
 
-			return PartialView("PagedUsers", data);
+			if (Request.IsAjaxRequest())
+				return PartialView("PagedUsers", data);
+			else
+				return View("PagedUsers", data);
 
 		}
 
