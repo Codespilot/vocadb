@@ -96,6 +96,7 @@ namespace VocaDb.Model.Service.Helpers {
 				new StringMatcher("dic.nicovideo.jp/"),
 				new StringMatcher("www24.atwiki.jp/utauuuta/pages/"),
 				new StringMatcher("vgmdb.net/"),
+				new StringMatcher("vocaloiders.com"),
 				new StringMatcher("vocaloid.wikia.com/wiki/")
 			)
 		};
