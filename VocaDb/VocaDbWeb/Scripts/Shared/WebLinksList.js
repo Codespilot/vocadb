@@ -32,6 +32,7 @@ vdb.values.webLinkMatchers = [
 	{ url: "www24.atwiki.jp/utauuuta/pages/", desc: "UTAU wiki (JP)", cat: "Reference" },
 	{ url: "vgmdb.net/", desc: "VGMdb", cat: "Reference" },
 	{ url: "vimeo.com/", desc: "Vimeo", cat: "Official" },
+	{ url: "vocaloiders.com/", desc: "Vocaloiders", cat: "Reference" },
 	{ url: "vocaloid.wikia.com/wiki/", desc: "Vocaloid Wiki", cat: "Reference" },
 	{ url: "www.yesasia.com/", desc: "YesAsia", cat: "Commercial" },
 	{ url: "youtube.com/user/", desc: "Youtube Channel", cat: "Official" }
