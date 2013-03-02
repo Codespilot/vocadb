@@ -19,6 +19,15 @@ namespace VocaDb.Model.Domain.Tags {
 			IsSnapshot = true;
 		}
 
+		public virtual bool AliasedTo {
+			get {
+				return IsChanged(TagEditableFields.AliasedTo);
+			}
+			set {
+				Set(TagEditableFields.AliasedTo, value);
+			}
+		}
+
 		public virtual bool CategoryName {
 			get {
 				return IsChanged(TagEditableFields.CategoryName);

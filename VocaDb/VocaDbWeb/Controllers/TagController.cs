@@ -125,9 +125,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Find(string term) {
+		public ActionResult Find(string term, bool allowAliases = true) {
 
-			return Json(Service.FindTags(term));
+			return Json(Service.FindTags(term, allowAliases));
 
 		}
 

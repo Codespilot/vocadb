@@ -82,7 +82,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public string[] FindTags(string term, int maxResults) {
 
-			return Services.Tags.FindTags(term);
+			return Services.Tags.FindTags(term, true);
 
 		}
 

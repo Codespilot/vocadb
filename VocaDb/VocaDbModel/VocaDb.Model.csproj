@@ -355,7 +355,6 @@
     <Compile Include="Domain\Globalization\LocalizedString.cs" />
     <Compile Include="Domain\Globalization\LocalizedStringWithId.cs" />
     <Compile Include="Domain\Globalization\TranslatedString.cs" />
-    <Compile Include="Domain\MetadataEntry.cs" />
     <Compile Include="Domain\PictureData.cs" />
     <Compile Include="Domain\Security\AuditLogEntry.cs" />
     <Compile Include="Domain\Security\NotAllowedException.cs" />

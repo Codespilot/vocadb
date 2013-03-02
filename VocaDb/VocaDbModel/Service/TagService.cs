@@ -123,19 +123,28 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public string[] FindTags(string query) {
+		public string[] FindTags(string query, bool allowAliases) {
 
 			if (string.IsNullOrWhiteSpace(query))
 				return new string[] { };
 
 			return HandleQuery(session => {
 
-				string[] tags;
+				var q = session.Query<Tag>();
 
 				if (query.Length < 3)
-					tags = session.Query<Tag>().Where(t => t.Name == query).Take(10).ToArray().Select(t => t.Name).ToArray();
+					q = q.Where(t => t.Name.StartsWith(query));
 				else
-					tags = session.Query<Tag>().Where(t => t.Name.Contains(query)).Take(10).ToArray().Select(t => t.Name).ToArray();
+					q = q.Where(t => t.Name.Contains(query));
+
+				if (!allowAliases)
+					q = q.Where(t => t.AliasedTo == null);
+
+				var tags = q
+					.Take(10)
+					.ToArray()
+					.Select(t => t.Name)
+					.ToArray();
 
 				return tags;
 
@@ -294,6 +303,13 @@ namespace VocaDb.Model.Service {
 
 				var tag = session.Load<Tag>(contract.Name);
 				var diff = new TagDiff();
+				
+				var oldAliasedTo = tag.AliasedTo != null ? tag.AliasedTo.Name : string.Empty;
+				var newAliasedTo = contract.AliasedTo ?? string.Empty;
+				if (oldAliasedTo != newAliasedTo) {
+					diff.AliasedTo = true;
+					tag.AliasedTo = session.Query<Tag>().FirstOrDefault(t => t.Name == newAliasedTo);
+				}
 
 				if (tag.CategoryName != contract.CategoryName)
 					diff.CategoryName = true;

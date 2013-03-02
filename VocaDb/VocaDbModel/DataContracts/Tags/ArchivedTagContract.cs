@@ -12,11 +12,15 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 			ParamIs.NotNull(() => tag);
 
+			AliasedTo = tag.AliasedTo != null ? tag.AliasedTo.Name : null;
 			CategoryName = tag.CategoryName;
 			Description = tag.Description;
 			Name = tag.Name;
 
 		}
+
+		[DataMember]
+		public string AliasedTo { get; set; }
 
 		[DataMember]
 		public string CategoryName { get; set; }

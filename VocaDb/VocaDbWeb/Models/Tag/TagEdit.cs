@@ -11,6 +11,7 @@ namespace VocaDb.Web.Models.Tag {
 
 			ParamIs.NotNull(() => contract);
 
+			AliasedTo = contract.AliasedTo;
 			CategoryName = contract.CategoryName;
 			Description = contract.Description;
 			Name = contract.Name;
@@ -20,6 +21,10 @@ namespace VocaDb.Web.Models.Tag {
 		}
 
 		public string[] AllCategoryNames { get; set; }
+
+		[Display(Name = "Aliased to")]
+		[StringLength(30)]
+		public string AliasedTo { get; set; }
 
 		[Display(Name = "Category")]
 		[StringLength(30)]
@@ -44,6 +49,7 @@ namespace VocaDb.Web.Models.Tag {
 
 			return new TagDetailsContract {
 				Name = this.Name,
+				AliasedTo = this.AliasedTo ?? string.Empty,
 				CategoryName = this.CategoryName ?? string.Empty,
 				Description = this.Description ?? string.Empty
 			};

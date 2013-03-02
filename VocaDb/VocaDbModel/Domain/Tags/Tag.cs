@@ -36,6 +36,7 @@ namespace VocaDb.Model.Domain.Tags {
 		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_-]+$");
 
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
+		private Iesi.Collections.Generic.ISet<Tag> aliases = new Iesi.Collections.Generic.HashedSet<Tag>();
 		private ArchivedVersionManager<ArchivedTagVersion, TagEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedTagVersion, TagEditableFields>();		
 		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
@@ -59,6 +60,14 @@ namespace VocaDb.Model.Domain.Tags {
 		}
 
 		public virtual Tag AliasedTo { get; set; }
+
+		public virtual Iesi.Collections.Generic.ISet<Tag> Aliases {
+			get { return aliases; }
+			set {
+				ParamIs.NotNull(() => value);
+				aliases = value;
+			}
+		}
 
 		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> AllAlbumTagUsages {
 			get { return albumTagUsages; }

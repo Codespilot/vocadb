@@ -10,13 +10,14 @@
 }
 
 @section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Tag/Edit.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
-		$("#categoryName").autocomplete({
-			source: "../../Tag/FindCategories"
-		});
+
+		var name = "@Model.Name";
+		initPage(name);
+
 	});
 
 </script>
@@ -39,6 +40,13 @@
 	<div class="editor-field">
 		@Html.TextBoxFor(m => m.CategoryName, new { id = "categoryName", size = 40 })
 		@Html.ValidationMessageFor(m => m.CategoryName)
+	</div>	
+	
+	<div class="editor-label">
+		@Html.LabelFor(m => m.AliasedTo)
+	</div>
+	<div class="editor-field">
+		@Html.TextBoxFor(m => m.AliasedTo, new { id = "aliasedTo", size = 40, maxlength = 30 })
 	</div>	
 	
 	<div class="editor-label">

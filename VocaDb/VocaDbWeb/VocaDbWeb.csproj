@@ -1390,6 +1390,7 @@
     <Content Include="Scripts\Song\Edit.js" />
     <Content Include="Scripts\Song\Index.js" />
     <Content Include="Scripts\Song\Merge.js" />
+    <Content Include="Scripts\Tag\Edit.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-af.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-ar-DZ.js" />
