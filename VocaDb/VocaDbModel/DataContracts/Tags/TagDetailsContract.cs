@@ -20,6 +20,8 @@ namespace VocaDb.Model.DataContracts.Tags {
 			IEnumerable<SongTagUsage> songs, int songCount, ContentLanguagePreference languagePreference)
 			: base(tag) {
 
+			Aliases = tag.Aliases.Select(a => a.Name).ToArray();
+
 			Albums = albums.Select(a => new AlbumTagUsageContract(a, languagePreference)).ToArray();
 			AlbumCount = albumCount;
 
@@ -34,6 +36,8 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public int AlbumCount { get; set; }
 
 		public int ArtistCount { get; set; }
+
+		public string[] Aliases { get; set; }
 
 		public AlbumTagUsageContract[] Albums { get; set; }
 

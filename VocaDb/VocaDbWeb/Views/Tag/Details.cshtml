@@ -50,6 +50,14 @@
 		@if (Model.CategoryName != string.Empty){
 		<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
 		}
+		
+		@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
+		<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
+		}
+		
+		@if (Model.Aliases.Any()) {
+			<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>			
+		}
 
 		@if (Model.Artists.Any()) {
 			<br />

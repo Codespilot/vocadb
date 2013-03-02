@@ -7,9 +7,11 @@ namespace VocaDb.Model.Domain.Tags {
 
 		Nothing			= 0,
 
-		CategoryName	= 1,
+		AliasedTo		= 1,
 
-		Description		= 2,
+		CategoryName	= 2,
+
+		Description		= 4,
 
 	}
 

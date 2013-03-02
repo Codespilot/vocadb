@@ -33,7 +33,7 @@ namespace VocaDb.Web {
 
 			ParamIs.NotNull(() => request);
 
-			return (request["X-Requested-With"] == "XMLHttpRequest") || ((request.Headers != null) && (request.Headers["X-Requested-With"] == "XMLHttpRequest"));
+			return (request["X-Requested-With"] == "XMLHttpRequest" || request.Headers["X-Requested-With"] == "XMLHttpRequest");
 
 		}
 
