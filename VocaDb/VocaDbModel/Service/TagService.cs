@@ -308,7 +308,7 @@ namespace VocaDb.Model.Service {
 				var newAliasedTo = contract.AliasedTo ?? string.Empty;
 				if (oldAliasedTo != newAliasedTo) {
 					diff.AliasedTo = true;
-					tag.AliasedTo = session.Query<Tag>().FirstOrDefault(t => t.Name == newAliasedTo);
+					tag.AliasedTo = session.Query<Tag>().FirstOrDefault(t => t.AliasedTo == null && t.Name == newAliasedTo);
 				}
 
 				if (tag.CategoryName != contract.CategoryName)
