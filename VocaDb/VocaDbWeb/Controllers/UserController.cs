@@ -163,10 +163,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		//[Obsolete]
 		public ActionResult FavoriteSongs(int id, int? page, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name) {
-
-			//return RedirectToAction("FavoriteSongsPaged", new { id });
 
 			if (Request.IsAjaxRequest()) {
 				return FavoriteSongsPaged(id, page, rating, sort);
