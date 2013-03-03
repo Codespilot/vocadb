@@ -184,7 +184,7 @@
 			</div>
 			<div class="editor-field">
 				@Model.AccessKey
-				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");", @class = "textLink refreshLink" })				
+				@Html.ActionLink(R.MySettingsStrings.Reset, "ResetAccesskey", "User", null, new { onclick = "return confirm(\"" + R.MySettingsStrings.ReallyReset + "\");", @class = "textLink refreshLink" })				
             </div>
 
 			<div class="editor-label">
@@ -194,7 +194,7 @@
 				@if (Model.HasTwitterToken) {
                     @Model.TwitterName
                 } else {
-				    @Html.ActionLink(R.MySettingsStrings.Connect, "ConnectTwitter", "User", new { @class = "textLink addLink" })
+				    @Html.ActionLink(R.MySettingsStrings.Connect, "ConnectTwitter", "User", null, new { @class = "textLink addLink" })
                 }
             </div>
 
