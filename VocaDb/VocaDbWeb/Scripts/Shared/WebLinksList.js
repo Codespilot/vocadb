@@ -11,6 +11,7 @@ vdb.values.webLinkMatchers = [
 	{ url: "www.discogs.com/", desc: "Discogs", cat: "Reference" },
 	{ url: "exittunes.com/", desc: "Exit Tunes", cat: "Official" },
 	{ url: "www.facebook.com/", desc: "Facebook", cat: "Official" },
+	{ url: ".fc2.com", desc: "Blog", cat: "Official" },
 	{ url: "itunes.apple.com/", desc: "iTunes", cat: "Commercial" },
 	{ url: "karent.jp/", desc: "KarenT", cat: "Commercial" },
 	{ url: "last.fm/", desc: "Last.fm", cat: "Official" },

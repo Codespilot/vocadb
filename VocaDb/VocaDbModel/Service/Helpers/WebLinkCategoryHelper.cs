@@ -61,6 +61,7 @@ namespace VocaDb.Model.Service.Helpers {
 				new StringMatcher("www.crypton.co.jp/"),
 				new StringMatcher("exittunes.com/"),
 				new StringMatcher("www.facebook.com/"),
+				new StringMatcher(".fc2.com"),
 				new StringMatcher("www.last.fm/"),
 				new StringMatcher("nicovideo.jp/user/"),
 				new StringMatcher("com.nicovideo.jp/community/"),
