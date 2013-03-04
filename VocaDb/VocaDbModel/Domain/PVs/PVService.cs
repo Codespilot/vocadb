@@ -18,6 +18,8 @@ namespace VocaDb.Model.Domain.PVs {
 
 		Vimeo			= 8,
 
+		Piapro			= 16,
+
 	}
 
 	/// <summary>
@@ -38,6 +40,8 @@ namespace VocaDb.Model.Domain.PVs {
 		SoundCloud		= PVService.SoundCloud,
 
 		Vimeo			= PVService.Vimeo,
+
+		Piapro			= PVService.Piapro
 
 	}
 

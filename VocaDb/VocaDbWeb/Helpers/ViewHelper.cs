@@ -273,6 +273,8 @@ namespace VocaDb.Web.Helpers {
 			switch (service) {
 				case PVService.NicoNicoDouga:
 					return UrlHelper.GenerateContentUrl("~/Content/nico.png", new HttpContextWrapper(HttpContext.Current));
+				case PVService.Piapro:
+					return UrlHelper.GenerateContentUrl("~/Content/ExtIcons/piapro.png", new HttpContextWrapper(HttpContext.Current));
 				case PVService.SoundCloud:
 					return UrlHelper.GenerateContentUrl("~/Content/Icons/soundcloud.png", new HttpContextWrapper(HttpContext.Current));
 				case PVService.Youtube:

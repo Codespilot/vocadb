@@ -10,6 +10,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private static readonly VideoService[] services = new[] { 
 			VideoService.NicoNicoDouga,
+			VideoService.Piapro,
 			VideoService.SoundCloud,
 			VideoService.Youtube,
 			VideoService.Vimeo
