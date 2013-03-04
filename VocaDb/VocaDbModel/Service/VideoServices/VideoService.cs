@@ -13,6 +13,12 @@ namespace VocaDb.Model.Service.VideoServices {
 				new RegexLinkMatcher("nico.ms/{0}", @"nico.ms/(\d{6,12})")
 			});
 
+		public static readonly VideoService Piapro =
+			new VideoServicePiapro(PVService.Piapro, null, new[] {
+				new RegexLinkMatcher("piapro.jp/content/{0}", @"piapro.jp/t/(\w+)"),
+				new RegexLinkMatcher("piapro.jp/content/{0}", @"piapro.jp/content/(\w+)"),
+			});
+
 		public static readonly VideoService SoundCloud =
 			new VideoServiceSoundCloud(PVService.SoundCloud, null, new[] {
 				new RegexLinkMatcher("soundcloud.com/{0}", @"soundcloud.com/(\S+)"),

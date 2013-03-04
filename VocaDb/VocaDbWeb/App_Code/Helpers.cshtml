@@ -52,16 +52,20 @@
 	switch (pv.Service) {
 		case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 			<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))"></script>
-								   break;
+			break;
 
+		case VocaDb.Model.Domain.PVs.PVService.Piapro:
+			<iframe src="http://piapro.jp/modpub/swf/player03_h.swf?030503&id=@(pv.PVId)&c=3" width="340" height="80" allowTransparency="true" style="border: 0"></iframe>
+			break;
+								   
 		case VocaDb.Model.Domain.PVs.PVService.SoundCloud:
-								   var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
+			var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 			<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=true&amp;color=ff7700"></iframe>
-																																										  break;
+			break;
 
 		case VocaDb.Model.Domain.PVs.PVService.Youtube:
 			<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@pv.PVId" frameborder="0" wmode="Opaque" allowfullscreen></iframe>
-																		break;
+			break;
                                                                         
 		case VocaDb.Model.Domain.PVs.PVService.Vimeo:
             <iframe src="http://player.vimeo.com/video/@pv.PVId" width="@width" height="@height" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
@@ -81,15 +85,10 @@
                 var scId = new VocaDb.Model.Service.VideoServices.SoundCloudId(pv.PVId);
 				<iframe width="@width" height="@Math.Min(height, 166)" scrolling="no" frameborder="no" src="http://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F@(scId.TrackId)&amp;auto_play=false&amp;show_artwork=false&amp;color=ff7700"></iframe>			
                 break;
-
-            case VocaDb.Model.Domain.PVs.PVService.Youtube:
-                EmbedPV(pv, width, height);
-                break;
-
-            case VocaDb.Model.Domain.PVs.PVService.Vimeo:
-                EmbedPV(pv, width, height);
-                break;
-                
+				
+			default:
+				@EmbedPV(pv, width, height)
+				break; 
         }
     }
 }

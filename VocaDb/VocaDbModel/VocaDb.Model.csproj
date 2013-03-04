@@ -591,6 +591,7 @@
     <Compile Include="Service\SongService.cs" />
     <Compile Include="Service\UserService.cs" />
     <Compile Include="Service\VideoServices\VideoServiceNND.cs" />
+    <Compile Include="Service\VideoServices\VideoServicePiapro.cs" />
     <Compile Include="Service\VideoServices\VideoServiceSoundCloud.cs" />
     <Compile Include="Service\VideoServices\VideoServiceUrlFactory.cs" />
     <Compile Include="Service\VideoServices\VideoServiceYoutube.cs" />
