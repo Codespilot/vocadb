@@ -103,10 +103,10 @@ namespace VocaDb.Web.Models {
 
 		public string AdditionalNames { get; set; }
 
-		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
+		public AlbumContract[] Albums { get; set; }
 
 		[Display(Name = "Alternate versions")]
-		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+		public SongContract[] AlternateVersions { get; set; }
 
 		public ArtistForSongContract[] Animators { get; set; }
 

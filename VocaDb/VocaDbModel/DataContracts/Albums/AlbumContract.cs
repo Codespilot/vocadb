@@ -9,7 +9,7 @@ using VocaDb.Model.Domain;
 namespace VocaDb.Model.DataContracts.Albums {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class AlbumContract : IEntryWithStatus {
+	public class AlbumContract : IEntryWithStatus, IEquatable<AlbumContract> {
 
 		string IEntryBase.DefaultName {
 			get { return Name; }
@@ -80,6 +80,29 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Version { get; set; }
+
+		public bool Equals(AlbumContract another) {
+
+			if (another == null)
+				return false;
+
+			if (ReferenceEquals(this, another))
+				return true;
+
+			if (Id == 0)
+				return false;
+
+			return this.Id == another.Id;
+
+		}
+
+	    public override bool Equals(object obj) {
+	        return Equals(obj as AlbumContract);
+	    }
+
+	    public override int GetHashCode() {
+	        return Id.GetHashCode();
+	    }
 
 	}
 
