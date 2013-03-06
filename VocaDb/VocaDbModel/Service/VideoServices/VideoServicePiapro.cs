@@ -74,6 +74,9 @@ namespace VocaDb.Model.Service.VideoServices {
 			//var pageId = linkMatchers[0].GetId(url);
 			//var compositeId = new CompositeId(id, pageId);
 
+			if (author.EndsWith("さん"))
+				author = author.Remove(author.Length - 2);
+
 			return VideoUrlParseResult.CreateOk(url, PVService.Piapro, contentId, VideoTitleParseResult.CreateSuccess(title, author, string.Empty));
 
 		}
