@@ -19,8 +19,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Song = new SongContract(song, languagePreference);
 
 			AdditionalNames = string.Join(", ", song.AllNames.Where(n => n != Song.Name).Distinct());
-			Albums = song.Albums.Select(a => new AlbumWithAdditionalNamesContract(a.Album, languagePreference)).OrderBy(a => a.Name).ToArray();
-			AlternateVersions = song.AlternateVersions.Select(s => new SongWithAdditionalNamesContract(s, languagePreference)).ToArray();
+			Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).Distinct().OrderBy(a => a.Name).ToArray();
+			AlternateVersions = song.AlternateVersions.Select(s => new SongContract(s, languagePreference)).ToArray();
 			Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			ArtistString = song.ArtistString[languagePreference];
 			CreateDate = song.CreateDate;
@@ -46,10 +46,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 		[DataMember]
-		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
+		public AlbumContract[] Albums { get; set; }
 
 		[DataMember]
-		public SongWithAdditionalNamesContract[] AlternateVersions { get; set; }
+		public SongContract[] AlternateVersions { get; set; }
 
 		[DataMember]
 		public string AdditionalNames { get; set; }
