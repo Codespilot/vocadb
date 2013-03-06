@@ -247,10 +247,14 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /User/Details/5
 
-        public ActionResult Details(int id)
-        {
+        public ActionResult Details(int id = invalidId) {
+
+	        if (id == invalidId)
+		        return NoId();
+
 			var model = Service.GetUserDetails(id);
 			return View(model);
+
 		}
 
 		[Authorize]
