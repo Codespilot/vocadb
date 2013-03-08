@@ -7,6 +7,7 @@ vdb.values.webLinkMatchers = [
 	{ url: "ameblo.jp/", desc: "Blog", cat: "Official" },
 	{ url: "www.amiami.com/", desc: "AmiAmi", cat: "Commercial" },
 	{ url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop", cat: "Commercial" },
+	{ url: "bilibili.tv/", desc: "Bilibili", cat: "Official" },
 	{ url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan", cat: "Commercial" },
 	{ url: "www.discogs.com/", desc: "Discogs", cat: "Reference" },
 	{ url: "exittunes.com/", desc: "Exit Tunes", cat: "Official" },

@@ -890,6 +890,7 @@
     <Content Include="Content\ExtIcons\amiami.png" />
     <Content Include="Content\ExtIcons\atwiki.png" />
     <Content Include="Content\ExtIcons\bandcamp.png" />
+    <Content Include="Content\ExtIcons\bilibili.png" />
     <Content Include="Content\ExtIcons\cdjapan.png" />
     <Content Include="Content\ExtIcons\cfm.png" />
     <Content Include="Content\ExtIcons\discogs.png" />
