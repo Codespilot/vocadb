@@ -45,9 +45,9 @@ namespace VocaDb.Web.Models.Tag {
 
 		}
 
-		public TagDetailsContract ToContract() {
+		public TagContract ToContract() {
 
-			return new TagDetailsContract {
+			return new TagContract {
 				Name = this.Name,
 				AliasedTo = this.AliasedTo ?? string.Empty,
 				CategoryName = this.CategoryName ?? string.Empty,

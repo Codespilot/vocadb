@@ -1,10 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using NHibernate;
 using NHibernate.Linq;
 using NLog;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -42,6 +46,21 @@ namespace VocaDb.Model.Service {
 		private IQueryable<T> TagUsagesQuery<T>(ISession session, string tagName) where T : TagUsage {
 
 			return session.Query<T>().Where(a => a.Tag.Name == tagName);
+
+		}
+
+		private int TagUsagesCount<T, TEntry>(ISession session, string[] tagNames, Expression<Func<T, TEntry>> entryFunc)
+			where T : TagUsage
+			where TEntry : IEntryBase {
+
+			return session.Query<T>().Where(a => tagNames.Contains(a.Tag.Name)).Select(entryFunc).Where(e => !e.Deleted).Distinct().Count();
+
+		}
+
+		private IEnumerable<TEntry> TagUsagesQuery<T, TEntry>(ISession session, string[] tagNames, int count, Expression<Func<T, TEntry>> entryFunc) 
+			where T : TagUsage where TEntry : IEntryBase {
+
+			return session.Query<T>().Where(a => tagNames.Contains(a.Tag.Name)).OrderByDescending(u => u.Count).Select(entryFunc).Where(e => !e.Deleted).Take(count).ToArray().Distinct();
 
 		}
 
@@ -214,15 +233,28 @@ namespace VocaDb.Model.Service {
 
 				if (tag == null)
 					return null;
+				
+				var artists = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).OrderByDescending(t => t.Count).Select(u => u.Artist).Take(15).ToArray();
+				var artistCount = TagUsagesQuery<ArtistTagUsage>(session, tagName).Count(a => !a.Artist.Deleted);
 
-				var artists = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
-				var artistCount = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).Count();
+				var albums = TagUsagesQuery<AlbumTagUsage>(session, tagName).Where(a => !a.Album.Deleted).OrderByDescending(t => t.Count).Select(u => u.Album).Take(15).ToArray();
+				var albumCount = TagUsagesQuery<AlbumTagUsage>(session, tagName).Count(a => !a.Album.Deleted);
 
-				var albums = TagUsagesQuery<AlbumTagUsage>(session, tagName).Where(a => !a.Album.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
-				var albumCount = TagUsagesQuery<AlbumTagUsage>(session, tagName).Where(a => !a.Album.Deleted).Count();
+				var songs = TagUsagesQuery<SongTagUsage>(session, tagName).Where(a => !a.Song.Deleted).OrderByDescending(t => t.Count).Select(u => u.Song).Take(15).ToArray();
+				var songCount = TagUsagesQuery<SongTagUsage>(session, tagName).Count(a => !a.Song.Deleted);
 
-				var songs = TagUsagesQuery<SongTagUsage>(session, tagName).Where(a => !a.Song.Deleted).OrderByDescending(t => t.Count).Take(15).ToArray();
-				var songCount = TagUsagesQuery<SongTagUsage>(session, tagName).Where(a => !a.Song.Deleted).Count();
+				/*
+				var tagNames = new[] {tag.Name}.Concat(tag.Aliases.Select(t => t.Name)).ToArray();
+				
+				var artists = TagUsagesQuery<ArtistTagUsage, Artist>(session, tagNames, 15, u => u.Artist);
+				var artistCount = TagUsagesCount<ArtistTagUsage, Artist>(session, tagNames, u => u.Artist);
+
+				var albums = TagUsagesQuery<AlbumTagUsage, Album>(session, tagNames, 15, u => u.Album);
+				var albumCount = TagUsagesCount<AlbumTagUsage, Album>(session, tagNames, u => u.Album);
+
+				var songs = TagUsagesQuery<SongTagUsage, Song>(session, tagNames, 15, u => u.Song);
+				var songCount = TagUsagesCount<SongTagUsage, Song>(session, tagNames, u => u.Song);
+				*/
 
 				return new TagDetailsContract(tag, artists, artistCount, albums, albumCount, songs, songCount, 
 					PermissionContext.LanguagePreference);
@@ -237,9 +269,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var inUse = session.Query<ArtistTagUsage>().Any(a => a.Tag.Name == tagName) ||
-					session.Query<AlbumTagUsage>().Any(a => a.Tag.Name == tagName) ||
-					session.Query<SongTagUsage>().Any(a => a.Tag.Name == tagName);
+				var inUse = session.Query<ArtistTagUsage>().Any(a => a.Tag.Name == tagName && !a.Artist.Deleted) ||
+					session.Query<AlbumTagUsage>().Any(a => a.Tag.Name == tagName && !a.Album.Deleted) ||
+					session.Query<SongTagUsage>().Any(a => a.Tag.Name == tagName && !a.Song.Deleted);
 
 				var contract = new TagForEditContract(session.Load<Tag>(tagName),
 					session.Query<Tag>().Select(t => t.CategoryName).OrderBy(t => t).Distinct().ToArray(), !inUse);
@@ -276,6 +308,7 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var tags = session.Query<Tag>()
+					.Where(t => t.AliasedTo == null)
 					.OrderBy(t => t.Name)
 					.ToArray()					
 					.GroupBy(t => t.CategoryName)
@@ -293,7 +326,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateTag(TagDetailsContract contract) {
+		public void UpdateTag(TagContract contract) {
 
 			ParamIs.NotNull(() => contract);
 

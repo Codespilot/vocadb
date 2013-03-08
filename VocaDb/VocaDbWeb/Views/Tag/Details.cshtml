@@ -62,19 +62,19 @@
 		@if (Model.Artists.Any()) {
 			<br />
 			<h3>@R.DetailsStrings.TopArtists</h3>
-			@ArtistHelpers.ArtistGrid(Model.Artists.Select(a => a.Artist), 2, true)
+			@ArtistHelpers.ArtistGrid(Model.Artists.Select(a => a), 2, true)
 		}
 
 		@if (Model.Albums.Any()) {
 			<br />
 			<h3>@R.DetailsStrings.TopAlbums</h3>
-			@AlbumHelpers.AlbumGrid(Model.Albums.Select(a => a.Album), 2, false, false, true)
+			@AlbumHelpers.AlbumGrid(Model.Albums.Select(a => a), 2, false, false, true)
 		}
 
 		@if (Model.Songs.Any()) {
 			<br />
 			<h3>@R.DetailsStrings.TopSongs</h3>
-			@SongHelpers.SongGrid(Model.Songs.Select(s => s.Song), 2, true)			
+			@SongHelpers.SongGrid(Model.Songs.Select(s => s), 2, true)			
 		}
 
 	</div>
