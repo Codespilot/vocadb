@@ -585,6 +585,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helpers\ResourceHelpers.cs" />
+    <Compile Include="Helpers\RouteInfo.cs" />
     <Compile Include="Helpers\SearchHelpers.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\Support\TranslateableEnum.cs" />
