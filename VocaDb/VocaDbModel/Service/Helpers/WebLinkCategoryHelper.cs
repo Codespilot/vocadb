@@ -58,6 +58,7 @@ namespace VocaDb.Model.Service.Helpers {
 		private readonly IList<CategoryMatcher> categoryMatchers = new List<CategoryMatcher>{
 			new CategoryMatcher(WebLinkCategory.Official, 
 				new StringMatcher("ameblo.jp/"),
+				new StringMatcher("bilibili.tv/"),
 				new StringMatcher("www.crypton.co.jp/"),
 				new StringMatcher("exittunes.com/"),
 				new StringMatcher("www.facebook.com/"),

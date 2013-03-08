@@ -575,6 +575,10 @@ a.extLink[href^="http://www5.atwiki.jp/hmiku/"] {
 	background: url("/Content/ExtIcons/atwiki.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://space.bilibili.tv/"], a.extLink[href^="http://www.bilibili.tv/"] {
+	background: url("/Content/ExtIcons/bilibili.png") no-repeat left 50%;
+}
+
 a.extLink[href^="http://www.cdjapan.co.jp/"] {
 	background: url("/Content/ExtIcons/cdjapan.png") no-repeat left 50%;
 }
