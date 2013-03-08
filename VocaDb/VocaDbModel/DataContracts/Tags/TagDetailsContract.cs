@@ -16,19 +16,19 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public TagDetailsContract() { }
 
 		public TagDetailsContract(Tag tag, 
-			IEnumerable<ArtistTagUsage> artists, int artistCount, IEnumerable<AlbumTagUsage> albums, int albumCount,
-			IEnumerable<SongTagUsage> songs, int songCount, ContentLanguagePreference languagePreference)
+			IEnumerable<Artist> artists, int artistCount, IEnumerable<Album> albums, int albumCount,
+			IEnumerable<Song> songs, int songCount, ContentLanguagePreference languagePreference)
 			: base(tag) {
 
 			Aliases = tag.Aliases.Select(a => a.Name).ToArray();
 
-			Albums = albums.Select(a => new AlbumTagUsageContract(a, languagePreference)).ToArray();
+			Albums = albums.Select(a => new AlbumContract(a, languagePreference)).ToArray();
 			AlbumCount = albumCount;
 
-			Artists = artists.Select(a => new ArtistTagUsageContract(a, languagePreference)).ToArray();
+			Artists = artists.Select(a => new ArtistContract(a, languagePreference)).ToArray();
 			ArtistCount = artistCount;
 
-			Songs = songs.Select(a => new SongTagUsageContract(a, languagePreference)).ToArray();
+			Songs = songs.Select(a => new SongContract(a, languagePreference)).ToArray();
 			SongCount = songCount;
 
 		}
@@ -39,11 +39,11 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 		public string[] Aliases { get; set; }
 
-		public AlbumTagUsageContract[] Albums { get; set; }
+		public AlbumContract[] Albums { get; set; }
 
-		public ArtistTagUsageContract[] Artists { get; set; }
+		public ArtistContract[] Artists { get; set; }
 
-		public SongTagUsageContract[] Songs { get; set; }
+		public SongContract[] Songs { get; set; }
 
 		public int SongCount { get; set; }
 
