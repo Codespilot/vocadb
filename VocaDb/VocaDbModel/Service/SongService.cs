@@ -512,7 +512,7 @@ namespace VocaDb.Model.Service {
 							Common = new CommonSearchParams {
 								Query = q, NameMatchMode = nameMatchMode, OnlyByName = true, MoveExactToTop = true
 							},
-							Paging = new PagingProperties(0, 10, false)
+							Paging = new PagingProperties(0, 30, false)
 						});
 
 					if (result.Items.Any())
@@ -557,12 +557,6 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 			});
-
-		}
-
-		public SongWithAdditionalNamesContract FindFirst(string[] query, NameMatchMode nameMatchMode) {
-
-			return FindFirst(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), query, nameMatchMode);
 
 		}
 
@@ -1176,7 +1170,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("tagging {0} with {1}",
 					EntryLinkFactory.CreateEntryLink(song), string.Join(", ", tags)), session, user);
 
-				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
+				var existingTags = TagHelpers.GetTags(session, tags);
 
 				song.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new SongTagUsageFactory(session, song));
 

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
@@ -76,7 +77,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public ActionResult DeletePVsByAuthor(string author) {
 
-			var count = Service.DeletePVsByAuthor(author);
+			var count = Service.DeletePVsByAuthor(author, PVService.Youtube);
 
 			TempData.SetSuccessMessage(string.Format("Deleted {0} PVs by '{1}'.", count, author));
 

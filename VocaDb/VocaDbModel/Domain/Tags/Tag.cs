@@ -59,6 +59,14 @@ namespace VocaDb.Model.Domain.Tags {
 
 		}
 
+		/// <summary>
+		/// Actual tag to be used for this tag name.
+		/// If this tag has been aliased to some other tag, that tag name will be used.
+		/// </summary>
+		public virtual Tag ActualTag {
+			get { return AliasedTo ?? this; }
+		}
+
 		public virtual Tag AliasedTo { get; set; }
 
 		public virtual Iesi.Collections.Generic.ISet<Tag> Aliases {

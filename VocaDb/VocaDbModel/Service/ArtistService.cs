@@ -681,7 +681,7 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("tagging {0} with {1}", 
 					EntryLinkFactory.CreateEntryLink(artist), string.Join(", ", tags)), session, user);
 
-				var existingTags = session.Query<Tag>().ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
+				var existingTags = TagHelpers.GetTags(session, tags);
 
 				artist.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new ArtistTagUsageFactory(session, artist));
 

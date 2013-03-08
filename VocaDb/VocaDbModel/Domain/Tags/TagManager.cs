@@ -50,6 +50,7 @@ namespace VocaDb.Model.Domain.Tags {
 				allTags.Add(newTag.Name, newTag);
 			}
 
+			tagNames = tagNames.Select(t => allTags[t].ActualTag.Name).Distinct().ToArray();
 			var tagUsagesDiff = CollectionHelper.Diff(Usages, tagNames, (t1, t2) => t1.Tag.Name.Equals(t2, StringComparison.InvariantCultureIgnoreCase));
 
 			foreach (var newUsageName in tagUsagesDiff.Added) {
