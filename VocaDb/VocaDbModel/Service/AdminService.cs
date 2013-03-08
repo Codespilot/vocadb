@@ -12,6 +12,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -146,7 +147,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public int DeletePVsByAuthor(string author) {
+		public int DeletePVsByAuthor(string author, PVService service) {
 
 			PermissionContext.VerifyPermission(PermissionToken.BulkDeletePVs);
 
@@ -155,9 +156,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				AuditLog(string.Format("deleting PVs by '{0}'.", author), session);
+				AuditLog(string.Format("deleting PVs by '{0}' for service {1}.", author, service), session);
 
-				var pvs = session.Query<PVForSong>().Where(p => p.Author == author).ToArray();
+				var pvs = session.Query<PVForSong>().Where(p => p.Service == service && p.Author == author).ToArray();
 
 				foreach (var pv in pvs) {
 					pv.OnDelete();

@@ -532,6 +532,7 @@
     <Compile Include="Service\Helpers\PasswordResetRequestMailer.cs" />
     <Compile Include="Service\Helpers\SongQueryableExtender.cs" />
     <Compile Include="Service\Helpers\TagFactory.cs" />
+    <Compile Include="Service\Helpers\TagHelpers.cs" />
     <Compile Include="Service\Helpers\UrlHelper.cs" />
     <Compile Include="Service\Helpers\UserMessageMailer.cs" />
     <Compile Include="Service\Helpers\WebLinkCategoryHelper.cs" />
