@@ -1742,9 +1742,9 @@
     <Content Include="Views\Error\_Layout.cshtml" />
     <Content Include="Views\Comment\Index.cshtml" />
     <Content Include="Views\Admin\ManageIPRules.cshtml" />
-    <Content Include="Views\Album\AlbumPopupContent.cshtml" />
-    <Content Include="Views\Artist\ArtistPopupContent.cshtml" />
-    <Content Include="Views\Album\AlbumWithCoverPopupContent.cshtml" />
+    <Content Include="Views\Shared\AlbumPopupContent.cshtml" />
+    <Content Include="Views\Shared\ArtistPopupContent.cshtml" />
+    <Content Include="Views\Shared\AlbumWithCoverPopupContent.cshtml" />
     <Content Include="Views\Album\ManageTagUsages.cshtml" />
     <Content Include="Views\Artist\ManageTagUsages.cshtml" />
     <Content Include="Views\Admin\ViewSysLog.cshtml" />
