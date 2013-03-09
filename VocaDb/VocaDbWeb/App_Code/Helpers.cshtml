@@ -7,7 +7,16 @@
 @using VocaDb.Model.Domain;
 @using VocaDb.Model.Domain.PVs
 @using VocaDb.Model.Domain.Songs;
+@using VocaDb.Model.Utils
 @using VocaDb.Web.Helpers;
+
+@functions {
+
+	static string GetAbsoluteUrl(string relative) {
+		return AppConfig.HostAddress + relative;
+	}
+
+}
 
 @helper AjaxLoader(string id) {
 	<img id="@id" src="@Url.Content("~/Content/ajax-loader.gif")" alt="loading..." style="display:none;" />
@@ -266,9 +275,9 @@
 @helper Stars(int current, int max) {
     for (int i = 1; i <= max; ++i) {
         if (current >= i) {
-			<img src="@Url.Content("~/Content/star.png")" alt="*" />
+			<img src="@GetAbsoluteUrl(Url.Content("~/Content/star.png"))" alt="*" />
         } else {
-			<img src="@Url.Content("~/Content/star_disabled.png")" alt="" />
+			<img src="@GetAbsoluteUrl(Url.Content("~/Content/star_disabled.png"))" alt="" />
         }
     }
 }
