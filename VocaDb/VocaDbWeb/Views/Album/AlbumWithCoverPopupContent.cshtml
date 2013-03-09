@@ -1,5 +1,6 @@
-﻿@model VocaDb.Model.DataContracts.Albums.AlbumContract
+﻿@using VocaDb.Model.Utils
+@model VocaDb.Model.DataContracts.Albums.AlbumContract
 
-<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="Cover" class="smallCover" />
+<img src="@(AppConfig.HostAddress + Url.Action("CoverPictureThumb", new { id = Model.Id }))" alt="Cover" class="smallCover" />
 <br /><br />
 @{ Html.RenderPartial("AlbumPopupContent", Model); }

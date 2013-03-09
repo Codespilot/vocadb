@@ -35,7 +35,7 @@ namespace VocaDb.Web.Controllers
 
 			switch (controller) {
 				case "Album":
-					return RedirectToAction("PopupContent", "Album", new { id });
+					return RedirectToAction("PopupWithCoverContent", "Album", new { id });
 				case "Artist":
 					return RedirectToAction("PopupContent", "Artist", new {id});
 			}
