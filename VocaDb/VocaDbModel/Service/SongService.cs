@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
@@ -923,19 +924,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Not used anymore")]
-		public SongWithAdditionalNamesContract[] GetTopFavoritedSongs(int maxResults) {
+		public FavoriteSongForUserContract[] GetUsersWithSongRating(int songId) {
 
-			return HandleQuery(session => {
+			return HandleQuery(session =>
 
-				var songs = session.Query<Song>()
-					.Where(s => s.FavoritedTimes > 0)
-					.OrderByDescending(s => s.FavoritedTimes)
-					.Take(maxResults).ToArray();
-
-				return songs.Select(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference)).ToArray();
-
-			});
+				session.Load<Song>(songId)
+					.UserFavorites
+					.Where(a => a.User.Options.PublicRatings)
+					.Select(u => new FavoriteSongForUserContract(u, LanguagePreference)).ToArray());
 
 		}
 

@@ -127,7 +127,7 @@
     <value>Tunnuksen asetukset</value>
   </data>
   <data name="AnonymousActivity" xml:space="preserve">
-    <value>Älä näytä nimeäni viimeaikaisten muutosten listassa.</value>
+    <value>Salli käyttäjätunnukseni näytettävän viimeaikaisten muutosten listassa.</value>
   </data>
   <data name="Automatic" xml:space="preserve">
     <value>(Automaattinen)</value>
@@ -189,8 +189,14 @@
   <data name="PreferredVideoService" xml:space="preserve">
     <value>Toivottu mediantoistopalvelu</value>
   </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Yksityisyysasetukset</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profiili</value>
+  </data>
+  <data name="PublicRatings" xml:space="preserve">
+    <value>Salli kaikkien nähdä kappale- ja albumiarvosteluni.</value>
   </data>
   <data name="ReallyReset" xml:space="preserve">
     <value>Haluatko varmasti resetoida?</value>

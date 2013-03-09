@@ -198,7 +198,10 @@
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>
 				<td>
-					@Model.Hits @ViewRes.EntryDetailsStrings.Hits. @string.Format(R.DetailsStrings.OwnedBy, Model.OwnedBy). @string.Format(R.DetailsStrings.WishlistedBy, Model.WishlistedBy).
+					<a href="#" id="statsLink" data-bind="click: getUsers">
+						@Model.Hits @ViewRes.EntryDetailsStrings.Hits. 
+						@string.Format(R.DetailsStrings.OwnedBy, Model.OwnedBy). @string.Format(R.DetailsStrings.WishlistedBy, Model.WishlistedBy).
+					</a>
 				</td>
 			</tr>
 
@@ -298,6 +301,12 @@
 	<input type="hidden" id="editTagsAlbumId" />
 
 	<div id="editTagsContent"></div>
+
+</div>
+
+<div id="userCollectionsPopup" title="@R.DetailsStrings.AlbumInCollections">
+	
+	<div data-bind="html: usersContent"></div>
 
 </div>
 

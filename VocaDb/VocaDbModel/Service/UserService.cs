@@ -980,6 +980,7 @@ namespace VocaDb.Model.Service {
 				user.Language = contract.Language;
 				user.Options.Location = contract.Location;
 				user.PreferredVideoService = contract.PreferredVideoService;
+				user.Options.PublicRatings = contract.PublicRatings;
 				user.SetEmail(contract.Email);
 
 				var webLinkDiff = WebLink.Sync(user.WebLinks, contract.WebLinks, user);

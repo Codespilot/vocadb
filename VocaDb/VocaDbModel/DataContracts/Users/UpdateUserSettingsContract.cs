@@ -13,6 +13,8 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public string OldPass { get; set; }
 
+		public bool PublicRatings { get; set; }
+
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}

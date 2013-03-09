@@ -769,6 +769,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public AlbumForUserContract[] GetUsersWithAlbumInCollection(int albumId) {
+
+			return HandleQuery(session => 
+				
+				session.Load<Album>(albumId)
+					.UserCollections
+			        .Where(a => a.PurchaseStatus != PurchaseStatus.Nothing && a.User.Options.PublicRatings)
+					.Select(u => new AlbumForUserContract(u, LanguagePreference)).ToArray());
+
+		}
+
 		public ArchivedAlbumVersionDetailsContract GetVersionDetails(int id, int comparedVersionId) {
 
 			return HandleQuery(session =>

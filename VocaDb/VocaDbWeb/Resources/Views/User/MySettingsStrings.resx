@@ -127,7 +127,7 @@
     <value>Account settings</value>
   </data>
   <data name="AnonymousActivity" xml:space="preserve">
-    <value>Do not show my name in the recent activity list</value>
+    <value>Allow my username to be shown in the recent activity list.</value>
   </data>
   <data name="Automatic" xml:space="preserve">
     <value>(Automatic)</value>
@@ -154,7 +154,7 @@
     <value>(optional, used by gravatar and password resets)</value>
   </data>
   <data name="EmailOptions" xml:space="preserve">
-    <value>Email options for private messages</value>
+    <value>Email notifications for private messages</value>
   </data>
   <data name="ExternalLinks" xml:space="preserve">
     <value>External links</value>
@@ -189,8 +189,14 @@
   <data name="PreferredVideoService" xml:space="preserve">
     <value>Preferred streaming service</value>
   </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy options</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="PublicRatings" xml:space="preserve">
+    <value>Allow everyone to see my song and album ratings.</value>
   </data>
   <data name="ReallyReset" xml:space="preserve">
     <value>Really reset code?</value>

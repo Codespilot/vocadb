@@ -26,6 +26,33 @@
 	}
 }
 
+@helper UserGrid(IEnumerable<UserBaseContract> users, int columns) {
+	
+	<table>
+		@{ int i = 0; }
+	
+		@foreach (var user in users) {
+			if (i % columns == 0) {
+				@Html.Raw("<tr>")
+			}
+			<td>
+				@ProfileIcon(user, 20)
+			</td>
+			<td>
+				@UserLink(user)
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+	</table>
+			
+}
+
 @helper UserIconLink(UserBaseContract user, int size = 20) {	
 	<a href="@Url.Action("Profile", "User", new { id = user.Name })">
 		@ProfileIcon(user, size)

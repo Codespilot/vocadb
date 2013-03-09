@@ -58,15 +58,26 @@
 				<div class="editor-field">
 					@Html.EmailOptionsDropDownListFor(m => m.EmailOptions)
 				</div>
-
-				<p>
-					<label class="checkbox inline">
-						@Html.CheckBoxFor(m => m.AnonymousActivity)
-						@R.MySettingsStrings.AnonymousActivity
-					</label>
-				</p>
+				
+				<div class="editor-label">
+					@R.MySettingsStrings.Privacy
+				</div>
+				<div class="editor-field">
+					<p>
+						<label class="checkbox">
+							@Html.CheckBoxFor(m => m.ShowActivity)
+							@R.MySettingsStrings.AnonymousActivity
+						</label>
+					</p>
+					<p>
+						<label class="checkbox">
+							@Html.CheckBoxFor(m => m.PublicRatings)
+							@R.MySettingsStrings.PublicRatings
+						</label>
+					</p>
+				</div>
                 
-                @if (Model.HasPassword) {
+				@if (Model.HasPassword) {
 				<div class="editor-label">
 					@R.MySettingsStrings.CurrentPass
 					@R.MySettingsStrings.RequiredForChangingPassword

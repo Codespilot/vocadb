@@ -195,4 +195,13 @@
   <data name="TotalScore" xml:space="preserve">
     <value>{0} total score</value>
   </data>
+  <data name="FavoritedByTitle" xml:space="preserve">
+    <value>Favorited by</value>
+  </data>
+  <data name="LikedByTitle" xml:space="preserve">
+    <value>Liked by</value>
+  </data>
+  <data name="SongRatings" xml:space="preserve">
+    <value>Song ratings</value>
+  </data>
 </root>

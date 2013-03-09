@@ -66,6 +66,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Map(m => m.AboutMe).Length(int.MaxValue).Not.Nullable();
 			Map(m => m.LastLoginAddress).Length(20).Not.Nullable();
 			Map(m => m.Location).Length(50).Not.Nullable();
+			Map(m => m.PublicRatings).Not.Nullable();
 			Map(m => m.TwitterId).Not.Nullable();
 			Map(m => m.TwitterName).Length(200).Not.Nullable();
 			Map(m => m.TwitterOAuthToken).Length(70).Not.Nullable();

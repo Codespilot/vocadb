@@ -195,4 +195,13 @@
   <data name="TotalScore" xml:space="preserve">
     <value>{0} pistettä yhteensä</value>
   </data>
+  <data name="FavoritedByTitle" xml:space="preserve">
+    <value>Suosikki</value>
+  </data>
+  <data name="LikedByTitle" xml:space="preserve">
+    <value>Tykkäys</value>
+  </data>
+  <data name="SongRatings" xml:space="preserve">
+    <value>Kappaleen arvostelut</value>
+  </data>
 </root>
