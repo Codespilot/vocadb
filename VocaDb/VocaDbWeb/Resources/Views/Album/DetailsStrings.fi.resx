@@ -189,4 +189,13 @@
   <data name="WishlistedBy" xml:space="preserve">
     <value>Toivottu {0} kertaa</value>
   </data>
+  <data name="AlbumInCollections" xml:space="preserve">
+    <value>Albumi kokoelmissa</value>
+  </data>
+  <data name="OwnedByTitle" xml:space="preserve">
+    <value>Omistavat</value>
+  </data>
+  <data name="WishlistedByTitle" xml:space="preserve">
+    <value>Toivoneet</value>
+  </data>
 </root>

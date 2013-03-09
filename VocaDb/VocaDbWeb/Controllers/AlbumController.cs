@@ -142,9 +142,11 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult MikuDbRedirect(int id) {
+		public ActionResult MikuDbRedirect() {
 
-			var albumId = Service.FindByMikuDbId(id);
+			return RedirectToActionPermanent("Index", "Home");
+
+			/*var albumId = Service.FindByMikuDbId(id);
 
 			if (albumId == null) {
 
@@ -155,7 +157,7 @@ namespace VocaDb.Web.Controllers
 
 				return RedirectToAction("Details", new { id = albumId });
 
-			}
+			}*/
 
 		}
 
@@ -565,6 +567,17 @@ namespace VocaDb.Web.Controllers
 			var artistStrings = MvcApplication.Services.Songs.UpdateArtistsForMultipleTracks(songIds, artistIds, add);
 
 			return Json(artistStrings);
+
+		}
+
+		public ActionResult UsersWithAlbumInCollection(int albumId = invalidId) {
+
+			if (albumId == invalidId)
+				return NoId();
+
+			var users = Service.GetUsersWithAlbumInCollection(albumId);
+			return PartialView(users);
+			//return Json(users);
 
 		}
 

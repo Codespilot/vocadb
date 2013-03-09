@@ -200,10 +200,12 @@
 			<tr>
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>
 				<td>
-					@Model.FavoritedTimes @R.DetailsStrings.Favorites,
-					@string.Format(@R.DetailsStrings.Likes, Model.LikedTimes),
-					@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits),
-                    @string.Format(@R.DetailsStrings.TotalScore, Model.RatingScore).
+					<a href="#" id="statsLink" data-bind="click: getUsers">
+						@Model.FavoritedTimes @R.DetailsStrings.Favorites,
+						@string.Format(@R.DetailsStrings.Likes, Model.LikedTimes),
+						@(Model.Hits + " " + ViewRes.EntryDetailsStrings.Hits),
+						@string.Format(@R.DetailsStrings.TotalScore, Model.RatingScore).
+					</a>
 				</td>
 			</tr>
 
@@ -274,6 +276,12 @@
 
 <div id="addToListDialog" style="display:none" title="@ViewRes.Song.DetailsStrings.AddToList">
 	<select id="addtoListSelect" size="6"></select>
+</div>
+
+<div id="userRatingsPopup" title="@R.DetailsStrings.SongRatings">
+	
+	<div data-bind="html: usersContent"></div>
+
 </div>
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" }))

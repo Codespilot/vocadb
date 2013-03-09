@@ -79,7 +79,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => user);
 
 			AboutMe = user.AboutMe;
-			AnonymousActivity = user.AnonymousActivity;
+			ShowActivity = !user.AnonymousActivity;
 			CultureSelection = user.Culture;
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
@@ -90,6 +90,7 @@ namespace VocaDb.Web.Models {
 			InterfaceLanguageSelection = user.Language;
 			Location = user.Location;
 			PreferredVideoService = user.PreferredVideoService;
+			PublicRatings = user.PublicRatings;
 			TwitterName = user.TwitterName;
 			Username = user.Name;
 			WebLinks = user.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
@@ -109,7 +110,7 @@ namespace VocaDb.Web.Models {
 		public PVService[] AllVideoServices { get; set; }
 
 		[Display(Name= "Do not show my name in the recent activity list")]
-		public bool AnonymousActivity { get; set; }
+		public bool ShowActivity { get; set; }
 
 		public string CultureSelection { get; set; }
 
@@ -131,6 +132,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Preferred streaming service")]
 		public PVService PreferredVideoService { get; set; }
+
+		public bool PublicRatings { get; set; }
 
 		[Display(Name = "Email")]
 		[DataType(DataType.EmailAddress)]
@@ -166,7 +169,7 @@ namespace VocaDb.Web.Models {
 
 			return new UpdateUserSettingsContract {
 				AboutMe = this.AboutMe ?? string.Empty,
-				AnonymousActivity = this.AnonymousActivity,
+				AnonymousActivity = !this.ShowActivity,
 				Culture = this.CultureSelection ?? string.Empty,
 				Id = this.Id,
 				Name = Username,
@@ -177,6 +180,7 @@ namespace VocaDb.Web.Models {
 				Location = this.Location ?? string.Empty,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
+				PublicRatings = this.PublicRatings,
 				NewPass = this.NewPass,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),
 			};

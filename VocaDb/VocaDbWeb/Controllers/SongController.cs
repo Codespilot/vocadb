@@ -489,6 +489,17 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult UsersWithSongRating(int songId = invalidId) {
+
+			if (songId == invalidId)
+				return NoId();
+
+			var users = Service.GetUsersWithSongRating(songId);
+			return PartialView(users);
+			//return Json(users);
+
+		}
+
 		public ActionResult Versions(int id) {
 
 			var contract = Service.GetSongWithArchivedVersions(id);

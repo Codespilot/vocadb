@@ -14,6 +14,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			Id = favoriteSongForUser.Id;
 			Rating = favoriteSongForUser.Rating;
 			Song = new SongContract(favoriteSongForUser.Song, languagePreference);
+			User = new UserBaseContract(favoriteSongForUser.User);
 
 		}
 
@@ -22,6 +23,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public SongVoteRating Rating { get; set; }
 
 		public SongContract Song { get; set; }
+
+		public UserBaseContract User { get; set; }
 
 	}
 

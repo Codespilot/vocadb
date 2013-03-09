@@ -4,6 +4,7 @@ function DetailsViewModel(model) {
 	var self = this;
 
 	this.id = ko.observable(model.Id);
+	this.usersContent = ko.observable();
 	this.userRating = ko.observable(model.UserRating);
 
 	function setRating(rating, callback) {
@@ -28,6 +29,19 @@ function DetailsViewModel(model) {
 
 		setRating('Like', function () {
 			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
+		});
+
+		return false;
+
+	};
+
+	self.getUsers = function () {
+
+		$.post(vdb.functions.mapUrl("/Song/UsersWithSongRating"), { songId: self.id }, function (result) {
+
+			self.usersContent(result);
+			$("#userRatingsPopup").dialog("open");
+
 		});
 
 		return false;
@@ -265,6 +279,8 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 		});
 
 	}
+
+	$("#userRatingsPopup").dialog({ autoOpen: false, width: 400, position: { my: "left top", at: "left bottom", of: $("#statsLink") } });
 
 	$("td.artistList a").vdbArtistToolTip();
 	$("#albumList a").vdbAlbumWithCoverToolTip();

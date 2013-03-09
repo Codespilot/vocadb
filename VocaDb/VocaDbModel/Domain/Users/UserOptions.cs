@@ -11,13 +11,17 @@
 		private string twitterName;
 		private User user;
 
-		public UserOptions() {			 
+		public UserOptions() {		
+	 
 			LastLoginAddress 
 				= AboutMe
 				= Location
 				= Realname
 				= TwitterName = TwitterOAuthToken = TwitterOAuthTokenSecret 
 				= string.Empty;
+
+			PublicRatings = true;
+
 		}
 
 		public UserOptions(User user)
@@ -52,6 +56,8 @@
 				location = value; 
 			}
 		}
+
+		public virtual bool PublicRatings { get; set; }
 
 		public virtual string Realname {
 			get { return realname; }
