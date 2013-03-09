@@ -27,20 +27,23 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult EntryToolTip(string url) {
+		public ActionResult EntryToolTip(string url, string callback) {
 
 			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
 			var controller = route.Values["controller"].ToString();
 			var id = int.Parse(route.Values["id"].ToString());
+			string data = string.Empty;
 
 			switch (controller) {
 				case "Album":
-					return RedirectToAction("PopupWithCoverContent", "Album", new { id });
+					data = RenderPartialViewToString("AlbumWithCoverPopupContent", Services.Albums.GetAlbum(id));
+					break;
 				case "Artist":
-					return RedirectToAction("PopupContent", "Artist", new {id});
+					data = RenderPartialViewToString("ArtistPopupContent", Services.Artists.GetArtist(id));
+					break;
 			}
 
-			return Content("");
+			return Json(data, callback);
 		}
 
     }
