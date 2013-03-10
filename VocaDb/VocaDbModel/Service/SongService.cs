@@ -931,6 +931,7 @@ namespace VocaDb.Model.Service {
 				session.Load<Song>(songId)
 					.UserFavorites
 					.Where(a => a.User.Options.PublicRatings)
+					.OrderBy(u => u.User.Name)
 					.Select(u => new FavoriteSongForUserContract(u, LanguagePreference)).ToArray());
 
 		}

@@ -2430,7 +2430,9 @@
       <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\CreateStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.fi.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
