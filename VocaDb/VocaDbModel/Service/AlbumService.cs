@@ -776,6 +776,7 @@ namespace VocaDb.Model.Service {
 				session.Load<Album>(albumId)
 					.UserCollections
 			        .Where(a => a.PurchaseStatus != PurchaseStatus.Nothing && a.User.Options.PublicRatings)
+					.OrderBy(u => u.User.Name)
 					.Select(u => new AlbumForUserContract(u, LanguagePreference)).ToArray());
 
 		}

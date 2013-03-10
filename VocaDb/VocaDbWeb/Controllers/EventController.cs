@@ -161,7 +161,10 @@ namespace VocaDb.Web.Controllers
 			return RedirectToAction("EventsBySeries");
         }
 
-		public ActionResult SeriesDetails(int id) {
+		public ActionResult SeriesDetails(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var series = Service.GetReleaseEventSeriesDetails(id);
 			return View(series);
