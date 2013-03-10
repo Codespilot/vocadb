@@ -124,7 +124,10 @@
     <value>Luo tunnus</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Sähköpostiosoite (ei pakollinen, mutta vaaditaan salasanan resetoimiseen)</value>
+    <value>Sähköpostiosoite (ei pakollinen, mutta suositeltava)</value>
+  </data>
+  <data name="EmailNote" xml:space="preserve">
+    <value>Sähköpostiosoitetta ei näytetä muille käyttäjille. Tarvitset sitä jos koskaan unohdat salasanasi. Profiilikuvaa varten tarvitset Gravatariin liitetyn sähköpostiosoitteen. Osoitetta voi muuttaa myös jälkikäteen.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Salasana</value>
@@ -138,11 +141,17 @@
   <data name="RegistrationUnsuccessful" xml:space="preserve">
     <value>Tunnuksen luonti ei onnistunut.</value>
   </data>
+  <data name="TwitterNote" xml:space="preserve">
+    <value>Vaihtoehtoisesti voit kirjautua sisään Twitter-tunnuksellasi. Twitter-tunnuksen voi liittää myös jälkikäteen.</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Käyttäjätunnus</value>
   </data>
   <data name="UsernameIsRequired" xml:space="preserve">
     <value>Käyttäjätunnus on pakollinen.</value>
+  </data>
+  <data name="UsernameNote" xml:space="preserve">
+    <value>Käyttäjätunnuksen on oltava vähintään 3 merkkiä pitkä ja se saa sisältää vain aakkosia A-Z, numeroita ja alaviivoja. Salasanan on oltava vähintään 5 merkkiä.</value>
   </data>
   <data name="UsernameTaken" xml:space="preserve">
     <value>Käyttäjätunnus on jo varattu.</value>

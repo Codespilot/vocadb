@@ -124,7 +124,10 @@
     <value>Register</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email address (optional, but required for password resets)</value>
+    <value>Email address (optional, but recommended)</value>
+  </data>
+  <data name="EmailNote" xml:space="preserve">
+    <value>Your email address will not be shown to other users. You'll need it if you ever forget your password. For a profile picture you'll need an email address associated with Gravatar. Email address can be changed later.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -138,11 +141,17 @@
   <data name="RegistrationUnsuccessful" xml:space="preserve">
     <value>Registration was unsuccessful.</value>
   </data>
+  <data name="TwitterNote" xml:space="preserve">
+    <value>Alternatively, you may sign in using your Twitter account. A Twitter account can also be connected afterwards.</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="UsernameIsRequired" xml:space="preserve">
     <value>Username is required.</value>
+  </data>
+  <data name="UsernameNote" xml:space="preserve">
+    <value>Username needs to be at least 3 characters, and may contain only English alphabet, numbers and underscores. Password needs to be at least 5 characters.</value>
   </data>
   <data name="UsernameTaken" xml:space="preserve">
     <value>Username is already taken.</value>
