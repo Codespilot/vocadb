@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.Domain
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Domain
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Model.Helpers
@@ -314,18 +315,18 @@
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.AlbumReportTypeNames, new { id = "reportType" }))
 
+@section Head {
+	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
+}
+
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets27/styles/jqx.base.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
-<script type="text/javascript" src="../../Scripts/Album/Details.js"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxcore.js")"></script>
-<script type="text/javascript" src="../../Scripts/jqwidgets27/jqxrating.js"></script>
-<script type="text/javascript">
-
-	$(document).ready(function() { 
-		initPage(@Model.Id, @Model.CollectionRating, 
-			"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", "@VocaDb.Model.Utils.AppConfig.HostAddress");
-	});
-
-</script>
+	@Scripts.Render("~/bundles/Shared/ReportEntryPopup", "~/bundles/Album/Details", "~/bundles/jqxRating")
+	<script type="text/javascript">
+		
+		$(document).ready(function() { 
+			initPage(@Model.Id, @Model.CollectionRating, 
+				"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+		});
+		
+	</script>
 }

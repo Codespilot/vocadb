@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.Domain.Songs
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security;
@@ -286,19 +287,20 @@
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.SongReportTypeNames, new { id = "reportType" }))
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/ReportEntryPopup.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Details.js")"></script>
-<script type="text/javascript">
+@section BodyScripts {
+	@Scripts.Render("~/bundles/Shared/ReportEntryPopup", "~/bundles/Song/Details")
+	<script type="text/javascript">
 
-    $(document).ready(function() { 
+		$(document).ready(function() {
 
-        vdb.resources.song = {
-            addedToList: '@Html.Raw(AjaxRes.SongStrings.AddedToList)',
-            thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'
-        };
+			vdb.resources.song = {
+				addedToList: '@Html.Raw(AjaxRes.SongStrings.AddedToList)',
+				thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'
+			};
 
-    	var json = @Html.Raw(Model.Json);
-		initPage(json, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress" );
-	});
+			var json = @Html.Raw(Model.Json);
+			initPage(json, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+		});
 
-</script>
+	</script>
+}
