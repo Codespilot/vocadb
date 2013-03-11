@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.DataContracts.Users;
+﻿@using System.Web.Optimization
+@using VocaDb.Model.DataContracts.Users;
 @using VocaDb.Model.Domain.Users
 @using VocaDb.Web;
 @using VocaDb.Web.Helpers;
@@ -197,18 +198,19 @@
 
 @AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
 
+@section Head {
+	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
+}
+
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
-<link rel="stylesheet" href="@Url.Content("~/Scripts/jqwidgets27/styles/jqx.base.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jqwidgets27/jqxcore.js")"></script>
-<script type="text/javascript" src="../../Scripts/jqwidgets27/jqxrating.js"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/User/Details.js")"></script>
-<script type="text/javascript">
+	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+	@Scripts.Render("~/bundles/jqxRating", "~/bundles/User/Details")
+	<script type="text/javascript">
 
-	$(document).ready(function() { 
-		initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.DetailsStrings.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
-	});
+		$(document).ready(function() { 
+			initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.DetailsStrings.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+		});
 
-</script>
+	</script>
 }

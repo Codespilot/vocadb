@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using NLog;
@@ -11,6 +12,7 @@ using VocaDb.Model;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Security;
+using VocaDb.Web.App_Start;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Security;
 
@@ -190,6 +192,7 @@ namespace VocaDb.Web {
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+			BundleConfig.RegisterBundles(BundleTable.Bundles);
 
 		}
 	}
