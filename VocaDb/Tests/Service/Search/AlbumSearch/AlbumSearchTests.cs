@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -31,6 +32,13 @@ namespace VocaDb.Tests.Service.Search.AlbumSearch {
 
 			foreach (var artistLink in album.AllArtists)
 				querySource.Add(artistLink);
+
+		}
+
+		private void CreateName(Album album, string val, ContentLanguageSelection language) {
+
+			var name = album.CreateName(val, language);
+			querySource.Add(name);
 
 		}
 
@@ -153,6 +161,43 @@ namespace VocaDb.Tests.Service.Search.AlbumSearch {
 			Assert.AreEqual(1, result.Items.Length, "1 result");
 			Assert.AreEqual(1, result.TotalCount, "total result count");
 			Assert.AreEqual("DIVINE", result.Items[0].DefaultName);
+
+		}
+
+		/// <summary>
+		/// Bug discovered on 12.3.2013
+		/// 
+		/// When:
+		/// - Name match mode is "Auto" or "Words".
+		/// - Matched name is an alias (not primary name).
+		/// - Number of results exceeds page size.
+		/// - User navigates to the second page of results.
+		/// 
+		/// Expected:
+		/// Search returns the second page of matched results.
+		/// 
+		/// Actual result:
+		/// Search returns only primary name matches, entries matched by alias are missing.
+		/// 
+		/// Reason: 
+		/// Primary name search doesn't support "Words" match mode and aliases aren't matched past the first page.
+		/// </summary>
+		[TestMethod]
+		public void QueryNameWords_SkipFirstPage() {
+
+			CreateName(album, "Synthesis Miku", ContentLanguageSelection.Unspecified);
+			CreateName(albumWithArtist, "DIVINE Miku", ContentLanguageSelection.Unspecified);
+
+			queryParams.Common.NameMatchMode = NameMatchMode.Auto;
+			queryParams.Common.Query = "Miku Miku";
+			queryParams.Paging.Start = 1;		// Skip the first result
+			queryParams.Paging.MaxEntries = 1;
+
+			var result = Find();
+
+			Assert.AreEqual(2, result.TotalCount, "2 results total");
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(albumWithArtist, result.Items.First(), "result is expected album");
 
 		}
 

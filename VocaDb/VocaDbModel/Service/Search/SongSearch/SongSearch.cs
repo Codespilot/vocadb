@@ -234,7 +234,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					.Select(m => m.Song)
 					.AddOrder(sortRule, LanguagePreference)
 					.Distinct()
-					//.Take(maxResults)
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 

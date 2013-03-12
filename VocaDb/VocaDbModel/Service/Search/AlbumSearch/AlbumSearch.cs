@@ -47,9 +47,9 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			} else if (mode == NameMatchMode.StartsWith) {
 
 				return criteria.Where(s =>
-					s.Names.SortNames.English.StartsWith(name)
-						|| s.Names.SortNames.Romaji.StartsWith(name)
-						|| s.Names.SortNames.Japanese.StartsWith(name));
+				                      s.Names.SortNames.English.StartsWith(name)
+				                      || s.Names.SortNames.Romaji.StartsWith(name)
+				                      || s.Names.SortNames.Japanese.StartsWith(name));
 
 			} else {
 
@@ -207,7 +207,6 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				var additionalNames =
 					AddOrder(additionalNamesQ.Select(m => m.Album), sortRule, LanguagePreference)
 					.Distinct()
-					.Take(maxResults)	// TODO: verify this
 					.ToArray()
 					.Where(a => !direct.Contains(a));
 
