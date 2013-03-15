@@ -42,6 +42,12 @@ namespace VocaDb.Model.Service {
 		public OtherService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
+		public void AuditLog(string doingWhat, string who, AuditLogCategory category = AuditLogCategory.Unspecified) {
+
+			HandleTransaction(session => AuditLog(doingWhat, session, who, category));
+
+		}
+
 		public string[] FindNames(string query) {
 
 			if (string.IsNullOrWhiteSpace(query))

@@ -12,10 +12,11 @@ namespace VocaDb.Model.Domain.Security {
 		private string agentName;
 
 		public AuditLogEntry() {
+			Category = AuditLogCategory.Unspecified;
 			Time = DateTime.Now;
 		}
 
-		public AuditLogEntry(AgentLoginData agentLoginData, string action)
+		public AuditLogEntry(AgentLoginData agentLoginData, string action, AuditLogCategory category)
 			: this() {
 			
 			ParamIs.NotNull(() => agentLoginData);
@@ -23,6 +24,7 @@ namespace VocaDb.Model.Domain.Security {
 
 			Action = action.Truncate(MaxActionLength);
 			AgentName = agentLoginData.Name;
+			Category = category;
 			User = agentLoginData.User;
 
 		}
@@ -42,6 +44,8 @@ namespace VocaDb.Model.Domain.Security {
 				agentName = value; 
 			}
 		}
+
+		public virtual AuditLogCategory Category { get; set; }
 
 		public virtual long Id { get; set; }
 

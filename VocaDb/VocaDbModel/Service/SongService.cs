@@ -354,7 +354,7 @@ namespace VocaDb.Model.Service {
 				var pvResult = ParsePV(session, contract.PVUrl);
 				var reprintPvResult = ParsePV(session, contract.ReprintPVUrl);
 
-				AuditLog(string.Format("creating a new song with name '{0}'", contract.Names.First().Value));
+				SysLog(string.Format("creating a new song with name '{0}'", contract.Names.First().Value));
 
 				var song = new Song { 
 					SongType = contract.SongType, 
@@ -1068,7 +1068,7 @@ namespace VocaDb.Model.Service {
 				var archivedVersion = session.Load<ArchivedSongVersion>(archivedSongVersionId);
 				var song = archivedVersion.Song;
 
-				AuditLog("reverting " + song + " to version " + archivedVersion.Version);
+				SysLog("reverting " + song + " to version " + archivedVersion.Version);
 
 				var fullProperties = ArchivedSongContract.GetAllProperties(archivedVersion);
 				var warnings = new List<string>();
@@ -1287,7 +1287,7 @@ namespace VocaDb.Model.Service {
 
 				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session)));
 
-				AuditLog(string.Format("updating properties for {0}", song));
+				SysLog(string.Format("updating properties for {0}", song));
 
 				if (song.Notes != properties.Notes) {
 					diff.Notes = true;

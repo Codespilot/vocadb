@@ -119,51 +119,63 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		protected void AuditLog(string doingWhat) {
+		/// <summary>
+		/// Logs an action in syslog. 
+		/// Syslog is saved through NLog to a file.
+		/// This override uses the currently logged in user, if any.
+		/// </summary>
+		/// <param name="doingWhat">What the user was doing.</param>
+		protected void SysLog(string doingWhat) {
 
-			AuditLog(doingWhat, PermissionContext.Name);
+			SysLog(doingWhat, PermissionContext.Name);
 
 		}
 
-		protected void AuditLog(string doingWhat, string who) {
+		/// <summary>
+		/// Logs an action in syslog. 
+		/// Syslog is saved through NLog to a file.
+		/// </summary>
+		/// <param name="doingWhat">What the user was doing.</param>
+		/// <param name="who">Who made the action.</param>
+		protected void SysLog(string doingWhat, string who) {
 
 			log.Info(GetAuditLogMessage(doingWhat, who));
 
 		}
 
-		protected void AuditLog(string doingWhat, ISession session, AgentLoginData who) {
+		protected void AuditLog(string doingWhat, ISession session, AgentLoginData who, AuditLogCategory category = AuditLogCategory.Unspecified) {
 
 			ParamIs.NotNull(() => session);
 			ParamIs.NotNull(() => who);
 
-			AuditLog(doingWhat, who.Name);
+			SysLog(doingWhat, who.Name);
 
-			var entry = new AuditLogEntry(who, doingWhat);
+			var entry = new AuditLogEntry(who, doingWhat, category);
 
 			session.Save(entry);
 
 		}
 
-		protected void AuditLog(string doingWhat, ISession session, string who) {
+		protected void AuditLog(string doingWhat, ISession session, string who, AuditLogCategory category = AuditLogCategory.Unspecified) {
 
 			ParamIs.NotNull(() => session);
 
-			AuditLog(doingWhat, who);
+			SysLog(doingWhat, who);
 
 			var agentLoginData = new AgentLoginData(who);
-			var entry = new AuditLogEntry(agentLoginData, doingWhat);
+			var entry = new AuditLogEntry(agentLoginData, doingWhat, category);
 
 			session.Save(entry);
 
 		}
 
-		protected void AuditLog(string doingWhat, ISession session, User user = null) {
+		protected void AuditLog(string doingWhat, ISession session, User user = null, AuditLogCategory category = AuditLogCategory.Unspecified) {
 
 			ParamIs.NotNull(() => session);
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext, user);
-			AuditLog(doingWhat, agentLoginData.Name);
-			var entry = new AuditLogEntry(agentLoginData, doingWhat);
+			SysLog(doingWhat, agentLoginData.Name);
+			var entry = new AuditLogEntry(agentLoginData, doingWhat, category);
 
 			session.Save(entry);
 
@@ -310,7 +322,7 @@ namespace VocaDb.Model.Service {
 		protected void DeleteEntity<TEntity>(int id, PermissionToken permissionFlags, bool skipLog = false) {
 
 			var typeName = typeof(TEntity).Name;
-			AuditLog(string.Format("is about to delete {0} with Id {1}", typeName, id));
+			SysLog(string.Format("is about to delete {0} with Id {1}", typeName, id));
 			PermissionContext.VerifyPermission(permissionFlags);
 
 			HandleTransaction(session => {
@@ -320,7 +332,7 @@ namespace VocaDb.Model.Service {
 				if (!skipLog)
 					AuditLog("deleting " + entity, session);
 				else
-					AuditLog("deleting " + entity);
+					SysLog("deleting " + entity);
 
 				session.Delete(entity);
 
@@ -351,7 +363,7 @@ namespace VocaDb.Model.Service {
 
 			var typeName = typeof(TEntity).Name;
 
-			AuditLog(string.Format("is about to update {0} with Id {1}", typeName, id));
+			SysLog(string.Format("is about to update {0} with Id {1}", typeName, id));
 			PermissionContext.VerifyPermission(permissionFlags);
 
 			HandleTransaction(session => {
@@ -361,7 +373,7 @@ namespace VocaDb.Model.Service {
 				if (!skipLog)
 					AuditLog("updating " + entity, session);
 				else
-					AuditLog("updating " + entity);
+					SysLog("updating " + entity);
 
 				func(entity);
 
@@ -375,7 +387,7 @@ namespace VocaDb.Model.Service {
 
 			var typeName = typeof(TEntity).Name;
 
-			AuditLog(string.Format("is about to update {0} with Id {1}", typeName, id));
+			SysLog(string.Format("is about to update {0} with Id {1}", typeName, id));
 			PermissionContext.VerifyPermission(permissionFlags);
 
 			HandleTransaction(session => {
@@ -385,7 +397,7 @@ namespace VocaDb.Model.Service {
 				if (!skipLog)
 					AuditLog("updating " + entity, session);
 				else
-					AuditLog("updating " + entity);
+					SysLog("updating " + entity);
 
 				func(session, entity);
 

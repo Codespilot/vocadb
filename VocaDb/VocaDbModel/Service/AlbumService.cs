@@ -168,7 +168,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				AuditLog(string.Format("creating a new album with name '{0}'", contract.Names.First().Value));
+				SysLog(string.Format("creating a new album with name '{0}'", contract.Names.First().Value));
 
 				var album = new Album { DiscType = contract.DiscType };
 
@@ -931,7 +931,7 @@ namespace VocaDb.Model.Service {
 				var archivedVersion = session.Load<ArchivedAlbumVersion>(archivedAlbumVersionId);
 				var album = archivedVersion.Album;
 
-				AuditLog("reverting " + album + " to version " + archivedVersion.Version);
+				SysLog("reverting " + album + " to version " + archivedVersion.Version);
 
 				var fullProperties = ArchivedAlbumContract.GetAllProperties(archivedVersion);
 				var warnings = new List<string>();
@@ -1109,7 +1109,7 @@ namespace VocaDb.Model.Service {
 
 					var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion(), GetLoggedUser(session)));
 
-					AuditLog(string.Format("updating properties for {0}", album));
+					SysLog(string.Format("updating properties for {0}", album));
 
 					if (album.DiscType != properties.DiscType) {
 						album.DiscType = properties.DiscType;
@@ -1169,7 +1169,7 @@ namespace VocaDb.Model.Service {
 							return session.Load<Song>(contract.SongId);
 						else {
 
-							AuditLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
+							SysLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
 
 							var song = new Song(new LocalizedString(contract.SongName, ContentLanguageSelection.Unspecified));
 							session.Save(song);

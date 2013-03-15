@@ -74,7 +74,7 @@ namespace VocaDb.Model.Service {
 
 		public void Archive(ISession session, Artist artist, ArtistDiff diff, ArtistArchiveReason reason, string notes = "") {
 
-			AuditLog("Archiving " + artist);
+			SysLog("Archiving " + artist);
 
 			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
 			var archived = ArchivedArtistVersion.Create(artist, diff, agentLoginData, reason, notes);
@@ -99,7 +99,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				AuditLog(string.Format("creating a new artist with name '{0}'", contract.Names.First().Value));
+				SysLog(string.Format("creating a new artist with name '{0}'", contract.Names.First().Value));
 
 				var artist = new Artist { 
 					ArtistType = contract.ArtistType, 
@@ -607,7 +607,7 @@ namespace VocaDb.Model.Service {
 				var archivedVersion = session.Load<ArchivedArtistVersion>(archivedArtistVersionId);
 				var artist = archivedVersion.Artist;
 
-				AuditLog("reverting " + artist + " to version " + archivedVersion.Version);
+				SysLog("reverting " + artist + " to version " + archivedVersion.Version);
 
 				var fullProperties = ArchivedArtistContract.GetAllProperties(archivedVersion);
 				var warnings = new List<string>();
@@ -704,7 +704,7 @@ namespace VocaDb.Model.Service {
 
 				var diff = new ArtistDiff(DoSnapshot(artist.GetLatestVersion(), GetLoggedUser(session)));
 
-				AuditLog(string.Format("updating properties for {0}", artist));
+				SysLog(string.Format("updating properties for {0}", artist));
 
 				if (artist.ArtistType != properties.ArtistType) {
 					artist.ArtistType = properties.ArtistType;
