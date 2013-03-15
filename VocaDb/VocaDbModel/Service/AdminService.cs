@@ -39,7 +39,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("cleaning up old log");
+			SysLog("cleaning up old log");
 
 			return HandleTransaction(session => {
 
@@ -116,7 +116,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("creating XML dump");
+			SysLog("creating XML dump");
 
 			HandleQuery(session => {
 
@@ -311,7 +311,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating sort names");
+			SysLog("updating sort names");
 
 			HandleTransaction(session => {
 
@@ -350,7 +350,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating album rating totals");
+			SysLog("updating album rating totals");
 
 			HandleTransaction(session => {
 
@@ -413,7 +413,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating entry statuses");
+			SysLog("updating entry statuses");
 
 			return HandleTransaction(session => {
 
@@ -483,7 +483,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating song favorites");
+			SysLog("updating song favorites");
 
 			HandleTransaction(session => {
 
@@ -524,7 +524,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating tag vote counts");
+			SysLog("updating tag vote counts");
 
 			int count = 0;
 
@@ -575,7 +575,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("updating PVServices");
+			SysLog("updating PVServices");
 
 			HandleTransaction(session => {
 
@@ -622,7 +622,7 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
-			AuditLog("Updating web link categories");
+			SysLog("Updating web link categories");
 
 			UpdateWebLinkCategories<AlbumWebLink>();
 			UpdateWebLinkCategories<ArtistWebLink>();

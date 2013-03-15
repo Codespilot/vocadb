@@ -540,7 +540,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				AuditLog(string.Format("importing album from file with name '{0}'", imported.Title));
+				SysLog(string.Format("importing album from file with name '{0}'", imported.Title));
 
 				var newAlbum = new MikuDbAlbum(imported);
 				session.Save(newAlbum);
@@ -565,7 +565,7 @@ namespace VocaDb.Model.Service {
 
 			HandleTransaction(session => {
 
-				AuditLog(string.Format("importing album from MikuDB with URL '{0}'", url));
+				SysLog(string.Format("importing album from MikuDB with URL '{0}'", url));
 
 				var newAlbum = new MikuDbAlbum(imported.AlbumContract);
 				session.Save(newAlbum);

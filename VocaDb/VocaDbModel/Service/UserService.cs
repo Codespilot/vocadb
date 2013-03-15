@@ -780,7 +780,7 @@ namespace VocaDb.Model.Service {
 
 				VerifyResourceAccess(sender);
 
-				AuditLog("sending message from " + sender + " to " + receiver);
+				SysLog("sending message from " + sender + " to " + receiver);
 
 				var message = sender.SendMessage(receiver, contract.Subject, contract.Body, contract.HighPriority);
 
@@ -956,7 +956,7 @@ namespace VocaDb.Model.Service {
 
 				var user = session.Load<User>(contract.Id);
 
-				AuditLog(string.Format("Updating settings for {0}", user));
+				SysLog(string.Format("Updating settings for {0}", user));
 
 				VerifyResourceAccess(user);
 

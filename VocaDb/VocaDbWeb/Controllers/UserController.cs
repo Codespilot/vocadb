@@ -434,8 +434,11 @@ namespace VocaDb.Web.Controllers
         {
 
 			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"])) {
+
 				ErrorLogger.LogMessage(Request, "Invalid CAPTCHA", LogLevel.Warn);
+				Services.Other.AuditLog("failed CAPTCHA", Hostname, AuditLogCategory.UserCreateFailCaptcha);
 				ModelState.AddModelError("CAPTCHA", ViewRes.User.CreateStrings.CaptchaInvalid);
+
 			}
 
 			if (ModelState.IsValid) {
