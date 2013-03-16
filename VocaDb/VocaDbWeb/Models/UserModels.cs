@@ -25,6 +25,12 @@ namespace VocaDb.Web.Models {
 		[StringLength(50)]
 		public string Email { get; set; }
 
+		/// <summary>
+		/// An attempt to stop bots
+		/// </summary>
+		[StringLength(0)]
+		public string Extra { get; set; }
+
 		[Required(ErrorMessageResourceType = typeof(ViewRes.User.CreateStrings), ErrorMessageResourceName = "UsernameIsRequired")]
 		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Username")]
 		[StringLength(100, MinimumLength = 3)]

@@ -430,8 +430,12 @@ namespace VocaDb.Web.Controllers
         // POST: /User/Create
 
         [HttpPost]
-        public ActionResult Create(RegisterModel model)
-        {
+        public ActionResult Create(RegisterModel model) {
+
+			if (!ModelState.IsValidField("Extra")) {
+				log.Warn(string.Format("An attempt was made to fill the bot prevention field from '{0}'.", Hostname));
+				return View(model);				
+			}
 
 			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"])) {
 
