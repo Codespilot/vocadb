@@ -7,7 +7,7 @@
 	ViewBag.Title = ViewRes.User.CreateStrings.Register;
 }
 
-@Helpers.ValidationSymmaryPanel(ViewRes.User.CreateStrings.RegistrationUnsuccessful)
+@Helpers.ValidationSymmaryDiv(ViewRes.User.CreateStrings.RegistrationUnsuccessful)
 
 @using (Html.BeginForm()) {
 	<div class="row-fluid">
@@ -44,6 +44,11 @@
 
 				@Html.ValidationMessage("CAPTCHA")
 			</div>
+
+			<div class="editor-field" style="display: none;">
+				@Html.TextBoxFor(m => m.Extra)
+			</div>
+
 			<br />
 			<p>
 				<button type="submit" class="btn btn-primary">@ViewRes.User.CreateStrings.DoRegister</button>
