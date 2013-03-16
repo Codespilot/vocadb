@@ -84,8 +84,9 @@ function initPage(artistId, saveStr, hostAddress) {
 	$("#tabs").tabs({
 		load: function (event, ui) {
 
-			//if (ui.index == 1)
-			//	tabLoaded("../../Artist", artistId, event, ui);
+			var index = $('#tabs ul li').index(ui.tab);
+			if (index == 1)
+				tabLoaded("../../Artist", artistId, event, ui);
 
 			vdb.functions.disableTabReload(ui.tab);
 			$("#tabs").tabs("option", "spinner", 'Loading...');

@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace VocaDb.Model.Service {
 
-	public class DatabaseConfiguration {
+	public static class DatabaseConfiguration {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
@@ -30,7 +30,6 @@ namespace VocaDb.Model.Service {
 					.UseReflectionOptimizer()
 #endif
 				)
-				//.ProxyFactoryFactory<NHibernate.ByteCode.Castle.ProxyFactoryFactory>()
 				.Cache(c => c
 					.ProviderClass<NHibernate.Caches.SysCache2.SysCacheProvider>()
 					.UseSecondLevelCache()
@@ -50,10 +49,10 @@ namespace VocaDb.Model.Service {
 			try {
 				return config.BuildSessionFactory();
 			} catch (ArgumentException x) {
-				log.ErrorException("Error while building session factory", x);
+				log.FatalException("Error while building session factory", x);
 				throw;
 			} catch (FluentConfigurationException x) {
-				log.ErrorException("Error while building session factory", x);
+				log.FatalException("Error while building session factory", x);
 				throw;
 			}
 
