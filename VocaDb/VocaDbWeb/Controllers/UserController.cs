@@ -433,7 +433,7 @@ namespace VocaDb.Web.Controllers
         public ActionResult Create(RegisterModel model) {
 
 			if (!ModelState.IsValidField("Extra")) {
-				log.Warn(string.Format("An attempt was made to fill the bot prevention field from '{0}'.", Hostname));
+				log.Warn(string.Format("An attempt was made to fill the bot decoy field from {0}.", Hostname));
 				return View(model);				
 			}
 

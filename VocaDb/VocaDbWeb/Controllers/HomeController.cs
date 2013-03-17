@@ -87,5 +87,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Wiki() {
+			return View();
+		}
+
     }
 }
