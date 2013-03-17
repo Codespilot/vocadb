@@ -24,6 +24,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Shared/ReportEntryPopup").Include("~/Scripts/Shared/ReportEntryPopup.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include("~/Scripts/Album/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Details").Include("~/Scripts/Artist/Details.js"));
+			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
 
@@ -31,6 +32,9 @@ namespace VocaDb.Web.App_Start {
 			// Base CSS
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				"~/Content/bootstrap.css", "~/Content/Site.css"));
+
+			bundles.Add(new StyleBundle("~/Content/embedSong").Include(
+				"~/Content/bootstrap.css", "~/Content/EmbedSong.css"));
 
 			// CSS for jqxRating
 			bundles.Add(new StyleBundle("~/Scripts/jqwidgets27/styles/css").Include(

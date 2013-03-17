@@ -177,4 +177,7 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome</value>
   </data>
+  <data name="Wiki" xml:space="preserve">
+    <value>Wiki</value>
+  </data>
 </root>

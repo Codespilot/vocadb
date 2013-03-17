@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
@@ -20,13 +21,22 @@ namespace VocaDb.Web.Models {
 
 	public class RegisterModel {
 
+		public RegisterModel() {
+			EntryTime = DateTime.Now.Ticks;
+		}
+
 		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Email")]
 		[DataType(DataType.EmailAddress)]
 		[StringLength(50)]
 		public string Email { get; set; }
 
 		/// <summary>
-		/// An attempt to stop bots
+		/// Time when the form was loaded, to track form fill time
+		/// </summary>
+		public long EntryTime { get; set; }
+
+		/// <summary>
+		/// A decoy field for bots
 		/// </summary>
 		[StringLength(0)]
 		public string Extra { get; set; }

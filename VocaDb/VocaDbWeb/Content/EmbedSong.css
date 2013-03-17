@@ -31,7 +31,8 @@ div.pvViewerContent .pvLinks a:hover {
 
 
 div.pvLinks {
-  background-color:#333;
+	background-color:#333;
+	margin-top: 2px;
 }
 
 div.pvLinks .item {
