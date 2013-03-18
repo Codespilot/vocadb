@@ -129,6 +129,9 @@
   <data name="PropertiesUpdated" xml:space="preserve">
     <value>Updated properties</value>
   </data>
+  <data name="Reverted" xml:space="preserve">
+    <value>Reverted</value>
+  </data>
   <data name="Unknown" xml:space="preserve">
     <value>Unknown</value>
   </data>

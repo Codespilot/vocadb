@@ -1,24 +1,21 @@
-﻿using System;
-using VocaDb.Model.DataContracts.Artists;
+﻿using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.Domain.Globalization;
 using System.Runtime.Serialization;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class AlbumReleaseContract {
+	public class AlbumReleaseContract : IAlbumRelease {
 
 		public AlbumReleaseContract() {}
 
-		public AlbumReleaseContract(AlbumRelease release, ContentLanguagePreference languagePreference) {
+		public AlbumReleaseContract(AlbumRelease release) {
 			
 			ParamIs.NotNull(() => release);
 
 			CatNum = release.CatNum;
 			ReleaseDate = (release.ReleaseDate != null ? new OptionalDateTimeContract(release.ReleaseDate) : null);
 			EventName = release.EventName;
-			//Label = (release.Label != null ? new ArtistContract(release.Label, languagePreference) : null);
 
 		}
 
@@ -27,6 +24,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public OptionalDateTimeContract ReleaseDate { get; set; }
+
+		IOptionalDateTime IAlbumRelease.ReleaseDate {
+			get { return ReleaseDate; }
+		}
 
 		[DataMember]
 		public string EventName { get; set; }

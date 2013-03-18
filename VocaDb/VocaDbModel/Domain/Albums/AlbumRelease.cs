@@ -1,26 +1,15 @@
-﻿using VocaDb.Model.DataContracts.Albums;
-
+﻿
 namespace VocaDb.Model.Domain.Albums {
 
-	public class AlbumRelease {
+	public class AlbumRelease : IAlbumRelease {
 
 		private string catNum;
 		private string eventName;
 
 		public AlbumRelease() {}
 
-		public AlbumRelease(AlbumReleaseContract contract) {
+		public AlbumRelease(IAlbumRelease contract) {
 			
-			ParamIs.NotNull(() => contract);
-
-			CatNum = contract.CatNum;
-			ReleaseDate = (contract.ReleaseDate != null ? OptionalDateTime.Create(contract.ReleaseDate) : null);
-			EventName = contract.EventName;
-
-		}
-
-		public AlbumRelease(ArchivedAlbumReleaseContract contract) {
-
 			ParamIs.NotNull(() => contract);
 
 			CatNum = contract.CatNum;
@@ -50,6 +39,10 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual OptionalDateTime ReleaseDate { get; set; }
+
+		IOptionalDateTime IAlbumRelease.ReleaseDate {
+			get { return ReleaseDate; }
+		}
 
 		public virtual bool Equals(AlbumRelease another) {
 
