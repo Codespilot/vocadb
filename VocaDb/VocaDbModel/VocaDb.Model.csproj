@@ -246,6 +246,7 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\ArchivedReleaseEventVersion.cs" />
+    <Compile Include="Domain\Albums\IAlbumRelease.cs" />
     <Compile Include="Domain\Albums\OtherArtistForAlbum.cs" />
     <Compile Include="Domain\Albums\ReleaseEventDiff.cs" />
     <Compile Include="Domain\Albums\ReleaseEventEditableFields.cs" />
@@ -269,6 +270,7 @@
     <Compile Include="Domain\IDeletableEntry.cs" />
     <Compile Include="Domain\IEntryWithIntId.cs" />
     <Compile Include="Domain\IEntryWithStatus.cs" />
+    <Compile Include="Domain\IOptionalDateTime.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
     <Compile Include="Domain\PVs\IEditablePV.cs" />

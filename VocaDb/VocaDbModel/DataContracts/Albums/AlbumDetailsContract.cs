@@ -23,7 +23,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			Deleted = album.Deleted;
 			Description = album.Description;
-			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease, languagePreference) : null);
+			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease) : null);
 			OwnedCount = album.UserCollections.Count(a => a.PurchaseStatus == PurchaseStatus.Owned);
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();

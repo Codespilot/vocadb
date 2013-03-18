@@ -2,7 +2,7 @@
 using VocaDb.Model.DataContracts;
 namespace VocaDb.Model.Domain {
 
-	public class OptionalDateTime {
+	public class OptionalDateTime : IOptionalDateTime {
 
 		public static bool operator ==(OptionalDateTime p1, OptionalDateTime p2) {
 
@@ -20,7 +20,7 @@ namespace VocaDb.Model.Domain {
 			return !(p1 == p2);
 		}
 
-		public static OptionalDateTime Create(OptionalDateTimeContract contract) {
+		public static OptionalDateTime Create(IOptionalDateTime contract) {
 
 			ParamIs.NotNull(() => contract);
 
