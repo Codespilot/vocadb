@@ -8,6 +8,10 @@ namespace VocaDb.Model.Utils {
 			return ConfigurationManager.AppSettings[key];
 		}
 
+		public static string BilibiliAppKey {
+			get { return Val("BilibiliAppKey"); }
+		}
+
 		public static string DbDumpFolder {
 			get {
 				return Val("DbDumpFolder");

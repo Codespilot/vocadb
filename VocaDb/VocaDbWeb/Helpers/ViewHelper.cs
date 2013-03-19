@@ -271,6 +271,8 @@ namespace VocaDb.Web.Helpers {
 		public static string VideoServiceLinkUrl(this HtmlHelper htmlHelper, PVService service) {
 
 			switch (service) {
+				case PVService.Bilibili:
+					return UrlHelper.GenerateContentUrl("~/Content/ExtIcons/bilibili.png", new HttpContextWrapper(HttpContext.Current));
 				case PVService.NicoNicoDouga:
 					return UrlHelper.GenerateContentUrl("~/Content/nico.png", new HttpContextWrapper(HttpContext.Current));
 				case PVService.Piapro:

@@ -13,6 +13,7 @@
     <add key="ClientValidationEnabled" value="true"/>
     <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
 		<add key="AccessKeySalt" value="" />
+		<add key="BilibiliAppKey" value="" />
 		<add key="ConnectionStringName" value="" />
 		<add key="DbDumpFolder" value="C:\Temp" />
 		<add key="ReCAPTCHAKey" value="" />

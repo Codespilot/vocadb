@@ -5,6 +5,8 @@ namespace VocaDb.Model.Service.VideoServices {
 
 	public class VideoService : IVideoService {
 
+		public static readonly VideoService Bilibili = new VideoServiceBilibili();
+
 		public static readonly VideoService NicoNicoDouga =
 			new VideoServiceNND(PVService.NicoNicoDouga, new NicoParser(), new[] {
 				new RegexLinkMatcher("nico.ms/{0}", @"nicovideo.jp/watch/([a-z]{2}\d{4,10})"),
