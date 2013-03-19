@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 
@@ -8,7 +7,8 @@ namespace VocaDb.Model.Service.VideoServices {
 
 	public static class VideoServiceHelper {
 
-		private static readonly VideoService[] services = new[] { 
+		private static readonly VideoService[] services = new[] {
+ 			VideoService.Bilibili,
 			VideoService.NicoNicoDouga,
 			VideoService.Piapro,
 			VideoService.SoundCloud,
