@@ -120,6 +120,9 @@
   <data name="AddAlbum" xml:space="preserve">
     <value>Lisää albumi</value>
   </data>
+  <data name="FilterIndexHint" xml:space="preserve">
+    <value>Kirjoita yksi kirjain listataksesi albumit jotka alkavat kyseisellä kirjaimella.</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Arvostelu</value>
   </data>

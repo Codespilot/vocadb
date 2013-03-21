@@ -120,6 +120,9 @@
   <data name="AddAlbum" xml:space="preserve">
     <value>Submit a new album</value>
   </data>
+  <data name="FilterIndexHint" xml:space="preserve">
+    <value>Type a single letter to get albums starting with that letter.</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Rating</value>
   </data>

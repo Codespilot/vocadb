@@ -120,4 +120,7 @@
   <data name="AddArtist" xml:space="preserve">
     <value>Lisää artisti</value>
   </data>
+  <data name="FilterIndexHint" xml:space="preserve">
+    <value>Kirjoita yksi kirjain listataksesi artistit jotka alkavat kyseisellä kirjaimella.</value>
+  </data>
 </root>
