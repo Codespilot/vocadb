@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models.Artist;
 @using PagedList.Mvc;
+@using R = ViewRes.Artist.IndexStrings;
 @model ArtistIndex
 @{
 	ViewBag.Title = @ViewRes.SharedStrings.Artists;
@@ -40,7 +41,8 @@
 	@Html.HiddenFor(m => m.Sort)
 	
 <p>
-	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30, maxlength = 255 }) 
+	@ViewRes.SharedStrings.Filter: 
+	@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-placement", "top" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.FilterIndexHint } }) 
 	&nbsp; 
 	@Html.DropDownListFor(a => a.ArtistType, new SelectList(Model.FilterableArtistTypes, "Key", "Value", Model.ArtistType))
 	&nbsp;
@@ -106,6 +108,7 @@
 
 	$(document).ready(function () {
 		$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });		
+		$("#filterBox").tooltip();
 	});
 
 </script>

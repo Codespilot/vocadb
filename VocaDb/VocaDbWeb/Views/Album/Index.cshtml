@@ -46,7 +46,8 @@
 	@Html.HiddenFor(m => m.Sort)
 	
 <p>
-	@ViewRes.SharedStrings.Filter: @Html.TextBoxFor(m => m.Filter, new { size = 30, maxlength = 255 }) 
+	@ViewRes.SharedStrings.Filter: 
+	@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-placement", "top" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint } }) 
 	&nbsp;
 	@Html.DiscTypeDropDownListFor(m => m.DiscType)
 	&nbsp;
