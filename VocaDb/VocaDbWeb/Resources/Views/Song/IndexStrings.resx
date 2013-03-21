@@ -129,6 +129,9 @@
   <data name="Favorites" xml:space="preserve">
     <value>{0} favorite(s).</value>
   </data>
+  <data name="FilterIndexHint" xml:space="preserve">
+    <value>Type a single letter to get songs starting with that letter.</value>
+  </data>
   <data name="FromAlbum" xml:space="preserve">
     <value>From album</value>
   </data>
