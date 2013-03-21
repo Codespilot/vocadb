@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.Security;
+﻿using System.Xml;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.Albums;
 using System.Xml.Linq;
 using VocaDb.Model.Helpers;
@@ -9,6 +10,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class ArchivedAlbumVersion : ArchivedObjectVersion, IArchivedObjectVersionWithFields<AlbumEditableFields> {
 
+		/// <summary>
+		/// Creates an archived version of an album.
+		/// </summary>
+		/// <param name="album">Album to be archived. Cannot be null.</param>
+		/// <param name="diff">Album diff. Cannot be null.</param>
+		/// <param name="author">User creating the archived version. Cannot be null.</param>
+		/// <param name="reason">Reason for archiving.</param>
+		/// <param name="notes">Free-form edit notes. Cannot be null.</param>
+		/// <returns>Archived album version. Cannot be null.</returns>
+		/// <exception cref="XmlException">If the entry could not be serialized. This could happen if the object contains illegal characters.</exception>
 		public static ArchivedAlbumVersion Create(Album album, AlbumDiff diff, AgentLoginData author, AlbumArchiveReason reason, string notes) {
 
 			ParamIs.NotNull(() => album);

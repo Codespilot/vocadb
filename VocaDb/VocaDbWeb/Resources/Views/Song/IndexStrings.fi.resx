@@ -129,6 +129,9 @@
   <data name="Favorites" xml:space="preserve">
     <value>{0} suosikki(a).</value>
   </data>
+  <data name="FilterIndexHint" xml:space="preserve">
+    <value>Kirjoita yksi kirjain listataksesi kappaleet jotka alkavat kyseisellä kirjaimella.</value>
+  </data>
   <data name="FromAlbum" xml:space="preserve">
     <value>Albumilta</value>
   </data>

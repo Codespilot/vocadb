@@ -52,7 +52,7 @@
 		<div class="control-group" data-bind="visible: !artistId()">
 			<div class="control-label">@ViewRes.SharedStrings.Name</div>
 			<div class="controls">
-				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "size", 30 }, { "data-bind", "value:filter" }, { "maxlength", 255 } }) 
+				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-bind", "value:filter" }, { "data-placement", "right" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint } }) 
 			</div>
 		</div>
 		<div class="control-group" data-bind="visible: !artistId()">
