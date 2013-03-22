@@ -554,7 +554,8 @@
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
-    <Compile Include="Code\Security\BlockedIPManager.cs" />
+    <Compile Include="Code\Security\HostCollection.cs" />
+    <Compile Include="Code\Security\IPRuleManager.cs" />
     <Compile Include="Code\Security\InMemoryTokenManager.cs" />
     <Compile Include="Code\Security\LogFileReader.cs" />
     <Compile Include="Code\Security\Membership\VocaDbMembershipProvider.cs" />

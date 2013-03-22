@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace VocaDb.Web.Code.Security {
 
-	public class BlockedIPManager {
+	public class IPRuleManager {
 
 		private HashSet<string> ips;
 		private const string ipsLock = "lock";
 		private readonly Func<string[]> loadFunc;
 
-		public BlockedIPManager(Func<string[]> loadFunc) {
+		public IPRuleManager(Func<string[]> loadFunc) {
 			this.loadFunc = loadFunc;
 		}
 
