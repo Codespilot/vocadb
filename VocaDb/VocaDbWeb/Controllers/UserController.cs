@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -423,6 +424,12 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Create()
         {
+
+			if (MvcApplication.BannedIPs.Contains(Hostname)) {
+				log.Warn(string.Format("Request denied for {0}.", Hostname));
+				return HttpStatusCodeResult(HttpStatusCode.Forbidden, "Sorry, access from your host is restricted. It is possible this restriction is no longer valid. If you think this is the case, please contact support.");
+			}
+
             return View(new RegisterModel());
         } 
 
@@ -434,6 +441,7 @@ namespace VocaDb.Web.Controllers
 
 			if (!ModelState.IsValidField("Extra")) {
 				log.Warn(string.Format("An attempt was made to fill the bot decoy field from {0}.", Hostname));
+				MvcApplication.BannedIPs.Add(Hostname);
 				return View(model);				
 			}
 

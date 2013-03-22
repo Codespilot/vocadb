@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -20,7 +19,8 @@ namespace VocaDb.Web {
 
 	public class MvcApplication : HttpApplication {
 
-		private static readonly BlockedIPManager blockedIpManager = new BlockedIPManager(LoadBlockedIPs);
+		private static readonly HostCollection bannedIPs = new HostCollection();
+		private static readonly IPRuleManager ipRuleManager = new IPRuleManager(LoadBlockedIPs);
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private static ISessionFactory sessionFactory;
 		private const string sessionFactoryLock = "lock";
@@ -39,9 +39,13 @@ namespace VocaDb.Web {
 
 		}
 
-		public static BlockedIPManager IPRules {
+		public static HostCollection BannedIPs {
+			get { return bannedIPs; }
+		}
+
+		public static IPRuleManager IPRules {
 			get {
-				return blockedIpManager;
+				return ipRuleManager;
 			}
 		}
 
