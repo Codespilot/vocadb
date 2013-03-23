@@ -74,7 +74,8 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock' } });
 	$("#viewCommentsLink").click(function () {
-		$("#tabs").tabs("option", "active", 1);
+		var index = $('#tabs ul li:last').index();
+		$("#tabs").tabs("option", "active", index);
 		return false;
 	});
 
