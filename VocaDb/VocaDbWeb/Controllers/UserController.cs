@@ -422,14 +422,9 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /User/Create
 
+		[RestrictBannedIP]
         public ActionResult Create()
         {
-
-			if (MvcApplication.BannedIPs.Contains(Hostname)) {
-				log.Warn(string.Format("Request denied for {0}.", Hostname));
-				return HttpStatusCodeResult(HttpStatusCode.Forbidden, "Sorry, access from your host is restricted. It is possible this restriction is no longer valid. If you think this is the case, please contact support.");
-			}
-
             return View(new RegisterModel());
         } 
 
