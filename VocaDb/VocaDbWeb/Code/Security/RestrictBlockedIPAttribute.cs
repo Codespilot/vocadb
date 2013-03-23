@@ -3,6 +3,9 @@ using NLog;
 
 namespace VocaDb.Web.Code.Security {
 
+	/// <summary>
+	/// Denies access to Authorized actions for IPs that are restricted.
+	/// </summary>
 	public class RestrictBlockedIPAttribute : ActionFilterAttribute {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
