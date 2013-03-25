@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Routing;
 using VocaDb.Model.Domain.Globalization;
@@ -51,15 +52,24 @@ namespace VocaDb.Web.Controllers
 		public ActionResult OEmbed(string url, DataFormat format = DataFormat.Json) {
 
 			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
-			var controller = route.Values["controller"].ToString();
+			//var route = RouteTable.Routes.GetRouteData(HttpContext);
+			var controller = route.Values["controller"].ToString().ToLowerInvariant();
 
-			if (controller != "Song") {
+			if (controller != "song" && controller != "s") {
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Only song embeds are supported");
 			}
 
-			var id = int.Parse(route.Values["id"].ToString());
+			int id;
 
-			return Object(new SongOEmbedResponse {Html = string.Format("<iframe src='{0}'></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new {id}))}, format);
+			if (controller == "s") {
+				var match = Regex.Match(route.Values["action"].ToString(), @"(\d+)");
+				id = int.Parse(match.Groups[1].Value);
+			}
+			else {
+				id = int.Parse(route.Values["id"].ToString());
+			}
+
+			return Object(new SongOEmbedResponse { Html = string.Format("<iframe src='{0}'></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new { songId = id })) }, format);
 
 		}
 
