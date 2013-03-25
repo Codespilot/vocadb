@@ -1,7 +1,9 @@
-﻿using VocaDb.Model.Utils;
+﻿using System.Xml.Serialization;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Models.Ext {
 
+	[XmlRoot(ElementName = "oembed")]
 	public class SongOEmbedResponse {
 
 		public int height {
