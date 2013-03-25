@@ -204,4 +204,7 @@
   <data name="SongRatings" xml:space="preserve">
     <value>Song ratings</value>
   </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Show all</value>
+  </data>
 </root>

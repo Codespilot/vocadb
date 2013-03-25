@@ -4,8 +4,13 @@ function DetailsViewModel(model) {
 	var self = this;
 
 	this.id = ko.observable(model.Id);
-	this.usersContent = ko.observable();
+	this.allVersionsVisible = ko.observable(false);	// Whether to show all derived versions of this song
+	this.usersContent = ko.observable();			// Users who have rated this song
 	this.userRating = ko.observable(model.UserRating);
+
+	self.showAllVersions = function() {
+		self.allVersionsVisible(true);
+	};
 
 	function setRating(rating, callback) {
 

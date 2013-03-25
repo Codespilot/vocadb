@@ -277,6 +277,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show all.
+        /// </summary>
+        public static string ShowAllVersions {
+            get {
+                return ResourceManager.GetString("ShowAllVersions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Song.
         /// </summary>
         public static string SongDetails {

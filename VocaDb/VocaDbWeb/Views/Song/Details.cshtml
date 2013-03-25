@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using VocaDb.Model.DataContracts.Songs
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
@@ -9,6 +10,15 @@
 	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.SongTypeNames[Model.SongType] + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
+	var showAlternateVersions = 3;
+}
+
+@helper AlternateVersions(IEnumerable<SongContract> songs) {
+	foreach (var alternateVersion in songs) {
+		@SongHelpers.SongLink(alternateVersion)
+		@(" (" + @Translate.SongTypeNames[alternateVersion.SongType] + ")")<br />
+		@alternateVersion.ArtistString<br />
+	}	
 }
 
 @section Toolbar {
@@ -116,11 +126,11 @@
 			<tr>
 				<td>@ViewRes.SharedStrings.Albums</td>
 				<td id="albumList">
-					@Html.LinkList(Model.Albums, album => Html.ActionLink(album.Name, "Details", "Album", 
-                        new RouteValueDictionary { { "id", album.Id } }, new Dictionary<string, object> { { "title", album.AdditionalNames }, { "data-entry-id", album.Id }}))
+					@Html.LinkList(Model.Albums, album => Html.ActionLink(album.Name, "Details", "Album",
+						new RouteValueDictionary { { "id", album.Id } }, new Dictionary<string, object> { { "title", album.AdditionalNames }, { "data-entry-id", album.Id } }))
 				</td>
 			</tr>
-            }
+   }
 			
 			<tr>
 				<td>@ViewRes.SharedStrings.Tags</td>
@@ -131,7 +141,7 @@
 					<a href="#" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
 						@Html.ActionLink(ViewRes.EntryDetailsStrings.ManageTags, "ManageTagUsages", new { id = Model.Id }, new { id = "manageTags" })
-					}
+	 }
 				</td>
 			</tr>
 			
@@ -140,11 +150,11 @@
 					<td>@R.DetailsStrings.Pools</td>
 					<td>
 						@foreach (var pool in Model.Pools) {
-							@Html.ActionLink(pool.Name, "Details", "SongList", new {id = pool.Id}, null)
-						}
+							@Html.ActionLink(pool.Name, "Details", "SongList", new { id = pool.Id }, null)
+	  }
 					</td>
 				</tr>
-			}	   
+   }	   
 
 			@if (Model.OriginalPVs.Any()) {
 			<tr>
@@ -153,7 +163,7 @@
 					@EntryDetailsHelpers.PVList(Model.OriginalPVs, false)		
 				</td>
 			</tr>
-            }
+   }
 
 			@if (Model.OtherPVs.Any()) {
 			<tr>
@@ -162,7 +172,7 @@
 					@EntryDetailsHelpers.PVList(Model.OtherPVs, true)		
 				</td>
 			</tr>
-            }
+   }
 			
 			@EntryDetailsHelpers.ExternalLinksRows(Model.WebLinks)
 			
@@ -174,20 +184,22 @@
 					@Model.OriginalVersion.ArtistString
 				</td>
 			</tr>
-   }
+			}
 
 			@if (Model.AlternateVersions.Any()) {
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.AlternateVersions</td>
 				<td>
-					@foreach (var alternateVersion in Model.AlternateVersions) {
-						@SongHelpers.SongLink(alternateVersion)
-						@(" (" + @Translate.SongTypeNames[alternateVersion.SongType] + ")")<br />
-						@alternateVersion.ArtistString<br />
-					}			
+					@AlternateVersions(Model.AlternateVersions.Take(showAlternateVersions))
+					@if (Model.AlternateVersions.Length > showAlternateVersions) {
+						<a href="#" data-bind="visible: !allVersionsVisible(), click: showAllVersions">@R.DetailsStrings.ShowAllVersions</a>
+						<div style="display: none;" data-bind="visible: allVersionsVisible">
+							@AlternateVersions(Model.AlternateVersions.Skip(showAlternateVersions))
+						</div>
+					}		
 				</td>
 			</tr>
-   }
+			}
 			
 			@if (!string.IsNullOrEmpty(Model.Notes)) {
 			<tr>
