@@ -69,7 +69,11 @@ namespace VocaDb.Web.Controllers
 				id = int.Parse(route.Values["id"].ToString());
 			}
 
-			return Object(new SongOEmbedResponse { html = string.Format("<iframe src='{0}'></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new { songId = id })) }, format);
+			if (format == DataFormat.Json) {
+				return Json(new SongOEmbedResponse { html = string.Format("<iframe src='{0}'></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new { songId = id })) }, "application/json");
+			} else {
+				return Object(new SongOEmbedResponse { html = string.Format("<iframe src='{0}'></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new { songId = id })) }, format);
+			}
 
 		}
 
