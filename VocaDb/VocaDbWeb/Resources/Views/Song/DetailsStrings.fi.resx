@@ -204,4 +204,7 @@
   <data name="SongRatings" xml:space="preserve">
     <value>Kappaleen arvostelut</value>
   </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Näytä kaikki</value>
+  </data>
 </root>
