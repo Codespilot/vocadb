@@ -173,7 +173,7 @@ namespace VocaDb.Web.Controllers {
 
 		protected new ActionResult Json(object obj) {
 
-			return Content(JsonConvert.SerializeObject(obj), "text/json");
+			return Content(JsonConvert.SerializeObject(obj), "application/json");
 	
 		}
 
