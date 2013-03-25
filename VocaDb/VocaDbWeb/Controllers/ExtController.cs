@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Routing;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Helpers;
+using VocaDb.Web.Models.Ext;
 
 namespace VocaDb.Web.Controllers
 {
@@ -44,6 +46,21 @@ namespace VocaDb.Web.Controllers
 			}
 
 			return Json(data, callback);
+		}
+
+		public ActionResult OEmbed(string url, DataFormat format = DataFormat.Json) {
+
+			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
+			var controller = route.Values["controller"].ToString();
+
+			if (controller != "Song") {
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Only song embeds are supported");
+			}
+
+			var id = int.Parse(route.Values["id"].ToString());
+
+			return Object(new SongOEmbedResponse {Html = string.Format("<iframe src='{0}'></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new {id}))}, format);
+
 		}
 
     }
