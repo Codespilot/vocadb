@@ -21,6 +21,10 @@
 	}	
 }
 
+@section Head {
+<link rel="alternate" type="application/json+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "json" }))" title="@Model.Name" />	
+}
+
 @section Toolbar {
 @if (Model.OriginalPVs.Any() || Model.OtherPVs.Any()) {
 	using (Html.BeginPanel()) {
