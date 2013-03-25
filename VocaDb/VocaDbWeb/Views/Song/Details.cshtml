@@ -22,7 +22,8 @@
 }
 
 @section Head {
-<link rel="alternate" type="application/json+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "json" }))" title="@Model.Name" />	
+	<link rel="alternate" type="application/json+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "json" }))" title="@Model.Name" />	
+	<link rel="alternate" type="text/xml+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "xml" }))" title="@Model.Name" />
 }
 
 @section Toolbar {
