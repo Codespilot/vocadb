@@ -1,4 +1,6 @@
-﻿namespace VocaDb.Web.Models.Ext {
+﻿using VocaDb.Model.Utils;
+
+namespace VocaDb.Web.Models.Ext {
 
 	public class SongOEmbedResponse {
 
@@ -7,6 +9,14 @@
 		}
 
 		public string html { get; set; }
+
+		public string provider_name {
+			get { return "VocaDB"; }
+		}
+
+		public string provider_url {
+			get { return AppConfig.HostAddress; }
+		}
 
 		public string type {
 			get { return "video"; }
