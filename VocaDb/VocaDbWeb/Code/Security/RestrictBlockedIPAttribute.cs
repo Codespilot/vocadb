@@ -16,7 +16,7 @@ namespace VocaDb.Web.Code.Security {
 				return;
 
 			if (filterContext.ActionDescriptor.IsDefined(typeof(AuthorizeAttribute), false)) {
-				log.Warn("Restricting blocked IP " + filterContext.HttpContext.Request.UserHostAddress);
+				log.Warn(string.Format("Restricting blocked IP {0}.", filterContext.HttpContext.Request.UserHostAddress));
 				filterContext.Result = new HttpUnauthorizedResult();
 			}
 

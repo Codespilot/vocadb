@@ -619,6 +619,7 @@
     <Compile Include="Models\Artist\Versions.cs" />
     <Compile Include="Models\Event\EventEdit.cs" />
     <Compile Include="Models\Event\SeriesEdit.cs" />
+    <Compile Include="Models\Ext\SongOEmbedResponse.cs" />
     <Compile Include="Models\Home\SearchEntries.cs" />
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
