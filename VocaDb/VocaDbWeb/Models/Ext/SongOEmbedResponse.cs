@@ -7,13 +7,13 @@ namespace VocaDb.Web.Models.Ext {
 
 	public class SongOEmbedResponse {
 
-		public string Html { get; set; }
+		public string html { get; set; }
 
-		public string Type {
+		public string type {
 			get { return "video"; }
 		}
 
-		public string Version {
+		public string version {
 			get { return "1.0"; }
 		}
 
