@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
@@ -182,7 +183,7 @@ namespace VocaDb.Web.Controllers {
 			if (string.IsNullOrEmpty(jsonPCallback))
 				return Json(obj);
 
-			return Content(string.Format("{0}({1})", jsonPCallback, JsonConvert.SerializeObject(obj)), "text/json");
+			return Content(string.Format("{0}({1})", jsonPCallback, JsonConvert.SerializeObject(obj)), "application/json");
 
 		}
 
@@ -262,10 +263,13 @@ namespace VocaDb.Web.Controllers {
 				return new EmptyResult();
 
 			var doc = XmlHelper.SerializeToXml(obj);
+			doc.Declaration = new XDeclaration("1.0", "utf-8", "yes");
+			var wr = new StringWriter();
+			doc.Save(wr);
 
 			return new ContentResult {
 				ContentType = "text/xml",
-				Content = doc.ToString(),
+				Content = wr.ToString(),
 				ContentEncoding = Encoding.UTF8
 			};
 
