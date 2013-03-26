@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -135,7 +134,7 @@ namespace VocaDb.Web.Controllers
 				return View("MySettings");
 			}
 
-			var response = new TwitterConsumer().ProcessUserAuthorization();
+			var response = new TwitterConsumer().ProcessUserAuthorization(Hostname);
 
 			if (response == null) {
 				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);
@@ -350,7 +349,7 @@ namespace VocaDb.Web.Controllers
 				return View("Login");
 			}
 
-			var response = new TwitterConsumer().ProcessUserAuthorization();
+			var response = new TwitterConsumer().ProcessUserAuthorization(Hostname);
 
 			if (response == null) {
 				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);

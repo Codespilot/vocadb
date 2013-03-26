@@ -51,8 +51,6 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult OEmbed(string url, int maxwidth = 570, int maxheight = 400, DataFormat format = DataFormat.Json) {
 
-			log.Info("Serving OEmbed request for " + Request.RawUrl);
-
 			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
 			var controller = route.Values["controller"].ToString().ToLowerInvariant();
 
