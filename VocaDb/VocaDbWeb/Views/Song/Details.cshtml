@@ -197,7 +197,7 @@
 				<td>
 					@AlternateVersions(Model.AlternateVersions.Take(showAlternateVersions))
 					@if (Model.AlternateVersions.Length > showAlternateVersions) {
-						<a href="#" data-bind="visible: !allVersionsVisible(), click: showAllVersions">@R.DetailsStrings.ShowAllVersions</a>
+						<a href="#" data-bind="visible: !allVersionsVisible(), click: showAllVersions">@R.DetailsStrings.ShowAllVersions (@Model.AlternateVersions.Length)</a>
 						<div style="display: none;" data-bind="visible: allVersionsVisible">
 							@AlternateVersions(Model.AlternateVersions.Skip(showAlternateVersions))
 						</div>
