@@ -10,7 +10,7 @@ namespace VocaDb.Web.Models.Ext {
 
 		public SongOEmbedResponse() {}
 
-		public SongOEmbedResponse(SongContract song, string html) {
+		public SongOEmbedResponse(SongContract song, int width, int height, string html) {
 
 			ParamIs.NotNull(() => song);
 			ParamIs.NotNullOrEmpty(() => html);
@@ -19,16 +19,15 @@ namespace VocaDb.Web.Models.Ext {
 			thumbnail_url = song.ThumbUrl;
 			title = song.Name;
 
+			this.height = height;
 			this.html = html;
+			this.width = width;
 
 		}
 
 		public string author_name { get; set; }
 
-		public int height {
-			get { return 400; }
-			set { }
-		}
+		public int height { get; set; }
 
 		public string html { get; set; }
 
@@ -56,10 +55,7 @@ namespace VocaDb.Web.Models.Ext {
 			set { }
 		}
 
-		public int width {
-			get { return 570; }
-			set { }
-		}
+		public int width { get; set; }
 
 	}
 
