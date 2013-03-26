@@ -49,7 +49,7 @@ namespace VocaDb.Web.Controllers
 			return Json(data, callback);
 		}
 
-		public ActionResult OEmbed(string url, DataFormat format = DataFormat.Json) {
+		public ActionResult OEmbed(string url, int maxwidth = 570, int maxheight = 400, DataFormat format = DataFormat.Json) {
 
 			log.Info("Serving OEmbed request for " + Request.RawUrl);
 
@@ -71,11 +71,10 @@ namespace VocaDb.Web.Controllers
 			}
 
 			var song = Services.Songs.GetSong(id);
+			var html = string.Format("<iframe src=\"{0}\" width=\"{1}\" height=\"{2}\"></iframe>",
+				VocaUriBuilder.CreateAbsolute(Url.Action("EmbedSong", new {songId = id})), maxwidth, maxheight);
 
-			return Object(
-				new SongOEmbedResponse(song, 
-					string.Format("<iframe src=\"{0}\"></iframe>", VocaUriBuilder.CreateAbsolute(Url.Action("EmbedSong", new { songId = id })))), 
-				format);
+			return Object(new SongOEmbedResponse(song, maxwidth, maxheight, html), format);
 
 		}
 
