@@ -1,10 +1,29 @@
 ﻿using System.Xml.Serialization;
+using VocaDb.Model;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Models.Ext {
 
 	[XmlRoot(ElementName = "oembed")]
 	public class SongOEmbedResponse {
+
+		public SongOEmbedResponse() {}
+
+		public SongOEmbedResponse(SongContract song, string html) {
+
+			ParamIs.NotNull(() => song);
+			ParamIs.NotNullOrEmpty(() => html);
+
+			author_name = song.ArtistString;	
+			thumbnail_url = song.ThumbUrl;
+			title = song.Name;
+
+			this.html = html;
+
+		}
+
+		public string author_name { get; set; }
 
 		public int height {
 			get { return 400; }
@@ -22,6 +41,10 @@ namespace VocaDb.Web.Models.Ext {
 			get { return AppConfig.HostAddress; }
 			set { }
 		}
+
+		public string thumbnail_url { get; set; }
+
+		public string title { get; set; }
 
 		public string type {
 			get { return "video"; }

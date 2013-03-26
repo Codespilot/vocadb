@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Routing;
+using NLog;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Helpers;
@@ -10,10 +11,9 @@ using VocaDb.Web.Models.Ext;
 
 namespace VocaDb.Web.Controllers
 {
-    public class ExtController : ControllerBase
-    {
-        //
-        // GET: /Ext/
+    public class ExtController : ControllerBase {
+
+	    private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		[OutputCache(Duration = 600, VaryByParam = "songId;pvId;lang")]
         public ActionResult EmbedSong(int songId = invalidId, int pvId = invalidId) {
@@ -51,8 +51,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult OEmbed(string url, DataFormat format = DataFormat.Json) {
 
+			log.Info("Serving OEmbed request for " + Request.RawUrl);
+
 			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
-			//var route = RouteTable.Routes.GetRouteData(HttpContext);
 			var controller = route.Values["controller"].ToString().ToLowerInvariant();
 
 			if (controller != "song" && controller != "s") {
@@ -69,7 +70,12 @@ namespace VocaDb.Web.Controllers
 				id = int.Parse(route.Values["id"].ToString());
 			}
 
-			return Object(new SongOEmbedResponse { html = string.Format("<iframe src=\"{0}\"></iframe>", AppConfig.HostAddress + Url.Action("EmbedSong", new { songId = id })) }, format);
+			var song = Services.Songs.GetSong(id);
+
+			return Object(
+				new SongOEmbedResponse(song, 
+					string.Format("<iframe src=\"{0}\"></iframe>", VocaUriBuilder.CreateAbsolute(Url.Action("EmbedSong", new { songId = id })))), 
+				format);
 
 		}
 
