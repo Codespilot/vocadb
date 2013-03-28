@@ -455,8 +455,10 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
+			var time = TimeSpan.FromTicks(DateTime.Now.Ticks - model.EntryTime);
+
 			// Attempt to register the user
-			var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname);
+			var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
 
 			if (HandleCreate(user))
 				return RedirectToAction("Index", "Home");
