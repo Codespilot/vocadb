@@ -260,7 +260,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract Create(string name, string pass, string email, string hostname) {
+		public UserContract Create(string name, string pass, string email, string hostname, TimeSpan timeSpan) {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNullOrEmpty(() => pass);
@@ -280,7 +280,7 @@ namespace VocaDb.Model.Service {
 				user.UpdateLastLogin(hostname);
 				session.Save(user);
 
-				AuditLog(string.Format("registered from {0}.", MakeGeoIpToolLink(hostname)), session, user);
+				AuditLog(string.Format("registered from {0} in {1}.", MakeGeoIpToolLink(hostname), timeSpan), session, user);
 
 				return new UserContract(user);
 
