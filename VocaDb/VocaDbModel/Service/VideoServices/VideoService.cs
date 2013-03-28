@@ -17,8 +17,8 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		public static readonly VideoService Piapro =
 			new VideoServicePiapro(PVService.Piapro, null, new[] {
-				new RegexLinkMatcher("piapro.jp/content/{0}", @"piapro.jp/t/(\w+)"),
-				new RegexLinkMatcher("piapro.jp/content/{0}", @"piapro.jp/content/(\w+)"),
+				new RegexLinkMatcher("piapro.jp/content/{0}", @"piapro.jp/t/([\w\-]+)"),
+				new RegexLinkMatcher("piapro.jp/content/{0}", @"piapro.jp/content/([\w\-]+)"),
 			});
 
 		public static readonly VideoService SoundCloud =
