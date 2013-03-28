@@ -907,10 +907,10 @@ namespace VocaDb.Model.Service {
 
 				session.Update(song);
 
-				AuditLog(string.Format("rating {0} as '{1}'", EntryLinkFactory.CreateEntryLink(song), rating),
+				AuditLog(string.Format("rating {0} as '{1}'.", EntryLinkFactory.CreateEntryLink(song), rating),
 					session, agent);
 
-			});
+			}, string.Format("Unable to rate song with ID '{0}'.", songId));
 
 		}
 
