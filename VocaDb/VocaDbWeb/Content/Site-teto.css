@@ -855,12 +855,12 @@ ul.ui-autocomplete {
 
 /* Bootstrap-specific */
 .navbar .nav-radio {
-	color: #0DC69B;	
+	color: #FF282F;	
 	padding: 8px;
 }
 
 .navbar div.brand a:visited {	
-	color: #08C;
+	color: #D32127;
 }
 
 .navbar-search {
@@ -868,25 +868,25 @@ ul.ui-autocomplete {
 }
 
 .navbar-search .search-query {
-	background-color: #005B5B;
-	color: -webkit-input-placeholder(#0DC69B)
+	background-color: #7F1419;
+	color: -webkit-input-placeholder(#D1A5A7)
 }
 
 .navbar-search .search-query::-webkit-input-placeholder {
-    color: #0DC69B;
+    color: #D1A5A7;
 }
 
 .navbar-search .search-query:-moz-placeholder {
-    color: #0DC69B;
+    color: #D1A5A7;
 }
 
 .navbar-inner {
-	background-color: #0D2B35;
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#133D4C), to(#081A21));	
-	background-image: -webkit-linear-gradient(top, #133D4C, #081A21);
-	background-image: -o-linear-gradient(top, #133D4C, #081A21);
-	background-image: -moz-linear-gradient(center top , #133D4C, #081A21);
-	background-image: linear-gradient(top, #133D4C, #081A21);
+	background-color: #210101;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#350202), to(#210101));	
+	background-image: -webkit-linear-gradient(top, #350202, #210101);
+	background-image: -o-linear-gradient(top, #350202, #210101);
+	background-image: -moz-linear-gradient(center top , #350202, #210101);
+	background-image: linear-gradient(top, #350202, #210101);
 }
 
 .navbar .btn {
