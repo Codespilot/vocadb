@@ -1,8 +1,8 @@
 ﻿@using System.Web.Optimization
 @using VocaDb.Model.DataContracts.Artists;
-@using VocaDb.Model.Domain
 @using VocaDb.Model.Helpers
 @using VocaDb.Model.Service
+@using VocaDb.Model.Utils
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security
 @using R = ViewRes.Artist;
@@ -12,6 +12,11 @@
 	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = "(" + Translate.ArtistTypeName(Model.ArtistType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Artists, "Index") };
+}
+
+@section Head {
+	<link rel="canonical" href="@VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id }))" />	
+	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />	
 }
 
 @section Toolbar {
@@ -222,10 +227,6 @@
 </div>
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.ArtistReportTypeNames, new { id = "reportType" }))
-
-@section Head {
-	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />	
-}
 
 @section BodyScripts {
 	<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/DiscussionTab.js")"></script>
