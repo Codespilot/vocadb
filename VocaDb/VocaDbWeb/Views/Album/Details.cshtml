@@ -1,8 +1,8 @@
 ﻿@using System.Web.Optimization
-@using VocaDb.Model.Domain
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Model.Helpers
+@using VocaDb.Model.Utils
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models;
 @using R = ViewRes.Album;
@@ -12,6 +12,11 @@
 	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.DiscTypeName(Model.DiscType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
+}
+
+@section Head {
+	<link rel="canonical" href="@VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id }))" />	
+	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
 }
 
 @section Toolbar {
@@ -314,10 +319,6 @@
 @AlbumHelpers.EditCollectionDialog(Model.AlbumPurchaseStatus, Model.AlbumMediaType)
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.AlbumReportTypeNames, new { id = "reportType" }))
-
-@section Head {
-	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
-}
 
 @section BodyScripts {
 	@Scripts.Render("~/bundles/Shared/ReportEntryPopup", "~/bundles/Album/Details", "~/bundles/jqxRating")

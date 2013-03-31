@@ -18,7 +18,7 @@
     <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title + " - " : "")Teto Database</title>
 	<meta name="description" content="Vocaloid database with translated artists, albums and songs." />	
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
-	<meta property="og:image" content="@Url.Content("~/Content/tetoDB-title.png")"/>
+	<meta name="og:image" content="@VocaUriBuilder.CreateAbsolute(Url.Content("~/Content/tetoDB-title.png"))"/>
 
 	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
 	@Styles.Render("~/Content/css")
