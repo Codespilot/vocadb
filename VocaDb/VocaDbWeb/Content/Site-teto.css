@@ -200,7 +200,7 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 
 /* TODO: replace colors with defaults or edit bootstrap.css */
 .rightFrame a {
-	color: #FF66A5 !important;
+	color: #89222B !important;
 	margin-bottom: 5px;
 	margin-left: 0px;
 	margin-right: 0px;
@@ -212,11 +212,11 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .rightFrame a:visited {
-	color: #FF66A5 !important;
+	color: #89222B !important;
 }
 
 .rightFrame a:hover {
-	color: #FF84B7 !important;	
+	color: #A02832 !important;	
 }
 
 .rightFrame a.btn-danger {
@@ -274,16 +274,16 @@ ul {
 
 .menu a {
 	text-decoration: none;
-	color: #FF66A5;
+	color: #89222B;
 }
 
 .menu a:hover {
-	color: #FF84B7 !important;
+	color: #A02832 !important;
 	text-decoration: underline;
 }
 
 .menu a:visited {
-	color: #FF66A5;
+	color: #89222B;
 }
 
 #socialSites {
@@ -305,7 +305,7 @@ ul {
 
 .user a {
 	text-decoration: none;
-	color: #003366;
+	color: #89222B;
 	border-bottom-color: #333333;
 	border-bottom-style: dashed;
 	border-bottom-width: 1px;
@@ -319,7 +319,7 @@ ul {
 }
 
 .user a:visited {
-	color: #003366;
+	color: #89222B;
 }
 
 .recentAlbums a {
