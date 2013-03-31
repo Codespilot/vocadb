@@ -1062,6 +1062,7 @@
     <Content Include="Content\themes\redmond\jquery-ui-1.10.1.custom.min.css" />
     <Content Include="Content\unknown.png" />
     <Content Include="Content\vert_large.png" />
+    <Content Include="Content\vocaDB-title-large.png" />
     <Content Include="Content\vocaDB-title.png" />
     <Content Include="Content\youtube.png" />
     <Content Include="opensearch.xml" />
