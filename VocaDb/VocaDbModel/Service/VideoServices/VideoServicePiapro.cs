@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
 using VocaDb.Model.Domain.PVs;
 
@@ -18,7 +14,9 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private static Encoding GetEncoding(string encodingStr) {
 
-			var shift_jis = Encoding.GetEncoding(932);
+			return HtmlParsingHelper.GetEncoding(encodingStr, Encoding.UTF8);
+
+			/*var shift_jis = Encoding.GetEncoding(932);
 
 			if (string.IsNullOrEmpty(encodingStr))
 				return shift_jis;
@@ -27,7 +25,7 @@ namespace VocaDb.Model.Service.VideoServices {
 				return Encoding.GetEncoding(encodingStr);
 			} catch (ArgumentException) {
 				return shift_jis;
-			}
+			}*/
 
 		}
 
@@ -41,7 +39,38 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private VideoUrlParseResult ParseByHtmlStream(Stream htmlStream, Encoding encoding, string url) {
 
-			var commentRegex = new Regex(@"<!-- (\w+) -->");
+			var doc = new HtmlDocument();
+			doc.Load(htmlStream, encoding);
+
+			var catLink = doc.DocumentNode.SelectSingleNode("//div[@class = 'dtl_data']/p[3]");
+
+			if (catLink == null || !catLink.InnerHtml.Contains("/illust/?categoryId=1"))
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Content type indicates this isn't an audio file.");
+
+			var idElem = doc.DocumentNode.SelectSingleNode("//input[@name = 'id']");
+
+			if (idElem == null)
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Could not find id element on page.");
+
+			var contentId = idElem.GetAttributeValue("value", string.Empty);
+
+			var titleElem = doc.DocumentNode.SelectSingleNode("//h1[@class = 'dtl_title']");
+
+			if (titleElem == null)
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Could not find title element on page.");
+
+			var title = HtmlEntity.DeEntitize(titleElem.InnerText).Trim();
+
+			var authorElem = doc.DocumentNode.SelectSingleNode("//div[@class = 'dtl_by_name']/a");
+			var author = (authorElem != null ? authorElem.InnerText : string.Empty);
+
+			return VideoUrlParseResult.CreateOk(url, PVService.Piapro, contentId, VideoTitleParseResult.CreateSuccess(title, author, string.Empty));
+
+		}
+
+		/*private VideoUrlParseResult ParseByHtmlStream(Stream htmlStream, Encoding encoding, string url) {
+
+			//var commentRegex = new Regex(@"<!-- (\w+) -->");
 			var doc = new HtmlDocument();
 			doc.Load(htmlStream, encoding);
 
@@ -62,6 +91,7 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Could not find content ID on page (comment element didn't match).");
 
 			var contentId = idMatch.Groups[1].Value;
+
 			var nameSpan = doc.DocumentNode.SelectSingleNode("//div[@id = 'content']/div[1]/div[@class='worktitlebox']/div[@class='title']/span[2]");
 
 			if (nameSpan == null)
@@ -79,7 +109,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			return VideoUrlParseResult.CreateOk(url, PVService.Piapro, contentId, VideoTitleParseResult.CreateSuccess(title, author, string.Empty));
 
-		}
+		}*/
 
 		private VideoUrlParseResult ParseByPiaproUrl(string piaproUrl) {
 
