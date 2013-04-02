@@ -4,10 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using HtmlAgilityPack;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.VideoServices {
@@ -165,6 +168,42 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
+		/// <summary>
+		/// Parses song title, artists and song type from NicoNico video title.
+		/// </summary>
+		/// <param name="title">NicoNico video title. Can be null or empty, in which case that value is returned.</param>
+		/// <returns>Parse result. Cannot be null.</returns>
+		/// <remarks>This works with titles that follow the common format, for example 【重音テト】 ハイゲインワンダーランド 【オリジナル】.</remarks>
+		public static NicoTitleParseResult ParseTitle(string title) {
+
+			if (string.IsNullOrEmpty(title))
+				return new NicoTitleParseResult(title);
+
+			var elemRegex = new Regex(@"【(\w+)】");
+			var matches = elemRegex.Matches(title);
+			string artist = string.Empty;
+			var songType = SongType.Unspecified;
+			int offset = 0;
+
+			if (matches.Count == 0)
+				return new NicoTitleParseResult(title);
+
+			foreach (Match match in matches) {
+
+				var content = match.Groups[1].Value;
+				if (content == "オリジナル")
+					songType = SongType.Original;
+				else
+					artist = content.Trim();
+
+				title = title.Remove(match.Index - offset, match.Value.Length);
+				offset += match.Length;
+
+			}
+
+			return new NicoTitleParseResult(title.Trim(), new[] { artist }, songType);
+
+		}
 
 	}
 

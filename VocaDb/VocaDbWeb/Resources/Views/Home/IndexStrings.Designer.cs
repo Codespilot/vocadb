@@ -142,7 +142,7 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to the Teto Database!.
+        ///   Looks up a localized string similar to Welcome to the Vocaloid Database!.
         /// </summary>
         public static string Welcome {
             get {
@@ -151,7 +151,7 @@ namespace ViewRes.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The collaborative database with UTAU artists, discography, PVs and more..
+        ///   Looks up a localized string similar to The collaborative database with Vocaloid artists, discography, PVs and more..
         /// </summary>
         public static string WelcomeSubtitle {
             get {

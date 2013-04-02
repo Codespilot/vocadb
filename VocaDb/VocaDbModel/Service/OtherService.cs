@@ -235,8 +235,7 @@ namespace VocaDb.Model.Service {
 						.OrderByDescending(a => a.CreateDate)
 						.Take(maxNewsEntries - newsEntries.Length)).ToArray();
 
-				var topAlbums = session.Query<Album>().Where(a => !a.Deleted
-					&& a.AllArtists.Any(r => r.Artist != null && r.Artist.ArtistType == ArtistType.UTAU))
+				var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
 					.OrderByDescending(a => a.RatingAverageInt)
 					.ThenByDescending(a => a.RatingCount)
 					.Take(7).ToArray();
@@ -244,7 +243,6 @@ namespace VocaDb.Model.Service {
 				var albumCutoffDate = DateTime.Now.AddMonths(1);
 
 				var newAlbums = session.Query<Album>().Where(a => !a.Deleted
-					&& a.AllArtists.Any(r => r.Artist != null && r.Artist.ArtistType == ArtistType.UTAU)
 					&& a.OriginalRelease.ReleaseDate.Year != null
 					&& a.OriginalRelease.ReleaseDate.Month != null
 					&& a.OriginalRelease.ReleaseDate.Day != null
@@ -267,7 +265,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();*/
 
 				var newSongs = session.Query<Song>()
-					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing && s.AllArtists.Any(a => a.Artist != null && a.Artist.ArtistType == ArtistType.UTAU))
+					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
 					.OrderByDescending(s => s.CreateDate)
 					.Take(40)
 					.ToArray()

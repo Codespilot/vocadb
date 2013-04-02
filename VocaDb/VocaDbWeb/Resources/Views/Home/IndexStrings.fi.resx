@@ -145,9 +145,9 @@
     <value>Katso kappaleen tiedot</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Tervetuloa Teto-tietokantaan!</value>
+    <value>Tervetuloa Vocaloid-tietokantaan!</value>
   </data>
   <data name="WelcomeSubtitle" xml:space="preserve">
-    <value>Yhteistyöhön perustuva tietokanta joka käsittelee UTAU-artisteja, diskografiaa, videoita ja muuta.</value>
+    <value>Yhteistyöhön perustuva tietokanta joka käsittelee Vocaloid-artisteja, diskografiaa, videoita ja muuta.</value>
   </data>
 </root>
