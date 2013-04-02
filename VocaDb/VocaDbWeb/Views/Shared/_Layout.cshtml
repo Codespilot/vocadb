@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title + " - " : "")Teto Database</title>
+    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title + " - " : "")Vocaloid Database</title>
 	<meta name="description" content="Vocaloid database with translated artists, albums and songs." />	
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
 	<meta name="og:image" content="@VocaUriBuilder.CreateAbsolute(Url.Content("~/Content/vocaDB-title-large.png"))"/>
@@ -59,7 +59,7 @@
 	    <div class="navbar navbar-fixed-top">
 		    <div class="navbar-inner">
 			    <div class="container">
-				    <div class="brand">@Html.ActionLink("TetoDB", "Index", "Home")</div>
+				    <div class="brand">@Html.ActionLink("VocaDB", "Index", "Home")</div>
 				    @{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
 			    </div>
 		    </div>
@@ -69,7 +69,7 @@
 			<div class="row-fluid">
 				<div class="span2 menu well sidebar-nav">
 					<a href="@Url.Action("Index", "Home")">
-						<img src="@Url.Content("~/Content/tetodb-title.png")" alt="TetoDB" title="TetoDB" />
+						<img src="@Url.Content("~/Content/vocaDB-title.png")" alt="VocaDB" title="VocaDB" />
 					</a>
 					<ul class="nav nav-list">
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>

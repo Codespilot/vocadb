@@ -104,6 +104,7 @@
     <Compile Include="Service\Helpers\UrlHelperTests.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchTests.cs" />
     <Compile Include="Service\Search\SongSearch\SongSearchTests.cs" />
+    <Compile Include="Service\VideoServices\NicoHelperTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
     <Compile Include="Web\Controllers\ArtistControllerTests.cs" />
     <Compile Include="Web\Controllers\EventControllerTests.cs" />
@@ -125,9 +126,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\VideoServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
