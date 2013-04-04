@@ -891,7 +891,7 @@ namespace VocaDb.Model.Service {
 				if (existing != null) {
 
 					if (rating != SongVoteRating.Nothing) {
-						existing.Rating = rating;
+						existing.SetRating(rating);
 						session.Update(existing);
 					} else {
 						existing.Delete();
