@@ -1,4 +1,5 @@
 ﻿@using VocaDb.Web.Helpers
+@using R = ViewRes.User.FavoriteSongsStrings;
 @model VocaDb.Web.Models.User.FavoriteSongs
 
 @{
@@ -20,7 +21,7 @@
 					</button>
 					<ul class="dropdown-menu">
 						@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
-							<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, rating = Model.Rating, sort = sortRule.Key })</li>
+							<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, rating = Model.Rating, sort = sortRule.Key, groupByRating = Model.GroupByRating })</li>
 						}
 					</ul>
 				</div>
@@ -29,6 +30,17 @@
 	</div>
 
 </div>
+
+@using (Html.BeginForm("FavoriteSongs", "User", new { id = Model.User.Id }, FormMethod.Post, new { @class = "form-inline" })) {
+	@Html.HiddenFor(m => m.Sort)
+
+	<label class="checkbox inline">
+		@Html.CheckBoxFor(m => m.GroupByRating)
+		@R.GroupByRating
+	</label>
+
+	<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
+}
 
 
 <div id="ui-tabs-3">
