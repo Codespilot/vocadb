@@ -303,6 +303,20 @@ ul {
 	margin-bottom: 10px;
 }
 
+#banners-small {
+	margin-left: 8px;
+}
+
+#banners-small li {
+	padding-top: 0;
+}
+
+#banners-small img {
+	float: left;
+	margin-right: 3px;
+	margin-bottom: 3px;
+}
+
 .user a {
 	text-decoration: none;
 	color: #003366;
