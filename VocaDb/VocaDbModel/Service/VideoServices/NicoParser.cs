@@ -174,14 +174,14 @@ namespace VocaDb.Model.Service.VideoServices {
 		/// <param name="title">NicoNico video title. Can be null or empty, in which case that value is returned.</param>
 		/// <returns>Parse result. Cannot be null.</returns>
 		/// <remarks>This works with titles that follow the common format, for example 【重音テト】 ハイゲインワンダーランド 【オリジナル】.</remarks>
-		public static NicoTitleParseResult ParseTitle(string title) {
+		public static NicoTitleParseResult ParseTitle(string title, Func<string, Artist> artistFunc) {
 
 			if (string.IsNullOrEmpty(title))
 				return new NicoTitleParseResult(title);
 
 			var elemRegex = new Regex(@"【(\w+)】");
 			var matches = elemRegex.Matches(title);
-			string artist = string.Empty;
+			Artist artist = null;
 			var songType = SongType.Unspecified;
 			int offset = 0;
 
@@ -193,8 +193,10 @@ namespace VocaDb.Model.Service.VideoServices {
 				var content = match.Groups[1].Value;
 				if (content == "オリジナル")
 					songType = SongType.Original;
-				else
-					artist = content.Trim();
+				else {
+					var a = artistFunc(content.Trim());
+					artist = artist ?? a;
+				}
 
 				title = title.Remove(match.Index - offset, match.Value.Length);
 				offset += match.Length;

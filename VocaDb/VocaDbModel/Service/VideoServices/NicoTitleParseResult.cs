@@ -1,19 +1,20 @@
-﻿using VocaDb.Model.Domain.Songs;
+﻿using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public class NicoTitleParseResult {
 
 		public NicoTitleParseResult(string title)
-			: this(title, new string[] {}, SongType.Original) {}
+			: this(title, new Artist[] { }, SongType.Original) { }
 
-		public NicoTitleParseResult(string title, string[] artistNames, SongType songType) {
+		public NicoTitleParseResult(string title, Artist[] artistNames, SongType songType) {
 			ArtistNames = artistNames;
 			Title = title;
 			SongType = songType;
 		}
 
-		public string[] ArtistNames { get; set; }
+		public Artist[] ArtistNames { get; set; }
 
 		public SongType SongType { get; set; }
 

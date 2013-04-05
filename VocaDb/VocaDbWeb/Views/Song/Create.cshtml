@@ -30,7 +30,7 @@
 				<table><tr><td class="formLabel">				
 				@Html.LabelFor(m => m.NameOriginal)
 				</td><td>
-				@Html.TextBoxFor(m => m.NameOriginal, new { id = "nameOriginal", @class = "dupeField span12", maxlength = 255, size = 40 })
+				@Html.TextBoxFor(m => m.NameOriginal, new Dictionary<string, object> { { "id", "nameOriginal" }, { "class", "dupeField span12" }, { "maxlength", 255 },  { "data-bind", "value: NameOriginal" } })
 				</td></tr>
 
 				<tr><td class="formLabel">
