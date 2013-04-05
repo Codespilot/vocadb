@@ -14,6 +14,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private static Encoding GetEncoding(string encodingStr) {
 
+			// New piapro uses UTF-8
 			return HtmlParsingHelper.GetEncoding(encodingStr, Encoding.UTF8);
 
 			/*var shift_jis = Encoding.GetEncoding(932);
@@ -68,6 +69,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
+		// Old Piapro
 		/*private VideoUrlParseResult ParseByHtmlStream(Stream htmlStream, Encoding encoding, string url) {
 
 			//var commentRegex = new Regex(@"<!-- (\w+) -->");

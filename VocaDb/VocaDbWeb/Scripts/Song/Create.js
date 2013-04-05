@@ -4,6 +4,7 @@ function CreateSongViewModel() {
 	var self = this;
 
 	this.DupeEntries = ko.observableArray([]);
+	this.NameOriginal = ko.observable();
 
 	$("input.dupeField").focusout(function () {
 
@@ -13,9 +14,25 @@ function CreateSongViewModel() {
 		var pv1 = $("#pv1").val();
 		var pv2 = $("#pv2").val();
 
-		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2 }, function (result) {
+		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2, getPVInfo: true }, function (result) {
 
-			self.DupeEntries(result);
+			self.DupeEntries(result.Matches);
+			
+			if (result.Title && !self.NameOriginal()) {
+				self.NameOriginal(result.Title);
+			}
+			
+			if (result.Artists && !$("#artistsTableBody tr").length) {
+
+				$(result.Artists).each(function() {
+					$.post("../../Artist/CreateArtistContractRow", { artistId: this.Id }, function (row) {
+						var artistsTable = $("#artistsTableBody");
+						artistsTable.append(row);
+						$("#artistsTableBody a.artistLink:last").vdbArtistToolTip();
+					});
+				});
+
+			}
 
 		});
 

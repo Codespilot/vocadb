@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 
@@ -11,6 +13,12 @@ namespace VocaDb.Tests.Service.VideoServices {
 	[TestClass]
 	public class NicoHelperTests {
 
+		private Artist ArtistFunc(string name) {
+			
+			return new Artist(TranslatedString.Create(name));
+
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 			
@@ -19,10 +27,10 @@ namespace VocaDb.Tests.Service.VideoServices {
 		[TestMethod]
 		public void ParseTitle_Valid() {
 
-			var result = NicoHelper.ParseTitle("【重音テト】 ハイゲインワンダーランド 【オリジナル】");
+			var result = NicoHelper.ParseTitle("【重音テト】 ハイゲインワンダーランド 【オリジナル】", ArtistFunc);
 
 			Assert.AreEqual(1, result.ArtistNames.Length, "1 artist");
-			Assert.AreEqual("重音テト", result.ArtistNames.First(), "artist");
+			Assert.AreEqual("重音テト", result.ArtistNames.First().DefaultName, "artist");
 			Assert.AreEqual("ハイゲインワンダーランド", result.Title, "title");
 			Assert.AreEqual(SongType.Original, result.SongType, "song type");
 

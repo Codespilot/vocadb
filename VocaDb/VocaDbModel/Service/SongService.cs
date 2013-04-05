@@ -25,6 +25,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search;
+using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Service.VideoServices;
 
@@ -527,13 +528,32 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public DuplicateEntryResultContract<SongMatchProperty>[] FindDuplicates(string[] anyName, string[] anyPv) {
+		private NicoTitleParseResult ParseNicoPV(ISession session, string url) {
+
+			if (string.IsNullOrEmpty(url))
+				return null;
+
+			var res = VideoService.NicoNicoDouga.ParseByUrl(url, true);
+
+			if (!res.IsOk)
+				return null;
+
+			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => Services.Artists.Find(session, new ArtistQueryParams {
+				Common = new CommonSearchParams { Query = a, NameMatchMode = NameMatchMode.Exact },
+				Paging = new PagingProperties(0, 1, false)
+			}).Items.FirstOrDefault());
+
+			return titleParseResult;
+
+		}
+
+		public NewSongCheckResultContract FindDuplicates(string[] anyName, string[] anyPv, bool getPVInfo) {
 
 			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
 			var pvs = anyPv.Select(p => VideoServiceHelper.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
 
 			if (!names.Any() && !pvs.Any())
-				return new DuplicateEntryResultContract<SongMatchProperty>[] { };
+				return new NewSongCheckResultContract();
 
 			return HandleQuery(session => {
 
@@ -553,9 +573,21 @@ namespace VocaDb.Model.Service {
 					.Where(p => p != null)
 					.Select(d => new System.Tuple<Song, SongMatchProperty>(d, SongMatchProperty.PV));
 
-				return pvMatches.Union(nameMatches, new SongTupleEqualityComparer<SongMatchProperty>())
+				NicoTitleParseResult titleParseResult = null;
+
+				if (getPVInfo) {
+
+					var nicoPV = anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p));
+
+					titleParseResult = ParseNicoPV(session, nicoPV);
+
+				}
+
+				var matches = pvMatches.Union(nameMatches, new SongTupleEqualityComparer<SongMatchProperty>())
 					.Select(s => new DuplicateEntryResultContract<SongMatchProperty>(new EntryRefWithCommonPropertiesContract(s.Item1, PermissionContext.LanguagePreference), s.Item2))
 					.ToArray();
+
+				return new NewSongCheckResultContract(matches, titleParseResult, LanguagePreference);
 
 			});
 
