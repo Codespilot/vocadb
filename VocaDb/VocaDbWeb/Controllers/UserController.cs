@@ -436,6 +436,8 @@ namespace VocaDb.Web.Controllers
         [HttpPost]
         public ActionResult Create(RegisterModel model) {
 
+			string restrictedErr = "Sorry, access from your host is restricted. It is possible this restriction is no longer valid. If you think this is the case, please contact support.";
+
 			if (!ModelState.IsValidField("Extra")) {
 				log.Warn(string.Format("An attempt was made to fill the bot decoy field from {0}.", Hostname));
 				MvcApplication.BannedIPs.Add(Hostname);
@@ -454,13 +456,20 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 
 			if (!MvcApplication.IPRules.IsAllowed(Hostname)) {
-				ModelState.AddModelError("Restricted", "Sorry, access from your host is restricted. It is possible this restriction is no longer valid. If you think this is the case, please contact support.");
+				ModelState.AddModelError("Restricted", restrictedErr);
 				return View(model);
 			}
 
 			var time = TimeSpan.FromTicks(DateTime.Now.Ticks - model.EntryTime);
 
-			// Attempt to register the user
+	        if (time < TimeSpan.FromSeconds(5)) {
+				log.Warn(string.Format("Suspicious registration form fill time ({0}) from {1}.", time, Hostname));
+				ModelState.AddModelError("Restricted", restrictedErr);
+				MvcApplication.BannedIPs.Add(Hostname);
+		        return View(model);
+	        }
+
+	        // Attempt to register the user
 			var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
 
 			if (HandleCreate(user))

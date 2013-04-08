@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using HtmlAgilityPack;
+using NLog;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
@@ -27,10 +28,16 @@ namespace VocaDb.Model.Service.VideoServices {
 
 	public static class NicoHelper {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
 		private static string GetUserName(Stream htmlStream, Encoding encoding) {
 
 			var doc = new HtmlDocument();
-			doc.Load(htmlStream, encoding);
+			try {
+				doc.Load(htmlStream, encoding);
+			} catch (IOException x) {
+				log.WarnException("Unable to load document for user name", x);
+			}
 
 			var titleElem = doc.DocumentNode.SelectSingleNode("//html/body/div/p[2]/a/strong");
 
@@ -49,7 +56,8 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			try {
 				response = request.GetResponse();
-			} catch (WebException) {
+			} catch (WebException x) {
+				log.WarnException("Unable to get response for user name", x);
 				return null;
 			}
 
