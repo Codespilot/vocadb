@@ -15,12 +15,12 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public FrontPageContract() { }
 
 		public FrontPageContract(IEnumerable<ActivityEntry> activityEntries, IEnumerable<NewsEntry> newsEntries,
-			IEnumerable<Album> newAlbums, IEnumerable<UnifiedCommentContract> recentComments, IEnumerable<Album> topAlbums, Song[] newSongs,
+			AlbumContract[] newAlbums, IEnumerable<UnifiedCommentContract> recentComments, IEnumerable<Album> topAlbums, Song[] newSongs,
 			SongVoteRating firstSongRating,
 			ContentLanguagePreference languagePreference) {
 
 			ActivityEntries = activityEntries.Select(e => new ActivityEntryContract(e, languagePreference)).ToArray();
-			NewAlbums = newAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).ToArray();
+			NewAlbums = newAlbums;
 			NewSongs = newSongs.Select(s => new SongWithAlbumAndPVsContract(s, languagePreference, true)).ToArray();
 			NewsEntries = newsEntries.Select(e => new NewsEntryContract(e)).ToArray();
 			RecentComments = recentComments.ToArray();
@@ -34,7 +34,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public SongWithPVAndVoteContract FirstSong { get; set; }
 
-		public AlbumWithAdditionalNamesContract[] NewAlbums { get; set; }	
+		public AlbumContract[] NewAlbums { get; set; }	
 
 		public NewsEntryContract[] NewsEntries { get; set; }
 
@@ -42,7 +42,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public UnifiedCommentContract[] RecentComments { get; set; }
 
-		public AlbumWithAdditionalNamesContract[] TopAlbums { get; set; }
+		public AlbumContract[] TopAlbums { get; set; }
 
 	}
 }

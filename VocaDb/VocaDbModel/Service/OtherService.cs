@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.Caching;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
@@ -23,6 +24,73 @@ using VocaDb.Model.Service.Helpers;
 namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
+
+		private AlbumContract[] GetRecentAlbums(ISession session) {
+
+			var cacheKey = "OtherService.RecentAlbums";
+			var cache = MemoryCache.Default;
+			var item = (TranslatedAlbumContract[])cache.Get(cacheKey);
+
+			if (item != null)
+				return item.Select(a => new AlbumContract(a, LanguagePreference)).ToArray();
+
+			var now = DateTime.Now;
+
+			var upcoming = session.Query<Album>().Where(a => !a.Deleted
+				&& a.OriginalRelease.ReleaseDate.Year != null
+				&& a.OriginalRelease.ReleaseDate.Month != null
+				&& a.OriginalRelease.ReleaseDate.Day != null
+				&& (a.OriginalRelease.ReleaseDate.Year > now.Year
+				|| (a.OriginalRelease.ReleaseDate.Year == now.Year && a.OriginalRelease.ReleaseDate.Month > now.Month)
+				|| (a.OriginalRelease.ReleaseDate.Year == now.Year
+					&& a.OriginalRelease.ReleaseDate.Month == now.Month
+					&& a.OriginalRelease.ReleaseDate.Day > now.Day)))
+				.OrderBy(a => a.OriginalRelease.ReleaseDate.Year)
+				.ThenBy(a => a.OriginalRelease.ReleaseDate.Month)
+				.ThenBy(a => a.OriginalRelease.ReleaseDate.Day)
+				.Take(4).ToArray();
+
+			var recent = session.Query<Album>().Where(a => !a.Deleted
+				&& a.OriginalRelease.ReleaseDate.Year != null
+				&& a.OriginalRelease.ReleaseDate.Month != null
+				&& a.OriginalRelease.ReleaseDate.Day != null
+				&& (a.OriginalRelease.ReleaseDate.Year < now.Year
+				|| (a.OriginalRelease.ReleaseDate.Year == now.Year && a.OriginalRelease.ReleaseDate.Month < now.Month)
+				|| (a.OriginalRelease.ReleaseDate.Year == now.Year
+					&& a.OriginalRelease.ReleaseDate.Month == now.Month
+					&& a.OriginalRelease.ReleaseDate.Day <= now.Day)))
+				.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
+				.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+				.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day)
+				.Take(3).ToArray();
+
+			var newAlbums = upcoming.Reverse().Concat(recent)
+				.Select(a => new TranslatedAlbumContract(a))
+				.ToArray();
+
+			var newAlbumContracts = upcoming.Reverse().Concat(recent)
+				.Select(a => new AlbumContract(a, LanguagePreference))
+				.ToArray();
+
+			cache.Add(cacheKey, newAlbums, DateTime.Now + TimeSpan.FromHours(1));
+
+			/*var newAlbums = session.Query<Album>().Where(a => !a.Deleted
+				&& a.OriginalRelease.ReleaseDate.Year != null
+				&& a.OriginalRelease.ReleaseDate.Month != null
+				&& a.OriginalRelease.ReleaseDate.Day != null
+				&& (a.OriginalRelease.ReleaseDate.Year < albumCutoffDate.Year
+				|| (a.OriginalRelease.ReleaseDate.Year == albumCutoffDate.Year && a.OriginalRelease.ReleaseDate.Month < albumCutoffDate.Month)
+				|| (a.OriginalRelease.ReleaseDate.Year == albumCutoffDate.Year
+					&& a.OriginalRelease.ReleaseDate.Month == albumCutoffDate.Month
+					&& a.OriginalRelease.ReleaseDate.Day < albumCutoffDate.Day)))
+				.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
+				.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+				.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day)
+				.Take(7).ToArray();*/
+
+			return newAlbumContracts;
+
+		}
 
 		private UnifiedCommentContract[] GetRecentComments(ISession session, int maxComments) {
 
@@ -242,19 +310,7 @@ namespace VocaDb.Model.Service {
 
 				var albumCutoffDate = DateTime.Now.AddMonths(1);
 
-				var newAlbums = session.Query<Album>().Where(a => !a.Deleted
-					&& a.OriginalRelease.ReleaseDate.Year != null
-					&& a.OriginalRelease.ReleaseDate.Month != null
-					&& a.OriginalRelease.ReleaseDate.Day != null
-					&& (a.OriginalRelease.ReleaseDate.Year < albumCutoffDate.Year 
-					|| (a.OriginalRelease.ReleaseDate.Year == albumCutoffDate.Year && a.OriginalRelease.ReleaseDate.Month < albumCutoffDate.Month)
-					|| (a.OriginalRelease.ReleaseDate.Year == albumCutoffDate.Year 
-						&& a.OriginalRelease.ReleaseDate.Month == albumCutoffDate.Month 
-						&& a.OriginalRelease.ReleaseDate.Day < albumCutoffDate.Day)))
-					.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
-					.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
-					.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day)
-					.Take(7).ToArray();
+				var newAlbums = GetRecentAlbums(session);
 
 				/*var cutoffDate = DateTime.Now - TimeSpan.FromDays(300);
 

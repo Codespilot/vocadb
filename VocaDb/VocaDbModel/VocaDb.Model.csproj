@@ -76,6 +76,7 @@
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -100,6 +101,7 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ComparedAlbumsContract.cs" />
+    <Compile Include="DataContracts\Albums\TranslatedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ExportedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />

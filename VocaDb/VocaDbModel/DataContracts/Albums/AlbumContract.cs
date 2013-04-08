@@ -44,6 +44,25 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		}
 
+		public AlbumContract(TranslatedAlbumContract album, ContentLanguagePreference languagePreference) {
+
+			ParamIs.NotNull(() => album);
+
+			AdditionalNames = album.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+			ArtistString = album.TranslatedArtistString.GetBestMatch(languagePreference);
+			CreateDate = album.CreateDate;
+			DiscType = album.DiscType;
+			Id = album.Id;
+			Name = album.Names.SortNames[languagePreference];
+			RatingAverage = album.RatingAverage;
+			RatingCount = album.RatingCount;
+			ReleaseDate = album.ReleaseDate;
+			ReleaseEvent = album.ReleaseEvent;
+			Status = album.Status;
+			Version = album.Version;
+
+		}
+
 		[DataMember]
 		public string AdditionalNames { get; set; }
 
