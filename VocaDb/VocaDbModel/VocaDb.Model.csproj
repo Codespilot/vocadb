@@ -90,6 +90,7 @@
     <Compile Include="DataContracts\Activityfeed\ActivityEntryContract.cs" />
     <Content Include="DataContracts\Activityfeed\ActivityEntryContractFactory.cs" />
     <Compile Include="DataContracts\Activityfeed\NewsEntryContract.cs" />
+    <Compile Include="DataContracts\Albums\AlbumForApiContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumTagUsageContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedArtistForAlbumContract.cs" />
+    <Compile Include="DataContracts\Albums\ArtistForAlbumForApiContract.cs" />
     <Compile Include="DataContracts\Albums\ComparedAlbumsContract.cs" />
     <Compile Include="DataContracts\Albums\TranslatedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ExportedAlbumContract.cs" />
