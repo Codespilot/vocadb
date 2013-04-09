@@ -396,19 +396,25 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumContract> Find(AlbumQueryParams queryParams) {
+		public PartialFindResult<T> Find<T>(Func<Album, T> fac, AlbumQueryParams queryParams)
+			where T : class {
 
 			ParamIs.NotNull(() => queryParams);
 
 			return HandleQuery(session => {
 
-				var results = Find(session, queryParams);
+				var result = Find(session, queryParams);
 
-				return new PartialFindResult<AlbumContract>(
-					results.Items.Select(a => new AlbumContract(a, LanguagePreference)).ToArray(),
-					results.TotalCount, results.Term, results.FoundExactMatch);
+				return new PartialFindResult<T>(result.Items.Select(fac).ToArray(),
+					result.TotalCount, result.Term, result.FoundExactMatch);
 
 			});
+
+		}
+
+		public PartialFindResult<AlbumContract> Find(AlbumQueryParams queryParams) {
+
+			return Find(s => new AlbumContract(s, LanguagePreference), queryParams);
 
 		}
 
