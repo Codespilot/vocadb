@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Service;
+using VocaDb.Web.Controllers;
 
 namespace VocaDb.Web.API.v1.Controllers {
 
@@ -12,21 +13,21 @@ namespace VocaDb.Web.API.v1.Controllers {
 			get { return Services.Albums; }
 		}
 
-		public ActionResult Details(int id) {
+		public ActionResult Details(int id, DataFormat format = DataFormat.Auto) {
 
 			var album = Service.GetAlbumDetails(id, null);
 
-			return Json(album);
+			return Object(album, format);
 
 		}
 
-		public ActionResult Index(string query, DiscType discType,
-			int start = 0, bool getTotalCount = false, 
-			NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+		public ActionResult Index(string query, DiscType discType = DiscType.Unknown,
+			int start = 0, bool getTotalCount = false, AlbumSortRule sort = AlbumSortRule.Name,
+			NameMatchMode nameMatchMode = NameMatchMode.Exact, DataFormat format = DataFormat.Auto) {
 
-			var entries = Service.Find(query, discType, start, maxResults, false, getTotalCount);
+			var entries = Service.Find(query, discType, start, maxResults, false, getTotalCount, nameMatchMode, sort);
 
-			return Json(entries);
+			return Object(entries, format);
 
 		}
 

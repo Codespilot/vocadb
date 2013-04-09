@@ -37,6 +37,7 @@ vdb.values.webLinkMatchers = [
 	{ url: "vocaloiders.com/", desc: "Vocaloiders", cat: "Reference" },
 	{ url: "vocaloid.wikia.com/wiki/", desc: "Vocaloid Wiki", cat: "Reference" },
 	{ url: "www.yesasia.com/", desc: "YesAsia", cat: "Commercial" },
+	{ url: "youtube.com/channel/", desc: "Youtube Channel", cat: "Official" },
 	{ url: "youtube.com/user/", desc: "Youtube Channel", cat: "Official" }
 ];
 
