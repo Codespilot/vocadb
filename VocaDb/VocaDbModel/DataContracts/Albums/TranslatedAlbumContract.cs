@@ -17,7 +17,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 			TranslatedArtistString = TranslatedStringWithDefault.Create(n => album.ArtistString[n]);
 
 			var names = album.Names.Select(n => new LocalizedStringWithId(n.Value, n.Language)).ToArray();
-			Names = new NameManager<LocalizedStringWithId> { Names = names };
+			Names = new NameManager<LocalizedStringWithId> {
+				Names = names, 
+				SortNames = new TranslatedString(album.Names.SortNames)
+			};
 
 		}
 
