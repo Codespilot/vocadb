@@ -89,7 +89,9 @@ namespace VocaDb.Model.Service.VideoServices {
 			XDocument doc;
 
 			try {
-				doc = XDocument.Load(response.GetResponseStream());
+				using (var stream = response.GetResponseStream()) {
+					doc = XDocument.Load(stream);
+				}
 			} catch (XmlException x) {
 				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);
 			}
