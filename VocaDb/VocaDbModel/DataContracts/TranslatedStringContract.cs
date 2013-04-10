@@ -4,7 +4,7 @@ using VocaDb.Model.Domain.Globalization;
 namespace VocaDb.Model.DataContracts {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class TranslatedStringContract {
+	public class TranslatedStringContract : ITranslatedString {
 
 		public TranslatedStringContract() {}
 

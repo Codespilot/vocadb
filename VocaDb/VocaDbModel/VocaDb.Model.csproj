@@ -270,6 +270,7 @@
     <Compile Include="Domain\EntryRef.cs" />
     <Compile Include="Domain\EntryReport.cs" />
     <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
+    <Compile Include="Domain\Globalization\ITranslatedString.cs" />
     <Compile Include="Domain\Globalization\SingleNameManager.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
     <Compile Include="Domain\IDeletableEntry.cs" />
