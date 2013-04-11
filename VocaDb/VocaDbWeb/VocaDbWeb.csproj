@@ -554,6 +554,7 @@
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
+    <Compile Include="Code\Security\StopForumSpamClient.cs" />
     <Compile Include="Code\Security\HostCollection.cs" />
     <Compile Include="Code\Security\IPRuleManager.cs" />
     <Compile Include="Code\Security\InMemoryTokenManager.cs" />
