@@ -271,21 +271,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteArtistForSong(int artistForSongId) {
 
-			Service.DeleteArtistForSong(artistForSongId);
-
 		}
-
-		/*
-		[Obsolete("Integrated to saving properties")]
-		public PartialViewResult CreatePVForSong(int songId, PVService service, string pvId, PVType type) {
-
-			ParamIs.NotNullOrEmpty(() => pvId);
-
-			var contract = Service.CreatePVForSong(songId, service, pvId, type);
-
-			return PartialView("PVForSongEditRow", contract);
-
-		}*/
 
 		[HttpPost]
 		public ActionResult CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {
@@ -306,8 +292,6 @@ namespace VocaDb.Web.Controllers
 		[Obsolete("Integrated to saving properties")]
 		[HttpPost]
 		public void DeletePVForSong(int pvForSongId) {
-
-			Service.DeletePvForSong(pvForSongId);
 
 		}
 

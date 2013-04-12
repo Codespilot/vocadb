@@ -106,54 +106,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Integrated to properties saving")]
-		public ArtistForSongContract AddArtist(int songId, int artistId) {
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var artist = session.Load<Artist>(artistId);
-				var song = session.Load<Song>(songId);
-
-				AuditLog(string.Format("linking {0} to {1}", 
-					EntryLinkFactory.CreateEntryLink(artist), EntryLinkFactory.CreateEntryLink(song)), session);
-
-				var artistForSong = artist.AddSong(song);
-				session.Save(artistForSong);
-
-				song.UpdateArtistString();
-				session.Update(song);
-
-				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
-		[Obsolete("Integrated to saving properties")]
-		public ArtistForSongContract AddArtist(int songId, string newArtistName) {
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-
-				AuditLog(string.Format("creating custom artist {0} to {1}", newArtistName, song), session);
-
-				var artistForSong = song.AddArtist(newArtistName, false, ArtistRoles.Default);
-				session.Save(artistForSong);
-
-				song.UpdateArtistString();
-				session.Update(song);
-
-				return new ArtistForSongContract(artistForSong, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
 		public void AddSongToList(int listId, int songId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
@@ -192,33 +144,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*
-		[Obsolete("Disabled")]
-		public SongContract Create(string name) {
-
-			ParamIs.NotNullOrWhiteSpace(() => name);
-
-			VerifyManageDatabase();
-
-			name = name.Trim();
-
-			return HandleTransaction(session => {
-
-				AuditLog("creating a new song with name " + name, session);
-
-				var song = new Song(name);
-
-				session.Save(song);
-
-				Archive(session, song, SongArchiveReason.Created);
-				session.Update(song);
-
-				return new SongContract(song, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
-
 		public CommentContract CreateComment(int songId, string message) {
 
 			ParamIs.NotNullOrEmpty(() => message);
@@ -244,75 +169,6 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-
-		/*
-		[Obsolete("Replaced by updating properties")]
-		public SongInAlbumContract CreateForAlbum(int albumId, string newSongName) {
-
-			ParamIs.NotNullOrWhiteSpace(() => newSongName);
-
-			VerifyManageDatabase();
-
-			newSongName = newSongName.Trim();
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-
-				AuditLog(string.Format("creating a new song '{0}' to {1}", newSongName, album), session);
-
-				var song = new Song(newSongName);
-				session.Save(song);
-
-				var songInAlbum = album.AddSong(song);
-				session.Save(songInAlbum);
-
-				Archive(session, song, SongArchiveReason.Created, string.Format("Created for album '{0}'", album.DefaultName));
-
-				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
-
-		/*
-		[Obsolete("Integrated to saving properties")]
-		public PVContract CreatePVForSong(int songId, PVService service, string pvId, PVType pvType) {
-
-			ParamIs.NotNullOrEmpty(() => pvId);
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-				AuditLog(string.Format("creating a PV for {0}", EntryLinkFactory.CreateEntryLink(song)), session);
-
-				var pv = song.CreatePV(service, pvId, pvType, string.Empty);
-				session.Save(pv);
-
-				if (service == PVService.NicoNicoDouga && pvType == PVType.Original) {
-					song.UpdateNicoId();
-					session.Update(song);
-				}
-
-				return new PVContract(pv);
-
-			});
-
-		}*/
-
-		/*
-		[Obsolete("Integrated to saving properties")]
-		public PVContract CreatePVForSong(int songId, string pvUrl, PVType pvType) {
-
-			ParamIs.NotNullOrEmpty(() => pvUrl);
-
-			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
-
-			return CreatePVForSong(songId, result.Service, result.Id, pvType);
-
-		}*/
 
 		public bool CreateReport(int songId, SongReportType reportType, string hostname, string notes) {
 
@@ -425,25 +281,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Integrating to saving properties")]
-		public void DeleteArtistForSong(int artistForSongId) {
-
-			VerifyManageDatabase();
-
-			HandleTransaction(session => {
-
-				var artistForSong = session.Load<ArtistForSong>(artistForSongId);
-
-				AuditLog("deleting " + artistForSong, session);
-
-				artistForSong.Song.DeleteArtistForSong(artistForSong);
-				session.Delete(artistForSong);
-				session.Update(artistForSong.Song);
-
-			});
-
-		}
-
 		public void DeleteComment(int commentId) {
 
 			HandleTransaction(session => {
@@ -458,26 +295,6 @@ namespace VocaDb.Model.Service {
 
 				comment.Song.Comments.Remove(comment);
 				session.Delete(comment);
-
-			});
-
-		}
-
-		[Obsolete("Integrated to saving properties")]
-		public void DeletePvForSong(int pvForSongId) {
-
-			VerifyManageDatabase();
-
-			HandleTransaction(session => {
-
-				var pvForSong = session.Load<PVForSong>(pvForSongId);
-
-				AuditLog("deleting " + pvForSong, session);
-
-				pvForSong.OnDelete();
-
-				session.Delete(pvForSong);
-				session.Update(pvForSong.Song);
 
 			});
 
