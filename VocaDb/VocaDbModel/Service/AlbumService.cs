@@ -107,6 +107,7 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
+				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				AuditLog(string.Format("adding custom artist '{0}' to {1}", newArtistName, CreateEntryLink(album)), session);
 
@@ -117,27 +118,6 @@ namespace VocaDb.Model.Service {
 				session.Update(album);
 
 				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
-		[Obsolete("Replaced by updating properties")]
-		public SongInAlbumContract AddSong(int albumId, int songId) {
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-				var song = session.Load<Song>(songId);
-
-				AuditLog(string.Format("adding {0} to {1}", song, album), session);
-
-				var songInAlbum = album.AddSong(song);
-				session.Save(songInAlbum);
-
-				return new SongInAlbumContract(songInAlbum, PermissionContext.LanguagePreference);
 
 			});
 
