@@ -1159,6 +1159,7 @@ namespace VocaDb.Model.Service {
 						diff.OriginalRelease = true;
 					}
 
+					NHibernateUtil.Initialize(album.CoverPictureData);
 					if (pictureData != null) {
 						album.CoverPictureData = new PictureData(pictureData);
 						diff.Cover = true;

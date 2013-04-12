@@ -721,6 +721,7 @@ namespace VocaDb.Model.Service {
 					diff.OriginalName = true;
 				}
 
+				NHibernateUtil.Initialize(artist.Picture);
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
 					diff.Picture = true;
