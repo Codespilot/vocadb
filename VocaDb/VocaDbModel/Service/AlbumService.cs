@@ -173,39 +173,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*
-		[Obsolete]
-		public ArtistForAlbumContract CreateForArtist(int artistId, string newAlbumName) {
-
-			ParamIs.NotNullOrWhiteSpace(() => newAlbumName);
-
-			VerifyManageDatabase();
-
-			newAlbumName = newAlbumName.Trim();
-
-			return HandleTransaction(session => {
-
-				var artist = session.Load<Artist>(artistId);
-				AuditLog(string.Format("creating a new album '{0}' for {1}", 
-					newAlbumName, EntryLinkFactory.CreateEntryLink(artist)), session);
-
-				var album = new Album(newAlbumName);
-
-				session.Save(album);
-				var artistForAlbum = artist.AddAlbum(album);
-				session.Update(artist);
-				session.Save(artistForAlbum);
-
-				album.UpdateArtistString();
-				Archive(session, album, AlbumArchiveReason.Created);
-				session.Update(album);
-
-				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
-
 		public CommentContract CreateComment(int albumId, string message) {
 
 			ParamIs.NotNullOrEmpty(() => message);
@@ -1050,6 +1017,7 @@ namespace VocaDb.Model.Service {
 				
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
 				var album = artistForAlbum.Album;
+				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				artistForAlbum.IsSupport = isSupport;
 				album.UpdateArtistString();
@@ -1070,6 +1038,7 @@ namespace VocaDb.Model.Service {
 
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
 				var album = artistForAlbum.Album;
+				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				artistForAlbum.Roles = roles;
 				album.UpdateArtistString();
