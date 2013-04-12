@@ -51,6 +51,8 @@ namespace VocaDb.Model.Service {
 
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
+				NHibernateUtil.Initialize(artist.Picture);
+				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				var hasAlbum = session.Query<ArtistForAlbum>().Any(a => a.Artist.Id == artistId && a.Album.Id == albumId);
 
@@ -130,34 +132,6 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-
-		/*
-		[Obsolete("Disabled")]
-		public ArtistContract Create(string name, IUserPermissionContext permissionContext) {
-
-			ParamIs.NotNullOrWhiteSpace(() => name);
-			ParamIs.NotNull(() => permissionContext);
-
-			VerifyManageDatabase();
-
-			name = name.Trim();
-
-			return HandleTransaction(session => {
-
-				AuditLog(string.Format("creating a new artist with name '{0}'", name), session);
-
-				var artist = new Artist(name);
-
-				session.Save(artist);
-
-				Archive(session, artist, ArtistArchiveReason.Created);
-				session.Update(artist);
-
-				return new ArtistContract(artist, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
 
 		public CommentContract CreateComment(int artistId, string message) {
 
