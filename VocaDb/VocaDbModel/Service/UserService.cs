@@ -819,6 +819,7 @@ namespace VocaDb.Model.Service {
 					AuditLog(string.Format("deleting {0} for {1}", 
 						CreateEntryLink(albumForUser.Album), albumForUser.User), session);
 
+					NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
 					albumForUser.Delete();
 					session.Delete(albumForUser);
 					session.Update(albumForUser.Album);
@@ -829,6 +830,7 @@ namespace VocaDb.Model.Service {
 					var user = session.Load<User>(userId);
 					var album = session.Load<Album>(albumId);
 
+					NHibernateUtil.Initialize(album.CoverPictureData);
 					albumForUser = user.AddAlbum(album, status, mediaType, rating);
 					session.Save(albumForUser);
 					session.Update(album);
@@ -845,6 +847,7 @@ namespace VocaDb.Model.Service {
 					if (albumForUser.Rating != rating) {
 						albumForUser.Rating = rating;
 						albumForUser.Album.UpdateRatingTotals();
+						NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
 						session.Update(albumForUser.Album);
 					}
 
@@ -872,6 +875,7 @@ namespace VocaDb.Model.Service {
 			HandleTransaction(session => {
 
 				var albumForUser = session.Load<AlbumForUser>(albumForUserId);
+				NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
 
 				albumForUser.Rating = rating;
 				albumForUser.Album.UpdateRatingTotals();
