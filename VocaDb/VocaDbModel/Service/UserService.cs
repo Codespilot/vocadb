@@ -549,7 +549,11 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var user = session.Query<User>().First(u => u.Name.Equals(name));
+				var user = session.Query<User>().FirstOrDefault(u => u.Name.Equals(name));
+
+				if (user == null)
+					return null;
+
 				var contract = new UserContract(user);
 
 				contract.HasUnreadMessages = (!skipMessages && session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Id == user.Id));
