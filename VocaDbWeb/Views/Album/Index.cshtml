@@ -1,0 +1,139 @@
+﻿@using VocaDb.Model.Service
+@using VocaDb.Web.Helpers;
+@using PagedList.Mvc;
+@using VocaDb.Web.Models.Album
+@using R = ViewRes.Album;
+@model VocaDb.Web.Models.Album.Index
+@{
+	ViewBag.Title = @ViewRes.SharedStrings.Albums;
+}
+
+@section Toolbar {
+	@Html.ActionLink(ViewRes.Album.IndexStrings.AddAlbum, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@if (Login.CanDeleteEntries) {
+		@Html.Raw("&nbsp")
+		@Html.ActionLink(ViewRes.EntryIndexStrings.ManageDeleted, "Deleted", null, new { id = "manageDeletedLink" })
+	}
+}
+
+@if (Model.DraftsOnly) {
+	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
+}
+
+<div class="row-fluid">
+	
+	<div class="span3">
+		<form>
+			<div>
+				@ViewRes.EntryIndexStrings.SortBy
+				<div class="btn-group">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.AlbumSortRuleNames[Model.Sort]
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						@foreach (var sortRule in Translate.AlbumSortRuleNames.ValuesAndNames) {
+							<li>@Html.ActionLink(sortRule.Value, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = sortRule.Key })</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</div>
+
+@using (Html.BeginForm("Index", "Album", FormMethod.Post, new { @class = "form-inline" })) {
+	@Html.HiddenFor(m => m.Sort)
+	
+<p>
+	@ViewRes.SharedStrings.Filter: 
+	@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-placement", "top" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint } }) 
+	&nbsp;
+	@Html.DiscTypeDropDownListFor(m => m.DiscType)
+	&nbsp;
+	<label class="checkbox">
+		@Html.CheckBoxFor(m => m.DraftsOnly)
+		@ViewRes.EntryIndexStrings.OnlyDrafts
+	</label>
+	&nbsp;
+	<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
+</p>
+
+	if (Model.Albums.Any()) {
+	
+<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Albums.TotalItemCount)</p>
+	
+@Html.PagedListPager(Model.Albums, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+
+if (Model.View == EntryViewMode.Details) {
+	
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.AlbumSortRule.Name })</th>
+			<th>@Html.ActionLink(R.IndexStrings.ReleaseDate, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage })</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+	  @foreach (var album in Model.Albums) {
+				<tr>
+					<td>
+						@AlbumHelpers.AlbumIconLink(album)
+					</td>
+					<td>
+						@Helpers.DraftIcon(album)
+						@AlbumHelpers.DetailsLink(album)<br />
+						<small class="extraInfo">@album.ArtistString</small><br />
+						<small class="extraInfo">@Translate.DiscTypeName(album.DiscType)</small>
+					</td>
+					<td>
+						@if (!album.ReleaseDate.IsEmpty) {
+							<span>
+								@HelperRes.AlbumHelpersStrings.Released @album.ReleaseDate.Formatted
+								@if (!string.IsNullOrEmpty(album.ReleaseEvent)) {
+									<br />
+									@Html.ActionLink(album.ReleaseEvent, "Find", "Event", new { query = album.ReleaseEvent }, null)
+		}
+							</span>
+	  }				
+					</td>
+					<td>
+						@if (album.RatingCount > 0) {
+							@Helpers.Stars(album.RatingAverage, 5)
+							<br /> 
+							@album.RatingCount @R.IndexStrings.Times
+	  }
+					</td>
+					<td>
+						@if (Login.CanEdit(album)) {
+							@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = album.Id }, new { @class = "textLink editLink" })
+	  }
+					</td>
+				</tr>
+	  }
+
+	</tbody>
+</table>
+
+  } else {
+	<div id="albums" style="display: block">
+			@AlbumHelpers.AlbumThumbs(Model.Albums)
+	</div>
+  }
+  	  
+	@Html.PagedListPager(Model.Albums, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+	}
+
+}
+@if (!Model.Albums.Any()) {
+
+	<p>@ViewRes.EntryIndexStrings.NoResults</p>
+	@Helpers.GoogleSiteSearch()
+
+}
+
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Index.js")"></script>
+}

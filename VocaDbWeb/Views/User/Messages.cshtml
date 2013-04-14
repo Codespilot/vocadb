@@ -1,0 +1,100 @@
+﻿@using R = ViewRes.User;
+@model VocaDb.Model.DataContracts.Users.UserWithMessagesContract
+
+@{
+    ViewBag.Title = R.MessagesStrings.Messages;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
+	};		
+}
+
+@Helpers.ValidationSymmaryPanel(R.MessagesStrings.MessageSendError)
+
+<div id="viewMessage" style="display:none;">
+
+</div>
+
+<div id="tabs">
+
+	<ul>
+		<li><a href="#receivedTab">@R.MessagesStrings.Received</a></li>
+		<li><a href="#sentTab">@R.MessagesStrings.Sent</a></li>
+		<li><a href="#composeTab">@R.MessagesStrings.Compose</a></li>
+	</ul>
+
+	<div id="receivedTab">
+		<table class="table messages">
+			<thead>
+				<tr>
+					<th>@R.MessagesStrings.Date</th>
+					<th>@R.MessagesStrings.From</th>
+					<th>@R.MessagesStrings.Subject</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var message in Model.ReceivedMessages) {
+				<tr id="@("viewFromMessage_" + message.Id)">
+					<td>@message.Created</td>
+					<td>@UserHelpers.IconAndName(message.Sender)</td>
+					<td>
+						@if (message.HighPriority) {
+							@Helpers.NotificationIcon();
+							<text>&nbsp;</text>
+						}
+						@if (!message.Read) {
+							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
+						}
+
+						@message.Subject
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+
+	<div id="sentTab">
+		<table class="table messages">
+			<thead>
+				<tr>
+					<th>@R.MessagesStrings.Date</th>
+					<th>@R.MessagesStrings.To</th>
+					<th>@R.MessagesStrings.Subject</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var message in Model.SentMessages) {
+				<tr id="@("viewToMessage_" + message.Id)">
+					<td>@message.Created</td>
+					<td>@UserHelpers.IconAndName(message.Receiver)</td>
+					<td>
+						<div>
+							@if (message.HighPriority) {
+								@Helpers.NotificationIcon();
+								<text>&nbsp;</text>
+							}
+
+							@message.Subject
+						</div>
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+
+	<div id="composeTab">
+		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage(Model.ReceiverName)); }
+	</div>
+
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/User/Messages.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id);
+	});
+
+</script>

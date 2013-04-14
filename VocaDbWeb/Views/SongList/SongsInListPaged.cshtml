@@ -1,0 +1,39 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Songs.SongInListContract>
+
+<div class="pager">
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("totalCount", Model.Items.TotalItemCount))
+</div>
+
+<div class="tracklist">
+	<ul>
+		@foreach (var link in Model.Items) {
+			<li>
+				<div class="songListItem">
+				@if (!string.IsNullOrEmpty(link.Song.ThumbUrl)) {
+					<div class="thumbnail">
+						@SongHelpers.SongIconLink(link.Song)
+					</div>
+				}				
+
+				@link.Order.
+				@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, new { title = link.Song.AdditionalNames })
+				&nbsp;
+				@Helpers.DraftIcon(link.Song.Status)
+				@Helpers.PVServiceIcons(link.Song.PVServices)
+				(@Translate.SongTypeNames[link.Song.SongType])
+				@if (!string.IsNullOrEmpty(link.Notes)) {
+					<text>&nbsp;</text>
+					<text>(</text>@link.Notes<text>)</text>
+	}
+				<br />
+				<span class="extraInfo">@link.Song.ArtistString</span>
+				</div>
+			</li>
+  }
+	</ul>
+</div>
+
+<div class="pager">
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("totalCount", Model.Items.TotalItemCount))
+</div>

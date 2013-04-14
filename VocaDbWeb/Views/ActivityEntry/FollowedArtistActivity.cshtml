@@ -1,0 +1,9 @@
+﻿@model VocaDb.Model.DataContracts.Activityfeed.ActivityEntryContract[]
+
+@{
+    ViewBag.Title = "New activity by followed artists";
+}
+
+@foreach (var entry in Model) {
+	@ActivityfeedHelpers.ActivityEntry(entry);
+}

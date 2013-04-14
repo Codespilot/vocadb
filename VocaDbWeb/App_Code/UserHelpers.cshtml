@@ -1,0 +1,128 @@
+﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc.Html;
+@using Microsoft.Web.Helpers
+@using VocaDb.Model.DataContracts.Users;
+@using VocaDb.Model.Domain.Users
+@using VocaDb.Web.Helpers
+
+@helper IconAndName(UserBaseContract user, int size = 20) {
+	@ProfileIcon(user, size)
+	<span>@user.Name</span>
+}
+
+@helper IconAndName(UserBaseContract user, string name, int size = 20) {
+	if (user != null) {	
+		@IconAndName(user, size)
+	} else {
+		@name
+	}
+}
+
+@helper ProfileIcon(UserBaseContract user, int size = 80) {
+	if (user != null && !string.IsNullOrEmpty(user.Email)) {
+		<div style="width: @(size)px; height: @(size)px; display: inline-block">
+			@Gravatar.GetHtml(user.Email, size)
+		</div>
+	}
+}
+
+@helper UserGrid(IEnumerable<UserBaseContract> users, int columns) {
+	
+	<table>
+		@{ int i = 0; }
+	
+		@foreach (var user in users) {
+			if (i % columns == 0) {
+				@Html.Raw("<tr>")
+			}
+			<td>
+				@ProfileIcon(user, 20)
+			</td>
+			<td>
+				@UserLink(user)
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+	</table>
+			
+}
+
+@helper UserIconLink(UserBaseContract user, int size = 20) {	
+	<a href="@Url.Action("Profile", "User", new { id = user.Name })">
+		@ProfileIcon(user, size)
+		<span>@user.Name</span>
+	</a>
+}
+
+@helper UserIconLink(UserBaseContract user, string name, int size = 20) {
+	if	(user != null) {
+		@UserIconLink(user, size)
+	} else {
+		@name	
+	}
+}
+
+@helper UserLink(UserBaseContract user) {
+	@Html.ActionLink(user.Name, "Profile", "User", new { id = user.Name }, null)
+}
+
+@helper UserLink(UserBaseContract user, string name) {
+	if (user != null) {
+		@UserLink(user)	
+	} else {
+		@name		
+	}
+}
+
+@helper UserTable(IEnumerable<UserContract> users, UserGroupId groupId, string name) {
+
+    <table class="table table-striped">
+	    <thead>
+		    <tr>
+			    <th colspan="2">
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserName, "Index", "User", new { GroupId = groupId, Name = name, sort = VocaDb.Model.Service.UserSortRule.Name }, null)
+			    </th>
+			    <th>
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.MemberSince, "Index", "User", new { GroupId = groupId, Name = name, sort = VocaDb.Model.Service.UserSortRule.RegisterDate }, null)
+			    </th>
+			    <th>
+			        @Html.ActionLink(ViewRes.User.DetailsStrings.UserGroup, "Index", "User", new { GroupId = groupId, Name = name, sort = VocaDb.Model.Service.UserSortRule.Group }, null)
+			    </th>
+			    <th></th>
+		    </tr>
+	    </thead>
+	    <tbody>
+	    @foreach (var user in users) {
+		    <tr>
+			    <td>
+				    <a href="@Url.Action("Details", "User", new { id = user.Id })">
+					    @ProfileIcon(user)					
+				    </a>
+			    </td>
+			    <td>
+				    @UserLink(user)
+			    </td>
+			    <td>
+				    @user.CreateDate
+			    </td>
+			    <td>
+				    @Translate.UserGroups[user.GroupId]
+			    </td>
+			    <td>
+				    @if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.ManageUserPermissions)) {
+					    <text>&nbsp;</text>
+					    @Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", "User", new { id = user.Id }, new { @class = "textLink editLink" });	
+				    }
+			    </td>
+		    </tr>
+	    }
+	    </tbody>
+    </table>    
+        
+}

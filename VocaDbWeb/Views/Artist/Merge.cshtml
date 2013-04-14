@@ -1,0 +1,40 @@
+﻿@model  VocaDb.Model.DataContracts.Artists.ArtistContract
+
+@{
+    ViewBag.Title = "Merge artist - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Artists", "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }),
+		Html.ActionLink("Edit", "Edit", new { id = Model.Id }),
+	};	
+}
+
+@using (Html.BeginForm()) {
+
+	<div class="alert alert-info">
+		Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.
+	</div>
+
+	<input type="hidden" name="targetArtistId" id="targetArtistId" />
+
+	<br />
+	<div id="targetArtist">		
+	</div><br />
+	
+	@Helpers.EntrySearchNameBox("artistName")
+	
+	<br /><br />
+			
+	<button type="submit" class="btn btn-primary" id="mergeBtn">Merge</button>
+	
+}
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Merge.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id);
+	});
+
+</script>

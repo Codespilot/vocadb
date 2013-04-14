@@ -1,0 +1,333 @@
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Domain.Security
+@using VocaDb.Model.Domain.Songs
+@using VocaDb.Model.Helpers
+@using VocaDb.Model.Utils
+@using VocaDb.Web.Helpers;
+@using VocaDb.Web.Models;
+@using R = ViewRes.Album;
+@model AlbumDetails
+		   
+@{
+	ViewBag.Title = Model.Name;
+	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.DiscTypeName(Model.DiscType) + ")";
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
+}
+
+@section Head {
+	<link rel="canonical" href="@VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id }))" />	
+	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
+}
+
+@section Toolbar {
+
+<a href="#" id="addAlbumLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.UserHasAlbum ? "display: none;" : "")">@ViewRes.Album.DetailsStrings.AddToCollection</a>
+<a href="#" id="updateAlbumLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.UserHasAlbum ? "" : "display: none;")">@ViewRes.Album.DetailsStrings.UpdateCollection</a>
+	
+@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editAlbumLink", @class = (Model.CanEdit ? "" : "disabled") })
+
+@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
+@Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
+
+<a href="#" id="reportEntryLink">@ViewRes.EntryDetailsStrings.ReportAnError</a>
+
+@Helpers.EntryStatusMessage(Model.Status)
+}
+
+@if (Model.Deleted) {
+	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)<br />
+}
+
+@if (Model.Draft && !Model.Deleted) {
+	@Helpers.DraftMessage("glalbums")
+}
+
+<div id="tabs" itemscope itemtype="http://schema.org/MusicAlbum">
+    
+	<ul>
+		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
+		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
+		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@(Model.Pictures.Length + 1))</a></li>
+	</ul>
+
+	<div id="basicInfoTab">
+
+		<table class="properties">
+			<tr>
+				<td rowspan="16">
+					<div id="picCarousel" class="carousel slide">
+						<div class="carousel-inner">
+							<div class="active item thumbItem">
+								@AlbumHelpers.CoverLink(Model.Id)
+							</div>
+							@foreach (var pic in Model.Pictures) {
+								<div class="item thumbItem" itemprop="image">
+									@Helpers.EntryPictureFileLink(pic)
+									@if (!string.IsNullOrEmpty(pic.Name)) {
+										<div class="carousel-caption">
+											<h4>@pic.Name</h4>
+										</div>
+		 }
+								</div>
+	   }
+						</div>
+						@if (Model.Pictures.Any()) {
+							<a class="carousel-control left" href="#picCarousel" data-slide="prev">&lsaquo;</a>
+							<a class="carousel-control right" href="#picCarousel" data-slide="next">&rsaquo;</a>
+	  }
+					</div>					
+					
+					@if (Model.RatingCount > 0) {
+                        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            <meta itemprop="ratingValue" content="@Model.RatingAverage" />
+						    @Helpers.StarsMeta(Model.RatingAverage, 5)<br />
+						    (<span itemprop="ratingCount">@Model.RatingCount</span> @ViewRes.Album.DetailsStrings.Ratings)
+                        </div>
+	                }
+				</td>
+				<td>@ViewRes.SharedStrings.Name</td>
+				<td itemprop="name">
+					@Model.Name<br />
+					<span class="extraInfo">@Model.AdditionalNames</span>
+				</td>
+			</tr>
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.Vocalists</td>
+				<td class="artistList">
+					@ArtistHelpers.ArtistList(Model.Vocalists)
+				</td>
+			</tr>
+
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.Producers</td>
+				<td class="artistList">
+					@ArtistHelpers.ArtistList(Model.Producers)
+				</td>
+			</tr>
+
+			@if (Model.Circles.Any()) {
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.Circle</td>
+				<td class="artistList">
+					@ArtistHelpers.ArtistList(Model.Circles)
+				</td>
+			</tr>
+   }
+
+			@if (Model.Labels.Any()) {
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.Labels</td>
+				<td class="artistList">
+					@ArtistHelpers.ArtistList(Model.Labels)
+				</td>
+			</tr>
+   }
+
+			@if (Model.OtherArtists.Any()) {
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.OtherArtists</td>
+				<td class="artistList">
+					@ArtistHelpers.ArtistList(Model.OtherArtists, true)
+				</td>
+			</tr>
+   }
+
+			@if (!string.IsNullOrEmpty(Model.Description)) {
+			<tr>
+				<td>@ViewRes.SharedStrings.Description</td>
+				<td>
+					@Helpers.ConvertNewlinesToBreaks(Model.Description)
+				</td>	
+			</tr>
+   }
+
+			<tr>
+				<td>@ViewRes.SharedStrings.Type</td>
+				<td>
+					@Html.ActionLink(Translate.DiscTypeName(Model.DiscType), "Index", new { discType = Model.DiscType })<br />
+				</td>	
+			</tr>
+
+			<tr>
+				<td>@ViewRes.SharedStrings.Tags</td>
+				<td>
+					<span id="tagList">
+						@{ Html.RenderPartial("TagList", Model.Tags); }
+					</span>
+					<a href="#" id="editTags" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.EntryDetailsStrings.EditTags</a>
+					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
+						@Html.ActionLink(ViewRes.EntryDetailsStrings.ManageTags, "ManageTagUsages", new { id = Model.Id }, new { id = "manageTags" })
+                    }
+				</td>
+			</tr>
+
+			@if (Model.ReleaseDate != null && !Model.ReleaseDate.IsEmpty) {
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.ReleaseDate</td>
+				<td>
+					@Model.ReleaseDate.Formatted<br />
+				</td>	
+			</tr>
+   }
+
+		@if (!string.IsNullOrEmpty(Model.CatNum)) {
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.CatalogNumber</td>
+				<td>
+					@Model.CatNum<br />
+				</td>	
+			</tr>
+  }
+
+		@if (!string.IsNullOrEmpty(Model.ReleaseEvent)) {
+			<tr>
+				<td>@ViewRes.Album.DetailsStrings.ReleaseEvent</td>
+				<td>
+					@Html.ActionLink(Model.ReleaseEvent, "Find", "Event", new { query = Model.ReleaseEvent }, null)<br />
+				</td>	
+			</tr>
+  }
+
+		@if (Model.PVs.Any()) {
+		<tr>
+			<td>@ViewRes.Album.DetailsStrings.PVs</td>
+			<td>
+				@foreach (var pv in Model.PVs) {
+					@Helpers.FormatPVLink(pv, false)<br />
+	}			
+			</td>
+		</tr>
+  }
+
+		@EntryDetailsHelpers.ExternalLinksRows(Model.WebLinks)
+  
+			<tr>
+				<td>@ViewRes.EntryDetailsStrings.Stats</td>
+				<td>
+					<a href="#" id="statsLink" data-bind="click: getUsers">
+						@Model.Hits @ViewRes.EntryDetailsStrings.Hits. 
+						@string.Format(R.DetailsStrings.OwnedBy, Model.OwnedBy). @string.Format(R.DetailsStrings.WishlistedBy, Model.WishlistedBy).
+					</a>
+				</td>
+			</tr>
+
+			<tr>
+				<td>@ViewRes.EntryDetailsStrings.AdditionDate</td>
+				<td>
+					@Model.CreateDate
+				</td>	
+			</tr>
+		</table>
+
+		<table>
+			<tr>
+				@if (Model.PrimaryPV != null) {
+				<td>
+					@Helpers.EmbedPVThumb(Model.PrimaryPV, 250, 220)
+				</td>
+	}
+
+				<td>
+			
+					<h3>@ViewRes.Album.DetailsStrings.Tracklist</h3>
+					<div class="tracklist">
+						@foreach (var disc in Model.Songs) {
+		  if (Model.Songs.Count() > 1) {
+								<h4>@R.DetailsStrings.Disc @disc.Key</h4>
+		  }
+					<ul>
+						@foreach (var song in disc) {
+							<li>
+								@song.TrackNumber
+								.&nbsp;
+								@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
+								&nbsp;
+								@Helpers.DraftIcon(song.Song.Status)
+								@Helpers.PVServiceIcons(song.Song.PVServices)
+                                @if (song.Song.SongType != SongType.Original && song.Song.SongType != SongType.Unspecified) {
+                                    @("(")@Translate.SongTypeNames[song.Song.SongType]@(")")
+                                }
+								<br />
+								<span class="extraInfo">@song.Song.ArtistString</span>
+							</li>
+	  }
+					</ul>
+	  }
+
+					</div>
+				
+					@if (!Model.Songs.Any()) {
+						<p>@ViewRes.Album.DetailsStrings.NoTracklist</p>
+	 }
+				</td>
+			</tr>
+		</table>
+
+		<br />
+		<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
+		
+		@if (Model.LatestComments.Any()) {
+
+	  foreach (var comment in Model.LatestComments) {
+				@Helpers.PrintComment(comment, false);
+	  }
+
+  } else {
+	  
+			<p>@ViewRes.EntryDetailsStrings.NoComments</p>
+	  
+  }
+		
+		<p>
+			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>
+		</p>
+
+	</div>
+
+	<div id="Discussion">
+	</div>
+	
+	<div id="picturesTab">
+		
+		<ul class="thumbs">
+			@Helpers.ThumbItem(Url.Action("CoverPicture", "Album", new { id = Model.Id }),
+				Url.Action("CoverPictureThumb", "Album", new { id = Model.Id }), 
+				ViewRes.Album.DetailsStrings.CoverPicture)
+			@foreach (var pic in Model.Pictures) {
+			   @Helpers.ThumbItem(ImageHelper.GetImageUrl(pic), ImageHelper.GetImageUrlThumb(pic), pic.Name)
+			}
+		</ul>
+		
+	</div>
+
+</div>
+
+<div id="editTagsPopup" style="display:none;" title="@ViewRes.SharedStrings.Tags">
+
+	<input type="hidden" id="editTagsAlbumId" />
+
+	<div id="editTagsContent"></div>
+
+</div>
+
+<div id="userCollectionsPopup" title="@R.DetailsStrings.AlbumInCollections">
+	
+	<div data-bind="html: usersContent"></div>
+
+</div>
+
+@AlbumHelpers.EditCollectionDialog(Model.AlbumPurchaseStatus, Model.AlbumMediaType)
+
+@EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.AlbumReportTypeNames, new { id = "reportType" }))
+
+@section BodyScripts {
+	@Scripts.Render("~/bundles/Shared/ReportEntryPopup", "~/bundles/Album/Details", "~/bundles/jqxRating")
+	<script type="text/javascript">
+		
+		$(document).ready(function() { 
+			initPage(@Model.Id, @Model.CollectionRating, 
+				"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+		});
+		
+	</script>
+}

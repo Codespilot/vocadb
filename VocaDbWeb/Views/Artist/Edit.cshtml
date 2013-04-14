@@ -1,0 +1,174 @@
+﻿@using VocaDb.Model.Helpers
+@using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Artists;
+@model  VocaDb.Web.Models.ArtistEdit
+@{
+	ViewBag.Title = "Edit artist - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Artists", "Index"), 
+		LinkExtensions.ActionLink(Html, Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+@section Toolbar {
+@if (Login.CanDeleteEntries) {
+	if (!Model.Deleted) {
+		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this artist?\");" })
+	} else {
+		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })		
+	}
+}
+@if (Login.CanMergeEntries) {
+	@Html.ActionLink("Merge", "Merge", new { id = Model.Id }, new { id = "mergeLink" })
+}
+}
+
+@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glproducers")
+
+@Helpers.ValidationSymmaryPanel("Unable to save")
+
+<br />
+@using (Html.BeginForm("EditBasicDetails", "Artist", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenFor(m => m.Name)
+	@Html.HiddenFor(m => m.TooManyAlbums)
+
+	@Helpers.SaveBtn()
+	
+	<div id="tabs">
+
+		<ul>
+			<li><a href="#basicInfoTab">Basic info</a></li>
+			<li><a href="#picsTab">Pictures</a></li>
+		</ul>
+
+		<div id="basicInfoTab">
+			<div>
+				<div class="editor-label">
+					@Html.LabelFor(m => m.DefaultLanguageSelection)
+				</div>
+				<div class="editor-field">
+					@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
+				</div>
+
+				<div class="editor-label">
+					<label>
+						Primary name (in one or more languages)
+						@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)
+					</label>
+					
+				</div>
+				<div class="editor-field">
+					@Html.EditorFor(m => m.Names)
+				</div>
+
+				<div class="editor-label">
+					<label>Picture</label>
+				</div>
+				<div class="editor-field">
+					<table>
+						<tr>
+							<td>
+								<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="Artist picture" class="coverPic" />					
+							</td><td>
+								<p>Allowed types: @string.Join(", ", ImageHelper.AllowedExtensions) . Maximum size is @ImageHelper.MaxImageSizeMB MB.</p>
+								<input type="file" id="pictureUpload" name="pictureUpload" />					
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(m => m.Description)
+				</div>
+				<div class="editor-field">
+					@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span4" })
+				</div>
+
+				<div class="editor-label">
+					@Html.LabelFor(m => m.ArtistType)
+				</div>
+				<div class="editor-field">
+					@Html.DropDownListFor(m => m.ArtistType, new SelectList(Model.AllArtistTypes, "Key", "Value"))
+				</div>
+
+				@if (Model.ArtistType != ArtistType.Circle && Model.ArtistType != ArtistType.Label) {
+					<div class="editor-label">
+						@Html.LabelFor(m => m.Groups)
+					</div>
+					<div class="editor-field">
+						<table>
+							<tbody id="groupTableBody">
+							@foreach (var grp in Model.Groups) {
+		   Html.RenderPartial("GroupForArtistEditRow", grp);
+	   }
+							</tbody>
+						</table>
+						
+						@Helpers.EntrySearchNameBox("groupAddName")
+					</div>
+	}
+			
+				<div class="editor-label">
+					<label>
+					    @Html.DisplayNameFor(m => m.WebLinks)
+    				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
+                    </label>
+				</div>
+				<div class="editor-field">
+					@Helpers.WebLinksList(Model.WebLinks)
+				</div>
+
+				<div class="editor-label">
+					<label>
+					    @Html.DisplayNameFor(m => m.Status)
+					    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
+                    </label>
+				</div>
+				<div class="editor-field">
+					@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+				</div>
+
+			</div>
+		</div>
+		
+		<div id="picsTab">
+			
+			<p>Please only upload pictures relevant to this artist, nothing else.</p>
+			<p>Allowed types: @string.Join(", ", ImageHelper.AllowedExtensions) . Maximum size is @ImageHelper.MaxImageSizeMB MB.</p>
+
+			<table>
+				<tbody id="picturesTableBody">
+					@foreach (var pic in Model.Pictures) {
+						Html.RenderPartialTyped("EntryPictureFileEditRow", pic);
+					}
+				</tbody>
+			</table>
+			
+			<a href="#" id="picAdd" class="addLink textLink">Create new</a>
+
+		</div>
+
+	</div>
+	<br />
+	
+	<p>Update notes (optional)</p>
+	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xlarge" })	
+	
+	<br />	
+	@Helpers.SaveBtn()
+
+}
+
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Edit.js")"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id); 
+	});
+
+</script>
+}

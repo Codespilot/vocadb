@@ -1,0 +1,92 @@
+﻿@using R = ViewRes.Tag;
+@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Tags.TagDetailsContract
+
+@{
+    ViewBag.Title = R.DetailsStrings.TagDetails + " - " + Model.Name;
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Tags, "Index") };	
+}
+
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#tabs").tabs({ load: function (event, ui) { vdb.functions.disableTabReload(ui.tab); } });
+		$("#editTagLink").button({ disabled: $("#editTagLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
+		$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
+	});
+
+</script>
+}
+
+@section Toolbar {
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Name }, new { id = "viewVersions" })
+}
+
+<div id="tabs">
+
+	<ul>
+		<li><a href="#overviewTab">@R.DetailsStrings.Overview</a></li>
+		<!-- Can't remove tabs because the ID would change -->
+		<li style="@(Model.Artists.Any() ? "" : "display: none;")"><a href="@Url.Action("ArtistTagUsages", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
+		<li style="@(Model.Albums.Any() ? "" : "display: none;")"><a href="@Url.Action("AlbumTagUsages", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
+		<li style="@(Model.Songs.Any() ? "" : "display: none;")"><a href="@Url.Action("SongTagUsages", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
+	</ul>
+
+	<div id="overviewTab">
+
+		@if (Model.Description != string.Empty) {
+		<p>@HtmlHelpers.FormatText(Model.Description)</p>
+		}
+
+		@if (Model.CategoryName != string.Empty){
+		<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
+		}
+		
+		@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
+		<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
+		}
+		
+		@if (Model.Aliases.Any()) {
+			<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>			
+		}
+
+		@if (Model.Artists.Any()) {
+			<br />
+			<h3>@R.DetailsStrings.TopArtists</h3>
+			@ArtistHelpers.ArtistGrid(Model.Artists.Select(a => a), 2, true)
+		}
+
+		@if (Model.Albums.Any()) {
+			<br />
+			<h3>@R.DetailsStrings.TopAlbums</h3>
+			@AlbumHelpers.AlbumGrid(Model.Albums.Select(a => a), 2, false, false, true)
+		}
+
+		@if (Model.Songs.Any()) {
+			<br />
+			<h3>@R.DetailsStrings.TopSongs</h3>
+			@SongHelpers.SongGrid(Model.Songs.Select(s => s), 2, true)			
+		}
+
+	</div>
+    
+    @if (Model.Artists.Any()) {
+	<div id="Artists">
+	</div>
+    }
+    
+    @if (Model.Albums.Any()) {
+	<div id="Albums">
+	</div>
+    }
+    
+    @if (Model.Songs.Any()) {
+	<div id="Songs">
+	</div>
+    }
+
+</div>
