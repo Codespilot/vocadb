@@ -64,6 +64,7 @@ namespace VocaDb.Model.Service.Search.Artists {
 			var sortRule = queryParams.SortRule;
 			var start = queryParams.Paging.Start;
 			var maxResults = queryParams.Paging.MaxEntries;
+			var nameMatchMode = queryParams.Common.NameMatchMode;
 
 			string originalQuery = query;
 
@@ -113,6 +114,30 @@ namespace VocaDb.Model.Service.Search.Artists {
 				var direct = directQ
 					.ToArray();
 
+				Artist[] exactResults;
+
+				if (queryParams.Common.MoveExactToTop && nameMatchMode != NameMatchMode.StartsWith && nameMatchMode != NameMatchMode.Exact) {
+					
+					var exactQ = session.Query<ArtistName>()
+						.Where(m => !m.Artist.Deleted);
+
+					if (draftsOnly)
+						exactQ = exactQ.Where(a => a.Artist.Status == EntryStatus.Draft);
+
+					exactQ = exactQ.FilterByArtistName(query, null, NameMatchMode.StartsWith);
+
+					exactQ = exactQ.FilterByArtistType(artistTypes);
+
+					exactResults = AddOrder(exactQ
+						.Select(m => m.Artist), sortRule, LanguagePreference)
+						.Distinct()
+						.Take(maxResults)
+						.ToArray();
+				
+				} else {
+					exactResults = new Artist[] {};
+				}
+
 				var additionalNamesQ = session.Query<ArtistName>()
 					.Where(m => !m.Artist.Deleted);
 
@@ -126,34 +151,18 @@ namespace VocaDb.Model.Service.Search.Artists {
 				var additionalNames = AddOrder(additionalNamesQ
 					.Select(m => m.Artist), sortRule, LanguagePreference)
 					.Distinct()
-					.Take(maxResults)
+					.Take(maxResults)	// Note that this won't work with paging
 					//.FetchMany(s => s.Names)
-					.ToArray()
-					.Where(a => !direct.Contains(a));
+					.ToArray();
 
-				var entries = direct.Concat(additionalNames)
+				var entries = exactResults.Union(direct.Union(additionalNames))
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
 
-				bool foundExactMatch = false;
-
-				if (queryParams.Common.MoveExactToTop) {
-
-					var exactMatch = entries
-						.Where(e => e.Names.Any(n => n.Value.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)))
-						.ToArray();
-
-					if (exactMatch.Any()) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
-						foundExactMatch = true;
-					}
-
-				}
-
 				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
 
-				return new PartialFindResult<Artist>(entries.ToArray(), count, originalQuery, foundExactMatch);
+				return new PartialFindResult<Artist>(entries.ToArray(), count, originalQuery, exactResults.Any());
 
 			}
 
