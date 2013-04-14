@@ -1,0 +1,128 @@
+﻿@using System.Web.Mvc.Html;
+@using VocaDb.Model.DataContracts.Albums;
+@using VocaDb.Model.DataContracts.Artists;
+@using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Model.DataContracts.Tags
+@using VocaDb.Model.Domain
+@using VocaDb.Model.Domain.Security
+@using VocaDb.Web.Helpers
+@inherits VocaDb.Web.Code.HelperPage
+
+@helper AlbumTagUsages(IEnumerable<AlbumTagUsageContract> links, 
+	Func<AlbumWithAdditionalNamesContract, string> extraData = null) {
+
+	<div class="tracklist">
+		<ul>
+		@foreach (var link in links) {
+			<li>
+				<div class="albumListItem">
+					<div class="thumbnail">
+						@AlbumHelpers.AlbumIconLink(link.Album)
+					</div>
+					@Html.ActionLink(link.Album.Name, "Details", "Album", new { id = link.Album.Id }, null)
+					@(" (" + Translate.DiscTypeName(link.Album.DiscType) + ")")
+					@(" (" + link.Count + ")")
+					@if (extraData != null) {
+						@extraData(link.Album)
+					}
+					<br />
+					<span class="extraInfo">@link.Album.ArtistString</span>
+				</div>
+			</li>
+	 }
+		</ul>
+	</div>
+	
+}
+
+@helper ArtistTagUsages(IEnumerable<ArtistTagUsageContract> links, 
+	Func<ArtistWithAdditionalNamesContract, string> extraData = null) {
+
+	<div class="tracklist">
+		<ul>
+		@foreach (var link in links) {
+			<li>
+				<div class="albumListItem">
+					<div class="thumbnail">
+						@ArtistHelpers.ArtistIconLink(link.Artist)
+					</div>
+					@Html.ActionLink(link.Artist.Name, "Details", "Artist", new { id = link.Artist.Id }, null)
+					@(" (" + Translate.ArtistTypeName(link.Artist.ArtistType) + ")")
+					@(" (" + link.Count + ")")
+					@if (extraData != null) {
+						@extraData(link.Artist)
+					}
+					<br />
+					<span class="extraInfo">@link.Artist.AdditionalNames</span>
+				</div>
+			</li>
+	 }
+		</ul>
+	</div>
+	 	
+}
+
+@helper SongTagUsages(IEnumerable<SongTagUsageContract> links, 
+	Func<SongWithAdditionalNamesContract, string> extraData = null) {
+
+	<div class="tracklist">
+		<ul>
+		@foreach (var link in links) {
+			<li>
+				<div class="songListItem">
+					@if (!string.IsNullOrEmpty(link.Song.ThumbUrl)) {
+						<div class="thumbnail">
+							@SongHelpers.SongIconLink(link.Song)
+						</div>
+					}
+									
+					@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, null)
+					@(" (" + Translate.SongTypeNames[link.Song.SongType] + ")")
+					@(" (" + link.Count + ")")
+					@if (extraData != null) {
+						@extraData(link.Song)
+					}
+					<br />
+					<span class="extraInfo">@link.Song.ArtistString</span>
+				</div>
+			</li>
+	 }
+		</ul>
+	</div>
+	
+}
+
+@helper TagLink(string tagName) {
+	@Html.ActionLink(tagName, "Details", "Tag", new { id = tagName }, null)	
+}
+
+@helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {
+	
+	<table>
+		<thead>
+			<tr>
+				<th>Tag</th>
+				<th>Count</th>
+				<th>Votes</th>
+				<th></th>
+			</tr>
+		</thead>
+		@foreach (var usage in tagUsages) {
+			<tr>
+				<td>@TagLink(usage.TagName)</td>
+				<td>@usage.Count</td>
+				<td>
+					@foreach (var user in usage.Votes) {
+						@UserHelpers.UserIconLink(user)<br />
+					}
+				</td>
+				<td>
+					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
+						@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink", @onclick = "javascript: return confirm('Really delete?');" })
+					}
+				</td>
+			</tr>
+		}
+	</table>
+	
+}

@@ -1,0 +1,119 @@
+﻿@using VocaDb.Web.Models.SongLists;
+@using VocaDb.Web.Helpers;
+@model SongListEdit
+@{
+	
+	var isNew = (Model.Id == 0);
+	
+	if (!isNew) {
+		ViewBag.Title = "Edit list - " + Model.CurrentName;
+		ViewBag.Parents = new[] { 
+			Html.ActionLink(Model.CurrentName, "Details", new { id = Model.Id }) 
+		};
+	} else {
+		ViewBag.Title = "Create a custom list";		
+	}
+}
+
+@section Toolbar {
+	@if (!isNew) {
+		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this list?\");" })
+	}
+}
+
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/SongList/Edit.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function() { 
+		initPage(@Model.Id);
+	});
+
+</script>
+}
+
+@Helpers.ValidationSymmaryPanel("Unable to save properties.")
+
+@using (Html.BeginForm("Edit", "SongList", FormMethod.Post, new { id = "songListForm" })) {
+	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenFor(m => m.CurrentName)
+	@Html.HiddenFor(m => m.CanCreateFeaturedLists)
+
+	@Helpers.SaveBtn()
+	
+	<div id="tabs">
+
+		<ul>
+			<li><a href="#propertiesTab">Properties</a></li>
+			<li><a href="#songsTab">Songs</a></li>
+		</ul>
+
+		<div id="propertiesTab">
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Name)
+			</div>
+			<div class="editor-field">
+				<input type="text" data-bind="value: Name" class="required input-xlarge" minlength="1" size="40" />
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Description)
+			</div>
+			<div class="editor-field">
+				<textarea data-bind="value: Description" rows="5" cols="60" class="input-xxlarge"></textarea>
+			</div>
+
+			@if (Model.CanCreateFeaturedLists) {
+				<div class="editor-label">
+					@Html.LabelFor(m => m.FeaturedCategory)
+				</div>
+				<div class="editor-field">
+					@Html.EnumDropDownListForDic(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:FeaturedCategory" } })
+				</div>
+   }
+
+		</div>
+
+		<div id="songsTab">
+
+			<table id="songsTable">
+				<tbody id="songsTableBody" data-bind="foreach: SongLinks">
+					<tr class="trackRow ui-state-default">
+						<td style="cursor: move">
+							<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
+						</td>
+						<td>
+							<span class="songOrder" data-bind="text: Order"></span>
+						</td>
+						<td class="trackNameCol">
+							<span data-bind="title:SongAdditionalNames, text:SongName"></span><br />
+							<span class="extraInfo" data-bind="text: SongArtistString"></span>
+						</td>
+						<td>
+							<input type="text" data-bind="value:Notes" />
+						</td><td>
+							<a href="#" class="iconLink removeLink" title="Remove from list" data-bind="click: $parent.removeSong">Remove</a>
+						</td>						
+					</tr>
+				</tbody>
+			</table>
+
+			<br />
+
+			<h4>Add new</h4>
+			@Helpers.EntrySearchNameBox("songAddName")
+
+		</div>
+
+	</div>
+	
+	if (false) {
+	<textarea data-bind="value: ko.toJSON($root)"></textarea>
+	}
+	<br />
+	@Helpers.SaveBtn()
+	
+}

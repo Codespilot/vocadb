@@ -1,0 +1,251 @@
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Utils
+@using VocaDb.Web.Helpers
+@using VocaDb.Model.Domain.Security
+@using VocaDb.Web.Models.Song
+
+@helper Banner(string title, string url, string img) {
+    <li><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></li>
+}
+
+@helper SocialLink(string title, string url, string img ){
+    <a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a>
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title + " - " : "")Vocaloid Database</title>
+	<meta name="description" content="Vocaloid database with translated artists, albums and songs." />	
+	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
+	<meta name="og:image" content="@VocaUriBuilder.CreateAbsolute(Url.Content("~/Content/vocaDB-title-large.png"))"/>
+
+	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
+	@Styles.Render("~/Content/css")
+	<link href="@Url.Content("~/Content/Styles/Icons.css")" rel="stylesheet" type="text/css" />	
+	<link href="@Url.Content("~/Content/themes/redmond/jquery-ui-1.10.1.custom.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Scripts/jquery.qtip.css")" rel="stylesheet" type="text/css" />
+	<link rel="search" type="application/opensearchdescription+xml" title="VocaDB" href="/opensearch.xml" />
+
+    <script src="@Url.Content("~/Scripts/jquery-1.8.2.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.10.1.custom.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/knockout-2.2.0.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/underscore.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.qtip.min.js")" type="text/javascript"></script>
+	@Scripts.Render("~/bundles/VocaDB")
+	
+	@RenderSection("Head", false)
+
+	<script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		var pluginUrl = 'http://www.google-analytics.com/plugins/ga/inpage_linkid.js';
+		_gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+		_gaq.push(['_setAccount', 'UA-26327627-1']);
+		_gaq.push(['_setDomainName', 'vocadb.net']);
+		_gaq.push(['_trackPageview']);
+		(function () {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+</head>
+
+	<body style="padding-top: 50px">
+		  
+	    <div class="navbar navbar-fixed-top">
+		    <div class="navbar-inner">
+			    <div class="container">
+				    <div class="brand">@Html.ActionLink("VocaDB", "Index", "Home")</div>
+				    @{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
+			    </div>
+		    </div>
+	    </div>
+	
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span2 menu well sidebar-nav">
+					<a href="@Url.Action("Index", "Home")">
+						<img src="@Url.Content("~/Content/vocaDB-title.png")" alt="VocaDB" title="VocaDB" />
+					</a>
+					<ul class="nav nav-list">
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
+						<li>
+							@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")
+							<ul>
+								@if (Login.CanManageDb) {
+									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddArtist, "Create", "Artist")</li>
+								}
+							</ul>
+						</li>
+						<li>
+							@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album")
+							<ul>
+								@if (Login.CanManageDb) {
+									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
+								}
+								<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
+								<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
+								<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
+								<li>@Html.ActionLink(ViewRes._LayoutStrings.FreeAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "tag:free" }, null)</li>
+							</ul>
+						</li>
+						<li>
+							@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")
+							<ul>
+								@if (Login.CanManageDb) {
+									<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
+								}
+								<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
+								<li>@Html.ActionLink(ViewRes._LayoutStrings.NewPVs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null)</li>
+							</ul>
+						</li>
+						<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.Tags, "Index", "Tag")</li>
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
+						<li><a href="http://wiki.vocadb.net/">@ViewRes._LayoutStrings.Wiki</a></li>
+						@if (Login.Manager.HasPermission(PermissionToken.MikuDbImport)) {
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 
+						}
+						@if (Login.CanAccessManageMenu) {
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.Manage, "Index", "Admin")</li>
+						}
+						@if (!Login.Manager.IsLoggedIn) {
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogIn, "Login", "User")</li>
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
+						} else {
+							<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
+							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>
+	  }
+					</ul>
+					@if (Login.Manager.IsLoggedIn) {
+						<br />
+						<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
+	 }
+									
+					<br />
+					<h4>@ViewRes._LayoutStrings.SocialSites</h4>
+                    <div id="socialSites">
+                        @SocialLink("Facebook", "https://www.facebook.com/vocadb", "facebook.png")
+                        @SocialLink("Twitter", "https://twitter.com/VocaDB", "Twitter_Logo.png")
+                        @SocialLink("Google+", "https://plus.google.com/112203842561345720098", "googleplus-icon.png")
+                        <br />
+                        @Html.ActionLink("IRC channel on Rizon", "Chat", "Home")
+                    </div>
+
+					<br />
+					<h4>@ViewRes._LayoutStrings.RelatedSites</h4>
+					<ul id="banners">
+					    @Banner("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png")
+					    @Banner("MikuDB", "http://mikudb.com", "mikudb.png")
+					    @Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
+					</ul>					
+					<ul id="banners-small">
+					    @Banner("Mikufan.com", "http://www.mikufan.com", "mikufan_small.png")
+					    @Banner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
+					    @Banner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
+					</ul>
+				</div>
+				<div class="span10 rightFrame well">
+                    
+							@if (ViewBag.Parents != null) {
+		   var arr = (MvcHtmlString[])ViewBag.Parents;
+								<ul class="breadcrumb">
+								@foreach (var link in arr) {
+									<li>
+										@link 
+										@if (link != arr.Last()) {
+											<span class="divider">/</span>
+		  }
+									</li>
+		}
+								</ul>
+	   }
+                                        
+							@if (!string.IsNullOrEmpty(ViewBag.Title)) {
+								<h2 class="pageTitle">@ViewBag.Title
+								@if (!string.IsNullOrEmpty(ViewBag.Subtitle)) {
+									<small>&nbsp;@ViewBag.Subtitle</small>
+		}
+								</h2>
+	   }
+                    
+                            @if (Login.Manager.LockdownEnabled) {
+                                <div class="alert">
+                                    @AppConfig.LockdownMessage
+                                </div>
+                            }
+
+							@if (IsSectionDefined("Toolbar")) {
+								<p>
+									@RenderSection("Toolbar")
+								</p>
+	   }
+				
+							@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
+								<div class="ui-widget">
+									<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
+										<p>
+											@Helpers.NotificationIcon()
+											<span>@Html.ActionLink("You have unread messages", "Messages", "User")</span>
+										</p>
+									</div>
+								</div>
+	                        }
+		
+                            <div id="messages">
+                                <div class="wrapper">
+                                    <div id="ajaxLoadingMessage" style="display: none;">@ViewRes.SharedStrings.Loading</div>
+
+								    <div id="errorMessage" class="alert alert-error" style="display: none;">
+									    <a class="close" data-dismiss="alert" href="#">&times;</a>
+									    <span id="errorMessageString">@TempData.ErrorMessage()</span>
+								    </div>
+
+                                    <div id="successMessage" class="alert alert-success" style="display: none;">
+                                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                                        <span id="successMessageString">@TempData.SuccessMessage()</span>
+                                    </div>
+                                    
+                                    <div id="warnMessage" class="alert" style="display: none;">
+                                        <a class="close" data-dismiss="alert" href="#">&times;</a>
+                                        <span id="warnMessageString">@TempData.WarnMessage()</span>
+                                    </div>
+                                </div>
+                            </div>
+                                                            		
+							@if (!string.IsNullOrEmpty(TempData.StatusMessage())) {
+								@Helpers.NotificationPanel(TempData.StatusMessage())
+	   }
+		
+							@RenderBody()
+						</div>
+			</div>  
+		</div>
+		
+		@Scripts.Render("~/bundles/shared")
+        <script type="text/javascript">
+            
+            // TODO: move to a controller.
+        	vdb = vdb || {};
+        	vdb.values = vdb.values || {};
+            vdb.values.hostAddress = '@VocaDb.Model.Utils.AppConfig.HostAddress';
+            vdb.resources = vdb.resources || {};
+
+            vdb.resources.album = {
+                addedToCollection: '@Html.Raw(AjaxRes.AlbumStrings.AddedToCollection)'
+            };
+            vdb.resources.shared = {
+                reportSent: '@Html.Raw(AjaxRes.SharedStrings.ReportSent)',
+                save: '@Html.Raw(ViewRes.SharedStrings.Save)'
+            };
+
+            vdb.ui.initAll();
+
+        </script>
+		@RenderSection("BodyScripts", false)
+	</body>
+</html>

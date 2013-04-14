@@ -1,0 +1,28 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Web.Models.LyricsForSongModel
+
+<div>
+
+	@using (Html.BeginCollectionItem("Lyrics")) {
+	<p>
+	@Html.HiddenFor(m => m.Id)
+	<label>
+		Language:
+		@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
+	</label>
+	<label>
+		Source:
+		@Html.TextBoxFor(m => m.Source, new Dictionary<string, object> { { "class", "input-xlarge" },  { "size", 45 }, { "maxlength", 255 }})
+	</label>
+	</p>
+	
+	@Html.TextAreaFor(m => m.Value, 30, 65, new { @class = "input-xxlarge" })
+
+	}
+	 
+	<br />
+
+	<a href="#" class="deleteLyrics textLink deleteLink">Delete</a>
+	<hr />
+
+</div>

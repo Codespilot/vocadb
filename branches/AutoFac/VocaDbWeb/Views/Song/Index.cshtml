@@ -1,0 +1,219 @@
+﻿@using System.Globalization
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using VocaDb.Model.DataContracts.PVs
+@using VocaDb.Model.Domain.PVs
+@using VocaDb.Web;
+@using VocaDb.Web.Models;
+@using VocaDb.Web.Helpers;
+@using VocaDb.Model.DataContracts.Songs;
+@using PagedList.Mvc;
+@using PagedList;
+@using VocaDb.Web.Models.Song
+@using R = ViewRes.Song;
+@model VocaDb.Web.Models.Song.Index
+
+@{
+	ViewBag.Title = @ViewRes.SharedStrings.Songs;
+}
+
+@section Toolbar {
+	@Html.ActionLink(ViewRes.Song.IndexStrings.AddSong, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
+}
+
+<div class="row-fluid">
+	
+	<div class="span3">
+		<form>
+			<div>
+				@ViewRes.EntryIndexStrings.SortBy
+				<div class="btn-group">
+					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.SongSortRuleNames[Model.Sort]
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
+							<li>@Html.ActionLink(sortRule.Value, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = sortRule.Key })</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="alert alert-info span9">
+		<span style="display: none;" data-bind="visible: filterString, text: filterString"></span>
+		<span style="display: none;" data-bind="visible: !filterString()">@R.IndexStrings.NoFilter</span>
+		<button class="btn dropdown-toggle" onclick="$('#filterForm').toggle();">@ViewRes.SharedStrings.Filter <span class="caret"></span></button>
+		@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-horizontal form-topMargin", @id = "filterForm", @style = "display: none;" })) {
+			@Html.HiddenFor(m => m.Sort)
+			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
+		
+		<div class="control-group" data-bind="visible: !artistId()">
+			<div class="control-label">@ViewRes.SharedStrings.Name</div>
+			<div class="controls">
+				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-bind", "value:filter" }, { "data-placement", "right" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint } }) 
+			</div>
+		</div>
+		<div class="control-group" data-bind="visible: !artistId()">
+			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
+			<div class="controls">
+				<input type="text" id="artistNameSearch" data-bind="value:filterArtistName" maxlength="255" />
+			</div>
+		</div>	  
+		<div class="control-group" data-bind="visible: artistId()">
+			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
+			<div class="controls">
+				<div class="input-append">
+					<input type="text" class="input-large" readonly="readonly" data-bind="value:filterArtistName" />					
+					<button type="button" class="btn" data-bind="click: clearArtist">@R.IndexStrings.Clear</button>
+				</div>
+			</div>
+		</div>	  
+		<div class="control-group">
+			<div class="control-label">@R.IndexStrings.SongTypeFilter</div>			
+			<div class="controls">
+				@Html.SongTypeDropDownListFor(a => a.SongType)
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+				@Html.CheckBoxFor(m => m.OnlyWithPVs)
+				@R.IndexStrings.OnlyWithPVsFilter
+				</label>
+			</div>	  
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+					@Html.CheckBoxFor(m => m.DraftsOnly)
+					@ViewRes.EntryIndexStrings.OnlyDrafts
+				</label>
+			</div>	  
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
+			</div>	  
+		</div>	  
+		}
+	</div>
+</div>
+	
+	@if (Model.Songs.Any()) {
+	
+<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
+	
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+	
+if (Model.ViewMode == SongViewMode.Details) {
+    
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.Name })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var song in Model.Songs) {
+			<tr>
+				<td>
+                    @if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+						    @SongHelpers.SongIconLink(song)
+	                }
+				</td>
+				<td>
+					@Helpers.DraftIcon(song.Status)
+					@SongHelpers.SongLink(song)
+					&nbsp;
+					@Helpers.PVServiceIcons(song.PVServices)
+					(@Translate.SongTypeNames[song.SongType])<br />
+					<span class="extraInfo">@song.ArtistString</span><br />
+					@if (song.Album != null) {
+					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
+					}
+				</td>
+				<td>
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
+					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
+				</td>
+				<td>
+					@if (Login.CanEdit(song)) {
+						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id }, new { @class = "textLink editLink" })
+	 }		
+				</td>
+			</tr>
+  }
+	</tbody>	
+</table>
+    
+} else {
+    
+<table class="table table-striped">
+	<tbody>
+		@foreach (var song in Model.Songs) {
+            var primaryPv = PVHelper.PrimaryPV(song.PVs);
+			<tr>
+				<td>
+                    @if (primaryPv != null) {
+                        @Helpers.EmbedPV(primaryPv)
+                    }
+                </td>
+                <td>
+					<h3>
+					    @Helpers.DraftIcon(song.Status)
+					    @Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })
+                    </h3>
+                    @Translate.SongTypeNames[song.SongType]
+                    <br />
+
+					<span class="extraInfo">@song.ArtistString</span><br />
+					@if (song.Album != null) {
+					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
+					}					
+                    <br />
+
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
+					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
+
+				</td>
+            </tr>
+        }    
+    </tbody>
+</table>    
+    
+}
+    
+@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+	}
+
+@if (!Model.Songs.Any()) {
+
+	<p>@ViewRes.EntryIndexStrings.NoResults</p>
+	@Helpers.GoogleSiteSearch()
+
+}
+
+@section Head {
+	<link rel="alternate" type="application/rss+xml" title="RSS" href='@Url.Action("Feed", Model.CreateRouteParams(1))'>
+}
+
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
+<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		vdb.resources.entryIndex = @ResourceHelpers.ToJSON(AjaxRes.EntryIndexStrings.ResourceManager);
+		vdb.resources.song = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager);
+		vdb.resources.songTypes = @ResourceHelpers.ToJSON(VocaDb.Model.Resources.Songs.SongTypeNames.ResourceManager);
+
+		var json = @Html.Raw(JsonConvert.SerializeObject(Model.RouteParams));
+		initPage(json);
+	});
+
+</script>
+}

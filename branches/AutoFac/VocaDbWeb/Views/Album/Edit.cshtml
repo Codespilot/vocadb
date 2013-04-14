@@ -1,0 +1,328 @@
+﻿@using VocaDb.Model.Helpers
+@using VocaDb.Web.Models;
+@using VocaDb.Web.Helpers;
+@using R = ViewRes.Album;
+@model AlbumEdit
+@{
+	ViewBag.Title = string.Format(R.EditStrings.EditTitle, Model.Name);
+	ViewBag.Parents = new[] { 
+		Html.ActionLink(ViewRes.SharedStrings.Albums, "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+@section Toolbar {
+@if (Login.CanDeleteEntries) {
+	if (!Model.Deleted) {
+		@Html.ActionLink(ViewRes.SharedStrings.Delete, "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = string.Format("return confirm(\"{0}\");", R.EditStrings.ConfirmDeleteAlbum) })
+    } else {
+		@Html.ActionLink(ViewRes.EntryEditStrings.Restore, "Restore", new { id = Model.Id }, new { id = "restoreLink" })
+        if (Login.CanMoveToTrash) {
+			@Html.Raw("&nbsp;")
+			@Html.ActionLink(R.EditStrings.MoveToTrash, "MoveToTrash", new { id = Model.Id }, new { id = "trashLink", onclick = string.Format("return confirm(\"{0}\");", R.EditStrings.ConfirmMoveToTrash) })
+		}
+	}
+}
+@if (Login.CanMergeEntries) {
+	@Html.Raw("&nbsp;")	
+	@Html.ActionLink(ViewRes.EntryEditStrings.Merge, "Merge", new { id = Model.Id }, new { id = "mergeLink" })
+}
+}
+
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() { 
+
+        vdb.resources.albumEdit = {
+        	addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)",
+			addNewSong: "@Html.Raw(AjaxRes.AlbumStrings.AddNewSong)",
+        	addToTracks: '@Html.Raw(AjaxRes.AlbumStrings.AddToTracks)',
+            removeFromTracks: '@Html.Raw(AjaxRes.AlbumStrings.RemoveFromTracks)'
+        };
+
+        $("#tabs").tabs();
+
+	});
+</script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() { 
+		initPage(@Model.Id, "@Model.DiscType");
+	});
+</script>
+}
+
+
+@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glalbums")
+
+@Helpers.ValidationSymmaryPanel(R.EditStrings.UnableToSaveProperties)
+
+<br />
+@using (Html.BeginForm("Edit", "Album", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenFor(m => m.Name)
+
+	@Helpers.SaveBtn()
+	
+	<div id="tabs">
+
+		<ul>
+			<li><a href="#basicInfoTab">@R.EditStrings.BasicInfoTab</a></li>
+			<li><a href="#artistsTab">@R.EditStrings.ArtistsTab</a></li>
+			<li><a href="#tracksTab">@R.EditStrings.TracksTab</a></li>
+			<li><a href="#picsTab">@R.EditStrings.PicturesTab</a></li>
+			<li><a href="#pvsTab">@R.EditStrings.MediaTab</a></li>
+		</ul>
+
+		<div id="basicInfoTab">
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.DefaultLanguageSelection, R.EditStrings.BaDefaultLanguageSelection)
+			</div>
+			<div class="editor-field">
+				@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
+			</div>
+
+			<div class="editor-label">
+				<label>
+					@R.EditStrings.BaNames
+					@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)					
+				</label>
+			</div>
+			<div class="editor-field">
+				@Html.EditorFor(m => m.Names)
+			</div>
+
+			<div class="editor-label">
+				<label>@R.EditStrings.BaMainCoverPicture</label>
+			</div>
+			<div class="editor-field">
+				<table>
+					<tr><td>
+						<img src="@Url.Action("CoverPictureThumb", new { id = Model.Id })" alt="@R.EditStrings.ImagePreview" class="coverPic" />
+					</td><td>
+						<p>@string.Format(R.EditStrings.BaPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)</p>
+						<input type="file" id="coverPicUpload" name="coverPicUpload" />
+					</td></tr>
+				</table>
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Description, R.EditStrings.BaDescription)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span4" })
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.DiscType, R.EditStrings.BaDiscType)
+			</div>
+			<div class="editor-field">
+				@Html.DiscTypeDropDownListFor(m => m.DiscType, Model.DiscType)
+			</div>
+
+			<table><tr>
+				<td>@R.EditStrings.BaReleaseDate</td>
+				<td>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseYear, R.EditStrings.BaReleaseYear)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10", maxlength = 4, @class = "input-small" })<br />
+						@Html.ValidationMessageFor(m => m.ReleaseYear)
+					</div>				
+				</td>
+				<td>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseMonth, R.EditStrings.BaReleaseMonth)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
+						@Html.ValidationMessageFor(m => m.ReleaseMonth)
+					</div>				
+				</td>
+				<td>
+					<div class="editor-label">
+						@Html.LabelFor(m => m.ReleaseDay, R.EditStrings.BaReleaseDay)
+					</div>
+					<div class="editor-field">
+						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
+						@Html.ValidationMessageFor(m => m.ReleaseDay)
+					</div>				
+				</td>
+			</tr></table>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.CatNum, R.EditStrings.BaCatNum)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.CatNum)
+				@Html.ValidationMessageFor(m => m.CatNum)
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.ReleaseEvent, R.EditStrings.BaReleaseEvent)
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.ReleaseEvent, new { id = "releaseEvent", size = 30 })
+			</div>
+			
+			<div class="editor-label">
+				<label>
+				    @R.EditStrings.BaWebLinks
+				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
+                </label>
+			</div>
+			<div class="editor-field">
+				@Helpers.WebLinksList(Model.WebLinks)
+			</div>
+
+			<div class="editor-label">
+				<label>
+				    @R.EditStrings.BaStatus)
+				    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation)
+                </label>
+			</div>
+			<div class="editor-field">
+				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+			</div>
+
+		</div>
+
+		<div id="tracksTab">
+			<p>@R.EditStrings.TrTrackNameHelp</p>
+
+			<table id="tracksTable">
+				<thead>
+					<tr>
+						<th></th>
+						<th><input type="checkbox" id="selectAllTracksCheck" /></th>
+						<th>@R.EditStrings.TrDiscHead</th>
+						<th>@R.EditStrings.TrTrackHead</th>
+						<th>@R.EditStrings.TrNameHead</th>
+						<th colspan="3" />
+					</tr>
+				</thead>
+				<tbody id="tracksTableBody">
+				@foreach (var track in Model.Tracks) {
+		Html.RenderPartial("SongInAlbumEditRow", track);
+	}
+				</tbody>
+			</table>
+
+			<br />
+			<a href="#" class="textLink editLink" id="editSelectedTracksLink">@R.EditStrings.TrSetArtists</a>
+			
+			<br /><br />
+			<h4>@R.EditStrings.AddNew</h4>
+			<p>@R.EditStrings.TrAddTrackHelp</p>
+			@Helpers.EntrySearchNameBox("songAddName")
+		</div>
+
+		<div id="artistsTab">
+
+			@Helpers.NotificationPanel(R.EditStrings.ChangesAreSavedImmediately)<br />
+
+			<table>
+				<tbody id="artistsTableBody">
+				@foreach (var album in Model.ArtistLinks) {
+		Html.RenderPartial("ArtistForAlbumEditRow", album);
+	}
+				</tbody>
+			</table>
+			
+			<br />
+			<h4>@R.EditStrings.ArAddArtist</h4>
+			@Helpers.EntrySearchNameBox("artistAddName")
+		</div>
+		
+		<div id="picsTab">
+			
+			<p>@R.EditStrings.PiPicturesGuide</p>
+			<p>@string.Format(R.EditStrings.BaPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)</p>
+
+			<table>
+				<tbody id="picturesTableBody">
+					@foreach (var pic in Model.Pictures) {
+						Html.RenderPartialTyped("EntryPictureFileEditRow", pic);
+					}
+				</tbody>
+			</table>
+			
+			<a href="#" id="picAdd" class="addLink textLink">@R.EditStrings.PiCreateNew</a>
+
+		</div>
+
+		<div id="pvsTab">
+	
+			<p>@R.EditStrings.PvIntro</p>
+
+			<table>
+				<thead>
+					<tr>
+						<th>@R.EditStrings.PvService</th>
+						<th>@R.EditStrings.PvType</th>
+						<th>@R.EditStrings.PvName</th>
+                        <th>@R.EditStrings.PvAuthor</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="pvTableBody">
+					@foreach (var pv in Model.PVs) {
+		 Html.RenderPartial("PVForSongEditRow", pv);
+	 }
+				</tbody>
+			</table>
+
+			<br />
+			<h4>@R.EditStrings.PvAdd</h4>
+			<p>@R.EditStrings.PvSupportedServices</p>
+			<p>
+			@R.EditStrings.PvURL
+			@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
+			</p>
+
+			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">@ViewRes.SharedStrings.Add</a>
+			@Helpers.AjaxLoader("pvLoader")
+	
+		</div>
+
+	</div>
+	<br />
+	
+	<p>@ViewRes.EntryEditStrings.UpdateNotes</p>
+	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xlarge" })	
+	
+	<br />
+	@Helpers.SaveBtn()
+	
+}
+	
+<div id="editArtistRolesPopup" style="display:none;" title="@R.EditStrings.ArtistRolesTitle">
+
+	<div id="rolesArtistId" />
+
+	@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
+		<span class="tag">
+			@Html.CheckBox("artistRole_" + role.Key.ToString(), new { id = "artistRole_" + role.Key.ToString(), @class = "artistRoleCheck" })
+			@Html.Label("artistRole_" + role.Key.ToString(), role.Value)
+		</span>
+	}
+
+</div>
+
+<div id="editTrackPropertiesPopup" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
+
+	<div id="trackPropertiesContent"></div>
+
+</div>
+
+<div id="editMultipleTrackPropertiesPopup" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
+
+	<div id="multipleTrackPropertiesContent"></div>
+
+</div>

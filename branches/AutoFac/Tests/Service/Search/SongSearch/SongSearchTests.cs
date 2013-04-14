@@ -1,0 +1,227 @@
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service;
+using VocaDb.Model.Service.Search.SongSearch;
+using VocaDb.Tests.Mocks;
+
+namespace VocaDb.Tests.Service.Search.SongSearch {
+
+	/// <summary>
+	/// Tests for <see cref="Model.Service.Search.SongSearch.SongSearch"/>.
+	/// </summary>
+	[TestClass]
+	public class SongSearchTests {
+
+		private Artist artist;
+		private SongQueryParams queryParams;
+		private QuerySourceList querySource;
+		private Model.Service.Search.SongSearch.SongSearch search;
+		private Song song;
+		private Song songWithArtist;
+
+		private void AddSong(Song song) {
+
+			querySource.Add(song);
+
+			foreach (var name in song.Names)
+				querySource.Add(name);
+
+			foreach (var artistLink in song.AllArtists)
+				querySource.Add(artistLink);
+
+		}
+
+		private PartialFindResult<Song> Find() {
+			return search.Find(queryParams);
+		}
+
+		[TestInitialize]
+		public void SetUp() {
+
+			querySource = new QuerySourceList();
+
+			artist = new Artist(TranslatedString.Create("Junk")) { Id = 257 };
+
+			song = new Song(new LocalizedString("Nebula", ContentLanguageSelection.English)) { Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1) };
+			AddSong(song);
+
+			songWithArtist = new Song(new LocalizedString("Crystal Tears", ContentLanguageSelection.English)) { Id = 7787, FavoritedTimes = 39, CreateDate = new DateTime(2012, 1, 1) };
+			songWithArtist.AddArtist(artist);
+			AddSong(songWithArtist);
+
+			queryParams = new SongQueryParams();
+
+			search = new Model.Service.Search.SongSearch.SongSearch(querySource, ContentLanguagePreference.Default);
+
+		}
+
+		/// <summary>
+		/// List all (no filters).
+		/// </summary>
+		[TestMethod]
+		public void ListAll() {
+
+			var result = Find();
+
+			Assert.AreEqual(2, result.Items.Length, "2 results");
+			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual(song.DefaultName, result.Items[0].DefaultName);
+			Assert.AreEqual(songWithArtist, result.Items[1]);
+
+		}
+
+		/// <summary>
+		/// Listing, skip first result.
+		/// </summary>
+		[TestMethod]
+		public void ListSkip() {
+
+			queryParams.Paging.Start = 1;
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual(songWithArtist, result.Items[0]);
+
+		}
+
+		/// <summary>
+		/// List with sort by name.
+		/// </summary>
+		[TestMethod]
+		public void ListSortName() {
+
+			queryParams.SortRule = SongSortRule.Name;
+
+			var result = Find();
+
+			Assert.AreEqual(2, result.Items.Length, "2 results");
+			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual("Crystal Tears", result.Items[0].DefaultName);
+			Assert.AreEqual("Nebula", result.Items[1].DefaultName);
+
+		}
+
+		/// <summary>
+		/// List with sort by favorites.
+		/// </summary>
+		[TestMethod]
+		public void ListSortFavorites() {
+
+			queryParams.SortRule = SongSortRule.FavoritedTimes;
+
+			var result = Find();
+
+			Assert.AreEqual(2, result.Items.Length, "2 results");
+			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual("Crystal Tears", result.Items[0].DefaultName);
+			Assert.AreEqual("Nebula", result.Items[1].DefaultName);
+
+		}
+
+		/// <summary>
+		/// List with sort by favorites.
+		/// </summary>
+		[TestMethod]
+		public void ListSortAdditionDate() {
+
+			queryParams.SortRule = SongSortRule.AdditionDate;
+
+			var result = Find();
+
+			Assert.AreEqual(2, result.Items.Length, "2 results");
+			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual("Nebula", result.Items[0].DefaultName);
+			Assert.AreEqual("Crystal Tears", result.Items[1].DefaultName);
+
+		}
+
+		/// <summary>
+		/// Query by name.
+		/// </summary>
+		[TestMethod]
+		public void QueryName() {
+
+			queryParams.Common.Query = "Crystal Tears";
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual("Crystal Tears", result.Items[0].DefaultName);
+
+		}
+
+		/// <summary>
+		/// Query by name as words.
+		/// </summary>
+		[TestMethod]
+		public void QueryNameWords() {
+
+			queryParams.Common.NameMatchMode = NameMatchMode.Words;
+			queryParams.Common.Query = "Tears Crystal";
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual("Crystal Tears", result.Items[0].DefaultName);
+
+		}
+
+		/// <summary>
+		/// Query by type.
+		/// </summary>
+		[TestMethod]
+		public void QueryType() {
+
+			queryParams.SongTypes = new[] { SongType.Original };
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(song, result.Items[0]);
+
+		}
+
+		/// <summary>
+		/// Query by artist.
+		/// </summary>
+		[TestMethod]
+		public void QueryArtist() {
+
+			queryParams.ArtistId = artist.Id;
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(songWithArtist, result.Items[0], "songs are equal");
+
+		}
+
+		/// <summary>
+		/// Query songs with only PVs.
+		/// </summary>
+		[TestMethod]
+		public void QueryOnlyWithPVs() {
+
+			queryParams.OnlyWithPVs = true;
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(song, result.Items[0], "songs are equal");
+
+		}
+
+	}
+
+}

@@ -1,0 +1,37 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Model.DataContracts.Albums.ArtistForAlbumContract
+
+<tr id="@("artistRow_" + Model.Id)">
+	<td>
+		@Html.Hidden("artistId_" + Model.Id, Model.Id, new { @class = "artistId" })
+		@if (Model.Artist != null) {
+			@ArtistHelpers.ArtistLink(Model.Artist)
+			<br />
+			<span class="extraInfo">@Model.Artist.AdditionalNames</span>
+		} else {
+			@Model.Name
+		}
+	</td>
+	<td>
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.IsSupport, new { @class = "isSupportCheck", id="isSupportCheck_" + Model.Id })
+			@ViewRes.Album.ArtistForAlbumEditRowStrings.Support
+		</label>
+	</td>
+	<td>
+		@Html.HiddenFor(m => m.Roles, new { @class = "artistRoles" })
+		<div class="artistRolesList">
+			@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
+				if (Model.Roles.HasFlag(role.Key)) {
+					@role.Value<br />
+				}
+			}
+		</div>
+		@if (Model.Artist == null || VocaDb.Model.Helpers.ArtistHelper.IsCustomizable(Model.Artist.ArtistType)) {
+			<a href="#" class="artistRolesEdit textLink editLink">@ViewRes.Album.ArtistForAlbumEditRowStrings.Customize</a>
+		}
+	</td>
+	<td>
+		<a href="#" class="artistRemove textLink removeLink" id="@("artistRemove_" + Model.Id)">@ViewRes.SharedStrings.Remove</a>
+	</td>
+</tr>

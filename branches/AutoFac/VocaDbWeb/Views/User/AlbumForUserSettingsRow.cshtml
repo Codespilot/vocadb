@@ -1,0 +1,16 @@
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.AlbumForUserEditModel
+
+<tr id="@("albumRow_" + Model.Id)">
+	<td>@Html.ActionLink(Model.Album.Name, "Edit", "Album", new { id = Model.Album.Id }, null)</td>
+	<td>
+		@Html.EnumDropDownListFor(m => m.MediaType, Translate.AlbumMediaTypeNames.ValuesAndNames, new { id = "albumMediaType_" + Model.Id, @class = "albumMediaType" })
+	</td>
+	<td>
+		@Html.HiddenFor(m => m.Rating, new { @class = "ratingVal" })
+		<div class="collectionRating"></div>
+	</td>
+	<td>
+		<a href="#" class="albumRemove textLink removeLink" id="@("albumRemove_" + Model.Id)">Remove</a>
+	</td>
+</tr>

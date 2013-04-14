@@ -1,0 +1,20 @@
+﻿@using VocaDb.Web.Helpers
+@model VocaDb.Web.Models.Shared.WebLinkDisplay
+		   
+<tr>
+	<td>
+		@{ var item = Html.BeginCollectionItem("WebLinks"); }
+		@Html.HiddenFor(m => m.Id)
+		@Html.TextBoxFor(m => m.Url, new { maxlength = 512, size = 50, @class = "webLinkUrl input-xlarge" })
+	</td>
+	<td>
+		@Html.TextBoxFor(m => m.Description, new { maxlength = 512, @class = "webLinkDescription" })
+    </td>
+    <td>
+		@Html.EnumDropDownListFor(m => m.Category, Translate.WebLinkCategoryNames, new { @class = "webLinkCategory input-medium" })
+		@{ item.Dispose(); }
+	</td>
+	<td>
+		<a href="#" class="webLinkDelete textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
+	</td>
+</tr>

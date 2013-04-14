@@ -1,0 +1,232 @@
+﻿@using VocaDb.Web.Models
+@using VocaDb.Web.Helpers
+@model SongEdit
+@{
+	ViewBag.Title = "Edit song - " + Model.Name;
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Songs", "Index"), 
+		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
+	};
+}
+
+@section Toolbar {
+@if (Login.CanDeleteEntries) {
+	if (!Model.Deleted) {
+		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this song?\");" })
+	} else {
+		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })		
+	}
+	@Html.Raw("&nbsp")
+}
+@if (Login.CanMergeEntries) {
+	@Html.ActionLink("Merge", "Merge", new { id = Model.Id }, new { id = "mergeLink" })
+}
+}
+
+@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glsongs")
+
+@Helpers.ValidationSymmaryPanel("Unable to save properties.")
+
+<br />
+@using (Html.BeginForm("Edit", "Song", FormMethod.Post)) {
+	@Html.HiddenFor(m => m.Id)
+
+	@Helpers.SaveBtn()
+	
+	<div id="tabs">
+
+		<ul>
+			<li><a href="#basicInfoTab">Basic info</a></li>
+			<li><a href="#artistsTab">Artists</a></li>
+			<li><a href="#pvsTab">Media</a></li>
+			<li><a href="#lyricsTab">Lyrics</a></li>
+		</ul>
+
+		<div id="basicInfoTab">
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.DefaultLanguageSelection)
+			</div>
+			<div class="editor-field">
+				@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
+			</div>
+
+			<div class="editor-label">
+				<label>
+					Primary name (in one or more languages)
+					@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)
+				</label>
+			</div>
+			<div class="editor-field">
+				@Html.EditorFor(m => m.Names)
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.Notes)
+			</div>
+			<div class="editor-field">
+				@Html.TextAreaFor(m => m.Notes, 6, 70, new { @class = "span4" })
+			</div>
+
+			<div class="editor-label">
+				@Html.LabelFor(m => m.SongType)
+			</div>
+			<div class="editor-field">
+				@Html.SongTypeDropDownListFor(m => m.SongType)
+			</div>
+	
+			@if (Model.SongType != VocaDb.Model.Domain.Songs.SongType.Original) {
+			<div class="editor-label">
+				@Html.LabelFor(m => m.OriginalVersion)
+			</div>
+			<div class="editor-field">
+				<span id="originalContent">
+					@{ Html.RenderPartial("SongLink", Model.OriginalVersion); }
+				</span>
+
+				<input id="changeOriginalBtn" type="button" value="Change" class="btn" />
+				<input id="clearOriginalBtn" type="button" value="Clear" class="btn" />
+
+				<div id="changeOriginalPanel" style="display:none;">
+					<div>
+						<input type="hidden" id="changeOriginalId" />
+						<input type="text" maxlength="128"  id="changeOriginalName" /><br />
+					</div>
+				</div>
+			</div>
+   }
+			
+			<div class="editor-label">
+				<label>
+				    @Html.DisplayNameFor(m => m.WebLinks)
+				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
+                </label>
+			</div>
+			<div class="editor-field">
+				@Helpers.WebLinksList(Model.WebLinks)
+			</div>
+
+			<div class="editor-label">
+				<label>
+				    @Html.DisplayNameFor(m => m.Status)
+				    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
+                </label>
+			</div>
+			<div class="editor-field">
+				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+			</div>
+
+		</div>
+
+		<div id="pvsTab">
+	
+			<table>
+				<thead>
+					<tr>
+						<th>Service</th>
+						<th>Type</th>
+						<th>Name</th>
+                        <th>Author</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="pvTableBody">
+				@foreach (var pv in Model.PVs) {
+		Html.RenderPartial("PVForSongEditRow", pv);
+	}
+				</tbody>
+			</table>
+			
+			<br />
+			<h4>Add media</h4>
+
+			<p>Supported services: Youtube, NicoNicoDouga, Vimeo, SoundCloud, Piapro and Bilibili.</p>
+			<p>
+				URL:
+				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
+			</p>
+			<p>
+			Type:
+			@Html.EnumDropDownList("pvType_new", Translate.PVTypeDescriptions, new { id = "pvType_new", @class = "input-xlarge" })
+			</p>
+
+			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
+			@Helpers.AjaxLoader("pvLoader")
+	
+		</div>
+
+		<div id="lyricsTab">
+
+			@foreach (var lyrics in Model.Lyrics) {
+	   Html.RenderPartial("LyricsForSongEditRow", lyrics);
+   }
+			<a href="#" class="lyricsAddNew textLink addLink" id="lyricsAdd">Add row</a>
+
+		</div>
+
+		<div id="artistsTab">
+			@using (@Html.BeginPanel()) {
+				<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
+   }
+
+			<table>
+				<thead>
+					<tr>
+						<td>Artist</td>
+						<td>Support</td>
+						<td>Roles</td>
+						<td>Actions</td>
+					</tr>
+				</thead>
+				<tbody id="artistsTableBody">
+				@foreach (var album in Model.ArtistLinks) {
+		Html.RenderPartial("ArtistForSongEditRow", album);
+	}
+				</tbody>
+			</table>
+			
+			<br />
+			<h4>Add artist</h4>
+			@Helpers.EntrySearchNameBox("artistAddName")
+		</div>
+
+	</div>
+	<br />
+	
+	<p>Update notes (optional)</p>
+	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xlarge" })
+	
+	<br />
+	@Helpers.SaveBtn()
+	
+}
+
+<div id="editArtistRolesPopup" style="display:none;" title="Artist roles">
+
+	<input type="hidden" id="rolesArtistId" />
+
+	@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
+		<span class="tag">
+			@Html.CheckBox("artistRole_" + role.Key.ToString(), new { id = "artistRole_" + role.Key.ToString(), @class = "artistRoleCheck" })
+			@Html.Label("artistRole_" + role.Key.ToString(), role.Value)
+		</span>
+ }
+
+</div>
+
+
+@section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Edit.js")"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		vdb.resources.song = {
+			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
+		};
+		initPage(@Model.Id);
+	});
+
+</script>
+}
