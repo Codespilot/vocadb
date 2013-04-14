@@ -107,7 +107,6 @@ namespace VocaDb.Model.Service {
 			return HandleTransaction(session => {
 
 				var album = session.Load<Album>(albumId);
-				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				AuditLog(string.Format("adding custom artist '{0}' to {1}", newArtistName, CreateEntryLink(album)), session);
 
@@ -1017,7 +1016,6 @@ namespace VocaDb.Model.Service {
 				
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
 				var album = artistForAlbum.Album;
-				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				artistForAlbum.IsSupport = isSupport;
 				album.UpdateArtistString();
@@ -1038,7 +1036,6 @@ namespace VocaDb.Model.Service {
 
 				var artistForAlbum = session.Load<ArtistForAlbum>(artistForAlbumId);
 				var album = artistForAlbum.Album;
-				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				artistForAlbum.Roles = roles;
 				album.UpdateArtistString();
@@ -1108,7 +1105,6 @@ namespace VocaDb.Model.Service {
 						diff.OriginalRelease = true;
 					}
 
-					NHibernateUtil.Initialize(album.CoverPictureData);
 					if (pictureData != null) {
 						album.CoverPictureData = new PictureData(pictureData);
 						diff.Cover = true;
