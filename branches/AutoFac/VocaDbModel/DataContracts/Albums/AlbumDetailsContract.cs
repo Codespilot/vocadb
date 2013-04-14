@@ -1,0 +1,86 @@
+﻿using System;
+using System.Linq;
+using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Domain.Users;
+
+namespace VocaDb.Model.DataContracts.Albums {
+
+	[DataContract(Namespace = Schemas.VocaDb)]
+	public class AlbumDetailsContract : AlbumWithAdditionalNamesContract {
+
+		public AlbumDetailsContract() { }
+
+		public AlbumDetailsContract(Album album, ContentLanguagePreference languagePreference)
+			: base(album, languagePreference) {
+
+			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
+			Deleted = album.Deleted;
+			Description = album.Description;
+			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease) : null);
+			OwnedCount = album.UserCollections.Count(a => a.PurchaseStatus == PurchaseStatus.Owned);
+			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
+			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
+			Songs = album.Songs
+				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
+				.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
+			Tags = album.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).ToArray();
+			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
+			WishlistCount = album.UserCollections.Count(a => a.PurchaseStatus == PurchaseStatus.Wishlisted);
+
+		}
+
+		[DataMember]
+		public AlbumForUserContract AlbumForUser { get; set; }
+
+		[DataMember]
+		public ArtistForAlbumContract[] ArtistLinks { get; set; }
+
+		[DataMember]
+		public int CommentCount { get; set; }
+
+		[DataMember]
+		public bool Deleted { get; set; }
+
+		[DataMember]
+		public string Description { get; set; }
+
+		[DataMember]
+		public int Hits { get; set; }
+
+		[DataMember]
+		public CommentContract[] LatestComments { get; set; }
+
+		[DataMember]
+		public AlbumReleaseContract OriginalRelease { get; set; }
+
+		[DataMember]
+		public int OwnedCount { get; set; }
+
+		[DataMember]
+		public EntryPictureFileContract[] Pictures { get; set; }
+
+		[DataMember]
+		public PVContract[] PVs { get; set; }
+
+		[DataMember]
+		public SongInAlbumContract[] Songs { get; set; }
+
+		[DataMember]
+		public TagUsageContract[] Tags { get; set; }
+
+		[DataMember]
+		public WebLinkContract[] WebLinks { get; set; }
+
+		[DataMember]
+		public int WishlistCount { get; set; }
+
+	}
+
+}

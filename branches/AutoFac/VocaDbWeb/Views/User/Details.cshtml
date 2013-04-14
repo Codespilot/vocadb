@@ -1,0 +1,217 @@
+﻿@using System.Web.Optimization
+@using VocaDb.Model.DataContracts.Users;
+@using VocaDb.Model.Domain.Users
+@using VocaDb.Web;
+@using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Security;
+@using R = ViewRes.User;
+@model UserDetailsContract
+		   
+@{
+    ViewBag.Title = R.DetailsStrings.UserDetails + " - " + Model.Name;
+    if (!Model.Active) {
+        ViewBag.Subtitle = R.DetailsStrings.AccountDisabled;
+    }
+
+    ViewBag.Parents = new[] { 
+		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
+	};
+
+    var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
+    var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
+	var verifiedAccount = (Model.OwnedArtistEntries.Any());
+			
+}
+
+@section Toolbar {
+@if (ownProfile) {
+	@Html.ActionLink(R.DetailsStrings.MySettings, "MySettings", null, new { id = "mySettingsLink" });
+	@Html.Raw("&nbsp;")
+	@Html.ActionLink(R.DetailsStrings.Messages, "Messages", null, new { id = "messagesLink" });
+}
+
+@if (Login.Manager.IsLoggedIn && Login.User.Id != Model.Id && Login.User.Active) {
+    @Html.ActionLink(R.DetailsStrings.ComposeMessage, "Messages", null, null, null, "composeTab", new { receiverName = Model.Name }, new { id = "composeMessageLink" });
+}
+
+@if (Login.CanManageUsers && EntryPermissionManager.CanEditUser(Login.Manager, Model.GroupId)) {
+	@Html.Raw("&nbsp;")
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editUserLink" });
+}
+@if (Login.Manager.HasPermission(PermissionToken.DisableUsers) && Login.User.Id != Model.Id && Model.Active) {
+	@Html.Raw("&nbsp;")
+	@Html.ActionLink(R.DetailsStrings.Disable, "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
+}
+}
+
+<table>
+	<tr>
+		<td rowspan="11" class="alignTop">
+			@UserHelpers.ProfileIcon(Model)
+		</td>
+		<td>@R.DetailsStrings.UserName</td>
+		<td>
+			@Model.Name<br />
+		</td>
+	</tr>
+	<tr>
+		<td>@R.DetailsStrings.UserGroup</td>
+		<td>
+			@Translate.UserGroups[Model.GroupId]
+			@if (verifiedAccount) {
+				@(" - " + R.DetailsStrings.VerifiedAccount)
+			}
+		</td>
+	</tr>
+
+	@if (verifiedAccount) {
+	<tr>
+		<td>@R.DetailsStrings.VerifiedOwner</td>
+		<td>@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)</td>
+	</tr>
+	}
+
+	<tr>
+		<td>@R.DetailsStrings.MemberSince</td>
+		<td>@Model.CreateDate.ToShortDateString()</td>
+	</tr>
+    @if (Model.WebLinks.Any()) {
+	<tr>
+		<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
+		<td>@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)</td>
+	</tr>
+    }
+    @if (!string.IsNullOrEmpty(Model.AboutMe)) {
+	<tr>
+		<td>@R.DetailsStrings.AboutMe</td>
+		<td>@HtmlHelpers.FormatText(Model.AboutMe)</td>
+	</tr>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.Location)) {
+	<tr>
+		<td>@R.DetailsStrings.Location</td>
+		<td>@Model.Location</td>
+	</tr>
+    }
+
+	@if (Login.CanManageUsers || ownProfile) {
+		<tr>
+			<td>@R.DetailsStrings.LastLogin</td>
+			<td>
+				@Model.LastLogin                 
+                @if (Login.CanManageUsers) {
+	                @("(")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
+	                <a href='http://www.stopforumspam.com/search?q=@Model.LastLoginAddress'>StopForumSpam</a>
+                }
+                (@R.DetailsStrings.VisibleOnlyToMe)
+			</td>
+		</tr>
+		<tr>
+			<td>@R.DetailsStrings.AdditionalPermissions</td>
+			<td>@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)</td>
+		</tr>
+		<tr>
+			<td>@R.DetailsStrings.Email</td>
+			<td>@Model.Email (@R.DetailsStrings.VisibleOnlyToMe)</td>
+		</tr>	 
+ }
+ 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
+		<tr>
+			<td>@R.DetailsStrings.EffectivePermissions</td>
+			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
+		</tr>	 
+  }
+</table>
+
+<br />
+
+<div id="tabs">
+
+	<ul>
+		<li><a href="#stats">@R.DetailsStrings.StatsTab</a></li>
+		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })" title="Collection"><span>@R.DetailsStrings.CollectionTab (@Model.AlbumCollectionCount)</span></a></li>
+		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>@R.DetailsStrings.FollowedArtistsTab (@Model.ArtistCount)</span></a></li>
+		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>@R.DetailsStrings.FavoriteSongsTab (@Model.FavoriteSongCount)</span></a></li>
+		<li><a href="#customLists">@R.DetailsStrings.CustomListsTab</a></li>
+	</ul>
+
+	<div id="stats">
+		<p>
+			@{ var submitText = R.DetailsStrings.Submissions + ": " + Model.SubmitCount; }
+			@if (canSeeDetailedStats) {
+				<text>@Html.ActionLink(submitText, "EntryEdits", new { id = Model.Id, onlySubmissions = true })</text>
+   } else {
+				<text>@submitText</text>
+   }
+		</p>
+		<p>
+			@{ var editText = R.DetailsStrings.TotalEdits + ": " + Model.EditCount; }
+			@if (canSeeDetailedStats) {
+				@Html.ActionLink(editText, "EntryEdits", new { id = Model.Id, onlySubmissions = false })
+   } else {
+				<text>@editText</text>
+   }
+		</p>
+		<p>@R.DetailsStrings.Comments: @Model.CommentCount</p>
+		<p>@R.DetailsStrings.TagVotes: @Model.TagVotes</p>
+		<p>@R.DetailsStrings.Power: @Model.Power (@R.DetailsStrings.Level @Model.Level)</p>
+	</div>
+
+	<div id="Collection">
+	</div>
+
+	<div id="Followed_artists">
+	</div>
+
+	<div id="Favorite_songs">
+	</div>
+
+	<div id="customLists">
+		@SongHelpers.SongLists(Model.SongLists)
+
+		@if (ownProfile) {
+			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">@R.DetailsStrings.CreateNewList</a>
+  }
+	</div>
+
+</div>
+
+<br />
+<h3>@ViewRes.EntryDetailsStrings.LatestComments</h3>
+
+<div id="comments">
+	@foreach (var comment in Model.LatestComments) {
+		@Helpers.PrintComment(comment, true, ownProfile)
+ }
+</div>
+
+@if (Login.CanManageDb) {
+<div id="newCommentPanel">
+	<h3>@ViewRes.DiscussionContentStrings.NewComment</h3>
+	@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5" })
+	<a href="#" class="textLink addLink" id="createComment">@ViewRes.DiscussionContentStrings.AddComment</a>
+	<hr />
+</div>
+}
+
+@Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
+
+@AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
+
+@section Head {
+	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
+}
+
+@section BodyScripts {
+	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+	@Scripts.Render("~/bundles/jqxRating", "~/bundles/User/Details")
+	<script type="text/javascript">
+
+		$(document).ready(function() { 
+			initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.DetailsStrings.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+		});
+
+	</script>
+}

@@ -1,0 +1,21 @@
+﻿@using VocaDb.Model.Domain.Users
+@model VocaDb.Model.DataContracts.Users.AlbumForUserContract[]
+
+@{
+
+	var owned = Model.Where(u => u.PurchaseStatus == PurchaseStatus.Owned).Select(u => u.User).ToArray();
+	var wishlisted = Model.Where(u => u.PurchaseStatus == PurchaseStatus.Wishlisted).Select(u => u.User).ToArray();
+	
+}
+
+@if (owned.Any()) {
+	<h4>@ViewRes.Album.DetailsStrings.OwnedByTitle</h4>
+
+	@UserHelpers.UserGrid(owned, 2)
+}
+
+@if (wishlisted.Any()) {
+	<h4>@ViewRes.Album.DetailsStrings.WishlistedByTitle</h4>
+
+	@UserHelpers.UserGrid(wishlisted, 2)
+}

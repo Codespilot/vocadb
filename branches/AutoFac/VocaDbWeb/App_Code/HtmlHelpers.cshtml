@@ -1,0 +1,18 @@
+﻿@inherits VocaDb.Web.Code.HelperPage
+@using System.Web.Mvc;
+@using System.Web.Mvc.Html;
+@using VocaDb.Web.Helpers;
+
+@helper ConvertNewlinesToBreaks(string text) {
+	var lines = text.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.None);
+	foreach (var line in lines) {
+		@Html.Raw(line)
+		<br />
+	}
+}
+
+@helper FormatText(string text) {
+	text = ViewHelper.ParseBBCode(text);
+	<text>@ConvertNewlinesToBreaks(text)</text>
+}
+

@@ -1,0 +1,46 @@
+﻿@model VocaDb.Web.Models.Admin.ViewAuditLogModel
+
+@{
+    ViewBag.Title = "View audit log";
+	ViewBag.Parents = new[] { 
+		Html.ActionLink("Manage", "Index"), 
+	};	
+}
+
+@using (Html.BeginForm("ViewAuditLog", "Admin", FormMethod.Post, new { @class = "form-inline" })) {
+
+	@Html.TextBoxFor(m => m.Filter, new { id = "filter" })
+
+	<button type="submit" class="btn btn-primary">Filter</button>
+	
+}
+
+<div >
+	<table id="logEntries">
+		<tr>
+			<th>Time</th>
+			<th>User</th>
+			<th>Action</th>
+		</tr>		
+		@{ Html.RenderAction("AuditLogEntries", new { filter = Model.Filter }); }
+	</table>
+</div>
+
+<a href="#" id="loadMoreLink">Load more</a>
+@Html.Hidden("start", 200)
+
+@section BodyScripts {
+<script type="text/javascript">
+
+	$(document).ready(function () {
+		$("#loadMoreLink").click(function () {
+			$.post("AuditLogEntries", { start: $("#start").val(), filter: $("#filter").val() }, function (result) {
+				$("#logEntries").append(result);
+				$("#start").val(parseInt($("#start").val()) + 200);
+			});
+			return false;
+		});
+	});
+
+</script>
+}

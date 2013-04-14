@@ -1,0 +1,17 @@
+﻿@model VocaDb.Web.Models.User.AlbumCollection
+
+@{
+    ViewBag.Title = "Album collection for " + Model.User.Name;
+	ViewBag.Parents = new[] {
+		Html.ActionLink(Model.User.Name, "Details", "User", new {id = Model.User.Id}, null)
+	};	
+}
+
+<div id="ui-tabs-1">
+@{ Html.RenderAction("AlbumCollectionPaged", Model.RouteParams); }
+</div>
+
+@section BodyScripts {
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+}

@@ -1,0 +1,50 @@
+﻿@using VocaDb.Model.DataContracts
+@using VocaDb.Web.Helpers
+@inherits VocaDb.Web.Code.HelperPage
+
+@helper CommentEntryItem(UnifiedCommentContract comment) {
+	
+	var entry = comment.Entry;
+	var thumbUrl = Url.EntryThumbUrl(entry, comment.SongThumbUrl);
+	
+	<div class="item">
+		@if (!string.IsNullOrEmpty(thumbUrl)) {
+		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
+			<img src="@thumbUrl" alt="thumb" class="coverPicThumb" />
+		</a>
+		}
+		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
+			<strong>@entry.Name.DisplayName</strong>
+		</a>
+		@if (!string.IsNullOrEmpty(comment.ArtistString)) {
+			<span>@comment.ArtistString</span>
+		}
+	</div>
+		
+}
+
+@helper CommentWithEntryVertical(UnifiedCommentContract comment) {
+	
+	@CommentEntryItem(comment)
+	@PrintComment(comment, false);	
+	<hr />
+	
+}
+
+@helper PrintComment(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {	
+	<div class="comment">
+		<h3>
+			@UserHelpers.UserIconLink(contract.Author, 25)
+			&nbsp;-&nbsp;
+			@contract.Created
+
+			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
+				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
+   }
+		</h3>
+		
+		<p>
+			@Helpers.ConvertNewlinesToBreaks(contract.Message)
+		</p>
+	</div>	
+}
