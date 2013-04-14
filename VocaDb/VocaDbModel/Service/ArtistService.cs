@@ -51,8 +51,6 @@ namespace VocaDb.Model.Service {
 
 				var artist = session.Load<Artist>(artistId);
 				var album = session.Load<Album>(albumId);
-				NHibernateUtil.Initialize(artist.Picture);
-				NHibernateUtil.Initialize(album.CoverPictureData);
 
 				var hasAlbum = session.Query<ArtistForAlbum>().Any(a => a.Artist.Id == artistId && a.Album.Id == albumId);
 
@@ -695,7 +693,6 @@ namespace VocaDb.Model.Service {
 					diff.OriginalName = true;
 				}
 
-				NHibernateUtil.Initialize(artist.Picture);
 				if (pictureData != null) {
 					artist.Picture = new PictureData(pictureData);
 					diff.Picture = true;
