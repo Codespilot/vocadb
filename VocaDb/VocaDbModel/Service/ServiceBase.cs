@@ -498,6 +498,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Not in use, should be removed
+		/// </summary>
 		[DataMember]
 		public bool FoundExactMatch { get; set; }
 
