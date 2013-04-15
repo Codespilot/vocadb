@@ -175,6 +175,33 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 		}
 
 		/// <summary>
+		/// Query by name, move exact result to top.
+		/// 
+		/// 2 songs match, Tears of Palm and Crystal Tears.
+		/// Tears of Palm is later in the results when sorted by title, 
+		/// but matches from the beginning so it should be moved to first.
+		/// </summary>
+		[TestMethod]
+		public void QueryNameMoveExactToTop() {
+
+			var song2 = new Song(new LocalizedString("Tears of Palm", ContentLanguageSelection.English)) {
+				Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1)
+			};
+			AddSong(song2);
+
+			queryParams.Common.Query = "Tears";
+			queryParams.Common.MoveExactToTop = true;
+			queryParams.Paging.MaxEntries = 1;
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(2, result.TotalCount, "2 total count");
+			Assert.AreEqual(song2, result.Items[0], "result is as expected");
+
+		}
+
+		/// <summary>
 		/// Query by type.
 		/// </summary>
 		[TestMethod]

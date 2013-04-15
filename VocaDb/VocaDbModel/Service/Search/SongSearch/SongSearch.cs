@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Linq;
-using NHibernate;
-using NHibernate.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.Search.SongSearch {
@@ -127,15 +124,23 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 		/// Finds songs based on criteria.
 		/// </summary>
 		/// <param name="queryParams">Query parameters. Cannot be null.</param>
-		/// <returns>List song search results. Cannot be null.</returns>
+		/// <returns>List of song search results. Cannot be null.</returns>
 		public PartialFindResult<Song> Find(SongQueryParams queryParams) {
 
 			ParamIs.NotNull(() => queryParams);
 
+			Song[] songs = GetSongs(queryParams);
+
+			int count = (queryParams.Paging.GetTotalCount ? GetSongCount(queryParams) : 0);
+
+			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, false);
+
+		}
+
+		private Song[] GetSongs(SongQueryParams queryParams) {
+
 			var draftsOnly = queryParams.Common.DraftOnly;
-			var getTotalCount = queryParams.Paging.GetTotalCount;
 			var ignoreIds = queryParams.IgnoredIds;
-			var moveExactToTop = queryParams.Common.MoveExactToTop;
 			var nameMatchMode = queryParams.Common.NameMatchMode;
 			var onlyByName = queryParams.Common.OnlyByName;
 			var query = queryParams.Common.Query;
@@ -146,7 +151,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 			bool filterByType = songTypes.Any();
 			Song[] songs;
-			bool foundExactMatch = false;
 
 			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
 
@@ -197,6 +201,38 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				query = query.Trim();
 
+				Song[] exactResults;
+
+				if (queryParams.Common.MoveExactToTop && nameMatchMode != NameMatchMode.StartsWith && nameMatchMode != NameMatchMode.Exact) {
+
+					var exactQ = querySource.Query<SongName>()
+						.Where(m => !m.Song.Deleted);
+
+					if (draftsOnly)
+						exactQ = exactQ.Where(a => a.Song.Status == EntryStatus.Draft);
+
+					exactQ = AddTimeFilter(exactQ, queryParams.TimeFilter);
+					exactQ = AddPVFilter(exactQ, queryParams.OnlyWithPVs);
+
+					exactQ = FindHelpers.AddEntryNameFilter(exactQ, query, NameMatchMode.StartsWith);
+
+					if (filterByType)
+						exactQ = exactQ.Where(m => songTypes.Contains(m.Song.SongType));
+
+					exactResults = exactQ
+						.Select(m => m.Song)
+						.AddOrder(sortRule, LanguagePreference)
+						.Distinct()
+						.Take(maxResults)
+						.ToArray();
+
+					if (exactResults.Length >= maxResults)
+						return exactResults;
+
+				} else {
+					exactResults = new Song[] { };
+				}
+
 				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
 				var directQ = Query<Song>()
 					.Where(s => !s.Deleted);
@@ -234,44 +270,34 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					.Select(m => m.Song)
 					.AddOrder(sortRule, LanguagePreference)
 					.Distinct()
-					.ToArray()
-					.Where(a => !direct.Contains(a));
+					.ToArray();
 
-				var entries = direct.Concat(additionalNames)
+				var entries = exactResults.Union(direct.Union(additionalNames))
 					.Where(e => !ignoreIds.Contains(e.Id))
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
 
-				if (moveExactToTop) {
-
-					var exactMatch = entries
-						.Where(e => e.Names.Any(n => n.Value.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)))
-						.ToArray();
-
-					if (exactMatch.Any()) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
-						foundExactMatch = true;
-					}
-
-				}
-
 				songs = entries;
 
 			}
 
-			int count = (getTotalCount
-				? GetSongCount(query, songTypes, onlyByName, draftsOnly, nameMatchMode, queryParams.TimeFilter, queryParams.OnlyWithPVs, queryParams)
-				: 0);
-
-			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, foundExactMatch);
+			return songs;
 
 		}
 
-		public int GetSongCount(string query, SongType[] songTypes, bool onlyByName, bool draftsOnly, NameMatchMode nameMatchMode,
-			TimeSpan timeFilter, bool onlyWithPVs, SongQueryParams queryParams) {
+		private int GetSongCount(SongQueryParams queryParams) {
 
-			bool filterByType = songTypes.Any();
+			ParamIs.NotNull(() => queryParams);
+
+			var draftsOnly = queryParams.Common.DraftOnly;
+			var nameMatchMode = queryParams.Common.NameMatchMode;
+			var onlyByName = queryParams.Common.OnlyByName;
+			var query = queryParams.Common.Query;
+			var songTypes = queryParams.SongTypes;
+			var timeFilter = queryParams.TimeFilter;
+			var onlyWithPVs = queryParams.OnlyWithPVs;
+			var filterByType = songTypes.Any();
 
 			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
 
