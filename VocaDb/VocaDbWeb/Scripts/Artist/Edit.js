@@ -30,8 +30,8 @@ function initPage(artistId) {
 		{
 			acceptBtnElem: groupAddBtn,
 			acceptSelection: acceptGroupSelection,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.AdditionalNames },
+			createOptionFirstRow: function (item) { return item.Name; },
+			createOptionSecondRow: function (item) { return item.AdditionalNames; },
 			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup" },
 			height: 200,
 			width: 350
@@ -57,43 +57,6 @@ function initPage(artistId) {
 	});
 
 	$("a.picRemove").live("click", function () {
-
-		$(this).parent().parent().remove();
-		return false;
-
-	});
-
-	function acceptAlbumSelection(albumId, term) {
-
-		if (isNullOrWhiteSpace(albumId)) {
-			$.post("../../Artist/AddNewAlbum", { artistId: artistId, newAlbumName: term }, albumAdded);
-		} else {
-			$.post("../../Artist/AddExistingAlbum", { artistId: artistId, albumId: albumId }, albumAdded);
-		}
-		
-	}
-
-	var albumAddList = $("#albumAddList");
-	var albumAddName = $("input#albumAddName");
-	var albumAddBtn = $("#albumAddAcceptBtn");
-
-	initEntrySearch(albumAddName, albumAddList, "Album", "../../Album/FindJson",
-		{
-			allowCreateNew: true,
-			acceptBtnElem: albumAddBtn,
-			acceptSelection: acceptAlbumSelection,
-			createOptionFirstRow: function (item) { return item.Name },
-			createOptionSecondRow: function (item) { return item.ArtistString },
-			createTitle: function (item) { return item.AdditionalNames }
-		});
-
-	function albumAdded(row) {
-
-		$("#albumTableBody").append(row);
-
-	}
-
-	$("a.albumRemove").live("click", function () {
 
 		$(this).parent().parent().remove();
 		return false;

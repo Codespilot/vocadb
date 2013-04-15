@@ -247,8 +247,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingArtist(int songId, int artistId) {
 
-			//var link = Service.AddArtist(songId, artistId);
-			var artist = MvcApplication.Services.Artists.GetArtistWithAdditionalNames(artistId);
+			var artist = Services.Artists.GetArtistWithAdditionalNames(artistId);
 			var link = new ArtistForSongContract(artist);
 			return PartialView("ArtistForSongEditRow", link);
 
