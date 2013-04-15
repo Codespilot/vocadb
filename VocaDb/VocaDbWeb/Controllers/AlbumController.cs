@@ -347,7 +347,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult AddExistingSong(int albumId, int songId) {
 
-			var songContract = MvcApplication.Services.Songs.GetSongWithAdditionalNames(songId);
+			var songContract = Services.Songs.GetSongWithAdditionalNames(songId);
 			var link = new SongInAlbumEditContract(songContract);
 
 			return PartialView("SongInAlbumEditRow", link);
@@ -412,7 +412,7 @@ namespace VocaDb.Web.Controllers
 			ArtistForAlbumContract link;
 
 			try {
-				link = MvcApplication.Services.Artists.AddAlbum(artistId, albumId);
+				link = Services.Artists.AddAlbum(artistId, albumId);
 			} catch (LinkAlreadyExistsException x) {
 				return HttpStatusCodeResult(HttpStatusCode.Conflict, x.Message);
 			}
@@ -537,7 +537,7 @@ namespace VocaDb.Web.Controllers
 			var idStr = artistIds.Split(',');
 			var ids = idStr.Where(i => !string.IsNullOrEmpty(i)).Select(int.Parse).ToArray();
 
-			var artistString = MvcApplication.Services.Songs.UpdateArtists(songId, ids);
+			var artistString = Services.Songs.UpdateArtists(songId, ids);
 			return Content(artistString);
 
 		}
@@ -564,7 +564,7 @@ namespace VocaDb.Web.Controllers
 			if (songIds == null || artistIds == null || !songIds.Any() || !artistIds.Any())
 				return Content(string.Empty);
 
-			var artistStrings = MvcApplication.Services.Songs.UpdateArtistsForMultipleTracks(songIds, artistIds, add);
+			var artistStrings = Services.Songs.UpdateArtistsForMultipleTracks(songIds, artistIds, add);
 
 			return Json(artistStrings);
 

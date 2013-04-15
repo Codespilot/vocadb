@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model;
@@ -370,23 +371,22 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Happens on the album side")]
 		public PartialViewResult AddNewAlbum(int artistId, string newAlbumName) {
 
 			ParamIs.NotNullOrWhiteSpace(() => newAlbumName);
 
 			var link = new AlbumForArtistEditContract(newAlbumName);
-			//var link = MvcApplication.Services.Albums.CreateForArtist(artistId, newAlbumName);
 
 			return PartialView("ArtistForAlbumRow", link);
 
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Happens on the album side")]
 		public PartialViewResult AddExistingAlbum(int artistId, int albumId) {
 
-			//var link = Service.AddAlbum(artistId, albumId);
-
-			var album = MvcApplication.Services.Albums.GetAlbumWithAdditionalNames(albumId);
+			var album = Services.Albums.GetAlbumWithAdditionalNames(albumId);
 			var link = new AlbumForArtistEditContract(album);
 
 			return PartialView("ArtistForAlbumRow", link);
