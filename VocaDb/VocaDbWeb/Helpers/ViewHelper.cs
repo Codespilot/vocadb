@@ -268,6 +268,27 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static MvcHtmlString TextBoxForKnockout<TModel, TProperty>(
+			this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, string binding, string cssClass = null, string id = null, int? maxLength = null, int? size = null) {
+
+			var htmlAttributes = new Dictionary<string, object> { { "data-bind", binding } };
+
+			if (!string.IsNullOrEmpty(cssClass))
+				htmlAttributes.Add("class", cssClass);
+
+			if (!string.IsNullOrEmpty(id))
+				htmlAttributes.Add("id", id);
+
+			if (maxLength.HasValue)
+				htmlAttributes.Add("maxlength", maxLength.Value);
+
+			if (size.HasValue)
+				htmlAttributes.Add("size", size.Value);
+
+			return htmlHelper.TextBoxFor(expression, htmlAttributes);
+
+		}
+
 		public static string VideoServiceLinkUrl(this HtmlHelper htmlHelper, PVService service) {
 
 			switch (service) {

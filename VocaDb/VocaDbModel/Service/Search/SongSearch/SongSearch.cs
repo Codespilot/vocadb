@@ -226,7 +226,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 						.Take(maxResults)
 						.ToArray();
 
-					if (exactResults.Length >= maxResults)
+					if (queryParams.Paging.Start == 0 && exactResults.Length >= maxResults)
 						return exactResults;
 
 				} else {

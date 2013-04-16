@@ -4,21 +4,27 @@ function CreateSongViewModel() {
 	var self = this;
 
 	this.DupeEntries = ko.observableArray([]);
-	this.NameOriginal = ko.observable();
+	this.NameOriginal = ko.observable("");
+	this.NameRomaji = ko.observable("");
+	this.NameEnglish = ko.observable("");
+
+	this.HasName = ko.computed(function() {
+		return self.NameOriginal() || self.NameRomaji() || self.NameEnglish();
+	});
 
 	$("input.dupeField").focusout(function () {
 
-		var term1 = $("#nameOriginal").val();
-		var term2 = $("#nameRomaji").val();
-		var term3 = $("#nameEnglish").val();
+		var term1 = self.NameOriginal();
+		var term2 = self.NameRomaji();
+		var term3 = self.NameEnglish();
 		var pv1 = $("#pv1").val();
 		var pv2 = $("#pv2").val();
 
-		$.post("../../Song/FindDuplicate", { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2, getPVInfo: true }, function (result) {
+		$.post(vdb.functions.mapUrl("/Song/FindDuplicate"), { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2, getPVInfo: true }, function (result) {
 
 			self.DupeEntries(result.Matches);
 			
-			if (result.Title && !self.NameOriginal()) {
+			if (result.Title && !self.HasName()) {
 				self.NameOriginal(result.Title);
 			}
 			
