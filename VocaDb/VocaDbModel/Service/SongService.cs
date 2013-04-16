@@ -366,7 +366,7 @@ namespace VocaDb.Model.Service {
 
 		public NewSongCheckResultContract FindDuplicates(string[] anyName, string[] anyPv, bool getPVInfo) {
 
-			var names = anyName.Select(n => n.Trim()).Where(n => n != string.Empty).ToArray();
+			var names = anyName.Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => n.Trim()).ToArray();
 			var pvs = anyPv.Select(p => VideoServiceHelper.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
 
 			if (!names.Any() && !pvs.Any())

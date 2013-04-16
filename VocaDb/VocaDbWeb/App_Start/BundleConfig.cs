@@ -25,6 +25,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include("~/Scripts/Album/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Details").Include("~/Scripts/Artist/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
+			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include("~/Scripts/Song/Create.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
 
