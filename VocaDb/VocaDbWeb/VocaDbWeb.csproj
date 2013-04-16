@@ -591,6 +591,7 @@
     <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
+    <Compile Include="Helpers\KnockoutHtmlExtender.cs" />
     <Compile Include="Helpers\Login.cs" />
     <Compile Include="Helpers\PanelExtensions.cs" />
     <Compile Include="Helpers\PVHelper.cs" />
