@@ -52,6 +52,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			var url = string.Format("http://ext.nicovideo.jp/thumb_user/{0}", userId);
 
 			var request = WebRequest.Create(url);
+			request.Timeout = 10000;
 			WebResponse response;
 
 			try {
@@ -78,6 +79,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			var url = string.Format("http://ext.nicovideo.jp/api/getthumbinfo/{0}", id);
 
 			var request = WebRequest.Create(url);
+			request.Timeout = 10000;
 			WebResponse response;
 
 			try {

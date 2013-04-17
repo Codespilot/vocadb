@@ -29,6 +29,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			var apiUrl = string.Format("http://api.soundcloud.com/resolve?url=http://soundcloud.com/{0}&client_id=YOUR_CLIENT_ID", url);
 
 			var request = WebRequest.Create(apiUrl);
+			request.Timeout = 10000;
 			XDocument doc;
 
 			try {

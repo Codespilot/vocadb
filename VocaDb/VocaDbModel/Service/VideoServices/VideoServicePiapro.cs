@@ -116,6 +116,7 @@ namespace VocaDb.Model.Service.VideoServices {
 		private VideoUrlParseResult ParseByPiaproUrl(string piaproUrl) {
 
 			var request = WebRequest.Create(piaproUrl);
+			request.Timeout = 10000;
 			WebResponse response;
 
 			try {
