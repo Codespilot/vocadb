@@ -32,6 +32,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult EntryToolTip(string url, string callback) {
 
+			if (string.IsNullOrWhiteSpace(url))
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "URL must be specified");
+
 			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
 			var controller = route.Values["controller"].ToString();
 			var id = int.Parse(route.Values["id"].ToString());
@@ -52,7 +55,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult OEmbed(string url, int maxwidth = 570, int maxheight = 400, DataFormat format = DataFormat.Json) {
 
 			if (string.IsNullOrEmpty(url))
-				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "URL not specified");
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "URL must be specified");
 
 			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
 			var controller = route.Values["controller"].ToString().ToLowerInvariant();
