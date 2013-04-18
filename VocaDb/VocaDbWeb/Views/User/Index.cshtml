@@ -1,5 +1,5 @@
 ﻿@using VocaDb.Web.Helpers;
-@using R = ViewRes.User;
+@using R = ViewRes.User.IndexStrings;
 @model VocaDb.Web.Models.User.Index
 @{
 	ViewBag.Title = ViewRes.SharedStrings.Users;
@@ -11,8 +11,14 @@
 		@ViewRes.SharedStrings.Filter 
 		@Html.TextBoxFor(m => m.Name, new { maxlength = "200" })
 		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups, null, Model.GroupId)
+		@if (Login.CanModerateUsers) {
+			<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.Disabled)
+			@R.ShowDisabledUsers
+			</label>
+		}
 		
-		<button type="submit" class="btn">@ViewRes.SharedStrings.Apply</button>
+		<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
 	</p>
 
 }

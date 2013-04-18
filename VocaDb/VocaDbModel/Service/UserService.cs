@@ -500,12 +500,16 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, UserSortRule sortRule, PagingProperties paging) {
+		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, bool disabled, UserSortRule sortRule, PagingProperties paging) {
 
 			return HandleQuery(session => {
 
 				var users = AddOrder(session.Query<User>()
-					.Where(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId) && string.IsNullOrWhiteSpace(name) || u.Name.Contains(name)), sortRule)
+					.Where(u => 
+						(groupId == UserGroupId.Nothing || u.GroupId == groupId) 
+						&& (string.IsNullOrWhiteSpace(name) || u.Name.Contains(name))
+						&& (disabled || u.Active)), 
+						sortRule)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
 					.ToArray()
@@ -513,7 +517,11 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var count = paging.GetTotalCount ? session.Query<User>()
-					.Count(u => (groupId == UserGroupId.Nothing || u.GroupId == groupId) && string.IsNullOrWhiteSpace(name) || u.Name.Contains(name)) : 0;
+					.Count(u => 
+						(groupId == UserGroupId.Nothing || u.GroupId == groupId) 
+						&& (string.IsNullOrWhiteSpace(name) || u.Name.Contains(name))
+						&& (disabled || u.Active)) 
+					: 0;
 
 				return new PartialFindResult<UserContract>(users, count);
 
