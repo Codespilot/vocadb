@@ -1834,6 +1834,7 @@
     <Content Include="Views\Home\Chat.cshtml" />
     <Content Include="Views\Song\UsersWithSongRating.cshtml" />
     <Content Include="Views\Home\Wiki.cshtml" />
+    <Content Include="Views\Shared\SongPopupContent.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

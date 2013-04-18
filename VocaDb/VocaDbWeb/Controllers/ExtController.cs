@@ -47,6 +47,9 @@ namespace VocaDb.Web.Controllers
 				case "Artist":
 					data = RenderPartialViewToString("ArtistPopupContent", Services.Artists.GetArtist(id));
 					break;
+				case "Song":
+					data = RenderPartialViewToString("SongPopupContent", Services.Songs.GetSongWithPVAndVote(id));
+					break;
 			}
 
 			return Json(data, callback);
