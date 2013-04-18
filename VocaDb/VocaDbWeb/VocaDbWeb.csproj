@@ -861,6 +861,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FavoriteSongsStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\User\IndexStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\User\LoginStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2524,6 +2529,12 @@
     <EmbeddedResource Include="Resources\Views\User\FavoriteSongsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FavoriteSongsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\IndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\IndexStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.fi.resx" />

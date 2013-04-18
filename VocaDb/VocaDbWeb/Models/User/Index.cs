@@ -15,6 +15,8 @@ namespace VocaDb.Web.Models.User {
 			Name = name;
 		}
 
+		public bool Disabled { get; set; }
+
 		public UserGroupId GroupId { get; set; }
 
 		public string Name { get; set; }
