@@ -1,7 +1,11 @@
 ﻿@using VocaDb.Web.Helpers
 @model VocaDb.Model.DataContracts.Songs.SongWithPVAndVoteContract
 
-<h3>@Model.Name</h3>
+<style type="text/css">
+	.popupTitle { color: black; }
+</style>
+
+<h3 class="popupTitle">@Model.Name</h3>
 
 @if (!string.IsNullOrEmpty(Model.ThumbUrl)) {
 <div class="thumbnail">
