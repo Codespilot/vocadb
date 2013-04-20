@@ -32,6 +32,8 @@ namespace VocaDb.Web.Models.User {
 
 		public int? page { get; set; }
 
+		public int? pageSize { get; set; }
+
 		public PurchaseStatus? purchaseStatus { get; set; }
 
 	}
