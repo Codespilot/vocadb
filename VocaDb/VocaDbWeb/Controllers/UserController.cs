@@ -84,15 +84,15 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			const int entriesPerPage = 50;
+			int pageSize = Math.Min(routeParams.pageSize ?? 50, 200);
 			var pageIndex = (routeParams.page - 1) ?? 0;
-			var queryParams = new AlbumCollectionQueryParams(id, PagingProperties.CreateFromPage(pageIndex, entriesPerPage, routeParams.count == 0)) { 
+			var queryParams = new AlbumCollectionQueryParams(id, PagingProperties.CreateFromPage(pageIndex, pageSize, routeParams.count == 0)) { 
 				FilterByStatus = routeParams.purchaseStatus ?? PurchaseStatus.Nothing 
 			};
 			var albums = Service.GetAlbumCollection(queryParams);
 			routeParams.count = (albums.TotalCount != 0 ? albums.TotalCount : routeParams.count);
-			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, entriesPerPage, routeParams.count), id, "AlbumCollection", "ui-tabs-1");
-			paged.RouteValues = new RouteValueDictionary(new { action = "AlbumCollection", id, count = routeParams.count, purchaseStatus = routeParams.purchaseStatus });
+			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, pageSize, routeParams.count), id, "AlbumCollection", "ui-tabs-1");
+			paged.RouteValues = new RouteValueDictionary(new { action = "AlbumCollection", id, count = routeParams.count, purchaseStatus = routeParams.purchaseStatus, pageSize });
 
 			return PartialView("AlbumCollectionPaged", paged);
 
