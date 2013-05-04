@@ -253,7 +253,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 
 	$("td.artistList a").vdbArtistToolTip();
 	
-	$("#userCollectionsPopup").dialog({ autoOpen: false, position: { my: "left top", at: "left bottom", of: $("#statsLink") } });
+	$("#userCollectionsPopup").dialog({ autoOpen: false, width: 400, position: { my: "left top", at: "left bottom", of: $("#statsLink") } });
 
 	ko.applyBindings(new AlbumDetailsViewModel(albumId));
 
