@@ -198,6 +198,62 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static MvcHtmlString Grid<T>(this HtmlHelper htmlHelper, IEnumerable<T> items, 
+			int columns, Func<T, IHtmlString> contentFunc) {
+
+			var tableTag = new TagBuilder("table");
+			TagBuilder trTag = null;
+			int i = 0;
+
+			foreach (var item in items) {
+
+				if (i % columns == 0) {
+
+					if (trTag != null)
+						tableTag.InnerHtml += trTag.ToString();
+
+					trTag = new TagBuilder("tr");
+
+				}
+
+				var tdTag = new TagBuilder("td");
+				tdTag.InnerHtml = contentFunc(item).ToHtmlString();
+				trTag.InnerHtml += tdTag.ToString();
+				i++;
+
+			}
+
+			if (trTag != null)
+				tableTag.InnerHtml += trTag.ToString();
+
+			/*
+			 * 		@{ int i = 0; }
+	
+		@foreach (var user in users) {
+			if (i % columns == 0) {
+				@Html.Raw("<tr>")
+			}
+			<td>
+				@ProfileIcon(user, 20)
+			</td>
+			<td>
+				@UserLink(user)
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+
+			 */
+
+			return new MvcHtmlString(tableTag.ToString());
+
+		}
+
 		public static MvcHtmlString Image(this HtmlHelper htmlHelper, string src, string alt) {
 
 			return new MvcHtmlString(string.Format("<img src='{0}' alt='{1}' />", src, alt));

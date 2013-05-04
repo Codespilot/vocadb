@@ -308,7 +308,7 @@ namespace VocaDb.Model.Service {
 					.ThenByDescending(a => a.RatingCount)
 					.Take(7).ToArray();
 
-				var albumCutoffDate = DateTime.Now.AddMonths(1);
+				//var albumCutoffDate = DateTime.Now.AddMonths(1);
 
 				var newAlbums = GetRecentAlbums(session);
 
@@ -331,7 +331,7 @@ namespace VocaDb.Model.Service {
 
 				var firstSongVote = (newSongs.Any() ? session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == newSongs.First().Id && s.User.Id == PermissionContext.LoggedUserId) : null);
 
-				var recentComments = GetRecentComments(session, 6);
+				var recentComments = GetRecentComments(session, 7);
 
 				return new FrontPageContract(activityEntries, newsEntries, newAlbums, recentComments, topAlbums, newSongs, 
 					firstSongVote != null ? firstSongVote.Rating : SongVoteRating.Nothing, PermissionContext.LanguagePreference);
