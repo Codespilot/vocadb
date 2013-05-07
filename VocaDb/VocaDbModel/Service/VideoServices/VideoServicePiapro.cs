@@ -43,9 +43,9 @@ namespace VocaDb.Model.Service.VideoServices {
 			var doc = new HtmlDocument();
 			doc.Load(htmlStream, encoding);
 
-			var catLink = doc.DocumentNode.SelectSingleNode("//div[@class = 'dtl_data']/p[3]");
+			var dataElem = doc.DocumentNode.SelectSingleNode("//div[@class = 'dtl_data']");
 
-			if (catLink == null || !catLink.InnerHtml.Contains("/illust/?categoryId=1"))
+			if (dataElem == null || !dataElem.InnerHtml.Contains("/music/"))
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Content type indicates this isn't an audio file.");
 
 			var idElem = doc.DocumentNode.SelectSingleNode("//input[@name = 'id']");
