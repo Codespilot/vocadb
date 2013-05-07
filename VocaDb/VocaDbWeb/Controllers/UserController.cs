@@ -169,7 +169,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult FavoriteSongs(int id, int? page, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
 
 			if (Request.IsAjaxRequest()) {
-				return FavoriteSongsPaged(id, page, rating, sort);
+				return FavoriteSongsPaged(id, page, rating, sort, groupByRating);
 			} else {
 				return View(new FavoriteSongs(Service.GetUser(id), rating ?? SongVoteRating.Nothing, sort, groupByRating));
 			}

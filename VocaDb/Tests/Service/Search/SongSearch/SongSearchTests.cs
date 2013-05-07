@@ -4,6 +4,8 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Tests.Mocks;
@@ -22,6 +24,7 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 		private Model.Service.Search.SongSearch.SongSearch search;
 		private Song song;
 		private Song songWithArtist;
+		private Tag tag;
 
 		private void AddSong(Song song) {
 
@@ -32,6 +35,9 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			foreach (var artistLink in song.AllArtists)
 				querySource.Add(artistLink);
+
+			foreach (var tagUsage in song.Tags.Usages)
+				querySource.Add(tagUsage);
 
 		}
 
@@ -45,8 +51,10 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 			querySource = new QuerySourceList();
 
 			artist = new Artist(TranslatedString.Create("Junk")) { Id = 257 };
+			tag = new Tag("Electronic");
 
 			song = new Song(new LocalizedString("Nebula", ContentLanguageSelection.English)) { Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1) };
+			song.Tags.Usages.Add(new SongTagUsage(song, tag));
 			AddSong(song);
 
 			songWithArtist = new Song(new LocalizedString("Crystal Tears", ContentLanguageSelection.English)) { Id = 7787, FavoritedTimes = 39, CreateDate = new DateTime(2012, 1, 1) };
@@ -198,6 +206,22 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 			Assert.AreEqual(1, result.Items.Length, "1 result");
 			Assert.AreEqual(2, result.TotalCount, "2 total count");
 			Assert.AreEqual(song2, result.Items[0], "result is as expected");
+
+		}
+
+		/// <summary>
+		/// Query by tag
+		/// </summary>
+		[TestMethod]
+		public void QueryTag() {
+
+			queryParams.Common.Query = "tag:Electronic";
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "1 total count");
+			Assert.AreEqual(song, result.Items[0], "result is as expected");
 
 		}
 

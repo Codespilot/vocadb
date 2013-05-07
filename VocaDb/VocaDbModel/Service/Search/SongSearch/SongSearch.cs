@@ -78,6 +78,15 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		}
 
+		private IQueryable<SongTagUsage> AddPVFilter(IQueryable<SongTagUsage> criteria, bool onlyWithPVs) {
+
+			if (onlyWithPVs)
+				return criteria.Where(t => t.Song.PVServices != PVServices.Nothing);
+			else
+				return criteria;
+
+		}
+
 		private IQueryable<Song> AddTimeFilter(IQueryable<Song> criteria, TimeSpan timeFilter) {
 
 			if (timeFilter == TimeSpan.Zero)
@@ -101,6 +110,17 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 		}
 
 		private IQueryable<SongName> AddTimeFilter(IQueryable<SongName> criteria, TimeSpan timeFilter) {
+
+			if (timeFilter == TimeSpan.Zero)
+				return criteria;
+
+			var since = DateTime.Now - timeFilter;
+
+			return criteria.Where(t => t.Song.CreateDate >= since);
+
+		}
+
+		private IQueryable<SongTagUsage> AddTimeFilter(IQueryable<SongTagUsage> criteria, TimeSpan timeFilter) {
 
 			if (timeFilter == TimeSpan.Zero)
 				return criteria;
@@ -186,6 +206,26 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.Song.SongType));
+
+				q = AddTimeFilter(q, queryParams.TimeFilter);
+				q = AddPVFilter(q, queryParams.OnlyWithPVs);
+
+				songs = q
+					.Select(m => m.Song)
+					.AddOrder(sortRule, LanguagePreference)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
+			} else if (query.StartsWith("tag:")) {
+
+				var tagName = query.Substring(4);
+
+				var q = Query<SongTagUsage>()
+					.Where(m => !m.Song.Deleted && m.Tag.Name == tagName);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
 
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
@@ -330,6 +370,21 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				q = AddTimeFilter(q, timeFilter);
 				q = AddPVFilter(q, onlyWithPVs);
+
+				return q.Count();
+
+			} else if (query.StartsWith("tag:")) {
+
+				var tagName = query.Substring(4);
+
+				var q = Query<SongTagUsage>()
+					.Where(m => !m.Song.Deleted && m.Tag.Name == tagName);
+
+				if (draftsOnly)
+					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				q = AddTimeFilter(q, queryParams.TimeFilter);
+				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
 				return q.Count();
 
