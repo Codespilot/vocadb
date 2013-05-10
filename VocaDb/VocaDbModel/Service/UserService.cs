@@ -995,7 +995,8 @@ namespace VocaDb.Model.Service {
 				user.Options.PublicRatings = contract.PublicRatings;
 				user.SetEmail(contract.Email);
 
-				var webLinkDiff = WebLink.Sync(user.WebLinks, contract.WebLinks, user);
+				var validWebLinks = contract.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
+				var webLinkDiff = WebLink.Sync(user.WebLinks, validWebLinks, user);
 				SessionHelper.Sync(session, webLinkDiff);
 
 				session.Update(user);
