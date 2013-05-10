@@ -65,6 +65,8 @@ namespace VocaDb.Web.Controllers {
 
 		protected void CheckConcurrentEdit(EntryType entryType, int id) {
 
+			Login.Manager.VerifyLogin();
+
 			var conflictingEditor = ConcurrentEntryEditManager.CheckConcurrentEdits(new EntryRef(entryType, id), Login.User);
 
 			if (conflictingEditor.UserId != ConcurrentEntryEditManager.Nothing.UserId) {

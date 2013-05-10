@@ -95,6 +95,12 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		/// <summary>
+		/// Checks for concurrent edits.
+		/// </summary>
+		/// <param name="entry">Entry to be checked. Cannot be null.</param>
+		/// <param name="user">User attempting to edit the entry. Cannot be null.</param>
+		/// <returns>Edit data for the active editor. Cannot be null.</returns>
 		public EntryEditData CheckConcurrentEditsInst(EntryRef entry, IUser user) {
 
 			ParamIs.NotNull(() => entry);
