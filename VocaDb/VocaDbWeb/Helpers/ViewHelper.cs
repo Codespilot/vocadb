@@ -111,6 +111,10 @@ namespace VocaDb.Web.Helpers {
 			return new SelectList(EnumVal<SongType>.Values.ToDictionary(s => s, Translate.SongTypeNames.GetName), "Key", "Value", selectedValue);
 		}
 
+		public static CSSClassBuilder<TModel> CSS<TModel>(this HtmlHelper<TModel> htmlHelper, string initial) where TModel : class {
+			return new CSSClassBuilder<TModel>(htmlHelper.ViewData.Model, initial);
+		}
+
 		public static MvcHtmlString ArtistTypeDropDownListFor<TModel>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, ArtistType>> expression, object htmlAttributes = null, object selectedValue = null) {
 
