@@ -36,6 +36,12 @@
 						}
 					</ul>
 				</div>
+				<div class="btn-group">
+					<a class="@Html.CSS("btn btn-nomargin").If(m => m.View == EntryViewMode.Details, "active")" 
+						href="@Url.Action("Index", new IndexRouteParams(Model.RouteParams, Model.Page) { view = EntryViewMode.Details })"><i class="icon-list"></i></a>
+					<a class="@Html.CSS("btn btn-nomargin").If(m => m.View == EntryViewMode.Tiles, "active")" 
+						href="@Url.Action("Index", new IndexRouteParams(Model.RouteParams, Model.Page) { view = EntryViewMode.Tiles })"><i class="icon-th"></i></a>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -44,6 +50,7 @@
 
 @using (Html.BeginForm("Index", "Album", FormMethod.Post, new { @class = "form-inline" })) {
 	@Html.HiddenFor(m => m.Sort)
+	@Html.HiddenFor(m => m.View)
 	
 <p>
 	@ViewRes.SharedStrings.Filter: 

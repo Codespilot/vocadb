@@ -602,6 +602,7 @@
     <Compile Include="Helpers\RouteInfo.cs" />
     <Compile Include="Helpers\SearchHelpers.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\Support\CSSClassBuilder.cs" />
     <Compile Include="Helpers\Support\TranslateableEnum.cs" />
     <Compile Include="Helpers\TempDataExtender.cs" />
     <Compile Include="Helpers\Translate.cs" />
