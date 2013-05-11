@@ -40,6 +40,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			Id = id;
 			Title = meta.Title ?? string.Empty;
 			Author = meta.Author ?? string.Empty;
+			AuthorId = meta.AuthorId ?? string.Empty;
 			ThumbUrl = meta.ThumbUrl ?? string.Empty;
 
 			ResultType = VideoUrlParseResultType.Ok;
@@ -65,6 +66,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		}
 
 		public string Author { get; set; }
+
+		public string AuthorId { get; set; }
 
 		/// <summary>
 		/// Exception. Cannot be null or result type is anything but Ok.

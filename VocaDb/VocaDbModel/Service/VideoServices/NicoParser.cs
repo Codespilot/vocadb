@@ -116,7 +116,9 @@ namespace VocaDb.Model.Service.VideoServices {
 			var userId = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/user_id");
 			var author = GetUserName(userId);
 
-			return VideoTitleParseResult.CreateSuccess(title, author, thumbUrl);
+			var result = VideoTitleParseResult.CreateSuccess(title, author, thumbUrl);
+			result.AuthorId = userId;
+			return result;
 
 		}
 
@@ -215,7 +217,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			}
 
-			return new NicoTitleParseResult(title.Trim(), new[] { artist }, songType);
+			return new NicoTitleParseResult(title.Trim(), new List<Artist> { artist }, songType);
 
 		}
 

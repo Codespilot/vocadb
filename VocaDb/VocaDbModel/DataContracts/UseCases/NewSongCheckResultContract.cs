@@ -26,7 +26,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			this.Matches = matches;
 
 			if (titleParseResult != null) {
-				this.Artists = titleParseResult.ArtistNames.Where(a => a != null).Select(a => new ArtistContract(a, languagePreference)).ToArray();
+				this.Artists = titleParseResult.Artists.Where(a => a != null).Select(a => new ArtistContract(a, languagePreference)).ToArray();
 				this.SongType = titleParseResult.SongType;
 				this.Title = titleParseResult.Title;
 			}
