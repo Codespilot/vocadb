@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
@@ -13,6 +15,7 @@ namespace VocaDb.Tests.Domain.Songs {
 	[TestClass]
 	public class SongTests {
 
+		private Artist artist;
 		private LyricsForSong lyrics;
 		private Song song;
 
@@ -23,6 +26,7 @@ namespace VocaDb.Tests.Domain.Songs {
 		[TestInitialize]
 		public void Setup() {
 
+			artist = new Artist { Id = 1 };
 			song = new Song();
 			lyrics = song.CreateLyrics(ContentLanguageSelection.Japanese, "Miku!", "miku");
 
@@ -68,6 +72,21 @@ namespace VocaDb.Tests.Domain.Songs {
 
 			Assert.AreEqual(1, result.Count, "one entry");
 			Assert.AreSame(lyrics, result.First(), "returned lyrics from entry");
+
+		}
+
+		[TestMethod]
+		public void SyncArtists_Duplicate() {
+			
+			var newArtists = new[] {
+				new ArtistForSongContract(new ArtistForSong(song, artist, false, ArtistRoles.Default), ContentLanguagePreference.Default),
+				new ArtistForSongContract(new ArtistForSong(song, artist, false, ArtistRoles.Composer), ContentLanguagePreference.Default),
+			};
+
+			song.SyncArtists(newArtists, c => c.Artist.Id == artist.Id ? artist : null);
+
+			Assert.AreEqual(1, song.AllArtists.Count, "Only one artist");
+			Assert.AreEqual(artist, song.AllArtists.First().Artist, "Artist is as expected");
 
 		}
 

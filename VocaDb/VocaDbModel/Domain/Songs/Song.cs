@@ -530,14 +530,18 @@ namespace VocaDb.Model.Domain.Songs {
 				ArtistForSong l;
 
 				if (newEntry.Artist != null) {
+
 					var artist = artistGetter(newEntry);
 
-					l = artist.AddSong(this, newEntry.IsSupport, newEntry.Roles);
+					if (!HasArtist(artist)) {
+						l = artist.AddSong(this, newEntry.IsSupport, newEntry.Roles);
+						created.Add(l);
+					}
+
 				} else {
 					l = AddArtist(newEntry.Name, newEntry.IsSupport, newEntry.Roles);
+					created.Add(l);
 				}
-
-				created.Add(l);
 
 			}
 
