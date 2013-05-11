@@ -222,8 +222,10 @@ namespace VocaDb.Model.Service {
 
 				session.Save(song);
 
-				foreach (var artist in contract.Artists) {
-					session.Save(song.AddArtist(session.Load<Artist>(artist.Id)));
+				foreach (var artistContract in contract.Artists) {
+					var artist = session.Load<Artist>(artistContract.Id);
+					if (!song.HasArtist(artist))
+						session.Save(song.AddArtist(artist));
 				}
 
 				if (pvResult != null) {
