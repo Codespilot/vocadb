@@ -362,6 +362,19 @@ namespace VocaDb.Model.Service {
 				Paging = new PagingProperties(0, 1, false)
 			}).Items.FirstOrDefault());
 
+			if (!string.IsNullOrEmpty(res.AuthorId)) {
+
+				var author = session
+					.Query<ArtistWebLink>()
+					.Where(w => w.Url == "http://www.nicovideo.jp/user/" + res.AuthorId)
+					.Select(w => w.Artist)
+					.FirstOrDefault();
+
+				if (author != null)
+					titleParseResult.Artists.Add(author);
+
+			}
+
 			return titleParseResult;
 
 		}
