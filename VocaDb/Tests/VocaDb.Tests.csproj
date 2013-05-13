@@ -109,6 +109,7 @@
     <Compile Include="Service\Helpers\UrlHelperTests.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchTests.cs" />
     <Compile Include="Service\Search\SongSearch\SongSearchTests.cs" />
+    <Compile Include="Service\TagFormatting\TagFormatterTests.cs" />
     <Compile Include="Service\VideoServices\NicoHelperTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
     <Compile Include="Web\Controllers\ArtistControllerTests.cs" />
