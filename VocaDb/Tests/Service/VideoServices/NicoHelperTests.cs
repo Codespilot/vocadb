@@ -29,8 +29,8 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 			var result = NicoHelper.ParseTitle("【重音テト】 ハイゲインワンダーランド 【オリジナル】", ArtistFunc);
 
-			Assert.AreEqual(1, result.ArtistNames.Length, "1 artist");
-			Assert.AreEqual("重音テト", result.ArtistNames.First().DefaultName, "artist");
+			Assert.AreEqual(1, result.Artists.Count, "1 artist");
+			Assert.AreEqual("重音テト", result.Artists.First().DefaultName, "artist");
 			Assert.AreEqual("ハイゲインワンダーランド", result.Title, "title");
 			Assert.AreEqual(SongType.Original, result.SongType, "song type");
 

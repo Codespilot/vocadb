@@ -13,6 +13,7 @@ namespace VocaDb.Model.Service.TagFormatting {
 	public class TagFormatter {
 
 		public static readonly string[] TagFormatStrings = new[] {
+			"%title%;%title% feat. %vocalists%;%producers%;%album%;%discnumber%;%track%",
 			"%title% feat. %vocalists%;%producers%;%album%;%discnumber%;%track%",
 			"%title%;%producers%;%vocalists%;%album%;%discnumber%;%track%",
 			"%title%;%artists%;%album%;%discnumber%;%track%",
