@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using NHibernate;
 using NHibernate.Linq;
@@ -8,14 +6,12 @@ using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.Domain.Albums;
-using System.Text.RegularExpressions;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Search;
 
 namespace VocaDb.Model.Service {
 
 	public class ReleaseEventService : ServiceBase {
-
-		private static readonly Regex eventNameRegex = new Regex(@"(.[^\d]+)(\d+)");
 
 		public ReleaseEventService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
@@ -55,44 +51,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				// Attempt to match exact name
-				var ev = session.Query<ReleaseEvent>().FirstOrDefault(e => e.Name == query);
-
-				if (ev != null)
-					return new ReleaseEventFindResultContract(ev);
-
-				var match = eventNameRegex.Match(query);
-
-				if (match.Success) {
-
-					var seriesName = match.Groups[1].Value.Trim();
-					var seriesNumber = Convert.ToInt32(match.Groups[2].Value);
-
-					// Attempt to match series + series number
-					var results = session.Query<ReleaseEvent>().Where(e => (seriesName.Contains(e.Series.Name) || e.Series.Name.Contains(seriesName)
-						|| e.Series.Aliases.Any(a => seriesName.Contains(a.Name) || a.Name.Contains(seriesName))) && e.SeriesNumber == seriesNumber).ToArray();
-
-					if (results.Length > 1)
-						return new ReleaseEventFindResultContract();
-
-					if (results.Length == 1)
-						return new ReleaseEventFindResultContract(results[0]);
-
-					// Attempt to match just the series
-					var series = session.Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.Contains(s.Name) || s.Name.Contains(seriesName) || s.Aliases.Any(a => seriesName.Contains(a.Name) || a.Name.Contains(seriesName)));
-
-					if (series != null)
-						return new ReleaseEventFindResultContract(series, seriesNumber, query);
-
-				}
-
-				var events = session.Query<ReleaseEvent>().Where(e => query.Contains(e.Name) || e.Name.Contains(query)).Take(2).ToArray();
-
-				if (events.Length != 1) {
-					return new ReleaseEventFindResultContract();
-				}
-
-				return new ReleaseEventFindResultContract(events[0]);
+				return new ReleaseEventSearch(new QuerySourceSession(session)).Find(query);
 
 			});
 
