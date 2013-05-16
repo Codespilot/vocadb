@@ -579,8 +579,9 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var user = session.Query<User>().ToArray()
-					.FirstOrDefault(u => u.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+				var user = session
+					.Query<User>()
+					.FirstOrDefault(u => u.Name == name);
 
 				if (user == null)
 					return null;
