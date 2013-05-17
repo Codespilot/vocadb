@@ -26,7 +26,7 @@ namespace VocaDb.Web.Controllers
 
 			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);
 
-			var entries = Service.GetAuditLog(Filter, start ?? 0, 200);
+			var entries = Service.GetAuditLog(Filter, start ?? 0, 200, 365);
 
 			return PartialView(entries);
 
