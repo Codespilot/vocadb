@@ -8,7 +8,7 @@ namespace VocaDb.Model.Service.Search {
 
 	public class ReleaseEventSearch {
 
-		private static readonly Regex eventNameRegex = new Regex(@"(.[^\d]+)(\d+)");
+		private static readonly Regex eventNameRegex = new Regex(@"([^\d]+)(\d+)");
 
 		private readonly IQuerySource querySource;
 
