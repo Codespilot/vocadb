@@ -11,7 +11,10 @@
 		@Html.HiddenFor(m => m.Service)  
         @Html.HiddenFor(m => m.ThumbUrl)
 		@Html.HiddenFor(m => m.Url)
-		<a href="@Model.Url">@Model.Service</a>
+		<a href="@Model.Url">
+			@Helpers.PVServiceIcon(Model.Service)
+			@Model.Service
+		</a>
 	</td>
 	<td>
 		@Model.PVType

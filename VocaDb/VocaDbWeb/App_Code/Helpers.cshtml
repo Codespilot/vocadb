@@ -255,14 +255,18 @@
 	@CommentHelpers.PrintComment(contract, allowDelete, alwaysAllowDelete)
 }
 
+@helper PVServiceIcon(PVService service) {
+    
+	var iconUrl = @Html.VideoServiceLinkUrl(service);
+        
+	<img src="@iconUrl" alt="@service.ToString()" title="@service.ToString()" />
+    
+}
+
 @helper PVServiceIcons(PVServices services) {
     
     foreach (var service in EnumVal<PVService>.Values.Where(service => services.HasFlag((PVServices)service))) {
-
-        var iconUrl = @Html.VideoServiceLinkUrl(service);
-        
-        <img src="@iconUrl" alt="@service.ToString()" title="@service.ToString()" />
-           
+        @PVServiceIcon(service)           
     }
     
 }
