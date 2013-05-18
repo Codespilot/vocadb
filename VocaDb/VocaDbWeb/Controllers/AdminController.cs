@@ -22,11 +22,11 @@ namespace VocaDb.Web.Controllers
     	}
 
 		[Authorize]
-		public ActionResult AuditLogEntries(int? start, string Filter) {
+		public ActionResult AuditLogEntries(string Filter, int start = 0) {
 
 			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);
 
-			var entries = Service.GetAuditLog(Filter, start ?? 0, 200, 365);
+			var entries = Service.GetAuditLog(Filter, start, 200, 365);
 
 			return PartialView(entries);
 
