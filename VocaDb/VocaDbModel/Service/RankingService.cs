@@ -19,11 +19,11 @@ namespace VocaDb.Model.Service {
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
 		}
 
-		public int CreateSongListFromWVR(string url) {
+		public int CreateSongListFromWVR(string url, bool parseAll) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
-			var parsed = new NNDWVRParser().GetSongs(url);
+			var parsed = new NNDWVRParser().GetSongs(url, parseAll);
 
 			return HandleTransaction(session => {
 
@@ -96,9 +96,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public WVRListResult ParseWVRList(string url) {
+		public WVRListResult ParseWVRList(string url, bool parseAll) {
 
-			var parsed = new NNDWVRParser().GetSongs(url);
+			var parsed = new NNDWVRParser().GetSongs(url, parseAll);
 
 			return HandleQuery(session => {
 

@@ -1,16 +1,20 @@
 ﻿@model VocaDb.Web.Models.SongLists.CreateFromWVR
 
 @{
-    ViewBag.Title = "Create song list from WVR";
+    ViewBag.Title = "Create song list from NicoNico mylist";
 }
 
 @Helpers.ValidationSymmaryPanel("Unable to parse list")
 
 @using (Html.BeginForm("CreateFromWVR", "SongList", new { commit = false }, FormMethod.Post, new { @class = "form-inline" })) {
 
-	@("Url:")
+	@("NicoNico mylist or RSS feed:")
 	@Html.Raw("&nbsp;")
-	@Html.TextBoxFor(m => m.Url, new { size = 60 })
+	@Html.TextBoxFor(m => m.Url, new { size = 60, @class = "input-xlarge" })
+	<label class="checkbox inline">
+		@Html.CheckBoxFor(m => m.ParseAll)
+		@Html.LabelFor(m => m.ParseAll)
+	</label>
 		
 	<input type="submit" value="Parse" class="btn" /><br />
 	@Html.ValidationMessageFor(m => m.Url)
@@ -37,7 +41,7 @@
 					<td><a href="@row.Url">@row.Name</a></td>
 					<td>
 						@if (row.Song != null) {
-							@Html.ActionLink(row.Song.Name, "Details", new { id = row.Song.Id }, new { title = row.Song.AdditionalNames })
+							@Html.ActionLink(row.Song.Name, "Details", "Song", new { id = row.Song.Id }, new { title = row.Song.AdditionalNames })
 	  } else {
 							<span>MISSING</span>
 	  }
