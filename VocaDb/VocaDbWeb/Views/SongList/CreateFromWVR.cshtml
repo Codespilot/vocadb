@@ -41,10 +41,10 @@
 					<td><a href="@row.Url">@row.Name</a></td>
 					<td>
 						@if (row.Song != null) {
-							@Html.ActionLink(row.Song.Name, "Details", "Song", new { id = row.Song.Id }, new { title = row.Song.AdditionalNames })
-	  } else {
+							@SongHelpers.SongLink(row.Song)
+						} else {
 							<span>MISSING</span>
-	  }
+						}
 					</td>
 				</tr>
    }
