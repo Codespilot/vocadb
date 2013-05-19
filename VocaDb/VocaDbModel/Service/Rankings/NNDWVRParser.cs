@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
@@ -12,9 +13,18 @@ namespace VocaDb.Model.Service.Rankings {
 
 		private static readonly Regex wvrIdRegex = new Regex(@"#(\d{3})");
 
-		public RankingContract GetSongs(string url) {
+		public RankingContract GetSongs(string url, bool parseAll) {
 
-			var feed = RssFeed.Read(url);
+			if (!url.Contains("rss="))
+				url += "?rss=2.0";
+
+			RssFeed feed;
+			
+			try {
+				feed = RssFeed.Read(url);
+			} catch (UriFormatException x) {
+				throw new InvalidFeedException("Unable to parse URL", x);
+			}
 
 			if (feed.Exceptions.LastException != null) {
 				throw new InvalidFeedException("Unable to parse feed", feed.Exceptions.LastException);
@@ -35,7 +45,7 @@ namespace VocaDb.Model.Service.Rankings {
 
 				var node = HtmlNode.CreateNode(item.Description);
 
-				if (char.IsDigit(node.InnerText, 0)) {
+				if (parseAll || (node.InnerText.Any() && char.IsDigit(node.InnerText, 0))) {
 
 					var nicoId = VideoService.NicoNicoDouga.GetIdByUrl(item.Link.ToString());
 					songs.Add(new SongInRankingContract { NicoId = nicoId, SortIndex = order, Name = item.Title, Url = item.Link.ToString() });

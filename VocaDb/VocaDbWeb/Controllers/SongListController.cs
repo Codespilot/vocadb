@@ -45,15 +45,15 @@ namespace VocaDb.Web.Controllers
 		public ActionResult CreateFromWVR(CreateFromWVR model, bool commit) {
 
 			if (commit) {
-				var listId = MvcApplication.Services.Rankings.CreateSongListFromWVR(model.Url);
+				var listId = MvcApplication.Services.Rankings.CreateSongListFromWVR(model.Url, model.ParseAll);
 				return RedirectToAction("Details", "SongList", new { id = listId });
 			}
 
 			WVRListResult parseResult;
 			try {
-				parseResult = MvcApplication.Services.Rankings.ParseWVRList(model.Url);
-			} catch (InvalidFeedException x) {
-				ModelState.AddModelError("Url", x);
+				parseResult = MvcApplication.Services.Rankings.ParseWVRList(model.Url, model.ParseAll);
+			} catch (InvalidFeedException) {
+				ModelState.AddModelError("Url", "Check that the URL is valid and points to a NicoNico mylist or RSS feed.");
 				return View(model);
 			}
 			model.ListResult = parseResult;
