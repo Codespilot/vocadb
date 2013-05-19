@@ -107,10 +107,9 @@ namespace VocaDb.Model.Service {
 				foreach (var entry in parsed.Songs) {
 
 					var pv = session.Query<PVForSong>()
-						.Where(p => p.Service == PVService.NicoNicoDouga && p.PVId == entry.NicoId)
-						.FirstOrDefault();
+						.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVId == entry.NicoId);
 
-					var song = pv != null ? new SongWithAdditionalNamesContract(pv.Song, PermissionContext.LanguagePreference) : null;
+					var song = pv != null ? new SongContract(pv.Song, LanguagePreference) : null;
 
 					songs.Add(new WVRListEntryResult(entry.NicoId, entry.SortIndex, entry.Name, entry.Url, song));
 
@@ -150,7 +149,7 @@ namespace VocaDb.Model.Service {
 
 	public class WVRListEntryResult {
 
-		public WVRListEntryResult(string nicoId, int order, string name, string url, SongWithAdditionalNamesContract song) {
+		public WVRListEntryResult(string nicoId, int order, string name, string url, SongContract song) {
 
 			NicoId = nicoId;
 			Order = order;
@@ -166,7 +165,7 @@ namespace VocaDb.Model.Service {
 
 		public int Order { get; set; }
 
-		public SongWithAdditionalNamesContract Song { get; set; }
+		public SongContract Song { get; set; }
 
 		public string Url { get; set; }
 
