@@ -196,6 +196,9 @@ namespace VocaDb.Model.Service {
 				using (var session = OpenSession()) {
 					func(session);
 				}
+			} catch (ObjectNotFoundException x) {
+				log.Error(x.Message);
+				throw;
 			} catch (HibernateException x) {
 				log.ErrorException(failMsg, x);
 				throw;
@@ -204,11 +207,14 @@ namespace VocaDb.Model.Service {
 		}
 
 		protected T HandleQuery<T>(Func<ISession, T> func, string failMsg = "Unexpected NHibernate error") {
-			
+
 			try {
 				using (var session = OpenSession()) {
 					return func(session);
 				}
+			} catch (ObjectNotFoundException x) {
+				log.Error(x.Message);
+				throw;
 			} catch (HibernateException x) {
 				log.ErrorException(failMsg, x);
 				throw;

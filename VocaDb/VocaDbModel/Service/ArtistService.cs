@@ -298,13 +298,13 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session =>
 				EntryForPictureDisplayContract.Create(
-				session.Load<ArchivedArtistVersion>(archivedVersionId), PermissionContext.LanguagePreference));
+				session.Load<ArchivedArtistVersion>(archivedVersionId), LanguagePreference));
 
 		}
 
 		public ArtistContract GetArtist(int id) {
 
-			return HandleQuery(session => new ArtistContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new ArtistContract(session.Load<Artist>(id), LanguagePreference));
 
 		}
 
