@@ -62,6 +62,17 @@ namespace VocaDb.Tests.Service.TagFormatting {
 
 		}
 
+		[TestMethod]
+		public void Semicolon() {
+
+			producer.TranslatedName.Romaji = "re;mo";
+
+			var result = ApplyFormat(defaultFormat, ContentLanguagePreference.Romaji).Trim();
+
+			Assert.AreEqual("Nebula feat. Hatsune Miku;\"re;mo\";Synthesis;1;5", result);
+
+		}
+
 	}
 
 }
