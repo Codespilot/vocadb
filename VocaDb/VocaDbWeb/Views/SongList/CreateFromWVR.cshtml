@@ -44,6 +44,9 @@
 							@SongHelpers.SongLink(row.Song)
 						} else {
 							<span>MISSING</span>
+							@("(")
+							@Html.ActionLink("Submit", "Create", "Song", new { PVUrl = row.Url }, null)
+							@(")")
 						}
 					</td>
 				</tr>

@@ -36,6 +36,17 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 		}
 
+		[TestMethod]
+		public void ParseTitle_WhiteSpace() {
+
+			var result = NicoHelper.ParseTitle("【 鏡音リン 】　sister's noise　(FULL) 【とある科学の超電磁砲S】", ArtistFunc);
+
+			Assert.AreEqual(1, result.Artists.Count, "1 artist");
+			Assert.AreEqual("鏡音リン", result.Artists.First().DefaultName, "artist");
+			Assert.AreEqual("sister's noise　(FULL)", result.Title, "title");
+
+		}
+
 	}
 
 }
