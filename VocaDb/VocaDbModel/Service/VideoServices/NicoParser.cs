@@ -193,7 +193,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (string.IsNullOrEmpty(title))
 				return new NicoTitleParseResult(title);
 
-			var elemRegex = new Regex(@"【(\w+)】");
+			var elemRegex = new Regex(@"【\s?(\w+)\s?】");
 			var matches = elemRegex.Matches(title);
 			Artist artist = null;
 			var songType = SongType.Unspecified;

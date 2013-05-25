@@ -181,9 +181,11 @@ namespace VocaDb.Web.Controllers
         }
 
 		[Authorize]
-		public ActionResult Create() {
+		public ActionResult Create(string pvUrl) {
 
-			return View(new Create());
+			var model = new Create { PVUrl = pvUrl };
+
+			return View(model);
 
 		}
 

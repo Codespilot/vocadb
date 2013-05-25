@@ -3,6 +3,7 @@ function CreateSongViewModel() {
 
 	var self = this;
 
+	this.Artists = ko.observableArray([]);
 	this.DupeEntries = ko.observableArray([]);
 	this.NameOriginal = ko.observable("");
 	this.NameRomaji = ko.observable("");
@@ -11,9 +12,9 @@ function CreateSongViewModel() {
 	this.HasName = ko.computed(function() {
 		return self.NameOriginal() || self.NameRomaji() || self.NameEnglish();
 	});
-
-	$("input.dupeField").focusout(function () {
-
+	
+	function checkDuplicatesAndPV() {
+		
 		var term1 = self.NameOriginal();
 		var term2 = self.NameRomaji();
 		var term3 = self.NameEnglish();
@@ -23,14 +24,14 @@ function CreateSongViewModel() {
 		$.post(vdb.functions.mapUrl("/Song/FindDuplicate"), { term1: term1, term2: term2, term3: term3, pv1: pv1, pv2: pv2, getPVInfo: true }, function (result) {
 
 			self.DupeEntries(result.Matches);
-			
+
 			if (result.Title && !self.HasName()) {
 				self.NameOriginal(result.Title);
 			}
-			
+
 			if (result.Artists && !$("#artistsTableBody tr").length) {
 
-				$(result.Artists).each(function() {
+				$(result.Artists).each(function () {
 					$.post("../../Artist/CreateArtistContractRow", { artistId: this.Id }, function (row) {
 						var artistsTable = $("#artistsTableBody");
 						artistsTable.append(row);
@@ -42,11 +43,13 @@ function CreateSongViewModel() {
 
 		});
 
-	});
+	}
 
-}
-
-function initPage() {
+	$("input.dupeField").focusout(checkDuplicatesAndPV);
+	
+	if ($("#pv1").val()) {
+		checkDuplicatesAndPV();
+	}
 
 	function acceptArtistSelection(artistId, term) {
 
@@ -83,6 +86,10 @@ function initPage() {
 	});
 
 	$("#artistsTableBody a.artistLink").vdbArtistToolTip();
+
+}
+
+function initPage() {
 
 	ko.applyBindings(new CreateSongViewModel());
 
