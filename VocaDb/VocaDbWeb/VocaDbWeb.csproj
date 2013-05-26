@@ -1800,6 +1800,7 @@
     <Content Include="Views\ActivityEntry\FollowedArtistActivity.cshtml" />
     <Content Include="Views\ActivityEntry\ActivityEntryContracts.cshtml" />
     <Content Include="Views\Album\UsersWithAlbumInCollection.cshtml" />
+    <Content Include="Views\Error\BadRequest.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

@@ -10,6 +10,16 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Error/
 
+		public ActionResult BadRequest(bool? redirect) {
+
+			if (redirect.HasValue && redirect.Value == false)
+				ErrorLogger.LogHttpError(Request, ErrorLogger.Code_BadRequest);
+
+			Response.StatusCode = ErrorLogger.Code_BadRequest;
+			return View("BadRequest");
+
+		}
+
 		public ActionResult Forbidden(bool? redirect) {
 
 			if (redirect.HasValue && redirect.Value == false)
@@ -24,6 +34,9 @@ namespace VocaDb.Web.Controllers
         {
 
 			var realCode = code ?? ErrorLogger.Code_InternalServerError;
+
+			if (realCode == ErrorLogger.Code_BadRequest)
+				return BadRequest(redirect);
 
 			if (realCode == ErrorLogger.Code_Forbidden)
 				return Forbidden(redirect);
