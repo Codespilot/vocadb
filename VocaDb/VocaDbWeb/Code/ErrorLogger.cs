@@ -7,6 +7,7 @@ namespace VocaDb.Web.Code {
 
 	public static class ErrorLogger {
 
+		public const int Code_BadRequest = (int)HttpStatusCode.BadRequest;
 		public const int Code_Forbidden = (int)HttpStatusCode.Forbidden;
 		public const int Code_NotFound = (int)HttpStatusCode.NotFound;
 		public const int Code_InternalServerError = (int)HttpStatusCode.InternalServerError;

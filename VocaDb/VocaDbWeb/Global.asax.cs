@@ -141,7 +141,7 @@ namespace VocaDb.Web {
 			// Not found (usually by the controller). We get these a lot.
 			var httpException = ex as HttpException;
 			var code = (httpException != null ? httpException.GetHttpCode() : 0);
-			if (httpException != null && code == ErrorLogger.Code_NotFound) {				
+			if (code == ErrorLogger.Code_NotFound || code == ErrorLogger.Code_BadRequest) {				
 				HandleHttpError(code);
 				return;
 			}
