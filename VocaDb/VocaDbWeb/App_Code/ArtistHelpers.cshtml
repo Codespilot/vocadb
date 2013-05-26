@@ -8,6 +8,22 @@
 @using VocaDb.Model.DataContracts.Albums;
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper ArtistTypeLabel(ArtistType artistType) {
+	switch (artistType) {
+		case ArtistType.Vocaloid:
+			<span class="label label-info" title="@Translate.ArtistTypeName(artistType)">V</span>
+			break;
+
+		case ArtistType.UTAU:
+			<span class="label label-important" title="@Translate.ArtistTypeName(artistType)">U</span>
+			break;		
+						
+		case ArtistType.OtherVocalist:
+			<span class="label" title="@Translate.ArtistTypeName(artistType)">O</span>
+			break;		
+	}
+}
+
 @helper ArtistGrid(IEnumerable<ArtistContract> artists, int columns,
 	bool displayType = false) {
 	
@@ -53,13 +69,16 @@
 	@Html.ActionLink(artist.Name, "Details", "Artist", new RouteValueDictionary { { "id", artist.Id } }, new Dictionary<string, object> { { "title", artist.AdditionalNames }, { "data-entry-id", artist.Id }, { "class", "artistLink" }})
 }
 
-@helper ArtistList(IEnumerable<ArtistForAlbumContract> artists, bool showRoles = false) {
+@helper ArtistList(IEnumerable<ArtistForAlbumContract> artists, bool showRoles = false, bool showType = false) {
 	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
 	foreach (var artist in ordered) {
 		if (artist.IsSupport) {
 			@("(")
 		}
 		if (artist.Artist != null) {
+			if (showType) {
+				@ArtistTypeLabel(artist.Artist.ArtistType)
+			}			
 			@ArtistLink(artist.Artist)
 		} else {
 			@artist.Name
@@ -76,13 +95,16 @@
 	}
 }
 
-@helper ArtistList(IEnumerable<ArtistForSongContract> artists, bool showRoles = false) {
+@helper ArtistList(IEnumerable<ArtistForSongContract> artists, bool showRoles = false, bool showType = false) {
 	var ordered = artists.OrderBy(a => a.IsSupport).ToArray();
 	foreach (var artist in ordered) {
 		if (artist.IsSupport) {
 			@("(")
 		}
 		if (artist.Artist != null) {
+			if (showType) {
+				@ArtistTypeLabel(artist.Artist.ArtistType)
+			}			
 			@ArtistLink(artist.Artist)
 		} else {
 			@artist.Name
