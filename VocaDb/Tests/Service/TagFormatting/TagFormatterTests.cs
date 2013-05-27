@@ -13,7 +13,7 @@ namespace VocaDb.Tests.Service.TagFormatting {
 	[TestClass]
 	public class TagFormatterTests {
 
-		private const string defaultFormat = "%title% feat. %vocalists%;%producers%;%album%;%discnumber%;%track%";
+		private const string defaultFormat = "%title%%featvocalists%;%producers%;%album%;%discnumber%;%track%";
 		private Album album;
 		private Artist producer;
 		private Song song;
@@ -58,7 +58,7 @@ namespace VocaDb.Tests.Service.TagFormatting {
 
 			var result = ApplyFormat(defaultFormat, ContentLanguagePreference.Romaji).Trim();
 
-			Assert.AreEqual("Nebula feat. ;;Synthesis;1;5", result);
+			Assert.AreEqual("Nebula;;Synthesis;1;5", result);
 
 		}
 

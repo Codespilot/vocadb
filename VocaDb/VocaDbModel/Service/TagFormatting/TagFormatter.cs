@@ -13,7 +13,7 @@ namespace VocaDb.Model.Service.TagFormatting {
 	public class TagFormatter {
 
 		public static readonly string[] TagFormatStrings = new[] {
-			"%title%;%title% feat. %vocalists%;%producers%;%album%;%discnumber%;%track%",
+			"%title%;%title%%featvocalists%;%producers%;%album%;%discnumber%;%track%",
 			"%title% feat. %vocalists%;%producers%;%album%;%discnumber%;%track%",
 			"%title%;%producers%;%vocalists%;%album%;%discnumber%;%track%",
 			"%title%;%artists%;%album%;%discnumber%;%track%",
@@ -30,7 +30,14 @@ namespace VocaDb.Model.Service.TagFormatting {
 			sb.Replace("%producers%", GetField(string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference))));
 			sb.Replace("%title%", GetField(track.Song.Names.SortNames[languagePreference]));
 			sb.Replace("%track%", track.TrackNumber.ToString());
-			sb.Replace("%vocalists%", GetField(string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference))));
+
+			var vocalistStr = string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference));
+			sb.Replace("%vocalists%", GetField(vocalistStr));
+			if (vocalistStr.Any()) {
+				sb.Replace("%featvocalists%", GetField(" feat. " + vocalistStr));
+			} else {
+				sb.Replace("%featvocalists%", string.Empty);				
+			}
 
 			return sb.ToString();
 
