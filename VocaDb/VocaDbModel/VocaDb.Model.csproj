@@ -490,6 +490,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ArtistValidationErrors.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ExtSites.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExtSites.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Songs\SongTypeNames.Designer.cs">
       <DependentUpon>SongTypeNames.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -517,7 +522,7 @@
     </Compile>
     <Compile Include="Service\ActivityFeedService.cs" />
     <Compile Include="Service\AdminService.cs" />
-    <Compile Include="Service\Affiliate\AffiliateLinkGenerator.cs" />
+    <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />
     <Compile Include="Service\AlbumService.cs" />
     <Compile Include="Service\ArtistService.cs" />
     <Compile Include="Service\BBCode\AutoLinkTransformer.cs" />
@@ -532,6 +537,7 @@
     <Compile Include="Service\EntryValidators\SongValidator.cs" />
     <Compile Include="Service\EntryValidators\ValidationResult.cs" />
     <Compile Include="Service\EntryViewMode.cs" />
+    <Compile Include="Service\ExtSites\ExtLinkGenerator.cs" />
     <Compile Include="Service\Helpers\AlbumFileParser.cs" />
     <Compile Include="Service\Helpers\ArtistQueryableExtender.cs" />
     <Compile Include="Helpers\ConcurrentEntryEditManager.cs" />
@@ -653,6 +659,10 @@
       <LastGenOutput>ArtistValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ArtistValidationErrors.ru.resx" />
+    <EmbeddedResource Include="Resources\ExtSites.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExtSites.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Songs\SongTypeNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongTypeNames.fi.designer.cs</LastGenOutput>

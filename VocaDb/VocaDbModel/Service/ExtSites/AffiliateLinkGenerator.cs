@@ -1,7 +1,10 @@
 ﻿using VocaDb.Model.Service.VideoServices;
 
-namespace VocaDb.Model.Service.Affiliate {
+namespace VocaDb.Model.Service.ExtSites {
 
+	/// <summary>
+	/// Generates affiliate (paid) links to partner sites.
+	/// </summary>
 	public class AffiliateLinkGenerator {
 
 		private static readonly RegexLinkMatcher cdjRegex = new RegexLinkMatcher("http://www.cdjapan.co.jp/aff/click.cgi/PytJTGW7Lok/4412/A585851/detailview.html?{0}",
