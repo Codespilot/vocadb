@@ -126,7 +126,10 @@
 
 			<tr>
 				<td>@ViewRes.SharedStrings.Type</td>
-				<td>@Html.ActionLink(Translate.SongTypeNames[Model.SongType], "Index", new { songType = Model.SongType })</td>
+				<td>
+					@SongHelpers.SongTypeLabel(Model.SongType)
+					@Html.ActionLink(Translate.SongTypeNames[Model.SongType], "Index", new { songType = Model.SongType })
+				</td>
 			</tr>
 			
 			@if (Model.Albums.Any()) {

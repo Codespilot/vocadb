@@ -2,6 +2,7 @@
 @using System.Web.Mvc;
 @using System.Web.Mvc.Html;
 @using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Helpers;
 
 @helper LyricsInfo(LyricsForSongContract lyrics) {
@@ -141,4 +142,44 @@
 		}
 	</table>
 
+}
+
+@helper SongTypeLabel(SongType songType) {
+	switch (songType) {
+		case SongType.Cover:
+			<span class="label" title="@Translate.SongTypeNames[songType]">C</span>
+			break;
+
+		case SongType.DramaPV:
+			<span class="label label-success" title="@Translate.SongTypeNames[songType]">D</span>
+			break;		
+			
+		case SongType.Instrumental:
+			<span class="label label-inverse" title="@Translate.SongTypeNames[songType]">I</span>
+			break;
+			
+		case SongType.Mashup:
+			<span class="label" title="@Translate.SongTypeNames[songType]">M</span>
+			break;
+			
+		case SongType.Original:
+			<span class="label label-info" title="@Translate.SongTypeNames[songType]">O</span>
+			break;
+			
+		case SongType.Other:
+			<span class="label" title="@Translate.SongTypeNames[songType]">O</span>
+			break;
+			
+		case SongType.Remaster:
+			<span class="label label-info" title="@Translate.SongTypeNames[songType]">R</span>
+			break;
+			
+		case SongType.Remix:
+			<span class="label" title="@Translate.SongTypeNames[songType]">R</span>
+			break;
+			
+		case SongType.MusicPV:
+			<span class="label label-success" title="@Translate.SongTypeNames[songType]">PV</span>
+			break;		
+	}
 }

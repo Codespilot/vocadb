@@ -126,11 +126,12 @@ if (Model.ViewMode == SongViewMode.Details) {
 	                }
 				</td>
 				<td>
-					@Helpers.DraftIcon(song.Status)
 					@SongHelpers.SongLink(song)
 					&nbsp;
+					@Helpers.DraftIcon(song.Status)
+					@SongHelpers.SongTypeLabel(song.SongType)
 					@Helpers.PVServiceIcons(song.PVServices)
-					(@Translate.SongTypeNames[song.SongType])<br />
+					<br />
 					<span class="extraInfo">@song.ArtistString</span><br />
 					@if (song.Album != null) {
 					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
@@ -163,10 +164,11 @@ if (Model.ViewMode == SongViewMode.Details) {
                     }
                 </td>
                 <td>
-					<h3>
-					    @Helpers.DraftIcon(song.Status)
-					    @Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })
-                    </h3>
+	                <h3>
+		                @Helpers.DraftIcon(song.Status)
+		                @Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })
+	                </h3>
+					@SongHelpers.SongTypeLabel(song.SongType)
                     @Translate.SongTypeNames[song.SongType]
                     <br />
 
