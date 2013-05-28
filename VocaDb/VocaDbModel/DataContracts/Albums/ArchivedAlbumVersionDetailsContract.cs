@@ -11,13 +11,15 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public ArchivedAlbumVersionDetailsContract(ArchivedAlbumVersion archived, ArchivedAlbumVersion comparedVersion, 
 			ContentLanguagePreference languagePreference) {
 
+			ParamIs.NotNull(() => archived);
+
 			Album = new AlbumContract(archived.Album, languagePreference);
 			ArchivedVersion = new ArchivedAlbumVersionContract(archived);
 			ComparedVersion = comparedVersion != null ? new ArchivedAlbumVersionContract(comparedVersion) : null; 
 			Name = Album.Name;
 
-			ComparableVersions = archived.Album.ArchivedVersionsManager.Versions
-				.Where(v => v != archived)
+			ComparableVersions = archived.Album.ArchivedVersionsManager
+				.GetPreviousVersions(archived)
 				.Select(a => new ArchivedObjectVersionContract(a))
 				.ToArray();
 

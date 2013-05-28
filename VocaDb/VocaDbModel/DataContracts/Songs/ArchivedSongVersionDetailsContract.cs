@@ -10,14 +10,16 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public ArchivedSongVersionDetailsContract(ArchivedSongVersion archived, ArchivedSongVersion comparedVersion, ContentLanguagePreference languagePreference) {
 
+			ParamIs.NotNull(() => archived);
+
 			ArchivedVersion = new ArchivedSongVersionContract(archived);
 			ComparedVersion = comparedVersion != null ? new ArchivedSongVersionContract(comparedVersion) : null;
 			ComparedVersionId = comparedVersion != null ? comparedVersion.Id : 0;
 			Song = new SongContract(archived.Song, languagePreference);
 			Name = Song.Name;
 
-			ComparableVersions = archived.Song.ArchivedVersionsManager.Versions
-				.Where(v => v != archived)
+			ComparableVersions = archived.Song.ArchivedVersionsManager
+				.GetPreviousVersions(archived)
 				.Select(a => new ArchivedObjectVersionContract(a))
 				.ToArray();
 
