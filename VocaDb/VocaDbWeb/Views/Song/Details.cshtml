@@ -17,7 +17,8 @@
 @helper AlternateVersions(IEnumerable<SongContract> songs) {
 	foreach (var alternateVersion in songs) {
 		@SongHelpers.SongLink(alternateVersion)
-		@(" (" + @Translate.SongTypeNames[alternateVersion.SongType] + ")")<br />
+		@SongHelpers.SongTypeLabel(alternateVersion.SongType)
+		<br />
 		@alternateVersion.ArtistString<br />
 	}	
 }
