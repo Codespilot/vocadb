@@ -122,7 +122,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			try {
 				response = request.GetResponse();
 			} catch (WebException) {
-				return null;
+				return VideoUrlParseResult.CreateError(piaproUrl, VideoUrlParseResultType.LoadError);
 			}
 
 			var enc = GetEncoding(response.Headers[HttpResponseHeader.ContentEncoding]);
