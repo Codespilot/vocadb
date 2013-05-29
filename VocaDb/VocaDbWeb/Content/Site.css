@@ -875,7 +875,7 @@ ul.ui-autocomplete {
 }
 
 .navbar-search {
-	margin-top: 0px;	
+	margin-top: 0;	
 }
 
 .navbar-search .search-query {
@@ -910,6 +910,16 @@ ul.ui-autocomplete {
 
 .navbar-searchBox .btn {
 	margin: 5px 0 0 -3px;
+}
+
+.navbar .navbar-languageBar {
+	padding: 0;
+	padding-left: 15px;
+	margin-top: 5px;
+}
+
+.navbar .navbar-languageBtn {
+	margin: 4px 0 0 0;
 }
 
 .well {

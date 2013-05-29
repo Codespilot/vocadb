@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Home;
 
@@ -84,6 +85,13 @@ namespace VocaDb.Web.Controllers
 			var model = new SearchEntries(filter, result.Albums, result.Artists, result.Songs, result.Tags);
 
 			return View(model);
+
+		}
+
+		public ActionResult SetContentPreferenceCookie(ContentLanguagePreference languagePreference) {
+
+			LoginManager.SetLanguagePreferenceCookie(languagePreference);
+			return Content(string.Empty);
 
 		}
 
