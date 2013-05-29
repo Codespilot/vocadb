@@ -492,10 +492,6 @@ h2.pageTitle {
 	margin-bottom: 10px;
 }
 
-.globalSearchBox {
-	margin: 10px;
-}
-
 div.activityEntry p {
 	margin: 4px;	
 }
@@ -870,7 +866,8 @@ ul.ui-autocomplete {
 /* Bootstrap-specific */
 .navbar .nav-radio {
 	color: #0DC69B;	
-	padding: 8px;
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
 .navbar div.brand a:visited {	
@@ -903,8 +900,16 @@ ul.ui-autocomplete {
 	background-image: linear-gradient(top, #133D4C, #081A21);
 }
 
-.navbar .btn {
-	margin: 5px 0 0 0 !important;
+.navbar-form .navbar-searchBox {
+	margin-top: 0;
+}
+
+.navbar-form .navbar-searchBox .globalSearchBox {
+	margin-top: 5px;
+}
+
+.navbar-searchBox .btn {
+	margin: 5px 0 0 -3px;
 }
 
 .well {
