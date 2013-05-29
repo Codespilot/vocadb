@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Security.Principal;
 using System.Web;
 using NLog;
@@ -24,6 +25,31 @@ namespace VocaDb.Model.Service.Security {
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private UserContract user;
+
+		private bool TryGetLanguagePreferenceFromCookie(ref ContentLanguagePreference languagePreference) {
+
+			if (HttpContext.Current == null)
+				return false;
+
+			var cookie = HttpContext.Current.Request.Cookies.Get("languagePreference");
+
+			if (cookie == null || string.IsNullOrEmpty(cookie.Value))
+				return false;
+
+			languagePreference = EnumVal<ContentLanguagePreference>.Parse(cookie.Value);
+
+			return true;
+
+		}
+
+		private bool TryGetLanguagePreferenceFromRequest(ref ContentLanguagePreference languagePreference) {
+
+			if (HttpContext.Current == null || string.IsNullOrEmpty(HttpContext.Current.Request.Params[LangParamName]))
+				return false;
+
+			return Enum.TryParse(HttpContext.Current.Request.Params[LangParamName], out languagePreference);
+
+		}
 
 		private ContentLanguagePreference OverrideLang {
 			get { return (ContentLanguagePreference)HttpContext.Current.Items["overrideLang"]; }
@@ -113,11 +139,15 @@ namespace VocaDb.Model.Service.Security {
 				if (OverrideUserLang)
 					return OverrideLang;
 
-				ContentLanguagePreference lp;
+				var lp = ContentLanguagePreference.Default;
 
-				if (HttpContext.Current != null && !string.IsNullOrEmpty(HttpContext.Current.Request.Params[LangParamName]) 
-					&& Enum.TryParse(HttpContext.Current.Request.Params[LangParamName], out lp))
+				if (TryGetLanguagePreferenceFromCookie(ref lp)) {
 					return lp;
+				}
+
+				if (TryGetLanguagePreferenceFromRequest(ref lp)) {
+					return lp;
+				}
 
 				return (LoggedUser != null ? LoggedUser.DefaultLanguageSelection : ContentLanguagePreference.Default);
 
@@ -187,6 +217,18 @@ namespace VocaDb.Model.Service.Security {
 
 		public void OverrideLanguage(ContentLanguagePreference languagePreference) {
 			OverrideLang = languagePreference;
+		}
+
+		public void SetLanguagePreferenceCookie(ContentLanguagePreference languagePreference) {
+
+
+			if (HttpContext.Current != null) {
+				var cookie = new HttpCookie("languagePreference", languagePreference.ToString()) { Expires = DateTime.Now + TimeSpan.FromDays(30) };
+				//if (HttpContext.Current.Request.Cookies.Get("languagePreference") != null)
+				//	HttpContext.Current.Response.Cookies.Set(cookie);				
+				//else
+					HttpContext.Current.Response.Cookies.Add(cookie);
+			}
 		}
 
 		public void VerifyLogin() {

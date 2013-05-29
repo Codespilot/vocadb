@@ -42,3 +42,13 @@ function entryFindCallback(response, results) {
 	}));
 
 }
+
+function setLanguagePreferenceCookie(languagePreference) {
+
+	$.post("/Home/SetContentPreferenceCookie", { languagePreference: languagePreference }, function() {
+		window.location.reload();
+	});
+
+	return false;
+
+}

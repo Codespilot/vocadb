@@ -1,4 +1,6 @@
-﻿@using VocaDb.Web.Helpers;
+﻿@using VocaDb.Model
+@using VocaDb.Model.Domain.Globalization
+@using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.GlobalSearchBoxModel
 
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left navbar-search", id = "globalSearchBox" })) {
@@ -10,6 +12,19 @@
 		<button type="submit" class="btn btn-info" title="@ViewRes.SharedStrings.Search">
 			<i class="icon-search"></i>
 		</button>
+	</div>
+	
+	<div class="btn-group navbar-languageBar">
+		<a class="btn btn-info navbar-languageBtn dropdown-toggle" data-toggle="dropdown" href="#" title="@ViewRes.User.MySettingsStrings.DefaultLanguageSelection">
+			@Translate.ContentLanguagePreferenceName(Login.Manager.LanguagePreference)
+			<span class="caret"></span>		
+		</a>
+	
+		<ul class="dropdown-menu">
+			@foreach (var lp in EnumVal<ContentLanguagePreference>.Values) {
+				<li><a href="#" onclick="setLanguagePreferenceCookie('@lp')">@Translate.ContentLanguagePreferenceName(lp)</a></li>				
+			}
+		</ul>
 	</div>
 
 }
