@@ -76,8 +76,8 @@
 			<td>
 				@SongLink(song)
 				&nbsp;
+				@SongTypeLabel(song.SongType)
 				@Helpers.PVServiceIcons(song.PVServices)
-				(@Translate.SongTypeNames[song.SongType])
 				<br />
 				<span class="extraInfo">@song.ArtistString</span><br />
 				@if (album && song.Album != null) {

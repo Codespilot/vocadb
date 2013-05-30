@@ -22,7 +22,7 @@
 	
 		<ul class="dropdown-menu">
 			@foreach (var lp in EnumVal<ContentLanguagePreference>.Values) {
-				<li><a href="#" onclick="setLanguagePreferenceCookie('@lp')">@Translate.ContentLanguagePreferenceName(lp)</a></li>				
+				<li><a href="#" onclick="return setLanguagePreferenceCookie('@lp');">@Translate.ContentLanguagePreferenceName(lp)</a></li>				
 			}
 		</ul>
 	</div>
