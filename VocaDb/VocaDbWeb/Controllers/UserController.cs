@@ -281,19 +281,25 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-       public ActionResult Login()
+       public ActionResult Login(string returnUrl)
         {
 
 			RestoreErrorsFromTempData();
 
-            return View();
-        } 
+            return View(new LoginModel(returnUrl));
+        }
+
+	   public PartialViewResult LoginForm(string returnUrl) {
+
+		   return PartialView("Login", new LoginModel(returnUrl));
+
+		}
 
         //
         // POST: /Session/Create
 
         [HttpPost]
-		public ActionResult Login(LoginModel model, string returnUrl)
+		public ActionResult Login(LoginModel model)
         {
 
 			if (ModelState.IsValid) {
@@ -311,7 +317,9 @@ namespace VocaDb.Web.Controllers
 
 					var redirectUrl = FormsAuthentication.GetRedirectUrl(model.UserName, true);
 
-					if (redirectUrl != null)
+					if (!string.IsNullOrEmpty(model.ReturnUrl)) {
+						return Redirect(model.ReturnUrl);						
+					} else if (redirectUrl != null)
 						return Redirect(redirectUrl);
 					else
 						return RedirectToAction("Index", "Home");

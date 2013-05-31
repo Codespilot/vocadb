@@ -114,7 +114,7 @@
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.Manage, "Index", "Admin")</li>
 						}
 						@if (!Login.Manager.IsLoggedIn) {
-							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogIn, "Login", "User")</li>
+							<li><a href="@Url.Action("Login", "User")" onclick="vdb.functions.showLoginPopup(); return false;">@ViewRes._LayoutStrings.LogIn</a></li>
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
 						} else {
 							<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
@@ -222,10 +222,14 @@
 	   }
 		
 							@RenderBody()
+					
+						<div id="loginPopup" title="@ViewRes._LayoutStrings.LogIn" style="display: none;">
 						</div>
+
+				</div>
 			</div>  
 		</div>
-		
+				
 		@Scripts.Render("~/bundles/shared")
         <script type="text/javascript">
             

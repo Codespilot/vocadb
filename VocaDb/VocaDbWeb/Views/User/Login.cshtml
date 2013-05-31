@@ -6,36 +6,35 @@
 
 @Helpers.ValidationSymmaryPanel(ViewRes.User.LoginStrings.UnableToLogin)
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Login", "User")) {
+	@Html.HiddenFor(m => m.ReturnUrl)
     <div>
-        <fieldset>
-            <div class="editor-label">
-                @Html.LabelFor(m => m.UserName)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.Password)
-            </div>
-            <div class="editor-field">
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
 
-			<br />
-			<label class="checkbox">
-				@Html.CheckBoxFor(m => m.KeepLoggedIn)
-				@R.LoginStrings.KeepMeLoggedIn
-			</label>
-			<br /><br />
+		<br />
+		<label class="checkbox">
+			@Html.CheckBoxFor(m => m.KeepLoggedIn)
+			@R.LoginStrings.KeepMeLoggedIn
+		</label>
+		<br /><br />
 
-            <p>
-				<button type="submit" class="btn btn-primary">@ViewRes.User.LoginStrings.DoLogin</button>
-            </p>
-        </fieldset>
+        <p>
+			<button type="submit" class="btn btn-primary">@ViewRes.User.LoginStrings.DoLogin</button>
+        </p>
     </div>
 
 }

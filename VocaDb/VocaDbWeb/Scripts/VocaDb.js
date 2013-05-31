@@ -85,6 +85,16 @@ vdb.functions.boldCaseInsensitive = function (text, term) {
 
 };
 
+vdb.functions.showLoginPopup = function() {
+
+	$.get("/User/LoginForm", { returnUrl: window.location.href }, function(result) {
+		$("#loginPopup").html(result);
+		$("#loginPopup").dialog("open");
+	});
+
+};
+
+
 (function ($) {
     $.fn.vdbArtistToolTip = function () {
 
@@ -159,3 +169,9 @@ vdb.functions.boldCaseInsensitive = function (text, term) {
 
 	};
 })(jQuery);
+
+$(document).ready(function() {
+
+	$("#loginPopup").dialog({ autoOpen: false, width: 400, modal: true });
+
+});
