@@ -104,6 +104,12 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var meta = (getMeta ? GetVideoTitle(id) : VideoTitleParseResult.Empty);
 
+			//if (!meta.Success) {
+			//	return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, meta.Error);
+			//}
+
+			// Note that even if meta lookup failed, we're returning Ok here, because for example NND API doesn't support all PVs.
+
 			return VideoUrlParseResult.CreateOk(url, Service, id, meta);
 
 		}

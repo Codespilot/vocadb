@@ -57,6 +57,12 @@ namespace VocaDb.Web.Models {
 
 	public class LoginModel {
 
+		public LoginModel() {}
+
+		public LoginModel(string returnUrl) {
+			this.ReturnUrl = returnUrl;
+		}
+
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "KeepMeLoggedIn")]
 		public bool KeepLoggedIn { get; set; }
 
@@ -70,6 +76,8 @@ namespace VocaDb.Web.Models {
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "Password")]
 		[StringLength(100)]
 		public string Password { get; set; }
+
+		public string ReturnUrl { get; set; }
 
 	}
 
