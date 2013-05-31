@@ -948,3 +948,12 @@ form.form-topMargin {
 .dropdown-menu li > a:hover {
 	color: white !important;
 }
+
+.dropdown-menu h6 {
+	text-transform: none;
+	cursor: default;
+}
+
+.btn > [class^="icon-"], .btn > [class*=" icon-"] {
+	margin-top: 2px;
+}

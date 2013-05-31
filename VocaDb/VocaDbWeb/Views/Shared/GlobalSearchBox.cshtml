@@ -15,14 +15,25 @@
 	</div>
 	
 	<div class="btn-group navbar-languageBar">
-		<a class="btn btn-info navbar-languageBtn dropdown-toggle" data-toggle="dropdown" href="#" title="@ViewRes.User.MySettingsStrings.DefaultLanguageSelection">
-			@Translate.ContentLanguagePreferenceName(Login.Manager.LanguagePreference)
+		<a class="btn btn-info navbar-languageBtn dropdown-toggle" data-toggle="dropdown" href="#">
+			<i class="icon-user"></i>
+			@ViewRes._LayoutStrings.Account
 			<span class="caret"></span>		
 		</a>
 	
-		<ul class="dropdown-menu">
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+			@if (!Login.Manager.IsLoggedIn) {
+				<li><a href="@Url.Action("Login", "User")" onclick=" vdb.functions.showLoginPopup(); return false; ">@ViewRes._LayoutStrings.LogIn</a></li>
+				<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
+			} else {
+				<li>@Html.ActionLink(ViewRes.User.MySettingsStrings.Profile, "Profile", "User", new { id = Login.Manager.Name }, null)</li>
+				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
+				<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>				
+			}
+			<li class="divider"></li>
+			<li><h6>@ViewRes.User.MySettingsStrings.DefaultLanguageSelection</h6></li>
 			@foreach (var lp in EnumVal<ContentLanguagePreference>.Values) {
-				<li><a href="#" onclick="return setLanguagePreferenceCookie('@lp');">@Translate.ContentLanguagePreferenceName(lp)</a></li>				
+				<li class="@(lp == Login.Manager.LanguagePreference ? "active" : "")"><a href="#" onclick="return setLanguagePreferenceCookie('@lp');">@Translate.ContentLanguagePreferenceName(lp)</a></li>				
 			}
 		</ul>
 	</div>
