@@ -592,6 +592,7 @@ namespace VocaDb.Web.Controllers
 			try {
 				var newUser = Service.UpdateUserSettings(model.ToContract());				
 				LoginManager.SetLoggedUser(newUser);
+				LoginManager.SetLanguagePreferenceCookie(model.DefaultLanguageSelection);
 			} catch (InvalidPasswordException x) {
 				ModelState.AddModelError("OldPass", x.Message);
 				return View(model);

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Home;
 
@@ -91,6 +92,10 @@ namespace VocaDb.Web.Controllers
 		public ActionResult SetContentPreferenceCookie(ContentLanguagePreference languagePreference) {
 
 			LoginManager.SetLanguagePreferenceCookie(languagePreference);
+
+			if (LoginManager.HasPermission(PermissionToken.EditProfile))
+				Services.Users.UpdateContentLanguagePreference(languagePreference);
+
 			return Content(string.Empty);
 
 		}
