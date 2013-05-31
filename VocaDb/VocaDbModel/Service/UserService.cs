@@ -890,6 +890,21 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public void UpdateContentLanguagePreference(ContentLanguagePreference languagePreference) {
+
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			HandleTransaction(session => {
+
+				var user = GetLoggedUser(session);
+
+				user.DefaultLanguageSelection = languagePreference;
+				session.Update(user);
+
+			});
+
+		}
+
 		public void UpdateSongRating(int userId, int songId, SongVoteRating rating) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);

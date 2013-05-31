@@ -954,6 +954,10 @@ form.form-topMargin {
 	cursor: default;
 }
 
-.btn > [class^="icon-"], .btn > [class*=" icon-"] {
+.btn > [class^="icon-"], .btn > [class*=" icon-"], .menuIcon {
 	margin-top: 2px;
+}
+
+.menuIcon {
+	margin-left: -5px;
 }

@@ -28,12 +28,19 @@
 			} else {
 				<li>@Html.ActionLink(ViewRes.User.MySettingsStrings.Profile, "Profile", "User", new { id = Login.Manager.Name }, null)</li>
 				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
+				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.Messages, "Messages", "User")</li>
 				<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>				
 			}
 			<li class="divider"></li>
 			<li><h6>@ViewRes.User.MySettingsStrings.DefaultLanguageSelection</h6></li>
 			@foreach (var lp in EnumVal<ContentLanguagePreference>.Values) {
-				<li class="@(lp == Login.Manager.LanguagePreference ? "active" : "")"><a href="#" onclick="return setLanguagePreferenceCookie('@lp');">@Translate.ContentLanguagePreferenceName(lp)</a></li>				
+				<li>
+					<a href="#" onclick="return setLanguagePreferenceCookie('@lp');">
+						<i class="menuIcon icon-ok" style="@(lp == Login.Manager.LanguagePreference ? "" : "display: none;")"></i>
+						<i class="menuIcon icon-" style="@(lp == Login.Manager.LanguagePreference ? "display: none;" : "")"></i>
+						@Translate.ContentLanguagePreferenceName(lp)
+					</a>
+				</li>				
 			}
 		</ul>
 	</div>
