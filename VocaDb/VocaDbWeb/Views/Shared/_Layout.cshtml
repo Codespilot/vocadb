@@ -116,10 +116,7 @@
 						@if (!Login.Manager.IsLoggedIn) {
 							<li><a href="@Url.Action("Login", "User")" onclick="vdb.functions.showLoginPopup(); return false;">@ViewRes._LayoutStrings.LogIn</a></li>
 							<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
-						} else {
-							<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
-							<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>
-	  }
+						}
 					</ul>
 					@if (Login.Manager.IsLoggedIn) {
 						<br />
