@@ -110,7 +110,7 @@
 			<td>
 				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
 				@if (displayType) {
-					@("(")@Translate.SongTypeNames[song.SongType]@(")")
+					@SongTypeLabel(song.SongType)
 				}
 				<br />
 				<span class="extraInfo">@song.ArtistString</span>

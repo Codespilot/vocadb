@@ -24,6 +24,9 @@ namespace VocaDb.Tests.Service.VideoServices {
 			
 		}
 
+		/// <summary>
+		/// Valid title, basic test case
+		/// </summary>
 		[TestMethod]
 		public void ParseTitle_Valid() {
 
@@ -36,6 +39,9 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 		}
 
+		/// <summary>
+		/// Skip whitespace in artist fields.
+		/// </summary>
 		[TestMethod]
 		public void ParseTitle_WhiteSpace() {
 
@@ -47,6 +53,19 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 		}
 
+		/// <summary>
+		/// Handle special characters in artist fields.
+		/// </summary>
+		[TestMethod]
+		public void ParseTitle_SpecialChars() {
+
+			var result = NicoHelper.ParseTitle("【巡音ルカ･Lily】Blame of Angel", ArtistFunc);
+
+			Assert.AreEqual(1, result.Artists.Count, "1 artist");
+			Assert.AreEqual("巡音ルカ･Lily", result.Artists.First().DefaultName, "artist");
+			Assert.AreEqual("Blame of Angel", result.Title, "title");
+
+		}
 	}
 
 }
