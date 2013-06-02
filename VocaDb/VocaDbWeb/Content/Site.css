@@ -864,6 +864,10 @@ ul.ui-autocomplete {
 
 
 /* Bootstrap-specific */
+.withMargin {
+	margin-top: 15px;
+}
+
 .navbar .nav-radio {
 	color: #0DC69B;	
 	padding-left: 8px;
