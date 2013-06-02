@@ -44,19 +44,12 @@
 }
 }
 
-<table>
-	<tr>
-		<td rowspan="11" class="alignTop">
-			@UserHelpers.ProfileIcon(Model)
-		</td>
-		<td>@R.UserName</td>
-		<td>
-			@Model.Name<br />
-		</td>
-	</tr>
-	<tr>
-		<td>@R.UserGroup</td>
-		<td>
+<div class="row-fluid">
+	<div class="span2">
+		<h4>@Model.Name</h4>
+		@UserHelpers.ProfileIcon(Model, 120)
+		<br />
+		<p class="withMargin">
 			@Translate.UserGroups[Model.GroupId]
 			@if (Model.EffectivePermissions.Contains(PermissionToken.DesignatedStaff)) {
 				<span class="label label-important">@R.Staff</span>
@@ -64,68 +57,61 @@
 			@if (verifiedAccount) {
 				@(" - " + R.VerifiedAccount)
 			}
-		</td>
-	</tr>
+		</p>
+	</div>
+	
+	<div class="span8">
+		
+		@if (!string.IsNullOrEmpty(Model.AboutMe)) {
+			<h4 class="withMargin">@R.AboutMe</h4>
+			@HtmlHelpers.FormatText(Model.AboutMe)
+		}
 
-	@if (verifiedAccount) {
-	<tr>
-		<td>@R.VerifiedOwner</td>
-		<td>@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)</td>
-	</tr>
-	}
+		@if (verifiedAccount) {
+			<h4 class="withMargin">@R.VerifiedOwner</h4>
+			@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)
+		}
 
-	<tr>
-		<td>@R.MemberSince</td>
-		<td>@Model.CreateDate.ToShortDateString()</td>
-	</tr>
-    @if (Model.WebLinks.Any()) {
-	<tr>
-		<td>@ViewRes.EntryDetailsStrings.ExternalLinks</td>
-		<td>@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)</td>
-	</tr>
-    }
-    @if (!string.IsNullOrEmpty(Model.AboutMe)) {
-	<tr>
-		<td>@R.AboutMe</td>
-		<td>@HtmlHelpers.FormatText(Model.AboutMe)</td>
-	</tr>
-    }
+		@if (Model.WebLinks.Any()) {
+			<h4 class="withMargin">@ViewRes.EntryDetailsStrings.ExternalLinks</h4>
+			@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)
+		}
+		
+		<h4 class="withMargin">@R.MemberSince</h4>
+		@Model.CreateDate.ToShortDateString()
 
-    @if (!string.IsNullOrEmpty(Model.Location)) {
-	<tr>
-		<td>@R.Location</td>
-		<td>@Model.Location</td>
-	</tr>
-    }
+		@if (!string.IsNullOrEmpty(Model.Location)) {
+			<h4 class="withMargin">@R.Location</h4>
+			@Model.Location
+		}
 
-	@if (Login.CanManageUsers || ownProfile) {
-		<tr>
-			<td>@R.LastLogin</td>
-			<td>
-				@Model.LastLogin                 
-                @if (Login.CanManageUsers) {
-	                @("(")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
-	                <a href='http://www.stopforumspam.com/search?q=@Model.LastLoginAddress'>StopForumSpam</a>
-                }
-                (@R.VisibleOnlyToMe)
-			</td>
-		</tr>
-		<tr>
-			<td>@R.AdditionalPermissions</td>
-			<td>@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)</td>
-		</tr>
-		<tr>
-			<td>@R.Email</td>
-			<td>@Model.Email (@R.VisibleOnlyToMe)</td>
-		</tr>	 
- }
- 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
-		<tr>
-			<td>@R.EffectivePermissions</td>
-			<td>@Translate.AllPermissionTokenNames(Model.EffectivePermissions)</td>
-		</tr>	 
-  }
-</table>
+		@if (Login.CanManageUsers || ownProfile) {
+			<h4 class="withMargin">@R.LastLogin</h4>
+			@Model.LastLogin
+			if (Login.CanManageUsers) {
+				@("(")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
+				<a href='http://www.stopforumspam.com/search?q=@Model.LastLoginAddress'>StopForumSpam</a>
+			}		
+			@(" (" + R.VisibleOnlyToMe + ")")
+	 
+			if (Model.AdditionalPermissions.Any()) {
+				 <h4 class="withMargin">@R.AdditionalPermissions</h4>
+				 @Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
+			}
+	 
+			<h4 class="withMargin">@R.Email</h4>
+			@Model.Email 
+			@(" (" + R.VisibleOnlyToMe + ")")
+
+		}
+
+ 		@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
+			<h4 class="withMargin">@R.EffectivePermissions</h4>
+			@Translate.AllPermissionTokenNames(Model.EffectivePermissions)
+		}
+	</div>
+</div>
+
 
 <br />
 
