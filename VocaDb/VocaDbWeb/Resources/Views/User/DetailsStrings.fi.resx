@@ -183,6 +183,9 @@
   <data name="Power" xml:space="preserve">
     <value>Voima</value>
   </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Ylläpitäjä</value>
+  </data>
   <data name="StatsTab" xml:space="preserve">
     <value>Tilastot</value>
   </data>
