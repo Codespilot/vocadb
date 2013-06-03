@@ -12,6 +12,7 @@
 	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.DiscTypeName(Model.DiscType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
+	ViewContext.Controller.ViewBag.Banner = VocaUriBuilder.CreateAbsolute(Url.Action("CoverPicture", new { id = Model.Id }));
 }
 
 @section Head {
