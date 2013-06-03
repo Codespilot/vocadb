@@ -16,9 +16,9 @@
 <html>
 <head>
     <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title + " - " : "")Vocaloid Database</title>
-	<meta name="description" content="Vocaloid database with translated artists, albums and songs." />	
+	<meta name="description" content="VocaDB is a Vocaloid database with translated artists, albums and songs." />	
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
-	<meta name="og:image" content="@VocaUriBuilder.CreateAbsolute(Url.Content("~/Content/vocaDB-title-large.png"))"/>
+	<meta name="og:image" content="@ViewContext.Controller.ViewBag.Banner"/>
 
 	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
 	@Styles.Render("~/Content/css")
