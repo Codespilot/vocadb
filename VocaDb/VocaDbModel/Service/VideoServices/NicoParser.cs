@@ -80,20 +80,16 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var request = WebRequest.Create(url);
 			request.Timeout = 10000;
-			WebResponse response;
-
-			try {
-				response = request.GetResponse();
-			} catch (WebException x) {
-				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);
-			}
 
 			XDocument doc;
 
 			try {
+				using (var response = request.GetResponse())
 				using (var stream = response.GetResponseStream()) {
 					doc = XDocument.Load(stream);
 				}
+			} catch (WebException x) {
+				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);
 			} catch (XmlException x) {
 				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);
 			}
