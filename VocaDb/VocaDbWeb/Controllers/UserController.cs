@@ -319,7 +319,7 @@ namespace VocaDb.Web.Controllers
 
 					if (!string.IsNullOrEmpty(model.ReturnUrl)) {
 						return Redirect(model.ReturnUrl);						
-					} else if (redirectUrl != null)
+					} else if (!string.IsNullOrEmpty(redirectUrl))
 						return Redirect(redirectUrl);
 					else
 						return RedirectToAction("Index", "Home");
