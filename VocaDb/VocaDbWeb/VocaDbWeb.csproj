@@ -968,10 +968,16 @@
     <Content Include="Content\Site-teto.css" />
     <Content Include="Content\star.png" />
     <Content Include="Content\star_disabled.png" />
+    <Content Include="Content\Styles\ExtLinks.css">
+      <DependentUpon>ExtLinks.less</DependentUpon>
+    </Content>
     <Content Include="Content\Styles\Icons.css" />
     <Content Include="Content\miku2.jpg" />
     <Content Include="Content\nico.png" />
     <Content Include="Content\star5.png" />
+    <Content Include="Content\Styles\Overrides.css">
+      <DependentUpon>Overrides.less</DependentUpon>
+    </Content>
     <Content Include="Content\Styles\Pager.css" />
     <Content Include="Content\teto.jpg" />
     <Content Include="Content\tetoDB-title.png" />
@@ -1103,6 +1109,8 @@
     <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\Home\Index.js" />
     <Content Include="App_Code\CommentHelpers.cshtml" />
+    <Content Include="Content\Styles\ExtLinks.less" />
+    <Content Include="Content\Styles\Overrides.less" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
