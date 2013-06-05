@@ -198,9 +198,8 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 	color: #000000;
 }
 
-/* TODO: replace colors with defaults or edit bootstrap.css */
 .rightFrame a {
-	color: #003399 !important;
+	color: #003399;
 	margin-bottom: 5px;
 	margin-left: 0px;
 	margin-right: 0px;
@@ -212,11 +211,11 @@ table.properties tr, .rightFrame, .recentAlbums, .recentSongs, .alignTop {
 }
 
 .rightFrame a:visited {
-	color: #001155 !important;
+	color: #001155;
 }
 
 .rightFrame a:hover {
-	color: #0065B2 !important;	
+	color: #0065B2;	
 }
 
 .rightFrame a.btn-danger {
@@ -494,6 +493,10 @@ h2.pageTitle {
 
 div.activityEntry p {
 	margin: 4px;	
+}
+
+div.disabled > a, div.disabled > a:visited {
+	color: gray;
 }
 
 /* Lists */
@@ -849,7 +852,7 @@ a.disabled {
 
 
 
-/* jQuery UI */
+/* jQuery UI overrides */
 ul.ui-autocomplete {
     max-height: 400px;
     overflow-y: auto;
@@ -862,8 +865,21 @@ ul.ui-autocomplete {
     background: white url('ajax-loader.gif') right center no-repeat;
 }
 
+/* Override widget link colors */
+.rightFrame .ui-widget-header a, .rightFrame .ui-widget-content a {
+	color: #003399;
+}
 
-/* Bootstrap-specific */
+.rightFrame .ui-widget-header a:visited, .rightFrame .ui-widget-content a:visited {
+	color: #001155;
+}
+
+.rightFrame .ui-widget-header a:hover, .rightFrame .ui-widget-content a:hover {
+	color: #0065B2;	
+}
+
+
+/* Bootstrap overrides and additions */
 .withMargin {
 	margin-top: 15px;
 }

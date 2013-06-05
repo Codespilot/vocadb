@@ -106,7 +106,13 @@
 				    </a>
 			    </td>
 			    <td>
-				    @UserLink(user)
+					@if (!user.Active) {
+						<div class="disabled">
+							@UserLink(user)
+						</div>
+					} else {
+						@UserLink(user)						
+					}
 			    </td>
 			    <td>
 				    @user.CreateDate
