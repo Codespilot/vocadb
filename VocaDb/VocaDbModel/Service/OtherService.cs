@@ -157,9 +157,11 @@ namespace VocaDb.Model.Service {
 					.Take(maxResults)
 					.ToArray();
 
+				var tagStr = query.Replace(' ', '_');
+
 				var tagNames =
 					session.Query<Tag>()
-					.Where(t => t.Name.Contains(query))
+					.Where(t => t.Name.Contains(tagStr))
 					.OrderBy(t => t.Name)
 					.Select(t => t.Name)
 					.Take(maxResults)
@@ -250,9 +252,11 @@ namespace VocaDb.Model.Service {
 					.Count()
 					: 0);
 
+				var tagStr = query.Replace(' ', '_');
+
 				var tags =
 					session.Query<Tag>()
-					.Where(t => t.Name.Contains(query))
+					.Where(t => t.Name.Contains(tagStr))
 					.OrderBy(t => t.Name)
 					.Take(maxResults)
 					.ToArray();
