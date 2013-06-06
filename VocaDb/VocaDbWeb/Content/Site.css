@@ -694,6 +694,6 @@ a.down:active { background-position:-60px -30px; }
 
 
 /* disabled navigational button */
-a.disabled {
-    visibility:hidden !important;
+.pvPlayer a.disabled {
+    visibility:hidden;
 }
