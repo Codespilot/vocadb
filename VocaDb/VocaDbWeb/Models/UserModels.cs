@@ -301,7 +301,7 @@ namespace VocaDb.Web.Models {
 
 		}
 
-		public AlbumWithAdditionalNamesContract Album { get; set; }
+		public AlbumContract Album { get; set; }
 
 		public MediaType[] AllMediaTypes { get; set; }
 

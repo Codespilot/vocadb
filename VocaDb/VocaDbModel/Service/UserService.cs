@@ -106,6 +106,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		// For quick-adding the album on user page
 		[Obsolete]
 		public AlbumForUserContract AddAlbum(int userId, int albumId) {
@@ -126,7 +127,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public void AddArtist(int userId, int artistId) {
 

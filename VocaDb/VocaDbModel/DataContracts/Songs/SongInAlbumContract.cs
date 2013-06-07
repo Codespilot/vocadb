@@ -27,10 +27,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public int Id { get; set; }
 
 		[DataMember]
-		public SongWithAdditionalNamesContract Song { get; private set; }
+		public SongWithAdditionalNamesContract Song { get; set; }
 
 		[DataMember]
-		public int TrackNumber { get; private set; }
+		public int TrackNumber { get; set; }
 
 	}
 
