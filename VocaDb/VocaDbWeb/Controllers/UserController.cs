@@ -166,7 +166,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult FavoriteSongs(int id, int? page, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
+		public ActionResult FavoriteSongs(int id = invalidId, int? page = null, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
+
+			if (id == invalidId)
+				return NoId();
 
 			if (Request.IsAjaxRequest()) {
 				return FavoriteSongsPaged(id, page, rating, sort, groupByRating);
@@ -176,7 +179,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult FavoriteSongsPaged(int id, int? page, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
+		public ActionResult FavoriteSongsPaged(int id = invalidId, int? page = null, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
+
+			if (id == invalidId)
+				return NoId();
 
 			const int songsPerPage = 50;
 
