@@ -683,14 +683,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
+		/*[AcceptVerbs(HttpVerbs.Post)]
 		[Obsolete]
 		public PartialViewResult AddExistingAlbum(int albumId) {
 
 			var link = Service.AddAlbum(LoggedUserId, albumId);
 			return PartialView("AlbumForUserSettingsRow", new AlbumForUserEditModel(link));
 
-		}
+		}*/
 
 		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteAlbumForUser(int albumForUserId) {

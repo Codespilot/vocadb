@@ -8,11 +8,13 @@ namespace VocaDb.Model.DataContracts.Users {
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class AlbumForUserContract {
 
+		public AlbumForUserContract() {}
+
 		public AlbumForUserContract(AlbumForUser albumForUser, ContentLanguagePreference languagePreference) {
 
 			ParamIs.NotNull(() => albumForUser);
 
-			Album = new AlbumWithAdditionalNamesContract(albumForUser.Album, languagePreference);
+			Album = new AlbumContract(albumForUser.Album, languagePreference);
 			Id = albumForUser.Id;
 			MediaType = albumForUser.MediaType;
 			PurchaseStatus = albumForUser.PurchaseStatus;
@@ -22,7 +24,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		}
 
 		[DataMember]
-		public AlbumWithAdditionalNamesContract Album { get; set; }
+		public AlbumContract Album { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }
