@@ -389,6 +389,18 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
+				NicoTitleParseResult titleParseResult = null;
+				if (getPVInfo) {
+
+					var nicoPV = anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p));
+
+					titleParseResult = ParseNicoPV(session, nicoPV);
+
+					if (titleParseResult != null && !string.IsNullOrEmpty(titleParseResult.Title))
+						names = names.Concat(new[] { titleParseResult.Title }).ToArray();
+
+				}
+
 				var nameMatches = (names.Any() ? session.Query<SongName>()
 					.Where(n => names.Contains(n.Value))
 					.Select(n => n.Song)
@@ -405,15 +417,6 @@ namespace VocaDb.Model.Service {
 					.Where(p => p != null)
 					.Select(d => new System.Tuple<Song, SongMatchProperty>(d, SongMatchProperty.PV));
 
-				NicoTitleParseResult titleParseResult = null;
-
-				if (getPVInfo) {
-
-					var nicoPV = anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p));
-
-					titleParseResult = ParseNicoPV(session, nicoPV);
-
-				}
 
 				var matches = pvMatches.Union(nameMatches, new SongTupleEqualityComparer<SongMatchProperty>())
 					.Select(s => new DuplicateEntryResultContract<SongMatchProperty>(new EntryRefWithCommonPropertiesContract(s.Item1, PermissionContext.LanguagePreference), s.Item2))
