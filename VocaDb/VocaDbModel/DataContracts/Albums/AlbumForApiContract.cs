@@ -19,6 +19,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Artists = album.Artists.Select(a => new ArtistForAlbumForApiContract(a, languagePreference)).ToArray();
 			Tags = album.Tags.Tags.Select(t => t.Name).ToArray();
 
+			CatalogNumber = album.OriginalRelease != null ? album.OriginalRelease.CatNum : null;
 			CreateDate = album.CreateDate;
 			DefaultName = album.DefaultName;
 			DefaultNameLanguage = album.Names.SortNames.DefaultLanguage;
@@ -36,6 +37,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public ArtistForAlbumForApiContract[] Artists { get; set; }
+
+		[DataMember]
+		public string CatalogNumber { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }
