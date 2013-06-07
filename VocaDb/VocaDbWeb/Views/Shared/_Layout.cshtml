@@ -4,6 +4,19 @@
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Models.Song
 
+@functions {
+
+	string PageTitle {
+		get {
+			if (!string.IsNullOrEmpty(ViewBag.PageTitle))
+				return ViewBag.PageTitle;
+
+			return !string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title : string.Empty;
+		}
+	}
+
+}
+
 @helper Banner(string title, string url, string img) {
     <li><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></li>
 }
@@ -15,7 +28,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@(!string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title + " - " : "")Vocaloid Database</title>
+    <title>@(!string.IsNullOrEmpty(PageTitle) ? PageTitle + " - " : "")Vocaloid Database</title>
 	<meta name="description" content="VocaDB is a Vocaloid database with translated artists, albums and songs." />	
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
 	<meta name="og:image" content="@ViewContext.Controller.ViewBag.Banner"/>
