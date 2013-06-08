@@ -66,6 +66,21 @@ namespace VocaDb.Tests.Service.VideoServices {
 			Assert.AreEqual("Blame of Angel", result.Title, "title");
 
 		}
+
+		/// <summary>
+		/// Handle special characters in artist fields.
+		/// </summary>
+		[TestMethod]
+		public void ParseTitle_ArtistOriginal() {
+
+			var result = NicoHelper.ParseTitle("libido / L.A.M.B 【MEIKOオリジナル】", ArtistFunc);
+
+			Assert.AreEqual(1, result.Artists.Count, "1 artist");
+			Assert.AreEqual("MEIKO", result.Artists.First().DefaultName, "artist");
+			Assert.AreEqual("libido / L.A.M.B", result.Title, "title");
+			Assert.AreEqual(SongType.Original, result.SongType, "song type");
+
+		}
 	}
 
 }

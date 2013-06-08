@@ -204,6 +204,12 @@ namespace VocaDb.Model.Service.VideoServices {
 				if (content == "オリジナル")
 					songType = SongType.Original;
 				else {
+
+					if (content.Contains("オリジナル")) {
+						songType = SongType.Original;
+						content = content.Replace("オリジナル", string.Empty);
+					}
+
 					var a = artistFunc(content.Trim());
 					artist = artist ?? a;
 				}
