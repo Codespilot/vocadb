@@ -265,44 +265,13 @@ namespace VocaDb.Web.Controllers {
 			if (obj == null)
 				return new EmptyResult();
 
-			var doc = XmlHelper.SerializeToXml(obj);
-			doc.Declaration = new XDeclaration("1.0", "utf-8", "yes");
-			/*var wr = new StringWriter();
-			var settings = new XmlWriterSettings {
-				Encoding = Encoding.UTF8,
-				ConformanceLevel = ConformanceLevel.Document,
-				Indent = true
-			};
-			using (var xmlWriter = XmlWriter.Create(wr, settings)) {
-				doc.Save(xmlWriter);				
-			}
+			var content = XmlHelper.SerializeToUTF8XmlString(obj);
 
 			return new ContentResult {
 				ContentType = "text/xml",
-				Content = wr.ToString(),
+				Content = content,
 				ContentEncoding = Encoding.UTF8
-			};*/
-
-			using (var stream = new MemoryStream()) {
-
-				doc.Save(stream);
-				stream.Seek(0, SeekOrigin.Begin);
-
-				using (var reader = new StreamReader(stream)) {
-					return new ContentResult {
-						ContentType = "text/xml",
-						Content = reader.ReadToEnd(),
-						ContentEncoding = Encoding.UTF8
-					};					
-				}
-
-			}
-
-			/*return new ContentResult {
-				ContentType = "text/xml",
-				Content = doc.Declaration + Environment.NewLine +  doc,
-				ContentEncoding = Encoding.UTF8
-			};*/
+			};
 
 		}
 
