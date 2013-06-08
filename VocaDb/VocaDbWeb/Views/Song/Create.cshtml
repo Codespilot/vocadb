@@ -47,19 +47,19 @@
 				<table><tr><td class="formLabel">				
 				@Html.LabelFor(m => m.NameOriginal)
 				</td><td>
-				@Html.TextBoxForKnockout(m => m.NameOriginal, "value: NameOriginal", cssClass: "dupeField span12", maxLength: 255, size: 40)
+				@Html.TextBoxForKnockout(m => m.NameOriginal, "value: NameOriginal, valueUpdate: 'afterkeydown'", cssClass: "dupeField span12", maxLength: 255, size: 40)
 				</td></tr>
 
 				<tr><td class="formLabel">
 				@Html.LabelFor(m => m.NameRomaji)
 				</td><td>
-				@Html.TextBoxForKnockout(m => m.NameRomaji, "value: NameRomaji", cssClass: "dupeField span12", maxLength: 255, size: 40)
+				@Html.TextBoxForKnockout(m => m.NameRomaji, "value: NameRomaji, valueUpdate: 'afterkeydown'", cssClass: "dupeField span12", maxLength: 255, size: 40)
 				</td></tr>
 					
 				<tr><td class="formLabel">
 				@Html.LabelFor(m => m.NameEnglish)
 				</td><td>
-				@Html.TextBoxForKnockout(m => m.NameEnglish, "value: NameEnglish", cssClass: "dupeField span12", maxLength: 255, size: 40)
+				@Html.TextBoxForKnockout(m => m.NameEnglish, "value: NameEnglish, valueUpdate: 'afterkeydown'", cssClass: "dupeField span12", maxLength: 255, size: 40)
 				</td></tr></table>
 			</div>
 

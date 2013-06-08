@@ -45,6 +45,7 @@ function CreateSongViewModel() {
 
 	}
 
+	// Note: we don't want to check right after value changes, only after focusing out.
 	$("input.dupeField").focusout(checkDuplicatesAndPV);
 	
 	if ($("#pv1").val()) {
