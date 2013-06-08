@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
@@ -266,14 +267,42 @@ namespace VocaDb.Web.Controllers {
 
 			var doc = XmlHelper.SerializeToXml(obj);
 			doc.Declaration = new XDeclaration("1.0", "utf-8", "yes");
-			var wr = new StringWriter();
-			doc.Save(wr);
+			/*var wr = new StringWriter();
+			var settings = new XmlWriterSettings {
+				Encoding = Encoding.UTF8,
+				ConformanceLevel = ConformanceLevel.Document,
+				Indent = true
+			};
+			using (var xmlWriter = XmlWriter.Create(wr, settings)) {
+				doc.Save(xmlWriter);				
+			}
 
 			return new ContentResult {
 				ContentType = "text/xml",
 				Content = wr.ToString(),
 				ContentEncoding = Encoding.UTF8
-			};
+			};*/
+
+			using (var stream = new MemoryStream()) {
+
+				doc.Save(stream);
+				stream.Seek(0, SeekOrigin.Begin);
+
+				using (var reader = new StreamReader(stream)) {
+					return new ContentResult {
+						ContentType = "text/xml",
+						Content = reader.ReadToEnd(),
+						ContentEncoding = Encoding.UTF8
+					};					
+				}
+
+			}
+
+			/*return new ContentResult {
+				ContentType = "text/xml",
+				Content = doc.Declaration + Environment.NewLine +  doc,
+				ContentEncoding = Encoding.UTF8
+			};*/
 
 		}
 
