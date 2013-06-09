@@ -1,6 +1,5 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
-@using System.Web.Mvc;
-@using System.Web.Mvc.Html;
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 
 @helper ConvertNewlinesToBreaks(string text) {
@@ -25,6 +24,6 @@
 @helper OpenGraphMetaTags(string url = null, string title = null, string description = null, string type = null) {
 	@MetaTag("og:url", url)
 	@MetaTag("og:title", title)
-	@MetaTag("og:description", description)
+	@MetaTag("og:description", description.TruncateWithEllipsis(400))
 	@MetaTag("og:type", type)
 }
