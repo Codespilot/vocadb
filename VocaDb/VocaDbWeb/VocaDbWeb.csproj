@@ -145,6 +145,7 @@
     <Compile Include="API\v1\Controllers\AlbumApiController.cs" />
     <Compile Include="API\v1\Controllers\ArtistApiController.cs" />
     <Compile Include="API\v1\Controllers\SongApiController.cs" />
+    <Compile Include="API\v1\Controllers\UserApiController.cs" />
     <Compile Include="App_GlobalResources\AlbumArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

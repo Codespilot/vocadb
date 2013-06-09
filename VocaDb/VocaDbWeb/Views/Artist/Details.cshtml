@@ -12,11 +12,18 @@
 	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = "(" + Translate.ArtistTypeName(Model.ArtistType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Artists, "Index") };
-	ViewContext.Controller.ViewBag.Banner = VocaUriBuilder.CreateAbsolute(Url.Action("Picture", new { id = Model.Id }));	
+	ViewContext.Controller.ViewBag.Banner = VocaUriBuilder.CreateAbsolute(Url.Action("Picture", new { id = Model.Id }));
+
+	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new {id = Model.Id})).ToString();
+	
 }
 
 @section Head {
-	<link rel="canonical" href="@VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id }))" />	
+	@HtmlHelpers.OpenGraphMetaTags(
+		url: url, 
+		title: Model.Name + " (" + Translate.ArtistTypeName(Model.ArtistType) + ")", 
+		description: Model.Description)
+	<link rel="canonical" href="@url" />
 	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />	
 }
 

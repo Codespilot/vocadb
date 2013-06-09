@@ -153,20 +153,26 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract CheckAccessWithKey(string name, string accessKey) {
+		public UserContract CheckAccessWithKey(string name, string accessKey, string hostname) {
 
 			return HandleQuery(session => {
 
 				var lc = name.ToLowerInvariant();
 				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
 
-				if (user == null)
+				if (user == null) {
+					AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), session, name);
+					Thread.Sleep(2000);
 					return null;
+				}
 
 				var hashed = LoginManager.GetHashedAccessKey(user.AccessKey);
 
-				if (accessKey != hashed)
-					return null;
+				if (accessKey != hashed) {
+					AuditLog(string.Format("failed login from {0} - wrong password.", MakeGeoIpToolLink(hostname)), session, name);
+					Thread.Sleep(2000);
+					return null;					
+				}
 
 				return new UserContract(user);
 
