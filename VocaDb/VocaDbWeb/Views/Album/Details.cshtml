@@ -10,17 +10,29 @@
 		   
 @{
 	ViewBag.Title = Model.Name;
+
+	string titleAndArtist;
 	if (!string.IsNullOrEmpty(Model.ArtistString)) {
-		ViewBag.PageTitle = string.Format("{0} - {1}", Model.Name, Model.ArtistString);
+		titleAndArtist = string.Format("{0} - {1}", Model.Name, Model.ArtistString);
+	} else {
+		titleAndArtist = Model.Name;
 	}
+	ViewBag.PageTitle = titleAndArtist;
 	
 	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.DiscTypeName(Model.DiscType) + ")";
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
 	ViewContext.Controller.ViewBag.Banner = VocaUriBuilder.CreateAbsolute(Url.Action("CoverPicture", new { id = Model.Id }));
+
+	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new {id = Model.Id}));
+	
 }
 
 @section Head {
-	<link rel="canonical" href="@VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id }))" />	
+	<meta name="og:url" content="@url"/>
+	<meta name="og:title" content="@(titleAndArtist + " (" + Translate.DiscTypeName(Model.DiscType) + ")")"/>
+	<meta name="og:description" content="@Model.Description"/>
+	<meta name="og:type" content="music.album" />
+	<link rel="canonical" href="@url" />	
 	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
 }
 
@@ -72,23 +84,23 @@
 										<div class="carousel-caption">
 											<h4>@pic.Name</h4>
 										</div>
-		 }
+									}
 								</div>
-	   }
+							}
 						</div>
 						@if (Model.Pictures.Any()) {
 							<a class="carousel-control left" href="#picCarousel" data-slide="prev">&lsaquo;</a>
 							<a class="carousel-control right" href="#picCarousel" data-slide="next">&rsaquo;</a>
-	  }
+						}
 					</div>					
 					
 					@if (Model.RatingCount > 0) {
-                        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-                            <meta itemprop="ratingValue" content="@Model.RatingAverage" />
-						    @Helpers.StarsMeta(Model.RatingAverage, 5)<br />
-						    (<span itemprop="ratingCount">@Model.RatingCount</span> @ViewRes.Album.DetailsStrings.Ratings)
-                        </div>
-	                }
+						<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+							<meta itemprop="ratingValue" content="@Model.RatingAverage" />
+							@Helpers.StarsMeta(Model.RatingAverage, 5)<br />
+							(<span itemprop="ratingCount">@Model.RatingCount</span> @ViewRes.Album.DetailsStrings.Ratings)
+						</div>
+					}
 				</td>
 				<td>@ViewRes.SharedStrings.Name</td>
 				<td itemprop="name">
@@ -96,12 +108,15 @@
 					<span class="extraInfo">@Model.AdditionalNames</span>
 				</td>
 			</tr>
-			<tr>
-				<td>@ViewRes.Album.DetailsStrings.Vocalists</td>
-				<td class="artistList">
-					@ArtistHelpers.ArtistList(Model.Vocalists, showType: true)
-				</td>
-			</tr>
+			
+			@if (Model.Vocalists.Any()) {
+				<tr>
+					<td>@ViewRes.Album.DetailsStrings.Vocalists</td>
+					<td class="artistList">
+						@ArtistHelpers.ArtistList(Model.Vocalists, showType: true)
+					</td>
+				</tr>
+			}
 
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.Producers</td>
