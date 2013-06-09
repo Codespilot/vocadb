@@ -15,6 +15,7 @@ Most endpoints accept 2 common parameters:
 Additionally, most queries accept these common filters:
   * start: first entry index, starting from 0 (optional, defaults to 0)
   * maxEntries: number of entries to return (max. 10) (optional, defaults to 10).
+  * getTotalCount: whether total number of entries matching the filter should be returned. This causes some extra overhead, so specify this as false if you don't need it.
   * nameMatchMode: mode for matching names. Possible values are Auto, Partial, Exact, Words (optional, defaults to Exact)
 
 Some endpoints implement the "callback" parameter for JSONP queries. This is required for cross-site calls from Javascript. When using jQuery with the "jsonp" type, this will be handled transparently.
@@ -27,3 +28,18 @@ For example, when querying albums, all names will be included for the album itse
 == Albums ==
 === Albums listing ===
 Endpoint: http://vocadb.net/Api/v1/Album
+
+Parameters:
+  * query: filter for album name or catalog number.
+  * discType: filter for album type. If Unknown (which is the default), no filtering is done.
+  * sort: sort method. Possible values are None, Name, ReleaseDate, AdditionDate, RatingAverage and NameThenReleaseDate. Default value is Name.
+
+=== Query single album by ID ===
+Endpoint: http://vocadb.net/Api/v1/Album/Details/<id>
+
+No special parameters.
+
+=== Query album tracks by ID ===
+Endpoint: http://vocadb.net/Api/v1/Album/Tracks/<id>
+
+No special parameters.
