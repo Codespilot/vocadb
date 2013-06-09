@@ -7,7 +7,16 @@ VocaDB provides a public API for accessing artist, album and song information. A
 
 
 = API version 1 =
-== Common rules ==
+== Common parameters ==
+Most endpoints accept 2 common parameters:
+* lang: content language. Possible values: Default, Japanese, Romaji, English (optional, defaults to Default).
+* format: output format. Possible values are "Xml" and "Json". JSON is the default format.
+
+Additionally, most queries accept these common filters:
+* start: first entry index, starting from 0 (optional, defaults to 0)
+* maxEntries: number of entries to return (max. 10) (optional, defaults to 10)
+* nameMatchMode: mode for matching names. Possible values are Auto, Partial, Exact, Words (optional, defaults to Exact)
+
 
 == Albums ==
 === Albums listing ===
