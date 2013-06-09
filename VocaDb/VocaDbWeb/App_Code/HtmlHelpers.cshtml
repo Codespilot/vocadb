@@ -16,3 +16,15 @@
 	<text>@ConvertNewlinesToBreaks(text)</text>
 }
 
+@helper MetaTag(string name, string content) {
+	if (content != null) {
+		<meta name="@name" content="@content" />
+	}
+}
+
+@helper OpenGraphMetaTags(string url = null, string title = null, string description = null, string type = null) {
+	@MetaTag("og:url", url)
+	@MetaTag("og:title", title)
+	@MetaTag("og:description", description)
+	@MetaTag("og:type", type)
+}

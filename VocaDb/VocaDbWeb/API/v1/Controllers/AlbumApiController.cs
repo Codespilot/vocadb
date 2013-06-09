@@ -18,7 +18,11 @@ namespace VocaDb.Web.API.v1.Controllers {
 			get { return Services.Albums; }
 		}
 
-		public ActionResult Details(int id, DataFormat format = DataFormat.Auto, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+		public ActionResult Details(int id = invalidId, DataFormat format = DataFormat.Auto, 
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var album = Service.GetAlbum(id, a => new AlbumForApiContract(a, lang));
 
@@ -28,7 +32,8 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		public ActionResult Index(string query, DiscType discType = DiscType.Unknown,
 			int start = 0, bool getTotalCount = false, AlbumSortRule sort = AlbumSortRule.Name,
-			NameMatchMode nameMatchMode = NameMatchMode.Exact, DataFormat format = DataFormat.Auto, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+			NameMatchMode nameMatchMode = NameMatchMode.Exact, DataFormat format = DataFormat.Auto, 
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			var queryParams = new AlbumQueryParams(query, discType, start, maxResults, false, getTotalCount, nameMatchMode, sort);
 
@@ -38,7 +43,11 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		}
 
-		public ActionResult Tracks(int id, DataFormat format = DataFormat.Auto, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+		public ActionResult Tracks(int id = invalidId, DataFormat format = DataFormat.Auto, 
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var tracks = Service.GetAlbum(id, a => a.Songs.Select(s => new SongInAlbumContract(s, lang)).ToArray());
 

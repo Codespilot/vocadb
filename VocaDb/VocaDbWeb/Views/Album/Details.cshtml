@@ -23,15 +23,16 @@
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Albums, "Index") };
 	ViewContext.Controller.ViewBag.Banner = VocaUriBuilder.CreateAbsolute(Url.Action("CoverPicture", new { id = Model.Id }));
 
-	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new {id = Model.Id}));
+	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new {id = Model.Id})).ToString();
 	
 }
 
 @section Head {
-	<meta name="og:url" content="@url"/>
-	<meta name="og:title" content="@(titleAndArtist + " (" + Translate.DiscTypeName(Model.DiscType) + ")")"/>
-	<meta name="og:description" content="@Model.Description"/>
-	<meta name="og:type" content="music.album" />
+	@HtmlHelpers.OpenGraphMetaTags(
+		url: url, 
+		title: titleAndArtist + " (" + Translate.DiscTypeName(Model.DiscType) + ")", 
+		description: Model.Description, 
+		type: "music.album")
 	<link rel="canonical" href="@url" />	
 	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
 }
