@@ -28,6 +28,7 @@ For example, when querying albums, all names will be included for the album itse
 == Albums ==
 === Albums listing ===
 Endpoint: http://vocadb.net/Api/v1/Album
+Example: http://vocadb.net/Api/v1/Album?format=Xml&query=5150
 
 Parameters:
   * query: filter for album name or catalog number.
@@ -36,10 +37,32 @@ Parameters:
 
 === Query single album by ID ===
 Endpoint: http://vocadb.net/Api/v1/Album/Details/[id]
+Example: http://vocadb.net/Api/v1/Album/Details/71?format=Xml
 
 No special parameters.
 
 === Query album tracks by ID ===
 Endpoint: http://vocadb.net/Api/v1/Album/Tracks/[id]
+Example: http://vocadb.net/Api/v1/Album/Tracks/71?format=Xml
 
 No special parameters.
+
+== Artists ==
+=== Artist listing ===
+Endpoint: http://vocadb.net/Api/v1/Artist/ByName
+Example: http://vocadb.net/Api/v1/Artist/ByName?query=tripshots
+
+No special parameters.
+
+== Songs ==
+=== Song listing ===
+Endpoint: http://vocadb.net/Api/v1/Song/ByName
+Example: http://vocadb.net/Api/v1/Song/ByName?query=Nebula
+
+=== Query by PV ===
+Endpoint: http://vocadb.net/Api/v1/Song/ByPV
+Example: http://vocadb.net/api/v1/Song/ByPV?pvId=sm19923781&service=NicoNicoDouga
+
+Parameters:
+  * service: PV service. Possible values are NicoNicoDouga, Youtube, SoundCloud, Vimeo, Piapro and Bilibili.
+  * pvId: PV ID, format varies by service. For example, for NicoNicoDouga, this is the "sm" ID.
