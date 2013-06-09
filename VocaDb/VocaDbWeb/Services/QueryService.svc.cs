@@ -202,7 +202,7 @@ namespace VocaDb.Web.Services {
 
 		[OperationContract]
 		public UserContract GetUser(string name, string accessKey) {
-			return Services.Users.CheckAccessWithKey(name, accessKey, "WCF (local)");
+			return Services.Users.CheckAccessWithKey(name, accessKey, "localhost");
 		}
 
 		#endregion
