@@ -9,14 +9,20 @@ VocaDB provides a public API for accessing artist, album and song information. A
 = API version 1 =
 == Common parameters ==
 Most endpoints accept 2 common parameters:
-* lang: content language. Possible values: Default, Japanese, Romaji, English (optional, defaults to Default).
-* format: output format. Possible values are "Xml" and "Json". JSON is the default format.
+  * lang: content language. Possible values: Default, Japanese, Romaji, English (optional, defaults to Default).
+  * format: output format. Possible values are "Xml" and "Json". JSON is the default format.
 
 Additionally, most queries accept these common filters:
-* start: first entry index, starting from 0 (optional, defaults to 0)
-* maxEntries: number of entries to return (max. 10) (optional, defaults to 10)
-* nameMatchMode: mode for matching names. Possible values are Auto, Partial, Exact, Words (optional, defaults to Exact)
+  * start: first entry index, starting from 0 (optional, defaults to 0)
+  * maxEntries: number of entries to return (max. 10) (optional, defaults to 10).
+  * nameMatchMode: mode for matching names. Possible values are Auto, Partial, Exact, Words (optional, defaults to Exact)
 
+Some endpoints implement the "callback" parameter for JSONP queries. This is required for cross-site calls from Javascript. When using jQuery with the "jsonp" type, this will be handled transparently.
+
+== API responses ==
+Generally listings return only partial data while querying a single entry by ID returns full contents. For translations, the current convention is to return all names (including translations and aliases) for root entities (the entities being queried), and only one name (determined by the lang parameter) for child entities.
+
+For example, when querying albums, all names will be included for the album itself, but linked artists will only include one name, and no translations or aliases.
 
 == Albums ==
 === Albums listing ===
