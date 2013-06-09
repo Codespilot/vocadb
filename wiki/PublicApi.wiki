@@ -27,7 +27,7 @@ For example, when querying albums, all names will be included for the album itse
 
 == Albums ==
 === Albums listing ===
-Endpoint: http://vocadb.net/Api/v1/Album
+Endpoint: /Api/v1/Album
 
 Example: http://vocadb.net/Api/v1/Album?format=Xml&query=5150
 
@@ -37,14 +37,14 @@ Parameters:
   * sort: sort method. Possible values are None, Name, ReleaseDate, AdditionDate, RatingAverage and NameThenReleaseDate. Default value is Name.
 
 === Query single album by ID ===
-Endpoint: http://vocadb.net/Api/v1/Album/Details/[id]
+Endpoint: /Api/v1/Album/Details/[id]
 
 Example: http://vocadb.net/Api/v1/Album/Details/71?format=Xml
 
 No special parameters.
 
 === Query album tracks by ID ===
-Endpoint: http://vocadb.net/Api/v1/Album/Tracks/[id]
+Endpoint: /Api/v1/Album/Tracks/[id]
 
 Example: http://vocadb.net/Api/v1/Album/Tracks/71?format=Xml
 
@@ -52,7 +52,7 @@ No special parameters.
 
 == Artists ==
 === Artist listing ===
-Endpoint: http://vocadb.net/Api/v1/Artist/ByName
+Endpoint: /Api/v1/Artist/ByName
 
 Example: http://vocadb.net/Api/v1/Artist/ByName?query=tripshots
 
@@ -60,14 +60,14 @@ No special parameters.
 
 == Songs ==
 === Song listing ===
-Endpoint: http://vocadb.net/Api/v1/Song/ByName
+Endpoint: /Api/v1/Song/ByName
 
 Example: http://vocadb.net/Api/v1/Song/ByName?query=Nebula
 
 No special parameters.
 
 === Query by PV ===
-Endpoint: http://vocadb.net/Api/v1/Song/ByPV
+Endpoint: /Api/v1/Song/ByPV
 
 Example: http://vocadb.net/api/v1/Song/ByPV?pvId=sm19923781&service=NicoNicoDouga
 
