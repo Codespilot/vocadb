@@ -11,7 +11,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 			get { return Services.Users; }
 		}
 
-		//[HttpPost]
+		[HttpPost]
 		public ActionResult Authenticate(string username, string accesskey) {
 			
 			var user = Service.CheckAccessWithKey(username, accesskey, WebHelper.GetRealHost(Request));
