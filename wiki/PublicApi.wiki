@@ -35,11 +35,11 @@ Parameters:
   * sort: sort method. Possible values are None, Name, ReleaseDate, AdditionDate, RatingAverage and NameThenReleaseDate. Default value is Name.
 
 === Query single album by ID ===
-Endpoint: http://vocadb.net/Api/v1/Album/Details/<id>
+Endpoint: http://vocadb.net/Api/v1/Album/Details/[id]
 
 No special parameters.
 
 === Query album tracks by ID ===
-Endpoint: http://vocadb.net/Api/v1/Album/Tracks/<id>
+Endpoint: http://vocadb.net/Api/v1/Album/Tracks/[id]
 
 No special parameters.
