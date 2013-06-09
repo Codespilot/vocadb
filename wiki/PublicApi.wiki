@@ -28,6 +28,7 @@ For example, when querying albums, all names will be included for the album itse
 == Albums ==
 === Albums listing ===
 Endpoint: http://vocadb.net/Api/v1/Album
+
 Example: http://vocadb.net/Api/v1/Album?format=Xml&query=5150
 
 Parameters:
@@ -62,6 +63,8 @@ No special parameters.
 Endpoint: http://vocadb.net/Api/v1/Song/ByName
 
 Example: http://vocadb.net/Api/v1/Song/ByName?query=Nebula
+
+No special parameters.
 
 === Query by PV ===
 Endpoint: http://vocadb.net/Api/v1/Song/ByPV
