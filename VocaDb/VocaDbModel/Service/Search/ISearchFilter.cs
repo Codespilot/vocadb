@@ -12,9 +12,9 @@ namespace VocaDb.Model.Service.Search {
 
 		//List<TEntry> GetResults(ISession session);
 
-		IQueryable<TEntry> Filter(IQueryable<TEntry> query, ISession session);
+		IQueryable<TEntry> Filter(IQueryable<TEntry> query, IQuerySource session);
 
-		IQueryable<TEntry> Query(ISession session);
+		IQueryable<TEntry> Query(IQuerySource session);
 
 	}
 

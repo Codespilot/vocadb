@@ -13,7 +13,7 @@ using VocaDb.Model.Domain.Users;
 namespace VocaDb.Model.DataContracts.Albums {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class AlbumDetailsContract : AlbumWithAdditionalNamesContract {
+	public class AlbumDetailsContract : AlbumContract {
 
 		public AlbumDetailsContract() { }
 

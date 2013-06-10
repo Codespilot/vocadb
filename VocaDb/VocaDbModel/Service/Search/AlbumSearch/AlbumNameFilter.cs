@@ -38,13 +38,13 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		}*/
 
-		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
+		public IQueryable<Album> Filter(IQueryable<Album> query, IQuerySource session) {
 
 			return query.SelectMany(a => FindHelpers.AddEntryNameFilter(a.Names.Names.AsQueryable(), string.Empty, NameMatchMode.Words, names)).Select(n => n.Album);
 
 		}
 
-		public IQueryable<Album> Query(ISession session) {
+		public IQueryable<Album> Query(IQuerySource session) {
 
 			var q = session.Query<AlbumName>();
 
