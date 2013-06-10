@@ -20,7 +20,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			get { return QueryCost.VeryHigh; }
 		}
 
-		public void FilterResults(List<Album> albums, ISession session) {
+		public void FilterResults(List<Album> albums, IQuerySource session) {
 
 			albums.RemoveAll(a => !(
 				a.Names.Any(n => n.Value.IndexOf(term, StringComparison.InvariantCultureIgnoreCase) != -1)
@@ -31,7 +31,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		}
 
-		public List<Album> GetResults(ISession session) {
+		public List<Album> GetResults(IQuerySource session) {
 
 			var nameRes = session.Query<AlbumName>().Where(n => n.Value.Contains(term))
 				.Select(n => n.Album)
@@ -64,11 +64,11 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		}
 
-		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
+		public IQueryable<Album> Filter(IQueryable<Album> query, IQuerySource session) {
 			throw new NotImplementedException();
 		}
 
-		public IQueryable<Album> Query(ISession session) {
+		public IQueryable<Album> Query(IQuerySource session) {
 			throw new NotImplementedException();
 		}
 	}

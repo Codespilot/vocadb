@@ -29,7 +29,6 @@ using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Domain.Tags;
-using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Service.TagFormatting;
 
 namespace VocaDb.Model.Service {
@@ -57,27 +56,10 @@ namespace VocaDb.Model.Service {
 		private PartialFindResult<Album> FindAdvanced(
 			ISession session, QueryPlan<Album> queryPlan, PagingProperties paging, AlbumSortRule sortRule) {
 
-			if (!queryPlan.Any())
-				return new PartialFindResult<Album>(new Album[] {}, 0);
+			var querySource = new QuerySourceSession(session);
+			var processor = new QueryProcessor<Album>(querySource);
 
-			IQueryable<Album> albums = null;
-
-			foreach (var filter in queryPlan) {
-
-				if (albums == null)
-					albums = filter.Query(session);
-				else
-					albums = filter.Filter(albums, session);
-
-			}
-
-			var result = albums
-				.Skip(paging.Start)
-				.Take(paging.MaxEntries)
-				.ToArray();
-
-			return new PartialFindResult<Album>(result, albums.Count());
-
+			return processor.Query(queryPlan, paging, q => AlbumSearchSort.AddOrder(q, sortRule, LanguagePreference));
 
 		}
 

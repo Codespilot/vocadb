@@ -20,13 +20,13 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			get { return QueryCost.High; }
 		}
 
-		public IQueryable<Album> Filter(IQueryable<Album> query, ISession session) {
+		public IQueryable<Album> Filter(IQueryable<Album> query, IQuerySource session) {
 
 			return query.Where(a => a.AllArtists.Any(u => u.Artist.Names.Names.Any(a2 => a2.Value.Contains(artistName))));
 
 		}
 
-		public IQueryable<Album> Query(ISession session) {
+		public IQueryable<Album> Query(IQuerySource session) {
 
 			return session.Query<ArtistName>()
 				.Where(an => an.Value.Contains(artistName))
