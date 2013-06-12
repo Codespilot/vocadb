@@ -17,9 +17,12 @@ namespace VocaDb.Model.Domain.Songs {
 			: base(contract) {
 
 			Song = song;
+			Length = contract.Length;
 			ThumbUrl = contract.ThumbUrl ?? string.Empty;
 
 		}
+
+		public virtual int Length { get; set; }
 
 		public virtual Song Song {
 			get { return song; }

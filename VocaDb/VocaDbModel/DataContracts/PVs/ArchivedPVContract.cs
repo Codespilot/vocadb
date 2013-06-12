@@ -27,12 +27,16 @@ namespace VocaDb.Model.DataContracts.PVs {
 		public ArchivedPVContract(PVForSong pv)
 			: this((PV)pv) {
 
+			Length = pv.Length;
 			ThumbUrl = pv.ThumbUrl;
 
 		}
 
 		[DataMember]
 		public string Author { get; set; }
+
+		[DataMember]
+		public int Length { get; set; }
 
 		[DataMember]
 		public string Name { get; set; }

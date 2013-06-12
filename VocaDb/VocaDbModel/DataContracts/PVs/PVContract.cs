@@ -31,6 +31,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 			ParamIs.NotNull(() => contract);
 
 			Author = contract.Author;
+			Length = contract.Length;
 			Name = contract.Name;
 			PVId = contract.PVId;
 			Service = contract.Service;
@@ -41,6 +42,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 		public PVContract(PVForSong pv)
 			: this((PV)pv) {
 
+			Length = pv.Length;
 			ThumbUrl = pv.ThumbUrl;
 
 		}
@@ -50,6 +52,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 			ParamIs.NotNull(() => parseResult);
 
 			Author = parseResult.Author;
+			Length = parseResult.LengthSeconds ?? 0;
 			Name = parseResult.Title;
 			PVId = parseResult.Id;
 			Service = parseResult.Service;
@@ -65,6 +68,12 @@ namespace VocaDb.Model.DataContracts.PVs {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		/// <summary>
+		/// Length in seconds, 0 if not specified.
+		/// </summary>
+		[DataMember]
+		public int Length { get; set; }
 
 		[DataMember]
 		public string Name { get; set; }
@@ -85,6 +94,11 @@ namespace VocaDb.Model.DataContracts.PVs {
 		[DataMember]
 		public string Url { get; set; }
 
+		/// <summary>
+		/// Compares editable properties.
+		/// </summary>
+		/// <param name="pv">Contract to be compared to. Can be null.</param>
+		/// <returns>True if the editable properties of this contract are the same as the one being compared to.</returns>
 		public bool ContentEquals(PVContract pv) {
 
 			if (pv == null)
