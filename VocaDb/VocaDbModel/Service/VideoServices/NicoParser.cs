@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -110,9 +111,10 @@ namespace VocaDb.Model.Service.VideoServices {
 			var title = HtmlEntity.DeEntitize(titleElem.Value);
 			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/thumbnail_url");
 			var userId = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/user_id");
+			var length = ParseLength(XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/length"));
 			var author = GetUserName(userId);
 
-			var result = VideoTitleParseResult.CreateSuccess(title, author, thumbUrl);
+			var result = VideoTitleParseResult.CreateSuccess(title, author, thumbUrl, length);
 			result.AuthorId = userId;
 			return result;
 
@@ -175,6 +177,26 @@ namespace VocaDb.Model.Service.VideoServices {
 			var titleText = (titleElem != null ? titleElem.InnerText : null);
 
 			return (titleText != null ? HtmlEntity.DeEntitize(titleText) : null);
+
+		}
+
+		public static int? ParseLength(string lengthStr) {
+
+			if (string.IsNullOrEmpty(lengthStr))
+				return null;
+
+			var parts = lengthStr.Split(':');
+
+			if (parts.Length != 2)
+				return null;
+
+			int min, sec;
+			if (!int.TryParse(parts[0], out min) || !int.TryParse(parts[1], out sec))
+				return null;
+
+			var totalSec = min*60 + sec;
+
+			return totalSec;
 
 		}
 

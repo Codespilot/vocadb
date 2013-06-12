@@ -42,6 +42,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			Author = meta.Author ?? string.Empty;
 			AuthorId = meta.AuthorId ?? string.Empty;
 			ThumbUrl = meta.ThumbUrl ?? string.Empty;
+			LengthSeconds = meta.LengthSeconds;
 
 			ResultType = VideoUrlParseResultType.Ok;
 
@@ -79,6 +80,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		public bool IsOk {
 			get { return ResultType == VideoUrlParseResultType.Ok; }
 		}
+
+		public int? LengthSeconds { get; set; }
 
 		public VideoUrlParseResultType ResultType { get; set; }
 
