@@ -18,16 +18,17 @@
 			return new VideoTitleParseResult(false, error, null, null, null);
 		}
 
-		public static VideoTitleParseResult CreateSuccess(string title, string author, string thumbUrl) {
-			return new VideoTitleParseResult(true, null, title, author, thumbUrl);
+		public static VideoTitleParseResult CreateSuccess(string title, string author, string thumbUrl, int? length = null) {
+			return new VideoTitleParseResult(true, null, title, author, thumbUrl, length);
 		}
 
-		public VideoTitleParseResult(bool success, string error, string title, string author, string thumbUrl) {
+		public VideoTitleParseResult(bool success, string error, string title, string author, string thumbUrl, int? length = null) {
 			Error = error;
 			Success = success;
 			Title = title ?? string.Empty;
 			Author = author ?? string.Empty;
 			ThumbUrl = thumbUrl ?? string.Empty;
+			LengthSeconds = length;
 		}
 
 		/// <summary>
@@ -51,6 +52,8 @@
 		/// Null if there was no error.
 		/// </summary>
 		public string Error { get; set; }
+
+		public int? LengthSeconds { get; set; }
 
 		/// <summary>
 		/// Whether the operation was successful.
