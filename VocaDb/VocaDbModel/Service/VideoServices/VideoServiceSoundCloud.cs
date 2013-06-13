@@ -13,6 +13,16 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
+		private int? GetLength(string lengthStr) {
+
+			int val;
+			if (int.TryParse(lengthStr, out val))
+				return val/1000;
+			else
+				return null;
+
+		}
+
 		public VideoServiceSoundCloud(PVService service, IVideoServiceParser parser, RegexLinkMatcher[] linkMatchers) 
 			: base(service, parser, linkMatchers) {}
 
@@ -52,9 +62,11 @@ namespace VocaDb.Model.Service.VideoServices {
 			var title = titleElem.Value;
 			var author = XmlHelper.GetNodeTextOrEmpty(doc, "//track/user/username");
 			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//track/artwork-url");
+			var length = GetLength(XmlHelper.GetNodeTextOrEmpty(doc, "//track/duration"));
+
 			var id = new SoundCloudId(trackId, url);
 
-			return VideoUrlParseResult.CreateOk(url, PVService.SoundCloud, id.ToString(), VideoTitleParseResult.CreateSuccess(title, author, thumbUrl));
+			return VideoUrlParseResult.CreateOk(url, PVService.SoundCloud, id.ToString(), VideoTitleParseResult.CreateSuccess(title, author, thumbUrl, length));
 
 		}
 

@@ -8,6 +8,16 @@ namespace VocaDb.Model.Service.VideoServices {
 
 	public class VimeoParser : IVideoServiceParser {
 
+		private int? GetLength(string lengthStr) {
+
+			int val;
+			if (int.TryParse(lengthStr, out val))
+				return val;
+			else
+				return null;
+
+		}
+
 		public VideoTitleParseResult GetTitle(string id) {
 
 			var url = string.Format("http://vimeo.com/api/v2/video/{0}.xml", id);
@@ -37,8 +47,9 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var author = XmlHelper.GetNodeTextOrEmpty(doc, "videos/video/user_name");
 			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "videos/video/thumbnail_small");
+			var length = GetLength(XmlHelper.GetNodeTextOrEmpty(doc, "videos/video/duration"));
 
-			return VideoTitleParseResult.CreateSuccess(titleElem.Value, author, thumbUrl);
+			return VideoTitleParseResult.CreateSuccess(titleElem.Value, author, thumbUrl, length);
 
 		}
 
