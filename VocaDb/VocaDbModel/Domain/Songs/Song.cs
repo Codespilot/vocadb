@@ -35,6 +35,13 @@ namespace VocaDb.Model.Domain.Songs {
 		private IList<FavoriteSongForUser> userFavorites = new List<FavoriteSongForUser>();
 		private IList<SongWebLink> webLinks = new List<SongWebLink>();
 
+		public virtual int GetLengthFromPV() {
+
+			var pv = PVs.FirstOrDefault(p => p.Length > 0);
+			return (pv != null ? pv.Length : 0);
+
+		}
+
 		public Song() {
 			ArtistString = new TranslatedStringWithDefault(string.Empty, string.Empty, string.Empty, string.Empty);
 			CreateDate = DateTime.Now;
@@ -176,6 +183,11 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public virtual int Id { get; set; }
+
+		/// <summary>
+		/// Song length in seconds. If 0, that means no length is saved.
+		/// </summary>
+		public virtual int LengthSeconds { get; set; }
 
 		public virtual IList<SongInList> ListLinks {
 			get { return lists; }
@@ -381,6 +393,9 @@ namespace VocaDb.Model.Domain.Songs {
 
 			UpdateNicoId();
 			UpdatePVServices();
+
+			if (LengthSeconds <= 0)
+				LengthSeconds = GetLengthFromPV();
 
 			return pv;
 
