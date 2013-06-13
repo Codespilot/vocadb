@@ -7,6 +7,15 @@ namespace VocaDb.Web.Helpers {
 
 		private static readonly Regex simpleTimeRegex = new Regex(@"(\d+)([dhm]?)");
 
+		public static string FormatFromSeconds(int seconds) {
+
+			if (seconds <= 0)
+				return string.Empty;
+
+			return TimeSpan.FromSeconds(seconds).ToString(@"m\:ss");
+
+		}
+
 		public static TimeSpan ParseFromSimpleString(string timeSpanStr) {
 
 			if (string.IsNullOrEmpty(timeSpanStr))
