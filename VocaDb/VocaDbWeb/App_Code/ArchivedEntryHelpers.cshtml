@@ -295,7 +295,7 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 }
 
 @helper PVInfo(ArchivedPVContract pv) {
-	<text>@pv.Service (@pv.PVType): @pv.PVId by @pv.Author</text>
+	<text>@pv.Service (@pv.PVType): @pv.PVId by @pv.Author (@DateTimeUtils.FormatFromSeconds(pv.Length))</text>
 }
 
 @helper TranslatedNameRow(TranslatedStringContract name, TranslatedStringContract compareToName = null) {
