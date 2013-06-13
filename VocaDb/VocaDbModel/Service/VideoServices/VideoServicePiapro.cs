@@ -2,12 +2,27 @@
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using VocaDb.Model.Domain.PVs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public class VideoServicePiapro : VideoService {
+
+		private int? GetLength(HtmlNode dataElem) {
+
+			if (dataElem == null)
+				return null;
+
+			var lengthMatch = Regex.Match(dataElem.InnerHtml, @"タイム／サイズ.+(\d\d:\d\d)");
+
+			if (!lengthMatch.Success)
+				return null;
+
+			return NicoHelper.ParseLength(lengthMatch.Groups[1].Value);
+
+		}
 
 		public VideoServicePiapro(PVService service, IVideoServiceParser parser, RegexLinkMatcher[] linkMatchers) 
 			: base(service, parser, linkMatchers) {}
@@ -48,6 +63,8 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (dataElem == null || !dataElem.InnerHtml.Contains("/music/"))
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, "Content type indicates this isn't an audio file.");
 
+			var length = GetLength(dataElem);
+
 			var idElem = doc.DocumentNode.SelectSingleNode("//input[@name = 'id']");
 
 			if (idElem == null)
@@ -65,7 +82,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			var authorElem = doc.DocumentNode.SelectSingleNode("//div[@class = 'dtl_by_name']/a");
 			var author = (authorElem != null ? authorElem.InnerText : string.Empty);
 
-			return VideoUrlParseResult.CreateOk(url, PVService.Piapro, contentId, VideoTitleParseResult.CreateSuccess(title, author, string.Empty));
+			return VideoUrlParseResult.CreateOk(url, PVService.Piapro, contentId, VideoTitleParseResult.CreateSuccess(title, author, string.Empty, length));
 
 		}
 
