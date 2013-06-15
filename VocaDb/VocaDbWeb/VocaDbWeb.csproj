@@ -1848,6 +1848,8 @@
     <Content Include="Views\Song\UsersWithSongRating.cshtml" />
     <Content Include="Views\Home\Wiki.cshtml" />
     <Content Include="Views\Shared\SongPopupContent.cshtml" />
+    <Content Include="Views\Song\Partials\_SongDetailsList.cshtml" />
+    <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

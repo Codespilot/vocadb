@@ -1,0 +1,37 @@
+﻿@using VocaDb.Web.Helpers
+@using R = ViewRes.Song
+@model VocaDb.Web.Models.Song.Index
+
+<table class="table table-striped">
+	<tbody>
+		@foreach (var song in Model.Songs) {
+            var primaryPv = PVHelper.PrimaryPV(song.PVs);
+			<tr>
+				<td>
+                    @if (primaryPv != null) {
+                        @Helpers.EmbedPV(primaryPv)
+                    }
+                </td>
+                <td>
+	                <h3>
+		                @Helpers.DraftIcon(song.Status)
+		                @Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })
+	                </h3>
+					@SongHelpers.SongTypeLabel(song.SongType)
+                    @Translate.SongTypeNames[song.SongType]
+                    <br />
+
+					<span class="extraInfo">@song.ArtistString</span><br />
+					@if (song.Album != null) {
+					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
+					}					
+                    <br />
+
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
+					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
+
+				</td>
+            </tr>
+        }    
+    </tbody>
+</table>    

@@ -202,8 +202,23 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		/// <summary>
+		/// Prints a number of items in a grid as HTML table
+		/// </summary>
+		/// <typeparam name="T">Type of items to be processed.</typeparam>
+		/// <param name="htmlHelper">HTML helper. Cannot be null.</param>
+		/// <param name="items">List of items to be printed. Cannot be null or empty.</param>
+		/// <param name="columns">Number of  columns in the grid. Must be higher than 0.</param>
+		/// <param name="contentFunc">
+		/// Provides the content for individual table cells. Return value is raw HTML. Cannot be null.</param>
+		/// <returns></returns>
 		public static MvcHtmlString Grid<T>(this HtmlHelper htmlHelper, IEnumerable<T> items, 
 			int columns, Func<T, IHtmlString> contentFunc) {
+
+			ParamIs.NotNull(() => htmlHelper);
+			ParamIs.NotNull(() => items);
+			ParamIs.Positive(columns, "columns");
+			ParamIs.NotNull(() => contentFunc);
 
 			var tableTag = new TagBuilder("table");
 			TagBuilder trTag = null;
