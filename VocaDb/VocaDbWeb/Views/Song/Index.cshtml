@@ -103,101 +103,26 @@
 	
 	@if (Model.Songs.Any()) {
 	
-<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
+		<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
 	
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
+		@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	
-if (Model.ViewMode == SongViewMode.Details) {
+		if (Model.ViewMode == SongViewMode.Details) {
+			Html.RenderPartial("Partials/_SongDetailsList", Model);
+		} else {
+			Html.RenderPartial("Partials/_SongPreviewList", Model);    
+		}
     
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.Name })</th>
-			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var song in Model.Songs) {
-			<tr>
-				<td>
-                    @if (!string.IsNullOrEmpty(song.ThumbUrl)) {
-						    @SongHelpers.SongIconLink(song)
-	                }
-				</td>
-				<td>
-					@SongHelpers.SongLink(song)
-					&nbsp;
-					@Helpers.DraftIcon(song.Status)
-					@SongHelpers.SongTypeLabel(song.SongType)
-					@Helpers.PVServiceIcons(song.PVServices)
-					<br />
-					<span class="extraInfo">@song.ArtistString</span><br />
-					@if (song.Album != null) {
-					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
-					}
-				</td>
-				<td>
-                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
-					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
-				</td>
-				<td>
-					@if (Login.CanEdit(song)) {
-						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id }, new { @class = "textLink editLink" })
-	 }		
-				</td>
-			</tr>
-  }
-	</tbody>	
-</table>
-    
-} else {
-    
-<table class="table table-striped">
-	<tbody>
-		@foreach (var song in Model.Songs) {
-            var primaryPv = PVHelper.PrimaryPV(song.PVs);
-			<tr>
-				<td>
-                    @if (primaryPv != null) {
-                        @Helpers.EmbedPV(primaryPv)
-                    }
-                </td>
-                <td>
-	                <h3>
-		                @Helpers.DraftIcon(song.Status)
-		                @Html.ActionLink(song.Name, "Details", new { id = song.Id }, new { title = song.AdditionalNames })
-	                </h3>
-					@SongHelpers.SongTypeLabel(song.SongType)
-                    @Translate.SongTypeNames[song.SongType]
-                    <br />
+		@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 
-					<span class="extraInfo">@song.ArtistString</span><br />
-					@if (song.Album != null) {
-					<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span><br />
-					}					
-                    <br />
-
-                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
-					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
-
-				</td>
-            </tr>
-        }    
-    </tbody>
-</table>    
-    
-}
-    
-@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	}
 
-@if (!Model.Songs.Any()) {
+	@if (!Model.Songs.Any()) {
 
-	<p>@ViewRes.EntryIndexStrings.NoResults</p>
-	@Helpers.GoogleSiteSearch()
+		<p>@ViewRes.EntryIndexStrings.NoResults</p>
+		@Helpers.GoogleSiteSearch()
 
-}
+	}
 
 @section Head {
 	<link rel="alternate" type="application/rss+xml" title="RSS" href='@Url.Action("Feed", Model.CreateRouteParams(1))'>

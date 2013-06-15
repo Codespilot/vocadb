@@ -1,0 +1,47 @@
+﻿@using VocaDb.Web.Helpers
+@using VocaDb.Web.Models.Song
+@using VocaDb.Model.Domain.PVs
+@using R = ViewRes.Song;
+@model Index
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.Name })</th>
+			<th>@Html.ActionLink(R.IndexStrings.Rating, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.FavoritedTimes })</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var song in Model.Songs) {
+			<tr>
+				<td>
+                    @if (!string.IsNullOrEmpty(song.ThumbUrl)) {
+						@SongHelpers.SongIconLink(song)
+	                }
+				</td>
+				<td>
+					@SongHelpers.SongLink(song)
+					&nbsp;
+					@Helpers.DraftIcon(song.Status)
+					@SongHelpers.SongTypeLabel(song.SongType)
+					@Helpers.PVServiceIcons(song.PVServices)
+					<br />
+					<span class="extraInfo">@song.ArtistString</span><br />
+					@if (song.Album != null) {
+						<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span>
+					}
+				</td>
+				<td>
+                    @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />
+					@string.Format(R.IndexStrings.Favorites, song.FavoritedTimes)
+				</td>
+				<td>
+					@if (Login.CanEdit(song)) {
+						@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = song.Id }, new { @class = "textLink editLink" })
+	 }		
+				</td>
+			</tr>
+  }
+	</tbody>	
+</table>
