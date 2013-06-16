@@ -207,4 +207,7 @@
   <data name="ShowAllVersions" xml:space="preserve">
     <value>Näytä kaikki</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Kesto</value>
+  </data>
 </root>

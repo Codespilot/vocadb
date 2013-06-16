@@ -59,6 +59,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			var thisVersion = xmlCache.Deserialize(version.Version, version.Data);
 
 			data.Id = thisVersion.Id;
+			data.LengthSeconds = thisVersion.LengthSeconds;
 			data.NicoId = thisVersion.NicoId;
 			data.Notes = thisVersion.Notes;
 			data.OriginalVersion = thisVersion.OriginalVersion;
@@ -84,6 +85,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			Artists = (diff.IncludeArtists ? song.Artists.Select(a => new ArchivedArtistForSongContract(a)).ToArray() : null);
 			Id = song.Id;
+			LengthSeconds = song.LengthSeconds;
 			Lyrics = (diff.IncludeLyrics ? song.Lyrics.Select(l => new LyricsForSongContract(l)).ToArray() : null);
 			Names = (diff.IncludeNames ? song.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
 			NicoId = song.NicoId;
@@ -101,6 +103,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public int LengthSeconds { get; set; }
 
 		[DataMember]
 		public LyricsForSongContract[] Lyrics { get; set; }

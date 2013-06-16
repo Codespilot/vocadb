@@ -94,6 +94,15 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual bool IsSnapshot { get; set; }
 
+		public virtual bool Length {
+			get {
+				return IsChanged(SongEditableFields.Length);
+			}
+			set {
+				Set(SongEditableFields.Length, value);
+			}
+		}
+
 		public virtual bool Lyrics {
 			get {
 				return IsChanged(SongEditableFields.Lyrics);

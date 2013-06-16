@@ -9,23 +9,25 @@ namespace VocaDb.Model.Domain.Songs {
 
 		Artists			= 1,
 
-		Lyrics			= 2,
+		Length			= 2,
 
-		Names			= 4,
+		Lyrics			= 4,
 
-		Notes			= 8,
+		Names			= 8,
 
-		OriginalName	= 16,
+		Notes			= 16,
 
-		OriginalVersion	= 32,
+		OriginalName	= 32,
 
-		PVs				= 64,
+		OriginalVersion	= 64,
 
-		SongType		= 128,
+		PVs				= 128,
 
-		Status			= 256,
+		SongType		= 256,
 
-		WebLinks		= 512
+		Status			= 512,
+
+		WebLinks		= 1024
 
 	}
 

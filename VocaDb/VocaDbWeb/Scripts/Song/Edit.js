@@ -1,5 +1,5 @@
 ﻿
-function initPage(songId) {
+function initPage(songId, length) {
 
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
@@ -191,5 +191,37 @@ function initPage(songId) {
 	});
 
 	$("#artistsTableBody a.artistLink").vdbArtistToolTip();
+	
+	var viewModel = new EditViewModel(length);
+	ko.applyBindings(viewModel);
+
+}
+
+function EditViewModel(songLength) {
+
+	var self = this;
+
+	this.length = ko.observable(songLength);
+
+	function addLeadingZero(val) {
+		return (val < 10 ? "0" + val : val);
+	}
+
+	this.lengthFormatted = ko.computed({
+		read: function () {
+			var mins = Math.floor(self.length() / 60);
+			return mins + ":" + addLeadingZero(self.length() % 60);
+		},
+		write: function (value) {
+			var parts = value.split(":");
+			if (parts.length == 2 && parseInt(parts[0], 10) != NaN && parseInt(parts[1], 10) != NaN) {
+				self.length(parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10));
+			} else if (parts.length == 1 && !isNaN(parseInt(parts[0], 10))) {
+				self.length(parseInt(parts[0], 10));
+			} else {
+				self.length(0);
+			}
+		}
+	});
 
 }

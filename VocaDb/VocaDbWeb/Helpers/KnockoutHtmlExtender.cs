@@ -12,6 +12,23 @@ namespace VocaDb.Web.Helpers {
 	/// </summary>
 	public static class KnockoutHtmlExtender {
 
+		public static MvcHtmlString HiddenForKnockout<TModel, TProperty>(
+			this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression,
+			string binding, string id = null) {
+
+			ParamIs.NotNull(() => htmlHelper);
+			ParamIs.NotNull(() => expression);
+			ParamIs.NotNull(() => binding);
+
+			var htmlAttributes = new Dictionary<string, object> { { "data-bind", binding } };
+
+			if (!string.IsNullOrEmpty(id))
+				htmlAttributes.Add("id", id);
+
+			return htmlHelper.HiddenFor(expression, htmlAttributes);
+
+		}
+
 		/// <summary>
 		/// Text box bound to knockout model.
 		/// </summary>
