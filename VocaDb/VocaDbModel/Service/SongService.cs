@@ -940,6 +940,7 @@ namespace VocaDb.Model.Service {
 				var fullProperties = ArchivedSongContract.GetAllProperties(archivedVersion);
 				var warnings = new List<string>();
 
+				song.LengthSeconds = fullProperties.LengthSeconds;
 				song.NicoId = fullProperties.NicoId;
 				song.Notes = fullProperties.Notes;
 				song.SongType = fullProperties.SongType;
@@ -1171,6 +1172,11 @@ namespace VocaDb.Model.Service {
 				if (song.SongType != properties.Song.SongType) {
 					diff.SongType = true;
 					song.SongType = properties.Song.SongType;
+				}
+
+				if (song.LengthSeconds != properties.Song.LengthSeconds) {
+					diff.Length = true;
+					song.LengthSeconds = properties.Song.LengthSeconds;
 				}
 
 				if (song.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {

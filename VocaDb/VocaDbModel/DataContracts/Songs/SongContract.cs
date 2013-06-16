@@ -44,6 +44,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			CreateDate = song.CreateDate;
 			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
+			LengthSeconds = song.LengthSeconds;
 			Name = song.TranslatedName[languagePreference];
 			NicoId = song.NicoId;
 			PVServices = song.PVServices;
@@ -69,6 +70,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public int LengthSeconds { get; set; }
 
 		[DataMember]
 		public string Name { get; set; }

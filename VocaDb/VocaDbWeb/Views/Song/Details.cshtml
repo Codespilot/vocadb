@@ -133,6 +133,15 @@
 				</td>
 			</tr>
 			
+			@if (Model.Length > 0) {
+				<tr>
+					<td>@R.DetailsStrings.Duration</td>
+					<td>
+						@DateTimeUtils.FormatFromSeconds(Model.Length)
+					</td>
+				</tr>
+			}
+
 			@if (Model.Albums.Any()) {
 			<tr>
 				<td>@ViewRes.SharedStrings.Albums</td>

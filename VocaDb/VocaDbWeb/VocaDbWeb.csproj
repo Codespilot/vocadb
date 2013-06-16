@@ -1905,6 +1905,7 @@
     <Content Include="App_GlobalResources\SongEditableFieldNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongEditableFieldNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

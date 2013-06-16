@@ -123,6 +123,9 @@
   <data name="Groups" xml:space="preserve">
     <value>Groups</value>
   </data>
+  <data name="Length" xml:space="preserve">
+    <value>Duration</value>
+  </data>
   <data name="Lyrics" xml:space="preserve">
     <value>Lyrics</value>
   </data>

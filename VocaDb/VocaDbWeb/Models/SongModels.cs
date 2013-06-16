@@ -50,6 +50,7 @@ namespace VocaDb.Web.Models {
 			Id = contract.Song.Id;
 			IsFavorited = contract.UserRating != SongVoteRating.Nothing;
 			LatestComments = contract.LatestComments;
+			Length = contract.Song.LengthSeconds;
 			LikedTimes = contract.LikeCount;
 			Lyrics = contract.LyricsFromParents;
 			Name = contract.Song.Name;
@@ -129,6 +130,8 @@ namespace VocaDb.Web.Models {
 		public int Id { get; set; }
 
 		public bool IsFavorited { get; set; }
+
+		public int Length { get; set; }
 
 		public string Json {
 			get {
@@ -217,6 +220,7 @@ namespace VocaDb.Web.Models {
 			ArtistLinks = song.Artists;
 			DefaultLanguageSelection = song.TranslatedName.DefaultLanguage;
 			Id = song.Song.Id;
+			Length = song.Song.LengthSeconds;
 			Lyrics = song.Lyrics.Select(l => new LyricsForSongModel(l)).ToArray();
 			NameEnglish = song.TranslatedName.English;
 			NameJapanese = song.TranslatedName.Japanese;
@@ -249,6 +253,8 @@ namespace VocaDb.Web.Models {
 		public bool Draft { get; set; }
 
 		public int Id { get; set; }
+
+		public int Length { get; set; }
 
 		[Display(Name = "Lyrics")]
 		public IList<LyricsForSongModel> Lyrics { get; set; }
@@ -313,6 +319,7 @@ namespace VocaDb.Web.Models {
 				Song = new SongContract {
 					Status = this.Status,
 					Id = this.Id,
+					LengthSeconds = this.Length,
 					Name = this.Name,
 					SongType = this.SongType
 				},

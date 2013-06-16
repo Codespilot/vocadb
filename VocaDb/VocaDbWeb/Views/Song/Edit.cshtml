@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
+@using Newtonsoft.Json
 @model SongEdit
 @{
 	ViewBag.Title = "Edit song - " + Model.Name;
@@ -30,6 +31,7 @@
 <br />
 @using (Html.BeginForm("Edit", "Song", FormMethod.Post)) {
 	@Html.HiddenFor(m => m.Id)
+	@Html.HiddenForKnockout(m => m.Length, "value: length")
 
 	@Helpers.SaveBtn()
 	
@@ -95,6 +97,15 @@
 				</div>
 			</div>
    }
+			
+			<div class="editor-label">
+				<label>
+					Duration (minutes and seconds)
+				</label>
+			</div>
+			<div class="editor-field">
+				<input type="text" data-bind="value: lengthFormatted" class="span2" maxlength="10" />
+			</div>
 			
 			<div class="editor-label">
 				<label>
@@ -226,7 +237,7 @@
 		vdb.resources.song = {
 			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
 		};
-		initPage(@Model.Id);
+		initPage(@Model.Id, @Model.Length);
 	});
 
 </script>
