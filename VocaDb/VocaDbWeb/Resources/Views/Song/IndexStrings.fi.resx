@@ -141,6 +141,9 @@
   <data name="OnlyWithPVsFilter" xml:space="preserve">
     <value>Vain videot</value>
   </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Esikatsele</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Arvostelu</value>
   </data>

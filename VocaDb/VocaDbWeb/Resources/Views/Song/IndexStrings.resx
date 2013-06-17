@@ -141,6 +141,9 @@
   <data name="OnlyWithPVsFilter" xml:space="preserve">
     <value>Only with PVs</value>
   </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>Rating</value>
   </data>
