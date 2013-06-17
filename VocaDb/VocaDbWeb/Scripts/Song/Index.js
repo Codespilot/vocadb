@@ -153,3 +153,25 @@ function initPage(model) {
 	ko.applyBindings(viewModel);
 
 }
+
+function previewPV(songId) {
+
+	var elem = $(".pvPreview[data-entry-id='" + songId + "']");
+	elem.html("");
+	elem.toggle();
+	var visible = elem.is(":visible");
+
+	if (visible) {
+		elem.parent().find(".previewSong").addClass("active");
+
+		$.post(vdb.functions.mapUrl("/Song/PVPlayer"), { songId: songId }, function(content) {
+			//$(".pvPreview").html("");
+			elem.html(content);
+			//$("#pvPreviewDialog").html(content);
+			//$("#pvPreviewDialog").dialog("open");
+		});
+	} else {
+		elem.parent().find(".previewSong").removeClass("active");
+	}
+
+}

@@ -21,6 +21,13 @@
 	                }
 				</td>
 				<td>
+					@if (song.PVServices != PVServices.Nothing) {
+						<a href="#" onclick=" previewPV(@song.Id); return false; " class="btn pull-right previewSong">
+							<i class="icon-film"></i>
+							@R.IndexStrings.Preview
+						</a>
+					}
+										
 					@SongHelpers.SongLink(song)
 					&nbsp;
 					@Helpers.DraftIcon(song.Status)
@@ -31,6 +38,9 @@
 					@if (song.Album != null) {
 						<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span>
 					}
+					@if (song.PVServices != PVServices.Nothing) {
+						<div class="pvPreview" style="display: none;" data-entry-id="@song.Id"></div>
+					}									
 				</td>
 				<td>
                     @string.Format(R.IndexStrings.TotalScore, song.RatingScore)<br />

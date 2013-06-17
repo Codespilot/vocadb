@@ -404,6 +404,21 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult PVPlayer(int songId = invalidId) {
+
+			if (songId == invalidId)
+				return NoId();
+
+			var song = Service.GetSongWithPVAndVote(songId);
+			var pv = PVHelper.PrimaryPV(song.PVs);
+
+			if (pv == null)
+				return new EmptyResult();
+
+			return PartialView("PVEmbedDynamic", pv);
+
+		}
+
 		public ActionResult PVRedirect(PVService service, string pvId) {
 
 			var song = Service.GetSongWithPV(service, pvId);

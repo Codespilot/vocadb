@@ -419,6 +419,10 @@ div.panel {
 	padding-top: 10px;	
 }
 
+.pvPreview {
+	margin-top: 5px;
+}
+
 /* Links */
 
 button.textLink {
@@ -589,9 +593,6 @@ div.pvViewerContent .songPreviewTranslations {
 	font-size: smaller;
 }
 
-div.pvViewerContent .ratingButtons {
-	float: right;
-}
 
 div.pvViewerContent .songInfoButton {
 	float: right;
