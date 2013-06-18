@@ -129,18 +129,20 @@
 }
 
 @section BodyScripts {
-<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
-<script type="text/javascript">
+	<script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/PVRatingButtonsViewModel.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/Repositories/UserRepository.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Index.js")"></script>
+	<script type="text/javascript">
 
-	$(document).ready(function () {
+		$(document).ready(function () {
 
-		vdb.resources.entryIndex = @ResourceHelpers.ToJSON(AjaxRes.EntryIndexStrings.ResourceManager);
-		vdb.resources.song = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager);
-		vdb.resources.songTypes = @ResourceHelpers.ToJSON(VocaDb.Model.Resources.Songs.SongTypeNames.ResourceManager);
+			vdb.resources.entryIndex = @ResourceHelpers.ToJSON(AjaxRes.EntryIndexStrings.ResourceManager);
+			vdb.resources.song = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager);
+			vdb.resources.songTypes = @ResourceHelpers.ToJSON(VocaDb.Model.Resources.Songs.SongTypeNames.ResourceManager);
 
-		var json = @Html.Raw(JsonConvert.SerializeObject(Model.RouteParams));
-		initPage(json);
-	});
+			var json = @Html.Raw(JsonConvert.SerializeObject(Model.RouteParams));
+			initPage(json);
+		});
 
-</script>
+	</script>
 }

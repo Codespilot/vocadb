@@ -1,0 +1,11 @@
+﻿@using VocaDb.Web.Helpers
+<!-- binding context: PVRatingButtonsViewModel -->
+
+<div class="pull-right" style="@(Login.Manager.IsLoggedIn ? "" : "display: none;")">
+	<span data-bind="visible: isRated() == false" class="pull-right">
+		<a data-bind="click: setRating_like" href="#" id="addLikeLink" class="btn">@ViewRes.Song.DetailsStrings.Like</a>
+		<br />
+		<a data-bind="click: setRating_favorite" href="#" id="addFavoriteLink" class="btn">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+	</span>
+	<a data-bind="visible: isRated, click: setRating_nothing" href="#" class="btn pull-right" style="display: none;">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
+</div>

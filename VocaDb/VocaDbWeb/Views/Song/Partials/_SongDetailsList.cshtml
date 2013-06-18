@@ -4,7 +4,7 @@
 @using R = ViewRes.Song;
 @model Index
 
-<table class="table table-striped">
+<table class="table table-striped" data-bind="pvPreviewStatus: songs">
 	<thead>
 		<tr>
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.Name })</th>
@@ -14,7 +14,7 @@
 	</thead>
 	<tbody>
 		@foreach (var song in Model.Songs) {
-			<tr>
+			<tr class="pvRow" data-entry-id="@song.Id">
 				<td>
                     @if (!string.IsNullOrEmpty(song.ThumbUrl)) {
 						@SongHelpers.SongIconLink(song)
@@ -22,7 +22,8 @@
 				</td>
 				<td>
 					@if (song.PVServices != PVServices.Nothing) {
-						<a href="#" onclick=" previewPV(@song.Id); return false; " class="btn pull-right previewSong">
+
+						<a data-bind="click: $parent.previewPV" class="btn pull-right previewSong" href="#">
 							<i class="icon-film"></i>
 							@R.IndexStrings.Preview
 						</a>
@@ -39,7 +40,12 @@
 						<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span>
 					}
 					@if (song.PVServices != PVServices.Nothing) {
-						<div class="pvPreview" style="display: none;" data-entry-id="@song.Id"></div>
+						<div data-bind="if: song, visible: song">
+							<div data-bind="with: song" class="pull-right">
+								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }							
+							</div>
+							<div data-bind="html: html"></div>
+						</div>
 					}									
 				</td>
 				<td>
