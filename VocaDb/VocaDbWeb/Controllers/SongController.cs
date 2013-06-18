@@ -404,7 +404,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult PVPlayer(int songId = invalidId) {
+		// For song index
+		public ActionResult PVPlayerWithRating(int songId = invalidId) {
 
 			if (songId == invalidId)
 				return NoId();
@@ -415,7 +416,9 @@ namespace VocaDb.Web.Controllers
 			if (pv == null)
 				return new EmptyResult();
 
-			return PartialView("PVEmbedDynamic", pv);
+			var view = RenderPartialViewToString("PVEmbedDynamic", pv);
+
+			return Json(new { song, pvPlayer = view });
 
 		}
 

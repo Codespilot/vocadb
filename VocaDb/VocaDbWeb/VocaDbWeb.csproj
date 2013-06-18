@@ -1433,6 +1433,18 @@
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
+    <Content Include="Scripts\Repositories\UserRepository.js">
+      <DependentUpon>UserRepository.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
+    <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
+    <Content Include="Scripts\typings\knockout\knockout.d.ts" />
+    <Content Include="Scripts\typings\underscore\underscore-typed-1.4.2.d.ts" />
+    <Content Include="Scripts\typings\underscore\underscore-typed-1.4.3.d.ts" />
+    <Content Include="Scripts\typings\underscore\underscore-typed.d.ts" />
+    <Content Include="Scripts\typings\underscore\underscore.d.ts" />
     <Content Include="Scripts\Shared\EntrySearchDrop.js" />
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />
@@ -1642,6 +1654,9 @@
     <Content Include="Scripts\User\Edit.js" />
     <Content Include="Scripts\User\Messages.js" />
     <Content Include="Scripts\User\MySettings.js" />
+    <Content Include="Scripts\ViewModels\PVRatingButtonsViewModel.js">
+      <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />
     <Content Include="sitemap.xml" />
@@ -1850,6 +1865,7 @@
     <Content Include="Views\Shared\SongPopupContent.cshtml" />
     <Content Include="Views\Song\Partials\_SongDetailsList.cshtml" />
     <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
+    <Content Include="Views\Song\Partials\_PVRatingButtonsForIndex.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

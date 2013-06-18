@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
@@ -21,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SongVoteRating Vote { get; set; }
 
 	}

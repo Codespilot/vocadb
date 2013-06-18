@@ -14,6 +14,7 @@ function IndexViewModel(model) {
 	this.sort = ko.observable(model.sort);
 	this.view = ko.observable(model.view);
 	this.filterArtistName = ko.observable(model.artistName);
+	this.songs = ko.observableArray([]);
 
 	getArtistName();
 
@@ -142,7 +143,49 @@ function IndexViewModel(model) {
 		}
 	});
 
+	this.previewPV = function(data) {
+
+		if (data.preview()) {
+			data.preview(false);
+			data.song(null);
+			return;
+		}
+
+		var songId = data.songId;
+		$.post(vdb.functions.mapUrl("/Song/PVPlayerWithRating"), { songId: songId }, function(result) {
+			data.html(result.pvPlayer);
+			var userRepository = new vdb.repositories.UserRepository(vdb.values.hostAddress);
+			var ratingButtonsViewModel = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, result.song, function() {
+				vdb.ui.showSuccessMessage(vdb.resources.song.ThanksForRating);
+			});
+			data.song(ratingButtonsViewModel);
+			data.preview(true);
+		});
+
+	};
+
 }
+
+// Initializes and maintains song rating status for the HTML table.
+ko.bindingHandlers.pvPreviewStatus = {
+	init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+		var pvRows = $(element).find(".pvRow");
+		var songsArray = valueAccessor();
+
+		// Parse all rows and create child binding context for each of them
+		var songItems = _.map(pvRows, function (pvRow) {
+			var item = { songId: $(pvRow).data("entry-id"), preview: ko.observable(false), html: ko.observable(null), song: ko.observable(null) };
+			var childBindingContext = bindingContext.createChildContext(item);
+			ko.applyBindingsToDescendants(childBindingContext, pvRow);
+			return item;
+		});
+
+		songsArray(songItems);
+
+		return { controlsDescendantBindings: true };
+	}
+};
 
 function initPage(model) {
 
@@ -154,9 +197,10 @@ function initPage(model) {
 
 }
 
-function previewPV(songId) {
+/*function previewPV(songId) {
 
 	var elem = $(".pvPreview[data-entry-id='" + songId + "']");
+	var buttonsElem = $(".pvRatingButtons[data-entry-id='" + songId + "']")[0];
 	elem.html("");
 	elem.toggle();
 	var visible = elem.is(":visible");
@@ -164,14 +208,23 @@ function previewPV(songId) {
 	if (visible) {
 		elem.parent().find(".previewSong").addClass("active");
 
-		$.post(vdb.functions.mapUrl("/Song/PVPlayer"), { songId: songId }, function(content) {
-			//$(".pvPreview").html("");
-			elem.html(content);
-			//$("#pvPreviewDialog").html(content);
-			//$("#pvPreviewDialog").dialog("open");
+		$.post(vdb.functions.mapUrl("/Song/PVPlayerWithRating"), { songId: songId }, function (result) {
+			
+			elem.html(result.pvPlayer);
+
+			var userRepository = new vdb.repositories.UserRepository(vdb.values.hostAddress);
+			var ratingButtonsViewModel = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, result.song);
+			var data = ko.dataFor(buttonsElem);
+			if (data)
+				data.song(ratingButtonsViewModel);
+			else
+				ko.applyBindings({ song: ko.observable(ratingButtonsViewModel) }, buttonsElem);
+
 		});
 	} else {
 		elem.parent().find(".previewSong").removeClass("active");
+		var data = ko.dataFor(buttonsElem);
+		data.song(null);
 	}
 
-}
+}*/
