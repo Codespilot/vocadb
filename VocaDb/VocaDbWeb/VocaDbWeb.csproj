@@ -1430,6 +1430,10 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
+    <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
+      <DependentUpon>SlideVisible.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />

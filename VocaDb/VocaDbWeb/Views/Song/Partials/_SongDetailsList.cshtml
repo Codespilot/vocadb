@@ -23,7 +23,7 @@
 				<td>
 					@if (song.PVServices != PVServices.Nothing) {
 
-						<a data-bind="click: $parent.previewPV" class="btn pull-right previewSong" href="#">
+						<a data-bind="click: $parent.previewPV, css: { active: preview }" class="btn pull-right previewSong" href="#">
 							<i class="icon-film"></i>
 							@R.IndexStrings.Preview
 						</a>
@@ -40,7 +40,7 @@
 						<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span>
 					}
 					@if (song.PVServices != PVServices.Nothing) {
-						<div data-bind="if: song, visible: song">
+						<div data-bind="if: song, slideVisible: song" class="pvPreview">
 							<div data-bind="with: song" class="pull-right">
 								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }							
 							</div>
