@@ -143,6 +143,11 @@ function IndexViewModel(model) {
 		}
 	});
 
+	this.destroyPV = function (data) {
+		if (data)
+			data.html("");
+	};
+
 	this.previewPV = function(data) {
 
 		if (data.preview()) {
