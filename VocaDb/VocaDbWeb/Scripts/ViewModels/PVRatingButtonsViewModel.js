@@ -9,14 +9,15 @@ var vdb;
                 this.isRated = ko.computed(function () {
                     return _this.rating() != PVRatingButtonsViewModel.rating_nothing;
                 });
+
                 var setRating = function (rating) {
                     _this.rating(rating);
                     repository.updateSongRating(songId, rating, function () {
-                        if(rating != PVRatingButtonsViewModel.rating_nothing && _.isFunction(ratingCallback)) {
+                        if (rating != PVRatingButtonsViewModel.rating_nothing && _.isFunction(ratingCallback))
                             ratingCallback();
-                        }
                     });
                 };
+
                 this.setRating_favorite = function () {
                     return setRating(PVRatingButtonsViewModel.rating_favorite);
                 };
@@ -32,7 +33,7 @@ var vdb;
             PVRatingButtonsViewModel.rating_nothing = "Nothing";
             return PVRatingButtonsViewModel;
         })();
-        viewModels.PVRatingButtonsViewModel = PVRatingButtonsViewModel;        
+        viewModels.PVRatingButtonsViewModel = PVRatingButtonsViewModel;
     })(vdb.viewModels || (vdb.viewModels = {}));
     var viewModels = vdb.viewModels;
 })(vdb || (vdb = {}));
