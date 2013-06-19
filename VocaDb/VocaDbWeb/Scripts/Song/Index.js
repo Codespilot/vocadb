@@ -201,35 +201,3 @@ function initPage(model) {
 	ko.applyBindings(viewModel);
 
 }
-
-/*function previewPV(songId) {
-
-	var elem = $(".pvPreview[data-entry-id='" + songId + "']");
-	var buttonsElem = $(".pvRatingButtons[data-entry-id='" + songId + "']")[0];
-	elem.html("");
-	elem.toggle();
-	var visible = elem.is(":visible");
-
-	if (visible) {
-		elem.parent().find(".previewSong").addClass("active");
-
-		$.post(vdb.functions.mapUrl("/Song/PVPlayerWithRating"), { songId: songId }, function (result) {
-			
-			elem.html(result.pvPlayer);
-
-			var userRepository = new vdb.repositories.UserRepository(vdb.values.hostAddress);
-			var ratingButtonsViewModel = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, result.song);
-			var data = ko.dataFor(buttonsElem);
-			if (data)
-				data.song(ratingButtonsViewModel);
-			else
-				ko.applyBindings({ song: ko.observable(ratingButtonsViewModel) }, buttonsElem);
-
-		});
-	} else {
-		elem.parent().find(".previewSong").removeClass("active");
-		var data = ko.dataFor(buttonsElem);
-		data.song(null);
-	}
-
-}*/

@@ -1,3 +1,5 @@
+var cls = vdb.models;
+
 var vdb;
 (function (vdb) {
     (function (repositories) {
@@ -9,7 +11,7 @@ var vdb;
                 };
 
                 this.updateSongRating = function (songId, rating, callback) {
-                    $.post(_this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: rating }, callback);
+                    $.post(_this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: cls.SongVoteRating[rating] }, callback);
                 };
             }
             return UserRepository;
