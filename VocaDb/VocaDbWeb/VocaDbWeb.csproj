@@ -1435,6 +1435,10 @@
       <DependentUpon>SlideVisible.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
+    <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
+    <Content Include="Scripts\Models\SongVoteRating.js">
+      <DependentUpon>SongVoteRating.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
