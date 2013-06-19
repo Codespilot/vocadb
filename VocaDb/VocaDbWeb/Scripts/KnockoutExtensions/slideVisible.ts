@@ -11,9 +11,9 @@ ko.bindingHandlers.slideVisible = {
         var value = valueAccessor();
         $(element).toggle(ko.utils.unwrapObservable(value)); // Use "unwrapObservable" so we can handle values that may or may not be observable
     },
-    update: function (element, valueAccessor) {
+    update: function (element, valueAccessor, allBindingsAccessor) {
         // Whenever the value subsequently changes, slowly fade the element in or out
         var value = valueAccessor();
-        ko.utils.unwrapObservable(value) ? $(element).slideDown('fast') : $(element).slideUp();
+        ko.utils.unwrapObservable(value) ? $(element).slideDown('fast') : $(element).slideUp('fast', () => allBindingsAccessor().complete(ko.dataFor(element)));
     }
 };

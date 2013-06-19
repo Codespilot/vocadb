@@ -40,9 +40,11 @@
 						<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span>
 					}
 					@if (song.PVServices != PVServices.Nothing) {
-						<div data-bind="if: song, slideVisible: song" class="pvPreview">
-							<div data-bind="with: song" class="pull-right">
-								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }							
+						<div data-bind="slideVisible: song, complete: $parent.destroyPV" class="pvPreview" style="display: none;">
+							<div data-bind="if: song" class="pull-right">
+								<div data-bind="with: song">
+									@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }							
+								</div>								
 							</div>
 							<div data-bind="html: html"></div>
 						</div>
