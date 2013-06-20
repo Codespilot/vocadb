@@ -1451,6 +1451,10 @@
     </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeUserRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\Models\SongVoteRatingTests.ts" />
+    <Content Include="Scripts\Tests\Models\SongVoteRatingTests.js">
+      <DependentUpon>SongVoteRatingTests.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\TestSupport\FakeUserRepository.js">
       <DependentUpon>FakeUserRepository.ts</DependentUpon>
     </Content>

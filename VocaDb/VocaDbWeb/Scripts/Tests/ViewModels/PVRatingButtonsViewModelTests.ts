@@ -11,11 +11,32 @@ module vdb.tests.viewModels {
 
     QUnit.module("PVRatingButtonsViewModel");
 
+    function createTarget(songId: number, rating: cls.SongVoteRating) {
+        return new vm.PVRatingButtonsViewModel(repository, { Id: songId, Vote: cls.SongVoteRating[rating] }, null)
+    }
+
     test("constructor", () => {
 
-        var target = new vm.PVRatingButtonsViewModel(repository, { Id: 39, Vote: cls.SongVoteRating[cls.SongVoteRating.Nothing] }, null);
+        var target = createTarget(39, cls.SongVoteRating.Nothing);
 
-        equal(cls.SongVoteRating.Nothing, target.rating(), "rating");
+        equal(target.rating(), cls.SongVoteRating.Nothing, "rating");
+        equal(target.isRated(), false, "isRated");
+        equal(target.isRatingFavorite(), false, "isRatingFavorite");
+        equal(target.isRatingLike(), false, "isRatingLike");
+
+    });
+
+    test("setRating_like", () => {
+
+        var target = createTarget(39, cls.SongVoteRating.Nothing);
+        target.setRating_like();
+
+        equal(target.rating(), cls.SongVoteRating.Like, "rating");
+        equal(target.isRated(), true, "isRated");
+        equal(target.isRatingFavorite(), false, "isRatingFavorite");
+        equal(target.isRatingLike(), true, "isRatingLike");
+        equal(repository.songId, 39, "repository.songId");
+        equal(repository.rating, cls.SongVoteRating.Like, "repository.rating");
 
     });
 
