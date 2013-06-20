@@ -3,16 +3,16 @@
 /// <reference path="../Repositories/UserRepository.ts" />
 /// <reference path="../Models/SongVoteRating.ts" />
 
-import cls = vdb.models;
-
 module vdb.viewModels {
+
+    import cls = vdb.models;
 
     // Knockout view model for PV rating buttons
     export class PVRatingButtonsViewModel {
 
-        public isRated: KnockoutComputed;
+        public isRated: KnockoutComputed<boolean>;
 
-        public rating: KnockoutObservableAny;
+        public rating: KnockoutObservable<cls.SongVoteRating>;
 
         public setRating_favorite: () => void;
 

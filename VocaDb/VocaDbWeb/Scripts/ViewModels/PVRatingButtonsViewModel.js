@@ -1,8 +1,8 @@
-var cls = vdb.models;
-
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        var cls = vdb.models;
+
         var PVRatingButtonsViewModel = (function () {
             function PVRatingButtonsViewModel(repository, songWithVoteContract, ratingCallback) {
                 var _this = this;
