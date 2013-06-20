@@ -583,6 +583,7 @@
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\SongListController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -964,6 +965,7 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\qunit-1.11.0.css" />
     <Content Include="Content\Sign-in-with-Twitter-darker.png" />
     <Content Include="Content\Site-bs.css" />
     <Content Include="Content\Site-teto.css" />
@@ -1434,6 +1436,7 @@
     <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
       <DependentUpon>SlideVisible.ts</DependentUpon>
     </Content>
+    <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <Content Include="Scripts\Models\SongVoteRating.js">
@@ -1446,9 +1449,18 @@
     <Content Include="Scripts\Repositories\UserRepository.js">
       <DependentUpon>UserRepository.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeUserRepository.ts" />
+    <Content Include="Scripts\Tests\TestSupport\FakeUserRepository.js">
+      <DependentUpon>FakeUserRepository.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.js">
+      <DependentUpon>PVRatingButtonsViewModelTests.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.d.ts" />
+    <Content Include="Scripts\typings\qunit\qunit.d.ts" />
     <Content Include="Scripts\typings\underscore\underscore-typed-1.4.2.d.ts" />
     <Content Include="Scripts\typings\underscore\underscore-typed-1.4.3.d.ts" />
     <Content Include="Scripts\typings\underscore\underscore-typed.d.ts" />
@@ -1874,6 +1886,7 @@
     <Content Include="Views\Song\Partials\_SongDetailsList.cshtml" />
     <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
     <Content Include="Views\Song\Partials\_PVRatingButtonsForIndex.cshtml" />
+    <Content Include="Views\Tests\Index.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

@@ -30,6 +30,12 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
 
 
+#if DEBUG
+			bundles.Add(new ScriptBundle("~/bundles/tests")
+				.IncludeDirectory("~/Scripts/Tests", "*.js", true));
+#endif
+
+
 			// Base CSS
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				"~/Content/bootstrap.css", 
