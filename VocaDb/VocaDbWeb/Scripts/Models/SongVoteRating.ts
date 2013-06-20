@@ -9,7 +9,7 @@ module vdb.models {
         Favorite    = 5,        
     }
 
-    export function parseSongVoteRating(rating: SongVoteRating) {
+    export function parseSongVoteRating(rating: string) {
         
         switch (rating) {
             case "Nothing": return SongVoteRating.Nothing;

@@ -9,10 +9,29 @@ var vdb;
 
             QUnit.module("PVRatingButtonsViewModel");
 
-            test("constructor", function () {
-                var target = new vm.PVRatingButtonsViewModel(repository, { Id: 39, Vote: cls.SongVoteRating[cls.SongVoteRating.Nothing] }, null);
+            function createTarget(songId, rating) {
+                return new vm.PVRatingButtonsViewModel(repository, { Id: songId, Vote: cls.SongVoteRating[rating] }, null);
+            }
 
-                equal(cls.SongVoteRating.Nothing, target.rating(), "rating");
+            test("constructor", function () {
+                var target = createTarget(39, cls.SongVoteRating.Nothing);
+
+                equal(target.rating(), cls.SongVoteRating.Nothing, "rating");
+                equal(target.isRated(), false, "isRated");
+                equal(target.isRatingFavorite(), false, "isRatingFavorite");
+                equal(target.isRatingLike(), false, "isRatingLike");
+            });
+
+            test("setRating_like", function () {
+                var target = createTarget(39, cls.SongVoteRating.Nothing);
+                target.setRating_like();
+
+                equal(target.rating(), cls.SongVoteRating.Like, "rating");
+                equal(target.isRated(), true, "isRated");
+                equal(target.isRatingFavorite(), false, "isRatingFavorite");
+                equal(target.isRatingLike(), true, "isRatingLike");
+                equal(repository.songId, 39, "repository.songId");
+                equal(repository.rating, cls.SongVoteRating.Like, "repository.rating");
             });
         })(tests.viewModels || (tests.viewModels = {}));
         var viewModels = tests.viewModels;
