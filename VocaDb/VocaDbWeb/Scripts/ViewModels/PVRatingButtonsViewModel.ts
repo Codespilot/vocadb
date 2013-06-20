@@ -12,6 +12,10 @@ module vdb.viewModels {
 
         public isRated: KnockoutComputed<boolean>;
 
+        public isRatingFavorite: KnockoutComputed<boolean>;
+
+        public isRatingLike: KnockoutComputed<boolean>;
+
         public rating: KnockoutObservable<cls.SongVoteRating>;
 
         public setRating_favorite: () => void;
@@ -23,8 +27,10 @@ module vdb.viewModels {
         constructor(repository: vdb.repositories.UserRepository, songWithVoteContract, ratingCallback: () => void) {
 
             var songId = songWithVoteContract.Id;
-            this.rating = ko.observable(songWithVoteContract.Vote);
+            this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.Vote));
             this.isRated = ko.computed(() => this.rating() != cls.SongVoteRating.Nothing);
+            this.isRatingFavorite = ko.computed(() => this.rating() == cls.SongVoteRating.Favorite);
+            this.isRatingLike = ko.computed(() => this.rating() == cls.SongVoteRating.Like);
 
             var setRating = (rating: cls.SongVoteRating) => {
                 this.rating(rating);

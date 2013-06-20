@@ -7,9 +7,15 @@ var vdb;
             function PVRatingButtonsViewModel(repository, songWithVoteContract, ratingCallback) {
                 var _this = this;
                 var songId = songWithVoteContract.Id;
-                this.rating = ko.observable(songWithVoteContract.Vote);
+                this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.Vote));
                 this.isRated = ko.computed(function () {
                     return _this.rating() != cls.SongVoteRating.Nothing;
+                });
+                this.isRatingFavorite = ko.computed(function () {
+                    return _this.rating() == cls.SongVoteRating.Favorite;
+                });
+                this.isRatingLike = ko.computed(function () {
+                    return _this.rating() == cls.SongVoteRating.Like;
                 });
 
                 var setRating = function (rating) {
