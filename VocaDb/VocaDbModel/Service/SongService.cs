@@ -119,7 +119,7 @@ namespace VocaDb.Model.Service {
 				if (items.Any())
 					order = items.Max(s => s.Order) + 1;
 
-				VerifyResourceAccess(list.Author);
+				EntryPermissionManager.VerifyEdit(PermissionContext, list);
 
 				var song = session.Load<Song>(songId);
 
