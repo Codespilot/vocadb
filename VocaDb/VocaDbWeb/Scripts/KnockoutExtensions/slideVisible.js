@@ -1,7 +1,8 @@
 ko.bindingHandlers.slideVisible = {
     init: function (element, valueAccessor) {
-        var value = valueAccessor();
-        $(element).toggle(ko.utils.unwrapObservable(value));
+        var value = ko.utils.unwrapObservable(valueAccessor());
+        if (value)
+            $(element).show();
     },
     update: function (element, valueAccessor, allBindingsAccessor) {
         var value = valueAccessor();
