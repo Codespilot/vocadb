@@ -213,7 +213,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var elemRegex = new Regex(@"【\s?([\w･]+)\s?】");
 			var matches = elemRegex.Matches(title);
-			Artist artist = null;
+			var artists = new List<Artist>();
 			var songType = SongType.Unspecified;
 			int offset = 0;
 
@@ -233,7 +233,8 @@ namespace VocaDb.Model.Service.VideoServices {
 					}
 
 					var a = artistFunc(content.Trim());
-					artist = artist ?? a;
+					if (a != null)
+						artists.Add(a);
 				}
 
 				title = title.Remove(match.Index - offset, match.Value.Length);
@@ -241,7 +242,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			}
 
-			return new NicoTitleParseResult(title.Trim(), new List<Artist> { artist }, songType);
+			return new NicoTitleParseResult(title.Trim(), artists, songType);
 
 		}
 
