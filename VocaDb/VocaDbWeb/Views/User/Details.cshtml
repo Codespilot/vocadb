@@ -51,11 +51,11 @@
 			@if (Model.EffectivePermissions.Contains(PermissionToken.DesignatedStaff)) {
 				<span class="label label-important">@R.Staff</span>
 			}
+			@if (verifiedAccount) {
+				<span class="label label-success">@R.VerifiedAccount</span>
+			}
 			@if (!Model.Active) {
 				<span class="label">@R.AccountDisabled</span>
-			}
-			@if (verifiedAccount) {
-				@(" - " + R.VerifiedAccount)
 			}
 		</p>
 	</div>
