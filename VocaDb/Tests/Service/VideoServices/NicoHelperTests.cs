@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -14,7 +15,12 @@ namespace VocaDb.Tests.Service.VideoServices {
 	public class NicoHelperTests {
 
 		private Artist ArtistFunc(string name) {
-			
+
+			var artistNames = new HashSet<string> { "重音テト", "鏡音リン", "初音ミク", "MEIKO" };
+
+			if (!artistNames.Contains(name))
+				return null;
+
 			return new Artist(TranslatedString.Create(name));
 
 		}
@@ -88,14 +94,28 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 			var result = NicoHelper.ParseTitle("【巡音ルカ･Lily】Blame of Angel", ArtistFunc);
 
-			Assert.AreEqual(1, result.Artists.Count, "1 artist");
-			Assert.AreEqual("巡音ルカ･Lily", result.Artists.First().DefaultName, "artist");
+			// TODO: might be able to handle artists as well.
 			Assert.AreEqual("Blame of Angel", result.Title, "title");
 
 		}
 
 		/// <summary>
 		/// Handle special characters in artist fields.
+		/// </summary>
+		[TestMethod]
+		public void ParseTitle_MultipleArtistFields() {
+
+			var result = NicoHelper.ParseTitle("【初音ミク】恋風～liebe wind～【鏡音リン】", ArtistFunc);
+
+			Assert.AreEqual(2, result.Artists.Count, "2 artists");
+			Assert.AreEqual("初音ミク", result.Artists.First().DefaultName, "artist");
+			Assert.AreEqual("鏡音リン", result.Artists[1].DefaultName, "artist");
+			Assert.AreEqual("恋風～liebe wind～", result.Title, "title");
+
+		}
+
+		/// <summary>
+		/// Handle artist with original.
 		/// </summary>
 		[TestMethod]
 		public void ParseTitle_ArtistOriginal() {
