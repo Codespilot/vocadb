@@ -120,8 +120,14 @@
   <data name="NeedArtist" xml:space="preserve">
     <value>Song needs at least one artist.</value>
   </data>
+  <data name="NeedProducer" xml:space="preserve">
+    <value>Song should have at least one producer role.</value>
+  </data>
   <data name="NeedType" xml:space="preserve">
     <value>Song type needs to be specified.</value>
+  </data>
+  <data name="NonInstrumentalSongNeedsVocalists" xml:space="preserve">
+    <value>This song has no vocalists. If it's an instrumental (karaoke), mark it as instrumental with either type or tag. Otherwise, add vocalists.</value>
   </data>
   <data name="UnspecifiedNames" xml:space="preserve">
     <value>Song needs a primary name.</value>
