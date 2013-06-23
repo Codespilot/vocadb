@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Resources;
 
 namespace VocaDb.Model.Service.EntryValidators {
@@ -22,6 +23,12 @@ namespace VocaDb.Model.Service.EntryValidators {
 
 			if (song.Names.Names.All(n => n.Language == ContentLanguageSelection.Unspecified))
 				errors.Add(SongValidationErrors.UnspecifiedNames);
+
+			if (song.SongType != SongType.Instrumental && !song.Tags.HasTag("instrumental") && !ArtistHelper.GetVocalists(song.Artists.ToArray()).Any())
+				errors.Add(SongValidationErrors.NonInstrumentalSongNeedsVocalists);
+
+			if (!song.Artists.Any(a => ArtistHelper.IsProducerRole(a, SongHelper.IsAnimation(song.SongType))))
+				errors.Add(SongValidationErrors.NeedProducer);
 
 			return new ValidationResult(errors);
 

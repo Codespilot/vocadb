@@ -14,7 +14,7 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
-		private static bool IsProducerRole(IArtistWithSupport link, bool isAnimation) {
+		public static bool IsProducerRole(IArtistWithSupport link, bool isAnimation) {
 
 			return IsProducerRole(GetCategories(link), isAnimation);
 
@@ -209,11 +209,15 @@ namespace VocaDb.Model.Helpers {
 		public static string[] GetVocalistNames(IEnumerable<IArtistWithSupport> artists, ContentLanguagePreference languagePreference) {
 
 			var matched = artists.Where(IsValidCreditableArtist).ToArray();
-			var vocalists = matched.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist));
+			var vocalists = GetVocalists(matched);
 			var names = vocalists.Select(p => GetTranslatedName(p).GetBestMatch(languagePreference)).ToArray();
 
 			return names;
 
+		}
+
+		public static IEnumerable<IArtistWithSupport> GetVocalists(IList<IArtistWithSupport> artists) {
+			return artists.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist));
 		}
 
 		public static bool IsCustomizable(ArtistType at) {
