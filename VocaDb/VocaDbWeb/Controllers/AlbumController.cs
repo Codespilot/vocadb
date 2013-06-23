@@ -441,8 +441,7 @@ namespace VocaDb.Web.Controllers
         
 		{
 			Service.Delete(id);
-
-			return RedirectToAction("Index");
+			return RedirectToAction("Details", new { id });
 
 		}
 
