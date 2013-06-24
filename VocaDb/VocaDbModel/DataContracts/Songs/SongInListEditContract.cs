@@ -1,10 +1,14 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class SongInListEditContract {
+
+		private string notes;
 
 		public SongInListEditContract() { }
 
@@ -35,22 +39,28 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		[DataMember]
 		public int Order { get; set; }
 
-		private string notes;
+		[DataMember]
 		public string Notes {
 			get { return notes; }
 			set { notes = value ?? string.Empty; }
 		}
 
+		[DataMember]
 		public string SongAdditionalNames { get; set; }
 
+		[DataMember]
 		public string SongArtistString { get; set; }
 
+		[DataMember]
 		public int SongId { get; set; }
 
+		[DataMember]
 		public int SongInListId { get; set; }
 
+		[DataMember]
 		public string SongName { get; set; }
 
 	}
