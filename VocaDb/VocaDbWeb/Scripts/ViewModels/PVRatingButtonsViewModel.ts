@@ -24,7 +24,7 @@ module vdb.viewModels {
 
         public setRating_nothing: () => void;
 
-        constructor(repository: vdb.repositories.UserRepository, songWithVoteContract, ratingCallback: () => void) {
+        constructor(repository: vdb.repositories.UserRepository, songWithVoteContract: SongWithVoteContract, ratingCallback: () => void) {
 
             var songId = songWithVoteContract.Id;
             this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.Vote));
@@ -46,6 +46,14 @@ module vdb.viewModels {
 
         }
 
+    }
+
+    export interface SongWithVoteContract {
+        
+        Id: number;
+
+        Vote: string;
+    
     }
 
 }

@@ -28,11 +28,22 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include("~/Scripts/Song/Create.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
+			bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
+				"~/Scripts/Models/WebLinkCategory.js",
+				"~/Scripts/Shared/WebLinkMatcher.js",
+				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
+				"~/Scripts/ViewModels/WebLinksEditViewModel.js"
+			));
 
 
 #if DEBUG
 			bundles.Add(new ScriptBundle("~/bundles/tests")
-				.IncludeDirectory("~/Scripts/Tests", "*.js", true));
+				.IncludeDirectory("~/Scripts/Models", "*.js")
+				.IncludeDirectory("~/Scripts/Repositories", "*.js")
+				.IncludeDirectory("~/Scripts/ViewModels", "*.js")
+				.Include("~/Scripts/Shared/WebLinkMatcher.js")
+				.IncludeDirectory("~/Scripts/Tests", "*.js", true)
+			);
 #endif
 
 

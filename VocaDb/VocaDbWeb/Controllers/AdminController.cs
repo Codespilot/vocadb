@@ -119,7 +119,7 @@ namespace VocaDb.Web.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public ActionResult ManageIPRules([FromJson] IPRule[] rules) {
+		public ActionResult ManageIPRules([FromJsonMvc] IPRule[] rules) {
 
 			LoginManager.VerifyPermission(PermissionToken.ManageIPRules);
 

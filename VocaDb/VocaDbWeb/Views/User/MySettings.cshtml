@@ -1,4 +1,6 @@
 ﻿@using Newtonsoft.Json
+@using Newtonsoft.Json.Converters
+@using System.Web.Optimization
 @using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
 @using R = ViewRes.User;
@@ -176,8 +178,8 @@
 					</thead>
 					<tbody data-bind="foreach: webLinks">
 						<tr>
-							<td><input type="text" maxlength="512" class="webLinkUrl input-xlarge" data-bind="value: Url" /></td>
-							<td><input type="text" maxlength="512" class="webLinkDescription input-xlarge" data-bind="value: Description" /></td>
+							<td><input type="text" maxlength="512" class="webLinkUrl input-xlarge" data-bind="value: url" /></td>
+							<td><input type="text" maxlength="512" class="webLinkDescription input-xlarge" data-bind="value: description" /></td>
 							<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Delete</a></td>
 						</tr>
 					</tbody>
@@ -215,18 +217,21 @@
 	<br />
 	@Helpers.SaveBtn()
 
-	<input type="hidden" id="webLinksJson" name="webLinksJson" data-bind="value: ko.toJSON(webLinks)" />
+	<input type="hidden" name="webLinksJson" data-bind="value: ko.toJSON(webLinks)" />
 	
 }
 
 @section BodyScripts {
-<script type="text/javascript" src="@Url.Content("~/Scripts/User/MySettings.js")"></script>
-<script type="text/javascript">
+	@Scripts.Render("~/bundles/User/MySettings")
+	<script type="text/javascript">
 
-	$(document).ready(function () {
-		var json = @Html.Raw(JsonConvert.SerializeObject(Model.WebLinks));
-		initPage(json);
-	});
+		$(document).ready(function () {
+			$("#tabs").tabs();
 
-</script>
+			var webLinksJson = @Html.Raw(JsonHelpers.Serialize(Model.WebLinks));
+			var viewModel = new vdb.viewModels.WebLinksEditViewModel(webLinksJson);
+			ko.applyBindings(viewModel);
+		});
+
+	</script>
 }
