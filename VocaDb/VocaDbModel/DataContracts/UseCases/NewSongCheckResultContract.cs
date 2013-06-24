@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
@@ -15,6 +18,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 	/// <summary>
 	/// Result of checking a new PV to be posted.
 	/// </summary>
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class NewSongCheckResultContract {
 
 		public NewSongCheckResultContract() {
@@ -33,12 +37,17 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
+		[DataMember]
 		public ArtistContract[] Artists { get; set; }
 
+		[DataMember]
 		public DuplicateEntryResultContract<SongMatchProperty>[] Matches { get; set; }
 
+		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public SongType SongType { get; set; }
 
+		[DataMember]
 		public string Title { get; set; }
 
 	}
