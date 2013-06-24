@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
+@using System.Web.Optimization
 @using R = ViewRes.Artist;
 @model VocaDb.Web.Models.Artist.Create
 
@@ -65,13 +66,13 @@
 					<tr><td class="formLabel">
 						@R.CreateStrings.WebLinkURL *
 					</td><td>
-					@Html.TextBoxFor(m => m.WebLinkUrl, new { id = "webLinkUrl", maxlength = 512, size = 40, @class = "span12 webLinkUrl dupeField" })
+						@Html.TextBoxForKnockout(m => m.WebLinkUrl, "value: webLink.url",  "input-xlarge dupeField", maxLength: 512)     
 					</td></tr>
 					
 					<tr><td class="formLabel">				
 						@R.CreateStrings.WebLinkDescription @R.CreateStrings.Optional
 					</td><td>
-						@Html.TextBoxFor(m => m.WebLinkDescription, new { id = "webLinkDesc", maxlength = 512, size = 40, @class = "span12 webLinkDescription" })
+						@Html.TextBoxForKnockout(m => m.WebLinkDescription, "value: webLink.description",  "input-xlarge", maxLength: 512)     
 					</td></tr>
 				</table>
 			</div>
@@ -111,7 +112,7 @@
 	
 }
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Create.js")"></script>
+@Scripts.Render("~/bundles/Artist/Create")
 <script type="text/javascript">
 
 	$(document).ready(function () {

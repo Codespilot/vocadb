@@ -22,6 +22,7 @@ function initPage() {
 
 	});
 
-	initWebLinksList();
+	var viewModel = new vdb.viewModels.ArtistCreateViewModel();
+	ko.applyBindings(viewModel);
 
 }

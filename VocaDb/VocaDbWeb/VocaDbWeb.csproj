@@ -1485,6 +1485,10 @@
     <Content Include="Scripts\Tests\TestSupport\FakeUserRepository.js">
       <DependentUpon>FakeUserRepository.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
+    <Content Include="Scripts\ViewModels\ArtistCreateViewModel.js">
+      <DependentUpon>ArtistCreateViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.js">
       <DependentUpon>PVRatingButtonsViewModelTests.ts</DependentUpon>
     </Content>

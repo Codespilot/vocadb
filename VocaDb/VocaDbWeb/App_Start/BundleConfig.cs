@@ -21,13 +21,24 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
 				"~/Scripts/jqwidgets27/jqxcore.js", "~/Scripts/jqwidgets27/jqxrating.js"));
 
+
 			bundles.Add(new ScriptBundle("~/bundles/Shared/ReportEntryPopup").Include("~/Scripts/Shared/ReportEntryPopup.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include("~/Scripts/Album/Details.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/Artist/Create").Include(
+				"~/Scripts/Models/WebLinkCategory.js",
+				"~/Scripts/Shared/WebLinkMatcher.js",
+				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
+				"~/Scripts/ViewModels/ArtistCreateViewModel.js",
+				"~/Scripts/Artist/Create.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Details").Include("~/Scripts/Artist/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include("~/Scripts/Song/Create.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
+
 			bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
 				"~/Scripts/Models/WebLinkCategory.js",
 				"~/Scripts/Shared/WebLinkMatcher.js",
