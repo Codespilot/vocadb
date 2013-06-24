@@ -1,9 +1,11 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class SongListForEditContract : SongListContract {
 
 		public SongListForEditContract() {
@@ -22,6 +24,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 
+		[DataMember]
 		public SongInListEditContract[] SongLinks { get; set; }
 
 	}
