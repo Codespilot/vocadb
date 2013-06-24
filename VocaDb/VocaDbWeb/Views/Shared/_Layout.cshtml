@@ -247,7 +247,8 @@
         	vdb = vdb || {};
         	vdb.values = vdb.values || {};
             vdb.values.hostAddress = '@VocaDb.Model.Utils.AppConfig.HostAddress';
-            vdb.resources = vdb.resources || {};
+        	vdb.values.baseAddress = '@Url.Content("~/")';
+        	vdb.resources = vdb.resources || {};
 
             vdb.resources.album = {
                 addedToCollection: '@Html.Raw(AjaxRes.AlbumStrings.AddedToCollection)'

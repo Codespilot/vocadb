@@ -1,3 +1,4 @@
+/// <reference path="GlobalValues.ts" />
 
 module vdb.functions {
 
@@ -10,5 +11,22 @@ module vdb.functions {
 
     }
 
+    export function mapAbsoluteUrl(relative: string) {
+
+        if (relative.length && relative.charAt(0) == '/')
+            relative = relative.substr(1);
+
+        return vdb.values.baseAddress + relative;
+
+    };
+
+    export function mapFullUrl(relative: string) {
+
+        if (relative.length && relative.charAt(0) == '/')
+            relative = relative.substr(1);
+
+        return vdb.values.hostAddress + relative;
+
+    };
 
 }

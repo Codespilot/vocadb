@@ -14,6 +14,7 @@ using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
+using VocaDb.Web.Code;
 using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Domain.Artists;
@@ -87,6 +88,16 @@ namespace VocaDb.Web.Controllers
 		public void CreateReport(int artistId, ArtistReportType reportType, string notes) {
 
 			Service.CreateReport(artistId, reportType, CfHelper.GetRealIp(Request), notes ?? string.Empty);
+
+		}
+
+		public ActionResult DataById(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
+
+			var artist = Service.GetArtist(id);
+			return new JsonNetResult { Data = artist };
 
 		}
 

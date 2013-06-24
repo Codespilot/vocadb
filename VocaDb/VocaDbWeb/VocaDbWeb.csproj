@@ -1112,6 +1112,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
+    <Content Include="Scripts\DataContracts\NewSongCheckResultContract.js">
+      <DependentUpon>NewSongCheckResultContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\WebLinkContract.js">
       <DependentUpon>WebLinkContract.ts</DependentUpon>
     </Content>
@@ -1440,6 +1444,14 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistToolTip.ts" />
+    <Content Include="Scripts\KnockoutExtensions\ArtistToolTip.js">
+      <DependentUpon>ArtistToolTip.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\FocusOut.ts" />
+    <Content Include="Scripts\KnockoutExtensions\FocusOut.js">
+      <DependentUpon>FocusOut.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
       <DependentUpon>SlideVisible.ts</DependentUpon>
     </Content>
@@ -1457,6 +1469,10 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
+    <Content Include="Scripts\Repositories\SongRepository.js">
+      <DependentUpon>SongRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Repositories\UserRepository.js">
       <DependentUpon>UserRepository.ts</DependentUpon>
     </Content>
@@ -1482,10 +1498,22 @@
     <Content Include="Scripts\Tests\Shared\WebLinkMatcherTests.js">
       <DependentUpon>WebLinkMatcherTests.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeSongRepository.ts" />
+    <Content Include="Scripts\Tests\TestSupport\FakeSongRepository.js">
+      <DependentUpon>FakeSongRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\TestSupport\FakeUserRepository.js">
       <DependentUpon>FakeUserRepository.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\SongCreateViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.js">
+      <DependentUpon>SongCreateViewModelTests.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\ViewModels\SongCreateViewModel.js">
+      <DependentUpon>SongCreateViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\ArtistCreateViewModel.js">
       <DependentUpon>ArtistCreateViewModel.ts</DependentUpon>
     </Content>
