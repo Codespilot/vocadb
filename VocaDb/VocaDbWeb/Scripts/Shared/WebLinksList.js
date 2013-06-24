@@ -1,4 +1,6 @@
-﻿vdb = vdb || {};
+﻿// OBSOLETE
+
+vdb = vdb || {};
 vdb.values = vdb.values || {};
 vdb.values.webLinkMatchers = [
 	{ url: "alice-books.com/", desc: "Alice Books", cat: "Commercial" },
