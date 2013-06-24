@@ -13,20 +13,29 @@ module vdb.functions {
 
     export function mapAbsoluteUrl(relative: string) {
 
-        if (relative.length && relative.charAt(0) == '/')
-            relative = relative.substr(1);
-
-        return vdb.values.baseAddress + relative;
+        return mergeUrls(vdb.values.baseAddress, relative);
 
     };
 
     export function mapFullUrl(relative: string) {
 
-        if (relative.length && relative.charAt(0) == '/')
-            relative = relative.substr(1);
-
-        return vdb.values.hostAddress + relative;
+        return mergeUrls(vdb.values.hostAddress, relative);
 
     };
+
+    export function mergeUrls(base: string, relative: string) {
+        
+        if (base.charAt(base.length - 1) == "/" && relative.charAt(0) == "/")
+            return base + relative.substr(1);
+
+        if (base.charAt(base.length - 1) == "/" && relative.charAt(0) != "/")
+            return base + relative;
+
+        if (base.charAt(base.length - 1) != "/" && relative.charAt(0) == "/")
+            return base + relative;
+        
+        return base + "/" + relative;
+
+    }
 
 }
