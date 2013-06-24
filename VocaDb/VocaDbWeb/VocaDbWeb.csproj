@@ -1495,6 +1495,10 @@
       <DependentUpon>SongVoteRatingTests.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Tests\Shared\WebLinkMatcherTests.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\Shared\GlobalFunctionsTests.ts" />
+    <Content Include="Scripts\Tests\Shared\GlobalFunctionsTests.js">
+      <DependentUpon>GlobalFunctionsTests.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\Shared\WebLinkMatcherTests.js">
       <DependentUpon>WebLinkMatcherTests.ts</DependentUpon>
     </Content>

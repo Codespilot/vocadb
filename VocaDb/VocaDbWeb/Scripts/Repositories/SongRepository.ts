@@ -1,5 +1,6 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="../DataContracts/NewSongCheckResultContract.ts" />
+/// <reference path="../Shared/GlobalFunctions.ts" />
 
 module vdb.repositories {
 
@@ -17,7 +18,7 @@ module vdb.repositories {
         constructor(baseUrl: string) {
 
             this.mapUrl = (relative: string) => {
-                return baseUrl + "/Song" + relative;
+                return vdb.functions.mergeUrls(baseUrl, "/Song") + relative;
             };
 
             this.findDuplicate = (params, callback: (result: dc.NewSongCheckResultContract) => void) => {

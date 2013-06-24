@@ -7,7 +7,7 @@ var vdb;
             function SongRepository(baseUrl) {
                 var _this = this;
                 this.mapUrl = function (relative) {
-                    return baseUrl + "/Song" + relative;
+                    return vdb.functions.mergeUrls(baseUrl, "/Song") + relative;
                 };
 
                 this.findDuplicate = function (params, callback) {
