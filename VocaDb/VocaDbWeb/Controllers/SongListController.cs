@@ -106,7 +106,7 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
         [Authorize]
-        public ActionResult Edit([FromJson] SongListEdit model)
+		public ActionResult Edit([FromJsonMvc] SongListEdit model)
         {
 
 			if (!ModelState.IsValid) {

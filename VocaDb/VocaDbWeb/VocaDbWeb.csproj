@@ -554,6 +554,7 @@
     <Compile Include="Code\FromJsonAttribute.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />
+    <Compile Include="Code\JsonNetResult.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
     <Compile Include="Code\Security\StopForumSpamClient.cs" />
     <Compile Include="Code\Security\HostCollection.cs" />
@@ -593,6 +594,7 @@
     <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\CfHelper.cs" />
+    <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Helpers\KnockoutHtmlExtender.cs" />
     <Compile Include="Helpers\Login.cs" />
     <Compile Include="Helpers\PanelExtensions.cs" />
@@ -1108,6 +1110,10 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
+    <Content Include="Scripts\DataContracts\WebLinkContract.js">
+      <DependentUpon>WebLinkContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Event\Edit.js" />
     <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\Home\Index.js" />
@@ -1442,6 +1448,10 @@
     <Content Include="Scripts\Models\SongVoteRating.js">
       <DependentUpon>SongVoteRating.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\Models\WebLinkCategory.ts" />
+    <Content Include="Scripts\Models\WebLinkCategory.js">
+      <DependentUpon>WebLinkCategory.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
@@ -1452,14 +1462,38 @@
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeUserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\Models\SongVoteRatingTests.ts" />
+    <TypeScriptCompile Include="Scripts\Shared\GlobalValues.ts" />
+    <TypeScriptCompile Include="Scripts\Shared\GlobalFunctions.ts" />
+    <Content Include="Scripts\Shared\GlobalFunctions.js">
+      <DependentUpon>GlobalFunctions.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\Shared\GlobalValues.js">
+      <DependentUpon>GlobalValues.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Shared\WebLinkMatcher.ts" />
+    <Content Include="Scripts\Shared\WebLinkMatcher.js">
+      <DependentUpon>WebLinkMatcher.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\Models\SongVoteRatingTests.js">
       <DependentUpon>SongVoteRatingTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Tests\Shared\WebLinkMatcherTests.ts" />
+    <Content Include="Scripts\Tests\Shared\WebLinkMatcherTests.js">
+      <DependentUpon>WebLinkMatcherTests.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\Tests\TestSupport\FakeUserRepository.js">
       <DependentUpon>FakeUserRepository.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.js">
       <DependentUpon>PVRatingButtonsViewModelTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinkEditViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\WebLinkEditViewModelTests.js">
+      <DependentUpon>WebLinkEditViewModelTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinksEditViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\WebLinksEditViewModelTests.js">
+      <DependentUpon>WebLinksEditViewModelTests.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
@@ -1677,9 +1711,16 @@
     <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\Edit.js" />
     <Content Include="Scripts\User\Messages.js" />
-    <Content Include="Scripts\User\MySettings.js" />
     <Content Include="Scripts\ViewModels\PVRatingButtonsViewModel.js">
       <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
+      <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\WebLinksEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\WebLinksEditViewModel.js">
+      <DependentUpon>WebLinksEditViewModel.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />

@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
@@ -24,6 +26,7 @@ namespace VocaDb.Web.Models.Shared {
 
 		}
 
+		[JsonConverter(typeof(StringEnumConverter))]
 		public WebLinkCategory Category { get; set; }
 
 		[StringLength(512)]
