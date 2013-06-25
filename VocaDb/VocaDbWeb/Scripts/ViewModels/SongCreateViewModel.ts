@@ -8,7 +8,7 @@
 module vdb.viewModels {
 
     import dc = vdb.dataContracts;
-    var initEntrySearch: any;
+    declare var initEntrySearch: any;
 
     export class SongCreateViewModel {
         
@@ -19,6 +19,9 @@ module vdb.viewModels {
         checkDuplicatesAndPV: () => void;
 
         dupeEntries: KnockoutObservableArray<dc.DuplicateEntryResultContract> = ko.observableArray([]);
+
+        isDuplicatePV: KnockoutComputed<boolean>;
+
         nameOriginal = ko.observable("");
         nameRomaji = ko.observable("");
         nameEnglish = ko.observable("");
@@ -27,10 +30,16 @@ module vdb.viewModels {
 
         hasName: KnockoutComputed<boolean>;
 
+        removeArtist: (artist: dc.ArtistContract) => void;
+
         constructor(songRepository: vdb.repositories.SongRepository) {
 
             this.hasName = ko.computed(() => {
                 return this.nameOriginal().length > 0 || this.nameRomaji().length > 0 || this.nameEnglish().length > 0;
+            });
+
+            this.isDuplicatePV = ko.computed(() => {
+                return _.some(this.dupeEntries(), item => { return item.matchProperty == 'PV' });
             });
             
             this.checkDuplicatesAndPV = () => {
@@ -62,9 +71,6 @@ module vdb.viewModels {
                 });
 
             }
-
-            // Note: we don't want to check right after value changes, only after focusing out.
-            //$("input.dupeField").focusout(this.checkDuplicatesAndPV);
             
             if (this.pv1()) {
                 this.checkDuplicatesAndPV();
@@ -80,12 +86,14 @@ module vdb.viewModels {
 
             }
 
-            var artistAddList = $("#artistAddList");
+            this.removeArtist = (artist: dc.ArtistContract) => {
+                this.artists.remove(artist);
+            };
+
             var artistAddName = $("input#artistAddName");
-            var artistAddBtn = $("#artistAddAcceptBtn");
 
             if (initEntrySearch) {
-                initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
+                initEntrySearch(artistAddName, null, "Artist", "../../Artist/FindJson",
                     {
                         allowCreateNew: false,
                         acceptSelection: this.acceptArtistSelection,

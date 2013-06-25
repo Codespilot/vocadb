@@ -16,6 +16,7 @@ using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model;
 using VocaDb.Model.Service;
+using VocaDb.Web.Code;
 using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers {
@@ -172,6 +173,12 @@ namespace VocaDb.Web.Controllers {
 			} else {
 				return File(pictureData.Bytes, pictureData.Mime);
 			}
+
+		}
+
+		protected ActionResult LowercaseJson(object obj) {
+
+			return new JsonNetResult { Data = obj };
 
 		}
 
