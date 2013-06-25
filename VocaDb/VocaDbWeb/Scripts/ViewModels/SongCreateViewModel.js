@@ -2,7 +2,6 @@ var vdb;
 (function (vdb) {
     (function (viewModels) {
         var dc = vdb.dataContracts;
-        var initEntrySearch;
 
         var SongCreateViewModel = (function () {
             function SongCreateViewModel(songRepository) {
@@ -16,6 +15,12 @@ var vdb;
                 this.pv2 = ko.observable("");
                 this.hasName = ko.computed(function () {
                     return _this.nameOriginal().length > 0 || _this.nameRomaji().length > 0 || _this.nameEnglish().length > 0;
+                });
+
+                this.isDuplicatePV = ko.computed(function () {
+                    return _.some(_this.dupeEntries(), function (item) {
+                        return item.matchProperty == 'PV';
+                    });
                 });
 
                 this.checkDuplicatesAndPV = function () {
@@ -52,12 +57,14 @@ var vdb;
                     }
                 };
 
-                var artistAddList = $("#artistAddList");
+                this.removeArtist = function (artist) {
+                    _this.artists.remove(artist);
+                };
+
                 var artistAddName = $("input#artistAddName");
-                var artistAddBtn = $("#artistAddAcceptBtn");
 
                 if (initEntrySearch) {
-                    initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson", {
+                    initEntrySearch(artistAddName, null, "Artist", "../../Artist/FindJson", {
                         allowCreateNew: false,
                         acceptSelection: this.acceptArtistSelection,
                         createOptionFirstRow: function (item) {

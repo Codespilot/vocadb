@@ -29,6 +29,8 @@ module vdb.dataContracts {
 
     export interface EntryRefWithNameContract {
 
+        entryTypeName: string;
+
         id: number;
 
         name: EntryNameContract;

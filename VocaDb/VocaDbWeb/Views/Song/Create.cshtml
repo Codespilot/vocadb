@@ -17,7 +17,7 @@
 	<div class="row-fluid">
 		<div class="span5">
 			
-			<div class="alert alert-danger" data-bind="visible: _.find(DupeEntries(), function(item) { return item.MatchProperty == 'PV' })" style="display:none">
+			<div class="alert alert-danger" data-bind="visible: isDuplicatePV" style="display:none">
 				@R.CreateStrings.DuplicatePV
 			</div>
 			
@@ -25,7 +25,7 @@
 				@Html.LabelFor(m => m.PVUrl)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.PVUrl, new { size = 30, @class = "dupeField span8", id = "pv1" })<br />
+				@Html.TextBoxForKnockout(m => m.PVUrl, "value: pv1, focusout: checkDuplicatesAndPV", cssClass: "span8", maxLength: 255, size: 30)
 				@Html.ValidationMessageFor(m => m.PVUrl)
 			</div>
 
@@ -33,7 +33,7 @@
 				@Html.LabelFor(m => m.ReprintPVUrl)
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.ReprintPVUrl, new { size = 30, @class = "dupeField span8", id = "pv2" })<br />
+				@Html.TextBoxForKnockout(m => m.ReprintPVUrl, "value: pv2, focusout: checkDuplicatesAndPV", cssClass: "span8", maxLength: 255, size: 30)
 				@Html.ValidationMessageFor(m => m.ReprintPVUrl)
 			</div>
 
@@ -45,21 +45,21 @@
 				@Html.ValidationMessage("Names")
 
 				<table><tr><td class="formLabel">				
-				@Html.LabelFor(m => m.NameOriginal)
+					@Html.LabelFor(m => m.NameOriginal)
 				</td><td>
-				@Html.TextBoxForKnockout(m => m.NameOriginal, "value: NameOriginal, valueUpdate: 'afterkeydown'", cssClass: "dupeField span12", maxLength: 255, size: 40)
+					@Html.TextBoxForKnockout(m => m.NameOriginal, "value: nameOriginal, focusout: checkDuplicatesAndPV, valueUpdate: 'afterkeydown'", cssClass: "span12", maxLength: 255, size: 40)
 				</td></tr>
 
 				<tr><td class="formLabel">
-				@Html.LabelFor(m => m.NameRomaji)
+					@Html.LabelFor(m => m.NameRomaji)
 				</td><td>
-				@Html.TextBoxForKnockout(m => m.NameRomaji, "value: NameRomaji, valueUpdate: 'afterkeydown'", cssClass: "dupeField span12", maxLength: 255, size: 40)
+					@Html.TextBoxForKnockout(m => m.NameRomaji, "value: nameRomaji, focusout: checkDuplicatesAndPV, valueUpdate: 'afterkeydown'", cssClass: "span12", maxLength: 255, size: 40)
 				</td></tr>
 					
 				<tr><td class="formLabel">
-				@Html.LabelFor(m => m.NameEnglish)
+					@Html.LabelFor(m => m.NameEnglish)
 				</td><td>
-				@Html.TextBoxForKnockout(m => m.NameEnglish, "value: NameEnglish, valueUpdate: 'afterkeydown'", cssClass: "dupeField span12", maxLength: 255, size: 40)
+					@Html.TextBoxForKnockout(m => m.NameEnglish, "value: nameEnglish, focusout: checkDuplicatesAndPV, valueUpdate: 'afterkeydown'", cssClass: "span12", maxLength: 255, size: 40)
 				</td></tr></table>
 			</div>
 
@@ -76,13 +76,16 @@
 			</div>
 			<div class="editor-field">
 				@Html.ValidationMessage("Artists")
-				<table>
+				<table data-bind="foreach: artists">
 					<tbody id="artistsTableBody">
-					@if (Model != null && Model.Artists != null) {
-						foreach (var artist in Model.Artists) {
-							Html.RenderPartial("ArtistContractRow", artist);
-						}
-					}
+						<tr>
+							<td>
+								<a data-bind="attr: { href: vdb.functions.mapAbsoluteUrl('/Artist/Details/') + id }, text: name, artistToolTip: id"></a>								
+							</td>
+							<td>
+								<a data-bind="click: $parent.removeArtist" href="#" class="textLink removeLink">@ViewRes.SharedStrings.Remove</a>								
+							</td>
+						</tr>
 					</tbody>
 				</table>
 				<br />
@@ -109,22 +112,23 @@
 			<div class="alert alert-info">
 				<p>@R.CreateStrings.NoArtistsToName</p>
 				<p>@R.CreateStrings.NameHelp</p>
-                <p>@R.CreateStrings.ArtistHelp</p>
+				<p>@R.CreateStrings.ArtistHelp</p>
 			</div>	
 			
-			<div class="alert" style="display:none" data-bind="visible: DupeEntries().length > 0">
+			<div class="alert" style="display:none" data-bind="visible: dupeEntries() && dupeEntries().length > 0">
 				@Helpers.NotificationIcon()
 				@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
-				<ul data-bind="foreach: DupeEntries">
+				<ul data-bind="foreach: dupeEntries">
 					<li>
-						<a data-bind="text: Entry.Name.DisplayName, attr: { href: vdb.functions.mapUrl('/' + Entry.EntryType + '/Details/') + Entry.Id }"></a> 
-						(<span data-bind="text: Entry.EntryTypeName"></span>)
+						<a data-bind="text: entry.name.displayName, attr: { href: vdb.functions.mapUrl('/' + entry.entryType + '/Details/') + entry.id }"></a> 
+						(<span data-bind="text: entry.entryTypeName"></span>)
 					</li>
 				</ul>
 			</div>					
 		</div>
 		
 	</div>
+	<input type="hidden" name="artistsJson" data-bind="value: ko.toJSON(artists)" />
 	
 }
 
@@ -135,7 +139,8 @@
 	<script type="text/javascript">
 
 		$(document).ready(function () {
-			initPage();
+			var repo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
+			ko.applyBindings(new vdb.viewModels.SongCreateViewModel(repo));
 		});
 
 	</script>

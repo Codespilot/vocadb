@@ -22,8 +22,9 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
 				"~/Scripts/jqwidgets27/jqxcore.js", "~/Scripts/jqwidgets27/jqxrating.js"));
 
-
 			bundles.Add(new ScriptBundle("~/bundles/Shared/ReportEntryPopup").Include("~/Scripts/Shared/ReportEntryPopup.js"));
+
+			// View-specific bundles
 			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include("~/Scripts/Album/Details.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Create").Include(
@@ -36,7 +37,14 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Details").Include("~/Scripts/Artist/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
-			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include("~/Scripts/Song/Create.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
+				"~/Scripts/KnockoutExtensions/ArtistToolTip.js",
+				"~/Scripts/KnockoutExtensions/FocusOut.js",
+				"~/Scripts/Repositories/SongRepository.js",
+				"~/Scripts/ViewModels/SongCreateViewModel.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
 

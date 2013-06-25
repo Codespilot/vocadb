@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using NLog;
 using VocaDb.Model;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
@@ -11,6 +13,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Utils;
+using VocaDb.Web.Code;
 using VocaDb.Web.Code.Feeds;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
@@ -127,7 +130,7 @@ namespace VocaDb.Web.Controllers
 
 			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, new[] { pv1, pv2 }, getPVInfo);
 
-			return Json(result);
+			return LowercaseJson(result);
 
 		}
 
@@ -190,7 +193,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(Create model) {
+		public ActionResult Create(Create model, [FromJson] IList<ArtistContract> artistsJson) {
+
+			model.Artists = artistsJson;
 
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
 				ModelState.AddModelError("Names", ViewRes.EntryCreateStrings.NeedName);
