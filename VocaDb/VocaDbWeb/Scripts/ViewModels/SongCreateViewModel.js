@@ -4,7 +4,7 @@ var vdb;
         var dc = vdb.dataContracts;
 
         var SongCreateViewModel = (function () {
-            function SongCreateViewModel(songRepository) {
+            function SongCreateViewModel(songRepository, data) {
                 var _this = this;
                 this.artists = ko.observableArray([]);
                 this.dupeEntries = ko.observableArray([]);
@@ -13,6 +13,15 @@ var vdb;
                 this.nameEnglish = ko.observable("");
                 this.pv1 = ko.observable("");
                 this.pv2 = ko.observable("");
+                if (data) {
+                    this.nameOriginal(data.nameOriginal);
+                    this.nameRomaji(data.nameRomaji);
+                    this.nameEnglish(data.nameEnglish);
+                    this.pv1(data.pvUrl);
+                    this.pv2(data.reprintPVUrl);
+                    this.artists(data.artists);
+                }
+
                 this.hasName = ko.computed(function () {
                     return _this.nameOriginal().length > 0 || _this.nameRomaji().length > 0 || _this.nameEnglish().length > 0;
                 });

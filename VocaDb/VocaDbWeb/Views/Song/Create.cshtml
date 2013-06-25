@@ -80,7 +80,7 @@
 					<tbody id="artistsTableBody">
 						<tr>
 							<td>
-								<a data-bind="attr: { href: vdb.functions.mapAbsoluteUrl('/Artist/Details/') + id }, text: name, artistToolTip: id"></a>								
+								<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }, text: name, artistToolTip: id"></a>								
 							</td>
 							<td>
 								<a data-bind="click: $parent.removeArtist" href="#" class="textLink removeLink">@ViewRes.SharedStrings.Remove</a>								
@@ -90,6 +90,7 @@
 				</table>
 				<br />
 				<input type="text" id="artistAddName" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="span8" />
+				<input type="hidden" name="artistsJson" data-bind="value: ko.toJSON(artists)" />
 			</div>
 			
 			<br />
@@ -120,7 +121,7 @@
 				@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
 				<ul data-bind="foreach: dupeEntries">
 					<li>
-						<a data-bind="text: entry.name.displayName, attr: { href: vdb.functions.mapUrl('/' + entry.entryType + '/Details/') + entry.id }"></a> 
+						<a data-bind="text: entry.name.displayName, attr: { href: vdb.utils.EntryUrlMapper.details_entry(entry) }"></a> 
 						(<span data-bind="text: entry.entryTypeName"></span>)
 					</li>
 				</ul>
@@ -128,7 +129,6 @@
 		</div>
 		
 	</div>
-	<input type="hidden" name="artistsJson" data-bind="value: ko.toJSON(artists)" />
 	
 }
 
@@ -140,7 +140,8 @@
 
 		$(document).ready(function () {
 			var repo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
-			ko.applyBindings(new vdb.viewModels.SongCreateViewModel(repo));
+			var json = @Html.Raw(JsonHelpers.Serialize(Model));
+			ko.applyBindings(new vdb.viewModels.SongCreateViewModel(repo, json));
 		});
 
 	</script>

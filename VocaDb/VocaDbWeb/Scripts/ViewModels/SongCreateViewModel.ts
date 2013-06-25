@@ -32,7 +32,16 @@ module vdb.viewModels {
 
         removeArtist: (artist: dc.ArtistContract) => void;
 
-        constructor(songRepository: vdb.repositories.SongRepository) {
+        constructor(songRepository: vdb.repositories.SongRepository, data?) {
+
+            if (data) {
+                this.nameOriginal(data.nameOriginal);
+                this.nameRomaji(data.nameRomaji);
+                this.nameEnglish(data.nameEnglish);
+                this.pv1(data.pvUrl);
+                this.pv2(data.reprintPVUrl);
+                this.artists(data.artists);
+            }
 
             this.hasName = ko.computed(() => {
                 return this.nameOriginal().length > 0 || this.nameRomaji().length > 0 || this.nameEnglish().length > 0;
