@@ -1,3 +1,4 @@
+/// <reference path="EntryRefContract.ts" />
 
 module vdb.dataContracts {
 
@@ -27,11 +28,9 @@ module vdb.dataContracts {
 
     }
 
-    export interface EntryRefWithNameContract {
+    export interface EntryRefWithNameContract extends EntryRefContract {
 
         entryTypeName: string;
-
-        id: number;
 
         name: EntryNameContract;
 

@@ -1113,6 +1113,10 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
+    <Content Include="Scripts\DataContracts\EntryRefContract.js">
+      <DependentUpon>EntryRefContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\NewSongCheckResultContract.js">
       <DependentUpon>NewSongCheckResultContract.ts</DependentUpon>
     </Content>
@@ -1458,6 +1462,10 @@
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
+    <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />
+    <Content Include="Scripts\Models\EntryType.js">
+      <DependentUpon>EntryType.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Models\SongVoteRating.js">
       <DependentUpon>SongVoteRating.ts</DependentUpon>
     </Content>
@@ -1481,6 +1489,10 @@
     <TypeScriptCompile Include="Scripts\Tests\Models\SongVoteRatingTests.ts" />
     <TypeScriptCompile Include="Scripts\Shared\GlobalValues.ts" />
     <TypeScriptCompile Include="Scripts\Shared\GlobalFunctions.ts" />
+    <TypeScriptCompile Include="Scripts\Shared\EntryUrlMapper.ts" />
+    <Content Include="Scripts\Shared\EntryUrlMapper.js">
+      <DependentUpon>EntryUrlMapper.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Shared\GlobalFunctions.js">
       <DependentUpon>GlobalFunctions.ts</DependentUpon>
     </Content>

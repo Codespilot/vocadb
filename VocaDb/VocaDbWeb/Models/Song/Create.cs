@@ -14,7 +14,9 @@ namespace VocaDb.Web.Models.Song {
 
 		public Create() {
 			Artists = new List<ArtistContract>();
+			Draft = false;
 			SongType = SongType.Original;
+			NameEnglish = NameOriginal = NameRomaji = PVUrl = ReprintPVUrl = string.Empty;
 		}
 
 		[Display(ResourceType = typeof(SharedStrings), Name = "Artists")]
