@@ -1,6 +1,3 @@
-function initEntrySearch() {
-}
-
 var vdb;
 (function (vdb) {
     (function (tests) {

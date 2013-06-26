@@ -22,6 +22,21 @@ var vdb;
                     this.artists(data.artists || []);
                 }
 
+                this.addArtist = function (artistId) {
+                    if (artistId) {
+                        $.post(vdb.functions.mapAbsoluteUrl("/Artist/DataById"), { id: artistId }, function (artist) {
+                            _this.artists.push(artist);
+                        });
+                    }
+                };
+
+                this.artistSearchParams = {
+                    allowCreateNew: false,
+                    acceptSelection: this.addArtist,
+                    extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
+                    height: 300
+                };
+
                 this.hasName = ko.computed(function () {
                     return _this.nameOriginal().length > 0 || _this.nameRomaji().length > 0 || _this.nameEnglish().length > 0;
                 });
@@ -54,37 +69,12 @@ var vdb;
                     });
                 };
 
-                if (this.pv1()) {
-                    this.checkDuplicatesAndPV();
-                }
-
-                this.acceptArtistSelection = function (artistId) {
-                    if (artistId) {
-                        $.post("../../Artist/DataById", { id: artistId }, function (row) {
-                            _this.artists.push(row);
-                        });
-                    }
-                };
-
                 this.removeArtist = function (artist) {
                     _this.artists.remove(artist);
                 };
 
-                var artistAddName = $("input#artistAddName");
-
-                if (initEntrySearch) {
-                    initEntrySearch(artistAddName, null, "Artist", "../../Artist/FindJson", {
-                        allowCreateNew: false,
-                        acceptSelection: this.acceptArtistSelection,
-                        createOptionFirstRow: function (item) {
-                            return item.Name + " (" + item.ArtistType + ")";
-                        },
-                        createOptionSecondRow: function (item) {
-                            return item.AdditionalNames;
-                        },
-                        extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
-                        height: 300
-                    });
+                if (this.pv1()) {
+                    this.checkDuplicatesAndPV();
                 }
             }
             return SongCreateViewModel;
