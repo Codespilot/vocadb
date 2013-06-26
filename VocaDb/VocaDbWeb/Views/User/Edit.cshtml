@@ -19,6 +19,10 @@
 			@Html.CheckBoxFor(m => m.Active)
 			Active
 		</p>
+		<p>
+			@Html.CheckBoxFor(m => m.Poisoned)
+			Poisoned (autoban for logging in)
+		</p>
 
 		@Html.LabelFor(m => m.GroupId)
 		@Html.EnumDropDownListFor(m => m.GroupId, Model.EditableGroups)

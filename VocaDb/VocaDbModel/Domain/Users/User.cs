@@ -232,6 +232,9 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual DateTime LastLogin { get; set; }
 
+		/// <summary>
+		/// Username.
+		/// </summary>
 		public virtual string Name {
 			get { return name; }
 			set {
