@@ -195,7 +195,7 @@ namespace VocaDb.Model.Service {
 				var lc = name.ToLowerInvariant();
 
 				if (IsPoisoned(session, lc)) {
-					AuditLog(string.Format("failed login from {0} - account is poisoned.", MakeGeoIpToolLink(hostname)), session, name);
+					SysLog(string.Format("failed login from {0} - account is poisoned.", MakeGeoIpToolLink(hostname)), name);
 					return LoginResult.CreateError(LoginError.AccountPoisoned);
 				}
 
