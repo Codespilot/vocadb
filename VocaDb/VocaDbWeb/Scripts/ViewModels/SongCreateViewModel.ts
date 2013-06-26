@@ -2,18 +2,20 @@
 /// <reference path="../typings/knockout/knockout.d.ts" />
 /// <reference path="../typings/underscore/underscore.d.ts" />
 /// <reference path="../DataContracts/NewSongCheckResultContract.ts" />
+/// <reference path="../KnockoutExtensions/ArtistAutoComplete.ts" />
 /// <reference path="../Shared/GlobalFunctions.ts" />
 /// <reference path="../Repositories/SongRepository.ts" />
 
 module vdb.viewModels {
 
     import dc = vdb.dataContracts;
-    declare var initEntrySearch: any;
 
     export class SongCreateViewModel {
         
-        acceptArtistSelection: (artistId: number) => void;
+        addArtist: (artistId: number) => void;
 
+        artistSearchParams: vdb.knockoutExtensions.autoCompleteParams;
+        
         artists: KnockoutObservableArray<dc.ArtistContract> = ko.observableArray([]);
 
         checkDuplicatesAndPV: () => void;
@@ -42,6 +44,23 @@ module vdb.viewModels {
                 this.pv2(data.reprintPVUrl || "");
                 this.artists(data.artists || []);
             }
+
+            this.addArtist = (artistId: number) => {
+
+                if (artistId) {
+                    $.post(vdb.functions.mapAbsoluteUrl("/Artist/DataById"), { id: artistId }, artist => {
+                        this.artists.push(artist);
+                    });
+                }
+
+            }
+
+            this.artistSearchParams = {
+                allowCreateNew: false,
+                acceptSelection: this.addArtist,
+                extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
+                height: 300
+            };
 
             this.hasName = ko.computed(() => {
                 return this.nameOriginal().length > 0 || this.nameRomaji().length > 0 || this.nameEnglish().length > 0;
@@ -80,37 +99,13 @@ module vdb.viewModels {
                 });
 
             }
-            
-            if (this.pv1()) {
-                this.checkDuplicatesAndPV();
-            }
-
-            this.acceptArtistSelection = (artistId: number) => {
-
-                if (artistId) {
-                    $.post("../../Artist/DataById", { id: artistId }, row => {
-                        this.artists.push(row);
-                    });
-                }
-
-            }
 
             this.removeArtist = (artist: dc.ArtistContract) => {
                 this.artists.remove(artist);
             };
-
-            var artistAddName = $("input#artistAddName");
-
-            if (initEntrySearch) {
-                initEntrySearch(artistAddName, null, "Artist", "../../Artist/FindJson",
-                    {
-                        allowCreateNew: false,
-                        acceptSelection: this.acceptArtistSelection,
-                        createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
-                        createOptionSecondRow: function (item) { return item.AdditionalNames; },
-                        extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
-                        height: 300
-                    });
+            
+            if (this.pv1()) {
+                this.checkDuplicatesAndPV();
             }
 
         }

@@ -3,8 +3,6 @@
 /// <reference path="../../ViewModels/SongCreateViewModel.ts" />
 /// <reference path="../TestSupport/FakeSongRepository.ts" />
 
-function initEntrySearch() { }
-
 module vdb.tests.viewModels {
 
     import vm = vdb.viewModels;

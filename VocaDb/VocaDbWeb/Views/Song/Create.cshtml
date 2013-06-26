@@ -77,7 +77,7 @@
 			<div class="editor-field">
 				@Html.ValidationMessage("Artists")
 				<table data-bind="foreach: artists">
-					<tbody id="artistsTableBody">
+					<tbody>
 						<tr>
 							<td>
 								<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }, text: name, artistToolTip: id"></a>								
@@ -89,7 +89,7 @@
 					</tbody>
 				</table>
 				<br />
-				<input type="text" id="artistAddName" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="span8" />
+				<input type="text" data-bind="artistAutoComplete: artistSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="span8" />
 				<input type="hidden" name="artists" data-bind="value: ko.toJSON(artists)" />
 			</div>
 			

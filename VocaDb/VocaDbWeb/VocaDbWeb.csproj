@@ -1451,6 +1451,10 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistToolTip.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
+    <Content Include="Scripts\KnockoutExtensions\ArtistAutoComplete.js">
+      <DependentUpon>ArtistAutoComplete.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\KnockoutExtensions\ArtistToolTip.js">
       <DependentUpon>ArtistToolTip.ts</DependentUpon>
     </Content>
