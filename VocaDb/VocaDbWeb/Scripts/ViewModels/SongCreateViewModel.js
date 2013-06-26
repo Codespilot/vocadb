@@ -14,12 +14,12 @@ var vdb;
                 this.pv1 = ko.observable("");
                 this.pv2 = ko.observable("");
                 if (data) {
-                    this.nameOriginal(data.nameOriginal);
-                    this.nameRomaji(data.nameRomaji);
-                    this.nameEnglish(data.nameEnglish);
-                    this.pv1(data.pvUrl);
-                    this.pv2(data.reprintPVUrl);
-                    this.artists(data.artists);
+                    this.nameOriginal(data.nameOriginal || "");
+                    this.nameRomaji(data.nameRomaji || "");
+                    this.nameEnglish(data.nameEnglish || "");
+                    this.pv1(data.pvUrl || "");
+                    this.pv2(data.reprintPVUrl || "");
+                    this.artists(data.artists || []);
                 }
 
                 this.hasName = ko.computed(function () {

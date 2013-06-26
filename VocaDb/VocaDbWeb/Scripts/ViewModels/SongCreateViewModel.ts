@@ -35,12 +35,12 @@ module vdb.viewModels {
         constructor(songRepository: vdb.repositories.SongRepository, data?) {
 
             if (data) {
-                this.nameOriginal(data.nameOriginal);
-                this.nameRomaji(data.nameRomaji);
-                this.nameEnglish(data.nameEnglish);
-                this.pv1(data.pvUrl);
-                this.pv2(data.reprintPVUrl);
-                this.artists(data.artists);
+                this.nameOriginal(data.nameOriginal || "");
+                this.nameRomaji(data.nameRomaji || "");
+                this.nameEnglish(data.nameEnglish || "");
+                this.pv1(data.pvUrl || "");
+                this.pv2(data.reprintPVUrl || "");
+                this.artists(data.artists || []);
             }
 
             this.hasName = ko.computed(() => {

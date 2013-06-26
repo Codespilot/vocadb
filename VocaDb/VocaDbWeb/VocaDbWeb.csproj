@@ -555,8 +555,10 @@
     <Compile Include="Code\FromJsonAttribute.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />
+    <Compile Include="Code\IPropertyBinder.cs" />
     <Compile Include="Code\JsonNetResult.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
+    <Compile Include="Code\PropertyModelBinder.cs" />
     <Compile Include="Code\Security\StopForumSpamClient.cs" />
     <Compile Include="Code\Security\HostCollection.cs" />
     <Compile Include="Code\Security\IPRuleManager.cs" />
