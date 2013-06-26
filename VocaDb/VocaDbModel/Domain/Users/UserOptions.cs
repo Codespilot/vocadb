@@ -57,6 +57,11 @@
 			}
 		}
 
+		/// <summary>
+		/// Poisoned accounts cause the user logging in to be banned.
+		/// </summary>
+		public virtual bool Poisoned { get; set; }
+
 		public virtual bool PublicRatings { get; set; }
 
 		public virtual string Realname {

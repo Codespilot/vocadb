@@ -95,6 +95,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private bool IsPoisoned(ISession session, string lcUserName) {
+
+			return session.Query<UserOptions>().Any(o => o.Poisoned && o.User.NameLC == lcUserName);
+
+		}
+
 		private string MakeGeoIpToolLink(string hostname) {
 
 			return string.Format("<a href='http://www.geoiptool.com/?IP={0}'>{0}</a>", hostname);
@@ -182,17 +188,23 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract CheckAuthentication(string name, string pass, string hostname) {
+		public LoginResult CheckAuthentication(string name, string pass, string hostname) {
 
 			return HandleTransaction(session => {
 
 				var lc = name.ToLowerInvariant();
+
+				if (IsPoisoned(session, lc)) {
+					AuditLog(string.Format("failed login from {0} - account is poisoned.", MakeGeoIpToolLink(hostname)), session, name);
+					return LoginResult.CreateError(LoginError.AccountPoisoned);
+				}
+
 				var user = session.Query<User>().FirstOrDefault(u => u.Active && u.Name == lc);
 
 				if (user == null) {
 					AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), session, name);
 					Thread.Sleep(2000);
-					return null;
+					return LoginResult.CreateError(LoginError.NotFound);
 				}
 
 				var hashed = LoginManager.GetHashedPass(lc, pass, user.Salt);
@@ -200,7 +212,7 @@ namespace VocaDb.Model.Service {
 				if (user.Password != hashed) {
 					AuditLog(string.Format("failed login from {0} - wrong password.", MakeGeoIpToolLink(hostname)), session, name);
 					Thread.Sleep(2000);
-					return null;
+					return LoginResult.CreateError(LoginError.InvalidPassword);
 				}
 
 				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
@@ -208,7 +220,7 @@ namespace VocaDb.Model.Service {
 				user.UpdateLastLogin(hostname);
 				session.Update(user);
 
-				return new UserContract(user);
+				return LoginResult.CreateSuccess(new UserContract(user));
 
 			});
 
@@ -976,6 +988,7 @@ namespace VocaDb.Model.Service {
 				SessionHelper.Sync(session, diff);
 
 				user.Active = contract.Active;
+				user.Options.Poisoned = contract.Poisoned;
 
 				AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(user)), session);
 
@@ -1062,6 +1075,38 @@ namespace VocaDb.Model.Service {
 		Name,
 
 		Group
+
+	}
+
+	public enum LoginError {
+		
+		Nothing,
+
+		NotFound,
+
+		InvalidPassword,
+
+		AccountPoisoned,
+
+	}
+
+	public class LoginResult {
+
+		public static LoginResult CreateError(LoginError error) {
+			return new LoginResult {Error = error };
+		}
+
+		public static LoginResult CreateSuccess(UserContract user) {
+			return new LoginResult {User = user, Error = LoginError.Nothing};
+		}
+
+		public LoginError Error { get; set; }
+
+		public bool IsOk {
+			get { return Error == LoginError.Nothing; }
+		}
+
+		public UserContract User { get; set; }
 
 	}
 

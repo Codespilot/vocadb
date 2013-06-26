@@ -287,7 +287,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-       public ActionResult Login(string returnUrl)
+		[RestrictBannedIP]
+		public ActionResult Login(string returnUrl)
         {
 
 			RestoreErrorsFromTempData();
@@ -295,7 +296,8 @@ namespace VocaDb.Web.Controllers
             return View(new LoginModel(returnUrl));
         }
 
-	   public PartialViewResult LoginForm(string returnUrl) {
+		[RestrictBannedIP]
+		public PartialViewResult LoginForm(string returnUrl) {
 
 		   return PartialView("Login", new LoginModel(returnUrl));
 
@@ -305,21 +307,29 @@ namespace VocaDb.Web.Controllers
         // POST: /Session/Create
 
         [HttpPost]
+		[RestrictBannedIP]
 		public ActionResult Login(LoginModel model)
         {
 
 			if (ModelState.IsValid) {
 				// Attempt to register the user
 
-				var user = Service.CheckAuthentication(model.UserName, model.Password, CfHelper.GetRealIp(Request));
+				var host = WebHelper.GetRealHost(Request);
+				var result = Service.CheckAuthentication(model.UserName, model.Password, host);
 
-				if (user == null) {
+				if (!result.IsOk) {
+
 					ModelState.AddModelError("", "Username or password doesn't match");
-					//TempData.SetErrorMessage("Username or password doesn't match");
+					
+					if (result.Error == LoginError.AccountPoisoned)
+						MvcApplication.BannedIPs.Add(host);
+
 				} else {
 
+					var user = result.User;
+
 					TempData.SetSuccessMessage(string.Format(ViewRes.User.LoginStrings.Welcome, user.Name));
-					FormsAuthentication.SetAuthCookie(model.UserName, model.KeepLoggedIn);
+					FormsAuthentication.SetAuthCookie(user.Name, model.KeepLoggedIn);
 
 					var redirectUrl = FormsAuthentication.GetRedirectUrl(model.UserName, true);
 

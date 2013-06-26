@@ -30,6 +30,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			EmailOptions = user.EmailOptions;
 			GroupId = user.GroupId;
 			Language = user.Language;
+			Poisoned = user.Options.Poisoned;
 			PreferredVideoService = user.PreferredVideoService;
 
 		}
@@ -66,6 +67,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public string Language { get; set; }
+
+		[DataMember]
+		public bool Poisoned { get; set; }
 
 		[DataMember]
 		public PVService PreferredVideoService { get; set; }
