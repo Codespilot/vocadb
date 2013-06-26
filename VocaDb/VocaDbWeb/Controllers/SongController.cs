@@ -193,9 +193,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(Create model, [FromJson] IList<ArtistContract> artistsJson) {
-
-			model.Artists = artistsJson;
+		public ActionResult Create(Create model) {
 
 			if (string.IsNullOrWhiteSpace(model.NameOriginal) && string.IsNullOrWhiteSpace(model.NameRomaji) && string.IsNullOrWhiteSpace(model.NameEnglish))
 				ModelState.AddModelError("Names", ViewRes.EntryCreateStrings.NeedName);

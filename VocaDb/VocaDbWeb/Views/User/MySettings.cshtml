@@ -184,6 +184,7 @@
 				</table>
 	
 				<a href="#" class="textLink addLink" data-bind="click: add">@HelperRes.HelperStrings.WebLinkNewRow</a>
+				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
 			</div>
 
 		</div>
@@ -214,8 +215,6 @@
 	
 	<br />
 	@Helpers.SaveBtn()
-
-	<input type="hidden" name="webLinksJson" data-bind="value: ko.toJSON(webLinks)" />
 	
 }
 

@@ -574,14 +574,12 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult MySettings(MySettingsModel model, [FromJson] IList<WebLinkDisplay> webLinksJson) {
+		public ActionResult MySettings(MySettingsModel model) {
 
 			var user = LoginManager.LoggedUser;
 
 			if (user.Id != model.Id)
 				return new HttpStatusCodeResult(403);
-
-			model.WebLinks = webLinksJson;
 
 			if (!ModelState.IsValid)
 				return View(new MySettingsModel(GetUserForMySettings()));

@@ -12,6 +12,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Web.Code;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers.Support;
@@ -81,6 +82,7 @@ namespace VocaDb.Web.Models {
 
 	}
 
+	[PropertyModelBinder]
 	public class MySettingsModel {
 
 		public MySettingsModel() {
@@ -169,6 +171,7 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Username")]
 		public string Username { get; set; }
 
+		[FromJson]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		[Display(Name = "Old password")]
