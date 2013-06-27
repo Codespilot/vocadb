@@ -16,6 +16,7 @@ function ManageBansViewModel(data) {
 
     this.rules = ko.observableArray(_.map(data, function (item) { return new IPRule(item); } ));
     this.newRule = ko.observable({ Address: ko.observable() });
+	this.bannedIPs = ko.observableArray([]);
 
     this.add = function () {
     	self.rules.push(new IPRule({ Address: self.newRule().Address(), Notes: "", Created: new Date() }));
@@ -29,6 +30,10 @@ function ManageBansViewModel(data) {
         var json = ko.toJS(self);
         ko.utils.postJson(location.href, json);
     };
+
+	$.getJSON(vdb.functions.mapAbsoluteUrl("/Admin/BannedIPs"), null, function(result) {
+		self.bannedIPs(result);
+	});
 
 }
 

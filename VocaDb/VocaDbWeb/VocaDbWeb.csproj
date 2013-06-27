@@ -1987,6 +1987,7 @@
     <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
     <Content Include="Views\Song\Partials\_PVRatingButtonsForIndex.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
+    <Content Include="Views\Shared\KnockoutTemplates\_IPManageTemplate.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

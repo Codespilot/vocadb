@@ -196,13 +196,9 @@
 	   }
 				
 							@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
-								<div class="ui-widget">
-									<div class="ui-state-highlight ui-corner-all" style="padding: 0 .7em;">
-										<p>
-											@Helpers.NotificationIcon()
-											<span>@Html.ActionLink("You have unread messages", "Messages", "User")</span>
-										</p>
-									</div>
+								<div class="alert alert-info">
+									<i class="icon-envelope"></i>
+									<span>@Html.ActionLink("You have unread messages", "Messages", "User")</span>
 								</div>
 	                        }
 		

@@ -32,6 +32,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult BannedIPs() {
+
+			LoginManager.VerifyPermission(PermissionToken.ManageIPRules);
+
+			var hosts = MvcApplication.BannedIPs.ToArray();
+			return Json(hosts);
+
+		}
+
 		public ActionResult CleanupOldLogEntries() {
 
 			var count = Service.CleanupOldLogEntries();
