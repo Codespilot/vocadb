@@ -17,7 +17,10 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/shared").Include(
 				"~/Scripts/Shared/NamesList.js", "~/Scripts/Shared/WebLinksList.js", 
 				"~/Scripts/Shared/GlobalSearchBox.js", "~/Scripts/Shared/Messages.js",
-				"~/Scripts/Shared/GlobalFunctions.js", "~/Scripts/Shared/EntryUrlMapper.js"));
+				"~/Scripts/Shared/GlobalFunctions.js", 
+				"~/Scripts/Shared/EntryUrlMapper.js",
+				"~/Scripts/KnockoutExtensions/EntryToolTip.js"
+			));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
 				"~/Scripts/jqwidgets27/jqxcore.js", "~/Scripts/jqwidgets27/jqxrating.js"));
@@ -41,7 +44,6 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
-				"~/Scripts/KnockoutExtensions/ArtistToolTip.js",
 				"~/Scripts/KnockoutExtensions/FocusOut.js",
 				"~/Scripts/Repositories/SongRepository.js",
 				"~/Scripts/ViewModels/SongCreateViewModel.js"

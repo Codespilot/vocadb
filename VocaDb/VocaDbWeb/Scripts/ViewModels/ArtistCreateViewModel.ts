@@ -1,4 +1,5 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../DataContracts/DuplicateEntryResultContract.ts" />
 /// <reference path="../Repositories/ArtistRepository.ts" />
 /// <reference path="WebLinkEditViewModel.ts" />
 
@@ -8,10 +9,14 @@ interface JQuery {
 
 module vdb.viewModels {
 
+    import dc = vdb.dataContracts;
+
     export class ArtistCreateViewModel {
         
         public checkDuplicates: () => void;
         
+        public dupeEntries: KnockoutObservableArray<dc.DuplicateEntryResultContract> = ko.observableArray([]);
+
         public nameOriginal = ko.observable("");
         public nameRomaji = ko.observable("");
         public nameEnglish = ko.observable("");
@@ -33,17 +38,8 @@ module vdb.viewModels {
                 var term3 = this.nameEnglish();
                 var linkUrl = this.webLink.url();
 
-                // TODO: should be refactored to use knockout
                 artistRepository.findDuplicate({ term1: term1, term2: term2, term3: term3, linkUrl: linkUrl }, result => {
-
-                    if (result != "Ok") {
-                        $("#duplicateEntryWarning").html(result);
-                        $("#duplicateEntryWarning").show();
-                        $("#duplicateEntryWarning a").vdbArtistToolTip();
-                    } else {
-                        $("#duplicateEntryWarning").hide();
-                    }
-
+                    this.dupeEntries(result);
                 });
 
             }

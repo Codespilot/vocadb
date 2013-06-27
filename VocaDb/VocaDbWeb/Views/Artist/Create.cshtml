@@ -104,8 +104,8 @@
 			<div class="alert alert-info">
 				<p>@R.CreateStrings.NameHelp</p>
 			</div>
-			<div id="duplicateEntryWarning" style="display:none">
-			</div>
+
+			@{ Html.RenderPartial("KnockoutPartials/_DuplicateEntriesMessage"); }
 		</div>
 		
 	</div>	

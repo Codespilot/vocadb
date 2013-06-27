@@ -231,13 +231,8 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult FindDuplicate(string term1, string term2, string term3, string linkUrl) {
 
-			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, linkUrl);
-
-			if (result.Any()) {
-				return PartialView("DuplicateEntryMessage", result);
-			} else {
-				return Content("Ok");
-			}
+			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, linkUrl).Select(e => new DuplicateEntryResultContract<ArtistEditableFields>(e, ArtistEditableFields.Names));
+			return LowercaseJson(result);
 
 		}
 
