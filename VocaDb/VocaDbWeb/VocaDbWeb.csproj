@@ -1115,6 +1115,10 @@
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\DuplicateEntryResultContract.ts" />
+    <Content Include="Scripts\DataContracts\DuplicateEntryResultContract.js">
+      <DependentUpon>DuplicateEntryResultContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\EntryRefContract.js">
       <DependentUpon>EntryRefContract.ts</DependentUpon>
     </Content>
@@ -1458,6 +1462,10 @@
       <DependentUpon>ArtistToolTip.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\FocusOut.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\EntryToolTip.ts" />
+    <Content Include="Scripts\KnockoutExtensions\EntryToolTip.js">
+      <DependentUpon>EntryToolTip.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\KnockoutExtensions\FocusOut.js">
       <DependentUpon>FocusOut.ts</DependentUpon>
     </Content>
@@ -1990,6 +1998,7 @@
     <Content Include="Views\Song\Partials\_PVRatingButtonsForIndex.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Shared\KnockoutTemplates\_IPManageTemplate.cshtml" />
+    <Content Include="Views\Shared\KnockoutPartials\_DuplicateEntriesMessage.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

@@ -1,0 +1,11 @@
+﻿<!-- binding context: KnockoutObservableArray<dc.DuplicateEntryResultContract> -->
+<div class="alert" style="display:none" data-bind="visible: dupeEntries() && dupeEntries().length > 0">
+	@Helpers.NotificationIcon()
+	@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
+	<ul data-bind="foreach: dupeEntries">
+		<li>
+			<a data-bind="text: entry.name.displayName, attr: { href: vdb.utils.EntryUrlMapper.details_entry(entry) }, entryToolTip: entry"></a> 
+			(<span data-bind="text: entry.entryTypeName"></span>)
+		</li>
+	</ul>
+</div>

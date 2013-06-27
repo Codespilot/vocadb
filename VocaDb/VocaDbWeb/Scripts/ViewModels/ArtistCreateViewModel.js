@@ -1,9 +1,12 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        var dc = vdb.dataContracts;
+
         var ArtistCreateViewModel = (function () {
             function ArtistCreateViewModel(artistRepository, data) {
                 var _this = this;
+                this.dupeEntries = ko.observableArray([]);
                 this.nameOriginal = ko.observable("");
                 this.nameRomaji = ko.observable("");
                 this.nameEnglish = ko.observable("");
@@ -21,13 +24,7 @@ var vdb;
                     var linkUrl = _this.webLink.url();
 
                     artistRepository.findDuplicate({ term1: term1, term2: term2, term3: term3, linkUrl: linkUrl }, function (result) {
-                        if (result != "Ok") {
-                            $("#duplicateEntryWarning").html(result);
-                            $("#duplicateEntryWarning").show();
-                            $("#duplicateEntryWarning a").vdbArtistToolTip();
-                        } else {
-                            $("#duplicateEntryWarning").hide();
-                        }
+                        _this.dupeEntries(result);
                     });
                 };
             }

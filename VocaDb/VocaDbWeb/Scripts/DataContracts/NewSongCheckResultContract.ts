@@ -1,4 +1,4 @@
-/// <reference path="EntryRefContract.ts" />
+/// <reference path="DuplicateEntryResultContract.ts" />
 
 module vdb.dataContracts {
 
@@ -9,30 +9,6 @@ module vdb.dataContracts {
         id: number;
 
         name: string;
-
-    }
-
-    export interface DuplicateEntryResultContract {
-
-        entry: EntryRefWithNameContract;
-
-        matchProperty: string;
-
-    }
-
-    export interface EntryNameContract {
-
-        additionalNames: string;
-
-        displayName: string;
-
-    }
-
-    export interface EntryRefWithNameContract extends EntryRefContract {
-
-        entryTypeName: string;
-
-        name: EntryNameContract;
 
     }
 
