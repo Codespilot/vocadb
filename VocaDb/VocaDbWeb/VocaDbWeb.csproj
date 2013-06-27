@@ -1107,7 +1107,6 @@
     <Content Include="Scripts\Album\Details.js" />
     <Content Include="Scripts\Album\Index.js" />
     <Content Include="Scripts\Album\Merge.js" />
-    <Content Include="Scripts\Artist\Create.js" />
     <Content Include="Scripts\Artist\Details.js" />
     <Content Include="Scripts\Artist\Edit.js" />
     <Content Include="Scripts\Artist\Merge.js" />
@@ -1484,6 +1483,10 @@
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\ArtistRepository.ts" />
+    <Content Include="Scripts\Repositories\ArtistRepository.js">
+      <DependentUpon>ArtistRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Repositories\SongRepository.js">
       <DependentUpon>SongRepository.ts</DependentUpon>
     </Content>
@@ -1567,7 +1570,6 @@
     <Content Include="Scripts\Shared\WebLinksList.js" />
     <Content Include="Scripts\Shared\GlobalSearchBox.js" />
     <Content Include="Scripts\SongList\Edit.js" />
-    <Content Include="Scripts\Song\Create.js" />
     <Content Include="Scripts\Song\Details.js" />
     <Content Include="Scripts\Song\Edit.js" />
     <Content Include="Scripts\Song\Index.js" />
