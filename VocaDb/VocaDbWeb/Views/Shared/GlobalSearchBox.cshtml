@@ -3,6 +3,10 @@
 @using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.GlobalSearchBoxModel
 
+@{
+	var hasMessages = Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages;
+}
+
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left navbar-search", id = "globalSearchBox" })) {
 	@Html.EnumRadioButtonListFor(m => m.ObjectType, Model.AllObjectTypes, new Dictionary<string, object> { { "class", "globalSearchEntryType nav-radio" } }, Model.ObjectType)
 	@Html.Raw("&nbsp;")
@@ -18,6 +22,9 @@
 		<a class="btn btn-info navbar-languageBtn dropdown-toggle" data-toggle="dropdown" href="#">
 			<i class="icon-user"></i>
 			@ViewRes._LayoutStrings.Account
+			@if (hasMessages) {
+				<span class="badge badge-small badge-important">!</span>
+			}
 			<span class="caret"></span>		
 		</a>
 	
@@ -28,7 +35,14 @@
 			} else {
 				<li>@Html.ActionLink(ViewRes.User.MySettingsStrings.Profile, "Profile", "User", new { id = Login.Manager.Name }, null)</li>
 				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
-				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.Messages, "Messages", "User")</li>
+				<li>
+					<a href="@Url.Action("Messages", "User")">
+						@ViewRes.User.DetailsStrings.Messages
+						@if (hasMessages) {
+							<span class="badge badge-small badge-important">!</span>
+						}
+					</a>
+				</li>
 				<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>				
 			}
 			<li class="divider"></li>
