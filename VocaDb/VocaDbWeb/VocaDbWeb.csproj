@@ -1550,6 +1550,10 @@
       <DependentUpon>SongCreateViewModelTests.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\AlbumEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongEditViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\SongEditViewModelTests.js">
+      <DependentUpon>SongEditViewModelTests.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
     </Content>
