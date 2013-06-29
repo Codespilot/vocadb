@@ -1,0 +1,31 @@
+﻿@inherits VocaDb.Web.Code.HelperPage
+
+@helper WebLinksEditViewKnockout(bool showCategory = true) {
+	<!-- binding context: WebLinksEditViewModel -->
+	<table>
+		<thead>
+			<tr>
+				<th>@HelperRes.HelperStrings.WebLinkUrlTitle</th>
+				<th>@HelperRes.HelperStrings.WebLinkDescriptionTitle</th>
+				@if (showCategory) {
+                <th>@HelperRes.HelperStrings.WebLinkCategoryTitle</th>					
+				}
+				<th></th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: webLinks">
+			<tr>
+				<td><input type="text" data-bind="value: url" maxlength="512" class="input-xlarge" /></td>
+				<td><input type="text" data-bind="value: description" maxlength="512" /></td>
+				@if (showCategory) {
+					<td>
+						<select data-bind="value: category, options: $parent.categories, optionsText: 'name', optionsValue: 'id'" class="input-medium"></select>
+					</td>
+				}
+				<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<a href="#" class="textLink addLink" data-bind="click: add">@HelperRes.HelperStrings.WebLinkNewRow</a>	
+}

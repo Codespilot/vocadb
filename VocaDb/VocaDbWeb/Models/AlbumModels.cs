@@ -15,6 +15,7 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
+using VocaDb.Web.Code;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
@@ -23,6 +24,7 @@ using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Models {
 
+	[PropertyModelBinder]
 	public class AlbumEdit {
 
 		public AlbumEdit() {
@@ -139,6 +141,7 @@ namespace VocaDb.Web.Models {
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "External links")]
+		[FromJson]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		public void CopyNonEditableFields(AlbumForEditContract album) {

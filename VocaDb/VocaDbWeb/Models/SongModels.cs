@@ -17,6 +17,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Web.Code;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Model.Domain.Security;
@@ -196,6 +197,7 @@ namespace VocaDb.Web.Models {
 
 	}
 
+	[PropertyModelBinder]
 	public class SongEdit {
 
 		public SongEdit() {
@@ -299,6 +301,7 @@ namespace VocaDb.Web.Models {
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "Web links")]
+		[FromJson]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		public void CopyNonEditableFields(SongForEditContract song) {

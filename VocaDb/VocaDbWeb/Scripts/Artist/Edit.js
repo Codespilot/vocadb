@@ -8,7 +8,6 @@ function initPage(artistId) {
 	$(".helpToolTip").qtip();
 
 	initNamesList();
-	initWebLinksList();
 
 	function acceptGroupSelection(groupId, term) {
 

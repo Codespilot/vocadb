@@ -10,6 +10,7 @@ module vdb.viewModels {
 
     import dc = vdb.dataContracts;
 
+    // View model for song creation view
     export class SongCreateViewModel {
         
         addArtist: (artistId: number) => void;

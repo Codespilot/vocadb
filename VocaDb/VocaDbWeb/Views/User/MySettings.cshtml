@@ -165,27 +165,10 @@
 			<div class="editor-label">
 				@R.MySettingsStrings.ExternalLinks
 			</div>
-			<div class="editor-field">
-				<table>
-					<thead>
-						<tr>
-							<th>@HelperRes.HelperStrings.WebLinkUrlTitle</th>
-							<th>@HelperRes.HelperStrings.WebLinkDescriptionTitle</th>
-							<th>@ViewRes.SharedStrings.Actions</th>
-						</tr>
-					</thead>
-					<tbody data-bind="foreach: webLinks">
-						<tr>
-							<td><input type="text" maxlength="512" class="webLinkUrl input-xlarge" data-bind="value: url" /></td>
-							<td><input type="text" maxlength="512" class="webLinkDescription input-xlarge" data-bind="value: description" /></td>
-							<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Delete</a></td>
-						</tr>
-					</tbody>
-				</table>
-	
-				<a href="#" class="textLink addLink" data-bind="click: add">@HelperRes.HelperStrings.WebLinkNewRow</a>
-				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
-			</div>
+	        <div class="editor-field">
+		        @KnockoutHelpers.WebLinksEditViewKnockout(false)
+		        <input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
+	        </div>
 
 		</div>
 

@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.Helpers
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Album;
@@ -47,10 +48,13 @@
 	});
 </script>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/Album/Edit.js")"></script>
+@Scripts.Render("~/bundles/Album/Edit")
 
 <script type="text/javascript">
-	$(document).ready(function() { 
+	$(document).ready(function() {
+		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { webLinks = Model.WebLinks }));
+		ko.applyBindings(new vdb.viewModels.AlbumEditViewModel(webLinkCategoryJson, modelJson));
 		initPage(@Model.Id, "@Model.DiscType");
 	});
 </script>
@@ -177,8 +181,9 @@
 				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
                 </label>
 			</div>
-			<div class="editor-field">
-				@Helpers.WebLinksList(Model.WebLinks)
+			<div class="editor-field" data-bind="with: webLinks">
+				@KnockoutHelpers.WebLinksEditViewKnockout(true)
+				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
 			</div>
 
 			<div class="editor-label">
