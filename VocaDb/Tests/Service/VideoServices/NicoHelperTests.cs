@@ -73,6 +73,18 @@ namespace VocaDb.Tests.Service.VideoServices {
 		}
 
 		/// <summary>
+		/// Valid title, cover
+		/// </summary>
+		[TestMethod]
+		public void ParseTitle_Cover() {
+
+			var result = NicoHelper.ParseTitle("【波音リツキレ音源】Lost Destination【UTAUカバー】", ArtistFunc);
+
+			Assert.AreEqual(SongType.Cover, result.SongType, "song type");
+
+		}
+
+		/// <summary>
 		/// Skip whitespace in artist fields.
 		/// </summary>
 		[TestMethod]
