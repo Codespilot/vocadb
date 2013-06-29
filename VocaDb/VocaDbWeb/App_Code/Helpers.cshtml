@@ -351,25 +351,3 @@
         </div>
     }
 }
-
-@helper WebLinksList(IEnumerable<VocaDb.Web.Models.Shared.WebLinkDisplay> webLinks) {
-	
-	<table>
-		<thead>
-			<tr>
-				<th>@HelperRes.HelperStrings.WebLinkUrlTitle</th>
-				<th>@HelperRes.HelperStrings.WebLinkDescriptionTitle</th>
-                <th>@HelperRes.HelperStrings.WebLinkCategoryTitle</th>
-				<th>@ViewRes.SharedStrings.Actions</th>
-			</tr>
-		</thead>
-		<tbody id="webLinksListBody">
-			@foreach (var webLink in webLinks) {
-       Html.RenderPartial("WebLinkEditRow", webLink);
-   }
-		</tbody>
-	</table>
-	
-	<a href="#" id="webLinkAdd" class="textLink addLink">@HelperRes.HelperStrings.WebLinkNewRow</a>
-	
-}

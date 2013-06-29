@@ -40,6 +40,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Handled with knockout")]
 		public PartialViewResult CreateNewWebLink() {
 
 			return PartialView("WebLinkEditRow", new WebLinkDisplay());
@@ -47,6 +48,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Handled with knockout")]
 		public PartialViewResult CreateWebLink(string description, string url, WebLinkCategory category = WebLinkCategory.Other) {
 
 			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url, Category = category });

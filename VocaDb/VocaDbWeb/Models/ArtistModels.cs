@@ -8,12 +8,14 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Web.Code;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Models {
 
+	[PropertyModelBinder]
 	public class ArtistEdit {
 
 		public ArtistEdit() {
@@ -103,6 +105,7 @@ namespace VocaDb.Web.Models {
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "Web links")]
+		[FromJson]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
 
 		public void CopyNonEditableFields(ArtistForEditContract artist) {

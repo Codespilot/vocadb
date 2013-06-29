@@ -1,9 +1,12 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        var dc = vdb.dataContracts;
+
         var WebLinksEditViewModel = (function () {
-            function WebLinksEditViewModel(webLinkContracts) {
+            function WebLinksEditViewModel(webLinkContracts, categories) {
                 var _this = this;
+                this.categories = categories;
                 this.webLinks = ko.observableArray(_.map(webLinkContracts, function (contract) {
                     return new viewModels.WebLinkEditViewModel(contract);
                 }));

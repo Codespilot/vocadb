@@ -106,6 +106,12 @@ form.form-topMargin {
 .menuIcon {
   margin-top: 2px;
 }
+div:hover > ul.dropdown-menu-hover {
+  display: block;
+}
+.dropdown-menu {
+  margin-top: 0;
+}
 .menuIcon {
   margin-left: -5px;
 }

@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.Helpers
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Artists;
 @model  VocaDb.Web.Models.ArtistEdit
@@ -115,8 +116,9 @@
     				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
                     </label>
 				</div>
-				<div class="editor-field">
-					@Helpers.WebLinksList(Model.WebLinks)
+				<div class="editor-field" data-bind="with: webLinks">
+					@KnockoutHelpers.WebLinksEditViewKnockout(true)
+					<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
 				</div>
 
 				<div class="editor-label">
@@ -162,11 +164,14 @@
 
 @section BodyScripts {
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Edit.js")"></script>
+@Scripts.Render("~/bundles/Artist/Edit")
 
 <script type="text/javascript">
 
 	$(document).ready(function() { 
+		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { webLinks = Model.WebLinks }));
+		ko.applyBindings(new vdb.viewModels.ArtistEditViewModel(webLinkCategoryJson, modelJson));
 		initPage(@Model.Id); 
 	});
 

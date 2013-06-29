@@ -243,7 +243,6 @@ function initPage(albumId, discType) {
 	});
 
 	initNamesList();
-	initWebLinksList();
 
 	function acceptArtistSelection(artistId, term) {
 

@@ -1,4 +1,5 @@
-﻿@using VocaDb.Web.Models
+﻿@using System.Web.Optimization
+@using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
 @using Newtonsoft.Json
 @model SongEdit
@@ -113,8 +114,9 @@
 				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
                 </label>
 			</div>
-			<div class="editor-field">
-				@Helpers.WebLinksList(Model.WebLinks)
+			<div class="editor-field" data-bind="with: webLinks">
+				@KnockoutHelpers.WebLinksEditViewKnockout(true)
+				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
 			</div>
 
 			<div class="editor-label">
@@ -229,15 +231,21 @@
 
 @section BodyScripts {
 <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Song/Edit.js")"></script>
+@Scripts.Render("~/bundles/Song/Edit")
 
 <script type="text/javascript">
 
 	$(document).ready(function () {
+		
 		vdb.resources.song = {
 			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
 		};
-		initPage(@Model.Id, @Model.Length);
+		
+		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { length = Model.Length, webLinks = Model.WebLinks }));
+		ko.applyBindings(new vdb.viewModels.SongEditViewModel(webLinkCategoryJson, modelJson));
+
+		initPage(@Model.Id);
 	});
 
 </script>

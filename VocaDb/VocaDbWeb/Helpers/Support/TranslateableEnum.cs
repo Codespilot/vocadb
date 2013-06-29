@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
-using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model;
 
 namespace VocaDb.Web.Helpers.Support {
@@ -25,6 +26,12 @@ namespace VocaDb.Web.Helpers.Support {
 		public string this[TEnum val] {
 			get {
 				return GetName(val);
+			}
+		}
+
+		public TranslateableEnumField<TEnum>[] AllFields {
+			get {
+				return values.Select(v => new TranslateableEnumField<TEnum>(v, GetName(v))).ToArray();
 			}
 		}
 
@@ -55,4 +62,19 @@ namespace VocaDb.Web.Helpers.Support {
 		}
 
 	}
+
+	public class TranslateableEnumField<T> where T : struct, IConvertible {
+
+		public TranslateableEnumField(T id, string translation) {
+			this.Id = id;
+			this.Name = translation;
+		}
+
+		[JsonConverter(typeof(StringEnumConverter))]
+		public T Id { get; set; }
+
+		public string Name { get; set; }
+
+	}
+
 }

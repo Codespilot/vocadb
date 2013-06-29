@@ -1125,6 +1125,10 @@
     <Content Include="Scripts\DataContracts\NewSongCheckResultContract.js">
       <DependentUpon>NewSongCheckResultContract.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\DataContracts\TranslatedEnumField.ts" />
+    <Content Include="Scripts\DataContracts\TranslatedEnumField.js">
+      <DependentUpon>TranslatedEnumField.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\WebLinkContract.js">
       <DependentUpon>WebLinkContract.ts</DependentUpon>
     </Content>
@@ -1134,6 +1138,7 @@
     <Content Include="App_Code\CommentHelpers.cshtml" />
     <Content Include="Content\Styles\ExtLinks.less" />
     <Content Include="Content\Styles\Overrides.less" />
+    <Content Include="App_Code\KnockoutHelpers.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -1544,6 +1549,14 @@
     <Content Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.js">
       <DependentUpon>SongCreateViewModelTests.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\AlbumEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
+      <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\ArtistEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\ArtistEditViewModel.js">
+      <DependentUpon>ArtistEditViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\SongCreateViewModel.js">
       <DependentUpon>SongCreateViewModel.ts</DependentUpon>
     </Content>
@@ -1575,7 +1588,6 @@
     <Content Include="Scripts\Shared\Messages.js" />
     <Content Include="Scripts\Shared\NamesList.js" />
     <Content Include="Scripts\Shared\ReportEntryPopup.js" />
-    <Content Include="Scripts\Shared\WebLinksList.js" />
     <Content Include="Scripts\Shared\GlobalSearchBox.js" />
     <Content Include="Scripts\SongList\Edit.js" />
     <Content Include="Scripts\Song\Details.js" />
@@ -1780,6 +1792,10 @@
       <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\SongEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\SongEditViewModel.js">
+      <DependentUpon>SongEditViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
     </Content>

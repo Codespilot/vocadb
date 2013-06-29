@@ -15,8 +15,9 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/VocaDB").Include("~/Scripts/VocaDB.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/shared").Include(
-				"~/Scripts/Shared/NamesList.js", "~/Scripts/Shared/WebLinksList.js", 
-				"~/Scripts/Shared/GlobalSearchBox.js", "~/Scripts/Shared/Messages.js",
+				"~/Scripts/Shared/NamesList.js",
+				"~/Scripts/Shared/GlobalSearchBox.js", 
+				"~/Scripts/Shared/Messages.js",
 				"~/Scripts/Shared/GlobalFunctions.js", 
 				"~/Scripts/Shared/EntryUrlMapper.js",
 				"~/Scripts/KnockoutExtensions/EntryToolTip.js"
@@ -30,6 +31,15 @@ namespace VocaDb.Web.App_Start {
 			// View-specific bundles
 			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include("~/Scripts/Album/Details.js"));
 
+			bundles.Add(new ScriptBundle("~/bundles/Album/Edit").Include(
+				"~/Scripts/Models/WebLinkCategory.js",
+				"~/Scripts/Shared/WebLinkMatcher.js",
+				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
+				"~/Scripts/ViewModels/WebLinksEditViewModel.js",
+				"~/Scripts/ViewModels/AlbumEditViewModel.js",
+				"~/Scripts/Album/Edit.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Create").Include(
 				"~/Scripts/KnockoutExtensions/FocusOut.js",
 				"~/Scripts/Models/WebLinkCategory.js",
@@ -40,6 +50,16 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Details").Include("~/Scripts/Artist/Details.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/Artist/Edit").Include(
+				"~/Scripts/Models/WebLinkCategory.js",
+				"~/Scripts/Shared/WebLinkMatcher.js",
+				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
+				"~/Scripts/ViewModels/WebLinksEditViewModel.js",
+				"~/Scripts/ViewModels/ArtistEditViewModel.js",
+				"~/Scripts/Artist/Edit.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
@@ -50,6 +70,16 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
+
+			bundles.Add(new ScriptBundle("~/bundles/Song/Edit").Include(
+				"~/Scripts/Models/WebLinkCategory.js",
+				"~/Scripts/Shared/WebLinkMatcher.js",
+				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
+				"~/Scripts/ViewModels/WebLinksEditViewModel.js",
+				"~/Scripts/ViewModels/SongEditViewModel.js",
+				"~/Scripts/Song/Edit.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
