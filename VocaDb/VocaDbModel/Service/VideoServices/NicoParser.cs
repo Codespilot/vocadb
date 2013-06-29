@@ -230,6 +230,8 @@ namespace VocaDb.Model.Service.VideoServices {
 					if (content.Contains("オリジナル")) {
 						songType = SongType.Original;
 						content = content.Replace("オリジナル", string.Empty);
+					} else if (content.Contains("カバー")) {
+						songType = SongType.Cover;
 					}
 
 					var a = artistFunc(content.Trim());
