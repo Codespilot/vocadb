@@ -1546,6 +1546,10 @@
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.js">
+      <DependentUpon>AlbumEditViewModelTests.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.js">
       <DependentUpon>SongCreateViewModelTests.ts</DependentUpon>
     </Content>
