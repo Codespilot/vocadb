@@ -80,6 +80,7 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 			var result = NicoHelper.ParseTitle("【波音リツキレ音源】Lost Destination【UTAUカバー】", ArtistFunc);
 
+			// TODO: might be able to parse artist as well
 			Assert.AreEqual(SongType.Cover, result.SongType, "song type");
 
 		}
