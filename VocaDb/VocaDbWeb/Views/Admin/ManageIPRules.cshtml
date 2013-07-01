@@ -57,8 +57,8 @@
 <div data-bind="if: bannedIPs().length > 0">
 	<h2>Automatically banned IPs</h2>
 	<ul data-bind="foreach: bannedIPs">
-		<li data-bind="template: 'vdb-ip-manage-template'"></li>
+		<li>
+			@{ Html.RenderPartial("KnockoutPartials/_IPManage"); }
+		</li>
 	</ul>
 </div>
-
-@{ Html.RenderPartial("KnockoutTemplates/_IPManageTemplate"); }

@@ -1835,6 +1835,7 @@
     <Folder Include="EntryImg\Artist\" />
     <Folder Include="logs\" />
     <Folder Include="Resources\Views\Help\" />
+    <Folder Include="Views\Shared\KnockoutTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -2021,8 +2022,8 @@
     <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
     <Content Include="Views\Song\Partials\_PVRatingButtonsForIndex.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
-    <Content Include="Views\Shared\KnockoutTemplates\_IPManageTemplate.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_DuplicateEntriesMessage.cshtml" />
+    <Content Include="Views\Shared\KnockoutPartials\_IPManage.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

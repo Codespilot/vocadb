@@ -1,4 +1,7 @@
-﻿<!-- binding context: KnockoutObservableArray<dc.DuplicateEntryResultContract> -->
+﻿<!-- 
+	Shows a message for duplicate instances of an entry.
+	Binding context: KnockoutObservableArray<dc.DuplicateEntryResultContract>
+-->
 <div class="alert" style="display:none" data-bind="visible: dupeEntries() && dupeEntries().length > 0">
 	@Helpers.NotificationIcon()
 	@ViewRes.EntryCreateStrings.FoundPossibleDuplicates
