@@ -121,7 +121,7 @@
     <value>Song needs at least one artist.</value>
   </data>
   <data name="NeedProducer" xml:space="preserve">
-    <value>Song should have at least one producer role.</value>
+    <value>Song should have at least one producer (composer, arranger or animator) role.</value>
   </data>
   <data name="NeedType" xml:space="preserve">
     <value>Song type needs to be specified.</value>

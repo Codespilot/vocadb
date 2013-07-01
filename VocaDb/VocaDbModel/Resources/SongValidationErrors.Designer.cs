@@ -70,7 +70,7 @@ namespace VocaDb.Model.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Song should have at least one producer role..
+        ///   Looks up a localized string similar to Song should have at least one producer (composer, arranger or animator) role..
         /// </summary>
         public static string NeedProducer {
             get {
