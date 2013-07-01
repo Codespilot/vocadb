@@ -27,7 +27,7 @@ namespace VocaDb.Model.Service.EntryValidators {
 			if (song.SongType != SongType.Instrumental && !song.Tags.HasTag("instrumental") && !ArtistHelper.GetVocalists(song.Artists.ToArray()).Any())
 				errors.Add(SongValidationErrors.NonInstrumentalSongNeedsVocalists);
 
-			if (!song.Artists.Any(a => ArtistHelper.IsProducerRole(a, SongHelper.IsAnimation(song.SongType))))
+			if (!song.Artists.Any(a => a.Artist != null && ArtistHelper.IsProducerRole(a, SongHelper.IsAnimation(song.SongType))))
 				errors.Add(SongValidationErrors.NeedProducer);
 
 			return new ValidationResult(errors);

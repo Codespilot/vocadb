@@ -686,6 +686,7 @@
     <EmbeddedResource Include="Resources\SongValidationErrors.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SongValidationErrors.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
   </ItemGroup>

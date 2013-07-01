@@ -54,6 +54,19 @@ namespace VocaDb.Tests.Service.EntryValidators {
 
 		}
 
+		/// <summary>
+		/// Has a producer, but not in the DB
+		/// </summary>
+		[TestMethod]
+		public void MissingRealProducer() {
+
+			song.AddArtist("devilishP", false, ArtistRoles.Composer);
+			var result = Validate(song);
+
+			AssertContains(result, SongValidationErrors.NeedProducer);
+
+		}
+
 		[TestMethod]
 		public void HasProducer() {
 
