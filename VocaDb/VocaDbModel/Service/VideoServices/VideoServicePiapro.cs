@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -132,14 +133,20 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private VideoUrlParseResult ParseByPiaproUrl(string piaproUrl) {
 
-			var request = WebRequest.Create(piaproUrl);
+			WebRequest request;
+			try {
+				request = WebRequest.Create(UrlHelper.MakeLink(piaproUrl));
+			} catch (UriFormatException x) {
+				return VideoUrlParseResult.CreateError(piaproUrl, VideoUrlParseResultType.LoadError, x.Message);				
+			}
+
 			request.Timeout = 10000;
 			WebResponse response;
 
 			try {
 				response = request.GetResponse();
-			} catch (WebException) {
-				return VideoUrlParseResult.CreateError(piaproUrl, VideoUrlParseResultType.LoadError);
+			} catch (WebException x) {
+				return VideoUrlParseResult.CreateError(piaproUrl, VideoUrlParseResultType.LoadError, x.Message);
 			}
 
 			var enc = GetEncoding(response.Headers[HttpResponseHeader.ContentEncoding]);
