@@ -1,19 +1,19 @@
 /* External links */
 .extLink (@linkUrl) {
-	background: url(@linkUrl) no-repeat left 50%;
+	background: @linkUrl no-repeat left 50%;
 }
 
 a.extLink {
-    .extLink("/Content/Icons/world.png");
+    .extLink(url("/Content/Icons/world.png"));
     padding: 2px 0 2px 20px;
 }
 
 a.extLink[href^="mailto:"] {
-    .extLink("/Content/Icons/email.png");
+    .extLink(url("/Content/Icons/email.png"));
 }
 
 a.extLink[href^="http://alice-books.com/"] {
-    .extLink("/Content/ExtIcons/alicebooks.png");
+    .extLink(url("/Content/ExtIcons/alicebooks.png"));
 }
 
 a.extLink[href^="http://www.amazon.co.jp/"] {
@@ -134,6 +134,10 @@ a.extLink[href^="http://vgmdb.net/"] {
 
 a.extLink[href^="http://vimeo.com/"] {
 	background: url("/Content/ExtIcons/vimeo.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://vocadb.net/"] {
+    .extLink(url("/Content/ExtIcons/vocadb.png"));
 }
 
 a.extLink[href^="http://shop.vocaloidstore.com/"] {
