@@ -13,7 +13,14 @@ namespace VocaDb.Model.Service.BBCode {
 
 		private readonly IBBCodeElementTransformer[] transformers;
 
-		public static void RegexReplace(StringBuilder bbCode, Regex regex, Func<string, string> replacementFunc) {
+		/// <summary>
+		/// Replaces instances of a regex in a string.
+		/// The match may occur multiple times, and all instances will be replaced.
+		/// </summary>
+		/// <param name="bbCode">Source string to be processed. Cannot be null.</param>
+		/// <param name="regex">Regex to be matched. Cannot be null.</param>
+		/// <param name="replacementFunc">Replacement operation to be performed for the matches. Cannot be null.</param>
+		public static void RegexReplace(StringBuilder bbCode, Regex regex, Func<Match, string> replacementFunc) {
 
 			var matches = regex.Matches(bbCode.ToString());
 
@@ -21,7 +28,7 @@ namespace VocaDb.Model.Service.BBCode {
 
 			foreach (Match match in matches) {
 
-				var result = replacementFunc(match.Value);
+				var result = replacementFunc(match);
 
 				if (result != match.Value) {
 					bbCode.Replace(match.Value, result, match.Index + indexOffset, match.Length);
