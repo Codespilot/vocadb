@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
@@ -18,7 +17,6 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Users;
-using VocaDb.Model.Service.BBCode;
 using VocaDb.Web.Code.BBCode;
 using VocaDb.Web.Helpers.Support;
 
@@ -367,12 +365,6 @@ namespace VocaDb.Web.Helpers {
 		public static void RenderPartialTyped<T>(this HtmlHelper htmlHelper, string partialViewName, T model) {
 
 			htmlHelper.RenderPartial(partialViewName, model);
-
-		}
-
-		public static string ReplaceUrisWithLinks(string text) {
-
-			return AutoLinkTransformer.ReplaceUrisWithLinks(text);
 
 		}
 
