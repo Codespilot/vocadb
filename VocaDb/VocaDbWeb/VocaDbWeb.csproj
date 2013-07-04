@@ -946,6 +946,7 @@
     <Content Include="Content\ExtIcons\twitter.png" />
     <Content Include="Content\ExtIcons\vgmdb.png" />
     <Content Include="Content\ExtIcons\vimeo.png" />
+    <Content Include="Content\ExtIcons\vocadb.png" />
     <Content Include="Content\ExtIcons\vocastore.png" />
     <Content Include="Content\ExtIcons\vocawiki.png" />
     <Content Include="Content\ExtIcons\yesasia.png" />

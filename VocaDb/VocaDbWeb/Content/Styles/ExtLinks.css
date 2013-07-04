@@ -102,6 +102,9 @@ a.extLink[href^="http://vgmdb.net/"] {
 a.extLink[href^="http://vimeo.com/"] {
   background: url("/Content/ExtIcons/vimeo.png") no-repeat left 50%;
 }
+a.extLink[href^="http://vocadb.net/"] {
+  background: url("/Content/ExtIcons/vocadb.png") no-repeat left 50%;
+}
 a.extLink[href^="http://shop.vocaloidstore.com/"] {
   background: url("/Content/ExtIcons/vocastore.png") no-repeat left 50%;
 }
