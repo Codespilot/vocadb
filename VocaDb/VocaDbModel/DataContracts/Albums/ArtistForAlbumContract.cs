@@ -15,8 +15,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			
 			ParamIs.NotNull(() => artistForAlbum);
 
-			Album = new AlbumWithAdditionalNamesContract(artistForAlbum.Album, languagePreference);
-			Artist = (artistForAlbum.Artist != null ? new ArtistWithAdditionalNamesContract(artistForAlbum.Artist, languagePreference) : null);
+			Artist = (artistForAlbum.Artist != null ? new ArtistContract(artistForAlbum.Artist, languagePreference) : null);
 			Categories = artistForAlbum.ArtistCategories;
 			EffectiveRoles = artistForAlbum.EffectiveRoles;
 			Id = artistForAlbum.Id;
@@ -27,10 +26,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		}
 
 		[DataMember]
-		public AlbumWithAdditionalNamesContract Album { get; set; }
-
-		[DataMember]
-		public ArtistWithAdditionalNamesContract Artist { get; set; }
+		public ArtistContract Artist { get; set; }
 
 		[DataMember]
 		public ArtistCategories Categories { get; set; }
