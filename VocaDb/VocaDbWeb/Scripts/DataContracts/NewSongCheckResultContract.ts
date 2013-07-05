@@ -1,16 +1,7 @@
+/// <reference path="ArtistContract.ts" />
 /// <reference path="DuplicateEntryResultContract.ts" />
 
 module vdb.dataContracts {
-
-    export interface ArtistContract {
-
-        additionalNames: string;
-
-        id: number;
-
-        name: string;
-
-    }
 
     export interface NewSongCheckResultContract {
 

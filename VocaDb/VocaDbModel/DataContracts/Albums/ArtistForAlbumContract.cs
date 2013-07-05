@@ -1,4 +1,6 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -44,6 +46,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public string Name { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public ArtistRoles Roles { get; set; }
 
 	}
