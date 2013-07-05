@@ -67,12 +67,13 @@ function initPage(songId) {
 			acceptBtnElem: acceptNewOriginalBtn,
 			acceptSelection: acceptOriginalSong,
 			idElem: changeOriginalId,
-			createOptionFirstRow: function (item) { return (item.Id != songId ? item.Name + " (" + item.SongType + ")" : null); },
+			createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },
 			extraQueryParams: {
 				songTypes: "Unspecified,Original,Remix,Cover,Mashup,Other"
 			},
+			filter: function (item) { return item.Id != songId; },
 			height: 250
 		});
 
