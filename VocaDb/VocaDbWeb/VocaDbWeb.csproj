@@ -1117,6 +1117,10 @@
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\DuplicateEntryResultContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\ArtistContract.ts" />
+    <Content Include="Scripts\DataContracts\ArtistContract.js">
+      <DependentUpon>ArtistContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\DuplicateEntryResultContract.js">
       <DependentUpon>DuplicateEntryResultContract.ts</DependentUpon>
     </Content>
@@ -1538,6 +1542,10 @@
       <DependentUpon>WebLinkMatcherTests.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeSongRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeArtistRepository.ts" />
+    <Content Include="Scripts\Tests\TestSupport\FakeArtistRepository.js">
+      <DependentUpon>FakeArtistRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\TestSupport\FakeSongRepository.js">
       <DependentUpon>FakeSongRepository.ts</DependentUpon>
     </Content>
@@ -1565,6 +1573,10 @@
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistEditViewModel.ts" />
     <Content Include="Scripts\ViewModels\ArtistEditViewModel.js">
       <DependentUpon>ArtistEditViewModel.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\ArtistForAlbumEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\ArtistForAlbumEditViewModel.js">
+      <DependentUpon>ArtistForAlbumEditViewModel.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\ViewModels\SongCreateViewModel.js">
       <DependentUpon>SongCreateViewModel.ts</DependentUpon>

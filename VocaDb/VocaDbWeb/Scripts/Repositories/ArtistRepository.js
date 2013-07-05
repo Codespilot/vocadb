@@ -13,6 +13,10 @@ var vdb;
                 this.findDuplicate = function (params, callback) {
                     $.post(_this.mapUrl("/FindDuplicate"), params, callback);
                 };
+
+                this.getOne = function (id, callback) {
+                    $.post(_this.mapUrl("/DataById"), { id: id }, callback);
+                };
             }
             return ArtistRepository;
         })();

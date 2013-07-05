@@ -65,6 +65,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/FocusOut.js",
+				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/Repositories/SongRepository.js",
 				"~/Scripts/ViewModels/SongCreateViewModel.js"
 			));

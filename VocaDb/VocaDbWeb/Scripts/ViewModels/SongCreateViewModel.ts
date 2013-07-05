@@ -5,6 +5,7 @@
 /// <reference path="../KnockoutExtensions/ArtistAutoComplete.ts" />
 /// <reference path="../Shared/GlobalFunctions.ts" />
 /// <reference path="../Repositories/SongRepository.ts" />
+/// <reference path="../Repositories/ArtistRepository.ts" />
 
 module vdb.viewModels {
 
@@ -35,7 +36,7 @@ module vdb.viewModels {
 
         removeArtist: (artist: dc.ArtistContract) => void;
 
-        constructor(songRepository: vdb.repositories.SongRepository, data?) {
+        constructor(songRepository: vdb.repositories.SongRepository, artistRepository: vdb.repositories.ArtistRepository, data?) {
 
             if (data) {
                 this.nameOriginal(data.nameOriginal || "");
@@ -49,7 +50,7 @@ module vdb.viewModels {
             this.addArtist = (artistId: number) => {
 
                 if (artistId) {
-                    $.post(vdb.functions.mapAbsoluteUrl("/Artist/DataById"), { id: artistId }, artist => {
+                    artistRepository.getOne(artistId, artist => {
                         this.artists.push(artist);
                     });
                 }

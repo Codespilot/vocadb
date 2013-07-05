@@ -4,7 +4,7 @@ var vdb;
         var dc = vdb.dataContracts;
 
         var SongCreateViewModel = (function () {
-            function SongCreateViewModel(songRepository, data) {
+            function SongCreateViewModel(songRepository, artistRepository, data) {
                 var _this = this;
                 this.artists = ko.observableArray([]);
                 this.dupeEntries = ko.observableArray([]);
@@ -24,7 +24,7 @@ var vdb;
 
                 this.addArtist = function (artistId) {
                     if (artistId) {
-                        $.post(vdb.functions.mapAbsoluteUrl("/Artist/DataById"), { id: artistId }, function (artist) {
+                        artistRepository.getOne(artistId, function (artist) {
                             _this.artists.push(artist);
                         });
                     }
