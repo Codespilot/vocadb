@@ -61,13 +61,6 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public string FindMikuDB(string term) {
-
-			return Services.Albums.FindFirstDetails(term).WebLinks.Select(u => u.Url).FirstOrDefault(w => w.Contains("http://mikudb.com"));
-
-		}
-
-		[OperationContract]
 		public PartialFindResult<SongWithAlbumAndPVsContract> FindSongs(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			var sampleSize = Math.Min(maxResults * 2, 30);

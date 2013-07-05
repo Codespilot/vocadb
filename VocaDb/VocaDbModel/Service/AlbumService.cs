@@ -426,6 +426,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		// Not in use, was used by MikuDB search.
 		public AlbumDetailsContract FindFirstDetails(string query) {
 
 			return HandleQuery(session => {
@@ -505,6 +506,14 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Gets album details, and updates hit count if necessary.
+		/// </summary>
+		/// <param name="id">Id of the album to be retrieved.</param>
+		/// <param name="hostname">
+		/// Hostname of the user requestin the album. Used to hit counting when no user is logged in. If null or empty, and no user is logged in, hit count won't be updated.
+		/// </param>
+		/// <returns>Album details contract. Cannot be null.</returns>
 		public AlbumDetailsContract GetAlbumDetails(int id, string hostname) {
 
 			return HandleQuery(session => {
