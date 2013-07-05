@@ -48,8 +48,24 @@ namespace VocaDb.Web.Code.BBCode {
 			this.codeConverter = codeConverter;
 		}
 
+		/// <summary>
+		/// Encodes and caches the unencoded string, using the hash key as the cache key.
+		/// The encoded result will be save to the cache for later use.
+		/// If possible, it's recommended to use the overload with a custom, more unique cache key.
+		/// </summary>
+		/// <param name="rawValue">Raw, unencoded string. Can be null or empty, in which case nothing is done.</param>
+		/// <returns>Encoded string, from the cache if possible. Can be null or empty.</returns>
+		/// <remarks>
+		/// Note that using the hash code may cause collisions, but that's not really a problem since the 
+		/// contents of the unencoded values are still compared.
+		/// </remarks>
 		public string GetHtml(string rawValue) {
+
+			if (string.IsNullOrEmpty(rawValue))
+				return rawValue;
+
 			return GetHtml(rawValue, (rawValue.Length <= 20 ? rawValue : rawValue.GetHashCode().ToString()));
+
 		}
 
 		public string GetHtml(string rawValue, string key) {

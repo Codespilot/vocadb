@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 
 namespace VocaDb.Model.Service.BBCode {
 
@@ -39,7 +40,10 @@ namespace VocaDb.Model.Service.BBCode {
 
 		}
 
-
+		/// <summary>
+		/// Initializes converter with a list of transformations to be applied.
+		/// </summary>
+		/// <param name="transformers">Transformations. Cannot be null.</param>
 		public BBCodeConverter(IEnumerable<IBBCodeElementTransformer> transformers) {
 
 			ParamIs.NotNull(() => transformers);
@@ -48,9 +52,22 @@ namespace VocaDb.Model.Service.BBCode {
 
 		}
 
-		public string ConvertToHtml(string bbCode) {
+		/// <summary>
+		/// Converts source text into HTML, applying transformations.
+		/// </summary>
+		/// <param name="source">Source text, which must not be HTML-encoded. All HTML contained in the source will be encoded. Can be null or empty.</param>
+		/// <returns>Encoded and transformed HTML. Can be null or empty, if the source was null or empty.</returns>
+		/// <remarks>
+		/// Since the result is already HTML-encoded, it must be printed using Html.Raw, so that it won't be encoded again.
+		/// The input 
+		/// </remarks>
+		public string ConvertToHtml(string source) {
 
-			var replaced = new StringBuilder(bbCode);
+			if (string.IsNullOrEmpty(source))
+				return source;
+
+			source = HttpUtility.HtmlEncode(source);
+			var replaced = new StringBuilder(source);
 
 			foreach (var transformer in transformers)
 				transformer.ApplyTransform(replaced);
