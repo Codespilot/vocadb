@@ -5,21 +5,21 @@
 declare function initEntrySearch(nameBoxElem, findListElem, entityName: string, searchUrl: string, params);
 
 interface KnockoutBindingHandlers {
-    artistAutoComplete: KnockoutBindingHandler;
+    songAutoComplete: KnockoutBindingHandler;
 }
 
-// Artist autocomplete search box.
-ko.bindingHandlers.artistAutoComplete = {
+// Song autocomplete search box.
+ko.bindingHandlers.songAutoComplete = {
     init: function (element, valueAccessor) {
 
         var properties: vdb.knockoutExtensions.AutoCompleteParams = ko.utils.unwrapObservable(valueAccessor());
 
-        initEntrySearch(element, null, "Artist", vdb.functions.mapAbsoluteUrl("/Artist/FindJson"),
+        initEntrySearch(element, null, "Song", vdb.functions.mapAbsoluteUrl("/Song/FindJsonByName"),
             {
                 allowCreateNew: properties.allowCreateNew,
                 acceptSelection: properties.acceptSelection,
-                createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
-                createOptionSecondRow: function (item) { return item.AdditionalNames; },
+                createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
+                createOptionSecondRow: function (item) { return item.ArtistString; },
                 extraQueryParams: properties.extraQueryParams,
                 height: properties.height
             });
