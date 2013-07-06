@@ -4,7 +4,7 @@
 @using R = ViewRes.Song;
 @model Index
 
-<table class="table table-striped" data-bind="pvPreviewStatus: songs">
+<table class="table table-striped table-hover" data-bind="pvPreviewStatus: songs">
 	<thead>
 		<tr>
 			<th colspan="2">@Html.ActionLink(ViewRes.SharedStrings.Name, "Index", new IndexRouteParams(Model.RouteParams, null) { sort = VocaDb.Model.Service.SongSortRule.Name })</th>

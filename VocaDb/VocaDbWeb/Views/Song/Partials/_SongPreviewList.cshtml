@@ -2,7 +2,7 @@
 @using R = ViewRes.Song
 @model VocaDb.Web.Models.Song.Index
 
-<table class="table table-striped">
+<table class="table table-striped table-hover">
 	<tbody>
 		@foreach (var song in Model.Songs) {
             var primaryPv = PVHelper.PrimaryPV(song.PVs);
