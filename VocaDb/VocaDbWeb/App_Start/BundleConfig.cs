@@ -32,7 +32,10 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Models/WebLinkCategory.js",
 				"~/Scripts/Shared/WebLinkMatcher.js",
 				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
-				"~/Scripts/ViewModels/WebLinksEditViewModel.js"
+				"~/Scripts/ViewModels/WebLinksEditViewModel.js",
+				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
+				"~/Scripts/KnockoutExtensions/SongAutoComplete.js",
+				"~/Scripts/KnockoutExtensions/FocusOut.js"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
@@ -48,7 +51,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Create").Include(
-				"~/Scripts/KnockoutExtensions/FocusOut.js",
 				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ArtistCreateViewModel.js"
 			));
@@ -63,8 +65,6 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
-				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
-				"~/Scripts/KnockoutExtensions/FocusOut.js",
 				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/Repositories/SongRepository.js",
 				"~/Scripts/ViewModels/SongCreateViewModel.js"

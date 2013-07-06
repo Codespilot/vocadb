@@ -1473,6 +1473,10 @@
     </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\FocusOut.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\EntryToolTip.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\AutoCompleteParams.ts" />
+    <Content Include="Scripts\KnockoutExtensions\AutoCompleteParams.js">
+      <DependentUpon>AutoCompleteParams.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\KnockoutExtensions\EntryToolTip.js">
       <DependentUpon>EntryToolTip.ts</DependentUpon>
     </Content>
@@ -1481,6 +1485,10 @@
     </Content>
     <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
       <DependentUpon>SlideVisible.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\SongAutoComplete.ts" />
+    <Content Include="Scripts\KnockoutExtensions\SongAutoComplete.js">
+      <DependentUpon>SongAutoComplete.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />

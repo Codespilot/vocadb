@@ -126,7 +126,7 @@
 @section BodyScripts {
 
 	<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
-	@Scripts.Render("~/bundles/Song/Create")
+	@Scripts.Render("~/bundles/shared/edit", "~/bundles/Song/Create")
 	<script type="text/javascript">
 
 		$(document).ready(function () {
