@@ -23,6 +23,12 @@ ul.ui-autocomplete {
 .rightFrame .ui-widget-content a:hover {
   color: #0065B2;
 }
+body .ui-widget input,
+body .ui-widget select,
+body .ui-widget textarea,
+body .ui-widget button {
+  font-size: 14px;
+}
 /* Bootstrap overrides and additions */
 .withMargin {
   margin-top: 15px;
@@ -38,17 +44,16 @@ ul.ui-autocomplete {
 .navbar-search {
   margin-top: 0;
 }
-.navbar-search .search-query {
+.navbar-inverse .navbar-search .search-query {
   background-color: #005B5B;
   color: -webkit-input-placeholder(#0dc69b);
+  border-radius: 3px;
 }
-.navbar-search .search-query::-webkit-input-placeholder {
+.navbar-inverse .navbar-search .search-query::-webkit-input-placeholder {
   color: #0DC69B;
 }
-.navbar-search .search-query:-moz-placeholder {
-  color: #0DC69B;
-}
-.navbar-inner {
+.navbar .navbar-inner,
+.navbar-inverse .navbar-inner {
   background-color: #0D2B35;
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#133d4c), to(#081a21));
   background-image: -webkit-linear-gradient(top, #133d4c, #081a21);
@@ -60,21 +65,22 @@ ul.ui-autocomplete {
   margin-top: 0;
 }
 .navbar-form .navbar-searchBox .globalSearchBox {
-  margin-top: 5px;
+  margin-top: 4px;
 }
-.navbar-searchBox .btn {
-  margin: 5px 0 0 -3px;
+.navbar .btn-group .btn,
+.navbar .input-prepend .btn,
+.navbar .input-append .btn,
+.navbar .input-prepend .btn-group,
+.navbar .input-append .btn-group {
+  margin-top: 4px;
 }
 .navbar .navbar-languageBar {
   padding: 0;
   padding-left: 15px;
-  margin-top: 5px;
+  margin-top: 1px;
 }
 .navbar .navbar-languageBtn {
   margin: 4px 0 0 0;
-}
-.input-append > .btn {
-  margin-left: -3px;
 }
 .well {
   padding: 13px !important;

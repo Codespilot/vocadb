@@ -24,6 +24,11 @@ ul.ui-autocomplete {
 	color: #0065B2;	
 }
 
+// Fix font size for buttons (conflicts for Bootstrap vs. jQuery UI)
+body .ui-widget input, body .ui-widget select, body .ui-widget textarea, body .ui-widget button {
+    font-size: 14px;
+}
+
 
 /* Bootstrap overrides and additions */
 .withMargin {
@@ -44,20 +49,17 @@ ul.ui-autocomplete {
 	margin-top: 0;	
 }
 
-.navbar-search .search-query {
+.navbar-inverse .navbar-search .search-query {
 	background-color: #005B5B;
-	color: -webkit-input-placeholder(#0DC69B)
+	color: -webkit-input-placeholder(#0DC69B);
+    border-radius: 3px;
 }
 
-.navbar-search .search-query::-webkit-input-placeholder {
+.navbar-inverse .navbar-search .search-query::-webkit-input-placeholder {
     color: #0DC69B;
 }
 
-.navbar-search .search-query:-moz-placeholder {
-    color: #0DC69B;
-}
-
-.navbar-inner {
+.navbar .navbar-inner, .navbar-inverse .navbar-inner {
 	background-color: #0D2B35;
 	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#133D4C), to(#081A21));	
 	background-image: -webkit-linear-gradient(top, #133D4C, #081A21);
@@ -71,17 +73,21 @@ ul.ui-autocomplete {
 }
 
 .navbar-form .navbar-searchBox .globalSearchBox {
-	margin-top: 5px;
+	margin-top: 4px;
+}
+
+.navbar .btn-group .btn, .navbar .input-prepend .btn, .navbar .input-append .btn, .navbar .input-prepend .btn-group, .navbar .input-append .btn-group {
+    margin-top: 4px;
 }
 
 .navbar-searchBox .btn {
-	margin: 5px 0 0 -3px;
+	//margin: 5px 0 0 -3px;
 }
 
 .navbar .navbar-languageBar {
 	padding: 0;
 	padding-left: 15px;
-	margin-top: 5px;
+	margin-top: 1px;
 }
 
 .navbar .navbar-languageBtn {
@@ -89,7 +95,7 @@ ul.ui-autocomplete {
 }
 
 .input-append > .btn {
-	margin-left: -3px;
+	//margin-left: -3px;
 }
 
 .well {
