@@ -1134,6 +1134,10 @@
       <DependentUpon>NewSongCheckResultContract.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\TranslatedEnumField.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\SongContract.ts" />
+    <Content Include="Scripts\DataContracts\SongContract.js">
+      <DependentUpon>SongContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\TranslatedEnumField.js">
       <DependentUpon>TranslatedEnumField.ts</DependentUpon>
     </Content>
@@ -1468,6 +1472,7 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistToolTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
+    <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\KnockoutExtensions\ArtistAutoComplete.js">
       <DependentUpon>ArtistAutoComplete.ts</DependentUpon>
     </Content>
@@ -1843,6 +1848,10 @@
     <Content Include="Scripts\ViewModels\SongEditViewModel.js">
       <DependentUpon>SongEditViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\SongInAlbumEditViewModel.ts" />
+    <Content Include="Scripts\ViewModels\SongInAlbumEditViewModel.js">
+      <DependentUpon>SongInAlbumEditViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
     </Content>
@@ -2020,6 +2029,7 @@
     <Content Include="Views\Album\UsersWithAlbumInCollection.cshtml" />
     <Content Include="Views\Error\BadRequest.cshtml" />
     <Content Include="Views\Album\Partials\_ArtistForAlbumEdit.cshtml" />
+    <Content Include="Views\Album\Partials\_SongInAlbumEdit.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

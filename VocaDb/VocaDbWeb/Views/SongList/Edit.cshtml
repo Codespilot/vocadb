@@ -81,17 +81,18 @@
 
 		<div id="songsTab">
 
-			<table id="songsTable">
-				<tbody id="songsTableBody" data-bind="foreach: SongLinks">
-					<tr class="trackRow ui-state-default">
+			<table>
+				<tbody data-bind="sortable: SongLinks">
+					<tr class="ui-state-default">
 						<td style="cursor: move">
 							<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 						</td>
 						<td>
-							<span class="songOrder" data-bind="text: Order"></span>
+							<span data-bind="text: Order"></span>
 						</td>
-						<td class="trackNameCol">
-							<span data-bind="title:SongAdditionalNames, text:SongName"></span><br />
+						<td>
+							<span data-bind="title:SongAdditionalNames, text:SongName"></span>
+							<br />
 							<span class="extraInfo" data-bind="text: SongArtistString"></span>
 						</td>
 						<td>

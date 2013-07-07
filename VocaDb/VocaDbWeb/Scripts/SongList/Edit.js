@@ -25,44 +25,27 @@ function SongListViewModel(data) {
 	var mappedSongs = $.map(data.SongLinks, function (item) { return new Song(item); });
 	this.SongLinks(mappedSongs);
 
-	function songListChanged() {
+	this.SongLinks.subscribe(function() {
 
-		var track = 1;
-
-		$("tr.trackRow").each(function () {
-
-			var songLink = ko.dataFor(this);
-			songLink.Order(track);
-			track++;
-
-		});
-
-	}
-
-	$("#songsTableBody").sortable({
-		update: function (event, ui) {
-			songListChanged();
+		for (var track = 0; track < self.SongLinks().length; ++track) {
+			self.SongLinks()[track].Order(track + 1);
 		}
+
 	});
 
 	function acceptSongSelection(songId) {
 
 		if (!isNullOrWhiteSpace(songId)) {
-			$.post("../../SongList/AddSong", { songId: songId }, songAdded);
+			$.post(vdb.functions.mapAbsoluteUrl("/Song/DataById"), { id: songId }, function (song) {
+				var songInList = new Song({ SongInListId: 0, Order: 0, SongId: song.id, SongName: song.name, SongAdditionalNames: song.additionalNames, SongArtistString: song.artistString, Notes: "" });
+				self.SongLinks.push(songInList);
+			});
 		}
-
-	}
-
-	function songAdded(row) {
-
-		self.SongLinks.push(new Song(row));
-		songListChanged();
 
 	}
 
 	this.removeSong = function (songLink) {
 		self.SongLinks.remove(songLink);
-		songListChanged();
 	};
 
 	this.save = function () {
