@@ -166,6 +166,16 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult DataById(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
+
+			var song = Service.GetSong(id);
+			return new JsonNetResult { Data = song };
+
+		}
+
         //
         // GET: /Song/Details/5
 

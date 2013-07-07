@@ -3,6 +3,7 @@
 /// <reference path="../DataContracts/WebLinkContract.ts" />
 /// <reference path="../Repositories/AlbumRepository.ts" />
 /// <reference path="ArtistForAlbumEditViewModel.ts" />
+/// <reference path="SongInAlbumEditViewModel.ts" />
 /// <reference path="WebLinksEditViewModel.ts" />
 
 module vdb.viewModels {
@@ -17,6 +18,8 @@ module vdb.viewModels {
         public getArtistLink: (artistForAlbumId: number) => ArtistForAlbumEditViewModel;
 
         public removeArtist: (artist: ArtistForAlbumEditViewModel) => void;
+
+        public tracks: KnockoutObservableArray<SongInAlbumEditViewModel>;
 
         public translateArtistRole: (role: string) => string;
 

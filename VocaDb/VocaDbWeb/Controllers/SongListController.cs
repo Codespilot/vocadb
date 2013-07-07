@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Songs;
@@ -22,6 +19,7 @@ namespace VocaDb.Web.Controllers
 			get { return MvcApplication.Services.Songs; }
 		}
 
+		[Obsolete("Handled in view model now")]
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult AddSong(int songId) {
 
@@ -29,8 +27,6 @@ namespace VocaDb.Web.Controllers
 			var link = new SongInListEditContract(songContract);
 
 			return Json(link);
-
-			//return PartialView("SongInListEditRow", link);
 
 		}
 

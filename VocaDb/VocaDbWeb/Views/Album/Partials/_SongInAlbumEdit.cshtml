@@ -1,0 +1,37 @@
+﻿<!-- 
+	Binding context: SongInAlbumEditViewModel.
+-->
+
+<tr class="ui-state-default">
+	<td style="cursor: move">
+		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
+	</td>
+	<td>
+		<div data-bind="if: songId">
+			<input type="checkbox" class="trackSelection" />
+		</div>
+	</td>
+	<td class="songDiscNumber">
+		@Model.DiscNumber
+	</td>
+	<td class="songTrackNumber">
+		@Model.TrackNumber
+	</td>
+	<td class="trackNameCol">
+		@if (Model.SongId != 0) {
+		<a href="#" class="editTrackProperties" title="@Model.SongAdditionalNames">@Model.SongName</a><br />
+		} else {
+		<span title="@Model.SongAdditionalNames">@Model.SongName</span><br />
+		}
+		<span class="extraInfo artistString">@Model.ArtistString</span>
+	</td><td>
+		<input type="checkbox" class="nextDiscCheck" @(Model.TrackNumber == 1 && Model.DiscNumber > 1 ? "checked=\"checked\"" : string.Empty) />
+		Next disc
+		@{ item.Dispose(); }
+	</td><td>
+		@if (Model.SongId != 0) {
+			<a href="@Url.Action("Edit", "Song", new { id = Model.SongId })" target="_blank" title="Open for edit" class="editSongLink iconLink editLink">Edit</a>
+		}
+		<a href="#" class="songRemove iconLink removeLink" title="Remove from album">Remove</a>
+	</td>
+</tr>

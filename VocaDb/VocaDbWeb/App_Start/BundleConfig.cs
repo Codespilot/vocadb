@@ -29,6 +29,7 @@ namespace VocaDb.Web.App_Start {
 
 			// Included on all entry edit and create pages (album, artist, my settings etc.)
 			bundles.Add(new ScriptBundle("~/bundles/shared/edit").Include(
+				"~/Scripts/knockout-sortable.js",
 				"~/Scripts/Models/WebLinkCategory.js",
 				"~/Scripts/Shared/WebLinkMatcher.js",
 				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
