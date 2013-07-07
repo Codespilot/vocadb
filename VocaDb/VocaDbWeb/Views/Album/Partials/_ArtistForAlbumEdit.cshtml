@@ -4,10 +4,10 @@
 
 <tr>
 	<td>
-		<div data-bind="if: artist">
-			<a data-bind="text: artist.name, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', artist.id) }, artistToolTip: artist.id" href="#"></a>
+		<div data-bind="with: artist">
+			<a data-bind="text: name, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }, artistToolTip: id" href="#"></a>
 			<br />
-			<span data-bind="text: artist.additionalNames" class="extraInfo"></span>
+			<span data-bind="text: additionalNames" class="extraInfo"></span>
 		</div>
 		<div data-bind="ifnot: artist">
 			<span data-bind="text: name"></span>

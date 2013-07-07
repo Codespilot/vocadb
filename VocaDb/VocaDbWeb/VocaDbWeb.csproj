@@ -1493,6 +1493,10 @@
     <Content Include="Scripts\KnockoutExtensions\SongAutoComplete.js">
       <DependentUpon>SongAutoComplete.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\Sortable.ts" />
+    <Content Include="Scripts\KnockoutExtensions\Sortable.js">
+      <DependentUpon>Sortable.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
@@ -1590,6 +1594,12 @@
     <Content Include="Scripts\Tests\ViewModels\SongEditViewModelTests.js">
       <DependentUpon>SongEditViewModelTests.ts</DependentUpon>
     </Content>
+    <Content Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
+    <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
+    <Content Include="Scripts\typings\knockout\knockout.d.ts" />
+    <Content Include="Scripts\typings\qunit\qunit.d.ts" />
+    <Content Include="Scripts\typings\underscore\underscore-typed.d.ts" />
+    <Content Include="Scripts\typings\underscore\underscore.d.ts" />
     <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
     </Content>
@@ -1619,13 +1629,6 @@
       <DependentUpon>WebLinksEditViewModelTests.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
-    <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
-    <Content Include="Scripts\typings\knockout\knockout.d.ts" />
-    <Content Include="Scripts\typings\qunit\qunit.d.ts" />
-    <Content Include="Scripts\typings\underscore\underscore-typed-1.4.2.d.ts" />
-    <Content Include="Scripts\typings\underscore\underscore-typed-1.4.3.d.ts" />
-    <Content Include="Scripts\typings\underscore\underscore-typed.d.ts" />
-    <Content Include="Scripts\typings\underscore\underscore.d.ts" />
     <Content Include="Scripts\Shared\EntrySearchDrop.js" />
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />
