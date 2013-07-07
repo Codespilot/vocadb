@@ -9,6 +9,8 @@ module vdb.knockoutExtensions {
 
         extraQueryParams?;
 
+        filter?: (any) => boolean;
+
         height?: number;
 
     }

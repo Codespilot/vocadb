@@ -12,6 +12,7 @@ ko.bindingHandlers.songAutoComplete = {
                 return item.ArtistString;
             },
             extraQueryParams: properties.extraQueryParams,
+            filter: properties.filter,
             height: properties.height
         });
     }

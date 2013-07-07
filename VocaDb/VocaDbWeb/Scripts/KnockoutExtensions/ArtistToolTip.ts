@@ -10,6 +10,10 @@ interface JQuery {
     qtip: (qtipProperties) => void;
 }
 
+/* 
+    Displays artist tooltip.
+    Binding value: artist Id.
+*/
 ko.bindingHandlers.artistToolTip = {
     init: function (element, valueAccessor) {
 
