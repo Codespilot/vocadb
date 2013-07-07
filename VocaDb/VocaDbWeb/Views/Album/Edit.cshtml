@@ -52,10 +52,13 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		var repo = new vdb.repositories.AlbumRepository(vdb.values.baseAddress);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { webLinks = Model.WebLinks }));
-		ko.applyBindings(new vdb.viewModels.AlbumEditViewModel(webLinkCategoryJson, modelJson));
-		initPage(@Model.Id, "@Model.DiscType");
+		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, webLinks = Model.WebLinks }));
+		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, artistRoleJson, webLinkCategoryJson, modelJson);
+		ko.applyBindings(viewModel);
+		initPage(viewModel, @Model.Id, "@Model.DiscType");
 	});
 </script>
 }
@@ -233,10 +236,8 @@
 			@Helpers.NotificationPanel(R.EditStrings.ChangesAreSavedImmediately)<br />
 
 			<table>
-				<tbody id="artistsTableBody">
-				@foreach (var album in Model.ArtistLinks) {
-		Html.RenderPartial("ArtistForAlbumEditRow", album);
-	}
+				<tbody data-bind="foreach: artistLinks">
+					@{ Html.RenderPartial("Partials/_ArtistForAlbumEdit"); }
 				</tbody>
 			</table>
 			

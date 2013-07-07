@@ -1,6 +1,8 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Albums.ArtistForAlbumContract
 
+<!-- OBSOLETE - replaced by knockout -->
+
 <tr id="@("artistRow_" + Model.Id)">
 	<td>
 		@Html.Hidden("artistId_" + Model.Id, Model.Id, new { @class = "artistId" })

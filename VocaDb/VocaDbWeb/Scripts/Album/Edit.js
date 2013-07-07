@@ -152,7 +152,7 @@ function songListChanged() {
 
 }
 
-function initPage(albumId, discType) {
+function initPage(viewModel, albumId, discType) {
 	
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
@@ -167,14 +167,6 @@ function initPage(albumId, discType) {
 		source: "../../Album/FindReleaseEvents"
 	});
 
-	$(".isSupportCheck").live("change", function () {
-
-		var id = getId(this);
-		var isSupport = $(this).is(":checked");
-		$.post("../../Album/UpdateArtistForAlbumIsSupport", { artistForAlbumId: id, isSupport: isSupport });
-
-	});
-
 	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 550, modal: true, buttons: [{ text: vdb.resources.shared.save, click: function () {
 
 		var artistId = $("#rolesArtistId").val();
@@ -182,10 +174,9 @@ function initPage(albumId, discType) {
 			return $(this).attr("id").split("_")[1];
 		}).toArray();
 
-		var idField = $("#artistsTableBody input.artistId[value='" + artistId + "']");
-		var row = idField.parent().parent();
-		row.find("input.artistRoles").val(checkedRoles.join(","));
-		row.find("div.artistRolesList").html(checkedRoles.join("<br />"));
+		var link = viewModel.getArtistLink(artistId);
+		if (link)
+			link.rolesArray(checkedRoles);
 
 		$.ajax({
 			type: "POST",
@@ -203,12 +194,12 @@ function initPage(albumId, discType) {
 
 	$("a.artistRolesEdit").live("click", function () {
 
-		var row = $(this).parent().parent();
+		var data = ko.dataFor(this);
 
-		var id = row.find("input.artistId").val();
+		var id = data.id;
 		$("#rolesArtistId").val(id);
 
-		var roles = row.find("input.artistRoles").val().split(",");
+		var roles = data.rolesArray();
 		$("#editArtistRolesPopup input.artistRoleCheck").each(function () {
 			$(this).removeAttr("checked");
 			$(this).button("refresh");
@@ -267,26 +258,11 @@ function initPage(albumId, discType) {
 			createOptionSecondRow: function (item) { return item.AdditionalNames; }
 		});
 
-	function artistAdded(row) {
+	function artistAdded(link) {
 
-		var artistsTable = $("#artistsTableBody");
-		artistsTable.append(row);
-		$("#artistsTableBody a.artistLink:last").vdbArtistToolTip();
+		viewModel.artistLinks.push(new vdb.viewModels.ArtistForAlbumEditViewModel(viewModel.repository, link));
 
 	}
-
-	$("a.artistRemove").live("click", function () {
-
-		var id = getId(this);
-		$.post("../../Album/DeleteArtistForAlbum", { artistForAlbumId: id }, function () {
-
-			$("tr#artistRow_" + id).remove();
-
-		});
-
-		return false;
-
-	});
 
 	$("#selectAllTracksCheck").change(function () {
 

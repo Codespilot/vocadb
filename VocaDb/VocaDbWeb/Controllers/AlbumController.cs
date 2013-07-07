@@ -417,7 +417,7 @@ namespace VocaDb.Web.Controllers
 				return HttpStatusCodeResult(HttpStatusCode.Conflict, x.Message);
 			}
 
-			return PartialView("ArtistForAlbumEditRow", link);
+			return LowercaseJson(link);
 
 		}
 
@@ -430,7 +430,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			var link = Service.AddArtist(albumId, newArtistName);
-			return PartialView("ArtistForAlbumEditRow", link);
+			return LowercaseJson(link);
 
 		}
 

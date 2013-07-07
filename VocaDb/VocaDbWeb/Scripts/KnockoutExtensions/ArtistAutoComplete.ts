@@ -21,6 +21,7 @@ ko.bindingHandlers.artistAutoComplete = {
                 createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
                 createOptionSecondRow: function (item) { return item.AdditionalNames; },
                 extraQueryParams: properties.extraQueryParams,
+                filter: properties.filter,
                 height: properties.height
             });
 

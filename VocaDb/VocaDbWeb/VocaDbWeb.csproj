@@ -1102,7 +1102,6 @@
     <Content Include="albumsearch.xml" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\Admin\ManageIPRules.js" />
-    <Content Include="Scripts\Album\AlbumSearchBox.js" />
     <Content Include="Scripts\Album\Create.js" />
     <Content Include="Scripts\Album\Edit.js" />
     <Content Include="Scripts\Album\Details.js" />
@@ -1120,6 +1119,10 @@
     <TypeScriptCompile Include="Scripts\DataContracts\ArtistContract.ts" />
     <Content Include="Scripts\DataContracts\ArtistContract.js">
       <DependentUpon>ArtistContract.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\DataContracts\ArtistForAlbumContract.ts" />
+    <Content Include="Scripts\DataContracts\ArtistForAlbumContract.js">
+      <DependentUpon>ArtistForAlbumContract.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\DataContracts\DuplicateEntryResultContract.js">
       <DependentUpon>DuplicateEntryResultContract.ts</DependentUpon>
@@ -1510,6 +1513,10 @@
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\ArtistRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\AlbumRepository.ts" />
+    <Content Include="Scripts\Repositories\AlbumRepository.js">
+      <DependentUpon>AlbumRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Repositories\ArtistRepository.js">
       <DependentUpon>ArtistRepository.ts</DependentUpon>
     </Content>
@@ -1551,6 +1558,10 @@
     </Content>
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeSongRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeArtistRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeAlbumRepository.ts" />
+    <Content Include="Scripts\Tests\TestSupport\FakeAlbumRepository.js">
+      <DependentUpon>FakeAlbumRepository.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Tests\TestSupport\FakeArtistRepository.js">
       <DependentUpon>FakeArtistRepository.ts</DependentUpon>
     </Content>
@@ -1566,6 +1577,10 @@
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.ts" />
     <Content Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.js">
       <DependentUpon>AlbumEditViewModelTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\ArtistForAlbumEditViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\ArtistForAlbumEditViewModelTests.js">
+      <DependentUpon>ArtistForAlbumEditViewModelTests.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.js">
       <DependentUpon>SongCreateViewModelTests.ts</DependentUpon>
@@ -2001,6 +2016,7 @@
     <Content Include="Views\ActivityEntry\ActivityEntryContracts.cshtml" />
     <Content Include="Views\Album\UsersWithAlbumInCollection.cshtml" />
     <Content Include="Views\Error\BadRequest.cshtml" />
+    <Content Include="Views\Album\Partials\_ArtistForAlbumEdit.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

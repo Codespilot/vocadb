@@ -75,6 +75,7 @@ namespace VocaDb.Web.Models {
 
 		public EntryStatus[] AllowedEntryStatuses { get; set; }
 
+		[FromJson]
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
 		[Display(Name = "Catalog number")]

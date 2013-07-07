@@ -12,6 +12,7 @@ ko.bindingHandlers.artistAutoComplete = {
                 return item.AdditionalNames;
             },
             extraQueryParams: properties.extraQueryParams,
+            filter: properties.filter,
             height: properties.height
         });
     }

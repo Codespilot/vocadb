@@ -6,6 +6,8 @@ module vdb.dataContracts {
 
         additionalNames: string;
 
+        artistType: string;
+
         id: number;
 
         name: string;
