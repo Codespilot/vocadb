@@ -20,9 +20,16 @@ module vdb.dataContracts {
 
     export interface EntryRefWithNameContract extends EntryRefContract {
 
-        entryTypeName: string;
-
         name: EntryNameContract;
+
+    }
+
+
+    export interface EntryRefWithCommonPropertiesContract extends EntryRefWithNameContract {
+
+        artistString: string;
+
+        entryTypeName: string;
 
     }
 

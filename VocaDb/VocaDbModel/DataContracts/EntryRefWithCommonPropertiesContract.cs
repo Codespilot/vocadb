@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts {
 		public EntryRefWithCommonPropertiesContract(Album entry, ContentLanguagePreference languagePreference)
 			: base(entry, languagePreference) {
 
-			//ArtistString = entry.ArtistString[languagePreference];
+			ArtistString = entry.ArtistString[languagePreference];
 			EntryTypeName = DiscTypeNames.ResourceManager.GetString(entry.DiscType.ToString());
 
 		}
@@ -26,7 +26,7 @@ namespace VocaDb.Model.DataContracts {
 		public EntryRefWithCommonPropertiesContract(Artist entry, ContentLanguagePreference languagePreference)
 			: base(entry, languagePreference) {
 
-			//ArtistString = null;
+			ArtistString = null;
 			EntryTypeName = ArtistTypeNames.ResourceManager.GetString(entry.ArtistType.ToString());
 
 		}
@@ -34,12 +34,13 @@ namespace VocaDb.Model.DataContracts {
 		public EntryRefWithCommonPropertiesContract(Song entry, ContentLanguagePreference languagePreference)
 			: base(entry, languagePreference) {
 
-			//ArtistString = entry.ArtistString[languagePreference];
+			ArtistString = entry.ArtistString[languagePreference];
 			EntryTypeName = SongTypeNames.ResourceManager.GetString(entry.SongType.ToString());
 
 		}
 
-		//public string ArtistString { get; set; }
+		[DataMember]
+		public string ArtistString { get; set; }
 
 		/// <summary>
 		/// Translated entry type name.
