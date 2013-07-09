@@ -5,6 +5,7 @@ ko.bindingHandlers.songAutoComplete = {
         initEntrySearch(element, null, "Song", vdb.functions.mapAbsoluteUrl("/Song/FindJsonByName"), {
             allowCreateNew: properties.allowCreateNew,
             acceptSelection: properties.acceptSelection,
+            createNewItem: properties.createNewItem,
             createOptionFirstRow: function (item) {
                 return item.Name + " (" + item.SongType + ")";
             },

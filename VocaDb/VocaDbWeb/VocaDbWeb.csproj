@@ -1485,11 +1485,19 @@
     <Content Include="Scripts\KnockoutExtensions\AutoCompleteParams.js">
       <DependentUpon>AutoCompleteParams.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\Dialog.ts" />
+    <Content Include="Scripts\KnockoutExtensions\Dialog.js">
+      <DependentUpon>Dialog.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\KnockoutExtensions\EntryToolTip.js">
       <DependentUpon>EntryToolTip.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\KnockoutExtensions\FocusOut.js">
       <DependentUpon>FocusOut.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButtonset.ts" />
+    <Content Include="Scripts\KnockoutExtensions\jqButtonset.js">
+      <DependentUpon>jqButtonset.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
       <DependentUpon>SlideVisible.ts</DependentUpon>
@@ -2030,6 +2038,8 @@
     <Content Include="Views\Error\BadRequest.cshtml" />
     <Content Include="Views\Album\Partials\_ArtistForAlbumEdit.cshtml" />
     <Content Include="Views\Album\Partials\_SongInAlbumEdit.cshtml" />
+    <Content Include="Views\Album\Partials\_TrackProperties.cshtml" />
+    <Content Include="Views\Album\Partials\_TrackArtistSelection.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />

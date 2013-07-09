@@ -63,6 +63,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private Artist[] GetArtists(ISession session, ArtistContract[] artistContracts) {
+			var ids = artistContracts.Select(a => a.Id).ToArray();
+			return session.Query<Artist>().Where(a => ids.Contains(a.Id)).ToArray();			
+		}
+
 		private ArtistForAlbum RestoreArtistRef(Album album, Artist artist, ArchivedArtistForAlbumContract albumRef) {
 
 			if (artist != null) {
@@ -75,6 +80,28 @@ namespace VocaDb.Model.Service {
 
 			}
 
+		}
+
+		private void UpdateSongArtists(ISession session, Song song, ArtistContract[] artistContracts) {
+
+			var artistDiff = song.SyncArtists(artistContracts, 
+				addedArtistContracts => GetArtists(session, addedArtistContracts));
+
+			SessionHelper.Sync(session, artistDiff);
+
+			if (artistDiff.Changed) {
+
+				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session))) { Artists = true };
+
+				song.UpdateArtistString();
+				Services.Songs.Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
+				session.Update(song);
+
+				AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);
+				AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
+
+			}
+			
 		}
 
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
@@ -694,6 +721,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Replaced by saving properties")]
 		public TrackPropertiesContract GetTrackProperties(int albumId, int songId) {
 
 			return HandleQuery(session => {
@@ -1117,7 +1145,18 @@ namespace VocaDb.Model.Service {
 							var song = new Song(new LocalizedString(contract.SongName, ContentLanguageSelection.Unspecified));
 							session.Save(song);
 
-							Services.Songs.Archive(session, song, SongArchiveReason.Created,
+							var songDiff = new SongDiff { Names = true };
+							var songArtistDiff = song.SyncArtists(contract.Artists, 
+								addedArtistContracts => GetArtists(session, addedArtistContracts));
+
+							if (songArtistDiff.Changed) {
+								songDiff.Artists = true;
+								session.Update(song);
+							}
+
+							SessionHelper.Sync(session, songArtistDiff);
+
+							Services.Songs.Archive(session, song, songDiff, SongArchiveReason.Created,
 								string.Format("Created for album '{0}'", album.DefaultName));
 
 							AuditLog(string.Format("created {0} for {1}",
@@ -1130,7 +1169,8 @@ namespace VocaDb.Model.Service {
 
 					});
 
-					var tracksDiff = album.SyncSongs(properties.Songs, songGetter);
+					var tracksDiff = album.SyncSongs(properties.Songs, songGetter, 
+						(song, artistContracts) => UpdateSongArtists(session, song, artistContracts));
 
 					SessionHelper.Sync(session, tracksDiff);
 

@@ -1,3 +1,4 @@
+/// <reference path="ArtistContract.ts" />
 
 module vdb.dataContracts {
 
@@ -10,6 +11,12 @@ module vdb.dataContracts {
         id: number;
 
         name: string;
+
+    }
+
+    export interface SongWithComponentsContract extends SongContract {
+        
+        artists?: ArtistContract[];
 
     }
 

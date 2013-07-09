@@ -53,10 +53,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var repo = new vdb.repositories.AlbumRepository(vdb.values.baseAddress);
+		var songRepo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, webLinks = Model.WebLinks }));
-		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, artistRoleJson, webLinkCategoryJson, modelJson);
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, discType = Model.DiscType.ToString(), tracks = Model.Tracks, webLinks = Model.WebLinks }));
+		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRoleJson, webLinkCategoryJson, modelJson);
 		ko.applyBindings(viewModel);
 		initPage(viewModel, @Model.Id, "@Model.DiscType");
 	});
@@ -204,31 +205,30 @@
 		<div id="tracksTab">
 			<p>@R.EditStrings.TrTrackNameHelp</p>
 
-			<table id="tracksTable">
+			<table>
 				<thead>
 					<tr>
 						<th></th>
-						<th><input type="checkbox" id="selectAllTracksCheck" /></th>
+						<th><input type="checkbox" data-bind="checked: allTracksSelected" /></th>
 						<th>@R.EditStrings.TrDiscHead</th>
 						<th>@R.EditStrings.TrTrackHead</th>
 						<th>@R.EditStrings.TrNameHead</th>
 						<th colspan="3" />
 					</tr>
 				</thead>
-				<tbody id="tracksTableBody">
-				@foreach (var track in Model.Tracks) {
-		Html.RenderPartial("SongInAlbumEditRow", track);
-	}
+				<tbody data-bind="sortable: tracks">
+					@{ Html.RenderPartial("Partials/_SongInAlbumEdit"); }
 				</tbody>
 			</table>
+			<input type="hidden" name="tracks" data-bind="value: ko.toJSON(tracks)" />
 
 			<br />
-			<a href="#" class="textLink editLink" id="editSelectedTracksLink">@R.EditStrings.TrSetArtists</a>
+			<a data-bind="click: editMultipleTrackProperties" href="#" class="textLink editLink">@R.EditStrings.TrSetArtists</a>
 			
 			<br /><br />
 			<h4>@R.EditStrings.AddNew</h4>
 			<p>@R.EditStrings.TrAddTrackHelp</p>
-			@Helpers.EntrySearchNameBox("songAddName")
+			<input type="text" data-bind="songAutoComplete: trackSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />			
 		</div>
 
 		<div id="artistsTab">
@@ -321,9 +321,9 @@
 
 </div>
 
-<div id="editTrackPropertiesPopup" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
+<div data-bind="dialog: {autoOpen: false, modal: true, width: 550 }, dialogButtons: trackPropertiesDialogButtons, dialogVisible: trackPropertiesDialogVisible" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
 
-	<div id="trackPropertiesContent"></div>
+	@{ Html.RenderPartial("Partials/_TrackProperties"); }
 
 </div>
 

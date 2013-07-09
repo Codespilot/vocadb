@@ -1,0 +1,15 @@
+﻿<!--  
+	Binding context: TrackPropertiesViewModel	
+-->
+
+<div data-bind="with: editedSong">
+	
+	<div data-bind="with: song">
+		<h3 data-bind="text: 'Artists for song {0}'.replace('{0}', songName)"></h3>		
+	</div>
+
+	<div data-bind="foreach: artistSelections">
+		@{ Html.RenderPartial("Partials/_TrackArtistSelection"); }
+	</div>
+
+</div>
