@@ -16,10 +16,17 @@ var vdb;
                     var _this = this;
                     _super.call(this, "");
                     this.results = null;
+                    this.song = null;
 
                     this.findDuplicate = function (params, callback) {
                         if (callback)
                             callback(_this.results);
+                    };
+
+                    this.getOne = function (id, includeArtists, callback) {
+                        if (typeof includeArtists === "undefined") { includeArtists = false; }
+                        if (callback)
+                            callback(_this.song);
                     };
                 }
                 return FakeSongRepository;

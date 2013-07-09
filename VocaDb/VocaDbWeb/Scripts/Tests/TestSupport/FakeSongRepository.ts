@@ -8,6 +8,7 @@ module vdb.tests.testSupport {
     export class FakeSongRepository extends vdb.repositories.SongRepository {
 
         results: dc.NewSongCheckResultContract = null;
+        song: dc.SongWithComponentsContract = null;
 
         constructor() {
             
@@ -17,6 +18,11 @@ module vdb.tests.testSupport {
                 if (callback)
                     callback(this.results);
             };
+
+            this.getOne = (id, includeArtists = false, callback?) => {
+                if (callback)
+                    callback(this.song);
+            }
         
         }
 

@@ -73,7 +73,8 @@ module vdb.viewModels {
         // List of external links for this album.
         public webLinks: WebLinksEditViewModel;
         
-        constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository, artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit) {
+        constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository,
+            artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit) {
 
             this.acceptTrackSelection = (songId: number, songName: string) => {
 
