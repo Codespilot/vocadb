@@ -13,18 +13,22 @@ module vdb.viewModels {
     import dc = vdb.dataContracts;
     import rep = vdb.repositories;
 
+    // Edit view model for album.
     export class AlbumEditViewModel {
         
         // Adds a song to the album, by either id (existing song) or name (new song).
         public acceptTrackSelection: (songId: number, songName: string) => void;
 
+        // Adds a list of artists (from the track properties view model) to selected tracks.
         public addArtistsToSelectedTracks: () => void;
 
+        // Whether all tracks should be selected.
         public allTracksSelected: KnockoutObservable<boolean>;
 
         // List of artist links for this album.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 
+        // Begins editing properties for multiple tracks. Opens the properties dialog.
         public editMultipleTrackProperties: () => void;
 
         // Start editing properties for a single song. Opens the properties popup dialog.
@@ -33,28 +37,40 @@ module vdb.viewModels {
         // State for the song being edited in the properties dialog.
         public editedSong: KnockoutObservable<TrackPropertiesViewModel>;
 
+        // Gets an artist for album link view model by Id.
         public getArtistLink: (artistForAlbumId: number) => ArtistForAlbumEditViewModel;
 
+        // Removes an artist from this album.
         public removeArtist: (artist: ArtistForAlbumEditViewModel) => void;
 
+        // Removes artists (selected from the track properties view model) from selected tracks.
         public removeArtistsFromSelectedTracks: () => void;
 
+        // Removes a track from this album.
         public removeTrack: (song: SongInAlbumEditViewModel) => void;
 
+        // Copies modified state from track properties view model to the single track being edited.
         public saveTrackProperties: () => void;
 
+        // Buttons for the track properties dialog.
         public trackPropertiesDialogButtons: KnockoutObservableArray<any>;
 
+        // Whether the track properties dialog should be visible.
         public trackPropertiesDialogVisible: KnockoutObservable<boolean>;
 
+        // List of tracks for this album.
         public tracks: KnockoutObservableArray<SongInAlbumEditViewModel>;
 
+        // Search parameters for new tracks.
         public trackSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 
+        // Gets a translated name for an artist role.
         public translateArtistRole: (role: string) => string;
 
+        // Updates track and disc numbers of all tracks for this album. This should be done every time the order changes, or tracks are added or removed.
         private updateTrackNumbers: () => void;
 
+        // List of external links for this album.
         public webLinks: WebLinksEditViewModel;
         
         constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository, artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit) {
@@ -142,6 +158,7 @@ module vdb.viewModels {
             };
 
             this.saveTrackProperties = () => {
+
                 this.trackPropertiesDialogVisible(false);
 
                 if (this.editedSong) {
@@ -149,10 +166,6 @@ module vdb.viewModels {
                     var selected = _.map(_.filter(this.editedSong().artistSelections, a => a.selected()), a => a.artist);
                     this.editedSong().song.artists(selected);
                     this.editedSong(null);
-                    //var notSelected = _.filter(this.editedSong().artistSelections, a => !a.selected());
-
-                    //var added = _.filter(selected, a => _.all(this.editedSong().song.artists(), a2 => a.artist.id != a2.id));
-                    //var removed = _.filter(notSelected, a => _.some(this.editedSong().song.artists(), a2 => a.artist.id == a2.id));
 
                 }
 
@@ -211,6 +224,7 @@ module vdb.viewModels {
 
     }
 
+    // Single artist selection for the track properties dialog.
     export class TrackArtistSelectionViewModel {
 
         selected: KnockoutObservable<boolean>;
@@ -221,6 +235,7 @@ module vdb.viewModels {
     
     }
 
+    // View model for the track properties dialog, for editing artists for one or more tracks.
     export class TrackPropertiesViewModel {
         
         artistSelections: TrackArtistSelectionViewModel[];

@@ -41,10 +41,8 @@
 					}
 					@if (song.PVServices != PVServices.Nothing) {
 						<div data-bind="slideVisible: song, complete: $parent.destroyPV" class="pvPreview" style="display: none;">
-							<div data-bind="if: song" class="pull-right">
-								<div data-bind="with: song">
-									@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }							
-								</div>								
+							<div data-bind="with: song" class="pull-right">
+								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }							
 							</div>
 							<div data-bind="html: html"></div>
 						</div>

@@ -196,7 +196,7 @@
     <value>Track</value>
   </data>
   <data name="TrTrackNameHelp" xml:space="preserve">
-    <value>Click track name to edit artists (new songs need to be saved first).</value>
+    <value>Click track name to edit artists.</value>
   </data>
   <data name="UnableToSaveProperties" xml:space="preserve">
     <value>Unable to save properties</value>
