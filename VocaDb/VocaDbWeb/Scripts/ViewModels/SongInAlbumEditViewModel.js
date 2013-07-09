@@ -15,8 +15,13 @@ var vdb;
                 this.songName = data.songName;
                 this.trackNumber = ko.observable(data.trackNumber);
 
+                this.isNextDisc = ko.observable(this.trackNumber() == 1 && this.discNumber() > 1);
+                this.selected = ko.observable(false);
+
                 this.artists.subscribe(function () {
-                    _this.artistString(_this.artists().join(","));
+                    _this.artistString(_.map(_this.artists(), function (a) {
+                        return a.name;
+                    }).join(", "));
                 });
             }
             return SongInAlbumEditViewModel;

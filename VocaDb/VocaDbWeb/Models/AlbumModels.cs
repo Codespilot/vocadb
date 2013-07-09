@@ -135,6 +135,7 @@ namespace VocaDb.Web.Models {
 		public EntryStatus Status { get; set; }
 
 		[Display(Name = "Tracks")]
+		[FromJson]
 		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
 		public string UpdateNotes { get; set; }

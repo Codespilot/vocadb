@@ -14,6 +14,10 @@ module vdb.viewModels {
 
         public discNumber: KnockoutObservable<number>;
 
+        public isNextDisc: KnockoutObservable<boolean>;
+
+        public selected: KnockoutObservable<boolean>;
+
         public songAdditionalNames: string;
 
         public songId: number;
@@ -35,9 +39,12 @@ module vdb.viewModels {
             this.songName = data.songName;
             this.trackNumber = ko.observable(data.trackNumber);
 
-            // TODO
+            this.isNextDisc = ko.observable(this.trackNumber() == 1 && this.discNumber() > 1);
+            this.selected = ko.observable(false);
+
             this.artists.subscribe(() => {
-                this.artistString(this.artists().join(","));
+                // TODO: construct proper artist string (from server)
+                this.artistString(_.map(this.artists(), a => a.name).join(", "));
             });
         
         }

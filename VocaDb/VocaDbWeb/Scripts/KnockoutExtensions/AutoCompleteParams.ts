@@ -7,6 +7,8 @@ module vdb.knockoutExtensions {
 
         allowCreateNew?: boolean;
 
+        createNewItem?: string;
+
         extraQueryParams?;
 
         filter?: (any) => boolean;

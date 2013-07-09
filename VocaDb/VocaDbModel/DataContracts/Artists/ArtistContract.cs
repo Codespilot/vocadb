@@ -57,6 +57,10 @@ namespace VocaDb.Model.DataContracts.Artists {
 		[DataMember]
 		public int Version { get; set; }
 
+		public override string ToString() {
+			return string.Format("Artist {0} [{1}]", Name, Id);
+		}
+
 	}
 
 }

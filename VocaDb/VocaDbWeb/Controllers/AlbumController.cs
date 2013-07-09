@@ -161,6 +161,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete("Replaced by saving properties")]
 		public PartialViewResult MultipleTrackProperties(int albumId) {
 
 			var contract = Service.GetArtists(albumId, ArtistHelper.SongArtistTypes);
@@ -331,6 +332,7 @@ namespace VocaDb.Web.Controllers
         }
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Done on client side")]
 		public ActionResult AddNewSong(int albumId, string newSongName) {
 
 			if (string.IsNullOrWhiteSpace(newSongName)) {
@@ -345,10 +347,10 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Replaced with data query")]
 		public PartialViewResult AddExistingSong(int albumId, int songId) {
 
-			var songContract = Services.Songs.GetSongWithAdditionalNames(songId);
-			var link = new SongInAlbumEditContract(songContract);
+			var link = Services.Songs.GetSong(songId, s => new SongInAlbumEditContract(s, LoginManager.LanguagePreference));
 
 			return PartialView("SongInAlbumEditRow", link);
 
@@ -522,6 +524,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete("Replaced by saving properties")]
 		public PartialViewResult TrackProperties(int albumId, int songId) {
 
 			var contract = Service.GetTrackProperties(albumId, songId);
@@ -531,6 +534,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
+		[Obsolete("Replaced by saving properties")]
 		public ContentResult TrackProperties(int songId, string artistIds) {
 
 			var idStr = artistIds.Split(',');

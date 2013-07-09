@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Ranking;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -524,6 +525,33 @@ namespace VocaDb.Model.Domain.Songs {
 			DeleteArtistForSong(link);
 
 			return link;
+
+		}
+
+		public virtual CollectionDiff<ArtistForSong, ArtistForSong> SyncArtists(IEnumerable<ArtistContract> newArtists, Func<ArtistContract[], Artist[]> artistGetter) {
+
+			var artistDiff = CollectionHelper.Diff(Artists, newArtists, (a, a2) => a.Artist != null && a.Artist.Id == a2.Id);
+			var created = new List<ArtistForSong>();
+
+			if (artistDiff.Added.Any()) {
+
+				var addedArtists = artistGetter(artistDiff.Added);
+
+				foreach (var artist in addedArtists) {
+					if (!HasArtist(artist)) {
+						created.Add(AddArtist(artist));
+					}
+				}
+				
+			}
+
+			foreach (var removed in artistDiff.Removed) {
+				removed.Delete();
+			}
+
+			UpdateArtistString();
+
+			return new CollectionDiff<ArtistForSong, ArtistForSong>(created, artistDiff.Removed, artistDiff.Unchanged);
 
 		}
 

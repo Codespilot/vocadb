@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using System.Xml.Linq;
 using VocaDb.Model.Domain.Security;
@@ -18,6 +17,19 @@ using VocaDb.Model.DataContracts.PVs;
 namespace VocaDb.Model.Domain.Albums {
 
 	public class Album : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
+
+		public static bool TrackPropertiesEqual(SongInAlbum first, SongInAlbumEditContract second) {
+
+			return first.DiscNumber == second.DiscNumber && first.TrackNumber == second.TrackNumber;
+
+		}
+
+		public static bool TrackArtistsEqual(Song first, SongInAlbumEditContract second) {
+
+			return first.ArtistList.All(a => second.Artists.Any(a2 => a.Id == a2.Id))
+			       && second.Artists.All(a => first.ArtistList.Any(a2 => a.Id == a2.Id));
+
+		}
 
 		private ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields> archivedVersions 
 			= new ArchivedVersionManager<ArchivedAlbumVersion, AlbumEditableFields>();
@@ -554,7 +566,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual CollectionDiffWithValue<SongInAlbum, SongInAlbum> SyncSongs(
-			IEnumerable<SongInAlbumEditContract> newTracks, Func<SongInAlbumEditContract, Song> songGetter) {
+			IEnumerable<SongInAlbumEditContract> newTracks, Func<SongInAlbumEditContract, Song> songGetter, Action<Song, ArtistContract[]> updateArtistsFunc) {
 
 			var diff = CollectionHelper.Diff(Songs, newTracks, (n1, n2) => n1.Id == n2.SongInAlbumId);
 			var created = new List<SongInAlbum>();
@@ -568,6 +580,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 				var song = songGetter(newEntry);
 
+				if (!TrackArtistsEqual(song, newEntry))
+					updateArtistsFunc(song, newEntry.Artists);
+
 				var link = AddSong(song, newEntry.TrackNumber, newEntry.DiscNumber);
 				created.Add(link);
 
@@ -578,11 +593,14 @@ namespace VocaDb.Model.Domain.Albums {
 				var entry = linkEntry;
 				var newEntry = newTracks.First(e => e.SongInAlbumId == entry.Id);
 
-				if (newEntry.TrackNumber != linkEntry.TrackNumber || newEntry.DiscNumber != linkEntry.DiscNumber) {
+				if (!TrackPropertiesEqual(linkEntry, newEntry)) {
 					linkEntry.DiscNumber = newEntry.DiscNumber;
 					linkEntry.TrackNumber = newEntry.TrackNumber;
 					edited.Add(linkEntry);
 				}
+
+				if (!TrackArtistsEqual(linkEntry.Song, newEntry))
+					updateArtistsFunc(linkEntry.Song, newEntry.Artists);
 
 			}
 

@@ -588,6 +588,12 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public T GetSong<T>(int id, Func<Song, T> fac) {
+
+			return HandleQuery(session => fac(session.Load<Song>(id)));
+
+		}
+
 		public SongContract GetSong(int id) {
 
 			return HandleQuery(
@@ -1045,6 +1051,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Integrated to saving properties")]
 		public string UpdateArtists(int songId, int[] artistIds) {
 
 			ParamIs.NotNull(() => artistIds);

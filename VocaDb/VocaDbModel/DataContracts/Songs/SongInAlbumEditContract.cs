@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
@@ -12,6 +14,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => songInAlbum);
 
+			Artists = songInAlbum.Song.ArtistList.Select(a => new ArtistContract(a, languagePreference)).ToArray();
 			ArtistString = songInAlbum.Song.ArtistString[languagePreference];
 			DiscNumber = songInAlbum.DiscNumber;
 			SongName = songInAlbum.Song.TranslatedName[languagePreference];
@@ -22,24 +25,30 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		[Obsolete]
 		public SongInAlbumEditContract(string songName) {
 
 			ParamIs.NotNullOrWhiteSpace(() => songName);
 
+			Artists = new ArtistContract[0];
 			SongName = songName;
 
 		}
 
-		public SongInAlbumEditContract(SongWithAdditionalNamesContract song) {
+		[Obsolete]
+		public SongInAlbumEditContract(Song song, ContentLanguagePreference languagePreference) {
 
 			ParamIs.NotNull(() => song);
 
-			ArtistString = song.ArtistString;
+			Artists = song.ArtistList.Select(a => new ArtistContract(a, languagePreference)).ToArray();
+			ArtistString = song.ArtistString[languagePreference];
 			SongId = song.Id;
-			SongName = song.Name;
-			SongAdditionalNames = song.AdditionalNames;
+			SongName = song.TranslatedName[languagePreference];
+			SongAdditionalNames = string.Join(", ", song.AllNames.Where(n => n != SongName));
 
 		}
+
+		public ArtistContract[] Artists { get; set; }
 
 		public string ArtistString { get; set; }
 

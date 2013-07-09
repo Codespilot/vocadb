@@ -7,31 +7,25 @@
 		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 	</td>
 	<td>
-		<div data-bind="if: songId">
-			<input type="checkbox" class="trackSelection" />
-		</div>
+		<input type="checkbox" data-bind="checked: selected" />
 	</td>
-	<td class="songDiscNumber">
-		@Model.DiscNumber
+	<td>
+		<span data-bind="text: discNumber"></span>
 	</td>
-	<td class="songTrackNumber">
-		@Model.TrackNumber
+	<td>
+		<span data-bind="text: trackNumber"></span>
 	</td>
-	<td class="trackNameCol">
-		@if (Model.SongId != 0) {
-		<a href="#" class="editTrackProperties" title="@Model.SongAdditionalNames">@Model.SongName</a><br />
-		} else {
-		<span title="@Model.SongAdditionalNames">@Model.SongName</span><br />
-		}
-		<span class="extraInfo artistString">@Model.ArtistString</span>
+	<td>
+		<a data-bind="text: songName, attr: { title: songAdditionalNames }, click: $parent.editTrackProperties" href="#"></a>
+		<br />
+		<span data-bind="text: artistString" class="extraInfo"></span>
 	</td><td>
-		<input type="checkbox" class="nextDiscCheck" @(Model.TrackNumber == 1 && Model.DiscNumber > 1 ? "checked=\"checked\"" : string.Empty) />
+		<input type="checkbox" data-bind="checked: isNextDisc" />
 		Next disc
-		@{ item.Dispose(); }
 	</td><td>
-		@if (Model.SongId != 0) {
-			<a href="@Url.Action("Edit", "Song", new { id = Model.SongId })" target="_blank" title="Open for edit" class="editSongLink iconLink editLink">Edit</a>
-		}
-		<a href="#" class="songRemove iconLink removeLink" title="Remove from album">Remove</a>
+	    <span data-bind="if: songId">
+			<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Song', songId) }" href="#" target="_blank" title="Open for edit" class="iconLink editLink">Edit</a>			     
+	    </span>     
+		<a data-bind="click: $parent.removeTrack" href="#" class="iconLink removeLink" title="Remove from album">Remove</a>
 	</td>
 </tr>

@@ -166,12 +166,12 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult DataById(int id = invalidId) {
+		public ActionResult DataById(int id = invalidId, bool includeArtists = false) {
 
 			if (id == invalidId)
 				return NoId();
 
-			var song = Service.GetSong(id);
+			var song = Service.GetSong(id, s => new SongWithComponentsContract(s, LoginManager.LanguagePreference, includeArtists));
 			return new JsonNetResult { Data = song };
 
 		}
