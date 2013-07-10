@@ -31,7 +31,7 @@ namespace VocaDb.Web.Models.Tag {
 		public string CategoryName { get; set; }
 
 		[Display(Name = "Description")]
-		[StringLength(400)]
+		[StringLength(1000)]
 		public string Description { get; set; }
 
 		public bool IsEmpty { get; set; }
