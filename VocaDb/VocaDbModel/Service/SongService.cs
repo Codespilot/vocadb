@@ -1051,7 +1051,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		[Obsolete("Integrated to saving properties")]
+		// Not in use currently - done while saving album properties
 		public string UpdateArtists(int songId, int[] artistIds) {
 
 			ParamIs.NotNull(() => artistIds);
@@ -1095,6 +1095,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		// Not in use currently - done while saving album properties
 		public KeyValuePair<int, string>[] UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
 
 			ParamIs.NotNull(() => songIds);
