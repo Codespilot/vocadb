@@ -67,14 +67,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete("Integrated to saving properties")]
-		[HttpPost]
-		public void DeletePVForAlbum(int pvForAlbumId) {
-
-			Service.DeletePv(pvForAlbumId);
-
-		}
-
         //
         // GET: /Album/
 
@@ -145,28 +137,6 @@ namespace VocaDb.Web.Controllers
 		public ActionResult MikuDbRedirect() {
 
 			return RedirectToActionPermanent("Index", "Home");
-
-			/*var albumId = Service.FindByMikuDbId(id);
-
-			if (albumId == null) {
-
-				TempData.SetStatusMessage("Sorry, album not found! Maybe it hasn't been imported yet.");
-				return RedirectToAction("Index", "Home");
-
-			} else {
-
-				return RedirectToAction("Details", new { id = albumId });
-
-			}*/
-
-		}
-
-		[Obsolete("Replaced by saving properties")]
-		public PartialViewResult MultipleTrackProperties(int albumId) {
-
-			var contract = Service.GetArtists(albumId, ArtistHelper.SongArtistTypes);
-
-			return PartialView(contract);
 
 		}
 
@@ -331,41 +301,6 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Done on client side")]
-		public ActionResult AddNewSong(int albumId, string newSongName) {
-
-			if (string.IsNullOrWhiteSpace(newSongName)) {
-				log.Warn("Song name for album was null or whitespace");
-				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Song name cannot be null or whitespace");
-			}
-
-			var link = new SongInAlbumEditContract(newSongName.Trim());
-
-			return PartialView("SongInAlbumEditRow", link);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Replaced with data query")]
-		public PartialViewResult AddExistingSong(int albumId, int songId) {
-
-			var link = Services.Songs.GetSong(songId, s => new SongInAlbumEditContract(s, LoginManager.LanguagePreference));
-
-			return PartialView("SongInAlbumEditRow", link);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Integrated to saving properties")]
-		public ActionResult DeleteSongInAlbum(int songInAlbumId) {
-
-			var songs = Service.DeleteSongInAlbum(songInAlbumId);
-
-			return Json(songs);
-
-		}
-
 		[Authorize]
 		public ActionResult RemoveTagUsage(long id) {
 
@@ -524,17 +459,8 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete("Replaced by saving properties")]
-		public PartialViewResult TrackProperties(int albumId, int songId) {
-
-			var contract = Service.GetTrackProperties(albumId, songId);
-
-			return PartialView(contract);
-
-		}
-
+		// Not in use currently - done while saving album properties
 		[HttpPost]
-		[Obsolete("Replaced by saving properties")]
 		public ContentResult TrackProperties(int songId, string artistIds) {
 
 			var idStr = artistIds.Split(',');
@@ -561,6 +487,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		// Not in use currently - done while saving album properties
 		[HttpPost]
 		public ActionResult UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
 

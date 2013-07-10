@@ -312,45 +312,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongInAlbumContract[] DeleteSongInAlbum(int songInAlbumId) {
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var songInAlbum = session.Load<SongInAlbum>(songInAlbumId);
-
-				AuditLog("removing " + songInAlbum, session);
-
-				songInAlbum.OnDeleting();
-				session.Delete(songInAlbum);
-				session.Update(songInAlbum.Album);
-
-				return songInAlbum.Album.Songs.Select(s => new SongInAlbumContract(s, PermissionContext.LanguagePreference)).ToArray();
-
-			});
-
-		}
-
-		[Obsolete("Integrated to saving properties")]
-		public void DeletePv(int pvForAlbumId) {
-
-			VerifyManageDatabase();
-
-			HandleTransaction(session => {
-
-				var pvForAlbum = session.Load<PVForAlbum>(pvForAlbumId);
-
-				AuditLog("deleting " + pvForAlbum, session);
-
-				pvForAlbum.OnDelete();
-
-				session.Delete(pvForAlbum);
-
-			});
-
-		}
-
 		public PartialFindResult<T> Find<T>(Func<Album, T> fac, AlbumQueryParams queryParams)
 			where T : class {
 
