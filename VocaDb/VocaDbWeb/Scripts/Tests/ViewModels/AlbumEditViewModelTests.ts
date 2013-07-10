@@ -125,7 +125,7 @@ module vdb.tests.viewModels {
         ok(target.editedSong(), "editedSong");
         equal(target.editedSong().song, track, "editedSong.song");
         ok(target.editedSong().artistSelections, "editedSong.artistSelections");
-        equal(target.editedSong().artistSelections.length, 2, "editedSong.artistSelections.length");
+        equal(target.editedSong().artistSelections.length, 2, "editedSong.artistSelections.length"); // Label or custom artist are not included.
         equal(target.editedSong().artistSelections[0].artist, producer, "editedSong.artistSelections[0].artist");
         equal(target.editedSong().artistSelections[0].selected(), true, "editedSong.artistSelections[0].selected");   // Selected, because added to song
         equal(target.editedSong().artistSelections[1].artist, vocalist, "editedSong.artistSelections[1].artist");
@@ -167,7 +167,7 @@ module vdb.tests.viewModels {
 
         ok(target.editedSong(), "editedSong");
         ok(target.editedSong().artistSelections, "editedSong.artistSelections");
-        equal(target.editedSong().artistSelections.length, 2, "editedSong.artistSelections.length");
+        equal(target.editedSong().artistSelections.length, 2, "editedSong.artistSelections.length");    // Label or custom artist are not included.
         equal(target.editedSong().artistSelections[0].selected(), false, "editedSong.artistSelections[0].selected");
         equal(target.editedSong().artistSelections[1].selected(), false, "editedSong.artistSelections[1].selected");
 
