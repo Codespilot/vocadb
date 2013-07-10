@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
@@ -26,8 +27,8 @@ namespace VocaDb.Tests.Domain.Songs {
 		[TestInitialize]
 		public void Setup() {
 
-			artist = new Artist { Id = 1 };
-			song = new Song();
+			artist = new Artist(TranslatedString.Create("Minato")) { Id = 1, ArtistType = ArtistType.Producer };
+			song = new Song(new LocalizedString("Soar", ContentLanguageSelection.English));
 			lyrics = song.CreateLyrics(ContentLanguageSelection.Japanese, "Miku!", "miku");
 
 		}
@@ -87,6 +88,22 @@ namespace VocaDb.Tests.Domain.Songs {
 
 			Assert.AreEqual(1, song.AllArtists.Count, "Only one artist");
 			Assert.AreEqual(artist, song.AllArtists.First().Artist, "Artist is as expected");
+
+		}
+
+		/// <summary>
+		/// Extra artists (just name, no entry) will not be removed when syncing with real artists.
+		/// </summary>
+		[TestMethod]
+		public void SyncArtists_WillNotRemoveExtraArtists() {
+
+			var link = song.AddArtist("Extra artist", false, ArtistRoles.Composer);
+			var newArtists = new[] { new ArtistContract(artist, ContentLanguagePreference.Default) };
+
+			song.SyncArtists(newArtists, ac => new[] { artist });
+
+			Assert.AreEqual(2, song.AllArtists.Count, "artists count");
+			Assert.IsTrue(song.HasArtistLink(link), "Still has the extra artist");
 
 		}
 

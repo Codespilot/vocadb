@@ -141,7 +141,7 @@ namespace VocaDb.Tests.Domain.Albums {
 		/// Edited track properties other than artists.
 		/// </summary>
 		[TestMethod]
-		public void Sync_Contracts_EditedProperties() {
+		public void SyncSongs_EditedProperties() {
 
 			album.AddSong(song1, 1, 1);
 			songInAlbumContract.TrackNumber = 2;
@@ -164,7 +164,7 @@ namespace VocaDb.Tests.Domain.Albums {
 		/// Edited track artists list.
 		/// </summary>
 		[TestMethod]
-		public void Sync_Contracts_EditedArtists() {
+		public void SyncSongs_EditedArtists() {
 
 			album.AddSong(song1, 1, 1);
 			songInAlbumContract.Artists = new[] { producerContract, vocalistContract };
@@ -180,7 +180,7 @@ namespace VocaDb.Tests.Domain.Albums {
 		}
 
 		[TestMethod]
-		public void Sync_Contracts_Removed() {
+		public void SyncSongs_Removed() {
 
 			album.AddSong(song1, 1, 1);
 			var newSongs = new SongInAlbumEditContract[0];
