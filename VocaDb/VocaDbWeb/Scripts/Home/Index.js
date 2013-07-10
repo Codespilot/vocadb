@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     }
 
-    $("#addFavoriteLink").live("click", function () {
+    $("#songPreview").on("click", "#addFavoriteLink", function () {
 
         setRating('Favorite', function () {
 
@@ -39,7 +39,7 @@ $(document).ready(function () {
 
     });
 
-    $("#addLikeLink").live("click", function () {
+    $("#songPreview").on("click", "#addLikeLink", function () {
 
         setRating('Like', function () {
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
     });
 
-    $("#removeFavoriteLink").live("click", function () {
+    $("#songPreview").on("click", "#removeFavoriteLink", function () {
 
         setRating('Nothing', function () {
 

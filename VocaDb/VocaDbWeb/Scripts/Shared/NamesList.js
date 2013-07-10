@@ -25,7 +25,7 @@ function initNamesList() {
 
 	});
 
-	$("a.nameDelete").live("click", function () {
+	$(document).on("click", "a.nameDelete", function () {
 
 		$(this).parent().parent().remove();
 		return false;

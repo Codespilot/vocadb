@@ -39,7 +39,7 @@ function initPage(viewModel, albumId, discType) {
 
 	$("input.artistRoleCheck").button();
 
-	$("a.artistRolesEdit").live("click", function () {
+	$(document).on("click", "a.artistRolesEdit", function () {
 
 		var data = ko.dataFor(this);
 
@@ -107,7 +107,7 @@ function initPage(viewModel, albumId, discType) {
 		
 	});
 
-	$("a.picRemove").live("click", function () {
+	$(document).on("click", "a.picRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;
@@ -135,7 +135,7 @@ function initPage(viewModel, albumId, discType) {
 
 	});
 
-	$("a.pvRemove").live("click", function () {
+	$(document).on("click", "a.pvRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;

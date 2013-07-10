@@ -47,7 +47,7 @@ function initPage() {
 			height: 300
 		});
 
-	$("a.artistRemove").live("click", function () {
+	$(document).on("click", "a.artistRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;

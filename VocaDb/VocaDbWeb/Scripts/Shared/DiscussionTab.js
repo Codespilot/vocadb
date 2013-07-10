@@ -22,7 +22,7 @@ function tabLoaded(controllerUrl, entryId, event, ui) {
 
 	});
 
-	$("a.deleteComment").live("click", function () {
+	$(document).on("click", "a.deleteComment", function () {
 
 		if (!confirm("Are you sure you want to delete this comment?"))
 			return false;

@@ -116,7 +116,7 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 	});
 
-	$("a.deleteComment").live("click", function () {
+	$(document).on("click", "a.deleteComment", function () {
 
 		if (!confirm(confirmDeleteStr))
 			return false;

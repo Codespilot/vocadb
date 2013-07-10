@@ -30,7 +30,7 @@ $(document).ready(function () {
 			createOptionSecondRow: function (item) { return item.AdditionalNames; }
 		});
 
-	$("a.artistRemove").live("click", function () {
+	$(document).on("click", "a.artistRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;

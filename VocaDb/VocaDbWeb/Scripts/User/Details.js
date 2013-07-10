@@ -59,7 +59,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 	}]
 	});
 
-	$(".editAlbumLink").live("click", function () {
+	$("#tabs").on("click", ".editAlbumLink", function () {
 
 		var dataCol = $(this).parent().parent().find("td")[0];
 		var albumId = $(dataCol).find(".albumId").val();
@@ -100,7 +100,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 
 	});
 
-	$("a.deleteComment").live("click", function () {
+	$(document).on("click", "a.deleteComment", function () {
 
 		if (!confirm("Are you sure you want to delete this comment?"))
 			return false;
