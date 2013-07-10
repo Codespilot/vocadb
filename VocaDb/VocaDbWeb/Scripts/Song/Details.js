@@ -266,7 +266,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
 		});
 
-		$("a.deleteComment").live("click", function () {
+		$(document).on("click", "a.deleteComment", function () {
 
 			if (!confirm(deleteCommentStr))
 				return false;

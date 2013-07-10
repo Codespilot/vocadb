@@ -109,14 +109,14 @@ function initPage(songId) {
 
 	}
 
-	$("a.artistRemove").live("click", function () {
+	$(document).on("click", "a.artistRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;
 
 	});
 
-	$("a.artistRolesEdit").live("click", function () {
+	$(document).on("click", "a.artistRolesEdit", function () {
 
 		var row = $(this).parent().parent();
 
@@ -164,7 +164,7 @@ function initPage(songId) {
 
 	});
 
-	$("a.pvRemove").live("click", function () {
+	$(document).on("click", "a.pvRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;
@@ -183,7 +183,7 @@ function initPage(songId) {
 
 	});
 
-	$("a.deleteLyrics").live("click", function () {
+	$(document).on("click", "a.deleteLyrics", function () {
 
 		$(this).parent().remove();
 		return false;

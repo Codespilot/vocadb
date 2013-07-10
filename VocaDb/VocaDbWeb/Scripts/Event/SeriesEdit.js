@@ -20,7 +20,7 @@ function initPage() {
 
 	});
 
-	$("a.aliasRemove").live("click", function () {
+	$(document).on("click", "a.aliasRemove", function () {
 
 		$(this).parent().remove();
 

@@ -36,7 +36,7 @@ function initPage(artistId) {
 			width: 350
 		});
 
-	$("a.groupRemove").live("click", function () {
+	$(document).on("click", "a.groupRemove", function () {
 
 		$(this).parent().parent().remove();		
 		return false;
@@ -55,7 +55,7 @@ function initPage(artistId) {
 
 	});
 
-	$("a.picRemove").live("click", function () {
+	$(document).on("click", "a.picRemove", function () {
 
 		$(this).parent().parent().remove();
 		return false;
