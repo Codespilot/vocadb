@@ -11,12 +11,19 @@ module vdb.tests.viewModels {
 
     var rep = new vdb.tests.testSupport.FakeAlbumRepository();
     var songRep: vdb.tests.testSupport.FakeSongRepository;
+
     var song: dc.SongWithComponentsContract;
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
+
     var producer = { id: 1, name: "Tripshots", additionalNames: "", artistType: "Producer" };
     var vocalist = { id: 2, name: "Hatsune Miku", additionalNames: "", artistType: "Vocalist" };
+    var label = { id: 3, name: "KarenT", additionalNames: "", artistType: "Label" };
+
     var producerArtistLink = { artist: producer, id: 39, isSupport: false, name: "", roles: "Default" };
     var vocalistArtistLink = { artist: vocalist, id: 40, isSupport: false, name: "", roles: "Default" };
+    var labelArtistLink = { artist: label, id: 41, isSupport: false, name: "", roles: "Default" };
+    var customArtistLink = { artist: null, id: 42, isSupport: false, name: "xxJulexx", roles: "Default" };
+
     var songInAlbum: vm.SongInAlbumEditContract;
     var roles = { Default: "Default", VoiceManipulator: "Voice manipulator" };
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 123, url: "http://www.youtube.com/user/tripshots" };
@@ -34,7 +41,7 @@ module vdb.tests.viewModels {
                 songId: 3, songInAlbumId: 1, songName: "Nebula", trackNumber: 1
             };
 
-            data = { artistLinks: [producerArtistLink, vocalistArtistLink], discType: "Album", tracks: [songInAlbum], webLinks: [webLinkData] };
+            data = { artistLinks: [producerArtistLink, vocalistArtistLink, labelArtistLink, customArtistLink], discType: "Album", tracks: [songInAlbum], webLinks: [webLinkData] };
 
         }
     });
@@ -47,7 +54,7 @@ module vdb.tests.viewModels {
 
         var target = createViewModel();
 
-        equal(target.artistLinks().length, 2, "artistLinks.length");
+        equal(target.artistLinks().length, 4, "artistLinks.length");
         equal(target.artistLinks()[0].id, 39, "artistLinks[0].id");
         ok(target.artistLinks()[0].artist, "artistLinks[0].artist");
         equal(target.artistLinks()[0].artist, producer, "artistLinks[0].artist");
