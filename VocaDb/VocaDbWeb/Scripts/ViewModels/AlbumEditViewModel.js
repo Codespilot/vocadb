@@ -51,16 +51,21 @@ var vdb;
                     });
                 });
 
+                this.artistsForTracks = function () {
+                    var notAllowedTypes = ['Label'];
+                    return _.map(_.filter(_this.artistLinks(), function (a) {
+                        return a.artist != null && !_.contains(notAllowedTypes, a.artist.artistType);
+                    }), function (a) {
+                        return a.artist;
+                    });
+                };
+
                 this.artistLinks = ko.observableArray(_.map(data.artistLinks, function (artist) {
                     return new viewModels.ArtistForAlbumEditViewModel(repository, artist);
                 }));
 
                 this.editMultipleTrackProperties = function () {
-                    var artists = _.map(_.filter(_this.artistLinks(), function (a) {
-                        return a.artist != null;
-                    }), function (a) {
-                        return a.artist;
-                    });
+                    var artists = _this.artistsForTracks();
                     _this.editedSong(new TrackPropertiesViewModel(artists, null));
                     _this.trackPropertiesDialogButtons([
                         { text: "Add to tracks", click: _this.addArtistsToSelectedTracks },
@@ -70,11 +75,7 @@ var vdb;
                 };
 
                 this.editTrackProperties = function (song) {
-                    var artists = _.map(_.filter(_this.artistLinks(), function (a) {
-                        return a.artist != null;
-                    }), function (a) {
-                        return a.artist;
-                    });
+                    var artists = _this.artistsForTracks();
                     _this.editedSong(new TrackPropertiesViewModel(artists, song));
                     _this.trackPropertiesDialogButtons([{ text: 'Save', click: _this.saveTrackProperties }]);
                     _this.trackPropertiesDialogVisible(true);

@@ -25,6 +25,8 @@ module vdb.viewModels {
         // Whether all tracks should be selected.
         public allTracksSelected: KnockoutObservable<boolean>;
 
+        private artistsForTracks: () => dc.ArtistContract[];
+
         // List of artist links for this album.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 
@@ -109,11 +111,16 @@ module vdb.viewModels {
                 _.forEach(this.tracks(), s => s.selected(selected));
             });
 
+            this.artistsForTracks = () => {
+                var notAllowedTypes = ['Label'];
+                return _.map(_.filter(this.artistLinks(), a => a.artist != null && !_.contains(notAllowedTypes, a.artist.artistType)), a => a.artist);
+            };
+
             this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(repository, artist)));
 
             this.editMultipleTrackProperties = () => {
 
-                var artists = _.map(_.filter(this.artistLinks(), a => a.artist != null), a => a.artist);
+                var artists = this.artistsForTracks();
                 this.editedSong(new TrackPropertiesViewModel(artists, null));
                 this.trackPropertiesDialogButtons([
                     { text: "Add to tracks", click: this.addArtistsToSelectedTracks },
@@ -125,7 +132,7 @@ module vdb.viewModels {
 
             this.editTrackProperties = (song) => {
 
-                var artists = _.map(_.filter(this.artistLinks(), a => a.artist != null), a => a.artist);
+                var artists = this.artistsForTracks();
                 this.editedSong(new TrackPropertiesViewModel(artists, song));
                 this.trackPropertiesDialogButtons([{ text: 'Save', click: this.saveTrackProperties }]);
                 this.trackPropertiesDialogVisible(true);
