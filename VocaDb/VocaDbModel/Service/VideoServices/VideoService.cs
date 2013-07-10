@@ -9,10 +9,10 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		public static readonly VideoService NicoNicoDouga =
 			new VideoServiceNND(PVService.NicoNicoDouga, new NicoParser(), new[] {
-				new RegexLinkMatcher("nico.ms/{0}", @"nicovideo.jp/watch/([a-z]{2}\d{4,10})"),
-				new RegexLinkMatcher("nico.ms/{0}", @"nicovideo.jp/watch/(\d{6,12})"),
-				new RegexLinkMatcher("nico.ms/{0}", @"nico.ms/([a-z]{2}\d{4,10})"),
-				new RegexLinkMatcher("nico.ms/{0}", @"nico.ms/(\d{6,12})")
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/([a-z]{2}\d{4,10})"),
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nicovideo.jp/watch/(\d{6,12})"),
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nico.ms/([a-z]{2}\d{4,10})"),
+				new RegexLinkMatcher("www.nicovideo.jp/watch/{0}", @"nico.ms/(\d{6,12})")
 			});
 
 		public static readonly VideoService Piapro =
