@@ -530,7 +530,8 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual CollectionDiff<ArtistForSong, ArtistForSong> SyncArtists(IEnumerable<ArtistContract> newArtists, Func<ArtistContract[], Artist[]> artistGetter) {
 
-			var artistDiff = CollectionHelper.Diff(Artists, newArtists, (a, a2) => a.Artist != null && a.Artist.Id == a2.Id);
+			var realArtists = Artists.Where(a => a.Artist != null).ToArray();
+			var artistDiff = CollectionHelper.Diff(realArtists, newArtists, (a, a2) => a.Artist.Id == a2.Id);
 			var created = new List<ArtistForSong>();
 
 			if (artistDiff.Added.Any()) {
