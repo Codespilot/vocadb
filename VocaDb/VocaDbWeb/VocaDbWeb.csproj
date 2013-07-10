@@ -1467,11 +1467,11 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-smoothness.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
-    <Content Include="Scripts\knockout-2.2.0.debug.js" />
-    <Content Include="Scripts\knockout-2.2.0.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistToolTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
+    <Content Include="Scripts\knockout-2.2.1.debug.js" />
+    <Content Include="Scripts\knockout-2.2.1.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\KnockoutExtensions\ArtistAutoComplete.js">
       <DependentUpon>ArtistAutoComplete.ts</DependentUpon>
@@ -1932,7 +1932,6 @@
     <Content Include="Views\User\MySettings.cshtml" />
     <Content Include="Views\Artist\ArtistForAlbumRow.cshtml" />
     <Content Include="Views\Shared\LocalizedStringEditableRow.cshtml" />
-    <Content Include="Views\Album\ArtistForAlbumEditRow.cshtml" />
     <Content Include="Views\Song\LyricsForSongEditRow.cshtml" />
     <Content Include="Views\Song\ArtistForSongEditRow.cshtml" />
     <Content Include="Views\Shared\AddNewLinkRow.cshtml" />
