@@ -26,8 +26,8 @@ module vdb.viewModels {
 
         constructor(repository: vdb.repositories.UserRepository, songWithVoteContract: SongWithVoteContract, ratingCallback: () => void) {
 
-            var songId = songWithVoteContract.Id;
-            this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.Vote));
+            var songId = songWithVoteContract.id;
+            this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.vote));
             this.isRated = ko.computed(() => this.rating() != cls.SongVoteRating.Nothing);
             this.isRatingFavorite = ko.computed(() => this.rating() == cls.SongVoteRating.Favorite);
             this.isRatingLike = ko.computed(() => this.rating() == cls.SongVoteRating.Like);
@@ -50,9 +50,9 @@ module vdb.viewModels {
 
     export interface SongWithVoteContract {
         
-        Id: number;
+        id: number;
 
-        Vote: string;
+        vote: string;
     
     }
 

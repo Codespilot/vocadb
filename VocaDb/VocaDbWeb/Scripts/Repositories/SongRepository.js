@@ -10,13 +10,21 @@ var vdb;
                     return vdb.functions.mergeUrls(baseUrl, "/Song") + relative;
                 };
 
+                this.post = function (relative, params, callback) {
+                    $.post(_this.mapUrl(relative), params, callback);
+                };
+
                 this.findDuplicate = function (params, callback) {
-                    $.post(_this.mapUrl("/FindDuplicate"), params, callback);
+                    _this.post("/FindDuplicate", params, callback);
                 };
 
                 this.getOne = function (id, includeArtists, callback) {
                     if (typeof includeArtists === "undefined") { includeArtists = false; }
-                    $.post(_this.mapUrl("/DataById"), { id: id, includeArtists: includeArtists }, callback);
+                    _this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);
+                };
+
+                this.usersWithSongRating = function (id, callback) {
+                    _this.post("/UsersWithSongRating", { songId: id }, callback);
                 };
             }
             return SongRepository;

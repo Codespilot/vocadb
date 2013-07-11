@@ -12,7 +12,7 @@ module vdb.tests.viewModels {
     QUnit.module("PVRatingButtonsViewModel");
 
     function createTarget(songId: number, rating: cls.SongVoteRating) {
-        return new vm.PVRatingButtonsViewModel(repository, { Id: songId, Vote: cls.SongVoteRating[rating] }, null)
+        return new vm.PVRatingButtonsViewModel(repository, { id: songId, vote: cls.SongVoteRating[rating] }, null)
     }
 
     test("constructor", () => {

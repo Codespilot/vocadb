@@ -1,72 +1,5 @@
 ﻿
-function DetailsViewModel(model) {
-
-	var self = this;
-
-	this.id = ko.observable(model.Id);
-	this.allVersionsVisible = ko.observable(false);	// Whether to show all derived versions of this song
-	this.usersContent = ko.observable();			// Users who have rated this song
-	this.userRating = ko.observable(model.UserRating);
-
-	self.showAllVersions = function() {
-		self.allVersionsVisible(true);
-	};
-
-	function setRating(rating, callback) {
-
-		var url = vdb.functions.mapUrl("/User/AddSongToFavorites");
-		$.post(url, { songId: self.id, rating: rating }, callback);
-		self.userRating(rating);
-
-	}
-
-	self.addFavorite = function () {
-
-		setRating('Favorite', function () {
-			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
-		});
-
-		return false;
-
-	};
-
-	self.addLike = function () {
-
-		setRating('Like', function () {
-			vdb.ui.showSuccessMessage(vdb.resources.song.thanksForRating);
-		});
-
-		return false;
-
-	};
-
-	self.getUsers = function () {
-
-		$.post(vdb.functions.mapUrl("/Song/UsersWithSongRating"), { songId: self.id }, function (result) {
-
-			self.usersContent(result);
-			$("#userRatingsPopup").dialog("open");
-
-		});
-
-		return false;
-
-	};
-
-	self.removeRating = function () {
-
-		setRating('Nothing');
-
-		return false;
-
-	};
-
-}
-
 function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
-
-	var viewModel = new DetailsViewModel(jsonModel);
-	ko.applyBindings(viewModel);
 
     $("#ratingButtons").buttonset();
 	$("#addFavoriteLink").button({ disabled: $("#addFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
@@ -285,8 +218,6 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 		});
 
 	}
-
-	$("#userRatingsPopup").dialog({ autoOpen: false, width: 400, position: { my: "left top", at: "left bottom", of: $("#statsLink") } });
 
 	$("td.artistList a").vdbArtistToolTip();
 	$("#albumList a").vdbAlbumWithCoverToolTip();

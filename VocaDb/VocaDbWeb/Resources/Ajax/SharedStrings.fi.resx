@@ -123,4 +123,10 @@
   <data name="ReportSent" xml:space="preserve">
     <value>Raportti lähetetty. Kiitos!</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Tallenna</value>
+  </data>
+  <data name="ThanksForRating" xml:space="preserve">
+    <value>Kiitos arvostelusta!</value>
+  </data>
 </root>

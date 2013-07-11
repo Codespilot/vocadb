@@ -7,7 +7,7 @@ var vdb;
             function UserRepository(baseUrl) {
                 var _this = this;
                 this.mapUrl = function (relative) {
-                    return baseUrl + "/User" + relative;
+                    return vdb.functions.mergeUrls(baseUrl, "/User") + relative;
                 };
 
                 this.updateSongRating = function (songId, rating, callback) {

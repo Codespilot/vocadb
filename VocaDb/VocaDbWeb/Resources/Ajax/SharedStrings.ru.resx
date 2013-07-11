@@ -120,4 +120,10 @@
   <data name="ReportSent" xml:space="preserve">
     <value>Замечание отправлено. Спасибо!</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="ThanksForRating" xml:space="preserve">
+    <value>Спасибо за оценку!</value>
+  </data>
 </root>

@@ -38,13 +38,15 @@
 	}
 }
 
-<span data-bind="visible: userRating() == 'Favorite'" style="display: none;" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
-<span data-bind="visible: userRating() == 'Like'" style="display: none;" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
-<span data-bind="visible: userRating() == 'Nothing'" style="display: none;" id="ratingButtons">
-    <a href="#" data-bind="click: addLike" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
-    <a href="#" data-bind="click: addFavorite" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+<span data-bind="with: userRating">
+	<span data-bind="visible: isRatingFavorite" style="display: none;" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
+	<span data-bind="visible: isRatingLike" style="display: none;" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
+	<span data-bind="visible: isRated() == false" style="display: none;" id="ratingButtons">
+		<a href="#" data-bind="click: setRating_like" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
+		<a href="#" data-bind="click: setRating_favorite" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+	</span>
+	<a href="#" data-bind="visible: isRated, click: setRating_nothing" id="removeFavoriteLink" style="display: none;" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>			
 </span>
-<a href="#" data-bind="visible: userRating() != 'Nothing', click: removeRating" id="removeFavoriteLink" style="display: none;" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>	
 <a href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
 
 @Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink", @class = (Model.CanEdit ? "" : "disabled") })
@@ -311,7 +313,7 @@
 	<select id="addtoListSelect" size="6"></select>
 </div>
 
-<div id="userRatingsPopup" title="@R.DetailsStrings.SongRatings">
+<div data-bind="dialog: {autoOpen: false, modal: true, width: 400, position: { my: 'left top', at: 'left bottom', of: $('#statsLink') } }, dialogVisible: $root.usersPopupVisible" title="@R.DetailsStrings.SongRatings">
 	
 	<div data-bind="html: usersContent"></div>
 
@@ -330,8 +332,13 @@
 				thanksForRating: '@Html.Raw(AjaxRes.SongStrings.ThanksForRating)'
 			};
 
-			var json = @Html.Raw(Model.Json);
-			initPage(json, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+			var jsonModel = @Html.Raw(Model.Json);
+			var repo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
+			var userRepo = new vdb.repositories.UserRepository(vdb.values.baseAddress);
+			var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, jsonModel, vdb.ui.showThankYouForRatingMessage);
+			ko.applyBindings(viewModel);	
+			
+			initPage(jsonModel, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress");
 		});
 
 	</script>

@@ -41,6 +41,9 @@
             ajaxLoadingMessage = $("#loadingMessage");
             if (ajaxLoadingMessage) return ajaxLoadingMessage.hide();
         },
+        showThankYouForRatingMessage: function() {
+        	vdb.ui.showSuccessMessage(vdb.resources.shared.thanksForRating);
+        },
         _initMessages: function () {
             var ajaxLoadingMessage, loadingCount,
               _this = this;
