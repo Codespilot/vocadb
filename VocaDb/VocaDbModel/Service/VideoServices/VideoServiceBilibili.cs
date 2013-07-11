@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using HtmlAgilityPack;
@@ -42,8 +43,11 @@ namespace VocaDb.Model.Service.VideoServices {
 					doc = XDocument.Load(stream);
 				}
 			} catch (WebException x) {
-				log.WarnException("Unable to load Bilibili URL " + url, x);
-				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException("Unable to load Bilibili URL: " + x.Message, x));
+				log.WarnException(string.Format("Unable to load Bilibili URL {0}", url), x);
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException(string.Format("Unable to load Bilibili URL: {0}", x.Message), x));
+			} catch (XmlException x) {
+				log.WarnException(string.Format("Unable to load Bilibili URL {0}", url), x);
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException(string.Format("Unable to load Bilibili URL: {0}", x.Message), x));
 			}
 
 			var titleElem = doc.XPathSelectElement("/info/title");
