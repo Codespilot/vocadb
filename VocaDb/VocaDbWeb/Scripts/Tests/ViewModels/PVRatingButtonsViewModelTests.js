@@ -10,7 +10,7 @@ var vdb;
             QUnit.module("PVRatingButtonsViewModel");
 
             function createTarget(songId, rating) {
-                return new vm.PVRatingButtonsViewModel(repository, { Id: songId, Vote: cls.SongVoteRating[rating] }, null);
+                return new vm.PVRatingButtonsViewModel(repository, { id: songId, vote: cls.SongVoteRating[rating] }, null);
             }
 
             test("constructor", function () {
