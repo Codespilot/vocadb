@@ -13,41 +13,75 @@
 	</ul>
 
 	<div id="aboutvocadb">
-		<h4 id="vocadbdescription">What is VocaDB?</h4>
-			<p>Vocaloid Database is aimed to be a specialized and unified source of information about Vocaloid discography, including songs, albums and producers.</p>
-			<p>Wiki, blogs and forums aren't suitable for storing, managing and effective search through a net of crosslinks between songs, producers, circles, vocaloids and PV's, and that information is scattered and duplicated across many websites in different languages.</p>
-			<p>VocaDB was created as a custom solution for information about Vocaloid music and a <a href="#vocadbmetadata" title="">service</a> for other websites like MikuDB and Vocaloid Wiki.</p>
+		<h4 id="vocadbdescription">Overview</h4>
+		<p>
+			VocaDB is a free to use database for Vocaloid artists, albums and songs. 
+			The main goal of the site is to have accurate, translated entries for as many artists, their albums and songs as possible. 
+			Anyone is able to contribute and correct existing information by creating an account. 
+			Vocaloid artists are encouraged to add their own information, thus providing a way to promote themselves. 
+			Registered users may add lyrics and PVs to songs. 
+			Entries may be tagged with specific genres and other meta-information. 
+			Popular doujin events such as The Vocaloid M@ster may also be tracked. 
+			The site is designed so that it would be comfortable to use by fans around the world, including both western and Japanese users.			
+		</p>
+		<p>
+			We specialize in Vocaloid content, both Japanese and overseas, so the site includes multiple features designed with that in mind.
+			For that reason, the site supports embedding media, such as PVs, from NicoNicoDouga, Youtube and piapro (among other sites), that are popular among the community.
+			Users can choose to view titles in the original language, or see translated names instead.
+		</p>
+		<p>
+			VocaDB is not a music sharing site. Illegal album downloads are not allowed. 
+			However, we are eager to promote artists who are sharing their music
+			@Html.ActionLink("for free", "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "tag:free" }, null).
+			Whenever possible, album entries contain links to websites where you can purchase the albums.
+		</p>
 			
 		<br />
-		<h4 id="vocadbfeatures">Can I download Vocaloid music here?</h4>
-			<p>No, VocaDB does not store any Vocaloid music files and does not provide any direct download links.</p>
-			<p>See <a href="#" onclick="guidelines();" title="">main guidelines section</a> for more details.</p>
-			
-		<br />
-		<h4 id="whatCanIDo">What can I do here?</h4>
-			<p>You can browse and search for Vocaloid songs, producers, circles, PVs and song lyrics.</p>
-			<p>Register (it's free and fast) to be able to:</p>
+		<h4 id="whatCanIDo">Registration benefits</h4>
+			<p>As an unregistered user you can browse and search for Vocaloid songs, producers, circles, PVs and song lyrics.</p>
+			<p>A free registration is required in order to</p>
 			<ul>
 				<li>customize your display language and date formatting</li>
 				<li><a href="#" onclick="guidelines();" title="">contribute information to VocaDB</a></li>
 				<li>add songs to your favorites and songlists</li>
-				<li>list personal collections of Vocaloid albums</li>
+				<li>list your personal collection of Vocaloid albums</li>
 				<li>participate in the discussions</li>
 				<li>tag albums, artists and songs</li>
-				<li>and more</li>
+				<li>among other things</li>
 			</ul>
 		
 		<br />
-		<h4 id="contribute">How can I report errors and add information to VocaDB?</h4>
+		<h4 id="contribute">I found an error, what should I do?</h4>
 			<p>
-				If you encounter incorrect or missing information, you can let us know by using the reporting feature, or better yet, create an account and 
-				<a href="#" onclick="guidelines();" title="">correct it</a> yourself. 
+				If you encounter incorrect or missing information, you can let us know by using the reporting feature, or better yet, create an account and correct it yourself.
+				Please read the
+				<a href="#" onclick="guidelines();" title="">guidelines</a>
+				first though. 
 				If you have a technical problem with the site, please <a href="#contactus" title="">contact us</a>.
 			</p>
 			
 		<br />
-		<h4 id="vocadbmetadata">Can other sites get information from VocaDB?</h4>
-			<p>Yes, VocaDB has open interfaces and provides custom metadata request services - please <a href="#contactus" title="">contact</a> developers for details.</p>
+		<h4 id="vocadbmetadata">For developers and webmasters</h4>
+		<p>
+			Do you have a site or service that concerns Vocaloid discography? 
+			We'd be happy to help you and we're prepared to share the information on our site with other similar services.
+			Currently we have a limited <a href="https://code.google.com/p/vocadb/wiki/PublicApi">public API</a> for basic queries, supporting XML and JSON, 
+			and it's possible to expand it as needed.
+		</p>
+		<p>
+			We're offering our own embeddable <a href="http://wiki.vocadb.net/wiki/4/song-embeds">VocaDB player</a>. 
+			VocaDB embeddable player can be used on any website, just like you'd embed Youtube or NND. 
+			With VocaDB's embeddable player you'll get translations for song title and artist name,  and the user can switch between video services. 
+			There's also a link to VocaDB for additional information. 
+			The embeddable player supports <a href="http://oembed.com/">OEmbed</a>.
+		</p>
+		<p>
+			Finally, we have a <a href="http://wiki.vocadb.net/wiki/3/tooltips-api">tooltip library</a> that can be used to add informational tooltips
+			to VocaDB links on your site.
+		</p>
+		<p>
+			Please <a href="#contactus" title="">contact us</a> for more details and requests.			
+		</p>
 			
 		<br />
 		<h4 id="staff">Staff</h4>
