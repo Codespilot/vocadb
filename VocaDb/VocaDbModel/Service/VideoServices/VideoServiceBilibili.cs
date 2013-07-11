@@ -40,11 +40,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			try {
 				using (var response = request.GetResponse())
 				using (var stream = response.GetResponseStream()) {
-					var reader = new StreamReader(stream);
-					var result = reader.ReadToEnd();
-					log.Warn("Data: " + result);
-					doc = XDocument.Load(result);
-					//doc = XDocument.Load(stream);
+					doc = XDocument.Load(stream);
 				}
 			} catch (WebException x) {
 				log.WarnException(string.Format("Unable to load Bilibili URL {0}", url), x);
