@@ -123,4 +123,10 @@
   <data name="ReportSent" xml:space="preserve">
     <value>Report sent. Thank you!</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ThanksForRating" xml:space="preserve">
+    <value>Thank you for rating!</value>
+  </data>
 </root>

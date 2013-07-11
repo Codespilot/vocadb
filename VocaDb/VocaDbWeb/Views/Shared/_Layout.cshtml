@@ -248,10 +248,7 @@
             vdb.resources.album = {
                 addedToCollection: '@Html.Raw(AjaxRes.AlbumStrings.AddedToCollection)'
             };
-            vdb.resources.shared = {
-                reportSent: '@Html.Raw(AjaxRes.SharedStrings.ReportSent)',
-                save: '@Html.Raw(ViewRes.SharedStrings.Save)'
-            };
+            vdb.resources.shared = @ResourceHelpers.ToJSON(AjaxRes.SharedStrings.ResourceManager, true);
 
             vdb.ui.initAll();
 

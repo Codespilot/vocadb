@@ -6,8 +6,8 @@ var vdb;
         var PVRatingButtonsViewModel = (function () {
             function PVRatingButtonsViewModel(repository, songWithVoteContract, ratingCallback) {
                 var _this = this;
-                var songId = songWithVoteContract.Id;
-                this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.Vote));
+                var songId = songWithVoteContract.id;
+                this.rating = ko.observable(cls.parseSongVoteRating(songWithVoteContract.vote));
                 this.isRated = ko.computed(function () {
                     return _this.rating() != cls.SongVoteRating.Nothing;
                 });

@@ -21,7 +21,7 @@ module vdb.repositories {
         constructor(baseUrl: string) {
 
             this.mapUrl = (relative: string) => {
-                return baseUrl + "/User" + relative;
+                return vdb.functions.mergeUrls(baseUrl, "/User") + relative;
             };
 
             this.updateSongRating = (songId: number, rating: cls.SongVoteRating, callback: Function) => {

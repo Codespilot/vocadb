@@ -1860,6 +1860,10 @@
     <Content Include="Scripts\ViewModels\SongInAlbumEditViewModel.js">
       <DependentUpon>SongInAlbumEditViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\Song\SongDetailsViewModel.ts" />
+    <Content Include="Scripts\ViewModels\Song\SongDetailsViewModel.js">
+      <DependentUpon>SongDetailsViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
     </Content>

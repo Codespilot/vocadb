@@ -77,7 +77,14 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/SongCreateViewModel.js"
 			));
 
-			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include("~/Scripts/Song/Details.js"));
+			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include(
+				"~/Scripts/Models/SongVoteRating.js",
+				"~/Scripts/Repositories/SongRepository.js",
+				"~/Scripts/Repositories/UserRepository.js",
+				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
+				"~/Scripts/ViewModels/Song/SongDetailsViewModel.js",
+				"~/Scripts/Song/Details.js"
+			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Edit").Include(
 				"~/Scripts/ViewModels/SongEditViewModel.js",

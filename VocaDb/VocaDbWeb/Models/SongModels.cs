@@ -136,7 +136,7 @@ namespace VocaDb.Web.Models {
 
 		public string Json {
 			get {
-				return JsonConvert.SerializeObject(new SongDetailsAjax(this));
+				return JsonHelpers.Serialize(new SongDetailsAjax(this));
 			}
 		}
 
