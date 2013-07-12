@@ -7,12 +7,23 @@ module vdb.tests.testSupport {
 
     export class FakeSongRepository extends vdb.repositories.SongRepository {
 
+        addedSongId: number;
         results: dc.NewSongCheckResultContract = null;
         song: dc.SongWithComponentsContract = null;
+        songLists: dc.SongListBaseContract[] = [];
 
         constructor() {
             
             super("");
+
+            this.addSongToList = (listId, songId, newListName, callback?) => {
+
+                this.addedSongId = songId;
+
+                if (callback)
+                    callback();
+
+            }
 
             this.findDuplicate = (params, callback: (result: dc.NewSongCheckResultContract) => void) => {
                 if (callback)
@@ -22,6 +33,16 @@ module vdb.tests.testSupport {
             this.getOne = (id, includeArtists = false, callback?) => {
                 if (callback)
                     callback(this.song);
+            }
+
+            this.songListsForUser = (ignoreSongId, callback) => {
+                if (callback)
+                    callback(this.songLists);
+            }
+
+            this.usersWithSongRating = (id, callback) => {
+                if (callback)
+                    callback("");
             }
         
         }

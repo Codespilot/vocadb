@@ -26,7 +26,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
-		public SongInListEditContract(SongWithAdditionalNamesContract songContract) {
+		public SongInListEditContract(SongContract songContract) {
 
 			ParamIs.NotNull(() => songContract);
 

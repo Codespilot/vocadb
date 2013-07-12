@@ -210,4 +210,7 @@
   <data name="Duration" xml:space="preserve">
     <value>Kesto</value>
   </data>
+  <data name="NewListName" xml:space="preserve">
+    <value>Uuden listan nimi</value>
+  </data>
 </root>

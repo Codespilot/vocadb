@@ -28,47 +28,6 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 		.ajaxStop(function () { $(this).hide(); });
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: saveStr, click: saveTagSelections}] });
-	$("#addToListDialog").dialog({ autoOpen: false, width: 300, modal: false, buttons: [{ text: saveStr, click: function () {
-
-		$("#addToListDialog").dialog("close");
-
-		var listId = $("#addtoListSelect").val();
-
-		if (listId == null)
-			return;
-
-		$.post(hostAddress + "/Song/AddSongToList", { listId: listId, songId: songId }, null);
-
-		vdb.ui.showSuccessMessage(vdb.resources.song.addedToList);
-
-	}}]});
-
-
-	$("#addToListLink").click(function () {
-
-		$.get(hostAddress + "/Song/SongListsForUser", { ignoreSongId: songId }, function (lists) {
-
-			var addToListLinkPos = $("#addToListLink").offset();
-			if (addToListLinkPos != null) {
-				$("#addToListDialog").dialog("option", "position", [addToListLinkPos.left, addToListLinkPos.top - $(window).scrollTop() + 35]);
-			}
-
-			var addtoListSelect = $("#addtoListSelect");
-			addtoListSelect.html("");
-
-			$(lists).each(function () {
-
-				addOption(addtoListSelect, this.Id, this.Name);
-
-			});
-
-			$("#addToListDialog").dialog("open");
-
-		});
-
-		return false;
-
-	});
 
 	initReportEntryPopup(saveStr, hostAddress + "/Song/CreateReport", { songId: songId });
 
