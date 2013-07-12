@@ -1138,6 +1138,10 @@
     <Content Include="Scripts\DataContracts\SongContract.js">
       <DependentUpon>SongContract.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\DataContracts\SongListBaseContract.ts" />
+    <Content Include="Scripts\DataContracts\SongListBaseContract.js">
+      <DependentUpon>SongListBaseContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\TranslatedEnumField.js">
       <DependentUpon>TranslatedEnumField.ts</DependentUpon>
     </Content>
@@ -1606,6 +1610,10 @@
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongEditViewModelTests.ts" />
     <Content Include="Scripts\Tests\ViewModels\SongEditViewModelTests.js">
       <DependentUpon>SongEditViewModelTests.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.ts" />
+    <Content Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.js">
+      <DependentUpon>SongDetailsViewModelTests.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
@@ -2084,6 +2092,7 @@
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_DuplicateEntriesMessage.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_IPManage.cshtml" />
+    <Content Include="Views\Song\Partials\_SongListsDialog.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

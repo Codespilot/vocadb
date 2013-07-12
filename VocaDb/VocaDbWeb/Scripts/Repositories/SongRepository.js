@@ -14,6 +14,10 @@ var vdb;
                     $.post(_this.mapUrl(relative), params, callback);
                 };
 
+                this.addSongToList = function (listId, songId, newListName, callback) {
+                    _this.post("/AddSongToList", { listId: listId, songId: songId, newListName: newListName }, callback);
+                };
+
                 this.findDuplicate = function (params, callback) {
                     _this.post("/FindDuplicate", params, callback);
                 };
@@ -21,6 +25,10 @@ var vdb;
                 this.getOne = function (id, includeArtists, callback) {
                     if (typeof includeArtists === "undefined") { includeArtists = false; }
                     _this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);
+                };
+
+                this.songListsForUser = function (ignoreSongId, callback) {
+                    _this.post("/SongListsForUser", { ignoreSongId: ignoreSongId }, callback);
                 };
 
                 this.usersWithSongRating = function (id, callback) {

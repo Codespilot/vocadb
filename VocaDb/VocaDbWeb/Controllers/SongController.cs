@@ -35,9 +35,22 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public void AddSongToList(int listId, int songId) {
+		public void AddSongToList(int listId, int songId, string newListName = null) {
 
-			Service.AddSongToList(listId, songId);
+			if (listId != 0) {
+
+				Service.AddSongToList(listId, songId);
+
+			} else if (!string.IsNullOrWhiteSpace(newListName)) {
+
+				var contract = new SongListForEditContract {
+					Name = newListName,
+					SongLinks = new[] {new SongInListEditContract {SongId = songId, Order = 1 }}
+				};
+
+				Service.UpdateSongList(contract);
+
+			}
 
 		}
 
@@ -162,7 +175,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult SongListsForUser(int ignoreSongId) {
 
 			var result = Service.GetSongListsForCurrentUser(ignoreSongId);
-			return Json(result);
+			return LowercaseJson(result);
 
 		}
 

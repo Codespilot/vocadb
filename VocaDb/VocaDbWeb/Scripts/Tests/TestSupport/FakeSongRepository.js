@@ -17,6 +17,14 @@ var vdb;
                     _super.call(this, "");
                     this.results = null;
                     this.song = null;
+                    this.songLists = [];
+
+                    this.addSongToList = function (listId, songId, newListName, callback) {
+                        _this.addedSongId = songId;
+
+                        if (callback)
+                            callback();
+                    };
 
                     this.findDuplicate = function (params, callback) {
                         if (callback)
@@ -27,6 +35,16 @@ var vdb;
                         if (typeof includeArtists === "undefined") { includeArtists = false; }
                         if (callback)
                             callback(_this.song);
+                    };
+
+                    this.songListsForUser = function (ignoreSongId, callback) {
+                        if (callback)
+                            callback(_this.songLists);
+                    };
+
+                    this.usersWithSongRating = function (id, callback) {
+                        if (callback)
+                            callback("");
                     };
                 }
                 return FakeSongRepository;

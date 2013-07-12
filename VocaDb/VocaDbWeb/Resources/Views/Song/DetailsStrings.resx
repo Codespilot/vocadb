@@ -210,4 +210,7 @@
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="NewListName" xml:space="preserve">
+    <value>New list name</value>
+  </data>
 </root>
