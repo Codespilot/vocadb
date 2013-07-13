@@ -59,6 +59,11 @@ Example: http://vocadb.net/Api/v1/Artist/ByName?query=tripshots
 No special parameters.
 
 == Songs ==
+=== Query single song by ID ===
+Endpoint: /Api/v1/Song/Details/[id]
+
+Example: http://vocadb.net/Api/v1/Song/Details/121?format=Xml
+
 === Song listing ===
 Endpoint: /Api/v1/Song/ByName
 
