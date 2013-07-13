@@ -83,6 +83,7 @@ namespace VocaDb.Web.Helpers {
 			return new MvcHtmlString(divTag + htmlHelper.ValidationMessage(inputName, "*").ToHtmlString());
 		}
 
+		// Not in use currently
 		public static MvcHtmlString EnumRadioButtonListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, TEnum>> expression,
 			TranslateableEnum<TEnum> enumType, IDictionary<string, object> htmlAttributes = null, object selectedValue = null)
@@ -92,6 +93,7 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		// Not in use currently
 		public static MvcHtmlString EnumRadioButtonListFor<TModel, TEnum>(this HtmlHelper<TModel> htmlHelper,
 			Expression<Func<TModel, TEnum>> expression,
 			IEnumerable<KeyValuePair<TEnum, string>> values, IDictionary<string, object> htmlAttributes = null, object selectedValue = null)

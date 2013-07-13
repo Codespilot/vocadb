@@ -4,6 +4,11 @@
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Models.Song
 
+@{
+	var searchObjectType = Html.GlobalSearchObjectType();
+	var searchTerm = Html.GlobalSearchTerm();	
+}
+
 @functions {
 
 	string PageTitle {
@@ -14,7 +19,7 @@
 			return !string.IsNullOrEmpty(ViewBag.Title) ? ViewBag.Title : string.Empty;
 		}
 	}
-
+	
 }
 
 @helper Banner(string title, string url, string img) {
@@ -69,11 +74,11 @@
 
 	<body style="padding-top: 50px">
 		  
-	    <div class="navbar navbar-inverse navbar-fixed-top">
+	    <div data-bind="stopBinding: true" class="navbar navbar-inverse navbar-fixed-top">
 		    <div class="navbar-inner">
-			    <div class="container">
+			    <div id="topBar" class="container">
 				    <div class="brand">@Html.ActionLink("VocaDB", "Index", "Home")</div>
-				    @{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(Html.GlobalSearchObjectType(), Html.GlobalSearchTerm())); }
+				    @{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(searchObjectType, searchTerm)); }
 			    </div>
 		    </div>
 	    </div>
@@ -134,30 +139,31 @@
 					@if (Login.Manager.IsLoggedIn) {
 						<br />
 						<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
-	 }
+					}
 									
 					<br />
 					<h4>@ViewRes._LayoutStrings.SocialSites</h4>
-                    <div id="socialSites">
-                        @SocialLink("Facebook", "https://www.facebook.com/vocadb", "facebook.png")
-                        @SocialLink("Twitter", "https://twitter.com/VocaDB", "Twitter_Logo.png")
-                        @SocialLink("Google+", "https://plus.google.com/112203842561345720098", "googleplus-icon.png")
-                        <br />
-                        @Html.ActionLink("IRC channel on Rizon", "Chat", "Home")
-                    </div>
+					<div id="socialSites">
+						@SocialLink("Facebook", "https://www.facebook.com/vocadb", "facebook.png")
+						@SocialLink("Twitter", "https://twitter.com/VocaDB", "Twitter_Logo.png")
+						@SocialLink("Google+", "https://plus.google.com/112203842561345720098", "googleplus-icon.png")
+						<br />
+						@Html.ActionLink("IRC channel on Rizon", "Chat", "Home")
+					</div>
 
 					<br />
 					<h4>@ViewRes._LayoutStrings.RelatedSites</h4>
 					<ul id="banners">
-					    @Banner("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png")
-					    @Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
+						@Banner("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png")
+						@Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
 					</ul>					
 					<ul id="banners-small">
-					    @Banner("Mikufan.com", "http://www.mikufan.com", "mikufan_small.png")
-					    @Banner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
-					    @Banner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
+						@Banner("Mikufan.com", "http://www.mikufan.com", "mikufan_small.png")
+						@Banner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
+						@Banner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
 					</ul>
 				</div>
+
 				<div class="span10 rightFrame well">
                     
 							@if (ViewBag.Parents != null) {
@@ -250,7 +256,14 @@
             };
             vdb.resources.shared = @ResourceHelpers.ToJSON(AjaxRes.SharedStrings.ResourceManager, true);
 
-            vdb.ui.initAll();
+        	vdb.ui.initAll();
+
+        	var entryTypeTranslations = entryTypeTranslations = @ResourceHelpers.ToJSON(Resources.EntryTypeNames.ResourceManager);
+        	var topBarData = @Html.Raw(JsonHelpers.Serialize(new {
+				searchObjectType = searchObjectType.ToString(), searchTerm
+			}));
+        	var topBarViewModel = new vdb.viewModels.TopBarViewModel(entryTypeTranslations, topBarData.searchObjectType, topBarData.searchTerm);
+        	ko.applyBindings(topBarViewModel, $("#topBar")[0]);
 
         </script>
 		@RenderSection("BodyScripts", false)
