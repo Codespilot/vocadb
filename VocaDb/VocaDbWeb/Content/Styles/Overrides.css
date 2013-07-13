@@ -42,7 +42,7 @@ body .ui-widget button {
   color: #08C;
 }
 .navbar-search {
-  margin-top: 0;
+  margin-top: 4px;
 }
 .navbar-inverse .navbar-search .search-query {
   background-color: #005B5B;
@@ -63,16 +63,6 @@ body .ui-widget button {
 }
 .navbar-form .navbar-searchBox {
   margin-top: 0;
-}
-.navbar-form .navbar-searchBox .globalSearchBox {
-  margin-top: 4px;
-}
-.navbar .btn-group .btn,
-.navbar .input-prepend .btn,
-.navbar .input-append .btn,
-.navbar .input-prepend .btn-group,
-.navbar .input-append .btn-group {
-  margin-top: 4px;
 }
 .navbar .navbar-languageBar {
   padding: 0;

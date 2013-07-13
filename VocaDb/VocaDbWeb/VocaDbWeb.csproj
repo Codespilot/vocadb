@@ -1514,6 +1514,10 @@
     <Content Include="Scripts\KnockoutExtensions\Sortable.js">
       <DependentUpon>Sortable.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\StopBinding.ts" />
+    <Content Include="Scripts\KnockoutExtensions\StopBinding.js">
+      <DependentUpon>StopBinding.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
@@ -1871,6 +1875,10 @@
     <TypeScriptCompile Include="Scripts\ViewModels\Song\SongDetailsViewModel.ts" />
     <Content Include="Scripts\ViewModels\Song\SongDetailsViewModel.js">
       <DependentUpon>SongDetailsViewModel.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\TopBarViewModel.ts" />
+    <Content Include="Scripts\ViewModels\TopBarViewModel.js">
+      <DependentUpon>TopBarViewModel.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>

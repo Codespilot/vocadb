@@ -26,7 +26,9 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Shared/ReportEntryPopup.js",
 				"~/Scripts/KnockoutExtensions/Dialog.js",
 				"~/Scripts/KnockoutExtensions/EntryToolTip.js",
-				"~/Scripts/KnockoutExtensions/jqButtonset.js"
+				"~/Scripts/KnockoutExtensions/jqButtonset.js",
+				"~/Scripts/KnockoutExtensions/StopBinding.js",
+				"~/Scripts/ViewModels/TopBarViewModel.js"
 			));
 
 			// Included on all entry edit and create pages (album, artist, my settings etc.)

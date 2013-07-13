@@ -8,11 +8,24 @@
 }
 
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left navbar-search", id = "globalSearchBox" })) {
-	@Html.EnumRadioButtonListFor(m => m.ObjectType, Model.AllObjectTypes, new Dictionary<string, object> { { "class", "globalSearchEntryType nav-radio" } }, Model.ObjectType)
-	@Html.Raw("&nbsp;")
-
-	<div class="input-append navbar-searchBox">
-		<input type="text" name="globalSearchTerm" id="globalSearchTerm" class="globalSearchBox search-query input-large" size="50" placeholder="@ViewRes.SharedStrings.Search" maxlength="255" />	
+	
+	<input type="hidden" id="globalSearchObjectType" name="objectType" data-bind="value: entryType" />
+	
+	<div class="input-prepend input-append navbar-searchBox">
+		<div class="btn-group">
+			<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+				<span data-bind="text: entryTypeName">@Model.AllObjectTypes.GetName(Model.ObjectType)</span>
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var entryType in Model.AllObjectTypes.ValuesAndNames) {
+					<li>
+						<a data-bind="click: function() { entryType('@entryType.Key'); }" href="#">@entryType.Value</a>
+					</li>
+				}
+			</ul>
+		</div>
+		<input type="text" name="globalSearchTerm" id="globalSearchTerm" class="globalSearchBox search-query input-xlarge" size="50" placeholder="@ViewRes.SharedStrings.Search" maxlength="255" />	
 		<button type="submit" class="btn btn-info" title="@ViewRes.SharedStrings.Search">
 			<i class="icon-search"></i>
 		</button>
