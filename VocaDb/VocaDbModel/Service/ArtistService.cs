@@ -312,21 +312,21 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 			                   	
-				var contract = new ArtistDetailsContract(session.Load<Artist>(id), PermissionContext.LanguagePreference);
+				var contract = new ArtistDetailsContract(session.Load<Artist>(id), LanguagePreference);
 
 				if (PermissionContext.LoggedUser != null) {
 					contract.IsAdded = session.Query<ArtistForUser>()
 						.Any(s => s.Artist.Id == id && s.User.Id == PermissionContext.LoggedUser.Id);
 				}
 
-				contract.CommentCount = session.Query<ArtistComment>().Where(c => c.Artist.Id == id).Count();
+				contract.CommentCount = session.Query<ArtistComment>().Count(c => c.Artist.Id == id);
 
 				contract.LatestAlbums = session.Query<ArtistForAlbum>()
 					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport)
 					.Select(s => s.Album)
 					.OrderByDescending(s => s.CreateDate)
 					.Take(6).ToArray()
-					.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
+					.Select(s => new AlbumContract(s, LanguagePreference))
 					.ToArray();
 
 				contract.LatestSongs = session.Query<ArtistForSong>()
@@ -334,7 +334,7 @@ namespace VocaDb.Model.Service {
 					.Select(s => s.Song)
 					.OrderByDescending(s => s.CreateDate)
 					.Take(8).ToArray()
-					.Select(s => new SongContract(s, PermissionContext.LanguagePreference))
+					.Select(s => new SongContract(s, LanguagePreference))
 					.ToArray();
 
 				contract.TopAlbums = session.Query<ArtistForAlbum>()
@@ -344,7 +344,7 @@ namespace VocaDb.Model.Service {
 					.ThenByDescending(s => s.RatingCount)
 					.Take(6).ToArray()
 					.Where(a => contract.LatestAlbums.All(a2 => a.Id != a2.Id))
-					.Select(s => new AlbumContract(s, PermissionContext.LanguagePreference))
+					.Select(s => new AlbumContract(s, LanguagePreference))
 					.ToArray();
 
 				contract.TopSongs = session.Query<ArtistForSong>()
@@ -353,7 +353,7 @@ namespace VocaDb.Model.Service {
 					.OrderByDescending(s => s.RatingScore)
 					.Take(8).ToArray()
 					.Where(a => contract.LatestSongs.All(a2 => a.Id != a2.Id))
-					.Select(s => new SongContract(s, PermissionContext.LanguagePreference))
+					.Select(s => new SongContract(s, LanguagePreference))
 					.ToArray();
 
 				contract.LatestComments = session.Query<ArtistComment>()
