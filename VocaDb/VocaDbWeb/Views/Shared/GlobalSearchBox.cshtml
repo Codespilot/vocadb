@@ -13,10 +13,10 @@
 	
 	<div class="input-prepend input-append navbar-searchBox">
 		<div class="btn-group">
-			<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+			<a class="btn btn-info dropdown-toggle" data-toggle="dropdown">
 				<span data-bind="text: entryTypeName">@Model.AllObjectTypes.GetName(Model.ObjectType)</span>
 				<span class="caret"></span>
-			</button>
+			</a>
 			<ul class="dropdown-menu">
 				@foreach (var entryType in Model.AllObjectTypes.ValuesAndNames) {
 					<li>
