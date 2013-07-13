@@ -1,9 +1,9 @@
 #summary Resources for developers/webmasters.
 
-Do you have a site or service that concerns Vocaloid discography? We'd be happy to help you and we're prepared to share the information on our site with other similar services. Currently we have a limited public API for basic queries, supporting XML and JSON, and it's possible to expand it as needed.
+Do you have a site or service that concerns Vocaloid discography? We'd be happy to help you and we're prepared to share the information on our site with other similar services. Currently we have a limited [https://code.google.com/p/vocadb/wiki/PublicApi public API] for basic queries, supporting XML and JSON, and it's possible to expand it as needed.
 
 We're offering our own embeddable [http://wiki.vocadb.net/wiki/4/song-embeds VocaDB player]. VocaDB embeddable player can be used on any website, just like you'd embed Youtube or NND. With VocaDB's embeddable player you'll get translations for song title and artist name, and the user can switch between video services. There's also a link to VocaDB for additional information. The embeddable player supports OEmbed.
 
-Finally, we have a tooltip library that can be used to add informational tooltips to VocaDB links on your site.
+Finally, we have a [http://wiki.vocadb.net/wiki/3/tooltips-api tooltip library] that can be used to add informational tooltips to VocaDB links on your site.
 
 Please contact us for more details and requests.
