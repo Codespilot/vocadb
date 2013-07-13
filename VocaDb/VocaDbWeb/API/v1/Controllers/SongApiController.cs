@@ -60,6 +60,18 @@ namespace VocaDb.Web.API.v1.Controllers
 
 		}
 
+		public ActionResult Details(int id = invalidId, string callback = null, DataFormat format = DataFormat.Auto,
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+
+			if (id == invalidId)
+				return NoId();
+
+			var song = Service.GetSong(id, a => new SongForApiContract(a, lang));
+
+			return Object(song, format, callback);
+
+		}
+
 		public ActionResult ParsePVUrl(string pvUrl, string callback, DataFormat format = DataFormat.Auto) {
 
 			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
