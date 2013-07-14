@@ -1,5 +1,4 @@
-﻿@using Newtonsoft.Json
-@using Newtonsoft.Json.Converters
+﻿@using VocaDb.Web.Helpers
 @model VocaDb.Model.Domain.Security.IPRule[]
 
 @{
@@ -13,7 +12,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/Admin/ManageIPRules.js")"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var json = @Html.Raw(JsonConvert.SerializeObject(Model, new JavaScriptDateTimeConverter()));
+        var json = @Html.Raw(JsonHelpers.Serialize(Model, true, true));
 		initPage(json);
 	});
 </script>    
@@ -34,18 +33,18 @@
 		</thead>
 		<tbody data-bind="foreach: rules">
 			<tr>
-				<td data-bind="text: Address"></td>
+				<td data-bind="text: address"></td>
 				<td>
-					<input type="text" data-bind="value: Notes" />
+					<input type="text" data-bind="value: notes" />
 				</td>
-				<td data-bind="text: CreatedFormatted"></td>
+				<td data-bind="text: createdFormatted"></td>
 				<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Remove</a></td>
 			</tr>			
 		</tbody>
 	</table>
 	<table>
 		<tr data-bind="with: newRule">
-			<td><input type="text" maxlength="40" data-bind="value: Address" /></td>
+			<td><input type="text" maxlength="40" data-bind="value: address" /></td>
 			<td><a href="#" class="textLink addLink" data-bind="click: $parent.add">@ViewRes.SharedStrings.Add</a></td>
 		</tr>
 	</table>

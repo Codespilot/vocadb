@@ -1,13 +1,13 @@
 ﻿
 var Song = function (data) {
 
-	this.SongInListId = data.SongInListId;
-	this.Notes = ko.observable(data.Notes);
-	this.Order = ko.observable(data.Order);
-	this.SongId = data.SongId;
-	this.SongName = data.SongName;
-	this.SongAdditionalNames = data.SongAdditionalNames;
-	this.SongArtistString = data.SongArtistString;
+	this.songInListId = data.songInListId;
+	this.notes = ko.observable(data.notes);
+	this.order = ko.observable(data.order);
+	this.songId = data.songId;
+	this.songName = data.songName;
+	this.songAdditionalNames = data.songAdditionalNames;
+	this.songArtistString = data.songArtistString;
 
 };
 
@@ -15,20 +15,20 @@ function SongListViewModel(data) {
 
 	var self = this;
 
-	this.Id = data.Id;
-	this.CurrentName = data.Name;
-	this.Name = ko.observable(data.Name);
-	this.Description = ko.observable(data.Description);
-	this.FeaturedCategory = ko.observable(data.FeaturedCategory);
-	this.SongLinks = ko.observableArray([]);
+	this.id = data.id;
+	this.currentName = data.name;
+	this.name = ko.observable(data.name);
+	this.description = ko.observable(data.description);
+	this.featuredCategory = ko.observable(data.featuredCategory);
+	this.songLinks = ko.observableArray([]);
 
-	var mappedSongs = $.map(data.SongLinks, function (item) { return new Song(item); });
-	this.SongLinks(mappedSongs);
+	var mappedSongs = $.map(data.songLinks, function (item) { return new Song(item); });
+	this.songLinks(mappedSongs);
 
-	this.SongLinks.subscribe(function() {
+	this.songLinks.subscribe(function() {
 
-		for (var track = 0; track < self.SongLinks().length; ++track) {
-			self.SongLinks()[track].Order(track + 1);
+		for (var track = 0; track < self.songLinks().length; ++track) {
+			self.songLinks()[track].order(track + 1);
 		}
 
 	});
@@ -37,15 +37,15 @@ function SongListViewModel(data) {
 
 		if (!isNullOrWhiteSpace(songId)) {
 			$.post(vdb.functions.mapAbsoluteUrl("/Song/DataById"), { id: songId }, function (song) {
-				var songInList = new Song({ SongInListId: 0, Order: 0, SongId: song.id, SongName: song.name, SongAdditionalNames: song.additionalNames, SongArtistString: song.artistString, Notes: "" });
-				self.SongLinks.push(songInList);
+				var songInList = new Song({ songInListId: 0, order: 0, songId: song.id, songName: song.name, songAdditionalNames: song.additionalNames, SongArtistString: song.artistString, Notes: "" });
+				self.songLinks.push(songInList);
 			});
 		}
 
 	}
 
 	this.removeSong = function (songLink) {
-		self.SongLinks.remove(songLink);
+		self.songLinks.remove(songLink);
 	};
 
 	this.save = function () {
