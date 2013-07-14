@@ -249,6 +249,11 @@ namespace VocaDb.Web.Controllers
 			var sortRule = sort ?? UserSortRule.RegisterDate;
 
 			var result = Service.GetUsers(groupId, model.Name, model.Disabled, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
+
+			if (page == 1 && result.TotalCount == 1 && result.Items.Length == 1) {
+				return RedirectToAction("Profile", new { id = result.Items[0].Name });
+			}
+
 			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, result.TotalCount), null, "Index", "usersList");
 			data.RouteValues = new RouteValueDictionary(new { groupId, name = model.Name, disabled = model.Disabled, sortRule, totalCount = result.TotalCount, action = "Index" });
 
