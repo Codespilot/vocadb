@@ -55,6 +55,7 @@ namespace VocaDb.Model.Helpers {
 			{ ArtistType.OtherGroup, ArtistCategories.Circle },
 			{ ArtistType.OtherIndividual, ArtistCategories.Other },
 			{ ArtistType.OtherVocalist, ArtistCategories.Vocalist },
+			{ ArtistType.OtherVoiceSynthesizer, ArtistCategories.Vocalist },
 			{ ArtistType.Producer, ArtistCategories.Producer },
 			{ ArtistType.Unknown, ArtistCategories.Other },
 			{ ArtistType.UTAU, ArtistCategories.Vocalist },
@@ -82,7 +83,7 @@ namespace VocaDb.Model.Helpers {
 		};
 
 		public static readonly ArtistType[] VocalistTypes = new[] {
-			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist
+			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist, ArtistType.OtherVoiceSynthesizer
 		};
 
 		public static TranslatedStringWithDefault GetArtistString(IEnumerable<IArtistWithSupport> artists, bool isAnimation) {

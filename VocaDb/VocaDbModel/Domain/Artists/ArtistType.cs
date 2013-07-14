@@ -32,6 +32,8 @@
 
 		UTAU,
 
+		OtherVoiceSynthesizer,
+
 		OtherVocalist,
 
 		OtherGroup,

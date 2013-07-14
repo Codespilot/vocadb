@@ -153,4 +153,7 @@
   <data name="Lyricist" xml:space="preserve">
     <value>Lyricist</value>
   </data>
+  <data name="OtherVoiceSynthesizer" xml:space="preserve">
+    <value>Other voice synthesizer</value>
+  </data>
 </root>

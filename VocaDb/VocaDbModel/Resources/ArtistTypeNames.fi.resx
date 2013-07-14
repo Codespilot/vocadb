@@ -153,4 +153,7 @@
   <data name="Lyricist" xml:space="preserve">
     <value>Sanoittaja</value>
   </data>
+  <data name="OtherVoiceSynthesizer" xml:space="preserve">
+    <value>Muu äänisyntensaattori</value>
+  </data>
 </root>
