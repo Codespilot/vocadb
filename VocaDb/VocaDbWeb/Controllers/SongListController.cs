@@ -64,7 +64,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Data(int id = 0) {
 
 			var list = (id != 0 ? Service.GetSongListForEdit(id) : new SongListForEditContract());
-			return Json(list);
+			return LowercaseJson(list);
 
 		}
 
@@ -102,7 +102,7 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
         [Authorize]
-		public ActionResult Edit([FromJsonMvc] SongListEdit model)
+		public ActionResult Edit(SongListEdit model)
         {
 
 			if (!ModelState.IsValid) {
@@ -111,7 +111,6 @@ namespace VocaDb.Web.Controllers
 
 			var listId = Service.UpdateSongList(model.ToContract());
 
-			//return RedirectToAction("Details", new { id = model.Id });
 			return RedirectToAction("Details", new { id = listId });
 
 		}

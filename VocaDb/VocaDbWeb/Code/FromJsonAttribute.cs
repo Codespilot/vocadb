@@ -1,15 +1,16 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Web.Mvc;
-using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 
 namespace VocaDb.Web.Code {
 
 	/// <summary>
-	/// Deserializes a model attribute using the JSON.NET serializer instead of ASP.NET MVC default serializer.
-	/// Note that this is only needed if parts of the form are sended as JSON and the rest is standard form.
+	/// Deserializes a model attribute using the JSON.NET serializer (instead of ASP.NET MVC default serializer).
 	/// </summary>
+	/// <remarks>
+	/// Note that this is only needed if parts of the form are sended as JSON and the rest is standard form.
+	/// </remarks>
 	[AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Parameter | AttributeTargets.Property, 
 		AllowMultiple = false, Inherited = false)]
 	public class FromJsonAttribute : CustomModelBinderAttribute, ICustomPropertyBinder {
@@ -45,31 +46,6 @@ namespace VocaDb.Web.Code {
 
 		public object BindProperty(ControllerContext controllerContext, ModelBindingContext bindingContext, PropertyDescriptor propertyDescriptor) {
 			return BindModel(controllerContext, bindingContext, propertyDescriptor.Name, propertyDescriptor.PropertyType);
-		}
-
-	}
-
-	/// <summary>
-	/// Deserializes a model attribute using the default ASP.NET serializer.
-	/// Note that this is only needed if parts of the form are sended as JSON and the rest is standard form.
-	/// </summary>
-	/// <remarks>
-	/// The JSON.NET implementation should be preferred.
-	/// </remarks>
-	public class FromJsonMvcAttribute : CustomModelBinderAttribute {
-		private readonly static JavaScriptSerializer serializer = new JavaScriptSerializer();
-
-		public override IModelBinder GetBinder() {
-			return new JsonModelBinder();
-		}
-
-		private class JsonModelBinder : IModelBinder {
-			public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext) {
-				var stringified = controllerContext.HttpContext.Request[bindingContext.ModelName];
-				if (string.IsNullOrEmpty(stringified))
-					return null;
-				return serializer.Deserialize(stringified, bindingContext.ModelType);
-			}
 		}
 
 	}

@@ -39,8 +39,6 @@
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
 @using (Html.BeginForm("Edit", "SongList", FormMethod.Post, new { id = "songListForm" })) {
-	@Html.HiddenFor(m => m.Id)
-	@Html.HiddenFor(m => m.CurrentName)
 	@Html.HiddenFor(m => m.CanCreateFeaturedLists)
 
 	@Helpers.SaveBtn()
@@ -58,14 +56,14 @@
 				@Html.LabelFor(m => m.Name)
 			</div>
 			<div class="editor-field">
-				<input type="text" data-bind="value: Name" class="required input-xlarge" minlength="1" size="40" />
+				<input type="text" data-bind="value: name" class="required input-xlarge" minlength="1" size="40" />
 			</div>
 
 			<div class="editor-label">
 				@Html.LabelFor(m => m.Description)
 			</div>
 			<div class="editor-field">
-				<textarea data-bind="value: Description" rows="5" cols="60" class="input-xxlarge"></textarea>
+				<textarea data-bind="value: description" rows="5" cols="60" class="input-xxlarge"></textarea>
 			</div>
 
 			@if (Model.CanCreateFeaturedLists) {
@@ -73,7 +71,7 @@
 					@Html.LabelFor(m => m.FeaturedCategory)
 				</div>
 				<div class="editor-field">
-					@Html.EnumDropDownListForDic(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:FeaturedCategory" } })
+					@Html.EnumDropDownListForDic(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:featuredCategory" } })
 				</div>
    }
 
@@ -82,21 +80,21 @@
 		<div id="songsTab">
 
 			<table>
-				<tbody data-bind="sortable: SongLinks">
+				<tbody data-bind="sortable: songLinks">
 					<tr class="ui-state-default">
 						<td style="cursor: move">
 							<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 						</td>
 						<td>
-							<span data-bind="text: Order"></span>
+							<span data-bind="text: order"></span>
 						</td>
 						<td>
-							<span data-bind="title:SongAdditionalNames, text:SongName"></span>
+							<span data-bind="title: songAdditionalNames, text:songName"></span>
 							<br />
-							<span class="extraInfo" data-bind="text: SongArtistString"></span>
+							<span class="extraInfo" data-bind="text: songArtistString"></span>
 						</td>
 						<td>
-							<input type="text" data-bind="value:Notes" />
+							<input type="text" data-bind="value: notes" />
 						</td><td>
 							<a href="#" class="iconLink removeLink" title="Remove from list" data-bind="click: $parent.removeSong">Remove</a>
 						</td>						

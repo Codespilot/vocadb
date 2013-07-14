@@ -7,9 +7,11 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Web.Code;
 
 namespace VocaDb.Web.Models.SongLists {
 
+	[FromJson]
 	public class SongListEdit {
 
 		public SongListEdit() {
