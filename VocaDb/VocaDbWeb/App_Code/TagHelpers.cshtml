@@ -77,7 +77,7 @@
 					}
 									
 					@Html.ActionLink(link.Song.Name, "Details", "Song", new { id = link.Song.Id }, null)
-					@(" (" + Translate.SongTypeNames[link.Song.SongType] + ")")
+					@SongHelpers.SongTypeLabel(link.Song.SongType)
 					@(" (" + link.Count + ")")
 					@if (extraData != null) {
 						@extraData(link.Song)

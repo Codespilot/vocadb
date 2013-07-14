@@ -2,11 +2,14 @@
 @using VocaDb.Web.Helpers
 @model VocaDb.Model.DataContracts.Albums.AlbumContract
 
-@if (!string.IsNullOrEmpty(Model.AdditionalNames)) {
 <p>
-    @Model.AdditionalNames
+	<strong class="popupTitle">@Model.Name</strong>
+	@if (!string.IsNullOrEmpty(Model.AdditionalNames)) {
+		<br />
+		@Model.AdditionalNames
+	}
 </p>
-}
+
 <p>
     @Model.ArtistString<br />
     @if (Model.DiscType != DiscType.Unknown) {
