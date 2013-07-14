@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
@@ -137,9 +138,19 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Index() {
+		public ActionResult Index(string filter = null) {
 
 			var tags = Service.GetTagsByCategories();
+
+			if (!string.IsNullOrEmpty(filter)) {
+
+				var tag = Service.GetTag(filter);
+
+				if (tag != null) {
+					return RedirectToAction("Details", new { id = tag.Name});
+				}
+
+			}
 
 			return View(tags);
 

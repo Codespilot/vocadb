@@ -115,6 +115,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Attempts to find a single tag by name. Partial match is allowed.
+		/// </summary>
+		/// <param name="tagName">Tag name. Cannot be null or empty.</param>
+		/// <returns>First tag that matches the name. Can be null if nothing was found.</returns>
 		public TagContract FindTag(string tagName) {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
@@ -223,6 +228,29 @@ namespace VocaDb.Model.Service {
 				return new PartialFindResult<SongTagUsageContract>(contracts, totalCount);
 
 			});
+		}
+
+		/// <summary>
+		/// Attempts to get a tag by exact name.
+		/// </summary>
+		/// <param name="tagName">Tag name to be matched. Can be null or empty, in which case null is returned.</param>
+		/// <returns>The matched tag, if any. Can be null if nothing was found.</returns>
+		public TagContract GetTag(string tagName) {
+
+			if (string.IsNullOrEmpty(tagName))
+				return null;
+
+			return HandleQuery(session => {
+
+				var tag = GetTag(session, tagName);
+
+				if (tag == null)
+					return null;
+
+				return new TagContract(tag);
+
+			});
+
 		}
 
 		public TagDetailsContract GetTagDetails(string tagName) {
