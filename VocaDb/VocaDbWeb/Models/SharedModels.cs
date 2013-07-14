@@ -22,7 +22,9 @@ namespace VocaDb.Web.Models {
 
 		public GlobalSearchBoxModel(EntryType? objectType, string searchTerm) {
 
-			AllObjectTypes = new TranslateableEnum<EntryType>(() => global::Resources.EntryTypeNames.ResourceManager, new[] { EntryType.Undefined, EntryType.Artist, EntryType.Album, EntryType.Song });
+			AllObjectTypes = new TranslateableEnum<EntryType>(() => global::Resources.EntryTypeNames.ResourceManager, new[] {
+				EntryType.Undefined, EntryType.Artist, EntryType.Album, EntryType.Song, EntryType.Tag, EntryType.User
+			});
 			ObjectType = objectType ?? EntryType.Artist;
 			GlobalSearchTerm = searchTerm ?? string.Empty;
 
@@ -33,16 +35,6 @@ namespace VocaDb.Web.Models {
 		public string GlobalSearchTerm { get; set; }
 
 		public EntryType ObjectType { get; set; }
-
-	}
-
-	public enum SearchObjectType {
-
-		Artist,
-
-		Album,
-
-		Song
 
 	}
 

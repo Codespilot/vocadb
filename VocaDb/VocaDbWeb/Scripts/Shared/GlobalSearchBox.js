@@ -7,22 +7,36 @@ $(document).ready(function () {
 			var term = request.term;
 			var entryType = $("#globalSearchObjectType").val();
 
-			if (entryType == "Undefined") {
-				$.post("../../Home/FindNames", { term: term }, function (results) {
-					entryFindCallback(response, results);
-				});
-			} else if (entryType == "Album") {
-				$.post("../../Album/FindNames", { term: term }, function (results) {
-					entryFindCallback(response, results);
-				});
-			} else if (entryType == "Artist") {
-				$.post("../../Artist/FindNames", { term: term }, function (results) {
-					entryFindCallback(response, results);
-				});
-			} else if (entryType == "Song") {
-				$.post("../../Song/FindNames", { term: term }, function (results) {
-					entryFindCallback(response, results);
-				});
+			switch (entryType) {
+				case "Undefined":
+					$.post("../../Home/FindNames", { term: term }, function (results) {
+						entryFindCallback(response, results);
+					});
+					break;
+				case "Album":
+					$.post("../../Album/FindNames", { term: term }, function (results) {
+						entryFindCallback(response, results);
+					});
+					break;
+				case "Artist":
+					$.post("../../Artist/FindNames", { term: term }, function (results) {
+						entryFindCallback(response, results);
+					});
+					break;
+				case "Song":
+					$.post("../../Song/FindNames", { term: term }, function (results) {
+						entryFindCallback(response, results);
+					});
+					break;
+				case "Tag":
+					$.post("../../Tag/Find", { term: term }, function (results) {
+						entryFindCallback(response, results);
+					});
+					break;
+				case "User":
+					$.post("../../User/FindByName", { term: term }, function (results) {
+						entryFindCallback(response, results);
+					});
 			}
 
 		},

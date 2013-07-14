@@ -236,7 +236,10 @@ namespace VocaDb.Web.Controllers
 			//
         // GET: /User/
 
-        public ActionResult Index(Index model, UserSortRule? sort = null, int totalCount = 0, int page = 1) {
+        public ActionResult Index(Index model, string filter = null, UserSortRule? sort = null, int totalCount = 0, int page = 1) {
+
+	        if (!string.IsNullOrEmpty(filter) && string.IsNullOrEmpty(model.Name))
+		        model.Name = filter;
 
 			if (Request.IsAjaxRequest())
 				return UsersPaged(model.GroupId, model.Name, model.Disabled, sort ?? UserSortRule.RegisterDate, totalCount, page);

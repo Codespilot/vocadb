@@ -2213,6 +2213,7 @@
     <Content Include="App_GlobalResources\EntryTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EntryTypeNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\EntryTypeNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
