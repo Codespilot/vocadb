@@ -75,6 +75,13 @@
 
 	<system.webServer>
     <validation validateIntegratedModeConfiguration="false"/>
+		
+		<!-- 
+		Currently required so that usernames with dots work (see http://stackoverflow.com/a/12064424 ). 
+		However, might cause slower performance and should be worked around.
+		Should be safe to disable this otherwise (was not enabled on the dev site).
+		Also see http://www.hanselman.com/blog/BackToBasicsDynamicImageGenerationASPNETControllersRoutingIHttpHandlersAndRunAllManagedModulesForAllRequests.aspx
+		-->
     <modules runAllManagedModulesForAllRequests="true"/>
   </system.webServer>
 
