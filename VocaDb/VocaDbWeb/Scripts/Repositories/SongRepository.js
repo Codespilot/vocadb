@@ -6,6 +6,10 @@ var vdb;
         var SongRepository = (function () {
             function SongRepository(baseUrl) {
                 var _this = this;
+                this.get = function (relative, params, callback) {
+                    $.getJSON(_this.mapUrl(relative), params, callback);
+                };
+
                 this.mapUrl = function (relative) {
                     return vdb.functions.mergeUrls(baseUrl, "/Song") + relative;
                 };
@@ -25,6 +29,10 @@ var vdb;
                 this.getOne = function (id, includeArtists, callback) {
                     if (typeof includeArtists === "undefined") { includeArtists = false; }
                     _this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);
+                };
+
+                this.pvPlayerWithRating = function (songId, callback) {
+                    _this.get("/PVPlayerWithRating", { songId: songId }, callback);
                 };
 
                 this.songListsForUser = function (ignoreSongId, callback) {

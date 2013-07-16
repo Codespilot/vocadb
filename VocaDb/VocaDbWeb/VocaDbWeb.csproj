@@ -1142,6 +1142,10 @@
     <Content Include="Scripts\DataContracts\SongListBaseContract.js">
       <DependentUpon>SongListBaseContract.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.ts" />
+    <Content Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.js">
+      <DependentUpon>SongWithPVPlayerAndVoteContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\TranslatedEnumField.js">
       <DependentUpon>TranslatedEnumField.ts</DependentUpon>
     </Content>
@@ -1502,6 +1506,10 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButtonset.ts" />
     <Content Include="Scripts\KnockoutExtensions\jqButtonset.js">
       <DependentUpon>jqButtonset.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\PVPreviewStatus.ts" />
+    <Content Include="Scripts\KnockoutExtensions\Song\PVPreviewStatus.js">
+      <DependentUpon>PVPreviewStatus.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
       <DependentUpon>SlideVisible.ts</DependentUpon>
@@ -1877,6 +1885,10 @@
       <DependentUpon>SongDetailsViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\TopBarViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Song\SongWithPreviewViewModel.ts" />
+    <Content Include="Scripts\ViewModels\Song\SongWithPreviewViewModel.js">
+      <DependentUpon>SongWithPreviewViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\TopBarViewModel.js">
       <DependentUpon>TopBarViewModel.ts</DependentUpon>
     </Content>

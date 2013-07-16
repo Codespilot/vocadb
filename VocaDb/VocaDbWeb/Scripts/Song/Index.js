@@ -143,54 +143,7 @@ function IndexViewModel(model) {
 		}
 	});
 
-	this.destroyPV = function (data) {
-		if (data)
-			data.html("");
-	};
-
-	this.previewPV = function(data) {
-
-		if (data.preview()) {
-			data.preview(false);
-			data.song(null);
-			return;
-		}
-
-		var songId = data.songId;
-		$.post(vdb.functions.mapUrl("/Song/PVPlayerWithRating"), { songId: songId }, function(result) {
-			data.html(result.pvPlayer);
-			var userRepository = new vdb.repositories.UserRepository(vdb.values.hostAddress);
-			var ratingButtonsViewModel = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, result.song, function() {
-				vdb.ui.showSuccessMessage(vdb.resources.song.ThanksForRating);
-			});
-			data.song(ratingButtonsViewModel);
-			data.preview(true);
-		});
-
-	};
-
 }
-
-// Initializes and maintains song rating status for the HTML table.
-ko.bindingHandlers.pvPreviewStatus = {
-	init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-
-		var pvRows = $(element).find(".pvRow");
-		var songsArray = valueAccessor();
-
-		// Parse all rows and create child binding context for each of them
-		var songItems = _.map(pvRows, function (pvRow) {
-			var item = { songId: $(pvRow).data("entry-id"), preview: ko.observable(false), html: ko.observable(null), song: ko.observable(null) };
-			var childBindingContext = bindingContext.createChildContext(item);
-			ko.applyBindingsToDescendants(childBindingContext, pvRow);
-			return item;
-		});
-
-		songsArray(songItems);
-
-		return { controlsDescendantBindings: true };
-	}
-};
 
 function initPage(model) {
 
