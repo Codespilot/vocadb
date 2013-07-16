@@ -93,6 +93,17 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Song/Edit.js"
 			));
 
+			bundles.Add(new ScriptBundle("~/bundles/Song/Index").Include(
+				"~/Scripts/KnockoutExtensions/SlideVisible.js",
+				"~/Scripts/Models/SongVoteRating.js",
+				"~/Scripts/Repositories/SongRepository.js",
+				"~/Scripts/Repositories/UserRepository.js",
+				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
+				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
+				"~/Scripts/KnockoutExtensions/Song/PVPreviewStatus.js",
+				"~/Scripts/Song/Index.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
 
 			//bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(

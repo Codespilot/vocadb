@@ -2,6 +2,7 @@
 /// <reference path="../DataContracts/NewSongCheckResultContract.ts" />
 /// <reference path="../DataContracts/SongContract.ts" />
 /// <reference path="../DataContracts/SongListBaseContract.ts" />
+/// <reference path="../DataContracts/Song/SongWithPVPlayerAndVoteContract.ts" />
 /// <reference path="../Shared/GlobalFunctions.ts" />
 
 module vdb.repositories {
@@ -16,6 +17,8 @@ module vdb.repositories {
 
         public findDuplicate: (params, callback: (result: dc.NewSongCheckResultContract) => void) => void;
 
+        private get: (relative: string, params: any, callback: Function) => void;
+
         public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;
 
         // Maps a relative URL to an absolute one.
@@ -23,11 +26,17 @@ module vdb.repositories {
 
         private post: (relative: string, params: any, callback: Function) => void;
 
+        public pvPlayerWithRating: (songId: number, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => void; 
+
         public songListsForUser: (ignoreSongId: number, callback: (result: dc.SongListBaseContract[]) => void ) => void;
 
         public usersWithSongRating: (id: number, callback: (result: string) => void) => void;
 
         constructor(baseUrl: string) {
+
+            this.get = (relative, params, callback) => {
+                $.getJSON(this.mapUrl(relative), params, callback);
+            }
 
             this.mapUrl = (relative: string) => {
                 return vdb.functions.mergeUrls(baseUrl, "/Song") + relative;
@@ -47,6 +56,10 @@ module vdb.repositories {
 
             this.getOne = (id: number, includeArtists: boolean = false, callback?: (result: dc.SongWithComponentsContract) => void) => {
                 this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);         
+            }
+
+            this.pvPlayerWithRating = (songId, callback) => {
+                this.get("/PVPlayerWithRating", { songId: songId }, callback);
             }
 
             this.songListsForUser = (ignoreSongId, callback) => {                

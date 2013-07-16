@@ -444,7 +444,7 @@ namespace VocaDb.Web.Controllers
 
 			var view = RenderPartialViewToString("PVEmbedDynamic", pv);
 
-			return LowercaseJson(new { song, pvPlayer = view });
+			return LowercaseJson(new SongWithPVPlayerAndVoteContract { Song = song, PlayerHtml = view });
 
 		}
 

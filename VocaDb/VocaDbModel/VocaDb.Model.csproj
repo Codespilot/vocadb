@@ -156,6 +156,7 @@
     <Compile Include="DataContracts\Songs\SongForApiContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithComponentsContract.cs" />
     <Compile Include="DataContracts\Songs\SongWithPVAndVoteContract.cs" />
+    <Compile Include="DataContracts\Songs\SongWithPVPlayerAndVoteContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagVersionContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageWithVotesContract.cs" />
