@@ -92,6 +92,46 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private Song[] GetHighlightedSongs(ISession session) {
+
+			var cutoffDate = DateTime.Now - TimeSpan.FromDays(2);
+			var maxSongs = 100;
+			var songCount = 20;
+
+			var recentSongs =
+				session.Query<Song>()
+				.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing 
+					&& s.CreateDate >= cutoffDate)
+				.OrderByDescending(s => s.CreateDate)
+				.Take(maxSongs)
+				.ToArray();
+
+			if (recentSongs.Length >= songCount) {
+				
+				return recentSongs
+					.OrderByDescending(s => s.RatingScore)
+					.Take(songCount)
+					.ToArray();
+
+			}  else {
+
+				var moreSongs =
+					session.Query<Song>()
+					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing 
+						&& s.CreateDate < cutoffDate)
+					.OrderByDescending(s => s.CreateDate)
+					.Take(songCount - recentSongs.Length)
+					.ToArray();
+
+				return recentSongs
+					.Concat(moreSongs)
+					.OrderByDescending(s => s.RatingScore)
+					.ToArray();
+
+			}
+
+		}
+
 		private UnifiedCommentContract[] GetRecentComments(ISession session, int maxComments) {
 
 			var albumComments = session.Query<AlbumComment>().Where(c => !c.Album.Deleted).OrderByDescending(c => c.Created).Take(maxComments).ToArray();
@@ -324,14 +364,7 @@ namespace VocaDb.Model.Service {
 					.Take(16)
 					.ToArray();*/
 
-				var newSongs = session.Query<Song>()
-					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing)
-					.OrderByDescending(s => s.CreateDate)
-					.Take(80)
-					.ToArray()
-					.OrderByDescending(s => s.RatingScore)
-					.Take(20)
-					.ToArray();
+				var newSongs = GetHighlightedSongs(session);
 
 				var firstSongVote = (newSongs.Any() ? session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == newSongs.First().Id && s.User.Id == PermissionContext.LoggedUserId) : null);
 

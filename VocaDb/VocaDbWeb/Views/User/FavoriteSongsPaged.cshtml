@@ -13,7 +13,7 @@
             var song = favorite.Song;
 		<tr>
 			<td>
-				@if (!string.IsNullOrEmpty(favorite.Song.ThumbUrl)) {
+				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
 					@SongHelpers.SongIconLink(song)
 				}
 			</td>
