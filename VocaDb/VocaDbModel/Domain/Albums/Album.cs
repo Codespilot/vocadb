@@ -472,6 +472,20 @@ namespace VocaDb.Model.Domain.Albums {
 		/// <summary>
 		/// Checks whether this album has a specific artist.
 		/// </summary>
+		/// <param name="artist">Artist to be checked. Can be null.</param>
+		/// <returns>True if the artist has this album or artist was null. Otherwise false.</returns>
+		public virtual bool HasArtist(Artist artist) {
+
+			if (artist == null)
+				return false;
+
+			return Artists.Any(a => artist.Equals(a.Artist));
+
+		}
+
+		/// <summary>
+		/// Checks whether this album has a specific artist.
+		/// </summary>
 		/// <param name="artistForAlbum">Artist to be checked. Cannot be null.</param>
 		/// <returns>True if the artist has this album. Otherwise false.</returns>
 		public virtual bool HasArtistForAlbum(ArtistForAlbum artistForAlbum) {

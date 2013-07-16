@@ -57,12 +57,20 @@ namespace VocaDb.Model.Domain.Artists {
 
 		}
 
+		/// <summary>
+		/// List of albums for this artist (not including deleted). 
+		/// Warning: this list can be huge! Avoid traversing the list if possible.
+		/// </summary>
 		public virtual IEnumerable<ArtistForAlbum> Albums {
 			get {
 				return AllAlbums.Where(a => !a.Album.Deleted);
 			}
 		}
 
+		/// <summary>
+		/// List of all albums for this artist (including deleted). 
+		/// Warning: this list can be huge! Avoid traversing the list if possible.
+		/// </summary>
 		public virtual IList<ArtistForAlbum> AllAlbums {
 			get { return albums; }
 			set {
@@ -395,7 +403,8 @@ namespace VocaDb.Model.Domain.Artists {
 		/// <param name="album">Album to be checked. Cannot be null.</param>
 		/// <returns>True if the artist has the album. Otherwise false.</returns>
 		/// <remarks>
-		/// This check can be slow if the artist has too many albums and the collection needs to be loaded.
+		/// Warning: This check can be slow if the artist has too many albums and the collection needs to be loaded.
+		/// Most of the time the check should be done from the album side, since usually albums have fewer artist links than artist have linked albums.
 		/// </remarks>
 		public virtual bool HasAlbum(Album album) {
 

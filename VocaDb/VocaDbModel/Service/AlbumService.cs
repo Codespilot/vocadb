@@ -164,8 +164,10 @@ namespace VocaDb.Model.Service {
 
 				session.Save(album);
 
-				foreach (var artist in contract.Artists) {
-					session.Save(session.Load<Artist>(artist.Id).AddAlbum(album));
+				foreach (var artistContract in contract.Artists) {
+					var artist = session.Load<Artist>(artistContract.Id);
+					if (!album.HasArtist(artist))
+						session.Save(session.Load<Artist>(artist.Id).AddAlbum(album));
 				}
 
 				album.UpdateArtistString();
