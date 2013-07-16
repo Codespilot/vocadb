@@ -15,7 +15,7 @@ ko.bindingHandlers.pvPreviewStatus = {
 
         var songRepository = new vdb.repositories.SongRepository(vdb.values.baseAddress);
         var userRepository = new vdb.repositories.UserRepository(vdb.values.baseAddress);
-        var pvRows = $(element).find(".pvRow");
+        var pvRows = $(element).find(".js-pvRow");
         var songsArray = valueAccessor();
 
         // Parse all rows and create child binding context for each of them

@@ -14,7 +14,7 @@
 	</thead>
 	<tbody>
 		@foreach (var song in Model.Songs) {
-			<tr class="pvRow" data-entry-id="@song.Id">
+			<tr class="js-pvRow" data-entry-id="@song.Id">
 				<td>
                     @if (!string.IsNullOrEmpty(song.ThumbUrl)) {
 						@SongHelpers.SongIconLink(song)
