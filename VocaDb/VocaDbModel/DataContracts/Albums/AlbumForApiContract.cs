@@ -14,7 +14,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public AlbumForApiContract() { }
 
-		public AlbumForApiContract(Album album, ContentLanguagePreference languagePreference) {
+		public AlbumForApiContract(Album album, ContentLanguagePreference languagePreference, bool webLinks = false) {
 
 			Artists = album.Artists.Select(a => new ArtistForAlbumForApiContract(a, languagePreference)).ToArray();
 			Tags = album.Tags.Tags.Select(t => t.Name).ToArray();
@@ -32,6 +32,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ReleaseEvent = album.OriginalReleaseEventName;
 			Status = album.Status;
 			Version = album.Version;
+
+			if (webLinks)
+				WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}
 
@@ -80,6 +83,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Version { get; set; }
+
+		[DataMember]
+		public WebLinkContract[] WebLinks { get; set; }
 
 	}
 
