@@ -18,13 +18,15 @@ namespace VocaDb.Web.API.v1.Controllers {
 			get { return Services.Albums; }
 		}
 
-		public ActionResult Details(int id = invalidId, bool includeWebLinks = false, DataFormat format = DataFormat.Auto, 
+		public ActionResult Details(int id = invalidId, 
+			bool includeArtists = true, bool includeNames = true, bool includeTags = true, bool includeWebLinks = false, 
+			DataFormat format = DataFormat.Auto, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			if (id == invalidId)
 				return NoId();
 
-			var album = Service.GetAlbum(id, a => new AlbumForApiContract(a, lang, includeWebLinks));
+			var album = Service.GetAlbum(id, a => new AlbumForApiContract(a, lang, includeArtists, includeNames, includeTags, includeWebLinks));
 
 			return Object(album, format);
 
@@ -32,14 +34,14 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 		public ActionResult Index(string query, DiscType discType = DiscType.Unknown,
 			int start = 0, bool getTotalCount = false, AlbumSortRule sort = AlbumSortRule.Name,
-			NameMatchMode nameMatchMode = NameMatchMode.Exact, 
-			bool includeWebLinks = false,
+			NameMatchMode nameMatchMode = NameMatchMode.Exact,
+			bool includeArtists = true, bool includeNames = true, bool includeTags = true, bool includeWebLinks = false,
 			DataFormat format = DataFormat.Auto, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			var queryParams = new AlbumQueryParams(query, discType, start, maxResults, false, getTotalCount, nameMatchMode, sort);
 
-			var entries = Service.Find(a => new AlbumForApiContract(a, lang, includeWebLinks), queryParams);
+			var entries = Service.Find(a => new AlbumForApiContract(a, lang, includeArtists, includeNames, includeTags, includeWebLinks), queryParams);
 
 			return Object(entries, format);
 
