@@ -193,11 +193,16 @@ namespace VocaDb.Web {
 		}
 
 		protected void Application_Start() {
+
+			log.Info("Web application starting.");
+
 			AreaRegistration.RegisterAllAreas();
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+			log.Debug("Web application started successfully.");
 
 		}
 	}
