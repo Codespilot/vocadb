@@ -18,6 +18,8 @@ Additionally, most queries accept these common filters:
   * getTotalCount: whether total number of entries matching the filter should be returned. This causes some extra overhead, so specify this as false if you don't need it.
   * nameMatchMode: mode for matching names. Possible values are Auto, Partial, Exact, Words (optional, defaults to Exact)
 
+Some queries allow you to filter which components are to be included. Currently, these filters are specified as boolean values, for example includeArtists=true causes the list of artists to be included with the song or album, whereas specifying includeArtists=false leaves out the list. It's preferably to only include the components that you need, as this can make the query a lot faster, and also reduces the data transfer need.
+
 Some endpoints implement the "callback" parameter for JSONP queries. This is required for cross-site calls from Javascript. When using jQuery with the "jsonp" type, this will be handled transparently.
 
 == API responses ==
@@ -35,20 +37,26 @@ Parameters:
   * query: filter for album name or catalog number.
   * discType: filter for album type. If Unknown (which is the default), no filtering is done.
   * sort: sort method. Possible values are None, Name, ReleaseDate, AdditionDate, RatingAverage and NameThenReleaseDate. Default value is Name.
+  * includeArtists: whether artists list should be included (default is true).
+  * includeNames: whether full list of names should be included (default is true).
+  * includeTags: whether tags should be included (default is true).
+  * includeWebLinks: whether web links list should be included (default is false).
 
 === Query single album by ID ===
 Endpoint: /Api/v1/Album/Details/[id]
 
 Example: http://vocadb.net/Api/v1/Album/Details/71?format=Xml
 
-No special parameters.
+Parameters:
+  * includeArtists: whether artists list should be included (default is true).
+  * includeNames: whether full list of names should be included (default is true).
+  * includeTags: whether tags should be included (default is true).
+  * includeWebLinks: whether web links list should be included (default is false).
 
 === Query album tracks by ID ===
 Endpoint: /Api/v1/Album/Tracks/[id]
 
 Example: http://vocadb.net/Api/v1/Album/Tracks/71?format=Xml
-
-No special parameters.
 
 == Artists ==
 === Artist listing ===
@@ -64,12 +72,26 @@ Endpoint: /Api/v1/Song/Details/[id]
 
 Example: http://vocadb.net/Api/v1/Song/Details/121?format=Xml
 
+Parameters:
+  * includeAlbums: whether albums list should be included (default is true).
+  * includeArtists: whether artists list should be included (default is true).
+  * includeNames: whether full list of names should be included (default is true).
+  * includePVs: whether list of PVs should be included (default is false).
+  * includeTags: whether tags should be included (default is true).
+  * includeWebLinks: whether web links list should be included (default is false).
+
 === Song listing ===
 Endpoint: /Api/v1/Song/ByName
 
 Example: http://vocadb.net/Api/v1/Song/ByName?query=Nebula
 
-No special parameters.
+Parameters:
+  * includeAlbums: whether albums list should be included (default is true).
+  * includeArtists: whether artists list should be included (default is true).
+  * includeNames: whether full list of names should be included (default is true).
+  * includePVs: whether list of PVs should be included (default is false).
+  * includeTags: whether tags should be included (default is true).
+  * includeWebLinks: whether web links list should be included (default is false).
 
 === Query by PV ===
 Endpoint: /Api/v1/Song/ByPV
