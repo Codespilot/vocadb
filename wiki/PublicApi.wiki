@@ -18,7 +18,7 @@ Additionally, most queries accept these common filters:
   * getTotalCount: whether total number of entries matching the filter should be returned. This causes some extra overhead, so specify this as false if you don't need it.
   * nameMatchMode: mode for matching names. Possible values are Auto, Partial, Exact, Words (optional, defaults to Exact)
 
-Some queries allow you to filter which components are to be included. Currently, these filters are specified as boolean values, for example includeArtists=true causes the list of artists to be included with the song or album, whereas specifying includeArtists=false leaves out the list. It's preferably to only include the components that you need, as this can make the query a lot faster, and also reduces the data transfer need.
+Some queries allow you to filter which components are to be included. Currently, these filters are specified as boolean values, for example includeArtists=true causes the list of artists to be included with the song or album, whereas specifying includeArtists=false leaves out the list. It's preferable to only include the components that you need, as this can make the query a lot faster, and also reduces the data transfer need.
 
 Some endpoints implement the "callback" parameter for JSONP queries. This is required for cross-site calls from Javascript. When using jQuery with the "jsonp" type, this will be handled transparently.
 
