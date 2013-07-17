@@ -291,6 +291,8 @@ namespace VocaDb.Model.Service {
 				session.Delete(artistForAlbum);
 				session.Update(artistForAlbum.Album);
 
+				AuditLog(string.Format("deleted {0} successfully", artistForAlbum), session);
+
 			});
 
 		}
