@@ -14,10 +14,8 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public AlbumForApiContract() { }
 
-		public AlbumForApiContract(Album album, ContentLanguagePreference languagePreference, bool webLinks = false) {
-
-			Artists = album.Artists.Select(a => new ArtistForAlbumForApiContract(a, languagePreference)).ToArray();
-			Tags = album.Tags.Tags.Select(t => t.Name).ToArray();
+		public AlbumForApiContract(Album album, ContentLanguagePreference languagePreference, 
+			bool artists = true, bool names = true, bool tags = true, bool webLinks = false) {
 
 			CatalogNumber = album.OriginalRelease != null ? album.OriginalRelease.CatNum : null;
 			CreateDate = album.CreateDate;
@@ -25,13 +23,21 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DefaultNameLanguage = album.Names.SortNames.DefaultLanguage;
 			DiscType = album.DiscType;
 			Id = album.Id;
-			Names = album.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			RatingAverage = album.RatingAverage;
 			RatingCount = album.RatingCount;
 			ReleaseDate = new OptionalDateTimeContract(album.OriginalReleaseDate);
 			ReleaseEvent = album.OriginalReleaseEventName;
 			Status = album.Status;
 			Version = album.Version;
+
+			if (artists)
+				Artists = album.Artists.Select(a => new ArtistForAlbumForApiContract(a, languagePreference)).ToArray();
+
+			if (names)
+				Names = album.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+
+			if (tags)
+				Tags = album.Tags.Tags.Select(t => t.Name).ToArray();
 
 			if (webLinks)
 				WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();

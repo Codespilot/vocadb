@@ -41,7 +41,7 @@ namespace VocaDb.Web.API.v1.Controllers
 		}
 
 		public ActionResult ByName(string query, ContentLanguagePreference? lang, int? start, int? maxResults, NameMatchMode? nameMatchMode,
-			bool includeAlbums = true, bool includeArtists = true, bool includePVs = false, bool includeWebLinks = false,
+			bool includeAlbums = true, bool includeArtists = true, bool includeNames = true, bool includePVs = false, bool includeTags = true, bool includeWebLinks = false,
 			string callback = null, DataFormat format = DataFormat.Auto) {
 
 			var param = new SongQueryParams(query, new SongType[] {}, 0, defaultMax, false, true, NameMatchMode.Exact, SongSortRule.Name, true, false, new int[] {});
@@ -55,21 +55,21 @@ namespace VocaDb.Web.API.v1.Controllers
 			if (nameMatchMode.HasValue)
 				param.Common.NameMatchMode = nameMatchMode.Value;
 
-			var songs = Service.Find(s => new SongForApiContract(s, lang ?? ContentLanguagePreference.Default, includeAlbums, includeArtists, includePVs, includeWebLinks), param);
+			var songs = Service.Find(s => new SongForApiContract(s, lang ?? ContentLanguagePreference.Default, includeAlbums, includeArtists, includeNames, includePVs, includeTags, includeWebLinks), param);
 
 			return Object(songs, format, callback);
 
 		}
 
 		public ActionResult Details(int id = invalidId,
-			bool includeAlbums = true, bool includeArtists = true, bool includePVs = false, bool includeWebLinks = false,			
+			bool includeAlbums = true, bool includeArtists = true, bool includeNames = true, bool includePVs = false, bool includeTags = true, bool includeWebLinks = false,
 			string callback = null, DataFormat format = DataFormat.Auto,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			if (id == invalidId)
 				return NoId();
 
-			var song = Service.GetSong(id, a => new SongForApiContract(a, lang, includeAlbums, includeArtists, includePVs, includeWebLinks));
+			var song = Service.GetSong(id, a => new SongForApiContract(a, lang, includeAlbums, includeArtists, includeNames, includePVs, includeTags, includeWebLinks));
 
 			return Object(song, format, callback);
 

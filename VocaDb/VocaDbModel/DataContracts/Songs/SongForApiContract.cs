@@ -19,16 +19,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongForApiContract() { }
 
 		public SongForApiContract(Song song, ContentLanguagePreference languagePreference, 
-			bool albums = true, bool artists = true, bool pvs = false, bool webLinks = false) {
-
-			Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
+			bool albums = true, bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
 
 			CreateDate = song.CreateDate;
 			DefaultName = song.DefaultName;
 			DefaultNameLanguage = song.Names.SortNames.DefaultLanguage;
 			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
-			Names = song.Names.Select(n => new LocalizedStringContract(n)).ToArray();
 			PVServices = song.PVServices;
 			RatingScore = song.RatingScore;
 			SongType = song.SongType;
@@ -42,8 +39,14 @@ namespace VocaDb.Model.DataContracts.Songs {
 			if (artists)
 				Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).ToArray();
 
+			if (names)
+				Names = song.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+
 			if (pvs)
 				PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
+
+			if (tags)
+				Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
 
 			if (webLinks)
 				WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
