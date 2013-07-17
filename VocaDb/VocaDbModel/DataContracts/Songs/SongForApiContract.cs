@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -17,10 +18,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongForApiContract() { }
 
-		public SongForApiContract(Song song, ContentLanguagePreference languagePreference) {
+		public SongForApiContract(Song song, ContentLanguagePreference languagePreference, 
+			bool albums = true, bool artists = true, bool pvs = false, bool webLinks = false) {
 
-			Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).ToArray();
-			Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).ToArray();
 			Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
 
 			CreateDate = song.CreateDate;
@@ -35,6 +35,18 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Status = song.Status;
 			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
 			Version = song.Version;
+
+			if (albums)
+				Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).ToArray();
+
+			if (artists)
+				Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).ToArray();
+
+			if (pvs)
+				PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
+
+			if (webLinks)
+				WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
 		}
 
@@ -63,6 +75,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public LocalizedStringContract[] Names { get; set; }
 
 		[DataMember]
+		public PVContract[] PVs { get; set; }
+
+		[DataMember]
 		public PVServices PVServices { get; set; }
 
 		[DataMember]
@@ -83,6 +98,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int Version { get; set; }
+
+		[DataMember]
+		public WebLinkContract[] WebLinks { get; set; }
 
 	}
 }
