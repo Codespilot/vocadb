@@ -183,9 +183,19 @@ var vdb;
         viewModels.AlbumEditViewModel = AlbumEditViewModel;
 
         var TrackArtistSelectionViewModel = (function () {
-            function TrackArtistSelectionViewModel(artist, selected) {
+            function TrackArtistSelectionViewModel(artist, selected, filter) {
                 this.artist = artist;
                 this.selected = ko.observable(selected);
+
+                this.visible = ko.computed(function () {
+                    var f = filter();
+                    if (f.length == 0)
+                        return true;
+
+                    f = f.trim().toLowerCase();
+
+                    return (artist.name.toLowerCase().indexOf(f) >= 0 || artist.additionalNames.toLowerCase().indexOf(f) == 0);
+                });
             }
             return TrackArtistSelectionViewModel;
         })();
@@ -193,11 +203,13 @@ var vdb;
 
         var TrackPropertiesViewModel = (function () {
             function TrackPropertiesViewModel(artists, song) {
+                var _this = this;
                 this.song = song;
+                this.filter = ko.observable("");
                 this.artistSelections = _.map(artists, function (a) {
                     return new TrackArtistSelectionViewModel(a, song != null && _.some(song.artists(), function (sa) {
                         return a.id == sa.id;
-                    }));
+                    }), _this.filter);
                 });
             }
             return TrackPropertiesViewModel;

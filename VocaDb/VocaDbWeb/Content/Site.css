@@ -423,6 +423,26 @@ div.panel {
 	margin-top: 5px;
 }
 
+.label-artistSelection {
+	font-size: inherit;
+	font-weight: normal;
+	background-color: #3a87ad;
+	padding: 6px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	line-height: 18px;
+	cursor: pointer;
+}
+
+.label-artistSelection .close {
+	margin-left: 4px;
+	line-height: 18px;
+}
+
+.label-artistSelection:hover {
+	background-color: #7095A5;
+}
+
 /* Links */
 
 button.textLink {
