@@ -121,15 +121,18 @@ module vdb.tests.viewModels {
         var track = target.tracks()[0];
 
         target.editTrackProperties(track);
+        var edited = target.editedSong();
 
-        ok(target.editedSong(), "editedSong");
-        equal(target.editedSong().song, track, "editedSong.song");
-        ok(target.editedSong().artistSelections, "editedSong.artistSelections");
-        equal(target.editedSong().artistSelections.length, 2, "editedSong.artistSelections.length"); // Label or custom artist are not included.
-        equal(target.editedSong().artistSelections[0].artist, producer, "editedSong.artistSelections[0].artist");
-        equal(target.editedSong().artistSelections[0].selected(), true, "editedSong.artistSelections[0].selected");   // Selected, because added to song
-        equal(target.editedSong().artistSelections[1].artist, vocalist, "editedSong.artistSelections[1].artist");
-        equal(target.editedSong().artistSelections[1].selected(), false, "editedSong.artistSelections[1].selected");  // Not seleted, because not added yet
+        ok(edited, "editedSong");
+        equal(edited.song, track, "editedSong.song");
+        ok(edited.artistSelections, "editedSong.artistSelections");
+        equal(edited.artistSelections.length, 2, "editedSong.artistSelections.length"); // Label or custom artist are not included.
+        equal(edited.artistSelections[0].artist, producer, "editedSong.artistSelections[0].artist");
+        equal(edited.artistSelections[0].selected(), true, "editedSong.artistSelections[0].selected");   // Selected, because added to song
+        equal(edited.artistSelections[0].visible(), true, "artistSelections[0].visible");           // No filter
+        equal(edited.artistSelections[1].artist, vocalist, "editedSong.artistSelections[1].artist");
+        equal(edited.artistSelections[1].selected(), false, "editedSong.artistSelections[1].selected");  // Not seleted, because not added yet
+        equal(edited.artistSelections[1].visible(), true, "artistSelections[1].visible");           // No filter
 
     });
 
