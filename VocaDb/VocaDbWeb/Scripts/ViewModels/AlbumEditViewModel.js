@@ -194,7 +194,7 @@ var vdb;
 
                     f = f.trim().toLowerCase();
 
-                    return (artist.name.toLowerCase().indexOf(f) >= 0 || artist.additionalNames.toLowerCase().indexOf(f) == 0);
+                    return (artist.name.toLowerCase().indexOf(f) >= 0 || artist.additionalNames.toLowerCase().indexOf(f) >= 0);
                 });
             }
             return TrackArtistSelectionViewModel;
