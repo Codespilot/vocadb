@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.AlbumSearch;
@@ -63,6 +64,15 @@ namespace VocaDb.Web.Controllers
 			var contract = Service.GetArchivedArtistPicture(id);
 
 			return Picture(contract);
+
+		}
+
+		public ActionResult ArchivedVersionXml(int id) {
+
+			var doc = Service.GetVersionXml(id);
+			var content = XmlHelper.SerializeToUTF8XmlString(doc);
+
+			return Xml(content);
 
 		}
 

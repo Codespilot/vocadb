@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Utils;
@@ -51,6 +52,15 @@ namespace VocaDb.Web.Controllers
 				Service.UpdateSongList(contract);
 
 			}
+
+		}
+
+		public ActionResult ArchivedVersionXml(int id) {
+
+			var doc = Service.GetVersionXml(id);
+			var content = XmlHelper.SerializeToUTF8XmlString(doc);
+
+			return Xml(content);
 
 		}
 

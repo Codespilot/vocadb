@@ -23,14 +23,28 @@ namespace VocaDb.Tests.Helpers {
 		}
 
 		[TestMethod]
-		public void SerializeToUTF8XmlString() {
+		public void SerializeToUTF8XmlString_ValidObject() {
 
 			var album = new ArchivedAlbumContract { Description = "Miku Miku!" };
 			var doc = XmlHelper.SerializeToXml(album);
-			doc.Declaration = new XDeclaration("1.0", "utf-8", "yes");
-			var reference = doc.Declaration + Environment.NewLine + doc;
+			var declaration = new XDeclaration("1.0", "utf-8", "yes");
+			var reference = declaration + Environment.NewLine + doc;
 
 			var res = XmlHelper.SerializeToUTF8XmlString(album);
+
+			Assert.IsTrue(res.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"), "Header is correct");
+			Assert.AreEqual(reference, res, "Result as expected");
+
+		}
+
+		[TestMethod]
+		public void SerializeToUTF8XmlString_ValidDocument() {
+
+			var doc = new XDocument(new XElement("root", new XElement("MikuMiku")));
+			var declaration = new XDeclaration("1.0", "utf-8", "yes");
+			var reference = declaration + Environment.NewLine + doc;
+
+			var res = XmlHelper.SerializeToUTF8XmlString(doc);
 
 			Assert.IsTrue(res.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>"), "Header is correct");
 			Assert.AreEqual(reference, res, "Result as expected");

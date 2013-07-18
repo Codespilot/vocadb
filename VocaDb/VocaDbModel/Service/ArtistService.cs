@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 using NLog;
 using VocaDb.Model.Domain.Globalization;
 using NHibernate;
@@ -459,6 +460,10 @@ namespace VocaDb.Model.Service {
 				new ArchivedArtistVersionDetailsContract(session.Load<ArchivedArtistVersion>(id),
 					comparedVersionId != 0 ? session.Load<ArchivedArtistVersion>(comparedVersionId) : null, PermissionContext.LanguagePreference));
 
+		}
+
+		public XDocument GetVersionXml(int id) {
+			return HandleQuery(session => session.Load<ArchivedArtistVersion>(id).Data);
 		}
 
 		public void Merge(int sourceId, int targetId) {

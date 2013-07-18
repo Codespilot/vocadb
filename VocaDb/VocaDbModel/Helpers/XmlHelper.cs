@@ -36,12 +36,10 @@ namespace VocaDb.Model.Helpers {
 		/// Serializes an object to a string in UTF-8 format, 
 		/// including the XML declaration.
 		/// </summary>
-		/// <typeparam name="T">Type of the object to be serialized.</typeparam>
-		/// <param name="obj">Object to be serialized. Cannot be null.</param>
-		/// <returns>Object serialized into XML string, in UTF-8 encoding.</returns>
-		public static string SerializeToUTF8XmlString<T>(T obj) {
+		/// <param name="doc">XML document to be serialized. Cannot be null.</param>
+		/// <returns>Document serialized into XML string, in UTF-8 encoding.</returns>
+		public static string SerializeToUTF8XmlString(XDocument doc) {
 
-			var doc = SerializeToXml(obj);
 			doc.Declaration = new XDeclaration("1.0", "utf-8", "yes");
 
 			using (var stream = new MemoryStream()) {
@@ -54,6 +52,20 @@ namespace VocaDb.Model.Helpers {
 				}
 
 			}
+	
+		}
+
+		/// <summary>
+		/// Serializes an object to a string in UTF-8 format, 
+		/// including the XML declaration.
+		/// </summary>
+		/// <typeparam name="T">Type of the object to be serialized.</typeparam>
+		/// <param name="obj">Object to be serialized. Cannot be null.</param>
+		/// <returns>Object serialized into XML string, in UTF-8 encoding.</returns>
+		public static string SerializeToUTF8XmlString<T>(T obj) {
+
+			var doc = SerializeToXml(obj);
+			return SerializeToUTF8XmlString(doc);
 
 		}
 
