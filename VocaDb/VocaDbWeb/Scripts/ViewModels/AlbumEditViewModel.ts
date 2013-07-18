@@ -235,8 +235,10 @@ module vdb.viewModels {
     // Single artist selection for the track properties dialog.
     export class TrackArtistSelectionViewModel {
 
+        // Whether this artist has been selected.
         selected: KnockoutObservable<boolean>;
 
+        // Whether this selection is visible according to current filter.
         visible: KnockoutComputed<boolean>;
 
         constructor(public artist: dc.ArtistContract, selected: boolean, filter: KnockoutObservable<string>) {
@@ -262,8 +264,10 @@ module vdb.viewModels {
     // View model for the track properties dialog, for editing artists for one or more tracks.
     export class TrackPropertiesViewModel {
         
+        // Selectable artists.
         artistSelections: TrackArtistSelectionViewModel[];
 
+        // Artist filter string.
         filter: KnockoutObservable<string> = ko.observable("");
 
         constructor(artists: dc.ArtistContract[], public song: SongInAlbumEditViewModel) {

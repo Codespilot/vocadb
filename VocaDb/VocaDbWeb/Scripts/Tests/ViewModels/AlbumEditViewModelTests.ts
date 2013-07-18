@@ -1,4 +1,4 @@
-/// <reference path="../../typings/qunit/qunit.d.ts" />
+﻿/// <reference path="../../typings/qunit/qunit.d.ts" />
 /// <reference path="../../Models/WebLinkCategory.ts" />
 /// <reference path="../TestSupport/FakeAlbumRepository.ts" />
 /// <reference path="../TestSupport/FakeSongRepository.ts" />
@@ -16,7 +16,7 @@ module vdb.tests.viewModels {
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
 
     var producer = { id: 1, name: "Tripshots", additionalNames: "", artistType: "Producer" };
-    var vocalist = { id: 2, name: "Hatsune Miku", additionalNames: "", artistType: "Vocalist" };
+    var vocalist = { id: 2, name: "Hatsune Miku", additionalNames: "初音ミク", artistType: "Vocalist" };
     var label = { id: 3, name: "KarenT", additionalNames: "", artistType: "Label" };
 
     var producerArtistLink = { artist: producer, id: 39, isSupport: false, name: "", roles: "Default" };
@@ -33,7 +33,7 @@ module vdb.tests.viewModels {
         setup: () => {
 
             songRep = new vdb.tests.testSupport.FakeSongRepository();
-            song = { additionalNames: "", artistString: "Tripshots", artists: [producer], id: 2, name: "Anger" };
+            song = { additionalNames: "", artistString: "Tripshots", artists: [producer], id: 2, name: "Anger", vote: "Nothing" };
             songRep.song = song;
 
             songInAlbum = {
@@ -156,6 +156,34 @@ module vdb.tests.viewModels {
         target.saveTrackProperties();
 
         equal(track.artists().length, 0, "track.artists.length");
+
+    });
+
+    test("filter displayName", () => {
+
+        var target = createViewModel();
+        var track = target.tracks()[0];
+        target.editTrackProperties(track);
+        var edited = target.editedSong();
+
+        edited.filter("tri");
+
+        equal(edited.artistSelections[0].visible(), true, "artistSelections[0].visible");  // Producer (Tripshots)
+        equal(edited.artistSelections[1].visible(), false, "artistSelections[1].visible"); // Vocalist (Hatsune Miku)
+
+    });
+
+    test("filter additionalName", () => {
+
+        var target = createViewModel();
+        var track = target.tracks()[0];
+        target.editTrackProperties(track);
+        var edited = target.editedSong();
+
+        edited.filter("初音ミク");
+
+        equal(edited.artistSelections[0].visible(), false, "artistSelections[0].visible");  // Producer (Tripshots)
+        equal(edited.artistSelections[1].visible(), true, "artistSelections[1].visible"); // Vocalist (Hatsune Miku)
 
     });
 
