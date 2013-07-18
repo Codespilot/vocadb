@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using NLog;
@@ -816,6 +817,10 @@ namespace VocaDb.Model.Service {
 					comparedVersionId != 0 ? session.Load<ArchivedSongVersion>(comparedVersionId) : null, 
 					PermissionContext.LanguagePreference));
 
+		}
+
+		public XDocument GetVersionXml(int id) {
+			return HandleQuery(session => session.Load<ArchivedSongVersion>(id).Data);
 		}
 
 		public void Merge(int sourceId, int targetId) {

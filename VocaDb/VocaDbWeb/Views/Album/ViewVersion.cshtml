@@ -24,6 +24,8 @@
 @if (Login.CanRevertEntryVersions) {
 	@Html.ActionLink("Revert to this version", "RevertToVersion", new { archivedAlbumVersionId = Model.ArchivedVersion.Id }, new { id = "revertLink", onclick = "return confirm(\"Are you sure you want to revert to this version?\");" })
 }
+&nbsp;
+<a href="@Url.Action("ArchivedVersionXml", new { id = Model.ArchivedVersion.Id })" id="downloadXmlLink">Download XML</a>
 }
 
 @if (Model.ComparableVersions.Any()) {
@@ -41,6 +43,7 @@
 
 	$(document).ready(function () {
 		$("#revertLink").button({ icons: { primary: 'ui-icon-arrowrefresh-1-w'} });
+		$("#downloadXmlLink").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s' } });
 	});
 
 </script>

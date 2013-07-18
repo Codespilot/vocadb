@@ -273,6 +273,14 @@ namespace VocaDb.Web.Controllers {
 				return new EmptyResult();
 
 			var content = XmlHelper.SerializeToUTF8XmlString(obj);
+			return Xml(content);
+
+		}
+
+		protected ActionResult Xml(string content) {
+
+			if (string.IsNullOrEmpty(content))
+				return new EmptyResult();
 
 			return new ContentResult {
 				ContentType = "text/xml",

@@ -44,6 +44,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult ArchivedVersionXml(int id) {
+
+			var doc = Service.GetVersionXml(id);
+			var content = XmlHelper.SerializeToUTF8XmlString(doc);
+
+			return Xml(content);
+
+		}
+
 		[HttpPost]
 		public ActionResult CreatePVForAlbumByUrl(int albumId, string pvUrl) {
 
