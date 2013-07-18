@@ -237,8 +237,24 @@ module vdb.viewModels {
 
         selected: KnockoutObservable<boolean>;
 
-        constructor(public artist: dc.ArtistContract, selected: boolean) {
+        visible: KnockoutComputed<boolean>;
+
+        constructor(public artist: dc.ArtistContract, selected: boolean, filter: KnockoutObservable<string>) {
+
             this.selected = ko.observable(selected);   
+
+            this.visible = ko.computed(() => {
+
+                var f = filter();
+                if (f.length == 0)
+                    return true;
+
+                f = f.trim().toLowerCase();
+
+                return (artist.name.toLowerCase().indexOf(f) >= 0 || artist.additionalNames.toLowerCase().indexOf(f) == 0);
+
+            });
+
         }
     
     }
@@ -248,9 +264,12 @@ module vdb.viewModels {
         
         artistSelections: TrackArtistSelectionViewModel[];
 
+        filter: KnockoutObservable<string> = ko.observable("");
+
         constructor(artists: dc.ArtistContract[], public song: SongInAlbumEditViewModel) {
             
-            this.artistSelections = _.map(artists, a => new TrackArtistSelectionViewModel(a, song != null && _.some(song.artists(), sa => a.id == sa.id)));
+            this.artistSelections = _.map(artists, a =>
+                new TrackArtistSelectionViewModel(a, song != null && _.some(song.artists(), sa => a.id == sa.id), this.filter));
         
         }
     
