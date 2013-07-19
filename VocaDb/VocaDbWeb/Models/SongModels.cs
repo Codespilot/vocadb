@@ -78,6 +78,7 @@ namespace VocaDb.Web.Models {
 			OriginalPVs = pvs.Where(p => p.PVType == PVType.Original).ToArray();
 			OtherPVs = pvs.Where(p => p.PVType != PVType.Original).ToArray();
 			PrimaryPV = PVHelper.PrimaryPV(pvs);
+			ThumbUrl = VideoServiceHelper.GetThumbUrlPreferNotNico(pvs);
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
@@ -176,6 +177,8 @@ namespace VocaDb.Web.Models {
 		public EntryStatus Status { get; set; }
 
 		public TagUsageContract[] Tags { get; set; }
+
+		public string ThumbUrl { get; set; }
 
 		public SongVoteRating UserRating { get; set; }
 

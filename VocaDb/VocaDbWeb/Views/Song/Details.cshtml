@@ -8,10 +8,17 @@
 @using R = ViewRes.Song;
 @model SongDetails
 @{	
+	
 	ViewBag.Title = Model.Name;
-	ViewBag.Subtitle = Model.ArtistString + " (" + Translate.SongTypeNames[Model.SongType] + ")";
+	ViewBag.Subtitle = string.Format("{0} ({1})", Model.ArtistString, Translate.SongTypeNames[Model.SongType]);
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
+	
 	var showAlternateVersions = 3;
+	
+	if (!string.IsNullOrEmpty(Model.ThumbUrl)) {
+		ViewContext.Controller.ViewBag.Banner = Model.ThumbUrl;		
+	}
+	
 }
 
 @helper AlternateVersions(IEnumerable<SongContract> songs) {

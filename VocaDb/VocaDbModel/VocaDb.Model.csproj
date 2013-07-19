@@ -284,6 +284,7 @@
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
     <Compile Include="Domain\PVs\IEditablePV.cs" />
     <Compile Include="Domain\PVs\IPV.cs" />
+    <Compile Include="Domain\PVs\IPVWithThumbnail.cs" />
     <Compile Include="Domain\PVs\PVManager.cs" />
     <Compile Include="Domain\Security\AuditLogCategory.cs" />
     <Compile Include="Domain\Security\EntryPermissionManager.cs" />

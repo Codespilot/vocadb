@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.PVs;
-using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -37,13 +36,13 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public static string GetThumbUrl(PVForSong pv) {
+		public static string GetThumbUrl(IPVWithThumbnail pv) {
 
 			return Services[pv.Service].GetThumbUrlById(pv.PVId);
 
 		}
 
-		public static string GetThumbUrl(IList<PVForSong> pvs) {
+		public static string GetThumbUrl<T>(IList<T> pvs) where T: class, IPVWithThumbnail {
 
 			ParamIs.NotNull(() => pvs);
 
@@ -70,7 +69,7 @@ namespace VocaDb.Model.Service.VideoServices {
 		/// </summary>
 		/// <param name="pvs">List of PVs. Cannot be null.</param>
 		/// <returns>Thumb URL. Cannot be null. Can be empty if there's no PV.</returns>
-		public static string GetThumbUrlPreferNotNico(IList<PVForSong> pvs) {
+		public static string GetThumbUrlPreferNotNico<T>(IList<T> pvs) where T : class, IPVWithThumbnail {
 
 			ParamIs.NotNull(() => pvs);
 
