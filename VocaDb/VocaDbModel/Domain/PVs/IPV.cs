@@ -12,6 +12,8 @@ namespace VocaDb.Model.Domain.PVs {
 		/// </summary>
 		int Id { get; }
 
+		string PVId { get; }
+
 		/// <summary>
 		/// PV type
 		/// </summary>
