@@ -1,7 +1,9 @@
 ﻿@using VocaDb.Web.Helpers
 @{
     ViewBag.Title = "Help / About";
-    var contributors = new[] { "digited", "Zakudono", "salanos", "kyllakivi", "Goship", "mi.chan", "gaminat", "Wiktor" };
+	var contributors = new[] {
+		"digited", "Zakudono", "salanos", "kyllakivi", "Goship", "mi.chan", "gaminat", "Wiktor", "Shiroizu", "Ota-kun", "Hissori", "nebulasresolution", "megaki11"
+	};
 }
 
 <div id="tabs">
@@ -87,7 +89,7 @@
 		<br />
 		<h4 id="staff">Staff</h4>
         <p>Founded and developed by @Html.ActionLink("riipah", "Profile", "User", new { id = "riipah" }, null).</p>
-        <p>Major contributors: @Html.LinkList(contributors, u => Html.ActionLink(u, "Profile", "User", new { id = u }, null)) and others.</p>
+        <p>A big thank you to our major contributors: @Html.LinkList(contributors, u => Html.ActionLink(u, "Profile", "User", new { id = u }, null)) and others.</p>
         <p>Japanese translation by <a href="http://www.youtube.com/watch?v=6Z73O2WH2jw">Japanese Ninja No.1</a>.</p>
 
 		<br />
