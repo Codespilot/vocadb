@@ -2560,6 +2560,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
