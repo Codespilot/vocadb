@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Account" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
   <data name="AddAlbum" xml:space="preserve">
     <value>アルバムの登録</value>
   </data>
@@ -126,11 +129,17 @@
   <data name="AddSong" xml:space="preserve">
     <value>曲の登録</value>
   </data>
+  <data name="FreeAlbums" xml:space="preserve">
+    <value>フリーダウンロード</value>
+  </data>
   <data name="Help" xml:space="preserve">
     <value>サポート / DBについて</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>ホーム</value>
+  </data>
+  <data name="IRCLink" xml:space="preserve">
+    <value>RizonでIRCのチャンネル</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>ログイン</value>
@@ -143,6 +152,12 @@
   </data>
   <data name="MikuDbAlbum" xml:space="preserve">
     <value>MikuDbAlbum</value>
+  </data>
+  <data name="NewAlbums" xml:space="preserve">
+    <value>新しいアルバム</value>
+  </data>
+  <data name="NewPVs" xml:space="preserve">
+    <value>最近のPV</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>登録する</value>
@@ -157,7 +172,7 @@
     <value>ソーシャルサイト</value>
   </data>
   <data name="Tags" xml:space="preserve">
-    <value>タグ</value>
+    <value>タグ/ジャンル</value>
   </data>
   <data name="UnreadMessages" xml:space="preserve">
     <value>You have unread messages</value>
