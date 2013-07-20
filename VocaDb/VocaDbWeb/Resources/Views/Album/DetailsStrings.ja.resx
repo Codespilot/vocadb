@@ -117,31 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionDate" xml:space="preserve">
-    <value>追加日</value>
+  <data name="CatalogNumber" xml:space="preserve">
+    <value>カタログNo</value>
   </data>
-  <data name="BasicInfoTab" xml:space="preserve">
-    <value>基本情報</value>
+  <data name="Labels" xml:space="preserve">
+    <value>レーベル</value>
   </data>
-  <data name="DiscussionTab" xml:space="preserve">
-    <value>話し合い</value>
+  <data name="Producers" xml:space="preserve">
+    <value>プロデューサー</value>
   </data>
-  <data name="ExternalLinks" xml:space="preserve">
-    <value>外部リンク</value>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>発売日</value>
   </data>
-  <data name="LatestComments" xml:space="preserve">
-    <value>最近のコメント</value>
+  <data name="Tracklist" xml:space="preserve">
+    <value>トラックリスト</value>
   </data>
-  <data name="NoComments" xml:space="preserve">
-    <value>まだ何もないッす！</value>
-  </data>
-  <data name="PicturesTab" xml:space="preserve">
-    <value>写真</value>
-  </data>
-  <data name="ReportAnError" xml:space="preserve">
-    <value>誤りを報告する</value>
-  </data>
-  <data name="ViewModifications" xml:space="preserve">
-    <value>更新履歴</value>
+  <data name="Vocalists" xml:space="preserve">
+    <value>ボーカリスト</value>
   </data>
 </root>
