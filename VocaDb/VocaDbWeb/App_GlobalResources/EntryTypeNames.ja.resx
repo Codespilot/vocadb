@@ -129,6 +129,12 @@
   <data name="SongList" xml:space="preserve">
     <value>曲目リスト</value>
   </data>
+  <data name="Tag" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>何でも</value>
+  </data>
   <data name="User" xml:space="preserve">
     <value>ユーザー</value>
   </data>

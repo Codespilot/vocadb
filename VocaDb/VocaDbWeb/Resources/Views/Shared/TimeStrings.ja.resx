@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,34 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="NewAlbums" xml:space="preserve">
-    <value>新しいアルバム</value>
+  <data name="Days" xml:space="preserve">
+    <value>日</value>
   </data>
-  <data name="News" xml:space="preserve">
-    <value>ニュース</value>
+  <data name="Hours" xml:space="preserve">
+    <value>時間</value>
   </data>
-  <data name="RecentActivity" xml:space="preserve">
-    <value>最近の活動</value>
+  <data name="Minutes" xml:space="preserve">
+    <value>分</value>
   </data>
-  <data name="RecentSongs" xml:space="preserve">
-    <value>最近追加された動画</value>
-  </data>
-  <data name="SearchSite" xml:space="preserve">
-    <value>Google Custom SearchでVocaDBを検索する</value>
-  </data>
-  <data name="TopAlbums" xml:space="preserve">
-    <value>最も人気のあるアルバム</value>
-  </data>
-  <data name="ViewAll" xml:space="preserve">
-    <value>すべてを表示</value>
-  </data>
-  <data name="ViewMore" xml:space="preserve">
-    <value>もっと見る</value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>ボカロデータベースへようこそ！</value>
-  </data>
-  <data name="WelcomeSubtitle" xml:space="preserve">
-    <value>ボカロアーティストやディスコグラフィーやPVの協調データベース</value>
+  <data name="TimeAgo" xml:space="preserve">
+    <value>{0} {1}前</value>
   </data>
 </root>

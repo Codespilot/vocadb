@@ -2620,6 +2620,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
@@ -2728,6 +2729,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\TagSelectionsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TimeStrings.Designer.cs</LastGenOutput>
