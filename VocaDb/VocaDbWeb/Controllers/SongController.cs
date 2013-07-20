@@ -522,6 +522,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+
+		public string ThumbUrl(int id) {
+
+			var songWithPVs = Service.GetSongWithPVAndVote(id);
+			return (songWithPVs.ThumbUrl);
+
+		}
+
 		public ActionResult UsersWithSongRating(int songId = invalidId) {
 
 			if (songId == invalidId)
