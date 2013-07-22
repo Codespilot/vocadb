@@ -1144,11 +1144,19 @@
       <DependentUpon>SongListBaseContract.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Song\SongListContract.ts" />
+    <Content Include="Scripts\DataContracts\Song\SongListContract.js">
+      <DependentUpon>SongListContract.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.js">
       <DependentUpon>SongWithPVPlayerAndVoteContract.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\DataContracts\TranslatedEnumField.js">
       <DependentUpon>TranslatedEnumField.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\DataContracts\User\UserBaseContract.ts" />
+    <Content Include="Scripts\DataContracts\User\UserBaseContract.js">
+      <DependentUpon>UserBaseContract.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\DataContracts\WebLinkContract.js">
       <DependentUpon>WebLinkContract.ts</DependentUpon>

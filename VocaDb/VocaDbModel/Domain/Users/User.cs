@@ -14,7 +14,7 @@ using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class User : IEntryWithNames, IUser, IEquatable<User>, IWebLinkFactory<UserWebLink> {
+	public class User : IEntryWithNames, IUserWithEmail, IEquatable<User>, IWebLinkFactory<UserWebLink> {
 
 		INameManager IEntryWithNames.Names {
 			get {

@@ -2,6 +2,7 @@
 /// <reference path="../DataContracts/NewSongCheckResultContract.ts" />
 /// <reference path="../DataContracts/SongContract.ts" />
 /// <reference path="../DataContracts/SongListBaseContract.ts" />
+/// <reference path="../DataContracts/Song/SongListContract.ts" />
 /// <reference path="../DataContracts/Song/SongWithPVPlayerAndVoteContract.ts" />
 /// <reference path="../Shared/GlobalFunctions.ts" />
 
@@ -27,6 +28,8 @@ module vdb.repositories {
         private post: (relative: string, params: any, callback: Function) => void;
 
         public pvPlayerWithRating: (songId: number, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => void; 
+
+        public songListsForSong: (songId: number, callback: (result: dc.SongListContract[]) => void) => void;
 
         public songListsForUser: (ignoreSongId: number, callback: (result: dc.SongListBaseContract[]) => void ) => void;
 

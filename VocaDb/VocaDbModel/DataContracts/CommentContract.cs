@@ -5,6 +5,10 @@ using System.Runtime.Serialization;
 
 namespace VocaDb.Model.DataContracts {
 
+	/// <summary>
+	/// Data contract for <see cref="Comment"/>.
+	/// SECURITY NOTE: User contract contains email, which is sensitive information.
+	/// </summary>
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class CommentContract {
 
@@ -14,7 +18,7 @@ namespace VocaDb.Model.DataContracts {
 
 			ParamIs.NotNull(() => comment);
 
-			Author = (comment.Author != null ? new UserBaseContract(comment.Author) : null);
+			Author = (comment.Author != null ? new UserWithEmailContract(comment.Author) : null);
 			AuthorName = comment.AuthorName;
 			Created = comment.Created;
 			Id = comment.Id;
@@ -23,7 +27,7 @@ namespace VocaDb.Model.DataContracts {
 		}
 
 		[DataMember]
-		public UserBaseContract Author { get; set; }
+		public UserWithEmailContract Author { get; set; }
 
 		[DataMember]
 		public string AuthorName { get; set; }

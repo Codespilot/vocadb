@@ -3,6 +3,10 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
 
+	/// <summary>
+	/// Data contract for <see cref="User"/> with minimal information.
+	/// Contains no sensitive information.
+	/// </summary>
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class UserBaseContract : IUser {
 
@@ -12,14 +16,10 @@ namespace VocaDb.Model.DataContracts.Users {
 
 			ParamIs.NotNull(() => user);
 
-			Email = user.Email;
 			Id = user.Id;
 			Name = user.Name;
 
 		}
-
-		[DataMember]
-		public string Email { get; set; }
 
 		[DataMember]
 		public int Id { get; set; }

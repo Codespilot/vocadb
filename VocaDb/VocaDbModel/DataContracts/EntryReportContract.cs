@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts {
 			Hostname = report.Hostname;
 			Id = report.Id;
 			Notes = report.Notes;
-			User = (report.User != null ? new UserBaseContract(report.User) : null);
+			User = (report.User != null ? new UserWithEmailContract(report.User) : null);
 
 		}
 
@@ -60,7 +60,7 @@ namespace VocaDb.Model.DataContracts {
 
 		public SongReportType SongReportType { get; set; }
 
-		public UserBaseContract User { get; set; }
+		public UserWithEmailContract User { get; set; }
 
 	}
 

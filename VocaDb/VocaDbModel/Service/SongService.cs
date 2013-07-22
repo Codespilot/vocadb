@@ -715,6 +715,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public SongListContract[] GetPublicSongListsForSong(int songId) {
+
+			return HandleQuery(session => {
+
+				var song = session.Load<Song>(songId);
+				var userId = PermissionContext.LoggedUserId;
+				return song.ListLinks
+					.Where(l => l.List.FeaturedCategory != SongListFeaturedCategory.Nothing || l.List.Author.Id == userId || l.List.Author.Options.PublicRatings)
+					.OrderBy(l => l.List.Name)
+					.Select(l => new SongListContract(l.List, PermissionContext))
+					.ToArray();
+
+			});
+
+		}
+
 		public PartialFindResult<SongInListContract> GetSongsInList(int listId, int start, int maxItems, bool getTotalCount) {
 
 			return HandleQuery(session => GetSongsInList(session, listId, start, maxItems, getTotalCount));

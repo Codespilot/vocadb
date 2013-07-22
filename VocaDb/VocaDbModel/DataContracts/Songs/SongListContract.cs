@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => list);
 
-			Author = new UserContract(list.Author);
+			Author = new UserBaseContract(list.Author);
 			CanEdit = EntryPermissionManager.CanEdit(permissionContext, list);
 			Description = list.Description;
 			FeaturedCategory = list.FeaturedCategory;
@@ -27,7 +27,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 		[DataMember]
-		public UserContract Author { get; set; }
+		public UserBaseContract Author { get; set; }
 
 		[DataMember]
 		public bool CanEdit { get; set; }

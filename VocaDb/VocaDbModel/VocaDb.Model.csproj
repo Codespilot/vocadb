@@ -234,6 +234,7 @@
     <Compile Include="DataContracts\Users\UserForMySettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithActivityEntriesContract.cs" />
+    <Compile Include="DataContracts\Users\UserWithEmailContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithPermissionsContract.cs" />
     <Compile Include="DataContracts\VersioningInfoContract.cs" />
@@ -307,6 +308,7 @@
     <Compile Include="Domain\TrashedEntry.cs" />
     <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\IUser.cs" />
+    <Compile Include="Domain\Users\IUserWithEmail.cs" />
     <Compile Include="Domain\Users\OwnedArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Users\UserComment.cs" />
