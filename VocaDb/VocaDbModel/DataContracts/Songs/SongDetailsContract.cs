@@ -38,6 +38,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 				.Select(l => new SongListBaseContract(l.List))
 				.ToArray();
 
+			ListCount = song.ListLinks.Count;
+
 			PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
 			Tags = song.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).ToArray();
 			TranslatedName = new TranslatedStringContract(song.TranslatedName);
@@ -77,6 +79,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int LikeCount { get; set; }
+
+		[DataMember]
+		public int ListCount { get; set; }
 
 		[DataMember]
 		public LyricsForSongContract[] LyricsFromParents { get; set; }

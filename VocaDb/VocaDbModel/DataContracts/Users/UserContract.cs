@@ -8,8 +8,12 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
 
+	/// <summary>
+	/// Data contract for <see cref="User"/> with most properties.
+	/// SECURITY NOTE: take care when sending to client due to the contained sensitive information.
+	/// </summary>
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class UserContract : UserBaseContract {
+	public class UserContract : UserWithEmailContract {
 
 		public UserContract() {
 			Language = string.Empty;

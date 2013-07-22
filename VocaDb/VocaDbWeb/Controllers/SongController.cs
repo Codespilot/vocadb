@@ -182,6 +182,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult SongListsForSong(int songId) {
+
+			var result = Service.GetPublicSongListsForSong(songId);
+			return LowercaseJson(result);
+
+		}
+
 		public ActionResult SongListsForUser(int ignoreSongId) {
 
 			var result = Service.GetSongListsForCurrentUser(ignoreSongId);

@@ -316,16 +316,6 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		[Obsolete("User HTML helper")]
-		public static HtmlString ProfileIcon(this HtmlHelper htmlHelper, UserBaseContract user, int size = 80) {
-
-			if (user != null && !string.IsNullOrEmpty(user.Email))
-				return Gravatar.GetHtml(user.Email, size);
-			else
-				return new HtmlString(string.Empty);
-
-		}
-
 		[Obsolete]
 		public static MvcHtmlString PVServiceIcons(this HtmlHelper htmlHelper, PVServices services) {
 

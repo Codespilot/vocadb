@@ -8,6 +8,10 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
 
+	/// <summary>
+	/// Data contract for <see cref="User"/>, for details view.
+	/// SECURITY NOTE: take care when sending to client due to the contained sensitive information.
+	/// </summary>
 	public class UserDetailsContract : UserWithPermissionsContract {
 
 		public UserDetailsContract() {}
