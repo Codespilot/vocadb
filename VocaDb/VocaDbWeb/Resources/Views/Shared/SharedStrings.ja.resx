@@ -171,4 +171,7 @@
   <data name="Type" xml:space="preserve">
     <value>タイプ</value>
   </data>
+  <data name="Unsorted" xml:space="preserve">
+    <value>ソートされていない</value>
+  </data>
 </root>
