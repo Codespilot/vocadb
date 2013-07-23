@@ -168,9 +168,6 @@
   <data name="ViewExternal" xml:space="preserve">
     <value>Katso ulkopuolisella sivustolla</value>
   </data>
-  <data name="Pools" xml:space="preserve">
-    <value>Joukot</value>
-  </data>
   <data name="Favorites" xml:space="preserve">
     <value>suosikki(a)</value>
   </data>
@@ -212,5 +209,14 @@
   </data>
   <data name="NewListName" xml:space="preserve">
     <value>Uuden listan nimi</value>
+  </data>
+  <data name="CustomLists" xml:space="preserve">
+    <value>Käyttäjien omat listat</value>
+  </data>
+  <data name="PoolsAndLists" xml:space="preserve">
+    <value>Kappalelistat</value>
+  </data>
+  <data name="SongInLists" xml:space="preserve">
+    <value>Kappale listoissa</value>
   </data>
 </root>

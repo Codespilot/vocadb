@@ -5,7 +5,7 @@ var vdb;
         var rep = vdb.repositories;
 
         var SongDetailsViewModel = (function () {
-            function SongDetailsViewModel(repository, userRepository, resources, data, ratingCallback) {
+            function SongDetailsViewModel(repository, userRepository, resources, featureCategoryTranslations, data, ratingCallback) {
                 var _this = this;
                 this.id = data.id;
                 this.userRating = new viewModels.PVRatingButtonsViewModel(userRepository, { id: data.id, vote: data.userRating }, ratingCallback);
@@ -23,6 +23,7 @@ var vdb;
                     _this.allVersionsVisible(true);
                 };
 
+                this.songInListsDialog = new SongInListsViewModel(repository, featureCategoryTranslations, this.id);
                 this.songListDialog = new SongListsViewModel(repository, resources, this.id);
 
                 this.usersContent = ko.observable();
@@ -32,6 +33,47 @@ var vdb;
             return SongDetailsViewModel;
         })();
         viewModels.SongDetailsViewModel = SongDetailsViewModel;
+
+        var SongInListsViewModel = (function () {
+            function SongInListsViewModel(repository, featuredCategoryTranslations, songId) {
+                var _this = this;
+                this.categories = ko.observableArray();
+                this.customLists = ko.observableArray();
+                this.dialogVisible = ko.observable(false);
+                this.show = function () {
+                    repository.songListsForSong(songId, function (lists) {
+                        var byCategory = _.groupBy(_.filter(lists, function (l) {
+                            return l.featuredCategory != "Nothing";
+                        }), function (l) {
+                            return l.featuredCategory;
+                        });
+                        var categories = _.sortBy(_.map(byCategory, function (c) {
+                            return new SongListsInCategory(featuredCategoryTranslations[c[0].featuredCategory], c);
+                        }), function (c) {
+                            return c.categoryName;
+                        });
+                        _this.categories(categories);
+
+                        _this.customLists(_.filter(lists, function (l) {
+                            return l.featuredCategory == "Nothing";
+                        }));
+
+                        _this.dialogVisible(true);
+                    });
+                };
+            }
+            return SongInListsViewModel;
+        })();
+        viewModels.SongInListsViewModel = SongInListsViewModel;
+
+        var SongListsInCategory = (function () {
+            function SongListsInCategory(categoryName, songLists) {
+                this.categoryName = categoryName;
+                this.songLists = songLists;
+            }
+            return SongListsInCategory;
+        })();
+        viewModels.SongListsInCategory = SongListsInCategory;
 
         var SongListsViewModel = (function () {
             function SongListsViewModel(repository, resources, songId) {

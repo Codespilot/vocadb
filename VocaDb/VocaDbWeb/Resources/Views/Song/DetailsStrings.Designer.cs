@@ -115,6 +115,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Custom lists.
+        /// </summary>
+        public static string CustomLists {
+            get {
+                return ResourceManager.GetString("CustomLists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Duration.
         /// </summary>
         public static string Duration {
@@ -250,11 +259,11 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pools.
+        ///   Looks up a localized string similar to Pools and song lists.
         /// </summary>
-        public static string Pools {
+        public static string PoolsAndLists {
             get {
-                return ResourceManager.GetString("Pools", resourceCulture);
+                return ResourceManager.GetString("PoolsAndLists", resourceCulture);
             }
         }
         
@@ -309,6 +318,15 @@ namespace ViewRes.Song {
         public static string SongDetails {
             get {
                 return ResourceManager.GetString("SongDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Song in lists.
+        /// </summary>
+        public static string SongInLists {
+            get {
+                return ResourceManager.GetString("SongInLists", resourceCulture);
             }
         }
         

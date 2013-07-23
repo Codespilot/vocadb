@@ -35,6 +35,10 @@ var vdb;
                     _this.get("/PVPlayerWithRating", { songId: songId }, callback);
                 };
 
+                this.songListsForSong = function (songId, callback) {
+                    _this.get("/SongListsForSong", { songId: songId }, callback);
+                };
+
                 this.songListsForUser = function (ignoreSongId, callback) {
                     _this.post("/SongListsForUser", { ignoreSongId: ignoreSongId }, callback);
                 };

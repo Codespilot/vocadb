@@ -20,6 +20,8 @@ module vdb.viewModels {
 
         public showAllVersions: () => void;
 
+        public songInListsDialog: SongInListsViewModel;
+
         public songListDialog: SongListsViewModel;
 
         public usersContent: KnockoutObservable<string>;
@@ -29,6 +31,7 @@ module vdb.viewModels {
         public userRating: PVRatingButtonsViewModel;
 
         constructor(repository: rep.SongRepository, userRepository: rep.UserRepository, resources: SongDetailsResources,
+            featureCategoryTranslations,
             data: SongDetailsAjax, ratingCallback: () => void ) {
             
             this.id = data.id;
@@ -47,6 +50,7 @@ module vdb.viewModels {
                 this.allVersionsVisible(true);
             };
 
+            this.songInListsDialog = new SongInListsViewModel(repository, featureCategoryTranslations, this.id);
             this.songListDialog = new SongListsViewModel(repository, resources, this.id);
 
             this.usersContent = ko.observable();
@@ -54,6 +58,44 @@ module vdb.viewModels {
             this.usersPopupVisible = ko.observable(false);
         
         }
+    
+    }
+
+    export class SongInListsViewModel {
+        
+        public categories: KnockoutObservableArray<SongListsInCategory> = ko.observableArray();
+
+        public customLists: KnockoutObservableArray<dc.SongListContract> = ko.observableArray();
+
+        public dialogVisible = ko.observable(false);
+
+        public show: () => void;
+
+        constructor(repository: rep.SongRepository, featuredCategoryTranslations, songId: number) {
+            
+            this.show = () => {
+
+                repository.songListsForSong(songId, lists => {
+
+                    var byCategory: _.Dictionary<_.List<dc.SongListContract>> = _.groupBy(_.filter(lists, l => l.featuredCategory != "Nothing"), l => l.featuredCategory);
+                    var categories = _.sortBy(_.map(byCategory, c => new SongListsInCategory(featuredCategoryTranslations[c[0].featuredCategory], c)), c => c.categoryName);
+                    this.categories(categories);
+
+                    this.customLists(_.filter(lists, l => l.featuredCategory == "Nothing"));
+
+                    this.dialogVisible(true);
+
+                });
+
+            }
+        
+        }
+
+    }
+
+    export class SongListsInCategory {
+        
+        constructor(public categoryName: string, public songLists: dc.SongListContract[]) { }
     
     }
 
