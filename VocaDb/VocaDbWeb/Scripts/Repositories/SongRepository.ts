@@ -65,6 +65,10 @@ module vdb.repositories {
                 this.get("/PVPlayerWithRating", { songId: songId }, callback);
             }
 
+            this.songListsForSong = (songId, callback) => {
+                this.get("/SongListsForSong", { songId: songId }, callback);
+            }
+
             this.songListsForUser = (ignoreSongId, callback) => {                
                 this.post("/SongListsForUser", { ignoreSongId: ignoreSongId }, callback);
             }

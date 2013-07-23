@@ -53,6 +53,7 @@ namespace VocaDb.Web.Models {
 			LatestComments = contract.LatestComments;
 			Length = contract.Song.LengthSeconds;
 			LikedTimes = contract.LikeCount;
+			ListCount = contract.ListCount;
 			Lyrics = contract.LyricsFromParents;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
@@ -134,6 +135,8 @@ namespace VocaDb.Web.Models {
 		public bool IsFavorited { get; set; }
 
 		public int Length { get; set; }
+
+		public int ListCount { get; set; }
 
 		public string Json {
 			get {
