@@ -7,6 +7,10 @@ var vdb;
             function SongRepository(baseUrl) {
                 var _this = this;
                 this.get = function (relative, params, callback) {
+                    $.get(_this.mapUrl(relative), params, callback);
+                };
+
+                this.getJSON = function (relative, params, callback) {
                     $.getJSON(_this.mapUrl(relative), params, callback);
                 };
 
@@ -32,7 +36,7 @@ var vdb;
                 };
 
                 this.pvPlayerWithRating = function (songId, callback) {
-                    _this.get("/PVPlayerWithRating", { songId: songId }, callback);
+                    _this.getJSON("/PVPlayerWithRating", { songId: songId }, callback);
                 };
 
                 this.songListsForSong = function (songId, callback) {

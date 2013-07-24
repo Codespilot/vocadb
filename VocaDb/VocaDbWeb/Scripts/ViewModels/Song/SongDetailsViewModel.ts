@@ -50,7 +50,7 @@ module vdb.viewModels {
                 this.allVersionsVisible(true);
             };
 
-            this.songInListsDialog = new SongInListsViewModel(repository, featureCategoryTranslations, this.id);
+            this.songInListsDialog = new SongInListsViewModel(repository, this.id);
             this.songListDialog = new SongListsViewModel(repository, resources, this.id);
 
             this.usersContent = ko.observable();
@@ -63,15 +63,30 @@ module vdb.viewModels {
 
     export class SongInListsViewModel {
         
-        public categories: KnockoutObservableArray<SongListsInCategory> = ko.observableArray();
+        //public categories: KnockoutObservableArray<SongListsInCategory> = ko.observableArray();
 
-        public customLists: KnockoutObservableArray<dc.SongListContract> = ko.observableArray();
+        //public customLists: KnockoutObservableArray<dc.SongListContract> = ko.observableArray();
+
+        public contentHtml: KnockoutObservable<string> = ko.observable();
 
         public dialogVisible = ko.observable(false);
 
         public show: () => void;
 
-        constructor(repository: rep.SongRepository, featuredCategoryTranslations, songId: number) {
+        constructor(repository: rep.SongRepository, songId: number) {
+            
+            this.show = () => {
+
+                repository.songListsForSong(songId, result => {
+                    this.contentHtml(result);
+                    this.dialogVisible(true);
+                });
+
+            }
+        
+        }
+
+        /*constructor(repository: rep.SongRepository, featuredCategoryTranslations, songId: number) {
             
             this.show = () => {
 
@@ -89,7 +104,7 @@ module vdb.viewModels {
 
             }
         
-        }
+        }*/
 
     }
 
