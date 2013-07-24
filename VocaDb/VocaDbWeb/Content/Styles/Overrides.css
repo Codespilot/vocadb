@@ -26,6 +26,11 @@ ul.ui-autocomplete {
 .ui-dialog.ui-widget-content a:hover {
   color: #0065B2;
 }
+.ui-dialog.ui-widget-content .ui-menu-item a,
+.ui-dialog.ui-widget-content .ui-menu-item a:hover,
+.ui-dialog.ui-widget-content .ui-menu-item a:visited {
+  color: black;
+}
 body .ui-widget input,
 body .ui-widget select,
 body .ui-widget textarea,
