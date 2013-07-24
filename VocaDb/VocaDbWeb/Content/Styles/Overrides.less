@@ -12,21 +12,19 @@ ul.ui-autocomplete {
 }
 
 /* Override retarded widget link colors */
-.rightFrame .ui-widget-header a, .rightFrame .ui-widget-content a, .ui-dialog.ui-widget-content a {
-	color: #003399;
+.rightFrame .ui-widget-header, .rightFrame .ui-widget-content, .ui-dialog.ui-widget-content {
+    a { color: #003399; }
+    a:visited { color: #001155; }
+    a:hover { color: #0065B2; }
 }
 
-.rightFrame .ui-widget-header a:visited, .rightFrame .ui-widget-content a:visited, .ui-dialog.ui-widget-content a:visited {
-	color: #001155;
-}
-
-.rightFrame .ui-widget-header a:hover, .rightFrame .ui-widget-content a:hover, .ui-dialog.ui-widget-content a:hover {
-	color: #0065B2;	
+.ui-dialog.ui-widget-content .ui-menu-item {
+    a, a:hover, a:visited { color: black; }
 }
 
 // Fix font size for buttons (conflicts for Bootstrap vs. jQuery UI)
-body .ui-widget input, body .ui-widget select, body .ui-widget textarea, body .ui-widget button {
-    font-size: 14px;
+body .ui-widget {
+    input, select, textarea, button { font-size: 14px; }
 }
 
 
