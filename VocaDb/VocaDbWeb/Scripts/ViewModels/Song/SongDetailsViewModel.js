@@ -23,7 +23,7 @@ var vdb;
                     _this.allVersionsVisible(true);
                 };
 
-                this.songInListsDialog = new SongInListsViewModel(repository, featureCategoryTranslations, this.id);
+                this.songInListsDialog = new SongInListsViewModel(repository, this.id);
                 this.songListDialog = new SongListsViewModel(repository, resources, this.id);
 
                 this.usersContent = ko.observable();
@@ -35,29 +35,13 @@ var vdb;
         viewModels.SongDetailsViewModel = SongDetailsViewModel;
 
         var SongInListsViewModel = (function () {
-            function SongInListsViewModel(repository, featuredCategoryTranslations, songId) {
+            function SongInListsViewModel(repository, songId) {
                 var _this = this;
-                this.categories = ko.observableArray();
-                this.customLists = ko.observableArray();
+                this.contentHtml = ko.observable();
                 this.dialogVisible = ko.observable(false);
                 this.show = function () {
-                    repository.songListsForSong(songId, function (lists) {
-                        var byCategory = _.groupBy(_.filter(lists, function (l) {
-                            return l.featuredCategory != "Nothing";
-                        }), function (l) {
-                            return l.featuredCategory;
-                        });
-                        var categories = _.sortBy(_.map(byCategory, function (c) {
-                            return new SongListsInCategory(featuredCategoryTranslations[c[0].featuredCategory], c);
-                        }), function (c) {
-                            return c.categoryName;
-                        });
-                        _this.categories(categories);
-
-                        _this.customLists(_.filter(lists, function (l) {
-                            return l.featuredCategory == "Nothing";
-                        }));
-
+                    repository.songListsForSong(songId, function (result) {
+                        _this.contentHtml(result);
                         _this.dialogVisible(true);
                     });
                 };

@@ -184,8 +184,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult SongListsForSong(int songId) {
 
-			var result = Service.GetPublicSongListsForSong(songId);
-			return LowercaseJson(result);
+			var lists = Service.GetPublicSongListsForSong(songId);
+			return PartialView("Partials/_SongInListsDialogContent", lists);
+			//return LowercaseJson(lists);
 
 		}
 

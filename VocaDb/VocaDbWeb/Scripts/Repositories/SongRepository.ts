@@ -20,6 +20,8 @@ module vdb.repositories {
 
         private get: (relative: string, params: any, callback: Function) => void;
 
+        private getJSON: (relative: string, params: any, callback: Function) => void;
+
         public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;
 
         // Maps a relative URL to an absolute one.
@@ -29,7 +31,9 @@ module vdb.repositories {
 
         public pvPlayerWithRating: (songId: number, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => void; 
 
-        public songListsForSong: (songId: number, callback: (result: dc.SongListContract[]) => void) => void;
+        //public songListsForSong: (songId: number, callback: (result: dc.SongListContract[]) => void) => void;
+
+        public songListsForSong: (songId: number, callback: (result: string) => void ) => void;
 
         public songListsForUser: (ignoreSongId: number, callback: (result: dc.SongListBaseContract[]) => void ) => void;
 
@@ -38,6 +42,10 @@ module vdb.repositories {
         constructor(baseUrl: string) {
 
             this.get = (relative, params, callback) => {
+                $.get(this.mapUrl(relative), params, callback);
+            }
+
+            this.getJSON = (relative, params, callback) => {
                 $.getJSON(this.mapUrl(relative), params, callback);
             }
 
@@ -62,7 +70,7 @@ module vdb.repositories {
             }
 
             this.pvPlayerWithRating = (songId, callback) => {
-                this.get("/PVPlayerWithRating", { songId: songId }, callback);
+                this.getJSON("/PVPlayerWithRating", { songId: songId }, callback);
             }
 
             this.songListsForSong = (songId, callback) => {
