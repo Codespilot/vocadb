@@ -30,9 +30,12 @@ module vdb.viewModels {
 
         public userRating: PVRatingButtonsViewModel;
 
-        constructor(repository: rep.SongRepository, userRepository: rep.UserRepository, resources: SongDetailsResources,
-            featureCategoryTranslations,
-            data: SongDetailsAjax, ratingCallback: () => void ) {
+        constructor(
+            repository: rep.SongRepository,
+            userRepository: rep.UserRepository,
+            resources: SongDetailsResources,
+            data: SongDetailsAjax,
+            ratingCallback: () => void ) {
             
             this.id = data.id;
             this.userRating = new PVRatingButtonsViewModel(userRepository, { id: data.id, vote: data.userRating }, ratingCallback);

@@ -60,4 +60,13 @@ module vdb.tests.viewModels {
 
     });
 
+    test("songInListsDialog show", () => {
+
+        target.songInListsDialog.show();
+
+        equal(target.songInListsDialog.dialogVisible(), true, "songInListsDialog.dialogVisible");
+        ok(target.songInListsDialog.contentHtml(), "songInListsDialog.contentHtml");
+
+    });
+
 }

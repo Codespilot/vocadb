@@ -35,6 +35,11 @@ module vdb.tests.testSupport {
                     callback(this.song);
             }
 
+            this.songListsForSong = (songId, callback) => {
+                if (callback)
+                    callback("Miku!");
+            }
+
             this.songListsForUser = (ignoreSongId, callback) => {
                 if (callback)
                     callback(this.songLists);

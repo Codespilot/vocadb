@@ -37,6 +37,11 @@ var vdb;
                             callback(_this.song);
                     };
 
+                    this.songListsForSong = function (songId, callback) {
+                        if (callback)
+                            callback("Miku!");
+                    };
+
                     this.songListsForUser = function (ignoreSongId, callback) {
                         if (callback)
                             callback(_this.songLists);

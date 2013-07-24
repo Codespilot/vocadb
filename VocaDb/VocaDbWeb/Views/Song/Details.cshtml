@@ -181,7 +181,10 @@
 						@foreach (var pool in Model.Pools) {
 							@Html.ActionLink(pool.Name, "Details", "SongList", new { id = pool.Id }, null)
 						}
-						- <a id="songInListsLink" data-bind="click: songInListsDialog.show" href="#">View all lists (@Model.ListCount)</a>
+						@if (Model.Pools.Any()) {
+							@("-")
+						}
+						<a id="songInListsLink" data-bind="click: songInListsDialog.show" href="#">View all lists (@Model.ListCount)</a>
 					</td>
 				</tr>
    }	   
@@ -344,12 +347,12 @@
 			var resources = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager, true);
 			vdb.resources.song = resources;
 
-			var featuredCategoryNames = @ResourceHelpers.ToJSON(Resources.SongListFeaturedCategoryNames.ResourceManager, false);
+			//var featuredCategoryNames = @ResourceHelpers.ToJSON(Resources.SongListFeaturedCategoryNames.ResourceManager, false);
 
 			var jsonModel = @Html.Raw(Model.Json);
 			var repo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
 			var userRepo = new vdb.repositories.UserRepository(vdb.values.baseAddress);
-			var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, resources, featuredCategoryNames, jsonModel, vdb.ui.showThankYouForRatingMessage);
+			var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, resources, jsonModel, vdb.ui.showThankYouForRatingMessage);
 			ko.applyBindings(viewModel);
 			viewModel.songListDialog.addedToList = function() { vdb.ui.showSuccessMessage(resources.addedToList); };
 			
