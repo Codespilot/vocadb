@@ -5,7 +5,7 @@ var vdb;
         var rep = vdb.repositories;
 
         var SongDetailsViewModel = (function () {
-            function SongDetailsViewModel(repository, userRepository, resources, featureCategoryTranslations, data, ratingCallback) {
+            function SongDetailsViewModel(repository, userRepository, resources, data, ratingCallback) {
                 var _this = this;
                 this.id = data.id;
                 this.userRating = new viewModels.PVRatingButtonsViewModel(userRepository, { id: data.id, vote: data.userRating }, ratingCallback);

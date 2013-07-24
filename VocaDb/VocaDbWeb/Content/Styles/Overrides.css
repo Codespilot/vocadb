@@ -13,17 +13,17 @@ ul.ui-autocomplete {
 /* Override retarded widget link colors */
 .rightFrame .ui-widget-header a,
 .rightFrame .ui-widget-content a,
-body .ui-widget-content a {
+.ui-dialog.ui-widget-content a {
   color: #003399;
 }
 .rightFrame .ui-widget-header a:visited,
 .rightFrame .ui-widget-content a:visited,
-body .ui-widget-content a:visited {
+.ui-dialog.ui-widget-content a:visited {
   color: #001155;
 }
 .rightFrame .ui-widget-header a:hover,
 .rightFrame .ui-widget-content a:hover,
-body .ui-widget-content a:hover {
+.ui-dialog.ui-widget-content a:hover {
   color: #0065B2;
 }
 body .ui-widget input,

@@ -48,6 +48,13 @@ var vdb;
 
                 equal(rep.addedSongId, 39, "rep.addedSongId");
             });
+
+            test("songInListsDialog show", function () {
+                target.songInListsDialog.show();
+
+                equal(target.songInListsDialog.dialogVisible(), true, "songInListsDialog.dialogVisible");
+                ok(target.songInListsDialog.contentHtml(), "songInListsDialog.contentHtml");
+            });
         })(tests.viewModels || (tests.viewModels = {}));
         var viewModels = tests.viewModels;
     })(vdb.tests || (vdb.tests = {}));
