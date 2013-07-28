@@ -6,6 +6,16 @@
 @using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
 	
+@helper DeletedBanner(IEntryBase mergedTo) {
+	<div class="alert">
+		@Resources.CommonMessages.EntryDeleted
+		@if (mergedTo != null) {
+			@(Resources.CommonMessages.EntryMergedTo + " ")
+			@Helpers.EntryLink(new EntryBaseContract(mergedTo))
+		}		
+	</div>
+}
+
 @helper ExternalLinksList(IEnumerable<WebLinkContract> webLinks, bool showCategory = false) {
     
     foreach (var link in webLinks) {

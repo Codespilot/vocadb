@@ -312,8 +312,9 @@ namespace VocaDb.Model.Service {
 		public ArtistDetailsContract GetArtistDetails(int id) {
 
 			return HandleQuery(session => {
-			                   	
-				var contract = new ArtistDetailsContract(session.Load<Artist>(id), LanguagePreference);
+
+				var artist = session.Load<Artist>(id);
+				var contract = new ArtistDetailsContract(artist, LanguagePreference);
 
 				if (PermissionContext.LoggedUser != null) {
 					contract.IsAdded = session.Query<ArtistForUser>()
@@ -361,6 +362,11 @@ namespace VocaDb.Model.Service {
 					.Where(c => c.Artist.Id == id).OrderByDescending(c => c.Created).Take(3)
 					.ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
+
+				if (artist.Deleted) {
+					var mergeEntry = session.Query<ArtistMergeRecord>().FirstOrDefault(s => s.Source.Id == id);
+					contract.MergedTo = (mergeEntry != null ? new ArtistContract(mergeEntry.Target, LanguagePreference) : null);
+				}
 
 				return contract;
 

@@ -532,6 +532,11 @@ namespace VocaDb.Model.Service {
 					.Select(c => new CommentContract(c)).ToArray();
 				contract.Hits = session.Query<AlbumHit>().Count(h => h.Album.Id == id);
 
+				if (album.Deleted) {
+					var mergeEntry = session.Query<AlbumMergeRecord>().FirstOrDefault(s => s.Source.Id == id);
+					contract.MergedTo = (mergeEntry != null ? new AlbumContract(mergeEntry.Target, LanguagePreference) : null);
+				}
+
 				if (user != null || !string.IsNullOrEmpty(hostname)) {
 
 					var agentNum = (user != null ? user.Id : hostname.GetHashCode());
