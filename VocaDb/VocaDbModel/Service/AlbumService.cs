@@ -802,6 +802,10 @@ namespace VocaDb.Model.Service {
 				if (target.OriginalReleaseDate.Day == null && source.OriginalRelease != null)
 					target.OriginalReleaseDate.Day = source.OriginalReleaseDate.Day;
 
+				// Create merge record
+				var mergeEntry = new AlbumMergeRecord(source, target);
+				session.Save(mergeEntry);
+
 				source.Deleted = true;
 
 				target.UpdateArtistString();

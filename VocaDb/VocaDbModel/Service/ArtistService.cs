@@ -536,6 +536,10 @@ namespace VocaDb.Model.Service {
 				if (target.Description == string.Empty)
 					target.Description = source.Description;
 
+				// Create merge record
+				var mergeEntry = new ArtistMergeRecord(source, target);
+				session.Save(mergeEntry);
+
 				source.Deleted = true;
 
 				Archive(session, target, ArtistArchiveReason.Merged, string.Format("Merged from '{0}'", source.DefaultName));
