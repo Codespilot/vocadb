@@ -906,6 +906,7 @@
     <Content Include="Content\banners\mikudb.png" />
     <Content Include="Content\banners\mikufan_bannertest.png" />
     <Content Include="Content\banners\mikufan_small.png" />
+    <Content Include="Content\banners\pjd-wiki.png" />
     <Content Include="Content\banners\rvocaloid.png" />
     <Content Include="Content\banners\rvocaloid_small.png" />
     <Content Include="Content\banners\rvocaloid_small2.png" />
