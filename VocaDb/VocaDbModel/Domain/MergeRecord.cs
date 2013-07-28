@@ -4,14 +4,18 @@
 	/// Record of one entry being merged to another.
 	/// </summary>
 	/// <typeparam name="T">Type of entry being merged.</typeparam>
-	public class MergeRecord<T> where T : class, IEntryBase {
+	/// <remarks>
+	/// Merge record is saved separately from the entry itself so it can be made into a weak link
+	/// and the original entry deleted.
+	/// </remarks>
+	public abstract class MergeRecord<T> where T : class, IEntryBase {
 
 		private T source;
 		private T target;
 
-		public MergeRecord() {}
+		protected MergeRecord() {}
 
-		public MergeRecord(T source, T target) {
+		protected MergeRecord(T source, T target) {
 			this.Source = source;
 			this.Target = target;
 		}

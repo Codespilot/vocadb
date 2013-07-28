@@ -70,6 +70,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public GroupForArtistContract[] Members { get; set; }
 
 		[DataMember]
+		public ArtistContract MergedTo { get; set; }
+
+		[DataMember]
 		public AlbumContract[] LatestAlbums { get; set; }
 
 		[DataMember]

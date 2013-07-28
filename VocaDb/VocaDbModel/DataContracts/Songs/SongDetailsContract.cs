@@ -87,6 +87,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public LyricsForSongContract[] LyricsFromParents { get; set; }
 
 		[DataMember]
+		public SongContract MergedTo { get; set; }
+
+		[DataMember]
 		public string Notes { get; set; }
 
 		[DataMember]

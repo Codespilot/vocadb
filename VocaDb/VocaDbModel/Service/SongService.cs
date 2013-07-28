@@ -631,6 +631,11 @@ namespace VocaDb.Model.Service {
 					.Select(c => new CommentContract(c)).ToArray();
 				contract.Hits = session.Query<SongHit>().Count(h => h.Song.Id == songId);
 
+				if (song.Deleted) {
+					var mergeEntry = session.Query<SongMergeRecord>().FirstOrDefault(s => s.Source.Id == songId);
+					contract.MergedTo = (mergeEntry != null ? new SongContract(mergeEntry.Target, LanguagePreference) : null);
+				}
+
 				if (agentNum != 0) {
 					using (var tx = session.BeginTransaction(IsolationLevel.ReadUncommitted)) {
 

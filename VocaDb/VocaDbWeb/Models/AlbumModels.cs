@@ -212,6 +212,7 @@ namespace VocaDb.Web.Models {
 			Hits = contract.Hits;
 			Id = contract.Id;
 			LatestComments = contract.LatestComments;
+			MergedTo = contract.MergedTo;
 			Name = contract.Name;
 			OwnedBy = contract.OwnedCount;
 			Pictures = contract.Pictures;
@@ -284,6 +285,8 @@ namespace VocaDb.Web.Models {
 		public ArtistForAlbumContract[] Labels { get; set; }
 
 		public CommentContract[] LatestComments { get; set; }
+
+		public AlbumContract MergedTo { get; set; }
 
 		public string Name { get; set; }
 

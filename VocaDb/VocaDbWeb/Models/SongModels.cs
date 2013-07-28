@@ -55,6 +55,7 @@ namespace VocaDb.Web.Models {
 			LikedTimes = contract.LikeCount;
 			ListCount = contract.ListCount;
 			Lyrics = contract.LyricsFromParents;
+			MergedTo = contract.MergedTo;
 			Name = contract.Song.Name;
 			NicoId = contract.Song.NicoId;
 			Notes = contract.Notes;
@@ -149,6 +150,8 @@ namespace VocaDb.Web.Models {
 		public int LikedTimes { get; set; }
 
 		public LyricsForSongContract[] Lyrics { get; set; }
+
+		public SongContract MergedTo { get; set; }
 
 		public string Name { get; set; }
 

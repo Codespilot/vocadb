@@ -68,7 +68,7 @@
 }
 
 @if (Model.Deleted) {
-	@Helpers.NotificationPanel(Resources.CommonMessages.EntryDeleted)
+	@EntryDetailsHelpers.DeletedBanner(Model.MergedTo)
 }
 
 @if (Model.Draft && !Model.Deleted) {
