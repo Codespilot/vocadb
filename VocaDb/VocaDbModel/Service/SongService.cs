@@ -911,7 +911,7 @@ namespace VocaDb.Model.Service {
 					session.Update(alternate);
 				}
 
-				// Merge record
+				// Create merge record
 				var mergeEntry = new SongMergeRecord(source, target);
 				session.Save(mergeEntry);
 

@@ -250,6 +250,7 @@
     <Compile Include="Domain\Albums\AlbumDiff.cs" />
     <Compile Include="Domain\Albums\AlbumEditableFields.cs" />
     <Compile Include="Domain\Albums\AlbumHit.cs" />
+    <Compile Include="Domain\Albums\AlbumMergeRecord.cs" />
     <Compile Include="Domain\Albums\AlbumPictureFile.cs" />
     <Compile Include="Domain\Albums\AlbumReport.cs" />
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
@@ -259,6 +260,7 @@
     <Compile Include="Domain\Albums\OtherArtistForAlbum.cs" />
     <Compile Include="Domain\Albums\ReleaseEventDiff.cs" />
     <Compile Include="Domain\Albums\ReleaseEventEditableFields.cs" />
+    <Compile Include="Domain\Artists\ArtistMergeRecord.cs" />
     <Compile Include="Domain\Artists\ArtistPictureFile.cs" />
     <Compile Include="Domain\Artists\ArtistCategories.cs" />
     <Compile Include="Domain\Albums\PVForAlbum.cs" />
@@ -283,6 +285,7 @@
     <Compile Include="Domain\IOptionalDateTime.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
+    <Compile Include="Domain\MergeRecord.cs" />
     <Compile Include="Domain\PVs\IEditablePV.cs" />
     <Compile Include="Domain\PVs\IPV.cs" />
     <Compile Include="Domain\PVs\IPVWithThumbnail.cs" />
@@ -418,6 +421,7 @@
     <Compile Include="Mapping\Activityfeed\NewsEntryMap.cs" />
     <Compile Include="Mapping\Albums\AlbumCommentMap.cs" />
     <Compile Include="Mapping\Albums\AlbumHitMap.cs" />
+    <Compile Include="Mapping\Albums\AlbumMergeRecordMap.cs" />
     <Compile Include="Mapping\Albums\AlbumNameMap.cs" />
     <Compile Include="Mapping\Albums\AlbumPictureFileMap.cs" />
     <Compile Include="Mapping\Albums\AlbumTagUsageMap.cs" />
@@ -427,6 +431,7 @@
     <Compile Include="Mapping\Albums\OtherArtistForAlbumMap.cs" />
     <Compile Include="Mapping\Albums\PVForAlbumMap.cs" />
     <Compile Include="Mapping\Albums\ReleaseEventMap.cs" />
+    <Compile Include="Mapping\Artists\ArtistMergeRecordMap.cs" />
     <Compile Include="Mapping\Artists\ArtistPictureFileMap.cs" />
     <Compile Include="Mapping\Artists\ArtistCommentMap.cs" />
     <Compile Include="Mapping\Artists\ArtistMap.cs" />
