@@ -298,6 +298,7 @@
     <Compile Include="Domain\Songs\SongInList.cs" />
     <Compile Include="Domain\Songs\SongList.cs" />
     <Compile Include="Domain\Songs\SongListFeaturedCategory.cs" />
+    <Compile Include="Domain\Songs\SongMergeRecord.cs" />
     <Compile Include="Domain\Songs\SongReport.cs" />
     <Compile Include="Domain\Songs\SongTagUsage.cs" />
     <Compile Include="Domain\Songs\SongTagVote.cs" />
@@ -445,6 +446,7 @@
     <Compile Include="Mapping\Songs\SongCommentMap.cs" />
     <Compile Include="Mapping\Songs\SongHitMap.cs" />
     <Compile Include="Mapping\Songs\SongListMap.cs" />
+    <Compile Include="Mapping\Songs\SongMergeRecordMap.cs" />
     <Compile Include="Mapping\Songs\SongTagUsageMap.cs" />
     <Compile Include="Mapping\Songs\SongTagVoteMap.cs" />
     <Compile Include="Mapping\Tags\TagMap.cs" />

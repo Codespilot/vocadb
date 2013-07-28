@@ -87,6 +87,20 @@ namespace VocaDb.Tests.Helpers {
 
 		}
 
+		[TestMethod]
+		public void SerializeToXml_MultipleForbiddenChars() {
+
+			var name = "Miku Miku!";
+			var album = new ArchivedAlbumContract { Description = string.Format("\x01{0}\x02", name) };
+
+			Assert.IsTrue(album.Description.IsNormalized());
+
+			var res = SerializeToObjectAndBack(album);
+
+			Assert.AreEqual(name, res.Description, "string is intact");
+
+		}
+
 	}
 
 }
