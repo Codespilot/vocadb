@@ -12,8 +12,12 @@ namespace VocaDb.Model.Helpers {
 	/// </summary>
 	public static class XmlHelper {
 
+		/// <summary>
+		/// Removes unsupported control characters from XML.
+		/// See http://en.wikipedia.org/w/index.php?title=C0_and_C1_control_codes for more info.
+		/// </summary>
 		private static string CleanInvalidXmlChars(string text) {
-			var re = @"&#x2;";
+			var re = @"(&#x1;)|(&#x2;)";
 			return Regex.Replace(text, re, "");
 		}
 
