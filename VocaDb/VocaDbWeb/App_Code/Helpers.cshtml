@@ -131,23 +131,6 @@
     }
 }
 
-@helper EntrySearchBox(string prefix, bool includeIdBox, string addBtnText = null) {
-	
-    if (includeIdBox) {
-	<input type="hidden" name="@(prefix + "Id")" id="@(prefix + "Id")" />	 
-    }
-	
-	<div>
-		@Html.TextBox(prefix + "Name", string.Empty, new { id = prefix + "Name", maxlength = "128" })
-		@if (!string.IsNullOrEmpty(addBtnText)) {
-			<a href="#" class="textLink addLink" id="@(prefix + "AcceptBtn")">@addBtnText</a>	 
-  }
-		<br />
-		<div id="@(prefix + "List")"></div>
-	</div>
-
-}
-
 @helper EntrySearchNameBox(string id, string cls = "input-xlarge") {
 	<input type="text" id="@id" maxlength="128" class="@cls" placeholder="@ViewRes.SharedStrings.Search" />	
 }

@@ -292,32 +292,4 @@ namespace VocaDb.Web.Models {
 
 	}
 
-	public class AlbumForUserEditModel {
-
-		public AlbumForUserEditModel() {
-			AllMediaTypes = EnumVal<MediaType>.Values;
-		}
-
-		public AlbumForUserEditModel(AlbumForUserContract contract)
-			: this() {
-
-			Album = contract.Album;
-			Id = contract.Id;
-			MediaType = contract.MediaType;
-			Rating = contract.Rating;
-
-		}
-
-		public AlbumContract Album { get; set; }
-
-		public MediaType[] AllMediaTypes { get; set; }
-
-		public int Id { get; set; }
-
-		public MediaType MediaType { get; set; }
-
-		public int Rating { get; set; }
-
-	}
-
 }
