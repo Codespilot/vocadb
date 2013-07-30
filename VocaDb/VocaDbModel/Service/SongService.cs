@@ -52,6 +52,10 @@ namespace VocaDb.Model.Service {
 			return new SongSearch(new QuerySourceSession(session), LanguagePreference).Find(queryParams);
 		}
 
+		private SongMergeRecord GetMergeRecord(ISession session, int sourceId) {
+			return session.Query<SongMergeRecord>().FirstOrDefault(s => s.Source == sourceId);			
+		}
+
 		private PartialFindResult<SongInListContract> GetSongsInList(ISession session, int listId, int start, int maxItems, bool getTotalCount) {
 
 			var q = session.Query<SongInList>().Where(a => !a.Song.Deleted && a.List.Id == listId);
@@ -595,6 +599,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public T GetSongWithMergeRecord<T>(int id, Func<Song, SongMergeRecord, T> fac) {
+
+			return HandleQuery(session => {
+				var song = session.Load<Song>(id);
+				return fac(song, (song.Deleted ? GetMergeRecord(session, id) : null));
+			});
+
+		}
+
 		public SongContract GetSong(int id) {
 
 			return HandleQuery(
@@ -632,7 +645,7 @@ namespace VocaDb.Model.Service {
 				contract.Hits = session.Query<SongHit>().Count(h => h.Song.Id == songId);
 
 				if (song.Deleted) {
-					var mergeEntry = session.Query<SongMergeRecord>().FirstOrDefault(s => s.Source.Id == songId);
+					var mergeEntry = GetMergeRecord(session, songId);
 					contract.MergedTo = (mergeEntry != null ? new SongContract(mergeEntry.Target, LanguagePreference) : null);
 				}
 

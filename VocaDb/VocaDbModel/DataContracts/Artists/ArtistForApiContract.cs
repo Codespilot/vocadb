@@ -12,7 +12,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArtistForApiContract() { }
 
-		public ArtistForApiContract(Artist artist, ContentLanguagePreference languagePreference)
+		public ArtistForApiContract(Artist artist, ArtistMergeRecord mergeRecord, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
 			CreateDate = artist.CreateDate;
@@ -21,7 +21,10 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Members = artist.Members.Select(m => new ArtistContract(m.Member, languagePreference)).ToArray();
 			Tags = artist.Tags.Usages.Select(u => new TagUsageContract(u)).ToArray();
 			WebLinks = artist.WebLinks.Select(w => new ArchivedWebLinkContract(w)).ToArray();
-			
+
+			if (mergeRecord != null)
+				MergedTo = mergeRecord.Target.Id;
+
 		}
 
 		public ArtistForApiContract(Artist artist, ContentLanguagePreference languagePreference, ArtistEditableFields includedFields)
@@ -53,6 +56,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public ArtistContract[] Members { get; set; }
+
+		[DataMember]
+		public int MergedTo { get; set; }
 
 		[DataMember]
 		public TagUsageContract[] Tags { get; set; }

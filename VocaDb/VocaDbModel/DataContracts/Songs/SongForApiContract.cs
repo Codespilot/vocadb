@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongForApiContract() { }
 
-		public SongForApiContract(Song song, ContentLanguagePreference languagePreference, 
+		public SongForApiContract(Song song, SongMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
 			bool albums = true, bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
 
 			CreateDate = song.CreateDate;
@@ -51,6 +51,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 			if (webLinks)
 				WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
+			if (mergeRecord != null)
+				MergedTo = mergeRecord.Target.Id;
+
 		}
 
 		[DataMember]
@@ -73,6 +76,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public int MergedTo { get; set; }
 
 		[DataMember]
 		public LocalizedStringContract[] Names { get; set; }

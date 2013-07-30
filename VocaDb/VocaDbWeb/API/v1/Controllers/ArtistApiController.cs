@@ -34,7 +34,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 			if (nameMatchMode.HasValue)
 				param.Common.NameMatchMode = nameMatchMode.Value;
 
-			var songs = Service.FindArtists(s => new ArtistForApiContract(s, lang ?? ContentLanguagePreference.Default), param);
+			var songs = Service.FindArtists(s => new ArtistForApiContract(s, null, lang ?? ContentLanguagePreference.Default), param);
 
 			return Object(songs, format, callback);
 

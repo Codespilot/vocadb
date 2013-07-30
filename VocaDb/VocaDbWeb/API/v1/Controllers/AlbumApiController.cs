@@ -26,7 +26,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 			if (id == invalidId)
 				return NoId();
 
-			var album = Service.GetAlbum(id, a => new AlbumForApiContract(a, lang, includeArtists, includeNames, includeTags, includeWebLinks));
+			var album = Service.GetAlbumWithMergeRecord(id, (a, m) => new AlbumForApiContract(a, m, lang, includeArtists, includeNames, includeTags, includeWebLinks));
 
 			return Object(album, format);
 
@@ -41,7 +41,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 
 			var queryParams = new AlbumQueryParams(query, discType, start, maxResults, false, getTotalCount, nameMatchMode, sort);
 
-			var entries = Service.Find(a => new AlbumForApiContract(a, lang, includeArtists, includeNames, includeTags, includeWebLinks), queryParams);
+			var entries = Service.Find(a => new AlbumForApiContract(a, null, lang, includeArtists, includeNames, includeTags, includeWebLinks), queryParams);
 
 			return Object(entries, format);
 
