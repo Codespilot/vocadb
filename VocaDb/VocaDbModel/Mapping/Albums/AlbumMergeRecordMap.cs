@@ -9,7 +9,7 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Id(m => m.Id);
 
-			References(m => m.Source).Not.Nullable();
+			Map(m => m.Source).Not.Nullable();
 			References(m => m.Target).Not.Nullable();
 
 		}

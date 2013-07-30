@@ -41,6 +41,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private ArtistMergeRecord GetMergeRecord(ISession session, int sourceId) {
+			return session.Query<ArtistMergeRecord>().FirstOrDefault(s => s.Source == sourceId);
+		}
+
 		public ArtistService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {}
 
@@ -309,6 +313,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public T GetArtistWithMergeRecord<T>(int id, Func<Artist, ArtistMergeRecord, T> fac) {
+
+			return HandleQuery(session => {
+				var artist = session.Load<Artist>(id);
+				return fac(artist, (artist.Deleted ? GetMergeRecord(session, id) : null));
+			});
+
+		}
+
 		public ArtistDetailsContract GetArtistDetails(int id) {
 
 			return HandleQuery(session => {
@@ -364,7 +377,7 @@ namespace VocaDb.Model.Service {
 					.Select(c => new CommentContract(c)).ToArray();
 
 				if (artist.Deleted) {
-					var mergeEntry = session.Query<ArtistMergeRecord>().FirstOrDefault(s => s.Source.Id == id);
+					var mergeEntry = GetMergeRecord(session, id);
 					contract.MergedTo = (mergeEntry != null ? new ArtistContract(mergeEntry.Target, LanguagePreference) : null);
 				}
 

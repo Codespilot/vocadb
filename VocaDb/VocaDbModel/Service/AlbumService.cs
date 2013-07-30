@@ -69,6 +69,10 @@ namespace VocaDb.Model.Service {
 			return session.Query<Artist>().Where(a => ids.Contains(a.Id)).ToArray();			
 		}
 
+		private AlbumMergeRecord GetMergeRecord(ISession session, int sourceId) {
+			return session.Query<AlbumMergeRecord>().FirstOrDefault(s => s.Source == sourceId);
+		}
+
 		private ArtistForAlbum RestoreArtistRef(Album album, Artist artist, ArchivedArtistForAlbumContract albumRef) {
 
 			if (artist != null) {
@@ -481,6 +485,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		public T GetAlbumWithMergeRecord<T>(int id, Func<Album, AlbumMergeRecord, T> fac) {
+
+			return HandleQuery(session => {
+				var album = session.Load<Album>(id);
+				return fac(album, (album.Deleted ? GetMergeRecord(session, id) : null));
+			});
+
+		}
+
 		public AlbumContract GetAlbum(int id) {
 
 			return GetAlbum(id, a => new AlbumContract(a, PermissionContext.LanguagePreference));
@@ -533,7 +546,7 @@ namespace VocaDb.Model.Service {
 				contract.Hits = session.Query<AlbumHit>().Count(h => h.Album.Id == id);
 
 				if (album.Deleted) {
-					var mergeEntry = session.Query<AlbumMergeRecord>().FirstOrDefault(s => s.Source.Id == id);
+					var mergeEntry = GetMergeRecord(session, id);
 					contract.MergedTo = (mergeEntry != null ? new AlbumContract(mergeEntry.Target, LanguagePreference) : null);
 				}
 
