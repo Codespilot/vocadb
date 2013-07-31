@@ -543,6 +543,7 @@
       <DependentUpon>WebLinkCategoryNames.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\BBCode\BBCodeCache.cs" />
     <Compile Include="Code\BBCode\BBCodeConverters.cs" />
     <Compile Include="Code\BBCode\EntryLinkParser.cs" />
