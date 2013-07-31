@@ -228,10 +228,10 @@
 }
 
 @helper NotificationPanel(string message, string messageId = "") {
-    using (Html.BeginHighlightPanel()) {
-		@Helpers.NotificationIcon()
-		<span id="@messageId">@message</span>
-    }
+	<div class="alert">
+		@NotificationIcon()
+		<span id="@messageId">@message</span>		
+	</div>   
 }
 
 @helper PrintComment(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {	

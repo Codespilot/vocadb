@@ -1,4 +1,5 @@
-﻿@using System.Web.Optimization
+﻿@inherits VocaDb.Web.Code.VocaDbPage<SongDetails>
+@using System.Web.Optimization
 @using VocaDb.Model.DataContracts.Songs
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Model.Utils
@@ -6,17 +7,16 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security;
 @using R = ViewRes.Song;
-@model SongDetails
 @{	
 	
 	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = string.Format("{0} ({1})", Model.ArtistString, Translate.SongTypeNames[Model.SongType]);
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
-	
+
 	var showAlternateVersions = 3;
-	
+
 	if (!string.IsNullOrEmpty(Model.ThumbUrl)) {
-		ViewContext.Controller.ViewBag.Banner = Model.ThumbUrl;		
+		ViewContext.Controller.ViewBag.Banner = Model.ThumbUrl;
 	}
 	
 }
@@ -45,18 +45,26 @@
 	}
 }
 
-<span data-bind="with: userRating">
-	<span data-bind="visible: isRatingFavorite" style="display: none;" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
-	<span data-bind="visible: isRatingLike" style="display: none;" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
-	<span data-bind="visible: isRated() == false" style="display: none;" id="ratingButtons">
-		<a href="#" data-bind="click: setRating_like" id="addLikeLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.Like</a>
-		<a href="#" data-bind="click: setRating_favorite" id="addFavoriteLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+@if (Login.Manager.IsLoggedIn) {
+	<span data-bind="with: userRating">
+		<span data-bind="visible: isRatingFavorite" style="display: none;" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
+		<span data-bind="visible: isRatingLike" style="display: none;" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>        
+		<span data-bind="visible: isRated() == false" style="display: none;" class="js-ratingButtons">
+			<a href="#" data-bind="click: setRating_like, jqButton: { icon: 'ui-icon-plus' }">@ViewRes.Song.DetailsStrings.Like</a>
+			<a href="#" data-bind="click: setRating_favorite, jqButton: { icon: 'ui-icon-heart' }">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+		</span>
+		<a href="#" data-bind="visible: isRated, click: setRating_nothing, jqButton: { icon: 'ui-icon-close' }" style="display: none;">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>			
 	</span>
-	<a href="#" data-bind="visible: isRated, click: setRating_nothing" id="removeFavoriteLink" style="display: none;" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.RemoveFromFavorites</a>			
-</span>
-<a data-bind="click: songListDialog.showSongLists" href="#" id="addToListLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
+	<a data-bind="click: songListDialog.showSongLists, jqButton: { icon: 'ui-icon-star' }" href="#" id="addToListLink">@ViewRes.Song.DetailsStrings.AddToCustomList</a>
+} else {
+	<span class="js-ratingButtons">
+		<a data-bind="jqButton: { disabled: true, icon: 'ui-icon-plus' }" href="#">@ViewRes.Song.DetailsStrings.Like</a>
+		<a data-bind="jqButton: { disabled: true, icon: 'ui-icon-heart' }" href="#">@ViewRes.Song.DetailsStrings.AddToFavorites</a>
+	</span>
+	<a data-bind="jqButton: { disabled: true, icon: 'ui-icon-star' }" href="#">@ViewRes.Song.DetailsStrings.AddToCustomList</a>	
+}
 
-@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editSongLink", @class = (Model.CanEdit ? "" : "disabled") })
+<a data-bind="jqButton: { disabled: @ToJS(!Model.CanEdit), icon: 'ui-icon-wrench' }" href="@Url.Action("Edit", new { id = Model.Id })">@ViewRes.SharedStrings.Edit</a>	
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 
@@ -149,7 +157,7 @@
 						@DateTimeUtils.FormatFromSeconds(Model.Length)
 					</td>
 				</tr>
-			}
+   }
 
 			@if (Model.Albums.Any()) {
 			<tr>
@@ -167,7 +175,7 @@
 					<span id="tagList">
 						@{ Html.RenderPartial("TagList", Model.Tags); }
 					</span>
-					<a href="#" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
+					<a data-bind="jqButton: { disabled: @ToJS(!Login.Manager.IsLoggedIn), icon: 'ui-icon-tag' }" href="#" id="editTags">@ViewRes.EntryDetailsStrings.EditTags</a>
 					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
 						@Html.ActionLink(ViewRes.EntryDetailsStrings.ManageTags, "ManageTagUsages", new { id = Model.Id }, new { id = "manageTags" })
 	 }
@@ -180,10 +188,10 @@
 					<td>
 						@foreach (var pool in Model.Pools) {
 							@Html.ActionLink(pool.Name, "Details", "SongList", new { id = pool.Id }, null)
-						}
+	  }
 						@if (Model.Pools.Any()) {
 							@("-")
-						}
+	  }
 						<a id="songInListsLink" data-bind="click: songInListsDialog.show" href="#">View all lists (@Model.ListCount)</a>
 					</td>
 				</tr>
@@ -217,7 +225,7 @@
 					@Model.OriginalVersion.ArtistString
 				</td>
 			</tr>
-			}
+   }
 
 			@if (Model.AlternateVersions.Any()) {
 			<tr>
@@ -229,10 +237,10 @@
 						<div style="display: none;" data-bind="visible: allVersionsVisible">
 							@AlternateVersions(Model.AlternateVersions.Skip(showAlternateVersions))
 						</div>
-					}		
+	 }		
 				</td>
 			</tr>
-			}
+   }
 			
 			@if (!string.IsNullOrEmpty(Model.Notes)) {
 			<tr>

@@ -5,7 +5,9 @@
     ViewBag.Title = ViewRes.Event.FindStrings.FindEvent + " - " + Model.EventName;
 }
 
-@Helpers.NotificationPanel(ViewRes.Event.FindStrings.EventNotFound)
+<div class="alert alert-danger">
+	@ViewRes.Event.FindStrings.EventNotFound
+</div>
 
 @if (Login.CanManageDb && !string.IsNullOrEmpty(Model.EventName)) {
 
