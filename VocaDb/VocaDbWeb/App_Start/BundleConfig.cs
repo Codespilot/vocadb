@@ -26,6 +26,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Shared/ReportEntryPopup.js",
 				"~/Scripts/KnockoutExtensions/Dialog.js",
 				"~/Scripts/KnockoutExtensions/EntryToolTip.js",
+				"~/Scripts/KnockoutExtensions/jqButton.js",
 				"~/Scripts/KnockoutExtensions/jqButtonset.js",
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
 				"~/Scripts/ViewModels/TopBarViewModel.js"

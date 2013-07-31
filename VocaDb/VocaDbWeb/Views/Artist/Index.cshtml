@@ -11,10 +11,6 @@
 	@Html.ActionLink(ViewRes.Artist.IndexStrings.AddArtist, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
 }
 
-@if (Model.DraftsOnly) {
-	@Helpers.NotificationPanel(ViewRes.EntryIndexStrings.Drafts)
-}
-
 <div class="row-fluid">
 	
 	<div class="span3">

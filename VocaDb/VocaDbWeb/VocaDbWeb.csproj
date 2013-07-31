@@ -569,6 +569,7 @@
     <Compile Include="Code\Security\RestrictBlockedIPAttribute.cs" />
     <Compile Include="Code\Security\TwitterConsumer.cs" />
     <Compile Include="Code\TimeAgoStringBuilder.cs" />
+    <Compile Include="Code\VocaDbPage.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AlbumController.cs" />
@@ -1515,6 +1516,10 @@
       <DependentUpon>FocusOut.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButtonset.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButton.ts" />
+    <Content Include="Scripts\KnockoutExtensions\jqButton.js">
+      <DependentUpon>jqButton.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\KnockoutExtensions\jqButtonset.js">
       <DependentUpon>jqButtonset.ts</DependentUpon>
     </Content>

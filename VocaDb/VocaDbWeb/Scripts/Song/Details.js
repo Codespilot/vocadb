@@ -1,14 +1,8 @@
 ﻿
 function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
-    $("#ratingButtons").buttonset();
-	$("#addFavoriteLink").button({ disabled: $("#addFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
-	$("#addLikeLink").button({ disabled: $("#addLikeLink").hasClass("disabled"), icons: { primary: 'ui-icon-plus' } });
-	$("#removeFavoriteLink").button({ disabled: $("#removeFavoriteLink").hasClass("disabled"), icons: { primary: 'ui-icon-close' } });
-	$("#addToListLink").button({ disabled: $("#addToListLink").hasClass("disabled"), icons: { primary: 'ui-icon-star'} });
-	$("#editSongLink").button({ disabled: $("#editSongLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
+    $(".js-ratingButtons").buttonset();
 	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
-	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock' } });
 	$("#viewCommentsLink").click(function () {
