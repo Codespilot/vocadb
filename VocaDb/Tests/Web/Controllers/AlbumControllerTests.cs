@@ -13,7 +13,7 @@ namespace VocaDb.Tests.Web.Controllers {
 
 		[TestInitialize]
 		public void SetUp() {
-			controller = new AlbumController();
+			//controller = new AlbumController();
 		}
 
 		// TODO

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Newtonsoft.Json;
+using NHibernate;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
@@ -14,12 +13,15 @@ using VocaDb.Web.Models.Admin;
 
 namespace VocaDb.Web.Controllers
 {
-    public class AdminController : ControllerBase
-    {
+    public class AdminController : ControllerBase {
 
-    	private AdminService Service {
-			get { return MvcApplication.Services.Admin; }
-    	}
+	    private readonly ISessionFactory sessionFactory;
+		private AdminService Service { get; set; }
+
+		public AdminController(AdminService service, ISessionFactory sessionFactory) {
+			Service = service;
+			this.sessionFactory = sessionFactory;
+		}
 
 		[Authorize]
 		public ActionResult AuditLogEntries(string Filter, int start = 0) {
@@ -163,7 +165,6 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult RefreshDbCache() {
 
-			var sessionFactory = MvcApplication.SessionFactory;
 			DatabaseHelper.ClearSecondLevelCache(sessionFactory);
 
 			return RedirectToAction("Index");
