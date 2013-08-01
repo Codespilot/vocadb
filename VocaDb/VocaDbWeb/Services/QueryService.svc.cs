@@ -24,10 +24,10 @@ namespace VocaDb.Web.Services {
 	[ServiceContract(Namespace = Schemas.VocaDb)]
 	public class QueryService {
 
-		private ServiceModel Services {
-			get {
-				return MvcApplication.Services;
-			}
+		private ServiceModel Services { get; set; }
+
+		public QueryService(ServiceModel services) {
+			Services = services;
 		}
 
 		#region Common queries

@@ -22,8 +22,6 @@ namespace VocaDb.Web {
 		private static readonly HostCollection bannedIPs = new HostCollection();
 		private static readonly IPRuleManager ipRuleManager = new IPRuleManager(LoadBlockedIPs);
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
-		private static ISessionFactory sessionFactory;
-		private const string sessionFactoryLock = "lock";
 
 		private static string[] LoadBlockedIPs() {
 
@@ -57,20 +55,7 @@ namespace VocaDb.Web {
 
 		public static ServiceModel Services {
 			get {
-				return new ServiceModel(SessionFactory, LoginManager, new EntryAnchorFactory());
-			}
-		}
-
-		public static ISessionFactory SessionFactory {
-			get {
-
-				lock (sessionFactoryLock) {
-					if (sessionFactory == null)
-						sessionFactory = DatabaseConfiguration.BuildSessionFactory();
-				}
-
-				return sessionFactory;
-
+				return DependencyResolver.Current.GetService<ServiceModel>();
 			}
 		}
 
@@ -169,6 +154,7 @@ namespace VocaDb.Web {
 
 			AreaRegistration.RegisterAllAreas();
 
+			ComponentConfig.RegisterComponent();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);

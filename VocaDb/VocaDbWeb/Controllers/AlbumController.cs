@@ -32,8 +32,10 @@ namespace VocaDb.Web.Controllers
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly Size pictureThumbSize = new Size(250, 250);
 
-		private AlbumService Service {
-			get { return Services.Albums; }
+		private AlbumService Service { get; set; }
+
+		public AlbumController(AlbumService service) {
+			Service = service;
 		}
 
 		public ActionResult ArchivedVersionCoverPicture(int id) {
