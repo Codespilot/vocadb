@@ -4,7 +4,11 @@ namespace VocaDb.Model.Service.AlbumImport {
 
 	public class AlbumImporters {
 
-		private readonly IAlbumImporter[] importers = new IAlbumImporter[] { new KarenTAlbumImporter() };
+		private readonly IAlbumImporter[] importers;
+
+		public AlbumImporters(IPictureDownloader pictureDownloader) {
+			importers = new IAlbumImporter[] { new KarenTAlbumImporter(pictureDownloader) };
+		}
 
 		public AlbumImportResult ImportOne(string url) {
 

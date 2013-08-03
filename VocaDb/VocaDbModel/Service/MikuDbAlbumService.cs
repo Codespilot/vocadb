@@ -560,7 +560,7 @@ namespace VocaDb.Model.Service {
 			if (existing != null)
 				return new AlbumImportResult {Message = "Album with that URL has already been imported"};
 
-			var imported = new AlbumImporters().ImportOne(url);
+			var imported = new AlbumImporters(new WebPictureDownloader()).ImportOne(url);
 
 			if (imported.AlbumContract == null)
 				return imported;

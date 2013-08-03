@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.MikuDb;
@@ -17,13 +13,27 @@ namespace VocaDb.Tests.Service.AlbumImport {
 	[TestClass]
 	public class KarenTAlbumImporterTests {
 
+		private KarenTAlbumImporter importer;
+		private MikuDbAlbumContract importedAlbum;
 		private ImportedAlbumDataContract importedData;
 		private HtmlDocument karenTDoc;
+
+		private void AssertTrack(string expectedTitle, string expectedVocalists, ImportedAlbumTrack track) {
+			Assert.IsNotNull(track, "Track was parsed successfully");
+			Assert.AreEqual(expectedTitle, track.Title, "Title");
+			Assert.AreEqual(expectedVocalists, string.Join(",", track.VocalistNames), "Vocalists");
+		}
+
+		private ImportedAlbumTrack ParseTrack(string trackString) {
+			return importer.ParseTrackRow(1, trackString);
+		}
 
 		[TestInitialize]
 		public void SetUp() {
 			karenTDoc = ResourceHelper.ReadHtmlDocument("KarenT_SystemindParadox.htm");
-			importedData = new KarenTAlbumImporter().GetAlbumData(karenTDoc, "http://").Data;
+			importer = new KarenTAlbumImporter(new PictureDownloaderStub());
+			importedAlbum = importer.GetAlbumData(karenTDoc, "http://");
+			importedData = importedAlbum.Data;
 		}
 
 		[TestMethod]
@@ -47,6 +57,30 @@ namespace VocaDb.Tests.Service.AlbumImport {
 		public void Vocalists() {
 			Assert.AreEqual(1, importedData.VocalistNames.Length, "1 vocalist");
 			Assert.AreEqual("Hatsune Miku", importedData.VocalistNames.FirstOrDefault(), "Vocalist name");			
+		}
+
+		[TestMethod]
+		public void CoverPicture() {
+			Assert.IsNotNull(importedAlbum.CoverPicture, "Cover picture downloaded");
+			Assert.AreEqual("http://karent.jp/npdca/1048_20120502165707.jpg", importedAlbum.CoverPicture.Mime, "Downloaded URL was correct");
+		}
+
+		[TestMethod]
+		public void ParseTrackRow() {
+
+			var result = ParseTrack("01.&nbsp;Cloud Science (feat. Hatsune Miku)");
+
+			AssertTrack("Cloud Science", "Hatsune Miku", result);
+
+		}
+
+		[TestMethod]
+		public void ParseTrackRow_SpecialChars() {
+
+			var result = ParseTrack("05.&nbsp;yurameku - Album ver. - (feat. Hatsune Miku)");
+
+			AssertTrack("yurameku - Album ver. -", "Hatsune Miku", result);
+
 		}
 
 		[TestMethod]

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Text;
 using HtmlAgilityPack;
 
@@ -9,9 +6,13 @@ namespace VocaDb.Model.Helpers {
 
 	public static class HtmlRequestHelper {
 
-		public static HtmlDocument Download(string url) {
+		public static HtmlDocument Download(string url, string acceptLanguage = null) {
 
 			var request = WebRequest.Create(url);
+
+			if (!string.IsNullOrEmpty(acceptLanguage))
+				request.Headers.Add(HttpRequestHeader.AcceptLanguage, acceptLanguage);
+
 			WebResponse response = request.GetResponse();
 
 			try {
