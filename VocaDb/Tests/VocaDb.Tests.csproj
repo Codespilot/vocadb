@@ -122,6 +122,7 @@
     <Compile Include="Service\TagFormatting\TagFormatterTests.cs" />
     <Compile Include="Service\VideoServices\NicoHelperTests.cs" />
     <Compile Include="Service\VideoServices\VideoServiceHelperTests.cs" />
+    <Compile Include="TestSupport\PictureDownloaderStub.cs" />
     <Compile Include="TestSupport\ResourceHelper.cs" />
     <Compile Include="Web\Code\EntryAnchorFactoryTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
