@@ -535,6 +535,9 @@
     </Compile>
     <Compile Include="Service\ActivityFeedService.cs" />
     <Compile Include="Service\AdminService.cs" />
+    <Compile Include="Service\AlbumImport\AlbumImporters.cs" />
+    <Compile Include="Service\AlbumImport\IAlbumImporter.cs" />
+    <Compile Include="Service\AlbumImport\KarenTAlbumImporter.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
     <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />
     <Compile Include="Service\AlbumService.cs" />
@@ -571,8 +574,8 @@
     <Compile Include="Service\VideoServices\HtmlParsingHelper.cs" />
     <Compile Include="Service\IEntryLinkFactory.cs" />
     <Compile Include="Service\MikuDbAlbumService.cs" />
-    <Compile Include="Service\MikuDb\AlbumImporter.cs" />
-    <Compile Include="Service\MikuDb\AlbumImportResult.cs" />
+    <Compile Include="Service\AlbumImport\MikuDbAlbumImporter.cs" />
+    <Compile Include="Service\AlbumImport\AlbumImportResult.cs" />
     <Compile Include="Service\NewsEntryService.cs" />
     <Compile Include="Service\Paging\PagingProperties.cs" />
     <Compile Include="Service\Rankings\InvalidFeedException.cs" />

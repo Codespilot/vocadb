@@ -10,9 +10,12 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Helpers;
 
-namespace VocaDb.Model.Service.MikuDb {
+namespace VocaDb.Model.Service.AlbumImport {
 
-	public class AlbumImporter {
+	/// <summary>
+	/// Imports albums from MikuDB.com (now dead).
+	/// </summary>
+	public class MikuDbAlbumImporter : IAlbumImporter {
 
 		private const string albumIndexUrl = "http://mikudb.com/album-index/";
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -309,7 +312,7 @@ namespace VocaDb.Model.Service.MikuDb {
 
 		}
 
-		public AlbumImporter(IEnumerable<MikuDbAlbumContract> existingUrls) {
+		public MikuDbAlbumImporter(IEnumerable<MikuDbAlbumContract> existingUrls) {
 
 			ParamIs.NotNull(() => existingUrls);
 
@@ -341,6 +344,14 @@ namespace VocaDb.Model.Service.MikuDb {
 
 			return new AlbumImportResult {AlbumContract = data};
 
+		}
+
+		public bool IsValidFor(string url) {
+			return false;
+		}
+
+		public string ServiceName {
+			get { return "MikuDB"; }
 		}
 
 	}

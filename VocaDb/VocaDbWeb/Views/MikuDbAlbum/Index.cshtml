@@ -5,16 +5,11 @@
 }
 
 @section Toolbar {
-@if (Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.MikuDbImport)) {
-	
-@Html.ActionLink("Download new albums from MikuDB", "ImportNew", null, new { id = "importNewLink" })
-
-}
 }
 
 @using (Html.BeginForm("ImportOne", "MikuDbAlbum", FormMethod.Post, new { @class = "form form-inline" })) {
 
-	<p>Download one album from MikuDB: </p>
+	<p>Download one album from KarenT: </p>
 	@Html.TextBox("AlbumUrl", null, new { size = 30, maxlength = 255 })
 	
 	<button type="submit" class="btn btn-primary">Download</button>
@@ -44,7 +39,7 @@
 }
 
 <div class="alert alert-info">
-	Import new albums from either MikuDB or CSV files, or manage imported albums (if any) using the buttons below.
+	Import new albums, or manage imported albums (if any) using the buttons below.
 </div>
 
 @using (Html.BeginForm("PrepareForImport", "MikuDbAlbum")) {

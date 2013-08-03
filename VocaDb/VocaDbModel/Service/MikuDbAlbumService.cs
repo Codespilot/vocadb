@@ -14,8 +14,8 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.MikuDb;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Service.AlbumImport;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Service.MikuDb;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Albums;
@@ -501,7 +501,7 @@ namespace VocaDb.Model.Service {
 
 			MikuDbAlbumContract[] existing = HandleQuery(session => session.Query<MikuDbAlbum>().Select(a => new MikuDbAlbumContract(a)).ToArray());
 
-			var importer = new AlbumImporter(existing);
+			var importer = new MikuDbAlbumImporter(existing);
 			var imported = importer.ImportNew();
 
 			return HandleTransaction(session => {
@@ -555,17 +555,19 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionToken.MikuDbImport);
 
-			MikuDbAlbumContract[] existing = HandleQuery(session => session.Query<MikuDbAlbum>().Select(a => new MikuDbAlbumContract(a)).ToArray());
+			var existing = HandleQuery(session => session.Query<MikuDbAlbum>().FirstOrDefault(a => a.SourceUrl == url));
 
-			var importer = new AlbumImporter(existing);
-			var imported = importer.ImportOne(url);
+			if (existing != null)
+				return new AlbumImportResult {Message = "Album with that URL has already been imported"};
+
+			var imported = new AlbumImporters().ImportOne(url);
 
 			if (imported.AlbumContract == null)
 				return imported;
 
 			HandleTransaction(session => {
 
-				SysLog(string.Format("importing album from MikuDB with URL '{0}'", url));
+				SysLog(string.Format("importing album with URL '{0}'", url));
 
 				var newAlbum = new MikuDbAlbum(imported.AlbumContract);
 				session.Save(newAlbum);
