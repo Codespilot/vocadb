@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.AlbumImport {
 			var titleElem = doc.DocumentNode.SelectSingleNode("//div[@class = 'pgtitle_in']/h1/span");
 
 			if (titleElem != null)
-				data.Title = titleElem.InnerText;
+				data.Title = HtmlEntity.DeEntitize(titleElem.InnerText);
 
 			var mainPanel = doc.GetElementbyId("main_ref");
 
@@ -85,6 +85,12 @@ namespace VocaDb.Model.Service.AlbumImport {
 			switch (portraitImg) {
 				case "/modpub/images/ico/ico_cv_1.png":
 					return "Hatsune Miku";
+				case "/modpub/images/ico/ico_cv_2.png":
+					return "Kagamine Rin";
+				case "/modpub/images/ico/ico_cv_3.png":
+					return "Kagamine Len";
+				case "/modpub/images/ico/ico_cv_4.png":
+					return "Megurine Luka";
 				default:
 					return null;
 			}
@@ -121,7 +127,7 @@ namespace VocaDb.Model.Service.AlbumImport {
 
 		public ImportedAlbumTrack ParseTrackRow(int trackNum, string songTitle) {
 
-			var trackRegex = new Regex(@"\d\d\.\&nbsp\;(.+) \(feat\. (.+)\)"); // 01.&nbsp;Cloud Science (feat. Hatsune Miku)
+			var trackRegex = new Regex(@"\d\d\.\&nbsp\;(.+) (?:(?:\(feat\. (.+)\))|(\-\s?off vocal))"); // 01.&nbsp;Cloud Science (feat. Hatsune Miku)
 
 			var match = trackRegex.Match(songTitle);
 
@@ -129,9 +135,16 @@ namespace VocaDb.Model.Service.AlbumImport {
 				return null;
 
 			var title = match.Groups[1].Value;
-			var vocalists = match.Groups[2].Value;
+			string[] vocalists;
 
-			return new ImportedAlbumTrack { TrackNum = trackNum, DiscNum = 1, Title = title, VocalistNames = new[] { vocalists } };
+			if (match.Groups[2].Value == "- off vocal") {
+				// TODO: set song type to instrumental
+				vocalists = new string[0];
+			} else {
+				vocalists = match.Groups[2].Value.Split(new[] {'&'}, StringSplitOptions.RemoveEmptyEntries);
+			}
+
+			return new ImportedAlbumTrack { TrackNum = trackNum, DiscNum = 1, Title = title, VocalistNames = vocalists };
 
 		}
 
