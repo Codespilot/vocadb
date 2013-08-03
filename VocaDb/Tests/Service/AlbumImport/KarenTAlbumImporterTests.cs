@@ -21,7 +21,7 @@ namespace VocaDb.Tests.Service.AlbumImport {
 		private void AssertTrack(string expectedTitle, string expectedVocalists, ImportedAlbumTrack track) {
 			Assert.IsNotNull(track, "Track was parsed successfully");
 			Assert.AreEqual(expectedTitle, track.Title, "Title");
-			Assert.AreEqual(expectedVocalists, string.Join(",", track.VocalistNames), "Vocalists");
+			Assert.AreEqual(expectedVocalists, string.Join(", ", track.VocalistNames), "Vocalists");
 		}
 
 		private ImportedAlbumTrack ParseTrack(string trackString) {
@@ -75,11 +75,29 @@ namespace VocaDb.Tests.Service.AlbumImport {
 		}
 
 		[TestMethod]
-		public void ParseTrackRow_SpecialChars() {
+		public void ParseTrackRow_NonWordChars() {
 
 			var result = ParseTrack("05.&nbsp;yurameku - Album ver. - (feat. Hatsune Miku)");
 
 			AssertTrack("yurameku - Album ver. -", "Hatsune Miku", result);
+
+		}
+
+		[TestMethod]
+		public void ParseTrackRow_OffVocal() {
+
+			var result = ParseTrack("11.&nbsp;Quarrel with the doppelganger -off vocal");
+
+			AssertTrack("Quarrel with the doppelganger", "", result);
+
+		}
+
+		[TestMethod]
+		public void ParseTrackRow_MultipleVocalists() {
+
+			var result = ParseTrack("07.&nbsp;MIRAI KOURO / LR ver (feat. Kagamine Rin&Kagamine Len)");
+
+			AssertTrack("MIRAI KOURO / LR ver", "Kagamine Rin, Kagamine Len", result);
 
 		}
 
