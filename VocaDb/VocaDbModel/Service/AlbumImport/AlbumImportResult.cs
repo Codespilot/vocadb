@@ -1,7 +1,6 @@
 ﻿using VocaDb.Model.DataContracts.MikuDb;
-using VocaDb.Model.Domain;
 
-namespace VocaDb.Model.Service.MikuDb {
+namespace VocaDb.Model.Service.AlbumImport {
 
 	public class AlbumImportResult {
 
