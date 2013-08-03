@@ -19,6 +19,9 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 		public string CircleName { get; set; }
 
 		[DataMember]
+		public string Description { get; set; }
+
+		[DataMember]
 		public int? ReleaseYear { get; set; }
 
 		[DataMember]
