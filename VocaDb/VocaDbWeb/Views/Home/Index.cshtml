@@ -15,24 +15,24 @@
     
 <div class="pvPlayer">
 	<div class="scrollable-navi">
-	<a class="prev browse up disabled"></a>
-	<div class="scrollable vertical" id="songs-navi">
-		<div class="items">
-			@for (var i = 0; i * 4 < Model.NewSongs.Length; ++i) {
-			<div>
-				@foreach (var song in Model.NewSongs.Skip(i * 4).Take(4)) {
-					<div class="item alignTop" id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)">
-						<input type="hidden" class="songId" value="@song.Id" />
-						<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
-						<strong class="songName">@song.Name</strong>
-						<span class="songArtists">@song.ArtistString</span>
-					</div>
+		<a class="prev scrollable-browse-up disabled"></a>
+		<div class="scrollable scrollable-vertical" id="songs-navi">
+			<div class="scrollable-items">
+				@for (var i = 0; i * 4 < Model.NewSongs.Length; ++i) {
+				<div>
+					@foreach (var song in Model.NewSongs.Skip(i * 4).Take(4)) {
+						<div class="scrollable-item alignTop" id="@("#songPV_" + PVHelper.PrimaryPV(song.PVs).Id)">
+							<input type="hidden" class="js-songId" value="@song.Id" />
+							<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
+							<strong class="songName">@song.Name</strong>
+							<span class="songArtists">@song.ArtistString</span>
+						</div>
+					}
+				</div>
 				}
 			</div>
-			}
-		</div>
-	</div>	
-	<a class="next browse down"></a>    
+		</div>	
+		<a class="next scrollable-browse-down"></a>    
 	</div>
 
 	<div id="songPreview" class="pvViewerContent">

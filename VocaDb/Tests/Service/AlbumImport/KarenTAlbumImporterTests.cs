@@ -89,6 +89,7 @@ namespace VocaDb.Tests.Service.AlbumImport {
 			var result = ParseTrack("11.&nbsp;Quarrel with the doppelganger -off vocal");
 
 			AssertTrack("Quarrel with the doppelganger", "", result);
+			// TODO: could also handle type as instrumental
 
 		}
 
