@@ -1,7 +1,11 @@
 body {
 	font-size: 80%;
-	font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
-	background: url(miku2.jpg)top center no-repeat fixed;
+	font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+	background: url(http://vocaloid.eu/images/miku3.jpg)top center no-repeat fixed;
+	-moz-background-size: 100%;
+	-o-background-size: 100%;
+	-webkit-background-size: 100%;
+	background-size: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
