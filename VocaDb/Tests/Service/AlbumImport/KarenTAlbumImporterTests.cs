@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Text;
 using HtmlAgilityPack;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.MikuDb;

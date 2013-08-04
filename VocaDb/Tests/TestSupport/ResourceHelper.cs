@@ -23,14 +23,14 @@ namespace VocaDb.Tests.TestSupport {
 
 		}
 
-		public static HtmlDocument ReadHtmlDocument(string fileName) {
+		public static HtmlDocument ReadHtmlDocument(string fileName, Encoding encoding = null) {
 
 			var asm = typeof(ResourceHelper).Assembly;
 			var s = asm.GetManifestResourceNames();
 			using (var stream = asm.GetManifestResourceStream(asm.GetName().Name + ".TestData." + fileName)) {
 
 				var doc = new HtmlDocument();
-				doc.Load(stream);
+				doc.Load(stream, encoding ?? Encoding.Default);
 				return doc;
 
 			}

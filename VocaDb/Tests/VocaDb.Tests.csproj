@@ -122,6 +122,7 @@
     <Compile Include="Service\TagFormatting\TagFormatterTests.cs" />
     <Compile Include="Service\VideoServices\NicoHelperTests.cs" />
     <Compile Include="Service\VideoServices\VideoServiceHelperTests.cs" />
+    <Compile Include="Service\VideoServices\VideoServicePiaproTests.cs" />
     <Compile Include="TestSupport\PictureDownloaderStub.cs" />
     <Compile Include="TestSupport\ResourceHelper.cs" />
     <Compile Include="Web\Code\EntryAnchorFactoryTests.cs" />
@@ -149,7 +150,9 @@
   <ItemGroup>
     <EmbeddedResource Include="TestData\KarenT_SystemindParadox.htm" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\piapro.htm" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

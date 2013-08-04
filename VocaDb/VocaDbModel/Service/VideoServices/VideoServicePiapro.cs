@@ -54,10 +54,16 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}*/
 
+
 		private VideoUrlParseResult ParseByHtmlStream(Stream htmlStream, Encoding encoding, string url) {
 
 			var doc = new HtmlDocument();
 			doc.Load(htmlStream, encoding);
+			return ParseDocument(doc, url);
+
+		}
+
+		public VideoUrlParseResult ParseDocument(HtmlDocument doc, string url) {
 
 			var dataElem = doc.DocumentNode.SelectSingleNode("//div[@class = 'dtl_data']");
 
