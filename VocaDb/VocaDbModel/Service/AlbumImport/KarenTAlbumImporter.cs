@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
@@ -91,6 +92,10 @@ namespace VocaDb.Model.Service.AlbumImport {
 					return "Kagamine Len";
 				case "/modpub/images/ico/ico_cv_4.png":
 					return "Megurine Luka";
+				case "/modpub/images/ico/ico_cv_5.png":
+					return "MEIKO";
+				case "/modpub/images/ico/ico_cv_6.png":
+					return "KAITO";
 				default:
 					return null;
 			}
@@ -111,6 +116,16 @@ namespace VocaDb.Model.Service.AlbumImport {
 
 				var links = artistRow.SelectNodes("a");
 				data.ArtistNames = links.Select(l => l.InnerText).ToArray();
+
+			}
+
+			var releaseDateRow = GetInfoElem(statusRows, "Release");
+
+			if (releaseDateRow != null) {
+
+				DateTime releaseDate;
+				if (DateTime.TryParseExact(releaseDateRow.Element("#text").InnerText, "yyyy.MM.dd", null, DateTimeStyles.None, out releaseDate))
+					data.ReleaseYear = releaseDate.Year;
 
 			}
 

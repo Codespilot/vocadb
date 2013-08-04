@@ -571,6 +571,7 @@ namespace VocaDb.Model.Service {
 
 				var newAlbum = new MikuDbAlbum(imported.AlbumContract);
 				session.Save(newAlbum);
+				imported.AlbumContract.Id = newAlbum.Id;
 
 			});
 

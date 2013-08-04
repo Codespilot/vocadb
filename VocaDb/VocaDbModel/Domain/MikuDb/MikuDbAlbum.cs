@@ -64,6 +64,9 @@ namespace VocaDb.Model.Domain.MikuDb {
 			if (ReferenceEquals(this, another))
 				return true;
 
+			if (Id == 0)
+				return false;
+
 			return this.Id == another.Id;
 
 		}
@@ -77,7 +80,7 @@ namespace VocaDb.Model.Domain.MikuDb {
 		}
 
 		public override string ToString() {
-			return string.Format("MikuDB album '{0}' [{1}]", Title, Id);
+			return string.Format("Imported album '{0}' [{1}]", Title, Id);
 		}
 
 	}
