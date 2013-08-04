@@ -126,6 +126,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 				"~/Content/bootstrap.css", 
 				"~/Content/Site.css", 
+				"~/Content/Styles/PVViewer_Black.css",
 				"~/Content/Styles/ExtLinks.css", 
 				"~/Content/Styles/Overrides.css"));
 

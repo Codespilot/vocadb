@@ -1003,6 +1003,12 @@
       <DependentUpon>Overrides.less</DependentUpon>
     </Content>
     <Content Include="Content\Styles\Pager.css" />
+    <Content Include="Content\Styles\PVViewer_Black.css">
+      <DependentUpon>PVViewer_Black.less</DependentUpon>
+    </Content>
+    <Content Include="Content\Styles\PVViewer_Blue.css">
+      <DependentUpon>PVViewer_Blue.less</DependentUpon>
+    </Content>
     <Content Include="Content\teto.jpg" />
     <Content Include="Content\tetoDB-title.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -1183,6 +1189,8 @@
     <Content Include="Content\Styles\ExtLinks.less" />
     <Content Include="Content\Styles\Overrides.less" />
     <Content Include="App_Code\KnockoutHelpers.cshtml" />
+    <Content Include="Content\Styles\PVViewer_Blue.less" />
+    <Content Include="Content\Styles\PVViewer_Black.less" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

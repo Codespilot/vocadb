@@ -1,25 +1,25 @@
 ﻿
 $(document).ready(function () {
 
-    $('#songs-navi .item').click(function (e) {
+	$('#songs-navi .scrollable-item').click(function (e) {
         e.preventDefault();
 
-        $("#songs-navi .item").removeClass("active");
+        $("#songs-navi .scrollable-item").removeClass("active");
         $(this).addClass("active");
 
-        var songId = $(this).find(".songId").val();
+        var songId = $(this).find(".js-songId").val();
         $.post("../Home/PVContent", { songId: songId }, function (content) {
             $("#songPreview").html(content);
         });
 
     });
 
-    $("#songs-navi .item").eq(0).addClass("active");
+	$("#songs-navi .scrollable-item").eq(0).addClass("active");
     $(".scrollable").scrollable({ vertical: true, mousewheel: true, keyboard: false });
 
     function setRating(rating, callback) {
 
-        var songId = $("#songPreview").find(".songId").val();
+        var songId = $("#songPreview").find(".js-songId").val();
 
         $.post("../User/AddSongToFavorites", { songId: songId, rating: rating }, callback);
 
