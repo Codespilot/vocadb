@@ -1,5 +1,6 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using Microsoft.Web.Helpers;
 @using VocaDb.Model.DataContracts
 @using VocaDb.Model.DataContracts.PVs
 @using VocaDb.Model.Domain
@@ -87,4 +88,9 @@
 
 </div>
 
+}
+
+@helper ShareLinks(string title, string url) {
+	@(ViewRes.EntryDetailsStrings.Share + ":")
+	@LinkShare.GetHtml(title, pageLinkBack: url, linkSites: new[] { LinkShareSite.Facebook, LinkShareSite.Reddit, LinkShareSite.Twitter })	
 }

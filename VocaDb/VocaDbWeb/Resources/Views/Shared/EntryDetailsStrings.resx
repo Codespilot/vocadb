@@ -171,6 +171,9 @@
   <data name="Revisions" xml:space="preserve">
     <value>Revisions</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share a link</value>
+  </data>
   <data name="ShowAllTags" xml:space="preserve">
     <value>Show all</value>
   </data>
