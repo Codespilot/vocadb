@@ -87,6 +87,7 @@ namespace VocaDb.Web.Controllers
 
 			if (result.AlbumContract != null) {
 				TempData.SetSuccessMessage("Album was imported successfully and is ready to be processed.");
+				return RedirectToAction("PrepareForImport", new { id = result.AlbumContract.Id });
 			} else if (!string.IsNullOrEmpty(result.Message)) {
 				TempData.SetWarnMessage(result.Message);
 			}

@@ -60,6 +60,11 @@ namespace VocaDb.Tests.Service.AlbumImport {
 		}
 
 		[TestMethod]
+		public void ReleaseDate() {
+			Assert.AreEqual(2012, importedData.ReleaseYear, "Release year");
+		}
+
+		[TestMethod]
 		public void CoverPicture() {
 			Assert.IsNotNull(importedAlbum.CoverPicture, "Cover picture downloaded");
 			Assert.AreEqual("http://karent.jp/npdca/1048_20120502165707.jpg", importedAlbum.CoverPicture.Mime, "Downloaded URL was correct");
