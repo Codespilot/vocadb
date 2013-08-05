@@ -17,5 +17,9 @@ namespace VocaDb.Web.Code {
 
 		}
 
+		public static string FormatTimeAgo(DateTime time) {
+			return FormatTimeAgo(DateTime.Now - time);
+		}
+
 	}
 }
