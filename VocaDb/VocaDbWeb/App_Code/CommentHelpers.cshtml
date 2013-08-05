@@ -1,5 +1,6 @@
 ﻿@using VocaDb.Model.DataContracts
 @using VocaDb.Web.Helpers
+@using VocaDb.Web.Code
 @inherits VocaDb.Web.Code.HelperPage
 
 @helper CommentEntryItem(UnifiedCommentContract comment) {
@@ -40,14 +41,14 @@
 	<div class="comment">
 		<h3>
 			@UserHelpers.UserIconLink(contract.Author, 25)
-			&nbsp;-&nbsp;
-			@contract.Created
 
 			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
 				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
-   }
+			}
+			<small class="pull-right extraInfo">
+				@TimeAgoStringBuilder.FormatTimeAgo(contract.Created)
+			</small>		
 		</h3>
-		
 		<p>
 			@Helpers.ConvertNewlinesToBreaks(contract.Message)
 		</p>
