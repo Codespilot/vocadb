@@ -524,7 +524,7 @@ input + .textLink {
 	cursor: help;
 }
 
-h2.pageTitle {
+.pageTitle {
 	margin-bottom: 10px;
 }
 
