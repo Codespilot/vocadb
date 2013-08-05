@@ -409,6 +409,7 @@ div#viewMessage {
 
 div.activityEntry {
 	min-height: 30px;
+	padding: 6px;
 }
 
 div.messageTitleText, p.messageContent {
