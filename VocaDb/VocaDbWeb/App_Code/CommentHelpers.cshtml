@@ -43,7 +43,7 @@
 			@UserHelpers.UserIconLink(contract.Author, 25)
 
 			@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
-				<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
+				<text>-</text> <a href="#" id="deleteComment_@(contract.Id)" class="deleteComment">@ViewRes.SharedStrings.Delete</a>
 			}
 			<small class="pull-right extraInfo">
 				@TimeAgoStringBuilder.FormatTimeAgo(contract.Created)
