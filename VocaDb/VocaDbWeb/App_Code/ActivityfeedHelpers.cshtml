@@ -36,6 +36,10 @@
 
 		@EntryType(entry)
 
+		<small class="pull-right extraInfo">
+			@TimeAgoStringBuilder.FormatTimeAgo(DateTime.Now - entry.CreateDate)
+		</small>
+
 		<div class="media">
 			@if (!string.IsNullOrEmpty(thumbUrl)) {
 			<a class="pull-left" href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
@@ -51,10 +55,6 @@
 				@if (!string.IsNullOrEmpty(entry.ArtistString)) {
 					@entry.ArtistString
 				}
-				<br />
-				<small class="extraInfo">
-					@TimeAgoStringBuilder.FormatTimeAgo(DateTime.Now - entry.CreateDate)
-				</small>
 			</div>
 		</div>
 	</div>
