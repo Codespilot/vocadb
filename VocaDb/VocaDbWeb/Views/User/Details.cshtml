@@ -63,52 +63,55 @@
 	<div class="span8">
 		
 		@if (!string.IsNullOrEmpty(Model.AboutMe)) {
-			<h4 class="withMargin">@R.AboutMe</h4>
+			<h4>@R.AboutMe</h4>
 			@HtmlHelpers.FormatText(Model.AboutMe)
+			<br />
 		}
 
 		@if (verifiedAccount) {
-			<h4 class="withMargin">@R.VerifiedOwner</h4>
+			<h4>@R.VerifiedOwner</h4>
 			@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)
+			<br />
 		}
 
 		@if (Model.WebLinks.Any()) {
-			<h4 class="withMargin">@ViewRes.EntryDetailsStrings.ExternalLinks</h4>
+			<h4>@ViewRes.EntryDetailsStrings.ExternalLinks</h4>
 			@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)
+			<br />
 		}
 		
-		<h4 class="withMargin">@R.MemberSince</h4>
+		<h4>@R.MemberSince</h4>
 		@Model.CreateDate.ToShortDateString()
 
 		@if (!string.IsNullOrEmpty(Model.Location)) {
 			<h4 class="withMargin">@R.Location</h4>
 			@Model.Location
-		}
+  }
 
 		@if (Login.CanManageUsers || ownProfile) {
 			<h4 class="withMargin">@R.LastLogin</h4>
 			@Model.LastLogin
-			if (Login.CanManageUsers) {
+	  if (Login.CanManageUsers) {
 				@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
 				<a href='http://www.stopforumspam.com/search?q=@Model.LastLoginAddress'>StopForumSpam</a>
-			}		
+	  }		
 			@(" (" + R.VisibleOnlyToMe + ")")
 	 
-			if (Model.AdditionalPermissions.Any()) {
+	  if (Model.AdditionalPermissions.Any()) {
 				 <h4 class="withMargin">@R.AdditionalPermissions</h4>
 				 @Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
-			}
+	  }
 	 
 			<h4 class="withMargin">@R.Email</h4>
 			@Model.Email 
 			@(" (" + R.VisibleOnlyToMe + ")")
 
-		}
+  }
 
  		@if (Login.Manager.HasPermission(PermissionToken.DisableUsers)) {
 			<h4 class="withMargin">@R.EffectivePermissions</h4>
 			@Translate.AllPermissionTokenNames(Model.EffectivePermissions)
-		}
+   }
 	</div>
 </div>
 

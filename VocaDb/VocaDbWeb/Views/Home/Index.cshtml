@@ -8,11 +8,10 @@
 	ViewBag.DisplaySocialLinks = true;
 }
 
-<h3>@R.IndexStrings.Welcome <small>@R.IndexStrings.WelcomeSubtitle</small></h3>
+<h3 class="pageTitle">@R.IndexStrings.Welcome <small>@R.IndexStrings.WelcomeSubtitle</small></h3>
 
 @if (Model.NewSongs.Any()) {
-<br />
-<h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null))</h4>
+<h4 class="withMargin">@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null))</h4>
     
 <div class="pvPlayer">
 	<div class="scrollable-navi">
@@ -42,35 +41,32 @@
 </div>
 }
 
-<br />
-<h4>@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
+<h4 class="withMargin">@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
 <div id="newAlbums">
     @AlbumHelpers.AlbumThumbs(Model.NewAlbums)    
 </div>
 
-<h4>@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
+<h4 class="withMargin">@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
 <div id="topAlbums">
     @AlbumHelpers.AlbumThumbs(Model.TopAlbums)    
 </div>
 
-<br />
-<h4>@ViewRes.Home.IndexStrings.News (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry"))</h4>
+<h4 class="withMargin">@ViewRes.Home.IndexStrings.News (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry"))</h4>
 
 @foreach (var entry in Model.NewsEntries) {
 	@ActivityfeedHelpers.NewsEntry(entry);
 }
 
-<br />
 <div class="row-fluid">
     <div class="span8">
-        <h4>@ViewRes.Home.IndexStrings.RecentActivity (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "ActivityEntry"))</h4>
+        <h4 class="withMargin">@ViewRes.Home.IndexStrings.RecentActivity (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "ActivityEntry"))</h4>
 
         @foreach (var entry in Model.ActivityEntries) {
 	        @ActivityfeedHelpers.ActivityEntry(entry);
         }            
     </div>
     <div class="span4">
-        <h4>@ViewRes.Comment.IndexStrings.RecentComments (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Comment"))</h4>
+        <h4 class="withMargin">@ViewRes.Comment.IndexStrings.RecentComments (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Comment"))</h4>
             
         @foreach (var comment in Model.RecentComments) {
 			@CommentHelpers.CommentWithEntryVertical(comment)
@@ -78,8 +74,7 @@
     </div>
 </div>
 
-<br />
-<h4>@R.IndexStrings.SearchSite</h4>
+<h4 class="withMargin">@R.IndexStrings.SearchSite</h4>
 @Helpers.GoogleSiteSearch()
 
 @section Head {
