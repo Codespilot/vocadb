@@ -127,7 +127,7 @@
     <value>Song type needs to be specified.</value>
   </data>
   <data name="NonInstrumentalSongNeedsVocalists" xml:space="preserve">
-    <value>This song has no vocalists. If it's an instrumental (karaoke), mark it as instrumental with either type or tag. Otherwise, add vocalists.</value>
+    <value>This song has no vocalists. Original instrumental songs need to be tagged with the 'instrumental' tag. Instrumental (karaoke) versions of existing songs should use the 'Instrumental' song type. Otherwise, add vocalists.</value>
   </data>
   <data name="UnspecifiedNames" xml:space="preserve">
     <value>Song needs a primary name.</value>

@@ -11,6 +11,7 @@
 <h3>@R.IndexStrings.Welcome <small>@R.IndexStrings.WelcomeSubtitle</small></h3>
 
 @if (Model.NewSongs.Any()) {
+<br />
 <h4>@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null))</h4>
     
 <div class="pvPlayer">
