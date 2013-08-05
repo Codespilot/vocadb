@@ -361,8 +361,9 @@ span.tag {
 }
 
 .about-disclaimer {
-	color: #aaa;
 	font-size: 0.7em;
+	margin: 5px;
+	float: right;
 }
 
 .about-disclaimer a {
