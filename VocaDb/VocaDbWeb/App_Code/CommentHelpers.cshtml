@@ -7,18 +7,23 @@
 	var entry = comment.Entry;
 	var thumbUrl = Url.EntryThumbUrl(entry, comment.SongThumbUrl);
 	
-	<div class="item">
+	<div class="media">
 		@if (!string.IsNullOrEmpty(thumbUrl)) {
-		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
+		<a class="pull-left" href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
 			<img src="@thumbUrl" alt="thumb" class="coverPicThumb" />
 		</a>
 		}
-		<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
-			<strong>@entry.Name.DisplayName</strong>
-		</a>
-		@if (!string.IsNullOrEmpty(comment.ArtistString)) {
-			<span>@comment.ArtistString</span>
-		}
+		
+		<div class="media-body">
+			<h4 class="media-heading">
+				<a href="@Url.Action("Details", entry.EntryType.ToString(), new { id = entry.Id })" title="@entry.Name.AdditionalNames">
+					@entry.Name.DisplayName
+				</a>
+			</h4>
+			@if (!string.IsNullOrEmpty(comment.ArtistString)) {
+				<span>@comment.ArtistString</span>
+			}
+		</div>
 	</div>
 		
 }

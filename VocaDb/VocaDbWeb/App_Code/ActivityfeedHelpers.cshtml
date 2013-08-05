@@ -34,24 +34,28 @@
 			@HelperRes.ActivityFeedHelperStrings.Someone
 		}
 
-		@EntryType(entry)<br />
+		@EntryType(entry)
 
-		<div class="item">
+		<div class="media">
 			@if (!string.IsNullOrEmpty(thumbUrl)) {
-			<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
-				<img src="@thumbUrl" alt="thumb" class="coverPicThumb" />
+			<a class="pull-left" href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
+				<img src="@thumbUrl" alt="thumb" class="media-object coverPicThumb" />
 			</a>
 			}
-			<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
-				<strong>@entry.EntryRef.Name.DisplayName</strong>
-			</a>
-			@if (!string.IsNullOrEmpty(entry.ArtistString)) {
-			<span>@entry.ArtistString</span>
-			}
-			<br />
-			<small class="extraInfo">
-				@TimeAgoStringBuilder.FormatTimeAgo(DateTime.Now - entry.CreateDate)
-			</small>
+			<div class="media-body">
+				<h4 class="media-heading">
+					<a href="@Url.Action("Details", entry.EntryRef.EntryType.ToString(), new { id = entry.EntryRef.Id })" title="@entry.EntryRef.Name.AdditionalNames">
+						<strong>@entry.EntryRef.Name.DisplayName</strong>
+					</a>
+				</h4>
+				@if (!string.IsNullOrEmpty(entry.ArtistString)) {
+					@entry.ArtistString
+				}
+				<br />
+				<small class="extraInfo">
+					@TimeAgoStringBuilder.FormatTimeAgo(DateTime.Now - entry.CreateDate)
+				</small>
+			</div>
 		</div>
 	</div>
 }
