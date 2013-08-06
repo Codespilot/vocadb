@@ -238,8 +238,18 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		/// <summary>
+		/// Rating average as integer, basically the decimal number multiplied by 100.
+		/// Thus, the scale is from 100 to 500 for rated albums, while 0 means there are no ratings.
+		/// This field is mapped to the DB.
+		/// </summary>
 		public virtual int RatingAverageInt { get; set; }
 
+		/// <summary>
+		/// Rating average. Scale is from 1.00 to 5.00 with rated albums, with precision of 2 decimals. 
+		/// 0.00 means there are no ratings.
+		/// This field is not mapped to the DB and thus cannot be used in queries.
+		/// </summary>
 		public virtual double RatingAverage {
 			get {
 				return Math.Round(RatingAverageInt / 100.0f, 2);

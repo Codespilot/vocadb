@@ -25,6 +25,44 @@ namespace VocaDb.Model.Service {
 
 	public class OtherService : ServiceBase {
 
+		private AlbumContract[] GetTopAlbums(ISession session, AlbumContract[] recentAlbums) {
+
+			var cacheKey = "OtherService.PopularAlbums";
+			var cache = MemoryCache.Default;
+			var item = (TranslatedAlbumContract[])cache.Get(cacheKey);
+
+			if (item != null)
+				return item.Select(a => new AlbumContract(a, LanguagePreference)).ToArray();
+
+			var recentIds = recentAlbums.Select(a => a.Id).ToArray();
+
+			var popular = session.Query<Album>()
+				.Where(a => !a.Deleted 
+					&& a.RatingCount >= 2 && a.RatingAverageInt >= 300	// Filter by number of ratings and average rating
+					&& !recentIds.Contains(a.Id))						// Filter out recent albums (that are already shown)
+				.OrderByDescending(a => a.RatingAverageInt)
+				.Take(100)
+				.ToArray();
+
+			var random = CollectionHelper
+				.GetRandomItems(popular, 7)
+				.OrderByDescending(a => a.RatingAverageInt)
+				.ToArray();
+
+			var popularAlbumsCached = random
+				.Select(a => new TranslatedAlbumContract(a))
+				.ToArray();
+
+			var popularAlbumContracts = random
+				.Select(a => new AlbumContract(a, LanguagePreference))
+				.ToArray();
+
+			cache.Add(cacheKey, popularAlbumsCached, DateTime.Now + TimeSpan.FromHours(24));
+
+			return popularAlbumContracts;
+
+		}
+
 		private AlbumContract[] GetRecentAlbums(ISession session) {
 
 			var cacheKey = "OtherService.RecentAlbums";
@@ -347,14 +385,16 @@ namespace VocaDb.Model.Service {
 						.OrderByDescending(a => a.CreateDate)
 						.Take(maxNewsEntries - newsEntries.Length)).ToArray();
 
-				var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
+				/*var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
 					.OrderByDescending(a => a.RatingAverageInt)
 					.ThenByDescending(a => a.RatingCount)
-					.Take(7).ToArray();
+					.Take(7).ToArray();*/
 
 				//var albumCutoffDate = DateTime.Now.AddMonths(1);
 
 				var newAlbums = GetRecentAlbums(session);
+
+				var topAlbums = GetTopAlbums(session, newAlbums);
 
 				/*var cutoffDate = DateTime.Now - TimeSpan.FromDays(300);
 

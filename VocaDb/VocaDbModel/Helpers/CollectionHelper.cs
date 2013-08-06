@@ -30,6 +30,21 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static IEnumerable<T> GetRandomItems<T>(IList<T> source, int count) {
+
+			if (source.Count <= count)
+				return source;
+
+			var indices = Enumerable.Range(0, source.Count);	// Unique indices for all items in the list.
+			var random = new Random();
+			var randomIndices = indices
+				.OrderBy(x => random.Next())		// Shuffle the list of indices.
+				.Take(count);						// Take the first [count] numbers that should now be random and unique.
+
+			return randomIndices.Select(i => source[i]);	// Take items matching the random indices from the list
+
+		} 
+
 		public static IEnumerable<T> MoveToTop<T>(IEnumerable<T> source, T top) {
 
 			return Enumerable.Repeat(top, 1).Concat(source.Except(Enumerable.Repeat(top, 1)));
