@@ -30,7 +30,17 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		/// <summary>
+		/// Gets a number of random items from a list.
+		/// The items are guaranteed to be unique, meaning that one item cannot appear twice.
+		/// </summary>
+		/// <typeparam name="T">Type of list.</typeparam>
+		/// <param name="source">Source list to be searched. Cannot be null.</param>
+		/// <param name="count">Number of items to be returned. If this is equal or more than the number of items in the source list, the source list will be returned as is.</param>
+		/// <returns>A number of random items from the list. Cannot be null.</returns>
 		public static IEnumerable<T> GetRandomItems<T>(IList<T> source, int count) {
+
+			ParamIs.NotNull(() => source);
 
 			if (source.Count <= count)
 				return source;
