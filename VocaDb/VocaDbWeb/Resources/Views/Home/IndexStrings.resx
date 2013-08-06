@@ -133,7 +133,7 @@
     <value>Search the whole site using Google custom search</value>
   </data>
   <data name="TopAlbums" xml:space="preserve">
-    <value>Top albums</value>
+    <value>Random popular albums</value>
   </data>
   <data name="ViewAll" xml:space="preserve">
     <value>view all</value>
