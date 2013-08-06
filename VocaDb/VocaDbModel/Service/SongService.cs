@@ -742,7 +742,9 @@ namespace VocaDb.Model.Service {
 				return song.ListLinks
 					.Where(l => l.List.FeaturedCategory != SongListFeaturedCategory.Nothing || l.List.Author.Id == userId || l.List.Author.Options.PublicRatings)
 					.OrderBy(l => l.List.Name)
-					.Select(l => new SongListContract(l.List, PermissionContext))
+					.Select(l => l.List)
+					.Distinct()
+					.Select(l => new SongListContract(l, PermissionContext))
 					.ToArray();
 
 			});
