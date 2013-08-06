@@ -77,6 +77,14 @@ td {
 	padding: 5px;
 }
 
+.comment-large {
+	margin-bottom: 20px;
+}
+
+.comment-large-header {
+	border-bottom: 1px solid lightgray;
+}
+
 /* Thumbnails */
 
 img.coverPic {

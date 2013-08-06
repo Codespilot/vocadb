@@ -189,7 +189,7 @@
 		@if (Model.LatestComments.Any()) {
 
 		  foreach (var comment in Model.LatestComments) {
-					@Helpers.PrintComment(comment, false);
+					@CommentHelpers.CommentBodyLarge(comment, false);
 		  }
 
 		} else {
