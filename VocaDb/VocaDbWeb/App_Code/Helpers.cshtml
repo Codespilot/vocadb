@@ -31,7 +31,7 @@
 }
 
 @helper DraftIcon(VocaDb.Model.DataContracts.Albums.AlbumContract album) {
-	@Helpers.DraftIcon(album.Status)
+	@DraftIcon(album.Status)
 }
 
 @helper DraftIcon(VocaDb.Model.Domain.EntryStatus status) {
@@ -41,11 +41,11 @@
 }
 
 @helper DraftMessage(string section) {
-	using (Html.BeginHighlightPanel()) {
-		@Helpers.NotificationIcon()
+	<div class="alert">
+		@NotificationIcon()
 		<span>@HelperRes.HelperStrings.DraftMessage</span>
 		<span>@HelperRes.HelperStrings.SeeGuidePre <a href="@(Url.Action("Index", "Help") + "?guidelines+" + section)">@HelperRes.HelperStrings.SeeGuide</a> @HelperRes.HelperStrings.SeeGuidePost</span>
-	}
+	</div>
 }
 
 @helper EntryLink(EntryRefWithNameContract entryRef) {
