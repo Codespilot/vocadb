@@ -174,7 +174,7 @@
 
 <div id="comments">
 	@foreach (var comment in Model.LatestComments) {
-		@Helpers.PrintComment(comment, true, ownProfile)
+		@CommentHelpers.CommentBodyLarge(comment, true, ownProfile)
  }
 </div>
 

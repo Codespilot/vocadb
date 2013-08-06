@@ -11,7 +11,7 @@
 		
 		<div class="span5">
 			@foreach (var comment in entry) {
-				@Helpers.PrintComment(comment, false);
+				@CommentHelpers.CommentBodyLarge(comment, false);
 			}			
 		</div>
 

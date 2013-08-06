@@ -3,6 +3,30 @@
 @using VocaDb.Web.Code
 @inherits VocaDb.Web.Code.HelperPage
 
+@helper CommentBodyLarge(CommentContract contract, bool allowDelete, bool alwaysAllowDelete = false) {
+	<div class="comment media comment-large">
+		<a class="pull-left" href="@Url.Action("Profile", "User", new { id = contract.Author.Name })">
+			@UserHelpers.ProfileIcon(contract.Author, 70)
+		</a>
+			
+		<div class="media-body">
+			<h3 class="media-heading comment-large-header">
+				@UserHelpers.UserLink(contract.Author)
+				<small class="extraInfo pull-right">
+					@TimeAgoStringBuilder.FormatTimeAgo(contract.Created)
+					@if (alwaysAllowDelete || (allowDelete && Login.CanDeleteComment(contract))) {
+						@Html.Raw("&nbsp;&nbsp;");
+						<a href="#" id="deleteComment_@(contract.Id)" class="deleteComment textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
+					}
+				</small>
+			</h3>
+			<p>
+				@Helpers.ConvertNewlinesToBreaks(contract.Message)
+			</p>			
+		</div>
+	</div>		
+}
+
 @helper CommentEntryItem(UnifiedCommentContract comment) {
 	
 	var entry = comment.Entry;
