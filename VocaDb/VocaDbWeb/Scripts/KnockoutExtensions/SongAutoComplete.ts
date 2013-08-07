@@ -1,8 +1,7 @@
 /// <reference path="../typings/knockout/knockout.d.ts" />
 /// <reference path="../Shared/GlobalFunctions.ts" />
+/// <reference path="../Shared/EntrySearchDrop.d.ts" />
 /// <reference path="AutoCompleteParams.ts" />
-
-declare function initEntrySearch(nameBoxElem, findListElem, entityName: string, searchUrl: string, params);
 
 interface KnockoutBindingHandlers {
     songAutoComplete: KnockoutBindingHandler;

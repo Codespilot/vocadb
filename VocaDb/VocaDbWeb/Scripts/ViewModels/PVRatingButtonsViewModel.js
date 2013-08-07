@@ -1,8 +1,13 @@
 var vdb;
 (function (vdb) {
+    /// <reference path="../typings/knockout/knockout.d.ts" />
+    /// <reference path="../typings/underscore/underscore.d.ts" />
+    /// <reference path="../Repositories/UserRepository.ts" />
+    /// <reference path="../Models/SongVoteRating.ts" />
     (function (viewModels) {
         var cls = vdb.models;
 
+        // Knockout view model for PV rating buttons
         var PVRatingButtonsViewModel = (function () {
             function PVRatingButtonsViewModel(repository, songWithVoteContract, ratingCallback) {
                 var _this = this;

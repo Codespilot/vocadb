@@ -1,6 +1,7 @@
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../Shared/GlobalValues.ts" />
+/// <reference path="../../Shared/Messages.d.ts" />
 /// <reference path="../../Repositories/SongRepository.ts" />
 /// <reference path="../../Repositories/UserRepository.ts" />
 /// <reference path="../../ViewModels/Song/SongWithPreviewViewModel.ts" />

@@ -1,6 +1,8 @@
 var vdb;
 (function (vdb) {
     (function (models) {
+        // Song vote values.
+        // Corresponds to the enum SongVoteRating.
         (function (SongVoteRating) {
             SongVoteRating[SongVoteRating["Nothing"] = 0] = "Nothing";
             SongVoteRating[SongVoteRating["Like"] = 3] = "Like";

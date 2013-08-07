@@ -1,8 +1,12 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../Models/SongVoteRating.ts" />
 var cls = vdb.models;
 
 var vdb;
 (function (vdb) {
     (function (repositories) {
+        // Repository for managing users and related objects.
+        // Corresponds to the UserController class.
         var UserRepository = (function () {
             function UserRepository(baseUrl) {
                 var _this = this;
