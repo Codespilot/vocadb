@@ -7,8 +7,10 @@ var __extends = this.__extends || function (d, b) {
 var vdb;
 (function (vdb) {
     (function (tests) {
+        /// <reference path="../../DataContracts/NewSongCheckResultContract.ts" />
+        /// <reference path="../../Repositories/SongRepository.ts" />
         (function (testSupport) {
-            var dc = vdb.dataContracts;
+            
 
             var FakeSongRepository = (function (_super) {
                 __extends(FakeSongRepository, _super);

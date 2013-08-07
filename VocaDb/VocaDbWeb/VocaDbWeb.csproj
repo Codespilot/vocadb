@@ -1668,7 +1668,6 @@
     <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.d.ts" />
     <Content Include="Scripts\typings\qunit\qunit.d.ts" />
-    <Content Include="Scripts\typings\underscore\underscore-typed.d.ts" />
     <Content Include="Scripts\typings\underscore\underscore.d.ts" />
     <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>

@@ -28,6 +28,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public NameManager<LocalizedStringWithId> Names { get; set; }
 
+		public override string ToString() {
+			return string.Format("translated album '{0}' [{1}]", Name, Id);
+		}
+
 	}
 
 }

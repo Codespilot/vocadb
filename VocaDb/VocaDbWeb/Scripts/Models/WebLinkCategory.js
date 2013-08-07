@@ -5,7 +5,6 @@ var vdb;
             WebLinkCategory[WebLinkCategory["Official"] = 0] = "Official";
             WebLinkCategory[WebLinkCategory["Commercial"] = 1] = "Commercial";
             WebLinkCategory[WebLinkCategory["Reference"] = 2] = "Reference";
-
             WebLinkCategory[WebLinkCategory["Other"] = 3] = "Other";
         })(models.WebLinkCategory || (models.WebLinkCategory = {}));
         var WebLinkCategory = models.WebLinkCategory;

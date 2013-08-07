@@ -1,13 +1,18 @@
 var vdb;
 (function (vdb) {
     (function (tests) {
+        /// <reference path="../../typings/qunit/qunit.d.ts" />
+        /// <reference path="../../Models/WebLinkCategory.ts" />
+        /// <reference path="../../ViewModels/SongCreateViewModel.ts" />
+        /// <reference path="../TestSupport/FakeSongRepository.ts" />
+        /// <reference path="../TestSupport/FakeArtistRepository.ts" />
         (function (viewModels) {
             var vm = vdb.viewModels;
-            var dc = vdb.dataContracts;
+            
 
             var repository = new vdb.tests.testSupport.FakeSongRepository();
             var artistRepository = new vdb.tests.testSupport.FakeArtistRepository();
-            var producer = { id: 1, name: "Tripshots", additionalNames: "" };
+            var producer = { artistType: "Producer", id: 1, name: "Tripshots", additionalNames: "" };
             artistRepository.result = producer;
             repository.results = { title: "Nebula", artists: [producer], matches: [], songType: "Original" };
 
