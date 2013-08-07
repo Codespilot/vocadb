@@ -1671,6 +1671,10 @@
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumCreateViewModel.ts" />
+    <Content Include="Scripts\ViewModels\Album\AlbumCreateViewModel.js">
+      <DependentUpon>AlbumCreateViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\ArtistEditViewModel.js">
       <DependentUpon>ArtistEditViewModel.ts</DependentUpon>
     </Content>

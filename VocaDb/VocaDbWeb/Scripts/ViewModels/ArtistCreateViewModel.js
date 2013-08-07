@@ -1,7 +1,11 @@
 var vdb;
 (function (vdb) {
+    /// <reference path="../typings/jquery/jquery.d.ts" />
+    /// <reference path="../DataContracts/DuplicateEntryResultContract.ts" />
+    /// <reference path="../Repositories/ArtistRepository.ts" />
+    /// <reference path="WebLinkEditViewModel.ts" />
     (function (viewModels) {
-        var dc = vdb.dataContracts;
+        
 
         var ArtistCreateViewModel = (function () {
             function ArtistCreateViewModel(artistRepository, data) {
@@ -10,6 +14,11 @@ var vdb;
                 this.nameOriginal = ko.observable("");
                 this.nameRomaji = ko.observable("");
                 this.nameEnglish = ko.observable("");
+                this.submit = function () {
+                    _this.submitting(true);
+                    return true;
+                };
+                this.submitting = ko.observable(false);
                 this.webLink = new viewModels.WebLinkEditViewModel();
                 if (data) {
                     this.nameOriginal(data.nameOriginal || "");

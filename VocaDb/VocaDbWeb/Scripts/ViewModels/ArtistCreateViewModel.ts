@@ -17,6 +17,13 @@ module vdb.viewModels {
         public nameRomaji = ko.observable("");
         public nameEnglish = ko.observable("");
 
+        public submit = () => {
+            this.submitting(true);
+            return true;
+        }
+
+        public submitting = ko.observable(false);
+
         public webLink: WebLinkEditViewModel = new WebLinkEditViewModel();
 
         constructor(artistRepository: vdb.repositories.ArtistRepository, data?) {

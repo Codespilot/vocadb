@@ -34,6 +34,13 @@ module vdb.viewModels {
 
         hasName: KnockoutComputed<boolean>;
 
+        public submit = () => {
+            this.submitting(true);
+            return true;
+        }
+
+        public submitting = ko.observable(false);
+
         removeArtist: (artist: dc.ArtistContract) => void;
 
         constructor(songRepository: vdb.repositories.SongRepository, artistRepository: vdb.repositories.ArtistRepository, data?) {

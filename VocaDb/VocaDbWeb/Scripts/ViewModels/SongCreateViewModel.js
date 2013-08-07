@@ -22,6 +22,11 @@ var vdb;
                 this.nameEnglish = ko.observable("");
                 this.pv1 = ko.observable("");
                 this.pv2 = ko.observable("");
+                this.submit = function () {
+                    _this.submitting(true);
+                    return true;
+                };
+                this.submitting = ko.observable(false);
                 if (data) {
                     this.nameOriginal(data.nameOriginal || "");
                     this.nameRomaji(data.nameRomaji || "");

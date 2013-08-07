@@ -10,7 +10,7 @@
 	};	
 }
 
-@using (Html.BeginForm("Create", "Song", FormMethod.Post)) {
+<form action="@Url.Action("Create", "Song")" method="POST" data-bind="submit: submit">
 
 	@Helpers.ValidationSymmaryDiv(R.CreateStrings.UnableToCreateSong)
 																								
@@ -102,7 +102,7 @@
 			</p>
 			
 			<br />
-			<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
+			<button type="submit" data-bind="disable: submitting" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
 
 		</div>
 		
@@ -121,7 +121,7 @@
 		
 	</div>
 	
-}
+</form>
 
 @section BodyScripts {
 
