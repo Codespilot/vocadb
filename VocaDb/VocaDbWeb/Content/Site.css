@@ -253,9 +253,24 @@ body .container-fluid {
 
 .rightFrame li {
 	margin-bottom: 2px;
-	margin-left: 0px;
-	margin-right: 0px;
-	margin-top: 0px;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0;
+}
+
+.rightFrame .tracklist-track {
+	margin-bottom: 5px;
+}
+
+.tracklist-trackNumber {
+	min-width: 18px;
+	margin-right: 5px;
+	text-align: right;
+}
+
+.tracklist-trackTitle, .tracklist-trackNumber {
+	display: inline-block;
+	vertical-align: top;
 }
 
 /* Menu */
