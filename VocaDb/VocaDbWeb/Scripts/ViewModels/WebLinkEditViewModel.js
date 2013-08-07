@@ -1,5 +1,9 @@
 var vdb;
 (function (vdb) {
+    /// <reference path="../typings/knockout/knockout.d.ts" />
+    /// <reference path="../DataContracts/WebLinkContract.ts" />
+    /// <reference path="../Models/WebLinkCategory.ts" />
+    /// <reference path="../Shared/WebLinkMatcher.ts" />
     (function (viewModels) {
         var cls = vdb.models;
 

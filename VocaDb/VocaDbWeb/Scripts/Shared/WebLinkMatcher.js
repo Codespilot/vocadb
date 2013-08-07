@@ -1,5 +1,7 @@
 var vdb;
 (function (vdb) {
+    /// <reference path="../Models/WebLinkCategory.ts" />
+    /// <reference path="../typings/underscore/underscore.d.ts" />
     (function (utils) {
         var c = vdb.models;
 

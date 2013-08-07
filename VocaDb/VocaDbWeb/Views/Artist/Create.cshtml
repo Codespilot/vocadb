@@ -11,9 +11,9 @@
 	};	
 }
 
-@using (Html.BeginForm("Create", "Artist", FormMethod.Post, new { enctype = "multipart/form-data" })) {
+<form action="@Url.Action("Create", "Artist")" method="POST" enctype="multipart/form-data" data-bind="submit: submit">
 
-	@Helpers.ValidationSymmaryDiv(R.CreateStrings.UnableToCreateArtist);
+	@Helpers.ValidationSymmaryDiv(R.CreateStrings.UnableToCreateArtist)
 	
 	<div class="row-fluid">
 		<div class="span5">
@@ -94,7 +94,7 @@
 			</p>
 			
 			<br />
-			<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
+			<button type="submit" data-bind="disable: submitting" class="btn btn-primary">@ViewRes.SharedStrings.Save</button>
 
 		</div>
 		<div class="span3">
@@ -110,7 +110,7 @@
 		
 	</div>	
 	
-}
+</form>
 
 @Scripts.Render("~/bundles/shared/edit", "~/bundles/Artist/Create")
 <script type="text/javascript">
