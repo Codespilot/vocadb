@@ -1508,16 +1508,12 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
-    <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistToolTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\KnockoutExtensions\ArtistAutoComplete.js">
       <DependentUpon>ArtistAutoComplete.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\KnockoutExtensions\ArtistToolTip.js">
-      <DependentUpon>ArtistToolTip.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\FocusOut.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\EntryToolTip.ts" />
@@ -1601,6 +1597,7 @@
     <TypeScriptCompile Include="Scripts\Shared\GlobalValues.ts" />
     <TypeScriptCompile Include="Scripts\Shared\GlobalFunctions.ts" />
     <TypeScriptCompile Include="Scripts\Shared\EntryUrlMapper.ts" />
+    <TypeScriptCompile Include="Scripts\Shared\EntrySearchDrop.d.ts" />
     <Content Include="Scripts\Shared\EntryUrlMapper.js">
       <DependentUpon>EntryUrlMapper.ts</DependentUpon>
     </Content>
@@ -1611,6 +1608,7 @@
       <DependentUpon>GlobalValues.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\Shared\WebLinkMatcher.ts" />
+    <TypeScriptCompile Include="Scripts\Shared\Messages.d.ts" />
     <Content Include="Scripts\Shared\WebLinkMatcher.js">
       <DependentUpon>WebLinkMatcher.ts</DependentUpon>
     </Content>
