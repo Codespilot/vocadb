@@ -1,8 +1,17 @@
 var vdb;
 (function (vdb) {
+    /// <reference path="../typings/jquery/jquery.d.ts" />
+    /// <reference path="../DataContracts/NewSongCheckResultContract.ts" />
+    /// <reference path="../DataContracts/SongContract.ts" />
+    /// <reference path="../DataContracts/SongListBaseContract.ts" />
+    /// <reference path="../DataContracts/Song/SongListContract.ts" />
+    /// <reference path="../DataContracts/Song/SongWithPVPlayerAndVoteContract.ts" />
+    /// <reference path="../Shared/GlobalFunctions.ts" />
     (function (repositories) {
-        var dc = vdb.dataContracts;
+        
 
+        // Repository for managing songs and related objects.
+        // Corresponds to the SongController class.
         var SongRepository = (function () {
             function SongRepository(baseUrl) {
                 var _this = this;

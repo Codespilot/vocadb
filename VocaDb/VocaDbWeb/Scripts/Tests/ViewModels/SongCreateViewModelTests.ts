@@ -11,7 +11,7 @@ module vdb.tests.viewModels {
 
     var repository = new vdb.tests.testSupport.FakeSongRepository();
     var artistRepository = new vdb.tests.testSupport.FakeArtistRepository();
-    var producer: dc.ArtistContract = { id: 1, name: "Tripshots", additionalNames: "" };
+    var producer: dc.ArtistContract = { artistType: "Producer", id: 1, name: "Tripshots", additionalNames: "" };
     artistRepository.result = producer;
     repository.results = { title: "Nebula", artists: [producer], matches: [], songType: "Original" };
 

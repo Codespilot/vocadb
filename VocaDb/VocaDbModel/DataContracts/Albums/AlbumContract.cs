@@ -123,6 +123,10 @@ namespace VocaDb.Model.DataContracts.Albums {
 	        return Id.GetHashCode();
 	    }
 
+		public override string ToString() {
+			return string.Format("album '{0}' [{1}]", Name, Id);
+		}
+
 	}
 
 }
