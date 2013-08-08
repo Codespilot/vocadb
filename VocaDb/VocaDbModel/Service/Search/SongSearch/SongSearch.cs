@@ -4,6 +4,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.Search.SongSearch {
@@ -237,6 +238,26 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					.Take(maxResults)
 					.ToArray();
 
+			} else if (query.StartsWith("artist-tag:")) {
+
+				var tagName = query.Substring(11);
+				//var tag = Query<Tag>().FirstOrDefault(t => t.Name == tagName);
+
+				var q = Query<Song>()
+					.Where(s => !s.Deleted && s.AllArtists.Any(a => a.Artist.Tags.Usages.Any(u => u.Tag.Name == tagName)));
+
+				if (draftsOnly)
+					q = q.Where(a => a.Status == EntryStatus.Draft);
+
+				q = AddTimeFilter(q, queryParams.TimeFilter);
+				q = AddPVFilter(q, queryParams.OnlyWithPVs);
+
+				songs = q
+					.AddOrder(sortRule, LanguagePreference)
+					.Skip(start)
+					.Take(maxResults)
+					.ToArray();
+
 			} else {
 
 				query = query.Trim();
@@ -382,6 +403,22 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				if (draftsOnly)
 					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				q = AddTimeFilter(q, queryParams.TimeFilter);
+				q = AddPVFilter(q, queryParams.OnlyWithPVs);
+
+				return q.Count();
+
+			} else if (query.StartsWith("artist-tag:")) {
+
+				var tagName = query.Substring(11);
+				//var tag = Query<Tag>().FirstOrDefault(t => t.Name == tagName);
+
+				var q = Query<Song>()
+					.Where(s => !s.Deleted && s.AllArtists.Any(a => a.Artist.Tags.Usages.Any(u => u.Tag.Name == tagName)));
+
+				if (draftsOnly)
+					q = q.Where(a => a.Status == EntryStatus.Draft);
 
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
