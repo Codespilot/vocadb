@@ -298,8 +298,6 @@ interface KnockoutUtils {
 
     setElementName(element: any, name: string): void;
 
-    //ensureSelectElementIsRenderedCorrectly(selectElement);
-
     forceRefresh(node: any): void;
 
     ensureSelectElementIsRenderedCorrectly(selectElement: any): void;
@@ -396,6 +394,7 @@ interface KnockoutStatic {
     toJSON(viewModel: any, replacer?: Function, space?: any): string;
     toJS(viewModel: any): any;
     isObservable(instance: any): boolean;
+    isWriteableObservable(instance: any): boolean;
     isComputed(instance: any): boolean;
     dataFor(node: any): any;
     removeNode(node: Element);
@@ -479,6 +478,17 @@ interface KnockoutStatic {
     /////////////////////////////////
 
     bindingProvider: any;
+
+    /////////////////////////////////
+    // selectExtensions.js
+    /////////////////////////////////
+
+    selectExtensions: {
+
+        readValue(element: any);
+
+        writeValue(element: any, value: any);
+    };
 }
 
 declare var ko: KnockoutStatic;

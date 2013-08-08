@@ -1667,6 +1667,8 @@
     <Content Include="Scripts\typings\knockout\knockout.d.ts" />
     <Content Include="Scripts\typings\qunit\qunit.d.ts" />
     <Content Include="Scripts\typings\underscore\underscore.d.ts" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
     </Content>
@@ -1900,8 +1902,6 @@
     <Content Include="Scripts\ui\minified\jquery.ui.sortable.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
-    <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\Edit.js" />
     <Content Include="Scripts\User\Messages.js" />
@@ -2104,6 +2104,7 @@
     <Content Include="Views\Album\Partials\_SongInAlbumEdit.cshtml" />
     <Content Include="Views\Album\Partials\_TrackProperties.cshtml" />
     <Content Include="Views\Album\Partials\_TrackArtistSelection.cshtml" />
+    <Content Include="Scripts\underscore.min.map" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
