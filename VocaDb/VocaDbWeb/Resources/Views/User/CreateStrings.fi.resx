@@ -129,6 +129,9 @@
   <data name="EmailNote" xml:space="preserve">
     <value>Sähköpostiosoitetta ei näytetä muille käyttäjille. Tarvitset sitä jos koskaan unohdat salasanasi. Profiilikuvaa varten tarvitset Gravatariin liitetyn sähköpostiosoitteen. Osoitetta voi muuttaa myös jälkikäteen.</value>
   </data>
+  <data name="EmailTaken" xml:space="preserve">
+    <value>Tämä sähköpostiosoite on jo käytössä. Mikäli se on sinun osoitteesi, käytä salasanan resetointitoimintoa, tai mikäli tämä ei onnistu, ota yhteyttä tukeen.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Salasana</value>
   </data>
