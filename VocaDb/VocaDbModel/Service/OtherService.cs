@@ -385,24 +385,9 @@ namespace VocaDb.Model.Service {
 						.OrderByDescending(a => a.CreateDate)
 						.Take(maxNewsEntries - newsEntries.Length)).ToArray();
 
-				/*var topAlbums = session.Query<Album>().Where(a => !a.Deleted)
-					.OrderByDescending(a => a.RatingAverageInt)
-					.ThenByDescending(a => a.RatingCount)
-					.Take(7).ToArray();*/
-
-				//var albumCutoffDate = DateTime.Now.AddMonths(1);
-
 				var newAlbums = GetRecentAlbums(session);
 
 				var topAlbums = GetTopAlbums(session, newAlbums);
-
-				/*var cutoffDate = DateTime.Now - TimeSpan.FromDays(300);
-
-				var newSongs = session.Query<Song>()
-					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing && s.CreateDate >= cutoffDate)
-					.OrderByDescending(s => s.RatingScore)
-					.Take(16)
-					.ToArray();*/
 
 				var newSongs = GetHighlightedSongs(session);
 
