@@ -502,13 +502,24 @@ namespace VocaDb.Web.Controllers
 	        }
 
 	        // Attempt to register the user
-			var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
+	        try {
 
-			if (HandleCreate(user))
-				return RedirectToAction("Index", "Home");
+		        var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
+		        FormsAuthentication.SetAuthCookie(user.Name, false);
+		        return RedirectToAction("Index", "Home");
 
-			return View(model);
-        
+	        } catch (UserNameAlreadyExistsException) {
+
+		        ModelState.AddModelError("UserName", ViewRes.User.CreateStrings.UsernameTaken);
+		        return View(model);
+
+	        } catch (UserEmailAlreadyExistsException) {
+
+				ModelState.AddModelError("Email", ViewRes.User.CreateStrings.EmailTaken);
+				return View(model);
+      
+	        }
+
         }
 
 		[HttpPost]

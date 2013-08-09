@@ -129,6 +129,9 @@
   <data name="EmailNote" xml:space="preserve">
     <value>Your email address will not be shown to other users. You'll need it if you ever forget your password. For a profile picture you'll need an email address associated with Gravatar. Email address can be changed later.</value>
   </data>
+  <data name="EmailTaken" xml:space="preserve">
+    <value>This email address is already in use. If it's your address, please use the reset password function instead, or if that doesn't work, contact support.</value>
+  </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>

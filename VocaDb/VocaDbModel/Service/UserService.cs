@@ -281,6 +281,17 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Creates a new user account.
+		/// </summary>
+		/// <param name="name">User name. Must be unique. Cannot be null or empty.</param>
+		/// <param name="pass">Password. Cannot be null or empty.</param>
+		/// <param name="email">Email address. Must be unique. Cannot be null.</param>
+		/// <param name="hostname">Host name where the registration is from.</param>
+		/// <param name="timeSpan">Time in which the user filled the registration form.</param>
+		/// <returns>Data contract for the created user. Cannot be null.</returns>
+		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
+		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
 		public UserContract Create(string name, string pass, string email, string hostname, TimeSpan timeSpan) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -293,7 +304,16 @@ namespace VocaDb.Model.Service {
 				var existing = session.Query<User>().FirstOrDefault(u => u.NameLC == lc);
 
 				if (existing != null)
-					return null;
+					throw new UserNameAlreadyExistsException();
+
+				if (!string.IsNullOrEmpty(email)) {
+
+					existing = session.Query<User>().FirstOrDefault(u => u.Email == email);
+
+					if (existing != null)
+						throw new UserEmailAlreadyExistsException();
+					
+				}
 
 				var salt = new Random().Next();
 				var hashed = LoginManager.GetHashedPass(lc, pass, salt);
@@ -1065,6 +1085,20 @@ namespace VocaDb.Model.Service {
 
 		protected UserNotFoundException(SerializationInfo info, StreamingContext context) 
 			: base(info, context) {}
+
+	}
+
+	public class UserNameAlreadyExistsException : Exception {
+
+		public UserNameAlreadyExistsException()
+			: base("Username is already taken") {}
+
+	}
+
+	public class UserEmailAlreadyExistsException : Exception {
+
+		public UserEmailAlreadyExistsException()
+			: base("Email address is already taken") {}
 
 	}
 
