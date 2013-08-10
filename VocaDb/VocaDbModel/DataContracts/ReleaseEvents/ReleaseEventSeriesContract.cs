@@ -25,6 +25,10 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 		public string Name { get; set; }
 
+		public override string ToString() {
+			return string.Format("release event series {0} [{1}]", Name, Id);
+		}
+
 	}
 
 }

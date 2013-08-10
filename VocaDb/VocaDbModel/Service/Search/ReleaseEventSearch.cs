@@ -37,7 +37,7 @@ namespace VocaDb.Model.Service.Search {
 
 				// Attempt to match series + series number
 				var results = Query<ReleaseEvent>().Where(e => e.SeriesNumber == seriesNumber && (seriesName.Contains(e.Series.Name) || e.Series.Name.Contains(seriesName)
-					|| e.Series.Aliases.Any(a => seriesName.Contains(a.Name) || a.Name.Contains(seriesName)))).ToArray();
+					|| e.Series.Aliases.Any(a => seriesName.StartsWith(a.Name) || a.Name.Contains(seriesName)))).ToArray();
 
 				if (results.Length > 1)
 					return new ReleaseEventFindResultContract();
@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.Search {
 					return new ReleaseEventFindResultContract(results[0]);
 
 				// Attempt to match just the series
-				var series = Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.Contains(s.Name) || s.Name.Contains(seriesName) || s.Aliases.Any(a => seriesName.Contains(a.Name) || a.Name.Contains(seriesName)));
+				var series = Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.Contains(s.Name) || s.Name.Contains(seriesName) || s.Aliases.Any(a => seriesName.StartsWith(a.Name) || a.Name.Contains(seriesName)));
 
 				if (series != null)
 					return new ReleaseEventFindResultContract(series, seriesNumber, query);
@@ -56,7 +56,7 @@ namespace VocaDb.Model.Service.Search {
 			var events = Query<ReleaseEvent>().Where(e => query.Contains(e.Name) || e.Name.Contains(query)).Take(2).ToArray();
 
 			if (events.Length != 1) {
-				return new ReleaseEventFindResultContract();
+				return new ReleaseEventFindResultContract(query);
 			}
 
 			return new ReleaseEventFindResultContract(events[0]);
