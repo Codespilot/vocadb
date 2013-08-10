@@ -33,9 +33,7 @@ namespace VocaDb.Web.Controllers
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private const int usersPerPage = 50;
 
-		private UserService Service {
-			get { return MvcApplication.Services.Users; }
-		}
+		private UserService Service { get; set; }
 
 		private UserForMySettingsContract GetUserForMySettings() {
 
@@ -53,6 +51,10 @@ namespace VocaDb.Web.Controllers
 				return true;
 			}
 
+		}
+
+		public UserController(UserService service) {
+			Service = service;
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -410,17 +412,28 @@ namespace VocaDb.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult LoginTwitterComplete(RegisterOpenAuthModel model) {
 
-			if (ModelState.IsValid) {
+			if (!ModelState.IsValid)
+				return View(model);
 
-				var user = Service.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty, 
+			try {
+
+				var user = Service.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty,
 					model.TwitterId, model.TwitterName, Hostname);
+				FormsAuthentication.SetAuthCookie(user.Name, false);
 
-				if (HandleCreate(user))
-					return RedirectToAction("Index", "Home");
+				return RedirectToAction("Index", "Home");
+
+			} catch (UserNameAlreadyExistsException) {
+
+				ModelState.AddModelError("UserName", ViewRes.User.CreateStrings.UsernameTaken);
+				return View(model);
+
+			} catch (UserEmailAlreadyExistsException) {
+
+				ModelState.AddModelError("Email", ViewRes.User.CreateStrings.EmailTaken);
+				return View(model);
 
 			}
-
-			return View(model);
 
 		}
 
@@ -623,12 +636,15 @@ namespace VocaDb.Web.Controllers
 			}
 
 			try {
-				var newUser = Service.UpdateUserSettings(model.ToContract());				
+				var newUser = Service.UpdateUserSettings(model.ToContract());
 				LoginManager.SetLoggedUser(newUser);
 				LoginManager.SetLanguagePreferenceCookie(model.DefaultLanguageSelection);
 			} catch (InvalidPasswordException x) {
 				ModelState.AddModelError("OldPass", x.Message);
 				return View(model);
+			} catch (UserEmailAlreadyExistsException) {
+				ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.EmailTaken);
+				return View(model);				
 			}
 
 			TempData.SetSuccessMessage(ViewRes.User.MySettingsStrings.SettingsUpdated);

@@ -156,6 +156,9 @@
   <data name="EmailOptions" xml:space="preserve">
     <value>Email notifications for private messages</value>
   </data>
+  <data name="EmailTaken" xml:space="preserve">
+    <value>This email address already belongs to another user. If it is your address, contact support.</value>
+  </data>
   <data name="ExternalLinks" xml:space="preserve">
     <value>External links</value>
   </data>

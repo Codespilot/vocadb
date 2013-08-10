@@ -355,6 +355,18 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Creates a new user account using Twitter authentication token.
+		/// </summary>
+		/// <param name="authToken">Twitter OAuth token. Cannot be null or empty.</param>
+		/// <param name="name">User name. Must be unique. Cannot be null or empty.</param>
+		/// <param name="email">Email address. Must be unique. Cannot be null.</param>
+		/// <param name="twitterId">Twitter user Id. Cannot be null or empty.</param>
+		/// <param name="twitterName">Twitter user name. Cannot be null.</param>
+		/// <param name="hostname">Host name where the registration is from.</param>
+		/// <returns>Data contract for the created user. Cannot be null.</returns>
+		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
+		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
 		public UserContract CreateTwitter(string authToken, string name, string email, int twitterId, string twitterName, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -366,7 +378,16 @@ namespace VocaDb.Model.Service {
 				var existing = session.Query<User>().FirstOrDefault(u => u.NameLC == lc);
 
 				if (existing != null)
-					return null;
+					throw new UserNameAlreadyExistsException();
+
+				if (!string.IsNullOrEmpty(email)) {
+
+					existing = session.Query<User>().FirstOrDefault(u => u.Email == email);
+
+					if (existing != null)
+						throw new UserEmailAlreadyExistsException();
+
+				}
 
 				var salt = new Random().Next();
 				var user = new User(name, string.Empty, email, salt);
@@ -1016,6 +1037,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/// <summary>
+		/// Updates user's settings (from my settings page).
+		/// </summary>
+		/// <param name="contract">New properties. Cannot be null.</param>
+		/// <returns>Updated user data. Cannot be null.</returns>
+		/// <exception cref="InvalidPasswordException">If password change was attempted and the old password was incorrect.</exception>
+		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken by another user.</exception>
 		public UserContract UpdateUserSettings(UpdateUserSettingsContract contract) {
 
 			ParamIs.NotNull(() => contract);
@@ -1042,6 +1070,17 @@ namespace VocaDb.Model.Service {
 
 				}
 
+				var email = contract.Email;
+
+				if (!string.IsNullOrEmpty(email)) {
+
+					var existing = session.Query<User>().FirstOrDefault(u => u.Id != user.Id && u.Email == email);
+
+					if (existing != null)
+						throw new UserEmailAlreadyExistsException();
+
+				}
+
 				user.Options.AboutMe = contract.AboutMe;
 				user.AnonymousActivity = contract.AnonymousActivity;
 				user.Culture = contract.Culture;
@@ -1051,7 +1090,7 @@ namespace VocaDb.Model.Service {
 				user.Options.Location = contract.Location;
 				user.PreferredVideoService = contract.PreferredVideoService;
 				user.Options.PublicRatings = contract.PublicRatings;
-				user.SetEmail(contract.Email);
+				user.SetEmail(email);
 
 				var validWebLinks = contract.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
 				var webLinkDiff = WebLink.Sync(user.WebLinks, validWebLinks, user);
