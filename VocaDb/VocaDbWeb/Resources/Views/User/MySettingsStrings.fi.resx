@@ -156,6 +156,9 @@
   <data name="EmailOptions" xml:space="preserve">
     <value>Sähköpostiasetukset yksityisviestejä varten</value>
   </data>
+  <data name="EmailTaken" xml:space="preserve">
+    <value>Tämä sähköpostiosoite on jo toisen käyttäjän käytössä. Mikäli kyseessä on sinun osoitteesi, ota yhteyttä tukeen.</value>
+  </data>
   <data name="ExternalLinks" xml:space="preserve">
     <value>Ulkoiset linkit</value>
   </data>
