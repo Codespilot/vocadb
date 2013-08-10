@@ -62,7 +62,7 @@ namespace VocaDb.Tests.Service.Search {
 
 			target = new ReleaseEventSearch(querySource);
 
-			series = CreateSeries("Comiket", "C", "Comic Market");
+			series = CreateSeries("Comiket", "C", "c", "Comic Market");
 
 			eventInSeries = CreateEvent(series, 84);
 			unsortedEvent = CreateEvent("Vocaloid Festa");
@@ -138,6 +138,22 @@ namespace VocaDb.Tests.Service.Search {
 		}
 
 		/// <summary>
+		/// Find event, part of a series, but the series isn't added yet.
+		/// </summary>
+		[TestMethod]
+		public void FindUnknownSeries() {
+
+			// Note: earlier the "c" in this name matched with Comiket's "c", causing Comiket to be returned as the series.
+			var result = Find("Gackpoid's birthday 2011");
+
+			// Note: could also return assumed series and allow creating the series as well. Right now, only an ungrouped event can be created.
+			Assert.IsNotNull(result, "Result");
+			Assert.AreEqual(null, result.Series, "Series");	// Series not found
+			Assert.AreEqual("Gackpoid's birthday 2011", result.EventName, "EventName");
+
+		}
+
+		/// <summary>
 		/// Find by series whose name contains a number.
 		/// </summary>
 		[TestMethod]
@@ -176,7 +192,7 @@ namespace VocaDb.Tests.Service.Search {
 			var result = Find("Does not exist");
 
 			Assert.IsNotNull(result, "Result");
-			Assert.AreEqual(null, result.EventName, "EventName");
+			Assert.AreEqual("Does not exist", result.EventName, "EventName");
 
 		}
 
