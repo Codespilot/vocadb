@@ -27,7 +27,7 @@ namespace VocaDb.Model.Service.Repositories {
 			Session.Dispose();
 		}
 
-		public T Load(int id) {
+		public T Load(object id) {
 			return Session.Load<T>(id);
 		}
 
