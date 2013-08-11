@@ -7,6 +7,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Code;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Services;
 
 namespace VocaDb.Web.App_Start {
@@ -32,6 +33,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<AlbumService>().AsSelf();
 			builder.RegisterType<UserService>().AsSelf();
 			builder.RegisterType<UserNHibernateRepository>().As<IUserRepository>();
+			builder.RegisterType<UserQueries>().AsSelf();
 
 			// Build container.
 			var container = builder.Build();

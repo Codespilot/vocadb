@@ -19,6 +19,10 @@ namespace VocaDb.Model.Service.Repositories {
 			get { return new NHibernateAuditLogger(OfType<AuditLogEntry>(), PermissionContext); }
 		}
 
+		public void Delete(T entity) {
+			Session.Delete(entity);
+		}
+
 		public void Dispose() {
 			Session.Dispose();
 		}

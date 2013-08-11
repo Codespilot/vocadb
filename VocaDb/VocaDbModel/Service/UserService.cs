@@ -281,6 +281,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		/// <summary>
 		/// Creates a new user account.
 		/// </summary>
@@ -327,7 +328,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public CommentContract CreateComment(int userId, string message) {
 
@@ -355,6 +356,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		/// <summary>
 		/// Creates a new user account using Twitter authentication token.
 		/// </summary>
@@ -403,7 +405,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public void DeleteAlbumForUser(int albumForUserId) {
 
@@ -1037,6 +1039,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		/// <summary>
 		/// Updates user's settings (from my settings page).
 		/// </summary>
@@ -1104,7 +1107,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 	}
 
 	public class InvalidPasswordException : Exception {

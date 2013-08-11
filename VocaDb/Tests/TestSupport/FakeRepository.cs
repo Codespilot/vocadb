@@ -15,6 +15,11 @@ namespace VocaDb.Tests.TestSupport {
 
 		public FakeRepository() {
 			querySource = new QuerySourceList();
+		}
+ 
+		public FakeRepository(params T[] items) {
+			querySource = new QuerySourceList();
+			querySource.AddRange(items);
 		} 
 
 		public FakeRepository(QuerySourceList querySource) {
@@ -59,6 +64,10 @@ namespace VocaDb.Tests.TestSupport {
 			get {
 				return new FakeAuditLogger();
 			}
+		}
+
+		public void Delete(T entity) {
+			querySource.List<T>().Remove(entity);
 		}
 
 		public void Dispose() {

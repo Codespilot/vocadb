@@ -14,6 +14,8 @@ namespace VocaDb.Model.Service.Repositories {
 		/// </summary>
 		IAuditLogger AuditLogger { get; }
 
+		void Delete(T entity);
+
 		/// <summary>
 		/// Loads an entity from the database.
 		/// </summary>

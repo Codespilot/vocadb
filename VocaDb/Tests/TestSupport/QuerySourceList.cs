@@ -18,6 +18,10 @@ namespace VocaDb.Tests.TestSupport {
 			List<TEntity>().Add(entity);
 		}
 
+		public void AddRange<TEntity>(params TEntity[] entities) {
+			List<TEntity>().AddRange(entities);
+		}
+
 		public List<TEntity> List<TEntity>() {
 
 			var t = typeof(TEntity);
