@@ -15,11 +15,13 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Security;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.User;
@@ -31,9 +33,14 @@ namespace VocaDb.Web.Controllers
     {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+	    private readonly IUserRepository repository;
 		private const int usersPerPage = 50;
 
-		private UserService Service { get; set; }
+	    private UserQueries Data {
+			get { return new UserQueries(repository); }
+	    }
+
+	    private UserService Service { get; set; }
 
 		private UserForMySettingsContract GetUserForMySettings() {
 
@@ -53,8 +60,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public UserController(UserService service) {
+		public UserController(UserService service, IUserRepository repository) {
 			Service = service;
+			this.repository = repository;
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -518,7 +526,8 @@ namespace VocaDb.Web.Controllers
 	        try {
 
 		        var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
-		        FormsAuthentication.SetAuthCookie(user.Name, false);
+				//var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
+				FormsAuthentication.SetAuthCookie(user.Name, false);
 		        return RedirectToAction("Index", "Home");
 
 	        } catch (UserNameAlreadyExistsException) {

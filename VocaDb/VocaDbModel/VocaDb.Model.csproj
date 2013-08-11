@@ -540,6 +540,8 @@
     <Compile Include="Service\AlbumImport\IPictureDownloader.cs" />
     <Compile Include="Service\AlbumImport\KarenTAlbumImporter.cs" />
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
+    <Compile Include="Service\Repositories\IAuditLogger.cs" />
+    <Compile Include="Service\Repositories\NHibernateAuditLogger.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
     <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />
     <Compile Include="Service\AlbumService.cs" />
@@ -570,6 +572,12 @@
     <Compile Include="Service\Helpers\UrlHelper.cs" />
     <Compile Include="Service\Helpers\UserMessageMailer.cs" />
     <Compile Include="Service\Helpers\WebLinkCategoryHelper.cs" />
+    <Compile Include="Service\Repositories\IRepository.cs" />
+    <Compile Include="Service\Repositories\IRepositoryContext.cs" />
+    <Compile Include="Service\Repositories\IUserRepository.cs" />
+    <Compile Include="Service\Repositories\NHibernateRepository.cs" />
+    <Compile Include="Service\Repositories\NHibernateRepositoryContext.cs" />
+    <Compile Include="Service\Repositories\UserNHibernateRepository.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchSort.cs" />
     <Compile Include="Service\Search\QueryProcessor.cs" />
     <Compile Include="Service\Search\ReleaseEventSearch.cs" />

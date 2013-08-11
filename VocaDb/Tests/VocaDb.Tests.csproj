@@ -107,7 +107,9 @@
     <Compile Include="Helpers\CollectionHelperTests.cs" />
     <Compile Include="Helpers\ConcurrentEntryEditManagerTests.cs" />
     <Compile Include="Helpers\XmlHelperTests.cs" />
-    <Compile Include="Mocks\QuerySourceList.cs" />
+    <Compile Include="TestSupport\FakeAuditLogger.cs" />
+    <Compile Include="TestSupport\FakeUserRepository.cs" />
+    <Compile Include="TestSupport\QuerySourceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\AlbumImport\KarenTAlbumImporterTests.cs" />
     <Compile Include="Service\ArtistQueryableExtenderTests.cs" />
@@ -123,15 +125,18 @@
     <Compile Include="Service\VideoServices\NicoHelperTests.cs" />
     <Compile Include="Service\VideoServices\VideoServiceHelperTests.cs" />
     <Compile Include="Service\VideoServices\VideoServicePiaproTests.cs" />
+    <Compile Include="TestSupport\FakeRepository.cs" />
     <Compile Include="TestSupport\PictureDownloaderStub.cs" />
     <Compile Include="TestSupport\ResourceHelper.cs" />
     <Compile Include="Web\Code\EntryAnchorFactoryTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
     <Compile Include="Web\Controllers\ArtistControllerTests.cs" />
+    <Compile Include="Web\Controllers\DataAccess\UserQueriesTests.cs" />
     <Compile Include="Web\Controllers\EventControllerTests.cs" />
     <Compile Include="Web\Controllers\SongControllerTests.cs" />
     <Compile Include="Web\Controllers\SongListControllerTests.cs" />
     <Compile Include="Web\Controllers\TagControllerTests.cs" />
+    <Compile Include="Web\Controllers\UserControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VocaDbModel\VocaDb.Model.csproj">
@@ -152,6 +157,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestData\piapro.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mocks\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
