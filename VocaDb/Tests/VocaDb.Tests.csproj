@@ -108,6 +108,8 @@
     <Compile Include="Helpers\ConcurrentEntryEditManagerTests.cs" />
     <Compile Include="Helpers\XmlHelperTests.cs" />
     <Compile Include="TestSupport\FakeAuditLogger.cs" />
+    <Compile Include="TestSupport\FakeEntryLinkFactory.cs" />
+    <Compile Include="TestSupport\FakePermissionContext.cs" />
     <Compile Include="TestSupport\FakeUserRepository.cs" />
     <Compile Include="TestSupport\QuerySourceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

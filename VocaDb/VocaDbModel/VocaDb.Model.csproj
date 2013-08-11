@@ -295,6 +295,7 @@
     <Compile Include="Domain\Security\IPRule.cs" />
     <Compile Include="Domain\Security\PermissionCollection.cs" />
     <Compile Include="Domain\Security\PermissionToken.cs" />
+    <Compile Include="Domain\Security\IUserPermissionContextExtender.cs" />
     <Compile Include="Domain\Songs\ISongLink.cs" />
     <Compile Include="Domain\Songs\SongComment.cs" />
     <Compile Include="Domain\Songs\SongHit.cs" />
@@ -541,6 +542,7 @@
     <Compile Include="Service\AlbumImport\KarenTAlbumImporter.cs" />
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
     <Compile Include="Service\Repositories\IAuditLogger.cs" />
+    <Compile Include="Service\Repositories\IRepositoryContextExtender.cs" />
     <Compile Include="Service\Repositories\NHibernateAuditLogger.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
     <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />

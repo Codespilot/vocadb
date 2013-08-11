@@ -33,12 +33,9 @@ namespace VocaDb.Web.Controllers
     {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
-	    private readonly IUserRepository repository;
 		private const int usersPerPage = 50;
 
-	    private UserQueries Data {
-			get { return new UserQueries(repository); }
-	    }
+		private UserQueries Data { get; set; }
 
 	    private UserService Service { get; set; }
 
@@ -60,9 +57,9 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public UserController(UserService service, IUserRepository repository) {
+		public UserController(UserService service, UserQueries data) {
 			Service = service;
-			this.repository = repository;
+			Data = data;
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -425,7 +422,7 @@ namespace VocaDb.Web.Controllers
 
 			try {
 
-				var user = Service.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty,
+				var user = Data.CreateTwitter(model.AccessToken, model.UserName, model.Email ?? string.Empty,
 					model.TwitterId, model.TwitterName, Hostname);
 				FormsAuthentication.SetAuthCookie(user.Name, false);
 
@@ -525,8 +522,8 @@ namespace VocaDb.Web.Controllers
 	        // Attempt to register the user
 	        try {
 
-		        var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
-				//var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
+		        //var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
+				var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
 				FormsAuthentication.SetAuthCookie(user.Name, false);
 		        return RedirectToAction("Index", "Home");
 
@@ -645,7 +642,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			try {
-				var newUser = Service.UpdateUserSettings(model.ToContract());
+				var newUser = Data.UpdateUserSettings(model.ToContract());
 				LoginManager.SetLoggedUser(newUser);
 				LoginManager.SetLanguagePreferenceCookie(model.DefaultLanguageSelection);
 			} catch (InvalidPasswordException x) {
