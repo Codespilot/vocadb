@@ -6,6 +6,10 @@ using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Tests.TestSupport {
 
+	/// <summary>
+	/// Fake in-memory repository for testing.
+	/// </summary>
+	/// <typeparam name="T">Type of entities this repository contains.</typeparam>
 	public class FakeRepository<T> : IRepository<T> {
 
 		private readonly QuerySourceList querySource;

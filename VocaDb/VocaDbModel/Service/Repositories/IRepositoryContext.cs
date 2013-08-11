@@ -4,20 +4,32 @@ using System.Linq;
 namespace VocaDb.Model.Service.Repositories {
 
 	/// <summary>
-	/// Interface for an unit of work against the database.
+	/// Interface for an unit of work against the repository (database).
+	/// The context (and the contained database session) must be disposed when no longer needed.
 	/// </summary>
 	/// <typeparam name="T">Type of entity.</typeparam>
+	/// <remarks>
+	/// Currently database session is open only during the unit of work. 
+	/// This means entities returned by the query methods of this context are not valid outside the context,
+	/// after the context and the session are disposed.
+	/// 
+	/// This might change later with Session Per Request model.
+	/// </remarks>
 	public interface IRepositoryContext<T> : IDisposable {
 
 		/// <summary>
-		/// Audit logger for the database.
+		/// Audit logger for the repository.
 		/// </summary>
 		IAuditLogger AuditLogger { get; }
 
+		/// <summary>
+		/// Deletes an entity from the repository.
+		/// </summary>
+		/// <param name="entity">Entity to be deleted. Cannot be null.</param>
 		void Delete(T entity);
 
 		/// <summary>
-		/// Loads an entity from the database.
+		/// Loads an entity from the repository.
 		/// </summary>
 		/// <param name="id">Entity Id.</param>
 		/// <returns>The loaded entity. Cannot be null.</returns>
@@ -32,7 +44,7 @@ namespace VocaDb.Model.Service.Repositories {
 		IRepositoryContext<T2> OfType<T2>();
 			
 		/// <summary>
-		/// LINQ query against the database.
+		/// LINQ query against the repository.
 		/// </summary>
 		/// <returns>Queryable interface. Cannot be null.</returns>
 		IQueryable<T> Query();
@@ -50,4 +62,5 @@ namespace VocaDb.Model.Service.Repositories {
 		void Update(T obj);
 
 	}
+
 }
