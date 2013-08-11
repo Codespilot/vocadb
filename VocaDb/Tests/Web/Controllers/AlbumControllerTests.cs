@@ -3,6 +3,7 @@ using VocaDb.Web.Controllers;
 
 namespace VocaDb.Tests.Web.Controllers {
 
+	/*
 	/// <summary>
 	/// Tests for <see cref="AlbumController"/>.
 	/// </summary>
@@ -18,5 +19,5 @@ namespace VocaDb.Tests.Web.Controllers {
 
 		// TODO
 
-	}
+	}*/
 }

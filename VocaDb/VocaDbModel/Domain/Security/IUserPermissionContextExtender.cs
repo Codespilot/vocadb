@@ -5,6 +5,9 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Security {
 
+	/// <summary>
+	/// Extension methods for <see cref="IUserPermissionContext"/>.
+	/// </summary>
 	public static class IUserPermissionContextExtender {
 
 		public static void VerifyEntryEdit(this IUserPermissionContext permissionContext, IEntryWithStatus entry) {

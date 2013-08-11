@@ -2,6 +2,9 @@
 
 namespace VocaDb.Model.Service.Repositories {
 
+	/// <summary>
+	/// Extension methods for <see cref="IRepositoryContext"/>.
+	/// </summary>
 	public static class IRepositoryContextExtender {
 
 		public static void Sync<T>(this IRepositoryContext<T> ctx, CollectionDiff<T, T> diff) {
