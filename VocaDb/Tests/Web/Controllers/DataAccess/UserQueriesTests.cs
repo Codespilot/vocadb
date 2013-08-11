@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Tests.TestSupport;
@@ -15,16 +17,23 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 	public class UserQueriesTests {
 
 		private UserQueries data;
+		private FakePermissionContext permissionContext;
 		private FakeUserRepository repository;
+		private User userWithEmail;
 		private User userWithoutEmail;
+
+		private User GetUserFromRepo(string username) {
+			return repository.List<User>().FirstOrDefault(u => u.Name == username);
+		}
 
 		[TestInitialize]
 		public void SetUp() {
 
-			var user = new User("already_exists", "123", "already_in_use@vocadb.net", 123);
-			userWithoutEmail = new User("no_email", "222", string.Empty, 321);
-			repository = new FakeUserRepository(user, userWithoutEmail);
-			data = new UserQueries(repository, new FakePermissionContext(), new FakeEntryLinkFactory());
+			userWithEmail = new User("already_exists", "123", "already_in_use@vocadb.net", 123) { Id = 123 };
+			userWithoutEmail = new User("no_email", "222", string.Empty, 321) { Id = 321 };
+			repository = new FakeUserRepository(userWithEmail, userWithoutEmail);
+			permissionContext = new FakePermissionContext(new UserContract(userWithEmail));
+			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory());
 
 		}
 
@@ -37,7 +46,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(result, "Result is not null");
 			Assert.AreEqual(name, result.Name, "Name");
 
-			var user = repository.List<User>().FirstOrDefault(u => u.Name == name);
+			var user = GetUserFromRepo(name);
 			Assert.IsNotNull(user, "User found in repository");
 			Assert.AreEqual(name, user.Name, "Name");
 			Assert.AreEqual("mikumiku@crypton.jp", user.Email, "Email");
@@ -70,7 +79,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(result, "Result is not null");
 			Assert.AreEqual(name, result.Name, "Name");
 
-			var user = repository.List<User>().FirstOrDefault(u => u.Name == name);
+			var user = GetUserFromRepo(name);
 			Assert.IsNotNull(user, "User found in repository");
 			Assert.AreEqual(name, user.Name, "Name");
 			Assert.AreEqual("mikumiku@crypton.jp", user.Email, "Email");
@@ -95,6 +104,38 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void CreateTwitter_EmailAlreadyExists() {
 
 			data.CreateTwitter("auth_token", "hatsune_miku", "already_in_use@vocadb.net", 39, "Miku_Crypton", "crypton.jp");
+
+		}
+
+		[TestMethod]
+		public void UpdateUserSettings_SetEmail() {
+
+			var contract = new UpdateUserSettingsContract(userWithEmail) { Email = "new_email@vocadb.net" };
+			var result = data.UpdateUserSettings(contract);
+
+			Assert.IsNotNull(result, "Result");
+			var user = GetUserFromRepo(userWithEmail.Name);
+			Assert.IsNotNull(user, "User was found in repository");
+			Assert.AreEqual("new_email@vocadb.net", user.Email, "Email");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void UpdateUserSettings_NoPermission() {
+
+			data.UpdateUserSettings(new UpdateUserSettingsContract(userWithoutEmail));
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(UserEmailAlreadyExistsException))]
+		public void UpdateUserSettings_EmailTaken() {
+
+			permissionContext.LoggedUser = new UserContract(userWithoutEmail);
+			var contract = new UpdateUserSettingsContract(userWithoutEmail) { Email = userWithEmail.Email };
+
+			data.UpdateUserSettings(contract);
 
 		}
 

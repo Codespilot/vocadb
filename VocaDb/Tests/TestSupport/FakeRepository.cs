@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Tests.TestSupport {
@@ -74,8 +75,15 @@ namespace VocaDb.Tests.TestSupport {
 			
 		}
 
-		public T Load(int id) {
-			throw new NotImplementedException();
+		public T Load(object id) {
+
+			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)))
+				throw new NotSupportedException("Only supported for entities with integer Id");
+
+			var intId = (int)id;
+			var list = querySource.List<T>().Cast<IEntryWithIntId>();
+			return (T)list.FirstOrDefault(i => i.Id == intId);
+
 		}
 
 		public IRepositoryContext<T2> OfType<T2>() {
@@ -91,7 +99,15 @@ namespace VocaDb.Tests.TestSupport {
 		}
 
 		public void Update(T obj) {
-			throw new NotImplementedException();
+
+			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)))
+				throw new NotSupportedException("Only supported for entities with integer Id");
+
+			var entity = (IEntryWithIntId) obj;
+			var existing = Load(entity.Id);
+			Delete(existing);	// Replace existing
+			Save(obj);
+
 		}
 
 	}

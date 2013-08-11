@@ -21,7 +21,7 @@ namespace VocaDb.Model.Service.Repositories {
 		/// </summary>
 		/// <param name="id">Entity Id.</param>
 		/// <returns>The loaded entity. Cannot be null.</returns>
-		T Load(int id);
+		T Load(object id);
 
 		/// <summary>
 		/// Returns a child context for another entity type.
