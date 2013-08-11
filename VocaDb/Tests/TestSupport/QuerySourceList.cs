@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Service.Search;
 
-namespace VocaDb.Tests.Mocks {
+namespace VocaDb.Tests.TestSupport {
 
 	public class QuerySourceList : IQuerySource {
 

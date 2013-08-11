@@ -8,7 +8,7 @@ using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.SongSearch;
-using VocaDb.Tests.Mocks;
+using VocaDb.Tests.TestSupport;
 
 namespace VocaDb.Tests.Service.Search.SongSearch {
 

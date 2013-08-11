@@ -6,7 +6,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.AlbumSearch;
-using VocaDb.Tests.Mocks;
+using VocaDb.Tests.TestSupport;
 
 namespace VocaDb.Tests.Service.Search.AlbumSearch {
 

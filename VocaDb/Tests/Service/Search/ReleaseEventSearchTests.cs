@@ -2,7 +2,7 @@
 using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Service.Search;
-using VocaDb.Tests.Mocks;
+using VocaDb.Tests.TestSupport;
 
 namespace VocaDb.Tests.Service.Search {
 
