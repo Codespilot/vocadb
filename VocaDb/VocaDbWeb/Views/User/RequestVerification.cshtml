@@ -16,7 +16,7 @@
 			<input type="hidden" name="selectedArtist" data-bind="value: ko.toJSON(selectedArtist)" />
 
 			<label>
-				Artist entry (required)
+				Artist entry whom I represent (required)
 			</label>
 			<div data-bind="if: selectedArtist, visible: selectedArtist" style="display: none;">
 				<a data-bind="text: selectedArtist().name, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', selectedArtist().id) }" href="#"></a>
