@@ -1930,6 +1930,10 @@
     <Content Include="Scripts\ViewModels\TopBarViewModel.js">
       <DependentUpon>TopBarViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\User\RequestVerificationViewModel.ts" />
+    <Content Include="Scripts\ViewModels\User\RequestVerificationViewModel.js">
+      <DependentUpon>RequestVerificationViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
     </Content>
@@ -2153,6 +2157,7 @@
     <Content Include="Views\Song\Partials\_SongInListsDialogKnockout.cshtml" />
     <Content Include="Views\Song\Partials\_SongInListsDialogContent.cshtml" />
     <Content Include="Views\Song\Partials\_SongInListsDialog.cshtml" />
+    <Content Include="Views\User\RequestVerification.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
