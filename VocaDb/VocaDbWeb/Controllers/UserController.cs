@@ -9,7 +9,9 @@ using System.Web.Security;
 using Microsoft.Web.Helpers;
 using MvcPaging;
 using NLog;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -670,6 +672,33 @@ namespace VocaDb.Web.Controllers
 		public void RemoveArtistFromUser(int artistId) {
 
 			Service.RemoveArtistFromUser(LoggedUserId, artistId);
+
+		}
+
+		public ActionResult RequestVerification() {
+
+			return View();
+
+		}
+
+		[HttpPost]
+		[Authorize]
+		public ActionResult RequestVerification([FromJson] ArtistContract selectedArtist, string message) {
+
+			if (selectedArtist == null) {
+				TempData.SetErrorMessage("Artist must be selected");
+				return View("RequestVerification", null, message);
+			}
+
+			if (string.IsNullOrEmpty(message)) {
+				TempData.SetErrorMessage("You must enter some message");
+				return View();
+			}
+
+			Services.Artists.CreateReport(selectedArtist.Id, ArtistReportType.Other, Hostname, string.Format("Account verification request: {0}", message));
+
+			TempData.SetSuccessMessage("Request sent");
+			return View();
 
 		}
 
