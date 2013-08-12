@@ -12,7 +12,7 @@ namespace VocaDb.Web.Models.Album {
 		public static ArchivedObjectVersion CreateForAlbum(ArchivedAlbumVersionContract album) {
 
 			return new ArchivedObjectVersion(album, GetReasonName(album.Reason, album.Notes), 
-				GetChangeString(album.ChangedFields));
+				GetChangeString(album.ChangedFields), album.Reason != AlbumArchiveReason.PropertiesUpdated || album.ChangedFields != AlbumEditableFields.Nothing);
 
 		}
 

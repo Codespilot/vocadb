@@ -112,10 +112,11 @@
 		</thead>
 		<tbody>
 		@foreach (var ver in archivedVersions.OrderByDescending(v => v.Contract.Version)) {
+			var style = (ver.AnythingChanged ? "" : "muted");
 			<tr>
 				<td>
 					@if (linkFunc != null) {
-						<a href="@linkFunc(ver.Id)">
+						<a href="@linkFunc(ver.Id)" class="@style">
 							@ver.Contract.Version
 							(@Translate.EntryStatusNames[ver.Status])
 						</a>
@@ -127,19 +128,25 @@
 					}
 				</td>
 				<td>
-					@ver.Contract.Created
+					<span class="@style">
+						@ver.Contract.Created						
+					</span>
 				</td>
-				<td>
+				<td>					
 					@UserHelpers.UserIconLink(ver.Contract.Author, ver.Contract.AgentName)
 				</td>
 				<td>
-					@ver.Reason
-					@if (!string.IsNullOrEmpty(ver.ChangeMessage)) {
-						@(" (" + ver.ChangeMessage + ")")
-					}
+					<span class="@style">						
+						@ver.Reason
+						@if (!string.IsNullOrEmpty(ver.ChangeMessage)) {
+							@(" (" + ver.ChangeMessage + ")")
+						}
+					</span>
 				</td>
 				<td>
-					@ver.Notes
+					<span class="@style">
+						@ver.Notes
+					</span>
 				</td>
 			</tr>
 		}

@@ -8,7 +8,7 @@ namespace VocaDb.Web.Models.Shared {
 
 		public ArchivedObjectVersion() { }
 
-		public ArchivedObjectVersion(ArchivedObjectVersionContract contract, string reasonName, string changeMessage) {
+		public ArchivedObjectVersion(ArchivedObjectVersionContract contract, string reasonName, string changeMessage, bool anythingChanged) {
 
 			Contract = contract;
 			Id = contract.Id;
@@ -16,10 +16,11 @@ namespace VocaDb.Web.Models.Shared {
 			Reason = reasonName;
 			Status = contract.Status;
 			ChangeMessage = changeMessage;
+			AnythingChanged = anythingChanged;
 
 		}
 
-		public ArchivedObjectVersion(ArchivedObjectVersionContract contract, string changeMessage) {
+		public ArchivedObjectVersion(ArchivedObjectVersionContract contract, string changeMessage, bool anythingChanged) {
 
 			Contract = contract;
 			Id = contract.Id;
@@ -27,8 +28,11 @@ namespace VocaDb.Web.Models.Shared {
 			Reason = Translate.EntryEditEventNames[contract.EditEvent];
 			Status = contract.Status;
 			ChangeMessage = changeMessage;
+			AnythingChanged = anythingChanged;
 
 		}
+
+		public bool AnythingChanged { get; set; }
 
 		public string ChangeMessage { get; set; }
 

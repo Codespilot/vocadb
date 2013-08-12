@@ -9,10 +9,10 @@ namespace VocaDb.Web.Models.Song {
 
 	public class Versions {
 
-		public static ArchivedObjectVersion CreateForSong(ArchivedSongVersionContract artist) {
+		public static ArchivedObjectVersion CreateForSong(ArchivedSongVersionContract song) {
 
-			return new ArchivedObjectVersion(artist, GetReasonName(artist.Reason, artist.Notes),
-				GetChangeString(artist.ChangedFields));
+			return new ArchivedObjectVersion(song, GetReasonName(song.Reason, song.Notes),
+				GetChangeString(song.ChangedFields), song.Reason != SongArchiveReason.PropertiesUpdated || song.ChangedFields != SongEditableFields.Nothing);
 
 		}
 

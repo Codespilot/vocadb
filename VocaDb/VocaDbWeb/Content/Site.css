@@ -561,6 +561,10 @@ div.disabled > a, div.disabled > a:visited {
 	color: gray;
 }
 
+.rightFrame .muted {
+	color: gray;
+}
+
 /* Lists */
 div.albumListItem {
 	display: block;
