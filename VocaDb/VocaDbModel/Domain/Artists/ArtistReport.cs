@@ -40,7 +40,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Inappropriate = 3,
 
-		Other = 4
+		OwnershipClaim = 4,
+
+		Other = 5
 
 	}
 

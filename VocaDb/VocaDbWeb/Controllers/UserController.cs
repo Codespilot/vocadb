@@ -695,7 +695,7 @@ namespace VocaDb.Web.Controllers
 				return View();
 			}
 
-			Services.Artists.CreateReport(selectedArtist.Id, ArtistReportType.Other, Hostname, string.Format("Account verification request: {0}", message));
+			Services.Artists.CreateReport(selectedArtist.Id, ArtistReportType.OwnershipClaim, Hostname, string.Format("Account verification request: {0}", message));
 
 			TempData.SetSuccessMessage("Request sent");
 			return View();
