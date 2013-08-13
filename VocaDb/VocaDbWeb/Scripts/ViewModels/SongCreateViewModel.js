@@ -47,7 +47,7 @@ var vdb;
                 this.artistSearchParams = {
                     allowCreateNew: false,
                     acceptSelection: this.addArtist,
-                    extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
+                    extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,OtherVoiceSynthesizer,Producer,Circle,OtherGroup,Unknown,Animator,Illustrator,Lyricist,OtherIndividual" },
                     height: 300
                 };
 
