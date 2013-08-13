@@ -121,7 +121,7 @@
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.Producers</td>
 				<td class="artistList">
-					@ArtistHelpers.ArtistList(Model.Producers, showRoles: true)
+					@ArtistHelpers.ArtistList(Model.Producers, showRoles: (Model.Producers.Length > 1))
 				</td>
 			</tr>
    }

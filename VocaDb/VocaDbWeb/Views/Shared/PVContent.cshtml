@@ -5,7 +5,7 @@
 <input type="hidden" class="js-songId" value="@Model.Id" />
 <h4 class="pvViewer-title">
 	<span id="songPreviewName" class="pvViewer-songName" title="@Model.AdditionalNames">
-		@Model.Name			
+		@Html.ActionLink(Model.Name, "Details", "Song", new { id = Model.Id }, null)
 	</span>
     &nbsp;
     <small id="songPreviewArtists" class="pvViewer-artists">
