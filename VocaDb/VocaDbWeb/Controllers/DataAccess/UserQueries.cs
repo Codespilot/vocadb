@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
@@ -28,6 +29,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			get { return permissionContext; }
 		}
 
+		private bool IsPoisoned(IRepositoryContext<User> ctx, string lcUserName) {
+
+			return ctx.OfType<UserOptions>().Query().Any(o => o.Poisoned && o.User.NameLC == lcUserName);
+
+		}
+
 		private string MakeGeoIpToolLink(string hostname) {
 
 			return string.Format("<a href='http://www.geoiptool.com/?IP={0}'>{0}</a>", hostname);
@@ -43,6 +50,46 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			this.repository = repository;
 			this.permissionContext = permissionContext;
 			this.entryLinkFactory = entryLinkFactory;
+
+		}
+
+		public LoginResult CheckAuthentication(string name, string pass, string hostname, bool delayFailedLogin) {
+
+			return repository.HandleTransaction(ctx => {
+
+				var lc = name.ToLowerInvariant();
+
+				if (IsPoisoned(ctx, lc)) {
+					ctx.AuditLogger.SysLog(string.Format("failed login from {0} - account is poisoned.", MakeGeoIpToolLink(hostname)), name);
+					return LoginResult.CreateError(LoginError.AccountPoisoned);
+				}
+
+				var user = ctx.Query().FirstOrDefault(u => u.Active && u.Name == lc);
+
+				if (user == null) {
+					ctx.AuditLogger.AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), name);
+					if (delayFailedLogin)
+						Thread.Sleep(2000);
+					return LoginResult.CreateError(LoginError.NotFound);
+				}
+
+				var hashed = LoginManager.GetHashedPass(lc, pass, user.Salt);
+
+				if (user.Password != hashed) {
+					ctx.AuditLogger.AuditLog(string.Format("failed login from {0} - wrong password.", MakeGeoIpToolLink(hostname)), name);
+					if (delayFailedLogin)
+						Thread.Sleep(2000);
+					return LoginResult.CreateError(LoginError.InvalidPassword);
+				}
+
+				ctx.AuditLogger.AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), user);
+
+				user.UpdateLastLogin(hostname);
+				ctx.Update(user);
+
+				return LoginResult.CreateSuccess(new UserContract(user));
+
+			});
 
 		}
 

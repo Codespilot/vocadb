@@ -332,7 +332,7 @@ namespace VocaDb.Web.Controllers
 				// Attempt to register the user
 
 				var host = WebHelper.GetRealHost(Request);
-				var result = Service.CheckAuthentication(model.UserName, model.Password, host);
+				var result = Data.CheckAuthentication(model.UserName, model.Password, host, true);
 
 				if (!result.IsOk) {
 

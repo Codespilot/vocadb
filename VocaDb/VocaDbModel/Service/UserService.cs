@@ -10,7 +10,6 @@ using VocaDb.Model.Service.Paging;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -20,7 +19,6 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Domain.Versioning;
@@ -95,11 +93,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private bool IsPoisoned(ISession session, string lcUserName) {
+		/*private bool IsPoisoned(ISession session, string lcUserName) {
 
 			return session.Query<UserOptions>().Any(o => o.Poisoned && o.User.NameLC == lcUserName);
 
-		}
+		}*/
 
 		private string MakeGeoIpToolLink(string hostname) {
 
@@ -111,29 +109,6 @@ namespace VocaDb.Model.Service {
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
 
 		}
-
-		/*
-		// For quick-adding the album on user page
-		[Obsolete]
-		public AlbumForUserContract AddAlbum(int userId, int albumId) {
-
-			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
-
-			return HandleTransaction(session => {
-
-				var user = session.Load<User>(userId);
-				var album = session.Load<Album>(albumId);
-
-				AuditLog(string.Format("adding {0} for {1}", album, user), session);
-
-				var albumForUser = user.AddAlbum(album, PurchaseStatus.Owned, MediaType.PhysicalDisc, AlbumForUser.NotRated);
-				session.Save(albumForUser);
-
-				return new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
 
 		public void AddArtist(int userId, int artistId) {
 
@@ -188,6 +163,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		public LoginResult CheckAuthentication(string name, string pass, string hostname) {
 
 			return HandleTransaction(session => {
@@ -224,7 +200,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public UserContract CheckTwitterAuthentication(string accessToken, string hostname) {
 
@@ -355,57 +331,6 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-
-		/*
-		/// <summary>
-		/// Creates a new user account using Twitter authentication token.
-		/// </summary>
-		/// <param name="authToken">Twitter OAuth token. Cannot be null or empty.</param>
-		/// <param name="name">User name. Must be unique. Cannot be null or empty.</param>
-		/// <param name="email">Email address. Must be unique. Cannot be null.</param>
-		/// <param name="twitterId">Twitter user Id. Cannot be null or empty.</param>
-		/// <param name="twitterName">Twitter user name. Cannot be null.</param>
-		/// <param name="hostname">Host name where the registration is from.</param>
-		/// <returns>Data contract for the created user. Cannot be null.</returns>
-		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
-		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
-		public UserContract CreateTwitter(string authToken, string name, string email, int twitterId, string twitterName, string hostname) {
-
-			ParamIs.NotNullOrEmpty(() => name);
-			ParamIs.NotNull(() => email);
-
-			return HandleTransaction(session => {
-
-				var lc = name.ToLowerInvariant();
-				var existing = session.Query<User>().FirstOrDefault(u => u.NameLC == lc);
-
-				if (existing != null)
-					throw new UserNameAlreadyExistsException();
-
-				if (!string.IsNullOrEmpty(email)) {
-
-					existing = session.Query<User>().FirstOrDefault(u => u.Email == email);
-
-					if (existing != null)
-						throw new UserEmailAlreadyExistsException();
-
-				}
-
-				var salt = new Random().Next();
-				var user = new User(name, string.Empty, email, salt);
-				user.Options.TwitterId = twitterId;
-				user.Options.TwitterName = twitterName;
-				user.Options.TwitterOAuthToken = authToken;
-				user.UpdateLastLogin(hostname);
-				session.Save(user);
-
-				AuditLog(string.Format("registered from {0} using Twitter.", MakeGeoIpToolLink(hostname)), session, user);
-
-				return new UserContract(user);
-
-			});
-
-		}*/
 
 		public void DeleteAlbumForUser(int albumForUserId) {
 
@@ -1039,75 +964,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*
-		/// <summary>
-		/// Updates user's settings (from my settings page).
-		/// </summary>
-		/// <param name="contract">New properties. Cannot be null.</param>
-		/// <returns>Updated user data. Cannot be null.</returns>
-		/// <exception cref="InvalidPasswordException">If password change was attempted and the old password was incorrect.</exception>
-		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken by another user.</exception>
-		public UserContract UpdateUserSettings(UpdateUserSettingsContract contract) {
-
-			ParamIs.NotNull(() => contract);
-
-			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
-
-			return HandleTransaction(session => {
-
-				var user = session.Load<User>(contract.Id);
-
-				SysLog(string.Format("Updating settings for {0}", user));
-
-				VerifyResourceAccess(user);
-
-				if (!string.IsNullOrEmpty(contract.NewPass)) {
-
-					var oldHashed = (!string.IsNullOrEmpty(user.Password) ? LoginManager.GetHashedPass(user.NameLC, contract.OldPass, user.Salt) : string.Empty);
-
-					if (user.Password != oldHashed)
-						throw new InvalidPasswordException();
-
-					var newHashed = LoginManager.GetHashedPass(user.NameLC, contract.NewPass, user.Salt);
-					user.Password = newHashed;
-
-				}
-
-				var email = contract.Email;
-
-				if (!string.IsNullOrEmpty(email)) {
-
-					var existing = session.Query<User>().FirstOrDefault(u => u.Id != user.Id && u.Email == email);
-
-					if (existing != null)
-						throw new UserEmailAlreadyExistsException();
-
-				}
-
-				user.Options.AboutMe = contract.AboutMe;
-				user.AnonymousActivity = contract.AnonymousActivity;
-				user.Culture = contract.Culture;
-				user.DefaultLanguageSelection = contract.DefaultLanguageSelection;
-				user.EmailOptions = contract.EmailOptions;
-				user.Language = contract.Language;
-				user.Options.Location = contract.Location;
-				user.PreferredVideoService = contract.PreferredVideoService;
-				user.Options.PublicRatings = contract.PublicRatings;
-				user.SetEmail(email);
-
-				var validWebLinks = contract.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
-				var webLinkDiff = WebLink.Sync(user.WebLinks, validWebLinks, user);
-				SessionHelper.Sync(session, webLinkDiff);
-
-				session.Update(user);
-
-				AuditLog(string.Format("updated settings for {0}", EntryLinkFactory.CreateEntryLink(user)), session);
-
-				return new UserContract(user);
-
-			});
-
-		}*/
 	}
 
 	public class InvalidPasswordException : Exception {

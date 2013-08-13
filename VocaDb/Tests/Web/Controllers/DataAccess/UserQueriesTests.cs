@@ -5,6 +5,7 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Security;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Controllers.DataAccess;
 
@@ -29,11 +30,55 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestInitialize]
 		public void SetUp() {
 
-			userWithEmail = new User("already_exists", "123", "already_in_use@vocadb.net", 123) { Id = 123 };
+			var hashedPass = LoginManager.GetHashedPass("already_exists", "123", 0);
+			userWithEmail = new User("already_exists", hashedPass, "already_in_use@vocadb.net", 0) { Id = 123 };
 			userWithoutEmail = new User("no_email", "222", string.Empty, 321) { Id = 321 };
 			repository = new FakeUserRepository(userWithEmail, userWithoutEmail);
+			repository.Add(userWithEmail.Options);
 			permissionContext = new FakePermissionContext(new UserContract(userWithEmail));
 			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory());
+
+		}
+
+		[TestMethod]
+		public void CheckAuthentication() {
+
+			var result = data.CheckAuthentication("already_exists", "123", "miku@crypton.jp", false);
+
+			Assert.AreEqual(true, result.IsOk, "IsOk");
+			Assert.IsNotNull(result.User, "User");
+			Assert.AreEqual("already_exists", result.User.Name, "Logged user");
+
+		}
+
+		[TestMethod]
+		public void CheckAuthentication_WrongPassword() {
+
+			var result = data.CheckAuthentication("already_exists", "3939", "miku@crypton.jp", false);
+
+			Assert.AreEqual(false, result.IsOk, "IsOk");
+			Assert.AreEqual(LoginError.InvalidPassword, result.Error, "Error");
+
+		}
+
+		[TestMethod]
+		public void CheckAuthentication_NotFound() {
+
+			var result = data.CheckAuthentication("does_not_exist", "3939", "miku@crypton.jp", false);
+
+			Assert.AreEqual(false, result.IsOk, "IsOk");
+			Assert.AreEqual(LoginError.NotFound, result.Error, "Error");
+
+		}
+
+		[TestMethod]
+		public void CheckAuthentication_Poisoned() {
+
+			userWithEmail.Options.Poisoned = true;
+			var result = data.CheckAuthentication(userWithEmail.Name, userWithEmail.Password, "miku@crypton.jp", false);
+
+			Assert.AreEqual(false, result.IsOk, "IsOk");
+			Assert.AreEqual(LoginError.AccountPoisoned, result.Error, "Error");
 
 		}
 
