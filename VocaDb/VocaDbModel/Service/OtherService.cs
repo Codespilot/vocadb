@@ -40,7 +40,7 @@ namespace VocaDb.Model.Service {
 				.Where(a => !a.Deleted 
 					&& a.RatingCount >= 2 && a.RatingAverageInt >= 300	// Filter by number of ratings and average rating
 					&& !recentIds.Contains(a.Id))						// Filter out recent albums (that are already shown)
-				.OrderByDescending(a => a.RatingAverageInt)
+				.OrderByDescending(a => a.RatingTotal)
 				.Take(100)
 				.ToArray();
 

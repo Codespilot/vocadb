@@ -271,14 +271,24 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AuditLogEntryContract[] GetAuditLog(string filter, int start, int maxEntries, int timeCutoffDays) {
+		public AuditLogEntryContract[] GetAuditLog(string filter, int start, int maxEntries, int timeCutoffDays, AuditLogUserGroupFilter filterByGroup = AuditLogUserGroupFilter.Nothing) {
 
 			return HandleTransaction(session => {
 
 				var cutoff = DateTime.Now - TimeSpan.FromDays(timeCutoffDays);
 
-				var entries = session.Query<AuditLogEntry>()
-					.Where(e => e.Time > cutoff && (string.IsNullOrEmpty(filter) || e.Action.Contains(filter) || e.AgentName == filter))
+				var q = session.Query<AuditLogEntry>()
+					.Where(e => e.Time > cutoff && (string.IsNullOrEmpty(filter) || e.Action.Contains(filter) || e.AgentName == filter));
+
+				if (filterByGroup != AuditLogUserGroupFilter.Nothing && filterByGroup != AuditLogUserGroupFilter.NoFilter) {
+					var userGroup = EnumVal<UserGroupId>.Parse(filterByGroup.ToString());
+					q = q.Where(e => e.User != null && e.User.GroupId == userGroup);					
+				}
+
+				if (filterByGroup == AuditLogUserGroupFilter.Nothing)
+					q = q.Where(e => e.User == null);
+
+				var entries = q
 					.OrderByDescending(e => e.Time)
 					.Skip(start)
 					.Take(maxEntries)
@@ -633,4 +643,23 @@ namespace VocaDb.Model.Service {
 		}
 
 	}
+
+	public enum AuditLogUserGroupFilter {
+
+		NoFilter,
+
+		Nothing,
+
+		Limited,
+
+		Regular,
+
+		Trusted,
+
+		Moderator,
+
+		Admin,
+
+	}
+
 }

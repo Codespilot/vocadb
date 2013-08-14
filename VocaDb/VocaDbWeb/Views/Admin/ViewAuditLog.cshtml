@@ -1,4 +1,5 @@
-﻿@model VocaDb.Web.Models.Admin.ViewAuditLogModel
+﻿@using VocaDb.Web.Helpers;
+@model VocaDb.Web.Models.Admin.ViewAuditLogModel
 
 @{
     ViewBag.Title = "View audit log";
@@ -11,6 +12,9 @@
 
 	@Html.TextBoxFor(m => m.Filter, new { id = "filter" })
 
+	@Html.Raw("&nbsp;")
+	@Html.EnumDropDownListFor(m => m.GroupId, Model.UserGroups)
+
 	<button type="submit" class="btn btn-primary">Filter</button>
 	
 }
@@ -22,7 +26,7 @@
 			<th>User</th>
 			<th>Action</th>
 		</tr>		
-		@{ Html.RenderAction("AuditLogEntries", new { filter = Model.Filter }); }
+		@{ Html.RenderAction("AuditLogEntries", Model); }
 	</table>
 </div>
 
@@ -34,7 +38,7 @@
 
 	$(document).ready(function () {
 		$("#loadMoreLink").click(function () {
-			$.post("AuditLogEntries", { start: $("#start").val(), filter: $("#filter").val() }, function (result) {
+			$.post("AuditLogEntries", { start: $("#start").val(), filter: '@Model.Filter', groupId: '@Model.GroupId' }, function (result) {
 				$("#logEntries").append(result);
 				$("#start").val(parseInt($("#start").val()) + 200);
 			});
