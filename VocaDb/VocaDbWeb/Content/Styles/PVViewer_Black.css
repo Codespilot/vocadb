@@ -11,7 +11,7 @@
 .pvViewerContent a,
 .pvViewerContent a:visited,
 .pvViewerContent a:hover {
-  color: white !important;
+  color: white;
 }
 .pvViewer-title {
   color: white;

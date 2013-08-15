@@ -284,7 +284,7 @@ namespace VocaDb.Model.Service {
 
 				if (excludeUsers.Any()) {
 
-					var usr = session.Query<User>().Where(u => excludeUsers.Contains(u.Name)).Select(u => u.Id).ToArray();
+					var usr = session.Query<User>().Where(u => excludeUsers.Contains(u.Name)).Select(u => u.Id).Distinct().ToArray();
 
 					q = q.Where(e => !usr.Contains(e.User.Id));
 
