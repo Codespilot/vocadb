@@ -370,11 +370,16 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract[] FindUsersByName(string term) {
+		public UserContract[] FindUsersByName(string term, bool startsWith = false) {
 
 			return HandleQuery(session => {
 
-				var users = session.Query<User>().Where(u => u.Name.Contains(term)).OrderBy(u => u.Name).Take(10).ToArray();
+				User[] users;
+				if (startsWith) {
+					users = session.Query<User>().Where(u => u.Name.StartsWith(term)).OrderBy(u => u.Name).Take(10).ToArray();										
+				} else {
+					users = session.Query<User>().Where(u => u.Name.Contains(term)).OrderBy(u => u.Name).Take(10).ToArray();					
+				}
 
 				return users.Select(u => new UserContract(u)).ToArray();
 

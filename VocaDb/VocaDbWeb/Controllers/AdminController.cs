@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using NHibernate;
 using VocaDb.Model.DataContracts.Songs;
@@ -28,7 +29,10 @@ namespace VocaDb.Web.Controllers
 
 			LoginManager.VerifyPermission(PermissionToken.ViewAuditLog);
 
-			var entries = Service.GetAuditLog(model.Filter, start, 200, 365, model.GroupId);
+			var excludeUsers = (!string.IsNullOrEmpty(model.ExcludeUsers) 
+				? model.ExcludeUsers.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(u => u.Trim()).ToArray() 
+				: new string[0]);
+			var entries = Service.GetAuditLog(model.Filter, start, 200, 365, excludeUsers, model.OnlyNewUsers, model.GroupId);
 
 			return PartialView(entries);
 

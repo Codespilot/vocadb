@@ -271,7 +271,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AuditLogEntryContract[] GetAuditLog(string filter, int start, int maxEntries, int timeCutoffDays, AuditLogUserGroupFilter filterByGroup = AuditLogUserGroupFilter.Nothing) {
+		public AuditLogEntryContract[] GetAuditLog(string filter, int start, int maxEntries, int timeCutoffDays, 
+			string[] excludeUsers, bool onlyNewUsers,
+			AuditLogUserGroupFilter filterByGroup = AuditLogUserGroupFilter.Nothing) {
 
 			return HandleTransaction(session => {
 
@@ -279,6 +281,21 @@ namespace VocaDb.Model.Service {
 
 				var q = session.Query<AuditLogEntry>()
 					.Where(e => e.Time > cutoff && (string.IsNullOrEmpty(filter) || e.Action.Contains(filter) || e.AgentName == filter));
+
+				if (excludeUsers.Any()) {
+
+					var usr = session.Query<User>().Where(u => excludeUsers.Contains(u.Name)).Select(u => u.Id).ToArray();
+
+					q = q.Where(e => !usr.Contains(e.User.Id));
+
+				}
+
+				if (onlyNewUsers) {
+
+					var newUserDate = DateTime.Now - TimeSpan.FromDays(7);
+					q = q.Where(e => e.User.CreateDate >= newUserDate);
+
+				}
 
 				if (filterByGroup != AuditLogUserGroupFilter.Nothing && filterByGroup != AuditLogUserGroupFilter.NoFilter) {
 					var userGroup = EnumVal<UserGroupId>.Parse(filterByGroup.ToString());

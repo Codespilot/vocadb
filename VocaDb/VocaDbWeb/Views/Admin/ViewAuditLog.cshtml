@@ -2,23 +2,58 @@
 @model VocaDb.Web.Models.Admin.ViewAuditLogModel
 
 @{
-    ViewBag.Title = "View audit log";
+	ViewBag.Title = "View audit log";
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Manage", "Index"), 
 	};	
 }
 
-@using (Html.BeginForm("ViewAuditLog", "Admin", FormMethod.Post, new { @class = "form-inline" })) {
-
-	@Html.TextBoxFor(m => m.Filter, new { id = "filter" })
-
-	@Html.Raw("&nbsp;")
-	@Html.EnumDropDownListFor(m => m.GroupId, Model.UserGroups)
-
-	<button type="submit" class="btn btn-primary">Filter</button>
+<div class="alert alert-info">
+	<button data-bind="click: toggleFilter, css: { active: filterVisible }" class="btn dropdown-toggle">
+		<i class="icon-filter"></i> 
+		@ViewRes.SharedStrings.Filter
+	</button>
 	
-}
+	<form action="@Url.Action("ViewAuditLog", "Admin")" method="POST" id="filterForm" data-bind="visible: filterVisible" class="form-horizontal" style="display: none;">
+		@Html.HiddenForKnockout(m => m.Filter, "value: filter")
+		@Html.HiddenForKnockout(m => m.ExcludeUsers, "value: excludeUsers")
+		@Html.HiddenForKnockout(m => m.OnlyNewUsers, "value: onlyNewUsers")
+				
+		<div class="control-group">
+			<div class="control-label">Text query</div>
+			<div class="controls">
+				<input type="text" data-bind="value: filter" maxlength="255" class="input-xlarge" />
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="control-label">Exclude users</div>
+			<div class="controls">
+				<input type="text" data-bind="value: excludeUsers" maxlength="255" class="input-xlarge" id="usersList" />
+			</div>
+		</div>	  
+		<div class="control-group">
+			<div class="control-label">User group</div>
+			<div class="controls">
+				@Html.EnumDropDownListFor(m => m.GroupId, Model.UserGroups)
+			</div>
+		</div>	  
+		<div class="control-group">
+			<div class="controls">
+				<label class="checkbox">
+					<input type="checkbox" data-bind="checked: onlyNewUsers" />
+					Only show new users
+				</label>
+			</div>	  
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
+			</div>	  
+		</div>	  
+	</form>
 
+</div>
+		
 <div >
 	<table id="logEntries">
 		<tr>
@@ -34,9 +69,14 @@
 @Html.Hidden("start", 200)
 
 @section BodyScripts {
+<script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/Admin/ViewAuditLogViewModel.js")"></script>
 <script type="text/javascript">
 
 	$(document).ready(function () {
+
+		var json = @Html.Raw(JsonHelpers.Serialize(Model));
+		ko.applyBindings(new vdb.viewModels.ViewAuditLogViewModel(json));
+		
 		$("#loadMoreLink").click(function () {
 			$.post("AuditLogEntries", { start: $("#start").val(), filter: '@Model.Filter', groupId: '@Model.GroupId' }, function (result) {
 				$("#logEntries").append(result);

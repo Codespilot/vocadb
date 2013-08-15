@@ -207,9 +207,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public JsonResult FindByName(string term) {
+		/// <summary>
+		/// Finds usernames by part of name.
+		/// </summary>
+		/// <param name="term">Query term.</param>
+		/// <returns>List of usernames.</returns>
+		public JsonResult FindByName(string term, bool startsWith = false) {
 
-			var users = Service.FindUsersByName(term).Select(u => u.Name).ToArray();
+			var users = Service.FindUsersByName(term, startsWith).Select(u => u.Name).ToArray();
 
 			return Json(users, "text/json", JsonRequestBehavior.AllowGet);
 

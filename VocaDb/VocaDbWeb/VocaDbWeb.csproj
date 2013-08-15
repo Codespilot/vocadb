@@ -1670,6 +1670,10 @@
     <Content Include="Scripts\typings\underscore\underscore.d.ts" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />
+    <Content Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.js">
+      <DependentUpon>ViewAuditLogViewModel.ts</DependentUpon>
+    </Content>
     <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
     </Content>

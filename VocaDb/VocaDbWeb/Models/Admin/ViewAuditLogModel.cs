@@ -19,9 +19,13 @@ namespace VocaDb.Web.Models.Admin {
 
 		}
 
+		public string ExcludeUsers { get; set; }
+
 		public string Filter { get; set; }
 
 		public AuditLogUserGroupFilter GroupId { get; set; }
+
+		public bool OnlyNewUsers { get; set; }
 
 		public KeyValuePair<AuditLogUserGroupFilter, string>[] UserGroups { get; set; }
 
