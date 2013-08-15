@@ -75,10 +75,14 @@
 	$(document).ready(function () {
 
 		var json = @Html.Raw(JsonHelpers.Serialize(Model));
-		ko.applyBindings(new vdb.viewModels.ViewAuditLogViewModel(json));
+		var vm = new vdb.viewModels.ViewAuditLogViewModel(json);
+		ko.applyBindings(vm);
 		
 		$("#loadMoreLink").click(function () {
-			$.post("AuditLogEntries", { start: $("#start").val(), filter: '@Model.Filter', groupId: '@Model.GroupId' }, function (result) {
+
+			var params = $.extend({ start: $("#start").val() }, json);
+
+			$.post("AuditLogEntries", params, function (result) {
 				$("#logEntries").append(result);
 				$("#start").val(parseInt($("#start").val()) + 200);
 			});
