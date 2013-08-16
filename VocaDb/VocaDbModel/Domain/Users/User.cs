@@ -187,6 +187,13 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// Email address. Can be empty. Cannot be null. Must be unique.
+		/// </summary>
+		/// <remarks>
+		/// Email address, like username, can be used for logging in.
+		/// Thus they must be unique.
+		/// </remarks>
 		public virtual string Email {
 			get { return email; }
 			set {
@@ -234,7 +241,18 @@ namespace VocaDb.Model.Domain.Users {
 
 		/// <summary>
 		/// Username.
+		/// Must be unique, case-insensitive.
 		/// </summary>
+		/// <remarks>
+		/// Currently the allowed characters in username are English alphabet, numbers and underscores.
+		/// Characters are limited because of the URL to the user profile page, which includes the full username.
+		/// 
+		/// Notes about allowing characters:
+		/// - Spaces and dots would be problematic because of URLs. Some legacy accounts still have these chars.
+		/// - At '@' symbols would be problematic because username must be separate from the email.
+		///   Email, like username, can be used for logging in. Thus one user could "steal" another user's email has his username.
+		/// - Hyphens could probably be allowed.
+		/// </remarks>
 		public virtual string Name {
 			get { return name; }
 			set {
@@ -243,6 +261,10 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// Username in lowercase.
+		/// Password has is always based on the lowercase username.
+		/// </summary>
 		public virtual string NameLC {
 			get { return nameLc; }
 			set {
@@ -267,6 +289,9 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// Password SHA-1 hash.
+		/// </summary>
 		public virtual string Password {
 			get { return password; }
 			set {
@@ -287,6 +312,9 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual RoleTypes Roles { get; set; }
 
+		/// <summary>
+		/// Per-user password salt. Applied to password hash.
+		/// </summary>
 		public virtual int Salt { get; set; }
 
 		public virtual IList<UserMessage> SentMessages {
