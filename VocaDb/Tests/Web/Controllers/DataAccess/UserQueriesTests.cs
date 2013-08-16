@@ -23,6 +23,14 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private User userWithEmail;
 		private User userWithoutEmail;
 
+		private void AssertEqual(User expected, UserContract actual) {
+			
+			Assert.IsNotNull(actual, "Cannot be null");
+			Assert.AreEqual(expected.Name, actual.Name, "Name");
+			Assert.AreEqual(expected.Id, actual.Id, "Id");
+
+		}
+
 		private User GetUserFromRepo(string username) {
 			return repository.List<User>().FirstOrDefault(u => u.Name == username);
 		}
@@ -46,8 +54,18 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			var result = data.CheckAuthentication("already_exists", "123", "miku@crypton.jp", false);
 
 			Assert.AreEqual(true, result.IsOk, "IsOk");
-			Assert.IsNotNull(result.User, "User");
-			Assert.AreEqual("already_exists", result.User.Name, "Logged user");
+			AssertEqual(userWithEmail, result.User);
+
+		}
+
+		[TestMethod]
+		public void CheckAuthentication_DifferentCase() {
+
+			userWithEmail.Name = "Already_Exists";
+			var result = data.CheckAuthentication("already_exists", "123", "miku@crypton.jp", false);
+
+			Assert.AreEqual(true, result.IsOk, "IsOk");
+			AssertEqual(userWithEmail, result.User);
 
 		}
 
@@ -83,6 +101,16 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void CheckAuthentication_LoginWithEmail() {
+
+			var result = data.CheckAuthentication(userWithEmail.Email, "123", "miku@crypton.jp", false);
+
+			Assert.AreEqual(true, result.IsOk, "IsOk");
+			AssertEqual(userWithEmail, result.User);
+
+		}
+
+		[TestMethod]
 		public void Create() {
 
 			var name = "hatsune_miku";
@@ -104,6 +132,14 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void Create_NameAlreadyExists() {
 
 			data.Create("already_exists", "3939", "mikumiku@crypton.jp", "crypton.jp", TimeSpan.FromMinutes(39));
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(UserNameAlreadyExistsException))]
+		public void Create_NameAlreadyExistsDifferentCase() {
+
+			data.Create("Already_Exists", "3939", "mikumiku@crypton.jp", "crypton.jp", TimeSpan.FromMinutes(39));
 
 		}
 

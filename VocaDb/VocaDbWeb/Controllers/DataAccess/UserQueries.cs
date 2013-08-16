@@ -55,16 +55,19 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		public LoginResult CheckAuthentication(string name, string pass, string hostname, bool delayFailedLogin) {
 
-			return repository.HandleTransaction(ctx => {
+			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(pass))
+				return LoginResult.CreateError(LoginError.InvalidPassword);
 
-				var lc = name.ToLowerInvariant();
+			var lc = name.ToLowerInvariant();
+
+			return repository.HandleTransaction(ctx => {
 
 				if (IsPoisoned(ctx, lc)) {
 					ctx.AuditLogger.SysLog(string.Format("failed login from {0} - account is poisoned.", MakeGeoIpToolLink(hostname)), name);
 					return LoginResult.CreateError(LoginError.AccountPoisoned);
 				}
 
-				var user = ctx.Query().FirstOrDefault(u => u.Active && u.Name == lc);
+				var user = ctx.Query().FirstOrDefault(u => u.Active && (u.NameLC == lc || u.Email == lc));
 
 				if (user == null) {
 					ctx.AuditLogger.AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), name);
@@ -73,7 +76,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					return LoginResult.CreateError(LoginError.NotFound);
 				}
 
-				var hashed = LoginManager.GetHashedPass(lc, pass, user.Salt);
+				var hashed = LoginManager.GetHashedPass(user.NameLC, pass, user.Salt);
 
 				if (user.Password != hashed) {
 					ctx.AuditLogger.AuditLog(string.Format("failed login from {0} - wrong password.", MakeGeoIpToolLink(hostname)), name);
@@ -82,7 +85,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					return LoginResult.CreateError(LoginError.InvalidPassword);
 				}
 
-				ctx.AuditLogger.AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), user);
+				ctx.AuditLogger.AuditLog(string.Format("logged in from {0} with '{1}'.", MakeGeoIpToolLink(hostname), name), user);
 
 				user.UpdateLastLogin(hostname);
 				ctx.Update(user);
