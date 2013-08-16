@@ -53,6 +53,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		/// <summary>
+		/// Attempts to log in a user.
+		/// </summary>
+		/// <param name="name">Username. Cannot be null.</param>
+		/// <param name="pass">Password. Cannot be null.</param>
+		/// <param name="hostname">Host name where the user is logging in from. Cannot be null.</param>
+		/// <param name="delayFailedLogin">Whether failed login should cause artificial delay.</param>
+		/// <returns>Login attempt result. Cannot be null.</returns>
 		public LoginResult CheckAuthentication(string name, string pass, string hostname, bool delayFailedLogin) {
 
 			if (string.IsNullOrWhiteSpace(name) || string.IsNullOrEmpty(pass))
@@ -67,7 +75,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					return LoginResult.CreateError(LoginError.AccountPoisoned);
 				}
 
-				var user = ctx.Query().FirstOrDefault(u => u.Active && (u.NameLC == lc || u.Email == lc));
+				// Attempt to find user by either lowercase username.
+				var user = ctx.Query().FirstOrDefault(u => u.Active && u.NameLC == lc);
 
 				if (user == null) {
 					ctx.AuditLogger.AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), name);
@@ -76,6 +85,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					return LoginResult.CreateError(LoginError.NotFound);
 				}
 
+				// Attempt to verify password.
 				var hashed = LoginManager.GetHashedPass(user.NameLC, pass, user.Salt);
 
 				if (user.Password != hashed) {
@@ -85,6 +95,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					return LoginResult.CreateError(LoginError.InvalidPassword);
 				}
 
+				// Login attempt successful.
 				ctx.AuditLogger.AuditLog(string.Format("logged in from {0} with '{1}'.", MakeGeoIpToolLink(hostname), name), user);
 
 				user.UpdateLastLogin(hostname);
@@ -98,7 +109,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		/// <param name="name">User name. Must be unique. Cannot be null or empty.</param>
 		/// <param name="pass">Password. Cannot be null or empty.</param>
-		/// <param name="email">Email address. Must be unique. Cannot be null.</param>
+		/// <param name="email">Email address. Must be unique if specified. Cannot be null.</param>
 		/// <param name="hostname">Host name where the registration is from.</param>
 		/// <param name="timeSpan">Time in which the user filled the registration form.</param>
 		/// <returns>Data contract for the created user. Cannot be null.</returns>
