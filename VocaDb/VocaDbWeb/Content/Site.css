@@ -1,11 +1,11 @@
 body {
 	font-size: 80%;
 	font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
-	background: url(http://static.vocadb.net/img/miku3.jpg)top center no-repeat fixed;
-	-moz-background-size: 100%;
-	-o-background-size: 100%;
-	-webkit-background-size: 100%;
-	background-size: 100%;
+	background: url(http://static.vocadb.net/img/miku3.jpg) top left no-repeat fixed #001155;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	-webkit-background-size: cover;
+	background-size: cover;
 }
 
 h1, h2, h3, h4, h5, h6 {
