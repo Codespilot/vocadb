@@ -13,11 +13,22 @@ namespace VocaDb.Tests.TestSupport {
 			LoggedUser = loggedUser;
 		}
 
-		public bool HasPermission(PermissionToken flag) {
-			return true;
+		public bool HasPermission(PermissionToken token) {
+
+			if (token == PermissionToken.Nothing)
+				return true;
+
+			if (!IsLoggedIn || !LoggedUser.Active)
+				return false;
+
+			return (LoggedUser.EffectivePermissions.Contains(token));
+
 		}
 
-		public bool IsLoggedIn { get; private set; }
+		public bool IsLoggedIn {
+			get { return LoggedUser != null; }
+		}
+
 		public ContentLanguagePreference LanguagePreference { get; private set; }
 
 		public UserContract LoggedUser { get; set; }
@@ -30,11 +41,18 @@ namespace VocaDb.Tests.TestSupport {
 		public UserGroupId UserGroupId { get; private set; }
 
 		public void VerifyLogin() {
-			
+
+			if (!IsLoggedIn)
+				throw new NotAllowedException("Must be logged in.");
+
 		}
 
 		public void VerifyPermission(PermissionToken flag) {
-			
+
+			if (!HasPermission(flag)) {
+				throw new NotAllowedException();
+			}
+
 		}
 
 	}

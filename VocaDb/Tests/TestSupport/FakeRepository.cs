@@ -39,7 +39,7 @@ namespace VocaDb.Tests.TestSupport {
 			return querySource.List<TEntity>().Contains(entity);
 		}
 
-		public TResult HandleQuery<TResult>(Func<IRepositoryContext<T>, TResult> func, string failMsg) {
+		public TResult HandleQuery<TResult>(Func<IRepositoryContext<T>, TResult> func, string failMsg = "Unexpected database error") {
 			return func(CreateContext());
 		}
 

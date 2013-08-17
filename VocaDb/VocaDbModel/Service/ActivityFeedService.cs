@@ -45,17 +45,35 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
-				var followedArtists = GetLoggedUser(session).Artists.Select(a => a.Artist).ToArray();
+				/*var followedArtists = GetLoggedUser(session)
+					.Artists
+					.Take(200)
+					.Select(a => a.Artist.Id)
+					.ToArray();
 
 				var albumEntries = session.Query<AlbumActivityEntry>()
+					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => followedArtists.Contains(r.Artist.Id)))
 					.OrderByDescending(a => a.CreateDate)
-					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => followedArtists.Contains(r.Artist)))
 					.Take(maxEntries)
 					.ToArray();
 
 				var songEntries = session.Query<SongActivityEntry>()
+					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => followedArtists.Contains(r.Artist.Id)))
 					.OrderByDescending(a => a.CreateDate)
-					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => followedArtists.Contains(r.Artist)))
+					.Take(maxEntries)
+					.ToArray();*/
+
+				var userId = GetLoggedUser(session).Id;
+
+				var albumEntries = session.Query<AlbumActivityEntry>()
+					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => r.Artist.Users.Any(u => u.User.Id == userId)))
+					.OrderByDescending(a => a.CreateDate)
+					.Take(maxEntries)
+					.ToArray();
+
+				var songEntries = session.Query<SongActivityEntry>()
+					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => r.Artist.Users.Any(u => u.User.Id == userId)))
+					.OrderByDescending(a => a.CreateDate)
 					.Take(maxEntries)
 					.ToArray();
 

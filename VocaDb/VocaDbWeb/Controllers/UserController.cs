@@ -786,9 +786,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
 		public ActionResult Disable(int id) {
 
-			Service.DisableUser(id);
+			Data.DisableUser(id);
 
 			return RedirectToAction("Details", new { id });
 

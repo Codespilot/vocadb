@@ -32,6 +32,10 @@ namespace VocaDb.Model.Domain.Security {
 			this.permissions = new Iesi.Collections.Generic.HashedSet<PermissionToken>(permissions);
 		}
 
+		public void Add(PermissionToken permissionToken) {
+			permissions.Add(permissionToken);
+		}
+
 		public Iesi.Collections.Generic.ISet<PermissionToken> Permissions {
 			get { return permissions; }
 			protected set {
