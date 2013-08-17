@@ -35,6 +35,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			return repository.List<User>().FirstOrDefault(u => u.Name == username);
 		}
 
+		private void RefreshLoggedUser() {
+			permissionContext.LoggedUser = repository.HandleQuery(ctx => new UserContract(ctx.Load(permissionContext.LoggedUserId)));
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 
@@ -186,6 +190,38 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void CreateTwitter_EmailAlreadyExists() {
 
 			data.CreateTwitter("auth_token", "hatsune_miku", "already_in_use@vocadb.net", 39, "Miku_Crypton", "crypton.jp");
+
+		}
+
+		[TestMethod]
+		public void DisableUser() {
+			
+			userWithEmail.AdditionalPermissions.Add(PermissionToken.DisableUsers);
+			RefreshLoggedUser();
+
+			data.DisableUser(userWithoutEmail.Id);
+
+			Assert.AreEqual(false, userWithoutEmail.Active, "User was disabled");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void DisableUser_NoPermission() {
+
+			data.DisableUser(userWithoutEmail.Id);
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void DisableUser_CannotBeDisabled() {
+
+			userWithEmail.AdditionalPermissions.Add(PermissionToken.DisableUsers);
+			userWithoutEmail.AdditionalPermissions.Add(PermissionToken.DisableUsers);
+			RefreshLoggedUser();
+
+			data.DisableUser(userWithoutEmail.Id);
 
 		}
 

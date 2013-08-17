@@ -202,6 +202,27 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void DisableUser(int userId) {
+			
+			PermissionContext.VerifyPermission(PermissionToken.DisableUsers);
+
+			repository.HandleTransaction(ctx => {
+
+				var user = ctx.Load(userId);
+
+				if (!user.CanBeDisabled)
+					throw new NotAllowedException("This user account cannot be disabled.");
+
+				user.Active = false;
+
+				ctx.AuditLogger.AuditLog(string.Format("disabled {0}.", EntryLinkFactory.CreateEntryLink(user)));
+
+				ctx.Update(user);
+
+			});
+
+		}
+
 		/// <summary>
 		/// Updates user's settings (from my settings page).
 		/// </summary>
