@@ -157,6 +157,17 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void Create_EmailAlreadyExistsButDisabled() {
+
+			userWithEmail.Active = false;
+			var result = data.Create("hatsune_miku", "3939", "already_in_use@vocadb.net", "crypton.jp", TimeSpan.FromMinutes(39));
+
+			Assert.IsNotNull(result, "Result is not null");
+			Assert.AreEqual("hatsune_miku", result.Name, "Name");
+
+		}
+
+		[TestMethod]
 		public void CreateTwitter() {
 
 			var name = "hatsune_miku";
@@ -254,6 +265,21 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			var contract = new UpdateUserSettingsContract(userWithoutEmail) { Email = userWithEmail.Email };
 
 			data.UpdateUserSettings(contract);
+
+		}
+
+		[TestMethod]
+		public void UpdateUserSettings_EmailTakenButDisabled() {
+
+			userWithEmail.Active = false;
+			permissionContext.LoggedUser = new UserContract(userWithoutEmail);
+			var contract = new UpdateUserSettingsContract(userWithoutEmail) { Email = userWithEmail.Email };
+
+			data.UpdateUserSettings(contract);
+
+			var user = GetUserFromRepo(userWithoutEmail.Name);
+			Assert.IsNotNull(user, "User was found in repository");
+			Assert.AreEqual("already_in_use@vocadb.net", user.Email, "Email");
 
 		}
 

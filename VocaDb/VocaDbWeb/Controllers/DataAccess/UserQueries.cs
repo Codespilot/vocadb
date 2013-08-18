@@ -131,7 +131,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				if (!string.IsNullOrEmpty(email)) {
 
-					existing = ctx.Query().FirstOrDefault(u => u.Email == email);
+					existing = ctx.Query().FirstOrDefault(u => u.Active && u.Email == email);
 
 					if (existing != null)
 						throw new UserEmailAlreadyExistsException();
@@ -179,7 +179,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				if (!string.IsNullOrEmpty(email)) {
 
-					existing = ctx.Query().FirstOrDefault(u => u.Email == email);
+					existing = ctx.Query().FirstOrDefault(u => u.Active && u.Email == email);
 
 					if (existing != null)
 						throw new UserEmailAlreadyExistsException();
@@ -260,7 +260,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				if (!string.IsNullOrEmpty(email)) {
 
-					var existing = ctx.Query().FirstOrDefault(u => u.Id != user.Id && u.Email == email);
+					var existing = ctx.Query().FirstOrDefault(u => u.Active && u.Id != user.Id && u.Email == email);
 
 					if (existing != null)
 						throw new UserEmailAlreadyExistsException();
