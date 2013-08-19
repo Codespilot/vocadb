@@ -33,6 +33,10 @@ namespace VocaDb.Tests.TestSupport {
 
 		}
 
+		public T Load<T>(object id) {
+			return default(T);
+		}
+
 		public IQueryable<T> Query<T>() {
 		
 			var t = typeof(T);

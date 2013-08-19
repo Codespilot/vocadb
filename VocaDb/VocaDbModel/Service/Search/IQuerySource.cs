@@ -9,6 +9,8 @@ namespace VocaDb.Model.Service.Search {
 	/// </summary>
 	public interface IQuerySource {
 
+		T Load<T>(object id);
+
 		IQueryable<T> Query<T>();
 
 	}
@@ -22,6 +24,10 @@ namespace VocaDb.Model.Service.Search {
 
 		public QuerySourceSession(ISession session) {
 			this.session = session;
+		}
+
+		public T Load<T>(object id) {
+			return session.Load<T>(id);
 		}
 
 		public IQueryable<T> Query<T>() {

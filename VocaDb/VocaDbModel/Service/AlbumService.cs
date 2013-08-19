@@ -604,17 +604,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumContract[] GetAlbums() {
-
-			return HandleQuery(session => session.Query<Album>()
-				.Where(a => !a.Deleted)
-				.ToArray()
-				.OrderBy(a => a.DefaultName)
-				.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
-				.ToArray());
-
-		}
-
 		public EntryForPictureDisplayContract GetArchivedAlbumPicture(int archivedVersionId) {
 
 			return HandleQuery(session =>
@@ -623,12 +612,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		public ArtistContract[] GetArtists(int albumId, ArtistType[] types) {
 
 			return HandleQuery(session => session.Load<Album>(albumId).Artists.Where(a => a.Artist != null && types.Contains(a.Artist.ArtistType))
 				.Select(a => new ArtistContract(a.Artist, PermissionContext.LanguagePreference)).ToArray());
 
-		}
+		}*/
 
 		public CommentContract[] GetComments(int albumId) {
 

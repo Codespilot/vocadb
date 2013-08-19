@@ -8,6 +8,8 @@ namespace VocaDb.Model.Helpers {
 
 	public static class ArtistHelper {
 
+		public const string VariousArtists = "Various artists";
+
 		private static TranslatedString GetTranslatedName(IArtistWithSupport link) {
 
 			return (link.Artist != null ? link.Artist.TranslatedName : TranslatedString.Create(link.Name));
@@ -95,7 +97,7 @@ namespace VocaDb.Model.Helpers {
 			var performers = matched.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist) 
 				&& !producers.Contains(a)).ToArray();
 
-			const string various = "Various artists";
+			const string various = VariousArtists;
 
 			if (producers.Count() >= 4 || (!producers.Any() && performers.Count() >= 4))
 				return new TranslatedStringWithDefault(various, various, various, various);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
@@ -44,16 +45,19 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public PartialViewResult AlbumsPaged(int id, int? page) {
+		public PartialViewResult AlbumsPaged(int id, ArtistAlbumParticipationStatus? artistParticipation, int? page) {
 
 			var pageIndex = (page - 1) ?? 0;
 			var queryParams = new AlbumQueryParams {
 				Paging = PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true),
-				SortRule = AlbumSortRule.Name,
-				ArtistId = id
+				SortRule = AlbumSortRule.ReleaseDate,
+				ArtistId = id,
+				ArtistParticipationStatus = artistParticipation ?? ArtistAlbumParticipationStatus.Everything
 			};
 			var result = Services.Albums.Find(queryParams);
-			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", "ui-tabs-2");
+			var target = queryParams.ArtistParticipationStatus == ArtistAlbumParticipationStatus.OnlyCollaborations ? "ui-tabs-3" : "ui-tabs-2";
+			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", target);
+			data.RouteValues = new RouteValueDictionary(new { action = "AlbumsPaged", id, artistParticipation });
 
 			return PartialView("PagedAlbums", data);
 
@@ -213,7 +217,7 @@ namespace VocaDb.Web.Controllers
 			};
 			var result = Services.Songs.Find(queryParams);
 
-			var data = new PagingData<SongContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongsPaged", "ui-tabs-3");
+			var data = new PagingData<SongContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "SongsPaged", "ui-tabs-4");
 
 			return PartialView("PagedSongs", data);
 

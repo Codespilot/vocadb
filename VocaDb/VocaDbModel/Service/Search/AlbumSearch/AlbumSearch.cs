@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
@@ -15,6 +16,42 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		private ContentLanguagePreference LanguagePreference {
 			get { return languagePreference; }
+		}
+
+		private IQueryable<ArtistForAlbum> AddArtistParticipationStatus(IQueryable<ArtistForAlbum> query, int artistId, ArtistAlbumParticipationStatus participation) {
+
+			if (participation == ArtistAlbumParticipationStatus.Everything || artistId == 0)
+				return query;
+
+			var artist = querySource.Load<Artist>(artistId);
+			var musicProducerTypes = new[] {ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup};
+
+			if (musicProducerTypes.Contains(artist.ArtistType)) {
+
+				var producerRoles = new[] {ArtistRoles.Default, ArtistRoles.Composer, ArtistRoles.Arranger};
+
+				switch (participation) {
+					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
+						return query.Where(a => !a.IsSupport && producerRoles.Contains(a.Roles) && a.Album.ArtistString.Default != ArtistHelper.VariousArtists);
+					case ArtistAlbumParticipationStatus.OnlyCollaborations:
+						return query.Where(a => a.IsSupport || !producerRoles.Contains(a.Roles) || a.Album.ArtistString.Default == ArtistHelper.VariousArtists);
+					default:
+						return query;
+				}
+
+			} else {
+
+				switch (participation) {
+					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
+						return query.Where(a => !a.IsSupport);
+					case ArtistAlbumParticipationStatus.OnlyCollaborations:
+						return query.Where(a => a.IsSupport);
+					default:
+						return query;
+				}
+				
+			}
+
 		}
 
 		private IQueryable<Album> AddDiscTypeRestriction(IQueryable<Album> query, DiscType discType) {
@@ -157,9 +194,9 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 					.ToArray();
 
 				// TODO: refactor using advanced search parser
-			} else if (query.StartsWith("artist:") || queryParams.ArtistId != 0) {
+			} else if (queryParams.ArtistId != 0 || query.StartsWith("artist:")) {
 
-				int artistId;
+ 				int artistId;
 				if (queryParams.ArtistId != 0)
 					artistId = queryParams.ArtistId;
 				else
@@ -172,6 +209,8 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 					albumQ = albumQ.Where(a => a.Album.Status == EntryStatus.Draft);
 
 				albumQ = AddDiscTypeRestriction(albumQ, discType);
+				albumQ = AddArtistParticipationStatus(albumQ, artistId, queryParams.ArtistParticipationStatus);
+
 				entries = AddOrder(albumQ.Select(m => m.Album), sortRule, LanguagePreference)
 					.Skip(start)
 					.Take(maxResults)
@@ -275,7 +314,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 			}
 
-			if (query.StartsWith("artist:") || queryParams.ArtistId != 0) {
+			if (queryParams.ArtistId != 0 || query.StartsWith("artist:")) {
 
 				int artistId;
 				if (queryParams.ArtistId != 0)
@@ -290,6 +329,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 					albumQ = albumQ.Where(a => a.Album.Status == EntryStatus.Draft);
 
 				albumQ = AddDiscTypeRestriction(albumQ, discType);
+				albumQ = AddArtistParticipationStatus(albumQ, artistId, queryParams.ArtistParticipationStatus);
 				return albumQ.Count();
 
 			}
