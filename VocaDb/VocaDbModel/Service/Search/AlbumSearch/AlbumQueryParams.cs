@@ -11,6 +11,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 		public AlbumQueryParams() {
 
 			AlbumType = DiscType.Unknown;
+			ArtistParticipationStatus = ArtistAlbumParticipationStatus.Everything;
 			Common = new CommonSearchParams();
 			Paging = new PagingProperties(0, 30, true);
 
@@ -34,6 +35,8 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 		public DiscType AlbumType { get; set; }
 
 		public int ArtistId { get; set; }
+
+		public ArtistAlbumParticipationStatus ArtistParticipationStatus { get; set; }
 
 		public CommonSearchParams Common { get; set; }
 

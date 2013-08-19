@@ -3,11 +3,11 @@
 <p>@Model.Items.TotalItemCount @ViewRes.MiscStrings.AlbumCount.</p>
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
 </div>
 
 @AlbumHelpers.AlbumList(Model.Items, true, true, true)
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id))
+@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
 </div>
