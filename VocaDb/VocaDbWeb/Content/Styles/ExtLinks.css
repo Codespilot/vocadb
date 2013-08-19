@@ -62,6 +62,9 @@ a.extLink[href^="http://shop.melonbooks.co.jp/"] {
 a.extLink[href^="http://mikudb.com/"] {
   background: url("/Content/ExtIcons/mikudb.png") no-repeat left 50%;
 }
+a.extLink[href^="http://www.mikustar.com/"] {
+  background: url("/Content/ExtIcons/mikustar.png") no-repeat left 50%;
+}
 a.extLink[href^="http://mora.jp/"] {
   background: url("/Content/ExtIcons/mora.png") no-repeat left 50%;
 }
