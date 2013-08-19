@@ -132,6 +132,9 @@
   <data name="AuthoredBy" xml:space="preserve">
     <value>VocaDB account</value>
   </data>
+  <data name="CollaborationAlbums" xml:space="preserve">
+    <value>Collaborations</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Groups" xml:space="preserve">
     <value>Circles and labels</value>
+  </data>
+  <data name="MainAlbums" xml:space="preserve">
+    <value>Main albums</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>Members</value>
