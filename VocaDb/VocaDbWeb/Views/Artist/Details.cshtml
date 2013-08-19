@@ -55,10 +55,14 @@
 		<li><a href="@Url.Action("Comments", "Artist", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
 		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@(Model.Pictures.Length + 1))</a></li>
 		<li>
-			<a href="@Url.Action("AlbumsPaged", "Artist", new { id = Model.Id, artistParticipation = VocaDb.Model.Service.Search.AlbumSearch.ArtistAlbumParticipationStatus.OnlyMainAlbums })"><span>Own albums</span></a>
+			<a href="@Url.Action("AlbumsPaged", "Artist", new { id = Model.Id, artistParticipation = VocaDb.Model.Service.Search.AlbumSearch.ArtistAlbumParticipationStatus.OnlyMainAlbums })">
+				<span>@R.DetailsStrings.MainAlbums</span>
+			</a>
 		</li>
 		<li>
-			<a href="@Url.Action("AlbumsPaged", "Artist", new { id = Model.Id, artistParticipation = VocaDb.Model.Service.Search.AlbumSearch.ArtistAlbumParticipationStatus.OnlyCollaborations })"><span>Collaborations</span></a>
+			<a href="@Url.Action("AlbumsPaged", "Artist", new { id = Model.Id, artistParticipation = VocaDb.Model.Service.Search.AlbumSearch.ArtistAlbumParticipationStatus.OnlyCollaborations })">
+				<span>@R.DetailsStrings.CollaborationAlbums</span>
+			</a>
 		</li>
 		<li><a href="@Url.Action("SongsPaged", "Artist", new { id = Model.Id })" title="All songs"><span>@ViewRes.Artist.DetailsStrings.AllSongs</span></a></li>
 	</ul>

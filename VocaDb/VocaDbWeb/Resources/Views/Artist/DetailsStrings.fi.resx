@@ -132,6 +132,9 @@
   <data name="AuthoredBy" xml:space="preserve">
     <value>VocaDB-käyttäjä</value>
   </data>
+  <data name="CollaborationAlbums" xml:space="preserve">
+    <value>Kokoelmat ja muut</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Seuraa</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Groups" xml:space="preserve">
     <value>Piirit ja levy-yhtiöt</value>
+  </data>
+  <data name="MainAlbums" xml:space="preserve">
+    <value>Omat albumit</value>
   </data>
   <data name="Members" xml:space="preserve">
     <value>Jäsenet</value>
