@@ -227,6 +227,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumSortRuleNames.fi.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Albums\DiscTypeDescriptions.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DiscTypeDescriptions.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ArtistArchiveReasonNames.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2523,6 +2528,11 @@
     <Content Include="App_GlobalResources\Artists\ArtistSortRuleNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistSortRuleNames.fi.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Albums\DiscTypeDescriptions.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DiscTypeDescriptions.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">

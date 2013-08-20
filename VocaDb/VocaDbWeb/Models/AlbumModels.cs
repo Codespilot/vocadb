@@ -37,6 +37,12 @@ namespace VocaDb.Web.Models {
 
 			AllDiscTypes = EnumVal<DiscType>.Values;
 
+			DiscTypeDescriptions = ViewRes.Album.EditStrings.BaDiscTypeExplanation 
+				+ "<br /><br /><ul>" + string.Join("", 
+					EnumVal<DiscType>.Values.Where(v => v != DiscType.Unknown).Select(v => string.Format("<li><strong>{0}</strong>: {1}</li>", 
+						Translate.DiscTypeName(v), global::Resources.DiscTypeDescriptions.ResourceManager.GetString(v.ToString()))));
+
+
 		}
 
 		public AlbumEdit(AlbumForEditContract album)
@@ -92,6 +98,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Record type")]
 		public DiscType DiscType { get; set; }
+
+		public string DiscTypeDescriptions { get; set; }
 
 		public bool Draft { get; set; }
 
