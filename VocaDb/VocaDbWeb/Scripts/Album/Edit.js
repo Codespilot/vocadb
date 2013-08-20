@@ -5,7 +5,8 @@ function initPage(viewModel, albumId, discType) {
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#trashLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
-	$(".helpToolTip").qtip();
+	$(".helpToolTip").qtip({ style: { classes: "tooltip-wider" } });
+	//$(".helpToolTip").tooltip({ placement: "right", html: true });
 	$("#pvLoader")
 		.ajaxStart(function() { $(this).show(); })
 		.ajaxStop(function () { $(this).hide(); });

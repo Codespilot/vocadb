@@ -9,7 +9,7 @@
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Albums, "Index"), 
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
-	};
+	};		
 }
 
 @section Toolbar {
@@ -131,6 +131,7 @@
 			</div>
 			<div class="editor-field">
 				@Html.DiscTypeDropDownListFor(m => m.DiscType, Model.DiscType)
+				@Helpers.HelpMessage(Model.DiscTypeDescriptions)
 			</div>
 
 			<table><tr>
