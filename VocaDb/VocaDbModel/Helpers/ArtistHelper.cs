@@ -10,6 +10,23 @@ namespace VocaDb.Model.Helpers {
 
 		public const string VariousArtists = "Various artists";
 
+		private static int GetSortOrderForArtistString(IArtistWithSupport artistLink, bool isAnimation) {
+
+			var categories = GetCategories(artistLink);
+
+			if (isAnimation && categories.HasFlag(ArtistCategories.Animator))
+				return 0;
+
+			if (categories.HasFlag(ArtistCategories.Producer))
+				return 1;
+
+			if (categories.HasFlag(ArtistCategories.Circle))
+				return 2;
+
+			return 3;
+
+		}
+
 		private static TranslatedString GetTranslatedName(IArtistWithSupport link) {
 
 			return (link.Artist != null ? link.Artist.TranslatedName : TranslatedString.Create(link.Name));
@@ -93,9 +110,14 @@ namespace VocaDb.Model.Helpers {
 			ParamIs.NotNull(() => artists);
 
 			var matched = artists.Where(IsValidCreditableArtist).ToArray();
-			var producers = matched.Where(a => IsProducerRole(a, isAnimation)).ToArray();
-			var performers = matched.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist) 
-				&& !producers.Contains(a)).ToArray();
+
+			var producers = matched
+				.Where(a => IsProducerRole(a, isAnimation))
+				.OrderBy(a => GetSortOrderForArtistString(a, isAnimation))
+				.ToArray();
+
+			var performers = matched
+				.Where(a => GetCategories(a).HasFlag(ArtistCategories.Vocalist) && !producers.Contains(a)).ToArray();
 
 			const string various = VariousArtists;
 
