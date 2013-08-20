@@ -10,6 +10,7 @@ namespace VocaDb.Tests.Helpers {
 	public class ArtistHelperTests {
 
 		private IArtistWithSupport animator;
+		private IArtistWithSupport circle;
 		private IArtistWithSupport producer;
 		private IArtistWithSupport producer2;
 		private IArtistWithSupport vocalist;
@@ -33,6 +34,7 @@ namespace VocaDb.Tests.Helpers {
 		public void SetUp() {
 
 			animator = CreateArtist(ArtistType.Animator, "wakamuraP");
+			circle = CreateArtist(ArtistType.Circle, "S.C.X.");
 			producer = CreateArtist(ArtistType.Producer, "devilishP");
 			producer2 = CreateArtist(ArtistType.Producer, "40mP");
 			vocalist = CreateArtist(ArtistType.Vocaloid, "Hatsune Miku");
@@ -114,6 +116,18 @@ namespace VocaDb.Tests.Helpers {
 
 		}
 
+		/// <summary>
+		/// One producer and circle, producer is shown first.
+		/// </summary>
+		[TestMethod]
+		public void GetArtistString_OneProducerAndCircle_ProducerFirst() {
+
+			var result = ArtistHelper.GetArtistString(new[] {circle, producer}, false);
+
+			Assert.AreEqual(CreateString(TranslatedString.Create(producer.Artist.DefaultName + ", " + circle.Artist.DefaultName)), result, "Producer is shown first");
+
+		}
+
 		[TestMethod]
 		public void GetArtistString_OnlyVocalist() {
 
@@ -132,12 +146,15 @@ namespace VocaDb.Tests.Helpers {
 
 		}
 
+		/// <summary>
+		/// One producer and animator, the disc is video. Animator is shown first.
+		/// </summary>
 		[TestMethod]
 		public void GetArtistString_OneProducerAndAnimator_IsVideo() {
 
 			var result = ArtistHelper.GetArtistString(new[] { producer, animator }, true);
 
-			Assert.AreEqual(CreateString(TranslatedString.Create(producer.Artist.DefaultName + ", " + animator.Artist.DefaultName)), result, "artist string has one producer and animator");
+			Assert.AreEqual(CreateString(TranslatedString.Create(animator.Artist.DefaultName + ", " + producer.Artist.DefaultName)), result, "artist string has one producer and animator");
 
 		}
 
