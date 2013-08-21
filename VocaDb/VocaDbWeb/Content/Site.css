@@ -475,14 +475,7 @@ div.panel {
 }
 
 /* Links */
-
-button.textLink {
-	background:none;
-	border:none; 
-	padding:0!important;
-	border-bottom:1px solid #444;	
-}
-
+/* Link with text prefixed by icon */
 .textLink {
 	display: -moz-inline-box;
 	display: inline-block;
@@ -513,7 +506,8 @@ input + .textLink {
 	margin-left: 3px;
 }
 
-.iconLink, .tooltipIcon {
+/* Link that appears only as icon */
+.iconLink {
 	float: left;
 	width: 24px;
 	height: 24px;
@@ -521,7 +515,7 @@ input + .textLink {
 	background-repeat: no-repeat;
 	text-indent: -10000px;
 	overflow: hidden;
-	padding: 0 !important;
+	padding: 0;
 }
 
 .iconLink {
