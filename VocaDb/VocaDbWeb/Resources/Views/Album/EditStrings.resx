@@ -130,7 +130,7 @@
     <value>Original language</value>
   </data>
   <data name="BaDescription" xml:space="preserve">
-    <value>Description</value>
+    <value>Album description</value>
   </data>
   <data name="BaDiscType" xml:space="preserve">
     <value>Record type</value>
@@ -220,7 +220,7 @@
     <value>Move to trash</value>
   </data>
   <data name="PiPicturesGuide" xml:space="preserve">
-    <value>Please only upload pictures relevant to this album, nothing else.</value>
+    <value>Note that for now the main picture is edited on the "Basic Info" tab. Please only upload pictures relevant to this album, nothing else.</value>
   </data>
   <data name="ArtistRolesTitle" xml:space="preserve">
     <value>Artist roles</value>

@@ -124,7 +124,7 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Description.
+        ///   Looks up a localized string similar to Album description.
         /// </summary>
         public static string BaDescription {
             get {
@@ -331,7 +331,7 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please only upload pictures relevant to this album, nothing else..
+        ///   Looks up a localized string similar to Note that for now the main picture is edited on the &quot;Basic Info&quot; tab. Please only upload pictures relevant to this album, nothing else..
         /// </summary>
         public static string PiPicturesGuide {
             get {

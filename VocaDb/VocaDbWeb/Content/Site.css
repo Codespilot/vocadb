@@ -30,10 +30,6 @@ legend {
 	font-weight: bold;
 }
 
-textarea {
-	min-height: 75px;
-}
-
 .editor-label {
 	margin: 1em 0 0 0;
 }
@@ -312,8 +308,8 @@ ul {
 	color: #21758a;
 }
 
-.menu a:hover {
-	color: #2F8897 !important;
+.menu a:hover, .menu a:hover:visited {
+	color: #2F8897;
 	text-decoration: underline;
 }
 
@@ -443,10 +439,6 @@ p.messageContent {
 	margin: 10px;
 }
 
-td.trackNameCol {
-	min-width: 200px;
-}
-
 div.panel {
 	padding: .7em;
 	margin: .5em;
@@ -461,6 +453,7 @@ div.panel {
 	margin-top: 5px;
 }
 
+/* Artist selection for track properties */
 .label-artistSelection {
 	font-size: inherit;
 	font-weight: normal;
