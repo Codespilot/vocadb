@@ -235,16 +235,10 @@ body .container-fluid {
 	color: #0065B2;	
 }
 
-.rightFrame a.btn-danger {
-	color: white !important;
-}
-
-.rightFrame a.btn-danger:visited {
-	color: white !important;
-}
-
-.rightFrame a.btn-danger:hover {
-	color: white !important;
+body .rightFrame a.btn-danger, 
+body .rightFrame a.btn-danger:visited, 
+body .rightFrame a.btn-danger:hover {
+	color: white;
 }
 
 .rightFrame li {
