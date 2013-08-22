@@ -364,7 +364,8 @@ namespace VocaDb.Model.Service {
 
 			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => Services.Artists.Find(session, new ArtistQueryParams {
 				Common = new CommonSearchParams { Query = a, NameMatchMode = NameMatchMode.Exact },
-				Paging = new PagingProperties(0, 1, false)
+				Paging = new PagingProperties(0, 1, false), 
+				SortRule = ArtistSortRule.AdditionDateAsc
 			}).Items.FirstOrDefault());
 
 			if (!string.IsNullOrEmpty(res.AuthorId)) {

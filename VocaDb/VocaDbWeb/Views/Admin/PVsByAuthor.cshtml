@@ -35,7 +35,7 @@
 
 	if (Login.Manager.HasPermission(PermissionToken.BulkDeletePVs)) {
 		<br />
-		@Html.ActionLink("Delete PVs by this author", "DeletePVsByAuthor", new { author = Model.Author }, new { @class = "btn btn-danger", @onclick = "return confirm('" + @Model.PVs.Length + " PVs will be deleted. Are you sure?');" })
+		<a href="@Url.Action("DeletePVsByAuthor", new { author = Model.Author })" class="btn btn-danger" onclick="return confirm('@Model.PVs.Length PVs will be deleted. Are you sure?');">Delete PVs by this author</a>
 	}
 
 }
