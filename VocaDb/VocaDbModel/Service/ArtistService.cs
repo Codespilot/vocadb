@@ -870,11 +870,25 @@ namespace VocaDb.Model.Service {
 
 	public enum ArtistSortRule {
 
+		/// <summary>
+		/// Not sorted (random order)
+		/// </summary>
 		None,
 
+		/// <summary>
+		/// Sort by name (ascending)
+		/// </summary>
 		Name,
 
-		AdditionDate
+		/// <summary>
+		/// Sort by addition date (descending)
+		/// </summary>
+		AdditionDate,
+
+		/// <summary>
+		/// Sort by addition date (ascending)
+		/// </summary>
+		AdditionDateAsc,
 
 	}
 
