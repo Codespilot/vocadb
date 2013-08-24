@@ -1237,6 +1237,8 @@ namespace VocaDb.Model.Service {
 
 		RatingAverage,
 
+		RatingTotal,
+
 		NameThenReleaseDate
 
 	}

@@ -33,7 +33,7 @@ namespace VocaDb.Web.Helpers {
 			new TranslateableEnum<AlbumReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
 
 		public static readonly TranslateableEnum<AlbumSortRule> AlbumSortRuleNames =
-			new TranslateableEnum<AlbumSortRule>(() => global::Resources.AlbumSortRuleNames.ResourceManager, new[] { AlbumSortRule.Name, AlbumSortRule.AdditionDate, AlbumSortRule.ReleaseDate, AlbumSortRule.RatingAverage });
+			new TranslateableEnum<AlbumSortRule>(() => global::Resources.AlbumSortRuleNames.ResourceManager, new[] { AlbumSortRule.Name, AlbumSortRule.AdditionDate, AlbumSortRule.ReleaseDate, AlbumSortRule.RatingAverage, AlbumSortRule.RatingTotal });
 
 		public static readonly TranslateableEnum<ArtistReportType> ArtistReportTypeNames =
 			new TranslateableEnum<ArtistReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
@@ -42,7 +42,7 @@ namespace VocaDb.Web.Helpers {
 			new TranslateableEnum<ArtistRoles>(() => global::Resources.ArtistRoleNames.ResourceManager);
 
 		public static readonly TranslateableEnum<ArtistSortRule> ArtistSortRuleNames =
-			new TranslateableEnum<ArtistSortRule>(() => global::Resources.ArtistSortRuleNames.ResourceManager, new[] { ArtistSortRule.Name, ArtistSortRule.AdditionDate });
+			new TranslateableEnum<ArtistSortRule>(() => global::Resources.ArtistSortRuleNames.ResourceManager, new[] { ArtistSortRule.Name, ArtistSortRule.AdditionDate, ArtistSortRule.AdditionDateAsc });
 
 		public static readonly TranslateableEnum<EntryEditEvent> EntryEditEventNames =
 			new TranslateableEnum<EntryEditEvent>(() => global::Resources.EntryEditEventNames.ResourceManager);
