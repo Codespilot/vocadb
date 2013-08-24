@@ -89,6 +89,8 @@
 					<a href="@Url.Action("Index", "Home")">
 						<img src="@Url.Content("~/Content/vocaDB-title.png")" alt="VocaDB" title="VocaDB" />
 					</a>
+					<p class="slogan">@VocaDb.Web.Code.SloganGenerator.Generate()</p>
+
 					<ul class="nav nav-list">
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
 						<li>

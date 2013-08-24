@@ -69,6 +69,12 @@ span.extraInfo, small.extraInfo {
 	font-size: small;
 }
 
+.slogan {
+	font-size: x-small;
+	margin-bottom: 5px;
+	text-align: right;
+}
+
 td {
 	padding: 5px;
 }
