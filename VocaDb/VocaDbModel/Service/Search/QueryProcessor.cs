@@ -33,9 +33,11 @@ namespace VocaDb.Model.Service.Search {
 			if (entries == null)
 				return new PartialFindResult<T>(new T[] { }, 0);
 
-			var queryResult =
+			/*var queryResult =
 				(orderBy != null ? orderBy(entries) : entries)				
-				.Distinct();
+				.Distinct();*/
+			//var queryResult = entries.Distinct();
+			var queryResult = entries;
 
 			var result =
 				queryResult
