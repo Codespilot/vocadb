@@ -221,6 +221,10 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static IEnumerable<IArtistWithSupport> GetProducers(IEnumerable<IArtistWithSupport> artists, bool isAnimation) {
+			return artists.Where(a => IsProducerRole(a, isAnimation));
+		}
+
 		public static string[] GetProducerNames(IEnumerable<IArtistWithSupport> artists, bool isAnimation, ContentLanguagePreference languagePreference) {
 
 			var matched = artists.Where(IsValidCreditableArtist).ToArray();

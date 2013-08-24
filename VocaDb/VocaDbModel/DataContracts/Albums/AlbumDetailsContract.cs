@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
@@ -7,7 +6,6 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Tags;
-using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Albums {
@@ -28,7 +26,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs
-				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
+				.OrderBy(s => s.DiscNumber).ThenBy(s => s.TrackNumber)
 				.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
 			Tags = album.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();

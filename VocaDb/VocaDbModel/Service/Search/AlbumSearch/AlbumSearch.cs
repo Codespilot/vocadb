@@ -28,7 +28,6 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 			if (musicProducerTypes.Contains(artist.ArtistType)) {
 
-				//var producerRoles = new[] {ArtistRoles.Default, ArtistRoles.Composer, ArtistRoles.Arranger};
 				var producerRoles = ArtistRoles.Composer | ArtistRoles.Arranger;
 
 				switch (participation) {

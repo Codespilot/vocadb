@@ -32,6 +32,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public int TrackNumber { get; set; }
 
+		public override string ToString() {
+			return string.Format("({0}.{1}) {2} in album", DiscNumber, TrackNumber, Song);
+		}
+
 	}
 
 }
