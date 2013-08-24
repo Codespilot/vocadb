@@ -111,6 +111,11 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
 						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
 						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day);
+				case AlbumSortRule.ReleaseDateWithNulls:
+					return criteria
+						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
+						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
+						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day);
 				case AlbumSortRule.AdditionDate:
 					return criteria.OrderByDescending(a => a.CreateDate);
 				case AlbumSortRule.RatingAverage:
