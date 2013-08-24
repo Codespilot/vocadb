@@ -15,6 +15,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 	$("#composeMessageLink").button({ icons: { primary: 'ui-icon-mail-closed'} });
 	$("#editUserLink").button({ icons: { primary: 'ui-icon-wrench'} });
 	$("#disableUserLink").button({ icons: { primary: 'ui-icon-close'} });
+	$("#avatar").tooltip({ placement: "bottom" });
 
 	$("#disableUserLink").click(function () {
 
