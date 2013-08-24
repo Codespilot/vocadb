@@ -20,6 +20,16 @@
 			
 }
 
+@helper Avatar() {
+	<a href="http://gravatar.com/emails/" title="@R.SetAvatar" id="avatar" style="text-decoration: none">
+		@if (!string.IsNullOrEmpty(Model.Email)) {
+			@UserHelpers.ProfileIcon(Model, 120)
+		} else {
+			<img src="@Url.Content("~/Content/unknown.png")" width="120" height="120" alt="Avatar" />
+		}
+	</a>
+}
+
 @section Toolbar {
 @if (ownProfile) {
 	@Html.ActionLink(R.MySettings, "MySettings", null, new { id = "mySettingsLink" });
@@ -44,7 +54,7 @@
 <div class="row-fluid">
 	<div class="span2">
 		<h4>@Model.Name</h4>
-		@UserHelpers.ProfileIcon(Model, 120)
+		@Avatar()
 		<br />
 		<p class="withMargin">
 			@Translate.UserGroups[Model.GroupId]
