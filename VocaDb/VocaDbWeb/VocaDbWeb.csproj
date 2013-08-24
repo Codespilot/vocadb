@@ -585,6 +585,7 @@
     <Compile Include="Code\Security\RestrictBannedIPAttribute.cs" />
     <Compile Include="Code\Security\RestrictBlockedIPAttribute.cs" />
     <Compile Include="Code\Security\TwitterConsumer.cs" />
+    <Compile Include="Code\SloganGenerator.cs" />
     <Compile Include="Code\TimeAgoStringBuilder.cs" />
     <Compile Include="Code\VocaDbPage.cs" />
     <Compile Include="Controllers\ActivityEntryController.cs" />
