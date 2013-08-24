@@ -17,18 +17,21 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				filters.Add(new AlbumNameFilter(names.Select(n => n.Value)));
 			}
 
+			var artists = words.TakeAll("artist");
+			if (artists.Any()) {
+				filters.Add(new AlbumArtistNameFilter(artists.Select(n => n.Value)));
+			}
+
 			while (words.Any()) {
 
 				var word = words.TakeNext();
-				ISearchFilter<Album> filter;
+				ISearchFilter<Album> filter = null;
 
 				switch (word.PropertyName.ToLowerInvariant()) {
-					case "artist":
+					case "artistId":
 						int artistId;
 						if (int.TryParse(word.Value, out artistId))
 							filter = new AlbumArtistFilter(artistId);
-						else
-							filter = new AlbumArtistNameFilter(word.Value);
 						break;
 
 					case "tag":
@@ -41,7 +44,8 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 				}
 
-				filters.Add(filter);
+				if (filter != null)
+					filters.Add(filter);
 
 			}
 

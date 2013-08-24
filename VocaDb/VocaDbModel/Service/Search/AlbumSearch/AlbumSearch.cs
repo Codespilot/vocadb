@@ -28,13 +28,14 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 			if (musicProducerTypes.Contains(artist.ArtistType)) {
 
-				var producerRoles = new[] {ArtistRoles.Default, ArtistRoles.Composer, ArtistRoles.Arranger};
+				//var producerRoles = new[] {ArtistRoles.Default, ArtistRoles.Composer, ArtistRoles.Arranger};
+				var producerRoles = ArtistRoles.Composer | ArtistRoles.Arranger;
 
 				switch (participation) {
 					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
-						return query.Where(a => !a.IsSupport && producerRoles.Contains(a.Roles) && a.Album.ArtistString.Default != ArtistHelper.VariousArtists);
+						return query.Where(a => !a.IsSupport && ((a.Roles == ArtistRoles.Default) || ((a.Roles & producerRoles) != ArtistRoles.Default)) && a.Album.ArtistString.Default != ArtistHelper.VariousArtists);
 					case ArtistAlbumParticipationStatus.OnlyCollaborations:
-						return query.Where(a => a.IsSupport || !producerRoles.Contains(a.Roles) || a.Album.ArtistString.Default == ArtistHelper.VariousArtists);
+						return query.Where(a => a.IsSupport || ((a.Roles != ArtistRoles.Default) && ((a.Roles & producerRoles) == ArtistRoles.Default)) || a.Album.ArtistString.Default == ArtistHelper.VariousArtists);
 					default:
 						return query;
 				}
@@ -115,6 +116,9 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				case AlbumSortRule.RatingAverage:
 					return criteria.OrderByDescending(a => a.RatingAverageInt)
 						.ThenByDescending(a => a.RatingCount);
+				case AlbumSortRule.RatingTotal:
+					return criteria.OrderByDescending(a => a.RatingTotal)
+						.ThenByDescending(a => a.RatingAverageInt);
 				case AlbumSortRule.NameThenReleaseDate:
 					return FindHelpers.AddNameOrder(criteria, languagePreference)
 						.ThenBy(a => a.OriginalRelease.ReleaseDate.Year)
