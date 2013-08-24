@@ -99,6 +99,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public int Version { get; set; }
 
+		public override string ToString() {
+			return string.Format("song '{0}' [{1}]", Name, Id);
+		}
+
 	}
 
 }

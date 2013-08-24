@@ -101,7 +101,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return Song + " in " + Album;
+			return string.Format("({0}.{1}) {2} in {3}", DiscNumber, TrackNumber, Song, Album);
 		}
 
 	}
