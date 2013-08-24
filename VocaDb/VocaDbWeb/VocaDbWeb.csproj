@@ -1671,7 +1671,6 @@
     </Content>
     <Content Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <Content Include="Scripts\typings\jquery\jquery.d.ts" />
-    <Content Include="Scripts\typings\knockout\knockout.amd.d.ts" />
     <Content Include="Scripts\typings\knockout\knockout.d.ts" />
     <Content Include="Scripts\typings\qunit\qunit.d.ts" />
     <Content Include="Scripts\typings\underscore\underscore.d.ts" />

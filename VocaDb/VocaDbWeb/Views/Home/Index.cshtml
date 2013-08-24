@@ -46,7 +46,7 @@
     @AlbumHelpers.AlbumThumbs(Model.NewAlbums)    
 </div>
 
-<h4 class="withMargin">@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null))</h4>
+<h4 class="withMargin">@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingTotal }, null))</h4>
 <div id="topAlbums">
     @AlbumHelpers.AlbumThumbs(Model.TopAlbums)    
 </div>
