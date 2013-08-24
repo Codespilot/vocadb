@@ -75,6 +75,13 @@ span.extraInfo, small.extraInfo {
 	text-align: right;
 }
 
+.user-avatar {
+	text-decoration: none;
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+}
+
 td {
 	padding: 5px;
 }

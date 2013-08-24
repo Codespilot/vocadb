@@ -20,14 +20,22 @@
 			
 }
 
+@helper AvatarImg() {
+	if (!string.IsNullOrEmpty(Model.Email)) {
+		@UserHelpers.ProfileIcon(Model, 120)
+	} else {
+		<img src="@Url.Content("~/Content/unknown.png")" width="120" height="120" alt="Avatar" />
+	}
+}
+
 @helper Avatar() {
-	<a href="http://gravatar.com/emails/" title="@R.SetAvatar" id="avatar" style="text-decoration: none">
-		@if (!string.IsNullOrEmpty(Model.Email)) {
-			@UserHelpers.ProfileIcon(Model, 120)
-		} else {
-			<img src="@Url.Content("~/Content/unknown.png")" width="120" height="120" alt="Avatar" />
-		}
-	</a>
+	if (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active) {
+		<a href="http://gravatar.com/emails/" title="@R.SetAvatar" id="avatar" class="user-avatar">
+			@AvatarImg()
+		</a>		
+	} else {
+		@AvatarImg()
+	}
 }
 
 @section Toolbar {
