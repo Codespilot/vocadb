@@ -50,7 +50,7 @@ namespace VocaDb.Web.Controllers
 			var pageIndex = (page - 1) ?? 0;
 			var queryParams = new AlbumQueryParams {
 				Paging = PagingProperties.CreateFromPage(pageIndex, entriesPerPage, true),
-				SortRule = AlbumSortRule.ReleaseDate,
+				SortRule = AlbumSortRule.ReleaseDateWithNulls,
 				ArtistId = id,
 				ArtistParticipationStatus = artistParticipation ?? ArtistAlbumParticipationStatus.Everything
 			};
