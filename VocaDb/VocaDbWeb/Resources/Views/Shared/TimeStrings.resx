@@ -126,6 +126,9 @@
   <data name="Minutes" xml:space="preserve">
     <value>minutes</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>months</value>
+  </data>
   <data name="TimeAgo" xml:space="preserve">
     <value>{0} {1} ago</value>
   </data>

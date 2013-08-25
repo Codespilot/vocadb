@@ -129,7 +129,7 @@
 				</td>
 				<td>
 					<span class="@style">
-						@ver.Contract.Created						
+						@Helpers.UniversalTimeLabel(ver.Contract.Created)
 					</span>
 				</td>
 				<td>					
@@ -188,10 +188,10 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 				</td>
 			</tr><tr>
 				<td>Created</td>
-				<td>@ver.Contract.Created</td>
+				<td>@Helpers.UniversalTimeLabel(ver.Contract.Created)</td>
 				<td>
 					@if (compareTo != null) {
-						@compareTo.Contract.Created
+						@Helpers.UniversalTimeLabel(compareTo.Contract.Created)
 					}
 				</td>
 			</tr><tr>

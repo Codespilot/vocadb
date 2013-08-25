@@ -2792,7 +2792,7 @@
     <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TimeStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />

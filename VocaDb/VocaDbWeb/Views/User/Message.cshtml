@@ -9,7 +9,9 @@
 	<div class="messageTitle ui-widget-header ui-corner-all">
 		<div class="messageTitleText">
 			@Model.Subject<br />
-			<span>@Model.Created.ToString().</span>
+			<span>
+				@Helpers.UniversalTimeLabel(Model.Created)
+			</span>
 			<span>@ViewRes.User.MessagesStrings.From</span>
 			<span>@UserHelpers.UserIconLink(Model.Sender, Model.Sender.Name).</span>
 			<span>@ViewRes.User.MessagesStrings.To</span>

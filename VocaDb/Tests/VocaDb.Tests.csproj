@@ -131,6 +131,7 @@
     <Compile Include="TestSupport\PictureDownloaderStub.cs" />
     <Compile Include="TestSupport\ResourceHelper.cs" />
     <Compile Include="Web\Code\EntryAnchorFactoryTests.cs" />
+    <Compile Include="Web\Code\TimeAgoStringBuilderTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
     <Compile Include="Web\Controllers\ArtistControllerTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\UserQueriesTests.cs" />

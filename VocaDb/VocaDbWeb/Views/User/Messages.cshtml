@@ -35,7 +35,7 @@
 			<tbody>
 			@foreach (var message in Model.ReceivedMessages) {
 				<tr id="@("viewFromMessage_" + message.Id)">
-					<td>@message.Created</td>
+					<td>@Helpers.UniversalTimeLabel(message.Created)</td>
 					<td>@UserHelpers.IconAndName(message.Sender)</td>
 					<td>
 						@if (message.HighPriority) {

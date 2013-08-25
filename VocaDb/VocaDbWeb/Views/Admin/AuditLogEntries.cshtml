@@ -2,7 +2,7 @@
 
 @foreach (var entry in Model) {
 	<tr>
-		<td>@entry.Time</td>
+		<td>@entry.Time.ToUniversalTime()</td>
 		<td>
 			@UserHelpers.UserLink(entry.User, entry.AgentName)
 		</td>

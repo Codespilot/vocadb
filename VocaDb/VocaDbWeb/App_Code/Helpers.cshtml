@@ -317,6 +317,10 @@
 	  	  
 }
 
+@helper UniversalTimeLabel(DateTime dateTime) {
+	<span title="UTC">@dateTime.ToUniversalTime()</span>
+}
+
 @helper ValidationSymmaryPanel(string message) {
     if (!ViewData.ModelState.IsValid) {
         using (Html.BeginErrorPanel()) {
