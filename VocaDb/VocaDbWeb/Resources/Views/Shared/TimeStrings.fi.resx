@@ -126,6 +126,9 @@
   <data name="Minutes" xml:space="preserve">
     <value>minuuttia</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>kuukautta</value>
+  </data>
   <data name="TimeAgo" xml:space="preserve">
     <value>{0} {1} sitten</value>
   </data>

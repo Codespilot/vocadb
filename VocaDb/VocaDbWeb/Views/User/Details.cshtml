@@ -108,11 +108,11 @@
 
 		@if (Login.CanManageUsers || ownProfile) {
 			<h4 class="withMargin">@R.LastLogin</h4>
-			@Model.LastLogin
-	  if (Login.CanManageUsers) {
+			@Helpers.UniversalTimeLabel(Model.LastLogin)
+			if (Login.CanManageUsers) {
 				@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
 				<a href='http://www.stopforumspam.com/search?q=@Model.LastLoginAddress'>StopForumSpam</a>
-	  }		
+			}		
 			@(" (" + R.VisibleOnlyToMe + ")")
 	 
 	  if (Model.AdditionalPermissions.Any()) {

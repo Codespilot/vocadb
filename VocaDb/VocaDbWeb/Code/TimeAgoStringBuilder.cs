@@ -17,8 +17,21 @@ namespace VocaDb.Web.Code {
 
 		}
 
+		public static string FormatTimeAgo(DateTime now, DateTime time) {
+
+			var timeSpan = now - time;
+
+			if (timeSpan.TotalDays > 60) {
+				var months = ((now.Year - time.Year) * 12) + now.Month - time.Month;
+				return string.Format(TimeStrings.TimeAgo, months, TimeStrings.Months);
+			}
+
+			return FormatTimeAgo(timeSpan);
+
+		}
+
 		public static string FormatTimeAgo(DateTime time) {
-			return FormatTimeAgo(DateTime.Now - time);
+			return FormatTimeAgo(DateTime.Now, time);
 		}
 
 	}
