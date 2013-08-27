@@ -1,9 +1,16 @@
-﻿namespace VocaDb.Web.Code {
+﻿using System;
+
+namespace VocaDb.Web.Code {
 
 	public class SloganGenerator {
 
+		private static readonly string[] slogans = { "Telling you who's whoo.", "1st place to check." };
+
 		public static string Generate() {
-			return "Telling you who's whoo.";
+
+			var result = slogans[new Random().Next(slogans.Length)];
+
+			return result;
 		}
 
 	}
