@@ -194,7 +194,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				user.UpdateLastLogin(hostname);
 				ctx.Save(user);
 
-				ctx.AuditLogger.AuditLog(string.Format("registered from {0} using Twitter.", MakeGeoIpToolLink(hostname)), user);
+				ctx.AuditLogger.AuditLog(string.Format("registered from {0} using Twitter name '{1}'.", MakeGeoIpToolLink(hostname), twitterName), user);
 
 				return new UserContract(user);
 
