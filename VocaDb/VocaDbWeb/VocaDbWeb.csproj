@@ -2753,6 +2753,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EntryDetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\EntryDetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\EntryEditStrings.resx">
