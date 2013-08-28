@@ -594,6 +594,7 @@
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\DataAccess\AlbumQueries.cs" />
     <Compile Include="Controllers\DataAccess\UserQueries.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
@@ -2120,6 +2121,7 @@
     <Content Include="Views\Album\Partials\_TrackProperties.cshtml" />
     <Content Include="Views\Album\Partials\_TrackArtistSelection.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Album\RelatedAlbums.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -2619,7 +2621,9 @@
       <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\CreateStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.fi.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Album\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

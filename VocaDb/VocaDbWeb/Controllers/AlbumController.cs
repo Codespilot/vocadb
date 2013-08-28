@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
@@ -7,7 +6,6 @@ using MvcPaging;
 using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -15,6 +13,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.TagFormatting;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models;
 using System.Drawing;
@@ -31,11 +30,15 @@ namespace VocaDb.Web.Controllers
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly Size pictureThumbSize = new Size(250, 250);
+	    private readonly AlbumQueries queries;
 
 		private AlbumService Service { get; set; }
 
-		public AlbumController(AlbumService service) {
+		public AlbumController(AlbumService service, AlbumQueries queries) {
+
 			Service = service;
+			this.queries = queries;
+
 		}
 
 		public ActionResult ArchivedVersionCoverPicture(int id) {
@@ -311,6 +314,13 @@ namespace VocaDb.Web.Controllers
         	return RedirectToAction("Details", new { id = model.Id });
 
         }
+
+		public ActionResult Related(int id) {
+
+			var related = queries.GetRelatedAlbums(id);
+			return PartialView("RelatedAlbums", related);
+
+		}
 
 		[Authorize]
 		public ActionResult RemoveTagUsage(long id) {

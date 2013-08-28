@@ -198,4 +198,7 @@
   <data name="WishlistedByTitle" xml:space="preserve">
     <value>Wishlisted by</value>
   </data>
+  <data name="RelatedAlbums" xml:space="preserve">
+    <value>Related albums</value>
+  </data>
 </root>

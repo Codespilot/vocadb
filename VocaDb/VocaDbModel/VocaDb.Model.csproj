@@ -541,6 +541,10 @@
     <Compile Include="Service\AlbumImport\IPictureDownloader.cs" />
     <Compile Include="Service\AlbumImport\KarenTAlbumImporter.cs" />
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
+    <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
+    <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
+    <Compile Include="Service\Repositories\AlbumNHibernateRepository.cs" />
+    <Compile Include="Service\Repositories\IAlbumRepository.cs" />
     <Compile Include="Service\Repositories\IAuditLogger.cs" />
     <Compile Include="Service\Repositories\IRepositoryContextExtender.cs" />
     <Compile Include="Service\Repositories\NHibernateAuditLogger.cs" />
@@ -720,9 +724,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\Queries\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

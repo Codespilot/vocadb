@@ -26,13 +26,20 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<QueryService>();
 
 			builder.Register(x => DatabaseConfiguration.BuildSessionFactory()).SingleInstance();
+
 			builder.RegisterType<LoginManager>().As<IUserPermissionContext>();
 			builder.RegisterType<EntryAnchorFactory>().As<IEntryLinkFactory>();
+
+			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();
 			builder.RegisterType<AdminService>().AsSelf();
 			builder.RegisterType<AlbumService>().AsSelf();
 			builder.RegisterType<UserService>().AsSelf();
+
+			// Repositories
+			builder.RegisterType<AlbumNHibernateRepository>().As<IAlbumRepository>();
 			builder.RegisterType<UserNHibernateRepository>().As<IUserRepository>();
+			builder.RegisterType<AlbumQueries>().AsSelf();
 			builder.RegisterType<UserQueries>().AsSelf();
 
 			// Build container.
