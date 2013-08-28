@@ -64,7 +64,11 @@ namespace VocaDb.Model.Service.Queries {
 				var otherAlbumIds = albums.ArtistMatches.Select(a => a.Id).ToArray();
 
 				var albumsWithTags =
-					ctx.Query().Where(al => !otherAlbumIds.Contains(al.Id) && !al.Deleted && al.Tags.Usages.Any(t => tagNames.Contains(t.Tag.Name)))
+					ctx.Query().Where(al => 
+						al.Id != albumId
+						&& !otherAlbumIds.Contains(al.Id) 
+						&& !al.Deleted 
+						&& al.Tags.Usages.Any(t => tagNames.Contains(t.Tag.Name)))
 					.OrderBy(a => a.RatingTotal)
 					.Take(20)
 					.ToArray();
