@@ -150,6 +150,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Ei mitään vielä!</value>
   </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Harmi, ei tuloksia :(</value>
+  </data>
   <data name="OfficialLinks" xml:space="preserve">
     <value>Viralliset linkit</value>
   </data>

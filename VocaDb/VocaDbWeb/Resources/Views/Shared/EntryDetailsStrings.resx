@@ -150,6 +150,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Nothing yet!</value>
   </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Sorry, no matches :(</value>
+  </data>
   <data name="OfficialLinks" xml:space="preserve">
     <value>Official links</value>
   </data>

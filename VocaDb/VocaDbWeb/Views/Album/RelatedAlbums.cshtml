@@ -1,3 +1,7 @@
 ﻿@model VocaDb.Model.DataContracts.Albums.AlbumContract[]
 
-@AlbumHelpers.AlbumGrid(Model, 2, true, false, true)
+@if (Model.Any()) {
+	@AlbumHelpers.AlbumGrid(Model, 2, true, false, true)
+} else {
+	@ViewRes.EntryDetailsStrings.NoMatches
+}
