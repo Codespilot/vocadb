@@ -198,4 +198,7 @@
   <data name="WishlistedByTitle" xml:space="preserve">
     <value>Toivoneet</value>
   </data>
+  <data name="RelatedAlbums" xml:space="preserve">
+    <value>Samankaltaiset albumit</value>
+  </data>
 </root>
