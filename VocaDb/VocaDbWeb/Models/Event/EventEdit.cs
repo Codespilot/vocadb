@@ -40,10 +40,12 @@ namespace VocaDb.Web.Models.Event {
 		[CultureInvariantDateTimeModelBinder("Date")]
 		public DateTime? Date { get; set; }
 
+		[StringLength(400)]
 		public string Description { get; set; }
 
 		public int Id { get; set; }
 
+		[StringLength(50)]
 		public string Name { get; set; }
 
 		public int? SeriesId { get; set; }

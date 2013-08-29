@@ -12,7 +12,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Id(m => m.Id);
 
 			Map(m => m.Date).Nullable();
-			Map(m => m.Description).Length(200).Not.Nullable();
+			Map(m => m.Description).Length(400).Not.Nullable();
 			Map(m => m.Name).Length(50).Not.Nullable();
 			Map(m => m.SeriesNumber).Not.Nullable();
 
@@ -35,7 +35,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
-			Map(m => m.Description).Length(200).Not.Nullable();
+			Map(m => m.Description).Length(400).Not.Nullable();
 			Map(m => m.Name).Length(50).Not.Nullable();
 
 			HasMany(m => m.Aliases).KeyColumn("[Series]").Inverse().Cascade.All().Cache.ReadWrite();

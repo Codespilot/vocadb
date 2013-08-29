@@ -22,10 +22,16 @@ namespace VocaDb.Model.Service.Queries {
 		}
 
 		public RelatedAlbumsQuery(IRepositoryContext<Album> ctx) {
+
+			ParamIs.NotNull(() => ctx);
+
 			this.ctx = ctx;
+
 		}
 
 		public RelatedAlbums GetRelatedAlbums(Album album) {
+
+			ParamIs.NotNull(() => album);
 
 			var albums = new RelatedAlbums();
 			var albumId = album.Id;
@@ -49,10 +55,8 @@ namespace VocaDb.Model.Service.Queries {
 					.OrderBy(a => a.RatingTotal)
 					.Distinct()
 					.Take(30)
-					.ToArray()
-					;
+					.ToArray();
 
-				//albums.AddRange(albumsByMainArtists);
 				albums.ArtistMatches = albumsByMainArtists;
 
 			}
