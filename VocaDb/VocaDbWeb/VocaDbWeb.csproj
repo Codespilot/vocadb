@@ -2170,6 +2170,7 @@
     <Content Include="Views\Song\Partials\_SongInListsDialogContent.cshtml" />
     <Content Include="Views\Song\Partials\_SongInListsDialog.cshtml" />
     <Content Include="Views\User\RequestVerification.cshtml" />
+    <Content Include="Views\Shared\Partials\_LeftMenu.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
