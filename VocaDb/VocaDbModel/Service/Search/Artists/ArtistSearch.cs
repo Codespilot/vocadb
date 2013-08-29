@@ -153,7 +153,7 @@ namespace VocaDb.Model.Service.Search.Artists {
 				var additionalNames = AddOrder(additionalNamesQ
 					.Select(m => m.Artist), sortRule, LanguagePreference)
 					.Distinct()
-					.Take(maxResults)	// Note that this won't work with paging
+					.Take(start + maxResults)	// Note: this needs to be verified with paging
 					//.FetchMany(s => s.Names)
 					.ToArray();
 
