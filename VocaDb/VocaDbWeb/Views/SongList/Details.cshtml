@@ -1,22 +1,38 @@
 ﻿@using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Helpers;
+@using VocaDb.Model.Utils
 @using MvcPaging;
 @using R = ViewRes.SongList;
 @model SongListDetailsContract
 		   
 @{
-	ViewBag.Title = R.DetailsStrings.SongList + " - " + Model.Name;
+	
 	if (Model.FeaturedCategory == SongListFeaturedCategory.Nothing) {
+		ViewBag.Title = string.Format("{0} - {1}", R.DetailsStrings.SongList, Model.Name);
 		ViewBag.Parents = new[] {
 			Html.ActionLink(Model.Author.Name, "Details", "User", new {id = Model.Author.Id}, null)
 		};
 	} else {
+
+		var categoryName = Translate.SongListFeaturedCategoryNames[Model.FeaturedCategory];
+
+		ViewBag.Title = string.Format("{0} - {1}", categoryName, Model.Name);
 		ViewBag.Parents = new[] {
-			Html.ActionLink(Translate.SongListFeaturedCategoryNames[Model.FeaturedCategory], "Featured", "SongList")
+			Html.ActionLink(categoryName, "Featured", "SongList")
 		};		
 	}
 
+	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id })).ToString();
+	
+}
+
+@section Head {
+	@HtmlHelpers.OpenGraphMetaTags(
+		url: url, 
+		description: Model.Description
+	)
+	<link rel="canonical" href="@url" />	
 }
 
 @section Toolbar {	
