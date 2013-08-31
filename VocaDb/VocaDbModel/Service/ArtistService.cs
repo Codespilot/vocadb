@@ -127,7 +127,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, artist, ArtistArchiveReason.Created);
 				session.Update(artist);
 
-				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(artist)), session);
+				AuditLog(string.Format("created artist {0}", EntryLinkFactory.CreateEntryLink(artist)), session);
 				AddEntryEditedEntry(session, artist, EntryEditEvent.Created);
 
 				return new ArtistContract(artist, PermissionContext.LanguagePreference);
@@ -775,61 +775,7 @@ namespace VocaDb.Model.Service {
 				if (picsDiff.Changed)
 					diff.Pictures = true;
 
-				/*
-				var albumGetter = new Func<AlbumForArtistEditContract, Album>(contract => {
-
-					Album album;
-
-					if (contract.AlbumId != 0) {
-
-						album = session.Load<Album>(contract.AlbumId);
-
-					} else {
-
-						AuditLog(string.Format("creating a new album '{0}' to {1}", contract.AlbumName, artist));
-
-						album = new Album(contract.AlbumName);
-						session.Save(album);
-
-						Services.Albums.Archive(session, album, AlbumArchiveReason.Created,
-							string.Format("Created for artist '{0}'", artist.DefaultName));
-
-						AuditLog(string.Format("created {0} for {1}", 
-							EntryLinkFactory.CreateEntryLink(album), EntryLinkFactory.CreateEntryLink(artist)), session);
-						AddEntryEditedEntry(session, album, EntryEditEvent.Created);
-
-					}
-
-					return album;
-
-				});
-
-				if (properties.AlbumLinks != null 
-					&& !properties.TooManyAlbums
-					&& (properties.AlbumLinks.Any() || artist.Albums.Count() < ArtistForEditContract.MaxAlbums / 2)  
-					&& artist.Albums.Count() <= ArtistForEditContract.MaxAlbums) {
-
-					var albumDiff = artist.SyncAlbums(properties.AlbumLinks, albumGetter);
-
-					SessionHelper.Sync(session, albumDiff);
-
-					if (albumDiff.Changed) {
-
-						diff.Albums = true;
-
-						var add = string.Join(", ", albumDiff.Added.Select(i => i.Album.ToString()));
-						var rem = string.Join(", ", albumDiff.Removed.Select(i => i.Album.ToString()));
-
-						var str = string.Format("edited albums (added: {0}, removed: {1})", add, rem)
-							.Truncate(300);
-
-						AuditLog(str, session);
-
-					}
-
-				}*/
-
-				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString)
+				var logStr = string.Format("updated properties for artist {0} ({1})", EntryLinkFactory.CreateEntryLink(artist), diff.ChangedFieldsString)
 					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
 					.Truncate(400);
 

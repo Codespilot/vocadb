@@ -950,7 +950,7 @@ namespace VocaDb.Model.Service {
 				user.Active = contract.Active;
 				user.Options.Poisoned = contract.Poisoned;
 
-				AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(user)), session);
+				AuditLog(string.Format("updated user {0}", EntryLinkFactory.CreateEntryLink(user)), session);
 
 			}, PermissionToken.ManageUserPermissions, skipLog: true);
 
