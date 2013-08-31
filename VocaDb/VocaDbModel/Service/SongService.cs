@@ -245,7 +245,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, song, SongArchiveReason.Created);
 				session.Update(song);
 
-				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(song)), session);
+				AuditLog(string.Format("created song {0}", EntryLinkFactory.CreateEntryLink(song)), session);
 				AddEntryEditedEntry(session, song, EntryEditEvent.Created);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
@@ -270,7 +270,7 @@ namespace VocaDb.Model.Service {
 
 			session.Update(newList);
 
-			AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(newList)), session, user);
+			AuditLog(string.Format("created song list {0}", EntryLinkFactory.CreateEntryLink(newList)), session, user);
 
 			return newList;
 
@@ -1277,7 +1277,7 @@ namespace VocaDb.Model.Service {
 				if (lyricsDiff.Changed)
 					diff.Lyrics = true;
 
-				var logStr = string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString)
+				var logStr = string.Format("updated properties for song {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString)
 					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
 					.Truncate(400);
 
@@ -1292,60 +1292,6 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-
-		/*
-		[Obsolete("Integrated to saving properties")]
-		public SongForEditContract UpdateLyrics(int songId, IEnumerable<LyricsForSongContract> lyrics) {
-			
-			ParamIs.NotNull(() => lyrics);
-
-			var validLyrics = lyrics.Where(l => !string.IsNullOrEmpty(l.Value));
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session))) { Lyrics = true };	// TODO: actually check if they changed
-
-				AuditLog("updating lyrics for " + song);
-
-				var deleted = song.Lyrics.Where(l => !validLyrics.Any(l2 => l.Id == l2.Id)).ToArray();
-
-				foreach (var l in deleted) {
-					song.Lyrics.Remove(l);
-					session.Delete(l);
-				}
-
-				foreach (var entry in validLyrics) {
-
-					var entry1 = entry;
-					var old = (entry1.Id != 0 ? song.Lyrics.FirstOrDefault(l => l.Id == entry1.Id) : null);
-
-					if (old != null) {
-
-						old.Language = entry.Language;
-						old.Source = entry.Source;
-						old.Value = entry.Value;
-						session.Update(old);
-
-					} else {
-
-						var l = song.CreateLyrics(entry.Language, entry.Value, entry.Source);
-						session.Save(l);
-
-					}
-
-				}
-
-				AuditLog(string.Format("updated properties for {0} ({1})", EntryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString), session);
-
-				Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
-				session.Update(song);
-
-				return new SongForEditContract(song, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
 
 		public int UpdateSongList(SongListForEditContract contract) {
 
@@ -1379,7 +1325,7 @@ namespace VocaDb.Model.Service {
 
 					session.Update(list);
 
-					AuditLog(string.Format("updated {0}", EntryLinkFactory.CreateEntryLink(list)), session, user);
+					AuditLog(string.Format("updated song list {0}", EntryLinkFactory.CreateEntryLink(list)), session, user);
 
 				}
 

@@ -179,7 +179,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
 
-				AuditLog(string.Format("created {0}", EntryLinkFactory.CreateEntryLink(album)), session);
+				AuditLog(string.Format("created album {0}", EntryLinkFactory.CreateEntryLink(album)), session);
 				AddEntryEditedEntry(session, album, EntryEditEvent.Created);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
@@ -1184,7 +1184,7 @@ namespace VocaDb.Model.Service {
 					if (pvDiff.Changed)
 						diff.PVs = true;
 
-					var logStr = string.Format("updated properties for {0} ({1})", 
+					var logStr = string.Format("updated properties for album {0} ({1})", 
 						EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
 						+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
 						.Truncate(400);
