@@ -245,7 +245,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, song, SongArchiveReason.Created);
 				session.Update(song);
 
-				AuditLog(string.Format("created song {0}", EntryLinkFactory.CreateEntryLink(song)), session);
+				AuditLog(string.Format("created song {0} ({1})", EntryLinkFactory.CreateEntryLink(song), song.SongType), session);
 				AddEntryEditedEntry(session, song, EntryEditEvent.Created);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);

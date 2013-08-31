@@ -179,7 +179,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, album, AlbumArchiveReason.Created);
 				session.Update(album);
 
-				AuditLog(string.Format("created album {0}", EntryLinkFactory.CreateEntryLink(album)), session);
+				AuditLog(string.Format("created album {0} ({1})", EntryLinkFactory.CreateEntryLink(album), album.DiscType), session);
 				AddEntryEditedEntry(session, album, EntryEditEvent.Created);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
