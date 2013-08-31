@@ -5,20 +5,47 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain {
 
+	/// <summary>
+	/// Picture file with multiple sizes for an entry, such as album or artist.
+	/// Files are named like 123.jpg + 123-t.jpg, when picture Id is 123 and file type is jpg.
+	/// </summary>
 	public abstract class EntryPictureFile {
 
+		/// <summary>
+		/// Get file extension based on MIME type.
+		/// </summary>
+		/// <param name="mime">MIME type. Cannot be null.</param>
+		/// <returns>File extension, including the leading dot. For example ".jpg". Cannot be null. Can be empty if the MIME is not recognized.</returns>
 		private static string GetExtension(string mime) {
 			return ImageHelper.GetExtensionFromMime(mime) ?? string.Empty;
 		}
 
+		/// <summary>
+		/// Gets the file name for the original image.
+		/// </summary>
+		/// <param name="id">Entry Id.</param>
+		/// <param name="mime">MIME type. Can be null, but usually this makes no sense.</param>
+		/// <returns>File name. Cannot be null or empty.</returns>
 		public static string GetFileName(int id, string mime) {
 			return string.Format("{0}{1}", id, GetExtension(mime));
 		}
 
+		/// <summary>
+		/// Gets the file name for the small thumbnail (default size is 70x70 pixels).
+		/// </summary>
+		/// <param name="id">Picture Id.</param>
+		/// <param name="mime">MIME type. Can be null, but usually this makes no sense.</param>
+		/// <returns>File name. Cannot be null or empty.</returns>
 		public static string GetFileNameSmallThumb(int id, string mime) {
 			return string.Format("{0}-st{1}", id, GetExtension(mime));
 		}
 
+		/// <summary>
+		/// Gets the file name for the larger thumbnail (default size is 250x250 pixels).
+		/// </summary>
+		/// <param name="id">Picture Id.</param>
+		/// <param name="mime">MIME type. Can be null, but usually this makes no sense.</param>
+		/// <returns>File name. Cannot be null or empty.</returns>
 		public static string GetFileNameThumb(int id, string mime) {
 			return string.Format("{0}-t{1}", id, GetExtension(mime));
 		}
@@ -27,6 +54,10 @@ namespace VocaDb.Model.Domain {
 		private string mime;
 		private string name;
 
+		/// <summary>
+		/// Extension for this picture file, determined based on the MIME type.
+		/// Cannot be null. Can be empty if the MIME is not recognized.
+		/// </summary>
 		protected string Extension {
 			get {
 				return ImageHelper.GetExtensionFromMime(Mime) ?? string.Empty;
@@ -58,12 +89,19 @@ namespace VocaDb.Model.Domain {
 
 		public abstract EntryType EntryType { get; }
 
+		/// <summary>
+		/// Filename of the original image. Cannot be null or empty.
+		/// </summary>
 		public virtual string FileName {
 			get {
 				return GetFileName(Id, Mime);
 			}
 		}
 
+		/// <summary>
+		/// Filename of the thumbnail (by default, 250x250px). Cannot be null or empty.
+		/// The actual picture might be the same as the original.
+		/// </summary>
 		public virtual string FileNameThumb {
 			get {
 				return GetFileNameThumb(Id, Mime);
@@ -72,6 +110,10 @@ namespace VocaDb.Model.Domain {
 
 		public virtual int Id { get; set; }
 
+		/// <summary>
+		/// Image MIME type. Cannot be null.
+		/// MIME types for jpg, png, gif and bmp are recognized.
+		/// </summary>
 		public virtual string Mime {
 			get { return mime; }
 			set { 
@@ -80,6 +122,9 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
+		/// <summary>
+		/// Image user-friendly name. Cannot be null.
+		/// </summary>
 		public virtual string Name {
 			get { return name; }
 			set { 
@@ -88,6 +133,10 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
+		/// <summary>
+		/// Uploaded file. This field is not mapped, only used for uploading.
+		/// Null for files loaded from the DB.
+		/// </summary>
 		public virtual Stream UploadedFile { get; set; }
 
 		public override string ToString() {
