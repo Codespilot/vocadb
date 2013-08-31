@@ -77,6 +77,9 @@ namespace VocaDb.Model.Domain {
 
 		}
 
+		/// <summary>
+		/// User who uploaded this picture. Cannot be null.
+		/// </summary>
 		public virtual User Author {
 			get { return author; }
 			set { 
@@ -87,10 +90,15 @@ namespace VocaDb.Model.Domain {
 
 		public virtual DateTime Created { get; set; }
 
+		/// <summary>
+		/// Type of entry for which this picture is for. 
+		/// Entry type determines the folder in which the file is saved.
+		/// </summary>
 		public abstract EntryType EntryType { get; }
 
 		/// <summary>
 		/// Filename of the original image. Cannot be null or empty.
+		/// This field is determined based on picture Id and MIME type. Not mapped to database.
 		/// </summary>
 		public virtual string FileName {
 			get {
@@ -101,6 +109,7 @@ namespace VocaDb.Model.Domain {
 		/// <summary>
 		/// Filename of the thumbnail (by default, 250x250px). Cannot be null or empty.
 		/// The actual picture might be the same as the original.
+		/// This field is determined based on picture Id and MIME type. Not mapped to database.
 		/// </summary>
 		public virtual string FileNameThumb {
 			get {
@@ -108,6 +117,9 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
+		/// <summary>
+		/// Unique picture file Id.
+		/// </summary>
 		public virtual int Id { get; set; }
 
 		/// <summary>
