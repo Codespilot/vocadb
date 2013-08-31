@@ -127,7 +127,7 @@ namespace VocaDb.Model.Service {
 				Archive(session, artist, ArtistArchiveReason.Created);
 				session.Update(artist);
 
-				AuditLog(string.Format("created artist {0}", EntryLinkFactory.CreateEntryLink(artist)), session);
+				AuditLog(string.Format("created artist {0} ({1})", EntryLinkFactory.CreateEntryLink(artist), artist.ArtistType), session);
 				AddEntryEditedEntry(session, artist, EntryEditEvent.Created);
 
 				return new ArtistContract(artist, PermissionContext.LanguagePreference);
