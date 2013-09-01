@@ -11,7 +11,9 @@
 @{
 	
 	if (Model.FeaturedCategory == SongListFeaturedCategory.Nothing) {
-		ViewBag.Title = string.Format("{0} - {1}", R.DetailsStrings.SongList, Model.Name);
+		ViewBag.PageTitle = string.Format("{0} - {1}", R.DetailsStrings.SongList, Model.Name);
+		ViewBag.Title = Model.Name;
+		ViewBag.SubTitle = R.DetailsStrings.SongList;
 		ViewBag.Parents = new[] {
 			Html.ActionLink(Model.Author.Name, "Details", "User", new {id = Model.Author.Id}, null)
 		};
@@ -30,6 +32,9 @@
 
 	var smallThumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.SmallThumb);
 	var thumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.Thumb);
+	if (!string.IsNullOrEmpty(thumbUrl)) {
+		ViewContext.Controller.ViewBag.Banner = thumbUrl;
+	}
 	
 	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id })).ToString();
 	
