@@ -7,6 +7,7 @@ namespace VocaDb.Model.Domain {
 
 	/// <summary>
 	/// Picture file with multiple sizes for an entry, such as album or artist.
+	/// Multiple pictures may be attached to an entry.
 	/// Files are named like 123.jpg + 123-t.jpg, when picture Id is 123 and file type is jpg.
 	/// </summary>
 	public abstract class EntryPictureFile {
@@ -18,6 +19,10 @@ namespace VocaDb.Model.Domain {
 		/// <returns>File extension, including the leading dot. For example ".jpg". Cannot be null. Can be empty if the MIME is not recognized.</returns>
 		private static string GetExtension(string mime) {
 			return ImageHelper.GetExtensionFromMime(mime) ?? string.Empty;
+		}
+
+		private static string GetFileName(int id, string mime, string suffix) {
+			return string.Format("{0}{1}{2}", id, suffix, GetExtension(mime));
 		}
 
 		/// <summary>

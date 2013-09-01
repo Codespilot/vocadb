@@ -1,7 +1,9 @@
 ﻿@using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Utils
+@using VocaDb.Model.Helpers
 @using MvcPaging;
 @using R = ViewRes.SongList;
 @model SongListDetailsContract
@@ -17,12 +19,18 @@
 
 		var categoryName = Translate.SongListFeaturedCategoryNames[Model.FeaturedCategory];
 
-		ViewBag.Title = string.Format("{0} - {1}", categoryName, Model.Name);
+		ViewBag.PageTitle = string.Format("{0} - {1}", categoryName, Model.Name);
+		ViewBag.Title = Model.Name;
+		ViewBag.SubTitle = categoryName;
+		
 		ViewBag.Parents = new[] {
 			Html.ActionLink(categoryName, "Featured", "SongList")
 		};		
 	}
 
+	var smallThumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.SmallThumb);
+	var thumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.Thumb);
+	
 	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id })).ToString();
 	
 }
@@ -53,12 +61,20 @@
 </script>
 }
 
-@if (!string.IsNullOrWhiteSpace(Model.Description)) {
-	<p>@HtmlHelpers.FormatText(Model.Description)</p>
-}
+<div class="media">
+	@if (!string.IsNullOrEmpty(smallThumbUrl)) {
+		<a class="pull-left" href="@thumbUrl">
+			<img class="media-object" src="@smallThumbUrl" alt="Thumb" />				
+		</a>		
+	}
+	<div class="media-body">
+		@if (!string.IsNullOrWhiteSpace(Model.Description)) {
+			<p>@HtmlHelpers.FormatText(Model.Description)</p>
+		}
 
-<p>@Model.SongLinks.TotalCount @R.DetailsStrings.Songs.</p>
-
+		<p>@Model.SongLinks.TotalCount @R.DetailsStrings.Songs.</p>
+	</div>
+</div>
 <div id="songsInList">
 @{ Html.RenderPartial("SongsInListPaged", new VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Songs.SongInListContract>(Model.SongLinks.Items.ToPagedList(0, 50, Model.SongLinks.TotalCount), Model.Id, "SongsPaged", "songsInList")); }
-</div>
+</div>		

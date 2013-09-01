@@ -88,6 +88,8 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		public virtual EntryThumb Thumb { get; set; }
+
 		public virtual SongInList AddSong(Song song) {
 
 			var order = (SongLinks.Any() ? SongLinks.Max(s => s.Order) + 1 : 1);

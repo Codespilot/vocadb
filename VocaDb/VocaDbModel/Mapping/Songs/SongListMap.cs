@@ -14,6 +14,11 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.FeaturedCategory).Length(20).Not.Nullable();
 			Map(m => m.Name).Length(200).Not.Nullable();
 
+			Component(m => m.Thumb, c => {
+				c.Map(m => m.Mime).Column("ThumbMime").Length(30);
+				c.ParentReference(m => m.Entry);
+			});
+
 			References(m => m.Author).Not.Nullable();
 
 			HasMany(m => m.AllSongs)

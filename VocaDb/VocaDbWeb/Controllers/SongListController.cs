@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using MvcPaging;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Rankings;
@@ -105,11 +106,20 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Edit(SongListEdit model)
         {
 
+			var coverPicUpload = Request.Files["thumbPicUpload"];
+			UploadedFileContract uploadedPicture = null;
+			if (coverPicUpload != null && coverPicUpload.ContentLength > 0) {
+
+				CheckUploadedPicture(coverPicUpload, "thumbPicUpload");
+				uploadedPicture = new UploadedFileContract {Mime = coverPicUpload.ContentType, Stream = coverPicUpload.InputStream};
+
+			}
+
 			if (!ModelState.IsValid) {
 				return View(model);
 			}
 
-			var listId = Service.UpdateSongList(model.ToContract());
+			var listId = Service.UpdateSongList(model.ToContract(), uploadedPicture);
 
 			return RedirectToAction("Details", new { id = listId });
 
