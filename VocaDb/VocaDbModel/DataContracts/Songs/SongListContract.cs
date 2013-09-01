@@ -23,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			CanEdit = EntryPermissionManager.CanEdit(permissionContext, list);
 			Description = list.Description;
 			FeaturedCategory = list.FeaturedCategory;
+			Thumb = (list.Thumb != null ? new EntryThumbContract(list.Thumb) : null);
 
 		}
 
@@ -38,6 +39,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public SongListFeaturedCategory FeaturedCategory { get; set; }
+
+		[DataMember]
+		public EntryThumbContract Thumb { get; set; }
 
 	}
 }

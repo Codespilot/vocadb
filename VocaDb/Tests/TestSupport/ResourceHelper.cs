@@ -10,11 +10,17 @@ namespace VocaDb.Tests.TestSupport {
 
 	public static class ResourceHelper {
 
-		public static string ReadTextFile(string fileName) {
+		public static Stream GetFileStream(string fileName) {
 
 			var asm = typeof(ResourceHelper).Assembly;
 			var s = asm.GetManifestResourceNames();
-			using (var stream = asm.GetManifestResourceStream(asm.GetName().Name + ".TestData." + fileName))
+			return asm.GetManifestResourceStream(asm.GetName().Name + ".TestData." + fileName);
+
+		}
+
+		public static string ReadTextFile(string fileName) {
+
+			using (var stream = GetFileStream(fileName))
 			using (var reader = new StreamReader(stream)) {
 
 				return reader.ReadToEnd();
@@ -25,9 +31,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		public static HtmlDocument ReadHtmlDocument(string fileName, Encoding encoding = null) {
 
-			var asm = typeof(ResourceHelper).Assembly;
-			var s = asm.GetManifestResourceNames();
-			using (var stream = asm.GetManifestResourceStream(asm.GetName().Name + ".TestData." + fileName)) {
+			using (var stream = GetFileStream(fileName)) {
 
 				var doc = new HtmlDocument();
 				doc.Load(stream, encoding ?? Encoding.Default);

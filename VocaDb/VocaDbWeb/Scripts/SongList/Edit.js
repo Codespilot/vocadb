@@ -48,9 +48,9 @@ function SongListViewModel(data) {
 		self.songLinks.remove(songLink);
 	};
 
-	this.save = function () {
+	/*this.save = function () {
 		ko.utils.postJson(location.href, { model: ko.toJS(self) });
-	};
+	};*/
 	
 	this.songSearchParams = {
 		acceptSelection: acceptSongSelection,
@@ -66,7 +66,8 @@ function initPage(listId) {
 	$.getJSON("/SongList/Data", { id: listId }, function (songListData) {
 		var viewModel = new SongListViewModel(songListData);
 		ko.applyBindings(viewModel);
-		$("#songListForm").validate({ submitHandler: function () { viewModel.save(); } });
+		$("#songListForm").validate();
+		//$("#songListForm").validate({ submitHandler: function () { viewModel.save(); } });
 	});
 
 }

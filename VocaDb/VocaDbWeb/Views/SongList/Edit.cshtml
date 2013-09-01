@@ -38,7 +38,7 @@
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
-@using (Html.BeginForm("Edit", "SongList", FormMethod.Post, new { id = "songListForm" })) {
+<form action="@Url.Action("Edit", "SongList")" id="songListForm" method="POST" enctype="multipart/form-data">
 	@Html.HiddenFor(m => m.CanCreateFeaturedLists)
 
 	@Helpers.SaveBtn()
@@ -73,7 +73,14 @@
 				<div class="editor-field">
 					@Html.EnumDropDownListForDic(m => m.FeaturedCategory, Translate.SongListFeaturedCategoryNames, new Dictionary<string, object> { { "data-bind", "value:featuredCategory" } })
 				</div>
-   }
+			}
+			
+			<div class="editor-label">
+				Thumbnail
+			</div>
+			<div class="editor-field">
+				<input type="file" id="thumbPicUpload" name="thumbPicUpload" />
+			</div>
 
 		</div>
 
@@ -111,10 +118,8 @@
 
 	</div>
 	
-	if (false) {
-	<textarea data-bind="value: ko.toJSON($root)"></textarea>
-	}
+	<input type="hidden" name="model" data-bind="value: ko.toJSON($root)" />
 	<br />
 	@Helpers.SaveBtn()
 	
-}
+</form>

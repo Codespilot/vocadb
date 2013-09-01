@@ -89,6 +89,24 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
+		protected bool CheckUploadedPicture(HttpPostedFileBase pictureUpload, string fieldName) {
+
+			bool errors = false;
+
+			if (pictureUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
+				ModelState.AddModelError(fieldName, "Picture file is too large.");
+				errors = true;
+			}
+
+			if (!ImageHelper.IsValidImageExtension(pictureUpload.FileName)) {
+				ModelState.AddModelError(fieldName, "Picture format is not valid.");
+				errors = true;
+			}
+
+			return !errors;
+
+		}
+
 		protected ActionResult HttpStatusCodeResult(HttpStatusCode code, string message) {
 
 			Response.StatusCode = (int)code;

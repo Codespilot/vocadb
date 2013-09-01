@@ -117,6 +117,7 @@
     <Compile Include="DataContracts\EntryRefWithCommonPropertiesContract.cs" />
     <Compile Include="DataContracts\EntryRefWithNameContract.cs" />
     <Compile Include="DataContracts\EntryReportContract.cs" />
+    <Compile Include="DataContracts\EntryThumbContract.cs" />
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventSeriesContract.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="DataContracts\Tags\ArchivedTagContract.cs" />
     <Compile Include="DataContracts\Tags\ArchivedTagVersionContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageWithVotesContract.cs" />
+    <Compile Include="DataContracts\UploadedFileContract.cs" />
     <Compile Include="DataContracts\UseCases\DuplicateEntryResultContract.cs" />
     <Compile Include="DataContracts\UseCases\EntryWithTagUsagesContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="Domain\EntryPictureFileManager.cs" />
     <Compile Include="Domain\EntryRef.cs" />
     <Compile Include="Domain\EntryReport.cs" />
+    <Compile Include="Domain\EntryThumb.cs" />
     <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
     <Compile Include="Domain\Globalization\ITranslatedString.cs" />
     <Compile Include="Domain\Globalization\SingleNameManager.cs" />
@@ -283,6 +286,7 @@
     <Compile Include="Domain\IEntryWithIntId.cs" />
     <Compile Include="Domain\IEntryWithStatus.cs" />
     <Compile Include="Domain\IOptionalDateTime.cs" />
+    <Compile Include="Domain\IPictureWithThumbs.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
     <Compile Include="Domain\Activityfeed\ActivityEntryType.cs" />
     <Compile Include="Domain\MergeRecord.cs" />
@@ -408,7 +412,10 @@
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\EnumerableExtender.cs" />
     <Compile Include="Helpers\HtmlRequestHelper.cs" />
+    <Compile Include="Domain\Images\IImagePathMapper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
+    <Compile Include="Domain\Images\ServerImagePathMapper.cs" />
+    <Compile Include="Domain\Images\ImageThumbGenerator.cs" />
     <Compile Include="Helpers\LambdaComparer.cs" />
     <Compile Include="Helpers\LocalizedStringHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />

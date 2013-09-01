@@ -16,6 +16,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -254,7 +255,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private SongList CreateSongList(ISession session, SongListForEditContract contract) {
+		private SongList CreateSongList(ISession session, SongListForEditContract contract, UploadedFileContract uploadedFile) {
 
 			var user = GetLoggedUser(session);
 			var newList = new SongList(contract.Name, user);
@@ -267,6 +268,8 @@ namespace VocaDb.Model.Service {
 
 			var songDiff = newList.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
 			SessionHelper.Sync(session, songDiff);
+
+			SetThumb(newList, uploadedFile);
 
 			session.Update(newList);
 
@@ -1293,7 +1296,20 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public int UpdateSongList(SongListForEditContract contract) {
+		private void SetThumb(SongList list, UploadedFileContract uploadedFile) {
+
+			if (uploadedFile != null) {
+
+				var thumb = new EntryThumb(list, uploadedFile.Mime);
+				list.Thumb = thumb;
+				var thumbGenerator = new ImageThumbGenerator(new ServerImagePathMapper());
+				thumbGenerator.GenerateThumbsAndMoveImage(uploadedFile.Stream, thumb, ImageSizes.Thumb | ImageSizes.SmallThumb);
+
+			}
+
+		}
+
+		public int UpdateSongList(SongListForEditContract contract, UploadedFileContract uploadedFile) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -1306,7 +1322,7 @@ namespace VocaDb.Model.Service {
 
 				if (contract.Id == 0) {
 
-					list = CreateSongList(session, contract);
+					list = CreateSongList(session, contract, uploadedFile);
 					
 				} else {
 
@@ -1322,6 +1338,7 @@ namespace VocaDb.Model.Service {
 
 					var songDiff = list.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
 					SessionHelper.Sync(session, songDiff);
+					SetThumb(list, uploadedFile);
 
 					session.Update(list);
 

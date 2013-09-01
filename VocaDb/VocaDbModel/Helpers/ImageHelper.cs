@@ -11,6 +11,7 @@ using System.Web;
 using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Helpers {
@@ -18,8 +19,9 @@ namespace VocaDb.Model.Helpers {
 	public static class ImageHelper {
 
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
-		public const int DefaultSmallThumbSize = 70;
+		public const int DefaultSmallThumbSize = 150;
 		public const int DefaultThumbSize = 250;
+		public const int DefaultTinyThumbSize = 70;
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private static string GetImagePath(EntryType entryType, string fileName) {
@@ -34,7 +36,7 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
-		private static Image OpenImage(Stream stream) {
+		public static Image OpenImage(Stream stream) {
 			try {
 				return Image.FromStream(stream);
 			} catch (ArgumentException x) {
@@ -49,6 +51,7 @@ namespace VocaDb.Model.Helpers {
 		public static string[] AllowedExtensions {
 			get { return allowedExt; }
 		}
+
 
 		public static void GenerateThumbsAndMoveImages(IEnumerable<EntryPictureFile> newPictures) {
 
@@ -135,6 +138,27 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		public static string GetImageFileName(IPictureWithThumbs picture, ImageSize size) {
+
+			switch (size) {
+				case ImageSize.Original:
+					return picture.FileName;
+				case ImageSize.Thumb:
+					return picture.FileNameThumb;
+				case ImageSize.SmallThumb:
+					return picture.FileNameSmallThumb;
+				default:
+					return null;
+			}
+
+		}
+
+		public static string GetImagePath(IPictureWithThumbs picture, ImageSize size) {
+
+			return GetImagePath(picture.EntryType, GetImageFileName(picture, size));
+
+		}
+
 		public static string GetImagePath(EntryPictureFileContract picture) {
 			return GetImagePath(picture.EntryType, EntryPictureFile.GetFileName(picture.Id, picture.Mime));
 		}
@@ -161,6 +185,26 @@ namespace VocaDb.Model.Helpers {
 
 		public static string GetImageUrlThumb(EntryPictureFileContract picture) {
 			return GetImageUrl(picture.EntryType, EntryPictureFile.GetFileNameThumb(picture.Id, picture.Mime));
+		}
+
+		public static string GetImageUrl(IPictureWithThumbs picture, ImageSize size, bool checkExists = true) {
+
+			if (picture == null)
+				return null;
+
+			var fileName = GetImageFileName(picture, size);
+
+			if (checkExists) {
+
+				var path = GetImagePath(picture.EntryType, fileName);
+
+				if (!File.Exists(path))
+					return null;
+
+			}
+
+			return GetImageUrl(picture.EntryType, fileName);
+
 		}
 
 		public static PictureDataContract GetOriginalAndResizedImages(Stream input, int length, string contentType) {

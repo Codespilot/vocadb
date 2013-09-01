@@ -51,6 +51,7 @@
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -106,6 +107,7 @@
     <Compile Include="Helpers\ArtistHelperTests.cs" />
     <Compile Include="Helpers\CollectionHelperTests.cs" />
     <Compile Include="Helpers\ConcurrentEntryEditManagerTests.cs" />
+    <Compile Include="Domain\Images\ImageThumbGeneratorTests.cs" />
     <Compile Include="Helpers\XmlHelperTests.cs" />
     <Compile Include="TestSupport\FakeAuditLogger.cs" />
     <Compile Include="TestSupport\FakeEntryLinkFactory.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="TestSupport\FakeRepository.cs" />
     <Compile Include="TestSupport\PictureDownloaderStub.cs" />
     <Compile Include="TestSupport\ResourceHelper.cs" />
+    <Compile Include="TestSupport\TempImagePathMapper.cs" />
     <Compile Include="Web\Code\EntryAnchorFactoryTests.cs" />
     <Compile Include="Web\Code\TimeAgoStringBuilderTests.cs" />
     <Compile Include="Web\Controllers\AlbumControllerTests.cs" />
@@ -163,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mocks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TestData\yokohma_bay_concert.jpg" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

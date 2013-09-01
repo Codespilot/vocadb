@@ -49,7 +49,7 @@ namespace VocaDb.Web.Controllers
 					SongLinks = new[] {new SongInListEditContract {SongId = songId, Order = 1 }}
 				};
 
-				Service.UpdateSongList(contract);
+				Service.UpdateSongList(contract, null);
 
 			}
 
