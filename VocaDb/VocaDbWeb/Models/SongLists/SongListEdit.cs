@@ -3,6 +3,7 @@ using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Security;
@@ -30,6 +31,7 @@ namespace VocaDb.Web.Models.SongLists {
 			Id = contract.Id;
 			Name = contract.Name;
 			SongLinks = contract.SongLinks;
+			Thumb = contract.Thumb;
 
 			CanCreateFeaturedLists = EntryPermissionManager.CanManageFeaturedLists(MvcApplication.LoginManager);
 
@@ -56,6 +58,8 @@ namespace VocaDb.Web.Models.SongLists {
 
 		[Display(Name = "Songs")]
 		public IList<SongInListEditContract> SongLinks { get; set; }
+
+		public EntryThumbContract Thumb { get; set; }
 
 		public SongListForEditContract ToContract() {
 
