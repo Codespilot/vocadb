@@ -34,6 +34,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<ServiceModel>().AsSelf();
 			builder.RegisterType<AdminService>().AsSelf();
 			builder.RegisterType<AlbumService>().AsSelf();
+			builder.RegisterType<SongService>().AsSelf();
 			builder.RegisterType<UserService>().AsSelf();
 
 			// Repositories
