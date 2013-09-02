@@ -554,6 +554,7 @@
     <Compile Include="Service\Repositories\IAlbumRepository.cs" />
     <Compile Include="Service\Repositories\IAuditLogger.cs" />
     <Compile Include="Service\Repositories\IRepositoryContextExtender.cs" />
+    <Compile Include="Service\Repositories\ISongListRepository.cs" />
     <Compile Include="Service\Repositories\NHibernateAuditLogger.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
     <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />
@@ -590,6 +591,7 @@
     <Compile Include="Service\Repositories\IUserRepository.cs" />
     <Compile Include="Service\Repositories\NHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernateRepositoryContext.cs" />
+    <Compile Include="Service\Repositories\SongListNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\UserNHibernateRepository.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchSort.cs" />
     <Compile Include="Service\Search\AlbumSearch\ArtistAlbumParticipationStatus.cs" />

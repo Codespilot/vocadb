@@ -155,7 +155,7 @@ namespace VocaDb.Model.Service {
 					return null;					
 				}
 
-				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
+				AuditLog(string.Format("logged in from {0} with access key.", MakeGeoIpToolLink(hostname)), session, user);
 
 				return new UserContract(user);
 
@@ -212,7 +212,7 @@ namespace VocaDb.Model.Service {
 				if (user == null)
 					return null;
 
-				AuditLog(string.Format("logged in from {0}.", MakeGeoIpToolLink(hostname)), session, user);
+				AuditLog(string.Format("logged in from {0} with twitter.", MakeGeoIpToolLink(hostname)), session, user);
 
 				user.UpdateLastLogin(hostname);
 				session.Update(user);

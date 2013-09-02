@@ -31,8 +31,8 @@ namespace VocaDb.Tests.TestSupport {
 			this.querySource = querySource;
 		}
 
-		public void Add<TEntity>(TEntity entity) {
-			querySource.Add(entity);
+		public void Add<TEntity>(params TEntity[] entities) {
+			querySource.AddRange(entities);
 		}
 
 		public bool Contains<TEntity>(TEntity entity) {

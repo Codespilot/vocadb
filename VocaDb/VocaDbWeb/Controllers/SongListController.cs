@@ -6,6 +6,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Rankings;
 using VocaDb.Web.Code;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.SongLists;
 
@@ -15,9 +16,16 @@ namespace VocaDb.Web.Controllers
     {
 
 		public const int SongsPerPage = 50;
+		private readonly SongListQueries queries;
+	    private readonly SongService service;
 
 		private SongService Service {
-			get { return MvcApplication.Services.Songs; }
+			get { return service; }
+		}
+
+		public SongListController(SongService service, SongListQueries queries) {
+			this.service = service;
+			this.queries = queries;
 		}
 
 		[Obsolete("Handled in view model now")]
@@ -119,7 +127,7 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
-			var listId = Service.UpdateSongList(model.ToContract(), uploadedPicture);
+			var listId = queries.UpdateSongList(model.ToContract(), uploadedPicture);
 
 			return RedirectToAction("Details", new { id = listId });
 

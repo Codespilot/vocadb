@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.ServiceModel.Syndication;
 using System.Web.Mvc;
 using NLog;
 using VocaDb.Model;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
@@ -16,6 +14,7 @@ using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Feeds;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
@@ -30,9 +29,16 @@ namespace VocaDb.Web.Controllers
     {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+	    private readonly SongService service;
+	    private readonly SongListQueries songListQueries;
 
 		private SongService Service {
-			get { return MvcApplication.Services.Songs; }
+			get { return service; }
+		}
+
+		public SongController(SongService service, SongListQueries songListQueries) {
+			this.service = service;
+			this.songListQueries = songListQueries;
 		}
 
 		[HttpPost]
@@ -49,7 +55,7 @@ namespace VocaDb.Web.Controllers
 					SongLinks = new[] {new SongInListEditContract {SongId = songId, Order = 1 }}
 				};
 
-				Service.UpdateSongList(contract, null);
+				songListQueries.UpdateSongList(contract, null);
 
 			}
 
