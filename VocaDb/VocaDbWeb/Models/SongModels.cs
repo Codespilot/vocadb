@@ -305,6 +305,7 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Entry status")]
 		public EntryStatus Status { get; set; }
 
+		[StringLength(200)]
 		public string UpdateNotes { get; set; }
 
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }

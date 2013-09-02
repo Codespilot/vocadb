@@ -100,6 +100,7 @@ namespace VocaDb.Web.Models {
 
 		public bool TooManyAlbums { get; set; }
 
+		[StringLength(200)]
 		public string UpdateNotes { get; set; }
 
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }

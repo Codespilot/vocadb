@@ -59,8 +59,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			if (uploadedFile != null) {
 
-				log.Info("Uploaded picture: " + uploadedFile.Mime);
-
 				var thumb = new EntryThumb(list, uploadedFile.Mime);
 				list.Thumb = thumb;
 				var thumbGenerator = new ImageThumbGenerator(new ServerImagePathMapper());
