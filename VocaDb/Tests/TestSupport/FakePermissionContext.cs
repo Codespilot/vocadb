@@ -2,6 +2,7 @@
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Tests.TestSupport {
 
@@ -39,6 +40,10 @@ namespace VocaDb.Tests.TestSupport {
 
 		public string Name { get; private set; }
 		public UserGroupId UserGroupId { get; private set; }
+
+		public void RefreshLoggedUser(IUserRepository repository) {
+			LoggedUser = repository.HandleQuery(ctx => new UserContract(ctx.Load(LoggedUserId)));
+		}
 
 		public void VerifyLogin() {
 

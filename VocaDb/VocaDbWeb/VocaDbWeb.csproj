@@ -595,6 +595,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DataAccess\AlbumQueries.cs" />
+    <Compile Include="Controllers\DataAccess\SongListQueries.cs" />
     <Compile Include="Controllers\DataAccess\UserQueries.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />

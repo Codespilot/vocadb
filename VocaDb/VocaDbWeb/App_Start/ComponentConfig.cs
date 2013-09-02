@@ -38,8 +38,10 @@ namespace VocaDb.Web.App_Start {
 
 			// Repositories
 			builder.RegisterType<AlbumNHibernateRepository>().As<IAlbumRepository>();
+			builder.RegisterType<SongListNHibernateRepository>().As<ISongListRepository>();
 			builder.RegisterType<UserNHibernateRepository>().As<IUserRepository>();
 			builder.RegisterType<AlbumQueries>().AsSelf();
+			builder.RegisterType<SongListQueries>().AsSelf();
 			builder.RegisterType<UserQueries>().AsSelf();
 
 			// Build container.

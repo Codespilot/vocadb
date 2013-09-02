@@ -36,7 +36,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		private void RefreshLoggedUser() {
-			permissionContext.LoggedUser = repository.HandleQuery(ctx => new UserContract(ctx.Load(permissionContext.LoggedUserId)));
+			permissionContext.RefreshLoggedUser(repository);
 		}
 
 		[TestInitialize]

@@ -255,7 +255,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private SongList CreateSongList(ISession session, SongListForEditContract contract, UploadedFileContract uploadedFile) {
+		/*private SongList CreateSongList(ISession session, SongListForEditContract contract, UploadedFileContract uploadedFile) {
 
 			var user = GetLoggedUser(session);
 			var newList = new SongList(contract.Name, user);
@@ -277,7 +277,7 @@ namespace VocaDb.Model.Service {
 
 			return newList;
 
-		}
+		}*/
 
 		public void Delete(int id) {
 
@@ -1296,7 +1296,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private void SetThumb(SongList list, UploadedFileContract uploadedFile) {
+		/*private void SetThumb(SongList list, UploadedFileContract uploadedFile) {
 
 			if (uploadedFile != null) {
 
@@ -1350,7 +1350,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public SongDetailsContract XGetSongByNameArtistAndAlbum(string name, string artist, string album) {
 
