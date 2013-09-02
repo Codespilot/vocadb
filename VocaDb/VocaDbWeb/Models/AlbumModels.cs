@@ -146,6 +146,7 @@ namespace VocaDb.Web.Models {
 		[FromJson]
 		public IList<SongInAlbumEditContract> Tracks { get; set; }
 
+		[StringLength(200)]
 		public string UpdateNotes { get; set; }
 
 		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }

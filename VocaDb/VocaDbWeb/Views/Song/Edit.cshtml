@@ -68,7 +68,7 @@
 				@Html.LabelFor(m => m.Notes)
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Notes, 6, 70, new { @class = "span4" })
+				@Html.TextAreaFor(m => m.Notes, 6, 70, new { @class = "span4", maxlength = 800 })
 			</div>
 
 			<div class="editor-label">
@@ -208,7 +208,7 @@
 	<br />
 	
 	<p>Update notes (optional)</p>
-	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4 })
+	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })
 	
 	<br />
 	@Helpers.SaveBtn()
