@@ -65,8 +65,9 @@ namespace VocaDb.Model.Domain.Images {
 			EnsureDirExistsForFile(path);
 
 			if (original.Width > dimensions || original.Height > dimensions) {
-				var thumb = ImageHelper.ResizeToFixedSize(original, dimensions, dimensions);
-				thumb.Save(path);
+				using (var thumb = ImageHelper.ResizeToFixedSize(original, dimensions, dimensions)) {
+					thumb.Save(path);					
+				}
 			} else {
 				WriteFile(file, path);
 			}

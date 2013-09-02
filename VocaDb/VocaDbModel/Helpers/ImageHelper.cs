@@ -72,8 +72,9 @@ namespace VocaDb.Model.Helpers {
 				using (var original = OpenImage(pic.UploadedFile)) {
 
 					if (original.Width > DefaultThumbSize || original.Height > DefaultThumbSize) {
-						var thumb = ResizeToFixedSize(original, DefaultThumbSize, DefaultThumbSize);
-						thumb.Save(thumbPath);
+						using (var thumb = ResizeToFixedSize(original, DefaultThumbSize, DefaultThumbSize)) {
+							thumb.Save(thumbPath);							
+						}
 					} else {
 						File.Copy(path, thumbPath);
 					}

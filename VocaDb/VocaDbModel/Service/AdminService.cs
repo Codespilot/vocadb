@@ -72,8 +72,9 @@ namespace VocaDb.Model.Service {
 						using (var original = Image.FromFile(ImageHelper.GetImagePath(pic))) {
 
 							if (original.Width > ImageHelper.DefaultSmallThumbSize || original.Height > ImageHelper.DefaultSmallThumbSize) {
-								var thumb = ImageHelper.ResizeToFixedSize(original, ImageHelper.DefaultSmallThumbSize, ImageHelper.DefaultSmallThumbSize);
-								thumb.Save(thumbFile);
+								using (var thumb = ImageHelper.ResizeToFixedSize(original, ImageHelper.DefaultSmallThumbSize, ImageHelper.DefaultSmallThumbSize)) {
+									thumb.Save(thumbFile);
+								}
 							} else {
 								File.Copy(origPath, thumbFile);
 							}
@@ -96,8 +97,9 @@ namespace VocaDb.Model.Service {
 						using (var original = Image.FromFile(ImageHelper.GetImagePath(pic))) {
 
 							if (original.Width > ImageHelper.DefaultSmallThumbSize || original.Height > ImageHelper.DefaultSmallThumbSize) {
-								var thumb = ImageHelper.ResizeToFixedSize(original, ImageHelper.DefaultSmallThumbSize, ImageHelper.DefaultSmallThumbSize);
-								thumb.Save(thumbFile);
+								using (var thumb = ImageHelper.ResizeToFixedSize(original, ImageHelper.DefaultSmallThumbSize, ImageHelper.DefaultSmallThumbSize)) {
+									thumb.Save(thumbFile);									
+								}
 							} else {
 								File.Copy(origPath, thumbFile);
 							}
