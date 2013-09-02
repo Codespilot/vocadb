@@ -1,4 +1,6 @@
 ﻿@using System.Web.Optimization
+@using VocaDb.Model.Domain.Images
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Models.SongLists;
 @using VocaDb.Web.Helpers;
 @model SongListEdit
@@ -14,6 +16,9 @@
 	} else {
 		ViewBag.Title = "Create a custom list";		
 	}
+	
+	var thumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.Thumb);
+	
 }
 
 @section Toolbar {
@@ -79,7 +84,15 @@
 				Thumbnail
 			</div>
 			<div class="editor-field">
-				<input type="file" id="thumbPicUpload" name="thumbPicUpload" />
+				<div class="media">
+					@if (!string.IsNullOrEmpty(thumbUrl)) {
+						<img class="pull-left media-object" src="@thumbUrl" alt="Thumb" />
+					}
+					<div class="media-body">
+						<p>@string.Format(ViewRes.Album.EditStrings.BaPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)</p>						
+						<input type="file" id="thumbPicUpload" name="thumbPicUpload" />
+					</div>
+				</div>
 			</div>
 
 		</div>
