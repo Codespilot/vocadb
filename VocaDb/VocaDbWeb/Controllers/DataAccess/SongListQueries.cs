@@ -1,4 +1,5 @@
-﻿using VocaDb.Model;
+﻿using NLog;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
@@ -14,6 +15,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	public class SongListQueries {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly IUserPermissionContext permissionContext;
 		private readonly ISongListRepository repository;
 
@@ -56,6 +58,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private void SetThumb(SongList list, UploadedFileContract uploadedFile) {
 
 			if (uploadedFile != null) {
+
+				log.Info("Uploaded picture: " + uploadedFile.Mime);
 
 				var thumb = new EntryThumb(list, uploadedFile.Mime);
 				list.Thumb = thumb;
