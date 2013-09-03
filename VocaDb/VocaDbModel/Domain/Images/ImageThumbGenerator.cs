@@ -9,6 +9,8 @@ namespace VocaDb.Model.Domain.Images {
 
 		private readonly IImagePathMapper imagePathMapper;
 
+		public const int Unlimited = 0;
+
 		public ImageThumbGenerator(IImagePathMapper imagePathMapper) {
 
 			ParamIs.NotNull(() => imagePathMapper);
@@ -64,7 +66,7 @@ namespace VocaDb.Model.Domain.Images {
 
 			EnsureDirExistsForFile(path);
 
-			if (original.Width > dimensions || original.Height > dimensions) {
+			if (dimensions != Unlimited && (original.Width > dimensions || original.Height > dimensions)) {
 				using (var thumb = ImageHelper.ResizeToFixedSize(original, dimensions, dimensions)) {
 					thumb.Save(path);					
 				}
@@ -82,12 +84,13 @@ namespace VocaDb.Model.Domain.Images {
 		/// <param name="thumbPath">Target path of the 250x250px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="smallThumbPath">Target path of the 150x150px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="tinyThumbPath">Target path of the 70x70px thumbnail. Can be null or empty, in which case the image is skipped.</param>
-		public void GenerateThumbsAndMoveImage(Stream file, string originalPath = null, string thumbPath = null, string smallThumbPath = null, string tinyThumbPath = null) {
+		public void GenerateThumbsAndMoveImage(Stream file, string originalPath = null, string thumbPath = null, string smallThumbPath = null, string tinyThumbPath = null,
+			int originalSize = Unlimited) {
 
-			WriteFile(file, originalPath);
 
 			using (var original = ImageHelper.OpenImage(file)) {
 
+				WriteThumb(file, originalPath, original, originalSize);
 				WriteThumb(file, thumbPath, original, ImageHelper.DefaultThumbSize);
 				WriteThumb(file, smallThumbPath, original, ImageHelper.DefaultSmallThumbSize);
 				WriteThumb(file, tinyThumbPath, original, ImageHelper.DefaultTinyThumbSize);
@@ -96,12 +99,14 @@ namespace VocaDb.Model.Domain.Images {
 
 		}
 
-		public void GenerateThumbsAndMoveImage(Stream input, IPictureWithThumbs pictureFile, ImageSizes imageSizes) {
+		public void GenerateThumbsAndMoveImage(Stream input, IPictureWithThumbs pictureFile, ImageSizes imageSizes, int originalSize = Unlimited) {
 
 			GenerateThumbsAndMoveImage(input,
 				imageSizes.HasFlag(ImageSizes.Original) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.Original) : null,
 				imageSizes.HasFlag(ImageSizes.Thumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.Thumb) : null,
-				imageSizes.HasFlag(ImageSizes.SmallThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.SmallThumb) : null);
+				imageSizes.HasFlag(ImageSizes.SmallThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.SmallThumb) : null, 
+				tinyThumbPath: null,
+				originalSize: originalSize);
 
 		}
 
