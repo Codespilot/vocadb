@@ -84,6 +84,7 @@ namespace VocaDb.Model.Domain.Images {
 		/// <param name="thumbPath">Target path of the 250x250px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="smallThumbPath">Target path of the 150x150px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="tinyThumbPath">Target path of the 70x70px thumbnail. Can be null or empty, in which case the image is skipped.</param>
+		/// <param name="originalSize">Maximum dimensions of the original picture. Default is unlimited.</param>
 		public void GenerateThumbsAndMoveImage(Stream file, string originalPath = null, string thumbPath = null, string smallThumbPath = null, string tinyThumbPath = null,
 			int originalSize = Unlimited) {
 

@@ -172,6 +172,9 @@ namespace VocaDb.Web.Models {
 
 		public AlbumForEditContract ToContract() {
 
+			if (Tracks == null)
+				throw new InvalidOperationException("Tracks list was null"); // Shouldn't be null
+
 			return new AlbumForEditContract {
 				Description = this.Description ?? string.Empty,
 				DiscType = this.DiscType,
