@@ -2,7 +2,9 @@
 @using System.Web.Mvc;
 @using System.Web.Mvc.Html;
 @using VocaDb.Model.DataContracts.Songs;
+@using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Domain.Songs
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 
 @helper LyricsInfo(LyricsForSongContract lyrics) {
@@ -132,7 +134,15 @@
 	
 	<table>
 		@foreach (var list in songLists) {
+			var thumbUrl = ImageHelper.GetImageUrl(list.Thumb, ImageSize.SmallThumb, checkExists: true);
 			<tr>
+				<td>
+					@if (!string.IsNullOrEmpty(thumbUrl)) {
+						<a href="@Url.Action("Details", "SongList", new { id = list.Id })">
+							<img class="coverPicThumb" src="@thumbUrl" alt="Picture" />
+						</a>
+					}
+				</td>
 				<td>@Html.ActionLink(list.Name, "Details", "SongList", new { id = list.Id }, new { title = list.Description })</td>
 				<td>
 					@if (list.CanEdit) {
