@@ -3,7 +3,7 @@ using NHibernate;
 using NLog;
 using VocaDb.Model.Domain.Security;
 
-namespace VocaDb.Model.Service.Repositories {
+namespace VocaDb.Model.Service.Repositories.NHibernate {
 
 	public abstract class NHibernateRepository<T> : IRepository<T> {
 
