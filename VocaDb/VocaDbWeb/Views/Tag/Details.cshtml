@@ -1,5 +1,6 @@
 ﻿@using R = ViewRes.Tag;
 @using VocaDb.Model.Domain.Images
+@using VocaDb.Model.Utils
 @using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Tags.TagDetailsContract
@@ -16,7 +17,17 @@
 	if (!string.IsNullOrEmpty(thumbUrl)) {
 		ViewContext.Controller.ViewBag.Banner = thumbUrl;
 	}
+
+	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Name })).ToString();
 	
+}
+
+@section Head {
+	@HtmlHelpers.OpenGraphMetaTags(
+		url: url, 
+		description: Model.Description
+	)
+	<link rel="canonical" href="@url" />	
 }
 
 @section BodyScripts {
