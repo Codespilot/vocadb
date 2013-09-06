@@ -89,7 +89,7 @@
 						<img class="pull-left media-object" src="@thumbUrl" alt="Thumb" />
 					}
 					<div class="media-body">
-						<p>@string.Format(ViewRes.Album.EditStrings.BaPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)</p>						
+						@Helpers.ImageUploadMessage()
 						<input type="file" id="thumbPicUpload" name="thumbPicUpload" />
 					</div>
 				</div>

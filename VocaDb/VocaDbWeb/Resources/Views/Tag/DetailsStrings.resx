@@ -132,6 +132,9 @@
   <data name="Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Tag</value>
+  </data>
   <data name="TagDetails" xml:space="preserve">
     <value>Tag details</value>
   </data>

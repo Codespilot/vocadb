@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using NHibernate;
 using NHibernate.Linq;
 using NLog;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -12,6 +13,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
@@ -356,7 +358,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateTag(TagContract contract) {
+		public void UpdateTag(TagContract contract, UploadedFileContract uploadedImage) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -382,6 +384,17 @@ namespace VocaDb.Model.Service {
 
 				tag.CategoryName = contract.CategoryName;
 				tag.Description = contract.Description;
+
+				if (uploadedImage != null) {
+
+					diff.Picture = true;
+
+					var thumb = new EntryThumb(tag, uploadedImage.Mime);
+					tag.Thumb = thumb;
+					var thumbGenerator = new ImageThumbGenerator(new ServerImagePathMapper());
+					thumbGenerator.GenerateThumbsAndMoveImage(uploadedImage.Stream, thumb, ImageSizes.Original | ImageSizes.SmallThumb, originalSize: 500);
+
+				}
 
 				var logStr = string.Format("updated properties for {0} ({1})", tag, diff.ChangedFieldsString);
 				AuditLog(logStr, session);

@@ -113,14 +113,23 @@ namespace VocaDb.Web.Controllers
         [Authorize]
         public ActionResult Edit(TagEdit model)
         {
-			
+
+			var coverPicUpload = Request.Files["thumbPicUpload"];
+			UploadedFileContract uploadedPicture = null;
+			if (coverPicUpload != null && coverPicUpload.ContentLength > 0) {
+
+				CheckUploadedPicture(coverPicUpload, "thumbPicUpload");
+				uploadedPicture = new UploadedFileContract { Mime = coverPicUpload.ContentType, Stream = coverPicUpload.InputStream };
+
+			}
+
 			if (!ModelState.IsValid) {
 				var contract = Service.GetTagForEdit(model.Name);
 				model.CopyNonEditableProperties(contract);
 				return View(model);
 			}
 
-			Service.UpdateTag(model.ToContract());
+			Service.UpdateTag(model.ToContract(), uploadedPicture);
 
 			return RedirectToAction("Details", new { id = model.Name });
 
