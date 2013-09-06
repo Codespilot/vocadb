@@ -2,6 +2,7 @@
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Service.Repositories.NHibernate;
 
 namespace VocaDb.Model.Service.Repositories {
 

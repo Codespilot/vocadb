@@ -2,7 +2,7 @@
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 
-namespace VocaDb.Model.Service.Repositories {
+namespace VocaDb.Model.Service.Repositories.NHibernate {
 
 	public class SongListNHibernateRepository : NHibernateRepository<SongList>, ISongListRepository {
 

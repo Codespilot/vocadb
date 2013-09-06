@@ -11,6 +11,9 @@ using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
+	/// <summary>
+	/// Database queries for <see cref="Tag"/>.
+	/// </summary>
 	public class TagQueries : QueriesBase<ITagRepository> {
 
 		public TagQueries(ITagRepository repository, IUserPermissionContext permissionContext) 

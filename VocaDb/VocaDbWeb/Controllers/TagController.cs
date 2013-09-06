@@ -28,9 +28,6 @@ namespace VocaDb.Web.Controllers
 
 		public TagController(TagService service, TagQueries queries) {
 
-			ParamIs.NotNull(() => service);
-			ParamIs.NotNull(() => queries);
-
 			this.service = service;
 			this.queries = queries;
 
