@@ -1,9 +1,11 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using MvcPaging;
+using VocaDb.Model;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
@@ -15,13 +17,23 @@ using VocaDb.Web.Resources.Controllers;
 
 namespace VocaDb.Web.Controllers
 {
-    public class TagController : ControllerBase
-    {
+    public class TagController : ControllerBase {
+
+	    private readonly TagQueries queries;
+	    private readonly TagService service;
 
 		private TagService Service {
-			get {
-				return MvcApplication.Services.Tags;
-			}
+			get { return service; }
+		}
+
+		public TagController(TagService service, TagQueries queries) {
+
+			ParamIs.NotNull(() => service);
+			ParamIs.NotNull(() => queries);
+
+			this.service = service;
+			this.queries = queries;
+
 		}
 
 		public ActionResult Albums(string id) {
@@ -129,7 +141,7 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
-			Service.UpdateTag(model.ToContract(), uploadedPicture);
+			queries.UpdateTag(model.ToContract(), uploadedPicture);
 
 			return RedirectToAction("Details", new { id = model.Name });
 
