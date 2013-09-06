@@ -10,6 +10,7 @@ namespace VocaDb.Model.Mapping.Tags {
 			Cache.NonStrictReadWrite();
 			Id(m => m.Name).Column("[Name]").Length(30).GeneratedBy.Assigned();
 
+			Map(m => m.Id).Generated.Insert().Not.Nullable().Not.Insert().Not.Update();
 			Map(m => m.CategoryName).Length(30).Not.Nullable();
 			Map(m => m.Description).Length(1000).Not.Nullable();
 			Map(m => m.TagName).Column("[Name]").ReadOnly().Not.Insert();
