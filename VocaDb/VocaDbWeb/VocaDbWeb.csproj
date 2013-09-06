@@ -2459,6 +2459,7 @@
     <Content Include="App_GlobalResources\TagEditableFieldNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>TagEditableFieldNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\ReleaseEventEditableFieldNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -2853,6 +2854,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Tag</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\AlbumCollectionStrings.fi.resx" />

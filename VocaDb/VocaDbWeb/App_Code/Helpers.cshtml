@@ -3,6 +3,7 @@
 @using System.Web.Mvc.Html;
 @using System.Web.Routing
 @using VocaDb.Model
+@using VocaDb.Model.Helpers
 @using VocaDb.Model.DataContracts
 @using VocaDb.Model.Domain;
 @using VocaDb.Model.Domain.PVs
@@ -201,6 +202,12 @@
     } else {
 		<span class="helpIcon helpToolTip" title="@message" id="@id"></span>	 
     }
+}
+
+@helper ImageUploadMessage() {
+	<p>
+		@string.Format(HelperRes.HelperStrings.UploadPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)
+	</p>
 }
 
 @helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using VocaDb.Model;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
 
 namespace VocaDb.Web.Models.Tag {
@@ -15,6 +16,7 @@ namespace VocaDb.Web.Models.Tag {
 			CategoryName = contract.CategoryName;
 			Description = contract.Description;
 			Name = contract.Name;
+			Thumb = contract.Thumb;
 
 			CopyNonEditableProperties(contract);
 
@@ -38,10 +40,13 @@ namespace VocaDb.Web.Models.Tag {
 
 		public string Name { get; set; }
 
+		public EntryThumbContract Thumb { get; set; }
+
 		public void CopyNonEditableProperties(TagForEditContract contract) {
 
 			AllCategoryNames = contract.AllCategoryNames;
 			IsEmpty = contract.IsEmpty;
+			Thumb = contract.Thumb;
 
 		}
 

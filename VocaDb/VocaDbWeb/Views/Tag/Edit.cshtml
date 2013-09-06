@@ -1,4 +1,6 @@
-﻿@using VocaDb.Web.Helpers;
+﻿@using VocaDb.Model.Domain.Images
+@using VocaDb.Model.Helpers
+@using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.Tag.TagEdit
 
 @{
@@ -6,7 +8,10 @@
 	ViewBag.Parents = new[] { 
 		Html.ActionLink("Tags", "Index"),
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Name }) 		
-	};	
+	};
+
+	var thumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.SmallThumb);
+	
 }
 
 @section BodyScripts {
@@ -29,7 +34,7 @@
 }
 }
 
-@using (Html.BeginForm()) {
+<form action="@Url.Action("Edit", "Tag")" method="POST" enctype="multipart/form-data">
 	@Html.HiddenFor(m => m.Name)
 
 	@Helpers.SaveBtn()
@@ -57,7 +62,22 @@
 		@Html.ValidationMessageFor(m => m.Description)
 	</div>
 	
+	<div class="editor-label">
+		Thumbnail
+	</div>
+	<div class="editor-field">
+		<div class="media">
+			@if (!string.IsNullOrEmpty(thumbUrl)) {
+				<img class="pull-left media-object" src="@thumbUrl" alt="Thumb" />
+			}
+			<div class="media-body">
+				@Helpers.ImageUploadMessage()
+				<input type="file" id="thumbPicUpload" name="thumbPicUpload" />
+			</div>
+		</div>
+	</div>
+	
 	<br />
 	@Helpers.SaveBtn()
 	
-}
+</form>

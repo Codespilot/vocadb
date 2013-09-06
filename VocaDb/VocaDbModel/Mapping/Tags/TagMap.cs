@@ -25,6 +25,11 @@ namespace VocaDb.Model.Mapping.Tags {
 			Component(m => m.ArchivedVersionsManager,
 				c => c.HasMany(m => m.Versions).KeyColumn("[Tag]").Inverse().Cascade.All().OrderBy("Created DESC"));
 
+			Component(m => m.Thumb, c => {
+				c.Map(m => m.Mime).Column("ThumbMime").Length(30);
+				c.ParentReference(m => m.Entry);
+			});
+
 		}
 
 	}

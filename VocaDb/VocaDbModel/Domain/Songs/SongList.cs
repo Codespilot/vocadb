@@ -88,6 +88,9 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		/// <summary>
+		/// Entry thumbnail picture. Can be null.
+		/// </summary>
 		public virtual EntryThumb Thumb { get; set; }
 
 		public virtual SongInList AddSong(Song song) {

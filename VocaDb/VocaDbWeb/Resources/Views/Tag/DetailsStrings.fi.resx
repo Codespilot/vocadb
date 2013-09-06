@@ -132,6 +132,9 @@
   <data name="Overview" xml:space="preserve">
     <value>Yleiskuva</value>
   </data>
+  <data name="Tag" xml:space="preserve">
+    <value>Tägi</value>
+  </data>
   <data name="TagDetails" xml:space="preserve">
     <value>Tägin tiedot</value>
   </data>

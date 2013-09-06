@@ -1,10 +1,22 @@
 ﻿@using R = ViewRes.Tag;
+@using VocaDb.Model.Domain.Images
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @model VocaDb.Model.DataContracts.Tags.TagDetailsContract
 
 @{
-    ViewBag.Title = R.DetailsStrings.TagDetails + " - " + Model.Name;
-	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Tags, "Index") };	
+	
+	ViewBag.PageTitle = R.DetailsStrings.TagDetails + " - " + Model.Name;
+	ViewBag.Title = Model.Name;
+	ViewBag.SubTitle = R.DetailsStrings.Tag;
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Tags, "Index") };
+
+	var smallThumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.SmallThumb);
+	var thumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.Original);
+	if (!string.IsNullOrEmpty(thumbUrl)) {
+		ViewContext.Controller.ViewBag.Banner = thumbUrl;
+	}
+	
 }
 
 @section BodyScripts {
@@ -37,22 +49,32 @@
 	</ul>
 
 	<div id="overviewTab">
-
-		@if (Model.Description != string.Empty) {
-		<p>@HtmlHelpers.FormatText(Model.Description)</p>
-		}
-
-		@if (Model.CategoryName != string.Empty){
-		<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
-		}
 		
-		@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
-		<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
-		}
+		<div class="media">
+			@if (!string.IsNullOrEmpty(smallThumbUrl)) {
+				<a class="pull-left" href="@thumbUrl">
+					<img class="media-object" src="@smallThumbUrl" alt="Thumb" />				
+				</a>		
+			}			
+			
+			<div class="media-body">
+				@if (Model.Description != string.Empty) {
+					<p>@HtmlHelpers.FormatText(Model.Description)</p>
+				}
+
+				@if (Model.CategoryName != string.Empty){
+					<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
+				}
 		
-		@if (Model.Aliases.Any()) {
-			<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>			
-		}
+				@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
+					<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
+				}
+		
+				@if (Model.Aliases.Any()) {
+					<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>			
+				}
+			</div>
+		</div>
 
 		@if (Model.Artists.Any()) {
 			<br />

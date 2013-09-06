@@ -159,6 +159,9 @@
   <data name="StatusDescriptionLocked" xml:space="preserve">
     <value>Locked entries can only be edited by staff members.</value>
   </data>
+  <data name="UploadPictureInfo" xml:space="preserve">
+    <value>Allowed types: {0}. Maximum size is {1} MB. Please respect copyrights and mention the image source in notes/description if possible.</value>
+  </data>
   <data name="WebLinkCategoryTitle" xml:space="preserve">
     <value>Category</value>
   </data>
