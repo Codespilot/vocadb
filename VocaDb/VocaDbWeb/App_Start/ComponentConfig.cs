@@ -5,6 +5,7 @@ using Autofac.Integration.Wcf;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Repositories;
+using VocaDb.Model.Service.Repositories.NHibernate;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Code;
 using VocaDb.Web.Controllers.DataAccess;
@@ -35,14 +36,17 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<AdminService>().AsSelf();
 			builder.RegisterType<AlbumService>().AsSelf();
 			builder.RegisterType<SongService>().AsSelf();
+			builder.RegisterType<TagService>().AsSelf();
 			builder.RegisterType<UserService>().AsSelf();
 
 			// Repositories
 			builder.RegisterType<AlbumNHibernateRepository>().As<IAlbumRepository>();
 			builder.RegisterType<SongListNHibernateRepository>().As<ISongListRepository>();
+			builder.RegisterType<TagNHibernateRepository>().As<ITagRepository>();
 			builder.RegisterType<UserNHibernateRepository>().As<IUserRepository>();
 			builder.RegisterType<AlbumQueries>().AsSelf();
 			builder.RegisterType<SongListQueries>().AsSelf();
+			builder.RegisterType<TagQueries>().AsSelf();
 			builder.RegisterType<UserQueries>().AsSelf();
 
 			// Build container.

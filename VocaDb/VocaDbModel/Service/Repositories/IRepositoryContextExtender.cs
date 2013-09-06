@@ -1,4 +1,6 @@
-﻿using VocaDb.Model.Helpers;
+﻿using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.Repositories {
 
@@ -6,6 +8,24 @@ namespace VocaDb.Model.Service.Repositories {
 	/// Extension methods for <see cref="IRepositoryContext"/>.
 	/// </summary>
 	public static class IRepositoryContextExtender {
+
+		public static AgentLoginData CreateAgentLoginData<T>(this IRepositoryContext<T> ctx, IUserPermissionContext permissionContext, User user = null) {
+
+			if (user != null)
+				return new AgentLoginData(user);
+
+			if (permissionContext.IsLoggedIn) {
+
+				user = ctx.OfType<User>().Load(permissionContext.LoggedUserId);
+				return new AgentLoginData(user);
+
+			} else {
+
+				return new AgentLoginData(permissionContext.Name);
+
+			}
+
+		}
 
 		public static void Sync<T>(this IRepositoryContext<T> ctx, CollectionDiff<T, T> diff) {
 

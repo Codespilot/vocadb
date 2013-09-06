@@ -12,9 +12,9 @@ namespace VocaDb.Tests.TestSupport {
 	/// <typeparam name="T">Type of entities this repository contains.</typeparam>
 	public class FakeRepository<T> : IRepository<T> {
 
-		private readonly QuerySourceList querySource;
+		protected readonly QuerySourceList querySource;
 
-		private ListRepositoryContext<T> CreateContext() {
+		protected virtual ListRepositoryContext<T> CreateContext() {
 			return new ListRepositoryContext<T>(querySource);
 		}
 
@@ -59,7 +59,7 @@ namespace VocaDb.Tests.TestSupport {
 
 	public class ListRepositoryContext<T> : IRepositoryContext<T> {
 
-		private readonly QuerySourceList querySource;
+		protected readonly QuerySourceList querySource;
 
 		public ListRepositoryContext(QuerySourceList querySource) {
 			this.querySource = querySource;
@@ -79,7 +79,7 @@ namespace VocaDb.Tests.TestSupport {
 			
 		}
 
-		public T Load(object id) {
+		public virtual T Load(object id) {
 
 			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)))
 				throw new NotSupportedException("Only supported for entities with integer Id");
@@ -90,7 +90,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		}
 
-		public IRepositoryContext<T2> OfType<T2>() {
+		public virtual IRepositoryContext<T2> OfType<T2>() {
 			return new ListRepositoryContext<T2>(querySource);
 		}
 
@@ -102,7 +102,7 @@ namespace VocaDb.Tests.TestSupport {
 			querySource.Add(obj);
 		}
 
-		public void Update(T obj) {
+		public virtual void Update(T obj) {
 
 			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)))
 				throw new NotSupportedException("Only supported for entities with integer Id");

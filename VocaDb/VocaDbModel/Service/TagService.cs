@@ -358,7 +358,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateTag(TagContract contract, UploadedFileContract uploadedImage) {
+		/*public void UpdateTag(TagContract contract, UploadedFileContract uploadedImage) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -404,7 +404,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 	}
 
