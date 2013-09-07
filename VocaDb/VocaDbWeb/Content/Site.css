@@ -71,7 +71,7 @@ span.extraInfo, small.extraInfo {
 
 .slogan {
 	font-size: x-small;
-	margin-bottom: 5px;
+	margin-bottom: 0;
 	text-align: right;
 }
 
@@ -277,14 +277,17 @@ body .rightFrame a.btn-danger:hover {
 }
 
 /* Menu */
-.menu {
-	/*background-color: #CDECF4;
-	opacity: 0.95;*/
-	background-color: rgb(205, 236, 244);
-	background-color: rgba(205, 236, 244, 0.90);
-	border: solid #8AD7D8 2px;
-	float: left;
+.site-logo {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.menu > .well {
 	vertical-align: top;	
+	border: solid #8AD7D8 2px;
+	background-color: rgb(215, 236, 244);
+	background-color: rgba(215, 236, 244, 0.90);	
 }
 
 ul {
@@ -343,6 +346,7 @@ ul {
 
 #banners-small {
 	margin-left: 8px;
+	min-height: 31px;
 }
 
 #banners-small li {
