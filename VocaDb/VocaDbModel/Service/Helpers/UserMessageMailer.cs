@@ -9,30 +9,31 @@ namespace VocaDb.Model.Service.Helpers {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-		public void Send(string messagesUrl, UserMessage message) {
+		public bool SendEmail(string mySettingsUrl, string toEmail, string receiverName, string subject, string body) {
 
-			ParamIs.NotNull(() => message);
-
-			if (string.IsNullOrEmpty(message.Receiver.Email))
-				return;
+			if (string.IsNullOrEmpty(toEmail))
+				return false;
 
 			MailAddress to;
 
 			try {
-				to = new MailAddress(message.Receiver.Email);
+				to = new MailAddress(toEmail);
 			} catch (FormatException x) {
 				log.WarnException("Unable to validate receiver email", x);
-				return;
+				return false;
 			}
 
 			var mailMessage = new MailMessage();
 			mailMessage.To.Add(to);
-			mailMessage.Subject = "New private message from " + message.Sender.Name;
+			mailMessage.Subject = subject;
 			mailMessage.Body =
-				"Hi " + message.Receiver.Name + ",\n\n" +
-				"You have received a message from " + message.Sender.Name + ".\n" +
-				"You can view your messages at " + messagesUrl + " and decline from receiving any future messages by changing your settings.\n\n" +
-				"- VocaDB mailer";
+				string.Format(
+					"Hi {0},\n\n" +
+					"{1}" +
+					"\n\n" +
+					"If you do not wish to receive more email notifications such as this, you can adjust your settings at {2}.\n\n" +
+					"- VocaDB mailer",
+				receiverName, body, mySettingsUrl);
 
 			var client = new SmtpClient();
 
@@ -40,7 +41,24 @@ namespace VocaDb.Model.Service.Helpers {
 				client.Send(mailMessage);
 			} catch (SmtpException x) {
 				log.ErrorException("Unable to send mail", x);
+				return false;
 			}
+
+			return true;
+
+		}
+
+		public void SendPrivateMessageNotification(string mySettingsUrl, string messagesUrl, UserMessage message) {
+
+			ParamIs.NotNull(() => message);
+
+			var subject = string.Format("New private message from {0}", message.Sender.Name);
+			var body = string.Format(
+				"You have received a message from {0}. " +
+				"You can view your messages at {1}.", 
+				message.Sender.Name, messagesUrl);
+
+			SendEmail(mySettingsUrl, message.Receiver.Email, message.Receiver.Name, subject, body);
 
 		}
 
