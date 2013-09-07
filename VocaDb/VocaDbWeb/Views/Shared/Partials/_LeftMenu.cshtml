@@ -10,85 +10,90 @@
     <a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a>
 }
 
-<div class="span2 menu well sidebar-nav">
-	<a href="@Url.Action("Index", "Home")">
-		<img src="@Url.Content("~/Content/vocaDB-title.png")" alt="VocaDB" title="VocaDB" />
-	</a>
-	<p class="slogan">@VocaDb.Web.Code.SloganGenerator.Generate()</p>
-
-	<ul class="nav nav-list">
-		<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
-		<li>
-			@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")
-			<ul>
-				@if (Login.CanManageDb) {
-					<li>@Html.ActionLink(ViewRes._LayoutStrings.AddArtist, "Create", "Artist")</li>
-				}
-			</ul>
-		</li>
-		<li>
-			@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album")
-			<ul>
-				@if (Login.CanManageDb) {
-					<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
-				}
-				<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
-				<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
-				<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
-				<li>@Html.ActionLink(ViewRes._LayoutStrings.FreeAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "tag:free" }, null)</li>
-			</ul>
-		</li>
-		<li>
-			@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")
-			<ul>
-				@if (Login.CanManageDb) {
-					<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
-				}
-				<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
-				<li>@Html.ActionLink(ViewRes._LayoutStrings.NewPVs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null)</li>
-			</ul>
-		</li>
-		<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
-		<li>@Html.ActionLink(ViewRes._LayoutStrings.Tags, "Index", "Tag")</li>
-		<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
-		<li><a href="http://wiki.vocadb.net/">@ViewRes._LayoutStrings.Wiki</a></li>
-		@if (Login.Manager.HasPermission(PermissionToken.MikuDbImport)) {
-			<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 
-		}
-		@if (Login.CanAccessManageMenu) {
-			<li>@Html.ActionLink(ViewRes._LayoutStrings.Manage, "Index", "Admin")</li>
-		}
-		@if (!Login.Manager.IsLoggedIn) {
-			<li><a href="@Url.Action("Login", "User")" onclick="vdb.functions.showLoginPopup(); return false;">@ViewRes._LayoutStrings.LogIn</a></li>
-			<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
-		}
-	</ul>
-	@if (Login.Manager.IsLoggedIn) {
-		<br />
-		<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
-	}
-									
-	<br />
-	<h4>@ViewRes._LayoutStrings.SocialSites</h4>
-	<div id="socialSites">
-		@SocialLink("Facebook", "https://www.facebook.com/vocadb", "facebook.png")
-		@SocialLink("Twitter", "https://twitter.com/VocaDB", "Twitter_Logo.png")
-		@SocialLink("Google+", "https://plus.google.com/112203842561345720098", "googleplus-icon.png")
-		<br />
-		@Html.ActionLink(ViewRes._LayoutStrings.IRCLink, "Chat", "Home")
+<div class="span2 menu">
+	<div class="well">
+		<a href="@Url.Action("Index", "Home")">
+			<img src="@Url.Content("~/Content/vocaDB-title.png")" class="site-logo" alt="VocaDB" title="VocaDB" />
+		</a>
+		<p class="slogan">@VocaDb.Web.Code.SloganGenerator.Generate()</p>
 	</div>
 
-	<br />
-	<h4>@ViewRes._LayoutStrings.RelatedSites</h4>
-	<ul id="banners">
-		@Banner("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png")
-		@Banner("Project DIVA wiki", "http://projectdiva.wikispaces.com/", "pjd-wiki.png")
-		@Banner("Mikufan.com", "http://www.mikufan.com", "mikufan_bannertest.png")
-		@Banner("MikuStar", "http://www.mikustar.com/", "mikustar.jpg")
-		@Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
-	</ul>					
-	<ul id="banners-small">
-		@Banner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
-		@Banner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
-	</ul>
+	<div class="well sidebar-nav">
+		<ul class="nav nav-list">
+			<li>@Html.ActionLink(ViewRes._LayoutStrings.Home, "Index", "Home")</li>
+			<li>
+				@Html.ActionLink(ViewRes.SharedStrings.Artists, "Index", "Artist")
+				<ul>
+					@if (Login.CanManageDb) {
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.AddArtist, "Create", "Artist")</li>
+					}
+				</ul>
+			</li>
+			<li>
+				@Html.ActionLink(ViewRes.SharedStrings.Albums, "Index", "Album")
+				<ul>
+					@if (Login.CanManageDb) {
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
+					}
+					<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
+					<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.FreeAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "tag:free" }, null)</li>
+				</ul>
+			</li>
+			<li>
+				@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")
+				<ul>
+					@if (Login.CanManageDb) {
+						<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
+					}
+					<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.NewPVs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null)</li>
+				</ul>
+			</li>
+			<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>
+			<li>@Html.ActionLink(ViewRes._LayoutStrings.Tags, "Index", "Tag")</li>
+			<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
+			<li><a href="http://wiki.vocadb.net/">@ViewRes._LayoutStrings.Wiki</a></li>
+			@if (Login.Manager.HasPermission(PermissionToken.MikuDbImport)) {
+				<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 
+			}
+			@if (Login.CanAccessManageMenu) {
+				<li>@Html.ActionLink(ViewRes._LayoutStrings.Manage, "Index", "Admin")</li>
+			}
+			@if (!Login.Manager.IsLoggedIn) {
+				<li><a href="@Url.Action("Login", "User")" onclick="vdb.functions.showLoginPopup(); return false;">@ViewRes._LayoutStrings.LogIn</a></li>
+				<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
+			}
+		</ul>
+		@if (Login.Manager.IsLoggedIn) {
+			<br />
+			<p class="user">@ViewRes._LayoutStrings.Welcome @Html.ActionLink(Login.User.Name, "Profile", "User", new { id = Login.User.Name }, null)</p>
+		}
+	</div>			
+		
+	<div class="well">
+		<h4>@ViewRes._LayoutStrings.SocialSites</h4>
+		<div id="socialSites">
+			@SocialLink("Facebook", "https://www.facebook.com/vocadb", "facebook.png")
+			@SocialLink("Twitter", "https://twitter.com/VocaDB", "Twitter_Logo.png")
+			@SocialLink("Google+", "https://plus.google.com/112203842561345720098", "googleplus-icon.png")
+			<br />
+			@Html.ActionLink(ViewRes._LayoutStrings.IRCLink, "Chat", "Home")
+		</div>
+
+		<br />
+		<h4>@ViewRes._LayoutStrings.RelatedSites</h4>
+		<ul id="banners">
+			@Banner("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png")
+			@Banner("Project DIVA wiki", "http://projectdiva.wikispaces.com/", "pjd-wiki.png")
+			@Banner("Mikufan.com", "http://www.mikufan.com", "mikufan_bannertest.png")
+			@Banner("MikuStar", "http://www.mikustar.com/", "mikustar.jpg")
+			@Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
+		</ul>					
+		<ul id="banners-small">
+			@Banner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
+			@Banner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
+		</ul>
+	</div>						
 </div>

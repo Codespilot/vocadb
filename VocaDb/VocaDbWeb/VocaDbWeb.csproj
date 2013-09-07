@@ -2522,6 +2522,7 @@
     <Content Include="App_GlobalResources\Albums\AlbumSortRuleNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>AlbumSortRuleNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\Albums\AlbumSortRuleNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>

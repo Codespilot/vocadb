@@ -126,6 +126,9 @@
   <data name="RatingAverage" xml:space="preserve">
     <value>Arvostelun mukaan</value>
   </data>
+  <data name="RatingTotal" xml:space="preserve">
+    <value>Kokonaispisteiden mukaan</value>
+  </data>
   <data name="ReleaseDate" xml:space="preserve">
     <value>Julkaisupäivän mukaan</value>
   </data>

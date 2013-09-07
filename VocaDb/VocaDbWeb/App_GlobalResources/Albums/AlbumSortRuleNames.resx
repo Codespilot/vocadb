@@ -124,7 +124,7 @@
     <value>Name</value>
   </data>
   <data name="RatingAverage" xml:space="preserve">
-    <value>Rating</value>
+    <value>Rating average</value>
   </data>
   <data name="RatingTotal" xml:space="preserve">
     <value>Total score</value>
