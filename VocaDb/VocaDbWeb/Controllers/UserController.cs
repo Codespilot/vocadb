@@ -463,9 +463,11 @@ namespace VocaDb.Web.Controllers
 			}
 
 			var contract = model.ToContract(LoggedUserId);
+			var mySettingsUrl = VocaUriBuilder.CreateAbsolute(Url.Action("MySettings", "User")).ToString();
+			var messagesUrl = VocaUriBuilder.CreateAbsolute(Url.Action("Messages", "User")).ToString();
 
 			try {
-				Service.SendMessage(contract, AppConfig.HostAddress + Url.Action("Messages", "User"));
+				Service.SendMessage(contract, mySettingsUrl, messagesUrl);
 			} catch (UserNotFoundException x) {
 				ModelState.AddModelError("ReceiverName", x.Message);
 				SaveErrorsToTempData();

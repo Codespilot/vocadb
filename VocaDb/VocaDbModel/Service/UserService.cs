@@ -757,7 +757,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void SendMessage(UserMessageContract contract, string messagesUrl) {
+		public void SendMessage(UserMessageContract contract, string mySettingsUrl, string messagesUrl) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -783,7 +783,7 @@ namespace VocaDb.Model.Service {
 						&& sender.EffectivePermissions.Has(PermissionToken.DesignatedStaff))) {
 
 					var mailer = new UserMessageMailer();
-					mailer.Send(messagesUrl, message);
+					mailer.SendPrivateMessageNotification(mySettingsUrl, messagesUrl, message);
 
 				}
 
