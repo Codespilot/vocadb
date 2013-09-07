@@ -346,10 +346,11 @@ ul {
 
 #banners-small {
 	margin-left: 8px;
-	min-height: 31px;
 }
 
-#banners-small li {
+#banners-small div {
+	vertical-align: top;
+	display: inline-block;
 	padding-top: 0;
 }
 
