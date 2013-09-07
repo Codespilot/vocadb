@@ -6,6 +6,10 @@
     <li><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></li>
 }
 
+@helper SmallBanner(string title, string url, string img) {
+    <div><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></div>
+}
+
 @helper SocialLink(string title, string url, string img ){
     <a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a>
 }
@@ -91,9 +95,9 @@
 			@Banner("MikuStar", "http://www.mikustar.com/", "mikustar.jpg")
 			@Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
 		</ul>					
-		<ul id="banners-small">
-			@Banner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
-			@Banner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
-		</ul>
+		<div id="banners-small">
+			@SmallBanner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
+			@SmallBanner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
+		</div>
 	</div>						
 </div>
