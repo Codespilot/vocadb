@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Mapping.Tags {
@@ -13,6 +14,7 @@ namespace VocaDb.Model.Mapping.Tags {
 			Map(m => m.Id).Generated.Insert().Not.Nullable().Not.Insert().Not.Update();
 			Map(m => m.CategoryName).Length(30).Not.Nullable();
 			Map(m => m.Description).Length(1000).Not.Nullable();
+			Map(m => m.Status).CustomType(typeof(EntryStatus)).Not.Nullable();
 			Map(m => m.TagName).Column("[Name]").ReadOnly().Not.Insert();
 
 			References(m => m.AliasedTo).Nullable();
@@ -44,6 +46,7 @@ namespace VocaDb.Model.Mapping.Tags {
 			Map(m => m.CommonEditEvent).Length(30).Not.Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Description).Length(400).Not.Nullable();
+			Map(m => m.Status).Not.Nullable();
 
 			References(m => m.Author).Not.Nullable();
 			References(m => m.Tag).Not.Nullable();

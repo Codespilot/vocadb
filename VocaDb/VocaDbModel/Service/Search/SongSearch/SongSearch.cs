@@ -42,11 +42,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					s.Names.SortNames.English.Contains(query)
 						|| s.Names.SortNames.Romaji.Contains(query)
 						|| s.Names.SortNames.Japanese.Contains(query)
-						|| (!onlyByName &&
-							(s.ArtistString.Japanese.Contains(query)
-								|| s.ArtistString.Romaji.Contains(query)
-								|| s.ArtistString.English.Contains(query)))
-						|| (s.NicoId != null && s.NicoId == query));
+						|| (!onlyByName && s.NicoId != null && s.NicoId == query));
 
 			}
 
@@ -311,7 +307,9 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				directQ = directQ.AddOrder(sortRule, LanguagePreference);
 
-				var direct = directQ.ToArray();
+				var direct = directQ
+					.Take(start + maxResults)	// Note: this needs to be verified with paging
+					.ToArray();
 
 				var additionalNamesQ = Query<SongName>()
 					.Where(m => !m.Song.Deleted);
@@ -331,6 +329,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					.Select(m => m.Song)
 					.AddOrder(sortRule, LanguagePreference)
 					.Distinct()
+					.Take(start + maxResults)	// Note: this needs to be verified with paging
 					.ToArray();
 
 				var entries = exactResults.Union(direct.Union(additionalNames))

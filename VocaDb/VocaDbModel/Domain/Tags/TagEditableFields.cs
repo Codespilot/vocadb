@@ -13,7 +13,9 @@ namespace VocaDb.Model.Domain.Tags {
 
 		Description		= 4,
 
-		Picture			= 8
+		Picture			= 8,
+
+		Status			= 16
 
 	}
 

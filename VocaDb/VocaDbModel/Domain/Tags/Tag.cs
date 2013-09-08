@@ -12,7 +12,7 @@ using VocaDb.Model.Domain.Versioning;
 
 namespace VocaDb.Model.Domain.Tags {
 
-	public class Tag : IEquatable<Tag>, IEntryWithNames {
+	public class Tag : IEquatable<Tag>, IEntryWithNames, IEntryWithStatus {
 
 		string IEntryBase.DefaultName {
 			get { return Name; }
@@ -43,6 +43,7 @@ namespace VocaDb.Model.Domain.Tags {
 		public Tag() {
 			CategoryName = string.Empty;
 			Description = string.Empty;
+			Status = EntryStatus.Finished;
 		}
 
 		public Tag(string name)
@@ -207,6 +208,8 @@ namespace VocaDb.Model.Domain.Tags {
 				return AllSongTagUsages.Where(a => !a.Song.Deleted);
 			}
 		}
+
+		public virtual EntryStatus Status { get; set; }
 
 		public override string ToString() {
 			return string.Format("tag '{0}'", Name);

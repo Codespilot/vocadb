@@ -36,6 +36,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			repository.HandleTransaction(ctx => {
 
 				var tag = ctx.Load(contract.Name);
+
+				permissionContext.VerifyEntryEdit(tag);
+
 				var diff = new TagDiff();
 
 				var oldAliasedTo = tag.AliasedTo != null ? tag.AliasedTo.Name : string.Empty;
@@ -51,8 +54,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				if (tag.Description != contract.Description)
 					diff.Description = true;
 
+				if (tag.Status != contract.Status)
+					diff.Status = true;
+
 				tag.CategoryName = contract.CategoryName;
 				tag.Description = contract.Description;
+				tag.Status = contract.Status;
 
 				if (uploadedImage != null) {
 

@@ -3,6 +3,7 @@ using System.Linq;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Songs;
@@ -11,7 +12,19 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Tags {
 
-	public class TagDetailsContract : TagContract {
+	public class TagDetailsContract : TagContract, IEntryWithStatus {
+
+		bool IDeletableEntry.Deleted {
+			get { return false; }
+		}
+
+		string IEntryBase.DefaultName {
+			get { return Name; }
+		}
+
+		EntryType IEntryBase.EntryType {
+			get { return EntryType.Tag; }
+		}
 
 		public TagDetailsContract() { }
 

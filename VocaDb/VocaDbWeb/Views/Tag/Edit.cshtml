@@ -77,6 +77,16 @@
 		</div>
 	</div>
 	
+	<div class="editor-label">
+		<label>
+			Entry status
+			@Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
+        </label>
+	</div>
+	<div class="editor-field">
+		@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+	</div>
+
 	<br />
 	@Helpers.SaveBtn()
 	

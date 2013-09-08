@@ -2,6 +2,7 @@
 function initPage(tagName) {
 
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash' } });
+	$(".helpToolTip").qtip();
 	$("#categoryName").autocomplete({
 		source: "../../Tag/FindCategories"
 	});

@@ -95,5 +95,14 @@ namespace Resources {
                 return ResourceManager.GetString("Picture", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
     }
 }

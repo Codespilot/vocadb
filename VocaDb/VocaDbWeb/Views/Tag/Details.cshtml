@@ -45,8 +45,9 @@
 }
 
 @section Toolbar {
-	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new {id = Model.Name}, new {id = "editTagLink", @class = (Login.CanEdit(Model) ? "" : "disabled")})
 	@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Name }, new { id = "viewVersions" })
+	@Helpers.EntryStatusMessage(Model.Status)
 }
 
 <div id="tabs">
