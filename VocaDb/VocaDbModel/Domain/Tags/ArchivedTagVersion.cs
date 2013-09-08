@@ -26,7 +26,7 @@ namespace VocaDb.Model.Domain.Tags {
 			CommonEditEvent = commonEditEvent;
 			CategoryName = tag.CategoryName;
 			Description = tag.Description;
-			Status = EntryStatus.Finished;
+			Status = tag.Status;
 
 		}
 

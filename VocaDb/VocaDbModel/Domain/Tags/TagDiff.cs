@@ -95,6 +95,15 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public virtual bool Status {
+			get {
+				return IsChanged(TagEditableFields.Status);
+			}
+			set {
+				Set(TagEditableFields.Status, value);
+			}
+		}
+
 		/// <summary>
 		/// Checks whether a specific field changed in this diff.
 		/// </summary>

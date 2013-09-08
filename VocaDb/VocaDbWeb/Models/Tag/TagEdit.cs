@@ -1,14 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Web.Models.Tag {
+
 	public class TagEdit {
 
-		public TagEdit() { }
+		public TagEdit() {
+			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager).Where(e => e != EntryStatus.Draft).ToArray();
+		}
 
-		public TagEdit(TagForEditContract contract) {
+		public TagEdit(TagForEditContract contract)
+			: this() {
 
 			ParamIs.NotNull(() => contract);
 
@@ -16,6 +23,7 @@ namespace VocaDb.Web.Models.Tag {
 			CategoryName = contract.CategoryName;
 			Description = contract.Description;
 			Name = contract.Name;
+			Status = contract.Status;
 			Thumb = contract.Thumb;
 
 			CopyNonEditableProperties(contract);
@@ -23,6 +31,8 @@ namespace VocaDb.Web.Models.Tag {
 		}
 
 		public string[] AllCategoryNames { get; set; }
+
+		public EntryStatus[] AllowedEntryStatuses { get; set; }
 
 		[Display(Name = "Aliased to")]
 		[StringLength(30)]
@@ -40,6 +50,8 @@ namespace VocaDb.Web.Models.Tag {
 
 		public string Name { get; set; }
 
+		public EntryStatus Status { get; set; }
+
 		public EntryThumbContract Thumb { get; set; }
 
 		public void CopyNonEditableProperties(TagForEditContract contract) {
@@ -56,7 +68,8 @@ namespace VocaDb.Web.Models.Tag {
 				Name = this.Name,
 				AliasedTo = this.AliasedTo ?? string.Empty,
 				CategoryName = this.CategoryName ?? string.Empty,
-				Description = this.Description ?? string.Empty
+				Description = this.Description ?? string.Empty,
+				Status = this.Status
 			};
 
 		}
