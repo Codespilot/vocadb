@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
@@ -17,26 +15,78 @@ namespace VocaDb.Model.Service.TagFormatting {
 			"%title% feat. %vocalists%;%producers%;%album%;%discnumber%;%track%",
 			"%title%;%producers%;%vocalists%;%album%;%discnumber%;%track%",
 			"%title%;%artists%;%album%;%discnumber%;%track%",
-		};
+		};		
 
-		private string ApplyFormat(SongInAlbum track, string format, ContentLanguagePreference languagePreference) {
+		private string GetVocalistStr(SongInAlbum track, ContentLanguagePreference languagePreference) {
+			return string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference));
+		}
+
+		private string GetFieldValue(string fieldName, SongInAlbum track, ContentLanguagePreference languagePreference) {
 
 			var album = track.Album;
+
+			switch (fieldName.ToLowerInvariant()) {
+				// Album title
+				case "album":			
+					return album.Names.SortNames[languagePreference];
+
+				// Artists for album
+				case "albumartists":
+					return album.ArtistString[languagePreference];
+
+				// Artists for song, both producers and vocalists
+				case "artists":			
+					return track.Song.ArtistString[languagePreference];
+
+				// Disc number
+				case "discnumber":		
+					return track.DiscNumber.ToString();
+
+				// List of vocalists, separated by comma, with "feat." in the beginning if there are any vocalists, otherwise empty.
+				case "featvocalists":	
+					var vocalistStr = GetVocalistStr(track, languagePreference);
+					return (vocalistStr.Any() ? " feat. " + vocalistStr : string.Empty);
+
+				// List of producers
+				case "producers":		
+					return string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference));
+
+				// Album release date
+				case "releasedate":		
+					return track.Album.OriginalReleaseDate.ToString();
+
+				// Song title
+				case "title":			
+					return track.Song.Names.SortNames[languagePreference];
+
+				// Track number
+				case "track":			
+					return track.TrackNumber.ToString();
+
+				// List of vocalists, separated by comma.
+				case "vocalists":		
+					return GetVocalistStr(track, languagePreference);
+
+				default:
+					return string.Empty;
+			}
+
+		}
+
+		private void ReplaceField(
+			string tokenName, string tokenStr, StringBuilder sb, SongInAlbum track, ContentLanguagePreference languagePreference) {
+
+			var val = GetField(GetFieldValue(tokenName, track, languagePreference));
+			sb.Replace(tokenStr, val);
+
+		}
+
+		private string ApplyFormat(SongInAlbum track, string format, ContentLanguagePreference languagePreference, MatchCollection fieldMatches) {
+
 			var sb = new StringBuilder(format);
 
-			sb.Replace("%album%", GetField(album.Names.SortNames[languagePreference]));
-			sb.Replace("%artists%", GetField(track.Song.ArtistString[languagePreference]));
-			sb.Replace("%discnumber%", track.DiscNumber.ToString());
-			sb.Replace("%producers%", GetField(string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference))));
-			sb.Replace("%title%", GetField(track.Song.Names.SortNames[languagePreference]));
-			sb.Replace("%track%", track.TrackNumber.ToString());
-
-			var vocalistStr = string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference));
-			sb.Replace("%vocalists%", GetField(vocalistStr));
-			if (vocalistStr.Any()) {
-				sb.Replace("%featvocalists%", GetField(" feat. " + vocalistStr));
-			} else {
-				sb.Replace("%featvocalists%", string.Empty);				
+			foreach (Match match in fieldMatches) {
+				ReplaceField(match.Groups[1].Value, match.Value, sb, track, languagePreference);
 			}
 
 			return sb.ToString();
@@ -59,8 +109,11 @@ namespace VocaDb.Model.Service.TagFormatting {
 
 			var sb = new StringBuilder();
 
+			var fieldRegex = new Regex(@"%(\w+)%");
+			var formatFields = fieldRegex.Matches(format);
+
 			foreach (var song in album.Songs)
-				sb.AppendLine(ApplyFormat(song, format, languagePreference));
+				sb.AppendLine(ApplyFormat(song, format, languagePreference, formatFields));
 
 			return sb.ToString();
 

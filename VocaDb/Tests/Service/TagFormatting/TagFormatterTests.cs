@@ -33,6 +33,7 @@ namespace VocaDb.Tests.Service.TagFormatting {
 			song = new Song(new LocalizedString("Nebula", ContentLanguageSelection.English));
 			song.AddArtist(producer);
 			song.AddArtist(vocalist);
+			song.UpdateArtistString();
 
 			album = new Album(new LocalizedString("Synthesis", ContentLanguageSelection.English));
 			album.AddSong(song, trackNum: 5, discNum: 1);
@@ -71,6 +72,14 @@ namespace VocaDb.Tests.Service.TagFormatting {
 
 			Assert.AreEqual("Nebula feat. Hatsune Miku;\"re;mo\";Synthesis;1;5", result);
 
+		}
+
+		[TestMethod]
+		public void VocaloidsWithProducers() {
+
+			var result = ApplyFormat("%title%;%artists%", ContentLanguagePreference.Romaji).Trim();
+
+			Assert.AreEqual("Nebula;Tripshots feat. Hatsune Miku", result);
 		}
 
 	}
