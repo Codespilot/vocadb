@@ -1,5 +1,9 @@
 ﻿namespace VocaDb.Model.Domain.Users {
 
+	/// <summary>
+	/// Various additional properties for user that are not needed in most cases.
+	/// For example, for authentication and user profile.
+	/// </summary>
 	public class UserOptions {
 
 		private string aboutMe;

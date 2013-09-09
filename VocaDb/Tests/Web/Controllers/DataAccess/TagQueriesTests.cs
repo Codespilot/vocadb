@@ -34,7 +34,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			permissionContext = new FakePermissionContext(new UserContract(user));
 
-			queries = new TagQueries(repository, permissionContext);
+			queries = new TagQueries(repository, permissionContext, new FakeEntryLinkFactory());
 
 
 		}

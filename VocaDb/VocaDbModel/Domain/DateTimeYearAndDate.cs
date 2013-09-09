@@ -136,6 +136,14 @@ namespace VocaDb.Model.Domain {
 
 		}
 
+		/// <summary>
+		/// Provides a localized string representation of this date.
+		/// </summary>
+		/// <remarks>
+		/// If the date is empty, an empty string will be returned.
+		/// If only year is specified, that year is returned.
+		/// If full date is specified, a localized short date string (formatted according to current culture) will be returned.
+		/// </remarks>
 		public override string ToString() {
 			if (Year != null) {
 				if (Month != null && Day != null)
