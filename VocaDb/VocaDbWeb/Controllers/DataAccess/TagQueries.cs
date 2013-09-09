@@ -7,6 +7,7 @@ using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Tags;
+using VocaDb.Model.Service;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers.DataAccess {
@@ -16,8 +17,15 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// </summary>
 	public class TagQueries : QueriesBase<ITagRepository> {
 
-		public TagQueries(ITagRepository repository, IUserPermissionContext permissionContext) 
-			: base(repository, permissionContext) {}
+		private IEntryLinkFactory entryLinkFactory;
+
+		public TagQueries(ITagRepository repository, IUserPermissionContext permissionContext,
+		                  IEntryLinkFactory entryLinkFactory)
+			: base(repository, permissionContext) {
+
+			this.entryLinkFactory = entryLinkFactory;
+
+		}
 
 		public void Archive(IRepositoryContext<Tag> ctx, Tag tag, TagDiff diff, EntryEditEvent reason) {
 
@@ -72,7 +80,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				}
 
-				var logStr = string.Format("updated properties for {0} ({1})", tag, diff.ChangedFieldsString);
+				var logStr = string.Format("updated properties for tag {0} ({1})", entryLinkFactory.CreateEntryLink(tag), diff.ChangedFieldsString);
 				ctx.AuditLogger.AuditLog(logStr);
 				Archive(ctx, tag, diff, EntryEditEvent.Updated);
 
