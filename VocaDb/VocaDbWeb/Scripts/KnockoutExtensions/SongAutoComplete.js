@@ -1,8 +1,3 @@
-/// <reference path="../typings/knockout/knockout.d.ts" />
-/// <reference path="../Shared/GlobalFunctions.ts" />
-/// <reference path="../Shared/EntrySearchDrop.d.ts" />
-/// <reference path="AutoCompleteParams.ts" />
-// Song autocomplete search box.
 ko.bindingHandlers.songAutoComplete = {
     init: function (element, valueAccessor) {
         var properties = ko.utils.unwrapObservable(valueAccessor());

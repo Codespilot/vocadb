@@ -49,7 +49,10 @@ namespace VocaDb.Web.App_Start {
 
 
 			// VIEW-SPECIFIC BUNDLES
-			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include("~/Scripts/Album/Details.js"));
+			bundles.Add(new ScriptBundle("~/bundles/Album/Details").Include(
+				"~/Scripts/ViewModels/Album/AlbumDetailsViewModel.js",
+				"~/Scripts/Album/Details.js"
+			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Album/Edit").Include(
 				"~/Scripts/Repositories/SongRepository.js",

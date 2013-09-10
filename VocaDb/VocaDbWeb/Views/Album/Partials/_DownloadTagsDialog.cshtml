@@ -1,0 +1,26 @@
+﻿
+<div 
+	data-bind="
+		dialog: {
+			autoOpen: false, width: 400,
+			position: { my: 'left top', at: 'left bottom', of: $('#downloadTags') }
+		},
+		dialogVisible: downloadTagsDialog.dialogVisible,
+		dialogButtons: downloadTagsDialog.dialogButtons"
+	title="@ViewRes.Album.DetailsStrings.DownloadTrackList" style="display: none;">
+	
+	<div data-bind="with: downloadTagsDialog">		
+		<label>
+			<input type="radio" value="Default" data-bind="checked: downloadOption" name="tagDownloadOption" checked="checked" />		
+			Default format
+		</label>
+	
+		<label>
+			<input type="radio" value="Custom" data-bind="checked: downloadOption" name="tagDownloadOption" />
+			Custom format
+		</label>	
+	
+		<input type="text" data-bind="value: formatString, visible: downloadOptionIsCustom" maxlength="100" class="input-xlarge" style="display: none;" />
+	</div>
+
+</div>

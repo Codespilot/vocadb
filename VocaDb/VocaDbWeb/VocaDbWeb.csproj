@@ -1693,6 +1693,7 @@
     <Content Include="Scripts\ViewModels\Album\AlbumCreateViewModel.js">
       <DependentUpon>AlbumCreateViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumDetailsViewModel.ts" />
     <Content Include="Scripts\ViewModels\ArtistEditViewModel.js">
       <DependentUpon>ArtistEditViewModel.ts</DependentUpon>
     </Content>
@@ -2125,6 +2126,7 @@
     <Content Include="Views\Album\Partials\_TrackArtistSelection.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Album\RelatedAlbums.cshtml" />
+    <Content Include="Views\Album\Partials\_DownloadTagsDialog.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -2959,4 +2961,16 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+	<TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
+    <TypeScriptSourceMap>false</TypeScriptSourceMap>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" />
 </Project>

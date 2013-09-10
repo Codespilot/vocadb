@@ -1,8 +1,5 @@
 var vdb;
 (function (vdb) {
-    /// <reference path="../../typings/knockout/knockout.d.ts" />
-    /// <reference path="../../typings/jqueryui/jqueryui.d.ts" />
-    /// <reference path="../../Shared/GlobalFunctions.ts" />
     (function (viewModels) {
         var ViewAuditLogViewModel = (function () {
             function ViewAuditLogViewModel(data) {
@@ -33,19 +30,15 @@ else
                             $.get("/User/FindByName", { term: name, startsWith: true }, response);
                     },
                     focus: function () {
-                        // prevent value inserted on focus
                         return false;
                     },
                     select: function (event, ui) {
                         var terms = _this.split($("#usersList").val());
 
-                        // remove the current input
                         terms.pop();
 
-                        // add the selected item
                         terms.push(ui.item.value);
 
-                        // add placeholder to get the comma-and-space at the end
                         terms.push("");
                         _this.excludeUsers(terms.join(", "));
                         return false;

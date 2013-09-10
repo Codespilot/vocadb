@@ -7,8 +7,6 @@ var __extends = this.__extends || function (d, b) {
 var vdb;
 (function (vdb) {
     (function (tests) {
-        /// <reference path="../../DataContracts/ArtistContract.ts" />
-        /// <reference path="../../Repositories/ArtistRepository.ts" />
         (function (testSupport) {
             
 

@@ -31,11 +31,15 @@ namespace VocaDb.Model.Service.TagFormatting {
 					return album.Names.SortNames[languagePreference];
 
 				// Artists for album
-				case "albumartists":
+				case "albumartist":
+					return album.ArtistString[languagePreference];
+				case "album artist": // foobar style
 					return album.ArtistString[languagePreference];
 
 				// Artists for song, both producers and vocalists
-				case "artists":			
+				case "artist":			
+					return track.Song.ArtistString[languagePreference];
+				case "track artist": // foobar style
 					return track.Song.ArtistString[languagePreference];
 
 				// Disc number
@@ -61,6 +65,8 @@ namespace VocaDb.Model.Service.TagFormatting {
 
 				// Track number
 				case "track":			
+					return track.TrackNumber.ToString();
+				case "tracknumber": // foobar style
 					return track.TrackNumber.ToString();
 
 				// List of vocalists, separated by comma.

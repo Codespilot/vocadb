@@ -45,7 +45,11 @@
 @Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editAlbumLink", @class = (Model.CanEdit ? "" : "disabled") })
 
 @Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
-@Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
+
+<span>
+	@Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
+	<a data-bind="click: downloadTagsDialog.show" href="#" id="downloadTagsCustom">Customize</a>
+</span>
 
 <a href="#" id="reportEntryLink">@ViewRes.EntryDetailsStrings.ReportAnError</a>
 
@@ -347,6 +351,8 @@
 
 </div>
 
+@{ Html.RenderPartial("Partials/_DownloadTagsDialog"); }
+
 @AlbumHelpers.EditCollectionDialog(Model.AlbumPurchaseStatus, Model.AlbumMediaType)
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.AlbumReportTypeNames, new { id = "reportType" }))
@@ -356,8 +362,13 @@
 	<script type="text/javascript">
 		
 		$(document).ready(function() { 
+			
+			var viewModel = new vdb.viewModels.AlbumDetailsViewModel(@Model.Id);
+			ko.applyBindings(viewModel);
+
 			initPage(@Model.Id, @Model.CollectionRating, 
 				"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+			
 		});
 		
 	</script>

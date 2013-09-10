@@ -1,14 +1,8 @@
 var vdb;
 (function (vdb) {
-    /// <reference path="../typings/jquery/jquery.d.ts" />
-    /// <reference path="../Shared/GlobalFunctions.ts" />
-    /// <reference path="../DataContracts/ArtistContract.ts" />
-    /// <reference path="../DataContracts/DuplicateEntryResultContract.ts" />
     (function (repositories) {
         
 
-        // Repository for managing artists and related objects.
-        // Corresponds to the ArtistController class.
         var ArtistRepository = (function () {
             function ArtistRepository(baseUrl) {
                 var _this = this;

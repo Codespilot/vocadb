@@ -1,30 +1,4 @@
 ﻿
-function AlbumDetailsViewModel(albumId) {
-
-	var self = this;
-
-	this.id = albumId;
-	//this.ownedUsers = ko.observableArray([]);
-	//this.wishlistedUsers = ko.observableArray([]);
-	this.usersContent = ko.observable();
-
-	this.getUsers = function() {
-
-		$.post(vdb.functions.mapUrl("/Album/UsersWithAlbumInCollection"), { albumId: self.id }, function (result) {
-
-			//self.ownedUsers(_.filter(result, function (user) { return user.PurchaseStatus == "Owned"; }));
-			//self.wishlistedUsers(_.filter(result, function (user) { return user.PurchaseStatus == "Wishlisted"; }));
-			self.usersContent(result);
-			$("#userCollectionsPopup").dialog("open");
-
-		});
-
-		return false;
-
-	};
-
-}
-
 function initDialog() {
 
 	function addTag(tagName) {
@@ -143,7 +117,8 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 	$("#editAlbumLink").button({ disabled: $("#editAlbumLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
 	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
 	$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
-	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s'} });
+	$("#downloadTags").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s' } })
+		.next().button({ text: false, icons: { primary: "ui-icon-triangle-1-s" } }).parent().buttonset();
 	$("#editTags").button({ disabled: $("#editTags").hasClass("disabled"), icons: { primary: 'ui-icon-tag'} });
 	$("#manageTags").button({ icons: { primary: 'ui-icon-wrench' } });
 	$("#viewCommentsLink").click(function () {
@@ -254,7 +229,5 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 	$("td.artistList a").vdbArtistToolTip();
 	
 	$("#userCollectionsPopup").dialog({ autoOpen: false, width: 400, position: { my: "left top", at: "left bottom", of: $("#statsLink") } });
-
-	ko.applyBindings(new AlbumDetailsViewModel(albumId));
 
 }

@@ -77,7 +77,7 @@ namespace VocaDb.Tests.Service.TagFormatting {
 		[TestMethod]
 		public void VocaloidsWithProducers() {
 
-			var result = ApplyFormat("%title%;%artists%", ContentLanguagePreference.Romaji).Trim();
+			var result = ApplyFormat("%title%;%artist%", ContentLanguagePreference.Romaji).Trim();
 
 			Assert.AreEqual("Nebula;Tripshots feat. Hatsune Miku", result);
 		}

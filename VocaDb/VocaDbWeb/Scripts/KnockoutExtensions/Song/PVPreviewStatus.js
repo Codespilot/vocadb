@@ -1,11 +1,3 @@
-/// <reference path="../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../typings/knockout/knockout.d.ts" />
-/// <reference path="../../Shared/GlobalValues.ts" />
-/// <reference path="../../Shared/Messages.d.ts" />
-/// <reference path="../../Repositories/SongRepository.ts" />
-/// <reference path="../../Repositories/UserRepository.ts" />
-/// <reference path="../../ViewModels/Song/SongWithPreviewViewModel.ts" />
-// Initializes and maintains song rating status for the HTML table.
 ko.bindingHandlers.pvPreviewStatus = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var songRepository = new vdb.repositories.SongRepository(vdb.values.baseAddress);
@@ -13,7 +5,6 @@ ko.bindingHandlers.pvPreviewStatus = {
         var pvRows = $(element).find(".js-pvRow");
         var songsArray = valueAccessor();
 
-        // Parse all rows and create child binding context for each of them
         var songItems = _.map(pvRows, function (pvRow) {
             var songId = $(pvRow).data("entry-id");
 
