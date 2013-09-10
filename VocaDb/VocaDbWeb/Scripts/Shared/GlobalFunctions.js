@@ -1,6 +1,5 @@
 var vdb;
 (function (vdb) {
-    /// <reference path="GlobalValues.ts" />
     (function (functions) {
         function isNullOrWhiteSpace(str) {
             if (str == null || str.length == 0)

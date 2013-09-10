@@ -295,13 +295,13 @@ declare module _ {
 	* Returns true if all of the values in the list pass the iterator truth test. Delegates to the
 	* native method every, if present.
 	* @param list Truth test against all elements within this list.
-	* @param iterator Trust test iterator function for each element in `list`.
+	* @param iterator Trust test iterator function for each element in `list`, optional.
 	* @param context `this` object in `iterator`, optional.
 	* @return True if all elements passed the truth test, otherwise false.
 	**/
 	export function all<T>(
 		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
+		iterator?: ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -309,7 +309,7 @@ declare module _ {
 	**/
 	export function every<T>(
 		list: Collection<T>,
-		iterator: ListIterator<T, boolean>,
+		iterator?: ListIterator<T, boolean>,
 		context?: any): boolean;
 
 	/**
@@ -799,7 +799,7 @@ declare module _ {
 		start: number,
 		stop: number,
 		step?: number): number[];
-	
+
 	/**
 	* @see _.range
 	* @param stop Stop here.
@@ -860,7 +860,7 @@ declare module _ {
 	**/
 	export function memoize(
 		fn: Function,
-		hashFn?: (n: any) => string): Function;
+		hashFn?: (...n: any[]) => string): Function;
 
 	/**
 	* Much like setTimeout, invokes function after wait milliseconds. If you pass the optional arguments,
@@ -1030,9 +1030,8 @@ declare module _ {
 	* @keys The key/value pairs to keep on `object`.
 	* @return Copy of `object` with only the `keys` properties.
 	**/
-	export function pick(
-		object: any,
-		...keys: string[]): any;
+	export function pick(object: any, ...keys: string[]): any;
+	export function pick(object: any, keys: string[]): any;
 
 	/**
 	* Return a copy of the object, filtered to omit the blacklisted keys (or array of keys).
@@ -1040,9 +1039,8 @@ declare module _ {
 	* @param keys The key/value pairs to remove on `object`.
 	* @return Copy of `object` without the `keys` properties.
 	**/
-	export function omit(
-		object: any,
-		...keys: string[]): any;
+	export function omit(object: any, ...keys: string[]): any;
+	export function omit(object: any, keys: string[]): any;
 
 	/**
 	* Fill in null and undefined properties in object with values from the defaults objects,
@@ -1310,7 +1308,7 @@ declare module _ {
 	* @param obj Object to chain.
 	* @return Wrapped `obj`.
 	**/
-	export function chain(obj: any): _Chain;
+	export function chain(obj: any): _Chain<any>;
 
 	/**
 	* Extracts the value of a wrapped object.
@@ -1778,7 +1776,7 @@ declare class _<T> {
 	* Wrapped type `Function`.
 	* @see _.memoize
 	**/
-	memoize(hashFn?: (n: any) => string): Function;
+	memoize(hashFn?: (...n: any[]) => string): Function;
 
 	/**
 	* Wrapped type `Function`.
@@ -2077,7 +2075,7 @@ declare class _<T> {
 	* Wrapped type `any`.
 	* @see _.chain
 	**/
-	chain(): _Chain;
+	chain(): _Chain<any>;
 
 	/**
 	* Wrapped type `any`.
@@ -2096,7 +2094,7 @@ interface _Chain<T> {
 	* Wrapped type `any[]`.
 	* @see _.each
 	**/
-	each(iterator: _.ListIterator<T, void >, context?: any): _Chain;
+	each(iterator: _.ListIterator<T, void >, context?: any): _Chain<any>;
 
 	/**
 	* @see _.each
@@ -2544,7 +2542,7 @@ interface _Chain<T> {
 	* Wrapped type `Function`.
 	* @see _.memoize
 	**/
-	memoize(hashFn?: (n: any) => string): _Chain;
+	memoize(hashFn?: (...n: any[]) => string): _Chain;
 
 	/**
 	* Wrapped type `Function`.
@@ -2649,12 +2647,14 @@ interface _Chain<T> {
 	* @see _.pick
 	**/
 	pick(...keys: string[]): _Chain;
+	pick(keys: string[]): _Chain;
 
 	/**
 	* Wrapped type `object`.
 	* @see _.omit
 	**/
 	omit(...keys: string[]): _Chain;
+	omit(keys: string[]): _Chain;
 
 	/**
 	* Wrapped type `object`.
@@ -2847,7 +2847,7 @@ interface _Chain<T> {
 	* Wrapped type `any`.
 	* @see _.value
 	**/
-	value<TResult>(): _Chain;
+	value<TResult>(): TResult;
 }
 
 declare module "underscore" {

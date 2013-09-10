@@ -1,6 +1,5 @@
 var vdb;
 (function (vdb) {
-    /// <reference path="../../typings/knockout/knockout.d.ts" />
     (function (viewModels) {
         var AlbumCreateViewModel = (function () {
             function AlbumCreateViewModel() {

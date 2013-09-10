@@ -4,7 +4,7 @@ var vdb;
         (function (viewModels) {
             var sup = vdb.tests.testSupport;
             var vm = vdb.viewModels;
-            var dc = vdb.dataContracts;
+            
 
             var rep;
             var userRep = new sup.FakeUserRepository();

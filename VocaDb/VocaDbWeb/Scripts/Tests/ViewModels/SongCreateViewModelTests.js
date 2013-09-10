@@ -1,11 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (tests) {
-        /// <reference path="../../typings/qunit/qunit.d.ts" />
-        /// <reference path="../../Models/WebLinkCategory.ts" />
-        /// <reference path="../../ViewModels/SongCreateViewModel.ts" />
-        /// <reference path="../TestSupport/FakeSongRepository.ts" />
-        /// <reference path="../TestSupport/FakeArtistRepository.ts" />
         (function (viewModels) {
             var vm = vdb.viewModels;
             

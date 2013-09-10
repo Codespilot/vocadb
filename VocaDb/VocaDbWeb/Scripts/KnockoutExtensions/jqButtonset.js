@@ -20,7 +20,8 @@ ko.bindingHandlers.jqButtonset = {
             if ((element.type == "checkbox") && (ko.utils.unwrapObservable(modelValue) instanceof Array)) {
                 var existingEntryIndex = ko.utils.arrayIndexOf(ko.utils.unwrapObservable(modelValue), element.value);
                 if (element.checked && (existingEntryIndex < 0))
-                    modelValue.push(element.value); else if ((!element.checked) && (existingEntryIndex >= 0))
+                    modelValue.push(element.value);
+else if ((!element.checked) && (existingEntryIndex >= 0))
                     modelValue.splice(existingEntryIndex, 1);
             } else if (ko.isObservable(modelValue)) {
                 if (modelValue() !== valueToWrite) {
