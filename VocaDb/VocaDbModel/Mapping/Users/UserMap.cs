@@ -38,6 +38,14 @@ namespace VocaDb.Model.Mapping.Users {
 					.Cache.ReadWrite();
 			});
 
+			/*	
+				Currently the lazy loading isn't working.
+				Lazy loading is not supported for non-mandatory one-to-one refereces (needs constrained, see http://stackoverflow.com/a/389345), 
+				or when the referenced property is something else besides the primary key (can't use propertyref, see http://stackoverflow.com/a/3832579). 
+			 
+				Reference should be changed to HasMany. 
+				Alternatively, the one-to-one reference could be changed to constrained, using the same primary key.
+			*/
 			HasOne(m => m.Options).PropertyRef(o => o.User).Cascade.All();
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All().Cache.ReadWrite();
