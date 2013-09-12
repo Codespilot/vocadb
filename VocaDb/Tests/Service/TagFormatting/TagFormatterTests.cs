@@ -21,7 +21,7 @@ namespace VocaDb.Tests.Service.TagFormatting {
 		private Artist vocalist;
 
 		private string ApplyFormat(string format, ContentLanguagePreference languageSelection) {
-			return target.ApplyFormat(album, format, languageSelection);
+			return target.ApplyFormat(album, format, languageSelection, false);
 		}
 
 		[TestInitialize]

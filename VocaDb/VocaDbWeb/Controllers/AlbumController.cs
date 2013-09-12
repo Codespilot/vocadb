@@ -198,13 +198,13 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public FileContentResult DownloadTags(int id, string formatString = "") {
+		public FileContentResult DownloadTags(int id, string formatString = "", bool includeHeader = false) {
 
 			if (string.IsNullOrEmpty(formatString))
 				formatString = TagFormatter.TagFormatStrings[0];
 
 			var album = Service.GetAlbum(id);
-			var tagString = Service.GetAlbumTagString(id, formatString);
+			var tagString = Service.GetAlbumTagString(id, formatString, includeHeader);
 			var enc = new UTF8Encoding(true);
 			var data = enc.GetPreamble().Concat(enc.GetBytes(tagString)).ToArray();
 

@@ -584,9 +584,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public string GetAlbumTagString(int id, string format) {
+		public string GetAlbumTagString(int id, string format, bool includeHeader) {
 
-			return GetAlbum(id, a => new TagFormatter().ApplyFormat(a, format, PermissionContext.LanguagePreference));
+			return GetAlbum(id, a => new TagFormatter().ApplyFormat(a, format, PermissionContext.LanguagePreference, includeHeader));
 
 		}
 

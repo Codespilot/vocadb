@@ -223,7 +223,9 @@
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.OriginalVersion</td>
 				<td>
-					@SongHelpers.SongLink(Model.OriginalVersion)<br />
+					@SongHelpers.SongLink(Model.OriginalVersion)
+					@SongHelpers.SongTypeLabel(Model.OriginalVersion.SongType)
+					<br />
 					@Model.OriginalVersion.ArtistString
 				</td>
 			</tr>

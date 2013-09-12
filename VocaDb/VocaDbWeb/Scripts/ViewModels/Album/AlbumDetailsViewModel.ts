@@ -47,7 +47,7 @@ module vdb.viewModels {
 
             var url = "/Album/DownloadTags/" + this.albumId;
             if (this.downloadOptionIsCustom() && this.formatString()) {
-                window.location.href = url + "?formatString=" + this.formatString();
+                window.location.href = url + "?formatString=" + encodeURIComponent(this.formatString());
             } else {
                 window.location.href = url;
             }
