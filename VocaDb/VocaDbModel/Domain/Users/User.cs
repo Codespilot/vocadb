@@ -280,6 +280,24 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/*
+		public virtual UserOptions Options {
+			get {
+
+				if (!OptionsList.Any())
+					OptionsList.Add(new UserOptions(this));
+
+				return OptionsList.First();
+
+			}
+		}
+
+		public virtual IList<UserOptions> OptionsList {
+			get { return optionsList; }
+			set { optionsList = value; }
+		}
+		 */
+
 		/// <summary>
 		/// List of artists entries for which this user is a verified owner. Does not include deleted artists. Cannot be null.
 		/// </summary>

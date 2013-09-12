@@ -47,6 +47,7 @@ namespace VocaDb.Model.Mapping.Users {
 				Alternatively, the one-to-one reference could be changed to constrained, using the same primary key.
 			*/
 			HasOne(m => m.Options).PropertyRef(o => o.User).Cascade.All();
+			//HasMany(m => m.OptionsList).Inverse().Cascade.AllDeleteOrphan();
 
 			HasMany(m => m.AllAlbums).Inverse().Cascade.All().Cache.ReadWrite();
 			HasMany(m => m.AllArtists).Inverse().Cascade.All().Cache.ReadWrite();

@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
@@ -17,10 +19,14 @@ namespace VocaDb.Model.DataContracts.Users {
 		public UserWithPermissionsContract(User user, ContentLanguagePreference languagePreference)
 			: base(user) {
 
+			AdditionalPermissions = new HashSet<PermissionToken>(user.AdditionalPermissions.PermissionTokens);
 			OwnedArtistEntries = user.OwnedArtists.Select(a => new ArtistForUserContract(a, languagePreference)).ToArray();
 			Poisoned = user.Options.Poisoned;
 
 		}
+
+		[DataMember]
+		public HashSet<PermissionToken> AdditionalPermissions { get; set; }
 
 		/// <summary>
 		/// List of artist entries owned by the user. Cannot be null.
