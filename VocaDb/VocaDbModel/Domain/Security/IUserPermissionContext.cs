@@ -13,7 +13,7 @@ namespace VocaDb.Model.Domain.Security {
 		/// <summary>
 		/// Currently logged in user. Can be null.
 		/// </summary>
-		UserContract LoggedUser { get; }
+		UserWithPermissionsContract LoggedUser { get; }
 
 		/// <summary>
 		/// Id of the logged in user. If not logged in, 0 will be returned.

@@ -5,16 +5,16 @@ namespace VocaDb.Model.Service.Security {
 
 	public class VocaDbPrincipal : GenericPrincipal {
 
-		private readonly UserContract user;
+		private readonly UserWithPermissionsContract user;
 
-		public VocaDbPrincipal(IIdentity identity, UserContract user)
+		public VocaDbPrincipal(IIdentity identity, UserWithPermissionsContract user)
 			: base(identity, new string[] {}) {
 
 			this.user = user;
 
 		}
 
-		public UserContract User {
+		public UserWithPermissionsContract User {
 			get { return user; }
 		}
 

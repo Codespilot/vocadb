@@ -31,7 +31,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			
 			repository = new FakeSongListRepository();
 			userWithSongList = new User("User with songlist", "123", "test@test.com", 123);
-			permissionContext = new FakePermissionContext(new UserContract(userWithSongList));
+			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithSongList, ContentLanguagePreference.Default));
 
 			queries = new SongListQueries(repository, permissionContext, new FakeEntryLinkFactory());
 

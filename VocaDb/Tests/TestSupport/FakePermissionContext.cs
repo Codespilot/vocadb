@@ -10,7 +10,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		public FakePermissionContext() {}
 
-		public FakePermissionContext(UserContract loggedUser) {
+		public FakePermissionContext(UserWithPermissionsContract loggedUser) {
 			LoggedUser = loggedUser;
 		}
 
@@ -32,7 +32,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		public ContentLanguagePreference LanguagePreference { get; private set; }
 
-		public UserContract LoggedUser { get; set; }
+		public UserWithPermissionsContract LoggedUser { get; set; }
 
 		public int LoggedUserId {			
 			get { return (LoggedUser != null ? LoggedUser.Id : 0); }
@@ -42,7 +42,7 @@ namespace VocaDb.Tests.TestSupport {
 		public UserGroupId UserGroupId { get; private set; }
 
 		public void RefreshLoggedUser(IUserRepository repository) {
-			LoggedUser = repository.HandleQuery(ctx => new UserContract(ctx.Load(LoggedUserId)));
+			LoggedUser = repository.HandleQuery(ctx => new UserWithPermissionsContract(ctx.Load(LoggedUserId), ContentLanguagePreference.Default));
 		}
 
 		public void VerifyLogin() {

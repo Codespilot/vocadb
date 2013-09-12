@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
@@ -47,7 +48,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			userWithoutEmail = new User("no_email", "222", string.Empty, 321) { Id = 321 };
 			repository = new FakeUserRepository(userWithEmail, userWithoutEmail);
 			repository.Add(userWithEmail.Options);
-			permissionContext = new FakePermissionContext(new UserContract(userWithEmail));
+			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithEmail, ContentLanguagePreference.Default));
 			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory());
 
 		}
@@ -261,7 +262,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[ExpectedException(typeof(UserEmailAlreadyExistsException))]
 		public void UpdateUserSettings_EmailTaken() {
 
-			permissionContext.LoggedUser = new UserContract(userWithoutEmail);
+			permissionContext.LoggedUser = new UserWithPermissionsContract(userWithoutEmail, ContentLanguagePreference.Default);
 			var contract = new UpdateUserSettingsContract(userWithoutEmail) { Email = userWithEmail.Email };
 
 			data.UpdateUserSettings(contract);
@@ -272,7 +273,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void UpdateUserSettings_EmailTakenButDisabled() {
 
 			userWithEmail.Active = false;
-			permissionContext.LoggedUser = new UserContract(userWithoutEmail);
+			permissionContext.LoggedUser = new UserWithPermissionsContract(userWithoutEmail, ContentLanguagePreference.Default);
 			var contract = new UpdateUserSettingsContract(userWithoutEmail) { Email = userWithEmail.Email };
 
 			data.UpdateUserSettings(contract);
