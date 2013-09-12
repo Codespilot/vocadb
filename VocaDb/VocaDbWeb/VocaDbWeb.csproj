@@ -1694,6 +1694,7 @@
       <DependentUpon>AlbumCreateViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumDetailsViewModel.ts" />
+    <Content Include="Scripts\ViewModels\Album\AlbumDetailsViewModel.js" />
     <Content Include="Scripts\ViewModels\ArtistEditViewModel.js">
       <DependentUpon>ArtistEditViewModel.ts</DependentUpon>
     </Content>
@@ -2965,7 +2966,7 @@
     <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptIncludeComments>false</TypeScriptIncludeComments>
     <TypeScriptSourceMap>false</TypeScriptSourceMap>
-	<TypeScriptRemoveComments>true</TypeScriptRemoveComments>
+    <TypeScriptRemoveComments>true</TypeScriptRemoveComments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptTarget>ES5</TypeScriptTarget>

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Tests.TestSupport;
@@ -32,7 +33,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			user = new User("User", "123", "test@test.com", 123);
 			repository.Add(user);
 
-			permissionContext = new FakePermissionContext(new UserContract(user));
+			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(user, ContentLanguagePreference.Default));
 
 			queries = new TagQueries(repository, permissionContext, new FakeEntryLinkFactory());
 

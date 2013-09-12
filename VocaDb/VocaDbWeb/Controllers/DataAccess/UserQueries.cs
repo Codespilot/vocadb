@@ -230,7 +230,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		/// <returns>Updated user data. Cannot be null.</returns>
 		/// <exception cref="InvalidPasswordException">If password change was attempted and the old password was incorrect.</exception>
 		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken by another user.</exception>
-		public UserContract UpdateUserSettings(UpdateUserSettingsContract contract) {
+		public UserWithPermissionsContract UpdateUserSettings(UpdateUserSettingsContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -286,7 +286,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				ctx.AuditLogger.AuditLog(string.Format("updated settings for {0}", EntryLinkFactory.CreateEntryLink(user)));
 
-				return new UserContract(user);
+				return new UserWithPermissionsContract(user, PermissionContext.LanguagePreference);
 
 			});
 

@@ -24,7 +24,7 @@ namespace VocaDb.Model.Service.Security {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-		private UserContract user;
+		private UserWithPermissionsContract user;
 
 		private bool TryGetLanguagePreferenceFromCookie(ref ContentLanguagePreference languagePreference) {
 
@@ -95,7 +95,7 @@ namespace VocaDb.Model.Service.Security {
 
 		}
 
-		public static void SetLoggedUser(UserContract user) {
+		public static void SetLoggedUser(UserWithPermissionsContract user) {
 
 			ParamIs.NotNull(() => user);
 
@@ -163,7 +163,7 @@ namespace VocaDb.Model.Service.Security {
 		/// <summary>
 		/// Currently logged in user. Can be null.
 		/// </summary>
-		public UserContract LoggedUser {
+		public UserWithPermissionsContract LoggedUser {
 			get {
 
 				if (user != null)

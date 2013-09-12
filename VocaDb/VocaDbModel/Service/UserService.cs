@@ -534,7 +534,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract GetUserByName(string name, bool skipMessages) {
+		public UserWithPermissionsContract GetUserByName(string name, bool skipMessages) {
 
 			return HandleQuery(session => {
 
@@ -543,7 +543,7 @@ namespace VocaDb.Model.Service {
 				if (user == null)
 					return null;
 
-				var contract = new UserContract(user);
+				var contract = new UserWithPermissionsContract(user, LanguagePreference);
 
 				contract.HasUnreadMessages = (!skipMessages && session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Id == user.Id));
 
