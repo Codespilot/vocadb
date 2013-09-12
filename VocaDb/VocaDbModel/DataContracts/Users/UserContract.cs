@@ -25,7 +25,6 @@ namespace VocaDb.Model.DataContracts.Users {
 			ParamIs.NotNull(() => user);
 
 			Active = user.Active;
-			AdditionalPermissions = new HashSet<PermissionToken>(user.AdditionalPermissions.PermissionTokens);
 			AnonymousActivity = user.AnonymousActivity;
 			CreateDate = user.CreateDate;
 			Culture = user.Culture;
@@ -40,9 +39,6 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public bool Active { get; set; }
-
-		[DataMember]
-		public HashSet<PermissionToken> AdditionalPermissions { get; set; }
 
 		[DataMember]
 		public bool AnonymousActivity { get; set; }
