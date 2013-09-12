@@ -42,6 +42,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 				case "track artist": // foobar style
 					return track.Song.ArtistString[languagePreference];
 
+				case "catalognum":
+					return (album.OriginalRelease != null ? album.OriginalRelease.CatNum : string.Empty);
+
 				// Disc number
 				case "discnumber":		
 					return track.DiscNumber.ToString();
@@ -58,6 +61,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 				// Album release date
 				case "releasedate":		
 					return track.Album.OriginalReleaseDate.ToString();
+
+				case "releaseevent":
+					return album.OriginalReleaseEventName;
 
 				// Song title
 				case "title":			
@@ -111,12 +117,16 @@ namespace VocaDb.Model.Service.TagFormatting {
 
 		}
 
-		public string ApplyFormat(Album album, string format, ContentLanguagePreference languagePreference) {
+		public string ApplyFormat(Album album, string format, ContentLanguagePreference languagePreference, bool includeHeader) {
 
 			var sb = new StringBuilder();
 
 			var fieldRegex = new Regex(@"%(\w+)%");
 			var formatFields = fieldRegex.Matches(format);
+
+			if (includeHeader) {
+				sb.AppendLine(string.Join(";", formatFields.Cast<Match>().Select(f => GetField(f.Groups[1].Value))));
+			}
 
 			foreach (var song in album.Songs)
 				sb.AppendLine(ApplyFormat(song, format, languagePreference, formatFields));

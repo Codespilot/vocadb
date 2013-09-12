@@ -206,7 +206,7 @@ namespace VocaDb.Model.Domain.Albums {
 		public virtual string OriginalReleaseEventName {
 			get {
 
-				if (originalRelease == null)
+				if (OriginalRelease == null)
 					return string.Empty;
 
 				return OriginalRelease.EventName;
