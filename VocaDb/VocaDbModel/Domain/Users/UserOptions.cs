@@ -7,6 +7,7 @@
 	public class UserOptions {
 
 		private string aboutMe;
+		private string albumFormatString;
 		private string lastLoginAddress;
 		private string location;
 		private string oauthToken;
@@ -40,6 +41,14 @@
 			set { 
 				ParamIs.NotNull(() => value);
 				aboutMe = value; 
+			}
+		}
+
+		public virtual string AlbumFormatString {
+			get { return albumFormatString; }
+			set {
+				ParamIs.NotNull(() => value);
+				albumFormatString = value;
 			}
 		}
 
