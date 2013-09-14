@@ -73,6 +73,7 @@ namespace VocaDb.Model.Mapping.Users {
 
 			References(m => m.User).Column("[User]").Unique();
 			Map(m => m.AboutMe).Length(int.MaxValue).Not.Nullable();
+			Map(m => m.AlbumFormatString).Length(200).Not.Nullable();
 			Map(m => m.LastLoginAddress).Length(20).Not.Nullable();
 			Map(m => m.Location).Length(50).Not.Nullable();
 			Map(m => m.Poisoned).Not.Nullable();
