@@ -16,7 +16,7 @@ namespace VocaDb.Model.Service.Repositories {
 
 			if (permissionContext.IsLoggedIn) {
 
-				user = ctx.OfType<User>().Load(permissionContext.LoggedUserId);
+				user = ctx.OfType<User>().GetLoggedUser(permissionContext);
 				return new AgentLoginData(user);
 
 			} else {
@@ -24,6 +24,14 @@ namespace VocaDb.Model.Service.Repositories {
 				return new AgentLoginData(permissionContext.Name);
 
 			}
+
+		}
+
+		public static User GetLoggedUser(this IRepositoryContext<User> ctx, IUserPermissionContext permissionContext) {
+
+			permissionContext.VerifyLogin();
+
+			return ctx.Load(permissionContext.LoggedUserId);
 
 		}
 

@@ -78,7 +78,7 @@ namespace VocaDb.Web.Helpers {
 		/// <summary>
 		/// Currently logged in user. Can be null.
 		/// </summary>
-		public static UserContract User {
+		public static UserWithPermissionsContract User {
 			get {
 				return Manager.LoggedUser;
 			}

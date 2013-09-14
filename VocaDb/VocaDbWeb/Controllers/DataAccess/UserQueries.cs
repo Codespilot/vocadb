@@ -223,6 +223,22 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void SetAlbumFormatString(string formatString) {
+
+			if (!PermissionContext.IsLoggedIn)
+				return;
+
+			repository.HandleTransaction(ctx => {
+
+				var user = ctx.GetLoggedUser(PermissionContext);
+
+				user.Options.AlbumFormatString = formatString;
+				ctx.Update(user);
+
+			});
+
+		}
+
 		/// <summary>
 		/// Updates user's settings (from my settings page).
 		/// </summary>

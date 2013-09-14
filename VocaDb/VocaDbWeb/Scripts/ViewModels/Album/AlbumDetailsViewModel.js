@@ -2,7 +2,7 @@ var vdb;
 (function (vdb) {
     (function (viewModels) {
         var AlbumDetailsViewModel = (function () {
-            function AlbumDetailsViewModel(id) {
+            function AlbumDetailsViewModel(id, formatString) {
                 var _this = this;
                 this.id = id;
                 this.usersContent = ko.observable();
@@ -14,40 +14,31 @@ var vdb;
 
                     return false;
                 };
-                this.downloadTagsDialog = new DownloadTagsViewModel(id);
+                this.downloadTagsDialog = new DownloadTagsViewModel(id, formatString);
             }
             return AlbumDetailsViewModel;
         })();
         viewModels.AlbumDetailsViewModel = AlbumDetailsViewModel;
 
         var DownloadTagsViewModel = (function () {
-            function DownloadTagsViewModel(albumId) {
+            function DownloadTagsViewModel(albumId, formatString) {
                 var _this = this;
                 this.albumId = albumId;
                 this.dialogVisible = ko.observable(false);
-                this.downloadOption = ko.observable(DownloadTagsViewModel.downloadOptionDefault);
-                this.downloadOptionIsCustom = ko.computed(function () {
-                    return _this.downloadOption() != DownloadTagsViewModel.downloadOptionDefault;
-                });
                 this.downloadTags = function () {
                     _this.dialogVisible(false);
 
                     var url = "/Album/DownloadTags/" + _this.albumId;
-                    if (_this.downloadOptionIsCustom() && _this.formatString()) {
-                        window.location.href = url + "?formatString=" + encodeURIComponent(_this.formatString());
-                    } else {
-                        window.location.href = url;
-                    }
+                    window.location.href = url + "?setFormatString=true&formatString=" + encodeURIComponent(_this.formatString());
                 };
-                this.formatString = ko.observable("");
                 this.dialogButtons = ko.observableArray([
                     { text: "Download", click: this.downloadTags }
                 ]);
                 this.show = function () {
                     _this.dialogVisible(true);
                 };
+                this.formatString = ko.observable(formatString);
             }
-            DownloadTagsViewModel.downloadOptionDefault = "Default";
             return DownloadTagsViewModel;
         })();
         viewModels.DownloadTagsViewModel = DownloadTagsViewModel;
