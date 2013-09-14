@@ -23,38 +23,26 @@ module vdb.viewModels {
 
         };
 
-        constructor(private id: number) {
-            this.downloadTagsDialog = new DownloadTagsViewModel(id);
+        constructor(private id: number, formatString: string) {
+            this.downloadTagsDialog = new DownloadTagsViewModel(id, formatString);
         }
 
     }
 
     export class DownloadTagsViewModel {
 
-        private static downloadOptionDefault = "Default";
-
         public dialogVisible = ko.observable(false);
-
-        public downloadOption = ko.observable(DownloadTagsViewModel.downloadOptionDefault);
-
-        public downloadOptionIsCustom = ko.computed(() =>
-            this.downloadOption() != DownloadTagsViewModel.downloadOptionDefault
-        );
 
         public downloadTags = () => {
 
             this.dialogVisible(false);
 
             var url = "/Album/DownloadTags/" + this.albumId;
-            if (this.downloadOptionIsCustom() && this.formatString()) {
-                window.location.href = url + "?formatString=" + encodeURIComponent(this.formatString());
-            } else {
-                window.location.href = url;
-            }
+            window.location.href = url + "?setFormatString=true&formatString=" + encodeURIComponent(this.formatString());
 
         };
 
-        public formatString = ko.observable("");
+        public formatString: KnockoutObservable<string>;
 
         public dialogButtons = ko.observableArray([
             { text: "Download", click: this.downloadTags },
@@ -66,7 +54,9 @@ module vdb.viewModels {
 
         };
 
-        constructor(private albumId: number) { }
+        constructor(private albumId: number, formatString: string) {
+            this.formatString = ko.observable(formatString)
+        }
 
     }
 

@@ -31,13 +31,15 @@ namespace VocaDb.Web.Controllers
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly Size pictureThumbSize = new Size(250, 250);
 	    private readonly AlbumQueries queries;
+	    private readonly UserQueries userQueries;
 
 		private AlbumService Service { get; set; }
 
-		public AlbumController(AlbumService service, AlbumQueries queries) {
+		public AlbumController(AlbumService service, AlbumQueries queries, UserQueries userQueries) {
 
 			Service = service;
 			this.queries = queries;
+			this.userQueries = userQueries;
 
 		}
 
@@ -198,13 +200,20 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public FileContentResult DownloadTags(int id, string formatString = "", bool includeHeader = false) {
+		public FileContentResult DownloadTags(int id, string formatString = "", bool setFormatString = false, bool includeHeader = false) {
+
+			if (setFormatString) {
+				userQueries.SetAlbumFormatString(formatString);
+			} else if (string.IsNullOrEmpty(formatString) && LoginManager.IsLoggedIn) {
+				formatString = LoginManager.LoggedUser.AlbumFormatString;
+			}
 
 			if (string.IsNullOrEmpty(formatString))
 				formatString = TagFormatter.TagFormatStrings[0];
 
 			var album = Service.GetAlbum(id);
 			var tagString = Service.GetAlbumTagString(id, formatString, includeHeader);
+
 			var enc = new UTF8Encoding(true);
 			var data = enc.GetPreamble().Concat(enc.GetBytes(tagString)).ToArray();
 

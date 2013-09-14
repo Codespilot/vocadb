@@ -361,9 +361,10 @@
 	@Scripts.Render("~/bundles/Album/Details", "~/bundles/jqxRating")
 	<script type="text/javascript">
 		
-		$(document).ready(function() { 
-			
-			var viewModel = new vdb.viewModels.AlbumDetailsViewModel(@Model.Id);
+		$(document).ready(function() {
+
+			var formatString = '@(Login.Manager.IsLoggedIn ? Login.User.AlbumFormatString : "")';
+			var viewModel = new vdb.viewModels.AlbumDetailsViewModel(@Model.Id, formatString);
 			ko.applyBindings(viewModel);
 
 			initPage(@Model.Id, @Model.CollectionRating, 

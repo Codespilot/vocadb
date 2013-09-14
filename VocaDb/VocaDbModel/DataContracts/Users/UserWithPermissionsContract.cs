@@ -20,6 +20,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			: base(user) {
 
 			AdditionalPermissions = new HashSet<PermissionToken>(user.AdditionalPermissions.PermissionTokens);
+			AlbumFormatString = user.Options.AlbumFormatString;
 			EffectivePermissions = new HashSet<PermissionToken>(user.EffectivePermissions.PermissionTokens);
 			OwnedArtistEntries = user.OwnedArtists.Select(a => new ArtistForUserContract(a, languagePreference)).ToArray();
 			Poisoned = user.Options.Poisoned;
@@ -28,6 +29,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public HashSet<PermissionToken> AdditionalPermissions { get; set; }
+
+		[DataMember]
+		public string AlbumFormatString { get; set; }
 
 		[DataMember]
 		public HashSet<PermissionToken> EffectivePermissions { get; set; }
