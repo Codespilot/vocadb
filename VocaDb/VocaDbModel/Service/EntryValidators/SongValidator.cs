@@ -24,7 +24,10 @@ namespace VocaDb.Model.Service.EntryValidators {
 			if (song.Names.Names.All(n => n.Language == ContentLanguageSelection.Unspecified))
 				errors.Add(SongValidationErrors.UnspecifiedNames);
 
-			if (song.SongType != SongType.Instrumental && !song.Tags.HasTag("instrumental") && !ArtistHelper.GetVocalists(song.Artists.ToArray()).Any())
+			if (song.SongType != SongType.Instrumental 
+				&& song.SongType != SongType.DramaPV 
+				&& !song.Tags.HasTag("instrumental") 
+				&& !ArtistHelper.GetVocalists(song.Artists.ToArray()).Any())
 				errors.Add(SongValidationErrors.NonInstrumentalSongNeedsVocalists);
 
 			if (!song.Artists.Any(a => a.Artist != null && ArtistHelper.IsProducerRole(a, SongHelper.IsAnimation(song.SongType))))
