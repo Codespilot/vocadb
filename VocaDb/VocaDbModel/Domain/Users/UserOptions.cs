@@ -20,6 +20,7 @@
 	 
 			LastLoginAddress 
 				= AboutMe
+				= AlbumFormatString
 				= Location
 				= Realname
 				= TwitterName = TwitterOAuthToken = TwitterOAuthTokenSecret 
