@@ -201,4 +201,13 @@
   <data name="RelatedAlbums" xml:space="preserve">
     <value>Related albums</value>
   </data>
+  <data name="CustomFormatStringLabel" xml:space="preserve">
+    <value>Custom format string (use empty for default)</value>
+  </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Customize</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
 </root>

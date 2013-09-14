@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VocaDb.Model;
@@ -121,6 +122,12 @@ namespace VocaDb.Web.Models {
 		}
 
 		public ArtistForEditContract ToContract() {
+
+			if (Pictures == null)
+				throw new InvalidOperationException("Pictures list was null"); // Shouldn't be null
+
+			if (WebLinks == null)
+				throw new InvalidOperationException("Weblinks list was null"); // Shouldn't be null
 
 			return new ArtistForEditContract {
 				

@@ -48,7 +48,7 @@
 
 <span>
 	@Html.ActionLink(ViewRes.Album.DetailsStrings.DownloadTrackList, "DownloadTags", new { id = Model.Id }, new { id = "downloadTags" })
-	<a data-bind="click: downloadTagsDialog.show" href="#" id="downloadTagsCustom">Customize</a>
+	<a data-bind="click: downloadTagsDialog.show" href="#" id="downloadTagsCustom">@R.DetailsStrings.Customize</a>
 </span>
 
 <a href="#" id="reportEntryLink">@ViewRes.EntryDetailsStrings.ReportAnError</a>
@@ -362,6 +362,8 @@
 	<script type="text/javascript">
 		
 		$(document).ready(function() {
+
+			vdb.resources.albumDetails = @Html.Raw(JsonHelpers.Serialize(new { download = AjaxRes.AlbumStrings.Download }));
 
 			var formatString = '@(Login.Manager.IsLoggedIn ? Login.User.AlbumFormatString : "")';
 			var viewModel = new vdb.viewModels.AlbumDetailsViewModel(@Model.Id, formatString);

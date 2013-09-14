@@ -201,4 +201,13 @@
   <data name="RelatedAlbums" xml:space="preserve">
     <value>Samankaltaiset albumit</value>
   </data>
+  <data name="CustomFormatStringLabel" xml:space="preserve">
+    <value>Kustomoitu formatointi (oletusarvo on tyhjä)</value>
+  </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Kustomoi</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Resetoi</value>
+  </data>
 </root>

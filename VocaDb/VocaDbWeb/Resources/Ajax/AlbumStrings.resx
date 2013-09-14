@@ -129,4 +129,7 @@
   <data name="AddNewSong" xml:space="preserve">
     <value>Add new song called '{0}'</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
 </root>
