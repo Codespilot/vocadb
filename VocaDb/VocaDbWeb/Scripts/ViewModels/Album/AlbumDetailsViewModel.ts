@@ -2,6 +2,12 @@
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../Shared/GlobalFunctions.ts" />
 
+declare module vdb.resources.albumDetails {
+
+    export var download: string;
+
+}
+
 module vdb.viewModels {
 
     export class AlbumDetailsViewModel {
@@ -45,7 +51,7 @@ module vdb.viewModels {
         public formatString: KnockoutObservable<string>;
 
         public dialogButtons = ko.observableArray([
-            { text: "Download", click: this.downloadTags },
+            { text: vdb.resources.albumDetails.download, click: this.downloadTags },
         ]);
 
         public show = () => {

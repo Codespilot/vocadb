@@ -129,4 +129,7 @@
   <data name="AddNewSong" xml:space="preserve">
     <value>Lisää uusi kappale nimeltä '{0}'</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Lataa</value>
+  </data>
 </root>

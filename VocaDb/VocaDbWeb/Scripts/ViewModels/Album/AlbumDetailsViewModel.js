@@ -32,7 +32,7 @@ var vdb;
                     window.location.href = url + "?setFormatString=true&formatString=" + encodeURIComponent(_this.formatString());
                 };
                 this.dialogButtons = ko.observableArray([
-                    { text: "Download", click: this.downloadTags }
+                    { text: vdb.resources.albumDetails.download, click: this.downloadTags }
                 ]);
                 this.show = function () {
                     _this.dialogVisible(true);
