@@ -17,6 +17,11 @@ namespace VocaDb.Model.Service.TagFormatting {
 			"%title%;%artists%;%album%;%discnumber%;%track%",
 		};		
 
+		private string GetAlbumMainProducersStr(Album album, ContentLanguagePreference languagePreference) {
+			bool isAnimation = AlbumHelper.IsAnimation(album.DiscType);
+			return ArtistHelper.GetArtistString(ArtistHelper.GetProducers(album.Artists.Where(a => !a.IsSupport), isAnimation), isAnimation)[languagePreference];
+		}
+
 		private string GetProducerStr(SongInAlbum track, ContentLanguagePreference languagePreference) {
 			return string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference));
 		}
@@ -40,6 +45,10 @@ namespace VocaDb.Model.Service.TagFormatting {
 				case "album artist": // foobar style
 					return album.ArtistString[languagePreference];
 
+				case "albummaincircle":
+					var circle = ArtistHelper.GetMainCircle(album.Artists.ToArray(), AlbumHelper.IsAnimation(album.DiscType));
+					return (circle != null ? circle.TranslatedName[languagePreference] : GetAlbumMainProducersStr(album, languagePreference));
+
 				// Artists for song, both producers and vocalists
 				case "artist":			
 					return track.Song.ArtistString[languagePreference];
@@ -49,6 +58,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 				case "catalognum":
 					return (album.OriginalRelease != null ? album.OriginalRelease.CatNum : string.Empty);
 
+				case "disccount":
+					return (album.Songs.Any() ? album.Songs.Max(s => s.DiscNumber) : 0).ToString();
+
 				// Disc number
 				case "discnumber":		
 					return track.DiscNumber.ToString();
@@ -57,10 +69,6 @@ namespace VocaDb.Model.Service.TagFormatting {
 				case "featvocalists":	
 					var vocalistStr = GetVocalistStr(track, languagePreference);
 					return (vocalistStr.Any() ? " feat. " + vocalistStr : string.Empty);
-
-				case "maincircle":
-					var circle = ArtistHelper.GetMainCircle(album.Artists.ToArray(), AlbumHelper.IsAnimation(album.DiscType));
-					return (circle != null ? circle.TranslatedName[languagePreference] : GetProducerStr(track, languagePreference));
 
 				// List of producers
 				case "producers":		
@@ -76,6 +84,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 				// Song title
 				case "title":			
 					return track.Song.Names.SortNames[languagePreference];
+
+				case "totaltrackcount":
+					return album.Songs.Count().ToString();
 
 				// Track number
 				case "track":			

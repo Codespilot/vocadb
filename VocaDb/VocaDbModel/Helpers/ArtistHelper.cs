@@ -214,12 +214,12 @@ namespace VocaDb.Model.Helpers {
 		/// Gets the main circle from a group of artists, or null if there is no main circle.
 		/// Here main circle is defined as the circle in which all the producers of the album belong to.
 		/// </summary>
-		/// <param name="artists"></param>
-		/// <param name="isAnimation"></param>
-		/// <returns></returns>
+		/// <param name="artists">List of artists. Cannot be null.</param>
+		/// <param name="isAnimation">Whether animation producers should be considered as well.</param>
+		/// <returns>The main circle, or null if there is none.</returns>
 		public static Artist GetMainCircle(IList<IArtistWithSupport> artists, bool isAnimation) {
 
-			var producers = GetProducers(artists, isAnimation).ToArray();
+			var producers = GetProducers(artists.Where(a => !a.IsSupport), isAnimation).ToArray();
 
 			// Find the circle in which all the producers belong to
 			var circle = artists.FirstOrDefault(a => a.Artist != null 
