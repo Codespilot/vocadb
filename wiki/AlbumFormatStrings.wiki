@@ -13,7 +13,7 @@
 || catalognum || || Album catalog number ||
 || disccount || || Total number of discs on the album ||
 || discnumber || || Disc number of the current track ||
-|| featvocalists || || Comma-separated list of track vocalists prefixed by "feat." if there is at least one vocalist, otherwise empty ||
+|| featvocalists || || Comma-separated list of track vocalists prefixed by "feat." if there is at least one vocalist, otherwise empty. You can use this to append the list of vocalists to a list of producers ||
 || producers || || Comma-separated list of track producers ||
 || releasedate || || Album release date ||
 || releaseevent || || Album release event name ||
