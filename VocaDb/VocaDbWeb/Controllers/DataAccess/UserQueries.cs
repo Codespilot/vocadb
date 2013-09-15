@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Users;
@@ -7,6 +8,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
 
@@ -38,6 +40,16 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private string MakeGeoIpToolLink(string hostname) {
 
 			return string.Format("<a href='http://www.geoiptool.com/?IP={0}'>{0}</a>", hostname);
+
+		}
+
+		private void ValidateEmail(string email) {
+			
+			try {
+				new MailAddress(email);
+			} catch (FormatException x) {
+				throw new InvalidEmailFormatException("Email format is invalid", x);
+			}
 
 		}
 
@@ -113,6 +125,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		/// <param name="hostname">Host name where the registration is from.</param>
 		/// <param name="timeSpan">Time in which the user filled the registration form.</param>
 		/// <returns>Data contract for the created user. Cannot be null.</returns>
+		/// <exception cref="InvalidEmailFormatException">If the email format was invalid.</exception>
 		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
 		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
 		public UserContract Create(string name, string pass, string email, string hostname, TimeSpan timeSpan) {
@@ -130,6 +143,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					throw new UserNameAlreadyExistsException();
 
 				if (!string.IsNullOrEmpty(email)) {
+
+					ValidateEmail(email);
 
 					existing = ctx.Query().FirstOrDefault(u => u.Active && u.Email == email);
 
@@ -162,6 +177,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		/// <param name="twitterName">Twitter user name. Cannot be null.</param>
 		/// <param name="hostname">Host name where the registration is from.</param>
 		/// <returns>Data contract for the created user. Cannot be null.</returns>
+		/// <exception cref="InvalidEmailFormatException">If the email format was invalid.</exception>
 		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
 		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
 		public UserContract CreateTwitter(string authToken, string name, string email, int twitterId, string twitterName, string hostname) {
@@ -178,6 +194,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					throw new UserNameAlreadyExistsException();
 
 				if (!string.IsNullOrEmpty(email)) {
+
+					ValidateEmail(email);
 
 					existing = ctx.Query().FirstOrDefault(u => u.Active && u.Email == email);
 
@@ -244,6 +262,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		/// </summary>
 		/// <param name="contract">New properties. Cannot be null.</param>
 		/// <returns>Updated user data. Cannot be null.</returns>
+		/// <exception cref="InvalidEmailFormatException">If the email format was invalid.</exception>
 		/// <exception cref="InvalidPasswordException">If password change was attempted and the old password was incorrect.</exception>
 		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken by another user.</exception>
 		public UserWithPermissionsContract UpdateUserSettings(UpdateUserSettingsContract contract) {
@@ -275,6 +294,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var email = contract.Email;
 
 				if (!string.IsNullOrEmpty(email)) {
+
+					ValidateEmail(email);
 
 					var existing = ctx.Query().FirstOrDefault(u => u.Active && u.Id != user.Id && u.Email == email);
 

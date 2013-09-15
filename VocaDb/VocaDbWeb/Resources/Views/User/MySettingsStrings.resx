@@ -172,7 +172,7 @@
     <value>Interface language</value>
   </data>
   <data name="InvalidEmail" xml:space="preserve">
-    <value>Invalid email address</value>
+    <value>Please check the format of the email address</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
