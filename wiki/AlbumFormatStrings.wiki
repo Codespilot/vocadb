@@ -1,7 +1,5 @@
   * Field names are case-insensitive. 
-
   * All names are localized unless otherwise mentioned. 
-
   * If the field has no meaningful value, the result will be empty unless otherwise mentioned.
 
 
