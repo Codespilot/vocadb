@@ -1,4 +1,10 @@
-Note that field names are case-insensitive.
+Note that field names are case-insensitive. All names are localized unless otherwise mentioned. If the field has no meaningful value, the result will be empty unless otherwise mentioned.
 
 || Field || Aliases || Meaning ||
-|| album || || Localized album name ||
+|| album || || Album name ||
+|| albumartist || album artist || Album artist string (producers + vocalists or "various") ||
+|| artist || track artist || Track artist string ||
+|| catalognum || || Catalog number ||
+|| discnumber || || Disc number ||
+|| featvocalists || || Comma-separated list of vocalists prefixed by "feat." if there is at least one vocalist, otherwise empty ||
+|| producers || || Comma-separated list of producers ||
