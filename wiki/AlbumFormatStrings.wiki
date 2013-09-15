@@ -19,5 +19,5 @@
 || releaseevent || || Album release event name ||
 || title || || Track title ||
 || track || tracknumber || Track number ||
-|| trackcount || || Total number of tracks on the album ||
+|| totaltrackcount || || Total number of tracks on the album ||
 || vocalists || || Comma-separated list of track vocalists ||
