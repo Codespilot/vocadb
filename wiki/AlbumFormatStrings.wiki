@@ -1,10 +1,16 @@
 Note that field names are case-insensitive. All names are localized unless otherwise mentioned. If the field has no meaningful value, the result will be empty unless otherwise mentioned.
 
-|| Field || Aliases || Meaning ||
+|| *Field* || *Aliases* || *Meaning* ||
 || album || || Album name ||
 || albumartist || album artist || Album artist string (producers + vocalists or "various") ||
 || artist || track artist || Track artist string ||
-|| catalognum || || Catalog number ||
-|| discnumber || || Disc number ||
+|| catalognum || || Album catalog number ||
+|| discnumber || || Disc number of the current track ||
 || featvocalists || || Comma-separated list of vocalists prefixed by "feat." if there is at least one vocalist, otherwise empty ||
+|| maincircle || || Main circle name of the album, if all producers belong in that circle. If there is no circle or the producers have no common circle, and the album is a split album, the list of producers. If there is no main circle and the album is not a split album, then "various artists" ||
 || producers || || Comma-separated list of producers ||
+|| releasedate || || Album release date ||
+|| releaseevent || || Album release event name ||
+|| title || || Track title ||
+|| track || tracknumber || Track number ||
+|| vocalists || || Comma-separated list of vocalists ||
