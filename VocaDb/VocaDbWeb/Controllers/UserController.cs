@@ -16,6 +16,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.User;
@@ -445,6 +446,11 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("Email", ViewRes.User.CreateStrings.EmailTaken);
 				return View(model);
 
+			} catch (InvalidEmailFormatException) {
+
+				ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.InvalidEmail);
+				return View(model);
+
 			}
 
 		}
@@ -531,7 +537,6 @@ namespace VocaDb.Web.Controllers
 	        // Attempt to register the user
 	        try {
 
-		        //var user = Service.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
 				var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
 				FormsAuthentication.SetAuthCookie(user.Name, false);
 		        return RedirectToAction("Index", "Home");
@@ -546,6 +551,11 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("Email", ViewRes.User.CreateStrings.EmailTaken);
 				return View(model);
       
+	        } catch (InvalidEmailFormatException) {
+
+				ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.InvalidEmail);
+				return View(model);
+
 	        }
 
         }
@@ -641,15 +651,6 @@ namespace VocaDb.Web.Controllers
 			if (!ModelState.IsValid)
 				return View(new MySettingsModel(GetUserForMySettings()));
 
-			if (!string.IsNullOrEmpty(model.Email)) {
-				try {
-					new MailAddress(model.Email);
-				} catch (FormatException) {
-					ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.InvalidEmail);
-					return View(model);
-				}
-			}
-
 			try {
 				var newUser = Data.UpdateUserSettings(model.ToContract());
 				LoginManager.SetLoggedUser(newUser);
@@ -659,7 +660,10 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			} catch (UserEmailAlreadyExistsException) {
 				ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.EmailTaken);
-				return View(model);				
+				return View(model);
+			} catch (InvalidEmailFormatException) {
+				ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.InvalidEmail);
+				return View(model);
 			}
 
 			TempData.SetSuccessMessage(ViewRes.User.MySettingsStrings.SettingsUpdated);

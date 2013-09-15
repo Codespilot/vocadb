@@ -6,6 +6,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Security;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Controllers.DataAccess;
@@ -169,6 +170,14 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		[ExpectedException(typeof(InvalidEmailFormatException))]
+		public void Create_InvalidEmailFormat() {
+
+			data.Create("hatsune_miku", "3939", "mikumiku", "crypton.jp", TimeSpan.FromMinutes(39));
+
+		}
+
+		[TestMethod]
 		public void CreateTwitter() {
 
 			var name = "hatsune_miku";
@@ -202,6 +211,14 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void CreateTwitter_EmailAlreadyExists() {
 
 			data.CreateTwitter("auth_token", "hatsune_miku", "already_in_use@vocadb.net", 39, "Miku_Crypton", "crypton.jp");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidEmailFormatException))]
+		public void CreateTwitter_InvalidEmailFormat() {
+
+			data.CreateTwitter("auth_token", "hatsune_miku", "mikumiku", 39, "Miku_Crypton", "crypton.jp");
 
 		}
 
@@ -281,6 +298,16 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			var user = GetUserFromRepo(userWithoutEmail.Name);
 			Assert.IsNotNull(user, "User was found in repository");
 			Assert.AreEqual("already_in_use@vocadb.net", user.Email, "Email");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(InvalidEmailFormatException))]
+		public void UpdateUserSettings_InvalidEmailFormat() {
+
+			var contract = new UpdateUserSettingsContract(userWithEmail) { Email = "mikumiku" };
+
+			data.UpdateUserSettings(contract);
 
 		}
 
