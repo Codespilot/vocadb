@@ -158,6 +158,50 @@ namespace VocaDb.Tests.Helpers {
 
 		}
 
+		[TestMethod]
+		public void GetMainCircle_HasCircle() {
+
+			producer.Artist.AddGroup(circle.Artist);
+			producer2.Artist.AddGroup(circle.Artist);
+
+			var result = ArtistHelper.GetMainCircle(new[] { producer, producer2, circle }, false);
+
+			Assert.AreEqual(circle.Artist, result, "Circle was returned");
+
+		}
+
+		[TestMethod]
+		public void GetMainCircle_OnlyCircle() {
+
+			var result = ArtistHelper.GetMainCircle(new[] { circle }, false);
+
+			Assert.AreEqual(circle.Artist, result, "Circle was returned");
+
+		}
+
+		[TestMethod]
+		public void GetMainCircle_ProducerNotInCircle() {
+
+			producer.Artist.AddGroup(circle.Artist);
+
+			var result = ArtistHelper.GetMainCircle(new[] { producer, producer2, circle }, false);
+
+			Assert.IsNull(result, "No common circle found");
+
+		}
+
+		[TestMethod]
+		public void GetMainCircle_NoCircle() {
+
+			producer.Artist.AddGroup(circle.Artist);
+			producer2.Artist.AddGroup(circle.Artist);
+
+			var result = ArtistHelper.GetMainCircle(new[] { producer, producer2 }, false);
+
+			Assert.IsNull(result, "No circle found");
+
+		}
+
 	}
 
 }

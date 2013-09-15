@@ -105,6 +105,10 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist, ArtistType.OtherVoiceSynthesizer
 		};
 
+		public static string[] GetArtistNames(IEnumerable<IArtistWithSupport> artists, ContentLanguagePreference languagePreference) {
+			return artists.Select(p => GetTranslatedName(p).GetBestMatch(languagePreference)).ToArray();
+		}
+
 		public static TranslatedStringWithDefault GetArtistString(IEnumerable<IArtistWithSupport> artists, bool isAnimation) {
 
 			ParamIs.NotNull(() => artists);
@@ -203,6 +207,26 @@ namespace VocaDb.Model.Helpers {
 
 			}
 
+
+		}
+
+		/// <summary>
+		/// Gets the main circle from a group of artists, or null if there is no main circle.
+		/// Here main circle is defined as the circle in which all the producers of the album belong to.
+		/// </summary>
+		/// <param name="artists"></param>
+		/// <param name="isAnimation"></param>
+		/// <returns></returns>
+		public static Artist GetMainCircle(IList<IArtistWithSupport> artists, bool isAnimation) {
+
+			var producers = GetProducers(artists, isAnimation).ToArray();
+
+			// Find the circle in which all the producers belong to
+			var circle = artists.FirstOrDefault(a => a.Artist != null 
+				&& GetCategories(a).HasFlag(ArtistCategories.Circle)
+				&& producers.All(p => p.Artist != null && (p.Artist.Equals(a.Artist) || p.Artist.HasGroup(a.Artist))));
+
+			return circle != null ? circle.Artist : null;
 
 		}
 
