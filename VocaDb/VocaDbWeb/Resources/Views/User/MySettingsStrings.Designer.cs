@@ -223,7 +223,7 @@ namespace ViewRes.User {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please check the format of the email address.
+        ///   Looks up a localized string similar to Please check the format of the email address..
         /// </summary>
         public static string InvalidEmail {
             get {

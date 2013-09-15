@@ -12,7 +12,7 @@
 	};		
 }
 
-@Html.ValidationSummary(true, R.MySettingsStrings.UnableToSave)
+@Helpers.ValidationSymmaryDiv(R.MySettingsStrings.UnableToSave)
 
 @using (Html.BeginForm("MySettings", "User", FormMethod.Post)) {
     
