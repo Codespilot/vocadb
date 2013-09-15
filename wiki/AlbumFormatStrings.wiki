@@ -1,0 +1,4 @@
+Note that field names are case-insensitive.
+
+|| Field || Aliases || Meaning ||
+|| album || || Localized album name ||
