@@ -17,6 +17,10 @@ namespace VocaDb.Model.Service.TagFormatting {
 			"%title%;%artists%;%album%;%discnumber%;%track%",
 		};		
 
+		private string GetProducerStr(SongInAlbum track, ContentLanguagePreference languagePreference) {
+			return string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference));
+		}
+
 		private string GetVocalistStr(SongInAlbum track, ContentLanguagePreference languagePreference) {
 			return string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference));
 		}
@@ -54,9 +58,13 @@ namespace VocaDb.Model.Service.TagFormatting {
 					var vocalistStr = GetVocalistStr(track, languagePreference);
 					return (vocalistStr.Any() ? " feat. " + vocalistStr : string.Empty);
 
+				case "maincircle":
+					var circle = ArtistHelper.GetMainCircle(album.Artists.ToArray(), AlbumHelper.IsAnimation(album.DiscType));
+					return (circle != null ? circle.TranslatedName[languagePreference] : GetProducerStr(track, languagePreference));
+
 				// List of producers
 				case "producers":		
-					return string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference));
+					return GetProducerStr(track, languagePreference);
 
 				// Album release date
 				case "releasedate":		
