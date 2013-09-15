@@ -1,7 +1,10 @@
+=Album track format strings=
+==Notes==
   * Field names are case-insensitive. 
   * All names are localized unless otherwise mentioned. 
   * If the field has no meaningful value, the result will be empty unless otherwise mentioned.
 ----
+==Fields==
 || *Field* || *Aliases* || *Meaning* ||
 || album || || Album name ||
 || albumartist || album artist || Album artist string (producers + vocalists or "various") ||
