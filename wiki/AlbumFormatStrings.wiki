@@ -1,3 +1,4 @@
+#summary Album format strings for downloading tracks as CSV files
 =Album track format strings=
 ==Notes==
   * Field names are case-insensitive. 
