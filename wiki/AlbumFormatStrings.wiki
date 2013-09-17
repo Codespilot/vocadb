@@ -15,6 +15,7 @@
 || disccount || || Total number of discs on the album ||
 || discnumber || || Disc number of the current track ||
 || featvocalists || || Comma-separated list of track vocalists prefixed by "feat." if there is at least one vocalist, otherwise empty. You can use this to append the list of vocalists to a list of producers ||
+|| genres || || Comma-separated list of genres. Picked from genre tags where underscores are replaced with spaces. If the song has no genre tags, album's tags are used ||
 || producers || || Comma-separated list of track producers ||
 || releasedate || || Album release date ||
 || releaseevent || || Album release event name ||
