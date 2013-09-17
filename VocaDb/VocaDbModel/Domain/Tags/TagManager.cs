@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Tags {
-
+	
+	/// <summary>
+	/// Manages tags for an entry.
+	/// </summary>
+	/// <typeparam name="T">Tag usage type.</typeparam>
 	public class TagManager<T> where T : TagUsage {
 
 		private Iesi.Collections.Generic.ISet<T> tags = new Iesi.Collections.Generic.HashedSet<T>();
@@ -17,6 +20,18 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		/// <summary>
+		/// Tags sorted descending by the number of votes. Cannot be null.
+		/// </summary>
+		public virtual IEnumerable<Tag> TagsByVotes {
+			get {
+				return Usages.OrderByDescending(u => u.Count).ThenBy(u => u.Tag.Name).Select(u => u.Tag);
+			}
+		}
+
+		/// <summary>
+		/// List of all tag usages. Cannot be null.
+		/// </summary>
 		public virtual Iesi.Collections.Generic.ISet<T> Usages {
 			get { return tags; }
 			set {

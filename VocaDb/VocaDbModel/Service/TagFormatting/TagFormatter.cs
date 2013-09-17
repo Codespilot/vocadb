@@ -70,6 +70,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 					var vocalistStr = GetVocalistStr(track, languagePreference);
 					return (vocalistStr.Any() ? " feat. " + vocalistStr : string.Empty);
 
+				case "genres":
+					return string.Join(", ", SongHelper.GetGenreTags(track).Select(t => t.NameWithSpaces));
+
 				// List of producers
 				case "producers":		
 					return GetProducerStr(track, languagePreference);
