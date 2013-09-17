@@ -4,6 +4,9 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain.Tags {
 
+	/// <summary>
+	/// Tag attached to an entry (song, album, artist).
+	/// </summary>
 	public abstract class TagUsage {
 
 		private Tag tag;
@@ -14,8 +17,14 @@ namespace VocaDb.Model.Domain.Tags {
 			Tag = tag;
 		}
 
+		/// <summary>
+		/// Number of votes.
+		/// </summary>
 		public virtual int Count { get; set; }
 
+		/// <summary>
+		/// Attached entry. Cannot be null.
+		/// </summary>
 		public abstract IEntryBase Entry { get; }
 
 		public virtual long Id { get; set; }
@@ -28,6 +37,9 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		/// <summary>
+		/// List of individual votes by users. Cannot be null.
+		/// </summary>
 		public abstract IEnumerable<TagVote> VotesBase { get; }
 
 		public abstract TagVote CreateVote(User user);

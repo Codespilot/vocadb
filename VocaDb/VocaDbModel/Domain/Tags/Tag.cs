@@ -152,6 +152,16 @@ namespace VocaDb.Model.Domain.Tags {
 		public virtual string TagName { get; set; }
 
 		/// <summary>
+		/// Tag name with underscores replaced with spaces.
+		/// Cannot be null or empty.
+		/// </summary>
+		public virtual string NameWithSpaces {
+			get {
+				return Name.Replace('_', ' ');
+			}
+		}
+
+		/// <summary>
 		/// Entry thumbnail picture. Can be null.
 		/// </summary>
 		public virtual EntryThumb Thumb { get; set; }
