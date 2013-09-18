@@ -2420,6 +2420,7 @@
     <Content Include="App_GlobalResources\EntryReportTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>EntryReportTypeNames.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\EntryReportTypeNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>

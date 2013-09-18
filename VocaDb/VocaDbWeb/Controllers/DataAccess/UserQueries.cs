@@ -184,6 +184,16 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				user.UpdateLastLogin(hostname);
 				ctx.Save(user);
 
+				if (sfsCheckResult != null && sfsCheckResult.Conclusion == SFSCheckResultType.Malicious) {
+
+					var report = new UserReport(user, UserReportType.MaliciousIP, null, hostname, 
+						string.Format("Confidence {0} %, Frequency {1}, Last seen {2}.", 
+						sfsCheckResult.Confidence, sfsCheckResult.Frequency, sfsCheckResult.LastSeen.ToShortDateString()));
+
+					ctx.OfType<UserReport>().Save(report);
+
+				}
+
 				ctx.AuditLogger.AuditLog(string.Format("registered from {0} in {1} (SFS check {2}).", MakeGeoIpToolLink(hostname), timeSpan, sfsStr), user);
 
 				return new UserContract(user);

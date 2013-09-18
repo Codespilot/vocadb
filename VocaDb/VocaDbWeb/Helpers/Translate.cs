@@ -86,6 +86,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<UserGroupId> UserGroups =
 			new TranslateableEnum<UserGroupId>(() => UserGroupNames.ResourceManager);
 
+		public static readonly TranslateableEnum<UserReportType> UserReportTypeNames =
+			new TranslateableEnum<UserReportType>(() => global::Resources.EntryReportTypeNames.ResourceManager);
+
 		public static readonly TranslateableEnum<WebLinkCategory> WebLinkCategoryNames =
 			new TranslateableEnum<WebLinkCategory>(() => global::Resources.WebLinkCategoryNames.ResourceManager);
 

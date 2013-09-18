@@ -5,6 +5,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -44,6 +45,13 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		public EntryReportContract(UserReport userReport, ContentLanguagePreference languagePreference)
+			: this((EntryReport)userReport, languagePreference) {
+
+			UserReportType = userReport.ReportType;
+
+		}
+
 		public AlbumReportType AlbumReportType { get; set; }
 
 		public ArtistReportType ArtistReportType { get; set; }
@@ -62,6 +70,8 @@ namespace VocaDb.Model.DataContracts {
 
 		public UserWithEmailContract User { get; set; }
 
+		public UserReportType UserReportType { get; set; }
+
 	}
 
 	public class EntryReportContractFactory {
@@ -76,6 +86,9 @@ namespace VocaDb.Model.DataContracts {
 
 			if (report is SongReport)
 				return new EntryReportContract((SongReport)report, languagePreference);
+
+			if (report is UserReport)
+				return new EntryReportContract((UserReport)report, languagePreference);
 
 			return new EntryReportContract(report, languagePreference);
 

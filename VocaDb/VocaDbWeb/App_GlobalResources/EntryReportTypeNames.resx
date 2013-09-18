@@ -129,6 +129,9 @@
   <data name="InvalidInfo" xml:space="preserve">
     <value>Invalid or missing information</value>
   </data>
+  <data name="MaliciousIP" xml:space="preserve">
+    <value>Malicious IP</value>
+  </data>
   <data name="Other" xml:space="preserve">
     <value>Other (specify in notes)</value>
   </data>
