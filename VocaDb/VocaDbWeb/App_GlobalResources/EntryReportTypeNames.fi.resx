@@ -129,6 +129,9 @@
   <data name="InvalidInfo" xml:space="preserve">
     <value>Virheellistä tai puuttuvaa tietoa</value>
   </data>
+  <data name="MaliciousIP" xml:space="preserve">
+    <value>Haitallinen IP</value>
+  </data>
   <data name="Other" xml:space="preserve">
     <value>Muu (määrittele lisätiedoissa)</value>
   </data>

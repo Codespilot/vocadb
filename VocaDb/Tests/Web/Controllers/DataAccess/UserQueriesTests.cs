@@ -9,6 +9,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Security;
 using VocaDb.Tests.TestSupport;
+using VocaDb.Web.Code.Security;
 using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Tests.Web.Controllers.DataAccess {
@@ -22,6 +23,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private UserQueries data;
 		private FakePermissionContext permissionContext;
 		private FakeUserRepository repository;
+		private FakeStopForumSpamClient stopForumSpamClient;
 		private User userWithEmail;
 		private User userWithoutEmail;
 
@@ -50,7 +52,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository = new FakeUserRepository(userWithEmail, userWithoutEmail);
 			repository.Add(userWithEmail.Options);
 			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithEmail, ContentLanguagePreference.Default));
-			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory(), new FakeStopForumSpamClient());
+			stopForumSpamClient = new FakeStopForumSpamClient();
+			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory(), stopForumSpamClient);
 
 		}
 
@@ -175,6 +178,21 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			data.Create("hatsune_miku", "3939", "mikumiku", "crypton.jp", TimeSpan.FromMinutes(39));
 
+		}
+
+		[TestMethod]
+		public void Create_Malicous() {
+
+			var hostname = "666";
+			stopForumSpamClient.Response = new SFSResponseContract { Appears = true, Confidence = 99d, Frequency = 100 };
+			var result = data.Create("Malicious_User", "00", string.Empty, hostname, TimeSpan.FromMinutes(39));
+
+			Assert.IsNotNull(result, "result");
+			var report = repository.List<UserReport>().FirstOrDefault();
+			Assert.IsNotNull(report, "User was reported");
+			Assert.AreEqual(UserReportType.MaliciousIP, report.ReportType, "Report type");
+			Assert.AreEqual(hostname, report.Hostname, "Hostname");
+		
 		}
 
 		[TestMethod]
