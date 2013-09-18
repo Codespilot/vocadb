@@ -134,6 +134,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.AreEqual(name, user.Name, "Name");
 			Assert.AreEqual("mikumiku@crypton.jp", user.Email, "Email");
 			Assert.AreEqual(UserGroupId.Regular, user.GroupId, "GroupId");
+			Assert.IsFalse(repository.List<UserReport>().Any(), "No reports");
 
 		}
 
