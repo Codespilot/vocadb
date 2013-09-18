@@ -111,7 +111,7 @@
 			@Helpers.UniversalTimeLabel(Model.LastLogin)
 			if (Login.CanManageUsers) {
 				@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
-				<a href='http://www.stopforumspam.com/search?q=@Model.LastLoginAddress'>StopForumSpam</a>
+				<a href='#' id="stopForumSpamLink" data-ip="@Model.LastLoginAddress">StopForumSpam</a>
 			}		
 			@(" (" + R.VisibleOnlyToMe + ")")
 	 
@@ -208,6 +208,10 @@
 @Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
 
 @AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
+
+@if (Login.CanManageUsers) {
+	<div id="sfsCheckDialog" title="StopForumSpam check"></div>	
+}
 
 @section Head {
 	@Styles.Render("~/Scripts/jqwidgets27/styles/css")

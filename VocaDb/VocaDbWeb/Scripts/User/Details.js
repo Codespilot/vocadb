@@ -119,5 +119,14 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 
 	});
 
+	$("#sfsCheckDialog").dialog({ autoOpen: false, model: true });
+	$("#stopForumSpamLink").click(function () {
+		var ip = $(this).data("ip");
+		$.post(vdb.functions.mapUrl("/Admin/CheckSFS"), { ip: ip }, function (result) {
+			$("#sfsCheckDialog").html(result);
+			$("#sfsCheckDialog").dialog("open");
+		});
+		return false;
+	});
 
 }

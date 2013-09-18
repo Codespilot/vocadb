@@ -321,6 +321,7 @@
     <Compile Include="Domain\Users\OwnedArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Users\UserComment.cs" />
+    <Compile Include="Domain\Users\UserReport.cs" />
     <Compile Include="Domain\Users\UserOptions.cs" />
     <Compile Include="Domain\Users\UserWebLink.cs" />
     <Compile Include="Domain\Versioning\ArchivedVersionManager.cs" />

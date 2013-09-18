@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Web;
 using NLog;
-using VocaDb.Model.Domain.Security;
 using VocaDb.Web.Code;
 
 namespace VocaDb.Web.Helpers {
@@ -17,6 +16,16 @@ namespace VocaDb.Web.Helpers {
 		public static string GetRealHost(HttpRequestBase request) {
 
 			return CfHelper.GetRealIp(request);
+
+		}
+
+		public static bool IsLocalhost(string hostname) {
+
+			if (string.IsNullOrEmpty(hostname))
+				return false;
+
+			var localhosts = new[] { "localhost", "127.0.0.1", "::1" };
+			return localhosts.Contains(hostname);
 
 		}
 

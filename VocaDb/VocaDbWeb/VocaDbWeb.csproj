@@ -2128,6 +2128,7 @@
     <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Album\RelatedAlbums.cshtml" />
     <Content Include="Views\Album\Partials\_DownloadTagsDialog.cshtml" />
+    <Content Include="Views\Admin\Partials\_SFSCheckResponse.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
