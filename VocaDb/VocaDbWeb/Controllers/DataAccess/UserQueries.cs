@@ -11,6 +11,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
+using VocaDb.Web.Code.Security;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
@@ -21,6 +22,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IUserPermissionContext permissionContext;
+		private readonly IStopForumSpamClient sfsClient;
 		private readonly IUserRepository repository;
 
 		public IEntryLinkFactory EntryLinkFactory {
@@ -53,15 +55,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) {
+		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IStopForumSpamClient sfsClient) {
 
 			ParamIs.NotNull(() => repository);
 			ParamIs.NotNull(() => permissionContext);
 			ParamIs.NotNull(() => entryLinkFactory);
+			ParamIs.NotNull(() => sfsClient);
 
 			this.repository = repository;
 			this.permissionContext = permissionContext;
 			this.entryLinkFactory = entryLinkFactory;
+			this.sfsClient = sfsClient;
 
 		}
 
@@ -119,6 +123,22 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		private string GetSFSCheckStr(SFSResponseContract result) {
+
+			if (result == null)
+				return "error";
+
+			switch (result.Conclusion) {
+				case SFSCheckResultType.Malicious:
+					return string.Format("Malicious ({0} % confidence)", result.Confidence);
+				case SFSCheckResultType.Uncertain:
+					return string.Format("Uncertain ({0} % confidence)", result.Confidence);
+				default:
+					return "Ok";
+			}
+
+		}
+
 		/// <param name="name">User name. Must be unique. Cannot be null or empty.</param>
 		/// <param name="pass">Password. Cannot be null or empty.</param>
 		/// <param name="email">Email address. Must be unique if specified. Cannot be null.</param>
@@ -136,6 +156,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			return repository.HandleTransaction(ctx => {
 
+				// Verification
 				var lc = name.ToLowerInvariant();
 				var existing = ctx.Query().FirstOrDefault(u => u.NameLC == lc);
 
@@ -153,13 +174,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				}
 
+				// All ok, create user
+				var sfsCheckResult = sfsClient.CallApi(hostname);
+				var sfsStr = GetSFSCheckStr(sfsCheckResult);
+
 				var salt = new Random().Next();
 				var hashed = LoginManager.GetHashedPass(lc, pass, salt);
 				var user = new User(name, hashed, email, salt);
 				user.UpdateLastLogin(hostname);
 				ctx.Save(user);
 
-				ctx.AuditLogger.AuditLog(string.Format("registered from {0} in {1}.", MakeGeoIpToolLink(hostname), timeSpan), user);
+				ctx.AuditLogger.AuditLog(string.Format("registered from {0} in {1} (SFS check {2}).", MakeGeoIpToolLink(hostname), timeSpan, sfsStr), user);
 
 				return new UserContract(user);
 

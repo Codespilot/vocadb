@@ -113,6 +113,7 @@
     <Compile Include="TestSupport\FakeEntryLinkFactory.cs" />
     <Compile Include="TestSupport\FakePermissionContext.cs" />
     <Compile Include="TestSupport\FakeSongListRepository.cs" />
+    <Compile Include="TestSupport\FakeStopForumSpamClient.cs" />
     <Compile Include="TestSupport\FakeTagRepository.cs" />
     <Compile Include="TestSupport\FakeUserRepository.cs" />
     <Compile Include="TestSupport\QuerySourceList.cs" />

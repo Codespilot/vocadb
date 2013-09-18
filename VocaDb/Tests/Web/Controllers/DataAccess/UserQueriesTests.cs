@@ -50,7 +50,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository = new FakeUserRepository(userWithEmail, userWithoutEmail);
 			repository.Add(userWithEmail.Options);
 			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithEmail, ContentLanguagePreference.Default));
-			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory());
+			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory(), new FakeStopForumSpamClient());
 
 		}
 

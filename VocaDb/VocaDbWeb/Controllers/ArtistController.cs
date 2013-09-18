@@ -277,7 +277,10 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public ActionResult Picture(int id) {
+		public ActionResult Picture(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var artist = Service.GetArtistPicture(id, Size.Empty);
 

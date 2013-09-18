@@ -48,6 +48,20 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult CheckSFS(string ip) {
+
+			LoginManager.VerifyPermission(PermissionToken.ManageUserPermissions);
+
+			var result = new StopForumSpamClient().CallApi(ip);
+
+			if (result == null)
+				return new EmptyResult();
+
+			return PartialView("Partials/_SFSCheckResponse", result);
+
+		}
+
 		public ActionResult CleanupOldLogEntries() {
 
 			var count = Service.CleanupOldLogEntries();
