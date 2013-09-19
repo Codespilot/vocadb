@@ -35,9 +35,7 @@
 		<a class="btn btn-info navbar-languageBtn dropdown-toggle" data-toggle="dropdown" href="#">
 			<i class="icon-user"></i>
 			@ViewRes._LayoutStrings.Account
-			@if (hasMessages) {
-				<span class="badge badge-small badge-important">!</span>
-			}
+			<span data-bind="visible: hasNotifications" class="badge badge-small badge-important" style="display: none;">!</span>
 			<span class="caret"></span>		
 		</a>
 	
@@ -56,6 +54,14 @@
 						}
 					</a>
 				</li>
+				if (Login.CanManageEntryReports) {
+					<li>
+						<a href="@Url.Action("ViewEntryReports", "Admin")">
+							Entry reports
+							<span data-bind="visible: reportCount() > 0, text: reportCount" class="badge badge-small badge-important" style="display: none"></span>
+						</a>
+					</li>	 
+				}
 				<li>@Html.ActionLink(ViewRes._LayoutStrings.LogOut, "Logout", "User")</li>				
 			}
 			<li class="divider"></li>

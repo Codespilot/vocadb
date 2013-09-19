@@ -552,12 +552,14 @@
     <Compile Include="Service\Exceptions\InvalidEmailFormatException.cs" />
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
+    <Compile Include="Service\Repositories\IEntryReportRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\AlbumNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\IAlbumRepository.cs" />
     <Compile Include="Service\Repositories\IAuditLogger.cs" />
     <Compile Include="Service\Repositories\IRepositoryContextExtender.cs" />
     <Compile Include="Service\Repositories\ISongListRepository.cs" />
     <Compile Include="Service\Repositories\ITagRepository.cs" />
+    <Compile Include="Service\Repositories\NHibernate\EntryReportNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\NHibernateAuditLogger.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
     <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />

@@ -595,10 +595,12 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DataAccess\AlbumQueries.cs" />
+    <Compile Include="Controllers\DataAccess\EntryReportQueries.cs" />
     <Compile Include="Controllers\DataAccess\QueriesBase.cs" />
     <Compile Include="Controllers\DataAccess\SongListQueries.cs" />
     <Compile Include="Controllers\DataAccess\TagQueries.cs" />
     <Compile Include="Controllers\DataAccess\UserQueries.cs" />
+    <Compile Include="Controllers\EntryReportsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\ExtController.cs" />
@@ -1598,6 +1600,7 @@
     <Content Include="Scripts\Repositories\ArtistRepository.js">
       <DependentUpon>ArtistRepository.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\Repositories\EntryReportRepository.ts" />
     <Content Include="Scripts\Repositories\SongRepository.js">
       <DependentUpon>SongRepository.ts</DependentUpon>
     </Content>
@@ -1622,6 +1625,7 @@
     </Content>
     <TypeScriptCompile Include="Scripts\Shared\WebLinkMatcher.ts" />
     <TypeScriptCompile Include="Scripts\Shared\Messages.d.ts" />
+    <TypeScriptCompile Include="Scripts\Shared\UrlMapper.ts" />
     <Content Include="Scripts\Shared\WebLinkMatcher.js">
       <DependentUpon>WebLinkMatcher.ts</DependentUpon>
     </Content>
