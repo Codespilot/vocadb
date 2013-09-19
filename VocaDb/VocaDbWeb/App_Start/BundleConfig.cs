@@ -21,7 +21,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Shared/NamesList.js",
 				"~/Scripts/Shared/GlobalSearchBox.js", 
 				"~/Scripts/Shared/Messages.js",
-				"~/Scripts/Shared/GlobalFunctions.js", 
+				"~/Scripts/Shared/GlobalFunctions.js",
+				"~/Scripts/Shared/UrlMapper.js",
 				"~/Scripts/Shared/EntryUrlMapper.js",
 				"~/Scripts/Shared/ReportEntryPopup.js",
 				"~/Scripts/KnockoutExtensions/Dialog.js",
@@ -29,6 +30,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/jqButton.js",
 				"~/Scripts/KnockoutExtensions/jqButtonset.js",
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
+				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/ViewModels/TopBarViewModel.js"
 			));
 

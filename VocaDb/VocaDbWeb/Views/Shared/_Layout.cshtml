@@ -157,12 +157,15 @@
 		@Scripts.Render("~/bundles/shared/common")
         <script type="text/javascript">
             
+        	var baseAddress = '@Url.Content("~/")';
+
             // TODO: move to a controller.
         	vdb = vdb || {};
         	vdb.values = vdb.values || {};
             vdb.values.hostAddress = '@VocaDb.Model.Utils.AppConfig.HostAddress';
-        	vdb.values.baseAddress = '@Url.Content("~/")';
+        	vdb.values.baseAddress = baseAddress;
         	vdb.resources = vdb.resources || {};
+        	var urlMapper = new vdb.UrlMapper(baseAddress);
 
             vdb.resources.album = {
                 addedToCollection: '@Html.Raw(AjaxRes.AlbumStrings.AddedToCollection)'
@@ -171,11 +174,15 @@
 
         	vdb.ui.initAll();
 
+        	var entryReportRepository = new vdb.repositories.EntryReportRepository(urlMapper);
         	var entryTypeTranslations = entryTypeTranslations = @ResourceHelpers.ToJSON(Resources.EntryTypeNames.ResourceManager);
         	var topBarData = @Html.Raw(JsonHelpers.Serialize(new {
 				searchObjectType = searchObjectType.ToString(), searchTerm
 			}));
-        	var topBarViewModel = new vdb.viewModels.TopBarViewModel(entryTypeTranslations, topBarData.searchObjectType, topBarData.searchTerm);
+        	var hasUnreadMessages = @(Login.Manager.IsLoggedIn && Login.User.HasUnreadMessages ? "true" : "false");
+        	var getNewReportCount = @(Login.CanManageEntryReports ? "true" : "false");
+        	var topBarViewModel = new vdb.viewModels.TopBarViewModel(
+        		entryTypeTranslations, topBarData.searchObjectType, topBarData.searchTerm, hasUnreadMessages, getNewReportCount, entryReportRepository);
         	ko.applyBindings(topBarViewModel, $("#topBar")[0]);
 
         </script>
