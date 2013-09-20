@@ -20,9 +20,11 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 	[TestClass]
 	public class UserQueriesTests {
 
+		private const string defaultHostname = "crypton.jp";
 		private UserQueries data;
 		private FakePermissionContext permissionContext;
 		private FakeUserRepository repository;
+		private HostCollection softBannedIPs;
 		private FakeStopForumSpamClient stopForumSpamClient;
 		private User userWithEmail;
 		private User userWithoutEmail;
@@ -33,6 +35,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.AreEqual(expected.Name, actual.Name, "Name");
 			Assert.AreEqual(expected.Id, actual.Id, "Id");
 
+		}
+
+		private UserContract CallCreate(string name = "hatsune_miku", string pass = "3939", string email = "", string hostname = defaultHostname, TimeSpan? timeSpan = null) {
+			return data.Create(name, pass, email, hostname, timeSpan ?? TimeSpan.FromMinutes(39), softBannedIPs);
 		}
 
 		private User GetUserFromRepo(string username) {
@@ -54,6 +60,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithEmail, ContentLanguagePreference.Default));
 			stopForumSpamClient = new FakeStopForumSpamClient();
 			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory(), stopForumSpamClient);
+			softBannedIPs = new HostCollection();
 
 		}
 
@@ -124,7 +131,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void Create() {
 
 			var name = "hatsune_miku";
-			var result = data.Create(name, "3939", "mikumiku@crypton.jp", "crypton.jp", TimeSpan.FromMinutes(39));
+			var result = CallCreate(name: name, email: "mikumiku@crypton.jp");
 
 			Assert.IsNotNull(result, "Result is not null");
 			Assert.AreEqual(name, result.Name, "Name");
@@ -142,7 +149,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[ExpectedException(typeof(UserNameAlreadyExistsException))]
 		public void Create_NameAlreadyExists() {
 
-			data.Create("already_exists", "3939", "mikumiku@crypton.jp", "crypton.jp", TimeSpan.FromMinutes(39));
+			CallCreate(name: "already_exists");
 
 		}
 
@@ -150,7 +157,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[ExpectedException(typeof(UserNameAlreadyExistsException))]
 		public void Create_NameAlreadyExistsDifferentCase() {
 
-			data.Create("Already_Exists", "3939", "mikumiku@crypton.jp", "crypton.jp", TimeSpan.FromMinutes(39));
+			CallCreate(name: "Already_Exists");
 
 		}
 
@@ -158,7 +165,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[ExpectedException(typeof(UserEmailAlreadyExistsException))]
 		public void Create_EmailAlreadyExists() {
 
-			data.Create("hatsune_miku", "3939", "already_in_use@vocadb.net", "crypton.jp", TimeSpan.FromMinutes(39));
+			CallCreate(email: "already_in_use@vocadb.net");
 
 		}
 
@@ -166,7 +173,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void Create_EmailAlreadyExistsButDisabled() {
 
 			userWithEmail.Active = false;
-			var result = data.Create("hatsune_miku", "3939", "already_in_use@vocadb.net", "crypton.jp", TimeSpan.FromMinutes(39));
+			var result = CallCreate(email: "already_in_use@vocadb.net");
 
 			Assert.IsNotNull(result, "Result is not null");
 			Assert.AreEqual("hatsune_miku", result.Name, "Name");
@@ -177,23 +184,40 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[ExpectedException(typeof(InvalidEmailFormatException))]
 		public void Create_InvalidEmailFormat() {
 
-			data.Create("hatsune_miku", "3939", "mikumiku", "crypton.jp", TimeSpan.FromMinutes(39));
+			CallCreate(email: "mikumiku");
 
 		}
 
 		[TestMethod]
-		public void Create_Malicous() {
+		public void Create_MalicousIP() {
 
-			var hostname = "666";
 			stopForumSpamClient.Response = new SFSResponseContract { Appears = true, Confidence = 99d, Frequency = 100 };
-			var result = data.Create("Malicious_User", "00", string.Empty, hostname, TimeSpan.FromMinutes(39));
+			var result = CallCreate();
 
 			Assert.IsNotNull(result, "result");
 			var report = repository.List<UserReport>().FirstOrDefault();
 			Assert.IsNotNull(report, "User was reported");
 			Assert.AreEqual(UserReportType.MaliciousIP, report.ReportType, "Report type");
-			Assert.AreEqual(hostname, report.Hostname, "Hostname");
+			Assert.AreEqual(defaultHostname, report.Hostname, "Hostname");
 		
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(TooFastRegistrationException))]
+		public void Create_RegistrationTimeTrigger() {
+
+			CallCreate(timeSpan: TimeSpan.FromSeconds(4));
+			Assert.IsFalse(softBannedIPs.Contains(defaultHostname), "Was not banned");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(TooFastRegistrationException))]
+		public void Create_RegistrationTimeAndBanTrigger() {
+
+			CallCreate(timeSpan: TimeSpan.FromSeconds(1));
+			Assert.IsTrue(softBannedIPs.Contains(defaultHostname), "Was banned");
+
 		}
 
 		[TestMethod]
