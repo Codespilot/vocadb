@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net.Mail;
 using System.Threading;
+using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
@@ -20,6 +21,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// </summary>
 	public class UserQueries {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IUserPermissionContext permissionContext;
 		private readonly IStopForumSpamClient sfsClient;
@@ -144,15 +146,30 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		/// <param name="email">Email address. Must be unique if specified. Cannot be null.</param>
 		/// <param name="hostname">Host name where the registration is from.</param>
 		/// <param name="timeSpan">Time in which the user filled the registration form.</param>
+		/// <param name="softbannedIPs">List of application's soft-banned IPs. Soft-banned IPs are cleared when the application restarts.</param>
 		/// <returns>Data contract for the created user. Cannot be null.</returns>
 		/// <exception cref="InvalidEmailFormatException">If the email format was invalid.</exception>
 		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
 		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
-		public UserContract Create(string name, string pass, string email, string hostname, TimeSpan timeSpan) {
+		/// <exception cref="TooFastRegistrationException">If the user registered too fast.</exception>
+		public UserContract Create(string name, string pass, string email, string hostname, TimeSpan timeSpan,
+			HostCollection softbannedIPs) {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNullOrEmpty(() => pass);
 			ParamIs.NotNull(() => email);
+
+			if (timeSpan < TimeSpan.FromSeconds(5)) {
+
+				log.Warn(string.Format("Suspicious registration form fill time ({0}) from {1}.", timeSpan, hostname));
+
+				if (timeSpan < TimeSpan.FromSeconds(3)) {
+					softbannedIPs.Add(hostname);
+				}
+
+				throw new TooFastRegistrationException();
+
+			}
 
 			return repository.HandleTransaction(ctx => {
 

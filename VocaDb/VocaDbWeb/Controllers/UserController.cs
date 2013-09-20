@@ -527,17 +527,10 @@ namespace VocaDb.Web.Controllers
 
 			var time = TimeSpan.FromTicks(DateTime.Now.Ticks - model.EntryTime);
 
-	        if (time < TimeSpan.FromSeconds(5)) {
-				log.Warn(string.Format("Suspicious registration form fill time ({0}) from {1}.", time, Hostname));
-				ModelState.AddModelError("Restricted", restrictedErr);
-				MvcApplication.BannedIPs.Add(Hostname);
-		        return View(model);
-	        }
-
 	        // Attempt to register the user
 	        try {
 
-				var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time);
+				var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time, MvcApplication.BannedIPs);
 				FormsAuthentication.SetAuthCookie(user.Name, false);
 		        return RedirectToAction("Index", "Home");
 
@@ -554,6 +547,11 @@ namespace VocaDb.Web.Controllers
 	        } catch (InvalidEmailFormatException) {
 
 				ModelState.AddModelError("Email", ViewRes.User.MySettingsStrings.InvalidEmail);
+				return View(model);
+
+	        } catch (TooFastRegistrationException) {
+
+				ModelState.AddModelError("Restricted", restrictedErr);
 				return View(model);
 
 	        }
