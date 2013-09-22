@@ -2,6 +2,7 @@
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Routing;
 using MvcPaging;
 using NLog;
 using VocaDb.Model.DataContracts;
@@ -421,6 +422,7 @@ namespace VocaDb.Web.Controllers
 			var result = Service.GetDeleted(0, entriesPerPage);
 
 			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(0, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
+			data.RouteValues = new RouteValueDictionary(new { action = "DeletedPaged" });
 
 			return View(data);
 
@@ -433,6 +435,7 @@ namespace VocaDb.Web.Controllers
 			var result = Service.GetDeleted(p * entriesPerPage, entriesPerPage);
 
 			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(p, entriesPerPage, result.TotalCount), null, "DeletedPaged", "albums");
+			data.RouteValues = new RouteValueDictionary(new { action = "DeletedPaged" });
 
 			return PartialView("PagedAlbums", data);
 
