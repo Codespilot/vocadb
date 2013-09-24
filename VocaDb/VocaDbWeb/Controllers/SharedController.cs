@@ -18,40 +18,11 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult CreateName(string nameVal, ContentLanguageSelection language) {
-
-			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit { Language = language, Value = nameVal });
-
-		}
-
+		// Refactor: should get rid of these and do with knockout
 		[AcceptVerbs(HttpVerbs.Post)]
 		public PartialViewResult CreateNewAlias(string nameVal) {
 
 			return PartialView("NameAliasEditRow", new LocalizedStringWithIdContract { Value = nameVal });
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult CreateNewName() {
-
-			return PartialView("LocalizedStringEditableRow", new LocalizedStringEdit());
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Handled with knockout")]
-		public PartialViewResult CreateNewWebLink() {
-
-			return PartialView("WebLinkEditRow", new WebLinkDisplay());
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		[Obsolete("Handled with knockout")]
-		public PartialViewResult CreateWebLink(string description, string url, WebLinkCategory category = WebLinkCategory.Other) {
-
-			return PartialView("WebLinkEditRow", new WebLinkDisplay { Description = description, Url = url, Category = category });
 
 		}
 
