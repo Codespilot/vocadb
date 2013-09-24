@@ -2,7 +2,7 @@
 @model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Users.AlbumForUserContract>
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
+	@Html.Pager(Model)
 </div>
 
 <table>
@@ -54,5 +54,5 @@
 </table>
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).RouteValues(Model.RouteValues))
+	@Html.Pager(Model)
 </div>

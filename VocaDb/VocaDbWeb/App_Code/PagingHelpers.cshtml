@@ -4,7 +4,9 @@
 
 @helper PagingTemplate(IPagingData pagingData, string pagingItemName, Func<IHtmlString> contentFac) {
 	
-	<p>@pagingData.ItemsBase.TotalItemCount @pagingItemName.</p>
+	if (!string.IsNullOrEmpty(pagingItemName)) {		 
+		<p>@pagingData.ItemsBase.TotalItemCount @pagingItemName.</p>
+	}
 
 	<div class="pager">
 		@Html.Pager(pagingData)
