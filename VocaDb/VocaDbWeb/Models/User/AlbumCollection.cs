@@ -26,8 +26,6 @@ namespace VocaDb.Web.Models.User {
 
 	public class AlbumCollectionRouteParams {
 
-		public int count { get; set; }
-
 		public int id { get; set; }
 
 		public int? page { get; set; }
@@ -35,6 +33,8 @@ namespace VocaDb.Web.Models.User {
 		public int? pageSize { get; set; }
 
 		public PurchaseStatus? purchaseStatus { get; set; }
+
+		public int totalCount { get; set; }
 
 	}
 
