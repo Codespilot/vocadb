@@ -2,9 +2,11 @@
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Linq.Expressions;
-using Microsoft.Web.Helpers;
+using System.Web.Routing;
+using MvcPaging;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
@@ -16,9 +18,9 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.DataContracts.Users;
 using VocaDb.Web.Code.BBCode;
 using VocaDb.Web.Helpers.Support;
+using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Helpers {
 
@@ -307,6 +309,24 @@ namespace VocaDb.Web.Helpers {
 			Expression<Func<TModel, SongType>> expression, object htmlAttributes = null, object selectedValue = null) {
 
 			return htmlHelper.DropDownListFor(expression, CreateSongTypesList(selectedValue), htmlAttributes);
+
+		}
+
+		public static Pager Pager(this HtmlHelper htmlHelper, IPagingData pagingData) {
+
+			var pager = htmlHelper.Pager(pagingData.ItemsBase.PageSize, pagingData.ItemsBase.PageNumber, pagingData.ItemsBase.TotalItemCount, new AjaxOptions { UpdateTargetId = pagingData.ContainerName});
+			var routeValues = pagingData.RouteValues ?? new RouteValueDictionary();
+
+			// Because of a bug in MVCPaging 2.0.1 the action parameter needs to be specified in routevalues as well
+			if (!string.IsNullOrEmpty(pagingData.Action) && !routeValues.ContainsKey("action"))
+				routeValues.Add("action", pagingData.Action);
+
+			if (pagingData.Id != null && !routeValues.ContainsKey("id"))
+				routeValues.Add("id", pagingData.Id);
+
+			pager = pager.Options(o => o.RouteValues(routeValues));
+				
+			return pager;
 
 		}
 
