@@ -54,10 +54,12 @@ namespace VocaDb.Web.Controllers
 				ArtistId = id,
 				ArtistParticipationStatus = artistParticipation ?? ArtistAlbumParticipationStatus.Everything
 			};
+
 			var result = Services.Albums.Find(queryParams);
+
 			var target = queryParams.ArtistParticipationStatus == ArtistAlbumParticipationStatus.OnlyCollaborations ? "ui-tabs-3" : "ui-tabs-2";
 			var data = new PagingData<AlbumContract>(result.Items.ToPagedList(pageIndex, entriesPerPage, result.TotalCount), id, "AlbumsPaged", target);
-			data.RouteValues = new RouteValueDictionary(new { action = "AlbumsPaged", id, artistParticipation });
+			data.RouteValues = new RouteValueDictionary(new { artistParticipation });
 
 			return PartialView("PagedAlbums", data);
 

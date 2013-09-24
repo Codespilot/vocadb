@@ -1206,6 +1206,7 @@
     <Content Include="App_Code\KnockoutHelpers.cshtml" />
     <Content Include="Content\Styles\PVViewer_Blue.less" />
     <Content Include="Content\Styles\PVViewer_Black.less" />
+    <Content Include="App_Code\PagingHelpers.cshtml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

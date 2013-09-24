@@ -1,11 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Web.Routing;
 using MvcPaging;
 
 namespace VocaDb.Web.Models.Shared {
 
-	public class PagingData<T> {
+	public interface IPagingData {
+
+		string Action { get; }
+
+		string ContainerName { get; }
+
+		object Id { get; }
+
+		IPagedList ItemsBase { get; }
+
+		RouteValueDictionary RouteValues { get; }
+
+	}
+
+	public class PagingData<T> : IPagingData {
 
 		public PagingData() { }
 
@@ -27,6 +40,9 @@ namespace VocaDb.Web.Models.Shared {
 		public IPagedList<T> Items { get; set; }
 
 		public RouteValueDictionary RouteValues { get; set; } 
-		 
+
+		public IPagedList ItemsBase {
+			get { return Items; }
+		}
 	}
 }
