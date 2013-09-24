@@ -81,5 +81,5 @@
 	</div>
 </div>
 <div id="songsInList">
-@{ Html.RenderPartial("SongsInListPaged", new VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Songs.SongInListContract>(Model.SongLinks.Items.ToPagedList(0, 50, Model.SongLinks.TotalCount), Model.Id, "SongsPaged", "songsInList")); }
+@{ Html.RenderPartial("SongsInListPaged", new VocaDb.Web.Models.Shared.PagingData<SongInListContract>(Model.SongLinks.Items.ToPagedList(0, 50, Model.SongLinks.TotalCount), Model.Id, "SongsPaged", "songsInList", addTotalCount: true)); }
 </div>		

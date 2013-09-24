@@ -145,7 +145,7 @@ namespace VocaDb.Web.Controllers
 			var pageIndex = (page - 1) ?? 0;
 			var result = Service.GetSongsInList(id, pageIndex * SongsPerPage, SongsPerPage, !totalCount.HasValue);
 			var count = totalCount.HasValue ? totalCount.Value : result.TotalCount;
-			var data = new PagingData<SongInListContract>(result.Items.ToPagedList(pageIndex, SongsPerPage, count), id, "SongsPaged", "songsInList");
+			var data = new PagingData<SongInListContract>(result.Items.ToPagedList(pageIndex, SongsPerPage, count), id, "SongsPaged", "songsInList", addTotalCount: true);
 
 			return PartialView("SongsInListPaged", data);
 
