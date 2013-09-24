@@ -314,7 +314,9 @@ namespace VocaDb.Web.Helpers {
 
 		public static Pager Pager(this HtmlHelper htmlHelper, IPagingData pagingData) {
 
-			var pager = htmlHelper.Pager(pagingData.ItemsBase.PageSize, pagingData.ItemsBase.PageNumber, pagingData.ItemsBase.TotalItemCount, new AjaxOptions { UpdateTargetId = pagingData.ContainerName});
+			var pager = htmlHelper.Pager(pagingData.ItemsBase.PageSize, pagingData.ItemsBase.PageNumber, pagingData.ItemsBase.TotalItemCount, 
+				new AjaxOptions { UpdateTargetId = pagingData.ContainerName});
+
 			var routeValues = pagingData.RouteValues ?? new RouteValueDictionary();
 
 			// Because of a bug in MVCPaging 2.0.1 the action parameter needs to be specified in routevalues as well
@@ -323,6 +325,9 @@ namespace VocaDb.Web.Helpers {
 
 			if (pagingData.Id != null && !routeValues.ContainsKey("id"))
 				routeValues.Add("id", pagingData.Id);
+
+			if (pagingData.AddTotalCount && !routeValues.ContainsKey("totalCount"))
+				routeValues.Add("totalCount", pagingData.ItemsBase.TotalItemCount);
 
 			pager = pager.Options(o => o.RouteValues(routeValues));
 				

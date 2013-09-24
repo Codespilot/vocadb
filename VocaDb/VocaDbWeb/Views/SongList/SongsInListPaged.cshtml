@@ -2,7 +2,7 @@
 @model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Songs.SongInListContract>
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("totalCount", Model.Items.TotalItemCount))
+	@Html.Pager(Model)
 </div>
 
 <div class="tracklist">
@@ -35,5 +35,5 @@
 </div>
 
 <div class="pager">
-@Html.Pager(Model.Items.PageSize, Model.Items.PageNumber, Model.Items.TotalItemCount, new AjaxOptions { HttpMethod = "Post", InsertionMode = System.Web.Mvc.Ajax.InsertionMode.Replace, UpdateTargetId = Model.ContainerName }).Options(o => o.Action(Model.Action).AddRouteValue("id", Model.Id).AddRouteValue("totalCount", Model.Items.TotalItemCount))
+	@Html.Pager(Model)
 </div>
