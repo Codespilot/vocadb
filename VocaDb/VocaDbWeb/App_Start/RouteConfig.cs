@@ -12,7 +12,7 @@ namespace VocaDb.Web.App_Start {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 			routes.IgnoreRoute("favicon.ico");
 
-			// Invalid routes
+			// Invalid routes - redirects to 404
 			routes.MapRoute("AlbumDetailsError", "Album/Details/{id}",
 				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 			routes.MapRoute("ArtistDetailsError", "Artist/Details/{id}",
@@ -20,13 +20,15 @@ namespace VocaDb.Web.App_Start {
 			routes.MapRoute("SongDetailsError", "Song/Details/{id}",
 				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 
-			// Special routes
-			//routes.MapRoute("Search", "Search/{filter}", 
-			//	new { controller = "Home", action = "Search", filter = UrlParameter.Optional });	// Doesn't work well with certain chars
+			// Action routes
+			// Song shortcut, for example /S/393939
 			routes.MapRoute("Song", "S/{id}", new { controller = "Song", action = "Details" }, new { id = "[0-9]+" });
+
+			// User profile route, for example /Profile/riipah
 			routes.MapRoute("User", "Profile/{id}", new { controller = "User", action = "Profile" });
 
-			// Default mapping
+
+			// Default route
 			routes.MapRoute(
 				"Default", // Route name
 				"{controller}/{action}/{id}", // URL with parameters

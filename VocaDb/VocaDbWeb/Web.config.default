@@ -77,12 +77,24 @@
     <validation validateIntegratedModeConfiguration="false"/>
 		
 		<!-- 
-		Currently required so that usernames with dots work (see http://stackoverflow.com/a/12064424 ). 
+		runAllManagedModulesForAllRequests was required so that usernames with dots work (see http://stackoverflow.com/a/12064424 ). 
 		However, might cause slower performance and should be worked around.
-		Should be safe to disable this otherwise (was not enabled on the dev site).
-		Also see http://www.hanselman.com/blog/BackToBasicsDynamicImageGenerationASPNETControllersRoutingIHttpHandlersAndRunAllManagedModulesForAllRequests.aspx
+		Should be safe to disable this otherwise (was not enabled on the dev site anyway).
+		References:
+		http://stackoverflow.com/questions/9273987/asp-net-mvc-url-route-supporting-dot
+		http://www.britishdeveloper.co.uk/2010/06/dont-use-modules-runallmanagedmodulesfo.html
+		http://www.hanselman.com/blog/BackToBasicsDynamicImageGenerationASPNETControllersRoutingIHttpHandlersAndRunAllManagedModulesForAllRequests.aspx
 		-->
-    <modules runAllManagedModulesForAllRequests="true"/>
+		<handlers>
+			<add name="UrlRoutingHandler"
+				 type="System.Web.Routing.UrlRoutingHandler, 
+               System.Web, Version=4.0.0.0, 
+               Culture=neutral, 
+               PublicKeyToken=b03f5f7f11d50a3a"
+				 path="/Profile/*"
+				 verb="*"/>
+		</handlers>
+    <modules runAllManagedModulesForAllRequests="false"/>
   </system.webServer>
 
 	<runtime>
