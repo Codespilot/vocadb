@@ -10,6 +10,15 @@
 @{	
 	
 	ViewBag.Title = Model.Name;
+
+	string titleAndArtist;
+	if (!string.IsNullOrEmpty(Model.ArtistString)) {
+		titleAndArtist = string.Format("{0} - {1}", Model.Name, Model.ArtistString);
+	} else {
+		titleAndArtist = Model.Name;
+	}
+	ViewBag.PageTitle = titleAndArtist;
+	
 	ViewBag.Subtitle = string.Format("{0} ({1})", Model.ArtistString, Translate.SongTypeNames[Model.SongType]);
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
 
@@ -36,6 +45,11 @@
 	<link rel="alternate" type="application/json+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "json" }))" title="@Model.Name" />	
 	<link rel="alternate" type="text/xml+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "xml" }))" title="@Model.Name" />
 	<link rel="canonical" href="@url" />
+	@HtmlHelpers.OpenGraphMetaTags(
+		url: url, 
+		title: string.Format("{0} ({1})", titleAndArtist, Translate.SongTypeNames[Model.SongType]), 
+		description: Model.Notes, 
+		type: "music.song")
 }
 
 @section Toolbar {
