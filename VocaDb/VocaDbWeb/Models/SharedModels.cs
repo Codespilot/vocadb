@@ -7,14 +7,6 @@ using VocaDb.Model.Domain;
 
 namespace VocaDb.Web.Models {
 
-	public class ObjectCreate {
-
-		[Required]
-		[Display(Name = "Name")]
-		public string Name { get; set; }
-
-	}
-
 	public class GlobalSearchBoxModel {
 
 		public GlobalSearchBoxModel()
@@ -70,22 +62,6 @@ namespace VocaDb.Web.Models {
 			return new LocalizedStringWithIdContract { Id = this.Id, Language = this.Language, Value = this.Value };
 
 		}
-
-	}
-
-	public class AddNewLinkRowModel {
-
-		public AddNewLinkRowModel() {
-			FirstColSpan = 1;
-		}
-
-		public string EntityName { get; set; }
-
-		public int FirstColSpan { get; set; }
-
-		public string Prefix { get; set; }
-
-		public string SearchUrl { get; set; }
 
 	}
 

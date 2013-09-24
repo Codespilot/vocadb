@@ -210,28 +210,6 @@
 	</p>
 }
 
-@helper NamesList(IEnumerable<VocaDb.Web.Models.LocalizedStringEdit> names) {
-	
-	<table>
-		<thead>
-			<tr>
-				<th>@HelperRes.HelperStrings.NameValueTitle</th>
-				<th>@HelperRes.HelperStrings.NameLangTitle</th>
-				<th>@ViewRes.SharedStrings.Actions</th>
-			</tr>
-		</thead>
-		<tbody id="namesListBody">
-			@foreach (var name in names) {
-       RenderPartialExtensions.RenderPartial(Html, "LocalizedStringEditableRow", name);
-   }
-		</tbody>
-
-	</table>
-	
-	<a href="#" id="nameAdd" class="textLink addLink">@HelperRes.HelperStrings.NameNewRow</a>
-
-}
-
 @helper NotificationIcon() {
 	<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 }
