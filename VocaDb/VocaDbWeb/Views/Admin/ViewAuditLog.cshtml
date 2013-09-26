@@ -15,9 +15,11 @@
 	</button>
 	
 	<form action="@Url.Action("ViewAuditLog", "Admin")" method="POST" id="filterForm" data-bind="visible: filterVisible" class="form-horizontal" style="display: none;">
+		@* For posting *@
 		@Html.HiddenForKnockout(m => m.Filter, "value: filter")
 		@Html.HiddenForKnockout(m => m.ExcludeUsers, "value: excludeUsers")
 		@Html.HiddenForKnockout(m => m.OnlyNewUsers, "value: onlyNewUsers")
+		@Html.HiddenForKnockout(m => m.UserName, "value: userName")
 				
 		<div class="control-group">
 			<div class="control-label">Text query</div>
@@ -25,6 +27,12 @@
 				<input type="text" data-bind="value: filter" maxlength="255" class="input-xlarge" />
 			</div>
 		</div>
+		<div class="control-group">
+			<div class="control-label">Show only user</div>
+			<div class="controls">
+				<input type="text" data-bind="value: userName" maxlength="255" class="input-large" />
+			</div>
+		</div>	  
 		<div class="control-group">
 			<div class="control-label">Exclude users</div>
 			<div class="controls">
