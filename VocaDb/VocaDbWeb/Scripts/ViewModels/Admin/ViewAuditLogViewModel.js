@@ -11,10 +11,12 @@ var vdb;
                 this.toggleFilter = function () {
                     _this.filterVisible(!_this.filterVisible());
                 };
+                this.userName = ko.observable("");
                 this.excludeUsers(data.excludeUsers);
                 this.filter(data.filter);
                 this.onlyNewUsers(data.onlyNewUsers);
-                this.filterVisible(!vdb.functions.isNullOrWhiteSpace(data.excludeUsers) || !vdb.functions.isNullOrWhiteSpace(data.filter) || data.onlyNewUsers);
+                this.userName(data.userName);
+                this.filterVisible(!vdb.functions.isNullOrWhiteSpace(data.userName) || !vdb.functions.isNullOrWhiteSpace(data.excludeUsers) || !vdb.functions.isNullOrWhiteSpace(data.filter) || data.onlyNewUsers);
 
                 $("#usersList").bind("keydown", function (event) {
                     if (event.keyCode === $.ui.keyCode.TAB && $(this).data("ui-autocomplete").menu.active) {

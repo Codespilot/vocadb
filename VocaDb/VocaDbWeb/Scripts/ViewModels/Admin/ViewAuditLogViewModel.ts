@@ -18,6 +18,8 @@ module vdb.viewModels {
             this.filterVisible(!this.filterVisible());
         }
 
+        public userName = ko.observable("");
+
         private split(val: string) {
             return val.split(/,\s*/);
         }
@@ -31,7 +33,9 @@ module vdb.viewModels {
             this.excludeUsers(data.excludeUsers);
             this.filter(data.filter);
             this.onlyNewUsers(data.onlyNewUsers);
-            this.filterVisible(!vdb.functions.isNullOrWhiteSpace(data.excludeUsers)
+            this.userName(data.userName);
+            this.filterVisible(!vdb.functions.isNullOrWhiteSpace(data.userName)
+                || !vdb.functions.isNullOrWhiteSpace(data.excludeUsers)
                 || !vdb.functions.isNullOrWhiteSpace(data.filter)
                 || data.onlyNewUsers);
             
@@ -80,6 +84,8 @@ module vdb.viewModels {
         filter: string;
 
         onlyNewUsers: boolean;
+
+        userName: string;
 
     }
 

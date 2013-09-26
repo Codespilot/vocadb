@@ -35,6 +35,9 @@ namespace VocaDb.Web.Models.Admin {
 
 		public KeyValuePair<AuditLogUserGroupFilter, string>[] UserGroups { get; set; }
 
+		[JsonProperty]
+		public string UserName { get; set; }
+
 	}
 
 }
