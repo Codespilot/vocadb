@@ -30,6 +30,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/jqButton.js",
 				"~/Scripts/KnockoutExtensions/jqButtonset.js",
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
+				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/ViewModels/TopBarViewModel.js"
 			));
@@ -110,7 +111,10 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Song/Index.js"
 			));
 
-			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include("~/Scripts/User/Details.js"));
+			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include(
+				"~/Scripts/ViewModels/User/UserDetailsViewModel.js",
+				"~/Scripts/User/Details.js"
+			));
 
 			//bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
 			//));
