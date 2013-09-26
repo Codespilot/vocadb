@@ -39,6 +39,14 @@ module vdb.viewModels {
                 || !vdb.functions.isNullOrWhiteSpace(data.filter)
                 || data.onlyNewUsers);
             
+            $("#userNameField").autocomplete({
+                source: vdb.functions.mapAbsoluteUrl("/User/FindByName"),
+                select: (event, ui) => {
+                    this.userName(ui.item.value);
+                    return false;
+                }
+            });
+
             $("#usersList")
             // don't navigate away from the field on tab when selecting an item
                 .bind("keydown", function (event) {
