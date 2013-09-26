@@ -18,6 +18,14 @@ var vdb;
                 this.userName(data.userName);
                 this.filterVisible(!vdb.functions.isNullOrWhiteSpace(data.userName) || !vdb.functions.isNullOrWhiteSpace(data.excludeUsers) || !vdb.functions.isNullOrWhiteSpace(data.filter) || data.onlyNewUsers);
 
+                $("#userNameField").autocomplete({
+                    source: vdb.functions.mapAbsoluteUrl("/User/FindByName"),
+                    select: function (event, ui) {
+                        _this.userName(ui.item.value);
+                        return false;
+                    }
+                });
+
                 $("#usersList").bind("keydown", function (event) {
                     if (event.keyCode === $.ui.keyCode.TAB && $(this).data("ui-autocomplete").menu.active) {
                         event.preventDefault();
