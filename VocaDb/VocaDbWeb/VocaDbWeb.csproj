@@ -1138,7 +1138,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="albumsearch.xml" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\Admin\ManageIPRules.js" />
     <Content Include="Scripts\Album\Create.js" />
     <Content Include="Scripts\Album\Edit.js" />
     <Content Include="Scripts\Album\Details.js" />
@@ -1595,6 +1594,7 @@
     <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\ArtistRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\AlbumRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\AdminRepository.ts" />
     <Content Include="Scripts\Repositories\AlbumRepository.js">
       <DependentUpon>AlbumRepository.ts</DependentUpon>
     </Content>
@@ -1687,6 +1687,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Admin\ManageIPRulesViewModel.ts" />
     <Content Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.js">
       <DependentUpon>ViewAuditLogViewModel.ts</DependentUpon>
     </Content>
@@ -1956,6 +1957,7 @@
     <Content Include="Scripts\ViewModels\User\RequestVerificationViewModel.js">
       <DependentUpon>RequestVerificationViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\User\UserDetailsViewModel.ts" />
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
     </Content>
@@ -1987,6 +1989,7 @@
     <Folder Include="EntryImg\Artist\" />
     <Folder Include="logs\" />
     <Folder Include="Resources\Views\Help\" />
+    <Folder Include="Scripts\Admin\" />
     <Folder Include="Views\Shared\KnockoutTemplates\" />
   </ItemGroup>
   <ItemGroup>

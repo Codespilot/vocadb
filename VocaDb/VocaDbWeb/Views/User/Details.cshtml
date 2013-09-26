@@ -111,7 +111,7 @@
 			@Helpers.UniversalTimeLabel(Model.LastLogin)
 			if (Login.CanManageUsers) {
 				@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
-				<a href='#' id="stopForumSpamLink" data-ip="@Model.LastLoginAddress">StopForumSpam</a>
+				<a data-bind="click: function() { checkSFS('@Model.LastLoginAddress'); }" href='#'>StopForumSpam</a>
 			}		
 			@(" (" + R.VisibleOnlyToMe + ")")
 	 
@@ -224,6 +224,13 @@
 	<script type="text/javascript">
 
 		$(document).ready(function() { 
+			
+			var baseAddress = '@Url.Content("~/")';
+			var urlMapper = new vdb.UrlMapper(baseAddress);
+			var adminRepo = new vdb.repositories.AdminRepository(urlMapper);
+			var viewModel = new vdb.viewModels.UserDetailsViewModel(adminRepo);
+			ko.applyBindings(viewModel);
+
 			initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
 		});
 

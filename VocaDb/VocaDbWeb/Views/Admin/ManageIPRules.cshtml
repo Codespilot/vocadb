@@ -9,11 +9,12 @@
 }
 
 @section BodyScripts {
-<script type="text/javascript" src="@Url.Content("~/Scripts/Admin/ManageIPRules.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/Admin/ManageIPRulesViewModel.js")"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        var json = @Html.Raw(JsonHelpers.Serialize(Model, true, true));
-		initPage(json);
+        var rules = @Html.Raw(JsonHelpers.Serialize(Model, true, true));
+    	var viewModel = new vdb.viewModels.ManageIPRulesViewModel(rules);
+    	ko.applyBindings(viewModel);
 	});
 </script>    
 }
