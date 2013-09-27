@@ -351,8 +351,11 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Artist/Edit/5
         [Authorize]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id = invalidId)
         {
+
+			if (id == invalidId)
+				return NoId();
 
 			RestoreErrorsFromTempData();
 
