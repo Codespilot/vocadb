@@ -48,7 +48,7 @@
 	</div>	
 	
 	<div class="editor-label">
-		@Html.LabelFor(m => m.AliasedTo)
+		<label for="aliasedTo" class="helpTip" title="If specified, makes this tag an alias of another tag. Alias means an alternative name, for example 'dnb' and 'drumnbass'.">Aliased to</label>
 	</div>
 	<div class="editor-field">
 		@Html.TextBoxFor(m => m.AliasedTo, new { id = "aliasedTo", size = 40, maxlength = 30 })
