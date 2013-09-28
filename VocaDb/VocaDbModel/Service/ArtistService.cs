@@ -194,9 +194,8 @@ namespace VocaDb.Model.Service {
 
 			UpdateEntity<Artist>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
+				AuditLog(string.Format("deleting artist {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
-				//ArchiveArtist(session, permissionContext, a);
 				a.Delete();
 			                         
 			}, PermissionToken.DeleteEntries, skipLog: true);

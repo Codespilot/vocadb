@@ -255,35 +255,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*private SongList CreateSongList(ISession session, SongListForEditContract contract, UploadedFileContract uploadedFile) {
-
-			var user = GetLoggedUser(session);
-			var newList = new SongList(contract.Name, user);
-			newList.Description = contract.Description;
-
-			if (EntryPermissionManager.CanManageFeaturedLists(PermissionContext))
-				newList.FeaturedCategory = contract.FeaturedCategory;
-
-			session.Save(newList);
-
-			var songDiff = newList.SyncSongs(contract.SongLinks, c => session.Load<Song>(c.SongId));
-			SessionHelper.Sync(session, songDiff);
-
-			SetThumb(newList, uploadedFile);
-
-			session.Update(newList);
-
-			AuditLog(string.Format("created song list {0}", EntryLinkFactory.CreateEntryLink(newList)), session, user);
-
-			return newList;
-
-		}*/
-
 		public void Delete(int id) {
 
 			UpdateEntity<Song>(id, (session, a) => {
 
-				AuditLog(string.Format("deleting {0}", EntryLinkFactory.CreateEntryLink(a)), session);
+				AuditLog(string.Format("deleting song {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
 				a.Delete();
 
