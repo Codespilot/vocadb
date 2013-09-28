@@ -623,3 +623,11 @@ div.item {
 	padding:7px;
 	overflow: hidden;
 }
+
+/* Label or span with a helpful tooltip */
+.helpTip {
+	border-bottom: 1px dashed;
+	display: inline-block;
+	margin-bottom: 0;
+	cursor: help;
+}
