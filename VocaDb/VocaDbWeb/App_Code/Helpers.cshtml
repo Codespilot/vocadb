@@ -250,6 +250,19 @@
 	</p>
 }
 
+@helper SaveAndBackBtn(string backAction) {
+	<p>
+		<button type="submit" class="btn btn-primary">
+			<i class="icon-ok icon-white"></i>
+			&nbsp;@HelperRes.HelperStrings.SaveChanges
+		</button>	
+		<a class="btn btn-nomargin" href="@backAction">
+			<i class="icon-backward"></i>
+			&nbsp;@HelperRes.HelperStrings.ReturnWithoutSaving
+		</a>	
+	</p>
+}
+
 @helper Stars(int current, int max) {
     for (int i = 1; i <= max; ++i) {
         if (current >= i) {
