@@ -4,6 +4,11 @@ var vdb;
         var SongEditViewModel = (function () {
             function SongEditViewModel(webLinkCategories, data) {
                 var _this = this;
+                this.submitting = ko.observable(false);
+                this.submit = function () {
+                    _this.submitting(true);
+                    return true;
+                };
                 this.length = ko.observable(data.length);
                 this.webLinks = new viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
 

@@ -252,7 +252,7 @@
 
 @helper SaveAndBackBtn(string backAction) {
 	<p>
-		<button type="submit" class="btn btn-primary">
+		<button type="submit" class="btn btn-primary" data-bind="disable: submitting">
 			<i class="icon-ok icon-white"></i>
 			&nbsp;@HelperRes.HelperStrings.SaveChanges
 		</button>	

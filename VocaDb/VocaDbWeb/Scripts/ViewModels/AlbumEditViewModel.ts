@@ -57,6 +57,13 @@ module vdb.viewModels {
         // Copies modified state from track properties view model to the single track being edited.
         public saveTrackProperties: () => void;
 
+        public submit = () => {
+            this.submitting(true);
+            return true;
+        }
+
+        public submitting = ko.observable(false);
+
         // Buttons for the track properties dialog.
         public trackPropertiesDialogButtons: KnockoutObservableArray<any>;
 
