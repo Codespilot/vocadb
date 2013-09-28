@@ -135,6 +135,9 @@
   <data name="NameValueTitle" xml:space="preserve">
     <value>Name (required)</value>
   </data>
+  <data name="ReturnWithoutSaving" xml:space="preserve">
+    <value>Return without saving</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save changes</value>
   </data>

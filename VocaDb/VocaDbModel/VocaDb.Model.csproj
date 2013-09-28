@@ -695,7 +695,7 @@
       <LastGenOutput>DiscTypeNames.ru.designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AlbumValidationErrors.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\AlbumValidationErrors.ru.resx" />

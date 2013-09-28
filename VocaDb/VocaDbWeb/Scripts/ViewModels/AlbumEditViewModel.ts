@@ -30,6 +30,9 @@ module vdb.viewModels {
         // List of artist links for this album.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 
+        // Album disc type.
+        public discType: KnockoutObservable<string>;
+
         // Begins editing properties for multiple tracks. Opens the properties dialog.
         public editMultipleTrackProperties: () => void;
 
@@ -117,6 +120,8 @@ module vdb.viewModels {
             };
 
             this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(repository, artist)));
+
+            this.discType = ko.observable(data.discType);
 
             this.editMultipleTrackProperties = () => {
 

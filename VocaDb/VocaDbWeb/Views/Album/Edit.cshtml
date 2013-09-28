@@ -3,6 +3,7 @@
 @using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Album;
+@using VocaDb.Model.Resources;
 @model AlbumEdit
 @{
 	ViewBag.Title = string.Format(R.EditStrings.EditTitle, Model.Name);
@@ -74,7 +75,7 @@
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
 
-	@Helpers.SaveBtn()
+	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
 	<div id="tabs">
 
@@ -130,8 +131,15 @@
 				@Html.LabelFor(m => m.DiscType, R.EditStrings.BaDiscType)
 			</div>
 			<div class="editor-field">
-				@Html.DiscTypeDropDownListFor(m => m.DiscType, Model.DiscType)
-				@Helpers.HelpMessage(Model.DiscTypeDescriptions)
+				<div class="row-fluid">
+					<div class="span4">
+						@Html.DiscTypeDropDownListFor(m => m.DiscType)
+						@Helpers.HelpMessage(Model.DiscTypeDescriptions)						
+					</div>
+					<div class="alert span4" data-bind="visible: discType() == 'Unknown'">
+						@AlbumValidationErrors.NeedType
+					</div>					
+				</div>
 			</div>
 
 			<table><tr>
@@ -305,7 +313,7 @@
 	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })	
 	
 	<br />
-	@Helpers.SaveBtn()
+	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
 }
 	

@@ -34,7 +34,7 @@
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenForKnockout(m => m.Length, "value: length")
 
-	@Helpers.SaveBtn()
+	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
 	<div id="tabs">
 
@@ -211,7 +211,7 @@
 	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })
 	
 	<br />
-	@Helpers.SaveBtn()
+	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
 }
 

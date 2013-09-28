@@ -64,6 +64,8 @@ var vdb;
                     return new viewModels.ArtistForAlbumEditViewModel(repository, artist);
                 }));
 
+                this.discType = ko.observable(data.discType);
+
                 this.editMultipleTrackProperties = function () {
                     var artists = _this.artistsForTracks();
                     _this.editedSong(new TrackPropertiesViewModel(artists, null));
