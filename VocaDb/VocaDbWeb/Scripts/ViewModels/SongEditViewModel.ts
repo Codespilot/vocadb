@@ -8,10 +8,16 @@ module vdb.viewModels {
 
         public length: KnockoutObservable<number>;
         public lengthFormatted: KnockoutComputed<string>;
+        public submitting = ko.observable(false);
         public webLinks: WebLinksEditViewModel;
 
         private addLeadingZero(val) {
             return (val < 10 ? "0" + val : val);
+        }
+
+        public submit = () => {
+            this.submitting(true);
+            return true;
         }
 
         constructor(webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: SongEdit) {

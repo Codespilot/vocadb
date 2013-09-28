@@ -30,7 +30,7 @@
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
 <br />
-@using (Html.BeginForm("Edit", "Song", FormMethod.Post)) {
+<form action="@Url.Action("Edit", "Song")" method="POST" data-bind="submit: submit">
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenForKnockout(m => m.Length, "value: length")
 
@@ -213,7 +213,7 @@
 	<br />
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
-}
+</form>
 
 <div id="editArtistRolesPopup" style="display:none;" title="Artist roles">
 

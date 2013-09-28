@@ -8,6 +8,11 @@ var vdb;
             function AlbumEditViewModel(repository, songRepository, artistRoleNames, webLinkCategories, data) {
                 var _this = this;
                 this.repository = repository;
+                this.submit = function () {
+                    _this.submitting(true);
+                    return true;
+                };
+                this.submitting = ko.observable(false);
                 this.acceptTrackSelection = function (songId, songName) {
                     if (songId) {
                         songRepository.getOne(songId, true, function (song) {

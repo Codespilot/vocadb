@@ -6,6 +6,12 @@ module vdb.viewModels {
 
     export class ArtistEditViewModel {
 
+        public submit = () => {
+            this.submitting(true);
+            return true;
+        }
+
+        public submitting = ko.observable(false);
         public webLinks: WebLinksEditViewModel;
 
         constructor(webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: ArtistEdit) {
