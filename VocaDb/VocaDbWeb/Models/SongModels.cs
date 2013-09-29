@@ -328,6 +328,18 @@ namespace VocaDb.Web.Models {
 
 		public SongForEditContract ToContract() {
 
+			if (ArtistLinks == null)
+				throw new InvalidOperationException("ArtistLinks list was null"); // Shouldn't be null
+
+			if (Lyrics == null)
+				throw new InvalidOperationException("Lyrics list was null"); // Shouldn't be null
+
+			if (PVs == null)
+				throw new InvalidOperationException("PVs list was null"); // Shouldn't be null
+
+			if (WebLinks == null)
+				throw new InvalidOperationException("WebLinks list was null"); // Shouldn't be null
+
 			return new SongForEditContract {
 				Song = new SongContract {
 					Status = this.Status,
