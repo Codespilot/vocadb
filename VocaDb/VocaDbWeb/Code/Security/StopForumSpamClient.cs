@@ -33,37 +33,27 @@ namespace VocaDb.Web.Code.Security {
 			var url = string.Format(apiUrl, ip);
 
 			var request = WebRequest.Create(url);
+			string data;
 			try {
 				using (var response = request.GetResponse())
 				using (var stream = response.GetResponseStream())
 				using (var reader = new StreamReader(stream)) {
-
-					var val = reader.ReadToEnd();
-					var result = JsonConvert.DeserializeObject<SFSResultContract>(val);
-
-					if (!result.Success) {
-						log.Warn("Request was not successful");
-						return null;
-					}
-
-					result.IP.IP = ip;
-					return result.IP;
-
+					data = reader.ReadToEnd();
 				}
-
-				/*using (var response = request.GetResponse())
-				using (var stream = response.GetResponseStream()) {
-
-					var serializer = new DataContractSerializer(typeof(SFSResponseContract));
-					var result = (SFSResponseContract)serializer.ReadObject(stream);
-					result.IP = ip;
-					return result;
-
-				}*/
 			} catch (WebException x) {
 				log.WarnException("Unable to get response", x);
 				return null;
 			}
+
+			var result = JsonConvert.DeserializeObject<SFSResultContract>(data);
+
+			if (!result.Success) {
+				log.Warn("Request was not successful");
+				return null;
+			}
+
+			result.IP.IP = ip;
+			return result.IP;
 
 		}
 

@@ -23,18 +23,15 @@ namespace VocaDb.Model.Service.VideoServices {
 			var url = string.Format("http://vimeo.com/api/v2/video/{0}.xml", id);
 
 			var request = WebRequest.Create(url);
-			WebResponse response;
-
-			try {
-				response = request.GetResponse();
-			} catch (WebException x) {
-				return VideoTitleParseResult.CreateError("Vimeo (error): " + x.Message);
-			}
-
 			XDocument doc;
 
 			try {
-				doc = XDocument.Load(response.GetResponseStream());
+				using (var response = request.GetResponse())
+				using (var stream = response.GetResponseStream()) {
+					doc = XDocument.Load(stream);					
+				}
+			} catch (WebException x) {
+				return VideoTitleParseResult.CreateError("Vimeo (error): " + x.Message);
 			} catch (XmlException x) {
 				return VideoTitleParseResult.CreateError("Vimeo (error): " + x.Message);
 			}
