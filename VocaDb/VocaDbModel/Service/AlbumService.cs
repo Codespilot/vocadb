@@ -499,13 +499,13 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumWithAdditionalNamesContract GetAlbumByLink(string link) {
+		public AlbumContract GetAlbumByLink(string link) {
 
 			return HandleQuery(session => {
 
 				var webLink = session.Query<AlbumWebLink>().FirstOrDefault(p => p.Url.Contains(link));
 
-				return (webLink != null ? new AlbumWithAdditionalNamesContract(webLink.Album, PermissionContext.LanguagePreference) : null);
+				return (webLink != null ? new AlbumContract(webLink.Album, PermissionContext.LanguagePreference) : null);
 
 			});
 

@@ -763,9 +763,9 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-		public SongWithAdditionalNamesContract GetSongWithPV(PVService service, string pvId) {
+		public SongContract GetSongWithPV(PVService service, string pvId) {
 
-			return GetSongWithPV(s => new SongWithAdditionalNamesContract(s, PermissionContext.LanguagePreference), service, pvId);
+			return GetSongWithPV(s => new SongContract(s, PermissionContext.LanguagePreference), service, pvId);
 
 		}
 
