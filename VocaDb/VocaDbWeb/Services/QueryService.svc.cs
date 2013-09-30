@@ -174,7 +174,7 @@ namespace VocaDb.Web.Services {
 
 		#region MikuDB-specific queries (TODO: move elsewhere)
 		[OperationContract]
-		public AlbumWithAdditionalNamesContract GetAlbumByLinkUrl(string url) {
+		public AlbumContract GetAlbumByLinkUrl(string url) {
 			return Services.Albums.GetAlbumByLink(url);
 		}
 
@@ -189,7 +189,7 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public SongWithAdditionalNamesContract GetSongWithPV(PVService service, string pvId) {
+		public SongContract GetSongWithPV(PVService service, string pvId) {
 			return Services.Songs.GetSongWithPV(service, pvId);
 		}
 
