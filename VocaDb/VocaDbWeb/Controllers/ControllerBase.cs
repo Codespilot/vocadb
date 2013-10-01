@@ -142,7 +142,7 @@ namespace VocaDb.Web.Controllers {
 				newPics[i].FileName = file.FileName;
 				newPics[i].UploadedFile = file.InputStream;
 				newPics[i].Mime = file.ContentType ?? string.Empty;
-				newPics[i].ContentLength = file.ContentLength;
+				//newPics[i].ContentLength = file.ContentLength;
 
 			}
 

@@ -639,6 +639,7 @@
     <Compile Include="Helpers\Support\TranslateableEnum.cs" />
     <Compile Include="Helpers\TempDataExtender.cs" />
     <Compile Include="Helpers\Translate.cs" />
+    <Compile Include="Helpers\VocaUrlHelper.cs" />
     <Compile Include="Helpers\ViewHelper.cs" />
     <Compile Include="Helpers\WebHelper.cs" />
     <Compile Include="Models\Admin\CommentViewModel.cs" />

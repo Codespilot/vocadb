@@ -3,21 +3,21 @@
 @using VocaDb.Web.Models.Song
 
 @helper Banner(string title, string url, string img) {
-    <li><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></li>
+    <li><a href="@url"><img src="@VocaUrlHelper.StaticResource("/banners/" + img)" alt="@title" title="@title" /></a></li>
 }
 
 @helper SmallBanner(string title, string url, string img) {
-    <div><a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a></div>
+    <div><a href="@url"><img src="@VocaUrlHelper.StaticResource("/banners/" + img)" alt="@title" title="@title" /></a></div>
 }
 
 @helper SocialLink(string title, string url, string img ){
-    <a href="@url"><img src="@Url.Content("~/Content/banners/" + img)" alt="@title" title="@title" /></a>
+    <a href="@url"><img src="@VocaUrlHelper.StaticResource("/banners/" + img)" alt="@title" title="@title" /></a>
 }
 
 <div class="span2 menu">
 	<div class="well">
 		<a href="@Url.Action("Index", "Home")">
-			<img src="@Url.Content("~/Content/vocaDB-title.png")" class="site-logo" alt="VocaDB" title="VocaDB" />
+			<img src="@VocaUrlHelper.StaticResource("/img/vocaDB-title.png")" class="site-logo" alt="VocaDB" title="VocaDB" />
 		</a>
 		<p class="slogan">@VocaDb.Web.Code.SloganGenerator.Generate()</p>
 	</div>
