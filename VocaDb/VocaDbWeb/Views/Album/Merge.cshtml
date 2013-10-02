@@ -11,11 +11,7 @@
 
 @using (Html.BeginForm()) {
 
-	<div class="alert alert-info">
-		Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.
-		<br />
-		Prefer merging the later entry to the earlier one, unless the new entry is finalized while the older one is draft.
-	</div>
+	@Helpers.MergeEntryInfo()
 
 	<input type="hidden" name="targetAlbumId" id="targetAlbumId" />
 
