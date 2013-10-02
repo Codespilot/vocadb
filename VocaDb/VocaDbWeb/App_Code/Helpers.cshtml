@@ -210,6 +210,17 @@
 	</p>
 }
 
+@helper MergeEntryInfo() {
+	<div class="alert">
+		<h4>This action cannot be undone! Please make sure the entries really need to be merged before proceeding.</h4>
+	</div>
+	<div class="alert alert-info">
+		Choose the entry which this one will be merged to. All references will be pointed to that new entry and this entry will be deleted.
+		<br />
+		Prefer merging the later entry to the earlier one, unless the new entry is finalized while the older one is draft.
+	</div>	
+}
+
 @helper NotificationIcon() {
 	<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
 }
@@ -235,9 +246,9 @@
 
 @helper PVServiceIcons(PVServices services) {
     
-    foreach (var service in EnumVal<PVService>.Values.Where(service => services.HasFlag((PVServices)service))) {
+	foreach (var service in EnumVal<PVService>.Values.Where(service => services.HasFlag((PVServices)service))) {
         @PVServiceIcon(service)           
-    }
+	}
     
 }
 
@@ -264,13 +275,13 @@
 }
 
 @helper Stars(int current, int max) {
-    for (int i = 1; i <= max; ++i) {
-        if (current >= i) {
+	for (int i = 1; i <= max; ++i) {
+		if (current >= i) {
 			<img src="@GetAbsoluteUrl(Url.Content("~/Content/star.png"))" alt="*" />
-        } else {
+		} else {
 			<img src="@GetAbsoluteUrl(Url.Content("~/Content/star_disabled.png"))" alt="" />
-        }
-    }
+		}
+	}
 }
 
 @helper Stars(double current, int max) {
@@ -280,13 +291,13 @@
 }
 
 @helper StarsMeta(int current, int max) {
-    for (int i = 1; i <= max; ++i) {
-        if (current >= i) {
+	for (int i = 1; i <= max; ++i) {
+		if (current >= i) {
 			<img class="rating" src="@Url.Content("~/Content/star.png")" alt="@current" />
-        } else {
+		} else {
 			<img class="rating" src="@Url.Content("~/Content/star_disabled.png")" alt="@current" />
-        }
-    }
+		}
+	}
 }
 
 @helper StarsMeta(double current, int max) {
@@ -303,9 +314,9 @@
 			<div class="pictureFrame">
 			    @if (entry != null) {
 				    <img src="@thumbUrl" alt="Preview" class="coverPic" data-entry-type="@entry.EntryType" data-entry-id="@entry.Id" />										           
-                } else {
+	   } else {
 				    <img src="@thumbUrl" alt="Preview" class="coverPic" />										
-                }
+	   }
 			</div>
 		</a>
 		@if (!string.IsNullOrEmpty(caption)) {
@@ -320,21 +331,21 @@
 }
 
 @helper ValidationSymmaryPanel(string message) {
-    if (!ViewData.ModelState.IsValid) {
-        using (Html.BeginErrorPanel()) {
+	if (!ViewData.ModelState.IsValid) {
+		using (Html.BeginErrorPanel()) {
 			<span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
 			@Html.ValidationSummary(false, message)
-        }
-    }
+		}
+	}
 }
 
 @helper ValidationSymmaryDiv(string message) {
-    if (!ViewData.ModelState.IsValid) {
+	if (!ViewData.ModelState.IsValid) {
         <div class="alert alert-error">
 			<h4>
 				@message
 			</h4>
 			@Html.ValidationSummary(false)
         </div>
-    }
+	}
 }

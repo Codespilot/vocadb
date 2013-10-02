@@ -23,14 +23,35 @@ namespace VocaDb.Model.Service.DataSharing {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-		public class Loader<TEntry, TContract> where TEntry : IEntryWithIntId {
+		public class Loader {
 
-			private const int maxEntries = 500;
-			private readonly string folder;
-			private readonly Func<TEntry, TContract> contractFunc;
-			private readonly Func<int, int, TEntry[]> loadFunc;
+			private const int maxEntries = 100;
+			private readonly Package package;
+			private readonly ISession session;
 
-			private void DumpXml<T>(T[] contract, Package package, int id) {
+			private void Dump<TEntry, TContract>(Func<int, TEntry[]> loadFunc, string folder, Func<TEntry, TContract> fac) {
+
+				bool run = true;
+				int start = 0;
+
+				while (run) {
+
+					var entries = loadFunc(start);
+					var contracts = entries.Select(fac).ToArray();
+					DumpXml(contracts, start, folder);
+
+					start += contracts.Length;
+					run = entries.Any();
+
+					// Cleanup
+					session.Clear();
+					GC.Collect();
+
+				}
+
+			}
+
+			private void DumpXml<T>(T[] contract, int id, string folder) {
 
 				var partUri = PackUriHelper.CreatePartUri(new Uri(string.Format("{0}{1}.xml", folder, id), UriKind.Relative));
 
@@ -43,72 +64,47 @@ namespace VocaDb.Model.Service.DataSharing {
 
 				var data = XmlHelper.SerializeToXml(contract);
 
-				data.Save(packagePart.GetStream());
-
-			}
-
-			public Loader(string folder, Func<int, int, TEntry[]> loadFunc, Func<TEntry, TContract> contractFunc) {
-				this.folder = folder;
-				this.loadFunc = loadFunc;
-				this.contractFunc = contractFunc;
-			}
-
-			public void Dump(Package package) {
-
-				bool run = true;
-				int start = 0;
-
-				while (run) {
-
-					var entries = loadFunc(start, maxEntries);
-					var contracts = entries.Select(e => contractFunc(e)).ToArray();
-					DumpXml(contracts, package, start);
-
-					start += contracts.Length;
-					run = entries.Any();
-					GC.Collect();
-
+				using (var stream = packagePart.GetStream()) {
+					data.Save(stream);
 				}
 
+			}
+
+			private TEntry[] LoadSkipDeleted<TEntry>(ISession session, int first, int max) where TEntry : IDeletableEntry {
+				return session.Query<TEntry>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray();
+			}
+
+			private TEntry[] Load<TEntry>(ISession session, int first, int max) where TEntry : IEntryWithIntId {
+				return session.Query<TEntry>().Skip(first).Take(max).ToArray();
+			}
+
+			public Loader(ISession session, Package package) {
+				this.session = session;
+				this.package = package;
+			}
+
+			public void DumpSkipDeleted<TEntry, TContract>(string folder, Func<TEntry, TContract> fac) where TEntry : IDeletableEntry {
+				Dump(start => LoadSkipDeleted<TEntry>(session, start, maxEntries), folder, fac);
+			}
+
+			public void Dump<TEntry, TContract>(string folder, Func<TEntry, TContract> fac) where TEntry : IDeletableEntry {
+				Dump(start => Load<TEntry>(session, start, maxEntries), folder, fac);
 			}
 
 		}
 
 		public void Create(string path, ISession session) {
 
-			var artistLoader = new Loader<Artist, ArchivedArtistContract>("/Artists/", 
-				(first, max) => session.Query<Artist>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray(), 
-				a => new ArchivedArtistContract(a, new ArtistDiff()));
-
-			var albumLoader = new Loader<Album, ArchivedAlbumContract>("/Albums/",
-				(first, max) => session.Query<Album>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray(),
-				a => new ArchivedAlbumContract(a, new AlbumDiff()));
-
-			var songLoader = new Loader<Song, ArchivedSongContract>("/Songs/",
-				(first, max) => { session.Clear(); return session.Query<Song>().Where(a => !a.Deleted).Skip(first).Take(max).ToArray(); },
-				a => new ArchivedSongContract(a, new SongDiff()));
-
-			var eventSeriesLoader = new Loader<ReleaseEventSeries, ArchivedEventSeriesContract>("/EventSeries/",
-				(first, max) => { session.Clear(); return session.Query<ReleaseEventSeries>().Skip(first).Take(max).ToArray(); },
-				a => new ArchivedEventSeriesContract(a));
-
-			var eventLoader = new Loader<ReleaseEvent, ArchivedEventContract>("/Events/",
-				(first, max) => { session.Clear(); return session.Query<ReleaseEvent>().Skip(first).Take(max).ToArray(); },
-				a => new ArchivedEventContract(a));
-
-			var tagLoader = new Loader<Tag, ArchivedTagContract>("/Tags/",
-				(first, max) => { session.Clear(); return session.Query<Tag>().Skip(first).Take(max).ToArray(); },
-				a => new ArchivedTagContract(a));
-
 			using (var package = Package.Open(path, FileMode.Create)) {
 
-				artistLoader.Dump(package);
-				albumLoader.Dump(package);
-				songLoader.Dump(package);
-				eventSeriesLoader.Dump(package);
-				eventLoader.Dump(package);
-				tagLoader.Dump(package);
-
+				var loader = new Loader(session, package);
+				loader.DumpSkipDeleted<Artist, ArchivedArtistContract>("/Artists/", a => new ArchivedArtistContract(a, new ArtistDiff()));
+				loader.DumpSkipDeleted<Album, ArchivedAlbumContract>("/Albums/", a => new ArchivedAlbumContract(a, new AlbumDiff()));
+				loader.DumpSkipDeleted<Song, ArchivedSongContract>("/Songs/", a => new ArchivedSongContract(a, new SongDiff()));
+				loader.Dump<ReleaseEventSeries, ArchivedEventSeriesContract>("/EventSeries/", a => new ArchivedEventSeriesContract(a));
+				loader.Dump<ReleaseEvent, ArchivedEventContract>("/Events/", a => new ArchivedEventContract(a));
+				loader.Dump<Tag, ArchivedTagContract>("/Tags/", a => new ArchivedTagContract(a));
+				
 			}
 
 		}
