@@ -175,7 +175,7 @@
     <value>Media</value>
   </data>
   <data name="PicturesTab" xml:space="preserve">
-    <value>Pictures</value>
+    <value>Additional pictures</value>
   </data>
   <data name="TracksTab" xml:space="preserve">
     <value>Tracks</value>
@@ -220,7 +220,7 @@
     <value>Move to trash</value>
   </data>
   <data name="PiPicturesGuide" xml:space="preserve">
-    <value>Note that for now the main picture is edited on the "Basic Info" tab. Please only upload pictures relevant to this album, nothing else.</value>
+    <value>Note that the main picture is edited on the "Basic Info" tab. Please only upload pictures relevant to this album, nothing else.</value>
   </data>
   <data name="ArtistRolesTitle" xml:space="preserve">
     <value>Artist roles</value>
