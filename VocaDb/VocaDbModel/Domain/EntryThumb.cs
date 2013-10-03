@@ -51,6 +51,12 @@ namespace VocaDb.Model.Domain {
 			}
 		}
 
+		public virtual string FileNameTinyThumb {
+			get {
+				return GetFileName(Entry.Id, Mime, "-tt");
+			}
+		}
+
 		public string Mime { get; set; }
 
 		public override string ToString() {

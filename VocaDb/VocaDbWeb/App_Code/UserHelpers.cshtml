@@ -101,7 +101,7 @@
 	    @foreach (var user in users) {
 		    <tr>
 			    <td>
-				    <a href="@Url.Action("Details", "User", new { id = user.Id })">
+				    <a href="@Url.Action("Profile", "User", new { id = user.Name })">
 					    @ProfileIcon(user)					
 				    </a>
 			    </td>

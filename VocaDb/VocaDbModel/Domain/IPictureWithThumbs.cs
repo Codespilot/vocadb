@@ -10,5 +10,7 @@
 
 		string FileNameSmallThumb { get; }
 
+		string FileNameTinyThumb { get; }
+
 	}
 }
