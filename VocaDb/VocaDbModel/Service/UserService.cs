@@ -33,23 +33,6 @@ namespace VocaDb.Model.Service {
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 // ReSharper restore UnusedMember.Local
 
-		private IQueryable<User> AddOrder(IQueryable<User> criteria, UserSortRule sortRule) {
-
-			switch (sortRule) {
-				case UserSortRule.Name:
-					return criteria.OrderBy(u => u.Name);
-				case UserSortRule.RegisterDate:
-					return criteria.OrderBy(u => u.CreateDate);
-				case UserSortRule.Group:
-					return criteria
-						.OrderBy(u => u.GroupId)
-						.ThenBy(u => u.Name);
-			}
-
-			return criteria;
-
-		}
-
 		private UserDetailsContract GetUserDetails(ISession session, User user) {
 
 			var details = new UserDetailsContract(user, PermissionContext);
@@ -476,35 +459,6 @@ namespace VocaDb.Model.Service {
 				}
 
 				return new UserMessageContract(msg);
-
-			});
-
-		}
-
-		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, bool disabled, UserSortRule sortRule, PagingProperties paging) {
-
-			return HandleQuery(session => {
-
-				var users = AddOrder(session.Query<User>()
-					.Where(u => 
-						(groupId == UserGroupId.Nothing || u.GroupId == groupId) 
-						&& (string.IsNullOrWhiteSpace(name) || u.Name.Contains(name))
-						&& (disabled || u.Active)), 
-						sortRule)
-					.Skip(paging.Start)
-					.Take(paging.MaxEntries)
-					.ToArray()
-					.Select(u => new UserContract(u))
-					.ToArray();
-
-				var count = paging.GetTotalCount ? session.Query<User>()
-					.Count(u => 
-						(groupId == UserGroupId.Nothing || u.GroupId == groupId) 
-						&& (string.IsNullOrWhiteSpace(name) || u.Name.Contains(name))
-						&& (disabled || u.Active)) 
-					: 0;
-
-				return new PartialFindResult<UserContract>(users, count);
 
 			});
 

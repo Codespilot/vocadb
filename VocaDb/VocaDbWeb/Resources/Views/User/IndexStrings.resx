@@ -120,4 +120,7 @@
   <data name="ShowDisabledUsers" xml:space="preserve">
     <value>Show disabled accounts</value>
   </data>
+  <data name="VerifiedArtists" xml:space="preserve">
+    <value>Verified artists</value>
+  </data>
 </root>

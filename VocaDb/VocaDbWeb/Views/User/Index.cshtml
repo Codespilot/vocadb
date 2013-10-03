@@ -11,6 +11,10 @@
 		@ViewRes.SharedStrings.Filter 
 		@Html.TextBoxFor(m => m.Name, new { maxlength = "200" })
 		@Html.EnumDropDownListFor(m => m.GroupId, Translate.UserGroups, null, Model.GroupId)
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.VerifiedArtists)
+			@R.VerifiedArtists
+		</label>
 		@if (Login.CanModerateUsers) {
 			<label class="checkbox inline">
 			@Html.CheckBoxFor(m => m.Disabled)

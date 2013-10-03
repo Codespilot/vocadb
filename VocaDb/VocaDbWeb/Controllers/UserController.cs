@@ -257,13 +257,13 @@ namespace VocaDb.Web.Controllers
 		        model.Name = filter;
 
 			if (Request.IsAjaxRequest())
-				return UsersPaged(model.GroupId, model.Name, model.Disabled, sort ?? UserSortRule.RegisterDate, totalCount, page);
+				return UsersPaged(model.GroupId, model.Name, model.Disabled, model.VerifiedArtists, sort ?? UserSortRule.RegisterDate, totalCount, page);
 
 			var pageIndex = page - 1;
 			var groupId = model.GroupId;
 			var sortRule = sort ?? UserSortRule.RegisterDate;
 
-			var result = Service.GetUsers(groupId, model.Name, model.Disabled, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
+			var result = Data.GetUsers(groupId, model.Name, model.Disabled, model.VerifiedArtists, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, true));
 
 			if (page == 1 && result.TotalCount == 1 && result.Items.Length == 1) {
 				return RedirectToAction("Profile", new { id = result.Items[0].Name });
@@ -272,7 +272,7 @@ namespace VocaDb.Web.Controllers
 			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, result.TotalCount), null, "Index", "usersList");
 			data.RouteValues = new RouteValueDictionary(new { groupId, name = model.Name, disabled = model.Disabled, sortRule, totalCount = result.TotalCount, action = "Index" });
 
-			return View(new Index(data, groupId, model.Name));
+			return View(new Index(data, groupId, model.Name, model.VerifiedArtists));
 
         }
 
@@ -799,11 +799,11 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult UsersPaged(UserGroupId groupId = UserGroupId.Nothing, string name = "", bool disabled = false, 
+		public ActionResult UsersPaged(UserGroupId groupId = UserGroupId.Nothing, string name = "", bool disabled = false, bool verifiedArtists = false,
 			UserSortRule sortRule = UserSortRule.RegisterDate, int totalCount = 0, int page = 1) {
 
 			var pageIndex = page - 1;
-			var result = Service.GetUsers(groupId, name, disabled, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, false));
+			var result = Data.GetUsers(groupId, name, disabled, verifiedArtists, sortRule, PagingProperties.CreateFromPage(pageIndex, usersPerPage, false));
 			var data = new PagingData<UserContract>(result.Items.ToPagedList(pageIndex, usersPerPage, totalCount), null, "Index", "usersList", addTotalCount: true);
 			data.RouteValues = new RouteValueDictionary(new { groupId, sortRule });
 

@@ -120,4 +120,7 @@
   <data name="ShowDisabledUsers" xml:space="preserve">
     <value>Näytä käytöstä poistetut tunnukset</value>
   </data>
+  <data name="VerifiedArtists" xml:space="preserve">
+    <value>Vahvistetut artistit</value>
+  </data>
 </root>
