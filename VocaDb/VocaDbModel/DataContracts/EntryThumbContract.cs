@@ -15,6 +15,7 @@ namespace VocaDb.Model.DataContracts {
 			FileName = entryThumb.FileName;
 			FileNameThumb = entryThumb.FileNameThumb;
 			FileNameSmallThumb = entryThumb.FileNameSmallThumb;
+			FileNameTinyThumb = entryThumb.FileNameTinyThumb;
 		}
 
 		[DataMember]
@@ -29,6 +30,9 @@ namespace VocaDb.Model.DataContracts {
 
 		[DataMember]
 		public string FileNameThumb { get; set; }
+
+		[DataMember]
+		public string FileNameTinyThumb { get; set; }
 
 	}
 }

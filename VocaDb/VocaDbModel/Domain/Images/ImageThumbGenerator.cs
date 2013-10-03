@@ -79,22 +79,21 @@ namespace VocaDb.Model.Domain.Images {
 		/// <summary>
 		/// Generates thumbnails and writes the original file into external image files.
 		/// </summary>
-		/// <param name="file">Image to be written. Cannot be null.</param>
+		/// <param name="input">Image to be written. Cannot be null.</param>
 		/// <param name="originalPath">Target path of the original size image. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="thumbPath">Target path of the 250x250px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="smallThumbPath">Target path of the 150x150px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="tinyThumbPath">Target path of the 70x70px thumbnail. Can be null or empty, in which case the image is skipped.</param>
 		/// <param name="originalSize">Maximum dimensions of the original picture. Default is unlimited.</param>
-		public void GenerateThumbsAndMoveImage(Stream file, string originalPath = null, string thumbPath = null, string smallThumbPath = null, string tinyThumbPath = null,
+		public void GenerateThumbsAndMoveImage(Stream input, string originalPath = null, string thumbPath = null, string smallThumbPath = null, string tinyThumbPath = null,
 			int originalSize = Unlimited) {
 
+			using (var original = ImageHelper.OpenImage(input)) {
 
-			using (var original = ImageHelper.OpenImage(file)) {
-
-				WriteThumb(file, originalPath, original, originalSize);
-				WriteThumb(file, thumbPath, original, ImageHelper.DefaultThumbSize);
-				WriteThumb(file, smallThumbPath, original, ImageHelper.DefaultSmallThumbSize);
-				WriteThumb(file, tinyThumbPath, original, ImageHelper.DefaultTinyThumbSize);
+				WriteThumb(input, originalPath, original, originalSize);
+				WriteThumb(input, thumbPath, original, ImageHelper.DefaultThumbSize);
+				WriteThumb(input, smallThumbPath, original, ImageHelper.DefaultSmallThumbSize);
+				WriteThumb(input, tinyThumbPath, original, ImageHelper.DefaultTinyThumbSize);
 
 			}
 
@@ -105,8 +104,8 @@ namespace VocaDb.Model.Domain.Images {
 			GenerateThumbsAndMoveImage(input,
 				imageSizes.HasFlag(ImageSizes.Original) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.Original) : null,
 				imageSizes.HasFlag(ImageSizes.Thumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.Thumb) : null,
-				imageSizes.HasFlag(ImageSizes.SmallThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.SmallThumb) : null, 
-				tinyThumbPath: null,
+				imageSizes.HasFlag(ImageSizes.SmallThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.SmallThumb) : null,
+				imageSizes.HasFlag(ImageSizes.TinyThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.TinyThumb) : null,
 				originalSize: originalSize);
 
 		}

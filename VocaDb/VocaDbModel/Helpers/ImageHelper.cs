@@ -148,6 +148,8 @@ namespace VocaDb.Model.Helpers {
 					return picture.FileNameThumb;
 				case ImageSize.SmallThumb:
 					return picture.FileNameSmallThumb;
+				case ImageSize.TinyThumb:
+					return picture.FileNameTinyThumb;
 				default:
 					return null;
 			}
