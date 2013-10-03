@@ -7,6 +7,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Security;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Code.Security;
@@ -39,6 +40,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		private UserContract CallCreate(string name = "hatsune_miku", string pass = "3939", string email = "", string hostname = defaultHostname, TimeSpan? timeSpan = null) {
 			return data.Create(name, pass, email, hostname, timeSpan ?? TimeSpan.FromMinutes(39), softBannedIPs);
+		}
+
+		private PartialFindResult<UserContract> CallGetUsers(UserGroupId groupId = UserGroupId.Nothing, string name = null, bool disabled = false, bool verifiedArtists = false, UserSortRule sortRule = UserSortRule.Name, PagingProperties paging = null) {
+			return data.GetUsers(groupId, name, disabled, verifiedArtists, sortRule, paging ?? new PagingProperties(0, 10, true));
 		}
 
 		private User GetUserFromRepo(string username) {
@@ -294,6 +299,40 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			RefreshLoggedUser();
 
 			data.DisableUser(userWithoutEmail.Id);
+
+		}
+
+		[TestMethod]
+		public void GetUsers_NoFilters() {
+
+			var result = CallGetUsers();
+
+			Assert.IsNotNull(result, "result");
+			Assert.AreEqual(2, result.Items.Length, "Result items");
+			Assert.AreEqual(2, result.TotalCount, "Total count");
+
+		}
+
+		[TestMethod]
+		public void GetUsers_FilterByName() {
+
+			var result = CallGetUsers(name: "already");
+
+			Assert.IsNotNull(result, "result");
+			Assert.AreEqual(1, result.Items.Length, "Result items");
+			Assert.AreEqual(1, result.TotalCount, "Total count");
+			AssertEqual(userWithEmail, result.Items.First());
+
+		}
+
+		[TestMethod]
+		public void GetUsers_Paging() {
+
+			var result = CallGetUsers(paging: new PagingProperties(1, 10, true));
+			Assert.IsNotNull(result, "result");
+			Assert.AreEqual(1, result.Items.Length, "Result items");
+			Assert.AreEqual(2, result.TotalCount, "Total count");
+			AssertEqual(userWithoutEmail, result.Items.First());
 
 		}
 

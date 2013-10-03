@@ -22,6 +22,12 @@ namespace VocaDb.Model.Service.Paging {
 
 		}
 
+		/// <summary>
+		/// Initializes paging properties.
+		/// </summary>
+		/// <param name="start">Index of the first entry to be returned, starting from 0.</param>
+		/// <param name="maxEntries">Maximum number of entries per page.</param>
+		/// <param name="getTotalCount">Whether to get the total number of entries.</param>
 		public PagingProperties(int start, int maxEntries, bool getTotalCount) {
 			Start = start;
 			MaxEntries = maxEntries;

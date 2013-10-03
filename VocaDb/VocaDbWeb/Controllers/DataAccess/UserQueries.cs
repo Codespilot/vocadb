@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Code.Security;
@@ -29,6 +30,23 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		public IEntryLinkFactory EntryLinkFactory {
 			get { return entryLinkFactory; }
+		}
+
+		private IQueryable<User> AddOrder(IQueryable<User> query, UserSortRule sortRule) {
+
+			switch (sortRule) {
+				case UserSortRule.Name:
+					return query.OrderBy(u => u.Name);
+				case UserSortRule.RegisterDate:
+					return query.OrderBy(u => u.CreateDate);
+				case UserSortRule.Group:
+					return query
+						.OrderBy(u => u.GroupId)
+						.ThenBy(u => u.Name);
+			}
+
+			return query;
+
 		}
 
 		private IUserPermissionContext PermissionContext {
@@ -288,6 +306,43 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				ctx.AuditLogger.AuditLog(string.Format("disabled {0}.", EntryLinkFactory.CreateEntryLink(user)));
 
 				ctx.Update(user);
+
+			});
+
+		}
+
+		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, bool disabled, bool verifiedArtists, UserSortRule sortRule, PagingProperties paging) {
+
+			return repository.HandleQuery(ctx => {
+
+				var usersQuery = ctx.Query();
+
+				if (groupId != UserGroupId.Nothing) {
+					usersQuery = usersQuery.Where(u => u.GroupId == groupId);
+				}
+
+				if (!string.IsNullOrWhiteSpace(name)) {
+					usersQuery = usersQuery.Where(u => u.Name.Contains(name));
+				}
+
+				if (!disabled) {
+					usersQuery = usersQuery.Where(u => u.Active);
+				}
+
+				if (verifiedArtists) {
+					usersQuery = usersQuery.Where(u => u.AllOwnedArtists.Any());
+				}
+
+				var users = AddOrder(usersQuery, sortRule)
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray()
+					.Select(u => new UserContract(u))
+					.ToArray();
+
+				var count = paging.GetTotalCount ? usersQuery.Count() : 0;
+
+				return new PartialFindResult<UserContract>(users, count);
 
 			});
 
