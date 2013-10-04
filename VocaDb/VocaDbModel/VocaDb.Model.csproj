@@ -554,13 +554,16 @@
     <Compile Include="Service\Helpers\UserCommentNotifier.cs" />
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
+    <Compile Include="Service\Repositories\IArtistRepository.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />
+    <Compile Include="Service\Repositories\ISongRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\AlbumNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\IAlbumRepository.cs" />
     <Compile Include="Service\Repositories\IAuditLogger.cs" />
     <Compile Include="Service\Repositories\IRepositoryContextExtender.cs" />
     <Compile Include="Service\Repositories\ISongListRepository.cs" />
     <Compile Include="Service\Repositories\ITagRepository.cs" />
+    <Compile Include="Service\Repositories\NHibernate\ArtistNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\EntryReportNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\NHibernateAuditLogger.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
@@ -598,6 +601,7 @@
     <Compile Include="Service\Repositories\IUserRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\NHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\NHibernateRepositoryContext.cs" />
+    <Compile Include="Service\Repositories\NHibernate\SongNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\TagNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\SongListNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\UserNHibernateRepository.cs" />

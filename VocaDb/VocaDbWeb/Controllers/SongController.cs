@@ -29,6 +29,7 @@ namespace VocaDb.Web.Controllers
     {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+		private readonly SongQueries queries;
 	    private readonly SongService service;
 	    private readonly SongListQueries songListQueries;
 
@@ -36,8 +37,9 @@ namespace VocaDb.Web.Controllers
 			get { return service; }
 		}
 
-		public SongController(SongService service, SongListQueries songListQueries) {
+		public SongController(SongService service, SongQueries queries, SongListQueries songListQueries) {
 			this.service = service;
+			this.queries = queries;
 			this.songListQueries = songListQueries;
 		}
 
@@ -80,7 +82,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult CreateComment(int songId, string message) {
 
-			var comment = Service.CreateComment(songId, message);
+			var comment = queries.CreateComment(songId, message);
 
 			return PartialView("Comment", comment);
 

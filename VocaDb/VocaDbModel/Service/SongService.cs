@@ -150,32 +150,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public CommentContract CreateComment(int songId, string message) {
-
-			ParamIs.NotNullOrEmpty(() => message);
-
-			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
-
-			message = message.Trim();
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-
-				AuditLog(string.Format("creating comment for {0}: '{1}'",
-					EntryLinkFactory.CreateEntryLink(song),
-					HttpUtility.HtmlEncode(message.Truncate(60))), session, agent.User);
-
-				var comment = song.CreateComment(message, agent);
-				session.Save(comment);
-
-				return new CommentContract(comment);
-
-			});
-
-		}
-
 		public bool CreateReport(int songId, SongReportType reportType, string hostname, string notes) {
 
 			ParamIs.NotNull(() => hostname);

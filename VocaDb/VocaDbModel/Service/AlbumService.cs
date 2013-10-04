@@ -188,59 +188,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*public CommentContract CreateComment(int albumId, string message) {
-
-			ParamIs.NotNullOrEmpty(() => message);
-
-			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
-
-			message = message.Trim();
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-
-				AuditLog(string.Format("creating comment for {0}: '{1}'", 
-					EntryLinkFactory.CreateEntryLink(album), 
-					HttpUtility.HtmlEncode(message)), session, agent.User);
-
-				var comment = album.CreateComment(message, agent);
-				session.Save(comment);
-
-				return new CommentContract(comment);
-
-			});
-
-		}*/
-
-		/*
-		[Obsolete("Integrated to saving properties")]
-		public PVContract CreatePV(int albumId, string pvUrl, PVType pvType) {
-
-			ParamIs.NotNullOrEmpty(() => pvUrl);
-
-			VerifyManageDatabase();
-
-			var result = VideoServiceHelper.ParseByUrl(pvUrl);
-
-			if (!result.IsOk)
-				throw result.Exception;
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-				AuditLog(string.Format("creating a PV for {0}", EntryLinkFactory.CreateEntryLink(album)), session);
-
-				var pv = album.CreatePV(result.Service, result.Id, pvType, string.Empty);
-				session.Save(pv);
-
-				return new PVContract(pv);
-
-			});
-			
-		}*/
-
 		public bool CreateReport(int albumId, AlbumReportType reportType, string hostname, string notes) {
 
 			ParamIs.NotNull(() => hostname);
