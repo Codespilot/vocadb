@@ -327,35 +327,6 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
-		public void GetMessageDetails() {
-
-			var sender = userWithoutEmail;
-			var receiver = userWithEmail;
-			var msg = new UserMessage(sender, receiver, "Hello world", "Message body", false) { Id = 39 };
-			repository.Add(msg);
-
-			var result = data.GetMessageDetails(39);
-
-			Assert.IsNotNull(result, "Message was loaded");
-			Assert.AreEqual("Hello world", result.Subject, "Message subject");
-			Assert.AreEqual("Message body", result.Body, "Message body");
-
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(NotAllowedException))]
-		public void GetMessageDetails_NoPermission() {
-
-			var sender = userWithoutEmail;
-			var receiver = userWithoutEmail;
-			var msg = new UserMessage(sender, receiver, "Hello world", "Message body", false) { Id = 39 };
-			repository.Add(msg);
-
-			data.GetMessageDetails(39);
-
-		}
-
-		[TestMethod]
 		public void GetUsers_NoFilters() {
 
 			var result = CallGetUsers();

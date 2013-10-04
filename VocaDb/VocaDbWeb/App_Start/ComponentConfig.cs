@@ -51,6 +51,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<SongListNHibernateRepository>().As<ISongListRepository>();
 			builder.RegisterType<TagNHibernateRepository>().As<ITagRepository>();
 			builder.RegisterType<UserNHibernateRepository>().As<IUserRepository>();
+			builder.RegisterType<UserMessageNHibernateRepository>().As<IUserMessageRepository>();
 			builder.RegisterType<AlbumQueries>().AsSelf();
 			builder.RegisterType<ArtistQueries>().AsSelf();
 			builder.RegisterType<EntryReportQueries>().AsSelf();
@@ -58,6 +59,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<SongListQueries>().AsSelf();
 			builder.RegisterType<TagQueries>().AsSelf();
 			builder.RegisterType<UserQueries>().AsSelf();
+			builder.RegisterType<UserMessageQueries>().AsSelf();
 
 			// Build container.
 			var container = builder.Build();

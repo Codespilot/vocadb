@@ -40,6 +40,8 @@ namespace VocaDb.Web.Controllers
 
 		private UserQueries Data { get; set; }
 
+		private readonly UserMessageQueries messageQueries;
+
 	    private UserService Service { get; set; }
 
 		private UserForMySettingsContract GetUserForMySettings() {
@@ -60,9 +62,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public UserController(UserService service, UserQueries data) {
+		public UserController(UserService service, UserQueries data, UserMessageQueries messageQueries) {
 			Service = service;
 			Data = data;
+			this.messageQueries = messageQueries;
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
@@ -613,7 +616,7 @@ namespace VocaDb.Web.Controllers
 			if (messageId == invalidId)
 				return NoId();
 
-			return PartialView("Message", Data.GetMessageDetails(messageId));
+			return PartialView("Message", messageQueries.Get(messageId));
 
 		}
 
