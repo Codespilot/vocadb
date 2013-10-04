@@ -62,9 +62,17 @@ namespace VocaDb.Tests.Service.Helpers {
 
 			CheckComment("Hello world");
 
-			var notification = repository.List<UserMessage>().FirstOrDefault();
+			Assert.IsFalse(repository.List<UserMessage>().Any(), "No notification created");
 
-			Assert.IsNull(notification, "No notification created");
+		}
+
+		[TestMethod]
+		public void CheckComment_MentionedSkipsDisabled() {
+
+			user.Active = false;
+			CheckComment("Hello world, @miku");
+
+			Assert.IsFalse(repository.List<UserMessage>().Any(), "No notification created");
 
 		}
 

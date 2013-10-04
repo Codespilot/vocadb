@@ -21,7 +21,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			var userNames = userMatches.Groups.Cast<Group>().Skip(1).Select(g => g.Value).ToArray();
 
-			var users = ctx.Query().Where(u => userNames.Contains(u.Name)).ToArray();
+			var users = ctx.Query().Where(u => u.Active && userNames.Contains(u.Name)).ToArray();
 
 			if (!users.Any())
 				return;
