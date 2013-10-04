@@ -100,7 +100,7 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 		$.post("../../Album/DeleteComment", { commentId: id }, function () {
 
-			$(btn).parent().parent().remove();
+			$(btn).parent().parent().parent().parent().remove();
 
 		});
 

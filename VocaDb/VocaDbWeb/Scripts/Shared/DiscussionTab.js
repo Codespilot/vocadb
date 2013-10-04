@@ -32,7 +32,7 @@ function tabLoaded(controllerUrl, entryId, event, ui) {
 
 		$.post(controllerUrl + "/DeleteComment", { commentId: id }, function () {
 
-			$(btn).parent().parent().remove();
+			$(btn).parent().parent().parent().parent().remove();
 
 		});
 

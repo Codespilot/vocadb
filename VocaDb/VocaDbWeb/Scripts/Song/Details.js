@@ -162,7 +162,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
 			$.post(hostAddress + "/Song/DeleteComment", { commentId: id }, function () {
 
-				$(btn).parent().parent().remove();
+				$(btn).parent().parent().parent().parent().remove();
 
 			});
 

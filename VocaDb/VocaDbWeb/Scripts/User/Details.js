@@ -111,7 +111,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 
 		$.post(hostAddress + "/User/DeleteComment", { commentId: id }, function () {
 
-			$(btn).parent().parent().remove();
+			$(btn).parent().parent().parent().parent().remove();
 
 		});
 
