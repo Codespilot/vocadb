@@ -2,6 +2,10 @@
 
 namespace VocaDb.Model.Domain.Users {
 
+	/// <summary>
+	/// Message sent to a user. 
+	/// Can be either a personal message from one user to another, or a notification.
+	/// </summary>
 	public class UserMessage : IEntryWithIntId {
 
 		private string message;

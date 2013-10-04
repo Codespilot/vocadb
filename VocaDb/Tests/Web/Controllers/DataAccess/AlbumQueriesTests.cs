@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Code;
@@ -17,6 +18,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 	public class AlbumQueriesTests {
 
 		private Album album;
+		private FakePermissionContext permissionContext;
 		private FakeAlbumRepository repository;
 		private AlbumQueries queries;
 		private User user;
@@ -29,7 +31,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			user = new User { Name = "Miku", GroupId = UserGroupId.Regular, Id = 1 };
 			repository.Add(user);
 
-			var permissionContext = new FakePermissionContext(new UserWithPermissionsContract(user, ContentLanguagePreference.Default));
+			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(user, ContentLanguagePreference.Default));
 			var entryLinkFactory = new EntryAnchorFactory("http://test.vocadb.net");
 
 			queries = new AlbumQueries(repository, permissionContext, entryLinkFactory);
@@ -47,6 +49,17 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.AreEqual(user, comment.Author, "Author");
 			Assert.AreEqual(album, comment.Album, "Album");
 			Assert.AreEqual("Hello world", comment.Message, "Comment message");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void CreateComment_NoPermission() {
+
+			user.GroupId = UserGroupId.Limited;
+			permissionContext.RefreshLoggedUser(repository);
+			
+			queries.CreateComment(39, "Hello world");
 
 		}
 
