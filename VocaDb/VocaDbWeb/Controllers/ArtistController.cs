@@ -17,6 +17,7 @@ using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Web.Code;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Domain.Artists;
@@ -30,10 +31,18 @@ namespace VocaDb.Web.Controllers
     public class ArtistController : ControllerBase
     {
 
+		private readonly ArtistQueries queries;
+		private readonly ArtistService service;
+
+		public ArtistController(ArtistService service, ArtistQueries queries) {
+			this.service = service;
+			this.queries = queries;
+		}
+
 		private readonly Size pictureThumbSize = new Size(250, 250);
 
     	private ArtistService Service {
-    		get { return MvcApplication.Services.Artists; }
+    		get { return service; }
     	}
 
 		public ActionResult Albums(int id = invalidId) {
@@ -94,7 +103,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult CreateComment(int entryId, string message) {
 
-			var comment = Service.CreateComment(entryId, message);
+			var comment = queries.CreateComment(entryId, message);
 
 			return PartialView("Comment", comment);
 
