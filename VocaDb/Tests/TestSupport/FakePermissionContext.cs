@@ -41,8 +41,13 @@ namespace VocaDb.Tests.TestSupport {
 		public string Name { get; private set; }
 		public UserGroupId UserGroupId { get; private set; }
 
-		public void RefreshLoggedUser(IUserRepository repository) {
-			LoggedUser = repository.HandleQuery(ctx => new UserWithPermissionsContract(ctx.Load(LoggedUserId), ContentLanguagePreference.Default));
+		/// <summary>
+		/// Updates status, including permissions, of the currently logged in user.
+		/// </summary>
+		/// <typeparam name="T">Repository type.</typeparam>
+		/// <param name="repository">Repository. Cannot be null.</param>
+		public void RefreshLoggedUser<T>(IRepository<T> repository) {
+			LoggedUser = repository.HandleQuery(ctx => new UserWithPermissionsContract(ctx.OfType<User>().Load(LoggedUserId), ContentLanguagePreference.Default));
 		}
 
 		public void VerifyLogin() {
