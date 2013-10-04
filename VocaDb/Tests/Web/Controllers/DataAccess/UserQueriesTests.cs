@@ -226,6 +226,30 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void CreateComment() {
+
+			var sender = userWithEmail;
+			var receiver = userWithoutEmail;
+			var result = data.CreateComment(receiver.Id, "Hello world");
+
+			Assert.IsNotNull(result, "result");
+			Assert.AreEqual("Hello world", result.Message, "Message");
+
+			var comment = repository.List<UserComment>().FirstOrDefault();
+			Assert.IsNotNull(comment, "Comment was saved");
+			Assert.AreEqual("Hello world", comment.Message, "Message");
+			Assert.AreEqual(sender.Id, comment.Author.Id, "Sender Id");
+			Assert.AreEqual(receiver.Id, comment.User.Id, "Receiver Id");
+
+			var notificationMsg = string.Format("{0} posted a comment on your profile.\n\n{1}", sender.Name, comment.Message);
+			var notification = repository.List<UserMessage>().FirstOrDefault();
+			Assert.IsNotNull(notification, "Notification was saved");
+			Assert.AreEqual(notificationMsg, notification.Message, "Notification message");
+			Assert.AreEqual(receiver.Id, notification.Receiver.Id, "Receiver Id");
+
+		}
+
+		[TestMethod]
 		public void CreateTwitter() {
 
 			var name = "hatsune_miku";
@@ -299,6 +323,35 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			RefreshLoggedUser();
 
 			data.DisableUser(userWithoutEmail.Id);
+
+		}
+
+		[TestMethod]
+		public void GetMessageDetails() {
+
+			var sender = userWithoutEmail;
+			var receiver = userWithEmail;
+			var msg = new UserMessage(sender, receiver, "Hello world", "Message body", false) { Id = 39 };
+			repository.Add(msg);
+
+			var result = data.GetMessageDetails(39);
+
+			Assert.IsNotNull(result, "Message was loaded");
+			Assert.AreEqual("Hello world", result.Subject, "Message subject");
+			Assert.AreEqual("Message body", result.Body, "Message body");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void GetMessageDetails_NoPermission() {
+
+			var sender = userWithoutEmail;
+			var receiver = userWithoutEmail;
+			var msg = new UserMessage(sender, receiver, "Hello world", "Message body", false) { Id = 39 };
+			repository.Add(msg);
+
+			data.GetMessageDetails(39);
 
 		}
 

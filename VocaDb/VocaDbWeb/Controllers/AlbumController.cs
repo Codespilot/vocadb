@@ -254,7 +254,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public PartialViewResult CreateComment(int entryId, string message) {
 
-			var comment = Service.CreateComment(entryId, message);
+			var comment = queries.CreateComment(entryId, message);
 
 			return PartialView("Comment", comment);
 

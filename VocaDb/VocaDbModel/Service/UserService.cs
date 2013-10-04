@@ -289,32 +289,6 @@ namespace VocaDb.Model.Service {
 
 		}*/
 
-		public CommentContract CreateComment(int userId, string message) {
-
-			ParamIs.NotNullOrEmpty(() => message);
-
-			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
-
-			message = message.Trim();
-
-			return HandleTransaction(session => {
-
-				var user = session.Load<User>(userId);
-				var agent = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-
-				AuditLog(string.Format("creating comment for {0}: '{1}'",
-					EntryLinkFactory.CreateEntryLink(user),
-					HttpUtility.HtmlEncode(message)), session, agent.User);
-
-				var comment = user.CreateComment(message, agent);
-				session.Save(comment);
-
-				return new CommentContract(comment);
-
-			});
-
-		}
-
 		public void DeleteAlbumForUser(int albumForUserId) {
 
 			DeleteEntity<AlbumForUser>(albumForUserId, PermissionToken.EditProfile);
@@ -443,7 +417,7 @@ namespace VocaDb.Model.Service {
 			});
 		}
 
-		public UserMessageContract GetMessageDetails(int messageId) {
+		/*public UserMessageContract GetMessageDetails(int messageId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
@@ -462,7 +436,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public UserContract GetUser(int id) {
 

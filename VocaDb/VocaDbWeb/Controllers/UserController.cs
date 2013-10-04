@@ -562,7 +562,7 @@ namespace VocaDb.Web.Controllers
 		[Authorize]
 		public PartialViewResult CreateComment(int entryId, string message) {
 
-			var comment = Service.CreateComment(entryId, message);
+			var comment = Data.CreateComment(entryId, message);
 
 			return PartialView("Comment", comment);
 
@@ -607,12 +607,13 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[Authorize]
 		public ActionResult Message(int messageId = invalidId) {
 
 			if (messageId == invalidId)
 				return NoId();
 
-			return PartialView("Message", Service.GetMessageDetails(messageId));
+			return PartialView("Message", Data.GetMessageDetails(messageId));
 
 		}
 

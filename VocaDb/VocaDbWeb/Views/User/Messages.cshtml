@@ -20,6 +20,7 @@
 	<ul>
 		<li><a href="#receivedTab">@R.MessagesStrings.Received</a></li>
 		<li><a href="#sentTab">@R.MessagesStrings.Sent</a></li>
+		<li><a href="#notificationsTab">@R.MessagesStrings.Notifications</a></li>
 		<li><a href="#composeTab">@R.MessagesStrings.Compose</a></li>
 	</ul>
 
@@ -83,6 +84,36 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<div id="notificationsTab">
+		<table class="table messages">
+			<thead>
+				<tr>
+					<th>@R.MessagesStrings.Date</th>
+					<th>@R.MessagesStrings.Subject</th>
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var message in Model.Notifications) {
+				<tr id="@("viewNotificationMessage_" + message.Id)">
+					<td>@Helpers.UniversalTimeLabel(message.Created)</td>
+					<td>
+						@if (message.HighPriority) {
+							@Helpers.NotificationIcon();
+							<text>&nbsp;</text>
+						}
+						@if (!message.Read) {
+							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
+						}
+
+						@message.Subject
+					</td>
+				</tr>
+			}
+			</tbody>
+		</table>
+	</div>
+	
 
 	<div id="composeTab">
 		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage(Model.ReceiverName)); }

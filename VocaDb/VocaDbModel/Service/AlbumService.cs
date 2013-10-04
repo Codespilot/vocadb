@@ -188,7 +188,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public CommentContract CreateComment(int albumId, string message) {
+		/*public CommentContract CreateComment(int albumId, string message) {
 
 			ParamIs.NotNullOrEmpty(() => message);
 
@@ -212,7 +212,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		/*
 		[Obsolete("Integrated to saving properties")]

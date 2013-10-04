@@ -551,6 +551,7 @@
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
     <Compile Include="Service\Exceptions\InvalidEmailFormatException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
+    <Compile Include="Service\Helpers\UserCommentNotifier.cs" />
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />

@@ -17,7 +17,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			Id = message.Id;
 			Read = message.Read;
 			Receiver = new UserContract(message.Receiver);
-			Sender = new UserContract(message.Sender);
+			Sender = (message.Sender != null ? new UserContract(message.Sender) : null);
 			Subject = message.Subject;
 
 		}

@@ -2,14 +2,18 @@
 using System.Linq;
 using System.Net.Mail;
 using System.Threading;
+using System.Web;
 using NLog;
 using VocaDb.Model;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
@@ -20,13 +24,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// <summary>
 	/// Database queries related to <see cref="User"/>.
 	/// </summary>
-	public class UserQueries {
+	public class UserQueries : QueriesBase<IUserRepository> {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly IEntryLinkFactory entryLinkFactory;
-		private readonly IUserPermissionContext permissionContext;
 		private readonly IStopForumSpamClient sfsClient;
-		private readonly IUserRepository repository;
 
 		public IEntryLinkFactory EntryLinkFactory {
 			get { return entryLinkFactory; }
@@ -47,10 +49,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			return query;
 
-		}
-
-		private IUserPermissionContext PermissionContext {
-			get { return permissionContext; }
 		}
 
 		private bool IsPoisoned(IRepositoryContext<User> ctx, string lcUserName) {
@@ -75,15 +73,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IStopForumSpamClient sfsClient) {
+		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IStopForumSpamClient sfsClient)
+			: base(repository, permissionContext) {
 
 			ParamIs.NotNull(() => repository);
 			ParamIs.NotNull(() => permissionContext);
 			ParamIs.NotNull(() => entryLinkFactory);
 			ParamIs.NotNull(() => sfsClient);
 
-			this.repository = repository;
-			this.permissionContext = permissionContext;
 			this.entryLinkFactory = entryLinkFactory;
 			this.sfsClient = sfsClient;
 
@@ -138,6 +135,37 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				ctx.Update(user);
 
 				return LoginResult.CreateSuccess(new UserContract(user));
+
+			});
+
+		}
+
+		public CommentContract CreateComment(int userId, string message) {
+
+			ParamIs.NotNullOrEmpty(() => message);
+
+			PermissionContext.VerifyPermission(PermissionToken.CreateComments);
+
+			message = message.Trim();
+
+			return repository.HandleTransaction(ctx => {
+
+				var user = ctx.Load(userId);
+				var agent = ctx.CreateAgentLoginData(PermissionContext);
+
+				ctx.AuditLogger.AuditLog(string.Format("creating comment for {0}: '{1}'",
+					EntryLinkFactory.CreateEntryLink(user),
+					HttpUtility.HtmlEncode(message)), agent.User);
+
+				var comment = user.CreateComment(message, agent);
+				ctx.OfType<UserComment>().Save(comment);
+
+				var commentMsg = comment.Message.Truncate(200);
+				var notificationMsg = string.Format("{0} posted a comment on your profile.\n\n{1}", agent.Name, commentMsg);
+				var notification = new UserMessage(user, "Comment posted on your profile", notificationMsg, false);
+				ctx.OfType<UserMessage>().Save(notification);
+
+				return new CommentContract(comment);
 
 			});
 
@@ -306,6 +334,30 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				ctx.AuditLogger.AuditLog(string.Format("disabled {0}.", EntryLinkFactory.CreateEntryLink(user)));
 
 				ctx.Update(user);
+
+			});
+
+		}
+
+		public UserMessageContract GetMessageDetails(int messageId) {
+
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			return repository.HandleTransaction(ctx => {
+
+				var msg = ctx.OfType<UserMessage>().Load(messageId);
+
+				if (msg.Sender != null)
+					VerifyResourceAccess(msg.Sender, msg.Receiver);
+				else
+					VerifyResourceAccess(msg.Receiver);
+
+				if (!msg.Read && PermissionContext.LoggedUser.Id == msg.Receiver.Id) {
+					msg.Read = true;
+					ctx.OfType<UserMessage>().Update(msg);
+				}
+
+				return new UserMessageContract(msg);
 
 			});
 
