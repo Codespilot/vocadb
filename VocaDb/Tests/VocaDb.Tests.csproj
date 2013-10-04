@@ -117,6 +117,7 @@
     <Compile Include="TestSupport\FakeSongListRepository.cs" />
     <Compile Include="TestSupport\FakeStopForumSpamClient.cs" />
     <Compile Include="TestSupport\FakeTagRepository.cs" />
+    <Compile Include="TestSupport\FakeUserMessageRepository.cs" />
     <Compile Include="TestSupport\FakeUserRepository.cs" />
     <Compile Include="TestSupport\QuerySourceList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Web\Controllers\DataAccess\AlbumQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\SongListQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\TagQueriesTests.cs" />
+    <Compile Include="Web\Controllers\DataAccess\UserMessageQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\UserQueriesTests.cs" />
     <Compile Include="Web\Controllers\EventControllerTests.cs" />
     <Compile Include="Web\Controllers\SongControllerTests.cs" />

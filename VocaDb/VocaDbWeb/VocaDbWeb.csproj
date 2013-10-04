@@ -601,6 +601,7 @@
     <Compile Include="Controllers\DataAccess\SongListQueries.cs" />
     <Compile Include="Controllers\DataAccess\SongQueries.cs" />
     <Compile Include="Controllers\DataAccess\TagQueries.cs" />
+    <Compile Include="Controllers\DataAccess\UserMessageQueries.cs" />
     <Compile Include="Controllers\DataAccess\UserQueries.cs" />
     <Compile Include="Controllers\EntryReportsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />

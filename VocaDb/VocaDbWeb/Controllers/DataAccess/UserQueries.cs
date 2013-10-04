@@ -339,30 +339,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public UserMessageContract GetMessageDetails(int messageId) {
-
-			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
-
-			return repository.HandleTransaction(ctx => {
-
-				var msg = ctx.OfType<UserMessage>().Load(messageId);
-
-				if (msg.Sender != null)
-					VerifyResourceAccess(msg.Sender, msg.Receiver);
-				else
-					VerifyResourceAccess(msg.Receiver);
-
-				if (!msg.Read && PermissionContext.LoggedUser.Id == msg.Receiver.Id) {
-					msg.Read = true;
-					ctx.OfType<UserMessage>().Update(msg);
-				}
-
-				return new UserMessageContract(msg);
-
-			});
-
-		}
-
 		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, bool disabled, bool verifiedArtists, UserSortRule sortRule, PagingProperties paging) {
 
 			return repository.HandleQuery(ctx => {

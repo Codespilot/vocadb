@@ -557,6 +557,7 @@
     <Compile Include="Service\Repositories\IArtistRepository.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />
     <Compile Include="Service\Repositories\ISongRepository.cs" />
+    <Compile Include="Service\Repositories\IUserMessageRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\AlbumNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\IAlbumRepository.cs" />
     <Compile Include="Service\Repositories\IAuditLogger.cs" />
@@ -604,6 +605,7 @@
     <Compile Include="Service\Repositories\NHibernate\SongNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\TagNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\SongListNHibernateRepository.cs" />
+    <Compile Include="Service\Repositories\NHibernate\UserMessageNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\UserNHibernateRepository.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchSort.cs" />
     <Compile Include="Service\Search\AlbumSearch\ArtistAlbumParticipationStatus.cs" />
