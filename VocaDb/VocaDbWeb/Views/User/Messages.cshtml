@@ -91,6 +91,7 @@
 				<tr>
 					<th>@R.MessagesStrings.Date</th>
 					<th>@R.MessagesStrings.Subject</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -108,6 +109,7 @@
 
 						@message.Subject
 					</td>
+					<td><a href="#" class="btn btn-mini btn-danger js-deleteMessage" data-id="@message.Id">@ViewRes.SharedStrings.Delete</a></td>
 				</tr>
 			}
 			</tbody>
@@ -124,8 +126,12 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/User/Messages.js")"></script>
 <script type="text/javascript">
 
-	$(document).ready(function() { 
-		initPage(@Model.Id);
+	$(document).ready(function () {
+		
+		var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
+
+		initPage(urlMapper);
+		
 	});
 
 </script>
