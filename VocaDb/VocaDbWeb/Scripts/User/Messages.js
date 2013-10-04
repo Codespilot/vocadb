@@ -25,7 +25,7 @@ function getMessage(messageId) {
 
 }
 
-function initPage() {
+function initPage(urlMapper) {
 
 	$("#tabs").tabs();
 
@@ -42,6 +42,18 @@ function initPage() {
 
 		getMessage(id);
 
+		return false;
+
+	});
+	
+	$(".js-deleteMessage").click(function () {
+
+		var url = urlMapper.mapRelative("/User/DeleteMessage");
+		var messageId = $(this).data("id");
+		var btn = this;
+		$.post(url, { messageId: messageId }, function () {
+			$(btn).parent().parent().remove();
+		});
 		return false;
 
 	});

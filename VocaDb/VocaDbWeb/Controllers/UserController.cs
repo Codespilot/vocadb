@@ -579,9 +579,14 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		[Authorize]
+		public void DeleteMessage(int messageId) {
+			messageQueries.Delete(messageId);
+		}
+
         //
         // GET: /User/Edit/5
-
 		[Authorize]
 		public ActionResult Edit(int id)
         {
