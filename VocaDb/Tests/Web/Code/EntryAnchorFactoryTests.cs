@@ -16,7 +16,7 @@ namespace VocaDb.Tests.Web.Code {
 
 		[TestInitialize]
 		public void SetUp() {
-			factory = new EntryAnchorFactory();
+			factory = new EntryAnchorFactory("http://test.vocadb.net");
 		}
 
 		[TestMethod]

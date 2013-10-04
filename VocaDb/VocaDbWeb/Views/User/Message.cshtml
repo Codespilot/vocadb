@@ -12,8 +12,10 @@
 			<span>
 				@Helpers.UniversalTimeLabel(Model.Created)
 			</span>
-			<span>@ViewRes.User.MessagesStrings.From</span>
-			<span>@UserHelpers.UserIconLink(Model.Sender, Model.Sender.Name).</span>
+			@if (Model.Sender != null) {
+				<span>@ViewRes.User.MessagesStrings.From</span>
+				<span>@UserHelpers.UserIconLink(Model.Sender, Model.Sender.Name).</span>
+			}
 			<span>@ViewRes.User.MessagesStrings.To</span>
 			<span>@UserHelpers.UserIconLink(Model.Receiver, Model.Receiver.Name).</span>
 		</div>
@@ -21,8 +23,10 @@
 	<p class="messageContent">
 		@HtmlHelpers.FormatText(Model.Body)
 	</p>
-
-	<a href="#" id="replyMessage">@ViewRes.User.MessagesStrings.Reply</a>
+	
+	@if (Model.Sender != null) {		
+		<a href="#" id="replyMessage">@ViewRes.User.MessagesStrings.Reply</a>
+	}
 
 	<script type="text/javascript">
 

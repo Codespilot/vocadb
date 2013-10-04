@@ -2,7 +2,7 @@
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class UserMessage {
+	public class UserMessage : IEntryWithIntId {
 
 		private string message;
 		private User receiver;
@@ -11,6 +11,16 @@ namespace VocaDb.Model.Domain.Users {
 
 		public UserMessage() {
 			Created = DateTime.Now;
+		}
+
+		public UserMessage(User to, string subject, string body, bool highPriority)
+			: this() {
+
+			Receiver = to;
+			Subject = subject;
+			Message = body;
+			HighPriority = highPriority;
+
 		}
 
 		public UserMessage(User from, User to, string subject, string body, bool highPriority)
@@ -40,6 +50,9 @@ namespace VocaDb.Model.Domain.Users {
 
 		public virtual bool Read { get; set; }
 
+		/// <summary>
+		/// Receiver of this message. Cannot be null.
+		/// </summary>
 		public virtual User Receiver {
 			get { return receiver; }
 			set {
@@ -48,12 +61,12 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// Sender of this message. Can be null, in which case it's a notification.
+		/// </summary>
 		public virtual User Sender {
 			get { return sender; }
-			set {
-				ParamIs.NotNull(() => value);
-				sender = value;
-			}
+			set { sender = value; }
 		}
 
 		public virtual string Subject {

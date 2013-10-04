@@ -18,6 +18,10 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
+		/// <summary>
+		/// Host address contains full path to the web application's root, including hostname.
+		/// For example http://vocadb.net
+		/// </summary>
 		public static string HostAddress {
 			get {
 				return Val("HostAddress");

@@ -109,6 +109,7 @@
     <Compile Include="Helpers\ConcurrentEntryEditManagerTests.cs" />
     <Compile Include="Domain\Images\ImageThumbGeneratorTests.cs" />
     <Compile Include="Helpers\XmlHelperTests.cs" />
+    <Compile Include="Service\Helpers\UserCommentNotifierTests.cs" />
     <Compile Include="TestSupport\FakeAuditLogger.cs" />
     <Compile Include="TestSupport\FakeEntryLinkFactory.cs" />
     <Compile Include="TestSupport\FakePermissionContext.cs" />

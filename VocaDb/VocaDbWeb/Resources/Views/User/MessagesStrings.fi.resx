@@ -165,4 +165,7 @@
   <data name="To" xml:space="preserve">
     <value>Vastaanottaja</value>
   </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Ilmoitukset</value>
+  </data>
 </root>

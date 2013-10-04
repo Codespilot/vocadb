@@ -14,7 +14,7 @@ namespace VocaDb.Tests.Service.BBCode {
 		private string ApplyTransform(string raw) {
 
 			var code = new StringBuilder(raw);
-			var linkFactory = new EntryAnchorFactory();
+			var linkFactory = new EntryAnchorFactory("http://test.vocadb.net");
 			new EntryLinkTransformer(linkFactory).ApplyTransform(code);
 			return code.ToString();
 

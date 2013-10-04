@@ -13,6 +13,10 @@ namespace VocaDb.Tests.TestSupport {
 			return string.Empty;
 		}
 
+		public string GetFullEntryUrl(EntryType entryType, int id) {
+			return string.Empty;
+		}
+
 	}
 
 }

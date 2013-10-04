@@ -11,6 +11,16 @@ namespace VocaDb.Model.Service {
 
 		string CreateEntryLink(EntryType entryType, int id, string name);
 
+		string GetFullEntryUrl(EntryType entryType, int id);
+
+	}
+
+	public static class IEntryLinkFactoryExtender {
+		
+		public static string GetFullEntryUrl(this IEntryLinkFactory entryLinkFactory, IEntryBase entryBase) {
+			return entryLinkFactory.GetFullEntryUrl(entryBase.EntryType, entryBase.Id);
+		}
+
 	}
 
 }

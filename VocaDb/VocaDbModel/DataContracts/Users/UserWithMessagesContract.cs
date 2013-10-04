@@ -12,11 +12,14 @@ namespace VocaDb.Model.DataContracts.Users {
 		public UserWithMessagesContract(User user)
 			: base(user) {
 
+			Notifications = user.ReceivedMessages.Where(m => m.Sender == null).Select(m => new UserMessageContract(m)).ToArray();
 			ReceiverName = string.Empty;
-			ReceivedMessages = user.ReceivedMessages.Select(m => new UserMessageContract(m)).ToArray();
+			ReceivedMessages = user.ReceivedMessages.Where(m => m.Sender != null).Select(m => new UserMessageContract(m)).ToArray();
 			SentMessages = user.SentMessages.Select(m => new UserMessageContract(m)).ToArray();
 
 		}
+
+		public UserMessageContract[] Notifications { get; set; }
 
 		public string ReceiverName { get; set; }
 
