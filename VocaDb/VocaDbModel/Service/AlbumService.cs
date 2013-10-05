@@ -150,44 +150,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumContract Create(CreateAlbumContract contract) {
-
-			ParamIs.NotNull(() => contract);
-
-			if (contract.Names == null || !contract.Names.Any())
-				throw new ArgumentException("Album needs at least one name", "contract");
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				SysLog(string.Format("creating a new album with name '{0}'", contract.Names.First().Value));
-
-				var album = new Album { DiscType = contract.DiscType };
-
-				album.Names.Init(contract.Names, album);
-
-				session.Save(album);
-
-				foreach (var artistContract in contract.Artists) {
-					var artist = session.Load<Artist>(artistContract.Id);
-					if (!album.HasArtist(artist))
-						session.Save(session.Load<Artist>(artist.Id).AddAlbum(album));
-				}
-
-				album.UpdateArtistString();
-				Archive(session, album, AlbumArchiveReason.Created);
-				session.Update(album);
-
-				AuditLog(string.Format("created album {0} ({1})", EntryLinkFactory.CreateEntryLink(album), album.DiscType), session);
-				AddEntryEditedEntry(session, album, EntryEditEvent.Created);
-
-				return new AlbumContract(album, PermissionContext.LanguagePreference);
-
-			});
-
-		}
-
 		public bool CreateReport(int albumId, AlbumReportType reportType, string hostname, string notes) {
 
 			ParamIs.NotNull(() => hostname);
