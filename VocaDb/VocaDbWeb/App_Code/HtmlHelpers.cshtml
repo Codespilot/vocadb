@@ -1,4 +1,5 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
+@using MarkdownSharp
 @using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 
@@ -13,6 +14,10 @@
 @helper FormatText(string text) {
 	text = ViewHelper.ParseBBCode(text);
 	<text>@ConvertNewlinesToBreaks(text)</text>
+}
+
+@helper FormatMarkdown(string text) {
+	@Html.Raw(new Markdown(new MarkdownOptions { AutoHyperlink = true, AutoNewLines = true }).Transform(Server.HtmlEncode(text)))
 }
 
 @helper MetaTag(string name, string content) {

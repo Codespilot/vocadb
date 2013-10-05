@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<p class="messageContent">
-		@HtmlHelpers.FormatText(Model.Body)
+		@HtmlHelpers.FormatMarkdown(Model.Body)
 	</p>
 	
 	@if (Model.Sender != null) {		
