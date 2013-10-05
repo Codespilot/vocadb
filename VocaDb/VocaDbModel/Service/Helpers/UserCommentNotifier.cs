@@ -27,7 +27,7 @@ namespace VocaDb.Model.Service.Helpers {
 				return;
 
 			var commentMsg = comment.Message.Truncate(200);
-			var msg = string.Format("{0} mentioned you in a comment for {1}\n\n{2}", comment.AuthorName, entryLinkFactory.GetFullEntryUrl(comment.Entry), commentMsg);
+			var msg = string.Format("{0} mentioned you in a comment for {1}\n\n{2}", comment.AuthorName, MarkdownHelper.CreateMarkdownLink(entryLinkFactory.GetFullEntryUrl(comment.Entry), comment.Entry.DefaultName), commentMsg);
 
 			foreach (var user in users) {
 
