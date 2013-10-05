@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model;
+using VocaDb.Model.Domain.Activityfeed;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
@@ -13,6 +16,34 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		protected IUserPermissionContext PermissionContext {
 			get { return permissionContext; }
+		}
+
+		protected void AddActivityfeedEntry(IRepositoryContext<ActivityEntry> ctx, ActivityEntry entry) {
+
+			var latestEntries = ctx.Query()
+				.OrderByDescending(a => a.CreateDate)
+				.Take(10)	// time cutoff would be better instead of an arbitrary number of activity entries
+				.ToArray();
+
+			if (latestEntries.Any(e => e.IsDuplicate(entry)))
+				return;
+
+			ctx.Save(entry);
+
+		}
+
+		protected void AddEntryEditedEntry(IRepositoryContext<ActivityEntry> ctx, Album entry, EntryEditEvent editEvent) {
+
+			var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
+			var activityEntry = new AlbumActivityEntry(entry, editEvent, user);
+			AddActivityfeedEntry(ctx, activityEntry);
+
+		}
+
+		protected void VerifyManageDatabase() {
+
+			PermissionContext.VerifyPermission(PermissionToken.ManageDatabase);
+
 		}
 
 		protected void VerifyResourceAccess(params IUser[] owners) {
