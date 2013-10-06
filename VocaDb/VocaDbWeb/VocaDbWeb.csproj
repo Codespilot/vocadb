@@ -573,6 +573,7 @@
     <Compile Include="Code\Feeds\FeedResult.cs" />
     <Compile Include="Code\Feeds\SongFeedFactory.cs" />
     <Compile Include="Code\FromJsonAttribute.cs" />
+    <Compile Include="Code\GravatarUserIconFactory.cs" />
     <Compile Include="Code\HelperPage.cs" />
     <Compile Include="Code\IdNotNumberConstraint.cs" />
     <Compile Include="Code\IPropertyBinder.cs" />
@@ -1200,6 +1201,7 @@
     <Content Include="Scripts\DataContracts\User\UserBaseContract.js">
       <DependentUpon>UserBaseContract.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\DataContracts\User\UserWithIconContract.ts" />
     <Content Include="Scripts\DataContracts\WebLinkContract.js">
       <DependentUpon>WebLinkContract.ts</DependentUpon>
     </Content>
@@ -1965,6 +1967,7 @@
       <DependentUpon>RequestVerificationViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\User\UserDetailsViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\User\UserMessagesViewModel.ts" />
     <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
       <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
     </Content>
