@@ -211,6 +211,7 @@
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
     <Compile Include="DataContracts\Users\ArtistForUserContract.cs" />
     <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
+    <Compile Include="DataContracts\Users\IUserIconFactory.cs" />
     <Compile Include="DataContracts\Users\UserBaseContract.cs" />
     <Compile Include="DataContracts\Users\UserDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongContract.cs" />
@@ -237,6 +238,7 @@
     <Compile Include="DataContracts\Users\UserMessageContract.cs" />
     <Compile Include="DataContracts\Users\UserWithActivityEntriesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithEmailContract.cs" />
+    <Compile Include="DataContracts\Users\UserWithIconContract.cs" />
     <Compile Include="DataContracts\Users\UserWithMessagesContract.cs" />
     <Compile Include="DataContracts\Users\UserWithPermissionsContract.cs" />
     <Compile Include="DataContracts\VersioningInfoContract.cs" />
@@ -318,6 +320,7 @@
     <Compile Include="Domain\Users\ArtistForUser.cs" />
     <Compile Include="Domain\Users\IUser.cs" />
     <Compile Include="Domain\Users\IUserWithEmail.cs" />
+    <Compile Include="Domain\Users\IUserWithIcon.cs" />
     <Compile Include="Domain\Users\OwnedArtistForUser.cs" />
     <Compile Include="Domain\Users\PurchaseStatus.cs" />
     <Compile Include="Domain\Users\UserComment.cs" />
