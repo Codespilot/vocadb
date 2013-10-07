@@ -16,7 +16,12 @@ namespace VocaDb.Web.Code {
 		}
 
 		public string GetIconUrl(User user) {
+
+			if (string.IsNullOrEmpty(user.Email))
+				return string.Empty;
+
 			return Gravatar.GetUrl(user.Email, size);
+
 		}
 
 	}

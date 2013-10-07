@@ -19,8 +19,11 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		}
 
+		public UserWithIconContract(User user)
+			: this(user, string.Empty) {}
+
 		public UserWithIconContract(User user, IUserIconFactory iconFactory)
-			: this(user, iconFactory.GetIconUrl(user)) {}
+			: this(user, iconFactory != null ? iconFactory.GetIconUrl(user) : string.Empty) {}
 
 		[DataMember]
 		public string IconUrl { get; set; }
