@@ -39,7 +39,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public UserMessageContract Get(int messageId) {
+		public UserMessageContract Get(int messageId, IUserIconFactory iconFactory) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
@@ -57,7 +57,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					ctx.Update(msg);
 				}
 
-				return new UserMessageContract(msg);
+				return new UserMessageContract(msg, iconFactory, includeBody: true);
 
 			});
 

@@ -15,7 +15,7 @@
     <AssemblyName>VocaDb.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -633,6 +633,7 @@
     <Compile Include="Helpers\JsonHelpers.cs" />
     <Compile Include="Helpers\KnockoutHtmlExtender.cs" />
     <Compile Include="Helpers\Login.cs" />
+    <Compile Include="Helpers\MarkdownHelper.cs" />
     <Compile Include="Helpers\PanelExtensions.cs" />
     <Compile Include="Helpers\PVHelper.cs" />
     <Compile Include="Helpers\RadioButtonHelpers.cs">
@@ -685,6 +686,7 @@
     <Compile Include="Models\User\ForgotPassword.cs" />
     <Compile Include="Models\User\Index.cs" />
     <Compile Include="Models\User\FavoriteSongs.cs" />
+    <Compile Include="Models\User\Messages.cs" />
     <Compile Include="Models\User\RegisterOpenAuthModel.cs" />
     <Compile Include="Models\User\ResetPassword.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1937,7 +1939,6 @@
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\Edit.js" />
-    <Content Include="Scripts\User\Messages.js" />
     <Content Include="Scripts\ViewModels\PVRatingButtonsViewModel.js">
       <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
     </Content>
@@ -2190,6 +2191,7 @@
     <Content Include="Views\User\RequestVerification.cshtml" />
     <Content Include="Views\Shared\Partials\_LeftMenu.cshtml" />
     <Content Include="Views\Shared\Partials\_LayoutScripts.cshtml" />
+    <Content Include="Views\User\Partials\_UserMessageKnockout.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
@@ -2968,7 +2970,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>39390</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:39392</IISUrl>
+          <IISUrl>http://localhost:39390/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

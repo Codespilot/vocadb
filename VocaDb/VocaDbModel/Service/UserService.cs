@@ -530,7 +530,7 @@ namespace VocaDb.Model.Service {
 
 				var count = (paging.GetTotalCount ? query.Count() : 0);
 
-				return new PartialFindResult<UserMessageContract>(messages.Select(m => new UserMessageContract(m)).ToArray(), count);
+				return new PartialFindResult<UserMessageContract>(messages.Select(m => new UserMessageContract(m, null)).ToArray(), count);
 
 			});
 
@@ -550,7 +550,7 @@ namespace VocaDb.Model.Service {
 
 				var count = (paging.GetTotalCount ? query.Count() : 0);
 
-				return new PartialFindResult<UserMessageContract>(messages.Select(m => new UserMessageContract(m)).ToArray(), count);
+				return new PartialFindResult<UserMessageContract>(messages.Select(m => new UserMessageContract(m, null)).ToArray(), count);
 
 			});
 
@@ -577,9 +577,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserWithMessagesContract GetUserWithMessages(int id) {
+		public UserWithMessagesContract GetUserWithMessages(int id, IUserIconFactory iconFactory) {
 
-			return HandleQuery(session => new UserWithMessagesContract(session.Load<User>(id)));
+			return HandleQuery(session => new UserWithMessagesContract(session.Load<User>(id), iconFactory));
 
 		}
 

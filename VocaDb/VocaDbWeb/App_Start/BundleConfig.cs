@@ -116,6 +116,10 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/User/Details.js"
 			));
 
+			bundles.Add(new ScriptBundle("~/bundles/User/Messages").Include(
+				"~/Scripts/ViewModels/User/UserMessagesViewModel.js"
+			));
+
 			//bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
 			//));
 

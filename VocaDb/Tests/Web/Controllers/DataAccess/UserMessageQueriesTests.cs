@@ -20,6 +20,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private User sender;
 		private User receiver;
 
+		private UserMessageContract CallGet(int id) {
+			return queries.Get(id, null);
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 			
@@ -38,7 +42,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			var msg = new UserMessage(sender, receiver, "Hello world", "Message body", false) { Id = 39 };
 			repository.Add(msg);
 
-			var result = queries.Get(39);
+			var result = CallGet(39);
 
 			Assert.IsNotNull(result, "Message was loaded");
 			Assert.AreEqual("Hello world", result.Subject, "Message subject");
@@ -53,7 +57,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			var msg = new UserMessage(sender, sender, "Hello world", "Message body", false) { Id = 39 };
 			repository.Add(msg);
 
-			queries.Get(39);
+			CallGet(39);
 
 		}
 

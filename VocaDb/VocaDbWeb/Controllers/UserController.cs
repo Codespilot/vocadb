@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net.Mail;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
@@ -18,7 +17,6 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Paging;
-using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Utils;
@@ -616,23 +614,35 @@ namespace VocaDb.Web.Controllers
         }
 
 		[Authorize]
-		public ActionResult Message(int messageId = invalidId) {
+		public ActionResult MessageBody(int messageId = invalidId) {
 
 			if (messageId == invalidId)
 				return NoId();
 
-			return PartialView("Message", messageQueries.Get(messageId));
+			var msg = messageQueries.Get(messageId, null);
+			//return PartialView("Message", messageQueries.Get(messageId, new GravatarUserIconFactory(20)));
+			//return LowercaseJson(msg);
+			var body = MarkdownHelper.TranformMarkdown(msg.Body);
+			return Content(body);
 
 		}
 
 		[Authorize]
 		public ActionResult Messages(string receiverName) {
 
-			var user = Service.GetUserWithMessages(LoggedUserId);
+			var user = LoginManager.LoggedUser;
 			RestoreErrorsFromTempData();
-			user.ReceiverName = receiverName;
+			var model = new Messages(user, receiverName);
 
-			return View(user);
+			return View(model);
+
+		}
+
+		[Authorize]
+		public ActionResult MessagesJson() {
+
+			var user = Service.GetUserWithMessages(LoggedUserId, new GravatarUserIconFactory(20));
+			return LowercaseJson(user.Messages);
 
 		}
 

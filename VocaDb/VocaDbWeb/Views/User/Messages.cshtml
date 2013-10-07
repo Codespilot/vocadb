@@ -1,121 +1,96 @@
-﻿@using R = ViewRes.User;
-@model VocaDb.Model.DataContracts.Users.UserWithMessagesContract
+﻿@using VocaDb.Web.Helpers
+@using System.Web.Optimization
+@using R = ViewRes.User;
+@model VocaDb.Web.Models.User.Messages
 
 @{
-    ViewBag.Title = R.MessagesStrings.Messages;
+	ViewBag.Title = R.MessagesStrings.Messages;
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"), 
-		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
+		Html.ActionLink(Model.User.Name, "Details", new { id = Model.User.Id }) 
 	};		
+}
+
+@helper MessageFolderTab(string id, string binding, bool colFrom, bool colTo, bool showUnread, bool allowDelete) {
+	<div id="@id" data-bind="with: @binding">
+		<table class="table messages">
+			<thead>
+				<tr>
+					<th>@R.MessagesStrings.Date</th>
+					@if (colFrom) {
+						<th>@R.MessagesStrings.From</th>						
+					}
+					@if (colTo) {
+						<th>@R.MessagesStrings.To</th>						
+					}
+					<th>@R.MessagesStrings.Subject</th>
+					@if (allowDelete) {
+						<th></th>
+					}
+				</tr>
+			</thead>
+			<tbody data-bind="foreach: messages">
+				<tr data-bind="css: { info: selected }">
+					<td data-bind="click: $root.selectMessage"><span title="UTC" data-bind="text: created"></span></td>
+					@if (colFrom) {
+						<td data-bind="click: $root.selectMessage">@UserHelpers.IconAndNameKnockout("sender.iconUrl", "sender.name")</td>						
+					}
+					@if (colTo) {
+						<td data-bind="click: $root.selectMessage">@UserHelpers.IconAndNameKnockout("receiver.iconUrl", "receiver.name")</td>						
+					}
+					<td data-bind="click: $root.selectMessage">
+						<span data-bind="visible: highPriority" style="display: none;">
+							@Helpers.NotificationIcon();
+							&nbsp;
+						</span>
+						@if (showUnread) {
+						<span data-bind="visible: !read()" style="display: none;">
+							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
+						</span>
+						}
+						<span data-bind="text: subject"></span>
+					</td>
+					@if (allowDelete) {
+						<td><a data-bind="click: $parent.deleteMessage" href="#" class="btn btn-mini btn-danger">@ViewRes.SharedStrings.Delete</a></td>						
+					}
+				</tr>
+			</tbody>
+		</table>		
+	</div>
 }
 
 @Helpers.ValidationSymmaryPanel(R.MessagesStrings.MessageSendError)
 
-<div id="viewMessage" style="display:none;">
-
+<div data-bind="with: selectedMessage, visible: selectedMessage" id="viewMessage" style="display: none;">
+	@{ Html.RenderPartial("Partials/_UserMessageKnockout"); }
 </div>
 
 <div id="tabs">
 
 	<ul>
-		<li><a href="#receivedTab">@R.MessagesStrings.Received</a></li>
-		<li><a href="#sentTab">@R.MessagesStrings.Sent</a></li>
-		<li><a href="#notificationsTab">@R.MessagesStrings.Notifications</a></li>
+		<li>
+			<a href="#receivedTab">
+				@R.MessagesStrings.Received 
+				<span data-bind="visible: receivedMessages.unread() > 0, text: receivedMessages.unread" class="badge badge-small badge-important" style="display: none;">!</span>
+			</a>
+		</li>
+		<li>
+			<a href="#sentTab">
+				@R.MessagesStrings.Sent
+			</a>
+		</li>
+		<li>
+			<a href="#notificationsTab">
+				@R.MessagesStrings.Notifications
+				<span data-bind="visible: notifications.unread() > 0, text: notifications.unread" class="badge badge-small badge-important" style="display: none;">!</span>
+			</a>
+		</li>
 		<li><a href="#composeTab">@R.MessagesStrings.Compose</a></li>
 	</ul>
-
-	<div id="receivedTab">
-		<table class="table messages">
-			<thead>
-				<tr>
-					<th>@R.MessagesStrings.Date</th>
-					<th>@R.MessagesStrings.From</th>
-					<th>@R.MessagesStrings.Subject</th>
-				</tr>
-			</thead>
-			<tbody>
-			@foreach (var message in Model.ReceivedMessages) {
-				<tr id="@("viewFromMessage_" + message.Id)">
-					<td>@Helpers.UniversalTimeLabel(message.Created)</td>
-					<td>@UserHelpers.IconAndName(message.Sender)</td>
-					<td>
-						@if (message.HighPriority) {
-							@Helpers.NotificationIcon();
-							<text>&nbsp;</text>
-						}
-						@if (!message.Read) {
-							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
-						}
-
-						@message.Subject
-					</td>
-				</tr>
-			}
-			</tbody>
-		</table>
-	</div>
-
-	<div id="sentTab">
-		<table class="table messages">
-			<thead>
-				<tr>
-					<th>@R.MessagesStrings.Date</th>
-					<th>@R.MessagesStrings.To</th>
-					<th>@R.MessagesStrings.Subject</th>
-				</tr>
-			</thead>
-			<tbody>
-			@foreach (var message in Model.SentMessages) {
-				<tr id="@("viewToMessage_" + message.Id)">
-					<td>@message.Created</td>
-					<td>@UserHelpers.IconAndName(message.Receiver)</td>
-					<td>
-						<div>
-							@if (message.HighPriority) {
-								@Helpers.NotificationIcon();
-								<text>&nbsp;</text>
-							}
-
-							@message.Subject
-						</div>
-					</td>
-				</tr>
-			}
-			</tbody>
-		</table>
-	</div>
 	
-	<div id="notificationsTab">
-		<table class="table messages">
-			<thead>
-				<tr>
-					<th>@R.MessagesStrings.Date</th>
-					<th>@R.MessagesStrings.Subject</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-			@foreach (var message in Model.Notifications) {
-				<tr id="@("viewNotificationMessage_" + message.Id)">
-					<td>@Helpers.UniversalTimeLabel(message.Created)</td>
-					<td>
-						@if (message.HighPriority) {
-							@Helpers.NotificationIcon();
-							<text>&nbsp;</text>
-						}
-						@if (!message.Read) {
-							<img src="@Url.Content("~/Content/star5.png")" alt="unread" />
-						}
-
-						@message.Subject
-					</td>
-					<td><a href="#" class="btn btn-mini btn-danger js-deleteMessage" data-id="@message.Id">@ViewRes.SharedStrings.Delete</a></td>
-				</tr>
-			}
-			</tbody>
-		</table>
-	</div>
-	
+	@MessageFolderTab("receivedTab", "receivedMessages", true, false, true, false)
+	@MessageFolderTab("sentTab", "sentMessages", false, true, false, false)
+	@MessageFolderTab("notificationsTab", "notifications", false, false, true, true)
 
 	<div id="composeTab">
 		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage(Model.ReceiverName)); }
@@ -123,14 +98,22 @@
 
 </div>
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/User/Messages.js")"></script>
+@Scripts.Render("~/bundles/User/Messages")
 <script type="text/javascript">
 
 	$(document).ready(function () {
 		
 		var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
+		$.getJSON(urlMapper.mapRelative("/User/MessagesJson"), null, function (json) {
+			var viewModel = new vdb.viewModels.UserMessagesViewModel(urlMapper, json);			
+			ko.applyBindings(viewModel);
+		});
 
-		initPage(urlMapper);
+		$("#tabs").tabs();
+
+		$("#receiverName").autocomplete({
+			source: urlMapper.mapRelative("/User/FindByName")
+		});
 		
 	});
 
