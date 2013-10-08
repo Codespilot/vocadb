@@ -19,7 +19,7 @@ var vdb;
                 };
 
                 this.updateSongRating = function (songId, rating, callback) {
-                    $.post(_this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: cls.SongVoteRating[rating] }, callback);
+                    $.post(_this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: vdb.models.SongVoteRating[rating] }, callback);
                 };
             }
             return UserRepository;
