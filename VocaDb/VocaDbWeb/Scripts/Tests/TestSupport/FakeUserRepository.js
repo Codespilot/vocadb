@@ -14,7 +14,7 @@ var vdb;
                 __extends(FakeUserRepository, _super);
                 function FakeUserRepository() {
                     var _this = this;
-                    _super.call(this, "");
+                    _super.call(this, new vdb.UrlMapper(""));
 
                     this.updateSongRating = function (songId, rating, callback) {
                         _this.songId = songId;

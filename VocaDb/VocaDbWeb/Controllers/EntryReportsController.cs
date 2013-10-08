@@ -1,8 +1,13 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.Domain;
 using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Web.Controllers
 {
+
+	/// <summary>
+	/// Controller for <see cref="EntryReport"/>.
+	/// </summary>
     public class EntryReportsController : Controller
     {
 

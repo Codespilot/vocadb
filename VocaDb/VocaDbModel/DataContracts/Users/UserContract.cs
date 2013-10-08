@@ -58,9 +58,6 @@ namespace VocaDb.Model.DataContracts.Users {
 		public UserGroupId GroupId { get; set; }
 
 		[DataMember]
-		public bool HasUnreadMessages { get; set; }
-
-		[DataMember]
 		public string Language { get; set; }
 
 		[DataMember]

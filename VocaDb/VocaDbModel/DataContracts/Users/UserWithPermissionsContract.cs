@@ -45,6 +45,9 @@ namespace VocaDb.Model.DataContracts.Users {
 		[DataMember]
 		public bool Poisoned { get; set; }
 
+		[DataMember]
+		public int UnreadMessagesCount { get; set; }
+
 	}
 
 }

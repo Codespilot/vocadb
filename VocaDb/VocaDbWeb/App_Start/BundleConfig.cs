@@ -32,6 +32,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
 				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
+				"~/Scripts/Repositories/UserRepository.js",
 				"~/Scripts/ViewModels/TopBarViewModel.js"
 			));
 
@@ -88,8 +89,7 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include(
 				"~/Scripts/Models/SongVoteRating.js",
-				"~/Scripts/Repositories/SongRepository.js",
-				"~/Scripts/Repositories/UserRepository.js",
+				"~/Scripts/Repositories/SongRepository.js",				
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongDetailsViewModel.js",
 				"~/Scripts/Song/Details.js"
@@ -104,7 +104,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",
 				"~/Scripts/Models/SongVoteRating.js",
 				"~/Scripts/Repositories/SongRepository.js",
-				"~/Scripts/Repositories/UserRepository.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
 				"~/Scripts/KnockoutExtensions/Song/PVPreviewStatus.js",

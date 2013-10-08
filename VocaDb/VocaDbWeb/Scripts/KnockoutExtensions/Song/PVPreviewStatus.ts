@@ -14,8 +14,9 @@ interface KnockoutBindingHandlers {
 ko.bindingHandlers.pvPreviewStatus = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
+        var urlMapper = new vdb.UrlMapper(vdb.values.baseAddress);
         var songRepository = new vdb.repositories.SongRepository(vdb.values.baseAddress);
-        var userRepository = new vdb.repositories.UserRepository(vdb.values.baseAddress);
+        var userRepository = new vdb.repositories.UserRepository(urlMapper);
         var pvRows = $(element).find(".js-pvRow");
         var songsArray = valueAccessor();
 

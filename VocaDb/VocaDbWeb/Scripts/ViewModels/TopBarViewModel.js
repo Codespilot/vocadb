@@ -1,19 +1,35 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        var dc = vdb.dataContracts;
+
         var TopBarViewModel = (function () {
-            function TopBarViewModel(entryTypeTranslations, entryType, searchTerm, hasUnreadMessages, getNewReportsCount, entryReportRepository) {
+            function TopBarViewModel(entryTypeTranslations, entryType, searchTerm, unreadMessagesCount, getNewReportsCount, entryReportRepository, userRepository) {
                 var _this = this;
+                this.userRepository = userRepository;
+                this.ensureMessagesLoaded = function () {
+                    if (_this.unreadMessages.length > 0)
+                        return;
+
+                    _this.userRepository.getMessageSummaries(3, true, 40, function (messages) {
+                        _this.unreadMessages(messages.receivedMessages);
+                    });
+
+                    _this.isLoaded(true);
+                };
+                this.isLoaded = ko.observable(false);
                 this.reportCount = ko.observable(0);
+                this.unreadMessages = ko.observableArray();
                 this.entryType = ko.observable(entryType);
                 this.searchTerm = ko.observable(searchTerm);
+                this.unreadMessagesCount = ko.observable(unreadMessagesCount);
 
                 this.entryTypeName = ko.computed(function () {
                     return entryTypeTranslations[_this.entryType()];
                 });
 
                 this.hasNotifications = ko.computed(function () {
-                    return (hasUnreadMessages || _this.reportCount() > 0);
+                    return (_this.reportCount() > 0);
                 });
 
                 if (getNewReportsCount) {

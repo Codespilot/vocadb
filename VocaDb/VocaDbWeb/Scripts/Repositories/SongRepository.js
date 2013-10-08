@@ -1,7 +1,7 @@
 var vdb;
 (function (vdb) {
     (function (repositories) {
-        
+        var dc = vdb.dataContracts;
 
         var SongRepository = (function () {
             function SongRepository(baseUrl) {

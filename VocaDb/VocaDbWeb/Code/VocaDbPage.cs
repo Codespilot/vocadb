@@ -8,6 +8,10 @@ namespace VocaDb.Web.Code {
 			return val ? "true" : "false";
 		}
 
+		public string ToJS(int? val) {
+			return val.HasValue ? val.ToString() : "null";
+		}
+
 	}
 
 }

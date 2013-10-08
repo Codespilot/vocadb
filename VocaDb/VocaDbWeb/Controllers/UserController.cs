@@ -628,21 +628,21 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[Authorize]
-		public ActionResult Messages(string receiverName) {
+		public ActionResult Messages(int? messageId, string receiverName) {
 
 			var user = LoginManager.LoggedUser;
 			RestoreErrorsFromTempData();
-			var model = new Messages(user, receiverName);
+			var model = new Messages(user, messageId, receiverName);
 
 			return View(model);
 
 		}
 
 		[Authorize]
-		public ActionResult MessagesJson() {
+		public ActionResult MessagesJson(int maxCount = 200, bool unread = false, int iconSize = 20) {
 
-			var user = Service.GetUserWithMessages(LoggedUserId, new GravatarUserIconFactory(20));
-			return LowercaseJson(user.Messages);
+			var messages = Service.GetUserMessages(LoggedUserId, maxCount, unread, new GravatarUserIconFactory(iconSize));
+			return LowercaseJson(messages);
 
 		}
 
