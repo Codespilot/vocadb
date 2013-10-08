@@ -76,6 +76,7 @@ body .ui-widget button {
   padding: 0;
   padding-left: 15px;
   margin-top: 1px;
+  margin-left: 0;
 }
 .navbar .navbar-languageBtn {
   margin: 4px 0 0 0;
@@ -125,4 +126,8 @@ div:hover > ul.dropdown-menu-hover {
   padding-bottom: 0;
   padding-top: 0;
   margin-left: 2px;
+}
+.dropdown-menu > li > p {
+  padding: 3px 20px;
+  cursor: default;
 }

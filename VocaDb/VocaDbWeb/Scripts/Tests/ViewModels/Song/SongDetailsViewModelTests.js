@@ -2,9 +2,10 @@ var vdb;
 (function (vdb) {
     (function (tests) {
         (function (viewModels) {
+            var cls = vdb.models;
             var sup = vdb.tests.testSupport;
             var vm = vdb.viewModels;
-            
+            var dc = vdb.dataContracts;
 
             var rep;
             var userRep = new sup.FakeUserRepository();

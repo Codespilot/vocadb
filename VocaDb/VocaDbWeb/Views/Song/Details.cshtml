@@ -379,8 +379,9 @@
 			//var featuredCategoryNames = @ResourceHelpers.ToJSON(Resources.SongListFeaturedCategoryNames.ResourceManager, false);
 
 			var jsonModel = @Html.Raw(Model.Json);
+			var urlMapper = new vdb.UrlMapper(vdb.values.baseAddress);
 			var repo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
-			var userRepo = new vdb.repositories.UserRepository(vdb.values.baseAddress);
+			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 			var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, resources, jsonModel, vdb.ui.showThankYouForRatingMessage);
 			ko.applyBindings(viewModel);
 			viewModel.songListDialog.addedToList = function() { vdb.ui.showSuccessMessage(resources.addedToList); };

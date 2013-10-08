@@ -473,7 +473,8 @@ namespace VocaDb.Model.Service {
 
 				var contract = new UserWithPermissionsContract(user, LanguagePreference);
 
-				contract.HasUnreadMessages = (!skipMessages && session.Query<UserMessage>().Any(m => !m.Read && m.Receiver.Id == user.Id));
+				if (!skipMessages)
+					contract.UnreadMessagesCount = session.Query<UserMessage>().Count(m => !m.Read && m.Receiver.Id == user.Id);
 
 				return contract;
 
@@ -577,9 +578,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserWithMessagesContract GetUserWithMessages(int id, IUserIconFactory iconFactory) {
+		public UserMessagesContract GetUserMessages(int id, int maxCount, bool unread, IUserIconFactory iconFactory) {
 
-			return HandleQuery(session => new UserWithMessagesContract(session.Load<User>(id), iconFactory));
+			return HandleQuery(session => new UserMessagesContract(session.Load<User>(id), maxCount, unread, iconFactory));
 
 		}
 

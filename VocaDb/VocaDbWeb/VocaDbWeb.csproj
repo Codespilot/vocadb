@@ -855,6 +855,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TimeStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Shared\TopBarStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TopBarStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Shared\_LayoutStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1204,6 +1209,8 @@
       <DependentUpon>UserBaseContract.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\User\UserWithIconContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\User\UserMessageSummaryContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\User\UserMessagesContract.ts" />
     <Content Include="Scripts\DataContracts\WebLinkContract.js">
       <DependentUpon>WebLinkContract.ts</DependentUpon>
     </Content>
@@ -2826,6 +2833,12 @@
     <EmbeddedResource Include="Resources\Views\Shared\TimeStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TimeStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Shared\TopBarStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\TopBarStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TopBarStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\_LayoutStrings.ja.resx">

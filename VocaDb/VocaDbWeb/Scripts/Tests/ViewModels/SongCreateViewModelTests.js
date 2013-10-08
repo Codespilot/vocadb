@@ -3,7 +3,7 @@ var vdb;
     (function (tests) {
         (function (viewModels) {
             var vm = vdb.viewModels;
-            
+            var dc = vdb.dataContracts;
 
             var repository = new vdb.tests.testSupport.FakeSongRepository();
             var artistRepository = new vdb.tests.testSupport.FakeArtistRepository();

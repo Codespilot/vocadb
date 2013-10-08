@@ -3,10 +3,6 @@
 @using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.GlobalSearchBoxModel
 
-@{
-	var hasMessages = Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages;
-}
-
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left navbar-search", id = "globalSearchBox" })) {
 	
 	<input type="hidden" id="globalSearchObjectType" name="objectType" data-bind="value: entryType" />
@@ -46,14 +42,6 @@
 			} else {
 				<li>@Html.ActionLink(ViewRes.User.MySettingsStrings.Profile, "Profile", "User", new { id = Login.Manager.Name }, null)</li>
 				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
-				<li>
-					<a href="@Url.Action("Messages", "User")">
-						@ViewRes.User.DetailsStrings.Messages
-						@if (hasMessages) {
-							<span class="badge badge-small badge-important">!</span>
-						}
-					</a>
-				</li>
 				if (Login.CanManageEntryReports) {
 					<li>
 						<a href="@Url.Action("ViewEntryReports", "Admin")">
@@ -77,5 +65,48 @@
 			}
 		</ul>
 	</div>
-
+	
+	if (Login.Manager.IsLoggedIn) {
+	<div class="btn-group navbar-languageBar">
+		<a class="btn btn-info navbar-languageBtn dropdown-toggle" data-bind="click: ensureMessagesLoaded" data-toggle="dropdown" href="#">
+			<i class="icon-envelope"></i>
+			<span data-bind="visible: unreadMessagesCount, text: unreadMessagesCount" class="badge badge-small badge-important" style="display: none;"></span>
+			<span class="caret"></span>		
+		</a>
+	
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+			<li data-bind="visible: unreadMessagesCount() && unreadMessages().length == 0 && !isLoaded()">
+				<p>
+					@ViewRes.SharedStrings.Loading				
+				</p>
+			</li>
+			<!-- ko foreach: unreadMessages -->
+			<li>
+				<a href="#" data-bind="attr: { href: '@Url.Action("Messages", "User")' + '?messageId=' + id }">
+					<div class="media">
+						<div class="pull-left media-image-usermessage" data-bind="if: sender" style="width: 40px; height: 40px;">
+							@UserHelpers.ProfileIconKnockout("sender.iconUrl", 40)
+						</div>
+						<div class="media-body media-body-usermessage">
+							<span data-bind="text: sender ? sender.name + ' -' : ''"></span>
+							<small data-bind="text: createdFormatted"></small><br />
+							<span data-bind="text: subject"></span>							
+						</div>
+					</div>
+				</a>				
+			</li>
+			<!-- /ko -->
+			<li data-bind="visible: isLoaded() && unreadMessages().length == 0">
+				<p>
+					@ViewRes.TopBarStrings.NoUnreadMessages				
+				</p>
+			</li>
+			<li class="divider"></li>
+			<li>
+				<a href="@Url.Action("Messages", "User")">@ViewRes.TopBarStrings.ViewAllMessages</a>								
+			</li>
+		</ul>
+	</div>
+	}
+	 
 }

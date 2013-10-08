@@ -1,4 +1,5 @@
 /// <reference path="../../DataContracts/User/UserWithIconContract.ts" />
+/// <reference path="../../DataContracts/User/UserMessagesContract.ts" />
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../typings/underscore/underscore.d.ts" />
@@ -9,17 +10,19 @@ module vdb.viewModels {
 
 	export class UserMessagesViewModel {
 
-        constructor(private urlMapper: vdb.UrlMapper, data: UserWithMessagesContract) {
+        constructor(private urlMapper: vdb.UrlMapper, data: dc.UserMessagesContract, selectedMessageId?: number) {
 
-            this.notifications = new UserMessageFolderViewModel(urlMapper, data.notifications);
-            this.receivedMessages = new UserMessageFolderViewModel(urlMapper, data.receivedMessages);
+            this.notifications = new UserMessageFolderViewModel(urlMapper, _.filter(data.receivedMessages, m => m.sender == null));
+            this.receivedMessages = new UserMessageFolderViewModel(urlMapper, _.filter(data.receivedMessages, m => m.sender != null));
             this.sentMessages = new UserMessageFolderViewModel(urlMapper, data.sentMessages);
 
-            var n = this.notifications.unread();
+            if (selectedMessageId != null) {
+                this.selectMessageById(selectedMessageId);
+            }
 
         }
 
-        private getMessage = (message: UserMessageViewModel) => {
+        private getMessageBody = (message: UserMessageViewModel) => {
 
             var url = this.urlMapper.mapRelative("/User/MessageBody");
             $.get(url, { messageId: message.id }, (body: string) => {
@@ -53,9 +56,39 @@ module vdb.viewModels {
 
         selectedMessageBody: KnockoutObservable<string> = ko.observable("");
 
+        selectMessageById = (messageId: number) => {
+
+            var message = _.find(this.notifications.messages(), msg => msg.id == messageId);
+
+            if (message) {
+                var index = $('#tabs > ul > li > a').index($('#notificationsTab'));
+                $("#tabs").tabs("option", "active", index);
+                this.selectMessage(message);
+                return;
+            }
+
+            message = _.find(this.receivedMessages.messages(), msg => msg.id == messageId);
+
+            if (message) {
+                var index = $('#tabs > ul > li > a').index($('#receivedTab'));
+                $("#tabs").tabs("option", "active", index);
+                this.selectMessage(message);
+                return;
+            }
+
+            message = _.find(this.sentMessages.messages(), msg => msg.id == messageId);
+
+            if (message) {
+                var index = $('#tabs > ul > li > a').index($('#sentTab'));
+                $("#tabs").tabs("option", "active", index);
+                this.selectMessage(message);
+            }
+
+        };
+
 		selectMessage = (message: UserMessageViewModel) => {
 
-            this.getMessage(message);
+            this.getMessageBody(message);
 
             this.receivedMessages.selectMessage(message);
             this.sentMessages.selectMessage(message);
@@ -71,7 +104,7 @@ module vdb.viewModels {
 
     export class UserMessageFolderViewModel {
 
-        constructor(private urlMapper: vdb.UrlMapper, messages: UserMessageContract[]) {
+        constructor(private urlMapper: vdb.UrlMapper, messages: dc.UserMessageSummaryContract[]) {
 
             var messageViewModels = _.map(messages, msg => new UserMessageViewModel(msg));
             this.messages(messageViewModels);
@@ -104,7 +137,7 @@ module vdb.viewModels {
 
 	export class UserMessageViewModel {
 
-		constructor(data: UserMessageContract) {
+		constructor(data: dc.UserMessageSummaryContract) {
             this.created = data.createdFormatted;
             this.highPriority = data.highPriority;
             this.id = data.id;
@@ -125,32 +158,6 @@ module vdb.viewModels {
         receiver: vdb.dataContracts.UserWithIconContract;
 
 		selected = ko.observable(false);
-
-		sender: vdb.dataContracts.UserWithIconContract;
-
-		subject: string;
-
-	}
-
-    export class UserWithMessagesContract {
-
-        notifications: UserMessageContract[];
-        receivedMessages: UserMessageContract[];
-        sentMessages: UserMessageContract[];
-
-    }
-
-	export class UserMessageContract {
-
-        createdFormatted: string;
-
-        highPriority: boolean;
-
-		id: number;
-
-        read: boolean;
-
-        receiver: vdb.dataContracts.UserWithIconContract;
 
 		sender: vdb.dataContracts.UserWithIconContract;
 

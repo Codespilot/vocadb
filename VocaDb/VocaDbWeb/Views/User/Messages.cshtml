@@ -1,7 +1,7 @@
-﻿@using VocaDb.Web.Helpers
+﻿@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.User.Messages>
+@using VocaDb.Web.Helpers
 @using System.Web.Optimization
 @using R = ViewRes.User;
-@model VocaDb.Web.Models.User.Messages
 
 @{
 	ViewBag.Title = R.MessagesStrings.Messages;
@@ -69,18 +69,18 @@
 
 	<ul>
 		<li>
-			<a href="#receivedTab">
+			<a href="#receivedTabContent" id="receivedTab">
 				@R.MessagesStrings.Received 
 				<span data-bind="visible: receivedMessages.unread() > 0, text: receivedMessages.unread" class="badge badge-small badge-important" style="display: none;">!</span>
 			</a>
 		</li>
 		<li>
-			<a href="#sentTab">
+			<a href="#sentTabContent" id="sentTab">
 				@R.MessagesStrings.Sent
 			</a>
 		</li>
 		<li>
-			<a href="#notificationsTab">
+			<a href="#notificationsTabContent" id="notificationsTab">
 				@R.MessagesStrings.Notifications
 				<span data-bind="visible: notifications.unread() > 0, text: notifications.unread" class="badge badge-small badge-important" style="display: none;">!</span>
 			</a>
@@ -88,9 +88,9 @@
 		<li><a href="#composeTab">@R.MessagesStrings.Compose</a></li>
 	</ul>
 	
-	@MessageFolderTab("receivedTab", "receivedMessages", true, false, true, false)
-	@MessageFolderTab("sentTab", "sentMessages", false, true, false, false)
-	@MessageFolderTab("notificationsTab", "notifications", false, false, true, true)
+	@MessageFolderTab("receivedTabContent", "receivedMessages", true, false, true, false)
+	@MessageFolderTab("sentTabContent", "sentMessages", false, true, false, false)
+	@MessageFolderTab("notificationsTabContent", "notifications", false, false, true, true)
 
 	<div id="composeTab">
 		@{ Html.RenderPartial("ComposeMessage", new VocaDb.Web.Models.User.ComposeMessage(Model.ReceiverName)); }
@@ -102,14 +102,15 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		
-		var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
-		$.getJSON(urlMapper.mapRelative("/User/MessagesJson"), null, function (json) {
-			var viewModel = new vdb.viewModels.UserMessagesViewModel(urlMapper, json);			
-			ko.applyBindings(viewModel);
-		});
 
 		$("#tabs").tabs();
+		
+		var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
+		var repository = new vdb.repositories.UserRepository(urlMapper);		
+		repository.getMessageSummaries(200, false, 20, function (json) {
+			var viewModel = new vdb.viewModels.UserMessagesViewModel(urlMapper, json, @ToJS(Model.SelectedMessageId));
+			ko.applyBindings(viewModel);
+		});
 
 		$("#receiverName").autocomplete({
 			source: urlMapper.mapRelative("/User/FindByName")

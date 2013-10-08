@@ -5,6 +5,7 @@
 
 module vdb.tests.viewModels {
 
+    import cls = vdb.models;
     import sup = vdb.tests.testSupport;
     import vm = vdb.viewModels;
     import dc = vdb.dataContracts;

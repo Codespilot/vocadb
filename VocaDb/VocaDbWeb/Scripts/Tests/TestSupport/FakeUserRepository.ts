@@ -11,7 +11,7 @@ module vdb.tests.testSupport {
 
         constructor() {
 
-            super("");        
+            super(new vdb.UrlMapper(""));        
 
             this.updateSongRating = (songId: number, rating: cls.SongVoteRating, callback: Function) => {
 

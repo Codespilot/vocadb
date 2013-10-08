@@ -4,17 +4,17 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Users {
 
-	public class UserWithMessagesContract : UserContract {
+	/*public class UserWithMessagesContract : UserContract {
 
 		public UserWithMessagesContract() {
 			ReceiverName = string.Empty;
 		}
 
-		public UserWithMessagesContract(User user, IUserIconFactory iconFactory)
+		public UserWithMessagesContract(User user, bool unread, IUserIconFactory iconFactory)
 			: base(user) {
 
 			ReceiverName = string.Empty;
-			Messages = new UserMessagesContract(user, iconFactory);
+			Messages = new UserMessagesContract(user, 200, unread, iconFactory);
 
 		}
 
@@ -22,21 +22,23 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public string ReceiverName { get; set; }
 
-	}
+	}*/
 
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class UserMessagesContract {
 
 		public UserMessagesContract() {}
 
-		public UserMessagesContract(User user, IUserIconFactory iconFactory) {
-			Notifications = user.ReceivedMessages.Where(m => m.Sender == null).Select(m => new UserMessageContract(m, iconFactory)).ToArray();
-			ReceivedMessages = user.ReceivedMessages.Where(m => m.Sender != null).Select(m => new UserMessageContract(m, iconFactory)).ToArray();
-			SentMessages = user.SentMessages.Select(m => new UserMessageContract(m, iconFactory)).ToArray();		
-		}
+		public UserMessagesContract(User user, int maxCount, bool unread, IUserIconFactory iconFactory) {
 
-		[DataMember]
-		public UserMessageContract[] Notifications { get; set; }
+			//Notifications = user.ReceivedMessages.Where(m => m.Sender == null).Select(m => new UserMessageContract(m, iconFactory)).ToArray();
+			//ReceivedMessages = user.ReceivedMessages.Where(m => m.Sender != null).Select(m => new UserMessageContract(m, iconFactory)).ToArray();
+			ReceivedMessages = user.ReceivedMessages.Where(m => !unread || !m.Read).Take(maxCount).Select(m => new UserMessageContract(m, iconFactory)).ToArray();
+
+			if (!unread)
+				SentMessages = user.SentMessages.Take(maxCount).Select(m => new UserMessageContract(m, iconFactory)).ToArray();		
+
+		}
 
 		[DataMember]
 		public UserMessageContract[] ReceivedMessages { get; set; }

@@ -2,7 +2,7 @@ var vdb;
 (function (vdb) {
     (function (tests) {
         (function (viewModels) {
-            
+            var dc = vdb.dataContracts;
             var vm = vdb.viewModels;
 
             var categories = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];

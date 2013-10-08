@@ -113,12 +113,6 @@
 								</p>
 	   }
 				
-							@if (Login.Manager.IsLoggedIn && Login.Manager.LoggedUser.HasUnreadMessages) {
-								<div class="alert alert-info">
-									<i class="icon-envelope"></i>
-									<span>@Html.ActionLink("You have unread messages", "Messages", "User")</span>
-								</div>
-	                        }
 		
                             <div id="messages">
                                 <div class="wrapper">

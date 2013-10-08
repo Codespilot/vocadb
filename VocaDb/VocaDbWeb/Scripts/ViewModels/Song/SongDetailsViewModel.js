@@ -1,7 +1,7 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
+        var dc = vdb.dataContracts;
         var rep = vdb.repositories;
 
         var SongDetailsViewModel = (function () {
