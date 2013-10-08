@@ -23,7 +23,7 @@ module vdb.repositories {
         // songId: Id of the song to be updated.
         // rating: Song rating.
         // callback: Callback function to be executed when the operation is complete.
-        public updateSongRating: (songId: number, rating: cls.SongVoteRating, callback: Function) => void;
+        public updateSongRating: (songId: number, rating: vdb.models.SongVoteRating, callback: Function) => void;
 
         // Maps a relative URL to an absolute one.
         private mapUrl: (relative: string) => string;
@@ -36,7 +36,7 @@ module vdb.repositories {
 
             this.updateSongRating = (songId: number, rating: cls.SongVoteRating, callback: Function) => {
 
-                $.post(this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: cls.SongVoteRating[rating] }, callback);
+                $.post(this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: vdb.models.SongVoteRating[rating] }, callback);
 
             }
 
