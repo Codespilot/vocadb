@@ -2,11 +2,15 @@ var vdb;
 (function (vdb) {
     (function (repositories) {
         var cls = vdb.models;
-        var dc = vdb.dataContracts;
+        
 
         var UserRepository = (function () {
             function UserRepository(urlMapper) {
                 var _this = this;
+                this.getMessageBody = function (messageId, callback) {
+                    var url = _this.mapUrl("/MessageBody");
+                    $.get(url, { messageId: messageId }, callback);
+                };
                 this.getMessageSummaries = function (maxCount, unread, iconSize, callback) {
                     if (typeof maxCount === "undefined") { maxCount = 200; }
                     if (typeof unread === "undefined") { unread = false; }

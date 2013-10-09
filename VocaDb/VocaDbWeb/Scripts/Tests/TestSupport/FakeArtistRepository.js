@@ -8,7 +8,7 @@ var vdb;
 (function (vdb) {
     (function (tests) {
         (function (testSupport) {
-            var dc = vdb.dataContracts;
+            
 
             var FakeArtistRepository = (function (_super) {
                 __extends(FakeArtistRepository, _super);
