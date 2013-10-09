@@ -9,12 +9,23 @@ var vdb;
     (function (tests) {
         (function (testSupport) {
             var cls = vdb.models;
+            
 
             var FakeUserRepository = (function (_super) {
                 __extends(FakeUserRepository, _super);
                 function FakeUserRepository() {
                     var _this = this;
                     _super.call(this, new vdb.UrlMapper(""));
+
+                    this.getMessageBody = function (messageId, callback) {
+                        if (callback)
+                            callback(_this.messageBody);
+                    };
+
+                    this.getMessageSummaries = function (maxCount, unread, iconSize, callback) {
+                        if (callback)
+                            callback(_this.messageSummaries);
+                    };
 
                     this.updateSongRating = function (songId, rating, callback) {
                         _this.songId = songId;

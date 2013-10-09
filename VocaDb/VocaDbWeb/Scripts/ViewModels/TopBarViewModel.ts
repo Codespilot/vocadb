@@ -8,18 +8,21 @@ module vdb.viewModels {
 
     import dc = vdb.dataContracts;
 
+    // View model for the top bar.
     export class TopBarViewModel {
 
         public ensureMessagesLoaded = () => {
 
-            if (this.unreadMessages.length > 0)
+            if (this.isLoaded())
                 return;
 
             this.userRepository.getMessageSummaries(3, true, 40, (messages: dc.UserMessagesContract) => {
-                this.unreadMessages(messages.receivedMessages);
-            });
 
-            this.isLoaded(true);
+                this.unreadMessages(messages.receivedMessages);
+                this.unreadMessagesCount(this.unreadMessages().length);
+                this.isLoaded(true);
+
+            });
 
         };
 
@@ -39,6 +42,13 @@ module vdb.viewModels {
 
         public unreadMessagesCount: KnockoutObservable<number>;
 
+        // Initializes view model
+        // entryTypeTranslations: translations for entry types.
+        // entryType: currently selected entry type (for search).
+        // unreadMessagesCount: number of unread received messages (includes notifications).
+        // getNewReportsCount: whether to load new reports count (for mods only).
+        // entryReportRepository: entry reports repository.
+        // userRepository: user repository.
         constructor(entryTypeTranslations, entryType: string, searchTerm: string, unreadMessagesCount: number,
             getNewReportsCount: boolean, entryReportRepository: vdb.repositories.EntryReportRepository, private userRepository: vdb.repositories.UserRepository) {
             

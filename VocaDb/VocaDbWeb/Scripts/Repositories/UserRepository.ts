@@ -12,6 +12,13 @@ module vdb.repositories {
     // Corresponds to the UserController class.
     export class UserRepository {
 
+        public getMessageBody = (messageId: number, callback?: (result: string) => void) => {
+
+            var url = this.mapUrl("/MessageBody");
+            $.get(url, { messageId: messageId }, callback);
+
+        };
+
         public getMessageSummaries = (maxCount: number = 200, unread: boolean = false, iconSize: number = 40, callback?: (result: dc.UserMessagesContract) => void ) => {
 
             var url = this.mapUrl("/MessagesJson");

@@ -4,7 +4,7 @@ module vdb.dataContracts {
 
 	export interface UserWithIconContract extends UserBaseContract {
 
-		iconUrl: string;
+		iconUrl?: string;
 
 	}
 

@@ -1,5 +1,6 @@
 /// <reference path="../../DataContracts/User/UserWithIconContract.ts" />
 /// <reference path="../../DataContracts/User/UserMessagesContract.ts" />
+/// <reference path="../../Repositories/UserRepository.ts" />
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../typings/underscore/underscore.d.ts" />
@@ -10,7 +11,7 @@ module vdb.viewModels {
 
 	export class UserMessagesViewModel {
 
-        constructor(private urlMapper: vdb.UrlMapper, data: dc.UserMessagesContract, selectedMessageId?: number) {
+        constructor(private urlMapper: vdb.UrlMapper, private userRepository: vdb.repositories.UserRepository, data: dc.UserMessagesContract, selectedMessageId?: number) {
 
             this.notifications = new UserMessageFolderViewModel(urlMapper, _.filter(data.receivedMessages, m => m.sender == null));
             this.receivedMessages = new UserMessageFolderViewModel(urlMapper, _.filter(data.receivedMessages, m => m.sender != null));
@@ -21,15 +22,6 @@ module vdb.viewModels {
             }
 
         }
-
-        private getMessageBody = (message: UserMessageViewModel) => {
-
-            var url = this.urlMapper.mapRelative("/User/MessageBody");
-            $.get(url, { messageId: message.id }, (body: string) => {
-                this.selectedMessageBody(body);
-            });
-
-        };
 
         notifications: UserMessageFolderViewModel;
 
@@ -47,8 +39,7 @@ module vdb.viewModels {
 
 			$("#newMessageSubject").val("Re: " + msg.subject);
 
-			var index = $('#tabs ul').index($('#composeTab'));
-			$("#tabs").tabs("option", "active", index);
+            this.selectTab("#composeTab");
 
 		};
 
@@ -61,8 +52,7 @@ module vdb.viewModels {
             var message = _.find(this.notifications.messages(), msg => msg.id == messageId);
 
             if (message) {
-                var index = $('#tabs > ul > li > a').index($('#notificationsTab'));
-                $("#tabs").tabs("option", "active", index);
+                this.selectTab("#notificationsTab");
                 this.selectMessage(message);
                 return;
             }
@@ -70,8 +60,7 @@ module vdb.viewModels {
             message = _.find(this.receivedMessages.messages(), msg => msg.id == messageId);
 
             if (message) {
-                var index = $('#tabs > ul > li > a').index($('#receivedTab'));
-                $("#tabs").tabs("option", "active", index);
+                this.selectTab("#receivedTab");
                 this.selectMessage(message);
                 return;
             }
@@ -79,8 +68,7 @@ module vdb.viewModels {
             message = _.find(this.sentMessages.messages(), msg => msg.id == messageId);
 
             if (message) {
-                var index = $('#tabs > ul > li > a').index($('#sentTab'));
-                $("#tabs").tabs("option", "active", index);
+                this.selectTab("#sentTab");
                 this.selectMessage(message);
             }
 
@@ -88,7 +76,9 @@ module vdb.viewModels {
 
 		selectMessage = (message: UserMessageViewModel) => {
 
-            this.getMessageBody(message);
+            this.userRepository.getMessageBody(message.id, body => {
+                this.selectedMessageBody(body);
+            });
 
             this.receivedMessages.selectMessage(message);
             this.sentMessages.selectMessage(message);
@@ -98,7 +88,12 @@ module vdb.viewModels {
             message.read(true);
 			this.selectedMessage(message);
 
-		};
+        };
+
+        selectTab = (tabName: string) => {
+            var index = $('#tabs > ul > li > a').index($(tabName));
+            $("#tabs").tabs("option", "active", index);
+        };
 
     }
 

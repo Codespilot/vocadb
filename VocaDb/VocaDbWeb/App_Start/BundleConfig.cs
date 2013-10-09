@@ -17,6 +17,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/VocaDB").Include("~/Scripts/VocaDB.js"));
 
 			// Included on every page
+			// Generally the references go from viewmodels -> repositories -> models -> support classes
 			bundles.Add(new ScriptBundle("~/bundles/shared/common").Include(
 				"~/Scripts/Shared/NamesList.js",
 				"~/Scripts/Shared/GlobalSearchBox.js", 
@@ -30,6 +31,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/jqButton.js",
 				"~/Scripts/KnockoutExtensions/jqButtonset.js",
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
+				"~/Scripts/Models/SongVoteRating.js",				// Referred by UserRepository
 				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/Repositories/UserRepository.js",
@@ -87,8 +89,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/SongCreateViewModel.js"
 			));
 
-			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include(
-				"~/Scripts/Models/SongVoteRating.js",
+			bundles.Add(new ScriptBundle("~/bundles/Song/Details").Include(				
 				"~/Scripts/Repositories/SongRepository.js",				
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongDetailsViewModel.js",
@@ -101,8 +102,7 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Index").Include(
-				"~/Scripts/KnockoutExtensions/SlideVisible.js",
-				"~/Scripts/Models/SongVoteRating.js",
+				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/Repositories/SongRepository.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",

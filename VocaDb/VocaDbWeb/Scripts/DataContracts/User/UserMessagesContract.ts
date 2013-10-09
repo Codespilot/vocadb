@@ -2,10 +2,11 @@
 
 module vdb.dataContracts {
 
-    export class UserMessagesContract {
+    export interface UserMessagesContract {
 
-        //notifications: UserMessageContract[];
+        // Received messages, includes notifications.
         receivedMessages: UserMessageSummaryContract[];
+
         sentMessages: UserMessageSummaryContract[];
 
     }

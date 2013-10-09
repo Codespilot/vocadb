@@ -2,7 +2,7 @@
 
 module vdb.dataContracts {
 
-    export class UserMessageSummaryContract {
+    export interface UserMessageSummaryContract {
 
         createdFormatted: string;
 
@@ -14,7 +14,7 @@ module vdb.dataContracts {
 
         receiver: vdb.dataContracts.UserWithIconContract;
 
-        sender: vdb.dataContracts.UserWithIconContract;
+        sender?: vdb.dataContracts.UserWithIconContract;
 
         subject: string;
 

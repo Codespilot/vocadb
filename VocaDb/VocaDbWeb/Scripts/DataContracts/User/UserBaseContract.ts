@@ -3,7 +3,7 @@ module vdb.dataContracts {
 
     export interface UserBaseContract {
         
-        id: string;
+        id: number;
 
         name: string;
     
