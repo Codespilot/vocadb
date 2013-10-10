@@ -163,6 +163,7 @@
     <Compile Include="DataContracts\Tags\TagUsageWithVotesContract.cs" />
     <Compile Include="DataContracts\UploadedFileContract.cs" />
     <Compile Include="DataContracts\UseCases\DuplicateEntryResultContract.cs" />
+    <Compile Include="DataContracts\UseCases\EntryIdAndVersionContract.cs" />
     <Compile Include="DataContracts\UseCases\EntryWithTagUsagesContract.cs" />
     <Compile Include="DataContracts\Tags\TagCategoryContract.cs" />
     <Compile Include="DataContracts\Tags\TagContract.cs" />

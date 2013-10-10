@@ -17,7 +17,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// <summary>
 	/// Database queries related to <see cref="Song"/>.
 	/// </summary>
-	public class SongQueries : QueriesBase<ISongRepository> {
+	public class SongQueries : QueriesBase<ISongRepository, Song> {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
 
