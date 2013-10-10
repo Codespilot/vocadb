@@ -8,7 +8,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// <summary>
 	/// Queries for <see cref="UserMessage"/>.
 	/// </summary>
-	public class UserMessageQueries : QueriesBase<IUserMessageRepository> {
+	public class UserMessageQueries : QueriesBase<IUserMessageRepository, UserMessage> {
 
 		public UserMessageQueries(IUserMessageRepository repository, IUserPermissionContext permissionContext) 
 			: base(repository, permissionContext) {}

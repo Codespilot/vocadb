@@ -13,7 +13,6 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
-using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
@@ -24,7 +23,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// <summary>
 	/// Database queries related to <see cref="User"/>.
 	/// </summary>
-	public class UserQueries : QueriesBase<IUserRepository> {
+	public class UserQueries : QueriesBase<IUserRepository, User> {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly IEntryLinkFactory entryLinkFactory;

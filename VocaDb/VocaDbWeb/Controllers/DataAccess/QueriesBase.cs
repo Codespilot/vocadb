@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Activityfeed;
@@ -9,7 +10,7 @@ using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
-	public abstract class QueriesBase<TRepo> where TRepo : class {
+	public abstract class QueriesBase<TRepo, TEntity> where TRepo : class, IRepository<TEntity> {
 
 		protected readonly IUserPermissionContext permissionContext;
 		protected readonly TRepo repository;
@@ -69,6 +70,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			this.repository = repository;
 			this.permissionContext = permissionContext;
 
+		}
+
+		/// <summary>
+		/// Runs an unit of work that queries the database without saving anything. No explicit transaction will be opened.
+		/// </summary>
+		/// <typeparam name="TResult">Type of the result.</typeparam>
+		/// <param name="func">Function running the unit of work. Cannot be null.</param>
+		/// <param name="failMsg">Failure message. Cannot be null.</param>
+		/// <returns>Result. Can be null.</returns>
+		public TResult HandleQuery<TResult>(Func<IRepositoryContext<TEntity>, TResult> func, string failMsg = "Unexpected database error") {
+			return repository.HandleQuery(func, failMsg);
 		}
 
 	}

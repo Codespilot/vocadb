@@ -15,9 +15,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// <summary>
 	/// Database queries for <see cref="Tag"/>.
 	/// </summary>
-	public class TagQueries : QueriesBase<ITagRepository> {
+	public class TagQueries : QueriesBase<ITagRepository, Tag> {
 
-		private IEntryLinkFactory entryLinkFactory;
+		private readonly IEntryLinkFactory entryLinkFactory;
 
 		public TagQueries(ITagRepository repository, IUserPermissionContext permissionContext,
 		                  IEntryLinkFactory entryLinkFactory)

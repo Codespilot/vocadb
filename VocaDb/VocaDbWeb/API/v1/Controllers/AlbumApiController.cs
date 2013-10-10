@@ -2,20 +2,29 @@
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Web.Controllers;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Web.API.v1.Controllers {
 
 	public class AlbumApiController : Web.Controllers.ControllerBase {
 
 		private const int maxResults = 10;
+		private readonly AlbumQueries queries;
+		private readonly AlbumService service;
+
+		public AlbumApiController(AlbumService service, AlbumQueries queries) {
+			this.service = service;
+			this.queries = queries;
+		}
 
 		private AlbumService Service {
-			get { return Services.Albums; }
+			get { return service; }
 		}
 
 		public ActionResult Details(int id = invalidId, 
@@ -56,6 +65,20 @@ namespace VocaDb.Web.API.v1.Controllers {
 			var tracks = Service.GetAlbum(id, a => a.Songs.Select(s => new SongInAlbumContract(s, lang)).ToArray());
 
 			return Object(tracks, format);
+
+		}
+
+		public ActionResult Versions(DataFormat format = DataFormat.Auto) {
+
+			var versions = queries
+				.HandleQuery(ctx => ctx.Query()
+					.Where(a => !a.Deleted)
+					.Select(a => new { a.Id, a.Version })
+					.ToArray()
+					.Select(v => new EntryIdAndVersionContract(v.Id, v.Version))
+					.ToArray());
+
+			return Object(versions, format);
 
 		}
 
