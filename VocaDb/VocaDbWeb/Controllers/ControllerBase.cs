@@ -233,6 +233,15 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
+		protected ActionResult ObjectLowercase<T>(T obj, DataFormat format) where T : class {
+
+			if (format == DataFormat.Xml)
+				return Xml(obj);
+			else
+				return LowercaseJson(obj);
+
+		}
+
 		protected string RenderPartialViewToString(string viewName, object model) {
 
 			if (string.IsNullOrEmpty(viewName))

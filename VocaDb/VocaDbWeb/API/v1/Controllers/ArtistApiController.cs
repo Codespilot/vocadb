@@ -61,7 +61,7 @@ namespace VocaDb.Web.API.v1.Controllers {
 					.Select(v => new EntryIdAndVersionContract(v.Id, v.Version))
 					.ToArray());
 
-			return Object(versions, format);
+			return ObjectLowercase(versions, format);
 
 		}
 
