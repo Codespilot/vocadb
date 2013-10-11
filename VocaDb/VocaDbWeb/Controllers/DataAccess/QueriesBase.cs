@@ -5,6 +5,7 @@ using VocaDb.Model;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Repositories;
 
@@ -37,6 +38,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
 			var activityEntry = new AlbumActivityEntry(entry, editEvent, user);
+			AddActivityfeedEntry(ctx, activityEntry);
+
+		}
+
+		protected void AddEntryEditedEntry(IRepositoryContext<ActivityEntry> ctx, Song entry, EntryEditEvent editEvent) {
+
+			var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
+			var activityEntry = new SongActivityEntry(entry, editEvent, user);
 			AddActivityfeedEntry(ctx, activityEntry);
 
 		}

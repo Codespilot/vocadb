@@ -43,6 +43,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			Archive(ctx, album, new AlbumDiff(), reason, notes);
 
 		}
+
 		public AlbumContract Create(CreateAlbumContract contract) {
 
 			ParamIs.NotNull(() => contract);
@@ -74,6 +75,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				ctx.AuditLogger.AuditLog(string.Format("created album {0} ({1})", entryLinkFactory.CreateEntryLink(album), album.DiscType));
 				AddEntryEditedEntry(ctx.OfType<ActivityEntry>(), album, EntryEditEvent.Created);
+
+				new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), album, album.ArtistList, PermissionContext.LoggedUser, entryLinkFactory);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
 

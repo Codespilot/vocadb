@@ -110,6 +110,14 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual IEnumerable<Artist> ArtistList {
+			get {
+				return Artists
+					.Where(a => a.Artist != null)
+					.Select(a => a.Artist);
+			}
+		}
+
 		public virtual TranslatedStringWithDefault ArtistString {
 			get { return artistString; }
 			set {

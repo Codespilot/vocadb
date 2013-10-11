@@ -555,6 +555,7 @@
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
     <Compile Include="Service\Exceptions\InvalidEmailFormatException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
+    <Compile Include="Service\Helpers\FollowedArtistNotifier.cs" />
     <Compile Include="Service\Helpers\MarkdownHelper.cs" />
     <Compile Include="Service\Helpers\UserCommentNotifier.cs" />
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
@@ -652,6 +653,7 @@
     <Compile Include="Service\Security\CryptoHelper.cs" />
     <Compile Include="Service\TagFormatting\TagFormatter.cs" />
     <Compile Include="Service\TagService.cs" />
+    <Compile Include="Service\VideoServices\IPVParser.cs" />
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />
     <Compile Include="Service\VideoServices\NicoParser.cs" />

@@ -14,6 +14,9 @@ namespace VocaDb.Tests.TestSupport {
 			LoggedUser = loggedUser;
 		}
 
+		public FakePermissionContext(User user)
+			: this(new UserWithPermissionsContract(user, ContentLanguagePreference.Default)) {}
+
 		public bool HasPermission(PermissionToken token) {
 
 			if (token == PermissionToken.Nothing)

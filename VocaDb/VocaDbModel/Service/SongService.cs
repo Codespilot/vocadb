@@ -71,6 +71,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		private VideoUrlParseResult ParsePV(ISession session, string url) {
 
 			if (string.IsNullOrEmpty(url))
@@ -91,7 +92,7 @@ namespace VocaDb.Model.Service {
 
 			return pvResult;
 
-		}
+		}*/
 
 		private ArtistForSong RestoreArtistRef(Song song, Artist artist, ArchivedArtistForSongContract albumRef) {
 
@@ -177,7 +178,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongContract Create(CreateSongContract contract) {
+		/*public SongContract Create(CreateSongContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -227,7 +228,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public void Delete(int id) {
 

@@ -378,6 +378,7 @@ namespace VocaDb.Model.Domain.Users {
 
 			var link = new ArtistForUser(this, artist);
 			AllArtists.Add(link);
+			artist.Users.Add(link);
 
 			return link;
 
