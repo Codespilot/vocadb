@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Tests.TestData;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Code;
 using VocaDb.Web.Controllers.DataAccess;
@@ -34,16 +35,16 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestInitialize]
 		public void SetUp() {
 			
-			producer = new Artist(TranslatedString.Create("Tripshots")) { Id = 1, ArtistType = ArtistType.Producer };
-			vocalist = new Artist(TranslatedString.Create("Hatsune Miku")) { Id = 39, ArtistType = ArtistType.Vocaloid };
+			producer = CreateEntry.Producer();
+			vocalist = CreateEntry.Vocalist();
 
-			album = new Album(TranslatedString.Create("Synthesis")) { Id = 39 };
+			album = CreateEntry.Album();
 			repository = new FakeAlbumRepository(album);
-			user = new User { Name = "Miku", GroupId = UserGroupId.Regular, Id = 1 };
+			user = CreateEntry.User(1, "Miku");
 			repository.Add(user);
 			repository.Add(producer, vocalist);
 
-			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(user, ContentLanguagePreference.Default));
+			permissionContext = new FakePermissionContext(user);
 			var entryLinkFactory = new EntryAnchorFactory("http://test.vocadb.net");
 
 			newAlbumContract = new CreateAlbumContract {
@@ -69,7 +70,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(result, "result");
 			Assert.AreEqual("Another Dimensions", result.Name, "Name");
 
-			var album = repository.HandleQuery(q => q.Query().FirstOrDefault(a => a.DefaultName == "Another Dimensions"));
+			album = repository.HandleQuery(q => q.Query().FirstOrDefault(a => a.DefaultName == "Another Dimensions"));
 
 			Assert.IsNotNull(album, "Album was saved to repository");
 			Assert.AreEqual("Another Dimensions", album.DefaultName, "Name");

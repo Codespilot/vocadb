@@ -259,7 +259,7 @@ namespace VocaDb.Web.Controllers
 			var contract = model.ToContract();
 
 			try {
-				var song = Service.Create(contract);
+				var song = queries.Create(contract);
 				return RedirectToAction("Edit", new { id = song.Id });
 			} catch (VideoParseException x) {
 				ModelState.AddModelError("PVUrl", x.Message);

@@ -7,6 +7,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Repositories.NHibernate;
 using VocaDb.Model.Service.Security;
+using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Security;
@@ -33,6 +34,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<LoginManager>().As<IUserPermissionContext>();
 			builder.Register(x => new EntryAnchorFactory(AppConfig.HostAddress)).As<IEntryLinkFactory>();
 			builder.RegisterType<StopForumSpamClient>().As<IStopForumSpamClient>();
+			builder.RegisterType<PVParser>().As<IPVParser>();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();
