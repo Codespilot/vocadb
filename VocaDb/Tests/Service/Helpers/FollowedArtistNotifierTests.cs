@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -79,6 +80,19 @@ namespace VocaDb.Tests.Service.Helpers {
 
 			Assert.IsNotNull(notification, "Notification was created");
 			Assert.AreEqual("New album", notification.Subject, "Subject");
+
+		}
+
+		[TestMethod]	
+		public void TooManyUnreadMessages() {
+
+			for (int i = 0; i < 5; ++i)
+				repository.Add(new UserMessage(user, "New message!", i.ToString(), false));
+
+			CallSendNotifications(creator);
+
+			Assert.AreEqual(5, repository.List<UserMessage>().Count, "No notification created");
+			Assert.IsTrue(repository.List<UserMessage>().All(m => m.Subject == "New message!"), "No notification created");
 
 		}
 

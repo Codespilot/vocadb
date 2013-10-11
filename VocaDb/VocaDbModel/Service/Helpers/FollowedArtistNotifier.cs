@@ -37,6 +37,11 @@ namespace VocaDb.Model.Service.Helpers {
 
 			foreach (var user in users) {
 
+				var unreadMessagesCount = ctx.Query().Count(m => m.Receiver.Id == user.Id && !m.Read); // Indexed search
+
+				if (unreadMessagesCount > 3)
+					continue;
+
 				var followedArtists = coll.Where(a => a.Users.Any(u => u.User.Equals(user))).ToArray();
 
 				string title;
