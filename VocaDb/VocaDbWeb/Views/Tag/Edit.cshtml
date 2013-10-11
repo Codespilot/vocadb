@@ -58,7 +58,7 @@
 		@Html.LabelFor(m => m.Description)
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 4, @class = "span4" })<br />
+		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 6, @class = "span6", maxlength = 1000 })<br />
 		@Html.ValidationMessageFor(m => m.Description)
 	</div>
 	
