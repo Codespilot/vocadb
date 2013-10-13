@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Code;
@@ -131,7 +132,7 @@ namespace VocaDb.Web.Controllers
 			var onlyWithPVs = indexParams.onlyWithPVs ?? false;
 			var view = indexParams.view ?? SongViewMode.Details;
 
-			filter = SearchHelpers.GetMatchModeFromQuery(filter, ref matchMode);
+			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
 
 			var queryParams = new SongQueryParams(filter,
 				songType != SongType.Unspecified ? new[] { songType } : new SongType[] { },

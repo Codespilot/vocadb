@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using NHibernate;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain;
@@ -93,18 +91,18 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<Tag> AddNameFilter(IQueryable<Tag> criteria, string name, NameMatchMode matchMode) {
+		public static IQueryable<Tag> AddTagNameFilter(IQueryable<Tag> query, string name, NameMatchMode matchMode) {
 
-			if (ExactMatch(name, matchMode)) {
+			switch (GetMatchMode(name, matchMode)) {
+				case NameMatchMode.Exact:
+					return query.Where(m => m.Name == name);
 
-				return criteria.Where(t => t.Name == name);
+				case NameMatchMode.StartsWith:
+					return query.Where(m => m.Name.StartsWith(name));
 
-			} else {
-
-				return criteria.Where(t => t.Name.Contains(name));
-
+				default:
+					return query.Where(m => m.Name.Contains(name));
 			}
-
 
 		}
 
@@ -159,6 +157,41 @@ namespace VocaDb.Model.Service.Helpers {
 				return defaultMode;
 
 			return NameMatchMode.Words;
+
+		}
+
+		/// <summary>
+		/// Gets match mode and query for search.
+		/// 
+		/// Handles short query terms and wildcard searches ("*" in the end).
+		/// Will only be applied if the current match mode is Auto.
+		/// </summary>
+		/// <param name="query">Text query. Can be null or empty.</param>
+		/// <param name="matchMode">Current match mode. Will be set if something else besides Auto.</param>
+		/// <param name="defaultMode">Default match mode to be used for normal queries.</param>
+		/// <returns>Text query. Can be null or empty, if original query is.</returns>
+		public static string GetMatchModeAndQueryForSearch(string query, ref NameMatchMode matchMode, NameMatchMode defaultMode = NameMatchMode.Words) {
+
+			if (string.IsNullOrEmpty(query))
+				return query;
+
+			query = query.Trim();
+
+			if (matchMode != NameMatchMode.Auto)
+				return query;
+
+			if (query.Length <= 2) {
+				matchMode = NameMatchMode.StartsWith;
+				return query;
+			}
+
+			if (query.Length > 1 && query.EndsWith("*")) {
+				matchMode = NameMatchMode.StartsWith;
+				return query.Substring(0, query.Length - 1);
+			}
+
+			matchMode = defaultMode;
+			return query;
 
 		}
 

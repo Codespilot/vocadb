@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
-using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Service.Helpers {
 

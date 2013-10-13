@@ -557,6 +557,7 @@
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
     <Compile Include="Service\Helpers\FollowedArtistNotifier.cs" />
     <Compile Include="Service\Helpers\MarkdownHelper.cs" />
+    <Compile Include="Service\Helpers\TagQueryableExtender.cs" />
     <Compile Include="Service\Helpers\UserCommentNotifier.cs" />
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
