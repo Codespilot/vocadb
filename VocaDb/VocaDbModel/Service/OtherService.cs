@@ -196,20 +196,21 @@ namespace VocaDb.Model.Service {
 
 		public string[] FindNames(string query) {
 
+			const int maxResults = 10;
+
 			if (string.IsNullOrWhiteSpace(query))
 				return new string[] {};
 
-			query = query.Trim();
-			const int maxResults = 10;
+			var matchMode = NameMatchMode.Auto;
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref matchMode);
 
 			var canonized = ArtistHelper.GetCanonizedName(query);
-			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto);
 			var words = (matchMode == NameMatchMode.Words ? FindHelpers.GetQueryWords(query) : null);
 
 			return HandleQuery(session => {
 
 				var artistNames = session.Query<ArtistName>()
-					.FilterByArtistName(query, canonized, NameMatchMode.Auto, null)	// Can't use the existing words collection here as they are noncanonized
+					.FilterByArtistName(query, canonized, matchMode, null)	// Can't use the existing words collection here as they are noncanonized
 					.Where(a => !a.Artist.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -218,7 +219,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var albumNames = session.Query<AlbumName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto, words)
+					.AddEntryNameFilter(query, matchMode, words)
 					.Where(a => !a.Album.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -227,7 +228,7 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				var songNames = session.Query<SongName>()
-					.AddEntryNameFilter(query, NameMatchMode.Auto, words)
+					.AddEntryNameFilter(query, matchMode, words)
 					.Where(a => !a.Song.Deleted)
 					.Select(n => n.Value)
 					.OrderBy(n => n)
@@ -237,9 +238,8 @@ namespace VocaDb.Model.Service {
 
 				var tagStr = query.Replace(' ', '_');
 
-				var tagNames =
-					session.Query<Tag>()
-					.Where(t => t.Name.Contains(tagStr))
+				var tagNames = session.Query<Tag>()
+					.AddTagNameFilter(tagStr, matchMode)
 					.OrderBy(t => t.Name)
 					.Select(t => t.Name)
 					.Take(maxResults)
@@ -265,10 +265,10 @@ namespace VocaDb.Model.Service {
 			if (string.IsNullOrWhiteSpace(query))
 				return new AllEntriesSearchResult();
 
-			query = query.Trim();
+			var matchMode = NameMatchMode.Auto;
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref matchMode);
 
 			var canonized = ArtistHelper.GetCanonizedName(query);
-			var matchMode = FindHelpers.GetMatchMode(query, NameMatchMode.Auto, NameMatchMode.StartsWith);
 			var words = (matchMode == NameMatchMode.Words ? FindHelpers.GetQueryWords(query) : null);
 
 			return HandleQuery(session => {
@@ -332,16 +332,14 @@ namespace VocaDb.Model.Service {
 
 				var tagStr = query.Replace(' ', '_');
 
-				var tags =
-					session.Query<Tag>()
-					.Where(t => t.Name.Contains(tagStr))
+				var tags = session.Query<Tag>()
+					.AddTagNameFilter(tagStr, matchMode)
 					.OrderBy(t => t.Name)
 					.Take(maxResults)
 					.ToArray();
 
-				var tagCount = (getTotalCount ?
-					session.Query<Tag>()
-					.Where(t => t.Name.Contains(query))
+				var tagCount = (getTotalCount ? session.Query<Tag>()
+					.AddTagNameFilter(tagStr, matchMode)
 					.Distinct()
 					.Count()
 					: 0);

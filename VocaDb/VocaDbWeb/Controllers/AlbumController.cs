@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.TagFormatting;
 using VocaDb.Web.Controllers.DataAccess;
@@ -99,7 +100,7 @@ namespace VocaDb.Web.Controllers
 			var sortRule = routeParams.sort ?? AlbumSortRule.Name;
 			var viewMode = routeParams.view ?? EntryViewMode.Details;
 
-			filter = SearchHelpers.GetMatchModeFromQuery(filter, ref matchMode);
+			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
 
 			var queryParams = new AlbumQueryParams(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
 				true, moveExactToTop: false, sortRule: sortRule, nameMatchMode: matchMode);
