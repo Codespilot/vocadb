@@ -99,8 +99,7 @@ namespace VocaDb.Web.Controllers
 			var sortRule = routeParams.sort ?? AlbumSortRule.Name;
 			var viewMode = routeParams.view ?? EntryViewMode.Details;
 
-			if (matchMode == NameMatchMode.Auto && filter != null && filter.Length <= 2)
-				matchMode = NameMatchMode.StartsWith;
+			filter = SearchHelpers.GetMatchModeFromQuery(filter, ref matchMode);
 
 			var queryParams = new AlbumQueryParams(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
 				true, moveExactToTop: false, sortRule: sortRule, nameMatchMode: matchMode);

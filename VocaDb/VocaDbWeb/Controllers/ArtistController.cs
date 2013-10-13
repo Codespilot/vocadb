@@ -152,8 +152,7 @@ namespace VocaDb.Web.Controllers
 			var matchMode = routeParams.matchMode ?? NameMatchMode.Auto;
 			var sortRule = routeParams.sort ?? ArtistSortRule.Name;
 
-			if (matchMode == NameMatchMode.Auto && filter != null && filter.Length <= 2)
-				matchMode = NameMatchMode.StartsWith;
+			filter = SearchHelpers.GetMatchModeFromQuery(filter, ref matchMode);
 
 			var queryParams = new ArtistQueryParams(filter,
 				artistType != ArtistType.Unknown ? new[] { artistType } : new ArtistType[] { },

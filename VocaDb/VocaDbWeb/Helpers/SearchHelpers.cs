@@ -1,13 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using VocaDb.Model;
+﻿using System.Web.Mvc;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Helpers {
+
 	public static class SearchHelpers {
+
+		public static string GetMatchModeFromQuery(string query, ref NameMatchMode matchMode) {
+
+			if (matchMode == NameMatchMode.Auto && query != null && query.Length <= 2) {
+				matchMode = NameMatchMode.StartsWith;
+				return query;
+			}
+
+			if (matchMode == NameMatchMode.Auto && query != null && query.Length > 1 && query.EndsWith("*")) {
+				matchMode = NameMatchMode.StartsWith;
+				return query.Substring(0, query.Length - 1);
+			}
+
+			return query;
+
+		}
 
 		public static EntryType GlobalSearchObjectType<TModel>(this HtmlHelper<TModel> htmlHelper) {
 
@@ -28,5 +41,6 @@ namespace VocaDb.Web.Helpers {
 			return string.Empty;
 
 		}
+
 	}
 }

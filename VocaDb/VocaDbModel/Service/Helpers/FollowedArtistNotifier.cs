@@ -9,6 +9,9 @@ namespace VocaDb.Model.Service.Helpers {
 
 	/// <summary>
 	/// Sends notifications to users based on artists they're following.
+	/// 
+	/// Notifications will not be sent to users with too many unread messages in their inbox.
+	/// This is to prevent flooding users with too many notifications.
 	/// </summary>
 	public class FollowedArtistNotifier {
 
