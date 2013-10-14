@@ -129,6 +129,9 @@
   <data name="AddSong" xml:space="preserve">
     <value>Submit a song</value>
   </data>
+  <data name="Blog" xml:space="preserve">
+    <value>Blog</value>
+  </data>
   <data name="FollowUser" xml:space="preserve">
     <value>Follow user</value>
   </data>
