@@ -71,7 +71,7 @@
 					@UserHelpers.UserIconLink(entry.Author)
 					<span> @HelperRes.ActivityFeedHelperStrings.At </span>
 	}
-				@entry.CreateDate
+				@Helpers.UniversalTimeLabel(entry.CreateDate)
 
 				@if (Login.CanEditNews) {
 					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", "NewsEntry", new { id = entry.Id }, null)
