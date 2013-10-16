@@ -624,6 +624,10 @@ div.item {
 	overflow: hidden;
 }
 
+.news-title-author {
+	white-space: nowrap;
+}
+
 /* Label or span with a helpful tooltip */
 .helpTip {
 	border-bottom: 1px dashed;
