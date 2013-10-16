@@ -167,9 +167,9 @@ namespace VocaDb.Model.Service.Helpers {
 		/// Will only be applied if the current match mode is Auto.
 		/// </summary>
 		/// <param name="query">Text query. Can be null or empty.</param>
-		/// <param name="matchMode">Current match mode. Will be set if something else besides Auto.</param>
+		/// <param name="matchMode">Current match mode. If Auto, will be set if something else besides Auto.</param>
 		/// <param name="defaultMode">Default match mode to be used for normal queries.</param>
-		/// <returns>Text query. Can be null or empty, if original query is.</returns>
+		/// <returns>Text query. Wildcard characters are removed. Can be null or empty, if original query is.</returns>
 		public static string GetMatchModeAndQueryForSearch(string query, ref NameMatchMode matchMode, NameMatchMode defaultMode = NameMatchMode.Words) {
 
 			if (string.IsNullOrEmpty(query))

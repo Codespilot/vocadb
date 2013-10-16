@@ -145,7 +145,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJson(string term) {
 
-			var albums = Service.Find(term, DiscType.Unknown, 0, 20, false, false, moveExactToTop: true);
+			var matchMode = NameMatchMode.Auto;
+			term = FindHelpers.GetMatchModeAndQueryForSearch(term, ref matchMode);
+			var albums = Service.Find(term, DiscType.Unknown, 0, 20, false, false, moveExactToTop: true, nameMatchMode: matchMode);
 
 			return Json(albums);
 

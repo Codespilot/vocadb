@@ -173,6 +173,9 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult FindJsonByName(string term, string songTypes, bool alwaysExact = false, int[] ignoredIds = null) {
 
+			var matchMode = (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto);
+			term = FindHelpers.GetMatchModeAndQueryForSearch(term, ref matchMode);
+
 			var typeVals = !string.IsNullOrEmpty(songTypes)
 				? songTypes.Split(',').Select(EnumVal<SongType>.Parse).ToArray()
 				: new SongType[] { };
@@ -181,7 +184,7 @@ namespace VocaDb.Web.Controllers
 				draftsOnly: false, 
 				getTotalCount: false, 
 				onlyByName: true, 
-				nameMatchMode: (alwaysExact ? NameMatchMode.Exact : NameMatchMode.Auto), 
+				nameMatchMode: matchMode, 
 				sortRule: SongSortRule.Name, 
 				ignoredIds: ignoredIds,
 				moveExactToTop: true));
