@@ -81,7 +81,10 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Artist/Edit.js"
 			));
 
-			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include("~/Scripts/Home/Index.js"));
+			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include(
+				"~/Scripts/ViewModels/NewsListViewModel.js",
+				"~/Scripts/Home/Index.js"
+			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
 				"~/Scripts/Repositories/ArtistRepository.js",

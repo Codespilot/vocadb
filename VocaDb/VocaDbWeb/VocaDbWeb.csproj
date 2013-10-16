@@ -1729,6 +1729,7 @@
     <Content Include="Scripts\ViewModels\ArtistForAlbumEditViewModel.js">
       <DependentUpon>ArtistForAlbumEditViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\NewsListViewModel.ts" />
     <Content Include="Scripts\ViewModels\SongCreateViewModel.js">
       <DependentUpon>SongCreateViewModel.ts</DependentUpon>
     </Content>
@@ -2202,6 +2203,7 @@
     <Content Include="Views\Shared\Partials\_LeftMenu.cshtml" />
     <Content Include="Views\Shared\Partials\_LayoutScripts.cshtml" />
     <Content Include="Views\User\Partials\_UserMessageKnockout.cshtml" />
+    <Content Include="Views\Home\Partials\_NewsItems.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

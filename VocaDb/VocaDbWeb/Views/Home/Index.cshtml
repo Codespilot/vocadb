@@ -51,11 +51,7 @@
     @AlbumHelpers.AlbumThumbs(Model.TopAlbums)    
 </div>
 
-<h4 class="withMargin">@ViewRes.Home.IndexStrings.News (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewAll, "Index", "NewsEntry"))</h4>
-
-@foreach (var entry in Model.NewsEntries) {
-	@ActivityfeedHelpers.NewsEntry(entry);
-}
+@{ Html.RenderPartial("Partials/_NewsItems"); }
 
 <div class="row-fluid">
     <div class="span8">
@@ -91,4 +87,12 @@
 	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tools.min.js")"></script>
 	@Scripts.Render("~/bundles/Home/Index")
 
+    <script type="text/javascript">
+    	$(document).ready(function () {
+
+    		var viewModel = new vdb.viewModels.NewsListViewModel();
+    		ko.applyBindings(viewModel);
+
+    	});
+    </script>
 }
