@@ -254,6 +254,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 					ctx.OfType<UserReport>().Save(report);
 
+					user.GroupId = UserGroupId.Limited;
+					ctx.Update(user);
+
 				}
 
 				ctx.AuditLogger.AuditLog(string.Format("registered from {0} in {1} (SFS check {2}).", MakeGeoIpToolLink(hostname), timeSpan, sfsStr), user);

@@ -204,6 +204,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(report, "User was reported");
 			Assert.AreEqual(UserReportType.MaliciousIP, report.ReportType, "Report type");
 			Assert.AreEqual(defaultHostname, report.Hostname, "Hostname");
+
+			var user = GetUserFromRepo(result.Name);
+			Assert.AreEqual(UserGroupId.Limited, user.GroupId, "GroupId");
 		
 		}
 
