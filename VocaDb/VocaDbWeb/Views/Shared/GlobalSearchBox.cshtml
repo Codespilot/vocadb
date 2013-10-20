@@ -75,7 +75,7 @@
 		</a>
 	
 		<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
-			<li data-bind="visible: unreadMessagesCount() && unreadMessages().length == 0 && !isLoaded()">
+			<li data-bind="visible: unreadMessagesCount() > 0 && !isLoaded()">
 				<p>
 					@ViewRes.SharedStrings.Loading				
 				</p>

@@ -690,6 +690,7 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		[Obsolete("Handled by update")]
 		public void RemoveAlbumFromUser(int albumId) {
 			
 			Service.RemoveAlbumFromUser(LoggedUserId, albumId);
