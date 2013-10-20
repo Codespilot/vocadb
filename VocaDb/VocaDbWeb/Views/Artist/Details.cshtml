@@ -252,8 +252,9 @@
 	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 	<script type="text/javascript">
 
-		$(document).ready(function() { 
-			initPage(@Model.Id, "@ViewRes.SharedStrings.Save", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+        $(document).ready(function() { 
+            var urlMapper = new vdb.UrlMapper("@Url.Content("~/")");		    
+			initPage(@Model.Id, "@ViewRes.SharedStrings.Save", urlMapper);
 		});
 
 	</script>

@@ -1,5 +1,5 @@
 ﻿
-function initDialog() {
+function initDialog(urlMapper) {
 
 	function addTag(tagName) {
 
@@ -14,7 +14,7 @@ function initDialog() {
 			return;
 		}
 
-		$.post("../../Tag/Create", { name: tagName }, function (response) {
+		$.post(urlMapper.mapRelative("/Tag/Create"), { name: tagName }, function (response) {
 
 			if (!response.Successful) {
 				alert(response.Message);
@@ -30,7 +30,7 @@ function initDialog() {
 	$("input.tagSelection").button();
 
 	$("input#newTagName").autocomplete({
-		source: "../../Tag/Find",
+		source: urlMapper.mapRelative("/Tag/Find"),
 		select: function (event, ui) { addTag(ui.item.label); return false; }
 	});
 
@@ -43,29 +43,7 @@ function initDialog() {
 
 }
 
-function saveTagSelections() {
-
-	var tagNames = new Array();
-
-	$("input.tagSelection:checked").each(function () {
-		var name = $(this).parent().find("input.tagName").val();
-		tagNames.push(name);
-	});
-
-	var tagNamesStr = tagNames.join(",");
-	var artistId = $("#editTagsArtistId").val();
-
-	$.post("../../Artist/TagSelections", { artistId: artistId, tagNames: tagNamesStr }, function (content) {
-
-		$("#tagList").html(content);
-
-	});
-
-	$("#editTagsPopup").dialog("close");
-
-}
-
-function initPage(artistId, saveStr, hostAddress) {
+function initPage(artistId, saveStr, urlMapper) {
 
 	$("#addToUserLink").button({ disabled: $("#addToUserLink").hasClass("disabled"), icons: { primary: 'ui-icon-heart'} });
 	$("#removeFromUserLink").button({ disabled: $("#removeFromUserLink").hasClass("disabled"), icons: { primary: 'ui-icon-close'} });
@@ -86,7 +64,7 @@ function initPage(artistId, saveStr, hostAddress) {
 
 			var index = $('#tabs ul li').index(ui.tab);
 			if (index == 1)
-				tabLoaded("../../Artist", artistId, event, ui);
+				tabLoaded(urlMapper.mapRelative("/Artist"), artistId, event, ui);
 
 			vdb.functions.disableTabReload(ui.tab);
 			$("#tabs").tabs("option", "spinner", 'Loading...');
@@ -96,7 +74,7 @@ function initPage(artistId, saveStr, hostAddress) {
 
 	$("#addToUserLink").click(function () {
 
-		$.post("../../User/AddArtistForUser", { artistId: artistId }, function (result) {
+		$.post(urlMapper.mapRelative("/User/AddArtistForUser"), { artistId: artistId }, function (result) {
 
 			$("#removeFromUserLink").show();
 			$("#addToUserLink").hide();
@@ -109,7 +87,7 @@ function initPage(artistId, saveStr, hostAddress) {
 
 	$("#removeFromUserLink").click(function () {
 
-		$.post("../../User/RemoveArtistFromUser", { artistId: artistId }, function (result) {
+		$.post(urlMapper.mapRelative("/User/RemoveArtistFromUser"), { artistId: artistId }, function (result) {
 
 			$("#addToUserLink").show();
 			$("#removeFromUserLink").hide();
@@ -120,16 +98,16 @@ function initPage(artistId, saveStr, hostAddress) {
 
 	});
 
-	initReportEntryPopup(saveStr, hostAddress + "/Artist/CreateReport", { artistId: artistId });
+	initReportEntryPopup(saveStr, urlMapper.mapRelative("/Artist/CreateReport"), { artistId: artistId });
 
 	$("#editTags").click(function () {
 
-		$.get("../../Artist/TagSelections", { artistId: artistId }, function (content) {
+		$.get(urlMapper.mapRelative("/Artist/TagSelections"), { artistId: artistId }, function (content) {
 
 			$("#editTagsArtistId").val(artistId);
 			$("#editTagsContent").html(content);
 
-			initDialog();
+			initDialog(urlMapper);
 
 			$("#editTagsPopup").dialog("open");
 
@@ -142,5 +120,27 @@ function initPage(artistId, saveStr, hostAddress) {
 	$("#newAlbums img").vdbAlbumToolTip();
 	$("#topAlbums img").vdbAlbumToolTip();
 	$("#groups a").vdbArtistToolTip();
+
+	function saveTagSelections() {
+
+		var tagNames = new Array();
+
+		$("input.tagSelection:checked").each(function () {
+			var name = $(this).parent().find("input.tagName").val();
+			tagNames.push(name);
+		});
+
+		var tagNamesStr = tagNames.join(",");
+		var tagsArtistId = $("#editTagsArtistId").val();
+
+		$.post(urlMapper.mapRelative("/Artist/TagSelections"), { artistId: tagsArtistId, tagNames: tagNamesStr }, function (content) {
+
+			$("#tagList").html(content);
+
+		});
+
+		$("#editTagsPopup").dialog("close");
+
+	}
 
 }

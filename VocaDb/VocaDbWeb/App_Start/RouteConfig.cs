@@ -21,6 +21,9 @@ namespace VocaDb.Web.App_Start {
 				new { controller = "Error", action = "NotFound" }, new { id = new IdNotNumberConstraint() });
 
 			// Action routes
+			routes.MapRoute("Album", "Al/{id}", new { controller = "Album", action = "Details" }, new { id = "[0-9]+" });
+			routes.MapRoute("Artist", "Ar/{id}", new { controller = "Artist", action = "Details" }, new { id = "[0-9]+" });
+
 			// Song shortcut, for example /S/393939
 			routes.MapRoute("Song", "S/{id}", new { controller = "Song", action = "Details" }, new { id = "[0-9]+" });
 

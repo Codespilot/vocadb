@@ -363,6 +363,7 @@
 		
 		$(document).ready(function() {
 
+		    var urlMapper = new vdb.UrlMapper("@Url.Content("~/")");
 			vdb.resources.albumDetails = @Html.Raw(JsonHelpers.Serialize(new { download = AjaxRes.AlbumStrings.Download }));
 
 			var formatString = '@(Login.Manager.IsLoggedIn ? Login.User.AlbumFormatString : "")';
@@ -370,7 +371,7 @@
 			ko.applyBindings(viewModel);
 
 			initPage(@Model.Id, @Model.CollectionRating, 
-				"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+				"@ViewRes.SharedStrings.Save", "@Html.Raw(ViewRes.EntryDetailsStrings.ConfirmDeleteComment)", urlMapper);
 			
 		});
 		

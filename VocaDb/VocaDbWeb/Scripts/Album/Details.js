@@ -1,5 +1,5 @@
 ﻿
-function initDialog() {
+function initDialog(urlMapper) {
 
 	function addTag(tagName) {
 
@@ -14,7 +14,7 @@ function initDialog() {
 			return;
 		}
 
-		$.post("../../Tag/Create", { name: tagName }, function (response) {
+		$.post(urlMapper.mapRelative("/Tag/Create"), { name: tagName }, function (response) {
 
 			if (!response.Successful) {
 				alert(response.Message);
@@ -30,7 +30,7 @@ function initDialog() {
 	$("input.tagSelection").button();
 
 	$("input#newTagName").autocomplete({
-		source: "../../Tag/Find",
+		source: urlMapper.mapRelative("/Tag/Find"),
 		select: function (event, ui) { addTag(ui.item.label); return false; }
 	});
 
@@ -40,28 +40,6 @@ function initDialog() {
 		return false;
 
 	});
-
-}
-
-function saveTagSelections() {
-
-	var tagNames = new Array();
-
-	$("input.tagSelection:checked").each(function () {
-		var name = $(this).parent().find("input.tagName").val();
-		tagNames.push(name);
-	});
-
-	var tagNamesStr = tagNames.join(",");
-	var albumId = $("#editTagsAlbumId").val();
-
-	$.post("../../Album/TagSelections", { albumId: albumId, tagNames: tagNamesStr }, function (content) {
-
-		$("#tagList").html(content);
-
-	});
-
-	$("#editTagsPopup").dialog("close");
 
 }
 
@@ -80,7 +58,7 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 		$("#newCommentMessage").val("");
 
-		$.post("../../Album/CreateComment", { entryId: albumId, message: message }, function (result) {
+		$.post(urlMapper.mapRelative("/Album/CreateComment"), { entryId: albumId, message: message }, function (result) {
 
 			$("#newCommentPanel").after(result);
 
@@ -98,7 +76,7 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 		var btn = this;
 		var id = getId(this);
 
-		$.post("../../Album/DeleteComment", { commentId: id }, function () {
+		$.post(urlMapper.mapRelative("/Album/DeleteComment"), { commentId: id }, function () {
 
 			$(btn).parent().parent().parent().parent().remove();
 
@@ -110,7 +88,7 @@ function tabLoaded(albumId, event, ui, confirmDeleteStr) {
 
 }
 
-function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddress) {
+function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, urlMapper) {
 
 	$("#addAlbumLink").button({ disabled: $("#addAlbumLink").hasClass("disabled"), icons: { primary: 'ui-icon-star'} });
 	$("#updateAlbumLink").button({ disabled: $("#updateAlbumLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
@@ -158,7 +136,7 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 		var mediaType = $("#collectionMediaSelect").val();
 		var rating = $("#collectionRating").jqxRating('getValue');
 
-		$.post("../../User/UpdateAlbumForUser", { albumId: albumId, collectionStatus: status, mediaType: mediaType, rating: rating }, null);
+		$.post(urlMapper.mapRelative("/User/UpdateAlbumForUser"), { albumId: albumId, collectionStatus: status, mediaType: mediaType, rating: rating }, null);
 
 		if (status == "Nothing") {
 			$("#updateAlbumLink").hide();
@@ -194,9 +172,10 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 
 	});
 
+	// TODO: not in use AFAIK
 	$("#removeAlbumLink").click(function () {
 
-		$.post("../../User/RemoveAlbumFromUser", { albumId: albumId }, function (result) {
+		$.post(urlMapper.mapRelative("/User/RemoveAlbumFromUser"), { albumId: albumId }, function (result) {
 
 			$("#addAlbumLink").show();
 			$("#removeAlbumLink").hide();
@@ -207,16 +186,16 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 
 	});
 
-	initReportEntryPopup(saveStr, hostAddress + "/Album/CreateReport", { albumId: albumId });
+	initReportEntryPopup(saveStr, urlMapper.mapRelative("/Album/CreateReport"), { albumId: albumId });
 
 	$("#editTags").click(function () {
 
-		$.get("../../Album/TagSelections", { albumId: albumId }, function (content) {
+		$.get(urlMapper.mapRelative("/Album/TagSelections"), { albumId: albumId }, function (content) {
 
 			$("#editTagsAlbumId").val(albumId);
 			$("#editTagsContent").html(content);
 
-			initDialog();
+			initDialog(urlMapper);
 
 			$("#editTagsPopup").dialog("open");
 
@@ -229,5 +208,27 @@ function initPage(albumId, collectionRating, saveStr, confirmDeleteStr, hostAddr
 	$("td.artistList a").vdbArtistToolTip();
 	
 	$("#userCollectionsPopup").dialog({ autoOpen: false, width: 400, position: { my: "left top", at: "left bottom", of: $("#statsLink") } });
+
+	function saveTagSelections() {
+
+		var tagNames = new Array();
+
+		$("input.tagSelection:checked").each(function () {
+			var name = $(this).parent().find("input.tagName").val();
+			tagNames.push(name);
+		});
+
+		var tagNamesStr = tagNames.join(",");
+		var tagsAlbumId = $("#editTagsAlbumId").val();
+
+		$.post(urlMapper.mapRelative("/Album/TagSelections"), { albumId: tagsAlbumId, tagNames: tagNamesStr }, function (content) {
+
+			$("#tagList").html(content);
+
+		});
+
+		$("#editTagsPopup").dialog("close");
+
+	}
 
 }

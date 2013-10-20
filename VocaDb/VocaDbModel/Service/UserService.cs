@@ -584,6 +584,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete("Handled by update")]
 		public void RemoveAlbumFromUser(int userId, int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
