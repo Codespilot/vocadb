@@ -33,6 +33,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private SongQueries queries;
 		private Song song;
 		private User user;
+		private User user2;
 		private Artist vocalist;
 
 		private SongContract CallCreate() {
@@ -47,8 +48,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			song = CreateEntry.Song();
 			repository = new FakeSongRepository(song);
-			user = CreateEntry.User();
-			repository.Add(user);
+			user = CreateEntry.User(id: 1, name: "Miku");
+			user2 = CreateEntry.User(id: 2, name: "Rin");
+			repository.Add(user, user2);
 			repository.Add(producer, vocalist);
 
 			permissionContext = new FakePermissionContext(user);
@@ -111,6 +113,31 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(pv, "PV was created");
 			Assert.AreEqual(song, pv.Song, "pv.Song");
 			Assert.AreEqual("Resistance", pv.Name, "pv.Name");
+
+		}
+
+		[TestMethod]
+		public void Create_Notification() {
+
+			user2.AddArtist(producer);
+
+			CallCreate();
+
+			var notification = repository.List<UserMessage>().FirstOrDefault();
+
+			Assert.IsNotNull(notification, "Notification was created");
+			Assert.AreEqual(user2, notification.Receiver, "Receiver");
+
+		}
+
+		[TestMethod]
+		public void Create_NoNotificationForSelf() {
+
+			user.AddArtist(producer);
+
+			CallCreate();
+
+			Assert.IsFalse(repository.List<UserMessage>().Any(), "No notification was created");
 
 		}
 

@@ -14,7 +14,7 @@ using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Domain.Users {
 
-	public class User : IEntryWithNames, IUserWithEmail, IEquatable<User>, IWebLinkFactory<UserWebLink> {
+	public class User : IEntryWithNames, IUserWithEmail, IEquatable<IUser>, IWebLinkFactory<UserWebLink> {
 
 		INameManager IEntryWithNames.Names {
 			get {
@@ -445,7 +445,7 @@ namespace VocaDb.Model.Domain.Users {
 			return CreateWebLink(new WebLinkContract(url, description, category));
 		}
 
-		public virtual bool Equals(User another) {
+		public virtual bool Equals(IUser another) {
 
 			if (another == null)
 				return false;
@@ -453,12 +453,12 @@ namespace VocaDb.Model.Domain.Users {
 			if (ReferenceEquals(this, another))
 				return true;
 
-			return this.NameLC == another.NameLC;
+			return string.Equals(this.Name, another.Name, StringComparison.InvariantCultureIgnoreCase);
 
 		}
 
 		public override bool Equals(object obj) {
-			return Equals(obj as User);
+			return Equals(obj as IUser);
 		}
 
 		public virtual void GenerateAccessKey() {
