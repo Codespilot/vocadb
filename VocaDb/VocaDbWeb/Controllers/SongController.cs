@@ -563,7 +563,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Versions(int id) {
+		public ActionResult Versions(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var contract = Service.GetSongWithArchivedVersions(id);
 

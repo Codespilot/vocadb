@@ -28,7 +28,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		public string Name { get; set; }
 
 		public override string ToString() {
-			return string.Format("User '{0}' [{1}]", Name, Id);
+			return string.Format("User contract '{0}' [{1}]", Name, Id);
 		}
 
 	}
