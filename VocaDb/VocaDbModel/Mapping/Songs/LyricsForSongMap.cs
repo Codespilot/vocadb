@@ -13,8 +13,8 @@ namespace VocaDb.Model.Mapping.Songs {
 			Id(m => m.Id);
 
 			Map(m => m.Language).Not.Nullable();
-			Map(m => m.Source).Not.Nullable();
-			Map(m => m.Value).Column("Text").Not.Nullable();
+			Map(m => m.Source).Length(255).Not.Nullable();
+			Map(m => m.Value).Column("Text").Length(int.MaxValue).Not.Nullable();
 			References(m => m.Song).Not.Nullable();
 
 		}
