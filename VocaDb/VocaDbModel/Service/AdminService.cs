@@ -279,10 +279,12 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				var cutoff = DateTime.Now - TimeSpan.FromDays(timeCutoffDays);
+				var q = session.Query<AuditLogEntry>();
 
-				var q = session.Query<AuditLogEntry>()
-					.Where(e => e.Time > cutoff);
+				if (timeCutoffDays > 0) {
+					var cutoff = DateTime.Now - TimeSpan.FromDays(timeCutoffDays);
+					q = q.Where(e => e.Time > cutoff);					
+				}
 
 				if (!string.IsNullOrWhiteSpace(filter)) {
 					q = q.Where(e => e.Action.Contains(filter));
