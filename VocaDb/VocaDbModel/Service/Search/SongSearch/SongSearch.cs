@@ -84,6 +84,24 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		}
 
+		private IQueryable<Song> AddScoreFilter(IQueryable<Song> query, int minScore) {
+
+			if (minScore <= 0)
+				return query;
+
+			return query.Where(q => q.RatingScore >= minScore);
+
+		}
+
+		private IQueryable<SongName> AddScoreFilter(IQueryable<SongName> query, int minScore) {
+
+			if (minScore <= 0)
+				return query;
+
+			return query.Where(q => q.Song.RatingScore >= minScore);
+
+		} 
+
 		private IQueryable<Song> AddTimeFilter(IQueryable<Song> criteria, TimeSpan timeFilter) {
 
 			if (timeFilter == TimeSpan.Zero)
@@ -181,6 +199,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
+				q = AddScoreFilter(q, queryParams.MinScore);
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
@@ -204,6 +223,9 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.Song.SongType));
 
+				if (queryParams.MinScore > 0)
+					q = q.Where(s => s.Song.RatingScore >= queryParams.MinScore);
+
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
@@ -223,6 +245,12 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				if (draftsOnly)
 					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.Song.SongType));
+
+				if (queryParams.MinScore > 0)
+					q = q.Where(s => s.Song.RatingScore >= queryParams.MinScore);
 
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
@@ -245,6 +273,10 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
 
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.SongType));
+
+				q = AddScoreFilter(q, queryParams.MinScore);
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
@@ -268,6 +300,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					if (draftsOnly)
 						exactQ = exactQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
+					exactQ = AddScoreFilter(exactQ, queryParams.MinScore);
 					exactQ = AddTimeFilter(exactQ, queryParams.TimeFilter);
 					exactQ = AddPVFilter(exactQ, queryParams.OnlyWithPVs);
 
@@ -300,6 +333,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
+				directQ = AddScoreFilter(directQ, queryParams.MinScore);
 				directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
 				directQ = AddPVFilter(directQ, queryParams.OnlyWithPVs);
 
@@ -317,6 +351,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (draftsOnly)
 					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
+				additionalNamesQ = AddScoreFilter(additionalNamesQ, queryParams.MinScore);
 				additionalNamesQ = AddTimeFilter(additionalNamesQ, queryParams.TimeFilter);
 				additionalNamesQ = AddPVFilter(additionalNamesQ, queryParams.OnlyWithPVs);
 
@@ -370,6 +405,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
+				q = AddScoreFilter(q, queryParams.MinScore);
 				q = AddTimeFilter(q, timeFilter);
 				q = AddPVFilter(q, onlyWithPVs);
 
@@ -388,6 +424,9 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					q = q.Where(s => songTypes.Contains(s.Song.SongType));
 
+				if (queryParams.MinScore > 0)
+					q = q.Where(s => s.Song.RatingScore >= queryParams.MinScore);
+
 				q = AddTimeFilter(q, timeFilter);
 				q = AddPVFilter(q, onlyWithPVs);
 
@@ -402,6 +441,12 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				if (draftsOnly)
 					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
+
+				if (filterByType)
+					q = q.Where(s => songTypes.Contains(s.Song.SongType));
+
+				if (queryParams.MinScore > 0)
+					q = q.Where(s => s.Song.RatingScore >= queryParams.MinScore);
 
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
@@ -419,6 +464,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
 
+				q = AddScoreFilter(q, queryParams.MinScore);
 				q = AddTimeFilter(q, queryParams.TimeFilter);
 				q = AddPVFilter(q, queryParams.OnlyWithPVs);
 
@@ -435,6 +481,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					directQ = directQ.Where(s => songTypes.Contains(s.SongType));
 
+				directQ = AddScoreFilter(directQ, queryParams.MinScore);
 				directQ = AddTimeFilter(directQ, timeFilter);
 				directQ = AddPVFilter(directQ, onlyWithPVs);
 
@@ -451,6 +498,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				if (filterByType)
 					additionalNamesQ = additionalNamesQ.Where(s => songTypes.Contains(s.Song.SongType));
 
+				additionalNamesQ = AddScoreFilter(additionalNamesQ, queryParams.MinScore);
 				additionalNamesQ = AddTimeFilter(additionalNamesQ, timeFilter);
 				additionalNamesQ = AddPVFilter(additionalNamesQ, onlyWithPVs);
 

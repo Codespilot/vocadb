@@ -63,6 +63,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			}
 		}
 
+		public int MinScore { get; set; }
+
 		public bool OnlyWithPVs { get; set; }
 
 		public PagingProperties Paging { get; set; }

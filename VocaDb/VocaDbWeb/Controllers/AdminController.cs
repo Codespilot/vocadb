@@ -32,7 +32,10 @@ namespace VocaDb.Web.Controllers
 			var excludeUsers = (!string.IsNullOrEmpty(model.ExcludeUsers) 
 				? model.ExcludeUsers.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(u => u.Trim()).ToArray() 
 				: new string[0]);
-			var entries = Service.GetAuditLog(model.Filter, start, 200, 365, model.UserName, excludeUsers, model.OnlyNewUsers, model.GroupId);
+
+			var cutoffDays = (string.IsNullOrEmpty(model.UserName) ? 365 : 0);
+
+			var entries = Service.GetAuditLog(model.Filter, start, 200, cutoffDays, model.UserName, excludeUsers, model.OnlyNewUsers, model.GroupId);
 
 			return PartialView(entries);
 
