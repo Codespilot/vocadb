@@ -65,7 +65,7 @@
 
 @helper ArtistIconLink(ArtistContract artist) {
 	<a href="@Url.Action("Details", "Artist", new { id = artist.Id })">
-		<img src="@Url.Action("PictureThumb", "Artist", new { id = artist.Id })" alt="Thumb" class="coverPicThumb" />
+		<img src="@Url.Action("PictureThumb", "Artist", new { id = artist.Id, v = artist.Version })" alt="Thumb" class="coverPicThumb" />
 	</a>		
 }
 

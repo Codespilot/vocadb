@@ -9,7 +9,10 @@ namespace VocaDb.Web.Helpers {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-		private static readonly string[] forbiddenUserAgents = new[] {
+		/// <summary>
+		/// User agent strings for which hits won't be counted
+		/// </summary>
+		private static readonly string[] forbiddenUserAgents = {
 			"Googlebot", "bingbot"
 		};
 
@@ -29,6 +32,14 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		/// <summary>
+		/// Checks whether the request should be counted as a valid hit (view) 
+		/// for an entry.
+		/// 
+		/// Bots and blank user agents are excluded.
+		/// </summary>
+		/// <param name="request">HTTP request. Cannot be null.</param>
+		/// <returns>True if the request should be counted.</returns>
 		public static bool IsValidHit(HttpRequestBase request) {
 
 			var ua = request.UserAgent;
