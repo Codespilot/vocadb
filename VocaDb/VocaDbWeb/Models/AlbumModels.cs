@@ -235,6 +235,7 @@ namespace VocaDb.Web.Models {
 			Status = contract.Status;
 			Tags = contract.Tags;
 			UserHasAlbum = contract.AlbumForUser != null;
+			Version = contract.Version;
 			WebLinks = contract.WebLinks;
 			WishlistedBy = contract.WishlistCount;
 
@@ -329,6 +330,8 @@ namespace VocaDb.Web.Models {
 		public TagUsageContract[] Tags { get; set; }
 
 		public bool UserHasAlbum { get; set; }
+
+		public int Version { get; set; }
 
 		public ArtistForAlbumContract[] Vocalists { get; set; }
 

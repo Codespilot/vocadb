@@ -8,7 +8,7 @@
 
 @helper AlbumIconLink(AlbumContract album) {
 	<a href="@Url.Action("Details", "Album", new { id = album.Id })">
-		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id })" alt="Cover" class="coverPicThumb" />
+		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id, v = album.Version })" alt="Cover" class="coverPicThumb" />
 	</a>		
 }
 
@@ -85,15 +85,15 @@
 	<ul class="smallThumbs">
 		@foreach (var album in albums) {
 			@Helpers.ThumbItem(Url.Action("Details", "Album", new { id = album.Id }),
-				Url.Action("CoverPictureThumb", "Album", new { id = album.Id }), album.Name, album)	  
+                Url.Action("CoverPictureThumb", "Album", new { id = album.Id, v = album.Version }), album.Name, album)	  
 		}
 	</ul>
 	
 }
 
-@helper CoverLink(int id) {
-	<a href="@Url.Action("CoverPicture", "Album", new { id = id })">
-		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = id })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
+@helper CoverLink(int id, int version) {
+	<a href="@Url.Action("CoverPicture", "Album", new { id = id, v = version })">
+		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = id, v = version })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
 	</a>
 }
 

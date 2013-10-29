@@ -72,8 +72,8 @@
 		<table class="properties">
 			<tr>
 				<td rowspan="10">
-					<a href="@Url.Action("Picture", new { id = Model.Id })">
-						<img src="@Url.Action("PictureThumb", new { id = Model.Id })" alt="@ViewRes.Artist.DetailsStrings.ArtistPicture" class="coverPic" />
+					<a href="@Url.Action("Picture", new { id = Model.Id, v = Model.Version })">
+						<img src="@Url.Action("PictureThumb", new { id = Model.Id, v = Model.Version })" alt="@ViewRes.Artist.DetailsStrings.ArtistPicture" class="coverPic" />
 					</a>
 				</td>
 				<td>@ViewRes.SharedStrings.ArtistName</td>
