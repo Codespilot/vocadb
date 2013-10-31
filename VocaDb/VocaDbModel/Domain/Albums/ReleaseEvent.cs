@@ -24,6 +24,10 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		int IEntryBase.Version {
+			get { return 0; }
+		}
+
 		private IList<Album> albums = new List<Album>();
 		private ArchivedVersionManager<ArchivedReleaseEventVersion, ReleaseEventEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedReleaseEventVersion, ReleaseEventEditableFields>();

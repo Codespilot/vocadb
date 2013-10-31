@@ -175,13 +175,13 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		public static string EntryThumbUrl(this UrlHelper url, EntryRefContract entry, string songThumbUrl) {
+		public static string EntryThumbUrl(this UrlHelper url, IEntryBase entry, string songThumbUrl) {
 
 			switch (entry.EntryType) {
 				case EntryType.Album:
-					return url.Action("CoverPictureThumb", "Album", new { id = entry.Id });
+					return url.Action("CoverPictureThumb", "Album", new { id = entry.Id, v = entry.Version});
 				case EntryType.Artist:
-					return url.Action("PictureThumb", "Artist", new { id = entry.Id });
+					return url.Action("PictureThumb", "Artist", new { id = entry.Id, v = entry.Version });
 				case EntryType.Song:
 					return songThumbUrl;
 				default:

@@ -63,7 +63,7 @@ namespace VocaDb.Web.Controllers {
 
 			// Cached version indicated by the "v" request parameter.
 			// If no version is specified, assume no caching.
-			if (!string.IsNullOrEmpty(Request.Params["v"]))
+			if (contract.Version > 0 && !string.IsNullOrEmpty(Request.Params["v"]))
 				Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
 
 			return Picture(contract.Picture, contract.Name);

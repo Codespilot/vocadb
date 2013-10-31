@@ -9,6 +9,10 @@ namespace VocaDb.Model.Domain.Songs {
 
 	public class SongList : IEntryBase {
 
+		int IEntryBase.Version {
+			get { return 0; }
+		}
+
 		private User author;
 		private string description;
 		private string name;
