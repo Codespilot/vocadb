@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
@@ -82,7 +83,10 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public AlbumContract GetAlbumDetails(string term, AlbumSortRule sort = AlbumSortRule.NameThenReleaseDate) {
 
-			var albums = Services.Albums.Find(term, DiscType.Unknown, 0, 10, false, false, moveExactToTop: true, sortRule: sort);
+			var matchMode = NameMatchMode.Auto;
+			term = FindHelpers.GetMatchModeAndQueryForSearch(term, ref matchMode);
+
+			var albums = Services.Albums.Find(term, DiscType.Unknown, 0, 10, false, false, moveExactToTop: true, sortRule: sort, nameMatchMode: matchMode);
 			return albums.Items.FirstOrDefault();
 
 		}
@@ -98,8 +102,11 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public ArtistDetailsContract GetArtistDetails(string term) {
 
+			var matchMode = NameMatchMode.Auto;
+			term = FindHelpers.GetMatchModeAndQueryForSearch(term, ref matchMode);
+
 			var artists = Services.Artists.FindArtists(new ArtistQueryParams(term, new ArtistType[] {}, 0, 10, 
-				false, false, NameMatchMode.Auto, ArtistSortRule.Name, true));
+				false, false, matchMode, ArtistSortRule.Name, true));
 
 			if (!artists.Items.Any())
 				return null;
@@ -141,7 +148,10 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public SongDetailsContract GetSongDetails(string term) {
 
-			var song = Services.Songs.FindFirstDetails(term, NameMatchMode.Auto);
+			var matchMode = NameMatchMode.Auto;
+			term = FindHelpers.GetMatchModeAndQueryForSearch(term, ref matchMode);
+
+			var song = Services.Songs.FindFirstDetails(term, matchMode);
 			return song;
 
 		}
