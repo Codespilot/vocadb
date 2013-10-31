@@ -26,6 +26,10 @@ namespace VocaDb.Model.DataContracts.Tags {
 			get { return EntryType.Tag; }
 		}
 
+		int IEntryBase.Version {
+			get { return 0; }
+		}
+
 		public TagDetailsContract() { }
 
 		public TagDetailsContract(Tag tag, 

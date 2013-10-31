@@ -15,6 +15,10 @@ namespace VocaDb.Model.Domain.Albums {
 			get { return false; }
 		}
 
+		int IEntryBase.Version {
+			get { return 0; }
+		}
+
 		private IList<ReleaseEventSeriesAlias> aliases = new List<ReleaseEventSeriesAlias>();
 		private string description;
 		private IList<ReleaseEvent> events = new List<ReleaseEvent>();

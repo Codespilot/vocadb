@@ -22,6 +22,10 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		int IEntryBase.Version {
+			get { return 0; }
+		}
+
 		private string accessKey;
 		private PermissionCollection additionalPermissions = new PermissionCollection();
 		private IList<AlbumForUser> albums = new List<AlbumForUser>();

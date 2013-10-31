@@ -28,6 +28,10 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		int IEntryBase.Version {
+			get { return 0; }
+		}
+
 		public const int MaxDisplayedTags = 4;
 		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_-]+$");
 

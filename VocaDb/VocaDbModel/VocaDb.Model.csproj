@@ -118,6 +118,7 @@
     <Compile Include="DataContracts\EntryRefWithNameContract.cs" />
     <Compile Include="DataContracts\EntryReportContract.cs" />
     <Compile Include="DataContracts\EntryThumbContract.cs" />
+    <Compile Include="DataContracts\EntryWithNameAndVersionContract.cs" />
     <Compile Include="DataContracts\MikuDb\ImportedAlbumOptions.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ArchivedEventSeriesContract.cs" />

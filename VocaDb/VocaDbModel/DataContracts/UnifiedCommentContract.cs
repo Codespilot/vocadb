@@ -28,7 +28,7 @@ namespace VocaDb.Model.DataContracts {
 		public UnifiedCommentContract(Comment comment, ContentLanguagePreference languagePreference)
 			: base(comment) {
 
-			Entry = new EntryRefWithNameContract(comment.Entry, languagePreference);
+			Entry = new EntryWithNameAndVersionContract(comment.Entry, languagePreference);
 			ArtistString = GetArtistString(comment.Entry, languagePreference);
 			SongThumbUrl = GetSongThumbUrl(comment.Entry);
 
@@ -36,7 +36,7 @@ namespace VocaDb.Model.DataContracts {
 
 		public string ArtistString { get; set; }
 
-		public EntryRefWithNameContract Entry { get; set; }
+		public EntryWithNameAndVersionContract Entry { get; set; }
 
 		public string SongThumbUrl { get; set; }
 
