@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.PVs;
@@ -22,19 +23,25 @@ namespace VocaDb.Web.API.v1.Controllers
 			get { return Services.Songs; }
 		}
 
-		public ActionResult ByPV(PVService service, string pvId, ContentLanguagePreference? lang, string callback, 
+		public ActionResult ByPV(PVService? service, string pvId, ContentLanguagePreference? lang, string callback, 
 			DataFormat format = DataFormat.Auto) {
 
-			var song = Service.GetSongWithPV(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default), service, pvId);
+			if (service == null)
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Service not specified or invalid");
+
+			var song = Service.GetSongWithPV(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default), service.Value, pvId);
 
 			return Object(song, format, callback);
 
 		}
 
-		public ActionResult ByPVBase(PVService service, string pvId, string callback,
+		public ActionResult ByPVBase(PVService? service, string pvId, string callback,
 			DataFormat format = DataFormat.Auto) {
 
-			var song = Service.GetSongWithPV(s => new EntryBaseContract(s), service, pvId);
+			if (service == null)
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Service not specified or invalid");
+
+			var song = Service.GetSongWithPV(s => new EntryBaseContract(s), service.Value, pvId);
 
 			return Object(song, format, callback);
 
