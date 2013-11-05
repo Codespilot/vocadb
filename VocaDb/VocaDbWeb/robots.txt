@@ -1,11 +1,14 @@
 User-agent: *
+Disallow: /Album/ArchivedVersionCoverPicture/
+Disallow: /Album/ArchivedVersionXml/
 Disallow: /Album/Comments/
-Disallow: /Album/MikuDbRedirect/
 Disallow: /Album/Versions/
 Disallow: /Album/ViewVersion/
+Disallow: /Artist/ArchivedVersionXml/
 Disallow: /Artist/Comments/
 Disallow: /Artist/Versions/
 Disallow: /Artist/ViewVersion/
+Disallow: /Song/ArchivedVersionXml/
 Disallow: /Song/Comments/
 Disallow: /Song/Versions/
 Disallow: /Song/ViewVersion/

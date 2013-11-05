@@ -208,7 +208,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				log.Warn(string.Format("Suspicious registration form fill time ({0}) from {1}.", timeSpan, hostname));
 
-				if (timeSpan < TimeSpan.FromSeconds(3)) {
+				if (timeSpan < TimeSpan.FromSeconds(2)) {
 					softbannedIPs.Add(hostname);
 				}
 
