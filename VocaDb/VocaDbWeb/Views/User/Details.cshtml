@@ -3,6 +3,7 @@
 @using VocaDb.Model.Domain.Users
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security;
+@using VocaDb.Model.Utils
 @using R = ViewRes.User.DetailsStrings;
 @model UserDetailsContract
 		   
@@ -16,8 +17,10 @@
 
     var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
     var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
-	var verifiedAccount = (Model.OwnedArtistEntries.Any());
-			
+    var verifiedAccount = (Model.OwnedArtistEntries.Any());
+
+    var url = VocaUriBuilder.CreateAbsolute(Url.Action("Profile", new { id = Model.Name })).ToString();
+			    
 }
 
 @helper AvatarImg() {
@@ -215,6 +218,7 @@
 
 @section Head {
 	@Styles.Render("~/Scripts/jqwidgets27/styles/css")
+    <link rel="canonical" href="@url" />
 }
 
 @section BodyScripts {
