@@ -1231,6 +1231,7 @@
     <Content Include="Scripts\jquery-ui-1.10.1.custom.js" />
     <Content Include="Scripts\jquery-ui-1.10.1.custom.min.js" />
     <Content Include="Scripts\jquery.qtip.css" />
+    <Content Include="Scripts\jquery.qtip.js" />
     <Content Include="Scripts\jquery.qtip.min.js" />
     <Content Include="Scripts\jquery.tools.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -1543,8 +1544,8 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
-    <Content Include="Scripts\knockout-2.3.0.debug.js" />
-    <Content Include="Scripts\knockout-2.3.0.js" />
+    <Content Include="Scripts\knockout-3.0.0.debug.js" />
+    <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <Content Include="Scripts\KnockoutExtensions\ArtistAutoComplete.js">
       <DependentUpon>ArtistAutoComplete.ts</DependentUpon>
@@ -2083,7 +2084,6 @@
     <Content Include="Views\MikuDbAlbum\InspectedAlbumTrack.cshtml" />
     <Content Include="Views\User\Messages.cshtml" />
     <Content Include="Views\User\ComposeMessage.cshtml" />
-    <Content Include="Views\User\Message.cshtml" />
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Shared\DuplicateEntryMessage.cshtml" />

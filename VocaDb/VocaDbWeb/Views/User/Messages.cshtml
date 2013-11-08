@@ -98,24 +98,26 @@
 
 </div>
 
-@Scripts.Render("~/bundles/User/Messages")
-<script type="text/javascript">
+@section BodyScripts {
+    @Scripts.Render("~/bundles/User/Messages")
+    <script type="text/javascript">
 
-	$(document).ready(function () {
+        $(document).ready(function () {
 
-		$("#tabs").tabs();
+            $("#tabs").tabs();
 		
-		var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
-		var repository = new vdb.repositories.UserRepository(urlMapper);		
-		repository.getMessageSummaries(200, false, 20, function (json) {
-			var viewModel = new vdb.viewModels.UserMessagesViewModel(urlMapper, repository, json, @ToJS(Model.SelectedMessageId));
-			ko.applyBindings(viewModel);
-		});
+            var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
+            var repository = new vdb.repositories.UserRepository(urlMapper);		
+            repository.getMessageSummaries(200, false, 20, function (json) {
+                var viewModel = new vdb.viewModels.UserMessagesViewModel(urlMapper, repository, json, @ToJS(Model.SelectedMessageId));
+                ko.applyBindings(viewModel);
+            });
 
-		$("#receiverName").autocomplete({
-			source: urlMapper.mapRelative("/User/FindByName")
-		});
+            $("#receiverName").autocomplete({
+                source: urlMapper.mapRelative("/User/FindByName")
+            });
 		
-	});
+        });
 
-</script>
+    </script>
+}

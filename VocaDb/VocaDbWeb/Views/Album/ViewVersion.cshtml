@@ -39,11 +39,13 @@
 
 @AlbumHelpers.PrintArchivedAlbumData(Model.Versions)
 
-<script type="text/javascript">
+@section BodyScripts {
+    <script type="text/javascript">
 
-	$(document).ready(function () {
-		$("#revertLink").button({ icons: { primary: 'ui-icon-arrowrefresh-1-w'} });
-		$("#downloadXmlLink").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s' } });
-	});
+        $(document).ready(function () {
+            $("#revertLink").button({ icons: { primary: 'ui-icon-arrowrefresh-1-w'} });
+            $("#downloadXmlLink").button({ icons: { primary: 'ui-icon-arrowthickstop-1-s' } });
+        });
 
-</script>
+    </script>
+}
