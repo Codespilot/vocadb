@@ -2,6 +2,7 @@ User-agent: *
 Disallow: /Album/ArchivedVersionCoverPicture/
 Disallow: /Album/ArchivedVersionXml/
 Disallow: /Album/Comments/
+Disallow: /Album/DownloadTags/
 Disallow: /Album/Versions/
 Disallow: /Album/ViewVersion/
 Disallow: /Artist/ArchivedVersionXml/
