@@ -560,7 +560,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult ViewVersion(int id, int? ComparedVersionId) {
+		public ActionResult ViewVersion(int id = invalidId, int? ComparedVersionId = 0) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var contract = Service.GetVersionDetails(id, ComparedVersionId ?? 0);
 
