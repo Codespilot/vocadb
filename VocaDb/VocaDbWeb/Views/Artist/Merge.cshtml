@@ -27,12 +27,14 @@
 	
 }
 
-<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Merge.js")"></script>
-<script type="text/javascript">
+@section BodyScripts {
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Artist/Merge.js")"></script>
+    <script type="text/javascript">
 
-	$(document).ready(function() { 
-		initPage(@Model.Id);
-	});
+	    $(document).ready(function() {
+		    initPage(@Model.Id);
+	    });
 
-</script>
+    </script>    
+}

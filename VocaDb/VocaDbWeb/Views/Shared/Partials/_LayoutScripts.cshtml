@@ -1,9 +1,15 @@
 ﻿@using VocaDb.Web.Helpers
+@using System.Web.Optimization
 
 @{
 	var searchObjectType = Html.GlobalSearchObjectType();
 	var searchTerm = Html.GlobalSearchTerm();	
 }
+
+<!-- Common scripts -->
+@Scripts.Render("~/bundles/shared/libs")
+<script src="@Url.Content("~/Scripts/jquery-ui-1.10.1.custom.min.js")" type="text/javascript"></script>
+@Scripts.Render("~/bundles/VocaDB", "~/bundles/shared/common")
 
 <script type="text/javascript">
             

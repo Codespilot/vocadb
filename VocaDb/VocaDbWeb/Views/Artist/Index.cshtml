@@ -100,12 +100,13 @@
 }
 }
 
+@section BodyScripts {
+    <script type="text/javascript">
 
-<script type="text/javascript">
+        $(document).ready(function () {
+            $("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });		
+            $("#filterBox").tooltip();
+        });
 
-	$(document).ready(function () {
-		$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });		
-		$("#filterBox").tooltip();
-	});
-
-</script>
+    </script>
+}
