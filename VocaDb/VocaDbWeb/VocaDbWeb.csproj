@@ -1651,9 +1651,6 @@
     <TypeScriptCompile Include="Scripts\Shared\WebLinkMatcher.ts" />
     <TypeScriptCompile Include="Scripts\Shared\Messages.d.ts" />
     <TypeScriptCompile Include="Scripts\Shared\UrlMapper.ts" />
-    <Content Include="Scripts\Shared\WebLinkMatcher.js">
-      <DependentUpon>WebLinkMatcher.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Tests\Models\SongVoteRatingTests.js">
       <DependentUpon>SongVoteRatingTests.ts</DependentUpon>
     </Content>
