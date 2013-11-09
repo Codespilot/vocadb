@@ -14,6 +14,7 @@ module vdb.utils {
             { url: "ameblo.jp/", desc: "Blog", cat: c.WebLinkCategory.Official },
             { url: "www.amiami.com/", desc: "AmiAmi", cat: c.WebLinkCategory.Commercial },
             { url: "www.animate-onlineshop.jp/", desc: "Animate Online Shop", cat: c.WebLinkCategory.Commercial },
+            { url: "bandcamp.com", desc: "Bandcamp", cat: c.WebLinkCategory.Commercial },
             { url: "bilibili.tv/", desc: "Bilibili", cat: c.WebLinkCategory.Official },
             { url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan", cat: c.WebLinkCategory.Commercial },
             { url: "www.discogs.com/", desc: "Discogs", cat: c.WebLinkCategory.Reference },
@@ -51,7 +52,7 @@ module vdb.utils {
 
         public static matchWebLink(url: string): WebLinkMatcher {
 
-            return _.find(WebLinkMatcher.matchers, function (item) { return (url.indexOf(item.url) != -1); });
+            return _.find(WebLinkMatcher.matchers, item => (url.indexOf(item.url) != -1));
 
         }
 
