@@ -6,14 +6,17 @@ namespace VocaDb.Web.App_Start {
 
 		public static void RegisterBundles(BundleCollection bundles) {
 
-			// jQuery styles don't work if bundled
 			bundles.Add(new ScriptBundle("~/bundles/shared/libs").Include(
 				"~/Scripts/jquery-1.8.2.js", 
 				"~/Scripts/bootstrap.js",
-				//"~/Scripts/jquery-ui-1.10.1.custom.js", 
-				"~/Scripts/knockout-{version}.debug.js",
+				//"~/Scripts/jquery-ui-1.10.1.js", // doesn't work if bundled together
+				"~/Scripts/knockout-{version}.js",
 				"~/Scripts/underscore.js", 
 				"~/Scripts/jquery.qtip.js"
+			));
+
+			bundles.Add(new ScriptBundle("~/bundles/shared/jqui").Include(
+				"~/Scripts/jquery-ui-1.10.1.js"
 			));
 
 			// SHARED BUNDLES
