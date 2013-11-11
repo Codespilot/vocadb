@@ -16,7 +16,7 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/shared/jqui").Include(
-				"~/Scripts/jquery-ui-1.10.1.js"
+				"~/Scripts/jquery-ui-1.10.3.js"
 			));
 
 			// SHARED BUNDLES
