@@ -60,7 +60,7 @@ module vdb.viewModels {
         public submit = () => {
             this.submitting(true);
             return true;
-        }
+        };
 
         public submitting = ko.observable(false);
 
@@ -282,10 +282,24 @@ module vdb.viewModels {
         // Artist filter string.
         filter: KnockoutObservable<string> = ko.observable("");
 
+        // At least one artist selected for this track.
+        somethingSelected: KnockoutComputed<boolean>;
+
+        // At least one artist selectable (not selected and visible).
+        somethingSelectable: KnockoutComputed<boolean>;
+
         constructor(artists: dc.ArtistContract[], public song: SongInAlbumEditViewModel) {
             
             this.artistSelections = _.map(artists, a =>
                 new TrackArtistSelectionViewModel(a, song != null && _.some(song.artists(), sa => a.id == sa.id), this.filter));
+
+            this.somethingSelected = ko.computed(() => {
+                return _.some(this.artistSelections, a => a.selected());
+            });
+
+            this.somethingSelectable = ko.computed(() => {
+                return _.some(this.artistSelections, a => !a.selected() && a.visible());
+            });
         
         }
     

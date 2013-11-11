@@ -15,9 +15,9 @@ module vdb.tests.viewModels {
     var song: dc.SongWithComponentsContract;
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
 
-    var producer = { id: 1, name: "Tripshots", additionalNames: "", artistType: "Producer" };
-    var vocalist = { id: 2, name: "Hatsune Miku", additionalNames: "初音ミク", artistType: "Vocalist" };
-    var label = { id: 3, name: "KarenT", additionalNames: "", artistType: "Label" };
+    var producer: dc.ArtistContract = { id: 1, name: "Tripshots", additionalNames: "", artistType: "Producer" };
+    var vocalist: dc.ArtistContract = { id: 2, name: "Hatsune Miku", additionalNames: "初音ミク", artistType: "Vocalist" };
+    var label: dc.ArtistContract = { id: 3, name: "KarenT", additionalNames: "", artistType: "Label" };
 
     var producerArtistLink = { artist: producer, id: 39, isSupport: false, name: "", roles: "Default" };
     var vocalistArtistLink = { artist: vocalist, id: 40, isSupport: false, name: "", roles: "Default" };
@@ -48,6 +48,15 @@ module vdb.tests.viewModels {
 
     function createViewModel() {
         return new vm.AlbumEditViewModel(rep, songRep, roles, categories, data);
+    }
+
+    function createTrackPropertiesViewModel() {
+        var songVm = new vm.SongInAlbumEditViewModel(songInAlbum);
+        return new vm.TrackPropertiesViewModel([producer, vocalist], songVm);
+    }
+
+    function findArtistSelection(target: vm.TrackPropertiesViewModel, artist: dc.ArtistContract) {
+        return _.find(target.artistSelections, a => a.artist == artist);
     }
 
     test("constructor", () => {
@@ -305,6 +314,49 @@ module vdb.tests.viewModels {
         equal(target.tracks()[0].discNumber(), 2, "tracks[0].discNumber");
         equal(target.tracks()[0].trackNumber(), 1, "tracks[0].trackNumber");
         equal(target.tracks()[1].trackNumber(), 2, "tracks[1].trackNumber");
+
+    });
+
+    test("TrackPropertiesViewModel constructor", () => {
+
+        var target = createTrackPropertiesViewModel();
+
+        ok(target.artistSelections, "artistSelections");
+        equal(target.somethingSelected(), true, "somethingSelected");
+        equal(target.somethingSelectable(), true, "somethingSelectable");
+        equal(target.artistSelections.length, 2, "artistSelections.length");
+
+        var producerSelection = findArtistSelection(target, producer);
+        ok(producerSelection, "producerSelection");
+        equal(producerSelection.selected(), true, "producerSelection.selected");
+        equal(producerSelection.visible(), true, "producerSelection.visible");
+
+        var vocalistSelection = findArtistSelection(target, vocalist);
+        ok(vocalistSelection, "vocalistSelection");
+        equal(vocalistSelection.selected(), false, "vocalistSelection.selected");
+        equal(vocalistSelection.visible(), true, "vocalistSelection.visible");
+
+    });
+
+    test("TrackPropertiesViewModel filter matches artist", () => {
+
+        var target = createTrackPropertiesViewModel();
+
+        target.filter("miku");
+
+        var vocalistSelection = findArtistSelection(target, vocalist);
+        equal(vocalistSelection.visible(), true, "vocalistSelection.visible");
+
+    });
+
+    test("TrackPropertiesViewModel filter does not match artist", () => {
+
+        var target = createTrackPropertiesViewModel();
+
+        target.filter("luka");
+
+        var vocalistSelection = findArtistSelection(target, vocalist);
+        equal(vocalistSelection.visible(), false, "vocalistSelection.visible");
 
     });
 

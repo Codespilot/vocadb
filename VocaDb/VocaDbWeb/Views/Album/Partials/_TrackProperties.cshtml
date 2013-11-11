@@ -10,12 +10,13 @@
 	
 	
 	<h5>Selected artists <small>(click to remove)</small></h5>
-	<div data-bind="foreach: artistSelections">
-		<div data-bind="visible: selected, click: function () { selected(false); }, attr: { title: artist.additionalNames }" class="label label-artistSelection">
-			<button type="button" class="close">&times;</button>
-			<span data-bind="text: artist.name"></span>
-		</div>
-	</div>
+    <div data-bind="foreach: artistSelections">
+        <div data-bind="visible: selected, click: function () { selected(false); }, attr: { title: artist.additionalNames }" class="label label-artistSelection">
+            <button type="button" class="close">&times;</button>
+            <span data-bind="text: artist.name"></span>
+        </div>
+    </div>
+    <span data-bind="ifnot: somethingSelected" class="extraInfo">No artists selected.<br /></span>
 	<br />
 
 	<h5>Album artists <small>(click to add)</small></h5>
@@ -30,4 +31,5 @@
 			<span data-bind="text: artist.name"></span>
 		</div>
 	</div>
+    <span data-bind="ifnot: somethingSelectable" class="extraInfo">No selectable artists.</span>
 </div>
