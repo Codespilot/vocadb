@@ -23,13 +23,16 @@ namespace VocaDb.Web.API.v1.Controllers
 			get { return Services.Songs; }
 		}
 
-		public ActionResult ByPV(PVService? service, string pvId, ContentLanguagePreference? lang, string callback, 
+		public ActionResult ByPV(PVService? service, string pvId, ContentLanguagePreference? lang, string callback,
+			bool includeAlbums = true, bool includeArtists = true, bool includeNames = true, bool includePVs = false,
+			bool includeTags = true, bool includeWebLinks = false,
 			DataFormat format = DataFormat.Auto) {
 
 			if (service == null)
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Service not specified or invalid");
 
-			var song = Service.GetSongWithPV(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default), service.Value, pvId);
+			var song = Service.GetSongWithPV(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default, 
+				includeAlbums, includeArtists, includeNames, includePVs, includeTags, includeWebLinks), service.Value, pvId);
 
 			return Object(song, format, callback);
 
