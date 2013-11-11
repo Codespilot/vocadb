@@ -1682,21 +1682,9 @@
     <TypeScriptCompile Include="Scripts\ViewModels\SongCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.ts" />
-    <Content Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.js">
-      <DependentUpon>AlbumEditViewModelTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\ArtistForAlbumEditViewModelTests.ts" />
-    <Content Include="Scripts\Tests\ViewModels\ArtistForAlbumEditViewModelTests.js">
-      <DependentUpon>ArtistForAlbumEditViewModelTests.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.js">
-      <DependentUpon>SongCreateViewModelTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\AlbumEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongEditViewModelTests.ts" />
-    <Content Include="Scripts\Tests\ViewModels\SongEditViewModelTests.js">
-      <DependentUpon>SongEditViewModelTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.ts" />
     <Content Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.js">
       <DependentUpon>SongDetailsViewModelTests.ts</DependentUpon>
@@ -1739,17 +1727,8 @@
     <Content Include="Scripts\ViewModels\ArtistCreateViewModel.js">
       <DependentUpon>ArtistCreateViewModel.ts</DependentUpon>
     </Content>
-    <Content Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.js">
-      <DependentUpon>PVRatingButtonsViewModelTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinkEditViewModelTests.ts" />
-    <Content Include="Scripts\Tests\ViewModels\WebLinkEditViewModelTests.js">
-      <DependentUpon>WebLinkEditViewModelTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinksEditViewModelTests.ts" />
-    <Content Include="Scripts\Tests\ViewModels\WebLinksEditViewModelTests.js">
-      <DependentUpon>WebLinksEditViewModelTests.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Shared\EntrySearchDrop.js" />
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />

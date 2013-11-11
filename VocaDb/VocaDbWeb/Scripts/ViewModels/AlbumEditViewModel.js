@@ -218,6 +218,18 @@ var vdb;
                         return a.id == sa.id;
                     }), _this.filter);
                 });
+
+                this.somethingSelected = ko.computed(function () {
+                    return _.some(_this.artistSelections, function (a) {
+                        return a.selected();
+                    });
+                });
+
+                this.somethingSelectable = ko.computed(function () {
+                    return _.some(_this.artistSelections, function (a) {
+                        return !a.selected() && a.visible();
+                    });
+                });
             }
             return TrackPropertiesViewModel;
         })();

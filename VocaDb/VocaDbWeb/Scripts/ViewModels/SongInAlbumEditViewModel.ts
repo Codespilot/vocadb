@@ -1,4 +1,5 @@
 /// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="../typings/underscore/underscore.d.ts" />
 /// <reference path="../dataContracts/ArtistContract.ts" />
 /// <reference path="../dataContracts/SongContract.ts" />
 
