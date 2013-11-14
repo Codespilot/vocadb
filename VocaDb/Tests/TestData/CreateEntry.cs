@@ -12,20 +12,20 @@ namespace VocaDb.Tests.TestData {
 			return new Album(TranslatedString.Create(name)) { Id = 39 };
 		}
 
-		public static Artist Producer() {
-			return new Artist(TranslatedString.Create("Tripshots")) { Id = 1, ArtistType = ArtistType.Producer };
+		public static Artist Producer(int id = 1, string name = null) {
+			return new Artist(TranslatedString.Create(name ?? "Tripshots")) { Id = id, ArtistType = ArtistType.Producer };
 		}
 
-		public static Song Song() {
-			return new Song(TranslatedString.Create("Nebula")) { Id = 1 };
+		public static Song Song(int id = 1, string name = null) {
+			return new Song(TranslatedString.Create(name ?? "Nebula")) { Id = id };
 		}
 
 		public static User User(int id = 1, string name = "Miku", UserGroupId group = UserGroupId.Regular, string email = "") {
 			return new User(name, "123", email, 0) { GroupId = group, Id = id };
 		}
 
-		public static Artist Vocalist() {
-			return new Artist(TranslatedString.Create("Hatsune Miku")) { Id = 39, ArtistType = ArtistType.Vocaloid };			
+		public static Artist Vocalist(int id = 39, string name = null, ArtistType artistType = ArtistType.Vocaloid) {
+			return new Artist(TranslatedString.Create(name ?? "Hatsune Miku")) { Id = id, ArtistType = artistType };			
 		}
 
 	}

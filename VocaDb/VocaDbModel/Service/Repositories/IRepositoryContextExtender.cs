@@ -35,6 +35,10 @@ namespace VocaDb.Model.Service.Repositories {
 
 		}
 
+		public static T2 Load<T, T2>(this IRepositoryContext<T> ctx, object id) {
+			return ctx.OfType<T2>().Load(id);
+		}
+
 		public static void Sync<T>(this IRepositoryContext<T> ctx, CollectionDiff<T, T> diff) {
 
 			ParamIs.NotNull(() => ctx);
@@ -67,6 +71,13 @@ namespace VocaDb.Model.Service.Repositories {
 
 		}
 
+		public static void Save<T, T2>(this IRepositoryContext<T> ctx, T2 obj) {
+			ctx.OfType<T2>().Save(obj);
+		}
+
+		public static void Update<T, T2>(this IRepositoryContext<T> ctx, T2 obj) {
+			ctx.OfType<T2>().Update(obj);
+		}
 
 	}
 

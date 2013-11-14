@@ -2,7 +2,7 @@
 
 	public interface IEntryWithIntId {
 
-		int Id { get; }
+		int Id { get; set; }
 
 	}
 

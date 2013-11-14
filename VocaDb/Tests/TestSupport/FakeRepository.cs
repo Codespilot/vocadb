@@ -31,6 +31,12 @@ namespace VocaDb.Tests.TestSupport {
 			this.querySource = querySource;
 		}
 
+		/// <summary>
+		/// Adds a list of entities to the repository without performing any additional persisting logic.
+		/// For example, Ids will not be generated this way.
+		/// </summary>
+		/// <typeparam name="TEntity">Type of entities to be added.</typeparam>
+		/// <param name="entities">List of entities to be added. Cannot be null.</param>
 		public void Add<TEntity>(params TEntity[] entities) {
 			querySource.AddRange(entities);
 		}
@@ -55,9 +61,25 @@ namespace VocaDb.Tests.TestSupport {
 			return querySource.List<TEntity>();
 		}
 
+		/// <summary>
+		/// Save the entity into the repository using the repository's own Save method.
+		/// Usually this means an Id will be assigned for the entity, if it's not persisted.
+		/// </summary>
+		/// <typeparam name="T2">Type of entity to be saved.</typeparam>
+		/// <param name="obj">Entity to be saved. Cannot be null.</param>
+		public void Save<T2>(T2 obj) {
+			CreateContext().Save(obj);
+		}
+
 	}
 
 	public class ListRepositoryContext<T> : IRepositoryContext<T> {
+
+		private bool IsEntityWithId {
+			get {
+				return (typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)));
+			}
+		}
 
 		protected readonly QuerySourceList querySource;
 
@@ -81,12 +103,16 @@ namespace VocaDb.Tests.TestSupport {
 
 		public virtual T Load(object id) {
 
-			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)))
+			if (!IsEntityWithId)
 				throw new NotSupportedException("Only supported for entities with integer Id");
 
 			var intId = (int)id;
-			var list = querySource.List<T>().Cast<IEntryWithIntId>();
-			return (T)list.FirstOrDefault(i => i.Id == intId);
+			var list = querySource.List<T>().Cast<IEntryWithIntId>().ToArray();
+
+			if (list.All(i => i.Id != intId))
+				throw new InvalidOperationException(string.Format("Entity of type {0} with Id {1} not found", typeof(T), id));
+
+			return (T)list.First(i => i.Id == intId);
 
 		}
 
@@ -99,12 +125,25 @@ namespace VocaDb.Tests.TestSupport {
 		}
 
 		public void Save(T obj) {
+
+			if (IsEntityWithId) {
+
+				var entity = (IEntryWithIntId)obj;
+
+				// Get next Id
+				if (entity.Id == 0) {
+					entity.Id = (Query().Any() ? Query().Max(o => ((IEntryWithIntId)o).Id) + 1 : 1);
+				}
+
+			}
+
 			querySource.Add(obj);
+
 		}
 
 		public virtual void Update(T obj) {
 
-			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)))
+			if (!IsEntityWithId)
 				throw new NotSupportedException("Only supported for entities with integer Id");
 
 			var entity = (IEntryWithIntId) obj;
