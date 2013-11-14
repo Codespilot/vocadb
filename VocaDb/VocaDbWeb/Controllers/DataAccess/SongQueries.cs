@@ -155,6 +155,100 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void Merge(int sourceId, int targetId) {
+
+			PermissionContext.VerifyPermission(PermissionToken.MergeEntries);
+
+			if (sourceId == targetId)
+				throw new ArgumentException("Source and target songs can't be the same", "targetId");
+
+			repository.HandleTransaction(ctx => {
+
+				var source = ctx.Load(sourceId);
+				var target = ctx.Load(targetId);
+
+				ctx.AuditLogger.AuditLog(string.Format("Merging {0} to {1}",
+					entryLinkFactory.CreateEntryLink(source), entryLinkFactory.CreateEntryLink(target)));
+
+				// Names
+				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
+					var name = target.CreateName(n.Value, n.Language);
+					ctx.Save(name);
+				}
+
+				// Weblinks
+				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
+					var link = target.CreateWebLink(w.Description, w.Url, w.Category);
+					ctx.Save(link);
+				}
+
+				// PVs
+				var pvs = source.PVs.Where(a => !target.HasPV(a.Service, a.PVId));
+				foreach (var p in pvs) {
+					var pv = target.CreatePV(new PVContract(p));
+					ctx.Save(pv);
+				}
+
+				// Artist links
+				var artists = source.Artists.Where(a => !target.HasArtistLink(a)).ToArray();
+				foreach (var a in artists) {
+					a.Move(target);
+					ctx.Update(a);
+				}
+
+				// Album links
+				var albums = source.Albums.Where(s => !target.IsOnAlbum(s.Album)).ToArray();
+				foreach (var s in albums) {
+					s.Move(target);
+					ctx.Update(s);
+				}
+
+				// Favorites
+				var userFavorites = source.UserFavorites.Where(a => !target.IsFavoritedBy(a.User)).ToArray();
+				foreach (var u in userFavorites) {
+					u.Move(target);
+					ctx.Update(u);
+				}
+
+				// Custom lists
+				var songLists = source.ListLinks.ToArray();
+				foreach (var s in songLists) {
+					s.ChangeSong(target);
+					ctx.Update(s);
+				}
+
+				// Other properties
+				if (target.OriginalVersion == null)
+					target.OriginalVersion = source.OriginalVersion;
+
+				var alternateVersions = source.AlternateVersions.ToArray();
+				foreach (var alternate in alternateVersions) {
+					alternate.OriginalVersion = target;
+					ctx.Update(alternate);
+				}
+
+				if (target.LengthSeconds == 0) {
+					target.LengthSeconds = source.LengthSeconds;
+				}
+
+				// Create merge record
+				var mergeEntry = new SongMergeRecord(source, target);
+				ctx.Save(mergeEntry);
+
+				source.Deleted = true;
+
+				target.UpdateArtistString();
+				target.UpdateNicoId();
+
+				Archive(ctx, target, SongArchiveReason.Merged, string.Format("Merged from {0}", source));
+
+				ctx.Update(source);
+				ctx.Update(target);
+
+			});
+
+		}
+
 	}
 
 }

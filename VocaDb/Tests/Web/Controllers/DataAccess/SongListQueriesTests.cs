@@ -68,13 +68,15 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void UpdateSongLinks() {
 
-			queries.UpdateSongList(songListContract, null);
+			// Create list
+			songListContract.Id = queries.UpdateSongList(songListContract, null);
 
 			var newSong = new Song(TranslatedString.Create("Electric Angel"));
-			repository.Add(newSong);
+			repository.Save(newSong);
 
 			songListContract.SongLinks = songListContract.SongLinks.Concat(SongInListEditContracts(newSong)).ToArray();
 
+			// Update list
 			queries.UpdateSongList(songListContract, null);
 
 			var songList = repository.List<SongList>().First();

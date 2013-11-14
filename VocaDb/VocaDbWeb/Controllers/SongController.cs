@@ -438,11 +438,11 @@ namespace VocaDb.Web.Controllers
 		public ActionResult Merge(int id, int? targetSongId) {
 
 			if (targetSongId == null) {
-				ModelState.AddModelError("songList", "Song must be selected");
+				ModelState.AddModelError("targetSongId", "Song must be selected");
 				return Merge(id);
 			}
 
-			Service.Merge(id, targetSongId.Value);
+			queries.Merge(id, targetSongId.Value);
 
 			return RedirectToAction("Edit", new { id = targetSongId.Value });
 

@@ -43,11 +43,15 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestInitialize]
 		public void SetUp() {
 
-			producer = CreateEntry.Producer();
-			vocalist = CreateEntry.Vocalist();
+			producer = CreateEntry.Producer(id: 1, name: "Tripshots");
+			vocalist = CreateEntry.Vocalist(id: 39, name: "Hatsune Miku");
 
-			song = CreateEntry.Song();
+			song = CreateEntry.Song(id: 1, name: "Nebula");
+			song.LengthSeconds = 39;
 			repository = new FakeSongRepository(song);
+			repository.Save(song.AddArtist(producer));
+			repository.Save(song.AddArtist(vocalist));
+
 			user = CreateEntry.User(id: 1, name: "Miku");
 			user2 = CreateEntry.User(id: 2, name: "Rin");
 			repository.Add(user, user2);
@@ -149,6 +153,36 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			permissionContext.RefreshLoggedUser(repository);
 
 			CallCreate();
+
+		}
+
+		[TestMethod]
+		public void Merge_ToEmpty() {
+
+			user.GroupId = UserGroupId.Trusted;
+			permissionContext.RefreshLoggedUser(repository);
+
+			var song2 = new Song();
+			repository.Save(song2);
+
+			queries.Merge(song.Id, song2.Id);
+
+			Assert.AreEqual("Nebula", song2.Names.AllValues.FirstOrDefault(), "Name");
+			Assert.AreEqual(2, song2.AllArtists.Count, "Artists");
+			Assert.IsTrue(song2.Artists.Any(a => a.Artist.Equals(producer)), "Producer");
+			Assert.IsTrue(song2.Artists.Any(a => a.Artist.Equals(vocalist)), "Vocalist");
+			Assert.AreEqual(song.LengthSeconds, song2.LengthSeconds, "LengthSeconds");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void Merge_NoPermissions() {
+
+			var song2 = new Song();
+			repository.Save(song2);
+
+			queries.Merge(song.Id, song2.Id);
 
 		}
 
