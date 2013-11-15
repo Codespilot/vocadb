@@ -144,6 +144,25 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		/// <summary>
+		/// Processes T-SQL wildcards, specifically the brackets "[]" from the search term.
+		/// </summary>
+		/// <param name="term">Search term, for example "alone [SNDI RMX]". Can be null or empty.</param>
+		/// <returns>Cleaned term, for example "alone [[]SNDI RMX]".</returns>
+		/// <remarks>
+		/// Because brackets are used for character group wildcards in T-SQL "like" queries, 
+		/// searches such as "alone [SNDI RMX]" did not work.
+		/// </remarks>
+		public static string CleanTerm(string term) {
+
+			if (string.IsNullOrEmpty(term))
+				return term;
+
+			//return term.Replace("[", "").Replace("]", "");
+			return term.Replace("[", "[[]");
+
+		}
+
 		public static bool ExactMatch(string query, NameMatchMode matchMode) {
 			return GetMatchMode(query, matchMode) == NameMatchMode.Exact;
 		}
