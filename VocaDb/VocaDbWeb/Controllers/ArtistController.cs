@@ -147,7 +147,7 @@ namespace VocaDb.Web.Controllers
 			WebHelper.VerifyUserAgent(Request);
 
 			var artistType = routeParams.artistType ?? ArtistType.Unknown;
-			var filter = routeParams.filter;
+			var filter = FindHelpers.CleanTerm(routeParams.filter);
 			var page = routeParams.page;
 			var draftsOnly = routeParams.draftsOnly;
 			var matchMode = routeParams.matchMode ?? NameMatchMode.Auto;
