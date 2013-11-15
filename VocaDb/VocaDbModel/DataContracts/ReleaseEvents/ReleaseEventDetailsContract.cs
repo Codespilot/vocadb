@@ -15,7 +15,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 			ParamIs.NotNull(() => releaseEvent);
 
-			Albums = releaseEvent.Albums.Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
+			Albums = releaseEvent.Albums.Where(a => !a.Deleted).Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			Series = (releaseEvent.Series != null ? new ReleaseEventSeriesContract(releaseEvent.Series) : null);
 			SeriesNumber = releaseEvent.SeriesNumber;
 

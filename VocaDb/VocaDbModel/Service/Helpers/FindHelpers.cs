@@ -194,7 +194,7 @@ namespace VocaDb.Model.Service.Helpers {
 			if (string.IsNullOrEmpty(query))
 				return query;
 
-			query = query.Trim();
+			query = CleanTerm(query.Trim());
 
 			if (matchMode != NameMatchMode.Auto)
 				return query;
