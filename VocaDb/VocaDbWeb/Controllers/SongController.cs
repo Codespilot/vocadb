@@ -125,7 +125,7 @@ namespace VocaDb.Web.Controllers
 			var page = indexParams.page ?? 1;
 			var sortRule = indexParams.sort ?? SongSortRule.Name;
 			var timeFilter = DateTimeUtils.ParseFromSimpleString(indexParams.since);
-			var filter = FindHelpers.CleanTerm(indexParams.filter);
+			var filter = indexParams.filter;
 			var songType = indexParams.songType ?? SongType.Unspecified;
 			var draftsOnly = indexParams.draftsOnly ?? false;
 			var matchMode = indexParams.matchMode ?? NameMatchMode.Auto;
