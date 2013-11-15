@@ -66,9 +66,10 @@ namespace VocaDb.Tests.TestSupport {
 		/// Usually this means an Id will be assigned for the entity, if it's not persisted.
 		/// </summary>
 		/// <typeparam name="T2">Type of entity to be saved.</typeparam>
-		/// <param name="obj">Entity to be saved. Cannot be null.</param>
-		public void Save<T2>(T2 obj) {
-			CreateContext().Save(obj);
+		/// <param name="objs">Entity to be saved. Cannot be null.</param>
+		public void Save<T2>(params T2[] objs) {
+			foreach (var obj in objs)
+				CreateContext().Save(obj);
 		}
 
 	}

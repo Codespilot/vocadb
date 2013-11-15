@@ -448,6 +448,10 @@ namespace VocaDb.Model.Domain.Songs {
 			return Equals(obj as Song);
 		}
 
+		public virtual ArtistForSong GetArtistLink(Artist artist) {
+			return Artists.FirstOrDefault(a => a.Artist.Equals(artist));
+		}
+
 		public override int GetHashCode() {
 			return base.GetHashCode();
 		}
