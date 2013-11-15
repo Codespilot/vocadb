@@ -35,9 +35,16 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private User user;
 		private User user2;
 		private Artist vocalist;
+		private Artist vocalist2;
 
 		private SongContract CallCreate() {
 			return queries.Create(newSongContract);
+		}
+
+		private void AssertHasArtist(Song song, Artist artist, ArtistRoles? roles = null) {
+			Assert.IsTrue(song.Artists.Any(a => a.Artist.Equals(artist)), song + " has " + artist);			
+			if (roles.HasValue)
+				Assert.IsTrue(song.Artists.Any(a => a.Artist.Equals(artist) && a.Roles == roles), artist + " has roles " + roles);
 		}
 
 		[TestInitialize]
@@ -45,6 +52,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			producer = CreateEntry.Producer(id: 1, name: "Tripshots");
 			vocalist = CreateEntry.Vocalist(id: 39, name: "Hatsune Miku");
+			vocalist2 = CreateEntry.Vocalist(id: 40, name: "Kagamine Rin");
 
 			song = CreateEntry.Song(id: 1, name: "Nebula");
 			song.LengthSeconds = 39;
@@ -53,6 +61,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository.Save(song.AddArtist(vocalist));
 
 			user = CreateEntry.User(id: 1, name: "Miku");
+			user.GroupId = UserGroupId.Trusted;
 			user2 = CreateEntry.User(id: 2, name: "Rin");
 			repository.Add(user, user2);
 			repository.Add(producer, vocalist);
@@ -159,9 +168,6 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void Merge_ToEmpty() {
 
-			user.GroupId = UserGroupId.Trusted;
-			permissionContext.RefreshLoggedUser(repository);
-
 			var song2 = new Song();
 			repository.Save(song2);
 
@@ -169,15 +175,39 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			Assert.AreEqual("Nebula", song2.Names.AllValues.FirstOrDefault(), "Name");
 			Assert.AreEqual(2, song2.AllArtists.Count, "Artists");
-			Assert.IsTrue(song2.Artists.Any(a => a.Artist.Equals(producer)), "Producer");
-			Assert.IsTrue(song2.Artists.Any(a => a.Artist.Equals(vocalist)), "Vocalist");
+			AssertHasArtist(song2, producer);
+			AssertHasArtist(song2, vocalist);
 			Assert.AreEqual(song.LengthSeconds, song2.LengthSeconds, "LengthSeconds");
+
+			var mergeRecord = repository.List<SongMergeRecord>().FirstOrDefault();
+			Assert.IsNotNull(mergeRecord, "Merge record was created");
+			Assert.AreEqual(song.Id, mergeRecord.Source, "mergeRecord.Source");
+			Assert.AreEqual(song2.Id, mergeRecord.Target.Id, "mergeRecord.Target.Id");
+
+		}
+
+		[TestMethod]
+		public void Merge_WithArtists() {
+
+			song.GetArtistLink(producer).Roles = ArtistRoles.Instrumentalist;
+			var song2 = CreateEntry.Song();
+			repository.Save(song2);
+			song2.AddArtist(vocalist);
+			song2.AddArtist(vocalist2).Roles = ArtistRoles.Other;
+
+			queries.Merge(song.Id, song2.Id);
+			Assert.AreEqual(3, song2.AllArtists.Count, "Artists");
+			AssertHasArtist(song2, producer, ArtistRoles.Instrumentalist);
+			AssertHasArtist(song2, vocalist2, ArtistRoles.Other);
 
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(NotAllowedException))]
 		public void Merge_NoPermissions() {
+
+			user.GroupId = UserGroupId.Regular;
+			permissionContext.RefreshLoggedUser(repository);
 
 			var song2 = new Song();
 			repository.Save(song2);

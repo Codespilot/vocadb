@@ -38,11 +38,11 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			producer = CreateEntry.Producer();
 			vocalist = CreateEntry.Vocalist();
 
-			album = CreateEntry.Album();
+			album = CreateEntry.Album(id: 39);
 			repository = new FakeAlbumRepository(album);
 			user = CreateEntry.User(1, "Miku");
-			repository.Add(user);
-			repository.Add(producer, vocalist);
+			repository.Save(user);
+			repository.Save(producer, vocalist);
 
 			permissionContext = new FakePermissionContext(user);
 			var entryLinkFactory = new EntryAnchorFactory("http://test.vocadb.net");
