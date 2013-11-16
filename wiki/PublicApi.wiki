@@ -1,6 +1,8 @@
 #summary Public API
 #labels api
 
+Please see the [https://github.com/riipah/vocadb/wiki/Public-API Github page] for more up to date description.
+
 = Overview =
 
 VocaDB provides a public API for accessing artist, album and song information. All API endpoints support both XML and JSON. The first version of the API will be provided "on demand" meaning it will be mostly developed based on requests by parties who have need for such an API. Version 2 will be more strictly REST-oriented, and be based on ASP.NET MVC Web API.
