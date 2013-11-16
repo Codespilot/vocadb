@@ -86,6 +86,7 @@ namespace VocaDb.Model.DataContracts.PVs {
 		public PVService Service { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public PVType PVType { get; set; }
 
 		[DataMember]
