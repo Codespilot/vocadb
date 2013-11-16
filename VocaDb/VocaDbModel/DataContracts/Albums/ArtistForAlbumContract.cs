@@ -31,6 +31,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public ArtistContract Artist { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public ArtistCategories Categories { get; set; }
 
 		[DataMember]
