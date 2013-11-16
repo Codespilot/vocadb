@@ -69,6 +69,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string DefaultName { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public ContentLanguageSelection DefaultNameLanguage { get; set; }
 
 		[DataMember]
@@ -87,6 +88,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public PVServices PVServices { get; set; }
 
 		[DataMember]
@@ -97,6 +99,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongType SongType { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public EntryStatus Status { get; set; }
 
 		[DataMember]
