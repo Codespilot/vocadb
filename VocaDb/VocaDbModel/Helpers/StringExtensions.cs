@@ -20,7 +20,7 @@
 
 			ParamIs.NotNull(() => str);
 
-			return (str.Length > length ? str.Substring(0, length) + "..." : str);
+			return (str.Length > length ? string.Format("{0}...", str.Substring(0, length)) : str);
 
 		}
 

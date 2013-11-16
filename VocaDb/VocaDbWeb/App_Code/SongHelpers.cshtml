@@ -105,13 +105,11 @@
 			}
 			<td>
 				@if (!string.IsNullOrEmpty(song.ThumbUrl)) {
-				<a href="@Url.Action("Details", "Song", new { id = song.Id })">
-					<img src="@song.ThumbUrl" alt="Thumb" class="coverPicThumb" />
-				</a>
+				    @SongIconLink(song)
 				}
 			</td>
 			<td>
-				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+				@SongLink(song)
 				@if (displayType) {
 					@SongTypeLabel(song.SongType)
 				}
