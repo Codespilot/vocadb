@@ -35,13 +35,13 @@
 }
 
 @helper SongIconLink(SongContract song) {
-	<a href="@Url.Action("Details", "Song", new { id = song.Id })">
+	<a href="@Url.Action("Details", "Song", ViewHelper.GetRouteParams(song))">
 		<img src="@song.ThumbUrl" alt="Cover" class="coverPicThumb" />
 	</a>		
 }
 
 @helper SongLink(SongContract song) {
-	@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+	@Html.ActionLink(song.Name, "Details", "Song", ViewHelper.GetRouteParams(song), new { title = song.AdditionalNames })
 }
 
 @helper Songs(IEnumerable<SongContract> songs, bool songType = false) {
@@ -55,7 +55,7 @@
 				}
 			</td>
 			<td>
-				@Html.ActionLink(song.Name, "Details", "Song", new { id = song.Id }, new { title = song.AdditionalNames })
+				@SongLink(song)
 				(@Translate.SongTypeNames[song.SongType])
 				<br />
 				<span class="extraInfo">@song.ArtistString</span>
