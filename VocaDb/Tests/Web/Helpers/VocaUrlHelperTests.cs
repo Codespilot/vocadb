@@ -4,6 +4,7 @@ using VocaDb.Web.Helpers;
 
 namespace VocaDb.Tests.Web.Helpers {
 
+	[TestClass]
 	public class VocaUrlHelperTests {
 
 		private void CallGetUrlFriendlyName(string expected, string input) {
@@ -30,7 +31,7 @@ namespace VocaDb.Tests.Web.Helpers {
 		[TestMethod]
 		public void GetUrlFriendlyName_Numbers() {
 
-			CallGetUrlFriendlyName("apple", "apple41");
+			CallGetUrlFriendlyName("apple41", "apple41");
 
 		}
 
