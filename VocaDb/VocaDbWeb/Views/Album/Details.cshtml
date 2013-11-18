@@ -158,7 +158,7 @@
 			</tr>
    }
 
-			@if (!string.IsNullOrEmpty(Model.Description)) {
+			@if (!string.IsNullOrWhiteSpace(Model.Description)) {
 			<tr>
 				<td>@ViewRes.SharedStrings.Description</td>
 				<td>
