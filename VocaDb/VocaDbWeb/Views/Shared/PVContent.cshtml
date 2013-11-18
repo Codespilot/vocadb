@@ -22,7 +22,7 @@
 <div>
 	@{ Html.RenderPartial("PVEmbedDynamic", PVHelper.PrimaryPV(Model.PVs)); }
 </div>
-<a class="btn btn-info songInfoButton pull-right" href="@Url.Action("Details", "Song", new { id = Model.Id })">
+<a class="btn btn-info songInfoButton pull-right" href="@Url.Action("Details", "Song", ViewHelper.GetRouteParams(Model))">
 	<i class="icon icon-info-sign"></i>
 	@ViewRes.Home.IndexStrings.ViewSongInfo
 </a>

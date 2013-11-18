@@ -16,8 +16,17 @@ namespace VocaDb.Web.Helpers {
 		/// 
 		/// English or Romanized name is preferred.
 		/// </summary>
-		public static string GetUrlFriendlyName(TranslatedString names) {
-			return GetUrlFriendlyName(names.GetBestMatch(ContentLanguagePreference.English));
+		public static string GetUrlFriendlyName(ITranslatedString names) {
+
+			string raw;
+
+			if (names.DefaultLanguage == ContentLanguageSelection.Romaji && !string.IsNullOrEmpty(names.Romaji))
+				raw = names.Romaji;
+			else
+				raw = names.English;
+
+			return GetUrlFriendlyName(raw);
+
 		}
 
 		/// <summary>

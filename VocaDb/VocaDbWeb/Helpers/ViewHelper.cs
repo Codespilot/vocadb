@@ -9,6 +9,7 @@ using System.Web.Routing;
 using MvcPaging;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
@@ -200,6 +201,11 @@ namespace VocaDb.Web.Helpers {
 
 			return (nextVersion ?? archivedVersion).Id;
 
+		}
+
+		public static object GetRouteParams(SongContract contract) {
+			return new { id = contract.Id };
+			//return new { id = contract.Id, friendlyName = VocaUrlHelper.GetUrlFriendlyName(contract.TranslatedName) };
 		}
 
 		/// <summary>
