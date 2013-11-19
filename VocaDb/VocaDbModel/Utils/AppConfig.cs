@@ -46,6 +46,18 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
+		/*public static string StaticContentPath {
+			get {
+				return Val("StaticContentPath");
+			}
+		}*/
+
+		public static string StaticContentHost {
+			get {
+				return Val("StaticContentHost");
+			}
+		}
+
 		public static string TwitterConsumerKey {
 			get {
 				return Val("TwitterConsumerKey");

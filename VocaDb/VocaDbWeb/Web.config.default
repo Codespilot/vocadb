@@ -20,6 +20,7 @@
 		<add key="HostAddress" value="http://vocadb.net" />
 		<add key="twitterConsumerKey" value="" />
 		<add key="twitterConsumerSecret" value="" />
+		<add key="StaticContentHost" value="" />
 	</appSettings>
 
 	<connectionStrings>
