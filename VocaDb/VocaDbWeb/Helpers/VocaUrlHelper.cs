@@ -1,14 +1,23 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Helpers {
 
 	public static class VocaUrlHelper {
 
-		// TODO: should support HTTPS
-		private static readonly Uri staticResourceBase = new Uri("http://static.vocadb.net", UriKind.Absolute);
+		// Path to static files root, for example http://static.vocadb.net. Possible trailing slash is removed.
+		private static readonly string staticResourceBase = RemoveTrailingSlash(AppConfig.StaticContentHost);
+
+		private static string MergeUrls_BaseNoTrailingSlash(string baseUrl, string relative) {
+			
+			if (relative.StartsWith("/"))
+				return string.Format("{0}{1}", baseUrl, relative);
+			else
+				return string.Format("{0}/{1}", baseUrl, relative);
+
+		}
 
 		/// <summary>
 		/// Gets an URL-friendly name from any entry name.
@@ -50,6 +59,30 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
+		public static string MergeUrls(string baseUrl, string relative) {
+
+			if (baseUrl.EndsWith("/")) {
+
+				if (relative.StartsWith("/"))
+					return string.Format("{0}{1}", baseUrl.Substring(0, baseUrl.Length - 1), relative);
+				else
+					return string.Format("{0}{1}", baseUrl, relative);
+
+			} else {
+				return MergeUrls_BaseNoTrailingSlash(baseUrl, relative);
+			}
+
+		}
+
+		public static string RemoveTrailingSlash(string url) {
+
+			if (string.IsNullOrEmpty(url))
+				return url;
+
+			return url.EndsWith("/") ? url.Substring(0, AppConfig.StaticContentHost.Length - 1) : url;
+
+		}
+
 		/// <summary>
 		/// Returns a path to a resource in the static VocaDB domain (static.vocadb.net).
 		/// </summary>
@@ -58,7 +91,7 @@ namespace VocaDb.Web.Helpers {
 		/// Full path to that static resource, for example http://static.vocadb.net/banners/rvocaloid.png
 		/// </returns>
 		public static string StaticResource(string relative) {
-			return (new Uri(staticResourceBase, relative)).ToString();
+			return MergeUrls_BaseNoTrailingSlash(staticResourceBase, relative);
 		}
 	
 	}

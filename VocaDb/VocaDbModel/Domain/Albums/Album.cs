@@ -133,8 +133,6 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual AlbumPictureFile CoverPicture { get; set; }
-
 		public virtual PictureData CoverPictureData { get; set; }
 
 		public virtual DateTime CreateDate { get; set; }
@@ -387,9 +385,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 			var f = new AlbumPictureFile(name, mime, author, this);
 			Pictures.Add(f);
-
-			if (CoverPicture == null)
-				CoverPicture = f;
 
 			return f;
 
