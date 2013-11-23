@@ -210,16 +210,20 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
-		public static PictureDataContract GetOriginalAndResizedImages(Stream input, int length, string contentType) {
+		public static PictureDataContract GetOriginal(Stream input, int length, string contentType) {
 
 			var buf = new Byte[length];
 			input.Read(buf, 0, length);
 
-			var contract = new PictureDataContract(buf, contentType);
-			var thumbs = GenerateThumbs(input, new[] { 250 });
-			var thumb250 = thumbs.FirstOrDefault(t => t.Size == 250);
+			return new PictureDataContract(buf, contentType);
 
-			contract.Thumb250 = thumb250;
+		}
+
+		public static PictureDataContract GetOriginalAndResizedImages(Stream input, int length, string contentType) {
+
+			var contract = GetOriginal(input, length, contentType);
+			var thumbs = GenerateThumbs(input, new[] { 250 });
+			contract.Thumb250 = thumbs.FirstOrDefault(t => t.Size == 250);
 
 			return contract;
 

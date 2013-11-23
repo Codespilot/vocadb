@@ -5,18 +5,14 @@ using System.Web;
 using System.Xml.Linq;
 using NLog;
 using VocaDb.Model.DataContracts.PVs;
-using VocaDb.Model.Domain.Globalization;
 using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -64,10 +60,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private Artist[] GetArtists(ISession session, ArtistContract[] artistContracts) {
+		/*private Artist[] GetArtists(ISession session, ArtistContract[] artistContracts) {
 			var ids = artistContracts.Select(a => a.Id).ToArray();
 			return session.Query<Artist>().Where(a => ids.Contains(a.Id)).ToArray();			
-		}
+		}*/
 
 		private AlbumMergeRecord GetMergeRecord(ISession session, int sourceId) {
 			return session.Query<AlbumMergeRecord>().FirstOrDefault(s => s.Source == sourceId);
@@ -87,7 +83,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private void UpdateSongArtists(ISession session, Song song, ArtistContract[] artistContracts) {
+		/*private void UpdateSongArtists(ISession session, Song song, ArtistContract[] artistContracts) {
 
 			var artistDiff = song.SyncArtists(artistContracts, 
 				addedArtistContracts => GetArtists(session, addedArtistContracts));
@@ -107,7 +103,7 @@ namespace VocaDb.Model.Service {
 
 			}
 			
-		}
+		}*/
 
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
@@ -958,7 +954,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, PictureDataContract pictureData) {
+		/*public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, EntryPictureFileContract pictureData) {
 
 			ParamIs.NotNull(() => properties);
 
@@ -1016,7 +1012,8 @@ namespace VocaDb.Model.Service {
 					}
 
 					if (pictureData != null) {
-						album.CoverPictureData = new PictureData(pictureData);
+						var parsed = ImageHelper.GetOriginalAndResizedImages(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
+						album.CoverPictureData = new PictureData(parsed);
 						diff.Cover = true;
 					}
 
@@ -1109,7 +1106,7 @@ namespace VocaDb.Model.Service {
 				}
 			});
 
-		}
+		}*/
 
 	}
 

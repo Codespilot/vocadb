@@ -3,7 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -32,14 +33,28 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private User user;
 		private Artist vocalist;
 
+		private SongInAlbumEditContract CreateSongInAlbumEditContract(int trackNumber, int songId = 0, string songName = null) {
+			return new SongInAlbumEditContract { DiscNumber = 1, TrackNumber = trackNumber, SongId = songId, SongName = songName, Artists = new ArtistContract[0] };
+		}
+
+		private ArtistForAlbumContract CreateArtistForAlbumContract(int artistId = 0, string artistName = null) {
+			return new ArtistForAlbumContract { Artist = new ArtistContract { Name = artistName, Id = artistId } };
+		}
+
+		private AlbumForEditContract CallUpdate(AlbumForEditContract contract) {
+			return queries.UpdateBasicProperties(contract, null);
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 			
 			producer = CreateEntry.Producer();
 			vocalist = CreateEntry.Vocalist();
 
-			album = CreateEntry.Album(id: 39);
+			album = CreateEntry.Album(id: 39, name: "Synthesis");
 			repository = new FakeAlbumRepository(album);
+			foreach (var name in album.Names)
+				repository.Save(name);
 			user = CreateEntry.User(1, "Miku");
 			repository.Save(user);
 			repository.Save(producer, vocalist);
@@ -128,6 +143,97 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			queries.CreateComment(39, "Hello world");
 
 		}
+
+		[TestMethod]
+		public void Update_Names() {
+			
+			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
+
+			contract.Names.AllNames.First().Value = "Replaced name";
+			contract.UpdateNotes = "Updated album";
+
+			contract = CallUpdate(contract);
+			Assert.AreEqual(album.Id, contract.Id, "Update album Id as expected");
+
+			var albumFromRepo = repository.Load(contract.Id);
+			Assert.AreEqual("Replaced name", albumFromRepo.DefaultName);
+			Assert.AreEqual(1, albumFromRepo.Version, "Version");
+			Assert.AreEqual(0, albumFromRepo.AllArtists.Count, "No artists");
+			Assert.AreEqual(0, albumFromRepo.AllSongs.Count, "No songs");
+
+			var archivedVersion = repository.List<ArchivedAlbumVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(album, archivedVersion.Album, "Archived version album");
+			Assert.AreEqual(AlbumArchiveReason.PropertiesUpdated, archivedVersion.Reason, "Archived version reason");
+			Assert.AreEqual(AlbumEditableFields.Names, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+			var activityEntry = repository.List<ActivityEntry>().FirstOrDefault();
+
+			Assert.IsNotNull(activityEntry, "Activity entry was created");
+			Assert.AreEqual(album, activityEntry.EntryBase, "Activity entry's entry");
+			Assert.AreEqual(EntryEditEvent.Updated, activityEntry.EditEvent, "Activity entry event type");
+
+		}
+
+		[TestMethod]
+		public void Update_Tracks() {
+			
+			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
+			var existingSong = CreateEntry.Song(name: "Nebula");
+			repository.Save(existingSong);
+
+			contract.Songs = new[] {
+				CreateSongInAlbumEditContract(1, songId: existingSong.Id),
+				CreateSongInAlbumEditContract(2, songName: "Anger")
+			};
+
+			contract = CallUpdate(contract);
+
+			var albumFromRepo = repository.Load(contract.Id);
+
+			Assert.AreEqual(2, albumFromRepo.AllSongs.Count, "Number of songs");
+
+			var track1 = albumFromRepo.GetSongByTrackNum(1, 1);
+			Assert.AreEqual(existingSong, track1.Song, "First track");
+
+			var track2 = albumFromRepo.GetSongByTrackNum(1, 2);
+			Assert.AreEqual("Anger", track2.Song.DefaultName, "Second track name");
+
+			var archivedVersion = repository.List<ArchivedAlbumVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(AlbumEditableFields.Tracks, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+		}
+
+		/*
+		// TODO: artists not updated this way
+		[TestMethod]
+		public void Update_Artists() {
+			
+			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
+			contract.ArtistLinks = new [] {
+				CreateArtistForAlbumContract(artistId: producer.Id), 
+				CreateArtistForAlbumContract(artistId: vocalist.Id)
+			};
+
+			contract = CallUpdate(contract);
+
+			var albumFromRepo = repository.Load(contract.Id);
+
+			Assert.AreEqual(2, albumFromRepo.AllArtists.Count, "Number of artists");
+
+			Assert.IsTrue(albumFromRepo.AllArtists.Any(a => a.Id == producer.Id), "Has producer");
+			Assert.IsTrue(albumFromRepo.AllArtists.Any(a => a.Id == vocalist.Id), "Has vocalist");
+			Assert.AreEqual("Tripshots feat. Hatsune Miku", albumFromRepo.ArtistString, "Artist string");
+
+			var archivedVersion = repository.List<ArchivedAlbumVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(AlbumEditableFields.Artists, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+		}*/
 
 	}
 

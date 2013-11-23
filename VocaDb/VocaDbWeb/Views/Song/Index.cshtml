@@ -44,7 +44,8 @@
 
 	<div class="alert alert-info span9">
 		<span style="display: none;" data-bind="visible: filterString, text: filterString"></span>
-		<span style="display: none;" data-bind="visible: !filterString()">@R.IndexStrings.NoFilter</span>
+	    <span style="display: none;" data-bind="visible: !filterString()">@R.IndexStrings.NoFilter</span>
+        &nbsp;
 		<button class="btn dropdown-toggle" onclick="$('#filterForm').toggle();">@ViewRes.SharedStrings.Filter <span class="caret"></span></button>
 		@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-horizontal form-topMargin", @id = "filterForm", @style = "display: none;" })) {
 			@Html.HiddenFor(m => m.Sort)

@@ -4,7 +4,7 @@ using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Albums {
 
-	public class ArtistForAlbum : IArtistWithSupport, IEquatable<ArtistForAlbum> {
+	public class ArtistForAlbum : IArtistWithSupport, IEquatable<ArtistForAlbum>, IEntryWithIntId {
 
 		private Album album;
 		private string notes;

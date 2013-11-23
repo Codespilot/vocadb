@@ -21,6 +21,8 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		public int ContentLength { get; set;}
+
 		[DataMember]
 		public EntryType EntryType { get; set; }
 
