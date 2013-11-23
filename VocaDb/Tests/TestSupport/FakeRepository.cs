@@ -61,6 +61,10 @@ namespace VocaDb.Tests.TestSupport {
 			return querySource.List<TEntity>();
 		}
 
+		public T Load(object id) {
+			return HandleQuery(ctx => ctx.Load(id));
+		}
+
 		/// <summary>
 		/// Save the entity into the repository using the repository's own Save method.
 		/// Usually this means an Id will be assigned for the entity, if it's not persisted.

@@ -46,11 +46,11 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
-		/*public static string StaticContentPath {
+		public static string StaticContentPath {
 			get {
 				return Val("StaticContentPath");
 			}
-		}*/
+		}
 
 		public static string StaticContentHost {
 			get {

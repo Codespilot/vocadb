@@ -9,7 +9,7 @@ namespace VocaDb.Tests.TestData {
 	public static class CreateEntry {
 
 		public static Album Album(int id = 0, string name = "Synthesis") {
-			return new Album(TranslatedString.Create(name)) { Id = id };
+			return new Album(new LocalizedString(name, ContentLanguageSelection.Unspecified)) { Id = id };
 		}
 
 		public static Artist Producer(int id = 0, string name = null) {

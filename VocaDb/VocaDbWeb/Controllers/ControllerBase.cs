@@ -134,24 +134,46 @@ namespace VocaDb.Web.Controllers {
 				if (i >= newPics.Length)
 					break;
 
-				var file = additionalPics[i];
+				var contract = ParsePicture(additionalPics[i], "Pictures");
 
-				if (file.ContentLength > ImageHelper.MaxImageSizeBytes) {
-					ModelState.AddModelError("Pictures", "Picture file is too large.");
+				if (contract != null) {
+					newPics[i].FileName = contract.FileName;
+					newPics[i].UploadedFile = contract.UploadedFile;
+					newPics[i].Mime = contract.Mime;		
+					newPics[i].ContentLength = contract.ContentLength;
 				}
-
-				if (!ImageHelper.IsValidImageExtension(file.FileName)) {
-					ModelState.AddModelError("Pictures", "Picture format is not valid.");
-				}
-
-				newPics[i].FileName = file.FileName;
-				newPics[i].UploadedFile = file.InputStream;
-				newPics[i].Mime = file.ContentType ?? string.Empty;
-				//newPics[i].ContentLength = file.ContentLength;
 
 			}
 
 			CollectionHelper.RemoveAll(pictures, p => p.Id == 0 && p.UploadedFile == null);
+
+		}
+
+		protected EntryPictureFileContract ParsePicture(HttpPostedFileBase pictureUpload, string fieldName) {
+
+			EntryPictureFileContract pictureData = null;
+
+			if (Request.Files.Count > 0 && pictureUpload != null && pictureUpload.ContentLength > 0) {
+
+				if (pictureUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
+					ModelState.AddModelError(fieldName, "Picture file is too large.");
+					return null;
+				}
+
+				if (!ImageHelper.IsValidImageExtension(pictureUpload.FileName)) {
+					ModelState.AddModelError(fieldName, "Picture format is not valid.");
+					return null;
+				}
+
+				pictureData = new EntryPictureFileContract();
+				pictureData.FileName = pictureUpload.FileName;
+				pictureData.UploadedFile = pictureUpload.InputStream;
+				pictureData.Mime = pictureUpload.ContentType ?? string.Empty;
+				pictureData.ContentLength = pictureUpload.ContentLength;
+
+			}
+
+			return pictureData;
 
 		}
 

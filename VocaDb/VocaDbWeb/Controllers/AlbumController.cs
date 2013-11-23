@@ -313,7 +313,7 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("ReleaseYear", "Invalid date");
 
 			var coverPicUpload = Request.Files["coverPicUpload"];
-			PictureDataContract pictureData = ParseMainPicture(coverPicUpload, "CoverPicture");
+			var pictureData = ParsePicture(coverPicUpload, "CoverPicture");
 
 			ParseAdditionalPictures(coverPicUpload, model.Pictures);
 
@@ -324,7 +324,7 @@ namespace VocaDb.Web.Controllers
 			}
 
             var contract = model.ToContract();
-			Service.UpdateBasicProperties(contract, pictureData);
+			queries.UpdateBasicProperties(contract, pictureData);
 
         	return RedirectToAction("Details", new { id = model.Id });
 
