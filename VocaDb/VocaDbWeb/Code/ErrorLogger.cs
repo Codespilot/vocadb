@@ -14,15 +14,29 @@ namespace VocaDb.Web.Code {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-		public static void LogHttpError(HttpRequestBase request, int code, LogLevel level = null) {
+		public static void LogHttpError(HttpRequestBase request, int code, string msg = null, LogLevel level = null) {
 
-			log.Log(level ?? LogLevel.Warn, RequestInfo(string.Format("HTTP error code {0} for", code), request));
+			if (string.IsNullOrEmpty(msg))
+				log.Log(level ?? LogLevel.Warn, RequestInfo(string.Format("HTTP error code {0} for", code), request));
+			else
+				log.Log(level ?? LogLevel.Warn, RequestInfo(string.Format("HTTP error code {0} ({1}) for", code, msg), request));
 
 		}
 
-		public static void LogHttpError(HttpRequest request, int code, LogLevel level = null) {
+		/// <summary>
+		/// Logs HTTP error code sent to a client.
+		/// This method is mostly for client errors (status code 4xx).
+		/// 
+		/// Client info and error summary will be logged.
+		/// Full exceptions should be logged separately using <see cref="LogException"/>.
+		/// </summary>
+		/// <param name="request">HTTP request. Cannot be null.</param>
+		/// <param name="code">HTTP response code.</param>
+		/// <param name="msg">Optional simple message, usually exception message.</param>
+		/// <param name="level">Logging level, optional.</param>
+		public static void LogHttpError(HttpRequest request, int code, string msg = null, LogLevel level = null) {
 
-			LogHttpError(new HttpRequestWrapper(request), code, level);
+			LogHttpError(new HttpRequestWrapper(request), code, msg, level);
 
 		}
 

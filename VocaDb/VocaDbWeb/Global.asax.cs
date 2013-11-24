@@ -88,10 +88,10 @@ namespace VocaDb.Web {
 
 		}*/
 
-		private void HandleHttpError(int code, string description = null) {
+		private void HandleHttpError(int code, string description = null, string msg = null) {
 
 			// Log error here to get request info.
-			ErrorLogger.LogHttpError(Request, code);
+			ErrorLogger.LogHttpError(Request, code, msg);
 
 			Server.ClearError();
 			Response.StatusCode = code;
@@ -127,7 +127,7 @@ namespace VocaDb.Web {
 			var httpException = ex as HttpException;
 			var code = (httpException != null ? httpException.GetHttpCode() : 0);
 			if (code == ErrorLogger.Code_NotFound || code == ErrorLogger.Code_BadRequest) {				
-				HandleHttpError(code);
+				HandleHttpError(code, null, ex.Message);
 				return;
 			}
 
