@@ -31,13 +31,14 @@ module vdb.viewModels {
         nameEnglish = ko.observable("");
         pv1 = ko.observable("");
         pv2 = ko.observable("");
+        songType = ko.observable("Original");
 
         hasName: KnockoutComputed<boolean>;
 
         public submit = () => {
             this.submitting(true);
             return true;
-        }
+        };
 
         public submitting = ko.observable(false);
 
@@ -62,7 +63,7 @@ module vdb.viewModels {
                     });
                 }
 
-            }
+            };
 
             this.artistSearchParams = {
                 allowCreateNew: false,
@@ -97,6 +98,10 @@ module vdb.viewModels {
                         this.nameOriginal(result.title);
                     }
 
+                    if (result.songType && result.songType != "Unspecified") {
+                        this.songType(result.songType);
+                    }
+
                     if (result.artists && this.artists().length == 0) {
 
                         _.forEach(result.artists, artist => {
@@ -107,7 +112,7 @@ module vdb.viewModels {
 
                 });
 
-            }
+            };
 
             this.removeArtist = (artist: dc.ArtistContract) => {
                 this.artists.remove(artist);
