@@ -20,6 +20,7 @@ module vdb.utils {
             { url: "www.discogs.com/", desc: "Discogs", cat: c.WebLinkCategory.Reference },
             { url: "exittunes.com/", desc: "Exit Tunes", cat: c.WebLinkCategory.Official },
             { url: "www.facebook.com/", desc: "Facebook", cat: c.WebLinkCategory.Official },
+            { url: ".web.fc2.com", desc: "Website", cat: c.WebLinkCategory.Official },
             { url: ".fc2.com", desc: "Blog", cat: c.WebLinkCategory.Official },
             { url: "itunes.apple.com/", desc: "iTunes", cat: c.WebLinkCategory.Commercial },
             { url: "karent.jp/", desc: "KarenT", cat: c.WebLinkCategory.Commercial },

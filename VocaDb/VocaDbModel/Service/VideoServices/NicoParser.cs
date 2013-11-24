@@ -164,7 +164,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (string.IsNullOrEmpty(title))
 				return new NicoTitleParseResult(title);
 
-			var elemRegex = new Regex(@"【\s?([\w･]+)\s?】");
+			var elemRegex = new Regex(@"【\s?([\w･・]+)\s?】");
 			var matches = elemRegex.Matches(title);
 			var artists = new List<Artist>();
 			var songType = SongType.Unspecified;
@@ -175,21 +175,40 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			foreach (Match match in matches) {
 
-				var content = match.Groups[1].Value;
-				if (content == "オリジナル")
+				var original = "オリジナル";
+				var cover = "カバー";
+
+				var content = match.Groups[1].Value.Trim();
+				if (content == original)
 					songType = SongType.Original;
+				else if (content == cover)
+					songType = SongType.Cover;
 				else {
 
-					if (content.Contains("オリジナル")) {
+					if (content.Contains(original)) {
 						songType = SongType.Original;
-						content = content.Replace("オリジナル", string.Empty);
-					} else if (content.Contains("カバー")) {
+						content = content.Replace(original, string.Empty);
+					} else if (content.Contains(cover)) {
 						songType = SongType.Cover;
 					}
 
-					var a = artistFunc(content.Trim());
+					var a = artistFunc(content);
 					if (a != null)
 						artists.Add(a);
+					else {
+						
+						var parts = content.Split('･', '・');
+
+						foreach (var part in parts) {
+							
+							a = artistFunc(part);
+							if (a != null)
+								artists.Add(a);
+
+						}
+
+					}
+
 				}
 
 				title = title.Remove(match.Index - offset, match.Value.Length);
