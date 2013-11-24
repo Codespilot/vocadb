@@ -13,6 +13,7 @@ var vdb;
                 this.nameEnglish = ko.observable("");
                 this.pv1 = ko.observable("");
                 this.pv2 = ko.observable("");
+                this.songType = ko.observable("Original");
                 this.submit = function () {
                     _this.submitting(true);
                     return true;
@@ -64,6 +65,10 @@ var vdb;
 
                         if (result.title && !_this.hasName()) {
                             _this.nameOriginal(result.title);
+                        }
+
+                        if (result.songType && result.songType != "Unspecified") {
+                            _this.songType(result.songType);
                         }
 
                         if (result.artists && _this.artists().length == 0) {

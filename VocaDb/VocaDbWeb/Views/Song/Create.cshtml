@@ -67,7 +67,7 @@
 				@Html.LabelFor(m => m.SongType)
 			</div>
 			<div class="editor-field">
-				@Html.SongTypeDropDownListFor(m => m.SongType)
+				@Html.DropdownForKnockout(m => m.SongType, ViewHelper.CreateSongTypesList(null), "value: songType")
 			</div>
 
 			<div class="editor-label">
