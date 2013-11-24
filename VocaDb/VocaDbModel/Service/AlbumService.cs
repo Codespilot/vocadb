@@ -60,11 +60,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		/*private Artist[] GetArtists(ISession session, ArtistContract[] artistContracts) {
-			var ids = artistContracts.Select(a => a.Id).ToArray();
-			return session.Query<Artist>().Where(a => ids.Contains(a.Id)).ToArray();			
-		}*/
-
 		private AlbumMergeRecord GetMergeRecord(ISession session, int sourceId) {
 			return session.Query<AlbumMergeRecord>().FirstOrDefault(s => s.Source == sourceId);
 		}
@@ -82,28 +77,6 @@ namespace VocaDb.Model.Service {
 			}
 
 		}
-
-		/*private void UpdateSongArtists(ISession session, Song song, ArtistContract[] artistContracts) {
-
-			var artistDiff = song.SyncArtists(artistContracts, 
-				addedArtistContracts => GetArtists(session, addedArtistContracts));
-
-			SessionHelper.Sync(session, artistDiff);
-
-			if (artistDiff.Changed) {
-
-				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session))) { Artists = true };
-
-				song.UpdateArtistString();
-				Services.Songs.Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
-				session.Update(song);
-
-				AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);
-				AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
-
-			}
-			
-		}*/
 
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
@@ -953,160 +926,6 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
-
-		/*public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, EntryPictureFileContract pictureData) {
-
-			ParamIs.NotNull(() => properties);
-
-			return HandleQuery(session => {
-				using (var tx = session.BeginTransaction()) {
-
-					var album = session.Load<Album>(properties.Id);
-
-					VerifyEntryEdit(album);
-
-					var diff = new AlbumDiff(DoSnapshot(album.ArchivedVersionsManager.GetLatestVersion(), GetLoggedUser(session)));
-
-					SysLog(string.Format("updating properties for {0}", album));
-
-					if (album.DiscType != properties.DiscType) {
-						album.DiscType = properties.DiscType;
-						album.UpdateArtistString();
-						diff.DiscType = true;
-					}
-
-					if (album.Description != properties.Description) {
-						album.Description = properties.Description;
-						diff.Description = true;
-					}
-
-					if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
-						album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
-						diff.OriginalName = true;
-					}
-
-					var validNames = properties.Names.AllNames;
-					var nameDiff = album.Names.Sync(validNames, album);
-					SessionHelper.Sync(session, nameDiff);
-
-					album.Names.UpdateSortNames();
-
-					if (nameDiff.Changed)
-						diff.Names = true;
-
-					var validWebLinks = properties.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
-					var webLinkDiff = WebLink.Sync(album.WebLinks, validWebLinks, album);
-					SessionHelper.Sync(session, webLinkDiff);
-
-					if (webLinkDiff.Changed)
-						diff.WebLinks = true;
-
-					var newOriginalRelease = (properties.OriginalRelease != null ? new AlbumRelease(properties.OriginalRelease) : new AlbumRelease());
-
-					if (album.OriginalRelease == null)
-						album.OriginalRelease = new AlbumRelease();
-
-					if (!album.OriginalRelease.Equals(newOriginalRelease)) {
-						album.OriginalRelease = newOriginalRelease;
-						diff.OriginalRelease = true;
-					}
-
-					if (pictureData != null) {
-						var parsed = ImageHelper.GetOriginalAndResizedImages(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
-						album.CoverPictureData = new PictureData(parsed);
-						diff.Cover = true;
-					}
-
-					if (album.Status != properties.Status) {
-						album.Status = properties.Status;
-						diff.Status = true;
-					}
-
-					var songGetter = new Func<SongInAlbumEditContract, Song>(contract => {
-
-						if (contract.SongId != 0)
-							return session.Load<Song>(contract.SongId);
-						else {
-
-							SysLog(string.Format("creating a new song '{0}' to {1}", contract.SongName, album));
-
-							var song = new Song(new LocalizedString(contract.SongName, ContentLanguageSelection.Unspecified));
-							session.Save(song);
-
-							var songDiff = new SongDiff { Names = true };
-							var songArtistDiff = song.SyncArtists(contract.Artists, 
-								addedArtistContracts => GetArtists(session, addedArtistContracts));
-
-							if (songArtistDiff.Changed) {
-								songDiff.Artists = true;
-								session.Update(song);
-							}
-
-							SessionHelper.Sync(session, songArtistDiff);
-
-							Services.Songs.Archive(session, song, songDiff, SongArchiveReason.Created,
-								string.Format("Created for album '{0}'", album.DefaultName));
-
-							AuditLog(string.Format("created {0} for {1}",
-								EntryLinkFactory.CreateEntryLink(song), EntryLinkFactory.CreateEntryLink(album)), session);
-							AddEntryEditedEntry(session, song, EntryEditEvent.Created);
-
-							return song;
-
-						}
-
-					});
-
-					var tracksDiff = album.SyncSongs(properties.Songs, songGetter, 
-						(song, artistContracts) => UpdateSongArtists(session, song, artistContracts));
-
-					SessionHelper.Sync(session, tracksDiff);
-
-					if (tracksDiff.Changed) {
-
-						var add = string.Join(", ", tracksDiff.Added.Select(i => i.Song.ToString()));
-						var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
-						var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
-
-						var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit)
-							.Truncate(300);
-
-						AuditLog(str, session);
-
-						diff.Tracks = true;
-
-					}
-
-					var picsDiff = album.Pictures.SyncPictures(properties.Pictures, GetLoggedUser(session), album.CreatePicture);
-					SessionHelper.Sync(session, picsDiff);
-					ImageHelper.GenerateThumbsAndMoveImages(picsDiff.Added);
-
-					if (picsDiff.Changed)
-						diff.Pictures = true;
-
-					var pvDiff = album.SyncPVs(properties.PVs);
-					SessionHelper.Sync(session, pvDiff);
-
-					if (pvDiff.Changed)
-						diff.PVs = true;
-
-					var logStr = string.Format("updated properties for album {0} ({1})", 
-						EntryLinkFactory.CreateEntryLink(album), diff.ChangedFieldsString)
-						+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
-						.Truncate(400);
-
-					AuditLog(logStr, session);
-
-					AddEntryEditedEntry(session, album, EntryEditEvent.Updated);
-
-					Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated, properties.UpdateNotes);
-					session.Update(album);
-					tx.Commit();
-					return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
-				}
-			});
-
-		}*/
 
 	}
 

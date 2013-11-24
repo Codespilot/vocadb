@@ -16,13 +16,42 @@ namespace VocaDb.Tests.Service.VideoServices {
 
 		private Artist ArtistFunc(string name) {
 
-			var artistNames = new HashSet<string> { "重音テト", "鏡音リン", "初音ミク", "MEIKO" };
+			// Note: カバー is a valid artist name.
+			var artistNames = new HashSet<string> { "初音ミク", "鏡音リン", "巡音ルカ", "MEIKO", "Lily", "重音テト", "カバー" };
 
 			if (!artistNames.Contains(name))
 				return null;
 
 			return new Artist(TranslatedString.Create(name));
 
+		}
+
+		private void AssertArtists(NicoTitleParseResult result, params string[] artists) {
+			
+			Assert.AreEqual(artists.Length, result.Artists.Count, "Number of artists");
+			foreach (var artist in artists) {
+				Assert.IsTrue(result.Artists.Any(a => a.DefaultName == artist), string.Format("Has artist {0}", artist));
+			}
+
+		}
+
+		private void RunParseTitle(string nicoTitle, string expectedTitle = null, SongType? expectedSongType = null, params string[] artists) {
+			
+			var result = CallParseTitle(nicoTitle);
+
+			if (expectedTitle != null)
+				Assert.AreEqual(expectedTitle, result.Title, "title");
+
+			if (expectedSongType.HasValue)
+				Assert.AreEqual(expectedSongType.Value, result.SongType, "song type");
+
+			if (artists != null)
+				AssertArtists(result, artists);
+
+		}
+
+		private NicoTitleParseResult CallParseTitle(string title) {
+			return NicoHelper.ParseTitle(title, ArtistFunc);
 		}
 
 		[TestInitialize]
@@ -63,12 +92,7 @@ namespace VocaDb.Tests.Service.VideoServices {
 		[TestMethod]
 		public void ParseTitle_Valid() {
 
-			var result = NicoHelper.ParseTitle("【重音テト】 ハイゲインワンダーランド 【オリジナル】", ArtistFunc);
-
-			Assert.AreEqual(1, result.Artists.Count, "1 artist");
-			Assert.AreEqual("重音テト", result.Artists.First().DefaultName, "artist");
-			Assert.AreEqual("ハイゲインワンダーランド", result.Title, "title");
-			Assert.AreEqual(SongType.Original, result.SongType, "song type");
+			RunParseTitle("【重音テト】 ハイゲインワンダーランド 【オリジナル】", "ハイゲインワンダーランド", SongType.Original, "重音テト");
 
 		}
 
@@ -77,11 +101,15 @@ namespace VocaDb.Tests.Service.VideoServices {
 		/// </summary>
 		[TestMethod]
 		public void ParseTitle_Cover() {
+			
+			RunParseTitle("【鏡音リン・レン】愛言葉Ⅱ【カバー】", "愛言葉Ⅱ", SongType.Cover, "鏡音リン");
 
-			var result = NicoHelper.ParseTitle("【波音リツキレ音源】Lost Destination【UTAUカバー】", ArtistFunc);
+		}
 
-			// TODO: might be able to parse artist as well
-			Assert.AreEqual(SongType.Cover, result.SongType, "song type");
+		[TestMethod]
+		public void ParseTitle_UtauCover() {
+
+			RunParseTitle("【波音リツキレ音源】Lost Destination【UTAUカバー】", "Lost Destination", SongType.Cover, null);
 
 		}
 
@@ -105,10 +133,7 @@ namespace VocaDb.Tests.Service.VideoServices {
 		[TestMethod]
 		public void ParseTitle_SpecialChars() {
 
-			var result = NicoHelper.ParseTitle("【巡音ルカ･Lily】Blame of Angel", ArtistFunc);
-
-			// TODO: might be able to handle artists as well.
-			Assert.AreEqual("Blame of Angel", result.Title, "title");
+			RunParseTitle("【巡音ルカ･Lily】Blame of Angel", "Blame of Angel", null, "巡音ルカ", "Lily");
 
 		}
 
