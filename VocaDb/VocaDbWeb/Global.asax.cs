@@ -126,9 +126,12 @@ namespace VocaDb.Web {
 			// Not found (usually by the controller). We get these a lot.
 			var httpException = ex as HttpException;
 			var code = (httpException != null ? httpException.GetHttpCode() : 0);
-			if (code == ErrorLogger.Code_NotFound || code == ErrorLogger.Code_BadRequest) {				
-				HandleHttpError(code, null, ex.Message);
-				return;
+			if (code == ErrorLogger.Code_NotFound || code == ErrorLogger.Code_BadRequest) {
+				// Getting a lot of these >_>
+				if (ex.Message != "A potentially dangerous Request.Path value was detected from the client (?).") {
+					HandleHttpError(code, null, ex.Message);
+				}
+				return;					
 			}
 
 			// Generic NHibernate exception. This error has been logged already.
