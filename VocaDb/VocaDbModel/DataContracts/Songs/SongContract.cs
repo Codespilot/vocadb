@@ -78,6 +78,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public string Name { get; set; }
 
+		[System.Xml.Serialization.XmlIgnoreAttribute]
 		public ITranslatedString TranslatedName { get; set; }
 
 		[DataMember]
