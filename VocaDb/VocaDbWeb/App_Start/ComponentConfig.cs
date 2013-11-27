@@ -2,6 +2,7 @@
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.Wcf;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Repositories;
@@ -31,10 +32,13 @@ namespace VocaDb.Web.App_Start {
 
 			builder.Register(x => DatabaseConfiguration.BuildSessionFactory()).SingleInstance();
 
+			// Other dependencies (for repositories mostly)
 			builder.RegisterType<LoginManager>().As<IUserPermissionContext>();
 			builder.Register(x => new EntryAnchorFactory(AppConfig.HostAddress)).As<IEntryLinkFactory>();
 			builder.RegisterType<StopForumSpamClient>().As<IStopForumSpamClient>();
 			builder.RegisterType<PVParser>().As<IPVParser>();
+			builder.RegisterType<ServerEntryImagePersisterOld>().As<IEntryImagePersisterOld>();
+			builder.RegisterType<ServerEntryThumbPersister>().As<IEntryThumbPersister>();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();

@@ -121,6 +121,6 @@
     <value>Show disabled accounts</value>
   </data>
   <data name="VerifiedArtists" xml:space="preserve">
-    <value>Verified artists</value>
+    <value>Artist accounts</value>
   </data>
 </root>

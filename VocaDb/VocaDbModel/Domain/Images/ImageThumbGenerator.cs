@@ -7,71 +7,37 @@ namespace VocaDb.Model.Domain.Images {
 
 	public class ImageThumbGenerator {
 
-		private readonly IImagePathMapper imagePathMapper;
+		private readonly IEntryImagePersister persister;
 
 		public const int Unlimited = 0;
 
-		public ImageThumbGenerator(IImagePathMapper imagePathMapper) {
+		public ImageThumbGenerator(IEntryImagePersister persister) {
+			
+			ParamIs.NotNull(() => persister);
 
-			ParamIs.NotNull(() => imagePathMapper);
-
-			this.imagePathMapper = imagePathMapper;
-
-		}
-
-		private void EnsureDirExistsForFile(string path) {
-
-			var dir = Path.GetDirectoryName(path);
-
-			if (dir != null && !Directory.Exists(dir))
-				Directory.CreateDirectory(dir);
-
-		}
-
-		/// <summary>
-		/// Writes a stream to a file, overwriting any existing file.
-		/// </summary>
-		/// <param name="file">Stream to be written. Cannot be null.</param>
-		/// <param name="path">Full file system path of the file to be written to. Can be null or empty.</param>
-		private void WriteFile(Stream file, string path) {
-
-			if (string.IsNullOrEmpty(path))
-				return;
-
-			EnsureDirExistsForFile(path);
-
-			file.Seek(0, SeekOrigin.Begin);
-
-			using (var f = File.Create(path)) {
-				file.CopyTo(f);
-			}
-
-			file.Seek(0, SeekOrigin.Begin);
+			this.persister = persister;
 
 		}
 
 		/// <summary>
 		/// Writes an image to a file, overwriting any existing file.
+		/// 
 		/// If the dimensions of the original image are smaller or equal than the thumbnail size,
 		/// the file is simply copied. Otherwise it will be shrunk.
 		/// </summary>
-		/// <param name="file">Stream to be written. Cannot be null.</param>
-		/// <param name="path">Full file system path of the file to be written to. Can be null or empty.</param>
 		/// <param name="original">Original image. Cannot be null.</param>
+		/// <param name="input">Stream to be written. Cannot be null.</param>
+		/// <param name="imageInfo">Image information. Cannot be null.</param>
+		/// <param name="size">Image size of the saved thumbnail.</param>
 		/// <param name="dimensions">Dimensions of the thumbnail.</param>
-		private void WriteThumb(Stream file, string path, Image original, int dimensions) {
-
-			if (string.IsNullOrEmpty(path))
-				return;
-
-			EnsureDirExistsForFile(path);
+		private void GenerateThumbAndMoveImage(Image original, Stream input, IEntryImageInformation imageInfo, ImageSize size, int dimensions) {
 
 			if (dimensions != Unlimited && (original.Width > dimensions || original.Height > dimensions)) {
 				using (var thumb = ImageHelper.ResizeToFixedSize(original, dimensions, dimensions)) {
-					thumb.Save(path);					
+					persister.Write(imageInfo, size, thumb);
 				}
 			} else {
-				WriteFile(file, path);
+				persister.Write(imageInfo, size, input);
 			}
 
 		}
@@ -79,34 +45,23 @@ namespace VocaDb.Model.Domain.Images {
 		/// <summary>
 		/// Generates thumbnails and writes the original file into external image files.
 		/// </summary>
-		/// <param name="input">Image to be written. Cannot be null.</param>
-		/// <param name="originalPath">Target path of the original size image. Can be null or empty, in which case the image is skipped.</param>
-		/// <param name="thumbPath">Target path of the 250x250px thumbnail. Can be null or empty, in which case the image is skipped.</param>
-		/// <param name="smallThumbPath">Target path of the 150x150px thumbnail. Can be null or empty, in which case the image is skipped.</param>
-		/// <param name="tinyThumbPath">Target path of the 70x70px thumbnail. Can be null or empty, in which case the image is skipped.</param>
-		/// <param name="originalSize">Maximum dimensions of the original picture. Default is unlimited.</param>
-		public void GenerateThumbsAndMoveImage(Stream input, string originalPath = null, string thumbPath = null, string smallThumbPath = null, string tinyThumbPath = null,
-			int originalSize = Unlimited) {
+		public void GenerateThumbsAndMoveImage(Stream input, IEntryImageInformation imageInfo, ImageSizes imageSizes, int originalSize = Unlimited) {
 
 			using (var original = ImageHelper.OpenImage(input)) {
 
-				WriteThumb(input, originalPath, original, originalSize);
-				WriteThumb(input, thumbPath, original, ImageHelper.DefaultThumbSize);
-				WriteThumb(input, smallThumbPath, original, ImageHelper.DefaultSmallThumbSize);
-				WriteThumb(input, tinyThumbPath, original, ImageHelper.DefaultTinyThumbSize);
+				if (imageSizes.HasFlag(ImageSizes.Original))
+					GenerateThumbAndMoveImage(original, input, imageInfo, ImageSize.Original, originalSize);
+
+				if (imageSizes.HasFlag(ImageSizes.Thumb))
+					GenerateThumbAndMoveImage(original, input, imageInfo, ImageSize.Thumb, ImageHelper.DefaultThumbSize);
+
+				if (imageSizes.HasFlag(ImageSizes.SmallThumb))
+					GenerateThumbAndMoveImage(original, input, imageInfo, ImageSize.SmallThumb, ImageHelper.DefaultSmallThumbSize);
+
+				if (imageSizes.HasFlag(ImageSizes.TinyThumb))
+					GenerateThumbAndMoveImage(original, input, imageInfo, ImageSize.TinyThumb, ImageHelper.DefaultTinyThumbSize);
 
 			}
-
-		}
-
-		public void GenerateThumbsAndMoveImage(Stream input, IPictureWithThumbs pictureFile, ImageSizes imageSizes, int originalSize = Unlimited) {
-
-			GenerateThumbsAndMoveImage(input,
-				imageSizes.HasFlag(ImageSizes.Original) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.Original) : null,
-				imageSizes.HasFlag(ImageSizes.Thumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.Thumb) : null,
-				imageSizes.HasFlag(ImageSizes.SmallThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.SmallThumb) : null,
-				imageSizes.HasFlag(ImageSizes.TinyThumb) ? imagePathMapper.GetImagePath(pictureFile, ImageSize.TinyThumb) : null,
-				originalSize: originalSize);
 
 		}
 

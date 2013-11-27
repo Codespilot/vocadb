@@ -7,18 +7,6 @@ namespace VocaDb.Web.Helpers {
 
 	public static class VocaUrlHelper {
 
-		// Path to static files root, for example http://static.vocadb.net. Possible trailing slash is removed.
-		private static readonly string staticResourceBase = RemoveTrailingSlash(AppConfig.StaticContentHost);
-
-		private static string MergeUrls_BaseNoTrailingSlash(string baseUrl, string relative) {
-			
-			if (relative.StartsWith("/"))
-				return string.Format("{0}{1}", baseUrl, relative);
-			else
-				return string.Format("{0}/{1}", baseUrl, relative);
-
-		}
-
 		/// <summary>
 		/// Gets an URL-friendly name from any entry name.
 		/// The processed name can be used as user-friendly part of an URL.
@@ -61,25 +49,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static string MergeUrls(string baseUrl, string relative) {
 
-			if (baseUrl.EndsWith("/")) {
-
-				if (relative.StartsWith("/"))
-					return string.Format("{0}{1}", baseUrl.Substring(0, baseUrl.Length - 1), relative);
-				else
-					return string.Format("{0}{1}", baseUrl, relative);
-
-			} else {
-				return MergeUrls_BaseNoTrailingSlash(baseUrl, relative);
-			}
-
-		}
-
-		public static string RemoveTrailingSlash(string url) {
-
-			if (string.IsNullOrEmpty(url))
-				return url;
-
-			return url.EndsWith("/") ? url.Substring(0, AppConfig.StaticContentHost.Length - 1) : url;
+			return VocaUriBuilder.MergeUrls(baseUrl, relative);
 
 		}
 
@@ -91,7 +61,7 @@ namespace VocaDb.Web.Helpers {
 		/// Full path to that static resource, for example http://static.vocadb.net/banners/rvocaloid.png
 		/// </returns>
 		public static string StaticResource(string relative) {
-			return MergeUrls_BaseNoTrailingSlash(staticResourceBase, relative);
+			return VocaUriBuilder.StaticResource(relative);
 		}
 	
 	}

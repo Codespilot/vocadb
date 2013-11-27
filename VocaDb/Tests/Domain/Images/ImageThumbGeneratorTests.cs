@@ -10,77 +10,76 @@ namespace VocaDb.Tests.Domain.Images {
 
 	/// <summary>
 	/// Tests for <see cref="ImageThumbGenerator"/>.
-	/// TODO: these tests should use some virtual file system.
 	/// </summary>
 	[TestClass]
 	public class ImageThumbGeneratorTests {
 
-		private TempImagePathMapper imageMapper;
+		private InMemoryImagePersister persister;
 		private ImageThumbGenerator target;
 
 		private Stream TestImage() {
 			return ResourceHelper.GetFileStream("yokohma_bay_concert.jpg");
 		}
 
-		private void AssertDimensions(string file, int width, int height) {
+		private void AssertDimensions(IEntryImageInformation imageInfo, ImageSize size, int width, int height) {
 
-			using (var img = Image.FromFile(file)) {
+			using (var stream = persister.GetReadStream(imageInfo, size))
+			using (var img = Image.FromStream(stream)) {
 				Assert.AreEqual(width, img.Width, "Image width");
 				Assert.AreEqual(height, img.Height, "Image height");
 			}
 
 		}
 
+		private EntryThumbContract CallGenerateThumbsAndMoveImage(ImageSizes sizes) {
+
+			var thumb = new EntryThumbContract {EntryType = EntryType.SongList, FileName = "test.jpg"};
+
+			using (var input = TestImage()) {
+				target.GenerateThumbsAndMoveImage(input, thumb, sizes);				
+			}
+			
+			return thumb;
+
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 
-			imageMapper = new TempImagePathMapper();
-			if (Directory.Exists(imageMapper.Folder)) {
-				Directory.Delete(imageMapper.Folder, true);				
-			}
-			target = new ImageThumbGenerator(imageMapper);
+			persister = new InMemoryImagePersister();
+			target = new ImageThumbGenerator(persister);
 
 		}
 
 		[TestMethod]
 		public void GenerateThumbsAndMoveImage_Original() {
 
-			var thumb = new EntryThumbContract {EntryType = EntryType.SongList, FileName = "test.jpg"};
+			var thumb = CallGenerateThumbsAndMoveImage(ImageSizes.Original);
 
-			target.GenerateThumbsAndMoveImage(TestImage(), thumb, ImageSizes.Original);
-
-			var path = imageMapper.GetImagePath(EntryType.SongList, "test.jpg");
-			Assert.IsTrue(File.Exists(path), "File was created");
-			AssertDimensions(path, 480, 800);
+			Assert.IsTrue(persister.HasImage(thumb, ImageSize.Original), "Image was created");
+			AssertDimensions(thumb, ImageSize.Original, 480, 800);
 
 		}
 
 		[TestMethod]
 		public void GenerateThumbsAndMoveImage_Thumbnail() {
 
-			var thumb = new EntryThumbContract { EntryType = EntryType.SongList, FileNameThumb = "test-t.jpg" };
+			var thumb = CallGenerateThumbsAndMoveImage(ImageSizes.Thumb);
 
-			target.GenerateThumbsAndMoveImage(TestImage(), thumb, ImageSizes.Thumb);
-
-			var path = imageMapper.GetImagePath(EntryType.SongList, "test-t.jpg");
-			Assert.IsTrue(File.Exists(path), "File was created");
-			AssertDimensions(path, 150, 250);
+			Assert.IsTrue(persister.HasImage(thumb, ImageSize.Thumb), "Image was created");
+			AssertDimensions(thumb, ImageSize.Thumb, 150, 250);
 
 		}
 
 		[TestMethod]
 		public void GenerateThumbsAndMoveImage_OriginalAndSmallThumb() {
 
-			var thumb = new EntryThumbContract { EntryType = EntryType.SongList, FileName = "test.jpg", FileNameSmallThumb = "test-st.jpg" };
+			var thumb = CallGenerateThumbsAndMoveImage(ImageSizes.Original | ImageSizes.SmallThumb);
 
-			target.GenerateThumbsAndMoveImage(TestImage(), thumb, ImageSizes.Original | ImageSizes.SmallThumb);
-
-			var origPath = imageMapper.GetImagePath(EntryType.SongList, "test.jpg");
-			Assert.IsTrue(File.Exists(origPath), "File was created");
-			AssertDimensions(origPath, 480, 800);
-			var thumbPath = imageMapper.GetImagePath(EntryType.SongList, "test-st.jpg");
-			Assert.IsTrue(File.Exists(thumbPath), "File was created");
-			AssertDimensions(thumbPath, 90, 150);
+			Assert.IsTrue(persister.HasImage(thumb, ImageSize.Original), "Image was created");
+			AssertDimensions(thumb, ImageSize.Original, 480, 800);
+			Assert.IsTrue(persister.HasImage(thumb, ImageSize.SmallThumb), "Thumbnail was created");
+			AssertDimensions(thumb, ImageSize.SmallThumb, 90, 150);
 
 		}
 
