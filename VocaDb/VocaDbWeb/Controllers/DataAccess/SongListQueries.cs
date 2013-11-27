@@ -16,6 +16,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+		private readonly IEntryImagePersisterOld imagePersister;
 		private readonly IUserPermissionContext permissionContext;
 		private readonly ISongListRepository repository;
 
@@ -61,17 +62,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				var thumb = new EntryThumb(list, uploadedFile.Mime);
 				list.Thumb = thumb;
-				var thumbGenerator = new ImageThumbGenerator(new ServerImagePathMapper());
+				var thumbGenerator = new ImageThumbGenerator(imagePersister);
 				thumbGenerator.GenerateThumbsAndMoveImage(uploadedFile.Stream, thumb, ImageSizes.Original | ImageSizes.SmallThumb, originalSize: 500);
 
 			}
 
 		}
 
-		public SongListQueries(ISongListRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) {
+		public SongListQueries(ISongListRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryImagePersisterOld imagePersister) {
 			this.repository = repository;
 			this.permissionContext = permissionContext;
 			this.entryLinkFactory = entryLinkFactory;
+			this.imagePersister = imagePersister;
 		}
 
 		public int UpdateSongList(SongListForEditContract contract, UploadedFileContract uploadedFile) {

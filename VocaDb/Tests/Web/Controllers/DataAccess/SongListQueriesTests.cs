@@ -16,6 +16,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 	[TestClass]
 	public class SongListQueriesTests {
 
+		private InMemoryImagePersister imagePersister;
 		private FakePermissionContext permissionContext;
 		private FakeSongListRepository repository;
 		private SongListForEditContract songListContract;
@@ -33,7 +34,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			userWithSongList = new User("User with songlist", "123", "test@test.com", 123);
 			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithSongList, ContentLanguagePreference.Default));
 
-			queries = new SongListQueries(repository, permissionContext, new FakeEntryLinkFactory());
+			imagePersister = new InMemoryImagePersister();
+			queries = new SongListQueries(repository, permissionContext, new FakeEntryLinkFactory(), imagePersister);
 
 			var song1 = new Song(TranslatedString.Create("Project Diva desu.")) { Id = 1};
 			var song2 = new Song(TranslatedString.Create("World is Mine")) { Id = 2};

@@ -18,12 +18,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	public class TagQueries : QueriesBase<ITagRepository, Tag> {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
+		private readonly IEntryImagePersisterOld imagePersister;
 
 		public TagQueries(ITagRepository repository, IUserPermissionContext permissionContext,
-		                  IEntryLinkFactory entryLinkFactory)
+		                  IEntryLinkFactory entryLinkFactory, IEntryImagePersisterOld imagePersister)
 			: base(repository, permissionContext) {
 
 			this.entryLinkFactory = entryLinkFactory;
+			this.imagePersister = imagePersister;
 
 		}
 
@@ -75,7 +77,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 					var thumb = new EntryThumb(tag, uploadedImage.Mime);
 					tag.Thumb = thumb;
-					var thumbGenerator = new ImageThumbGenerator(new ServerImagePathMapper());
+					var thumbGenerator = new ImageThumbGenerator(imagePersister);
 					thumbGenerator.GenerateThumbsAndMoveImage(uploadedImage.Stream, thumb, ImageSizes.Original | ImageSizes.SmallThumb, originalSize: 500);
 
 				}

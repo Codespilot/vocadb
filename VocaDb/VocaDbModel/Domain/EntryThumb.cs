@@ -1,8 +1,9 @@
-﻿using VocaDb.Model.Helpers;
+﻿using VocaDb.Model.Domain.Images;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain {
 
-	public class EntryThumb : IPictureWithThumbs {
+	public class EntryThumb : IPictureWithThumbs, IEntryImageInformation {
 
 		private static string GetExtension(string mime) {
 			return ImageHelper.GetExtensionFromMime(mime) ?? string.Empty;
@@ -55,6 +56,10 @@ namespace VocaDb.Model.Domain {
 			get {
 				return GetFileName(Entry.Id, Mime, "-tt");
 			}
+		}
+
+		public int Id {
+			get { return Entry.Id; }
 		}
 
 		public string Mime { get; set; }

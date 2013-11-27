@@ -2,11 +2,12 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Images;
 
 namespace VocaDb.Model.DataContracts {
 
 	[DataContract]
-	public class EntryThumbContract : IPictureWithThumbs {
+	public class EntryThumbContract : IPictureWithThumbs, IEntryImageInformation {
 
 		public EntryThumbContract() {}
 
@@ -16,6 +17,8 @@ namespace VocaDb.Model.DataContracts {
 			FileNameThumb = entryThumb.FileNameThumb;
 			FileNameSmallThumb = entryThumb.FileNameSmallThumb;
 			FileNameTinyThumb = entryThumb.FileNameTinyThumb;
+			Id = entryThumb.Id;
+			Mime = entryThumb.Mime;
 		}
 
 		[DataMember]
@@ -33,6 +36,12 @@ namespace VocaDb.Model.DataContracts {
 
 		[DataMember]
 		public string FileNameTinyThumb { get; set; }
+
+		[DataMember]
+		public int Id { get; set;}
+
+		[DataMember]
+		public string Mime { get; set; }
 
 	}
 }

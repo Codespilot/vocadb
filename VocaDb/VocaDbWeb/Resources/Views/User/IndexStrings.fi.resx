@@ -121,6 +121,6 @@
     <value>Näytä käytöstä poistetut tunnukset</value>
   </data>
   <data name="VerifiedArtists" xml:space="preserve">
-    <value>Vahvistetut artistit</value>
+    <value>Artistien käyttäjätunnukset</value>
   </data>
 </root>

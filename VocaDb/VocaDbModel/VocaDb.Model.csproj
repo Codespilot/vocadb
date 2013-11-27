@@ -294,6 +294,13 @@
     <Compile Include="Domain\IDeletableEntry.cs" />
     <Compile Include="Domain\IEntryWithIntId.cs" />
     <Compile Include="Domain\IEntryWithStatus.cs" />
+    <Compile Include="Domain\Images\IEntryImagePersisterOld.cs" />
+    <Compile Include="Domain\Images\IEntryThumbPersister.cs" />
+    <Compile Include="Domain\Images\ImageThumbGenerator.cs" />
+    <Compile Include="Domain\Images\ServerEntryImagePersisterOld.cs" />
+    <Compile Include="Domain\Images\IEntryImageInformation.cs" />
+    <Compile Include="Domain\Images\IEntryImagePersister.cs" />
+    <Compile Include="Domain\Images\ServerEntryThumbPersister.cs" />
     <Compile Include="Domain\IOptionalDateTime.cs" />
     <Compile Include="Domain\IPictureWithThumbs.cs" />
     <Compile Include="Domain\LinkAlreadyExistsException.cs" />
@@ -423,10 +430,7 @@
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\EnumerableExtender.cs" />
     <Compile Include="Helpers\HtmlRequestHelper.cs" />
-    <Compile Include="Domain\Images\IImagePathMapper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
-    <Compile Include="Domain\Images\ServerImagePathMapper.cs" />
-    <Compile Include="Domain\Images\ImageThumbGenerator.cs" />
     <Compile Include="Helpers\LambdaComparer.cs" />
     <Compile Include="Helpers\LocalizedStringHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
