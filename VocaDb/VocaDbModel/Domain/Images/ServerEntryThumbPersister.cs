@@ -6,6 +6,9 @@ using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Domain.Images {
 
+	/// <summary>
+	/// Saves entry thumbnails (for album/artist) in the static files folder on the server disk.
+	/// </summary>
 	public class ServerEntryThumbPersister : IEntryThumbPersister {
 
 		private readonly string staticRoot;
