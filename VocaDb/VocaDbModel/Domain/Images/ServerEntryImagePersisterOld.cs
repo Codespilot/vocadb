@@ -6,6 +6,13 @@ using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Domain.Images {
 
+	/// <summary>
+	/// Saves songlist/tag thumbnails on the server disk.
+	/// 
+	/// These images are saved in the EntryImg folder under the main application folder for now,
+	/// but should be migrated to the static files folder.
+	/// Hence the "Old" suffix.
+	/// </summary>
 	public class ServerEntryImagePersisterOld : IEntryImagePersisterOld {
 
 		private void EnsureDirExistsForFile(string path) {

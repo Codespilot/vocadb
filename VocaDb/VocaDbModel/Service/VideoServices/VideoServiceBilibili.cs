@@ -33,7 +33,8 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var requestUrl = string.Format("http://api.bilibili.tv/view?type=xml&appkey={0}&id={1}", AppConfig.BilibiliAppKey, id);
 
-			var request = WebRequest.Create(requestUrl);
+			var request = (HttpWebRequest)WebRequest.Create(requestUrl);
+			request.UserAgent = "VocaDB/1.0 (admin@vocadb.net)";
 			request.Timeout = 10000;
 			XDocument doc;
 
