@@ -1,10 +1,15 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Net.Mime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Controllers.DataAccess;
 
@@ -25,6 +30,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		private SongInListEditContract[] SongInListEditContracts(params Song[] songs) {
 			return songs.Select(s => new SongInListEditContract(new SongContract(s, ContentLanguagePreference.Default))).ToArray();
+		}
+
+		private Stream TestImage() {
+			return ResourceHelper.GetFileStream("yokohma_bay_concert.jpg");
 		}
 
 		[TestInitialize]
@@ -87,6 +96,21 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		}
 
+		[TestMethod]
+		public void Update_Image() {
+			
+			int id;
+			using (var stream = TestImage()) {
+				id = queries.UpdateSongList(songListContract, new UploadedFileContract { Mime = MediaTypeNames.Image.Jpeg, Stream = stream });			
+			}
+
+			var songList = repository.Load(id);
+
+			var thumb = new EntryThumb(songList, MediaTypeNames.Image.Jpeg);
+			Assert.IsTrue(imagePersister.HasImage(thumb, ImageSize.Original), "Original image was saved");
+			Assert.IsTrue(imagePersister.HasImage(thumb, ImageSize.SmallThumb), "Thumbnail was saved");
+
+		}
 	}
 
 }

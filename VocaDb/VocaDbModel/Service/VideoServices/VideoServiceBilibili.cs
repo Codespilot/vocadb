@@ -31,7 +31,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (string.IsNullOrEmpty(id))
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.NoMatcher, "No matcher");
 
-			var requestUrl = string.Format("http://api.bilibili.tv/view?type=xml&appkey={0}&id={1}", AppConfig.BilibiliAppKey, id);
+			var requestUrl = string.Format("http://api.bilibili.tv/view?type=xml&page=1&appkey={0}&id={1}", AppConfig.BilibiliAppKey, id);
 
 			var request = (HttpWebRequest)WebRequest.Create(requestUrl);
 			request.UserAgent = "VocaDB/1.0 (admin@vocadb.net)";
