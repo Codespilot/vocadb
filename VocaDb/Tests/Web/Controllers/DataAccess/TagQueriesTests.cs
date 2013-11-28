@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Net.Mime;
-using System.Xml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
@@ -70,7 +69,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
-		void Update_Image() {
+		public void Update_Image() {
 			
 			var updated = new TagContract(tag);
 			using (var stream = TestImage()) {
@@ -79,7 +78,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			var thumb = new EntryThumb(tag, MediaTypeNames.Image.Jpeg);
 			Assert.IsTrue(imagePersister.HasImage(thumb, ImageSize.Original), "Original image was saved");
-			Assert.IsTrue(imagePersister.HasImage(thumb, ImageSize.Thumb), "Thumbnail was saved");
+			Assert.IsTrue(imagePersister.HasImage(thumb, ImageSize.SmallThumb), "Small thumbnail was saved");
 
 			var archivedVersion = repository.List<ArchivedTagVersion>().FirstOrDefault(a => a.Tag.Id == tag.Id);
 			Assert.IsNotNull(archivedVersion, "Archived version was created");
