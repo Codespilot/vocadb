@@ -20,7 +20,7 @@ function initPage(songId) {
 		//var idField = $("#artistsTableBody input.artistId[value='" + artistId + "']");
 		//var row = idField.parent().parent();
 		var row = $("#artistsTableBody tr:eq(" + artistId + ")");
-		row.find("input.artistRoles").val(checkedRoles.join(","));
+		row.find("input.artistRoles").val(checkedRoles.length ? checkedRoles.join(",") : "Default");
 		row.find("div.artistRolesList").html(checkedRoles.join("<br />"));
 
 		$("#editArtistRolesPopup").dialog("close");
