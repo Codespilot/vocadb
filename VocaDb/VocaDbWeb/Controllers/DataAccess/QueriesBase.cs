@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers.DataAccess {
@@ -42,11 +45,34 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		protected void AddEntryEditedEntry(IRepositoryContext<ActivityEntry> ctx, Artist entry, EntryEditEvent editEvent) {
+
+			var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
+			var activityEntry = new ArtistActivityEntry(entry, editEvent, user);
+			AddActivityfeedEntry(ctx, activityEntry);
+
+		}
+
 		protected void AddEntryEditedEntry(IRepositoryContext<ActivityEntry> ctx, Song entry, EntryEditEvent editEvent) {
 
 			var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
 			var activityEntry = new SongActivityEntry(entry, editEvent, user);
 			AddActivityfeedEntry(ctx, activityEntry);
+
+		}
+
+		protected bool DoSnapshot(ArchivedObjectVersion latestVersion, User user) {
+
+			if (latestVersion == null)
+				return true;
+
+			return ((((latestVersion.Version + 1) % 5) == 0) || !user.Equals(latestVersion.Author));
+
+		}
+
+		protected void VerifyEntryEdit(IEntryWithStatus entry) {
+
+			EntryPermissionManager.VerifyEdit(PermissionContext, entry);
 
 		}
 

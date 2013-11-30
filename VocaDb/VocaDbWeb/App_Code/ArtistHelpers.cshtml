@@ -6,6 +6,7 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.DataContracts.Albums;
+@using VocaDb.Model.Domain.Images;
 @inherits VocaDb.Web.Code.HelperPage
 
 @helper ArtistTypeLabel(ArtistType artistType) {
@@ -65,7 +66,7 @@
 
 @helper ArtistIconLink(ArtistContract artist) {
 	<a href="@Url.Action("Details", "Artist", new { id = artist.Id })">
-		<img src="@Url.Action("PictureThumb", "Artist", new { id = artist.Id, v = artist.Version })" alt="Thumb" class="coverPicThumb" />
+		<img src="@Url.ImageThumb(artist, ImageSize.TinyThumb)" alt="Thumb" class="coverPicThumb" />
 	</a>		
 }
 

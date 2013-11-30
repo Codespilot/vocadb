@@ -42,15 +42,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		protected bool DoSnapshot(ArchivedObjectVersion latestVersion, User user) {
-
-			if (latestVersion == null)
-				return true;
-
-			return ((((latestVersion.Version + 1) % 5) == 0) || !user.Equals(latestVersion.Author));
-
-		}
-
 		private Artist[] GetArtists(IRepositoryContext<Album> ctx, ArtistContract[] artistContracts) {
 			var ids = artistContracts.Select(a => a.Id).ToArray();
 			return ctx.OfType<Artist>().Query().Where(a => ids.Contains(a.Id)).ToArray();			
@@ -76,12 +67,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			}
 			
-		}
-
-		protected void VerifyEntryEdit(IEntryWithStatus entry) {
-
-			EntryPermissionManager.VerifyEdit(PermissionContext, entry);
-
 		}
 
 		public AlbumQueries(IAlbumRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryThumbPersister imagePersister)
