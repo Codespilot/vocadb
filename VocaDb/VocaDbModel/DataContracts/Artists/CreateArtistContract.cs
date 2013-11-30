@@ -12,7 +12,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public LocalizedStringContract[] Names { get; set; }
 
-		public PictureDataContract PictureData { get; set; }
+		public EntryPictureFileContract PictureData { get; set; }
 
 		public WebLinkContract WebLink { get; set; }
 

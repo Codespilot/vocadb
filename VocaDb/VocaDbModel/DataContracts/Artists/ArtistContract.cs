@@ -4,11 +4,12 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using VocaDb.Model.Domain.Images;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class ArtistContract : IEntryWithStatus {
+	public class ArtistContract : IEntryWithStatus, IEntryImageInformation {
 
 		string IEntryBase.DefaultName {
 			get { return Name; }
@@ -16,6 +17,14 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		EntryType IEntryBase.EntryType {
 			get { return EntryType.Artist; }
+		}
+
+		EntryType IEntryImageInformation.EntryType {
+			get { return EntryType.Artist; }
+		}
+
+		string IEntryImageInformation.Mime {
+			get { return PictureMime; }
 		}
 
 		public ArtistContract() {}
@@ -29,6 +38,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Deleted = artist.Deleted;
 			Id = artist.Id;
 			Name = artist.TranslatedName[preference];
+			PictureMime = artist.Picture != null ? artist.Picture.Mime : null;
 			Status = artist.Status;
 			Version = artist.Version;
 
@@ -49,6 +59,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public string PictureMime { get; set;}
 
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]

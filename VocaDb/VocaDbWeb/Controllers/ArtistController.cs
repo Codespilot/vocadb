@@ -307,8 +307,7 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			var artist = Service.GetArtistPicture(id, pictureThumbSize);
-
+			var artist = queries.GetPictureThumb(id);
 			return Picture(artist);
 
 		}
@@ -347,7 +346,7 @@ namespace VocaDb.Web.Controllers
 				ModelState.AddModelError("Description", ViewRes.Artist.CreateStrings.NeedWebLinkOrDescription);
 
 			var coverPicUpload = Request.Files["pictureUpload"];
-			PictureDataContract pictureData = ParseMainPicture(coverPicUpload, "Picture");
+			var pictureData = ParsePicture(coverPicUpload, "Picture");
 
 			if (!ModelState.IsValid)
 				return View(model);
@@ -355,7 +354,7 @@ namespace VocaDb.Web.Controllers
 			var contract = model.ToContract();
 			contract.PictureData = pictureData;
 
-			var album = Service.Create(contract);
+			var album = queries.Create(contract);
 			return RedirectToAction("Edit", new { id = album.Id });
 
 		}
@@ -386,7 +385,7 @@ namespace VocaDb.Web.Controllers
         {
 
 			var coverPicUpload = Request.Files["pictureUpload"];
-			PictureDataContract pictureData = ParseMainPicture(coverPicUpload, "Picture");
+			var pictureData = ParsePicture(coverPicUpload, "Picture");
 
 			ParseAdditionalPictures(coverPicUpload, model.Pictures);
 
@@ -395,7 +394,7 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Edit", new { id = model.Id });
 			}
 
-			Service.UpdateBasicProperties(model.ToContract(), pictureData, LoginManager);
+			queries.Update(model.ToContract(), pictureData, LoginManager);
 
 			return RedirectToAction("Details", new { id = model.Id });
 

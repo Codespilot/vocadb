@@ -18,5 +18,8 @@ namespace VocaDb.Model.DataContracts {
 		[DataMember]
 		public int Id { get; set; }
 
+		public override string ToString() {
+			return string.Format("Localized string '{0}' in {2} [{1}]", Value, Id, Language);
+		}
 	}
 }

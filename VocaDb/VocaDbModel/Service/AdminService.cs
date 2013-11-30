@@ -61,7 +61,38 @@ namespace VocaDb.Model.Service {
 
 			var imagePersister = new ServerEntryThumbPersister();
 			var thumbGenerator = new ImageThumbGenerator(imagePersister);
-			var albumIds = new int[0];
+			var artistIds = new int[0];
+
+			HandleQuery(session => {
+				artistIds = session.Query<Artist>().Where(a => !a.Deleted && a.Picture.Mime != null && a.Picture.Mime != "").Select(a => a.Id).ToArray();
+			});
+
+			for (int i = 0; i < artistIds.Length; i += 100) {
+				
+				var ids = artistIds.Skip(i).Take(100).ToArray();
+
+				HandleQuery(session => {
+
+					var artists = session.Query<Artist>().Where(a => ids.Contains(a.Id)).ToArray();
+
+					foreach (var artist in artists) {
+
+						var data = new EntryThumb(artist, artist.Picture.Mime);
+
+						if (artist.Picture.Bytes == null || imagePersister.HasImage(data, ImageSize.Thumb))
+							continue;
+
+						using (var stream = new MemoryStream(artist.Picture.Bytes)) {
+							thumbGenerator.GenerateThumbsAndMoveImage(stream, data, ImageSizes.Thumb | ImageSizes.SmallThumb | ImageSizes.TinyThumb);						
+						}
+
+					}
+
+				});
+
+			}
+
+			/*var albumIds = new int[0];
 
 			HandleQuery(session => {
 				albumIds = session.Query<Album>().Where(a => !a.Deleted && a.CoverPictureData.Mime != null && a.CoverPictureData.Mime != "").Select(a => a.Id).ToArray();
@@ -90,7 +121,7 @@ namespace VocaDb.Model.Service {
 
 				});
 
-			}
+			}*/
 
 			HandleQuery(session => {
 

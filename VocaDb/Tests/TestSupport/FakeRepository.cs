@@ -24,7 +24,7 @@ namespace VocaDb.Tests.TestSupport {
  
 		public FakeRepository(params T[] items) {
 			querySource = new QuerySourceList();
-			querySource.AddRange(items);
+			Save(items);
 		} 
 
 		public FakeRepository(QuerySourceList querySource) {

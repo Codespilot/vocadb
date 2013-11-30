@@ -27,6 +27,10 @@ namespace VocaDb.Model.Service.Repositories {
 
 		}
 
+		public static void Delete<T, T2>(this IRepositoryContext<T> ctx, T2 obj) {
+			ctx.OfType<T2>().Delete(obj);
+		}
+
 		public static User GetLoggedUser(this IRepositoryContext<User> ctx, IUserPermissionContext permissionContext) {
 
 			permissionContext.VerifyLogin();

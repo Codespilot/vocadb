@@ -6,8 +6,6 @@ using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Linq;
 using Newtonsoft.Json;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
@@ -170,33 +168,6 @@ namespace VocaDb.Web.Controllers {
 				pictureData.UploadedFile = pictureUpload.InputStream;
 				pictureData.Mime = pictureUpload.ContentType ?? string.Empty;
 				pictureData.ContentLength = pictureUpload.ContentLength;
-
-			}
-
-			return pictureData;
-
-		}
-
-		protected PictureDataContract ParseMainPicture(HttpPostedFileBase pictureUpload, string fieldName) {
-
-			PictureDataContract pictureData = null;
-
-			if (Request.Files.Count > 0 && pictureUpload != null && pictureUpload.ContentLength > 0) {
-
-				if (pictureUpload.ContentLength > ImageHelper.MaxImageSizeBytes) {
-					ModelState.AddModelError(fieldName, "Picture file is too large.");
-				}
-
-				if (!ImageHelper.IsValidImageExtension(pictureUpload.FileName)) {
-					ModelState.AddModelError(fieldName, "Picture format is not valid.");
-				}
-
-				if (ModelState.IsValid) {
-
-					pictureData = ImageHelper.GetOriginalAndResizedImages(
-						pictureUpload.InputStream, pictureUpload.ContentLength, pictureUpload.ContentType ?? string.Empty);
-
-				}
 
 			}
 

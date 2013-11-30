@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 
 namespace VocaDb.Model.DataContracts {
 
+	// TODO: this class isn't really in use anymore and should be replaced
 	[DataContract(Namespace = Schemas.VocaDb)]
 	public class PictureDataContract {
 
