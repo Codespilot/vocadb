@@ -211,13 +211,12 @@ namespace VocaDb.Web.Controllers {
 
 			var ext = ImageHelper.GetExtensionFromMime(pictureData.Mime);
 
-			if (ext != null) {
+			if (!string.IsNullOrEmpty(ext)) {
 				//var encoded = Url.Encode(title);
-				Response.AddHeader("content-disposition", "inline;filename=\"" + title + ext + "\"");
-				return File(pictureData.Bytes, pictureData.Mime);
-			} else {
-				return File(pictureData.Bytes, pictureData.Mime);
+				Response.AddHeader("content-disposition", string.Format("inline;filename=\"{0}{1}\"", title, ext));
 			}
+
+			return File(pictureData.Bytes, pictureData.Mime);
 
 		}
 

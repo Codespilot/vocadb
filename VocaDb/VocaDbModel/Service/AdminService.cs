@@ -12,6 +12,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -58,9 +59,57 @@ namespace VocaDb.Model.Service {
 
 			VerifyAdmin();
 
+			var imagePersister = new ServerEntryThumbPersister();
+			var thumbGenerator = new ImageThumbGenerator(imagePersister);
+			var albumIds = new int[0];
+
+			HandleQuery(session => {
+				albumIds = session.Query<Album>().Where(a => !a.Deleted && a.CoverPictureData.Mime != null && a.CoverPictureData.Mime != "").Select(a => a.Id).ToArray();
+			});
+
+			for (int i = 0; i < albumIds.Length; i += 100) {
+				
+				var ids = albumIds.Skip(i).Take(100).ToArray();
+
+				HandleQuery(session => {
+
+					var albums = session.Query<Album>().Where(a => ids.Contains(a.Id)).ToArray();
+
+					foreach (var album in albums) {
+
+						var data = new EntryThumb(album, album.CoverPictureData.Mime);
+
+						if (album.CoverPictureData.Bytes == null || imagePersister.HasImage(data, ImageSize.Thumb))
+							continue;
+
+						using (var stream = new MemoryStream(album.CoverPictureData.Bytes)) {
+							thumbGenerator.GenerateThumbsAndMoveImage(stream, data, ImageSizes.Thumb | ImageSizes.SmallThumb | ImageSizes.TinyThumb);						
+						}
+
+					}
+
+				});
+
+			}
+
 			HandleQuery(session => {
 
-				var artistPic = session.Query<ArtistPictureFile>().ToArray();
+				var albums = session.Query<Album>().Where(a => !a.Deleted && a.CoverPictureData.Mime != null && a.CoverPictureData.Mime != "").ToArray();
+
+				foreach (var album in albums) {
+
+					if (album.CoverPictureData.Bytes == null)
+						continue;
+
+					var data = new EntryThumb(album, album.CoverPictureData.Mime);
+
+					using (var stream = new MemoryStream(album.CoverPictureData.Bytes)) {
+						thumbGenerator.GenerateThumbsAndMoveImage(stream, data, ImageSizes.Thumb | ImageSizes.SmallThumb | ImageSizes.TinyThumb);						
+					}
+
+				}
+
+				/*var artistPic = session.Query<ArtistPictureFile>().ToArray();
 
 				foreach (var pic in artistPic) {
 
@@ -108,7 +157,7 @@ namespace VocaDb.Model.Service {
 
 					}
 
-				}
+				}*/
 
 			});
 

@@ -14,6 +14,31 @@ namespace VocaDb.Model.Helpers
 				target.Write(buf, 0, bytesRead);
 		}
 
+		/// <summary>
+		/// Reads a stream completely at once and returns the contents as raw byte array.
+		/// The stream length must be known.
+		/// 
+		/// Meant only for small-ish streams (a few megabytes).
+		/// The stream will be rewinded to beginning first, if possible.
+		/// </summary>
+		/// <param name="input">Input stream. Cannot be null.</param>
+		/// <returns>Stream bytes. Cannot be null.</returns>
+		/// <exception cref="NotSupportedException">If the stream length is not known.</exception>
+		public static byte[] ReadStream(Stream input) {
+			
+			if (input.CanSeek && input.Position > 0)
+				input.Position = 0;
+
+			// Fallback if the stream is too large
+			if (input.Length >= int.MaxValue)
+				return ReadStream(input, input.Length);
+
+			var bytes = new byte[input.Length];
+			input.Read(bytes, 0, (int)input.Length);
+			return bytes;
+
+		}
+
 		public static byte[] ReadStream(Stream input, long length) {
 
 			if (input.CanSeek && input.Position > 0)

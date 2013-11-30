@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Net.Mime;
 using VocaDb.Model.Domain.Images;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Tests.TestSupport {
 
@@ -43,9 +44,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		public void Write(IEntryImageInformation picture, ImageSize size, Stream stream) {
 
-			var bytes = new byte[stream.Length];
-			stream.Seek(0, SeekOrigin.Begin);
-			stream.Read(bytes, 0, bytes.Length);
+			var bytes = StreamHelper.ReadStream(stream);
 
 			var url = GetUrlAbsolute(picture, size);
 

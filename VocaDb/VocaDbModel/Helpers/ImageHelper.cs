@@ -16,6 +16,10 @@ using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Helpers {
 
+	/// <summary>
+	/// Various image helper methods.
+	/// TODO: need figure out which ones these are still in use.
+	/// </summary>
 	public static class ImageHelper {
 
 		private static readonly string[] allowedExt = new[] { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
@@ -122,10 +126,17 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
+		/// <summary>
+		/// Gets image extension from MIME type.
+		/// </summary>
+		/// <param name="mime">MIME type. Can be null or empty.</param>
+		/// <returns>Extension. Can be null if MIME type is not recognized.</returns>
 		public static string GetExtensionFromMime(string mime) {
 
 			switch (mime) {
 				case MediaTypeNames.Image.Jpeg:
+					return ".jpg";
+				case "image/pjpeg":
 					return ".jpg";
 				case "image/png":
 					return ".png";
@@ -133,8 +144,10 @@ namespace VocaDb.Model.Helpers {
 					return ".gif";
 				case "image/bmp":
 					return ".bmp";
+				case "image/x-ms-bmp":
+					return ".bmp";
 				default:
-					return null;
+					return string.Empty;
 			}
 
 		}

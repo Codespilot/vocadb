@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Code;
@@ -204,7 +205,17 @@ namespace VocaDb.Web.Models {
 
 	}
 
-	public class AlbumDetails {
+	public class AlbumDetails : IEntryImageInformation {
+
+		private readonly string mime;
+
+		public EntryType EntryType {
+			get { return EntryType.Album; }
+		}
+
+		public string Mime {
+			get { return mime; }
+		}
 
 		public AlbumDetails() { }
 
@@ -238,6 +249,7 @@ namespace VocaDb.Web.Models {
 			Version = contract.Version;
 			WebLinks = contract.WebLinks;
 			WishlistedBy = contract.WishlistCount;
+			mime = contract.CoverPictureMime;
 
 			if (contract.AlbumForUser != null) {
 				AlbumMediaType = contract.AlbumForUser.MediaType;

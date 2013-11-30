@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using VocaDb.Model;
@@ -12,6 +13,7 @@ using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -30,6 +32,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	public class AlbumQueries : QueriesBase<IAlbumRepository, Album> {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
+		private readonly IEntryThumbPersister imagePersister;
 
 		private void ArchiveSong(IRepositoryContext<Song> ctx, Song song, SongDiff diff, SongArchiveReason reason, string notes = "") {
 
@@ -81,10 +84,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public AlbumQueries(IAlbumRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
+		public AlbumQueries(IAlbumRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryThumbPersister imagePersister)
 			: base(repository, permissionContext) {
 
 			this.entryLinkFactory = entryLinkFactory;
+			this.imagePersister = imagePersister;
 
 		}
 
@@ -170,6 +174,32 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public EntryForPictureDisplayContract GetCoverPictureThumb(int albumId) {
+			
+			var size = new Size(ImageHelper.DefaultThumbSize, ImageHelper.DefaultThumbSize);
+
+			return repository.HandleQuery(ctx => {
+				
+				var album = ctx.Load(albumId);
+
+				if (album.CoverPictureData == null || string.IsNullOrEmpty(album.CoverPictureData.Mime) || album.CoverPictureData.HasThumb(size))
+					return EntryForPictureDisplayContract.Create(album, PermissionContext.LanguagePreference, size);
+
+				var data = new EntryThumb(album, album.CoverPictureData.Mime);
+
+				if (imagePersister.HasImage(data, ImageSize.Thumb)) {
+					using (var stream = imagePersister.GetReadStream(data, ImageSize.Thumb)) {
+						var bytes = StreamHelper.ReadStream(stream);
+						return EntryForPictureDisplayContract.Create(album, data.Mime, bytes, PermissionContext.LanguagePreference);
+					}
+				}
+
+				return EntryForPictureDisplayContract.Create(album, PermissionContext.LanguagePreference, size);
+
+			});
+
+		}
+
 		public AlbumContract[] GetRelatedAlbums(int albumId) {
 
 			return repository.HandleQuery(ctx => {
@@ -247,9 +277,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				}
 
 				if (pictureData != null) {
-					var parsed = ImageHelper.GetOriginalAndResizedImages(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
+
+					var parsed = ImageHelper.GetOriginal(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
 					album.CoverPictureData = new PictureData(parsed);
+					
+					pictureData.Id = album.Id;
+					pictureData.EntryType = EntryType.Album;
+					var thumbGenerator = new ImageThumbGenerator(imagePersister);
+					thumbGenerator.GenerateThumbsAndMoveImage(pictureData.UploadedFile, pictureData, ImageSizes.Thumb | ImageSizes.SmallThumb | ImageSizes.TinyThumb);
+
 					diff.Cover = true;
+
 				}
 
 				if (album.Status != properties.Status) {

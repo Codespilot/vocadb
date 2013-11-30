@@ -1,11 +1,16 @@
 ﻿using System.IO;
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Images;
 
 namespace VocaDb.Model.DataContracts {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class EntryPictureFileContract {
+	public class EntryPictureFileContract : IEntryImageInformation {
+
+		int IEntryImageInformation.Version {
+			get { return 0; }
+		}
 
 		public EntryPictureFileContract() { }
 

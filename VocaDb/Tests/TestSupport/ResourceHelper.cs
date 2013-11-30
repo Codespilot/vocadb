@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Text;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace VocaDb.Tests.TestSupport {
@@ -39,6 +35,10 @@ namespace VocaDb.Tests.TestSupport {
 
 			}
 
+		}
+
+		public static Stream TestImage() {
+			return GetFileStream("yokohma_bay_concert.jpg");
 		}
 
 	}
