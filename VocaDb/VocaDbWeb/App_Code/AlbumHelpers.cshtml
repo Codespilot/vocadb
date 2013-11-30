@@ -4,11 +4,12 @@
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Model.Domain.Users
 @using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Images;
 @inherits VocaDb.Web.Code.HelperPage
 
 @helper AlbumIconLink(AlbumContract album) {
 	<a href="@Url.Action("Details", "Album", new { id = album.Id })">
-		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = album.Id, v = album.Version })" alt="Cover" class="coverPicThumb" />
+		<img src="@Url.ImageThumb(album, ImageSize.TinyThumb)" alt="Cover" class="coverPicThumb" />
 	</a>		
 }
 
@@ -85,16 +86,16 @@
 	<ul class="smallThumbs">
 		@foreach (var album in albums) {
 			@Helpers.ThumbItem(Url.Action("Details", "Album", new { id = album.Id }),
-                Url.Action("CoverPictureThumb", "Album", new { id = album.Id, v = album.Version }), album.Name, album)	  
+                Url.ImageThumb(album, ImageSize.SmallThumb), album.Name, album)	  
 		}
 	</ul>
 	
 }
 
-@helper CoverLink(int id, int version) {
-	<a href="@Url.Action("CoverPicture", "Album", new { id = id, v = version })">
-		<img src="@Url.Action("CoverPictureThumb", "Album", new { id = id, v = version })" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
-	</a>
+@helper CoverLink(IEntryImageInformation imageInfo) {
+    <a href="@Url.ImageThumb(imageInfo, ImageSize.Original)">
+        <img src="@Url.ImageThumb(imageInfo, ImageSize.Thumb)" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
+    </a>
 }
 
 @helper DetailsLink(AlbumContract album) {

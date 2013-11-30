@@ -5,11 +5,12 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Images;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class AlbumContract : IEntryWithStatus, IEquatable<AlbumContract> {
+	public class AlbumContract : IEntryWithStatus, IEquatable<AlbumContract>, IEntryImageInformation {
 
 		string IEntryBase.DefaultName {
 			get { return Name; }
@@ -23,6 +24,14 @@ namespace VocaDb.Model.DataContracts.Albums {
 			get { return EntryType.Album; }
 		}
 
+		EntryType IEntryImageInformation.EntryType {
+			get { return EntryType.Album; }
+		}
+
+		string IEntryImageInformation.Mime {
+			get { return CoverPictureMime; }
+		}
+
 		public AlbumContract() { }
 
 		public AlbumContract(Album album, ContentLanguagePreference languagePreference) {
@@ -31,6 +40,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			AdditionalNames = album.Names.GetAdditionalNamesStringForLanguage(languagePreference);
 			ArtistString = album.ArtistString.GetBestMatch(languagePreference);
+			CoverPictureMime = album.CoverPictureData != null ? album.CoverPictureData.Mime : null;
 			CreateDate = album.CreateDate;
 			DiscType = album.DiscType;
 			Id = album.Id;
@@ -50,6 +60,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			AdditionalNames = album.Names.GetAdditionalNamesStringForLanguage(languagePreference);
 			ArtistString = album.TranslatedArtistString.GetBestMatch(languagePreference);
+			CoverPictureMime = album.CoverPictureMime;
 			CreateDate = album.CreateDate;
 			DiscType = album.DiscType;
 			Id = album.Id;
@@ -68,6 +79,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public string ArtistString { get; set; }
+
+		[DataMember]
+		public string CoverPictureMime { get; set;}
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }

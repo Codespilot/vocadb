@@ -8,6 +8,15 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 	public class EntryForPictureDisplayContract {
 
+		public static EntryForPictureDisplayContract Create(IEntryWithNames entry, string mime, byte[] bytes, ContentLanguagePreference languagePreference) {
+			
+			var name = entry.Names.SortNames[languagePreference];
+			var pic = (bytes != null ? new PictureContract(bytes, mime) : null);
+
+			return new EntryForPictureDisplayContract(entry.EntryType, entry.Id, name, entry.Version, pic);
+
+		}
+
 		public static EntryForPictureDisplayContract Create(Album album, ContentLanguagePreference languagePreference, Size requestedSize) {
 
 			ParamIs.NotNull(() => album);

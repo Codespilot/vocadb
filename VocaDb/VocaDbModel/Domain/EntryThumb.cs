@@ -68,5 +68,9 @@ namespace VocaDb.Model.Domain {
 			return string.Format("Thumbnail for {0}.", Entry);
 		}
 
+		public int Version {
+			get { return Entry.Version; }
+		}
+
 	}
 }

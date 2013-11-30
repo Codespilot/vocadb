@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
@@ -31,17 +32,19 @@ namespace VocaDb.Web.Controllers
     {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+		private readonly IEntryThumbPersister imagePersister;
 		private readonly Size pictureThumbSize = new Size(250, 250);
 	    private readonly AlbumQueries queries;
 	    private readonly UserQueries userQueries;
 
 		private AlbumService Service { get; set; }
 
-		public AlbumController(AlbumService service, AlbumQueries queries, UserQueries userQueries) {
+		public AlbumController(AlbumService service, AlbumQueries queries, UserQueries userQueries, IEntryThumbPersister imagePersister) {
 
 			Service = service;
 			this.queries = queries;
 			this.userQueries = userQueries;
+			this.imagePersister = imagePersister;
 
 		}
 
@@ -247,9 +250,8 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId) 
 				return HttpNotFound();
 
-			var album = Service.GetCoverPicture(id, pictureThumbSize);
-
-			return Picture(album);
+			var data = queries.GetCoverPictureThumb(id);
+			return Picture(data);
 
 		}
 

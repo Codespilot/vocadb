@@ -1,14 +1,18 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Net.Mime;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Tests.TestData;
@@ -25,6 +29,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 	public class AlbumQueriesTests {
 
 		private Album album;
+		private InMemoryImagePersister imagePersister;
 		private CreateAlbumContract newAlbumContract;
 		private FakePermissionContext permissionContext;
 		private Artist producer;
@@ -43,6 +48,13 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		private AlbumForEditContract CallUpdate(AlbumForEditContract contract) {
 			return queries.UpdateBasicProperties(contract, null);
+		}
+
+		private AlbumForEditContract CallUpdate(Stream image) {
+			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
+			using (var stream = image) {
+				return queries.UpdateBasicProperties(contract, new EntryPictureFileContract { UploadedFile = stream, Mime = MediaTypeNames.Image.Jpeg });
+			}		
 		}
 
 		[TestInitialize]
@@ -73,7 +85,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 				}
 			};
 
-			queries = new AlbumQueries(repository, permissionContext, entryLinkFactory);
+			imagePersister = new InMemoryImagePersister();
+			queries = new AlbumQueries(repository, permissionContext, entryLinkFactory, imagePersister);
 
 		}
 
@@ -145,6 +158,21 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void GetCoverPictureThumb() {
+			
+			var contract = CallUpdate(ResourceHelper.TestImage());
+
+			var result = queries.GetCoverPictureThumb(contract.Id);
+
+			Assert.IsNotNull(result, "result");
+			Assert.IsNotNull(result.Picture, "Picture");
+			Assert.IsNotNull(result.Picture.Bytes, "Picture content");
+			Assert.AreEqual(contract.CoverPictureMime, result.Picture.Mime, "Picture MIME");
+			Assert.AreEqual(contract.Id, result.EntryId, "EntryId");
+
+		}
+
+		[TestMethod]
 		public void Update_Names() {
 			
 			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
@@ -204,6 +232,29 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			Assert.IsNotNull(archivedVersion, "Archived version was created");
 			Assert.AreEqual(AlbumEditableFields.Tracks, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+		}
+
+		[TestMethod]
+		public void Update_CoverPicture() {
+			
+			var contract = CallUpdate(ResourceHelper.TestImage());
+
+			var albumFromRepo = repository.Load(contract.Id);
+
+			Assert.IsNotNull(albumFromRepo.CoverPictureData, "CoverPictureData");
+			Assert.IsNotNull(albumFromRepo.CoverPictureData.Bytes, "Original bytes are saved");
+			Assert.IsNull(albumFromRepo.CoverPictureData.Thumb250, "Thumb bytes not saved anymore");
+			Assert.AreEqual(MediaTypeNames.Image.Jpeg, albumFromRepo.CoverPictureData.Mime, "CoverPictureData.Mime");
+
+			var thumbData = new EntryThumb(albumFromRepo, albumFromRepo.CoverPictureData.Mime);
+			Assert.IsFalse(imagePersister.HasImage(thumbData, ImageSize.Original), "Original file was not created"); // Original saved in CoverPictureData.Bytes
+			Assert.IsTrue(imagePersister.HasImage(thumbData, ImageSize.Thumb), "Thumbnail file was saved");
+
+			var archivedVersion = repository.List<ArchivedAlbumVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(AlbumEditableFields.Cover, archivedVersion.Diff.ChangedFields, "Changed fields");
 
 		}
 

@@ -19,6 +19,7 @@ namespace VocaDb.Model.DataContracts {
 			FileNameTinyThumb = entryThumb.FileNameTinyThumb;
 			Id = entryThumb.Id;
 			Mime = entryThumb.Mime;
+			Version = entryThumb.Version;
 		}
 
 		[DataMember]
@@ -42,6 +43,9 @@ namespace VocaDb.Model.DataContracts {
 
 		[DataMember]
 		public string Mime { get; set; }
+
+		[DataMember]
+		public int Version { get; set;}
 
 	}
 }

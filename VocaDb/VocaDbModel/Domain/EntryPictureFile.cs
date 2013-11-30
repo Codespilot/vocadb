@@ -9,6 +9,13 @@ namespace VocaDb.Model.Domain {
 	/// Picture file with multiple sizes for an entry, such as album or artist.
 	/// Multiple pictures may be attached to an entry.
 	/// Files are named like 123.jpg + 123-t.jpg, when picture Id is 123 and file type is jpg.
+	/// 
+	/// This type is used when the entry has multiple pictures, so the pictures are saved individually,
+	/// separate from the entry itself. Currently this means additional pictures for albums and artists.
+	/// Thus, <see cref="Id"/> is not the entry Id, it's the picture Id.
+	/// 
+	/// At the moment these files are saved under the application folder, but this should be changed so that they're
+	/// saved to the static files folder.
 	/// </summary>
 	public abstract class EntryPictureFile {
 

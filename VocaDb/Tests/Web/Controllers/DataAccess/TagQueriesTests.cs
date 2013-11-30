@@ -29,7 +29,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private User user;
 
 		private Stream TestImage() {
-			return ResourceHelper.GetFileStream("yokohma_bay_concert.jpg");
+			return ResourceHelper.TestImage();
 		}
 
 		[TestInitialize]

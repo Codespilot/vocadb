@@ -48,11 +48,15 @@ namespace VocaDb.Model.Domain.Images {
 		}
 
 		private string GetRelativeUrl(IEntryImageInformation picture, ImageSize size) {
-			return string.Format("/img/{0}/main{1}/{2}{3}", picture.EntryType.ToString().ToLowerInvariant(), GetDir(size), picture.Id, ImageHelper.GetExtensionFromMime(picture.Mime));
+			if (picture.Version > 0) {
+				return string.Format("/img/{0}/main{1}/{2}{3}?v={4}", picture.EntryType.ToString().ToLowerInvariant(), GetDir(size), picture.Id, 
+					ImageHelper.GetExtensionFromMime(picture.Mime), picture.Version);
+			} else
+				return string.Format("/img/{0}/main{1}/{2}{3}", picture.EntryType.ToString().ToLowerInvariant(), GetDir(size), picture.Id, ImageHelper.GetExtensionFromMime(picture.Mime));
 		}
 
 		private string GetPath(IEntryImageInformation picture, ImageSize size) {
-			var relative = string.Format(@"\img\{0}\main{1}\{2}{3}", picture.EntryType, GetDir(size), picture.Id, ImageHelper.GetExtensionFromMime(picture.Mime));
+			var relative = string.Format(@"img\{0}\main{1}\{2}{3}", picture.EntryType, GetDir(size), picture.Id, ImageHelper.GetExtensionFromMime(picture.Mime));
 			return Path.Combine(staticRoot, relative);
 		}
 
