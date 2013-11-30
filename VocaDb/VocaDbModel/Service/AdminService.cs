@@ -94,21 +94,6 @@ namespace VocaDb.Model.Service {
 
 			HandleQuery(session => {
 
-				var albums = session.Query<Album>().Where(a => !a.Deleted && a.CoverPictureData.Mime != null && a.CoverPictureData.Mime != "").ToArray();
-
-				foreach (var album in albums) {
-
-					if (album.CoverPictureData.Bytes == null)
-						continue;
-
-					var data = new EntryThumb(album, album.CoverPictureData.Mime);
-
-					using (var stream = new MemoryStream(album.CoverPictureData.Bytes)) {
-						thumbGenerator.GenerateThumbsAndMoveImage(stream, data, ImageSizes.Thumb | ImageSizes.SmallThumb | ImageSizes.TinyThumb);						
-					}
-
-				}
-
 				/*var artistPic = session.Query<ArtistPictureFile>().ToArray();
 
 				foreach (var pic in artistPic) {

@@ -1,6 +1,7 @@
-﻿@using VocaDb.Model.Utils
+﻿@using VocaDb.Web.Helpers;
+@using VocaDb.Model.Domain.Images;
 @model VocaDb.Model.DataContracts.Albums.AlbumContract
 
-<img src="@(AppConfig.HostAddress + Url.Action("CoverPictureThumb", "Album", new { id = Model.Id, v = Model.Version }))" alt="Cover" class="smallCover" />
+<img src="@Url.ImageThumb(Model, ImageSize.SmallThumb, fullUrl: true)" alt="Cover" class="smallCover" />
 <br /><br />
 @{ Html.RenderPartial("AlbumPopupContent", Model); }
