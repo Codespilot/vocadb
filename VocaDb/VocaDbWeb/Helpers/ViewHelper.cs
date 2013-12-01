@@ -14,6 +14,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using System.Collections.Generic;
 using System.Web;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -176,13 +177,13 @@ namespace VocaDb.Web.Helpers {
 
 		}
 
-		public static string EntryThumbUrl(this UrlHelper url, IEntryBase entry, string songThumbUrl) {
+		public static string EntryThumbUrl(this UrlHelper url, IEntryImageInformation imageInfo, string songThumbUrl) {
 
-			switch (entry.EntryType) {
+			switch (imageInfo.EntryType) {
 				case EntryType.Album:
-					return url.Action("CoverPictureThumb", "Album", new { id = entry.Id, v = entry.Version});
+					return url.ImageThumb(imageInfo, ImageSize.TinyThumb);
 				case EntryType.Artist:
-					return url.Action("PictureThumb", "Artist", new { id = entry.Id, v = entry.Version });
+					return url.ImageThumb(imageInfo, ImageSize.TinyThumb);
 				case EntryType.Song:
 					return songThumbUrl;
 				default:
