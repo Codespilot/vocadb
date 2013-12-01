@@ -1,6 +1,7 @@
 ﻿@using System.Web.Optimization
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Model.Domain.Songs
+@using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Helpers
 @using VocaDb.Model.Utils
 @using VocaDb.Web.Helpers;
@@ -325,10 +326,10 @@
 	<div id="picturesTab">
 		
 		<ul class="thumbs">
-			@Helpers.ThumbItem(Url.Action("CoverPicture", "Album", new { id = Model.Id }),
-				Url.Action("CoverPictureThumb", "Album", new { id = Model.Id }), 
-				ViewRes.Album.DetailsStrings.CoverPicture)
-			@foreach (var pic in Model.Pictures) {
+		    @Helpers.ThumbItem(Url.Action("CoverPicture", "Album", new { id = Model.Id, v = Model.Version }),
+		        Url.ImageThumb(Model, ImageSize.Thumb), 
+		        ViewRes.Album.DetailsStrings.CoverPicture)
+		    @foreach (var pic in Model.Pictures) {
 			   @Helpers.ThumbItem(ImageHelper.GetImageUrl(pic), ImageHelper.GetImageUrlThumb(pic), pic.Name)
 			}
 		</ul>
