@@ -1,5 +1,6 @@
 ﻿using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
@@ -19,6 +20,20 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		private string GetMime(IEntryBase entry) {
+
+			var album = entry as Album;
+			if (album != null && album.CoverPictureData != null)
+				return album.CoverPictureData.Mime;
+
+			var artist = entry as Artist;
+			if (artist != null && artist.Picture != null)
+				return artist.Picture.Mime;
+
+			return string.Empty;
+
+		}
+
 		private string GetSongThumbUrl(IEntryBase entry) {
 			return (entry is Song ? VideoServiceHelper.GetThumbUrl(((Song)entry).PVs.PVs) : string.Empty);
 		}
@@ -28,7 +43,7 @@ namespace VocaDb.Model.DataContracts {
 		public UnifiedCommentContract(Comment comment, ContentLanguagePreference languagePreference)
 			: base(comment) {
 
-			Entry = new EntryWithNameAndVersionContract(comment.Entry, languagePreference);
+			Entry = new EntryWithImageContract(comment.Entry, GetMime(comment.Entry), languagePreference);
 			ArtistString = GetArtistString(comment.Entry, languagePreference);
 			SongThumbUrl = GetSongThumbUrl(comment.Entry);
 
@@ -36,7 +51,7 @@ namespace VocaDb.Model.DataContracts {
 
 		public string ArtistString { get; set; }
 
-		public EntryWithNameAndVersionContract Entry { get; set; }
+		public EntryWithImageContract Entry { get; set; }
 
 		public string SongThumbUrl { get; set; }
 

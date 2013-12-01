@@ -1,6 +1,7 @@
 ﻿using System;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.DataContracts.Users;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -23,6 +24,20 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 
 		}
 
+		private string GetMime(IEntryBase entry) {
+
+			var album = entry as Album;
+			if (album != null && album.CoverPictureData != null)
+				return album.CoverPictureData.Mime;
+
+			var artist = entry as Artist;
+			if (artist != null && artist.Picture != null)
+				return artist.Picture.Mime;
+
+			return string.Empty;
+
+		}
+
 		private string GetSongThumbUrl(IEntryBase entry) {
 			return (entry is Song ? VideoServiceHelper.GetThumbUrl(((Song)entry).PVs.PVs) : string.Empty);
 		}
@@ -35,7 +50,7 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 			Author = new UserContract(entry.Author);
 			CreateDate = entry.CreateDate;
 			EditEvent = entry.EditEvent;
-			EntryRef = new EntryWithNameAndVersionContract(entry.EntryBase, languagePreference);
+			EntryRef = new EntryWithImageContract(entry.EntryBase, GetMime(entry.EntryBase), languagePreference);
 			SongThumbUrl = GetSongThumbUrl(entry.EntryBase);
 
 		}
@@ -48,7 +63,7 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 			Author = new UserContract(entry.Author);
 			CreateDate = entry.Created;
 			EditEvent = entry.EditEvent;
-			EntryRef = new EntryWithNameAndVersionContract(entry.EntryBase, languagePreference);
+			EntryRef = new EntryWithImageContract(entry.EntryBase, GetMime(entry.EntryBase), languagePreference);
 			SongThumbUrl = GetSongThumbUrl(entry.EntryBase);
 
 		}
@@ -61,7 +76,7 @@ namespace VocaDb.Model.DataContracts.Activityfeed {
 
 		public EntryEditEvent EditEvent { get; set; }
 
-		public EntryWithNameAndVersionContract EntryRef { get; set; }
+		public EntryWithImageContract EntryRef { get; set; }
 
 		public string SongThumbUrl { get; set; }
 
