@@ -47,6 +47,13 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 				Assert.IsTrue(song.Artists.Any(a => a.Artist.Equals(artist) && a.Roles == roles), artist + " has roles " + roles);
 		}
 
+		private ArtistForSongContract CreateArtistForSongContract(int artistId = 0, string artistName = null, ArtistRoles roles = ArtistRoles.Default) {
+			if (artistId != 0)
+				return new ArtistForSongContract { Artist = new ArtistContract { Name = artistName, Id = artistId }, Roles = roles };
+			else
+				return new ArtistForSongContract { Name = artistName, Roles = roles };
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 
@@ -59,6 +66,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository = new FakeSongRepository(song);
 			repository.Save(song.AddArtist(producer));
 			repository.Save(song.AddArtist(vocalist));
+
+			foreach (var name in song.Names)
+				repository.Save(name);
 
 			user = CreateEntry.User(id: 1, name: "Miku");
 			user.GroupId = UserGroupId.Trusted;
@@ -213,6 +223,70 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository.Save(song2);
 
 			queries.Merge(song.Id, song2.Id);
+
+		}
+
+		[TestMethod]
+		public void Update_Names() {
+			
+			var contract = new SongForEditContract(song, ContentLanguagePreference.English);
+			contract.Names.AllNames.First().Value = "Replaced name";
+			contract.UpdateNotes = "Updated song";
+
+			contract = queries.UpdateBasicProperties(contract);
+
+			var songFromRepo = repository.Load(contract.Song.Id);
+			Assert.AreEqual("Replaced name", songFromRepo.DefaultName);
+			Assert.AreEqual(1, songFromRepo.Version, "Version");
+			Assert.AreEqual(2, songFromRepo.AllArtists.Count, "Number of artists");
+			Assert.AreEqual(0, songFromRepo.AllAlbums.Count, "No albums");
+
+			var archivedVersion = repository.List<ArchivedSongVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(song, archivedVersion.Song, "Archived version song");
+			Assert.AreEqual(SongArchiveReason.PropertiesUpdated, archivedVersion.Reason, "Archived version reason");
+			Assert.AreEqual(SongEditableFields.Names, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+			var activityEntry = repository.List<ActivityEntry>().FirstOrDefault();
+
+			Assert.IsNotNull(activityEntry, "Activity entry was created");
+			Assert.AreEqual(song, activityEntry.EntryBase, "Activity entry's entry");
+			Assert.AreEqual(EntryEditEvent.Updated, activityEntry.EditEvent, "Activity entry event type");
+
+		}
+
+		[TestMethod]
+		public void Update_Artists() {
+			
+			var newSong = CreateEntry.Song(name: "Anger");
+
+			repository.Save(newSong);
+
+			foreach (var name in newSong.Names)
+				repository.Save(name);
+
+			var contract = new SongForEditContract(newSong, ContentLanguagePreference.English);
+			contract.Artists = new [] {
+				CreateArtistForSongContract(artistId: producer.Id), 
+				CreateArtistForSongContract(artistId: vocalist.Id),
+				CreateArtistForSongContract(artistName: "Goomeh", roles: ArtistRoles.Vocalist),
+			};
+
+			contract = queries.UpdateBasicProperties(contract);
+
+			var songFromRepo = repository.Load(contract.Song.Id);
+
+			Assert.AreEqual(3, songFromRepo.AllArtists.Count, "Number of artists");
+
+			AssertHasArtist(songFromRepo, producer);
+			AssertHasArtist(songFromRepo, vocalist);
+			Assert.AreEqual("Tripshots feat. Hatsune Miku, Goomeh", songFromRepo.ArtistString.Default, "Artist string");
+
+			var archivedVersion = repository.List<ArchivedSongVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(SongEditableFields.Artists, archivedVersion.Diff.ChangedFields, "Changed fields");
 
 		}
 

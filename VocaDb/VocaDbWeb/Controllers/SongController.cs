@@ -302,7 +302,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			var contract = model.ToContract();
-			Service.UpdateBasicProperties(contract);
+			queries.UpdateBasicProperties(contract);
 
 			return RedirectToAction("Details", new { id = model.Id });
 

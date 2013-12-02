@@ -249,6 +249,104 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public SongForEditContract UpdateBasicProperties(SongForEditContract properties) {
+
+			ParamIs.NotNull(() => properties);
+
+			VerifyManageDatabase();
+
+			return repository.HandleTransaction(ctx => {
+
+				var song = ctx.Load(properties.Song.Id);
+
+				VerifyEntryEdit(song);
+
+				var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), ctx.OfType<User>().GetLoggedUser(PermissionContext)));
+
+				ctx.AuditLogger.SysLog(string.Format("updating properties for {0}", song));
+
+				if (song.Notes != properties.Notes) {
+					diff.Notes = true;
+					song.Notes = properties.Notes;
+				}
+
+				var newOriginalVersion = (properties.OriginalVersion != null && properties.OriginalVersion.Id != 0 ? ctx.Load(properties.OriginalVersion.Id) : null);
+
+				if (!Equals(song.OriginalVersion, newOriginalVersion)) {
+					song.OriginalVersion = newOriginalVersion;
+					diff.OriginalVersion = true;
+				}
+
+				if (song.SongType != properties.Song.SongType) {
+					diff.SongType = true;
+					song.SongType = properties.Song.SongType;
+				}
+
+				if (song.LengthSeconds != properties.Song.LengthSeconds) {
+					diff.Length = true;
+					song.LengthSeconds = properties.Song.LengthSeconds;
+				}
+
+				if (song.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
+					song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+					diff.OriginalName = true;
+				}
+
+				var nameDiff = song.Names.Sync(properties.Names.AllNames, song);
+				ctx.OfType<SongName>().Sync(nameDiff);
+
+				if (nameDiff.Changed)
+					diff.Names = true;
+
+				var validWebLinks = properties.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
+				var webLinkDiff = WebLink.Sync(song.WebLinks, validWebLinks, song);
+				ctx.OfType<SongWebLink>().Sync(webLinkDiff);
+
+				if (webLinkDiff.Changed)
+					diff.WebLinks = true;
+
+				if (song.Status != properties.Song.Status) {
+					song.Status = properties.Song.Status;
+					diff.Status = true;
+				}
+
+				var artistGetter = new Func<ArtistForSongContract, Artist>(artistForSong => 
+					ctx.OfType<Artist>().Load(artistForSong.Artist.Id));
+
+				var artistsDiff = song.SyncArtists(properties.Artists, artistGetter);
+				ctx.OfType<ArtistForSong>().Sync(artistsDiff);
+
+				if (artistsDiff.Changed)
+					diff.Artists = true;
+
+				var pvDiff = song.SyncPVs(properties.PVs);
+				ctx.OfType<PVForSong>().Sync(pvDiff);
+
+				if (pvDiff.Changed)
+					diff.PVs = true;
+
+				var lyricsDiff = song.SyncLyrics(properties.Lyrics);
+				ctx.OfType<LyricsForSong>().Sync(lyricsDiff);
+
+				if (lyricsDiff.Changed)
+					diff.Lyrics = true;
+
+				var logStr = string.Format("updated properties for song {0} ({1})", entryLinkFactory.CreateEntryLink(song), diff.ChangedFieldsString)
+					+ (properties.UpdateNotes != string.Empty ? " " + properties.UpdateNotes : string.Empty)
+					.Truncate(400);
+
+				ctx.AuditLogger.AuditLog(logStr);
+				AddEntryEditedEntry(ctx.OfType<ActivityEntry>(), song, EntryEditEvent.Updated);
+
+				Archive(ctx, song, diff, SongArchiveReason.PropertiesUpdated, properties.UpdateNotes);
+
+				ctx.Update(song);
+				return new SongForEditContract(song, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
 	}
 
 }
