@@ -341,6 +341,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				Archive(ctx, song, diff, SongArchiveReason.PropertiesUpdated, properties.UpdateNotes);
 
 				ctx.Update(song);
+
+				var newSongCutoff = TimeSpan.FromMinutes(30);
+				if (artistsDiff.Added.Any() && song.CreateDate >= DateTime.Now - newSongCutoff) {
+
+					var addedArtists = artistsDiff.Added.Where(a => a.Artist != null).Select(a => a.Artist).Distinct().ToArray();
+
+					if (addedArtists.Any()) {
+						new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), song, addedArtists, PermissionContext.LoggedUser, entryLinkFactory);											
+					}
+
+				}
+
 				return new SongForEditContract(song, PermissionContext.LanguagePreference);
 
 			});
