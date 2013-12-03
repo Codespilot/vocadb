@@ -159,6 +159,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		// TODO: should be moved to update
 		public void DeleteArtistForAlbum(int artistForAlbumId) {
 
 			VerifyManageDatabase();

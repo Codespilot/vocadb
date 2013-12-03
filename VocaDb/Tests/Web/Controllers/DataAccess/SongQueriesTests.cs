@@ -290,5 +290,23 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		}
 
+		[TestMethod]
+		public void Update_Artists_Notify() {
+			
+			repository.Save(user2.AddArtist(vocalist2));
+			repository.Save(vocalist2);
+
+			var contract = new SongForEditContract(song, ContentLanguagePreference.English);
+			contract.Artists = contract.Artists.Concat(new [] { CreateArtistForSongContract(vocalist2.Id)}).ToArray();
+
+			queries.UpdateBasicProperties(contract);
+
+			var notification = repository.List<UserMessage>().FirstOrDefault();
+
+			Assert.IsNotNull(notification, "Notification was created");
+			Assert.AreEqual(user2, notification.Receiver, "Receiver");
+
+		}
+
 	}
 }
