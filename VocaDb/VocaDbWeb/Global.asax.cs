@@ -130,6 +130,9 @@ namespace VocaDb.Web {
 				// Getting a lot of these >_>
 				if (ex.Message != "A potentially dangerous Request.Path value was detected from the client (?).") {
 					HandleHttpError(code, null, ex.Message);
+				} else {
+					Server.ClearError();
+					Response.StatusCode = code;		
 				}
 				return;					
 			}
