@@ -1,3 +1,4 @@
+
 ko.bindingHandlers.songAutoComplete = {
     init: function (element, valueAccessor) {
         var properties = ko.utils.unwrapObservable(valueAccessor());

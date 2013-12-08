@@ -1,3 +1,4 @@
+
 ko.bindingHandlers.sortable = {
     init: function (element, valueAccessor) {
         var list = valueAccessor();

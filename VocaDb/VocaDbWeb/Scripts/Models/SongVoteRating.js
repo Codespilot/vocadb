@@ -11,11 +11,11 @@ var vdb;
         function parseSongVoteRating(rating) {
             switch (rating) {
                 case "Nothing":
-                    return SongVoteRating.Nothing;
+                    return 0 /* Nothing */;
                 case "Like":
-                    return SongVoteRating.Like;
+                    return 3 /* Like */;
                 case "Favorite":
-                    return SongVoteRating.Favorite;
+                    return 5 /* Favorite */;
             }
         }
         models.parseSongVoteRating = parseSongVoteRating;

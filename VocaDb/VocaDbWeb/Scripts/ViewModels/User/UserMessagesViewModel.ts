@@ -43,7 +43,7 @@ module vdb.viewModels {
 
 		};
 
-        selectedMessage: KnockoutObservable<UserMessageViewModel> = ko.observable();
+        selectedMessage = ko.observable<UserMessageViewModel>();
 
         selectedMessageBody: KnockoutObservable<string> = ko.observable("");
 
@@ -115,7 +115,7 @@ module vdb.viewModels {
 
         };
 
-        messages: KnockoutObservableArray<UserMessageViewModel> = ko.observableArray([]);
+        messages = ko.observableArray<UserMessageViewModel>([]);
 
         selectMessage = (message: UserMessageViewModel) => {
 

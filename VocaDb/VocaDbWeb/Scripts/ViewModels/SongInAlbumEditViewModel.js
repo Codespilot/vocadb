@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
-
         var SongInAlbumEditViewModel = (function () {
             function SongInAlbumEditViewModel(data) {
                 var _this = this;

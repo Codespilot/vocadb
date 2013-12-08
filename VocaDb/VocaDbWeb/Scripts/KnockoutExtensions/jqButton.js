@@ -1,3 +1,4 @@
+
 ko.bindingHandlers.jqButton = {
     init: function (element, valueAccessor) {
         var params = ko.utils.unwrapObservable(valueAccessor());

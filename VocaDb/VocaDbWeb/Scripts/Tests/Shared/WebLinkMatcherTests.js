@@ -11,7 +11,7 @@ var vdb;
 
                 ok(result, "result");
                 equal(result.desc, "Youtube Channel", "desc");
-                equal(result.cat, vdb.models.WebLinkCategory.Official, "cat");
+                equal(result.cat, 0 /* Official */, "cat");
             });
 
             test("matchWebLink no match", function () {

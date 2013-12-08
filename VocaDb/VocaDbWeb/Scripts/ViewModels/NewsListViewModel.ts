@@ -27,7 +27,7 @@ module vdb.viewModels {
 
         loaded = ko.observable(false);
 
-        posts: KnockoutObservableArray<WordpressPost> = ko.observableArray();
+        posts = ko.observableArray<WordpressPost>();
 
     }
 

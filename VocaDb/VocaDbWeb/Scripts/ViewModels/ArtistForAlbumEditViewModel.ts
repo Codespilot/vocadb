@@ -44,7 +44,7 @@ module vdb.viewModels {
             });
 
             this.name = data.name;
-            this.rolesArray = ko.observableArray([]);
+            this.rolesArray = ko.observableArray<string>([]);
 
             this.isCustomizable = ko.computed(() => {
                 return !this.artist || _.some(ArtistForAlbumEditViewModel.customizableArtistTypes, typeName => this.artist.artistType == typeName);

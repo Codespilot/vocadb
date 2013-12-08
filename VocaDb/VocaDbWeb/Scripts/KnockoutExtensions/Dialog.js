@@ -1,3 +1,4 @@
+
 ko.bindingHandlers.dialog = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = ko.utils.unwrapObservable(valueAccessor()) || {};

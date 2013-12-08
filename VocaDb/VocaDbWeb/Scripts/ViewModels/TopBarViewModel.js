@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
-
         var TopBarViewModel = (function () {
             function TopBarViewModel(entryTypeTranslations, entryType, searchTerm, unreadMessagesCount, getNewReportsCount, entryReportRepository, userRepository) {
                 var _this = this;

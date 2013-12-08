@@ -1,7 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
         var rep = vdb.repositories;
 
         var AlbumEditViewModel = (function () {
@@ -16,14 +15,14 @@ var vdb;
                 this.acceptTrackSelection = function (songId, songName) {
                     if (songId) {
                         songRepository.getOne(songId, true, function (song) {
-                            var track = new viewModels.SongInAlbumEditViewModel({ artists: song.artists, artistString: song.artistString, songAdditionalNames: song.additionalNames, songId: song.id, songName: song.name, discNumber: 1, songInAlbumId: 0, trackNumber: 1 });
+                            var track = new vdb.viewModels.SongInAlbumEditViewModel({ artists: song.artists, artistString: song.artistString, songAdditionalNames: song.additionalNames, songId: song.id, songName: song.name, discNumber: 1, songInAlbumId: 0, trackNumber: 1 });
                             track.isNextDisc.subscribe(function () {
                                 return _this.updateTrackNumbers();
                             });
                             _this.tracks.push(track);
                         });
                     } else {
-                        var track = new viewModels.SongInAlbumEditViewModel({ songName: songName, artists: [], artistString: "", discNumber: 1, songAdditionalNames: "", songId: 0, songInAlbumId: 0, trackNumber: 1 });
+                        var track = new vdb.viewModels.SongInAlbumEditViewModel({ songName: songName, artists: [], artistString: "", discNumber: 1, songAdditionalNames: "", songId: 0, songInAlbumId: 0, trackNumber: 1 });
                         track.isNextDisc.subscribe(function () {
                             return _this.updateTrackNumbers();
                         });
@@ -66,7 +65,7 @@ var vdb;
                 };
 
                 this.artistLinks = ko.observableArray(_.map(data.artistLinks, function (artist) {
-                    return new viewModels.ArtistForAlbumEditViewModel(repository, artist);
+                    return new vdb.viewModels.ArtistForAlbumEditViewModel(repository, artist);
                 }));
 
                 this.discType = ko.observable(data.discType);
@@ -139,7 +138,7 @@ var vdb;
                 this.trackPropertiesDialogVisible = ko.observable(false);
 
                 this.tracks = ko.observableArray(_.map(data.tracks, function (song) {
-                    return new viewModels.SongInAlbumEditViewModel(song);
+                    return new vdb.viewModels.SongInAlbumEditViewModel(song);
                 }));
 
                 _.forEach(this.tracks(), function (song) {
@@ -183,7 +182,7 @@ var vdb;
                     });
                 };
 
-                this.webLinks = new viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
+                this.webLinks = new vdb.viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
             }
             return AlbumEditViewModel;
         })();

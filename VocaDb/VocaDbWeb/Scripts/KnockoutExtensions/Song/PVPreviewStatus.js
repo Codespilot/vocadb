@@ -1,3 +1,4 @@
+
 ko.bindingHandlers.pvPreviewStatus = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var urlMapper = new vdb.UrlMapper(vdb.values.baseAddress);

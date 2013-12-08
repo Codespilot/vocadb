@@ -11,7 +11,7 @@ module vdb.viewModels {
         
         public checkDuplicates: () => void;
         
-        public dupeEntries: KnockoutObservableArray<dc.DuplicateEntryResultContract> = ko.observableArray([]);
+        public dupeEntries = ko.observableArray<dc.DuplicateEntryResultContract>([]);
 
         public nameOriginal = ko.observable("");
         public nameRomaji = ko.observable("");

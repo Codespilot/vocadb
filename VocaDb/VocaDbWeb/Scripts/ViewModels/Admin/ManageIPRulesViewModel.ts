@@ -9,7 +9,7 @@ module vdb.viewModels {
             this.rules.push(new IPRule({ address: this.newRule.address(), notes: "", created: new Date() }));
         }
 
-        public bannedIPs: KnockoutObservableArray<string> = ko.observableArray();
+        public bannedIPs = ko.observableArray<string>();
 
         public newRule = new IPRule({});
 

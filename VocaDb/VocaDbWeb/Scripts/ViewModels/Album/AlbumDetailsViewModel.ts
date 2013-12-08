@@ -14,7 +14,7 @@ module vdb.viewModels {
 
         public downloadTagsDialog: DownloadTagsViewModel;
 
-        public usersContent: KnockoutObservable<string> = ko.observable();
+        public usersContent = ko.observable<string>();
 
         public getUsers = () => {
 

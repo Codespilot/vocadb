@@ -12,13 +12,13 @@ var vdb;
         function parseWebLinkCategory(rating) {
             switch (rating) {
                 case "Official":
-                    return WebLinkCategory.Official;
+                    return 0 /* Official */;
                 case "Commercial":
-                    return WebLinkCategory.Commercial;
+                    return 1 /* Commercial */;
                 case "Reference":
-                    return WebLinkCategory.Reference;
+                    return 2 /* Reference */;
                 case "Other":
-                    return WebLinkCategory.Other;
+                    return 3 /* Other */;
             }
         }
         models.parseWebLinkCategory = parseWebLinkCategory;

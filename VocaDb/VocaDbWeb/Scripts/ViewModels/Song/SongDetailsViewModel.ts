@@ -56,7 +56,7 @@ module vdb.viewModels {
             this.songInListsDialog = new SongInListsViewModel(repository, this.id);
             this.songListDialog = new SongListsViewModel(repository, resources, this.id);
 
-            this.usersContent = ko.observable();
+            this.usersContent = ko.observable<string>();
 
             this.usersPopupVisible = ko.observable(false);
         
@@ -70,7 +70,7 @@ module vdb.viewModels {
 
         //public customLists: KnockoutObservableArray<dc.SongListContract> = ko.observableArray();
 
-        public contentHtml: KnockoutObservable<string> = ko.observable();
+        public contentHtml = ko.observable<string>();
 
         public dialogVisible = ko.observable(false);
 
@@ -131,7 +131,7 @@ module vdb.viewModels {
 
         public showSongLists: () => void;
 
-        public songLists: KnockoutObservableArray<dc.SongListBaseContract> = ko.observableArray();
+        public songLists = ko.observableArray<dc.SongListBaseContract>();
 
         constructor(repository: rep.SongRepository, resources: SongDetailsResources, songId: number) {
             

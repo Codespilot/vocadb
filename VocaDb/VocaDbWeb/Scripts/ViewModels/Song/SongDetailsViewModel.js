@@ -1,14 +1,13 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
         var rep = vdb.repositories;
 
         var SongDetailsViewModel = (function () {
             function SongDetailsViewModel(repository, userRepository, resources, data, ratingCallback) {
                 var _this = this;
                 this.id = data.id;
-                this.userRating = new viewModels.PVRatingButtonsViewModel(userRepository, { id: data.id, vote: data.userRating }, ratingCallback);
+                this.userRating = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, { id: data.id, vote: data.userRating }, ratingCallback);
 
                 this.allVersionsVisible = ko.observable(false);
 

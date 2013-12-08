@@ -1,3 +1,4 @@
+
 ko.bindingHandlers.jqButtonset = {
     'init': function (element, valueAccessor, allBindingsAccessor) {
         var allbindings = allBindingsAccessor();
@@ -21,7 +22,7 @@ ko.bindingHandlers.jqButtonset = {
                 var existingEntryIndex = ko.utils.arrayIndexOf(ko.utils.unwrapObservable(modelValue), element.value);
                 if (element.checked && (existingEntryIndex < 0))
                     modelValue.push(element.value);
-else if ((!element.checked) && (existingEntryIndex >= 0))
+                else if ((!element.checked) && (existingEntryIndex >= 0))
                     modelValue.splice(existingEntryIndex, 1);
             } else if (ko.isObservable(modelValue)) {
                 if (modelValue() !== valueToWrite) {

@@ -32,7 +32,7 @@ ko.bindingHandlers.jqButtonset = {
             if ((element.type == "checkbox") && (ko.utils.unwrapObservable(modelValue) instanceof Array)) {
                 // For checkboxes bound to an array, we add/remove the checkbox value to that array
                 // This works for both observable and non-observable arrays
-                var existingEntryIndex = ko.utils.arrayIndexOf(ko.utils.unwrapObservable(modelValue), element.value);
+                var existingEntryIndex = ko.utils.arrayIndexOf(<any>ko.utils.unwrapObservable(modelValue), element.value);
                 if (element.checked && (existingEntryIndex < 0)) modelValue.push(element.value);
                 else if ((!element.checked) && (existingEntryIndex >= 0)) modelValue.splice(existingEntryIndex, 1);
             } else if (ko.isObservable(modelValue)) {
@@ -85,7 +85,7 @@ ko.bindingHandlers.jqButtonset = {
         if (element.type == "checkbox") {
             if (value instanceof Array) {
                 // When bound to an array, the checkbox being checked represents its value being present in that array
-                element.checked = ko.utils.arrayIndexOf(value, element.value) >= 0;
+                element.checked = ko.utils.arrayIndexOf(<any[]>value, element.value) >= 0;
             } else {
                 // When bound to anything other value (not an array), the checkbox being checked represents the value being trueish
                 element.checked = value;
