@@ -18,11 +18,11 @@ module vdb.viewModels {
 
         artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
         
-        artists: KnockoutObservableArray<dc.ArtistContract> = ko.observableArray([]);
+        artists = ko.observableArray<dc.ArtistContract>([]);
 
         checkDuplicatesAndPV: () => void;
 
-        dupeEntries: KnockoutObservableArray<dc.DuplicateEntryResultContract> = ko.observableArray([]);
+        dupeEntries = ko.observableArray<dc.DuplicateEntryResultContract>([]);
 
         isDuplicatePV: KnockoutComputed<boolean>;
 

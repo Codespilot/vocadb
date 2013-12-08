@@ -8,7 +8,7 @@ interface KnockoutBindingHandlers {
 
 ko.bindingHandlers.focusout = {
     init: function (element, valueAccessor) {
-        var value = ko.utils.unwrapObservable(valueAccessor());
+        var value: any = ko.utils.unwrapObservable(valueAccessor());
         $(element).focusout(value);
     }
 };

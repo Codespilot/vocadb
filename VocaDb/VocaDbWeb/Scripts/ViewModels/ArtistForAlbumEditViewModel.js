@@ -1,7 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
         var rep = vdb.repositories;
 
         var ArtistForAlbumEditViewModel = (function () {
@@ -38,15 +37,8 @@ var vdb;
                 this.roles(data.roles);
             }
             ArtistForAlbumEditViewModel.customizableArtistTypes = [
-                'Animator',
-                'OtherGroup',
-                'OtherIndividual',
-                'OtherVocalist',
-                'Producer',
-                'Illustrator',
-                'Lyricist',
-                'Unknown'
-            ];
+                'Animator', 'OtherGroup', 'OtherIndividual',
+                'OtherVocalist', 'Producer', 'Illustrator', 'Lyricist', 'Unknown'];
             return ArtistForAlbumEditViewModel;
         })();
         viewModels.ArtistForAlbumEditViewModel = ArtistForAlbumEditViewModel;

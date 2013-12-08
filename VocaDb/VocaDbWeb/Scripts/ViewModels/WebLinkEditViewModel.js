@@ -12,7 +12,7 @@ var vdb;
                     this.id = data.id;
                     this.url = ko.observable(data.url);
                 } else {
-                    this.category = ko.observable(cls.WebLinkCategory[cls.WebLinkCategory.Other]);
+                    this.category = ko.observable(cls.WebLinkCategory[3 /* Other */]);
                     this.description = ko.observable("");
                     this.id = 0;
                     this.url = ko.observable("");

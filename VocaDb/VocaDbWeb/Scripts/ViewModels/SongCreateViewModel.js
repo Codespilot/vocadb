@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
-
         var SongCreateViewModel = (function () {
             function SongCreateViewModel(songRepository, artistRepository, data) {
                 var _this = this;

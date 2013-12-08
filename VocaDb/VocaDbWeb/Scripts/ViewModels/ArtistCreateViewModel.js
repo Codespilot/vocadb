@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
-
         var ArtistCreateViewModel = (function () {
             function ArtistCreateViewModel(artistRepository, data) {
                 var _this = this;
@@ -15,7 +13,7 @@ var vdb;
                     return true;
                 };
                 this.submitting = ko.observable(false);
-                this.webLink = new viewModels.WebLinkEditViewModel();
+                this.webLink = new vdb.viewModels.WebLinkEditViewModel();
                 if (data) {
                     this.nameOriginal(data.nameOriginal || "");
                     this.nameRomaji(data.nameRomaji || "");

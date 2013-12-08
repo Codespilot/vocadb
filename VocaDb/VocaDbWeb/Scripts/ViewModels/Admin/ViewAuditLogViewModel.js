@@ -36,7 +36,7 @@ var vdb;
                         var name = _this.extractLast(request.term);
                         if (name.length == 0)
                             response({});
-else
+                        else
                             $.get("/User/FindByName", { term: name, startsWith: true }, response);
                     },
                     focus: function () {

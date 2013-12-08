@@ -1614,6 +1614,10 @@
     </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
@@ -1693,10 +1697,6 @@
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\TopBarViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\User\UserMessagesViewModelTests.ts" />
     <Content Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
-    <Content Include="Scripts\typings\jquery\jquery.d.ts" />
-    <Content Include="Scripts\typings\knockout\knockout.d.ts" />
-    <Content Include="Scripts\typings\qunit\qunit.d.ts" />
-    <Content Include="Scripts\typings\underscore\underscore.d.ts" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />

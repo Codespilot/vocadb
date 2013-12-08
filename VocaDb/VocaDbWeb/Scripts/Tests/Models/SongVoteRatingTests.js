@@ -9,13 +9,13 @@ var vdb;
             test("parseSongVoteRating nothing", function () {
                 var result = cls.parseSongVoteRating("Nothing");
 
-                equal(result, cls.SongVoteRating.Nothing, "result");
+                equal(result, 0 /* Nothing */, "result");
             });
 
             test("parseSongVoteRating like", function () {
                 var result = cls.parseSongVoteRating("Like");
 
-                equal(result, cls.SongVoteRating.Like, "result");
+                equal(result, 3 /* Like */, "result");
             });
         })(tests.models || (tests.models = {}));
         var models = tests.models;

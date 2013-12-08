@@ -18,16 +18,16 @@ module vdb.repositories {
 
         public findDuplicate: (params, callback: (result: dc.NewSongCheckResultContract) => void) => void;
 
-        private get: (relative: string, params: any, callback: Function) => void;
+        private get: (relative: string, params: any, callback: any) => void;
 
-        private getJSON: (relative: string, params: any, callback: Function) => void;
+        private getJSON: (relative: string, params: any, callback: any) => void;
 
         public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;
 
         // Maps a relative URL to an absolute one.
         private mapUrl: (relative: string) => string;
 
-        private post: (relative: string, params: any, callback: Function) => void;
+        private post: (relative: string, params: any, callback: any) => void;
 
         public pvPlayerWithRating: (songId: number, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => void; 
 

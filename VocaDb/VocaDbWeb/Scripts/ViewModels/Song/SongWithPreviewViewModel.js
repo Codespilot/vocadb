@@ -23,7 +23,7 @@ var vdb;
 
                     repository.pvPlayerWithRating(songId, function (result) {
                         _this.previewHtml(result.playerHtml);
-                        var ratingButtonsViewModel = new viewModels.PVRatingButtonsViewModel(userRepository, result.song, _this.ratingComplete);
+                        var ratingButtonsViewModel = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, result.song, _this.ratingComplete);
                         _this.ratingButtons(ratingButtonsViewModel);
                         _this.preview(true);
                     });

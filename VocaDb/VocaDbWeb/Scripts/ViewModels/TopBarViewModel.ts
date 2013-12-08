@@ -38,7 +38,7 @@ module vdb.viewModels {
 
         public entryTypeName: KnockoutComputed<string>;
 
-        public unreadMessages: KnockoutObservableArray<dc.UserMessageSummaryContract> = ko.observableArray();
+        public unreadMessages = ko.observableArray<dc.UserMessageSummaryContract>();
 
         public unreadMessagesCount: KnockoutObservable<number>;
 
@@ -57,7 +57,7 @@ module vdb.viewModels {
             this.unreadMessagesCount = ko.observable(unreadMessagesCount);
 
             this.entryTypeName = ko.computed(() => {
-                return entryTypeTranslations[this.entryType()];
+                return <string>entryTypeTranslations[this.entryType()];
             });
 
             this.hasNotifications = ko.computed(() => {

@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        
-
         var RequestVerificationViewModel = (function () {
             function RequestVerificationViewModel(artistRepository) {
                 var _this = this;

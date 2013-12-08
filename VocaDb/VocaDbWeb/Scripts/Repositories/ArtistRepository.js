@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (repositories) {
-        
-
         var ArtistRepository = (function () {
             function ArtistRepository(baseUrl) {
                 var _this = this;

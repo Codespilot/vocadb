@@ -38,7 +38,7 @@ module vdb.knockoutExtensions {
 }
 
 ko.bindingHandlers.entryToolTip = {
-    init: function (element, valueAccessor) {
+    init: function (element, valueAccessor: () => KnockoutObservable<vdb.dataContracts.EntryRefContract>) {
 
         var value: vdb.dataContracts.EntryRefContract = ko.utils.unwrapObservable(valueAccessor());
 
@@ -52,7 +52,7 @@ ko.bindingHandlers.entryToolTip = {
 }
 
 ko.bindingHandlers.artistToolTip = {
-    init: function (element, valueAccessor) {
+    init: function (element, valueAccessor: () => KnockoutObservable<number>) {
 
         var id = ko.utils.unwrapObservable(valueAccessor());
         vdb.knockoutExtensions.initToolTip(element, '/Artist/PopupContent', id);

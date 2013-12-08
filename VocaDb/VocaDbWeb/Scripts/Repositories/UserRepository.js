@@ -2,7 +2,6 @@ var vdb;
 (function (vdb) {
     (function (repositories) {
         var cls = vdb.models;
-        
 
         var UserRepository = (function () {
             function UserRepository(urlMapper) {

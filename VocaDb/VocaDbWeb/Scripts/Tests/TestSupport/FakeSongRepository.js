@@ -8,8 +8,6 @@ var vdb;
 (function (vdb) {
     (function (tests) {
         (function (testSupport) {
-            
-
             var FakeSongRepository = (function (_super) {
                 __extends(FakeSongRepository, _super);
                 function FakeSongRepository() {
