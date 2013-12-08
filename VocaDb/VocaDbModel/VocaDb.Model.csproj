@@ -711,6 +711,7 @@
     <EmbeddedResource Include="Resources\Albums\DiscTypeNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>DiscTypeNames.ja.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Albums\DiscTypeNames.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
