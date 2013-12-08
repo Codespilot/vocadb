@@ -55,5 +55,12 @@ namespace VocaDb.Tests.Service.Helpers {
 
 		}
 
+		[TestMethod]
+		public void GetMatchModeAndQueryForSearch_ShortQueryWithWildcard() {
+			
+			TestGetMatchModeAndQueryForSearch("1*", "1", NameMatchMode.StartsWith);
+
+		}
+
 	}
 }
