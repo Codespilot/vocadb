@@ -2894,6 +2894,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\DetailsStrings.fi.resx" />
