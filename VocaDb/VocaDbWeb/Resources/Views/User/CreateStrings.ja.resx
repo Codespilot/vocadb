@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CaptchaInvalid" xml:space="preserve">
+    <value>画像認証が一致しません。</value>
+  </data>
   <data name="DoRegister" xml:space="preserve">
     <value>登録する</value>
   </data>
@@ -126,10 +129,22 @@
   <data name="Password" xml:space="preserve">
     <value>パスワード</value>
   </data>
+  <data name="PasswordIsRequired" xml:space="preserve">
+    <value>パスワードは入力必須です。</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>登録する</value>
   </data>
+  <data name="RegistrationUnsuccessful" xml:space="preserve">
+    <value>アカウント新規登録が失敗しました。</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>ユーザー名</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>ユーザー名は入力必須です。</value>
+  </data>
+  <data name="UsernameTaken" xml:space="preserve">
+    <value>ユーザー名が既に存在しています。</value>
   </data>
 </root>
