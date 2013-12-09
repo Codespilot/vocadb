@@ -2889,6 +2889,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\AlbumCollectionStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\CreateStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\User\CreateStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CreateStrings.Designer.cs</LastGenOutput>
@@ -2916,10 +2917,12 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\LoginStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\LoginStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\LoginUsingAuthStrings.fi.resx" />
