@@ -20,7 +20,9 @@
 		<add key="HostAddress" value="http://vocadb.net" />
 		<add key="twitterConsumerKey" value="" />
 		<add key="twitterConsumerSecret" value="" />
-		<add key="StaticContentHost" value="" />
+		<add key="StaticContentPath" value="C:\VocaDB-data\" />
+		<add key="StaticContentHost" value="http://static.vocadb.net" />
+		<add key="StaticContentHostSSL" value="https://static.vocadb.net:3940" />
 	</appSettings>
 
 	<connectionStrings>

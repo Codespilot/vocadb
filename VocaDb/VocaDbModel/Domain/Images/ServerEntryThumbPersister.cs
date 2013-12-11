@@ -66,8 +66,8 @@ namespace VocaDb.Model.Domain.Images {
 
 		}
 
-		public string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size) {
-			return VocaUriBuilder.StaticResource(GetRelativeUrl(picture, size));
+		public string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size, bool ssl) {
+			return VocaUriBuilder.StaticResource(GetRelativeUrl(picture, size), ssl);
 		}
 
 		public void Write(IEntryImageInformation picture, ImageSize size, Stream file) {

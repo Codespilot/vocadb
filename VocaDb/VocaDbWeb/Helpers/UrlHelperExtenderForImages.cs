@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Web;
+using System.Web.Mvc;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Utils;
@@ -67,7 +68,7 @@ namespace VocaDb.Web.Helpers {
 			if (!shouldExist)
 				return GetUnknownImageUrl(urlHelper, imageInfo);
 
-			return imagePersister.GetUrlAbsolute(imageInfo, size);
+			return imagePersister.GetUrlAbsolute(imageInfo, size, WebHelper.IsSSL(HttpContext.Current.Request));
 
 		}
 

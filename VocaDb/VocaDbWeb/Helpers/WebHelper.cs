@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web;
 using NLog;
 using VocaDb.Web.Code;
@@ -30,6 +31,10 @@ namespace VocaDb.Web.Helpers {
 			var localhosts = new[] { "localhost", "127.0.0.1", "::1" };
 			return localhosts.Contains(hostname);
 
+		}
+
+		public static bool IsSSL(HttpRequest request) {
+			return request != null && request.Url.Scheme == Uri.UriSchemeHttps;
 		}
 
 		/// <summary>
