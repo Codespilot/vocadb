@@ -30,23 +30,23 @@ namespace VocaDb.Tests.TestSupport {
 			}
 		}
 
-		public string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size) {
+		public string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size, bool url) {
 			return picture.EntryType + "/" + picture.Id + "/" + size;
 		}
 
 		public Stream GetReadStream(IEntryImageInformation picture, ImageSize size) {
-			return new MemoryStream(images[GetUrlAbsolute(picture, size)]);
+			return new MemoryStream(images[GetUrlAbsolute(picture, size, false)]);
 		}
 
 		public bool HasImage(IEntryImageInformation picture, ImageSize size) {
-			return images.ContainsKey(GetUrlAbsolute(picture, size));
+			return images.ContainsKey(GetUrlAbsolute(picture, size, false));
 		}
 
 		public void Write(IEntryImageInformation picture, ImageSize size, Stream stream) {
 
 			var bytes = StreamHelper.ReadStream(stream);
 
-			var url = GetUrlAbsolute(picture, size);
+			var url = GetUrlAbsolute(picture, size, false);
 
 			if (images.ContainsKey(url))
 				images[url] = bytes;

@@ -14,7 +14,7 @@ namespace VocaDb.Model.Domain.Images {
 		/// <param name="picture">Image information. Cannot be null.</param>
 		/// <param name="size">Image size.</param>
 		/// <returns>Absolute URL to the image, for example "http://static.vocadb.net/img/Album/Orig/Full/123.jpg"</returns>
-		string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size);
+		string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size, bool ssl);
 
 		/// <summary>
 		/// Gets stream for reading an image from the store.

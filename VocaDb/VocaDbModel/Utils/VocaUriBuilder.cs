@@ -6,6 +6,7 @@ namespace VocaDb.Model.Utils {
 
 		// Path to static files root, for example http://static.vocadb.net. Possible trailing slash is removed.
 		private static readonly string staticResourceBase = RemoveTrailingSlash(AppConfig.StaticContentHost);
+		private static readonly string staticResourceBaseSSL = RemoveTrailingSlash(AppConfig.StaticContentHostSSL);
 
 		/// <summary>
 		/// Creates a full, absolute uri which includes the domain and scheme.
@@ -59,7 +60,18 @@ namespace VocaDb.Model.Utils {
 		/// Full path to that static resource, for example http://static.vocadb.net/banners/rvocaloid.png
 		/// </returns>
 		public static string StaticResource(string relative) {
-			return MergeUrls_BaseNoTrailingSlash(staticResourceBase, relative);
+			return StaticResource(relative, false);
+		}
+
+		/// <summary>
+		/// Returns a path to a resource in the static VocaDB domain (static.vocadb.net).
+		/// </summary>
+		/// <param name="relative">Relative URL, for example /banners/rvocaloid.png</param>
+		/// <returns>
+		/// Full path to that static resource, for example http://static.vocadb.net/banners/rvocaloid.png
+		/// </returns>
+		public static string StaticResource(string relative, bool ssl) {
+			return MergeUrls_BaseNoTrailingSlash(ssl ? staticResourceBaseSSL : staticResourceBase, relative);
 		}
 
 	}

@@ -49,8 +49,9 @@ namespace VocaDb.Model.Domain.Images {
 			return File.OpenRead(GetPath(picture, size));
 		}
 
-		public string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size) {
-			return string.Format("{0}/EntryImg/{1}/{2}", AppConfig.HostAddress, picture.EntryType, GetFileName(picture, size));
+		public string GetUrlAbsolute(IEntryImageInformation picture, ImageSize size, bool ssl) {
+			var host = ssl ? AppConfig.StaticContentHostSSL : AppConfig.HostAddress;
+			return string.Format("{0}/EntryImg/{1}/{2}", host, picture.EntryType, GetFileName(picture, size));
 		}
 
 		public string GetPath(IEntryImageInformation picture, ImageSize size) {

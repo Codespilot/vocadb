@@ -58,6 +58,12 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
+		public static string StaticContentHostSSL {
+			get {
+				return Val("StaticContentHostSSL");
+			}
+		}
+
 		public static string TwitterConsumerKey {
 			get {
 				return Val("TwitterConsumerKey");
