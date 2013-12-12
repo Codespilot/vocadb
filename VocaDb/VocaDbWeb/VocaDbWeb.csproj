@@ -574,6 +574,7 @@
     <Compile Include="Code\CultureInvariantDateTimeModelBinder.cs" />
     <Compile Include="Code\EntryAnchorFactory.cs" />
     <Compile Include="Code\ErrorLogger.cs" />
+    <Compile Include="Code\Exceptions\InvalidFormException.cs" />
     <Compile Include="Code\Feeds\FeedResult.cs" />
     <Compile Include="Code\Feeds\SongFeedFactory.cs" />
     <Compile Include="Code\FromJsonAttribute.cs" />

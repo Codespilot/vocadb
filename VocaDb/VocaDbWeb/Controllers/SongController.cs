@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
@@ -14,6 +15,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Utils;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Code.Feeds;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
@@ -301,7 +303,15 @@ namespace VocaDb.Web.Controllers
 				return View(model);				
 			}
 
-			var contract = model.ToContract();
+			SongForEditContract contract;
+			try {
+				contract = model.ToContract();
+			} catch (InvalidFormException x) {
+				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Error message: {0}.", x.Message));
+				var oldContract = Service.GetSongForEdit(model.Id);
+				model.CopyNonEditableFields(oldContract);
+				return View(model);
+			}
 			queries.UpdateBasicProperties(contract);
 
 			return RedirectToAction("Details", new { id = model.Id });
