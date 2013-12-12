@@ -18,6 +18,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Model.Domain.Security;
@@ -329,16 +330,16 @@ namespace VocaDb.Web.Models {
 		public SongForEditContract ToContract() {
 
 			if (ArtistLinks == null)
-				throw new InvalidOperationException("ArtistLinks list was null"); // Shouldn't be null
+				throw new InvalidFormException("ArtistLinks list was null"); // Shouldn't be null
 
 			if (Lyrics == null)
-				throw new InvalidOperationException("Lyrics list was null"); // Shouldn't be null
+				throw new InvalidFormException("Lyrics list was null"); // Shouldn't be null
 
 			if (PVs == null)
-				throw new InvalidOperationException("PVs list was null"); // Shouldn't be null
+				throw new InvalidFormException("PVs list was null"); // Shouldn't be null
 
 			if (WebLinks == null)
-				throw new InvalidOperationException("WebLinks list was null"); // Shouldn't be null
+				throw new InvalidFormException("WebLinks list was null"); // Shouldn't be null
 
 			return new SongForEditContract {
 				Song = new SongContract {

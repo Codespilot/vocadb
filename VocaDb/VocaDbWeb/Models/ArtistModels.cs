@@ -10,6 +10,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Model.Domain.Security;
@@ -124,10 +125,10 @@ namespace VocaDb.Web.Models {
 		public ArtistForEditContract ToContract() {
 
 			if (Pictures == null)
-				throw new InvalidOperationException("Pictures list was null"); // Shouldn't be null
+				throw new InvalidFormException("Pictures list was null"); // Shouldn't be null
 
 			if (WebLinks == null)
-				throw new InvalidOperationException("Weblinks list was null"); // Shouldn't be null
+				throw new InvalidFormException("Weblinks list was null"); // Shouldn't be null
 
 			return new ArtistForEditContract {
 				

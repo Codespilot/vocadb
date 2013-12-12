@@ -17,6 +17,7 @@ using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
@@ -174,7 +175,7 @@ namespace VocaDb.Web.Models {
 		public AlbumForEditContract ToContract() {
 
 			if (Tracks == null)
-				throw new InvalidOperationException("Tracks list was null"); // Shouldn't be null
+				throw new InvalidFormException("Tracks list was null"); // Shouldn't be null
 
 			return new AlbumForEditContract {
 				Description = this.Description ?? string.Empty,

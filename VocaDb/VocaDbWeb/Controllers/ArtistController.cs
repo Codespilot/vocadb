@@ -18,6 +18,7 @@ using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using System.Drawing;
@@ -394,7 +395,16 @@ namespace VocaDb.Web.Controllers
 				return RedirectToAction("Edit", new { id = model.Id });
 			}
 
-			queries.Update(model.ToContract(), pictureData, LoginManager);
+			ArtistForEditContract contract;
+			try {
+				contract = model.ToContract();
+			} catch (InvalidFormException x) {
+				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Error message: {0}.", x.Message));
+				SaveErrorsToTempData();
+				return RedirectToAction("Edit", new { id = model.Id });
+			}
+
+			queries.Update(contract, pictureData, LoginManager);
 
 			return RedirectToAction("Details", new { id = model.Id });
 

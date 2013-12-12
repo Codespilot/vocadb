@@ -532,6 +532,7 @@ namespace VocaDb.Model.Service {
 				var albums = session
 					.Query<Album>()
 					.Where(a => a.Deleted)
+					.AddNameOrder(LanguagePreference)
 					.Skip(start)
 					.Take(maxEntries)
 					.ToArray()
