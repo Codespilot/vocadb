@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
+using NLog;
 using VocaDb.Model;
-using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -33,6 +33,8 @@ namespace VocaDb.Web.Controllers
     public class ArtistController : ControllerBase
     {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+
 		private readonly ArtistQueries queries;
 		private readonly ArtistService service;
 
@@ -40,8 +42,6 @@ namespace VocaDb.Web.Controllers
 			this.service = service;
 			this.queries = queries;
 		}
-
-		private readonly Size pictureThumbSize = new Size(250, 250);
 
     	private ArtistService Service {
     		get { return service; }
@@ -399,6 +399,7 @@ namespace VocaDb.Web.Controllers
 			try {
 				contract = model.ToContract();
 			} catch (InvalidFormException x) {
+				log.WarnException("Form submission error", x);
 				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Error message: {0}.", x.Message));
 				SaveErrorsToTempData();
 				return RedirectToAction("Edit", new { id = model.Id });

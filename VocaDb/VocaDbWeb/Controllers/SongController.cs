@@ -307,6 +307,7 @@ namespace VocaDb.Web.Controllers
 			try {
 				contract = model.ToContract();
 			} catch (InvalidFormException x) {
+				log.WarnException("Form submission error", x);
 				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Error message: {0}.", x.Message));
 				var oldContract = Service.GetSongForEdit(model.Id);
 				model.CopyNonEditableFields(oldContract);
