@@ -163,7 +163,7 @@
 <br />
 
 @if (Model.FavoriteAlbums.Any()) {
-	<div class="well well-transparent">
+	<div class="well well-transparent" id="favoriteAlbums">
 		<h4>
 			Some albums I like
 			(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })">@ViewRes.SharedStrings.ShowMore</a>)
@@ -185,7 +185,7 @@
 @if (Model.FollowedArtists.Any()) {
 	<div class="well well-transparent">
 		<h4>
-			Some artists I like
+			Some artists I follow
 		</h4>
 		@ArtistHelpers.ArtistGrid(Model.FollowedArtists, 3)
 	</div>
