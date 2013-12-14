@@ -156,6 +156,9 @@
   <data name="Search" xml:space="preserve">
     <value>サーチ</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>もっと見る</value>
+  </data>
   <data name="Songs" xml:space="preserve">
     <value>曲</value>
   </data>

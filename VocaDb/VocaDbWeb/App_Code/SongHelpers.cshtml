@@ -153,6 +153,19 @@
 
 }
 
+@helper SongsList(IList<SongContract> songs, bool showType = false) {
+
+	foreach (var song in songs) {
+		if (showType) {
+			@SongTypeLabel(song.SongType)
+		}
+		@SongLink(song)
+		if (song != songs.Last()) {
+			@(", ")
+		}
+	}
+}
+
 @helper SongTypeLabel(SongType songType) {
 	switch (songType) {
 		case SongType.Cover:

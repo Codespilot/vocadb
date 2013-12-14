@@ -5,6 +5,7 @@ using System.Threading;
 using System.Web;
 using NLog;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Paging;
@@ -38,38 +39,69 @@ namespace VocaDb.Model.Service {
 
 			var details = new UserDetailsContract(user, PermissionContext);
 
-			details.AlbumCollectionCount
+			var stats = session.Query<User>().Where(u => u.Id == user.Id).Select(u => new {
+				AlbumCollectionCount = u.AllAlbums.Count(a => !a.Album.Deleted),
+				ArtistCount = u.AllArtists.Count(a => !a.Artist.Deleted),
+				CommentCount = u.Comments.Count,
+				FavoriteSongCount = u.FavoriteSongs.Count(c => !c.Song.Deleted),
+			}).First();
+
+			details.AlbumCollectionCount = stats.AlbumCollectionCount;
+			details.ArtistCount = stats.ArtistCount;
+			details.CommentCount = stats.CommentCount;
+			details.FavoriteSongCount = stats.FavoriteSongCount;
+
+			/*details.AlbumCollectionCount
 				= session.Query<AlbumForUser>().Count(c => c.User == user && !c.Album.Deleted);
 
 			details.ArtistCount
 				= session.Query<ArtistForUser>().Count(c => c.User == user && !c.Artist.Deleted);
+			 
+			details.FavoriteSongCount
+				= session.Query<FavoriteSongForUser>().Count(c => c.User == user && !c.Song.Deleted);			 			 
+			details.CommentCount
+				= session.Query<AlbumComment>().Count(c => c.Author == user && !c.Album.Deleted)
+				+ session.Query<ArtistComment>().Count(c => c.Author == user && !c.Artist.Deleted)
+				+ session.Query<SongComment>().Count(c => c.Author == user && !c.Song.Deleted);
+			 */
 
 			details.FavoriteAlbums = session.Query<AlbumForUser>()
 				.Where(c => c.User.Id == user.Id && !c.Album.Deleted && c.Rating > 3)
 				.OrderByDescending(c => c.Rating)
+				.ThenByDescending(c => c.Id)
 				.Select(a => a.Album)
 				.Take(5)
 				.ToArray()
 				.Select(c => new AlbumContract(c, LanguagePreference))
 				.ToArray();
 
-			details.FavoriteSongCount
-				= session.Query<FavoriteSongForUser>().Count(c => c.User == user && !c.Song.Deleted);
-
-			details.CommentCount
-				= session.Query<AlbumComment>().Count(c => c.Author == user && !c.Album.Deleted)
-				+ session.Query<ArtistComment>().Count(c => c.Author == user && !c.Artist.Deleted)
-				+ session.Query<SongComment>().Count(c => c.Author == user && !c.Song.Deleted);
-
 			details.EditCount
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && !c.Album.Deleted)
 				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && !c.Artist.Deleted)
 				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && !c.Song.Deleted);
 
+			details.FollowedArtists = session.Query<ArtistForUser>()
+				.Where(c => c.User.Id == user.Id && !c.Artist.Deleted)
+				.OrderByDescending(a => a.Id)
+				.Select(c => c.Artist)
+				.Take(6)
+				.ToArray()
+				.Select(c => new ArtistContract(c, LanguagePreference))
+				.ToArray();
+
 			details.LatestComments = session.Query<UserComment>()
 				.Where(c => c.User == user).OrderByDescending(c => c.Created).Take(3)
 				.ToArray()
 				.Select(c => new CommentContract(c)).ToArray();
+
+			details.LatestRatedSongs = session.Query<FavoriteSongForUser>()
+				.Where(c => c.User.Id == user.Id && !c.Song.Deleted)
+				.OrderByDescending(c => c.Id)
+				.Select(c => c.Song)
+				.Take(6)
+				.ToArray()
+				.Select(c => new SongContract(c, LanguagePreference))
+				.ToArray();
 
 			details.SubmitCount
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Album.Deleted)
