@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -39,6 +40,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public int CommentCount { get; set; }
 
 		public int EditCount { get; set; }
+
+		public AlbumContract[] FavoriteAlbums { get; set;}
 
 		public int FavoriteSongCount { get; set; }
 
