@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Threading;
 using System.Web;
 using NLog;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Paging;
@@ -42,6 +43,15 @@ namespace VocaDb.Model.Service {
 
 			details.ArtistCount
 				= session.Query<ArtistForUser>().Count(c => c.User == user && !c.Artist.Deleted);
+
+			details.FavoriteAlbums = session.Query<AlbumForUser>()
+				.Where(c => c.User.Id == user.Id && !c.Album.Deleted && c.Rating > 3)
+				.OrderByDescending(c => c.Rating)
+				.Select(a => a.Album)
+				.Take(5)
+				.ToArray()
+				.Select(c => new AlbumContract(c, LanguagePreference))
+				.ToArray();
 
 			details.FavoriteSongCount
 				= session.Query<FavoriteSongForUser>().Count(c => c.User == user && !c.Song.Deleted);
