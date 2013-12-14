@@ -177,6 +177,9 @@
   <data name="Search" xml:space="preserve">
     <value>Hae</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Näytä lisää</value>
+  </data>
   <data name="Songs" xml:space="preserve">
     <value>Kappaleet</value>
   </data>

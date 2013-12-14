@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -45,12 +46,16 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public int FavoriteSongCount { get; set; }
 
+		public ArtistContract[] FollowedArtists { get; set;}
+
 		public DateTime LastLogin { get; set; }
 
 		public string LastLoginAddress { get; set; }
 
 		[DataMember]
 		public CommentContract[] LatestComments { get; set; }
+
+		public SongContract[] LatestRatedSongs { get; set; }
 
 		public int Level { get; set; }
 

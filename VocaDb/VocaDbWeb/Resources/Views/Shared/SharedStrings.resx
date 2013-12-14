@@ -180,6 +180,9 @@
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="ShowMore" xml:space="preserve">
+    <value>Show more</value>
+  </data>
   <data name="Songs" xml:space="preserve">
     <value>Songs</value>
   </data>

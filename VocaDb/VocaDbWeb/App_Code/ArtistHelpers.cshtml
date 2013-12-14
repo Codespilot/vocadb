@@ -170,3 +170,16 @@
 	</table>
 		
 }
+
+@helper ArtistListFlat(IList<ArtistContract> artists, bool showType = false) {
+	
+	foreach (var artist in artists) {
+		if (showType) {
+			@ArtistTypeLabel(artist.ArtistType)
+		}
+		@ArtistLink(artist)
+		if (artist != artists.Last()) {
+			@(", ")
+		}
+	}
+}

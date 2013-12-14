@@ -63,7 +63,7 @@
 }
 
 <div class="row-fluid">
-	<div class="span2">
+	<div class="span2 well well-transparent">
 		<h4>@Model.Name</h4>
 		@Avatar()
 		<br />
@@ -100,12 +100,12 @@
 		<span>@R.Comments: @Model.CommentCount</span><br />
 		<span>@R.TagVotes: @Model.TagVotes</span><br />
 		<span>@R.Power: @Model.Power (@R.Level @Model.Level)</span>
-		
+
 		<h4 class="withMargin">@R.MemberSince</h4>
 		@Model.CreateDate.ToShortDateString()
 	</div>
 
-	<div class="span8">
+	<div class="span8 well well-transparent" ">
 
 		@if (!string.IsNullOrEmpty(Model.AboutMe)) {
 			<h4>@R.AboutMe</h4>
@@ -133,7 +133,7 @@
 		@if (ownProfile && !Login.CanManageUsers) {
 			if (Model.AdditionalPermissions.Any()) {
 				<h4 class="withMargin">@R.AdditionalPermissions</h4>
-				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)				 
+				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
 			}
 		}
 
@@ -147,7 +147,7 @@
 
 			if (Model.AdditionalPermissions.Any()) {
 				<h4 class="withMargin">@R.AdditionalPermissions</h4>
-				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)				 
+				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
 			}
 
 			<h4 class="withMargin">@R.Email</h4>
@@ -157,16 +157,39 @@
 			@Translate.AllPermissionTokenNames(Model.EffectivePermissions)
 		}
 
-		@if (Model.FavoriteAlbums.Any()) {
-			<h4 class="withMargin">
-				Some albums I like
-				(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })">Show more...</a>)
-			</h4>
-			@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)			
-		}
 	</div>
 </div>
 
+<br />
+
+@if (Model.FavoriteAlbums.Any()) {
+	<div class="well well-transparent">
+		<h4>
+			Some albums I like
+			(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })">@ViewRes.SharedStrings.ShowMore</a>)
+		</h4>
+		@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
+	</div>
+}
+		
+@if (Model.LatestRatedSongs.Any()) {
+	<div class="well well-transparent">
+		<h4>
+			Some songs I like
+			(<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>)
+		</h4>
+		@SongHelpers.SongGrid(Model.LatestRatedSongs, 3)
+	</div>
+}
+		
+@if (Model.FollowedArtists.Any()) {
+	<div class="well well-transparent">
+		<h4>
+			Some artists I like
+		</h4>
+		@ArtistHelpers.ArtistGrid(Model.FollowedArtists, 3)
+	</div>
+}
 
 <br />
 
