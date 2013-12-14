@@ -10,37 +10,32 @@
 }
 
 <div class="row-fluid">
-	
-	<div class="span3">
-		<form>
-			<div>
-				@ViewRes.EntryIndexStrings.SortBy
-				<div class="btn-group">
-					<button class="btn dropdown-toggle" data-toggle="dropdown">@Translate.SongSortRuleNames[Model.Sort]
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
-							<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, rating = Model.Rating, sort = sortRule.Key, groupByRating = Model.GroupByRating })</li>
-						}
-					</ul>
-				</div>
-			</div>
-		</form>
-	</div>
 
+	@using (Html.BeginForm("FavoriteSongs", "User", new { id = Model.User.Id }, FormMethod.Post, new { @class = "form-inline", id = "groupingForm" })) {
+		@Html.HiddenFor(m => m.Sort)
+
+		@ViewRes.EntryIndexStrings.SortBy
+		<div class="btn-group">
+			<button class="btn dropdown-toggle" data-toggle="dropdown">
+				@Translate.SongSortRuleNames[Model.Sort]
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
+					<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, rating = Model.Rating, sort = sortRule.Key, groupByRating = Model.GroupByRating })</li>
+				}
+			</ul>
+		</div>
+		
+		<text>&nbsp;</text>
+		
+		<label class="checkbox inline">
+			@Html.CheckBoxFor(m => m.GroupByRating, new { onchange = "$('#groupingForm').submit();" })
+			@R.GroupByRating
+		</label>
+
+	}
 </div>
-
-@using (Html.BeginForm("FavoriteSongs", "User", new { id = Model.User.Id }, FormMethod.Post, new { @class = "form-inline" })) {
-	@Html.HiddenFor(m => m.Sort)
-
-	<label class="checkbox inline">
-		@Html.CheckBoxFor(m => m.GroupByRating)
-		@R.GroupByRating
-	</label>
-
-	<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
-}
 
 
 <div id="ui-tabs-3">
