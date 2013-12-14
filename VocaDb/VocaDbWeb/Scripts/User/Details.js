@@ -120,5 +120,6 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 	});
 
 	$("#sfsCheckDialog").dialog({ autoOpen: false, model: true });
+	$("#favoriteAlbums img").vdbAlbumToolTip();
 
 }
