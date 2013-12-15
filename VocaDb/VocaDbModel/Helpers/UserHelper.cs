@@ -16,13 +16,9 @@ namespace VocaDb.Model.Helpers {
 
 		}
 
-		public static int GetPower(UserDetailsContract detailsContract, User user) {
+		public static int GetPower(UserDetailsContract detailsContract, int ownedAlbumCount, int albumRatingCount) {
 
 			ParamIs.NotNull(() => detailsContract);
-			ParamIs.NotNull(() => user);
-
-			var ownedAlbumCount = user.Albums.Count(a => a.PurchaseStatus == PurchaseStatus.Owned);
-			var albumRatingCount = user.Albums.Count(a => a.Rating != 0);
 			var songListCount = detailsContract.SongLists.Count();
 
 			var power =
