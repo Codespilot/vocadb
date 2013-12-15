@@ -31,6 +31,22 @@ namespace VocaDb.Model.Service {
 
 	public class UserService : ServiceBase {
 
+		class UserStats {
+			
+			public int AlbumCollectionCount { get; set;}
+
+			public int ArtistCount { get; set; }
+
+			public int CommentCount { get; set; }
+
+			public int FavoriteSongCount { get; set; }
+
+			public int OwnedAlbumCount { get; set; }
+
+			public int RatedAlbumCount { get; set;}
+
+		}
+
 // ReSharper disable UnusedMember.Local
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 // ReSharper restore UnusedMember.Local
@@ -39,11 +55,13 @@ namespace VocaDb.Model.Service {
 
 			var details = new UserDetailsContract(user, PermissionContext);
 
-			var stats = session.Query<User>().Where(u => u.Id == user.Id).Select(u => new {
+			var stats = session.Query<User>().Where(u => u.Id == user.Id).Select(u => new UserStats {
 				AlbumCollectionCount = u.AllAlbums.Count(a => !a.Album.Deleted),
 				ArtistCount = u.AllArtists.Count(a => !a.Artist.Deleted),
 				CommentCount = u.Comments.Count,
 				FavoriteSongCount = u.FavoriteSongs.Count(c => !c.Song.Deleted),
+				OwnedAlbumCount = u.AllAlbums.Count(a => !a.Album.Deleted && a.PurchaseStatus == PurchaseStatus.Owned),
+				RatedAlbumCount = u.AllAlbums.Count(a => !a.Album.Deleted && a.Rating != 0),
 			}).First();
 
 			details.AlbumCollectionCount = stats.AlbumCollectionCount;
@@ -111,7 +129,7 @@ namespace VocaDb.Model.Service {
 			details.TagVotes
 				= session.Query<TagVote>().Count(t => t.User == user);
 
-			details.Power = UserHelper.GetPower(details, user);
+			details.Power = UserHelper.GetPower(details, stats.OwnedAlbumCount, stats.RatedAlbumCount);
 			details.Level = UserHelper.GetLevel(details.Power);
 
 			return details;
