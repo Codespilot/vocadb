@@ -76,9 +76,9 @@ namespace VocaDb.Model.Service {
 				.ToArray();
 
 			details.EditCount
-				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && !c.Album.Deleted)
-				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && !c.Artist.Deleted)
-				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && !c.Song.Deleted);
+				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user)
+				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user)
+				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user);
 
 			details.FollowedArtists = session.Query<ArtistForUser>()
 				.Where(c => c.User.Id == user.Id && !c.Artist.Deleted)
@@ -104,9 +104,9 @@ namespace VocaDb.Model.Service {
 				.ToArray();
 
 			details.SubmitCount
-				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Album.Deleted)
-				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Artist.Deleted)
-				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && c.Version == 0 && !c.Song.Deleted);
+				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0)
+				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && c.Version == 0)
+				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && c.Version == 0);
 
 			details.TagVotes
 				= session.Query<TagVote>().Count(t => t.User == user);

@@ -126,19 +126,18 @@
 		}
 
 		@if (!string.IsNullOrEmpty(Model.Location)) {
-			<h4 class="withMargin">@R.Location</h4>
+			<h4>@R.Location</h4>
 			@Model.Location
+			<br />
 		}
 
 		@if (ownProfile && !Login.CanManageUsers) {
 			if (Model.AdditionalPermissions.Any()) {
-				<h4 class="withMargin">@R.AdditionalPermissions</h4>
+				<h4>@R.AdditionalPermissions</h4>
 				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
 			}
-		}
-
-		@if (Login.CanManageUsers) {
-			<h4 class="withMargin">@R.LastLogin</h4>
+		} else if (Login.CanManageUsers) {
+			<h4>@R.LastLogin</h4>
 			@Helpers.UniversalTimeLabel(Model.LastLogin)
 			if (Login.CanManageUsers) {
 				@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
