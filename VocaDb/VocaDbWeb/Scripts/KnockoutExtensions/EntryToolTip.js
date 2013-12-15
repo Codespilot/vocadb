@@ -30,10 +30,20 @@ ko.bindingHandlers.entryToolTip = {
         var value = ko.utils.unwrapObservable(valueAccessor());
 
         switch (value.entryType) {
+            case "Album":
+                vdb.knockoutExtensions.initToolTip(element, '/Album/PopupContent', value.id);
+                break;
             case "Artist":
                 vdb.knockoutExtensions.initToolTip(element, '/Artist/PopupContent', value.id);
                 break;
         }
+    }
+};
+
+ko.bindingHandlers.albumToolTip = {
+    init: function (element, valueAccessor) {
+        var id = ko.utils.unwrapObservable(valueAccessor());
+        vdb.knockoutExtensions.initToolTip(element, '/Album/PopupContent', id);
     }
 };
 
