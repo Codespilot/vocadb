@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Web;
+using NHibernate.Criterion;
 using NLog;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
@@ -562,9 +564,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private IQueryable<T> AddFilter<T>(IQueryable<T> query, int userId, int maxCount, bool onlySubmissions) where T : ArchivedObjectVersion {
+		private IQueryable<T> AddFilter<T>(IQueryable<T> query, int userId, int maxCount, bool onlySubmissions, Expression<Func<T, bool>> deletedFilter) where T : ArchivedObjectVersion {
 
 			query = query.Where(q => q.Author.Id == userId);
+			query = query.Where(deletedFilter);
 
 			if (onlySubmissions)
 				query = query.Where(q => q.Version == 0);
@@ -623,14 +626,15 @@ namespace VocaDb.Model.Service {
 
 				var user = session.Load<User>(id);
 				var activity = 
-					AddFilter(session.Query<ArchivedAlbumVersion>(), id, maxCount, onlySubmissions).ToArray().Cast<ArchivedObjectVersion>().Concat(
-					AddFilter(session.Query<ArchivedArtistVersion>(), id, maxCount, onlySubmissions).ToArray()).Concat(
-					AddFilter(session.Query<ArchivedSongVersion>(), id, maxCount, onlySubmissions).ToArray());
+					AddFilter(session.Query<ArchivedAlbumVersion>(), id, maxCount, onlySubmissions, a => !a.Album.Deleted).ToArray().Cast<ArchivedObjectVersion>().Concat(
+					AddFilter(session.Query<ArchivedArtistVersion>(), id, maxCount, onlySubmissions, a => !a.Artist.Deleted).ToArray()).Concat(
+					AddFilter(session.Query<ArchivedSongVersion>(), id, maxCount, onlySubmissions, a => !a.Song.Deleted).ToArray());
 
 				var activityContracts = activity
-					.Where(a => !a.EntryBase.Deleted)
-					.OrderByDescending(a => a.Created).Take(maxCount)
-					.Select(a => new ActivityEntryContract(a, PermissionContext.LanguagePreference)).ToArray();
+					.OrderByDescending(a => a.Created)
+					.Take(maxCount)
+					.Select(a => new ActivityEntryContract(a, PermissionContext.LanguagePreference))
+					.ToArray();
 
 				return new UserWithActivityEntriesContract(user, activityContracts, PermissionContext.LanguagePreference);
 

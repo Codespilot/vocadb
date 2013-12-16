@@ -5,6 +5,7 @@ using VocaDb.Model.Domain.Images;
 namespace VocaDb.Model.DataContracts {
 
 	// Used for activity feed and comments
+	// TODO: name isn't actually needed...
 	public class EntryWithImageContract : EntryWithNameAndVersionContract, IEntryImageInformation {
 
 		public EntryWithImageContract(IEntryWithNames entry, string mime, ContentLanguagePreference languagePreference) 
