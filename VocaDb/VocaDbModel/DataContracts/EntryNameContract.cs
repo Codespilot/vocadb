@@ -19,8 +19,14 @@
 		public EntryNameContract(string displayName)
 			: this(displayName, string.Empty) {}
 
+		/// <summary>
+		/// Comma-separated list of additional names (excluding the primary display name).
+		/// </summary>
 		public string AdditionalNames { get; set; }
 
+		/// <summary>
+		/// Display name is the primary name localized to the requested language.
+		/// </summary>
 		public string DisplayName { get; set; }
 
 
