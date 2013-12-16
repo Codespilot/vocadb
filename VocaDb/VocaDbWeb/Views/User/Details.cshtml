@@ -149,8 +149,10 @@
 				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
 			}
 
-			<h4 class="withMargin">@R.Email</h4>
-			@Model.Email
+			if (!string.IsNullOrEmpty(Model.Email)) {
+				<h4 class="withMargin">@R.Email</h4>
+				@Model.Email				
+			}
 
 			<h4 class="withMargin">@R.EffectivePermissions</h4>
 			@Translate.AllPermissionTokenNames(Model.EffectivePermissions)
