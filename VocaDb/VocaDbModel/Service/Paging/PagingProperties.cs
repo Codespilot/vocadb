@@ -22,6 +22,10 @@ namespace VocaDb.Model.Service.Paging {
 
 		}
 
+		public static PagingProperties FirstPage(int entriesPerPage, bool getTotalCount = false) {
+			return new PagingProperties(0, entriesPerPage, getTotalCount);
+		}
+
 		/// <summary>
 		/// Initializes paging properties.
 		/// </summary>
