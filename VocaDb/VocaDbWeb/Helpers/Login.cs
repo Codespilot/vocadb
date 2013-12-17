@@ -75,6 +75,12 @@ namespace VocaDb.Web.Helpers {
 			}
 		}
 
+		public static bool IsLoggedIn {
+			get {
+				return Manager.IsLoggedIn;
+			}
+		}
+
 		public static LoginManager Manager {
 			get {
 				return MvcApplication.LoginManager;

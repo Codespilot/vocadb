@@ -63,7 +63,7 @@ namespace VocaDb.Model.Service {
 					.Take(maxEntries)
 					.ToArray();*/
 
-				var userId = GetLoggedUser(session).Id;
+				var userId = PermissionContext.LoggedUserId;
 
 				var albumEntries = session.Query<AlbumActivityEntry>()
 					.Where(a => !a.Entry.Deleted && a.EditEvent == EntryEditEvent.Created && a.Entry.AllArtists.Any(r => r.Artist.Users.Any(u => u.User.Id == userId)))
