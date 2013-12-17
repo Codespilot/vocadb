@@ -1,8 +1,24 @@
-﻿
+﻿@using Login = VocaDb.Web.Helpers.Login
+
 @{
     ViewBag.Title = "Activity entries";
 	var page = (int)ViewBag.Page;
 }
+
+<br />
+
+<ul class="nav-pills">
+	<li class="active">
+		@Html.ActionLink("All activity", "Index")
+	</li>
+	@if (Login.IsLoggedIn) {
+	<li>
+		@Html.ActionLink("Only followed artists", "FollowedArtistActivity")
+	</li>	
+	}	
+</ul>
+
+<br />
 
 <input type="hidden" id="page" value="@page"/>
 
