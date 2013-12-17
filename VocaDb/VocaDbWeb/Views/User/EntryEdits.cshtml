@@ -10,6 +10,32 @@
 
 }
 
-@foreach (var entry in Model.ActivityEntries) {
-	@ActivityfeedHelpers.ActivityEntry(entry);
+<div id="entryEdits">
+	@{ Html.RenderPartial("Partials/_EntryEditsPage", Model); }
+</div>
+
+<hr />
+<h3><a href="#" id="loadMoreLink">View more</a></h3>
+@Html.Hidden("start", 100)
+
+@section BodyScripts {
+	<script type="text/javascript">
+
+	$(document).ready(function () {
+
+		$("#loadMoreLink").click(function () {
+
+			var id = @Model.Id;
+			var params = { id: id, start: $("#start").val() };
+			var url = vdb.functions.mapAbsoluteUrl("User/EntryEditsPage");
+
+			$.post(url, params, function (result) {
+				$("#entryEdits").append(result);
+				$("#start").val(parseInt($("#start").val()) + 100);
+			});
+			return false;
+		});
+	});
+
+	</script>
 }

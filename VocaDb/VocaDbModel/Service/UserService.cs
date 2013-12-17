@@ -564,7 +564,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private IQueryable<T> AddFilter<T>(IQueryable<T> query, int userId, int maxCount, bool onlySubmissions, Expression<Func<T, bool>> deletedFilter) where T : ArchivedObjectVersion {
+		private IQueryable<T> AddFilter<T>(IQueryable<T> query, int userId, PagingProperties paging, bool onlySubmissions, Expression<Func<T, bool>> deletedFilter) where T : ArchivedObjectVersion {
 
 			query = query.Where(q => q.Author.Id == userId);
 			query = query.Where(deletedFilter);
@@ -574,7 +574,7 @@ namespace VocaDb.Model.Service {
 
 			query = query.OrderByDescending(q => q.Created);
 
-			query = query.Take(maxCount);
+			query = query.Skip(paging.Start).Take(paging.MaxEntries);
 
 			return query;
 
@@ -620,19 +620,19 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserWithActivityEntriesContract GetUserWithActivityEntries(int id, int maxCount, bool onlySubmissions) {
+		public UserWithActivityEntriesContract GetUserWithActivityEntries(int id, PagingProperties paging, bool onlySubmissions) {
 
 			return HandleQuery(session => {
 
 				var user = session.Load<User>(id);
 				var activity = 
-					AddFilter(session.Query<ArchivedAlbumVersion>(), id, maxCount, onlySubmissions, a => !a.Album.Deleted).ToArray().Cast<ArchivedObjectVersion>().Concat(
-					AddFilter(session.Query<ArchivedArtistVersion>(), id, maxCount, onlySubmissions, a => !a.Artist.Deleted).ToArray()).Concat(
-					AddFilter(session.Query<ArchivedSongVersion>(), id, maxCount, onlySubmissions, a => !a.Song.Deleted).ToArray());
+					AddFilter(session.Query<ArchivedAlbumVersion>(), id, paging, onlySubmissions, a => !a.Album.Deleted).ToArray().Cast<ArchivedObjectVersion>().Concat(
+					AddFilter(session.Query<ArchivedArtistVersion>(), id, paging, onlySubmissions, a => !a.Artist.Deleted).ToArray()).Concat(
+					AddFilter(session.Query<ArchivedSongVersion>(), id, paging, onlySubmissions, a => !a.Song.Deleted).ToArray());
 
 				var activityContracts = activity
 					.OrderByDescending(a => a.Created)
-					.Take(maxCount)
+					.Take(paging.MaxEntries)
 					.Select(a => new ActivityEntryContract(a, PermissionContext.LanguagePreference))
 					.ToArray();
 

@@ -171,9 +171,20 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			var user = Service.GetUserWithActivityEntries(id, 100, onlySubmissions);
+			var user = Service.GetUserWithActivityEntries(id, PagingProperties.FirstPage(100), onlySubmissions);
 
 			return View(user);
+
+		}
+
+		public ActionResult EntryEditsPage(int id = invalidId, bool onlySubmissions = true, int start = 0) {
+			
+			if (id == invalidId)
+				return NoId();
+
+			var user = Service.GetUserWithActivityEntries(id, new PagingProperties(start, 100, false), onlySubmissions);
+
+			return PartialView("Partials/_EntryEditsPage", user);
 
 		}
 
