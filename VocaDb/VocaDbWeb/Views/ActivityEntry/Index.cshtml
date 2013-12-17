@@ -5,9 +5,7 @@
 	var page = (int)ViewBag.Page;
 }
 
-<br />
-
-<ul class="nav-pills">
+<ul class="nav nav-pills">
 	<li class="active">
 		@Html.ActionLink("All activity", "Index")
 	</li>
@@ -17,8 +15,6 @@
 	</li>	
 	}	
 </ul>
-
-<br />
 
 <input type="hidden" id="page" value="@page"/>
 

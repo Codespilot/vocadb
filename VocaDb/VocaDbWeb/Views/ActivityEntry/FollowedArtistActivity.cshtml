@@ -4,9 +4,7 @@
     ViewBag.Title = "New activity by followed artists";
 }
 
-<br />
-
-<ul class="nav-pills">
+<ul class="nav nav-pills">
 	<li>
 		@Html.ActionLink("All activity", "Index")
 	</li>
@@ -14,8 +12,6 @@
 		@Html.ActionLink("Only followed artists", "FollowedArtistActivity")
 	</li>
 </ul>
-
-<br />
 
 @foreach (var entry in Model) {
 	@ActivityfeedHelpers.ActivityEntry(entry);
