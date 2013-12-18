@@ -34,6 +34,12 @@ namespace VocaDb.Model.Domain.Security {
 
 		bool HasPermission(PermissionToken flag);
 
+		/// <summary>
+		/// Overrides user's language preference for this request.
+		/// </summary>
+		/// <param name="languagePreference">Language preference.</param>
+		void OverrideLanguage(ContentLanguagePreference languagePreference);
+
 		void VerifyLogin();
 
 		void VerifyPermission(PermissionToken flag);

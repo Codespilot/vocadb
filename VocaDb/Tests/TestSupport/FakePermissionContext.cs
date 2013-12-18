@@ -44,6 +44,10 @@ namespace VocaDb.Tests.TestSupport {
 		public string Name { get; private set; }
 		public UserGroupId UserGroupId { get; private set; }
 
+		public void OverrideLanguage(ContentLanguagePreference languagePreference) {
+			throw new System.NotImplementedException();
+		}
+
 		/// <summary>
 		/// Updates status, including permissions, of the currently logged in user.
 		/// </summary>

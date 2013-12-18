@@ -11,13 +11,16 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
+using VocaDb.Model.Service.Security;
 
 namespace VocaDb.Web.Services {
 
@@ -25,10 +28,12 @@ namespace VocaDb.Web.Services {
 	[ServiceContract(Namespace = Schemas.VocaDb)]
 	public class QueryService {
 
+		private IUserPermissionContext userPermissionContext;
 		private ServiceModel Services { get; set; }
 
-		public QueryService(ServiceModel services) {
+		public QueryService(ServiceModel services, IUserPermissionContext userPermissionContext) {
 			Services = services;
+			this.userPermissionContext = userPermissionContext;
 		}
 
 		#region Common queries
@@ -146,7 +151,10 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public SongDetailsContract GetSongDetails(string term) {
+		public SongDetailsContract GetSongDetails(string term, ContentLanguagePreference? language = null) {
+
+			if (language.HasValue)
+				userPermissionContext.OverrideLanguage(language.Value);
 
 			var matchMode = NameMatchMode.Auto;
 			term = FindHelpers.GetMatchModeAndQueryForSearch(term, ref matchMode);
