@@ -3,6 +3,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -15,7 +16,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumForApiContract() { }
 
 		public AlbumForApiContract(Album album, AlbumMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
-			bool artists = true, bool names = true, bool tags = true, bool webLinks = false) {
+			bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
 
 			CatalogNumber = album.OriginalRelease != null ? album.OriginalRelease.CatNum : null;
 			CreateDate = album.CreateDate;
@@ -35,6 +36,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			if (names)
 				Names = album.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+
+			if (pvs)
+				PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 
 			if (tags)
 				Tags = album.Tags.Tags.Select(t => t.Name).ToArray();
@@ -74,6 +78,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public LocalizedStringContract[] Names { get; set; }
+
+		[DataMember]
+		public PVContract[] PVs { get; set; }
 
 		[DataMember]
 		public double RatingAverage { get; set; }
