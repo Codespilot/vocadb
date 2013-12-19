@@ -15,7 +15,8 @@ namespace VocaDb.Web.Helpers {
 			if (string.IsNullOrEmpty(text))
 				return text;
 
-			return new Markdown(new MarkdownOptions { AutoHyperlink = true, AutoNewLines = true }).Transform(HttpUtility.HtmlEncode(text));
+			// StrictBoldItalic is needed because otherwise links with underscores won't work (links are more common on VDB).
+			return new Markdown(new MarkdownOptions { AutoHyperlink = true, AutoNewLines = true, StrictBoldItalic = true }).Transform(HttpUtility.HtmlEncode(text));
 
 		}
 
