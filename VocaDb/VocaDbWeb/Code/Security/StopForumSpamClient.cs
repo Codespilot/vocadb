@@ -33,6 +33,7 @@ namespace VocaDb.Web.Code.Security {
 			var url = string.Format(apiUrl, ip);
 
 			var request = WebRequest.Create(url);
+			request.Timeout = 10000;
 			string data;
 			try {
 				using (var response = request.GetResponse())
