@@ -47,7 +47,7 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public int FavoriteSongCount { get; set; }
 
-		public TagWithImageContract[] FavoriteTags { get; set;}
+		public string[] FavoriteTags { get; set;}
 
 		public ArtistContract[] FollowedArtists { get; set;}
 
