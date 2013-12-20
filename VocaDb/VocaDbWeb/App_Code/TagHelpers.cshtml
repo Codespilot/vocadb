@@ -4,7 +4,9 @@
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.DataContracts.Tags
 @using VocaDb.Model.Domain
+@using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Domain.Security
+@using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers
 @inherits VocaDb.Web.Code.HelperPage
 
@@ -92,8 +94,48 @@
 	
 }
 
+@helper TagGrid(IEnumerable<TagWithImageContract> tags, int columns) {
+	
+	<table>
+		@{ int i = 0; }
+	
+		@foreach (var tag in tags) {
+				if (i % columns == 0) {
+				@Html.Raw("<tr>")
+				}
+			<td>
+				@TagIconLink(tag)
+			</td>
+			<td>
+				@TagLink(tag.Name)
+			</td>
+			{ i++; }
+			if (i % columns == 0) {
+				@Html.Raw("</tr>")
+			}
+		}
+		@if (i % columns != 0) {
+			@Html.Raw("</tr>")
+		}
+	</table>
+			
+}
+
+@helper TagIconLink(TagWithImageContract tag) {
+	var smallThumbUrl = ImageHelper.GetImageUrl(tag.Thumb, ImageSize.SmallThumb);
+	if (!string.IsNullOrEmpty(smallThumbUrl)) {
+		<a href="@Url.Action("Details", "Tag", new { id = tag.Name })">
+			<img src="@smallThumbUrl" alt="Thumb" class="coverPicThumb" />
+		</a>
+	}
+}
+
 @helper TagLink(string tagName) {
 	@Html.ActionLink(tagName, "Details", "Tag", new { id = tagName }, null)	
+}
+
+@helper TagList(IEnumerable<TagContract> tags) {
+	@Html.LinkList(tags, tag => Html.ActionLink(tag.Name, "Details", "Tag", new System.Web.Routing.RouteValueDictionary { { "id", tag.Id } }, null))
 }
 
 @helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {

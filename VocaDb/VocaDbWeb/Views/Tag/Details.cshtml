@@ -71,7 +71,7 @@
 			
 			<div class="media-body">
 				@if (Model.Description != string.Empty) {
-					<p>@HtmlHelpers.FormatMarkdown(Model.Description)</p>
+					@HtmlHelpers.FormatMarkdown(Model.Description)
 				}
 
 				@if (Model.CategoryName != string.Empty){

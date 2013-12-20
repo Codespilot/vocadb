@@ -8,6 +8,7 @@ using NHibernate.Criterion;
 using NLog;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Paging;
@@ -71,20 +72,6 @@ namespace VocaDb.Model.Service {
 			details.CommentCount = stats.CommentCount;
 			details.FavoriteSongCount = stats.FavoriteSongCount;
 
-			/*details.AlbumCollectionCount
-				= session.Query<AlbumForUser>().Count(c => c.User == user && !c.Album.Deleted);
-
-			details.ArtistCount
-				= session.Query<ArtistForUser>().Count(c => c.User == user && !c.Artist.Deleted);
-			 
-			details.FavoriteSongCount
-				= session.Query<FavoriteSongForUser>().Count(c => c.User == user && !c.Song.Deleted);			 			 
-			details.CommentCount
-				= session.Query<AlbumComment>().Count(c => c.Author == user && !c.Album.Deleted)
-				+ session.Query<ArtistComment>().Count(c => c.Author == user && !c.Artist.Deleted)
-				+ session.Query<SongComment>().Count(c => c.Author == user && !c.Song.Deleted);
-			 */
-
 			details.FavoriteAlbums = session.Query<AlbumForUser>()
 				.Where(c => c.User.Id == user.Id && !c.Album.Deleted && c.Rating > 3)
 				.OrderByDescending(c => c.Rating)
@@ -99,6 +86,45 @@ namespace VocaDb.Model.Service {
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user)
 				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user)
 				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user);
+
+			/*var favoriteTagsNames = session.Query<SongTagUsage>()
+				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
+				.GroupBy(t => new { Name = t.Tag.Name, ThumbMime = t.Tag.Thumb.Mime })
+				.OrderByDescending(t => t.Count())
+				.Select(t => new { Name = t.Key.Name, ThumbMime = t.Key.ThumbMime, Count = t.Count() })
+				.Take(6)
+				.ToArray();
+
+			details.FavoriteTags = session.Query<Tag>()
+				.Where(t => favoriteTagsNames.Contains(t.Name))
+				.ToArray()
+				.Select(t => new TagWithImageContract(t))
+				.ToArray();*/
+
+			var favoriteTagsNames = session.Query<SongTagUsage>()
+				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
+				.GroupBy(t => t.Tag.Name)
+				.OrderByDescending(t => t.Count())
+				.Select(t => t.Key)
+				.ToArray() // Need NH 3.3.3 to do the limiting on server side
+				.Take(6)
+				.ToArray();
+
+			details.FavoriteTags = session.Query<Tag>()
+				.Where(t => favoriteTagsNames.Contains(t.Name))
+				.ToArray()
+				.Select(t => new TagWithImageContract(t))
+				.ToArray();
+
+			/*details.FavoriteTags = session.Query<SongTagUsage>()
+				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
+				.GroupBy(t => t.Tag)
+				.OrderByDescending(t => t.Count())
+				.Select(t => t.Key)
+				.ToArray()
+				.Take(6)
+				.Select(t => new TagWithImageContract(t))
+				.ToArray();*/
 
 			details.FollowedArtists = session.Query<ArtistForUser>()
 				.Where(c => c.User.Id == user.Id && !c.Artist.Deleted)
@@ -123,6 +149,7 @@ namespace VocaDb.Model.Service {
 				.Select(c => new SongContract(c, LanguagePreference))
 				.ToArray();
 
+			// This could be mapped on the user side and queried together with stats.
 			details.SubmitCount
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0)
 				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && c.Version == 0)
