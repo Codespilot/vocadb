@@ -128,7 +128,13 @@
 		@if (!string.IsNullOrEmpty(Model.Location)) {
 			<h4>@R.Location</h4>
 			@Model.Location
-			<br />
+			<br /><br />
+		}
+		
+		@if (Model.FavoriteTags.Any()) {
+			<h4>My favorite tags</h4>
+			@TagHelpers.TagList(Model.FavoriteTags)					
+			<br /><br />
 		}
 
 		@if (ownProfile && !Login.CanManageUsers) {

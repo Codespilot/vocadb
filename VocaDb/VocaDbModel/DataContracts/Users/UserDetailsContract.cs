@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -45,6 +46,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public AlbumContract[] FavoriteAlbums { get; set;}
 
 		public int FavoriteSongCount { get; set; }
+
+		public TagWithImageContract[] FavoriteTags { get; set;}
 
 		public ArtistContract[] FollowedArtists { get; set;}
 

@@ -12,7 +12,7 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.Tags {
 
-	public class TagDetailsContract : TagContract, IEntryWithStatus {
+	public class TagDetailsContract : TagWithImageContract, IEntryWithStatus {
 
 		bool IDeletableEntry.Deleted {
 			get { return false; }
@@ -48,8 +48,6 @@ namespace VocaDb.Model.DataContracts.Tags {
 			Songs = songs.Select(a => new SongContract(a, languagePreference)).ToArray();
 			SongCount = songCount;
 
-			Thumb = (tag.Thumb != null ? new EntryThumbContract(tag.Thumb) : null);
-
 		}
 
 		public int AlbumCount { get; set; }
@@ -65,8 +63,6 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public SongContract[] Songs { get; set; }
 
 		public int SongCount { get; set; }
-
-		public EntryThumbContract Thumb { get; set; }
 
 	}
 
