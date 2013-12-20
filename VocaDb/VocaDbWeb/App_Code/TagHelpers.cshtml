@@ -135,7 +135,7 @@
 }
 
 @helper TagList(IEnumerable<TagContract> tags) {
-	@Html.LinkList(tags, tag => Html.ActionLink(tag.Name, "Details", "Tag", new System.Web.Routing.RouteValueDictionary { { "id", tag.Id } }, null))
+	@Html.LinkList(tags, tag => Html.ActionLink(tag.Name, "Details", "Tag", new System.Web.Routing.RouteValueDictionary { { "id", tag.Name } }, null))
 }
 
 @helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {
