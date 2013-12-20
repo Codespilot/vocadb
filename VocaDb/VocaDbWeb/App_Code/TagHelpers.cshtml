@@ -134,8 +134,8 @@
 	@Html.ActionLink(tagName, "Details", "Tag", new { id = tagName }, null)	
 }
 
-@helper TagList(IEnumerable<TagContract> tags) {
-	@Html.LinkList(tags, tag => Html.ActionLink(tag.Name, "Details", "Tag", new System.Web.Routing.RouteValueDictionary { { "id", tag.Name } }, null))
+@helper TagList(string[] tagNames) {
+	@Html.LinkList(tagNames, tagName => Html.ActionLink(tagName, "Details", "Tag", new System.Web.Routing.RouteValueDictionary { { "id", tagName } }, null))
 }
 
 @helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {

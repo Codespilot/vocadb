@@ -101,20 +101,20 @@ namespace VocaDb.Model.Service {
 				.Select(t => new TagWithImageContract(t))
 				.ToArray();*/
 
-			var favoriteTagsNames = session.Query<SongTagUsage>()
+			details.FavoriteTags = session.Query<SongTagUsage>()
 				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id) && c.Tag.CategoryName != "Lyrics" && c.Tag.CategoryName != "Distribution")
 				.GroupBy(t => t.Tag.Name)
 				.OrderByDescending(t => t.Count())
 				.Select(t => t.Key)
 				.ToArray() // Need NH 3.3.3 to do the limiting on server side
-				.Take(6)
+				.Take(8)
 				.ToArray();
 
-			details.FavoriteTags = session.Query<Tag>()
+			/*details.FavoriteTags = session.Query<Tag>()
 				.Where(t => favoriteTagsNames.Contains(t.Name))
 				.ToArray()
 				.Select(t => new TagWithImageContract(t))
-				.ToArray();
+				.ToArray();*/
 
 			/*details.FavoriteTags = session.Query<SongTagUsage>()
 				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
