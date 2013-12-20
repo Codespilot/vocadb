@@ -102,7 +102,7 @@ namespace VocaDb.Model.Service {
 				.ToArray();*/
 
 			var favoriteTagsNames = session.Query<SongTagUsage>()
-				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
+				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id) && c.Tag.CategoryName != "Lyrics" && c.Tag.CategoryName != "Distribution")
 				.GroupBy(t => t.Tag.Name)
 				.OrderByDescending(t => t.Count())
 				.Select(t => t.Key)
