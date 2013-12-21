@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.1.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=1.3.0.727, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\FluentNHibernate.1.3.0.727\lib\FluentNHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
@@ -49,6 +57,10 @@
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -92,6 +104,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="DatabaseTests\Search\SongSearch\SongSearchDatabaseTests.cs" />
     <Compile Include="Domain\Albums\AlbumTests.cs" />
     <Compile Include="Domain\Albums\ArtistForAlbumTests.cs" />
     <Compile Include="Domain\Artists\ArtistTests.cs" />
@@ -117,6 +130,7 @@
     <Compile Include="TestSupport\FakePVParser.cs" />
     <Compile Include="TestSupport\FakeSongRepository.cs" />
     <Compile Include="TestSupport\InMemoryImagePersister.cs" />
+    <Compile Include="TestSupport\TestComponentConfig.cs" />
     <Compile Include="TestSupport\VocaDbAssert.cs" />
     <Compile Include="TestSupport\FakeAlbumRepository.cs" />
     <Compile Include="TestSupport\FakeAuditLogger.cs" />

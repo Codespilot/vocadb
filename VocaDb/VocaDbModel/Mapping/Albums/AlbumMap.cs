@@ -39,7 +39,7 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Component(m => m.OriginalRelease, c => {
 				c.Map(m => m.CatNum, "ReleaseCatNum");
-				c.Map(m => m.EventName, "ReleaseEventName");
+				c.Map(m => m.EventName, "[ReleaseEventName]");
 				c.Component(m => m.ReleaseDate, c2 => {
 					c2.Map(m => m.Year, "ReleaseYear");
 					c2.Map(m => m.Month, "ReleaseMonth");
