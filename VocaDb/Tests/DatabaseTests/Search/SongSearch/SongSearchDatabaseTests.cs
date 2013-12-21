@@ -1,70 +1,86 @@
 ﻿using System;
+using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
-using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Tests.TestSupport;
 
-namespace VocaDb.Tests.Service.Search.SongSearch {
+namespace VocaDb.Tests.DatabaseTests.Search.SongSearch {
 
-	/*
-	/// <summary>
-	/// Tests for <see cref="Model.Service.Search.SongSearch.SongSearch"/>.
-	/// </summary>
 	[TestClass]
-	public class SongSearchTests {
+	public class SongSearchDatabaseTests {
 
-		private Artist artist;
+		private static IContainer container;
 		private SongQueryParams queryParams;
-		private QuerySourceList querySource;
-		private Model.Service.Search.SongSearch.SongSearch search;
-		private Song song;
-		private Song songWithArtist;
-		private Tag tag;
 
-		private void AddSong(Song song) {
+		private static Artist artist;
+		private static Song song;
+		private static Song song2;
+		private static Song songWithArtist;
+		private static Tag tag;
 
-			querySource.Add(song);
-
-			foreach (var name in song.Names)
-				querySource.Add(name);
-
-			foreach (var artistLink in song.AllArtists)
-				querySource.Add(artistLink);
-
-			foreach (var tagUsage in song.Tags.Usages)
-				querySource.Add(tagUsage);
+		private static void HandleTransaction(Action<IRepositoryContext<Song>> act) {
+			
+			using (container.BeginLifetimeScope()) {
+				
+				var repo = container.Resolve<ISongRepository>();
+				repo.HandleTransaction(act);
+					
+			}
 
 		}
 
-		private PartialFindResult<Song> CallFind() {
-			return search.Find(queryParams);
+		[ClassInitialize]
+		public static void ClassSetUp(TestContext testContext) {
+			
+			container = TestComponentConfig.BuildContainer();
+			HandleTransaction(ctx => {
+				
+				artist = new Artist(TranslatedString.Create("Junk")) { Id = 257 };
+				ctx.Save(artist);
+
+				tag = new Tag("Electronic");
+				ctx.Save(tag);
+
+				song = new Song(new LocalizedString("Nebula", ContentLanguageSelection.English)) { Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1) };
+				song.Tags.Usages.Add(new SongTagUsage(song, tag));
+				ctx.Save(song);
+
+				song2 = new Song(new LocalizedString("Tears of Palm", ContentLanguageSelection.English)) {
+					Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1)
+				};
+				ctx.Save(song2);
+
+				songWithArtist = new Song(new LocalizedString("Crystal Tears", ContentLanguageSelection.English)) { Id = 7787, FavoritedTimes = 39, CreateDate = new DateTime(2012, 1, 1) };
+				songWithArtist.AddArtist(artist);
+				ctx.Save(songWithArtist);
+					
+			});					
+
 		}
 
 		[TestInitialize]
 		public void SetUp() {
+			
+			queryParams = new SongQueryParams { SortRule = SongSortRule.Name };
 
-			querySource = new QuerySourceList();
+		}
 
-			artist = new Artist(TranslatedString.Create("Junk")) { Id = 257 };
-			tag = new Tag("Electronic");
+		private PartialFindResult<Song> CallFind(ContentLanguagePreference languagePreference = ContentLanguagePreference.Default) {
+			
+			using (container.BeginLifetimeScope()) {
 
-			song = new Song(new LocalizedString("Nebula", ContentLanguageSelection.English)) { Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1) };
-			song.Tags.Usages.Add(new SongTagUsage(song, tag));
-			AddSong(song);
+				var search = new Model.Service.Search.SongSearch.SongSearch(container.Resolve<Model.Service.Search.IQuerySource>(), languagePreference);
 
-			songWithArtist = new Song(new LocalizedString("Crystal Tears", ContentLanguageSelection.English)) { Id = 7787, FavoritedTimes = 39, CreateDate = new DateTime(2012, 1, 1) };
-			songWithArtist.AddArtist(artist);
-			AddSong(songWithArtist);
+				return search.Find(queryParams);
 
-			queryParams = new SongQueryParams();
-
-			search = new Model.Service.Search.SongSearch.SongSearch(querySource, ContentLanguagePreference.Default);
+			}
 
 		}
 
@@ -76,10 +92,10 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(2, result.Items.Length, "2 results");
-			Assert.AreEqual(2, result.TotalCount, "total result count");
-			Assert.AreEqual(song.DefaultName, result.Items[0].DefaultName);
-			Assert.AreEqual(songWithArtist, result.Items[1]);
+			Assert.AreEqual(3, result.Items.Length, "Number of results");
+			Assert.AreEqual(3, result.TotalCount, "Total result count");
+			Assert.AreEqual(songWithArtist, result.Items[0]);
+			Assert.AreEqual(song.DefaultName, result.Items[1].DefaultName);
 
 		}
 
@@ -93,9 +109,9 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(1, result.Items.Length, "1 result");
-			Assert.AreEqual(2, result.TotalCount, "total result count");
-			Assert.AreEqual(songWithArtist, result.Items[0]);
+			Assert.AreEqual(2, result.Items.Length, "Number of results");
+			Assert.AreEqual(3, result.TotalCount, "Total result count");
+			Assert.AreEqual(song, result.Items[0]);
 
 		}
 
@@ -109,8 +125,8 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(2, result.Items.Length, "2 results");
-			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual(3, result.Items.Length, "Number of results");
+			Assert.AreEqual(3, result.TotalCount, "Total result count");
 			Assert.AreEqual("Crystal Tears", result.Items[0].DefaultName);
 			Assert.AreEqual("Nebula", result.Items[1].DefaultName);
 
@@ -126,8 +142,8 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(2, result.Items.Length, "2 results");
-			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual(3, result.Items.Length, "Number of results");
+			Assert.AreEqual(3, result.TotalCount, "Total result count");
 			Assert.AreEqual("Crystal Tears", result.Items[0].DefaultName);
 			Assert.AreEqual("Nebula", result.Items[1].DefaultName);
 
@@ -143,10 +159,11 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(2, result.Items.Length, "2 results");
-			Assert.AreEqual(2, result.TotalCount, "total result count");
+			Assert.AreEqual(3, result.Items.Length, "Number of results");
+			Assert.AreEqual(3, result.TotalCount, "Total result count");
 			Assert.AreEqual("Nebula", result.Items[0].DefaultName);
-			Assert.AreEqual("Crystal Tears", result.Items[1].DefaultName);
+			Assert.AreEqual("Tears of Palm", result.Items[1].DefaultName);
+			Assert.AreEqual("Crystal Tears", result.Items[2].DefaultName);
 
 		}
 
@@ -193,11 +210,6 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 		[TestMethod]
 		public void QueryNameMoveExactToTop() {
 
-			var song2 = new Song(new LocalizedString("Tears of Palm", ContentLanguageSelection.English)) {
-				Id = 121, SongType = SongType.Original, PVServices = PVServices.Youtube, CreateDate = new DateTime(2012, 6, 1)
-			};
-			AddSong(song2);
-
 			queryParams.Common.Query = "Tears";
 			queryParams.Common.MoveExactToTop = true;
 			queryParams.Paging.MaxEntries = 1;
@@ -236,8 +248,8 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(1, result.Items.Length, "1 result");
-			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(2, result.Items.Length, "Number of results");
+			Assert.AreEqual(2, result.TotalCount, "Total result count");
 			Assert.AreEqual(song, result.Items[0]);
 
 		}
@@ -252,8 +264,8 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(1, result.Items.Length, "1 result");
-			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(1, result.Items.Length, "Number of results");
+			Assert.AreEqual(1, result.TotalCount, "Total result count");
 			Assert.AreEqual(songWithArtist, result.Items[0], "songs are equal");
 
 		}
@@ -268,12 +280,12 @@ namespace VocaDb.Tests.Service.Search.SongSearch {
 
 			var result = CallFind();
 
-			Assert.AreEqual(1, result.Items.Length, "1 result");
-			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(2, result.Items.Length, "Number of results");
+			Assert.AreEqual(2, result.TotalCount, "Total result count");
 			Assert.AreEqual(song, result.Items[0], "songs are equal");
 
 		}
 
-	}*/
+	}
 
 }

@@ -15,16 +15,16 @@ namespace VocaDb.Model.Service {
 
 		private static string ConnectionStringName {
 			get {
-				return ConfigurationManager.AppSettings["ConnectionStringName"] ?? "Jupiter";
+				return ConfigurationManager.AppSettings["ConnectionStringName"];
 			}
 		}
 
-		public static ISessionFactory BuildSessionFactory() {
+		public static FluentConfiguration Configure(string connectionStringName = null) {
 
 			var config = Fluently.Configure()
 				.Database(
 					MsSqlConfiguration.MsSql2008
-						.ConnectionString(c => c.FromConnectionStringWithKey(ConnectionStringName))
+						.ConnectionString(c => c.FromConnectionStringWithKey(connectionStringName ?? ConnectionStringName))
 						.MaxFetchDepth(1)
 #if !DEBUG
 					.UseReflectionOptimizer()
@@ -45,6 +45,17 @@ namespace VocaDb.Model.Service {
 				)*/
 				;
 
+			return config;
+
+		}
+
+		public static ISessionFactory BuildSessionFactory(string connectionStringName = null) {
+
+			return BuildSessionFactory(Configure(connectionStringName));
+
+		}
+
+		public static ISessionFactory BuildSessionFactory(FluentConfiguration config) {
 
 			try {
 				return config.BuildSessionFactory();
@@ -57,7 +68,6 @@ namespace VocaDb.Model.Service {
 			}
 
 		}
-
 		public static ISessionFactory BuildSessionFactory(Action<MsSqlConnectionStringBuilder> connectionStringBuilder) {
 
 			var config = Fluently.Configure()
