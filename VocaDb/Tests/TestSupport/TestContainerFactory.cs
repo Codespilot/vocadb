@@ -9,17 +9,21 @@ using VocaDb.Model.Service.Search;
 
 namespace VocaDb.Tests.TestSupport {
 
-	public static class TestComponentConfig {
+	/// <summary>
+	/// Creates AutoFac dependency injection container for database tests.
+	/// </summary>
+	public static class TestContainerFactory {
 
 		/// <summary>
 		/// Creates additional required database schemas.
-		/// NHibernate schema export doesn't create any schemas, so only dbo schema is created by default.
+		/// NHibernate schema export doesn't create any schemas, so only the dbo schema is created by default.
 		/// </summary>
 		private static void CreateSchemas(ISessionFactory sessionFactory) {
 
 			using (var session = sessionFactory.OpenSession())
 			using (var tx = session.BeginTransaction()) {
 				
+				// SQL from http://stackoverflow.com/a/521271 (might be T-SQL specific)
 				session.CreateSQLQuery(@"
 					IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'mikudb')
 					BEGIN
@@ -42,7 +46,8 @@ namespace VocaDb.Tests.TestSupport {
 			 * */
 			using (var session = sessionFactory.OpenSession())
 			using (var tx = session.BeginTransaction()) {
-				
+
+				// IDENTITY is T-SQL specific!
 				session.CreateSQLQuery(@"
 					ALTER TABLE [Tags] DROP COLUMN [Id]
 					ALTER TABLE [Tags] ADD [Id] [int] IDENTITY(1,1) NOT NULL
@@ -61,7 +66,7 @@ namespace VocaDb.Tests.TestSupport {
 
 			/* 
 			 * Need to comment these out when not needed because session factory can only be created once.
-			 * Schemas need to be created BEFORE NHibernate schema export.
+			 * Database schemas need to be created BEFORE NHibernate schema export.
 			 * This needs to be run only once.
 			*/
 			/*
@@ -69,6 +74,7 @@ namespace VocaDb.Tests.TestSupport {
 
 			CreateSchemas(fac);*/
 
+			// Drop old database if any, create new schema
 			config.ExposeConfiguration(cfg => {
 
 				var export = new SchemaExport(cfg);

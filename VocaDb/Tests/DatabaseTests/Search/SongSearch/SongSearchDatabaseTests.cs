@@ -39,7 +39,7 @@ namespace VocaDb.Tests.DatabaseTests.Search.SongSearch {
 		[ClassInitialize]
 		public static void ClassSetUp(TestContext testContext) {
 			
-			container = TestComponentConfig.BuildContainer();
+			container = TestContainerFactory.BuildContainer();
 			HandleTransaction(ctx => {
 				
 				artist = new Artist(TranslatedString.Create("Junk")) { Id = 257 };
