@@ -109,7 +109,7 @@
 
 		@if (!string.IsNullOrEmpty(Model.AboutMe)) {
 			<h4>@R.AboutMe</h4>
-			@HtmlHelpers.FormatText(Model.AboutMe)
+			@HtmlHelpers.FormatMarkdown(Model.AboutMe)
 			<br />
 		}
 

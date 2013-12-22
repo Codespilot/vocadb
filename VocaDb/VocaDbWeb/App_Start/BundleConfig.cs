@@ -136,8 +136,9 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/User/UserMessagesViewModel.js"
 			));
 
-			//bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
-			//));
+			bundles.Add(new ScriptBundle("~/bundles/User/MySettings").Include(
+				"~/Scripts/ViewModels/User/MySettingsViewModel.js"
+			));
 
 
 #if DEBUG

@@ -150,9 +150,15 @@
 			
  			<div class="editor-label">
 				@R.MySettingsStrings.AboutMe
+				@Helpers.MarkdownNotice()
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.AboutMe, new { @class = "input-xxlarge", rows = 5 })
+				@Html.TextAreaForKnockout(m => m.AboutMe, binding: "value: aboutMe, valueUpdate: 'afterkeydown'", cssClass: "input-xxlarge", rows: 7)
+				<br />
+
+				Live preview
+				<div data-bind="markdown: aboutMe"></div>
+				<br />
 			</div>
            
  			<div class="editor-label">
@@ -165,10 +171,10 @@
 			<div class="editor-label">
 				@R.MySettingsStrings.ExternalLinks
 			</div>
-	        <div class="editor-field">
-		        @KnockoutHelpers.WebLinksEditViewKnockout(false)
-		        <input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
-	        </div>
+			<div class="editor-field" data-bind="with: webLinksViewModel">
+				@KnockoutHelpers.WebLinksEditViewKnockout(false)
+				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
+			</div>
 
 		</div>
 
@@ -202,15 +208,19 @@
 }
 
 @section BodyScripts {
-	@Scripts.Render("~/bundles/shared/edit")
+	@Scripts.Render("~/bundles/shared/edit", "~/bundles/User/MySettings")
 	<script type="text/javascript">
 
 		$(document).ready(function () {
+
 			$("#tabs").tabs();
 
-			var webLinksJson = @Html.Raw(JsonHelpers.Serialize(Model.WebLinks));
-			var viewModel = new vdb.viewModels.WebLinksEditViewModel(webLinksJson);
+			@{ var data = new { AboutMe = Html.Encode(Model.AboutMe), Model.WebLinks };	}
+			var model = @Html.Raw(JsonHelpers.Serialize(data));
+
+			var viewModel = new vdb.viewModels.MySettingsViewModel(model.aboutMe, model.webLinks);
 			ko.applyBindings(viewModel);
+
 		});
 
 	</script>
