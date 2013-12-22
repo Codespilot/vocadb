@@ -1600,6 +1600,7 @@
       <DependentUpon>StopBinding.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
+    <Content Include="Scripts\marked.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />

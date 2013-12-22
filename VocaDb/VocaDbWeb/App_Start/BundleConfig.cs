@@ -54,7 +54,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/WebLinksEditViewModel.js",
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/SongAutoComplete.js",
-				"~/Scripts/KnockoutExtensions/FocusOut.js"
+				"~/Scripts/KnockoutExtensions/FocusOut.js",
+				"~/Scripts/marked.js"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
