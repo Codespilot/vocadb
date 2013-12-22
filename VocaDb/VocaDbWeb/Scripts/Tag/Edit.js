@@ -15,18 +15,4 @@ function initPage(tagName) {
 		}
 	});
 
-	$("#Description").keyup(function () {
-
-		var val = $("#Description").val();
-		marked(val, { gfm: true, breaks: true }, function (error, content) {
-
-			if (error)
-				$("#descriptionPreview").val(error);
-			else
-				$("#descriptionPreview").html(content);
-
-		});
-
-	});
-
 }

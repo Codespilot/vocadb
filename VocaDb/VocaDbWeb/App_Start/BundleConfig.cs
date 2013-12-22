@@ -48,6 +48,7 @@ namespace VocaDb.Web.App_Start {
 			// Included on all entry edit and create pages (album, artist, my settings etc.)
 			bundles.Add(new ScriptBundle("~/bundles/shared/edit").Include(
 				"~/Scripts/knockout-sortable.js",
+				"~/Scripts/marked.js",
 				"~/Scripts/Models/WebLinkCategory.js",
 				"~/Scripts/Shared/WebLinkMatcher.js",
 				"~/Scripts/ViewModels/WebLinkEditViewModel.js",
@@ -55,7 +56,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/SongAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/FocusOut.js",
-				"~/Scripts/marked.js"
+				"~/Scripts/KnockoutExtensions/Markdown.js"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
@@ -119,6 +120,11 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
 				"~/Scripts/KnockoutExtensions/Song/PVPreviewStatus.js",
 				"~/Scripts/Song/Index.js"
+			));
+
+			bundles.Add(new ScriptBundle("~/bundles/Tag/Edit").Include(
+				"~/Scripts/ViewModels/TagEditViewModel.js",
+				"~/Scripts/Tag/Edit.js"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include(

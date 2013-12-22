@@ -16,15 +16,19 @@
 }
 
 @section BodyScripts {
-@Scripts.Render("~/bundles/shared/edit")
-<script type="text/javascript" src="@Url.Content("~/Scripts/Tag/Edit.js")"></script>
+@Scripts.Render("~/bundles/shared/edit", "~/bundles/Tag/Edit")
 <script type="text/javascript">
 
 	$(document).ready(function () {
 
-		var name = "@Model.Name";
-		initPage(name);
+		@{ var data = new { Model.Name, Description = Html.Encode(Model.Description) };	}
+		
+		var model = @Html.Raw(JsonHelpers.Serialize(data));
+		initPage(model.name);
 
+		var viewModel = new vdb.viewModels.TagEditViewModel(model.description);
+		ko.applyBindings(viewModel);
+		
 	});
 
 </script>
@@ -61,13 +65,11 @@
 		<small>(You can use <a href="https://help.github.com/articles/github-flavored-markdown">GitHub-flavored Markdown</a> for markup)</small>
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 8, @class = "span6", maxlength = 1000 })<br />
+		@Html.TextAreaForKnockout(m => m.Description, binding: "value: description, valueUpdate: 'afterkeydown'", cssClass: "span6", maxLength: 1000, rows: 8, cols: 50)
 		@Html.ValidationMessageFor(m => m.Description)
 		
 		Live preview
-		<div id="descriptionPreview">
-			@HtmlHelpers.FormatMarkdown(Model.Description)
-		</div>
+		<div data-bind="markdown: description"></div>
 		<br />
 	</div>
 	
