@@ -62,7 +62,7 @@
 	
 	<div class="editor-label">
 		@Html.LabelFor(m => m.Description)
-		<small>(You can use <a href="https://help.github.com/articles/github-flavored-markdown">GitHub-flavored Markdown</a> for markup)</small>
+		@Helpers.MarkdownNotice()
 	</div>
 	<div class="editor-field">
 		@Html.TextAreaForKnockout(m => m.Description, binding: "value: description, valueUpdate: 'afterkeydown'", cssClass: "span6", maxLength: 1000, rows: 8, cols: 50)

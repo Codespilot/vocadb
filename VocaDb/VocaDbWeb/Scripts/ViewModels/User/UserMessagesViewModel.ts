@@ -23,6 +23,8 @@ module vdb.viewModels {
 
         }
 
+		newMessageViewModel = new NewMessageViewModel();
+
         notifications: UserMessageFolderViewModel;
 
         receivedMessages: UserMessageFolderViewModel;
@@ -157,6 +159,12 @@ module vdb.viewModels {
 		sender: vdb.dataContracts.UserWithIconContract;
 
 		subject: string;
+
+	}
+
+	export class NewMessageViewModel {
+
+		body = ko.observable<string>();
 
 	}
 
