@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.Domain.Artists;
@@ -78,7 +79,14 @@ namespace VocaDb.Tests.DatabaseTests.Search.SongSearch {
 
 				var search = new Model.Service.Search.SongSearch.SongSearch(container.Resolve<Model.Service.Search.IQuerySource>(), languagePreference);
 
-				return search.Find(queryParams);
+				var watch = new Stopwatch();
+				watch.Start();
+
+				var result = search.Find(queryParams);
+
+				Console.WriteLine("Test finished in {0}ms", watch.ElapsedMilliseconds);
+
+				return result;
 
 			}
 
