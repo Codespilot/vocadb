@@ -6,7 +6,7 @@ namespace VocaDb.Web.Helpers {
 	public static class MarkdownHelper {
 
 		/// <summary>
-		/// Transforms a block of text with Markdown.
+		/// Transforms a block of text with Markdown. The input will be sanitized.
 		/// </summary>
 		/// <param name="text">Text to be transformed. All HTML will be encoded!</param>
 		/// <returns>Markdown-transformed text. This will include HTML.</returns>

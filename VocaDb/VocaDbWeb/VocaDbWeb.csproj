@@ -1941,6 +1941,7 @@
       <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\User\MySettingsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongEditViewModel.ts" />
     <Content Include="Scripts\ViewModels\SongEditViewModel.js">
