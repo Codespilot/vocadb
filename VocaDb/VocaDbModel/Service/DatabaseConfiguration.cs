@@ -68,18 +68,6 @@ namespace VocaDb.Model.Service {
 			}
 
 		}
-		public static ISessionFactory BuildSessionFactory(Action<MsSqlConnectionStringBuilder> connectionStringBuilder) {
-
-			var config = Fluently.Configure()
-				.Database(
-				MsSqlConfiguration.MsSql2008
-					.ConnectionString(connectionStringBuilder))
-				.Cache(c => c.ProviderClass("NHibernate.Caches.SysCache2.SysCacheProvider, NHibernate.Caches.SysCache2"))
-				.Mappings(m => m.FluentMappings.AddFromAssemblyOf<SongMap>().Conventions.AddFromAssemblyOf<ClassConventions>());
-
-			return config.BuildSessionFactory();
-
-		}
 
 	}
 
