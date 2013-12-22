@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.Domain.Images
+﻿@using System.Web.Optimization
+@using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.Tag.TagEdit
@@ -15,6 +16,7 @@
 }
 
 @section BodyScripts {
+@Scripts.Render("~/bundles/shared/edit")
 <script type="text/javascript" src="@Url.Content("~/Scripts/Tag/Edit.js")"></script>
 <script type="text/javascript">
 
@@ -56,10 +58,17 @@
 	
 	<div class="editor-label">
 		@Html.LabelFor(m => m.Description)
+		<small>(You can use <a href="https://help.github.com/articles/github-flavored-markdown">GitHub-flavored Markdown</a> for markup)</small>
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 6, @class = "span6", maxlength = 1000 })<br />
+		@Html.TextAreaFor(m => m.Description, new { cols = 50, rows = 8, @class = "span6", maxlength = 1000 })<br />
 		@Html.ValidationMessageFor(m => m.Description)
+		
+		Live preview
+		<div id="descriptionPreview">
+			@HtmlHelpers.FormatMarkdown(Model.Description)
+		</div>
+		<br />
 	</div>
 	
 	<div class="editor-label">
