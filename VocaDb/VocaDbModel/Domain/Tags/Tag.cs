@@ -122,6 +122,9 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		/// <summary>
+		/// Tag description, may contain Markdown formatting.
+		/// </summary>
 		public virtual string Description {
 			get { return description; }
 			set { description = value; }

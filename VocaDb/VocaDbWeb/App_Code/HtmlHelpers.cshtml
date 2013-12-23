@@ -16,6 +16,7 @@
 	<text>@ConvertNewlinesToBreaks(text)</text>
 }
 
+@* Transforms Markdown-formatted text into HTML. The input will be sanitized for any HTML tags first. *@
 @helper FormatMarkdown(string text) {
 	@Html.Raw(MarkdownHelper.TranformMarkdown(text))
 }

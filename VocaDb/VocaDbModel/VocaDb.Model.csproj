@@ -431,6 +431,7 @@
     <Compile Include="Helpers\ArtistHelper.cs" />
     <Compile Include="Helpers\CollectionHelper.cs" />
     <Compile Include="Helpers\EnumerableExtender.cs" />
+    <Compile Include="Helpers\HtmlHelperFunctions.cs" />
     <Compile Include="Helpers\HtmlRequestHelper.cs" />
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\LambdaComparer.cs" />
