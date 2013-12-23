@@ -160,7 +160,8 @@ namespace VocaDb.Model.Service {
 				var moreSongs =
 					session.Query<Song>()
 					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing 
-						&& s.CreateDate < cutoffDate)
+						&& (s.CreateDate < cutoffDate 
+							|| !s.Tags.Usages.Any(t => t.Tag.Name == "christmas" || t.Tag.Name == "winter")))
 					.OrderByDescending(s => s.CreateDate)
 					.Take(songCount - recentSongs.Length)
 					.ToArray();
