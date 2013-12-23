@@ -674,7 +674,7 @@ namespace VocaDb.Web.Controllers
 
 			var user = LoginManager.LoggedUser;
 
-			if (user.Id != model.Id)
+			if (user == null || user.Id != model.Id)
 				return new HttpStatusCodeResult(403);
 
 			if (!ModelState.IsValid)
