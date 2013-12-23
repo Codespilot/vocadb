@@ -1,0 +1,13 @@
+﻿body {
+    background: url(https://static.vocadb.net:3940/img/snowmiku.jpg) top left no-repeat fixed #001155 !important;
+    color: #003256 !important;
+}
+
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+    color: #9999BE;
+}
