@@ -175,7 +175,7 @@ namespace VocaDb.Model.Service.AlbumImport {
 
 		private string StripHtml(string html) {
 
-			return Regex.Replace(html, "<.*?>", string.Empty).Trim();
+			return HtmlHelperFunctions.StripHtml(html).Trim();
 
 		}
 

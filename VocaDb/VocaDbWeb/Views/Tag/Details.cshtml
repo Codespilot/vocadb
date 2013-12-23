@@ -19,13 +19,15 @@
 	}
 
 	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Name })).ToString();
+	var descriptionHtml = MarkdownHelper.TranformMarkdown(Model.Description);
+	var descriptionStripped = HtmlHelperFunctions.StripHtml(descriptionHtml);
 	
 }
 
 @section Head {
 	@HtmlHelpers.OpenGraphMetaTags(
-		url: url, 
-		description: Model.Description
+		url: url,
+		description: descriptionStripped
 	)
 	<link rel="canonical" href="@url" />	
 }
@@ -71,7 +73,7 @@
 			
 			<div class="media-body">
 				@if (Model.Description != string.Empty) {
-					@HtmlHelpers.FormatMarkdown(Model.Description)
+					@Html.Raw(descriptionHtml)
 				}
 
 				@if (Model.CategoryName != string.Empty){

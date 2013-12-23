@@ -16,6 +16,7 @@ namespace VocaDb.Web.Helpers {
 				return text;
 
 			// StrictBoldItalic is needed because otherwise links with underscores won't work (links are more common on VDB).
+			// These settings roughtly correspond to GitHub-flavored Markdown (https://help.github.com/articles/github-flavored-markdown)
 			return new Markdown(new MarkdownOptions { AutoHyperlink = true, AutoNewLines = true, StrictBoldItalic = true }).Transform(HttpUtility.HtmlEncode(text));
 
 		}
