@@ -141,7 +141,7 @@ namespace VocaDb.Model.Service {
 				session.Query<Song>()
 				.Where(s => !s.Deleted 
 					&& s.PVServices != PVServices.Nothing 
-					&& s.CreateDate >= cutoffDate
+					//&& s.CreateDate >= cutoffDate
 					&& s.Tags.Usages.Any(t => t.Tag.Name == "christmas" || t.Tag.Name == "winter")
 				)
 				.OrderByDescending(s => s.CreateDate)
@@ -151,7 +151,7 @@ namespace VocaDb.Model.Service {
 			if (recentSongs.Length >= songCount) {
 				
 				return recentSongs
-					.OrderByDescending(s => s.RatingScore)
+					//.OrderByDescending(s => s.RatingScore)
 					.Take(songCount)
 					.ToArray();
 
@@ -160,8 +160,8 @@ namespace VocaDb.Model.Service {
 				var moreSongs =
 					session.Query<Song>()
 					.Where(s => !s.Deleted && s.PVServices != PVServices.Nothing 
-						&& (s.CreateDate < cutoffDate 
-							|| !s.Tags.Usages.Any(t => t.Tag.Name == "christmas" || t.Tag.Name == "winter")))
+						&& (/*s.CreateDate < cutoffDate 
+							||*/ !s.Tags.Usages.Any(t => t.Tag.Name == "christmas" || t.Tag.Name == "winter")))
 					.OrderByDescending(s => s.CreateDate)
 					.Take(songCount - recentSongs.Length)
 					.ToArray();
