@@ -651,9 +651,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[Authorize]
-		public ActionResult MessagesJson(int maxCount = 200, bool unread = false, int iconSize = 20) {
+		public ActionResult MessagesJson(int maxCount = 100, int start = 0, bool unread = false, int iconSize = 20) {
 
-			var messages = Service.GetUserMessages(LoggedUserId, maxCount, unread, new GravatarUserIconFactory(iconSize));
+			var messages = messageQueries.GetList(LoggedUserId, new PagingProperties(start, maxCount, false), unread, new GravatarUserIconFactory(iconSize));
 			return LowercaseJson(messages);
 
 		}
