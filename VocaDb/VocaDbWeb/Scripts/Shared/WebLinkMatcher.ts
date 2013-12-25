@@ -40,6 +40,7 @@ module vdb.utils {
             { url: "books.rakuten.co.jp/", desc: "Rakuten", cat: c.WebLinkCategory.Commercial },
             { url: "soundcloud.com/", desc: "SoundCloud", cat: c.WebLinkCategory.Official },
             { url: "toranoana.jp/mailorder/article/", desc: "Toranoana", cat: c.WebLinkCategory.Commercial },
+            { url: "tumblr.com/", desc: "Tumblr", cat: c.WebLinkCategory.Official },
             { url: "twitter.com/", desc: "Twitter", cat: c.WebLinkCategory.Official },
             { url: "www24.atwiki.jp/utauuuta/", desc: "UTAU wiki (JP)", cat: c.WebLinkCategory.Reference },
             { url: "vgmdb.net/", desc: "VGMdb", cat: c.WebLinkCategory.Reference },

@@ -125,12 +125,18 @@ a.extLink[href^="http://books.rakuten.co.jp/"] {
 }
 
 a.extLink[href^="http://soundcloud.com/"],
-a.extLink[href^="https://soundcloud.com/"] {
+a.extLink[href^="https://soundcloud.com/"],
+a.extLink[href^="http://www.soundcloud.com/"],
+a.extLink[href^="https://www.soundcloud.com/"] {
     background: url("/Content/Icons/soundcloud.png") no-repeat left 50%;
 }
 
 a.extLink[href^="http://www.toranoana.jp/"] {
     background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
+}
+
+a.extLink[href^="http://tumblr.com/"] {
+    background: url("/Content/ExtIcons/tumblr.png") no-repeat left 50%;
 }
 
 a.extLink[href*="twitter.com/"] {
