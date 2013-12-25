@@ -159,6 +159,9 @@
   <data name="FavoriteSongsTab" xml:space="preserve">
     <value>Tykätyt kappaleet</value>
   </data>
+  <data name="FavoriteTags" xml:space="preserve">
+    <value>Suosikkitägini</value>
+  </data>
   <data name="FollowedArtistsTab" xml:space="preserve">
     <value>Seuratut artistit</value>
   </data>
@@ -185,6 +188,15 @@
   </data>
   <data name="SetAvatar" xml:space="preserve">
     <value>Aseta kuvasi gravatar.comissa</value>
+  </data>
+  <data name="SomeAlbumsILike" xml:space="preserve">
+    <value>Joitain albumeita joista tykkään</value>
+  </data>
+  <data name="SomeArtistsIFollow" xml:space="preserve">
+    <value>Joitain artisteja joita seuraan</value>
+  </data>
+  <data name="SomeSongsILike" xml:space="preserve">
+    <value>Joitain kappaleita joista tykkään</value>
   </data>
   <data name="Staff" xml:space="preserve">
     <value>Ylläpitäjä</value>

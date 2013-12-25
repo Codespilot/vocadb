@@ -132,7 +132,7 @@
 		}
 		
 		@if (Model.FavoriteTags.Any()) {
-			<h4>My favorite tags</h4>
+			<h4>@R.FavoriteTags</h4>
 			@TagHelpers.TagList(Model.FavoriteTags)					
 			<br /><br />
 		}
@@ -172,7 +172,7 @@
 @if (Model.FavoriteAlbums.Any()) {
 	<div class="well well-transparent" id="favoriteAlbums">
 		<h4>
-			Some albums I like
+			@R.SomeAlbumsILike
 			(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })">@ViewRes.SharedStrings.ShowMore</a>)
 		</h4>
 		@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
@@ -182,7 +182,7 @@
 @if (Model.LatestRatedSongs.Any()) {
 	<div class="well well-transparent">
 		<h4>
-			Some songs I like
+			@R.SomeSongsILike
 			(<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>)
 		</h4>
 		@SongHelpers.SongGrid(Model.LatestRatedSongs, 3)
@@ -192,7 +192,7 @@
 @if (Model.FollowedArtists.Any()) {
 	<div class="well well-transparent">
 		<h4>
-			Some artists I follow
+			@R.SomeArtistsIFollow
 		</h4>
 		@ArtistHelpers.ArtistGrid(Model.FollowedArtists, 3)
 	</div>

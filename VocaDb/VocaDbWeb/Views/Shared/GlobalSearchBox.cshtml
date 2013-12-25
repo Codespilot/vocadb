@@ -45,7 +45,7 @@
 				if (Login.CanManageEntryReports) {
 					<li>
 						<a href="@Url.Action("ViewEntryReports", "Admin")">
-							Entry reports
+							@ViewRes.TopBarStrings.EntryReports
 							<span data-bind="visible: reportCount() > 0, text: reportCount" class="badge badge-small badge-important" style="display: none"></span>
 						</a>
 					</li>	 
