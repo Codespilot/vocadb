@@ -669,12 +669,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserMessagesContract GetUserMessages(int id, int maxCount, bool unread, IUserIconFactory iconFactory) {
-
-			return HandleQuery(session => new UserMessagesContract(session.Load<User>(id), maxCount, unread, iconFactory));
-
-		}
-
 		[Obsolete("Handled by update")]
 		public void RemoveAlbumFromUser(int userId, int albumId) {
 

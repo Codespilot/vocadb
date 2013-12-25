@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers.DataAccess {
@@ -35,6 +36,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				msg.Receiver.ReceivedMessages.Remove(msg);
 				ctx.Delete(msg);
 
+				ctx.AuditLogger.SysLog(string.Format("deleted {0}", msg));
+
 			});
 
 		}
@@ -63,6 +66,13 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public UserMessagesContract GetList(int id, PagingProperties paging, bool unread, IUserIconFactory iconFactory) {
+
+			return HandleQuery(ctx => { 
+				return new UserMessagesContract(ctx.OfType<User>().Load(id), paging.MaxEntries, unread, iconFactory);
+			});
+
+		}
 	}
 
 }
