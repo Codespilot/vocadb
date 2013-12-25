@@ -159,6 +159,9 @@
   <data name="FavoriteSongsTab" xml:space="preserve">
     <value>Liked songs</value>
   </data>
+  <data name="FavoriteTags" xml:space="preserve">
+    <value>My favorite tags</value>
+  </data>
   <data name="FollowedArtistsTab" xml:space="preserve">
     <value>Followed artists</value>
   </data>
@@ -185,6 +188,15 @@
   </data>
   <data name="SetAvatar" xml:space="preserve">
     <value>Set your avatar at gravatar.com</value>
+  </data>
+  <data name="SomeAlbumsILike" xml:space="preserve">
+    <value>Some albums I like</value>
+  </data>
+  <data name="SomeArtistsIFollow" xml:space="preserve">
+    <value>Some artists I follow</value>
+  </data>
+  <data name="SomeSongsILike" xml:space="preserve">
+    <value>Some songs I like</value>
   </data>
   <data name="Staff" xml:space="preserve">
     <value>Staff</value>
