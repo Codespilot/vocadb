@@ -153,6 +153,9 @@
   <data name="UnableToCreateArtist" xml:space="preserve">
     <value>Artistin luominen ei onnistu. Tarkista virheet ja yritä uudestaan.</value>
   </data>
+  <data name="WebLinkCategory" xml:space="preserve">
+    <value>Kategoria</value>
+  </data>
   <data name="WebLinkDescription" xml:space="preserve">
     <value>Kuvaus</value>
   </data>

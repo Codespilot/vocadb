@@ -135,7 +135,8 @@ a.extLink[href^="http://www.toranoana.jp/"] {
 	background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
 }
 
-a.extLink[href^="http://tumblr.com/"] {
+/* URLs are format user.tumblr.com */
+a.extLink[href*="tumblr.com"] {
     .extLink(url("/Content/ExtIcons/tumblr.png"));
 }
 
