@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using ViewRes;
 using ViewRes.Artist;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Web.Models.Artist {
 
@@ -15,6 +15,7 @@ namespace VocaDb.Web.Models.Artist {
 		public Create() {
 			ArtistType = ArtistType.Producer;
 			Description = string.Empty;
+			WebLinkCategory = WebLinkCategory.Other;
 			WebLinkDescription = string.Empty;
 		}
 
@@ -40,6 +41,8 @@ namespace VocaDb.Web.Models.Artist {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		public WebLinkCategory WebLinkCategory { get; set;}
+
 		[Display(ResourceType = typeof(CreateStrings), Name = "WebLinkDescription")]
 		[StringLength(512)]
 		public string WebLinkDescription { get; set; }
@@ -58,7 +61,7 @@ namespace VocaDb.Web.Models.Artist {
 				WebLink = (!string.IsNullOrWhiteSpace(WebLinkUrl) ? new WebLinkContract { 
 					Description = WebLinkDescription ?? string.Empty, 
 					Url = WebLinkUrl, 
-					Category = new WebLinkCategoryHelper().GetCategory(WebLinkUrl)
+					Category = WebLinkCategory
 				} : null)
 			};
 

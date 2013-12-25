@@ -706,7 +706,7 @@ namespace VocaDb.Model.Service {
 
 		private void UpdateWebLinkCategories<T>() where T : WebLink {
 
-			HandleTransaction(session => {
+			/*HandleTransaction(session => {
 
 				var catHelper = new WebLinkCategoryHelper();
 				var webLinks = session.Query<T>().Where(l => l.Category == WebLinkCategory.Other).ToArray();
@@ -720,7 +720,7 @@ namespace VocaDb.Model.Service {
 
 				}
 
-			});
+			});*/
 
 		}
 

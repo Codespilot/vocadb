@@ -7,6 +7,7 @@ using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.Service.Helpers {
 
+	/*
 	public class WebLinkCategoryHelper {
 
 		enum StringMatchMode {
@@ -116,6 +117,6 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-	}
+	}*/
 
 }

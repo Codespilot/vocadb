@@ -74,6 +74,13 @@
 					</td><td>
 						@Html.TextBoxForKnockout(m => m.WebLinkDescription, "value: webLink.description",  "input-xlarge", maxLength: 512)     
 					</td></tr>
+                    
+                    <tr><td class="formLabel">
+                        @R.CreateStrings.WebLinkCategory
+                    </td>
+                    <td>
+                        @Html.DropdownForKnockout(m => m.WebLinkCategory, ViewHelper.CreateEnumList(Model.WebLinkCategory, Translate.WebLinkCategoryNames), "value: webLink.category")
+                    </td></tr>
 				</table>
 			</div>
             
