@@ -71,6 +71,7 @@ namespace VocaDb.Model.Service.Helpers {
 				new StringMatcher("piapro.jp/"),
 				new StringMatcher("www.pixiv.net/member.php"),
 				new StringMatcher("soundcloud.com/"),
+				new StringMatcher("tumblr.com/"),
 				new StringMatcher("twitter.com/"),
 				new StringMatcher("vimeo.com/"),
 				new StringMatcher("youtube.com/channel/"),
