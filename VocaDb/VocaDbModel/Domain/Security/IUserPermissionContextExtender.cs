@@ -38,7 +38,7 @@ namespace VocaDb.Model.Domain.Security {
 
 			permissionContext.VerifyLogin();
 
-			if (!ownerIds.Contains(permissionContext.LoggedUser.Id))
+			if (!ownerIds.Contains(permissionContext.LoggedUserId))
 				throw new NotAllowedException("You do not have access to this resource.");
 
 		}

@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.DataContracts.Users;
+﻿using System.Linq;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Paging;
@@ -66,10 +67,48 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		private UserMessageContract[] GetReceivedMessages(IRepositoryContext<UserMessage> ctx, int id, PagingProperties paging, bool unread, IUserIconFactory iconFactory) {
+
+			var receivedQuery = ctx.Query()
+				.Where(m => m.Receiver.Id == id);
+
+			if (unread)
+				receivedQuery = receivedQuery.Where(q => !q.Read);
+
+			return receivedQuery
+				.OrderByDescending(m => m.Created)
+				.Skip(paging.Start)
+				.Take(paging.MaxEntries)
+				.ToArray()
+				.Select(m => new UserMessageContract(m, iconFactory))
+				.ToArray();
+
+		}
+
+		private UserMessageContract[] GetSentMessages(IRepositoryContext<UserMessage> ctx, int id, PagingProperties paging, IUserIconFactory iconFactory) {
+
+			return ctx.Query()
+				.Where(m => m.Sender.Id == id)
+				.OrderByDescending(m => m.Created)
+				.Skip(paging.Start)
+				.Take(paging.MaxEntries)
+				.ToArray()
+				.Select(m => new UserMessageContract(m, iconFactory))
+				.ToArray();
+
+		}
+
 		public UserMessagesContract GetList(int id, PagingProperties paging, bool unread, IUserIconFactory iconFactory) {
 
+			PermissionContext.VerifyResourceAccess(new[] { id });
+
 			return HandleQuery(ctx => { 
-				return new UserMessagesContract(ctx.OfType<User>().Load(id), paging.MaxEntries, unread, iconFactory);
+
+				var received = GetReceivedMessages(ctx, id, paging, unread, iconFactory);
+				var sent = (!unread ? GetSentMessages(ctx, id, paging, iconFactory) : null);
+
+				return new UserMessagesContract { ReceivedMessages = received, SentMessages = sent };
+				
 			});
 
 		}
