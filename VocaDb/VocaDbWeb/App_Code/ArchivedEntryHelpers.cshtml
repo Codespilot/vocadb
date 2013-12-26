@@ -28,13 +28,6 @@
 
 	}
 
-	public static HelperResult DataRowD<T>(string name, ComparedVersionsContract<T> comparedVersions, Func<T, object> valGetter)
-		where T : class {
-
-		return DataRow(name, comparedVersions, valGetter);
-
-	}	
-
 	public static HelperResult DataRowList<T>(string name, T primary, T compared, Func<T, IEnumerable<MvcHtmlString>> valGetter)
 		where T : class {
 
@@ -157,11 +150,11 @@
 
 @helper ArchivedObjectVersionProperties(VocaDb.Web.Models.Shared.ArchivedObjectVersion ver, 
 VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
-	
-	<fieldset>
-		<legend>Properties</legend>
-	
-		<table>
+
+	<div class="well well-transparent">
+		<h4>Properties</h4>
+
+		<table class="table-bordered">
 			<tr>
 				<td>Version</td>
 				<td>@ver.Contract.Version</td>
@@ -170,7 +163,8 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 						@compareTo.Contract.Version
 					}
 				</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td>Status</td>
 				<td>@ver.Status</td>
 				<td>
@@ -178,7 +172,8 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 						@compareTo.Status
 					}
 				</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td>Snapshot</td>
 				<td>@ver.Contract.IsSnapshot</td>
 				<td>
@@ -186,7 +181,8 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 						@compareTo.Contract.IsSnapshot
 					}
 				</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td>Created</td>
 				<td>@Helpers.UniversalTimeLabel(ver.Contract.Created)</td>
 				<td>
@@ -194,7 +190,8 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 						@Helpers.UniversalTimeLabel(compareTo.Contract.Created)
 					}
 				</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td>Author</td>
 				<td>@UserHelpers.UserIconLink(ver.Contract.Author, ver.Contract.AgentName)</td>
 				<td>
@@ -202,7 +199,8 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 						@UserHelpers.UserIconLink(compareTo.Contract.Author, compareTo.Contract.AgentName)
 					}
 				</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td>Reason</td>
 				<td>@ver.Reason</td>
 				<td>
@@ -210,7 +208,8 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 						@compareTo.Reason
 					}
 				</td>
-			</tr><tr>
+			</tr>
+			<tr>
 				<td>Changed</td>
 				<td>@ver.ChangeMessage</td>
 				<td>
@@ -228,10 +227,10 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 					}
 				</td>
 			</tr>
-		</table>	
+		</table>
 
-	</fieldset>
-	
+	</div>
+
 }
 
 @helper CurrentVersionMessage(int version, EntryStatus status) {
@@ -241,8 +240,10 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 @helper DataRow(string name, object val, object compareVal = null) {
 	<tr class="@(compareVal != null && val != compareVal ? "changed" : "")">
 		<td>@name</td>
-		<td>@val</td>
-		<td>@compareVal</td>
+		<td colspan="@(compareVal != null ? 1 : 2)">@val</td>
+		@if (compareVal != null) {
+		<td>@compareVal</td>			
+		}
 	</tr>	
 }
 
@@ -250,22 +251,22 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 	if (rows != null) {
 	<tr>
 		<td>@name</td>
-		<td>
+		<td colspan="@(compareRows != null ? 1 : 2)">
 			<ul>
 			@foreach (var row in rows) {
 				<li>@row</li>
-   }			
+			}			
 			</ul>
 		</td>
+		@if (compareRows != null) {
 		<td>
-			@if (compareRows != null) {
 				<ul>
 				@foreach (var row in compareRows) {
 					<li>@row</li>
 				}			
 				</ul>	
-			}		
 		</td>
+		}		
 	</tr>	
 	}
 }
@@ -291,12 +292,14 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 @helper PictureRow(string name, string url, string compareToUrl = null) {
 	<tr>
 		<td>@name</td>
-		<td><img src="@url" alt="@name" class="coverPic" /></td>
-		<td>
-			@if (!string.IsNullOrEmpty(compareToUrl)) {
-				<img src="@compareToUrl" alt="@name" class="coverPic" />
-			}
+		<td colspan="@(!string.IsNullOrEmpty(compareToUrl) ? 1 : 2)">
+			<img src="@url" alt="@name" class="coverPic" />
 		</td>
+		@if (!string.IsNullOrEmpty(compareToUrl)) {
+			<td>
+				<img src="@compareToUrl" alt="@name" class="coverPic" />
+			</td>
+		}
 	</tr>	
 
 }
@@ -308,54 +311,58 @@ VocaDb.Web.Models.Shared.ArchivedObjectVersion compareTo = null) {
 @helper TranslatedNameRow(TranslatedStringContract name, TranslatedStringContract compareToName = null) {
 	<tr>
 		<td>Original language:</td>
-		<td>@Translate.ContentLanguageSelectionName(name.DefaultLanguage)</td>
-		<td>
-			@if (compareToName != null) {
-				@Translate.ContentLanguageSelectionName(compareToName.DefaultLanguage)
-			}
+		<td colspan="@(compareToName != null ? 1 : 2)">
+			@Translate.ContentLanguageSelectionName(name.DefaultLanguage)
 		</td>
+		@if (compareToName != null) {
+			<td>			
+				@Translate.ContentLanguageSelectionName(compareToName.DefaultLanguage)
+			</td>
+		}
 	</tr>
 	<tr>
 		<td>Primary names</td>
-		<td>
+		<td colspan="@(compareToName != null ? 1 : 2)">
 			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese): @name.Japanese<br />
 			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji): @name.Romaji<br />
 			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.English): @name.English<br />
 		</td>
-		<td>
-			@if (compareToName != null) {
+		@if (compareToName != null) {
+			<td>			
 				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese) + ": " + compareToName.Japanese)<br />
 				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji) + ": " + compareToName.Romaji)<br />
-				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.English) + ": " +  compareToName.English)<br />
-			}
-		</td>
+				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.English) + ": " +  compareToName.English)<br />			
+			</td>
+		}
 	</tr>
 }
 
 @helper TranslatedNameRow(ArchivedTranslatedStringContract name, ArchivedTranslatedStringContract compareToName = null) {
 	<tr>
-		<td>Original language:</td>
-		<td>@Translate.ContentLanguageSelectionName(name.DefaultLanguage)</td>
-		<td>
-			@if (compareToName != null) {
-				@Translate.ContentLanguageSelectionName(compareToName.DefaultLanguage)
-			}
+		<td>Original language</td>
+		<td colspan="@(compareToName != null ? 1 : 2)">
+			@Translate.ContentLanguageSelectionName(name.DefaultLanguage)
 		</td>
+		@if (compareToName != null) {
+			<td>			
+				@Translate.ContentLanguageSelectionName(compareToName.DefaultLanguage)
+			</td>
+		}
 	</tr>
 	<tr>
 		<td>Primary names</td>
-		<td>
+		<td colspan="@(compareToName != null ? 1 : 2)">
 			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese): @name.Japanese<br />
 			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji): @name.Romaji<br />
 			@Translate.ContentLanguageSelectionName(ContentLanguageSelection.English): @name.English<br />
 		</td>
-		<td>
-			@if (compareToName != null) {
+		@if (compareToName != null) {
+			<td>			
 				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Japanese) + ": " + compareToName.Japanese)<br />
 				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.Romaji) + ": " + compareToName.Romaji)<br />
 				@(Translate.ContentLanguageSelectionName(ContentLanguageSelection.English) + ": " +  compareToName.English)<br />
-			}
-		</td>
+			</td>
+		}
 	</tr>
 }
 

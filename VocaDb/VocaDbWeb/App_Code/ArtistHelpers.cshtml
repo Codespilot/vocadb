@@ -128,24 +128,24 @@
 
 @helper PrintArchivedArtistData(ComparedArtistsContract comparedArtists) {
 
-	<fieldset>
-		<legend>Content</legend>
-	
-		<table>
+	<div class="well well-transparent archived-entry-contents">
+		<h4>Content</h4>
+
+		<table class="table table-bordered">
 			@ArchivedEntryHelpers.DataRow("Id", comparedArtists.FirstData.Id)
 			@ArchivedEntryHelpers.PictureRow("Picture", comparedArtists, id => Url.Action("ArchivedVersionPicture", "Artist", new { id }))
 			@ArchivedEntryHelpers.TranslatedNameRow(comparedArtists, d => d.TranslatedName)
 			@ArchivedEntryHelpers.DataRowList("Names", comparedArtists, d => DataFormatUtils.GenerateHtmlFromHelper(d.Names, ArchivedEntryHelpers.NameInfo))
-			@ArchivedEntryHelpers.DataRowD("Description", comparedArtists, d => d.Description)
+			@ArchivedEntryHelpers.DataRow("Description", comparedArtists, d => d.Description)
 			@ArchivedEntryHelpers.DataRow("Artist type", comparedArtists, d => Translate.ArtistTypeName(d.ArtistType))
 			@ArchivedEntryHelpers.DataRowList("External links", comparedArtists, d => DataFormatUtils.GenerateHtmlFromHelper(d.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
 			@ArchivedEntryHelpers.ObjectRefList("Groups", comparedArtists, d => d.Groups)
 			@ArchivedEntryHelpers.ObjectRefList("Members", comparedArtists, d => d.Members)
 			@ArchivedEntryHelpers.DataRowList("Pictures", comparedArtists, d => DataFormatUtils.GenerateHtmlFromHelper(d.Pictures, ArchivedEntryHelpers.PictureFileInfo))
 			@ArchivedEntryHelpers.ObjectRefList("Albums", comparedArtists, d => d.Albums)
-		</table>	
+		</table>
 
-	</fieldset>
+	</div>
 
 }
 

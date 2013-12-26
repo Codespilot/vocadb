@@ -13,10 +13,10 @@
 
 @helper PrintArchivedSongData(ComparedSongsContract comparedSongs) {
 
-	<fieldset>
-		<legend>Content</legend>
-	
-		<table>
+	<div class="well well-transparent archived-entry-contents">
+		<h4>Content</h4>
+
+		<table class="table table-bordered">
 			@ArchivedEntryHelpers.DataRow("Id", comparedSongs.FirstData.Id)
 			@ArchivedEntryHelpers.TranslatedNameRow(comparedSongs, d => d.TranslatedName)
 			@ArchivedEntryHelpers.DataRowList("Names", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.Names, ArchivedEntryHelpers.NameInfo))
@@ -28,9 +28,9 @@
 			@ArchivedEntryHelpers.DataRowList("Artists", comparedSongs, d => DataFormatUtils.GenerateHtml(d.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
 			@ArchivedEntryHelpers.DataRowList("PVs", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.PVs, ArchivedEntryHelpers.PVInfo))
 			@ArchivedEntryHelpers.DataRowList("Lyrics", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.Lyrics, LyricsInfo))
-		</table>	
+		</table>
 
-	</fieldset>
+	</div>
 
 }
 
