@@ -81,6 +81,10 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public override string ToString() {
+			return string.Format("User message '{0}' [{1}]", Subject, Id);
+		}
+
 	}
 
 }

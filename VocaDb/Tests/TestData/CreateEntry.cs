@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.Albums;
+﻿using NHibernate.Util;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
@@ -22,6 +23,13 @@ namespace VocaDb.Tests.TestData {
 
 		public static User User(int id = 0, string name = "Miku", UserGroupId group = UserGroupId.Regular, string email = "") {
 			return new User(name, "123", email, 0) { GroupId = group, Id = id };
+		}
+
+		public static UserMessage UserMessage(int id = 0, string subject = "Hello world", string body = "Message body", User sender = null, User receiver = null,
+			bool highPriority = false, bool read = false) {
+
+			return new UserMessage(sender, receiver, subject, body, highPriority) { Id = id, Read = read };
+
 		}
 
 		public static Artist Vocalist(int id = 0, string name = null, ArtistType artistType = ArtistType.Vocaloid) {
