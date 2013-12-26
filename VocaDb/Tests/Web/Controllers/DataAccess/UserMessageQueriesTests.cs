@@ -29,6 +29,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			return queries.Get(id, null);
 		}
 
+		private UserMessagesContract CallGetList(bool unread = false) {
+			return queries.GetList(receiver.Id, new PagingProperties(0, 10, false), unread, new FakeUserIconFactory());
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 			
@@ -36,10 +40,11 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			receiver = new User { Name = "Receiver user", Id = 2 };
 			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(receiver, ContentLanguagePreference.Default));
 
-			receivedMessage = CreateEntry.UserMessage(1, "Hello world", "Message body", sender, receiver);
-			sentMessage = CreateEntry.UserMessage(2, "Hello to you too", "Message body", receiver, sender);
+			receivedMessage = CreateEntry.UserMessage(id: 1, sender: sender, receiver: receiver, subject: "Hello world", body: "Message body", read: true);
+			sentMessage = CreateEntry.UserMessage(id: 2, sender: receiver, receiver: sender, subject: "Hello to you too", body: "Message body");
+			var noPermissionMessage = CreateEntry.UserMessage(id: 39, sender: sender, receiver: sender, subject: "Hello world", body: "Message body");
 
-			repository = new FakeUserMessageRepository(sentMessage, receivedMessage);
+			repository = new FakeUserMessageRepository(sentMessage, receivedMessage, noPermissionMessage);
 
 			queries = new UserMessageQueries(repository, permissionContext);
 
@@ -60,8 +65,6 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[ExpectedException(typeof(NotAllowedException))]
 		public void Get_NoPermission() {
 
-			var msg = new UserMessage(sender, sender, "Hello world", "Message body", false) { Id = 39 };
-			repository.Add(msg);
 
 			CallGet(39);
 
@@ -70,16 +73,28 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void GetList() { 
 
-			var result = queries.GetList(receiver.Id, new PagingProperties(0, 10, false), false, new FakeUserIconFactory());
+			var result = CallGetList();
 
 			Assert.AreEqual(1, result.ReceivedMessages.Length, "Number of received messages");
-			Assert.AreEqual(1, result.SentMessages.Length, "Number of sent messages");
 			Assert.AreEqual("Hello world", result.ReceivedMessages.First().Subject, "Received message subject");
+			Assert.AreEqual(1, result.SentMessages.Length, "Number of sent messages");
 			Assert.AreEqual("Hello to you too", result.SentMessages.First().Subject, "Sent message subject");
 
 		}
 
-		// TODO: more test cases for unread and paging
+		[TestMethod]
+		public void GetList_Unread() {
+			
+			var anotherMsg = CreateEntry.UserMessage(3, sender, receiver, "Unread message", "Unread message body", read: false);
+			repository.Save(anotherMsg);
+
+			var result = CallGetList(unread: true);
+
+			Assert.AreEqual(1, result.ReceivedMessages.Length, "Number of received messages");
+			Assert.AreEqual("Unread message", result.ReceivedMessages.First().Subject, "Received message subject");
+			Assert.AreEqual(0, result.SentMessages.Length, "Number of sent messages");
+
+		}
 
 	}
 

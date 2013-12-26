@@ -105,7 +105,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			return HandleQuery(ctx => { 
 
 				var received = GetReceivedMessages(ctx, id, paging, unread, iconFactory);
-				var sent = (!unread ? GetSentMessages(ctx, id, paging, iconFactory) : null);
+				var sent = (!unread ? GetSentMessages(ctx, id, paging, iconFactory) : new UserMessageContract[0]);
 
 				return new UserMessagesContract { ReceivedMessages = received, SentMessages = sent };
 				
