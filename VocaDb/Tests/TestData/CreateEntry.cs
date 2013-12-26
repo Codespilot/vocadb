@@ -25,8 +25,9 @@ namespace VocaDb.Tests.TestData {
 			return new User(name, "123", email, 0) { GroupId = group, Id = id };
 		}
 
-		public static UserMessage UserMessage(int id = 0, string subject = "Hello world", string body = "Message body", User sender = null, User receiver = null,
-			bool highPriority = false, bool read = false) {
+		public static UserMessage UserMessage(int id = 0, User sender = null, User receiver = null, 
+			string subject = "Hello world", string body = "Message body", bool highPriority = false, 
+			bool read = false) {
 
 			return new UserMessage(sender, receiver, subject, body, highPriority) { Id = id, Read = read };
 
