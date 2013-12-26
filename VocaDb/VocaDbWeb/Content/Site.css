@@ -650,3 +650,8 @@ div.item {
 	background-color: white;
 	background-color: rgba(255, 255, 255, 0.60);
 }
+
+/* Archived entry contents */
+.archived-entry-contents {
+	overflow-x: auto;
+}
