@@ -219,4 +219,16 @@
   <data name="SongInLists" xml:space="preserve">
     <value>Kappale listoissa</value>
   </data>
+  <data name="Embed" xml:space="preserve">
+    <value>Upota</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Linkki</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Jaa</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>Sosiaalinen</value>
+  </data>
 </root>

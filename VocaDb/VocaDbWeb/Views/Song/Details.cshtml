@@ -109,6 +109,7 @@
 			<li><a href="#lyricsTab">@ViewRes.Song.DetailsStrings.Lyrics (@lyricsLanguages)</a></li>			
 		}
 		<li><a href="@Url.Action("Comments", "Song", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
+		<li><a href="#shareTab">@R.DetailsStrings.Share</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -305,9 +306,6 @@
 		<p>
 			<a href="#" id="viewCommentsLink">@ViewRes.EntryDetailsStrings.ViewAllComments</a>
 		</p>
-		
-		<br />
-		@EntryDetailsHelpers.ShareLinks(ViewBag.Title, url)
 
 	</div>
 
@@ -336,6 +334,24 @@
 	 
 	<div id="Discussion">
 	</div>	 
+	
+	<div id="shareTab">
+		<div>
+			<label>
+				@R.DetailsStrings.Social<br />
+				@EntryDetailsHelpers.LargeShareLinks(ViewBag.Title, url)
+				<br /><br />
+			</label>
+		</div>
+		<label>
+			@R.DetailsStrings.Link<br />
+			<input type="text" value="@url" class="input-large" />
+		</label>
+		<label>
+			@R.DetailsStrings.Embed<br />
+			<textarea class="input-xxlarge" rows="3">@(string.Format("<iframe style=\"overflow: hidden;\" src=\"http://vocadb.net/Ext/EmbedSong?songId={0}&lang={1}\" height=\"400\" width=\"570\" frameborder=\"0\" scrolling=\"no\"></iframe>", Model.Id, Login.Manager.LanguagePreference))</textarea>
+		</label>
+	</div>
 
 </div>
 
