@@ -6,6 +6,10 @@
 a.extLink {
     .extLink(url("/Content/Icons/world.png"));
     padding: 2px 0 2px 20px;
+
+	&[href^="http://about.me/"], &[href^="https://about.me/"] {
+		.extLink(url("/Content/ExtIcons/aboutme.png"));
+	}
 }
 
 a.extLink[href^="mailto:"] {

@@ -4,6 +4,11 @@ a.extLink {
     padding: 2px 0 2px 20px;
 }
 
+a.extLink[href^="http://about.me/"],
+a.extLink[href^="https://about.me/"] {
+    background: url("/Content/ExtIcons/aboutme.png") no-repeat left 50%;
+}
+
 a.extLink[href^="mailto:"] {
     background: url("/Content/Icons/email.png") no-repeat left 50%;
 }
