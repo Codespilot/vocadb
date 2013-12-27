@@ -324,7 +324,7 @@
 			@foreach (var lyrics in Model.Lyrics) {
 				<div data-bind="visible: selectedLyricsId() == @lyrics.Id">
 					@if (!string.IsNullOrEmpty(lyrics.Source)) {
-						<p>(@R.DetailsStrings.LyricsFrom @lyrics.Source)</p>
+						<p>(@R.DetailsStrings.LyricsFrom @Html.Raw(ViewHelper.ParseBBCode(lyrics.Source)))</p>
 					}
 					<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
 				</div>
