@@ -980,6 +980,7 @@
     <Content Include="Content\ExtIcons\discogs.png" />
     <Content Include="Content\ExtIcons\exittunes.png" />
     <Content Include="Content\ExtIcons\facebook.png" />
+    <Content Include="Content\ExtIcons\facebook32.png" />
     <Content Include="Content\ExtIcons\itunes.png" />
     <Content Include="Content\ExtIcons\karent.png" />
     <Content Include="Content\ExtIcons\lastfm.png" />
@@ -993,9 +994,11 @@
     <Content Include="Content\ExtIcons\piapro.png" />
     <Content Include="Content\ExtIcons\pixiv.png" />
     <Content Include="Content\ExtIcons\rakuten.png" />
+    <Content Include="Content\ExtIcons\reddit32.png" />
     <Content Include="Content\ExtIcons\tora.png" />
     <Content Include="Content\ExtIcons\tumblr.png" />
     <Content Include="Content\ExtIcons\twitter.png" />
+    <Content Include="Content\ExtIcons\twitter32.png" />
     <Content Include="Content\ExtIcons\vgmdb.png" />
     <Content Include="Content\ExtIcons\vimeo.png" />
     <Content Include="Content\ExtIcons\vocadb.png" />
