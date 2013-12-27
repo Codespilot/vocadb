@@ -24,6 +24,7 @@ var vdb;
 
                 this.songInListsDialog = new SongInListsViewModel(repository, this.id);
                 this.songListDialog = new SongListsViewModel(repository, resources, this.id);
+                this.selectedLyricsId = ko.observable(data.selectedLyricsId);
 
                 this.usersContent = ko.observable();
 

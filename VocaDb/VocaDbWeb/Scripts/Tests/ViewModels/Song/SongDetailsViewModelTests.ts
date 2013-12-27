@@ -13,13 +13,13 @@ module vdb.tests.viewModels {
     var rep: sup.FakeSongRepository;
     var userRep = new sup.FakeUserRepository();
     var res: vm.SongDetailsResources = { createNewList: "Create new list" };
-    var data: vm.SongDetailsAjax = { id: 39, userRating: "Nothing" };
+    var data: vm.SongDetailsAjax = { id: 39, selectedLyricsId: 0, userRating: "Nothing" };
 
     var target: vm.SongDetailsViewModel;
 
     QUnit.module("SongDetailsViewModelTests", {
         setup: () => {
-            rep = new sup.FakeSongRepository()
+			rep = new sup.FakeSongRepository();
             rep.songLists = [{ id: 1, name: "Favorite Mikus" }];
             target = new vm.SongDetailsViewModel(rep, userRep, res, data, null);
         }

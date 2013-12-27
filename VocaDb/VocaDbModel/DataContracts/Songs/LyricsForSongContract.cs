@@ -5,7 +5,7 @@ using VocaDb.Model.Domain.Songs;
 namespace VocaDb.Model.DataContracts.Songs {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class LyricsForSongContract {
+	public class LyricsForSongContract : ILocalizedString {
 
 		public LyricsForSongContract() { }
 

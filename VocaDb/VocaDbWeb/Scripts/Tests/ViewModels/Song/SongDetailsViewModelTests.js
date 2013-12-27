@@ -9,7 +9,7 @@ var vdb;
             var rep;
             var userRep = new sup.FakeUserRepository();
             var res = { createNewList: "Create new list" };
-            var data = { id: 39, userRating: "Nothing" };
+            var data = { id: 39, selectedLyricsId: 0, userRating: "Nothing" };
 
             var target;
 

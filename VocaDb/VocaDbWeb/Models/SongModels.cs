@@ -16,6 +16,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Exceptions;
@@ -45,6 +46,7 @@ namespace VocaDb.Web.Models {
 			CanEdit = EntryPermissionManager.CanEdit(MvcApplication.LoginManager, contract.Song);
 			CommentCount = contract.CommentCount;
 			CreateDate = contract.CreateDate;
+			DefaultLanguageSelection = contract.TranslatedName.DefaultLanguage;
 			Deleted = contract.Deleted;
 			Draft = contract.Song.Status == EntryStatus.Draft;
 			FavoritedTimes = contract.Song.FavoritedTimes;
@@ -124,6 +126,8 @@ namespace VocaDb.Web.Models {
 
 		public DateTime CreateDate { get; set; }
 
+		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
+
 		public bool Deleted { get; set; }
 
 		public bool Draft { get; set; }
@@ -196,11 +200,18 @@ namespace VocaDb.Web.Models {
 	public class SongDetailsAjax {
 
 		public SongDetailsAjax(SongDetails model) {
+
 			Id = model.Id;
 			UserRating = model.UserRating;
+
+			var preferredLyrics = LocalizedStringHelper.GetBestMatch(model.Lyrics, Login.Manager.LanguagePreference, model.DefaultLanguageSelection);
+			SelectedLyricsId = preferredLyrics != null ? preferredLyrics.Id : 0;
+
 		}
 
 		public int Id { get; set; }
+
+		public int SelectedLyricsId { get; set;}
 
 		[JsonConverter(typeof(StringEnumConverter))]
 		public SongVoteRating UserRating { get; set; }

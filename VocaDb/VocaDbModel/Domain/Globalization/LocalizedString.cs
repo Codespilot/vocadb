@@ -2,7 +2,7 @@
 using VocaDb.Model.DataContracts;
 namespace VocaDb.Model.Domain.Globalization {
 
-	public class LocalizedString : IEquatable<LocalizedString> {
+	public class LocalizedString : ILocalizedString, IEquatable<LocalizedString> {
 
 		private string val;
 
