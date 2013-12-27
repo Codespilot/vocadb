@@ -16,7 +16,9 @@ module vdb.viewModels {
 
         public getUsers: () => void;
 
-        public id: number;
+		public id: number;
+
+		public selectedLyricsId: KnockoutObservable<number>;
 
         public showAllVersions: () => void;
 
@@ -34,7 +36,7 @@ module vdb.viewModels {
             repository: rep.SongRepository,
             userRepository: rep.UserRepository,
             resources: SongDetailsResources,
-            data: SongDetailsAjax,
+			data: SongDetailsAjax,
             ratingCallback: () => void ) {
             
             this.id = data.id;
@@ -55,6 +57,7 @@ module vdb.viewModels {
 
             this.songInListsDialog = new SongInListsViewModel(repository, this.id);
             this.songListDialog = new SongListsViewModel(repository, resources, this.id);
+			this.selectedLyricsId = ko.observable(data.selectedLyricsId);
 
             this.usersContent = ko.observable<string>();
 
@@ -167,6 +170,8 @@ module vdb.viewModels {
     export interface SongDetailsAjax {
         
         id: number;
+
+		selectedLyricsId: number;
 
         userRating: string;
     

@@ -27,6 +27,8 @@
 	if (!string.IsNullOrEmpty(Model.ThumbUrl)) {
 		ViewContext.Controller.ViewBag.Banner = Model.ThumbUrl;
 	}
+	
+	var lyricsLanguages = string.Join(", ", Model.Lyrics.Select(l => l.Language).Distinct().Select(l => Translate.ContentLanguageSelectionName(l)));
 
 	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new { id = Model.Id})).ToString();
 	
@@ -103,13 +105,9 @@
 
 	<ul>
 		<li><a href="#basicInfoTab">@ViewRes.EntryDetailsStrings.BasicInfoTab</a></li>
-		@if (Model.Lyrics.Length > 3) {
-		<li><a href="#lyricsTab">@ViewRes.Song.DetailsStrings.Lyrics</a></li>
-  } else {
-	  foreach (var lyrics in Model.Lyrics) {
-				<li><a href="@("#lyricsTab_" + lyrics.Id)">@Translate.ContentLanguageSelectionName(lyrics.Language) @ViewRes.Song.DetailsStrings.LyricsLC</a></li>
-	  }
-  }
+		@if (Model.Lyrics.Any()) {
+			<li><a href="#lyricsTab">@ViewRes.Song.DetailsStrings.Lyrics (@lyricsLanguages)</a></li>			
+		}
 		<li><a href="@Url.Action("Comments", "Song", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
 	</ul>
 
@@ -313,32 +311,32 @@
 
 	</div>
 
-	@if (Model.Lyrics.Length > 3) {
-		<div id="lyricsTab" style="height: 400px; overflow: scroll">
-		@foreach (var lyrics in Model.Lyrics) {
-			<h3>@Translate.ContentLanguageSelectionName(lyrics.Language)</h3>
-	  if (!string.IsNullOrEmpty(lyrics.Source)) {
-				<p>(@R.DetailsStrings.LyricsFrom @lyrics.Source)</p>
-	  }
-			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
-			<hr />
-  }
-		</div>
- } else {
+	@if (Model.Lyrics.Any()) {
+		<div id="lyricsTab" style="height: 400px; overflow: auto">
+			<ul class="nav nav-pills">
+				@foreach (var lyrics in Model.Lyrics) {
+					<li data-bind="css: { active: selectedLyricsId() == @lyrics.Id }">
+						<a href="#" data-bind="click: function() { selectedLyricsId(@lyrics.Id); }">
+							@Translate.ContentLanguageSelectionName(lyrics.Language)							
+						</a>
+					</li>
+				}
+			</ul>
 
-	 foreach (var lyrics in Model.Lyrics) {
-			<div id="@("lyricsTab_" + lyrics.Id)" style="height: 400px; overflow: scroll">
-			@if (!string.IsNullOrEmpty(lyrics.Source)) {
-				<p>(@R.DetailsStrings.LyricsFrom @lyrics.Source)</p>
-   }
-			<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
-			</div>
+			@foreach (var lyrics in Model.Lyrics) {
+				<div data-bind="visible: selectedLyricsId() == @lyrics.Id">
+					@if (!string.IsNullOrEmpty(lyrics.Source)) {
+						<p>(@R.DetailsStrings.LyricsFrom @lyrics.Source)</p>
+					}
+					<p>@Helpers.ConvertNewlinesToBreaks(lyrics.Value)</p>
+				</div>
+			}
+		</div>
 	 }
 	 
 	<div id="Discussion">
 	</div>	 
 
- }
 </div>
 
 <div id="editTagsPopup" style="display:none;" title="@ViewRes.SharedStrings.Tags">
