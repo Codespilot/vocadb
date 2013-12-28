@@ -140,12 +140,18 @@
 
 @helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {
 
+	<div class="alert">
+		You can use this to deassociate tags that are no longer valid for this entry. Be careful, this cannot be undone.
+	</div>
+	
 	<table>
 		<thead>
 			<tr>
 				<th>Tag</th>
 				<th>Count</th>
-				<th>Votes</th>
+				@if (Login.CanManageUsers) { 
+					<th>Votes</th>
+				}
 				<th></th>
 			</tr>
 		</thead>
@@ -154,11 +160,13 @@
 				<tr>
 					<td>@TagLink(usage.TagName)</td>
 					<td>@usage.Count</td>
-					<td>
-						@foreach (var user in usage.Votes) {
-							@UserHelpers.UserIconLink(user)<br />
-						}
-					</td>
+					@if (Login.CanManageUsers) {
+						<td>
+							@foreach (var user in usage.Votes) {
+								@UserHelpers.UserIconLink(user)<br />
+							}
+						</td>
+					}
 					<td>
 						@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
 							@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink", @onclick = "javascript: return confirm('Really delete?');" })
