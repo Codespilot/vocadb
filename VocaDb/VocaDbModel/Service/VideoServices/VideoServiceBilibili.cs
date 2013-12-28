@@ -18,7 +18,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		public static readonly RegexLinkMatcher[] Matchers =
 			new[] {
 				new RegexLinkMatcher("acg.tv/av{0}", @"acg.tv/av(\d+)"),
-				new RegexLinkMatcher("acg.tv/av{0}", @"www.bilibili.tv/video/av(\d+)")
+				new RegexLinkMatcher("acg.tv/av{0}", @"www.bilibili.tv/video/av(\d+)"),
+				new RegexLinkMatcher("acg.tv/av{0}", @"bilibili.kankanews.com/video/av(\d+)")
 			};
 
 		public VideoServiceBilibili() 
