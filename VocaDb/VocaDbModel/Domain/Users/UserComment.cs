@@ -2,6 +2,9 @@
 
 namespace VocaDb.Model.Domain.Users {
 
+	/// <summary>
+	/// Comment created on user's profile.
+	/// </summary>
 	public class UserComment : Comment {
 
 		private User user;

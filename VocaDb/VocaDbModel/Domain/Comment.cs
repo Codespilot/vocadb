@@ -4,6 +4,10 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Domain {
 
+	/// <summary>
+	/// Base class for comments.
+	/// Comments can be added for entries such as albums and users.
+	/// </summary>
 	public abstract class Comment {
 
 		private string authorName;
