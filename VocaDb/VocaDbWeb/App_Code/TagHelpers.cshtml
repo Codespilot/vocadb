@@ -139,7 +139,7 @@
 }
 
 @helper TagUsagesManageTable(EntryType entryType, TagUsageWithVotesContract[] tagUsages) {
-	
+
 	<table>
 		<thead>
 			<tr>
@@ -149,22 +149,24 @@
 				<th></th>
 			</tr>
 		</thead>
-		@foreach (var usage in tagUsages) {
-			<tr>
-				<td>@TagLink(usage.TagName)</td>
-				<td>@usage.Count</td>
-				<td>
-					@foreach (var user in usage.Votes) {
-						@UserHelpers.UserIconLink(user)<br />
-					}
-				</td>
-				<td>
-					@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
-						@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink", @onclick = "javascript: return confirm('Really delete?');" })
-					}
-				</td>
-			</tr>
-		}
+		<tbody>
+			@foreach (var usage in tagUsages) {
+				<tr>
+					<td>@TagLink(usage.TagName)</td>
+					<td>@usage.Count</td>
+					<td>
+						@foreach (var user in usage.Votes) {
+							@UserHelpers.UserIconLink(user)<br />
+						}
+					</td>
+					<td>
+						@if (Login.Manager.HasPermission(PermissionToken.RemoveTagUsages)) {
+							@Html.ActionLink("Remove tag usage", "RemoveTagUsage", entryType.ToString(), new { id = usage.Id }, new { @class = "removeLink textLink", @onclick = "javascript: return confirm('Really delete?');" })
+						}
+					</td>
+				</tr>
+			}
+		</tbody>
 	</table>
-	
+
 }

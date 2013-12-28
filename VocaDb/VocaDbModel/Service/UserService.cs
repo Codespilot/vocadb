@@ -61,7 +61,6 @@ namespace VocaDb.Model.Service {
 			var stats = session.Query<User>().Where(u => u.Id == user.Id).Select(u => new UserStats {
 				AlbumCollectionCount = u.AllAlbums.Count(a => !a.Album.Deleted),
 				ArtistCount = u.AllArtists.Count(a => !a.Artist.Deleted),
-				CommentCount = u.Comments.Count,
 				FavoriteSongCount = u.FavoriteSongs.Count(c => !c.Song.Deleted),
 				OwnedAlbumCount = u.AllAlbums.Count(a => !a.Album.Deleted && a.PurchaseStatus == PurchaseStatus.Owned),
 				RatedAlbumCount = u.AllAlbums.Count(a => !a.Album.Deleted && a.Rating != 0),
@@ -69,7 +68,6 @@ namespace VocaDb.Model.Service {
 
 			details.AlbumCollectionCount = stats.AlbumCollectionCount;
 			details.ArtistCount = stats.ArtistCount;
-			details.CommentCount = stats.CommentCount;
 			details.FavoriteSongCount = stats.FavoriteSongCount;
 
 			details.FavoriteAlbums = session.Query<AlbumForUser>()
@@ -86,6 +84,11 @@ namespace VocaDb.Model.Service {
 				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user)
 				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user)
 				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user);
+
+			details.CommentCount
+				= session.Query<AlbumComment>().Count(c => c.Author.Id == user.Id)
+				+ session.Query<ArtistComment>().Count(c => c.Author.Id == user.Id)
+				+ session.Query<SongComment>().Count(c => c.Author.Id == user.Id);
 
 			/*var favoriteTagsNames = session.Query<SongTagUsage>()
 				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))

@@ -28,12 +28,8 @@ namespace VocaDb.Tests.DatabaseTests.Search.SongSearch {
 
 		private static void HandleTransaction(Action<IRepositoryContext<Song>> act) {
 			
-			using (container.BeginLifetimeScope()) {
-				
-				var repo = container.Resolve<ISongRepository>();
-				repo.HandleTransaction(act);
-					
-			}
+			var repo = container.Resolve<ISongRepository>();
+			repo.HandleTransaction(act);
 
 		}
 

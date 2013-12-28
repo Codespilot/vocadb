@@ -152,6 +152,10 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// List of comments on this user's profile.
+		/// This is not the list of comments this user had made himself!
+		/// </summary>
 		public virtual IList<UserComment> Comments {
 			get { return comments; }
 			set {
