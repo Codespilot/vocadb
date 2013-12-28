@@ -9,10 +9,6 @@ interface KnockoutBindingHandlers {
     entryToolTip: KnockoutBindingHandler;
 }
 
-interface JQuery {
-    qtip: (qtipProperties) => void;
-}
-
 module vdb.knockoutExtensions {
 
     export function initToolTip(element, relativeUrl: string, id: number) {

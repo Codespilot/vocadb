@@ -1558,6 +1558,7 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\qTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
     <Content Include="Scripts\knockout-3.0.0.js" />
@@ -1626,9 +1627,11 @@
     </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\marked\marked.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\qTip2\qtip.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
@@ -1709,7 +1712,6 @@
     </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\TopBarViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\User\UserMessagesViewModelTests.ts" />
-    <Content Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />

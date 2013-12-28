@@ -89,10 +89,7 @@
 	</div>
 	
 	<div class="editor-label">
-		<label>
-			Entry status
-			@Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
-        </label>
+		@Helpers.HelpLabel("Entry status", Resources.CommonMessages.EntryStatusExplanation)
 	</div>
 	<div class="editor-field">
 		@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))

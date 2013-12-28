@@ -56,6 +56,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/SongAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/FocusOut.js",
+				"~/Scripts/KnockoutExtensions/qTip.js",
 				"~/Scripts/KnockoutExtensions/Markdown.js"
 			));
 
