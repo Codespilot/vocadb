@@ -634,7 +634,13 @@ div.item {
 	display: inline-block;
 	margin-bottom: 0;
 	cursor: help;
+	background: url("Icons/help.png") no-repeat right;
+	padding: 0 20px 0 0;
 }
+
+/*.helpTip:after {
+	content: " [?]";
+}*/
 
 /* Top bar */
 .media-image-usermessage {

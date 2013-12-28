@@ -13,7 +13,7 @@ ko.bindingHandlers.jqButtonset = {
     'init': function (element, valueAccessor, allBindingsAccessor) {
 
         var allbindings = allBindingsAccessor();
-        var id = ko.utils.unwrapObservable(allbindings.id);
+        var id = ko.utils.unwrapObservable<string>(allbindings.id);
         $(element).attr("id", id);
         $(element).find("~label").attr("for", id);
         $(element).button();

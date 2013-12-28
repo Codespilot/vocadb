@@ -53,11 +53,7 @@
 				</div>
 
 				<div class="editor-label">
-					<label>
-						Primary name (in one or more languages)
-						@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)
-					</label>
-					
+					@Helpers.HelpLabel("Primary name (in one or more languages)", ViewRes.EntryEditStrings.NameHelp)
 				</div>
 				<div class="editor-field">
 					@Html.EditorFor(m => m.Names)
@@ -111,10 +107,7 @@
 	}
 			
 				<div class="editor-label">
-					<label>
-					    @Html.DisplayNameFor(m => m.WebLinks)
-    				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
-                    </label>
+					@Helpers.HelpLabel("Web links", ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
 				</div>
 				<div class="editor-field" data-bind="with: webLinks">
 					@KnockoutHelpers.WebLinksEditViewKnockout(true)
@@ -122,10 +115,7 @@
 				</div>
 
 				<div class="editor-label">
-					<label>
-					    @Html.DisplayNameFor(m => m.Status)
-					    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
-                    </label>
+					@Helpers.HelpLabel("Entry status", Resources.CommonMessages.EntryStatusExplanation)
 				</div>
 				<div class="editor-field">
 					@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))

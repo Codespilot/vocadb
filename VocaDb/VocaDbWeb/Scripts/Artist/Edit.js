@@ -5,7 +5,6 @@ function initPage(artistId) {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
-	$(".helpToolTip").qtip();
 
 	initNamesList();
 

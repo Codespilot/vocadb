@@ -196,6 +196,12 @@
 	
 }
 
+@* Displays label element with attached qTip tooltip *@
+@helper HelpLabel(string label, string title, string forElem = null) {
+	<label class="helpTip" data-bind="qTip: null" title="@title" for="@(forElem ?? "")">@label</label>			
+}
+
+@* NOT IN USE, can be removed *@
 @helper HelpMessage(string message, string id = null) {
     if (string.IsNullOrEmpty(id)) {
 		<span class="helpIcon helpToolTip" title="@message"></span>

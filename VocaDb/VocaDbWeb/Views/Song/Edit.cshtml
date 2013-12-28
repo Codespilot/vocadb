@@ -55,9 +55,8 @@
 			</div>
 
 			<div class="editor-label">
-				<label>
+				<label class="helpTip" data-bind="qTip: null" title="@ViewRes.EntryEditStrings.NameHelp">
 					Primary name (in one or more languages)
-					@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)
 				</label>
 			</div>
 			<div class="editor-field">
@@ -109,9 +108,8 @@
 			</div>
 			
 			<div class="editor-label">
-				<label>
+				<label class="helpTip" data-bind="qTip: null" title="@ViewRes.EntryEditStrings.ExternalLinksQuickHelp">
 				    @Html.DisplayNameFor(m => m.WebLinks)
-				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
                 </label>
 			</div>
 			<div class="editor-field" data-bind="with: webLinks">
@@ -120,9 +118,8 @@
 			</div>
 
 			<div class="editor-label">
-				<label>
+				<label class="helpTip" data-bind="qTip: null" title="@Resources.CommonMessages.EntryStatusExplanation">
 				    @Html.DisplayNameFor(m => m.Status)
-				    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation, "statusHelp")
                 </label>
 			</div>
 			<div class="editor-field">

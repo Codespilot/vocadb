@@ -97,10 +97,7 @@
 			</div>
 
 			<div class="editor-label">
-				<label>
-					@R.EditStrings.BaNames
-					@Helpers.HelpMessage(ViewRes.EntryEditStrings.NameHelp)					
-				</label>
+				@Helpers.HelpLabel(R.EditStrings.BaNames, ViewRes.EntryEditStrings.NameHelp)
 			</div>
 			<div class="editor-field">
 				@Html.EditorFor(m => m.Names)
@@ -128,13 +125,12 @@
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DiscType, R.EditStrings.BaDiscType)
+				@Helpers.HelpLabel(R.EditStrings.BaDiscType, Model.DiscTypeDescriptions)
 			</div>
 			<div class="editor-field">
 				<div class="row-fluid">
 					<div class="span4">
 						@Html.DiscTypeDropDownListFor(m => m.DiscType)
-						@Helpers.HelpMessage(Model.DiscTypeDescriptions)						
 					</div>
 					<div class="alert span4" data-bind="visible: discType() == 'Unknown'">
 						@AlbumValidationErrors.NeedType
@@ -174,7 +170,7 @@
 			</tr></table>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.CatNum, R.EditStrings.BaCatNum)
+				@Helpers.HelpLabel(R.EditStrings.BaCatNum, "Usually catalog numbers are in the format ABC-1234, please do not add extra whitespace.")
 			</div>
 			<div class="editor-field">
 				@Html.TextBoxFor(m => m.CatNum)
@@ -189,10 +185,7 @@
 			</div>
 			
 			<div class="editor-label">
-				<label>
-				    @R.EditStrings.BaWebLinks
-				    @Helpers.HelpMessage(ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
-                </label>
+				@Helpers.HelpLabel(R.EditStrings.BaWebLinks, ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
 			</div>
 			<div class="editor-field" data-bind="with: webLinks">
 				@KnockoutHelpers.WebLinksEditViewKnockout(true)
@@ -200,10 +193,7 @@
 			</div>
 
 			<div class="editor-label">
-				<label>
-				    @R.EditStrings.BaStatus)
-				    @Helpers.HelpMessage(Resources.CommonMessages.EntryStatusExplanation)
-                </label>
+				@Helpers.HelpLabel(R.EditStrings.BaStatus, Resources.CommonMessages.EntryStatusExplanation)
 			</div>
 			<div class="editor-field">
 				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
