@@ -18,14 +18,14 @@ namespace VocaDb.Model.Domain.Users {
 
 		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted,
 			regular, PermissionToken.ApproveEntries, PermissionToken.DeleteEntries, PermissionToken.EditFeaturedLists, 
-			PermissionToken.ManageEventSeries, PermissionToken.MergeEntries);
+			PermissionToken.ManageEventSeries, PermissionToken.MergeEntries, PermissionToken.RemoveTagUsages);
 
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
 			trusted, PermissionToken.AccessManageMenu, PermissionToken.BulkDeletePVs, PermissionToken.DeleteComments, 
 			PermissionToken.DesignatedStaff, PermissionToken.DisableUsers, PermissionToken.EditNews,
 			PermissionToken.LockEntries, PermissionToken.ManageIPRules, PermissionToken.ManageEntryReports, 
 			PermissionToken.ManageUserPermissions, PermissionToken.MikuDbImport, PermissionToken.MoveToTrash, 
-			PermissionToken.RemoveTagUsages, PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);
+			PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);
 
 		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin,
 			mod, PermissionToken.Admin);
