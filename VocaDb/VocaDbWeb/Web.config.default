@@ -12,6 +12,8 @@
     <add key="webpages:Version" value="2.0.0.0"/>
     <add key="ClientValidationEnabled" value="true"/>
     <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+		<!-- Needed to disable RoleManager. See http://stackoverflow.com/a/15989036 and http://stackoverflow.com/a/871213 -->
+		<add key="enableSimpleMembership" value="false" />
 		<add key="AccessKeySalt" value="" />
 		<add key="BilibiliAppKey" value="" />
 		<add key="ConnectionStringName" value="" />
@@ -43,7 +45,10 @@
       <forms defaultUrl="~/" loginUrl="~/User/Login" timeout="2880" />
     </authentication>
 
-    <pages>
+	<!-- See also enableSimpleMembership -->
+	<roleManager enabled="false"></roleManager>
+
+	<pages>
       <namespaces>
         <add namespace="System.Web.Helpers" />
         <add namespace="System.Web.Mvc" />
