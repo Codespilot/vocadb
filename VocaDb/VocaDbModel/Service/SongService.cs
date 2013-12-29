@@ -270,7 +270,7 @@ namespace VocaDb.Model.Service {
 				var user = GetLoggedUser(session);
 				var list = session.Load<SongList>(listId);
 
-				VerifyResourceAccess(list.Author);
+				EntryPermissionManager.VerifyEdit(PermissionContext, list);
 
 				session.Delete(list);
 
