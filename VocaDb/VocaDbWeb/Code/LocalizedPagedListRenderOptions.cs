@@ -11,7 +11,9 @@ namespace VocaDb.Web.Code {
 					LinkToFirstPageFormat = "<< " + PagedListStrings.First,
 					LinkToLastPageFormat = PagedListStrings.Last + " >>",
 					LinkToPreviousPageFormat = "< " + PagedListStrings.Previous,
-					LinkToNextPageFormat = PagedListStrings.Next + " >"
+					LinkToNextPageFormat = PagedListStrings.Next + " >",
+					ContainerDivClasses = new[] { "pagination" },
+					UlElementClasses = new string[0]
 				};
 			}
 		}
