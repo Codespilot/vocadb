@@ -433,18 +433,23 @@ namespace VocaDb.Model.Service {
 				var paging = queryParams.Paging;
 				var loggedUserId = PermissionContext.LoggedUserId;
 				var user = session.Load<User>(queryParams.UserId);
+				var shouldShowCollectionStatus = user.Id == loggedUserId || user.Options.PublicAlbumCollection;
 
-				var albums = session.Query<AlbumForUser>()
-					.Where(a => a.User.Id == user.Id && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status))
+				var query = session.Query<AlbumForUser>()
+					.Where(a => a.User.Id == user.Id 
+						&& !a.Album.Deleted 
+						&& (status == PurchaseStatus.Nothing || a.PurchaseStatus == status)
+						&& (shouldShowCollectionStatus || a.Rating > 0));
+
+				var albums = query
 					.AddNameOrder(LanguagePreference)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
 					.ToArray()
-					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference) { ShouldShowCollectionStatus = user.Id == loggedUserId || user.Options.PublicAlbumCollection })
+					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference) { ShouldShowCollectionStatus = shouldShowCollectionStatus })
 					.ToArray();
 
-				var count = paging.GetTotalCount ? session.Query<AlbumForUser>()
-					.Count(a => a.User.Id == queryParams.UserId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status)) : 0;
+				var count = paging.GetTotalCount ? query.Count() : 0;
 
 				return new PartialFindResult<AlbumForUserContract>(albums, count);
 
