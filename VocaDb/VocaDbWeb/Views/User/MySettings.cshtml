@@ -75,6 +75,12 @@
 							@R.MySettingsStrings.PublicRatings
 						</label>
 					</p>
+					<p>
+						<label class="checkbox">
+							@Html.CheckBoxFor(m => m.PublicAlbumCollection)
+							Allow others to see which albums I own.
+						</label>
+					</p>
 				</div>
                 
 				@if (Model.HasPassword) {

@@ -1,6 +1,10 @@
 ﻿@using VocaDb.Web.Helpers;
 @model VocaDb.Web.Models.Shared.PagingData<VocaDb.Model.DataContracts.Users.AlbumForUserContract>
 
+@{	
+	var showCollectionStatus = Model.Items.Any() && Model.Items.First().ShouldShowCollectionStatus;	
+}
+
 <div class="pager">
 	@Html.Pager(Model)
 </div>
@@ -8,8 +12,10 @@
 <table>
 	<tr>
 		<th colspan="2">@ViewRes.User.AlbumCollectionStrings.Album</th>
+		@if (showCollectionStatus) {
 		<th>@ViewRes.User.AlbumCollectionStrings.Status</th>
-		<th>@ViewRes.User.AlbumCollectionStrings.MediaType</th>
+		<th>@ViewRes.User.AlbumCollectionStrings.MediaType</th>			
+		}
 		<th>@ViewRes.User.AlbumCollectionStrings.Rating</th>
 		<th></th>
 	</tr>
@@ -24,10 +30,11 @@
 				@AlbumHelpers.AlbumIconLink(album.Album)
 			</td>
 			<td>
-				@Html.ActionLink(album.Album.Name, "Details", "Album", new { id = album.Album.Id }, new { title = album.Album.AdditionalNames })
+				@AlbumHelpers.AlbumLink(album.Album)
 				<br />
 				<span class="extraInfo">@album.Album.ArtistString</span>
 			</td>
+			@if (showCollectionStatus) {
 			<td>
 				<div class="albumPurchaseStatusField">
 					@Translate.AlbumCollectionStatusNames.GetName(album.PurchaseStatus)
@@ -38,6 +45,7 @@
 					@Translate.AlbumMediaTypeNames.GetName(album.MediaType)
 				</div>
 			</td>	
+			}
 			<td>
 				<div class="albumRatingField">
 					@Helpers.Stars(album.Rating, 5)				

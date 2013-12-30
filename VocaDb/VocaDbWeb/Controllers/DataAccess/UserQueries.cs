@@ -449,6 +449,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				user.Language = contract.Language;
 				user.Options.Location = contract.Location;
 				user.PreferredVideoService = contract.PreferredVideoService;
+				user.Options.PublicAlbumCollection = contract.PublicAlbumCollection;
 				user.Options.PublicRatings = contract.PublicRatings;
 				user.SetEmail(email);
 
