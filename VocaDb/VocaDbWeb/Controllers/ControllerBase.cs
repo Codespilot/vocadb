@@ -57,6 +57,9 @@ namespace VocaDb.Web.Controllers {
 
 			ParamIs.NotNull(() => contract);
 
+			// Allow images to be cached by public proxies, images shouldn't contain anything sensitive so this should be ok.
+			Response.Cache.SetCacheability(HttpCacheability.Public);
+
 			Response.Cache.SetETag(string.Format("{0}{1}v{2}", contract.EntryType, contract.EntryId, contract.Version));
 
 			// Cached version indicated by the "v" request parameter.
@@ -184,6 +187,7 @@ namespace VocaDb.Web.Controllers {
 
 			if (!string.IsNullOrEmpty(ext)) {
 				//var encoded = Url.Encode(title);
+				// Note: there is no good way to encode content-disposition filename (see http://stackoverflow.com/a/216777)
 				Response.AddHeader("content-disposition", string.Format("inline;filename=\"{0}{1}\"", title, ext));
 			}
 
