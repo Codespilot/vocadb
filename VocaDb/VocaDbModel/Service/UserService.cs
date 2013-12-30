@@ -431,14 +431,16 @@ namespace VocaDb.Model.Service {
 
 				var status = queryParams.FilterByStatus;
 				var paging = queryParams.Paging;
+				var loggedUserId = PermissionContext.LoggedUserId;
+				var user = session.Load<User>(queryParams.UserId);
 
 				var albums = session.Query<AlbumForUser>()
-					.Where(a => a.User.Id == queryParams.UserId && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status))
+					.Where(a => a.User.Id == user.Id && !a.Album.Deleted && (status == PurchaseStatus.Nothing || a.PurchaseStatus == status))
 					.AddNameOrder(LanguagePreference)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
 					.ToArray()
-					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference))
+					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference) { ShouldShowCollectionStatus = user.Id == loggedUserId || user.Options.PublicAlbumCollection })
 					.ToArray();
 
 				var count = paging.GetTotalCount ? session.Query<AlbumForUser>()

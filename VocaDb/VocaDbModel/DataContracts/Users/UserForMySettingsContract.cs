@@ -19,6 +19,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			HasPassword = !string.IsNullOrEmpty(user.Password);
 			HasTwitterToken = !string.IsNullOrEmpty(user.Options.TwitterOAuthToken);
 			Location = user.Options.Location;
+			PublicAlbumCollection = user.Options.PublicAlbumCollection;
 			PublicRatings = user.Options.PublicRatings;
 			TwitterId = user.Options.TwitterId;
 			TwitterName = user.Options.TwitterName;
@@ -35,6 +36,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public bool HasTwitterToken { get; set; }
 
 		public string Location { get; set; }
+
+		public bool PublicAlbumCollection { get; set;}
 
 		public bool PublicRatings { get; set; }
 

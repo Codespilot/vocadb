@@ -116,6 +116,7 @@ namespace VocaDb.Web.Models {
 			InterfaceLanguageSelection = user.Language;
 			Location = user.Location;
 			PreferredVideoService = user.PreferredVideoService;
+			PublicAlbumCollection = user.PublicAlbumCollection;
 			PublicRatings = user.PublicRatings;
 			TwitterName = user.TwitterName;
 			Username = user.Name;
@@ -158,6 +159,8 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Preferred streaming service")]
 		public PVService PreferredVideoService { get; set; }
+
+		public bool PublicAlbumCollection { get; set; }
 
 		public bool PublicRatings { get; set; }
 
@@ -207,6 +210,7 @@ namespace VocaDb.Web.Models {
 				Location = this.Location ?? string.Empty,
 				OldPass = this.OldPass,
 				PreferredVideoService = this.PreferredVideoService,
+				PublicAlbumCollection = this.PublicAlbumCollection,
 				PublicRatings = this.PublicRatings,
 				NewPass = this.NewPass,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray(),

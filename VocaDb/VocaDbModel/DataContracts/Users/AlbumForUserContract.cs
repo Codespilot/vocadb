@@ -38,6 +38,9 @@ namespace VocaDb.Model.DataContracts.Users {
 		[DataMember]
 		public int Rating { get; set; }
 
+		// Note: only needed for album collection. True if public collection or viewer is the user himself.
+		public bool ShouldShowCollectionStatus { get; set; }
+
 		[DataMember]
 		public UserContract User { get; set; }
 

@@ -14,6 +14,7 @@ namespace VocaDb.Model.DataContracts.Users {
 
 			AboutMe = user.Options.AboutMe;
 			Location = user.Options.Location;
+			PublicAlbumCollection = user.Options.PublicAlbumCollection;
 			PublicRatings = user.Options.PublicRatings;
 			WebLinks = user.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
@@ -26,6 +27,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public string NewPass { get; set; }
 
 		public string OldPass { get; set; }
+
+		public bool PublicAlbumCollection { get; set; }
 
 		public bool PublicRatings { get; set; }
 

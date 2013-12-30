@@ -26,6 +26,7 @@
 				= TwitterName = TwitterOAuthToken = TwitterOAuthTokenSecret 
 				= string.Empty;
 
+			PublicAlbumCollection = true;
 			PublicRatings = true;
 
 		}
@@ -76,6 +77,15 @@
 		/// </summary>
 		public virtual bool Poisoned { get; set; }
 
+		/// <summary>
+		/// Allow others to see this user's album collection (ownership status and media type).
+		/// </summary>
+		public virtual bool PublicAlbumCollection { get; set;}
+
+		/// <summary>
+		/// Allow anyone to see user's album and song ratings. 
+		/// Essentially this determines whether the user will appear in the "album in collections" and "song ratings" popups.
+		/// </summary>
 		public virtual bool PublicRatings { get; set; }
 
 		public virtual string Realname {
