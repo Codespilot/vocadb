@@ -15,6 +15,9 @@ namespace VocaDb.Model.Service.Rankings {
 
 		public RankingContract GetSongs(string url, bool parseAll) {
 
+			if (string.IsNullOrEmpty(url))
+				throw new InvalidFeedException("Feed URL cannot be empty");
+
 			if (!url.Contains("rss="))
 				url += "?rss=2.0";
 
