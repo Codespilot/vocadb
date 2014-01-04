@@ -70,9 +70,9 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="PiaproClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PiaproClient, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PiaproClient.1.0.0.0\lib\net45\PiaproClient.dll</HintPath>
+      <HintPath>..\packages\PiaproClient.1.0.4.0\lib\net45\PiaproClient.dll</HintPath>
     </Reference>
     <Reference Include="RSS.NET">
       <HintPath>..\Libs\RSS.NET.dll</HintPath>

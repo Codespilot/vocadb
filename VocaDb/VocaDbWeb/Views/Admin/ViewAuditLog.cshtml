@@ -62,14 +62,18 @@
 
 </div>
 		
-<div >
-	<table id="logEntries">
-		<tr>
-			<th>Time</th>
-			<th>User</th>
-			<th>Action</th>
-		</tr>		
-		@{ Html.RenderAction("AuditLogEntries", Model); }
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Time</th>
+				<th>User</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody id="logEntries">
+			@{ Html.RenderAction("AuditLogEntries", Model); }						
+		</tbody>
 	</table>
 </div>
 
