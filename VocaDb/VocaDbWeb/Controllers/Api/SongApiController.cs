@@ -10,6 +10,9 @@ using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Controllers.Api {
 
+	/// <summary>
+	/// API controller for songs.
+	/// </summary>
 	[RoutePrefix("api/songs")]
 	public class SongApiController : ApiController {
 
@@ -19,20 +22,13 @@ namespace VocaDb.Web.Controllers.Api {
 			this.service = service;
 		}
 
-		[Flags]
-		public enum SongOptionalFields {
-
-			None = 0,
-			Albums = 1,
-			Artists = 2,
-			Names = 4,
-			PVs = 8,
-			Tags = 16,
-			ThumbUrl = 32,
-			WebLinks = 64
-
-		}
-
+		/// <summary>
+		/// Gets a song by Id.
+		/// </summary>
+		/// <param name="id">Song Id.</param>
+		/// <param name="fields">Optional fields.</param>
+		/// <param name="lang">Content language preference.</param>
+		/// <returns>Song data.</returns>
 		[Route("{id:int}")]
 		public SongForApiContract GetById(int id, SongOptionalFields fields = SongOptionalFields.None, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
@@ -57,6 +53,14 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		/// <summary>
+		/// Gets a song by PV.
+		/// </summary>
+		/// <param name="pvService">PV service.</param>
+		/// <param name="pvId">PV Id.</param>
+		/// <param name="fields">Optional fields.</param>
+		/// <param name="lang">Content language preference.</param>
+		/// <returns>Song data.</returns>
 		[Route("")]
 		public SongForApiContract GetByPV(PVService pvService, string pvId, SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
@@ -76,6 +80,20 @@ namespace VocaDb.Web.Controllers.Api {
 			//return new PartialFindResult<SongForApiContract>(new [] { song }, 1);
 
 		}
+
+	}
+
+	[Flags]
+	public enum SongOptionalFields {
+
+		None = 0,
+		Albums = 1,
+		Artists = 2,
+		Names = 4,
+		PVs = 8,
+		Tags = 16,
+		ThumbUrl = 32,
+		WebLinks = 64
 
 	}
 

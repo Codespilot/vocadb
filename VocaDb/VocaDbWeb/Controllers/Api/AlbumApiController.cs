@@ -12,6 +12,9 @@ using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Web.Controllers.Api {
 
+	/// <summary>
+	/// API controller for songs.
+	/// </summary>
 	[RoutePrefix("api/albums")]
 	public class AlbumApiController : ApiController {
 
