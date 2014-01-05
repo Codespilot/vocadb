@@ -9,6 +9,7 @@ module vdb.utils {
         
 		static matchers: WebLinkMatcher[] = [
 			{ url: "about.me/", desc: "about.me", cat: c.WebLinkCategory.Official },
+			{ url: "www.akibaoo.com/", desc: "Akibaoo", cat: c.WebLinkCategory.Commercial },
             { url: "alice-books.com/", desc: "Alice Books", cat: c.WebLinkCategory.Commercial },
             { url: "www.amazon.co.jp/", desc: "Amazon", cat: c.WebLinkCategory.Commercial },
             { url: "www.amazon.com/", desc: "Amazon", cat: c.WebLinkCategory.Commercial },
@@ -18,6 +19,7 @@ module vdb.utils {
             { url: "bandcamp.com", desc: "Bandcamp", cat: c.WebLinkCategory.Commercial },
             { url: "bilibili.tv/", desc: "Bilibili", cat: c.WebLinkCategory.Official },
             { url: "www.cdjapan.co.jp/detailview.html", desc: "CDJapan", cat: c.WebLinkCategory.Commercial },
+			{ url: "d-stage.com/shop/", desc: "D-Stage", cat: c.WebLinkCategory.Commercial },
             { url: "www.discogs.com/", desc: "Discogs", cat: c.WebLinkCategory.Reference },
             { url: "exittunes.com/", desc: "Exit Tunes", cat: c.WebLinkCategory.Official },
             { url: "www.facebook.com/", desc: "Facebook", cat: c.WebLinkCategory.Official },
