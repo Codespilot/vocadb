@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using WebApiContrib.Formatting.Jsonp;
 
 namespace VocaDb.Web.App_Start {
 
@@ -16,6 +17,8 @@ namespace VocaDb.Web.App_Start {
 			json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver(); // All properties in camel case
 			json.SerializerSettings.Converters.Add(new StringEnumConverter());	// All enums as strings by default
 			json.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+			
+			config.Formatters.Insert(0, new JsonpMediaTypeFormatter(json));
 
 			config.MapHttpAttributeRoutes();
 
