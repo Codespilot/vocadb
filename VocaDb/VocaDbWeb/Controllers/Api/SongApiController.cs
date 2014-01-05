@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -11,7 +9,7 @@ using VocaDb.Model.Service;
 namespace VocaDb.Web.Controllers.Api {
 
 	/// <summary>
-	/// API controller for songs.
+	/// API queries for songs
 	/// </summary>
 	[RoutePrefix("api/songs")]
 	public class SongApiController : ApiController {
@@ -25,9 +23,10 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <summary>
 		/// Gets a song by Id.
 		/// </summary>
-		/// <param name="id">Song Id.</param>
-		/// <param name="fields">Optional fields.</param>
-		/// <param name="lang">Content language preference.</param>
+		/// <param name="id">Song Id (required).</param>
+		/// <param name="fields">Optional fields (optional). Possible values are albums, artists, names, pvs, tags, thumbUrl, webLinks.</param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <example>http://vocadb.net/api/songs/121</example>
 		/// <returns>Song data.</returns>
 		[Route("{id:int}")]
 		public SongForApiContract GetById(int id, SongOptionalFields fields = SongOptionalFields.None, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
@@ -46,6 +45,7 @@ namespace VocaDb.Web.Controllers.Api {
 		}
 
 		[Route("")]
+		[ApiExplorerSettings(IgnoreApi=true)]
 		public PartialFindResult<SongForApiContract> GetByName(string query, SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
@@ -56,11 +56,12 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <summary>
 		/// Gets a song by PV.
 		/// </summary>
-		/// <param name="pvService">PV service.</param>
-		/// <param name="pvId">PV Id.</param>
-		/// <param name="fields">Optional fields.</param>
-		/// <param name="lang">Content language preference.</param>
+		/// <param name="pvService">PV service (required).</param>
+		/// <param name="pvId">PV Id (required).</param>
+		/// <param name="fields">Optional fields (optional).</param>
+		/// <param name="lang">Content language preference (optional).</param>
 		/// <returns>Song data.</returns>
+		/// <example>http://vocadb.net/api/songs?pvId=sm19923781&amp;pvService=NicoNicoDouga</example>
 		[Route("")]
 		public SongForApiContract GetByPV(PVService pvService, string pvId, SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {

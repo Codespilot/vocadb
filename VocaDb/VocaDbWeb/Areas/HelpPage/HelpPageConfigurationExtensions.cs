@@ -201,6 +201,13 @@ namespace VocaDb.Web.Areas.HelpPage
                     HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
                     model = GenerateApiModel(apiDescription, sampleGenerator);
                     config.Properties.TryAdd(modelId, model);
+
+					var exampleDocProvider = config.Services.GetDocumentationProvider() as IExampleDocumentationProvider;
+					if (exampleDocProvider != null)
+					{
+						((HelpPageApiModel)model).ExampleDocumentation = exampleDocProvider.GetExampleDocumentation(apiDescription.ActionDescriptor);
+					}
+
                 }
             }
 

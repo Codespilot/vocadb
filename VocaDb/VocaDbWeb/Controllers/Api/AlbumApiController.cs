@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
@@ -13,7 +14,7 @@ using VocaDb.Web.Controllers.DataAccess;
 namespace VocaDb.Web.Controllers.Api {
 
 	/// <summary>
-	/// API controller for songs.
+	/// API queries for albums.
 	/// </summary>
 	[RoutePrefix("api/albums")]
 	public class AlbumApiController : ApiController {
@@ -22,23 +23,19 @@ namespace VocaDb.Web.Controllers.Api {
 		private readonly AlbumQueries queries;
 		private readonly AlbumService service;
 
-		[Flags]
-		public enum AlbumOptionalFields {
-
-			None = 0,
-			Artists = 1,
-			Names = 2,
-			PVs = 4,
-			Tags = 8,
-			WebLinks = 16
-
-		}
-
 		public AlbumApiController(AlbumQueries queries, AlbumService service) {			
 			this.queries = queries;
 			this.service = service;
 		}
 
+		/// <summary>
+		/// Gets an album by Id.
+		/// </summary>
+		/// <param name="id">Album Id (required).</param>
+		/// <param name="fields">Optional fields (optional). Possible values are artists, names, pvs, tags, webLinks.</param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <example>http://vocadb.net/api/albums/1</example>
+		/// <returns>Album data.</returns>
 		[Route("{id:int}")]
 		public AlbumForApiContract GetOne(int id, AlbumOptionalFields fields = AlbumOptionalFields.None, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
@@ -77,6 +74,13 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}*/
 
+		/// <summary>
+		/// Gets tracks for an album.
+		/// </summary>
+		/// <param name="id">Album ID (required).</param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <returns>List of tracks for the album.</returns>
+		/// <example>http://vocadb.net/api/albums/1/tracks</example>
 		[Route("{id:int}/tracks")]
 		public SongInAlbumContract[] GetTracks(int id, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
@@ -87,6 +91,7 @@ namespace VocaDb.Web.Controllers.Api {
 		}
 
 		[Route("versions")]
+		[ApiExplorerSettings(IgnoreApi=true)]
 		public EntryIdAndVersionContract[] GetVersions() {
 
 			var versions = queries
@@ -100,6 +105,18 @@ namespace VocaDb.Web.Controllers.Api {
 			return versions;
 
 		}
+
+	}
+
+	[Flags]
+	public enum AlbumOptionalFields {
+
+		None = 0,
+		Artists = 1,
+		Names = 2,
+		PVs = 4,
+		Tags = 8,
+		WebLinks = 16
 
 	}
 
