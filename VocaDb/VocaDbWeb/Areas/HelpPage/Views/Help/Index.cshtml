@@ -2,6 +2,7 @@
 @using System.Web.Http.Controllers
 @using System.Web.Http.Description
 @using System.Collections.ObjectModel
+@using System.Web.Optimization
 @using VocaDb.Web.Areas.HelpPage.Models
 @model Collection<ApiDescription>
 
@@ -12,27 +13,22 @@
     ILookup<HttpControllerDescriptor, ApiDescription> apiGroups = Model.ToLookup(api => api.ActionDescriptor.ControllerDescriptor);
 }
 
-<header>
-    <div class="content-wrapper">
-        <div class="float-left">
-            <h1>@ViewBag.Title</h1>
-        </div>
-    </div>
-</header>
-<div id="body">
-    <section class="featured">
-        <div class="content-wrapper">
-	        <p>For general API usage guidelines, see <a href="https://github.com/riipah/vocadb/wiki/Public-API">here</a>.</p>
-        </div>
-    </section>
-    <section class="content-wrapper main-content clear-fix">
-        @foreach (var group in apiGroups)
-        {
-            @Html.DisplayFor(m => group, "ApiGroup")
-        }
-    </section>
+<div class="span12" id="body">
+	<header>
+		<div class="content-wrapper">
+			<div class="float-left">
+				<h1>@ViewBag.Title</h1>
+			</div>
+		</div>
+	</header>
+	<section class="featured">
+		<div class="content-wrapper">
+			<p>For general API usage guidelines, see <a href="https://github.com/riipah/vocadb/wiki/Public-API">here</a>.</p>
+		</div>
+	</section>
+	<section class="content-wrapper main-content clear-fix">
+		@foreach (var group in apiGroups) {
+			@Html.DisplayFor(m => group, "ApiGroup")
+		}
+	</section>
 </div>
-
-@section Scripts {
-    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
-}
