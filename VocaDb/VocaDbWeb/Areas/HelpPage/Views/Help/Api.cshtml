@@ -7,19 +7,16 @@
     ViewBag.Title = description.HttpMethod.Method + " " + description.RelativePath;
 }
 
-<div id="body">
+<div class="span12" id="body">
     <section class="featured">
         <div class="content-wrapper">
-            <p>
-                @Html.ActionLink("Help Page Home", "Index")
-            </p>
+			<ul class="breadcrumb">
+				<li>@Html.ActionLink("Help Page Home", "Index") <span class="divider">/</span></li>
+				<li class="active">@ViewBag.Title</li>
+			</ul>
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
         @Html.DisplayFor(m => Model)
     </section>
 </div>
-
-@section Scripts {
-    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
-}
