@@ -51,7 +51,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		}
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public ArtistForAlbumForApiContract[] Artists { get; set; }
 
 		[DataMember]
@@ -73,13 +73,13 @@ namespace VocaDb.Model.DataContracts.Albums {
 		[DataMember]
 		public int Id { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public LocalizedStringContract[] Names { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]
@@ -97,13 +97,13 @@ namespace VocaDb.Model.DataContracts.Albums {
 		[DataMember]
 		public EntryStatus Status { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public string[] Tags { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}

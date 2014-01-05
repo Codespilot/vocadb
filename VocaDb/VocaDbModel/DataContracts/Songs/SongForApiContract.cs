@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongForApiContract() { }
 
 		public SongForApiContract(Song song, SongMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
-			bool albums = true, bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
+			bool albums = true, bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool thumbUrl = true, bool webLinks = false) {
 
 			CreateDate = song.CreateDate;
 			DefaultName = song.DefaultName;
@@ -30,7 +30,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 			RatingScore = song.RatingScore;
 			SongType = song.SongType;
 			Status = song.Status;
-			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
 			Version = song.Version;
 
 			if (albums)
@@ -48,6 +47,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 			if (tags)
 				Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
 
+			if (thumbUrl)
+				ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
+
 			if (webLinks)
 				WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
 
@@ -56,10 +58,10 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public AlbumContract[] Albums { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public ArtistForSongContract[] Artists { get; set; }
 
 		[DataMember]
@@ -78,13 +80,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public int Id { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public LocalizedStringContract[] Names { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]
@@ -102,16 +104,16 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[JsonConverter(typeof(StringEnumConverter))]
 		public EntryStatus Status { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public string[] Tags { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public string ThumbUrl { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }
 
-		[DataMember]
+		[DataMember(EmitDefaultValue = false)]
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}

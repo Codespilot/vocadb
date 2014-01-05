@@ -8,7 +8,7 @@ using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.DataContracts.Songs {
 
-	[DataContract]
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ArtistForSongContract {
 
 		public ArtistForSongContract() { }

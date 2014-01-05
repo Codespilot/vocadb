@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -160,6 +161,7 @@ namespace VocaDb.Web {
 
 			AreaRegistration.RegisterAllAreas();
 
+			GlobalConfiguration.Configure(WebApiConfig.Configure);
 			ComponentConfig.RegisterComponent();
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RouteConfig.RegisterRoutes(RouteTable.Routes);

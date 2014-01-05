@@ -32,7 +32,7 @@ namespace VocaDb.Web.API.v1.Controllers
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Service not specified or invalid");
 
 			var song = Service.GetSongWithPV(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default, 
-				includeAlbums, includeArtists, includeNames, includePVs, includeTags, includeWebLinks), service.Value, pvId);
+				includeAlbums, includeArtists, includeNames, includePVs, includeTags, true, includeWebLinks), service.Value, pvId);
 
 			return Object(song, format, callback);
 
@@ -65,7 +65,7 @@ namespace VocaDb.Web.API.v1.Controllers
 			if (nameMatchMode.HasValue)
 				param.Common.NameMatchMode = nameMatchMode.Value;
 
-			var songs = Service.Find(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default, includeAlbums, includeArtists, includeNames, includePVs, includeTags, includeWebLinks), param);
+			var songs = Service.Find(s => new SongForApiContract(s, null, lang ?? ContentLanguagePreference.Default, includeAlbums, includeArtists, includeNames, includePVs, includeTags, true, includeWebLinks), param);
 
 			return Object(songs, format, callback);
 
@@ -79,7 +79,7 @@ namespace VocaDb.Web.API.v1.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			var song = Service.GetSongWithMergeRecord(id, (s, m) => new SongForApiContract(s, m, lang, includeAlbums, includeArtists, includeNames, includePVs, includeTags, includeWebLinks));
+			var song = Service.GetSongWithMergeRecord(id, (s, m) => new SongForApiContract(s, m, lang, includeAlbums, includeArtists, includeNames, includePVs, includeTags, true, includeWebLinks));
 
 			return Object(song, format, callback);
 

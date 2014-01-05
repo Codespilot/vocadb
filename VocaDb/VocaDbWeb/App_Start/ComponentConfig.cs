@@ -1,7 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Reflection;
+using System.Web.Http;
+using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.Wcf;
+using Autofac.Integration.WebApi;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
@@ -29,6 +32,7 @@ namespace VocaDb.Web.App_Start {
 			// Register services.
 			builder.RegisterControllers(typeof(MvcApplication).Assembly);
 			builder.RegisterType<QueryService>();
+			builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
 			builder.Register(x => DatabaseConfiguration.BuildSessionFactory()).SingleInstance();
 
@@ -70,9 +74,10 @@ namespace VocaDb.Web.App_Start {
 			// Build container.
 			var container = builder.Build();
 
-			// Set ASP.NET MVC dependency resolver.
-			DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-			AutofacHostFactory.Container = container;
+			// Set ASP.NET MVC dependency resolver.			
+			DependencyResolver.SetResolver(new AutofacDependencyResolver(container)); // For ASP.NET MVC			
+			GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container); // For Web API			
+			AutofacHostFactory.Container = container; // For WCF
 
 		}
 
