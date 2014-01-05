@@ -25,6 +25,8 @@ namespace VocaDb.Web.Areas.HelpPage.Models
         /// </summary>
         public ApiDescription ApiDescription { get; set; }
 
+		public string ExampleDocumentation { get; set; }
+
         /// <summary>
         /// Gets the sample requests associated with the API.
         /// </summary>

@@ -11,7 +11,7 @@ namespace VocaDb.Web.Areas.HelpPage
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
     /// </summary>
-    public class XmlDocumentationProvider : IDocumentationProvider
+    public class XmlDocumentationProvider : IDocumentationProvider, IExampleDocumentationProvider
     {
         private XPathNavigator _documentNavigator;
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
@@ -70,7 +70,12 @@ namespace VocaDb.Web.Areas.HelpPage
             return GetTagValue(methodNode, "returns");
         }
 
-        private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
+	    public string GetExampleDocumentation(HttpActionDescriptor actionDescriptor) {
+            XPathNavigator methodNode = GetMethodNode(actionDescriptor);
+            return GetTagValue(methodNode, "example");
+	    }
+
+	    private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
             ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
             if (reflectedActionDescriptor != null)
