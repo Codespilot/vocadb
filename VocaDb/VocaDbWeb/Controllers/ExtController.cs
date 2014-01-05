@@ -35,7 +35,7 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrWhiteSpace(url))
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "URL must be specified");
 
-			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
+			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress, HttpContext).RouteData;
 			var controller = route.Values["controller"].ToString();
 			var id = int.Parse(route.Values["id"].ToString());
 			string data = string.Empty;
@@ -60,7 +60,7 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrEmpty(url))
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "URL must be specified");
 
-			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress).RouteData;
+			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress, HttpContext).RouteData;
 			var controller = route.Values["controller"].ToString().ToLowerInvariant();
 
 			if (controller != "song" && controller != "s") {
