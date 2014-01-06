@@ -65,10 +65,7 @@
 }
 
 @helper UserIconLink(IUserWithEmail user, int size = 20) {	
-	<a href="@Url.Action("Profile", "User", new { id = user.Name })">
-		@ProfileIcon(user, size)
-		<span>@user.Name</span>
-	</a>
+	<a href="@Url.Action("Profile", "User", new { id = user.Name })">@ProfileIcon(user, size)<span>@user.Name</span></a>
 }
 
 @helper UserIconLink(IUserWithEmail user, string name, int size = 20) {
