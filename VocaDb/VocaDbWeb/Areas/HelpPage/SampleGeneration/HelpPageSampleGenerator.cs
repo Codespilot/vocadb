@@ -11,6 +11,7 @@ using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 using System.Xml.Linq;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
 
 namespace VocaDb.Web.Areas.HelpPage
@@ -100,6 +101,11 @@ namespace VocaDb.Web.Areas.HelpPage
                 {
                     foreach (MediaTypeHeaderValue mediaType in formatter.SupportedMediaTypes)
                     {
+
+						// CUSTOM: Remove javascript response samples
+						if (sampleDirection == SampleDirection.Response && mediaType.MediaType == "text/javascript")
+							continue;
+
                         if (!samples.ContainsKey(mediaType))
                         {
                             object sample = GetActionSample(controllerName, actionName, parameterNames, type, formatter, mediaType, sampleDirection);

@@ -9,13 +9,17 @@ using VocaDb.Model.Service;
 namespace VocaDb.Web.Controllers.Api {
 
 	/// <summary>
-	/// API queries for songs
+	/// API queries for songs.
 	/// </summary>
 	[RoutePrefix("api/songs")]
 	public class SongApiController : ApiController {
 
 		private readonly SongService service;
 
+		/// <summary>
+		/// Initializes controller.
+		/// </summary>
+		/// <param name="service">Song service. Cannot be null.</param>
 		public SongApiController(SongService service) {
 			this.service = service;
 		}

@@ -27,7 +27,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs
 				.OrderBy(s => s.DiscNumber).ThenBy(s => s.TrackNumber)
-				.Select(s => new SongInAlbumContract(s, languagePreference)).ToArray();
+				.Select(s => new SongInAlbumContract(s, languagePreference, false)).ToArray();
 			Tags = album.Tags.Usages.Select(u => new TagUsageContract(u)).OrderByDescending(t => t.Count).ToArray();
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 			WishlistCount = album.UserCollections.Count(a => a.PurchaseStatus == PurchaseStatus.Wishlisted);

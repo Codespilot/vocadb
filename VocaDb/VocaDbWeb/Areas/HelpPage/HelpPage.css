@@ -68,6 +68,15 @@ a:hover {
     margin: 0px 0px 10px 0px;
 }
 
+.api-group-title {
+	margin-top: 20px;
+}
+
+.api-miku {
+	float: left;
+	margin-right: 10px;
+}
+
 .api-name {
     width: 40%;
 }
