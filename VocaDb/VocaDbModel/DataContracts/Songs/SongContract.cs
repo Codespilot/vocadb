@@ -27,11 +27,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongContract() {}
 
-		public SongContract(Song song, ContentLanguagePreference languagePreference)
+		public SongContract(Song song, ContentLanguagePreference languagePreference, bool getThumbUrl = true)
 			: this(song, languagePreference, string.Empty) {
 
-			// TODO: Used on the front page. Should be moved elsewhere.
-			ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
+			if (getThumbUrl) {
+				// TODO: Used on the front page. Should be moved elsewhere.
+				ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);				
+			}
 
 		}
 

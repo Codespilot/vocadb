@@ -26,6 +26,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			DefaultNameLanguage = song.Names.SortNames.DefaultLanguage;
 			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
+			LengthSeconds = song.LengthSeconds;
 			PVServices = song.PVServices;
 			RatingScore = song.RatingScore;
 			SongType = song.SongType;
@@ -79,6 +80,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public int LengthSeconds { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }

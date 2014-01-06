@@ -84,7 +84,7 @@ namespace VocaDb.Web.Controllers.Api {
 		[Route("{id:int}/tracks")]
 		public SongInAlbumContract[] GetTracks(int id, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
-			var tracks = service.GetAlbum(id, a => a.Songs.Select(s => new SongInAlbumContract(s, lang)).ToArray());
+			var tracks = service.GetAlbum(id, a => a.Songs.Select(s => new SongInAlbumContract(s, lang, false)).ToArray());
 
 			return tracks;
 

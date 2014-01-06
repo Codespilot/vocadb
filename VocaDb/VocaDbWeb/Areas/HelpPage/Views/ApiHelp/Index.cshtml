@@ -2,7 +2,6 @@
 @using System.Web.Http.Controllers
 @using System.Web.Http.Description
 @using System.Collections.ObjectModel
-@using System.Web.Optimization
 @using VocaDb.Web.Areas.HelpPage.Models
 @model Collection<ApiDescription>
 
@@ -23,7 +22,14 @@
 	</header>
 	<section class="featured">
 		<div class="content-wrapper">
-			<p>For general API usage guidelines, see <a href="https://github.com/riipah/vocadb/wiki/Public-API">here</a>.</p>
+			<div class="clearfix">
+				<div class="api-miku">
+					<a href="@Url.Action("Details", "Tag", new { Id = "Appearance_Miku", Area = "" })">
+						<img src="http://vocadb.net/EntryImg/Tag/23-st.jpg" alt="ApiMiku" title="ApiMiku" />						
+					</a>
+				</div>
+				<p><a href="https://github.com/riipah/vocadb/wiki/Public-API">General API usage guidelines</a>.</p>
+			</div>
 		</div>
 	</section>
 	<section class="content-wrapper main-content clear-fix">

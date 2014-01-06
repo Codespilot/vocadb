@@ -1,12 +1,26 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
+using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Web.Areas.HelpPage
 {
+
     /// <summary>
     /// Use this class to customize the Help Page.
     /// For example you can set a custom <see cref="System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
@@ -14,6 +28,82 @@ namespace VocaDb.Web.Areas.HelpPage
     /// </summary>
     public static class HelpPageConfig
     {
+
+		private static readonly ArtistContract producer = new ArtistContract {
+			Id = 10, Name = "Tripshots", ArtistType = ArtistType.Producer, Status = EntryStatus.Approved, Version = 1, PictureMime = "image/jpeg"
+		};
+
+		private static readonly ArtistContract vocalist = new ArtistContract {
+			Id = 1, Name = "Hatsune Miku", ArtistType = ArtistType.Vocaloid, Status = EntryStatus.Approved, Version = 1, PictureMime = "image/png"
+		};
+
+	    private static readonly AlbumForApiContract sampleAlbum = new AlbumForApiContract {
+			Id = 1,
+  			DefaultName = "Synthesis",
+			DefaultNameLanguage = ContentLanguageSelection.English,
+			CreateDate = new DateTime(2011, 1, 16),
+			DiscType = DiscType.Album,
+			RatingAverage = 3.9d,
+			RatingCount = 39,
+			Status = EntryStatus.Finished,
+			Version = 1,
+			Artists = new [] {
+				new ArtistForAlbumForApiContract {
+					Artist = producer, 
+					Categories = ArtistCategories.Producer
+				},
+				new ArtistForAlbumForApiContract {
+					Artist = vocalist, 
+					Categories = ArtistCategories.Vocalist
+				}
+			},
+			Names = new[] {
+				new LocalizedStringContract("Synthesis", ContentLanguageSelection.English)
+			},
+			Tags = new [] { "electronic" },
+			WebLinks = new[] {
+				new WebLinkContract("http://karent.jp/album/29", "KarenT", WebLinkCategory.Official)
+			}
+	    };
+
+		private static readonly SongForApiContract sampleSong = new SongForApiContract {
+			Id = 121,
+			DefaultName = "Nebula",
+			DefaultNameLanguage = ContentLanguageSelection.English,
+			CreateDate = new DateTime(2011, 1, 15),
+			SongType = SongType.Original,
+			PVServices = PVServices.NicoNicoDouga | PVServices.Youtube,
+			FavoritedTimes = 39,
+			RatingScore = 39,
+			Status = EntryStatus.Finished,
+			ThumbUrl = "http://i1.ytimg.com/vi/hoLu7c2XZYU/default.jpg",
+			LengthSeconds = 290,
+			Version = 1,
+			Artists = new [] {
+				new ArtistForSongContract {
+					Artist = producer, 
+					Categories = ArtistCategories.Producer
+				},
+				new ArtistForSongContract {
+					Artist = vocalist, 
+					Categories = ArtistCategories.Vocalist
+				}				
+			},
+			Albums = new [] {
+				new AlbumContract {
+					Id = 1, Name = "Synthesis", DiscType = DiscType.Album, Version = 1, Status = EntryStatus.Approved,
+					CreateDate = new DateTime(2011, 1, 16)
+				}, 
+			},
+			PVs = new [] {
+				new PVContract {
+					Name = "Nebula ft. Hatsune Miku by Tripshots", Author = "Tripshots", PVType = PVType.Original, Length = 290, 
+					Service = PVService.Youtube, PVId = "hoLu7c2XZYU",
+					ThumbUrl = "http://i1.ytimg.com/vi/hoLu7c2XZYU/default.jpg", Url = "http://youtu.be/hoLu7c2XZYU"
+				}, 
+			}
+		};
+
         public static void Register(HttpConfiguration config)
         {
             //// Uncomment the following to use the documentation from XML documentation file.
@@ -30,6 +120,11 @@ namespace VocaDb.Web.Areas.HelpPage
             //    {typeof(string), "sample string"},
             //    {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
             //});
+            config.SetSampleObjects(new Dictionary<Type, object>
+            {
+                {typeof(AlbumForApiContract), sampleAlbum},
+                {typeof(SongForApiContract), sampleSong},
+            });
 
             //// Uncomment the following to use "[0]=foo&[1]=bar" directly as the sample for all actions that support form URL encoded format
             //// and have IEnumerable<string> as the body parameter or return type.
@@ -42,6 +137,7 @@ namespace VocaDb.Web.Areas.HelpPage
             //// Uncomment the following to use the image on "../images/aspNetHome.png" directly as the response sample for media type "image/png"
             //// on the controller named "Values" and action named "Get" with parameter "id".
             //config.SetSampleResponse(new ImageSample("../images/aspNetHome.png"), new MediaTypeHeaderValue("image/png"), "Values", "Get", "id");
+            //config.SetSampleForType(string.Empty, new MediaTypeHeaderValue("text/javascript"), typeof(object));
 
             //// Uncomment the following to correct the sample request when the action expects an HttpRequestMessage with ObjectContent<string>.
             //// The sample will be generated as if the controller named "Values" and action named "Get" were having string as the body parameter.

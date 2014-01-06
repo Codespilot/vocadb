@@ -9,13 +9,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongInAlbumContract() {}
 
-		public SongInAlbumContract(SongInAlbum songInAlbum, ContentLanguagePreference languagePreference) {
+		public SongInAlbumContract(SongInAlbum songInAlbum, ContentLanguagePreference languagePreference, bool getThumbUrl = true) {
 			
 			ParamIs.NotNull(() => songInAlbum);
 
 			DiscNumber = songInAlbum.DiscNumber;
 			Id = songInAlbum.Id;
-			Song = new SongWithAdditionalNamesContract(songInAlbum.Song, languagePreference);
+			Song = new SongContract(songInAlbum.Song, languagePreference, getThumbUrl);
 			TrackNumber = songInAlbum.TrackNumber;
 
 		}
@@ -27,7 +27,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public int Id { get; set; }
 
 		[DataMember]
-		public SongWithAdditionalNamesContract Song { get; set; }
+		public SongContract Song { get; set; }
 
 		[DataMember]
 		public int TrackNumber { get; set; }
