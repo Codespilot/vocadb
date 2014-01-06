@@ -104,6 +104,25 @@ namespace VocaDb.Web.Areas.HelpPage
 			}
 		};
 
+		private static readonly SongInAlbumContract[] sampleSongsInAlbums = new [] {
+			new SongInAlbumContract {
+				DiscNumber = 1, TrackNumber = 1, 
+				Song = new SongContract {
+					Id = 1766, Name = "anger [Extend-RMX]", ArtistString = "Tripshots feat. Hatsune Miku", 
+					LengthSeconds = 338, PVServices = PVServices.Youtube, SongType = SongType.Remix,
+					FavoritedTimes = 39, Version = 1, CreateDate = new DateTime(2011, 2, 11), Status = EntryStatus.Finished
+				}
+			}, 
+			new SongInAlbumContract {
+				DiscNumber = 1, TrackNumber = 2, 
+				Song = new SongContract {
+					Id = 1767, Name = "Extended [Sirius RMX]", ArtistString = "Tripshots feat. Hatsune Miku", 
+					LengthSeconds = 231, PVServices = PVServices.Youtube, SongType = SongType.Remix,
+					FavoritedTimes = 39, Version = 1, CreateDate = new DateTime(2011, 2, 11), Status = EntryStatus.Finished
+				}
+			}
+		};
+
         public static void Register(HttpConfiguration config)
         {
             //// Uncomment the following to use the documentation from XML documentation file.
@@ -124,6 +143,7 @@ namespace VocaDb.Web.Areas.HelpPage
             {
                 {typeof(AlbumForApiContract), sampleAlbum},
                 {typeof(SongForApiContract), sampleSong},
+				{typeof(SongInAlbumContract[]), sampleSongsInAlbums},
             });
 
             //// Uncomment the following to use "[0]=foo&[1]=bar" directly as the sample for all actions that support form URL encoded format
