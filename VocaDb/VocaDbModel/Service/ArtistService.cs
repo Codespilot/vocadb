@@ -364,7 +364,7 @@ namespace VocaDb.Model.Service {
 					.Select(l => l.Artist)
 					.Distinct()
 					.ToArray()
-					.Select(a => new ArtistForApiContract(a, languagePreference, ArtistEditableFields.WebLinks))
+					.Select(a => new ArtistForApiContract(a, languagePreference, ArtistOptionalFields.WebLinks))
 					.ToArray();
 
 				return contracts;
