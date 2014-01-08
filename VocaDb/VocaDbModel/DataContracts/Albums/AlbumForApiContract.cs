@@ -31,6 +31,11 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Status = album.Status;
 			Version = album.Version;
 
+			if (languagePreference != ContentLanguagePreference.Default) {
+				AdditionalNames = album.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+				LocalizedName = album.Names.SortNames[languagePreference];				
+			}
+
 			if (artists)
 				Artists = album.Artists.Select(a => new ArtistForAlbumForApiContract(a, languagePreference)).ToArray();
 
@@ -50,6 +55,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 				MergedTo = mergeRecord.Target.Id;
 
 		}
+
+		[DataMember(EmitDefaultValue = false)]
+		public string AdditionalNames { get; set;}
 
 		[DataMember(EmitDefaultValue = false)]
 		public ArtistForAlbumForApiContract[] Artists { get; set; }
@@ -72,6 +80,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public string LocalizedName { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }

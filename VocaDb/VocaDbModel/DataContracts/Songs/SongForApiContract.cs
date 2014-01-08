@@ -33,6 +33,11 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Status = song.Status;
 			Version = song.Version;
 
+			if (languagePreference != ContentLanguagePreference.Default) {
+				AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+				LocalizedName = song.Names.SortNames[languagePreference];				
+			}
+
 			if (albums)
 				Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).ToArray();
 
@@ -60,6 +65,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		}
 
 		[DataMember(EmitDefaultValue = false)]
+		public string AdditionalNames { get; set;}
+
+		[DataMember(EmitDefaultValue = false)]
 		public AlbumContract[] Albums { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
@@ -83,6 +91,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int LengthSeconds { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public string LocalizedName { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
