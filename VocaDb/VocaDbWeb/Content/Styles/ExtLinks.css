@@ -9,6 +9,11 @@ a.extLink[href^="https://about.me/"] {
     background: url("/Content/ExtIcons/aboutme.png") no-repeat left 50%;
 }
 
+a.extLink[href^="http://www.toranoana.jp/"],
+a.extLink[href^="https://www.toranoana.jp/"] {
+    background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
+}
+
 a.extLink[href^="mailto:"] {
     background: url("/Content/Icons/email.png") no-repeat left 50%;
 }
@@ -134,10 +139,6 @@ a.extLink[href^="https://soundcloud.com/"],
 a.extLink[href^="http://www.soundcloud.com/"],
 a.extLink[href^="https://www.soundcloud.com/"] {
     background: url("/Content/Icons/soundcloud.png") no-repeat left 50%;
-}
-
-a.extLink[href^="http://www.toranoana.jp/"] {
-    background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
 }
 
 /* URLs are format user.tumblr.com */
