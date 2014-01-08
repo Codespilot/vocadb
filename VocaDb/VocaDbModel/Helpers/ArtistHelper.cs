@@ -211,6 +211,22 @@ namespace VocaDb.Model.Helpers {
 		}
 
 		/// <summary>
+		/// Gets a list of individual values from bitarray.
+		/// <see cref="ArtistTypes.Nothing"/> is skipped.
+		/// </summary>
+		/// <param name="flags">Bitarray of artist types.</param>
+		/// <returns>Individual artist types.</returns>
+		public static ArtistType[] GetArtistTypesFromFlags(ArtistTypes flags) {
+			
+			return EnumVal<ArtistTypes>
+				.GetIndividualValues(flags)
+				.Where(v => v != ArtistTypes.Nothing)
+				.Select(a => EnumVal<ArtistType>.Parse(a.ToString()))
+				.ToArray();
+
+		}
+
+		/// <summary>
 		/// Gets the main circle from a group of artists, or null if there is no main circle.
 		/// Here main circle is defined as the circle in which all the producers of the album belong to.
 		/// </summary>
