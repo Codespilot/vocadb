@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Web.Controllers.DataAccess;
@@ -51,7 +52,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Find artists.
 		/// </summary>
 		/// <param name="query">Artist name query (optional).</param>
-		/// <param name="artistTypes">Filtered artist type (optional). Note, only one type supported for now.</param>
+		/// <param name="artistTypes">Filtered artist type (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 10).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -64,14 +65,14 @@ namespace VocaDb.Web.Controllers.Api {
 		[Route("")]
 		public PartialFindResult<ArtistForApiContract> GetList(
 			string query = "", 
-			ArtistType artistTypes = ArtistType.Unknown,
+			ArtistTypes artistTypes = ArtistTypes.Nothing,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			ArtistSortRule sort = ArtistSortRule.Name,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
 			ArtistOptionalFields fields = ArtistOptionalFields.None,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
-			var types = artistTypes != ArtistType.Unknown ? new [] { artistTypes } : new ArtistType[0];
+			var types = ArtistHelper.GetArtistTypesFromFlags(artistTypes);
 
 			var param = new ArtistQueryParams(query, types, start, Math.Min(maxResults, defaultMax), false, getTotalCount, nameMatchMode, sort, false);
 
