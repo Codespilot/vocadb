@@ -10,6 +10,7 @@ using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -17,6 +18,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service;
 
 namespace VocaDb.Web.Areas.HelpPage
 {
@@ -65,6 +67,26 @@ namespace VocaDb.Web.Areas.HelpPage
 				new WebLinkContract("http://karent.jp/album/29", "KarenT", WebLinkCategory.Official)
 			}
 	    };
+
+		private static readonly ArtistForApiContract sampleArtist = new ArtistForApiContract {
+			Id = 10,
+			DefaultName = "Tripshots",
+			DefaultNameLanguage = ContentLanguageSelection.English,
+			CreateDate = new DateTime(2011, 1, 15),
+			Description = "A producer who is well-known for animating all his 3D PVs himself. Computer graphics artist by profession. His most well-known song/PV is Nebula.",
+			ArtistType = ArtistType.Producer,
+			Status = EntryStatus.Approved,
+			Version = 1,
+			Names = new [] {
+				new LocalizedStringContract("Tripshots", ContentLanguageSelection.English)				
+			},
+			Tags = new[] {
+				new TagUsageForApiContract { Name = "electronic", Count = 39 }
+			},
+			WebLinks = new[] {
+				new ArchivedWebLinkContract { Category = WebLinkCategory.Official, Url = "http://tripshots.net/", Description = "Official website" },
+			}
+		};
 
 		private static readonly SongForApiContract sampleSong = new SongForApiContract {
 			Id = 121,
@@ -141,6 +163,8 @@ namespace VocaDb.Web.Areas.HelpPage
             //});
             config.SetSampleObjects(new Dictionary<Type, object>
             {
+                {typeof(ArtistForApiContract), sampleArtist},
+                {typeof(PartialFindResult<ArtistForApiContract>), new PartialFindResult<ArtistForApiContract>(new [] { sampleArtist}, 1)},
                 {typeof(AlbumForApiContract), sampleAlbum},
                 {typeof(SongForApiContract), sampleSong},
 				{typeof(SongInAlbumContract[]), sampleSongsInAlbums},

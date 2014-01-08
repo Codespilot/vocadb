@@ -26,8 +26,10 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Status = artist.Status;
 			Version = artist.Version;
 
-			if (languagePreference != ContentLanguagePreference.Default)
-				LocalizedName = artist.Names.SortNames[languagePreference];
+			if (languagePreference != ContentLanguagePreference.Default) {
+				AdditionalNames = artist.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+				LocalizedName = artist.Names.SortNames[languagePreference];				
+			}
 
 			if (includedFields.HasFlag(ArtistOptionalFields.Description))
 				Description = artist.Description;
@@ -48,6 +50,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 				WebLinks = artist.WebLinks.Select(w => new ArchivedWebLinkContract(w)).ToArray();
 
 		}
+
+		[DataMember(EmitDefaultValue = false)]
+		public string AdditionalNames { get; set;}
 
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
