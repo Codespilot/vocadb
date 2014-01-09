@@ -70,7 +70,7 @@ function initPage(songId) {
 			createOptionSecondRow: function (item) { return item.ArtistString; },
 			createTitle: function (item) { return item.AdditionalNames; },
 			extraQueryParams: {
-				songTypes: "Unspecified,Original,Remaster,Remix,Cover,Mashup,Other"
+				songTypes: "Unspecified,Original,Remaster,Remix,Cover,Mashup,DramaPV,Other"
 			},
 			filter: function (item) { return item.Id != songId; },
 			height: 250
