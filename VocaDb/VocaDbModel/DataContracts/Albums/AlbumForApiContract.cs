@@ -18,6 +18,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumForApiContract(Album album, AlbumMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
 			bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
 
+			ArtistString = album.ArtistString[languagePreference];
 			CatalogNumber = album.OriginalRelease != null ? album.OriginalRelease.CatNum : null;
 			CreateDate = album.CreateDate;
 			DefaultName = album.DefaultName;
@@ -61,6 +62,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember(EmitDefaultValue = false)]
 		public ArtistForAlbumForApiContract[] Artists { get; set; }
+
+		[DataMember]
+		public string ArtistString { get; set; }
 
 		[DataMember]
 		public string CatalogNumber { get; set; }
