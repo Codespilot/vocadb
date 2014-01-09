@@ -21,6 +21,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongForApiContract(Song song, SongMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
 			bool albums = true, bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool thumbUrl = true, bool webLinks = false) {
 
+			ArtistString = song.ArtistString[languagePreference];
 			CreateDate = song.CreateDate;
 			DefaultName = song.DefaultName;
 			DefaultNameLanguage = song.Names.SortNames.DefaultLanguage;
@@ -72,6 +73,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember(EmitDefaultValue = false)]
 		public ArtistForSongContract[] Artists { get; set; }
+
+		[DataMember]
+		public string ArtistString { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }
