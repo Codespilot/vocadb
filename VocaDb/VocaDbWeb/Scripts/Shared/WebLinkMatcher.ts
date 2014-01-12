@@ -33,6 +33,7 @@ module vdb.utils {
             { url: "mikudb.com/", desc: "MikuDB", cat: c.WebLinkCategory.Reference },
             { url: "www5.atwiki.jp/hmiku/", desc: "MikuWiki", cat: c.WebLinkCategory.Reference },
             { url: "mora.jp/", desc: "mora", cat: c.WebLinkCategory.Commercial },
+			{ url: "www.muzie.ne.jp/", desc: "Muzie", cat: c.WebLinkCategory.Official },
             { url: "chokuhan.nicovideo.jp/", desc: "NicoNico Chokuhan", cat: c.WebLinkCategory.Commercial },
             { url: "dic.nicovideo.jp/", desc: "NicoNicoPedia", cat: c.WebLinkCategory.Reference },
             { url: "nicovideo.jp/user/", desc: "NND Account", cat: c.WebLinkCategory.Official },
