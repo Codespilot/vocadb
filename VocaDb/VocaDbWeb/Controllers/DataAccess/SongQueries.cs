@@ -27,6 +27,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	public class SongQueries : QueriesBase<ISongRepository, Song> {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
+		private readonly IUserMessageMailer mailer;
 		private readonly IPVParser pvParser;
 
 		private VideoUrlParseResult ParsePV(IRepositoryContext<PVForSong> ctx, string url) {
@@ -51,11 +52,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public SongQueries(ISongRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IPVParser pvParser)
+		public SongQueries(ISongRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IPVParser pvParser, IUserMessageMailer mailer)
 			: base(repository, permissionContext) {
 
 			this.entryLinkFactory = entryLinkFactory;
 			this.pvParser = pvParser;
+			this.mailer = mailer;
 
 		}
 
@@ -119,7 +121,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				ctx.AuditLogger.AuditLog(string.Format("created song {0} ({1})", entryLinkFactory.CreateEntryLink(song), song.SongType));
 				AddEntryEditedEntry(ctx.OfType<ActivityEntry>(), song, EntryEditEvent.Created);
 
-				new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), song, song.ArtistList, PermissionContext.LoggedUser, entryLinkFactory);
+				new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), song, song.ArtistList, PermissionContext.LoggedUser, entryLinkFactory, mailer);
 
 				return new SongContract(song, PermissionContext.LanguagePreference);
 
@@ -348,7 +350,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					var addedArtists = artistsDiff.Added.Where(a => a.Artist != null).Select(a => a.Artist).Distinct().ToArray();
 
 					if (addedArtists.Any()) {
-						new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), song, addedArtists, PermissionContext.LoggedUser, entryLinkFactory);											
+						new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), song, addedArtists, PermissionContext.LoggedUser, entryLinkFactory, mailer);											
 					}
 
 				}

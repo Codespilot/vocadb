@@ -5,11 +5,11 @@ using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service.Helpers {
 
-	public class UserMessageMailer {
+	public class UserMessageMailer : IUserMessageMailer {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
-		public bool SendEmail(string mySettingsUrl, string toEmail, string receiverName, string subject, string body) {
+		public bool SendEmail(string toEmail, string receiverName, string subject, string body) {
 
 			if (string.IsNullOrEmpty(toEmail))
 				return false;
@@ -31,9 +31,8 @@ namespace VocaDb.Model.Service.Helpers {
 					"Hi {0},\n\n" +
 					"{1}" +
 					"\n\n" +
-					"If you do not wish to receive more email notifications such as this, you can adjust your settings at {2}.\n\n" +
 					"- VocaDB mailer",
-				receiverName, body, mySettingsUrl);
+				receiverName, body);
 
 			var client = new SmtpClient();
 
@@ -42,6 +41,9 @@ namespace VocaDb.Model.Service.Helpers {
 			} catch (SmtpException x) {
 				log.ErrorException("Unable to send mail", x);
 				return false;
+			} catch (InvalidOperationException x) {
+				log.ErrorException("Unable to send mail", x);
+				return false;				
 			}
 
 			return true;
@@ -55,10 +57,12 @@ namespace VocaDb.Model.Service.Helpers {
 			var subject = string.Format("New private message from {0}", message.Sender.Name);
 			var body = string.Format(
 				"You have received a message from {0}. " +
-				"You can view your messages at {1}.", 
-				message.Sender.Name, messagesUrl);
+				"You can view your messages at {1}." +
+				"\n\n" +
+				"If you do not wish to receive more email notifications such as this, you can adjust your settings at {2}.", 
+				message.Sender.Name, messagesUrl, mySettingsUrl);
 
-			SendEmail(mySettingsUrl, message.Receiver.Email, message.Receiver.Name, subject, body);
+			SendEmail(message.Receiver.Email, message.Receiver.Name, subject, body);
 
 		}
 

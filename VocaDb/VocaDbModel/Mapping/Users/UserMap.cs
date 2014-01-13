@@ -115,6 +115,7 @@ namespace VocaDb.Model.Mapping.Users {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
+			Map(m => m.EmailNotifications).Not.Nullable();
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.User).Not.Nullable();
 

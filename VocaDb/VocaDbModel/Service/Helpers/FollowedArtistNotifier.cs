@@ -15,6 +15,39 @@ namespace VocaDb.Model.Service.Helpers {
 	/// </summary>
 	public class FollowedArtistNotifier {
 
+		private string CreateMessageBody(Artist[] followedArtists, User user, IEntryWithNames entry, IEntryLinkFactory entryLinkFactory, bool markdown) {
+			
+			var entryTypeName = entry.EntryType.ToString().ToLowerInvariant();
+			var entryName = entry.Names.SortNames[user.DefaultLanguageSelection];
+			var url = entryLinkFactory.GetFullEntryUrl(entry);
+
+			string entryLink;
+			if (markdown) {
+				entryLink = MarkdownHelper.CreateMarkdownLink(url, entryName);
+			} else {
+				entryLink = string.Format("{0} ( {1} )", entryName, url);
+			}
+
+			string msg;
+
+			if (followedArtists.Length == 1) {
+
+				var artistName = followedArtists.First().TranslatedName[user.DefaultLanguageSelection];
+				msg = string.Format("A new {0}, '{1}', by {2} was just added.",
+					entryTypeName, entryLink, artistName);
+
+			} else {
+
+				msg = string.Format("A new {0}, '{1}', by multiple artists you're following was just added.",
+					entryTypeName, entryLink);
+
+			}
+
+			msg += "\nYou're receiving this notification because you're following the artist(s).";
+			return msg;
+
+		}
+
 		/// <summary>
 		/// Sends notifications
 		/// </summary>
@@ -24,7 +57,8 @@ namespace VocaDb.Model.Service.Helpers {
 		/// <param name="creator">User who created the entry. The creator will be excluded from all notifications. Cannot be null.</param>
 		/// <param name="entryLinkFactory">Factory for creating links to entries. Cannot be null.</param>
 		public void SendNotifications(IRepositoryContext<UserMessage> ctx, IEntryWithNames entry, 
-			IEnumerable<Artist> artists, IUser creator, IEntryLinkFactory entryLinkFactory) {
+			IEnumerable<Artist> artists, IUser creator, IEntryLinkFactory entryLinkFactory,
+			IUserMessageMailer mailer) {
 
 			ParamIs.NotNull(() => ctx);
 			ParamIs.NotNull(() => entry);
@@ -34,9 +68,8 @@ namespace VocaDb.Model.Service.Helpers {
 
 			var coll = artists.ToArray();
 			var users = coll
-				.SelectMany(a => a.Users.Select(u => u.User))
+				.SelectMany(a => a.Users.Where(u => !u.User.Equals(creator)).Select(u => u.User))
 				.Distinct()
-				.Where(u => !u.Equals(creator))
 				.ToArray();
 
 			foreach (var user in users) {
@@ -48,35 +81,34 @@ namespace VocaDb.Model.Service.Helpers {
 
 				var followedArtists = coll.Where(a => a.Users.Any(u => u.User.Equals(user))).ToArray();
 
-				string title;
-				string msg;
+				if (followedArtists.Length == 0)
+					continue;
 
-				var entryLink = MarkdownHelper.CreateMarkdownLink(entryLinkFactory.GetFullEntryUrl(entry), entry.Names.SortNames[user.DefaultLanguageSelection]);
+				string title;
+
 				var entryTypeName = entry.EntryType.ToString().ToLowerInvariant();
+				var msg = CreateMessageBody(followedArtists, user, entry, entryLinkFactory, true);
 
 				if (followedArtists.Length == 1) {
 
 					var artistName = followedArtists.First().TranslatedName[user.DefaultLanguageSelection];
 					title = string.Format("New {0} by {1}", entryTypeName, artistName);
-					msg = string.Format("A new {0}, '{1}', by {2} was just added.",
-						entryTypeName, entryLink, artistName);
 
-				} else if (followedArtists.Length > 1) {
+				} else {
 
 					title = string.Format("New {0}", entryTypeName);
-					msg = string.Format("A new {0}, '{1}', by multiple artists you're following was just added.",
-						entryTypeName, entryLink);
-
- 				} else {
-
-					continue;
 
 				}
 
-				msg += "\nYou're receiving this notification because you're following the artist(s).";
-
 				var notification = new UserMessage(user, title, msg, false);
 				ctx.Save(notification);
+
+				if (user.EmailOptions != UserEmailOptions.NoEmail && !string.IsNullOrEmpty(user.Email) 
+					&& followedArtists.Any(a => a.Users.Any(u => u.User.Equals(user) && u.EmailNotifications))) {
+					
+					mailer.SendEmail(user.Email, user.Name, title, CreateMessageBody(followedArtists, user, entry, entryLinkFactory, false));
+
+				}
 
 			}
 

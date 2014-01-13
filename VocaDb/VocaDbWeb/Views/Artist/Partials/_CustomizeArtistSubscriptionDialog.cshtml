@@ -1,0 +1,17 @@
+﻿
+<div data-bind="
+		dialog: {
+			autoOpen: false, width: 400, height: 100,
+			position: { my: 'left top', at: 'left bottom', of: $('#customizeSubscription') }
+		},
+		dialogVisible: customizeSubscriptionDialog.dialogVisible"		
+	 title="Customize subscription">
+
+	<div data-bind="with: customizeSubscriptionDialog">
+		<label>
+			<input type="checkbox" data-bind="checked: emailNotifications" />
+			Notify me by email for new songs and albums.
+		</label>
+	</div>
+
+</div>

@@ -809,6 +809,13 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
+		public void UpdateArtistSubscription(int artistId, bool emailNotifications) {
+			
+			Data.UpdateArtistSubscriptionForCurrentUser(artistId, emailNotifications);
+
+		}
+
+		[AcceptVerbs(HttpVerbs.Post)]
 		public void DeleteAlbumForUser(int albumForUserId) {
 
 			Service.DeleteAlbumForUser(albumForUserId);

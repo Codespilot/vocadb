@@ -25,6 +25,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 	[TestClass]
 	public class SongQueriesTests {
 
+		private FakeUserMessageMailer mailer;
 		private CreateSongContract newSongContract;
 		private FakePermissionContext permissionContext;
 		private Artist producer;
@@ -72,7 +73,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			user = CreateEntry.User(id: 1, name: "Miku");
 			user.GroupId = UserGroupId.Trusted;
-			user2 = CreateEntry.User(id: 2, name: "Rin");
+			user2 = CreateEntry.User(id: 2, name: "Rin", email: "rin@vocadb.net");
 			repository.Add(user, user2);
 			repository.Add(producer, vocalist);
 
@@ -96,7 +97,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 				VideoUrlParseResult.CreateOk(url, PVService.NicoNicoDouga, "sm393939", 
 				VideoTitleParseResult.CreateSuccess("Resistance", "Tripshots", "testimg.jpg", 39));
 
-			queries = new SongQueries(repository, permissionContext, entryLinkFactory, pvParser);
+			mailer = new FakeUserMessageMailer();
+
+			queries = new SongQueries(repository, permissionContext, entryLinkFactory, pvParser, mailer);
 
 		}
 
@@ -161,6 +164,22 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			CallCreate();
 
 			Assert.IsFalse(repository.List<UserMessage>().Any(), "No notification was created");
+
+		}
+
+		[TestMethod]
+		public void Create_EmailNotification() {
+			
+			var subscription = user2.AddArtist(producer);
+			subscription.EmailNotifications = true;
+
+			CallCreate();
+
+			var notification = repository.List<UserMessage>().First();
+
+			Assert.AreEqual(notification.Subject, mailer.Subject, "Subject");
+			Assert.IsNotNull(mailer.Body, "Body");
+			Assert.AreEqual(notification.Receiver.Name, mailer.ReceiverName, "ReceiverName");
 
 		}
 

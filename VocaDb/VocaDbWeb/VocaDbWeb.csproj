@@ -1701,6 +1701,7 @@
     <TypeScriptCompile Include="Scripts\typings\qTip2\qtip.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistDetailsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
@@ -2219,6 +2220,7 @@
     <Content Include="Views\Album\RelatedAlbums.cshtml" />
     <Content Include="Views\Album\Partials\_DownloadTagsDialog.cshtml" />
     <Content Include="Views\Admin\Partials\_SFSCheckResponse.cshtml" />
+    <Content Include="Views\Artist\Partials\_CustomizeArtistSubscriptionDialog.cshtml" />
     <None Include="Views\Event\EditSeries.cshtml" />
     <Content Include="Views\Event\AliasForSeries.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
@@ -2773,7 +2775,9 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\CreateStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.fi.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>

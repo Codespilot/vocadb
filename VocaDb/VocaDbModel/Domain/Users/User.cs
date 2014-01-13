@@ -380,6 +380,11 @@ namespace VocaDb.Model.Domain.Users {
 
 		}
 
+		/// <summary>
+		/// Adds a artist subscription (followed artist) for this user.
+		/// </summary>
+		/// <param name="artist">Artist to be subscribed to. Cannot be null.</param>
+		/// <returns>The link object. Cannot be null.</returns>
 		public virtual ArtistForUser AddArtist(Artist artist) {
 
 			ParamIs.NotNull(() => artist);
