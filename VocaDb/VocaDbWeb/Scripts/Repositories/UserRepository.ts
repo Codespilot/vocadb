@@ -24,7 +24,14 @@ module vdb.repositories {
             var url = this.mapUrl("/MessagesJson");
             $.getJSON(url, { maxCount: maxCount, unread: unread, iconSize: iconSize }, callback);
 
-        };
+		};
+
+		// Updates artist subscription settings for an artist followed by a user.
+		public updateArtistSubscription = (artistId: number, emailNotifications: boolean) => {
+
+			$.post(this.mapUrl("/UpdateArtistSubscription"), { artistId: artistId, emailNotifications: emailNotifications });
+
+		};
 
         // Updates rating score for a song.
         // songId: Id of the song to be updated.

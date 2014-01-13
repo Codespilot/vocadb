@@ -6,7 +6,7 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security
 @using R = ViewRes.Artist;
-@model ArtistDetailsContract
+@inherits VocaDb.Web.Code.VocaDbPage<ArtistDetailsContract>
 
 @{
 	ViewBag.Title = Model.Name;
@@ -29,7 +29,10 @@
 
 @section Toolbar {
 <a href="#" id="addToUserLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsAdded ? "display: none;" : "")">@ViewRes.Artist.DetailsStrings.Follow</a>
-<a href="#" id="removeFromUserLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")" style="@(Model.IsAdded ? "" : "display: none;")">@ViewRes.Artist.DetailsStrings.Unfollow</a>
+<span style="@(Model.IsAdded ? "" : "display: none;")">
+	<a href="#" id="removeFromUserLink" class="@(Login.Manager.IsLoggedIn ? "" : "disabled")">@ViewRes.Artist.DetailsStrings.Unfollow</a>
+	<a data-bind="click: customizeSubscriptionDialog.show" href="#" id="customizeSubscription">@R.DetailsStrings.Customize</a>
+</span>
 
 @Html.ActionLink(@ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editArtistLink", @class = (Login.CanEdit(Model) ? "" : "disabled") })
 
@@ -246,15 +249,26 @@
 
 @EntryDetailsHelpers.ReportEntryPopup(Html.EnumDropDownList("reportType", Translate.ArtistReportTypeNames, new { id = "reportType" }))
 
+@if (Login.IsLoggedIn) {
+	Html.RenderPartial("Partials/_CustomizeArtistSubscriptionDialog");
+}
+
 @section BodyScripts {
 	<script type="text/javascript" src="@Url.Content("~/Scripts/Shared/DiscussionTab.js")"></script>
 	@Scripts.Render("~/bundles/Artist/Details")
 	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
 	<script type="text/javascript">
 
-        $(document).ready(function() { 
-            var urlMapper = new vdb.UrlMapper("@Url.Content("~/")");		    
+		$(document).ready(function() { 
+
+			var urlMapper = new vdb.UrlMapper("@Url.Content("~/")");		    
+
+			var userRepository = new vdb.repositories.UserRepository(urlMapper);
+			var viewModel = new vdb.viewModels.ArtistDetailsViewModel(@Model.Id, @ToJS(Model.EmailNotifications), userRepository);
+			ko.applyBindings(viewModel);
+
 			initPage(@Model.Id, "@ViewRes.SharedStrings.Save", urlMapper);
+
 		});
 
 	</script>

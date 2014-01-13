@@ -54,12 +54,21 @@ namespace VocaDb.Model.DataContracts.Artists {
 		[DataMember]
 		public bool Draft { get; set; }
 
+		/// <summary>
+		/// Logged in user has subscribed to email notifications.
+		/// </summary>
+		[DataMember]
+		public bool EmailNotifications { get; set; }
+
 		[DataMember]
 		public int FollowCount { get; set; }
 
 		[DataMember]
 		public GroupForArtistContract[] Groups { get; set; }
 
+		/// <summary>
+		/// Logged in user is following this artist.
+		/// </summary>
 		[DataMember]
 		public bool IsAdded { get; set; }
 

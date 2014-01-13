@@ -394,6 +394,27 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void UpdateArtistSubscriptionForCurrentUser(int artistId, bool emailNotifications) {
+			
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			var userId = PermissionContext.LoggedUserId;
+
+			repository.HandleTransaction(ctx => {
+				
+				var subscription = ctx.OfType<ArtistForUser>().Query().FirstOrDefault(u => u.User.Id == userId && u.Artist.Id == artistId);
+
+				// No subscription found. Shouldn't happen, but could also be handled so that a new subscription is added.
+				if (subscription == null)
+					return;
+
+				subscription.EmailNotifications = emailNotifications;
+				ctx.Update(subscription);
+
+			});
+
+		}
+
 		/// <summary>
 		/// Updates user's settings (from my settings page).
 		/// </summary>

@@ -572,6 +572,7 @@
     <Compile Include="Service\Exceptions\InvalidEmailFormatException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
     <Compile Include="Service\Helpers\FollowedArtistNotifier.cs" />
+    <Compile Include="Service\Helpers\IUserMessageMailer.cs" />
     <Compile Include="Service\Helpers\MarkdownHelper.cs" />
     <Compile Include="Service\Helpers\TagQueryableExtender.cs" />
     <Compile Include="Service\Helpers\UserCommentNotifier.cs" />

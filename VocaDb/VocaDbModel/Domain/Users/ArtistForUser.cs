@@ -5,6 +5,7 @@ namespace VocaDb.Model.Domain.Users {
 	/// <summary>
 	/// User following an artist.
 	/// </summary>
+	/// <remarks>For owned artists see <see cref="OwnedArtistForUser"/>.</remarks>
 	public class ArtistForUser {
 
 		private Artist artist;
@@ -26,6 +27,11 @@ namespace VocaDb.Model.Domain.Users {
 				artist = value;
 			}
 		}
+
+		/// <summary>
+		/// Send email notification to user for new songs/albums.
+		/// </summary>
+		public virtual bool EmailNotifications { get; set; }
 
 		public virtual User User {
 			get { return user; }
@@ -79,7 +85,7 @@ namespace VocaDb.Model.Domain.Users {
 		}
 
 		public override string ToString() {
-			return string.Format("{0} for {1}", Artist, User);
+			return string.Format("{0} following {1}", User, Artist);
 		}
 
 	}

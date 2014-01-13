@@ -33,6 +33,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IEntryThumbPersister imagePersister;
+		private readonly IUserMessageMailer mailer;
 
 		private void ArchiveSong(IRepositoryContext<Song> ctx, Song song, SongDiff diff, SongArchiveReason reason, string notes = "") {
 
@@ -69,11 +70,13 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			
 		}
 
-		public AlbumQueries(IAlbumRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryThumbPersister imagePersister)
+		public AlbumQueries(IAlbumRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, 
+			IEntryThumbPersister imagePersister, IUserMessageMailer mailer)
 			: base(repository, permissionContext) {
 
 			this.entryLinkFactory = entryLinkFactory;
 			this.imagePersister = imagePersister;
+			this.mailer = mailer;
 
 		}
 
@@ -123,7 +126,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				ctx.AuditLogger.AuditLog(string.Format("created album {0} ({1})", entryLinkFactory.CreateEntryLink(album), album.DiscType));
 				AddEntryEditedEntry(ctx.OfType<ActivityEntry>(), album, EntryEditEvent.Created);
 
-				new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), album, album.ArtistList, PermissionContext.LoggedUser, entryLinkFactory);
+				new FollowedArtistNotifier().SendNotifications(ctx.OfType<UserMessage>(), album, album.ArtistList, PermissionContext.LoggedUser, 
+					entryLinkFactory, mailer);
 
 				return new AlbumContract(album, PermissionContext.LanguagePreference);
 

@@ -262,8 +262,14 @@ namespace VocaDb.Model.Service {
 				var contract = new ArtistDetailsContract(artist, LanguagePreference);
 
 				if (PermissionContext.LoggedUser != null) {
-					contract.IsAdded = session.Query<ArtistForUser>()
-						.Any(s => s.Artist.Id == id && s.User.Id == PermissionContext.LoggedUser.Id);
+
+					var subscription = session.Query<ArtistForUser>().FirstOrDefault(s => s.Artist.Id == id && s.User.Id == PermissionContext.LoggedUser.Id);
+
+					if (subscription != null) {
+						contract.IsAdded = true;
+						contract.EmailNotifications = subscription.EmailNotifications;
+					}
+
 				}
 
 				contract.CommentCount = session.Query<ArtistComment>().Count(c => c.Artist.Id == id);

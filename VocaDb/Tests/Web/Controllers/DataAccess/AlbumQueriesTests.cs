@@ -15,6 +15,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Tests.TestData;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Code;
@@ -30,6 +31,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		private Album album;
 		private InMemoryImagePersister imagePersister;
+		private FakeUserMessageMailer mailer;
 		private CreateAlbumContract newAlbumContract;
 		private FakePermissionContext permissionContext;
 		private Artist producer;
@@ -86,7 +88,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			};
 
 			imagePersister = new InMemoryImagePersister();
-			queries = new AlbumQueries(repository, permissionContext, entryLinkFactory, imagePersister);
+			mailer = new FakeUserMessageMailer();
+			queries = new AlbumQueries(repository, permissionContext, entryLinkFactory, imagePersister, mailer);
 
 		}
 

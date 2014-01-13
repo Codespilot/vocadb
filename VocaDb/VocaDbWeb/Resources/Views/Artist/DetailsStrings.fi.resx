@@ -135,6 +135,9 @@
   <data name="CollaborationAlbums" xml:space="preserve">
     <value>Kokoelmat ja muut</value>
   </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Muokkaa</value>
+  </data>
   <data name="Follow" xml:space="preserve">
     <value>Seuraa</value>
   </data>

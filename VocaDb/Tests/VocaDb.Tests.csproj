@@ -130,6 +130,7 @@
     <Compile Include="TestSupport\FakePVParser.cs" />
     <Compile Include="TestSupport\FakeSongRepository.cs" />
     <Compile Include="TestSupport\FakeUserIconFactory.cs" />
+    <Compile Include="TestSupport\FakeUserMessageMailer.cs" />
     <Compile Include="TestSupport\InMemoryImagePersister.cs" />
     <Compile Include="TestSupport\TestContainerFactory.cs" />
     <Compile Include="TestSupport\VocaDbAssert.cs" />

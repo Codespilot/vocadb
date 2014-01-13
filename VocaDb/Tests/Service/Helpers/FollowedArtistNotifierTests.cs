@@ -19,6 +19,7 @@ namespace VocaDb.Tests.Service.Helpers {
 		private Album album;
 		private User creator;
 		private FakeEntryLinkFactory entryLinkFactory;
+		private FakeUserMessageMailer mailer;
 		private Artist producer;
 		private FakeRepository<UserMessage> repository;  
 		private User user;
@@ -27,7 +28,7 @@ namespace VocaDb.Tests.Service.Helpers {
 		private void CallSendNotifications(IUser creator) {
 
 			repository.HandleTransaction(ctx => {
-				new FollowedArtistNotifier().SendNotifications(ctx, album, new[] { producer, vocalist }, creator, entryLinkFactory);
+				new FollowedArtistNotifier().SendNotifications(ctx, album, new[] { producer, vocalist }, creator, entryLinkFactory, mailer);
 			});
 
 		}
@@ -43,6 +44,7 @@ namespace VocaDb.Tests.Service.Helpers {
 			user.AddArtist(producer);
 			creator = new User("Rin", "123", string.Empty, 0) { Id = 2 };
 			repository = new FakeRepository<UserMessage>();
+			mailer = new FakeUserMessageMailer();
 
 		}
 
