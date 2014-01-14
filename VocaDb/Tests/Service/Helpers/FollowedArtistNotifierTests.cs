@@ -63,6 +63,20 @@ namespace VocaDb.Tests.Service.Helpers {
 		}
 
 		[TestMethod]
+		public void SendNotifications_Email() {
+			
+			user.Email = "miku@vocadb.net";
+			user.AllArtists.First().EmailNotifications = true;
+
+			CallSendNotifications(creator);
+
+			Assert.IsNotNull(mailer.Body, "Body");
+			Assert.AreEqual(user.Name, mailer.ReceiverName, "ReceiverName");
+			Assert.AreEqual("New album by Tripshots", mailer.Subject, "Subject");
+
+		}
+
+		[TestMethod]
 		public void SendNotifications_SameUser() {
 
 			CallSendNotifications(user);
