@@ -77,7 +77,7 @@ function initPage(artistId, saveStr, urlMapper) {
 
 		$.post(urlMapper.mapRelative("/User/AddArtistForUser"), { artistId: artistId }, function (result) {
 
-			$("#removeFromUserLink").show();
+			$("#removeFromUserSplitBtn").show();
 			$("#addToUserLink").hide();
 
 		});
@@ -91,7 +91,7 @@ function initPage(artistId, saveStr, urlMapper) {
 		$.post(urlMapper.mapRelative("/User/RemoveArtistFromUser"), { artistId: artistId }, function (result) {
 
 			$("#addToUserLink").show();
-			$("#removeFromUserLink").hide();
+			$("#removeFromUserSplitBtn").hide();
 
 		});
 
