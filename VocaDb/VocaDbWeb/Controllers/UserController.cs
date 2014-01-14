@@ -224,6 +224,7 @@ namespace VocaDb.Web.Controllers
 		/// Finds usernames by part of name.
 		/// </summary>
 		/// <param name="term">Query term.</param>
+		/// <param name="startsWith">Whether to search from the beginning of the name. If false, will be searched anywhere in the name (contains).</param>
 		/// <returns>List of usernames.</returns>
 		public JsonResult FindByName(string term, bool startsWith = false) {
 

@@ -8,7 +8,7 @@ namespace VocaDb.Web.Models.User {
 		[Required]
 		[Display(Name = "New password")]
 		[DataType(DataType.Password)]
-		[System.Web.Mvc.Compare("NewPassAgain", ErrorMessage = "Passwords must match")]
+		[Compare("NewPassAgain", ErrorMessage = "Passwords must match")]
 		[StringLength(100, MinimumLength = 5)]
 		public string NewPass { get; set; }
 
