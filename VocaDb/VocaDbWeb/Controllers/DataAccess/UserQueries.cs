@@ -411,6 +411,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				subscription.EmailNotifications = emailNotifications;
 				ctx.Update(subscription);
 
+				ctx.AuditLogger.SysLog(string.Format("updated artist subscription for {0}.", subscription.Artist));
+
 			});
 
 		}
