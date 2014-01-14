@@ -11,7 +11,8 @@ namespace VocaDb.Web.Models.Home {
 		public SearchEntries() { }
 
 		public SearchEntries(string filter,
-			PartialFindResult<AlbumWithAdditionalNamesContract> albums, PartialFindResult<ArtistWithAdditionalNamesContract> artists,
+			PartialFindResult<AlbumContract> albums, 
+			PartialFindResult<ArtistContract> artists,
 			PartialFindResult<SongWithAlbumContract> songs,
 			PartialFindResult<TagContract> tags) {
 
@@ -23,9 +24,9 @@ namespace VocaDb.Web.Models.Home {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> Albums { get; set; }
+		public PartialFindResult<AlbumContract> Albums { get; set; }
 
-		public PartialFindResult<ArtistWithAdditionalNamesContract> Artists { get; set; }
+		public PartialFindResult<ArtistContract> Artists { get; set; }
 
 		public string Filter { get; set; }
 

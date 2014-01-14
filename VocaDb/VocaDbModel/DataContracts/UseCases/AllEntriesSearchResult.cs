@@ -12,15 +12,15 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public AllEntriesSearchResult()
 			: this(string.Empty,
-			new PartialFindResult<AlbumWithAdditionalNamesContract>(), 
-			new PartialFindResult<ArtistWithAdditionalNamesContract>(),
+			new PartialFindResult<AlbumContract>(), 
+			new PartialFindResult<ArtistContract>(),
 			new PartialFindResult<SongWithAlbumContract>(),
 			new PartialFindResult<TagContract>()) { 
 		}
 
 		public AllEntriesSearchResult(string query, 
-			PartialFindResult<AlbumWithAdditionalNamesContract> albums, 
-			PartialFindResult<ArtistWithAdditionalNamesContract> artists,
+			PartialFindResult<AlbumContract> albums, 
+			PartialFindResult<ArtistContract> artists,
 			PartialFindResult<SongWithAlbumContract> songs,
 			PartialFindResult<TagContract> tags) {
 
@@ -33,10 +33,10 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		}
 
 		[DataMember]
-		public PartialFindResult<AlbumWithAdditionalNamesContract> Albums { get; set; }
+		public PartialFindResult<AlbumContract> Albums { get; set; }
 
 		[DataMember]
-		public PartialFindResult<ArtistWithAdditionalNamesContract> Artists { get; set; }
+		public PartialFindResult<ArtistContract> Artists { get; set; }
 
 		[DataMember]
 		public PartialFindResult<SongWithAlbumContract> Songs { get; set; }

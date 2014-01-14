@@ -12,6 +12,7 @@ namespace VocaDb.Web.Code {
 		/// <summary>
 		/// Initializes entry anchor factory.
 		/// </summary>
+		/// <param name="hostAddress">Application host address, for example http://vocadb.net/ </param>
 		/// <param name="baseUrl">
 		/// Base URL to the website. This will be added before the relative URL. Cannot be null. Can be empty.
 		/// </param>

@@ -348,11 +348,11 @@ namespace VocaDb.Model.Service {
 					.Count()
 					: 0);
 
-				var artistResult = new PartialFindResult<ArtistWithAdditionalNamesContract>(
-					artists.Select(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), artistCount);
+				var artistResult = new PartialFindResult<ArtistContract>(
+					artists.Select(a => new ArtistContract(a, PermissionContext.LanguagePreference)).ToArray(), artistCount);
 
-				var albumResult = new PartialFindResult<AlbumWithAdditionalNamesContract>(
-					albums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(), albumCount);
+				var albumResult = new PartialFindResult<AlbumContract>(
+					albums.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference)).ToArray(), albumCount);
 
 				var songResult = new PartialFindResult<SongWithAlbumContract>(
 					songs.Select(a => new SongWithAlbumContract(a, PermissionContext.LanguagePreference)).ToArray(), songCount);
