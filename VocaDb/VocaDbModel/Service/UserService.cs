@@ -90,44 +90,13 @@ namespace VocaDb.Model.Service {
 				+ session.Query<ArtistComment>().Count(c => c.Author.Id == user.Id)
 				+ session.Query<SongComment>().Count(c => c.Author.Id == user.Id);
 
-			/*var favoriteTagsNames = session.Query<SongTagUsage>()
-				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
-				.GroupBy(t => new { Name = t.Tag.Name, ThumbMime = t.Tag.Thumb.Mime })
-				.OrderByDescending(t => t.Count())
-				.Select(t => new { Name = t.Key.Name, ThumbMime = t.Key.ThumbMime, Count = t.Count() })
-				.Take(6)
-				.ToArray();
-
-			details.FavoriteTags = session.Query<Tag>()
-				.Where(t => favoriteTagsNames.Contains(t.Name))
-				.ToArray()
-				.Select(t => new TagWithImageContract(t))
-				.ToArray();*/
-
 			details.FavoriteTags = session.Query<SongTagUsage>()
 				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id) && c.Tag.CategoryName != "Lyrics" && c.Tag.CategoryName != "Distribution")
 				.GroupBy(t => t.Tag.Name)
 				.OrderByDescending(t => t.Count())
 				.Select(t => t.Key)
-				.ToArray() // Need NH 3.3.3 to do the limiting on server side
 				.Take(8)
 				.ToArray();
-
-			/*details.FavoriteTags = session.Query<Tag>()
-				.Where(t => favoriteTagsNames.Contains(t.Name))
-				.ToArray()
-				.Select(t => new TagWithImageContract(t))
-				.ToArray();*/
-
-			/*details.FavoriteTags = session.Query<SongTagUsage>()
-				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id))
-				.GroupBy(t => t.Tag)
-				.OrderByDescending(t => t.Count())
-				.Select(t => t.Key)
-				.ToArray()
-				.Take(6)
-				.Select(t => new TagWithImageContract(t))
-				.ToArray();*/
 
 			details.FollowedArtists = session.Query<ArtistForUser>()
 				.Where(c => c.User.Id == user.Id && !c.Artist.Deleted)
