@@ -100,7 +100,7 @@
     </Reference>
     <Reference Include="NHibernate.Caches.SysCache2, Version=3.1.0.4000, Culture=neutral, PublicKeyToken=6876f2ea66c9f443, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\NHibernate.Caches.SysCache2.dll</HintPath>
+      <HintPath>..\packages\NHibernate.Caches.SysCache2.3.2.0.4000\lib\Net35\NHibernate.Caches.SysCache2.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>

@@ -109,11 +109,11 @@
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <dependentAssembly>
         <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
-        <bindingRedirect oldVersion="1.0.0.0-2.0.0.0" newVersion="3.0.0.0" />
+        <bindingRedirect oldVersion="1.0.0.0-5.0.0.0" newVersion="5.0.0.0" />
       </dependentAssembly>
 			<dependentAssembly>
 				<assemblyIdentity name="NHibernate" publicKeyToken="aa95f207798dfdb4" culture="neutral" />
-				<bindingRedirect oldVersion="3.1.0.4000" newVersion="3.2.0.4000" />
+				<bindingRedirect oldVersion="3.3.3.4001" newVersion="3.3.3.4001" />
 			</dependentAssembly>
 		<dependentAssembly>
 			<assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" culture="neutral" />
