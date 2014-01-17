@@ -16,6 +16,7 @@ namespace VocaDb.Model.DataContracts.Tags {
 			CategoryName = tag.CategoryName;
 			Description = tag.Description;
 			Name = tag.Name;
+			ThumbMime = tag.Thumb != null ? tag.Thumb.Mime : null;
 
 		}
 
@@ -30,6 +31,9 @@ namespace VocaDb.Model.DataContracts.Tags {
 
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public string ThumbMime { get; set; }
 
 	}
 
