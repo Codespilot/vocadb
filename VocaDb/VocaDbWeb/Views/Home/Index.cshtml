@@ -41,6 +41,8 @@
 </div>
 }
 
+<br />
+
 <h4 class="withMargin">@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h4>
 <div id="newAlbums">
     @AlbumHelpers.AlbumThumbs(Model.NewAlbums)    

@@ -130,7 +130,8 @@
 	
 		<table class="table table-bordered">
 			@ArchivedEntryHelpers.DataRow("Album Id", comparedAlbums.FirstData.Id)
-			@ArchivedEntryHelpers.PictureRow("Cover", comparedAlbums, id => Url.Action("ArchivedVersionCoverPicture", "Album", new { id }))
+			@ArchivedEntryHelpers.PictureRow("Main picture", comparedAlbums, id => Url.Action("ArchivedVersionCoverPicture", "Album", new { id }))
+			@ArchivedEntryHelpers.DataRow("Main picture MIME", comparedAlbums, d => d.MainPictureMime)
 			@ArchivedEntryHelpers.TranslatedNameRow(comparedAlbums, d => d.TranslatedName)
 			@ArchivedEntryHelpers.DataRowList("Names", comparedAlbums, d => DataFormatUtils.GenerateHtmlFromHelper(d.Names, ArchivedEntryHelpers.NameInfo))
 			@ArchivedEntryHelpers.DataRow("Description", comparedAlbums, d => d.Description)

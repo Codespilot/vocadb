@@ -59,6 +59,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			data.DiscType = thisVersion.DiscType;
 			data.Id = thisVersion.Id;
+			data.MainPictureMime = thisVersion.MainPictureMime;
 			data.TranslatedName = thisVersion.TranslatedName;
 
 			DoIfExists(version, AlbumEditableFields.Artists, xmlCache, (v, doc) => SetArtists(data, v, doc));
@@ -85,6 +86,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Description = (diff.IncludeDescription ? album.Description : null);
 			DiscType = album.DiscType;
 			Id = album.Id;
+			MainPictureMime = album.CoverPictureData != null ? album.CoverPictureData.Mime : null;
 			OriginalRelease = (album.OriginalRelease != null && !album.OriginalRelease.IsEmpty ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
 			Pictures = (diff.IncludePictures ? album.Pictures.Select(p => new ArchivedEntryPictureFileContract(p)).ToArray() : null);
 			PVs = (diff.IncludePVs ? album.PVs.Select(p => new ArchivedPVContract(p)).ToArray() : null);
@@ -106,6 +108,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public string MainPictureMime { get; set; }
 
 		[DataMember]
 		public LocalizedStringContract[] Names { get; set; }
