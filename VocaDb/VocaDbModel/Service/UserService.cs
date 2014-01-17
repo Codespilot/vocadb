@@ -377,6 +377,11 @@ namespace VocaDb.Model.Service {
 
 		public UserContract[] FindUsersByName(string term, bool startsWith = false) {
 
+			if (string.IsNullOrEmpty(term))
+				return new UserContract[0];
+
+			term = FindHelpers.CleanTerm(term.Trim());
+
 			return HandleQuery(session => {
 
 				User[] users;
