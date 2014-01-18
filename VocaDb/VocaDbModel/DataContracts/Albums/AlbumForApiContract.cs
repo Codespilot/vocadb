@@ -16,6 +16,16 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public AlbumForApiContract() { }
 
 		public AlbumForApiContract(Album album, AlbumMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
+			AlbumOptionalFields fields) : this(album, mergeRecord, languagePreference, 
+				fields.HasFlag(AlbumOptionalFields.Artists), 
+				fields.HasFlag(AlbumOptionalFields.Names), 
+				fields.HasFlag(AlbumOptionalFields.PVs), 
+				fields.HasFlag(AlbumOptionalFields.Tags), 
+				fields.HasFlag(AlbumOptionalFields.WebLinks)) {
+
+		}
+
+		public AlbumForApiContract(Album album, AlbumMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
 			bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
 
 			ArtistString = album.ArtistString[languagePreference];
@@ -120,6 +130,18 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember(EmitDefaultValue = false)]
 		public WebLinkContract[] WebLinks { get; set; }
+
+	}
+
+	[Flags]
+	public enum AlbumOptionalFields {
+
+		None = 0,
+		Artists = 1,
+		Names = 2,
+		PVs = 4,
+		Tags = 8,
+		WebLinks = 16
 
 	}
 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Web.Http;
-using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Web.Controllers.Api {
 
@@ -14,6 +15,8 @@ namespace VocaDb.Web.Controllers.Api {
 	[RoutePrefix("api/songs")]
 	public class SongApiController : ApiController {
 
+		private const int absoluteMax = 30;
+		private const int defaultMax = 10;
 		private readonly SongService service;
 
 		/// <summary>
@@ -28,77 +31,87 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Gets a song by Id.
 		/// </summary>
 		/// <param name="id">Song Id (required).</param>
-		/// <param name="fields">Optional fields (optional). Possible values are albums, artists, names, pvs, tags, thumbUrl, webLinks.</param>
+		/// <param name="fields">
+		/// List of optional fields (optional). 
+		/// Possible values are Albums, Artists, Names, PVs, Tags, ThumbUrl, WebLinks.
+		/// </param>
 		/// <param name="lang">Content language preference (optional).</param>
 		/// <example>http://vocadb.net/api/songs/121</example>
 		/// <returns>Song data.</returns>
 		[Route("{id:int}")]
 		public SongForApiContract GetById(int id, SongOptionalFields fields = SongOptionalFields.None, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
-			var song = service.GetSongWithMergeRecord(id, (s, m) => new SongForApiContract(s, m, lang, 
-					fields.HasFlag(SongOptionalFields.Albums),
-					fields.HasFlag(SongOptionalFields.Artists), 
-					fields.HasFlag(SongOptionalFields.Names), 
-					fields.HasFlag(SongOptionalFields.PVs),
-					fields.HasFlag(SongOptionalFields.Tags), 
-					fields.HasFlag(SongOptionalFields.ThumbUrl),
-					fields.HasFlag(SongOptionalFields.WebLinks)));
+			var song = service.GetSongWithMergeRecord(id, (s, m) => new SongForApiContract(s, m, lang, fields));
 
 			return song;
 
 		}
 
+		/// <summary>
+		/// Find songs.
+		/// </summary>
+		/// <param name="query">Song name query (optional).</param>
+		/// <param name="songTypes">
+		/// Filtered song types (optional). 
+		/// Possible values are Original, Remaster, Remix, Cover, Instrumental, Mashup, MusicPV, DramaPV, Other.
+		/// Note: only one value supported at the moment.
+		/// </param>
+		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
+		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
+		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
+		/// <param name="sort">Sort rule (optional, defaults to Name). Possible values are None, Name, AdditionDate, FavoritedTimes, RatingScore.</param>
+		/// <param name="nameMatchMode">Match mode for song name (optional, defaults to Exact).</param>
+		/// <param name="fields">
+		/// List of optional fields (optional). Possible values are Albums, Artists, Names, PVs, Tags, ThumbUrl, WebLinks.
+		/// </param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <returns>Page of songs.</returns>
+		/// <example>http://vocadb.net/api/songs?query=Nebula&amp;songTypes=Original</example>
 		[Route("")]
-		[ApiExplorerSettings(IgnoreApi=true)]
-		public PartialFindResult<SongForApiContract> GetByName(string query, SongOptionalFields fields = SongOptionalFields.None, 
+		public PartialFindResult<SongForApiContract> GetList(
+			string query = "", 
+			SongType songTypes = SongType.Unspecified,
+			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
+			SongSortRule sort = SongSortRule.Name,
+			NameMatchMode nameMatchMode = NameMatchMode.Exact,
+			SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
-			return new PartialFindResult<SongForApiContract>(new SongForApiContract[0], 0);
+			var types = songTypes != SongType.Unspecified ? new[] { songTypes } : new SongType[0];
+
+			var param = new SongQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false, false, null);
+
+			var artists = service.Find(s => new SongForApiContract(s, null, lang, fields), param);
+
+			return artists;			
 
 		}
 
 		/// <summary>
 		/// Gets a song by PV.
 		/// </summary>
-		/// <param name="pvService">PV service (required).</param>
-		/// <param name="pvId">PV Id (required).</param>
-		/// <param name="fields">Optional fields (optional).</param>
+		/// <param name="pvService">
+		/// PV service (required). Possible values are NicoNicoDouga, Youtube, SoundCloud, Vimeo, Piapro, Bilibili.
+		/// </param>
+		/// <param name="pvId">PV Id (required). For example sm123456.</param>
+		/// <param name="fields">
+		/// List of optional fields (optional). Possible values are Albums, Artists, Names, PVs, Tags, ThumbUrl, WebLinks.
+		/// </param>
 		/// <param name="lang">Content language preference (optional).</param>
 		/// <returns>Song data.</returns>
 		/// <example>http://vocadb.net/api/songs?pvId=sm19923781&amp;pvService=NicoNicoDouga</example>
 		[Route("")]
-		public SongForApiContract GetByPV(PVService pvService, string pvId, SongOptionalFields fields = SongOptionalFields.None, 
+		public SongForApiContract GetByPV(
+			PVService pvService, 
+			string pvId, 
+			SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
-			var song = service.GetSongWithPV(s => 
-				new SongForApiContract(s, null, lang, 
-					fields.HasFlag(SongOptionalFields.Albums),
-					fields.HasFlag(SongOptionalFields.Artists), 
-					fields.HasFlag(SongOptionalFields.Names), 
-					fields.HasFlag(SongOptionalFields.PVs),
-					fields.HasFlag(SongOptionalFields.Tags), 
-					fields.HasFlag(SongOptionalFields.ThumbUrl),
-					fields.HasFlag(SongOptionalFields.WebLinks)), 
-				pvService, pvId);
+			var song = service.GetSongWithPV(s => new SongForApiContract(s, null, lang, fields), pvService, pvId);
 
 			return song;
-			//return new PartialFindResult<SongForApiContract>(new [] { song }, 1);
 
 		}
-
-	}
-
-	[Flags]
-	public enum SongOptionalFields {
-
-		None = 0,
-		Albums = 1,
-		Artists = 2,
-		Names = 4,
-		PVs = 8,
-		Tags = 16,
-		ThumbUrl = 32,
-		WebLinks = 64
 
 	}
 
