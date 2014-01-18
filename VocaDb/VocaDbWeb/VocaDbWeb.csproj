@@ -654,6 +654,7 @@
     <Compile Include="Controllers\Api\AlbumApiController.cs" />
     <Compile Include="Controllers\Api\ApiRootController.cs" />
     <Compile Include="Controllers\Api\ArtistApiController.cs" />
+    <Compile Include="Controllers\Api\MikuApiController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
