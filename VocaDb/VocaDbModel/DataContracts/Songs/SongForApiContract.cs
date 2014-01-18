@@ -18,6 +18,53 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public SongForApiContract() { }
 
+		public SongForApiContract(Song song, SongMergeRecord mergeRecord, ContentLanguagePreference languagePreference, SongOptionalFields fields) {
+			
+			ArtistString = song.ArtistString[languagePreference];
+			CreateDate = song.CreateDate;
+			DefaultName = song.DefaultName;
+			DefaultNameLanguage = song.Names.SortNames.DefaultLanguage;
+			FavoritedTimes = song.FavoritedTimes;
+			Id = song.Id;
+			LengthSeconds = song.LengthSeconds;
+			PVServices = song.PVServices;
+			RatingScore = song.RatingScore;
+			SongType = song.SongType;
+			Status = song.Status;
+			Version = song.Version;
+
+			if (languagePreference != ContentLanguagePreference.Default) {
+				AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+				LocalizedName = song.Names.SortNames[languagePreference];				
+			}
+
+			if (fields.HasFlag(SongOptionalFields.Albums))
+				Albums = song.Albums.Select(a => new AlbumContract(a.Album, languagePreference)).ToArray();
+
+			if (fields.HasFlag(SongOptionalFields.Artists))
+				Artists = song.Artists.Select(a => new ArtistForSongContract(a, languagePreference)).ToArray();
+
+			if (fields.HasFlag(SongOptionalFields.Names))
+				Names = song.Names.Select(n => new LocalizedStringContract(n)).ToArray();
+
+			if (fields.HasFlag(SongOptionalFields.PVs))
+				PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
+
+			if (fields.HasFlag(SongOptionalFields.Tags))
+				Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
+
+			if (fields.HasFlag(SongOptionalFields.ThumbUrl))
+				ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
+
+			if (fields.HasFlag(SongOptionalFields.WebLinks))
+				WebLinks = song.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
+
+			if (mergeRecord != null)
+				MergedTo = mergeRecord.Target.Id;
+
+
+		}
+
 		public SongForApiContract(Song song, SongMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
 			bool albums = true, bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool thumbUrl = true, bool webLinks = false) {
 
@@ -136,4 +183,19 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public WebLinkContract[] WebLinks { get; set; }
 
 	}
+
+	[Flags]
+	public enum SongOptionalFields {
+
+		None = 0,
+		Albums = 1,
+		Artists = 2,
+		Names = 4,
+		PVs = 8,
+		Tags = 16,
+		ThumbUrl = 32,
+		WebLinks = 64
+
+	}
+
 }

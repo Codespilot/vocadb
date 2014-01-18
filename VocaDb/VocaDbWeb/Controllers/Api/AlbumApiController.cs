@@ -33,20 +33,16 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Gets an album by Id.
 		/// </summary>
 		/// <param name="id">Album Id (required).</param>
-		/// <param name="fields">Optional fields (optional). Possible values are artists, names, pvs, tags, webLinks.</param>
+		/// <param name="fields">
+		/// Optional fields (optional). Possible values are artists, names, pvs, tags, webLinks.
+		/// </param>
 		/// <param name="lang">Content language preference (optional).</param>
 		/// <example>http://vocadb.net/api/albums/1</example>
 		/// <returns>Album data.</returns>
 		[Route("{id:int}")]
 		public AlbumForApiContract GetOne(int id, AlbumOptionalFields fields = AlbumOptionalFields.None, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
-			var album = service.GetAlbumWithMergeRecord(id, (a, m) => 
-				new AlbumForApiContract(a, m, lang, 
-					fields.HasFlag(AlbumOptionalFields.Artists), 
-					fields.HasFlag(AlbumOptionalFields.Names), 
-					fields.HasFlag(AlbumOptionalFields.PVs), 
-					fields.HasFlag(AlbumOptionalFields.Tags), 
-					fields.HasFlag(AlbumOptionalFields.WebLinks)));
+			var album = service.GetAlbumWithMergeRecord(id, (a, m) => new AlbumForApiContract(a, m, lang, fields));
 
 			return album;
 
@@ -56,13 +52,20 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Gets a page of albums.
 		/// </summary>
 		/// <param name="query">Album name query (optional).</param>
-		/// <param name="discTypes">Disc type. By default nothing. Possible values are Album, Single, EP, SplitAlbum, Compilation, Video, Other. Note: only one type supported for now.</param>
+		/// <param name="discTypes">
+		/// Disc type. By default nothing. Possible values are Album, Single, EP, SplitAlbum, Compilation, Video, Other. Note: only one type supported for now.
+		/// </param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
-		/// <param name="sort">Sort rule (optional, defaults to Name). Possible values are None, Name, ReleaseDate, ReleaseDateWithNulls, AdditionDate, RatingAverage, RatingTotal, NameThenReleaseDate.</param>
+		/// <param name="sort">
+		/// Sort rule (optional, defaults to Name). 
+		/// Possible values are None, Name, ReleaseDate, ReleaseDateWithNulls, AdditionDate, RatingAverage, RatingTotal, NameThenReleaseDate.
+		/// </param>
 		/// <param name="nameMatchMode">Match mode for artist name (optional, defaults to Exact).</param>
-		/// <param name="fields">Optional fields (optional). Possible values are artists, names, pvs, tags, webLinks.</param>
+		/// <param name="fields">
+		/// Optional fields (optional). Possible values are artists, names, pvs, tags, webLinks.
+		/// </param>
 		/// <param name="lang">Content language preference (optional).</param>
 		/// <returns>Page of albums.</returns>
 		/// <example>http://vocadb.net/api/albums?query=Synthesis&amp;discTypes=Album</example>
@@ -80,14 +83,7 @@ namespace VocaDb.Web.Controllers.Api {
 
 			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort);
 
-			var entries = service.Find(a => 
-				new AlbumForApiContract(a, null, lang, 
-					fields.HasFlag(AlbumOptionalFields.Artists), 
-					fields.HasFlag(AlbumOptionalFields.Names), 
-					fields.HasFlag(AlbumOptionalFields.PVs), 
-					fields.HasFlag(AlbumOptionalFields.Tags), 
-					fields.HasFlag(AlbumOptionalFields.WebLinks)), 
-				queryParams);
+			var entries = service.Find(a => new AlbumForApiContract(a, null, lang, fields), queryParams);
 			
 			return entries;
 
@@ -129,18 +125,6 @@ namespace VocaDb.Web.Controllers.Api {
 			return versions;
 
 		}
-
-	}
-
-	[Flags]
-	public enum AlbumOptionalFields {
-
-		None = 0,
-		Artists = 1,
-		Names = 2,
-		PVs = 4,
-		Tags = 8,
-		WebLinks = 16
 
 	}
 
