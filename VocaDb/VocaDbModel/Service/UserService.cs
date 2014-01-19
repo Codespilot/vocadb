@@ -375,7 +375,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract[] FindUsersByName(string term, bool startsWith = false) {
+		public UserContract[] FindUsersByName(string term, NameMatchMode matchMode = NameMatchMode.StartsWith) {
 
 			if (string.IsNullOrEmpty(term))
 				return new UserContract[0];
@@ -385,10 +385,12 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				User[] users;
-				if (startsWith) {
+				if (matchMode == NameMatchMode.StartsWith) {
 					users = session.Query<User>().Where(u => u.Name.StartsWith(term)).OrderBy(u => u.Name).Take(10).ToArray();										
+				} else if (matchMode == NameMatchMode.Partial) {
+					users = session.Query<User>().Where(u => u.Name.Contains(term)).OrderBy(u => u.Name).Take(10).ToArray();
 				} else {
-					users = session.Query<User>().Where(u => u.Name.Contains(term)).OrderBy(u => u.Name).Take(10).ToArray();					
+					users = session.Query<User>().Where(u => u.Name == term).OrderBy(u => u.Name).Take(10).ToArray();					
 				}
 
 				return users.Select(u => new UserContract(u)).ToArray();
