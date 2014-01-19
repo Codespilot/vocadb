@@ -183,7 +183,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public UserContract GetUserInfo(string name) {
 
-			var users = Services.Users.FindUsersByName(name);
+			var users = Services.Users.FindUsersByName(name, NameMatchMode.Exact);
 			return users.FirstOrDefault();
 
 		}
