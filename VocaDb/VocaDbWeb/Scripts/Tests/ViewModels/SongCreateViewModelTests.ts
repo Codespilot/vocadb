@@ -13,7 +13,7 @@ module vdb.tests.viewModels {
     var artistRepository = new vdb.tests.testSupport.FakeArtistRepository();
     var producer: dc.ArtistContract = { artistType: "Producer", id: 1, name: "Tripshots", additionalNames: "" };
     artistRepository.result = producer;
-    repository.results = { title: "Nebula", artists: [producer], matches: [], songType: "Original" };
+    repository.results = { title: "Nebula", titleLanguage: "English", artists: [producer], matches: [], songType: "Original" };
 
     QUnit.module("SongCreateViewModelTests");
 
@@ -26,6 +26,7 @@ module vdb.tests.viewModels {
         var target = createViewModel();
 
         equal(target.nameOriginal(), "", "nameOriginal");
+		equal(target.nameEnglish(), "", "nameEnglish");
         equal(target.pv1(), "", "pv1");
         ok(target.artists(), "artists");
         equal(target.artists().length, 0, "artists.length");
@@ -34,9 +35,9 @@ module vdb.tests.viewModels {
 
     test("constructor with data", () => {
 
-        var target = new vm.SongCreateViewModel(repository, artistRepository, { nameOriginal: "Nebula", artists: [producer] });
+        var target = new vm.SongCreateViewModel(repository, artistRepository, { nameEnglish: "Nebula", artists: [producer] });
 
-        equal(target.nameOriginal(), "Nebula", "nameOriginal");
+		equal(target.nameEnglish(), "Nebula", "nameEnglish");
         ok(target.artists(), "artists");
         equal(target.artists().length, 1, "artists.length");
         equal(target.artists()[0].id, 1, "artist id");
@@ -60,7 +61,7 @@ module vdb.tests.viewModels {
 
         target.checkDuplicatesAndPV();
 
-        equal(target.nameOriginal(), "Nebula", "nameOriginal");
+		equal(target.nameEnglish(), "Nebula", "nameEnglish");
         ok(target.artists(), "artists");
         equal(target.artists().length, 1, "artists.length");
 

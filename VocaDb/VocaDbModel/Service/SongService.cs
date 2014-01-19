@@ -35,16 +35,6 @@ namespace VocaDb.Model.Service {
 
 	public class SongService : ServiceBase {
 
-		class SongTupleEqualityComparer<T> : IEqualityComparer<System.Tuple<Song, T>> {
-			public bool Equals(System.Tuple<Song, T> x, System.Tuple<Song, T> y) {
-				return Equals(x.Item1, y.Item1);
-			}
-
-			public int GetHashCode(System.Tuple<Song, T> obj) {
-				return obj.Item1.GetHashCode();
-			}
-		}
-
 #pragma warning disable 169
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 #pragma warning restore 169
@@ -301,88 +291,6 @@ namespace VocaDb.Model.Service {
 				}
 
 				return null;
-
-			});
-
-		}
-
-		private NicoTitleParseResult ParseNicoPV(ISession session, string url) {
-
-			if (string.IsNullOrEmpty(url))
-				return null;
-
-			var res = VideoService.NicoNicoDouga.ParseByUrl(url, true);
-
-			if (!res.IsOk)
-				return null;
-
-			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => Services.Artists.Find(session, new ArtistQueryParams {
-				Common = new CommonSearchParams { Query = a, NameMatchMode = NameMatchMode.Exact },
-				Paging = new PagingProperties(0, 1, false), 
-				SortRule = ArtistSortRule.AdditionDateAsc
-			}).Items.FirstOrDefault());
-
-			if (!string.IsNullOrEmpty(res.AuthorId)) {
-
-				var author = session
-					.Query<ArtistWebLink>()
-					.Where(w => w.Url == "http://www.nicovideo.jp/user/" + res.AuthorId)
-					.Select(w => w.Artist)
-					.FirstOrDefault();
-
-				if (author != null)
-					titleParseResult.Artists.Add(author);
-
-			}
-
-			return titleParseResult;
-
-		}
-
-		public NewSongCheckResultContract FindDuplicates(string[] anyName, string[] anyPv, bool getPVInfo) {
-
-			var names = anyName.Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => n.Trim()).ToArray();
-			var pvs = anyPv.Select(p => VideoServiceHelper.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
-
-			if (!names.Any() && !pvs.Any())
-				return new NewSongCheckResultContract();
-
-			return HandleQuery(session => {
-
-				NicoTitleParseResult titleParseResult = null;
-				if (getPVInfo) {
-
-					var nicoPV = anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p));
-
-					titleParseResult = ParseNicoPV(session, nicoPV);
-
-					if (titleParseResult != null && !string.IsNullOrEmpty(titleParseResult.Title))
-						names = names.Concat(new[] { titleParseResult.Title }).ToArray();
-
-				}
-
-				var nameMatches = (names.Any() ? session.Query<SongName>()
-					.Where(n => names.Contains(n.Value))
-					.Select(n => n.Song)
-					.Where(n => !n.Deleted)
-					.Distinct()
-					.Take(10)
-					.ToArray()
-					.Select(d => new System.Tuple<Song, SongMatchProperty>(d, SongMatchProperty.Title)) : new System.Tuple<Song, SongMatchProperty>[] { });
-
-				var pvMatches = pvs.Select(pv => session.Query<PVForSong>()
-					.Where(p => p.PVId == pv.Id && p.Service == pv.Service)
-					.Select(n => n.Song)
-					.FirstOrDefault(n => !n.Deleted))
-					.Where(p => p != null)
-					.Select(d => new System.Tuple<Song, SongMatchProperty>(d, SongMatchProperty.PV));
-
-
-				var matches = pvMatches.Union(nameMatches, new SongTupleEqualityComparer<SongMatchProperty>())
-					.Select(s => new DuplicateEntryResultContract<SongMatchProperty>(new EntryRefWithCommonPropertiesContract(s.Item1, PermissionContext.LanguagePreference), s.Item2))
-					.ToArray();
-
-				return new NewSongCheckResultContract(matches, titleParseResult, LanguagePreference);
 
 			});
 

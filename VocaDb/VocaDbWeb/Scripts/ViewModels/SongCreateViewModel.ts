@@ -94,8 +94,14 @@ module vdb.viewModels {
 
                     this.dupeEntries(result.matches);
 
-                    if (result.title && !this.hasName()) {
-                        this.nameOriginal(result.title);
+					if (result.title && !this.hasName()) {
+
+						if (result.titleLanguage == "English") {
+							this.nameEnglish(result.title);
+						} else {
+							this.nameOriginal(result.title);							
+						}
+
                     }
 
                     if (result.songType && result.songType != "Unspecified") {

@@ -57,6 +57,15 @@
     <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="IvanAkcheurov.Commons">
+      <HintPath>..\packages\IvanAkcheurov.NTextCat.Lib.0.2.1.1\lib\net40\IvanAkcheurov.Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="IvanAkcheurov.NClassify">
+      <HintPath>..\packages\IvanAkcheurov.NTextCat.Lib.0.2.1.1\lib\net40\IvanAkcheurov.NClassify.dll</HintPath>
+    </Reference>
+    <Reference Include="IvanAkcheurov.NTextCat.Lib">
+      <HintPath>..\packages\IvanAkcheurov.NTextCat.Lib.0.2.1.1\lib\net40\IvanAkcheurov.NTextCat.Lib.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -293,9 +302,11 @@
     <Compile Include="Domain\EntryRef.cs" />
     <Compile Include="Domain\EntryReport.cs" />
     <Compile Include="Domain\EntryThumb.cs" />
+    <Compile Include="Domain\Globalization\ILanguageDetector.cs" />
     <Compile Include="Domain\Globalization\ILocalizedString.cs" />
     <Compile Include="Domain\Globalization\InterfaceLanguage.cs" />
     <Compile Include="Domain\Globalization\ITranslatedString.cs" />
+    <Compile Include="Domain\Globalization\NTextCatLibLanguageDetector.cs" />
     <Compile Include="Domain\Globalization\SingleNameManager.cs" />
     <Compile Include="Domain\Globalization\TranslatedStringWithDefault.cs" />
     <Compile Include="Domain\IDeletableEntry.cs" />
