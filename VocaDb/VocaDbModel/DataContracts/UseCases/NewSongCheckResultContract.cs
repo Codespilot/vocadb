@@ -33,6 +33,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 				this.Artists = titleParseResult.Artists.Where(a => a != null).Select(a => new ArtistContract(a, languagePreference)).ToArray();
 				this.SongType = titleParseResult.SongType;
 				this.Title = titleParseResult.Title;
+				this.TitleLanguage = titleParseResult.TitleLanguage;
 			}
 
 		}
@@ -49,6 +50,10 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		[DataMember]
 		public string Title { get; set; }
+
+		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
+		public ContentLanguageSelection TitleLanguage { get; set; }
 
 	}
 }

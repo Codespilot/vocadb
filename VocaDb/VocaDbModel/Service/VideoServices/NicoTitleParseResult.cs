@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.Service.VideoServices {
@@ -20,6 +21,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		public SongType SongType { get; set; }
 
 		public string Title { get; set; }
+
+		public ContentLanguageSelection TitleLanguage { get; set; }
 
 	}
 }

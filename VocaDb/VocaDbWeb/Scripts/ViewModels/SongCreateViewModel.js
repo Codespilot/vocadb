@@ -62,7 +62,11 @@ var vdb;
                         _this.dupeEntries(result.matches);
 
                         if (result.title && !_this.hasName()) {
-                            _this.nameOriginal(result.title);
+                            if (result.titleLanguage == "English") {
+                                _this.nameEnglish(result.title);
+                            } else {
+                                _this.nameOriginal(result.title);
+                            }
                         }
 
                         if (result.songType && result.songType != "Unspecified") {

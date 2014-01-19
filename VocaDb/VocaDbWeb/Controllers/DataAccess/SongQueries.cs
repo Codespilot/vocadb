@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using VocaDb.Model.Domain;
@@ -9,6 +10,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -26,9 +28,57 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// </summary>
 	public class SongQueries : QueriesBase<ISongRepository, Song> {
 
+		class SongTupleEqualityComparer<T> : IEqualityComparer<Tuple<Song, T>> {
+			public bool Equals(Tuple<Song, T> x, Tuple<Song, T> y) {
+				return Equals(x.Item1, y.Item1);
+			}
+
+			public int GetHashCode(Tuple<Song, T> obj) {
+				return obj.Item1.GetHashCode();
+			}
+		}
+
 		private readonly IEntryLinkFactory entryLinkFactory;
+		private readonly ILanguageDetector languageDetector;
 		private readonly IUserMessageMailer mailer;
 		private readonly IPVParser pvParser;
+
+		private Artist GetArtist(string name, IRepositoryContext<PVForSong> ctx) {
+			return ctx.OfType<ArtistName>().Query().Where(n => n.Value == name).Select(n => n.Artist).FirstOrDefault();
+		}
+
+		private NicoTitleParseResult ParseNicoPV(IRepositoryContext<PVForSong> ctx, string url) {
+
+			if (string.IsNullOrEmpty(url))
+				return null;
+
+			var res = pvParser.ParseByUrl(url, true);
+
+			if (!res.IsOk)
+				return null;
+
+			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => GetArtist(a, ctx));
+
+			if (!string.IsNullOrEmpty(titleParseResult.Title))
+				titleParseResult.TitleLanguage = languageDetector.Detect(titleParseResult.Title, ContentLanguageSelection.Unspecified);
+
+			if (!string.IsNullOrEmpty(res.AuthorId)) {
+
+				var authorPage = string.Format("http://www.nicovideo.jp/user/{0}", res.AuthorId);
+
+				var author = ctx.OfType<ArtistWebLink>().Query()
+					.Where(w => w.Url == authorPage)
+					.Select(w => w.Artist)
+					.FirstOrDefault();
+
+				if (author != null)
+					titleParseResult.Artists.Add(author);
+
+			}
+
+			return titleParseResult;
+
+		}
 
 		private VideoUrlParseResult ParsePV(IRepositoryContext<PVForSong> ctx, string url) {
 
@@ -52,12 +102,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public SongQueries(ISongRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IPVParser pvParser, IUserMessageMailer mailer)
+		public SongQueries(ISongRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IPVParser pvParser, IUserMessageMailer mailer,
+			ILanguageDetector languageDetector)
 			: base(repository, permissionContext) {
 
 			this.entryLinkFactory = entryLinkFactory;
 			this.pvParser = pvParser;
 			this.mailer = mailer;
+			this.languageDetector = languageDetector;
 
 		}
 
@@ -152,6 +204,55 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				new UserCommentNotifier().CheckComment(comment, entryLinkFactory, ctx.OfType<User>());
 
 				return new CommentContract(comment);
+
+			});
+
+		}
+
+		public NewSongCheckResultContract FindDuplicates(string[] anyName, string[] anyPv, bool getPVInfo) {
+
+			var names = anyName.Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => n.Trim()).ToArray();
+			var pvs = anyPv.Select(p => pvParser.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
+
+			if (!names.Any() && !pvs.Any())
+				return new NewSongCheckResultContract();
+
+			return HandleQuery(ctx => {
+
+				NicoTitleParseResult titleParseResult = null;
+				if (getPVInfo) {
+
+					var nicoPV = anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p));
+
+					titleParseResult = ParseNicoPV(ctx.OfType<PVForSong>(), nicoPV);
+
+					if (titleParseResult != null && !string.IsNullOrEmpty(titleParseResult.Title))
+						names = names.Concat(new[] { titleParseResult.Title }).ToArray();
+
+				}
+
+				var nameMatches = (names.Any() ? ctx.OfType<SongName>().Query()
+					.Where(n => names.Contains(n.Value))
+					.Select(n => n.Song)
+					.Where(n => !n.Deleted)
+					.Distinct()
+					.Take(10)
+					.ToArray()
+					.Select(d => new Tuple<Song, SongMatchProperty>(d, SongMatchProperty.Title)) : new Tuple<Song, SongMatchProperty>[] { });
+
+				var pvMatches = pvs.Select(pv => ctx.OfType<PVForSong>().Query()
+					.Where(p => p.PVId == pv.Id && p.Service == pv.Service)
+					.Select(n => n.Song)
+					.FirstOrDefault(n => !n.Deleted))
+					.Where(p => p != null)
+					.Select(d => new Tuple<Song, SongMatchProperty>(d, SongMatchProperty.PV));
+
+
+				var matches = pvMatches.Union(nameMatches, new SongTupleEqualityComparer<SongMatchProperty>())
+					.Select(s => new DuplicateEntryResultContract<SongMatchProperty>(new EntryRefWithCommonPropertiesContract(s.Item1, PermissionContext.LanguagePreference), s.Item2))
+					.ToArray();
+
+				return new NewSongCheckResultContract(matches, titleParseResult, PermissionContext.LanguagePreference);
 
 			});
 

@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Activityfeed;
@@ -42,6 +43,12 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			return queries.Create(newSongContract);
 		}
 
+		private NewSongCheckResultContract CallFindDuplicates(string[] anyName = null, string[] anyPv = null, bool getPvInfo = true) {
+			
+			return queries.FindDuplicates(anyName ?? new string[0], anyPv ?? new string[0], getPvInfo);
+
+		}
+
 		private void AssertHasArtist(Song song, Artist artist, ArtistRoles? roles = null) {
 			Assert.IsTrue(song.Artists.Any(a => a.Artist.Equals(artist)), song + " has " + artist);			
 			if (roles.HasValue)
@@ -67,6 +74,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository = new FakeSongRepository(song);
 			repository.Save(song.AddArtist(producer));
 			repository.Save(song.AddArtist(vocalist));
+			repository.Save(song.CreatePV(new PVContract { Service = PVService.Youtube, PVId = "hoLu7c2XZYU", Name = "Nebula", PVType = PVType.Original }));
 
 			foreach (var name in song.Names)
 				repository.Save(name);
@@ -99,7 +107,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			mailer = new FakeUserMessageMailer();
 
-			queries = new SongQueries(repository, permissionContext, entryLinkFactory, pvParser, mailer);
+			queries = new SongQueries(repository, permissionContext, entryLinkFactory, pvParser, mailer, new FakeLanguageDetector());
 
 		}
 
@@ -134,7 +142,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.AreEqual(song, activityEntry.EntryBase, "Activity entry's entry");
 			Assert.AreEqual(EntryEditEvent.Created, activityEntry.EditEvent, "Activity entry event type");
 
-			var pv = repository.List<PVForSong>().FirstOrDefault();
+			var pv = repository.List<PVForSong>().FirstOrDefault(p => p.Song.Id == song.Id);
 
 			Assert.IsNotNull(pv, "PV was created");
 			Assert.AreEqual(song, pv.Song, "pv.Song");
@@ -191,6 +199,48 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			permissionContext.RefreshLoggedUser(repository);
 
 			CallCreate();
+
+		}
+
+		[TestMethod]
+		public void FindDuplicates_NoMatches() {
+
+			pvParser.ResultFunc = url => 
+				VideoUrlParseResult.CreateOk(url, PVService.NicoNicoDouga, "sm3183550", 
+				VideoTitleParseResult.CreateSuccess("anger", "Tripshots", "testimg.jpg", 39));
+
+			var result = CallFindDuplicates(new []{ "【初音ミク】anger PV EDIT【VOCALOID3DPV】"}, new []{ "http://www.nicovideo.jp/watch/sm3183550" });
+
+			Assert.AreEqual("anger", result.Title, "Title");
+			Assert.AreEqual(0, result.Matches.Length, "No matches");
+
+		}
+
+		[TestMethod]
+		public void FindDuplicates_MatchName() {
+
+			var result = CallFindDuplicates(new []{ "Nebula"});
+
+			Assert.AreEqual(1, result.Matches.Length, "Matches");
+			var match = result.Matches.First();
+			Assert.AreEqual(song.Id, match.Entry.Id, "Matched song");
+			Assert.AreEqual(SongMatchProperty.Title, match.MatchProperty, "Matched property");
+
+		}
+
+		[TestMethod]
+		public void FindDuplicates_MatchPV() {
+
+			pvParser.ResultFunc = url => 
+				VideoUrlParseResult.CreateOk(url, PVService.Youtube, "hoLu7c2XZYU", 
+				VideoTitleParseResult.CreateSuccess("Nebula", "Tripshots", "testimg.jpg", 39));
+
+			var result = CallFindDuplicates(anyPv: new []{ "http://youtu.be/hoLu7c2XZYU"});
+
+			Assert.AreEqual(1, result.Matches.Length, "Matches");
+			var match = result.Matches.First();
+			Assert.AreEqual(song.Id, match.Entry.Id, "Matched song");
+			Assert.AreEqual(SongMatchProperty.PV, match.MatchProperty, "Matched property");
 
 		}
 

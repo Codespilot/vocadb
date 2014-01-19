@@ -5,13 +5,15 @@ module vdb.dataContracts {
 
     export interface NewSongCheckResultContract {
 
-        artists: ArtistContract[];
+		artists: ArtistContract[];
 
-        matches: DuplicateEntryResultContract[];
+		matches: DuplicateEntryResultContract[];
 
-        songType: string;
+		songType: string;
 
-        title: string;
+		title: string;
+
+		titleLanguage: string; // TODO: content language selection
 
     }
 

@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.Wcf;
 using Autofac.Integration.WebApi;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
@@ -45,6 +46,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<PVParser>().As<IPVParser>();
 			builder.RegisterType<ServerEntryImagePersisterOld>().As<IEntryImagePersisterOld>();
 			builder.RegisterType<ServerEntryThumbPersister>().As<IEntryThumbPersister>();
+			builder.RegisterType<NTextCatLibLanguageDetector>().As<ILanguageDetector>();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();

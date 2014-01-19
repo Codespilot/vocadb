@@ -165,7 +165,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult FindDuplicate(string term1, string term2, string term3, string pv1, string pv2, bool getPVInfo = false) {
 
-			var result = Service.FindDuplicates(new[] { term1, term2, term3 }, new[] { pv1, pv2 }, getPVInfo);
+			var result = queries.FindDuplicates(new[] { term1, term2, term3 }, new[] { pv1, pv2 }, getPVInfo);
 
 			return LowercaseJson(result);
 
