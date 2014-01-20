@@ -21,7 +21,8 @@
 
 	$(document).ready(function () {
 
-		@{ var data = new { Model.Name, Description = Html.Encode(Model.Description) };	}
+		@* Security note: encoding this would break some characters like quotes, need to find a better way, either strip HTML or return JSON from Web API *@
+		@{ var data = new { Model.Name, Model.Description }; }
 		
 		var model = @Html.Raw(JsonHelpers.Serialize(data));
 		initPage(model.name);

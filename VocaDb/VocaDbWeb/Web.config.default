@@ -42,9 +42,16 @@
     </compilation>
 
     <authentication mode="Forms">
-      <forms defaultUrl="~/" loginUrl="~/User/Login" timeout="2880" />
+      <forms defaultUrl="~/" loginUrl="~/User/Login" timeout="2880" name=".ASPXFORMSAUTH" protection="All" path="/" />
     </authentication>
 
+	<!-- This is needed for sharing the authentication between the main site and the wiki -->
+	<machineKey 
+		validationKey="" 
+		decryptionKey="" 
+		validation="SHA1" decryption="AES" 
+	/>		
+		
 	<!-- See also enableSimpleMembership -->
 	<roleManager enabled="false"></roleManager>
 
