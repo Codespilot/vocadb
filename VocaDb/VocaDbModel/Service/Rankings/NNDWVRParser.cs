@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using HtmlAgilityPack;
 using Rss;
@@ -27,6 +28,8 @@ namespace VocaDb.Model.Service.Rankings {
 				feed = RssFeed.Read(url);
 			} catch (UriFormatException x) {
 				throw new InvalidFeedException("Unable to parse URL", x);
+			} catch (WebException x) {
+				throw new InvalidFeedException("Unable to parse feed", x);				
 			}
 
 			if (feed.Exceptions.LastException != null) {
