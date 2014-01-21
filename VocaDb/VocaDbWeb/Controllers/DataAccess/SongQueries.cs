@@ -47,14 +47,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			return ctx.OfType<ArtistName>().Query().Where(n => n.Value == name).Select(n => n.Artist).FirstOrDefault();
 		}
 
-		private NicoTitleParseResult ParseNicoPV(IRepositoryContext<PVForSong> ctx, string url) {
+		private NicoTitleParseResult ParseNicoPV(IRepositoryContext<PVForSong> ctx, VideoUrlParseResult res) {
 
-			if (string.IsNullOrEmpty(url))
-				return null;
-
-			var res = pvParser.ParseByUrl(url, true);
-
-			if (!res.IsOk)
+			if (res == null || !res.IsOk)
 				return null;
 
 			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => GetArtist(a, ctx));
@@ -209,10 +204,24 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		/// <summary>
+		/// Parse song and find duplicates in the database.
+		/// 
+		/// Duplicates are searched based on the entered names and PVs.
+		/// Additionally, if PVs are provided, those are parsed for song information such as title and artists.
+		/// Titles from the PVs will be used for name matching as well.
+		/// </summary>
+		/// <param name="anyName">Song names to be searched for duplicates. Cannot be null. Can be empty.</param>
+		/// <param name="anyPv">List of PVs to be searched for duplicates and parsed for song info. Cannot be null. Can be empty.</param>
+		/// <param name="getPVInfo">Whether to load song metadata based on the PVs. If this is false, only matching for duplicates is done.</param>
+		/// <returns>Result of the check. Cannot be null.</returns>
 		public NewSongCheckResultContract FindDuplicates(string[] anyName, string[] anyPv, bool getPVInfo) {
 
 			var names = anyName.Where(n => !string.IsNullOrWhiteSpace(n)).Select(n => n.Trim()).ToArray();
-			var pvs = anyPv.Select(p => pvParser.ParseByUrl(p, false)).Where(p => p.IsOk).ToArray();
+			var firstNicoPV = getPVInfo ? anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p)) : null; // For downloading video info
+
+			// Parse PV URLs (gets ID and service for each PV). Metadata will be parsed only for the first Nico PV, and only if it's needed.
+			var pvs = anyPv.Select(p => pvParser.ParseByUrl(p, getPVInfo && p == firstNicoPV)).Where(p => p.IsOk).ToArray();
 
 			if (!names.Any() && !pvs.Any())
 				return new NewSongCheckResultContract();
@@ -222,7 +231,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				NicoTitleParseResult titleParseResult = null;
 				if (getPVInfo) {
 
-					var nicoPV = anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p));
+					var nicoPV = pvs.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga);
 
 					titleParseResult = ParseNicoPV(ctx.OfType<PVForSong>(), nicoPV);
 

@@ -101,9 +101,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			};
 
 			pvParser = new FakePVParser();
-			pvParser.ResultFunc = url => 
+			pvParser.ResultFunc = (url, getMeta) => 
 				VideoUrlParseResult.CreateOk(url, PVService.NicoNicoDouga, "sm393939", 
-				VideoTitleParseResult.CreateSuccess("Resistance", "Tripshots", "testimg.jpg", 39));
+				getMeta ? VideoTitleParseResult.CreateSuccess("Resistance", "Tripshots", "testimg.jpg", 39) : VideoTitleParseResult.Empty);
 
 			mailer = new FakeUserMessageMailer();
 
@@ -202,16 +202,22 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		}
 
+		// Two PVs, no matches, parse song info from the NND PV.
 		[TestMethod]
-		public void FindDuplicates_NoMatches() {
+		public void FindDuplicates_NoMatches_ParsePVInfo() {
 
-			pvParser.ResultFunc = url => 
-				VideoUrlParseResult.CreateOk(url, PVService.NicoNicoDouga, "sm3183550", 
-				VideoTitleParseResult.CreateSuccess("anger", "Tripshots", "testimg.jpg", 39));
+			// Note: for now only NNDPV will be used for song metadata parsing.
+			pvParser.MatchedPVs.Add("http://youtu.be/123456567",
+				VideoUrlParseResult.CreateOk("http://youtu.be/123456567", PVService.Youtube, "123456567", 
+				VideoTitleParseResult.CreateSuccess("Resistance", "Tripshots", "testimg2.jpg", 33)));
 
-			var result = CallFindDuplicates(new []{ "【初音ミク】anger PV EDIT【VOCALOID3DPV】"}, new []{ "http://www.nicovideo.jp/watch/sm3183550" });
+			pvParser.MatchedPVs.Add("http://www.nicovideo.jp/watch/sm3183550",
+				VideoUrlParseResult.CreateOk("http://www.nicovideo.jp/watch/sm3183550", PVService.NicoNicoDouga, "sm3183550", 
+				VideoTitleParseResult.CreateSuccess("anger", "Tripshots", "testimg.jpg", 39)));
 
-			Assert.AreEqual("anger", result.Title, "Title");
+			var result = CallFindDuplicates(new []{ "【初音ミク】anger PV EDIT【VOCALOID3DPV】"}, new []{ "http://youtu.be/123456567", "http://www.nicovideo.jp/watch/sm3183550" });
+
+			Assert.AreEqual("anger", result.Title, "Title"); // Title from PV
 			Assert.AreEqual(0, result.Matches.Length, "No matches");
 
 		}
@@ -229,11 +235,20 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void FindDuplicates_SkipPVInfo() {
+
+			var result = CallFindDuplicates(new []{ "Anger"}, new []{ "http://www.nicovideo.jp/watch/sm393939" }, getPvInfo: false);
+
+			Assert.IsNull(result.Title, "Title");
+			Assert.AreEqual(0, result.Matches.Length, "No matches");
+
+		}
+
+		[TestMethod]
 		public void FindDuplicates_MatchPV() {
 
-			pvParser.ResultFunc = url => 
-				VideoUrlParseResult.CreateOk(url, PVService.Youtube, "hoLu7c2XZYU", 
-				VideoTitleParseResult.CreateSuccess("Nebula", "Tripshots", "testimg.jpg", 39));
+			pvParser.MatchedPVs.Add("http://youtu.be/hoLu7c2XZYU",
+				VideoUrlParseResult.CreateOk("http://youtu.be/hoLu7c2XZYU", PVService.Youtube, "hoLu7c2XZYU", VideoTitleParseResult.Empty));
 
 			var result = CallFindDuplicates(anyPv: new []{ "http://youtu.be/hoLu7c2XZYU"});
 
