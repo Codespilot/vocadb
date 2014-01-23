@@ -680,6 +680,7 @@
     <Compile Include="Controllers\SharedController.cs" />
     <Compile Include="Controllers\SongController.cs" />
     <Compile Include="Controllers\SongListController.cs" />
+    <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Controllers\TestsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -2023,6 +2024,7 @@
     <Content Include="Scripts\ViewModels\PVRatingButtonsViewModel.js">
       <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\MySettingsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
@@ -2277,6 +2279,7 @@
     <Content Include="Views\User\Partials\_UserMessageKnockout.cshtml" />
     <Content Include="Views\Home\Partials\_NewsItems.cshtml" />
     <Content Include="Views\User\Partials\_EntryEditsPage.cshtml" />
+    <Content Include="Views\Stats\Index.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
