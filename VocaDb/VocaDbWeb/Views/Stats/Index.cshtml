@@ -31,13 +31,23 @@
 					  { name: 'Songs by producer', url: 'songsPerProducer' },
 					  { name: 'Albums by producer', url: 'albumsPerProducer' },
 					  { name: 'Followers by producer', url: 'followersPerProducer' }
-					],
+					]
 				},
 				{
 					name: 'Vocaloids', reports: [
 					  { name: 'Songs by Vocaloid', url: 'songsPerVocaloid' },
 					  { name: 'Albums by Vocaloid', url: 'albumsPerVocaloid' }
-					],
+					]
+				},
+				{
+					name: 'Albums', reports: [
+					  { name: 'Hits per album', url: 'hitsPerAlbum' }
+					]
+				},
+				{
+					name: 'Songs', reports: [
+					  { name: 'Hits per song', url: 'hitsPerSong' }
+					]
 				}
 			];
 			var vm = new vdb.viewModels.StatsViewModel(categories);

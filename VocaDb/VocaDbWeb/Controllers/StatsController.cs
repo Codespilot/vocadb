@@ -12,9 +12,11 @@ using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers {
 
-	public class StatsController : Controller {
+	public class StatsController : ControllerBase {
 
 		class LocalizedValue {
+
+			public int EntryId { get; set; }
 
 			public TranslatedString Name { get; set; }
 
@@ -22,10 +24,11 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
-		private JsonResult SimpleBarChart(string title, string seriesName, IList<string> categories, IList<int> data) {
+		private ActionResult SimpleBarChart(string title, string seriesName, IList<string> categories, IList<int> data) {
 			
 			Response.Cache.SetCacheability(HttpCacheability.Public);
 			Response.Cache.SetMaxAge(TimeSpan.FromDays(1));
+			Response.Cache.SetSlidingExpiration(true);
 
 			return Json(new {
 				chart = new {
@@ -63,12 +66,12 @@ namespace VocaDb.Web.Controllers {
 					}
 				}
 				
-			}, JsonRequestBehavior.AllowGet);
+			});
 
 
 		}
 
-		private JsonResult SimpleBarChart<T>(Func<IQueryable<T>, IQueryable<LocalizedValue>> func, string title, string seriesName) {
+		private ActionResult SimpleBarChart<T>(Func<IQueryable<T>, IQueryable<LocalizedValue>> func, string title, string seriesName) {
 
 			var values = GetTopValues(func);
 
@@ -100,7 +103,7 @@ namespace VocaDb.Web.Controllers {
 			this.permissionContext = permissionContext;
 		}
 
-		public JsonResult AlbumsPerProducer() {
+		public ActionResult AlbumsPerProducer() {
 			
 			return SimpleBarChart<Artist>(q => q
 					.Where(a => a.ArtistType == ArtistType.Producer)
@@ -116,7 +119,7 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
-		public JsonResult AlbumsPerVocaloid() {
+		public ActionResult AlbumsPerVocaloid() {
 			
 			return SimpleBarChart<Artist>(q => q
 					.Where(a => a.ArtistType == ArtistType.Vocaloid || a.ArtistType == ArtistType.UTAU)
@@ -132,7 +135,7 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
-		public JsonResult SongsPerProducer() {
+		public ActionResult SongsPerProducer() {
 			
 			return SimpleBarChart<Artist>(q => q
 					.Where(a => a.ArtistType == ArtistType.Producer)
@@ -148,7 +151,7 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
-		public JsonResult SongsPerVocaloid() {
+		public ActionResult SongsPerVocaloid() {
 			
 			return SimpleBarChart<Artist>(q => q
 					.Where(a => a.ArtistType == ArtistType.Vocaloid || a.ArtistType == ArtistType.UTAU)
@@ -164,7 +167,7 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
-		public JsonResult FollowersPerProducer() {
+		public ActionResult FollowersPerProducer() {
 			
 			return SimpleBarChart<Artist>(q => q
 					.Where(a => a.ArtistType == ArtistType.Producer)
@@ -177,6 +180,90 @@ namespace VocaDb.Web.Controllers {
 						},
 						Value = a.Users.Count
 					}), "Followers by producer", "Followers");
+
+		}
+
+		public ActionResult HitsPerAlbum() {
+			
+			var values = userRepository.HandleQuery(ctx => {
+				
+				var idsAndHits = ctx.OfType<AlbumHit>().Query()
+					.GroupBy(h => h.Album.Id)
+					.Select(h => new {
+						Id = h.Key,
+						Count = h.Count()
+					})
+					.OrderByDescending(h => h.Count)
+					.Take(25)
+					.ToArray();
+
+				var ids = idsAndHits.Select(i => i.Id).ToArray();
+
+				var albums = ctx.OfType<Album>().Query()
+					.Where(a => ids.Contains(a.Id))
+					.Select(a => new LocalizedValue {
+						Name = new TranslatedString {			
+							DefaultLanguage = a.Names.SortNames.DefaultLanguage,
+							English = a.Names.SortNames.English, 
+							Romaji = a.Names.SortNames.Romaji, 
+							Japanese = a.Names.SortNames.Japanese, 
+						},
+						EntryId = a.Id
+					}).ToArray();
+
+				foreach (var hit in idsAndHits)
+					albums.First(a => a.EntryId == hit.Id).Value = hit.Count;
+
+				return albums.OrderByDescending(a => a.Value);
+
+			});
+
+			var categories = values.Select(p => p.Name[permissionContext.LanguagePreference]).ToArray();
+			var data = values.Select(p => p.Value).ToArray();
+
+			return SimpleBarChart("Hits per album", "Hits", categories, data);
+
+		}
+
+		public ActionResult HitsPerSong() {
+			
+			var values = userRepository.HandleQuery(ctx => {
+				
+				var idsAndHits = ctx.OfType<SongHit>().Query()
+					.GroupBy(h => h.Song.Id)
+					.Select(h => new {
+						Id = h.Key,
+						Count = h.Count()
+					})
+					.OrderByDescending(h => h.Count)
+					.Take(25)
+					.ToArray();
+
+				var ids = idsAndHits.Select(i => i.Id).ToArray();
+
+				var albums = ctx.OfType<Song>().Query()
+					.Where(a => ids.Contains(a.Id))
+					.Select(a => new LocalizedValue {
+						Name = new TranslatedString {			
+							DefaultLanguage = a.Names.SortNames.DefaultLanguage,
+							English = a.Names.SortNames.English, 
+							Romaji = a.Names.SortNames.Romaji, 
+							Japanese = a.Names.SortNames.Japanese, 
+						},
+						EntryId = a.Id
+					}).ToArray();
+
+				foreach (var hit in idsAndHits)
+					albums.First(a => a.EntryId == hit.Id).Value = hit.Count;
+
+				return albums.OrderByDescending(a => a.Value);
+
+			});
+
+			var categories = values.Select(p => p.Name[permissionContext.LanguagePreference]).ToArray();
+			var data = values.Select(p => p.Value).ToArray();
+
+			return SimpleBarChart("Hits per song", "Hits", categories, data);
 
 		}
 
