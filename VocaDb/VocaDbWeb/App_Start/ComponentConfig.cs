@@ -35,6 +35,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterControllers(typeof(MvcApplication).Assembly);
 			builder.RegisterType<QueryService>();
 			builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+			builder.RegisterModule(new AutofacWebTypesModule());
 
 			builder.Register(x => DatabaseConfiguration.BuildSessionFactory()).SingleInstance();
 

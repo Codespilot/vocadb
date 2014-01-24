@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Caching;
 using System.Web.Mvc;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -14,6 +15,25 @@ namespace VocaDb.Web.Controllers {
 
 	public class StatsController : ControllerBase {
 
+		private T GetCachedReport<T>() where T : class {
+
+			var name = ControllerContext.RouteData.Values["action"];
+			var item = context.Cache["report_" + name];
+
+			if (item == null)
+				return null;
+
+			return (T)item;
+
+		}
+
+		private void SaveCachedReport<T>(T data) where T : class {
+			
+			var name = ControllerContext.RouteData.Values["action"];
+			context.Cache.Add("report_" + name, data, null, Cache.NoAbsoluteExpiration, TimeSpan.FromDays(1), CacheItemPriority.Default, null);
+
+		}
+
 		class LocalizedValue {
 
 			public int EntryId { get; set; }
@@ -22,6 +42,10 @@ namespace VocaDb.Web.Controllers {
 
 			public int Value { get; set; }
 
+		}
+
+		private double ToEpochTime(DateTime date) {
+			return (date - new DateTime(1970, 1, 1)).TotalMilliseconds;
 		}
 
 		private ActionResult SimpleBarChart(string title, string seriesName, IList<string> categories, IList<int> data) {
@@ -68,7 +92,6 @@ namespace VocaDb.Web.Controllers {
 				
 			});
 
-
 		}
 
 		private ActionResult SimpleBarChart<T>(Func<IQueryable<T>, IQueryable<LocalizedValue>> func, string title, string seriesName) {
@@ -84,7 +107,12 @@ namespace VocaDb.Web.Controllers {
 
 		private LocalizedValue[] GetTopValues<T>(Func<IQueryable<T>, IQueryable<LocalizedValue>> func) {
 			
-			return userRepository.HandleQuery(ctx => {
+			var cached = GetCachedReport<LocalizedValue[]>();
+
+			if (cached != null)
+				return cached;
+
+			var data = userRepository.HandleQuery(ctx => {
 				
 				return func(ctx.OfType<T>().Query())
 					.OrderByDescending(a => a.Value)
@@ -93,14 +121,112 @@ namespace VocaDb.Web.Controllers {
 
 			});
 
+			SaveCachedReport(data);
+
+			return data;
+
 		}
 
+		private readonly HttpContextBase context;
+		private readonly HttpRequestBase request;
 		private readonly IUserPermissionContext permissionContext;
 		private readonly IUserRepository userRepository;
 
-		public StatsController(IUserRepository userRepository, IUserPermissionContext permissionContext) {
+		public StatsController(IUserRepository userRepository, IUserPermissionContext permissionContext, HttpContextBase context) {
 			this.userRepository = userRepository;
 			this.permissionContext = permissionContext;
+			this.context = context;
+		}
+
+		[OutputCache(Duration = 86400)]
+		public ActionResult AlbumsPerMonth() {
+			
+			var now = DateTime.Now;
+
+			var values = userRepository.HandleQuery(ctx => {
+
+				return ctx.OfType<Album>().Query()
+					.Where(a => !a.Deleted 
+						&& a.OriginalRelease.ReleaseDate.Year != null 
+						&& a.OriginalRelease.ReleaseDate.Month != null 
+						&& (a.OriginalRelease.ReleaseDate.Year < now.Year || (a.OriginalRelease.ReleaseDate.Year == now.Year && a.OriginalRelease.ReleaseDate.Month <= now.Month))
+						&& a.AllArtists.Any(r => r.Artist.ArtistType == ArtistType.Vocaloid || r.Artist.ArtistType == ArtistType.UTAU || r.Artist.ArtistType == ArtistType.OtherVoiceSynthesizer))
+					.OrderBy(a => a.OriginalRelease.ReleaseDate.Year)
+					.ThenBy(a => a.OriginalRelease.ReleaseDate.Month)
+					.GroupBy(a => new {
+						Year = a.OriginalRelease.ReleaseDate.Year, 
+						Month = a.OriginalRelease.ReleaseDate.Month
+					})
+					.Select(a => new {
+						a.Key.Year,
+						a.Key.Month,
+						Count = a.Count()
+					})
+					.ToArray();
+
+			});
+
+			var points = values.Select(v => Tuple.Create(new DateTime(v.Year.Value, v.Month.Value, 1), v.Count)).ToArray();
+			var averages = points.Select(p => Tuple.Create(p.Item1, Math.Floor(points.Where(p2 => p2.Item1 >= p.Item1 - TimeSpan.FromDays(182) && p2.Item1 <= p.Item1 + TimeSpan.FromDays(182)).Average(p3 => p3.Item2)))).ToArray();
+
+			Response.Cache.SetCacheability(HttpCacheability.Public);
+			Response.Cache.SetMaxAge(TimeSpan.FromDays(1));
+			Response.Cache.SetSlidingExpiration(true);
+
+			return Json(new {
+				chart = new {
+					height = 600
+				},
+				title = new {
+					text = "Releases by month"
+				},
+				xAxis = new {
+					type = "datetime",
+					title = new {
+						text = (string)null
+					},
+				},
+				yAxis = new {
+					title = new {
+						text = "Albums"
+					},
+					min = 0,
+				},
+				plotOptions = new {
+					bar = new {
+						dataLabels = new {
+							enabled = true
+						}
+					}
+				},
+				legend = new {
+						layout = "vertical",
+						align = "left",
+						x = 120,
+						verticalAlign = "top",
+						y = 100,
+						floating = true,
+						backgroundColor = "#FFFFFF"
+				},
+				series = new Object[] {
+					new {
+						type = "area",
+						name = "Albums",
+						data = points.Select(p => new object[] { ToEpochTime(p.Item1), p.Item2 }).ToArray()
+					},
+					new {
+						type = "spline",
+						name = "Average",
+						data = averages.Select(p => new object[] { ToEpochTime(p.Item1), p.Item2 }).ToArray(),
+						marker = new {
+							enabled = false
+						},
+						lineWidth = 4
+					}
+				}
+				
+			});
+
 		}
 
 		public ActionResult AlbumsPerProducer() {
