@@ -44,7 +44,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private readonly IPVParser pvParser;
 
 		private Artist GetArtist(string name, IRepositoryContext<PVForSong> ctx) {
-			return ctx.OfType<ArtistName>().Query().Where(n => n.Value == name).Select(n => n.Artist).FirstOrDefault();
+			return ctx.OfType<ArtistName>()
+				.Query()
+				.Where(n => n.Value == name && !n.Artist.Deleted)
+				.Select(n => n.Artist)
+				.FirstOrDefault();
 		}
 
 		private NicoTitleParseResult ParseNicoPV(IRepositoryContext<PVForSong> ctx, VideoUrlParseResult res) {
@@ -62,7 +66,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var authorPage = string.Format("http://www.nicovideo.jp/user/{0}", res.AuthorId);
 
 				var author = ctx.OfType<ArtistWebLink>().Query()
-					.Where(w => w.Url == authorPage)
+					.Where(w => w.Url == authorPage && !w.Artist.Deleted)
 					.Select(w => w.Artist)
 					.FirstOrDefault();
 
