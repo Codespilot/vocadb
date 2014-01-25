@@ -27,9 +27,14 @@
 
 <h3>@ViewRes.SharedStrings.ReleaseEvents</h3>
 <ul>
-@foreach (var ev in Model.Events) {
-	<li>@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })</li>
-}
+	@foreach (var ev in Model.Events) {
+		<li>
+			@Html.ActionLink(ev.Name, "Details", new { id = ev.Id })
+			@if (ev.Date != null) {
+				<small>(@ev.Date.Value.ToString("d"))</small>
+			}
+		</li>
+	}
 </ul>
 
 @section BodyScripts {
