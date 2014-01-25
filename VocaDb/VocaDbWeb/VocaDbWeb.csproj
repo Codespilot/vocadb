@@ -662,6 +662,7 @@
     <Compile Include="Controllers\DataAccess\AlbumQueries.cs" />
     <Compile Include="Controllers\DataAccess\ArtistQueries.cs" />
     <Compile Include="Controllers\DataAccess\EntryReportQueries.cs" />
+    <Compile Include="Controllers\DataAccess\EventQueries.cs" />
     <Compile Include="Controllers\DataAccess\QueriesBase.cs" />
     <Compile Include="Controllers\DataAccess\SongListQueries.cs" />
     <Compile Include="Controllers\DataAccess\SongQueries.cs" />
@@ -2280,6 +2281,7 @@
     <Content Include="Views\Home\Partials\_NewsItems.cshtml" />
     <Content Include="Views\User\Partials\_EntryEditsPage.cshtml" />
     <Content Include="Views\Stats\Index.cshtml" />
+    <Content Include="Views\Event\EventsByDate.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

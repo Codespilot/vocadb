@@ -188,7 +188,7 @@ namespace VocaDb.Web.Controllers {
 				},
 				yAxis = new {
 					title = new {
-						text = "Albums"
+						text = "Albums released"
 					},
 					min = 0,
 				},

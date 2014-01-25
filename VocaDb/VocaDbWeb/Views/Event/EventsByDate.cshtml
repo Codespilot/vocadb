@@ -1,0 +1,33 @@
+﻿@model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventContract[]
+
+@{
+    ViewBag.Title = "Release events";
+	
+	var byYear = Model.Where(e => e.Date != null).GroupBy(e => e.Date.Value.Year).ToArray();
+	
+}
+
+@foreach (var year in byYear) {
+
+	<div class="row-fluid">
+		<div class="span1">
+			<h3>
+				@year.Key
+			</h3>
+		</div>
+		<div class="span8">
+
+			<ul>
+				@foreach (var ev in year) {
+					<li>
+						<a href="@Url.Action("Details", new { id = ev.Id })">
+							@ev.Name
+						</a>
+						<small>@ev.Date.Value.ToShortDateString()</small>
+					</li>
+				}
+			</ul>
+		</div>
+	</div>
+
+}
