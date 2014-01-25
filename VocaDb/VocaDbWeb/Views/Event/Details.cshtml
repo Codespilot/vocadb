@@ -29,8 +29,8 @@
 }
 
 @if (Model.Albums.Any()) {
-<h3>@ViewRes.SharedStrings.Albums</h3>
-@AlbumHelpers.AlbumList(Model.Albums, false, false, true)
+	<br />
+	@AlbumHelpers.AlbumGrid(Model.Albums, 2, false, false, true)
 }
 	
 @section BodyScripts {
