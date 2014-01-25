@@ -128,7 +128,6 @@ namespace VocaDb.Web.Controllers {
 		}
 
 		private readonly HttpContextBase context;
-		private readonly HttpRequestBase request;
 		private readonly IUserPermissionContext permissionContext;
 		private readonly IUserRepository userRepository;
 
@@ -192,6 +191,10 @@ namespace VocaDb.Web.Controllers {
 					},
 					min = 0,
 				},
+				tooltip = new {
+					shared = true,
+					crosshairs = true
+				},
 				plotOptions = new {
 					bar = new {
 						dataLabels = new {
@@ -240,7 +243,8 @@ namespace VocaDb.Web.Controllers {
 							Romaji = a.Names.SortNames.Romaji, 
 							Japanese = a.Names.SortNames.Japanese, 
 						},
-						Value = a.AllAlbums.Count(s => !s.IsSupport && !s.Album.Deleted && s.Album.DiscType != DiscType.Compilation)
+						Value = a.AllAlbums.Count(s => !s.IsSupport && !s.Album.Deleted && s.Album.DiscType != DiscType.Compilation),
+						EntryId = a.Id
 					}), "Albums by producer", "Songs");
 
 		}
