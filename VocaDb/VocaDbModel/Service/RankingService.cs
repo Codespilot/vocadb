@@ -107,7 +107,7 @@ namespace VocaDb.Model.Service {
 				foreach (var entry in parsed.Songs) {
 
 					var pv = session.Query<PVForSong>()
-						.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVId == entry.NicoId);
+						.FirstOrDefault(p => p.Service == PVService.NicoNicoDouga && p.PVId == entry.NicoId && !p.Song.Deleted);
 
 					var song = pv != null ? new SongContract(pv.Song, LanguagePreference) : null;
 
