@@ -2,6 +2,7 @@
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Model.DataContracts.ReleaseEvents;
+using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models.Event;
 
 namespace VocaDb.Web.Controllers
@@ -9,10 +10,16 @@ namespace VocaDb.Web.Controllers
     public class EventController : ControllerBase
     {
 
+		private readonly EventQueries queries;
+		private readonly ReleaseEventService service;
+
 		private ReleaseEventService Service {
-			get {
-				return Services.ReleaseEvents;
-			}
+			get { return service; }
+		}
+
+		public EventController(EventQueries queries, ReleaseEventService service) {
+			this.queries = queries;
+			this.service = service;
 		}
 
 		[HttpPost]
@@ -97,6 +104,12 @@ namespace VocaDb.Web.Controllers
 			Service.UpdateSeries(model.ToContract());
 
 			return RedirectToAction("EventsBySeries");
+
+		}
+
+		public ActionResult EventsByDate() {
+			
+			return View(queries.ByDate());
 
 		}
 

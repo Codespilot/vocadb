@@ -593,6 +593,7 @@
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
     <Compile Include="Service\Repositories\IArtistRepository.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />
+    <Compile Include="Service\Repositories\IEventRepository.cs" />
     <Compile Include="Service\Repositories\ISongRepository.cs" />
     <Compile Include="Service\Repositories\IUserMessageRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\AlbumNHibernateRepository.cs" />
@@ -603,6 +604,7 @@
     <Compile Include="Service\Repositories\ITagRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\ArtistNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\EntryReportNHibernateRepository.cs" />
+    <Compile Include="Service\Repositories\NHibernate\EventNHibernateRepository.cs" />
     <Compile Include="Service\Repositories\NHibernate\NHibernateAuditLogger.cs" />
     <Compile Include="Service\BBCode\EntryLinkTransformer.cs" />
     <Compile Include="Service\ExtSites\AffiliateLinkGenerator.cs" />

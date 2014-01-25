@@ -54,6 +54,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<AdminService>().AsSelf();
 			builder.RegisterType<AlbumService>().AsSelf();
 			builder.RegisterType<ArtistService>().AsSelf();
+			builder.RegisterType<ReleaseEventService>().AsSelf();
 			builder.RegisterType<SongService>().AsSelf();
 			builder.RegisterType<TagService>().AsSelf();
 			builder.RegisterType<UserService>().AsSelf();
@@ -62,6 +63,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<AlbumNHibernateRepository>().As<IAlbumRepository>();
 			builder.RegisterType<ArtistNHibernateRepository>().As<IArtistRepository>();
 			builder.RegisterType<EntryReportNHibernateRepository>().As<IEntryReportRepository>();
+			builder.RegisterType<EventNHibernateRepository>().As<IEventRepository>();
 			builder.RegisterType<SongNHibernateRepository>().As<ISongRepository>();
 			builder.RegisterType<SongListNHibernateRepository>().As<ISongListRepository>();
 			builder.RegisterType<TagNHibernateRepository>().As<ITagRepository>();
@@ -70,6 +72,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<AlbumQueries>().AsSelf();
 			builder.RegisterType<ArtistQueries>().AsSelf();
 			builder.RegisterType<EntryReportQueries>().AsSelf();
+			builder.RegisterType<EventQueries>().AsSelf();
 			builder.RegisterType<SongQueries>().AsSelf();
 			builder.RegisterType<SongListQueries>().AsSelf();
 			builder.RegisterType<TagQueries>().AsSelf();
