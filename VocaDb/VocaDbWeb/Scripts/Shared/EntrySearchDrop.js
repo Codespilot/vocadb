@@ -90,7 +90,7 @@
 			});
 
 			if (createNewItem)
-				mapped.push({ label: createNewItem.replace("{0}", par.term), value: "" });
+				mapped.push({ label: createNewItem.replace("{0}", par.term), value: "", term: par.term });
 
 			response(mapped);
 
@@ -103,7 +103,8 @@
 		if (idElem)
 			$(idElem).val(ui.item.value);
 
-		acceptSelection(ui.item.value, $(nameBoxElem).val());
+		// namebox value is cleared when using keyboard
+		acceptSelection(ui.item.value, $(nameBoxElem).val() || ui.item.term);
 		$(nameBoxElem).val("");
 
 		return false;
