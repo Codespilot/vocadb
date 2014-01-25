@@ -16,6 +16,9 @@
 	@if (Login.CanManageEventSeries) {
 		@Html.ActionLink(ViewRes.SharedStrings.Edit, "EditSeries", new { id = Model.Id }, new { id = "editEventLink" })
 	}
+	@if (Login.CanManageDb) {
+		<a href="@Url.Action("Edit", new { seriesId = Model.Id != 0 ? (int?)Model.Id : null })" id="createEventLink">@ViewRes.Event.EventsBySeriesStrings.CreateEvent</a>
+	}	
 }
 
 @if (!string.IsNullOrEmpty(Model.Description)) {
@@ -34,6 +37,7 @@
 
 	$(document).ready(function () {
 		$("#editEventLink").button({ icons: { primary: 'ui-icon-wrench'} });
+		$("#createEventLink").button({ icons: { primary: 'ui-icon-plus' } });
 	});
 
 </script>
