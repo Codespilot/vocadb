@@ -104,7 +104,7 @@ module vdb.viewModels {
 
                     }
 
-                    if (result.songType && result.songType != "Unspecified") {
+                    if (result.songType && result.songType != "Unspecified" && this.songType() == "Original") {
                         this.songType(result.songType);
                     }
 
