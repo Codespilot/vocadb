@@ -61,7 +61,6 @@
 		<tr>
 			<th colspan="2">@ViewRes.SharedStrings.ArtistName</th>
 			<th>@ViewRes.SharedStrings.Type</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -78,11 +77,6 @@
 			<td>
 				@ArtistHelpers.ArtistTypeLabel(artist.ArtistType)
 				@Translate.ArtistTypeName(artist.ArtistType)
-			</td>
-			<td>
-				@if (Login.CanEdit(artist)) {
-					@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = artist.Id }, new { @class = "textLink editLink" })
-	}
 			</td>
 		</tr>
  }

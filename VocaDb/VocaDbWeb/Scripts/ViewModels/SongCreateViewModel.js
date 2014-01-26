@@ -69,7 +69,7 @@ var vdb;
                             }
                         }
 
-                        if (result.songType && result.songType != "Unspecified") {
+                        if (result.songType && result.songType != "Unspecified" && _this.songType() == "Original") {
                             _this.songType(result.songType);
                         }
 

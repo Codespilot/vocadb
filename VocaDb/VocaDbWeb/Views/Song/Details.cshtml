@@ -343,14 +343,14 @@
 				<br /><br />
 			</label>
 		</div>
-		<label>
+		<div>
 			@R.DetailsStrings.Link<br />
-			<input type="text" value="@url" class="input-large" />
-		</label>
-		<label>
+			<input type="text" value="@url" class="input-large" onclick="this.select();" />
+		</div>
+		<div>
 			@R.DetailsStrings.Embed<br />
 			<textarea class="input-xxlarge" rows="3">@(string.Format("<iframe style=\"overflow: hidden;\" src=\"http://vocadb.net/Ext/EmbedSong?songId={0}&lang={1}\" height=\"400\" width=\"570\" frameborder=\"0\" scrolling=\"no\"></iframe>", Model.Id, Login.Manager.LanguagePreference))</textarea>
-		</label>
+		</div>
 	</div>
 
 </div>
