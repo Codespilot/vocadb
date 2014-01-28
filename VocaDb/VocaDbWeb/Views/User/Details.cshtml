@@ -8,18 +8,18 @@
 @model UserDetailsContract
 
 @{
-    ViewBag.Title = Model.Name;
+	ViewBag.Title = Model.Name;
 	ViewBag.Subtitle = Translate.UserGroups[Model.GroupId];
 
-    ViewBag.Parents = new[] {
+	ViewBag.Parents = new[] {
 		Html.ActionLink(ViewRes.SharedStrings.Users, "Index"),
 	};
 
-    var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
-    var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
-    var verifiedAccount = (Model.OwnedArtistEntries.Any());
+	var ownProfile = (Login.Manager.IsLoggedIn && Login.User.Id == Model.Id && Login.User.Active);
+	var canSeeDetailedStats = (ownProfile || !Model.AnonymousActivity || Login.CanModerateUsers);
+	var verifiedAccount = (Model.OwnedArtistEntries.Any());
 
-    var url = VocaUriBuilder.CreateAbsolute(Url.Action("Profile", new { id = Model.Name })).ToString();
+	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Profile", new { id = Model.Name })).ToString();
 
 }
 
@@ -46,20 +46,33 @@
 		@Html.ActionLink(R.MySettings, "MySettings", null, new { id = "mySettingsLink" });
 		@Html.Raw("&nbsp;")
 		@Html.ActionLink(R.Messages, "Messages", null, new { id = "messagesLink" });
-}
+	}
 
 	@if (Login.Manager.IsLoggedIn && Login.User.Id != Model.Id && Login.User.Active) {
 		@Html.ActionLink(R.ComposeMessage, "Messages", null, null, null, "composeTab", new { receiverName = Model.Name }, new { id = "composeMessageLink" });
-}
+	}
 
 	@if (Login.CanManageUsers && EntryPermissionManager.CanEditUser(Login.Manager, Model.GroupId)) {
 		@Html.Raw("&nbsp;")
 		@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editUserLink" });
-}
+	}
 	@if (Login.Manager.HasPermission(PermissionToken.DisableUsers) && Login.User.Id != Model.Id && Model.Active) {
 		@Html.Raw("&nbsp;")
 		@Html.ActionLink(R.Disable, "Disable", new { id = Model.Id }, new { id = "disableUserLink" });
+	}
 }
+
+@if (ownProfile && Login.User.GroupId == UserGroupId.Limited) {
+	<div class="alert">
+		<h4>Why is my user group "Limited user"?</h4>
+		<p>
+			In order to prevent spammers and abusers we use automated tools to check users' IP address.
+			If you have a dynamic IP, it's possible that someone with the same IP as you was participating in these activities
+			and your account was mistakenly reduced, preventing you from editing the database.
+		</p><p>
+			If this is the case, please @Html.ActionLink("contact us", "Index", "Help") and we'll take care of it. Thank you.
+		</p>
+	</div>
 }
 
 <div class="row-fluid">
@@ -130,10 +143,10 @@
 			@Model.Location
 			<br /><br />
 		}
-		
+
 		@if (Model.FavoriteTags.Any()) {
 			<h4>@R.FavoriteTags</h4>
-			@TagHelpers.TagList(Model.FavoriteTags)					
+			@TagHelpers.TagList(Model.FavoriteTags)
 			<br /><br />
 		}
 
@@ -157,7 +170,7 @@
 
 			if (!string.IsNullOrEmpty(Model.Email)) {
 				<h4 class="withMargin">@R.Email</h4>
-				@Model.Email				
+				@Model.Email
 			}
 
 			<h4 class="withMargin">@R.EffectivePermissions</h4>
@@ -178,7 +191,7 @@
 		@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
 	</div>
 }
-		
+
 @if (Model.LatestRatedSongs.Any()) {
 	<div class="well well-transparent">
 		<h4>
@@ -188,7 +201,7 @@
 		@SongHelpers.SongGrid(Model.LatestRatedSongs, 3)
 	</div>
 }
-		
+
 @if (Model.FollowedArtists.Any()) {
 	<div class="well well-transparent">
 		<h4>
@@ -241,7 +254,7 @@
 
 		@if (ownProfile) {
 			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">@R.CreateNewList</a>
-  }
+		}
 	</div>
 
 </div>
