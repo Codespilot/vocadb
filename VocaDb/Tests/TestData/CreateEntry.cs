@@ -13,11 +13,11 @@ namespace VocaDb.Tests.TestData {
 			return new Album(new LocalizedString(name, ContentLanguageSelection.Unspecified)) { Id = id };
 		}
 
-		public static Artist Producer(int id = 0, string name = null) {
+		public static Artist Producer(int id = 0, string name = "Tripshots") {
 			return new Artist(TranslatedString.Create(name ?? "Tripshots")) { Id = id, ArtistType = ArtistType.Producer };
 		}
 
-		public static Song Song(int id = 0, string name = null) {
+		public static Song Song(int id = 0, string name = "Nebula") {
 			return new Song(TranslatedString.Create(name ?? "Nebula")) { Id = id };
 		}
 

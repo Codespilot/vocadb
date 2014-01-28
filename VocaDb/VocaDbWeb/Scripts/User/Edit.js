@@ -16,6 +16,8 @@ $(document).ready(function () {
 
 	}
 
+	$("#clearRatingsLink").button();
+
 	var artistAddList = $("#ownedArtistAddList");
 	var artistAddName = $("input#ownedArtistAddName");
 	var artistAddBtn = $("#ownedArtistAddAcceptBtn");

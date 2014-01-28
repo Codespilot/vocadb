@@ -186,6 +186,52 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		/// <summary>
+		/// Clears all rated albums and songs by a user.
+		/// Also updates rating totals.
+		/// 
+		/// Staff members cannot be cleared.
+		/// </summary>
+		/// <param name="id">User Id.</param>
+		public void ClearRatings(int id) {
+			
+			PermissionContext.VerifyPermission(PermissionToken.DisableUsers);
+
+			repository.HandleTransaction(ctx => {
+				
+				var user = ctx.Load(id);
+
+				if (!user.CanBeDisabled)
+					throw new NotAllowedException("This user account cannot be cleared.");
+
+				ctx.AuditLogger.AuditLog(string.Format("clearing ratings by {0}", user));
+
+				while (user.AllAlbums.Any()) {
+					var albumLink = user.AllAlbums[0];
+					albumLink.Delete();		
+					ctx.Delete(albumLink);
+					ctx.Update(albumLink.Album);
+				}
+
+				while (user.FavoriteSongs.Any()) {
+					var songLink = user.FavoriteSongs[0];
+					songLink.Delete();
+					ctx.Delete(songLink);
+					ctx.Update(songLink.Song);
+				}
+
+				while (user.AllArtists.Any()) {
+					var artistLink = user.AllArtists[0];
+					ctx.Delete(artistLink);
+					artistLink.Delete();
+				}
+
+				ctx.Update(user);
+
+			});
+
+		}
+
 		/// <param name="name">User name. Must be unique. Cannot be null or empty.</param>
 		/// <param name="pass">Password. Cannot be null or empty.</param>
 		/// <param name="email">Email address. Must be unique if specified. Cannot be null.</param>
