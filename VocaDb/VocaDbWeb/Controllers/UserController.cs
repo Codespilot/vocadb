@@ -473,6 +473,17 @@ namespace VocaDb.Web.Controllers
 			return RedirectToAction("Index", "Home");
 		}
 
+		[Authorize]
+		public ActionResult Clear(int id) {
+			
+			LoginManager.VerifyPermission(PermissionToken.DisableUsers);
+
+			Data.ClearRatings(id);
+			TempData.SetSuccessMessage("User ratings cleared");
+			return RedirectToAction("Details", new { id });
+
+		}
+
 		[HttpPost]
 		public ActionResult ComposeMessage(ComposeMessage model) {
 

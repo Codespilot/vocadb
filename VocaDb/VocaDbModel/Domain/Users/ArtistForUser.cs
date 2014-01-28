@@ -41,6 +41,10 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		/// <summary>
+		/// Deletes this link and performs any necessary bookkeeping.
+		/// Link will be removed from collections on both sides and ratings will be updated.
+		/// </summary>
 		public virtual void Delete() {
 
 			User.AllArtists.Remove(this);

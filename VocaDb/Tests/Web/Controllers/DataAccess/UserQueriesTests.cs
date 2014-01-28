@@ -4,11 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Security;
+using VocaDb.Tests.TestData;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Code.Security;
 using VocaDb.Web.Controllers.DataAccess;
@@ -129,6 +131,37 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			Assert.AreEqual(true, result.IsOk, "IsOk");
 			AssertEqual(userWithEmail, result.User);
+
+		}
+
+		[TestMethod]
+		public void ClearRatings() {
+		
+			userWithEmail.AdditionalPermissions.Add(PermissionToken.DisableUsers);
+			RefreshLoggedUser();
+			var album = CreateEntry.Album();
+			var song = CreateEntry.Song();
+			repository.Save(album);
+			repository.Save(song);
+			repository.Save(userWithoutEmail.AddAlbum(album, PurchaseStatus.Nothing, MediaType.DigitalDownload, 5));
+			repository.Save(userWithoutEmail.AddSongToFavorites(song, SongVoteRating.Favorite));
+
+			data.ClearRatings(userWithoutEmail.Id);
+
+			Assert.AreEqual(0, userWithoutEmail.AllAlbums.Count, "No albums for user");
+			Assert.AreEqual(0, userWithoutEmail.FavoriteSongs.Count, "No songs for user");
+			Assert.AreEqual(0, album.UserCollections.Count, "Number of users for the album");
+			Assert.AreEqual(0, song.UserFavorites.Count, "Number of users for the song");
+			Assert.AreEqual(0, album.RatingTotal, "Album RatingTotal");
+			Assert.AreEqual(0, song.RatingScore, "Song RatingScore");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(NotAllowedException))]
+		public void ClearRatings_NoPermission() {
+			
+			data.ClearRatings(userWithoutEmail.Id);
 
 		}
 

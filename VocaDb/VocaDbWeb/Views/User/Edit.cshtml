@@ -10,6 +10,12 @@
 	};	
 }
 
+@section Toolbar {
+	@if (!Model.Active) {
+		<a id="clearRatingsLink" href="@Url.Action("Clear", new { id = Model.Id })" onclick="return confirm('Are you sure you want to clear ratings for this user?');">Clear user ratings</a>
+	}
+}
+
 @using(Html.BeginForm()) {	
 	@Html.HiddenFor(m => m.Id)
 	
