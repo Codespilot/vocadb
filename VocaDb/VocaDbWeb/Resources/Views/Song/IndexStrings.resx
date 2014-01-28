@@ -135,6 +135,9 @@
   <data name="FromAlbum" xml:space="preserve">
     <value>From album</value>
   </data>
+  <data name="MoreRecentThan" xml:space="preserve">
+    <value>More recent than</value>
+  </data>
   <data name="NoFilter" xml:space="preserve">
     <value>Showing all songs.</value>
   </data>

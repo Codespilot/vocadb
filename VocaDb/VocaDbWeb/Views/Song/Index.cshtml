@@ -12,6 +12,7 @@
 @using PagedList;
 @using VocaDb.Web.Models.Song
 @using R = ViewRes.Song;
+@using E = ViewRes.Song.IndexStrings
 @model VocaDb.Web.Models.Song.Index
 
 @{
@@ -19,7 +20,7 @@
 }
 
 @section Toolbar {
-	@Html.ActionLink(ViewRes.Song.IndexStrings.AddSong, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
+	@Html.ActionLink(E.AddSong, "Create", null, new { id = "createLink", @class = (Login.CanManageDb ? "" : "disabled") })
 }
 
 <div class="row-fluid">
@@ -44,7 +45,7 @@
 
 	<div class="alert alert-info span9">
 		<span style="display: none;" data-bind="visible: filterString, text: filterString"></span>
-	    <span style="display: none;" data-bind="visible: !filterString()">@R.IndexStrings.NoFilter</span>
+	    <span style="display: none;" data-bind="visible: !filterString()">@E.NoFilter</span>
         &nbsp;
 		<button class="btn dropdown-toggle" onclick="$('#filterForm').toggle();">@ViewRes.SharedStrings.Filter <span class="caret"></span></button>
 		@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-horizontal form-topMargin", @id = "filterForm", @style = "display: none;" })) {
@@ -58,13 +59,13 @@
 			</div>
 		</div>
 		<div class="control-group" data-bind="visible: !artistId()">
-			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
+			<div class="control-label">@E.ArtistFilter</div>
 			<div class="controls">
 				<input type="text" id="artistNameSearch" data-bind="value:filterArtistName" maxlength="255" />
 			</div>
 		</div>	  
 		<div class="control-group" data-bind="visible: artistId()">
-			<div class="control-label">@R.IndexStrings.ArtistFilter</div>
+			<div class="control-label">@E.ArtistFilter</div>
 			<div class="controls">
 				<div class="input-append">
 					<input type="text" class="input-large" readonly="readonly" data-bind="value:filterArtistName" />					
@@ -73,16 +74,22 @@
 			</div>
 		</div>	  
 		<div class="control-group">
-			<div class="control-label">@R.IndexStrings.SongTypeFilter</div>			
+			<div class="control-label">@E.SongTypeFilter</div>			
 			<div class="controls">
 				@Html.SongTypeDropDownListFor(a => a.SongType)
 			</div>
 		</div>
 		<div class="control-group">
+			<div class="control-label">@E.MoreRecentThan</div>			
+			<div class="controls">
+				@Html.DropDownListFor(a => a.Since, Model.SongDateItems)
+			</div>
+		</div>			
+		<div class="control-group">
 			<div class="controls">
 				<label class="checkbox">
 				@Html.CheckBoxFor(m => m.OnlyWithPVs)
-				@R.IndexStrings.OnlyWithPVsFilter
+				@E.OnlyWithPVsFilter
 				</label>
 			</div>	  
 		</div>
