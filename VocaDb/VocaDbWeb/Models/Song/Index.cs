@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model;
@@ -64,6 +65,21 @@ namespace VocaDb.Web.Models.Song {
 
 		public IndexRouteParams CreateRouteParams(int page) {
 			return new IndexRouteParams(RouteParams, page);
+		}
+
+		public SelectListItem[] SongDateItems {
+			get {
+				return new[] {
+					new SelectListItem { Text = "(Show all)", Value = "" }, 
+					new SelectListItem { Text = "1 day", Value = "1d" }, 
+					new SelectListItem { Text = "2 days", Value = "2d"}, 
+					new SelectListItem { Text = "7 days", Value = "7d"},
+					new SelectListItem { Text = "2 weeks", Value = "14d"},
+					new SelectListItem { Text = "1 month", Value = "30d"},
+					new SelectListItem { Text = "6 months", Value = "180d"},
+					new SelectListItem { Text = "1 year", Value = "365d"}
+				};
+			}
 		}
 
 	}
