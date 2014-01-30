@@ -28,6 +28,7 @@
 
 			PublicAlbumCollection = true;
 			PublicRatings = true;
+			EmailVerified = false;
 
 		}
 
@@ -53,6 +54,8 @@
 				albumFormatString = value;
 			}
 		}
+
+		public virtual bool EmailVerified { get; set; }
 
 		public virtual int Id { get; set; }
 
