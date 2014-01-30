@@ -210,14 +210,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					var albumLink = user.AllAlbums[0];
 					albumLink.Delete();		
 					ctx.Delete(albumLink);
-					ctx.Update(albumLink.Album);
+					ctx.Update(albumLink.Album); // Update album ratings
 				}
 
 				while (user.FavoriteSongs.Any()) {
 					var songLink = user.FavoriteSongs[0];
 					songLink.Delete();
 					ctx.Delete(songLink);
-					ctx.Update(songLink.Song);
+					ctx.Update(songLink.Song); // Update song ratings
 				}
 
 				while (user.AllArtists.Any()) {
