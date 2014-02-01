@@ -437,6 +437,18 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void ResetPassword() {
+			
+			data.ResetPassword(request.Id, "123");
+
+			var hashed = LoginManager.GetHashedPass(request.User.NameLC, "123", request.User.Salt);
+
+			Assert.AreEqual(hashed, userWithEmail.Password, "Hashed password");
+			Assert.AreEqual(0, repository.List<PasswordResetRequest>().Count, "Number of requests");
+
+		}
+
+		[TestMethod]
 		public void UpdateUserSettings_SetEmail() {
 
 			var contract = new UpdateUserSettingsContract(userWithEmail) { Email = "new_email@vocadb.net" };
@@ -503,6 +515,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			data.VerifyEmail(request.Id);
 
 			Assert.IsTrue(userWithEmail.Options.EmailVerified, "EmailVerified");
+			Assert.AreEqual(0, repository.List<PasswordResetRequest>().Count, "Number of requests");
 
 		}
 

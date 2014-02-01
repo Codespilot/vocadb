@@ -818,7 +818,7 @@ namespace VocaDb.Web.Controllers
 				return View(new ResetPassword());
 			}
 
-			var user = Service.ResetPassword(model.RequestId, model.NewPass);
+			var user = Data.ResetPassword(model.RequestId, model.NewPass);
 			FormsAuthentication.SetAuthCookie(user.Name, false);
 
 			TempData.SetStatusMessage("Password reset successfully!");

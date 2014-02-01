@@ -704,30 +704,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserContract ResetPassword(Guid requestId, string password) {
-
-			ParamIs.NotNullOrEmpty(() => password);
-
-			return HandleTransaction(session => {
-
-				var request = session.Load<PasswordResetRequest>(requestId);
-				var user = request.User;
-
-				AuditLog("resetting password", session, user);
-
-				var newHashed = LoginManager.GetHashedPass(user.NameLC, password, user.Salt);
-				user.Password = newHashed;
-
-				session.Update(user);
-
-				session.Delete(request);
-
-				return new UserContract(user);
-
-			});
-
-		}
-
 		public void SendMessage(UserMessageContract contract, string mySettingsUrl, string messagesUrl) {
 
 			ParamIs.NotNull(() => contract);
