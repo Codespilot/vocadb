@@ -4,6 +4,8 @@ namespace VocaDb.Model.Domain.Users {
 
 	public class PasswordResetRequest {
 
+		public static TimeSpan ExpirationTime = TimeSpan.FromDays(1);
+
 		private User user;
 
 		public PasswordResetRequest() {
@@ -27,6 +29,12 @@ namespace VocaDb.Model.Domain.Users {
 		public virtual string Email { get; set; }
 
 		public virtual Guid Id { get; set; }
+
+		public virtual bool IsValid {
+			get {
+				return Created >= DateTime.Now - ExpirationTime;
+			}
+		}
 
 		public virtual User User {
 			get { return user; }

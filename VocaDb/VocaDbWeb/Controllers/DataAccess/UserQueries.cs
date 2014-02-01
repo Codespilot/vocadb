@@ -146,7 +146,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		public bool CheckPasswordResetRequest(Guid requestId) {
 
-			return repository.HandleQuery(ctx => ctx.OfType<PasswordResetRequest>().Query().Any(r => r.Id == requestId));
+			var cutoff = DateTime.Now - PasswordResetRequest.ExpirationTime;
+
+			return repository.HandleQuery(ctx => ctx.OfType<PasswordResetRequest>().Query().Any(r => r.Id == requestId && r.Created >= cutoff));
 
 		}
 
@@ -484,6 +486,34 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public UserContract ResetPassword(Guid requestId, string password) {
+
+			ParamIs.NotNullOrEmpty(() => password);
+
+			return repository.HandleTransaction(ctx => {
+
+				var request = ctx.OfType<PasswordResetRequest>().Load(requestId);
+
+				if (!request.IsValid)
+					throw new RequestNotValidException("Request has expired");
+
+				var user = request.User;
+
+				ctx.AuditLogger.AuditLog("resetting password", user);
+
+				var newHashed = LoginManager.GetHashedPass(user.NameLC, password, user.Salt);
+				user.Password = newHashed;
+
+				ctx.Update(user);
+
+				ctx.Delete(request);
+
+				return new UserContract(user);
+
+			});
+
+		}
+
 		public void SetAlbumFormatString(string formatString) {
 
 			if (!PermissionContext.IsLoggedIn)
@@ -610,7 +640,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				
 				var request = ctx.OfType<PasswordResetRequest>().Get(requestId);
 
-				if (request == null)
+				if (request == null || !request.IsValid)
 					return false;
 
 				var user = request.User;
