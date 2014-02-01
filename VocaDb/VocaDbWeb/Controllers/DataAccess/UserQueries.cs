@@ -660,7 +660,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				ctx.Delete(request);
 
-				ctx.AuditLogger.SysLog("verified email");
+				ctx.AuditLogger.AuditLog("verified email");
 
 				return true;
 
