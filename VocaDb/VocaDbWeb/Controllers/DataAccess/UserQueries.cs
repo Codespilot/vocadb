@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Security;
@@ -27,6 +28,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly IEntryLinkFactory entryLinkFactory;
+		private readonly IUserMessageMailer mailer;
 		private readonly IStopForumSpamClient sfsClient;
 
 		public IEntryLinkFactory EntryLinkFactory {
@@ -72,16 +74,19 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IStopForumSpamClient sfsClient)
+		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IStopForumSpamClient sfsClient,
+			IUserMessageMailer mailer)
 			: base(repository, permissionContext) {
 
 			ParamIs.NotNull(() => repository);
 			ParamIs.NotNull(() => permissionContext);
 			ParamIs.NotNull(() => entryLinkFactory);
 			ParamIs.NotNull(() => sfsClient);
+			ParamIs.NotNull(() => mailer);
 
 			this.entryLinkFactory = entryLinkFactory;
 			this.sfsClient = sfsClient;
+			this.mailer = mailer;
 
 		}
 
@@ -136,6 +141,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				return LoginResult.CreateSuccess(new UserContract(user));
 
 			});
+
+		}
+
+		public bool CheckPasswordResetRequest(Guid requestId) {
+
+			return repository.HandleQuery(ctx => ctx.OfType<PasswordResetRequest>().Query().Any(r => r.Id == requestId));
 
 		}
 
@@ -424,6 +435,55 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void RequestEmailVerification(int userId, string resetUrl) {
+
+			repository.HandleTransaction(ctx => {
+
+				var user = ctx.Load(userId);
+				ctx.AuditLogger.SysLog("requesting email verification", user.Name);
+
+				var request = new PasswordResetRequest(user);
+				ctx.Save(request);
+
+				var subject = "Verify your email at VocaDB.";
+
+				var body = string.Format("Please click the link below to verify your email at VocaDB.\n{0}?token={1}", resetUrl, request.Id);
+
+				mailer.SendEmail(request.User.Email, request.User.Name, subject, body);
+
+			});
+
+		}
+
+		public void RequestPasswordReset(string username, string email, string resetUrl) {
+
+			ParamIs.NotNullOrEmpty(() => username);
+			ParamIs.NotNullOrEmpty(() => email);
+
+			var lc = username.ToLowerInvariant();
+
+			repository.HandleTransaction(ctx => {
+
+				var user = ctx.Query().FirstOrDefault(u => u.NameLC.Equals(lc) && email.Equals(u.Email));
+
+				if (user == null)
+					throw new UserNotFoundException();
+
+				var request = new PasswordResetRequest(user);
+				ctx.Save(request);
+
+				var subject = "Password reset requested.";
+
+				var body = 
+					"You (or someone who knows your email address) has requested to reset your password on VocaDB.\n" +
+					"You can perform this action at " + resetUrl + "/" + request.Id + ". If you did not request this action, you can ignore this message.";
+
+				mailer.SendEmail(request.User.Email, request.User.Name, subject, body);
+
+			});
+
+		}
+
 		public void SetAlbumFormatString(string formatString) {
 
 			if (!PermissionContext.IsLoggedIn)
@@ -531,6 +591,48 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				ctx.AuditLogger.AuditLog(string.Format("updated settings for {0}", EntryLinkFactory.CreateEntryLink(user)));
 
 				return new UserWithPermissionsContract(user, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		/// <summary>
+		/// Verifies user email.
+		/// Logged user must be the same as the user being verified.
+		/// </summary>
+		/// <param name="requestId">ID of the verification request.</param>
+		/// <returns>True if the request was found and was processed. False if the request was not found (already used).</returns>
+		public bool VerifyEmail(Guid requestId) {
+			
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			return repository.HandleTransaction(ctx => {
+				
+				var request = ctx.OfType<PasswordResetRequest>().Get(requestId);
+
+				if (request == null)
+					return false;
+
+				var user = request.User;
+				if (!user.Equals(PermissionContext.LoggedUser))
+					throw new RequestNotValidException("Email verification request not valid for this user");
+
+				if (!user.Email.Equals(request.Email, StringComparison.InvariantCultureIgnoreCase)) {
+					throw new RequestNotValidException("Email verification request not valid for this user");					
+					/*
+					// Update email from request in case the user hasn't saved the new email yet.
+					user.Email = request.Email;
+					*/
+				}
+
+				user.Options.EmailVerified = true;
+				ctx.Update(user);
+
+				ctx.Delete(request);
+
+				ctx.AuditLogger.SysLog("verified email");
+
+				return true;
 
 			});
 

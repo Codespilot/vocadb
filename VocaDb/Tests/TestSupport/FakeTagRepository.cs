@@ -17,24 +17,12 @@ namespace VocaDb.Tests.TestSupport {
 
 	public class TagListRepositoryContext : ListRepositoryContext<Tag> {
 
+		protected override object GetId(Tag entity) {
+			return entity.Name;
+		}
+
 		public TagListRepositoryContext(QuerySourceList querySource) 
 			: base(querySource) {}
-
-		public override Tag Load(object id) {
-
-			var stringId = (string)id;
-			var list = querySource.List<Tag>();
-			return list.FirstOrDefault(i => i.Name == stringId);
-
-		}
-
-		public override void Update(Tag obj) {
-
-			var existing = Load(obj.Name);
-			Delete(existing);	// Replace existing
-			Save(obj);
-
-		}
 
 	}
 

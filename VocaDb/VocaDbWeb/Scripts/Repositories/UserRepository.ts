@@ -26,6 +26,13 @@ module vdb.repositories {
 
 		};
 
+		public requestEmailVerification = (callback?: () => void) => {
+
+			var url = this.mapUrl("/RequestEmailVerification");
+			$.post(url, callback);
+
+		};
+
 		// Updates artist subscription settings for an artist followed by a user.
 		public updateArtistSubscription = (artistId: number, emailNotifications: boolean) => {
 

@@ -512,7 +512,10 @@ namespace VocaDb.Model.Domain.Users {
 			if (newEmail != string.Empty)
 				new MailAddress(newEmail);
 
-			Email = newEmail;
+			if (!string.Equals(Email, newEmail, StringComparison.InvariantCultureIgnoreCase)) {
+				Email = newEmail;
+				Options.EmailVerified = false;				
+			}
 
 		}
 

@@ -17,6 +17,10 @@ var vdb;
                     var url = _this.mapUrl("/MessagesJson");
                     $.getJSON(url, { maxCount: maxCount, unread: unread, iconSize: iconSize }, callback);
                 };
+                this.requestEmailVerification = function (callback) {
+                    var url = _this.mapUrl("/RequestEmailVerification");
+                    $.post(url, callback);
+                };
                 this.updateArtistSubscription = function (artistId, emailNotifications) {
                     $.post(_this.mapUrl("/UpdateArtistSubscription"), { artistId: artistId, emailNotifications: emailNotifications });
                 };

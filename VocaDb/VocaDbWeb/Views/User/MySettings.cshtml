@@ -48,7 +48,9 @@
 					@R.MySettingsStrings.EmailNote
 				</div>
 				<div class="editor-field">
-					@Html.TextBoxFor(m => m.Email)
+					@Html.TextBoxForKnockout(m => m.Email, "value: email", maxLength: 50)
+					<a data-bind="click: verifyEmail, visible: canVerifyEmail" href="#" class="textLink acceptLink" style="display: none;">Verify email</a>
+					<img data-bind="visible: emailVerified" src="@Url.Content("~/Content/Icons/accept.png")" style="display: none;" title="Email is verified" />
 					@Html.ValidationMessageFor(m => m.Email)
 				</div>
 
@@ -221,11 +223,14 @@
 
 			$("#tabs").tabs();
 
+			var urlMapper = new vdb.UrlMapper('@Url.Content("~/")');
+			var repository = new vdb.repositories.UserRepository(urlMapper);
+
 			@* Can't encode about me text here because textarea needs unencoded. It's user's own content anyway. *@
-			@{ var data = new { Model.AboutMe, Model.WebLinks };	}
+			@{ var data = new { Model.AboutMe, Model.Email, Model.EmailVerified, Model.WebLinks };	}
 			var model = @Html.Raw(JsonHelpers.Serialize(data));
 
-			var viewModel = new vdb.viewModels.MySettingsViewModel(model.aboutMe, model.webLinks);
+			var viewModel = new vdb.viewModels.MySettingsViewModel(repository, model.aboutMe, model.email, model.emailVerified, model.webLinks);
 			ko.applyBindings(viewModel);
 
 		});

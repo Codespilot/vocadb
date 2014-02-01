@@ -267,12 +267,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public bool CheckPasswordResetRequest(Guid requestId) {
-
-			return HandleQuery(session => session.Query<PasswordResetRequest>().Any(r => r.Id == requestId));
-
-		}
-
 		public bool ConnectTwitter(string authToken, int twitterId, string twitterName, string hostname) {
 
 			ParamIs.NotNullOrEmpty(() => authToken);
@@ -688,30 +682,6 @@ namespace VocaDb.Model.Service {
 					link.Delete();
 					session.Delete(link);
 				}
-
-			});
-
-		}
-
-		public void RequestPasswordReset(string username, string email, string resetUrl) {
-
-			ParamIs.NotNullOrEmpty(() => username);
-			ParamIs.NotNullOrEmpty(() => email);
-
-			var lc = username.ToLowerInvariant();
-
-			HandleTransaction(session => {
-
-				var user = session.Query<User>().Where(u => u.NameLC.Equals(lc) && email.Equals(u.Email)).FirstOrDefault();
-
-				if (user == null)
-					throw new UserNotFoundException();
-
-				var request = new PasswordResetRequest(user);
-				session.Save(request);
-
-				var mailer = new PasswordResetRequestMailer();
-				mailer.Send(resetUrl, request);
 
 			});
 

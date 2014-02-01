@@ -15,6 +15,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			: base(user) {
 
 			AboutMe = user.Options.AboutMe;
+			EmailVerified = user.Options.EmailVerified;
 			HashedAccessKey = LoginManager.GetHashedAccessKey(user.AccessKey);
 			HasPassword = !string.IsNullOrEmpty(user.Password);
 			HasTwitterToken = !string.IsNullOrEmpty(user.Options.TwitterOAuthToken);
@@ -28,6 +29,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		}
 
 		public string AboutMe { get; set; }
+
+		public bool EmailVerified { get; set; }
 
 		public string HashedAccessKey { get; set; }
 

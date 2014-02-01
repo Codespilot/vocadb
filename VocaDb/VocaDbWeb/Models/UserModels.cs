@@ -110,6 +110,7 @@ namespace VocaDb.Web.Models {
 			DefaultLanguageSelection = user.DefaultLanguageSelection;
 			Email = user.Email;
 			EmailOptions = user.EmailOptions;
+			EmailVerified = user.EmailVerified;
 			HasPassword = user.HasPassword;
 			HasTwitterToken = user.HasTwitterToken;
 			Id = user.Id;
@@ -168,6 +169,8 @@ namespace VocaDb.Web.Models {
 		[DataType(DataType.EmailAddress)]
 		[StringLength(50)]
 		public string Email { get; set; }
+
+		public bool EmailVerified { get; set; }
 
 		public int Id { get; set; }
 

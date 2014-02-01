@@ -28,6 +28,10 @@ namespace VocaDb.Model.Service.Repositories {
 			Session.Dispose();
 		}
 
+		public T Get(object id) {
+			return Session.Get<T>(id);
+		}
+
 		public T Load(object id) {
 			return Session.Load<T>(id);
 		}
