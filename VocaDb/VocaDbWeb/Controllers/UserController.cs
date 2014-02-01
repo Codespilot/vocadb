@@ -251,7 +251,7 @@ namespace VocaDb.Web.Controllers
 			}
 
 			try {
-				Service.RequestPasswordReset(model.Username, model.Email, AppConfig.HostAddress + Url.Action("ResetPassword", "User"));
+				Data.RequestPasswordReset(model.Username, model.Email, AppConfig.HostAddress + Url.Action("ResetPassword", "User"));
 				TempData.SetStatusMessage("Password reset message has been sent.");
 				return RedirectToAction("Login");
 			} catch (UserNotFoundException) {
@@ -728,6 +728,36 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[HttpPost]
+		[Authorize]
+		public void RequestEmailVerification() {
+			
+			var url = VocaUriBuilder.CreateAbsolute(Url.Action("VerifyEmail", "User"));
+			Data.RequestEmailVerification(LoggedUserId, url.ToString());
+
+		}
+
+		[Authorize]
+		public ActionResult VerifyEmail(Guid token) {
+
+			try {
+				var result = Data.VerifyEmail(token);
+
+				if (!result) {
+					TempData.SetErrorMessage("Request not found or already used.");
+					return RedirectToAction("Index", "Home");
+				} else {
+					TempData.SetSuccessMessage("Email verified successfully. Thank you.");
+					return RedirectToAction("MySettings");
+				}
+
+			} catch (RequestNotValidException) {
+				TempData.SetErrorMessage("Verification request is not valid for the logged in user");
+				return RedirectToAction("Index", "Home");
+			}
+
+		}
+
 		public ActionResult RequestVerification() {
 
 			return View();
@@ -767,7 +797,7 @@ namespace VocaDb.Web.Controllers
 
 			var model = new ResetPassword();
 
-			if (!Service.CheckPasswordResetRequest(id)) {
+			if (!Data.CheckPasswordResetRequest(id)) {
 				ModelState.AddModelError("", "Request ID is invalid. It might have been used already.");
 			} else {
 				model.RequestId = id;
@@ -780,7 +810,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult ResetPassword(ResetPassword model) {
 
-			if (!Service.CheckPasswordResetRequest(model.RequestId)) {
+			if (!Data.CheckPasswordResetRequest(model.RequestId)) {
 				ModelState.AddModelError("", "Request ID is invalid. It might have been used already.");
 			}
 

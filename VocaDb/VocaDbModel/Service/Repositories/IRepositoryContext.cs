@@ -29,7 +29,14 @@ namespace VocaDb.Model.Service.Repositories {
 		void Delete(T entity);
 
 		/// <summary>
-		/// Loads an entity from the repository.
+		/// Loads an entity from the repository, checking whether the entity exists.
+		/// </summary>
+		/// <param name="id">Entity Id.</param>
+		/// <returns>The loaded entity. Null if not found.</returns>
+		T Get(object id);
+
+		/// <summary>
+		/// Loads an entity from the repository, assuming the entity exists.
 		/// </summary>
 		/// <param name="id">Entity Id.</param>
 		/// <returns>The loaded entity. Cannot be null.</returns>

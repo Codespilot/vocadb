@@ -25,6 +25,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		private const string defaultHostname = "crypton.jp";
 		private UserQueries data;
+		private FakeUserMessageMailer mailer;
+		private PasswordResetRequest request;
 		private FakePermissionContext permissionContext;
 		private FakeUserRepository repository;
 		private HostCollection softBannedIPs;
@@ -66,8 +68,12 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository.Add(userWithEmail.Options);
 			permissionContext = new FakePermissionContext(new UserWithPermissionsContract(userWithEmail, ContentLanguagePreference.Default));
 			stopForumSpamClient = new FakeStopForumSpamClient();
-			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory(), stopForumSpamClient);
+			mailer = new FakeUserMessageMailer();
+			data = new UserQueries(repository, permissionContext, new FakeEntryLinkFactory(), stopForumSpamClient, mailer);
 			softBannedIPs = new HostCollection();
+
+			request = new PasswordResetRequest(userWithEmail) { Id = Guid.NewGuid() };
+			repository.Add(request);
 
 		}
 
@@ -397,15 +403,51 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		[TestMethod]
+		public void RequestEmailVerification() {
+			
+			var num = repository.List<PasswordResetRequest>().Count;
+
+			data.RequestEmailVerification(userWithEmail.Id, string.Empty);
+
+			Assert.AreEqual("Verify your email at VocaDB.", mailer.Subject, "Subject");
+			Assert.AreEqual(userWithEmail.Email, mailer.ToEmail, "ToEmail");
+			Assert.AreEqual(num + 1, repository.List<PasswordResetRequest>().Count, "Number of password reset requests");
+
+		}
+
+		[TestMethod]
+		public void RequestPasswordReset() {
+			
+			var num = repository.List<PasswordResetRequest>().Count;
+
+			data.RequestPasswordReset(userWithEmail.Name, userWithEmail.Email, string.Empty);
+
+			Assert.AreEqual("Password reset requested.", mailer.Subject, "Subject");
+			Assert.AreEqual(userWithEmail.Email, mailer.ToEmail, "ToEmail");
+			Assert.AreEqual(num + 1, repository.List<PasswordResetRequest>().Count, "Number of password reset requests");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(UserNotFoundException))]
+		public void RequestPasswordReset_NotFound() {
+
+			data.RequestPasswordReset(userWithEmail.Name, "notfound@vocadb.net", string.Empty);
+
+		}
+
+		[TestMethod]
 		public void UpdateUserSettings_SetEmail() {
 
 			var contract = new UpdateUserSettingsContract(userWithEmail) { Email = "new_email@vocadb.net" };
+			userWithEmail.Options.EmailVerified = true;
 			var result = data.UpdateUserSettings(contract);
 
 			Assert.IsNotNull(result, "Result");
 			var user = GetUserFromRepo(userWithEmail.Name);
 			Assert.IsNotNull(user, "User was found in repository");
 			Assert.AreEqual("new_email@vocadb.net", user.Email, "Email");
+			Assert.IsFalse(user.Options.EmailVerified, "EmailVerified"); // Cancel verification
 
 		}
 
@@ -450,6 +492,39 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			var contract = new UpdateUserSettingsContract(userWithEmail) { Email = "mikumiku" };
 
 			data.UpdateUserSettings(contract);
+
+		}
+
+		[TestMethod]
+		public void VerifyEmail() {
+			
+			Assert.IsFalse(userWithEmail.Options.EmailVerified, "EmailVerified");
+
+			data.VerifyEmail(request.Id);
+
+			Assert.IsTrue(userWithEmail.Options.EmailVerified, "EmailVerified");
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(RequestNotValidException))]
+		public void VerifyEmail_DifferentUser() {
+			
+			request.User = userWithoutEmail;
+			data.VerifyEmail(request.Id);
+
+		}
+
+		[TestMethod]
+		[ExpectedException(typeof(RequestNotValidException))]
+		public void VerifyEmail_DifferentEmail() {
+			
+			request.Email = "new@vocadb.net";
+			data.VerifyEmail(request.Id);
+
+			/*
+			Assert.IsTrue(userWithEmail.Options.EmailVerified, "EmailVerified");
+			Assert.AreEqual(request.Email, userWithEmail.Email, "Email");*/
 
 		}
 

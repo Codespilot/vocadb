@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentNHibernate.Conventions.AcceptanceCriteria;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Service.Repositories;
 
@@ -80,10 +81,50 @@ namespace VocaDb.Tests.TestSupport {
 
 	public class ListRepositoryContext<T> : IRepositoryContext<T> {
 
-		private bool IsEntityWithId {
-			get {
-				return (typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)));
-			}
+		private static readonly bool isEntityWithId = typeof(IEntryWithIntId).IsAssignableFrom(typeof(T));
+
+		protected bool IsEntityWithId {
+			get { return isEntityWithId; }
+		}
+
+		/// <summary>
+		/// Tests whether an entity matches an Id.
+		/// Generally only <see cref="GetId"/> needs to be overridden.
+		/// </summary>
+		/// <param name="entity">Entity to be tested. Cannot be null.</param>
+		/// <param name="id">Id to be tested. Cannot be null.</param>
+		/// <returns>True if the Id matches the entity, otherwise false.</returns>
+		protected virtual bool IdEquals(T entity, object id) {
+			
+			if (IsEntityWithId && id is int)
+				return ((IEntryWithIntId)entity).Id == (int)id;
+			else
+				return GetId(entity).Equals(id);
+
+		}
+
+		/// <summary>
+		/// Gets the Id for an entity.
+		/// If the entity is derived from <see cref="IEntryWithIntId"/> the integer
+		/// Id will be used. Otherwise, the Id property will be attempted to be read
+		/// by reflection.
+		/// 
+		/// This needs to be overridden for types that use composite Ids
+		/// or if the Id property is named something else besides "Id".
+		/// </summary>
+		/// <param name="entity">Entity to be tested. Cannot be null.</param>
+		/// <returns>Entity Id. Cannot be null (Id can never be null)</returns>
+		protected virtual object GetId(T entity) {
+			
+			if (IsEntityWithId)
+				return ((IEntryWithIntId)entity).Id;
+
+			if (typeof(T).GetProperty("Id") == null)
+				throw new NotSupportedException("Id property not found. You need to override GetId method for this repository.");
+
+			dynamic dyn = entity;
+			return dyn.Id;
+
 		}
 
 		protected readonly QuerySourceList querySource;
@@ -106,18 +147,21 @@ namespace VocaDb.Tests.TestSupport {
 			
 		}
 
+		public T Get(object id) {
+							
+			var list = querySource.List<T>();
+			return list.FirstOrDefault(i => IdEquals(i, id));
+
+		}
+
 		public virtual T Load(object id) {
 
-			if (!IsEntityWithId)
-				throw new NotSupportedException("Only supported for entities with integer Id");
+			var list = querySource.List<T>();
 
-			var intId = (int)id;
-			var list = querySource.List<T>().Cast<IEntryWithIntId>().ToArray();
-
-			if (list.All(i => i.Id != intId))
+			if (list.All(i => !IdEquals(i, id)))
 				throw new InvalidOperationException(string.Format("Entity of type {0} with Id {1} not found", typeof(T), id));
 
-			return (T)list.First(i => i.Id == intId);
+			return list.First(i => IdEquals(i, id));
 
 		}
 
@@ -148,11 +192,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		public virtual void Update(T obj) {
 
-			if (!IsEntityWithId)
-				throw new NotSupportedException("Only supported for entities with integer Id");
-
-			var entity = (IEntryWithIntId) obj;
-			var existing = Load(entity.Id);
+			var existing = Load(GetId(obj));
 			Delete(existing);	// Replace existing
 			Save(obj);
 
