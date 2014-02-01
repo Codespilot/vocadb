@@ -50,7 +50,7 @@
 				<div class="editor-field">
 					@Html.TextBoxForKnockout(m => m.Email, "value: email", maxLength: 50)
 					<a data-bind="click: verifyEmail, visible: canVerifyEmail" href="#" class="textLink acceptLink" style="display: none;">Verify email</a>
-					<img data-bind="visible: emailVerified" src="@Url.Content("~/Content/Icons/accept.png")" style="display: none;" title="Email is verified" />
+					<img data-bind="visible: emailVerified" src="@Url.Content("~/Content/Icons/tick.png")" style="display: none;" title="Verified email" />
 					@Html.ValidationMessageFor(m => m.Email)
 				</div>
 

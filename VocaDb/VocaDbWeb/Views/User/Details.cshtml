@@ -91,6 +91,9 @@
 			@if (!Model.Active) {
 				<span class="label">@R.AccountDisabled</span>
 			}
+			@if (Model.EmailVerified) {
+				<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />				
+			}
 		</p>
 
 		<h4 class="withMargin">@R.StatsTab</h4>
@@ -171,6 +174,9 @@
 			if (!string.IsNullOrEmpty(Model.Email)) {
 				<h4 class="withMargin">@R.Email</h4>
 				@Model.Email
+				if (Model.EmailVerified) {
+					<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />				
+				}			
 			}
 
 			<h4 class="withMargin">@R.EffectivePermissions</h4>

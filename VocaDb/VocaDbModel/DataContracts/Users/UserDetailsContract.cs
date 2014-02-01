@@ -23,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			: base(user, permissionContext.LanguagePreference) {
 
 			AboutMe = user.Options.AboutMe;
+			EmailVerified = user.Options.EmailVerified;
 			LastLogin = user.LastLogin;
 			LastLoginAddress = user.Options.LastLoginAddress;
 			Location = user.Options.Location;
@@ -40,6 +41,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public int ArtistCount { get; set; }
 
 		public int CommentCount { get; set; }
+
+		public bool EmailVerified { get; set; }
 
 		public int EditCount { get; set; }
 
