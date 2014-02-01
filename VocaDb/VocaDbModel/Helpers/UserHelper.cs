@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using VocaDb.Model.DataContracts.Users;
-using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Helpers {
 
@@ -30,7 +29,8 @@ namespace VocaDb.Model.Helpers {
 				+ albumRatingCount * 3
 				+ detailsContract.FavoriteSongCount * 2
 				+ detailsContract.CommentCount * 4
-				+ songListCount * 5;
+				+ songListCount * 5
+				+ (detailsContract.EmailVerified ? 200 : 0);
 
 			return power;
 
