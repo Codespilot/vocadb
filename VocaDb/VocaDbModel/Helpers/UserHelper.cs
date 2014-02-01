@@ -30,7 +30,7 @@ namespace VocaDb.Model.Helpers {
 				+ detailsContract.FavoriteSongCount * 2
 				+ detailsContract.CommentCount * 4
 				+ songListCount * 5
-				+ (detailsContract.EmailVerified ? 200 : 0);
+				+ (detailsContract.EmailVerified ? 100 : 0);
 
 			return power;
 
