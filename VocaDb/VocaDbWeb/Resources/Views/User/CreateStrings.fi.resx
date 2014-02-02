@@ -124,10 +124,13 @@
     <value>Luo tunnus</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Sähköpostiosoite (ei pakollinen, mutta suositeltava)</value>
+    <value>Sähköpostiosoite (pakollinen)</value>
+  </data>
+  <data name="EmailIsRequired" xml:space="preserve">
+    <value>Sähköpostiosoite on pakollinen.</value>
   </data>
   <data name="EmailNote" xml:space="preserve">
-    <value>Sähköpostiosoitetta ei näytetä muille käyttäjille. Tarvitset sitä jos koskaan unohdat salasanasi. Profiilikuvaa varten tarvitset Gravatariin liitetyn sähköpostiosoitteen. Osoitetta voi muuttaa myös jälkikäteen.</value>
+    <value>Sähköpostiosoitetta ei näytetä muille käyttäjille. Varmista että syötät toimivan osoitteen. Tarvitset sitä jos koskaan unohdat salasanasi. Profiilikuvaa varten tarvitset Gravatariin liitetyn sähköpostiosoitteen. Osoitetta voi muuttaa myös jälkikäteen.</value>
   </data>
   <data name="EmailTaken" xml:space="preserve">
     <value>Tämä sähköpostiosoite on jo käytössä. Mikäli se on sinun osoitteesi, käytä salasanan resetointitoimintoa, tai mikäli tämä ei onnistu, ota yhteyttä tukeen.</value>

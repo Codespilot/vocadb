@@ -555,7 +555,8 @@ namespace VocaDb.Web.Controllers
 	        // Attempt to register the user
 	        try {
 
-				var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time, MvcApplication.BannedIPs);
+				var url = VocaUriBuilder.CreateAbsolute(Url.Action("VerifyEmail", "User")).ToString();
+				var user = Data.Create(model.UserName, model.Password, model.Email ?? string.Empty, Hostname, time, MvcApplication.BannedIPs, url);
 				FormsAuthentication.SetAuthCookie(user.Name, false);
 		        return RedirectToAction("Index", "Home");
 
