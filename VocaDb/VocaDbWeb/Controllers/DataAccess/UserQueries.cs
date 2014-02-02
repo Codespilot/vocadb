@@ -124,7 +124,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				}
 
 				// Attempt to find user by either lowercase username.
-				var user = ctx.Query().FirstOrDefault(u => u.Active && u.NameLC == lc);
+				var user = ctx.Query().FirstOrDefault(u => u.Active && (u.NameLC == lc || (u.Options.EmailVerified && u.Email == name)));
 
 				if (user == null) {
 					ctx.AuditLogger.AuditLog(string.Format("failed login from {0} - no user.", MakeGeoIpToolLink(hostname)), name);

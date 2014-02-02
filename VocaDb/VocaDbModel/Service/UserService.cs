@@ -133,6 +133,16 @@ namespace VocaDb.Model.Service {
 			details.Power = UserHelper.GetPower(details, stats.OwnedAlbumCount, stats.RatedAlbumCount);
 			details.Level = UserHelper.GetLevel(details.Power);
 
+			if (user.Active && user.GroupId >= UserGroupId.Regular && user.Equals(PermissionContext.LoggedUser) && !user.AllOwnedArtists.Any()) {
+				
+				var producerTypes = new[] { ArtistType.Producer, ArtistType.Animator, ArtistType.Illustrator };
+				details.PossibleProducerAccount = session.Query<ArtistName>().Any(a => !a.Artist.Deleted 
+					&& producerTypes.Contains(a.Artist.ArtistType) 
+					&& a.Value == user.Name 
+					&& !a.Artist.OwnerUsers.Any());
+
+			}
+
 			return details;
 
 		}

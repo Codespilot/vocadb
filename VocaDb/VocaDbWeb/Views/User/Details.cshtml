@@ -74,6 +74,12 @@
 		</p>
 	</div>
 }
+@if (ownProfile && Model.PossibleProducerAccount) {
+	<div class="alert alert-info">
+		Are you possibly an artist (such as producer, animator or illustrator) working with Vocaloid/UTAU?
+		If so, please see the @Html.ActionLink("artist verification page", "RequestVerification").
+	</div>
+}
 
 <div class="row-fluid">
 	<div class="span2 well well-transparent">
@@ -92,7 +98,7 @@
 				<span class="label">@R.AccountDisabled</span>
 			}
 			@if (Model.EmailVerified) {
-				<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />				
+				<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />
 			}
 		</p>
 
@@ -175,8 +181,8 @@
 				<h4 class="withMargin">@R.Email</h4>
 				@Model.Email
 				if (Model.EmailVerified) {
-					<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />				
-				}			
+					<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />
+				}
 			}
 
 			<h4 class="withMargin">@R.EffectivePermissions</h4>

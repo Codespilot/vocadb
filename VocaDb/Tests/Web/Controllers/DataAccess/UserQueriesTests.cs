@@ -130,9 +130,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		// Login by email is disabled for now. Need to clean up duplicate emails first.
-		[TestMethod, Ignore]
+		[TestMethod]
 		public void CheckAuthentication_LoginWithEmail() {
 
+			userWithEmail.Options.EmailVerified = true;
 			var result = data.CheckAuthentication(userWithEmail.Email, "123", "miku@crypton.jp", false);
 
 			Assert.AreEqual(true, result.IsOk, "IsOk");

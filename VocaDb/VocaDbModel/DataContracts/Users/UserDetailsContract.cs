@@ -69,6 +69,12 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public int Power { get; set; }
 
+		/// <summary>
+		/// User is a possible producer account, not yet verified.
+		/// This is done by matching username with the artist name.
+		/// </summary>
+		public bool PossibleProducerAccount { get; set; }
+
 		public SongListContract[] SongLists { get; set; }
 
 		public int SubmitCount { get; set; }
