@@ -151,7 +151,7 @@
     <value>Sähköposti</value>
   </data>
   <data name="EmailNote" xml:space="preserve">
-    <value>(salainen ja vapaaehtoinen, käytetään Gravataria ja salasanojen resetointia varten)</value>
+    <value>(salainen, käytetään Gravataria ja salasanojen resetointia varten)</value>
   </data>
   <data name="EmailOptions" xml:space="preserve">
     <value>Sähköpostiasetukset yksityisviestejä varten</value>

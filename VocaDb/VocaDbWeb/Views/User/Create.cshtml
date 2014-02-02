@@ -11,7 +11,7 @@
 
 @using (Html.BeginForm()) {
 	<div class="row-fluid">
-		<div class="span5">
+		<div class="span5 well well-transparent">
 			<div class="editor-label">
 				@Html.LabelFor(m => m.UserName)
 			</div>
@@ -48,15 +48,15 @@
 			<div class="editor-field" style="display: none;">
 				@Html.TextBoxFor(m => m.Extra)
 			</div>
-			
+
 			@Html.HiddenFor(m => m.EntryTime)
 
-			<br />
+			<br /><br />
 			<p>
 				<button type="submit" class="btn btn-primary">@ViewRes.User.CreateStrings.DoRegister</button>
 			</p>
 
-			<hr />			
+			<hr />
 			<a href="@Url.Action("LoginTwitter")">
 				<img src="@Url.Content("~/Content/Sign-in-with-Twitter-darker.png")" alt="Sign in with Twitter" />
 			</a>

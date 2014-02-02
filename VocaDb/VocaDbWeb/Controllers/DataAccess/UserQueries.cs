@@ -64,6 +64,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		private void SendEmailVerificationRequest(IRepositoryContext<User> ctx, User user, string resetUrl, string subject) {
+			
+			var request = new PasswordResetRequest(user);
+			ctx.Save(request);
+
+			var body = string.Format("Please click the link below to verify your email at VocaDB.\n{0}?token={1}", resetUrl, request.Id);
+
+			mailer.SendEmail(request.User.Email, request.User.Name, subject, body);
+
+		}
+
 		private void ValidateEmail(string email) {
 			
 			try {
@@ -251,13 +262,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		/// <param name="hostname">Host name where the registration is from.</param>
 		/// <param name="timeSpan">Time in which the user filled the registration form.</param>
 		/// <param name="softbannedIPs">List of application's soft-banned IPs. Soft-banned IPs are cleared when the application restarts.</param>
+		/// <param name="verifyEmailUrl">Email verification URL. Cannot be null.</param>
 		/// <returns>Data contract for the created user. Cannot be null.</returns>
 		/// <exception cref="InvalidEmailFormatException">If the email format was invalid.</exception>
 		/// <exception cref="UserNameAlreadyExistsException">If the user name was already taken.</exception>
 		/// <exception cref="UserEmailAlreadyExistsException">If the email address was already taken.</exception>
 		/// <exception cref="TooFastRegistrationException">If the user registered too fast.</exception>
 		public UserContract Create(string name, string pass, string email, string hostname, TimeSpan timeSpan,
-			HostCollection softbannedIPs) {
+			HostCollection softbannedIPs, string verifyEmailUrl) {
 
 			ParamIs.NotNullOrEmpty(() => name);
 			ParamIs.NotNullOrEmpty(() => pass);
@@ -316,6 +328,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					user.GroupId = UserGroupId.Limited;
 					ctx.Update(user);
 
+				}
+
+				if (!string.IsNullOrEmpty(user.Email)) {
+					var subject = "Welcome to VocaDB, please verify your email.";
+					SendEmailVerificationRequest(ctx, user, verifyEmailUrl, subject);					
 				}
 
 				ctx.AuditLogger.AuditLog(string.Format("registered from {0} in {1} (SFS check {2}).", MakeGeoIpToolLink(hostname), timeSpan, sfsStr), user);
@@ -444,14 +461,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var user = ctx.Load(userId);
 				ctx.AuditLogger.SysLog("requesting email verification", user.Name);
 
-				var request = new PasswordResetRequest(user);
-				ctx.Save(request);
-
 				var subject = "Verify your email at VocaDB.";
 
-				var body = string.Format("Please click the link below to verify your email at VocaDB.\n{0}?token={1}", resetUrl, request.Id);
-
-				mailer.SendEmail(request.User.Email, request.User.Name, subject, body);
+				SendEmailVerificationRequest(ctx, user, resetUrl, subject);
 
 			});
 

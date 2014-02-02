@@ -26,6 +26,7 @@ namespace VocaDb.Web.Models {
 			EntryTime = DateTime.Now.Ticks;
 		}
 
+		[Required(ErrorMessageResourceType = typeof(ViewRes.User.CreateStrings), ErrorMessageResourceName = "EmailIsRequired")]
 		[Display(ResourceType = typeof(ViewRes.User.CreateStrings), Name = "Email")]
 		[DataType(DataType.EmailAddress)]
 		[StringLength(50)]

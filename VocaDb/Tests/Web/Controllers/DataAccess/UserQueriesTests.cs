@@ -43,7 +43,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		}
 
 		private UserContract CallCreate(string name = "hatsune_miku", string pass = "3939", string email = "", string hostname = defaultHostname, TimeSpan? timeSpan = null) {
-			return data.Create(name, pass, email, hostname, timeSpan ?? TimeSpan.FromMinutes(39), softBannedIPs);
+			return data.Create(name, pass, email, hostname, timeSpan ?? TimeSpan.FromMinutes(39), softBannedIPs, string.Empty);
 		}
 
 		private PartialFindResult<UserContract> CallGetUsers(UserGroupId groupId = UserGroupId.Nothing, string name = null, bool disabled = false, bool verifiedArtists = false, UserSortRule sortRule = UserSortRule.Name, PagingProperties paging = null) {
@@ -186,6 +186,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.AreEqual("mikumiku@crypton.jp", user.Email, "Email");
 			Assert.AreEqual(UserGroupId.Regular, user.GroupId, "GroupId");
 			Assert.IsFalse(repository.List<UserReport>().Any(), "No reports");
+
+			var verificationRequest = repository.List<PasswordResetRequest>().FirstOrDefault(r => r.User.Equals(user));
+			Assert.IsNotNull(verificationRequest, "Verification request was created");
 
 		}
 

@@ -151,7 +151,7 @@
     <value>Email</value>
   </data>
   <data name="EmailNote" xml:space="preserve">
-    <value>(optional, used by gravatar and password resets)</value>
+    <value>(not shown to other users, used by gravatar and password resets)</value>
   </data>
   <data name="EmailOptions" xml:space="preserve">
     <value>Email notifications for private messages</value>

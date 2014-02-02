@@ -124,7 +124,7 @@
     <value>登録する</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>メールアドレス（必須ではないが、入力したほうがいい）</value>
+    <value>メールアドレス</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>パスワード</value>
