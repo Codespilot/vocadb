@@ -8,6 +8,7 @@ module vdb.utils {
     export class WebLinkMatcher {
         
 		static matchers: WebLinkMatcher[] = [
+			{ url: "www.5sing.com/", desc: "5SING", cat: c.WebLinkCategory.Official },
 			{ url: "about.me/", desc: "about.me", cat: c.WebLinkCategory.Official },
 			{ url: "www.akibaoo.com/", desc: "Akibaoo", cat: c.WebLinkCategory.Commercial },
             { url: "alice-books.com/", desc: "Alice Books", cat: c.WebLinkCategory.Commercial },
