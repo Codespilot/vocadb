@@ -118,9 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlbumInfo" xml:space="preserve">
-    <value>Varmista ettei albumia ole jo tietokannssa. Sinun täytyy antaa ainakin yksi nimi ja artisti.&lt;br /&gt;
-&lt;br /&gt;
-Huomaa että VocaDB ei ole UtaiteDB. Albumilla täytyy olla vähintään yksi kappale joka sisältää Vocaloideja (muut äänisyntensaattorit kuten UTAU ovat myös hyväksyttyjä, ihmislaulajat sen sijaan eivät). Epäviralliset fanien tekemät kokoelmat eivät myöskään ole sallittuja. Katso lisätietoja ohjeesta.</value>
+    <value>Huomaa että VocaDB ei ole UtaiteDB. Albumilla täytyy olla vähintään yksi kappale joka sisältää Vocaloideja (muut äänisyntensaattorit kuten UTAU ovat myös hyväksyttyjä, ihmislaulajat sen sijaan eivät). Epäviralliset fanien tekemät kokoelmat eivät myöskään ole sallittuja. Katso lisätietoja ohjeesta.</value>
+  </data>
+  <data name="AlbumInfo2" xml:space="preserve">
+    <value>Varmista ettei albumia ole jo tietokannssa. Sinun täytyy antaa ainakin yksi nimi ja artisti.</value>
   </data>
   <data name="ArtistDesc" xml:space="preserve">
     <value>Albumista vastuussa olevat tuottajat ja laulajat.</value>

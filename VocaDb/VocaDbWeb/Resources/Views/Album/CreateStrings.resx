@@ -118,8 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlbumInfo" xml:space="preserve">
-    <value>Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name and artist.&lt;br /&gt;&lt;br /&gt;
-Note that VocaDB is not UtaiteDB. The album needs to have at least one track with Vocaloid vocals to be allowed on VocaDB (other voice synthsizers such as UTAU are also allowed, but human-sung covers are not). Unofficial fan-made compilations (bootlegs) are also not allowed. For more information, see the Help/Guidelines.</value>
+    <value>Please note that VocaDB is not UtaiteDB. &lt;strong&gt;The album needs to have at least one track with Vocaloid vocals to be allowed on VocaDB (other voice synthsizers such as UTAU are also allowed, but human-sung covers are not)&lt;/strong&gt;. Unofficial fan-made compilations (bootlegs) are also not allowed. For more information, see the Help/Guidelines.</value>
+  </data>
+  <data name="AlbumInfo2" xml:space="preserve">
+    <value>Please make sure the entry you're about to submit hasn't been added before. You need to enter at least one name and artist.</value>
   </data>
   <data name="ArtistDesc" xml:space="preserve">
     <value>Producers and vocalists associated with this album.</value>
