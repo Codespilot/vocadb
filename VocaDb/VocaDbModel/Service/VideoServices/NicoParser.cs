@@ -202,6 +202,12 @@ namespace VocaDb.Model.Service.VideoServices {
 						foreach (var part in parts) {
 							
 							a = artistFunc(part);
+
+							// Some UTAUs are credited with the "音源" suffix, so also try without it.
+							if (a == null && part.EndsWith("音源")) {
+								a = artistFunc(part.Substring(0, part.Length - 2));
+							}
+
 							if (a != null)
 								artists.Add(a);
 
