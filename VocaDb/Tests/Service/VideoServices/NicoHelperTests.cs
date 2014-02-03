@@ -17,7 +17,7 @@ namespace VocaDb.Tests.Service.VideoServices {
 		private Artist ArtistFunc(string name) {
 
 			// Note: カバー is a valid artist name.
-			var artistNames = new HashSet<string> { "初音ミク", "鏡音リン", "巡音ルカ", "MEIKO", "Lily", "重音テト", "カバー" };
+			var artistNames = new HashSet<string> { "初音ミク", "鏡音リン", "巡音ルカ", "MEIKO", "Lily", "重音テト", "波音リツキレ", "カバー" };
 
 			if (!artistNames.Contains(name))
 				return null;
@@ -109,7 +109,7 @@ namespace VocaDb.Tests.Service.VideoServices {
 		[TestMethod]
 		public void ParseTitle_UtauCover() {
 
-			RunParseTitle("【波音リツキレ音源】Lost Destination【UTAUカバー】", "Lost Destination", SongType.Cover, null);
+			RunParseTitle("【波音リツキレ音源】Lost Destination【UTAUカバー】", "Lost Destination", SongType.Cover, "波音リツキレ");
 
 		}
 
