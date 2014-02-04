@@ -171,9 +171,6 @@
   <data name="Favorites" xml:space="preserve">
     <value>suosikki(a)</value>
   </data>
-  <data name="CheckNicoSound" xml:space="preserve">
-    <value>Katso latauslinkki NicoSoundista</value>
-  </data>
   <data name="SearchYoutube" xml:space="preserve">
     <value>Etsi Youtubesta</value>
   </data>

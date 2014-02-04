@@ -152,7 +152,13 @@
 		</root>
 	</log4net>
 
-	<system.diagnostics>
+	<location path="Album/Edit">
+		<system.web>
+			<httpRuntime maxRequestLength="40960" />
+		</system.web>
+	</location>
+	
+	<!--<system.diagnostics>
 		<sources>
 		  <source name="System.ServiceModel" switchValue="Information, ActivityTracing" propagateActivity="true">
 			<listeners>
@@ -160,6 +166,6 @@
 			</listeners>
 		  </source>
 		</sources>
-   </system.diagnostics>
+   </system.diagnostics>-->
 
 </configuration>
