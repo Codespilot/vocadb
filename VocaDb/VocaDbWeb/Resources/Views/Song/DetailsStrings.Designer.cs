@@ -106,15 +106,6 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check NicoSound for a download link.
-        /// </summary>
-        public static string CheckNicoSound {
-            get {
-                return ResourceManager.GetString("CheckNicoSound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Custom lists.
         /// </summary>
         public static string CustomLists {

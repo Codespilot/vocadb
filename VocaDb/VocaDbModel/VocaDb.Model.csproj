@@ -712,7 +712,6 @@
     <Compile Include="Service\VideoServices\VideoServiceNND.cs" />
     <Compile Include="Service\VideoServices\VideoServicePiapro.cs" />
     <Compile Include="Service\VideoServices\VideoServiceSoundCloud.cs" />
-    <Compile Include="Service\VideoServices\VideoServiceUrlFactory.cs" />
     <Compile Include="Service\VideoServices\VideoServiceYoutube.cs" />
     <Compile Include="Service\VideoServices\VideoUrlParseResult.cs" />
     <Compile Include="Service\VideoServices\VimeoParser.cs" />

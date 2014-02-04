@@ -88,13 +88,6 @@ namespace VocaDb.Web.Models {
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
 
-			var nicoPvId = PVHelper.GetNicoId(pvs, NicoId);
-
-			if (!string.IsNullOrEmpty(nicoPvId)) {
-				WebLinks.Add(new WebLinkContract(VideoServiceUrlFactory.NicoSound.CreateUrl(nicoPvId), 
-					ViewRes.Song.DetailsStrings.CheckNicoSound, WebLinkCategory.Other));
-			}
-
 			if (pvs.All(p => p.Service != PVService.Youtube)) {
 
 				var nicoPV = VideoServiceHelper.PrimaryPV(pvs, PVService.NicoNicoDouga);
