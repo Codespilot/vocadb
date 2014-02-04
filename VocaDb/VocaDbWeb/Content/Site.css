@@ -1,15 +1,11 @@
 body {
 	font-size: 80%;
-	font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+	font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
 	background: url(/Content/snowmiku.jpg) top left no-repeat fixed #001155;
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	-webkit-background-size: cover;
 	background-size: cover;
-}
-
-h1, h2, h3, h4, h5, h6 {
-	font-family: Rockwell,Georgia,"Palatino Linotype",Palatino, "Arial Unicode MS", "Times New Roman" ,Times,serif;
 }
 
 header, footer, nav, section {
