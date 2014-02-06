@@ -112,7 +112,10 @@ namespace VocaDb.Model.Service.VideoServices {
 			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/thumbnail_url");
 			var userId = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/user_id");
 			var length = ParseLength(XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/length"));
-			var author = GetUserName(userId);
+			var author = XmlHelper.GetNodeTextOrEmpty(doc, "//nicovideo_thumb_response/thumb/user_nickname");
+
+			if (string.IsNullOrEmpty(author))
+				author = GetUserName(userId);
 
 			var result = VideoTitleParseResult.CreateSuccess(title, author, thumbUrl, length);
 			result.AuthorId = userId;
