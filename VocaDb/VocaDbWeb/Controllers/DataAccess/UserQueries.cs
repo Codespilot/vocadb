@@ -660,7 +660,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					throw new RequestNotValidException("Email verification request not valid for this user");
 
 				if (!user.Email.Equals(request.Email, StringComparison.InvariantCultureIgnoreCase)) {
+
+					log.Info(string.Format("Email {0} not valid for {1}", request.Email, user));
 					throw new RequestNotValidException("Email verification request not valid for this user");					
+
 					/*
 					// Update email from request in case the user hasn't saved the new email yet.
 					user.Email = request.Email;

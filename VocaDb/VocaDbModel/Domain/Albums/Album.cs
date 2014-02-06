@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Artists;
@@ -311,6 +312,14 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public virtual ArtistForAlbum AddArtist(Artist artist, bool isSupport, ArtistRoles roles) {
+
+			ParamIs.NotNull(() => artist);
+
+			return artist.AddAlbum(this, isSupport, roles);
+
+		}
+
 		public virtual ArtistForAlbum AddArtist(string name, bool isSupport, ArtistRoles roles) {
 
 			ParamIs.NotNullOrEmpty(() => name);
@@ -556,6 +565,54 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		public virtual CollectionDiffWithValue<ArtistForAlbum, ArtistForAlbum> SyncArtists(
+			IEnumerable<ArtistForAlbumContract> newArtists, Func<ArtistContract, Artist> artistGetter) {
+
+			var create = new Func<ArtistForAlbumContract, ArtistForAlbum>(contract => {
+				
+				ArtistForAlbum link = null;
+
+				if (contract.Artist != null) {
+
+					var artist = artistGetter(contract.Artist);
+
+					if (!HasArtist(artist)) {
+						link = AddArtist(artist, contract.IsSupport, contract.Roles);
+					}
+
+				} else {
+					link = AddArtist(contract.Name, contract.IsSupport, contract.Roles);
+				}
+
+				return link;
+
+			});
+
+			var delete = new Action<ArtistForAlbum>(link => {				
+				link.Delete();
+			});
+
+			var update = new Func<ArtistForAlbum, ArtistForAlbumContract, bool>((old, newEntry) => {
+			
+				if (!old.ContentEquals(newEntry)) {
+					old.IsSupport = newEntry.IsSupport;
+					old.Roles = newEntry.Roles;
+					return true;
+				} else {
+					return false;
+				}
+				
+			});
+
+			var diff = CollectionHelper.SyncWithContent(AllArtists, newArtists.ToArray(), (a1, a2) => a1.Id == a2.Id, create, update, delete);
+
+			if (diff.Changed) {
+				UpdateArtistString();				
+			}
+
+			return diff;
+
+		}
 
 		public virtual CollectionDiffWithValue<PVForAlbum, PVForAlbum> SyncPVs(IEnumerable<PVContract> newPVs) {
 

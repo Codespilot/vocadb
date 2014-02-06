@@ -284,6 +284,15 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.Status = true;
 				}
 
+				var artistGetter = new Func<ArtistContract, Artist>(artist => 
+					session.OfType<Artist>().Load(artist.Id));
+
+				var artistsDiff = album.SyncArtists(properties.ArtistLinks, artistGetter);
+				session.OfType<ArtistForAlbum>().Sync(artistsDiff);
+
+				if (artistsDiff.Changed)
+					diff.Artists = true;
+
 				var songGetter = new Func<SongInAlbumEditContract, Song>(contract => {
 
 					if (contract.SongId != 0)

@@ -1700,6 +1700,7 @@
     </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <TypeScriptCompile Include="Scripts\Shared\Resources.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />

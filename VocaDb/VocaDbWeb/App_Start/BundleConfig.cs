@@ -73,6 +73,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Album/Edit").Include(
 				"~/Scripts/Repositories/SongRepository.js",
 				"~/Scripts/Repositories/AlbumRepository.js",
+				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/SongInAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/AlbumEditViewModel.js",

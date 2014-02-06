@@ -15,7 +15,6 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
-using VocaDb.Model.Service.Helpers;
 using VocaDb.Tests.TestData;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Code;
@@ -44,8 +43,13 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			return new SongInAlbumEditContract { DiscNumber = 1, TrackNumber = trackNumber, SongId = songId, SongName = songName, Artists = new ArtistContract[0] };
 		}
 
-		private ArtistForAlbumContract CreateArtistForAlbumContract(int artistId = 0, string artistName = null) {
-			return new ArtistForAlbumContract { Artist = new ArtistContract { Name = artistName, Id = artistId } };
+		private ArtistForAlbumContract CreateArtistForAlbumContract(int artistId = 0, string customArtistName = null, ArtistRoles roles = ArtistRoles.Default) {
+
+			if (artistId != 0)
+				return new ArtistForAlbumContract { Artist = new ArtistContract { Id = artistId }, Roles = roles };
+			else
+				return new ArtistForAlbumContract { Name = customArtistName, Roles = roles };
+
 		}
 
 		private AlbumForEditContract CallUpdate(AlbumForEditContract contract) {
@@ -261,8 +265,6 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		}
 
-		/*
-		// TODO: artists not updated this way
 		[TestMethod]
 		public void Update_Artists() {
 			
@@ -278,16 +280,39 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			Assert.AreEqual(2, albumFromRepo.AllArtists.Count, "Number of artists");
 
-			Assert.IsTrue(albumFromRepo.AllArtists.Any(a => a.Id == producer.Id), "Has producer");
-			Assert.IsTrue(albumFromRepo.AllArtists.Any(a => a.Id == vocalist.Id), "Has vocalist");
-			Assert.AreEqual("Tripshots feat. Hatsune Miku", albumFromRepo.ArtistString, "Artist string");
+			Assert.IsTrue(albumFromRepo.HasArtist(producer), "Has producer");
+			Assert.IsTrue(albumFromRepo.HasArtist(vocalist), "Has vocalist");
+			Assert.AreEqual("Tripshots feat. Hatsune Miku", albumFromRepo.ArtistString.Default, "Artist string");
 
 			var archivedVersion = repository.List<ArchivedAlbumVersion>().FirstOrDefault();
 
 			Assert.IsNotNull(archivedVersion, "Archived version was created");
 			Assert.AreEqual(AlbumEditableFields.Artists, archivedVersion.Diff.ChangedFields, "Changed fields");
 
-		}*/
+		}
+
+		[TestMethod]
+		public void Update_Artists_CustomArtist() {
+			
+			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
+			contract.ArtistLinks = new [] {
+				CreateArtistForAlbumContract(customArtistName: "Custom artist", roles: ArtistRoles.Composer)
+			};
+
+			contract = CallUpdate(contract);
+
+			var albumFromRepo = repository.Load(contract.Id);
+
+			Assert.AreEqual(1, albumFromRepo.AllArtists.Count, "Number of artists");
+			Assert.IsTrue(albumFromRepo.AllArtists.Any(a => a.Name == "Custom artist"), "Has custom artist");
+			Assert.AreEqual("Custom artist", albumFromRepo.ArtistString.Default, "Artist string");
+
+			var archivedVersion = repository.List<ArchivedAlbumVersion>().FirstOrDefault();
+
+			Assert.IsNotNull(archivedVersion, "Archived version was created");
+			Assert.AreEqual(AlbumEditableFields.Artists, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+		}
 
 	}
 

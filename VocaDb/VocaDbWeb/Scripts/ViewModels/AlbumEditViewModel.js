@@ -4,14 +4,48 @@ var vdb;
         var rep = vdb.repositories;
 
         var AlbumEditViewModel = (function () {
-            function AlbumEditViewModel(repository, songRepository, artistRoleNames, webLinkCategories, data) {
+            function AlbumEditViewModel(repository, songRepository, artistRepository, artistRoleNames, webLinkCategories, data) {
                 var _this = this;
                 this.repository = repository;
+                this.artistRepository = artistRepository;
+                this.addArtist = function (artistId, customArtistName) {
+                    if (artistId) {
+                        _this.artistRepository.getOne(artistId, function (artist) {
+                            var data = {
+                                artist: artist,
+                                isSupport: false,
+                                name: artist.name,
+                                id: 0,
+                                roles: 'Default'
+                            };
+
+                            var link = new vdb.viewModels.ArtistForAlbumEditViewModel(_this.repository, data);
+                            _this.artistLinks.push(link);
+                        });
+                    } else {
+                        var data = {
+                            artist: null,
+                            name: customArtistName,
+                            isSupport: false,
+                            id: 0,
+                            roles: 'Default'
+                        };
+
+                        var link = new vdb.viewModels.ArtistForAlbumEditViewModel(_this.repository, data);
+                        _this.artistLinks.push(link);
+                    }
+                };
                 this.submit = function () {
                     _this.submitting(true);
                     return true;
                 };
                 this.submitting = ko.observable(false);
+                this.artistSearchParams = {
+                    createNewItem: vdb.resources.albumEdit.addExtraArtist,
+                    acceptSelection: this.addArtist,
+                    height: 300
+                };
+
                 this.acceptTrackSelection = function (songId, songName) {
                     if (songId) {
                         songRepository.getOne(songId, true, function (song) {
@@ -97,7 +131,6 @@ var vdb;
 
                 this.removeArtist = function (artistForAlbum) {
                     _this.artistLinks.remove(artistForAlbum);
-                    repository.deleteArtistForAlbum(artistForAlbum.id);
                 };
 
                 this.removeArtistsFromSelectedTracks = function () {

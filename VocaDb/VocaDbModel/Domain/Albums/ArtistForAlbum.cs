@@ -1,4 +1,5 @@
 ﻿using System;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Helpers;
 
@@ -85,6 +86,15 @@ namespace VocaDb.Model.Domain.Albums {
 				return false;
 
 			return ((Artist != null && Artist.Equals(another.Artist)) || (Artist == null && another.Artist == null && Name == another.Name));
+
+		}
+
+		public virtual bool ContentEquals(ArtistForAlbumContract contract) {
+
+			if (contract == null)
+				return false;
+
+			return (IsSupport == contract.IsSupport && Roles == contract.Roles);
 
 		}
 

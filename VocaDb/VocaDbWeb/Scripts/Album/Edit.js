@@ -14,24 +14,17 @@ function initPage(viewModel, albumId, discType) {
 		source: "../../Album/FindReleaseEvents"
 	});
 
+	var editArtist;
+
 	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 550, modal: true, buttons: [{ text: vdb.resources.shared.save, click: function () {
 
-		var artistId = $("#rolesArtistId").val();
 		var checkedRoles = $("#editArtistRolesPopup input.artistRoleCheck:checked").map(function () {
 			return $(this).attr("id").split("_")[1];
 		}).toArray();
 
-		var link = viewModel.getArtistLink(artistId);
+		var link = editArtist;
 		if (link)
 			link.rolesArray(checkedRoles);
-
-		$.ajax({
-			type: "POST",
-			url: "../../Album/UpdateArtistForAlbumRoles",
-			dataType: "json",
-			traditional: true,
-			data: { artistForAlbumId: artistId, roles: checkedRoles }
-		});
 
 		$("#editArtistRolesPopup").dialog("close");
 
@@ -43,8 +36,7 @@ function initPage(viewModel, albumId, discType) {
 
 		var data = ko.dataFor(this);
 
-		var id = data.id;
-		$("#rolesArtistId").val(id);
+		editArtist = data;
 
 		var roles = data.rolesArray();
 		$("#editArtistRolesPopup input.artistRoleCheck").each(function () {
@@ -65,35 +57,6 @@ function initPage(viewModel, albumId, discType) {
 	});
 
 	initNamesList();
-
-	function acceptArtistSelection(artistId, term) {
-
-		if (isNullOrWhiteSpace(artistId)) {
-			$.post("../../Album/AddNewArtist", { albumId: albumId, newArtistName: term }, artistAdded);
-		} else {
-			$.post("../../Album/AddExistingArtist", { albumId: albumId, artistId: artistId }, artistAdded);
-		}
-
-	}
-
-	var artistAddList = $("#artistAddList");
-	var artistAddName = $("input#artistAddName");
-	var artistAddBtn = $("#artistAddAcceptBtn");
-
-	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
-		{ 
-			acceptBtnElem: artistAddBtn, 
-			acceptSelection: acceptArtistSelection,
-			createNewItem: vdb.resources.albumEdit.addExtraArtist,
-			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
-			createOptionSecondRow: function (item) { return item.AdditionalNames; }
-		});
-
-	function artistAdded(link) {
-
-		viewModel.artistLinks.push(new vdb.viewModels.ArtistForAlbumEditViewModel(viewModel.repository, link));
-
-	}
 
 	$("#picAdd").click(function () {
 
