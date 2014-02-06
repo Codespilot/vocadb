@@ -84,7 +84,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult ArchivedVersionXml(int id) {
+		public ActionResult ArchivedVersionXml(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var doc = Service.GetVersionXml(id);
 			var content = XmlHelper.SerializeToUTF8XmlString(doc);
