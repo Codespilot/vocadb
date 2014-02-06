@@ -11,18 +11,6 @@ module vdb.tests.testSupport {
 
             super("");
 
-            this.deleteArtistForAlbum = (artistForAlbumId, callback?) => {
-                this.deletedId = artistForAlbumId;
-                if (callback)
-                    callback();
-            }
-
-            this.updateArtistForAlbumIsSupport = (artistForAlbumId, isSupport, callback?) => {
-                this.updatedId = artistForAlbumId;
-                if (callback)
-                    callback();
-            }
-
         }
 
     }

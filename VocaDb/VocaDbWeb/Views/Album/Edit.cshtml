@@ -55,10 +55,11 @@
 	$(document).ready(function() {
 		var repo = new vdb.repositories.AlbumRepository(vdb.values.baseAddress);
 		var songRepo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
+		var artistRepo = new vdb.repositories.ArtistRepository(vdb.values.baseAddress);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
 		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, discType = Model.DiscType.ToString(), tracks = Model.Tracks, webLinks = Model.WebLinks }));
-		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRoleJson, webLinkCategoryJson, modelJson);
+		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, artistRoleJson, webLinkCategoryJson, modelJson);
 		ko.applyBindings(viewModel);
 		initPage(viewModel, @Model.Id, "@Model.DiscType");
 	});
@@ -232,17 +233,16 @@
 
 		<div id="artistsTab">
 
-			@Helpers.NotificationPanel(R.EditStrings.ChangesAreSavedImmediately)<br />
-
 			<table>
 				<tbody data-bind="foreach: artistLinks">
 					@{ Html.RenderPartial("Partials/_ArtistForAlbumEdit"); }
 				</tbody>
 			</table>
+			<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
 			
 			<br />
 			<h4>@R.EditStrings.ArAddArtist</h4>
-			@Helpers.EntrySearchNameBox("artistAddName")
+			<input type="text" data-bind="artistAutoComplete: artistSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />
 		</div>
 		
 		<div id="picsTab">
@@ -308,8 +308,6 @@
 </form>
 	
 <div id="editArtistRolesPopup" style="display:none;" title="@R.EditStrings.ArtistRolesTitle">
-
-	<div id="rolesArtistId" />
 
 	@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
 		<span class="tag">

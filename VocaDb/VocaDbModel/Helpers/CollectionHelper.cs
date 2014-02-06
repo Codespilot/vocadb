@@ -159,16 +159,31 @@ namespace VocaDb.Model.Helpers {
 		/// <typeparam name="T2">Type of the new collection.</typeparam>
 		/// <param name="oldItems">Original (current) collection. Cannot be null.</param>
 		/// <param name="newItems">New collection. Cannot be null.</param>
-		/// <param name="identityEquality">Identity equality test. Cannot be null.</param>
-		/// <param name="create">Factory method for creating a new item. Cannot be null.</param>
+		/// <param name="identityEquality">
+		/// Identity equality test. Cannot be null.
+		/// 
+		/// This should only test the identity, and will be used to determine whether the item is 
+		/// completely new, possibly updated or removed.
+		/// Use <paramref name="update"/> to determine whether the item state has changed, assuming and existing item
+		/// with matching identity is found.
+		/// </param>
+		/// <param name="create">
+		/// Factory method for creating a new item. Cannot be null.
+		/// 
+		/// Normally the factory method should return the created item,
+		/// but if the return value is null, no item is added to collection.
+		/// </param>
 		/// <param name="update">
 		/// Method for updating an existing item. 
 		/// First parameter is the old item to be updated and second parameter is the new state. 
 		/// Returns true if the old item was updated, or false if the items had equal content already. Cannot be null.</param>
-		/// <param name="remove">Callback for removing an old item if that didn't exist in the new list.</param>
+		/// <param name="remove">
+		/// Callback for removing an old item if that didn't exist in the new list.
+		/// Can be null.
+		/// </param>
 		/// <returns>Diff for the two collections. Cannot be null.</returns>
 		public static CollectionDiffWithValue<T, T> SyncWithContent<T, T2>(IList<T> oldItems, IList<T2> newItems, 
-			Func<T, T2, bool> identityEquality, Func<T2, T> create, Func<T, T2, bool> update, Action<T> remove) {
+			Func<T, T2, bool> identityEquality, Func<T2, T> create, Func<T, T2, bool> update, Action<T> remove) where T : class {
 
 			ParamIs.NotNull(() => oldItems);
 			ParamIs.NotNull(() => newItems);
@@ -188,8 +203,12 @@ namespace VocaDb.Model.Helpers {
 			}
 
 			foreach (var added in diff.Added) {
+
 				var newObject = create(added);
-				created.Add(newObject);
+
+				if (newObject != null)
+					created.Add(newObject);
+
 			}
 
 			foreach (var oldItem in diff.Unchanged) {

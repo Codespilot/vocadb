@@ -52,6 +52,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => album);
 
+			ArtistLinks = album.ArtistLinks;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			DiscType = album.DiscType;
@@ -162,7 +163,6 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => album);
 
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
-			ArtistLinks = album.ArtistLinks;
 			Deleted = album.Deleted;
 			Draft = album.Status == EntryStatus.Draft;
 			NameEnglish = album.TranslatedName.English;
@@ -174,10 +174,14 @@ namespace VocaDb.Web.Models {
 
 		public AlbumForEditContract ToContract() {
 
+			if (ArtistLinks == null)
+				throw new InvalidFormException("Artists list was null");
+
 			if (Tracks == null)
-				throw new InvalidFormException("Tracks list was null"); // Shouldn't be null
+				throw new InvalidFormException("Tracks list was null");
 
 			return new AlbumForEditContract {
+				ArtistLinks = this.ArtistLinks,
 				Description = this.Description ?? string.Empty,
 				DiscType = this.DiscType,
 				Id = this.Id,

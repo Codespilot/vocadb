@@ -10,7 +10,8 @@ module vdb.tests.viewModels {
     import dc = vdb.dataContracts;
 
     var rep = new vdb.tests.testSupport.FakeAlbumRepository();
-    var songRep: vdb.tests.testSupport.FakeSongRepository;
+	var songRep: vdb.tests.testSupport.FakeSongRepository;
+	var artistRep: vdb.tests.testSupport.FakeArtistRepository;
 
     var song: dc.SongWithComponentsContract;
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
@@ -28,6 +29,7 @@ module vdb.tests.viewModels {
     var roles = { Default: "Default", VoiceManipulator: "Voice manipulator" };
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 123, url: "http://www.youtube.com/user/tripshots" };
     var data: vm.AlbumEdit;
+	vdb.resources = { albumDetails: { download: "" }, albumEdit: { addExtraArtist: "" } };
 
     QUnit.module("AlbumEditViewModelTests", {
         setup: () => {
@@ -35,6 +37,8 @@ module vdb.tests.viewModels {
             songRep = new vdb.tests.testSupport.FakeSongRepository();
             song = { additionalNames: "", artistString: "Tripshots", artists: [producer], id: 2, name: "Anger", vote: "Nothing" };
             songRep.song = song;
+
+			artistRep = new vdb.tests.testSupport.FakeArtistRepository();
 
             songInAlbum = {
                 artists: [producer], artistString: "Tripshots", discNumber: 1, songAdditionalNames: "",
@@ -47,7 +51,7 @@ module vdb.tests.viewModels {
     });
 
     function createViewModel() {
-        return new vm.AlbumEditViewModel(rep, songRep, roles, categories, data);
+        return new vm.AlbumEditViewModel(rep, songRep, artistRep, roles, categories, data);
     }
 
     function createTrackPropertiesViewModel() {
@@ -112,7 +116,30 @@ module vdb.tests.viewModels {
         equal(target.tracks().length, 2, "tracks.length");
         equal(target.tracks()[1].trackNumber(), 2, "tracks[1].trackNumber");
 
-    });
+	});
+
+	test("addArtist existing", () => {
+
+		var newVocalist: dc.ArtistContract = { id: 4, name: "Kagamine Rin", additionalNames: "", artistType: "Vocaloid" };
+		artistRep.result = newVocalist;
+
+		var target = createViewModel();
+		target.addArtist(4);
+
+		equal(target.artistLinks().length, 5, "artistLinks().length");
+		equal(_.some(target.artistLinks(), a => a.artist == newVocalist), true, "New vocalist was added");
+
+	});
+
+	test("addArtist custom", () => {
+
+		var target = createViewModel();
+		target.addArtist(null, "Custom artist");
+
+		equal(target.artistLinks().length, 5, "artistLinks().length");
+		equal(_.some(target.artistLinks(), a => a.name == "Custom artist"), true, "Custom artist was added");
+
+	});
 
     test("allTracksSelected", () => {
 

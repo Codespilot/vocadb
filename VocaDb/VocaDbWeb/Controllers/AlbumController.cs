@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
@@ -386,41 +387,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[HttpPost]
-		public void DeleteArtistForAlbum(int artistForAlbumId) {
-
-			Service.DeleteArtistForAlbum(artistForAlbumId);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult AddExistingArtist(int albumId, int artistId) {
-
-			ArtistForAlbumContract link;
-
-			try {
-				link = Services.Artists.AddAlbum(artistId, albumId);
-			} catch (LinkAlreadyExistsException x) {
-				return HttpStatusCodeResult(HttpStatusCode.Conflict, x.Message);
-			}
-
-			return LowercaseJson(link);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult AddNewArtist(int albumId, string newArtistName) {
-
-			if (string.IsNullOrWhiteSpace(newArtistName)) {
-				log.Warn("Artist name for album was null or whitespace");
-				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Artist name cannot be null or whitespace");
-			}
-
-			var link = Service.AddArtist(albumId, newArtistName);
-			return LowercaseJson(link);
-
-		}
-
         //
         // GET: /Album/Delete/5
  
@@ -520,22 +486,6 @@ namespace VocaDb.Web.Controllers
 
 			var artistString = Services.Songs.UpdateArtists(songId, ids);
 			return Content(artistString);
-
-		}
-
-		[HttpPost]
-		public void UpdateArtistForAlbumIsSupport(int artistForAlbumId, bool isSupport) {
-
-			Service.UpdateArtistForAlbumIsSupport(artistForAlbumId, isSupport);
-
-		}
-
-		[HttpPost]
-		public void UpdateArtistForAlbumRoles(int artistForAlbumId, ArtistRoles[] roles) {
-
-			var rolesBitField = (roles != null ? roles.Aggregate(ArtistRoles.Default, (list, item) => list |= item) : ArtistRoles.Default);
-
-			Service.UpdateArtistForAlbumRoles(artistForAlbumId, rolesBitField);
 
 		}
 

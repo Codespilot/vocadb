@@ -39,10 +39,6 @@ module vdb.viewModels {
             this.id = data.id;
             this.isSupport = ko.observable(data.isSupport);
 
-            this.isSupport.subscribe(value => {
-                repository.updateArtistForAlbumIsSupport(this.id, value);
-            });
-
             this.name = data.name;
             this.rolesArray = ko.observableArray<string>([]);
 

@@ -19,6 +19,45 @@ module vdb.viewModels {
         // Adds a song to the album, by either id (existing song) or name (new song).
         public acceptTrackSelection: (songId: number, songName: string) => void;
 
+		// Adds a new artist to the album
+		// artistId: Id of the artist being added, if it's an existing artist. Can be null, if custom artist.
+		// customArtistName: Name of the custom artist being added. Can be null, if existing artist.
+		addArtist = (artistId?: number, customArtistName?: string) => {
+
+			if (artistId) {
+
+				this.artistRepository.getOne(artistId, artist => {
+
+					var data: dc.ArtistForAlbumContract = {
+						artist: artist,
+						isSupport: false,
+						name: artist.name,
+						id: 0,
+						roles: 'Default'
+					};
+
+					var link = new ArtistForAlbumEditViewModel(this.repository, data);
+					this.artistLinks.push(link);
+
+				});
+
+			} else {
+				
+				var data: dc.ArtistForAlbumContract = {
+					artist: null,
+					name: customArtistName,
+					isSupport: false,
+					id: 0,
+					roles: 'Default'
+				};
+
+				var link = new ArtistForAlbumEditViewModel(this.repository, data);
+				this.artistLinks.push(link);
+
+			}
+
+		};
+
         // Adds a list of artists (from the track properties view model) to selected tracks.
         public addArtistsToSelectedTracks: () => void;
 
@@ -26,6 +65,8 @@ module vdb.viewModels {
         public allTracksSelected: KnockoutObservable<boolean>;
 
         private artistsForTracks: () => dc.ArtistContract[];
+
+		artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 
         // List of artist links for this album.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
@@ -85,8 +126,15 @@ module vdb.viewModels {
         // List of external links for this album.
         public webLinks: WebLinksEditViewModel;
         
-        constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository,
+		constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository,
+			private artistRepository: rep.ArtistRepository,
             artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit) {
+
+			this.artistSearchParams = {
+				createNewItem: vdb.resources.albumEdit.addExtraArtist,
+				acceptSelection: this.addArtist,
+				height: 300
+			};
 
             this.acceptTrackSelection = (songId: number, songName: string) => {
 
@@ -159,7 +207,6 @@ module vdb.viewModels {
 
             this.removeArtist = artistForAlbum => {
                 this.artistLinks.remove(artistForAlbum);
-                repository.deleteArtistForAlbum(artistForAlbum.id);
             };
 
             this.removeArtistsFromSelectedTracks = () => {

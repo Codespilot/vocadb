@@ -10,10 +10,6 @@ var vdb;
                 this.id = data.id;
                 this.isSupport = ko.observable(data.isSupport);
 
-                this.isSupport.subscribe(function (value) {
-                    repository.updateArtistForAlbumIsSupport(_this.id, value);
-                });
-
                 this.name = data.name;
                 this.rolesArray = ko.observableArray([]);
 

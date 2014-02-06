@@ -81,7 +81,7 @@ namespace VocaDb.Model.Service {
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
 
-		public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
+		/*public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
 
 			ParamIs.NotNullOrEmpty(() => newArtistName);
 
@@ -103,7 +103,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public void Archive(ISession session, Album album, AlbumDiff diff, AlbumArchiveReason reason, string notes = "") {
 
@@ -159,6 +159,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		/*
 		// TODO: should be moved to update
 		public void DeleteArtistForAlbum(int artistForAlbumId) {
 
@@ -178,7 +179,7 @@ namespace VocaDb.Model.Service {
 
 			});
 
-		}
+		}*/
 
 		public void DeleteComment(int commentId) {
 

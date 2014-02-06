@@ -6,6 +6,7 @@ ko.bindingHandlers.artistAutoComplete = {
         initEntrySearch(element, null, "Artist", vdb.functions.mapAbsoluteUrl("/Artist/FindJson"), {
             allowCreateNew: properties.allowCreateNew,
             acceptSelection: properties.acceptSelection,
+            createNewItem: properties.createNewItem,
             createOptionFirstRow: function (item) {
                 return item.Name + " (" + item.ArtistType + ")";
             },
