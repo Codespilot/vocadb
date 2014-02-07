@@ -373,6 +373,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				Archive(session, album, diff, AlbumArchiveReason.PropertiesUpdated, properties.UpdateNotes);
 				session.Update(album);
 
+				var newSongCutoff = TimeSpan.FromHours(1);
+				if (artistsDiff.Added.Any() && album.CreateDate >= DateTime.Now - newSongCutoff) {
+
+					var addedArtists = artistsDiff.Added.Where(a => a.Artist != null).Select(a => a.Artist).Distinct().ToArray();
+
+					if (addedArtists.Any()) {
+						new FollowedArtistNotifier().SendNotifications(session.OfType<UserMessage>(), album, addedArtists, PermissionContext.LoggedUser, entryLinkFactory, mailer);											
+					}
+
+				}
+
 				return new AlbumForEditContract(album, PermissionContext.LanguagePreference);
 
 			});

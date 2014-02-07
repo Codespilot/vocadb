@@ -37,6 +37,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private FakeAlbumRepository repository;
 		private AlbumQueries queries;
 		private User user;
+		private User user2;
 		private Artist vocalist;
 
 		private SongInAlbumEditContract CreateSongInAlbumEditContract(int trackNumber, int songId = 0, string songName = null) {
@@ -74,6 +75,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			foreach (var name in album.Names)
 				repository.Save(name);
 			user = CreateEntry.User(1, "Miku");
+			user2 = CreateEntry.User(2, "Luka");
 			repository.Save(user);
 			repository.Save(producer, vocalist);
 
@@ -311,6 +313,23 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			Assert.IsNotNull(archivedVersion, "Archived version was created");
 			Assert.AreEqual(AlbumEditableFields.Artists, archivedVersion.Diff.ChangedFields, "Changed fields");
+
+		}
+
+		[TestMethod]
+		public void Update_Artists_Notify() {
+			
+			repository.Save(user2.AddArtist(vocalist));
+
+			var contract = new AlbumForEditContract(album, ContentLanguagePreference.Default);
+			contract.ArtistLinks = contract.ArtistLinks.Concat(new [] { CreateArtistForAlbumContract(vocalist.Id)}).ToArray();
+
+			queries.UpdateBasicProperties(contract, null);
+
+			var notification = repository.List<UserMessage>().FirstOrDefault();
+
+			Assert.IsNotNull(notification, "Notification was created");
+			Assert.AreEqual(user2, notification.Receiver, "Receiver");
 
 		}
 

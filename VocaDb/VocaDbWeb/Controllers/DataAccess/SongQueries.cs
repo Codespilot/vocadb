@@ -458,7 +458,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				ctx.Update(song);
 
-				var newSongCutoff = TimeSpan.FromMinutes(30);
+				var newSongCutoff = TimeSpan.FromHours(1);
 				if (artistsDiff.Added.Any() && song.CreateDate >= DateTime.Now - newSongCutoff) {
 
 					var addedArtists = artistsDiff.Added.Where(a => a.Artist != null).Select(a => a.Artist).Distinct().ToArray();
