@@ -37,6 +37,7 @@ body .ui-widget input,
 body .ui-widget select,
 body .ui-widget textarea,
 body .ui-widget button {
+  font-family: arial, sans-serif;
   font-size: 14px;
 }
 /* Bootstrap overrides and additions */
