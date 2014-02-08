@@ -61,8 +61,14 @@ namespace VocaDb.Model.Service.VideoServices {
 			var trackId = trackIdElem.Value;
 			var title = titleElem.Value;
 			var author = XmlHelper.GetNodeTextOrEmpty(doc, "//track/user/username");
-			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//track/artwork-url");
 			var length = GetLength(XmlHelper.GetNodeTextOrEmpty(doc, "//track/duration"));
+
+			var thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//track/artwork-url");
+
+			// Substitute song thumbnail with user avatar, if no actual thumbnail is provided. This is what the SoundCloud site does as well.
+			if (string.IsNullOrEmpty(thumbUrl)) {
+				thumbUrl = XmlHelper.GetNodeTextOrEmpty(doc, "//track/user/avatar-url");				
+			}
 
 			var id = new SoundCloudId(trackId, url);
 
