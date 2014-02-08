@@ -149,6 +149,7 @@ function initPage(model) {
 
 	$("#createLink").button({ disabled: $("#createLink").hasClass("disabled"), icons: { primary: 'ui-icon-plusthick'} });
 	$("#filterBox").tooltip();
+	$(".albumLink").vdbAlbumWithCoverToolTip();
 
 	var viewModel = new IndexViewModel(model);
 	ko.applyBindings(viewModel);
