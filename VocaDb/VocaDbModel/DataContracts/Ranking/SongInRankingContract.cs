@@ -1,5 +1,4 @@
 ﻿using System.Runtime.Serialization;
-using VocaDb.Model.Domain.Ranking;
 
 namespace VocaDb.Model.DataContracts.Ranking {
 
@@ -7,16 +6,6 @@ namespace VocaDb.Model.DataContracts.Ranking {
 	public class SongInRankingContract {
 
 		public SongInRankingContract() {}
-
-		public SongInRankingContract(SongInRanking songInPoll) {
-
-			Id = songInPoll.Id;
-			Name = songInPoll.Song.DefaultName;
-			NicoId = songInPoll.Song.NicoId;
-			SongId = songInPoll.Song.Id;
-			SortIndex = songInPoll.SortIndex;
-
-		}
 
 		[DataMember]
 		public int Id { get; set; }

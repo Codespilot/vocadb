@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.Serialization;
-using VocaDb.Model.Domain.Ranking;
 
 namespace VocaDb.Model.DataContracts.Ranking {
 
@@ -11,19 +9,6 @@ namespace VocaDb.Model.DataContracts.Ranking {
 		public RankingContract() {
 			Description = string.Empty;
 			NicoId = string.Empty;
-		}
-
-		public RankingContract(RankingList poll) {
-
-			ParamIs.NotNull(() => poll);
-
-			CreateDate = poll.CreateDate;
-			Description = poll.Description;
-			Id = poll.Id;
-			Name = poll.Name;
-			NicoId = poll.NicoId;
-			Songs = poll.Songs.Select(m => new SongInRankingContract(m)).ToArray();
-
 		}
 
 		[DataMember]
