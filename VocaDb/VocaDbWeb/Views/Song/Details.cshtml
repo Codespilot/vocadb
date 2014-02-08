@@ -109,6 +109,7 @@
 			<li><a href="#lyricsTab">@ViewRes.Song.DetailsStrings.Lyrics (@lyricsLanguages)</a></li>			
 		}
 		<li><a href="@Url.Action("Comments", "Song", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
+		<li><a href="@Url.Action("Related", "Song", new { id = Model.Id })">@R.DetailsStrings.RelatedSongs</a></li>
 		<li><a href="#shareTab">@R.DetailsStrings.Share</a></li>
 	</ul>
 

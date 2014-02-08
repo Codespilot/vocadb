@@ -228,4 +228,7 @@
   <data name="Social" xml:space="preserve">
     <value>Sosiaalinen</value>
   </data>
+  <data name="RelatedSongs" xml:space="preserve">
+    <value>Samankaltaisia</value>
+  </data>
 </root>

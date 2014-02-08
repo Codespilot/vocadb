@@ -514,6 +514,13 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Related(int id) {
+
+			var related = queries.GetRelatedSongs(id);
+			return PartialView("RelatedSongs", related);
+
+		}
+
         [Authorize]
         public ActionResult RemoveTagUsage(long id) {
 

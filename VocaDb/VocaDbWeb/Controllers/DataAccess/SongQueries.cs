@@ -18,6 +18,7 @@ using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Queries;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.VideoServices;
 
@@ -266,6 +267,25 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					.ToArray();
 
 				return new NewSongCheckResultContract(matches, titleParseResult, PermissionContext.LanguagePreference);
+
+			});
+
+		}
+
+		public SongContract[] GetRelatedSongs(int songId) {
+
+			return repository.HandleQuery(ctx => {
+
+				var song = ctx.Load(songId);
+				var songs = new RelatedSongsQuery(ctx).GetRelatedSongs(song);
+
+				return songs.ArtistMatches
+					.Select(a => new SongContract(a, permissionContext.LanguagePreference))
+					.OrderBy(a => a.Name)
+					.Concat(songs.TagMatches
+						.Select(a => new SongContract(a, permissionContext.LanguagePreference))
+						.OrderBy(a => a.Name))
+					.ToArray();
 
 			});
 
