@@ -2283,6 +2283,7 @@
     <Content Include="Views\User\Partials\_EntryEditsPage.cshtml" />
     <Content Include="Views\Stats\Index.cshtml" />
     <Content Include="Views\Event\EventsByDate.cshtml" />
+    <Content Include="Views\Song\RelatedSongs.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

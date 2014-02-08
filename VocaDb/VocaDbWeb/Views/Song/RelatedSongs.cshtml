@@ -1,0 +1,8 @@
+﻿@model VocaDb.Model.DataContracts.Songs.SongContract[]
+
+@if (Model.Any()) {
+	@SongHelpers.SongGrid(Model, 2, true)
+} else {
+	@ViewRes.EntryDetailsStrings.NoMatches
+}
+

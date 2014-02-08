@@ -295,6 +295,15 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Related songs.
+        /// </summary>
+        public static string RelatedSongs {
+            get {
+                return ResourceManager.GetString("RelatedSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Clear my rating.
         /// </summary>
         public static string RemoveFromFavorites {
