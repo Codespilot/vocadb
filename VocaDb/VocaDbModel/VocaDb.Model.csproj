@@ -253,7 +253,6 @@
     <Compile Include="DataContracts\UseCases\CreateSongContract.cs" />
     <Compile Include="DataContracts\Songs\SongDetailsContract.cs" />
     <Compile Include="DataContracts\UseCases\SongForEditContract.cs" />
-    <Compile Include="DataContracts\UseCases\SongWVRPlacementContract.cs" />
     <Compile Include="DataContracts\Ranking\RankingContract.cs" />
     <Compile Include="DataContracts\Users\UpdateUserSettingsContract.cs" />
     <Compile Include="DataContracts\Users\UserForMySettingsContract.cs" />
@@ -428,7 +427,6 @@
     <Compile Include="Domain\Users\FavoriteSongForUser.cs" />
     <Compile Include="Domain\Users\MediaType.cs" />
     <Compile Include="Domain\Users\User.cs" />
-    <Compile Include="Domain\Ranking\SongInRanking.cs" />
     <Compile Include="Domain\Albums\Album.cs" />
     <Compile Include="Domain\Albums\AlbumName.cs" />
     <Compile Include="Domain\Albums\ArtistForAlbum.cs" />
@@ -437,7 +435,6 @@
     <Compile Include="Domain\Songs\LyricsForSong.cs" />
     <Compile Include="Domain\Songs\Song.cs" />
     <Compile Include="Domain\Songs\SongInAlbum.cs" />
-    <Compile Include="Domain\Ranking\RankingList.cs" />
     <Compile Include="Domain\Songs\SongName.cs" />
     <Compile Include="Domain\Songs\SongWebLink.cs" />
     <Compile Include="Domain\WebLink.cs" />
@@ -486,7 +483,6 @@
     <Compile Include="Mapping\CustomTypes\XDocumentType.cs" />
     <Compile Include="Mapping\EntryReportMap.cs" />
     <Compile Include="Mapping\MikuDb\MikuDbAlbumMap.cs" />
-    <Compile Include="Mapping\Ranking\RankingMap.cs" />
     <Compile Include="Mapping\Security\AuditLogEntryMap.cs" />
     <Content Include="Mapping\Security\PermissionTokenMap.cs" />
     <Compile Include="Mapping\Security\IPRuleMap.cs" />
@@ -503,7 +499,6 @@
     <Compile Include="Mapping\Users\UserCommentMap.cs" />
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Songs\LyricsForSongMap.cs" />
-    <Compile Include="Mapping\Ranking\SongInRankingMap.cs" />
     <Compile Include="Mapping\Albums\AlbumMap.cs" />
     <Compile Include="Mapping\Songs\SongMap.cs" />
     <Compile Include="Mapping\Users\UserMessageMap.cs" />
@@ -700,7 +695,6 @@
     <Compile Include="Service\VideoServices\VideoServiceHelper.cs" />
     <Compile Include="Service\OtherService.cs" />
     <Compile Include="Service\RankingService.cs" />
-    <Compile Include="Service\Rankings\VocaloidismWVRParser.cs" />
     <Compile Include="Domain\Security\IUserPermissionContext.cs" />
     <Compile Include="Service\Security\LoginManager.cs" />
     <Compile Include="Service\Security\VocaDbPrincipal.cs" />
