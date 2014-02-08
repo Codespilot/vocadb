@@ -11,10 +11,20 @@ namespace VocaDb.Model.Service.Queries {
 
 		private readonly IRepositoryContext<Album> ctx;
 
-		private Artist[] GetMainArtists(Album album, IEnumerable<IArtistWithSupport> creditableArtists) {
+		private Artist[] GetMainArtists(Album album, IList<IArtistWithSupport> creditableArtists) {
 
+			// "Various artists" albums will be treated as collaboration albums where only the circle/label is searched.
 			if (album.ArtistString.Default == ArtistHelper.VariousArtists) {
-				return creditableArtists.Where(a => a.Artist != null && ArtistHelper.GetCategories(a).HasFlag(ArtistCategories.Circle)).Select(a => a.Artist).ToArray();
+
+				var circles = creditableArtists.Where(a => a.Artist != null && ArtistHelper.GetCategories(a).HasFlag(ArtistCategories.Circle)).Select(a => a.Artist).ToArray();
+
+				// No circles found, try labels
+				if (!circles.Any()) {
+					circles = creditableArtists.Where(a => a.Artist != null && ArtistHelper.GetCategories(a).HasFlag(ArtistCategories.Label)).Select(a => a.Artist).ToArray();
+				}
+
+				return circles;
+
 			}
 
 			return ArtistHelper.GetProducers(creditableArtists, AlbumHelper.IsAnimation(album.DiscType)).Select(a => a.Artist).ToArray();
@@ -49,7 +59,7 @@ namespace VocaDb.Model.Service.Queries {
 						//&& al.ArtistString.Default != ArtistHelper.VariousArtists 
 						&& al.AllArtists.Any(a => 
 							!a.Artist.Deleted
-							&& (a.Artist.ArtistType == ArtistType.Circle || al.ArtistString.Default != ArtistHelper.VariousArtists)
+							&& (a.Artist.ArtistType == ArtistType.Circle || a.Artist.ArtistType == ArtistType.Label || al.ArtistString.Default != ArtistHelper.VariousArtists)
 							&& !a.IsSupport 
 							&& mainArtistIds.Contains(a.Artist.Id)))
 					.OrderBy(a => a.RatingTotal)
