@@ -40,7 +40,7 @@
 					<br />
 					<span class="extraInfo">@song.ArtistString</span><br />
 					@if (song.Album != null) {
-						<span class="extraInfo">@R.IndexStrings.FromAlbum @AlbumHelpers.DetailsLink(song.Album)</span>
+						<small>@R.IndexStrings.FromAlbum @AlbumHelpers.AlbumLink(song.Album)</small>
 					}
 					@if (song.PVServices != PVServices.Nothing) {
 						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
