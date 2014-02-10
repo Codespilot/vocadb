@@ -324,18 +324,18 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[RestrictBannedIP]
-		public ActionResult Login(string returnUrl)
+		public ActionResult Login(string returnUrl, bool secureLogin = true)
         {
 
 			RestoreErrorsFromTempData();
 
-            return View(new LoginModel(returnUrl, !WebHelper.IsSSL(Request)));
+            return View(new LoginModel(returnUrl, !WebHelper.IsSSL(Request), secureLogin));
         }
 
 		[RestrictBannedIP]
-		public PartialViewResult LoginForm(string returnUrl) {
+		public PartialViewResult LoginForm(string returnUrl, bool secureLogin = true) {
 
-		   return PartialView("Login", new LoginModel(returnUrl, !WebHelper.IsSSL(Request)));
+		   return PartialView("Login", new LoginModel(returnUrl, !WebHelper.IsSSL(Request), secureLogin));
 
 		}
 
@@ -376,7 +376,7 @@ namespace VocaDb.Web.Controllers
 					else
 						targetUrl = Url.Action("Index", "Home");
 
-					if (model.ReturnToHTTP)
+					if (model.ReturnToMainSite)
 						targetUrl = VocaUriBuilder.AbsoluteFromUnknown(targetUrl, preserveAbsolute: true, ssl: false);
 
 					return Redirect(targetUrl);
@@ -385,9 +385,9 @@ namespace VocaDb.Web.Controllers
 
 			}
 
-			if (model.ReturnToHTTP) {
+			if (model.ReturnToMainSite) {
 				SaveErrorsToTempData();
-				return Redirect(VocaUriBuilder.Absolute(Url.Action("Login", new { model.ReturnUrl }), false));				
+				return Redirect(VocaUriBuilder.Absolute(Url.Action("Login", new { model.ReturnUrl, model.SecureLogin }), false));				
 			}
 
         	return View(model);
