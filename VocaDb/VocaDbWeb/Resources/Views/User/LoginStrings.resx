@@ -129,6 +129,12 @@
   <data name="Login" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="LoginUsingSSL" xml:space="preserve">
+    <value>Login using SSL</value>
+  </data>
+  <data name="LoginWithoutSSL" xml:space="preserve">
+    <value>Login without SSL (less secure)</value>
+  </data>
   <data name="NoAccount" xml:space="preserve">
     <value>No account?</value>
   </data>
