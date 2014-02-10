@@ -7,9 +7,10 @@
 
 @Helpers.ValidationSymmaryPanel(ViewRes.User.LoginStrings.UnableToLogin)
 
-<form action="@VocaUriBuilder.MakeSSL(Url.Action("Login", "User"))" method="POST">
-	@Html.HiddenFor(m => m.ReturnToHTTP)
+<form action="@VocaUriBuilder.Absolute(Url.Action("Login", "User"), Model.SecureLogin)" method="POST">
+	@Html.HiddenFor(m => m.ReturnToMainSite)
 	@Html.HiddenFor(m => m.ReturnUrl)
+	@Html.HiddenFor(m => m.SecureLogin)
 	<div>
 		<div class="editor-label">
 			@Html.LabelFor(m => m.UserName)
