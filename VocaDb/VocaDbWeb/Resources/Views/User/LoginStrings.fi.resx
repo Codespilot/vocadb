@@ -129,6 +129,12 @@
   <data name="Login" xml:space="preserve">
     <value>Sisäänkirjautuminen</value>
   </data>
+  <data name="LoginUsingSSL" xml:space="preserve">
+    <value>Kirjaudu käyttäen SSL-suojausta</value>
+  </data>
+  <data name="LoginWithoutSSL" xml:space="preserve">
+    <value>Kirjaudu ilman SSL-suojausta (vähemmän turvallinen)</value>
+  </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Ei tunnusta?</value>
   </data>
