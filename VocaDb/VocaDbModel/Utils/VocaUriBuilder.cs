@@ -2,11 +2,52 @@
 
 namespace VocaDb.Model.Utils {
 
+	/// <summary>
+	/// Various URL manipulation functions.
+	/// </summary>
 	public static class VocaUriBuilder {
+
+		private static readonly string hostAddress = RemoveTrailingSlash(AppConfig.HostAddress);
+		private static readonly string hostAddressSSL = RemoveTrailingSlash(AppConfig.HostAddressSecure);
 
 		// Path to static files root, for example http://static.vocadb.net. Possible trailing slash is removed.
 		private static readonly string staticResourceBase = RemoveTrailingSlash(AppConfig.StaticContentHost);
 		private static readonly string staticResourceBaseSSL = RemoveTrailingSlash(AppConfig.StaticContentHostSSL);
+
+		/// <summary>
+		/// Returns an absolute URL when the URL is known to be relative.
+		/// </summary>
+		/// <param name="relative"></param>
+		/// <param name="ssl"></param>
+		/// <returns></returns>
+		public static string Absolute(string relative, bool ssl) {
+			
+			if (ssl)
+				return MergeUrls_BaseNoTrailingSlash(hostAddressSSL, relative);
+			else
+				return MergeUrls_BaseNoTrailingSlash(hostAddress, relative);
+
+		}
+
+		/// <summary>
+		/// Returns an absolute URL based on an URL that's either absolute or relative.
+		/// If the URL is absolute it will be preserved. Relative URL will be made absolute.
+		/// </summary>
+		/// <param name="relativeOrAbsolute"></param>
+		/// <param name="ssl"></param>
+		/// <returns></returns>
+		public static string AbsoluteFromUnknown(string relativeOrAbsolute, bool preserveAbsolute, bool ssl) {
+			
+			Uri uri;
+			if (Uri.TryCreate(relativeOrAbsolute, UriKind.RelativeOrAbsolute, out uri)) {
+				if (uri.IsAbsoluteUri)
+					return preserveAbsolute ? relativeOrAbsolute : Absolute(Relative(relativeOrAbsolute), ssl); // URL is absolute, replace it with main site URL or preserve original.
+				else
+					return Absolute(relativeOrAbsolute, ssl); // URL is relative, make it absolute
+			} else
+				return relativeOrAbsolute;
+
+		}
 
 		/// <summary>
 		/// Creates a full, absolute uri which includes the domain and scheme.
@@ -16,6 +57,12 @@ namespace VocaDb.Model.Utils {
 		public static Uri CreateAbsolute(string relative) {
 
 			return new Uri(new Uri(AppConfig.HostAddress), relative);
+
+		}
+
+		public static string MakeSSL(string relative) {
+			
+			return Absolute(relative, true);
 
 		}
 
@@ -49,6 +96,22 @@ namespace VocaDb.Model.Utils {
 				return url;
 
 			return url.EndsWith("/") ? url.Substring(0, AppConfig.StaticContentHost.Length - 1) : url;
+
+		}
+
+		/// <summary>
+		/// Covers an absolute URL to relative, or returns the relative URL intact.
+		/// TODO: this probably doesn't work if the site is in a subfolder such as http://example/vocadb
+		/// </summary>
+		/// <param name="relativeOrAbsolute">URL that might be either relative or absolute. For example http://vocadb.net/ or /</param>
+		/// <returns>Relative portion of the URL, for example /</returns>
+		private static string Relative(string relativeOrAbsolute) {
+			
+			Uri uri;
+			if (Uri.TryCreate(relativeOrAbsolute, UriKind.RelativeOrAbsolute, out uri))			
+				return uri.IsAbsoluteUri ? uri.PathAndQuery : relativeOrAbsolute;
+			else
+				return relativeOrAbsolute;
 
 		}
 

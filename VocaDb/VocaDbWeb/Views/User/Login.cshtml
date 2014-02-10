@@ -1,4 +1,5 @@
-﻿@using R = ViewRes.User;
+﻿@using VocaDb.Model.Utils;
+@using R = ViewRes.User;
 @model VocaDb.Web.Models.LoginModel
 @{
 	ViewBag.Title = ViewRes.User.LoginStrings.Login;
@@ -6,24 +7,25 @@
 
 @Helpers.ValidationSymmaryPanel(ViewRes.User.LoginStrings.UnableToLogin)
 
-@using (Html.BeginForm("Login", "User")) {
+<form action="@VocaUriBuilder.MakeSSL(Url.Action("Login", "User"))" method="POST">
+	@Html.HiddenFor(m => m.ReturnToHTTP)
 	@Html.HiddenFor(m => m.ReturnUrl)
-    <div>
-        <div class="editor-label">
-            @Html.LabelFor(m => m.UserName)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(m => m.UserName)
-            @Html.ValidationMessageFor(m => m.UserName)
-        </div>
+	<div>
+		<div class="editor-label">
+			@Html.LabelFor(m => m.UserName)
+		</div>
+		<div class="editor-field">
+			@Html.TextBoxFor(m => m.UserName)
+			@Html.ValidationMessageFor(m => m.UserName)
+		</div>
 
-        <div class="editor-label">
-            @Html.LabelFor(m => m.Password)
-        </div>
-        <div class="editor-field">
-            @Html.PasswordFor(m => m.Password)
-            @Html.ValidationMessageFor(m => m.Password)
-        </div>
+		<div class="editor-label">
+			@Html.LabelFor(m => m.Password)
+		</div>
+		<div class="editor-field">
+			@Html.PasswordFor(m => m.Password)
+			@Html.ValidationMessageFor(m => m.Password)
+		</div>
 
 		<br />
 		<label class="checkbox">
@@ -32,12 +34,12 @@
 		</label>
 		<br /><br />
 
-        <p>
+		<p>
 			<button type="submit" class="btn btn-primary">@ViewRes.User.LoginStrings.DoLogin</button>
-        </p>
-    </div>
+		</p>
+	</div>
 
-}
+</form>
 
 @ViewRes.User.LoginStrings.NoAccount @Html.ActionLink(ViewRes.User.LoginStrings.RegisterHere, "Create"). <br />
 

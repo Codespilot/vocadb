@@ -37,6 +37,10 @@ namespace VocaDb.Web.Helpers {
 			return request != null && request.Url.Scheme == Uri.UriSchemeHttps;
 		}
 
+		public static bool IsSSL(HttpRequestBase request) {
+			return request != null && request.Url != null && request.Url.Scheme == Uri.UriSchemeHttps;
+		}
+
 		/// <summary>
 		/// Checks whether the request should be counted as a valid hit (view) 
 		/// for an entry.

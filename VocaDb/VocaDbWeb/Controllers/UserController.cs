@@ -329,13 +329,13 @@ namespace VocaDb.Web.Controllers
 
 			RestoreErrorsFromTempData();
 
-            return View(new LoginModel(returnUrl));
+            return View(new LoginModel(returnUrl, !WebHelper.IsSSL(Request)));
         }
 
 		[RestrictBannedIP]
 		public PartialViewResult LoginForm(string returnUrl) {
 
-		   return PartialView("Login", new LoginModel(returnUrl));
+		   return PartialView("Login", new LoginModel(returnUrl, !WebHelper.IsSSL(Request)));
 
 		}
 
@@ -348,7 +348,6 @@ namespace VocaDb.Web.Controllers
         {
 
 			if (ModelState.IsValid) {
-				// Attempt to register the user
 
 				var host = WebHelper.GetRealHost(Request);
 				var result = Data.CheckAuthentication(model.UserName, model.Password, host, true);
@@ -368,16 +367,27 @@ namespace VocaDb.Web.Controllers
 					FormsAuthentication.SetAuthCookie(user.Name, model.KeepLoggedIn);
 
 					var redirectUrl = FormsAuthentication.GetRedirectUrl(model.UserName, true);
+					string targetUrl;
 
 					if (!string.IsNullOrEmpty(model.ReturnUrl)) {
-						return Redirect(model.ReturnUrl);						
+						targetUrl = model.ReturnUrl;				
 					} else if (!string.IsNullOrEmpty(redirectUrl))
-						return Redirect(redirectUrl);
+						targetUrl = redirectUrl;
 					else
-						return RedirectToAction("Index", "Home");
+						targetUrl = Url.Action("Index", "Home");
+
+					if (model.ReturnToHTTP)
+						targetUrl = VocaUriBuilder.AbsoluteFromUnknown(targetUrl, preserveAbsolute: true, ssl: false);
+
+					return Redirect(targetUrl);
 
 				}
 
+			}
+
+			if (model.ReturnToHTTP) {
+				SaveErrorsToTempData();
+				return Redirect(VocaUriBuilder.Absolute(Url.Action("Login", new { model.ReturnUrl }), false));				
 			}
 
         	return View(model);

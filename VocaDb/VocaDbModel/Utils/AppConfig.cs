@@ -19,12 +19,23 @@ namespace VocaDb.Model.Utils {
 		}
 
 		/// <summary>
-		/// Host address contains full path to the web application's root, including hostname.
+		/// Host address of the main site, contains full path to the web application's root, including hostname.
+		/// Could be either HTTP or HTTPS.
 		/// For example http://vocadb.net
 		/// </summary>
 		public static string HostAddress {
 			get {
 				return Val("HostAddress");
+			}
+		}
+
+		/// <summary>
+		/// Host address of the SSL site, used for sensitive actions such as logging in.
+		/// For example https://vocadb.net
+		/// </summary>
+		public static string HostAddressSecure {
+			get {
+				return Val("HostAddressSecure");
 			}
 		}
 

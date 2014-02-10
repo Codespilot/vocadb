@@ -61,8 +61,9 @@ namespace VocaDb.Web.Models {
 
 		public LoginModel() {}
 
-		public LoginModel(string returnUrl) {
+		public LoginModel(string returnUrl, bool returnToHTTP) {
 			this.ReturnUrl = returnUrl;
+			this.ReturnToHTTP = returnToHTTP;
 		}
 
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "KeepMeLoggedIn")]
@@ -78,6 +79,18 @@ namespace VocaDb.Web.Models {
 		[Display(ResourceType = typeof(ViewRes.User.LoginStrings), Name = "Password")]
 		[StringLength(100)]
 		public string Password { get; set; }
+
+		/// <summary>
+		/// Whether the user should be returned to the HTTP/default site.
+		/// 
+		/// If this is false, the user will be returned to the current site,
+		/// which may be either HTTP or HTTPS.
+		/// If this is true, the user will always be returned to the HTTP site.
+		/// 
+		/// This is needed because the HTTP site uses the HTTPS site for logging in
+		/// and the user should be returned to back to the HTTP site after login.
+		/// </summary>
+		public bool ReturnToHTTP { get; set; }
 
 		public string ReturnUrl { get; set; }
 
