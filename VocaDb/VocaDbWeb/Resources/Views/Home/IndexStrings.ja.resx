@@ -141,6 +141,9 @@
   <data name="ViewMore" xml:space="preserve">
     <value>もっと見る</value>
   </data>
+  <data name="ViewSongInfo" xml:space="preserve">
+    <value>曲の情報</value>
+  </data>
   <data name="Welcome" xml:space="preserve">
     <value>ボカロデータベースへようこそ！</value>
   </data>
