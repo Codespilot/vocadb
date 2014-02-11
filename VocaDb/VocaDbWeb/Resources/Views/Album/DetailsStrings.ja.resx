@@ -120,11 +120,26 @@
   <data name="CatalogNumber" xml:space="preserve">
     <value>カタログNo</value>
   </data>
+  <data name="Circle" xml:space="preserve">
+    <value>サークル</value>
+  </data>
+  <data name="DownloadTrackList" xml:space="preserve">
+    <value>楽曲情報をCSV形式でダウンロードする</value>
+  </data>
   <data name="Labels" xml:space="preserve">
     <value>レーベル</value>
   </data>
+  <data name="OtherArtists" xml:space="preserve">
+    <value>他のアーティスト</value>
+  </data>
   <data name="Producers" xml:space="preserve">
     <value>プロデューサー</value>
+  </data>
+  <data name="Ratings" xml:space="preserve">
+    <value>件の評価</value>
+  </data>
+  <data name="RelatedAlbums" xml:space="preserve">
+    <value>関連アルバム</value>
   </data>
   <data name="ReleaseDate" xml:space="preserve">
     <value>発売日</value>

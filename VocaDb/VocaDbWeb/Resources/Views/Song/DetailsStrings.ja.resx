@@ -123,4 +123,16 @@
   <data name="AddToFavorites" xml:space="preserve">
     <value>お気に入りに追加</value>
   </data>
+  <data name="OtherArtists" xml:space="preserve">
+    <value>他のアーティスト</value>
+  </data>
+  <data name="Producers" xml:space="preserve">
+    <value>プロデューサー</value>
+  </data>
+  <data name="RelatedSongs" xml:space="preserve">
+    <value>関連楽曲</value>
+  </data>
+  <data name="Vocalists" xml:space="preserve">
+    <value>ボーカリスト</value>
+  </data>
 </root>

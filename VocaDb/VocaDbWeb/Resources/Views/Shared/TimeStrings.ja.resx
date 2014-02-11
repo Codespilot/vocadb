@@ -126,6 +126,9 @@
   <data name="Minutes" xml:space="preserve">
     <value>分</value>
   </data>
+  <data name="Months" xml:space="preserve">
+    <value>ヶ月</value>
+  </data>
   <data name="TimeAgo" xml:space="preserve">
     <value>{0} {1}前</value>
   </data>

@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Original" xml:space="preserve">
-    <value>オリジン</value>
+  <data name="Default" xml:space="preserve">
+    <value>原言語</value>
   </data>
-  <data name="Other" xml:space="preserve">
-    <value>その他</value>
+  <data name="English" xml:space="preserve">
+    <value>英語</value>
   </data>
-  <data name="Reprint" xml:space="preserve">
-    <value>増刷</value>
+  <data name="Japanese" xml:space="preserve">
+    <value>非英語</value>
+  </data>
+  <data name="Romaji" xml:space="preserve">
+    <value>ローマ字</value>
+  </data>
+  <data name="Unspecified" xml:space="preserve">
+    <value>Unspecified</value>
   </data>
 </root>
