@@ -156,7 +156,7 @@ namespace VocaDb.Model.Service {
 					return false;
 
 				var song = session.Load<Song>(songId);
-				var report = new SongReport(song, reportType, GetLoggedUserOrDefault(session), hostname, notes.Truncate(200));
+				var report = new SongReport(song, reportType, GetLoggedUserOrDefault(session), hostname, notes.Truncate(EntryReport.MaxNotesLength));
 
 				var msg =  string.Format("reported {0} as {1} ({2})", EntryLinkFactory.CreateEntryLink(song), reportType, HttpUtility.HtmlEncode(notes));
 				AuditLog(msg.Truncate(200), session, new AgentLoginData(GetLoggedUserOrDefault(session), hostname));

@@ -5,6 +5,8 @@ namespace VocaDb.Model.Domain {
 
 	public abstract class EntryReport {
 		
+		public const int MaxNotesLength = 400;
+
 		private string hostname;
 		private string notes;
 
