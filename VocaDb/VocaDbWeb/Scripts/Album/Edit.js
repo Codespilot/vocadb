@@ -22,6 +22,9 @@ function initPage(viewModel, albumId, discType) {
 			return $(this).attr("id").split("_")[1];
 		}).toArray();
 
+		if (checkedRoles.length == 0)
+			checkedRoles = ['Default'];
+
 		var link = editArtist;
 		if (link)
 			link.rolesArray(checkedRoles);
