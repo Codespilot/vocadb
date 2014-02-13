@@ -158,9 +158,9 @@ Please note that songs without Vocaloid vocals are allowed only if they're on an
     <value>Song type</value>
   </data>
   <data name="SubmitSong" xml:space="preserve">
-    <value>Submit a new song</value>
+    <value>Add a new song to the database</value>
   </data>
   <data name="UnableToCreateSong" xml:space="preserve">
-    <value>Unable to create song. Correct the errors and try again.</value>
+    <value>Unable to create song. Please correct the errors and try again.</value>
   </data>
 </root>
