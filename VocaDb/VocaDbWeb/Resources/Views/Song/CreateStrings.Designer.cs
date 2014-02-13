@@ -179,7 +179,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit a new song.
+        ///   Looks up a localized string similar to Add a new song to the database.
         /// </summary>
         public static string SubmitSong {
             get {
@@ -188,7 +188,7 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to create song. Correct the errors and try again..
+        ///   Looks up a localized string similar to Unable to create song. Please correct the errors and try again..
         /// </summary>
         public static string UnableToCreateSong {
             get {

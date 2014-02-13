@@ -17,6 +17,10 @@
 	<div class="row-fluid">
 		<div class="span5 well well-transparent">
 			
+			<div class="pull-right">
+				@Helpers.AjaxLoader("pvLoader")				
+			</div>
+
 			<div class="alert alert-danger" data-bind="visible: isDuplicatePV" style="display:none">
 				@R.CreateStrings.DuplicatePV
 			</div>
@@ -134,6 +138,11 @@
 			var artistRepo = new vdb.repositories.ArtistRepository(vdb.values.baseAddress);
 			var json = @Html.Raw(JsonHelpers.Serialize(Model));
 			ko.applyBindings(new vdb.viewModels.SongCreateViewModel(repo, artistRepo, json));
+
+			$("#pvLoader")
+				.ajaxStart(function() { $(this).show(); })
+				.ajaxStop(function () { $(this).hide(); });
+
 		});
 
 	</script>
