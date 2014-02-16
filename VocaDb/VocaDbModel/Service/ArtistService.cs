@@ -284,6 +284,7 @@ namespace VocaDb.Model.Service {
 
 				contract.LatestSongs = session.Query<ArtistForSong>()
 					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport)
+					.WhereIsMainSong(artist.ArtistType)
 					.Select(s => s.Song)
 					.OrderByDescending(s => s.CreateDate)
 					.Take(8).ToArray()
