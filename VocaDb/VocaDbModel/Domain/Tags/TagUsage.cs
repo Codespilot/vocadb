@@ -81,7 +81,7 @@ namespace VocaDb.Model.Domain.Tags {
 		public abstract TagVote RemoveVote(User user);
 
 		public override string ToString() {
-			return string.Format("{0} for {1}", Tag, Entry);
+			return string.Format("{0} for {1} [{2}]", Tag, Entry, Id);
 		}
 
 	}

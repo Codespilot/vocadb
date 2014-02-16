@@ -353,6 +353,8 @@ namespace VocaDb.Model.Service {
 
 			PermissionContext.VerifyPermission(PermissionToken.RemoveTagUsages);
 
+			SysLog(string.Format("deleting tag usage with Id {0}", tagUsageId));
+
 			return HandleTransaction(session => {
 
 				var tagUsage = session.Load<T>(tagUsageId);
