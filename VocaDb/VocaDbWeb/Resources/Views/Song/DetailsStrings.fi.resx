@@ -231,4 +231,7 @@
   <data name="RelatedSongs" xml:space="preserve">
     <value>Samankaltaisia</value>
   </data>
+  <data name="NicoMimiDownload" xml:space="preserve">
+    <value>Katso latauslinkki NicoMimistä</value>
+  </data>
 </root>

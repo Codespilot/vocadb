@@ -231,4 +231,7 @@
   <data name="RelatedSongs" xml:space="preserve">
     <value>Related songs</value>
   </data>
+  <data name="NicoMimiDownload" xml:space="preserve">
+    <value>Check NicoMimi for download</value>
+  </data>
 </root>
