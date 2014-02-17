@@ -252,6 +252,39 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private class TagTopUsagesAndCount<T> {
+
+			public T[] TopUsages { get; set; }
+
+			public int TotalCount { get; set; }
+
+		}
+
+		private TagTopUsagesAndCount<TEntry> GetTopUsagesAndCount<TUsage, TEntry>(
+			ISession session, string tagName, 
+			Expression<Func<TUsage, bool>> whereExpression, 
+			Expression<Func<TUsage, DateTime>> createDateExpression,
+			Expression<Func<TUsage, TEntry>> selectExpression)
+			where TUsage: TagUsage {
+			
+			var q = TagUsagesQuery<TUsage>(session, tagName)
+				.Where(whereExpression);
+
+			var topUsages = q
+				.OrderByDescending(t => t.Count)
+				.ThenByDescending(createDateExpression)
+				.Select(selectExpression)
+				.Take(15)
+				.ToArray();
+
+			var usageCount = q.Count();
+
+			return new TagTopUsagesAndCount<TEntry> {
+				TopUsages = topUsages, TotalCount = usageCount
+			};
+
+		}
+
 		public TagDetailsContract GetTagDetails(string tagName) {
 
 			ParamIs.NotNullOrEmpty(() => tagName);
@@ -263,29 +296,14 @@ namespace VocaDb.Model.Service {
 				if (tag == null)
 					return null;
 				
-				var artists = TagUsagesQuery<ArtistTagUsage>(session, tagName).Where(a => !a.Artist.Deleted).OrderByDescending(t => t.Count).Select(u => u.Artist).Take(15).ToArray();
-				var artistCount = TagUsagesQuery<ArtistTagUsage>(session, tagName).Count(a => !a.Artist.Deleted);
+				var artists = GetTopUsagesAndCount<ArtistTagUsage, Artist>(session, tagName, t => !t.Artist.Deleted, t => t.Artist.CreateDate, t => t.Artist);
+				var albums = GetTopUsagesAndCount<AlbumTagUsage, Album>(session, tagName, t => !t.Album.Deleted, t => t.Album.CreateDate, t => t.Album);
+				var songs = GetTopUsagesAndCount<SongTagUsage, Song>(session, tagName, t => !t.Song.Deleted, t => t.Song.CreateDate, t => t.Song);
 
-				var albums = TagUsagesQuery<AlbumTagUsage>(session, tagName).Where(a => !a.Album.Deleted).OrderByDescending(t => t.Count).Select(u => u.Album).Take(15).ToArray();
-				var albumCount = TagUsagesQuery<AlbumTagUsage>(session, tagName).Count(a => !a.Album.Deleted);
-
-				var songs = TagUsagesQuery<SongTagUsage>(session, tagName).Where(a => !a.Song.Deleted).OrderByDescending(t => t.Count).Select(u => u.Song).Take(15).ToArray();
-				var songCount = TagUsagesQuery<SongTagUsage>(session, tagName).Count(a => !a.Song.Deleted);
-
-				/*
-				var tagNames = new[] {tag.Name}.Concat(tag.Aliases.Select(t => t.Name)).ToArray();
-				
-				var artists = TagUsagesQuery<ArtistTagUsage, Artist>(session, tagNames, 15, u => u.Artist);
-				var artistCount = TagUsagesCount<ArtistTagUsage, Artist>(session, tagNames, u => u.Artist);
-
-				var albums = TagUsagesQuery<AlbumTagUsage, Album>(session, tagNames, 15, u => u.Album);
-				var albumCount = TagUsagesCount<AlbumTagUsage, Album>(session, tagNames, u => u.Album);
-
-				var songs = TagUsagesQuery<SongTagUsage, Song>(session, tagNames, 15, u => u.Song);
-				var songCount = TagUsagesCount<SongTagUsage, Song>(session, tagNames, u => u.Song);
-				*/
-
-				return new TagDetailsContract(tag, artists, artistCount, albums, albumCount, songs, songCount, 
+				return new TagDetailsContract(tag, 
+					artists.TopUsages, artists.TotalCount, 
+					albums.TopUsages, albums.TotalCount, 
+					songs.TopUsages, songs.TotalCount, 
 					PermissionContext.LanguagePreference);
 				
 			});

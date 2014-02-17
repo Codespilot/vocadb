@@ -35,6 +35,21 @@ namespace VocaDb.Web.Models {
 
 	public class SongDetails {
 
+		private string GetNicoMimiUrl(SongDetailsContract contract) {
+			
+			var nicoId = contract.Song.NicoId;
+			var nicoPvId = PVHelper.GetNicoId(contract.PVs, nicoId);
+
+			if (!string.IsNullOrEmpty(nicoPvId)) {
+
+				return string.Format("http://www.nicomimi.net/play/{0}", nicoPvId);
+
+			} else {
+				return string.Empty;
+			}
+
+		}
+
 		public SongDetails(SongDetailsContract contract) {
 
 			ParamIs.NotNull(() => contract);
@@ -84,6 +99,11 @@ namespace VocaDb.Web.Models {
 			OtherPVs = pvs.Where(p => p.PVType != PVType.Original).ToArray();
 			PrimaryPV = PVHelper.PrimaryPV(pvs);
 			ThumbUrl = VideoServiceHelper.GetThumbUrlPreferNotNico(pvs);
+
+			var nicoMimiUrl = GetNicoMimiUrl(contract);
+			if (!string.IsNullOrEmpty(nicoMimiUrl)) {
+				WebLinks.Add(new WebLinkContract(nicoMimiUrl, ViewRes.Song.DetailsStrings.NicoMimiDownload, WebLinkCategory.Other));
+			}
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
