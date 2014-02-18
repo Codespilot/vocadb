@@ -1,1 +1,1 @@
-=Documentation moved to [http://wiki.vocadb.net/wiki/12/album-track-format-strings-for-the-custom-csv-export the wiki]=
+Documentation moved to [http://wiki.vocadb.net/wiki/12/album-track-format-strings-for-the-custom-csv-export the wiki]
