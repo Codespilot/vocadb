@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Resources;
 
@@ -26,7 +27,7 @@ namespace VocaDb.Model.Service.EntryValidators {
 
 			if (song.SongType != SongType.Instrumental 
 				&& song.SongType != SongType.DramaPV 
-				&& !song.Tags.HasTag("instrumental") 
+				&& !song.Tags.HasTag(Tag.CommonTag_Instrumental) 
 				&& !ArtistHelper.GetVocalists(song.Artists.ToArray()).Any())
 				errors.Add(SongValidationErrors.NonInstrumentalSongNeedsVocalists);
 

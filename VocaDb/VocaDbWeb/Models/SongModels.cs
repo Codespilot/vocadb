@@ -37,6 +37,12 @@ namespace VocaDb.Web.Models {
 
 		private string GetNicoMimiUrl(SongDetailsContract contract) {
 			
+			// Don't show nicomimi link for free songs.
+			if (contract.Tags.Any(t => 
+				t.TagName.Equals(Model.Domain.Tags.Tag.CommonTag_Free, StringComparison.InvariantCultureIgnoreCase)
+				|| t.TagName.Equals(Model.Domain.Tags.Tag.CommonTag_Nicovideo_downloadmusic, StringComparison.InvariantCultureIgnoreCase)))
+				return string.Empty;
+
 			var nicoId = contract.Song.NicoId;
 			var nicoPvId = PVHelper.GetNicoId(contract.PVs, nicoId);
 

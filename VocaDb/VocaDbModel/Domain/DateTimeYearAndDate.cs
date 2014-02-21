@@ -86,6 +86,11 @@ namespace VocaDb.Model.Domain {
 
 		public virtual int? Day { get; set; }
 
+		/// <summary>
+		/// Whether this date is empty.
+		/// The date is empty when the year is not specified. 
+		/// Other components do not matter.
+		/// </summary>
 		public virtual bool IsEmpty {
 			get { return (Year == null); }
 		}
@@ -106,12 +111,25 @@ namespace VocaDb.Model.Domain {
 
 		public virtual int? Year { get; set; }
 
+		/// <summary>
+		/// Tests this date with equality with another.
+		/// 
+		/// For the purposes of this test, the equality is defined as follows:
+		/// - EITHER One or both sides are null OR Empty. Null and Empty are considered equal.
+		/// - OR All date components are the same.
+		/// 
+		/// Note that if the year component is not specified, the date is considered Empty and thus equal to null, 
+		/// regardless of the other date components (month and day).
+		/// </summary>
+		/// <param name="another">Another date object. Can be null.</param>
+		/// <returns>True if the dates are considered equal, otherwise false.</returns>
 		public virtual bool Equals(OptionalDateTime another) {
 
 			if (another == null)
 				return IsEmpty;
 
-			return (Year == another.Year && Month == another.Month && Day == another.Day);
+			return ((IsEmpty && another.IsEmpty) 
+				|| (Year == another.Year && Month == another.Month && Day == another.Day));
 
 		}
 
