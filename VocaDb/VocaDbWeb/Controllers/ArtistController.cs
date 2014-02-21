@@ -291,6 +291,7 @@ namespace VocaDb.Web.Controllers
 
 			WebHelper.VerifyUserAgent(Request);
 			var model = Service.GetArtistDetails(id);
+			PageProperties.Description = model.Description;
             return View(model);
 
         }

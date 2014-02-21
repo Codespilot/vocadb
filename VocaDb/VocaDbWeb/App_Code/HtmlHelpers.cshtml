@@ -30,6 +30,6 @@
 @helper OpenGraphMetaTags(string url = null, string title = null, string description = null, string type = null) {
 	@MetaTag("og:url", url)
 	@MetaTag("og:title", title)
-	@MetaTag("og:description", description.TruncateWithEllipsis(400))
+	@MetaTag("og:description", description.Summarize(20, 400))
 	@MetaTag("og:type", type)
 }

@@ -1,13 +1,18 @@
 ﻿@using System.Web.Optimization
 @using VocaDb.Web.Helpers
 @using VocaDb.Model.Utils
+@using VocaDb.Web.Code
 
 @{
 	var searchObjectType = Html.GlobalSearchObjectType();
-	var searchTerm = Html.GlobalSearchTerm();	
+	var searchTerm = Html.GlobalSearchTerm();
 }
 
 @functions {
+
+	PagePropertiesData PageProperties {
+		get { return PagePropertiesData.Get(ViewBag); }
+	}
 
 	string PageTitle {
 		get {
@@ -24,7 +29,7 @@
 <html>
 <head>
     <title>@(!string.IsNullOrEmpty(PageTitle) ? PageTitle + " - " : "")Vocaloid Database</title>
-	<meta name="description" content="VocaDB is a Vocaloid database with translated artists, albums and songs." />	
+	<meta name="description" content="@PageProperties.SummarizedDescription" />	
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
 	<meta name="og:image" content="@ViewContext.Controller.ViewBag.Banner"/>
 

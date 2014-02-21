@@ -2,6 +2,48 @@
 
 	public static class StringExtensions {
 
+		/*public static string FirstLine(this string str) {
+			
+			if (string.IsNullOrEmpty(str))
+				return str;
+
+			var newline = str.IndexOf('\n');
+			return newline != -1 ? str.Substring(0, newline) : str;
+
+		}*/
+
+		/// <summary>
+		/// Returns a string that's optimally between minimum and maximum length.
+		/// Picks the first line, and if that's suitable, returns only the first line.
+		/// If the string is too long it will be truncated.
+		/// </summary>
+		/// <param name="str">String to be parsed.</param>
+		/// <param name="minLength">Minimum desired length.</param>
+		/// <param name="maxLength">Maximum allowed length.</param>
+		/// <returns>
+		/// Summarized string. 
+		/// 
+		/// Length is always less then <paramref name="maxLength"/>, 
+		/// and more than <paramref name="minLength"/>, 
+		/// assuming <paramref name="str"/> is longer than <paramref name="minLength"/>.
+		/// </returns>
+		public static string Summarize(this string str, int minLength, int maxLength) {
+			
+			if (string.IsNullOrEmpty(str))
+				return str;
+
+			if (str.Length < maxLength)
+				return str;
+
+			var newline = str.IndexOf('\n');
+
+			if (newline != -1 && newline > minLength && newline < maxLength)
+				return str.Substring(0, newline);
+
+			return TruncateWithEllipsis(str, maxLength);
+
+		}
+
 		public static string Truncate(this string str, int length) {
 
 			ParamIs.NotNull(() => str);
