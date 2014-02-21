@@ -690,7 +690,6 @@
     <Compile Include="Service\VideoServices\NicoTitleParseResult.cs" />
     <Compile Include="Service\VideoServices\RegexLinkMatcher.cs" />
     <Compile Include="Service\Helpers\SessionHelper.cs" />
-    <Compile Include="Service\Helpers\SongTagger.cs" />
     <Compile Include="Service\VideoServices\VideoParseException.cs" />
     <Compile Include="Service\VideoServices\VideoService.cs" />
     <Compile Include="Service\VideoServices\VideoServiceBilibili.cs" />
