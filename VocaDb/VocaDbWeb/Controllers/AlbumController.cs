@@ -204,6 +204,7 @@ namespace VocaDb.Web.Controllers
 			SetSearchEntryType(EntryType.Album);
 
 			var model = Service.GetAlbumDetails(id, WebHelper.IsValidHit(Request) ? WebHelper.GetRealHost(Request) : string.Empty);
+			PageProperties.Description = model.Description;
 
             return View(new AlbumDetails(model));
 

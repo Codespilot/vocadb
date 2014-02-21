@@ -45,6 +45,12 @@ namespace VocaDb.Web.Controllers {
 			get { return MvcApplication.LoginManager; }
 		}
 
+		protected PagePropertiesData PageProperties {
+			get {
+				return PagePropertiesData.Get(ViewBag);
+			}
+		}
+
 		protected ServiceModel Services {
 			get { return MvcApplication.Services; }
 		}
