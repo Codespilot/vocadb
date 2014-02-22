@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Repositories;
 
@@ -31,6 +32,8 @@ namespace VocaDb.Model.Service.Queries {
 
 			var songs = new RelatedSongs();
 			var songId = song.Id;
+			var loadedSongs = new List<int>();
+
 			var creditableArtists = song.Artists.Where(a => a.Artist != null && !a.IsSupport).ToArray();
 
 			var mainArtists = GetMainArtists(song, creditableArtists);
@@ -49,10 +52,31 @@ namespace VocaDb.Model.Service.Queries {
 							&& mainArtistIds.Contains(a.Artist.Id)))
 					.OrderBy(a => a.RatingScore)
 					.Distinct()
-					.Take(20)
+					.Take(16)
 					.ToArray();
 
 				songs.ArtistMatches = songsByMainArtists;
+				loadedSongs.AddRange(songsByMainArtists.Select(s => s.Id));
+
+			}
+
+			if (song.RatingScore > 0) {
+				
+				var userIds = song.UserFavorites.Select(u => u.User.Id).ToArray();
+				var likeMatches = ctx.OfType<FavoriteSongForUser>()
+					.Query()
+					.Where(f => 
+						userIds.Contains(f.User.Id) 
+						&& !loadedSongs.Contains(f.Song.Id))
+					.GroupBy(f => f.Song.Id)
+					.Select(f => new { Song = f.Key, Ratings = f.Count() })
+					.OrderByDescending(f => f.Ratings)
+					.Select(s => s.Song)
+					.Take(12)
+					.ToArray();
+
+				songs.LikeMatches = ctx.Query().Where(s => likeMatches.Contains(s.Id)).ToArray();
+				loadedSongs.AddRange(likeMatches);
 
 			}
 
@@ -60,16 +84,15 @@ namespace VocaDb.Model.Service.Queries {
 
 				// Take top 5 tags
 				var tagNames = song.Tags.Usages.OrderByDescending(u => u.Count).Take(5).Select(t => t.Tag.Name).ToArray();
-				var otherSongIds = songs.ArtistMatches.Select(a => a.Id).ToArray();
 
 				var songsWithTags =
 					ctx.Query().Where(al => 
 						al.Id != songId
-						&& !otherSongIds.Contains(al.Id) 
+						&& !loadedSongs.Contains(al.Id) 
 						&& !al.Deleted 
 						&& al.Tags.Usages.Any(t => tagNames.Contains(t.Tag.Name)))
 					.OrderBy(a => a.RatingScore)
-					.Take(16)
+					.Take(12)
 					.ToArray();
 
 				songs.TagMatches = songsWithTags;
@@ -91,7 +114,10 @@ namespace VocaDb.Model.Service.Queries {
 
 		public Song[] ArtistMatches { get; set; }
 
+		public Song[] LikeMatches { get; set; }
+
 		public Song[] TagMatches { get; set; }
 
 	}
+
 }

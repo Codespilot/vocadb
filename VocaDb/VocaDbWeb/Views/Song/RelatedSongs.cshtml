@@ -1,8 +1,22 @@
-﻿@model VocaDb.Model.DataContracts.Songs.SongContract[]
+﻿@model VocaDb.Model.DataContracts.Songs.RelatedSongsContract
 
-@if (Model.Any()) {
-	@SongHelpers.SongGrid(Model, 2, true)
-} else {
+@if (!Model.Any) {
 	@ViewRes.EntryDetailsStrings.NoMatches
 }
 
+@if (Model.ArtistMatches.Any()) {
+	<h3>Matching artists</h3>
+	@SongHelpers.SongGrid(Model.ArtistMatches, 2, true)
+	<br />
+}
+
+@if (Model.LikeMatches.Any()) {
+	<h3>Matching likes</h3>
+	@SongHelpers.SongGrid(Model.LikeMatches, 2, true)
+	<br />
+}
+
+@if (Model.TagMatches.Any()) {
+	<h3>Matching tags</h3>
+	@SongHelpers.SongGrid(Model.TagMatches, 2, true)
+}
