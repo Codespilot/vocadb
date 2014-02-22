@@ -14,7 +14,7 @@
 
 		/// <summary>
 		/// Returns a string that's optimally between minimum and maximum length.
-		/// Picks the first line, and if that's suitable, returns only the first line.
+		/// Picks the first line, and if that's suitable, returns only that first line.
 		/// If the string is too long it will be truncated.
 		/// </summary>
 		/// <param name="str">String to be parsed.</param>

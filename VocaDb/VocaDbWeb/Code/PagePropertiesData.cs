@@ -35,7 +35,7 @@ namespace VocaDb.Web.Code {
 
 				return Description
 					.Trim()
-					.Summarize(20, 300);
+					.Summarize(30, 300);
 
 			}
 		}

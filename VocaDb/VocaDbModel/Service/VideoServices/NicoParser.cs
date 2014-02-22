@@ -93,6 +93,8 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);
 			} catch (XmlException x) {
 				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);
+			} catch (IOException x) {
+				return VideoTitleParseResult.CreateError("NicoVideo (error): " + x.Message);				
 			}
 
 			var res = doc.Element("nicovideo_thumb_response");
