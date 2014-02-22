@@ -272,21 +272,27 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public SongContract[] GetRelatedSongs(int songId) {
+		public RelatedSongsContract GetRelatedSongs(int songId) {
 
 			return repository.HandleQuery(ctx => {
 
 				var song = ctx.Load(songId);
 				var songs = new RelatedSongsQuery(ctx).GetRelatedSongs(song);
 
-				return songs.ArtistMatches
-					.Select(a => new SongContract(a, permissionContext.LanguagePreference))
-					.OrderBy(a => a.Name)
-					.Concat(songs.TagMatches
+				return new RelatedSongsContract {
+					ArtistMatches = songs.ArtistMatches
 						.Select(a => new SongContract(a, permissionContext.LanguagePreference))
-						.OrderBy(a => a.Name))
-					.ToArray();
-
+						.OrderBy(a => a.Name)
+						.ToArray(),
+					LikeMatches = songs.LikeMatches
+						.Select(a => new SongContract(a, permissionContext.LanguagePreference))
+						.OrderBy(a => a.Name)
+						.ToArray(),
+					TagMatches = songs.TagMatches
+						.Select(a => new SongContract(a, permissionContext.LanguagePreference))
+						.OrderBy(a => a.Name)
+						.ToArray()
+				};
 			});
 
 		}
