@@ -25,7 +25,7 @@
 			@ArchivedEntryHelpers.DataRow("Original version", comparedSongs, d => ArchivedEntryHelpers.ObjectRefInfo(d.OriginalVersion))
 			@ArchivedEntryHelpers.DataRow("Duration", comparedSongs, d => DateTimeUtils.FormatFromSeconds(d.LengthSeconds))
 			@ArchivedEntryHelpers.DataRowList("External links", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.WebLinks, ArchivedEntryHelpers.WebLinkInfo))
-			@ArchivedEntryHelpers.DataRowList("Artists", comparedSongs, d => DataFormatUtils.GenerateHtml(d.Artists, artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
+			@ArchivedEntryHelpers.DataRowList("Artists", comparedSongs, d => DataFormatUtils.GenerateHtml(d.Artists.OrderBy(a => a.NameHint), artist => MvcHtmlString.Create(artist.NameHint + " [" + artist.Id + "] - IsSupport: " + artist.IsSupport + ", Roles: " + artist.Roles)))
 			@ArchivedEntryHelpers.DataRowList("PVs", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.PVs, ArchivedEntryHelpers.PVInfo))
 			@ArchivedEntryHelpers.DataRowList("Lyrics", comparedSongs, d => DataFormatUtils.GenerateHtmlFromHelper(d.Lyrics, LyricsInfo))
 		</table>

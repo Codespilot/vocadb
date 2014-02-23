@@ -110,6 +110,7 @@ namespace VocaDb.Model.Service.Queries {
 
 		public RelatedSongs() {
 			ArtistMatches = new Song[0];
+			LikeMatches = new Song[0];
 			TagMatches = new Song[0];
 		}
 
