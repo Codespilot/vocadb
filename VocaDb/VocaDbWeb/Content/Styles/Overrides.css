@@ -102,6 +102,9 @@ form.form-topMargin {
 .form-horizontal .control-group {
   margin-bottom: 7px;
 }
+ul {
+  padding-left: 3px;
+}
 .dropdown-menu li > a:hover {
   color: white !important;
 }

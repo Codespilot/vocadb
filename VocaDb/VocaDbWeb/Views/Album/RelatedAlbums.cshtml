@@ -8,6 +8,7 @@
 @if (Model.ArtistMatches.Any()) {
 	<h3>@R.MatchingArtists</h3>
 	@AlbumHelpers.AlbumGrid(Model.ArtistMatches, 2, true, false, true)
+	<br />
 }
 	
 @if (Model.TagMatches.Any()) {
