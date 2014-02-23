@@ -234,4 +234,13 @@
   <data name="NicoMimiDownload" xml:space="preserve">
     <value>Check NicoMimi for download</value>
   </data>
+  <data name="MatchingArtists" xml:space="preserve">
+    <value>Matching artists</value>
+  </data>
+  <data name="MatchingLikes" xml:space="preserve">
+    <value>Matching likes</value>
+  </data>
+  <data name="MatchingTags" xml:space="preserve">
+    <value>Matching tags</value>
+  </data>
 </root>

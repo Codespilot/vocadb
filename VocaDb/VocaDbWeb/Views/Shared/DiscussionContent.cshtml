@@ -1,11 +1,11 @@
 ﻿@using VocaDb.Web.Helpers;
+@using R = ViewRes.DiscussionContentStrings
 @model VocaDb.Model.DataContracts.CommentContract[]
 
 @if (Login.CanManageDb) {
 <div id="newCommentPanel">
-	<h3>@ViewRes.DiscussionContentStrings.NewComment</h3>
-	@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5" })
-	<a href="#" class="textLink addLink" id="createComment">@ViewRes.DiscussionContentStrings.AddComment</a>
+	@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5", placeholder = R.NewComment })
+	<a href="#" class="textLink addLink" id="createComment">@R.AddComment</a>
 	<hr />
 </div>
 }

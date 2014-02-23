@@ -210,4 +210,10 @@
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="MatchingArtists" xml:space="preserve">
+    <value>Matching artists</value>
+  </data>
+  <data name="MatchingTags" xml:space="preserve">
+    <value>Matching tags</value>
+  </data>
 </root>

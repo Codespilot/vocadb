@@ -1,6 +1,7 @@
 using System.Linq;
 
 namespace VocaDb.Model.DataContracts.Songs {
+
 	public class RelatedSongsContract {
 
 		public bool Any {
@@ -16,4 +17,5 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongContract[] TagMatches { get; set; }
 
 	}
+
 }

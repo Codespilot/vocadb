@@ -214,6 +214,33 @@ namespace ViewRes.Song {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Matching artists.
+        /// </summary>
+        public static string MatchingArtists {
+            get {
+                return ResourceManager.GetString("MatchingArtists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matching likes.
+        /// </summary>
+        public static string MatchingLikes {
+            get {
+                return ResourceManager.GetString("MatchingLikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matching tags.
+        /// </summary>
+        public static string MatchingTags {
+            get {
+                return ResourceManager.GetString("MatchingTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New list name.
         /// </summary>
         public static string NewListName {
