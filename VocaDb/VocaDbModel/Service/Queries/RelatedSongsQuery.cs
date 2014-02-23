@@ -32,7 +32,7 @@ namespace VocaDb.Model.Service.Queries {
 
 			var songs = new RelatedSongs();
 			var songId = song.Id;
-			var loadedSongs = new List<int>();
+			var loadedSongs = new List<int>(20) { songId };
 
 			var creditableArtists = song.Artists.Where(a => a.Artist != null && !a.IsSupport).ToArray();
 
@@ -67,7 +67,8 @@ namespace VocaDb.Model.Service.Queries {
 					.Query()
 					.Where(f => 
 						userIds.Contains(f.User.Id) 
-						&& !loadedSongs.Contains(f.Song.Id))
+						&& !loadedSongs.Contains(f.Song.Id)
+						&& !f.Song.Deleted)
 					.GroupBy(f => f.Song.Id)
 					.Select(f => new { Song = f.Key, Ratings = f.Count() })
 					.OrderByDescending(f => f.Ratings)
