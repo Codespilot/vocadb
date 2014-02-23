@@ -189,7 +189,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public AlbumContract[] GetRelatedAlbums(int albumId) {
+		public RelatedAlbumsContract GetRelatedAlbums(int albumId) {
 
 			return repository.HandleQuery(ctx => {
 
@@ -197,13 +197,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var q = new RelatedAlbumsQuery(ctx);
 				var albums = q.GetRelatedAlbums(album);
 
-				return albums.ArtistMatches
-					.Select(a => new AlbumContract(a, permissionContext.LanguagePreference))
-					.OrderBy(a => a.Name)
-					.Concat(albums.TagMatches
+				return new RelatedAlbumsContract { 
+					ArtistMatches = 
+						albums.ArtistMatches
 						.Select(a => new AlbumContract(a, permissionContext.LanguagePreference))
-						.OrderBy(a => a.Name))
-					.ToArray();
+						.OrderBy(a => a.Name)
+						.ToArray(),
+					TagMatches = 
+						albums.TagMatches
+						.Select(a => new AlbumContract(a, permissionContext.LanguagePreference))
+						.OrderBy(a => a.Name)
+						.ToArray()
+					};
 
 			});
 

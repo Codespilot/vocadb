@@ -120,6 +120,7 @@
     <Compile Include="DataContracts\Albums\ArchivedArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumForApiContract.cs" />
     <Compile Include="DataContracts\Albums\ComparedAlbumsContract.cs" />
+    <Compile Include="DataContracts\Albums\RelatedAlbumsContract.cs" />
     <Compile Include="DataContracts\Albums\TranslatedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ExportedAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />

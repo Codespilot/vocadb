@@ -1,7 +1,16 @@
-﻿@model VocaDb.Model.DataContracts.Albums.AlbumContract[]
+﻿@model VocaDb.Model.DataContracts.Albums.RelatedAlbumsContract
+@using R = ViewRes.Album.DetailsStrings
 
-@if (Model.Any()) {
-	@AlbumHelpers.AlbumGrid(Model, 2, true, false, true)
-} else {
+@if (!Model.Any) {
 	@ViewRes.EntryDetailsStrings.NoMatches
+}
+
+@if (Model.ArtistMatches.Any()) {
+	<h3>@R.MatchingArtists</h3>
+	@AlbumHelpers.AlbumGrid(Model.ArtistMatches, 2, true, false, true)
+}
+	
+@if (Model.TagMatches.Any()) {
+	<h3>@R.MatchingTags</h3>
+	@AlbumHelpers.AlbumGrid(Model.TagMatches, 2, true, false, true)
 }
