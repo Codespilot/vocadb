@@ -6,6 +6,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Repositories.NHibernate;
 using VocaDb.Model.Service.Search;
+using VocaDb.Tests.DatabaseTests;
 
 namespace VocaDb.Tests.TestSupport {
 
@@ -59,7 +60,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		}
 
-		private static ISessionFactory BuildTestSessionFactory() {
+		private static ISessionFactory BuildTestSessionFactory(TestDatabase testDatabase) {
 			
 			var testDatabaseConnectionString = "LocalDB";
 			var config = DatabaseConfiguration.Configure(testDatabaseConnectionString);
@@ -88,15 +89,17 @@ namespace VocaDb.Tests.TestSupport {
 
 			FinishDatabaseConfig(fac);
 
+			testDatabase.Seed(fac);
+
 			return fac;
 
 		}
 
-		public static IContainer BuildContainer() {
+		public static IContainer BuildContainer(TestDatabase testDatabase) {
 
 			var builder = new ContainerBuilder();
 
-			builder.Register(x => BuildTestSessionFactory()).SingleInstance();
+			builder.Register(x => BuildTestSessionFactory(testDatabase)).SingleInstance();
 			builder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerLifetimeScope();
 			builder.RegisterType<QuerySourceSession>().As<IQuerySource>();
 			builder.RegisterType<FakePermissionContext>().As<IUserPermissionContext>();
