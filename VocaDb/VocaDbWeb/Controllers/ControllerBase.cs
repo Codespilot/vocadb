@@ -130,10 +130,14 @@ namespace VocaDb.Web.Controllers {
 
 		protected void ParseAdditionalPictures(HttpPostedFileBase mainPic, IList<EntryPictureFileContract> pictures) {
 
+			ParamIs.NotNull(() => mainPic);
+			ParamIs.NotNull(() => pictures);
+
 			var additionalPics = Enumerable.Range(0, Request.Files.Count)
 				.Select(i => Request.Files.Get(i))
-				.Where(f => f.FileName != mainPic.FileName)
+				.Where(f => f != null && f.FileName != mainPic.FileName)
 				.ToArray();
+
 			var newPics = pictures.Where(p => p.Id == 0).ToArray();
 
 			for (int i = 0; i < additionalPics.Length; ++i) {
