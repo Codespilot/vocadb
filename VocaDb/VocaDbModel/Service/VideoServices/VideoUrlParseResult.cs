@@ -43,6 +43,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			AuthorId = meta.AuthorId ?? string.Empty;
 			ThumbUrl = meta.ThumbUrl ?? string.Empty;
 			LengthSeconds = meta.LengthSeconds;
+			Tags = meta.Tags;
 
 			ResultType = VideoUrlParseResultType.Ok;
 
@@ -86,6 +87,8 @@ namespace VocaDb.Model.Service.VideoServices {
 		public VideoUrlParseResultType ResultType { get; set; }
 
 		public PVService Service { get; set; }
+
+		public string[] Tags { get; set; }
 
 		public string Title { get; set; }
 

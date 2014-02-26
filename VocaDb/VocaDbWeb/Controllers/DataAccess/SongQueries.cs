@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
@@ -44,12 +45,44 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private readonly IUserMessageMailer mailer;
 		private readonly IPVParser pvParser;
 
+		private void AddTagsFromPV(VideoUrlParseResult pvResult, Song song, IRepositoryContext<Song> ctx) {
+			
+			if (pvResult.Tags == null || !pvResult.Tags.Any())
+				return;
+						
+			var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
+			var tags = GetTags(ctx.OfType<Tag>(), pvResult.Tags);
+
+			foreach (var tag in tags) {
+							
+				var usage = song.AddTag(tag.ActualTag);
+
+				if (usage != null) {
+
+					ctx.Save(usage);
+
+					var vote = usage.CreateVote(user);
+					ctx.Save(vote);					
+
+				}
+
+			}
+
+		}
+
 		private Artist GetArtist(string name, IRepositoryContext<PVForSong> ctx) {
 			return ctx.OfType<ArtistName>()
 				.Query()
 				.Where(n => n.Value == name && !n.Artist.Deleted)
 				.Select(n => n.Artist)
 				.FirstOrDefault();
+		}
+
+		private Tag[] GetTags(IRepositoryContext<Tag> session, string[] tagNames) {
+
+			var direct = session.Query().Where(t => tagNames.Contains(t.Name)).ToArray();
+			return direct.Union(direct.Where(t => t.AliasedTo != null).Select(t => t.AliasedTo)).ToArray();
+
 		}
 
 		private NicoTitleParseResult ParseNicoPV(IRepositoryContext<PVForSong> ctx, VideoUrlParseResult res) {
@@ -159,7 +192,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				}
 
 				if (pvResult != null) {
+
 					ctx.OfType<PVForSong>().Save(song.CreatePV(new PVContract(pvResult, PVType.Original)));
+
+					AddTagsFromPV(pvResult, song, ctx);
+
 				}
 
 				if (reprintPvResult != null) {
