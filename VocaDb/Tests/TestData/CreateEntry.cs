@@ -2,8 +2,10 @@
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Tests.TestData {
 
@@ -30,6 +32,20 @@ namespace VocaDb.Tests.TestData {
 			bool read = false) {
 
 			return new UserMessage(sender, receiver, subject, body, highPriority) { Id = id, Read = read };
+
+		}
+
+		public static VideoUrlParseResult VideoUrlParseResultWithTitle(
+			string url = "http://nicovideo.jp/watch/sm1234567", 
+			PVService service = PVService.NicoNicoDouga, 
+			string id = "sm1234567",
+			string title = "Resistance",
+			string author = "tripshots",
+			string thumbUrl = "",
+			int? length = null,
+			string[] tags = null) {
+			
+			return VideoUrlParseResult.CreateOk(url, service, id, VideoTitleParseResult.CreateSuccess(title, author, thumbUrl, length, tags));
 
 		}
 

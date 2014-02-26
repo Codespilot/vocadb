@@ -18,17 +18,18 @@
 			return new VideoTitleParseResult(false, error, null, null, null);
 		}
 
-		public static VideoTitleParseResult CreateSuccess(string title, string author, string thumbUrl, int? length = null) {
-			return new VideoTitleParseResult(true, null, title, author, thumbUrl, length);
+		public static VideoTitleParseResult CreateSuccess(string title, string author, string thumbUrl, int? length = null, string[] tags = null) {
+			return new VideoTitleParseResult(true, null, title, author, thumbUrl, length, tags);
 		}
 
-		public VideoTitleParseResult(bool success, string error, string title, string author, string thumbUrl, int? length = null) {
+		public VideoTitleParseResult(bool success, string error, string title, string author, string thumbUrl, int? length = null, string[] tags = null) {
 			Error = error;
 			Success = success;
 			Title = title ?? string.Empty;
 			Author = author ?? string.Empty;
 			ThumbUrl = thumbUrl ?? string.Empty;
 			LengthSeconds = length;
+			Tags = tags ?? new string[0];
 		}
 
 		/// <summary>
@@ -60,6 +61,11 @@
 		/// If false, the error should be specified in the <see cref="Error"/> field.
 		/// </summary>
 		public bool Success { get; set; }
+
+		/// <summary>
+		/// List of tags. Cannot be null.
+		/// </summary>
+		public string[] Tags { get; set; }
 
 		/// <summary>
 		/// Parsed title.

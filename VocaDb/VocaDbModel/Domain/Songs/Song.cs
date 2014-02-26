@@ -332,6 +332,25 @@ namespace VocaDb.Model.Domain.Songs {
 
 		}
 
+		/// <summary>
+		/// Adds a tag to the song.
+		/// First checks if the tag has already been added.
+		/// </summary>
+		/// <param name="tag">Tag to be added. Cannot be null.</param>
+		/// <returns>The created tag usage. Can be null if the tag has already been added.</returns>
+		public virtual SongTagUsage AddTag(Tag tag) {
+			
+			ParamIs.NotNull(() => tag);
+
+			if (Tags.HasTag(tag))
+				return null;
+
+			var usage = new SongTagUsage(this, tag);
+			Tags.Usages.Add(usage);
+			return usage;
+
+		}
+
 		public virtual ArchivedSongVersion CreateArchivedVersion(XDocument data, SongDiff diff, AgentLoginData author, SongArchiveReason reason, string notes) {
 
 			var archived = new ArchivedSongVersion(this, data, diff, author, Version, Status, reason, notes);

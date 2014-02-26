@@ -11,6 +11,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Tests.TestData;
@@ -84,6 +85,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			user2 = CreateEntry.User(id: 2, name: "Rin", email: "rin@vocadb.net");
 			repository.Add(user, user2);
 			repository.Add(producer, vocalist);
+
+			repository.Add(new Tag("vocarock"), new Tag("vocaloud"));
 
 			permissionContext = new FakePermissionContext(user);
 			var entryLinkFactory = new EntryAnchorFactory("http://test.vocadb.net");
@@ -199,6 +202,20 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			permissionContext.RefreshLoggedUser(repository);
 
 			CallCreate();
+
+		}
+
+		[TestMethod]
+		public void Create_Tags() {
+		
+			pvParser.ResultFunc = (url, meta) => CreateEntry.VideoUrlParseResultWithTitle(tags: new[] { "vocarock"});
+				
+			CallCreate();
+
+			song = repository.HandleQuery(q => q.Query().FirstOrDefault(a => a.DefaultName == "Resistance"));
+
+			Assert.AreEqual(1, song.Tags.Tags.Count(), "Tags.Count");
+			Assert.IsTrue(song.Tags.HasTag("vocarock"), "Has vocarock tag");
 
 		}
 

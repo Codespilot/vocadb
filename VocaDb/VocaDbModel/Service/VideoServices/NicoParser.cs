@@ -31,6 +31,12 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
+		private static readonly Dictionary<string, string> tagMapping = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {
+			{ "ミクトランス", "trance" },
+			{ "vocarock", "vocarock" },
+			{ "vocaloud", "vocaloud" },
+		};
+
 		private static string GetUserName(Stream htmlStream, Encoding encoding) {
 
 			var doc = new HtmlDocument();
@@ -119,8 +125,16 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (string.IsNullOrEmpty(author))
 				author = GetUserName(userId);
 
+			var nodeElements = doc.XPathSelectElements("//nicovideo_thumb_response/thumb/tags/tag");
+			var matchedTags = nodeElements
+				.Where(e => tagMapping.ContainsKey(e.Value))
+				.Select(e => tagMapping[e.Value])
+				.ToArray();
+
 			var result = VideoTitleParseResult.CreateSuccess(title, author, thumbUrl, length);
 			result.AuthorId = userId;
+			result.Tags = matchedTags;
+
 			return result;
 
 		}
