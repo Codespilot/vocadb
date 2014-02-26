@@ -804,14 +804,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult ResetPassword(Guid id) {
+		public ActionResult ResetPassword(Guid? id) {
 
+			var idVal = id ?? Guid.Empty;
 			var model = new ResetPassword();
 
-			if (!Data.CheckPasswordResetRequest(id)) {
+			if (!Data.CheckPasswordResetRequest(idVal)) {
 				ModelState.AddModelError("", "Request ID is invalid. It might have been used already.");
 			} else {
-				model.RequestId = id;
+				model.RequestId = idVal;
 			}
 
 			return View(model);
