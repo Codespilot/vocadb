@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
@@ -102,43 +103,13 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		private IQueryable<Album> AddOrder(IQueryable<Album> criteria, AlbumSortRule sortRule, ContentLanguagePreference languagePreference) {
 
-			switch (sortRule) {
-				case AlbumSortRule.Name:
-					return FindHelpers.AddNameOrder(criteria, languagePreference);
-				case AlbumSortRule.ReleaseDate:
-					return AddReleaseRestriction(criteria)
-						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
-						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
-						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day);
-				case AlbumSortRule.ReleaseDateWithNulls:
-					return criteria
-						.OrderByDescending(a => a.OriginalRelease.ReleaseDate.Year)
-						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Month)
-						.ThenByDescending(a => a.OriginalRelease.ReleaseDate.Day);
-				case AlbumSortRule.AdditionDate:
-					return criteria.OrderByDescending(a => a.CreateDate);
-				case AlbumSortRule.RatingAverage:
-					return criteria.OrderByDescending(a => a.RatingAverageInt)
-						.ThenByDescending(a => a.RatingCount);
-				case AlbumSortRule.RatingTotal:
-					return criteria.OrderByDescending(a => a.RatingTotal)
-						.ThenByDescending(a => a.RatingAverageInt);
-				case AlbumSortRule.NameThenReleaseDate:
-					return FindHelpers.AddNameOrder(criteria, languagePreference)
-						.ThenBy(a => a.OriginalRelease.ReleaseDate.Year)
-						.ThenBy(a => a.OriginalRelease.ReleaseDate.Month)
-						.ThenBy(a => a.OriginalRelease.ReleaseDate.Day);
-			}
-
-			return criteria;
+			return criteria.OrderBy(sortRule, languagePreference);
 
 		}
 
 		private IQueryable<Album> AddReleaseRestriction(IQueryable<Album> criteria) {
 
-			return criteria.Where(a => a.OriginalRelease.ReleaseDate.Year != null
-				&& a.OriginalRelease.ReleaseDate.Month != null
-				&& a.OriginalRelease.ReleaseDate.Day != null);
+			return criteria.WhereHasReleaseDate();
 
 		}
 
@@ -238,7 +209,9 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				directQ = AddDiscTypeRestriction(directQ, discType);
 				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
-				var direct = AddOrder(directQ, sortRule, LanguagePreference)
+				var direct = directQ
+					.OrderBy(sortRule, languagePreference)
+					.Select(a => a.Id)
 					.ToArray();
 
 				var additionalNamesQ = Query<AlbumName>()
@@ -251,15 +224,24 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 				additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
 
-				var additionalNames =
-					AddOrder(additionalNamesQ.Select(m => m.Album), sortRule, LanguagePreference)
-					.Distinct()
+				// Note: we want to order by album sort names, NOT the matched album name.
+				var additionalNames = additionalNamesQ
+					.Select(a => a.Album)
+					.OrderBy(sortRule, languagePreference)
+					.Select(a => a.Id)
 					.ToArray()
+					.Distinct()
 					.Where(a => !direct.Contains(a));
 
-				entries = direct.Concat(additionalNames)
+				// Page of album Ids
+				var page = direct.Concat(additionalNames)
 					.Skip(start)
-					.Take(maxResults)
+					.Take(maxResults)					
+					.ToArray();
+
+				entries = Query<Album>()
+					.Where(a => page.Contains(a.Id))
+					.OrderBy(sortRule, languagePreference)
 					.ToArray();
 
 				if (moveExactToTop) {
@@ -355,7 +337,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
-			var direct = directQ.ToArray();
+			var direct = new HashSet<int>(directQ.Select(a => a.Id).ToArray());
 
 			var additionalNamesQ = Query<AlbumName>()
 				.Where(m => !m.Album.Deleted);
@@ -373,6 +355,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				additionalNamesAlbumQ = AddReleaseRestriction(additionalNamesAlbumQ);
 
 			var additionalNames = additionalNamesAlbumQ
+				.Select(a => a.Id)
 				.Distinct()
 				.ToArray()
 				.Where(a => !direct.Contains(a))
