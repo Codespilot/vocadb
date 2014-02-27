@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
@@ -206,7 +207,7 @@ namespace VocaDb.Model.Service.Search.Artists {
 
 			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
 
-			var direct = directQ.ToArray();
+			var direct = new HashSet<int>(directQ.Select(a => a.Id).ToArray());
 
 			var additionalNamesQ = session.Query<ArtistName>()
 				.Where(m => !m.Artist.Deleted);
@@ -218,14 +219,14 @@ namespace VocaDb.Model.Service.Search.Artists {
 
 			additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
-			var additionalNames = additionalNamesQ
-				.Select(m => m.Artist)
+			var additionalNamesCount = additionalNamesQ
+				.Select(m => m.Artist.Id)
 				.Distinct()
 				.ToArray()
 				.Where(a => !direct.Contains(a))
-				.ToArray();
+				.Count();
 
-			return direct.Count() + additionalNames.Count();
+			return direct.Count() + additionalNamesCount;
 
 		}
 
