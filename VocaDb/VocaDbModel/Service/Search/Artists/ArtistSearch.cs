@@ -48,6 +48,8 @@ namespace VocaDb.Model.Service.Search.Artists {
 					return FindHelpers.AddNameOrder(criteria, languagePreference);
 				case ArtistSortRule.AdditionDate:
 					return criteria.OrderBy(a => a.CreateDate).Desc;
+				case ArtistSortRule.AdditionDateAsc:
+					return criteria.OrderBy(a => a.CreateDate).Asc;
 			}
 
 			return criteria;

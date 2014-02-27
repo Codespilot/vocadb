@@ -369,6 +369,7 @@ namespace VocaDb.Web.Controllers
 					var redirectUrl = FormsAuthentication.GetRedirectUrl(model.UserName, true);
 					string targetUrl;
 
+					// TODO: should not allow redirection to URLs outside the site
 					if (!string.IsNullOrEmpty(model.ReturnUrl)) {
 						targetUrl = model.ReturnUrl;				
 					} else if (!string.IsNullOrEmpty(redirectUrl))
