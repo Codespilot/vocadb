@@ -683,6 +683,10 @@ namespace VocaDb.Model.Service {
 		/// </summary>
 		AdditionDateAsc,
 
+		SongCount,
+
+		SongRating
+
 	}
 
 }

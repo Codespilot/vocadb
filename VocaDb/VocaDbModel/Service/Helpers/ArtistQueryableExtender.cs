@@ -35,7 +35,8 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<Artist> OrderBy(this IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
+		public static IQueryable<Artist> OrderBy(
+			this IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
 
 			switch (sortRule) {
 				case ArtistSortRule.Name:
@@ -44,6 +45,12 @@ namespace VocaDb.Model.Service.Helpers {
 					return criteria.OrderByDescending(a => a.CreateDate);
 				case ArtistSortRule.AdditionDateAsc:
 					return criteria.OrderBy(a => a.CreateDate);
+				case ArtistSortRule.SongCount:
+					return criteria.OrderByDescending(a => a.AllSongs.Count());
+				case ArtistSortRule.SongRating:
+					return criteria.OrderByDescending(a => a.AllSongs
+						.Where(s => !s.Song.Deleted)
+						.Sum(s => s.Song.RatingScore));
 			}
 
 			return criteria;
