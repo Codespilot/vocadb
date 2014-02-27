@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
@@ -487,7 +488,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				directQ = AddNameFilter(directQ, query, nameMatchMode, onlyByName);
 
-				var direct = directQ.ToArray();
+				var direct = new HashSet<int>(directQ.Select(s => s.Id).ToArray());
 
 				var additionalNamesQ = Query<SongName>()
 					.Where(m => !m.Song.Deleted);
@@ -504,14 +505,14 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
 
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Song)
+				var additionalNamesCount = additionalNamesQ
+					.Select(m => m.Song.Id)
 					.Distinct()
 					.ToArray()
 					.Where(a => !direct.Contains(a))
-					.ToArray();
+					.Count();
 
-				return direct.Count() + additionalNames.Count();
+				return direct.Count() + additionalNamesCount;
 
 			}
 
