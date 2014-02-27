@@ -35,13 +35,15 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<Artist> OrderByArtistRule(this IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
+		public static IQueryable<Artist> OrderBy(this IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
 
 			switch (sortRule) {
 				case ArtistSortRule.Name:
 					return FindHelpers.AddNameOrder(criteria, languagePreference);
 				case ArtistSortRule.AdditionDate:
 					return criteria.OrderByDescending(a => a.CreateDate);
+				case ArtistSortRule.AdditionDateAsc:
+					return criteria.OrderBy(a => a.CreateDate);
 			}
 
 			return criteria;
