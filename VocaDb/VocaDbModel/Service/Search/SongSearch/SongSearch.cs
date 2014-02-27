@@ -291,7 +291,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				query = query.Trim();
 
-				Song[] exactResults;
+				int[] exactResults;
 
 				if (queryParams.Common.MoveExactToTop && nameMatchMode != NameMatchMode.StartsWith && nameMatchMode != NameMatchMode.Exact) {
 
@@ -313,15 +313,20 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					exactResults = exactQ
 						.Select(m => m.Song)
 						.AddOrder(sortRule, LanguagePreference)
-						.Distinct()
+						.Select(s => s.Id)
 						.Take(maxResults)
+						.ToArray()
+						.Distinct()
 						.ToArray();
 
 					if (queryParams.Paging.Start == 0 && exactResults.Length >= maxResults)
-						return exactResults;
+						return querySource.Query<Song>()
+							.Where(s => exactResults.Contains(s.Id))
+							.AddOrder(sortRule, LanguagePreference)
+							.ToArray();
 
 				} else {
-					exactResults = new Song[] { };
+					exactResults = new int[0];
 				}
 
 				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
@@ -343,6 +348,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				directQ = directQ.AddOrder(sortRule, LanguagePreference);
 
 				var direct = directQ
+					.Select(s => s.Id)
 					.Take(start + maxResults)	// Note: this needs to be verified with paging
 					.ToArray();
 
@@ -364,17 +370,22 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				var additionalNames = additionalNamesQ
 					.Select(m => m.Song)
 					.AddOrder(sortRule, LanguagePreference)
-					.Distinct()
+					.Select(s => s.Id)
 					.Take(start + maxResults)	// Note: this needs to be verified with paging
 					.ToArray();
 
-				var entries = exactResults.Union(direct.Union(additionalNames))
-					.Where(e => !ignoreIds.Contains(e.Id))
+				var page = exactResults.Concat(direct.Concat(additionalNames))
+					.Distinct()
+					.Where(e => !ignoreIds.Contains(e))
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
 
-				songs = entries;
+				songs = querySource
+					.Query<Song>()
+					.Where(s => page.Contains(s.Id))
+					.AddOrder(sortRule, LanguagePreference)
+					.ToArray();
 
 			}
 
