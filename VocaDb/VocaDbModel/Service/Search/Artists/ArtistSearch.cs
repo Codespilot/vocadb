@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
-using NHibernate.Transform;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.Search.Artists {
@@ -24,36 +21,6 @@ namespace VocaDb.Model.Service.Search.Artists {
 			where T : IEntryWithNames {
 
 			return FindHelpers.AddSortNameFilter(criteria, name, matchMode);
-
-		}
-
-		private IQueryable<Artist> AddOrder(IQueryable<Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
-
-			switch (sortRule) {
-				case ArtistSortRule.Name:
-					return FindHelpers.AddNameOrder(criteria, languagePreference);
-				case ArtistSortRule.AdditionDate:
-					return criteria.OrderByDescending(a => a.CreateDate);
-				case ArtistSortRule.AdditionDateAsc:
-					return criteria.OrderBy(a => a.CreateDate);
-			}
-
-			return criteria;
-
-		}
-
-		private IQueryOver<Artist, Artist> AddOrder(IQueryOver<Artist, Artist> criteria, ArtistSortRule sortRule, ContentLanguagePreference languagePreference) {
-
-			switch (sortRule) {
-				case ArtistSortRule.Name:
-					return FindHelpers.AddNameOrder(criteria, languagePreference);
-				case ArtistSortRule.AdditionDate:
-					return criteria.OrderBy(a => a.CreateDate).Desc;
-				case ArtistSortRule.AdditionDateAsc:
-					return criteria.OrderBy(a => a.CreateDate).Asc;
-			}
-
-			return criteria;
 
 		}
 
@@ -76,28 +43,26 @@ namespace VocaDb.Model.Service.Search.Artists {
 			if (string.IsNullOrWhiteSpace(query)) {
 
 				bool filterByArtistType = artistTypes.Any();
-				Artist art = null;
 
-				var q = session.QueryOver(() => art)
+				var q = session.Query<Artist>()
 					.Where(s => !s.Deleted);
 
 				if (draftsOnly)
 					q = q.Where(a => a.Status == EntryStatus.Draft);
 
 				if (filterByArtistType)
-					q = q.WhereRestrictionOn(s => s.ArtistType).IsIn(artistTypes);
+					q = q.Where(s => artistTypes.Contains(s.ArtistType));
 
-				q = AddOrder(q, sortRule, LanguagePreference);
+				q = q.OrderBy(sortRule, LanguagePreference);
 
 				var artists = q
-					.TransformUsing(new DistinctRootEntityResultTransformer())
 					.Skip(start)
 					.Take(maxResults)
-					.List();
+					.ToArray();
 
 				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
 
-				return new PartialFindResult<Artist>(artists.ToArray(), count, originalQuery, false);
+				return new PartialFindResult<Artist>(artists, count, originalQuery, false);
 
 			} else {
 
@@ -114,12 +79,13 @@ namespace VocaDb.Model.Service.Search.Artists {
 					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
 
 				directQ = AddNameMatchFilter(directQ, query, queryParams.Common.NameMatchMode);
-				directQ = AddOrder(directQ, sortRule, LanguagePreference);
+				directQ = directQ.OrderBy(sortRule, LanguagePreference);
 
 				var direct = directQ
+					.Select(d => d.Id)
 					.ToArray();
 
-				Artist[] exactResults;
+				int[] exactResults;
 
 				if (queryParams.Common.MoveExactToTop && nameMatchMode != NameMatchMode.StartsWith && nameMatchMode != NameMatchMode.Exact) {
 					
@@ -133,14 +99,17 @@ namespace VocaDb.Model.Service.Search.Artists {
 
 					exactQ = exactQ.FilterByArtistType(artistTypes);
 
-					exactResults = AddOrder(exactQ
-						.Select(m => m.Artist), sortRule, LanguagePreference)
-						.Distinct()
+					exactResults = exactQ						
+						.Select(m => m.Artist)
+						.OrderBy(sortRule, LanguagePreference)
 						.Take(maxResults)
+						.Select(a => a.Id)
+						.ToArray()
+						.Distinct()
 						.ToArray();
 				
 				} else {
-					exactResults = new Artist[] {};
+					exactResults = new int[] {};
 				}
 
 				var additionalNamesQ = session.Query<ArtistName>()
@@ -153,16 +122,23 @@ namespace VocaDb.Model.Service.Search.Artists {
 
 				additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
 
-				var additionalNames = AddOrder(additionalNamesQ
-					.Select(m => m.Artist), sortRule, LanguagePreference)
-					.Distinct()
+				var additionalNames = additionalNamesQ
+					.Select(m => m.Artist)
+					.OrderBy(sortRule, LanguagePreference)
+					.Select(a => a.Id)
 					.Take(start + maxResults)	// Note: this needs to be verified with paging
-					//.FetchMany(s => s.Names)
 					.ToArray();
 
-				var entries = exactResults.Union(direct.Union(additionalNames))
+
+				var page = exactResults.Concat(direct.Concat(additionalNames))
+					.Distinct()
 					.Skip(start)
 					.Take(maxResults)
+					.ToArray();
+
+				var entries = session.Query<Artist>()
+					.Where(a => page.Contains(a.Id))
+					.OrderBy(sortRule, LanguagePreference)
 					.ToArray();
 
 				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
