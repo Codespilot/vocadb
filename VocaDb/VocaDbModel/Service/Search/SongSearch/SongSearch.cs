@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.Search.SongSearch {
@@ -179,7 +177,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			var ignoreIds = queryParams.IgnoredIds;
 			var nameMatchMode = queryParams.Common.NameMatchMode;
 			var onlyByName = queryParams.Common.OnlyByName;
-			var query = queryParams.Common.Query;
+			var query = queryParams.Common.Query ?? string.Empty;
 			var songTypes = queryParams.SongTypes;
 			var sortRule = queryParams.SortRule;
 			var start = queryParams.Paging.Start;
@@ -207,32 +205,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				q = q.AddOrder(sortRule, LanguagePreference);
 
 				songs = q
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
-
-			} else if (queryParams.ArtistId != 0) {
-
-				int artistId = queryParams.ArtistId;
-
-				var q = Query<ArtistForSong>()
-					.Where(m => !m.Song.Deleted && m.Artist.Id == artistId);
-
-				if (draftsOnly)
-					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
-
-				if (filterByType)
-					q = q.Where(s => songTypes.Contains(s.Song.SongType));
-
-				if (queryParams.MinScore > 0)
-					q = q.Where(s => s.Song.RatingScore >= queryParams.MinScore);
-
-				q = AddTimeFilter(q, queryParams.TimeFilter);
-				q = AddPVFilter(q, queryParams.OnlyWithPVs);
-
-				songs = q
-					.Select(m => m.Song)
-					.AddOrder(sortRule, LanguagePreference)
 					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
@@ -266,7 +238,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			} else if (query.StartsWith("artist-tag:")) {
 
 				var tagName = query.Substring(11);
-				//var tag = Query<Tag>().FirstOrDefault(t => t.Name == tagName);
 
 				var q = Query<Song>()
 					.Where(s => !s.Deleted && s.AllArtists.Any(a => a.Artist.Tags.Usages.Any(u => u.Tag.Name == tagName)));
@@ -293,7 +264,10 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				int[] exactResults;
 
-				if (queryParams.Common.MoveExactToTop && nameMatchMode != NameMatchMode.StartsWith && nameMatchMode != NameMatchMode.Exact) {
+				if (queryParams.Common.MoveExactToTop 
+					&& nameMatchMode != NameMatchMode.StartsWith 
+					&& nameMatchMode != NameMatchMode.Exact 
+					&& queryParams.ArtistId == 0) {
 
 					var exactQ = querySource.Query<SongName>()
 						.Where(m => !m.Song.Deleted);
@@ -331,7 +305,9 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
 				var directQ = Query<Song>()
-					.Where(s => !s.Deleted);
+					.Where(s => !s.Deleted)
+					.WhereHasName(query, nameMatchMode)
+					.WhereHasArtist(queryParams.ArtistId);
 
 				if (draftsOnly)
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
@@ -343,41 +319,16 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
 				directQ = AddPVFilter(directQ, queryParams.OnlyWithPVs);
 
-				directQ = AddNameFilter(directQ, query, nameMatchMode, onlyByName);
-
-				directQ = directQ.AddOrder(sortRule, LanguagePreference);
-
 				var direct = directQ
-					.Select(s => s.Id)
-					.Take(start + maxResults)	// Note: this needs to be verified with paging
-					.ToArray();
-
-				var additionalNamesQ = Query<SongName>()
-					.Where(m => !m.Song.Deleted);
-
-				if (draftsOnly)
-					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
-
-				additionalNamesQ = AddScoreFilter(additionalNamesQ, queryParams.MinScore);
-				additionalNamesQ = AddTimeFilter(additionalNamesQ, queryParams.TimeFilter);
-				additionalNamesQ = AddPVFilter(additionalNamesQ, queryParams.OnlyWithPVs);
-
-				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
-
-				if (filterByType)
-					additionalNamesQ = additionalNamesQ.Where(m => songTypes.Contains(m.Song.SongType));
-
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Song)
 					.AddOrder(sortRule, LanguagePreference)
 					.Select(s => s.Id)
-					.Take(start + maxResults)	// Note: this needs to be verified with paging
+					.Skip(start)
+					.Take(maxResults)
 					.ToArray();
 
-				var page = exactResults.Concat(direct.Concat(additionalNames))
+				var page = exactResults.Concat(direct)
 					.Distinct()
 					.Where(e => !ignoreIds.Contains(e))
-					.Skip(start)
 					.Take(maxResults)
 					.ToArray();
 
@@ -400,7 +351,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			var draftsOnly = queryParams.Common.DraftOnly;
 			var nameMatchMode = queryParams.Common.NameMatchMode;
 			var onlyByName = queryParams.Common.OnlyByName;
-			var query = queryParams.Common.Query;
+			var query = queryParams.Common.Query ?? string.Empty;
 			var songTypes = queryParams.SongTypes;
 			var timeFilter = queryParams.TimeFilter;
 			var onlyWithPVs = queryParams.OnlyWithPVs;
@@ -418,27 +369,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 					q = q.Where(s => songTypes.Contains(s.SongType));
 
 				q = AddScoreFilter(q, queryParams.MinScore);
-				q = AddTimeFilter(q, timeFilter);
-				q = AddPVFilter(q, onlyWithPVs);
-
-				return q.Count();
-
-			} else if (queryParams.ArtistId != 0) {
-
-				int artistId = queryParams.ArtistId;
-
-				var q = Query<ArtistForSong>()
-					.Where(m => !m.Song.Deleted && m.Artist.Id == artistId);
-
-				if (draftsOnly)
-					q = q.Where(a => a.Song.Status == EntryStatus.Draft);
-
-				if (filterByType)
-					q = q.Where(s => songTypes.Contains(s.Song.SongType));
-
-				if (queryParams.MinScore > 0)
-					q = q.Where(s => s.Song.RatingScore >= queryParams.MinScore);
-
 				q = AddTimeFilter(q, timeFilter);
 				q = AddPVFilter(q, onlyWithPVs);
 
@@ -468,7 +398,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			} else if (query.StartsWith("artist-tag:")) {
 
 				var tagName = query.Substring(11);
-				//var tag = Query<Tag>().FirstOrDefault(t => t.Name == tagName);
 
 				var q = Query<Song>()
 					.Where(s => !s.Deleted && s.AllArtists.Any(a => a.Artist.Tags.Usages.Any(u => u.Tag.Name == tagName)));
@@ -485,7 +414,9 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			} else {
 
 				var directQ = Query<Song>()
-					.Where(s => !s.Deleted);
+					.Where(s => !s.Deleted)
+					.WhereHasName(query, nameMatchMode)
+					.WhereHasArtist(queryParams.ArtistId);
 
 				if (draftsOnly)
 					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
@@ -497,33 +428,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				directQ = AddTimeFilter(directQ, timeFilter);
 				directQ = AddPVFilter(directQ, onlyWithPVs);
 
-				directQ = AddNameFilter(directQ, query, nameMatchMode, onlyByName);
-
-				var direct = new HashSet<int>(directQ.Select(s => s.Id).ToArray());
-
-				var additionalNamesQ = Query<SongName>()
-					.Where(m => !m.Song.Deleted);
-
-				if (draftsOnly)
-					additionalNamesQ = additionalNamesQ.Where(a => a.Song.Status == EntryStatus.Draft);
-
-				if (filterByType)
-					additionalNamesQ = additionalNamesQ.Where(s => songTypes.Contains(s.Song.SongType));
-
-				additionalNamesQ = AddScoreFilter(additionalNamesQ, queryParams.MinScore);
-				additionalNamesQ = AddTimeFilter(additionalNamesQ, timeFilter);
-				additionalNamesQ = AddPVFilter(additionalNamesQ, onlyWithPVs);
-
-				additionalNamesQ = FindHelpers.AddEntryNameFilter(additionalNamesQ, query, nameMatchMode);
-
-				var additionalNamesCount = additionalNamesQ
-					.Select(m => m.Song.Id)
-					.Distinct()
-					.ToArray()
-					.Where(a => !direct.Contains(a))
-					.Count();
-
-				return direct.Count() + additionalNamesCount;
+				return directQ.Count();
 
 			}
 

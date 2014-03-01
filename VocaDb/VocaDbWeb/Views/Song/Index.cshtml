@@ -52,7 +52,7 @@
 			@Html.HiddenFor(m => m.Sort)
 			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
 		
-		<div class="control-group" data-bind="visible: !artistId()">
+		<div class="control-group">
 			<div class="control-label">@ViewRes.SharedStrings.Name</div>
 			<div class="controls">
 				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-bind", "value:filter" }, { "data-placement", "right" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint } }) 
