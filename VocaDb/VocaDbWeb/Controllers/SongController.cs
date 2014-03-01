@@ -10,6 +10,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Resources;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.SongSearch;
@@ -297,6 +298,11 @@ namespace VocaDb.Web.Controllers
         [Authorize]
         public ActionResult Edit(SongEdit model)
         {
+
+			// Note: name is allowed to be whitespace, but not empty.
+			if (model.Names.AllNames.All(n => string.IsNullOrEmpty(n.Value))) {
+				ModelState.AddModelError("Names", SongValidationErrors.UnspecifiedNames);
+			}
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetSongForEdit(model.Id);
