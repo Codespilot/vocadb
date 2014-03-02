@@ -60,7 +60,13 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrEmpty(url))
 				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "URL must be specified");
 
-			var route = new RouteInfo(new Uri(url), AppConfig.HostAddress, HttpContext).RouteData;
+			Uri uri;
+
+			if (!Uri.TryCreate(url, UriKind.Absolute, out uri)) {
+				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Invalid URL");
+			}
+
+			var route = new RouteInfo(uri, AppConfig.HostAddress, HttpContext).RouteData;
 			var controller = route.Values["controller"].ToString().ToLowerInvariant();
 
 			if (controller != "song" && controller != "s") {
