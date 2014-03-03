@@ -2291,6 +2291,7 @@
     <Content Include="Views\Stats\Index.cshtml" />
     <Content Include="Views\Event\EventsByDate.cshtml" />
     <Content Include="Views\Song\RelatedSongs.cshtml" />
+    <Content Include="Views\Shared\Partials\_EditArtistRolesPopup.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
