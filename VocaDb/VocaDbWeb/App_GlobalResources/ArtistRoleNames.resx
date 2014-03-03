@@ -144,6 +144,9 @@
   <data name="Mastering" xml:space="preserve">
     <value>Mastering</value>
   </data>
+  <data name="Mixer" xml:space="preserve">
+    <value>Mixer</value>
+  </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
   </data>

@@ -89,6 +89,27 @@ namespace VocaDb.Model.Helpers {
 			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Illustrator, ArtistType.Lyricist, ArtistType.Unknown
 		};
 
+		/// <summary>
+		/// List of roles that can be assigned to artist added to songs and albums.
+		/// The list should be in the correct order.
+		/// The Default role is excluded because it's not a valid selection.
+		/// </summary>
+		public static readonly ArtistRoles[] ValidRoles = {
+			ArtistRoles.Animator,
+			ArtistRoles.Arranger,
+			ArtistRoles.Composer,
+			ArtistRoles.Distributor,
+			ArtistRoles.Illustrator,
+			ArtistRoles.Instrumentalist,
+			ArtistRoles.Lyricist,
+			ArtistRoles.Mastering,
+			ArtistRoles.Mixer,
+			ArtistRoles.Publisher,
+			ArtistRoles.Vocalist,
+			ArtistRoles.VoiceManipulator,
+			ArtistRoles.Other
+		};
+
 		public static readonly ArtistType[] ProducerTypes = new[] {
 			ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup, ArtistType.Animator
 		};

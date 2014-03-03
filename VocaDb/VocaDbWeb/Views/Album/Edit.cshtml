@@ -307,16 +307,7 @@
 	
 </form>
 	
-<div id="editArtistRolesPopup" style="display:none;" title="@R.EditStrings.ArtistRolesTitle">
-
-	@foreach (var role in Translate.ArtistRoleNames.ValuesAndNames.Where(r => r.Key != VocaDb.Model.Domain.Artists.ArtistRoles.Default)) {
-		<span class="tag">
-			@Html.CheckBox("artistRole_" + role.Key.ToString(), new { id = "artistRole_" + role.Key.ToString(), @class = "artistRoleCheck" })
-			@Html.Label("artistRole_" + role.Key.ToString(), role.Value)
-		</span>
-	}
-
-</div>
+@{ Html.RenderPartial("Partials/_EditArtistRolesPopup"); }
 
 <div data-bind="dialog: {autoOpen: false, modal: true, width: 550 }, dialogButtons: trackPropertiesDialogButtons, dialogVisible: trackPropertiesDialogVisible" style="display:none;" title="@R.EditStrings.TrackPropertiesTitle">
 

@@ -54,7 +54,9 @@ namespace VocaDb.Model.Domain.Artists {
 		/// </summary>
 		VoiceManipulator	= 1024,
 
-		Other				= 2048
+		Other				= 2048,
+
+		Mixer				= 4096
 
 	}
 }
