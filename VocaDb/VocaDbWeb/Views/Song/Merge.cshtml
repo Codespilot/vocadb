@@ -1,4 +1,4 @@
-﻿@model  VocaDb.Model.DataContracts.Songs.SongContract
+﻿@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.Songs.SongContract>
 
 @{
 	ViewBag.Title = "Merge song - " + Model.Name;
@@ -33,8 +33,9 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Merge.js")"></script>
     <script type="text/javascript">
 
-	    $(document).ready(function() { 
-		    initPage(@Model.Id);
+		$(document).ready(function () {
+			var urlMapper = new vdb.UrlMapper('@RootPath');
+			initPage(@Model.Id, urlMapper);
 	    });
 
     </script>

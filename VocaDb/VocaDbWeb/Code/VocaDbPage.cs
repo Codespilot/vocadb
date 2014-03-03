@@ -4,6 +4,17 @@ namespace VocaDb.Web.Code {
 
 	public abstract class VocaDbPage<TModel> : WebViewPage<TModel> {
 
+		/// <summary>
+		/// Relative path to application root.
+		/// 
+		/// Cannot be null or empty.
+		/// If the application is installed in the root folder, for example http://vocadb.net/, this will be just "/".
+		/// For http://server.com/vocadb/ this would be "/vocadb/".
+		/// </summary>
+		public string RootPath {
+			get { return Url.Content("~/"); }
+		}
+
 		public string ToJS(bool val) {
 			return val ? "true" : "false";
 		}
