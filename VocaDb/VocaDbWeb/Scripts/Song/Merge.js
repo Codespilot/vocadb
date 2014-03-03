@@ -1,9 +1,9 @@
 ﻿
-function initPage(songId) {
+function initPage(songId, urlMapper) {
 
 	function acceptTargetSong(targetSongId) {
 
-		$.post(vdb.functions.mapUrl("/Song/CreateSongLink"), { songId: targetSongId }, function (content) {
+		$.post(urlMapper.mapRelative("/Song/CreateSongLink"), { songId: targetSongId }, function (content) {
 			$("#targetSong").html(content);
 		});
 
@@ -13,7 +13,7 @@ function initPage(songId) {
 	var songName = $("input#songName");
 	var songIdBox = $("#targetSongId");
 
-	initEntrySearch(songName, songList, "Song", "../../Song/FindJsonByName",
+	initEntrySearch(songName, songList, "Song", urlMapper.mapRelative("/Song/FindJsonByName"),
 		{
 			acceptSelection: acceptTargetSong,
 			filter: function (item) { return item.Id != songId; },
