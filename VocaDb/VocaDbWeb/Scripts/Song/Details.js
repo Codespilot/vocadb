@@ -1,5 +1,5 @@
 ﻿
-function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
+function initPage(jsonModel, songId, saveStr, deleteCommentStr, urlMapper) {
 
     $(".js-ratingButtons").buttonset();
 	$("#reportEntryLink").button({ icons: { primary: 'ui-icon-alert'} });
@@ -23,11 +23,11 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
 	$("#editTagsPopup").dialog({ autoOpen: false, width: 500, modal: true, buttons: [{ text: saveStr, click: saveTagSelections}] });
 
-	initReportEntryPopup(saveStr, hostAddress + "/Song/CreateReport", { songId: songId });
+	initReportEntryPopup(saveStr, urlMapper.mapRelative("/Song/CreateReport"), { songId: songId });
 
 	$("#editTags").click(function () {
 
-		$.get(hostAddress + "/Song/TagSelections", { songId: songId }, function (content) {
+		$.get(urlMapper.mapRelative("/Song/TagSelections"), { songId: songId }, function (content) {
 
 			$("#editTagsSongId").val(songId);
 			$("#editTagsContent").html(content);
@@ -54,7 +54,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 	$(".pvLink").click(function () {
 
 		var id = getId(this);
-		$.post(hostAddress + "/Song/PVForSong", { pvId: id }, function (content) {
+		$.post(urlMapper.mapRelative("/Song/PVForSong"), { pvId: id }, function (content) {
 			$("#pvPlayer").html(content);
 		});
 
@@ -79,7 +79,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 				return;
 			}
 
-			$.post(hostAddress + "/Tag/Create", { name: tagName }, function (response) {
+			$.post(urlMapper.mapRelative("/Tag/Create"), { name: tagName }, function (response) {
 
 				if (!response.Successful) {
 					alert(response.Message);
@@ -93,7 +93,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 		}
 
 		$("input#newTagName").autocomplete({
-			source: hostAddress + "/Tag/Find",
+			source: urlMapper.mapRelative("/Tag/Find"),
 			select: function (event, ui) { addTag(ui.item.label); return false; }
 		});
 
@@ -117,7 +117,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
 		var tagNamesStr = tagNames.join(",");
 
-		$.post(hostAddress + "/Song/TagSelections", { songId: songId, tagNames: tagNamesStr }, function (content) {
+		$.post(urlMapper.mapRelative("/Song/TagSelections"), { songId: songId, tagNames: tagNamesStr }, function (content) {
 
 			$("#tagList").html(content);
 
@@ -142,7 +142,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 
 			$("#newCommentMessage").val("");
 
-			$.post(hostAddress + "/Song/CreateComment", { songId: songId, message: message }, function (result) {
+			$.post(urlMapper.mapRelative("/Song/CreateComment"), { songId: songId, message: message }, function (result) {
 
 				$("#newCommentPanel").after(result);
 
@@ -160,7 +160,7 @@ function initPage(jsonModel, songId, saveStr, deleteCommentStr, hostAddress) {
 			var btn = this;
 			var id = getId(this);
 
-			$.post(hostAddress + "/Song/DeleteComment", { commentId: id }, function () {
+			$.post(urlMapper.mapRelative("/Song/DeleteComment"), { commentId: id }, function () {
 
 				$(btn).parent().parent().parent().parent().remove();
 

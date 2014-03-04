@@ -386,23 +386,24 @@
 	@Scripts.Render("~/bundles/Song/Details")
 	<script type="text/javascript">
 
-		$(document).ready(function() {
+	$(document).ready(function() {
 
-			var resources = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager, true);
-			vdb.resources.song = resources;
+		var resources = @ResourceHelpers.ToJSON(AjaxRes.SongStrings.ResourceManager, true);
+		vdb.resources.song = resources;
 
-			//var featuredCategoryNames = @ResourceHelpers.ToJSON(Resources.SongListFeaturedCategoryNames.ResourceManager, false);
+		//var featuredCategoryNames = @ResourceHelpers.ToJSON(Resources.SongListFeaturedCategoryNames.ResourceManager, false);
 
-			var jsonModel = @Html.Raw(Model.Json);
-			var urlMapper = new vdb.UrlMapper(vdb.values.baseAddress);
-			var repo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
-			var userRepo = new vdb.repositories.UserRepository(urlMapper);
-			var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, resources, jsonModel, vdb.ui.showThankYouForRatingMessage);
-			ko.applyBindings(viewModel);
-			viewModel.songListDialog.addedToList = function() { vdb.ui.showSuccessMessage(resources.addedToList); };
-			
-			initPage(jsonModel, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", "@VocaDb.Model.Utils.AppConfig.HostAddress");
-		});
+		var jsonModel = @Html.Raw(Model.Json);
+		var rootPath = '@RootPath';
+		var urlMapper = new vdb.UrlMapper(rootPath);
+		var repo = new vdb.repositories.SongRepository(rootPath);
+		var userRepo = new vdb.repositories.UserRepository(urlMapper);
+		var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, resources, jsonModel, vdb.ui.showThankYouForRatingMessage);
+		ko.applyBindings(viewModel);
+		viewModel.songListDialog.addedToList = function() { vdb.ui.showSuccessMessage(resources.addedToList); };
+
+		initPage(jsonModel, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", urlMapper);
+	});
 
 	</script>
 }
