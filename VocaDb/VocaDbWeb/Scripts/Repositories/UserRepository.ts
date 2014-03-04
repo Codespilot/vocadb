@@ -55,11 +55,11 @@ module vdb.repositories {
                 return urlMapper.mapRelative("/User") + relative;
             };
 
-            this.updateSongRating = (songId: number, rating: cls.SongVoteRating, callback: any) => {
+			this.updateSongRating = (songId: number, rating: cls.SongVoteRating, callback: any) => {
 
-                $.post(this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: vdb.models.SongVoteRating[rating] }, callback);
+				$.post(this.mapUrl("/AddSongToFavorites"), { songId: songId, rating: vdb.models.SongVoteRating[rating] }, callback);
 
-            }
+			};
 
         }
 
