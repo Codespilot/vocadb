@@ -76,7 +76,7 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrWhiteSpace(name))
 				return Json(new GenericResponse<string>(false, TagControllerStrings.TagNameError));
 
-			name = name.Trim();
+			name = name.Trim().Replace(' ', '_');
 
 			if (!Tag.TagNameRegex.IsMatch(name))
 				return Json(new GenericResponse<string>(false, TagControllerStrings.TagNameError));
