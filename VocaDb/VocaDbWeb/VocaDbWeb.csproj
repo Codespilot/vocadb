@@ -195,10 +195,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Albums\AlbumSortRuleNames.ja.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumSortRuleNames.ja.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\ContentLanguageSelectionNames.ja.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ContentLanguageSelectionNames.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongSortRuleNames.ja.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongSortRuleNames.ja.resx</DependentUpon>
     </Compile>
     <Compile Include="Areas\API\v1\ApiV1Registration.cs" />
     <Compile Include="Areas\API\v1\Controllers\AlbumApiController.cs" />
@@ -2665,6 +2675,14 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ContentLanguageSelectionNames.ja.designer.cs</LastGenOutput>
     </Content>
+    <Content Include="App_GlobalResources\Albums\AlbumSortRuleNames.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlbumSortRuleNames.ja.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Songs\SongSortRuleNames.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongSortRuleNames.ja.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -2801,6 +2819,7 @@
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.fi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>

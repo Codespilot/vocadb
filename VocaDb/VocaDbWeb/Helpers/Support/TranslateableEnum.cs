@@ -13,6 +13,14 @@ namespace VocaDb.Web.Helpers.Support {
 		private readonly Func<ResourceManager> resourceManager;
 		private readonly TEnum[] values;
 
+		private ResourceManager ResourceManager {
+			get { return resourceManager(); }
+		}
+
+		private string GetName(TEnum val, ResourceManager res) {
+			return res.GetString(val.ToString());
+		}
+
 		public TranslateableEnum(Func<ResourceManager> resourceManager) {
 			this.resourceManager = resourceManager;
 			this.values = EnumVal<TEnum>.Values;
@@ -54,11 +62,12 @@ namespace VocaDb.Web.Helpers.Support {
 		}
 
 		public string GetName(TEnum val) {
-			return resourceManager().GetString(val.ToString());
+			return GetName(val, ResourceManager);
 		}
 
 		public Dictionary<TEnum, string> GetValuesAndNames(TEnum[] values) {
-			return values.ToDictionary(t => t, GetName);
+			var res = ResourceManager;
+			return values.ToDictionary(t => t, t => GetName(t, res));
 		}
 
 	}
