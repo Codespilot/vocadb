@@ -123,6 +123,18 @@
   <data name="AddToFavorites" xml:space="preserve">
     <value>お気に入りに追加</value>
   </data>
+  <data name="AlternateVersions" xml:space="preserve">
+    <value>他のバージョン</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>歌詞</value>
+  </data>
+  <data name="LyricsLC" xml:space="preserve">
+    <value>歌詞</value>
+  </data>
+  <data name="OriginalVersion" xml:space="preserve">
+    <value>オリジナルバージョン</value>
+  </data>
   <data name="OtherArtists" xml:space="preserve">
     <value>他のアーティスト</value>
   </data>

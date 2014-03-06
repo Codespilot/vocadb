@@ -126,6 +126,9 @@
   <data name="DiscussionTab" xml:space="preserve">
     <value>話し合い</value>
   </data>
+  <data name="EditTags" xml:space="preserve">
+    <value>タグを編集する</value>
+  </data>
   <data name="ExternalLinks" xml:space="preserve">
     <value>外部リンク</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="ReportAnError" xml:space="preserve">
     <value>誤りを報告する</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>統計</value>
   </data>
   <data name="ViewAllComments" xml:space="preserve">
     <value>すべてのコメントを表示する</value>

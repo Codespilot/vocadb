@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ForgotPassword" xml:space="preserve">
-    <value>パスワードを忘れた際</value>
+  <data name="AdditionDate" xml:space="preserve">
+    <value>追加日時</value>
   </data>
-  <data name="KeepMeLoggedIn" xml:space="preserve">
-    <value>ログイン状態を維持する</value>
+  <data name="Name" xml:space="preserve">
+    <value>名称</value>
   </data>
-  <data name="LoginWithoutSSL" xml:space="preserve">
-    <value>SSLなしのログインページ（安全性が低い）</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>パスワード</value>
-  </data>
-  <data name="ResetPass" xml:space="preserve">
-    <value>リセットする</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>ユーザー名</value>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>発売日時</value>
   </data>
 </root>

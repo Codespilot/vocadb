@@ -129,4 +129,7 @@
   <data name="OnlyDrafts" xml:space="preserve">
     <value>下書きのみ表示</value>
   </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>並び替え</value>
+  </data>
 </root>

@@ -147,4 +147,7 @@
   <data name="Vocaloid" xml:space="preserve">
     <value>Vocaloid</value>
   </data>
+  <data name="Illustrator" xml:space="preserve">
+    <value>イラストレーター</value>
+  </data>
 </root>

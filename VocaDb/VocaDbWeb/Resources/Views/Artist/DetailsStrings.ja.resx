@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ForgotPassword" xml:space="preserve">
-    <value>パスワードを忘れた際</value>
+  <data name="AllSongs" xml:space="preserve">
+    <value>すべての曲</value>
   </data>
-  <data name="KeepMeLoggedIn" xml:space="preserve">
-    <value>ログイン状態を維持する</value>
+  <data name="RecentAlbums" xml:space="preserve">
+    <value>最近のアルバム</value>
   </data>
-  <data name="LoginWithoutSSL" xml:space="preserve">
-    <value>SSLなしのログインページ（安全性が低い）</value>
+  <data name="RecentSongs" xml:space="preserve">
+    <value>最近の曲／PV</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>パスワード</value>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>人気のアルバム</value>
   </data>
-  <data name="ResetPass" xml:space="preserve">
-    <value>リセットする</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>ユーザー名</value>
+  <data name="TopSongs" xml:space="preserve">
+    <value>人気の曲</value>
   </data>
 </root>
