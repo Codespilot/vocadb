@@ -1113,7 +1113,6 @@
       <DependentUpon>ExtLinks.less</DependentUpon>
     </Content>
     <Content Include="Content\Styles\Icons.css" />
-    <Content Include="Content\miku2.jpg" />
     <Content Include="Content\nico.png" />
     <Content Include="Content\star5.png" />
     <Content Include="Content\Styles\Overrides.css">
