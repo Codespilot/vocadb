@@ -321,7 +321,11 @@ namespace VocaDb.Web.Controllers
 			var coverPicUpload = Request.Files["coverPicUpload"];
 			var pictureData = ParsePicture(coverPicUpload, "CoverPicture");
 
-			ParseAdditionalPictures(coverPicUpload, model.Pictures);
+			if (coverPicUpload == null) {
+				AddFormSubmissionError("Cover picture was null");
+			} else {
+				ParseAdditionalPictures(coverPicUpload, model.Pictures);				
+			}
 
 			if (!ModelState.IsValid) {
 				var oldContract = Service.GetAlbumForEdit(model.Id);
@@ -333,8 +337,7 @@ namespace VocaDb.Web.Controllers
 			try {
 				contract = model.ToContract();
 			} catch (InvalidFormException x) {
-				log.WarnException("Form submission error", x);
-				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Diagnostic error message: {0}.", x.Message));
+				AddFormSubmissionError(x.Message);
 				var oldContract = Service.GetAlbumForEdit(model.Id);
 				model.CopyNonEditableFields(oldContract);
 				return View(model);				

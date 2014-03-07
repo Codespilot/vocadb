@@ -7,6 +7,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Helpers;
@@ -21,6 +22,7 @@ namespace VocaDb.Web.Controllers {
 
 	public class ControllerBase : Controller {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
 		protected const int entriesPerPage = 30;
 		protected const int invalidId = 0;
@@ -57,6 +59,13 @@ namespace VocaDb.Web.Controllers {
 
 		protected ActionResult NoId() {
 			return HttpNotFound("No ID specified");
+		}
+
+		protected void AddFormSubmissionError(string details) {
+			
+			log.Warn("Form submission error: {0}", details);
+			ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Diagnostic error message: {0}.", details));
+
 		}
 
 		protected ActionResult Picture(EntryForPictureDisplayContract contract) {
