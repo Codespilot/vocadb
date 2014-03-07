@@ -60,7 +60,7 @@ namespace VocaDb.Tests.TestSupport {
 
 		}
 
-		private static ISessionFactory BuildTestSessionFactory(TestDatabase testDatabase) {
+		private static ISessionFactory BuildTestSessionFactory() {
 			
 			var testDatabaseConnectionString = "LocalDB";
 			var config = DatabaseConfiguration.Configure(testDatabaseConnectionString);
@@ -89,18 +89,17 @@ namespace VocaDb.Tests.TestSupport {
 
 			FinishDatabaseConfig(fac);
 
-			testDatabase.Seed(fac);
-
 			return fac;
 
 		}
 
-		public static IContainer BuildContainer(TestDatabase testDatabase) {
+		public static IContainer BuildContainer() {
 
 			var builder = new ContainerBuilder();
 
-			builder.Register(x => BuildTestSessionFactory(testDatabase)).SingleInstance();
+			builder.Register(x => BuildTestSessionFactory()).SingleInstance();
 			builder.Register(x => x.Resolve<ISessionFactory>().OpenSession()).InstancePerLifetimeScope();
+			builder.RegisterType<TestDatabase>().AsSelf();
 			builder.RegisterType<QuerySourceSession>().As<IQuerySource>();
 			builder.RegisterType<FakePermissionContext>().As<IUserPermissionContext>();
 

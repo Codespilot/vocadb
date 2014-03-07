@@ -24,16 +24,33 @@ namespace VocaDb.Tests.DatabaseTests {
 	}
 
 	public static class TestContainerManager {
-		
+
+		private static void EnsureContainerInitialized() {
+
+			lock (containerLock) {
+				if (container == null) {
+					container = TestContainerFactory.BuildContainer();					
+					testDatabase = container.Resolve<TestDatabase>();
+				}
+			}
+
+		}
+
 		private static IContainer container;
 		private const string containerLock = "container";
-		public static readonly TestDatabase TestDatabase = new TestDatabase();
+		private static TestDatabase testDatabase;
 
 		public static IContainer Container {
 			get {
-				lock (containerLock) {
-					return container ?? (container = TestContainerFactory.BuildContainer(TestDatabase));
-				}
+				EnsureContainerInitialized();
+				return container;
+			}
+		}
+
+		public static TestDatabase TestDatabase {
+			get {
+				EnsureContainerInitialized();
+				return testDatabase;
 			}
 		}
 
