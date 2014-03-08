@@ -22,6 +22,10 @@
 
 		public bool DraftOnly { get; set; }
 
+		/// <summary>
+		/// Moves results that are exact matches or starting with the search term to top of the result set.
+		/// This parameter is mostly used for autocompletes and is not intended to work with paging.
+		/// </summary>
 		public bool MoveExactToTop { get; set; }
 
 		public NameMatchMode NameMatchMode { get; set; }

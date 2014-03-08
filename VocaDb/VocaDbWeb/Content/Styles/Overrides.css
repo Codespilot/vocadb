@@ -99,6 +99,9 @@ form.form-topMargin {
   margin-top: 18px;
   margin-bottom: 0;
 }
+form.form-noBottomMargin {
+  margin-bottom: 0;
+}
 .form-horizontal .control-group {
   margin-bottom: 7px;
 }

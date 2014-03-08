@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
@@ -42,6 +43,25 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Song> WhereArtistHasTag(this IQueryable<Song> query, string tagName) {
+
+			if (string.IsNullOrEmpty(tagName))
+				return query;
+
+			return query.Where(s => s.AllArtists.Any(a => a.Artist.Tags.Usages.Any(u => u.Tag.Name == tagName)));
+
+		}
+
+		public static IQueryable<Song> WhereDraftsOnly(this IQueryable<Song> query, bool draftsOnly) {
+
+			if (!draftsOnly)
+				return query;
+
+			return query.Where(a => a.Status == EntryStatus.Draft);
+
+		}
+
+		/*
 		/// <summary>
 		/// Filters a song query by a list of artist Ids.
 		/// </summary>
@@ -56,7 +76,7 @@ namespace VocaDb.Model.Service.Helpers {
 			// TODO: should change to AND
 			return query.Where(s => s.AllArtists.Any(a => artistIds.Contains(a.Artist.Id)));
 
-		}
+		}*/
 
 		/// <summary>
 		/// Filters a song query by a single artist Id.
@@ -153,6 +173,33 @@ namespace VocaDb.Model.Service.Helpers {
 			}
 
 			return query;
+
+		}
+
+		public static IQueryable<Song> WhereHasNicoId(this IQueryable<Song> query, string nicoId) {
+
+			if (string.IsNullOrEmpty(nicoId))
+				return query;
+
+			return query.Where(s => s.NicoId == nicoId);
+
+		}
+
+		public static IQueryable<Song> WhereHasTag(this IQueryable<Song> query, string tagName) {
+
+			if (string.IsNullOrEmpty(tagName))
+				return query;
+
+			return query.Where(s => s.Tags.Usages.Any(a => a.Tag.Name == tagName));
+
+		}
+
+		public static IQueryable<Song> WhereHasType(this IQueryable<Song> query, SongType[] songTypes) {
+
+			if (!songTypes.Any())
+				return query;
+
+			return query.Where(m => songTypes.Contains(m.SongType));
 
 		}
 

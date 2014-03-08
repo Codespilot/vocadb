@@ -25,8 +25,81 @@
 
 <div class="row-fluid">
 	
-	<div class="span3">
-		<form>
+	<div class="well well-transparent span9">
+		
+		<form method="POST" action="@Url.Action("Index", "Song")" class="form-horizontal form-noBottomMargin" id="filterForm">
+			@Html.HiddenFor(m => m.Sort)
+			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
+			
+			<div data-bind="visible: hasFilter" style="display: none;">
+				<p data-bind="text: filterString"></p>
+			</div>
+
+			<div class="control-group">
+				<div class="control-label">@ViewRes.SharedStrings.Name</div>
+				<div class="controls">
+					@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-bind", "value:filter" }, { "data-placement", "right" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint }, { "class", "input-xlarge" } })
+				</div>
+			</div>
+
+			<div id="additionalFilters" style="display: none;">
+				<div class="control-group" data-bind="visible: !artistId()">
+					<div class="control-label">@E.ArtistFilter</div>
+					<div class="controls">
+						<input type="text" class="input-xlarge" id="artistNameSearch" data-bind="value:filterArtistName" maxlength="255" />
+					</div>
+				</div>
+				<div class="control-group" data-bind="visible: artistId()">
+					<div class="control-label">@E.ArtistFilter</div>
+					<div class="controls">
+						<div class="input-append">
+							<input type="text" class="input-large" readonly="readonly" data-bind="value:filterArtistName" />
+							<button type="button" class="btn" data-bind="click: clearArtist">@R.IndexStrings.Clear</button>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="control-label">@E.SongTypeFilter</div>
+					<div class="controls">
+						@Html.SongTypeDropDownListFor(a => a.SongType)
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="control-label">@E.MoreRecentThan</div>
+					<div class="controls">
+						@Html.DropDownListFor(a => a.Since, Model.SongDateItems)
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<label class="checkbox">
+							@Html.CheckBoxFor(m => m.OnlyWithPVs)
+							@E.OnlyWithPVsFilter
+						</label>
+					</div>
+				</div>
+				<div class="control-group">
+					<div class="controls">
+						<label class="checkbox">
+							@Html.CheckBoxFor(m => m.DraftsOnly)
+							@ViewRes.EntryIndexStrings.OnlyDrafts
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
+					<button class="btn dropdown-toggle" onclick="$('#additionalFilters').show('fast'); $(this).hide(); return false;">Advanced filters <span class="caret"></span></button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+	
+	@if (Model.Songs.Any()) {
+	
+	
 			<div>
 				@ViewRes.EntryIndexStrings.SortBy
 				<div class="btn-group">
@@ -40,80 +113,9 @@
 					</ul>
 				</div>
 			</div>
-		</form>
-	</div>
-
-	<div class="alert alert-info span9">
-		<span style="display: none;" data-bind="visible: filterString, text: filterString"></span>
-	    <span style="display: none;" data-bind="visible: !filterString()">@E.NoFilter</span>
-        &nbsp;
-		<button class="btn dropdown-toggle" onclick="$('#filterForm').toggle();">@ViewRes.SharedStrings.Filter <span class="caret"></span></button>
-		@using (Html.BeginForm("Index", "Song", FormMethod.Post, new { @class = "form-horizontal form-topMargin", @id = "filterForm", @style = "display: none;" })) {
-			@Html.HiddenFor(m => m.Sort)
-			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
 		
-		<div class="control-group">
-			<div class="control-label">@ViewRes.SharedStrings.Name</div>
-			<div class="controls">
-				@Html.TextBoxFor(m => m.Filter, new Dictionary<string, object> { { "id", "filterBox" }, { "size", 30 }, { "data-bind", "value:filter" }, { "data-placement", "right" }, { "data-toggle", "tooltip" }, { "maxlength", 255 }, { "title", R.IndexStrings.FilterIndexHint } }) 
-			</div>
-		</div>
-		<div class="control-group" data-bind="visible: !artistId()">
-			<div class="control-label">@E.ArtistFilter</div>
-			<div class="controls">
-				<input type="text" id="artistNameSearch" data-bind="value:filterArtistName" maxlength="255" />
-			</div>
-		</div>	  
-		<div class="control-group" data-bind="visible: artistId()">
-			<div class="control-label">@E.ArtistFilter</div>
-			<div class="controls">
-				<div class="input-append">
-					<input type="text" class="input-large" readonly="readonly" data-bind="value:filterArtistName" />					
-					<button type="button" class="btn" data-bind="click: clearArtist">@R.IndexStrings.Clear</button>
-				</div>
-			</div>
-		</div>	  
-		<div class="control-group">
-			<div class="control-label">@E.SongTypeFilter</div>			
-			<div class="controls">
-				@Html.SongTypeDropDownListFor(a => a.SongType)
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="control-label">@E.MoreRecentThan</div>			
-			<div class="controls">
-				@Html.DropDownListFor(a => a.Since, Model.SongDateItems)
-			</div>
-		</div>			
-		<div class="control-group">
-			<div class="controls">
-				<label class="checkbox">
-				@Html.CheckBoxFor(m => m.OnlyWithPVs)
-				@E.OnlyWithPVsFilter
-				</label>
-			</div>	  
-		</div>
-		<div class="control-group">
-			<div class="controls">
-				<label class="checkbox">
-					@Html.CheckBoxFor(m => m.DraftsOnly)
-					@ViewRes.EntryIndexStrings.OnlyDrafts
-				</label>
-			</div>	  
-		</div>
-		<div class="control-group">
-			<div class="controls">
-				<button type="submit" class="btn btn-primary">@ViewRes.SharedStrings.Apply</button>
-			</div>	  
-		</div>	  
-		}
-	</div>
-</div>
-	
-	@if (Model.Songs.Any()) {
-	
-		<p>@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
-	
+		<p class="pull-right">@string.Format(ViewRes.SharedStrings.EntriesFound, Model.Songs.TotalItemCount)</p>
+		
 		@Html.PagedListPager(Model.Songs, page => Url.Action("Index", Model.CreateRouteParams(page)), VocaDb.Web.Code.LocalizedPagedListRenderOptions.Instance)
 	
 		if (Model.ViewMode == SongViewMode.Details) {
