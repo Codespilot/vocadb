@@ -7,7 +7,7 @@
 		<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>	
 	</td>
 	<td>
-		<input type="checkbox" data-bind="checked: selected" />
+		<input type="checkbox" data-bind="checked: selected, visible: !isCustomTrack" />
 	</td>
 	<td>
 		<span data-bind="text: discNumber"></span>
@@ -16,7 +16,8 @@
 		<span data-bind="text: trackNumber"></span>
 	</td>
 	<td>
-		<a data-bind="text: songName, attr: { title: songAdditionalNames }, click: $parent.editTrackProperties" href="#"></a>
+		<a data-bind="text: songName, attr: { title: songAdditionalNames }, click: $parent.editTrackProperties, visible: !isCustomTrack" href="#"></a>
+		<span data-bind="text: songName, visible: isCustomTrack"></span>
 		<br />
 		<span data-bind="text: artistString" class="extraInfo"></span>
 	</td><td>

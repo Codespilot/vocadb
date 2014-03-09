@@ -24,6 +24,9 @@ namespace VocaDb.Model.DataContracts {
 
 		}
 
+		/// <summary>
+		/// Id of the referred object.
+		/// </summary>
 		[DataMember]
 		public int Id { get; set; }
 
@@ -31,7 +34,7 @@ namespace VocaDb.Model.DataContracts {
 		public string NameHint { get; set; }
 
 		public override string ToString() {
-			return NameHint + " [" + Id + "]";
+			return string.Format("{0} [{1}]", NameHint, Id);
 		}
 
 	}

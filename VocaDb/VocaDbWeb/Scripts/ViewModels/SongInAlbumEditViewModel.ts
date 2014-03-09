@@ -15,6 +15,8 @@ module vdb.viewModels {
 
         public discNumber: KnockoutObservable<number>;
 
+		public isCustomTrack: boolean;
+
         public isNextDisc: KnockoutObservable<boolean>;
 
         public selected: KnockoutObservable<boolean>;
@@ -33,7 +35,8 @@ module vdb.viewModels {
             
             this.artists = ko.observableArray(data.artists);
             this.artistString = ko.observable(data.artistString);
-            this.discNumber = ko.observable(data.discNumber);
+			this.discNumber = ko.observable(data.discNumber);
+			this.isCustomTrack = data.isCustomTrack || false;
             this.songAdditionalNames = data.songAdditionalNames;
             this.songId = data.songId;
             this.songInAlbumId = data.songInAlbumId;
@@ -58,7 +61,9 @@ module vdb.viewModels {
 
         artistString: string;
 
-        discNumber: number;
+		discNumber: number;
+
+		isCustomTrack?: boolean;
 
         songAdditionalNames: string;
 

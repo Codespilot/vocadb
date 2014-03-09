@@ -323,7 +323,13 @@ namespace VocaDb.Web.Controllers
 
 			if (coverPicUpload == null) {
 				AddFormSubmissionError("Cover picture was null");
-			} else {
+			}
+
+			if (model.Pictures == null) {
+				AddFormSubmissionError("List of pictures was null");
+			}
+
+			if (coverPicUpload != null && model.Pictures != null) {
 				ParseAdditionalPictures(coverPicUpload, model.Pictures);				
 			}
 
@@ -445,7 +451,7 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult Merge(int id, int targetAlbumId) {
 
-			Service.Merge(id, targetAlbumId);
+			queries.Merge(id, targetAlbumId);
 
 			return RedirectToAction("Edit", new { id = targetAlbumId });
 

@@ -7,6 +7,7 @@ var vdb;
                 this.artists = ko.observableArray(data.artists);
                 this.artistString = ko.observable(data.artistString);
                 this.discNumber = ko.observable(data.discNumber);
+                this.isCustomTrack = data.isCustomTrack || false;
                 this.songAdditionalNames = data.songAdditionalNames;
                 this.songId = data.songId;
                 this.songInAlbumId = data.songInAlbumId;

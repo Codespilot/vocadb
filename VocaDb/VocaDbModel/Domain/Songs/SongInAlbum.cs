@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.Albums;
+﻿using System;
+using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.Domain.Songs {
 
@@ -16,16 +17,26 @@ namespace VocaDb.Model.Domain.Songs {
 			DiscNumber = discNumber;
 		}
 
+		public SongInAlbum(string name, Album album, int trackNumber, int discNumber) {
+			Name = name;
+			Album = album;
+			TrackNumber = trackNumber;
+			DiscNumber = discNumber;
+		}
+
 		public virtual int DiscNumber { get; set; }
 
 		public virtual int Id { get; set; }
 
+		public virtual string Name { get; set; }
+
+		/// <summary>
+		/// Song entry. 
+		/// Can be null for custom songs.
+		/// </summary>
 		public virtual Song Song {
 			get { return song; }
-			set {
-				ParamIs.NotNull(() => value);
-				song = value;
-			}
+			set { song = value; }
 		}
 
 		public virtual Album Album {
@@ -33,6 +44,12 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				album = value;
+			}
+		}
+
+		public virtual string SongToStringOrName {
+			get {
+				return Song != null ? Song.ToString() : Name;
 			}
 		}
 
@@ -56,7 +73,9 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual void Delete() {
 
 			Album.AllSongs.Remove(this);
-			Song.AllAlbums.Remove(this);
+
+			if (Song != null)
+				Song.AllAlbums.Remove(this);
 
 		}
 
@@ -72,8 +91,13 @@ namespace VocaDb.Model.Domain.Songs {
 
 			ParamIs.NotNull(() => target);
 
+			// Do nothing is target is the same as source
 			if (target.Equals(Album))
 				return;
+
+			// Move track as the last one
+			DiscNumber = target.LastDiscNumber;
+			TrackNumber = target.GetNextTrackNumber(DiscNumber);
 
 			Album.AllSongs.Remove(this);
 			target.AllSongs.Add(this);
@@ -88,6 +112,9 @@ namespace VocaDb.Model.Domain.Songs {
 			if (target.Equals(Song))
 				return;
 
+			if (Song == null)
+				throw new InvalidOperationException("Cannot move a track with no song to another song");
+
 			Song.AllAlbums.Remove(this);
 			target.AllAlbums.Add(this);
 			Song = target;
@@ -101,7 +128,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public override string ToString() {
-			return string.Format("({0}.{1}) {2} in {3}", DiscNumber, TrackNumber, Song, Album);
+			return string.Format("({0}.{1}) {2} in {3}", DiscNumber, TrackNumber, SongToStringOrName, Album);
 		}
 
 	}

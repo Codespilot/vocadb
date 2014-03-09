@@ -27,6 +27,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public static bool TrackArtistsEqual(Song first, SongInAlbumEditContract second) {
 
+			if (first == null || second.IsCustomTrack)
+				return true; // Cannot edit artists for custom tracks.
+
 			return first.ArtistList.All(a => second.Artists.Any(a2 => a.Id == a2.Id))
 			       && second.Artists.All(a => first.ArtistList.Any(a2 => a.Id == a2.Id));
 
@@ -164,6 +167,9 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int Id { get; set; }
 
+		/// <summary>
+		/// Gets the ordinal number of the last disc for this album, starting from 1.
+		/// </summary>
 		public virtual int LastDiscNumber {
 			get {
 				return (Songs.Any() ? Songs.Max(s => s.DiscNumber) : 1);
@@ -272,7 +278,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual IEnumerable<SongInAlbum> Songs {
 			get {
-				return AllSongs.Where(s => !s.Song.Deleted);
+				return AllSongs.Where(s => s.Song == null || !s.Song.Deleted);
 			}
 		}
 
@@ -332,19 +338,6 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		[Obsolete("Replaced by updating properties")]
-		public virtual SongInAlbum AddSong(Song song) {
-			
-			ParamIs.NotNull(() => song);
-
-			var discNum = LastDiscNumber;
-			var trackNum = (Songs.Any(s => s.DiscNumber == discNum) 
-				? Songs.Where(s => s.DiscNumber == discNum).Max(s => s.TrackNumber) + 1 : 1);
-
-			return AddSong(song, trackNum, discNum);
-
-		}
-
 		public virtual SongInAlbum AddSong(Song song, int trackNum, int discNum) {
 
 			ParamIs.NotNull(() => song);
@@ -352,6 +345,17 @@ namespace VocaDb.Model.Domain.Albums {
 			var track = new SongInAlbum(song, this, trackNum, discNum);
 			AllSongs.Add(track);
 			song.AllAlbums.Add(track);
+
+			return track;
+
+		}
+
+		public virtual SongInAlbum AddSong(string songName, int trackNum, int discNum) {
+
+			ParamIs.NotNullOrEmpty(() => songName);
+
+			var track = new SongInAlbum(songName, this, trackNum, discNum);
+			AllSongs.Add(track);
 
 			return track;
 
@@ -483,8 +487,24 @@ namespace VocaDb.Model.Domain.Albums {
 			return Equals(obj as Album);
 		}
 
+		public virtual ArtistForAlbum GetArtistLink(Artist artist) {
+			return Artists.FirstOrDefault(a => a.Artist != null && a.Artist.Equals(artist));
+		}
+
 		public override int GetHashCode() {
 			return Id.GetHashCode();
+		}
+
+		/// <summary>
+		/// Gets the next free track number for a particular disc on this album.
+		/// </summary>
+		/// <param name="discNum">Disc number, starting from 1.</param>
+		/// <returns>Next free track number on the specified disc, starting from 1.</returns>
+		public virtual int GetNextTrackNumber(int discNum) {
+			
+			return (Songs.Any(s => s.DiscNumber == discNum) 
+				? Songs.Where(s => s.DiscNumber == discNum).Max(s => s.TrackNumber) + 1 : 1);
+
 		}
 
 		public virtual SongInAlbum GetSongByTrackNum(int discNum, int trackNum) {
@@ -530,7 +550,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 			ParamIs.NotNull(() => song);
 
-			return Songs.Any(a => a.Song.Equals(song));
+			return Songs.Any(a => song.Equals(a.Song));
 
 		}
 
@@ -662,12 +682,23 @@ namespace VocaDb.Model.Domain.Albums {
 
 			foreach (var newEntry in diff.Added) {
 
-				var song = songGetter(newEntry);
+				SongInAlbum link;
 
-				if (!TrackArtistsEqual(song, newEntry))
-					updateArtistsFunc(song, newEntry.Artists);
+				if (!newEntry.IsCustomTrack) {
 
-				var link = AddSong(song, newEntry.TrackNumber, newEntry.DiscNumber);
+					var song = songGetter(newEntry);
+
+					if (!TrackArtistsEqual(song, newEntry))
+						updateArtistsFunc(song, newEntry.Artists);
+
+					link = AddSong(song, newEntry.TrackNumber, newEntry.DiscNumber);
+
+				} else {
+					
+					link = AddSong(newEntry.SongName, newEntry.TrackNumber, newEntry.DiscNumber);
+
+				}
+
 				created.Add(link);
 
 			}

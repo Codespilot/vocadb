@@ -10,11 +10,18 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DiscNumber = 1;
 		}
 
-		public SongInAlbumRefContract(SongInAlbum songInAlbum)
-			: base(songInAlbum.Song) {
+		public SongInAlbumRefContract(SongInAlbum songInAlbum) {
 
 			DiscNumber = songInAlbum.DiscNumber;
 			TrackNumber = songInAlbum.TrackNumber;
+
+			var song = songInAlbum.Song;
+			if (song != null) {
+				Id = song.Id;
+				NameHint = song.DefaultName;
+			} else {
+				NameHint = songInAlbum.Name;
+			}
 
 		}
 

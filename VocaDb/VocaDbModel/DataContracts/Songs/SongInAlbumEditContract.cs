@@ -14,37 +14,31 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			ParamIs.NotNull(() => songInAlbum);
 
-			Artists = songInAlbum.Song.ArtistList.Select(a => new ArtistContract(a, languagePreference)).ToArray();
-			ArtistString = songInAlbum.Song.ArtistString[languagePreference];
 			DiscNumber = songInAlbum.DiscNumber;
-			SongName = songInAlbum.Song.TranslatedName[languagePreference];
-			SongAdditionalNames = string.Join(", ", songInAlbum.Song.AllNames.Where(n => n != SongName));
-			SongId = songInAlbum.Song.Id;
 			SongInAlbumId = songInAlbum.Id;
 			TrackNumber = songInAlbum.TrackNumber;
 
-		}
+			ArtistString = string.Empty;
+			SongAdditionalNames = string.Empty;
+			SongId = 0;
 
-		[Obsolete]
-		public SongInAlbumEditContract(string songName) {
+			var song = songInAlbum.Song;
+			if (song != null) {
 
-			ParamIs.NotNullOrWhiteSpace(() => songName);
+				Artists = song.ArtistList.Select(a => new ArtistContract(a, languagePreference)).ToArray();
+				ArtistString = song.ArtistString[languagePreference];
+				SongName = song.TranslatedName[languagePreference];
+				SongAdditionalNames = string.Join(", ", song.AllNames.Where(n => n != SongName));
+				SongId = song.Id;
 
-			Artists = new ArtistContract[0];
-			SongName = songName;
+			} else {
+				
+				Artists = new ArtistContract[0];
+				SongName = songInAlbum.Name;
 
-		}
+			}
 
-		[Obsolete]
-		public SongInAlbumEditContract(Song song, ContentLanguagePreference languagePreference) {
-
-			ParamIs.NotNull(() => song);
-
-			Artists = song.ArtistList.Select(a => new ArtistContract(a, languagePreference)).ToArray();
-			ArtistString = song.ArtistString[languagePreference];
-			SongId = song.Id;
-			SongName = song.TranslatedName[languagePreference];
-			SongAdditionalNames = string.Join(", ", song.AllNames.Where(n => n != SongName));
+			IsCustomTrack = song == null;
 
 		}
 
@@ -53,6 +47,8 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string ArtistString { get; set; }
 
 		public int DiscNumber { get; set; }
+
+		public bool IsCustomTrack { get; set; }
 
 		public string SongAdditionalNames { get; set; }
 

@@ -376,7 +376,7 @@ namespace VocaDb.Model.Service {
 			var inspected = new InspectedTrack(importedTrack);
 			var existingTrack = album != null ? album.GetSongByTrackNum(importedTrack.DiscNum, importedTrack.TrackNum) : null;
 
-			var existingSong = existingTrack != null ? existingTrack.Song
+			var existingSong = existingTrack != null && existingTrack.Song != null ? existingTrack.Song
 				: FindSong(session, importedTrack.Title, artists);
 
 			if (existingSong != null)

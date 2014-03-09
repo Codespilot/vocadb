@@ -78,32 +78,22 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private SongInAlbum RestoreTrackRef(Album album, Song song, SongInAlbumRefContract songRef) {
+
+			if (song != null) {
+
+				return (!album.HasSong(song) ? album.AddSong(song, songRef.TrackNumber, songRef.DiscNumber) : null);
+
+			} else {
+
+				return album.AddSong(songRef.NameHint, songRef.TrackNumber, songRef.DiscNumber);
+
+			}
+
+		}
+
 		public AlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
 			: base(sessionFactory, permissionContext,entryLinkFactory) {}
-
-		/*public ArtistForAlbumContract AddArtist(int albumId, string newArtistName) {
-
-			ParamIs.NotNullOrEmpty(() => newArtistName);
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var album = session.Load<Album>(albumId);
-
-				AuditLog(string.Format("adding custom artist '{0}' to {1}", newArtistName, CreateEntryLink(album)), session);
-
-				var artistForAlbum = album.AddArtist(newArtistName, false, ArtistRoles.Default);
-				session.Save(artistForAlbum);
-
-				album.UpdateArtistString();
-				session.Update(album);
-
-				return new ArtistForAlbumContract(artistForAlbum, PermissionContext.LanguagePreference);
-
-			});
-
-		}*/
 
 		public void Archive(ISession session, Album album, AlbumDiff diff, AlbumArchiveReason reason, string notes = "") {
 
@@ -619,96 +609,6 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => session.Load<ArchivedAlbumVersion>(id).Data);
 		}
 
-		public void Merge(int sourceId, int targetId) {
-
-			PermissionContext.VerifyPermission(PermissionToken.MergeEntries);
-
-			if (sourceId == targetId)
-				throw new ArgumentException("Source and target albums can't be the same", "targetId");
-
-			HandleTransaction(session => {
-
-				var source = session.Load<Album>(sourceId);
-				var target = session.Load<Album>(targetId);
-
-				AuditLog(string.Format("Merging {0} to {1}", EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)), session);
-
-				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
-					var name = target.CreateName(n.Value, n.Language);
-					session.Save(name);
-				}
-
-				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
-					var link = target.CreateWebLink(w.Description, w.Url, w.Category);
-					session.Save(link);
-				}
-
-				var artists = source.Artists.Where(a => !target.HasArtistForAlbum(a)).ToArray();
-				foreach (var a in artists) {
-					a.Move(target);
-					session.Update(a);
-				}
-
-				var songs = source.Songs.Where(s => !target.HasSong(s.Song)).ToArray();
-				foreach (var s in songs) {
-					s.Move(target);
-					session.Update(s);
-				}
-
-				var pictures = source.Pictures.ToArray();
-				foreach (var p in pictures) {
-					p.Move(target);
-					session.Update(p);
-				}
-
-				var userCollections = source.UserCollections.Where(a => !target.IsInUserCollection(a.User)).ToArray();
-				foreach (var u in userCollections) {
-					u.Move(target);
-					session.Update(u);
-				}
-
-				if (target.Description == string.Empty)
-					target.Description = source.Description;
-
-				if (target.OriginalRelease == null)
-					target.OriginalRelease = new AlbumRelease();
-
-				if (string.IsNullOrEmpty(target.OriginalRelease.CatNum) && source.OriginalRelease != null)
-					target.OriginalRelease.CatNum = source.OriginalRelease.CatNum;
-
-				if (string.IsNullOrEmpty(target.OriginalRelease.EventName) && source.OriginalRelease != null)
-					target.OriginalRelease.EventName = source.OriginalRelease.EventName;
-
-				if (target.OriginalRelease.ReleaseDate == null)
-					target.OriginalRelease.ReleaseDate = new OptionalDateTime();
-
-				if (target.OriginalReleaseDate.Year == null && source.OriginalRelease != null)
-					target.OriginalReleaseDate.Year = source.OriginalReleaseDate.Year;
-
-				if (target.OriginalReleaseDate.Month == null && source.OriginalRelease != null)
-					target.OriginalReleaseDate.Month = source.OriginalReleaseDate.Month;
-
-				if (target.OriginalReleaseDate.Day == null && source.OriginalRelease != null)
-					target.OriginalReleaseDate.Day = source.OriginalReleaseDate.Day;
-
-				// Create merge record
-				var mergeEntry = new AlbumMergeRecord(source, target);
-				session.Save(mergeEntry);
-
-				source.Deleted = true;
-
-				target.UpdateArtistString();
-				target.Names.UpdateSortNames();
-
-				Archive(session, target, AlbumArchiveReason.Merged, string.Format("Merged from {0}", source));
-
-				session.Update(source);
-				session.Update(target);
-
-			});
-
-		}
-
 		public int MoveToTrash(int albumId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.MoveToTrash);
@@ -792,8 +692,9 @@ namespace VocaDb.Model.Service {
 
 				// Songs
 				SessionHelper.RestoreObjectRefs<SongInAlbum, Song, SongInAlbumRefContract>(
-					session, warnings, album.AllSongs, fullProperties.Songs, (a1, a2) => (a1.Song.Id == a2.Id),
-					(song, songRef) => (!album.HasSong(song) ? album.AddSong(song, songRef.TrackNumber, Math.Min(songRef.DiscNumber, 1)) : null),
+					session, warnings, album.AllSongs, fullProperties.Songs, 
+					(a1, a2) => ((a1.Song != null && a1.Song.Id == a2.Id) || a1.Song == null && a2.Id == 0 && a1.Name == a2.NameHint),
+					(song, songRef) => RestoreTrackRef(album, song, songRef),
 					songInAlbum => songInAlbum.Delete());
 
 				// Names

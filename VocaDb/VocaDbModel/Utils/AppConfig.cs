@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace VocaDb.Model.Utils {
 
@@ -6,6 +7,21 @@ namespace VocaDb.Model.Utils {
 
 		private static string Val(string key) {
 			return ConfigurationManager.AppSettings[key];
+		}
+
+		private static bool Val(string key, bool def) {
+
+			var val = Val(key);
+			bool boolVal;
+			if (bool.TryParse(val, out boolVal))
+				return boolVal;
+			else
+				return def;
+			
+		}
+
+		public static bool AllowCustomTracks {
+			get { return Val("AllowCustomTracks", false); }
 		}
 
 		public static string BilibiliAppKey {

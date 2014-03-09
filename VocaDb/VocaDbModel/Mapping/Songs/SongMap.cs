@@ -141,9 +141,10 @@ namespace VocaDb.Model.Mapping.Songs {
 			Id(m => m.Id);
 
 			Map(m => m.DiscNumber).Not.Nullable();
+			Map(m => m.Name).Length(250).Nullable();
 			Map(m => m.TrackNumber).Not.Nullable();
 			References(m => m.Album).Not.Nullable();
-			References(m => m.Song).Not.Nullable();
+			References(m => m.Song).Nullable();
 
 		}
 

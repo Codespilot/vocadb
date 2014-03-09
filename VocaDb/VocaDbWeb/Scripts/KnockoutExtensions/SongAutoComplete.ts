@@ -18,6 +18,7 @@ ko.bindingHandlers.songAutoComplete = {
                 allowCreateNew: properties.allowCreateNew,
                 acceptSelection: properties.acceptSelection,
                 createNewItem: properties.createNewItem,
+				createCustomItem: properties.createCustomItem,
                 createOptionFirstRow: function (item) { return item.Name + " (" + item.SongType + ")"; },
                 createOptionSecondRow: function (item) { return item.ArtistString; },
                 extraQueryParams: properties.extraQueryParams,

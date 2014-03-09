@@ -4,7 +4,7 @@ var vdb;
         var rep = vdb.repositories;
 
         var AlbumEditViewModel = (function () {
-            function AlbumEditViewModel(repository, songRepository, artistRepository, artistRoleNames, webLinkCategories, data) {
+            function AlbumEditViewModel(repository, songRepository, artistRepository, artistRoleNames, webLinkCategories, data, allowCustomTracks) {
                 var _this = this;
                 this.repository = repository;
                 this.artistRepository = artistRepository;
@@ -46,7 +46,7 @@ var vdb;
                     height: 300
                 };
 
-                this.acceptTrackSelection = function (songId, songName) {
+                this.acceptTrackSelection = function (songId, songName, itemType) {
                     if (songId) {
                         songRepository.getOne(songId, true, function (song) {
                             var track = new vdb.viewModels.SongInAlbumEditViewModel({ artists: song.artists, artistString: song.artistString, songAdditionalNames: song.additionalNames, songId: song.id, songName: song.name, discNumber: 1, songInAlbumId: 0, trackNumber: 1 });
@@ -56,7 +56,17 @@ var vdb;
                             _this.tracks.push(track);
                         });
                     } else {
-                        var track = new vdb.viewModels.SongInAlbumEditViewModel({ songName: songName, artists: [], artistString: "", discNumber: 1, songAdditionalNames: "", songId: 0, songInAlbumId: 0, trackNumber: 1 });
+                        var track = new vdb.viewModels.SongInAlbumEditViewModel({
+                            songName: songName,
+                            artists: [],
+                            artistString: "",
+                            discNumber: 1,
+                            songAdditionalNames: "",
+                            songId: 0,
+                            songInAlbumId: 0,
+                            trackNumber: 1,
+                            isCustomTrack: (itemType == 'custom')
+                        });
                         track.isNextDisc.subscribe(function () {
                             return _this.updateTrackNumbers();
                         });
@@ -85,7 +95,8 @@ var vdb;
 
                 this.allTracksSelected.subscribe(function (selected) {
                     _.forEach(_this.tracks(), function (s) {
-                        return s.selected(selected);
+                        if (!s.isCustomTrack)
+                            s.selected(selected);
                     });
                 });
 
@@ -192,6 +203,7 @@ var vdb;
                 this.trackSearchParams = {
                     acceptSelection: this.acceptTrackSelection,
                     createNewItem: "Create new song named '{0}'.",
+                    createCustomItem: "Create custom track named '{0}'",
                     extraQueryParams: { songTypes: songTypes }
                 };
 
