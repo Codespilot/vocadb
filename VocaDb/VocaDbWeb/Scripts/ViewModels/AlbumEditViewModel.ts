@@ -17,7 +17,7 @@ module vdb.viewModels {
     export class AlbumEditViewModel {
         
         // Adds a song to the album, by either id (existing song) or name (new song).
-        public acceptTrackSelection: (songId: number, songName: string) => void;
+        public acceptTrackSelection: (songId: number, songName: string, itemType?: string) => void;
 
 		// Adds a new artist to the album
 		// artistId: Id of the artist being added, if it's an existing artist. Can be null, if custom artist.
@@ -128,7 +128,8 @@ module vdb.viewModels {
         
 		constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository,
 			private artistRepository: rep.ArtistRepository,
-            artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit) {
+			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit,
+			allowCustomTracks: boolean) {
 
 			this.artistSearchParams = {
 				createNewItem: vdb.resources.albumEdit.addExtraArtist,
@@ -136,7 +137,7 @@ module vdb.viewModels {
 				height: 300
 			};
 
-            this.acceptTrackSelection = (songId: number, songName: string) => {
+            this.acceptTrackSelection = (songId: number, songName: string, itemType?: string) => {
 
                 if (songId) {
                     songRepository.getOne(songId, true, song => {
@@ -145,7 +146,17 @@ module vdb.viewModels {
                         this.tracks.push(track);
                     });
                 } else {
-                    var track = new SongInAlbumEditViewModel({ songName: songName, artists: [], artistString: "", discNumber: 1, songAdditionalNames: "", songId: 0, songInAlbumId: 0, trackNumber: 1 });
+                    var track = new SongInAlbumEditViewModel({
+						songName: songName,
+						artists: [],
+						artistString: "",
+						discNumber: 1,
+						songAdditionalNames: "",
+						songId: 0,
+						songInAlbumId: 0,
+						trackNumber: 1,
+						isCustomTrack: (itemType == 'custom')
+                    });
                     track.isNextDisc.subscribe(() => this.updateTrackNumbers());
                     this.tracks.push(track);
                 }
@@ -166,7 +177,10 @@ module vdb.viewModels {
             this.allTracksSelected = ko.observable(false);
 
             this.allTracksSelected.subscribe(selected => {
-                _.forEach(this.tracks(), s => s.selected(selected));
+				_.forEach(this.tracks(), s => {
+					if (!s.isCustomTrack)
+						s.selected(selected);
+                });
             });
 
             this.artistsForTracks = () => {
@@ -258,6 +272,7 @@ module vdb.viewModels {
             this.trackSearchParams = {
                 acceptSelection: this.acceptTrackSelection,
                 createNewItem: "Create new song named '{0}'.", // TODO: localize
+				createCustomItem: "Create custom track named '{0}'",
                 extraQueryParams: { songTypes: songTypes }
             };
 

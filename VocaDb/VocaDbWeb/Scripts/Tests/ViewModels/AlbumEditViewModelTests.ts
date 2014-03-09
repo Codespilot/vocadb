@@ -25,7 +25,8 @@ module vdb.tests.viewModels {
     var labelArtistLink = { artist: label, id: 41, isSupport: false, name: "", roles: "Default" };
     var customArtistLink = { artist: null, id: 42, isSupport: false, name: "xxJulexx", roles: "Default" };
 
-    var songInAlbum: vm.SongInAlbumEditContract;
+	var songInAlbum: vm.SongInAlbumEditContract;
+	var customTrack: vm.SongInAlbumEditContract;
     var roles = { Default: "Default", VoiceManipulator: "Voice manipulator" };
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 123, url: "http://www.youtube.com/user/tripshots" };
     var data: vm.AlbumEdit;
@@ -45,13 +46,23 @@ module vdb.tests.viewModels {
                 songId: 3, songInAlbumId: 1, songName: "Nebula", trackNumber: 1
             };
 
-            data = { artistLinks: [producerArtistLink, vocalistArtistLink, labelArtistLink, customArtistLink], discType: "Album", tracks: [songInAlbum], webLinks: [webLinkData] };
+			customTrack = {
+				artists: [], artistString: "", discNumber: 1, songAdditionalNames: "",
+				songId: 0, songInAlbumId: 2, songName: "Bonus Track", trackNumber: 2, isCustomTrack: true
+			};
+
+            data = {
+				artistLinks: [producerArtistLink, vocalistArtistLink, labelArtistLink, customArtistLink],
+				discType: "Album",
+				tracks: [songInAlbum, customTrack],
+				webLinks: [webLinkData]
+            };
 
         }
     });
 
     function createViewModel() {
-        return new vm.AlbumEditViewModel(rep, songRep, artistRep, roles, categories, data);
+        return new vm.AlbumEditViewModel(rep, songRep, artistRep, roles, categories, data, true);
     }
 
     function createTrackPropertiesViewModel() {
@@ -70,12 +81,14 @@ module vdb.tests.viewModels {
         equal(target.artistLinks().length, 4, "artistLinks.length");
         equal(target.artistLinks()[0].id, 39, "artistLinks[0].id");
         ok(target.artistLinks()[0].artist, "artistLinks[0].artist");
-        equal(target.artistLinks()[0].artist, producer, "artistLinks[0].artist");
-        equal(target.tracks().length, 1, "tracks.length");
+		equal(target.artistLinks()[0].artist, producer, "artistLinks[0].artist");
+
+        equal(target.tracks().length, 2, "tracks.length");
         equal(target.tracks()[0].songId, 3, "tracks[0].songId");
         equal(target.tracks()[0].songName, "Nebula", "tracks[0].songName");
         equal(target.tracks()[0].selected(), false, "tracks[0].selected");
-        equal(target.tracks()[0].trackNumber(), 1, "tracks[0].trackNumber");
+		equal(target.tracks()[0].trackNumber(), 1, "tracks[0].trackNumber");
+
         equal(target.webLinks.webLinks().length, 1, "webLinks.length");
         equal(target.webLinks.webLinks()[0].id, 123, "webLinks[0].id");
 
@@ -113,8 +126,8 @@ module vdb.tests.viewModels {
 
         target.acceptTrackSelection(2, null);
 
-        equal(target.tracks().length, 2, "tracks.length");
-        equal(target.tracks()[1].trackNumber(), 2, "tracks[1].trackNumber");
+        equal(target.tracks().length, 3, "tracks.length");
+        equal(_.last(target.tracks()).trackNumber(), 3, "tracks[2].trackNumber");
 
 	});
 
@@ -148,6 +161,7 @@ module vdb.tests.viewModels {
         target.allTracksSelected(true);
 
         equal(target.tracks()[0].selected(), true, "tracks[0].selected");
+		equal(target.tracks()[1].selected(), false, "tracks[1].selected"); // Custom tracks won't be selected
 
     });
 
@@ -335,12 +349,13 @@ module vdb.tests.viewModels {
     test("updateTrackNumbers updated by setting isNextDisc", () => {
 
         var target = createViewModel();
-        target.acceptTrackSelection(2, null);
+        target.acceptTrackSelection(3, null); // Adds a new track
         target.tracks()[0].isNextDisc(true);
 
         equal(target.tracks()[0].discNumber(), 2, "tracks[0].discNumber");
         equal(target.tracks()[0].trackNumber(), 1, "tracks[0].trackNumber");
         equal(target.tracks()[1].trackNumber(), 2, "tracks[1].trackNumber");
+		equal(target.tracks()[2].trackNumber(), 3, "tracks[2].trackNumber");
 
     });
 

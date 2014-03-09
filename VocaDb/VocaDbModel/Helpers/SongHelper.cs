@@ -10,10 +10,16 @@ namespace VocaDb.Model.Helpers {
 
 		public static Tag[] GetGenreTags(SongInAlbum songInAlbum) {
 
-			var genres = songInAlbum.Song.Tags.TagsByVotes.Where(t => t.CategoryName == TagCategory_Genres).ToArray();
+			Tag[] genres;
 
-			if (genres.Any())
-				return genres.ToArray();
+			if (songInAlbum.Song != null) {
+
+				genres = songInAlbum.Song.Tags.TagsByVotes.Where(t => t.CategoryName == TagCategory_Genres).ToArray();
+
+				if (genres.Any())
+					return genres.ToArray();
+				
+			}
 
 			genres = songInAlbum.Album.Tags.TagsByVotes.Where(t => t.CategoryName == TagCategory_Genres).ToArray();
 			return genres.ToArray();

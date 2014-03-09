@@ -35,6 +35,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private readonly IEntryThumbPersister imagePersister;
 		private readonly IUserMessageMailer mailer;
 
+		private IEntryLinkFactory EntryLinkFactory {
+			get { return entryLinkFactory; }
+		}
+
 		private void ArchiveSong(IRepositoryContext<Song> ctx, Song song, SongDiff diff, SongArchiveReason reason, string notes = "") {
 
 			var agentLoginData = ctx.CreateAgentLoginData(PermissionContext);
@@ -214,6 +218,96 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void Merge(int sourceId, int targetId) {
+
+			PermissionContext.VerifyPermission(PermissionToken.MergeEntries);
+
+			if (sourceId == targetId)
+				throw new ArgumentException("Source and target albums can't be the same", "targetId");
+
+			repository.HandleTransaction(session => {
+
+				var source = session.Load(sourceId);
+				var target = session.Load(targetId);
+
+				session.AuditLogger.AuditLog(string.Format("Merging {0} to {1}", EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)));
+
+				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
+					var name = target.CreateName(n.Value, n.Language);
+					session.Save(name);
+				}
+
+				foreach (var w in source.WebLinks.Where(w => !target.HasWebLink(w.Url))) {
+					var link = target.CreateWebLink(w.Description, w.Url, w.Category);
+					session.Save(link);
+				}
+
+				var artists = source.Artists.Where(a => !target.HasArtistForAlbum(a)).ToArray();
+				foreach (var a in artists) {
+					a.Move(target);
+					session.Update(a);
+				}
+
+				var songs = source.Songs.Where(s => s.Song == null || !target.HasSong(s.Song)).ToArray();
+				foreach (var s in songs) {
+					s.Move(target);
+					session.Update(s);
+				}
+
+				var pictures = source.Pictures.ToArray();
+				foreach (var p in pictures) {
+					p.Move(target);
+					session.Update(p);
+				}
+
+				var userCollections = source.UserCollections.Where(a => !target.IsInUserCollection(a.User)).ToArray();
+				foreach (var u in userCollections) {
+					u.Move(target);
+					session.Update(u);
+				}
+
+				if (target.Description == string.Empty)
+					target.Description = source.Description;
+
+				if (target.OriginalRelease == null)
+					target.OriginalRelease = new AlbumRelease();
+
+				if (string.IsNullOrEmpty(target.OriginalRelease.CatNum) && source.OriginalRelease != null)
+					target.OriginalRelease.CatNum = source.OriginalRelease.CatNum;
+
+				if (string.IsNullOrEmpty(target.OriginalRelease.EventName) && source.OriginalRelease != null)
+					target.OriginalRelease.EventName = source.OriginalRelease.EventName;
+
+				if (target.OriginalRelease.ReleaseDate == null)
+					target.OriginalRelease.ReleaseDate = new OptionalDateTime();
+
+				if (target.OriginalReleaseDate.Year == null && source.OriginalRelease != null)
+					target.OriginalReleaseDate.Year = source.OriginalReleaseDate.Year;
+
+				if (target.OriginalReleaseDate.Month == null && source.OriginalRelease != null)
+					target.OriginalReleaseDate.Month = source.OriginalReleaseDate.Month;
+
+				if (target.OriginalReleaseDate.Day == null && source.OriginalRelease != null)
+					target.OriginalReleaseDate.Day = source.OriginalReleaseDate.Day;
+
+				// Create merge record
+				var mergeEntry = new AlbumMergeRecord(source, target);
+				session.Save(mergeEntry);
+
+				source.Deleted = true;
+
+				target.UpdateArtistString();
+				target.Names.UpdateSortNames();
+
+				Archive(session, target, AlbumArchiveReason.Merged, string.Format("Merged from {0}", source));
+
+				session.Update(source);
+				session.Update(target);
+
+			});
+
+		}
+
 		public AlbumForEditContract UpdateBasicProperties(AlbumForEditContract properties, EntryPictureFileContract pictureData) {
 
 			ParamIs.NotNull(() => properties);
@@ -340,9 +434,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				if (tracksDiff.Changed) {
 
-					var add = string.Join(", ", tracksDiff.Added.Select(i => i.Song.ToString()));
-					var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.Song.ToString()));
-					var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.Song.ToString()));
+					var add = string.Join(", ", tracksDiff.Added.Select(i => i.SongToStringOrName));
+					var rem = string.Join(", ", tracksDiff.Removed.Select(i => i.SongToStringOrName));
+					var edit = string.Join(", ", tracksDiff.Edited.Select(i => i.SongToStringOrName));
 
 					var str = string.Format("edited tracks (added: {0}, removed: {1}, reordered: {2})", add, rem, edit)
 						.Truncate(300);

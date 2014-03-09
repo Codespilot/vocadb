@@ -15,8 +15,11 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			DiscNumber = songInAlbum.DiscNumber;
 			Id = songInAlbum.Id;
-			Song = new SongContract(songInAlbum.Song, languagePreference, getThumbUrl);
 			TrackNumber = songInAlbum.TrackNumber;
+
+			var song = songInAlbum.Song;
+			Song = song != null ? new SongContract(song, languagePreference, getThumbUrl) : null;
+			Name = Song != null ? Song.Name : songInAlbum.Name;
 
 		}
 
@@ -25,6 +28,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public string Name { get; set; }
 
 		[DataMember]
 		public SongContract Song { get; set; }

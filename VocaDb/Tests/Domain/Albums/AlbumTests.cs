@@ -29,6 +29,10 @@ namespace VocaDb.Tests.Domain.Albums {
 
 		}
 
+		private SongInAlbumEditContract CreateSongInAlbumEditContract(int id, string name, int trackNum) {
+			return new SongInAlbumEditContract { SongInAlbumId = id, IsCustomTrack = true, SongName = name, TrackNumber = trackNum, DiscNumber = 1, Artists = new ArtistContract[0] };
+		}
+
 		private Artist[] GetArtists(ArtistContract[] contracts) {
 
 			return contracts
@@ -194,6 +198,26 @@ namespace VocaDb.Tests.Domain.Albums {
 			Assert.AreEqual(1, result.Removed.Length, "1 removed");
 			Assert.AreEqual(0, result.Unchanged.Length, "none unchanged");
 			AssertEquals(result.Removed.First(), songInAlbumContract, "removed song matches contract");
+
+		}
+
+		[TestMethod]
+		public void SyncSongs_AddCustom() {
+			
+			var link = album.AddSong("Track 1", 1, 1);
+			link.Id = 1;
+
+			var newSongs = new[] {
+				CreateSongInAlbumEditContract(1, "Track 1", 1),
+				CreateSongInAlbumEditContract(0, "Track 2", 2),
+			};
+
+			var result = SyncSongs(newSongs);
+
+			Assert.AreEqual(1, result.Added.Length, "Added");
+			Assert.AreEqual(1, result.Unchanged.Length, "Edited");
+			Assert.AreEqual("Track 1", result.Unchanged.First().Name, "Unchanged track name");
+			Assert.AreEqual("Track 2", result.Added.First().Name, "Added track name");
 
 		}
 

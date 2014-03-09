@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Tests.TestData;
 using VocaDb.Tests.TestSupport;
@@ -36,9 +37,21 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		private Artist producer;
 		private FakeAlbumRepository repository;
 		private AlbumQueries queries;
+		private Song song;
+		private Song song2;
+		private Song song3;
 		private User user;
 		private User user2;
 		private Artist vocalist;
+		private Artist vocalist2;
+
+		private void AssertHasArtist(Album album, string artistName, ArtistRoles? roles) {
+			VocaDbAssert.HasArtist(album, artistName, roles);
+		}
+
+		private void AssertHasArtist(Album album, Artist artist, ArtistRoles? roles) {
+			VocaDbAssert.HasArtist(album, artist, roles);
+		}
 
 		private SongInAlbumEditContract CreateSongInAlbumEditContract(int trackNumber, int songId = 0, string songName = null) {
 			return new SongInAlbumEditContract { DiscNumber = 1, TrackNumber = trackNumber, SongId = songId, SongName = songName, Artists = new ArtistContract[0] };
@@ -64,20 +77,34 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			}		
 		}
 
+		private void Save<T>(params T[] entity) {
+			repository.Save(entity);
+		}
+
+		private T Save<T>(T entity) {
+			return repository.Save(entity);
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 			
 			producer = CreateEntry.Producer();
-			vocalist = CreateEntry.Vocalist();
+			vocalist = CreateEntry.Vocalist(name: "Hatsune Miku");
+			vocalist2 = CreateEntry.Vocalist(name: "Rin");
 
 			album = CreateEntry.Album(id: 39, name: "Synthesis");
 			repository = new FakeAlbumRepository(album);
 			foreach (var name in album.Names)
-				repository.Save(name);
+				Save(name);
 			user = CreateEntry.User(1, "Miku");
+			user.GroupId = UserGroupId.Trusted;
 			user2 = CreateEntry.User(2, "Luka");
-			repository.Save(user);
-			repository.Save(producer, vocalist);
+			Save(user);
+			Save(producer, vocalist, vocalist2);
+
+			song = Save(CreateEntry.Song(name: "Nebula"));
+			song2 = Save(CreateEntry.Song(name: "Anger"));
+			song3 = Save(CreateEntry.Song(name: "Resistance"));
 
 			permissionContext = new FakePermissionContext(user);
 			var entryLinkFactory = new EntryAnchorFactory("http://test.vocadb.net");
@@ -178,6 +205,95 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(result.Picture.Bytes, "Picture content");
 			Assert.AreEqual(contract.CoverPictureMime, result.Picture.Mime, "Picture MIME");
 			Assert.AreEqual(contract.Id, result.EntryId, "EntryId");
+
+		}
+
+		[TestMethod]
+		public void Merge_ToEmpty() {
+			
+			Save(album.AddArtist(producer));
+			Save(album.AddArtist(vocalist));
+			Save(album.AddSong(song, 1, 1));
+
+			var album2 = CreateEntry.Album();
+			Save(album2);
+
+			queries.Merge(album.Id, album2.Id);
+
+			Assert.IsTrue(album.Deleted, "Original was deleted");
+			Assert.AreEqual(0, album.AllArtists.Count, "All artists removed from original");
+			Assert.AreEqual(0, album.AllSongs.Count, "All songs removed from original");
+
+			Assert.AreEqual("Synthesis", album2.DefaultName, "Name");
+			Assert.AreEqual(2, album2.AllArtists.Count, "Number of artists");
+			Assert.AreEqual(1, album2.AllSongs.Count, "Number of songs");
+			Assert.AreEqual("Nebula", album2.AllSongs.First().Song.DefaultName);
+
+			var mergeRecord = repository.List<AlbumMergeRecord>().FirstOrDefault(m => m.Source == album.Id);
+			Assert.IsNotNull(mergeRecord, "Merge record was created");
+			Assert.AreEqual(album2.Id, mergeRecord.Target.Id, "mergeRecord.Target.Id");
+
+		}
+
+		[TestMethod]
+		public void Merge_WithArtists() {
+
+			Save(album.AddArtist(producer, false, ArtistRoles.Instrumentalist));
+			Save(album.AddArtist(vocalist, false, ArtistRoles.Default));
+
+			var album2 = Save(CreateEntry.Album());
+			Save(album2.AddArtist(vocalist, false, ArtistRoles.Mastering));
+			Save(album2.AddArtist("Kaito", true, ArtistRoles.Default));
+
+			queries.Merge(album.Id, album2.Id);
+
+			Assert.AreEqual(1, album.AllArtists.Count, "Number of artists for source"); // Vocalist was not moved
+			Assert.AreEqual(3, album2.AllArtists.Count, "Number of artists for target");
+			AssertHasArtist(album2, producer, ArtistRoles.Instrumentalist);
+			AssertHasArtist(album2, vocalist, ArtistRoles.Mastering);
+			AssertHasArtist(album2, "Kaito", ArtistRoles.Default);
+
+		}
+
+		[TestMethod]
+		public void Merge_WithTracks() {
+
+			Save(album.AddSong(song, 1, 1));
+			Save(album.AddSong(song2, 2, 1));
+
+			var album2 = Save(CreateEntry.Album());
+			Save(album2.AddSong(song, 1, 1));
+			Save(album2.AddSong(song3, 2, 1));
+
+			queries.Merge(album.Id, album2.Id);
+
+			Assert.AreEqual(1, album.AllSongs.Count, "Number of songs for source"); // song was not moved
+			Assert.AreEqual(3, album2.AllSongs.Count, "Number of songs for target");
+			VocaDbAssert.HasSong(album2, song, 1);
+			VocaDbAssert.HasSong(album2, song2, 3);
+			VocaDbAssert.HasSong(album2, song3, 2);
+
+		}
+
+		/// <summary>
+		/// Merge with custom tracks. Custom tracks are added as is.
+		/// </summary>
+		[TestMethod]
+		public void Merge_CustomTracks() {
+			
+			Save(album.AddSong(song, 1, 1));
+			Save(album.AddSong("Bonus song 1", 2, 1));
+
+			var album2 = Save(CreateEntry.Album());
+			Save(album2.AddSong(song, 1, 1));
+			Save(album2.AddSong("Bonus song 2", 2, 1));
+
+			queries.Merge(album.Id, album2.Id);
+
+			Assert.AreEqual(3, album2.AllSongs.Count, "Number of songs for target");
+			VocaDbAssert.HasSong(album2, song, 1);
+			VocaDbAssert.HasSong(album2, "Bonus song 2", 2);
+			VocaDbAssert.HasSong(album2, "Bonus song 1", 3);
 
 		}
 

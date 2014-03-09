@@ -4,6 +4,7 @@
 	var h = 350;
 	var idElem = null;
 	var createNewItem = null;
+	var createCustomItem = null;
 	var acceptSelection = null;
 	var extraQueryParams = null;
 	var createOptionFirstRow = null;
@@ -39,6 +40,7 @@
 		createOptionSecondRow = params.createOptionSecondRow;
 		createOptionHtml = params.createOptionHtml;
 		createTitle = params.createTitle;
+		createCustomItem = params.createCustomItem;
 
 	}
 
@@ -90,7 +92,10 @@
 			});
 
 			if (createNewItem)
-				mapped.push({ label: createNewItem.replace("{0}", par.term), value: "", term: par.term });
+				mapped.push({ label: createNewItem.replace("{0}", par.term), value: "", term: par.term, itemType: 'new' });
+
+			if (createCustomItem)
+				mapped.push({ label: createCustomItem.replace("{0}", par.term), value: "", term: par.term, itemType: 'custom' });
 
 			response(mapped);
 
@@ -104,7 +109,7 @@
 			$(idElem).val(ui.item.value);
 
 		// namebox value is cleared when using keyboard
-		acceptSelection(ui.item.value, $(nameBoxElem).val() || ui.item.term);
+		acceptSelection(ui.item.value, $(nameBoxElem).val() || ui.item.term, ui.item.itemType);
 		$(nameBoxElem).val("");
 
 		return false;

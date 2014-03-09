@@ -44,6 +44,7 @@ module vdb.utils {
             { url: "www.pixiv.net/member.php", desc: "Pixiv", cat: c.WebLinkCategory.Official },
             { url: "books.rakuten.co.jp/", desc: "Rakuten", cat: c.WebLinkCategory.Commercial },
             { url: "soundcloud.com/", desc: "SoundCloud", cat: c.WebLinkCategory.Official },
+			{ url: "item.taobao.com/item.htm", desc: "Taobao", cat: c.WebLinkCategory.Commercial },
             { url: "toranoana.jp/mailorder/article/", desc: "Toranoana", cat: c.WebLinkCategory.Commercial },
             { url: "tumblr.com/", desc: "Tumblr", cat: c.WebLinkCategory.Official },
             { url: "twitter.com/", desc: "Twitter", cat: c.WebLinkCategory.Official },

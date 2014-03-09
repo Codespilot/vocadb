@@ -259,9 +259,9 @@
 					<h3>@ViewRes.Album.DetailsStrings.Tracklist</h3>
 					<div class="tracklist">
 						@foreach (var disc in Model.Songs) {
-		  if (Model.Songs.Count() > 1) {
+							if (Model.Songs.Count() > 1) {
 								<h4>@R.DetailsStrings.Disc @disc.Key</h4>
-		  }
+							}
 					<ul>
 						@foreach (var song in disc) {
 							<li class="tracklist-track">
@@ -269,23 +269,27 @@
 									@song.TrackNumber
 								</div>
 								<div class="tracklist-trackTitle">
-									@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
-									@if (song.Song.LengthSeconds > 0) {
-										@("(" + DateTimeUtils.FormatFromSeconds(song.Song.LengthSeconds) + ")")
+									@if (song.Song != null) {
+										@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
+										if (song.Song.LengthSeconds > 0) {
+											@("(" + DateTimeUtils.FormatFromSeconds(song.Song.LengthSeconds) + ")")
+										}
+										@:&nbsp;
+										@Helpers.DraftIcon(song.Song.Status)
+										if (song.Song.SongType != SongType.Original && song.Song.SongType != SongType.Unspecified) {
+											@SongHelpers.SongTypeLabel(song.Song.SongType)
+										}
+										@Helpers.PVServiceIcons(song.Song.PVServices)
+										<br />
+										<small class="muted">@song.Song.ArtistString</small>										
+									} else {
+										@song.Name
 									}
-									&nbsp;
-									@Helpers.DraftIcon(song.Song.Status)
-									@if (song.Song.SongType != SongType.Original && song.Song.SongType != SongType.Unspecified) {
-										@SongHelpers.SongTypeLabel(song.Song.SongType)
-									}
-									@Helpers.PVServiceIcons(song.Song.PVServices)
-									<br />
-									<small class="muted">@song.Song.ArtistString</small>
 								</div>
 							</li>
-	  }
+						}
 					</ul>
-	  }
+					}
 
 					</div>
 				

@@ -23,11 +23,21 @@ namespace VocaDb.Model.Service.TagFormatting {
 		}
 
 		private string GetProducerStr(SongInAlbum track, ContentLanguagePreference languagePreference) {
+
+			if (track.Song == null)
+				return string.Empty;
+
 			return string.Join(", ", ArtistHelper.GetProducerNames(track.Song.Artists, SongHelper.IsAnimation(track.Song.SongType), languagePreference));
+
 		}
 
 		private string GetVocalistStr(SongInAlbum track, ContentLanguagePreference languagePreference) {
+
+			if (track.Song == null)
+				return string.Empty;
+
 			return string.Join(", ", ArtistHelper.GetVocalistNames(track.Song.Artists, languagePreference));
+
 		}
 
 		private string GetFieldValue(string fieldName, SongInAlbum track, ContentLanguagePreference languagePreference) {
@@ -51,9 +61,9 @@ namespace VocaDb.Model.Service.TagFormatting {
 
 				// Artists for song, both producers and vocalists
 				case "artist":			
-					return track.Song.ArtistString[languagePreference];
+					return track.Song != null ? track.Song.ArtistString[languagePreference] : string.Empty;
 				case "track artist": // foobar style
-					return track.Song.ArtistString[languagePreference];
+					return track.Song != null ? track.Song.ArtistString[languagePreference] : string.Empty;
 
 				case "catalognum":
 					return (album.OriginalRelease != null ? album.OriginalRelease.CatNum : string.Empty);
@@ -89,7 +99,7 @@ namespace VocaDb.Model.Service.TagFormatting {
 
 				// Song title
 				case "title":			
-					return track.Song.Names.SortNames[languagePreference];
+					return track.Song != null ? track.Song.Names.SortNames[languagePreference] : track.Name;
 
 				case "totaltrackcount":
 					return album.Songs.Count().ToString();

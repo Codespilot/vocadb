@@ -468,7 +468,7 @@ namespace VocaDb.Model.Domain.Songs {
 		}
 
 		public virtual ArtistForSong GetArtistLink(Artist artist) {
-			return Artists.FirstOrDefault(a => a.Artist.Equals(artist));
+			return Artists.FirstOrDefault(a => a.Artist != null && a.Artist.Equals(artist));
 		}
 
 		public override int GetHashCode() {

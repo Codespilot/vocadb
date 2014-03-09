@@ -77,6 +77,11 @@ namespace VocaDb.Tests.TestSupport {
 				CreateContext().Save(obj);
 		}
 
+		public T2 Save<T2>(T2 obj) {
+			CreateContext().Save(obj);
+			return obj;
+		}
+
 	}
 
 	public class ListRepositoryContext<T> : IRepositoryContext<T> {
