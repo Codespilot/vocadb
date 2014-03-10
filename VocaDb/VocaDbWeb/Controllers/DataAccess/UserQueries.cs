@@ -459,7 +459,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			repository.HandleTransaction(ctx => {
 
 				var user = ctx.Load(userId);
-				ctx.AuditLogger.SysLog("requesting email verification", user.Name);
+				ctx.AuditLogger.SysLog(string.Format("requesting email verification ({0})", user.Email), user.Name);
 
 				var subject = "Verify your email at VocaDB.";
 
@@ -675,7 +675,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				ctx.Delete(request);
 
-				ctx.AuditLogger.AuditLog("verified email");
+				ctx.AuditLogger.AuditLog(string.Format("verified email ({0})", user.Email));
 
 				return true;
 

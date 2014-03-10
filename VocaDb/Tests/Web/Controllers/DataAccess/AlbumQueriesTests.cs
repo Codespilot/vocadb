@@ -99,7 +99,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			user = CreateEntry.User(1, "Miku");
 			user.GroupId = UserGroupId.Trusted;
 			user2 = CreateEntry.User(2, "Luka");
-			Save(user);
+			Save(user, user2);
 			Save(producer, vocalist, vocalist2);
 
 			song = Save(CreateEntry.Song(name: "Nebula"));
@@ -435,7 +435,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void Update_Artists_Notify() {
 			
-			repository.Save(user2.AddArtist(vocalist));
+			Save(user2.AddArtist(vocalist));
 
 			var contract = new AlbumForEditContract(album, ContentLanguagePreference.Default);
 			contract.ArtistLinks = contract.ArtistLinks.Concat(new [] { CreateArtistForAlbumContract(vocalist.Id)}).ToArray();

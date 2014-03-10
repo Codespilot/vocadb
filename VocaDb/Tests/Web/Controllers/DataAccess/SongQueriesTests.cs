@@ -63,6 +63,10 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 				return new ArtistForSongContract { Name = artistName, Roles = roles };
 		}
 
+		private T Save<T>(T entry) {
+			return repository.Save(entry);
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 
@@ -73,9 +77,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			song = CreateEntry.Song(id: 1, name: "Nebula");
 			song.LengthSeconds = 39;
 			repository = new FakeSongRepository(song);
-			repository.Save(song.AddArtist(producer));
-			repository.Save(song.AddArtist(vocalist));
-			repository.Save(song.CreatePV(new PVContract { Service = PVService.Youtube, PVId = "hoLu7c2XZYU", Name = "Nebula", PVType = PVType.Original }));
+			Save(song.AddArtist(producer));
+			Save(song.AddArtist(vocalist));
+			Save(song.CreatePV(new PVContract { Service = PVService.Youtube, PVId = "hoLu7c2XZYU", Name = "Nebula", PVType = PVType.Original }));
 
 			foreach (var name in song.Names)
 				repository.Save(name);
@@ -156,7 +160,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void Create_Notification() {
 
-			user2.AddArtist(producer);
+			repository.Save(user2.AddArtist(producer));
 
 			CallCreate();
 
@@ -170,7 +174,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void Create_NoNotificationForSelf() {
 
-			user.AddArtist(producer);
+			repository.Save(user.AddArtist(producer));
 
 			CallCreate();
 
@@ -181,7 +185,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		[TestMethod]
 		public void Create_EmailNotification() {
 			
-			var subscription = user2.AddArtist(producer);
+			var subscription = repository.Save(user2.AddArtist(producer));
 			subscription.EmailNotifications = true;
 
 			CallCreate();
