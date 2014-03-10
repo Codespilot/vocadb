@@ -33,18 +33,24 @@ namespace VocaDb.Tests.Service.Helpers {
 
 		}
 
+		private T Save<T>(T entry) {
+			return repository.Save(entry);
+		}
+
 		[TestInitialize]
 		public void SetUp() {
 
 			entryLinkFactory = new FakeEntryLinkFactory();
-			album = new Album(new LocalizedString("New Album", ContentLanguageSelection.English));
-			producer = new Artist(TranslatedString.Create("Tripshots")) { Id = 1, ArtistType = ArtistType.Producer };
-			vocalist = new Artist(TranslatedString.Create("Hatsune Miku")) { Id = 2, ArtistType = ArtistType.Vocaloid };
-			user = new User("Miku", "123", string.Empty, 0) { Id = 1};
-			user.AddArtist(producer);
-			creator = new User("Rin", "123", string.Empty, 0) { Id = 2 };
 			repository = new FakeRepository<UserMessage>();
 			mailer = new FakeUserMessageMailer();
+
+			album = Save(new Album(new LocalizedString("New Album", ContentLanguageSelection.English)));
+			producer = Save(new Artist(TranslatedString.Create("Tripshots")) { Id = 1, ArtistType = ArtistType.Producer });
+			vocalist = Save(new Artist(TranslatedString.Create("Hatsune Miku")) { Id = 2, ArtistType = ArtistType.Vocaloid });
+			user = Save(new User("Miku", "123", string.Empty, 0) { Id = 1});
+			creator = Save(new User("Rin", "123", string.Empty, 0) { Id = 2 });
+
+			Save(user.AddArtist(producer));
 
 		}
 
@@ -88,7 +94,7 @@ namespace VocaDb.Tests.Service.Helpers {
 		[TestMethod]
 		public void SendNotifications_MultipleFollowedArtists() {
 
-			user.AddArtist(vocalist);
+			Save(user.AddArtist(vocalist));
 
 			CallSendNotifications(creator);
 
@@ -102,8 +108,9 @@ namespace VocaDb.Tests.Service.Helpers {
 		[TestMethod]	
 		public void TooManyUnreadMessages() {
 
-			for (int i = 0; i < 5; ++i)
-				repository.Add(new UserMessage(user, "New message!", i.ToString(), false));
+			for (int i = 0; i < 5; ++i) {
+				user.ReceivedMessages.Add(repository.Save(new UserMessage(user, "New message!", i.ToString(), false)));
+			}
 
 			CallSendNotifications(creator);
 
