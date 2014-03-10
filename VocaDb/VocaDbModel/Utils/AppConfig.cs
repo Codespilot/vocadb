@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Configuration;
+using VocaDb.Model.Domain.Artists;
 
 namespace VocaDb.Model.Utils {
 
 	public static class AppConfig {
+
+		private static ArtistType[] artistTypes;
 
 		private static string Val(string key) {
 			return ConfigurationManager.AppSettings[key];
@@ -22,6 +25,19 @@ namespace VocaDb.Model.Utils {
 
 		public static bool AllowCustomTracks {
 			get { return Val("AllowCustomTracks", false); }
+		}
+
+		public static ArtistType[] ArtistTypes {
+			get {
+				
+				if (artistTypes == null) {
+					var val = Val("ArtistTypes");
+					artistTypes = !string.IsNullOrEmpty(val) ? EnumVal<ArtistType>.ParseMultiple(val) : EnumVal<ArtistType>.Values;
+				}
+
+				return artistTypes;
+
+			}
 		}
 
 		public static string BilibiliAppKey {

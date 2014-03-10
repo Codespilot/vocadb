@@ -44,7 +44,11 @@ namespace VocaDb.Model.Domain.Artists {
 
 		OtherGroup,
 
-		OtherIndividual 
+		OtherIndividual,
+
+		Utaite,
+
+		Band
 
 	}
 
@@ -79,7 +83,11 @@ namespace VocaDb.Model.Domain.Artists {
 
 		OtherGroup = 1024,
 
-		OtherIndividual = 2048
+		OtherIndividual = 2048,
+
+		Utaite = 4096,
+
+		Band = 8192
 
 	}
 

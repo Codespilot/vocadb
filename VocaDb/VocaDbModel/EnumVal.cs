@@ -73,6 +73,15 @@ namespace VocaDb.Model {
 
 		}
 
+		public static T[] ParseMultiple(string value) {
+
+			if (string.IsNullOrEmpty(value))
+				return new T[0];
+
+			return ParseAll(value.Split(','));
+
+		}
+
 		/// <summary>
 		/// Initializes a new instance of enum
 		/// </summary>

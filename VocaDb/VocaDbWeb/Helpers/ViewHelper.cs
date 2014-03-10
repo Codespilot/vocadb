@@ -20,6 +20,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Utils;
 using VocaDb.Web.Code.BBCode;
 using VocaDb.Web.Helpers.Support;
 using VocaDb.Web.Models.Shared;
@@ -82,7 +83,7 @@ namespace VocaDb.Web.Helpers {
 		}
 
 		public static SelectList CreateArtistTypesList(object selectedValue) {
-			return new SelectList(EnumVal<ArtistType>.Values.ToDictionary(s => s, Translate.ArtistTypeName), "Key", "Value", selectedValue);
+			return new SelectList(AppConfig.ArtistTypes.ToDictionary(s => s, Translate.ArtistTypeName), "Key", "Value", selectedValue);
 		}
 
 		public static SelectList CreateDiscTypesList(object selectedValue) {

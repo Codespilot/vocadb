@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Utils;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
@@ -27,7 +28,7 @@ namespace VocaDb.Web.Models {
 			Pictures = new List<EntryPictureFileContract>();
 			WebLinks = new List<WebLinkDisplay>();
 
-			AllArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
+			AllArtistTypes = AppConfig.ArtistTypes.ToDictionary(a => a, Translate.ArtistTypeName);
 
 		}
 

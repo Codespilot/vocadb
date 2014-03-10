@@ -156,4 +156,10 @@
   <data name="OtherVoiceSynthesizer" xml:space="preserve">
     <value>Other voice synthesizer</value>
   </data>
+  <data name="Band" xml:space="preserve">
+    <value>Band/unit</value>
+  </data>
+  <data name="Utaite" xml:space="preserve">
+    <value>Utaite</value>
+  </data>
 </root>
