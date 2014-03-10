@@ -30,7 +30,7 @@ function initPage(artistId) {
 			acceptSelection: acceptGroupSelection,
 			createOptionFirstRow: function (item) { return item.Name; },
 			createOptionSecondRow: function (item) { return item.AdditionalNames; },
-			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup" },
+			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup,Band" },
 			height: 200,
 			width: 350
 		});
