@@ -68,6 +68,7 @@ namespace VocaDb.Model.Helpers {
 		public static readonly Dictionary<ArtistType, ArtistCategories> CategoriesForTypes = new Dictionary<ArtistType, ArtistCategories> {
 			{ ArtistType.Animator, ArtistCategories.Animator },
 			{ ArtistType.Circle, ArtistCategories.Circle },
+			{ ArtistType.Band, ArtistCategories.Circle },
 			{ ArtistType.Illustrator, ArtistCategories.Other },
 			{ ArtistType.Label, ArtistCategories.Label },
 			{ ArtistType.Lyricist, ArtistCategories.Other },
@@ -77,6 +78,7 @@ namespace VocaDb.Model.Helpers {
 			{ ArtistType.OtherVoiceSynthesizer, ArtistCategories.Vocalist },
 			{ ArtistType.Producer, ArtistCategories.Producer },
 			{ ArtistType.Unknown, ArtistCategories.Other },
+			{ ArtistType.Utaite, ArtistCategories.Vocalist },
 			{ ArtistType.UTAU, ArtistCategories.Vocalist },
 			{ ArtistType.Vocaloid, ArtistCategories.Vocalist },
 		};
@@ -84,9 +86,10 @@ namespace VocaDb.Model.Helpers {
 		/// <summary>
 		/// The roles of these artists can be customized
 		/// </summary>
-		public static readonly ArtistType[] CustomizableTypes = new[] {
+		public static readonly ArtistType[] CustomizableTypes = {
 			ArtistType.Animator, ArtistType.OtherGroup, ArtistType.OtherIndividual, 
-			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Illustrator, ArtistType.Lyricist, ArtistType.Unknown
+			ArtistType.OtherVocalist, ArtistType.Producer, ArtistType.Illustrator, ArtistType.Lyricist, 
+			ArtistType.Utaite, ArtistType.Band, ArtistType.Unknown
 		};
 
 		/// <summary>
@@ -123,7 +126,7 @@ namespace VocaDb.Model.Helpers {
 		};
 
 		public static readonly ArtistType[] VocalistTypes = new[] {
-			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist, ArtistType.OtherVoiceSynthesizer
+			ArtistType.Vocaloid, ArtistType.UTAU, ArtistType.OtherVocalist, ArtistType.OtherVoiceSynthesizer, ArtistType.Utaite
 		};
 
 		public static string[] GetArtistNames(IEnumerable<IArtistWithSupport> artists, ContentLanguagePreference languagePreference) {

@@ -8,6 +8,7 @@ using VocaDb.Model;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service;
+using VocaDb.Model.Utils;
 using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models.Artist {
@@ -26,7 +27,7 @@ namespace VocaDb.Web.Models.Artist {
 			Sort = sort;
 			RouteParams = routeParams;
 
-			FilterableArtistTypes = EnumVal<ArtistType>.Values.ToDictionary(a => a, Translate.ArtistTypeName);
+			FilterableArtistTypes = AppConfig.ArtistTypes.ToDictionary(a => a, Translate.ArtistTypeName);
 
 		}
 
