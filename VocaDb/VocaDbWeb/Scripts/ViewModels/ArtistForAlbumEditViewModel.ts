@@ -13,7 +13,7 @@ module vdb.viewModels {
     export class ArtistForAlbumEditViewModel {
         
         private static customizableArtistTypes = ['Animator', 'OtherGroup', 'OtherIndividual',
-            'OtherVocalist', 'Producer', 'Illustrator', 'Lyricist', 'Unknown'];
+            'OtherVocalist', 'Producer', 'Illustrator', 'Lyricist', 'Unknown', 'Utaite', 'Band'];
 
         public artist: dc.ArtistContract;
 

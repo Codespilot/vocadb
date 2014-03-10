@@ -34,7 +34,7 @@ var vdb;
             }
             ArtistForAlbumEditViewModel.customizableArtistTypes = [
                 'Animator', 'OtherGroup', 'OtherIndividual',
-                'OtherVocalist', 'Producer', 'Illustrator', 'Lyricist', 'Unknown'];
+                'OtherVocalist', 'Producer', 'Illustrator', 'Lyricist', 'Unknown', 'Utaite', 'Band'];
             return ArtistForAlbumEditViewModel;
         })();
         viewModels.ArtistForAlbumEditViewModel = ArtistForAlbumEditViewModel;
