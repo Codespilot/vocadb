@@ -272,7 +272,7 @@
 									@if (song.Song != null) {
 										@Html.ActionLink(song.Song.Name, "Details", "Song", new { id = song.Song.Id }, new { title = song.Song.AdditionalNames })
 										if (song.Song.LengthSeconds > 0) {
-											@("(" + DateTimeUtils.FormatFromSeconds(song.Song.LengthSeconds) + ")")
+											@(" (" + DateTimeUtils.FormatFromSeconds(song.Song.LengthSeconds) + ")")
 										}
 										@:&nbsp;
 										@Helpers.DraftIcon(song.Song.Status)
