@@ -1,0 +1,22 @@
+﻿using VocaDb.Model.Service.BrandableStrings;
+using VocaDb.Model.Service.BrandableStrings.Collections;
+using VocaDb.UtaiteDb.Resources.ViewRes;
+
+namespace VocaDb.UtaiteDb.Resources {
+
+	public class Header : IBrandedStringsAssemblyHeader {
+
+		public HomeStrings Home {
+			get {
+				return new HomeStrings(HomeRes.ResourceManager);
+			}
+		}
+
+		public LayoutStrings Layout {
+			get {
+				return new LayoutStrings(LayoutRes.ResourceManager);
+			}
+		}
+
+	}
+}

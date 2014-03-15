@@ -2,6 +2,7 @@
 @using VocaDb.Web.Helpers
 @using VocaDb.Model.Utils
 @using VocaDb.Web.Code
+@inherits VocaDbPage
 
 @{
 	var searchObjectType = Html.GlobalSearchObjectType();
@@ -28,7 +29,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@(!string.IsNullOrEmpty(PageTitle) ? PageTitle + " - " : "")Vocaloid Database</title>
+    <title>@(!string.IsNullOrEmpty(PageTitle) ? PageTitle + " - " : "")@BrandableStrings.Layout.SiteTitle</title>
 	<meta name="description" content="@PageProperties.SummarizedDescription" />	
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
 	<meta name="og:image" content="@ViewContext.Controller.ViewBag.Banner"/>
@@ -64,7 +65,7 @@
 	    <div data-bind="stopBinding: true" class="navbar navbar-inverse navbar-fixed-top">
 		    <div class="navbar-inner">
 			    <div id="topBar" class="container">
-				    <div class="brand">@Html.ActionLink("VocaDB", "Index", "Home")</div>
+				    <div class="brand">@Html.ActionLink(BrandableStrings.Layout.SiteName, "Index", "Home")</div>
 				    @{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel(searchObjectType, searchTerm)); }
 			    </div>
 		    </div>

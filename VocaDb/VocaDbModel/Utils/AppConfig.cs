@@ -44,6 +44,10 @@ namespace VocaDb.Model.Utils {
 			get { return Val("BilibiliAppKey"); }
 		}
 
+		public static string BrandedStringsAssembly {
+			get { return Val("BrandedStringsAssembly"); }
+		}
+
 		public static string DbDumpFolder {
 			get {
 				return Val("DbDumpFolder");

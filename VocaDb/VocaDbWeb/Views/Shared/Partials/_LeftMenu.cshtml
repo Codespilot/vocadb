@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Web.Helpers
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Models.Song
+@inherits VocaDb.Web.Code.VocaDbPage
 
 @helper Banner(string title, string url, string img) {
     <li><a href="@url"><img src="@VocaUrlHelper.StaticResource("/banners/" + img)" alt="@title" title="@title" /></a></li>
@@ -17,7 +18,7 @@
 <div class="span2 menu">
 	<div class="well">
 		<a href="@Url.Action("Index", "Home")">
-			<img src="@VocaUrlHelper.StaticResource("/img/vocaDB-title.png")" class="site-logo" alt="VocaDB" title="VocaDB" />
+			<img src="@VocaUrlHelper.StaticResource("/img/vocaDB-title.png")" class="site-logo" alt="@BrandableStrings.Layout.SiteName" title="@BrandableStrings.Layout.SiteName" />
 		</a>
 		<p class="slogan">@VocaDb.Web.Code.SloganGenerator.Generate()</p>
 	</div>

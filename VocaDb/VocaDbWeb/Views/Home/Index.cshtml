@@ -2,13 +2,14 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models.Song
 @using R = ViewRes.Home;
-@model VocaDb.Model.DataContracts.UseCases.FrontPageContract
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.UseCases.FrontPageContract>
 
 @{
 	ViewBag.DisplaySocialLinks = true;
+	var br = BrandableStrings.Home;
 }
 
-<h3 class="pageTitle">@R.IndexStrings.Welcome <small>@R.IndexStrings.WelcomeSubtitle</small></h3>
+<h3 class="pageTitle">@br.Welcome <small>@br.WelcomeSubtitle</small></h3>
 
 @if (Model.NewSongs.Any()) {
 <h3 class="withMargin">@R.IndexStrings.RecentSongs (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null))</h3>
