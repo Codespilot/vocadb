@@ -3,6 +3,7 @@ using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Model.Service.Helpers {
@@ -69,19 +70,34 @@ namespace VocaDb.Model.Service.Helpers {
 			ParamIs.NotNull(() => mailer);
 
 			var coll = artists.ToArray();
-			var users = coll
-				.SelectMany(a => a.Users.Where(u => !u.User.Equals(creator)).Select(u => u.User))
-				.Distinct()
-				.ToArray();
+			var artistIds = coll.Select(a => a.Id).ToArray();
+
+			// Get users with 3 or less unread messages, following any of the artists
+			var usersWithArtists = ctx.OfType<ArtistForUser>()
+				.Query()
+				.Where(afu => 
+					artistIds.Contains(afu.Artist.Id) 
+					&& afu.User.Id != creator.Id && afu.User.Active
+					&& afu.User.ReceivedMessages.Count(m => !m.Read) <= 3)
+				.Select(afu => new {
+					UserId = afu.User.Id, 
+					ArtistId = afu.Artist.Id
+				})
+				.ToArray()
+				.GroupBy(afu => afu.UserId)
+				.ToDictionary(afu => afu.Key, afu => afu.Select(a => a.ArtistId));
+
+			var userIds = usersWithArtists.Keys;
+
+			if (!userIds.Any())
+				return;
+
+			var users = ctx.OfType<User>().Query().Where(u => userIds.Contains(u.Id)).ToArray();
 
 			foreach (var user in users) {
 
-				var unreadMessagesCount = ctx.Query().Count(m => m.Receiver.Id == user.Id && !m.Read); // Indexed search
-
-				if (unreadMessagesCount > 3)
-					continue;
-
-				var followedArtists = coll.Where(a => a.Users.Any(u => u.User.Equals(user))).ToArray();
+				var artistIdsForUser = new HashSet<int>(usersWithArtists[user.Id]);
+				var followedArtists = coll.Where(a => artistIdsForUser.Contains(a.Id)).ToArray();
 
 				if (followedArtists.Length == 0)
 					continue;

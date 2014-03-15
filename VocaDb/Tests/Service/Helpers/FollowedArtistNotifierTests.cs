@@ -92,6 +92,16 @@ namespace VocaDb.Tests.Service.Helpers {
 		}
 
 		[TestMethod]
+		public void SendNotifications_DisabledUser() {
+
+			user.Active = false;
+			CallSendNotifications(creator);
+
+			Assert.IsFalse(repository.List<UserMessage>().Any(), "No notification created");
+
+		}
+
+		[TestMethod]
 		public void SendNotifications_MultipleFollowedArtists() {
 
 			Save(user.AddArtist(vocalist));
