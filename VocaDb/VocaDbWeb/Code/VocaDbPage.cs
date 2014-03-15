@@ -1,8 +1,13 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.Service.BrandableStrings;
 
 namespace VocaDb.Web.Code {
 
 	public abstract class VocaDbPage<TModel> : WebViewPage<TModel> {
+
+		public BrandableStringsManager BrandableStrings {
+			get { return DependencyResolver.Current.GetService<BrandableStringsManager>(); }
+		}
 
 		/// <summary>
 		/// Relative path to application root.
@@ -21,6 +26,14 @@ namespace VocaDb.Web.Code {
 
 		public string ToJS(int? val) {
 			return val.HasValue ? val.ToString() : "null";
+		}
+
+	}
+
+	public abstract class VocaDbPage : WebViewPage {
+		
+		public BrandableStringsManager BrandableStrings {
+			get { return DependencyResolver.Current.GetService<BrandableStringsManager>(); }
 		}
 
 	}

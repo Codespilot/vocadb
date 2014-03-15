@@ -572,6 +572,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongValidationErrors.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ViewRes\HomeRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HomeRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ViewRes\LayoutRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LayoutRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\ActivityFeedService.cs" />
     <Compile Include="Service\AdminService.cs" />
     <Compile Include="Service\AlbumImport\AlbumImporters.cs" />
@@ -579,6 +589,10 @@
     <Compile Include="Service\AlbumImport\IPictureDownloader.cs" />
     <Compile Include="Service\AlbumImport\KarenTAlbumImporter.cs" />
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
+    <Compile Include="Service\BrandableStrings\BrandableStringsManager.cs" />
+    <Compile Include="Service\BrandableStrings\Collections\HomeStrings.cs" />
+    <Compile Include="Service\BrandableStrings\Collections\LayoutStrings.cs" />
+    <Compile Include="Service\BrandableStrings\IBrandedStringsAssemblyHeader.cs" />
     <Compile Include="Service\Exceptions\InvalidEmailFormatException.cs" />
     <Compile Include="Service\Exceptions\RequestNotValidException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
@@ -785,9 +799,20 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
+    <EmbeddedResource Include="Resources\ViewRes\HomeRes.fi.resx" />
+    <EmbeddedResource Include="Resources\ViewRes\HomeRes.ja.resx" />
+    <EmbeddedResource Include="Resources\ViewRes\HomeRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HomeRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ViewRes\LayoutRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LayoutRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataContracts\Api\" />
+    <Folder Include="Resources\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

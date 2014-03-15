@@ -9,6 +9,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.BrandableStrings;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Repositories.NHibernate;
@@ -48,6 +49,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<ServerEntryImagePersisterOld>().As<IEntryImagePersisterOld>();
 			builder.RegisterType<ServerEntryThumbPersister>().As<IEntryThumbPersister>();
 			builder.RegisterType<NTextCatLibLanguageDetector>().As<ILanguageDetector>();
+			builder.RegisterType<BrandableStringsManager>().AsSelf().SingleInstance();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();
