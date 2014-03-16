@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VocaDb.UtaiteDb.Resources.ViewRes {
+namespace VocaDb.Model.Resources.Views {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace VocaDb.UtaiteDb.Resources.ViewRes {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class AlbumRes {
+    internal class ArtistRes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AlbumRes() {
+        internal ArtistRes() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.UtaiteDb.Resources.ViewRes.AlbumRes", typeof(AlbumRes).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Model.Resources.Views.ArtistRes", typeof(ArtistRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace VocaDb.UtaiteDb.Resources.ViewRes {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,20 +61,11 @@ namespace VocaDb.UtaiteDb.Resources.ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Utaites and other artists associated with this album..
+        ///   Looks up a localized string similar to External link (to artist&apos;s website, Hatsune Miku wiki, NND MyList etc.).
         /// </summary>
-        public static string NewAlbumArtistDesc {
+        internal static string NewArtistExternalLink {
             get {
-                return ResourceManager.GetString("NewAlbumArtistDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The album needs to have at least one track with an utaite to be allowed on UtaiteDB. Unofficial fan-made compilations (bootlegs) are also not allowed. For more information, see the Help/Guidelines..
-        /// </summary>
-        public static string NewAlbumInfo {
-            get {
-                return ResourceManager.GetString("NewAlbumInfo", resourceCulture);
+                return ResourceManager.GetString("NewArtistExternalLink", resourceCulture);
             }
         }
     }
