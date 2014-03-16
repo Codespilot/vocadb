@@ -1,6 +1,6 @@
 ﻿@using VocaDb.Web.Helpers;
 @using R = ViewRes.Album;
-@model VocaDb.Web.Models.Album.Create
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Album.Create>
 
 @{
     ViewBag.Title = R.CreateStrings.SubmitAlbum;
@@ -51,7 +51,7 @@
 
 			<div class="editor-label">
 				<span>@R.CreateStrings.ArtistsInfo</span><br />
-				<span class="extraInfo">@R.CreateStrings.ArtistDesc</span>
+				<span class="extraInfo">@BrandableStrings.Album.NewAlbumArtistDesc</span>
 			</div>
 			<div class="editor-field">
 				@Html.ValidationMessage("Artists")
@@ -75,7 +75,7 @@
 
 		<div class="span4">
 			<div class="alert">
-				@Html.Raw(R.CreateStrings.AlbumInfo)
+				@Html.Raw(BrandableStrings.Album.NewAlbumInfo)
 			</div>			     
 			<div class="alert alert-info">
 				<p>@Html.Raw(R.CreateStrings.AlbumInfo2)</p>

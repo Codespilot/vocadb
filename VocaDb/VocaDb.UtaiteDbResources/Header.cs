@@ -6,6 +6,18 @@ namespace VocaDb.UtaiteDb.Resources {
 
 	public class Header : IBrandedStringsAssemblyHeader {
 
+		public AlbumStrings Album {
+			get {
+				return new AlbumStrings(AlbumRes.ResourceManager);
+			}
+		}
+
+		public ArtistStrings Artist {
+			get {
+				return new ArtistStrings();
+			}
+		}
+
 		public HomeStrings Home {
 			get {
 				return new HomeStrings(HomeRes.ResourceManager);
