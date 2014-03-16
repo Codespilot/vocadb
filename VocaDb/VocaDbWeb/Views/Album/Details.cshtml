@@ -125,12 +125,14 @@
 				</tr>
 			}
 
+			@if (Model.Producers.Any()) {
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.Producers</td>
 				<td class="artistList">
 					@ArtistHelpers.ArtistList(Model.Producers, showRoles: (Model.Producers.Length > 1))
 				</td>
 			</tr>
+			}
 
 			@if (Model.Circles.Any()) {
 			<tr>
