@@ -132,7 +132,11 @@
 
 			@if (Model.Groups.Any()) {
 			<tr>
-				<td>@ViewRes.Artist.DetailsStrings.Groups</td>
+				<td>
+					<span class="helpTip" title="@ViewRes.Artist.DetailsStrings.GroupsHelp">
+						@ViewRes.Artist.DetailsStrings.Groups
+					</span>
+				</td>
 				<td id="groups">
 					@foreach (var grp in Model.Groups) {
 						@ArtistHelpers.ArtistLink(grp.Group)

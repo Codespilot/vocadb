@@ -145,7 +145,10 @@
     <value>Followed by {0} user(s).</value>
   </data>
   <data name="Groups" xml:space="preserve">
-    <value>Circles and labels</value>
+    <value>Groups and labels</value>
+  </data>
+  <data name="GroupsHelp" xml:space="preserve">
+    <value>Circles and labels and other groups</value>
   </data>
   <data name="MainAlbums" xml:space="preserve">
     <value>Main albums</value>
