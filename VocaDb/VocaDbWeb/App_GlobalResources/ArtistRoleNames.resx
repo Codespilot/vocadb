@@ -123,6 +123,9 @@
   <data name="Arranger" xml:space="preserve">
     <value>Arranger</value>
   </data>
+  <data name="Chorus" xml:space="preserve">
+    <value>Chorus</value>
+  </data>
   <data name="Composer" xml:space="preserve">
     <value>Composer</value>
   </data>

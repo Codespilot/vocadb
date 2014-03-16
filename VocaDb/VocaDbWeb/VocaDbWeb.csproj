@@ -2456,6 +2456,7 @@
     <Content Include="App_GlobalResources\ArtistRoleNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ArtistRoleNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\ArtistRoleNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>

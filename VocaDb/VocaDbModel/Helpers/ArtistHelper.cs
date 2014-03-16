@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Helpers {
 
@@ -97,21 +98,11 @@ namespace VocaDb.Model.Helpers {
 		/// The list should be in the correct order.
 		/// The Default role is excluded because it's not a valid selection.
 		/// </summary>
-		public static readonly ArtistRoles[] ValidRoles = {
-			ArtistRoles.Animator,
-			ArtistRoles.Arranger,
-			ArtistRoles.Composer,
-			ArtistRoles.Distributor,
-			ArtistRoles.Illustrator,
-			ArtistRoles.Instrumentalist,
-			ArtistRoles.Lyricist,
-			ArtistRoles.Mastering,
-			ArtistRoles.Mixer,
-			ArtistRoles.Publisher,
-			ArtistRoles.Vocalist,
-			ArtistRoles.VoiceManipulator,
-			ArtistRoles.Other
-		};
+		public static ArtistRoles[] ValidRoles {
+			get {
+				return AppConfig.ArtistRoles;
+			}
+		}
 
 		public static readonly ArtistType[] ProducerTypes = new[] {
 			ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup, ArtistType.Animator
@@ -209,7 +200,7 @@ namespace VocaDb.Model.Helpers {
 
 				var cat = ArtistCategories.Nothing;
 
-				if (roles.HasFlag(ArtistRoles.Vocalist))
+				if (roles.HasFlag(ArtistRoles.Vocalist) || roles.HasFlag(ArtistRoles.Chorus))
 					cat |= ArtistCategories.Vocalist;
 
 				if (roles.HasFlag(ArtistRoles.Arranger) || roles.HasFlag(ArtistRoles.Composer) || roles.HasFlag(ArtistRoles.VoiceManipulator))

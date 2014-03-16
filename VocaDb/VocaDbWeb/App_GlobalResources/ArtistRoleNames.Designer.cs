@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chorus.
+        /// </summary>
+        internal static string Chorus {
+            get {
+                return ResourceManager.GetString("Chorus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Composer.
         /// </summary>
         internal static string Composer {
