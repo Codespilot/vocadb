@@ -123,6 +123,9 @@
   <data name="Arranger" xml:space="preserve">
     <value>Sovittaja</value>
   </data>
+  <data name="Chorus" xml:space="preserve">
+    <value>Kuoro</value>
+  </data>
   <data name="Composer" xml:space="preserve">
     <value>Säveltäjä</value>
   </data>

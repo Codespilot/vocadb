@@ -1,12 +1,35 @@
 ﻿using System;
 using System.Configuration;
 using VocaDb.Model.Domain.Artists;
+using ar = VocaDb.Model.Domain.Artists.ArtistRoles;
 
 namespace VocaDb.Model.Utils {
 
 	public static class AppConfig {
 
 		private static ArtistType[] artistTypes;
+		private static ArtistRoles[] artistRoles;
+
+		/// <summary>
+		/// List of roles that can be assigned to artist added to songs and albums.
+		/// The list should be in the correct order.
+		/// The Default role is excluded because it's not a valid selection.
+		/// </summary>
+		private static readonly ArtistRoles[] DefaultValidRoles = {
+			ar.Animator,
+			ar.Arranger,
+			ar.Composer,
+			ar.Distributor,
+			ar.Illustrator,
+			ar.Instrumentalist,
+			ar.Lyricist,
+			ar.Mastering,
+			ar.Mixer,
+			ar.Publisher,
+			ar.Vocalist,
+			ar.VoiceManipulator,
+			ar.Other
+		};
 
 		private static string Val(string key) {
 			return ConfigurationManager.AppSettings[key];
@@ -36,6 +59,19 @@ namespace VocaDb.Model.Utils {
 				}
 
 				return artistTypes;
+
+			}
+		}
+
+		public static ArtistRoles[] ArtistRoles {
+			get {
+				
+				if (artistRoles == null) {
+					var val = Val("ArtistRoles");
+					artistRoles = !string.IsNullOrEmpty(val) ? EnumVal<ArtistRoles>.ParseMultiple(val) : DefaultValidRoles;
+				}
+
+				return artistRoles;
 
 			}
 		}

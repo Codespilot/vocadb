@@ -56,7 +56,13 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Other				= 2048,
 
-		Mixer				= 4096
+		Mixer				= 4096,
+
+		/// <summary>
+		/// For UtaiteDB.
+		/// "Utaites sometimes like to provide backing vocals for other utaites, and it happens frequently enough that it should be defined as a role."
+		/// </summary>
+		Chorus				= 8192
 
 	}
 }
