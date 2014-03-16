@@ -46,6 +46,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumRes.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewRes\ArtistRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="ViewRes\HomeRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -65,8 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ViewRes\AlbumRes.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewRes\ArtistRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArtistRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewRes\HomeRes.fi.resx" />
     <EmbeddedResource Include="ViewRes\HomeRes.ja.resx" />

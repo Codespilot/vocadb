@@ -572,17 +572,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongValidationErrors.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ViewRes\AlbumRes.Designer.cs">
+    <Compile Include="Resources\Views\AlbumRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>AlbumRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ViewRes\HomeRes.Designer.cs">
+    <Compile Include="Resources\Views\ArtistRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ArtistRes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Views\HomeRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>HomeRes.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\ViewRes\LayoutRes.Designer.cs">
+    <Compile Include="Resources\Views\LayoutRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LayoutRes.resx</DependentUpon>
@@ -806,18 +811,24 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
-    <EmbeddedResource Include="Resources\ViewRes\AlbumRes.fi.resx" />
-    <EmbeddedResource Include="Resources\ViewRes\AlbumRes.resx">
+    <EmbeddedResource Include="Resources\Views\AlbumRes.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\AlbumRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AlbumRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ViewRes\HomeRes.fi.resx" />
-    <EmbeddedResource Include="Resources\ViewRes\HomeRes.ja.resx" />
-    <EmbeddedResource Include="Resources\ViewRes\HomeRes.resx">
+    <EmbeddedResource Include="Resources\Views\ArtistRes.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\ArtistRes.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\ArtistRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArtistRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\HomeRes.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\HomeRes.ja.resx" />
+    <EmbeddedResource Include="Resources\Views\HomeRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ViewRes\LayoutRes.resx">
+    <EmbeddedResource Include="Resources\Views\LayoutRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LayoutRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>

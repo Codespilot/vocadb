@@ -14,7 +14,7 @@ namespace VocaDb.UtaiteDb.Resources {
 
 		public ArtistStrings Artist {
 			get {
-				return new ArtistStrings();
+				return new ArtistStrings(ArtistRes.ResourceManager);
 			}
 		}
 

@@ -38,6 +38,7 @@ namespace VocaDb.Model.Service.BrandableStrings {
 			var header = (IBrandedStringsAssemblyHeader)Activator.CreateInstance(headerType);
 
 			Album = header.Album;
+			Artist = header.Artist;
 			Home = header.Home;
 			Layout = header.Layout;
 
@@ -48,14 +49,17 @@ namespace VocaDb.Model.Service.BrandableStrings {
 		public BrandableStringsManager() {
 
 			if (!LoadBrandedStrings()) {
-				Album = new AlbumStrings(Resources.ViewRes.AlbumRes.ResourceManager);				
-				Home = new HomeStrings(Resources.ViewRes.HomeRes.ResourceManager);				
-				Layout = new LayoutStrings(Resources.ViewRes.LayoutRes.ResourceManager);				
+				Album = new AlbumStrings(Resources.Views.AlbumRes.ResourceManager);				
+				Artist = new ArtistStrings(Resources.Views.ArtistRes.ResourceManager);				
+				Home = new HomeStrings(Resources.Views.HomeRes.ResourceManager);				
+				Layout = new LayoutStrings(Resources.Views.LayoutRes.ResourceManager);				
 			}
 
 		}
 
 		public AlbumStrings Album { get; private set; }
+
+		public ArtistStrings Artist { get; private set; }
 
 		public HomeStrings Home { get; private set; }
 	
