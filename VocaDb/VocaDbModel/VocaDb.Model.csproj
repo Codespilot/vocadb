@@ -572,6 +572,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongValidationErrors.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\ViewRes\AlbumRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlbumRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ViewRes\HomeRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -590,6 +595,8 @@
     <Compile Include="Service\AlbumImport\KarenTAlbumImporter.cs" />
     <Compile Include="Service\AlbumImport\WebPictureDownloader.cs" />
     <Compile Include="Service\BrandableStrings\BrandableStringsManager.cs" />
+    <Compile Include="Service\BrandableStrings\Collections\AlbumStrings.cs" />
+    <Compile Include="Service\BrandableStrings\Collections\ArtistStrings.cs" />
     <Compile Include="Service\BrandableStrings\Collections\HomeStrings.cs" />
     <Compile Include="Service\BrandableStrings\Collections\LayoutStrings.cs" />
     <Compile Include="Service\BrandableStrings\IBrandedStringsAssemblyHeader.cs" />
@@ -799,6 +806,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\SongValidationErrors.ru.resx" />
+    <EmbeddedResource Include="Resources\ViewRes\AlbumRes.fi.resx" />
+    <EmbeddedResource Include="Resources\ViewRes\AlbumRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AlbumRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ViewRes\HomeRes.fi.resx" />
     <EmbeddedResource Include="Resources\ViewRes\HomeRes.ja.resx" />
     <EmbeddedResource Include="Resources\ViewRes\HomeRes.resx">

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ViewRes.Album {
+namespace VocaDb.Model.Resources.ViewRes {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace ViewRes.Album {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CreateStrings {
+    internal class AlbumRes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CreateStrings() {
+        internal AlbumRes() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Web.Resources.Views.Album.CreateStrings", typeof(CreateStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VocaDb.Model.Resources.ViewRes.AlbumRes", typeof(AlbumRes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace ViewRes.Album {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,56 +61,20 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please make sure the entry you&apos;re about to submit hasn&apos;t been added before. You need to enter at least one name and artist..
+        ///   Looks up a localized string similar to Producers and vocalists associated with this album..
         /// </summary>
-        public static string AlbumInfo2 {
+        internal static string NewAlbumArtistDesc {
             get {
-                return ResourceManager.GetString("AlbumInfo2", resourceCulture);
+                return ResourceManager.GetString("NewAlbumArtistDesc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Artists (need at least 1).
+        ///   Looks up a localized string similar to Please note that VocaDB is not UtaiteDB. &lt;strong&gt;The album needs to have at least one track with Vocaloid vocals to be allowed on VocaDB (other voice synthsizers such as UTAU are also allowed, but human-sung covers are not)&lt;/strong&gt;. Unofficial fan-made compilations (bootlegs) are also not allowed. For more information, see the Help/Guidelines..
         /// </summary>
-        public static string ArtistsInfo {
+        internal static string NewAlbumInfo {
             get {
-                return ResourceManager.GetString("ArtistsInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disc type.
-        /// </summary>
-        public static string DiscType {
-            get {
-                return ResourceManager.GetString("DiscType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Need at least one artist..
-        /// </summary>
-        public static string NeedArtist {
-            get {
-                return ResourceManager.GetString("NeedArtist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit a new album.
-        /// </summary>
-        public static string SubmitAlbum {
-            get {
-                return ResourceManager.GetString("SubmitAlbum", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unable to create album. Correct the errors and try again..
-        /// </summary>
-        public static string UnableToCreateAlbum {
-            get {
-                return ResourceManager.GetString("UnableToCreateAlbum", resourceCulture);
+                return ResourceManager.GetString("NewAlbumInfo", resourceCulture);
             }
         }
     }

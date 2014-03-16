@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlbumInfo2" xml:space="preserve">
-    <value>Varmista ettei albumia ole jo tietokannssa. Sinun täytyy antaa ainakin yksi nimi ja artisti.</value>
+  <data name="NewAlbumArtistDesc" xml:space="preserve">
+    <value>Producers and vocalists associated with this album.</value>
   </data>
-  <data name="ArtistsInfo" xml:space="preserve">
-    <value>Artistit (tarvitaan vähintään yksi)</value>
-  </data>
-  <data name="DiscType" xml:space="preserve">
-    <value>Levyn tyyppi</value>
-  </data>
-  <data name="NeedArtist" xml:space="preserve">
-    <value>Tarvitaan ainakin yksi artisti.</value>
-  </data>
-  <data name="SubmitAlbum" xml:space="preserve">
-    <value>Lisää albumi</value>
-  </data>
-  <data name="UnableToCreateAlbum" xml:space="preserve">
-    <value>Albumin lisäys ei onnistu. Tarkista virheet ja yritä uudelleen.</value>
+  <data name="NewAlbumInfo" xml:space="preserve">
+    <value>Please note that VocaDB is not UtaiteDB. &lt;strong&gt;The album needs to have at least one track with Vocaloid vocals to be allowed on VocaDB (other voice synthsizers such as UTAU are also allowed, but human-sung covers are not)&lt;/strong&gt;. Unofficial fan-made compilations (bootlegs) are also not allowed. For more information, see the Help/Guidelines.</value>
   </data>
 </root>
