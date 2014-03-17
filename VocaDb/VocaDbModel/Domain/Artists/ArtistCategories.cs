@@ -17,7 +17,9 @@ namespace VocaDb.Model.Domain.Artists {
 
 		Circle		= 16,
 
-		Other		= 32
+		Other		= 32,
+
+		Band		= 64
 
 	}
 

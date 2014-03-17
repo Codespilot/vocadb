@@ -210,4 +210,7 @@
   <data name="Reset" xml:space="preserve">
     <value>Resetoi</value>
   </data>
+  <data name="Band" xml:space="preserve">
+    <value>Yhtye/yksikkö</value>
+  </data>
 </root>

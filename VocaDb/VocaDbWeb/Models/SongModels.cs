@@ -96,6 +96,7 @@ namespace VocaDb.Web.Models {
 			Performers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Vocalist)).ToArray();
 			Producers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Producer)).ToArray();
 			OtherArtists = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Circle) 
+				|| a.Categories.HasFlag(ArtistCategories.Band) 
 				|| a.Categories.HasFlag(ArtistCategories.Label) 
 				|| a.Categories.HasFlag(ArtistCategories.Other)).ToArray();
 

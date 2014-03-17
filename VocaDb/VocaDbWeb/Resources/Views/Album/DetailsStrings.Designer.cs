@@ -88,6 +88,15 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Band/unit.
+        /// </summary>
+        public static string Band {
+            get {
+                return ResourceManager.GetString("Band", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Catalog number.
         /// </summary>
         public static string CatalogNumber {

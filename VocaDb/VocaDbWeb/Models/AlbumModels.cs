@@ -270,6 +270,7 @@ namespace VocaDb.Web.Models {
 
 			var artists = contract.ArtistLinks;
 
+			Bands = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Band)).ToArray();
 			Circles = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Circle)).ToArray();
 			Labels = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Label)).ToArray();
 			Producers = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Producer)).ToArray();
@@ -287,6 +288,8 @@ namespace VocaDb.Web.Models {
 		public PurchaseStatus AlbumPurchaseStatus { get; set; }
 
 		public string ArtistString { get; set; }
+
+		public ArtistForAlbumContract[] Bands { get; set; }
 
 		public bool CanEdit { get; set; }
 
