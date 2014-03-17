@@ -21,7 +21,7 @@ namespace VocaDb.Model.Helpers {
 			if (categories.HasFlag(ArtistCategories.Producer))
 				return 1;
 
-			if (categories.HasFlag(ArtistCategories.Circle))
+			if (categories.HasFlag(ArtistCategories.Circle) || categories.HasFlag(ArtistCategories.Band))
 				return 2;
 
 			return 3;
@@ -44,6 +44,7 @@ namespace VocaDb.Model.Helpers {
 
 			return (categories.HasFlag(ArtistCategories.Producer) 
 				|| categories.HasFlag(ArtistCategories.Circle) 
+				|| categories.HasFlag(ArtistCategories.Band) 
 				|| (isAnimation && categories.HasFlag(ArtistCategories.Animator)));
 
 		}
@@ -69,7 +70,7 @@ namespace VocaDb.Model.Helpers {
 		public static readonly Dictionary<ArtistType, ArtistCategories> CategoriesForTypes = new Dictionary<ArtistType, ArtistCategories> {
 			{ ArtistType.Animator, ArtistCategories.Animator },
 			{ ArtistType.Circle, ArtistCategories.Circle },
-			{ ArtistType.Band, ArtistCategories.Circle },
+			{ ArtistType.Band, ArtistCategories.Band },
 			{ ArtistType.Illustrator, ArtistCategories.Other },
 			{ ArtistType.Label, ArtistCategories.Label },
 			{ ArtistType.Lyricist, ArtistCategories.Other },
@@ -104,9 +105,9 @@ namespace VocaDb.Model.Helpers {
 			}
 		}
 
-		public static readonly ArtistType[] ProducerTypes = new[] {
-			ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup, ArtistType.Animator
-		};
+		//public static readonly ArtistType[] ProducerTypes = new[] {
+		//	ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup, ArtistType.Animator
+		//};
 
 		/// <summary>
 		/// Artists allowed for a song.

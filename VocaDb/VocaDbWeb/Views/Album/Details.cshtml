@@ -7,6 +7,7 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models;
 @using R = ViewRes.Album;
+@using Res = ViewRes.Album.DetailsStrings;
 @model AlbumDetails
 		   
 @{
@@ -132,6 +133,15 @@
 					@ArtistHelpers.ArtistList(Model.Producers, showRoles: (Model.Producers.Length > 1))
 				</td>
 			</tr>
+			}
+			
+			@if (Model.Bands.Any()) {
+				<tr>
+					<td>@Res.Band</td>
+					<td class="artistList">
+						@ArtistHelpers.ArtistList(Model.Bands)
+					</td>
+				</tr>
 			}
 
 			@if (Model.Circles.Any()) {
