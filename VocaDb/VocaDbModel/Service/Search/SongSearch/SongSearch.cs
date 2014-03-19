@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
+using NHibernate.Util;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -19,36 +20,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			get { return languagePreference; }
 		}
 
-		private static IQueryable<Song> AddNameFilter(IQueryable<Song> directQ, string query, NameMatchMode nameMatchMode, bool onlyByName) {
-
-			var matchMode = FindHelpers.GetMatchMode(query, nameMatchMode);
-
-			if (matchMode == NameMatchMode.Exact) {
-
-				return directQ.Where(s =>
-					s.Names.SortNames.English == query
-						|| s.Names.SortNames.Romaji == query
-						|| s.Names.SortNames.Japanese == query);
-
-			} else if (matchMode == NameMatchMode.StartsWith) {
-
-				return directQ.Where(s =>
-					s.Names.SortNames.English.StartsWith(query)
-						|| s.Names.SortNames.Romaji.StartsWith(query)
-						|| s.Names.SortNames.Japanese.StartsWith(query));
-
-			} else {
-
-				return directQ.Where(s =>
-					s.Names.SortNames.English.Contains(query)
-						|| s.Names.SortNames.Romaji.Contains(query)
-						|| s.Names.SortNames.Japanese.Contains(query)
-						|| (!onlyByName && s.NicoId != null && s.NicoId == query));
-
-			}
-
-		}
-
 		private IQueryable<Song> AddPVFilter(IQueryable<Song> criteria, bool onlyWithPVs) {
 
 			if (onlyWithPVs)
@@ -58,25 +29,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		}
 
-		private IQueryable<ArtistForSong> AddPVFilter(IQueryable<ArtistForSong> criteria, bool onlyWithPVs) {
-
-			if (onlyWithPVs)
-				return criteria.Where(t => t.Song.PVServices != PVServices.Nothing);
-			else
-				return criteria;
-
-		}
-
 		private IQueryable<SongName> AddPVFilter(IQueryable<SongName> criteria, bool onlyWithPVs) {
-
-			if (onlyWithPVs)
-				return criteria.Where(t => t.Song.PVServices != PVServices.Nothing);
-			else
-				return criteria;
-
-		}
-
-		private IQueryable<SongTagUsage> AddPVFilter(IQueryable<SongTagUsage> criteria, bool onlyWithPVs) {
 
 			if (onlyWithPVs)
 				return criteria.Where(t => t.Song.PVServices != PVServices.Nothing);
@@ -114,17 +67,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		}
 
-		private IQueryable<ArtistForSong> AddTimeFilter(IQueryable<ArtistForSong> criteria, TimeSpan timeFilter) {
-
-			if (timeFilter == TimeSpan.Zero)
-				return criteria;
-
-			var since = DateTime.Now - timeFilter;
-
-			return criteria.Where(t => t.Song.CreateDate >= since);
-
-		}
-
 		private IQueryable<SongName> AddTimeFilter(IQueryable<SongName> criteria, TimeSpan timeFilter) {
 
 			if (timeFilter == TimeSpan.Zero)
@@ -136,14 +78,27 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		}
 
-		private IQueryable<SongTagUsage> AddTimeFilter(IQueryable<SongTagUsage> criteria, TimeSpan timeFilter) {
+		private IQueryable<Song> CreateQuery(
+			SongQueryParams queryParams, 
+			ParsedSongQuery parsedQuery, 
+			NameMatchMode? nameMatchMode = null) {
+			
+			var query = Query<Song>()
+				.Where(s => !s.Deleted)
+				.WhereHasName(parsedQuery.Name, nameMatchMode ?? queryParams.Common.NameMatchMode)
+				.WhereHasArtist(queryParams.ArtistId)
+				.WhereDraftsOnly(queryParams.Common.DraftOnly)
+				.WhereHasType(queryParams.SongTypes)
+				.WhereHasTag(parsedQuery.TagName)
+				.WhereArtistHasTag(parsedQuery.ArtistTag)
+				.WhereHasNicoId(parsedQuery.NicoId)
+				.WhereIdNotIn(queryParams.IgnoredIds);
 
-			if (timeFilter == TimeSpan.Zero)
-				return criteria;
+			query = AddScoreFilter(query, queryParams.MinScore);
+			query = AddTimeFilter(query, queryParams.TimeFilter);
+			query = AddPVFilter(query, queryParams.OnlyWithPVs);
 
-			var since = DateTime.Now - timeFilter;
-
-			return criteria.Where(t => t.Song.CreateDate >= since);
+			return query;
 
 		}
 
@@ -162,6 +117,12 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			.FirstOrDefault();
 
 		}
+
+		public static Song[] SortByIds(IEnumerable<Song> songs, int[] idList) {
+			
+			return Model.Helpers.CollectionHelper.SortByIds(songs, idList);
+
+		} 
 
 		private IQueryable<T> Query<T>() {
 			return querySource.Query<T>();
@@ -214,125 +175,128 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			var query = queryParams.Common.Query ?? string.Empty;
 			var parsedQuery = ParseTextQuery(query);
 
-			Song[] songs = GetSongs(queryParams, parsedQuery);
+			var isMoveToTopQuery = 	(queryParams.Common.MoveExactToTop 
+				&& queryParams.Common.NameMatchMode != NameMatchMode.StartsWith 
+				&& queryParams.Common.NameMatchMode != NameMatchMode.Exact 
+				&& queryParams.ArtistId == 0
+				&& queryParams.Paging.Start == 0
+				&& parsedQuery.HasNameQuery);
 
-			int count = (queryParams.Paging.GetTotalCount ? GetSongCount(queryParams, parsedQuery) : 0);
+			if (isMoveToTopQuery) {
+				return GetSongsMoveExactToTop(queryParams, parsedQuery);
+			}
 
-			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, false);
+			return GetSongs(queryParams, parsedQuery);
 
 		}
 
-		private Song[] GetSongs(SongQueryParams queryParams, ParsedSongQuery parsedQuery) {
-
-			var ignoreIds = queryParams.IgnoredIds;
-			var nameMatchMode = queryParams.Common.NameMatchMode;
-			var songTypes = queryParams.SongTypes;
+		/// <summary>
+		/// Get songs, searching by exact matches FIRST.
+		/// This mode does not support paging.
+		/// </summary>
+		private PartialFindResult<Song> GetSongsMoveExactToTop(SongQueryParams queryParams, ParsedSongQuery parsedQuery) {
+			
 			var sortRule = queryParams.SortRule;
-			var start = queryParams.Paging.Start;
 			var maxResults = queryParams.Paging.MaxEntries;
+			var getCount = queryParams.Paging.GetTotalCount;
 
-			bool filterByType = songTypes.Any();
-			Song[] songs;
+			// Exact query contains the "exact" matches.
+			// Note: the matched name does not have to be in user's display language, it can be any name.
+			// The songs are sorted by user's display language though
+			var exactQ = CreateQuery(queryParams, parsedQuery, NameMatchMode.StartsWith);
 
-			int[] exactResults;
+			int count;
+			int[] ids;
+			var exactResults = exactQ
+				.AddOrder(sortRule, LanguagePreference)
+				.Select(s => s.Id)
+				.Take(maxResults)
+				.ToArray();
 
-			if (queryParams.Common.MoveExactToTop 
-				&& nameMatchMode != NameMatchMode.StartsWith 
-				&& nameMatchMode != NameMatchMode.Exact 
-				&& queryParams.ArtistId == 0
-				&& queryParams.Paging.Start == 0
-				&& parsedQuery.HasNameQuery) {
+			/*var exactQ = querySource.Query<SongName>()
+				.Where(m => !m.Song.Deleted);
 
-				var exactQ = querySource.Query<SongName>()
-					.Where(m => !m.Song.Deleted);
+			if (queryParams.Common.DraftOnly)
+				exactQ = exactQ.Where(a => a.Song.Status == EntryStatus.Draft);
 
-				if (queryParams.Common.DraftOnly)
-					exactQ = exactQ.Where(a => a.Song.Status == EntryStatus.Draft);
+			exactQ = AddScoreFilter(exactQ, queryParams.MinScore);
+			exactQ = AddTimeFilter(exactQ, queryParams.TimeFilter);
+			exactQ = AddPVFilter(exactQ, queryParams.OnlyWithPVs);
 
-				exactQ = AddScoreFilter(exactQ, queryParams.MinScore);
-				exactQ = AddTimeFilter(exactQ, queryParams.TimeFilter);
-				exactQ = AddPVFilter(exactQ, queryParams.OnlyWithPVs);
+			exactQ = FindHelpers.AddEntryNameFilter(exactQ, parsedQuery.Name, NameMatchMode.StartsWith);
 
-				exactQ = FindHelpers.AddEntryNameFilter(exactQ, parsedQuery.Name, NameMatchMode.StartsWith);
+			var songTypes = queryParams.SongTypes;
+			if (songTypes.Any())
+				exactQ = exactQ.Where(m => songTypes.Contains(m.Song.SongType));
+			 
+			int count;
+			int[] ids;
+			var exactResults = exactQ
+				.OrderBy(s => s.Value)
+				.Select(s => s.Song.Id)
+				.ToArray()
+				.Distinct()
+				//.AddOrder(sortRule, LanguagePreference)
+				//.Select(s => s.Id)
+				.Take(maxResults)
+				.ToArray();
+			 			 
+			 */
 
-				if (filterByType)
-					exactQ = exactQ.Where(m => songTypes.Contains(m.Song.SongType));
+			if (exactResults.Length >= maxResults) {
 
-				exactResults = exactQ
-					.Select(m => m.Song)
+				ids = exactResults;
+				count = getCount ? CreateQuery(queryParams, parsedQuery).Count() : 0;
+
+			} else { 
+
+				var directQ = CreateQuery(queryParams, parsedQuery);
+
+				var direct = directQ
 					.AddOrder(sortRule, LanguagePreference)
 					.Select(s => s.Id)
 					.Take(maxResults)
-					.ToArray()
-					.Distinct()
 					.ToArray();
 
-				if (queryParams.Paging.Start == 0 && exactResults.Length >= maxResults)
-					return querySource.Query<Song>()
-						.Where(s => exactResults.Contains(s.Id))
-						.AddOrder(sortRule, LanguagePreference)
-						.ToArray();
+				ids = exactResults
+					.Concat(direct)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
 
-			} else {
-				exactResults = new int[0];
+				count = getCount ? directQ.Count() : 0;
+
 			}
 
-			var directQ = Query<Song>()
-				.Where(s => !s.Deleted)
-				.WhereHasName(parsedQuery.Name, nameMatchMode)
-				.WhereHasArtist(queryParams.ArtistId)
-				.WhereDraftsOnly(queryParams.Common.DraftOnly)
-				.WhereHasType(queryParams.SongTypes)
-				.WhereHasTag(parsedQuery.TagName)
-				.WhereArtistHasTag(parsedQuery.ArtistTag)
-				.WhereHasNicoId(parsedQuery.NicoId);
+			var songs = SortByIds(
+				querySource
+					.Query<Song>()
+					.Where(s => ids.Contains(s.Id))
+					.ToArray(), ids);
 
-			directQ = AddScoreFilter(directQ, queryParams.MinScore);
-			directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
-			directQ = AddPVFilter(directQ, queryParams.OnlyWithPVs);
-
-			var direct = directQ
-				.AddOrder(sortRule, LanguagePreference)
-				.Select(s => s.Id)
-				.Skip(start)
-				.Take(maxResults)
-				.ToArray();
-
-			var page = exactResults.Concat(direct)
-				.Distinct()
-				.Where(e => !ignoreIds.Contains(e))
-				.Take(maxResults)
-				.ToArray();
-
-			songs = querySource
-				.Query<Song>()
-				.Where(s => page.Contains(s.Id))
-				.AddOrder(sortRule, LanguagePreference) // TODO: should actually sort by the original Id order
-				.ToArray();
-
-			return songs;
+			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, true);
 
 		}
 
-		private int GetSongCount(SongQueryParams queryParams, ParsedSongQuery parsedQuery) {
+		private PartialFindResult<Song> GetSongs(SongQueryParams queryParams, ParsedSongQuery parsedQuery) {
 
-			ParamIs.NotNull(() => queryParams);
+			var query = CreateQuery(queryParams, parsedQuery);
 
-			var directQ = Query<Song>()
-				.Where(s => !s.Deleted)
-				.WhereHasName(parsedQuery.Name, queryParams.Common.NameMatchMode)
-				.WhereHasArtist(queryParams.ArtistId)
-				.WhereDraftsOnly(queryParams.Common.DraftOnly)
-				.WhereHasType(queryParams.SongTypes)
-				.WhereHasTag(parsedQuery.TagName)
-				.WhereArtistHasTag(parsedQuery.ArtistTag)
-				.WhereHasNicoId(parsedQuery.NicoId);
+			var ids = query
+				.AddOrder(queryParams.SortRule, LanguagePreference)
+				.Select(s => s.Id)
+				.Skip(queryParams.Paging.Start)
+				.Take(queryParams.Paging.MaxEntries)
+				.ToArray();
 
-			directQ = AddScoreFilter(directQ, queryParams.MinScore);
-			directQ = AddTimeFilter(directQ, queryParams.TimeFilter);
-			directQ = AddPVFilter(directQ, queryParams.OnlyWithPVs);
+			var songs = SortByIds(querySource
+				.Query<Song>()
+				.Where(s => ids.Contains(s.Id))
+				.ToArray(), ids);
 
-			return directQ.Count();
+			var count = (queryParams.Paging.GetTotalCount ? query.Count() : 0);
+
+			return new PartialFindResult<Song>(songs, count, queryParams.Common.Query, false);
 
 		}
 

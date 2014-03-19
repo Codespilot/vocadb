@@ -389,6 +389,11 @@ namespace VocaDb.Web.Controllers
         public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
         {
 
+			// Note: name is allowed to be whitespace, but not empty.
+			if (model.Names.AllNames.All(n => string.IsNullOrEmpty(n.Value))) {
+				ModelState.AddModelError("Names", Model.Resources.ArtistValidationErrors.UnspecifiedNames);
+			}
+
 			var coverPicUpload = Request.Files["pictureUpload"];
 			var pictureData = ParsePicture(coverPicUpload, "Picture");
 

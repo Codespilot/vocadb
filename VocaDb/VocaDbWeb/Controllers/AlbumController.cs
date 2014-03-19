@@ -14,6 +14,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Resources;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.AlbumSearch;
@@ -314,6 +315,11 @@ namespace VocaDb.Web.Controllers
         [Authorize]
         public ActionResult Edit(AlbumEdit model)
         {
+
+			// Note: name is allowed to be whitespace, but not empty.
+			if (model.Names.AllNames.All(n => string.IsNullOrEmpty(n.Value))) {
+				ModelState.AddModelError("Names", AlbumValidationErrors.UnspecifiedNames);
+			}
 
 			if (!OptionalDateTime.IsValid(model.ReleaseYear, model.ReleaseDay, model.ReleaseMonth))
 				ModelState.AddModelError("ReleaseYear", "Invalid date");

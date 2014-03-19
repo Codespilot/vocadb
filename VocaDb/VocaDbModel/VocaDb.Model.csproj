@@ -780,7 +780,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ArtistTypeNames.ru.resx" />
     <EmbeddedResource Include="Resources\ArtistValidationErrors.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ArtistValidationErrors.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ArtistValidationErrors.ru.resx" />

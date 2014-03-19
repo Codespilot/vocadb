@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using VocaDb.Model.Domain;
 
 namespace VocaDb.Model.Helpers {
 
@@ -104,6 +105,28 @@ namespace VocaDb.Model.Helpers {
 			return items.Where(i => i != null);
 
 		}
+
+		public static T[] SortByIds<T>(IEnumerable<T> entries, int[] idList) where T : IEntryWithIntId {
+			
+			var bucket = new T[idList.Length];
+			var idToIndex = Enumerable
+				.Range(0, idList.Length)
+				.ToDictionary(i => idList[i], i => i);
+
+			foreach (var entry in entries) {
+
+				if (!idToIndex.ContainsKey(entry.Id)) {
+					throw new InvalidOperationException(string.Format("No ID mapping found for {0}", entry));
+				}
+
+				var idx = idToIndex[entry.Id];
+				bucket[idx] = entry;
+
+			}
+
+			return bucket;
+
+		} 
 
 		/// <summary>
 		/// Syncs items in one collection with a new set.

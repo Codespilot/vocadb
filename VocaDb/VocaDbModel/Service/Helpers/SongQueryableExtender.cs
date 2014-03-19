@@ -203,5 +203,23 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Song> WhereIdNotIn(this IQueryable<Song> query, int[] ignoreIds) {
+
+			if (ignoreIds == null || !ignoreIds.Any())
+				return query;
+
+			return query.Where(s => !ignoreIds.Contains(s.Id));
+
+		} 
+
+		/*public static IQueryable<Song> WhereInUserCollection(this IQueryable<Song> query, int userId) {
+
+			if (userId == 0)
+				return query;
+
+			return query.Where(s => s.UserFavorites.Any(a => a.User.Id == userId));
+
+		}*/
+
 	}
 }

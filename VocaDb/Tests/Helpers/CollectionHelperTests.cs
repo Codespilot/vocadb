@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Tests.Helpers {
@@ -11,7 +12,7 @@ namespace VocaDb.Tests.Helpers {
 	[TestClass]
 	public class CollectionHelperTests {
 
-		class Entity {
+		class Entity : IEntryWithIntId {
 
 			public int Id { get; set; }
 
@@ -80,6 +81,22 @@ namespace VocaDb.Tests.Helpers {
 			Assert.AreEqual(removedCount, result.Removed.Length, "Removed");
 			Assert.AreEqual(unchangedCount, result.Unchanged.Length, "Unchanged");
 			return result;
+
+		}
+
+		[TestMethod]
+		public void SortByIds() {
+			
+			var entries = EntityList("Meiko", "Rin", "Miku", "Luka", "Kaito");
+			var idList = new[] { 1, 5, 3, 2, 4 }; // Meiko, Kaito, Miku, Rin, Luka
+
+			var result = CollectionHelper.SortByIds(entries, idList);
+
+			Assert.AreEqual("Meiko", result[0].Val);
+			Assert.AreEqual("Kaito", result[1].Val);
+			Assert.AreEqual("Miku", result[2].Val);
+			Assert.AreEqual("Rin", result[3].Val);
+			Assert.AreEqual("Luka", result[4].Val);
 
 		}
 

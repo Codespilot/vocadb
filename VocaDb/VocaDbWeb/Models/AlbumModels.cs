@@ -165,6 +165,7 @@ namespace VocaDb.Web.Models {
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			Deleted = album.Deleted;
 			Draft = album.Status == EntryStatus.Draft;
+			Name = album.Name;
 			NameEnglish = album.TranslatedName.English;
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
