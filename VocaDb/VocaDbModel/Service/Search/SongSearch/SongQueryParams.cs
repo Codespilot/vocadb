@@ -84,6 +84,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		public TimeSpan TimeFilter { get; set; }
 
+		public int UserCollectionId { get; set; }
+
 	}
 
 }

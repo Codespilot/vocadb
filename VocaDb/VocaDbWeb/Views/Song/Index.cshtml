@@ -13,7 +13,7 @@
 @using VocaDb.Web.Models.Song
 @using R = ViewRes.Song;
 @using E = ViewRes.Song.IndexStrings
-@model VocaDb.Web.Models.Song.Index
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Song.Index>
 
 @{
 	ViewBag.Title = @ViewRes.SharedStrings.Songs;
@@ -30,6 +30,7 @@
 		<form method="POST" action="@Url.Action("Index", "Song")" class="form-horizontal form-noBottomMargin" id="filterForm">
 			@Html.HiddenFor(m => m.Sort)
 			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
+			@Html.HiddenFor(m => m.UserCollectionId)
 			
 			<div data-bind="visible: hasFilter" style="display: none;">
 				<p data-bind="text: filterString"></p>

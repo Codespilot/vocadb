@@ -92,7 +92,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				.WhereHasTag(parsedQuery.TagName)
 				.WhereArtistHasTag(parsedQuery.ArtistTag)
 				.WhereHasNicoId(parsedQuery.NicoId)
-				.WhereIdNotIn(queryParams.IgnoredIds);
+				.WhereIdNotIn(queryParams.IgnoredIds)
+				.WhereInUserCollection(queryParams.UserCollectionId);
 
 			query = AddScoreFilter(query, queryParams.MinScore);
 			query = AddTimeFilter(query, queryParams.TimeFilter);
