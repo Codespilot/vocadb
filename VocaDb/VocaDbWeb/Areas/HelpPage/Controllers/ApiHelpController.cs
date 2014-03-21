@@ -1,6 +1,7 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
+using VocaDb.Web.Areas.HelpPage.ModelDescriptions;
 using VocaDb.Web.Areas.HelpPage.Models;
 
 namespace VocaDb.Web.Areas.HelpPage.Controllers
@@ -10,6 +11,8 @@ namespace VocaDb.Web.Areas.HelpPage.Controllers
     /// </summary>
     public class ApiHelpController : Controller
     {
+        private const string ErrorViewName = "Error";
+
         public ApiHelpController()
             : this(GlobalConfiguration.Configuration)
         {
@@ -39,7 +42,22 @@ namespace VocaDb.Web.Areas.HelpPage.Controllers
                 }
             }
 
-            return View("Error");
+            return View(ErrorViewName);
+        }
+
+        public ActionResult ResourceModel(string modelName)
+        {
+            if (!String.IsNullOrEmpty(modelName))
+            {
+                ModelDescriptionGenerator modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
+                ModelDescription modelDescription;
+                if (modelDescriptionGenerator.GeneratedModels.TryGetValue(modelName, out modelDescription))
+                {
+                    return View(modelDescription);
+                }
+            }
+
+            return View(ErrorViewName);
         }
     }
 }

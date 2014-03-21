@@ -11,12 +11,12 @@
         null;
 }
 
-<h2 class="api-group-title" id="@Model.Key">@Model.Key.ControllerName</h2>
+<h2 id="@Model.Key.ControllerName">@Model.Key.ControllerName</h2>
 @if (!String.IsNullOrEmpty(controllerDocumentation))
 {
     <p>@controllerDocumentation</p>
 }
-<table class="table table-hover">
+<table class="help-page-table table table-hover">
     <thead>
         <tr><th>API</th><th>Description</th></tr>
     </thead>

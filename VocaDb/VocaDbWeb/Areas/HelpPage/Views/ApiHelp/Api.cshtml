@@ -7,7 +7,7 @@
     ViewBag.Title = description.HttpMethod.Method + " " + description.RelativePath;
 }
 
-<div class="span12" id="body">
+<div id="body" class="span12 help-page">
     <section class="featured">
         <div class="content-wrapper">
 			<ul class="breadcrumb">
@@ -17,6 +17,6 @@
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
-        @Html.DisplayFor(m => Model)
+        @Html.DisplayForModel()
     </section>
 </div>
