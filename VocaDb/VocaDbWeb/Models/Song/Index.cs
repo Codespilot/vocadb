@@ -16,8 +16,9 @@ namespace VocaDb.Web.Models.Song {
 		public Index() {}
 
 		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, NameMatchMode nameMatchMode, 
-			SongType songType, string timeFilter, bool onlyWithPVs, int minScore,
-			SongSortRule sortRule, SongViewMode viewMode, 
+			SongType songType, string timeFilter, bool onlyWithPVs, int minScore, int userCollectionId,
+			SongSortRule sortRule, 			
+			SongViewMode viewMode, 
 			bool draftsOnly, int page, int pageSize, IndexRouteParams routeParams) {
 
 			ArtistId = routeParams.artistId ?? 0;
@@ -31,6 +32,7 @@ namespace VocaDb.Web.Models.Song {
 			OnlyWithPVs = onlyWithPVs;
 			MinScore = minScore;
 			Sort = sortRule;
+			UserCollectionId = userCollectionId;
 			ViewMode = viewMode;
 			RouteParams = routeParams;
 
@@ -60,6 +62,8 @@ namespace VocaDb.Web.Models.Song {
 		public SongType SongType { get; set; }
 
 		public SongSortRule Sort { get; set; }
+
+		public int UserCollectionId { get; set; }
 
 		public SongViewMode ViewMode { get; set; }
 
@@ -106,6 +110,7 @@ namespace VocaDb.Web.Models.Song {
 			since = index.since;
 			songType = index.songType;
 			sort = index.sort;
+			userCollectionId = index.userCollectionId;
 			view = index.view;
 			this.page = page;
 
@@ -133,6 +138,8 @@ namespace VocaDb.Web.Models.Song {
 		public SongType? songType { get; set; }
 
 		public SongSortRule? sort { get; set; }
+
+		public int? userCollectionId { get; set; }
 
 		public SongViewMode? view { get; set; }
 

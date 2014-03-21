@@ -134,6 +134,7 @@ namespace VocaDb.Web.Controllers
 			var matchMode = indexParams.matchMode ?? NameMatchMode.Auto;
 			var onlyWithPVs = indexParams.onlyWithPVs ?? false;
 			var minScore = indexParams.minScore ?? 0;
+			var userCollectionId = indexParams.userCollectionId ?? 0;
 			var view = indexParams.view ?? SongViewMode.Details;
 
 			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
@@ -145,7 +146,8 @@ namespace VocaDb.Web.Controllers
 				TimeFilter = timeFilter,
 				OnlyWithPVs = onlyWithPVs,
 				ArtistId = indexParams.artistId ?? 0,		
-				MinScore = minScore
+				MinScore = minScore,
+				UserCollectionId = userCollectionId
 			};
 
 			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);
@@ -157,6 +159,7 @@ namespace VocaDb.Web.Controllers
 			SetSearchEntryType(EntryType.Song);
 
 			var model = new Index(result, filter, matchMode, songType, indexParams.since, onlyWithPVs, minScore,
+				userCollectionId,
 				sortRule, view, draftsOnly, page, pageSize, indexParams);
 
         	return View(model);
