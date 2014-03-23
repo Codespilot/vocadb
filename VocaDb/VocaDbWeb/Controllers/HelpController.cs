@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web;
+﻿using System.Globalization;
 using System.Web.Mvc;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Controllers
 {
@@ -15,11 +12,15 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index()
         {
+			
+			if (!string.IsNullOrEmpty(AppConfig.ExternalHelpPath))
+				return View("External");
 
 			if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ja")
 				return View("Index.ja");
 			else
 				return View();
+
         }
 
     }
