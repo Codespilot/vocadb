@@ -7,6 +7,7 @@ using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
@@ -135,6 +136,7 @@ namespace VocaDb.Web.Controllers
 			var onlyWithPVs = indexParams.onlyWithPVs ?? false;
 			var minScore = indexParams.minScore ?? 0;
 			var userCollectionId = indexParams.userCollectionId ?? 0;
+			var lyricsLanguages = indexParams.hasLyrics != null && indexParams.hasLyrics.Value != ContentLanguageSelection.Unspecified ? new[] { indexParams.hasLyrics.Value } : null;
 			var view = indexParams.view ?? SongViewMode.Details;
 
 			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
@@ -147,7 +149,8 @@ namespace VocaDb.Web.Controllers
 				OnlyWithPVs = onlyWithPVs,
 				ArtistId = indexParams.artistId ?? 0,		
 				MinScore = minScore,
-				UserCollectionId = userCollectionId
+				UserCollectionId = userCollectionId,
+				LyricsLanguages = lyricsLanguages
 			};
 
 			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);
@@ -160,6 +163,7 @@ namespace VocaDb.Web.Controllers
 
 			var model = new Index(result, filter, matchMode, songType, indexParams.since, onlyWithPVs, minScore,
 				userCollectionId,
+				indexParams.hasLyrics ?? ContentLanguageSelection.Unspecified,
 				sortRule, view, draftsOnly, page, pageSize, indexParams);
 
         	return View(model);

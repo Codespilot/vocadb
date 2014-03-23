@@ -1,4 +1,5 @@
 using System;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Paging;
 
@@ -62,6 +63,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				ignoredIds = value ?? new int[] { }; 
 			}
 		}
+
+		public ContentLanguageSelection[] LyricsLanguages { get; set; }
 
 		public int MinScore { get; set; }
 

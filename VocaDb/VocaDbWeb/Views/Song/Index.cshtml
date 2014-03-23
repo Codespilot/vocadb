@@ -31,6 +31,7 @@
 			@Html.HiddenFor(m => m.Sort)
 			@Html.HiddenFor(m => m.ArtistId, new Dictionary<string, object> { { "data-bind", "value:artistId" } })
 			@Html.HiddenFor(m => m.UserCollectionId)
+			@Html.HiddenFor(m => m.HasLyrics)
 			
 			<div data-bind="visible: hasFilter" style="display: none;">
 				<p data-bind="text: filterString"></p>

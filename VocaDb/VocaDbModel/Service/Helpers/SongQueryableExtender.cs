@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -92,6 +93,20 @@ namespace VocaDb.Model.Service.Helpers {
 			return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
 
 		}
+
+		public static IQueryable<Song> WhereHasLyrics(this IQueryable<Song> query, ContentLanguageSelection[] languages) {
+			
+			if (languages == null || !languages.Any())
+				return query;
+
+			if (languages.Length == 1) {
+				var lang = languages.First();
+				return query.Where(s => s.Lyrics.Any(l => l.Language == lang));				
+			} else {
+				return query.Where(s => s.Lyrics.Any(l => languages.Contains(l.Language)));				
+			}
+
+		} 
 
 		/// <summary>
 		/// Filters a song query by a name query.
