@@ -90,6 +90,10 @@ namespace VocaDb.Model.Utils {
 			}
 		}
 
+		public static string ExternalHelpPath {
+			get { return Val("ExternalHelpPath"); }
+		}
+
 		/// <summary>
 		/// Host address of the main site, contains full path to the web application's root, including hostname.
 		/// Could be either HTTP or HTTPS.
