@@ -94,6 +94,14 @@ namespace VocaDb.Model.Utils {
 			get { return Val("ExternalHelpPath"); }
 		}
 
+		public static string GAAccountId {
+			get { return Val("GAAccountId"); }
+		}
+
+		public static string GADomain {
+			get { return Val("GADomain"); }
+		}
+
 		/// <summary>
 		/// Host address of the main site, contains full path to the web application's root, including hostname.
 		/// Could be either HTTP or HTTPS.
