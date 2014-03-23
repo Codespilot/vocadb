@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using PagedList;
@@ -17,6 +18,7 @@ namespace VocaDb.Web.Models.Song {
 
 		public Index(PartialFindResult<SongWithAlbumAndPVsContract> result, string filter, NameMatchMode nameMatchMode, 
 			SongType songType, string timeFilter, bool onlyWithPVs, int minScore, int userCollectionId,
+			ContentLanguageSelection hasLyrics,
 			SongSortRule sortRule, 			
 			SongViewMode viewMode, 
 			bool draftsOnly, int page, int pageSize, IndexRouteParams routeParams) {
@@ -33,6 +35,7 @@ namespace VocaDb.Web.Models.Song {
 			MinScore = minScore;
 			Sort = sortRule;
 			UserCollectionId = userCollectionId;
+			HasLyrics = hasLyrics;
 			ViewMode = viewMode;
 			RouteParams = routeParams;
 
@@ -46,6 +49,8 @@ namespace VocaDb.Web.Models.Song {
 		public string Filter { get; set; }
 
 		public Dictionary<SongType, string> FilterableArtistTypes { get; set; }
+
+		public ContentLanguageSelection HasLyrics { get; set; }
 
 		public int MinScore { get; set; }
 
@@ -103,6 +108,7 @@ namespace VocaDb.Web.Models.Song {
 			artistId = index.artistId;
 			draftsOnly = index.draftsOnly;
 			filter = index.filter;
+			hasLyrics = index.hasLyrics;
 			matchMode = index.matchMode;
 			minScore = index.minScore;
 			onlyWithPVs = index.onlyWithPVs;
@@ -121,6 +127,8 @@ namespace VocaDb.Web.Models.Song {
 		public bool? draftsOnly { get; set; }
 
 		public string filter { get; set; }
+
+		public ContentLanguageSelection? hasLyrics { get; set; }
 
 		public NameMatchMode? matchMode { get; set; }
 
