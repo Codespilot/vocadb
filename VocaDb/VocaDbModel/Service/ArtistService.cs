@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Xml.Linq;
 using NLog;
@@ -14,7 +13,6 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -26,6 +24,7 @@ using VocaDb.Model.DataContracts.Albums;
 using System.Drawing;
 using VocaDb.Model.Helpers;
 using System.Collections.Generic;
+using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.Artists;
 
 namespace VocaDb.Model.Service {
@@ -38,7 +37,8 @@ namespace VocaDb.Model.Service {
 
 		public PartialFindResult<Artist> Find(ISession session, ArtistQueryParams queryParams) {
 
-			return new ArtistSearch(LanguagePreference).Find(session, queryParams);
+			var context = new NHibernateRepositoryContext<Artist>(session, PermissionContext);
+			return new ArtistSearch(LanguagePreference, context).Find(queryParams);
 
 		}
 

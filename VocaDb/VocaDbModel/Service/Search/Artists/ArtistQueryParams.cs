@@ -44,6 +44,8 @@ namespace VocaDb.Model.Service.Search.Artists {
 
 		public ArtistSortRule SortRule { get; set; }
 
+		public string Tag { get; set; }
+
 	}
 
 }

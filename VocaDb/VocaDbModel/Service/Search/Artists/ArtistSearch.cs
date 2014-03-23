@@ -1,208 +1,133 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NHibernate;
-using NHibernate.Linq;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Model.Service.Search.Artists {
 
 	public class ArtistSearch {
 
 		private readonly ContentLanguagePreference languagePreference;
+		private readonly IRepositoryContext<Artist> context; 
 
 		private ContentLanguagePreference LanguagePreference {
 			get { return languagePreference; }
 		}
 
-		private IQueryable<T> AddNameMatchFilter<T>(IQueryable<T> criteria, string name, NameMatchMode matchMode)
-			where T : IEntryWithNames {
+		private IQueryable<Artist> CreateQuery(
+			ArtistQueryParams queryParams, 
+			NameMatchMode? nameMatchMode = null) {
+			
+			var query = context.Query()
+				.Where(s => !s.Deleted)
+				.WhereHasName(queryParams.Common.Query, nameMatchMode ?? queryParams.Common.NameMatchMode)
+				.WhereDraftsOnly(queryParams.Common.DraftOnly)
+				.WhereHasType(queryParams.ArtistTypes)
+				.WhereHasTag(queryParams.Tag);
 
-			return FindHelpers.AddSortNameFilter(criteria, name, matchMode);
+			return query;
 
 		}
 
-		public ArtistSearch(ContentLanguagePreference languagePreference) {
+		private static Artist[] SortByIds(IEnumerable<Artist> songs, int[] idList) {
+			
+			return Model.Helpers.CollectionHelper.SortByIds(songs, idList);
+
+		} 
+
+		public ArtistSearch(ContentLanguagePreference languagePreference, IRepositoryContext<Artist> context) {
 			this.languagePreference = languagePreference;
+			this.context = context;
 		}
 
-		public PartialFindResult<Artist> Find(ISession session, ArtistQueryParams queryParams) {
+		public PartialFindResult<Artist> Find(ArtistQueryParams queryParams) {
 
-			var query = queryParams.Common.Query;
-			var artistTypes = queryParams.ArtistTypes;
-			var draftsOnly = queryParams.Common.DraftOnly;
+			var isMoveToTopQuery = 	(queryParams.Common.MoveExactToTop 
+				&& queryParams.Common.NameMatchMode != NameMatchMode.StartsWith 
+				&& queryParams.Common.NameMatchMode != NameMatchMode.Exact 
+				&& queryParams.Paging.Start == 0
+				&& !string.IsNullOrEmpty(queryParams.Common.Query));
+
+			if (isMoveToTopQuery) {
+				return GetArtistsMoveExactToTop(queryParams);
+			}
+
+			var query = CreateQuery(queryParams);
+
+			var ids = query
+				.OrderBy(queryParams.SortRule, LanguagePreference)
+				.Select(s => s.Id)
+				.Skip(queryParams.Paging.Start)
+				.Take(queryParams.Paging.MaxEntries)
+				.ToArray();
+
+			var artists = SortByIds(context
+				.Query()
+				.Where(s => ids.Contains(s.Id))
+				.ToArray(), ids);
+
+			var count = (queryParams.Paging.GetTotalCount ? query.Count() : 0);
+
+			return new PartialFindResult<Artist>(artists, count, queryParams.Common.Query, false);
+
+		}
+
+		/// <summary>
+		/// Get songs, searching by exact matches FIRST.
+		/// This mode does not support paging.
+		/// </summary>
+		private PartialFindResult<Artist> GetArtistsMoveExactToTop(ArtistQueryParams queryParams) {
+			
 			var sortRule = queryParams.SortRule;
-			var start = queryParams.Paging.Start;
 			var maxResults = queryParams.Paging.MaxEntries;
-			var nameMatchMode = queryParams.Common.NameMatchMode;
+			var getCount = queryParams.Paging.GetTotalCount;
 
-			string originalQuery = query;
+			// Exact query contains the "exact" matches.
+			// Note: the matched name does not have to be in user's display language, it can be any name.
+			// The songs are sorted by user's display language though
+			var exactQ = CreateQuery(queryParams, NameMatchMode.StartsWith);
 
-			if (string.IsNullOrWhiteSpace(query)) {
+			int count;
+			int[] ids;
+			var exactResults = exactQ
+				.OrderBy(sortRule, LanguagePreference)
+				.Select(s => s.Id)
+				.Take(maxResults)
+				.ToArray();
 
-				bool filterByArtistType = artistTypes.Any();
+			if (exactResults.Length >= maxResults) {
 
-				var q = session.Query<Artist>()
-					.Where(s => !s.Deleted);
+				ids = exactResults;
+				count = getCount ? CreateQuery(queryParams).Count() : 0;
 
-				if (draftsOnly)
-					q = q.Where(a => a.Status == EntryStatus.Draft);
+			} else { 
 
-				if (filterByArtistType)
-					q = q.Where(s => artistTypes.Contains(s.ArtistType));
-
-				q = q.OrderBy(sortRule, LanguagePreference);
-
-				var artists = q
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
-
-				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
-
-				return new PartialFindResult<Artist>(artists, count, originalQuery, false);
-
-			} else {
-
-				query = query.Trim();
-
-				// Note: Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
-				var directQ = session.Query<Artist>()
-					.Where(s => !s.Deleted);
-
-				if (draftsOnly)
-					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
-
-				if (artistTypes.Any())
-					directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
-
-				directQ = AddNameMatchFilter(directQ, query, queryParams.Common.NameMatchMode);
-				directQ = directQ.OrderBy(sortRule, LanguagePreference);
+				var directQ = CreateQuery(queryParams);
 
 				var direct = directQ
-					.Select(d => d.Id)
-					.ToArray();
-
-				int[] exactResults;
-
-				if (queryParams.Common.MoveExactToTop && nameMatchMode != NameMatchMode.StartsWith && nameMatchMode != NameMatchMode.Exact) {
-					
-					var exactQ = session.Query<ArtistName>()
-						.Where(m => !m.Artist.Deleted);
-
-					if (draftsOnly)
-						exactQ = exactQ.Where(a => a.Artist.Status == EntryStatus.Draft);
-
-					exactQ = exactQ.FilterByArtistName(query, null, NameMatchMode.StartsWith);
-
-					exactQ = exactQ.FilterByArtistType(artistTypes);
-
-					exactResults = exactQ						
-						.Select(m => m.Artist)
-						.OrderBy(sortRule, LanguagePreference)
-						.Take(maxResults)
-						.Select(a => a.Id)
-						.ToArray()
-						.Distinct()
-						.ToArray();
-				
-				} else {
-					exactResults = new int[] {};
-				}
-
-				var additionalNamesQ = session.Query<ArtistName>()
-					.Where(m => !m.Artist.Deleted);
-
-				if (draftsOnly)
-					additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
-
-				additionalNamesQ = additionalNamesQ.FilterByArtistName(query, null, queryParams.Common.NameMatchMode);
-
-				additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
-
-				var additionalNames = additionalNamesQ
-					.Select(m => m.Artist)
 					.OrderBy(sortRule, LanguagePreference)
-					.Select(a => a.Id)
-					.Take(start + maxResults)	// Note: this needs to be verified with paging
-					.ToArray();
-
-
-				var page = exactResults.Concat(direct.Concat(additionalNames))
-					.Distinct()
-					.Skip(start)
+					.Select(s => s.Id)
 					.Take(maxResults)
 					.ToArray();
 
-				var entries = session.Query<Artist>()
-					.Where(a => page.Contains(a.Id))
-					.OrderBy(sortRule, LanguagePreference)
+				ids = exactResults
+					.Concat(direct)
+					.Distinct()
+					.Take(maxResults)
 					.ToArray();
 
-				var count = (queryParams.Paging.GetTotalCount ? GetArtistCount(session, queryParams) : 0);
-
-				return new PartialFindResult<Artist>(entries.ToArray(), count, originalQuery, exactResults.Any());
+				count = getCount ? directQ.Count() : 0;
 
 			}
 
-		}
+			var artist = SortByIds(context
+				.Query()
+				.Where(s => ids.Contains(s.Id))
+				.ToArray(), ids);
 
-		private int GetArtistCount(ISession session, ArtistQueryParams queryParams) {
-
-			var query = queryParams.Common.Query;
-			var artistTypes = queryParams.ArtistTypes;
-			var draftsOnly = queryParams.Common.DraftOnly;
-			var nameMatchMode = queryParams.Common.NameMatchMode;
-
-			if (string.IsNullOrWhiteSpace(query)) {
-
-				var q = session.Query<Artist>()
-					.Where(s =>
-						!s.Deleted
-						&& (!artistTypes.Any() || artistTypes.Contains(s.ArtistType)));
-
-				if (draftsOnly)
-					q = q.Where(a => a.Status == EntryStatus.Draft);
-
-				return q.Count();
-
-			}
-
-			query = query.Trim();
-
-			var directQ = session.Query<Artist>()
-				.Where(s => !s.Deleted);
-
-			if (artistTypes.Any())
-				directQ = directQ.Where(s => artistTypes.Contains(s.ArtistType));
-
-			if (draftsOnly)
-				directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
-
-			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
-
-			var direct = new HashSet<int>(directQ.Select(a => a.Id).ToArray());
-
-			var additionalNamesQ = session.Query<ArtistName>()
-				.Where(m => !m.Artist.Deleted);
-
-			if (draftsOnly)
-				additionalNamesQ = additionalNamesQ.Where(a => a.Artist.Status == EntryStatus.Draft);
-
-			additionalNamesQ = additionalNamesQ.FilterByArtistName(query, null, nameMatchMode);
-
-			additionalNamesQ = additionalNamesQ.FilterByArtistType(artistTypes);
-
-			var additionalNamesCount = additionalNamesQ
-				.Select(m => m.Artist.Id)
-				.Distinct()
-				.ToArray()
-				.Where(a => !direct.Contains(a))
-				.Count();
-
-			return direct.Count() + additionalNamesCount;
+			return new PartialFindResult<Artist>(artist, count, queryParams.Common.Query, true);
 
 		}
 
