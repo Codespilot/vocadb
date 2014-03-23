@@ -1091,6 +1091,7 @@
     <Content Include="Content\ExtIcons\tumblr.png" />
     <Content Include="Content\ExtIcons\twitter.png" />
     <Content Include="Content\ExtIcons\twitter32.png" />
+    <Content Include="Content\ExtIcons\utaitedb.png" />
     <Content Include="Content\ExtIcons\vgmdb.png" />
     <Content Include="Content\ExtIcons\vimeo.png" />
     <Content Include="Content\ExtIcons\vocadb.png" />
