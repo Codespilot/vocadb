@@ -39,7 +39,8 @@
 .rightFrame a.btn:hover {
   color: white;
 }
-.btn-info {
+.btn-info,
+.btn-primary {
   color: #ffffff;
   background-color: #ad51a4;
   *background-color: #ad51a4;
@@ -55,11 +56,17 @@
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .btn-info:hover,
+.btn-primary:hover,
 .btn-info:focus,
+.btn-primary:focus,
 .btn-info:active,
+.btn-primary:active,
 .btn-info.active,
+.btn-primary.active,
 .btn-info.disabled,
-.btn-info[disabled] {
+.btn-primary.disabled,
+.btn-info[disabled],
+.btn-primary[disabled] {
   color: #ffffff;
   background-color: #b662ad;
   *background-color: #b662ad;
@@ -78,4 +85,21 @@
   background-color: #dbcfe9;
   background-color: rgba(219, 207, 233, 0.9);
   border: solid #d7aabf 2px;
+}
+/* Menu */
+.menu > .well {
+  vertical-align: top;
+  border: solid #d7aabf 2px;
+  background-color: #dbcfe9;
+  background-color: rgba(219, 207, 233, 0.9);
+}
+.menu a,
+.menu a:visited {
+  text-decoration: none;
+  color: #46202d;
+}
+.menu a:hover,
+.menu a:hover:visited {
+  color: #7a384f;
+  text-decoration: underline;
 }

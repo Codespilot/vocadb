@@ -59,7 +59,7 @@
 	color: white;
 }
 
-.btn-info {
+.btn-info, .btn-primary {
   color: #ffffff;
   background-color: @btn-bgcolor;
   *background-color: @btn-bgcolor;
@@ -73,17 +73,17 @@
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@btn-bggradientbegin', endColorstr='@btn-bggradientend', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
 
-.btn-info:hover,
-.btn-info:focus,
-.btn-info:active,
-.btn-info.active,
-.btn-info.disabled,
-.btn-info[disabled] {
-  color: #ffffff;
-  background-color: @btn-bggradientend;
-  *background-color: @btn-bggradientend;
+	&:hover,
+	&:focus,
+	&:active,
+	&.active,
+	&.disabled,
+	&[disabled] {
+	  color: #ffffff;
+	  background-color: @btn-bggradientend;
+	  *background-color: @btn-bggradientend;
+	}
 }
 
 .btn-group.open .btn-info.dropdown-toggle {
@@ -99,4 +99,26 @@
 	background-color: @body-bgcolor;
 	background-color: fade(@body-bgcolor, 90);
 	border: solid @body-bordercolor 2px;
+}
+
+/* Menu */
+.menu {
+
+	& > .well {
+		vertical-align: top;	
+		border: solid @body-bordercolor 2px;
+		background-color: @body-bgcolor;
+		background-color: fade(@body-bgcolor, 90);
+	}
+
+	a, a:visited {
+		text-decoration: none;
+		color: @linkcolor;
+	}
+
+	a:hover, a:hover:visited {
+		color: @linkcolor-hover;
+		text-decoration: underline;
+	}
+
 }
