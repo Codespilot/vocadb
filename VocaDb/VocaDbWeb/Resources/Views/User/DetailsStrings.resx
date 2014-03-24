@@ -213,6 +213,9 @@
   <data name="TotalEdits" xml:space="preserve">
     <value>Total edits</value>
   </data>
+  <data name="TwitterAccount" xml:space="preserve">
+    <value>Twitter account</value>
+  </data>
   <data name="UserDetails" xml:space="preserve">
     <value>User details</value>
   </data>
