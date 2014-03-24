@@ -1,7 +1,7 @@
 ﻿@using System.Web.Optimization
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Song;
-@model VocaDb.Web.Models.Song.Create
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Song.Create>
 
 @{
     ViewBag.Title = R.CreateStrings.SubmitSong;
@@ -112,7 +112,7 @@
 		
 		<div class="span4">
 			<div class="alert alert-info">
-				@Html.Raw(R.CreateStrings.SongInfo)
+				@Html.Raw(BrandableStrings.Song.NewSongInfo)
 			</div>			     
 			<div class="alert alert-info">
 				<p>@R.CreateStrings.NoArtistsToName</p>

@@ -144,9 +144,6 @@
   <data name="ReprintPV" xml:space="preserve">
     <value>転載された動画（ニコニコ動画またはYoutube）のURL</value>
   </data>
-  <data name="SongInfo" xml:space="preserve">
-    <value>新たに登録する前に、その曲が既に登録されていないか確認して下さい。タイトルとアーティストの項目には、それぞれ少なくとも一つは名前を記入しなければなりません。オリジナル版の動画にリンクするのがとても望ましいです。</value>
-  </data>
   <data name="SongType" xml:space="preserve">
     <value>曲の分類</value>
   </data>

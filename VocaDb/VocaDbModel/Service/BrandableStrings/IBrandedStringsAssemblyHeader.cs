@@ -8,6 +8,7 @@ namespace VocaDb.Model.Service.BrandableStrings {
 		ArtistStrings Artist { get; }
 		HomeStrings Home { get; }
 		LayoutStrings Layout { get; }
+		SongStrings Song { get; }
 
 	}
 
