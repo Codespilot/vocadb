@@ -41,6 +41,7 @@ namespace VocaDb.Model.Service.BrandableStrings {
 			Artist = header.Artist;
 			Home = header.Home;
 			Layout = header.Layout;
+			Song = header.Song;
 
 			return true;
 
@@ -53,6 +54,7 @@ namespace VocaDb.Model.Service.BrandableStrings {
 				Artist = new ArtistStrings(Resources.Views.ArtistRes.ResourceManager);				
 				Home = new HomeStrings(Resources.Views.HomeRes.ResourceManager);				
 				Layout = new LayoutStrings(Resources.Views.LayoutRes.ResourceManager);				
+				Song = new SongStrings(Resources.Views.SongRes.ResourceManager);				
 			}
 
 		}
@@ -64,6 +66,8 @@ namespace VocaDb.Model.Service.BrandableStrings {
 		public HomeStrings Home { get; private set; }
 	
 		public LayoutStrings Layout { get; private set; }
+
+		public SongStrings Song { get; private set; }
 
 	}
 }

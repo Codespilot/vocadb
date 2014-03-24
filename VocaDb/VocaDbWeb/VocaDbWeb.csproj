@@ -3012,7 +3012,9 @@
       <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Song\CreateStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Song\CreateStrings.ru.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.fi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

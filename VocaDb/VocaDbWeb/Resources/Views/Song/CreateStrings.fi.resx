@@ -147,9 +147,6 @@
   <data name="ReprintPV" xml:space="preserve">
     <value>Osoite videon kopioon (NicoNicoDouga tai Youtube)</value>
   </data>
-  <data name="SongInfo" xml:space="preserve">
-    <value>Varmista ettei kappaletta ole jo lisätty tietokantaan. Sinun täytyy antaa vähintään yksi nimi ja artisti. Alkuperäisen videon linkittäminen on suotavaa, mikäli mahdollista.</value>
-  </data>
   <data name="SongType" xml:space="preserve">
     <value>Kappaleen tyyppi</value>
   </data>

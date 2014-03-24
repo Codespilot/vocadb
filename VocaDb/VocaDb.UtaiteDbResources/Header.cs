@@ -30,5 +30,11 @@ namespace VocaDb.UtaiteDb.Resources {
 			}
 		}
 
+		public SongStrings Song {
+			get {
+				return new SongStrings(SongRes.ResourceManager);
+			}
+		}
+
 	}
 }
