@@ -146,6 +146,12 @@
 			@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)
 			<br />
 		}
+		
+		@if (!string.IsNullOrEmpty(Model.TwitterName)) {
+			<h4>@R.TwitterAccount</h4>
+			<a href="@("https://twitter.com/" + Model.TwitterName)" class="extLink">@Model.TwitterName</a>
+			<br /><br />		
+		}
 
 		@if (!string.IsNullOrEmpty(Model.Location)) {
 			<h4>@R.Location</h4>

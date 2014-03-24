@@ -30,6 +30,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			SongLists = user.SongLists
 				.Where(l => l.FeaturedCategory == SongListFeaturedCategory.Nothing)
 				.Select(l => new SongListContract(l, permissionContext)).ToArray();
+			TwitterName = user.Options.TwitterName;
 			WebLinks = user.WebLinks.OrderBy(w => w.DescriptionOrUrl).Select(w => new WebLinkContract(w)).ToArray();
 
 		}
@@ -80,6 +81,8 @@ namespace VocaDb.Model.DataContracts.Users {
 		public int SubmitCount { get; set; }
 
 		public int TagVotes { get; set; }
+
+		public string TwitterName { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }

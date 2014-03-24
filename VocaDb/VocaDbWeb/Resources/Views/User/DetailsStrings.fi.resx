@@ -213,6 +213,9 @@
   <data name="TotalEdits" xml:space="preserve">
     <value>Muokkauksia yhteensä</value>
   </data>
+  <data name="TwitterAccount" xml:space="preserve">
+    <value>Twitter-tili</value>
+  </data>
   <data name="UserDetails" xml:space="preserve">
     <value>Käyttäjän tiedot</value>
   </data>
