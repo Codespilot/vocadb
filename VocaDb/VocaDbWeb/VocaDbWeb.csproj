@@ -666,6 +666,7 @@
     <Compile Include="Code\IPropertyBinder.cs" />
     <Compile Include="Code\JsonNetResult.cs" />
     <Compile Include="Code\LocalizedPagedListRenderOptions.cs" />
+    <Compile Include="Code\MenuPage.cs" />
     <Compile Include="Code\PagePropertiesData.cs" />
     <Compile Include="Code\PropertyModelBinder.cs" />
     <Compile Include="Code\Security\StopForumSpamClient.cs" />
