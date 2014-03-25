@@ -1,7 +1,8 @@
 ﻿@using VocaDb.Web.Helpers
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Models.Song
-@inherits VocaDb.Web.Code.VocaDbPage
+@using VocaDb.Web.Code
+@inherits MenuPage
 
 @helper Banner(string title, string url, string img) {
     <li><a href="@url"><img src="@VocaUrlHelper.StaticResource("/banners/" + img)" alt="@title" title="@title" /></a></li>
@@ -81,9 +82,9 @@
 	<div class="well">
 		<h4>@ViewRes._LayoutStrings.SocialSites</h4>
 		<div id="socialSites">
-			@SocialLink("Facebook", "https://www.facebook.com/vocadb", "facebook.png")
-			@SocialLink("Twitter", "https://twitter.com/VocaDB", "Twitter_Logo.png")
-			@SocialLink("Google+", "https://plus.google.com/112203842561345720098", "googleplus-icon.png")
+			@foreach (var link in SocialLinks) {
+				@SocialLink(link.Title, link.Url, link.BannerImg)
+			}
 			<br />
 			@Html.ActionLink(ViewRes._LayoutStrings.IRCLink, "Chat", "Home")
 		</div>
@@ -91,15 +92,14 @@
 		<br />
 		<h4>@ViewRes._LayoutStrings.RelatedSites</h4>
 		<ul id="banners">
-			@Banner("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png")
-			@Banner("Project DIVA wiki", "http://projectdiva.wikispaces.com/", "pjd-wiki.png")
-			@Banner("Mikufan.com", "http://www.mikufan.com", "mikufan_bannertest.png")
-			@Banner("MikuStar", "http://www.mikustar.net/", "mikustar.jpg")
-			@Banner("Vocaloidism", "http://vocaloidism.com", "vocaloidism-180px.png")
+			@foreach (var link in BigBanners) {
+				@Banner(link.Title, link.Url, link.BannerImg)
+			}
 		</ul>					
 		<div id="banners-small">
-			@SmallBanner("VocaloidOtaku", "http://vocaloidotaku.net", "vo_small.png")
-			@SmallBanner("r/vocaloid", "http://www.reddit.com/r/vocaloid", "rvocaloid_small2.png")
+			@foreach (var link in SmallBanners) {
+				@SmallBanner(link.Title, link.Url, link.BannerImg)
+			}
 		</div>
 	</div>						
 </div>

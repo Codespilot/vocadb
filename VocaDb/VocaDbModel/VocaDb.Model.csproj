@@ -748,6 +748,7 @@
     <Compile Include="Service\VideoServices\VimeoParser.cs" />
     <Compile Include="Service\VideoServices\YoutubeParser.cs" />
     <Compile Include="Utils\AppConfig.cs" />
+    <Compile Include="Utils\Config\GlobalLinksSection.cs" />
     <Compile Include="Utils\VocaUriBuilder.cs" />
     <Compile Include="Utils\XmlCache.cs" />
   </ItemGroup>

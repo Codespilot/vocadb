@@ -1,7 +1,8 @@
-﻿using System;
-using System.Configuration;
+﻿using System.Configuration;
+using System.IO;
+using System.Web;
 using VocaDb.Model.Domain.Artists;
-using ar = VocaDb.Model.Domain.Artists.ArtistRoles;
+using VocaDb.Model.Utils.Config;
 
 namespace VocaDb.Model.Utils {
 
@@ -16,19 +17,19 @@ namespace VocaDb.Model.Utils {
 		/// The Default role is excluded because it's not a valid selection.
 		/// </summary>
 		private static readonly ArtistRoles[] DefaultValidRoles = {
-			ar.Animator,
-			ar.Arranger,
-			ar.Composer,
-			ar.Distributor,
-			ar.Illustrator,
-			ar.Instrumentalist,
-			ar.Lyricist,
-			ar.Mastering,
-			ar.Mixer,
-			ar.Publisher,
-			ar.Vocalist,
-			ar.VoiceManipulator,
-			ar.Other
+			Domain.Artists.ArtistRoles.Animator,
+			Domain.Artists.ArtistRoles.Arranger,
+			Domain.Artists.ArtistRoles.Composer,
+			Domain.Artists.ArtistRoles.Distributor,
+			Domain.Artists.ArtistRoles.Illustrator,
+			Domain.Artists.ArtistRoles.Instrumentalist,
+			Domain.Artists.ArtistRoles.Lyricist,
+			Domain.Artists.ArtistRoles.Mastering,
+			Domain.Artists.ArtistRoles.Mixer,
+			Domain.Artists.ArtistRoles.Publisher,
+			Domain.Artists.ArtistRoles.Vocalist,
+			Domain.Artists.ArtistRoles.VoiceManipulator,
+			Domain.Artists.ArtistRoles.Other
 		};
 
 		private static string Val(string key) {
@@ -100,6 +101,24 @@ namespace VocaDb.Model.Utils {
 
 		public static string GADomain {
 			get { return Val("GADomain"); }
+		}
+
+		public static GlobalLinksSection GetLobalLinksSection() {
+		
+			/*var map = new ExeConfigurationFileMap();  
+			map.ExeConfigFilename = HttpContext.Current.Server.MapPath("~/web.config");
+			var config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None); 
+			return (GlobalLinksSection)config.GetSectionGroup("vocaDb/globalLinks");*/
+
+
+			var bigBanners = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/bigBanners");
+			var smallBanners = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/smallBanners");
+			var socialSites = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/socialSites");
+
+			return new  GlobalLinksSection { BigBanners = bigBanners, SmallBanners  = smallBanners, SocialSites = socialSites };
+
+			//return (GlobalLinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks");
+
 		}
 
 		/// <summary>
