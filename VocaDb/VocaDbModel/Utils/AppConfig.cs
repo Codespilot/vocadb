@@ -105,19 +105,11 @@ namespace VocaDb.Model.Utils {
 
 		public static GlobalLinksSection GetLobalLinksSection() {
 		
-			/*var map = new ExeConfigurationFileMap();  
-			map.ExeConfigFilename = HttpContext.Current.Server.MapPath("~/web.config");
-			var config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None); 
-			return (GlobalLinksSection)config.GetSectionGroup("vocaDb/globalLinks");*/
-
-
 			var bigBanners = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/bigBanners");
 			var smallBanners = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/smallBanners");
 			var socialSites = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/socialSites");
 
 			return new  GlobalLinksSection { BigBanners = bigBanners, SmallBanners  = smallBanners, SocialSites = socialSites };
-
-			//return (GlobalLinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks");
 
 		}
 
