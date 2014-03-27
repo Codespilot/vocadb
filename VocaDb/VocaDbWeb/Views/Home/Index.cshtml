@@ -93,7 +93,7 @@
     <script type="text/javascript">
     	$(document).ready(function () {
 
-    		var viewModel = new vdb.viewModels.NewsListViewModel();
+    		var viewModel = new vdb.viewModels.NewsListViewModel('@Config.SiteSettings.BlogUrl');
     		ko.applyBindings(viewModel);
 
     	});

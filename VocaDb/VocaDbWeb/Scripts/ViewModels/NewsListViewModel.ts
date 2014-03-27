@@ -5,9 +5,10 @@ module vdb.viewModels {
 
     export class NewsListViewModel {
 
-        constructor() {
+        constructor(blogUrl: string) {
 
-            var url = "https://public-api.wordpress.com/rest/v1/sites/blog.vocadb.net/posts/";
+			var url = UrlMapper.buildUrl("https://public-api.wordpress.com/rest/v1/sites/", blogUrl, "/posts/");
+
             $.ajax({ dataType: 'jsonp', url: url, data: { number: 3 } }).done((response: WordpressResponse) => {
 
                 _.forEach(response.posts, post => {

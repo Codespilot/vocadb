@@ -1,6 +1,4 @@
 ﻿using System.Configuration;
-using System.IO;
-using System.Web;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Utils.Config;
 
