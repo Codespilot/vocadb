@@ -2,6 +2,7 @@
 @using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Models.Song
 @using VocaDb.Web.Code
+@using VocaDb.Model.Utils
 @inherits MenuPage
 
 @helper Banner(string title, string url, string img) {
@@ -61,7 +62,7 @@
 			<li>@Html.ActionLink(ViewRes._LayoutStrings.Tags, "Index", "Tag")</li>
 			<li>@Html.ActionLink(ViewRes._LayoutStrings.Help, "Index", "Help")</li>
 			<li><a href="http://wiki.vocadb.net/">@ViewRes._LayoutStrings.Wiki</a></li>
-			<li><a href="http://blog.vocadb.net/">@ViewRes._LayoutStrings.Blog</a></li>
+			<li><a href="@BlogUrl">@ViewRes._LayoutStrings.Blog</a></li>
 			@if (Login.Manager.HasPermission(PermissionToken.MikuDbImport)) {
 				<li>@Html.ActionLink(ViewRes._LayoutStrings.MikuDbAlbum, "Index", "MikuDbAlbum")</li>		 
 			}

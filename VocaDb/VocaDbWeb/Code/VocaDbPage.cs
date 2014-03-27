@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using VocaDb.Model.Service.BrandableStrings;
+using VocaDb.Model.Utils.Config;
 
 namespace VocaDb.Web.Code {
 
@@ -7,6 +8,10 @@ namespace VocaDb.Web.Code {
 
 		public BrandableStringsManager BrandableStrings {
 			get { return DependencyResolver.Current.GetService<BrandableStringsManager>(); }
+		}
+
+		public VdbConfigManager Config {
+			get { return DependencyResolver.Current.GetService<VdbConfigManager>(); }
 		}
 
 		/// <summary>
@@ -34,6 +39,10 @@ namespace VocaDb.Web.Code {
 		
 		public BrandableStringsManager BrandableStrings {
 			get { return DependencyResolver.Current.GetService<BrandableStringsManager>(); }
+		}
+
+		public VdbConfigManager Config {
+			get { return DependencyResolver.Current.GetService<VdbConfigManager>(); }
 		}
 
 	}

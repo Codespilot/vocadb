@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Code {
@@ -28,6 +29,7 @@ namespace VocaDb.Web.Code {
 			if (config == null || config.BigBanners == null) {
 
 				BigBanners = new [] {
+					new Link("UtaiteDB", "http://utaitedb.net", "utaitedb.png"), 
 					new Link("Virtual Emotions", "http://virtual-emotions.net", "VirtualEmotions.png"), 
 					new Link("Project DIVA wiki", "http://projectdiva.wikispaces.com/", "pjd-wiki.png"),
 					new Link("Mikufan.com", "http://www.mikufan.com", "mikufan_bannertest.png"),
@@ -71,6 +73,12 @@ namespace VocaDb.Web.Code {
 		}
 
 		public static Link[] BigBanners { get; private set; }
+
+		public string BlogUrl {
+			get {
+				return UrlHelper.MakeLink(Config.SiteSettings.BlogUrl);
+			}
+		}
 
 		public static Link[] SmallBanners { get; private set; }
 

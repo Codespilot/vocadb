@@ -16,6 +16,7 @@ using VocaDb.Model.Service.Repositories.NHibernate;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.Utils;
+using VocaDb.Model.Utils.Config;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Security;
 using VocaDb.Web.Controllers.DataAccess;
@@ -50,6 +51,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<ServerEntryThumbPersister>().As<IEntryThumbPersister>();
 			builder.RegisterType<NTextCatLibLanguageDetector>().As<ILanguageDetector>();
 			builder.RegisterType<BrandableStringsManager>().AsSelf().SingleInstance();
+			builder.RegisterType<VdbConfigManager>().AsSelf().SingleInstance();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();
