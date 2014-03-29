@@ -32,9 +32,26 @@ namespace VocaDb.Model.Service.VideoServices {
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 
 		private static readonly Dictionary<string, string> tagMapping = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {
-			{ "ミクトランス", "trance" },
-			{ "vocarock", "vocarock" },
+			{ "ミクビエント", "ambient" },
+			{ "オルタナティブミック", "alternative" },
+			{ "ボカロバラード", "ballad" },
+			{ "Chiptune×VOCALOIDリンク", "chiptune" },
+			{ "ボカロクラシカ", "Classic" },
+			{ "VOCALOID電波ソング", "denpa" },
+			{ "DubSteloid", "Dubstep" },
+			{ "VOCALOID-EUROBEAT", "Eurobeat" },
+			{ "ボカロハウス", "house" },
+			{ "ボカロメタル", "Metal" },
+			{ "ボカロラップ", "rap" },
+			{ "VOCALEAMO", "screamo" },
+			{ "ミクノポップ", "technopop" },
+			{ "ミクトランス", "Trance" },
+			{ "ボカロトランス", "Trance" },
+			{ "VOCAJAZZ", "vocajazz" },
 			{ "vocaloud", "vocaloud" },
+			{ "VOCAPUNK", "VOCAPUNK" },
+			{ "vocarock", "vocarock" },
+			{ "VOCASKA", "VOCASKA" }
 		};
 
 		private static string GetUserName(Stream htmlStream, Encoding encoding) {
