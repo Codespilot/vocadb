@@ -208,7 +208,7 @@ namespace VocaDb.Model.Service {
 				foreach (var report in reports)
 					session.Delete(report);
 
-				AuditLog(string.Format("deleted entry reports: {0}", string.Join(", ", reportIds)), session);
+				AuditLog(string.Format("deleted reports: {0}", string.Join(", ", reports.Select(r => r.ToString()))), session);
 
 			});
 
