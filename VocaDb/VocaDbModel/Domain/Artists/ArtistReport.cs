@@ -30,6 +30,10 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public override string ToString() {
+			return string.Format("Entry report '{0}' for {1} [{2}]", ReportType, EntryBase, Id);
+		}
+
 	}
 
 	public enum ArtistReportType {
