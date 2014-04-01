@@ -898,6 +898,8 @@ namespace VocaDb.Web.Controllers
 			
 			Data.DisconnectTwitter();
 
+			TempData.SetSuccessMessage("Twitter login disconnected");
+
 			return RedirectToAction("MySettings");
 
 		}

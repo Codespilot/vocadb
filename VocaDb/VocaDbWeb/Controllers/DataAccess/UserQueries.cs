@@ -209,6 +209,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				user.ClearTwitter();
 
+				ctx.AuditLogger.AuditLog("disconnected twitter");
+
 			});
 	
 		}
