@@ -11,6 +11,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Service.Exceptions;
 
 namespace VocaDb.Model.Domain.Users {
 
@@ -224,6 +225,12 @@ namespace VocaDb.Model.Domain.Users {
 			}
 		}
 
+		public virtual bool HasPassword {
+			get {
+				return !string.IsNullOrEmpty(Password);
+			}
+		}
+
 		public virtual int Id { get; set; }
 
 		public virtual UserGroupId GroupId { get; set; }
@@ -428,6 +435,17 @@ namespace VocaDb.Model.Domain.Users {
 			song.RatingScore += FavoriteSongForUser.GetRatingScore(rating);
 
 			return link;
+
+		}
+
+		public virtual void ClearTwitter() {
+
+			if (!HasPassword) {
+				throw new NoPasswordException("Cannot disconnect Twitter if there is no password set.");
+			}
+
+			Options.TwitterName = Options.TwitterOAuthToken =Options.TwitterOAuthTokenSecret = string.Empty;
+			Options.TwitterId = 0;
 
 		}
 

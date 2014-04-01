@@ -1,4 +1,5 @@
-﻿@using System.Web.Optimization
+﻿@using System.Activities.Expressions
+@using System.Web.Optimization
 @using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
 @using R = ViewRes.User;
@@ -208,6 +209,12 @@
 			<div class="editor-field">
 				@if (Model.HasTwitterToken) {
                     @Model.TwitterName
+					
+					if (Model.HasPassword) {
+						@:&nbsp;
+						@Html.ActionLink("Disconnect", "DisconnectTwitter", null, new { @class = "textLink removeLink"})
+					}
+					
                 } else {
 				    @Html.ActionLink(R.MySettingsStrings.Connect, "ConnectTwitter", "User", null, new { @class = "textLink addLink" })
                 }

@@ -612,6 +612,7 @@
     <Compile Include="Service\BrandableStrings\Collections\SongStrings.cs" />
     <Compile Include="Service\BrandableStrings\IBrandedStringsAssemblyHeader.cs" />
     <Compile Include="Service\Exceptions\InvalidEmailFormatException.cs" />
+    <Compile Include="Service\Exceptions\NoPasswordException.cs" />
     <Compile Include="Service\Exceptions\RequestNotValidException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
     <Compile Include="Service\Helpers\AlbumQueryableExtender.cs" />

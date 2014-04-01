@@ -194,6 +194,25 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		/// <summary>
+		/// Disconnects Twitter account for the currently logged in user.
+		/// Twitter account can NOT be disconnected if the user has not set a VocaDB password.
+		/// </summary>
+		/// <exception cref="NoPasswordException">If the user has not set a password.</exception>
+		public void DisconnectTwitter() {
+		
+			PermissionContext.VerifyLogin();
+
+			repository.HandleTransaction(ctx => {
+				
+				var user = ctx.GetLoggedUser(PermissionContext);
+
+				user.ClearTwitter();
+
+			});
+	
+		}
+
 		private string GetSFSCheckStr(SFSResponseContract result) {
 
 			if (result == null)
