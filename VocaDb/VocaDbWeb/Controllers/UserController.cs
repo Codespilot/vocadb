@@ -893,6 +893,15 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Authorize]
+		public ActionResult DisconnectTwitter() {
+			
+			Data.DisconnectTwitter();
+
+			return RedirectToAction("MySettings");
+
+		}
+
 		public ActionResult UsersPaged(UserGroupId groupId = UserGroupId.Nothing, string name = "", bool disabled = false, bool verifiedArtists = false,
 			UserSortRule sortRule = UserSortRule.RegisterDate, int totalCount = 0, int page = 1) {
 
