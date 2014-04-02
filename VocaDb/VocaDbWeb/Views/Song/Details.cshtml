@@ -58,7 +58,7 @@
 @if (Model.OriginalPVs.Any() || Model.OtherPVs.Any()) {
 	using (Html.BeginPanel()) {
 		<div id="pvPlayer">
-		@Helpers.EmbedPV(Model.PrimaryPV)
+		@Helpers.EmbedPV(Model.PrimaryPV, autoplay: (Model.Id == 51561))
 		</div>
 	}
 }
