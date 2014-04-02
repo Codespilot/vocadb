@@ -57,7 +57,7 @@
 	@Html.ActionLink(entry.DefaultName, "Details", entry.EntryType.ToString(), new { id = entry.Id }, null)	
 }
 
-@helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315) {
+@helper EmbedPV(VocaDb.Model.DataContracts.PVs.PVContract pv, int width = 560, int height = 315, bool autoplay = false) {
 	
 	switch (pv.Service) {
 		case VocaDb.Model.Domain.PVs.PVService.Bilibili:
@@ -78,7 +78,8 @@
 			break;
 
 		case VocaDb.Model.Domain.PVs.PVService.Youtube:
-			<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@pv.PVId" frameborder="0" wmode="Opaque" allowfullscreen></iframe>
+			var apParam = (autoplay ? 1 : 0);
+			<iframe width="@width" height="@height" src="http://www.youtube.com/embed/@(pv.PVId)?autoplay=@apParam" frameborder="0" wmode="Opaque" allowfullscreen></iframe>				
 			break;
                                                                         
 		case VocaDb.Model.Domain.PVs.PVService.Vimeo:
