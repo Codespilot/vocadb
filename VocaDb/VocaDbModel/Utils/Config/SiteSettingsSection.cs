@@ -13,5 +13,11 @@ namespace VocaDb.Model.Utils.Config {
 			set { this["blogUrl"] = value; }
 		}
 
+		[ConfigurationProperty("ircUrl", DefaultValue = "irc.rizon.net/vocadb")]
+		public string IRCUrl {
+			get { return (string)this["ircUrl"]; }
+			set { this["ircUrl"] = value; }			
+		}
+
 	}
 }
