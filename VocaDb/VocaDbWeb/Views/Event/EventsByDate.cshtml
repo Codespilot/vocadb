@@ -1,13 +1,16 @@
 ﻿@model VocaDb.Model.DataContracts.ReleaseEvents.ReleaseEventContract[]
 
 @{
-	ViewBag.Title = "Events";
+	ViewBag.Title = ViewRes.SharedStrings.ReleaseEvents;
 
 	var byYear = Model.Where(e => e.Date != null).GroupBy(e => e.Date.Value.Year).ToArray();
 
 }
 
 <ul class="nav nav-pills">
+	<li>
+		@Html.ActionLink("List", "Index")
+	</li>
 	<li>
 		@Html.ActionLink("By series", "EventsBySeries")
 	</li>

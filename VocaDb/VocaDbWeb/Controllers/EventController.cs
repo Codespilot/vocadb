@@ -109,7 +109,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult EventsByDate() {
 			
-			return View(queries.ByDate());
+			return View(queries.List(EventSortRule.Date));
 
 		}
 
@@ -169,9 +169,12 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Event/
 
-        public ActionResult Index()
+        public ActionResult Index(EventSortRule sortRule = EventSortRule.Date)
         {
-			return RedirectToAction("EventsBySeries");
+
+			ViewBag.SortRule = sortRule;
+
+			return View(queries.List(sortRule, true));
         }
 
 		public ActionResult SeriesDetails(int id = invalidId) {
