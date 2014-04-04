@@ -657,3 +657,11 @@ div.item {
 .archived-entry-contents {
 	overflow-x: auto;
 }
+
+.sortDirection_down {
+	border-top: 4px solid #000000;
+	border-right: 4px solid transparent;
+	border-left: 4px solid transparent;
+	vertical-align: middle;
+	display: inline-block;
+}
