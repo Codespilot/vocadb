@@ -10,7 +10,7 @@ var vdb;
                     return true;
                 };
                 this.length = ko.observable(data.length);
-                this.webLinks = new vdb.viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
+                this.webLinks = new viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
 
                 this.lengthFormatted = ko.computed({
                     read: function () {

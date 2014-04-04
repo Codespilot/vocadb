@@ -8,8 +8,6 @@ var vdb;
 (function (vdb) {
     (function (tests) {
         (function (testSupport) {
-            var cls = vdb.models;
-
             var FakeUserRepository = (function (_super) {
                 __extends(FakeUserRepository, _super);
                 function FakeUserRepository() {

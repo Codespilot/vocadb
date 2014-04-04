@@ -2132,7 +2132,9 @@
     <Folder Include="Views\Shared\KnockoutTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VocaDbModel\VocaDb.Model.csproj">

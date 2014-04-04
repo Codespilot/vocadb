@@ -393,12 +393,6 @@ namespace VocaDb.Model.Service {
 
 				var newSongs = GetHighlightedSongs(session);
 
-				// April fools
-				var song = session.Get<Song>(51561);
-				if (song != null) {
-					newSongs = new [] { song }.Concat(newSongs).Distinct().ToArray();
-				}
-
 				var firstSongVote = (newSongs.Any() ? session.Query<FavoriteSongForUser>().FirstOrDefault(s => s.Song.Id == newSongs.First().Id && s.User.Id == PermissionContext.LoggedUserId) : null);
 
 				var recentComments = GetRecentComments(session, 7);

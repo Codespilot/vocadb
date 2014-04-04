@@ -6,11 +6,11 @@ var vdb;
                 var _this = this;
                 this.categories = categories;
                 this.webLinks = ko.observableArray(_.map(webLinkContracts, function (contract) {
-                    return new vdb.viewModels.WebLinkEditViewModel(contract);
+                    return new viewModels.WebLinkEditViewModel(contract);
                 }));
 
                 this.add = function () {
-                    _this.webLinks.push(new vdb.viewModels.WebLinkEditViewModel());
+                    _this.webLinks.push(new viewModels.WebLinkEditViewModel());
                 };
 
                 this.remove = function (webLink) {
