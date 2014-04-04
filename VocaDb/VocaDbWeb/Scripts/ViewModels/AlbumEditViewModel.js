@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        var rep = vdb.repositories;
-
         var AlbumEditViewModel = (function () {
             function AlbumEditViewModel(repository, songRepository, artistRepository, artistRoleNames, webLinkCategories, data, allowCustomTracks) {
                 var _this = this;
@@ -19,7 +17,7 @@ var vdb;
                                 roles: 'Default'
                             };
 
-                            var link = new vdb.viewModels.ArtistForAlbumEditViewModel(_this.repository, data);
+                            var link = new viewModels.ArtistForAlbumEditViewModel(_this.repository, data);
                             _this.artistLinks.push(link);
                         });
                     } else {
@@ -31,7 +29,7 @@ var vdb;
                             roles: 'Default'
                         };
 
-                        var link = new vdb.viewModels.ArtistForAlbumEditViewModel(_this.repository, data);
+                        var link = new viewModels.ArtistForAlbumEditViewModel(_this.repository, data);
                         _this.artistLinks.push(link);
                     }
                 };
@@ -49,14 +47,14 @@ var vdb;
                 this.acceptTrackSelection = function (songId, songName, itemType) {
                     if (songId) {
                         songRepository.getOne(songId, true, function (song) {
-                            var track = new vdb.viewModels.SongInAlbumEditViewModel({ artists: song.artists, artistString: song.artistString, songAdditionalNames: song.additionalNames, songId: song.id, songName: song.name, discNumber: 1, songInAlbumId: 0, trackNumber: 1 });
+                            var track = new viewModels.SongInAlbumEditViewModel({ artists: song.artists, artistString: song.artistString, songAdditionalNames: song.additionalNames, songId: song.id, songName: song.name, discNumber: 1, songInAlbumId: 0, trackNumber: 1 });
                             track.isNextDisc.subscribe(function () {
                                 return _this.updateTrackNumbers();
                             });
                             _this.tracks.push(track);
                         });
                     } else {
-                        var track = new vdb.viewModels.SongInAlbumEditViewModel({
+                        var track = new viewModels.SongInAlbumEditViewModel({
                             songName: songName,
                             artists: [],
                             artistString: "",
@@ -110,7 +108,7 @@ var vdb;
                 };
 
                 this.artistLinks = ko.observableArray(_.map(data.artistLinks, function (artist) {
-                    return new vdb.viewModels.ArtistForAlbumEditViewModel(repository, artist);
+                    return new viewModels.ArtistForAlbumEditViewModel(repository, artist);
                 }));
 
                 this.discType = ko.observable(data.discType);
@@ -182,7 +180,7 @@ var vdb;
                 this.trackPropertiesDialogVisible = ko.observable(false);
 
                 this.tracks = ko.observableArray(_.map(data.tracks, function (song) {
-                    return new vdb.viewModels.SongInAlbumEditViewModel(song);
+                    return new viewModels.SongInAlbumEditViewModel(song);
                 }));
 
                 _.forEach(this.tracks(), function (song) {
@@ -227,7 +225,7 @@ var vdb;
                     });
                 };
 
-                this.webLinks = new vdb.viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
+                this.webLinks = new viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
             }
             return AlbumEditViewModel;
         })();

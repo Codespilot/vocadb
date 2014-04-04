@@ -9,7 +9,7 @@ var vdb;
                     return true;
                 };
                 this.submitting = ko.observable(false);
-                this.webLinks = new vdb.viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
+                this.webLinks = new viewModels.WebLinksEditViewModel(data.webLinks, webLinkCategories);
             }
             return ArtistEditViewModel;
         })();

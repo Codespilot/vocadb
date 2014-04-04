@@ -30,7 +30,7 @@ module vdb.viewModels {
                     var mins = Math.floor(this.length() / 60);
                     return mins + ":" + this.addLeadingZero(this.length() % 60);
                 },
-                write: (value) => {
+                write: (value: string) => {
                     var parts = value.split(":");
                     if (parts.length == 2 && parseInt(parts[0], 10) != NaN && parseInt(parts[1], 10) != NaN) {
                         this.length(parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10));

@@ -13,7 +13,7 @@ var vdb;
                     return true;
                 };
                 this.submitting = ko.observable(false);
-                this.webLink = new vdb.viewModels.WebLinkEditViewModel();
+                this.webLink = new viewModels.WebLinkEditViewModel();
                 if (data) {
                     this.nameOriginal(data.nameOriginal || "");
                     this.nameRomaji(data.nameRomaji || "");

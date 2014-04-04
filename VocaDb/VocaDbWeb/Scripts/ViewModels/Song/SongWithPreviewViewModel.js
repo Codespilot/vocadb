@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        var rep = vdb.repositories;
-
         var SongWithPreviewViewModel = (function () {
             function SongWithPreviewViewModel(repository, userRepository, songId) {
                 var _this = this;
@@ -23,7 +21,7 @@ var vdb;
 
                     repository.pvPlayerWithRating(songId, function (result) {
                         _this.previewHtml(result.playerHtml);
-                        var ratingButtonsViewModel = new vdb.viewModels.PVRatingButtonsViewModel(userRepository, result.song, _this.ratingComplete);
+                        var ratingButtonsViewModel = new viewModels.PVRatingButtonsViewModel(userRepository, result.song, _this.ratingComplete);
                         _this.ratingButtons(ratingButtonsViewModel);
                         _this.preview(true);
                     });

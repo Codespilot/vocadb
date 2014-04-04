@@ -1,8 +1,6 @@
 var vdb;
 (function (vdb) {
     (function (viewModels) {
-        var rep = vdb.repositories;
-
         var ArtistForAlbumEditViewModel = (function () {
             function ArtistForAlbumEditViewModel(repository, data) {
                 var _this = this;
