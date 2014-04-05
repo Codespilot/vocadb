@@ -85,10 +85,6 @@ namespace VocaDb.Web {
 
 		}
 
-		/*protected void Application_BeginRequest(object sender, EventArgs e) {
-
-		}*/
-
 		private void HandleHttpError(int code, string description = null, string msg = null) {
 
 			// Log error here to get request info.

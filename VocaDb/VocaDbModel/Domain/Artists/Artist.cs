@@ -26,6 +26,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private User createdBy;
 		private string description;
 		private IList<GroupForArtist> groups = new List<GroupForArtist>();
+		//private IList<AlbumHit> hits = new List<AlbumHit>();
 		private IList<GroupForArtist> members = new List<GroupForArtist>();
 		private NameManager<ArtistName> names = new NameManager<ArtistName>();
 		private IList<OwnedArtistForUser> ownerUsers = new List<OwnedArtistForUser>();
@@ -158,6 +159,11 @@ namespace VocaDb.Model.Domain.Artists {
 				return AllGroups.Where(g => !g.Group.Deleted);
 			}
 		}
+
+		/*public virtual IList<Artist> Hits {
+			get { return hits; }
+			set { hits = value; }
+		}*/
 
 		public virtual int Id { get; set; }
 
