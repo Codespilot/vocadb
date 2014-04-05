@@ -292,22 +292,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		// Not in use, was used by MikuDB search.
-		public AlbumDetailsContract FindFirstDetails(string query) {
-
-			return HandleQuery(session => {
-
-				var result = Find(session, new AlbumQueryParams(query, DiscType.Unknown, 0, 1, false, false, NameMatchMode.Auto, AlbumSortRule.Name, true));
-
-				if (result.Items.Any())
-					return new AlbumDetailsContract(result.Items.First(), PermissionContext.LanguagePreference);
-
-				return null;
-
-			});
-
-		}
-
 		public string[] FindNames(string query, int maxResults) {
 
 			if (string.IsNullOrWhiteSpace(query))
@@ -395,7 +379,23 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var album = session.Load<Album>(id);
-				var contract = new AlbumDetailsContract(album, PermissionContext.LanguagePreference);
+
+				var stats = session.Query<Album>()
+					.Where(a => a.Id == id)
+					.Select(a => new {
+						OwnedCount = a.UserCollections.Count(au => au.PurchaseStatus == PurchaseStatus.Owned),
+						WishlistedCount = a.UserCollections.Count(au => au.PurchaseStatus == PurchaseStatus.Wishlisted),
+						CommentCount = a.Comments.Count,
+						Hits = a.Hits.Count
+					})
+					.First();
+
+				var contract = new AlbumDetailsContract(album, PermissionContext.LanguagePreference) {
+					OwnedCount = stats.OwnedCount,
+					WishlistCount = stats.WishlistedCount,
+					CommentCount = stats.CommentCount,
+					Hits = stats.Hits
+				};
 
 				var user = PermissionContext.LoggedUser;
 
@@ -408,12 +408,13 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				contract.CommentCount = session.Query<AlbumComment>().Count(c => c.Album.Id == id);
 				contract.LatestComments = session.Query<AlbumComment>()
 					.Where(c => c.Album.Id == id)
-					.OrderByDescending(c => c.Created).Take(3).ToArray()
-					.Select(c => new CommentContract(c)).ToArray();
-				contract.Hits = session.Query<AlbumHit>().Count(h => h.Album.Id == id);
+					.OrderByDescending(c => c.Created)
+					.Take(3)
+					.ToArray()
+					.Select(c => new CommentContract(c))
+					.ToArray();
 
 				if (album.Deleted) {
 					var mergeEntry = GetMergeRecord(session, id);

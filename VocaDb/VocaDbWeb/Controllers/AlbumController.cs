@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.UI;
 using MvcPaging;
 using NLog;
 using VocaDb.Model.DataContracts;
@@ -239,6 +240,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		//[OutputCache(Duration = pictureCacheDurationSec, Location = OutputCacheLocation.Any, VaryByParam = "id,v")]
 		public ActionResult CoverPicture(int id = invalidId) {
 
 			if (id == invalidId)

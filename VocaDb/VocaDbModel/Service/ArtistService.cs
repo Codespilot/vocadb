@@ -259,7 +259,19 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => {
 
 				var artist = session.Load<Artist>(id);
-				var contract = new ArtistDetailsContract(artist, LanguagePreference);
+
+				var stats = session.Query<Artist>()
+					.Where(a => a.Id == id)
+					.Select(a => new {
+						CommentCount = a.Comments.Count,
+						FollowCount = a.Users.Count
+					})
+					.First();
+
+				var contract = new ArtistDetailsContract(artist, LanguagePreference) {
+					CommentCount = stats.CommentCount,
+					FollowCount = stats.FollowCount
+				};
 
 				if (PermissionContext.LoggedUser != null) {
 
@@ -271,8 +283,6 @@ namespace VocaDb.Model.Service {
 					}
 
 				}
-
-				contract.CommentCount = session.Query<ArtistComment>().Count(c => c.Artist.Id == id);
 
 				contract.LatestAlbums = session.Query<ArtistForAlbum>()
 					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport)

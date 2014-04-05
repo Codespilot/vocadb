@@ -26,6 +26,8 @@ namespace VocaDb.Web.Controllers {
 		protected static readonly TimeSpan imageExpirationTime = TimeSpan.FromMinutes(5);
 		protected const int entriesPerPage = 30;
 		protected const int invalidId = 0;
+		protected static readonly TimeSpan pictureCacheDuration = TimeSpan.FromDays(30);
+		protected const int pictureCacheDurationSec = 30 * 24 * 60 * 60;
 
 		protected string Hostname {
 			get {
@@ -80,7 +82,7 @@ namespace VocaDb.Web.Controllers {
 			// Cached version indicated by the "v" request parameter.
 			// If no version is specified, assume no caching.
 			if (contract.Version > 0 && !string.IsNullOrEmpty(Request.Params["v"]))
-				Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
+				Response.Cache.SetMaxAge(pictureCacheDuration);
 
 			return Picture(contract.Picture, contract.Name);
 

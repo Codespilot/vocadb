@@ -41,6 +41,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<ArtistForAlbum> artists = new List<ArtistForAlbum>();
 		private IList<AlbumComment> comments = new List<AlbumComment>();
 		private string description;
+		private IList<AlbumHit> hits = new List<AlbumHit>();
 		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<OtherArtistForAlbum> otherArtists = new List<OtherArtistForAlbum>();
@@ -163,6 +164,11 @@ namespace VocaDb.Model.Domain.Albums {
 			get {
 				return EntryType.Album;
 			}
+		}
+
+		public virtual IList<AlbumHit> Hits {
+			get { return hits; }
+			set { hits = value; }
 		}
 
 		public virtual int Id { get; set; }
