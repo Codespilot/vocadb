@@ -3,6 +3,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.SessionState;
 using NLog;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Utils;
@@ -11,6 +12,8 @@ using VocaDb.Web.Models.Ext;
 
 namespace VocaDb.Web.Controllers
 {
+
+	[SessionState(SessionStateBehavior.Disabled)]
     public class ExtController : ControllerBase {
 
 	    private static readonly Logger log = LogManager.GetCurrentClassLogger();
