@@ -15,6 +15,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		SeriesNumber	= 8,
 
+		SeriesSuffix	= 16,
+
 	}
 
 }

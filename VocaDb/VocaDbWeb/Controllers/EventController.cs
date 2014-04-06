@@ -77,9 +77,9 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
-			Service.UpdateEvent(model.ToContract());
+			queries.Update(model.ToContract());
 
-			return RedirectToAction("EventsBySeries");
+			return RedirectToAction("Details", new { id = model.Id });
 
 		}
 
@@ -157,10 +157,7 @@ namespace VocaDb.Web.Controllers
 
 			var contract = new ReleaseEventDetailsContract { Name = model.EventName, Series = (skipSeries ? null : model.Series), SeriesNumber = model.SeriesNumber };
 
-			var ev = Service.UpdateEvent(contract);
-
-			if (query != ev.Name)
-				Services.Albums.UpdateAllReleaseEventNames(query, ev.Name);
+			var ev = queries.Update(contract);
 
 			return RedirectToAction("Edit", new { id = ev.Id });
 

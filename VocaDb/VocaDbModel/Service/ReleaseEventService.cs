@@ -22,14 +22,6 @@ namespace VocaDb.Model.Service {
 
 		}*/
 
-		public void Archive(ISession session, ReleaseEvent releaseEvent, ReleaseEventDiff diff, EntryEditEvent reason) {
-
-			var agentLoginData = SessionHelper.CreateAgentLoginData(session, PermissionContext);
-			var archived = releaseEvent.CreateArchivedVersion(diff, agentLoginData, reason);
-			session.Save(archived);
-
-		}
-
 		public void DeleteEvent(int id) {
 
 			DeleteEntity<ReleaseEvent>(id, PermissionToken.DeleteEntries);
@@ -107,69 +99,6 @@ namespace VocaDb.Model.Service {
 		public ReleaseEventSeriesForEditContract GetReleaseEventSeriesForEdit(int id) {
 
 			return HandleQuery(session => new ReleaseEventSeriesForEditContract(session.Load<ReleaseEventSeries>(id)));
-
-		}
-
-		public ReleaseEventContract UpdateEvent(ReleaseEventDetailsContract contract) {
-
-			ParamIs.NotNull(() => contract);
-
-			PermissionContext.VerifyPermission(PermissionToken.ManageDatabase);
-
-			return HandleTransaction(session => {
-
-				ReleaseEvent ev;
-
-				if (contract.Id == 0) {
-
-					if (contract.Series != null) {
-						var series = session.Load<ReleaseEventSeries>(contract.Series.Id);
-						ev = new ReleaseEvent(contract.Description, contract.Date, series, contract.SeriesNumber);
-						series.Events.Add(ev);
-					} else {
-						ev = new ReleaseEvent(contract.Description, contract.Date, contract.Name);
-					}
-
-					session.Save(ev);
-
-					Archive(session, ev, new ReleaseEventDiff(), EntryEditEvent.Created);
-
-					AuditLog("created " + ev, session);
-
-				} else {
-
-					ev = session.Load<ReleaseEvent>(contract.Id);
-					var diff = new ReleaseEventDiff();
-
-					if (ev.Date != contract.Date)
-						diff.Date = true;
-
-					if (ev.Description != contract.Description)
-						diff.Description = true;
-
-					if (ev.Name != contract.Name)
-						diff.Name = true;
-
-					if (ev.SeriesNumber != contract.SeriesNumber)
-						diff.SeriesNumber = true;
-
-					ev.Date = contract.Date;
-					ev.Description = contract.Description;
-					ev.Name = contract.Name;
-					ev.SeriesNumber = contract.SeriesNumber;
-
-					session.Update(ev);
-
-					Archive(session, ev, diff, EntryEditEvent.Updated);
-
-					var logStr = string.Format("updated properties for {0} ({1})", CreateEntryLink(ev), diff.ChangedFieldsString);
-					AuditLog(logStr, session);
-
-				}
-
-				return new ReleaseEventContract(ev);
-
-			});
 
 		}
 

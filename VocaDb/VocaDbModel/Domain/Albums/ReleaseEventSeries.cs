@@ -111,8 +111,14 @@ namespace VocaDb.Model.Domain.Albums {
 			return base.GetHashCode();
 		}
 
-		public virtual string GetEventName(int number) {
-			return string.Format("{0} {1}", Name, number);
+		public virtual string GetEventName(int number, string suffix) {
+
+			if (string.IsNullOrEmpty(suffix)) {
+				return string.Format("{0} {1}", Name, number);
+			} else {
+				return string.Format("{0} {1} {2}", Name, number, suffix);
+			}
+
 		}
 
 		public override string ToString() {

@@ -1,5 +1,4 @@
-﻿using NHibernate.Util;
-using VocaDb.Model.Domain.Albums;
+﻿using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -15,8 +14,16 @@ namespace VocaDb.Tests.TestData {
 			return new Album(new LocalizedString(name, ContentLanguageSelection.Unspecified)) { Id = id };
 		}
 
+		public static ReleaseEventSeries EventSeries(string name) {
+			return new ReleaseEventSeries(name, string.Empty, new string[0]);
+		}
+
 		public static Artist Producer(int id = 0, string name = "Tripshots") {
 			return new Artist(TranslatedString.Create(name ?? "Tripshots")) { Id = id, ArtistType = ArtistType.Producer };
+		}
+
+		public static ReleaseEvent ReleaseEvent(string name) {
+			return new ReleaseEvent(string.Empty, null, name);
 		}
 
 		public static Song Song(int id = 0, string name = "Nebula") {

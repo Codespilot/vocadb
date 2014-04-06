@@ -132,6 +132,7 @@
     <Compile Include="Service\Helpers\UserCommentNotifierTests.cs" />
     <Compile Include="TestData\CreateEntry.cs" />
     <Compile Include="TestSupport\FakeArtistRepository.cs" />
+    <Compile Include="TestSupport\FakeEventRepository.cs" />
     <Compile Include="TestSupport\FakeLanguageDetector.cs" />
     <Compile Include="TestSupport\FakePVParser.cs" />
     <Compile Include="TestSupport\FakeSongRepository.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Web\Controllers\ArtistControllerTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\AlbumQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\ArtistQueriesTests.cs" />
+    <Compile Include="Web\Controllers\DataAccess\EventQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\SongListQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\SongQueriesTests.cs" />
     <Compile Include="Web\Controllers\DataAccess\TagQueriesTests.cs" />

@@ -95,6 +95,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool SeriesSuffix {
+			get {
+				return IsChanged(ReleaseEventEditableFields.SeriesSuffix);
+			}
+			set {
+				Set(ReleaseEventEditableFields.SeriesSuffix, value);
+			}
+		}
+
 		/// <summary>
 		/// Checks whether a specific field changed in this diff.
 		/// </summary>

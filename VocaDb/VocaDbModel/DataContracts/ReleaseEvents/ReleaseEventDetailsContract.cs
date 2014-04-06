@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 			Albums = releaseEvent.Albums.Where(a => !a.Deleted).Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			SeriesNumber = releaseEvent.SeriesNumber;
+			SeriesSuffix = releaseEvent.SeriesSuffix;
 
 		}
 
@@ -25,6 +26,8 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 		public ReleaseEventSeriesContract[] AllSeries { get; set; }
 
 		public int SeriesNumber { get; set; }
+
+		public string SeriesSuffix { get; set; }
 
 	}
 }

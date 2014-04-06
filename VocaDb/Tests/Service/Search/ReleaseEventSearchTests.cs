@@ -29,7 +29,7 @@ namespace VocaDb.Tests.Service.Search {
 
 		private ReleaseEvent CreateEvent(ReleaseEventSeries series, int number) {
 
-			var e = new ReleaseEvent(string.Empty, null, series, number) { Id = eventId++ };
+			var e = new ReleaseEvent(string.Empty, null, series, number, string.Empty) { Id = eventId++ };
 			querySource.Add(e);
 			series.Events.Add(e);
 

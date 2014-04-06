@@ -34,9 +34,10 @@ namespace VocaDb.Model.Domain.Albums {
 		private string description;
 		private string name;
 		private ReleaseEventSeries series;
+		private string seriesSuffix;
 
 		public ReleaseEvent() {
-			Description = string.Empty;
+			Description = SeriesSuffix = string.Empty;
 		}
 
 		public ReleaseEvent(string description, DateTime? date, string name)
@@ -50,7 +51,7 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public ReleaseEvent(string description, DateTime? date, ReleaseEventSeries series, int seriesNumber)
+		public ReleaseEvent(string description, DateTime? date, ReleaseEventSeries series, int seriesNumber, string seriesSuffix)
 			: this() {
 
 			ParamIs.NotNull(() => series);
@@ -59,7 +60,9 @@ namespace VocaDb.Model.Domain.Albums {
 			Date = date;
 			Series = series;
 			SeriesNumber = seriesNumber;
-			Name = series.GetEventName(seriesNumber);
+			SeriesSuffix = seriesSuffix;
+
+			UpdateNameFromSeries();
 
 		}
 
@@ -110,6 +113,14 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual int SeriesNumber { get; set; }
 
+		public virtual string SeriesSuffix {
+			get { return seriesSuffix; }
+			set {
+				ParamIs.NotNull(() => value);
+				seriesSuffix = value;
+			}
+		}
+
 		public virtual ArchivedReleaseEventVersion CreateArchivedVersion(ReleaseEventDiff diff, AgentLoginData author, EntryEditEvent reason) {
 
 			var archived = new ArchivedReleaseEventVersion(this, diff, author, reason);
@@ -144,6 +155,14 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public override string ToString() {
 			return string.Format("release event '{0}' [{1}]", Name, Id);
+		}
+
+		public virtual void UpdateNameFromSeries() {
+
+			if (Series != null) {
+				Name = Series.GetEventName(SeriesNumber, SeriesSuffix);				
+			}
+			
 		}
 
 	}
