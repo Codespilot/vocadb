@@ -9,8 +9,14 @@ namespace VocaDb.Web.Controllers
 
 		private const int entriesPerPage = 50;
 
+		private readonly ActivityFeedService service;
+
 		private ActivityFeedService Service {
-			get { return MvcApplication.Services.ActivityFeed; }
+			get { return service; }
+		}
+
+		public ActivityEntryController(ActivityFeedService service) {
+			this.service = service;
 		}
 
 		public ActionResult Entries(int page = 1) {

@@ -10,12 +10,6 @@ namespace VocaDb.Web.Code.Security.Membership {
 
 	public class VocaDbMembershipProvider : MembershipProvider {
 
-		private UserService Service {
-			get {
-				return MvcApplication.Services.Users;
-			}
-		}
-
 		public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status) {
 			throw new NotImplementedException();
 		}

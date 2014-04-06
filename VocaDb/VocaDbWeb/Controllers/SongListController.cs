@@ -16,14 +16,16 @@ namespace VocaDb.Web.Controllers
 
 		public const int SongsPerPage = 50;
 		private readonly SongListQueries queries;
+		private readonly RankingService rankingService;
 	    private readonly SongService service;
 
 		private SongService Service {
 			get { return service; }
 		}
 
-		public SongListController(SongService service, SongListQueries queries) {
+		public SongListController(SongService service, RankingService rankingService, SongListQueries queries) {
 			this.service = service;
+			this.rankingService = rankingService;
 			this.queries = queries;
 		}
 
@@ -31,7 +33,7 @@ namespace VocaDb.Web.Controllers
 		[AcceptVerbs(HttpVerbs.Post)]
 		public ActionResult AddSong(int songId) {
 
-			var songContract = MvcApplication.Services.Songs.GetSongWithAdditionalNames(songId);
+			var songContract = service.GetSongWithAdditionalNames(songId);
 			var link = new SongInListEditContract(songContract);
 
 			return Json(link);
@@ -49,13 +51,13 @@ namespace VocaDb.Web.Controllers
 		public ActionResult CreateFromWVR(CreateFromWVR model, bool commit) {
 
 			if (commit) {
-				var listId = MvcApplication.Services.Rankings.CreateSongListFromWVR(model.Url, model.ParseAll);
+				var listId = rankingService.CreateSongListFromWVR(model.Url, model.ParseAll);
 				return RedirectToAction("Details", "SongList", new { id = listId });
 			}
 
 			WVRListResult parseResult;
 			try {
-				parseResult = MvcApplication.Services.Rankings.ParseWVRList(model.Url, model.ParseAll);
+				parseResult = rankingService.ParseWVRList(model.Url, model.ParseAll);
 			} catch (InvalidFeedException) {
 				ModelState.AddModelError("Url", "Check that the URL is valid and points to a NicoNico MyList or RSS feed.");
 				return View(model);

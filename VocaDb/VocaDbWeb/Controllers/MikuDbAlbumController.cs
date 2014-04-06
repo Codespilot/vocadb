@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts.MikuDb;
 using VocaDb.Model.Domain.MikuDb;
@@ -15,9 +12,15 @@ namespace VocaDb.Web.Controllers
     public class MikuDbAlbumController : ControllerBase
     {
 
+		private readonly MikuDbAlbumService service;
+
     	private MikuDbAlbumService Service {
-    		get { return MvcApplication.Services.MikuDbAlbums; }
+    		get { return service; }
     	}
+
+		public MikuDbAlbumController(MikuDbAlbumService service) {
+			this.service = service;
+		}
 
     	public FileResult CoverPicture(int id) {
 
