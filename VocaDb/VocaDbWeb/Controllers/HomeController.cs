@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.SessionState;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
@@ -8,10 +9,12 @@ using VocaDb.Web.Models.Home;
 
 namespace VocaDb.Web.Controllers
 {
+
+	[SessionState(SessionStateBehavior.ReadOnly)]
     public class HomeController : ControllerBase
     {
 
-		private OtherService otherService;
+		private readonly OtherService otherService;
 
 		public HomeController(OtherService otherService) {
 			this.otherService = otherService;
