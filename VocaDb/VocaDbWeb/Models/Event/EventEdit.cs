@@ -10,7 +10,7 @@ namespace VocaDb.Web.Models.Event {
 	public class EventEdit {
 
 		public EventEdit() {
-			Description = string.Empty;
+			Description = SeriesSuffix = string.Empty;
 		}
 
 		public EventEdit(ReleaseEventSeriesContract seriesContract)
@@ -30,6 +30,7 @@ namespace VocaDb.Web.Models.Event {
 			Id = contract.Id;
 			Name = contract.Name;
 			SeriesNumber = contract.SeriesNumber;
+			SeriesSuffix = contract.SeriesSuffix;
 
 			CopyNonEditableProperties(contract);
 
@@ -51,6 +52,9 @@ namespace VocaDb.Web.Models.Event {
 		public int? SeriesId { get; set; }
 
 		public string SeriesName { get; set; }
+
+		[Display(Name = "Series suffix")]
+		public string SeriesSuffix { get; set; }
 
 		[Display(Name = "Series number")]
 		public int SeriesNumber { get; set; }
@@ -82,7 +86,8 @@ namespace VocaDb.Web.Models.Event {
 				Id = this.Id,
 				Name = this.Name,
 				Series = (this.SeriesId != null ? new ReleaseEventSeriesContract { Id = this.SeriesId.Value, Name = this.SeriesName } : null), 
-				SeriesNumber = this.SeriesNumber
+				SeriesNumber = this.SeriesNumber,
+				SeriesSuffix = this.SeriesSuffix ?? string.Empty
 			};
 
 		}

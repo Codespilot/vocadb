@@ -231,6 +231,14 @@ namespace VocaDb.Model.Domain.Albums {
 				return OriginalRelease.EventName;
 
 			}
+			set {
+				
+				if (OriginalRelease == null)
+					OriginalRelease = new AlbumRelease();
+
+				OriginalRelease.EventName = value;
+
+			}
 		}
 
 		public virtual IList<OtherArtistForAlbum> OtherArtists {

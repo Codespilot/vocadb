@@ -15,6 +15,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Map(m => m.Description).Length(400).Not.Nullable();
 			Map(m => m.Name).Length(50).Not.Nullable();
 			Map(m => m.SeriesNumber).Not.Nullable();
+			Map(m => m.SeriesSuffix).Length(50).Not.Nullable();
 
 			HasMany(m => m.Albums).KeyColumn("[ReleaseEventName]").PropertyRef("Name").ForeignKeyConstraintName("[Name]").Inverse().ReadOnly();
 
