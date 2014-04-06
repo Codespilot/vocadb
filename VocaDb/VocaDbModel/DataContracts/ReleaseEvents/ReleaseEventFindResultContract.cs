@@ -21,10 +21,11 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 		}
 
-		public ReleaseEventFindResultContract(ReleaseEventSeries series, int seriesNumber, string eventName) {
+		public ReleaseEventFindResultContract(ReleaseEventSeries series, int seriesNumber, string seriesSuffix, string eventName) {
 
 			Series = new ReleaseEventSeriesContract(series);
 			SeriesNumber = seriesNumber;
+			SeriesSuffix = seriesSuffix;
 			EventName = eventName;
 
 		}
@@ -33,9 +34,17 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 		public string EventName { get; set; }
 
+		public bool IsKnownEvent {
+			get {
+				return EventId != 0;
+			}
+		}
+
 		public ReleaseEventSeriesContract Series { get; set; }
 
 		public int SeriesNumber { get; set; }
+
+		public string SeriesSuffix { get; set; }
 
 	}
 

@@ -8,7 +8,7 @@ namespace VocaDb.Model.Service.Search {
 
 	public class ReleaseEventSearch {
 
-		private static readonly Regex eventNameRegex = new Regex(@"([^\d]+)(\d+)");
+		private static readonly Regex eventNameRegex = new Regex(@"([^\d]+)(\d+)(?:\s(\w+))?");
 
 		private readonly IQuerySource querySource;
 
@@ -34,10 +34,14 @@ namespace VocaDb.Model.Service.Search {
 
 				var seriesName = match.Groups[1].Value.Trim();
 				var seriesNumber = Convert.ToInt32(match.Groups[2].Value);
+				var seriesSuffix = (match.Groups.Count >= 4 ? match.Groups[3].Value : string.Empty);
 
 				// Attempt to match series + series number
-				var results = Query<ReleaseEvent>().Where(e => e.SeriesNumber == seriesNumber && (seriesName.StartsWith(e.Series.Name) || e.Series.Name.Contains(seriesName)
-					|| e.Series.Aliases.Any(a => seriesName.StartsWith(a.Name) || a.Name.Contains(seriesName)))).ToArray();
+				var results = Query<ReleaseEvent>()
+					.Where(e => e.SeriesNumber == seriesNumber 
+						&& e.SeriesSuffix == seriesSuffix 
+						&& (seriesName.StartsWith(e.Series.Name) || e.Series.Name.Contains(seriesName)
+							|| e.Series.Aliases.Any(a => seriesName.StartsWith(a.Name) || a.Name.Contains(seriesName)))).ToArray();
 
 				if (results.Length > 1)
 					return new ReleaseEventFindResultContract();
@@ -49,7 +53,7 @@ namespace VocaDb.Model.Service.Search {
 				var series = Query<ReleaseEventSeries>().FirstOrDefault(s => seriesName.StartsWith(s.Name) || s.Name.Contains(seriesName) || s.Aliases.Any(a => seriesName.StartsWith(a.Name) || a.Name.Contains(seriesName)));
 
 				if (series != null)
-					return new ReleaseEventFindResultContract(series, seriesNumber, query);
+					return new ReleaseEventFindResultContract(series, seriesNumber, seriesSuffix, query);
 
 			}
 

@@ -27,9 +27,11 @@ namespace VocaDb.Tests.Service.Search {
 
 		}
 
-		private ReleaseEvent CreateEvent(ReleaseEventSeries series, int number) {
+		private ReleaseEvent CreateEvent(ReleaseEventSeries series, int number, string suffix = "") {
 
-			var e = new ReleaseEvent(string.Empty, null, series, number, string.Empty) { Id = eventId++ };
+			var e = new ReleaseEvent(string.Empty, null, series, number, suffix) {
+				Id = eventId++
+			};
 			querySource.Add(e);
 			series.Events.Add(e);
 
@@ -168,6 +170,23 @@ namespace VocaDb.Tests.Service.Search {
 			Assert.IsNotNull(result.Series, "Series");
 			Assert.AreEqual("M3", result.Series.Name, "Series");
 			Assert.AreEqual(2013, result.SeriesNumber, "SeriesNumber");
+
+		}
+
+		/// <summary>
+		/// Find known event by exact name when the event name contains a suffix.
+		/// </summary>
+		[TestMethod]
+		public void FindSeriesWithNumberAndSuffix_Exact() {
+
+			series = CreateSeries("M3");
+			CreateEvent(series, 2013, "Fall");
+
+			var result = Find("M3 2013 Fall");
+
+			Assert.IsNotNull(result, "Result");
+			Assert.IsTrue(result.IsKnownEvent, "IsKnownEvent");
+			Assert.AreEqual("M3 2013 Fall", result.EventName, "EventName");
 
 		}
 
