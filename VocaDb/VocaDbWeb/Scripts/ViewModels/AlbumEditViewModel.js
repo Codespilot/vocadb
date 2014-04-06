@@ -201,7 +201,7 @@ var vdb;
                 this.trackSearchParams = {
                     acceptSelection: this.acceptTrackSelection,
                     createNewItem: "Create new song named '{0}'.",
-                    createCustomItem: "Create custom track named '{0}'",
+                    createCustomItem: (allowCustomTracks ? "Create custom track named '{0}'" : null),
                     extraQueryParams: { songTypes: songTypes }
                 };
 
