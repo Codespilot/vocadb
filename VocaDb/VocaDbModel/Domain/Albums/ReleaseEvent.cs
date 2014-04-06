@@ -154,7 +154,7 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public override string ToString() {
-			return string.Format("release event '{0}' [{1}]", Name, Id);
+			return string.Format("Release event '{0}' [{1}]", Name, Id);
 		}
 
 		public virtual void UpdateNameFromSeries() {
