@@ -2,6 +2,7 @@
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Service;
 using VocaDb.Web.Models;
 using VocaDb.Web.Models.Home;
 
@@ -9,6 +10,12 @@ namespace VocaDb.Web.Controllers
 {
     public class HomeController : ControllerBase
     {
+
+		private OtherService otherService;
+
+		public HomeController(OtherService otherService) {
+			this.otherService = otherService;
+		}
 
 		public ActionResult Chat() {
 
@@ -31,7 +38,7 @@ namespace VocaDb.Web.Controllers
 
 			PageProperties.Description = "VocaDB is a Vocaloid database with translated artists, albums and songs.";
 
-			var contract = MvcApplication.Services.Other.GetFrontPageContent();
+			var contract = otherService.GetFrontPageContent();
 
             return View(contract);
 
