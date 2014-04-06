@@ -5,6 +5,9 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
+using System.Web.SessionState;
+using DotNetOpenAuth.Messaging;
+using DotNetOpenAuth.OAuth.Messages;
 using Microsoft.Web.Helpers;
 using MvcPaging;
 using NLog;
@@ -117,7 +120,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public void ConnectTwitter() {
+		public ActionResult ConnectTwitter() {
 
 			// Make sure session ID is initialized
 			// ReSharper disable UnusedVariable
@@ -127,11 +130,21 @@ namespace VocaDb.Web.Controllers
 			var twitterSignIn = new TwitterConsumer().TwitterSignIn;
 
 			var uri = new Uri(new Uri(AppConfig.HostAddress), Url.Action("ConnectTwitterComplete"));
-			var request = twitterSignIn.PrepareRequestUserAuthorization(uri, null, null);
+
+			UserAuthorizationRequest request;
+			try {
+				request = twitterSignIn.PrepareRequestUserAuthorization(uri, null, null);
+			} catch (ProtocolException x) {
+				log.FatalException("Exception while attempting to sent Twitter request", x);	
+				TempData.SetErrorMessage("There was an error while connecting to Twitter - please try again later.");
+				return RedirectToAction("MySettings", "User");
+			}
+
 			var response = twitterSignIn.Channel.PrepareResponse(request);
 
 			response.Send();
 			Response.End();
+			return new EmptyResult();
 
 		}
 
