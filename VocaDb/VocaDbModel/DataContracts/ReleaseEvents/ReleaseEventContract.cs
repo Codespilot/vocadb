@@ -34,7 +34,6 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 		public ReleaseEventSeriesContract Series { get; set; }
 
-
 	}
 
 }

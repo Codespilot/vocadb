@@ -11,12 +11,11 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 		public ReleaseEventDetailsContract() {}
 
 		public ReleaseEventDetailsContract(ReleaseEvent releaseEvent, ContentLanguagePreference languagePreference) 
-			: base(releaseEvent) {
+			: base(releaseEvent, true) {
 
 			ParamIs.NotNull(() => releaseEvent);
 
 			Albums = releaseEvent.Albums.Where(a => !a.Deleted).Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
-			Series = (releaseEvent.Series != null ? new ReleaseEventSeriesContract(releaseEvent.Series) : null);
 			SeriesNumber = releaseEvent.SeriesNumber;
 
 		}
@@ -24,8 +23,6 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
 
 		public ReleaseEventSeriesContract[] AllSeries { get; set; }
-
-		public ReleaseEventSeriesContract Series { get; set; }
 
 		public int SeriesNumber { get; set; }
 
