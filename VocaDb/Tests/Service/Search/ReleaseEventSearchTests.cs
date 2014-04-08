@@ -157,6 +157,8 @@ namespace VocaDb.Tests.Service.Search {
 
 		/// <summary>
 		/// Find by series whose name contains a number.
+		/// TODO: this doesn't work yet - series name with numbers is supported only for known events
+		/// See https://code.google.com/p/vocadb/issues/detail?id=164
 		/// </summary>
 		[TestMethod]
 		[Ignore]
@@ -170,6 +172,27 @@ namespace VocaDb.Tests.Service.Search {
 			Assert.IsNotNull(result.Series, "Series");
 			Assert.AreEqual("M3", result.Series.Name, "Series");
 			Assert.AreEqual(2013, result.SeriesNumber, "SeriesNumber");
+
+		}
+
+		/// <summary>
+		/// Find by series whose name contains a number.
+		/// TODO: this doesn't work yet - series name with numbers is supported only for known events
+		/// See https://code.google.com/p/vocadb/issues/detail?id=164
+		/// </summary>
+		[TestMethod]
+		[Ignore]
+		public void FindSeriesWithNumberAndSuffix() {
+
+			CreateSeries("M3");
+
+			var result = Find("M3 2013 Spring");
+
+			Assert.IsNotNull(result, "Result");
+			Assert.IsNotNull(result.Series, "Series");
+			Assert.AreEqual("M3", result.Series.Name, "Series");
+			Assert.AreEqual(2013, result.SeriesNumber, "SeriesNumber");
+			Assert.AreEqual("Spring", result.SeriesSuffix, "SeriesSuffix");
 
 		}
 
