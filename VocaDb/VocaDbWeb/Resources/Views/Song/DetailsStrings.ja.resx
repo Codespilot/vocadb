@@ -126,11 +126,26 @@
   <data name="AlternateVersions" xml:space="preserve">
     <value>他のバージョン</value>
   </data>
+  <data name="Duration" xml:space="preserve">
+    <value>タイム</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>いいね</value>
+  </data>
   <data name="Lyrics" xml:space="preserve">
     <value>歌詞</value>
   </data>
   <data name="LyricsLC" xml:space="preserve">
     <value>歌詞</value>
+  </data>
+  <data name="MatchingArtists" xml:space="preserve">
+    <value>同じアーティスト</value>
+  </data>
+  <data name="MatchingTags" xml:space="preserve">
+    <value>同じタグ</value>
+  </data>
+  <data name="OriginalMedia" xml:space="preserve">
+    <value>オリジナル投稿</value>
   </data>
   <data name="OriginalVersion" xml:space="preserve">
     <value>オリジナルバージョン</value>
@@ -143,6 +158,9 @@
   </data>
   <data name="RelatedSongs" xml:space="preserve">
     <value>関連楽曲</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>シェア</value>
   </data>
   <data name="Vocalists" xml:space="preserve">
     <value>ボーカリスト</value>

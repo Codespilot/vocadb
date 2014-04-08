@@ -129,6 +129,9 @@
   <data name="AddSong" xml:space="preserve">
     <value>曲の登録</value>
   </data>
+  <data name="Blog" xml:space="preserve">
+    <value>ブログ</value>
+  </data>
   <data name="FreeAlbums" xml:space="preserve">
     <value>フリーダウンロード</value>
   </data>

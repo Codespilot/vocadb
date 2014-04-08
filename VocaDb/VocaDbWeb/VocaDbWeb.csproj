@@ -210,6 +210,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongSortRuleNames.ja.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongVoteRatingNames.ja.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongVoteRatingNames.ja.resx</DependentUpon>
+    </Compile>
     <Compile Include="Areas\API\v1\ApiV1Registration.cs" />
     <Compile Include="Areas\API\v1\Controllers\AlbumApiController.cs" />
     <Compile Include="Areas\API\v1\Controllers\ArtistApiController.cs" />
@@ -2649,6 +2654,7 @@
     <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongVoteRatingNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -2673,6 +2679,7 @@
     <Content Include="App_GlobalResources\Songs\SongSortRuleNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongSortRuleNames.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\Songs\SongSortRuleNames.fi.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -2711,6 +2718,10 @@
     <Content Include="App_GlobalResources\Songs\SongSortRuleNames.ja.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>SongSortRuleNames.ja.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Songs\SongVoteRatingNames.ja.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongVoteRatingNames.ja.designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.resx">
@@ -2915,6 +2926,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\DiscussionContentStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DiscussionContentStrings.Designer.cs</LastGenOutput>
@@ -3069,6 +3081,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DetailsStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\DetailsStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\FavoriteSongsStrings.resx">
@@ -3077,6 +3090,7 @@
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\IndexStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\User\IndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
@@ -3100,6 +3114,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\LoginUsingAuthStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\MessagesStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\User\MessagesStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MessagesStrings.Designer.cs</LastGenOutput>

@@ -120,6 +120,15 @@
   <data name="AllSongs" xml:space="preserve">
     <value>すべての曲</value>
   </data>
+  <data name="CollaborationAlbums" xml:space="preserve">
+    <value>参加したアルバム</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>サークル／レコードレーベル</value>
+  </data>
+  <data name="MainAlbums" xml:space="preserve">
+    <value>オリジナルアルバム</value>
+  </data>
   <data name="RecentAlbums" xml:space="preserve">
     <value>最近のアルバム</value>
   </data>

@@ -367,7 +367,7 @@ namespace VocaDb.Web.Controllers
 
 				if (!result.IsOk) {
 
-					ModelState.AddModelError("", "Username or password doesn't match");
+					ModelState.AddModelError("", ViewRes.User.LoginStrings.WrongPassword);
 					
 					if (result.Error == LoginError.AccountPoisoned)
 						MvcApplication.BannedIPs.Add(host);

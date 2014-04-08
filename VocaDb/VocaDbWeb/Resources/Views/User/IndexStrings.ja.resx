@@ -117,22 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Admin" xml:space="preserve">
-    <value>管理者</value>
-  </data>
-  <data name="Limited" xml:space="preserve">
-    <value>限られたユーザー</value>
-  </data>
-  <data name="Moderator" xml:space="preserve">
-    <value>モデレータ</value>
-  </data>
-  <data name="Nothing" xml:space="preserve">
-    <value>なし</value>
-  </data>
-  <data name="Regular" xml:space="preserve">
-    <value>通常のユーザー</value>
-  </data>
-  <data name="Trusted" xml:space="preserve">
-    <value>信頼されるユーザー</value>
+  <data name="VerifiedArtists" xml:space="preserve">
+    <value>アーティストのみ</value>
   </data>
 </root>

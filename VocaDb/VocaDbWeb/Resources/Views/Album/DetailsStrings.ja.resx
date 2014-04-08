@@ -132,6 +132,12 @@
   <data name="Labels" xml:space="preserve">
     <value>レーベル</value>
   </data>
+  <data name="MatchingArtists" xml:space="preserve">
+    <value>同じアーティスト</value>
+  </data>
+  <data name="MatchingTags" xml:space="preserve">
+    <value>同じタグ</value>
+  </data>
   <data name="OtherArtists" xml:space="preserve">
     <value>他のアーティスト</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="ReleaseDate" xml:space="preserve">
     <value>発売日</value>
+  </data>
+  <data name="ReleaseEvent" xml:space="preserve">
+    <value>発売イベント</value>
   </data>
   <data name="Tracklist" xml:space="preserve">
     <value>トラックリスト</value>

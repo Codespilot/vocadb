@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CollectionTab" xml:space="preserve">
+    <value>コレクション</value>
+  </data>
+  <data name="FavoriteTags" xml:space="preserve">
+    <value>好きなタグ</value>
+  </data>
   <data name="Messages" xml:space="preserve">
     <value>メッセージ</value>
   </data>
   <data name="MySettings" xml:space="preserve">
     <value>アカウント設定</value>
+  </data>
+  <data name="SomeAlbumsILike" xml:space="preserve">
+    <value>好きなアルバム</value>
+  </data>
+  <data name="SomeArtistsIFollow" xml:space="preserve">
+    <value>フォローしているアーティスト</value>
+  </data>
+  <data name="SomeSongsILike" xml:space="preserve">
+    <value>好きな曲</value>
   </data>
 </root>
