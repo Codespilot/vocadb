@@ -126,4 +126,7 @@
   <data name="Name" xml:space="preserve">
     <value>名称</value>
   </data>
+  <data name="RatingScore" xml:space="preserve">
+    <value>評価点数</value>
+  </data>
 </root>

@@ -162,4 +162,7 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome back, {0}!</value>
   </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Username or password doesn't match</value>
+  </data>
 </root>

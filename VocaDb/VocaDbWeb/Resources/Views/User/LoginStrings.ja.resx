@@ -123,16 +123,40 @@
   <data name="KeepMeLoggedIn" xml:space="preserve">
     <value>ログイン状態を維持する</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>ログイン</value>
+  </data>
   <data name="LoginWithoutSSL" xml:space="preserve">
     <value>SSLなしのログインページ（安全性が低い）</value>
+  </data>
+  <data name="NoAccount" xml:space="preserve">
+    <value>アカウントがない場合</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>パスワード</value>
   </data>
+  <data name="PasswordIsRequired" xml:space="preserve">
+    <value>パスワードを記入してください</value>
+  </data>
+  <data name="RegisterHere" xml:space="preserve">
+    <value>登録する</value>
+  </data>
   <data name="ResetPass" xml:space="preserve">
     <value>リセットする</value>
   </data>
+  <data name="UnableToLogin" xml:space="preserve">
+    <value>ログインに失敗しました</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>ユーザー名</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>ユーザー名を記入してください</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>おかえりなさいませ、{0}さま</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>ユーザー名またはパスワードが間違っています</value>
   </data>
 </root>
