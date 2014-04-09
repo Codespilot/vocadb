@@ -19,5 +19,11 @@ namespace VocaDb.Model.Utils.Config {
 			set { this["ircUrl"] = value; }			
 		}
 
+		[ConfigurationProperty("openSearchPath", DefaultValue = "/opensearch.xml")]
+		public string OpenSearchPath {
+			get { return (string)this["openSearchPath"]; }
+			set { this["openSearchPath"] = value; }			
+		}
+
 	}
 }
