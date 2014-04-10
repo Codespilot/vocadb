@@ -53,6 +53,15 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Song> WhereArtistHasType(this IQueryable<Song> query, ArtistType artistType) {
+
+			if (artistType == ArtistType.Unknown)
+				return query;
+
+			return query.Where(s => s.AllArtists.Any(a => a.Artist.ArtistType == artistType));
+
+		}
+
 		public static IQueryable<Song> WhereDraftsOnly(this IQueryable<Song> query, bool draftsOnly) {
 
 			if (!draftsOnly)
