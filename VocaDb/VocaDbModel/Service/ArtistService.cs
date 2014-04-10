@@ -266,7 +266,10 @@ namespace VocaDb.Model.Service {
 						CommentCount = a.Comments.Count,
 						FollowCount = a.Users.Count
 					})
-					.First();
+					.FirstOrDefault();
+
+				if (stats == null)
+					throw new ObjectNotFoundException(id, "Artist");
 
 				var contract = new ArtistDetailsContract(artist, LanguagePreference) {
 					CommentCount = stats.CommentCount,
