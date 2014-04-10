@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NHibernate.Util;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
@@ -91,6 +92,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				.WhereHasType(queryParams.SongTypes)
 				.WhereHasTag(parsedQuery.TagName)
 				.WhereArtistHasTag(parsedQuery.ArtistTag)
+				.WhereArtistHasType(parsedQuery.ArtistType)
 				.WhereHasNicoId(parsedQuery.NicoId)
 				.WhereIdNotIn(queryParams.IgnoredIds)
 				.WhereInUserCollection(queryParams.UserCollectionId)
@@ -135,7 +137,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			if (string.IsNullOrWhiteSpace(query))
 				return new ParsedSongQuery();
 
-			var term = GetTerm(query.Trim(), "tag", "artist-tag");
+			var term = GetTerm(query.Trim(), "tag", "artist-tag", "artist-type");
 			
 			if (term == null) {
 
@@ -152,6 +154,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 						return new ParsedSongQuery { TagName = term.Value };
 					case "artist-tag":
 						return new ParsedSongQuery { ArtistTag = term.Value };
+					case "artist-type":
+						return new ParsedSongQuery { ArtistType = EnumVal<ArtistType>.ParseSafe(term.Value, ArtistType.Unknown) };
 				}
 				
 			}

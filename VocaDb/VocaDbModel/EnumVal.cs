@@ -82,6 +82,16 @@ namespace VocaDb.Model {
 
 		}
 
+		public static T ParseSafe(string value, T def) {
+			
+			T val;
+			if (Enum.TryParse(value, true, out val))
+				return val;
+			else
+				return def;
+
+		}
+
 		/// <summary>
 		/// Initializes a new instance of enum
 		/// </summary>
