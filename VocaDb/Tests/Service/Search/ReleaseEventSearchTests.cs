@@ -161,7 +161,6 @@ namespace VocaDb.Tests.Service.Search {
 		/// See https://code.google.com/p/vocadb/issues/detail?id=164
 		/// </summary>
 		[TestMethod]
-		[Ignore]
 		public void FindSeriesWithNumber() {
 
 			CreateSeries("M3");
@@ -181,7 +180,6 @@ namespace VocaDb.Tests.Service.Search {
 		/// See https://code.google.com/p/vocadb/issues/detail?id=164
 		/// </summary>
 		[TestMethod]
-		[Ignore]
 		public void FindSeriesWithNumberAndSuffix() {
 
 			CreateSeries("M3");
