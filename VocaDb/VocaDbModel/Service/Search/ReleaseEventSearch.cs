@@ -23,7 +23,7 @@ namespace VocaDb.Model.Service.Search {
 			this.querySource = querySource;
 		}
 
-		private ReleaseEventFindResultContract AttemptMatch(string seriesName, ReleaseEventSeries series, string query) {
+		private ReleaseEventFindResultContract AttemptSeriesMatch(string seriesName, ReleaseEventSeries series, string query) {
 			
 			var queryWithoutSeries = query.Remove(0, seriesName.Length).TrimStart();
 			var match = eventNumberRegex.Match(queryWithoutSeries);
@@ -65,7 +65,7 @@ namespace VocaDb.Model.Service.Search {
 
 				if (query.StartsWith(startsWithMatch.Name, StringComparison.InvariantCultureIgnoreCase)) {
 					
-					var result = AttemptMatch(startsWithMatch.Name, startsWithMatch, query);
+					var result = AttemptSeriesMatch(startsWithMatch.Name, startsWithMatch, query);
 
 					if (result != null)
 						return result;
@@ -74,7 +74,7 @@ namespace VocaDb.Model.Service.Search {
 
 				foreach (var alias in startsWithMatch.Aliases.Where(a => query.StartsWith(a.Name, StringComparison.InvariantCultureIgnoreCase))) {
 					
-					var result = AttemptMatch(alias.Name, startsWithMatch, query);
+					var result = AttemptSeriesMatch(alias.Name, startsWithMatch, query);
 
 					if (result != null)
 						return result;
