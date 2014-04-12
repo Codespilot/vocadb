@@ -2136,6 +2136,7 @@
     <Folder Include="logs\" />
     <Folder Include="Resources\Views\Help\" />
     <Folder Include="Scripts\Admin\" />
+    <Folder Include="Views\Integration\" />
     <Folder Include="Views\Shared\KnockoutTemplates\" />
   </ItemGroup>
   <ItemGroup>

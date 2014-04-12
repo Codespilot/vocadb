@@ -135,6 +135,9 @@
   <data name="Distributor" xml:space="preserve">
     <value>Distributor</value>
   </data>
+  <data name="Encoder" xml:space="preserve">
+    <value>Encoder</value>
+  </data>
   <data name="Illustrator" xml:space="preserve">
     <value>Illustrator</value>
   </data>

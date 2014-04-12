@@ -62,7 +62,12 @@ namespace VocaDb.Model.Domain.Artists {
 		/// For UtaiteDB.
 		/// "Utaites sometimes like to provide backing vocals for other utaites, and it happens frequently enough that it should be defined as a role."
 		/// </summary>
-		Chorus				= 8192
+		Chorus				= 8192,
+
+		/// <summary>
+		/// For UtaiteDB.
+		/// </summary>
+		Encoder				= 16384
 
 	}
 }
