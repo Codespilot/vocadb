@@ -495,31 +495,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		// Not in use currently - done while saving album properties
-		[HttpPost]
-		public ContentResult TrackProperties(int songId, string artistIds) {
-
-			var idStr = artistIds.Split(',');
-			var ids = idStr.Where(i => !string.IsNullOrEmpty(i)).Select(int.Parse).ToArray();
-
-			var artistString = Services.Songs.UpdateArtists(songId, ids);
-			return Content(artistString);
-
-		}
-
-		// Not in use currently - done while saving album properties
-		[HttpPost]
-		public ActionResult UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
-
-			if (songIds == null || artistIds == null || !songIds.Any() || !artistIds.Any())
-				return Content(string.Empty);
-
-			var artistStrings = Services.Songs.UpdateArtistsForMultipleTracks(songIds, artistIds, add);
-
-			return Json(artistStrings);
-
-		}
-
 		public ActionResult UsersWithAlbumInCollection(int albumId = invalidId) {
 
 			if (albumId == invalidId)

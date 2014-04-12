@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.Service.Helpers {
@@ -13,7 +13,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			if (tagNames.Length < 20) {
 				var direct = session.Query<Tag>().Where(t => tagNames.Contains(t.Name)).ToArray();
-				return direct.Union(direct.Where(t => t.AliasedTo != null).Select(t => t.AliasedTo)).ToDictionary(t => t.Name, new CaseInsensitiveStringComparer());
+				return direct.Union(direct.Where(t => t.AliasedTo != null).Select(t => t.AliasedTo)).ToDictionary(t => t.Name, StringComparer.InvariantCultureIgnoreCase);
 			} else {
 				return session.Query<Tag>().ToDictionary(t => t.Name);
 			}

@@ -243,4 +243,7 @@
   <data name="MatchingTags" xml:space="preserve">
     <value>Matching tags</value>
   </data>
+  <data name="Band" xml:space="preserve">
+    <value>Band/unit</value>
+  </data>
 </root>
