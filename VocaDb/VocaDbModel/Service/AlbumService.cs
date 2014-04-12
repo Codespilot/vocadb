@@ -746,7 +746,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				tags = tags.Distinct(new CaseInsensitiveStringComparer()).ToArray();
+				tags = tags.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray();
 
 				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
 				var album = session.Load<Album>(albumId);

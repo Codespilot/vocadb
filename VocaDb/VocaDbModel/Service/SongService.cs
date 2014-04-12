@@ -852,7 +852,7 @@ namespace VocaDb.Model.Service {
 
 			return HandleTransaction(session => {
 
-				tags = tags.Distinct(new CaseInsensitiveStringComparer()).ToArray();
+				tags = tags.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray();
 
 				var user = session.Load<User>(PermissionContext.LoggedUser.Id);
 				var song = session.Load<Song>(songId);
@@ -865,104 +865,6 @@ namespace VocaDb.Model.Service {
 				song.Tags.SyncVotes(user, tags, existingTags, new TagFactory(session, new AgentLoginData(user)), new SongTagUsageFactory(session, song));
 
 				return song.Tags.Usages.OrderByDescending(u => u.Count).Select(t => new TagUsageContract(t)).ToArray();
-
-			});
-
-		}
-
-		// Not in use currently - done while saving album properties
-		public string UpdateArtists(int songId, int[] artistIds) {
-
-			ParamIs.NotNull(() => artistIds);
-
-			return HandleTransaction(session => {
-
-				var song = session.Load<Song>(songId);
-
-				VerifyEntryEdit(song);
-
-				var oldArtists = song.ArtistList.ToArray();
-				var artists = session.Query<Artist>().Where(a => artistIds.Contains(a.Id)).ToArray();
-
-				var artistDiff = CollectionHelper.Diff(oldArtists, artists, (a, a2) => a.Id == a2.Id);
-
-				foreach (var added in artistDiff.Added)
-					session.Save(song.AddArtist(added));
-
-				foreach (var removed in artistDiff.Removed) {
-					var link = song.RemoveArtist(removed);
-					if (link != null)
-						session.Delete(link);
-				}
-
-				if (artistDiff.Changed) {
-
-					var diff = new SongDiff(DoSnapshot(song.GetLatestVersion(), GetLoggedUser(session))) { Artists = true };
-
-					song.UpdateArtistString();
-					Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
-					session.Update(song);
-
-					AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);
-					AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
-
-				}
-
-				return song.ArtistString[PermissionContext.LanguagePreference];
-
-			});
-
-		}
-
-		// Not in use currently - done while saving album properties
-		public KeyValuePair<int, string>[] UpdateArtistsForMultipleTracks(int[] songIds, int[] artistIds, bool add) {
-
-			ParamIs.NotNull(() => songIds);
-			ParamIs.NotNull(() => artistIds);
-
-			VerifyManageDatabase();
-
-			return HandleTransaction(session => {
-
-				var songs = session.Query<Song>().Where(s => songIds.Contains(s.Id)).ToArray();
-				var artists = session.Query<Artist>().Where(s => artistIds.Contains(s.Id)).ToArray();
-				var artistStrings = new List<KeyValuePair<int, string>>(songIds.Length);
-
-				foreach (var song in songs) {
-
-					var changed = false;
-
-					foreach (var artist in artists) {
-
-						if (add && !song.HasArtist(artist)) {
-							session.Save(song.AddArtist(artist));
-							changed = true;
-						} else if (!add && song.HasArtist(artist)) {
-							var link = song.RemoveArtist(artist);
-							if (link != null) {
-								session.Delete(link);
-								changed = true;
-							}
-						}
-
-					}
-
-					if (changed) {
-
-						var diff = new SongDiff { Artists = true };
-						song.UpdateArtistString();
-						Archive(session, song, diff, SongArchiveReason.PropertiesUpdated);
-
-						session.Update(song);
-						artistStrings.Add(new KeyValuePair<int, string>(song.Id, song.ArtistString[PermissionContext.LanguagePreference]));
-
-						AuditLog("updated artists for " + EntryLinkFactory.CreateEntryLink(song), session);
-						AddEntryEditedEntry(session, song, EntryEditEvent.Updated);
-
-					}
-				}
-
-				return artistStrings.ToArray();
 
 			});
 

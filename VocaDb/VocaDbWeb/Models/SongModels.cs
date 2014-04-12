@@ -93,10 +93,10 @@ namespace VocaDb.Web.Models {
 			WebLinks = contract.WebLinks.ToList();
 
 			Animators = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Animator)).ToArray();
+			Bands = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Band)).ToArray();
 			Performers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Vocalist)).ToArray();
 			Producers = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Producer)).ToArray();
-			OtherArtists = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Circle) 
-				|| a.Categories.HasFlag(ArtistCategories.Band) 
+			OtherArtists = contract.Artists.Where(a => a.Categories.HasFlag(ArtistCategories.Circle)  
 				|| a.Categories.HasFlag(ArtistCategories.Label) 
 				|| a.Categories.HasFlag(ArtistCategories.Other)).ToArray();
 
@@ -139,6 +139,8 @@ namespace VocaDb.Web.Models {
 		public ArtistForSongContract[] Animators { get; set; }
 
 		public string ArtistString { get; set; }
+
+		public ArtistForSongContract[] Bands { get; set; }
 
 		public bool CanEdit { get; set; }
 

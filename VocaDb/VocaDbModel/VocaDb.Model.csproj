@@ -366,7 +366,6 @@
     <Compile Include="Domain\Artists\ArtistEditableFields.cs" />
     <Compile Include="Domain\Artists\ArtistTagUsage.cs" />
     <Compile Include="Domain\Artists\ArtistTagVote.cs" />
-    <Compile Include="Domain\CaseInsensitiveStringComparer.cs" />
     <Compile Include="Domain\IEntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\Globalization\INameManager.cs" />

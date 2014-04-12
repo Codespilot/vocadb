@@ -7,6 +7,7 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Security;
 @using R = ViewRes.Song;
+@using Res = ViewRes.Song.DetailsStrings;
 @{	
 	
 	ViewBag.Title = Model.Name;
@@ -140,6 +141,16 @@
 			</tr>
    }
    
+			@if (Model.Bands.Any()) {
+				<tr>
+					<td>@Res.Band</td>
+					<td class="artistList">
+						@ArtistHelpers.ArtistList(Model.Bands)
+					</td>
+				</tr>
+			}
+
+
 			@if (Model.Animators.Any()) {
 			<tr>
 				<td>@ViewRes.Song.DetailsStrings.Animators</td>
