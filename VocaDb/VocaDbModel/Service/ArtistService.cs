@@ -268,7 +268,7 @@ namespace VocaDb.Model.Service {
 
 			var count = query.Count();
 
-			query = count >= 6 ? query : queryWithoutMain;
+			query = count >= 4 ? query : queryWithoutMain;
 
 			return query
 				.Select(s => s.Album)
