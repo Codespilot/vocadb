@@ -615,6 +615,7 @@
     <Compile Include="Service\Exceptions\RequestNotValidException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
     <Compile Include="Service\Helpers\AlbumQueryableExtender.cs" />
+    <Compile Include="Service\Helpers\ArtistForAlbumQueryableExtender.cs" />
     <Compile Include="Service\Helpers\ArtistForSongQueryableExtender.cs" />
     <Compile Include="Service\Helpers\FollowedArtistNotifier.cs" />
     <Compile Include="Service\Helpers\IUserMessageMailer.cs" />

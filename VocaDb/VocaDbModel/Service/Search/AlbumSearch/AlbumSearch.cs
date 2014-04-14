@@ -19,39 +19,13 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			get { return languagePreference; }
 		}
 
+
 		private IQueryable<ArtistForAlbum> AddArtistParticipationStatus(IQueryable<ArtistForAlbum> query, int artistId, ArtistAlbumParticipationStatus participation) {
 
 			if (participation == ArtistAlbumParticipationStatus.Everything || artistId == 0)
 				return query;
 
-			var artist = querySource.Load<Artist>(artistId);
-			var musicProducerTypes = new[] {ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup};
-
-			if (musicProducerTypes.Contains(artist.ArtistType)) {
-
-				var producerRoles = ArtistRoles.Composer | ArtistRoles.Arranger;
-
-				switch (participation) {
-					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
-						return query.Where(a => !a.IsSupport && ((a.Roles == ArtistRoles.Default) || ((a.Roles & producerRoles) != ArtistRoles.Default)) && a.Album.ArtistString.Default != ArtistHelper.VariousArtists);
-					case ArtistAlbumParticipationStatus.OnlyCollaborations:
-						return query.Where(a => a.IsSupport || ((a.Roles != ArtistRoles.Default) && ((a.Roles & producerRoles) == ArtistRoles.Default)) || a.Album.ArtistString.Default == ArtistHelper.VariousArtists);
-					default:
-						return query;
-				}
-
-			} else {
-
-				switch (participation) {
-					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
-						return query.Where(a => !a.IsSupport);
-					case ArtistAlbumParticipationStatus.OnlyCollaborations:
-						return query.Where(a => a.IsSupport);
-					default:
-						return query;
-				}
-				
-			}
+			return query.WhereHasArtistParticipationStatus(querySource.Load<Artist>(artistId), participation);
 
 		}
 
