@@ -25,6 +25,7 @@ using System.Drawing;
 using VocaDb.Model.Helpers;
 using System.Collections.Generic;
 using VocaDb.Model.Service.Repositories;
+using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
 
 namespace VocaDb.Model.Service {
@@ -254,6 +255,55 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		private AlbumContract[] GetLatestAlbums(ISession session, Artist artist) {
+			
+			var id = artist.Id;
+			//var latestAlbumCutoff = DateTime.Now - TimeSpan.FromDays(365);
+
+			var queryWithoutMain = session.Query<ArtistForAlbum>()
+				.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport);
+
+			var query = queryWithoutMain
+				.WhereHasArtistParticipationStatus(artist, ArtistAlbumParticipationStatus.OnlyMainAlbums);
+
+			var count = query.Count();
+
+			query = count >= 6 ? query : queryWithoutMain;
+
+			return query
+				.Select(s => s.Album)
+				.OrderByDescending(s => s.CreateDate)
+				.Take(6).ToArray()
+				.Select(s => new AlbumContract(s, LanguagePreference))
+				.ToArray();
+
+		}
+
+		private AlbumContract[] GetTopAlbums(ISession session, Artist artist, int[] latestAlbumIds) {
+			
+			var id = artist.Id;
+
+			var queryWithoutMain = session.Query<ArtistForAlbum>()
+				.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport 
+					&& s.Album.RatingAverageInt > 0 && !latestAlbumIds.Contains(s.Album.Id));
+
+			/*var query = queryWithoutMain
+				.WhereHasArtistParticipationStatus(artist, ArtistAlbumParticipationStatus.OnlyMainAlbums);
+
+			var count = query.Count();
+
+			query = count >= 6 ? query : queryWithoutMain;*/
+
+			return queryWithoutMain
+				.Select(s => s.Album)
+				.OrderByDescending(s => s.RatingAverageInt)
+				.ThenByDescending(s => s.RatingCount)
+				.Take(6).ToArray()
+				.Select(s => new AlbumContract(s, LanguagePreference))
+				.ToArray();
+
+		}
+
 		public ArtistDetailsContract GetArtistDetails(int id) {
 
 			return HandleQuery(session => {
@@ -287,13 +337,11 @@ namespace VocaDb.Model.Service {
 
 				}
 
-				contract.LatestAlbums = session.Query<ArtistForAlbum>()
-					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport)
-					.Select(s => s.Album)
-					.OrderByDescending(s => s.CreateDate)
-					.Take(6).ToArray()
-					.Select(s => new AlbumContract(s, LanguagePreference))
-					.ToArray();
+				contract.LatestAlbums = GetLatestAlbums(session, artist);
+
+				var latestAlbumIds = contract.LatestAlbums.Select(a => a.Id).ToArray();
+
+				contract.TopAlbums = GetTopAlbums(session, artist, latestAlbumIds);
 
 				contract.LatestSongs = session.Query<ArtistForSong>()
 					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport)
@@ -304,22 +352,14 @@ namespace VocaDb.Model.Service {
 					.Select(s => new SongContract(s, LanguagePreference))
 					.ToArray();
 
-				contract.TopAlbums = session.Query<ArtistForAlbum>()
-					.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport && s.Album.RatingAverageInt > 0)
-					.Select(s => s.Album)
-					.OrderByDescending(s => s.RatingAverageInt)
-					.ThenByDescending(s => s.RatingCount)
-					.Take(6).ToArray()
-					.Where(a => contract.LatestAlbums.All(a2 => a.Id != a2.Id))
-					.Select(s => new AlbumContract(s, LanguagePreference))
-					.ToArray();
+				var latestSongIds = contract.LatestSongs.Select(s => s.Id).ToArray();
 
 				contract.TopSongs = session.Query<ArtistForSong>()
-					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport && s.Song.RatingScore > 0)
+					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport 
+						&& s.Song.RatingScore > 0 && !latestSongIds.Contains(s.Song.Id))
 					.Select(s => s.Song)
 					.OrderByDescending(s => s.RatingScore)
 					.Take(8).ToArray()
-					.Where(a => contract.LatestSongs.All(a2 => a.Id != a2.Id))
 					.Select(s => new SongContract(s, LanguagePreference))
 					.ToArray();
 
