@@ -388,7 +388,10 @@ namespace VocaDb.Model.Service {
 						CommentCount = a.Comments.Count,
 						Hits = a.Hits.Count
 					})
-					.First();
+					.FirstOrDefault();
+
+				if (stats == null)
+					throw new ObjectNotFoundException(id, typeof(Album));
 
 				var contract = new AlbumDetailsContract(album, PermissionContext.LanguagePreference) {
 					OwnedCount = stats.OwnedCount,

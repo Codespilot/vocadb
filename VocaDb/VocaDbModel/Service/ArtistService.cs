@@ -258,7 +258,6 @@ namespace VocaDb.Model.Service {
 		private AlbumContract[] GetLatestAlbums(ISession session, Artist artist) {
 			
 			var id = artist.Id;
-			//var latestAlbumCutoff = DateTime.Now - TimeSpan.FromDays(365);
 
 			var queryWithoutMain = session.Query<ArtistForAlbum>()
 				.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport);
@@ -364,7 +363,9 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 				contract.LatestComments = session.Query<ArtistComment>()
-					.Where(c => c.Artist.Id == id).OrderByDescending(c => c.Created).Take(3)
+					.Where(c => c.Artist.Id == id)
+					.OrderByDescending(c => c.Created)
+					.Take(3)
 					.ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
 
