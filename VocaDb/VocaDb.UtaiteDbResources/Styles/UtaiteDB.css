@@ -17,6 +17,10 @@
   color: -webkit-input-placeholder(#d7aabf);
   border-radius: 3px;
 }
+.navbar .navbar-inner .navbar-search .search-query:focus,
+.navbar-inverse .navbar-inner .navbar-search .search-query:focus {
+  background-color: #dbcfe9;
+}
 .navbar .navbar-inner .navbar-search .search-query::-webkit-input-placeholder,
 .navbar-inverse .navbar-inner .navbar-search .search-query::-webkit-input-placeholder {
   color: #D7AABF;
@@ -30,18 +34,13 @@
 .rightFrame a:hover {
   color: #7a384f;
 }
-.rightFrame a.btn {
+.rightFrame .btn-inverse,
+.rightFrame .btn-inverse:visited {
   color: white;
 }
-.rightFrame a.btn:visited {
+.rightFrame .btn-info,
+.rightFrame .btn-primary {
   color: white;
-}
-.rightFrame a.btn:hover {
-  color: white;
-}
-.btn-info,
-.btn-primary {
-  color: #ffffff;
   background-color: #ad51a4;
   *background-color: #ad51a4;
   background-image: -moz-linear-gradient(top, #9c4893, #b662ad);
@@ -55,18 +54,20 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@btn-bggradientbegin', endColorstr='@btn-bggradientend', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
-.btn-info:hover,
-.btn-primary:hover,
-.btn-info:focus,
-.btn-primary:focus,
-.btn-info:active,
-.btn-primary:active,
-.btn-info.active,
-.btn-primary.active,
-.btn-info.disabled,
-.btn-primary.disabled,
-.btn-info[disabled],
-.btn-primary[disabled] {
+.rightFrame .btn-info:visited,
+.rightFrame .btn-primary:visited,
+.rightFrame .btn-info:hover,
+.rightFrame .btn-primary:hover,
+.rightFrame .btn-info:focus,
+.rightFrame .btn-primary:focus,
+.rightFrame .btn-info:active,
+.rightFrame .btn-primary:active,
+.rightFrame .btn-info.active,
+.rightFrame .btn-primary.active,
+.rightFrame .btn-info.disabled,
+.rightFrame .btn-primary.disabled,
+.rightFrame .btn-info[disabled],
+.rightFrame .btn-primary[disabled] {
   color: #ffffff;
   background-color: #b662ad;
   *background-color: #b662ad;
@@ -103,3 +104,4 @@
   color: #7a384f;
   text-decoration: underline;
 }
+/*# sourceMappingURL=UtaiteDB.css.map */

@@ -29,6 +29,9 @@
 		background-color: #823D7C;
 		color: -webkit-input-placeholder(#D7AABF);
 		border-radius: 3px;
+		&:focus {
+			background-color: @body-bgcolor;
+		}
 	}
 	.navbar-search .search-query::-webkit-input-placeholder {
 		color: #D7AABF;
@@ -47,20 +50,14 @@
 	color: @linkcolor-hover;	
 }
 
-.rightFrame a.btn {
-	color: white;
+.rightFrame .btn-inverse {
+	&, &:visited {
+		color: white;
+	}	
 }
 
-.rightFrame a.btn:visited {
-	color: white;
-}
-
-.rightFrame a.btn:hover {
-	color: white;
-}
-
-.btn-info, .btn-primary {
-  color: #ffffff;
+.rightFrame .btn-info, .rightFrame .btn-primary {
+  color: white;
   background-color: @btn-bgcolor;
   *background-color: @btn-bgcolor;
   background-image: -moz-linear-gradient(top, @btn-bggradientbegin, @btn-bggradientend);
@@ -74,6 +71,7 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@btn-bggradientbegin', endColorstr='@btn-bggradientend', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 
+	&:visited,
 	&:hover,
 	&:focus,
 	&:active,
