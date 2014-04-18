@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -118,9 +119,9 @@ namespace VocaDb.Web.Models {
 			if (pvs.All(p => p.Service != PVService.Youtube)) {
 
 				var nicoPV = VideoServiceHelper.PrimaryPV(pvs, PVService.NicoNicoDouga);
-				var query = (nicoPV != null && !string.IsNullOrEmpty(nicoPV.Name))
+				var query = HttpUtility.UrlEncode((nicoPV != null && !string.IsNullOrEmpty(nicoPV.Name))
 					? nicoPV.Name
-					: string.Format("{0} {1}", ArtistString, Name);
+					: string.Format("{0} {1}", ArtistString, Name));
 
 				WebLinks.Add(new WebLinkContract(string.Format("http://www.youtube.com/results?search_query={0}", query), 
 					ViewRes.Song.DetailsStrings.SearchYoutube, WebLinkCategory.Other));
