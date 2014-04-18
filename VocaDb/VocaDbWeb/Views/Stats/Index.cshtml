@@ -49,7 +49,12 @@
 					name: 'Songs', reports: [
 					  { name: 'Hits per song', url: 'hitsPerSong' }
 					]
-				}
+				},
+				{
+					name: 'General', reports: [
+					  { name: 'Edits per day', url: 'editsPerDay' }
+					]
+				},
 			];
 			var vm = new vdb.viewModels.StatsViewModel(categories);
 

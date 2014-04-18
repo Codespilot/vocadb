@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Mvc;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -14,6 +15,8 @@ using VocaDb.Model.Service.Repositories;
 namespace VocaDb.Web.Controllers {
 
 	public class StatsController : ControllerBase {
+
+		private const int clientCacheDurationSec = 86400;
 
 		private T GetCachedReport<T>() where T : class {
 
@@ -46,6 +49,75 @@ namespace VocaDb.Web.Controllers {
 
 		private double ToEpochTime(DateTime date) {
 			return (date - new DateTime(1970, 1, 1)).TotalMilliseconds;
+		}
+
+		private ActionResult DateLineChartWithAverage(string title, string pointsTitle, string yAxisTitle, ICollection<Tuple<DateTime, int>> points) {
+			
+			var averages = points.Select(p => Tuple.Create(p.Item1, Math.Floor(points.Where(p2 => p2.Item1 >= p.Item1 - TimeSpan.FromDays(182) && p2.Item1 <= p.Item1 + TimeSpan.FromDays(182)).Average(p3 => p3.Item2)))).ToArray();
+
+			Response.Cache.SetCacheability(HttpCacheability.Public);
+			Response.Cache.SetMaxAge(TimeSpan.FromDays(1));
+			Response.Cache.SetSlidingExpiration(true);
+
+			return Json(new {
+				chart = new {
+					height = 600
+				},
+				title = new {
+					text = title
+				},
+				xAxis = new {
+					type = "datetime",
+					title = new {
+						text = (string)null
+					},
+				},
+				yAxis = new {
+					title = new {
+						text = yAxisTitle
+					},
+					min = 0,
+				},
+				tooltip = new {
+					shared = true,
+					crosshairs = true
+				},
+				plotOptions = new {
+					bar = new {
+						dataLabels = new {
+							enabled = true
+						}
+					}
+				},
+				legend = new {
+						layout = "vertical",
+						align = "left",
+						x = 120,
+						verticalAlign = "top",
+						y = 100,
+						floating = true,
+						backgroundColor = "#FFFFFF"
+				},
+				series = new Object[] {
+					new {
+						type = "area",
+						name = pointsTitle,
+						data = points.Select(p => new object[] { ToEpochTime(p.Item1), p.Item2 }).ToArray()
+					},
+					new {
+						type = "spline",
+						name = "Average",
+						data = averages.Select(p => new object[] { ToEpochTime(p.Item1), p.Item2 }).ToArray(),
+						marker = new {
+							enabled = false
+						},
+						lineWidth = 4
+					}
+				}
+				
+			});
+
+
 		}
 
 		private ActionResult SimpleBarChart(string title, string seriesName, IList<string> categories, IList<int> data) {
@@ -137,7 +209,7 @@ namespace VocaDb.Web.Controllers {
 			this.context = context;
 		}
 
-		[OutputCache(Duration = 86400)]
+		[OutputCache(Duration = clientCacheDurationSec)]
 		public ActionResult AlbumsPerMonth() {
 			
 			var now = DateTime.Now;
@@ -166,69 +238,8 @@ namespace VocaDb.Web.Controllers {
 			});
 
 			var points = values.Select(v => Tuple.Create(new DateTime(v.Year.Value, v.Month.Value, 1), v.Count)).ToArray();
-			var averages = points.Select(p => Tuple.Create(p.Item1, Math.Floor(points.Where(p2 => p2.Item1 >= p.Item1 - TimeSpan.FromDays(182) && p2.Item1 <= p.Item1 + TimeSpan.FromDays(182)).Average(p3 => p3.Item2)))).ToArray();
 
-			Response.Cache.SetCacheability(HttpCacheability.Public);
-			Response.Cache.SetMaxAge(TimeSpan.FromDays(1));
-			Response.Cache.SetSlidingExpiration(true);
-
-			return Json(new {
-				chart = new {
-					height = 600
-				},
-				title = new {
-					text = "Releases by month"
-				},
-				xAxis = new {
-					type = "datetime",
-					title = new {
-						text = (string)null
-					},
-				},
-				yAxis = new {
-					title = new {
-						text = "Albums released"
-					},
-					min = 0,
-				},
-				tooltip = new {
-					shared = true,
-					crosshairs = true
-				},
-				plotOptions = new {
-					bar = new {
-						dataLabels = new {
-							enabled = true
-						}
-					}
-				},
-				legend = new {
-						layout = "vertical",
-						align = "left",
-						x = 120,
-						verticalAlign = "top",
-						y = 100,
-						floating = true,
-						backgroundColor = "#FFFFFF"
-				},
-				series = new Object[] {
-					new {
-						type = "area",
-						name = "Albums",
-						data = points.Select(p => new object[] { ToEpochTime(p.Item1), p.Item2 }).ToArray()
-					},
-					new {
-						type = "spline",
-						name = "Average",
-						data = averages.Select(p => new object[] { ToEpochTime(p.Item1), p.Item2 }).ToArray(),
-						marker = new {
-							enabled = false
-						},
-						lineWidth = 4
-					}
-				}
-				
-			});
+			return DateLineChartWithAverage("Releases by month", "Albums", "Albums released", points);
 
 		}
 
@@ -262,6 +273,41 @@ namespace VocaDb.Web.Controllers {
 						},
 						Value = a.AllAlbums.Count(s => !s.IsSupport && !s.Album.Deleted)
 					}), "Albums by Vocaloid/UTAU", "Songs");
+
+		}
+
+		[OutputCache(Duration = clientCacheDurationSec)]
+		public ActionResult EditsPerDay() {
+			
+			var now = DateTime.Now;
+
+			var values = userRepository.HandleQuery(ctx => {
+
+				return ctx.OfType<ActivityEntry>().Query()
+					.OrderBy(a => a.CreateDate.Year)
+					.ThenBy(a => a.CreateDate.Month)
+					.ThenBy(a => a.CreateDate.Day)
+					.GroupBy(a => new {
+						Year = a.CreateDate.Year, 
+						Month = a.CreateDate.Month,
+						Day = a.CreateDate.Day
+					})
+					/*.OrderBy(a => a.Key.Year)
+					.ThenBy(a => a.Key.Month)
+					.ThenBy(a => a.Key.Day)*/
+					.Select(a => new {
+						a.Key.Year,
+						a.Key.Month,
+						a.Key.Day,
+						Count = a.Count()
+					})
+					.ToArray();
+
+			});
+
+			var points = values.Select(v => Tuple.Create(new DateTime(v.Year, v.Month, v.Day), v.Count)).ToArray();
+
+			return DateLineChartWithAverage("Edits per day", "Edits", "Number of edits", points);
 
 		}
 
