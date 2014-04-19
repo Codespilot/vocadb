@@ -1,15 +1,15 @@
 ﻿
-<h3 data-bind="visible: isUniversalSearch">Albums</h3>
-
 <div data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
+
+	<h3 data-bind="visible: $parent.isUniversalSearch">Albums</h3>
+
+	<p class="pull-right">
+		Total entries:
+		<span data-bind="text: paging.totalItems"></span>
+	</p>
 
 	<div data-bind="with: paging">
 		@KnockoutHelpers.ServerSidePaging()
-	</div>
-
-	<div class="pull-right">
-		Total entries:
-		<span data-bind="text: paging.totalItems"></span>
 	</div>
 
 	<table class="table table-striped">

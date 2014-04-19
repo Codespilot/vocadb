@@ -23,6 +23,10 @@ module vdb.viewModels {
 
 			});
 
+			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist' || (this.searchType() == 'Anything' && this.artistSearchViewModel != null && this.artistSearchViewModel.page().length > 0));
+			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything' && this.albumSearchViewModel != null && this.albumSearchViewModel.page().length > 0);
+			this.showSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything' && this.songSearchViewModel != null && this.songSearchViewModel.page().length > 0);
+
 			this.updateResults();
 
 		}
@@ -35,21 +39,25 @@ module vdb.viewModels {
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
 
-		public showArtistSearch = ko.computed(() => this.searchType() == 'Artist' || this.searchType() == 'Anything');
-		public showAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything');
-		public showSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything');
+		public updateArtistSearch = ko.computed(() => this.searchType() == 'Artist' || this.searchType() == 'Anything');
+		public updateAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything');
+		public updateSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything');
+
+		public showArtistSearch: KnockoutComputed<boolean>;
+		public showAlbumSearch: KnockoutComputed<boolean>;
+		public showSongSearch: KnockoutComputed<boolean>;
 
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
 
 		public updateResults = () => {
 
-			if (this.showArtistSearch())
+			if (this.updateArtistSearch())
 				this.artistSearchViewModel.updateResultsWithTotalCount();
 		
-			if (this.showAlbumSearch())
+			if (this.updateAlbumSearch())
 				this.albumSearchViewModel.updateResultsWithTotalCount();
 			
-			if (this.showSongSearch())
+			if (this.updateSongSearch())
 				this.songSearchViewModel.updateResultsWithTotalCount();
 				
 		}
