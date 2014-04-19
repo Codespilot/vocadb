@@ -5,9 +5,9 @@ var vdb;
             function AlbumRepository(baseUrl) {
                 var _this = this;
                 this.baseUrl = baseUrl;
-                this.getList = function (start, query, callback) {
+                this.getList = function (start, query, sort, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/albums");
-                    var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words' };
+                    var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort };
 
                     $.getJSON(url, data, callback);
                 };

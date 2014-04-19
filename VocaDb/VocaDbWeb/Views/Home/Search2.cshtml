@@ -36,8 +36,24 @@
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th colspan="2">Name</th>
-							<th>Release date</th>
+							<th colspan="2">
+								<a data-bind="click: function() { albumSort('Name') }" href="#">
+									Name
+									<span class="sortDirection_down" data-bind="visible: albumSort() == 'Name'"></span>
+								</a>
+							</th>
+							<th>
+								<a data-bind="click:function() { albumSort('ReleaseDate') }" href="#">
+									Release date
+									<span class="sortDirection_down" data-bind="visible: albumSort() == 'ReleaseDate'"></span>
+								</a>
+							</th>
+							<th>
+								<a data-bind="click: function() { albumSort('RatingAverage') }" href="#">
+									Rating
+									<span class="sortDirection_down" data-bind="visible: albumSort() == 'RatingAverage'"></span>
+								</a>								
+							</th>
 						</tr>
 					</thead>
 					<tbody data-bind="foreach: albumsPage">
@@ -53,6 +69,11 @@
 							</td>
 							<td>
 								<span data-bind="text: releaseDate ? releaseDate.formatted : ''"></span>
+							</td>
+							<td>
+								<span title="ratingAverage" data-bind="foreach: $parent.ratingStars($data)">
+									<img data-bind="attr: { src: enabled ? '/Content/star.png' : '/Content/star_disabled.png' }" />
+								</span>
 							</td>
 						</tr>
 					</tbody>

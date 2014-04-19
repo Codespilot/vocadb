@@ -13,6 +13,10 @@ module vdb.dataContracts {
 
 		mainPicture: EntryThumbContract;
 
+		ratingAverage: number;
+
+		ratingCount: number;
+
 		releaseDate: OptionalDateTimeContract;
 
 	}

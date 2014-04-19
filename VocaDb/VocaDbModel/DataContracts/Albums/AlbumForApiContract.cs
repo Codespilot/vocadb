@@ -28,7 +28,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 				fields.HasFlag(AlbumOptionalFields.Tags), 
 				fields.HasFlag(AlbumOptionalFields.WebLinks)) {
 
-			if (thumbPersister != null && fields.HasFlag(AlbumOptionalFields.MainPicture)) {
+			if (thumbPersister != null && fields.HasFlag(AlbumOptionalFields.MainPicture) && album.CoverPictureData != null) {
 				
 				MainPicture = new EntryThumbForApiContract(new EntryThumb(album, album.CoverPictureData.Mime), thumbPersister, ssl);
 
