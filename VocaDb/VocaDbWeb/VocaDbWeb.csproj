@@ -1281,6 +1281,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\EntryThumbContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\OptionalDateTimeContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PagingPropertiesContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Song\SongApiContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
@@ -2345,6 +2346,8 @@
     <Content Include="Views\Help\External.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
     <Content Include="Views\Home\Search2.cshtml" />
+    <Content Include="Views\Home\Partials\_AlbumSearchList.cshtml" />
+    <Content Include="Views\Home\Partials\_SongSearchList.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
