@@ -7,10 +7,12 @@ using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Web.Controllers.DataAccess;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers.Api {
 
@@ -24,10 +26,12 @@ namespace VocaDb.Web.Controllers.Api {
 		private const int defaultMax = 10;
 		private readonly ArtistQueries queries;
 		private readonly ArtistService service;
+		private readonly IEntryThumbPersister thumbPersister;
 
-		public ArtistApiController(ArtistQueries queries, ArtistService service) {
+		public ArtistApiController(ArtistQueries queries, ArtistService service, IEntryThumbPersister thumbPersister) {
 			this.queries = queries;
 			this.service = service;
+			this.thumbPersister = thumbPersister;
 		}
 
 		/// <summary>
@@ -43,7 +47,8 @@ namespace VocaDb.Web.Controllers.Api {
 			ArtistOptionalFields fields = ArtistOptionalFields.None,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
-			var artist = service.GetArtistWithMergeRecord(id, (a, m) => new ArtistForApiContract(a, lang, fields));
+			var artist = service.GetArtistWithMergeRecord(id, (a, m) => new ArtistForApiContract(a, lang, 
+				thumbPersister, WebHelper.IsSSL(Request), fields));
 
 			return artist;
 
@@ -81,7 +86,8 @@ namespace VocaDb.Web.Controllers.Api {
 				Tag = tag
 			};
 
-			var artists = service.FindArtists(s => new ArtistForApiContract(s, lang, fields), param);
+			var ssl = WebHelper.IsSSL(Request);
+			var artists = service.FindArtists(s => new ArtistForApiContract(s, lang, thumbPersister, ssl, fields), param);
 
 			return artists;
 

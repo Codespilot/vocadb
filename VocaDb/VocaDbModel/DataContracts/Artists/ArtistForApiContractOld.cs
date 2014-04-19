@@ -77,10 +77,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 		None = 0,
 		Description = 1,
 		Groups = 2,
-		Members = 4,
-		Names = 8,
-		Tags = 16,
-		WebLinks = 32
+		MainPicture = 4,
+		Members = 8,
+		Names = 16,
+		Tags = 32,
+		WebLinks = 64
 
 	}
 }

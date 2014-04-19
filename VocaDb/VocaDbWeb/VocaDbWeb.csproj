@@ -1278,6 +1278,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistApiContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryThumbContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\OptionalDateTimeContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PagingPropertiesContract.ts" />
@@ -2348,6 +2349,7 @@
     <Content Include="Views\Home\Search2.cshtml" />
     <Content Include="Views\Home\Partials\_AlbumSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_SongSearchList.cshtml" />
+    <Content Include="Views\Home\Partials\_ArtistSearchList.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
