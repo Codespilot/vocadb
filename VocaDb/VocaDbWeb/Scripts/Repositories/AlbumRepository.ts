@@ -18,10 +18,10 @@ module vdb.repositories {
 
 		}
 
-		getList = (start: number, query: string, callback) => {
+		getList = (start: number, query: string, sort: string, callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
-			var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words' };
+			var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort };
 
 			$.getJSON(url, data, callback);
 
