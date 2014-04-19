@@ -1,0 +1,69 @@
+﻿
+<h3 data-bind="visible: isUniversalSearch">Albums</h3>
+
+<div data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+	<div class="pull-right">
+		Total entries:
+		<span data-bind="text: paging.totalItems"></span>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th colspan="2">
+					<a data-bind="click: function() { sort('Name') }" href="#">
+						Name
+						<span class="sortDirection_down" data-bind="visible: sort() == 'Name'"></span>
+					</a>
+				</th>
+				<th>
+					<a data-bind="click:function() { sort('ReleaseDate') }" href="#">
+						Release date
+						<span class="sortDirection_down" data-bind="visible: sort() == 'ReleaseDate'"></span>
+					</a>
+				</th>
+				<th>
+					<a data-bind="click: function() { sort('RatingAverage') }" href="#">
+						Rating
+						<span class="sortDirection_down" data-bind="visible: sort() == 'RatingAverage'"></span>
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: page">
+			<tr>
+				<td>
+					<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#" class="coverPicThumb">
+						<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb" />
+					</a>
+				</td>
+				<td>
+					<a data-bind="text: localizedName, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#"></a><br />
+					<small class="extraInfo" data-bind="text: artistString"></small>
+				</td>
+				<td>
+					<span data-bind="text: releaseDate ? releaseDate.formatted : ''"></span>
+				</td>
+				<td>
+					<span data-bind="attr: { title: ratingAverage }, foreach: $parent.ratingStars($data)">
+						<img data-bind="attr: { src: enabled ? '/Content/star.png' : '/Content/star_disabled.png' }" />
+					</span>
+					<br />
+					<span data-bind="text: ratingCount"></span>
+					time(s)
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+</div>
+

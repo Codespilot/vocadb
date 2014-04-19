@@ -6,41 +6,64 @@ module vdb.viewModels {
 
 	export class SearchViewModel {
 
-		updateResults = (clearResults: boolean) => {
+		constructor(albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository) {
 
-			if (clearResults)
-				this.albumsPaging.page(1);
+			this.albumSearchViewModel = new AlbumSearchViewModel(this, albumRepo);
+			this.songSearchViewModel = new SongSearchViewModel(this, songRepo);
 
-			var pagingProperties = this.albumsPaging.getPagingProperties(clearResults);
+			this.searchTerm.subscribe(this.updateResults);
 
-			this.albumRepo.getList(pagingProperties, this.searchTerm(), this.albumSort(), (result: any) => {
+			this.searchType.subscribe(val => {
 
-				if (pagingProperties.getTotalCount)
-					this.albumsPaging.totalItems(result.totalCount);
-
-				this.albumsPage(result.items);
+				if (this.currentSearchType() != "Anything") {
+					this.updateResults();
+				}
+				this.currentSearchType(val);
 
 			});
 
-		};
-
-		updateResultsWithTotalCount = () => this.updateResults(true);
-		updateResultsWithoutTotalCount = () => this.updateResults(false);
-
-		constructor(private albumRepo: rep.AlbumRepository) {
-
-			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
-			this.albumSort.subscribe(this.updateResultsWithTotalCount);
-			this.albumsPaging.getItemsCallback = this.updateResultsWithoutTotalCount;
-			//this.albumsPaging.pagingProperties.subscribe(this.updateResults);
-
-			this.updateResultsWithTotalCount();
+			this.updateResults();
 
 		}
 
-		public albumsPage = ko.observableArray<dc.AlbumContract>([]);
+		public albumSearchViewModel: AlbumSearchViewModel;
+		public songSearchViewModel: SongSearchViewModel;
 
-		public albumsPaging = new ServerSidePagingViewModel();
+		private currentSearchType = ko.observable("Anything");
+		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
+		public searchType = ko.observable("Anything");
+
+		public showAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything');
+		public showSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything');
+
+		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
+
+		public updateResults = () => {
+		
+			if (this.showAlbumSearch())
+				this.albumSearchViewModel.updateResultsWithTotalCount();
+			
+			if (this.showSongSearch())
+				this.songSearchViewModel.updateResultsWithTotalCount();
+				
+		}
+
+	}
+
+	export class AlbumSearchViewModel {
+
+		constructor(private searchViewModel: SearchViewModel, private albumRepo: rep.AlbumRepository) {
+
+			this.sort.subscribe(this.updateResultsWithTotalCount);
+			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+		}
+
+		public page = ko.observableArray<dc.AlbumContract>([]);
+
+		public paging = new ServerSidePagingViewModel();
+
+		public sort = ko.observable("Name");
 
 		public ratingStars = (album: dc.AlbumContract) => {
 
@@ -52,9 +75,64 @@ module vdb.viewModels {
 
 		};
 
-		public albumSort = ko.observable("Name");
-		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
-		public searchType = ko.observable("Anything");
+		public updateResultsWithTotalCount = () => this.updateResults(true);
+		public updateResultsWithoutTotalCount = () => this.updateResults(false);
+
+		public updateResults = (clearResults: boolean) => {
+
+			if (clearResults)
+				this.paging.page(1);
+
+			var pagingProperties = this.paging.getPagingProperties(clearResults);
+
+			this.albumRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), (result: any) => {
+
+				if (pagingProperties.getTotalCount)
+					this.paging.totalItems(result.totalCount);
+
+				this.page(result.items);
+
+			});
+
+		};
+
+	}
+
+	export class SongSearchViewModel {
+
+		constructor(private searchViewModel: SearchViewModel, private songRepo: rep.SongRepository) {
+
+			this.sort.subscribe(this.updateResultsWithTotalCount);
+			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+		}
+
+		public page = ko.observableArray<dc.SongApiContract>([]);
+
+		public paging = new ServerSidePagingViewModel();
+
+		public sort = ko.observable("Name");
+
+		public updateResultsWithTotalCount = () => this.updateResults(true);
+		public updateResultsWithoutTotalCount = () => this.updateResults(false);
+
+		public updateResults = (clearResults: boolean) => {
+
+			if (clearResults)
+				this.paging.page(1);
+
+			var pagingProperties = this.paging.getPagingProperties(clearResults);
+
+			this.songRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), (result: any) => {
+
+				if (pagingProperties.getTotalCount)
+					this.paging.totalItems(result.totalCount);
+
+				this.page(result.items);
+
+			});
+
+		};
 
 	}
 

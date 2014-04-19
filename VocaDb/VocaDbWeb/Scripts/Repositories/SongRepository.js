@@ -4,6 +4,16 @@ var vdb;
         var SongRepository = (function () {
             function SongRepository(baseUrl) {
                 var _this = this;
+                this.baseUrl = baseUrl;
+                this.getList = function (paging, query, sort, callback) {
+                    var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/songs");
+                    var data = {
+                        start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
+                        query: query, fields: "ThumbUrl", lang: 'English', nameMatchMode: 'Words', sort: sort
+                    };
+
+                    $.getJSON(url, data, callback);
+                };
                 this.get = function (relative, params, callback) {
                     $.get(_this.mapUrl(relative), params, callback);
                 };
