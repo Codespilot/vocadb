@@ -68,7 +68,7 @@
 					<tbody data-bind="foreach: albumsPage">
 						<tr>
 							<td>
-								<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#">
+								<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#" class="coverPicThumb">
 									<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb" />
 								</a>
 							</td>
