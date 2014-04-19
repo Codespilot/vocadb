@@ -1277,6 +1277,9 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\EntryThumbContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\OptionalDateTimeContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
@@ -1823,6 +1826,7 @@
       <DependentUpon>FakeUserRepository.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\SearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.ts" />
@@ -2338,6 +2342,7 @@
     <Content Include="Views\Shared\Partials\_EditArtistRolesPopup.cshtml" />
     <Content Include="Views\Help\External.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
+    <Content Include="Views\Home\Search2.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

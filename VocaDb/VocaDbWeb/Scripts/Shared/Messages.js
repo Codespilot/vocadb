@@ -68,7 +68,7 @@
         _positionMessageWrapper: function () {
             var messages;
             messages = $("#messages");
-            if (messages.offset().top <= $(window).scrollTop() + 10) {
+            if (messages.offset() && messages.offset().top <= $(window).scrollTop() + 10) {
                 return messages.addClass("fixed");
             } else {
                 return messages.removeClass("fixed");

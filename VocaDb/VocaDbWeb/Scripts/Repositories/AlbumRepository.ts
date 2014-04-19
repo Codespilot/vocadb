@@ -10,13 +10,22 @@ module vdb.repositories {
         // Maps a relative URL to an absolute one.
         private mapUrl: (relative: string) => string;
 
-        constructor(baseUrl: string) {
+        constructor(private baseUrl: string) {
 
             this.mapUrl = (relative) => {
                 return vdb.functions.mergeUrls(baseUrl, "/Album") + relative;
             };
 
-        }
+		}
+
+		getList = (start: number, query: string, callback) => {
+
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
+			var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words' };
+
+			$.getJSON(url, data, callback);
+
+		}
 
     }
 

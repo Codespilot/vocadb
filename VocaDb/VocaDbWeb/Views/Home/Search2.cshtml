@@ -1,0 +1,84 @@
+﻿@using System.Web.Optimization
+@inherits VocaDb.Web.Code.VocaDbPage
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>VocaDB</title>
+</head>
+<body style="padding-top: 50px">
+	<div class="rightFrame container-fluid" style="min-height: 1000px">
+		<div class="row-fluid">
+			<div class="span12">
+				
+				<br /><br />
+
+				<ul class="nav nav-pills">
+					<li data-bind="css: { active: searchType() == 'Anything' }">
+						<a href="#anythingSearchTab" data-bind="click: searchType('Anything')">Anything</a>
+					</li>
+					<li data-bind="css: { active: searchType() == 'Album' }">
+						<a href="#anythingSearchTab" data-bind="click: searchType('Album')">Albums</a>
+					</li>
+				</ul>
+				
+			
+				<div id="anythingSearchTab">
+					<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" style="margin-left: auto; margin-right: auto; display: block" />
+				</div>
+				
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th colspan="2">Name</th>
+							<th>Release date</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: albumsPage">
+						<tr>
+							<td>
+								<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#">
+									<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" />
+								</a>
+							</td>
+							<td>
+								<a data-bind="text: localizedName, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#"></a><br />
+								<small class="extraInfo" data-bind="text: artistString"></small>
+							</td>
+							<td>
+								<span data-bind="text: releaseDate ? releaseDate.formatted : ''"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+		</div>
+	</div>
+	@*<link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" />*@
+	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
+	@Styles.Render("~/Content/css")
+	@{ Html.RenderPartial("Partials/_LayoutScripts"); }
+	@Scripts.Render("~/bundles/Home/Search")
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+
+			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
+			var vm = new vdb.viewModels.SearchViewModel(albumRepo);
+			ko.applyBindings(vm);
+
+		});
+
+	</script>
+
+</body>
+</html>

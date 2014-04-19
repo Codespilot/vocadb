@@ -43,6 +43,9 @@
         entryTypeTranslations, topBarData.searchObjectType, topBarData.searchTerm, unreadMessagesCount, 
 	    getNewReportCount, entryReportRepository, userRepository);
     
-    ko.applyBindings(topBarViewModel, $("#topBar")[0]);
+    var topBar = $("#topBar")[0];
+	if (topBar) {
+		ko.applyBindings(topBarViewModel, $("#topBar")[0]);		
+	}
 
 </script>

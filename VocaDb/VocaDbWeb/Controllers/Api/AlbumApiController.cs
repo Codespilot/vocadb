@@ -7,9 +7,11 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Web.Controllers.DataAccess;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers.Api {
 
@@ -21,12 +23,14 @@ namespace VocaDb.Web.Controllers.Api {
 
 		private const int absoluteMax = 30;
 		private const int defaultMax = 10;
+		private readonly IEntryThumbPersister thumbPersister;
 		private readonly AlbumQueries queries;
 		private readonly AlbumService service;
 
-		public AlbumApiController(AlbumQueries queries, AlbumService service) {			
+		public AlbumApiController(AlbumQueries queries, AlbumService service, IEntryThumbPersister thumbPersister) {			
 			this.queries = queries;
 			this.service = service;
+			this.thumbPersister = thumbPersister;
 		}
 
 		/// <summary>
@@ -42,7 +46,8 @@ namespace VocaDb.Web.Controllers.Api {
 		[Route("{id:int}")]
 		public AlbumForApiContract GetOne(int id, AlbumOptionalFields fields = AlbumOptionalFields.None, ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
-			var album = service.GetAlbumWithMergeRecord(id, (a, m) => new AlbumForApiContract(a, m, lang, fields));
+			var ssl = WebHelper.IsSSL(Request);
+			var album = service.GetAlbumWithMergeRecord(id, (a, m) => new AlbumForApiContract(a, m, lang, thumbPersister, ssl, fields));
 
 			return album;
 
@@ -82,8 +87,9 @@ namespace VocaDb.Web.Controllers.Api {
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort);
+			var ssl = WebHelper.IsSSL(Request);
 
-			var entries = service.Find(a => new AlbumForApiContract(a, null, lang, fields), queryParams);
+			var entries = service.Find(a => new AlbumForApiContract(a, null, lang, thumbPersister, ssl, fields), queryParams);
 			
 			return entries;
 
