@@ -20,9 +20,9 @@
 				<br /><br />
 
 				<ul class="nav nav-pills">
-					<li data-bind="css: { active: searchType() == 'Anything' }">
-						<a href="#anythingSearchTab" data-bind="click: searchType('Anything')">Anything</a>
-					</li>
+					@*<li data-bind="css: { active: searchType() == 'Anything' }">
+		<a href="#anythingSearchTab" data-bind="click: searchType('Anything')">Anything</a>
+	</li>*@
 					<li data-bind="css: { active: searchType() == 'Album' }">
 						<a href="#anythingSearchTab" data-bind="click: searchType('Album')">Albums</a>
 					</li>
@@ -31,6 +31,15 @@
 			
 				<div id="anythingSearchTab">
 					<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" style="margin-left: auto; margin-right: auto; display: block" />
+				</div>
+				
+				<div data-bind="with: albumsPaging">
+					@KnockoutHelpers.ServerSidePaging()
+				</div>
+				
+				<div class="pull-right">
+					Total entries:
+					<span data-bind="text: albumsPaging.totalItems"></span>
 				</div>
 				
 				<table class="table table-striped">
@@ -60,7 +69,7 @@
 						<tr>
 							<td>
 								<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: additionalNames }" href="#">
-									<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" />
+									<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb" />
 								</a>
 							</td>
 							<td>
@@ -71,13 +80,20 @@
 								<span data-bind="text: releaseDate ? releaseDate.formatted : ''"></span>
 							</td>
 							<td>
-								<span title="ratingAverage" data-bind="foreach: $parent.ratingStars($data)">
+								<span data-bind="attr: { title: ratingAverage }, foreach: $parent.ratingStars($data)">
 									<img data-bind="attr: { src: enabled ? '/Content/star.png' : '/Content/star_disabled.png' }" />
 								</span>
+								<br />
+								<span data-bind="text: ratingCount"></span>
+								time(s)
 							</td>
 						</tr>
 					</tbody>
 				</table>
+				
+				<div data-bind="with: albumsPaging">
+					@KnockoutHelpers.ServerSidePaging()
+				</div>
 
 			</div>
 

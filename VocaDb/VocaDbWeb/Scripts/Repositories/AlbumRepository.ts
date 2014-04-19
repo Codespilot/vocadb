@@ -3,6 +3,8 @@
 
 module vdb.repositories {
 
+	import dc = vdb.dataContracts;
+
     // Repository for managing albums and related objects.
     // Corresponds to the AlbumController class.
     export class AlbumRepository {
@@ -18,10 +20,13 @@ module vdb.repositories {
 
 		}
 
-		getList = (start: number, query: string, sort: string, callback) => {
+		getList = (paging: dc.PagingProperties, query: string, sort: string, callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
-			var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort };
+			var data = {
+				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
+				query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort
+			};
 
 			$.getJSON(url, data, callback);
 

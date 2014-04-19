@@ -6,9 +6,19 @@ module vdb.viewModels {
 
 	export class SearchViewModel {
 
-		updateResults = () => {
+		updateResults = (clearResults: boolean) => {
 
-			this.albumRepo.getList(0, this.searchTerm(), this.albumSort(), (result: any) => {
+			if (clearResults)
+				this.albumsPaging.page(1);
+
+			var pagingProperties = this.albumsPaging.getPagingProperties(clearResults);
+
+			this.albumRepo.getList(pagingProperties, this.searchTerm(), this.albumSort(), (result: any) => {
+
+				console.log("Loading page" + pagingProperties.start);
+
+				if (pagingProperties.getTotalCount)
+					this.albumsPaging.totalItems(result.totalCount);
 
 				this.albumsPage(result.items);
 
@@ -16,16 +26,23 @@ module vdb.viewModels {
 
 		};
 
+		updateResultsWithTotalCount = () => this.updateResults(true);
+		updateResultsWithoutTotalCount = () => this.updateResults(false);
+
 		constructor(private albumRepo: rep.AlbumRepository) {
 
-			this.searchTerm.subscribe(this.updateResults);
-			this.albumSort.subscribe(this.updateResults);
+			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
+			this.albumSort.subscribe(this.updateResultsWithTotalCount);
+			this.albumsPaging.getItemsCallback = this.updateResultsWithoutTotalCount;
+			//this.albumsPaging.pagingProperties.subscribe(this.updateResults);
 
-			this.updateResults();
+			this.updateResultsWithTotalCount();
 
 		}
 
 		public albumsPage = ko.observableArray<dc.AlbumContract>([]);
+
+		public albumsPaging = new ServerSidePagingViewModel();
 
 		public ratingStars = (album: dc.AlbumContract) => {
 

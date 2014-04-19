@@ -104,6 +104,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Repositories/AlbumRepository.js",
 				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/Repositories/SongRepository.js",
+				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/SearchViewModel.js"
 			));
 
