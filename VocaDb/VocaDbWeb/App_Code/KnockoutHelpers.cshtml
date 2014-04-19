@@ -1,5 +1,42 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 
+@helper ServerSidePaging() {
+
+	<div class="pagination" data-bind="visible: $data">
+		<ul>
+			<li data-bind="css: { disabled: isFirstPage }">
+				<a data-bind="click: page(1)" href="#">&laquo;&laquo; First</a>
+			</li>
+			<li data-bind="css: { disabled: isFirstPage }">
+				<a data-bind="click: previousPage" href="#">&laquo; Previous</a>
+			</li>
+
+			<li data-bind="visible: showMoreBegin" class="disabled">
+				<a href="#">…</a>				
+			</li>
+			
+			<!-- ko foreach: pages -->
+			<li data-bind="css: { active: $data == $parent.page() }">
+				<a data-bind="click: function() { $parent.page($data) }, text: $data" href="#"></a>
+			</li>
+			<!-- /ko -->
+			
+			<li data-bind="visible: showMoreEnd" class="disabled">
+				<a href="#">…</a>
+			</li>
+			
+			<li data-bind="css: { disabled: isLastPage }">
+				<a data-bind="click: nextPage" href="#">Next &raquo;</a>
+			</li>
+			<li data-bind="css: { disabled: isLastPage }">
+				<a data-bind="click: goToLastPage" href="#">Last &raquo;&raquo;</a>
+			</li>
+
+		</ul>
+	</div>
+
+}
+
 @helper WebLinksEditViewKnockout(bool showCategory = true) {
 	<!-- binding context: WebLinksEditViewModel -->
 	<table>

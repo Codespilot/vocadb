@@ -1280,6 +1280,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryThumbContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\OptionalDateTimeContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\PagingPropertiesContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
@@ -1827,6 +1828,7 @@
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SearchViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\ServerSidePagingViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.ts" />
