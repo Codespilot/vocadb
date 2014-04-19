@@ -6,8 +6,9 @@ module vdb.viewModels {
 
 	export class SearchViewModel {
 
-		constructor(albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository) {
+		constructor(artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository) {
 
+			this.artistSearchViewModel = new ArtistSearchViewModel(this, artistRepo);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, albumRepo);
 			this.songSearchViewModel = new SongSearchViewModel(this, songRepo);
 
@@ -27,18 +28,23 @@ module vdb.viewModels {
 		}
 
 		public albumSearchViewModel: AlbumSearchViewModel;
+		public artistSearchViewModel: ArtistSearchViewModel;
 		public songSearchViewModel: SongSearchViewModel;
 
 		private currentSearchType = ko.observable("Anything");
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
 
+		public showArtistSearch = ko.computed(() => this.searchType() == 'Artist' || this.searchType() == 'Anything');
 		public showAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything');
 		public showSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything');
 
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
 
 		public updateResults = () => {
+
+			if (this.showArtistSearch())
+				this.artistSearchViewModel.updateResultsWithTotalCount();
 		
 			if (this.showAlbumSearch())
 				this.albumSearchViewModel.updateResultsWithTotalCount();
@@ -47,6 +53,44 @@ module vdb.viewModels {
 				this.songSearchViewModel.updateResultsWithTotalCount();
 				
 		}
+
+	}
+
+	export class ArtistSearchViewModel {
+
+		constructor(private searchViewModel: SearchViewModel, private artistRepo: rep.ArtistRepository) {
+
+			this.sort.subscribe(this.updateResultsWithTotalCount);
+			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+		}
+
+		public page = ko.observableArray<dc.ArtistApiContract>([]);
+
+		public paging = new ServerSidePagingViewModel();
+
+		public sort = ko.observable("Name");
+
+		public updateResultsWithTotalCount = () => this.updateResults(true);
+		public updateResultsWithoutTotalCount = () => this.updateResults(false);
+
+		public updateResults = (clearResults: boolean) => {
+
+			if (clearResults)
+				this.paging.page(1);
+
+			var pagingProperties = this.paging.getPagingProperties(clearResults);
+
+			this.artistRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), (result: any) => {
+
+				if (pagingProperties.getTotalCount)
+					this.paging.totalItems(result.totalCount);
+
+				this.page(result.items);
+
+			});
+
+		};
 
 	}
 

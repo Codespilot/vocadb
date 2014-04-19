@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
@@ -15,7 +16,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		public ArtistForApiContract() { }
 
-		public ArtistForApiContract(Artist artist, ContentLanguagePreference languagePreference, ArtistOptionalFields includedFields) {
+		public ArtistForApiContract(Artist artist, 
+			ContentLanguagePreference languagePreference, 
+			IEntryThumbPersister thumbPersister,
+			bool ssl,
+			ArtistOptionalFields includedFields) {
 
 			ArtistType = artist.ArtistType;
 			CreateDate = artist.CreateDate;
@@ -45,6 +50,12 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			if (includedFields.HasFlag(ArtistOptionalFields.Tags))
 				Tags = artist.Tags.Usages.Select(u => new TagUsageForApiContract(u)).ToArray();
+
+			if (thumbPersister != null && includedFields.HasFlag(ArtistOptionalFields.MainPicture) && artist.Picture != null) {
+				
+				MainPicture = new EntryThumbForApiContract(new EntryThumb(artist, artist.Picture.Mime), thumbPersister, ssl);
+
+			}
 
 			if (includedFields.HasFlag(ArtistOptionalFields.WebLinks))
 				WebLinks = artist.WebLinks.Select(w => new ArchivedWebLinkContract(w)).ToArray();
@@ -78,6 +89,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember(EmitDefaultValue = false)]
 		public string LocalizedName { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public EntryThumbForApiContract MainPicture { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public ArtistContract[] Members { get; set; }

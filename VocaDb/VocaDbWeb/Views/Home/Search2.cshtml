@@ -16,28 +16,35 @@
 	<div class="rightFrame container-fluid" style="min-height: 1000px">
 		<div class="row-fluid">
 			<div class="span12">
-				
+
 				<br /><br />
 
 				<ul class="nav nav-pills">
 					<li data-bind="css: { active: searchType() == 'Anything' }">
 						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Anything'); }">Anything</a>
 					</li>
+					<li data-bind="css: { active: searchType() == 'Artist' }">
+						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Artist'); }">Artists</a>
+					</li>
 					<li data-bind="css: { active: searchType() == 'Album' }">
-						<a href="#anythingSearchTab"  data-bind="click: function() { searchType('Album'); }">Albums</a>
+						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Album'); }">Albums</a>
 					</li>
 					<li data-bind="css: { active: searchType() == 'Song' }">
 						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Song'); }">Songs</a>
 					</li>
 				</ul>
-				
-			
+
+
 				<div id="anythingSearchTab">
 					<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" style="margin-left: auto; margin-right: auto; display: block" />
 				</div>
-				
+
+				@{ Html.RenderPartial("Partials/_ArtistSearchList"); }
+
+				<hr data-bind="visible: isUniversalSearch" />
+
 				@{ Html.RenderPartial("Partials/_AlbumSearchList"); }
-				
+
 				<hr data-bind="visible: isUniversalSearch" />
 
 				@{ Html.RenderPartial("Partials/_SongSearchList"); }
@@ -54,16 +61,17 @@
 
 	<script type="text/javascript">
 
-	$(document).ready(function () {
+		$(document).ready(function () {
 
+			var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
 			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
-			var vm = new vdb.viewModels.SearchViewModel(albumRepo, songRepo);
+			var vm = new vdb.viewModels.SearchViewModel(artistRepo, albumRepo, songRepo);
 			ko.applyBindings(vm);
 
 		});
 
-	</script>
+</script>
 
 </body>
 </html>

@@ -15,10 +15,22 @@ module vdb.repositories {
 
         public getOne: (id: number, callback: (result: dc.ArtistContract) => void) => void;
 
+		public getList = (paging: dc.PagingProperties, query: string, sort: string, callback) => {
+
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/artists");
+			var data = {
+				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
+				query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort
+			};
+
+			$.getJSON(url, data, callback);
+
+		}
+
         // Maps a relative URL to an absolute one.
         private mapUrl: (relative: string) => string;
 
-        constructor(baseUrl: string) {
+        constructor(private baseUrl: string) {
 
             this.mapUrl = (relative: string) => {
                 return vdb.functions.mergeUrls(baseUrl, "/Artist") + relative;
