@@ -3,6 +3,14 @@ var vdb;
     (function (repositories) {
         var AlbumRepository = (function () {
             function AlbumRepository(baseUrl) {
+                var _this = this;
+                this.baseUrl = baseUrl;
+                this.getList = function (start, query, callback) {
+                    var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/albums");
+                    var data = { start: start, query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words' };
+
+                    $.getJSON(url, data, callback);
+                };
                 this.mapUrl = function (relative) {
                     return vdb.functions.mergeUrls(baseUrl, "/Album") + relative;
                 };

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using NLog;
 using VocaDb.Web.Code;
@@ -39,6 +40,10 @@ namespace VocaDb.Web.Helpers {
 
 		public static bool IsSSL(HttpRequestBase request) {
 			return request != null && request.Url != null && request.Url.Scheme == Uri.UriSchemeHttps;
+		}
+
+		public static bool IsSSL(HttpRequestMessage request) {
+			return request != null && request.RequestUri != null && request.RequestUri.Scheme == Uri.UriSchemeHttps;
 		}
 
 		/// <summary>

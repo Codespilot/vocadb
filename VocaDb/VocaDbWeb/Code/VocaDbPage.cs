@@ -45,6 +45,10 @@ namespace VocaDb.Web.Code {
 			get { return DependencyResolver.Current.GetService<VdbConfigManager>(); }
 		}
 
+		public string RootPath {
+			get { return Url.Content("~/"); }
+		}
+
 	}
 
 }

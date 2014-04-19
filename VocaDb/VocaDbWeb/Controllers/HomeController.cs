@@ -101,6 +101,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Search2() {
+			return View();
+		}
+
 		public ActionResult SetContentPreferenceCookie(ContentLanguagePreference languagePreference) {
 
 			LoginManager.SetLanguagePreferenceCookie(languagePreference);

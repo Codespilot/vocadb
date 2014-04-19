@@ -7,6 +7,7 @@ using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
@@ -15,13 +16,23 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		public AlbumForApiContract() { }
 
-		public AlbumForApiContract(Album album, AlbumMergeRecord mergeRecord, ContentLanguagePreference languagePreference, 
+		public AlbumForApiContract(
+			Album album, AlbumMergeRecord mergeRecord, 
+			ContentLanguagePreference languagePreference, 
+			IEntryThumbPersister thumbPersister,
+			bool ssl,
 			AlbumOptionalFields fields) : this(album, mergeRecord, languagePreference, 
 				fields.HasFlag(AlbumOptionalFields.Artists), 
 				fields.HasFlag(AlbumOptionalFields.Names), 
 				fields.HasFlag(AlbumOptionalFields.PVs), 
 				fields.HasFlag(AlbumOptionalFields.Tags), 
 				fields.HasFlag(AlbumOptionalFields.WebLinks)) {
+
+			if (thumbPersister != null && fields.HasFlag(AlbumOptionalFields.MainPicture)) {
+				
+				MainPicture = new EntryThumbForApiContract(new EntryThumb(album, album.CoverPictureData.Mime), thumbPersister, ssl);
+
+			}
 
 		}
 
@@ -99,6 +110,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public string LocalizedName { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
+		public EntryThumbForApiContract MainPicture { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
@@ -138,10 +152,11 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		None = 0,
 		Artists = 1,
-		Names = 2,
-		PVs = 4,
-		Tags = 8,
-		WebLinks = 16
+		MainPicture = 2,
+		Names = 4,
+		PVs = 8,
+		Tags = 16,
+		WebLinks = 32
 
 	}
 
