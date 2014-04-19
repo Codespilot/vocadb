@@ -15,8 +15,6 @@ module vdb.viewModels {
 
 			this.albumRepo.getList(pagingProperties, this.searchTerm(), this.albumSort(), (result: any) => {
 
-				console.log("Loading page" + pagingProperties.start);
-
 				if (pagingProperties.getTotalCount)
 					this.albumsPaging.totalItems(result.totalCount);
 
