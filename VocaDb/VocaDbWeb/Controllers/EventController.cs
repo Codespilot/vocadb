@@ -72,14 +72,18 @@ namespace VocaDb.Web.Controllers
         {
 
 			if (!ModelState.IsValid) {
-				var contract = Service.GetReleaseEventForEdit(model.Id);
-				model.CopyNonEditableProperties(contract);
+
+				if (model.Id != 0) {
+					var contract = Service.GetReleaseEventForEdit(model.Id);
+					model.CopyNonEditableProperties(contract);					
+				}
+
 				return View(model);
 			}
 
-			queries.Update(model.ToContract());
+			var id = queries.Update(model.ToContract()).Id;
 
-			return RedirectToAction("Details", new { id = model.Id });
+			return RedirectToAction("Details", new { id });
 
 		}
 
@@ -155,7 +159,12 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
-			var contract = new ReleaseEventDetailsContract { Name = model.EventName, Series = (skipSeries ? null : model.Series), SeriesNumber = model.SeriesNumber };
+			var contract = new ReleaseEventDetailsContract {
+				Name = model.EventName, 
+				Series = (skipSeries ? null : model.Series), 
+				SeriesNumber = model.SeriesNumber,
+				SeriesSuffix = string.Empty	// TODO: add support for entering this
+			};
 
 			var ev = queries.Update(contract);
 
