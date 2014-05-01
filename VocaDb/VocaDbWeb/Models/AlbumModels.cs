@@ -278,9 +278,6 @@ namespace VocaDb.Web.Models {
 			Vocalists = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Vocalist)).ToArray();
 			OtherArtists = artists.Where(a => a.Categories.HasFlag(ArtistCategories.Other) || a.Categories.HasFlag(ArtistCategories.Animator)).ToArray();
 
-			// Show producer roles if more than one producer and other roles besides just composer.
-			ShowProducerRoles = Producers.Length > 1 && Producers.Any(p => p.Roles != ArtistRoles.Default && p.Roles != ArtistRoles.Composer);
-
 			PrimaryPV = PVHelper.PrimaryPV(PVs);
 
 		}
@@ -347,7 +344,12 @@ namespace VocaDb.Web.Models {
 
 		public OptionalDateTimeContract ReleaseDate { get; set; }
 
-		public bool ShowProducerRoles { get; set; }
+		public bool ShowProducerRoles {
+			get {
+				// Show producer roles if more than one producer and other roles besides just composer.
+				return Producers.Length > 1 && Producers.Any(p => p.Roles != ArtistRoles.Default && p.Roles != ArtistRoles.Composer);
+			}
+		}
 
 		public IGrouping<int, SongInAlbumContract>[] Songs { get; set; }
 
