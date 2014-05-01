@@ -1,4 +1,6 @@
-﻿@model VocaDb.Web.Models.User.AlbumCollection
+﻿@using VocaDb.Model.Domain.Users
+@using VocaDb.Web.Helpers
+@model VocaDb.Web.Models.User.AlbumCollection
 
 @{
     ViewBag.Title = "Album collection for " + Model.User.Name;
@@ -6,6 +8,27 @@
 		Html.ActionLink(Model.User.Name, "Details", "User", new {id = Model.User.Id}, null)
 	};	
 }
+
+<div class="row-fluid">
+
+	@using (Html.BeginForm("AlbumCollection", "User", new { id = Model.User.Id }, FormMethod.Post, new { @class = "form-inline", id = "groupingForm" })) {
+		@Html.HiddenFor(m => m.RouteParams.purchaseStatus)
+
+		@:Filter by ownership status
+		<div class="btn-group">
+			<button class="btn dropdown-toggle" data-toggle="dropdown">
+				@Translate.AlbumCollectionStatusNames[Model.RouteParams.purchaseStatus ?? PurchaseStatus.Nothing]
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var purchaseStatus in Translate.AlbumCollectionStatusNames.ValuesAndNames) {
+					<li>@Html.ActionLink(purchaseStatus.Value, "AlbumCollection", new { id = Model.User.Id, purchaseStatus = purchaseStatus.Key })</li>
+				}
+			</ul>
+		</div>
+
+	}
+</div>
 
 <div id="ui-tabs-1">
 @{ Html.RenderAction("AlbumCollectionPaged", Model.RouteParams); }
