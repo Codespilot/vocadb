@@ -13,6 +13,8 @@ namespace VocaDb.Model.Domain.Globalization {
 
 		LocalizedStringWithId FirstNameBase(ContentLanguageSelection languageSelection);
 
+		string GetAdditionalNamesStringForLanguage(ContentLanguagePreference languagePreference);
+
 		EntryNameContract GetEntryName(ContentLanguagePreference languagePreference);
 
 		bool HasNameForLanguage(ContentLanguageSelection language);

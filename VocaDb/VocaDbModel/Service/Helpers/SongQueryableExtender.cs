@@ -44,6 +44,10 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Song> OrderBy(this IQueryable<Song> criteria, SongSortRule sortRule, ContentLanguagePreference languagePreference) {
+			return AddOrder(criteria, sortRule, languagePreference);
+		}
+
 		public static IQueryable<Song> WhereArtistHasTag(this IQueryable<Song> query, string tagName) {
 
 			if (string.IsNullOrEmpty(tagName))
