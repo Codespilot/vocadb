@@ -6,8 +6,9 @@ module vdb.viewModels {
 
 	export class SearchViewModel {
 
-		constructor(artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository) {
+		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository) {
 
+			this.anythingSearchViewModel = new AnythingSearchViewModel(this, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, artistRepo);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, albumRepo);
 			this.songSearchViewModel = new SongSearchViewModel(this, songRepo);
@@ -16,22 +17,22 @@ module vdb.viewModels {
 
 			this.searchType.subscribe(val => {
 
-				if (this.currentSearchType() != "Anything") {
-					this.updateResults();
-				}
+				this.updateResults();
 				this.currentSearchType(val);
 
 			});
 
-			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist' || (this.searchType() == 'Anything' && this.artistSearchViewModel != null && this.artistSearchViewModel.page().length > 0));
-			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything' && this.albumSearchViewModel != null && this.albumSearchViewModel.page().length > 0);
-			this.showSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything' && this.songSearchViewModel != null && this.songSearchViewModel.page().length > 0);
+			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
+			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
+			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
+			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
 
 			this.updateResults();
 
 		}
 
 		public albumSearchViewModel: AlbumSearchViewModel;
+		public anythingSearchViewModel: AnythingSearchViewModel;
 		public artistSearchViewModel: ArtistSearchViewModel;
 		public songSearchViewModel: SongSearchViewModel;
 
@@ -39,10 +40,12 @@ module vdb.viewModels {
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
 
-		public updateArtistSearch = ko.computed(() => this.searchType() == 'Artist' || this.searchType() == 'Anything');
-		public updateAlbumSearch = ko.computed(() => this.searchType() == 'Album' || this.searchType() == 'Anything');
-		public updateSongSearch = ko.computed(() => this.searchType() == 'Song' || this.searchType() == 'Anything');
+		public updateAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
+		public updateArtistSearch = ko.computed(() => this.searchType() == 'Artist');
+		public updateAlbumSearch = ko.computed(() => this.searchType() == 'Album');
+		public updateSongSearch = ko.computed(() => this.searchType() == 'Song');
 
+		public showAnythingSearch: KnockoutComputed<boolean>;
 		public showArtistSearch: KnockoutComputed<boolean>;
 		public showAlbumSearch: KnockoutComputed<boolean>;
 		public showSongSearch: KnockoutComputed<boolean>;
@@ -50,6 +53,9 @@ module vdb.viewModels {
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
 
 		public updateResults = () => {
+
+			if (this.updateAnythingSearch())
+				this.anythingSearchViewModel.updateResultsWithTotalCount();
 
 			if (this.updateArtistSearch())
 				this.artistSearchViewModel.updateResultsWithTotalCount();
@@ -61,6 +67,47 @@ module vdb.viewModels {
 				this.songSearchViewModel.updateResultsWithTotalCount();
 				
 		}
+
+	}
+
+	export class AnythingSearchViewModel {
+
+		constructor(private searchViewModel: SearchViewModel, private entryRepo: rep.EntryRepository) {
+
+			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+		}
+
+		public entryUrl = (entry: dc.EntryContract) => {
+
+			return vdb.utils.EntryUrlMapper.details(entry.entryType, entry.id);
+
+		}
+
+		public page = ko.observableArray<dc.EntryContract>([]);
+
+		public paging = new ServerSidePagingViewModel();
+
+		public updateResultsWithTotalCount = () => this.updateResults(true);
+		public updateResultsWithoutTotalCount = () => this.updateResults(false);
+
+		public updateResults = (clearResults: boolean) => {
+
+			if (clearResults)
+				this.paging.page(1);
+
+			var pagingProperties = this.paging.getPagingProperties(clearResults);
+
+			this.entryRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), (result: any) => {
+
+				if (pagingProperties.getTotalCount)
+					this.paging.totalItems(result.totalCount);
+
+				this.page(result.items);
+
+			});
+
+		};
 
 	}
 

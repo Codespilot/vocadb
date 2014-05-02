@@ -692,6 +692,7 @@
     <Compile Include="Controllers\Api\AlbumApiController.cs" />
     <Compile Include="Controllers\Api\ApiRootController.cs" />
     <Compile Include="Controllers\Api\ArtistApiController.cs" />
+    <Compile Include="Controllers\Api\EntryApiController.cs" />
     <Compile Include="Controllers\Api\MikuApiController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
@@ -1279,6 +1280,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistApiContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\EntryContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryThumbContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\OptionalDateTimeContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PagingPropertiesContract.ts" />
@@ -1754,6 +1756,7 @@
     </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
+    <TypeScriptCompile Include="Scripts\Repositories\EntryRepository.ts" />
     <TypeScriptCompile Include="Scripts\Shared\Resources.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
@@ -2350,6 +2353,7 @@
     <Content Include="Views\Home\Partials\_AlbumSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_SongSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_ArtistSearchList.cshtml" />
+    <Content Include="Views\Home\Partials\_AnythingSearchList.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

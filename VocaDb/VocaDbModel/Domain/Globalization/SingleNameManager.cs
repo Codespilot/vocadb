@@ -37,6 +37,10 @@ namespace VocaDb.Model.Domain.Globalization {
 			return new LocalizedStringWithId(name, languageSelection);
 		}
 
+		public string GetAdditionalNamesStringForLanguage(ContentLanguagePreference languagePreference) {
+			return string.Empty;
+		}
+
 		public bool HasNameForLanguage(ContentLanguageSelection language) {
 			return true;
 		}

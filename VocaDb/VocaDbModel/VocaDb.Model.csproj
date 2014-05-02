@@ -126,6 +126,7 @@
     <Compile Include="DataContracts\Albums\ArtistForAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ParseAlbumFileResultContract.cs" />
+    <Compile Include="DataContracts\Api\EntryForApiContract.cs" />
     <Compile Include="DataContracts\EntryThumbForApiContract.cs" />
     <Compile Include="DataContracts\Songs\RelatedSongsContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageForApiContract.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\CustomArtist.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
+    <Compile Include="Domain\EntryIdAndName.cs" />
     <Compile Include="Domain\EntryPictureFile.cs" />
     <Compile Include="Domain\EntryPictureFileManager.cs" />
     <Compile Include="Domain\EntryRef.cs" />
@@ -618,6 +620,7 @@
     <Compile Include="Service\Helpers\AlbumQueryableExtender.cs" />
     <Compile Include="Service\Helpers\ArtistForAlbumQueryableExtender.cs" />
     <Compile Include="Service\Helpers\ArtistForSongQueryableExtender.cs" />
+    <Compile Include="Service\Helpers\EntryWithNamesQueryableExtender.cs" />
     <Compile Include="Service\Helpers\FollowedArtistNotifier.cs" />
     <Compile Include="Service\Helpers\IUserMessageMailer.cs" />
     <Compile Include="Service\Helpers\MarkdownHelper.cs" />
@@ -851,7 +854,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataContracts\Api\" />
     <Folder Include="Resources\Shared\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

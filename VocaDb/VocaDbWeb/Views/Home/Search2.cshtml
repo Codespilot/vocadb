@@ -39,13 +39,11 @@
 					<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" style="margin-left: auto; margin-right: auto; display: block" />
 				</div>
 
+				@{ Html.RenderPartial("Partials/_AnythingSearchList"); }
+
 				@{ Html.RenderPartial("Partials/_ArtistSearchList"); }
 
-				<hr data-bind="visible: isUniversalSearch" />
-
 				@{ Html.RenderPartial("Partials/_AlbumSearchList"); }
-
-				<hr data-bind="visible: isUniversalSearch" />
 
 				@{ Html.RenderPartial("Partials/_SongSearchList"); }
 
@@ -63,10 +61,11 @@
 
 		$(document).ready(function () {
 
+			var entryRepo = new vdb.repositories.EntryRepository('@RootPath');
 			var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
 			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
-			var vm = new vdb.viewModels.SearchViewModel(artistRepo, albumRepo, songRepo);
+			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo);
 			ko.applyBindings(vm);
 
 		});
