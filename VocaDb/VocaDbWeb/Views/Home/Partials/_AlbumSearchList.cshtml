@@ -1,5 +1,5 @@
 ﻿
-<div data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
+<div data-bind="visible: showAlbumSearch, with: albumSearchViewModel, css: { loading: albumSearchViewModel.loading }">
 
 	<h3 data-bind="visible: $parent.isUniversalSearch">Albums</h3>
 

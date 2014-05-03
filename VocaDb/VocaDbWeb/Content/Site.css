@@ -665,3 +665,9 @@ div.item {
 	vertical-align: middle;
 	display: inline-block;
 }
+
+.loading {
+	opacity: 0.4;
+	pointer-events: none;
+	background: center no-repeat url(/Content/ajax-loader.gif)
+}
