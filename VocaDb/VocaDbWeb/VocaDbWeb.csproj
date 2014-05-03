@@ -1686,6 +1686,7 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-smoothness.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\qTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
@@ -2147,6 +2148,7 @@
     <Folder Include="logs\" />
     <Folder Include="Resources\Views\Help\" />
     <Folder Include="Scripts\Admin\" />
+    <Folder Include="Scripts\KnockoutExtensions\Album\" />
     <Folder Include="Views\Integration\" />
     <Folder Include="Views\Shared\KnockoutTemplates\" />
   </ItemGroup>

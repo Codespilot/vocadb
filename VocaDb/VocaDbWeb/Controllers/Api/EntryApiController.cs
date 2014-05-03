@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using VocaDb.Model.DataContracts.Api;
 using VocaDb.Model.Domain;
@@ -29,22 +30,41 @@ namespace VocaDb.Web.Controllers.Api {
 		private readonly IUserPermissionContext permissionContext;
 		private readonly IAlbumRepository repository;
 
+		private int GetMaxResults(int max) {
+			return Math.Min(max, absoluteMax);	
+		}
+
 		public EntryApiController(IAlbumRepository repository, IUserPermissionContext permissionContext, IEntryThumbPersister entryThumbPersister) {
 			this.repository = repository;
 			this.permissionContext = permissionContext;
 			this.entryThumbPersister = entryThumbPersister;
 		}
 
+		/// <summary>
+		/// Find entries.
+		/// </summary>
+		/// <param name="query">Entry name query (optional).</param>
+		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
+		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
+		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
+		/// <param name="nameMatchMode">Match mode for entry name (optional, defaults to Exact).</param>
+		/// <param name="fields">List of optional fields (optional). Possible values are Description, MainPicture, Names, Tags, WebLinks.</param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <returns>Page of entries.</returns>
+		/// <example>http://vocadb.net/api/entries?query=164&amp;fields=MainPicture</example>
 		[Route("")]
 		public PartialFindResult<EntryForApiContract> GetList(
 			string query, 
 			string tag = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
+			EntryOptionalFields fields = EntryOptionalFields.None,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default
 			) {
 			
 			var ssl = WebHelper.IsSSL(Request);
+			maxResults = GetMaxResults(maxResults);
 
 			return repository.HandleQuery(ctx => {
 
@@ -92,17 +112,17 @@ namespace VocaDb.Web.Controllers.Api {
 				var artists = ctx.OfType<Artist>().Query()
 					.Where(a => artistIds.Contains(a.Id))
 					.ToArray()
-					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl));
+					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl, fields));
 
 				var albums = ctx.OfType<Album>().Query()
 					.Where(a => albumIds.Contains(a.Id))
 					.ToArray()
-					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl));
+					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl, fields));
 
 				var songs = ctx.OfType<Song>().Query()
 					.Where(a => songIds.Contains(a.Id))
 					.ToArray()
-					.Select(a => new EntryForApiContract(a, lang));
+					.Select(a => new EntryForApiContract(a, lang, fields));
 
 				// Merge and sort the final list
 				var entries = CollectionHelper.SortByIds(artists.Concat(albums).Concat(songs), allIds);

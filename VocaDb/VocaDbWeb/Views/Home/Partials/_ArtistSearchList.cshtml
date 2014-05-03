@@ -31,7 +31,10 @@
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: localizedName, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a><br />
+					<a data-bind="text: localizedName, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a>
+					&nbsp;
+					<span data-bind="artistTypeLabel: artistType"></span>
+					<br />
 					<small class="extraInfo" data-bind="text: additionalNames"></small>
 				</td>
 			</tr>

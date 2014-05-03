@@ -1,4 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -16,35 +18,56 @@ namespace VocaDb.Model.DataContracts.Api {
 
 			EntryType = entry.EntryType;
 			Id = entry.Id;
-			AdditionalNames = entry.Names.GetAdditionalNamesStringForLanguage(languagePreference);
-			LocalizedName = entry.Names.SortNames[languagePreference];				
+
+			DefaultName = entry.DefaultName;
+			DefaultNameLanguage = entry.Names.SortNames.DefaultLanguage;
+			Version = entry.Version;
+
+			if (languagePreference != ContentLanguagePreference.Default) {
+				AdditionalNames = entry.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+				LocalizedName = entry.Names.SortNames[languagePreference];					
+			}
 
 		}
 
-		public EntryForApiContract(Artist artist, ContentLanguagePreference languagePreference, IEntryThumbPersister thumbPersister, bool ssl)
+		public EntryForApiContract(Artist artist, ContentLanguagePreference languagePreference, IEntryThumbPersister thumbPersister, bool ssl, 
+			EntryOptionalFields includedFields)
 			: this(artist, languagePreference) {
 
-			if (artist.Picture != null) {
+			ArtistType = artist.ArtistType;			
+			CreateDate = artist.CreateDate;
+			Status = artist.Status;
+
+			if (includedFields.HasFlag(EntryOptionalFields.MainPicture) && artist.Picture != null) {
 				MainPicture = new EntryThumbForApiContract(new EntryThumb(artist, artist.Picture.Mime), thumbPersister, ssl);					
 			}
 
 		}
 
-		public EntryForApiContract(Album album, ContentLanguagePreference languagePreference, IEntryThumbPersister thumbPersister, bool ssl)
+		public EntryForApiContract(Album album, ContentLanguagePreference languagePreference, IEntryThumbPersister thumbPersister, bool ssl, 
+			EntryOptionalFields includedFields)
 			: this(album, languagePreference) {
 
-			if (album.CoverPictureData != null) {
+			CreateDate = album.CreateDate;
+			DiscType = album.DiscType;
+			Status = album.Status;
+
+			if (includedFields.HasFlag(EntryOptionalFields.MainPicture) && album.CoverPictureData != null) {
 				MainPicture = new EntryThumbForApiContract(new EntryThumb(album, album.CoverPictureData.Mime), thumbPersister, ssl);					
 			}
 
 		}
 
-		public EntryForApiContract(Song song, ContentLanguagePreference languagePreference)
+		public EntryForApiContract(Song song, ContentLanguagePreference languagePreference, EntryOptionalFields includedFields)
 			: this((IEntryWithNames)song, languagePreference) {
 			
+			CreateDate = song.CreateDate;
+			SongType = song.SongType;
+			Status = song.Status;
+
 			var thumb = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
 
-			if (!string.IsNullOrEmpty(thumb)) {
+			if (includedFields.HasFlag(EntryOptionalFields.MainPicture) &&!string.IsNullOrEmpty(thumb)) {
 				MainPicture = new EntryThumbForApiContract { UrlSmallThumb = thumb, UrlThumb = thumb, UrlTinyThumb = thumb };				
 			}
 
@@ -52,6 +75,24 @@ namespace VocaDb.Model.DataContracts.Api {
 
 		[DataMember(EmitDefaultValue = false)]
 		public string AdditionalNames { get; set;}
+
+		[DataMember(EmitDefaultValue = false)]
+		public ArtistType? ArtistType { get; set; }
+
+		[DataMember]
+		public DateTime CreateDate { get; set; }
+
+		[DataMember]
+		public string DefaultName { get; set; }
+
+		[DataMember]
+		public ContentLanguageSelection DefaultNameLanguage { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public string Description { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public DiscType? DiscType { get; set; }
 
 		[DataMember]
 		public EntryType EntryType { get; set; }
@@ -65,5 +106,36 @@ namespace VocaDb.Model.DataContracts.Api {
 		[DataMember(EmitDefaultValue = false)]
 		public EntryThumbForApiContract MainPicture { get; set; }
 
+		[DataMember(EmitDefaultValue = false)]
+		public LocalizedStringContract[] Names { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public SongType? SongType { get; set; }
+
+		[DataMember]
+		public EntryStatus Status { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public TagUsageForApiContract[] Tags { get; set; }
+
+		[DataMember]
+		public int Version { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public ArchivedWebLinkContract[] WebLinks { get; set; }
+
 	}
+
+	[Flags]
+	public enum EntryOptionalFields {
+
+		None = 0,
+		Description = 1,
+		MainPicture = 2,
+		Names = 4,
+		Tags = 8,
+		WebLinks = 16
+
+	}
+
 }
