@@ -61,6 +61,7 @@ namespace VocaDb.Model.DataContracts.Api {
 			EntryOptionalFields includedFields)
 			: this(album, languagePreference) {
 
+			ArtistString = album.ArtistString[languagePreference];
 			CreateDate = album.CreateDate;
 			DiscType = album.DiscType;
 			Status = album.Status;
@@ -86,6 +87,7 @@ namespace VocaDb.Model.DataContracts.Api {
 		public EntryForApiContract(Song song, ContentLanguagePreference languagePreference, EntryOptionalFields includedFields)
 			: this((IEntryWithNames)song, languagePreference) {
 			
+			ArtistString = song.ArtistString[languagePreference];
 			CreateDate = song.CreateDate;
 			SongType = song.SongType;
 			Status = song.Status;
@@ -112,6 +114,9 @@ namespace VocaDb.Model.DataContracts.Api {
 
 		[DataMember(EmitDefaultValue = false)]
 		public string AdditionalNames { get; set;}
+
+		[DataMember(EmitDefaultValue = false)]
+		public string ArtistString { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public ArtistType? ArtistType { get; set; }

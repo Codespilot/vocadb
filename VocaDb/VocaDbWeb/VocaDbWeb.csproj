@@ -121,6 +121,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.1.1\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
@@ -178,6 +179,13 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebApi.OutputCache.Core">
+      <HintPath>..\packages\Strathweb.CacheOutput.WebApi2.0.5\lib\net45\WebApi.OutputCache.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="WebApi.OutputCache.V2">
+      <HintPath>..\packages\Strathweb.CacheOutput.WebApi2.0.5\lib\net45\WebApi.OutputCache.V2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WebApiContrib.Formatting.Jsonp">
       <HintPath>..\packages\WebApiContrib.Formatting.Jsonp.2.0.0.0\lib\net45\WebApiContrib.Formatting.Jsonp.dll</HintPath>
     </Reference>
@@ -694,6 +702,7 @@
     <Compile Include="Controllers\Api\ArtistApiController.cs" />
     <Compile Include="Controllers\Api\EntryApiController.cs" />
     <Compile Include="Controllers\Api\MikuApiController.cs" />
+    <Compile Include="Controllers\Api\ResourcesApiController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
@@ -1758,6 +1767,7 @@
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <TypeScriptCompile Include="Scripts\Repositories\EntryRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\ResourceRepository.ts" />
     <TypeScriptCompile Include="Scripts\Shared\Resources.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

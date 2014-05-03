@@ -61,11 +61,13 @@
 
 		$(document).ready(function () {
 
+			var cultureCode = '@UICulture';
+			var resourceRepo = new vdb.repositories.ResourceRepository('@RootPath');
 			var entryRepo = new vdb.repositories.EntryRepository('@RootPath');
 			var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
 			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
-			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo);
+			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, resourceRepo, cultureCode);
 			ko.applyBindings(vm);
 
 		});
