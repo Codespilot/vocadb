@@ -89,6 +89,8 @@ module vdb.viewModels {
 
 		}
 
+		public loading = ko.observable(true);
+
 		public page = ko.observableArray<dc.EntryContract>([]);
 
 		public paging = new ServerSidePagingViewModel();
@@ -97,6 +99,8 @@ module vdb.viewModels {
 		public updateResultsWithoutTotalCount = () => this.updateResults(false);
 
 		public updateResults = (clearResults: boolean) => {
+
+			this.loading(true);
 
 			if (clearResults)
 				this.paging.page(1);
@@ -109,6 +113,7 @@ module vdb.viewModels {
 					this.paging.totalItems(result.totalCount);
 
 				this.page(result.items);
+				this.loading(false);
 
 			});
 
@@ -125,6 +130,7 @@ module vdb.viewModels {
 
 		}
 
+		public loading = ko.observable(true);
 		public page = ko.observableArray<dc.ArtistApiContract>([]);
 
 		public paging = new ServerSidePagingViewModel();
@@ -135,6 +141,8 @@ module vdb.viewModels {
 		public updateResultsWithoutTotalCount = () => this.updateResults(false);
 
 		public updateResults = (clearResults: boolean) => {
+
+			this.loading(true);
 
 			if (clearResults)
 				this.paging.page(1);
@@ -147,6 +155,7 @@ module vdb.viewModels {
 					this.paging.totalItems(result.totalCount);
 
 				this.page(result.items);
+				this.loading(false);
 
 			});
 
@@ -163,6 +172,7 @@ module vdb.viewModels {
 
 		}
 
+		public loading = ko.observable(true);
 		public page = ko.observableArray<dc.AlbumContract>([]);
 
 		public paging = new ServerSidePagingViewModel();
@@ -184,6 +194,8 @@ module vdb.viewModels {
 
 		public updateResults = (clearResults: boolean) => {
 
+			this.loading(true);
+
 			if (clearResults)
 				this.paging.page(1);
 
@@ -195,6 +207,7 @@ module vdb.viewModels {
 					this.paging.totalItems(result.totalCount);
 
 				this.page(result.items);
+				this.loading(false);
 
 			});
 
@@ -211,6 +224,7 @@ module vdb.viewModels {
 
 		}
 
+		public loading = ko.observable(true);
 		public page = ko.observableArray<dc.SongApiContract>([]);
 
 		public paging = new ServerSidePagingViewModel();
@@ -221,6 +235,8 @@ module vdb.viewModels {
 		public updateResultsWithoutTotalCount = () => this.updateResults(false);
 
 		public updateResults = (clearResults: boolean) => {
+
+			this.loading(true);
 
 			if (clearResults)
 				this.paging.page(1);
@@ -233,6 +249,7 @@ module vdb.viewModels {
 					this.paging.totalItems(result.totalCount);
 
 				this.page(result.items);
+				this.loading(false);
 
 			});
 
