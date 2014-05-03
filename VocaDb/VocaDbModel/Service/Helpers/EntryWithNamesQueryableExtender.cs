@@ -18,7 +18,7 @@ namespace VocaDb.Model.Service.Helpers {
 				case ContentLanguagePreference.Japanese:
 					return query.Select(a => new EntryIdAndName { Name = a.Names.SortNames.Japanese, Id = a.Id });
 				default:
-					return query.Select(a => new EntryIdAndName { Name = a.Names.SortNames.Default, Id = a.Id });
+					return query.Select(a => new EntryIdAndName { Name = a.Names.SortNames.Japanese, Id = a.Id });
 			}
 
 		}
@@ -34,7 +34,7 @@ namespace VocaDb.Model.Service.Helpers {
 				case ContentLanguagePreference.Japanese:
 					return query.Select(a => new EntryBaseContract { DefaultName = a.Names.SortNames.Japanese, Id = a.Id, EntryType = entryType });
 				default:
-					return query.Select(a => new EntryBaseContract { DefaultName = a.Names.SortNames.Default, Id = a.Id, EntryType = entryType });
+					return query.Select(a => new EntryBaseContract { DefaultName = a.Names.SortNames.Japanese, Id = a.Id, EntryType = entryType });
 			}
 
 		}
