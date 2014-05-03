@@ -29,24 +29,24 @@
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: localizedName, attr: { href: $parent.entryUrl($data) }" href="#"></a>
+					<a data-bind="text: localizedName, attr: { href: $parent.entryUrl($data), title: additionalNames }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: $data.artistType"></span>
-					<!-- ko if: additionalNames -->
+					<!-- ko if: $data.artistString -->
 					<br />
-					<small class="extraInfo" data-bind="text: additionalNames"></small>
+					<small class="extraInfo" data-bind="text: artistString"></small>
 					<!-- /ko -->
 				</td>
 				<td>
 					<a data-bind="text: entryType, click: function() { $parent.searchViewModel.searchType(entryType); }" href="#"></a>
 					<!-- ko if: $data.artistType -->
-					<small class="extraInfo" data-bind="text: '(' + artistType + ')'"></small>
+					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources.artistTypeNames[artistType] + ')'"></small>
 					<!-- /ko -->
 					<!-- ko if: $data.discType -->
-					<small class="extraInfo" data-bind="text: '(' + discType + ')'"></small>
+					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources.discTypeNames[discType] + ')'"></small>
 					<!-- /ko -->
 					<!-- ko if: $data.songType -->
-					<small class="extraInfo" data-bind="text: '(' + songType + ')'"></small>
+					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources.songTypeNames[songType] + ')'"></small>
 					<!-- /ko -->
 				</td>
 			</tr>

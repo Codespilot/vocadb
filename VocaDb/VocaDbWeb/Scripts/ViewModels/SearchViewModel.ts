@@ -6,7 +6,8 @@ module vdb.viewModels {
 
 	export class SearchViewModel {
 
-		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository) {
+		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
+			resourceRepo: rep.ResourceRepository, cultureCode: string) {
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, artistRepo);
@@ -27,7 +28,10 @@ module vdb.viewModels {
 			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
 			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
 
-			this.updateResults();
+			resourceRepo.getList(cultureCode, ['artistTypeNames', 'discTypeNames', 'songTypeNames'], resources => {
+				this.resources = resources;
+				this.updateResults();
+			});
 
 		}
 
@@ -37,6 +41,7 @@ module vdb.viewModels {
 		public songSearchViewModel: SongSearchViewModel;
 
 		private currentSearchType = ko.observable("Anything");
+		private resources;
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
 
