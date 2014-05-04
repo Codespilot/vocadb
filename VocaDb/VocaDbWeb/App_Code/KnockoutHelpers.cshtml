@@ -1,5 +1,13 @@
 ﻿@inherits VocaDb.Web.Code.HelperPage
 
+@helper LockingAutoComplete(string bindingHandler, string binding) {
+	<input type="text" class="input-large" data-bind="@bindingHandler: @binding, visible: !@(binding)()" />
+	<div class="input-append" data-bind="visible: @(binding)()">
+		<input type="text" class="input-large" readonly data-bind="value: @binding" />
+		<button type="button" class="btn" data-bind="click: function() { @(binding)(null); }">Clear</button>
+	</div>
+}
+
 @helper ServerSidePaging() {
 
 	<div class="pagination" data-bind="visible: $data">

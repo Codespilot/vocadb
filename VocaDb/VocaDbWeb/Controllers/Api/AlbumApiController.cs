@@ -60,6 +60,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="discTypes">
 		/// Disc type. By default nothing. Possible values are Album, Single, EP, SplitAlbum, Compilation, Video, Other. Note: only one type supported for now.
 		/// </param>
+		/// <param name="tag">Filter by tag (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -78,6 +79,7 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<AlbumForApiContract> GetList(
 			string query = "", 
 			DiscType discTypes = DiscType.Unknown,
+			string tag = null,
 			int start = 0, 
 			int maxResults = defaultMax,
 			bool getTotalCount = false, 
@@ -86,7 +88,9 @@ namespace VocaDb.Web.Controllers.Api {
 			AlbumOptionalFields fields = AlbumOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
-			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort);
+			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort) {
+				Tag = tag
+			};
 			var ssl = WebHelper.IsSSL(Request);
 
 			var entries = service.Find(a => new AlbumForApiContract(a, null, lang, thumbPersister, ssl, fields), queryParams);

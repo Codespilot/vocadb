@@ -90,7 +90,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				.WhereHasArtist(queryParams.ArtistId)
 				.WhereDraftsOnly(queryParams.Common.DraftOnly)
 				.WhereHasType(queryParams.SongTypes)
-				.WhereHasTag(parsedQuery.TagName)
+				.WhereHasTag(!string.IsNullOrEmpty(queryParams.Tag) ? queryParams.Tag : parsedQuery.TagName)
 				.WhereArtistHasTag(parsedQuery.ArtistTag)
 				.WhereArtistHasType(parsedQuery.ArtistType)
 				.WhereHasNicoId(parsedQuery.NicoId)

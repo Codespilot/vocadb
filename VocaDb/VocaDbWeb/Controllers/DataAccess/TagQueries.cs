@@ -37,6 +37,37 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public string[] FindNames(string query, bool allowAliases) {
+
+			if (string.IsNullOrWhiteSpace(query))
+				return new string[] { };
+
+			query = query.Trim().Replace(' ', '_');
+
+			return HandleQuery(session => {
+
+				var q = session.Query();
+
+				if (query.Length < 3)
+					q = q.Where(t => t.Name.StartsWith(query));
+				else
+					q = q.Where(t => t.Name.Contains(query));
+
+				if (!allowAliases)
+					q = q.Where(t => t.AliasedTo == null);
+
+				var tags = q
+					.Take(10)
+					.ToArray()
+					.Select(t => t.Name)
+					.ToArray();
+
+				return tags;
+
+			});
+
+		}
+
 		public void UpdateTag(TagContract contract, UploadedFileContract uploadedImage) {
 
 			ParamIs.NotNull(() => contract);

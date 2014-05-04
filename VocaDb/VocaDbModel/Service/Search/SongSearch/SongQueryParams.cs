@@ -85,6 +85,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		public SongSortRule SortRule { get; set; }
 
+		public string Tag { get; set; }
+
 		public TimeSpan TimeFilter { get; set; }
 
 		public int UserCollectionId { get; set; }

@@ -13,14 +13,13 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
-using VocaDb.Model.Service.Security;
+using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Web.Services {
 
@@ -28,11 +27,13 @@ namespace VocaDb.Web.Services {
 	[ServiceContract(Namespace = Schemas.VocaDb)]
 	public class QueryService {
 
-		private IUserPermissionContext userPermissionContext;
+		private readonly TagQueries tagQueries;
+		private readonly IUserPermissionContext userPermissionContext;
 		private ServiceModel Services { get; set; }
 
-		public QueryService(ServiceModel services, IUserPermissionContext userPermissionContext) {
+		public QueryService(ServiceModel services, TagQueries tagQueries, IUserPermissionContext userPermissionContext) {
 			Services = services;
+			this.tagQueries = tagQueries;
 			this.userPermissionContext = userPermissionContext;
 		}
 
@@ -81,7 +82,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public string[] FindTags(string term, int maxResults) {
 
-			return Services.Tags.FindTags(term, true);
+			return tagQueries.FindNames(term, true);
 
 		}
 

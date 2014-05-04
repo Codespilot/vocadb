@@ -38,6 +38,7 @@
 				</td>
 				<td>
 					<a data-bind="text: localizedName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', id), title: additionalNames }" href="#"></a>
+					<span data-bind="songTypeLabel: $data.songType"></span>
 					<br />
 					<small class="extraInfo" data-bind="text: artistString"></small>
 				</td>
