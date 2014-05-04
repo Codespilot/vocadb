@@ -32,6 +32,7 @@
 					<a data-bind="text: localizedName, attr: { href: $parent.entryUrl($data), title: additionalNames }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: $data.artistType"></span>
+					<span data-bind="songTypeLabel: $data.songType"></span>
 					<!-- ko if: $data.artistString -->
 					<br />
 					<small class="extraInfo" data-bind="text: artistString"></small>

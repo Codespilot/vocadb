@@ -121,6 +121,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 					albumsQ = albumsQ.Where(a => a.Status == EntryStatus.Draft);
 
 				albumsQ = AddDiscTypeRestriction(albumsQ, discType);
+				albumsQ = albumsQ.WhereHasTag(queryParams.Tag);
 
 				albumsQ = AddOrder(albumsQ, sortRule, LanguagePreference);
 
@@ -182,6 +183,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 				directQ = AddDiscTypeRestriction(directQ, discType);
 				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
+				directQ = directQ.WhereHasTag(queryParams.Tag);
 
 				var direct = directQ
 					.OrderBy(sortRule, languagePreference)
@@ -197,6 +199,10 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
 
 				additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
+
+				if (!string.IsNullOrEmpty(queryParams.Tag)) {
+					additionalNamesQ = additionalNamesQ.Where(s => s.Album.Tags.Usages.Any(a => a.Tag.Name == queryParams.Tag));
+				}
 
 				// Note: we want to order by album sort names, NOT the matched album name.
 				var additionalNames = additionalNamesQ
@@ -257,6 +263,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 					albumQ = AddReleaseRestriction(albumQ);
 
 				albumQ = AddDiscTypeRestriction(albumQ, discType);
+				albumQ = albumQ.WhereHasTag(queryParams.Tag);
 
 				return albumQ.Count();
 
@@ -310,6 +317,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			directQ = AddDiscTypeRestriction(directQ, discType);
 
 			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
+			directQ = directQ.WhereHasTag(queryParams.Tag);
 
 			var direct = new HashSet<int>(directQ.Select(a => a.Id).ToArray());
 
@@ -322,6 +330,10 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
 
 			additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
+
+			if (!string.IsNullOrEmpty(queryParams.Tag)) {
+				additionalNamesQ = additionalNamesQ.Where(s => s.Album.Tags.Usages.Any(a => a.Tag.Name == queryParams.Tag));
+			}
 
 			var additionalNamesAlbumQ = additionalNamesQ.Select(a => a.Album);
 

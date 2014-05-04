@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using MvcPaging;
 using VocaDb.Model;
@@ -144,9 +145,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete("Moved to Web API")]
 		public ActionResult Find(string term, bool allowAliases = true) {
 
-			return Json(Service.FindTags(term, allowAliases));
+			return Json(queries.FindNames(term, allowAliases));
 
 		}
 

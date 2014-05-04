@@ -23,6 +23,8 @@ module vdb.viewModels {
 
 			});
 
+			this.tag.subscribe(this.updateResults);
+
 			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
 			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
 			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
@@ -44,6 +46,7 @@ module vdb.viewModels {
 		private resources;
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
+		public tag = ko.observable("");
 
 		public updateAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
 		public updateArtistSearch = ko.computed(() => this.searchType() == 'Artist');
@@ -107,7 +110,7 @@ module vdb.viewModels {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.entryRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), (result: any) => {
+			this.entryRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(), (result: any) => {
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);
@@ -149,7 +152,7 @@ module vdb.viewModels {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.artistRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), (result: any) => {
+			this.artistRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.searchViewModel.tag(), (result: any) => {
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);
@@ -201,7 +204,7 @@ module vdb.viewModels {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.albumRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), (result: any) => {
+			this.albumRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.searchViewModel.tag(), (result: any) => {
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);
@@ -243,7 +246,7 @@ module vdb.viewModels {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.songRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), (result: any) => {
+			this.songRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.searchViewModel.tag(), (result: any) => {
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);

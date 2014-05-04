@@ -704,6 +704,7 @@
     <Compile Include="Controllers\Api\MikuApiController.cs" />
     <Compile Include="Controllers\Api\ResourcesApiController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
+    <Compile Include="Controllers\Api\TagApiController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
@@ -1741,6 +1742,7 @@
     <Content Include="Scripts\KnockoutExtensions\SongAutoComplete.js">
       <DependentUpon>SongAutoComplete.ts</DependentUpon>
     </Content>
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\SongTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Sortable.ts" />
     <Content Include="Scripts\KnockoutExtensions\Sortable.js">
       <DependentUpon>Sortable.ts</DependentUpon>
@@ -1752,6 +1754,7 @@
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\marked.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\TagAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />
     <Content Include="Scripts\Models\EntryType.js">

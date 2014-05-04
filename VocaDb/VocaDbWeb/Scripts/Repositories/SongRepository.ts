@@ -24,12 +24,13 @@ module vdb.repositories {
 
         public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;
 
-		public getList = (paging: dc.PagingProperties, query: string, sort: string, callback) => {
+		public getList = (paging: dc.PagingProperties, query: string, sort: string, tag: string, callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/songs");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
-				query: query, fields: "ThumbUrl", lang: 'English', nameMatchMode: 'Words', sort: sort
+				query: query, fields: "ThumbUrl", lang: 'English', nameMatchMode: 'Words', sort: sort,
+				tag: tag
 			};
 
 			$.getJSON(url, data, callback);

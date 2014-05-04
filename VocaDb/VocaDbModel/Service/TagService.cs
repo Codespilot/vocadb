@@ -146,37 +146,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public string[] FindTags(string query, bool allowAliases) {
-
-			if (string.IsNullOrWhiteSpace(query))
-				return new string[] { };
-
-			query = query.Trim().Replace(' ', '_');
-
-			return HandleQuery(session => {
-
-				var q = session.Query<Tag>();
-
-				if (query.Length < 3)
-					q = q.Where(t => t.Name.StartsWith(query));
-				else
-					q = q.Where(t => t.Name.Contains(query));
-
-				if (!allowAliases)
-					q = q.Where(t => t.AliasedTo == null);
-
-				var tags = q
-					.Take(10)
-					.ToArray()
-					.Select(t => t.Name)
-					.ToArray();
-
-				return tags;
-
-			});
-
-		}
-
 		public PartialFindResult<AlbumTagUsageContract> GetAlbums(string tagName, int start, int maxItems) {
 
 			return HandleQuery(session => {
