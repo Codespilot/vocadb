@@ -2369,6 +2369,7 @@
     <Content Include="Views\Home\Partials\_SongSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_ArtistSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_AnythingSearchList.cshtml" />
+    <Content Include="Views\Home\Partials\_EntryCountBox.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

@@ -9,7 +9,17 @@ module vdb.utils {
         // URL to details view.
         // typeName: entry type name.
         // id: entry Id.
-        public static details(typeName: string, id: number) {
+		public static details(typeName: string, id: number) {
+
+			switch (typeName.toLowerCase()) {
+				case "album":
+					return vdb.functions.mapAbsoluteUrl("/Al/" + id);
+				case "artist":
+					return vdb.functions.mapAbsoluteUrl("/Ar/" + id);
+				case "song":
+					return vdb.functions.mapAbsoluteUrl("/S/" + id);
+			}
+
             return vdb.functions.mapAbsoluteUrl("/" + typeName + "/Details/" + id);
         }
 

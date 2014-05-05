@@ -1,10 +1,7 @@
 ﻿
 <div data-bind="visible: showAnythingSearch, with: anythingSearchViewModel, css: { loading: anythingSearchViewModel.loading }">
 
-	<p class="pull-right">
-		Total entries:
-		<span data-bind="text: paging.totalItems"></span>
-	</p>
+	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
 
 	<div data-bind="with: paging">
 		@KnockoutHelpers.ServerSidePaging()

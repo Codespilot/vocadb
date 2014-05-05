@@ -15,12 +15,13 @@ module vdb.repositories {
 
         public getOne: (id: number, callback: (result: dc.ArtistContract) => void) => void;
 
-		public getList = (paging: dc.PagingProperties, query: string, sort: string, tag: string, callback) => {
+		public getList = (paging: dc.PagingProperties, query: string, sort: string, artistTypes: string, tag: string, callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/artists");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
 				query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort,
+				artistTypes: artistTypes,
 				tag: tag
 			};
 

@@ -40,14 +40,28 @@
 					<div class="control-group">
 						<div class="controls">
 							<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" />
+							&nbsp;
+							<button class="btn" data-bind="click: function() { showAdvancedFilters(!showAdvancedFilters()); }, css: { active: showAdvancedFilters }">
+								More filters
+								<span class="caret"></span>
+							</button>
 						</div>
 					</div>
 
-					<div class="control-group">
-						<div class="control-label">Tag</div>
-						<div class="controls">
-							<div class="input-append">
-								@KnockoutHelpers.LockingAutoComplete("tagAutoComplete", "tag")
+					<div data-bind="visible: showAdvancedFilters" style="display: none;">
+						<div class="control-group">
+							<div class="control-label">Tag</div>
+							<div class="controls">
+								<div class="input-append">
+									@KnockoutHelpers.LockingAutoComplete("tagAutoComplete", "tag")
+								</div>
+							</div>
+						</div>
+
+						<div class="control-group" data-bind="visible: showArtistSearch, with: artistSearchViewModel">
+							<div class="control-label">Artist type</div>
+							<div class="controls">
+								@ArtistHelpers.ArtistTypesDropdownKnockout("artistType")
 							</div>
 						</div>
 					</div>
@@ -65,10 +79,10 @@
 
 		</div>
 	</div>
-	
+
 	<!-- Footer -->
 	<span class="about-disclaimer">Background illustration by <a href="http://www.pixiv.net/member_illust.php?mode=medium&illust_id=34786809">みゆ</a> | <a href="https://code.google.com/p/vocadb/">Other credits</a></span>
-	
+
 	<!-- Scripts -->
 	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
 	@Styles.Render("~/Content/css")
@@ -91,7 +105,7 @@
 
 		});
 
-</script>
+	</script>
 
 </body>
 </html>

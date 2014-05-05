@@ -44,6 +44,9 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<ArtistSortRule> ArtistSortRuleNames =
 			new TranslateableEnum<ArtistSortRule>(() => global::Resources.ArtistSortRuleNames.ResourceManager, new[] { ArtistSortRule.Name, ArtistSortRule.AdditionDate, ArtistSortRule.AdditionDateAsc });
 
+		public static readonly TranslateableEnum<ArtistType> ArtistTypeNames =
+			new TranslateableEnum<ArtistType>(() => Model.Resources.ArtistTypeNames.ResourceManager);
+
 		public static readonly TranslateableEnum<EntryEditEvent> EntryEditEventNames =
 			new TranslateableEnum<EntryEditEvent>(() => global::Resources.EntryEditEventNames.ResourceManager);
 
@@ -124,7 +127,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static string ArtistTypeName(ArtistType artistType) {
 
-			return ArtistTypeNames.ResourceManager.GetString(artistType.ToString());
+			return Model.Resources.ArtistTypeNames.ResourceManager.GetString(artistType.ToString());
 
 		}
 

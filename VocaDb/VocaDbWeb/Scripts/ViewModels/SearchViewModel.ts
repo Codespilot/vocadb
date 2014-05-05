@@ -44,6 +44,7 @@ module vdb.viewModels {
 
 		private currentSearchType = ko.observable("Anything");
 		private resources;
+		public showAdvancedFilters = ko.observable(false);
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
 		public tag = ko.observable("");
@@ -129,10 +130,12 @@ module vdb.viewModels {
 		constructor(private searchViewModel: SearchViewModel, private artistRepo: rep.ArtistRepository) {
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
+			this.artistType.subscribe(this.updateResultsWithTotalCount);
 			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
 
 		}
 
+		public artistType = ko.observable("Nothing");
 		public loading = ko.observable(true);
 		public page = ko.observableArray<dc.ArtistApiContract>([]);
 
@@ -152,7 +155,7 @@ module vdb.viewModels {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.artistRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.searchViewModel.tag(), (result: any) => {
+			this.artistRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.artistType(), this.searchViewModel.tag(), (result: any) => {
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);
