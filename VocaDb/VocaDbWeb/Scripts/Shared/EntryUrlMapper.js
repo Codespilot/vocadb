@@ -5,6 +5,15 @@ var vdb;
             function EntryUrlMapper() {
             }
             EntryUrlMapper.details = function (typeName, id) {
+                switch (typeName.toLowerCase()) {
+                    case "album":
+                        return vdb.functions.mapAbsoluteUrl("/Al/" + id);
+                    case "artist":
+                        return vdb.functions.mapAbsoluteUrl("/Ar/" + id);
+                    case "song":
+                        return vdb.functions.mapAbsoluteUrl("/S/" + id);
+                }
+
                 return vdb.functions.mapAbsoluteUrl("/" + typeName + "/Details/" + id);
             };
 

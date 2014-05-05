@@ -1,12 +1,7 @@
 ﻿
 <div data-bind="visible: showAlbumSearch, with: albumSearchViewModel, css: { loading: albumSearchViewModel.loading }">
 
-	<h3 data-bind="visible: $parent.isUniversalSearch">Albums</h3>
-
-	<p class="pull-right">
-		Total entries:
-		<span data-bind="text: paging.totalItems"></span>
-	</p>
+	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
 
 	<div data-bind="with: paging">
 		@KnockoutHelpers.ServerSidePaging()

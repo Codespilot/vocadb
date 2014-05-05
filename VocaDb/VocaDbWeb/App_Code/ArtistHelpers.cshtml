@@ -3,6 +3,7 @@
 @using System.Web.Routing
 @using VocaDb.Model.DataContracts.Artists;
 @using VocaDb.Model.Domain.Artists
+@using VocaDb.Model.Utils
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.DataContracts.Albums;
@@ -187,4 +188,13 @@
 			@(", ")
 		}
 	}
+}
+
+@helper ArtistTypesDropdownKnockout(string binding) {
+	<select data-bind="value: @(binding)">
+		@foreach (var artistType in Translate.ArtistTypeNames.GetValuesAndNames(AppConfig.ArtistTypes)) {
+			<option data-bind="value: '@artistType.Key'">@artistType.Value</option>
+		@*<a href="#" data-bind="click: function() { @(binding)('@artistType.Key'); }, disabled: @(binding)() == '@artistType.Key'">@artistType.Value</a>*@
+		}
+	</select>
 }
