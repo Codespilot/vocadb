@@ -5,11 +5,12 @@ var vdb;
             function AlbumRepository(baseUrl) {
                 var _this = this;
                 this.baseUrl = baseUrl;
-                this.getList = function (paging, query, sort, tag, callback) {
+                this.getList = function (paging, query, sort, discTypes, tag, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/albums");
                     var data = {
                         start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
                         query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort,
+                        discTypes: discTypes,
                         tag: tag
                     };
 

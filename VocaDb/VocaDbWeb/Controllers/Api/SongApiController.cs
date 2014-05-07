@@ -57,6 +57,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Note: only one value supported at the moment.
 		/// </param>
 		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -73,6 +74,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			SongType songTypes = SongType.Unspecified,
 			string tag = null,
+			bool onlyWithPvs = false,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule sort = SongSortRule.Name,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
@@ -82,7 +84,7 @@ namespace VocaDb.Web.Controllers.Api {
 			var types = songTypes != SongType.Unspecified ? new[] { songTypes } : new SongType[0];
 
 			var param = new SongQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false, false, null) {
-				Tag = tag
+				Tag = tag, OnlyWithPVs = onlyWithPvs
 			};
 
 			var artists = service.Find(s => new SongForApiContract(s, null, lang, fields), param);

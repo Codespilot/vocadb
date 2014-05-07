@@ -64,6 +64,32 @@
 								@ArtistHelpers.ArtistTypesDropdownKnockout("artistType")
 							</div>
 						</div>
+						
+						<div class="control-group" data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
+							<div class="control-label">Album type</div>
+							<div class="controls">
+								@AlbumHelpers.DiscTypesDropdownKnockout("albumType")
+							</div>
+						</div>
+
+						<div data-bind="visible: showSongSearch, with: songSearchViewModel">
+							<div class="control-group">
+								<div class="control-label">Song type</div>
+								<div class="controls">
+									@SongHelpers.SongTypesDropdownKnockout("songType")
+								</div>
+							</div>
+
+							<div class="control-group">
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" data-bind="checked: pvsOnly" />
+										Only with PVs										
+									</label>
+								</div>
+							</div>
+						</div>
+
 					</div>
 				</div>
 

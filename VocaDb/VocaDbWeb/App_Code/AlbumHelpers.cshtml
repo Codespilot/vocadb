@@ -102,6 +102,14 @@
 	@Html.ActionLink(album.Name, "Details", "Album", new { id = album.Id }, new { title = album.AdditionalNames })
 }
 
+@helper DiscTypesDropdownKnockout(string binding) {
+	<div>
+	@foreach (var discType in Translate.DiscTypeNames.ValuesAndNames) {
+		<button class="btn" data-bind="click: function() { @(binding)('@discType.Key'); }, enable: @(binding)() != '@discType.Key'">@discType.Value</button>
+	}
+	</div>
+}
+
 @helper EditCollectionDialog(PurchaseStatus purchaseStatus, MediaType mediaType) {
 	
 <div id="editCollectionDialog" style="display:none" title="@ViewRes.Album.DetailsStrings.EditAlbumInCollection">
