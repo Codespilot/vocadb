@@ -52,17 +52,7 @@ module vdb.viewModels {
 
 		showMoreEnd = ko.computed(() => this.page() < this.totalPages() - 4);
 
-		/*pagingProperties = ko.computed(() => {
-
-			return {
-				start: this.firstItem(),
-				maxEntries: this.pageSize(),
-				getTotalCount: this.totalItems() == 0
-			};
-
-		});*/
-
-		getPagingProperties = (clearResults) => {
+		getPagingProperties = (clearResults: boolean = false) => {
 
 			return {
 				start: this.firstItem(),
