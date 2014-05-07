@@ -1,6 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Google.GData.Extensions;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Service.Search.AlbumSearch;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -45,6 +50,71 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Album> WhereDraftsOnly(this IQueryable<Album> query, bool draftsOnly) {
+
+			if (!draftsOnly)
+				return query;
+
+			return query.Where(a => a.Status == EntryStatus.Draft);
+
+		}
+
+		public static IQueryable<Album> WhereHasArtistParticipationStatus(this IQueryable<Album> query, int artistId, ArtistAlbumParticipationStatus participation, Func<int, Artist> artistGetter) {
+
+			if (artistId == 0)
+				return query;
+
+			if (participation == ArtistAlbumParticipationStatus.Everything)
+				return query.WhereHasArtist(artistId);
+
+			var artist = artistGetter(artistId);
+			var musicProducerTypes = new[] {ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup};
+
+			if (musicProducerTypes.Contains(artist.ArtistType)) {
+
+				var various = Model.Helpers.ArtistHelper.VariousArtists;
+				var producerRoles = ArtistRoles.Composer | ArtistRoles.Arranger;
+
+				switch (participation) {
+					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport && ((a.Roles == ArtistRoles.Default) || ((a.Roles & producerRoles) != ArtistRoles.Default)) && a.Album.ArtistString.Default != various));
+					case ArtistAlbumParticipationStatus.OnlyCollaborations:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && (a.IsSupport || ((a.Roles != ArtistRoles.Default) && ((a.Roles & producerRoles) == ArtistRoles.Default)) || a.Album.ArtistString.Default == various)));
+					default:
+						return query;
+				}
+
+			} else {
+
+				switch (participation) {
+					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport));
+					case ArtistAlbumParticipationStatus.OnlyCollaborations:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && a.IsSupport));
+					default:
+						return query;
+				}
+				
+			}
+
+		}
+
+		/// <summary>
+		/// Filters a album query by a single artist Id.
+		/// </summary>
+		/// <param name="query">Album query. Cannot be null.</param>
+		/// <param name="artistId">ID of the artist being filtered. If 0, no filtering is done.</param>
+		/// <returns>Filtered query. Cannot be null.</returns>
+		public static IQueryable<Album> WhereHasArtist(this IQueryable<Album> query, int artistId) {
+
+			if (artistId == 0)
+				return query;
+
+			return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
+
+		}
+
+
 		// TODO: should be combined with common name query somehow, but NH is making it hard
 		/// <summary>
 		/// Filters an artist query by a name query.
@@ -58,7 +128,7 @@ namespace VocaDb.Model.Service.Helpers {
 		/// </param>
 		/// <returns>Filtered query. Cannot be null.</returns>
 		public static IQueryable<Album> WhereHasName(this IQueryable<Album> query, string nameFilter, 
-			NameMatchMode matchMode, string[] words = null) {
+			NameMatchMode matchMode, string[] words = null, bool allowCatNum = false) {
 
 			if (string.IsNullOrEmpty(nameFilter))
 				return query;
@@ -68,26 +138,34 @@ namespace VocaDb.Model.Service.Helpers {
 					return query.Where(m => m.Names.Names.Any(n => n.Value == nameFilter));
 
 				case NameMatchMode.Partial:
-					return query.Where(m => m.Names.Names.Any(n => n.Value.Contains(nameFilter)));
+					return query.Where(m => 
+						(allowCatNum && m.OriginalRelease.CatNum != null && m.OriginalRelease.CatNum.Contains(nameFilter)) ||
+						m.Names.Names.Any(n => n.Value.Contains(nameFilter)));
 
 				case NameMatchMode.StartsWith:
-					return query.Where(m => m.Names.Names.Any(n => n.Value.StartsWith(nameFilter)));
+					return query.Where(m => 
+						(allowCatNum && m.OriginalRelease.CatNum != null && m.OriginalRelease.CatNum.StartsWith(nameFilter)) ||
+						m.Names.Names.Any(n => n.Value.StartsWith(nameFilter)));
 
 				case NameMatchMode.Words:
 					words = words ?? FindHelpers.GetQueryWords(nameFilter);
 
 					switch (words.Length) {
 						case 1:
-							query = query.Where(q => q.Names.Names.Any(n => n.Value.Contains(words[0])));
+							query = query.Where(q => 
+								(allowCatNum && q.OriginalRelease.CatNum != null && q.OriginalRelease.CatNum.Contains(nameFilter)) ||
+								q.Names.Names.Any(n => n.Value.Contains(words[0])));
 							break;
 						case 2:
 							query = query.Where(q => 
+								(allowCatNum && q.OriginalRelease.CatNum != null && q.OriginalRelease.CatNum.Contains(nameFilter)) ||
 								q.Names.Names.Any(n => n.Value.Contains(words[0]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[1]))
 							);
 							break;
 						case 3:
 							query = query.Where(q => 
+								(allowCatNum && q.OriginalRelease.CatNum != null && q.OriginalRelease.CatNum.Contains(nameFilter)) ||
 								q.Names.Names.Any(n => n.Value.Contains(words[0]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[1]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[2]))
@@ -95,6 +173,7 @@ namespace VocaDb.Model.Service.Helpers {
 							break;
 						case 4:
 							query = query.Where(q => 
+								(allowCatNum && q.OriginalRelease.CatNum != null && q.OriginalRelease.CatNum.Contains(nameFilter)) ||
 								q.Names.Names.Any(n => n.Value.Contains(words[0]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[1]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[2]))
@@ -103,6 +182,7 @@ namespace VocaDb.Model.Service.Helpers {
 							break;
 						case 5:
 							query = query.Where(q => 
+								(allowCatNum && q.OriginalRelease.CatNum != null && q.OriginalRelease.CatNum.Contains(nameFilter)) ||
 								q.Names.Names.Any(n => n.Value.Contains(words[0]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[1]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[2]))
@@ -112,6 +192,7 @@ namespace VocaDb.Model.Service.Helpers {
 							break;
 						case 6:
 							query = query.Where(q => 
+								(allowCatNum && q.OriginalRelease.CatNum != null && q.OriginalRelease.CatNum.Contains(nameFilter)) ||
 								q.Names.Names.Any(n => n.Value.Contains(words[0]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[1]))
 								&& q.Names.Names.Any(n => n.Value.Contains(words[2]))
@@ -143,6 +224,15 @@ namespace VocaDb.Model.Service.Helpers {
 				return query;
 
 			return query.Where(s => s.Tags.Usages.Any(a => a.Tag.Name == tagName));
+
+		}
+
+		public static IQueryable<Album> WhereHasType(this IQueryable<Album> query, DiscType albumType) {
+
+			if (albumType == DiscType.Unknown)
+				return query;
+
+			return query.Where(m => m.DiscType == albumType);
 
 		}
 

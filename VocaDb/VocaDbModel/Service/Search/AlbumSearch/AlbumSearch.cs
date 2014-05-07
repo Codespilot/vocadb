@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
@@ -19,71 +18,140 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 			get { return languagePreference; }
 		}
 
+		private IQueryable<Album> CreateQuery(
+			AlbumQueryParams queryParams, 
+			ParsedAlbumQuery parsedQuery, 
+			NameMatchMode? nameMatchMode = null) {
+			
+			var artistId = queryParams.ArtistId != 0 ? queryParams.ArtistId : parsedQuery.ArtistId;
 
-		private IQueryable<ArtistForAlbum> AddArtistParticipationStatus(IQueryable<ArtistForAlbum> query, int artistId, ArtistAlbumParticipationStatus participation) {
+			var query = Query<Album>()
+				.Where(s => !s.Deleted)
+				.WhereHasName(parsedQuery.Name, nameMatchMode ?? queryParams.Common.NameMatchMode, allowCatNum: true)
+				.WhereDraftsOnly(queryParams.Common.DraftOnly)
+				.WhereHasArtistParticipationStatus(artistId, queryParams.ArtistParticipationStatus, id => querySource.Load<Artist>(id))
+				.WhereHasType(queryParams.AlbumType)
+				.WhereHasTag(!string.IsNullOrEmpty(queryParams.Tag) ? queryParams.Tag : parsedQuery.TagName);
 
-			if (participation == ArtistAlbumParticipationStatus.Everything || artistId == 0)
-				return query;
-
-			return query.WhereHasArtistParticipationStatus(querySource.Load<Artist>(artistId), participation);
+			return query;
 
 		}
 
-		private IQueryable<Album> AddDiscTypeRestriction(IQueryable<Album> query, DiscType discType) {
-			return (discType != DiscType.Unknown ? query.Where(a => a.DiscType == discType) : query);
+		private SearchWord GetTerm(string query, params string[] testTerms) {
+
+			return (
+				from term in testTerms 
+				where query.StartsWith(term + ":", StringComparison.InvariantCultureIgnoreCase) 
+				select new SearchWord(term, query.Substring(term.Length + 1).TrimStart()))
+			.FirstOrDefault();
+
 		}
 
-		private IQueryable<AlbumName> AddDiscTypeRestriction(IQueryable<AlbumName> query, DiscType discType) {
-			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
+		private ParsedAlbumQuery ParseTextQuery(string query) {
+			
+			if (string.IsNullOrWhiteSpace(query))
+				return new ParsedAlbumQuery();
+
+			var term = GetTerm(query.Trim(), "tag", "artist");
+			
+			if (term != null) {
+
+				switch (term.PropertyName) {
+					case "tag":
+						return new ParsedAlbumQuery { TagName = term.Value };
+					case "artist":
+						return new ParsedAlbumQuery { ArtistId = int.Parse(term.Value) };
+				}
+				
+			}
+
+			return new ParsedAlbumQuery { Name = query.Trim() };
+
 		}
 
-		private IQueryable<AlbumTagUsage> AddDiscTypeRestriction(IQueryable<AlbumTagUsage> query, DiscType discType) {
-			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
+		public static Album[] SortByIds(IEnumerable<Album> albums, int[] idList) {
+			
+			return CollectionHelper.SortByIds(albums, idList);
+
+		} 
+
+		private PartialFindResult<Album> GetAlbums(AlbumQueryParams queryParams, ParsedAlbumQuery parsedQuery) {
+
+			var query = CreateQuery(queryParams, parsedQuery);
+
+			var ids = query
+				.OrderBy(queryParams.SortRule, LanguagePreference)
+				.Select(s => s.Id)
+				.Skip(queryParams.Paging.Start)
+				.Take(queryParams.Paging.MaxEntries)
+				.ToArray();
+
+			var albums = SortByIds(querySource
+				.Query<Album>()
+				.Where(s => ids.Contains(s.Id))
+				.ToArray(), ids);
+
+			var count = (queryParams.Paging.GetTotalCount ? query.Count() : 0);
+
+			return new PartialFindResult<Album>(albums, count, queryParams.Common.Query, false);
+
 		}
 
-		private IQueryable<ArtistForAlbum> AddDiscTypeRestriction(IQueryable<ArtistForAlbum> query, DiscType discType) {
-			return (discType != DiscType.Unknown ? query.Where(a => a.Album.DiscType == discType) : query);
-		}
+		/// <summary>
+		/// Get albums, searching by exact matches FIRST.
+		/// This mode does not support paging.
+		/// </summary>
+		private PartialFindResult<Album> GetAlbumsMoveExactToTop(AlbumQueryParams queryParams, ParsedAlbumQuery parsedQuery) {
+			
+			var sortRule = queryParams.SortRule;
+			var maxResults = queryParams.Paging.MaxEntries;
+			var getCount = queryParams.Paging.GetTotalCount;
 
-		private IQueryable<Album> AddNameMatchFilter(IQueryable<Album> criteria, string name, NameMatchMode matchMode) {
+			// Exact query contains the "exact" matches.
+			// Note: the matched name does not have to be in user's display language, it can be any name.
+			// The songs are sorted by user's display language though
+			var exactQ = CreateQuery(queryParams, parsedQuery, NameMatchMode.StartsWith);
 
-			var mode = FindHelpers.GetMatchMode(name, matchMode);
+			int count;
+			int[] ids;
+			var exactResults = exactQ
+				.OrderBy(sortRule, LanguagePreference)
+				.Select(s => s.Id)
+				.Take(maxResults)
+				.ToArray();
 
-			if (mode == NameMatchMode.Exact) {
+			if (exactResults.Length >= maxResults) {
 
-				return criteria.Where(s =>
-					s.Names.SortNames.English == name
-						|| s.Names.SortNames.Romaji == name
-						|| s.Names.SortNames.Japanese == name);
+				ids = exactResults;
+				count = getCount ? CreateQuery(queryParams, parsedQuery).Count() : 0;
 
-			} else if (mode == NameMatchMode.StartsWith) {
+			} else { 
 
-				return criteria.Where(s =>
-				                      s.Names.SortNames.English.StartsWith(name)
-				                      || s.Names.SortNames.Romaji.StartsWith(name)
-				                      || s.Names.SortNames.Japanese.StartsWith(name));
+				var directQ = CreateQuery(queryParams, parsedQuery);
 
-			} else {
+				var direct = directQ
+					.OrderBy(sortRule, LanguagePreference)
+					.Select(s => s.Id)
+					.Take(maxResults)
+					.ToArray();
 
-				return criteria.Where(s =>
-					s.Names.SortNames.English.Contains(name)
-						|| s.Names.SortNames.Romaji.Contains(name)
-						|| s.Names.SortNames.Japanese.Contains(name)
-						|| (s.OriginalRelease.CatNum != null && s.OriginalRelease.CatNum.Contains(name)));
+				ids = exactResults
+					.Concat(direct)
+					.Distinct()
+					.Take(maxResults)
+					.ToArray();
+
+				count = getCount ? directQ.Count() : 0;
 
 			}
 
-		}
+			var albums = SortByIds(
+				querySource
+					.Query<Album>()
+					.Where(s => ids.Contains(s.Id))
+					.ToArray(), ids);
 
-		private IQueryable<Album> AddOrder(IQueryable<Album> criteria, AlbumSortRule sortRule, ContentLanguagePreference languagePreference) {
-
-			return criteria.OrderBy(sortRule, languagePreference);
-
-		}
-
-		private IQueryable<Album> AddReleaseRestriction(IQueryable<Album> criteria) {
-
-			return criteria.WhereHasReleaseDate();
+			return new PartialFindResult<Album>(albums, count, queryParams.Common.Query, true);
 
 		}
 
@@ -99,255 +167,20 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 		public PartialFindResult<Album> Find(AlbumQueryParams queryParams) {
 
 			var query = queryParams.Common.Query ?? string.Empty;
-			var discType = queryParams.AlbumType;
-			var start = queryParams.Paging.Start;
-			var maxResults = queryParams.Paging.MaxEntries;
-			var draftsOnly = queryParams.Common.DraftOnly;
-			var getTotalCount = queryParams.Paging.GetTotalCount;
-			var nameMatchMode = queryParams.Common.NameMatchMode;
-			var sortRule = queryParams.SortRule;
-			var moveExactToTop = queryParams.Common.MoveExactToTop;
+			var parsedQuery = ParseTextQuery(query);
 
-			Album[] entries;
-			string originalQuery = query;
-			bool foundExactMatch = false;
+			var isMoveToTopQuery = 	(queryParams.Common.MoveExactToTop 
+				&& queryParams.Common.NameMatchMode != NameMatchMode.StartsWith 
+				&& queryParams.Common.NameMatchMode != NameMatchMode.Exact 
+				&& queryParams.ArtistId == 0
+				&& queryParams.Paging.Start == 0
+				&& parsedQuery.HasNameQuery);
 
-			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
-
-				var albumsQ = Query<Album>()
-					.Where(s => !s.Deleted);
-
-				if (draftsOnly)
-					albumsQ = albumsQ.Where(a => a.Status == EntryStatus.Draft);
-
-				albumsQ = AddDiscTypeRestriction(albumsQ, discType);
-				albumsQ = albumsQ.WhereHasTag(queryParams.Tag);
-
-				albumsQ = AddOrder(albumsQ, sortRule, LanguagePreference);
-
-				entries = albumsQ
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
-
-				// TODO: refactor using advanced search parser
-			} else if (query.StartsWith("tag:")) {
-
-				var tagName = query.Substring(4);
-
-				var tagQ = Query<AlbumTagUsage>()
-					.Where(m => !m.Album.Deleted && m.Tag.Name == tagName);
-
-				if (draftsOnly)
-					tagQ = tagQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-				tagQ = AddDiscTypeRestriction(tagQ, discType);
-				entries = AddOrder(tagQ.Select(m => m.Album), sortRule, LanguagePreference)
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
-
-				// TODO: refactor using advanced search parser
-			} else if (queryParams.ArtistId != 0 || query.StartsWith("artist:")) {
-
- 				int artistId;
-				if (queryParams.ArtistId != 0)
-					artistId = queryParams.ArtistId;
-				else
-					int.TryParse(query.Substring(7), out artistId);
-
-				var albumQ = Query<ArtistForAlbum>()
-					.Where(m => !m.Album.Deleted && m.Artist.Id == artistId);
-
-				if (draftsOnly)
-					albumQ = albumQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-				albumQ = AddDiscTypeRestriction(albumQ, discType);
-				albumQ = AddArtistParticipationStatus(albumQ, artistId, queryParams.ArtistParticipationStatus);
-
-				entries = AddOrder(albumQ.Select(m => m.Album), sortRule, LanguagePreference)
-					.Skip(start)
-					.Take(maxResults)
-					.ToArray();
-
-			} else {
-
-				query = query.Trim();
-
-				// Searching by SortNames can be disabled in the future because all names should be included in the Names list anyway.
-				var directQ = Query<Album>()
-					.Where(s => !s.Deleted);
-
-				if (draftsOnly)
-					directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
-
-				directQ = AddDiscTypeRestriction(directQ, discType);
-				directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
-				directQ = directQ.WhereHasTag(queryParams.Tag);
-
-				var direct = directQ
-					.OrderBy(sortRule, languagePreference)
-					.Select(a => a.Id)
-					.ToArray();
-
-				var additionalNamesQ = Query<AlbumName>()
-					.Where(m => !m.Album.Deleted);
-
-				if (draftsOnly)
-					additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-				additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
-
-				additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
-
-				if (!string.IsNullOrEmpty(queryParams.Tag)) {
-					additionalNamesQ = additionalNamesQ.Where(s => s.Album.Tags.Usages.Any(a => a.Tag.Name == queryParams.Tag));
-				}
-
-				// Note: we want to order by album sort names, NOT the matched album name.
-				var additionalNames = additionalNamesQ
-					.Select(a => a.Album)
-					.OrderBy(sortRule, languagePreference)
-					.Select(a => a.Id)
-					.ToArray()
-					.Distinct()
-					.Where(a => !direct.Contains(a));
-
-				// Page of album Ids
-				var page = direct.Concat(additionalNames)
-					.Skip(start)
-					.Take(maxResults)					
-					.ToArray();
-
-				entries = Query<Album>()
-					.Where(a => page.Contains(a.Id))
-					.OrderBy(sortRule, languagePreference)
-					.ToArray();
-
-				if (moveExactToTop) {
-
-					var exactMatch = entries
-						.Where(e => e.Names.Any(n => n.Value.StartsWith(query, StringComparison.InvariantCultureIgnoreCase)))
-						.ToArray();
-
-					if (exactMatch.Any()) {
-						entries = CollectionHelper.MoveToTop(entries, exactMatch).ToArray();
-						foundExactMatch = true;
-					}
-
-				}
-
+			if (isMoveToTopQuery) {
+				return GetAlbumsMoveExactToTop(queryParams, parsedQuery);
 			}
 
-			var count = (getTotalCount ? GetAlbumCount(queryParams, query, discType, draftsOnly, nameMatchMode, sortRule) : 0);
-
-			return new PartialFindResult<Album>(entries, count, originalQuery, foundExactMatch);
-
-
-		}
-
-		public int GetAlbumCount(
-			AlbumQueryParams queryParams, string query, DiscType discType, bool draftsOnly, NameMatchMode nameMatchMode, AlbumSortRule sortRule) {
-
-			query = query ?? string.Empty;
-
-			if (queryParams.ArtistId == 0 && string.IsNullOrWhiteSpace(query)) {
-
-				var albumQ = Query<Album>()
-					.Where(s => !s.Deleted);
-
-				if (draftsOnly)
-					albumQ = albumQ.Where(a => a.Status == EntryStatus.Draft);
-
-				if (sortRule == AlbumSortRule.ReleaseDate)
-					albumQ = AddReleaseRestriction(albumQ);
-
-				albumQ = AddDiscTypeRestriction(albumQ, discType);
-				albumQ = albumQ.WhereHasTag(queryParams.Tag);
-
-				return albumQ.Count();
-
-			}
-
-			if (query.StartsWith("tag:")) {
-
-				var tagName = query.Substring(4);
-
-				var tagQ = Query<AlbumTagUsage>()
-					.Where(m => !m.Album.Deleted && m.Tag.Name == tagName);
-
-				if (draftsOnly)
-					tagQ = tagQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-				tagQ = AddDiscTypeRestriction(tagQ, discType);
-
-				return tagQ.Count();
-
-			}
-
-			if (queryParams.ArtistId != 0 || query.StartsWith("artist:")) {
-
-				int artistId;
-				if (queryParams.ArtistId != 0)
-					artistId = queryParams.ArtistId;
-				else
-					int.TryParse(query.Substring(7), out artistId);
-
-				var albumQ = Query<ArtistForAlbum>()
-					.Where(m => !m.Album.Deleted && m.Artist.Id == artistId);
-
-				if (draftsOnly)
-					albumQ = albumQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-				albumQ = AddDiscTypeRestriction(albumQ, discType);
-				albumQ = AddArtistParticipationStatus(albumQ, artistId, queryParams.ArtistParticipationStatus);
-				return albumQ.Count();
-
-			}
-
-			var directQ = Query<Album>()
-				.Where(s => !s.Deleted);
-
-			if (draftsOnly)
-				directQ = directQ.Where(a => a.Status == EntryStatus.Draft);
-
-			if (sortRule == AlbumSortRule.ReleaseDate)
-				directQ = AddReleaseRestriction(directQ);
-
-			directQ = AddDiscTypeRestriction(directQ, discType);
-
-			directQ = AddNameMatchFilter(directQ, query, nameMatchMode);
-			directQ = directQ.WhereHasTag(queryParams.Tag);
-
-			var direct = new HashSet<int>(directQ.Select(a => a.Id).ToArray());
-
-			var additionalNamesQ = Query<AlbumName>()
-				.Where(m => !m.Album.Deleted);
-
-			if (draftsOnly)
-				additionalNamesQ = additionalNamesQ.Where(a => a.Album.Status == EntryStatus.Draft);
-
-			additionalNamesQ = AddDiscTypeRestriction(additionalNamesQ, discType);
-
-			additionalNamesQ = additionalNamesQ.AddEntryNameFilter(query, nameMatchMode);
-
-			if (!string.IsNullOrEmpty(queryParams.Tag)) {
-				additionalNamesQ = additionalNamesQ.Where(s => s.Album.Tags.Usages.Any(a => a.Tag.Name == queryParams.Tag));
-			}
-
-			var additionalNamesAlbumQ = additionalNamesQ.Select(a => a.Album);
-
-			if (sortRule == AlbumSortRule.ReleaseDate)
-				additionalNamesAlbumQ = AddReleaseRestriction(additionalNamesAlbumQ);
-
-			var additionalNames = additionalNamesAlbumQ
-				.Select(a => a.Id)
-				.Distinct()
-				.ToArray()
-				.Where(a => !direct.Contains(a))
-				.ToArray();
-
-			return direct.Count() + additionalNames.Count();
+			return GetAlbums(queryParams, parsedQuery);
 
 		}
 

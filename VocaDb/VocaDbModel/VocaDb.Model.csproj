@@ -685,6 +685,7 @@
     <Compile Include="Service\Repositories\NHibernate\UserNHibernateRepository.cs" />
     <Compile Include="Service\Search\AlbumSearch\AlbumSearchSort.cs" />
     <Compile Include="Service\Search\AlbumSearch\ArtistAlbumParticipationStatus.cs" />
+    <Compile Include="Service\Search\AlbumSearch\ParsedAlbumQuery.cs" />
     <Compile Include="Service\Search\QueryProcessor.cs" />
     <Compile Include="Service\Search\ReleaseEventSearch.cs" />
     <Compile Include="Service\Search\SongSearch\ParsedSongQuery.cs" />

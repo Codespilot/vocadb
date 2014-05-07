@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NHibernate.Util;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -214,7 +212,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			int count;
 			int[] ids;
 			var exactResults = exactQ
-				.AddOrder(sortRule, LanguagePreference)
+				.OrderBy(sortRule, LanguagePreference)
 				.Select(s => s.Id)
 				.Take(maxResults)
 				.ToArray();
@@ -259,7 +257,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				var directQ = CreateQuery(queryParams, parsedQuery);
 
 				var direct = directQ
-					.AddOrder(sortRule, LanguagePreference)
+					.OrderBy(sortRule, LanguagePreference)
 					.Select(s => s.Id)
 					.Take(maxResults)
 					.ToArray();
