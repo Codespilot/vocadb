@@ -163,7 +163,7 @@ module vdb.viewModels {
 
 		}
 
-		public artistType = ko.observable("Nothing");
+		public artistType = ko.observable("Unknown");
 		public sort = ko.observable("Name");
 
 	}
@@ -175,15 +175,17 @@ module vdb.viewModels {
 			super(searchViewModel);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
+			this.albumType.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
 
-				this.albumRepo.getList(pagingProperties, searchTerm, this.sort(), tag, callback);
+				this.albumRepo.getList(pagingProperties, searchTerm, this.sort(), this.albumType(), tag, callback);
 
 			}
 
 		}
 
+		public albumType = ko.observable("Unknown");
 		public sort = ko.observable("Name");
 
 		public ratingStars = (album: dc.AlbumContract) => {
@@ -204,16 +206,20 @@ module vdb.viewModels {
 
 			super(searchViewModel);
 
+			this.pvsOnly.subscribe(this.updateResultsWithTotalCount);
+			this.songType.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
 
-				this.songRepo.getList(pagingProperties, searchTerm, this.sort(), tag, callback);
+				this.songRepo.getList(pagingProperties, searchTerm, this.sort(), this.songType(), tag, this.pvsOnly(), callback);
 
 			}
 
 		}
 
+		public pvsOnly = ko.observable(false);
+		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
 
 	}

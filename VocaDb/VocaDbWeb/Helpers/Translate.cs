@@ -44,8 +44,17 @@ namespace VocaDb.Web.Helpers {
 		public static readonly TranslateableEnum<ArtistSortRule> ArtistSortRuleNames =
 			new TranslateableEnum<ArtistSortRule>(() => global::Resources.ArtistSortRuleNames.ResourceManager, new[] { ArtistSortRule.Name, ArtistSortRule.AdditionDate, ArtistSortRule.AdditionDateAsc });
 
-		public static readonly TranslateableEnum<ArtistType> ArtistTypeNames =
-			new TranslateableEnum<ArtistType>(() => Model.Resources.ArtistTypeNames.ResourceManager);
+		public static TranslateableEnum<ArtistType> ArtistTypeNames {
+			get {
+				return new TranslateableEnum<ArtistType>(() => Model.Resources.ArtistTypeNames.ResourceManager);
+			}
+		}			
+
+		public static TranslateableEnum<DiscType> DiscTypeNames {
+			get {
+				return new TranslateableEnum<DiscType>(() => Model.Resources.Albums.DiscTypeNames.ResourceManager);
+			}
+		}			
 
 		public static readonly TranslateableEnum<EntryEditEvent> EntryEditEventNames =
 			new TranslateableEnum<EntryEditEvent>(() => global::Resources.EntryEditEventNames.ResourceManager);
@@ -145,7 +154,7 @@ namespace VocaDb.Web.Helpers {
 
 		public static string DiscTypeName(DiscType discType) {
 
-			return DiscTypeNames.ResourceManager.GetString(discType.ToString());
+			return Model.Resources.Albums.DiscTypeNames.ResourceManager.GetString(discType.ToString());
 
 		}
 

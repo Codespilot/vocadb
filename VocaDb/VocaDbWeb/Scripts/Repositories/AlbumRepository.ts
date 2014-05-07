@@ -20,12 +20,13 @@ module vdb.repositories {
 
 		}
 
-		getList = (paging: dc.PagingProperties, query: string, sort: string, tag: string, callback) => {
+		getList = (paging: dc.PagingProperties, query: string, sort: string, discTypes: string, tag: string, callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
 				query: query, fields: "MainPicture", lang: 'English', nameMatchMode: 'Words', sort: sort,
+				discTypes: discTypes,
 				tag: tag
 			};
 
