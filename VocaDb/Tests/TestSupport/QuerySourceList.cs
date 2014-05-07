@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Service.Search;
 
 namespace VocaDb.Tests.TestSupport {
@@ -34,7 +35,15 @@ namespace VocaDb.Tests.TestSupport {
 		}
 
 		public T Load<T>(object id) {
-			return default(T);
+
+			if (!typeof(IEntryWithIntId).IsAssignableFrom(typeof(T)) || !(id is int))
+			{
+				throw new NotSupportedException("Only supported for IEntryWithIntId and integer Ids");
+			}
+
+			var entity = List<T>().FirstOrDefault(e => ((IEntryWithIntId)e).Id == (int)id);
+			return entity;
+
 		}
 
 		public IQueryable<T> Query<T>() {

@@ -52,6 +52,7 @@ namespace VocaDb.Tests.Service.Search.AlbumSearch {
 			querySource = new QuerySourceList();
 
 			artist = new Artist(TranslatedString.Create("XenonP")) { Id = 64 };
+			querySource.Add(artist);
 
 			album = new Album(new LocalizedString("Synthesis", ContentLanguageSelection.English)) { Id = 1, DiscType = DiscType.Album, CreateDate = new DateTime(2011, 1, 16) };
 			AddAlbum(album);
@@ -230,6 +231,36 @@ namespace VocaDb.Tests.Service.Search.AlbumSearch {
 			Assert.AreEqual(1, result.Items.Length, "1 result");
 			Assert.AreEqual(1, result.TotalCount, "total result count");
 			Assert.AreEqual(albumWithArtist, result.Items[0], "albums are equal");
+
+		}
+
+		[TestMethod]
+		public void QueryArtistParticipationStatus_FoundMain() {
+			
+			album.AddArtist(artist, true, ArtistRoles.Default);
+			queryParams.ArtistId = artist.Id;
+			queryParams.ArtistParticipationStatus = ArtistAlbumParticipationStatus.OnlyMainAlbums;
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(albumWithArtist, result.Items[0], "albums are equal");
+
+		}
+
+		[TestMethod]
+		public void QueryArtistParticipationStatus_FoundCollab() {
+			
+			album.AddArtist(artist, true, ArtistRoles.Default);
+			queryParams.ArtistId = artist.Id;
+			queryParams.ArtistParticipationStatus = ArtistAlbumParticipationStatus.OnlyCollaborations;
+
+			var result = Find();
+
+			Assert.AreEqual(1, result.Items.Length, "1 result");
+			Assert.AreEqual(1, result.TotalCount, "total result count");
+			Assert.AreEqual(album, result.Items[0], "albums are equal");
 
 		}
 
