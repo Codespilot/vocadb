@@ -11,7 +11,7 @@ module vdb.viewModels {
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, artistRepo);
-			this.albumSearchViewModel = new AlbumSearchViewModel(this, albumRepo);
+			this.albumSearchViewModel = new AlbumSearchViewModel(this, albumRepo, artistRepo);
 			this.songSearchViewModel = new SongSearchViewModel(this, songRepo);
 
 			this.searchTerm.subscribe(this.updateResults);
@@ -170,22 +170,39 @@ module vdb.viewModels {
 
 	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
 
-		constructor(searchViewModel: SearchViewModel, private albumRepo: rep.AlbumRepository) {
+		constructor(searchViewModel: SearchViewModel, private albumRepo: rep.AlbumRepository, private artistRepo: rep.ArtistRepository) {
 
 			super(searchViewModel);
 
+			var vm = this;
+
+			this.artistSearchParams = {
+				allowCreateNew: false,
+				acceptSelection: (artistId: number) => {
+					vm.artistId(artistId);
+					this.artistRepo.getOne(artistId, artist => vm.artistName(artist.name));
+				},
+				height: 300
+			};
+
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.albumType.subscribe(this.updateResultsWithTotalCount);
+			this.artistId.subscribe(this.updateResultsWithTotalCount);
+			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
 
-				this.albumRepo.getList(pagingProperties, searchTerm, this.sort(), this.albumType(), tag, callback);
+				this.albumRepo.getList(pagingProperties, searchTerm, this.sort(), this.albumType(), tag, this.artistId(), this.artistParticipationStatus(), callback);
 
 			}
 
 		}
 
 		public albumType = ko.observable("Unknown");
+		public artistId = ko.observable<number>(null);
+		public artistName = ko.observable("");
+		public artistParticipationStatus = ko.observable("Everything");
+		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public sort = ko.observable("Name");
 
 		public ratingStars = (album: dc.AlbumContract) => {

@@ -671,3 +671,7 @@ div.item {
 	pointer-events: none;
 	background: center no-repeat url(/Content/ajax-loader.gif)
 }
+
+.inline-block {
+	display: inline-block;
+}

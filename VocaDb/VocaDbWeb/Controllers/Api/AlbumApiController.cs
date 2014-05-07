@@ -61,6 +61,13 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Disc type. By default nothing. Possible values are Album, Single, EP, SplitAlbum, Compilation, Video, Other. Note: only one type supported for now.
 		/// </param>
 		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="artistId">Filter by artist Id.</param>
+		/// <param name="artistParticipationStatus">
+		/// Filter by artist participation status. Only valid if artistId is specified.
+		/// Everything (default): Show all albums by that artist (no filter).
+		/// OnlyMainAlbums: Show only main albums by that artist.
+		/// OnlyCollaborations: Show only collaborations by that artist.
+		/// </param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -80,6 +87,8 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			DiscType discTypes = DiscType.Unknown,
 			string tag = null,
+			int? artistId = null,
+			ArtistAlbumParticipationStatus artistParticipationStatus = ArtistAlbumParticipationStatus.Everything,
 			int start = 0, 
 			int maxResults = defaultMax,
 			bool getTotalCount = false, 
@@ -89,7 +98,9 @@ namespace VocaDb.Web.Controllers.Api {
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort) {
-				Tag = tag
+				Tag = tag,
+				ArtistId = artistId ?? 0,
+				ArtistParticipationStatus = artistParticipationStatus
 			};
 			var ssl = WebHelper.IsSSL(Request);
 

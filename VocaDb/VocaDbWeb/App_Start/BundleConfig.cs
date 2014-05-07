@@ -101,8 +101,10 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Home/Search").Include(
+				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/Artist/ArtistTypeLabel.js",
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
+				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/Repositories/AlbumRepository.js",
 				"~/Scripts/Repositories/ArtistRepository.js",

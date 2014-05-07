@@ -207,9 +207,5 @@
 }
 
 @helper SongTypesDropdownKnockout(string binding) {
-	<div>
-		@foreach (var songType in Translate.SongTypeNames.ValuesAndNames) {
-			<button class="btn" data-bind="click: function() { @(binding)('@songType.Key'); }, enable: @(binding)() != '@songType.Key'">@songType.Value</button>
-		}
-	</div>
+	@KnockoutHelpers.CheckBoxButtons(Translate.SongTypeNames.ValuesAndNames.ToDictionary(k => k.Key.ToString(), k => k.Value), binding);
 }
