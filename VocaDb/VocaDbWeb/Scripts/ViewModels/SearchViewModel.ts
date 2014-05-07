@@ -79,11 +79,62 @@ module vdb.viewModels {
 
 	}
 
-	export class AnythingSearchViewModel {
-
-		constructor(private searchViewModel: SearchViewModel, private entryRepo: rep.EntryRepository) {
+	// Base class for different types of searches.
+	export class SearchCategoryBaseViewModel<TEntry> {
+		
+		constructor(private searchViewModel: SearchViewModel) {
 
 			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+		}
+
+		// Method for loading a page of results.
+		public loadResults: (pagingProperties: dc.PagingProperties, searchTerm: string, tag: string,
+			callback: (result: any) => void) => void;
+
+		public loading = ko.observable(true); // Currently loading for data
+
+		public page = ko.observableArray<dc.EntryContract>([]); // Current page of items
+		public paging = new ServerSidePagingViewModel(); // Paging view model
+
+		// Update results loading the first page and updating total number of items.
+		// Commonly this is done after changing the filters or sorting.
+		public updateResultsWithTotalCount = () => this.updateResults(true);
+
+		// Update a new page of results. Does not update total number of items.
+		// This assumes the filters have not changed. Commonly this is done when paging.
+		public updateResultsWithoutTotalCount = () => this.updateResults(false);
+
+		public updateResults = (clearResults: boolean) => {
+
+			this.loading(true);
+
+			if (clearResults)
+				this.paging.page(1);
+
+			var pagingProperties = this.paging.getPagingProperties(clearResults);
+
+			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(), (result: any) => {
+
+				if (pagingProperties.getTotalCount)
+					this.paging.totalItems(result.totalCount);
+
+				this.page(result.items);
+				this.loading(false);
+
+			});
+
+		};
+
+	}
+
+	export class AnythingSearchViewModel extends SearchCategoryBaseViewModel<dc.EntryContract> {
+
+		constructor(searchViewModel: SearchViewModel, private entryRepo: rep.EntryRepository) {
+
+			super(searchViewModel);
+
+			this.loadResults = this.entryRepo.getList;
 
 		}
 
@@ -93,95 +144,45 @@ module vdb.viewModels {
 
 		}
 
-		public loading = ko.observable(true);
-
-		public page = ko.observableArray<dc.EntryContract>([]);
-
-		public paging = new ServerSidePagingViewModel();
-
-		public updateResultsWithTotalCount = () => this.updateResults(true);
-		public updateResultsWithoutTotalCount = () => this.updateResults(false);
-
-		public updateResults = (clearResults: boolean) => {
-
-			this.loading(true);
-
-			if (clearResults)
-				this.paging.page(1);
-
-			var pagingProperties = this.paging.getPagingProperties(clearResults);
-
-			this.entryRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(), (result: any) => {
-
-				if (pagingProperties.getTotalCount)
-					this.paging.totalItems(result.totalCount);
-
-				this.page(result.items);
-				this.loading(false);
-
-			});
-
-		};
-
 	}
 
-	export class ArtistSearchViewModel {
+	export class ArtistSearchViewModel extends SearchCategoryBaseViewModel<dc.ArtistApiContract> {
 
-		constructor(private searchViewModel: SearchViewModel, private artistRepo: rep.ArtistRepository) {
+		constructor(searchViewModel: SearchViewModel, private artistRepo: rep.ArtistRepository) {
+
+			super(searchViewModel);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.artistType.subscribe(this.updateResultsWithTotalCount);
-			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+				
+				this.artistRepo.getList(pagingProperties, searchTerm, this.sort(), this.artistType(), tag, callback);
+
+			}
 
 		}
 
 		public artistType = ko.observable("Nothing");
-		public loading = ko.observable(true);
-		public page = ko.observableArray<dc.ArtistApiContract>([]);
-
-		public paging = new ServerSidePagingViewModel();
-
 		public sort = ko.observable("Name");
-
-		public updateResultsWithTotalCount = () => this.updateResults(true);
-		public updateResultsWithoutTotalCount = () => this.updateResults(false);
-
-		public updateResults = (clearResults: boolean) => {
-
-			this.loading(true);
-
-			if (clearResults)
-				this.paging.page(1);
-
-			var pagingProperties = this.paging.getPagingProperties(clearResults);
-
-			this.artistRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.artistType(), this.searchViewModel.tag(), (result: any) => {
-
-				if (pagingProperties.getTotalCount)
-					this.paging.totalItems(result.totalCount);
-
-				this.page(result.items);
-				this.loading(false);
-
-			});
-
-		};
 
 	}
 
-	export class AlbumSearchViewModel {
+	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
 
-		constructor(private searchViewModel: SearchViewModel, private albumRepo: rep.AlbumRepository) {
+		constructor(searchViewModel: SearchViewModel, private albumRepo: rep.AlbumRepository) {
+
+			super(searchViewModel);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
-			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+
+				this.albumRepo.getList(pagingProperties, searchTerm, this.sort(), tag, callback);
+
+			}
 
 		}
-
-		public loading = ko.observable(true);
-		public page = ko.observableArray<dc.AlbumContract>([]);
-
-		public paging = new ServerSidePagingViewModel();
 
 		public sort = ko.observable("Name");
 
@@ -195,71 +196,25 @@ module vdb.viewModels {
 
 		};
 
-		public updateResultsWithTotalCount = () => this.updateResults(true);
-		public updateResultsWithoutTotalCount = () => this.updateResults(false);
-
-		public updateResults = (clearResults: boolean) => {
-
-			this.loading(true);
-
-			if (clearResults)
-				this.paging.page(1);
-
-			var pagingProperties = this.paging.getPagingProperties(clearResults);
-
-			this.albumRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.searchViewModel.tag(), (result: any) => {
-
-				if (pagingProperties.getTotalCount)
-					this.paging.totalItems(result.totalCount);
-
-				this.page(result.items);
-				this.loading(false);
-
-			});
-
-		};
-
 	}
 
-	export class SongSearchViewModel {
+	export class SongSearchViewModel extends SearchCategoryBaseViewModel<dc.SongApiContract> {
 
-		constructor(private searchViewModel: SearchViewModel, private songRepo: rep.SongRepository) {
+		constructor(searchViewModel: SearchViewModel, private songRepo: rep.SongRepository) {
+
+			super(searchViewModel);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
-			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+
+			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+
+				this.songRepo.getList(pagingProperties, searchTerm, this.sort(), tag, callback);
+
+			}
 
 		}
 
-		public loading = ko.observable(true);
-		public page = ko.observableArray<dc.SongApiContract>([]);
-
-		public paging = new ServerSidePagingViewModel();
-
 		public sort = ko.observable("Name");
-
-		public updateResultsWithTotalCount = () => this.updateResults(true);
-		public updateResultsWithoutTotalCount = () => this.updateResults(false);
-
-		public updateResults = (clearResults: boolean) => {
-
-			this.loading(true);
-
-			if (clearResults)
-				this.paging.page(1);
-
-			var pagingProperties = this.paging.getPagingProperties(clearResults);
-
-			this.songRepo.getList(pagingProperties, this.searchViewModel.searchTerm(), this.sort(), this.searchViewModel.tag(), (result: any) => {
-
-				if (pagingProperties.getTotalCount)
-					this.paging.totalItems(result.totalCount);
-
-				this.page(result.items);
-				this.loading(false);
-
-			});
-
-		};
 
 	}
 
