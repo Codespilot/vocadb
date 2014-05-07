@@ -3,6 +3,7 @@
 @using System.Web.Routing
 @using VocaDb.Model.DataContracts.Albums;
 @using VocaDb.Model.Domain.Users
+@using VocaDb.Model.Service.Search.AlbumSearch
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Images;
 @inherits VocaDb.Web.Code.HelperPage
@@ -92,6 +93,17 @@
 	
 }
 
+@helper ArtistAlbumParticipationStatusOptionsKnockout(string binding) {
+	{
+		var options = new Dictionary<string, string> {
+			{ ArtistAlbumParticipationStatus.Everything.ToString(), "Everything" },
+			{ ArtistAlbumParticipationStatus.OnlyMainAlbums.ToString(), "Only main albums" },
+			{ ArtistAlbumParticipationStatus.OnlyCollaborations.ToString(), "Only collaborations" },
+		};
+		@KnockoutHelpers.CheckBoxButtons(options, binding)
+	} 
+}
+
 @helper CoverLink(IEntryImageInformation imageInfo) {
     <a href="@Url.ImageThumb(imageInfo, ImageSize.Original)">
         <img src="@Url.ImageThumb(imageInfo, ImageSize.Thumb)" alt="@ViewRes.Album.DetailsStrings.CoverPicture" class="coverPic" />
@@ -103,11 +115,7 @@
 }
 
 @helper DiscTypesDropdownKnockout(string binding) {
-	<div>
-	@foreach (var discType in Translate.DiscTypeNames.ValuesAndNames) {
-		<button class="btn" data-bind="click: function() { @(binding)('@discType.Key'); }, enable: @(binding)() != '@discType.Key'">@discType.Value</button>
-	}
-	</div>
+	@KnockoutHelpers.CheckBoxButtons(Translate.DiscTypeNames.ValuesAndNames.ToDictionary(k => k.Key.ToString(), k => k.Value), binding)
 }
 
 @helper EditCollectionDialog(PurchaseStatus purchaseStatus, MediaType mediaType) {

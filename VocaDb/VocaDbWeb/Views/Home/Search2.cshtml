@@ -64,12 +64,27 @@
 								@ArtistHelpers.ArtistTypesDropdownKnockout("artistType")
 							</div>
 						</div>
-						
-						<div class="control-group" data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
-							<div class="control-label">Album type</div>
-							<div class="controls">
-								@AlbumHelpers.DiscTypesDropdownKnockout("albumType")
+
+						<div data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
+							<div class="control-group">
+								<div class="control-label">Album type</div>
+								<div class="controls">
+									@AlbumHelpers.DiscTypesDropdownKnockout("albumType")
+								</div>
 							</div>
+							
+							<div class="control-group">
+								<div class="control-label">Artist</div>
+								<div class="controls">
+									<div style="display: inline-block;" class="input-append">
+										@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "artistSearchParams", textBinding: "artistName", valBinding: "artistId")
+									</div>
+									<!-- ko if: artistId -->
+									@AlbumHelpers.ArtistAlbumParticipationStatusOptionsKnockout("artistParticipationStatus")
+									<!-- /ko -->
+								</div>
+							</div>
+
 						</div>
 
 						<div data-bind="visible: showSongSearch, with: songSearchViewModel">
@@ -84,7 +99,7 @@
 								<div class="controls">
 									<label class="checkbox">
 										<input type="checkbox" data-bind="checked: pvsOnly" />
-										Only with PVs										
+										Only with PVs
 									</label>
 								</div>
 							</div>
