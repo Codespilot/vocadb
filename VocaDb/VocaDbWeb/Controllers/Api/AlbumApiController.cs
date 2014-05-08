@@ -9,6 +9,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
@@ -96,6 +97,8 @@ namespace VocaDb.Web.Controllers.Api {
 			NameMatchMode nameMatchMode = NameMatchMode.Exact, 
 			AlbumOptionalFields fields = AlbumOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
 
 			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort) {
 				Tag = tag,

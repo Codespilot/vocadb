@@ -9,10 +9,24 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>VocaDB Search 2.0 ALPHA</title>
+	<title>@BrandableStrings.Layout.SiteTitle</title>
+	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
+	<meta name="og:image" content="@ViewContext.Controller.ViewBag.Banner" />
+	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
+
+	@{ Html.RenderPartial("Partials/_GoogleAnalytics"); }
 </head>
 <body style="padding-top: 50px">
+
+	<div data-bind="stopBinding: true" class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div id="topBar" class="container">
+				<div class="brand">@Html.ActionLink(BrandableStrings.Layout.SiteName, "Index", "Home")</div>
+				@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel()); }
+			</div>
+		</div>
+	</div>	
+
 	<div class="rightFrame container-fluid" style="min-height: 1000px; width: 90%; margin-left: auto; margin-right: auto;">
 		<div class="row-fluid">
 			<div class="span12">
@@ -94,6 +108,15 @@
 									@SongHelpers.SongTypesDropdownKnockout("songType")
 								</div>
 							</div>
+							
+							<div class="control-group">
+								<div class="control-label">Artist</div>
+								<div class="controls">
+									<div style="display: inline-block;" class="input-append">
+										@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "artistSearchParams", textBinding: "artistName", valBinding: "artistId")
+									</div>
+								</div>
+							</div>
 
 							<div class="control-group">
 								<div class="controls">
@@ -125,7 +148,6 @@
 	<span class="about-disclaimer">Background illustration by <a href="http://www.pixiv.net/member_illust.php?mode=medium&illust_id=34786809">みゆ</a> | <a href="https://code.google.com/p/vocadb/">Other credits</a></span>
 
 	<!-- Scripts -->
-	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
 	@Styles.Render("~/Content/css")
 	<link href="@Url.Content("~/Content/themes/redmond/jquery-ui-1.10.1.custom.min.css")" rel="stylesheet" type="text/css" />
 	@{ Html.RenderPartial("Partials/_LayoutScripts"); }
@@ -136,12 +158,15 @@
 		$(document).ready(function () {
 
 			var cultureCode = '@UICulture';
+			var languageSelection = '@UserContext.LanguagePreference';
+
 			var resourceRepo = new vdb.repositories.ResourceRepository('@RootPath');
 			var entryRepo = new vdb.repositories.EntryRepository('@RootPath');
 			var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
 			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
-			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, resourceRepo, cultureCode);
+
+			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, resourceRepo, languageSelection, cultureCode);
 			ko.applyBindings(vm);
 
 		});

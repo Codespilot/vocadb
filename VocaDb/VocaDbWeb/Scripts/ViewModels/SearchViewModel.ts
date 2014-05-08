@@ -7,12 +7,12 @@ module vdb.viewModels {
 	export class SearchViewModel {
 
 		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
-			resourceRepo: rep.ResourceRepository, cultureCode: string) {
+			resourceRepo: rep.ResourceRepository, languageSelection: string, cultureCode: string) {
 
-			this.anythingSearchViewModel = new AnythingSearchViewModel(this, entryRepo);
-			this.artistSearchViewModel = new ArtistSearchViewModel(this, artistRepo);
-			this.albumSearchViewModel = new AlbumSearchViewModel(this, albumRepo, artistRepo);
-			this.songSearchViewModel = new SongSearchViewModel(this, songRepo);
+			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
+			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo);
+			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo);
+			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
 
 			this.searchTerm.subscribe(this.updateResults);
 
@@ -130,11 +130,12 @@ module vdb.viewModels {
 
 	export class AnythingSearchViewModel extends SearchCategoryBaseViewModel<dc.EntryContract> {
 
-		constructor(searchViewModel: SearchViewModel, private entryRepo: rep.EntryRepository) {
+		constructor(searchViewModel: SearchViewModel, lang: string, private entryRepo: rep.EntryRepository) {
 
 			super(searchViewModel);
 
-			this.loadResults = this.entryRepo.getList;
+			this.loadResults = (pagingProperties, searchTerm, tag, callback) =>
+				this.entryRepo.getList(pagingProperties, lang, searchTerm, tag, callback);
 
 		}
 
@@ -148,7 +149,7 @@ module vdb.viewModels {
 
 	export class ArtistSearchViewModel extends SearchCategoryBaseViewModel<dc.ArtistApiContract> {
 
-		constructor(searchViewModel: SearchViewModel, private artistRepo: rep.ArtistRepository) {
+		constructor(searchViewModel: SearchViewModel, lang: string, private artistRepo: rep.ArtistRepository) {
 
 			super(searchViewModel);
 
@@ -157,7 +158,7 @@ module vdb.viewModels {
 
 			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
 				
-				this.artistRepo.getList(pagingProperties, searchTerm, this.sort(), this.artistType(), tag, callback);
+				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag, callback);
 
 			}
 
@@ -170,7 +171,7 @@ module vdb.viewModels {
 
 	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
 
-		constructor(searchViewModel: SearchViewModel, private albumRepo: rep.AlbumRepository, private artistRepo: rep.ArtistRepository) {
+		constructor(searchViewModel: SearchViewModel, lang: string, private albumRepo: rep.AlbumRepository, private artistRepo: rep.ArtistRepository) {
 
 			super(searchViewModel);
 
@@ -192,7 +193,7 @@ module vdb.viewModels {
 
 			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
 
-				this.albumRepo.getList(pagingProperties, searchTerm, this.sort(), this.albumType(), tag, this.artistId(), this.artistParticipationStatus(), callback);
+				this.albumRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.albumType(), tag, this.artistId(), this.artistParticipationStatus(), callback);
 
 			}
 
@@ -219,22 +220,37 @@ module vdb.viewModels {
 
 	export class SongSearchViewModel extends SearchCategoryBaseViewModel<dc.SongApiContract> {
 
-		constructor(searchViewModel: SearchViewModel, private songRepo: rep.SongRepository) {
+		constructor(searchViewModel: SearchViewModel, lang: string, private songRepo: rep.SongRepository, private artistRepo: rep.ArtistRepository) {
 
 			super(searchViewModel);
 
+			var vm = this;
+
+			this.artistSearchParams = {
+				allowCreateNew: false,
+				acceptSelection: (artistId: number) => {
+					vm.artistId(artistId);
+					this.artistRepo.getOne(artistId, artist => vm.artistName(artist.name));
+				},
+				height: 300
+			};
+
+			this.artistId.subscribe(this.updateResultsWithTotalCount);
 			this.pvsOnly.subscribe(this.updateResultsWithTotalCount);
 			this.songType.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
 
-				this.songRepo.getList(pagingProperties, searchTerm, this.sort(), this.songType(), tag, this.pvsOnly(), callback);
+				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(), this.pvsOnly(), callback);
 
 			}
 
 		}
 
+		public artistId = ko.observable<number>(null);
+		public artistName = ko.observable("");
+		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public pvsOnly = ko.observable(false);
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");

@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
@@ -80,6 +81,7 @@ namespace VocaDb.Web.Controllers.Api {
 			ArtistOptionalFields fields = ArtistOptionalFields.None,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
 			var types = ArtistHelper.GetArtistTypesFromFlags(artistTypes);
 
 			var param = new ArtistQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false) {

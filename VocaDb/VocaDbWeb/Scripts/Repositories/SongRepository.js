@@ -5,13 +5,14 @@ var vdb;
             function SongRepository(baseUrl) {
                 var _this = this;
                 this.baseUrl = baseUrl;
-                this.getList = function (paging, query, sort, songTypes, tag, onlyWithPvs, callback) {
+                this.getList = function (paging, lang, query, sort, songTypes, tag, artistId, onlyWithPvs, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/songs");
                     var data = {
                         start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
-                        query: query, fields: "ThumbUrl", lang: 'English', nameMatchMode: 'Words', sort: sort,
+                        query: query, fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort,
                         songTypes: songTypes,
                         tag: tag,
+                        artistId: artistId,
                         onlyWithPvs: onlyWithPvs
                     };
 
