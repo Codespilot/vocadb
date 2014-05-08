@@ -2317,7 +2317,7 @@
     <Content Include="Views\Tag\ArtistTagUsages.cshtml" />
     <Content Include="Views\Tag\AlbumTagUsages.cshtml" />
     <Content Include="Views\Tag\SongTagUsages.cshtml" />
-    <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\SearchOld.cshtml" />
     <Content Include="Views\Shared\PVEmbedDynamic.cshtml" />
     <Content Include="Views\Shared\PVEmbedNND.cshtml" />
     <Content Include="Views\Song\SongItem.cshtml" />
@@ -2364,7 +2364,7 @@
     <Content Include="Views\Shared\Partials\_EditArtistRolesPopup.cshtml" />
     <Content Include="Views\Help\External.cshtml" />
     <Content Include="Views\Event\Index.cshtml" />
-    <Content Include="Views\Home\Search2.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Views\Home\Partials\_AlbumSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_SongSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_ArtistSearchList.cshtml" />
