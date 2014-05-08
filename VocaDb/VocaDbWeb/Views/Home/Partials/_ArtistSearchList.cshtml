@@ -22,16 +22,16 @@
 		<tbody data-bind="foreach: page">
 			<tr>
 				<td>
-					<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id), title: additionalNames }" href="#" class="coverPicThumb">
+					<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id), title: $data.additionalNames }" href="#" class="coverPicThumb">
 						<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb" />
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: localizedName, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a>
+					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: artistType"></span>
 					<br />
-					<small class="extraInfo" data-bind="text: additionalNames"></small>
+					<small class="extraInfo" data-bind="text: $data.additionalNames"></small>
 				</td>
 			</tr>
 		</tbody>
