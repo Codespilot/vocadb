@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service.BrandableStrings;
 using VocaDb.Model.Utils.Config;
 
@@ -47,6 +48,10 @@ namespace VocaDb.Web.Code {
 
 		public string RootPath {
 			get { return Url.Content("~/"); }
+		}
+
+		public IUserPermissionContext UserContext {
+			get { return DependencyResolver.Current.GetService<IUserPermissionContext>(); }
 		}
 
 	}

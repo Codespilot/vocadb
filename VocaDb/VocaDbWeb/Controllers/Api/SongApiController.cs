@@ -5,6 +5,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Web.Controllers.Api {
@@ -57,6 +58,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Note: only one value supported at the moment.
 		/// </param>
 		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="artistId">Filter by artist Id.</param>
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
@@ -74,6 +76,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			SongType songTypes = SongType.Unspecified,
 			string tag = null,
+			int? artistId = null,
 			bool onlyWithPvs = false,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule sort = SongSortRule.Name,
@@ -81,10 +84,13 @@ namespace VocaDb.Web.Controllers.Api {
 			SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
 			var types = songTypes != SongType.Unspecified ? new[] { songTypes } : new SongType[0];
 
 			var param = new SongQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false, false, null) {
-				Tag = tag, OnlyWithPVs = onlyWithPvs
+				Tag = tag, 
+				OnlyWithPVs = onlyWithPvs,
+				ArtistId = artistId ?? 0
 			};
 
 			var artists = service.Find(s => new SongForApiContract(s, null, lang, fields), param);

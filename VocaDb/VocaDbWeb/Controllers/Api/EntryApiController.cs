@@ -65,6 +65,7 @@ namespace VocaDb.Web.Controllers.Api {
 			
 			var ssl = WebHelper.IsSSL(Request);
 			maxResults = GetMaxResults(maxResults);
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
 
 			return repository.HandleQuery(ctx => {
 
