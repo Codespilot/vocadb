@@ -21,12 +21,12 @@
 		<tbody data-bind="foreach: page">
 			<tr>
 				<td>
-					<a data-bind="visible: $data.mainPicture, attr: { href: $parent.entryUrl($data), title: additionalNames }" href="#" class="coverPicThumb">
+					<a data-bind="visible: $data.mainPicture, attr: { href: $parent.entryUrl($data), title: $data.additionalNames }" href="#" class="coverPicThumb">
 						<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb" />
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: localizedName, attr: { href: $parent.entryUrl($data), title: additionalNames }" href="#"></a>
+					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: $parent.entryUrl($data), title: $data.additionalNames }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: $data.artistType"></span>
 					<span data-bind="songTypeLabel: $data.songType"></span>
