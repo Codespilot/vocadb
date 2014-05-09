@@ -110,20 +110,20 @@ namespace VocaDb.Web.Controllers.Api {
 				var allIds = entryNames.Select(e => e.Id).ToArray();
 
 				// Get the actual entries in the page
-				var artists = ctx.OfType<Artist>().Query()
+				var artists = artistIds.Any() ? ctx.OfType<Artist>().Query()
 					.Where(a => artistIds.Contains(a.Id))
 					.ToArray()
-					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl, fields));
+					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl, fields)) : new EntryForApiContract[0];
 
-				var albums = ctx.OfType<Album>().Query()
+				var albums = albumIds.Any() ? ctx.OfType<Album>().Query()
 					.Where(a => albumIds.Contains(a.Id))
 					.ToArray()
-					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl, fields));
+					.Select(a => new EntryForApiContract(a, lang, entryThumbPersister, ssl, fields)) : new EntryForApiContract[0];
 
-				var songs = ctx.OfType<Song>().Query()
+				var songs = songIds.Any() ? ctx.OfType<Song>().Query()
 					.Where(a => songIds.Contains(a.Id))
 					.ToArray()
-					.Select(a => new EntryForApiContract(a, lang, fields));
+					.Select(a => new EntryForApiContract(a, lang, fields)) : new EntryForApiContract[0];
 
 				// Merge and sort the final list
 				var entries = CollectionHelper.SortByIds(artists.Concat(albums).Concat(songs), allIds);

@@ -54,8 +54,11 @@
 					<div class="control-label">Query</div>
 					<div class="control-group">
 						<div class="controls">
-							<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" />
-							&nbsp;
+							<div class="input-append">
+								<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" />
+								<button class="btn btn-danger" data-bind="click: function() { searchTerm(''); }, visible: searchTerm">Clear</button>
+								&nbsp;
+							</div>
 							<button class="btn" data-bind="click: function() { showAdvancedFilters(!showAdvancedFilters()); }, css: { active: showAdvancedFilters }">
 								More filters
 								<span class="caret"></span>
