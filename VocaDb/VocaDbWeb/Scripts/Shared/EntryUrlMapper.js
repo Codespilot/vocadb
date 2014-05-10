@@ -20,6 +20,10 @@ var vdb;
             EntryUrlMapper.details_entry = function (entry) {
                 return EntryUrlMapper.details(entry.entryType, entry.id);
             };
+
+            EntryUrlMapper.details_tag_byName = function (name) {
+                return vdb.functions.mapAbsoluteUrl("/Tag/Details/" + name);
+            };
             return EntryUrlMapper;
         })();
         utils.EntryUrlMapper = EntryUrlMapper;

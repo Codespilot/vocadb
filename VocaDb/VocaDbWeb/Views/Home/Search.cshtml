@@ -47,6 +47,9 @@
 					<li data-bind="css: { active: searchType() == 'Song' }">
 						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Song'); }">Songs</a>
 					</li>
+					<li data-bind="css: { active: searchType() == 'Tag' }">
+						<a href="#" data-bind="click: function() { searchType('Tag'); }">Tags</a>
+					</li>
 				</ul>
 
 
@@ -67,7 +70,7 @@
 					</div>
 
 					<div data-bind="visible: showAdvancedFilters" style="display: none;">
-						<div class="control-group">
+						<div class="control-group" data-bind="visible: showTagFilter">
 							<div class="control-label">Tag</div>
 							<div class="controls">
 								<div class="input-append">
@@ -131,6 +134,15 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="control-group" data-bind="visible: showTagSearch, with: tagSearchViewModel">
+							<div class="control-label">Category</div>
+							<div class="controls">
+								<div class="input-append">
+									@KnockoutHelpers.LockingAutoComplete("tagCategoryAutoComplete", "categoryName")
+								</div>
+							</div>
+						</div>
 
 					</div>
 				</div>
@@ -142,6 +154,8 @@
 				@{ Html.RenderPartial("Partials/_AlbumSearchList"); }
 
 				@{ Html.RenderPartial("Partials/_SongSearchList"); }
+
+				@{ Html.RenderPartial("Partials/_TagSearchList"); }
 
 			</div>
 
@@ -170,8 +184,9 @@
 			var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
 			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
+			var tagRepo = new vdb.repositories.TagRepository('@RootPath');
 
-			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, resourceRepo, languageSelection, cultureCode);
+			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, languageSelection, cultureCode);
 			ko.applyBindings(vm);
 
 			if (query)

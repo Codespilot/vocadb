@@ -15,6 +15,7 @@ namespace VocaDb.Model.DataContracts.Tags {
 			bool ssl,			
 			TagOptionalFields optionalFields) {
 			
+			CategoryName = tag.CategoryName;
 			Id = tag.Id;
 			Name = tag.Name;
 
@@ -27,6 +28,9 @@ namespace VocaDb.Model.DataContracts.Tags {
 			}
 
 		}
+
+		[DataMember]
+		public string CategoryName { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public string Description { get; set; }

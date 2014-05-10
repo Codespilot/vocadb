@@ -1,0 +1,44 @@
+﻿
+<div data-bind="visible: showTagSearch, with: tagSearchViewModel, css: { loading: tagSearchViewModel.loading }">
+
+	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
+
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th colspan="2">
+					Name
+				</th>
+				<th>
+					Category
+				</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: page">
+			<tr>
+				<td>
+					<a data-bind="visible: $data.mainPicture, attr: { href: vdb.utils.EntryUrlMapper.details_tag_byName(name), title: $data.additionalNames }" href="#">
+						<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : '') }" title="Cover picture" class="coverPicThumb" />
+					</a>
+				</td>
+				<td>
+					<a data-bind="text: name, attr: { href: vdb.utils.EntryUrlMapper.details_tag_byName(name)" href="#"></a><br />
+				</td>
+				<td>
+					<p data-bind="text: categoryName"></p>					
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+</div>
+

@@ -1295,6 +1295,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\OptionalDateTimeContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PagingPropertiesContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongApiContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagApiContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
@@ -1755,6 +1756,7 @@
     <Content Include="Scripts\marked.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\TagAutoComplete.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\Tag\TagCategoryAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />
     <Content Include="Scripts\Models\EntryType.js">
@@ -1771,6 +1773,7 @@
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <TypeScriptCompile Include="Scripts\Repositories\EntryRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\ResourceRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\TagRepository.ts" />
     <TypeScriptCompile Include="Scripts\Shared\Resources.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
@@ -2371,6 +2374,7 @@
     <Content Include="Views\Home\Partials\_AnythingSearchList.cshtml" />
     <Content Include="Views\Home\Partials\_EntryCountBox.cshtml" />
     <Content Include="Views\Shared\Partials\_GoogleAnalytics.cshtml" />
+    <Content Include="Views\Home\Partials\_TagSearchList.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

@@ -16,7 +16,7 @@ namespace VocaDb.Web.Controllers.Api {
 	[RoutePrefix("api/tags")]
 	public class TagApiController : ApiController {
 
-		private const int absoluteMax = 30;
+		private const int absoluteMax = 50;
 		private const int defaultMax = 10;
 		private readonly TagQueries queries;
 		private readonly IEntryImagePersisterOld thumbPersister;
@@ -31,6 +31,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </summary>
 		/// <param name="query">Tag name query (optional).</param>
 		/// <param name="allowAliases">Whether to allow tag alises. If this is false, alises will not be included.</param>
+		/// <param name="categoryName">Filter tags by category (optional). If specified, this must be an exact match (case insensitive).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -44,6 +45,7 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<TagForApiContract> GetList(
 			string query = "",
 			bool allowAliases = false,
+			string categoryName = "",
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
 			TagOptionalFields fields = TagOptionalFields.None) {
@@ -52,7 +54,10 @@ namespace VocaDb.Web.Controllers.Api {
 			var ssl = WebHelper.IsSSL(Request);
 			var queryParams = new CommonSearchParams(query, false, nameMatchMode, false, false);
 			var paging = new PagingProperties(start, maxResults, getTotalCount);
-			var tags = queries.Find(t => new TagForApiContract(t, thumbPersister, ssl, fields), queryParams, paging, allowAliases);
+
+			var tags = queries.Find(t => new TagForApiContract(t, thumbPersister, ssl, fields), 
+				queryParams, paging, 
+				allowAliases, categoryName);
 
 			return tags;
 

@@ -25,5 +25,15 @@ namespace VocaDb.Model.Service.Helpers {
 			return query.Where(t => t.AliasedTo == null);
 
 		}
+
+		public static IQueryable<Tag> WhereHasCategoryName(this IQueryable<Tag> query, string categoryName) {
+
+			if (string.IsNullOrEmpty(categoryName))
+				return query;
+
+			return query.Where(t => t.CategoryName == categoryName);
+
+		}
+
 	}
 }

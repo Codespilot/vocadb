@@ -25,7 +25,11 @@ module vdb.utils {
 
         public static details_entry(entry: vdb.dataContracts.EntryRefContract) {            
             return EntryUrlMapper.details(entry.entryType, entry.id);        
-        }
+		}
+
+		public static details_tag_byName(name: string) {
+			return vdb.functions.mapAbsoluteUrl("/Tag/Details/" + name);
+		}
     
     }
 

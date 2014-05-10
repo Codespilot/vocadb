@@ -41,18 +41,20 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public PartialFindResult<T> Find<T>(Func<Tag, T> fac, CommonSearchParams queryParams, PagingProperties paging, bool allowAliases = false)
+		public PartialFindResult<T> Find<T>(Func<Tag, T> fac, CommonSearchParams queryParams, PagingProperties paging, 
+			bool allowAliases = false, string categoryName = "")
 			where T : class {
 
 			var matchMode = queryParams.NameMatchMode;
-			queryParams.Query = FindHelpers.GetMatchModeAndQueryForSearch(queryParams.Query, ref matchMode, NameMatchMode.StartsWith);
+			queryParams.Query = FindHelpers.GetMatchModeAndQueryForSearch(queryParams.Query ?? string.Empty, ref matchMode, NameMatchMode.Partial);
 			queryParams.Query = queryParams.Query.Replace(' ', '_');
 
 			return HandleQuery(ctx => {
 
 				var query = ctx.Query()
-					.WhereHasName(queryParams.Query, queryParams.NameMatchMode)
-					.WhereAllowAliases(allowAliases);
+					.WhereHasName(queryParams.Query, matchMode)
+					.WhereAllowAliases(allowAliases)
+					.WhereHasCategoryName(categoryName);
 
 				var tags = query
 					.OrderBy(t => t.Name)
