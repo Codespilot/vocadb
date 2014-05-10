@@ -6,15 +6,25 @@ module vdb.viewModels {
 
 	export class SearchViewModel {
 
-		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository, albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
-			resourceRepo: rep.ResourceRepository, languageSelection: string, cultureCode: string) {
+		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository,
+			albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
+			tagRepo: rep.TagRepository,
+			resourceRepo: rep.ResourceRepository,
+			languageSelection: string, cultureCode: string) {
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo);
 			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
+			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 
 			this.searchTerm.subscribe(this.updateResults);
+			this.tag.subscribe(this.updateResults);
+
+			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
+			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
+			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
+			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
 
 			this.searchType.subscribe(val => {
 
@@ -22,13 +32,6 @@ module vdb.viewModels {
 				this.currentSearchType(val);
 
 			});
-
-			this.tag.subscribe(this.updateResults);
-
-			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
-			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
-			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
-			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
 
 			resourceRepo.getList(cultureCode, ['artistTypeNames', 'discTypeNames', 'songTypeNames'], resources => {
 				this.resources = resources;
@@ -41,6 +44,7 @@ module vdb.viewModels {
 		public anythingSearchViewModel: AnythingSearchViewModel;
 		public artistSearchViewModel: ArtistSearchViewModel;
 		public songSearchViewModel: SongSearchViewModel;
+		public tagSearchViewModel: TagSearchViewModel;
 
 		private currentSearchType = ko.observable("Anything");
 		private resources;
@@ -58,6 +62,8 @@ module vdb.viewModels {
 		public showArtistSearch: KnockoutComputed<boolean>;
 		public showAlbumSearch: KnockoutComputed<boolean>;
 		public showSongSearch: KnockoutComputed<boolean>;
+		public showTagSearch = ko.computed(() => this.searchType() == 'Tag');
+		public showTagFilter = ko.computed(() => !this.showTagSearch());
 
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
 
@@ -71,9 +77,12 @@ module vdb.viewModels {
 		
 			if (this.updateAlbumSearch())
 				this.albumSearchViewModel.updateResultsWithTotalCount();
-			
-			if (this.updateSongSearch())
+
+			if (this.showSongSearch())
 				this.songSearchViewModel.updateResultsWithTotalCount();
+			
+			if (this.showTagSearch())
+				this.tagSearchViewModel.updateResultsWithTotalCount();
 				
 		}
 
@@ -254,6 +263,28 @@ module vdb.viewModels {
 		public pvsOnly = ko.observable(false);
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
+
+	}
+
+	export class TagSearchViewModel extends SearchCategoryBaseViewModel<dc.TagApiContract> {
+
+		constructor(searchViewModel: SearchViewModel, private tagRepo: rep.TagRepository) {
+
+			super(searchViewModel);
+
+			this.allowAliases.subscribe(this.updateResultsWithTotalCount);
+			this.categoryName.subscribe(this.updateResultsWithTotalCount);
+
+			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+
+				this.tagRepo.getList(pagingProperties, searchTerm, this.allowAliases(), this.categoryName(), callback);
+
+			}
+
+		}
+
+		public allowAliases = ko.observable(false);
+		public categoryName = ko.observable("");
 
 	}
 

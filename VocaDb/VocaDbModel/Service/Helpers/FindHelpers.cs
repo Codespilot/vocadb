@@ -93,6 +93,9 @@ namespace VocaDb.Model.Service.Helpers {
 
 		public static IQueryable<Tag> AddTagNameFilter(IQueryable<Tag> query, string name, NameMatchMode matchMode) {
 
+			if (string.IsNullOrEmpty(name))
+				return query;
+
 			switch (GetMatchMode(name, matchMode)) {
 				case NameMatchMode.Exact:
 					return query.Where(m => m.Name == name);
