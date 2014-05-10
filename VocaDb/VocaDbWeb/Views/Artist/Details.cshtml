@@ -14,7 +14,7 @@
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Artists, "Index") };
 	ViewContext.Controller.ViewBag.Banner = VocaUriBuilder.CreateAbsolute(Url.Action("Picture", new { id = Model.Id }));
 
-	var url = VocaUriBuilder.CreateAbsolute(Url.Action("Details", new {id = Model.Id})).ToString();
+	var url = UrlMapper.FullAbsolute(Url.Action("Details", new {id = Model.Id}));
 	
 }
 
