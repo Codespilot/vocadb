@@ -155,14 +155,14 @@ namespace VocaDb.Web.Controllers
 
 			if (!string.IsNullOrEmpty(param)) {
 				TempData.SetStatusMessage(ViewRes.User.LoginUsingAuthStrings.SignInCancelled);
-				return View("MySettings");
+				return RedirectToAction("MySettings");
 			}
 
 			var response = new TwitterConsumer().ProcessUserAuthorization(Hostname);
 
 			if (response == null) {
-				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);
-				return View("MySettings");
+				TempData.SetStatusMessage(ViewRes.User.LoginUsingAuthStrings.AuthError);
+				return RedirectToAction("MySettings");
 			}
 
 			int twitterId;
@@ -425,7 +425,7 @@ namespace VocaDb.Web.Controllers
 				request = twitterSignIn.PrepareRequestUserAuthorization(uri, null, null);
 			} catch (ProtocolException x) {
 				
-				log.FatalException("Exception while attempting to sent Twitter request", x);	
+				log.ErrorException("Exception while attempting to send Twitter request", x);	
 				TempData.SetErrorMessage("There was an error while connecting to Twitter - please try again later.");
 
 				return RedirectToAction("Login");
