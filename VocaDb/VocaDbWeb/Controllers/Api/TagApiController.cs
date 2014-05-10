@@ -1,5 +1,12 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
+using VocaDb.Model.DataContracts.Tags;
+using VocaDb.Model.Domain.Images;
+using VocaDb.Model.Service;
+using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Search;
 using VocaDb.Web.Controllers.DataAccess;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers.Api {
 	
@@ -9,10 +16,46 @@ namespace VocaDb.Web.Controllers.Api {
 	[RoutePrefix("api/tags")]
 	public class TagApiController : ApiController {
 
+		private const int absoluteMax = 30;
+		private const int defaultMax = 10;
 		private readonly TagQueries queries;
+		private readonly IEntryImagePersisterOld thumbPersister;
 
-		public TagApiController(TagQueries queries) {
+		public TagApiController(TagQueries queries, IEntryImagePersisterOld thumbPersister) {
 			this.queries = queries;
+			this.thumbPersister = thumbPersister;
+		}
+
+		/// <summary>
+		/// Find tags.
+		/// </summary>
+		/// <param name="query">Tag name query (optional).</param>
+		/// <param name="allowAliases">Whether to allow tag alises. If this is false, alises will not be included.</param>
+		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
+		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
+		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
+		/// <param name="nameMatchMode">Match mode for song name (optional, defaults to Exact).</param>
+		/// <param name="fields">
+		/// List of optional fields (optional). Possible values are Description, MainPicture.
+		/// </param>
+		/// <returns>Page of tags.</returns>
+		/// <example>http://vocadb.net/api/tags?query=voca&amp;nameMatchMode=StartsWith</example>
+		[Route("")]
+		public PartialFindResult<TagForApiContract> GetList(
+			string query = "",
+			bool allowAliases = false,
+			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
+			NameMatchMode nameMatchMode = NameMatchMode.Exact,
+			TagOptionalFields fields = TagOptionalFields.None) {
+			
+			maxResults = Math.Min(maxResults, absoluteMax);
+			var ssl = WebHelper.IsSSL(Request);
+			var queryParams = new CommonSearchParams(query, false, nameMatchMode, false, false);
+			var paging = new PagingProperties(start, maxResults, getTotalCount);
+			var tags = queries.Find(t => new TagForApiContract(t, thumbPersister, ssl, fields), queryParams, paging, allowAliases);
+
+			return tags;
+
 		}
 
 		/// <summary>

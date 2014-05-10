@@ -13,7 +13,7 @@ namespace VocaDb.Model.DataContracts {
 
 		public EntryThumbForApiContract() { }
 
-		public EntryThumbForApiContract(IEntryImageInformation image, IEntryThumbPersister thumbPersister, bool ssl) {
+		public EntryThumbForApiContract(IEntryImageInformation image, IEntryImagePersister thumbPersister, bool ssl) {
 			
 			UrlSmallThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.SmallThumb, ssl);
 			UrlThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.Thumb, ssl);
