@@ -1,6 +1,6 @@
 ﻿@using VocaDb.Model.Domain.Security
 @using VocaDb.Web.Helpers;
-@model VocaDb.Model.DataContracts.Songs.SongListsByCategoryContract[]
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.Songs.SongListsByCategoryContract[]>
 
 @{
     ViewBag.Title = ViewRes.SharedStrings.FeaturedSongLists;
@@ -36,4 +36,8 @@
 		$("#tabs").tabs();
 	});
 </script>
+}
+
+@section Head {
+	<link rel="canonical" href="@UrlMapper.FullAbsolute(Url.Action("Featured"))" />
 }

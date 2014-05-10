@@ -22,10 +22,7 @@ namespace VocaDb.Model.Utils {
 		/// <returns></returns>
 		public static string Absolute(string relative, bool ssl) {
 			
-			if (ssl)
-				return MergeUrls_BaseNoTrailingSlash(hostAddressSSL, relative);
-			else
-				return MergeUrls_BaseNoTrailingSlash(hostAddress, relative);
+			return MergeUrls_BaseNoTrailingSlash(HostAddress(ssl), relative);
 
 		}
 
@@ -58,6 +55,15 @@ namespace VocaDb.Model.Utils {
 
 			return new Uri(new Uri(AppConfig.HostAddress), relative);
 
+		}
+
+		/// <summary>
+		/// Gets the host address including scheme, for example http://vocadb.net.
+		/// Does not include the trailing slash.
+		/// </summary>
+		/// <param name="ssl">SSL URL.</param>
+		public static string HostAddress(bool ssl) {
+			return ssl ? hostAddressSSL : hostAddress;
 		}
 
 		public static string MakeSSL(string relative) {

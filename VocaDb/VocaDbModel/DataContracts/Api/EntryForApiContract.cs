@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.DataContracts.Api {
@@ -108,6 +109,16 @@ namespace VocaDb.Model.DataContracts.Api {
 
 			if (includedFields.HasFlag(EntryOptionalFields.WebLinks)) {
 				WebLinks = song.WebLinks.Select(w => new ArchivedWebLinkContract(w)).ToArray();				
+			}
+
+		}
+
+		public EntryForApiContract(Tag tag, IEntryImagePersisterOld thumbPersister, bool ssl, 
+			EntryOptionalFields includedFields)
+			: this(tag, ContentLanguagePreference.Default) {
+
+			if (includedFields.HasFlag(EntryOptionalFields.MainPicture) && tag.Thumb != null) {
+				MainPicture = new EntryThumbForApiContract(tag.Thumb, thumbPersister, ssl);					
 			}
 
 		}

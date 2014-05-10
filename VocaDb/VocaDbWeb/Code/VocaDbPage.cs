@@ -1,7 +1,10 @@
 ﻿using System.Web.Mvc;
+using Remotion.Linq;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service.BrandableStrings;
+using VocaDb.Model.Utils;
 using VocaDb.Model.Utils.Config;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Code {
 
@@ -32,6 +35,12 @@ namespace VocaDb.Web.Code {
 
 		public string ToJS(int? val) {
 			return val.HasValue ? val.ToString() : "null";
+		}
+
+		public VocaUrlMapper UrlMapper {
+			get {
+				return new VocaUrlMapper(WebHelper.IsSSL(Request));
+			}
 		}
 
 	}
