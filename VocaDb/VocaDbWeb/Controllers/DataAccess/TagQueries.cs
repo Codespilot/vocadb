@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
@@ -8,7 +9,10 @@ using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
+using VocaDb.Model.Service.Search;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
@@ -34,6 +38,41 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			var agentLoginData = ctx.CreateAgentLoginData(PermissionContext);
 			var archived = tag.CreateArchivedVersion(diff, agentLoginData, reason);
 			ctx.OfType<ArchivedTagVersion>().Save(archived);
+
+		}
+
+		public PartialFindResult<T> Find<T>(Func<Tag, T> fac, CommonSearchParams queryParams, PagingProperties paging, bool allowAliases = false)
+			where T : class {
+
+			var matchMode = queryParams.NameMatchMode;
+			queryParams.Query = FindHelpers.GetMatchModeAndQueryForSearch(queryParams.Query, ref matchMode, NameMatchMode.StartsWith);
+			queryParams.Query = queryParams.Query.Replace(' ', '_');
+
+			return HandleQuery(ctx => {
+
+				var query = ctx.Query()
+					.WhereHasName(queryParams.Query, queryParams.NameMatchMode)
+					.WhereAllowAliases(allowAliases);
+
+				var tags = query
+					.OrderBy(t => t.Name)
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray();
+
+				var count = 0;
+
+				if (paging.GetTotalCount) {
+					
+					count = query.Count();
+
+				}
+
+				var result = tags.Select(fac).ToArray();
+
+				return new PartialFindResult<T>(result, count, queryParams.Query, false);
+
+			});
 
 		}
 
