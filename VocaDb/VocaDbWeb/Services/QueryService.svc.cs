@@ -139,7 +139,7 @@ namespace VocaDb.Web.Services {
 		[OperationContract]
 		public SongDetailsContract GetSongById(int id) {
 
-			var song = Services.Songs.GetSongDetails(id, null);
+			var song = Services.Songs.GetSongDetails(id, 0, null);
 			return song;
 
 		}

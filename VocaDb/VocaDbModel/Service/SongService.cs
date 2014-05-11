@@ -479,7 +479,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongDetailsContract GetSongDetails(int songId, string hostname) {
+		public SongDetailsContract GetSongDetails(int songId, int albumId, string hostname) {
 
 			return HandleQuery(session => {
 
@@ -507,6 +507,28 @@ namespace VocaDb.Model.Service {
 					.OrderByDescending(c => c.Created).Take(3).ToArray()
 					.Select(c => new CommentContract(c)).ToArray();
 				contract.Hits = session.Query<SongHit>().Count(h => h.Song.Id == songId);
+
+				if (albumId != 0) {
+					
+					var album = session.Load<Album>(albumId);
+
+					var track = album.Songs.FirstOrDefault(s => s.Song.Equals(song));
+
+					if (track != null) {
+
+						contract.AlbumId = albumId;
+
+						var previousIndex = album.PreviousTrackIndex(track.Index);
+						var previous = album.Songs.FirstOrDefault(s => s.Index == previousIndex);
+						contract.PreviousSong = previous != null && previous.Song != null ? new SongInAlbumContract(previous, LanguagePreference, false) : null;
+
+						var nextIndex = album.NextTrackIndex(track.Index);
+						var next = album.Songs.FirstOrDefault(s => s.Index == nextIndex);
+						contract.NextSong = next != null && next.Song != null ? new SongInAlbumContract(next, LanguagePreference, false) : null;
+
+					}
+
+				}
 
 				if (song.Deleted) {
 					var mergeEntry = GetMergeRecord(session, songId);
