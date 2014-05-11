@@ -44,6 +44,13 @@
 	}	
 }
 
+@helper SongAlbumLink(SongContract song, string icon, int albumId) {	
+	<a href="@Url.Action("Details", "Song", new { id = song.Id, albumId })" class="btn" title="@song.AdditionalNames">
+		<i class="@icon noMargin"></i>
+		<span>@song.Name</span>		
+	</a>
+}
+
 @section Head {
 	<link rel="alternate" type="application/json+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "json" }))" title="@Model.Name" />	
 	<link rel="alternate" type="text/xml+oembed" href="@(VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("OEmbed", "Ext", new { url = VocaDb.Model.Utils.AppConfig.HostAddress + Url.Action("Details", "Song", new { Model.Id }), format = "xml" }))" title="@Model.Name" />
@@ -298,6 +305,20 @@
 					@Helpers.UniversalTimeLabel(Model.CreateDate)
 				</td>	
 			</tr>
+			
+			<tr>
+				<td>Navigation</td>
+				<td>
+					@if (Model.Contract.PreviousSong != null) {						
+						@SongAlbumLink(Model.Contract.PreviousSong.Song, "icon-fast-backward", Model.Contract.AlbumId)
+					}
+
+					@if (Model.Contract.NextSong != null) {
+						@SongAlbumLink(Model.Contract.NextSong.Song, "icon-fast-forward", Model.Contract.AlbumId)
+					}
+				</td>
+			</tr>
+
 		</table>
 		
 		<br />

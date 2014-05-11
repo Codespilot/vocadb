@@ -120,6 +120,11 @@ ul {
 .menuIcon {
   margin-top: 2px;
 }
+.btn > [class^="icon-"].noMargin,
+.btn > [class*=" icon-"].noMargin,
+.menuIcon.noMargin {
+  margin-top: 0px;
+}
 div:hover > ul.dropdown-menu-hover {
   display: block;
 }
@@ -149,3 +154,4 @@ ul.nav.nav-pills li a {
 ul.nav.nav-pills li.active a {
   color: white;
 }
+/*# sourceMappingURL=Overrides.css.map */

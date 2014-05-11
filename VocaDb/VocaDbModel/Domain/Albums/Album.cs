@@ -584,6 +584,26 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
+		/// <summary>
+		/// Returns the index for the next track counted from a track index,
+		/// handling multiple discs.
+		/// This assumes that a track with the specified index exists.
+		/// </summary>
+		/// <param name="index">Track index from which to start counting.</param>
+		/// <returns>Index of the next track. Empty if the index parameter specifies the first track on the first disc.</returns>
+		public virtual TrackIndex NextTrackIndex(TrackIndex index) {
+
+			// Last track on disc, move to the next disc.
+			if (index.TrackNumber >= GetNextTrackNumber(index.DiscNumber) - 1) {
+				
+				return new TrackIndex(index.DiscNumber + 1, 1);
+
+			}
+
+			return new TrackIndex(index.DiscNumber, index.TrackNumber + 1);
+
+		}
+
 		public virtual void OnSongDeleting(SongInAlbum songInAlbum) {
 			
 			ParamIs.NotNull(() => songInAlbum);
@@ -596,6 +616,34 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 
 			AllSongs.Remove(songInAlbum);
+
+		}
+
+		/// <summary>
+		/// Returns the index for the previous track counted from a track index,
+		/// handling multiple discs.
+		/// This assumes that a track with the specified index exists.
+		/// </summary>
+		/// <param name="index">Track index from which to start counting.</param>
+		/// <returns>Index of the previous track. Empty if the index parameter specifies the first track on the first disc.</returns>
+		public virtual TrackIndex PreviousTrackIndex(TrackIndex index) {
+
+			if (index.TrackNumber == 1) {
+				
+				if (index.DiscNumber == 1) {
+					
+					return TrackIndex.Empty;
+
+				}
+
+				var discNum = index.DiscNumber - 1;
+				var trackNum = GetNextTrackNumber(discNum) - 1;
+
+				return new TrackIndex(discNum, trackNum);
+
+			}
+
+			return new TrackIndex(index.DiscNumber, index.TrackNumber - 1);
 
 		}
 

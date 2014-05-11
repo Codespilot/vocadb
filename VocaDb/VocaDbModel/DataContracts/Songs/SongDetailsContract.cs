@@ -47,6 +47,12 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		}
 
+		/// <summary>
+		/// Album id of the album being browsed.
+		/// 0 if none.
+		/// </summary>
+		public int AlbumId { get; set; }
+
 		[DataMember]
 		public AlbumContract[] Albums { get; set; }
 
@@ -89,6 +95,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public SongContract MergedTo { get; set; }
 
+		/// <summary>
+		/// Next song on the album being browsed (identified by AlbumId).
+		/// Can be null.
+		/// </summary>
+		[DataMember]
+		public SongInAlbumContract NextSong { get; set; }
+
 		[DataMember]
 		public string Notes { get; set; }
 
@@ -97,6 +110,13 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public SongListBaseContract[] Pools { get; set; }
+
+		/// <summary>
+		/// Previous song on the album being browsed (identified by AlbumId).
+		/// Can be null.
+		/// </summary>
+		[DataMember]
+		public SongInAlbumContract PreviousSong { get; set; }
 
 		[DataMember]
 		public PVContract[] PVs { get; set; }

@@ -238,7 +238,7 @@ namespace VocaDb.Web.Controllers
         //
         // GET: /Song/Details/5
 
-        public ActionResult Details(int id = invalidId) {
+        public ActionResult Details(int id = invalidId, int albumId = 0) {
 
 			if (id == invalidId)
 				return NoId();
@@ -246,7 +246,7 @@ namespace VocaDb.Web.Controllers
 			WebHelper.VerifyUserAgent(Request);
 			SetSearchEntryType(EntryType.Song);
 
-			var model = new SongDetails(Service.GetSongDetails(id, WebHelper.IsValidHit(Request) ? WebHelper.GetRealHost(Request) : string.Empty));
+			var model = new SongDetails(Service.GetSongDetails(id, albumId, WebHelper.IsValidHit(Request) ? WebHelper.GetRealHost(Request) : string.Empty));
 			PageProperties.Description = model.Notes;
 
             return View(model);

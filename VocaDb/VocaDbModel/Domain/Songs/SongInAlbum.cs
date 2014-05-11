@@ -28,11 +28,20 @@ namespace VocaDb.Model.Domain.Songs {
 
 		public virtual int Id { get; set; }
 
+		/// <summary>
+		/// Track index on the album.
+		/// </summary>
+		public virtual TrackIndex Index {
+			get {
+				return new TrackIndex(DiscNumber, TrackNumber);
+			}
+		}
+
 		public virtual string Name { get; set; }
 
 		/// <summary>
 		/// Song entry. 
-		/// Can be null for custom songs.
+		/// CAN BE NULL for custom songs.
 		/// </summary>
 		public virtual Song Song {
 			get { return song; }

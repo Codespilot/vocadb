@@ -61,6 +61,7 @@ namespace VocaDb.Web.Models {
 
 			ParamIs.NotNull(() => contract);
 
+			Contract = contract;
 			AdditionalNames = contract.AdditionalNames;
 			Albums = contract.Albums;
 			AlternateVersions = contract.AlternateVersions.Where(a => a.SongType != SongType.Original).ToArray();
@@ -146,6 +147,8 @@ namespace VocaDb.Web.Models {
 		public bool CanEdit { get; set; }
 
 		public int CommentCount { get; set; }
+
+		public SongDetailsContract Contract { get; set; }
 
 		public DateTime CreateDate { get; set; }
 
