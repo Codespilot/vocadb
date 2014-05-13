@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Web.Helpers;
 
@@ -29,6 +30,17 @@ namespace VocaDb.Web.API.v1.Controllers {
 				return Content("OK");
 
 			}
+
+		}
+
+		public ActionResult PostRating(int songId, SongVoteRating rating) {
+
+			if (!LoginManager.IsLoggedIn) {
+				return HttpStatusCodeResult(HttpStatusCode.Forbidden, "Error: Must be logged in.");				
+			}
+
+			Service.UpdateSongRating(LoginManager.LoggedUserId, songId, rating);
+			return Content("OK");
 
 		}
 
