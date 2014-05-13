@@ -705,6 +705,7 @@
     <Compile Include="Controllers\Api\ResourcesApiController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
     <Compile Include="Controllers\Api\TagApiController.cs" />
+    <Compile Include="Controllers\Api\UserApiController.cs" />
     <Compile Include="Controllers\ArtistController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
