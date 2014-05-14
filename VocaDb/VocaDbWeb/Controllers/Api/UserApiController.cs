@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
@@ -18,6 +19,7 @@ namespace VocaDb.Web.Controllers.Api {
 
 		[Route("current/ratedSongs/{songId:int}")]
 		[Authorize]
+		[EnableCors(origins: "*", headers: "*", methods: "post", SupportsCredentials = true)]
 		public string PostRating(int songId, SongVoteRating rating) {
 			
 			service.UpdateSongRating(permissionContext.LoggedUserId, songId, rating);

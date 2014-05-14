@@ -20,6 +20,7 @@ namespace VocaDb.Web.App_Start {
 			
 			config.Formatters.Insert(0, new JsonpMediaTypeFormatter(json));
 
+			config.EnableCors();
 			config.MapHttpAttributeRoutes();
 
 			config.Routes.MapHttpRoute(
