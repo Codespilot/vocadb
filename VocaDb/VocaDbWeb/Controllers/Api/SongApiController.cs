@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -7,6 +9,7 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.SongSearch;
+using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Web.Controllers.Api {
 
@@ -18,14 +21,16 @@ namespace VocaDb.Web.Controllers.Api {
 
 		private const int absoluteMax = 30;
 		private const int defaultMax = 10;
+		private readonly SongQueries queries;
 		private readonly SongService service;
 
 		/// <summary>
 		/// Initializes controller.
 		/// </summary>
 		/// <param name="service">Song service. Cannot be null.</param>
-		public SongApiController(SongService service) {
+		public SongApiController(SongService service, SongQueries queries) {
 			this.service = service;
+			this.queries = queries;
 		}
 
 		/// <summary>
@@ -122,6 +127,20 @@ namespace VocaDb.Web.Controllers.Api {
 			var song = service.GetSongWithPV(s => new SongForApiContract(s, null, lang, fields), pvService, pvId);
 
 			return song;
+
+		}
+
+		[Route("ids")]
+		[ApiExplorerSettings(IgnoreApi=true)]
+		public int[] GetIds() {
+
+			var versions = queries
+				.HandleQuery(ctx => ctx.Query()
+					.Where(a => !a.Deleted)
+					.Select(v => v.Id)
+					.ToArray());
+
+			return versions;
 
 		}
 

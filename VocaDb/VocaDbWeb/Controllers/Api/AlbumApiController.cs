@@ -129,6 +129,20 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		[Route("ids")]
+		[ApiExplorerSettings(IgnoreApi=true)]
+		public int[] GetIds() {
+
+			var versions = queries
+				.HandleQuery(ctx => ctx.Query()
+					.Where(a => !a.Deleted)
+					.Select(v => v.Id)
+					.ToArray());
+
+			return versions;
+
+		}
+
 		/// <summary>
 		/// Gets a complete list of album versions and Ids.
 		/// Intended for integration to other systems.
