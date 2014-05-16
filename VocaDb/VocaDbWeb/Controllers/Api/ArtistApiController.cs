@@ -97,7 +97,7 @@ namespace VocaDb.Web.Controllers.Api {
 
 		[Route("ids")]
 		[ApiExplorerSettings(IgnoreApi=true)]
-		public int[] GetIds() {
+		public IEnumerable<int> GetIds() {
 
 			var versions = queries
 				.HandleQuery(ctx => ctx.Query()
