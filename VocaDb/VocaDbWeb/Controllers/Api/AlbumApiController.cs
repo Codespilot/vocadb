@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -131,7 +132,7 @@ namespace VocaDb.Web.Controllers.Api {
 
 		[Route("ids")]
 		[ApiExplorerSettings(IgnoreApi=true)]
-		public int[] GetIds() {
+		public IEnumerable<int> GetIds() {
 
 			var versions = queries
 				.HandleQuery(ctx => ctx.Query()
