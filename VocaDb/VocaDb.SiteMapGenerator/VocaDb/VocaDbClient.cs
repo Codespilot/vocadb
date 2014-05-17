@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using NLog;
 
@@ -15,7 +11,7 @@ namespace VocaDb.SiteMapGenerator.VocaDb {
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly string apiRoot;
 
-		private async Task<int[]> GetEntries(string apiUrl) {
+		private async Task<T> GetEntries<T>(string apiUrl) {
 			
 			var uri = new Uri(apiUrl);
 			using (var client = new HttpClient()) {
@@ -33,7 +29,7 @@ namespace VocaDb.SiteMapGenerator.VocaDb {
 				}
 
 				try {
-					var entries = await response.Content.ReadAsAsync<int[]>();
+					var entries = await response.Content.ReadAsAsync<T>();
 					return entries;
 				} catch (UnsupportedMediaTypeException x) {
 					log.FatalException("Unable to get entries from VocaDB API", x);
@@ -50,17 +46,22 @@ namespace VocaDb.SiteMapGenerator.VocaDb {
 
 		public async Task<int[]> GetAlbums() {
 			log.Info("Getting albums");
-			return await GetEntries(string.Format("{0}api/albums/ids", apiRoot));
+			return await GetEntries<int[]>(string.Format("{0}api/albums/ids", apiRoot));
 		}
 
 		public async Task<int[]> GetArtists() {
 			log.Info("Getting artists");
-			return await GetEntries(string.Format("{0}api/artists/ids", apiRoot));
+			return await GetEntries<int[]>(string.Format("{0}api/artists/ids", apiRoot));
 		}
 
 		public async Task<int[]> GetSongs() {
 			log.Info("Getting songs");
-			return await GetEntries(string.Format("{0}api/songs/ids", apiRoot));
+			return await GetEntries<int[]>(string.Format("{0}api/songs/ids", apiRoot));
+		}
+
+		public async Task<string[]> GetTags() {
+			log.Info("Getting tags");
+			return await GetEntries<string[]>(string.Format("{0}api/tags/names?maxResults=100000&allowAliases=false", apiRoot));
 		}
 
 	}

@@ -14,7 +14,7 @@ namespace VocaDb.SiteMapGenerator.Sitemap {
 		private readonly string sitemapRootUrl;
 		private readonly string siteRoot;
 
-		private XElement CreateUrlElement(EntryType entryType, int id) {
+		private XElement CreateUrlElement(EntryType entryType, object id) {
 			
 			return new XElement(XName.Get("url", ns_sitemap),
 				 new XElement(XName.Get("loc", ns_sitemap), GenerateEntryUrl(entryType, id))
@@ -22,7 +22,7 @@ namespace VocaDb.SiteMapGenerator.Sitemap {
 
 		}
 
-		private string GenerateEntryUrl(EntryType entryType, int id) {
+		private string GenerateEntryUrl(EntryType entryType, object id) {
 
 			switch (entryType) {
 				case EntryType.Album:
@@ -31,13 +31,15 @@ namespace VocaDb.SiteMapGenerator.Sitemap {
 					return string.Format("{0}Ar/{1}", siteRoot, id);
 				case EntryType.Song:
 					return string.Format("{0}S/{1}", siteRoot, id);
+				case EntryType.Tag:
+					return string.Format("{0}Tag/Details/{1}", siteRoot, id);
 			}
 
 			return string.Empty;
 
 		}
 
-		private IEnumerable<XElement> CreateUrlElements(Dictionary<EntryType, int[]> entries) {
+		private IEnumerable<XElement> CreateUrlElements(Dictionary<EntryType, IEnumerable<object>> entries) {
 
 			var elements =
 				(from entryType in entries.Keys
@@ -53,7 +55,7 @@ namespace VocaDb.SiteMapGenerator.Sitemap {
 			this.sitemapRootUrl = sitemapRootUrl;
 		}
 
-		public void Generate(string outFolder, Dictionary<EntryType, int[]> entries) {
+		public void Generate(string outFolder, Dictionary<EntryType, IEnumerable<object>> entries) {
 			
 			var indexDoc = new XDocument(
 				new XDeclaration("1.0", "UTF-8", "yes"),
