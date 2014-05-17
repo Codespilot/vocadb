@@ -1,3 +1,7 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../DataContracts/DuplicateEntryResultContract.ts" />
+/// <reference path="../Repositories/ArtistRepository.ts" />
+/// <reference path="WebLinkEditViewModel.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {

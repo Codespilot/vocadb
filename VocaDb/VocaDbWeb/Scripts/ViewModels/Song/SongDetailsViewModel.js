@@ -1,6 +1,12 @@
+/// <reference path="../../typings/knockout/knockout.d.ts" />
+/// <reference path="../../DataContracts/SongListBaseContract.ts" />
+/// <reference path="../../Repositories/SongRepository.ts" />
+/// <reference path="../../Repositories/UserRepository.ts" />
+/// <reference path="../PVRatingButtonsViewModel.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        // View model for the song details view.
         var SongDetailsViewModel = (function () {
             function SongDetailsViewModel(repository, userRepository, resources, data, ratingCallback) {
                 var _this = this;
@@ -35,6 +41,8 @@ var vdb;
         var SongInListsViewModel = (function () {
             function SongInListsViewModel(repository, songId) {
                 var _this = this;
+                //public categories: KnockoutObservableArray<SongListsInCategory> = ko.observableArray();
+                //public customLists: KnockoutObservableArray<dc.SongListContract> = ko.observableArray();
                 this.contentHtml = ko.observable();
                 this.dialogVisible = ko.observable(false);
                 this.show = function () {

@@ -1,3 +1,5 @@
+/// <reference path="../../typings/qunit/qunit.d.ts" />
+/// <reference path="../../Models/SongVoteRating.ts" />
 var vdb;
 (function (vdb) {
     (function (tests) {

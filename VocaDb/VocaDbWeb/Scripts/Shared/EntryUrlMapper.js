@@ -1,9 +1,15 @@
+/// <reference path="../DataContracts/EntryRefContract.ts" />
+/// <reference path="GlobalFunctions.ts" />
 var vdb;
 (function (vdb) {
     (function (utils) {
+        // Maps view URLs for common entry types.
         var EntryUrlMapper = (function () {
             function EntryUrlMapper() {
             }
+            // URL to details view.
+            // typeName: entry type name.
+            // id: entry Id.
             EntryUrlMapper.details = function (typeName, id) {
                 switch (typeName.toLowerCase()) {
                     case "album":

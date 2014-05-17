@@ -1,6 +1,12 @@
+/// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="../typings/underscore/underscore.d.ts" />
+/// <reference path="../dataContracts/ArtistContract.ts" />
+/// <reference path="../dataContracts/ArtistForAlbumContract.ts" />
+/// <reference path="../Repositories/AlbumRepository.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        // View model for editing artist for album link.
         var ArtistForAlbumEditViewModel = (function () {
             function ArtistForAlbumEditViewModel(repository, data) {
                 var _this = this;

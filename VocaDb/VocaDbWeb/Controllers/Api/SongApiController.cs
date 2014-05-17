@@ -29,6 +29,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Initializes controller.
 		/// </summary>
 		/// <param name="service">Song service. Cannot be null.</param>
+		/// <param name="queries">Song queries. Cannot be null.</param>
 		public SongApiController(SongService service, SongQueries queries) {
 			this.service = service;
 			this.queries = queries;

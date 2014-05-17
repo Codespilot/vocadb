@@ -1,3 +1,7 @@
+/// <reference path="../../../typings/qunit/qunit.d.ts" />
+/// <reference path="../../TestSupport/FakeSongRepository.ts" />
+/// <reference path="../../TestSupport/FakeUserRepository.ts" />
+/// <reference path="../../../ViewModels/Song/SongDetailsViewModel.ts" />
 var vdb;
 (function (vdb) {
     (function (tests) {

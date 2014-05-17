@@ -1,3 +1,6 @@
+/// <reference path="../DataContracts/TranslatedEnumField.ts" />
+/// <reference path="../DataContracts/WebLinkContract.ts" />
+/// <reference path="WebLinksEditViewModel.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {

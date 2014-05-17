@@ -1,6 +1,10 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../Shared/GlobalFunctions.ts" />
 var vdb;
 (function (vdb) {
     (function (repositories) {
+        // Repository for managing albums and related objects.
+        // Corresponds to the AlbumController class.
         var AlbumRepository = (function () {
             function AlbumRepository(baseUrl) {
                 var _this = this;

@@ -1,6 +1,8 @@
 var vdb;
 (function (vdb) {
     (function (models) {
+        // Identifies common entry type.
+        // Corresponds to the EntryType enum C#.
         (function (EntryType) {
             EntryType[EntryType["Undefined"] = 0] = "Undefined";
 

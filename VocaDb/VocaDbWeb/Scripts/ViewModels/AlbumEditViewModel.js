@@ -1,11 +1,24 @@
+/// <reference path="../typings/underscore/underscore.d.ts" />
+/// <reference path="../KnockoutExtensions/AutoCompleteParams.ts" />
+/// <reference path="../DataContracts/TranslatedEnumField.ts" />
+/// <reference path="../DataContracts/WebLinkContract.ts" />
+/// <reference path="../Repositories/AlbumRepository.ts" />
+/// <reference path="../Repositories/SongRepository.ts" />
+/// <reference path="ArtistForAlbumEditViewModel.ts" />
+/// <reference path="SongInAlbumEditViewModel.ts" />
+/// <reference path="WebLinksEditViewModel.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        // Edit view model for album.
         var AlbumEditViewModel = (function () {
             function AlbumEditViewModel(repository, songRepository, artistRepository, artistRoleNames, webLinkCategories, data, allowCustomTracks) {
                 var _this = this;
                 this.repository = repository;
                 this.artistRepository = artistRepository;
+                // Adds a new artist to the album
+                // artistId: Id of the artist being added, if it's an existing artist. Can be null, if custom artist.
+                // customArtistName: Name of the custom artist being added. Can be null, if existing artist.
                 this.addArtist = function (artistId, customArtistName) {
                     if (artistId) {
                         _this.artistRepository.getOne(artistId, function (artist) {
@@ -231,6 +244,7 @@ var vdb;
         })();
         viewModels.AlbumEditViewModel = AlbumEditViewModel;
 
+        // Single artist selection for the track properties dialog.
         var TrackArtistSelectionViewModel = (function () {
             function TrackArtistSelectionViewModel(artist, selected, filter) {
                 this.artist = artist;
@@ -250,10 +264,12 @@ var vdb;
         })();
         viewModels.TrackArtistSelectionViewModel = TrackArtistSelectionViewModel;
 
+        // View model for the track properties dialog, for editing artists for one or more tracks.
         var TrackPropertiesViewModel = (function () {
             function TrackPropertiesViewModel(artists, song) {
                 var _this = this;
                 this.song = song;
+                // Artist filter string.
                 this.filter = ko.observable("");
                 this.artistSelections = _.map(artists, function (a) {
                     return new TrackArtistSelectionViewModel(a, song != null && _.some(song.artists(), function (sa) {
