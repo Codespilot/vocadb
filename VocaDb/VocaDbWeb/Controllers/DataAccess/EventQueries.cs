@@ -149,6 +149,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 	public enum EventSortRule {
 		
+		None,
+
 		Name,
 
 		Date,
@@ -173,6 +175,24 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			}
 
 			return query;
+
+		}
+
+		public static IQueryable<ReleaseEvent> WhereHasName(this IQueryable<ReleaseEvent> query, string name) {
+			
+			if (string.IsNullOrEmpty(name))
+				return query;
+
+			return (name.Length < 3) ? query.Where(e => e.Name.StartsWith(name)) : query.Where(e => e.Name.Contains(name));
+
+		} 
+
+		public static IQueryable<ReleaseEvent> WhereHasSeries(this IQueryable<ReleaseEvent> query, int seriesId) {
+			
+			if (seriesId == 0)
+				return query;
+
+			return query.Where(e => e.Series.Id == seriesId);
 
 		} 
 
