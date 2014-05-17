@@ -1,7 +1,9 @@
-﻿using VocaDb.Model.Domain.Albums;
+﻿using System.Runtime.Serialization;
+using VocaDb.Model.Domain.Albums;
 
 namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class ReleaseEventSeriesContract {
 
 		public ReleaseEventSeriesContract() {
@@ -19,10 +21,13 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 		}
 
+		[DataMember]
 		public string Description { get; set; }
 
+		[DataMember]
 		public int Id { get; set; }
 
+		[DataMember]
 		public string Name { get; set; }
 
 		public override string ToString() {
