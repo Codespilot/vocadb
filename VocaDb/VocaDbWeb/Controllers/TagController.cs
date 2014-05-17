@@ -148,7 +148,7 @@ namespace VocaDb.Web.Controllers
 		[Obsolete("Moved to Web API")]
 		public ActionResult Find(string term, bool allowAliases = true) {
 
-			return Json(queries.FindNames(term, allowAliases));
+			return Json(queries.FindNames(term, allowAliases, false, 10));
 
 		}
 

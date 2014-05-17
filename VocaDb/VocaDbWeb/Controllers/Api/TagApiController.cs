@@ -74,13 +74,16 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Whether to find tags that are aliases of other tags as well. 
 		/// If false, only tags that are not aliases will be listed.
 		/// </param>
+		/// <param name="maxResults">Maximum number of search results.</param>
 		/// <returns>
 		/// List of tag names, for example "vocarock", matching the query. Cannot be null.
 		/// </returns>
 		[Route("names")]
-		public string[] GetNames(string query, bool allowAliases = true) {
+		public string[] GetNames(
+			string query = "", bool allowAliases = true,
+			int maxResults = 10) {
 			
-			return queries.FindNames(query, allowAliases);
+			return queries.FindNames(query, allowAliases, true, maxResults);
 
 		}
 

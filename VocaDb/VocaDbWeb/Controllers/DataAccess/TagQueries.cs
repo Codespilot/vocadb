@@ -78,12 +78,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public string[] FindNames(string query, bool allowAliases) {
+		public string[] FindNames(string query, bool allowAliases, bool allowEmptyName, int maxEntries) {
 
-			if (string.IsNullOrWhiteSpace(query))
+			if (!allowEmptyName && string.IsNullOrWhiteSpace(query))
 				return new string[] { };
 
-			query = query.Trim().Replace(' ', '_');
+			query = query != null ? query.Trim().Replace(' ', '_') : string.Empty;
 
 			return HandleQuery(session => {
 
@@ -98,8 +98,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					q = q.Where(t => t.AliasedTo == null);
 
 				var tags = q
-					.Take(10)
-					.ToArray()
+					.OrderBy(t => t.Name)
+					.Take(maxEntries)
 					.Select(t => t.Name)
 					.ToArray();
 
