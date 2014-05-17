@@ -1,3 +1,5 @@
+/// <reference path="../../typings/qunit/qunit.d.ts" />
+/// <reference path="../../Shared/GlobalFunctions.ts" />
 var vdb;
 (function (vdb) {
     (function (tests) {

@@ -1,3 +1,4 @@
+/// <reference path="GlobalValues.ts" />
 var vdb;
 (function (vdb) {
     (function (functions) {

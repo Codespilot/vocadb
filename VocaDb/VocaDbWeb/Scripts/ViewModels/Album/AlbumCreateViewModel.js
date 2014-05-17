@@ -1,3 +1,4 @@
+/// <reference path="../../typings/knockout/knockout.d.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {

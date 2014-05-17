@@ -1,6 +1,12 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../DataContracts/User/UserMessageSummaryContract.ts" />
+/// <reference path="../DataContracts/User/UserMessagesContract.ts" />
+/// <reference path="../Models/SongVoteRating.ts" />
 var vdb;
 (function (vdb) {
     (function (repositories) {
+        // Repository for managing users and related objects.
+        // Corresponds to the UserController class.
         var UserRepository = (function () {
             function UserRepository(urlMapper) {
                 var _this = this;
@@ -19,6 +25,7 @@ var vdb;
                     var url = _this.mapUrl("/RequestEmailVerification");
                     $.post(url, callback);
                 };
+                // Updates artist subscription settings for an artist followed by a user.
                 this.updateArtistSubscription = function (artistId, emailNotifications) {
                     $.post(_this.mapUrl("/UpdateArtistSubscription"), { artistId: artistId, emailNotifications: emailNotifications });
                 };

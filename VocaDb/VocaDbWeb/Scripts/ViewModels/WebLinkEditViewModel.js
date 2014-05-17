@@ -1,3 +1,7 @@
+/// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="../DataContracts/WebLinkContract.ts" />
+/// <reference path="../Models/WebLinkCategory.ts" />
+/// <reference path="../Shared/WebLinkMatcher.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {

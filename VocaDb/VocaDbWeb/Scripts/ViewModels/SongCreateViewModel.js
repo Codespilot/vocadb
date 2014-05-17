@@ -1,6 +1,15 @@
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="../typings/underscore/underscore.d.ts" />
+/// <reference path="../DataContracts/NewSongCheckResultContract.ts" />
+/// <reference path="../KnockoutExtensions/ArtistAutoComplete.ts" />
+/// <reference path="../Shared/GlobalFunctions.ts" />
+/// <reference path="../Repositories/SongRepository.ts" />
+/// <reference path="../Repositories/ArtistRepository.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        // View model for song creation view
         var SongCreateViewModel = (function () {
             function SongCreateViewModel(songRepository, artistRepository, data) {
                 var _this = this;

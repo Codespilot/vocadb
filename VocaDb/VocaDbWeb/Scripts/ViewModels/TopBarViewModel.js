@@ -1,7 +1,20 @@
+/// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="../DataContracts/User/UserMessageSummaryContract.ts" />
+/// <reference path="../DataContracts/User/UserMessagesContract.ts" />
+/// <reference path="../Repositories/EntryReportRepository.ts" />
+/// <reference path="../Repositories/UserRepository.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {
+        // View model for the top bar.
         var TopBarViewModel = (function () {
+            // Initializes view model
+            // entryTypeTranslations: translations for entry types.
+            // entryType: currently selected entry type (for search).
+            // unreadMessagesCount: number of unread received messages (includes notifications).
+            // getNewReportsCount: whether to load new reports count (for mods only).
+            // entryReportRepository: entry reports repository.
+            // userRepository: user repository.
             function TopBarViewModel(entryTypeTranslations, entryType, searchTerm, unreadMessagesCount, getNewReportsCount, entryReportRepository, userRepository) {
                 var _this = this;
                 this.userRepository = userRepository;

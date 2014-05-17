@@ -1,3 +1,7 @@
+/// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="../typings/underscore/underscore.d.ts" />
+/// <reference path="../dataContracts/ArtistContract.ts" />
+/// <reference path="../dataContracts/SongContract.ts" />
 var vdb;
 (function (vdb) {
     (function (viewModels) {
@@ -18,6 +22,7 @@ var vdb;
                 this.selected = ko.observable(false);
 
                 this.artists.subscribe(function () {
+                    // TODO: construct proper artist string (from server)
                     _this.artistString(_.map(_this.artists(), function (a) {
                         return a.name;
                     }).join(", "));

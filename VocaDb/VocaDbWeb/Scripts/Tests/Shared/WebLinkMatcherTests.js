@@ -1,3 +1,6 @@
+/// <reference path="../../typings/qunit/qunit.d.ts" />
+/// <reference path="../../Models/WebLinkCategory.ts" />
+/// <reference path="../../Shared/WebLinkMatcher.ts" />
 var vdb;
 (function (vdb) {
     (function (tests) {
