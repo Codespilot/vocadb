@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 using NLog;
 using VocaDb.SiteMapGenerator.Sitemap;
@@ -20,14 +21,16 @@ namespace VocaDb.SiteMapGenerator {
 			var artists = await client.GetArtists();
 			var albums = await client.GetAlbums();
 			var songs = await client.GetSongs();
+			var tags = await client.GetTags();
 
 			log.Info("Generating sitemap");
 
 			var generator = new SitemapGenerator(config.SiteRootUrl, config.SitemapRootUrl);
-			generator.Generate(config.OutFolder, new Dictionary<EntryType, int[]> {
-				{ EntryType.Artist, artists },
-				{ EntryType.Album, albums },
-				{ EntryType.Song, songs },
+			generator.Generate(config.OutFolder, new Dictionary<EntryType, IEnumerable<object>> {
+				{ EntryType.Artist, artists.Cast<object>() },
+				{ EntryType.Album, albums.Cast<object>() },
+				{ EntryType.Song, songs.Cast<object>() },
+				{ EntryType.Tag, tags },
 			});
 
 		}

@@ -16,7 +16,7 @@ namespace VocaDb.SiteMapGenerator {
 		}
 
 		public string SitemapRootUrl {
-			get { return AppSetting("SitemapRootUrl", "http://static.vocadb.net/sitemaps/"); }
+			get { return AppSetting("sitemapRootUrl", "http://static.vocadb.net/sitemaps/"); }
 		}
 
 	}
