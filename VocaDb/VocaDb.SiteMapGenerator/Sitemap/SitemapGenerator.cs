@@ -90,7 +90,7 @@ namespace VocaDb.SiteMapGenerator.Sitemap {
 
 			}
 
-			var indexOutPath = Path.Combine(outFolder, "sitemap.xml");
+			var indexOutPath = Path.Combine(outFolder, "sitemap-index.xml");
 			indexDoc.Save(indexOutPath);
 
 		}
