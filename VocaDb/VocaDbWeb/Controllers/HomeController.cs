@@ -39,7 +39,7 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index() {
 
-			PageProperties.Description = "VocaDB is a Vocaloid database with translated artists, albums and songs.";
+			PageProperties.Description = "VocaDB is a Vocaloid music database with translated artists, albums and songs.";
 
 			var contract = otherService.GetFrontPageContent();
 

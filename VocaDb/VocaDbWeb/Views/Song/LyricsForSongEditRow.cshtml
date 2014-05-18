@@ -8,7 +8,7 @@
 	@Html.HiddenFor(m => m.Id)
 	<label>
 		Language:
-		@Html.DropDownListFor(m => m.Language, new SelectList(Model.AllLanguages, Model.Language))
+		@Html.LanguageSelectionDropDownListFor(m => m.Language, allowUnspecified: true)
 	</label>
 	<label>
 		Source:
