@@ -33,8 +33,8 @@ module vdb.viewModels {
 
 			});
 
-			resourceRepo.getList(cultureCode, ['artistTypeNames', 'discTypeNames', 'songTypeNames'], resources => {
-				this.resources = resources;
+			resourceRepo.getList(cultureCode, ['albumSortRuleNames', 'artistSortRuleNames', 'artistTypeNames', 'discTypeNames', 'songSortRuleNames', 'songTypeNames'], resources => {
+				this.resources(resources);
 				this.updateResults();
 			});
 
@@ -47,7 +47,7 @@ module vdb.viewModels {
 		public tagSearchViewModel: TagSearchViewModel;
 
 		private currentSearchType = ko.observable("Anything");
-		private resources;
+		public resources = ko.observable<any>();
 		public showAdvancedFilters = ko.observable(false);
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public searchType = ko.observable("Anything");
@@ -91,7 +91,7 @@ module vdb.viewModels {
 	// Base class for different types of searches.
 	export class SearchCategoryBaseViewModel<TEntry> {
 		
-		constructor(private searchViewModel: SearchViewModel) {
+		constructor(public searchViewModel: SearchViewModel) {
 
 			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
 
@@ -175,6 +175,7 @@ module vdb.viewModels {
 
 		public artistType = ko.observable("Unknown");
 		public sort = ko.observable("Name");
+		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().artistSortRuleNames[this.sort()] : "");
 
 	}
 
@@ -214,6 +215,7 @@ module vdb.viewModels {
 		public artistParticipationStatus = ko.observable("Everything");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public sort = ko.observable("Name");
+		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().albumSortRuleNames[this.sort()] : "");
 
 		public ratingStars = (album: dc.AlbumContract) => {
 
@@ -229,7 +231,11 @@ module vdb.viewModels {
 
 	export class SongSearchViewModel extends SearchCategoryBaseViewModel<dc.SongApiContract> {
 
-		constructor(searchViewModel: SearchViewModel, lang: string, private songRepo: rep.SongRepository, private artistRepo: rep.ArtistRepository) {
+		constructor(
+			searchViewModel: SearchViewModel,
+			lang: string,
+			private songRepo: rep.SongRepository,
+			private artistRepo: rep.ArtistRepository) {
 
 			super(searchViewModel);
 
@@ -263,6 +269,7 @@ module vdb.viewModels {
 		public pvsOnly = ko.observable(false);
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
+		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().songSortRuleNames[this.sort()] : "");
 
 	}
 

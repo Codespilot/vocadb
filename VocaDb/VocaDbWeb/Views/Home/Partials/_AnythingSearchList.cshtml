@@ -38,13 +38,13 @@
 				<td>
 					<a data-bind="text: entryType, click: function() { $parent.searchViewModel.searchType(entryType); }" href="#"></a>
 					<!-- ko if: $data.artistType -->
-					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources.artistTypeNames[artistType] + ')'"></small>
+					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources().artistTypeNames[artistType] + ')'"></small>
 					<!-- /ko -->
 					<!-- ko if: $data.discType -->
-					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources.discTypeNames[discType] + ')'"></small>
+					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources().discTypeNames[discType] + ')'"></small>
 					<!-- /ko -->
 					<!-- ko if: $data.songType -->
-					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources.songTypeNames[songType] + ')'"></small>
+					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources().songTypeNames[songType] + ')'"></small>
 					<!-- /ko -->
 				</td>
 			</tr>

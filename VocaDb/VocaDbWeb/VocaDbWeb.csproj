@@ -2149,7 +2149,9 @@
     </Content>
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />
-    <Content Include="sitemap.xml" />
+    <Content Include="sitemap.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
