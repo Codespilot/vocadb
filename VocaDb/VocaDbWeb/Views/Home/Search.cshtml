@@ -26,7 +26,7 @@
 				@{ Html.RenderPartial("GlobalSearchBox", new VocaDb.Web.Models.GlobalSearchBoxModel()); }
 			</div>
 		</div>
-	</div>	
+	</div>
 
 	<div class="rightFrame container-fluid" style="min-height: 1000px; width: 90%; margin-left: auto; margin-right: auto;">
 		<div class="row-fluid">
@@ -36,22 +36,27 @@
 
 				<ul class="nav nav-pills">
 					<li data-bind="css: { active: searchType() == 'Anything' }">
-						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Anything'); }">Anything</a>
+						<a href="#" data-bind="click: function() { searchType('Anything'); }">Anything</a>
 					</li>
 					<li data-bind="css: { active: searchType() == 'Artist' }">
-						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Artist'); }">Artists</a>
+						<a href="#" data-bind="click: function() { searchType('Artist'); }">Artists</a>
 					</li>
 					<li data-bind="css: { active: searchType() == 'Album' }">
-						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Album'); }">Albums</a>
+						<a href="#" data-bind="click: function() { searchType('Album'); }">Albums</a>
 					</li>
 					<li data-bind="css: { active: searchType() == 'Song' }">
-						<a href="#anythingSearchTab" data-bind="click: function() { searchType('Song'); }">Songs</a>
+						<a href="#" data-bind="click: function() { searchType('Song'); }">Songs</a>
 					</li>
 					<li data-bind="css: { active: searchType() == 'Tag' }">
 						<a href="#" data-bind="click: function() { searchType('Tag'); }">Tags</a>
 					</li>
 				</ul>
 
+				<div class="pull-right">
+					@SearchDropDown("showArtistSearch", "artistSearchViewModel", Translate.ArtistSortRuleNames.ValuesAndNamesStrings)
+					@SearchDropDown("showAlbumSearch", "albumSearchViewModel", Translate.AlbumSortRuleNames.ValuesAndNamesStrings)
+					@SearchDropDown("showSongSearch", "songSearchViewModel", Translate.SongSortRuleNames.ValuesAndNamesStrings)
+				</div>
 
 				<div id="anythingSearchTab" class="form-horizontal">
 					<div class="control-label">Query</div>
@@ -134,7 +139,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="control-group" data-bind="visible: showTagSearch, with: tagSearchViewModel">
 							<div class="control-label">Category</div>
 							<div class="controls">
@@ -145,6 +150,7 @@
 						</div>
 
 					</div>
+
 				</div>
 
 				@{ Html.RenderPartial("Partials/_AnythingSearchList"); }
@@ -198,3 +204,21 @@
 
 </body>
 </html>
+
+@helper SearchDropDown(string visibleBinding, string viewModel, Dictionary<string, string> sortRules) {
+	<div data-bind="visible: @visibleBinding, with: @viewModel">
+		@ViewRes.EntryIndexStrings.SortBy
+		<div class="btn-group">
+			<button class="btn dropdown-toggle" data-toggle="dropdown">
+				<span data-bind="text: sortName"></span>
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				@foreach (var sortRule in sortRules) {
+					<li><a data-bind="click: function() { sort('@sortRule.Key'); }" href="#">@sortRule.Value</a></li>
+				}
+			</ul>
+		</div>
+	</div>
+
+}
