@@ -24,6 +24,7 @@ namespace VocaDb.Model.Service.Search.Artists {
 				.Where(s => !s.Deleted)
 				.WhereHasName(queryParams.Common.Query, nameMatchMode ?? queryParams.Common.NameMatchMode)
 				.WhereDraftsOnly(queryParams.Common.DraftOnly)
+				.WhereStatusIs(queryParams.Common.EntryStatus)
 				.WhereHasType(queryParams.ArtistTypes)
 				.WhereHasTag(queryParams.Tag);
 

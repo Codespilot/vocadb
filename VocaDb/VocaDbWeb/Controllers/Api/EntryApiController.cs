@@ -45,6 +45,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </summary>
 		/// <param name="query">Entry name query (optional).</param>
 		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -57,6 +58,7 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<EntryForApiContract> GetList(
 			string query, 
 			string tag = null,
+			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
 			EntryOptionalFields fields = EntryOptionalFields.None,
@@ -74,6 +76,7 @@ namespace VocaDb.Web.Controllers.Api {
 					.Where(a => !a.Deleted)
 					.WhereHasName(query, nameMatchMode)
 					.WhereHasTag(tag)
+					.WhereStatusIs(status)
 					.OrderBy(ArtistSortRule.Name, lang)
 					.Take(start + maxResults)
 					.SelectEntryBase(lang, EntryType.Artist)
@@ -83,6 +86,7 @@ namespace VocaDb.Web.Controllers.Api {
 					.Where(a => !a.Deleted)
 					.WhereHasName(query, nameMatchMode)
 					.WhereHasTag(tag)
+					.WhereStatusIs(status)
 					.OrderBy(AlbumSortRule.Name, lang)
 					.Take(start + maxResults)
 					.SelectEntryBase(lang, EntryType.Album)
@@ -92,6 +96,7 @@ namespace VocaDb.Web.Controllers.Api {
 					.Where(a => !a.Deleted)
 					.WhereHasName(query, nameMatchMode)
 					.WhereHasTag(tag)
+					.WhereStatusIs(status)
 					.OrderBy(SongSortRule.Name, lang)
 					.Take(start + maxResults)
 					.SelectEntryBase(lang, EntryType.Song)
@@ -137,16 +142,19 @@ namespace VocaDb.Web.Controllers.Api {
 							.Where(a => !a.Deleted)
 							.WhereHasName(query, nameMatchMode)
 							.WhereHasTag(tag)
+							.WhereStatusIs(entryStatus)
 							.Count() + 
 						ctx.OfType<Album>().Query()
 							.Where(a => !a.Deleted)
 							.WhereHasName(query, nameMatchMode)
 							.WhereHasTag(tag)
+							.WhereStatusIs(entryStatus)
 							.Count() +
 						ctx.OfType<Song>().Query()
 							.Where(a => !a.Deleted)
 							.WhereHasName(query, nameMatchMode)
 							.WhereHasTag(tag)
+							.WhereStatusIs(entryStatus)
 							.Count();
 
 

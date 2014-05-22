@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
@@ -67,6 +68,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="tag">Filter by tag (optional).</param>
 		/// <param name="artistId">Filter by artist Id.</param>
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
+		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -85,6 +87,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string tag = null,
 			int? artistId = null,
 			bool onlyWithPvs = false,
+			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule sort = SongSortRule.Name,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
@@ -97,8 +100,9 @@ namespace VocaDb.Web.Controllers.Api {
 			var param = new SongQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false, false, null) {
 				Tag = tag, 
 				OnlyWithPVs = onlyWithPvs,
-				ArtistId = artistId ?? 0
+				ArtistId = artistId ?? 0,			
 			};
+			param.Common.EntryStatus = status;
 
 			var artists = service.Find(s => new SongForApiContract(s, null, lang, fields), param);
 

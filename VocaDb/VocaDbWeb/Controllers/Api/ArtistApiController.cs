@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.UseCases;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
@@ -61,6 +62,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="query">Artist name query (optional).</param>
 		/// <param name="artistTypes">Filtered artist type (optional).</param>
 		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -75,6 +77,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			ArtistTypes artistTypes = ArtistTypes.Nothing,
 			string tag = null,
+			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			ArtistSortRule sort = ArtistSortRule.Name,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact,
@@ -87,6 +90,7 @@ namespace VocaDb.Web.Controllers.Api {
 			var param = new ArtistQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false) {
 				Tag = tag
 			};
+			param.Common.EntryStatus = status;
 
 			var ssl = WebHelper.IsSSL(Request);
 			var artists = service.FindArtists(s => new ArtistForApiContract(s, lang, thumbPersister, ssl, fields), param);
