@@ -142,19 +142,19 @@ namespace VocaDb.Web.Controllers.Api {
 							.Where(a => !a.Deleted)
 							.WhereHasName(query, nameMatchMode)
 							.WhereHasTag(tag)
-							.WhereStatusIs(entryStatus)
+							.WhereStatusIs(status)
 							.Count() + 
 						ctx.OfType<Album>().Query()
 							.Where(a => !a.Deleted)
 							.WhereHasName(query, nameMatchMode)
 							.WhereHasTag(tag)
-							.WhereStatusIs(entryStatus)
+							.WhereStatusIs(status)
 							.Count() +
 						ctx.OfType<Song>().Query()
 							.Where(a => !a.Deleted)
 							.WhereHasName(query, nameMatchMode)
 							.WhereHasTag(tag)
-							.WhereStatusIs(entryStatus)
+							.WhereStatusIs(status)
 							.Count();
 
 
