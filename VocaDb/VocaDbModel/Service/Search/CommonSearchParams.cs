@@ -1,4 +1,6 @@
-﻿namespace VocaDb.Model.Service.Search {
+﻿using VocaDb.Model.Domain;
+
+namespace VocaDb.Model.Service.Search {
 
 	/// <summary>
 	/// Common search parameters for all entry types.
@@ -21,6 +23,8 @@
 		}
 
 		public bool DraftOnly { get; set; }
+
+		public EntryStatus? EntryStatus { get; set; }
 
 		/// <summary>
 		/// Moves results that are exact matches or starting with the search term to top of the result set.
