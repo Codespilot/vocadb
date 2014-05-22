@@ -109,10 +109,10 @@ namespace VocaDb.Web.Models {
 			PrimaryPV = PVHelper.PrimaryPV(pvs);
 			ThumbUrl = VideoServiceHelper.GetThumbUrlPreferNotNico(pvs);
 
-			var nicoMimiUrl = GetNicoMimiUrl(contract);
+			/*var nicoMimiUrl = GetNicoMimiUrl(contract);
 			if (!string.IsNullOrEmpty(nicoMimiUrl)) {
 				WebLinks.Add(new WebLinkContract(nicoMimiUrl, ViewRes.Song.DetailsStrings.NicoMimiDownload, WebLinkCategory.Other));
-			}
+			}*/
 
 			if (PrimaryPV == null && !string.IsNullOrEmpty(NicoId))
 				PrimaryPV = new PVContract { PVId = NicoId, Service = PVService.NicoNicoDouga };
