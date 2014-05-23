@@ -109,6 +109,7 @@ module vdb.viewModels {
 
 		public page = ko.observableArray<dc.EntryContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(); // Paging view model
+		public pauseNotifications = false
 
 		// Update results loading the first page and updating total number of items.
 		// Commonly this is done after changing the filters or sorting.
@@ -120,6 +121,11 @@ module vdb.viewModels {
 
 		public updateResults = (clearResults: boolean) => {
 
+			// Disable duplicate updates
+			if (this.pauseNotifications)
+				return;
+
+			this.pauseNotifications = true;
 			this.loading(true);
 
 			if (clearResults)
@@ -129,6 +135,8 @@ module vdb.viewModels {
 
 			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(),
 				this.searchViewModel.draftsOnly() ? "Draft" : null, (result: any) => {
+
+				this.pauseNotifications = false;
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);
