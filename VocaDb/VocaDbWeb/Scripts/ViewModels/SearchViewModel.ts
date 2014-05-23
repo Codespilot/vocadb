@@ -20,6 +20,7 @@ module vdb.viewModels {
 
 			this.searchTerm.subscribe(this.updateResults);
 			this.tag.subscribe(this.updateResults);
+			this.draftsOnly.subscribe(this.updateResults);
 
 			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
 			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
@@ -47,6 +48,7 @@ module vdb.viewModels {
 		public tagSearchViewModel: TagSearchViewModel;
 
 		private currentSearchType = ko.observable("Anything");
+		public draftsOnly = ko.observable(false);
 		public resources = ko.observable<any>();
 		public showAdvancedFilters = ko.observable(false);
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
@@ -64,6 +66,7 @@ module vdb.viewModels {
 		public showSongSearch: KnockoutComputed<boolean>;
 		public showTagSearch = ko.computed(() => this.searchType() == 'Tag');
 		public showTagFilter = ko.computed(() => !this.showTagSearch());
+		public showDraftsFilter = ko.computed(() => this.searchType() != 'Tag');
 
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
 
@@ -99,6 +102,7 @@ module vdb.viewModels {
 
 		// Method for loading a page of results.
 		public loadResults: (pagingProperties: dc.PagingProperties, searchTerm: string, tag: string,
+			status: string,
 			callback: (result: any) => void) => void;
 
 		public loading = ko.observable(true); // Currently loading for data
@@ -123,7 +127,8 @@ module vdb.viewModels {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(), (result: any) => {
+			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(),
+				this.searchViewModel.draftsOnly() ? "Draft" : null, (result: any) => {
 
 				if (pagingProperties.getTotalCount)
 					this.paging.totalItems(result.totalCount);
@@ -143,8 +148,8 @@ module vdb.viewModels {
 
 			super(searchViewModel);
 
-			this.loadResults = (pagingProperties, searchTerm, tag, callback) =>
-				this.entryRepo.getList(pagingProperties, lang, searchTerm, tag, callback);
+			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) =>
+				this.entryRepo.getList(pagingProperties, lang, searchTerm, tag, status, callback);
 
 		}
 
@@ -165,9 +170,9 @@ module vdb.viewModels {
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.artistType.subscribe(this.updateResultsWithTotalCount);
 
-			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 				
-				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag, callback);
+				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag, status, callback);
 
 			}
 
@@ -201,9 +206,9 @@ module vdb.viewModels {
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
 			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
 
-			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 
-				this.albumRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.albumType(), tag, this.artistId(), this.artistParticipationStatus(), callback);
+				this.albumRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.albumType(), tag, this.artistId(), this.artistParticipationStatus(), status, callback);
 
 			}
 
@@ -255,9 +260,9 @@ module vdb.viewModels {
 			this.songType.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 
-			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 
-				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(), this.pvsOnly(), callback);
+				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(), this.pvsOnly(), status, callback);
 
 			}
 
@@ -282,7 +287,7 @@ module vdb.viewModels {
 			this.allowAliases.subscribe(this.updateResultsWithTotalCount);
 			this.categoryName.subscribe(this.updateResultsWithTotalCount);
 
-			this.loadResults = (pagingProperties, searchTerm, tag, callback) => {
+			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 
 				this.tagRepo.getList(pagingProperties, searchTerm, this.allowAliases(), this.categoryName(), callback);
 

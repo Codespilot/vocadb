@@ -9,7 +9,7 @@ var vdb;
             function AlbumRepository(baseUrl) {
                 var _this = this;
                 this.baseUrl = baseUrl;
-                this.getList = function (paging, lang, query, sort, discTypes, tag, artistId, artistParticipationStatus, callback) {
+                this.getList = function (paging, lang, query, sort, discTypes, tag, artistId, artistParticipationStatus, status, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/albums");
                     var data = {
                         start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
@@ -17,7 +17,8 @@ var vdb;
                         discTypes: discTypes,
                         tag: tag,
                         artistId: artistId,
-                        artistParticipationStatus: artistParticipationStatus
+                        artistParticipationStatus: artistParticipationStatus,
+                        status: status
                     };
 
                     $.getJSON(url, data, callback);

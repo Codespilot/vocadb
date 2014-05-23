@@ -23,6 +23,7 @@ module vdb.repositories {
 		getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,
 			discTypes: string, tag: string,
 			artistId: number, artistParticipationStatus: string,
+			status: string,
 			callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
@@ -32,7 +33,8 @@ module vdb.repositories {
 				discTypes: discTypes,
 				tag: tag,
 				artistId: artistId,
-				artistParticipationStatus: artistParticipationStatus
+				artistParticipationStatus: artistParticipationStatus,
+				status: status
 			};
 
 			$.getJSON(url, data, callback);
