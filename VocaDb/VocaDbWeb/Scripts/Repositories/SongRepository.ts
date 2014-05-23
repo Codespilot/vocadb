@@ -27,7 +27,9 @@ module vdb.repositories {
 		public getList = (paging: dc.PagingProperties, lang: string, query: string,
 			sort: string, songTypes: string, tag: string,
 			artistId: number,
-			onlyWithPvs: boolean, callback) => {
+			onlyWithPvs: boolean,
+			status: string,
+			callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/songs");
 			var data = {
@@ -36,7 +38,8 @@ module vdb.repositories {
 				songTypes: songTypes,
 				tag: tag,
 				artistId: artistId,
-				onlyWithPvs: onlyWithPvs
+				onlyWithPvs: onlyWithPvs,
+				status: status
 			};
 
 			$.getJSON(url, data, callback);

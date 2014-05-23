@@ -16,14 +16,15 @@ module vdb.repositories {
         public getOne: (id: number, callback: (result: dc.ArtistContract) => void) => void;
 
 		public getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,
-			artistTypes: string, tag: string, callback) => {
+			artistTypes: string, tag: string, status: string, callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/artists");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
 				query: query, fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort,
 				artistTypes: artistTypes,
-				tag: tag
+				tag: tag,
+				status: status
 			};
 
 			$.getJSON(url, data, callback);
