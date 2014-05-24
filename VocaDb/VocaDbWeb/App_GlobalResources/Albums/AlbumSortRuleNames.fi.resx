@@ -120,6 +120,9 @@
   <data name="AdditionDate" xml:space="preserve">
     <value>Lisäyspäivän mukaan</value>
   </data>
+  <data name="CollectionCount" xml:space="preserve">
+    <value>Kokoelmien lukumäärä</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Nimen mukaan</value>
   </data>

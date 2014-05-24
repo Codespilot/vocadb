@@ -25,6 +25,8 @@ namespace VocaDb.Model.Service.Helpers {
 			switch (sortRule) {
 				case AlbumSortRule.Name:
 					return FindHelpers.AddNameOrder(criteria, languagePreference);
+				case AlbumSortRule.CollectionCount:
+					return criteria.OrderByDescending(a => a.UserCollections.Count);
 				case AlbumSortRule.ReleaseDate:
 					return criteria
 						.WhereHasReleaseDate()

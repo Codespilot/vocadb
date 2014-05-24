@@ -126,4 +126,10 @@
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="SongCount" xml:space="preserve">
+    <value>Number of songs</value>
+  </data>
+  <data name="SongRating" xml:space="preserve">
+    <value>Total song rating</value>
+  </data>
 </root>
