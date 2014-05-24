@@ -52,11 +52,11 @@ module vdb.viewModels {
 
 		showMoreEnd = ko.computed(() => this.page() < this.totalPages() - 4);
 
-		getPagingProperties = (clearResults: boolean = false, pageSize?: number) => {
+		getPagingProperties = (clearResults: boolean = false) => {
 
 			return {
 				start: this.firstItem(),
-				maxEntries: pageSize || this.pageSize(),
+				maxEntries: this.pageSize(),
 				getTotalCount: clearResults || this.totalItems() == 0
 			};
 
