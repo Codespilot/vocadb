@@ -4,6 +4,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Service.Search.AlbumSearch;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -104,6 +105,46 @@ namespace VocaDb.Model.Service.Helpers {
 				return query;
 
 			return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
+
+		}
+
+		public static IQueryable<Song> WhereHasArtistParticipationStatus(this IQueryable<Song> query, int artistId, ArtistAlbumParticipationStatus participation, Func<int, Artist> artistGetter) {
+
+			if (artistId == 0)
+				return query;
+
+			if (participation == ArtistAlbumParticipationStatus.Everything)
+				return query.WhereHasArtist(artistId);
+
+			var artist = artistGetter(artistId);
+			var musicProducerTypes = new[] {ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup};
+
+			if (musicProducerTypes.Contains(artist.ArtistType)) {
+
+				var various = Model.Helpers.ArtistHelper.VariousArtists;
+				var producerRoles = ArtistRoles.Composer | ArtistRoles.Arranger;
+
+				switch (participation) {
+					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport && ((a.Roles == ArtistRoles.Default) || ((a.Roles & producerRoles) != ArtistRoles.Default)) && a.Song.ArtistString.Default != various));
+					case ArtistAlbumParticipationStatus.OnlyCollaborations:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && (a.IsSupport || ((a.Roles != ArtistRoles.Default) && ((a.Roles & producerRoles) == ArtistRoles.Default)) || a.Song.ArtistString.Default == various)));
+					default:
+						return query;
+				}
+
+			} else {
+
+				switch (participation) {
+					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport));
+					case ArtistAlbumParticipationStatus.OnlyCollaborations:
+						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && a.IsSupport));
+					default:
+						return query;
+				}
+				
+			}
 
 		}
 

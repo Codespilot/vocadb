@@ -127,6 +127,9 @@
 									<div style="display: inline-block;" class="input-append">
 										@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "artistSearchParams", textBinding: "artistName", valBinding: "artistId")
 									</div>
+									<!-- ko if: artistId -->
+									@SongHelpers.ArtistParticipationStatusOptionsKnockout("artistParticipationStatus")
+									<!-- /ko -->
 								</div>
 							</div>
 

@@ -2,6 +2,7 @@ using System;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Search.AlbumSearch;
 
 namespace VocaDb.Model.Service.Search.SongSearch {
 
@@ -15,6 +16,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 
 		public SongQueryParams() {
 
+			ArtistParticipationStatus = ArtistAlbumParticipationStatus.Everything;
 			Common = new CommonSearchParams();
 			IgnoredIds = new int[] {};
 			Paging = new PagingProperties(0, 30, true);
@@ -40,6 +42,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			Common = new CommonSearchParams(query, draftsOnly, nameMatchMode, onlyByName, moveExactToTop);
 			Paging = new PagingProperties(start, maxResults, getTotalCount);
 
+			ArtistParticipationStatus = ArtistAlbumParticipationStatus.Everything;
 			SongTypes = songTypes;
 			SortRule = sortRule;
 			IgnoredIds = ignoredIds;
@@ -49,6 +52,8 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 		}
 
 		public int ArtistId { get; set; }
+
+		public ArtistAlbumParticipationStatus ArtistParticipationStatus { get; set; }
 
 		public CommonSearchParams Common { get; set; }
 

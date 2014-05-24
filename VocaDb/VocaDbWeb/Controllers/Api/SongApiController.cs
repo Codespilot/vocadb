@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Web.Controllers.DataAccess;
 
@@ -67,6 +68,12 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </param>
 		/// <param name="tag">Filter by tag (optional).</param>
 		/// <param name="artistId">Filter by artist Id.</param>
+		/// <param name="artistParticipationStatus">
+		/// Filter by artist participation status. Only valid if artistId is specified.
+		/// Everything (default): Show all songs by that artist (no filter).
+		/// OnlyMainAlbums: Show only main songs by that artist.
+		/// OnlyCollaborations: Show only collaborations by that artist.
+		/// </param>
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
 		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
@@ -86,6 +93,7 @@ namespace VocaDb.Web.Controllers.Api {
 			SongType songTypes = SongType.Unspecified,
 			string tag = null,
 			int? artistId = null,
+			ArtistAlbumParticipationStatus artistParticipationStatus = ArtistAlbumParticipationStatus.Everything,
 			bool onlyWithPvs = false,
 			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
@@ -100,7 +108,8 @@ namespace VocaDb.Web.Controllers.Api {
 			var param = new SongQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false, false, null) {
 				Tag = tag, 
 				OnlyWithPVs = onlyWithPvs,
-				ArtistId = artistId ?? 0,			
+				ArtistId = artistId ?? 0,		
+				ArtistParticipationStatus = artistParticipationStatus
 			};
 			param.Common.EntryStatus = status;
 

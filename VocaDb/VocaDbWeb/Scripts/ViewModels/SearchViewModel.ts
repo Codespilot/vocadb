@@ -264,13 +264,16 @@ module vdb.viewModels {
 			};
 
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
+			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
 			this.pvsOnly.subscribe(this.updateResultsWithTotalCount);
 			this.songType.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 
-				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(), this.pvsOnly(), status, callback);
+				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(),
+					this.artistParticipationStatus(),
+					this.pvsOnly(), status, callback);
 
 			}
 
@@ -278,6 +281,7 @@ module vdb.viewModels {
 
 		public artistId = ko.observable<number>(null);
 		public artistName = ko.observable("");
+		public artistParticipationStatus = ko.observable("Everything");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public pvsOnly = ko.observable(false);
 		public songType = ko.observable("Unspecified");
