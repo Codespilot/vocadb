@@ -63,7 +63,7 @@
 		<li>
 			<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#">
 				<div class="pictureFrame">
-					<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : '') }" alt="Preview" class="coverPic" />
+					<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : '') }, albumToolTip: id" alt="Preview" class="coverPic" />
 				</div>
 			</a>
 			<p data-bind="text: $data.localizedName || defaultName"></p>
