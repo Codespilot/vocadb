@@ -98,7 +98,8 @@ module vdb.viewModels {
 		
 		constructor(public searchViewModel: SearchViewModel) {
 
-			this.paging.getItemsCallback = this.updateResultsWithoutTotalCount;
+			searchViewModel.pageSize.subscribe(pageSize => this.paging.pageSize(pageSize));
+			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 
 		}
 
@@ -133,7 +134,7 @@ module vdb.viewModels {
 			if (clearResults)
 				this.paging.page(1);
 
-			var pagingProperties = this.paging.getPagingProperties(clearResults, this.searchViewModel.pageSize());
+			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
 			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(),
 				this.searchViewModel.draftsOnly() ? "Draft" : null, (result: any) => {
