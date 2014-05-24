@@ -27,6 +27,7 @@ module vdb.repositories {
 		public getList = (paging: dc.PagingProperties, lang: string, query: string,
 			sort: string, songTypes: string, tag: string,
 			artistId: number,
+			artistParticipationStatus: string,
 			onlyWithPvs: boolean,
 			status: string,
 			callback) => {
@@ -38,6 +39,7 @@ module vdb.repositories {
 				songTypes: songTypes,
 				tag: tag,
 				artistId: artistId,
+				artistParticipationStatus: artistParticipationStatus,
 				onlyWithPvs: onlyWithPvs,
 				status: status
 			};

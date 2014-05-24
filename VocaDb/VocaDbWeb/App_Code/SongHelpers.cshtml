@@ -5,7 +5,19 @@
 @using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Model.Helpers
+@using VocaDb.Model.Service.Search.AlbumSearch
 @using VocaDb.Web.Helpers;
+
+@helper ArtistParticipationStatusOptionsKnockout(string binding) {
+	{
+		var options = new Dictionary<string, string> {
+			{ ArtistAlbumParticipationStatus.Everything.ToString(), "Everything" },
+			{ ArtistAlbumParticipationStatus.OnlyMainAlbums.ToString(), "Only main songs" },
+			{ ArtistAlbumParticipationStatus.OnlyCollaborations.ToString(), "Only collaborations" },
+		};
+		@KnockoutHelpers.CheckBoxButtons(options, binding)
+	}
+}
 
 @helper LyricsInfo(LyricsForSongContract lyrics) {
 	<text>@lyrics.Language (@lyrics.Source)</text>
