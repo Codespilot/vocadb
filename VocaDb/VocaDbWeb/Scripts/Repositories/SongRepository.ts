@@ -29,6 +29,7 @@ module vdb.repositories {
 			artistId: number,
 			artistParticipationStatus: string,
 			onlyWithPvs: boolean,
+			since: number,
 			status: string,
 			callback) => {
 
@@ -41,6 +42,7 @@ module vdb.repositories {
 				artistId: artistId,
 				artistParticipationStatus: artistParticipationStatus,
 				onlyWithPvs: onlyWithPvs,
+				since: since,
 				status: status
 			};
 

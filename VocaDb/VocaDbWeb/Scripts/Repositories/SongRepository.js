@@ -14,7 +14,7 @@ var vdb;
             function SongRepository(baseUrl) {
                 var _this = this;
                 this.baseUrl = baseUrl;
-                this.getList = function (paging, lang, query, sort, songTypes, tag, artistId, artistParticipationStatus, onlyWithPvs, status, callback) {
+                this.getList = function (paging, lang, query, sort, songTypes, tag, artistId, artistParticipationStatus, onlyWithPvs, since, status, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/songs");
                     var data = {
                         start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
@@ -24,6 +24,7 @@ var vdb;
                         artistId: artistId,
                         artistParticipationStatus: artistParticipationStatus,
                         onlyWithPvs: onlyWithPvs,
+                        since: since,
                         status: status
                     };
 

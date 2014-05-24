@@ -75,6 +75,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// OnlyCollaborations: Show only collaborations by that artist.
 		/// </param>
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
+		/// <param name="since">Allow only entries that have been created at most this many hours ago. By default there is no filtering.</param>
 		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
@@ -95,6 +96,7 @@ namespace VocaDb.Web.Controllers.Api {
 			int? artistId = null,
 			ArtistAlbumParticipationStatus artistParticipationStatus = ArtistAlbumParticipationStatus.Everything,
 			bool onlyWithPvs = false,
+			int? since = null,
 			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule sort = SongSortRule.Name,
@@ -109,7 +111,8 @@ namespace VocaDb.Web.Controllers.Api {
 				Tag = tag, 
 				OnlyWithPVs = onlyWithPvs,
 				ArtistId = artistId ?? 0,		
-				ArtistParticipationStatus = artistParticipationStatus
+				ArtistParticipationStatus = artistParticipationStatus,
+				TimeFilter = since.HasValue ? TimeSpan.FromHours(since.Value) : TimeSpan.Zero
 			};
 			param.Common.EntryStatus = status;
 
