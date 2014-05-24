@@ -17,7 +17,7 @@ var vdb;
                 this.getList = function (paging, lang, query, sort, songTypes, tag, artistId, artistParticipationStatus, onlyWithPvs, status, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/songs");
                     var data = {
-                        start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
+                        start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
                         query: query, fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort,
                         songTypes: songTypes,
                         tag: tag,

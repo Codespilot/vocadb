@@ -1,4 +1,4 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
+﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="../Shared/GlobalFunctions.ts" />
 var vdb;
 (function (vdb) {
@@ -12,7 +12,7 @@ var vdb;
                 this.getList = function (paging, lang, query, sort, discTypes, tag, artistId, artistParticipationStatus, status, callback) {
                     var url = vdb.functions.mergeUrls(_this.baseUrl, "/api/albums");
                     var data = {
-                        start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
+                        start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
                         query: query, fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort,
                         discTypes: discTypes,
                         tag: tag,

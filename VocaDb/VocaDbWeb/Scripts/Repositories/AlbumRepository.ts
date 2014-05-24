@@ -28,7 +28,7 @@ module vdb.repositories {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
 			var data = {
-				start: paging.start, getTotalCount: paging.getTotalCount, maxEntries: paging.maxEntries,
+				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
 				query: query, fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort,
 				discTypes: discTypes,
 				tag: tag,

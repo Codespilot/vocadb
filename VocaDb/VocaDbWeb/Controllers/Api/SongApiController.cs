@@ -22,7 +22,7 @@ namespace VocaDb.Web.Controllers.Api {
 	[RoutePrefix("api/songs")]
 	public class SongApiController : ApiController {
 
-		private const int absoluteMax = 30;
+		private const int absoluteMax = 50;
 		private const int defaultMax = 10;
 		private readonly SongQueries queries;
 		private readonly SongService service;
@@ -77,7 +77,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
 		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
-		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 30).</param>
+		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
 		/// <param name="sort">Sort rule (optional, defaults to Name). Possible values are None, Name, AdditionDate, FavoritedTimes, RatingScore.</param>
 		/// <param name="nameMatchMode">Match mode for song name (optional, defaults to Exact).</param>
