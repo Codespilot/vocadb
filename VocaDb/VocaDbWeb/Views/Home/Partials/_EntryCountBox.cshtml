@@ -1,7 +1,14 @@
 ﻿
-<p class="pull-right">
-	Showing
-	<span data-bind="text: paging.pageSize"></span>
-	items of
-	<span data-bind="text: paging.totalItems"></span>
-</p>
+<div class="dropdown pull-right">
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		Showing
+		<span data-bind="text: $parent.pageSize"></span>
+		items of
+		<span data-bind="text: paging.totalItems"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a data-bind="click: function() { $parent.pageSize(10); }" href="#">10 items per page</a></li>
+		<li><a data-bind="click: function() { $parent.pageSize(20); }" href="#">20 items per page</a></li>
+		<li><a data-bind="click: function() { $parent.pageSize(40); }" href="#">40 items per page</a></li>
+	</ul>
+</div>

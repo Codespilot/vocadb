@@ -23,7 +23,7 @@ namespace VocaDb.Web.Controllers.Api {
 	[RoutePrefix("api/entries")]
 	public class EntryApiController : ApiController {
 
-		private const int absoluteMax = 30;
+		private const int absoluteMax = 50;
 		private const int defaultMax = 10;
 
 		private readonly IEntryThumbPersister entryThumbPersister;

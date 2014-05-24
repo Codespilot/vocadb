@@ -18,6 +18,7 @@ module vdb.viewModels {
 			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 
+			this.pageSize.subscribe(this.updateResults);
 			this.searchTerm.subscribe(this.updateResults);
 			this.tag.subscribe(this.updateResults);
 			this.draftsOnly.subscribe(this.updateResults);
@@ -49,6 +50,7 @@ module vdb.viewModels {
 
 		private currentSearchType = ko.observable("Anything");
 		public draftsOnly = ko.observable(false);
+		public pageSize = ko.observable(10);
 		public resources = ko.observable<any>();
 		public showAdvancedFilters = ko.observable(false);
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
@@ -131,7 +133,7 @@ module vdb.viewModels {
 			if (clearResults)
 				this.paging.page(1);
 
-			var pagingProperties = this.paging.getPagingProperties(clearResults);
+			var pagingProperties = this.paging.getPagingProperties(clearResults, this.searchViewModel.pageSize());
 
 			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(),
 				this.searchViewModel.draftsOnly() ? "Draft" : null, (result: any) => {
@@ -229,6 +231,7 @@ module vdb.viewModels {
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().albumSortRuleNames[this.sort()] : "");
+		public viewMode = ko.observable("Details");
 
 		public ratingStars = (album: dc.AlbumContract) => {
 
