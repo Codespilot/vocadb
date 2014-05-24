@@ -881,7 +881,9 @@ namespace VocaDb.Model.Service {
 
 		RatingTotal,
 
-		NameThenReleaseDate
+		NameThenReleaseDate,
+
+		CollectionCount
 
 	}
 

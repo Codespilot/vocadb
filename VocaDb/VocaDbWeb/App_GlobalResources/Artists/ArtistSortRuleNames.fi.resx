@@ -126,4 +126,10 @@
   <data name="Name" xml:space="preserve">
     <value>Nimen mukaan</value>
   </data>
+  <data name="SongCount" xml:space="preserve">
+    <value>Kappaleiden lukumäärän mukaan</value>
+  </data>
+  <data name="SongRating" xml:space="preserve">
+    <value>Kappaleiden yhteenlasketun pistemäärän mukaan</value>
+  </data>
 </root>
