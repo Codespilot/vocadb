@@ -13,6 +13,15 @@ namespace VocaDb.Web.Helpers.Support {
 			str = new StringBuilder(initial);
 		}
 
+		public CSSClassBuilder<T> If(bool predicate, string className) {
+
+			if (predicate)
+				str.Append(" " + className);
+
+			return this;
+
+		}
+
 		public CSSClassBuilder<T> If(Func<T, bool> func, string className) {
 
 			if (func(model))
