@@ -68,13 +68,14 @@ namespace VocaDb.Web.Controllers.Api {
 			var ssl = WebHelper.IsSSL(Request);
 			maxResults = GetMaxResults(maxResults);
 			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
+			var canonized = ArtistHelper.GetCanonizedName(query);
 
 			return repository.HandleQuery(ctx => {
 
 				// Get all applicable names per entry type
 				var artistNames = ctx.OfType<Artist>().Query()
 					.Where(a => !a.Deleted)
-					.WhereHasName(query, nameMatchMode)
+					.WhereHasName(canonized, nameMatchMode)
 					.WhereHasTag(tag)
 					.WhereStatusIs(status)
 					.OrderBy(ArtistSortRule.Name, lang)
@@ -140,7 +141,7 @@ namespace VocaDb.Web.Controllers.Api {
 					count = 
 						ctx.OfType<Artist>().Query()
 							.Where(a => !a.Deleted)
-							.WhereHasName(query, nameMatchMode)
+							.WhereHasName(canonized, nameMatchMode)
 							.WhereHasTag(tag)
 							.WhereStatusIs(status)
 							.Count() + 
