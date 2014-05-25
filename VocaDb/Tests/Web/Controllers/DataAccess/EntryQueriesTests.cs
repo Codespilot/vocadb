@@ -3,17 +3,19 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts.Api;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service;
-using VocaDb.Model.Service.Repositories;
 using VocaDb.Tests.TestData;
 using VocaDb.Tests.TestSupport;
 using VocaDb.Web.Controllers.DataAccess;
 
 namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
+	/// <summary>
+	/// Unit tests for <see cref="EntryQueries"/>.
+	/// </summary>
 	[TestClass]
 	public class EntryQueriesTests {
 
@@ -30,7 +32,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		}
 
-		private PartialFindResult<EntryForApiContract> CallGetList(string query, 
+		private PartialFindResult<EntryForApiContract> CallGetList(
+			string query = null, 
 			string tag = null,
 			EntryStatus? status = null,
 			int start = 0, int maxResults = 10, bool getTotalCount = true,
@@ -54,6 +57,8 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			var group = CreateEntry.Artist(ArtistType.OtherGroup, name: "1640mP");
 			var artist = CreateEntry.Producer(name: "40mP");
+			var tag = new Tag("pop_rock");
+			artist.Tags.Usages.Add(new ArtistTagUsage(artist, tag));
 			var artist2 = CreateEntry.Producer(name: "Tripshots");
 			var album = CreateEntry.Album(name: "40mP Piano Arrange Album");
 			var song = CreateEntry.Song(name: "Mosaik Role [40mP ver.]");
@@ -61,11 +66,15 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			repository.Save(group, artist, artist2);
 			repository.Save(album);
 			repository.Save(song);
+			repository.Save(tag);
 
 		}
 
+		/// <summary>
+		/// List while filtering by title (words).
+		/// </summary>
 		[TestMethod]
-		public void List() {
+		public void List_FilterByTitle() {
 			
 			var result = CallGetList(query: "40mP");
 
@@ -79,8 +88,11 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 		}
 
+		/// <summary>
+		/// List while filtering by canonized artist name.
+		/// </summary>
 		[TestMethod]
-		public void List_CanonizedArtistName() {
+		public void List_FilterByCanonizedArtistName() {
 			
 			var artist = CreateEntry.Producer(name: "nightmare-P");
 			repository.Save(artist);
@@ -92,6 +104,33 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			AssertHasEntry(resultExact, "nightmare-P", EntryType.Artist);
 			AssertHasEntry(resultVariant, "nightmare-P", EntryType.Artist);
 			AssertHasEntry(resultPartial, "nightmare-P", EntryType.Artist);
+
+		}
+
+		/// <summary>
+		/// List while filtering by tag.
+		/// </summary>
+		[TestMethod]
+		public void List_FilterByTag() {
+			
+			var result = CallGetList(tag: "pop_rock");
+
+			Assert.AreEqual(1, result.TotalCount, "TotalCount");
+			AssertHasEntry(result, "40mP", EntryType.Artist);
+
+		}
+
+		/// <summary>
+		/// List, test paging.
+		/// </summary>
+		[TestMethod]
+		public void List_Paging() {
+			
+			var result = CallGetList("40mP", start: 1, maxResults: 1);
+
+			Assert.AreEqual(1, result.Items.Length, "Items.Length");
+			Assert.AreEqual(4, result.TotalCount, "TotalCount");
+			AssertHasEntry(result, "40mP", EntryType.Artist);
 
 		}
 

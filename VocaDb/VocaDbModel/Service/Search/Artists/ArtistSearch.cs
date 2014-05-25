@@ -22,7 +22,7 @@ namespace VocaDb.Model.Service.Search.Artists {
 			
 			var query = context.Query()
 				.Where(s => !s.Deleted)
-				.WhereHasName(queryParams.Common.Query, nameMatchMode ?? queryParams.Common.NameMatchMode)
+				.WhereHasName_Canonized(queryParams.Common.Query, matchMode: nameMatchMode ?? queryParams.Common.NameMatchMode)
 				.WhereDraftsOnly(queryParams.Common.DraftOnly)
 				.WhereStatusIs(queryParams.Common.EntryStatus)
 				.WhereHasType(queryParams.ArtistTypes)

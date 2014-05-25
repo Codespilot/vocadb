@@ -42,7 +42,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				// Get all applicable names per entry type
 				var artistNames = ctx.OfType<Artist>().Query()
 					.Where(a => !a.Deleted)
-					.WhereHasName(canonized, nameMatchMode)
+					.WhereHasName_Canonized(query, canonized, nameMatchMode)
 					.WhereHasTag(tag)
 					.WhereStatusIs(status)
 					.OrderBy(ArtistSortRule.Name, lang)
@@ -80,7 +80,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var artistIds = entryNames.Where(e => e.EntryType == EntryType.Artist).Select(a => a.Id).ToArray();
 				var albumIds = entryNames.Where(e => e.EntryType == EntryType.Album).Select(a => a.Id).ToArray();
 				var songIds = entryNames.Where(e => e.EntryType == EntryType.Song).Select(a => a.Id).ToArray();
-				var allIds = entryNames.Select(e => e.Id).ToArray();
 
 				// Get the actual entries in the page
 				var artists = artistIds.Any() ? ctx.OfType<Artist>().Query()
@@ -99,8 +98,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					.Select(a => new EntryForApiContract(a, lang, fields)) : new EntryForApiContract[0];
 
 				// Merge and sort the final list
-				//var entries = CollectionHelper.SortByIds(artists.Concat(albums).Concat(songs), allIds);
-				var entries = artists.Concat(albums).Concat(songs).OrderBy(a => a.LocalizedName ?? a.DefaultName);
+				var entries = artists.Concat(albums).Concat(songs)
+					.OrderBy(a => a.LocalizedName ?? a.DefaultName);
 
 				var count = 0;
 
@@ -109,7 +108,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					count = 
 						ctx.OfType<Artist>().Query()
 							.Where(a => !a.Deleted)
-							.WhereHasName(canonized, nameMatchMode)
+							.WhereHasName_Canonized(query, canonized, nameMatchMode)
 							.WhereHasTag(tag)
 							.WhereStatusIs(status)
 							.Count() + 
