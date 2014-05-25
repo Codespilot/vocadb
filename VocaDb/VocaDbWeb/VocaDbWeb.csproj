@@ -718,6 +718,7 @@
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\DataAccess\AlbumQueries.cs" />
     <Compile Include="Controllers\DataAccess\ArtistQueries.cs" />
+    <Compile Include="Controllers\DataAccess\EntryQueries.cs" />
     <Compile Include="Controllers\DataAccess\EntryReportQueries.cs" />
     <Compile Include="Controllers\DataAccess\EventQueries.cs" />
     <Compile Include="Controllers\DataAccess\QueriesBase.cs" />
