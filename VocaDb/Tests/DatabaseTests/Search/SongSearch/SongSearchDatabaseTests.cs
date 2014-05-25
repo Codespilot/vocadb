@@ -274,6 +274,32 @@ namespace VocaDb.Tests.DatabaseTests.Search.SongSearch {
 
 		}
 
+		[TestMethod]
+		public void QueryLyrics_SingleLanguage() {
+			
+			queryParams.LyricsLanguages = ContentLanguageSelections.English.ToIndividualSelections().ToArray();
+
+			var result = CallFind();
+
+			Assert.AreEqual(1, result.TotalCount, "Total result count");
+			AssertHasSong(result, Db.Song);
+
+		}
+
+		[TestMethod]
+		public void QueryLyrics_AnyLanguage() {
+			
+			queryParams.LyricsLanguages = ContentLanguageSelections.All.ToIndividualSelections().ToArray();
+
+			var result = CallFind();
+
+			Assert.AreEqual(2, result.TotalCount, "Total result count");
+			AssertHasSong(result, Db.Song);
+			AssertHasSong(result, Db.Song2);
+
+		}
+
+
 	}
 
 }
