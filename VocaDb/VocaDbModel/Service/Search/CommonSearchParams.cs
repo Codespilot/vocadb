@@ -22,6 +22,7 @@ namespace VocaDb.Model.Service.Search {
 
 		}
 
+		// TODO: replaced with EntryStatus filter.
 		public bool DraftOnly { get; set; }
 
 		public EntryStatus? EntryStatus { get; set; }
