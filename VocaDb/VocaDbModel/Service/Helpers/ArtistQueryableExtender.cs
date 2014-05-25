@@ -151,6 +151,39 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		/// <summary>
+		/// Filters query by canonized artist name.
+		/// This means that any P suffixes are ignored.
+		/// </summary>
+		/// <param name="query">Artist query. Cannot be null.</param>
+		/// <param name="originalQuery">Original title query. Can be null or empty.</param>
+		/// <param name="canonizedName">Canonized artist name if available. Can be null, in which case the canonized name will be parsed from originalQuery.</param>
+		/// <param name="matchMode">Name match mode.</param>
+		/// <param name="words">Words list if available. Can be null in which case words list is parsed.</param>
+		/// <returns>Filtered query. Cannot be null.</returns>
+		public static IQueryable<Artist> WhereHasName_Canonized(this IQueryable<Artist> query, string originalQuery,
+			string canonizedName = null, NameMatchMode matchMode = NameMatchMode.Auto, string[] words = null) {
+
+			canonizedName = canonizedName ?? ArtistHelper.GetCanonizedName(originalQuery);
+
+			if (string.IsNullOrEmpty(canonizedName))
+				return query;
+
+			if (FindHelpers.ExactMatch(canonizedName, matchMode)) {
+
+				return query.Where(m => m.Names.Names.Any(n => 
+					n.Value == canonizedName
+					|| n.Value == string.Format("{0}P", canonizedName)
+					|| n.Value == string.Format("{0}-P", canonizedName)));
+
+			} else {
+
+				return query.WhereHasName(canonizedName, matchMode, words);
+
+			}
+
+		}
+
 		public static IQueryable<Artist> WhereHasTag(this IQueryable<Artist> query, string tagName) {
 
 			if (string.IsNullOrEmpty(tagName))
