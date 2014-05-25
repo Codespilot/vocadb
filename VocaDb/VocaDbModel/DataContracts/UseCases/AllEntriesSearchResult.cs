@@ -49,7 +49,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		public bool OnlyOneItem {
 			get {
-				return (Albums.Items.Length + Artists.Items.Length + Songs.Items.Length + Tags.Items.Length == 1);
+				return (Albums.TotalCount + Artists.TotalCount + Songs.TotalCount + Tags.TotalCount == 1);
 			}
 		}
 
