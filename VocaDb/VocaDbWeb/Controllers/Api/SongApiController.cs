@@ -76,6 +76,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </param>
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
 		/// <param name="since">Allow only entries that have been created at most this many hours ago. By default there is no filtering.</param>
+		/// <param name="lyrics">Filter by lyrics in the specified language. By default there is no filtering.</param>
 		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
@@ -97,6 +98,7 @@ namespace VocaDb.Web.Controllers.Api {
 			ArtistAlbumParticipationStatus artistParticipationStatus = ArtistAlbumParticipationStatus.Everything,
 			bool onlyWithPvs = false,
 			int? since = null,
+			[FromUri] ContentLanguageSelections? lyrics = null,
 			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule sort = SongSortRule.Name,
@@ -112,7 +114,8 @@ namespace VocaDb.Web.Controllers.Api {
 				OnlyWithPVs = onlyWithPvs,
 				ArtistId = artistId ?? 0,		
 				ArtistParticipationStatus = artistParticipationStatus,
-				TimeFilter = since.HasValue ? TimeSpan.FromHours(since.Value) : TimeSpan.Zero
+				TimeFilter = since.HasValue ? TimeSpan.FromHours(since.Value) : TimeSpan.Zero,
+				LyricsLanguages = lyrics != null ? lyrics.Value.ToIndividualSelections().ToArray() : null
 			};
 			param.Common.EntryStatus = status;
 

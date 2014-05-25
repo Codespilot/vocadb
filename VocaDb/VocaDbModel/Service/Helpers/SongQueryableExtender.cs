@@ -157,7 +157,16 @@ namespace VocaDb.Model.Service.Helpers {
 				var lang = languages.First();
 				return query.Where(s => s.Lyrics.Any(l => l.Language == lang));				
 			} else {
-				return query.Where(s => s.Lyrics.Any(l => languages.Contains(l.Language)));				
+
+				var allLanguages = EnumVal<ContentLanguageSelection>.Values.All(languages.Contains);
+
+				if (allLanguages) {
+					// Has lyrics in any language
+					return query.Where(s => s.Lyrics.Any());									
+				} else {
+					return query.Where(s => s.Lyrics.Any(l => languages.Contains(l.Language)));									
+				}
+
 			}
 
 		} 
