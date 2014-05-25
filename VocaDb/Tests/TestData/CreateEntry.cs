@@ -14,6 +14,10 @@ namespace VocaDb.Tests.TestData {
 			return new Album(new LocalizedString(name, ContentLanguageSelection.Unspecified)) { Id = id };
 		}
 
+		public static Artist Artist(ArtistType artistType, int id = 0, string name = "Artist") {
+			return new Artist(TranslatedString.Create(name)) { Id = id, ArtistType = artistType };
+		}
+
 		public static ReleaseEventSeries EventSeries(string name) {
 			return new ReleaseEventSeries(name, string.Empty, new string[0]);
 		}

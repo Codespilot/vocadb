@@ -3,6 +3,23 @@ using System.Linq;
 
 namespace VocaDb.Model.Service.Repositories {
 
+	public interface IRepositoryContext : IDisposable {
+	
+		/// <summary>
+		/// Audit logger for the repository.
+		/// </summary>
+		IAuditLogger AuditLogger { get; }
+	
+		/// <summary>
+		/// Returns a child context for another entity type.
+		/// The unit of work (including transaction) must be shared between this parent context and the child context.
+		/// </summary>
+		/// <typeparam name="T2">New entity type.</typeparam>
+		/// <returns>Child context for that entity type. Cannot be null.</returns>
+		IRepositoryContext<T2> OfType<T2>();
+
+	}
+
 	/// <summary>
 	/// Interface for an unit of work against the repository (database).
 	/// The context (and the contained database session) must be disposed when no longer needed.
@@ -15,12 +32,7 @@ namespace VocaDb.Model.Service.Repositories {
 	/// 
 	/// This might change later with Session Per Request model.
 	/// </remarks>
-	public interface IRepositoryContext<T> : IDisposable {
-
-		/// <summary>
-		/// Audit logger for the repository.
-		/// </summary>
-		IAuditLogger AuditLogger { get; }
+	public interface IRepositoryContext<T> : IRepositoryContext {
 
 		/// <summary>
 		/// Deletes an entity from the repository.
@@ -41,14 +53,6 @@ namespace VocaDb.Model.Service.Repositories {
 		/// <param name="id">Entity Id.</param>
 		/// <returns>The loaded entity. Cannot be null.</returns>
 		T Load(object id);
-
-		/// <summary>
-		/// Returns a child context for another entity type.
-		/// The unit of work (including transaction) must be shared between this parent context and the child context.
-		/// </summary>
-		/// <typeparam name="T2">New entity type.</typeparam>
-		/// <returns>Child context for that entity type. Cannot be null.</returns>
-		IRepositoryContext<T2> OfType<T2>();
 			
 		/// <summary>
 		/// LINQ query against the repository.

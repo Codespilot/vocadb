@@ -2,11 +2,15 @@
 
 namespace VocaDb.Model.Service.Repositories {
 
+	public interface IRepository {
+		
+	}
+
 	/// <summary>
 	/// Interface for running "units of work" against the database.
 	/// </summary>
 	/// <typeparam name="T">Type of entity.</typeparam>
-	public interface IRepository<T> {
+	public interface IRepository<T> : IRepository {
 
 		/// <summary>
 		/// Runs an unit of work that queries the database without saving anything. No explicit transaction will be opened.
