@@ -1316,12 +1316,6 @@
     <TypeScriptCompile Include="Scripts\DataContracts\SongListBaseContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongListContract.ts" />
-    <Content Include="Scripts\DataContracts\Song\SongListContract.js">
-      <DependentUpon>SongListContract.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.js">
-      <DependentUpon>SongWithPVPlayerAndVoteContract.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\User\UserBaseContract.ts" />
     <Content Include="Scripts\DataContracts\User\UserBaseContract.js">
       <DependentUpon>UserBaseContract.ts</DependentUpon>
@@ -1694,9 +1688,6 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButtonset.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButton.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\PVPreviewStatus.ts" />
-    <Content Include="Scripts\KnockoutExtensions\Song\PVPreviewStatus.js">
-      <DependentUpon>PVPreviewStatus.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SongAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\SongTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Sortable.ts" />
@@ -1708,16 +1699,7 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Tag\TagCategoryAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />
-    <Content Include="Scripts\Models\EntryType.js">
-      <DependentUpon>EntryType.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Models\SongVoteRating.js">
-      <DependentUpon>SongVoteRating.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Models\WebLinkCategory.ts" />
-    <Content Include="Scripts\Models\WebLinkCategory.js">
-      <DependentUpon>WebLinkCategory.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <TypeScriptCompile Include="Scripts\Repositories\EntryRepository.ts" />
@@ -1746,45 +1728,15 @@
     <TypeScriptCompile Include="Scripts\Shared\GlobalFunctions.ts" />
     <TypeScriptCompile Include="Scripts\Shared\EntryUrlMapper.ts" />
     <TypeScriptCompile Include="Scripts\Shared\EntrySearchDrop.d.ts" />
-    <Content Include="Scripts\Shared\EntryUrlMapper.js">
-      <DependentUpon>EntryUrlMapper.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Shared\GlobalFunctions.js">
-      <DependentUpon>GlobalFunctions.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Shared\GlobalValues.js">
-      <DependentUpon>GlobalValues.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Shared\WebLinkMatcher.ts" />
     <TypeScriptCompile Include="Scripts\Shared\Messages.d.ts" />
     <TypeScriptCompile Include="Scripts\Shared\UrlMapper.ts" />
-    <Content Include="Scripts\Tests\Models\SongVoteRatingTests.js">
-      <DependentUpon>SongVoteRatingTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\Shared\WebLinkMatcherTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\Shared\GlobalFunctionsTests.ts" />
-    <Content Include="Scripts\Tests\Shared\GlobalFunctionsTests.js">
-      <DependentUpon>GlobalFunctionsTests.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Tests\Shared\WebLinkMatcherTests.js">
-      <DependentUpon>WebLinkMatcherTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeSongRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeArtistRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeAlbumRepository.ts" />
-    <Content Include="Scripts\Tests\TestSupport\FakeAlbumRepository.js">
-      <DependentUpon>FakeAlbumRepository.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Tests\TestSupport\FakeArtistRepository.js">
-      <DependentUpon>FakeArtistRepository.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeEntryReportRepository.ts" />
-    <Content Include="Scripts\Tests\TestSupport\FakeSongRepository.js">
-      <DependentUpon>FakeSongRepository.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Tests\TestSupport\FakeUserRepository.js">
-      <DependentUpon>FakeUserRepository.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ServerSidePagingViewModel.ts" />
@@ -1795,18 +1747,12 @@
     <TypeScriptCompile Include="Scripts\ViewModels\AlbumEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongEditViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.ts" />
-    <Content Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.js">
-      <DependentUpon>SongDetailsViewModelTests.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\TopBarViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\User\UserMessagesViewModelTests.ts" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ManageIPRulesViewModel.ts" />
-    <Content Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.js">
-      <DependentUpon>ViewAuditLogViewModel.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
       <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
     </Content>
@@ -2052,14 +1998,8 @@
       <DependentUpon>SongInAlbumEditViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\Song\SongDetailsViewModel.ts" />
-    <Content Include="Scripts\ViewModels\Song\SongDetailsViewModel.js">
-      <DependentUpon>SongDetailsViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\TopBarViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Song\SongWithPreviewViewModel.ts" />
-    <Content Include="Scripts\ViewModels\Song\SongWithPreviewViewModel.js">
-      <DependentUpon>SongWithPreviewViewModel.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\ViewModels\TopBarViewModel.js">
       <DependentUpon>TopBarViewModel.ts</DependentUpon>
     </Content>
