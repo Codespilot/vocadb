@@ -1753,30 +1753,11 @@
     <Content Include="Scripts\underscore.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ManageIPRulesViewModel.ts" />
-    <Content Include="Scripts\ViewModels\AlbumEditViewModel.js">
-      <DependentUpon>AlbumEditViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumCreateViewModel.ts" />
-    <Content Include="Scripts\ViewModels\Album\AlbumCreateViewModel.js">
-      <DependentUpon>AlbumCreateViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumDetailsViewModel.ts" />
-    <Content Include="Scripts\ViewModels\Album\AlbumDetailsViewModel.js" />
-    <Content Include="Scripts\ViewModels\ArtistEditViewModel.js">
-      <DependentUpon>ArtistEditViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistForAlbumEditViewModel.ts" />
-    <Content Include="Scripts\ViewModels\ArtistForAlbumEditViewModel.js">
-      <DependentUpon>ArtistForAlbumEditViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\NewsListViewModel.ts" />
-    <Content Include="Scripts\ViewModels\SongCreateViewModel.js">
-      <DependentUpon>SongCreateViewModel.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\ViewModels\ArtistCreateViewModel.js">
-      <DependentUpon>ArtistCreateViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinkEditViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinksEditViewModelTests.ts" />
     <Content Include="Scripts\Shared\EntrySearchDrop.js" />
@@ -1982,40 +1963,22 @@
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\Edit.js" />
-    <Content Include="Scripts\ViewModels\PVRatingButtonsViewModel.js">
-      <DependentUpon>PVRatingButtonsViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\MySettingsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongEditViewModel.ts" />
-    <Content Include="Scripts\ViewModels\SongEditViewModel.js">
-      <DependentUpon>SongEditViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\SongInAlbumEditViewModel.ts" />
-    <Content Include="Scripts\ViewModels\SongInAlbumEditViewModel.js">
-      <DependentUpon>SongInAlbumEditViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\Song\SongDetailsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TopBarViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Song\SongWithPreviewViewModel.ts" />
-    <Content Include="Scripts\ViewModels\TopBarViewModel.js">
-      <DependentUpon>TopBarViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\User\RequestVerificationViewModel.ts" />
     <Content Include="Scripts\ViewModels\User\RequestVerificationViewModel.js">
       <DependentUpon>RequestVerificationViewModel.ts</DependentUpon>
     </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\User\UserDetailsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\UserMessagesViewModel.ts" />
-    <Content Include="Scripts\ViewModels\WebLinkEditViewModel.js">
-      <DependentUpon>WebLinkEditViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinksEditViewModel.ts" />
-    <Content Include="Scripts\ViewModels\WebLinksEditViewModel.js">
-      <DependentUpon>WebLinksEditViewModel.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\VocaDb.js" />
     <Content Include="Services\QueryService.svc" />
     <Content Include="sitemap.xml">
