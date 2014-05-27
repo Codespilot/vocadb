@@ -1310,31 +1310,10 @@
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\DuplicateEntryResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\ArtistContract.ts" />
-    <Content Include="Scripts\DataContracts\ArtistContract.js">
-      <DependentUpon>ArtistContract.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\ArtistForAlbumContract.ts" />
-    <Content Include="Scripts\DataContracts\ArtistForAlbumContract.js">
-      <DependentUpon>ArtistForAlbumContract.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\DataContracts\DuplicateEntryResultContract.js">
-      <DependentUpon>DuplicateEntryResultContract.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\DataContracts\EntryRefContract.js">
-      <DependentUpon>EntryRefContract.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\DataContracts\NewSongCheckResultContract.js">
-      <DependentUpon>NewSongCheckResultContract.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\TranslatedEnumField.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\SongContract.ts" />
-    <Content Include="Scripts\DataContracts\SongContract.js">
-      <DependentUpon>SongContract.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\SongListBaseContract.ts" />
-    <Content Include="Scripts\DataContracts\SongListBaseContract.js">
-      <DependentUpon>SongListBaseContract.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongListContract.ts" />
     <Content Include="Scripts\DataContracts\Song\SongListContract.js">
@@ -1343,9 +1322,6 @@
     <Content Include="Scripts\DataContracts\Song\SongWithPVPlayerAndVoteContract.js">
       <DependentUpon>SongWithPVPlayerAndVoteContract.ts</DependentUpon>
     </Content>
-    <Content Include="Scripts\DataContracts\TranslatedEnumField.js">
-      <DependentUpon>TranslatedEnumField.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\DataContracts\User\UserBaseContract.ts" />
     <Content Include="Scripts\DataContracts\User\UserBaseContract.js">
       <DependentUpon>UserBaseContract.ts</DependentUpon>
@@ -1353,9 +1329,6 @@
     <TypeScriptCompile Include="Scripts\DataContracts\User\UserWithIconContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\User\UserMessageSummaryContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\User\UserMessagesContract.ts" />
-    <Content Include="Scripts\DataContracts\WebLinkContract.js">
-      <DependentUpon>WebLinkContract.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Event\Edit.js" />
     <Content Include="Scripts\Event\SeriesEdit.js" />
     <Content Include="Scripts\Home\Index.js" />
@@ -1714,53 +1687,20 @@
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockout-3.1.0.min.js" />
     <Content Include="Scripts\knockout-sortable.js" />
-    <Content Include="Scripts\KnockoutExtensions\ArtistAutoComplete.js">
-      <DependentUpon>ArtistAutoComplete.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\FocusOut.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\EntryToolTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\AutoCompleteParams.ts" />
-    <Content Include="Scripts\KnockoutExtensions\AutoCompleteParams.js">
-      <DependentUpon>AutoCompleteParams.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Dialog.ts" />
-    <Content Include="Scripts\KnockoutExtensions\Dialog.js">
-      <DependentUpon>Dialog.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\KnockoutExtensions\EntryToolTip.js">
-      <DependentUpon>EntryToolTip.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\KnockoutExtensions\FocusOut.js">
-      <DependentUpon>FocusOut.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButtonset.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\jqButton.ts" />
-    <Content Include="Scripts\KnockoutExtensions\jqButton.js">
-      <DependentUpon>jqButton.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\KnockoutExtensions\jqButtonset.js">
-      <DependentUpon>jqButtonset.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\PVPreviewStatus.ts" />
     <Content Include="Scripts\KnockoutExtensions\Song\PVPreviewStatus.js">
       <DependentUpon>PVPreviewStatus.ts</DependentUpon>
     </Content>
-    <Content Include="Scripts\KnockoutExtensions\slideVisible.js">
-      <DependentUpon>SlideVisible.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SongAutoComplete.ts" />
-    <Content Include="Scripts\KnockoutExtensions\SongAutoComplete.js">
-      <DependentUpon>SongAutoComplete.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\SongTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Sortable.ts" />
-    <Content Include="Scripts\KnockoutExtensions\Sortable.js">
-      <DependentUpon>Sortable.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\StopBinding.ts" />
-    <Content Include="Scripts\KnockoutExtensions\StopBinding.js">
-      <DependentUpon>StopBinding.ts</DependentUpon>
-    </Content>
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\marked.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
@@ -1798,19 +1738,7 @@
     <TypeScriptCompile Include="Scripts\Repositories\ArtistRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\AlbumRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\AdminRepository.ts" />
-    <Content Include="Scripts\Repositories\AlbumRepository.js">
-      <DependentUpon>AlbumRepository.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Repositories\ArtistRepository.js">
-      <DependentUpon>ArtistRepository.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Repositories\EntryReportRepository.ts" />
-    <Content Include="Scripts\Repositories\SongRepository.js">
-      <DependentUpon>SongRepository.ts</DependentUpon>
-    </Content>
-    <Content Include="Scripts\Repositories\UserRepository.js">
-      <DependentUpon>UserRepository.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\PVRatingButtonsViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeUserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\Models\SongVoteRatingTests.ts" />

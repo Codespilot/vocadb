@@ -1,9 +1,0 @@
-/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="../typings/knockout/knockout.d.ts" />
-
-ko.bindingHandlers.focusout = {
-    init: function (element, valueAccessor) {
-        var value = ko.utils.unwrapObservable(valueAccessor());
-        $(element).focusout(value);
-    }
-};
