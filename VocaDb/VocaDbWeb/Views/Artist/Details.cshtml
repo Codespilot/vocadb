@@ -1,5 +1,6 @@
 ﻿@using System.Web.Optimization
 @using VocaDb.Model.DataContracts.Artists;
+@using VocaDb.Model.Domain
 @using VocaDb.Model.Helpers
 @using VocaDb.Model.Service
 @using VocaDb.Model.Utils
@@ -172,7 +173,7 @@
 
 		@if (Model.LatestAlbums.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "artist:" + Model.Id, sort = AlbumSortRule.AdditionDate }, null)</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentAlbums, "Index", "Search", new { searchType = EntryType.Album, artistId = Model.Id, sort = AlbumSortRule.AdditionDate }, null)</h3>
             <div id="newAlbums">                
     			@AlbumHelpers.AlbumThumbs(Model.LatestAlbums)
             </div>
@@ -180,7 +181,7 @@
         
 		@if (Model.TopAlbums.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "artist:" + Model.Id, sort = AlbumSortRule.RatingTotal }, null)</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopAlbums, "Index", "Search", new { searchType = EntryType.Album, artistId = Model.Id, sort = AlbumSortRule.RatingTotal }, null)</h3>
             <div id="topAlbums">
 			    @AlbumHelpers.AlbumThumbs(Model.TopAlbums)                
             </div>

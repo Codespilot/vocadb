@@ -1279,7 +1279,9 @@
     <Content Include="Content\vocadb_40.png" />
     <Content Include="Content\youtube.png" />
     <Content Include="License.txt" />
-    <Content Include="opensearch.xml" />
+    <Content Include="opensearch.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

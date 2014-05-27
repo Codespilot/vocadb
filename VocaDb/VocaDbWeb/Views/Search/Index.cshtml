@@ -33,22 +33,23 @@
 			@{ Html.RenderPartial("Partials/_LeftMenu"); }
 			<div class="span10 rightFrame well" style="display: none; min-height: 1000px;" data-bind="visible: true">
 
-				<br />
+				@*<br />
 
-				<div class="btn-group">
-					<button class="@Html.CSS("btn dropdown-toggle").If(!Login.IsLoggedIn, "disabled")" data-toggle="dropdown">
-						<i class="icon-plus noMargin"></i>
-						Submit an entry
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a href="@Url.Action("Create", "Artist")">Artist</a></li>
-						<li><a href="@Url.Action("Create", "Album")">Album</a></li>
-						<li><a href="@Url.Action("Create", "Song")">Song</a></li>
-					</ul>
-				</div>
 
-				<br /><br />
+	<div class="btn-group">
+		<button class="@Html.CSS("btn dropdown-toggle").If(!Login.IsLoggedIn, "disabled")" data-toggle="dropdown">
+			<i class="icon-plus noMargin"></i>
+			Submit an entry
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="@Url.Action("Create", "Artist")">Artist</a></li>
+			<li><a href="@Url.Action("Create", "Album")">Album</a></li>
+			<li><a href="@Url.Action("Create", "Song")">Song</a></li>
+		</ul>
+	</div>
+
+	<br /><br />*@
 
 				<ul class="nav nav-pills">
 					<li data-bind="css: { active: searchType() == 'Anything' }">
@@ -239,6 +240,9 @@
 			var cultureCode = '@UICulture';
 			var languageSelection = '@UserContext.LanguagePreference';
 			var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
+			var searchType = '@ViewBag.SearchType';
+			var sort = '@ViewBag.Sort';
+			var artistId = @ToJS(ViewBag.ArtistId);
 
 			var resourceRepo = new vdb.repositories.ResourceRepository('@RootPath');
 			var entryRepo = new vdb.repositories.EntryRepository('@RootPath');
@@ -247,7 +251,8 @@
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
 			var tagRepo = new vdb.repositories.TagRepository('@RootPath');
 
-			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, languageSelection, cultureCode);
+			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, 
+				languageSelection, cultureCode, searchType, sort, artistId);
 			ko.applyBindings(vm);
 
 			if (query)

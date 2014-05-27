@@ -50,16 +50,22 @@ namespace VocaDb.Web.Controllers
 		[HttpPost]
 		public ActionResult GlobalSearch(GlobalSearchBoxModel model) {
 
-			string action, controller;
-			if (model.ObjectType != EntryType.Undefined) {
-				action = "Index";
-				controller = model.ObjectType.ToString();
-			} else {
-				action = "Index";
-				controller = "Search";
+			switch (model.ObjectType) {
+				case EntryType.Undefined:
+					return RedirectToAction("Index", "Search", new { filter = model.GlobalSearchTerm });
+
+				case EntryType.Album:
+					return RedirectToAction("Index", "Search", new { filter = model.GlobalSearchTerm, searchType = model.ObjectType });
+
+				case EntryType.Artist:
+					return RedirectToAction("Index", "Search", new { filter = model.GlobalSearchTerm, searchType = model.ObjectType });
+
+				default:
+					var controller = model.ObjectType.ToString();
+					return RedirectToAction("Index", controller, new {filter = model.GlobalSearchTerm});
+
 			}
 
-			return RedirectToAction(action, controller, new {filter = model.GlobalSearchTerm});
 
 		}
 

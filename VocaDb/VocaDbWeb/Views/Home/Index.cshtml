@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using VocaDb.Model.Domain
 @using VocaDb.Web.Helpers;
 @using VocaDb.Web.Models.Song
 @using R = ViewRes.Home;
@@ -44,12 +45,12 @@
 
 <br />
 
-<h3 class="withMargin">@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h3>
+<h3 class="withMargin">@R.IndexStrings.NewAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Search", new { searchType = EntryType.Album, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null))</h3>
 <div id="newAlbums">
     @AlbumHelpers.AlbumThumbs(Model.NewAlbums)    
 </div>
 
-<h3 class="withMargin">@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingTotal }, null))</h3>
+<h3 class="withMargin">@R.IndexStrings.TopAlbums (@Html.ActionLink(ViewRes.Home.IndexStrings.ViewMore, "Index", "Search", new { searchType = EntryType.Album, sort = VocaDb.Model.Service.AlbumSortRule.RatingTotal }, null))</h3>
 <div id="topAlbums">
     @AlbumHelpers.AlbumThumbs(Model.TopAlbums)    
 </div>
