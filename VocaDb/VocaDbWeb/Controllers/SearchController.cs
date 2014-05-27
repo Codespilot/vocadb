@@ -1,40 +1,108 @@
 ﻿using System.Web.Mvc;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Search.AlbumSearch;
+using VocaDb.Model.Service.Search.Artists;
 
 namespace VocaDb.Web.Controllers
 {
-    public class SearchController : Controller
+    public class SearchController : ControllerBase
     {
+
+		private readonly AlbumService albumService;
+		private readonly ArtistService artistService;
         private readonly OtherService services;
 
-		public SearchController(OtherService services) {
-			this.services = services;
+		private ActionResult RedirectToAlbum(int id) {
+			return RedirectToAction("Details", "Album", new { id });			
 		}
 
-		public ActionResult Index(string filter, EntryType searchType = EntryType.Undefined) {
+		private ActionResult RedirectToArtist(int id) {
+			return RedirectToAction("Details", "Artist", new { id });			
+		}
 
-			filter = filter ?? string.Empty;
-			var result = services.Find(filter, 1, true);
+		private ActionResult TryRedirect(string filter, EntryType searchType) {
+			
+			var matchMode = NameMatchMode.Auto;
+			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
 
-			if (result.OnlyOneItem) {
+			switch (searchType) {
+				
+				case EntryType.Undefined: {
+					var result = services.Find(filter, 1, true);
 
-				if (result.Albums.TotalCount == 1)
-					return RedirectToAction("Details", "Album", new { id = result.Albums.Items[0].Id });
+					if (result.OnlyOneItem) {
 
-				if (result.Artists.TotalCount == 1)
-					return RedirectToAction("Details", "Artist", new { id = result.Artists.Items[0].Id });
+						if (result.Albums.TotalCount == 1)
+							return RedirectToAlbum(result.Albums.Items[0].Id);
 
-				if (result.Songs.TotalCount == 1)
-					return RedirectToAction("Details", "Song", new { id = result.Songs.Items[0].Id });
+						if (result.Artists.TotalCount == 1)
+							return RedirectToArtist(result.Artists.Items[0].Id);
 
-				if (result.Tags.TotalCount == 1)
-					return RedirectToAction("Details", "Tag", new { id = result.Tags.Items[0].Name });
+						if (result.Songs.TotalCount == 1)
+							return RedirectToAction("Details", "Song", new { id = result.Songs.Items[0].Id });
+
+						if (result.Tags.TotalCount == 1)
+							return RedirectToAction("Details", "Tag", new { id = result.Tags.Items[0].Name });
+
+					}
+
+				}
+				break;
+
+				case EntryType.Artist:
+					var artist = artistService.FindArtists(new ArtistQueryParams(filter, null, 0, 2, false, false, matchMode, ArtistSortRule.None, false));
+					if (artist.Items.Length == 1) {
+						return RedirectToArtist(artist.Items[0].Id);
+					}
+					break;
+
+				case EntryType.Album:
+					var album = albumService.Find(new AlbumQueryParams(filter, DiscType.Unknown, 0, 2, false, false, matchMode, AlbumSortRule.None, false));
+					if (album.Items.Length == 1) {
+						return RedirectToAlbum(album.Items[0].Id);
+					}
+					break;
+
+				default: {
+					var action = "Index";
+					var controller = searchType.ToString();
+					return RedirectToAction(action, controller, new { filter });
+				}
+
+			}
+
+			return null;
+
+		}
+
+		public SearchController(OtherService services, ArtistService artistService, AlbumService albumService) {
+			this.services = services;
+			this.artistService = artistService;
+			this.albumService = albumService;
+		}
+
+		public ActionResult Index(string filter, EntryType searchType = EntryType.Undefined, bool allowRedirect = true,
+			string sort = null, int? artistId = null) {
+
+			filter = !string.IsNullOrEmpty(filter) ? filter.Trim() : string.Empty;
+
+			if (allowRedirect) {
+
+				var redirectResult = TryRedirect(filter, searchType);
+
+				if (redirectResult != null)
+					return redirectResult;
 
 			}
 
 			ViewBag.Query = filter;
-			ViewBag.SearchType = searchType;
+			ViewBag.SearchType = searchType != EntryType.Undefined ? searchType.ToString() : "Anything";
+			ViewBag.Sort = sort;
+			ViewBag.ArtistId = artistId;
+			SetSearchEntryType(searchType);
 			return View();
 
 		}

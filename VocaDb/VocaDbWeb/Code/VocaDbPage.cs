@@ -59,6 +59,10 @@ namespace VocaDb.Web.Code {
 			get { return Url.Content("~/"); }
 		}
 
+		public string ToJS(int? val) {
+			return val.HasValue ? val.ToString() : "null";
+		}
+
 		public IUserPermissionContext UserContext {
 			get { return DependencyResolver.Current.GetService<IUserPermissionContext>(); }
 		}

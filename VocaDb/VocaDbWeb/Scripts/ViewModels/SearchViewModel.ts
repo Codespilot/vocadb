@@ -10,11 +10,12 @@ module vdb.viewModels {
 			albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
 			tagRepo: rep.TagRepository,
 			resourceRepo: rep.ResourceRepository,
-			languageSelection: string, cultureCode: string) {
+			languageSelection: string, cultureCode: string, searchType: string, sort: string,
+			artistId: number) {
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo);
-			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo);
+			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId);
 			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 
@@ -27,6 +28,9 @@ module vdb.viewModels {
 			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
 			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
 			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
+
+			if (searchType)
+				this.searchType(searchType);
 
 			this.searchType.subscribe(val => {
 
@@ -57,11 +61,6 @@ module vdb.viewModels {
 		public searchType = ko.observable("Anything");
 		public tag = ko.observable("");
 
-		public updateAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
-		public updateArtistSearch = ko.computed(() => this.searchType() == 'Artist');
-		public updateAlbumSearch = ko.computed(() => this.searchType() == 'Album');
-		public updateSongSearch = ko.computed(() => this.searchType() == 'Song');
-
 		public showAnythingSearch: KnockoutComputed<boolean>;
 		public showArtistSearch: KnockoutComputed<boolean>;
 		public showAlbumSearch: KnockoutComputed<boolean>;
@@ -72,29 +71,44 @@ module vdb.viewModels {
 
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
 
+		public currentCategoryViewModel = (): ISearchCategoryBaseViewModel => {
+			
+			switch (this.searchType()) {
+				case 'Anything':
+					return this.anythingSearchViewModel;
+				case 'Artist':
+					return this.artistSearchViewModel;
+				case 'Album':
+					return this.albumSearchViewModel;
+				case 'Song':
+					return this.songSearchViewModel;
+				case 'Tag':
+					return this.tagSearchViewModel;
+				default:
+					return null;
+			}
+
+		}
+
 		public updateResults = () => {
 
-			if (this.updateAnythingSearch())
-				this.anythingSearchViewModel.updateResultsWithTotalCount();
+			var vm = this.currentCategoryViewModel();
 
-			if (this.updateArtistSearch())
-				this.artistSearchViewModel.updateResultsWithTotalCount();
-		
-			if (this.updateAlbumSearch())
-				this.albumSearchViewModel.updateResultsWithTotalCount();
-
-			if (this.showSongSearch())
-				this.songSearchViewModel.updateResultsWithTotalCount();
-			
-			if (this.showTagSearch())
-				this.tagSearchViewModel.updateResultsWithTotalCount();
+			if (vm != null)
+				vm.updateResultsWithTotalCount();
 				
 		}
 
 	}
 
+	export interface ISearchCategoryBaseViewModel {
+
+		updateResultsWithTotalCount: () => void;
+
+	}
+
 	// Base class for different types of searches.
-	export class SearchCategoryBaseViewModel<TEntry> {
+	export class SearchCategoryBaseViewModel<TEntry> implements ISearchCategoryBaseViewModel {
 		
 		constructor(public searchViewModel: SearchViewModel) {
 
@@ -197,20 +211,21 @@ module vdb.viewModels {
 
 	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
 
-		constructor(searchViewModel: SearchViewModel, lang: string, private albumRepo: rep.AlbumRepository, private artistRepo: rep.ArtistRepository) {
+		constructor(searchViewModel: SearchViewModel, lang: string, private albumRepo: rep.AlbumRepository,
+			private artistRepo: rep.ArtistRepository, sort: string, artistId: number) {
 
 			super(searchViewModel);
 
-			var vm = this;
-
 			this.artistSearchParams = {
 				allowCreateNew: false,
-				acceptSelection: (artistId: number) => {
-					vm.artistId(artistId);
-					this.artistRepo.getOne(artistId, artist => vm.artistName(artist.name));
-				},
+				acceptSelection: this.selectArtist,
 				height: 300
 			};
+
+			this.sort(sort);
+
+			if (artistId)
+				this.selectArtist(artistId);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.albumType.subscribe(this.updateResultsWithTotalCount);
@@ -242,6 +257,11 @@ module vdb.viewModels {
 			var ratings = _.map([1, 2, 3, 4, 5], rating => { return { enabled: (Math.round(album.ratingAverage) >= rating) } });
 			return ratings;
 
+		};
+
+		public selectArtist = (selectedArtistId: number) => {
+			this.artistId(selectedArtistId);
+			this.artistRepo.getOne(selectedArtistId, artist => this.artistName(artist.name));
 		};
 
 	}
