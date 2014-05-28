@@ -148,30 +148,7 @@ namespace VocaDb.Web.Controllers
         // GET: /Artist/
 		public ActionResult Index(IndexRouteParams routeParams) {
 
-			WebHelper.VerifyUserAgent(Request);
-
-			var artistType = routeParams.artistType ?? ArtistType.Unknown;
-			var filter = routeParams.filter;
-			var page = routeParams.page;
-			var draftsOnly = routeParams.draftsOnly;
-			var matchMode = routeParams.matchMode ?? NameMatchMode.Auto;
-			var sortRule = routeParams.sort ?? ArtistSortRule.Name;
-
-			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
-
-			var queryParams = new ArtistQueryParams(filter,
-				artistType != ArtistType.Unknown ? new[] { artistType } : new ArtistType[] { },
-				((page ?? 1) - 1) * 30, 30, draftsOnly ?? false, true, matchMode, sortRule, false);
-
-			var result = Service.FindArtists(queryParams);
-
-			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
-				return RedirectToAction("Details", new { id = result.Items[0].Id });
-			}
-
-			var model = new ArtistIndex(result, filter, artistType, draftsOnly, sortRule, page, routeParams);
-
-			return View(model);
+			return RedirectToAction("Index", "Search", new { searchType = EntryType.Artist, routeParams.filter, routeParams.sort });
 
         }
 

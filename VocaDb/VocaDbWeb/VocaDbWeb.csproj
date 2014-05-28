@@ -1292,7 +1292,6 @@
     <Content Include="Scripts\Album\Create.js" />
     <Content Include="Scripts\Album\Edit.js" />
     <Content Include="Scripts\Album\Details.js" />
-    <Content Include="Scripts\Album\Index.js" />
     <Content Include="Scripts\Album\Merge.js" />
     <Content Include="Scripts\Artist\Details.js" />
     <Content Include="Scripts\Artist\Edit.js" />
@@ -2024,9 +2023,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Artist\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -2037,9 +2033,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Album\Details.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Album\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\User\Login.cshtml" />

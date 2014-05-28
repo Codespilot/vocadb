@@ -1,56 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using PagedList;
-using VocaDb.Model;
-using VocaDb.Model.DataContracts.Artists;
+﻿using VocaDb.Model;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service;
-using VocaDb.Model.Utils;
-using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Models.Artist {
-
-	public class ArtistIndex {
-
-		public ArtistIndex() { }
-
-		public ArtistIndex(PartialFindResult<ArtistWithAdditionalNamesContract> result, string filter,
-			ArtistType artistType, bool? draftsOnly, ArtistSortRule sort, int? page, IndexRouteParams routeParams) {
-
-			Artists = new StaticPagedList<ArtistWithAdditionalNamesContract>(result.Items, page ?? 1, 30, result.TotalCount);
-			DraftsOnly = draftsOnly ?? false;
-			Filter = filter;
-			ArtistType = artistType;
-			Sort = sort;
-			RouteParams = routeParams;
-
-			FilterableArtistTypes = AppConfig.ArtistTypes.ToDictionary(a => a, Translate.ArtistTypeName);
-
-		}
-
-		public IPagedList<ArtistWithAdditionalNamesContract> Artists { get; set; }
-
-		public ArtistType ArtistType { get; set; }
-
-		[Display(ResourceType = typeof(ViewRes.EntryIndexStrings), Name = "OnlyDrafts")]
-		public bool DraftsOnly { get; set; }
-
-		public string Filter { get; set; }
-
-		public Dictionary<ArtistType, string> FilterableArtistTypes { get; set; }
-
-		public IndexRouteParams RouteParams { get; set; }
-
-		public ArtistSortRule Sort { get; set; }
-
-		public IndexRouteParams CreateRouteParams(int page) {
-			return new IndexRouteParams(RouteParams, page);
-		}
-
-	}
 
 	/// <summary>
 	/// Parameter collection given to index action.
