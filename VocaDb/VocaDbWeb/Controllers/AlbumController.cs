@@ -29,6 +29,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Web.Models.Search;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
@@ -98,7 +99,10 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(IndexRouteParams routeParams) {
 
-			return RedirectToAction("Index", "Search", new { searchType = EntryType.Album, routeParams.filter, routeParams.sort });
+			return RedirectToAction("Index", "Search", new SearchRouteParams {
+				searchType = EntryType.Album, filter = routeParams.filter, sort = routeParams.sort,
+				discType = routeParams.discType
+			});
 
         }
 

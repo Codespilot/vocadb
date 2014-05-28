@@ -10,14 +10,27 @@ module vdb.viewModels {
 			albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
 			tagRepo: rep.TagRepository,
 			resourceRepo: rep.ResourceRepository,
-			languageSelection: string, cultureCode: string, searchType: string, sort: string,
-			artistId: number) {
+			languageSelection: string, cultureCode: string, searchType: string,
+			tag: string,
+			sort: string,
+			artistId: number,
+			artistType: string,
+			albumType: string) {
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
-			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo);
-			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId);
+			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
+			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId, albumType);
 			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
+
+			if (tag || artistId || artistType || albumType)
+				this.showAdvancedFilters(true);
+
+			if (searchType)
+				this.searchType(searchType);
+
+			if (tag)
+				this.tag(tag);
 
 			this.pageSize.subscribe(this.updateResults);
 			this.searchTerm.subscribe(this.updateResults);
@@ -28,9 +41,6 @@ module vdb.viewModels {
 			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
 			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
 			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
-
-			if (searchType)
-				this.searchType(searchType);
 
 			this.searchType.subscribe(val => {
 
@@ -188,9 +198,12 @@ module vdb.viewModels {
 
 	export class ArtistSearchViewModel extends SearchCategoryBaseViewModel<dc.ArtistApiContract> {
 
-		constructor(searchViewModel: SearchViewModel, lang: string, private artistRepo: rep.ArtistRepository) {
+		constructor(searchViewModel: SearchViewModel, lang: string, private artistRepo: rep.ArtistRepository, artistType: string) {
 
 			super(searchViewModel);
+
+			if (artistType)
+				this.artistType(artistType);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.artistType.subscribe(this.updateResultsWithTotalCount);
@@ -212,7 +225,7 @@ module vdb.viewModels {
 	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
 
 		constructor(searchViewModel: SearchViewModel, lang: string, private albumRepo: rep.AlbumRepository,
-			private artistRepo: rep.ArtistRepository, sort: string, artistId: number) {
+			private artistRepo: rep.ArtistRepository, sort: string, artistId: number, albumType: string) {
 
 			super(searchViewModel);
 
@@ -222,10 +235,14 @@ module vdb.viewModels {
 				height: 300
 			};
 
-			this.sort(sort);
+			if (sort)
+				this.sort(sort);
 
 			if (artistId)
 				this.selectArtist(artistId);
+
+			if (albumType)
+				this.albumType(albumType);
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.albumType.subscribe(this.updateResultsWithTotalCount);

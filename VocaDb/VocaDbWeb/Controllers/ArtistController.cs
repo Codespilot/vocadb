@@ -26,6 +26,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Web.Models.Artist;
 using VocaDb.Web.Helpers;
 using MvcPaging;
+using VocaDb.Web.Models.Search;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
@@ -144,14 +145,17 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-        //
-        // GET: /Artist/
+        [Obsolete]
 		public ActionResult Index(IndexRouteParams routeParams) {
 
-			return RedirectToAction("Index", "Search", new { searchType = EntryType.Artist, routeParams.filter, routeParams.sort });
+			return RedirectToAction("Index", "Search", new SearchRouteParams {
+				searchType = EntryType.Artist, filter = routeParams.filter, sort = routeParams.sort,
+				artistType = routeParams.artistType
+			});
 
         }
 
+		// Doesn't seem this is in use?
 		public ActionResult Info(int id = invalidId) {
 
 			if (id == invalidId)

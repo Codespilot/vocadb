@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.AlbumSearch;
@@ -85,7 +86,12 @@ namespace VocaDb.Web.Controllers
 		}
 
 		public ActionResult Index(string filter, EntryType searchType = EntryType.Undefined, bool allowRedirect = true,
-			string sort = null, int? artistId = null) {
+			string tag = null,
+			string sort = null, 
+			int? artistId = null,
+			ArtistType? artistType = null,
+			DiscType? discType = null
+			) {
 
 			filter = !string.IsNullOrEmpty(filter) ? filter.Trim() : string.Empty;
 
@@ -100,8 +106,12 @@ namespace VocaDb.Web.Controllers
 
 			ViewBag.Query = filter;
 			ViewBag.SearchType = searchType != EntryType.Undefined ? searchType.ToString() : "Anything";
+			ViewBag.Tag = tag;
 			ViewBag.Sort = sort;
 			ViewBag.ArtistId = artistId;
+			ViewBag.ArtistType = artistType;
+			ViewBag.DiscType = discType;
+
 			SetSearchEntryType(searchType);
 			return View();
 

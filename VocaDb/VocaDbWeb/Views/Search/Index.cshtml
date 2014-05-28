@@ -240,9 +240,12 @@
 			var cultureCode = '@UICulture';
 			var languageSelection = '@UserContext.LanguagePreference';
 			var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
+			var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
 			var searchType = '@ViewBag.SearchType';
 			var sort = '@ViewBag.Sort';
 			var artistId = @ToJS(ViewBag.ArtistId);
+			var artistType = '@ViewBag.ArtistType';
+			var discType = '@ViewBag.DiscType';
 
 			var resourceRepo = new vdb.repositories.ResourceRepository('@RootPath');
 			var entryRepo = new vdb.repositories.EntryRepository('@RootPath');
@@ -252,7 +255,7 @@
 			var tagRepo = new vdb.repositories.TagRepository('@RootPath');
 
 			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, 
-				languageSelection, cultureCode, searchType, sort, artistId);
+				languageSelection, cultureCode, searchType, tag, sort, artistId, artistType, discType);
 			ko.applyBindings(vm);
 
 			if (query)
