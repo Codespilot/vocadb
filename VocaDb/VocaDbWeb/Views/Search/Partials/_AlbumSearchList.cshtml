@@ -40,10 +40,15 @@
 				</td>
 				<td>
 					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#"></a><br />
-					<small class="extraInfo" data-bind="text: artistString"></small>
+					<small class="extraInfo" data-bind="text: artistString"></small><br />
+					<small class="extraInfo" data-bind="text: $parent.searchViewModel.resources().discTypeNames[discType]"></small>
 				</td>
 				<td>
 					<span data-bind="text: releaseDate ? releaseDate.formatted : ''"></span>
+					<span data-bind="visible: $data.releaseEvent">
+						<br />
+						<a data-bind="text: $data.releaseEvent, attr: { href: '/Event/Find?query=' + encodeURIComponent($data.releaseEvent) }" href="#"></a>
+					</span>
 				</td>
 				<td>
 					<span data-bind="attr: { title: ratingAverage }, foreach: $parent.ratingStars($data)">

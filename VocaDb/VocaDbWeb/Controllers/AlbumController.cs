@@ -98,31 +98,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(IndexRouteParams routeParams) {
 
-			WebHelper.VerifyUserAgent(Request);
-
-			var filter = routeParams.filter;
-			var page = routeParams.page;
-			var draftsOnly = routeParams.draftsOnly;
-			var dType = routeParams.discType ?? DiscType.Unknown;
-			var matchMode = routeParams.matchMode ?? NameMatchMode.Auto;
-			var sortRule = routeParams.sort ?? AlbumSortRule.Name;
-			var viewMode = routeParams.view ?? EntryViewMode.Details;
-
-			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
-
-			var queryParams = new AlbumQueryParams(filter, dType, ((page ?? 1) - 1) * 30, 30, draftsOnly ?? false,
-				true, moveExactToTop: false, sortRule: sortRule, nameMatchMode: matchMode);
-
-			var result = Service.Find(queryParams);
-
-			if (page == null && result.TotalCount == 1 && result.Items.Length == 1) {
-				return RedirectToAction("Details", new { id = result.Items[0].Id });
-			}
-
-			var model = new Index(result, filter, dType, sortRule, viewMode, page, draftsOnly, routeParams);
-			SetSearchEntryType(EntryType.Album);
-
-            return View(model);
+			return RedirectToAction("Index", "Search", new { searchType = EntryType.Album, routeParams.filter, routeParams.sort });
 
         }
 

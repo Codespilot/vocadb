@@ -97,14 +97,14 @@ namespace VocaDb.Web.Controllers.Api {
 			int start = 0, 
 			int maxResults = defaultMax,
 			bool getTotalCount = false, 
-			AlbumSortRule sort = AlbumSortRule.Name,
+			AlbumSortRule? sort = null,
 			NameMatchMode nameMatchMode = NameMatchMode.Exact, 
 			AlbumOptionalFields fields = AlbumOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
 			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
 
-			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort) {
+			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort ?? AlbumSortRule.Name) {
 				Tag = tag,
 				ArtistId = artistId ?? 0,
 				ArtistParticipationStatus = artistParticipationStatus
