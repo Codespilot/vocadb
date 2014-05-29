@@ -24,8 +24,10 @@ module vdb.viewModels.search {
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
-			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId, albumType);
-			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo, userRepo, sort, artistId, songType, onlyWithPVs);
+			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo,
+				searchType == "Album" ? sort : null, searchType == "Album" ? artistId : null, albumType);
+			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo, userRepo,
+				searchType == "Song" ? sort : null, searchType == "Song" ? artistId : null, songType, onlyWithPVs);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 
 			if (tag || artistId != null || artistType || albumType || songType || onlyWithPVs != null)
