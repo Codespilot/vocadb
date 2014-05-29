@@ -14,10 +14,12 @@ namespace VocaDb.Model.DataContracts {
 		public EntryThumbForApiContract() { }
 
 		public EntryThumbForApiContract(IEntryImageInformation image, IEntryImagePersister thumbPersister, bool ssl) {
-			
-			UrlSmallThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.SmallThumb, ssl);
-			UrlThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.Thumb, ssl);
-			UrlTinyThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.TinyThumb, ssl);
+
+			if (!string.IsNullOrEmpty(image.Mime)) {
+				UrlSmallThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.SmallThumb, ssl);
+				UrlThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.Thumb, ssl);
+				UrlTinyThumb = thumbPersister.GetUrlAbsolute(image, ImageSize.TinyThumb, ssl);				
+			}
 
 		}
 
