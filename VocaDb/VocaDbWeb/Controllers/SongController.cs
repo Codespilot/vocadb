@@ -23,6 +23,7 @@ using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
+using VocaDb.Web.Models.Search;
 using VocaDb.Web.Models.Song;
 using System;
 using VocaDb.Web.Helpers;
@@ -123,50 +124,10 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Index(IndexRouteParams indexParams) {
 
-			WebHelper.VerifyUserAgent(Request);
-
-			var pageSize = (indexParams.pageSize.HasValue ? Math.Min(indexParams.pageSize.Value, 30) : 30);
-			var page = indexParams.page ?? 1;
-			var sortRule = indexParams.sort ?? SongSortRule.Name;
-			var timeFilter = DateTimeUtils.ParseFromSimpleString(indexParams.since);
-			var filter = indexParams.filter;
-			var songType = indexParams.songType ?? SongType.Unspecified;
-			var draftsOnly = indexParams.draftsOnly ?? false;
-			var matchMode = indexParams.matchMode ?? NameMatchMode.Auto;
-			var onlyWithPVs = indexParams.onlyWithPVs ?? false;
-			var minScore = indexParams.minScore ?? 0;
-			var userCollectionId = indexParams.userCollectionId ?? 0;
-			var lyricsLanguages = indexParams.hasLyrics != null && indexParams.hasLyrics.Value != ContentLanguageSelection.Unspecified ? new[] { indexParams.hasLyrics.Value } : null;
-			var view = indexParams.view ?? SongViewMode.Details;
-
-			filter = FindHelpers.GetMatchModeAndQueryForSearch(filter, ref matchMode);
-
-			var queryParams = new SongQueryParams(filter,
-				songType != SongType.Unspecified ? new[] { songType } : new SongType[] { },
-				(page - 1) * pageSize, pageSize, draftsOnly, true, matchMode, sortRule, false, false, null) {
-
-				TimeFilter = timeFilter,
-				OnlyWithPVs = onlyWithPVs,
-				ArtistId = indexParams.artistId ?? 0,		
-				MinScore = minScore,
-				UserCollectionId = userCollectionId,
-				LyricsLanguages = lyricsLanguages
-			};
-
-			var result = Service.FindWithAlbum(queryParams, view == SongViewMode.Preview);
-
-			if (page == 1 && result.TotalCount == 1 && result.Items.Length == 1) {
-				return RedirectToAction("Details", new { id = result.Items[0].Id });
-			}
-
-			SetSearchEntryType(EntryType.Song);
-
-			var model = new Index(result, filter, matchMode, songType, indexParams.since, onlyWithPVs, minScore,
-				userCollectionId,
-				indexParams.hasLyrics ?? ContentLanguageSelection.Unspecified,
-				sortRule, view, draftsOnly, page, pageSize, indexParams);
-
-        	return View(model);
+			return RedirectToAction("Index", "Search", new SearchRouteParams {
+				searchType = EntryType.Song, filter = indexParams.filter, sort = indexParams.sort,
+				songType = indexParams.songType, onlyWithPVs = indexParams.onlyWithPVs, artistId = indexParams.artistId
+			});
 
         }
 

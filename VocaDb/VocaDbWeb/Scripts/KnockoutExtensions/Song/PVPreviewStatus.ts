@@ -6,6 +6,8 @@
 /// <reference path="../../Repositories/UserRepository.ts" />
 /// <reference path="../../ViewModels/Song/SongWithPreviewViewModel.ts" />
 
+// Note: only for reference, not in use.
+
 interface KnockoutBindingHandlers {
     pvPreviewStatus: KnockoutBindingHandler;
 }

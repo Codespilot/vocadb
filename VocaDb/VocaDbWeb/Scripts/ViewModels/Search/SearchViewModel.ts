@@ -12,19 +12,23 @@ module vdb.viewModels.search {
 			resourceRepo: rep.ResourceRepository,
 			userRepo: rep.UserRepository,
 			languageSelection: string, cultureCode: string, searchType: string,
+			searchTerm: string,
 			tag: string,
 			sort: string,
 			artistId: number,
 			artistType: string,
-			albumType: string) {
+			albumType: string, songType: string, onlyWithPVs: boolean) {
+
+			if (searchTerm)
+				this.searchTerm(searchTerm);
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId, albumType);
-			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo, userRepo);
+			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo, userRepo, sort, artistId, songType, onlyWithPVs);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 
-			if (tag || artistId || artistType || albumType)
+			if (tag || artistId != null || artistType || albumType || songType || onlyWithPVs != null)
 				this.showAdvancedFilters(true);
 
 			if (searchType)

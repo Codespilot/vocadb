@@ -59,6 +59,10 @@ namespace VocaDb.Web.Code {
 			get { return Url.Content("~/"); }
 		}
 
+		public string ToJS(bool? val) {
+			return val.HasValue ? (val.Value ? "true" : "false") : "null";
+		}
+
 		public string ToJS(int? val) {
 			return val.HasValue ? val.ToString() : "null";
 		}

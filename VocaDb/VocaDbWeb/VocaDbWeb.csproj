@@ -2044,7 +2044,6 @@
     <Content Include="Views\Artist\Edit.cshtml" />
     <Content Include="Views\Album\Edit.cshtml" />
     <Content Include="Views\Song\Edit.cshtml" />
-    <Content Include="Views\Song\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\MySettings.cshtml" />
     <Content Include="Views\Artist\ArtistForAlbumRow.cshtml" />
@@ -2185,7 +2184,6 @@
     <Content Include="Views\Song\UsersWithSongRating.cshtml" />
     <Content Include="Views\Home\Wiki.cshtml" />
     <Content Include="Views\Shared\SongPopupContent.cshtml" />
-    <Content Include="Views\Song\Partials\_SongDetailsList.cshtml" />
     <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
     <Content Include="Views\Shared\Partials\_PVRatingButtonsForIndex.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />

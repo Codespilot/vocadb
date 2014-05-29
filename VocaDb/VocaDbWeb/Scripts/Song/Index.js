@@ -1,4 +1,6 @@
 ﻿
+// Note: only for reference, not in use
+
 function IndexViewModel(model) {
 
 	var self = this;

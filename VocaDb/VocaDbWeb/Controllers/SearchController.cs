@@ -2,10 +2,12 @@
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
+using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Web.Controllers
 {
@@ -15,6 +17,7 @@ namespace VocaDb.Web.Controllers
 		private readonly AlbumService albumService;
 		private readonly ArtistService artistService;
         private readonly OtherService services;
+		private readonly SongService songService;
 
 		private ActionResult RedirectToAlbum(int id) {
 			return RedirectToAction("Details", "Album", new { id });			
@@ -22,6 +25,10 @@ namespace VocaDb.Web.Controllers
 
 		private ActionResult RedirectToArtist(int id) {
 			return RedirectToAction("Details", "Artist", new { id });			
+		}
+
+		private ActionResult RedirectToSong(int id) {
+			return RedirectToAction("Details", "Song", new { id });			
 		}
 
 		private ActionResult TryRedirect(string filter, EntryType searchType) {
@@ -43,7 +50,7 @@ namespace VocaDb.Web.Controllers
 							return RedirectToArtist(result.Artists.Items[0].Id);
 
 						if (result.Songs.TotalCount == 1)
-							return RedirectToAction("Details", "Song", new { id = result.Songs.Items[0].Id });
+							return RedirectToSong(result.Songs.Items[0].Id);
 
 						if (result.Tags.TotalCount == 1)
 							return RedirectToAction("Details", "Tag", new { id = result.Tags.Items[0].Name });
@@ -67,6 +74,13 @@ namespace VocaDb.Web.Controllers
 					}
 					break;
 
+				case EntryType.Song:
+					var song = songService.Find(new SongQueryParams(filter, null, 0, 2, false, false, matchMode, SongSortRule.None, false, false, null));
+					if (song.Items.Length == 1) {
+						return RedirectToSong(song.Items[0].Id);
+					}
+					break;
+
 				default: {
 					var action = "Index";
 					var controller = searchType.ToString();
@@ -79,10 +93,11 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public SearchController(OtherService services, ArtistService artistService, AlbumService albumService) {
+		public SearchController(OtherService services, ArtistService artistService, AlbumService albumService, SongService songService) {
 			this.services = services;
 			this.artistService = artistService;
 			this.albumService = albumService;
+			this.songService = songService;
 		}
 
 		public ActionResult Index(string filter, EntryType searchType = EntryType.Undefined, bool allowRedirect = true,
@@ -90,12 +105,14 @@ namespace VocaDb.Web.Controllers
 			string sort = null, 
 			int? artistId = null,
 			ArtistType? artistType = null,
-			DiscType? discType = null
+			DiscType? discType = null,
+			SongType? songType = null,
+			bool? onlyWithPVs = null
 			) {
 
 			filter = !string.IsNullOrEmpty(filter) ? filter.Trim() : string.Empty;
 
-			if (allowRedirect) {
+			if (allowRedirect && !string.IsNullOrEmpty(filter)) {
 
 				var redirectResult = TryRedirect(filter, searchType);
 
@@ -111,6 +128,8 @@ namespace VocaDb.Web.Controllers
 			ViewBag.ArtistId = artistId;
 			ViewBag.ArtistType = artistType;
 			ViewBag.DiscType = discType;
+			ViewBag.SongType = songType;
+			ViewBag.OnlyWithPVs = onlyWithPVs;
 
 			SetSearchEntryType(searchType);
 			return View();

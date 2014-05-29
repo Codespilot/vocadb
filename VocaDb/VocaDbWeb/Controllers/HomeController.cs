@@ -60,6 +60,9 @@ namespace VocaDb.Web.Controllers
 				case EntryType.Artist:
 					return RedirectToAction("Index", "Search", new { filter = model.GlobalSearchTerm, searchType = model.ObjectType });
 
+				case EntryType.Song:
+					return RedirectToAction("Index", "Search", new { filter = model.GlobalSearchTerm, searchType = model.ObjectType });
+
 				default:
 					var controller = model.ObjectType.ToString();
 					return RedirectToAction("Index", controller, new {filter = model.GlobalSearchTerm});
