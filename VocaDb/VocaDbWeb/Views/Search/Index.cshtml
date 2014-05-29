@@ -90,23 +90,24 @@
 					</li>
 				</ul>
 
-				<div class="pull-right">
-					@SearchDropDown("showArtistSearch", "artistSearchViewModel", Translate.ArtistSortRuleNames.ValuesAndNamesStrings)
-					@SearchDropDown("showAlbumSearch", "albumSearchViewModel", Translate.AlbumSortRuleNames.ValuesAndNamesStrings)
-					@SearchDropDown("showSongSearch", "songSearchViewModel", Translate.SongSortRuleNames.ValuesAndNamesStrings)
+				<div id="anythingSearchTab" class="form-horizontal well well-transparent">
+					
+					<div class="pull-right">
+						@SearchDropDown("showArtistSearch", "artistSearchViewModel", Translate.ArtistSortRuleNames.ValuesAndNamesStrings)
+						@SearchDropDown("showAlbumSearch", "albumSearchViewModel", Translate.AlbumSortRuleNames.ValuesAndNamesStrings)
+						@SearchDropDown("showSongSearch", "songSearchViewModel", Translate.SongSortRuleNames.ValuesAndNamesStrings)
 
-					<div class="btn-group" data-bind="visible: showAlbumSearch(), with: albumSearchViewModel">
-						<a data-bind="css: { active: viewMode() == 'Details' }, click: function() { viewMode('Details'); }" class="btn btn-nomargin" href="#">
-							<i class="icon-list"></i>
-						</a>
-						<a data-bind="css: { active: viewMode() == 'Tiles' }, click: function() { viewMode('Tiles'); }" class="btn btn-nomargin" href="#">
-							<i class="icon-th"></i>
-						</a>
+						<div class="btn-group" data-bind="visible: showAlbumSearch(), with: albumSearchViewModel">
+							<a data-bind="css: { active: viewMode() == 'Details' }, click: function() { viewMode('Details'); }" class="btn btn-nomargin" href="#">
+								<i class="icon-list"></i>
+							</a>
+							<a data-bind="css: { active: viewMode() == 'Tiles' }, click: function() { viewMode('Tiles'); }" class="btn btn-nomargin" href="#">
+								<i class="icon-th"></i>
+							</a>
+						</div>
+
 					</div>
 
-				</div>
-
-				<div id="anythingSearchTab" class="form-horizontal">
 					<div class="control-label">Query</div>
 					<div class="control-group">
 						<div class="controls">
@@ -256,37 +257,36 @@
 
 	<script type="text/javascript">
 
-		$(document).ready(function () {
+	$(document).ready(function () {
 
-			var cultureCode = '@UICulture';
-			var languageSelection = '@UserContext.LanguagePreference';
-			var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
-			var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
-			var searchType = '@ViewBag.SearchType';
-			var sort = '@ViewBag.Sort';
-			var artistId = @ToJS(ViewBag.ArtistId);
-			var artistType = '@ViewBag.ArtistType';
-			var discType = '@ViewBag.DiscType';
-			var rootPath = '@RootPath';
+		var cultureCode = '@UICulture';
+		var languageSelection = '@UserContext.LanguagePreference';
+		var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
+		var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
+		var searchType = '@ViewBag.SearchType';
+		var sort = '@ViewBag.Sort';
+		var artistId = @ToJS((int?)ViewBag.ArtistId);
+		var artistType = '@ViewBag.ArtistType';
+		var discType = '@ViewBag.DiscType';
+		var songType ='@ViewBag.SongType';
+		var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
+		var rootPath = '@RootPath';
 
-			var urlMapper = new vdb.UrlMapper(rootPath);
-			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
-			var entryRepo = new vdb.repositories.EntryRepository(rootPath);
-			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
-			var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
-			var songRepo = new vdb.repositories.SongRepository(rootPath);
-			var tagRepo = new vdb.repositories.TagRepository(rootPath);
-			var userRepo = new vdb.repositories.UserRepository(urlMapper);
+		var urlMapper = new vdb.UrlMapper(rootPath);
+		var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
+		var entryRepo = new vdb.repositories.EntryRepository(rootPath);
+		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+		var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
+		var songRepo = new vdb.repositories.SongRepository(rootPath);
+		var tagRepo = new vdb.repositories.TagRepository(rootPath);
+		var userRepo = new vdb.repositories.UserRepository(urlMapper);
 
-			var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, 
-				userRepo,
-				languageSelection, cultureCode, searchType, tag, sort, artistId, artistType, discType);
-			ko.applyBindings(vm);
+		var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
+			userRepo,
+			languageSelection, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
+		ko.applyBindings(vm);
 
-			if (query)
-				vm.searchTerm(query);
-
-		});
+	});
 
 	</script>
 

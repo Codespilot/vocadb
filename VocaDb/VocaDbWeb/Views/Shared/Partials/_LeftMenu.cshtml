@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Model.Domain
 @using VocaDb.Web.Helpers
 @using VocaDb.Model.Domain.Security
+@using VocaDb.Web.Models.Search
 @using VocaDb.Web.Models.Song
 @using VocaDb.Web.Code
 @using VocaDb.Model.Utils
@@ -43,20 +44,20 @@
 					@if (Login.CanManageDb) {
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.AddAlbum, "Create", "Album")</li>
 					}
-					<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
-					<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
+					<li>@Html.ActionLink(ViewRes.SharedStrings.TopRatedAlbums, "Index", "Search", new SearchRouteParams { searchType = EntryType.Album, sort = VocaDb.Model.Service.AlbumSortRule.RatingAverage }, null)</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.NewAlbums, "Index", "Search", new SearchRouteParams { searchType = EntryType.Album, sort = VocaDb.Model.Service.AlbumSortRule.ReleaseDate }, null)</li>
 					<li>@Html.ActionLink(ViewRes.SharedStrings.ReleaseEvents, "EventsBySeries", "Event")</li>
 					<li>@Html.ActionLink(ViewRes._LayoutStrings.FreeAlbums, "Index", "Search", new { searchType = "Album", tag = "free" }, null)</li>
 				</ul>
 			</li>
 			<li>
-				@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Song")
+				@Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Search", new SearchRouteParams{ searchType = EntryType.Song }, null)
 				<ul>
 					@if (Login.CanManageDb) {
 						<li>@Html.ActionLink(ViewRes._LayoutStrings.AddSong, "Create", "Song")</li>
 					}
-					<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
-					<li>@Html.ActionLink(ViewRes._LayoutStrings.NewPVs, "Index", "Song", new IndexRouteParams { sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null)</li>
+					<li>@Html.ActionLink(ViewRes.SharedStrings.TopFavoritedSongs, "Index", "Search", new SearchRouteParams { searchType = EntryType.Song, sort = VocaDb.Model.Service.SongSortRule.RatingScore }, null)</li>
+					<li>@Html.ActionLink(ViewRes._LayoutStrings.NewPVs, "Index", "Search", new SearchRouteParams { searchType = EntryType.Song, sort = VocaDb.Model.Service.SongSortRule.AdditionDate, onlyWithPVs = true }, null)</li>
 				</ul>
 			</li>
 			<li>@Html.ActionLink(ViewRes.SharedStrings.FeaturedSongLists, "Featured", "SongList")</li>

@@ -11,20 +11,30 @@ module vdb.viewModels.search {
 			lang: string,
 			private songRepo: rep.SongRepository,
 			private artistRepo: rep.ArtistRepository,
-			private userRepo: rep.UserRepository) {
+			private userRepo: rep.UserRepository,
+			sort: string,
+			artistId: number,
+			songType: string, onlyWithPVs: boolean) {
 
 			super(searchViewModel);
 
-			var vm = this;
-
 			this.artistSearchParams = {
 				allowCreateNew: false,
-				acceptSelection: (artistId: number) => {
-					vm.artistId(artistId);
-					this.artistRepo.getOne(artistId, artist => vm.artistName(artist.name));
-				},
+				acceptSelection: this.selectArtist,
 				height: 300
 			};
+
+			if (sort)
+				this.sort(sort);
+
+			if (artistId)
+				this.selectArtist(artistId);
+
+			if (songType)
+				this.songType(songType);
+
+			if (onlyWithPVs)
+				this.pvsOnly(onlyWithPVs);
 
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
 			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
@@ -69,6 +79,11 @@ module vdb.viewModels.search {
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().songSortRuleNames[this.sort()] : "");
+
+		public selectArtist = (selectedArtistId: number) => {
+			this.artistId(selectedArtistId);
+			this.artistRepo.getOne(selectedArtistId, artist => this.artistName(artist.name));
+		};
 
 	}
 

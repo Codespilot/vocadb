@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Web.Models.Search {
 
@@ -14,7 +15,11 @@ namespace VocaDb.Web.Models.Search {
 
 		public string filter { get; set; }
 
+		public bool? onlyWithPVs { get; set; }
+
 		public EntryType? searchType { get; set; }
+
+		public SongType? songType { get; set; }
 
 		public object sort { get; set; }
 
