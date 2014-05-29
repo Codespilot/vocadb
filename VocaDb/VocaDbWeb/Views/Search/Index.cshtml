@@ -32,6 +32,27 @@
 		<div class="row-fluid">
 			@{ Html.RenderPartial("Partials/_LeftMenu"); }
 			<div class="span10 rightFrame well" style="display: none; min-height: 1000px;" data-bind="visible: true">
+				
+				<div id="messages">
+					<div class="wrapper">
+						<div id="ajaxLoadingMessage" style="display: none;">@ViewRes.SharedStrings.Loading</div>
+
+						<div id="errorMessage" class="alert alert-error" style="display: none;">
+							<a class="close" data-dismiss="alert" href="#">&times;</a>
+							<span id="errorMessageString">@TempData.ErrorMessage()</span>
+						</div>
+
+						<div id="successMessage" class="alert alert-success" style="display: none;">
+							<a class="close" data-dismiss="alert" href="#">&times;</a>
+							<span id="successMessageString">@TempData.SuccessMessage()</span>
+						</div>
+
+						<div id="warnMessage" class="alert" style="display: none;">
+							<a class="close" data-dismiss="alert" href="#">&times;</a>
+							<span id="warnMessageString">@TempData.WarnMessage()</span>
+						</div>
+					</div>
+				</div>
 
 				@*<br />
 
@@ -246,15 +267,19 @@
 			var artistId = @ToJS(ViewBag.ArtistId);
 			var artistType = '@ViewBag.ArtistType';
 			var discType = '@ViewBag.DiscType';
+			var rootPath = '@RootPath';
 
-			var resourceRepo = new vdb.repositories.ResourceRepository('@RootPath');
-			var entryRepo = new vdb.repositories.EntryRepository('@RootPath');
-			var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
-			var albumRepo = new vdb.repositories.AlbumRepository('@RootPath');
-			var songRepo = new vdb.repositories.SongRepository('@RootPath');
-			var tagRepo = new vdb.repositories.TagRepository('@RootPath');
+			var urlMapper = new vdb.UrlMapper(rootPath);
+			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
+			var entryRepo = new vdb.repositories.EntryRepository(rootPath);
+			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+			var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath);
+			var tagRepo = new vdb.repositories.TagRepository(rootPath);
+			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 
 			var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, 
+				userRepo,
 				languageSelection, cultureCode, searchType, tag, sort, artistId, artistType, discType);
 			ko.applyBindings(vm);
 

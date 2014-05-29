@@ -44,6 +44,9 @@ module vdb.viewModels {
 
                 repository.pvPlayerWithRating(songId, result => {
 
+					if (!result)
+						return;
+
                     this.previewHtml(result.playerHtml);
                     var ratingButtonsViewModel = new PVRatingButtonsViewModel(userRepository, result.song, this.ratingComplete);
                     this.ratingButtons(ratingButtonsViewModel);

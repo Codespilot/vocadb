@@ -2187,7 +2187,7 @@
     <Content Include="Views\Shared\SongPopupContent.cshtml" />
     <Content Include="Views\Song\Partials\_SongDetailsList.cshtml" />
     <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
-    <Content Include="Views\Song\Partials\_PVRatingButtonsForIndex.cshtml" />
+    <Content Include="Views\Shared\Partials\_PVRatingButtonsForIndex.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_DuplicateEntriesMessage.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_IPManage.cshtml" />

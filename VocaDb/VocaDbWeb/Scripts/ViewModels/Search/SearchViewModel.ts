@@ -10,6 +10,7 @@ module vdb.viewModels.search {
 			albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
 			tagRepo: rep.TagRepository,
 			resourceRepo: rep.ResourceRepository,
+			userRepo: rep.UserRepository,
 			languageSelection: string, cultureCode: string, searchType: string,
 			tag: string,
 			sort: string,
@@ -20,7 +21,7 @@ module vdb.viewModels.search {
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId, albumType);
-			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
+			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo, userRepo);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 
 			if (tag || artistId || artistType || albumType)
