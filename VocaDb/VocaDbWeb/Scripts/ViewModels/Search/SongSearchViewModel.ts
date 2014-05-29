@@ -4,13 +4,14 @@ module vdb.viewModels.search {
 	import dc = vdb.dataContracts;
 	import rep = vdb.repositories;
 
-	export class SongSearchViewModel extends SearchCategoryBaseViewModel<dc.SongApiContract> {
+	export class SongSearchViewModel extends SearchCategoryBaseViewModel<ISongSearchItem> {
 
 		constructor(
 			searchViewModel: SearchViewModel,
 			lang: string,
 			private songRepo: rep.SongRepository,
-			private artistRepo: rep.ArtistRepository) {
+			private artistRepo: rep.ArtistRepository,
+			private userRepo: rep.UserRepository) {
 
 			super(searchViewModel);
 
@@ -38,7 +39,22 @@ module vdb.viewModels.search {
 					this.artistParticipationStatus(),
 					this.pvsOnly(),
 					this.since(),
-					status, callback);
+					status, result => {
+
+					_.each(result.items, (song: ISongSearchItem) => {
+
+						if (song.pvServices && song.pvServices != 'Nothing') {
+							song.previewViewModel = new SongWithPreviewViewModel(this.songRepo, this.userRepo, song.id);
+							song.previewViewModel.ratingComplete = vdb.ui.showThankYouForRatingMessage;							
+						} else {
+							song.previewViewModel = null;
+						}
+
+					});
+
+					callback(result);
+
+				});
 
 			}
 
@@ -53,6 +69,12 @@ module vdb.viewModels.search {
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().songSortRuleNames[this.sort()] : "");
+
+	}
+
+	export interface ISongSearchItem extends dc.SongApiContract {
+
+		previewViewModel?: SongWithPreviewViewModel;
 
 	}
 

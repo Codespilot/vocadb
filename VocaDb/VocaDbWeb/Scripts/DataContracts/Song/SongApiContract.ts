@@ -11,6 +11,8 @@ module vdb.dataContracts {
 
 		localizedName: string;
 
+		pvServices: string;
+
 		ratingScore: number;
 
 		thumbUrl: string;

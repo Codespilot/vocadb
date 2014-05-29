@@ -33,10 +33,27 @@
 					</a>
 				</td>
 				<td>
+					
+					<div class="pull-right" data-bind="visible: pvServices, with: previewViewModel">
+						<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
+							<i class="icon-film"></i>
+							Preview
+						</a>
+					</div>
+
 					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', id), title: $data.additionalNames }" href="#"></a>
 					<span data-bind="songTypeLabel: $data.songType"></span>
 					<br />
 					<small class="extraInfo" data-bind="text: artistString"></small>
+					
+					<div data-bind="visible: pvServices, with: previewViewModel">
+						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
+							<div data-bind="with: ratingButtons" class="pull-right">
+								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
+							</div>
+							<div data-bind="html: previewHtml"></div>
+						</div>
+					</div>
 				</td>
 				<td>
 					<span data-bind="text: ratingScore"></span>

@@ -107,6 +107,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/Tag/TagCategoryAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
+				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/Repositories/AlbumRepository.js",
 				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/Repositories/EntryRepository.js",
@@ -114,6 +115,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Repositories/SongRepository.js",
 				"~/Scripts/Repositories/TagRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
+				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
+				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
 				"~/Scripts/ViewModels/Search/SearchViewModel.js",
 				"~/Scripts/ViewModels/Search/SearchCategoryBaseViewModel.js",
 				"~/Scripts/ViewModels/Search/SongSearchViewModel.js"
