@@ -1740,7 +1740,9 @@
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeAlbumRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeEntryReportRepository.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
-    <TypeScriptCompile Include="Scripts\ViewModels\SearchViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchCategoryBaseViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Search\SongSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ServerSidePagingViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
