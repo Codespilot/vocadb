@@ -32,7 +32,7 @@
 		<div class="row-fluid">
 			@{ Html.RenderPartial("Partials/_LeftMenu"); }
 			<div class="span10 rightFrame well" style="display: none; min-height: 1000px;" data-bind="visible: true">
-				
+
 				<div id="messages">
 					<div class="wrapper">
 						<div id="ajaxLoadingMessage" style="display: none;">@ViewRes.SharedStrings.Loading</div>
@@ -57,20 +57,20 @@
 				@*<br />
 
 
-	<div class="btn-group">
-		<button class="@Html.CSS("btn dropdown-toggle").If(!Login.IsLoggedIn, "disabled")" data-toggle="dropdown">
-			<i class="icon-plus noMargin"></i>
-			Submit an entry
-			<span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu">
-			<li><a href="@Url.Action("Create", "Artist")">Artist</a></li>
-			<li><a href="@Url.Action("Create", "Album")">Album</a></li>
-			<li><a href="@Url.Action("Create", "Song")">Song</a></li>
-		</ul>
-	</div>
+					<div class="btn-group">
+						<button class="@Html.CSS("btn dropdown-toggle").If(!Login.IsLoggedIn, "disabled")" data-toggle="dropdown">
+							<i class="icon-plus noMargin"></i>
+							Submit an entry
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="@Url.Action("Create", "Artist")">Artist</a></li>
+							<li><a href="@Url.Action("Create", "Album")">Album</a></li>
+							<li><a href="@Url.Action("Create", "Song")">Song</a></li>
+						</ul>
+					</div>
 
-	<br /><br />*@
+					<br /><br />*@
 
 				<ul class="nav nav-pills">
 					<li data-bind="css: { active: searchType() == 'Anything' }">
@@ -91,7 +91,7 @@
 				</ul>
 
 				<div id="anythingSearchTab" class="form-horizontal well well-transparent">
-					
+
 					<div class="pull-right">
 						@SearchDropDown("showArtistSearch", "artistSearchViewModel", Translate.ArtistSortRuleNames.ValuesAndNamesStrings)
 						@SearchDropDown("showAlbumSearch", "albumSearchViewModel", Translate.AlbumSortRuleNames.ValuesAndNamesStrings)
@@ -108,11 +108,13 @@
 
 					</div>
 
-					<div class="control-label">Query</div>
+					<div class="control-label">
+						<i class="icon-search"></i>
+					</div>
 					<div class="control-group">
 						<div class="controls">
 							<div class="input-append">
-								<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" />
+								<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" placeholder="Type something..." />
 								<button class="btn btn-danger" data-bind="click: function() { searchTerm(''); }, visible: searchTerm">Clear</button>
 								&nbsp;
 							</div>
@@ -257,36 +259,36 @@
 
 	<script type="text/javascript">
 
-	$(document).ready(function () {
+		$(document).ready(function () {
 
-		var cultureCode = '@UICulture';
-		var languageSelection = '@UserContext.LanguagePreference';
-		var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
-		var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
-		var searchType = '@ViewBag.SearchType';
-		var sort = '@ViewBag.Sort';
-		var artistId = @ToJS((int?)ViewBag.ArtistId);
-		var artistType = '@ViewBag.ArtistType';
-		var discType = '@ViewBag.DiscType';
-		var songType ='@ViewBag.SongType';
-		var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
-		var rootPath = '@RootPath';
+			var cultureCode = '@UICulture';
+			var languageSelection = '@UserContext.LanguagePreference';
+			var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
+			var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
+			var searchType = '@ViewBag.SearchType';
+			var sort = '@ViewBag.Sort';
+			var artistId = @ToJS((int?)ViewBag.ArtistId);
+			var artistType = '@ViewBag.ArtistType';
+			var discType = '@ViewBag.DiscType';
+			var songType ='@ViewBag.SongType';
+			var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
+			var rootPath = '@RootPath';
 
-		var urlMapper = new vdb.UrlMapper(rootPath);
-		var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
-		var entryRepo = new vdb.repositories.EntryRepository(rootPath);
-		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
-		var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
-		var songRepo = new vdb.repositories.SongRepository(rootPath);
-		var tagRepo = new vdb.repositories.TagRepository(rootPath);
-		var userRepo = new vdb.repositories.UserRepository(urlMapper);
+			var urlMapper = new vdb.UrlMapper(rootPath);
+			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
+			var entryRepo = new vdb.repositories.EntryRepository(rootPath);
+			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+			var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath);
+			var tagRepo = new vdb.repositories.TagRepository(rootPath);
+			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 
-		var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
-			userRepo,
-			languageSelection, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
-		ko.applyBindings(vm);
+			var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
+				userRepo,
+				languageSelection, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
+			ko.applyBindings(vm);
 
-	});
+		});
 
 	</script>
 
