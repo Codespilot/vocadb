@@ -254,7 +254,7 @@
 			var songRepo = new vdb.repositories.SongRepository('@RootPath');
 			var tagRepo = new vdb.repositories.TagRepository('@RootPath');
 
-			var vm = new vdb.viewModels.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, 
+			var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo, 
 				languageSelection, cultureCode, searchType, tag, sort, artistId, artistType, discType);
 			ko.applyBindings(vm);
 

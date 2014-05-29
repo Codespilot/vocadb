@@ -1,115 +1,8 @@
 ﻿
-module vdb.viewModels {
+module vdb.viewModels.search {
 
 	import dc = vdb.dataContracts;
 	import rep = vdb.repositories;
-
-	export class SearchViewModel {
-
-		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository,
-			albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
-			tagRepo: rep.TagRepository,
-			resourceRepo: rep.ResourceRepository,
-			languageSelection: string, cultureCode: string, searchType: string,
-			tag: string,
-			sort: string,
-			artistId: number,
-			artistType: string,
-			albumType: string) {
-
-			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
-			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
-			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo, sort, artistId, albumType);
-			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo);
-			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
-
-			if (tag || artistId || artistType || albumType)
-				this.showAdvancedFilters(true);
-
-			if (searchType)
-				this.searchType(searchType);
-
-			if (tag)
-				this.tag(tag);
-
-			this.pageSize.subscribe(this.updateResults);
-			this.searchTerm.subscribe(this.updateResults);
-			this.tag.subscribe(this.updateResults);
-			this.draftsOnly.subscribe(this.updateResults);
-
-			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
-			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
-			this.showAlbumSearch = ko.computed(() => this.searchType() == 'Album');
-			this.showSongSearch = ko.computed(() => this.searchType() == 'Song');
-
-			this.searchType.subscribe(val => {
-
-				this.updateResults();
-				this.currentSearchType(val);
-
-			});
-
-			resourceRepo.getList(cultureCode, ['albumSortRuleNames', 'artistSortRuleNames', 'artistTypeNames', 'discTypeNames', 'songSortRuleNames', 'songTypeNames'], resources => {
-				this.resources(resources);
-				this.updateResults();
-			});
-
-		}
-
-		public albumSearchViewModel: AlbumSearchViewModel;
-		public anythingSearchViewModel: AnythingSearchViewModel;
-		public artistSearchViewModel: ArtistSearchViewModel;
-		public songSearchViewModel: SongSearchViewModel;
-		public tagSearchViewModel: TagSearchViewModel;
-
-		private currentSearchType = ko.observable("Anything");
-		public draftsOnly = ko.observable(false);
-		public pageSize = ko.observable(10);
-		public resources = ko.observable<any>();
-		public showAdvancedFilters = ko.observable(false);
-		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
-		public searchType = ko.observable("Anything");
-		public tag = ko.observable("");
-
-		public showAnythingSearch: KnockoutComputed<boolean>;
-		public showArtistSearch: KnockoutComputed<boolean>;
-		public showAlbumSearch: KnockoutComputed<boolean>;
-		public showSongSearch: KnockoutComputed<boolean>;
-		public showTagSearch = ko.computed(() => this.searchType() == 'Tag');
-		public showTagFilter = ko.computed(() => !this.showTagSearch());
-		public showDraftsFilter = ko.computed(() => this.searchType() != 'Tag');
-
-		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');
-
-		public currentCategoryViewModel = (): ISearchCategoryBaseViewModel => {
-			
-			switch (this.searchType()) {
-				case 'Anything':
-					return this.anythingSearchViewModel;
-				case 'Artist':
-					return this.artistSearchViewModel;
-				case 'Album':
-					return this.albumSearchViewModel;
-				case 'Song':
-					return this.songSearchViewModel;
-				case 'Tag':
-					return this.tagSearchViewModel;
-				default:
-					return null;
-			}
-
-		}
-
-		public updateResults = () => {
-
-			var vm = this.currentCategoryViewModel();
-
-			if (vm != null)
-				vm.updateResultsWithTotalCount();
-				
-		}
-
-	}
 
 	export interface ISearchCategoryBaseViewModel {
 
@@ -119,7 +12,7 @@ module vdb.viewModels {
 
 	// Base class for different types of searches.
 	export class SearchCategoryBaseViewModel<TEntry> implements ISearchCategoryBaseViewModel {
-		
+
 		constructor(public searchViewModel: SearchViewModel) {
 
 			searchViewModel.pageSize.subscribe(pageSize => this.paging.pageSize(pageSize));
@@ -129,8 +22,8 @@ module vdb.viewModels {
 
 		// Method for loading a page of results.
 		public loadResults: (pagingProperties: dc.PagingProperties, searchTerm: string, tag: string,
-			status: string,
-			callback: (result: any) => void) => void;
+		status: string,
+		callback: (result: any) => void) => void;
 
 		public loading = ko.observable(true); // Currently loading for data
 
@@ -163,15 +56,15 @@ module vdb.viewModels {
 			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(),
 				this.searchViewModel.draftsOnly() ? "Draft" : null, (result: any) => {
 
-				this.pauseNotifications = false;
+					this.pauseNotifications = false;
 
-				if (pagingProperties.getTotalCount)
-					this.paging.totalItems(result.totalCount);
+					if (pagingProperties.getTotalCount)
+						this.paging.totalItems(result.totalCount);
 
-				this.page(result.items);
-				this.loading(false);
+					this.page(result.items);
+					this.loading(false);
 
-			});
+				});
 
 		};
 
@@ -209,7 +102,7 @@ module vdb.viewModels {
 			this.artistType.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
-				
+
 				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag, status, callback);
 
 			}
@@ -280,58 +173,6 @@ module vdb.viewModels {
 			this.artistId(selectedArtistId);
 			this.artistRepo.getOne(selectedArtistId, artist => this.artistName(artist.name));
 		};
-
-	}
-
-	export class SongSearchViewModel extends SearchCategoryBaseViewModel<dc.SongApiContract> {
-
-		constructor(
-			searchViewModel: SearchViewModel,
-			lang: string,
-			private songRepo: rep.SongRepository,
-			private artistRepo: rep.ArtistRepository) {
-
-			super(searchViewModel);
-
-			var vm = this;
-
-			this.artistSearchParams = {
-				allowCreateNew: false,
-				acceptSelection: (artistId: number) => {
-					vm.artistId(artistId);
-					this.artistRepo.getOne(artistId, artist => vm.artistName(artist.name));
-				},
-				height: 300
-			};
-
-			this.artistId.subscribe(this.updateResultsWithTotalCount);
-			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
-			this.pvsOnly.subscribe(this.updateResultsWithTotalCount);
-			this.since.subscribe(this.updateResultsWithTotalCount);
-			this.songType.subscribe(this.updateResultsWithTotalCount);
-			this.sort.subscribe(this.updateResultsWithTotalCount);
-
-			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
-
-				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(),
-					this.artistParticipationStatus(),
-					this.pvsOnly(),
-					this.since(),
-					status, callback);
-
-			}
-
-		}
-
-		public artistId = ko.observable<number>(null);
-		public artistName = ko.observable("");
-		public artistParticipationStatus = ko.observable("Everything");
-		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
-		public pvsOnly = ko.observable(false);
-		public since = ko.observable<number>(null);
-		public songType = ko.observable("Unspecified");
-		public sort = ko.observable("Name");
-		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().songSortRuleNames[this.sort()] : "");
 
 	}
 
