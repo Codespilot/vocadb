@@ -6,7 +6,9 @@ module vdb.viewModels.search {
 
 	export class SearchViewModel {
 
-		constructor(entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository,
+		constructor(
+			urlMapper: vdb.UrlMapper,
+			entryRepo: rep.EntryRepository, artistRepo: rep.ArtistRepository,
 			albumRepo: rep.AlbumRepository, songRepo: rep.SongRepository,
 			tagRepo: rep.TagRepository,
 			resourceRepo: rep.ResourceRepository,
@@ -26,7 +28,7 @@ module vdb.viewModels.search {
 			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo,
 				searchType == "Album" ? sort : null, searchType == "Album" ? artistId : null, albumType);
-			this.songSearchViewModel = new SongSearchViewModel(this, languageSelection, songRepo, artistRepo, userRepo,
+			this.songSearchViewModel = new SongSearchViewModel(this, urlMapper, languageSelection, songRepo, artistRepo, userRepo,
 				searchType == "Song" ? sort : null, searchType == "Song" ? artistId : null, songType, onlyWithPVs);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 

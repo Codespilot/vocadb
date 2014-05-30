@@ -1,6 +1,7 @@
 ﻿@using System.Web.Optimization
+@using VocaDb.Web.Code
 @using VocaDb.Web.Helpers
-@inherits VocaDb.Web.Code.VocaDbPage
+@inherits VocaDbPage
 
 @{
     Layout = null;
@@ -11,6 +12,7 @@
 <html>
 <head>
 	<title>@BrandableStrings.Layout.SiteTitle</title>
+	<meta name="description" content="@PagePropertiesData.Get(ViewBag).SummarizedDescription" />
 	<meta name="keywords" content="Vocaloid, VocaDB, Vocaloid database, Hatsune Miku" />
 	<meta name="og:image" content="@ViewContext.Controller.ViewBag.Banner" />
 	<link rel="shortcut icon" href="@Url.Content("~/Content/favicon.ico")" type="image/x-icon" />
@@ -283,7 +285,7 @@
 			var tagRepo = new vdb.repositories.TagRepository(rootPath);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 
-			var vm = new vdb.viewModels.search.SearchViewModel(entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
+			var vm = new vdb.viewModels.search.SearchViewModel(urlMapper, entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
 				userRepo,
 				languageSelection, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
 			ko.applyBindings(vm);
