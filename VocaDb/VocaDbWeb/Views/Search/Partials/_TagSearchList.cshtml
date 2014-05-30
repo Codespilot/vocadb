@@ -28,6 +28,7 @@
 				</td>
 				<td>
 					<a data-bind="text: name, attr: { href: vdb.utils.EntryUrlMapper.details_tag_byName(name) }" href="#"></a><br />
+					@KnockoutHelpers.DraftIcon("status")
 				</td>
 				<td>
 					<p data-bind="text: categoryName"></p>					

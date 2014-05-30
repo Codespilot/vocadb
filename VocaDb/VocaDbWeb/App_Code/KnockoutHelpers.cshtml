@@ -8,6 +8,10 @@
 	</div>
 }
 
+@helper DraftIcon(string statusBinding) {
+	<img data-bind="visible: @statusBinding == 'Draft'" src="@Url.Content("~/Content/draft.png")" title="@HelperRes.HelperStrings.DraftIconTitle" alt="draft" />
+}
+
 @helper LockingAutoComplete(string bindingHandler, string binding, string textBinding = null, string valBinding = null) {
 	<input type="text" class="input-large" data-bind="@bindingHandler: @binding, visible: !@(valBinding ?? binding)()" />
 	<div class="input-append" data-bind="visible: @(valBinding ?? binding)()">

@@ -30,6 +30,7 @@
 					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: artistType"></span>
+					@KnockoutHelpers.DraftIcon("status")
 					<br />
 					<small class="extraInfo" data-bind="text: $data.additionalNames"></small>
 				</td>
