@@ -1699,6 +1699,7 @@
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\TagAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Tag\TagCategoryAutoComplete.ts" />
+    <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />
     <TypeScriptCompile Include="Scripts\Models\WebLinkCategory.ts" />

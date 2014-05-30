@@ -8,6 +8,7 @@ module vdb.viewModels.search {
 
 		constructor(
 			searchViewModel: SearchViewModel,
+			urlMapper: vdb.UrlMapper,
 			lang: string,
 			private songRepo: rep.SongRepository,
 			private artistRepo: rep.ArtistRepository,
@@ -17,6 +18,8 @@ module vdb.viewModels.search {
 			songType: string, onlyWithPVs: boolean) {
 
 			super(searchViewModel);
+
+			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
 
 			this.artistSearchParams = {
 				allowCreateNew: false,
@@ -75,10 +78,15 @@ module vdb.viewModels.search {
 		public artistParticipationStatus = ko.observable("Everything");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public pvsOnly = ko.observable(false);
+		private pvServiceIcons: vdb.models.PVServiceIcons;
 		public since = ko.observable<number>(null);
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().songSortRuleNames[this.sort()] : "");
+
+		public getPVServiceIcons = (services: string) => {
+			return this.pvServiceIcons.getIconUrls(services);
+		}
 
 		public selectArtist = (selectedArtistId: number) => {
 			this.artistId(selectedArtistId);
