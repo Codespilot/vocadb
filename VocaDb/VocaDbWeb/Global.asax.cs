@@ -108,6 +108,11 @@ namespace VocaDb.Web {
 			if (ex == null)
 				return;
 
+			if (ex is OperationCanceledException) {
+				// This is a bug in Web API 5.1 (http://aspnetwebstack.codeplex.com/workitem/1797) and can be ignored.
+				return;
+			}
+
 			// NHibernate missing entity exceptions. Usually caused by an invalid or deleted Id. This error has been logged already.
 			if (ex is ObjectNotFoundException) {
 				HandleHttpError(ErrorLogger.Code_NotFound, "Entity not found");
