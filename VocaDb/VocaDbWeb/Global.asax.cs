@@ -110,6 +110,7 @@ namespace VocaDb.Web {
 
 			if (ex is OperationCanceledException) {
 				// This is a bug in Web API 5.1 (http://aspnetwebstack.codeplex.com/workitem/1797) and can be ignored.
+				Server.ClearError();
 				return;
 			}
 
