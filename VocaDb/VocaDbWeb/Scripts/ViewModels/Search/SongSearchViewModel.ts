@@ -13,6 +13,7 @@ module vdb.viewModels.search {
 			private songRepo: rep.SongRepository,
 			private artistRepo: rep.ArtistRepository,
 			private userRepo: rep.UserRepository,
+			private loggedUserId: number,
 			sort: string,
 			artistId: number,
 			songType: string, onlyWithPVs: boolean) {
@@ -41,6 +42,7 @@ module vdb.viewModels.search {
 
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
 			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
+			this.onlyRatedSongs.subscribe(this.updateResultsWithTotalCount);
 			this.pvsOnly.subscribe(this.updateResultsWithTotalCount);
 			this.since.subscribe(this.updateResultsWithTotalCount);
 			this.songType.subscribe(this.updateResultsWithTotalCount);
@@ -52,6 +54,7 @@ module vdb.viewModels.search {
 					this.artistParticipationStatus(),
 					this.pvsOnly(),
 					this.since(),
+					this.onlyRatedSongs() ? this.loggedUserId : null,
 					status, result => {
 
 					_.each(result.items, (song: ISongSearchItem) => {
@@ -77,6 +80,7 @@ module vdb.viewModels.search {
 		public artistName = ko.observable("");
 		public artistParticipationStatus = ko.observable("Everything");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
+		public onlyRatedSongs = ko.observable(false);
 		public pvsOnly = ko.observable(false);
 		private pvServiceIcons: vdb.models.PVServiceIcons;
 		public since = ko.observable<number>(null);
