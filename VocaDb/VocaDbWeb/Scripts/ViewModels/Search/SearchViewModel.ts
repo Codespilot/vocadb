@@ -13,7 +13,7 @@ module vdb.viewModels.search {
 			tagRepo: rep.TagRepository,
 			resourceRepo: rep.ResourceRepository,
 			userRepo: rep.UserRepository,
-			languageSelection: string, cultureCode: string, searchType: string,
+			languageSelection: string, loggedUserId: number, cultureCode: string, searchType: string,
 			searchTerm: string,
 			tag: string,
 			sort: string,
@@ -29,6 +29,7 @@ module vdb.viewModels.search {
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo,
 				searchType == "Album" ? sort : null, searchType == "Album" ? artistId : null, albumType);
 			this.songSearchViewModel = new SongSearchViewModel(this, urlMapper, languageSelection, songRepo, artistRepo, userRepo,
+				loggedUserId,
 				searchType == "Song" ? sort : null, searchType == "Song" ? artistId : null, songType, onlyWithPVs);
 			this.tagSearchViewModel = new TagSearchViewModel(this, tagRepo);
 

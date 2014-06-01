@@ -213,6 +213,16 @@
 									</label>
 								</div>
 							</div>
+							
+							<div class="control-group" data-bind="visible: loggedUserId">
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" data-bind="checked: onlyRatedSongs" />
+										In my collection
+									</label>
+								</div>
+							</div>
+
 						</div>
 
 						<div class="control-group" data-bind="visible: showTagSearch, with: tagSearchViewModel">
@@ -274,8 +284,9 @@
 			var discType = '@ViewBag.DiscType';
 			var songType ='@ViewBag.SongType';
 			var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
-			var rootPath = '@RootPath';
+			var loggedUserId = @ToJS(Login.Manager.LoggedUserId);
 
+			var rootPath = '@RootPath';
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 			var entryRepo = new vdb.repositories.EntryRepository(rootPath);
@@ -287,7 +298,7 @@
 
 			var vm = new vdb.viewModels.search.SearchViewModel(urlMapper, entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
 				userRepo,
-				languageSelection, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
+				languageSelection, loggedUserId, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
 			ko.applyBindings(vm);
 
 		});
