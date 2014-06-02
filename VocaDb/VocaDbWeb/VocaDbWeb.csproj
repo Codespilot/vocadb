@@ -928,6 +928,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IndexStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\Search\IndexStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2797,6 +2802,11 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Home\IndexStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Views\Search\IndexStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.Search</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
