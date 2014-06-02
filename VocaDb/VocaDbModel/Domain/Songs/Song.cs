@@ -18,7 +18,7 @@ using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class Song : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, INameFactory<SongName>, IWebLinkFactory<SongWebLink>, IEquatable<Song> {
+	public class Song : IEntryBase, IEntryWithNames<SongName>, IEntryWithStatus, IDeletableEntry, INameFactory<SongName>, IWebLinkFactory<SongWebLink>, IEquatable<Song> {
 
 		private IList<SongInAlbum> albums = new List<SongInAlbum>();
 		private IList<Song> alternateVersions = new List<Song>();
@@ -226,6 +226,10 @@ namespace VocaDb.Model.Domain.Songs {
 				ParamIs.NotNull(() => value);
 				names = value;
 			}
+		}
+
+		INameManager<SongName> IEntryWithNames<SongName>.Names {
+			get { return Names; }
 		}
 
 		INameManager IEntryWithNames.Names {

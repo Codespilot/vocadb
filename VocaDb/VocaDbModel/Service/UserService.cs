@@ -465,37 +465,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<FavoriteSongForUserContract> GetFavoriteSongs(RatedSongQueryParams queryParams) {
-
-			ParamIs.NotNull(() => queryParams);
-
-			return HandleQuery(session => {
-
-				// Apply initial filter
-				var q = session.Query<FavoriteSongForUser>()
-					.Where(a => !a.Song.Deleted && a.User.Id == queryParams.UserId);
-
-				if (queryParams.FilterByRating != SongVoteRating.Nothing)
-					q = q.Where(s => s.Rating == queryParams.FilterByRating);
-
-				// Group by rating if needed
-				if (queryParams.GroupByRating)
-					q = q.OrderByDescending(r => r.Rating);
-
-				// Add custom order
-				q = q.AddSongOrder(queryParams.SortRule, LanguagePreference);
-
-				// Apply paging
-				var resultQ = q.Skip(queryParams.Paging.Start).Take(queryParams.Paging.MaxEntries);
-
-				var contracts = resultQ.ToArray().Select(a => new FavoriteSongForUserContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = (queryParams.Paging.GetTotalCount ? q.Count() : 0);
-
-				return new PartialFindResult<FavoriteSongForUserContract>(contracts, totalCount);
-
-			});
-		}
-
 		/*public UserMessageContract GetMessageDetails(int messageId) {
 
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
