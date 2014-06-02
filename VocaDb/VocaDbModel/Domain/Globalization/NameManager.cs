@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace VocaDb.Model.Domain.Globalization {
 
-	public class NameManager<T> : INameManager, IEnumerable<T> where T : LocalizedStringWithId {
+	public class NameManager<T> : INameManager<T>, IEnumerable<T> where T : LocalizedStringWithId {
 
 		private string additionalNamesString;
 		private IList<T> names = new List<T>();

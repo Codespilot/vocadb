@@ -28,10 +28,14 @@ namespace VocaDb.Model.Service.Search.User {
 		/// </summary>
 		public bool GroupByRating { get; set; }
 
+		public NameMatchMode NameMatchMode { get; set; }
+
 		/// <summary>
 		/// Paging properties. Cannot be null.
 		/// </summary>
 		public PagingProperties Paging { get; set; }
+
+		public string Query { get; set; }
 
 		/// <summary>
 		/// Song sort rule.

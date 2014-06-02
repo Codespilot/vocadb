@@ -9,6 +9,7 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
@@ -16,6 +17,7 @@ using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
+using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.Code.Security;
 
@@ -436,6 +438,46 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			});
 
+		}
+
+		public PartialFindResult<FavoriteSongForUserContract> GetRatedSongs(RatedSongQueryParams queryParams) {
+			return GetRatedSongs(queryParams, ratedSong => new FavoriteSongForUserContract(ratedSong, PermissionContext.LanguagePreference));
+		}
+
+		public PartialFindResult<T> GetRatedSongs<T>(RatedSongQueryParams queryParams, Func<FavoriteSongForUser, T> fac) {
+
+			ParamIs.NotNull(() => queryParams);
+
+			return HandleQuery(session => {
+
+				// Apply initial filter
+				var q = session.OfType<FavoriteSongForUser>().Query()
+					.Where(a => !a.Song.Deleted && a.User.Id == queryParams.UserId)
+					.WhereChildHasName(queryParams.Query, queryParams.NameMatchMode);
+
+				if (queryParams.FilterByRating != SongVoteRating.Nothing)
+					q = q.Where(s => s.Rating == queryParams.FilterByRating);
+
+				var queryWithSort = q;
+
+				// Group by rating if needed
+				if (queryParams.GroupByRating)
+					queryWithSort = queryWithSort.OrderByDescending(r => r.Rating);
+
+				// Add custom order
+				queryWithSort = queryWithSort.AddSongOrder(queryParams.SortRule, PermissionContext.LanguagePreference);
+
+				// Apply paging
+				var resultQ = queryWithSort
+					.Skip(queryParams.Paging.Start)
+					.Take(queryParams.Paging.MaxEntries);
+
+				var contracts = resultQ.ToArray().Select(fac).ToArray();
+				var totalCount = (queryParams.Paging.GetTotalCount ? q.Count() : 0);
+
+				return new PartialFindResult<T>(contracts, totalCount);
+
+			});
 		}
 
 		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, bool disabled, bool verifiedArtists, UserSortRule sortRule, PagingProperties paging) {

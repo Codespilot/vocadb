@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Domain.Songs {
+
 	public class SongName : LocalizedStringWithId {
 
 		private Song song;

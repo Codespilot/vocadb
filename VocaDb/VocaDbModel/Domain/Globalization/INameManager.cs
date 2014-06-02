@@ -21,4 +21,10 @@ namespace VocaDb.Model.Domain.Globalization {
 
 	}
 
+	public interface INameManager<TName> : INameManager where TName : LocalizedStringWithId {
+
+		IList<TName> Names { get; }
+
+	}
+
 }
