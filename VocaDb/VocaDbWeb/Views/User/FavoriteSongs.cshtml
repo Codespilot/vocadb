@@ -29,7 +29,7 @@
 	};	
 }
 
-<div class="form-horizontal well well-transparent">
+<div class="form-horizontal well well-transparent" data-bind="visible: true" style="display: none;">
 	
 	<div class="pull-right">
 		<div class="inline-block">
@@ -83,7 +83,7 @@
 
 </div>
 
-<div data-bind="css: { loading: loading }">
+<div data-bind="css: { loading: loading }, visible: true" style="display: none;">
 
 	@EntryCount()
 
@@ -118,34 +118,34 @@
 				<td>
 
 					@*<div class="pull-right" data-bind="visible: pvServices, with: previewViewModel">
-						<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
-							<i class="icon-film"></i>
-							Preview
-						</a>
-					</div>*@
+							<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
+								<i class="icon-film"></i>
+								Preview
+							</a>
+						</div>*@
 
 					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
-					
+
 					<span data-bind="visible: rating == 'Favorite'" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
-					<span data-bind="visible: rating == 'Like'"  class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>
+					<span data-bind="visible: rating == 'Like'" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>
 
 
 					@*<span data-bind="songTypeLabel: song.songType"></span>
-					<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
-					<img data-bind="attr: { src: url, title: service }" />
-					<!-- /ko -->*@
+						<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
+						<img data-bind="attr: { src: url, title: service }" />
+						<!-- /ko -->*@
 					@KnockoutHelpers.DraftIcon("status")
 					<br />
 					<small class="extraInfo" data-bind="text: song.artistString"></small>
 
 					@*<div data-bind="visible: pvServices, with: previewViewModel">
-						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
-							<div data-bind="with: ratingButtons" class="pull-right">
-								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
+							<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
+								<div data-bind="with: ratingButtons" class="pull-right">
+									@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
+								</div>
+								<div data-bind="html: previewHtml"></div>
 							</div>
-							<div data-bind="html: previewHtml"></div>
-						</div>
-					</div>*@
+						</div>*@
 				</td>
 				<td>
 					<span data-bind="text: song.ratingScore"></span>
@@ -176,8 +176,9 @@
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 
-			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, languageSelection, loggedUserId);
+			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, resourceRepo, languageSelection, loggedUserId, cultureCode);
 			ko.applyBindings(vm);
 
 		});

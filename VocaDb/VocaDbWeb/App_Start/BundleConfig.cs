@@ -100,7 +100,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Home/Index.js"
 			));
 
-			bundles.Add(new ScriptBundle("~/bundles/Home/Search").Include(
+			bundles.Add(new ScriptBundle("~/bundles/Search/Index").Include(
 				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/Artist/ArtistTypeLabel.js",
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
@@ -171,6 +171,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/User/RatedSongs").Include(
 				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
+				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/User/RatedSongsSearchViewModel.js"

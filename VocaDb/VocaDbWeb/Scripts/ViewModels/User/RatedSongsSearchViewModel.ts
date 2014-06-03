@@ -7,7 +7,8 @@ module vdb.viewModels.user {
 	export class RatedSongsSearchViewModel {
 		
 		constructor(private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
-			private languageSelection: string, private loggedUserId: number) {
+			resourceRepo: rep.ResourceRepository,
+			private languageSelection: string, private loggedUserId: number, cultureCode: string) {
 			
 			this.artistSearchParams = {
 				allowCreateNew: false,
@@ -23,7 +24,10 @@ module vdb.viewModels.user {
 			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
 
-			this.updateResultsWithTotalCount();
+			resourceRepo.getList(cultureCode, ['songSortRuleNames', 'songTypeNames'], resources => {
+				this.resources(resources);
+				this.updateResultsWithTotalCount();
+			});
 
 		}
 
@@ -36,9 +40,10 @@ module vdb.viewModels.user {
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
 		public pauseNotifications = false;
 		public rating = ko.observable("Nothing");
+		public resources = ko.observable<any>();
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public sort = ko.observable("Name");
-		public sortName = ko.computed(() => this.sort());
+		public sortName = ko.computed(() => this.resources() != null ? this.resources().songSortRuleNames[this.sort()] : "");
 
 		public selectArtist = (selectedArtistId: number) => {
 			this.artistId(selectedArtistId);
