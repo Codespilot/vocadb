@@ -1312,6 +1312,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\PagingPropertiesContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongApiContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagApiContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\User\RatedSongForUserForApiContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\WebLinkContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\NewSongCheckResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryRefContract.ts" />
@@ -1976,6 +1977,7 @@
     <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\MySettingsViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\User\RatedSongsSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongInAlbumEditViewModel.ts" />

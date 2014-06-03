@@ -453,10 +453,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				// Apply initial filter
 				var q = session.OfType<FavoriteSongForUser>().Query()
 					.Where(a => !a.Song.Deleted && a.User.Id == queryParams.UserId)
-					.WhereChildHasName(queryParams.Query, queryParams.NameMatchMode);
-
-				if (queryParams.FilterByRating != SongVoteRating.Nothing)
-					q = q.Where(s => s.Rating == queryParams.FilterByRating);
+					.WhereChildHasName(queryParams.Query, queryParams.NameMatchMode)
+					.WhereSongHasArtist(queryParams.ArtistId)
+					.WhereHasRating(queryParams.FilterByRating);
 
 				var queryWithSort = q;
 

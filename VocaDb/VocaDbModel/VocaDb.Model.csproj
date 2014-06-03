@@ -626,6 +626,7 @@
     <Compile Include="Service\Helpers\ArtistForSongQueryableExtender.cs" />
     <Compile Include="Service\Helpers\EntryWithNamesQueryableExtender.cs" />
     <Compile Include="Service\Helpers\EntryWithStatusQueryableExtender.cs" />
+    <Compile Include="Service\Helpers\FavoriteSongForUserQueryableExtender.cs" />
     <Compile Include="Service\Helpers\FollowedArtistNotifier.cs" />
     <Compile Include="Service\Helpers\IUserMessageMailer.cs" />
     <Compile Include="Service\Helpers\MarkdownHelper.cs" />

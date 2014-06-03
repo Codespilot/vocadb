@@ -43,6 +43,10 @@ namespace VocaDb.Web.Code {
 			}
 		}
 
+		public IUserPermissionContext UserContext {
+			get { return DependencyResolver.Current.GetService<IUserPermissionContext>(); }
+		}
+
 	}
 
 	public abstract class VocaDbPage : WebViewPage {

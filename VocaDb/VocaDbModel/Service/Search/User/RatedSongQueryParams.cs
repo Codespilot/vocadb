@@ -21,6 +21,8 @@ namespace VocaDb.Model.Service.Search.User {
 
 		}
 
+		public int ArtistId { get; set; }
+
 		public SongVoteRating FilterByRating { get; set; }
 
 		/// <summary>

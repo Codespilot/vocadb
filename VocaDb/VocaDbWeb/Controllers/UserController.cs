@@ -206,30 +206,7 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			if (Request.IsAjaxRequest()) {
-				return FavoriteSongsPaged(id, page, rating, sort, groupByRating);
-			} else {
-				return View(new FavoriteSongs(Service.GetUser(id), rating ?? SongVoteRating.Nothing, sort, groupByRating));
-			}
-
-		}
-
-		public ActionResult FavoriteSongsPaged(int id = invalidId, int? page = null, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
-
-			if (id == invalidId)
-				return NoId();
-
-			const int songsPerPage = 50;
-
-			var pageIndex = (page - 1) ?? 0;
-			var r = rating ?? SongVoteRating.Nothing;
-			var queryParams = new RatedSongQueryParams(id, PagingProperties.CreateFromPage(pageIndex, songsPerPage, true)) { FilterByRating = r, SortRule = sort, GroupByRating = groupByRating };
-			var result = Data.GetRatedSongs(queryParams);
-			var data = new PagingData<FavoriteSongForUserContract>(result.Items.ToPagedList(pageIndex, songsPerPage, result.TotalCount), id, "FavoriteSongs", "ui-tabs-3");
-			data.RouteValues = new RouteValueDictionary(new { rating, sort, groupByRating });
-
-			return PartialView("FavoriteSongsPaged", data);
-
+			return View(new FavoriteSongs(Service.GetUser(id), rating ?? SongVoteRating.Nothing, sort, groupByRating));
 
 		}
 
