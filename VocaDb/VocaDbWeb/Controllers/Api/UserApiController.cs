@@ -35,6 +35,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </summary>
 		/// <param name="userId">ID of the user whose songs are to be browsed.</param>
 		/// <param name="query">Song name query (optional).</param>
+		/// <param name="artistId">Filter by song artist (optional).</param>
 		/// <param name="rating">Filter songs by given rating (optional).</param>
 		/// <param name="groupByRating">Group results by rating so that highest rated are first.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
@@ -51,7 +52,8 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<RatedSongForUserForApiContract> GetRatedSongs(
 			int userId,
 			string query = "", 
-			SongVoteRating rating = SongVoteRating.Nothing,
+			int? artistId = null,
+			SongVoteRating? rating = null,
 			bool groupByRating = true,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule? sort = null,
@@ -63,7 +65,8 @@ namespace VocaDb.Web.Controllers.Api {
 				Query = query,
 				NameMatchMode = nameMatchMode,
 				SortRule = sort ?? SongSortRule.Name,
-				FilterByRating = rating,
+				ArtistId = artistId ?? 0,
+				FilterByRating = rating ?? SongVoteRating.Nothing,
 				GroupByRating = groupByRating
 			};
 

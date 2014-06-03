@@ -1,48 +1,187 @@
-﻿@using VocaDb.Web.Helpers
-@using R = ViewRes.User.FavoriteSongsStrings;
-@model VocaDb.Web.Models.User.FavoriteSongs
+﻿@using System.Web.Optimization
+@using Resources
+@using VocaDb.Model.Domain.Songs
+@using VocaDb.Web.Helpers
+@using Res = ViewRes.User.FavoriteSongsStrings;
+@using SharedRes = ViewRes.SharedStrings;
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.User.FavoriteSongs>
+
+@helper EntryCount() {
+	<div data-bind="with: paging" class="dropdown pull-right">
+		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			Showing
+			<span data-bind="text: pageSize"></span>
+			items of
+			<span data-bind="text: totalItems"></span>
+		</a>
+		<ul class="dropdown-menu">
+			<li><a data-bind="click: function() { pageSize(10); }" href="#">10 items per page</a></li>
+			<li><a data-bind="click: function() { pageSize(20); }" href="#">20 items per page</a></li>
+			<li><a data-bind="click: function() { pageSize(40); }" href="#">40 items per page</a></li>
+		</ul>
+	</div>
+}
 
 @{
-    ViewBag.Title = "Rated songs for " + Model.User.Name;
+    ViewBag.Title = "Songs rated by " + Model.User.Name;
 	ViewBag.Parents = new[] {
 		Html.ActionLink(Model.User.Name, "Details", "User", new {id = Model.User.Id}, null)
 	};	
 }
 
-<div class="row-fluid">
-
-	@using (Html.BeginForm("FavoriteSongs", "User", new { id = Model.User.Id }, FormMethod.Post, new { @class = "form-inline", id = "groupingForm" })) {
-		@Html.HiddenFor(m => m.Sort)
-
-		@ViewRes.EntryIndexStrings.SortBy
-		<div class="btn-group">
-			<button class="btn dropdown-toggle" data-toggle="dropdown">
-				@Translate.SongSortRuleNames[Model.Sort]
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu">
-				@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNames) {
-					<li>@Html.ActionLink(sortRule.Value, "FavoriteSongs", new { id = Model.User.Id, rating = Model.Rating, sort = sortRule.Key, groupByRating = Model.GroupByRating })</li>
-				}
-			</ul>
+<div class="form-horizontal well well-transparent">
+	
+	<div class="pull-right">
+		<div class="inline-block">
+			@ViewRes.EntryIndexStrings.SortBy
+			<div class="btn-group">
+				<button class="btn dropdown-toggle" data-toggle="dropdown">
+					<span data-bind="text: sortName"></span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNamesStrings) {
+						<li><a data-bind="click: function() { sort('@sortRule.Key'); }" href="#">@sortRule.Value</a></li>
+					}
+				</ul>
+			</div>
 		</div>
 		
-		<text>&nbsp;</text>
-		
-		<label class="checkbox inline">
-			@Html.CheckBoxFor(m => m.GroupByRating, new { onchange = "$('#groupingForm').submit();" })
-			@R.GroupByRating
-		</label>
+		<button class="btn" data-bind="click: function() { groupByRating(!groupByRating()); }, css: { active: groupByRating }">
+			Group by rating
+		</button>
 
-	}
+	</div>
+
+	<div class="control-label">
+		<i class="icon-search"></i>
+	</div>
+	<div class="control-group">
+		<div class="controls">
+			<div class="input-append">
+				<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" placeholder="Type something..." />
+				<button class="btn btn-danger" data-bind="click: function() { searchTerm(''); }, visible: searchTerm">@SharedRes.Clear</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="control-label">@EntryTypeNames.Artist</div>
+		<div class="controls">
+			<div style="display: inline-block;" class="input-append">
+				@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "artistSearchParams", textBinding: "artistName", valBinding: "artistId")
+			</div>
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<div class="control-label">Rating</div>
+		<div class="controls">
+			@UserHelpers.SongVoteRatingsRadioKnockout("rating")
+		</div>
+	</div>
+
 </div>
 
+<div data-bind="css: { loading: loading }">
 
-<div id="ui-tabs-3">
-@{ Html.RenderAction("FavoriteSongsPaged", new { id = Model.User.Id, rating = Model.Rating, sort = Model.Sort }); }
+	@EntryCount()
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th colspan="2">
+					<a data-bind="click: function() { sort('Name') }" href="#">
+						Name
+						<span class="sortDirection_down" data-bind="visible: sort() == 'Name'"></span>
+					</a>
+				</th>
+				<th>
+					<a data-bind="click: function() { sort('RatingScore') }" href="#">
+						Rating
+						<span class="sortDirection_down" data-bind="visible: sort() == 'RatingScore'"></span>
+					</a>
+				</th>
+			</tr>
+		</thead>
+		<tbody data-bind="foreach: page">
+			<tr>
+				<td>
+					<a data-bind="visible: song.thumbUrl, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#">
+						<img data-bind="attr: { src: song.thumbUrl }" title="Cover picture" class="coverPicThumb img-rounded" />
+					</a>
+				</td>
+				<td>
+
+					@*<div class="pull-right" data-bind="visible: pvServices, with: previewViewModel">
+						<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
+							<i class="icon-film"></i>
+							Preview
+						</a>
+					</div>*@
+
+					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
+					
+					<span data-bind="visible: rating == 'Favorite'" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
+					<span data-bind="visible: rating == 'Like'"  class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>
+
+
+					@*<span data-bind="songTypeLabel: song.songType"></span>
+					<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
+					<img data-bind="attr: { src: url, title: service }" />
+					<!-- /ko -->*@
+					@KnockoutHelpers.DraftIcon("status")
+					<br />
+					<small class="extraInfo" data-bind="text: song.artistString"></small>
+
+					@*<div data-bind="visible: pvServices, with: previewViewModel">
+						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
+							<div data-bind="with: ratingButtons" class="pull-right">
+								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
+							</div>
+							<div data-bind="html: previewHtml"></div>
+						</div>
+					</div>*@
+				</td>
+				<td>
+					<span data-bind="text: song.ratingScore"></span>
+					total score
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
 </div>
 
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+	@Scripts.Render("~/bundles/User/RatedSongs")
+
+	<script type="text/javascript">
+
+		$(document).ready(function () {
+
+			var cultureCode = '@UICulture';
+			var languageSelection = '@UserContext.LanguagePreference';
+			var loggedUserId = @Model.User.Id;
+
+			var rootPath = '@RootPath';
+			var urlMapper = new vdb.UrlMapper(rootPath);
+			var userRepo = new vdb.repositories.UserRepository(urlMapper);
+			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+
+			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, languageSelection, loggedUserId);
+			ko.applyBindings(vm);
+
+		});
+
+	</script>
+
 }

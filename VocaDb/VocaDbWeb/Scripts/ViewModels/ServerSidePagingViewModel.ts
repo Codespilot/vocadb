@@ -5,8 +5,9 @@ module vdb.viewModels {
 
 	export class ServerSidePagingViewModel {
 		
-		constructor() {
+		constructor(pageSize: number = 10) {
 
+			this.pageSize(pageSize);
 			this.page.subscribe(this.updateItems);
 			this.pageSize.subscribe(this.updateItems);
 

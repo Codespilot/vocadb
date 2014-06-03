@@ -168,6 +168,14 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/User/MySettingsViewModel.js"
 			));
 
+			bundles.Add(new ScriptBundle("~/bundles/User/RatedSongs").Include(
+				"~/Scripts/Shared/EntrySearchDrop.js",
+				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
+				"~/Scripts/Repositories/ArtistRepository.js",
+				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
+				"~/Scripts/ViewModels/User/RatedSongsSearchViewModel.js"
+			));
+
 
 #if DEBUG
 			bundles.Add(new ScriptBundle("~/bundles/tests")

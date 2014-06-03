@@ -26,6 +26,27 @@ module vdb.repositories {
 
 		};
 
+		public getRatedSongsList = (
+			userId: number,
+			paging: dc.PagingProperties, lang: string, query: string,
+			artistId: number,
+			rating: string,
+			groupByRating: boolean,
+			sort: string,
+			callback) => {
+
+			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/ratedSongs");
+			var data = {
+				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
+				query: query, artistId: artistId, rating: rating, groupByRating: groupByRating,
+				fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort,
+				status: status
+			};
+
+			$.getJSON(url, data, callback);
+
+		}
+
 		public requestEmailVerification = (callback?: () => void) => {
 
 			var url = this.mapUrl("/RequestEmailVerification");
@@ -49,7 +70,7 @@ module vdb.repositories {
         // Maps a relative URL to an absolute one.
         private mapUrl: (relative: string) => string;
 
-        constructor(urlMapper: vdb.UrlMapper) {
+        constructor(private urlMapper: vdb.UrlMapper) {
 
             this.mapUrl = (relative: string) => {
                 return urlMapper.mapRelative("/User") + relative;
