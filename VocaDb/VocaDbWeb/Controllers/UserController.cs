@@ -101,9 +101,9 @@ namespace VocaDb.Web.Controllers
 			int pageSize = Math.Min(routeParams.pageSize ?? 50, 200);
 			var pageIndex = (routeParams.page - 1) ?? 0;
 			var queryParams = new AlbumCollectionQueryParams(id, PagingProperties.CreateFromPage(pageIndex, pageSize, routeParams.totalCount == 0)) { 
-				FilterByStatus = routeParams.purchaseStatus ?? PurchaseStatus.Nothing 
+				FilterByStatus = routeParams.purchaseStatus != null ? new[] { routeParams.purchaseStatus.Value } : null 
 			};
-			var albums = Service.GetAlbumCollection(queryParams);
+			var albums = Data.GetAlbumCollection(queryParams);
 			routeParams.totalCount = (albums.TotalCount != 0 ? albums.TotalCount : routeParams.totalCount);
 			var paged = new PagingData<AlbumForUserContract>(albums.Items.ToPagedList(pageIndex, pageSize, routeParams.totalCount), id, "AlbumCollection", "ui-tabs-1", addTotalCount: true);
 			paged.RouteValues = new RouteValueDictionary(new { routeParams.purchaseStatus, pageSize });

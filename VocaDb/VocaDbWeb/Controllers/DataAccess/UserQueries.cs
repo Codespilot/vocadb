@@ -440,6 +440,46 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(AlbumCollectionQueryParams queryParams) {
+			return GetAlbumCollection(queryParams, (albumForUser, shouldShowCollectionStatus) => new AlbumForUserContract(albumForUser, PermissionContext.LanguagePreference) {
+				ShouldShowCollectionStatus = shouldShowCollectionStatus
+			});
+		}
+
+		public PartialFindResult<T> GetAlbumCollection<T>(AlbumCollectionQueryParams queryParams, Func<AlbumForUser, bool, T> fac) {
+
+			ParamIs.NotNull(() => queryParams);
+
+			return HandleQuery(session => {
+
+				var paging = queryParams.Paging;
+				var loggedUserId = PermissionContext.LoggedUserId;
+				var user = session.Load(queryParams.UserId);
+				var shouldShowCollectionStatus = user.Id == loggedUserId || user.Options.PublicAlbumCollection;
+
+				var query = session.OfType<AlbumForUser>().Query()
+					.Where(a => a.User.Id == user.Id 
+						&& !a.Album.Deleted 
+						&& (shouldShowCollectionStatus || a.Rating > 0))
+					.WhereHasName(queryParams.Query, queryParams.NameMatchMode)
+					.WhereHasCollectionStatus(queryParams.FilterByStatus);
+
+				var albums = query
+					.OrderBy(queryParams.Sort, PermissionContext.LanguagePreference)
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray()
+					.Select(afu => fac(afu, shouldShowCollectionStatus))
+					.ToArray();
+
+				var count = paging.GetTotalCount ? query.Count() : 0;
+
+				return new PartialFindResult<T>(albums, count);
+
+			});
+
+		}
+
 		public PartialFindResult<FavoriteSongForUserContract> GetRatedSongs(RatedSongQueryParams queryParams) {
 			return GetRatedSongs(queryParams, ratedSong => new FavoriteSongForUserContract(ratedSong, PermissionContext.LanguagePreference));
 		}
