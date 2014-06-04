@@ -237,7 +237,6 @@
 		<li><a href="#commentsTab">@ViewRes.EntryDetailsStrings.LatestComments</a></li>
 		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })" title="Collection"><span>@R.CollectionTab (@Model.AlbumCollectionCount)</span></a></li>
 		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>@R.FollowedArtistsTab (@Model.ArtistCount)</span></a></li>
-		<li><a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })" title="Favorite songs"><span>@R.FavoriteSongsTab (@Model.FavoriteSongCount)</span></a></li>
 		<li><a href="#customLists">@R.CustomListsTab</a></li>
 	</ul>
 
@@ -262,9 +261,6 @@
 	</div>
 
 	<div id="Followed_artists">
-	</div>
-
-	<div id="Favorite_songs">
 	</div>
 
 	<div id="customLists">
