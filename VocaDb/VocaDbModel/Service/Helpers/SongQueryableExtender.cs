@@ -200,6 +200,10 @@ namespace VocaDb.Model.Service.Helpers {
 		/// Can be null, in which case the words list will be parsed from <paramref name="nameFilter"/>.
 		/// </param>
 		/// <returns>Filtered query. Cannot be null.</returns>
+		/// <remarks>
+		/// Note: this code should be optimized after switching to EF.
+		/// Cannot be optimized as is for NH.
+		/// </remarks>
 		public static IQueryable<T> WhereChildHasName<T>(this IQueryable<T> query, string nameFilter, 
 			NameMatchMode matchMode, string[] words = null) where T : ISongLink {
 

@@ -237,6 +237,7 @@
     <Compile Include="DataContracts\UseCases\NewSongCheckResultContract.cs" />
     <Compile Include="DataContracts\UseCases\TrackPropertiesContract.cs" />
     <Compile Include="DataContracts\Users\AlbumForUserContract.cs" />
+    <Compile Include="DataContracts\Users\AlbumForUserForApiContract.cs" />
     <Compile Include="DataContracts\Users\ArtistForUserContract.cs" />
     <Compile Include="DataContracts\Users\FavoriteSongForUserContract.cs" />
     <Compile Include="DataContracts\Users\IUserIconFactory.cs" />
@@ -621,6 +622,7 @@
     <Compile Include="Service\Exceptions\NoPasswordException.cs" />
     <Compile Include="Service\Exceptions\RequestNotValidException.cs" />
     <Compile Include="Service\Exceptions\TooFastRegistrationException.cs" />
+    <Compile Include="Service\Helpers\AlbumForUserQueryableExtender.cs" />
     <Compile Include="Service\Helpers\AlbumQueryableExtender.cs" />
     <Compile Include="Service\Helpers\ArtistForAlbumQueryableExtender.cs" />
     <Compile Include="Service\Helpers\ArtistForSongQueryableExtender.cs" />

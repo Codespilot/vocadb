@@ -1,14 +1,20 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Http.Cors;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.User;
 using VocaDb.Web.Controllers.DataAccess;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers.Api {
 
@@ -23,14 +29,47 @@ namespace VocaDb.Web.Controllers.Api {
 		private readonly IUserPermissionContext permissionContext;
 		private readonly UserQueries queries;
 		private readonly UserService service;
+		private readonly IEntryThumbPersister thumbPersister;
 
-		public UserApiController(UserQueries queries, UserService service, IUserPermissionContext permissionContext) {
+		public UserApiController(UserQueries queries, UserService service, IUserPermissionContext permissionContext, IEntryThumbPersister thumbPersister) {
 			this.queries = queries;
 			this.service = service;
 			this.permissionContext = permissionContext;
+			this.thumbPersister = thumbPersister;
 		}
 
-		/// <summary>
+		[Route("{userId:int}/albums")]
+		public PartialFindResult<AlbumForUserForApiContract> GetAlbumCollection(
+			int userId,
+			string query = "", 
+			[FromUri] PurchaseStatus[] purchaseStatus = null,
+			int start = 0, 
+			int maxResults = defaultMax,
+			bool getTotalCount = false, 
+			AlbumSortRule? sort = null,
+			NameMatchMode nameMatchMode = NameMatchMode.Exact, 
+			AlbumOptionalFields fields = AlbumOptionalFields.None, 
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+		
+			maxResults = Math.Min(maxResults, absoluteMax);
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
+			var ssl = WebHelper.IsSSL(Request);
+
+			var queryParams = new AlbumCollectionQueryParams(userId, new PagingProperties(start, maxResults, getTotalCount)) {
+				FilterByStatus = purchaseStatus,
+				NameMatchMode = nameMatchMode,
+				Query = query,
+				Sort = sort ?? AlbumSortRule.Name
+			};
+
+			var albums = queries.GetAlbumCollection(queryParams, (afu, shouldShowCollectionStatus) => 
+				new AlbumForUserForApiContract(afu, lang, thumbPersister, ssl, fields, shouldShowCollectionStatus));
+
+			return albums;
+
+		}
+
+			/// <summary>
 		/// Gets a list of songs rated by a user.
 		/// </summary>
 		/// <param name="userId">ID of the user whose songs are to be browsed.</param>
@@ -61,6 +100,9 @@ namespace VocaDb.Web.Controllers.Api {
 			SongOptionalFields fields = SongOptionalFields.None, 
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 			
+			maxResults = Math.Min(maxResults, absoluteMax);
+			query = FindHelpers.GetMatchModeAndQueryForSearch(query, ref nameMatchMode);
+
 			var queryParams = new RatedSongQueryParams(userId, new PagingProperties(start, maxResults, getTotalCount)) {
 				Query = query,
 				NameMatchMode = nameMatchMode,

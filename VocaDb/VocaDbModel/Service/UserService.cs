@@ -403,40 +403,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumForUserContract> GetAlbumCollection(AlbumCollectionQueryParams queryParams) {
-
-			ParamIs.NotNull(() => queryParams);
-
-			return HandleQuery(session => {
-
-				var status = queryParams.FilterByStatus;
-				var paging = queryParams.Paging;
-				var loggedUserId = PermissionContext.LoggedUserId;
-				var user = session.Load<User>(queryParams.UserId);
-				var shouldShowCollectionStatus = user.Id == loggedUserId || user.Options.PublicAlbumCollection;
-
-				var query = session.Query<AlbumForUser>()
-					.Where(a => a.User.Id == user.Id 
-						&& !a.Album.Deleted 
-						&& (status == PurchaseStatus.Nothing || a.PurchaseStatus == status)
-						&& (shouldShowCollectionStatus || a.Rating > 0));
-
-				var albums = query
-					.AddNameOrder(LanguagePreference)
-					.Skip(paging.Start)
-					.Take(paging.MaxEntries)
-					.ToArray()
-					.Select(a => new AlbumForUserContract(a, PermissionContext.LanguagePreference) { ShouldShowCollectionStatus = shouldShowCollectionStatus })
-					.ToArray();
-
-				var count = paging.GetTotalCount ? query.Count() : 0;
-
-				return new PartialFindResult<AlbumForUserContract>(albums, count);
-
-			});
-
-		}
-
 		public ArtistWithAdditionalNamesContract[] GetArtists(int userId) {
 
 			return HandleQuery(session =>
