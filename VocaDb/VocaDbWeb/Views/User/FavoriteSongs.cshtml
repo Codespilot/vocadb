@@ -93,12 +93,12 @@
 				</td>
 				<td>
 
-					@*<div class="pull-right" data-bind="visible: pvServices, with: previewViewModel">
-							<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
-								<i class="icon-film"></i>
-								Preview
-							</a>
-						</div>*@
+					<div class="pull-right" data-bind="visible: song.pvServices, with: song.previewViewModel">
+						<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
+							<i class="icon-film"></i>
+							Preview
+						</a>
+					</div>
 
 					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
 
@@ -114,14 +114,14 @@
 					<br />
 					<small class="extraInfo" data-bind="text: song.artistString"></small>
 
-					@*<div data-bind="visible: pvServices, with: previewViewModel">
-							<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
-								<div data-bind="with: ratingButtons" class="pull-right">
-									@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
-								</div>
-								<div data-bind="html: previewHtml"></div>
+					<div data-bind="visible: song.pvServices, with: song.previewViewModel">
+						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
+							<div data-bind="with: ratingButtons" class="pull-right">
+								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
 							</div>
-						</div>*@
+							<div data-bind="html: previewHtml"></div>
+						</div>
+					</div>
 				</td>
 				<td>
 					<span data-bind="text: song.ratingScore"></span>
@@ -152,9 +152,10 @@
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 
-			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, resourceRepo, languageSelection, loggedUserId, cultureCode);
+			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode);
 			ko.applyBindings(vm);
 
 		});
