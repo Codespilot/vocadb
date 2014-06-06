@@ -204,7 +204,7 @@
 	<div class="well well-transparent" id="favoriteAlbums">
 		<h4>
 			@R.SomeAlbumsILike
-			(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })">@ViewRes.SharedStrings.ShowMore</a>)
+			(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>)
 		</h4>
 		@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
 	</div>
