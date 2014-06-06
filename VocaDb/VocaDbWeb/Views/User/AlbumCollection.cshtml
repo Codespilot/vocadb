@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	
-	<div class="control-group">
+	<div class="control-group" data-bind="visible: publicCollection">
 		<div class="control-label">Collection status</div>
 		<div class="controls">
 			<button class="btn" data-bind="click: function() { collectionStatus(''); }, css { active: collectionStatus() == '' }">Anything</button>
