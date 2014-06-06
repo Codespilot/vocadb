@@ -39,6 +39,8 @@ namespace VocaDb.Model.Service.Search.User {
 
 		public string Query { get; set; }
 
+		public int SonglistId { get; set; }
+
 		/// <summary>
 		/// Song sort rule.
 		/// </summary>

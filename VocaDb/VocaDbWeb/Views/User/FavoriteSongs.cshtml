@@ -55,6 +55,15 @@
 		</div>
 	</div>
 	
+	<div class="control-group">
+		<div class="control-label">Song list</div>
+		<div class="controls">
+			<div style="display: inline-block;" class="input-append">
+				<select data-bind="options: songLists, optionsText: 'name', optionsValue: 'id', optionsCaption: 'Nothing', value: songListId"></select>
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <div data-bind="css: { loading: loading }, visible: true" style="display: none;">

@@ -50,6 +50,7 @@ module vdb.repositories {
 			paging: dc.PagingProperties, lang: string, query: string,
 			artistId: number,
 			rating: string,
+			songListId: number,
 			groupByRating: boolean,
 			sort: string,
 			callback) => {
@@ -57,11 +58,18 @@ module vdb.repositories {
 			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/ratedSongs");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, artistId: artistId, rating: rating, groupByRating: groupByRating,
+				query: query, artistId: artistId, rating: rating, songListId: songListId, groupByRating: groupByRating,
 				fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort
 			};
 
 			$.getJSON(url, data, callback);
+
+		}
+
+		public getSongLists = (userId: number, callback) => {
+	    
+			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/songLists");
+			$.getJSON(url, callback);
 
 		}
 
