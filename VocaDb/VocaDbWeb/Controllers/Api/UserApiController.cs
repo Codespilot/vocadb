@@ -39,6 +39,27 @@ namespace VocaDb.Web.Controllers.Api {
 			this.thumbPersister = thumbPersister;
 		}
 
+		/// <summary>
+		/// Gets a list of albums in a user's collection.
+		/// This includes albums that have been rated by the user as well as albums that the user has bought or wishlisted.
+		/// Note that the user might have set his album ownership status and media type as private, in which case those properties are not included.
+		/// </summary>
+		/// <param name="userId">ID of the user whose albums are to be browsed.</param>
+		/// <param name="query">Album name query (optional).</param>
+		/// <param name="artistId">Filter by album artist (optional).</param>
+		/// <param name="purchaseStatuses">
+		/// Filter by a comma-separated list of purchase statuses (optional). Possible values are Nothing, Wishlisted, Ordered, Owned, and all combinations of these.
+		/// </param>
+		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
+		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
+		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
+		/// <param name="sort">Sort rule (optional, defaults to Name). Possible values are None, Name, ReleaseDate, AdditionDate, RatingAverage, RatingTotal, CollectionCount.</param>
+		/// <param name="nameMatchMode">Match mode for album name (optional, defaults to Auto).</param>
+		/// <param name="fields">
+		/// List of optional fields (optional). Possible values are Artists, MainPicture, Names, PVs, Tags, WebLinks.
+		/// </param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <returns>Page of albums with collection properties.</returns>
 		[Route("{userId:int}/albums")]
 		public PartialFindResult<AlbumForUserForApiContract> GetAlbumCollection(
 			int userId,
@@ -72,7 +93,7 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
-			/// <summary>
+		/// <summary>
 		/// Gets a list of songs rated by a user.
 		/// </summary>
 		/// <param name="userId">ID of the user whose songs are to be browsed.</param>
