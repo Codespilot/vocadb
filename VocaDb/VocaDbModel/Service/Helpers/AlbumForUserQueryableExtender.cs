@@ -60,6 +60,15 @@ namespace VocaDb.Model.Service.Helpers {
 
 		} 
 
+		public static IQueryable<AlbumForUser> WhereHasArtist(this IQueryable<AlbumForUser> query, int artistId) {
+
+			if (artistId == 0)
+				return query;
+
+			return query.Where(s => s.Album.AllArtists.Any(a => a.Artist.Id == artistId));
+
+		}
+
 		public static IQueryable<AlbumForUser> WhereHasCollectionStatus(this IQueryable<AlbumForUser> query, PurchaseStatus[] statuses) {
 			
 			if (statuses == null || !statuses.Any())

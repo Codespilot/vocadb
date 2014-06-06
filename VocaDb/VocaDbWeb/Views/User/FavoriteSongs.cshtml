@@ -6,22 +6,6 @@
 @using SharedRes = ViewRes.SharedStrings;
 @inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.User.FavoriteSongs>
 
-@helper EntryCount() {
-	<div data-bind="with: paging" class="dropdown pull-right">
-		<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-			Showing
-			<span data-bind="text: pageSize"></span>
-			items of
-			<span data-bind="text: totalItems"></span>
-		</a>
-		<ul class="dropdown-menu">
-			<li><a data-bind="click: function() { pageSize(10); }" href="#">10 items per page</a></li>
-			<li><a data-bind="click: function() { pageSize(20); }" href="#">20 items per page</a></li>
-			<li><a data-bind="click: function() { pageSize(40); }" href="#">40 items per page</a></li>
-		</ul>
-	</div>
-}
-
 @{
     ViewBag.Title = "Songs rated by " + Model.User.Name;
 	ViewBag.Parents = new[] {
@@ -34,17 +18,7 @@
 	<div class="pull-right">
 		<div class="inline-block">
 			@ViewRes.EntryIndexStrings.SortBy
-			<div class="btn-group">
-				<button class="btn dropdown-toggle" data-toggle="dropdown">
-					<span data-bind="text: sortName"></span>
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					@foreach (var sortRule in Translate.SongSortRuleNames.ValuesAndNamesStrings) {
-						<li><a data-bind="click: function() { sort('@sortRule.Key'); }" href="#">@sortRule.Value</a></li>
-					}
-				</ul>
-			</div>
+			@KnockoutHelpers.Dropdown(Translate.SongSortRuleNames.ValuesAndNamesStrings, "sort", "sortName")
 		</div>
 		
 		<button class="btn" data-bind="click: function() { groupByRating(!groupByRating()); }, css: { active: groupByRating }">
@@ -66,6 +40,13 @@
 	</div>
 	
 	<div class="control-group">
+		<div class="control-label">Rating</div>
+		<div class="controls">
+			@UserHelpers.SongVoteRatingsRadioKnockout("rating")
+		</div>
+	</div>
+
+	<div class="control-group">
 		<div class="control-label">@EntryTypeNames.Artist</div>
 		<div class="controls">
 			<div style="display: inline-block;" class="input-append">
@@ -74,18 +55,13 @@
 		</div>
 	</div>
 	
-	<div class="control-group">
-		<div class="control-label">Rating</div>
-		<div class="controls">
-			@UserHelpers.SongVoteRatingsRadioKnockout("rating")
-		</div>
-	</div>
-
 </div>
 
 <div data-bind="css: { loading: loading }, visible: true" style="display: none;">
 
-	@EntryCount()
+	<div data-bind="with: paging" class="dropdown pull-right">
+		@KnockoutHelpers.EntryCount()
+	</div>
 
 	<div data-bind="with: paging">
 		@KnockoutHelpers.ServerSidePaging()

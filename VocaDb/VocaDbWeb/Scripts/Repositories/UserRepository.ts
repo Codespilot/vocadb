@@ -12,6 +12,25 @@ module vdb.repositories {
     // Corresponds to the UserController class.
     export class UserRepository {
 
+		public getAlbumCollectionList = (
+			userId: number,
+			paging: dc.PagingProperties, lang: string, query: string,
+			artistId: number,
+			purchaseStatuses: string,
+			sort: string,
+			callback) => {
+
+			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/albums");
+			var data = {
+				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
+				query: query, artistId: artistId, purchaseStatuses: purchaseStatuses,
+				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort
+			};
+
+			$.getJSON(url, data, callback);
+
+		}
+
         public getMessageBody = (messageId: number, callback?: (result: string) => void) => {
 
             var url = this.mapUrl("/MessageBody");
@@ -39,8 +58,7 @@ module vdb.repositories {
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
 				query: query, artistId: artistId, rating: rating, groupByRating: groupByRating,
-				fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort,
-				status: status
+				fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort
 			};
 
 			$.getJSON(url, data, callback);

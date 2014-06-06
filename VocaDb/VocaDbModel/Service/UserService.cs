@@ -452,9 +452,9 @@ namespace VocaDb.Model.Service {
 
 		}*/
 
-		public UserContract GetUser(int id) {
+		public UserContract GetUser(int id, bool getPublicCollection = false) {
 
-			return HandleQuery(session => new UserContract(session.Load<User>(id)));
+			return HandleQuery(session => new UserContract(session.Load<User>(id), getPublicCollection));
 
 		}
 

@@ -86,7 +86,7 @@ namespace VocaDb.Web.Controllers
 			if (Request.IsAjaxRequest()) {
 				return AlbumCollectionPaged(routeParams);
 			} else {
-				return View(new AlbumCollection(Service.GetUser(id), routeParams));
+				return View(new AlbumCollection(Service.GetUser(id, true), routeParams));
 			}
 
 		}
