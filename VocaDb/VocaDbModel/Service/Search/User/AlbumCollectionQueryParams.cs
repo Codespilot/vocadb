@@ -19,6 +19,8 @@ namespace VocaDb.Model.Service.Search.User {
 
 		}
 
+		public int ArtistId { get; set; }
+
 		public PurchaseStatus[] FilterByStatus { get; set; }
 
 		public NameMatchMode NameMatchMode { get; set; }

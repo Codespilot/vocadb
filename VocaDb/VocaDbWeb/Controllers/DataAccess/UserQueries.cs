@@ -462,7 +462,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 						&& !a.Album.Deleted 
 						&& (shouldShowCollectionStatus || a.Rating > 0))
 					.WhereHasName(queryParams.Query, queryParams.NameMatchMode)
-					.WhereHasCollectionStatus(queryParams.FilterByStatus);
+					.WhereHasCollectionStatus(queryParams.FilterByStatus)
+					.WhereHasArtist(queryParams.ArtistId);
 
 				var albums = query
 					.OrderBy(queryParams.Sort, PermissionContext.LanguagePreference)

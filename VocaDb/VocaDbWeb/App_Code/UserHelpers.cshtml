@@ -39,12 +39,12 @@
 }
 
 @helper SongVoteRatingsRadioKnockout(string binding) {
-	<button class="btn" data-bind="click: function() { @(binding)('Nothing'); }, enable: @(binding)() != 'Nothing'">Anything</button>
-	<button class="btn" data-bind="click: function() { @(binding)('Like'); }, enable: @(binding)() != 'Like'">
+	<button class="btn" data-bind="click: function() { @(binding)('Nothing'); }, css: { active: @(binding)() == 'Nothing' }">Anything</button>
+	<button class="btn" data-bind="click: function() { @(binding)('Like'); }, css: { active: @(binding)() == 'Like' }">
 		<i class="icon-star"></i>
 		@SongVoteRatingNames.Like
 	</button>
-	<button class="btn" data-bind="click: function() { @(binding)('Favorite'); }, enable: @(binding)() != 'Favorite'">
+	<button class="btn" data-bind="click: function() { @(binding)('Favorite'); }, css: { active: @(binding)() == 'Favorite' }">
 		<i class="icon-heart"></i>
 		@SongVoteRatingNames.Favorite
 	</button>

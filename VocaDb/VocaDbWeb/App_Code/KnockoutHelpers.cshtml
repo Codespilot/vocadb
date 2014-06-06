@@ -12,6 +12,34 @@
 	<img data-bind="visible: @statusBinding == 'Draft'" src="@Url.Content("~/Content/draft.png")" title="@HelperRes.HelperStrings.DraftIconTitle" alt="draft" />
 }
 
+@helper Dropdown(Dictionary<string, string> items, string valueBinding, string currentTextBinding) {
+	<div class="btn-group">
+		<button class="btn dropdown-toggle" data-toggle="dropdown">
+			<span data-bind="text: @currentTextBinding"></span>
+			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+			@foreach (var item in items) {
+				<li><a data-bind="click: function() { @(valueBinding)('@item.Key'); }" href="#">@item.Value</a></li>
+			}
+		</ul>
+	</div>
+}
+
+@helper EntryCount() {
+	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+		Showing
+		<span data-bind="text: pageSize"></span>
+		items of
+		<span data-bind="text: totalItems"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a data-bind="click: function() { pageSize(10); }" href="#">10 items per page</a></li>
+		<li><a data-bind="click: function() { pageSize(20); }" href="#">20 items per page</a></li>
+		<li><a data-bind="click: function() { pageSize(40); }" href="#">40 items per page</a></li>
+	</ul>
+}
+
 @helper LockingAutoComplete(string bindingHandler, string binding, string textBinding = null, string valBinding = null) {
 	<input type="text" class="input-large" data-bind="@bindingHandler: @binding, visible: !@(valBinding ?? binding)()" />
 	<div class="input-append" data-bind="visible: @(valBinding ?? binding)()">

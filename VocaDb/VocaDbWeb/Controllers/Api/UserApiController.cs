@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VocaDb.Model.DataContracts.Albums;
@@ -42,7 +43,8 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<AlbumForUserForApiContract> GetAlbumCollection(
 			int userId,
 			string query = "", 
-			[FromUri] PurchaseStatus[] purchaseStatus = null,
+			int? artistId = null,
+			[FromUri] PurchaseStatuses? purchaseStatuses = null,
 			int start = 0, 
 			int maxResults = defaultMax,
 			bool getTotalCount = false, 
@@ -56,7 +58,8 @@ namespace VocaDb.Web.Controllers.Api {
 			var ssl = WebHelper.IsSSL(Request);
 
 			var queryParams = new AlbumCollectionQueryParams(userId, new PagingProperties(start, maxResults, getTotalCount)) {
-				FilterByStatus = purchaseStatus,
+				ArtistId = artistId ?? 0,
+				FilterByStatus = purchaseStatuses != null ? purchaseStatuses.Value.ToIndividualSelections().ToArray() : null,
 				NameMatchMode = nameMatchMode,
 				Query = query,
 				Sort = sort ?? AlbumSortRule.Name

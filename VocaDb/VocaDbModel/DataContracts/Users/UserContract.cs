@@ -17,7 +17,7 @@ namespace VocaDb.Model.DataContracts.Users {
 			Language = string.Empty;
 		}
 
-		public UserContract(User user)
+		public UserContract(User user, bool getPublicCollection = false)
 			: base(user) {
 
 			ParamIs.NotNull(() => user);
@@ -31,6 +31,9 @@ namespace VocaDb.Model.DataContracts.Users {
 			GroupId = user.GroupId;
 			Language = user.Language;
 			PreferredVideoService = user.PreferredVideoService;
+
+			if (getPublicCollection)
+				PublicAlbumCollection = user.Options.PublicAlbumCollection;
 
 		}
 
@@ -60,6 +63,9 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		[DataMember]
 		public PVService PreferredVideoService { get; set; }
+
+		[DataMember]
+		public bool PublicAlbumCollection { get; set; }
 
 	}
 
