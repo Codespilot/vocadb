@@ -6,6 +6,7 @@ using System.Web;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
@@ -16,6 +17,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.QueryableExtenders;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
@@ -496,7 +498,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					.Where(a => !a.Song.Deleted && a.User.Id == queryParams.UserId)
 					.WhereChildHasName(queryParams.Query, queryParams.NameMatchMode)
 					.WhereSongHasArtist(queryParams.ArtistId)
-					.WhereHasRating(queryParams.FilterByRating);
+					.WhereHasRating(queryParams.FilterByRating)
+					.WhereSongIsInList(queryParams.SonglistId);
 
 				var queryWithSort = q;
 
@@ -518,6 +521,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				return new PartialFindResult<T>(contracts, totalCount);
 
 			});
+		}
+
+		public SongListBaseContract[] GetCustomSongLists(int userId) {
+			
+			return HandleQuery(ctx => ctx
+				.Load(userId)
+				.SongLists
+				.Where(s => s.FeaturedCategory == SongListFeaturedCategory.Nothing)
+				.Select(s => new SongListBaseContract(s))
+				.ToArray());
+
 		}
 
 		public PartialFindResult<UserContract> GetUsers(UserGroupId groupId, string name, bool disabled, bool verifiedArtists, UserSortRule sortRule, PagingProperties paging) {

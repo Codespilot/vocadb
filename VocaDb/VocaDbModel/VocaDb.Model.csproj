@@ -637,6 +637,7 @@
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedSongsQuery.cs" />
+    <Compile Include="Service\QueryableExtenders\QueryableForSongLinkExtender.cs" />
     <Compile Include="Service\Repositories\IArtistRepository.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />
     <Compile Include="Service\Repositories\IEventRepository.cs" />

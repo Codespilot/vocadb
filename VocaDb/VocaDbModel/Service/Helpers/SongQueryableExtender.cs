@@ -27,24 +27,6 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<T> AddSongOrder<T>(this IQueryable<T> criteria, SongSortRule sortRule, ContentLanguagePreference languagePreference)
-			where T : ISongLink {
-
-			switch (sortRule) {
-				case SongSortRule.Name:
-					return criteria.AddSongNameOrder(languagePreference);
-				case SongSortRule.AdditionDate:
-					return criteria.OrderByDescending(a => a.Song.CreateDate);
-				case SongSortRule.FavoritedTimes:
-					return criteria.OrderByDescending(a => a.Song.FavoritedTimes);
-				case SongSortRule.RatingScore:
-					return criteria.OrderByDescending(a => a.Song.RatingScore);
-			}
-
-			return criteria;
-
-		}
-
 		public static IQueryable<Song> OrderBy(this IQueryable<Song> criteria, SongSortRule sortRule, ContentLanguagePreference languagePreference) {
 			return AddOrder(criteria, sortRule, languagePreference);
 		}

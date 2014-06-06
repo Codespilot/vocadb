@@ -100,6 +100,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="query">Song name query (optional).</param>
 		/// <param name="artistId">Filter by song artist (optional).</param>
 		/// <param name="rating">Filter songs by given rating (optional).</param>
+		/// <param name="songListId">Filter songs by song list (optional).</param>
 		/// <param name="groupByRating">Group results by rating so that highest rated are first.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
@@ -117,6 +118,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			int? artistId = null,
 			SongVoteRating? rating = null,
+			int? songListId = null,
 			bool groupByRating = true,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			SongSortRule? sort = null,
@@ -133,11 +135,19 @@ namespace VocaDb.Web.Controllers.Api {
 				SortRule = sort ?? SongSortRule.Name,
 				ArtistId = artistId ?? 0,
 				FilterByRating = rating ?? SongVoteRating.Nothing,
-				GroupByRating = groupByRating
+				GroupByRating = groupByRating,
+				SonglistId = songListId ?? 0
 			};
 
 			var songs = queries.GetRatedSongs(queryParams, ratedSong => new RatedSongForUserForApiContract(ratedSong, lang, fields));
 			return songs;
+
+		}
+
+		[Route("{userId:int}/songLists")]
+		public SongListBaseContract[] GetSongLists(int userId) {
+			
+			return queries.GetCustomSongLists(userId);
 
 		}
 
