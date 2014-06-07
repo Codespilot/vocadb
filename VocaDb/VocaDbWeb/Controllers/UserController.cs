@@ -201,7 +201,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult FavoriteSongs(int id = invalidId, int? page = null, SongVoteRating? rating = null, SongSortRule sort = SongSortRule.Name, bool groupByRating = true) {
+		public ActionResult FavoriteSongs(int id = invalidId, int? page = null, SongVoteRating? rating = null, SongSortRule? sort = null, bool? groupByRating = null) {
 
 			if (id == invalidId)
 				return NoId();
