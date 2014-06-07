@@ -210,6 +210,9 @@
   <data name="TagVotes" xml:space="preserve">
     <value>Tag votes</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>{0} total</value>
+  </data>
   <data name="TotalEdits" xml:space="preserve">
     <value>Total edits</value>
   </data>

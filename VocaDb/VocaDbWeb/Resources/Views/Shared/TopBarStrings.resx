@@ -120,6 +120,12 @@
   <data name="EntryReports" xml:space="preserve">
     <value>Entry reports</value>
   </data>
+  <data name="MyAlbums" xml:space="preserve">
+    <value>My albums</value>
+  </data>
+  <data name="MySongs" xml:space="preserve">
+    <value>My songs</value>
+  </data>
   <data name="NoUnreadMessages" xml:space="preserve">
     <value>No unread messages</value>
   </data>

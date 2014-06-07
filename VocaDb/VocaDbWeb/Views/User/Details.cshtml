@@ -202,29 +202,44 @@
 
 @if (Model.FavoriteAlbums.Any()) {
 	<div class="well well-transparent" id="favoriteAlbums">
-		<h4>
-			@R.SomeAlbumsILike
-			(<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>)
-		</h4>
+		<div class="pull-right">
+			<small>
+				<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>
+			</small>
+		</div>
+		<h3>
+			<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })">
+				@R.SomeAlbumsILike
+				<small>(@string.Format(R.Total, Model.AlbumCollectionCount))</small>
+			</a>			
+		</h3>
 		@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
 	</div>
 }
 
 @if (Model.LatestRatedSongs.Any()) {
 	<div class="well well-transparent">
-		<h4>
-			@R.SomeSongsILike
-			(<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>)
-		</h4>
+		<div class="pull-right">
+			<small>
+				<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>
+			</small>
+		</div>
+		<h3>
+			<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">
+				@R.SomeSongsILike
+				<small>(@string.Format(R.Total, Model.FavoriteSongCount))</small>
+			</a>
+		</h3>
 		@SongHelpers.SongGrid(Model.LatestRatedSongs, 3)
 	</div>
 }
 
 @if (Model.FollowedArtists.Any()) {
 	<div class="well well-transparent">
-		<h4>
+		<h3>
 			@R.SomeArtistsIFollow
-		</h4>
+			<small>(@string.Format(R.Total, Model.ArtistCount))</small>
+		</h3>
 		@ArtistHelpers.ArtistGrid(Model.FollowedArtists, 3)
 	</div>
 }
