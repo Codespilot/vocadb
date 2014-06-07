@@ -210,6 +210,9 @@
   <data name="TagVotes" xml:space="preserve">
     <value>Tägien ääniä</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>{0} yhteensä</value>
+  </data>
   <data name="TotalEdits" xml:space="preserve">
     <value>Muokkauksia yhteensä</value>
   </data>

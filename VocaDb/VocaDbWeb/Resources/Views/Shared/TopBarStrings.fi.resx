@@ -120,6 +120,12 @@
   <data name="EntryReports" xml:space="preserve">
     <value>Raportit</value>
   </data>
+  <data name="MyAlbums" xml:space="preserve">
+    <value>Omat albumini</value>
+  </data>
+  <data name="MySongs" xml:space="preserve">
+    <value>Omat kappaleeni</value>
+  </data>
   <data name="NoUnreadMessages" xml:space="preserve">
     <value>Ei lukemattomia viestejä</value>
   </data>

@@ -75,7 +75,7 @@ namespace VocaDb.Model.Service {
 				.OrderByDescending(c => c.Rating)
 				.ThenByDescending(c => c.Id)
 				.Select(a => a.Album)
-				.Take(5)
+				.Take(7)
 				.ToArray()
 				.Select(c => new AlbumContract(c, LanguagePreference))
 				.ToArray();

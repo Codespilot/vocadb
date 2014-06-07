@@ -1,6 +1,7 @@
 ﻿@using VocaDb.Model
 @using VocaDb.Model.Domain.Globalization
 @using VocaDb.Web.Helpers;
+@using Res = ViewRes.TopBarStrings;
 @model VocaDb.Web.Models.GlobalSearchBoxModel
 
 @using (Html.BeginForm("GlobalSearch", "Home", FormMethod.Post, new { @class = "navbar-form form-inline pull-left navbar-search", id = "globalSearchBox" })) {
@@ -41,11 +42,13 @@
 				<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
 			} else {
 				<li>@Html.ActionLink(ViewRes.User.MySettingsStrings.Profile, "Profile", "User", new { id = Login.Manager.Name }, null)</li>
+				<li>@Html.ActionLink(Res.MyAlbums, "AlbumCollection", "User", new { id = Login.Manager.LoggedUserId }, null)</li>
+				<li>@Html.ActionLink(Res.MySongs, "FavoriteSongs", "User", new { id = Login.Manager.LoggedUserId }, null)</li>
 				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
 				if (Login.CanManageEntryReports) {
 					<li>
 						<a href="@Url.Action("ViewEntryReports", "Admin")">
-							@ViewRes.TopBarStrings.EntryReports
+							@Res.EntryReports
 							<span data-bind="visible: reportCount() > 0, text: reportCount" class="badge badge-small badge-important" style="display: none"></span>
 						</a>
 					</li>	 
