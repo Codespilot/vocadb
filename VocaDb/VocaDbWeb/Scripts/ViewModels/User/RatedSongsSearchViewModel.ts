@@ -9,8 +9,15 @@ module vdb.viewModels.user {
 		constructor(private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
 			private songRepo: rep.SongRepository,
 			resourceRepo: rep.ResourceRepository,
-			private languageSelection: string, private loggedUserId: number, cultureCode: string) {
-			
+			private languageSelection: string, private loggedUserId: number, cultureCode: string,
+			sort: string, groupByRating: boolean) {
+
+			if (sort)
+				this.sort(sort);
+
+			if (groupByRating != null)
+				this.groupByRating(groupByRating);
+
 			this.artistSearchParams = {
 				allowCreateNew: false,
 				acceptSelection: this.selectArtist,

@@ -156,6 +156,8 @@
 			var cultureCode = '@UICulture';
 			var languageSelection = '@UserContext.LanguagePreference';
 			var loggedUserId = @Model.User.Id;
+			var sort = @Html.Raw(Model.Sort != null ? string.Format("'{0}'", Model.Sort) : "null");
+			var groupByRating = @ToJS(Model.GroupByRating);
 
 			var rootPath = '@RootPath';
 			var urlMapper = new vdb.UrlMapper(rootPath);
@@ -164,7 +166,8 @@
 			var songRepo = new vdb.repositories.SongRepository(rootPath);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 
-			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode);
+			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
+				sort, groupByRating);
 			ko.applyBindings(vm);
 
 		});
