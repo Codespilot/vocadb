@@ -6,7 +6,7 @@
 @model VocaDb.Model.DataContracts.Tags.TagDetailsContract
 
 @{
-	
+
 	ViewBag.PageTitle = R.DetailsStrings.TagDetails + " - " + Model.Name;
 	ViewBag.Title = Model.Name;
 	ViewBag.SubTitle = R.DetailsStrings.Tag;
@@ -22,6 +22,15 @@
 	var descriptionHtml = MarkdownHelper.TranformMarkdown(Model.Description);
 	var descriptionStripped = HtmlHelperFunctions.StripHtml(descriptionHtml);
 	
+	var related = new List<Tuple<string, string>>();
+
+	if (Model.Parent != null) {
+		related.Add(Tuple.Create(Model.Parent, "parent"));		
+	}
+	
+	related.AddRange(Model.Children.Select(t => Tuple.Create(t, "child")));
+	related.AddRange(Model.Siblings.Select(t => Tuple.Create(t, "sibling")));
+
 }
 
 @section Head {
@@ -29,25 +38,25 @@
 		url: url,
 		description: descriptionStripped
 	)
-	<link rel="canonical" href="@url" />	
+	<link rel="canonical" href="@url" />
 }
 
 @section BodyScripts {
-<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
-<script type="text/javascript">
+	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+	<script type="text/javascript">
 
-	$(document).ready(function () {
-		$("#tabs").tabs({ load: function (event, ui) { vdb.functions.disableTabReload(ui.tab); } });
-		$("#editTagLink").button({ disabled: $("#editTagLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench'} });
-		$("#viewVersions").button({ icons: { primary: 'ui-icon-clock'} });
-	});
+		$(document).ready(function () {
+			$("#tabs").tabs({ load: function (event, ui) { vdb.functions.disableTabReload(ui.tab); } });
+			$("#editTagLink").button({ disabled: $("#editTagLink").hasClass("disabled"), icons: { primary: 'ui-icon-wrench' } });
+			$("#viewVersions").button({ icons: { primary: 'ui-icon-clock' } });
+		});
 
-</script>
+	</script>
 }
 
 @section Toolbar {
-	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new {id = Model.Name}, new {id = "editTagLink", @class = (Login.CanEdit(Model) ? "" : "disabled")})
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Name }, new { id = "editTagLink", @class = (Login.CanEdit(Model) ? "" : "disabled") })
 	@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Name }, new { id = "viewVersions" })
 	@Helpers.EntryStatusMessage(Model.Status)
 }
@@ -63,30 +72,38 @@
 	</ul>
 
 	<div id="overviewTab">
-		
+
 		<div class="media">
 			@if (!string.IsNullOrEmpty(smallThumbUrl)) {
 				<a class="pull-left" href="@thumbUrl">
-					<img class="media-object" src="@smallThumbUrl" alt="Thumb" />				
-				</a>		
-			}			
-			
+					<img class="media-object" src="@smallThumbUrl" alt="Thumb" />
+				</a>
+			}
+
 			<div class="media-body">
 				@if (Model.Description != string.Empty) {
 					@Html.Raw(descriptionHtml)
 				}
 
-				@if (Model.CategoryName != string.Empty){
+				@if (Model.CategoryName != string.Empty) {
 					<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
 				}
-		
+
 				@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
 					<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
 				}
-		
+
 				@if (Model.Aliases.Any()) {
-					<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>			
+					<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>
 				}
+
+				@if (related.Any()) {
+					<p>
+						Related tags:
+						@Html.LinkList(related, alias => Html.ActionLink(alias.Item1 + " (" + alias.Item2 + ")", "Details", new { id = alias.Item1 }))
+					</p>
+				}
+
 			</div>
 		</div>
 
@@ -105,24 +122,24 @@
 		@if (Model.Songs.Any()) {
 			<br />
 			<h3>@R.DetailsStrings.TopSongs</h3>
-			@SongHelpers.SongGrid(Model.Songs.Select(s => s), 2, true)			
+			@SongHelpers.SongGrid(Model.Songs.Select(s => s), 2, true)
 		}
 
 	</div>
-    
-    @if (Model.Artists.Any()) {
-	<div id="Artists">
-	</div>
-    }
-    
-    @if (Model.Albums.Any()) {
-	<div id="Albums">
-	</div>
-    }
-    
-    @if (Model.Songs.Any()) {
-	<div id="Songs">
-	</div>
-    }
+
+	@if (Model.Artists.Any()) {
+		<div id="Artists">
+		</div>
+	}
+
+	@if (Model.Albums.Any()) {
+		<div id="Albums">
+		</div>
+	}
+
+	@if (Model.Songs.Any()) {
+		<div id="Songs">
+		</div>
+	}
 
 </div>

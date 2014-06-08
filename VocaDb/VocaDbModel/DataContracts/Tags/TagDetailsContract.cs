@@ -45,6 +45,9 @@ namespace VocaDb.Model.DataContracts.Tags {
 			Artists = artists.Select(a => new ArtistContract(a, languagePreference)).ToArray();
 			ArtistCount = artistCount;
 
+			Children = tag.Children.Select(a => a.Name).ToArray();
+			Siblings = tag.Parent != null ? tag.Parent.Children.Where(t => !t.Equals(tag)).Select(a => a.Name).ToArray() : new string[0];
+
 			Songs = songs.Select(a => new SongContract(a, languagePreference)).ToArray();
 			SongCount = songCount;
 
@@ -59,6 +62,10 @@ namespace VocaDb.Model.DataContracts.Tags {
 		public AlbumContract[] Albums { get; set; }
 
 		public ArtistContract[] Artists { get; set; }
+
+		public string[] Children { get; set; }
+
+		public string[] Siblings { get; set; }
 
 		public SongContract[] Songs { get; set; }
 

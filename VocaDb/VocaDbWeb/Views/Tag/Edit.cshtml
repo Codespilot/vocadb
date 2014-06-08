@@ -22,12 +22,12 @@
 	$(document).ready(function () {
 
 		@* Security note: encoding this would break some characters like quotes, need to find a better way, either strip HTML or return JSON from Web API *@
-		@{ var data = new { Model.Name, Model.Description }; }
+		@{ var data = new { Model.Name, Model.Parent, Model.Description }; }
 		
 		var model = @Html.Raw(JsonHelpers.Serialize(data));
 		initPage(model.name);
 
-		var viewModel = new vdb.viewModels.TagEditViewModel(model.description);
+		var viewModel = new vdb.viewModels.TagEditViewModel(model.name, model.parent, model.description);
 		ko.applyBindings(viewModel);
 		
 	});
@@ -61,6 +61,13 @@
 		@Html.TextBoxFor(m => m.AliasedTo, new { id = "aliasedTo", size = 40, maxlength = 30 })
 	</div>	
 	
+	<div class="editor-label">
+		<label for="parent" class="helpTip" title="Parent tag groups related tags under one parent. Child tags are still considered separate, unlike aliases.">Parent</label>
+	</div>
+	<div class="editor-field">
+		@Html.TextBoxForKnockout(m => m.Parent, "tagAutoComplete: parent, tagFilter: denySelf, clearValue: false", maxLength: 30, id: "parent")
+	</div>
+
 	<div class="editor-label">
 		@Html.LabelFor(m => m.Description)
 		@Helpers.MarkdownNotice()

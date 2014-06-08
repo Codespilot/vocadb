@@ -23,6 +23,7 @@ namespace VocaDb.Web.Models.Tag {
 			CategoryName = contract.CategoryName;
 			Description = contract.Description;
 			Name = contract.Name;
+			Parent = contract.Parent;
 			Status = contract.Status;
 			Thumb = contract.Thumb;
 
@@ -50,6 +51,8 @@ namespace VocaDb.Web.Models.Tag {
 
 		public string Name { get; set; }
 
+		public string Parent { get; set; }
+
 		public EntryStatus Status { get; set; }
 
 		public EntryThumbContract Thumb { get; set; }
@@ -69,6 +72,7 @@ namespace VocaDb.Web.Models.Tag {
 				AliasedTo = this.AliasedTo ?? string.Empty,
 				CategoryName = this.CategoryName ?? string.Empty,
 				Description = this.Description ?? string.Empty,
+				Parent = this.Parent ?? string.Empty,
 				Status = this.Status
 			};
 

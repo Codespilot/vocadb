@@ -139,7 +139,7 @@ namespace VocaDb.Web.Controllers
 				return View(model);
 			}
 
-			queries.UpdateTag(model.ToContract(), uploadedPicture);
+			queries.Update(model.ToContract(), uploadedPicture);
 
 			return RedirectToAction("Details", new { id = model.Name });
 

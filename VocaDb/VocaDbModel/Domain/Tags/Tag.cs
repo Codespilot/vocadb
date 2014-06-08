@@ -39,12 +39,22 @@ namespace VocaDb.Model.Domain.Tags {
 		public const string CommonTag_Instrumental = "instrumental";
 		public const string CommonTag_Nicovideo_downloadmusic = "nicovideo_downloadmusic";
 
+		public static bool Equals(Tag tag, string tagName) {
+			
+			var leftTagName = tag != null ? tag.Name : string.Empty;
+			var rightTagName = tagName ?? string.Empty;
+
+			return string.Equals(leftTagName, rightTagName, StringComparison.InvariantCultureIgnoreCase);
+
+		}
+
 		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
 		private Iesi.Collections.Generic.ISet<Tag> aliases = new Iesi.Collections.Generic.HashedSet<Tag>();
 		private ArchivedVersionManager<ArchivedTagVersion, TagEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedTagVersion, TagEditableFields>();		
 		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
 		private string categoryName;
+		private Iesi.Collections.Generic.ISet<Tag> children = new Iesi.Collections.Generic.HashedSet<Tag>();
 		private string description;
 		private Iesi.Collections.Generic.ISet<SongTagUsage> songTagUsages = new Iesi.Collections.Generic.HashedSet<SongTagUsage>();
 
@@ -126,6 +136,14 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public virtual Iesi.Collections.Generic.ISet<Tag> Children {
+			get { return children; }
+			set {
+				ParamIs.NotNull(() => value);
+				children = value;
+			}
+		}
+
 		/// <summary>
 		/// Tag description, may contain Markdown formatting.
 		/// </summary>
@@ -146,7 +164,7 @@ namespace VocaDb.Model.Domain.Tags {
 		public virtual int Id { get; set; }
 
 		/// <summary>
-		/// Tag name. Primary key. Guaranteed to be unique (case insensitive).
+		/// Tag name. Primary key (mapped to database). Guaranteed to be unique (case insensitive).
 		/// </summary>
 		/// <remarks>
 		/// Unlike other entry types, tags use the string name field as the primary key.
@@ -155,6 +173,11 @@ namespace VocaDb.Model.Domain.Tags {
 		/// try to load the object if only the Id is accessed.
 		/// </remarks>
 		public virtual string Name { get; set; }
+
+		/// <summary>
+		/// Parent tag, if any. Can be null.
+		/// </summary>
+		public virtual Tag Parent { get; set; }
 
 		/// <summary>
 		/// Tag name mapped as a regular column. Value of this property is the same as <see cref="Name"/>.
@@ -214,6 +237,28 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public override int GetHashCode() {
 			return Name.ToLowerInvariant().GetHashCode();
+		}
+
+		public virtual void SetParent(Tag newParent) {
+
+			if (Equals(Parent, newParent)) {
+				return;
+			}
+
+			if (Equals(Parent, this)) {
+				throw new ArgumentException("Tag can't be a parent of itself!");
+			}
+
+			if (Parent != null) {
+				Parent.Children.Remove(this);
+			}
+
+			Parent = newParent;
+
+			if (newParent != null) {
+				newParent.Children.Add(this);
+			}
+
 		}
 
 		public virtual Iesi.Collections.Generic.ISet<SongTagUsage> AllSongTagUsages {

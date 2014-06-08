@@ -3,6 +3,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.VideoServices;
 
@@ -32,6 +33,10 @@ namespace VocaDb.Tests.TestData {
 
 		public static Song Song(int id = 0, string name = "Nebula") {
 			return new Song(TranslatedString.Create(name ?? "Nebula")) { Id = id };
+		}
+
+		public static Tag Tag(string name, int id = 0) {
+			return new Tag(name) { Id = id, TagName = name };
 		}
 
 		public static User User(int id = 0, string name = "Miku", UserGroupId group = UserGroupId.Regular, string email = "") {
