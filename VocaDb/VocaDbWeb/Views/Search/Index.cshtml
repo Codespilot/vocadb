@@ -191,24 +191,6 @@
 								</div>
 							</div>
 
-							<div class="control-group">
-								<div class="controls">
-									<label class="checkbox">
-										<input type="checkbox" data-bind="checked: pvsOnly" />
-										@Res.OnlyWithPVs
-									</label>
-								</div>
-							</div>
-							
-							<div class="control-group" data-bind="visible: loggedUserId">
-								<div class="controls">
-									<label class="checkbox">
-										<input type="checkbox" data-bind="checked: onlyRatedSongs" />
-										@Res.InMyCollection
-									</label>
-								</div>
-							</div>
-
 						</div>
 
 						<div class="control-group" data-bind="visible: showTagSearch, with: tagSearchViewModel">
@@ -222,10 +204,24 @@
 
 						<div class="control-group" data-bind="visible: showDraftsFilter">
 							<div class="controls">
+								
+								<div data-bind="visible: showSongSearch, with: songSearchViewModel">
+									<label class="checkbox">
+										<input type="checkbox" data-bind="checked: pvsOnly" />
+										@Res.OnlyWithPVs
+									</label>
+
+									<label class="checkbox" data-bind="visible: loggedUserId">
+										<input type="checkbox" data-bind="checked: onlyRatedSongs" />
+										@Res.InMyCollection
+									</label>
+								</div>
+
 								<label class="checkbox">
 									<input type="checkbox" data-bind="checked: draftsOnly" />
 									@ViewRes.EntryIndexStrings.OnlyDrafts
 								</label>
+								
 							</div>
 						</div>
 

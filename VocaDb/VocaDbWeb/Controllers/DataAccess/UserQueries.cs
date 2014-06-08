@@ -504,7 +504,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var queryWithSort = q;
 
 				// Group by rating if needed
-				if (queryParams.GroupByRating)
+				if (queryParams.GroupByRating && queryParams.FilterByRating == SongVoteRating.Nothing)
 					queryWithSort = queryWithSort.OrderByDescending(r => r.Rating);
 
 				// Add custom order
