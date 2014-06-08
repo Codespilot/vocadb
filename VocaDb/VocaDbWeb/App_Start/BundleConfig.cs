@@ -147,6 +147,7 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Tag/Edit").Include(
+				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/ViewModels/TagEditViewModel.js",
 				"~/Scripts/Tag/Edit.js"
 			));

@@ -2,6 +2,10 @@
 
 namespace VocaDb.Model.Domain.Tags {
 
+	/// <summary>
+	/// Editable tag fields.
+	/// Persisted in the DB as strings, so integer values can be changed, but strings cannot.
+	/// </summary>
 	[Flags]
 	public enum TagEditableFields {
 
@@ -13,9 +17,11 @@ namespace VocaDb.Model.Domain.Tags {
 
 		Description		= 4,
 
-		Picture			= 8,
+		Parent			= 8,
 
-		Status			= 16
+		Picture			= 16,
+
+		Status			= 32
 
 	}
 

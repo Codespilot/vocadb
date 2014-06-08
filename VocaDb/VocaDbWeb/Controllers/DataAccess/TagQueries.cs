@@ -24,6 +24,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IEntryImagePersisterOld imagePersister;
 
+		private Tag GetRealTag(IRepositoryContext<Tag> ctx, string tagName, Tag ignoreSelf) {
+
+			if (string.IsNullOrEmpty(tagName))
+				return null;
+
+			if (ignoreSelf != null && Tag.Equals(ignoreSelf, tagName))
+				return null;
+
+			return ctx.Query().FirstOrDefault(t => t.AliasedTo == null && t.Name == tagName);
+
+		}
+
 		public TagQueries(ITagRepository repository, IUserPermissionContext permissionContext,
 		                  IEntryLinkFactory entryLinkFactory, IEntryImagePersisterOld imagePersister)
 			: base(repository, permissionContext) {
@@ -109,7 +121,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public void UpdateTag(TagContract contract, UploadedFileContract uploadedImage) {
+		public void Update(TagContract contract, UploadedFileContract uploadedImage) {
 
 			ParamIs.NotNull(() => contract);
 
@@ -123,11 +135,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				var diff = new TagDiff();
 
-				var oldAliasedTo = tag.AliasedTo != null ? tag.AliasedTo.Name : string.Empty;
 				var newAliasedTo = contract.AliasedTo ?? string.Empty;
-				if (oldAliasedTo != newAliasedTo) {
+				if (!Tag.Equals(tag.AliasedTo, contract.AliasedTo)) {
 					diff.AliasedTo = true;
-					tag.AliasedTo = ctx.Query().FirstOrDefault(t => t.AliasedTo == null && t.Name == newAliasedTo);
+					tag.AliasedTo = GetRealTag(ctx, newAliasedTo, tag);
 				}
 
 				if (tag.CategoryName != contract.CategoryName)
@@ -135,6 +146,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				if (tag.Description != contract.Description)
 					diff.Description = true;
+
+				if (!Tag.Equals(tag.Parent, contract.Parent)) {
+
+					var newParent = GetRealTag(ctx, contract.Parent, tag);
+
+					if (!Equals(newParent, tag.Parent)) {
+						diff.Parent = true;
+						tag.SetParent(newParent);						
+					}
+
+				}
 
 				if (tag.Status != contract.Status)
 					diff.Status = true;
