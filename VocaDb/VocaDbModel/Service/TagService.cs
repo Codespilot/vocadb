@@ -74,26 +74,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void Delete(string name) {
-
-			ParamIs.NotNullOrEmpty(() => name);
-
-			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);
-
-			HandleTransaction(session => {
-
-				var tag = session.Load<Tag>(name);
-
-				tag.Delete();
-
-				AuditLog(string.Format("deleted {0}", tag), session);
-
-				session.Delete(tag);
-
-			});
-
-		}
-
 		public string[] FindCategories(string query) {
 
 			if (string.IsNullOrWhiteSpace(query))

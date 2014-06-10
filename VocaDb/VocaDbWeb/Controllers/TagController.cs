@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using System.Web.Mvc;
 using MvcPaging;
-using VocaDb.Model;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -90,7 +88,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Delete(string id) {
 
-			Service.Delete(id);
+			queries.Delete(id);
 
 			TempData.SetStatusMessage("Tag deleted");
 

@@ -220,6 +220,10 @@ namespace VocaDb.Model.Domain.Tags {
 			while (AllSongTagUsages.Any())
 				AllSongTagUsages.First().Delete();
 
+			foreach (var child in Children) {
+				child.Parent = null;
+			}
+
 		}
 
 		public virtual bool Equals(Tag tag) {
