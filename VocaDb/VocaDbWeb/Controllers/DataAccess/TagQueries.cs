@@ -53,6 +53,26 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public void Delete(string name) {
+
+			ParamIs.NotNullOrEmpty(() => name);
+
+			PermissionContext.VerifyPermission(PermissionToken.DeleteEntries);
+
+			repository.HandleTransaction(ctx => {
+
+				var tag = ctx.Load(name);
+
+				tag.Delete();
+
+				ctx.AuditLogger.AuditLog(string.Format("deleted {0}", tag));
+
+				ctx.Delete(tag);
+
+			});
+
+		}
+
 		public PartialFindResult<T> Find<T>(Func<Tag, T> fac, CommonSearchParams queryParams, PagingProperties paging, 
 			bool allowAliases = false, string categoryName = "")
 			where T : class {
