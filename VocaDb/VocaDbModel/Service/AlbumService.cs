@@ -435,9 +435,8 @@ namespace VocaDb.Model.Service {
 						if (!isHit) {
 							var hit = new AlbumHit(album, agentNum);
 							session.Save(hit);
+							tx.Commit();
 						}
-
-						tx.Commit();
 
 					}
 

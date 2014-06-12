@@ -130,6 +130,7 @@
     <Compile Include="DataContracts\EntryThumbForApiContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventForApiContract.cs" />
     <Compile Include="DataContracts\Songs\RelatedSongsContract.cs" />
+    <Compile Include="DataContracts\Songs\SongInListForApiContract.cs" />
     <Compile Include="DataContracts\Tags\TagForApiContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageForApiContract.cs" />
     <Compile Include="DataContracts\ArchivedEntryPictureFileContract.cs" />
