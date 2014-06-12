@@ -91,7 +91,7 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			var contract = Service.GetSongListDetails(id);
+			var contract = queries.GetSongListDetails(id);
 
 			return View(contract);
 
@@ -145,7 +145,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult SongsPaged(int id, int? page, int? totalCount) {
 
 			var pageIndex = (page - 1) ?? 0;
-			var result = Service.GetSongsInList(id, pageIndex * SongsPerPage, SongsPerPage, !totalCount.HasValue);
+			var result = queries.GetSongsInList(id, pageIndex * SongsPerPage, SongsPerPage, !totalCount.HasValue);
 			var count = totalCount.HasValue ? totalCount.Value : result.TotalCount;
 			var data = new PagingData<SongInListContract>(result.Items.ToPagedList(pageIndex, SongsPerPage, count), id, "SongsPaged", "songsInList", addTotalCount: true);
 

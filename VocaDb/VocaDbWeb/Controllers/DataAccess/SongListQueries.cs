@@ -1,4 +1,6 @@
-﻿using NLog;
+﻿using System.Linq;
+using Antlr.Runtime.Misc;
+using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
@@ -29,6 +31,21 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			permissionContext.VerifyLogin();
 
 			return ctx.OfType<User>().Load(permissionContext.LoggedUser.Id);
+
+		}
+
+		private PartialFindResult<T> GetSongsInList<T>(IRepositoryContext<SongList> session, int listId, int start, int maxItems, bool getTotalCount,
+			Func<SongInList, T> fac) {
+
+			var q = session.OfType<SongInList>().Query().Where(a => !a.Song.Deleted && a.List.Id == listId);
+
+			IQueryable<SongInList> resultQ = q.OrderBy(s => s.Order);
+			resultQ = resultQ.Skip(start).Take(maxItems);
+
+			var contracts = resultQ.ToArray().Select(s => fac(s)).ToArray();
+			var totalCount = (getTotalCount ? q.Count() : 0);
+
+			return new PartialFindResult<T>(contracts, totalCount);
 
 		}
 
@@ -74,6 +91,25 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			this.permissionContext = permissionContext;
 			this.entryLinkFactory = entryLinkFactory;
 			this.imagePersister = imagePersister;
+		}
+
+		public PartialFindResult<SongInListContract> GetSongsInList(int listId, int start, int maxItems, bool getTotalCount) {
+
+			return repository.HandleQuery(session => GetSongsInList(session, listId, start, maxItems, getTotalCount, s => new SongInListContract(s, PermissionContext.LanguagePreference)));
+
+		}
+
+		public PartialFindResult<T> GetSongsInList<T>(int listId, int start, int maxItems, bool getTotalCount, Func<SongInList, T> fac) {
+
+			return repository.HandleQuery(ctx => GetSongsInList(ctx, listId, start, maxItems, getTotalCount, fac));
+
+		}
+
+		public SongListDetailsContract GetSongListDetails(int listId) {
+
+			return repository.HandleQuery(session => new SongListDetailsContract(
+				session.Load(listId), GetSongsInList(session, listId, 0, 50, true, s => new SongInListContract(s, PermissionContext.LanguagePreference)), PermissionContext));
+		
 		}
 
 		public int UpdateSongList(SongListForEditContract contract, UploadedFileContract uploadedFile) {

@@ -47,20 +47,6 @@ namespace VocaDb.Model.Service {
 			return session.Query<SongMergeRecord>().FirstOrDefault(s => s.Source == sourceId);			
 		}
 
-		private PartialFindResult<SongInListContract> GetSongsInList(ISession session, int listId, int start, int maxItems, bool getTotalCount) {
-
-			var q = session.Query<SongInList>().Where(a => !a.Song.Deleted && a.List.Id == listId);
-
-			IQueryable<SongInList> resultQ = q.OrderBy(s => s.Order);
-			resultQ = resultQ.Skip(start).Take(maxItems);
-
-			var contracts = resultQ.ToArray().Select(a => new SongInListContract(a, PermissionContext.LanguagePreference)).ToArray();
-			var totalCount = (getTotalCount ? q.Count() : 0);
-
-			return new PartialFindResult<SongInListContract>(contracts, totalCount);
-
-		}
-
 		/*
 		private VideoUrlParseResult ParsePV(ISession session, string url) {
 
@@ -585,13 +571,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongListDetailsContract GetSongListDetails(int listId) {
-
-			return HandleQuery(session => new SongListDetailsContract(
-				session.Load<SongList>(listId), GetSongsInList(session, listId, 0, 50, true), PermissionContext));
-		
-		}
-
 		public SongListForEditContract GetSongListForEdit(int listId, bool loadSongs = true) {
 
 			return HandleQuery(session => new SongListForEditContract(session.Load<SongList>(listId), PermissionContext, loadSongs));
@@ -634,12 +613,6 @@ namespace VocaDb.Model.Service {
 					.ToArray();
 
 			});
-
-		}
-
-		public PartialFindResult<SongInListContract> GetSongsInList(int listId, int start, int maxItems, bool getTotalCount) {
-
-			return HandleQuery(session => GetSongsInList(session, listId, start, maxItems, getTotalCount));
 
 		}
 
