@@ -151,6 +151,15 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		[Route("current/ratedSongs/{songId:int}")]
+		[Authorize]
+		[EnableCors(origins: "*", headers: "*", methods: "get", SupportsCredentials = true)]
+		public SongVoteRating GetSongRating(int songId) {
+			
+			return queries.GetSongRating(permissionContext.LoggedUserId, songId);
+
+		}
+
 		/// <summary>
 		/// Add or update rating for a specific song, for the currently logged in user.
 		/// If the user has already rated the song, any previous rating is replaced.
