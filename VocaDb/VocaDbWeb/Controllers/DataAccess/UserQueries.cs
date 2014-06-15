@@ -523,6 +523,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			});
 		}
 
+		public SongVoteRating GetSongRating(int userId, int songId) {
+			
+			return HandleQuery(ctx => {
+				
+				var r = ctx.OfType<FavoriteSongForUser>().Query().FirstOrDefault(s => s.Song.Id == songId && s.User.Id == userId);
+
+				return r != null ? r.Rating : SongVoteRating.Nothing;
+
+			});
+
+		}
+
 		public SongListBaseContract[] GetCustomSongLists(int userId) {
 			
 			return HandleQuery(ctx => ctx
