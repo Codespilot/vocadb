@@ -20,7 +20,9 @@
 
 		DramaPV			= 128,
 
-		Other			= 256
+		Live			= 256,
+
+		Other			= 512
 
 	}
 
