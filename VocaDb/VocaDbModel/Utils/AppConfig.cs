@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Utils.Config;
 
 namespace VocaDb.Model.Utils {
@@ -8,6 +9,7 @@ namespace VocaDb.Model.Utils {
 
 		private static ArtistType[] artistTypes;
 		private static ArtistRoles[] artistRoles;
+		private static SongType[] songTypes;
 
 		/// <summary>
 		/// List of roles that can be assigned to artist added to songs and albums.
@@ -28,6 +30,19 @@ namespace VocaDb.Model.Utils {
 			Domain.Artists.ArtistRoles.Vocalist,
 			Domain.Artists.ArtistRoles.VoiceManipulator,
 			Domain.Artists.ArtistRoles.Other
+		};
+
+		private static readonly SongType[] DefaultSongTypes = {
+			SongType.Unspecified,
+			SongType.Original,
+			SongType.Remaster,
+			SongType.Remix,
+			SongType.Cover,
+			SongType.Instrumental,
+			SongType.Mashup,
+			SongType.MusicPV,
+			SongType.DramaPV,
+			SongType.Other
 		};
 
 		private static string Val(string key) {
@@ -147,6 +162,19 @@ namespace VocaDb.Model.Utils {
 		public static string ReCAPTCHAPublicKey {
 			get {
 				return Val("ReCAPTCHAPublicKey");
+			}
+		}
+
+		public static SongType[] SongTypes {
+			get {
+				
+				if (songTypes == null) {
+					var val = Val("SongTypes");
+					songTypes = !string.IsNullOrEmpty(val) ? EnumVal<SongType>.ParseMultiple(val) : DefaultSongTypes;
+				}
+
+				return songTypes;
+
 			}
 		}
 

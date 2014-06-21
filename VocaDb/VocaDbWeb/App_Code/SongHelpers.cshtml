@@ -6,6 +6,7 @@
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Model.Helpers
 @using VocaDb.Model.Service.Search.AlbumSearch
+@using VocaDb.Model.Utils
 @using VocaDb.Web.Helpers;
 
 @helper ArtistParticipationStatusOptionsKnockout(string binding) {
@@ -219,5 +220,5 @@
 }
 
 @helper SongTypesDropdownKnockout(string binding) {
-	@KnockoutHelpers.CheckBoxButtons(Translate.SongTypeNames.ValuesAndNames.ToDictionary(k => k.Key.ToString(), k => k.Value), binding);
+	@KnockoutHelpers.CheckBoxButtons(Translate.SongTypeNames.GetValuesAndNames(AppConfig.SongTypes).ToDictionary(k => k.Key.ToString(), k => k.Value), binding);
 }

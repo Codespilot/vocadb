@@ -126,6 +126,9 @@
   <data name="Instrumental" xml:space="preserve">
     <value>Instrumental</value>
   </data>
+  <data name="Live" xml:space="preserve">
+    <value>Live recording</value>
+  </data>
   <data name="Mashup" xml:space="preserve">
     <value>Mashup</value>
   </data>
