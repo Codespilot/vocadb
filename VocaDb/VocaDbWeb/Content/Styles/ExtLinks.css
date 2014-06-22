@@ -13,6 +13,9 @@ a.extLink[href^="http://www.animate-onlineshop.jp/"] {
 a.extLink[href^="http://d-stage.com/"] {
   background: url("/Content/ExtIcons/dstage.png") no-repeat left 50%;
 }
+a.extLink[href^="http://www.play-asia.com/"] {
+  background: url("/Content/ExtIcons/playasia.png") no-repeat left 50%;
+}
 a.extLink[href^="http://www.toranoana.jp/"],
 a.extLink[href^="https://www.toranoana.jp/"] {
   background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
