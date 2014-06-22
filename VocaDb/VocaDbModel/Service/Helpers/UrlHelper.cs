@@ -1,4 +1,5 @@
 ﻿using System;
+using VocaDb.Model.Utils.Config;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -37,7 +38,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			var link = MakeLink(partialLink);
 
-			return (new ExtSites.AffiliateLinkGenerator()).GenerateAffiliateLink(link);
+			return (new ExtSites.AffiliateLinkGenerator(new VdbConfigManager())).GenerateAffiliateLink(link);
 
 		}
 
