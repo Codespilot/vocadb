@@ -25,6 +25,7 @@ module vdb.utils {
             { url: "www.discogs.com/", desc: "Discogs", cat: c.WebLinkCategory.Reference },
             { url: "exittunes.com/", desc: "Exit Tunes", cat: c.WebLinkCategory.Official },
             { url: "www.facebook.com/", desc: "Facebook", cat: c.WebLinkCategory.Official },
+			{ url: "shop.fasic.jp/", desc: "fasic", cat: c.WebLinkCategory.Commercial }, /* UtaiteDB */
             { url: ".web.fc2.com", desc: "Website", cat: c.WebLinkCategory.Official },
             { url: ".fc2.com", desc: "Blog", cat: c.WebLinkCategory.Official },
             { url: "itunes.apple.com/", desc: "iTunes", cat: c.WebLinkCategory.Commercial },
@@ -46,11 +47,13 @@ module vdb.utils {
             { url: "books.rakuten.co.jp/", desc: "Rakuten", cat: c.WebLinkCategory.Commercial },
             { url: "soundcloud.com/", desc: "SoundCloud", cat: c.WebLinkCategory.Official },
 			{ url: "item.taobao.com/item.htm", desc: "Taobao", cat: c.WebLinkCategory.Commercial },
+			{ url: "www.lagoa.jp/", desc: "THREE!", cat: c.WebLinkCategory.Commercial }, /* UtaiteDB */
             { url: "toranoana.jp/mailorder/article/", desc: "Toranoana", cat: c.WebLinkCategory.Commercial },
             { url: "tumblr.com/", desc: "Tumblr", cat: c.WebLinkCategory.Official },
             { url: "twitter.com/", desc: "Twitter", cat: c.WebLinkCategory.Official },
 			{ url: "utaitedb.net/", desc: "UtaiteDB", cat: c.WebLinkCategory.Reference },
             { url: "www24.atwiki.jp/utauuuta/", desc: "UTAU wiki (JP)", cat: c.WebLinkCategory.Reference },
+			{ url: "utaite.wikia.com/", desc: "Utaite Wikia", cat: c.WebLinkCategory.Reference }, /* UtaiteDB */
             { url: "vgmdb.net/", desc: "VGMdb", cat: c.WebLinkCategory.Reference },
             { url: "vimeo.com/", desc: "Vimeo", cat: c.WebLinkCategory.Official },
 			{ url: "vocadb.net/", desc: "VocaDB", cat: c.WebLinkCategory.Reference },
