@@ -1120,6 +1120,7 @@
     <Content Include="Content\ExtIcons\nicopedia.png" />
     <Content Include="Content\ExtIcons\piapro.png" />
     <Content Include="Content\ExtIcons\pixiv.png" />
+    <Content Include="Content\ExtIcons\playasia.png" />
     <Content Include="Content\ExtIcons\rakuten.png" />
     <Content Include="Content\ExtIcons\reddit32.png" />
     <Content Include="Content\ExtIcons\tora.png" />
