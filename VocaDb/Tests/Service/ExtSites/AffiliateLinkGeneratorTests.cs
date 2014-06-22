@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.Service.ExtSites;
+using VocaDb.Model.Utils.Config;
 
 namespace VocaDb.Tests.Service.ExtSites {
 
@@ -7,11 +8,11 @@ namespace VocaDb.Tests.Service.ExtSites {
 	public class AffiliateLinkGeneratorTests {
 
 		private AffiliateLinkGenerator generator;
-		private const string paAffId = "ia15";
+		private const string paAffId = "852809";
 
 		[TestInitialize]
 		public void SetUp() {
-			generator = new AffiliateLinkGenerator();
+			generator = new AffiliateLinkGenerator(new VdbConfigManager());
 		}
 
 		[TestMethod]

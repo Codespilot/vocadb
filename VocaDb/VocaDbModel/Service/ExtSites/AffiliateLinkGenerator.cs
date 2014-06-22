@@ -1,6 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.Utils.Config;
 
 namespace VocaDb.Model.Service.ExtSites {
 
@@ -9,10 +9,10 @@ namespace VocaDb.Model.Service.ExtSites {
 	/// </summary>
 	public class AffiliateLinkGenerator {
 
-		private static readonly RegexLinkMatcher cdjRegex = new RegexLinkMatcher("http://www.cdjapan.co.jp/aff/click.cgi/PytJTGW7Lok/4412/A585851/detailview.html?{0}",
-			@"http://www.cdjapan\.co\.jp/detailview.html\?(KEY=\w+-\d+)");
+		/*private static readonly RegexLinkMatcher cdjRegex = new RegexLinkMatcher("http://www.cdjapan.co.jp/aff/click.cgi/PytJTGW7Lok/4412/A585851/detailview.html?{0}",
+			@"http://www.cdjapan\.co\.jp/detailview.html\?(KEY=\w+-\d+)");*/
 
-		private const string paAffId = "852809";
+		private readonly string paAffId;
 
 		private string ReplacePlayAsiaLink(string url) {
 			
@@ -32,6 +32,10 @@ namespace VocaDb.Model.Service.ExtSites {
 
 			return url;
 
+		}
+
+		public AffiliateLinkGenerator(VdbConfigManager configManager) {
+			paAffId = configManager.Affiliates.PlayAsiaAffiliateId;
 		}
 
 		public string GenerateAffiliateLink(string url) {
