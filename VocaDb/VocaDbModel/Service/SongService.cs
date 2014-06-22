@@ -498,7 +498,7 @@ namespace VocaDb.Model.Service {
 					
 					var album = session.Load<Album>(albumId);
 
-					var track = album.Songs.FirstOrDefault(s => s.Song.Equals(song));
+					var track = album.Songs.FirstOrDefault(s => song.Equals(s.Song));
 
 					if (track != null) {
 
