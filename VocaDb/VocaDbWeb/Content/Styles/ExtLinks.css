@@ -1,4 +1,4 @@
-/* External links */
+﻿/* External links */
 a.extLink {
   background: url("/Content/Icons/world.png") no-repeat left 50%;
   padding: 2px 0 2px 20px;
@@ -7,13 +7,28 @@ a.extLink[href^="http://about.me/"],
 a.extLink[href^="https://about.me/"] {
   background: url("/Content/ExtIcons/aboutme.png") no-repeat left 50%;
 }
+a.extLink[href^="http://www.animate-onlineshop.jp/"] {
+  background: url("/Content/ExtIcons/animate.png") no-repeat left 50%;
+}
+a.extLink[href^="http://d-stage.com/"] {
+  background: url("/Content/ExtIcons/dstage.png") no-repeat left 50%;
+}
 a.extLink[href^="http://www.toranoana.jp/"],
 a.extLink[href^="https://www.toranoana.jp/"] {
   background: url("/Content/ExtIcons/tora.png") no-repeat left 50%;
 }
+a.extLink[href^="http://www.tower.com/"] {
+  background: url("/Content/ExtIcons/towerrecords.png") no-repeat left 50%;
+}
+a.extLink[href^="http://www.tsutaya.co.jp/"] {
+  background: url("/Content/ExtIcons/tsutaya.png") no-repeat left 50%;
+}
 a.extLink[href^="http://utaitedb.net/"],
 a.extLink[href^="https://utaitedb.net/"] {
   background: url("/Content/ExtIcons/utaitedb.png") no-repeat left 50%;
+}
+a.extLink[href^="http://utaite.wikia.com/wiki/"] {
+  background: url("/Content/ExtIcons/utaitewikia.png") no-repeat left 50%;
 }
 a.extLink[href^="mailto:"] {
   background: url("/Content/Icons/email.png") no-repeat left 50%;
