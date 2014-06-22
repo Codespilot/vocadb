@@ -7,10 +7,16 @@ namespace VocaDb.Model.Utils.Config {
 	/// </summary>
 	public class AffiliatesSection : ConfigurationSection {
 
-		[ConfigurationProperty("amazonAffiliateId", DefaultValue = "")]
-		public string AmazonAffiliateId {
-			get { return (string)this["amazonAffiliateId"]; }
-			set { this["amazonAffiliateId"] = value; }
+		[ConfigurationProperty("amazonComAffiliateId", DefaultValue = "")]
+		public string AmazonComAffiliateId {
+			get { return (string)this["amazonComAffiliateId"]; }
+			set { this["amazonComAffiliateId"] = value; }
+		}
+
+		[ConfigurationProperty("amazonJpAffiliateId", DefaultValue = "")]
+		public string amazonJpAffiliateId {
+			get { return (string)this["amazonJpAffiliateId"]; }
+			set { this["amazonJpAffiliateId"] = value; }
 		}
 
 		[ConfigurationProperty("playAsiaAffiliateId", DefaultValue = "")]

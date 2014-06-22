@@ -12,7 +12,8 @@ namespace VocaDb.Model.Service.ExtSites {
 		/*private static readonly RegexLinkMatcher cdjRegex = new RegexLinkMatcher("http://www.cdjapan.co.jp/aff/click.cgi/PytJTGW7Lok/4412/A585851/detailview.html?{0}",
 			@"http://www.cdjapan\.co\.jp/detailview.html\?(KEY=\w+-\d+)");*/
 
-		private readonly string amazonAffId;
+		private readonly string amazonComAffId;
+		private readonly string amazonJpAffId;
 		private readonly string paAffId;
 
 		private string AddOrReplaceParam(string url, string param, string val) {
@@ -31,12 +32,21 @@ namespace VocaDb.Model.Service.ExtSites {
 
 		}
 
-		private string ReplaceAmazonLink(string url) {
+		private string ReplaceAmazonComLink(string url) {
 			
-			if (string.IsNullOrEmpty(amazonAffId) || !(url.Contains("www.amazon.com/") || url.Contains("www.amazon.co.jp")))
+			if (string.IsNullOrEmpty(amazonComAffId) || !url.Contains("www.amazon.com/"))
 				return url;
 
-			return AddOrReplaceParam(url, "tag", amazonAffId);
+			return AddOrReplaceParam(url, "tag", amazonComAffId);
+
+		}
+
+		private string ReplaceAmazonJpLink(string url) {
+			
+			if (string.IsNullOrEmpty(amazonJpAffId) || !url.Contains("www.amazon.co.jp/"))
+				return url;
+
+			return AddOrReplaceParam(url, "tag", amazonJpAffId);
 
 		}
 
@@ -50,7 +60,8 @@ namespace VocaDb.Model.Service.ExtSites {
 		}
 
 		public AffiliateLinkGenerator(VdbConfigManager configManager) {
-			amazonAffId = configManager.Affiliates.AmazonAffiliateId;
+			amazonComAffId = configManager.Affiliates.AmazonComAffiliateId;
+			amazonJpAffId = configManager.Affiliates.amazonJpAffiliateId;
 			paAffId = configManager.Affiliates.PlayAsiaAffiliateId;
 		}
 
@@ -64,10 +75,10 @@ namespace VocaDb.Model.Service.ExtSites {
 			}*/
 
 			url = ReplacePlayAsiaLink(url);
-			url = ReplaceAmazonLink(url);
+			url = ReplaceAmazonComLink(url);
+			url = ReplaceAmazonJpLink(url);
 
 			return url;
-
 
 		}
 
