@@ -127,6 +127,7 @@
     <Compile Include="Domain\Images\ImageThumbGeneratorTests.cs" />
     <Compile Include="Helpers\StringExtensionsTests.cs" />
     <Compile Include="Helpers\XmlHelperTests.cs" />
+    <Compile Include="Service\ExtSites\AffiliateLinkGeneratorTests.cs" />
     <Compile Include="Service\Helpers\FindHelpersTests.cs" />
     <Compile Include="Service\Helpers\FollowedArtistNotifierTests.cs" />
     <Compile Include="Service\Helpers\UserCommentNotifierTests.cs" />

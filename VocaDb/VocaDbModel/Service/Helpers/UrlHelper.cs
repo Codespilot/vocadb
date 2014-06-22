@@ -37,8 +37,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			var link = MakeLink(partialLink);
 
-			//return Affiliate.AffiliateLinkGenerator.GenerateAffiliateLink(link);
-			return link;
+			return (new ExtSites.AffiliateLinkGenerator()).GenerateAffiliateLink(link);
 
 		}
 
