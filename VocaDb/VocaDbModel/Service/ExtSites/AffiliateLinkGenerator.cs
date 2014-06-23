@@ -16,13 +16,13 @@ namespace VocaDb.Model.Service.ExtSites {
 		private readonly string amazonJpAffId;
 		private readonly string paAffId;
 
-		private string AddOrReplaceParam(string url, string param, string val) {
+		private string AddOrReplaceParam(string url, string affIdRegex, string param, string val) {
 			
 			var paramEq = param + "=";
 
 			if (url.Contains(paramEq)) {
 					
-				return Regex.Replace(url, paramEq + @"(\d+)", string.Format(@"{0}{1}", paramEq, val));
+				return Regex.Replace(url, paramEq + affIdRegex, string.Format(@"{0}{1}", paramEq, val));
 
 			} else if (url.Contains("?")) {
 				return string.Format("{0}&{1}{2}", url, paramEq, val);
@@ -37,7 +37,7 @@ namespace VocaDb.Model.Service.ExtSites {
 			if (string.IsNullOrEmpty(amazonComAffId) || !url.Contains("www.amazon.com/"))
 				return url;
 
-			return AddOrReplaceParam(url, "tag", amazonComAffId);
+			return AddOrReplaceParam(url, @"(\w+)","tag", amazonComAffId);
 
 		}
 
@@ -46,7 +46,7 @@ namespace VocaDb.Model.Service.ExtSites {
 			if (string.IsNullOrEmpty(amazonJpAffId) || !url.Contains("www.amazon.co.jp/"))
 				return url;
 
-			return AddOrReplaceParam(url, "tag", amazonJpAffId);
+			return AddOrReplaceParam(url, @"(\w+)","tag", amazonJpAffId);
 
 		}
 
@@ -55,7 +55,7 @@ namespace VocaDb.Model.Service.ExtSites {
 			if (string.IsNullOrEmpty(paAffId) || !url.Contains("www.play-asia.com/"))
 				return url;
 
-			return AddOrReplaceParam(url, "affiliate_id", paAffId);
+			return AddOrReplaceParam(url, @"(\d+)", "affiliate_id", paAffId);
 
 		}
 
