@@ -39,6 +39,30 @@ namespace VocaDb.Tests.Service.ExtSites {
 
 		}
 
+		[TestMethod]
+		public void Amazon() {
+			
+			var input = "http://www.amazon.co.jp/dp/B00K1IV8FM";
+			var expected = "http://www.amazon.co.jp/dp/B00K1IV8FM?tag=vocadb";
+
+			var result = generator.GenerateAffiliateLink(input);
+
+			Assert.AreEqual(expected, result, "Amazon affiliate link matches");
+
+		}
+
+		[TestMethod]
+		public void Amazon_ReplaceAffId() {
+			
+			var input = "http://www.amazon.co.jp/dp/B00K1IV8FM?tag=another";
+			var expected = "http://www.amazon.co.jp/dp/B00K1IV8FM?tag=vocadb";
+
+			var result = generator.GenerateAffiliateLink(input);
+
+			Assert.AreEqual(expected, result, "Amazon affiliate link matches");
+
+		}
+
 	}
 
 
