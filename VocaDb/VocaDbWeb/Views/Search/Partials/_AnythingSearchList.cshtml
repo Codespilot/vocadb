@@ -1,4 +1,6 @@
-﻿
+﻿@using SharedRes = ViewRes.SharedStrings;
+@using Res = ViewRes.Search.IndexStrings;
+
 <div data-bind="visible: showAnythingSearch, with: anythingSearchViewModel, css: { loading: anythingSearchViewModel.loading }">
 
 	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
@@ -11,10 +13,10 @@
 		<thead>
 			<tr>
 				<th colspan="2">
-					Name
+					@SharedRes.Name
 				</th>
 				<th>
-					Type
+					@Res.EntryType
 				</th>
 			</tr>
 		</thead>
@@ -37,7 +39,7 @@
 					<!-- /ko -->
 				</td>
 				<td>
-					<a data-bind="text: entryType, click: function() { $parent.searchViewModel.searchType(entryType); }" href="#"></a>
+					<a data-bind="text: $parent.searchViewModel.resources().entryTypeNames[entryType], click: function() { $parent.searchViewModel.searchType(entryType); }" href="#"></a>
 					<!-- ko if: $data.artistType -->
 					<small class="extraInfo" data-bind="text: '(' + $parent.searchViewModel.resources().artistTypeNames[artistType] + ')'"></small>
 					<!-- /ko -->

@@ -1,4 +1,6 @@
-﻿
+﻿@using SharedRes = ViewRes.SharedStrings;
+@using Res = ViewRes.Search.IndexStrings;
+
 <div data-bind="visible: showTagSearch, with: tagSearchViewModel, css: { loading: tagSearchViewModel.loading }">
 
 	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
@@ -12,10 +14,10 @@
 		<thead>
 			<tr>
 				<th colspan="2">
-					Name
+					@SharedRes.Name
 				</th>
 				<th>
-					Category
+					@Res.Category
 				</th>
 			</tr>
 		</thead>

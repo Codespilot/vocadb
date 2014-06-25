@@ -59,7 +59,7 @@ module vdb.viewModels.search {
 
 			});
 
-			resourceRepo.getList(cultureCode, ['albumSortRuleNames', 'artistSortRuleNames', 'artistTypeNames', 'discTypeNames', 'songSortRuleNames', 'songTypeNames'], resources => {
+			resourceRepo.getList(cultureCode, ['albumSortRuleNames', 'artistSortRuleNames', 'artistTypeNames', 'discTypeNames', 'entryTypeNames', 'songSortRuleNames', 'songTypeNames'], resources => {
 				this.resources(resources);
 				this.updateResults();
 			});

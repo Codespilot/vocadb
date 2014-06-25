@@ -1,14 +1,15 @@
-﻿
+﻿@using Res = ViewRes.Search.IndexStrings;
+
 <div class="dropdown pull-right">
 	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		Showing
+		@Res.Showing
 		<span data-bind="text: $parent.pageSize"></span>
-		items of
+		@Res.ItemsOf
 		<span data-bind="text: paging.totalItems"></span>
 	</a>
 	<ul class="dropdown-menu">
-		<li><a data-bind="click: function() { $parent.pageSize(10); }" href="#">10 items per page</a></li>
-		<li><a data-bind="click: function() { $parent.pageSize(20); }" href="#">20 items per page</a></li>
-		<li><a data-bind="click: function() { $parent.pageSize(40); }" href="#">40 items per page</a></li>
+		<li><a data-bind="click: function() { $parent.pageSize(10); }" href="#">@string.Format(Res.ItemsPerPage, 10)</a></li>
+		<li><a data-bind="click: function() { $parent.pageSize(20); }" href="#">@string.Format(Res.ItemsPerPage, 20)</a></li>
+		<li><a data-bind="click: function() { $parent.pageSize(40); }" href="#">@string.Format(Res.ItemsPerPage, 40)</a></li>
 	</ul>
 </div>

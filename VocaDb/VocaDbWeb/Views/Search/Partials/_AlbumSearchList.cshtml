@@ -1,4 +1,6 @@
-﻿
+﻿@using SharedRes = ViewRes.SharedStrings;
+@using Res = ViewRes.Search.IndexStrings;
+
 <div data-bind="visible: showAlbumSearch, with: albumSearchViewModel, css: { loading: albumSearchViewModel.loading }">
 
 	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
@@ -13,19 +15,19 @@
 			<tr>
 				<th colspan="2">
 					<a data-bind="click: function() { sort('Name') }" href="#">
-						Name
+						@SharedRes.Name
 						<span class="sortDirection_down" data-bind="visible: sort() == 'Name'"></span>
 					</a>
 				</th>
 				<th>
 					<a data-bind="click:function() { sort('ReleaseDate') }" href="#">
-						Release date
+						@Res.ReleaseDate
 						<span class="sortDirection_down" data-bind="visible: sort() == 'ReleaseDate'"></span>
 					</a>
 				</th>
 				<th>
 					<a data-bind="click: function() { sort('RatingAverage') }" href="#">
-						Rating
+						@Res.Rating
 						<span class="sortDirection_down" data-bind="visible: sort() == 'RatingAverage'"></span>
 					</a>
 				</th>
@@ -57,7 +59,7 @@
 					</span>
 					<br />
 					<span data-bind="text: ratingCount"></span>
-					time(s)
+					@Res.Times
 				</td>
 			</tr>
 		</tbody>
