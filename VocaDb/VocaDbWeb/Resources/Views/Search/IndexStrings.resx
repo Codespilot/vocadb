@@ -123,8 +123,20 @@
   <data name="ArtistType" xml:space="preserve">
     <value>Artist type</value>
   </data>
+  <data name="Category" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="EntryType" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="InMyCollection" xml:space="preserve">
     <value>In my collection</value>
+  </data>
+  <data name="ItemsOf" xml:space="preserve">
+    <value>items of</value>
+  </data>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>{0} items per page</value>
   </data>
   <data name="MoreFilters" xml:space="preserve">
     <value>More filters</value>
@@ -135,11 +147,29 @@
   <data name="OnlyWithPVs" xml:space="preserve">
     <value>Only with PVs</value>
   </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Release date</value>
+  </data>
+  <data name="Showing" xml:space="preserve">
+    <value>Showing</value>
+  </data>
   <data name="SongType" xml:space="preserve">
     <value>Song type</value>
   </data>
   <data name="TagCategory" xml:space="preserve">
     <value>Category</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>time(s)</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>total score</value>
   </data>
   <data name="TypeSomething" xml:space="preserve">
     <value>Type something...</value>

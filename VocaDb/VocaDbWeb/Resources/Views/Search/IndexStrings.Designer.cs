@@ -79,11 +79,47 @@ namespace ViewRes.Search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string EntryType {
+            get {
+                return ResourceManager.GetString("EntryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In my collection.
         /// </summary>
         public static string InMyCollection {
             get {
                 return ResourceManager.GetString("InMyCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to items of.
+        /// </summary>
+        public static string ItemsOf {
+            get {
+                return ResourceManager.GetString("ItemsOf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} items per page.
+        /// </summary>
+        public static string ItemsPerPage {
+            get {
+                return ResourceManager.GetString("ItemsPerPage", resourceCulture);
             }
         }
         
@@ -115,6 +151,42 @@ namespace ViewRes.Search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        public static string Preview {
+            get {
+                return ResourceManager.GetString("Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rating.
+        /// </summary>
+        public static string Rating {
+            get {
+                return ResourceManager.GetString("Rating", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release date.
+        /// </summary>
+        public static string ReleaseDate {
+            get {
+                return ResourceManager.GetString("ReleaseDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing.
+        /// </summary>
+        public static string Showing {
+            get {
+                return ResourceManager.GetString("Showing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Song type.
         /// </summary>
         public static string SongType {
@@ -129,6 +201,24 @@ namespace ViewRes.Search {
         public static string TagCategory {
             get {
                 return ResourceManager.GetString("TagCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to time(s).
+        /// </summary>
+        public static string Times {
+            get {
+                return ResourceManager.GetString("Times", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to total score.
+        /// </summary>
+        public static string TotalScore {
+            get {
+                return ResourceManager.GetString("TotalScore", resourceCulture);
             }
         }
         

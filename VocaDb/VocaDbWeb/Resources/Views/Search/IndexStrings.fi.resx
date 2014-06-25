@@ -117,67 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>アルバム</value>
+  <data name="AlbumType" xml:space="preserve">
+    <value>Albumin tyyppi</value>
   </data>
-  <data name="Apply" xml:space="preserve">
-    <value>表示</value>
+  <data name="ArtistType" xml:space="preserve">
+    <value>Artistin tyyppi</value>
   </data>
-  <data name="ArtistName" xml:space="preserve">
-    <value>アーティスト名</value>
+  <data name="Category" xml:space="preserve">
+    <value>Kategoria</value>
   </data>
-  <data name="Artists" xml:space="preserve">
-    <value>アーティスト</value>
+  <data name="EntryType" xml:space="preserve">
+    <value>Tyyppi</value>
   </data>
-  <data name="Description" xml:space="preserve">
-    <value>概要</value>
+  <data name="InMyCollection" xml:space="preserve">
+    <value>Kokoelmassani</value>
   </data>
-  <data name="Drafts" xml:space="preserve">
-    <value>下書き</value>
+  <data name="ItemsOf" xml:space="preserve">
+    <value>kohdetta, yhteensä</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>編集</value>
+  <data name="ItemsPerPage" xml:space="preserve">
+    <value>{0} kohdetta per sivu</value>
   </data>
-  <data name="EntriesFound" xml:space="preserve">
-    <value>{0}件登録されています</value>
+  <data name="MoreFilters" xml:space="preserve">
+    <value>Lisää hakuehtoja</value>
   </data>
-  <data name="FeaturedSongLists" xml:space="preserve">
-    <value>注目曲リスト</value>
+  <data name="MoreRecentThan" xml:space="preserve">
+    <value>Uudempi kuin</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>絞り込む</value>
+  <data name="OnlyWithPVs" xml:space="preserve">
+    <value>Vain videot</value>
   </data>
-  <data name="Name" xml:space="preserve">
-    <value>タイトル</value>
+  <data name="Preview" xml:space="preserve">
+    <value>Esikatselu</value>
   </data>
-  <data name="ReleaseEvents" xml:space="preserve">
-    <value>イベント</value>
+  <data name="Rating" xml:space="preserve">
+    <value>Arvostelu</value>
   </data>
-  <data name="Search" xml:space="preserve">
-    <value>サーチ</value>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>Julkaisupäivä</value>
   </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>もっと見る</value>
+  <data name="Showing" xml:space="preserve">
+    <value>Näytetään</value>
   </data>
-  <data name="Songs" xml:space="preserve">
-    <value>曲</value>
+  <data name="SongType" xml:space="preserve">
+    <value>Kappaleen tyyppi</value>
   </data>
-  <data name="Tag" xml:space="preserve">
-    <value>タグ</value>
+  <data name="TagCategory" xml:space="preserve">
+    <value>Kategoria</value>
   </data>
-  <data name="Tags" xml:space="preserve">
-    <value>タグ</value>
+  <data name="Times" xml:space="preserve">
+    <value>kerta(a)</value>
   </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>人気の高い曲</value>
+  <data name="TotalScore" xml:space="preserve">
+    <value>yhteensä</value>
   </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>最も人気のあるアルバム</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>タイプ</value>
-  </data>
-  <data name="Unsorted" xml:space="preserve">
-    <value>ソートされていない</value>
+  <data name="TypeSomething" xml:space="preserve">
+    <value>Kirjoita jotain...</value>
   </data>
 </root>

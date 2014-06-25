@@ -117,67 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Albums" xml:space="preserve">
-    <value>アルバム</value>
+  <data name="Rating" xml:space="preserve">
+    <value>評価</value>
   </data>
-  <data name="Apply" xml:space="preserve">
-    <value>表示</value>
-  </data>
-  <data name="ArtistName" xml:space="preserve">
-    <value>アーティスト名</value>
-  </data>
-  <data name="Artists" xml:space="preserve">
-    <value>アーティスト</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>概要</value>
-  </data>
-  <data name="Drafts" xml:space="preserve">
-    <value>下書き</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>編集</value>
-  </data>
-  <data name="EntriesFound" xml:space="preserve">
-    <value>{0}件登録されています</value>
-  </data>
-  <data name="FeaturedSongLists" xml:space="preserve">
-    <value>注目曲リスト</value>
-  </data>
-  <data name="Filter" xml:space="preserve">
-    <value>絞り込む</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>タイトル</value>
-  </data>
-  <data name="ReleaseEvents" xml:space="preserve">
-    <value>イベント</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>サーチ</value>
-  </data>
-  <data name="ShowMore" xml:space="preserve">
-    <value>もっと見る</value>
-  </data>
-  <data name="Songs" xml:space="preserve">
-    <value>曲</value>
-  </data>
-  <data name="Tag" xml:space="preserve">
-    <value>タグ</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>タグ</value>
-  </data>
-  <data name="TopFavoritedSongs" xml:space="preserve">
-    <value>人気の高い曲</value>
-  </data>
-  <data name="TopRatedAlbums" xml:space="preserve">
-    <value>最も人気のあるアルバム</value>
-  </data>
-  <data name="Type" xml:space="preserve">
-    <value>タイプ</value>
-  </data>
-  <data name="Unsorted" xml:space="preserve">
-    <value>ソートされていない</value>
+  <data name="ReleaseDate" xml:space="preserve">
+    <value>リリース日</value>
   </data>
 </root>

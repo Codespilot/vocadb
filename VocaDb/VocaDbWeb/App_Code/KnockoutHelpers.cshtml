@@ -53,10 +53,10 @@
 	<div class="pagination" data-bind="visible: $data">
 		<ul>
 			<li data-bind="css: { disabled: isFirstPage }">
-				<a data-bind="click: page(1)" href="#">&laquo;&laquo; First</a>
+				<a data-bind="click: page(1)" href="#">&laquo;&laquo; @VocaDb.Web.Resources.Other.PagedListStrings.First</a>
 			</li>
 			<li data-bind="css: { disabled: isFirstPage }">
-				<a data-bind="click: previousPage" href="#">&laquo; Previous</a>
+				<a data-bind="click: previousPage" href="#">&laquo; @VocaDb.Web.Resources.Other.PagedListStrings.Previous</a>
 			</li>
 
 			<li data-bind="visible: showMoreBegin" class="disabled">
@@ -74,10 +74,10 @@
 			</li>
 			
 			<li data-bind="css: { disabled: isLastPage }">
-				<a data-bind="click: nextPage" href="#">Next &raquo;</a>
+				<a data-bind="click: nextPage" href="#">@VocaDb.Web.Resources.Other.PagedListStrings.Next &raquo;</a>
 			</li>
 			<li data-bind="css: { disabled: isLastPage }">
-				<a data-bind="click: goToLastPage" href="#">Last &raquo;&raquo;</a>
+				<a data-bind="click: goToLastPage" href="#">@VocaDb.Web.Resources.Other.PagedListStrings.Last &raquo;&raquo;</a>
 			</li>
 
 		</ul>
