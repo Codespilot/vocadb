@@ -175,6 +175,6 @@
     <value>New row</value>
   </data>
   <data name="WebLinkUrlTitle" xml:space="preserve">
-    <value>URL (required)</value>
+    <value>URL</value>
   </data>
 </root>

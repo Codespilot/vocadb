@@ -121,7 +121,7 @@
     <value>Aliases (optional)</value>
   </data>
   <data name="AliasesDesc" xml:space="preserve">
-    <value>Aliases are additional, commonly used names for an entry. Most of the time they are not translations of the primary name. Aliases can be in language.</value>
+    <value>Aliases are additional, commonly used names for an entry. Most of the time they are not translations of the primary name, although well-known translations can be added as aliases. Aliases can be in language.</value>
   </data>
   <data name="ConcurrentEditWarning" xml:space="preserve">
     <value>{0} also edited this entry {1} minute(s) ago.</value>

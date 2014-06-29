@@ -89,8 +89,11 @@
 	<!-- binding context: WebLinksEditViewModel -->
 	<table>
 		<thead>
-			<tr>
-				<th>@HelperRes.HelperStrings.WebLinkUrlTitle</th>
+			<tr data-bind="visible: webLinks && webLinks().length">
+				<th>
+					@HelperRes.HelperStrings.WebLinkUrlTitle
+					@Helpers.RequiredField()
+				</th>
 				<th>@HelperRes.HelperStrings.WebLinkDescriptionTitle</th>
 				@if (showCategory) {
                 <th>@HelperRes.HelperStrings.WebLinkCategoryTitle</th>					
