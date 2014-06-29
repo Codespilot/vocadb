@@ -854,6 +854,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HelperStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Helpers\SongHelpersStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongHelpersStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Other\PagedListStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -879,11 +884,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Views\Album\IndexStrings.Designer.cs">
-      <DependentUpon>IndexStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Resources\Views\Album\TopRatedStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -898,11 +898,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DetailsStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Views\Artist\IndexStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IndexStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Resources\Views\Comment\IndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -1008,11 +1003,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DetailsStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\Views\Song\IndexStrings.Designer.cs">
-      <DependentUpon>IndexStrings.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Resources\Views\Tag\DetailsStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2683,6 +2673,11 @@
     <EmbeddedResource Include="Resources\Helpers\HelperStrings.ru.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Helpers\SongHelpersStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SongHelpersStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>HelperRes</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Other\PagedListStrings.fi.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -2728,16 +2723,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Album\EditStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ja.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ViewRes.Album</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Album\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Album\TopRatedStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -2767,17 +2752,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Artist\DetailsStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ja.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ViewRes.Artist</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Artist\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.ja.resx" />
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.resx">
@@ -2824,6 +2798,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Search</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Shared\ArchivedObjectVersionsStrings.resx">
@@ -2949,15 +2924,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Song\DetailsStrings.ru.resx" />
-    <EmbeddedResource Include="Resources\Views\Song\IndexStrings.fi.resx" />
-    <EmbeddedResource Include="Resources\Views\Song\IndexStrings.ja.resx" />
-    <EmbeddedResource Include="Resources\Views\Song\IndexStrings.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>ViewRes.Song</CustomToolNamespace>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Views\Song\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Views\Tag\DetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
