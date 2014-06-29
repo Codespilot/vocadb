@@ -57,8 +57,8 @@
 			<div class="editor-label">
 				<label class="helpTip" data-bind="qTip: null" title="@ViewRes.EntryEditStrings.NameHelp">
 					Primary name (in one or more languages)
-					@Helpers.RequiredField()
 				</label>
+				@Helpers.RequiredField()
 			</div>
 			<div class="editor-field">
 				@Html.EditorFor(m => m.Names)
@@ -80,7 +80,9 @@
 	
 			@if (Model.SongType != VocaDb.Model.Domain.Songs.SongType.Original) {
 			<div class="editor-label">
-				@Html.LabelFor(m => m.OriginalVersion)
+				<label class="helpTip" data-bind="qTip: null" title="If the original version of this song exists on the site, use this field to link this derived version to the original. Choose the song by searching by song title.">
+					Original version
+				</label>
 			</div>
 			<div class="editor-field">
 				<span id="originalContent">
@@ -177,7 +179,7 @@
 		</div>
 
 		<div id="artistsTab">
-			@using (@Html.BeginPanel()) {
+			@using (Html.BeginPanel()) {
 				<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
    }
 
