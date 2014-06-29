@@ -34,6 +34,10 @@ legend {
 	margin: 0.5em 0 0 0;
 }
 
+.required-field {
+	color: red;
+}
+
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
