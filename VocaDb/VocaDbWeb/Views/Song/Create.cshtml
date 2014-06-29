@@ -43,6 +43,7 @@
 
 			<div class="editor-label">
 				@R.CreateStrings.Name
+				@Helpers.RequiredField()
 			</div>
 
 			<div class="editor-field">
@@ -75,7 +76,9 @@
 			</div>
 
 			<div class="editor-label">
-				<span>@R.CreateStrings.ArtistsInfo</span><br />
+				<span>@R.CreateStrings.ArtistsInfo</span>
+				@Helpers.RequiredField()
+				<br />
 				<span class="extraInfo">@R.CreateStrings.ArtistDesc</span>
 			</div>
 			<div class="editor-field">

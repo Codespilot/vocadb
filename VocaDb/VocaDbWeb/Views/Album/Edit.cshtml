@@ -104,6 +104,7 @@
 
 			<div class="editor-label">
 				@Helpers.HelpLabel(R.EditStrings.BaNames, ViewRes.EntryEditStrings.NameHelp)
+				@Helpers.RequiredField()
 			</div>
 			<div class="editor-field">
 				@Html.EditorFor(m => m.Names)
