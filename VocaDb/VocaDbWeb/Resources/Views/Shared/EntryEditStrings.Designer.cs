@@ -70,7 +70,7 @@ namespace ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aliases are additional, commonly used names for an entry. Most of the time they are not translations of the primary name. Aliases can be in language..
+        ///   Looks up a localized string similar to Aliases are additional, commonly used names for an entry. Most of the time they are not translations of the primary name, although well-known translations can be added as aliases. Aliases can be in language..
         /// </summary>
         public static string AliasesDesc {
             get {

@@ -232,7 +232,7 @@ namespace HelperRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL (required).
+        ///   Looks up a localized string similar to URL.
         /// </summary>
         public static string WebLinkUrlTitle {
             get {
