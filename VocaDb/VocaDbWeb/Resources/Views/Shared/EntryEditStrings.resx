@@ -120,6 +120,9 @@
   <data name="Aliases" xml:space="preserve">
     <value>Aliases (optional)</value>
   </data>
+  <data name="AliasesDesc" xml:space="preserve">
+    <value>Aliases are additional, commonly used names for an entry. Most of the time they are not translations of the primary name. Aliases can be in language.</value>
+  </data>
   <data name="ConcurrentEditWarning" xml:space="preserve">
     <value>{0} also edited this entry {1} minute(s) ago.</value>
   </data>
@@ -144,7 +147,7 @@ Other: for those that don't fit into anything above.&lt;br /&gt;</value>
 &lt;br /&gt;
 Note that you do not need to copy the missing names from others. The system will substitute those when needed. For example, lacking a romanized name, the system will automatically use English.&lt;br /&gt;
 &lt;br /&gt;
-Additional names can be entered as aliases. Aliases don't have any specific language. See more in the guide.</value>
+Additional names can be entered as aliases. See more in the guide.</value>
   </data>
   <data name="Restore" xml:space="preserve">
     <value>Restore</value>
