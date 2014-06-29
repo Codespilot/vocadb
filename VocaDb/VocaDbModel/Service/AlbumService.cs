@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Xml.Linq;
@@ -433,9 +434,16 @@ namespace VocaDb.Model.Service {
 						var isHit = session.Query<AlbumHit>().Any(h => h.Album.Id == id && h.Agent == agentNum);
 
 						if (!isHit) {
+
 							var hit = new AlbumHit(album, agentNum);
 							session.Save(hit);
-							tx.Commit();
+
+							try {
+								tx.Commit();
+							} catch (SqlException x) {
+								log.WarnException("Error while committing hit", x);
+							}
+
 						}
 
 					}

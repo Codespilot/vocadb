@@ -229,7 +229,7 @@ namespace VocaDb.Model.Service.VideoServices {
 					}
 
 					var a = artistFunc(content);
-					if (a != null)
+					if (a != null && !artists.Contains(a))
 						artists.Add(a);
 					else {
 						
