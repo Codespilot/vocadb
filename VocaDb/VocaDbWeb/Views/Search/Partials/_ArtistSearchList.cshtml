@@ -1,5 +1,5 @@
 ﻿
-<div data-bind="visible: showArtistSearch, with: artistSearchViewModel, css: { loading: artistSearchViewModel.loading }">
+<div data-bind="visible: showArtistSearch, with: artistSearchViewModel">
 
 	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
 
@@ -8,7 +8,7 @@
 		@KnockoutHelpers.ServerSidePaging()
 	</div>
 
-	<table class="table table-striped">
+	<table class="table table-striped" data-bind="css: { loading: loading }">
 		<thead>
 			<tr>
 				<th colspan="2">
