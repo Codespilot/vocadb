@@ -75,6 +75,12 @@ namespace VocaDb.Web.Code {
 			return val.HasValue ? val.ToString() : "null";
 		}
 
+		public VocaUrlMapper UrlMapper {
+			get {
+				return new VocaUrlMapper(WebHelper.IsSSL(Request));
+			}
+		}
+
 		public IUserPermissionContext UserContext {
 			get { return DependencyResolver.Current.GetService<IUserPermissionContext>(); }
 		}

@@ -1,53 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using VocaDb.Model;
+﻿using VocaDb.Model;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Service;
-using VocaDb.Model.DataContracts.Albums;
-using PagedList;
 
 namespace VocaDb.Web.Models.Album {
-
-	public class Index {
-
-		public Index() {}
-
-		public Index(PartialFindResult<AlbumContract> result, string filter, DiscType discType, 
-			AlbumSortRule sortRule, EntryViewMode view, int? page, bool? draftsOnly, IndexRouteParams routeParams) {
-
-			Page = page ?? 1;
-			Albums = new StaticPagedList<AlbumContract>(result.Items, 
-				Page, 30, result.TotalCount);
-			DiscType = discType;
-			DraftsOnly = draftsOnly ?? false;
-			Filter = filter;
-			Sort = sortRule;
-			View = view;
-			RouteParams = routeParams;
-
-		}
-
-		public IPagedList<AlbumContract> Albums { get; set; }
-
-		public DiscType DiscType { get; set; }
-
-		[Display(ResourceType = typeof(ViewRes.EntryIndexStrings), Name = "OnlyDrafts")]
-		public bool DraftsOnly { get; set; }
-
-		public string Filter { get; set; }
-
-		public int Page { get; set; }
-
-		public IndexRouteParams RouteParams { get; set; }
-
-		public AlbumSortRule Sort { get; set; }
-
-		public EntryViewMode View { get; set; }
-
-		public IndexRouteParams CreateRouteParams(int page) {
-			return new IndexRouteParams(RouteParams, page);
-		}
-
-	}
 
 	/// <summary>
 	/// Parameter collection given to index action.

@@ -20,6 +20,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.TagFormatting;
+using VocaDb.Model.Utils.Search;
 using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
@@ -29,7 +30,6 @@ using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts.PVs;
-using VocaDb.Web.Models.Search;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers

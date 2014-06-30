@@ -17,6 +17,7 @@ using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
+using VocaDb.Model.Utils.Search;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Controllers.DataAccess;
@@ -26,7 +27,6 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Web.Models.Artist;
 using VocaDb.Web.Helpers;
 using MvcPaging;
-using VocaDb.Web.Models.Search;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers

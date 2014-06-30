@@ -35,7 +35,7 @@
 		<p>
 			VocaDB is not a music sharing site. Illegal album downloads are not allowed.
 			However, we are eager to promote artists who are sharing their music
-			@Html.ActionLink("for free", "Index", "Album", new VocaDb.Web.Models.Album.IndexRouteParams { filter = "tag:free" }, null).
+			@Html.ActionLink("for free", "Index", "Search", VocaDb.Model.Utils.Search.SearchRouteParamsFactory.Instance.Albums(tag: "free"), null).
 			Whenever possible, album entries contain links to websites where you can purchase the albums.
 		</p>
 
