@@ -3,7 +3,7 @@
 @{
 	ViewBag.Title = "Merge song - " + Model.Name;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink("Songs", "Index"), 
+		Html.ActionLink("Songs", "Index", "Search", UrlMapper.Search.Songs(), null), 
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }),
 		Html.ActionLink("Edit", "Edit", new { id = Model.Id }),
 	};		
