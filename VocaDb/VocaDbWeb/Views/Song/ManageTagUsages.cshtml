@@ -1,10 +1,10 @@
 ﻿@using VocaDb.Model.Domain
-@model VocaDb.Model.DataContracts.UseCases.EntryWithTagUsagesContract
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.UseCases.EntryWithTagUsagesContract>
 
 @{
     ViewBag.Title = "Manage tag usages - " + Model.DefaultName;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink(ViewRes.SharedStrings.Songs, "Index"), 
+		Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Search", UrlMapper.Search.Songs(), null), 
 		Html.ActionLink(Model.DefaultName, "Details", new { id = Model.Id }) 
 	};	
 }

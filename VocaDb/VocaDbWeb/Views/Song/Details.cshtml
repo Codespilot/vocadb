@@ -21,7 +21,7 @@
 	ViewBag.PageTitle = titleAndArtist;
 	
 	ViewBag.Subtitle = string.Format("{0} ({1})", Model.ArtistString, Translate.SongTypeNames[Model.SongType]);
-	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index") };
+	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Search", UrlMapper.Search.Songs(), null) };
 
 	var showAlternateVersions = 3;
 
@@ -180,7 +180,7 @@
 				<td>@ViewRes.SharedStrings.Type</td>
 				<td>
 					@SongHelpers.SongTypeLabel(Model.SongType)
-					@Html.ActionLink(Translate.SongTypeNames[Model.SongType], "Index", new { songType = Model.SongType })
+					@Html.ActionLink(Translate.SongTypeNames[Model.SongType], "Index", "Search", UrlMapper.Search.Songs(songType: Model.SongType), null)
 				</td>
 			</tr>
 			

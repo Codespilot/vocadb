@@ -6,7 +6,7 @@
 @{
     ViewBag.Title = R.CreateStrings.SubmitSong;
 	ViewBag.Parents = new[] { 
-		Html.ActionLink(ViewRes.SharedStrings.Songs, "Index")
+		Html.ActionLink(ViewRes.SharedStrings.Songs, "Index", "Search", UrlMapper.Search.Songs(), null)
 	};	
 }
 

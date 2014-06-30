@@ -5,7 +5,6 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
 using VocaDb.Web.Models;
-using VocaDb.Web.Models.Home;
 
 namespace VocaDb.Web.Controllers
 {
@@ -85,31 +84,6 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Search(string filter) {
 			return RedirectToAction("Index", "Search", new { filter });
-		}
-
-		public ActionResult SearchOld(string filter) {
-
-			filter = filter ?? string.Empty;
-			var result = Services.Other.Find(filter, 15, true);
-
-			if (result.OnlyOneItem) {
-
-				if (result.Albums.TotalCount == 1)
-					return RedirectToAction("Details", "Album", new { id = result.Albums.Items[0].Id });
-
-				if (result.Artists.TotalCount == 1)
-					return RedirectToAction("Details", "Artist", new { id = result.Artists.Items[0].Id });
-
-				if (result.Songs.TotalCount == 1)
-					return RedirectToAction("Details", "Song", new { id = result.Songs.Items[0].Id });
-
-				if (result.Tags.TotalCount == 1)
-					return RedirectToAction("Details", "Tag", new { id = result.Tags.Items[0].Name });
-
-			}
-
-			var model = new SearchEntries(filter, result.Albums, result.Artists, result.Songs, result.Tags);
-			return View(model);
 		}
 
 		public ActionResult SetContentPreferenceCookie(ContentLanguagePreference languagePreference) {
