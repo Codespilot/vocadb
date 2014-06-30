@@ -190,13 +190,13 @@
 
 		@if (Model.LatestSongs.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentSongs, "Index", "Song", new VocaDb.Web.Models.Song.IndexRouteParams { artistId = Model.Id, sort = SongSortRule.AdditionDate }, null)</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentSongs, "Index", "Search", UrlMapper.Search.Songs(artistId: Model.Id, sort: SongSortRule.AdditionDate), null)</h3>
 			@SongHelpers.SongGrid(Model.LatestSongs, 2, true)
 	    }
         
 		@if (Model.TopSongs.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopSongs, "Index", "Song", new VocaDb.Web.Models.Song.IndexRouteParams { artistId = Model.Id, sort = SongSortRule.RatingScore }, null)</h3>
+			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopSongs, "Index", "Search", UrlMapper.Search.Songs(artistId: Model.Id, sort: SongSortRule.RatingScore), null)</h3>
 			@SongHelpers.SongGrid(Model.TopSongs, 2, true)
 	    }
 		

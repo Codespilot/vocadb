@@ -792,7 +792,6 @@
     <Compile Include="Models\MikuDbAlbums\Index.cs" />
     <Compile Include="Models\MikuDbAlbums\PrepareAlbumsForImport.cs" />
     <Compile Include="Models\NewsEntry\NewsEntryEdit.cs" />
-    <Compile Include="Models\Search\SearchRouteParams.cs" />
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
     <Compile Include="Models\Shared\PagingData.cs" />
@@ -2194,7 +2193,6 @@
     <Content Include="Views\Song\UsersWithSongRating.cshtml" />
     <Content Include="Views\Home\Wiki.cshtml" />
     <Content Include="Views\Shared\SongPopupContent.cshtml" />
-    <Content Include="Views\Song\Partials\_SongPreviewList.cshtml" />
     <Content Include="Views\Shared\Partials\_PVRatingButtonsForIndex.cshtml" />
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_DuplicateEntriesMessage.cshtml" />

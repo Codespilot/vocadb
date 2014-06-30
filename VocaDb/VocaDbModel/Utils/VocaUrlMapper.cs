@@ -1,4 +1,6 @@
-﻿namespace VocaDb.Model.Utils {
+﻿using VocaDb.Model.Utils.Search;
+
+namespace VocaDb.Model.Utils {
 
 	public class VocaUrlMapper {
 
@@ -20,6 +22,12 @@
 
 		public string FullAbsolute(string relative) {
 			return VocaUriBuilder.Absolute(relative, ssl);
+		}
+
+		public SearchRouteParamsFactory Search {
+			get {
+				return new SearchRouteParamsFactory();
+			}
 		}
 
 	}
