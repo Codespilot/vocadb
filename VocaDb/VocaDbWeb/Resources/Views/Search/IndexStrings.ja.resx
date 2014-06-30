@@ -123,6 +123,15 @@
   <data name="EntryType" xml:space="preserve">
     <value>タイプ</value>
   </data>
+  <data name="InMyCollection" xml:space="preserve">
+    <value>私の蒐集</value>
+  </data>
+  <data name="MoreFilters" xml:space="preserve">
+    <value>その外のフィルター</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>プレビュ</value>
+  </data>
   <data name="Rating" xml:space="preserve">
     <value>評価</value>
   </data>
@@ -131,5 +140,8 @@
   </data>
   <data name="TagCategory" xml:space="preserve">
     <value>カテゴリ</value>
+  </data>
+  <data name="TypeSomething" xml:space="preserve">
+    <value>タイプする</value>
   </data>
 </root>
