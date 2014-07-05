@@ -6,6 +6,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -18,6 +19,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		protected readonly IUserPermissionContext permissionContext;
 		protected readonly TRepo repository;
+
+		protected ContentLanguagePreference LanguagePreference {
+			get { return permissionContext.LanguagePreference; }
+		}
 
 		protected IUserPermissionContext PermissionContext {
 			get { return permissionContext; }

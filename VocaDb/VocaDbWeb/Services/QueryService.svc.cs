@@ -27,12 +27,14 @@ namespace VocaDb.Web.Services {
 	[ServiceContract(Namespace = Schemas.VocaDb)]
 	public class QueryService {
 
+		private readonly ArtistQueries artistQueries;
 		private readonly TagQueries tagQueries;
 		private readonly IUserPermissionContext userPermissionContext;
 		private ServiceModel Services { get; set; }
 
-		public QueryService(ServiceModel services, TagQueries tagQueries, IUserPermissionContext userPermissionContext) {
+		public QueryService(ServiceModel services, ArtistQueries artistQueries, TagQueries tagQueries, IUserPermissionContext userPermissionContext) {
 			Services = services;
+			this.artistQueries = artistQueries;
 			this.tagQueries = tagQueries;
 			this.userPermissionContext = userPermissionContext;
 		}
@@ -117,14 +119,14 @@ namespace VocaDb.Web.Services {
 			if (!artists.Items.Any())
 				return null;
 
-			return Services.Artists.GetArtistDetails(artists.Items[0].Id);
+			return artistQueries.GetDetails(artists.Items[0].Id);
 
 		}
 
 		[OperationContract]
 		public ArtistDetailsContract GetArtistById(int id) {
 
-			var artist = Services.Artists.GetArtistDetails(id);
+			var artist = artistQueries.GetDetails(id);
 			return artist;
 
 		}

@@ -3,6 +3,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
@@ -105,6 +107,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		[DataMember]
 		public string PictureMime { get; set;}
 
+		[DataMember(EmitDefaultValue = false)]
+		public ArtistRelationsForApi Relations { get; set; }
+
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public EntryStatus Status { get; set; }
@@ -117,6 +122,48 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember(EmitDefaultValue = false)]
 		public ArchivedWebLinkContract[] WebLinks { get; set; }
+
+	}
+
+	[Flags]
+	public enum ArtistOptionalFields {
+
+		None = 0,
+		Description = 1,
+		Groups = 2,
+		MainPicture = 4,
+		Members = 8,
+		Names = 16,
+		Tags = 32,
+		WebLinks = 64
+
+	}
+
+	[DataContract(Namespace = Schemas.VocaDb)]
+	public class ArtistRelationsForApi {
+
+		[DataMember(EmitDefaultValue = false)]
+		public AlbumContract[] LatestAlbums { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public SongContract[] LatestSongs { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public AlbumContract[] PopularAlbums { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public SongContract[] PopularSongs { get; set; }
+
+	}
+
+	[Flags]
+	public enum ArtistRelationsFields {
+		
+		Nothing = 0,
+		LatestAlbums = 1,
+		LatestSongs = 2,
+		PopularAlbums = 4,
+		PopularSongs = 8
 
 	}
 

@@ -11,6 +11,7 @@ using NHibernate;
 using VocaDb.Model;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Security;
 using VocaDb.Web.App_Start;
 using VocaDb.Web.Code;
@@ -115,7 +116,7 @@ namespace VocaDb.Web {
 			}
 
 			// NHibernate missing entity exceptions. Usually caused by an invalid or deleted Id. This error has been logged already.
-			if (ex is ObjectNotFoundException) {
+			if (ex is ObjectNotFoundException || ex is EntityNotFoundException) {
 				HandleHttpError(ErrorLogger.Code_NotFound, "Entity not found");
 				return;
 			}
