@@ -271,7 +271,7 @@ namespace VocaDb.Web.Controllers
 				return HttpNotFound();
 
 			WebHelper.VerifyUserAgent(Request);
-			var model = Service.GetArtistDetails(id);
+			var model = queries.GetDetails(id);
 			PageProperties.Description = model.Description;
             return View(model);
 

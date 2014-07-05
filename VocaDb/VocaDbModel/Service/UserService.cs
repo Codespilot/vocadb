@@ -11,6 +11,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Paging;
 using NHibernate;
 using NHibernate.Linq;
@@ -860,7 +861,7 @@ namespace VocaDb.Model.Service {
 
 	}
 
-	public class UserNotFoundException : Exception {
+	public class UserNotFoundException : EntityNotFoundException {
 
 		public UserNotFoundException()
 			: base("User not found") {}

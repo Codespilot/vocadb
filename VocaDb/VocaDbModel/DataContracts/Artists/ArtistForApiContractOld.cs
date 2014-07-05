@@ -71,17 +71,4 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 	}
 
-	[Flags]
-	public enum ArtistOptionalFields {
-
-		None = 0,
-		Description = 1,
-		Groups = 2,
-		MainPicture = 4,
-		Members = 8,
-		Names = 16,
-		Tags = 32,
-		WebLinks = 64
-
-	}
 }
