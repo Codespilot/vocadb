@@ -213,4 +213,7 @@
   <data name="Band" xml:space="preserve">
     <value>Yhtye/yksikkö</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Jaa</value>
+  </data>
 </root>

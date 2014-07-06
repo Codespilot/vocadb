@@ -219,4 +219,7 @@
   <data name="Band" xml:space="preserve">
     <value>Band/unit</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
 </root>
