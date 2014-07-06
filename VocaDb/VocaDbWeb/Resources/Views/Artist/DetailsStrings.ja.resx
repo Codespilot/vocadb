@@ -135,6 +135,9 @@
   <data name="RecentSongs" xml:space="preserve">
     <value>最近の曲／PV</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>シェア</value>
+  </data>
   <data name="TopAlbums" xml:space="preserve">
     <value>人気のアルバム</value>
   </data>

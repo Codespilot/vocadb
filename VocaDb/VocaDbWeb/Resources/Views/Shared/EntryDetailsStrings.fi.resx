@@ -144,6 +144,9 @@
   <data name="LatestComments" xml:space="preserve">
     <value>Viimeisimmät kommentit</value>
   </data>
+  <data name="Link" xml:space="preserve">
+    <value>Linkki</value>
+  </data>
   <data name="ManageTags" xml:space="preserve">
     <value>Hallitse</value>
   </data>

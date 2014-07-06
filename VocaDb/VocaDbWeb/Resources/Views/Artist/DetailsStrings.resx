@@ -162,6 +162,9 @@
   <data name="RecentSongs" xml:space="preserve">
     <value>Recent songs / PVs</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
   <data name="TopAlbums" xml:space="preserve">
     <value>Popular albums</value>
   </data>
