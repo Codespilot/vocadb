@@ -159,11 +159,12 @@ namespace VocaDb.Model.DataContracts.Artists {
 	[Flags]
 	public enum ArtistRelationsFields {
 		
-		Nothing = 0,
+		None = 0,
 		LatestAlbums = 1,
 		LatestSongs = 2,
 		PopularAlbums = 4,
-		PopularSongs = 8
+		PopularSongs = 8,
+		All = (LatestAlbums | LatestSongs | PopularAlbums | PopularSongs)
 
 	}
 
