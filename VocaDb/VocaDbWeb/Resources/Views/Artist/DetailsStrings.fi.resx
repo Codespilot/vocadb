@@ -162,6 +162,9 @@
   <data name="RecentSongs" xml:space="preserve">
     <value>Uudet kappaleet</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>Jaa</value>
+  </data>
   <data name="TopAlbums" xml:space="preserve">
     <value>Suositut albumit</value>
   </data>

@@ -144,6 +144,9 @@
   <data name="LatestComments" xml:space="preserve">
     <value>Latest comments</value>
   </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
   <data name="ManageTags" xml:space="preserve">
     <value>Manage</value>
   </data>

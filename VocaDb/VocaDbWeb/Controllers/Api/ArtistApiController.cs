@@ -49,7 +49,7 @@ namespace VocaDb.Web.Controllers.Api {
 			ArtistOptionalFields fields = ArtistOptionalFields.None,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
-			var artist = service.GetArtistWithMergeRecord(id, (a, m) => new ArtistForApiContract(a, lang, 
+			var artist = queries.GetWithMergeRecord(id, (a, m) => new ArtistForApiContract(a, lang, 
 				thumbPersister, WebHelper.IsSSL(Request), fields));
 
 			return artist;

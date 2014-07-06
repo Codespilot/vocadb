@@ -246,15 +246,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public T GetArtistWithMergeRecord<T>(int id, Func<Artist, ArtistMergeRecord, T> fac) {
-
-			return HandleQuery(session => {
-				var artist = session.Load<Artist>(id);
-				return fac(artist, (artist.Deleted ? GetMergeRecord(session, id) : null));
-			});
-
-		}
-
 		public ArtistForEditContract GetArtistForEdit(int id) {
 
 			return

@@ -69,6 +69,7 @@
 			</a>
 		</li>
 		<li><a href="@Url.Action("SongsPaged", "Artist", new { id = Model.Id })" title="All songs"><span>@ViewRes.Artist.DetailsStrings.AllSongs</span></a></li>
+		<li><a href="#shareTab">@R.DetailsStrings.Share</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -240,6 +241,17 @@
 	</div>
 
 	<div id="All_songs">
+	</div>
+	
+	<div id="shareTab">
+		<div>
+			@ViewRes.EntryDetailsStrings.Link<br />
+			<input type="text" value="@url" class="input-large" onclick="this.select();" />
+		</div>
+		<div>
+			<a href="http://daringfireball.net/projects/markdown/">Markdown</a><br />
+			<input type="text" value="@VocaDb.Model.Service.Helpers.MarkdownHelper.CreateMarkdownLink(url, Model.Name)" class="input-xxlarge" onclick="this.select();" />
+		</div>
 	</div>
 
 </div>

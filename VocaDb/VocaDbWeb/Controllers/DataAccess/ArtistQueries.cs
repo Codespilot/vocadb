@@ -266,6 +266,15 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public T GetWithMergeRecord<T>(int id, Func<Artist, ArtistMergeRecord, T> fac) {
+
+			return HandleQuery(session => {
+				var artist = session.Load(id);
+				return fac(artist, (artist.Deleted ? GetMergeRecord(session, id) : null));
+			});
+
+		}
+
 		public EntryForPictureDisplayContract GetPictureThumb(int artistId) {
 			
 			var size = new Size(ImageHelper.DefaultThumbSize, ImageHelper.DefaultThumbSize);
