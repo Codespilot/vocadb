@@ -73,6 +73,7 @@
 		<li><a href="@Url.Action("Comments", "Album", new { id = Model.Id })" title="Discussion">@ViewRes.EntryDetailsStrings.DiscussionTab (@Model.CommentCount)</a></li>
 		<li><a href="#picturesTab">@ViewRes.EntryDetailsStrings.PicturesTab (@(Model.Pictures.Length + 1))</a></li>
 		<li><a href="@Url.Action("Related", "Album", new { id = Model.Id })">@R.DetailsStrings.RelatedAlbums</a></li>
+		<li><a href="#shareTab">@R.DetailsStrings.Share</a></li>
 	</ul>
 
 	<div id="basicInfoTab">
@@ -350,6 +351,17 @@
 			}
 		</ul>
 		
+	</div>
+	
+	<div id="shareTab">
+		<div>
+			@ViewRes.EntryDetailsStrings.Link<br />
+			<input type="text" value="@url" class="input-large" onclick="this.select();" />
+		</div>
+		<div>
+			<a href="http://daringfireball.net/projects/markdown/">Markdown</a><br />
+			<input type="text" value="@VocaDb.Model.Service.Helpers.MarkdownHelper.CreateMarkdownLink(url, Model.Name)" class="input-xxlarge" onclick="this.select();" />
+		</div>
 	</div>
 
 </div>

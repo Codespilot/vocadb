@@ -156,6 +156,9 @@
   <data name="ReleaseEvent" xml:space="preserve">
     <value>発売イベント</value>
   </data>
+  <data name="Share" xml:space="preserve">
+    <value>シェア</value>
+  </data>
   <data name="Tracklist" xml:space="preserve">
     <value>トラックリスト</value>
   </data>
