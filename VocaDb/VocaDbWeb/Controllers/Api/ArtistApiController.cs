@@ -12,6 +12,8 @@ using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Queries;
+using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
@@ -36,21 +38,38 @@ namespace VocaDb.Web.Controllers.Api {
 			this.thumbPersister = thumbPersister;
 		}
 
+		private ArtistForApiContract GetArtist(Artist a, ArtistMergeRecord m, 
+			ArtistOptionalFields fields, 
+			ArtistRelationsFields relations,
+			ContentLanguagePreference lang,
+			IRepositoryContext<Artist> ctx) {
+			
+			var contract = new ArtistForApiContract(a, lang, thumbPersister, WebHelper.IsSSL(Request), fields);
+
+			if (relations != ArtistRelationsFields.None) {
+				contract.Relations = new ArtistRelationsQuery(ctx, lang).GetRelations(a, relations);
+			}
+
+			return contract;
+
+		}
+
 		/// <summary>
 		/// Gets an artist by Id.
 		/// </summary>
 		/// <param name="id">Artist ID (required).</param>
 		/// <param name="fields">List of optional fields (optional). Possible values are Description, Groups, Members, Names, Tags, WebLinks.</param>
+		/// <param name="relations">List of artist relations (optional). Possible values are LatestAlbums, PopularAlbums, LatestSongs, PopularSongs, All</param>
 		/// <param name="lang">Content language preference (optional).</param>
 		/// <returns>Artist data.</returns>
 		/// <example>http://vocadb.net/api/artists/1</example>
 		[Route("{id:int}")]
 		public ArtistForApiContract GetOne(int id,
 			ArtistOptionalFields fields = ArtistOptionalFields.None,
+			ArtistRelationsFields relations = ArtistRelationsFields.None,
 			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
 
-			var artist = queries.GetWithMergeRecord(id, (a, m) => new ArtistForApiContract(a, lang, 
-				thumbPersister, WebHelper.IsSSL(Request), fields));
+			var artist = queries.GetWithMergeRecord(id, (a, m, ctx) => GetArtist(a, m, fields, relations, lang, ctx));
 
 			return artist;
 

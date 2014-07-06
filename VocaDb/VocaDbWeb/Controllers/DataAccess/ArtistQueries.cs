@@ -20,6 +20,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.Queries;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search.AlbumSearch;
 
@@ -33,56 +34,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IEntryThumbPersister imagePersister;
 
-		private AlbumContract[] GetLatestAlbums(IRepositoryContext<Artist> session, Artist artist) {
-			
-			var id = artist.Id;
-
-			var queryWithoutMain = session.OfType<ArtistForAlbum>().Query()
-				.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport);
-
-			var query = queryWithoutMain
-				.WhereHasArtistParticipationStatus(artist, ArtistAlbumParticipationStatus.OnlyMainAlbums);
-
-			var count = query.Count();
-
-			query = count >= 4 ? query : queryWithoutMain;
-
-			return query
-				.Select(s => s.Album)
-				.OrderByReleaseDate()
-				.Take(6).ToArray()
-				.Select(s => new AlbumContract(s, LanguagePreference))
-				.ToArray();
-
-		}
-
 		private ArtistMergeRecord GetMergeRecord(IRepositoryContext<Artist> session, int sourceId) {
 			return session.OfType<ArtistMergeRecord>().Query().FirstOrDefault(s => s.Source == sourceId);
-		}
-
-		private AlbumContract[] GetTopAlbums(IRepositoryContext<Artist> session, Artist artist, int[] latestAlbumIds) {
-			
-			var id = artist.Id;
-
-			var queryWithoutMain = session.OfType<ArtistForAlbum>().Query()
-				.Where(s => !s.Album.Deleted && s.Artist.Id == id && !s.IsSupport 
-					&& s.Album.RatingAverageInt > 0 && !latestAlbumIds.Contains(s.Album.Id));
-
-			/*var query = queryWithoutMain
-				.WhereHasArtistParticipationStatus(artist, ArtistAlbumParticipationStatus.OnlyMainAlbums);
-
-			var count = query.Count();
-
-			query = count >= 6 ? query : queryWithoutMain;*/
-
-			return queryWithoutMain
-				.Select(s => s.Album)
-				.OrderByDescending(s => s.RatingAverageInt)
-				.ThenByDescending(s => s.RatingCount)
-				.Take(6).ToArray()
-				.Select(s => new AlbumContract(s, LanguagePreference))
-				.ToArray();
-
 		}
 
 		public ArtistQueries(IArtistRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryThumbPersister imagePersister)
@@ -222,31 +175,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				}
 
-				contract.LatestAlbums = GetLatestAlbums(session, artist);
-
-				var latestAlbumIds = contract.LatestAlbums.Select(a => a.Id).ToArray();
-
-				contract.TopAlbums = GetTopAlbums(session, artist, latestAlbumIds);
-
-				contract.LatestSongs = session.OfType<ArtistForSong>().Query()
-					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport)
-					.WhereIsMainSong(artist.ArtistType)
-					.Select(s => s.Song)
-					.OrderByDescending(s => s.CreateDate)
-					.Take(8).ToArray()
-					.Select(s => new SongContract(s, LanguagePreference))
-					.ToArray();
-
-				var latestSongIds = contract.LatestSongs.Select(s => s.Id).ToArray();
-
-				contract.TopSongs = session.OfType<ArtistForSong>().Query()
-					.Where(s => !s.Song.Deleted && s.Artist.Id == id && !s.IsSupport 
-						&& s.Song.RatingScore > 0 && !latestSongIds.Contains(s.Song.Id))
-					.Select(s => s.Song)
-					.OrderByDescending(s => s.RatingScore)
-					.Take(8).ToArray()
-					.Select(s => new SongContract(s, LanguagePreference))
-					.ToArray();
+				var relations = (new ArtistRelationsQuery(session, LanguagePreference)).GetRelations(artist, ArtistRelationsFields.All);
+				contract.LatestAlbums = relations.LatestAlbums;
+				contract.TopAlbums = relations.PopularAlbums;
+				contract.LatestSongs = relations.LatestSongs;
+				contract.TopSongs = relations.PopularSongs;
 
 				contract.LatestComments = session.OfType<ArtistComment>().Query()
 					.Where(c => c.Artist.Id == id)
@@ -266,11 +199,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public T GetWithMergeRecord<T>(int id, Func<Artist, ArtistMergeRecord, T> fac) {
+		public T GetWithMergeRecord<T>(int id, Func<Artist, ArtistMergeRecord, IRepositoryContext<Artist>, T> fac) {
 
 			return HandleQuery(session => {
 				var artist = session.Load(id);
-				return fac(artist, (artist.Deleted ? GetMergeRecord(session, id) : null));
+				return fac(artist, (artist.Deleted ? GetMergeRecord(session, id) : null), session);
 			});
 
 		}
