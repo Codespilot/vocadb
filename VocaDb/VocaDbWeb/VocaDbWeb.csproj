@@ -1060,6 +1060,7 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\banners\en_app_rgb_wo_45.png" />
     <Content Include="Content\banners\facebook.png" />
     <Content Include="Content\banners\googleplus-icon.png" />
     <Content Include="Content\banners\mikuchan.jpg" />
@@ -2220,6 +2221,7 @@
     <Content Include="Views\Search\Partials\_EntryCountBox.cshtml" />
     <Content Include="Views\Shared\Partials\_GoogleAnalytics.cshtml" />
     <Content Include="Views\Search\Partials\_TagSearchList.cshtml" />
+    <Content Include="Views\Song\Partials\_ArtistForSongEdit.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
