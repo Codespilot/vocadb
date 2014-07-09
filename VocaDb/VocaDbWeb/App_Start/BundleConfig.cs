@@ -43,6 +43,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/Repositories/UserRepository.js",
 				"~/Scripts/Repositories/SongRepository.js",
+				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/TopBarViewModel.js"
 			));
 
@@ -73,7 +74,6 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/Album/Edit").Include(
 				"~/Scripts/Repositories/AlbumRepository.js",
-				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/SongInAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/AlbumEditViewModel.js",
@@ -81,7 +81,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Create").Include(
-				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ArtistCreateViewModel.js"
 			));
 
@@ -110,7 +109,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Repositories/AlbumRepository.js",
-				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/Repositories/EntryRepository.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/Repositories/TagRepository.js",
@@ -123,7 +121,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Create").Include(
-				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/SongCreateViewModel.js"
 			));
 
@@ -134,6 +131,7 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Edit").Include(
+				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/SongEditViewModel.js",
 				"~/Scripts/Song/Edit.js"
 			));
@@ -156,7 +154,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
-				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/User/AlbumCollectionViewModel.js"
 			));
@@ -179,7 +176,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
-				"~/Scripts/Repositories/ArtistRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",

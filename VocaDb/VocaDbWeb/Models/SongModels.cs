@@ -292,6 +292,7 @@ namespace VocaDb.Web.Models {
 
 		public PVService[] AllVideoServices { get; set; }
 
+		[FromJson]
 		public IList<ArtistForSongContract> ArtistLinks { get; set; }
 
 		[Display(Name = "Original language")]

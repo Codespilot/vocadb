@@ -187,22 +187,21 @@
 			<table>
 				<thead>
 					<tr>
-						<td>Artist</td>
-						<td>Support</td>
-						<td>Roles</td>
-						<td>Actions</td>
+						<th>Artist</th>
+						<th>Support</th>
+						<th>Roles</th>
+						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody id="artistsTableBody">
-				@foreach (var album in Model.ArtistLinks) {
-		Html.RenderPartial("ArtistForSongEditRow", album);
-	}
+				<tbody data-bind="foreach: artistLinks">
+					@{ Html.RenderPartial("Partials/_ArtistForSongEdit"); }
 				</tbody>
 			</table>
+			<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
 			
 			<br />
 			<h4>Add artist</h4>
-			@Helpers.EntrySearchNameBox("artistAddName")
+			<input type="text" data-bind="artistAutoComplete: artistSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />
 		</div>
 
 	</div>
@@ -225,14 +224,17 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {
-		
+
 		vdb.resources.song = {
 			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
 		};
-		
+
+		var rootPath = '@RootPath';
+		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { length = Model.Length, webLinks = Model.WebLinks }));
-		ko.applyBindings(new vdb.viewModels.SongEditViewModel(webLinkCategoryJson, modelJson));
+		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, length = Model.Length, webLinks = Model.WebLinks }));
+		ko.applyBindings(new vdb.viewModels.SongEditViewModel(artistRepo, artistRoleJson, webLinkCategoryJson, modelJson));
 
 		initPage(@Model.Id);
 	});
