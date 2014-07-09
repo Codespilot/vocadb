@@ -26,6 +26,18 @@ namespace VocaDb.Web.Code {
 			
 			var config = AppConfig.GetLobalLinksSection();
 
+			if (config == null || config.AppLinks == null) {
+
+				AppLinks = new[] {
+					new Link("Google Play Store", "https://play.google.com/store/apps/details?id=com.coolappz.Vocadb", "en_app_rgb_wo_45.png"),
+				};
+
+			} else {
+			
+				AppLinks = config.AppLinks.Links.Select(l => new Link(l.Title, l.Url, l.BannerImg)).ToArray();
+	
+			}
+
 			if (config == null || config.BigBanners == null) {
 
 				BigBanners = new [] {
@@ -71,6 +83,8 @@ namespace VocaDb.Web.Code {
 			}
 
 		}
+
+		public static Link[] AppLinks { get; private set; }
 
 		public static Link[] BigBanners { get; private set; }
 

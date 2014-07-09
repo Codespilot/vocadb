@@ -6,6 +6,8 @@ namespace VocaDb.Model.Utils.Config {
 
 	public class GlobalLinksSection : ConfigurationSectionGroup {
 
+		public LinksSection AppLinks { get; set; }
+
 		public LinksSection BigBanners { get; set; }
 
 		public LinksSection SmallBanners { get; set; }
