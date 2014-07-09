@@ -1,6 +1,7 @@
 ﻿
 function initPage(songId) {
 
+	var editArtist;
 	$("#tabs").tabs();
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
@@ -11,16 +12,16 @@ function initPage(songId) {
 
 	$("#editArtistRolesPopup").dialog({ autoOpen: false, width: 550, modal: true, buttons: { "Save": function () {
 
-		var artistId = $("#rolesArtistId").val();
 		var checkedRoles = $("#editArtistRolesPopup input.artistRoleCheck:checked").map(function () {
 			return $(this).attr("id").split("_")[1];
 		}).toArray();
 
-		//var idField = $("#artistsTableBody input.artistId[value='" + artistId + "']");
-		//var row = idField.parent().parent();
-		var row = $("#artistsTableBody tr:eq(" + artistId + ")");
-		row.find("input.artistRoles").val(checkedRoles.length ? checkedRoles.join(",") : "Default");
-		row.find("div.artistRolesList").html(checkedRoles.join("<br />"));
+		if (checkedRoles.length == 0)
+			checkedRoles = ['Default'];
+
+		var link = editArtist;
+		if (link)
+			link.rolesArray(checkedRoles);
 
 		$("#editArtistRolesPopup").dialog("close");
 
@@ -76,53 +77,12 @@ function initPage(songId) {
 			height: 250
 		});
 
-	function acceptArtistSelection(artistId, term) {
-
-		if (!isNullOrWhiteSpace(artistId)) {
-			$.post("../../Song/AddExistingArtist", { songId: songId, artistId: artistId }, artistAdded);
-		} else {
-			$.post("../../Song/AddNewArtist", { songId: songId, newArtistName: term }, artistAdded);
-		}
-
-	}
-
-	var artistAddList = $("#artistAddList");
-	var artistAddName = $("input#artistAddName");
-	var artistAddBtn = $("#artistAddAcceptBtn");
-
-	initEntrySearch(artistAddName, artistAddList, "Artist", "../../Artist/FindJson",
-		{
-			acceptBtnElem: artistAddBtn,
-			acceptSelection: acceptArtistSelection,
-			createNewItem: vdb.resources.song.addExtraArtist,
-			createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
-			createOptionSecondRow: function (item) { return item.AdditionalNames; },
-			extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,OtherVoiceSynthesizer,Producer,Circle,Unknown,Animator,Illustrator,Lyricist,OtherGroup,OtherIndividual,Utaite,Band" }
-		});
-
-	function artistAdded(row) {
-
-		var artistsTable = $("#artistsTableBody");
-		artistsTable.append(row);
-		$("#artistsTableBody a.artistLink:last").vdbArtistToolTip();
-
-	}
-
-	$(document).on("click", "a.artistRemove", function () {
-
-		$(this).parent().parent().remove();
-		return false;
-
-	});
-
 	$(document).on("click", "a.artistRolesEdit", function () {
 
-		var row = $(this).parent().parent();
+		var data = ko.dataFor(this);
+		editArtist = data;
 
-		var id = row.index(); //row.find("input.artistId").val();
-		$("#rolesArtistId").val(id);
-
-		var roles = row.find("input.artistRoles").val().split(",");
+		var roles = data.rolesArray();
 		$("#editArtistRolesPopup input.artistRoleCheck").each(function () {
 			$(this).removeAttr("checked");
 			$(this).button("refresh");

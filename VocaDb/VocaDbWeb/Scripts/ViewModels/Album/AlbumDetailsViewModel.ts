@@ -2,12 +2,6 @@
 /// <reference path="../../typings/knockout/knockout.d.ts" />
 /// <reference path="../../Shared/GlobalFunctions.ts" />
 
-declare module vdb.resources.albumDetails {
-
-    export var download: string;
-
-}
-
 module vdb.viewModels {
 
     export class AlbumDetailsViewModel {

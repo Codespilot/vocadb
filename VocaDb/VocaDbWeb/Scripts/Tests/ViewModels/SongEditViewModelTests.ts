@@ -5,16 +5,18 @@
 module vdb.tests.viewModels {
 
     import vm = vdb.viewModels;
-    import dc = vdb.dataContracts;
+	import dc = vdb.dataContracts;
+	import sup = vdb.tests.testSupport;
 
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 0, url: "http://www.youtube.com/user/tripshots" };
-    var data: vm.SongEdit = { length: 39, webLinks: [webLinkData] }; 
+    var data: vm.SongEdit = { artistLinks: [], length: 39, webLinks: [webLinkData] }; 
+	var artistRepo = new sup.FakeArtistRepository();
 
     QUnit.module("SongEditViewModelTests");
 
     function createViewModel() {
-        return new vm.SongEditViewModel(categories, data);
+		return new vm.SongEditViewModel(artistRepo, categories, data);
     }
 
     test("constructor", () => {

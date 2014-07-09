@@ -30,7 +30,7 @@ module vdb.tests.viewModels {
     var roles = { Default: "Default", VoiceManipulator: "Voice manipulator" };
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 123, url: "http://www.youtube.com/user/tripshots" };
     var data: vm.AlbumEdit;
-	vdb.resources = { albumDetails: { download: "" }, albumEdit: { addExtraArtist: "" } };
+	vdb.resources = { albumDetails: { download: "" }, albumEdit: { addExtraArtist: "" }, song: null };
 
     QUnit.module("AlbumEditViewModelTests", {
         setup: () => {
