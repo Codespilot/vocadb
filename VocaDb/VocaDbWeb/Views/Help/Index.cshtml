@@ -106,6 +106,19 @@
 			Please contact us if you wish to download all entries from the site. We can provide an XML dump of the complete contents of the site upon request.
 		</p>
 
+		<h4 class="withMargin">Privacy policy</h4>
+		<p>
+			VocaDB respects the privacy of its users. We will not share your personal details with third parties in any case.
+			Email addresses, IP addresses and passwords are considered sensitive information and will never be exposed through the APIs. 
+			Users' passwords are stored in the database as encrypted and salted.
+			<br />
+			VocaDB offers some privacy options: for example all edits made by the users are public, but users are able to restrict whether their name should appear on the front page.
+			In order to prevent abuse, we log the IP addresses of the users accessing the site, but this information is strictly available to moderators only. We do not use cookies to track user activity. However,
+			cookies are used to store certain user-related settings such as the display language. We use Google Analytics to track the number of users accessing the site, but
+			Google Analytics will never identify individual users. For avatars we use Gravatar which retrieves user's profile picture based on their email address. The original email address
+			is never revealed - only the hash.
+		</p>
+
 		<br />
 		<h4 id="staff">Staff</h4>
 		<p>A big thank you to our major contributors: @Html.LinkList(contributors, u => Html.ActionLink(u, "Profile", "User", new { id = u }, null)) and others.</p>
