@@ -4,8 +4,11 @@
 
 module vdb.viewModels {
 
+	import cls = vdb.models;
 	import dc = vdb.dataContracts;
+	import hel = vdb.helpers;
 	import rep = vdb.repositories;
+	var SongType = cls.songs.SongType;
 
     export class SongEditViewModel {
 
@@ -13,8 +16,11 @@ module vdb.viewModels {
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 		artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
         public length: KnockoutObservable<number>;
-        public lengthFormatted: KnockoutComputed<string>;
-        public submitting = ko.observable(false);
+		public lengthFormatted: KnockoutComputed<string>;
+		public songType: KnockoutComputed<cls.songs.SongType>;
+		public songTypeStr: KnockoutObservable<string>;
+		public submitting = ko.observable(false);
+		private tags: string[];
         public webLinks: WebLinksEditViewModel;
 
 		// Adds a new artist to the album
@@ -74,6 +80,13 @@ module vdb.viewModels {
 			return this.artistRoleNames[role];
 		};
 
+		public hasValidationErrors: KnockoutComputed<boolean>;
+		public validationError_needArtist: KnockoutComputed<boolean>;
+		public validationError_needProducer: KnockoutComputed<boolean>;
+		public validationError_needType: KnockoutComputed<boolean>;
+		public validationError_nonInstrumentalSongNeedsVocalists: KnockoutComputed<boolean>;
+		public validationError_unspecifiedNames: KnockoutComputed<boolean>;
+
 		constructor(private artistRepository: rep.ArtistRepository, private artistRoleNames, webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: SongEdit) {
 
 			this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(null, artist)));
@@ -84,7 +97,10 @@ module vdb.viewModels {
 				height: 300
 			};
 
-            this.length = ko.observable(data.length);
+			this.length = ko.observable(data.length);
+			this.songTypeStr = ko.observable(data.songType);
+			this.songType = ko.computed(() => cls.songs.SongType[this.songTypeStr()]);
+			this.tags = data.tags;
             this.webLinks = new WebLinksEditViewModel(data.webLinks, webLinkCategories);
             
             this.lengthFormatted = ko.computed({
@@ -102,7 +118,26 @@ module vdb.viewModels {
                         this.length(0);
                     }
                 }
-            });
+			});
+
+			this.validationError_needArtist = ko.computed(() => !_.some(this.artistLinks(), a => a.artist != null));
+			this.validationError_needProducer = ko.computed(() => !this.validationError_needArtist() && !_.some(this.artistLinks(), a => a.artist != null && hel.ArtistHelper.isProducerRole(a.artist, a.rolesArray(), hel.SongHelper.isAnimation(this.songType()))));
+			this.validationError_needType = ko.computed(() => this.songType() == SongType.Unspecified);
+
+			this.validationError_nonInstrumentalSongNeedsVocalists = ko.computed(() => {
+
+				return (!this.validationError_needArtist()
+					&& !hel.SongHelper.isInstrumental(this.songType())
+					&& !_.some(this.tags, t => t == cls.tags.Tag.commonTag_instrumental))
+					&& !_.some(this.artistLinks(), a => hel.ArtistHelper.isVocalistRole(a.artist, a.rolesArray()));
+
+			});
+
+			this.hasValidationErrors = ko.computed(() =>
+				this.validationError_needArtist() ||
+				this.validationError_needProducer() ||
+				this.validationError_needType() ||
+				this.validationError_nonInstrumentalSongNeedsVocalists());
 
         }
 
@@ -112,7 +147,11 @@ module vdb.viewModels {
 
 		artistLinks: dc.ArtistForAlbumContract[];
 
-        length: number;
+		length: number;
+
+		songType: string;
+
+		tags: string[];
 
         webLinks: vdb.dataContracts.WebLinkContract[];
 

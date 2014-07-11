@@ -1,7 +1,3 @@
-/// <reference path="../typings/knockout/knockout.d.ts" />
-/// <reference path="../typings/underscore/underscore.d.ts" />
-/// <reference path="../Repositories/UserRepository.ts" />
-/// <reference path="../Models/SongVoteRating.ts" />
 
 module vdb.viewModels {
 

@@ -1,12 +1,3 @@
-/// <reference path="../typings/underscore/underscore.d.ts" />
-/// <reference path="../KnockoutExtensions/AutoCompleteParams.ts" />
-/// <reference path="../DataContracts/TranslatedEnumField.ts" />
-/// <reference path="../DataContracts/WebLinkContract.ts" />
-/// <reference path="../Repositories/AlbumRepository.ts" />
-/// <reference path="../Repositories/SongRepository.ts" />
-/// <reference path="ArtistForAlbumEditViewModel.ts" />
-/// <reference path="SongInAlbumEditViewModel.ts" />
-/// <reference path="WebLinksEditViewModel.ts" />
 
 module vdb.viewModels {
 
@@ -200,7 +191,7 @@ module vdb.viewModels {
                     { text: "Add to tracks", click: this.addArtistsToSelectedTracks },
                     { text: "Remove from tracks", click: this.removeArtistsFromSelectedTracks }
                 ]);
-                this.trackPropertiesDialogVisible(true);
+				this.trackPropertiesDialogVisible(true);
 
             };
 
@@ -248,7 +239,7 @@ module vdb.viewModels {
                     this.editedSong().song.artists(selected);
                     this.editedSong(null);
 
-                }
+				}
 
             };
 

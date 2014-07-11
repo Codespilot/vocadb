@@ -1,5 +1,3 @@
-/// <reference path="../Models/WebLinkCategory.ts" />
-/// <reference path="../typings/underscore/underscore.d.ts" />
 
 module vdb.utils {
 

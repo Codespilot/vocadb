@@ -2,6 +2,7 @@
 @using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
 @using Newtonsoft.Json
+@using ValidationErrors = VocaDb.Model.Resources.SongValidationErrors;
 @inherits VocaDb.Web.Code.VocaDbPage<SongEdit>
 
 @{
@@ -26,7 +27,11 @@
 }
 }
 
-@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glsongs")
+@if (Model.Draft) {
+	<div class="alert" data-bind="visible: !hasValidationErrors()">
+		<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
+	</div>
+}
 
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
 
@@ -76,7 +81,14 @@
 				@Html.LabelFor(m => m.SongType)
 			</div>
 			<div class="editor-field">
-				@Html.SongTypeDropDownListFor(m => m.SongType)
+				<div class="row-fluid">
+					<div class="span4">
+						@Html.DropdownForKnockout(m => m.SongType, ViewHelper.CreateSongTypesList(null), "value: songTypeStr")
+					</div>
+					<div class="alert span4" data-bind="visible: songTypeStr() == 'Unspecified'">
+						@ValidationErrors.NeedType
+					</div>
+				</div>
 			</div>
 	
 			@if (Model.SongType != VocaDb.Model.Domain.Songs.SongType.Original) {
@@ -180,33 +192,57 @@
 		</div>
 
 		<div id="artistsTab">
-			<div class="alert alert-info">
-				<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
-			</div>   
+			<div class="row-fluid">
+				<div class="span6">
+					<table data-bind="visible: artistLinks().length">
+						<thead>
+							<tr>
+								<th>Artist</th>
+								<th>Support</th>
+								<th>Roles</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody data-bind="foreach: artistLinks">
+							@{ Html.RenderPartial("Partials/_ArtistForSongEdit"); }
+						</tbody>
+					</table>
+					<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
 
-			<table>
-				<thead>
-					<tr>
-						<th>Artist</th>
-						<th>Support</th>
-						<th>Roles</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody data-bind="foreach: artistLinks">
-					@{ Html.RenderPartial("Partials/_ArtistForSongEdit"); }
-				</tbody>
-			</table>
-			<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
-			
-			<br />
-			<h4>Add artist</h4>
-			<input type="text" data-bind="artistAutoComplete: artistSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />
+					<br />
+					<h4>Add artist</h4>
+					<input type="text" data-bind="artistAutoComplete: artistSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />
+				</div>
+				<div class="span4">
+					<div class="alert alert-info">
+						<span>Note that you can tag artists for a song much faster after tagging the album first.</span>
+					</div>
+					<div class="alert" data-bind="visible: validationError_needArtist">
+						<span>@ValidationErrors.NeedArtist</span>
+					</div>
+					<div class="alert" data-bind="visible: validationError_needProducer">
+						<span>@ValidationErrors.NeedProducer</span>
+					</div>
+					<div class="alert" data-bind="visible: validationError_nonInstrumentalSongNeedsVocalists">
+						<span>@ValidationErrors.NonInstrumentalSongNeedsVocalists</span>
+					</div>
+				</div>
+			</div>
 		</div>
-
 	</div>
 	<br />
 	
+	<div class="alert" data-bind="visible: hasValidationErrors()">
+		<h4>This entry is missing the following information:</h4><br />
+		<ul>
+			<li data-bind="visible: validationError_needArtist">@ValidationErrors.NeedArtist</li>
+			<li data-bind="visible: validationError_needProducer">@ValidationErrors.NeedProducer</li>
+			<li data-bind="visible: validationError_needType">@ValidationErrors.NeedType</li>
+			<li data-bind="visible: validationError_nonInstrumentalSongNeedsVocalists">@ValidationErrors.NonInstrumentalSongNeedsVocalists</li>
+		</ul>
+	</div>
+	
+
 	<p>Update notes (optional)</p>
 	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })
 	
