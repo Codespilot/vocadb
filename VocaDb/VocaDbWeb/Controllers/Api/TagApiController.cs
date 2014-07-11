@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Web.Configuration;
 using System.Web.Http;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Images;
@@ -24,6 +26,16 @@ namespace VocaDb.Web.Controllers.Api {
 		public TagApiController(TagQueries queries, IEntryImagePersisterOld thumbPersister) {
 			this.queries = queries;
 			this.thumbPersister = thumbPersister;
+		}
+
+		/// <summary>
+		/// Gets a list of tag category names.
+		/// </summary>
+		[Route("categoryNames")]
+		public string[] GetCategoryNamesList() {
+		
+			return queries.HandleQuery(ctx => ctx.Query().Where(t => t.CategoryName != null && t.CategoryName != "").Select(t => t.CategoryName).Distinct().ToArray());
+
 		}
 
 		/// <summary>
