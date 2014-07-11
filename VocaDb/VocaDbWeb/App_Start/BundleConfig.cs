@@ -11,7 +11,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/bootstrap.js",
 				//"~/Scripts/jquery-ui-1.10.1.js", // doesn't work if bundled together
 				"~/Scripts/knockout-{version}.js",
-				"~/Scripts/underscore.js", 
+				"~/Scripts/lodash.js", 
 				"~/Scripts/jquery.qtip.js"
 			));
 
@@ -131,6 +131,12 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Edit").Include(
+				"~/Scripts/Models/Artists/ArtistRoles.js",
+				"~/Scripts/Models/Artists/ArtistType.js",
+				"~/Scripts/Models/Songs/SongType.js",
+				"~/Scripts/Models/Tags/Tag.js",
+				"~/Scripts/Helpers/ArtistHelper.js",
+				"~/Scripts/Helpers/SongHelper.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/SongEditViewModel.js",
 				"~/Scripts/Song/Edit.js"

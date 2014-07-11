@@ -216,6 +216,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		[Obsolete]
 		public ActionResult UpdateEntryStatuses() {
 
 			var count = Service.UpdateEntryStatuses();

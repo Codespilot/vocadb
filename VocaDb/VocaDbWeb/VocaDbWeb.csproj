@@ -1304,6 +1304,7 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistApiContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\EntryContract.ts" />
@@ -1682,6 +1683,7 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-smoothness.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
+    <TypeScriptCompile Include="Scripts\Helpers\SongHelper.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\qTip.ts" />
@@ -1702,13 +1704,19 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Sortable.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\StopBinding.ts" />
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\marked.js" />
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\TagAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Tag\TagCategoryAutoComplete.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Artists\ArtistRoles.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Artists\ArtistType.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Songs\SongType.ts" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
     <TypeScriptCompile Include="Scripts\Models\EntryType.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Tags\Tag.ts" />
     <TypeScriptCompile Include="Scripts\Models\WebLinkCategory.ts" />
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
@@ -1719,10 +1727,10 @@
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\lodash\lodash.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\marked\marked.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qTip2\qtip.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistDetailsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
@@ -1761,8 +1769,6 @@
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\TopBarViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\User\UserMessagesViewModelTests.ts" />
-    <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\underscore.min.js" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ManageIPRulesViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistEditViewModel.ts" />
@@ -2153,7 +2159,6 @@
     <Content Include="Views\Album\Partials\_SongInAlbumEdit.cshtml" />
     <Content Include="Views\Album\Partials\_TrackProperties.cshtml" />
     <Content Include="Views\Album\Partials\_TrackArtistSelection.cshtml" />
-    <Content Include="Scripts\underscore.min.map" />
     <Content Include="Views\Album\RelatedAlbums.cshtml" />
     <Content Include="Views\Album\Partials\_DownloadTagsDialog.cshtml" />
     <Content Include="Views\Admin\Partials\_SFSCheckResponse.cshtml" />

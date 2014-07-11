@@ -515,6 +515,7 @@ namespace VocaDb.Model.Service {
 
 		}
 
+		[Obsolete]
 		public int UpdateEntryStatuses() {
 
 			VerifyAdmin();

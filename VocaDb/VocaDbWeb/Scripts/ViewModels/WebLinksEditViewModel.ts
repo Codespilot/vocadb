@@ -1,8 +1,3 @@
-/// <reference path="../typings/knockout/knockout.d.ts" />
-/// <reference path="../typings/underscore/underscore.d.ts" />
-/// <reference path="../DataContracts/TranslatedEnumField.ts" />
-/// <reference path="../DataContracts/WebLinkContract.ts" />
-/// <reference path="WebLinkEditViewModel.ts" />
 
 module vdb.viewModels {
 

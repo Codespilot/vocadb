@@ -1,9 +1,3 @@
-/// <reference path="../../DataContracts/User/UserWithIconContract.ts" />
-/// <reference path="../../DataContracts/User/UserMessagesContract.ts" />
-/// <reference path="../../Repositories/UserRepository.ts" />
-/// <reference path="../../typings/jquery/jquery.d.ts" />
-/// <reference path="../../typings/knockout/knockout.d.ts" />
-/// <reference path="../../typings/underscore/underscore.d.ts" />
 
 module vdb.viewModels {
 
