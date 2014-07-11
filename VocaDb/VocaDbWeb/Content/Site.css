@@ -679,3 +679,10 @@ div.item {
 .inline-block {
 	display: inline-block;
 }
+
+.entry-validation-error-summary {
+	-moz-text-overflow: ellipsis;
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+}
