@@ -21,6 +21,7 @@ module vdb.viewModels {
 		public songTypeStr: KnockoutObservable<string>;
 		public submitting = ko.observable(false);
 		private tags: string[];
+		public validationExpanded = ko.observable(false);
         public webLinks: WebLinksEditViewModel;
 
 		// Adds a new artist to the album

@@ -11,7 +11,16 @@
 		Html.ActionLink("Songs", "Index", "Search", UrlMapper.Search.Songs(), null), 
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
 	};
+	
+	var validationErrors = new Dictionary<string, string> {
+		{ "validationError_needArtist", ValidationErrors.NeedArtist },
+		{ "validationError_needProducer", ValidationErrors.NeedProducer },
+		{ "validationError_needType", ValidationErrors.NeedType },
+		{ "validationError_nonInstrumentalSongNeedsVocalists", ValidationErrors.NonInstrumentalSongNeedsVocalists },
+	};
+	
 }
+
 
 @section Toolbar {
 @if (Login.CanDeleteEntries) {
@@ -27,13 +36,9 @@
 }
 }
 
-@if (Model.Draft) {
-	<div class="alert" data-bind="visible: !hasValidationErrors()">
-		<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
-	</div>
-}
-
 @Helpers.ValidationSymmaryPanel("Unable to save properties.")
+
+@KnockoutHelpers.EntryValidationMessage(Model.Draft, validationErrors, "glsongs")
 
 <br />
 <form action="@Url.Action("Edit", "Song")" method="POST" data-bind="submit: submit">
@@ -230,18 +235,7 @@
 			</div>
 		</div>
 	</div>
-	<br />
-	
-	<div class="alert" data-bind="visible: hasValidationErrors()">
-		<h4>This entry is missing the following information:</h4><br />
-		<ul>
-			<li data-bind="visible: validationError_needArtist">@ValidationErrors.NeedArtist</li>
-			<li data-bind="visible: validationError_needProducer">@ValidationErrors.NeedProducer</li>
-			<li data-bind="visible: validationError_needType">@ValidationErrors.NeedType</li>
-			<li data-bind="visible: validationError_nonInstrumentalSongNeedsVocalists">@ValidationErrors.NonInstrumentalSongNeedsVocalists</li>
-		</ul>
-	</div>
-	
+	<br />	
 
 	<p>Update notes (optional)</p>
 	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })
