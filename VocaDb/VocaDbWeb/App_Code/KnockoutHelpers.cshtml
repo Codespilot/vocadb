@@ -43,15 +43,15 @@
 @helper EntryValidationMessage(bool draft, Dictionary<string, string> validationMessages, string helpSection) {
 
 	if (draft) {
-		<div class="alert" data-bind="visible: !hasValidationErrors()">
+		<div class="alert" data-bind="visible: !hasValidationErrors()" style="display: none;">
 			<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
 		</div>
 	} else {
-		<div class="alert alert-success" data-bind="visible: !hasValidationErrors()">
+		<div class="alert alert-success" data-bind="visible: !hasValidationErrors()" style="display: none;">
 			<span>This entry contains all the required information.</span>
 		</div>
-	
-		<div class="alert" data-bind="visible: hasValidationErrors()">
+
+		<div class="alert" data-bind="visible: hasValidationErrors()" style="display: none;">
 			<div class="pull-right">
 				<a data-bind="click: function() { validationExpanded(!validationExpanded()); }, css: { active: validationExpanded }" class="btn btn-mini" href="#">
 					<i class="icon-plus"></i>
