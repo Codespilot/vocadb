@@ -335,7 +335,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 		public void Update_Names() {
 			
 			var contract = new SongForEditContract(song, ContentLanguagePreference.English);
-			contract.Names.AllNames.First().Value = "Replaced name";
+			contract.Names.First().Value = "Replaced name";
 			contract.UpdateNotes = "Updated song";
 
 			contract = queries.UpdateBasicProperties(contract);

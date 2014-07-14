@@ -4,6 +4,7 @@
 .deleteLink	{ background-image: url(../Icons/delete.png); }
 .draftIcon	{ background-image: url(../draft.png); }
 .editLink	{ background-image: url(../Icons/edit.png); }
+.errorIcon	{ background-image: url(../Icons/error.png); }
 .heartIcon	{ background-image: url(../Icons/heart.png); }
 .helpLink, .helpIcon { background-image: url(../Icons/help.png); }
 .lockLink, .lockIcon { background-image: url(../Icons/lock.png); }
