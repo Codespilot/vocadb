@@ -29,8 +29,6 @@ function initPage(songId) {
 
 	$("input.artistRoleCheck").button();
 
-	initNamesList();
-
 	$("#changeOriginalBtn").click(function () {
 
 		$("#changeOriginalPanel").show();
