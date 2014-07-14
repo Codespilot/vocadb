@@ -13,6 +13,7 @@
 	};
 	
 	var validationErrors = new Dictionary<string, string> {
+		{ "validationError_unspecifiedNames", ValidationErrors.UnspecifiedNames },
 		{ "validationError_needArtist", ValidationErrors.NeedArtist },
 		{ "validationError_needProducer", ValidationErrors.NeedProducer },
 		{ "validationError_needType", ValidationErrors.NeedType },
@@ -70,9 +71,11 @@
 					Primary name (in one or more languages)
 				</label>
 				@Helpers.RequiredField()
+				<span data-bind="visible: validationError_unspecifiedNames, qTip" class="icon errorIcon" title="@ValidationErrors.UnspecifiedNames"></span>
 			</div>
-			<div class="editor-field">
-				@Html.EditorFor(m => m.Names)
+			<div class="editor-field" data-bind="with: names">
+				@{ Html.RenderPartial("KnockoutPartials/_NamesEditor"); }
+				<input type="hidden" name="Names" id="Names" data-bind="value: ko.toJSON(allNames)" />
 			</div>
 
 			<div class="editor-label">
@@ -89,9 +92,7 @@
 				<div class="row-fluid">
 					<div class="span4">
 						@Html.DropdownForKnockout(m => m.SongType, ViewHelper.CreateSongTypesList(null), "value: songTypeStr")
-					</div>
-					<div class="alert span4" data-bind="visible: songTypeStr() == 'Unspecified'">
-						@ValidationErrors.NeedType
+						<span data-bind="visible: songTypeStr() == 'Unspecified', qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
 					</div>
 				</div>
 			</div>
@@ -263,7 +264,7 @@
 		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, length = Model.Length, webLinks = Model.WebLinks }));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, length = Model.Length, names = Model.Names, webLinks = Model.WebLinks }));
 		ko.applyBindings(new vdb.viewModels.SongEditViewModel(artistRepo, artistRoleJson, webLinkCategoryJson, modelJson));
 
 		initPage(@Model.Id);

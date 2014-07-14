@@ -251,7 +251,7 @@ namespace VocaDb.Web.Models {
 
 			ArtistLinks = new List<ArtistForSongContract>();
 			Lyrics = new List<LyricsForSongModel>();
-			Names = new NameManagerEditContract();
+			Names = new List<LocalizedStringWithIdContract>();
 			OriginalVersion = new SongContract();
 			PVs = new List<PVContract>();
 			WebLinks = new List<WebLinkDisplay>();
@@ -312,7 +312,8 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		[Display(Name = "Names (at least one)")]
-		public NameManagerEditContract Names { get; set; }
+		[FromJson]
+		public IList<LocalizedStringWithIdContract> Names { get; set; }
 
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
@@ -347,8 +348,6 @@ namespace VocaDb.Web.Models {
 		[StringLength(200)]
 		public string UpdateNotes { get; set; }
 
-		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
-
 		[Display(Name = "Web links")]
 		[FromJson]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
@@ -361,7 +360,6 @@ namespace VocaDb.Web.Models {
 			Deleted = song.Deleted;
 			Draft = song.Song.Status == EntryStatus.Draft;
 			Name = song.Song.Name;
-			ValidationResult = song.ValidationResult;
 
 		}
 
@@ -372,6 +370,9 @@ namespace VocaDb.Web.Models {
 
 			if (Lyrics == null)
 				throw new InvalidFormException("Lyrics list was null"); // Shouldn't be null
+
+			if (Names == null)
+				throw new InvalidFormException("Names list was null"); // Shouldn't be null
 
 			if (PVs == null)
 				throw new InvalidFormException("PVs list was null"); // Shouldn't be null
@@ -389,7 +390,7 @@ namespace VocaDb.Web.Models {
 				},
 				Artists = this.ArtistLinks.ToArray(),
 				Lyrics = this.Lyrics.Select(l => l.ToContract()).ToArray(),
-				Names = this.Names,
+				Names = this.Names.ToArray(),
 				Notes = this.Notes ?? string.Empty,
 				OriginalVersion = this.OriginalVersion != null && this.OriginalVersion.Id != 0 ? this.OriginalVersion : new SongContract { Id = OriginalVersionId },
 				PVs = this.PVs.Select(p => p.NullToEmpty()).ToArray(),

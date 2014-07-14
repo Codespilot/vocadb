@@ -17,6 +17,7 @@ module vdb.viewModels {
 		artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
         public length: KnockoutObservable<number>;
 		public lengthFormatted: KnockoutComputed<string>;
+		public names: globalization.NamesEditViewModel;
 		public songType: KnockoutComputed<cls.songs.SongType>;
 		public songTypeStr: KnockoutObservable<string>;
 		public submitting = ko.observable(false);
@@ -99,6 +100,7 @@ module vdb.viewModels {
 			};
 
 			this.length = ko.observable(data.length);
+			this.names = new globalization.NamesEditViewModel(_.map(data.names, name => globalization.LocalizedStringWithIdEditViewModel.fromContract(name)));
 			this.songTypeStr = ko.observable(data.songType);
 			this.songType = ko.computed(() => cls.songs.SongType[this.songTypeStr()]);
 			this.tags = data.tags;
@@ -134,11 +136,16 @@ module vdb.viewModels {
 
 			});
 
+			this.validationError_unspecifiedNames = ko.computed(() =>
+				_.all(this.names.allNames(), (name: vdb.viewModels.globalization.LocalizedStringWithIdEditViewModel) => name.language() == cls.globalization.ContentLanguageSelection.Unspecified));
+
 			this.hasValidationErrors = ko.computed(() =>
 				this.validationError_needArtist() ||
 				this.validationError_needProducer() ||
 				this.validationError_needType() ||
-				this.validationError_nonInstrumentalSongNeedsVocalists());
+				this.validationError_nonInstrumentalSongNeedsVocalists() ||
+				this.validationError_unspecifiedNames()
+			);
 
         }
 
@@ -149,6 +156,8 @@ module vdb.viewModels {
 		artistLinks: dc.ArtistForAlbumContract[];
 
 		length: number;
+
+		names: dc.globalization.LocalizedStringWithIdContract[];
 
 		songType: string;
 

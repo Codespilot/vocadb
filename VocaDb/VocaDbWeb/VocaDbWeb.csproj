@@ -1139,6 +1139,7 @@
     <Content Include="Content\Icons\edit.png" />
     <Content Include="Content\favicon.ico" />
     <Content Include="Content\Icons\email.png" />
+    <Content Include="Content\Icons\error.png" />
     <Content Include="Content\Icons\heart.png" />
     <Content Include="Content\Icons\help.png" />
     <Content Include="Content\Icons\lock.png" />
@@ -1304,6 +1305,7 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Globalization\LocalizedStringWithIdContract.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistApiContract.ts" />
@@ -1683,6 +1685,7 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-smoothness.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
+    <TypeScriptCompile Include="Scripts\Helpers\KnockoutHelper.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\SongHelper.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
@@ -1712,6 +1715,8 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Tag\TagCategoryAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistRoles.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistType.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguageSelection.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Globalization\LocalizedStringWithIdEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />
     <TypeScriptCompile Include="Scripts\Models\Songs\SongType.ts" />
     <TypeScriptCompile Include="Scripts\Models\SongVoteRating.ts" />
@@ -1732,6 +1737,7 @@
     <TypeScriptCompile Include="Scripts\typings\qTip2\qtip.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistDetailsViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Globalization\NamesEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVRatingButtonsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\UserRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongRepository.ts" />
@@ -2227,6 +2233,7 @@
     <Content Include="Views\Shared\Partials\_GoogleAnalytics.cshtml" />
     <Content Include="Views\Search\Partials\_TagSearchList.cshtml" />
     <Content Include="Views\Song\Partials\_ArtistForSongEdit.cshtml" />
+    <Content Include="Views\Shared\KnockoutPartials\_NamesEditor.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
