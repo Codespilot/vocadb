@@ -23,6 +23,15 @@ span.icon {
 	padding: 3px;
 }
 
+span.icon-line {
+	background-position: 0px -1px;
+	background-repeat: no-repeat;
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	padding-right: 3px;
+}
+
 span.helpIcon {
 	display: inline-block;
 	width: 16px; 

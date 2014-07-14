@@ -1,4 +1,4 @@
-/* jQuery UI overrides */
+﻿/* jQuery UI overrides */
 ul.ui-autocomplete {
   max-height: 400px;
   overflow-y: auto;
@@ -43,6 +43,9 @@ body .ui-widget button {
 /* Bootstrap overrides and additions */
 .withMargin {
   margin-top: 20px;
+}
+.alert-no-bottom-margin {
+  margin-bottom: 0;
 }
 .navbar .nav-radio {
   color: #0DC69B;
@@ -154,4 +157,3 @@ ul.nav.nav-pills li a {
 ul.nav.nav-pills li.active a {
   color: white;
 }
-/*# sourceMappingURL=Overrides.css.map */
