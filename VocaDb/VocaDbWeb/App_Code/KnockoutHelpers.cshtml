@@ -43,32 +43,35 @@
 @helper EntryValidationMessage(bool draft, Dictionary<string, string> validationMessages, string helpSection) {
 
 	if (draft) {
-		<div class="alert alert-success" data-bind="visible: !hasValidationErrors()" style="display: none;">
-			<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
+		<div class="alert alert-success alert-no-bottom-margin" data-bind="visible: !hasValidationErrors()" style="display: none;">
+			<span class="icon-line tickIcon"></span>
+			This entry contains all the required information to be marked as finalized (not draft).
 		</div>
 	} else {
-		<div class="alert alert-success" data-bind="visible: !hasValidationErrors()" style="display: none;">
-			<span>This entry contains all the required information.</span>
+		<div class="alert alert-success alert-no-bottom-margin" data-bind="visible: !hasValidationErrors()" style="display: none;">
+			<span class="icon-line tickIcon"></span>
+			This entry contains all the required information.
 		</div>
 	}
 
-	<div class="alert" data-bind="visible: hasValidationErrors()" style="display: none;">
+	<div class="alert alert-no-bottom-margin" data-bind="visible: hasValidationErrors()" style="display: none;">
 		<div class="pull-right">
 			<a data-bind="click: function() { validationExpanded(!validationExpanded()); }, css: { active: validationExpanded }" class="btn btn-mini" href="#">
 				<i class="icon-plus"></i>
 				Details
 			</a>
-		</div>			
+		</div>
 
 		<!-- ko if: !validationExpanded() -->
-			<div class="entry-validation-error-summary">
-				<strong>This entry is missing the following information:</strong>
-				@foreach (var validationMessage in validationMessages) {
-					<span data-bind="visible: @validationMessage.Key">
-						@validationMessage.Value
-					</span>
-				}
-			</div>
+		<div class="entry-validation-error-summary">
+			<span class="icon-line errorIcon"></span>
+			<strong>This entry is missing the following information:</strong>
+			@foreach (var validationMessage in validationMessages) {
+				<span data-bind="visible: @validationMessage.Key">
+					@validationMessage.Value
+				</span>
+			}
+		</div>
 		<!-- /ko -->
 		<!-- ko if: validationExpanded -->
 		<h4>This entry is missing the following information:</h4><br />
@@ -79,7 +82,7 @@
 		</ul>
 		<span>See the <a href="@(Url.Action("Index", "Help") + "?guidelines+" + helpSection)">guide</a> for more information.</span>
 		<!-- /ko -->
-	</div>		
+	</div>
 
 }
 
@@ -103,19 +106,19 @@
 			</li>
 
 			<li data-bind="visible: showMoreBegin" class="disabled">
-				<a href="#">…</a>				
+				<a href="#">…</a>
 			</li>
-			
+
 			<!-- ko foreach: pages -->
 			<li data-bind="css: { active: $data == $parent.page() }">
 				<a data-bind="click: function() { $parent.page($data) }, text: $data" href="#"></a>
 			</li>
 			<!-- /ko -->
-			
+
 			<li data-bind="visible: showMoreEnd" class="disabled">
 				<a href="#">…</a>
 			</li>
-			
+
 			<li data-bind="css: { disabled: isLastPage }">
 				<a data-bind="click: nextPage" href="#">@VocaDb.Web.Resources.Other.PagedListStrings.Next &raquo;</a>
 			</li>
@@ -139,7 +142,7 @@
 				</th>
 				<th>@HelperRes.HelperStrings.WebLinkDescriptionTitle</th>
 				@if (showCategory) {
-                <th>@HelperRes.HelperStrings.WebLinkCategoryTitle</th>					
+					<th>@HelperRes.HelperStrings.WebLinkCategoryTitle</th>
 				}
 				<th></th>
 			</tr>
@@ -157,6 +160,6 @@
 			</tr>
 		</tbody>
 	</table>
-	
-	<a href="#" class="textLink addLink" data-bind="click: add">@HelperRes.HelperStrings.WebLinkNewRow</a>	
+
+	<a href="#" class="textLink addLink" data-bind="click: add">@HelperRes.HelperStrings.WebLinkNewRow</a>
 }
