@@ -628,6 +628,10 @@ div.item {
 	white-space: nowrap;
 }
 
+.entry-validation-list {
+	margin-top: 5px;
+}
+
 /* Label or span with a helpful tooltip */
 .helpTip {
 	border-bottom: 1px dashed;
