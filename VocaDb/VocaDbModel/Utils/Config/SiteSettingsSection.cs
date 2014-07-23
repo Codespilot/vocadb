@@ -25,5 +25,11 @@ namespace VocaDb.Model.Utils.Config {
 			set { this["openSearchPath"] = value; }			
 		}
 
+		[ConfigurationProperty("paypalDonateCert", DefaultValue = "")]
+		public string PaypalDonateCert {
+			get { return (string)this["paypalDonateCert"]; }
+			set { this["paypalDonateCert"] = value; }			
+		}
+
 	}
 }
