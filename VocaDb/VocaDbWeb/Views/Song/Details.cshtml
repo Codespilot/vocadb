@@ -306,6 +306,7 @@
 				</td>	
 			</tr>
 			
+			@if (Model.Contract.PreviousSong != null || Model.Contract.NextSong != null) {
 			<tr>
 				<td>Navigation</td>
 				<td>
@@ -318,6 +319,7 @@
 					}
 				</td>
 			</tr>
+			}
 
 		</table>
 		
