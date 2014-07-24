@@ -35,6 +35,7 @@ namespace VocaDb.Model.Domain.Tags {
 		public const int MaxDisplayedTags = 4;
 		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_-]+$");
 
+		public const string CommonTag_ChangedLyrics = "changed_lyrics";
 		public const string CommonTag_Free = "free";
 		public const string CommonTag_Instrumental = "instrumental";
 		public const string CommonTag_Nicovideo_downloadmusic = "nicovideo_downloadmusic";

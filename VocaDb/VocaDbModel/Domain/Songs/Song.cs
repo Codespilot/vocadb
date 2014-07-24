@@ -212,7 +212,7 @@ namespace VocaDb.Model.Domain.Songs {
 		public virtual IList<LyricsForSong> LyricsFromParents {
 			get {
 
-				if (SongType != SongType.Instrumental && HasOriginalVersion && !Lyrics.Any() && OriginalVersion.Lyrics.Any())
+				if (SongType != SongType.Instrumental && HasOriginalVersion && !Lyrics.Any() && OriginalVersion.Lyrics.Any() && !Tags.HasTag(Tag.CommonTag_ChangedLyrics))
 					return OriginalVersion.Lyrics;
 
 				return Lyrics;
