@@ -100,7 +100,7 @@ module vdb.viewModels {
 			};
 
 			this.length = ko.observable(data.length);
-			this.names = new globalization.NamesEditViewModel(_.map(data.names, name => globalization.LocalizedStringWithIdEditViewModel.fromContract(name)));
+			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
 			this.songTypeStr = ko.observable(data.songType);
 			this.songType = ko.computed(() => cls.songs.SongType[this.songTypeStr()]);
 			this.tags = data.tags;
@@ -136,8 +136,7 @@ module vdb.viewModels {
 
 			});
 
-			this.validationError_unspecifiedNames = ko.computed(() =>
-				_.all(this.names.allNames(), (name: vdb.viewModels.globalization.LocalizedStringWithIdEditViewModel) => name.language() == cls.globalization.ContentLanguageSelection.Unspecified));
+			this.validationError_unspecifiedNames = ko.computed(() => !this.names.hasNameWithLanguage());
 
 			this.hasValidationErrors = ko.computed(() =>
 				this.validationError_needArtist() ||

@@ -24,7 +24,7 @@ namespace VocaDb.Web.Models {
 		public ArtistEdit() {
 
 			Groups = new List<GroupForArtistContract>();
-			Names = new NameManagerEditContract();
+			Names = new List<LocalizedStringWithIdContract>();
 			Pictures = new List<EntryPictureFileContract>();
 			WebLinks = new List<WebLinkDisplay>();
 
@@ -82,7 +82,8 @@ namespace VocaDb.Web.Models {
 		public string Name { get; set; }
 
 		[Display(Name = "Names")]
-		public NameManagerEditContract Names { get; set; }
+		[FromJson]
+		public IList<LocalizedStringWithIdContract> Names { get; set; }
 
 		[Display(Name = "Name in English")]
 		[StringLength(255)]
@@ -119,11 +120,13 @@ namespace VocaDb.Web.Models {
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			Deleted = artist.Deleted;
 			Draft = artist.Status == EntryStatus.Draft;
-			ValidationResult = artist.ValidationResult;
 
 		}
 
 		public ArtistForEditContract ToContract() {
+
+			if (Names == null)
+				throw new InvalidFormException("Names list was null"); // Shouldn't be null
 
 			if (Pictures == null)
 				throw new InvalidFormException("Pictures list was null"); // Shouldn't be null
@@ -138,7 +141,7 @@ namespace VocaDb.Web.Models {
 				Description =  this.Description ?? string.Empty,
 				Groups = this.Groups.ToArray(),
 				Name = this.Name,
-				Names = this.Names,
+				Names = this.Names.ToArray(),
 				Pictures = this.Pictures.Select(p => p.NullToEmpty()).ToArray(),
 				Status = this.Status,
 				TooManyAlbums = this.TooManyAlbums,

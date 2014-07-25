@@ -92,7 +92,7 @@
 				<div class="row-fluid">
 					<div class="span4">
 						@Html.DropdownForKnockout(m => m.SongType, ViewHelper.CreateSongTypesList(null), "value: songTypeStr")
-						<span data-bind="visible: songTypeStr() == 'Unspecified', qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
+						<span data-bind="visible: validationError_needType, qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
 					</div>
 				</div>
 			</div>

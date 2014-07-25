@@ -17,27 +17,17 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			/*if (artist.Albums.Count() <= MaxAlbums)
-				AlbumLinks = artist.Albums.Select(a => new AlbumForArtistEditContract(a, languagePreference)).OrderBy(a => a.AlbumName).ToArray();
-			else {
-				TooManyAlbums = true;
-			}*/
-
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
 			Members = artist.Members.Select(m => new GroupForArtistContract(m, languagePreference)).OrderBy(a => a.Member.Name).ToArray();
-			Names = new NameManagerEditContract(artist.Names);
+			Names = artist.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			Pictures = artist.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			UpdateNotes = string.Empty;
-			ValidationResult = ArtistValidator.Validate(artist);
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
-
-		//[DataMember]
-		//public AlbumForArtistEditContract[] AlbumLinks { get; set; }
 
 		[DataMember]
 		public string AllNames { get; set; }
@@ -55,7 +45,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public GroupForArtistContract[] Members { get; set; }
 
 		[DataMember]
-		public NameManagerEditContract Names { get; set; }
+		public LocalizedStringWithIdContract[] Names { get; set; }
 
 		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }
@@ -64,8 +54,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public bool TooManyAlbums { get; set; }
 
 		public string UpdateNotes { get; set; }
-
-		public ValidationResult ValidationResult { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }

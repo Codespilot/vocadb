@@ -1688,6 +1688,7 @@
     <TypeScriptCompile Include="Scripts\Helpers\KnockoutHelper.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\SongHelper.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\InitialValue.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\qTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
