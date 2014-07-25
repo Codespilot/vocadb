@@ -282,7 +282,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.Status = true;
 				}
 
-				var nameDiff = artist.Names.Sync(properties.Names.AllNames, artist);
+				var nameDiff = artist.Names.Sync(properties.Names, artist);
 				ctx.OfType<ArtistName>().Sync(nameDiff);
 
 				if (nameDiff.Changed)

@@ -2,6 +2,7 @@
 @using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Artists;
+@using ValidationErrors = VocaDb.Model.Resources.ArtistValidationErrors;
 @model  VocaDb.Web.Models.ArtistEdit
 @{
 	ViewBag.Title = "Edit artist - " + Model.Name;
@@ -9,6 +10,13 @@
 		Html.ActionLink("Artists", "Index"), 
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
 	};
+
+	var validationErrors = new Dictionary<string, string> {
+		{ "validationError_unspecifiedNames", ValidationErrors.UnspecifiedNames },
+		{ "validationError_needReferences", ValidationErrors.NeedReferences },
+		{ "validationError_needType", ValidationErrors.NeedType },
+	};
+	
 }
 
 @section Toolbar {
@@ -24,9 +32,9 @@
 }
 }
 
-@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glproducers")
-
 @Helpers.ValidationSymmaryPanel("Unable to save")
+
+@KnockoutHelpers.EntryValidationMessage(Model.Draft, validationErrors, "glsongs")
 
 <br />
 <form action="@Url.Action("EditBasicDetails", "Artist")" method="POST" enctype="multipart/form-data" data-bind="submit: submit">
@@ -55,9 +63,11 @@
 				<div class="editor-label">
 					@Helpers.HelpLabel("Primary name (in one or more languages)", ViewRes.EntryEditStrings.NameHelp)
 					@Helpers.RequiredField()
+					<span data-bind="visible: validationError_unspecifiedNames, qTip" class="icon errorIcon" title="@ValidationErrors.UnspecifiedNames"></span>
 				</div>
-				<div class="editor-field">
-					@Html.EditorFor(m => m.Names)
+				<div class="editor-field" data-bind="with: names">
+					@{ Html.RenderPartial("KnockoutPartials/_NamesEditor"); }
+					<input type="hidden" name="Names" id="Names" data-bind="value: ko.toJSON(allNames)" />
 				</div>
 
 				<div class="editor-label">
@@ -77,17 +87,19 @@
 				</div>
 
 				<div class="editor-label">
-					@Html.LabelFor(m => m.Description)
+					<label class="inline-block">Description</label>
+					<span data-bind="visible: validationError_needReferences, qTip" class="icon errorIcon" title="@ValidationErrors.NeedReferences"></span>
 				</div>
 				<div class="editor-field">
-					@Html.TextAreaFor(m => m.Description, 8, 70, new { @class = "span5" })
+					@Html.TextAreaForKnockout(m => m.Description, binding: "initialValue, value: description", rows: 8, cols: 70, cssClass: "span5")
 				</div>
 
 				<div class="editor-label">
 					@Html.LabelFor(m => m.ArtistType)
 				</div>
 				<div class="editor-field">
-					@Html.DropDownListFor(m => m.ArtistType, new SelectList(Model.AllArtistTypes, "Key", "Value"))
+					@Html.DropdownForKnockout(m => m.ArtistType, new SelectList(Model.AllArtistTypes, "Key", "Value"), "initialValue, value: artistTypeStr")
+					<span data-bind="visible: validationError_needType, qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
 				</div>
 
 				@if (Model.ArtistType != ArtistType.Circle && Model.ArtistType != ArtistType.Label) {
@@ -161,7 +173,7 @@
 
 	$(document).ready(function() { 
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { webLinks = Model.WebLinks }));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { names = Model.Names, webLinks = Model.WebLinks }));
 		ko.applyBindings(new vdb.viewModels.ArtistEditViewModel(webLinkCategoryJson, modelJson));
 		initPage(@Model.Id); 
 	});

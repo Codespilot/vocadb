@@ -4,7 +4,18 @@
 
 module vdb.viewModels {
 
+	import cls = vdb.models;
+	import dc = vdb.dataContracts;
+
     export class ArtistEditViewModel {
+
+		public artistType: KnockoutComputed<cls.artists.ArtistType>;
+		public artistTypeStr: KnockoutObservable<string>;
+
+		public description: KnockoutObservable<string>;
+		public hasValidationErrors: KnockoutComputed<boolean>;
+
+		public names: globalization.NamesEditViewModel;
 
         public submit = () => {
             this.submitting(true);
@@ -12,17 +23,41 @@ module vdb.viewModels {
         }
 
         public submitting = ko.observable(false);
+		public validationExpanded = ko.observable(false);
+		public validationError_needReferences: KnockoutComputed<boolean>;
+		public validationError_needType: KnockoutComputed<boolean>;
+		public validationError_unspecifiedNames: KnockoutComputed<boolean>;
         public webLinks: WebLinksEditViewModel;
 
         constructor(webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: ArtistEdit) {
 
+			this.artistTypeStr = ko.observable(data.artistType);
+			this.artistType = ko.computed(() => cls.artists.ArtistType[this.artistTypeStr()]);
+			this.description = ko.observable(data.description);
+			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
             this.webLinks = new WebLinksEditViewModel(data.webLinks, webLinkCategories);
-        
+    
+			this.validationError_needReferences = ko.computed(() => (this.description() == null || this.description().length) == 0 && this.webLinks.webLinks().length == 0);
+			this.validationError_needType = ko.computed(() => this.artistType() == cls.artists.ArtistType.Unknown);
+			this.validationError_unspecifiedNames = ko.computed(() => !this.names.hasNameWithLanguage());
+
+			this.hasValidationErrors = ko.computed(() =>
+				this.validationError_needReferences() ||
+				this.validationError_needType() ||
+				this.validationError_unspecifiedNames()
+			);
+			    
         }
 
     }
 
     export interface ArtistEdit {
+
+		artistType: string;
+
+		description: string;
+
+		names: dc.globalization.LocalizedStringWithIdContract[];
 
         webLinks: vdb.dataContracts.WebLinkContract[];
 

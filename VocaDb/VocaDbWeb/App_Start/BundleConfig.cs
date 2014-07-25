@@ -59,7 +59,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/SongAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/FocusOut.js",
 				"~/Scripts/KnockoutExtensions/qTip.js",
-				"~/Scripts/KnockoutExtensions/Markdown.js"
+				"~/Scripts/KnockoutExtensions/Markdown.js",
+				"~/Scripts/KnockoutExtensions/InitialValue.js"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/jqxRating").Include(
@@ -90,6 +91,11 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Edit").Include(
+				"~/Scripts/Models/Artists/ArtistType.js",
+				"~/Scripts/Models/Globalization/ContentLanguageSelection.js",
+				"~/Scripts/Helpers/KnockoutHelper.js",
+				"~/Scripts/ViewModels/Globalization/LocalizedStringWithIdEditViewModel.js",
+				"~/Scripts/ViewModels/Globalization/NamesEditViewModel.js",
 				"~/Scripts/ViewModels/ArtistEditViewModel.js",
 				"~/Scripts/Artist/Edit.js"
 			));

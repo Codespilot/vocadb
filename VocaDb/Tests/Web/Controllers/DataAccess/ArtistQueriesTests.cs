@@ -133,7 +133,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			
 			var contract = new ArtistForEditContract(artist, ContentLanguagePreference.English);
 
-			contract.Names.AllNames.First().Value = "Replaced name";
+			contract.Names.First().Value = "Replaced name";
 			contract.UpdateNotes = "Updated artist";
 
 			contract = CallUpdate(contract);

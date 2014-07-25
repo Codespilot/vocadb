@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Resources;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.Service.EntryValidators {
 
+	[Obsolete("Moved to client side")]
 	public static class ArtistValidator {
 
 		public static ValidationResult Validate(Artist artist) {

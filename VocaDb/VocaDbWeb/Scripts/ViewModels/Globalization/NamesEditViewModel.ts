@@ -2,6 +2,7 @@
 module vdb.viewModels.globalization {
 
 	import cls = vdb.models;
+	import dc = vdb.dataContracts;
 	var langSelection = vdb.models.globalization.ContentLanguageSelection;
 
 	export class NamesEditViewModel {
@@ -19,6 +20,14 @@ module vdb.viewModels.globalization {
 		public deleteAlias = (alias: LocalizedStringWithIdEditViewModel) => {
 			this.aliases.remove(alias);
 		};
+
+		public hasNameWithLanguage = () => {
+			return _.some(this.allNames(), (name: vdb.viewModels.globalization.LocalizedStringWithIdEditViewModel) => name.language() != langSelection.Unspecified);
+		}
+
+		public static fromContracts(contracts: dc.globalization.LocalizedStringWithIdContract[]) {
+			return new NamesEditViewModel(_.map(contracts, contract => globalization.LocalizedStringWithIdEditViewModel.fromContract(contract)));
+		}
 
 		private static nameOrEmpty(names: LocalizedStringWithIdEditViewModel[], lang: cls.globalization.ContentLanguageSelection) {
 
