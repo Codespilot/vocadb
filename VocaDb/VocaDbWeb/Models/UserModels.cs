@@ -13,6 +13,7 @@ using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Web.Code;
+using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Helpers.Support;
@@ -224,6 +225,9 @@ namespace VocaDb.Web.Models {
 		public string TwitterName { get; set; }
 
 		public UpdateUserSettingsContract ToContract() {
+
+			if (WebLinks == null)
+				throw new InvalidFormException("Web links list was null");
 
 			return new UpdateUserSettingsContract {
 				AboutMe = this.AboutMe ?? string.Empty,
