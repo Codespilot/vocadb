@@ -7,15 +7,12 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
-using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Users;
-using VocaDb.Model.Helpers;
 using VocaDb.Web.Code;
 using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
@@ -154,8 +151,6 @@ namespace VocaDb.Web.Models {
 
 		[StringLength(200)]
 		public string UpdateNotes { get; set; }
-
-		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
 
 		[Display(Name = "External links")]
 		[FromJson]

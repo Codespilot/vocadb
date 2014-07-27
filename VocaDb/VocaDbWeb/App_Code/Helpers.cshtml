@@ -114,27 +114,6 @@
 	</a>
 }
 
-@helper EntryValidationMessage(bool draft, VocaDb.Model.Service.EntryValidators.ValidationResult validationResult, string helpSection) {
-	
-    if (!validationResult.Passed || draft) {
-        <div class="alert">
-			@NotificationIcon()
-            @if (!validationResult.Passed) {
-	            <h4>This entry is missing the following information:</h4><br />
-				<ul>
-					@foreach (var line in validationResult.Errors) {
-						<li>@line</li>
-			}
-				</ul>
-            } else if (draft) {
-				<span>This entry contains all the required information to be marked as finalized (not draft).</span><br />
-            }
-        <span>See the <a href="@(Url.Action("Index", "Help") + "?guidelines+" + helpSection)">guide</a> for more information.</span>			
-		</div>
-	}
-    
-}
-
 @helper EntrySearchNameBox(string id, string cls = "input-xlarge") {
 	<input type="text" id="@id" maxlength="128" class="@cls" placeholder="@ViewRes.SharedStrings.Search" />	
 }

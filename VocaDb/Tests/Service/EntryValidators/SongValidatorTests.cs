@@ -1,13 +1,8 @@
-﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Resources;
-using VocaDb.Model.Service.EntryValidators;
+﻿
 
 namespace VocaDb.Tests.Service.EntryValidators {
 
+	/*
 	/// <summary>
 	/// Tests for <see cref="SongValidator"/>.
 	/// </summary>
@@ -99,5 +94,5 @@ namespace VocaDb.Tests.Service.EntryValidators {
 
 		}
 
-	}
+	}*/
 }

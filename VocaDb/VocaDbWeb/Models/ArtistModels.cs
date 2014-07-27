@@ -107,8 +107,6 @@ namespace VocaDb.Web.Models {
 		[StringLength(200)]
 		public string UpdateNotes { get; set; }
 
-		public Model.Service.EntryValidators.ValidationResult ValidationResult { get; set; }
-
 		[Display(Name = "Web links")]
 		[FromJson]
 		public IList<WebLinkDisplay> WebLinks { get; set; }
