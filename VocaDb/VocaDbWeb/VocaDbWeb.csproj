@@ -2200,7 +2200,6 @@
     <Content Include="Views\Song\ManageTagUsages.cshtml" />
     <Content Include="Views\User\FavoriteSongs.cshtml" />
     <Content Include="Views\Shared\NameAliasEditRow.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\NameManagerEditContract.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocalizedStringWithIdContract.cshtml" />
     <Content Include="Views\User\AlbumCollection.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />

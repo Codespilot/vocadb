@@ -19,7 +19,6 @@ using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
-using VocaDb.Model.Service.EntryValidators;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.DataSharing;
 using VocaDb.Model.Service.Helpers;
@@ -510,77 +509,6 @@ namespace VocaDb.Model.Service {
 						session.Update(song);
 
 				}
-
-			});
-
-		}
-
-		[Obsolete]
-		public int UpdateEntryStatuses() {
-
-			VerifyAdmin();
-
-			SysLog("updating entry statuses");
-
-			return HandleTransaction(session => {
-
-				int count = 0;
-
-				var artists = session.Query<Artist>().Where(a => !a.Deleted).ToArray();
-
-				foreach (var artist in artists) {
-
-					var result = ArtistValidator.Validate(artist);
-
-					if (result.Passed && artist.Status == EntryStatus.Draft) {
-						artist.Status = EntryStatus.Finished;
-						session.Update(artist);
-						count++;
-					} else if (!result.Passed && artist.Status == EntryStatus.Finished) {
-						artist.Status = EntryStatus.Draft;
-						session.Update(artist);
-						count++;
-					}
-
-				}
-
-				var albums = session.Query<Album>().Where(a => !a.Deleted).ToArray();
-
-				foreach (var album in albums) {
-
-					var result = AlbumValidator.Validate(album);
-
-					if (result.Passed && album.Status == EntryStatus.Draft) {
-						album.Status = EntryStatus.Finished;
-						session.Update(album);
-						count++;
-					} else if (!result.Passed && album.Status == EntryStatus.Finished) {
-						album.Status = EntryStatus.Draft;
-						session.Update(album);
-						count++;
-					}
-
-				}
-
-				var songs = session.Query<Song>().Where(a => !a.Deleted).ToArray();
-
-				foreach (var song in songs) {
-
-					var result = SongValidator.Validate(song);
-
-					if (result.Passed && song.Status == EntryStatus.Draft) {
-						song.Status = EntryStatus.Finished;
-						session.Update(song);
-						count++;
-					} else if (!result.Passed && song.Status == EntryStatus.Finished) {
-						song.Status = EntryStatus.Draft;
-						session.Update(song);
-						count++;
-					}
-
-				}
-
-				return count;
 
 			});
 
