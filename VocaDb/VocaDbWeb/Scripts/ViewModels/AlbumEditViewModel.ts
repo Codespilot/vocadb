@@ -1,6 +1,7 @@
 
 module vdb.viewModels {
 
+	import cls = vdb.models;
     import dc = vdb.dataContracts;
     import rep = vdb.repositories;
 
@@ -63,7 +64,8 @@ module vdb.viewModels {
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 
         // Album disc type.
-        public discType: KnockoutObservable<string>;
+		public discType: KnockoutObservable<cls.albums.AlbumType>;
+		public discTypeStr: KnockoutObservable<string>;
 
         // Begins editing properties for multiple tracks. Opens the properties dialog.
         public editMultipleTrackProperties: () => void;
@@ -76,6 +78,12 @@ module vdb.viewModels {
 
         // Gets an artist for album link view model by Id.
         public getArtistLink: (artistForAlbumId: number) => ArtistForAlbumEditViewModel;
+
+		public hasCover: boolean;
+
+		public names: globalization.NamesEditViewModel;
+
+		public releaseYear = ko.observable<number>().extend({ parseInteger: {} });
 
         // Removes an artist from this album.
         public removeArtist: (artist: ArtistForAlbumEditViewModel) => void;
@@ -117,6 +125,15 @@ module vdb.viewModels {
         // List of external links for this album.
         public webLinks: WebLinksEditViewModel;
         
+		public hasValidationErrors: KnockoutComputed<boolean>;
+		public validationExpanded = ko.observable(false);
+		public validationError_needArtist: KnockoutComputed<boolean>;
+		public validationError_needCover: KnockoutComputed<boolean>;
+		public validationError_needReleaseYear: KnockoutComputed<boolean>;
+		public validationError_needTracks: KnockoutComputed<boolean>;
+		public validationError_needType: KnockoutComputed<boolean>;
+		public validationError_unspecifiedNames: KnockoutComputed<boolean>;
+
 		constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository,
 			private artistRepository: rep.ArtistRepository,
 			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit,
@@ -181,7 +198,8 @@ module vdb.viewModels {
 
             this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(repository, artist)));
 
-            this.discType = ko.observable(data.discType);
+			this.discTypeStr = ko.observable(data.discType);
+			this.discType = ko.computed(() => cls.albums.AlbumType[this.discTypeStr()]);
 
             this.editMultipleTrackProperties = () => {
 
@@ -209,6 +227,10 @@ module vdb.viewModels {
             this.getArtistLink = (artistForAlbumId) => {
                 return _.find(this.artistLinks(), artist => artist.id == artistForAlbumId);
             };
+
+			this.hasCover = data.hasCover;
+
+			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
 
             this.removeArtist = artistForAlbum => {
                 this.artistLinks.remove(artistForAlbum);
@@ -293,6 +315,26 @@ module vdb.viewModels {
 
             this.webLinks = new WebLinksEditViewModel(data.webLinks, webLinkCategories);
             
+			this.validationError_needArtist = ko.computed(() => _.isEmpty(this.artistLinks()));
+			this.validationError_needCover = ko.computed(() => !this.hasCover);
+			//this.validationError_needReleaseYear = ko.computed(() => !_.isNumber(this.releaseYear()) || this.releaseYear() == null);
+			this.validationError_needReleaseYear = ko.computed(() => {
+				var num = !_.isNumber(this.releaseYear()) || this.releaseYear() == null;
+				return num;
+			});
+			this.validationError_needTracks = ko.computed(() => _.isEmpty(this.tracks()));
+			this.validationError_needType = ko.computed(() => this.discType() == cls.albums.AlbumType.Unknown);
+			this.validationError_unspecifiedNames = ko.computed(() => !this.names.hasNameWithLanguage());
+
+			this.hasValidationErrors = ko.computed(() =>
+				this.validationError_needArtist() ||
+				this.validationError_needCover() ||
+				this.validationError_needReleaseYear() ||
+				this.validationError_needTracks() ||
+				this.validationError_needType() ||
+				this.validationError_unspecifiedNames()
+			);
+
         }
 
     }
@@ -362,7 +404,11 @@ module vdb.viewModels {
         
         artistLinks: dc.ArtistForAlbumContract[];
 
-        discType: string;
+		discType: string;
+
+		hasCover: boolean;
+
+		names: dc.globalization.LocalizedStringWithIdContract[];
 
         tracks: SongInAlbumEditContract[];
 

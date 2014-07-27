@@ -338,7 +338,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.OriginalName = true;
 				}
 
-				var validNames = properties.Names.AllNames;
+				var validNames = properties.Names;
 				var nameDiff = album.Names.Sync(validNames, album);
 				session.OfType<AlbumName>().Sync(nameDiff);
 

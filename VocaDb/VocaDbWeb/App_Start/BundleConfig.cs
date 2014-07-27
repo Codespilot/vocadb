@@ -74,7 +74,13 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Album/Edit").Include(
+				"~/Scripts/KnockoutExtensions/ParseInteger.js",
+				"~/Scripts/Models/Albums/AlbumType.js",
+				"~/Scripts/Models/Globalization/ContentLanguageSelection.js",
+				"~/Scripts/Helpers/KnockoutHelper.js",
 				"~/Scripts/Repositories/AlbumRepository.js",
+				"~/Scripts/ViewModels/Globalization/LocalizedStringWithIdEditViewModel.js",
+				"~/Scripts/ViewModels/Globalization/NamesEditViewModel.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/SongInAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/AlbumEditViewModel.js",

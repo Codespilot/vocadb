@@ -1690,6 +1690,7 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\InitialValue.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\ParseInteger.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\qTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
@@ -1714,6 +1715,7 @@
     <Content Include="Scripts\MikuDbAlbums\PrepareForImport.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\TagAutoComplete.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Tag\TagCategoryAutoComplete.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Albums\AlbumType.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistRoles.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistType.ts" />
     <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguageSelection.ts" />

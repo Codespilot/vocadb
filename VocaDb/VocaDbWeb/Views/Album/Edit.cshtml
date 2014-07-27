@@ -4,13 +4,24 @@
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Album;
 @using VocaDb.Model.Resources;
+@using ValidationErrors = VocaDb.Model.Resources.AlbumValidationErrors;
 @inherits VocaDb.Web.Code.VocaDbPage<AlbumEdit>
 @{
 	ViewBag.Title = string.Format(R.EditStrings.EditTitle, Model.Name);
 	ViewBag.Parents = new[] { 
 		Html.ActionLink(ViewRes.SharedStrings.Albums, "Index"), 
 		Html.ActionLink(Model.Name, "Details", new { id = Model.Id }) 
-	};		
+	};
+
+	var validationErrors = new Dictionary<string, string> {
+		{ "validationError_unspecifiedNames", ValidationErrors.UnspecifiedNames },
+		{ "validationError_needArtist", ValidationErrors.NeedArtist },
+		{ "validationError_needCover", ValidationErrors.NeedCover },
+		{ "validationError_needReleaseYear", ValidationErrors.NeedReleaseYear },
+		{ "validationError_needTracks", ValidationErrors.NeedTracks },
+		{ "validationError_needType", ValidationErrors.NeedType },
+	};
+	
 }
 
 @section Toolbar {
@@ -59,7 +70,7 @@
 		var artistRepo = new vdb.repositories.ArtistRepository(vdb.values.baseAddress);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, discType = Model.DiscType.ToString(), tracks = Model.Tracks, webLinks = Model.WebLinks }));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, discType = Model.DiscType.ToString(), hasCover = Model.HasCoverPicture, names = Model.Names, tracks = Model.Tracks, webLinks = Model.WebLinks }));
 		var allowCustomTracks = @ToJS(VocaDb.Model.Utils.AppConfig.AllowCustomTracks);
 
 		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, artistRoleJson, webLinkCategoryJson, modelJson, allowCustomTracks);
@@ -72,9 +83,9 @@
 }
 
 
-@Helpers.EntryValidationMessage(Model.Draft, Model.ValidationResult, "glalbums")
-
 @Helpers.ValidationSymmaryPanel(R.EditStrings.UnableToSaveProperties)
+
+@KnockoutHelpers.EntryValidationMessage(Model.Draft, validationErrors, "glalbums")
 
 <br />
 <form action="@Url.Action("Edit", "Album")" method="POST" enctype="multipart/form-data" data-bind="submit: submit">
@@ -105,9 +116,11 @@
 			<div class="editor-label">
 				@Helpers.HelpLabel(R.EditStrings.BaNames, ViewRes.EntryEditStrings.NameHelp)
 				@Helpers.RequiredField()
+				<span data-bind="visible: validationError_unspecifiedNames, qTip" class="icon errorIcon" title="@ValidationErrors.UnspecifiedNames"></span>
 			</div>
-			<div class="editor-field">
-				@Html.EditorFor(m => m.Names)
+			<div class="editor-field" data-bind="with: names">
+				@{ Html.RenderPartial("KnockoutPartials/_NamesEditor"); }
+				<input type="hidden" name="Names" id="Names" data-bind="value: ko.toJSON(allNames)" />
 			</div>
 
 			<div class="editor-label">
@@ -136,12 +149,8 @@
 			</div>
 			<div class="editor-field">
 				<div class="row-fluid">
-					<div class="span4">
-						@Html.DiscTypeDropDownListFor(m => m.DiscType)
-					</div>
-					<div class="alert span4" data-bind="visible: discType() == 'Unknown'">
-						@AlbumValidationErrors.NeedType
-					</div>					
+					@Html.DropdownForKnockout(m => m.DiscType, new SelectList(Model.AllDiscTypes, "Key", "Value"), "initialValue, value: discTypeStr")
+					<span data-bind="visible: validationError_needType, qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
 				</div>
 			</div>
 
@@ -152,7 +161,7 @@
 						@Html.LabelFor(m => m.ReleaseYear, R.EditStrings.BaReleaseYear)
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseYear, new { size = "10", maxlength = 4, @class = "input-small" })<br />
+						@Html.TextBoxForKnockout(m => m.ReleaseYear, binding: "initialValue, value: releaseYear", cssClass: "input-small", size: 10, maxLength: 4)<br />
 						@Html.ValidationMessageFor(m => m.ReleaseYear)
 					</div>				
 				</td>
@@ -209,6 +218,12 @@
 		</div>
 
 		<div id="tracksTab">
+			
+			<div class="alert" data-bind="visible: validationError_needTracks">
+				<span>@ValidationErrors.NeedTracks</span>
+			</div>
+			
+			<!-- ko if: tracks().length-->
 			<p>@R.EditStrings.TrTrackNameHelp</p>
 
 			<table>
@@ -226,29 +241,44 @@
 					@{ Html.RenderPartial("Partials/_SongInAlbumEdit"); }
 				</tbody>
 			</table>
-			<input type="hidden" name="tracks" data-bind="value: ko.toJSON(tracks)" />
 
 			<br />
 			<a data-bind="click: editMultipleTrackProperties" href="#" class="textLink editLink">@R.EditStrings.TrSetArtists</a>
-			
 			<br /><br />
+			<!-- /ko -->
+
+			<input type="hidden" name="tracks" data-bind="value: ko.toJSON(tracks)" />
+
 			<h4>@R.EditStrings.AddNew</h4>
 			<input type="text" data-bind="songAutoComplete: trackSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />			
 			<p>@R.EditStrings.TrAddTrackHelp</p>
 		</div>
 
 		<div id="artistsTab">
+			
+			<div class="alert" data-bind="visible: validationError_needArtist">
+				<span>@ValidationErrors.NeedArtist</span>
+			</div>
 
-			<table>
+			<table data-bind="visible: artistLinks().length">
+				<thead>
+					<tr>
+						<th>Artist</th>
+						<th>Support</th>
+						<th>Roles</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
 				<tbody data-bind="foreach: artistLinks">
 					@{ Html.RenderPartial("Partials/_ArtistForAlbumEdit"); }
 				</tbody>
 			</table>
 			<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
-			
+
 			<br />
 			<h4>@R.EditStrings.ArAddArtist</h4>
 			<input type="text" data-bind="artistAutoComplete: artistSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />
+
 		</div>
 		
 		<div id="picsTab">

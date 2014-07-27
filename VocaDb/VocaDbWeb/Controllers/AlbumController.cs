@@ -299,7 +299,7 @@ namespace VocaDb.Web.Controllers
         {
 
 			// Note: name is allowed to be whitespace, but not empty.
-			if (model.Names.AllNames.All(n => string.IsNullOrEmpty(n.Value))) {
+			if (model.Names.All(n => string.IsNullOrEmpty(n.Value))) {
 				ModelState.AddModelError("Names", AlbumValidationErrors.UnspecifiedNames);
 			}
 

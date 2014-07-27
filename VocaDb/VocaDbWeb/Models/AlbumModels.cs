@@ -31,13 +31,13 @@ namespace VocaDb.Web.Models {
 
 		public AlbumEdit() {
 			
-			Names = new NameManagerEditContract();
+			Names = new List<LocalizedStringWithIdContract>();
 			Pictures = new List<EntryPictureFileContract>();
 			PVs = new List<PVContract>();
 			Tracks = new List<SongInAlbumEditContract>();
 			WebLinks = new List<WebLinkDisplay>();
 
-			AllDiscTypes = EnumVal<DiscType>.Values;
+			AllDiscTypes = Translate.DiscTypeNames.ValuesAndNames;
 
 			DiscTypeDescriptions = ViewRes.Album.EditStrings.BaDiscTypeExplanation 
 				+ "<br /><br /><ul>" + string.Join("", 
@@ -80,7 +80,7 @@ namespace VocaDb.Web.Models {
 
 		}
 
-		public DiscType[] AllDiscTypes { get; set; }
+		public Dictionary<DiscType, string> AllDiscTypes { get; set; }
 
 		public EntryStatus[] AllowedEntryStatuses { get; set; }
 
@@ -106,12 +106,15 @@ namespace VocaDb.Web.Models {
 
 		public bool Draft { get; set; }
 
+		public bool HasCoverPicture { get; set; }
+
 		public int Id { get; set; }
 
 		public string Name { get; set; }
 
 		[Display(Name = "Names")]
-		public NameManagerEditContract Names { get; set; }
+		[FromJson]
+		public IList<LocalizedStringWithIdContract> Names { get; set; }
 
 		[Display(Name = "Name in English")]
 		public string NameEnglish { get; set; }
@@ -165,11 +168,11 @@ namespace VocaDb.Web.Models {
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
 			Deleted = album.Deleted;
 			Draft = album.Status == EntryStatus.Draft;
+			HasCoverPicture = !string.IsNullOrEmpty(album.CoverPictureMime);
 			Name = album.Name;
 			NameEnglish = album.TranslatedName.English;
 			NameJapanese = album.TranslatedName.Japanese;
 			NameRomaji = album.TranslatedName.Romaji;
-			ValidationResult = album.ValidationResult;
 
 		}
 
@@ -177,6 +180,9 @@ namespace VocaDb.Web.Models {
 
 			if (ArtistLinks == null)
 				throw new InvalidFormException("Artists list was null");
+
+			if (Names == null)
+				throw new InvalidFormException("Names list was null");
 
 			if (Tracks == null)
 				throw new InvalidFormException("Tracks list was null");
@@ -187,7 +193,7 @@ namespace VocaDb.Web.Models {
 				DiscType = this.DiscType,
 				Id = this.Id,
 				Name = this.Name,
-				Names = this.Names,
+				Names = this.Names.ToArray(),
 				OriginalRelease = new AlbumReleaseContract {
 					CatNum = this.CatNum,
 					EventName = this.ReleaseEvent,

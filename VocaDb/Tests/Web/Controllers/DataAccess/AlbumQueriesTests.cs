@@ -302,7 +302,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			
 			var contract = new AlbumForEditContract(album, ContentLanguagePreference.English);
 
-			contract.Names.AllNames.First().Value = "Replaced name";
+			contract.Names.First().Value = "Replaced name";
 			contract.UpdateNotes = "Updated album";
 
 			contract = CallUpdate(contract);
