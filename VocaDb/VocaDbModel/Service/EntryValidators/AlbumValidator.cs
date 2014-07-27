@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -6,6 +7,7 @@ using VocaDb.Model.Resources;
 
 namespace VocaDb.Model.Service.EntryValidators {
 
+	[Obsolete("Moved to client side")]
 	public static class AlbumValidator {
 
 		public static ValidationResult Validate(Album album) {

@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			Deleted = album.Deleted;
 			Description = album.Description;
-			Names = new NameManagerEditContract(album.Names);
+			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease) : null);
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
@@ -28,7 +28,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 				.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
 			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			UpdateNotes = string.Empty;
-			ValidationResult = AlbumValidator.Validate(album);
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
@@ -47,7 +46,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public AlbumReleaseContract OriginalRelease { get; set; }
 
-		public NameManagerEditContract Names { get; set; }
+		public LocalizedStringWithIdContract[] Names { get; set; }
 
 		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }
@@ -61,8 +60,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public TranslatedStringContract TranslatedName { get; set; }
 
 		public string UpdateNotes { get; set; }
-
-		public ValidationResult ValidationResult { get; set; }
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }
