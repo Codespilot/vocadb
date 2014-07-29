@@ -425,14 +425,14 @@ namespace VocaDb.Web.Controllers
 
 			if (!string.IsNullOrEmpty(param)) {
 				TempData.SetStatusMessage(ViewRes.User.LoginUsingAuthStrings.SignInCancelled);
-				return View("Login");
+				return View("Login", new LoginModel(string.Empty, !WebHelper.IsSSL(Request), true));
 			}
 
 			var response = new TwitterConsumer().ProcessUserAuthorization(Hostname);
 
 			if (response == null) {
 				ModelState.AddModelError("Authentication", ViewRes.User.LoginUsingAuthStrings.AuthError);
-				return View("Login");
+				return View("Login", new LoginModel(string.Empty, !WebHelper.IsSSL(Request), true));
 			}
 
 			var user = Service.CheckTwitterAuthentication(response.AccessToken, Hostname);
