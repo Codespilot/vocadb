@@ -112,24 +112,24 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="DraftsOnlyFilter" xml:space="preserve">
-    <value>draft status</value>
+    <value>Entwurfsstatus</value>
   </data>
   <data name="ExactTitleFilter" xml:space="preserve">
-    <value>exact title '{0}'</value>
+    <value>Genauer Titel '{0}'</value>
   </data>
   <data name="FilterPre" xml:space="preserve">
-    <value>Filtering by</value>
+    <value>Filtern durch</value>
   </data>
   <data name="StartsWithTitleFilter" xml:space="preserve">
-    <value>starting with title '{0}'</value>
+    <value>Bginnt mit dem Titel '{0}'</value>
   </data>
   <data name="TitleFilter" xml:space="preserve">
-    <value>title '{0}'</value>
+    <value>Titel '{0}'</value>
   </data>
 </root>
