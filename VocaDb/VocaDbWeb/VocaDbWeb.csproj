@@ -2496,6 +2496,7 @@
     <Content Include="App_GlobalResources\PermissionTokenNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>PermissionTokenNames.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="App_GlobalResources\EntryTypeNames.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -3058,6 +3059,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IndexStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.Comment</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\Comment\IndexStrings.ru.resx" />
     <EmbeddedResource Include="Resources\Views\Event\DetailsStrings.de.resx" />
