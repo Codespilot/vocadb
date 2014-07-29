@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Globalization;
 
 namespace VocaDb.Model.Domain.Globalization {
@@ -14,8 +12,8 @@ namespace VocaDb.Model.Domain.Globalization {
 			}
 		}
 
-		public static readonly string[] LanguageCodes = new[] {
-			"en-US", "fi-Fi", "ru-RU", "ja-JP"
+		public static readonly string[] LanguageCodes = {
+			"en-US", "de-DE", "fi-Fi", "ru-RU", "ja-JP"
 		};
 
 	}
