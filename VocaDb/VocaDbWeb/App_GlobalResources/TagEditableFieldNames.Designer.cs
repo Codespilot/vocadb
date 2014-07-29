@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vanhempi.
+        ///   Looks up a localized string similar to Parent.
         /// </summary>
         internal static string Parent {
             get {
