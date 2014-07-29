@@ -2904,6 +2904,7 @@
       <CustomToolNamespace>AjaxRes</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Ajax\EntryIndexStrings.de.resx" />
     <EmbeddedResource Include="Resources\Ajax\EntryIndexStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Ajax\EntryIndexStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -2933,6 +2934,7 @@
       <LastGenOutput>TagControllerStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Controllers\TagControllerStrings.ru.resx" />
+    <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.de.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.fi.resx" />
     <EmbeddedResource Include="Resources\Helpers\ActivityFeedHelperStrings.ja.resx">
       <SubType>Designer</SubType>

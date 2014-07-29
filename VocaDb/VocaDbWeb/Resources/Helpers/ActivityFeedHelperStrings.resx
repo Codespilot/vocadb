@@ -112,30 +112,30 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="At" xml:space="preserve">
-    <value>am</value>
+    <value>at</value>
   </data>
   <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+    <value>created a new {0}:</value>
   </data>
   <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+    <value>album</value>
   </data>
   <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+    <value>artist</value>
   </data>
   <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+    <value>song</value>
   </data>
   <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+    <value>A contributor</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+    <value>updated {0}:</value>
   </data>
 </root>
