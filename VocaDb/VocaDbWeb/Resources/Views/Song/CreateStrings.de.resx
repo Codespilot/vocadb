@@ -133,7 +133,7 @@
     <value>Es scheint so, als ob das PV bereits in der Datenbank existiert.</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name (mindestens einer)</value>
+    <value>Name (mindestens 1)</value>
   </data>
   <data name="NameHelp" xml:space="preserve">
     <value>Wenn die Einreichung einen nicht-englischen Namen (zum Beispiel japanisch) hat oder die Sprache des Namens unbekannt ist, füge diesen in das nicht-englische Namensfeld. Wenn du auch den romanisierten Namen kennst, kannst du diesen ebenfalls beifügen. Wenn der offizielle Name der Einreichung in der englischen Sprache vorliegt, kannst du diesen in das englische Namensfeld eintragen.</value>

@@ -133,13 +133,13 @@
     <value>Beschreibung des Albums</value>
   </data>
   <data name="BaDiscType" xml:space="preserve">
-    <value>Record type</value>
+    <value>Art des Albums</value>
   </data>
   <data name="BaMainCoverPicture" xml:space="preserve">
-    <value>Main cover picture</value>
+    <value>Coverbild</value>
   </data>
   <data name="BaNames" xml:space="preserve">
-    <value>Primary name (in one or more languages)</value>
+    <value>Primärer Name (in einer oder mehreren Sprachen)</value>
   </data>
   <data name="BaPictureInfo" xml:space="preserve">
     <value>Erlaubte Dateiendungen: {0}. Die maximale Dateigröße beträgt {1} MB.</value>
@@ -151,7 +151,7 @@
     <value>Tag</value>
   </data>
   <data name="BaReleaseEvent" xml:space="preserve">
-    <value>Release Event</value>
+    <value>Release-Event</value>
   </data>
   <data name="BaReleaseMonth" xml:space="preserve">
     <value>Monat</value>
@@ -160,10 +160,10 @@
     <value>Jahr</value>
   </data>
   <data name="BasicInfoTab" xml:space="preserve">
-    <value>Basic info</value>
+    <value>Allgemeine Informationen</value>
   </data>
   <data name="BaStatus" xml:space="preserve">
-    <value>Entry status</value>
+    <value>Einreichungsstatus</value>
   </data>
   <data name="BaWebLinks" xml:space="preserve">
     <value>Externe Links</value>
@@ -190,13 +190,13 @@
     <value>Name</value>
   </data>
   <data name="TrSetArtists" xml:space="preserve">
-    <value>Set artists for selected tracks</value>
+    <value>Künstler für ausgewählte Songs festlegen</value>
   </data>
   <data name="TrTrackHead" xml:space="preserve">
     <value>Song</value>
   </data>
   <data name="TrTrackNameHelp" xml:space="preserve">
-    <value>Click track name to edit artists.</value>
+    <value>Klicke auf den Songnamen um die Künstler zu bearbeiten.</value>
   </data>
   <data name="UnableToSaveProperties" xml:space="preserve">
     <value>Eigenschaften konnten nicht gespeichert werden</value>
@@ -220,7 +220,7 @@
     <value>In den Papierkorb verschieben</value>
   </data>
   <data name="PiPicturesGuide" xml:space="preserve">
-    <value>Note that the main picture is edited on the "Basic Info" tab. Please only upload pictures relevant to this album, nothing else.</value>
+    <value>Beachte, dass das Hauptbild im "Allgemeine Informationen" Tab geändert werden kann. Bitte lade nur zutreffende Bilder zu diesem Album hoch und nichts anderes.</value>
   </data>
   <data name="ArtistRolesTitle" xml:space="preserve">
     <value>Künstlerrolle</value>
@@ -259,6 +259,6 @@
     <value>Künstler für den Song {0}</value>
   </data>
   <data name="BaDiscTypeExplanation" xml:space="preserve">
-    <value>If unsure of which type to use, try to find out how the artists themselves call the album. For more elaborate descriptions, please refer to Wikipedia, Discogs or Musicbrainz.</value>
+    <value>Wenn du unsicher bist, welchen Typen du verwenden willst, versuche herauszufinden wie die Künstler selbst das Album bezeichnen. Für weitere ausführliche Beschreibungen, besuche bitte Wikipedia, Discogs oder Musicbrainz.</value>
   </data>
 </root>
