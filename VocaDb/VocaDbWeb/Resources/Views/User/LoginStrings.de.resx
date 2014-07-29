@@ -133,7 +133,7 @@
     <value>Mit SSL einloggen</value>
   </data>
   <data name="LoginWithoutSSL" xml:space="preserve">
-    <value>Ohne SSL einloggen (unsicherer)</value>
+    <value>Ohne SSL einloggen (nicht empfohlen)</value>
   </data>
   <data name="NoAccount" xml:space="preserve">
     <value>Kein Benutzerkonto?</value>
@@ -145,7 +145,7 @@
     <value>Passwort wird benötigt.</value>
   </data>
   <data name="RegisterHere" xml:space="preserve">
-    <value>Hier registrieren.</value>
+    <value>Hier registrieren</value>
   </data>
   <data name="ResetPass" xml:space="preserve">
     <value>Setze es hier zurück</value>

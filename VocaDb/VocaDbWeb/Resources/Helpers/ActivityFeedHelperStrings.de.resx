@@ -121,7 +121,7 @@
     <value>am</value>
   </data>
   <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+    <value>erstellte einen neuen {0}:</value>
   </data>
   <data name="EntryAlbum" xml:space="preserve">
     <value>Album</value>
@@ -136,6 +136,6 @@
     <value>Ein Mitwirkender</value>
   </data>
   <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+    <value>aktualisierte einen {0}:</value>
   </data>
 </root>

@@ -133,7 +133,7 @@
     <value>Durchsuche die gesamte Seite mithilfe der Google Custom Search</value>
   </data>
   <data name="TopAlbums" xml:space="preserve">
-    <value>Zufällige bekannte Alben</value>
+    <value>Zufällige beliebte Alben</value>
   </data>
   <data name="ViewAll" xml:space="preserve">
     <value>Alle ansehen</value>
@@ -148,6 +148,6 @@
     <value>Willkommen bei der Vocaloid Database!</value>
   </data>
   <data name="WelcomeSubtitle" xml:space="preserve">
-    <value>The kollaborative Datenbank mit Vocaloid-Künstlern, Diskografie, PVs und mehr.</value>
+    <value>Die kollaborative Datenbank mit Vocaloid-Künstlern, Diskografie, PVs und mehr.</value>
   </data>
 </root>
