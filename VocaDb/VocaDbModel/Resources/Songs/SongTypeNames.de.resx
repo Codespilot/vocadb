@@ -117,25 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Cover" xml:space="preserve">
+    <value>Cover</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="DramaPV" xml:space="preserve">
+    <value>Drama PV</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="Instrumental" xml:space="preserve">
+    <value>Instrumental</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Live" xml:space="preserve">
+    <value>Live-Mitschnitt</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Mashup" xml:space="preserve">
+    <value>Mashup</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="MusicPV" xml:space="preserve">
+    <value>Musik PV</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Original" xml:space="preserve">
+    <value>Originaler Song</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Anderes</value>
+  </data>
+  <data name="Remaster" xml:space="preserve">
+    <value>Remaster</value>
+  </data>
+  <data name="Remix" xml:space="preserve">
+    <value>Remix</value>
+  </data>
+  <data name="Unspecified" xml:space="preserve">
+    <value>Keine Angabe</value>
   </data>
 </root>

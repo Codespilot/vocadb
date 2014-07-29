@@ -117,25 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Drafts" xml:space="preserve">
+    <value>Diese Einreichungen sind als Entwurf markiert, was bedeutet, dass ihnen einige Informationen fehlen. </value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="ManageDeleted" xml:space="preserve">
+    <value>Verwalte gelöschte Einreichungen</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="NoResults" xml:space="preserve">
+    <value>Keine Ergebnisse! Versuch es mit einer anderen Anfrage oder mit der Google Custom Search.</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="OnlyDrafts" xml:space="preserve">
+    <value>Nur Entwürfe</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sortieren:</value>
   </data>
 </root>

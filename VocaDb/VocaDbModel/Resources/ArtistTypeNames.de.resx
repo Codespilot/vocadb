@@ -117,25 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Circle" xml:space="preserve">
+    <value>Personenkreis</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="Label" xml:space="preserve">
+    <value>Label</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="OtherVocalist" xml:space="preserve">
+    <value>Andere Sänger</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Producer" xml:space="preserve">
+    <value>Musikproduzent</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Unknown" xml:space="preserve">
+    <value>Keine Angabe</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="UTAU" xml:space="preserve">
+    <value>UTAUloid</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Vocaloid" xml:space="preserve">
+    <value>Vocaloid</value>
+  </data>
+  <data name="OtherGroup" xml:space="preserve">
+    <value>Andere Gruppe</value>
+  </data>
+  <data name="Animator" xml:space="preserve">
+    <value>Animationsproduzent</value>
+  </data>
+  <data name="OtherIndividual" xml:space="preserve">
+    <value>Andere Individuelle</value>
+  </data>
+  <data name="Illustrator" xml:space="preserve">
+    <value>Illustrator</value>
+  </data>
+  <data name="Lyricist" xml:space="preserve">
+    <value>Liedtexter</value>
+  </data>
+  <data name="OtherVoiceSynthesizer" xml:space="preserve">
+    <value>Andere Sprach-Synthesizer</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>Band/Gruppe</value>
+  </data>
+  <data name="Utaite" xml:space="preserve">
+    <value>Utaite</value>
   </data>
 </root>

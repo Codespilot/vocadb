@@ -117,25 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AllAlbums" xml:space="preserve">
+    <value>Alle Alben</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AllSongs" xml:space="preserve">
+    <value>Alle Songs</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
-  </data>
-  <data name="EntryArtist" xml:space="preserve">
+  <data name="ArtistDetails" xml:space="preserve">
     <value>Künstler</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="ArtistPicture" xml:space="preserve">
+    <value>Künstlerbild</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="AuthoredBy" xml:space="preserve">
+    <value>VocaDB Account</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="CollaborationAlbums" xml:space="preserve">
+    <value>Kollaborationen</value>
+  </data>
+  <data name="Customize" xml:space="preserve">
+    <value>Anpassen</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Folgen</value>
+  </data>
+  <data name="FollowCount" xml:space="preserve">
+    <value> {0} Benutzer folgen dieser Person</value>
+  </data>
+  <data name="Groups" xml:space="preserve">
+    <value>Gruppen und Label</value>
+  </data>
+  <data name="GroupsHelp" xml:space="preserve">
+    <value>Personenkreise, Labels und andere Gruppen</value>
+  </data>
+  <data name="MainAlbums" xml:space="preserve">
+    <value>Haupt-Alben</value>
+  </data>
+  <data name="Members" xml:space="preserve">
+    <value>Mitglieder</value>
+  </data>
+  <data name="RecentAlbums" xml:space="preserve">
+    <value>Letzte Alben</value>
+  </data>
+  <data name="RecentSongs" xml:space="preserve">
+    <value>Letzte Songs / PVs</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Teilen</value>
+  </data>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>Beliebte Alben</value>
+  </data>
+  <data name="TopSongs" xml:space="preserve">
+    <value>Beliebte Songs</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Entfolgen</value>
   </data>
 </root>

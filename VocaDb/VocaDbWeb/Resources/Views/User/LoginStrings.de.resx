@@ -117,25 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="DoLogin" xml:space="preserve">
+    <value>Einloggen</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Passwort vergessen?</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="KeepMeLoggedIn" xml:space="preserve">
+    <value>An diesem Computer eingeloggt bleiben</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Login" xml:space="preserve">
+    <value>Einloggen</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="LoginUsingSSL" xml:space="preserve">
+    <value>Mit SSL einloggen</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="LoginWithoutSSL" xml:space="preserve">
+    <value>Ohne SSL einloggen (unsicherer)</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="NoAccount" xml:space="preserve">
+    <value>Kein Benutzerkonto?</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="PasswordIsRequired" xml:space="preserve">
+    <value>Passwort wird benötigt.</value>
+  </data>
+  <data name="RegisterHere" xml:space="preserve">
+    <value>Hier registrieren.</value>
+  </data>
+  <data name="ResetPass" xml:space="preserve">
+    <value>Setze es hier zurück</value>
+  </data>
+  <data name="UnableToLogin" xml:space="preserve">
+    <value>Einloggen fehlgeschlagen.</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="UsernameIsRequired" xml:space="preserve">
+    <value>Benutzername wird benötigt.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Willkommen zurück, {0}!</value>
+  </data>
+  <data name="WrongPassword" xml:space="preserve">
+    <value>Benutzername oder Passwort stimmt nicht überein</value>
   </data>
 </root>

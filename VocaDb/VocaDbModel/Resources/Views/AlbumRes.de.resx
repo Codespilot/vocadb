@@ -117,25 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="NewAlbumArtistDesc" xml:space="preserve">
+    <value>Produzenten und Sänger in Verbindung mit diesem Album.</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
-  </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
-  </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
-  </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="NewAlbumInfo" xml:space="preserve">
+    <value>Bitte beachte, dass es sich bei VocaDB nicht um UtaiteDB handelt. &lt;strong&gt;Das Album muss mindestens einen Song mit Vocaloid-Stimmen beinhalten um die Zustimmung von VocaDB zu erhalten (andere Sprach-Synthesizer wie UTAU sind ebenfalls erlaubt, aber von Menschen gesungene Cover sind es nicht)&lt;/strong&gt;. Inoffizielle Fan-gemachte Kompilationen (Bootlegs) sind auch nicht erlaubt. Für weitere Informationen sieh dir die Hilfe bzw. die Richtlinien an.</value>
   </data>
 </root>

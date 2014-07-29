@@ -117,25 +117,124 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AboutMe" xml:space="preserve">
+    <value>Über mich</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AccountDisabled" xml:space="preserve">
+    <value>Konto deaktiviert</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="Active" xml:space="preserve">
+    <value>Aktiv</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="AdditionalPermissions" xml:space="preserve">
+    <value>Zusätzliche Berechtigungen</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="CollectionTab" xml:space="preserve">
+    <value>Sammlung</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="Comments" xml:space="preserve">
+    <value>Kommentare</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="ComposeMessage" xml:space="preserve">
+    <value>Eine Nachricht verfassen</value>
+  </data>
+  <data name="ConfirmDisable" xml:space="preserve">
+    <value>Bist du dir sicher, dass du dieses Benutzerkonto deaktivieren willst?</value>
+  </data>
+  <data name="CreateNewList" xml:space="preserve">
+    <value>Neue Liste erstellen</value>
+  </data>
+  <data name="CustomListsTab" xml:space="preserve">
+    <value>Benutzerdefinierte Liste</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Deaktivieren</value>
+  </data>
+  <data name="EffectivePermissions" xml:space="preserve">
+    <value>gültige Berechtigungen</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="FavoriteSongsTab" xml:space="preserve">
+    <value>Songs, die mir gefallen:</value>
+  </data>
+  <data name="FavoriteTags" xml:space="preserve">
+    <value>Meine favorisierten Schlagwörter</value>
+  </data>
+  <data name="FollowedArtistsTab" xml:space="preserve">
+    <value>Künstler, denen ich folge:</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>Letzter Login</value>
+  </data>
+  <data name="Level" xml:space="preserve">
+    <value>Rang</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Ort</value>
+  </data>
+  <data name="MemberSince" xml:space="preserve">
+    <value>Mitglied seit</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Nachrichten</value>
+  </data>
+  <data name="MySettings" xml:space="preserve">
+    <value>Meine Einstellungen</value>
+  </data>
+  <data name="Power" xml:space="preserve">
+    <value>Berechtigungen</value>
+  </data>
+  <data name="SetAvatar" xml:space="preserve">
+    <value>Stelle deinen Avatar bei gravatar.com ein.</value>
+  </data>
+  <data name="SomeAlbumsILike" xml:space="preserve">
+    <value>Einige Alben, die mir gefallen</value>
+  </data>
+  <data name="SomeArtistsIFollow" xml:space="preserve">
+    <value>Einige Künstler denen ich folge</value>
+  </data>
+  <data name="SomeSongsILike" xml:space="preserve">
+    <value>Einige Songs, die mir gefallen</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Mitarbeiter</value>
+  </data>
+  <data name="StatsTab" xml:space="preserve">
+    <value>Statistiken</value>
+  </data>
+  <data name="Submissions" xml:space="preserve">
+    <value>Einreichungen</value>
+  </data>
+  <data name="TagVotes" xml:space="preserve">
+    <value>Schlagwort-Bewertungen</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>{0} insgesamt</value>
+  </data>
+  <data name="TotalEdits" xml:space="preserve">
+    <value>Insgesamte Änderungen</value>
+  </data>
+  <data name="TwitterAccount" xml:space="preserve">
+    <value>Twitter-Account</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>Benutzerinformationen</value>
+  </data>
+  <data name="UserGroup" xml:space="preserve">
+    <value>Benutzergruppe</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="VerifiedAccount" xml:space="preserve">
+    <value>Beglaubigter Künstler</value>
+  </data>
+  <data name="VerifiedOwner" xml:space="preserve">
+    <value>Beglaubigter Besitzer</value>
+  </data>
+  <data name="VisibleOnlyToMe" xml:space="preserve">
+    <value>Sichtbar nur für die Mitarbeiter und mich.</value>
   </data>
 </root>

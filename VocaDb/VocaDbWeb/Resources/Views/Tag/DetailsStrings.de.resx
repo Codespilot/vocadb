@@ -117,25 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AllAlbums" xml:space="preserve">
+    <value>Alle Alben</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AllArtists" xml:space="preserve">
+    <value>Alle Künstler</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="AllSongs" xml:space="preserve">
+    <value>Alle Songs</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Category" xml:space="preserve">
+    <value>Kategorie</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Overview" xml:space="preserve">
+    <value>Übersicht</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="Tag" xml:space="preserve">
+    <value>Schlagwort</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="TagDetails" xml:space="preserve">
+    <value>Details zum Schlagwort</value>
+  </data>
+  <data name="TopAlbums" xml:space="preserve">
+    <value>Top Alben</value>
+  </data>
+  <data name="TopArtists" xml:space="preserve">
+    <value>Top Künstler</value>
+  </data>
+  <data name="TopSongs" xml:space="preserve">
+    <value>Top Songs</value>
   </data>
 </root>

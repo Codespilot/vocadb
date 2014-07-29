@@ -117,25 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AdditionDate" xml:space="preserve">
+    <value>Einreichungsdatum</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AllPictures" xml:space="preserve">
+    <value>Alle Bilder</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="BasicInfoTab" xml:space="preserve">
+    <value>Algemeine Information</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="ConfirmDeleteComment" xml:space="preserve">
+    <value>Bist du sicher, dass du diesen Kommentar löschen willst?</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="DiscussionTab" xml:space="preserve">
+    <value>Diskussion</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="EditTags" xml:space="preserve">
+    <value>Schlagwörter bearbeiten</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="ExternalLinks" xml:space="preserve">
+    <value>Externe Links</value>
+  </data>
+  <data name="Hits" xml:space="preserve">
+    <value>Aufruf(e)</value>
+  </data>
+  <data name="LatestComments" xml:space="preserve">
+    <value>Letzte Kommentare</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="ManageTags" xml:space="preserve">
+    <value>Verwalten</value>
+  </data>
+  <data name="NoComments" xml:space="preserve">
+    <value>Noch nichts!</value>
+  </data>
+  <data name="NoMatches" xml:space="preserve">
+    <value>Sorry, keine Übereinstimmungen :(</value>
+  </data>
+  <data name="OfficialLinks" xml:space="preserve">
+    <value>Offizielle Links</value>
+  </data>
+  <data name="OtherLinks" xml:space="preserve">
+    <value>Inoffizielle Links</value>
+  </data>
+  <data name="PicturesTab" xml:space="preserve">
+    <value>Bilder</value>
+  </data>
+  <data name="ReportAnError" xml:space="preserve">
+    <value>Einen Fehler melden</value>
+  </data>
+  <data name="ReportNotes" xml:space="preserve">
+    <value>Anmerkungen</value>
+  </data>
+  <data name="ReportType" xml:space="preserve">
+    <value>Fehlerart:</value>
+  </data>
+  <data name="Revisions" xml:space="preserve">
+    <value>Revisionen</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Einen Link teilen</value>
+  </data>
+  <data name="ShowAllTags" xml:space="preserve">
+    <value>Alle anzeigen</value>
+  </data>
+  <data name="Stats" xml:space="preserve">
+    <value>Statistiken</value>
+  </data>
+  <data name="ViewAllComments" xml:space="preserve">
+    <value>Alle Kommentare ansehen</value>
+  </data>
+  <data name="ViewModifications" xml:space="preserve">
+    <value>Änderungen anzeigen</value>
   </data>
 </root>

@@ -117,25 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Original" xml:space="preserve">
+    <value>Original</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="Other" xml:space="preserve">
+    <value>Anderes</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
-  </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
-  </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Reprint" xml:space="preserve">
+    <value>Kopie</value>
   </data>
 </root>

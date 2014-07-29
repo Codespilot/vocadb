@@ -117,25 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AddArtist" xml:space="preserve">
+    <value>Künstler hinzufügen</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="ArtistInfo" xml:space="preserve">
+    <value>Bitte überprüfe, dass deine Einreichung bislang noch nicht existiert. Du musst mindestens einen Namen eingeben. Gib außerdem eine Beschreibung ODER einen externen Link for reference.</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="ArtistType" xml:space="preserve">
+    <value>Art des Künstlers</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Description" xml:space="preserve">
+    <value>Bitte schreibe eine kurze Beschreibung über den Künstler (optional, aber empfohlen)</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Draft" xml:space="preserve">
+    <value>Diese Einreichung ist ein Entwurf.</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="ExternalLink" xml:space="preserve">
+    <value>Externer Link (zu einer Künstlerseite, Hatsune Miku Wiki, NND MyList etc.)</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Name" xml:space="preserve">
+    <value>Name (mindestens einen)</value>
+  </data>
+  <data name="NameHelp" xml:space="preserve">
+    <value>Wenn die Einreichung einen nicht-englischen Namen (zum Beispiel japanisch) hat oder die Sprache des Namens unbekannt ist, füge diesen in das nicht-englische Namensfeld ein. Wenn du auch den romanisierten Namen kennst, kannst du diesen ebenfalls beifügen. Wenn der offizielle Name der Einreichung in der englischen Sprache vorliegt, kannst du diesen in das englische Namensfeld eintragen.</value>
+  </data>
+  <data name="NeedWebLinkOrDescription" xml:space="preserve">
+    <value>Du musst eine Beschreibung ODER einen externen Link hinzufügen.</value>
+  </data>
+  <data name="Optional" xml:space="preserve">
+    <value>(optional)</value>
+  </data>
+  <data name="Picture" xml:space="preserve">
+    <value>Bild</value>
+  </data>
+  <data name="UnableToCreateArtist" xml:space="preserve">
+    <value>Künstler konnte nicht erstellt werden. Behebe die Fehler und versuche es erneut.</value>
+  </data>
+  <data name="WebLinkCategory" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="WebLinkDescription" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="WebLinkURL" xml:space="preserve">
+    <value>URL</value>
   </data>
 </root>
