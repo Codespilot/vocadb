@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="CreateEvent" xml:space="preserve">
+    <value>Event erstellen</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="EventNotFound" xml:space="preserve">
+    <value>Tut uns leid, ein Event mit diesem Namen konnte nicht gefunden werden. Vermutlich wurde es noch nicht zur Datenbank hinzugefügt.</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="FindEvent" xml:space="preserve">
+    <value>Event finden</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Number" xml:space="preserve">
+    <value>Nummer</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Series" xml:space="preserve">
+    <value>Reihe</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="UngroupedEventNamed" xml:space="preserve">
+    <value>ungruppiertes Event mit dem Namen:</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="YouMayAddTheEvent" xml:space="preserve">
+    <value>Du kannst das Event in die Datenbank mitaufnehmen.</value>
   </data>
 </root>

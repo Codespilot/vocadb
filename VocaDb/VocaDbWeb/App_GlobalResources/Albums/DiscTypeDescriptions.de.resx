@@ -117,25 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Album" xml:space="preserve">
+    <value>Album, das aus größtenteils unveröffentlichten Songs besteht.</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="Compilation" xml:space="preserve">
+    <value>Sammlung von zuvor veröffentlichten Songs, die aus einem oder mehreren früheren Alben zusammengefasst wurden. Zum Beispiel "Best of"-Sammlungen.</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="EP" xml:space="preserve">
+    <value>Bedeutet Extended Play. Enthält 3-4 einzelne Songs. Alternative Versionen (Instrumental- und Remix-) werden für gewöhnlich nicht mitgezählt.</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Other" xml:space="preserve">
+    <value>Für Alben, die nicht auf eine der obigen Beschreibungen passt.</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Single" xml:space="preserve">
+    <value>Beinhaltet ein oder zwei einzelne Songs. Alternative Versionen (Instrumental- und Remix-) werden für gewöhnlich nicht mitgezählt.</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="SplitAlbum" xml:space="preserve">
+    <value>Kollaborationen zwischen zwei oder mehr (aber für gewöhnlich nur zwei) gleichen Künstlern, wo jeder Künstler ungefähr die gleiche Songanzahl besitzt.</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Video" xml:space="preserve">
+    <value>Disc beinhaltet hauptsächlich Musikvideos, für gewöhnlich eine DVD oder BluRay.</value>
   </data>
 </root>

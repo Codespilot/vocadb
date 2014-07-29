@@ -117,25 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Body" xml:space="preserve">
+    <value>Inhalt</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="ClickSubjectToView" xml:space="preserve">
+    <value>Klicke auf den Betreff um die Nachricht zu lesen.</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="Compose" xml:space="preserve">
+    <value>Verfassen</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="Date" xml:space="preserve">
+    <value>Datum</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="From" xml:space="preserve">
+    <value>Von</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="FromLC" xml:space="preserve">
+    <value>von</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="HighPriority" xml:space="preserve">
+    <value>Hohe Priorität</value>
+  </data>
+  <data name="Messages" xml:space="preserve">
+    <value>Nachrichten</value>
+  </data>
+  <data name="MessageSendError" xml:space="preserve">
+    <value>Fehler beim Senden der Nachricht.</value>
+  </data>
+  <data name="MessageSent" xml:space="preserve">
+    <value>Die Nachricht wurde verschickt.</value>
+  </data>
+  <data name="Received" xml:space="preserve">
+    <value>Erhalten</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Antworten</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Abschicken</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Gesendet</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Betreff</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>An</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Benachrichtigungen</value>
   </data>
 </root>

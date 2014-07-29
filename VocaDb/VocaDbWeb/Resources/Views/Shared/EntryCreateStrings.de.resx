@@ -117,25 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="EnglishName" xml:space="preserve">
+    <value>Name auf Englisch</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="FoundPossibleDuplicates" xml:space="preserve">
+    <value>Mögliche übereinstimmende Einträge wurden in der Datenbank gefunden. Bitte überprüfe, dass es sich hierbei nicht um Duplikate handelt.</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="Name" xml:space="preserve">
+    <value>Name (mindestens einer)</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="NameHelp" xml:space="preserve">
+    <value>Wenn der originale Name nicht Englisch ist (z.B. Japanisch) oder wenn die Sprache des Namens unbekannt ist, füge diesen in das nicht englische Namensfeld ein. Wenn bekannt, gib auch den romanisierten Namen an. Wenn der offizielle Name deiner Einreichung in der englischen Sprache vorliegt oder es eine bekannte englische Übersetzung gibt, füge diesen in das englische Namensfeld ein.</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="NeedName" xml:space="preserve">
+    <value>Mindestens ein Name erforderlich.</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="NoArtistsToName" xml:space="preserve">
+    <value>Gib keine Künstlernamen in das Namensfeld ein. Verwende stattdessen die Künstlerliste.</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="NonEnglishName" xml:space="preserve">
+    <value>Nicht-englischer Name</value>
+  </data>
+  <data name="PictureInfo" xml:space="preserve">
+    <value>Erlaubte Dateiendungen: {0}. Die maximale Dateigröße beträgt {1} MB.</value>
+  </data>
+  <data name="RomajiName" xml:space="preserve">
+    <value>Romanisierter Name</value>
   </data>
 </root>

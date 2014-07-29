@@ -117,25 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Aliases" xml:space="preserve">
+    <value>Alias (optional)</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AliasesDesc" xml:space="preserve">
+    <value>Alias sind ergänzende, häufig verwendete Namen für eine Einreichung. Oft handelt es sich hierbei um keine Übersetzung des primären Namen, wenngleich bekannte Übersetzungen als Alias hinzugefügt werden können. Aliase können in einer Sprache sein.</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="ConcurrentEditWarning" xml:space="preserve">
+    <value>{0} hat diese Einreichung vor {1} Minute(n) bearbeitet.</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="ConcurrentEditWarningNow" xml:space="preserve">
+    <value>{0} bearbeitet in diesem Moment auch diese Einreichung!</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="ExternalLinksQuickHelp" xml:space="preserve">
+    <value>Externe Links die für diese Einreichung relevant sind. Denk daran, dass keine illegalen/direkten Downloadlinks erlaubt sind!&lt;br /&gt;
+&lt;br /&gt;
+Füge zuerst die URL ein. Die Beschreibung und die Kategorie werden automatisch erraten, wenn die Domain bekannt ist.&lt;br /&gt;
+&lt;br /&gt;
+Offiziell: Offizielle Künstlerseite (gewöhnlich Blogs, Websites, Facebook etc.).&lt;br /&gt;
+Kommerziell: autorisierter Vertriebe wie Amazon und CDJapan.&lt;br /&gt;
+Referenz: Fanseiten mit nützlichen Informationen wie etwa Wikis.&lt;br /&gt;
+Anderes: Für alle anderen, die nicht in die obigen Kategorien passen.&lt;br /&gt;</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="Merge" xml:space="preserve">
+    <value>Vereinigen</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="NameHelp" xml:space="preserve">
+    <value>Wenn der originale Name nicht Englisch ist (z.B. Japanisch) oder die Sprache des Namens unbekannt ist, füge diesen in das nicht englische Namensfeld. Wenn bekannt, füge auch den romanisierten Namen an. Wenn der offizielle Name der Einreichung in der englischen Sprache vorliegt oder es eine bekannte englische Übersetzung gibt, schreibe diese in das englische Namensfeld.&lt;br /&gt;
+&lt;br /&gt;
+Nimm zur Kenntnis, dass du die fehlenden Namen nicht von anderen übernehmen musst. Das System wird diese notfalls austauschen. Zum Beispiel wird das System bei einem fehlenden romanisierten Namen automatisch Englisch verwenden.&lt;br /&gt;
+&lt;br /&gt;
+Additional names can be entered as aliases. See more in the guide.</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Wiederherstellen</value>
+  </data>
+  <data name="UpdateNotes" xml:space="preserve">
+    <value>Anmerkungen aktualisieren (optional)</value>
   </data>
 </root>

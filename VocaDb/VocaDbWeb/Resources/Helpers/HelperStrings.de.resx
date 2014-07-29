@@ -117,25 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="UploadPictureInfo" xml:space="preserve">
+    <value>Erlaubte Dateiendungen: {0}. Die maximale Größe liegt bei {1} MB. Bitte berücksichtige das Urheberrecht und erwähne, wenn möglich, die Bilderquelle in der Anmerkung/Beschreibung.</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Änderungen speichern</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="StatusDescriptionApproved" xml:space="preserve">
+    <value>Genehmigte Einreichungen wurden von einen vertrauenswürdigen Benutzer geprüft. Das Bearbeiten der zugelassenen Einreichungen ist begrenzt.</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="WebLinkDescriptionTitle" xml:space="preserve">
+    <value>Beschreibung</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="DraftIconTitle" xml:space="preserve">
+    <value>Diese Einreichung ist ein Entwurf.</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="StatusDescriptionDraft" xml:space="preserve">
+    <value>Bei den Entwurfseinreichungen fehlen einige benötigte Informationen.</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="StatusDescriptionFinished" xml:space="preserve">
+    <value>Fertige Einreichungen beinhalten alle benötigten Informationen aber sind bislang noch nicht genehmigt worden.</value>
+  </data>
+  <data name="SeeGuidePost" xml:space="preserve">
+    <value>für weitere Informationen.</value>
+  </data>
+  <data name="StatusDescriptionLocked" xml:space="preserve">
+    <value>Gesperrte Einreichungen können nur von Mitarbeitern bearbeitet werden.</value>
+  </data>
+  <data name="SeeGuide" xml:space="preserve">
+    <value>Anleitung</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>hinzugefügt</value>
+  </data>
+  <data name="WebLinkCategoryTitle" xml:space="preserve">
+    <value>Kategorie</value>
+  </data>
+  <data name="NameValueTitle" xml:space="preserve">
+    <value>Name (erforderlich)</value>
+  </data>
+  <data name="WebLinkNewRow" xml:space="preserve">
+    <value>Neue Zeile</value>
+  </data>
+  <data name="NameNewRow" xml:space="preserve">
+    <value>Neue Zeile</value>
+  </data>
+  <data name="ReturnWithoutSaving" xml:space="preserve">
+    <value>Ohne Speichern zurückkehren</value>
+  </data>
+  <data name="SeeGuidePre" xml:space="preserve">
+    <value>See the</value>
+  </data>
+  <data name="NameLangTitle" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="DraftMessage" xml:space="preserve">
+    <value>Diese Einreichung ist ein Entwurf. Du kannst helfen, indem du die diesen Eintrag bearbeitest und ihn um fehlende Informationen ergänzt.</value>
+  </data>
+  <data name="WebLinkUrlTitle" xml:space="preserve">
+    <value>URL</value>
   </data>
 </root>

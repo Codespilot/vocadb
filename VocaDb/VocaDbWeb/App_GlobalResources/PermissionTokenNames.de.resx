@@ -117,25 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AccessManageMenu" xml:space="preserve">
+    <value>Zugriff verwalten-Menü</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="Admin" xml:space="preserve">
+    <value>Administrative Datenbankaufgaben</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="ApproveEntries" xml:space="preserve">
+    <value>Genehmigte Einreichungen</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="BulkDeletePVs" xml:space="preserve">
+    <value>Mehrere PVs löschen</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="CreateComments" xml:space="preserve">
+    <value>Kommentar erstellen</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="DeleteComments" xml:space="preserve">
+    <value>Kommentare löschen</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="DeleteEntries" xml:space="preserve">
+    <value>Einreichungen löschen</value>
+  </data>
+  <data name="DesignatedStaff" xml:space="preserve">
+    <value>Festgelegter Mitarbeiter</value>
+  </data>
+  <data name="DisableUsers" xml:space="preserve">
+    <value>Benutzer deaktivieren</value>
+  </data>
+  <data name="EditFeaturedLists" xml:space="preserve">
+    <value>Songlisten verwalten</value>
+  </data>
+  <data name="EditNews" xml:space="preserve">
+    <value>Neuigkeiten verwalten</value>
+  </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Persönliches Profil bearbeiten</value>
+  </data>
+  <data name="LockEntries" xml:space="preserve">
+    <value>Einreichungen sperren</value>
+  </data>
+  <data name="ManageDatabase" xml:space="preserve">
+    <value>Datenbank verwalten</value>
+  </data>
+  <data name="ManageEntryReports" xml:space="preserve">
+    <value>Berichte zu Einreichungen verwalten</value>
+  </data>
+  <data name="ManageEventSeries" xml:space="preserve">
+    <value>Eventreihen verwalten</value>
+  </data>
+  <data name="ManageIPRules" xml:space="preserve">
+    <value>IP Regeln verwalten</value>
+  </data>
+  <data name="ManageUserPermissions" xml:space="preserve">
+    <value>Benutzerberechtigungen verwalten</value>
+  </data>
+  <data name="MergeEntries" xml:space="preserve">
+    <value>Einreichungen zusammenführen</value>
+  </data>
+  <data name="MikuDbImport" xml:space="preserve">
+    <value>Album Import</value>
+  </data>
+  <data name="MoveToTrash" xml:space="preserve">
+    <value>In den Papierkorb verschieben</value>
+  </data>
+  <data name="Nothing" xml:space="preserve">
+    <value>Nichts</value>
+  </data>
+  <data name="ReadRecentComments" xml:space="preserve">
+    <value>Neuesten Kommentare lesen</value>
+  </data>
+  <data name="RemoveTagUsages" xml:space="preserve">
+    <value>Schlagwortverwendungen löschen</value>
+  </data>
+  <data name="RestoreRevisions" xml:space="preserve">
+    <value>Revisionen ansehen</value>
+  </data>
+  <data name="ViewAuditLog" xml:space="preserve">
+    <value>Ereignisprotokoll ansehen</value>
   </data>
 </root>

@@ -117,25 +117,133 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AddToCustomList" xml:space="preserve">
+    <value>Zur benutzerdefinierten Liste hinzufügen</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Favorit</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="AddToList" xml:space="preserve">
+    <value>Zur Liste hinzufügen</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="AlternateVersions" xml:space="preserve">
+    <value>Alternative Versionen</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
+  <data name="Animators" xml:space="preserve">
+    <value>Animatoren</value>
+  </data>
+  <data name="Lyrics" xml:space="preserve">
+    <value>Songtext</value>
+  </data>
+  <data name="LyricsFrom" xml:space="preserve">
+    <value>von</value>
+  </data>
+  <data name="LyricsLC" xml:space="preserve">
+    <value>Lyrics</value>
+  </data>
+  <data name="Notes" xml:space="preserve">
+    <value>Anmerkungen</value>
+  </data>
+  <data name="OriginalVersion" xml:space="preserve">
+    <value>Originale Version</value>
+  </data>
+  <data name="OtherArtists" xml:space="preserve">
+    <value>Andere Künstler</value>
+  </data>
+  <data name="Producers" xml:space="preserve">
+    <value>Produzenten</value>
+  </data>
+  <data name="PVDetails" xml:space="preserve">
+    <value>PV</value>
+  </data>
+  <data name="RemoveFromFavorites" xml:space="preserve">
+    <value>Meine Bewertung löschen</value>
+  </data>
+  <data name="SongDetails" xml:space="preserve">
     <value>Song</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="Vocalists" xml:space="preserve">
+    <value>Sänger</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="ViewExternal" xml:space="preserve">
+    <value>Auf externer Seite ansehen</value>
+  </data>
+  <data name="Favorites" xml:space="preserve">
+    <value>Favorit(en)</value>
+  </data>
+  <data name="SearchYoutube" xml:space="preserve">
+    <value>Auf Youtube suchen</value>
+  </data>
+  <data name="OriginalMedia" xml:space="preserve">
+    <value>Originales Medium</value>
+  </data>
+  <data name="OtherMedia" xml:space="preserve">
+    <value>Anderen Medien</value>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Gefällt mir</value>
+  </data>
+  <data name="Likes" xml:space="preserve">
+    <value>gefällt {0} Personen</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>{0} insgesamte Bewertung</value>
+  </data>
+  <data name="FavoritedByTitle" xml:space="preserve">
+    <value>Favorisiert von</value>
+  </data>
+  <data name="LikedByTitle" xml:space="preserve">
+    <value>Gefällt</value>
+  </data>
+  <data name="SongRatings" xml:space="preserve">
+    <value>Song-Bewertungen</value>
+  </data>
+  <data name="ShowAllVersions" xml:space="preserve">
+    <value>Alle anzeigen</value>
+  </data>
+  <data name="Duration" xml:space="preserve">
+    <value>Dauer</value>
+  </data>
+  <data name="NewListName" xml:space="preserve">
+    <value>Neuer Listenname</value>
+  </data>
+  <data name="CustomLists" xml:space="preserve">
+    <value>Benutzerdefinierte Listen</value>
+  </data>
+  <data name="PoolsAndLists" xml:space="preserve">
+    <value>Interessensgemeinschaften und Songlisten</value>
+  </data>
+  <data name="SongInLists" xml:space="preserve">
+    <value>Song in den Listen</value>
+  </data>
+  <data name="Embed" xml:space="preserve">
+    <value>Einbetten</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Teilen</value>
+  </data>
+  <data name="Social" xml:space="preserve">
+    <value>Social</value>
+  </data>
+  <data name="RelatedSongs" xml:space="preserve">
+    <value>Ähnliche Songs</value>
+  </data>
+  <data name="NicoMimiDownload" xml:space="preserve">
+    <value>NicoMimi für einen Download überprüfen</value>
+  </data>
+  <data name="MatchingArtists" xml:space="preserve">
+    <value>Passende Künstler</value>
+  </data>
+  <data name="MatchingLikes" xml:space="preserve">
+    <value>Matching likes</value>
+  </data>
+  <data name="MatchingTags" xml:space="preserve">
+    <value>Passende Schlagwörter</value>
+  </data>
+  <data name="Band" xml:space="preserve">
+    <value>Band/Gruppen</value>
   </data>
 </root>

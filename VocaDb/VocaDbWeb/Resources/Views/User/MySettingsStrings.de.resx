@@ -117,25 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="AboutMe" xml:space="preserve">
+    <value>Über mich</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="AccessKey" xml:space="preserve">
+    <value>Zugriffsschlüssel</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Kontoeinstellungen</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
+  <data name="AnonymousActivity" xml:space="preserve">
+    <value>Mein Benutzername darf in der Liste für die letzten Aktivitäten angezeigt werden.</value>
   </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
+  <data name="Automatic" xml:space="preserve">
+    <value>(Automatisch)</value>
   </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
+  <data name="Connect" xml:space="preserve">
+    <value>Verknüpfen</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Connectivity" xml:space="preserve">
+    <value>Konnektivität</value>
+  </data>
+  <data name="CultureName" xml:space="preserve">
+    <value>Datum- und Zahlenformatierung</value>
+  </data>
+  <data name="CurrentPass" xml:space="preserve">
+    <value>Derzeitiges Passwort</value>
+  </data>
+  <data name="DefaultLanguageSelection" xml:space="preserve">
+    <value>Bevorzugte Anzeigesprache</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-Mail</value>
+  </data>
+  <data name="EmailNote" xml:space="preserve">
+    <value>(nicht sichtbar für andere Benutzer, wird von gravatar und für Passwort-Resets verwendet)</value>
+  </data>
+  <data name="EmailOptions" xml:space="preserve">
+    <value>E-Mail Benachrichtigungen für Privatnachrichten</value>
+  </data>
+  <data name="EmailTaken" xml:space="preserve">
+    <value>Diese E-Mail Adresse wurde bereits einem anderen Benutzer zugewiesen. Wenn es sich hierbei um deine Adresse handelt, kontaktiere den Support.</value>
+  </data>
+  <data name="ExternalLinks" xml:space="preserve">
+    <value>Externe Links</value>
+  </data>
+  <data name="FillIfChangingPassword" xml:space="preserve">
+    <value>(ausfüllen, wenn das Passwort geändert wird.)</value>
+  </data>
+  <data name="Interface" xml:space="preserve">
+    <value>Benutzeroberfläche</value>
+  </data>
+  <data name="InterfaceLanguageSelection" xml:space="preserve">
+    <value>Sprache der Benutzeroberfläche</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Bitte überprüfe die E-Mail Adresse.</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Ort</value>
+  </data>
+  <data name="MySettingsTitle" xml:space="preserve">
+    <value>Meine Einstellungen</value>
+  </data>
+  <data name="NewPass" xml:space="preserve">
+    <value>Neues Passwort</value>
+  </data>
+  <data name="NewPassAgain" xml:space="preserve">
+    <value>Neues Passwort (nochmal)</value>
+  </data>
+  <data name="PasswordsMustMatch" xml:space="preserve">
+    <value>Die Passwörter müssen übereinstimmen</value>
+  </data>
+  <data name="PreferredVideoService" xml:space="preserve">
+    <value>Bevorzugter Streaming-Dienst</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privatssphäreneinstellungen</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="PublicRatings" xml:space="preserve">
+    <value>Jeder darf meine Song- und Albenbewertungen einsehen.</value>
+  </data>
+  <data name="ReallyReset" xml:space="preserve">
+    <value>Passwort wirklich zurücksetzen?</value>
+  </data>
+  <data name="RequiredForChangingPassword" xml:space="preserve">
+    <value>(erforderlich um das Passwort zu ändern)</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Einstellungen aktualisiert</value>
+  </data>
+  <data name="UnableToSave" xml:space="preserve">
+    <value>Einstellungen konnten nicht gespeichert werden. Bitte behebe die Fehler und versuche es erneut.</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Benutzername</value>
   </data>
 </root>

@@ -117,25 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="At" xml:space="preserve">
-    <value>am</value>
+  <data name="Approved" xml:space="preserve">
+    <value>Genehmigt</value>
   </data>
-  <data name="CreatedNew" xml:space="preserve">
-    <value>erstellte ein neuen {0}:</value>
+  <data name="Draft" xml:space="preserve">
+    <value>Entwurf</value>
   </data>
-  <data name="EntryAlbum" xml:space="preserve">
-    <value>Album</value>
+  <data name="Finished" xml:space="preserve">
+    <value>Abgeschlossen</value>
   </data>
-  <data name="EntryArtist" xml:space="preserve">
-    <value>Künstler</value>
-  </data>
-  <data name="EntrySong" xml:space="preserve">
-    <value>Song</value>
-  </data>
-  <data name="Someone" xml:space="preserve">
-    <value>Ein Mitwirkender</value>
-  </data>
-  <data name="Updated" xml:space="preserve">
-    <value>aktualisierte ein {0}:</value>
+  <data name="Locked" xml:space="preserve">
+    <value>Gesperrt</value>
   </data>
 </root>
