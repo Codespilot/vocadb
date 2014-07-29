@@ -151,7 +151,7 @@
     <value>Andere Künstler</value>
   </data>
   <data name="Producers" xml:space="preserve">
-    <value>Produzenten</value>
+    <value>Produzent</value>
   </data>
   <data name="PVDetails" xml:space="preserve">
     <value>PV</value>
@@ -163,7 +163,7 @@
     <value>Song</value>
   </data>
   <data name="Vocalists" xml:space="preserve">
-    <value>Sänger</value>
+    <value>Sänger(in)</value>
   </data>
   <data name="ViewExternal" xml:space="preserve">
     <value>Auf externer Seite ansehen</value>
@@ -175,7 +175,7 @@
     <value>Auf Youtube suchen</value>
   </data>
   <data name="OriginalMedia" xml:space="preserve">
-    <value>Originales Medium</value>
+    <value>Ursprüngliche Veröffentlichung</value>
   </data>
   <data name="OtherMedia" xml:space="preserve">
     <value>Anderen Medien</value>
@@ -226,7 +226,7 @@
     <value>Teilen</value>
   </data>
   <data name="Social" xml:space="preserve">
-    <value>Social</value>
+    <value>Teilen</value>
   </data>
   <data name="RelatedSongs" xml:space="preserve">
     <value>Ähnliche Songs</value>
@@ -238,7 +238,7 @@
     <value>Passende Künstler</value>
   </data>
   <data name="MatchingLikes" xml:space="preserve">
-    <value>Matching likes</value>
+    <value>Passende Gefällt mir</value>
   </data>
   <data name="MatchingTags" xml:space="preserve">
     <value>Passende Schlagwörter</value>

@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdditionDate" xml:space="preserve">
-    <value>Hinzugefügt am:</value>
+    <value>Datum der Hinzufügung</value>
   </data>
   <data name="CollectionCount" xml:space="preserve">
-    <value>Sammlungszähler</value>
+    <value>Anzahl Sammlungen</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
