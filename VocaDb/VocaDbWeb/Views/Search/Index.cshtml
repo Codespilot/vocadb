@@ -243,6 +243,9 @@
 
 		</div>
 	</div>
+	
+	<div id="loginPopup" title="@ViewRes._LayoutStrings.LogIn" style="display: none;">
+	</div>
 
 	<!-- Footer -->
 	<span class="about-disclaimer">Background illustration by <a href="http://www.pixiv.net/member_illust.php?mode=medium&illust_id=34786809">みゆ</a> | <a href="https://code.google.com/p/vocadb/">Other credits</a></span>
@@ -283,7 +286,18 @@
 				languageSelection, loggedUserId, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
 			ko.applyBindings(vm);
 
+			$("#loginPopup").dialog({ autoOpen: false, width: 400, modal: true });
+
 		});
+
+		vdb.functions.showLoginPopup = function() {
+
+			$.get("/User/LoginForm", { returnUrl: window.location.href }, function(result) {
+				$("#loginPopup").html(result);
+				$("#loginPopup").dialog("open");
+			});
+
+		};
 
 	</script>
 
