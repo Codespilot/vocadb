@@ -198,6 +198,9 @@
   <data name="Profile" xml:space="preserve">
     <value>Profiili</value>
   </data>
+  <data name="PublicAlbumCollection" xml:space="preserve">
+    <value>Salli muiden nähdä mitä albumeita omistan.</value>
+  </data>
   <data name="PublicRatings" xml:space="preserve">
     <value>Salli kaikkien nähdä kappale- ja albumiarvosteluni.</value>
   </data>
