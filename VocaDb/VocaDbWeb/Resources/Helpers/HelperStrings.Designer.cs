@@ -88,6 +88,24 @@ namespace HelperRes {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GitHub-flavored Markdown.
+        /// </summary>
+        public static string GitHubMarkdown {
+            get {
+                return ResourceManager.GetString("GitHubMarkdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to is supported for formatting.
+        /// </summary>
+        public static string IsSupportedForFormatting {
+            get {
+                return ResourceManager.GetString("IsSupportedForFormatting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string NameLangTitle {

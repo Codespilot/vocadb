@@ -126,6 +126,12 @@
   <data name="DraftMessage" xml:space="preserve">
     <value>This entry is a draft. You can help by editing the entry and adding the missing information.</value>
   </data>
+  <data name="GitHubMarkdown" xml:space="preserve">
+    <value>GitHub-flavored Markdown</value>
+  </data>
+  <data name="IsSupportedForFormatting" xml:space="preserve">
+    <value>is supported for formatting</value>
+  </data>
   <data name="NameLangTitle" xml:space="preserve">
     <value>Language</value>
   </data>

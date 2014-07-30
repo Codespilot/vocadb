@@ -3,6 +3,7 @@
 @using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
 @using R = ViewRes.User;
+@using Res = ViewRes.User.MySettingsStrings
 @model MySettingsModel
 
 @{
@@ -81,7 +82,7 @@
 					<p>
 						<label class="checkbox">
 							@Html.CheckBoxFor(m => m.PublicAlbumCollection)
-							Allow others to see which albums I own.
+							@Res.PublicAlbumCollection
 						</label>
 					</p>
 				</div>
@@ -165,7 +166,7 @@
 				@Html.TextAreaForKnockout(m => m.AboutMe, binding: "value: aboutMe, valueUpdate: 'afterkeydown'", cssClass: "input-xxlarge", rows: 7)
 				<br />
 
-				Live preview
+				@Res.LivePreview
 				<div data-bind="markdown: aboutMe"></div>
 				<br />
 			</div>
@@ -190,9 +191,7 @@
 		<div id="connectivity">
 	
 			<div class="alert alert-info">
-				Access key can be used to log in to your VocaDB account from various other services without revealing your actual password.
-				You can regenerate your access key at any time - this will invalidate the previous access key.
-				Keep your access key secret! If you suspect your access key has been discovered by someone else, please reset it immediately.
+				@Res.AccessKeyDescription
 			</div>
 
 			<div class="editor-label">
