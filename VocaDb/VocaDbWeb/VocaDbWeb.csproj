@@ -1178,6 +1178,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FavoriteSongsStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Views\User\ForgotPasswordStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPasswordStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Views\User\IndexStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3288,6 +3293,12 @@
     <EmbeddedResource Include="Resources\Views\User\FavoriteSongsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FavoriteSongsStrings.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Views\User\ForgotPasswordStrings.fi.resx" />
+    <EmbeddedResource Include="Resources\Views\User\ForgotPasswordStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPasswordStrings.Designer.cs</LastGenOutput>
       <CustomToolNamespace>ViewRes.User</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Views\User\IndexStrings.de.resx" />

@@ -150,6 +150,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>Email address</value>
+  </data>
   <data name="EntriesFound" xml:space="preserve">
     <value>Entries found: {0}</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="Unsorted" xml:space="preserve">
     <value>Unsorted</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
