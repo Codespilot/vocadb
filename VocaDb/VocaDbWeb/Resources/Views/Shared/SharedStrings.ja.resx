@@ -138,6 +138,9 @@
   <data name="Edit" xml:space="preserve">
     <value>編集</value>
   </data>
+  <data name="EmailAddress" xml:space="preserve">
+    <value>メールアドレス</value>
+  </data>
   <data name="EntriesFound" xml:space="preserve">
     <value>{0}件登録されています</value>
   </data>
@@ -179,5 +182,8 @@
   </data>
   <data name="Unsorted" xml:space="preserve">
     <value>ソートされていない</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>ユーザー名</value>
   </data>
 </root>

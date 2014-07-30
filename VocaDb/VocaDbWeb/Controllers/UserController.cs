@@ -234,7 +234,7 @@ namespace VocaDb.Web.Controllers
 		public ActionResult ForgotPassword(ForgotPassword model) {
 
 			if (!ReCaptcha.Validate(ConfigurationManager.AppSettings["ReCAPTCHAKey"]))
-				ModelState.AddModelError("CAPTCHA", "CAPTCHA is invalid.");
+				ModelState.AddModelError("CAPTCHA", ViewRes.User.ForgotPasswordStrings.CaptchaIsInvalid);
 
 			if (!ModelState.IsValid) {
 				return View();
@@ -242,10 +242,10 @@ namespace VocaDb.Web.Controllers
 
 			try {
 				Data.RequestPasswordReset(model.Username, model.Email, AppConfig.HostAddress + Url.Action("ResetPassword", "User"));
-				TempData.SetStatusMessage("Password reset message has been sent.");
+				TempData.SetStatusMessage(ViewRes.User.ForgotPasswordStrings.MessageSent);
 				return RedirectToAction("Login");
 			} catch (UserNotFoundException) {
-				ModelState.AddModelError("Username", "Username or email doesn't match.");
+				ModelState.AddModelError("Username", ViewRes.User.ForgotPasswordStrings.UsernameDoesNotMatch);
 				return View();
 			}
 
