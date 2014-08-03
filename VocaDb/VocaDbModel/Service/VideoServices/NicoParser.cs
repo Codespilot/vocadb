@@ -40,6 +40,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			{ "VOCALOID電波ソング", "denpa" },
 			{ "DubSteloid", "Dubstep" },
 			{ "VOCALOID-EUROBEAT", "Eurobeat" },
+			{ "VOCALOID処女作", "First_work" },
 			{ "ボカロハウス", "house" },
 			{ "ボカロメタル", "Metal" },
 			{ "ボカロラップ", "rap" },
