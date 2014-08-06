@@ -25,6 +25,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			ArtistOptionalFields includedFields) {
 
 			ArtistType = artist.ArtistType;
+			BaseVoicebank = artist.BaseVoicebank != null ? new ArtistContract(artist.BaseVoicebank, languagePreference) : null;
 			CreateDate = artist.CreateDate;
 			DefaultName = artist.DefaultName;
 			DefaultNameLanguage = artist.Names.SortNames.DefaultLanguage;
@@ -70,6 +71,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public ArtistType ArtistType { get; set; }
+
+		[DataMember]
+		public ArtistContract BaseVoicebank { get; set; }
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }

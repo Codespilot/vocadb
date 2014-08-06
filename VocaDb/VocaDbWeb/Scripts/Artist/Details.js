@@ -120,6 +120,7 @@ function initPage(artistId, saveStr, urlMapper) {
 
 	$("#newAlbums img").vdbAlbumToolTip();
 	$("#topAlbums img").vdbAlbumToolTip();
+	$("#baseVoicebank a").vdbArtistToolTip();
 	$("#groups a").vdbArtistToolTip();
 
 	function saveTagSelections() {
