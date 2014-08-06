@@ -294,7 +294,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 					if (artist.IsValidBaseVoicebank(newBase)) {
 						diff.BaseVoicebank = true;
-						artist.BaseVoicebank = ctx.NullSafeLoad(properties.BaseVoicebank);						
+						artist.SetBaseVoicebank(ctx.NullSafeLoad(properties.BaseVoicebank));
 					}
 
 				}

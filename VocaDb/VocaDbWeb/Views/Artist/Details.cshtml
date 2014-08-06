@@ -76,7 +76,7 @@
 
 		<table class="properties">
 			<tr>
-				<td rowspan="10">
+				<td rowspan="12">
 					<a href="@Url.Action("Picture", new { id = Model.Id, v = Model.Version })">
 						<img src="@Url.ImageThumb(Model, VocaDb.Model.Domain.Images.ImageSize.Thumb)" alt="@ViewRes.Artist.DetailsStrings.ArtistPicture" class="coverPic" />
 					</a>
@@ -143,6 +143,24 @@
 					@ArtistHelpers.ArtistLink(Model.BaseVoicebank)
 				</td>
 			</tr>				
+			}
+
+			@if (Model.ChildVoicebanks.Any()) {
+				<tr>
+					<td>
+						<span>
+							@ViewRes.Artist.DetailsStrings.ChildVoicebanks
+						</span>
+					</td>
+					<td id="childVoicebanks">
+						@foreach (var a in Model.ChildVoicebanks) {
+							@ArtistHelpers.ArtistLink(a)
+							if (a != Model.ChildVoicebanks.Last()) {
+								@(", ")
+							}
+						}
+					</td>
+				</tr>
 			}
 
 			@if (Model.Groups.Any()) {

@@ -135,6 +135,9 @@
   <data name="BaseVoicebank" xml:space="preserve">
     <value>Base voicebank</value>
   </data>
+  <data name="ChildVoicebanks" xml:space="preserve">
+    <value>Derived voicebanks</value>
+  </data>
   <data name="CollaborationAlbums" xml:space="preserve">
     <value>Collaborations</value>
   </data>

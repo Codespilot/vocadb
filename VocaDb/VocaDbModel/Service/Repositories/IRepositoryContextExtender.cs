@@ -44,6 +44,13 @@ namespace VocaDb.Model.Service.Repositories {
 			return ctx.OfType<T2>().Load(id);
 		}
 
+		/// <summary>
+		/// Loads an entry based on a reference, or returns null if the reference is null or points to an entry that shouldn't exist (Id is 0).
+		/// </summary>
+		/// <typeparam name="T">Type of entry to be loaded.</typeparam>
+		/// <param name="ctx">Repository context. Cannot be null.</param>
+		/// <param name="entry">Entry reference. Can be null in which case null is returned.</param>
+		/// <returns>Reference to the loaded entry. Can be null if <paramref name="entry"/> is null or Id is 0.</returns>
 		public static T NullSafeLoad<T>(this IRepositoryContext<T> ctx, IEntryWithIntId entry) {
 			return entry != null && entry.Id != 0 ? ctx.Load(entry.Id) : default(T);
 		}
