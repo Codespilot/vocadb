@@ -175,6 +175,15 @@
 								</div>
 							</div>
 
+							<div class="control-group" data-bind="visible: artistId">
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" data-bind="checked: childVoicebanks" />
+										Include derived voicebanks
+									</label>
+								</div>
+							</div>
+
 							<div class="control-group">
 								<div class="control-label">@Res.MoreRecentThan</div>
 								<div class="controls">
@@ -204,7 +213,7 @@
 
 						<div class="control-group" data-bind="visible: showDraftsFilter">
 							<div class="controls">
-								
+
 								<div data-bind="visible: showSongSearch, with: songSearchViewModel">
 									<label class="checkbox">
 										<input type="checkbox" data-bind="checked: pvsOnly" />
@@ -221,7 +230,7 @@
 									<input type="checkbox" data-bind="checked: draftsOnly" />
 									@ViewRes.EntryIndexStrings.OnlyDrafts
 								</label>
-								
+
 							</div>
 						</div>
 
@@ -243,7 +252,7 @@
 
 		</div>
 	</div>
-	
+
 	<div id="loginPopup" title="@ViewRes._LayoutStrings.LogIn" style="display: none;">
 	</div>
 

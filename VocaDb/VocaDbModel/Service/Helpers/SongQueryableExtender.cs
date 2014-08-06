@@ -81,22 +81,28 @@ namespace VocaDb.Model.Service.Helpers {
 		/// <param name="query">Song query. Cannot be null.</param>
 		/// <param name="artistId">ID of the artist being filtered. If 0, no filtering is done.</param>
 		/// <returns>Filtered query. Cannot be null.</returns>
-		public static IQueryable<Song> WhereHasArtist(this IQueryable<Song> query, int artistId) {
+		public static IQueryable<Song> WhereHasArtist(this IQueryable<Song> query, int artistId, bool childVoicebanks) {
 
 			if (artistId == 0)
 				return query;
 
-			return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
+			if (!childVoicebanks)
+				return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
+			else
+				return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId || a.Artist.BaseVoicebank.Id == artistId));
 
 		}
 
-		public static IQueryable<Song> WhereHasArtistParticipationStatus(this IQueryable<Song> query, int artistId, ArtistAlbumParticipationStatus participation, Func<int, Artist> artistGetter) {
+		public static IQueryable<Song> WhereHasArtistParticipationStatus(this IQueryable<Song> query, 
+			int artistId, ArtistAlbumParticipationStatus participation, 
+			bool childVoicebanks,
+			Func<int, Artist> artistGetter) {
 
 			if (artistId == 0)
 				return query;
 
 			if (participation == ArtistAlbumParticipationStatus.Everything)
-				return query.WhereHasArtist(artistId);
+				return query.WhereHasArtist(artistId, childVoicebanks);
 
 			var artist = artistGetter(artistId);
 			var musicProducerTypes = new[] {ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup};
@@ -106,6 +112,7 @@ namespace VocaDb.Model.Service.Helpers {
 				var various = Model.Helpers.ArtistHelper.VariousArtists;
 				var producerRoles = ArtistRoles.Composer | ArtistRoles.Arranger;
 
+				// Note: producers may not have child voicebanks
 				switch (participation) {
 					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
 						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport && ((a.Roles == ArtistRoles.Default) || ((a.Roles & producerRoles) != ArtistRoles.Default)) && a.Song.ArtistString.Default != various));
@@ -119,9 +126,9 @@ namespace VocaDb.Model.Service.Helpers {
 
 				switch (participation) {
 					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
-						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport));
+						return query.Where(al => al.AllArtists.Any(a => (a.Artist.Id == artistId || (childVoicebanks && a.Artist.BaseVoicebank.Id == artistId)) && !a.IsSupport));
 					case ArtistAlbumParticipationStatus.OnlyCollaborations:
-						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && a.IsSupport));
+						return query.Where(al => al.AllArtists.Any(a => (a.Artist.Id == artistId || (childVoicebanks && a.Artist.BaseVoicebank.Id == artistId)) && a.IsSupport));
 					default:
 						return query;
 				}
