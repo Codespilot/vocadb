@@ -38,6 +38,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => artist);
 
 			ArtistType = artist.ArtistType;
+			BaseVoicebank = artist.BaseVoicebank;
 			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
 			Groups = artist.Groups;
@@ -62,6 +63,9 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Artist type")]
 		public ArtistType ArtistType { get; set; }
+
+		[FromJson]
+		public ArtistContract BaseVoicebank { get; set; }
 
 		[Display(Name = "Original language")]
 		public ContentLanguageSelection DefaultLanguageSelection { get; set; }
@@ -116,6 +120,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => artist);
 
 			AllowedEntryStatuses = EntryPermissionManager.AllowedEntryStatuses(MvcApplication.LoginManager);
+			BaseVoicebank = artist.BaseVoicebank;
 			Deleted = artist.Deleted;
 			Draft = artist.Status == EntryStatus.Draft;
 
@@ -136,6 +141,7 @@ namespace VocaDb.Web.Models {
 				
 				Id = this.Id,
 				ArtistType = this.ArtistType,
+				BaseVoicebank = this.BaseVoicebank,
 				Description =  this.Description ?? string.Empty,
 				Groups = this.Groups.ToArray(),
 				Name = this.Name,

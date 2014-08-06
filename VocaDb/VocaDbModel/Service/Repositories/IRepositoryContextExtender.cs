@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain.Security;
+﻿using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 
@@ -41,6 +42,10 @@ namespace VocaDb.Model.Service.Repositories {
 
 		public static T2 Load<T, T2>(this IRepositoryContext<T> ctx, object id) {
 			return ctx.OfType<T2>().Load(id);
+		}
+
+		public static T NullSafeLoad<T>(this IRepositoryContext<T> ctx, IEntryWithIntId entry) {
+			return entry != null && entry.Id != 0 ? ctx.Load(entry.Id) : default(T);
 		}
 
 		public static void Sync<T>(this IRepositoryContext<T> ctx, CollectionDiff<T, T> diff) {

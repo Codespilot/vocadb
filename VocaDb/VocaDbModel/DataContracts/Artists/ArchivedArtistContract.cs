@@ -28,6 +28,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			var thisVersion = xmlCache.Deserialize(version.Version, version.Data);
 
 			data.ArtistType = thisVersion.ArtistType;
+			data.BaseVoicebank = thisVersion.BaseVoicebank;
 			data.Groups = thisVersion.Groups;
 			data.Id = thisVersion.Id;
 			data.MainPictureMime = thisVersion.MainPictureMime;
@@ -52,6 +53,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 			Albums = (diff.IncludeAlbums ? artist.Albums.Select(a => new ObjectRefContract(a.Album)).ToArray() : null);
 			ArtistType = artist.ArtistType;
+			BaseVoicebank = artist.BaseVoicebank != null ? new ObjectRefContract(artist.BaseVoicebank) : null;
 			Id = artist.Id;
 			Description = (diff.IncludeDescription ? artist.Description : null);
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Group)).ToArray();
@@ -69,6 +71,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public ArtistType ArtistType { get; set; }
+
+		[DataMember]
+		public ObjectRefContract BaseVoicebank { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }

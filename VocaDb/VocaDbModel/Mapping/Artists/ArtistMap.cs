@@ -18,6 +18,8 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 
+			References(m => m.BaseVoicebank).Nullable();
+
 			HasMany(m => m.AllAlbums).Table("ArtistsForAlbums")
 				.Inverse()
 				.Cascade.All()

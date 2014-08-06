@@ -11,21 +11,23 @@ namespace VocaDb.Model.Domain.Artists {
 
 		ArtistType		= 2,
 
-		Description		= 4,
+		BaseVoicebank	= 4,
 
-		Groups			= 8,
+		Description		= 8,
 
-		Names			= 16,
+		Groups			= 16,
 
-		OriginalName	= 32,
+		Names			= 32,
 
-		Picture			= 64,
+		OriginalName	= 64,
 
-		Pictures		= 128,
+		Picture			= 128,
 
-		Status			= 256,
+		Pictures		= 256,
 
-		WebLinks		= 512
+		Status			= 512,
+
+		WebLinks		= 1024
 
 	}
 
