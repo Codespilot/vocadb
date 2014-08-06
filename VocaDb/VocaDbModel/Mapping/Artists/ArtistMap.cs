@@ -30,6 +30,10 @@ namespace VocaDb.Model.Mapping.Artists {
 				.Cascade.All()
 				.Cache.ReadWrite();
 			HasMany(m => m.AllMembers).Inverse().KeyColumn("[Group]").Cache.ReadWrite();
+			HasMany(m => m.ChildVoicebanks)
+				.Inverse()
+				.KeyColumn("[BaseVoicebank]")
+				.Cache.ReadWrite();
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.WebLinks).Table("ArtistWebLinks").Inverse().Cascade.All().Cache.ReadWrite();
 

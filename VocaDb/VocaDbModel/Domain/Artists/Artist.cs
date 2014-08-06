@@ -22,6 +22,7 @@ namespace VocaDb.Model.Domain.Artists {
 		private IList<ArtistForAlbum> albums = new List<ArtistForAlbum>();
 		private ArchivedVersionManager<ArchivedArtistVersion, ArtistEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedArtistVersion, ArtistEditableFields>();
+		private IList<Artist> childVoicebanks = new List<Artist>();
 		private IList<ArtistComment> comments = new List<ArtistComment>();
 		private User createdBy;
 		private string description;
@@ -115,6 +116,26 @@ namespace VocaDb.Model.Domain.Artists {
 		public virtual ArtistType ArtistType { get; set; }
 
 		public virtual Artist BaseVoicebank { get; set; }
+
+		/// <summary>
+		/// Whether it makes sense for this artist to have child voicebanks. 
+		/// If false, the ChildVoicebanks collection should be ignored.
+		/// In practice, only vocalists can have child voicebanks.
+		/// This is mostly a performance optimization thing, so that the child voicebanks list doesn't need to be loaded unless needed.
+		/// </summary>
+		public virtual bool CanHaveChildVoicebanks {
+			get {
+				return (ArtistHelper.VocalistTypes.Contains(ArtistType) || ArtistType == ArtistType.Unknown) && BaseVoicebank == null;
+			}
+		}
+
+		public virtual IList<Artist> ChildVoicebanks {
+			get { return childVoicebanks; }
+			set {
+				ParamIs.NotNull(() => value);
+				childVoicebanks = value;
+			}
+		}
 
 		public virtual IList<ArtistComment> Comments {
 			get { return comments; }
@@ -480,6 +501,12 @@ namespace VocaDb.Model.Domain.Artists {
 			ParamIs.NotNull(() => url);
 
 			return WebLinks.Any(w => w.Url == url);
+
+		}
+
+		public virtual void SetBaseVoicebank(Artist baseVoicebank) {
+			
+			BaseVoicebank = baseVoicebank;
 
 		}
 

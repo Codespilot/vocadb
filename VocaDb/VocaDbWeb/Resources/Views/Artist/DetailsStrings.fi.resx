@@ -135,6 +135,9 @@
   <data name="BaseVoicebank" xml:space="preserve">
     <value>Perustuu</value>
   </data>
+  <data name="ChildVoicebanks" xml:space="preserve">
+    <value>Perustuvat tähän</value>
+  </data>
   <data name="CollaborationAlbums" xml:space="preserve">
     <value>Kokoelmat ja muut</value>
   </data>
