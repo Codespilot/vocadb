@@ -23,6 +23,7 @@ module vdb.repositories {
 		getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,
 			discTypes: string, tag: string,
 			artistId: number, artistParticipationStatus: string,
+			childVoicebanks: boolean,
 			status: string,
 			callback) => {
 
@@ -34,6 +35,7 @@ module vdb.repositories {
 				tag: tag,
 				artistId: artistId,
 				artistParticipationStatus: artistParticipationStatus,
+				childVoicebanks: childVoicebanks,
 				status: status
 			};
 

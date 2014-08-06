@@ -141,10 +141,12 @@ module vdb.viewModels.search {
 			this.albumType.subscribe(this.updateResultsWithTotalCount);
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
 			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
+			this.childVoicebanks.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 
-				this.albumRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.albumType(), tag, this.artistId(), this.artistParticipationStatus(), status, callback);
+				this.albumRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.albumType(), tag, this.artistId(),
+					this.artistParticipationStatus(), this.childVoicebanks(), status, callback);
 
 			}
 
@@ -155,6 +157,7 @@ module vdb.viewModels.search {
 		public artistName = ko.observable("");
 		public artistParticipationStatus = ko.observable("Everything");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
+		public childVoicebanks = ko.observable(false);
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().albumSortRuleNames[this.sort()] : "");
 		public viewMode = ko.observable("Details");

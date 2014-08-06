@@ -71,6 +71,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// OnlyMainAlbums: Show only main albums by that artist.
 		/// OnlyCollaborations: Show only collaborations by that artist.
 		/// </param>
+		/// <param name="childVoicebanks">Include child voicebanks, if the artist being filtered by has any.</param>
 		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
@@ -93,6 +94,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string tag = null,
 			int? artistId = null,
 			ArtistAlbumParticipationStatus artistParticipationStatus = ArtistAlbumParticipationStatus.Everything,
+			bool childVoicebanks = false,
 			EntryStatus? status = null,
 			int start = 0, 
 			int maxResults = defaultMax,
@@ -107,7 +109,8 @@ namespace VocaDb.Web.Controllers.Api {
 			var queryParams = new AlbumQueryParams(query, discTypes, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort ?? AlbumSortRule.Name) {
 				Tag = tag,
 				ArtistId = artistId ?? 0,
-				ArtistParticipationStatus = artistParticipationStatus
+				ArtistParticipationStatus = artistParticipationStatus,
+				ChildVoicebanks = childVoicebanks
 			};
 			queryParams.Common.EntryStatus = status;
 

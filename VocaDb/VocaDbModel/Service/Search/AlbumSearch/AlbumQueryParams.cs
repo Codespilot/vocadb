@@ -38,6 +38,8 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 
 		public ArtistAlbumParticipationStatus ArtistParticipationStatus { get; set; }
 
+		public bool ChildVoicebanks { get; set; }
+
 		public CommonSearchParams Common { get; set; }
 
 		public PagingProperties Paging { get; set; }
