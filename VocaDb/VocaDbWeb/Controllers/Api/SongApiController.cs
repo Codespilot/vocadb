@@ -74,6 +74,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// OnlyMainAlbums: Show only main songs by that artist.
 		/// OnlyCollaborations: Show only collaborations by that artist.
 		/// </param>
+		/// <param name="childVoicebanks">Include child voicebanks, if the artist being filtered by has any.</param>
 		/// <param name="onlyWithPvs">Whether to only include songs with at least one PV.</param>
 		/// <param name="since">Allow only entries that have been created at most this many hours ago. By default there is no filtering.</param>
 		/// <param name="lyrics">Filter by lyrics in the specified language. By default there is no filtering.</param>
@@ -97,6 +98,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string tag = null,
 			int? artistId = null,
 			ArtistAlbumParticipationStatus artistParticipationStatus = ArtistAlbumParticipationStatus.Everything,
+			bool childVoicebanks = false,
 			bool onlyWithPvs = false,
 			int? since = null,
 			[FromUri] ContentLanguageSelections? lyrics = null,
@@ -116,6 +118,7 @@ namespace VocaDb.Web.Controllers.Api {
 				OnlyWithPVs = onlyWithPvs,
 				ArtistId = artistId ?? 0,		
 				ArtistParticipationStatus = artistParticipationStatus,
+				ChildVoicebanks = childVoicebanks,
 				TimeFilter = since.HasValue ? TimeSpan.FromHours(since.Value) : TimeSpan.Zero,
 				LyricsLanguages = lyrics != null ? lyrics.Value.ToIndividualSelections().ToArray() : null,
 				UserCollectionId = userCollectionId ?? 0

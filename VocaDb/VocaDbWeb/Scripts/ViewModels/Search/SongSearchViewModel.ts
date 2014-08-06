@@ -42,6 +42,7 @@ module vdb.viewModels.search {
 
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
 			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
+			this.childVoicebanks.subscribe(this.updateResultsWithTotalCount);
 			this.onlyRatedSongs.subscribe(this.updateResultsWithTotalCount);
 			this.pvsOnly.subscribe(this.updateResultsWithTotalCount);
 			this.since.subscribe(this.updateResultsWithTotalCount);
@@ -52,6 +53,7 @@ module vdb.viewModels.search {
 
 				this.songRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.songType(), tag, this.artistId(),
 					this.artistParticipationStatus(),
+					this.childVoicebanks(),
 					this.pvsOnly(),
 					this.since(),
 					this.onlyRatedSongs() ? this.loggedUserId : null,
@@ -80,6 +82,7 @@ module vdb.viewModels.search {
 		public artistName = ko.observable("");
 		public artistParticipationStatus = ko.observable("Everything");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
+		public childVoicebanks = ko.observable(false);
 		public onlyRatedSongs = ko.observable(false);
 		public pvsOnly = ko.observable(false);
 		private pvServiceIcons: vdb.models.PVServiceIcons;
