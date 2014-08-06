@@ -3,7 +3,7 @@
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Artists;
 @using ValidationErrors = VocaDb.Model.Resources.ArtistValidationErrors;
-@model  VocaDb.Web.Models.ArtistEdit
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.ArtistEdit>
 @{
 	ViewBag.Title = "Edit artist - " + Model.Name;
 	ViewBag.Parents = new[] { 
@@ -118,7 +118,21 @@
 						@Helpers.EntrySearchNameBox("groupAddName")
 					</div>
 	}
-			
+
+				<!-- ko if: allowBaseVoicebank -->			
+				<div class="editor-label">
+					<label>
+						Base voicebank
+					</label>
+				</div>
+				<div class="editor-field">
+					<div style="display: inline-block;" class="input-append">
+						@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "baseVoicebankSearchParams", textBinding: "baseVoicebank.artistName", valBinding: "baseVoicebank.artistId")
+					</div>
+					<input type="hidden" name="BaseVoicebank" data-bind="value: ko.toJSON(baseVoicebank.artistContract())" />
+				</div>		
+				<!-- /ko -->		
+
 				<div class="editor-label">
 					@Helpers.HelpLabel("Web links", ViewRes.EntryEditStrings.ExternalLinksQuickHelp)
 				</div>
@@ -172,10 +186,14 @@
 <script type="text/javascript">
 
 	$(document).ready(function() { 
+
+		var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
+
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { names = Model.Names, webLinks = Model.WebLinks }));
-		ko.applyBindings(new vdb.viewModels.ArtistEditViewModel(webLinkCategoryJson, modelJson));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { baseVoicebank = Model.BaseVoicebank, id = Model.Id, names = Model.Names, webLinks = Model.WebLinks }));
+		ko.applyBindings(new vdb.viewModels.ArtistEditViewModel(artistRepo, webLinkCategoryJson, modelJson));
 		initPage(@Model.Id); 
+
 	});
 
 </script>

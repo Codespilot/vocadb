@@ -17,6 +17,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			: base(artist, languagePreference) {
 
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
+			BaseVoicebank = artist.BaseVoicebank != null ? new ArtistContract(artist.BaseVoicebank, languagePreference) : null;
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			TranslatedName = new TranslatedStringContract(artist.TranslatedName);
@@ -30,6 +31,9 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		[DataMember]
 		public string AllNames { get; set; }
+
+		[DataMember]
+		public ArtistContract BaseVoicebank { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }

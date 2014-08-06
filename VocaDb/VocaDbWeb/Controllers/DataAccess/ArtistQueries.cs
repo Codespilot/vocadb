@@ -288,6 +288,17 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				if (nameDiff.Changed)
 					diff.Names = true;
 
+				if (!artist.NullSafeIdEquals(properties.BaseVoicebank)) {
+					
+					var newBase = ctx.NullSafeLoad(properties.BaseVoicebank);
+
+					if (artist.IsValidBaseVoicebank(newBase)) {
+						diff.BaseVoicebank = true;
+						artist.BaseVoicebank = ctx.NullSafeLoad(properties.BaseVoicebank);						
+					}
+
+				}
+
 				var validWebLinks = properties.WebLinks.Where(w => !string.IsNullOrEmpty(w.Url));
 				var webLinkDiff = WebLink.Sync(artist.WebLinks, validWebLinks, artist);
 				ctx.OfType<ArtistWebLink>().Sync(webLinkDiff);

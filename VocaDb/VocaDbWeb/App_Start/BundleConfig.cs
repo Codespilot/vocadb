@@ -99,9 +99,11 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Edit").Include(
 				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/Globalization/ContentLanguageSelection.js",
+				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Helpers/KnockoutHelper.js",
 				"~/Scripts/ViewModels/Globalization/LocalizedStringWithIdEditViewModel.js",
 				"~/Scripts/ViewModels/Globalization/NamesEditViewModel.js",
+				"~/Scripts/ViewModels/Artist/ArtistLinkViewModel.js",
 				"~/Scripts/ViewModels/ArtistEditViewModel.js",
 				"~/Scripts/Artist/Edit.js"
 			));

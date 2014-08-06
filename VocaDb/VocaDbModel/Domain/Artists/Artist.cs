@@ -114,6 +114,8 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual ArtistType ArtistType { get; set; }
 
+		public virtual Artist BaseVoicebank { get; set; }
+
 		public virtual IList<ArtistComment> Comments {
 			get { return comments; }
 			set {
@@ -166,6 +168,19 @@ namespace VocaDb.Model.Domain.Artists {
 		}*/
 
 		public virtual int Id { get; set; }
+
+		/// <summary>
+		/// Tests whether an artist is a valid base voicebank for this artist.
+		/// 
+		/// Base voicebank can be null (not set). 
+		/// If set, the base voicebank must not have a base voicebank set, otherwise circular dependencies might occur.
+		/// An artist cannot be the base voicebank of itself obviously.
+		/// </summary>
+		/// <param name="artist"></param>
+		/// <returns></returns>
+		public virtual bool IsValidBaseVoicebank(Artist artist) {
+			return artist == null || (artist.BaseVoicebank == null && !this.Equals(artist));
+		}
 
 		public virtual TranslatedString TranslatedName {
 			get { return Names.SortNames; }

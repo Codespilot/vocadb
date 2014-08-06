@@ -50,12 +50,15 @@ namespace VocaDb.Model.Service.Helpers {
 
 			var diff = CollectionHelper.Diff(existing, objRefs, equality);
 
+			// If the reference existed in the version being restored, but doesn't exist in the current version.
 			foreach (var objRef in diff.Added) {
 
+				// If the reference points to an associated root entity in the database, attempt to restore the reference.
 				if (objRef.Id != 0) {
 
 					var entry = session.Get<TEntry>(objRef.Id);
 
+					// Root entity still found in the database, create the link object.
 					if (entry != null) {
 						var added = createEntryFunc(entry, objRef);
 						if (added != null)
@@ -66,6 +69,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 				} else {
 
+					// For composite child objects just recreate the object since it's not a root entity.
 					var added = createEntryFunc(null, objRef);
 					if (added != null)
 						session.Save(added);
@@ -74,6 +78,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 			}
 
+			// If the reference did not exist in the version being restored, but exists in the current version, delete the link object.
 			foreach (var removed in diff.Removed) {
 				deleteFunc(removed);
 				session.Delete(removed);

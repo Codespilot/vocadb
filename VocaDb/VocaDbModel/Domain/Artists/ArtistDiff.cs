@@ -44,6 +44,15 @@ namespace VocaDb.Model.Domain.Artists {
 			}
 		}
 
+		public virtual bool BaseVoicebank {
+			get {
+				return IsChanged(ArtistEditableFields.BaseVoicebank);
+			}
+			set {
+				Set(ArtistEditableFields.BaseVoicebank, value);
+			}
+		}
+
 		public virtual ArtistEditableFields ChangedFields { get; set; }
 
 		public virtual string ChangedFieldsString {

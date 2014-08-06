@@ -123,6 +123,9 @@
   <data name="ArtistType" xml:space="preserve">
     <value>Artist type</value>
   </data>
+  <data name="BaseVoicebank" xml:space="preserve">
+    <value>Base voicebank</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
