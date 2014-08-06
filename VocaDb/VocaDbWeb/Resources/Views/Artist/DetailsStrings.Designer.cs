@@ -106,6 +106,15 @@ namespace ViewRes.Artist {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Base voicebank.
+        /// </summary>
+        public static string BaseVoicebank {
+            get {
+                return ResourceManager.GetString("BaseVoicebank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collaborations.
         /// </summary>
         public static string CollaborationAlbums {

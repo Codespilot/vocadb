@@ -132,6 +132,9 @@
   <data name="AuthoredBy" xml:space="preserve">
     <value>VocaDB account</value>
   </data>
+  <data name="BaseVoicebank" xml:space="preserve">
+    <value>Base voicebank</value>
+  </data>
   <data name="CollaborationAlbums" xml:space="preserve">
     <value>Collaborations</value>
   </data>

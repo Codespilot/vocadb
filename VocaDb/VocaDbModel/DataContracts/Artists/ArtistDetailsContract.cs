@@ -21,6 +21,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			: base(artist, languagePreference) {
 
 			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
+			BaseVoicebank = artist.BaseVoicebank != null ? new ArtistContract(artist.BaseVoicebank, languagePreference) : null;
 			CreateDate = artist.CreateDate;
 			Description = artist.Description;
 			Draft = artist.Status == EntryStatus.Draft;
@@ -40,6 +41,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public string AllNames { get; set; }
+
+		[DataMember]
+		public ArtistContract BaseVoicebank { get; set; }
 
 		[DataMember]
 		public int CommentCount { get; set; }

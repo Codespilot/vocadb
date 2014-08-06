@@ -131,6 +131,19 @@
 					</td>
 				</tr>
 			}
+			
+			@if (Model.BaseVoicebank != null) {
+			<tr>
+				<td>
+					<span>
+						@ViewRes.Artist.DetailsStrings.BaseVoicebank
+					</span>
+				</td>
+				<td id="baseVoicebank">
+					@ArtistHelpers.ArtistLink(Model.BaseVoicebank)
+				</td>
+			</tr>				
+			}
 
 			@if (Model.Groups.Any()) {
 			<tr>
