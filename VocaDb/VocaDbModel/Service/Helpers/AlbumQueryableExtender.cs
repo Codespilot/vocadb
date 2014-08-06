@@ -61,13 +61,16 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<Album> WhereHasArtistParticipationStatus(this IQueryable<Album> query, int artistId, ArtistAlbumParticipationStatus participation, Func<int, Artist> artistGetter) {
+		public static IQueryable<Album> WhereHasArtistParticipationStatus(
+			this IQueryable<Album> query, int artistId, ArtistAlbumParticipationStatus participation, 
+			bool childVoicebanks,
+			Func<int, Artist> artistGetter) {
 
 			if (artistId == 0)
 				return query;
 
 			if (participation == ArtistAlbumParticipationStatus.Everything)
-				return query.WhereHasArtist(artistId);
+				return query.WhereHasArtist(artistId, childVoicebanks);
 
 			var artist = artistGetter(artistId);
 			var musicProducerTypes = new[] {ArtistType.Producer, ArtistType.Circle, ArtistType.OtherGroup};
@@ -90,9 +93,9 @@ namespace VocaDb.Model.Service.Helpers {
 
 				switch (participation) {
 					case ArtistAlbumParticipationStatus.OnlyMainAlbums:
-						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && !a.IsSupport));
+						return query.Where(al => al.AllArtists.Any(a => (a.Artist.Id == artistId || (childVoicebanks && a.Artist.BaseVoicebank.Id == artistId)) && !a.IsSupport));
 					case ArtistAlbumParticipationStatus.OnlyCollaborations:
-						return query.Where(al => al.AllArtists.Any(a => a.Artist.Id == artistId && a.IsSupport));
+						return query.Where(al => al.AllArtists.Any(a => (a.Artist.Id == artistId || (childVoicebanks && a.Artist.BaseVoicebank.Id == artistId)) && a.IsSupport));
 					default:
 						return query;
 				}
@@ -107,12 +110,15 @@ namespace VocaDb.Model.Service.Helpers {
 		/// <param name="query">Album query. Cannot be null.</param>
 		/// <param name="artistId">ID of the artist being filtered. If 0, no filtering is done.</param>
 		/// <returns>Filtered query. Cannot be null.</returns>
-		public static IQueryable<Album> WhereHasArtist(this IQueryable<Album> query, int artistId) {
+		public static IQueryable<Album> WhereHasArtist(this IQueryable<Album> query, int artistId, bool childVoicebanks) {
 
 			if (artistId == 0)
 				return query;
 
-			return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
+			if (!childVoicebanks)
+				return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId));
+			else
+				return query.Where(s => s.AllArtists.Any(a => a.Artist.Id == artistId || a.Artist.BaseVoicebank.Id == artistId));
 
 		}
 

@@ -152,7 +152,15 @@
 									<!-- /ko -->
 								</div>
 							</div>
-
+							
+							<div class="control-group" data-bind="visible: artistId">
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" data-bind="checked: childVoicebanks" />
+										Include derived voicebanks
+									</label>
+								</div>
+							</div>
 						</div>
 
 						<div data-bind="visible: showSongSearch, with: songSearchViewModel">
