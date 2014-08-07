@@ -17,6 +17,15 @@ module vdb.helpers {
 			ArtistType.Utaite, ArtistType.Band, ArtistType.Unknown
 		];
 
+		public static canHaveChildVoicebanks(at: cls.artists.ArtistType) {
+
+			if (at === null)
+				return false;
+
+			return ArtistHelper.isVocalistType(at) || at == ArtistType.Unknown;
+
+		}
+
 		// Whether the roles for an artist type can be customized
 		public static isCustomizable(at: cls.artists.ArtistType) {
 

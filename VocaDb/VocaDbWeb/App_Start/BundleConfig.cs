@@ -122,6 +122,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/Models/PVServiceIcons.js",				
+				"~/Scripts/Models/Artists/ArtistType.js",
+				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Repositories/AlbumRepository.js",
 				"~/Scripts/Repositories/EntryRepository.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
