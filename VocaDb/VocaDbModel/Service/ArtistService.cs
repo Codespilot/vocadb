@@ -482,6 +482,7 @@ namespace VocaDb.Model.Service {
 				artist.ArtistType = fullProperties.ArtistType;
 				artist.Description = fullProperties.Description;
 				artist.TranslatedName.DefaultLanguage = fullProperties.TranslatedName.DefaultLanguage;
+				artist.BaseVoicebank = SessionHelper.RestoreWeakRootEntityRef<Artist>(session, warnings, fullProperties.BaseVoicebank);
 
 				// Picture
 				var versionWithPic = archivedVersion.GetLatestVersionWithField(ArtistEditableFields.Picture);

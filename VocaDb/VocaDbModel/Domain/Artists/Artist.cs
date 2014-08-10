@@ -506,6 +506,17 @@ namespace VocaDb.Model.Domain.Artists {
 
 		public virtual void SetBaseVoicebank(Artist baseVoicebank) {
 			
+			if (Equals(BaseVoicebank, baseVoicebank))
+				return;
+
+			if (BaseVoicebank != null) {
+				BaseVoicebank.ChildVoicebanks.Remove(this);
+			}
+
+			if (baseVoicebank != null) {
+				baseVoicebank.ChildVoicebanks.Add(this);
+			}
+
 			BaseVoicebank = baseVoicebank;
 
 		}

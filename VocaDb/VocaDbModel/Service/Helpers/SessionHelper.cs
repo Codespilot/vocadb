@@ -87,6 +87,29 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		/// <summary>
+		/// Restores a weak root entity reference where the target might be deleted already.
+		/// In this case a warning will be issued but otherwise the reference can be ignored.
+		/// </summary>
+		/// <typeparam name="TEntry">Type of entry to be loaded.</typeparam>
+		/// <param name="session">Session.</param>
+		/// <param name="warnings">List of warnings. Cannot be null.</param>
+		/// <param name="objRef">Reference to the target. Can be null in which case null is returned.</param>
+		/// <returns>The restored object reference. Can be null if the reference was null originally, or the target is deleted.</returns>
+		public static TEntry RestoreWeakRootEntityRef<TEntry>(ISession session, IList<string> warnings, ObjectRefContract objRef) where TEntry : class {
+			
+			if (objRef == null)
+				return null;
+
+			var obj = session.Get<TEntry>(objRef.Id);
+			if (obj == null) {
+				warnings.Add("Referenced " + typeof(TEntry).Name + " " + objRef + " not found");				
+			}
+
+			return obj;
+
+		}
+
 		public static void Sync<T>(ISession session, CollectionDiff<T,T> diff) {
 
 			ParamIs.NotNull(() => session);
