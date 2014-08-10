@@ -288,7 +288,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				if (nameDiff.Changed)
 					diff.Names = true;
 
-				if (!artist.NullSafeIdEquals(properties.BaseVoicebank)) {
+				if (!artist.BaseVoicebank.NullSafeIdEquals(properties.BaseVoicebank)) {
 					
 					var newBase = ctx.NullSafeLoad(properties.BaseVoicebank);
 
