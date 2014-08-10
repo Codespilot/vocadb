@@ -15,16 +15,6 @@ namespace VocaDb.Model.DataContracts {
 			Mime = mime;
 		}
 
-		public PictureDataContract(PictureData pictureData) {
-
-			ParamIs.NotNull(() => pictureData);
-
-			Bytes = pictureData.Bytes;
-			Mime = pictureData.Mime;
-			Thumb250 = (pictureData.Thumb250 != null ? new PictureThumbContract(pictureData.Thumb250) : null);
-
-		}
-
 		[DataMember]
 		public Byte[] Bytes { get; set; }
 
