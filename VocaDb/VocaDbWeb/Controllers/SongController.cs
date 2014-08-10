@@ -489,7 +489,10 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		public ActionResult Related(int id) {
+		public ActionResult Related(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
 
 			var related = queries.GetRelatedSongs(id);
 			return PartialView("RelatedSongs", related);

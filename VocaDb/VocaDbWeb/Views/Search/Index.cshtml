@@ -322,7 +322,7 @@
 </html>
 
 @helper SearchDropDown(string visibleBinding, string viewModel, Dictionary<string, string> sortRules) {
-	<div data-bind="visible: @visibleBinding, with: @viewModel" class="inline-block">
+	<div data-bind="visible: @visibleBinding, with: @viewModel" class="inline-block search-sort-menu">
 		@ViewRes.EntryIndexStrings.SortBy
 		<div class="btn-group">
 			<button class="btn dropdown-toggle" data-toggle="dropdown">

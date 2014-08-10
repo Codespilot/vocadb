@@ -690,3 +690,10 @@ div.item {
 	white-space: nowrap; 
 	overflow: hidden;
 }
+
+/* Move sort button right for lower screen resolutions */
+@media all and (max-width: 1800px) {
+	.search-sort-menu {
+		margin-right: 40px;
+	}
+}
