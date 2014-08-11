@@ -1,10 +1,14 @@
 ﻿using System.Linq;
 using System.Web.Http;
+using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.ReleaseEvents;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Web.Controllers.DataAccess;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers.Api {
 
@@ -16,9 +20,25 @@ namespace VocaDb.Web.Controllers.Api {
 
 		private const int defaultMax = 10;
 		private readonly IEventRepository repository;
+		private readonly IEntryThumbPersister thumbPersister;
 
-		public ReleaseEventApiController(IEventRepository repository) {
+		public ReleaseEventApiController(IEventRepository repository, IEntryThumbPersister thumbPersister) {
 			this.repository = repository;
+			this.thumbPersister = thumbPersister;
+		}
+
+		[Route("{eventId:int}/albums")]
+		public AlbumForApiContract[] GetAlbums(int eventId, 
+			AlbumOptionalFields fields = AlbumOptionalFields.None, 
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+			
+			return repository.HandleQuery(ctx => {
+				
+				var ev = ctx.Load(eventId);
+				return ev.Albums.Select(a => new AlbumForApiContract(a, null, lang, thumbPersister, WebHelper.IsSSL(Request), fields)).ToArray();
+
+			});
+
 		}
 
 		/// <summary>
