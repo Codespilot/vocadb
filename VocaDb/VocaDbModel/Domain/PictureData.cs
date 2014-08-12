@@ -9,17 +9,11 @@ namespace VocaDb.Model.Domain {
 		public PictureData() {
 		}
 
-		public PictureData(Byte[] bytes, string mime) {
-			Bytes = bytes;
-			Mime = mime;
-		}
-
 		public PictureData(PictureDataContract contract) {
 
 			ParamIs.NotNull(() => contract);
 
 			Bytes = contract.Bytes;
-			Mime = contract.Mime;
 
 			if (contract.Thumb250 != null)
 				Thumb250 = new PictureThumb250(contract.Thumb250);
@@ -27,8 +21,6 @@ namespace VocaDb.Model.Domain {
 		}
 
 		public virtual Byte[] Bytes { get; set; }
-
-		public virtual string Mime { get; set; }
 
 		public virtual PictureThumb250 Thumb250 { get; set; }
 

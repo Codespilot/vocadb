@@ -16,12 +16,12 @@ namespace VocaDb.Model.DataContracts {
 			Mime = mime;
 		}
 
-		public PictureContract(PictureData pictureData, Size requestedSize) {
+		public PictureContract(PictureData pictureData, string mime, Size requestedSize) {
 
 			ParamIs.NotNull(() => pictureData);
 
 			Bytes = pictureData.GetBytes(requestedSize);
-			Mime = pictureData.Mime;
+			Mime = mime;
 
 		}
 

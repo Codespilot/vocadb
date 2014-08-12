@@ -33,8 +33,10 @@ namespace VocaDb.Model.Domain.Artists {
 			Diff = diff;
 			Reason = reason;
 
-			if (diff.IncludePicture)
+			if (diff.IncludePicture) {
 				Picture = artist.Picture;
+				PictureMime = artist.PictureMime;
+			}
 
 		}
 
@@ -66,6 +68,8 @@ namespace VocaDb.Model.Domain.Artists {
 		}
 
 		public virtual PictureData Picture { get; set; }
+
+		public virtual string PictureMime { get; set; }
 
 		public virtual ArtistArchiveReason Reason { get; set; }
 

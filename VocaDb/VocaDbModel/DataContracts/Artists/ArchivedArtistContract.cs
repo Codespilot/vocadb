@@ -57,7 +57,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Id = artist.Id;
 			Description = (diff.IncludeDescription ? artist.Description : null);
 			Groups = artist.Groups.Select(g => new ObjectRefContract(g.Group)).ToArray();
-			MainPictureMime = artist.Picture != null ? artist.Picture.Mime : null;
+			MainPictureMime = artist.PictureMime;
 			Members = artist.Members.Select(m => new ObjectRefContract(m.Member)).ToArray();
 			Names = (diff.IncludeNames ? artist.Names.Names.Select(n => new LocalizedStringContract(n)).ToArray() : null);
 			Pictures = (diff.IncludePictures ? artist.Pictures.Select(p => new ArchivedEntryPictureFileContract(p)).ToArray() : null);

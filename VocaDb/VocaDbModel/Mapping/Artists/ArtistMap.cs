@@ -14,6 +14,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
+			Map(m => m.PictureMime).Length(32).Nullable();
 			Map(m => m.StartDate).Nullable();
 			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
@@ -52,10 +53,9 @@ namespace VocaDb.Model.Mapping.Artists {
 			});
 
 			Component(m => m.Picture, c => {
-				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue).LazyLoad();
-				c.Map(m => m.Mime, "PictureMime").Length(32);
-				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "PictureThumb250Bytes").Length(int.MaxValue)).LazyLoad();
-			});
+				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue);
+				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "PictureThumb250Bytes").Length(int.MaxValue));
+			}).LazyLoad();
 
 			Component(m => m.Pictures, c => {
 				c.HasMany(m => m.Pictures).KeyColumn("[Artist]").Inverse().Cascade.All().Cache.ReadWrite();
@@ -83,6 +83,7 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
 			Map(m => m.Notes).Length(200).Not.Nullable();
+			Map(m => m.PictureMime).Length(32).Nullable();
 			Map(m => m.Reason).Length(30).Not.Nullable();
 			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
@@ -96,9 +97,8 @@ namespace VocaDb.Model.Mapping.Artists {
 			});
 
 			Component(m => m.Picture, c => {
-				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue).LazyLoad();
-				c.Map(m => m.Mime, "PictureMime");
-			});
+				c.Map(m => m.Bytes, "PictureBytes").Length(int.MaxValue);
+			}).LazyLoad();
 
 		}
 

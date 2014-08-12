@@ -38,7 +38,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Deleted = artist.Deleted;
 			Id = artist.Id;
 			Name = artist.TranslatedName[preference];
-			PictureMime = artist.Picture != null ? artist.Picture.Mime : null;
+			PictureMime = artist.PictureMime;
 			Status = artist.Status;
 			Version = artist.Version;
 

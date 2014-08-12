@@ -24,11 +24,11 @@ namespace VocaDb.Model.DataContracts {
 
 			var album = entry as Album;
 			if (album != null && album.CoverPictureData != null)
-				return album.CoverPictureData.Mime;
+				return album.CoverPictureMime;
 
 			var artist = entry as Artist;
 			if (artist != null && artist.Picture != null)
-				return artist.Picture.Mime;
+				return artist.PictureMime;
 
 			return string.Empty;
 

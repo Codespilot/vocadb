@@ -24,6 +24,7 @@ namespace VocaDb.Model.Domain.MikuDb {
 			ParamIs.NotNull(() => contract);
 
 			CoverPicture = (contract.CoverPicture != null ? new PictureData(contract.CoverPicture) : null);
+			CoverPictureMime = (contract.CoverPicture != null ? contract.CoverPicture.Mime : null);
 			Data = XmlHelper.SerializeToXml(contract.Data);
 			SourceUrl = contract.SourceUrl;
 			Status = contract.Status;
@@ -32,6 +33,8 @@ namespace VocaDb.Model.Domain.MikuDb {
 		}
 
 		public virtual PictureData CoverPicture { get; set; }
+
+		public virtual string CoverPictureMime { get; set; }
 
 		public virtual DateTime Created { get; set; }
 

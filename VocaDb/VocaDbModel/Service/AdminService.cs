@@ -63,7 +63,7 @@ namespace VocaDb.Model.Service {
 			var artistIds = new int[0];
 
 			HandleQuery(session => {
-				artistIds = session.Query<Artist>().Where(a => !a.Deleted && a.Picture.Mime != null && a.Picture.Mime != "").Select(a => a.Id).ToArray();
+				artistIds = session.Query<Artist>().Where(a => !a.Deleted && a.PictureMime != null && a.PictureMime != "").Select(a => a.Id).ToArray();
 			});
 
 			for (int i = 0; i < artistIds.Length; i += 100) {
@@ -76,7 +76,7 @@ namespace VocaDb.Model.Service {
 
 					foreach (var artist in artists) {
 
-						var data = new EntryThumb(artist, artist.Picture.Mime);
+						var data = new EntryThumb(artist, artist.PictureMime);
 
 						if (artist.Picture.Bytes == null || imagePersister.HasImage(data, ImageSize.Thumb))
 							continue;

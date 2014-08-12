@@ -140,6 +140,8 @@ namespace VocaDb.Model.Domain.Albums {
 
 		public virtual PictureData CoverPictureData { get; set; }
 
+		public virtual string CoverPictureMime { get; set; }
+
 		public virtual DateTime CreateDate { get; set; }
 
 		public virtual string DefaultName {
