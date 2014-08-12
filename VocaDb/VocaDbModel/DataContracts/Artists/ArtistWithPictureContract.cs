@@ -9,7 +9,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public ArtistWithPictureContract(Artist artist, ContentLanguagePreference languagePreference, Size requestedSize)
 			: base(artist, languagePreference) {
 
-			CoverPicture = (artist.Picture != null ? new PictureContract(artist.Picture, requestedSize) : null);
+			CoverPicture = (artist.Picture != null ? new PictureContract(artist.Picture, artist.PictureMime, requestedSize) : null);
 
 		}
 

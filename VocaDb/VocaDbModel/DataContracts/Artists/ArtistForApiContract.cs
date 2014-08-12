@@ -30,7 +30,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			DefaultName = artist.DefaultName;
 			DefaultNameLanguage = artist.Names.SortNames.DefaultLanguage;
 			Id = artist.Id;
-			PictureMime = artist.Picture != null ? artist.Picture.Mime : null;
+			PictureMime = artist.PictureMime;
 			Status = artist.Status;
 			Version = artist.Version;
 
@@ -54,9 +54,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 			if (includedFields.HasFlag(ArtistOptionalFields.Tags))
 				Tags = artist.Tags.Usages.Select(u => new TagUsageForApiContract(u)).ToArray();
 
-			if (thumbPersister != null && includedFields.HasFlag(ArtistOptionalFields.MainPicture) && artist.Picture != null) {
+			if (thumbPersister != null && includedFields.HasFlag(ArtistOptionalFields.MainPicture) && !string.IsNullOrEmpty(artist.PictureMime)) {
 				
-				MainPicture = new EntryThumbForApiContract(new EntryThumb(artist, artist.Picture.Mime), thumbPersister, ssl);
+				MainPicture = new EntryThumbForApiContract(new EntryThumb(artist, artist.PictureMime), thumbPersister, ssl);
 
 			}
 

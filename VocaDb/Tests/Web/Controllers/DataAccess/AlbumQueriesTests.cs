@@ -370,9 +370,9 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			Assert.IsNotNull(albumFromRepo.CoverPictureData, "CoverPictureData");
 			Assert.IsNotNull(albumFromRepo.CoverPictureData.Bytes, "Original bytes are saved");
 			Assert.IsNull(albumFromRepo.CoverPictureData.Thumb250, "Thumb bytes not saved anymore");
-			Assert.AreEqual(MediaTypeNames.Image.Jpeg, albumFromRepo.CoverPictureData.Mime, "CoverPictureData.Mime");
+			Assert.AreEqual(MediaTypeNames.Image.Jpeg, albumFromRepo.CoverPictureMime, "CoverPictureData.Mime");
 
-			var thumbData = new EntryThumb(albumFromRepo, albumFromRepo.CoverPictureData.Mime);
+			var thumbData = new EntryThumb(albumFromRepo, albumFromRepo.CoverPictureMime);
 			Assert.IsFalse(imagePersister.HasImage(thumbData, ImageSize.Original), "Original file was not created"); // Original saved in CoverPictureData.Bytes
 			Assert.IsTrue(imagePersister.HasImage(thumbData, ImageSize.Thumb), "Thumbnail file was saved");
 

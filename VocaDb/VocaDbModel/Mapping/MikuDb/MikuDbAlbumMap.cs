@@ -12,6 +12,7 @@ namespace VocaDb.Model.Mapping.MikuDb {
 
 			Id(m => m.Id);
 
+			Map(m => m.CoverPictureMime).Length(32).Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
 			Map(m => m.SourceUrl).Length(255).Not.Nullable();
@@ -20,7 +21,6 @@ namespace VocaDb.Model.Mapping.MikuDb {
 
 			Component(m => m.CoverPicture, c => {
 				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
-				c.Map(m => m.Mime, "CoverPictureMime");
 			});
 
 		}

@@ -86,7 +86,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Description = (diff.IncludeDescription ? album.Description : null);
 			DiscType = album.DiscType;
 			Id = album.Id;
-			MainPictureMime = album.CoverPictureData != null ? album.CoverPictureData.Mime : null;
+			MainPictureMime = album.CoverPictureMime;
 			OriginalRelease = (album.OriginalRelease != null && !album.OriginalRelease.IsEmpty ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
 			Pictures = (diff.IncludePictures ? album.Pictures.Select(p => new ArchivedEntryPictureFileContract(p)).ToArray() : null);
 			PVs = (diff.IncludePVs ? album.PVs.Select(p => new ArchivedPVContract(p)).ToArray() : null);

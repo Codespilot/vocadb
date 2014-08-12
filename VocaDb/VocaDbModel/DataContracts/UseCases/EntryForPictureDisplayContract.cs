@@ -22,7 +22,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ParamIs.NotNull(() => album);
 
 			var name = album.TranslatedName[languagePreference];
-			var pic = (album.CoverPictureData != null ? new PictureContract(album.CoverPictureData, requestedSize) : null);
+			var pic = (album.CoverPictureData != null ? new PictureContract(album.CoverPictureData, album.CoverPictureMime, requestedSize) : null);
 
 			return new EntryForPictureDisplayContract(EntryType.Album, album.Id, name, album.Version, pic);
 
@@ -38,7 +38,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			PictureContract pic = null;
 
 			if (versionWithPic != null && versionWithPic.CoverPicture != null)
-				pic = new PictureContract(versionWithPic.CoverPicture, Size.Empty);
+				pic = new PictureContract(versionWithPic.CoverPicture, versionWithPic.CoverPictureMime, Size.Empty);
 
 			return new EntryForPictureDisplayContract(
 				EntryType.Album, archivedVersion.Album.Id, name, archivedVersion.Version, pic);
@@ -50,7 +50,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			ParamIs.NotNull(() => artist);
 
 			var name = artist.TranslatedName[languagePreference];
-			var pic = (artist.Picture != null ? new PictureContract(artist.Picture, requestedSize) : null);
+			var pic = (artist.Picture != null ? new PictureContract(artist.Picture, artist.PictureMime, requestedSize) : null);
 
 			return new EntryForPictureDisplayContract(EntryType.Artist, artist.Id, name, artist.Version, pic);
 
@@ -66,7 +66,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			PictureContract pic = null;
 
 			if (versionWithPic != null && versionWithPic.Picture != null)
-				pic = new PictureContract(versionWithPic.Picture, Size.Empty);
+				pic = new PictureContract(versionWithPic.Picture, versionWithPic.PictureMime, Size.Empty);
 
 			return new EntryForPictureDisplayContract(EntryType.Artist, archivedVersion.Artist.Id, name, archivedVersion.Version, pic);
 

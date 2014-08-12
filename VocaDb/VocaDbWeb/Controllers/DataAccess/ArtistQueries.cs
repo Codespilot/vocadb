@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using NHibernate;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
@@ -94,6 +95,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					var pictureData = contract.PictureData;
 					var parsed = ImageHelper.GetOriginal(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
 					artist.Picture = new PictureData(parsed);
+					artist.PictureMime = parsed.Mime;
 
 					pictureData.Id = artist.Id;
 					pictureData.EntryType = EntryType.Artist;
@@ -216,10 +218,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				
 				var artist = ctx.Load(artistId);
 
-				if (artist.Picture == null || string.IsNullOrEmpty(artist.Picture.Mime) || artist.Picture.HasThumb(size))
+				if (artist.Picture == null || string.IsNullOrEmpty(artist.PictureMime) || artist.Picture.HasThumb(size))
 					return EntryForPictureDisplayContract.Create(artist, PermissionContext.LanguagePreference, size);
 
-				var data = new EntryThumb(artist, artist.Picture.Mime);
+				var data = new EntryThumb(artist, artist.PictureMime);
 
 				if (imagePersister.HasImage(data, ImageSize.Thumb)) {
 					using (var stream = imagePersister.GetReadStream(data, ImageSize.Thumb)) {
@@ -263,10 +265,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.OriginalName = true;
 				}
 
+				// Required because of a bug in NHibernate
+				NHibernateUtil.Initialize(artist.Picture);
+
 				if (pictureData != null) {
 
 					var parsed = ImageHelper.GetOriginal(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
 					artist.Picture = new PictureData(parsed);
+					artist.PictureMime = parsed.Mime;
 
 					pictureData.Id = artist.Id;
 					pictureData.EntryType = EntryType.Artist;

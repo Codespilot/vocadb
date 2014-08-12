@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using NHibernate;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
@@ -175,10 +176,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				
 				var album = ctx.Load(albumId);
 
-				if (album.CoverPictureData == null || string.IsNullOrEmpty(album.CoverPictureData.Mime) || album.CoverPictureData.HasThumb(size))
+				if (album.CoverPictureData == null || string.IsNullOrEmpty(album.CoverPictureMime) || album.CoverPictureData.HasThumb(size))
 					return EntryForPictureDisplayContract.Create(album, PermissionContext.LanguagePreference, size);
 
-				var data = new EntryThumb(album, album.CoverPictureData.Mime);
+				var data = new EntryThumb(album, album.CoverPictureMime);
 
 				if (imagePersister.HasImage(data, ImageSize.Thumb)) {
 					using (var stream = imagePersister.GetReadStream(data, ImageSize.Thumb)) {
@@ -364,11 +365,15 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.OriginalRelease = true;
 				}
 
+				// Required because of a bug in NHibernate
+				NHibernateUtil.Initialize(album.CoverPictureData);
+
 				if (pictureData != null) {
 
 					var parsed = ImageHelper.GetOriginal(pictureData.UploadedFile, pictureData.ContentLength, pictureData.Mime);
 					album.CoverPictureData = new PictureData(parsed);
-					
+					album.CoverPictureMime = parsed.Mime;
+
 					pictureData.Id = album.Id;
 					pictureData.EntryType = EntryType.Album;
 					var thumbGenerator = new ImageThumbGenerator(imagePersister);

@@ -53,8 +53,10 @@ namespace VocaDb.Model.Domain.Albums {
 			Diff = diff;
 			Reason = reason;
 
-			if (diff.IncludeCover)
+			if (diff.IncludeCover) {
 				CoverPicture = album.CoverPictureData;
+				CoverPictureMime = album.CoverPictureMime;				
+			}
 
 		}
 
@@ -70,6 +72,8 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual PictureData CoverPicture { get; set; }
+
+		public virtual string CoverPictureMime { get; set; }
 
 		public virtual AlbumDiff Diff {
 			get { return diff; }

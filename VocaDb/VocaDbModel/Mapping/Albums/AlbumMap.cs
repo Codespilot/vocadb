@@ -11,6 +11,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
+			Map(m => m.CoverPictureMime).Length(32).Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
@@ -32,10 +33,9 @@ namespace VocaDb.Model.Mapping.Albums {
 			});
 
 			Component(m => m.CoverPictureData, c => {
-				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
-				c.Map(m => m.Mime, "CoverPictureMime").Length(32).LazyLoad();
-				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "CoverPictureThumb250Bytes").Length(int.MaxValue)).LazyLoad();
-			});
+				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue);
+				c.Component(m => m.Thumb250, c2 => c2.Map(m => m.Bytes, "CoverPictureThumb250Bytes").Length(int.MaxValue));
+			}).LazyLoad();
 
 			Component(m => m.OriginalRelease, c => {
 				c.Map(m => m.CatNum, "ReleaseCatNum");
@@ -107,6 +107,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Id(m => m.Id);
 
 			Map(m => m.AgentName).Not.Nullable();
+			Map(m => m.CoverPictureMime).Length(32).Nullable();
 			Map(m => m.Created).Not.Nullable();
 			Map(m => m.Data).Not.Nullable();
 			Map(m => m.Notes).Length(200).Not.Nullable();
@@ -119,7 +120,6 @@ namespace VocaDb.Model.Mapping.Albums {
 
 			Component(m => m.CoverPicture, c => {
 				c.Map(m => m.Bytes, "CoverPictureBytes").Length(int.MaxValue).LazyLoad();
-				c.Map(m => m.Mime, "CoverPictureMime");
 			});
 
 			Component(m => m.Diff, c => {
