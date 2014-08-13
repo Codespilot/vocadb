@@ -795,6 +795,7 @@ namespace VocaDb.Model.Service {
 
 				foreach (var a in albums) {
 					a.OriginalRelease.EventName = newName;
+					NHibernateUtil.Initialize(a.CoverPictureData);
 					session.Update(a);
 				}
 
