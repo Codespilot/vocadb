@@ -27,6 +27,13 @@ namespace VocaDb.Web.Controllers.Api {
 			this.thumbPersister = thumbPersister;
 		}
 
+		/// <summary>
+		/// Gets a list of albums for a specific release event.
+		/// </summary>
+		/// <param name="eventId">Release event ID.</param>
+		/// <param name="fields">List of optional album fields.</param>
+		/// <param name="lang">Content language preference.</param>
+		/// <returns>List of albums.</returns>
 		[Route("{eventId:int}/albums")]
 		public AlbumForApiContract[] GetAlbums(int eventId, 
 			AlbumOptionalFields fields = AlbumOptionalFields.None, 
