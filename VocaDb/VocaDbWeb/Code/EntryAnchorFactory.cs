@@ -1,6 +1,7 @@
 ﻿using VocaDb.Model;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Service;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Code {
 
@@ -25,17 +26,41 @@ namespace VocaDb.Web.Code {
 
 		}
 
+		private string GetUrl(string basePart, EntryType entryType, int id) {
+
+			string relative;
+
+			switch (entryType) {
+				case EntryType.Album:
+					relative = string.Format("Al/{0}", id);
+					break;
+
+				case EntryType.Artist:
+					relative = string.Format("Ar/{0}", id);
+					break;
+
+				case EntryType.Song:
+					relative = string.Format("S/{0}", id);
+					break;
+
+				default:
+					relative = string.Format("{0}/Details/{1}", entryType, id);	
+					break;
+			}
+
+			return VocaUriBuilder.MergeUrls(basePart, relative);
+
+		}
+
 		public string GetFullEntryUrl(EntryType entryType, int id) {
-
-			// TODO: should use proper merging
-			return string.Format("{0}/{1}/Details/{2}", hostAddress, entryType, id);
-
+			return GetUrl(hostAddress, entryType, id);
 		}
 
 		public string CreateEntryLink(EntryType entryType, int id, string name) {
 
-			return string.Format("<a href=\"{0}{1}/Details/{2}\">{3}</a>",
-				baseUrl, entryType, id, name);
+			var url = GetUrl(baseUrl, entryType, id);
+
+			return string.Format("<a href=\"{0}\">{1}</a>", url, name);
 
 		}
 
