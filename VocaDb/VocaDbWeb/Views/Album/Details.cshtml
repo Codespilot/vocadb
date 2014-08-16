@@ -205,7 +205,17 @@
 			<tr>
 				<td>@ViewRes.Album.DetailsStrings.ReleaseDate</td>
 				<td>
-					@Model.ReleaseDate.Formatted<br />
+					@Model.ReleaseDate.Formatted
+					@if (Model.ReleaseDateIsInThePast) {
+						<span class="label label-success">Released</span>
+					}
+					@if (Model.ReleaseDateIsInTheNearFuture) {
+						<span class="label label-warning">Coming soon</span>
+					}
+					@if (Model.ReleaseDateIsInTheFarFuture) {
+						<span class="label label-info">Not released</span>
+					}
+					<br />
 				</td>	
 			</tr>
    }
