@@ -430,6 +430,9 @@ namespace VocaDb.Model.Service {
 
 				Archive(session, target, ArtistArchiveReason.Merged, string.Format("Merged from '{0}'", source.DefaultName));
 
+				NHibernateUtil.Initialize(source.Picture);
+				NHibernateUtil.Initialize(target.Picture);
+
 				session.Update(source);
 				session.Update(target);
 
