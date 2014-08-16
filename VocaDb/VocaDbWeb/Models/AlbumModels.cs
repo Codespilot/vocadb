@@ -268,6 +268,7 @@ namespace VocaDb.Web.Models {
 				CatNum = contract.OriginalRelease.CatNum;
 				ReleaseEvent = contract.OriginalRelease.EventName;
 				ReleaseDate = contract.OriginalRelease.ReleaseDate;
+				FullReleaseDate = ReleaseDate.Year.HasValue && ReleaseDate.Month.HasValue && ReleaseDate.Day.HasValue ? (DateTime?)new DateTime(ReleaseDate.Year.Value, ReleaseDate.Month.Value, ReleaseDate.Day.Value) : null;
 			}
 
 			var artists = contract.ArtistLinks;
@@ -313,6 +314,8 @@ namespace VocaDb.Web.Models {
 
 		public bool Draft { get; set; }
 
+		public DateTime? FullReleaseDate { get; set; }
+
 		public int Hits { get; set; }
 
 		public int Id { get; set; }
@@ -344,6 +347,24 @@ namespace VocaDb.Web.Models {
 		public string ReleaseEvent { get; set; }
 
 		public OptionalDateTimeContract ReleaseDate { get; set; }
+
+		public bool ReleaseDateIsInTheFarFuture {
+			get {
+				return FullReleaseDate.HasValue && FullReleaseDate.Value > DateTime.Now.AddDays(7);
+			}
+		}
+
+		public bool ReleaseDateIsInTheNearFuture {
+			get {
+				return FullReleaseDate.HasValue && FullReleaseDate.Value > DateTime.Now && FullReleaseDate.Value <= DateTime.Now.AddDays(7);
+			}
+		}
+
+		public bool ReleaseDateIsInThePast {
+			get {
+				return FullReleaseDate.HasValue && FullReleaseDate.Value <= DateTime.Now;
+			}
+		}
 
 		public bool ShowProducerRoles {
 			get {
