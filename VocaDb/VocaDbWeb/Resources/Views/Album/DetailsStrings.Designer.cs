@@ -187,6 +187,15 @@ namespace ViewRes.Album {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Matching likes.
+        /// </summary>
+        public static string MatchingLikes {
+            get {
+                return ResourceManager.GetString("MatchingLikes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Matching tags.
         /// </summary>
         public static string MatchingTags {
