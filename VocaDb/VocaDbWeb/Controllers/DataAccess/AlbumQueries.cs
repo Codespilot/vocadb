@@ -208,6 +208,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 						.Select(a => new AlbumContract(a, permissionContext.LanguagePreference))
 						.OrderBy(a => a.Name)
 						.ToArray(),
+					LikeMatches = 
+						albums.LikeMatches
+						.Select(a => new AlbumContract(a, permissionContext.LanguagePreference))
+						.OrderBy(a => a.Name)
+						.ToArray(),
 					TagMatches = 
 						albums.TagMatches
 						.Select(a => new AlbumContract(a, permissionContext.LanguagePreference))

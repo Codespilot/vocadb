@@ -2,6 +2,7 @@
 using System.Linq;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
+using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Repositories;
 
@@ -46,6 +47,7 @@ namespace VocaDb.Model.Service.Queries {
 			var albums = new RelatedAlbums();
 			var albumId = album.Id;
 			var creditableArtists = album.Artists.Where(a => a.Artist != null && !a.IsSupport).ToArray();
+			var loadedAlbums = new List<int>(20) { albumId };
 
 			var mainArtists = GetMainArtists(album, creditableArtists);
 
@@ -68,6 +70,28 @@ namespace VocaDb.Model.Service.Queries {
 					.ToArray();
 
 				albums.ArtistMatches = albumsByMainArtists;
+				loadedAlbums.AddRange(albumsByMainArtists.Select(s => s.Id));
+
+			}
+
+			if (album.RatingTotal > 0) {
+				
+				var userIds = album.UserCollections.Where(c => c.Rating > 3).Take(30).Select(u => u.User.Id).ToArray();
+				var likeMatches = ctx.OfType<AlbumForUser>()
+					.Query()
+					.Where(f => 
+						userIds.Contains(f.User.Id) 
+						&& !loadedAlbums.Contains(f.Album.Id)
+						&& !f.Album.Deleted)
+					.GroupBy(f => f.Album.Id)
+					.Select(f => new { Album = f.Key, Ratings = f.Sum(r => r.Rating) })
+					.OrderByDescending(f => f.Ratings)
+					.Select(s => s.Album)
+					.Take(12)
+					.ToArray();
+
+				albums.LikeMatches = ctx.Query().Where(s => likeMatches.Contains(s.Id)).ToArray();
+				loadedAlbums.AddRange(likeMatches);
 
 			}
 
@@ -75,12 +99,11 @@ namespace VocaDb.Model.Service.Queries {
 
 				// Take top 5 tags
 				var tagNames = album.Tags.Usages.OrderByDescending(u => u.Count).Take(5).Select(t => t.Tag.Name).ToArray();
-				var otherAlbumIds = albums.ArtistMatches.Select(a => a.Id).ToArray();
 
 				var albumsWithTags =
 					ctx.Query().Where(al => 
 						al.Id != albumId
-						&& !otherAlbumIds.Contains(al.Id) 
+						&& !loadedAlbums.Contains(al.Id) 
 						&& !al.Deleted 
 						&& al.Tags.Usages.Any(t => tagNames.Contains(t.Tag.Name)))
 					.OrderBy(a => a.RatingTotal)
@@ -101,10 +124,13 @@ namespace VocaDb.Model.Service.Queries {
 
 		public RelatedAlbums() {
 			ArtistMatches = new Album[0];
+			LikeMatches = new Album[0];
 			TagMatches = new Album[0];
 		}
 
 		public Album[] ArtistMatches { get; set; }
+
+		public Album[] LikeMatches { get; set; }
 
 		public Album[] TagMatches { get; set; }
 
