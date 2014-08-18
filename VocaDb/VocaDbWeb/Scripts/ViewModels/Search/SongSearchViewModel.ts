@@ -60,6 +60,7 @@ module vdb.viewModels.search {
 					this.pvsOnly(),
 					this.since(),
 					this.onlyRatedSongs() ? this.loggedUserId : null,
+					this.fields(),
 					status, result => {
 
 					_.each(result.items, (song: ISongSearchItem) => {
@@ -95,6 +96,8 @@ module vdb.viewModels.search {
 		public songType = ko.observable("Unspecified");
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().songSortRuleNames[this.sort()] : "");
+
+		public fields = ko.computed(() => this.searchViewModel.showTags() ? "ThumbUrl,Tags" : "ThumbUrl");
 
 		public getPVServiceIcons = (services: string) => {
 			return this.pvServiceIcons.getIconUrls(services);

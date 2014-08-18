@@ -46,6 +46,7 @@ module vdb.viewModels.search {
 			this.searchTerm.subscribe(this.updateResults);
 			this.tag.subscribe(this.updateResults);
 			this.draftsOnly.subscribe(this.updateResults);
+			this.showTags.subscribe(this.updateResults);
 
 			this.showAnythingSearch = ko.computed(() => this.searchType() == 'Anything');
 			this.showArtistSearch = ko.computed(() => this.searchType() == 'Artist');
@@ -87,6 +88,7 @@ module vdb.viewModels.search {
 		public showSongSearch: KnockoutComputed<boolean>;
 		public showTagSearch = ko.computed(() => this.searchType() == 'Tag');
 		public showTagFilter = ko.computed(() => !this.showTagSearch());
+		public showTags = ko.observable(false);
 		public showDraftsFilter = ko.computed(() => this.searchType() != 'Tag');
 
 		public isUniversalSearch = ko.computed(() => this.searchType() == 'Anything');

@@ -1329,6 +1329,9 @@
     <Content Include="Content\Styles\PVViewer_Blue.css">
       <DependentUpon>PVViewer_Blue.less</DependentUpon>
     </Content>
+    <Content Include="Content\Styles\Search.css">
+      <DependentUpon>Search.less</DependentUpon>
+    </Content>
     <Content Include="Content\Styles\Snow2013.css">
       <DependentUpon>Snow2013.less</DependentUpon>
     </Content>
@@ -1460,7 +1463,9 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Base\EntryWithTagUsagesContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Globalization\LocalizedStringWithIdContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagUsageForApiContract.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistApiContract.ts" />
@@ -1521,6 +1526,7 @@
     <Content Include="Areas\HelpPage\Views\ApiHelp\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\ApiHelp\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Styles\Search.less" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -1921,6 +1927,8 @@
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeAlbumRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeEntryReportRepository.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Search\AlbumSearchViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Search\ArtistSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchCategoryBaseViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\SongSearchViewModel.ts" />

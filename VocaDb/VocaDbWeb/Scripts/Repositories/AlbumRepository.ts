@@ -24,13 +24,14 @@ module vdb.repositories {
 			discTypes: string, tag: string,
 			artistId: number, artistParticipationStatus: string,
 			childVoicebanks: boolean,
+			fields: string,
 			status: string,
 			callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort,
+				query: query, fields: fields, lang: lang, nameMatchMode: 'Auto', sort: sort,
 				discTypes: discTypes,
 				tag: tag,
 				artistId: artistId,

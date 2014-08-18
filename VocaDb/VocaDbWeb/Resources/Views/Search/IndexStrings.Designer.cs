@@ -61,6 +61,24 @@ namespace ViewRes.Search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string AlbumDetails {
+            get {
+                return ResourceManager.GetString("AlbumDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tiles.
+        /// </summary>
+        public static string AlbumTiles {
+            get {
+                return ResourceManager.GetString("AlbumTiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Album type.
         /// </summary>
         public static string AlbumType {
@@ -187,6 +205,15 @@ namespace ViewRes.Search {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show tags.
+        /// </summary>
+        public static string ShowTags {
+            get {
+                return ResourceManager.GetString("ShowTags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Song type.
         /// </summary>
         public static string SongType {
@@ -201,6 +228,15 @@ namespace ViewRes.Search {
         public static string TagCategory {
             get {
                 return ResourceManager.GetString("TagCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tag information.
+        /// </summary>
+        public static string TagInformation {
+            get {
+                return ResourceManager.GetString("TagInformation", resourceCulture);
             }
         }
         

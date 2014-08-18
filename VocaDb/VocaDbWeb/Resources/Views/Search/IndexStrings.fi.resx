@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlbumDetails" xml:space="preserve">
+    <value>Yksityiskohdat</value>
+  </data>
+  <data name="AlbumTiles" xml:space="preserve">
+    <value>Kansikuvat</value>
+  </data>
   <data name="AlbumType" xml:space="preserve">
     <value>Albumin tyyppi</value>
   </data>
@@ -159,11 +165,17 @@
   <data name="Showing" xml:space="preserve">
     <value>Näytetään</value>
   </data>
+  <data name="ShowTags" xml:space="preserve">
+    <value>Näytä tägit</value>
+  </data>
   <data name="SongType" xml:space="preserve">
     <value>Kappaleen tyyppi</value>
   </data>
   <data name="TagCategory" xml:space="preserve">
     <value>Kategoria</value>
+  </data>
+  <data name="TagInformation" xml:space="preserve">
+    <value>Tägin tiedot</value>
   </data>
   <data name="Times" xml:space="preserve">
     <value>kerta(a)</value>

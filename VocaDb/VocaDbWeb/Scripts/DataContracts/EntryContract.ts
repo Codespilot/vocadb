@@ -3,7 +3,7 @@ module vdb.dataContracts {
 	
 	// Base data contract for entries from the API.
 	// Corresponds to C# datacontract EntryForApiContract.
-	export interface EntryContract {
+	export interface EntryContract extends EntryWithTagUsagesContract {
 
 		additionalNames: string;
 
