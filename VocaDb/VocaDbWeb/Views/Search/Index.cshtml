@@ -87,13 +87,21 @@
 						@SearchDropDown("showArtistSearch", "artistSearchViewModel", Translate.ArtistSortRuleNames.ValuesAndNamesStrings)
 						@SearchDropDown("showAlbumSearch", "albumSearchViewModel", Translate.AlbumSortRuleNames.ValuesAndNamesStrings)
 						@SearchDropDown("showSongSearch", "songSearchViewModel", Translate.SongSortRuleNames.ValuesAndNamesStrings)
+						
+						<div class="inline-block" data-bind="visible: showAlbumSearch(), with: albumSearchViewModel">
+							<div class="btn-group">
+								<a data-bind="css: { active: viewMode() == 'Details' }, click: function() { viewMode('Details'); }" class="btn btn-nomargin" href="#" title="@Res.AlbumDetails">
+									<i class="icon-list"></i>
+								</a>
+								<a data-bind="css: { active: viewMode() == 'Tiles' }, click: function() { viewMode('Tiles'); }" class="btn btn-nomargin" href="#" title="@Res.AlbumTiles">
+									<i class="icon-th"></i>
+								</a>
+							</div>
+						</div>
 
-						<div class="btn-group" data-bind="visible: showAlbumSearch(), with: albumSearchViewModel">
-							<a data-bind="css: { active: viewMode() == 'Details' }, click: function() { viewMode('Details'); }" class="btn btn-nomargin" href="#">
-								<i class="icon-list"></i>
-							</a>
-							<a data-bind="css: { active: viewMode() == 'Tiles' }, click: function() { viewMode('Tiles'); }" class="btn btn-nomargin" href="#">
-								<i class="icon-th"></i>
+						<div class="inline-block" data-bind="visible: showTagFilter()">
+							<a data-bind="css: { active: showTags() }, click: function() { showTags(!showTags()); }" class="btn btn-nomargin" href="#" title="@Res.ShowTags">
+								<i class="icon-tags"></i>
 							</a>
 						</div>
 
@@ -120,7 +128,10 @@
 						<div class="control-group" data-bind="visible: showTagFilter">
 							<div class="control-label">@ViewRes.SharedStrings.Tag</div>
 							<div class="controls">
-								<div class="input-append">
+								<div class="input-append input-prepend">
+									<a href="#" class="btn" data-bind="visible: tag, attr: { href: '/Tag/Details/' + tag() }" title="@Res.TagInformation">
+										<i class="icon icon-info-sign"></i>
+									</a>
 									@KnockoutHelpers.LockingAutoComplete("tagAutoComplete", "tag")
 								</div>
 							</div>
@@ -144,7 +155,10 @@
 							<div class="control-group">
 								<div class="control-label">@EntryTypeNames.Artist</div>
 								<div class="controls">
-									<div style="display: inline-block;" class="input-append">
+									<div style="display: inline-block;" class="input-append input-prepend">
+										<a href="#" class="btn btn-nomargin" data-bind="visible: artistId, attr: { href: '/Ar/' + artistId() }">
+											<i class="icon icon-info-sign"></i>
+										</a>										
 										@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "artistSearchParams", textBinding: "artistName", valBinding: "artistId")
 									</div>
 									<!-- ko if: artistId -->
@@ -152,7 +166,7 @@
 									<!-- /ko -->
 								</div>
 							</div>
-							
+
 							<div class="control-group" data-bind="visible: showChildVoicebanks">
 								<div class="controls">
 									<label class="checkbox">
@@ -174,7 +188,10 @@
 							<div class="control-group">
 								<div class="control-label">@EntryTypeNames.Artist</div>
 								<div class="controls">
-									<div style="display: inline-block;" class="input-append">
+									<div style="display: inline-block;" class="input-append input-prepend">
+										<a href="#" class="btn btn-nomargin" data-bind="visible: artistId, attr: { href: '/Ar/' + artistId() }">
+											<i class="icon icon-info-sign"></i>
+										</a>
 										@KnockoutHelpers.LockingAutoComplete("artistAutoComplete", "artistSearchParams", textBinding: "artistName", valBinding: "artistId")
 									</div>
 									<!-- ko if: artistId -->

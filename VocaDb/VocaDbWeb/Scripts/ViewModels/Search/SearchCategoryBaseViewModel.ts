@@ -57,6 +57,17 @@ module vdb.viewModels.search {
 			this.loadResults(pagingProperties, this.searchViewModel.searchTerm(), this.searchViewModel.tag(),
 				this.searchViewModel.draftsOnly() ? "Draft" : null, (result: any) => {
 
+					if (this.searchViewModel.showTags()) {
+
+						_.forEach(result.items, (item: dc.EntryWithTagUsagesContract) => {
+
+							if (item.tags)
+								item.tags = _.first(_.sortBy(item.tags, t => t.name.toLowerCase()), 10);
+
+						});
+
+					}
+
 					this.pauseNotifications = false;
 
 					if (pagingProperties.getTotalCount)
@@ -78,7 +89,7 @@ module vdb.viewModels.search {
 			super(searchViewModel);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) =>
-				this.entryRepo.getList(pagingProperties, lang, searchTerm, tag, status, callback);
+				this.entryRepo.getList(pagingProperties, lang, searchTerm, tag, this.fields(), status, callback);
 
 		}
 
@@ -88,103 +99,7 @@ module vdb.viewModels.search {
 
 		}
 
-	}
-
-	export class ArtistSearchViewModel extends SearchCategoryBaseViewModel<dc.ArtistApiContract> {
-
-		constructor(searchViewModel: SearchViewModel, lang: string, private artistRepo: rep.ArtistRepository, artistType: string) {
-
-			super(searchViewModel);
-
-			if (artistType)
-				this.artistType(artistType);
-
-			this.sort.subscribe(this.updateResultsWithTotalCount);
-			this.artistType.subscribe(this.updateResultsWithTotalCount);
-
-			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
-
-				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag, status, callback);
-
-			}
-
-		}
-
-		public artistType = ko.observable("Unknown");
-		public sort = ko.observable("Name");
-		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().artistSortRuleNames[this.sort()] : "");
-
-	}
-
-	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
-
-		constructor(searchViewModel: SearchViewModel, lang: string, private albumRepo: rep.AlbumRepository,
-			private artistRepo: rep.ArtistRepository, sort: string, artistId: number, albumType: string) {
-
-			super(searchViewModel);
-
-			this.artistSearchParams = {
-				allowCreateNew: false,
-				acceptSelection: this.selectArtist,
-				height: 300
-			};
-
-			if (sort)
-				this.sort(sort);
-
-			if (artistId)
-				this.selectArtist(artistId);
-
-			if (albumType)
-				this.albumType(albumType);
-
-			this.sort.subscribe(this.updateResultsWithTotalCount);
-			this.albumType.subscribe(this.updateResultsWithTotalCount);
-			this.artistId.subscribe(this.updateResultsWithTotalCount);
-			this.artistParticipationStatus.subscribe(this.updateResultsWithTotalCount);
-			this.childVoicebanks.subscribe(this.updateResultsWithTotalCount);
-
-			this.showChildVoicebanks = ko.computed(() => this.artistId() != null && helpers.ArtistHelper.canHaveChildVoicebanks(this.artistType()));
-
-			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
-
-				this.albumRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.albumType(), tag, this.artistId(),
-					this.artistParticipationStatus(), this.childVoicebanks(), status, callback);
-
-			}
-
-		}
-
-		public albumType = ko.observable("Unknown");
-		public artistId = ko.observable<number>(null);
-		public artistName = ko.observable("");
-		public artistParticipationStatus = ko.observable("Everything");
-		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
-		public artistType = ko.observable<cls.artists.ArtistType>(null);
-		public childVoicebanks = ko.observable(false);
-		public showChildVoicebanks: KnockoutComputed<boolean>;
-		public sort = ko.observable("Name");
-		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().albumSortRuleNames[this.sort()] : "");
-		public viewMode = ko.observable("Details");
-
-		public ratingStars = (album: dc.AlbumContract) => {
-
-			if (!album)
-				return [];
-
-			var ratings = _.map([1, 2, 3, 4, 5], rating => { return { enabled: (Math.round(album.ratingAverage) >= rating) } });
-			return ratings;
-
-		};
-
-		public selectArtist = (selectedArtistId: number) => {
-			this.artistId(selectedArtistId);
-			this.artistType(null);
-			this.artistRepo.getOne(selectedArtistId, artist => {
-				this.artistName(artist.name);
-				this.artistType(cls.artists.ArtistType[artist.artistType]);
-			});
-		};
+		public fields = ko.computed(() => this.searchViewModel.showTags() ? "MainPicture,Tags" : "MainPicture");
 
 	}
 

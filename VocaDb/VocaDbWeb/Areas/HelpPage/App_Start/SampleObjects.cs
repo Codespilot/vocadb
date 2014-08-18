@@ -52,7 +52,9 @@ namespace VocaDb.Web.Areas.HelpPage.App_Start {
 			Names = new[] {
 				new LocalizedStringContract("Synthesis", ContentLanguageSelection.English)
 			},
-			Tags = new [] { "electronic" },
+			Tags = new [] {
+				new TagUsageForApiContract { Name = "electronic" }
+			},
 			WebLinks = new[] {
 				new WebLinkContract("http://karent.jp/album/29", "KarenT", WebLinkCategory.Official)
 			}

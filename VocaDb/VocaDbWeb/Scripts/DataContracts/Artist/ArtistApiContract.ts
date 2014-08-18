@@ -1,7 +1,7 @@
 ﻿
 module vdb.dataContracts {
 
-	export interface ArtistApiContract {
+	export interface ArtistApiContract extends EntryWithTagUsagesContract {
 
 		additionalNames: string;
 

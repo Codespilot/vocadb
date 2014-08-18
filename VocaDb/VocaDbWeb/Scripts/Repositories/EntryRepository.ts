@@ -16,12 +16,12 @@ module vdb.repositories {
 
 		}
 
-		getList = (paging: dc.PagingProperties, lang: string, query: string, tag: string, status: string, callback) => {
+		getList = (paging: dc.PagingProperties, lang: string, query: string, tag: string, fields: string, status: string, callback) => {
 
 			var url = this.mapUrl("");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, fields: "MainPicture", lang: lang, nameMatchMode: 'Auto',
+				query: query, fields: fields, lang: lang, nameMatchMode: 'Auto',
 				tag: tag,
 				status: status
 			};

@@ -1,4 +1,5 @@
-﻿
+﻿@using SharedRes = ViewRes.SharedStrings;
+
 <div data-bind="visible: showArtistSearch, with: artistSearchViewModel">
 
 	@{ Html.RenderPartial("Partials/_EntryCountBox"); }
@@ -17,11 +18,14 @@
 						<span class="sortDirection_down" data-bind="visible: sort() == 'Name'"></span>
 					</a>
 				</th>
+				<th data-bind="if: $parent.showTags">
+					@SharedRes.Tags
+				</th>
 			</tr>
 		</thead>
 		<tbody data-bind="foreach: page">
 			<tr>
-				<td>
+				<td style="width: 80px">
 					<a data-bind="visible: $data.mainPicture && mainPicture.urlTinyThumb, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id), title: $data.additionalNames }" href="#" class="coverPicThumb">
 						<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb img-rounded" />
 					</a>
@@ -33,6 +37,14 @@
 					@KnockoutHelpers.DraftIcon("status")
 					<br />
 					<small class="extraInfo" data-bind="text: $data.additionalNames"></small>
+				</td>
+				<td data-bind="if: $parents[1].showTags() && $data.tags" class="search-tags-column">
+					<div data-bind="visible: tags.length">
+						<i class="icon icon-tags"></i>
+						<!-- ko foreach: tags -->
+						<a href="#" data-bind="text: name, click: function() { $parents[2].tag(name); return false; }"></a><span data-bind="visible: $data != _.last($parent.tags)">,</span>
+						<!-- /ko -->
+					</div>
 				</td>
 			</tr>
 		</tbody>

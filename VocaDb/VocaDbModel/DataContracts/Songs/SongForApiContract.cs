@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
@@ -51,7 +52,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 				PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
 
 			if (fields.HasFlag(SongOptionalFields.Tags))
-				Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
+				Tags = song.Tags.Usages.Select(u => new TagUsageForApiContract(u)).ToArray();
 
 			if (fields.HasFlag(SongOptionalFields.ThumbUrl))
 				ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
@@ -99,7 +100,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 				PVs = song.PVs.Select(p => new PVContract(p)).ToArray();
 
 			if (tags)
-				Tags = song.Tags.Tags.Select(t => t.Name).ToArray();
+				Tags = song.Tags.Usages.Select(u => new TagUsageForApiContract(u)).ToArray();
 
 			if (thumbUrl)
 				ThumbUrl = VideoServiceHelper.GetThumbUrl(song.PVs.PVs);
@@ -171,7 +172,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public EntryStatus Status { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
-		public string[] Tags { get; set; }
+		public TagUsageForApiContract[] Tags { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public string ThumbUrl { get; set; }

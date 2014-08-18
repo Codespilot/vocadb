@@ -19,6 +19,9 @@
 						<span class="sortDirection_down" data-bind="visible: sort() == 'Name'"></span>
 					</a>
 				</th>
+				<th data-bind="if: $parent.showTags">
+					@SharedRes.Tags
+				</th>
 				<th>
 					<a data-bind="click: function() { sort('RatingScore') }" href="#">
 						@Res.Rating
@@ -29,7 +32,7 @@
 		</thead>
 		<tbody data-bind="foreach: page">
 			<tr>
-				<td>
+				<td style="width: 80px">
 					<a data-bind="visible: $data.thumbUrl, attr: { href: vdb.utils.EntryUrlMapper.details('Song', id), title: $data.additionalNames }" href="#">
 						<img data-bind="attr: { src: $data.thumbUrl }" title="Cover picture" class="coverPicThumb img-rounded" />
 					</a>
@@ -59,6 +62,14 @@
 							</div>
 							<div data-bind="html: previewHtml"></div>
 						</div>
+					</div>
+				</td>
+				<td data-bind="if: $parents[1].showTags() && $data.tags" class="search-tags-column">
+					<div data-bind="visible: tags.length">
+						<i class="icon icon-tags"></i>
+						<!-- ko foreach: tags -->
+						<a href="#" data-bind="text: name, click: function() { $parents[2].tag(name); return false; }"></a><span data-bind="visible: $data != _.last($parent.tags)">,</span>
+						<!-- /ko -->
 					</div>
 				</td>
 				<td>

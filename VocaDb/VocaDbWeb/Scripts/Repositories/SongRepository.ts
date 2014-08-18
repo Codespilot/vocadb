@@ -32,13 +32,14 @@ module vdb.repositories {
 			onlyWithPvs: boolean,
 			since: number,
 			userCollectionId: number,
+			fields: string,
 			status: string,
 			callback) => {
 
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/songs");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort,
+				query: query, fields: fields, lang: lang, nameMatchMode: 'Auto', sort: sort,
 				songTypes: songTypes,
 				tag: tag,
 				artistId: artistId,

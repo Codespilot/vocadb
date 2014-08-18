@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using VocaDb.Model.DataContracts.PVs;
+using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
@@ -68,7 +69,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 				PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 
 			if (tags)
-				Tags = album.Tags.Tags.Select(t => t.Name).ToArray();
+				Tags = album.Tags.Usages.Select(u => new TagUsageForApiContract(u)).ToArray();
 
 			if (webLinks)
 				WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).ToArray();
@@ -137,7 +138,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 		public EntryStatus Status { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
-		public string[] Tags { get; set; }
+		public TagUsageForApiContract[] Tags { get; set; }
 
 		[DataMember]
 		public int Version { get; set; }

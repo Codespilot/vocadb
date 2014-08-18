@@ -133,6 +133,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
 				"~/Scripts/ViewModels/Search/SearchViewModel.js",
 				"~/Scripts/ViewModels/Search/SearchCategoryBaseViewModel.js",
+				"~/Scripts/ViewModels/Search/ArtistSearchViewModel.js",
+				"~/Scripts/ViewModels/Search/AlbumSearchViewModel.js",
 				"~/Scripts/ViewModels/Search/SongSearchViewModel.js"
 			));
 
@@ -228,7 +230,9 @@ namespace VocaDb.Web.App_Start {
 				"~/Content/Styles/PVViewer_Black.css",
 				"~/Content/Styles/ExtLinks.css", 
 				"~/Content/Styles/Overrides.css",
-				"~/Content/Styles/StyleOverrides.css"));
+				"~/Content/Styles/StyleOverrides.css",
+				"~/Content/Styles/Search.css"
+				));
 
 			bundles.Add(new StyleBundle("~/Content/embedSong").Include(
 				"~/Content/bootstrap.css", "~/Content/EmbedSong.css"));
