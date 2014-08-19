@@ -65,6 +65,10 @@ module vdb.viewModels.search {
 				this.updateResults();
 			});
 
+			tagRepo.getTopTags("Genres", result => {
+				this.genreTags(result);
+			});
+
 		}
 
 		public albumSearchViewModel: AlbumSearchViewModel;
@@ -75,6 +79,7 @@ module vdb.viewModels.search {
 
 		private currentSearchType = ko.observable("Anything");
 		public draftsOnly = ko.observable(false);
+		public genreTags = ko.observableArray<string>();
 		public pageSize = ko.observable(10);
 		public resources = ko.observable<any>();
 		public showAdvancedFilters = ko.observable(false);

@@ -22,6 +22,15 @@ module vdb.repositories {
 
 		}
 
+		public getTopTags = (categoryName?: string, callback?) => {
+			
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/tags/top");
+			var data = { categoryName: categoryName };
+
+			$.getJSON(url, data, callback);
+
+		}
+
 	}
 
 }

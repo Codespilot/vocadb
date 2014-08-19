@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Web.Configuration;
 using System.Web.Http;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Images;
@@ -9,6 +8,7 @@ using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
+using WebApi.OutputCache.V2;
 
 namespace VocaDb.Web.Controllers.Api {
 	
@@ -96,6 +96,27 @@ namespace VocaDb.Web.Controllers.Api {
 			int maxResults = 10) {
 			
 			return queries.FindNames(query, allowAliases, true, maxResults);
+
+		}
+
+		[Route("top")]
+		[CacheOutput(ClientTimeSpan = 86400, ServerTimeSpan = 86400)]
+		public string[] GetTopTags(string categoryName) {
+			
+			return queries.HandleQuery(ctx => {
+				
+				var tags = ctx.Query()
+					.Where(t => categoryName == null || t.CategoryName == categoryName)
+					.OrderByDescending(t => t.AllAlbumTagUsages.Count + t.AllArtistTagUsages.Count + t.AllSongTagUsages.Count)
+					.Select(t => t.Name)
+					.Take(15)
+					.ToArray()
+					.OrderBy(t => t)
+					.ToArray();
+
+				return tags;
+
+			});
 
 		}
 
