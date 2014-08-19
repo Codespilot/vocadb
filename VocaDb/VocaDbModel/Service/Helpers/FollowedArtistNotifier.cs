@@ -3,7 +3,6 @@ using System.Linq;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Users;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Model.Service.Helpers {
@@ -78,7 +77,7 @@ namespace VocaDb.Model.Service.Helpers {
 				.Where(afu => 
 					artistIds.Contains(afu.Artist.Id) 
 					&& afu.User.Id != creator.Id && afu.User.Active
-					&& afu.User.ReceivedMessages.Count(m => !m.Read) <= 3)
+					&& afu.User.ReceivedMessages.Count(m => !m.Read) <= 9)
 				.Select(afu => new {
 					UserId = afu.User.Id, 
 					ArtistId = afu.Artist.Id
