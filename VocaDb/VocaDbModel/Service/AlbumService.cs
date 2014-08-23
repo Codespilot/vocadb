@@ -144,6 +144,7 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("deleting album {0}", EntryLinkFactory.CreateEntryLink(a)), session);
 
+				NHibernateUtil.Initialize(a.CoverPictureData);
 				a.Delete();
 
 			}, PermissionToken.DeleteEntries, skipLog: true);
