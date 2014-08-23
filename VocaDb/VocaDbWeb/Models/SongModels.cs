@@ -108,6 +108,7 @@ namespace VocaDb.Web.Models {
 			OtherPVs = pvs.Where(p => p.PVType != PVType.Original).ToArray();
 			PrimaryPV = PVHelper.PrimaryPV(pvs);
 			ThumbUrl = VideoServiceHelper.GetThumbUrlPreferNotNico(pvs);
+			ThumbUrlMaxSize = VideoServiceHelper.GetMaxSizeThumbUrl(pvs) ?? ThumbUrl;
 
 			/*var nicoMimiUrl = GetNicoMimiUrl(contract);
 			if (!string.IsNullOrEmpty(nicoMimiUrl)) {
@@ -216,6 +217,8 @@ namespace VocaDb.Web.Models {
 		public TagUsageContract[] Tags { get; set; }
 
 		public string ThumbUrl { get; set; }
+
+		public string ThumbUrlMaxSize { get; set; }
 
 		public SongVoteRating UserRating { get; set; }
 

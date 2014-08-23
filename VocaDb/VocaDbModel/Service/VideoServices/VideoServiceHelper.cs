@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using VocaDb.Model.Domain.PVs;
 
@@ -22,17 +24,35 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var servicePvs = allPvs.Where(p => p.Service == service).ToArray();
 
-			return servicePvs.FirstOrDefault(p => p.PVType == PVType.Original)
-				?? servicePvs.FirstOrDefault(p => p.PVType == PVType.Reprint)
-				?? servicePvs.FirstOrDefault();
+			return GetPV(servicePvs, true,
+				p => p.PVType == PVType.Original, 
+				p => p.PVType == PVType.Reprint);
 
 		}
 
 		public static T GetPV<T>(T[] allPvs) where T : class, IPV {
 
-			return allPvs.FirstOrDefault(p => p.PVType == PVType.Original)
-				?? allPvs.FirstOrDefault(p => p.PVType == PVType.Reprint)
-				?? allPvs.FirstOrDefault();
+			return GetPV(allPvs, true,
+				p => p.PVType == PVType.Original, 
+				p => p.PVType == PVType.Reprint);
+
+		}
+
+		public static T GetPV<T>(ICollection<T> allPvs, bool acceptFirst, params Func<T, bool>[] predicates) where T : class, IPV {
+
+			if (!allPvs.Any())
+				return null;
+
+			foreach (var predicate in predicates) {
+				
+				var pv = allPvs.FirstOrDefault(p => predicate(p));
+
+				if (pv != null)
+					return pv;
+
+			}
+
+			return acceptFirst ? allPvs.FirstOrDefault() : null;
 
 		}
 
@@ -90,6 +110,23 @@ namespace VocaDb.Model.Service.VideoServices {
 				pv = pvs.FirstOrDefault();
 
 			return (pv != null ? (!string.IsNullOrEmpty(pv.ThumbUrl) ? pv.ThumbUrl : GetThumbUrl(pv)) : string.Empty);
+
+		}
+
+		public static string GetMaxSizeThumbUrl<T>(IList<T> pvs)  where T : class, IPVWithThumbnail {
+
+			ParamIs.NotNull(() => pvs);
+
+			var pv = GetPV(pvs, false,
+				p => p.Service == PVService.Youtube && p.PVType == PVType.Original,
+				p => p.Service == PVService.Youtube && p.PVType == PVType.Reprint,
+				p => p.Service == PVService.Youtube);
+
+			if (pv != null) {
+				return VideoService.Youtube.GetMaxSizeThumbUrlById(pv.PVId);				
+			}
+
+			return null;		
 
 		}
 

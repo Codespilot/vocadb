@@ -65,6 +65,10 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
+		public virtual string GetMaxSizeThumbUrlById(string id) {
+			return GetThumbUrlById(id);
+		}
+
 		public virtual string GetUrlById(string id) {
 
 			var matcher = linkMatchers.First();
