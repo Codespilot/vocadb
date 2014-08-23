@@ -25,8 +25,8 @@
 
 	var showAlternateVersions = 3;
 
-	if (!string.IsNullOrEmpty(Model.ThumbUrl)) {
-		ViewContext.Controller.ViewBag.Banner = Model.ThumbUrl;
+	if (!string.IsNullOrEmpty(Model.ThumbUrlMaxSize)) {
+		ViewContext.Controller.ViewBag.Banner = Model.ThumbUrlMaxSize;
 	}
 	
 	var lyricsLanguages = string.Join(", ", Model.Lyrics.Select(l => l.Language).Distinct().Select(l => Translate.ContentLanguageSelectionName(l)));

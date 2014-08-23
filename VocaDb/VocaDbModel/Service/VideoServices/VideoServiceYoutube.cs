@@ -13,5 +13,13 @@ namespace VocaDb.Model.Service.VideoServices {
 			return string.Format(url, id);
 
 		}
+
+		public override string GetMaxSizeThumbUrlById(string id) {
+		
+			const string url = "http://img.youtube.com/vi/{0}/hqdefault.jpg";
+			return string.Format(url, id);
+	
+		}
+
 	}
 }
