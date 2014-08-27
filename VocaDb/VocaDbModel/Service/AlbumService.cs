@@ -631,6 +631,8 @@ namespace VocaDb.Model.Service {
 
 				AuditLog(string.Format("moving {0} to trash", album), session);
 
+				NHibernateUtil.Initialize(album.CoverPictureData);
+
 				var archived = new ArchivedAlbumContract(album, new AlbumDiff(true));
 				var data = XmlHelper.SerializeToXml(archived);
 				var trashed = new TrashedEntry(album, data, GetLoggedUser(session));
