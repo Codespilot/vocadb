@@ -368,6 +368,9 @@ namespace VocaDb.Model.Service {
 				AuditLog(string.Format("Merging {0} to {1}", 
 					EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)), session);
 
+				NHibernateUtil.Initialize(source.Picture);
+				NHibernateUtil.Initialize(target.Picture);
+
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
 					session.Save(name);
