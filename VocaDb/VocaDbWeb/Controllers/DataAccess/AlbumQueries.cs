@@ -238,6 +238,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				session.AuditLogger.AuditLog(string.Format("Merging {0} to {1}", EntryLinkFactory.CreateEntryLink(source), EntryLinkFactory.CreateEntryLink(target)));
 
+				NHibernateUtil.Initialize(source.CoverPictureData);
+				NHibernateUtil.Initialize(target.CoverPictureData);
+
 				foreach (var n in source.Names.Names.Where(n => !target.HasName(n))) {
 					var name = target.CreateName(n.Value, n.Language);
 					session.Save(name);
