@@ -123,16 +123,11 @@
   <data name="AccessKey" xml:space="preserve">
     <value>Zugriffsschlüssel</value>
   </data>
-  <data name="AccessKeyDescription" xml:space="preserve">
-    <value>Mit dem Zugriffsschlüssel kannst du dich von diversen anderen Diensten aus bei VocaDB einloggen, ohne dass dein momentanes Passwort veröffentlicht wird.
-				Du kannst deinen Zugriffsschlüssel jederzeit zurücksetzen - dadurch wird der vorige Zugriffsschlüssel ungültig.
-				Gib deinen Zugriffsschlüssel nicht öffentlich bekannt! Wenn du befürchtest, dass dein Zugriffsschlüssel einer anderen Person bekannt ist, setze diesen bitte umgehend zurück.</value>
-  </data>
   <data name="AccountSettings" xml:space="preserve">
     <value>Kontoeinstellungen</value>
   </data>
   <data name="AnonymousActivity" xml:space="preserve">
-    <value>Mein Benutzername darf in der Aktivitätsliste angezeigt werden.</value>
+    <value>Mein Benutzername darf in der Liste für die letzten Aktivitäten angezeigt werden.</value>
   </data>
   <data name="Automatic" xml:space="preserve">
     <value>(Automatisch)</value>
@@ -147,7 +142,7 @@
     <value>Datum- und Zahlenformatierung</value>
   </data>
   <data name="CurrentPass" xml:space="preserve">
-    <value>Aktuelles Passwort</value>
+    <value>Derzeitiges Passwort</value>
   </data>
   <data name="DefaultLanguageSelection" xml:space="preserve">
     <value>Bevorzugte Anzeigesprache</value>
@@ -156,19 +151,19 @@
     <value>E-Mail</value>
   </data>
   <data name="EmailNote" xml:space="preserve">
-    <value>nicht sichtbar für andere Benutzer, wird von Gravatar und für Passwort-Resets verwendet</value>
+    <value>(nicht sichtbar für andere Benutzer, wird von gravatar und für Passwort-Resets verwendet)</value>
   </data>
   <data name="EmailOptions" xml:space="preserve">
     <value>E-Mail Benachrichtigungen für Privatnachrichten</value>
   </data>
   <data name="EmailTaken" xml:space="preserve">
-    <value>Die E-Mail Adresse wurde bereits einem anderen Benutzer zugewiesen. Wenn es sich dabei um deine Adresse handelt, nimm bitte mit dem Support Kontakt auf.</value>
+    <value>Diese E-Mail Adresse wurde bereits einem anderen Benutzer zugewiesen. Wenn es sich hierbei um deine Adresse handelt, kontaktiere den Support.</value>
   </data>
   <data name="ExternalLinks" xml:space="preserve">
     <value>Externe Links</value>
   </data>
   <data name="FillIfChangingPassword" xml:space="preserve">
-    <value>(bei einer Passwortänderung ausfüllen.)</value>
+    <value>(ausfüllen, wenn das Passwort geändert wird.)</value>
   </data>
   <data name="Interface" xml:space="preserve">
     <value>Benutzeroberfläche</value>
@@ -178,9 +173,6 @@
   </data>
   <data name="InvalidEmail" xml:space="preserve">
     <value>Bitte überprüfe die E-Mail Adresse.</value>
-  </data>
-  <data name="LivePreview" xml:space="preserve">
-    <value>Vorschau</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Ort</value>
@@ -201,28 +193,25 @@
     <value>Bevorzugter Streaming-Dienst</value>
   </data>
   <data name="Privacy" xml:space="preserve">
-    <value>Privatssphäreeinstellungen</value>
+    <value>Privatssphäreneinstellungen</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
   </data>
-  <data name="PublicAlbumCollection" xml:space="preserve">
-    <value>Anderen erlauben, meine erworbenen Alben zu sehen.</value>
-  </data>
   <data name="PublicRatings" xml:space="preserve">
-    <value>Anderen erlauben, meine Song- und Albenbewertungen zu sehen.</value>
+    <value>Jeder darf meine Song- und Albenbewertungen einsehen.</value>
   </data>
   <data name="ReallyReset" xml:space="preserve">
-    <value>Wirklich zurücksetzen?</value>
+    <value>Passwort wirklich zurücksetzen?</value>
   </data>
   <data name="RequiredForChangingPassword" xml:space="preserve">
-    <value>(notwendig um das Passwort zurückzusetzen.)</value>
+    <value>(erforderlich um das Passwort zu ändern)</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
   <data name="SettingsUpdated" xml:space="preserve">
-    <value>Einstellungen aktualsiert</value>
+    <value>Einstellungen aktualisiert</value>
   </data>
   <data name="UnableToSave" xml:space="preserve">
     <value>Einstellungen konnten nicht gespeichert werden. Bitte behebe die Fehler und versuche es erneut.</value>

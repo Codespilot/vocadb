@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NewAlbums" xml:space="preserve">
-    <value>Kürzlich veröffentlichte oder demnächst erscheinende Alben</value>
+    <value>Kürzlich veröffentlichte oder kommende Alben</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>Neuigkeiten</value>
@@ -130,7 +130,7 @@
     <value>PV Highlights</value>
   </data>
   <data name="SearchSite" xml:space="preserve">
-    <value>Durchsuche die gesamte Seite mithilfe der Google Custom Search</value>
+    <value>Durchsuche die gesamte Seite mithilfe der benutzerdefinierten Google Suche</value>
   </data>
   <data name="TopAlbums" xml:space="preserve">
     <value>Zufällige beliebte Alben</value>
