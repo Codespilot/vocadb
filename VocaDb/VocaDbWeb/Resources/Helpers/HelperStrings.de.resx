@@ -166,7 +166,7 @@
     <value>Ohne Speichern zurückkehren</value>
   </data>
   <data name="SeeGuidePre" xml:space="preserve">
-    <value>Siehe</value>
+    <value>See the</value>
   </data>
   <data name="NameLangTitle" xml:space="preserve">
     <value>Sprache</value>
@@ -176,11 +176,5 @@
   </data>
   <data name="WebLinkUrlTitle" xml:space="preserve">
     <value>URL</value>
-  </data>
-  <data name="GitHubMarkdown" xml:space="preserve">
-    <value>GitHub-flavored Markdown</value>
-  </data>
-  <data name="IsSupportedForFormatting" xml:space="preserve">
-    <value>wird für die Formatierung unterstützt</value>
   </data>
 </root>

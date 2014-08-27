@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdditionDate" xml:space="preserve">
-    <value>Datum der Hinzufügung (absteigend)</value>
+    <value>Hinzufügungsdatum (absteigend)</value>
   </data>
   <data name="AdditionDateAsc" xml:space="preserve">
-    <value>Datum der Hinzufügung (aufsteigend)</value>
+    <value>Hinzufügungsdatum (aufsteigend)</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
