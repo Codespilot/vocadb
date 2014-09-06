@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using NHibernate;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.ReleaseEvents;
 using VocaDb.Model.Domain.Activityfeed;
@@ -41,6 +42,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				.ToArray();
 
 			foreach (var a in albums) {
+				NHibernateUtil.Initialize(a.CoverPictureData);
 				a.OriginalRelease.EventName = newName;
 				ctx.Update(a);
 			}

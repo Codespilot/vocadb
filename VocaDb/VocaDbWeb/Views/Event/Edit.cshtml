@@ -6,10 +6,10 @@
 	var isNew = (Model.Id == 0);
 
 	if (!isNew) {
-		ViewBag.Title = "Edit event - " + Model.Name;
+		ViewBag.Title = "Edit event - " + Model.OldName;
 		ViewBag.Parents = new[] { 
 			Html.ActionLink("Events", "EventsBySeries"),
-			Html.ActionLink(Model.Name, "Details", new { id = Model.Id })
+			Html.ActionLink(Model.OldName, "Details", new { id = Model.Id })
 		};		
 	} else {
 		ViewBag.Title = "Create a new event";

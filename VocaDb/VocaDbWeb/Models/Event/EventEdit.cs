@@ -28,7 +28,7 @@ namespace VocaDb.Web.Models.Event {
 			Date = contract.Date;
 			Description = contract.Description;
 			Id = contract.Id;
-			Name = contract.Name;
+			Name = OldName = contract.Name;
 			SeriesNumber = contract.SeriesNumber;
 			SeriesSuffix = contract.SeriesSuffix;
 
@@ -47,7 +47,10 @@ namespace VocaDb.Web.Models.Event {
 		public int Id { get; set; }
 
 		[StringLength(50)]
+		[Required]
 		public string Name { get; set; }
+
+		public string OldName { get; set; }
 
 		public int? SeriesId { get; set; }
 
@@ -64,6 +67,7 @@ namespace VocaDb.Web.Models.Event {
 			ParamIs.NotNull(() => contract);
 
 			AllSeries = contract.AllSeries;
+			OldName = contract.Name;
 
 			CopyNonEditableProperties(contract.Series);
 
