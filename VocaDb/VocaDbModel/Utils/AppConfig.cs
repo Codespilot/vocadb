@@ -94,6 +94,10 @@ namespace VocaDb.Model.Utils {
 			get { return Val("BilibiliAppKey"); }
 		}
 
+		public static string BilibiliSecretKey {
+			get { return Val("BilibiliSecretKey"); }
+		}
+
 		public static string BrandedStringsAssembly {
 			get { return Val("BrandedStringsAssembly"); }
 		}

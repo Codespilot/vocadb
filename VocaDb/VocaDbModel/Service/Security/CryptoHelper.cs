@@ -6,6 +6,9 @@ namespace VocaDb.Model.Service.Security {
 
 	public static class CryptoHelper {
 
+		public const string MD5 = "MD5";
+		public const string SHA1 = "SHA1";
+
 		/// <summary>
 		/// From http://stackoverflow.com/questions/311165/how-do-you-convert-byte-array-to-hexadecimal-string-and-vice-versa
 		/// </summary>
@@ -17,8 +20,7 @@ namespace VocaDb.Model.Service.Security {
 		}
 
 		public static string HashSHA1(string str) {
-			//return FormsAuthentication.HashPasswordForStoringInConfigFile(str, "sha1");
-			return HashString(str, "SHA1");
+			return HashString(str, SHA1);
 		}
 
 		/// <summary>
