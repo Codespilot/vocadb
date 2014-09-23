@@ -7,6 +7,7 @@ using System.Xml.XPath;
 using HtmlAgilityPack;
 using NLog;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Service.Security;
 using VocaDb.Model.Utils;
 
 namespace VocaDb.Model.Service.VideoServices {
@@ -33,7 +34,10 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (string.IsNullOrEmpty(id))
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.NoMatcher, "No matcher");
 
-			var requestUrl = string.Format("http://api.bilibili.tv/view?type=xml&page=1&appkey={0}&id={1}", AppConfig.BilibiliAppKey, id);
+			var paramStr = string.Format("appkey={0}&id={1}&type=xml{2}", AppConfig.BilibiliAppKey, id, AppConfig.BilibiliSecretKey);
+			var paramStrMd5 = CryptoHelper.HashString(paramStr, CryptoHelper.MD5).ToLowerInvariant();
+
+			var requestUrl = string.Format("https://api.bilibili.com/view?appkey={0}&id={1}&type=xml&sign={2}", AppConfig.BilibiliAppKey, id, paramStrMd5);
 
 			var request = (HttpWebRequest)WebRequest.Create(requestUrl);
 			request.UserAgent = "VocaDB/1.0 (admin@vocadb.net)";
