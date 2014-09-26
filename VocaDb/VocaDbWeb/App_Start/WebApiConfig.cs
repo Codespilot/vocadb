@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.Cors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
@@ -20,7 +21,8 @@ namespace VocaDb.Web.App_Start {
 			
 			config.Formatters.Insert(0, new JsonpMediaTypeFormatter(json));
 
-			config.EnableCors();
+			var cors = new EnableCorsAttribute(origins: "*", headers: "*", methods: "get");
+			config.EnableCors(cors);
 			config.MapHttpAttributeRoutes();
 
 			config.Routes.MapHttpRoute(
