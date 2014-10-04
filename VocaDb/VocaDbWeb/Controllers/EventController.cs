@@ -71,6 +71,11 @@ namespace VocaDb.Web.Controllers
         public ActionResult Edit(EventEdit model)
         {
 
+			// Either series or name must be specified. If series is specified, name is generated automatically.
+			if (!model.SeriesId.HasValue && string.IsNullOrEmpty(model.Name)) {
+				ModelState.AddModelError("Name", "Name cannot be empty");
+			}
+
 			if (!ModelState.IsValid) {
 
 				if (model.Id != 0) {

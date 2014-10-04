@@ -47,7 +47,6 @@ namespace VocaDb.Web.Models.Event {
 		public int Id { get; set; }
 
 		[StringLength(50)]
-		[Required]
 		public string Name { get; set; }
 
 		public string OldName { get; set; }
