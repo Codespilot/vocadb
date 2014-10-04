@@ -2,7 +2,6 @@
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.Service.Helpers {
 
@@ -16,7 +15,7 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
-		public static IQueryable<T> AddNameOrder<T>(this IQueryable<T> criteria, ContentLanguagePreference languagePreference) 
+		public static IOrderedQueryable<T> AddNameOrder<T>(this IQueryable<T> criteria, ContentLanguagePreference languagePreference) 
 			where T : IEntryWithNames {
 
 			return FindHelpers.AddNameOrder(criteria, languagePreference);
