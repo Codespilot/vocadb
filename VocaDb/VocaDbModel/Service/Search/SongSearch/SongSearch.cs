@@ -218,36 +218,6 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 				.Take(maxResults)
 				.ToArray();
 
-			/*var exactQ = querySource.Query<SongName>()
-				.Where(m => !m.Song.Deleted);
-
-			if (queryParams.Common.DraftOnly)
-				exactQ = exactQ.Where(a => a.Song.Status == EntryStatus.Draft);
-
-			exactQ = AddScoreFilter(exactQ, queryParams.MinScore);
-			exactQ = AddTimeFilter(exactQ, queryParams.TimeFilter);
-			exactQ = AddPVFilter(exactQ, queryParams.OnlyWithPVs);
-
-			exactQ = FindHelpers.AddEntryNameFilter(exactQ, parsedQuery.Name, NameMatchMode.StartsWith);
-
-			var songTypes = queryParams.SongTypes;
-			if (songTypes.Any())
-				exactQ = exactQ.Where(m => songTypes.Contains(m.Song.SongType));
-			 
-			int count;
-			int[] ids;
-			var exactResults = exactQ
-				.OrderBy(s => s.Value)
-				.Select(s => s.Song.Id)
-				.ToArray()
-				.Distinct()
-				//.AddOrder(sortRule, LanguagePreference)
-				//.Select(s => s.Id)
-				.Take(maxResults)
-				.ToArray();
-			 			 
-			 */
-
 			if (exactResults.Length >= maxResults) {
 
 				ids = exactResults;
