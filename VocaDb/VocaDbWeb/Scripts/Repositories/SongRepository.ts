@@ -9,6 +9,7 @@
 module vdb.repositories {
 
     import dc = vdb.dataContracts;
+	import cls = vdb.models;
 
     // Repository for managing songs and related objects.
     // Corresponds to the SongController class.
@@ -60,6 +61,8 @@ module vdb.repositories {
 
         private post: (relative: string, params: any, callback: any) => void;
 
+		public pvForSongAndService: (songId: number, pvService: cls.pvs.PVService, callback: (result: string) => void) => void; 
+
         public pvPlayerWithRating: (songId: number, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => void; 
 
         //public songListsForSong: (songId: number, callback: (result: dc.SongListContract[]) => void) => void;
@@ -100,9 +103,13 @@ module vdb.repositories {
                 this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);         
             }
 
-            this.pvPlayerWithRating = (songId, callback) => {
-                this.getJSON("/PVPlayerWithRating", { songId: songId }, callback);
+			this.pvForSongAndService = (songId: number, pvService: cls.pvs.PVService, callback: (result: string) => void) => {
+				this.get("/PVForSongAndService", { songId: songId, service: cls.pvs.PVService[pvService] }, callback);
             }
+
+			this.pvPlayerWithRating = (songId, callback) => {
+				this.getJSON("/PVPlayerWithRating", { songId: songId }, callback);
+			}
 
             this.songListsForSong = (songId, callback) => {
                 this.get("/SongListsForSong", { songId: songId }, callback);

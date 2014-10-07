@@ -13,6 +13,7 @@ interface KnockoutBindingHandlers {
 }
 
 // Initializes and maintains song rating status for the HTML table.
+// TODO: not in use?
 ko.bindingHandlers.pvPreviewStatus = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
@@ -27,7 +28,7 @@ ko.bindingHandlers.pvPreviewStatus = {
 
             var songId = $(pvRow).data("entry-id");
 
-            var item = new vdb.viewModels.SongWithPreviewViewModel(songRepository, userRepository, songId);
+            var item = new vdb.viewModels.SongWithPreviewViewModel(songRepository, userRepository, songId, null);
             item.ratingComplete = vdb.ui.showThankYouForRatingMessage;
 
             var childBindingContext = bindingContext.createChildContext(item);

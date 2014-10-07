@@ -718,12 +718,6 @@ namespace VocaDb.Model.Service {
 			return HandleQuery(session => session.Load<ArchivedSongVersion>(id).Data);
 		}
 
-		public PVContract PVForSong(int pvId) {
-
-			return HandleQuery(session => new PVContract(session.Load<PVForSong>(pvId)));
-
-		}
-
 		public int RemoveTagUsage(long tagUsageId) {
 
 			return RemoveTagUsage<SongTagUsage>(tagUsageId);

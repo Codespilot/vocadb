@@ -6,6 +6,8 @@ module vdb.dataContracts {
         
         playerHtml: string;
 
+		pvService: string;
+
         song: SongWithComponentsContract;
     
     }
