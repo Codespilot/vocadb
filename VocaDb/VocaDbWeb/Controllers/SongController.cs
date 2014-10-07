@@ -434,12 +434,31 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		/// <summary>
+		/// Returns a PV player HTML by PV id (unique)
+		/// </summary>
 		public ActionResult PVForSong(int pvId = invalidId) {
 
 			if (pvId == invalidId)
 				return NoId();
 
-			var pv = Service.PVForSong(pvId);
+			var pv = queries.PVForSong(pvId);
+			return PartialView("PVEmbedDynamic", pv);
+
+		}
+
+		/// <summary>
+		/// Returns PV player HTML by song Id and PV service. Primary PV of that type will be selected.
+		/// </summary>
+		public ActionResult PVForSongAndService(int songId = invalidId, PVService? service = null) {
+
+			if (songId == invalidId)
+				return NoId();
+
+			if (service == null)
+				return NoId();
+
+			var pv = queries.PVForSongAndService(songId, service.Value);
 			return PartialView("PVEmbedDynamic", pv);
 
 		}
@@ -449,12 +468,14 @@ namespace VocaDb.Web.Controllers
 		    if (pvId == invalidId)
 		        return NoId();
 
-			var pv = Service.PVForSong(pvId);
+			var pv = queries.PVForSong(pvId);
 			return PartialView("PVEmbedNND", pv);
 
 		}
 
-		// For song index
+		/// <summary>
+		/// Returns a PV player with song rating by song Id. Primary PV will be chosen.
+		/// </summary>
 		public ActionResult PVPlayerWithRating(int songId = invalidId) {
 
 			if (songId == invalidId)
@@ -468,7 +489,7 @@ namespace VocaDb.Web.Controllers
 
 			var view = RenderPartialViewToString("PVEmbedDynamic", pv);
 
-			return LowercaseJson(new SongWithPVPlayerAndVoteContract { Song = song, PlayerHtml = view });
+			return LowercaseJson(new SongWithPVPlayerAndVoteContract { Song = song, PlayerHtml = view, PVService = pv.Service });
 
 		}
 

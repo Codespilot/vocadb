@@ -1847,6 +1847,7 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
     <TypeScriptCompile Include="Scripts\Helpers\KnockoutHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Helpers\PVHelper.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\SongHelper.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\InitialValue.ts" />
@@ -1880,6 +1881,7 @@
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistRoles.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistType.ts" />
     <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguageSelection.ts" />
+    <TypeScriptCompile Include="Scripts\Models\PVs\PVService.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistLinkViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Globalization\LocalizedStringWithIdEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />

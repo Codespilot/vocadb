@@ -691,6 +691,12 @@ div.item {
 	overflow: hidden;
 }
 
+.pv-preview-services {
+	padding-top: 10px;
+	clear: right;
+	float: right;
+}
+
 /* Move sort button right for lower screen resolutions */
 @media all and (max-width: 1800px) {
 	.search-sort-menu {

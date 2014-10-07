@@ -5,6 +5,7 @@
 
 module vdb.viewModels {
 
+	import cls = vdb.models;
     import rep = vdb.repositories;
 
     // View model for song with PV preview and rating buttons (for example, on front page and song index page).
@@ -19,16 +20,20 @@ module vdb.viewModels {
         // PV player HTML.
         public previewHtml: KnockoutObservable<string> = ko.observable(null);
 
+		public pvService = ko.observable<string>(null);
+
         // View model for rating buttons.
         public ratingButtons: KnockoutObservable<PVRatingButtonsViewModel> = ko.observable(null);
 
         // Event handler for the event when the song has been rated.
         public ratingComplete: () => void;
 
+		public switchPV: (pvService: string) => void;
+
         // Toggle preview status.
         public togglePreview: () => void;
 
-        constructor(repository: rep.SongRepository, userRepository: rep.UserRepository, public songId: number) {
+        constructor(repository: rep.SongRepository, userRepository: rep.UserRepository, public songId: number, public pvServices: string) {
             
             this.destroyPV = () => {
                 this.previewHtml(null);
@@ -47,6 +52,7 @@ module vdb.viewModels {
 					if (!result)
 						return;
 
+					this.pvService(result.pvService);
                     this.previewHtml(result.playerHtml);
                     var ratingButtonsViewModel = new PVRatingButtonsViewModel(userRepository, result.song, this.ratingComplete);
                     this.ratingButtons(ratingButtonsViewModel);
@@ -54,8 +60,15 @@ module vdb.viewModels {
 
                 });
 
+			}
 
-            }
+			this.switchPV = (newService: string) => {
+
+				this.pvService(newService);
+				var service: cls.pvs.PVService = cls.pvs.PVService[newService];
+				repository.pvForSongAndService(songId, service, html => this.previewHtml(html));
+
+			}
 
         }
     

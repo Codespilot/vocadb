@@ -66,7 +66,7 @@ module vdb.viewModels.search {
 					_.each(result.items, (song: ISongSearchItem) => {
 
 						if (song.pvServices && song.pvServices != 'Nothing') {
-							song.previewViewModel = new SongWithPreviewViewModel(this.songRepo, this.userRepo, song.id);
+							song.previewViewModel = new SongWithPreviewViewModel(this.songRepo, this.userRepo, song.id, song.pvServices);
 							song.previewViewModel.ratingComplete = vdb.ui.showThankYouForRatingMessage;							
 						} else {
 							song.previewViewModel = null;

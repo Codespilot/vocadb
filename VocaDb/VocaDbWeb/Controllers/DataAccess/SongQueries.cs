@@ -428,6 +428,26 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
+		public PVContract PVForSong(int pvId) {
+
+			return HandleQuery(session => new PVContract(session.OfType<PVForSong>().Load(pvId)));
+
+		}
+
+		public PVContract PVForSongAndService(int songId, PVService service) {
+			
+			return HandleQuery(ctx => {
+				
+				var pvs = ctx.OfType<PVForSong>().Query().Where(pv => pv.Song.Id == songId && pv.Service == service).ToArray();
+
+				var primaryPv = VideoServiceHelper.PrimaryPV(pvs, service);
+
+				return primaryPv != null ? new PVContract(primaryPv) : null;
+
+			});
+
+		}
+
 		public SongForEditContract UpdateBasicProperties(SongForEditContract properties) {
 
 			ParamIs.NotNull(() => properties);
