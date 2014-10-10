@@ -1882,6 +1882,7 @@
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistType.ts" />
     <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguageSelection.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVs\PVService.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\SongListRepository.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistLinkViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Globalization\LocalizedStringWithIdEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />
@@ -2156,6 +2157,7 @@
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\User\Details.js" />
     <Content Include="Scripts\User\Edit.js" />
+    <TypeScriptCompile Include="Scripts\ViewModels\SongList\SongListViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\AlbumCollectionViewModel.ts" />
