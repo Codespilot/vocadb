@@ -105,10 +105,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public SongListDetailsContract GetSongListDetails(int listId) {
+		public SongListContract GetSongList(int listId) {
 
-			return repository.HandleQuery(session => new SongListDetailsContract(
-				session.Load(listId), GetSongsInList(session, listId, 0, 50, true, s => new SongInListContract(s, PermissionContext.LanguagePreference)), PermissionContext));
+			return repository.HandleQuery(session => new SongListContract(session.Load(listId), PermissionContext));
 		
 		}
 
