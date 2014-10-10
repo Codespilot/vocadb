@@ -7,7 +7,7 @@
 @using VocaDb.Model.Helpers
 @using MvcPaging;
 @using R = ViewRes.SongList;
-@inherits VocaDb.Web.Code.VocaDbPage<SongListDetailsContract>
+@inherits VocaDb.Web.Code.VocaDbPage<SongListContract>
 		   
 @{
 	
@@ -91,8 +91,6 @@
 		@if (!string.IsNullOrWhiteSpace(Model.Description)) {
 			<p>@HtmlHelpers.FormatText(Model.Description)</p>
 		}
-
-		<p>@Model.SongLinks.TotalCount @R.DetailsStrings.Songs.</p>
 	</div>
 </div>
 
