@@ -131,6 +131,11 @@
 						<img data-bind="attr: { src: url, title: service }" />
 						<!-- /ko -->*@
 					@KnockoutHelpers.DraftIcon("status")
+					
+					<span data-bind="visible: notes">
+						(<span data-bind="text: notes"></span>)
+					</span>
+
 					<br />
 					<small class="extraInfo" data-bind="text: song.artistString"></small>
 
