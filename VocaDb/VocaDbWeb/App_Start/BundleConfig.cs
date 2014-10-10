@@ -174,6 +174,15 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Song/Index.js"
 			));
 
+			bundles.Add(new ScriptBundle("~/bundles/SongList/Details").Include(
+				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
+				"~/Scripts/Repositories/SongListRepository.js",
+				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
+				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
+				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
+				"~/Scripts/ViewModels/SongList/SongListViewModel.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Tag/Edit").Include(
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/ViewModels/TagEditViewModel.js",

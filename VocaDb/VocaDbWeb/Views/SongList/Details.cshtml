@@ -1,4 +1,5 @@
-﻿@using VocaDb.Model.DataContracts.Songs;
+﻿@using System.Web.Optimization
+@using VocaDb.Model.DataContracts.Songs;
 @using VocaDb.Model.Domain.Songs
 @using VocaDb.Web.Helpers;
 @using VocaDb.Model.Domain.Images
@@ -6,7 +7,7 @@
 @using VocaDb.Model.Helpers
 @using MvcPaging;
 @using R = ViewRes.SongList;
-@model SongListDetailsContract
+@inherits VocaDb.Web.Code.VocaDbPage<SongListDetailsContract>
 		   
 @{
 	
@@ -56,11 +57,25 @@
 
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+@Scripts.Render("~/bundles/SongList/Details")
 <script type="text/javascript">
 
-	$(document).ready(function() {
-		$("#editListLink").button({ icons: { primary: 'ui-icon-wrench'} });
+	$(document).ready(function () {
+
+		$("#editListLink").button({ icons: { primary: 'ui-icon-wrench' } });
+
+		var languageSelection = '@UserContext.LanguagePreference';
+		var listId = @Model.Id;
+
+		var rootPath = '@RootPath';
+		var urlMapper = new vdb.UrlMapper(rootPath);
+		var userRepo = new vdb.repositories.UserRepository(urlMapper);
+		var songRepo = new vdb.repositories.SongRepository(rootPath);
+		var songListRepo = new vdb.repositories.SongListRepository(urlMapper);
+
+		var vm = new vdb.viewModels.songList.SongListViewModel(songListRepo, songRepo, userRepo, languageSelection, listId);
+		ko.applyBindings(vm);
+
 	});
 
 </script>
@@ -80,6 +95,60 @@
 		<p>@Model.SongLinks.TotalCount @R.DetailsStrings.Songs.</p>
 	</div>
 </div>
-<div id="songsInList">
-@{ Html.RenderPartial("SongsInListPaged", new VocaDb.Web.Models.Shared.PagingData<SongInListContract>(Model.SongLinks.Items.ToPagedList(0, 50, Model.SongLinks.TotalCount), Model.Id, "SongsPaged", "songsInList", addTotalCount: true)); }
-</div>		
+
+<div data-bind="css: { loading: loading }, visible: true" style="display: none;">
+
+	<div data-bind="with: paging" class="dropdown pull-right">
+		@KnockoutHelpers.EntryCount()
+	</div>
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+	<table class="table table-striped">
+		<tbody data-bind="foreach: page">
+			<tr>
+				<td style="width: 75px">
+					<a data-bind="visible: song.thumbUrl, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#">
+						<img data-bind="attr: { src: song.thumbUrl }" title="Cover picture" class="coverPicThumb img-rounded" />
+					</a>
+				</td>
+				<td>
+
+					<div class="pull-right" data-bind="visible: song.pvServices, with: song.previewViewModel">
+						<a data-bind="click: togglePreview, css: { active: preview }" class="btn previewSong" href="#">
+							<i class="icon-film"></i>
+							Preview
+						</a>
+					</div>
+					
+					<span data-bind="text: order"></span>.
+					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
+
+					@*<span data-bind="songTypeLabel: song.songType"></span>
+						<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
+						<img data-bind="attr: { src: url, title: service }" />
+						<!-- /ko -->*@
+					@KnockoutHelpers.DraftIcon("status")
+					<br />
+					<small class="extraInfo" data-bind="text: song.artistString"></small>
+
+					<div data-bind="visible: song.pvServices, with: song.previewViewModel">
+						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
+							<div data-bind="with: ratingButtons" class="pull-right">
+								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
+							</div>
+							<div data-bind="html: previewHtml"></div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div data-bind="with: paging">
+		@KnockoutHelpers.ServerSidePaging()
+	</div>
+
+</div>
