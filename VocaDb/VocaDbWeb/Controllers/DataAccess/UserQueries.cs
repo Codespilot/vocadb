@@ -3,12 +3,14 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using System.Web;
+using NHibernate;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -666,6 +668,64 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				user.Options.AlbumFormatString = formatString;
 				ctx.Update(user);
+
+			});
+
+		}
+
+		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, 
+			MediaType mediaType, int rating) {
+
+			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
+
+			repository.HandleTransaction(session => {
+
+				var albumForUser = session.OfType<AlbumForUser>().Query()
+					.FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
+
+				// Delete
+				if (albumForUser != null && status == PurchaseStatus.Nothing && rating == 0) {
+
+					session.AuditLogger.AuditLog(string.Format("deleting {0} for {1}", 
+						entryLinkFactory.CreateEntryLink(albumForUser.Album), albumForUser.User));
+
+					NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
+
+					albumForUser.Delete();
+					session.Delete(albumForUser);
+					session.Update(albumForUser.Album);
+
+				// Add
+				} else if (albumForUser == null && (status != PurchaseStatus.Nothing || rating != 0)) {
+
+					var user = session.Load(userId);
+					var album = session.OfType<Album>().Load(albumId);
+
+					NHibernateUtil.Initialize(album.CoverPictureData);
+					albumForUser = user.AddAlbum(album, status, mediaType, rating);
+					session.Save(albumForUser);
+					session.Update(album);
+
+					session.AuditLogger.AuditLog(string.Format("added {0} for {1}", entryLinkFactory.CreateEntryLink(album), user));
+
+				// Update
+				} else if (albumForUser != null) {
+
+					albumForUser.MediaType = mediaType;
+					albumForUser.PurchaseStatus = status;
+					session.Update(albumForUser);
+
+					if (albumForUser.Rating != rating) {
+						albumForUser.Rating = rating;
+						albumForUser.Album.UpdateRatingTotals();
+						NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
+						session.Update(albumForUser.Album);
+					}
+
+					session.AuditLogger.AuditLog(string.Format("updated {0} for {1}", 
+						entryLinkFactory.CreateEntryLink(albumForUser.Album), albumForUser.User));
+
+				}
 
 			});
 

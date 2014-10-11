@@ -161,6 +161,25 @@ namespace VocaDb.Web.Controllers.Api {
 		}
 
 		/// <summary>
+		/// Add or update collection status, media type and rating for a specific album, for the currently logged in user.
+		/// If the user has already rated the album, any previous rating is replaced.
+		/// Authorization cookie must be included.
+		/// </summary>
+		/// <param name="albumId">ID of the album to be rated.</param>
+		/// <param name="collectionStatus">Collection status. Possible values are Nothing, Wishlisted, Ordered and Owned.</param>
+		/// <param name="mediaType">Album media type. Possible values are PhysicalDisc, DigitalDownload and Other.</param>
+		/// <param name="rating">Rating to be given. Possible values are between 0 and 5.</param>
+		/// <returns>The string "OK" if successful.</returns>
+		[Route("current/albums/{albumId:int}")]
+		[Authorize]
+		public string PostAlbumStatus(int albumId, PurchaseStatus collectionStatus, MediaType mediaType, int rating) {
+			
+			queries.UpdateAlbumForUser(permissionContext.LoggedUserId, albumId, collectionStatus, mediaType, rating);
+			return "OK";
+
+		}
+
+		/// <summary>
 		/// Add or update rating for a specific song, for the currently logged in user.
 		/// If the user has already rated the song, any previous rating is replaced.
 		/// Authorization cookie must be included.

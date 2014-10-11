@@ -686,64 +686,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public void UpdateAlbumForUser(int userId, int albumId, PurchaseStatus status, 
-			MediaType mediaType, int rating) {
-
-			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
-
-			HandleTransaction(session => {
-
-				var albumForUser = session.Query<AlbumForUser>()
-					.FirstOrDefault(a => a.Album.Id == albumId && a.User.Id == userId);
-
-				// Delete
-				if (albumForUser != null && status == PurchaseStatus.Nothing && rating == 0) {
-
-					AuditLog(string.Format("deleting {0} for {1}", 
-						CreateEntryLink(albumForUser.Album), albumForUser.User), session);
-
-					NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
-
-					albumForUser.Delete();
-					session.Delete(albumForUser);
-					session.Update(albumForUser.Album);
-
-				// Add
-				} else if (albumForUser == null && (status != PurchaseStatus.Nothing || rating != 0)) {
-
-					var user = session.Load<User>(userId);
-					var album = session.Load<Album>(albumId);
-
-					NHibernateUtil.Initialize(album.CoverPictureData);
-					albumForUser = user.AddAlbum(album, status, mediaType, rating);
-					session.Save(albumForUser);
-					session.Update(album);
-
-					AuditLog(string.Format("added {0} for {1}", CreateEntryLink(album), user), session);
-
-				// Update
-				} else if (albumForUser != null) {
-
-					albumForUser.MediaType = mediaType;
-					albumForUser.PurchaseStatus = status;
-					session.Update(albumForUser);
-
-					if (albumForUser.Rating != rating) {
-						albumForUser.Rating = rating;
-						albumForUser.Album.UpdateRatingTotals();
-						NHibernateUtil.Initialize(albumForUser.Album.CoverPictureData);
-						session.Update(albumForUser.Album);
-					}
-
-					AuditLog(string.Format("updated {0} for {1}", 
-						CreateEntryLink(albumForUser.Album), albumForUser.User), session);
-
-				}
-
-			});
-
-		}
-
 		[Obsolete]
 		public void UpdateAlbumForUserMediaType(int albumForUserId, MediaType mediaType) {
 
