@@ -2403,6 +2403,8 @@
     <Content Include="Views\Song\Partials\_ArtistForSongEdit.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_NamesEditor.cshtml" />
     <Content Include="Views\Shared\Partials\_PaypalDonateButton.cshtml" />
+    <Content Include="Views\User\Partials\_AlbumCollection.cshtml" />
+    <Content Include="Views\User\Partials\_RatedSongs.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
