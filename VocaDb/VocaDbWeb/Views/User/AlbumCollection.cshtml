@@ -100,7 +100,7 @@
 		</thead>
 		<tbody data-bind="foreach: page">
 			<tr>
-				<td>
+				<td style="width: 80px">
 					<a data-bind="visible: album.mainPicture && album.mainPicture.urlTinyThumb, attr: { href: vdb.utils.EntryUrlMapper.details('Album', album.id), title: album.additionalNames }" href="#" class="coverPicThumb">
 						<img data-bind="attr: { src: (album.mainPicture ? album.mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb img-rounded" />
 					</a>
