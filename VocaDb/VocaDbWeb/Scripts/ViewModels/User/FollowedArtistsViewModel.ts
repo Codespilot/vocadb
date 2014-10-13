@@ -12,6 +12,7 @@ module vdb.viewModels.user {
 
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
+			this.artistType.subscribe(this.updateResultsWithTotalCount);
 
 		}
 
@@ -28,6 +29,7 @@ module vdb.viewModels.user {
 
 		};
 
+		public artistType = ko.observable("Unknown");
 		public isInit = false;
 		public loading = ko.observable(true); // Currently loading for data
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
@@ -53,6 +55,7 @@ module vdb.viewModels.user {
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
 			this.userRepo.getFollowedArtistsList(this.loggedUserId, pagingProperties, this.languageSelection,
+				this.artistType(),
 				(result: any) => {
 
 					this.pauseNotifications = false;

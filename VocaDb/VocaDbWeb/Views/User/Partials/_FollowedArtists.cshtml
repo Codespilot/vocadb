@@ -1,6 +1,17 @@
 ﻿@using SharedRes = ViewRes.SharedStrings;
 
-<div data-bind="css: { loading: loading }, visible: true">
+<div class="form-horizontal well well-transparent" data-bind="visible: true" style="display: none;">
+	
+	<div class="control-group">
+		<div class="control-label">Artist type</div>
+		<div class="controls">
+			@ArtistHelpers.ArtistTypesDropdownKnockout("artistType")
+		</div>
+	</div>
+	
+</div>
+
+<div data-bind="css: { loading: loading }, visible: true" style="display: none;">
 
 	<div data-bind="with: paging" class="dropdown pull-right">
 		@KnockoutHelpers.EntryCount()

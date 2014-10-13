@@ -12,6 +12,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
@@ -505,6 +506,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				
 				var query = ctx.OfType<ArtistForUser>().Query()
 					.Where(a => !a.Artist.Deleted && a.User.Id == queryParams.UserId);
+
+				if (queryParams.ArtistType != ArtistType.Unknown)
+					query = query.Where(a => a.Artist.ArtistType == queryParams.ArtistType);
 
 				var artists = query
 					.Skip(paging.Start)
