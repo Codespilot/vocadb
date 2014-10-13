@@ -34,12 +34,13 @@ module vdb.repositories {
 		public getFollowedArtistsList = (
 			userId: number,
 			paging: dc.PagingProperties, lang: string,
+			artistType: string,
 			callback) => {
 
 			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/followedArtists");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto'
+				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', artistType: artistType
 			};
 
 			$.getJSON(url, data, callback);
