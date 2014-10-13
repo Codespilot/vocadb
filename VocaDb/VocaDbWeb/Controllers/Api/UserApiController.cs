@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using VocaDb.Model.DataContracts.Albums;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
@@ -94,6 +95,36 @@ namespace VocaDb.Web.Controllers.Api {
 		}
 
 		/// <summary>
+		/// Gets a list of artists followed by a user.
+		/// </summary>
+		/// <param name="userId">ID of the user whose followed artists are to be browsed.</param>
+		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
+		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
+		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
+		/// <param name="fields">List of optional fields (optional). Possible values are Description, Groups, Members, Names, Tags, WebLinks.</param>
+		/// <param name="lang">Content language preference (optional).</param>
+		/// <returns>Page of artists.</returns>
+		[Route("{userId:int}/followedArtists")]
+		public PartialFindResult<ArtistForUserForApiContract> GetFollowedArtists(
+			int userId,
+			int start = 0, 
+			int maxResults = defaultMax,
+			bool getTotalCount = false, 
+			ArtistOptionalFields fields = ArtistOptionalFields.None,
+			ContentLanguagePreference lang = ContentLanguagePreference.Default) {
+			
+			maxResults = Math.Min(maxResults, absoluteMax);
+			var ssl = WebHelper.IsSSL(Request);
+			var paging = new PagingProperties(start, maxResults, getTotalCount);
+
+			var artists = queries.GetArtists(userId, paging, afu => 
+				new ArtistForUserForApiContract(afu, lang, thumbPersister, ssl, fields));
+
+			return artists;
+
+		}
+
+			/// <summary>
 		/// Gets a list of songs rated by a user.
 		/// </summary>
 		/// <param name="userId">ID of the user whose songs are to be browsed.</param>

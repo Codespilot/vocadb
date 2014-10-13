@@ -1,7 +1,7 @@
 /// <reference path="../../typings/jquery/jquery.d.ts" />
 /// <reference path="../../Repositories/AdminRepository.ts" />
 
-module vdb.viewModels {
+module vdb.viewModels.user {
 
     import rep = vdb.repositories;
 
@@ -16,9 +16,34 @@ module vdb.viewModels {
 
             });
 
-        };
+		};
 
-        constructor(private adminRepo: rep.AdminRepository) { }
+		public view = ko.observable("Overview");
+
+		public setViewAlbums = () => {
+			this.albumCollectionViewModel.updateResultsWithTotalCount();
+			this.view("Albums");
+		}
+
+		public setViewArtists = () => {
+			this.followedArtistsViewModel.updateResultsWithTotalCount();
+			this.view("Artists");
+		}
+
+		public setCustomLists = () => {
+			this.view("CustomLists");
+		}
+		public setViewSongs = () => {
+			this.ratedSongsViewModel.updateResultsWithTotalCount();
+			this.view("Songs");
+		}
+
+		constructor(private adminRepo: rep.AdminRepository,
+			public followedArtistsViewModel: FollowedArtistsViewModel,
+			public albumCollectionViewModel: AlbumCollectionViewModel,
+			public ratedSongsViewModel: RatedSongsSearchViewModel) {
+	        
+        }
 
     }
 

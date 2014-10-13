@@ -31,6 +31,21 @@ module vdb.repositories {
 
 		}
 
+		public getFollowedArtistsList = (
+			userId: number,
+			paging: dc.PagingProperties, lang: string,
+			callback) => {
+
+			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/followedArtists");
+			var data = {
+				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
+				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto'
+			};
+
+			$.getJSON(url, data, callback);
+
+		}
+
         public getMessageBody = (messageId: number, callback?: (result: string) => void) => {
 
             var url = this.mapUrl("/MessageBody");

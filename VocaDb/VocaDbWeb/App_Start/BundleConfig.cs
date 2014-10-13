@@ -198,6 +198,16 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include(
+				"~/Scripts/Shared/EntrySearchDrop.js",
+				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
+				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
+				"~/Scripts/Repositories/ResourceRepository.js",
+				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
+				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
+				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
+				"~/Scripts/ViewModels/User/FollowedArtistsViewModel.js",
+				"~/Scripts/ViewModels/User/RatedSongsSearchViewModel.js",
+				"~/Scripts/ViewModels/User/AlbumCollectionViewModel.js",
 				"~/Scripts/ViewModels/User/UserDetailsViewModel.js",
 				"~/Scripts/User/Details.js"
 			));
