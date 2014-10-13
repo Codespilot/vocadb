@@ -10,7 +10,8 @@ module vdb.viewModels.user {
 			private songRepo: rep.SongRepository,
 			resourceRepo: rep.ResourceRepository,
 			private languageSelection: string, private loggedUserId: number, cultureCode: string,
-			sort: string, groupByRating: boolean) {
+			sort: string, groupByRating: boolean,
+			initialize = true) {
 
 			if (sort)
 				this.sort(sort);
@@ -37,7 +38,8 @@ module vdb.viewModels.user {
 
 			resourceRepo.getList(cultureCode, ['songSortRuleNames', 'songTypeNames'], resources => {
 				this.resources(resources);
-				this.updateResultsWithTotalCount();
+				if (initialize)
+					this.updateResultsWithTotalCount();
 			});
 
 		}
@@ -53,7 +55,7 @@ module vdb.viewModels.user {
 		public rating = ko.observable("Nothing");
 		public resources = ko.observable<any>();
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
-		public songListId = ko.observable<number>(null);
+		public songListId = ko.observable<number>(undefined);
 		public songLists = ko.observableArray<dc.SongListBaseContract>([]);
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.resources() != null ? this.resources().songSortRuleNames[this.sort()] : "");

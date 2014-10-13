@@ -9,7 +9,8 @@ module vdb.viewModels.user {
 		constructor(private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
 			resourceRepo: rep.ResourceRepository,
 			private languageSelection: string, private loggedUserId: number, cultureCode: string,
-			public publicCollection: boolean) {
+			public publicCollection: boolean,
+			initialize = true) {
 
 			this.artistSearchParams = {
 				allowCreateNew: false,
@@ -26,7 +27,8 @@ module vdb.viewModels.user {
 
 			resourceRepo.getList(cultureCode, ['albumMediaTypeNames', 'albumSortRuleNames', 'discTypeNames'], resources => {
 				this.resources(resources);
-				this.updateResultsWithTotalCount();
+				if (initialize)
+					this.updateResultsWithTotalCount();
 			});
 
 		}

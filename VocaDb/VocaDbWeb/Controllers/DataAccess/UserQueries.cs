@@ -7,6 +7,7 @@ using NHibernate;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
+using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
@@ -484,6 +485,39 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			});
 
 		}
+
+		public ArtistWithAdditionalNamesContract[] GetArtists(int userId) {
+
+			return HandleQuery(session =>
+				session.Load(userId)
+					.Artists
+					.Select(a => new ArtistWithAdditionalNamesContract(a.Artist, PermissionContext.LanguagePreference))
+					.OrderBy(s => s.Name)
+					.ToArray());
+
+		}
+
+		public PartialFindResult<T> GetArtists<T>(int userId, PagingProperties paging, Func<ArtistForUser, T> fac) {
+			
+			return HandleQuery(ctx => {
+				
+				var query = ctx.OfType<ArtistForUser>().Query()
+					.Where(a => !a.Artist.Deleted && a.User.Id == userId);
+
+				var artists = query
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray()
+					.Select(fac)
+					.ToArray();
+
+				var count = paging.GetTotalCount ? query.Count() : 0;
+
+				return new PartialFindResult<T>(artists, count);
+
+			});
+
+		} 
 
 		public PartialFindResult<FavoriteSongForUserContract> GetRatedSongs(RatedSongQueryParams queryParams) {
 			return GetRatedSongs(queryParams, ratedSong => new FavoriteSongForUserContract(ratedSong, PermissionContext.LanguagePreference));

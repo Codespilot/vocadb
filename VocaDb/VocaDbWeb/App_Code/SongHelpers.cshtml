@@ -143,11 +143,12 @@
 
 @helper SongLists(IEnumerable<SongListContract> songLists) {
 	
-	<table>
+	<table class="table table-striped">
+		<tbody>
 		@foreach (var list in songLists) {
 			var thumbUrl = ImageHelper.GetImageUrl(list.Thumb, ImageSize.SmallThumb, checkExists: true);
 			<tr>
-				<td>
+				<td style="width: 75px">
 					@if (!string.IsNullOrEmpty(thumbUrl)) {
 						<a href="@Url.Action("Details", "SongList", new { id = list.Id })">
 							<img class="coverPicThumb" src="@thumbUrl" alt="Picture" />
@@ -162,6 +163,7 @@
 				</td>
 			</tr>
 		}
+		</tbody>
 	</table>
 
 }

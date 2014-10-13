@@ -5,7 +5,7 @@
 @using VocaDb.Model.Domain.Security;
 @using VocaDb.Model.Utils
 @using R = ViewRes.User.DetailsStrings;
-@model UserDetailsContract
+@inherits VocaDb.Web.Code.VocaDbPage<UserDetailsContract>
 
 @{
 	ViewBag.Title = Model.Name;
@@ -81,188 +81,235 @@
 	</div>
 }
 
-<div class="row-fluid">
-	<div class="span2 well well-transparent">
-		<h4>@Model.Name</h4>
-		@Avatar()
-		<br />
-		<p class="withMargin">
-			@Translate.UserGroups[Model.GroupId]
-			@if (Model.EffectivePermissions.Contains(PermissionToken.DesignatedStaff)) {
-				<span class="label label-important">@R.Staff</span>
-			}
-			@if (verifiedAccount) {
-				<span class="label label-success">@R.VerifiedAccount</span>
-			}
-			@if (!Model.Active) {
-				<span class="label">@R.AccountDisabled</span>
-			}
-			@if (Model.EmailVerified) {
-				<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />
-			}
-		</p>
+<ul class="nav nav-pills">
+	<li data-bind="css: { active: view() == 'Overview' }">
+		<a href="#" data-bind="click: function() { view('Overview'); }">Overview</a>
+	</li>
+	<li data-bind="css: { active: view() == 'Artists' }">
+		<a href="#" data-bind="click: function() { setViewArtists(); }">@R.FollowedArtistsTab</a>
+	</li>
+	<li data-bind="css: { active: view() == 'Albums' }">
+		<a href="#" data-bind="click: function() { setViewAlbums(); }">@R.CollectionTab</a>
+	</li>
+	<li data-bind="css: { active: view() == 'Songs' }">
+		<a href="#" data-bind="click: function() { setViewSongs(); }">@R.FavoriteSongsTab</a>
+	</li>
+	<li data-bind="css: { active: view() == 'CustomLists' }">
+		<a href="#" data-bind="click: function() { setCustomLists(); }">@R.CustomListsTab</a>
+	</li>
+</ul>
 
-		<h4 class="withMargin">@R.StatsTab</h4>
-		<span>
-			@{ var submitText = R.Submissions + ": " + Model.SubmitCount; }
-			@if (canSeeDetailedStats) {
-				<text>@Html.ActionLink(submitText, "EntryEdits", new { id = Model.Id, onlySubmissions = true })</text>
-			} else {
-				<text>@submitText</text>
-			}
-		</span><br />
-		<span>
-			@{ var editText = R.TotalEdits + ": " + Model.EditCount; }
-			@if (canSeeDetailedStats) {
-				@Html.ActionLink(editText, "EntryEdits", new { id = Model.Id, onlySubmissions = false })
-			} else {
-				<text>@editText</text>
-			}
-		</span><br />
-		<span>@R.Comments: @Model.CommentCount</span><br />
-		<span>@R.TagVotes: @Model.TagVotes</span><br />
-		<span>@R.Power: @Model.Power (@R.Level @Model.Level)</span>
-
-		<h4 class="withMargin">@R.MemberSince</h4>
-		@Model.CreateDate.ToShortDateString()
-	</div>
-
-	<div class="span8 well well-transparent">
-
-		@if (!string.IsNullOrEmpty(Model.AboutMe)) {
-			<h4>@R.AboutMe</h4>
-			@HtmlHelpers.FormatMarkdown(Model.AboutMe)
+<div data-bind="visible: view() == 'Overview'">
+	<div class="row-fluid">
+		<div class="span2 well well-transparent">
+			<h4>@Model.Name</h4>
+			@Avatar()
 			<br />
-		}
-
-		@if (verifiedAccount) {
-			<h4>@R.VerifiedOwner</h4>
-			@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)
-			<br />
-		}
-
-		@if (Model.WebLinks.Any()) {
-			<h4>@ViewRes.EntryDetailsStrings.ExternalLinks</h4>
-			@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)
-			<br />
-		}
-		
-		@if (!string.IsNullOrEmpty(Model.TwitterName)) {
-			<h4>@R.TwitterAccount</h4>
-			<a href="@("https://twitter.com/" + Model.TwitterName)" class="extLink">@Model.TwitterName</a>
-			<br /><br />		
-		}
-
-		@if (!string.IsNullOrEmpty(Model.Location)) {
-			<h4>@R.Location</h4>
-			@Model.Location
-			<br /><br />
-		}
-
-		@if (Model.FavoriteTags.Any()) {
-			<h4>@R.FavoriteTags</h4>
-			@TagHelpers.TagList(Model.FavoriteTags)
-			<br /><br />
-		}
-
-		@if (ownProfile && !Login.CanManageUsers) {
-			if (Model.AdditionalPermissions.Any()) {
-				<h4>@R.AdditionalPermissions</h4>
-				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
-			}
-		} else if (Login.CanManageUsers) {
-			<h4>@R.LastLogin</h4>
-			@Helpers.UniversalTimeLabel(Model.LastLogin)
-			if (Login.CanManageUsers) {
-				@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
-				<a data-bind="click: function() { checkSFS('@Model.LastLoginAddress'); }" href='#'>StopForumSpam</a>
-			}
-
-			if (Model.AdditionalPermissions.Any()) {
-				<h4 class="withMargin">@R.AdditionalPermissions</h4>
-				@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
-			}
-
-			if (!string.IsNullOrEmpty(Model.Email)) {
-				<h4 class="withMargin">@R.Email</h4>
-				@Model.Email
-				if (Model.EmailVerified) {
+			<p class="withMargin">
+				@Translate.UserGroups[Model.GroupId]
+				@if (Model.EffectivePermissions.Contains(PermissionToken.DesignatedStaff))
+				{
+					<span class="label label-important">@R.Staff</span>
+				}
+				@if (verifiedAccount)
+				{
+					<span class="label label-success">@R.VerifiedAccount</span>
+				}
+				@if (!Model.Active)
+				{
+					<span class="label">@R.AccountDisabled</span>
+				}
+				@if (Model.EmailVerified)
+				{
 					<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />
 				}
+			</p>
+
+			<h4 class="withMargin">@R.StatsTab</h4>
+			<span>
+				@{ var submitText = R.Submissions + ": " + Model.SubmitCount; }
+				@if (canSeeDetailedStats)
+				{
+					<text>@Html.ActionLink(submitText, "EntryEdits", new { id = Model.Id, onlySubmissions = true })</text>
+				}
+				else
+				{
+					<text>@submitText</text>
+				}
+			</span><br />
+			<span>
+				@{ var editText = R.TotalEdits + ": " + Model.EditCount; }
+				@if (canSeeDetailedStats)
+				{
+					@Html.ActionLink(editText, "EntryEdits", new { id = Model.Id, onlySubmissions = false })
+				}
+				else
+				{
+					<text>@editText</text>
+				}
+			</span><br />
+			<span>@R.Comments: @Model.CommentCount</span><br />
+			<span>@R.TagVotes: @Model.TagVotes</span><br />
+			<span>@R.Power: @Model.Power (@R.Level @Model.Level)</span>
+
+			<h4 class="withMargin">@R.MemberSince</h4>
+			@Model.CreateDate.ToShortDateString()
+		</div>
+
+		<div class="span8 well well-transparent">
+
+			@if (!string.IsNullOrEmpty(Model.AboutMe))
+			{
+				<h4>@R.AboutMe</h4>
+				@HtmlHelpers.FormatMarkdown(Model.AboutMe)
+				<br />
 			}
 
-			<h4 class="withMargin">@R.EffectivePermissions</h4>
-			@Translate.AllPermissionTokenNames(Model.EffectivePermissions)
-		}
+			@if (verifiedAccount)
+			{
+				<h4>@R.VerifiedOwner</h4>
+				@ArtistHelpers.ArtistGrid(Model.OwnedArtistEntries.Select(a => a.Artist), 3, true)
+				<br />
+			}
 
-	</div>
-</div>
+			@if (Model.WebLinks.Any())
+			{
+				<h4>@ViewRes.EntryDetailsStrings.ExternalLinks</h4>
+				@EntryDetailsHelpers.ExternalLinksList(Model.WebLinks)
+				<br />
+			}
 
-<br />
+			@if (!string.IsNullOrEmpty(Model.TwitterName))
+			{
+				<h4>@R.TwitterAccount</h4>
+				<a href="@("https://twitter.com/" + Model.TwitterName)" class="extLink">@Model.TwitterName</a>
+				<br /><br />
+			}
 
-@if (Model.FavoriteAlbums.Any()) {
-	<div class="well well-transparent" id="favoriteAlbums">
-		<div class="pull-right">
-			<small>
-				<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>
-			</small>
+			@if (!string.IsNullOrEmpty(Model.Location))
+			{
+				<h4>@R.Location</h4>
+				@Model.Location
+				<br /><br />
+			}
+
+			@if (Model.FavoriteTags.Any())
+			{
+				<h4>@R.FavoriteTags</h4>
+				@TagHelpers.TagList(Model.FavoriteTags)
+				<br /><br />
+			}
+
+			@if (ownProfile && !Login.CanManageUsers)
+			{
+				if (Model.AdditionalPermissions.Any())
+				{
+					<h4>@R.AdditionalPermissions</h4>
+					@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
+				}
+			}
+			else if (Login.CanManageUsers)
+			{
+				<h4>@R.LastLogin</h4>
+				@Helpers.UniversalTimeLabel(Model.LastLogin)
+				if (Login.CanManageUsers)
+				{
+					@(" (")<a href='http://www.geoiptool.com/?IP=@Model.LastLoginAddress'>@Model.LastLoginAddress</a>@(")")
+					<a data-bind="click: function() { checkSFS('@Model.LastLoginAddress'); }" href='#'>StopForumSpam</a>
+				}
+
+				if (Model.AdditionalPermissions.Any())
+				{
+					<h4 class="withMargin">@R.AdditionalPermissions</h4>
+					@Translate.AllPermissionTokenNames(Model.AdditionalPermissions)
+				}
+
+				if (!string.IsNullOrEmpty(Model.Email))
+				{
+					<h4 class="withMargin">@R.Email</h4>
+					@Model.Email
+					if (Model.EmailVerified)
+					{
+						<img src="@Url.Content("~/Content/Icons/tick.png")" title="Verified email" />
+					}
+				}
+
+				<h4 class="withMargin">@R.EffectivePermissions</h4>
+				@Translate.AllPermissionTokenNames(Model.EffectivePermissions)
+			}
+
 		</div>
-		<h3>
-			<a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id })">
-				@R.SomeAlbumsILike
-				<small>(@string.Format(R.Total, Model.AlbumCollectionCount))</small>
-			</a>			
-		</h3>
-		@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
 	</div>
-}
 
-@if (Model.LatestRatedSongs.Any()) {
-	<div class="well well-transparent">
-		<div class="pull-right">
-			<small>
-				<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">@ViewRes.SharedStrings.ShowMore</a>
-			</small>
+	<br />
+
+	@if (Model.FavoriteAlbums.Any())
+	{
+		<div class="well well-transparent" id="favoriteAlbums">
+			<div class="pull-right">
+				<small>
+					<a href="#" data-bind="click: function() { setViewAlbums(); }">@ViewRes.SharedStrings.ShowMore</a>
+				</small>
+			</div>
+			<h3>
+				<a href="#" data-bind="click: function() { setViewAlbums(); }">
+					@R.SomeAlbumsILike
+					<small>(@string.Format(R.Total, Model.AlbumCollectionCount))</small>
+				</a>
+			</h3>
+			@AlbumHelpers.AlbumThumbs(Model.FavoriteAlbums)
 		</div>
-		<h3>
-			<a href="@Url.Action("FavoriteSongs", "User", new { id = Model.Id })">
-				@R.SomeSongsILike
-				<small>(@string.Format(R.Total, Model.FavoriteSongCount))</small>
-			</a>
-		</h3>
-		@SongHelpers.SongGrid(Model.LatestRatedSongs, 3)
-	</div>
-}
+	}
 
-@if (Model.FollowedArtists.Any()) {
+	@if (Model.LatestRatedSongs.Any())
+	{
+		<div class="well well-transparent">
+			<div class="pull-right">
+				<small>
+					<a href="#" data-bind="click: function() { setViewSongs(); }">@ViewRes.SharedStrings.ShowMore</a>
+				</small>
+			</div>
+			<h3>
+				<a href="#" data-bind="click: function() { setViewSongs(); }">
+					@R.SomeSongsILike
+					<small>(@string.Format(R.Total, Model.FavoriteSongCount))</small>
+				</a>
+			</h3>
+			@SongHelpers.SongGrid(Model.LatestRatedSongs, 3)
+		</div>
+	}
+
+	@if (Model.FollowedArtists.Any())
+	{
+		<div class="well well-transparent">
+			<div class="pull-right">
+				<small>
+					<a href="#" data-bind="click: function() { setViewArtists(); }">@ViewRes.SharedStrings.ShowMore</a>
+				</small>
+			</div>
+			<h3>
+				<a href="#" data-bind="click: function() { setViewArtists(); }">
+					@R.SomeArtistsIFollow
+					<small>(@string.Format(R.Total, Model.ArtistCount))</small>
+				</a>
+			</h3>
+			@ArtistHelpers.ArtistGrid(Model.FollowedArtists, 3)
+		</div>
+	}
+	
 	<div class="well well-transparent">
 		<h3>
-			@R.SomeArtistsIFollow
-			<small>(@string.Format(R.Total, Model.ArtistCount))</small>
+			@ViewRes.EntryDetailsStrings.LatestComments
 		</h3>
-		@ArtistHelpers.ArtistGrid(Model.FollowedArtists, 3)
-	</div>
-}
-
-<br />
-
-<div id="tabs">
-
-	<ul>
-		<li><a href="#commentsTab">@ViewRes.EntryDetailsStrings.LatestComments</a></li>
-		<li><a href="@Url.Action("AlbumCollection", "User", new { id = Model.Id, count = Model.AlbumCollectionCount })" title="Collection"><span>@R.CollectionTab (@Model.AlbumCollectionCount)</span></a></li>
-		<li><a href="@Url.Action("Artists", "User", new { id = Model.Id })" title="Followed artists"><span>@R.FollowedArtistsTab (@Model.ArtistCount)</span></a></li>
-		<li><a href="#customLists">@R.CustomListsTab</a></li>
-	</ul>
-
-	<div id="commentsTab">
 		<div id="comments">
-			@foreach (var comment in Model.LatestComments) {
+			@foreach (var comment in Model.LatestComments)
+			{
 				@CommentHelpers.CommentBodyLarge(comment, true, ownProfile)
 			}
 		</div>
 
-		@if (Login.CanManageDb) {
+		@if (Login.CanManageDb)
+		{
 			<div id="newCommentPanel">
 				<h3>@ViewRes.DiscussionContentStrings.NewComment</h3>
 				@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5" })
@@ -271,21 +318,27 @@
 			</div>
 		}
 	</div>
+</div>
 
-	<div id="Collection">
-	</div>
+<div data-bind="visible: view() == 'Artists', with: followedArtistsViewModel">
+	@{ Html.RenderPartial("Partials/_FollowedArtists"); }
+</div>
 
-	<div id="Followed_artists">
-	</div>
+<div data-bind="visible: view() == 'Albums', with: albumCollectionViewModel">
+	@{ Html.RenderPartial("Partials/_AlbumCollection"); }
+</div>
 
-	<div id="customLists">
-		@SongHelpers.SongLists(Model.SongLists)
+<div data-bind="visible: view() == 'Songs', with: ratedSongsViewModel">
+	@{ Html.RenderPartial("Partials/_RatedSongs"); }
+</div>
 
-		@if (ownProfile) {
-			<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">@R.CreateNewList</a>
-		}
-	</div>
+<div data-bind="visible: view() == 'CustomLists'">
+	@SongHelpers.SongLists(Model.SongLists)
 
+	@if (ownProfile)
+	{
+		<a href="@Url.Action("Edit", "SongList")" class="textLink addLink">@R.CreateNewList</a>
+	}
 </div>
 
 @Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
@@ -309,10 +362,30 @@
 
 		$(document).ready(function() {
 
-			var baseAddress = '@Url.Content("~/")';
-			var urlMapper = new vdb.UrlMapper(baseAddress);
+			var cultureCode = '@UICulture';
+			var languageSelection = '@UserContext.LanguagePreference';
+			var loggedUserId = @Model.Id;
+			var publicCollection = @ToJS(Model.PublicAlbumCollection || Model.Id == Login.Manager.LoggedUserId);
+			var rootPath = '@RootPath';
+			var urlMapper = new vdb.UrlMapper(rootPath);
 			var adminRepo = new vdb.repositories.AdminRepository(urlMapper);
-			var viewModel = new vdb.viewModels.UserDetailsViewModel(adminRepo);
+			var userRepo = new vdb.repositories.UserRepository(urlMapper);
+			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath);
+
+			var sort = 'Name';
+			var groupByRating = true;
+
+			var followedArtistsViewModel = new vdb.viewModels.user.FollowedArtistsViewModel(userRepo, languageSelection, loggedUserId);
+
+			var albumCollectionViewModel = new vdb.viewModels.user.AlbumCollectionViewModel(userRepo, artistRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
+				publicCollection, false);
+
+			var ratedSongsViewModel = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
+				sort, groupByRating, false);
+
+			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
 			ko.applyBindings(viewModel);
 
 			initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");

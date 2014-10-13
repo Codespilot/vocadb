@@ -2161,6 +2161,7 @@
     <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\AlbumCollectionViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\User\FollowedArtistsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\MySettingsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\RatedSongsSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinkEditViewModel.ts" />
@@ -2405,6 +2406,7 @@
     <Content Include="Views\Shared\Partials\_PaypalDonateButton.cshtml" />
     <Content Include="Views\User\Partials\_AlbumCollection.cshtml" />
     <Content Include="Views\User\Partials\_RatedSongs.cshtml" />
+    <Content Include="Views\User\Partials\_FollowedArtists.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

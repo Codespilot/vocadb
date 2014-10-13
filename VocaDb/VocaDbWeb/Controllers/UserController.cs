@@ -114,7 +114,7 @@ namespace VocaDb.Web.Controllers
 
 		public ActionResult Artists(int id) {
 
-			var artists = Service.GetArtists(id);
+			var artists = Data.GetArtists(id);
 
 			return PartialView(artists);
 

@@ -404,17 +404,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistWithAdditionalNamesContract[] GetArtists(int userId) {
-
-			return HandleQuery(session =>
-				session.Load<User>(userId)
-					.Artists
-					.Select(a => new ArtistWithAdditionalNamesContract(a.Artist, PermissionContext.LanguagePreference))
-					.OrderBy(s => s.Name)
-					.ToArray());
-
-		}
-
 		public CommentContract[] GetComments(int userId) {
 
 			return HandleQuery(session => {
