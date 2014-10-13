@@ -497,12 +497,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public PartialFindResult<T> GetArtists<T>(int userId, PagingProperties paging, Func<ArtistForUser, T> fac) {
-			
+		public PartialFindResult<T> GetArtists<T>(FollowedArtistQueryParams queryParams, Func<ArtistForUser, T> fac) {
+		
+			var paging = queryParams.Paging;
+	
 			return HandleQuery(ctx => {
 				
 				var query = ctx.OfType<ArtistForUser>().Query()
-					.Where(a => !a.Artist.Deleted && a.User.Id == userId);
+					.Where(a => !a.Artist.Deleted && a.User.Id == queryParams.UserId);
 
 				var artists = query
 					.Skip(paging.Start)

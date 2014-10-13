@@ -15,6 +15,7 @@ using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Search.User;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Helpers;
 
@@ -98,6 +99,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Gets a list of artists followed by a user.
 		/// </summary>
 		/// <param name="userId">ID of the user whose followed artists are to be browsed.</param>
+		/// <param name="artistType">Filter by artist type.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -107,6 +109,7 @@ namespace VocaDb.Web.Controllers.Api {
 		[Route("{userId:int}/followedArtists")]
 		public PartialFindResult<ArtistForUserForApiContract> GetFollowedArtists(
 			int userId,
+			ArtistType artistType = ArtistType.Unknown,
 			int start = 0, 
 			int maxResults = defaultMax,
 			bool getTotalCount = false, 
@@ -115,9 +118,14 @@ namespace VocaDb.Web.Controllers.Api {
 			
 			maxResults = Math.Min(maxResults, absoluteMax);
 			var ssl = WebHelper.IsSSL(Request);
-			var paging = new PagingProperties(start, maxResults, getTotalCount);
 
-			var artists = queries.GetArtists(userId, paging, afu => 
+			var queryParams = new FollowedArtistQueryParams {
+				UserId = userId,
+				ArtistType = artistType,
+				Paging = new PagingProperties(start, maxResults, getTotalCount),
+			};
+
+			var artists = queries.GetArtists(queryParams, afu => 
 				new ArtistForUserForApiContract(afu, lang, thumbPersister, ssl, fields));
 
 			return artists;

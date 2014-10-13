@@ -6,17 +6,34 @@ module vdb.viewModels.user {
 
 	export class FollowedArtistsViewModel {
 
-		constructor(private userRepo: rep.UserRepository, private languageSelection: string, private loggedUserId: number) {
+		constructor(private userRepo: rep.UserRepository,
+			private resourceRepo: rep.ResourceRepository,
+			private languageSelection: string, private loggedUserId: number, private cultureCode: string) {
 
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
 
 		}
 
+		public init = () => {
+
+			if (this.isInit)
+				return;
+
+			this.resourceRepo.getList(this.cultureCode, ['artistTypeNames'], resources => {
+				this.resources(resources);
+				this.updateResultsWithTotalCount();
+				this.isInit = true;
+			});
+
+		};
+
+		public isInit = false;
 		public loading = ko.observable(true); // Currently loading for data
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
 		public pauseNotifications = false;
+		public resources = ko.observable<any>();
 
 		public updateResultsWithTotalCount = () => this.updateResults(true);
 		public updateResultsWithoutTotalCount = () => this.updateResults(false);

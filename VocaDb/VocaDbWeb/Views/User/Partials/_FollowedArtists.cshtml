@@ -31,7 +31,10 @@
 					<span data-bind="artistTypeLabel: artistType"></span>
 					@KnockoutHelpers.DraftIcon("status")
 					<br />
-					<small class="extraInfo" data-bind="text: $data.additionalNames"></small>
+					<span data-bind="visible: $data.additionalNames">
+						<small class="extraInfo" data-bind="text: $data.additionalNames"></small><br />						
+					</span>
+					<small class="extraInfo" data-bind="text: $parents[1].resources().artistTypeNames[$data.artistType]"></small>
 				</td>
 			</tr>
 		</tbody>

@@ -21,12 +21,12 @@ module vdb.viewModels.user {
 		public view = ko.observable("Overview");
 
 		public setViewAlbums = () => {
-			this.albumCollectionViewModel.updateResultsWithTotalCount();
+			this.albumCollectionViewModel.init();
 			this.view("Albums");
 		}
 
 		public setViewArtists = () => {
-			this.followedArtistsViewModel.updateResultsWithTotalCount();
+			this.followedArtistsViewModel.init();
 			this.view("Artists");
 		}
 
@@ -34,7 +34,7 @@ module vdb.viewModels.user {
 			this.view("CustomLists");
 		}
 		public setViewSongs = () => {
-			this.ratedSongsViewModel.updateResultsWithTotalCount();
+			this.ratedSongsViewModel.init();
 			this.view("Songs");
 		}
 
