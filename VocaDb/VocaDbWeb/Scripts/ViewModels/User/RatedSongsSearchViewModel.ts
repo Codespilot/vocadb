@@ -8,8 +8,8 @@ module vdb.viewModels.user {
 		
 		constructor(private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
 			private songRepo: rep.SongRepository,
-			resourceRepo: rep.ResourceRepository,
-			private languageSelection: string, private loggedUserId: number, cultureCode: string,
+			private resourceRepo: rep.ResourceRepository,
+			private languageSelection: string, private loggedUserId: number, private cultureCode: string,
 			sort: string, groupByRating: boolean,
 			initialize = true) {
 
@@ -34,13 +34,8 @@ module vdb.viewModels.user {
 			this.songListId.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
 
-			userRepo.getSongLists(loggedUserId, songLists => this.songLists(songLists));
-
-			resourceRepo.getList(cultureCode, ['songSortRuleNames', 'songTypeNames'], resources => {
-				this.resources(resources);
-				if (initialize)
-					this.updateResultsWithTotalCount();
-			});
+			if (initialize)
+				this.init();
 
 		}
 
@@ -48,6 +43,7 @@ module vdb.viewModels.user {
 		public artistName = ko.observable("");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public groupByRating = ko.observable(true);
+		public isInit = false;
 		public loading = ko.observable(true); // Currently loading for data
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
@@ -59,6 +55,21 @@ module vdb.viewModels.user {
 		public songLists = ko.observableArray<dc.SongListBaseContract>([]);
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.resources() != null ? this.resources().songSortRuleNames[this.sort()] : "");
+
+		public init = () => {
+
+			if (this.isInit)
+				return;
+
+			this.userRepo.getSongLists(this.loggedUserId, songLists => this.songLists(songLists));
+
+			this.resourceRepo.getList(this.cultureCode, ['songSortRuleNames', 'songTypeNames'], resources => {
+				this.resources(resources);
+				this.updateResultsWithTotalCount();
+				this.isInit = true;
+			});
+
+		};
 
 		public selectArtist = (selectedArtistId: number) => {
 			this.artistId(selectedArtistId);

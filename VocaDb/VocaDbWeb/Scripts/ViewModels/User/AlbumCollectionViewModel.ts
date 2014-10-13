@@ -7,8 +7,8 @@ module vdb.viewModels.user {
 	export class AlbumCollectionViewModel {
 
 		constructor(private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
-			resourceRepo: rep.ResourceRepository,
-			private languageSelection: string, private loggedUserId: number, cultureCode: string,
+			private resourceRepo: rep.ResourceRepository,
+			private languageSelection: string, private loggedUserId: number, private cultureCode: string,
 			public publicCollection: boolean,
 			initialize = true) {
 
@@ -25,11 +25,8 @@ module vdb.viewModels.user {
 			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
 
-			resourceRepo.getList(cultureCode, ['albumMediaTypeNames', 'albumSortRuleNames', 'discTypeNames'], resources => {
-				this.resources(resources);
-				if (initialize)
-					this.updateResultsWithTotalCount();
-			});
+			if (initialize)
+				this.init();
 
 		}
 
@@ -37,6 +34,7 @@ module vdb.viewModels.user {
 		public artistName = ko.observable("");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public collectionStatus = ko.observable('');
+		public isInit = false;
 		public loading = ko.observable(true); // Currently loading for data
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
@@ -46,6 +44,20 @@ module vdb.viewModels.user {
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.resources() != null ? this.resources().albumSortRuleNames[this.sort()] : "");
 		public viewMode = ko.observable("Details");
+
+		public init = () => {
+
+			if (this.isInit)
+				return;
+
+			this.resourceRepo.getList(this.cultureCode, ['albumMediaTypeNames', 'albumSortRuleNames', 'discTypeNames'], resources => {
+				this.resources(resources);
+				this.updateResultsWithTotalCount();
+				this.isInit = true;
+			});
+
+		};
+
 
 		public ratingStars = (userRating: number) => {
 

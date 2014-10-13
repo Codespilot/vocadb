@@ -377,7 +377,7 @@
 			var sort = 'Name';
 			var groupByRating = true;
 
-			var followedArtistsViewModel = new vdb.viewModels.user.FollowedArtistsViewModel(userRepo, languageSelection, loggedUserId);
+			var followedArtistsViewModel = new vdb.viewModels.user.FollowedArtistsViewModel(userRepo, resourceRepo, languageSelection, loggedUserId, cultureCode);
 
 			var albumCollectionViewModel = new vdb.viewModels.user.AlbumCollectionViewModel(userRepo, artistRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
 				publicCollection, false);
