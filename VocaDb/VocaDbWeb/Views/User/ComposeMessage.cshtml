@@ -29,7 +29,7 @@
 		@Helpers.MarkdownNotice()
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaForKnockout(m => m.Body, binding: "value: newMessageViewModel.body, valueUpdate: 'afterkeydown'", cssClass: "span5", rows: 10, cols: 60)
+		@Html.TextAreaForKnockout(m => m.Body, binding: "textInput: newMessageViewModel.body", cssClass: "span5", rows: 10, cols: 60)
 		<br />
 		@Html.ValidationMessageFor(m => m.Body)
 		

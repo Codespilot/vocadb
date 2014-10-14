@@ -1858,6 +1858,8 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ArtistAutoComplete.ts" />
     <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\knockout-3.1.0.min.js" />
+    <Content Include="Scripts\knockout-3.2.0.debug.js" />
+    <Content Include="Scripts\knockout-3.2.0.js" />
     <Content Include="Scripts\knockout-sortable.js" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\FocusOut.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\EntryToolTip.ts" />
@@ -1883,6 +1885,7 @@
     <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguageSelection.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVs\PVService.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongListRepository.ts" />
+    <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistLinkViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Globalization\LocalizedStringWithIdEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />
@@ -1899,7 +1902,6 @@
     <TypeScriptCompile Include="Scripts\Shared\Resources.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jqueryui\jqueryui.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\lodash\lodash.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\marked\marked.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\qTip2\qtip.d.ts" />

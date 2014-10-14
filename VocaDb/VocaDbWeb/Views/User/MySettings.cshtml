@@ -163,7 +163,7 @@
 				@Helpers.MarkdownNotice()
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaForKnockout(m => m.AboutMe, binding: "value: aboutMe, valueUpdate: 'afterkeydown'", cssClass: "input-xxlarge", rows: 7)
+				@Html.TextAreaForKnockout(m => m.AboutMe, binding: "textInput: aboutMe", cssClass: "input-xxlarge", rows: 7)
 				<br />
 
 				@Res.LivePreview
