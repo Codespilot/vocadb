@@ -20,23 +20,30 @@ module vdb.viewModels.user {
 
 		public view = ko.observable("Overview");
 
-		public setViewAlbums = () => {
-			this.albumCollectionViewModel.init();
-			this.view("Albums");
+		public setView = (viewName: string) => {
+			
+			switch (viewName) {
+				case "Albums":
+					this.albumCollectionViewModel.init();
+					break;
+				case "Artists":
+					this.followedArtistsViewModel.init();
+					break;
+				case "Songs":
+					this.ratedSongsViewModel.init();
+					break;
+			}
+
+			window.location.hash = viewName != "Overview" ? viewName : "";
+			this.view(viewName);		
+
 		}
 
-		public setViewArtists = () => {
-			this.followedArtistsViewModel.init();
-			this.view("Artists");
-		}
-
-		public setCustomLists = () => {
-			this.view("CustomLists");
-		}
-		public setViewSongs = () => {
-			this.ratedSongsViewModel.init();
-			this.view("Songs");
-		}
+		public setOverview = () => this.setView("Overview");
+		public setViewAlbums = () => this.setView("Albums");
+		public setViewArtists = () => this.setView("Artists");
+		public setCustomLists = () => this.setView("CustomLists");
+		public setViewSongs = () => this.setView("Songs");
 
 		constructor(private adminRepo: rep.AdminRepository,
 			public followedArtistsViewModel: FollowedArtistsViewModel,
