@@ -113,7 +113,7 @@
 					<div class="control-group">
 						<div class="controls">
 							<div class="input-append">
-								<input type="text" data-bind="value: searchTerm, valueUpdate: 'afterkeydown'" class="input-xlarge" placeholder="@Res.TypeSomething" />
+								<input type="text" data-bind="textInput: searchTerm" class="input-xlarge" placeholder="@Res.TypeSomething" />
 								<button class="btn btn-danger" data-bind="click: function() { searchTerm(''); }, visible: searchTerm">@SharedRes.Clear</button>
 								&nbsp;
 							</div>

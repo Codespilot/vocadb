@@ -73,7 +73,7 @@
 		@Helpers.MarkdownNotice()
 	</div>
 	<div class="editor-field">
-		@Html.TextAreaForKnockout(m => m.Description, binding: "value: description, valueUpdate: 'afterkeydown'", cssClass: "span6", maxLength: 1000, rows: 8, cols: 50)
+		@Html.TextAreaForKnockout(m => m.Description, binding: "textInput: description", cssClass: "span6", maxLength: 1000, rows: 8, cols: 50)
 		@Html.ValidationMessageFor(m => m.Description)
 		
 		Live preview
