@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
@@ -132,7 +133,28 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
-			/// <summary>
+		/// <summary>
+		/// Gets a list of comments posted on user's profile.
+		/// </summary>
+		/// <param name="userId">ID of the user whose comments are to be retrieved.</param>
+		/// <param name="start">Index of the first comment to be loaded.</param>
+		/// <param name="maxResults">Maximum number of comments to load.</param>
+		/// <param name="getTotalCount">Whether to load the total number of comments.</param>
+		/// <returns>Page of comments.</returns>
+		[Route("{userId:int}/profileComments")]
+		public PartialFindResult<CommentForApiContract> GetProfileComments(
+			int userId,
+			int start = 0, int maxResults = defaultMax, bool getTotalCount = false
+			) {
+			
+			var paging = new PagingProperties(start, maxResults, getTotalCount);
+			var result = queries.GetProfileComments(userId, paging);
+
+			return result;
+
+		}
+
+		/// <summary>
 		/// Gets a list of songs rated by a user.
 		/// </summary>
 		/// <param name="userId">ID of the user whose songs are to be browsed.</param>

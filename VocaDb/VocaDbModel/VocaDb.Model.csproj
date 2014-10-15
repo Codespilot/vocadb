@@ -127,6 +127,7 @@
     <Compile Include="DataContracts\Albums\CreateAlbumContract.cs" />
     <Compile Include="DataContracts\Albums\ParseAlbumFileResultContract.cs" />
     <Compile Include="DataContracts\Api\EntryForApiContract.cs" />
+    <Compile Include="DataContracts\CommentForApiContract.cs" />
     <Compile Include="DataContracts\EntryThumbForApiContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventForApiContract.cs" />
     <Compile Include="DataContracts\Songs\RelatedSongsContract.cs" />
