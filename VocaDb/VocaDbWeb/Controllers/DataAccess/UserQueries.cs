@@ -38,6 +38,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IUserMessageMailer mailer;
 		private readonly IStopForumSpamClient sfsClient;
+		private readonly IUserIconFactory userIconFactory;
 
 		public IEntryLinkFactory EntryLinkFactory {
 			get { return entryLinkFactory; }
@@ -94,7 +95,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		}
 
 		public UserQueries(IUserRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IStopForumSpamClient sfsClient,
-			IUserMessageMailer mailer)
+			IUserMessageMailer mailer, IUserIconFactory userIconFactory)
 			: base(repository, permissionContext) {
 
 			ParamIs.NotNull(() => repository);
@@ -106,6 +107,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			this.entryLinkFactory = entryLinkFactory;
 			this.sfsClient = sfsClient;
 			this.mailer = mailer;
+			this.userIconFactory = userIconFactory;
 
 		}
 
@@ -523,7 +525,30 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			});
 
-		} 
+		}
+
+		public PartialFindResult<CommentForApiContract> GetProfileComments(int userId, PagingProperties paging) {
+			
+			return HandleQuery(ctx => {
+				
+				var query = ctx.OfType<UserComment>().Query()
+					.Where(c => c.User.Id == userId);
+
+				var comments = query
+					.OrderByDescending(c => c.Created)
+					.Skip(paging.Start)
+					.Take(paging.MaxEntries)
+					.ToArray()
+					.Select(c => new CommentForApiContract(c, userIconFactory))
+					.ToArray();
+
+				var count = (paging.GetTotalCount ? query.Count() : 0);
+
+				return new PartialFindResult<CommentForApiContract>(comments, count);
+
+			});
+
+		}
 
 		public PartialFindResult<FavoriteSongForUserContract> GetRatedSongs(RatedSongQueryParams queryParams) {
 			return GetRatedSongs(queryParams, ratedSong => new FavoriteSongForUserContract(ratedSong, PermissionContext.LanguagePreference));
