@@ -1464,7 +1464,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <TypeScriptCompile Include="Scripts\DataContracts\Base\EntryWithTagUsagesContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\CommentContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Globalization\LocalizedStringWithIdContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\PartialFindResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagUsageForApiContract.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
@@ -2409,6 +2411,7 @@
     <Content Include="Views\User\Partials\_AlbumCollection.cshtml" />
     <Content Include="Views\User\Partials\_RatedSongs.cshtml" />
     <Content Include="Views\User\Partials\_FollowedArtists.cshtml" />
+    <Content Include="Views\Shared\Partials\_CommentBody.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

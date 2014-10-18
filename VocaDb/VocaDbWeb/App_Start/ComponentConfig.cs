@@ -5,6 +5,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.Wcf;
 using Autofac.Integration.WebApi;
+using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
@@ -52,6 +53,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<NTextCatLibLanguageDetector>().As<ILanguageDetector>();
 			builder.RegisterType<BrandableStringsManager>().AsSelf().SingleInstance();
 			builder.RegisterType<VdbConfigManager>().AsSelf().SingleInstance();
+			builder.RegisterType<GravatarUserIconFactory>().As<IUserIconFactory>();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();
