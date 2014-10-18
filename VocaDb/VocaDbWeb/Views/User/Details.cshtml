@@ -301,8 +301,13 @@
 	}
 	
 	<div class="well well-transparent">
+		<div class="pull-right">
+			<small>
+				<a href="#" data-bind="click: function() { scrollToTop(); setComments(); }">@ViewRes.SharedStrings.ShowMore</a>
+			</small>
+		</div>
 		<h3>
-			<a data-bind="click: function() { setComments(); }" href="#">
+			<a data-bind="click: function() { scrollToTop(); setComments(); }" href="#">
 				@ViewRes.EntryDetailsStrings.LatestComments
 			</a>
 		</h3>
