@@ -1854,6 +1854,7 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\InitialValue.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\MomentJsTimeAgo.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ParseInteger.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\qTip.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\SlideVisible.ts" />
@@ -1888,6 +1889,7 @@
     <TypeScriptCompile Include="Scripts\Models\PVs\PVService.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongListRepository.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistLinkViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Globalization\LocalizedStringWithIdEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVServiceIcons.ts" />
@@ -1958,6 +1960,10 @@
     <TypeScriptCompile Include="Scripts\ViewModels\NewsListViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinkEditViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\WebLinksEditViewModelTests.ts" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\Shared\EntrySearchDrop.js" />
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />

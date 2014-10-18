@@ -8,7 +8,7 @@
 		<h3 class="media-heading comment-large-header">
 			<a data-bind="attr: { href: '/User/Profile/' + author.name }, text: author.name"></a>
 			<small class="extraInfo pull-right">
-				<span data-bind="text: created"></span>
+				<span data-bind="timeAgo: created"></span>
 			</small>
 		</h3>
 		<p data-bind="text: message"></p>
