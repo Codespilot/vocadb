@@ -3,6 +3,7 @@
 
 module vdb.viewModels.user {
 
+	import dc = vdb.dataContracts;
     import rep = vdb.repositories;
 
     export class UserDetailsViewModel {
@@ -18,6 +19,20 @@ module vdb.viewModels.user {
 
 		};
 
+		public initComments = () => {
+
+			if (this.comments().length)
+				return;
+
+			this.userRepo.getProfileComments(this.loggedUserId, { start: 0, maxEntries: 300, getTotalCount: false }, (result: dc.PartialFindResultContract<dc.CommentContract>) => {
+
+				this.comments(result.items);
+
+			});
+
+		};
+
+		public comments = ko.observableArray<dc.CommentContract>();
 		public view = ko.observable("Overview");
 
 		public setView = (viewName: string) => {
@@ -28,6 +43,9 @@ module vdb.viewModels.user {
 					break;
 				case "Artists":
 					this.followedArtistsViewModel.init();
+					break;
+				case "Comments":
+					this.initComments();
 					break;
 				case "Songs":
 					this.ratedSongsViewModel.init();
@@ -42,10 +60,14 @@ module vdb.viewModels.user {
 		public setOverview = () => this.setView("Overview");
 		public setViewAlbums = () => this.setView("Albums");
 		public setViewArtists = () => this.setView("Artists");
+		public setComments = () => this.setView("Comments");
 		public setCustomLists = () => this.setView("CustomLists");
 		public setViewSongs = () => this.setView("Songs");
 
-		constructor(private adminRepo: rep.AdminRepository,
+		constructor(
+			private loggedUserId: number,
+			private userRepo: rep.UserRepository,
+			private adminRepo: rep.AdminRepository,
 			public followedArtistsViewModel: FollowedArtistsViewModel,
 			public albumCollectionViewModel: AlbumCollectionViewModel,
 			public ratedSongsViewModel: RatedSongsSearchViewModel) {

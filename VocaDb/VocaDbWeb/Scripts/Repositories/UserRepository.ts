@@ -61,6 +61,18 @@ module vdb.repositories {
 
 		};
 
+		public getProfileComments = (userId: number, paging: dc.PagingProperties, callback) => {
+
+			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/profileComments");
+			var data = {
+				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
+				userId: userId
+			};
+
+			$.getJSON(url, data, callback);
+
+		};
+
 		public getRatedSongsList = (
 			userId: number,
 			paging: dc.PagingProperties, lang: string, query: string,

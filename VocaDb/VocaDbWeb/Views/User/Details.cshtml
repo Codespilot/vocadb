@@ -97,6 +97,9 @@
 	<li data-bind="css: { active: view() == 'CustomLists' }">
 		<a href="#" data-bind="click: function() { setCustomLists(); }">@R.CustomListsTab</a>
 	</li>
+	<li data-bind="css: { active: view() == 'Comments' }">
+		<a href="#" data-bind="click: function() { setComments(); }">@R.Comments</a>
+	</li>
 </ul>
 
 <div data-bind="visible: view() == 'Overview'">
@@ -341,6 +344,10 @@
 	}
 </div>
 
+<div data-bind="visible: view() == 'Comments', foreach: comments">
+	@{ Html.RenderPartial("Partials/_CommentBody"); }
+</div>
+
 @Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
 
 @AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
@@ -390,7 +397,7 @@
 			var ratedSongsViewModel = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
 				sort, groupByRating, false);
 
-			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
+			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(loggedUserId, userRepo, adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
 			ko.applyBindings(viewModel);
 
 			if (window.location.hash && window.location.hash.length > 1) {
