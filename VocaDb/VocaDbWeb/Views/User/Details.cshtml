@@ -312,9 +312,13 @@
 			</a>
 		</h3>
 		<div>
-			@foreach (var comment in Model.LatestComments)
-			{
-				@CommentHelpers.CommentBodyLarge(comment, true, ownProfile)
+			@if (Model.LatestComments.Any()) {
+				foreach (var comment in Model.LatestComments)
+				{
+					@CommentHelpers.CommentBodyLarge(comment, true, ownProfile)
+				}
+			} else {
+				<p>@ViewRes.EntryDetailsStrings.NoComments</p>
 			}
 		</div>		
 	</div>
@@ -389,8 +393,10 @@
 			moment.locale(cultureCode);
 
 			var languageSelection = '@UserContext.LanguagePreference';
-			var loggedUserId = @Model.Id;
-			var publicCollection = @ToJS(Model.PublicAlbumCollection || Model.Id == Login.Manager.LoggedUserId);
+			var userId = @Model.Id;
+			var canDeleteComments = @ToJS(UserContext.HasPermission(PermissionToken.DeleteComments));
+			var loggedUserId = @ToJS(UserContext.LoggedUserId);
+			var publicCollection = @ToJS(Model.PublicAlbumCollection || Model.Id == UserContext.LoggedUserId);
 			var rootPath = '@RootPath';
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var adminRepo = new vdb.repositories.AdminRepository(urlMapper);
@@ -410,14 +416,14 @@
 			var ratedSongsViewModel = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
 				sort, groupByRating, false);
 
-			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(loggedUserId, userRepo, adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
+			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(userId, loggedUserId, canDeleteComments, userRepo, adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
 			ko.applyBindings(viewModel);
 
 			if (window.location.hash && window.location.hash.length > 1) {
 				viewModel.setView(window.location.hash.substr(1));
 			}
 
-			initPage(@Model.Id, "@ViewRes.SharedStrings.Loading", "@R.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+			initPage(userId, "@ViewRes.SharedStrings.Loading", "@R.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
 		});
 
 	</script>

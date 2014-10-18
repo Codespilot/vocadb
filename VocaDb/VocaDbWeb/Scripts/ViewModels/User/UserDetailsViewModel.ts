@@ -19,12 +19,27 @@ module vdb.viewModels.user {
 
 		};
 
+		public deleteComment = (profileComment: dc.CommentContract) => {
+
+			this.userRepo.deleteComment(profileComment.id, () => {
+				this.comments.remove(profileComment);
+			});
+
+		};
+
 		public initComments = () => {
 
 			if (this.comments().length)
 				return;
 
-			this.userRepo.getProfileComments(this.loggedUserId, { start: 0, maxEntries: 300, getTotalCount: false }, (result: dc.PartialFindResultContract<dc.CommentContract>) => {
+			this.userRepo.getProfileComments(this.userId, { start: 0, maxEntries: 300, getTotalCount: false }, (result: dc.PartialFindResultContract<dc.CommentContract>) => {
+
+				_.forEach(result.items, comment => {
+
+					var commentAny: any = comment;
+					commentAny.canBeDeleted = (this.canDeleteComments || this.userId == this.loggedUserId || (comment.author && comment.author.id == this.loggedUserId));
+
+				});
 
 				this.comments(result.items);
 
@@ -65,7 +80,9 @@ module vdb.viewModels.user {
 		public setViewSongs = () => this.setView("Songs");
 
 		constructor(
+			private userId: number,
 			private loggedUserId: number,
+			private canDeleteComments: boolean,
 			private userRepo: rep.UserRepository,
 			private adminRepo: rep.AdminRepository,
 			public followedArtistsViewModel: FollowedArtistsViewModel,

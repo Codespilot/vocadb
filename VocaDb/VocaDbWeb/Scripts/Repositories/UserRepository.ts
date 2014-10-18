@@ -12,6 +12,13 @@ module vdb.repositories {
     // Corresponds to the UserController class.
     export class UserRepository {
 
+		public deleteComment = (commentId: number, callback) => {
+			
+			var url = this.urlMapper.mapRelative("/User/DeleteComment/");
+			$.post(url, { commentId: commentId }, callback);
+
+		}
+
 		public getAlbumCollectionList = (
 			userId: number,
 			paging: dc.PagingProperties, lang: string, query: string,
