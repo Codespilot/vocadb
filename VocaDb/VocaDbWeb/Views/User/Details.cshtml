@@ -347,19 +347,18 @@
 
 <div data-bind="visible: view() == 'Comments'" class="well well-transparent">
 	
-	<div data-bind="foreach: comments" id="comments">
-		@{ Html.RenderPartial("Partials/_CommentBody"); }
-	</div>
-	
 	@if (Login.CanManageDb) {
 		<div id="newCommentPanel">
-			<h3>@ViewRes.DiscussionContentStrings.NewComment</h3>
-			@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5" })
+			@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5", placeholder = ViewRes.DiscussionContentStrings.NewComment })
 			<a href="#" class="textLink addLink" id="createComment">@ViewRes.DiscussionContentStrings.AddComment</a>
 			<hr />
 		</div>
 	}
 
+	<div data-bind="foreach: comments" id="comments">
+		@{ Html.RenderPartial("Partials/_CommentBody"); }
+	</div>
+	
 </div>
 
 @Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
