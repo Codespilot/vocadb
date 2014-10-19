@@ -103,9 +103,7 @@ namespace VocaDb.Model.Utils {
 		}
 
 		public static string DbDumpFolder {
-			get {
-				return Val("DbDumpFolder");
-			}
+			get { return Val("DbDumpFolder"); }
 		}
 
 		public static string ExternalHelpPath {
@@ -154,6 +152,17 @@ namespace VocaDb.Model.Utils {
 		public static string LockdownMessage {
 			get {
 				return Val("LockdownMessage");
+			}
+		}
+
+		/// <summary>
+		/// Preferred artist types when parsing Nico PVs.
+		/// For VocaDB Vocaloids are expected instead of human vocalists.
+		/// </summary>
+		public static ArtistType[] PreferredNicoArtistTypes {
+			get {
+				var val = Val("PreferredNicoArtistTypes");
+				return !string.IsNullOrEmpty(val) ? EnumVal<ArtistType>.ParseMultiple(val) : new ArtistType[0];
 			}
 		}
 

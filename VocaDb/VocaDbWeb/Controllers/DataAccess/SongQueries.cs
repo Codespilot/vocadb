@@ -22,6 +22,7 @@ using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Queries;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.VideoServices;
+using VocaDb.Model.Utils;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
@@ -70,12 +71,27 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		private Artist GetArtist(string name, IRepositoryContext<PVForSong> ctx) {
+		private Artist GetArtist(string name, IRepositoryContext<PVForSong> ctx, ArtistType[] preferredArtistTypes) {
+
+			if (preferredArtistTypes != null && preferredArtistTypes.Any()) {
+				
+				var preferredArtist = ctx.OfType<ArtistName>()
+					.Query()
+					.Where(n => n.Value == name && !n.Artist.Deleted && preferredArtistTypes.Contains(n.Artist.ArtistType))
+					.Select(n => n.Artist)
+					.FirstOrDefault();
+
+				if (preferredArtist != null)
+					return preferredArtist;
+
+			}
+
 			return ctx.OfType<ArtistName>()
 				.Query()
 				.Where(n => n.Value == name && !n.Artist.Deleted)
 				.Select(n => n.Artist)
 				.FirstOrDefault();
+
 		}
 
 		private Tag[] GetTags(IRepositoryContext<Tag> session, string[] tagNames) {
@@ -90,7 +106,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			if (res == null || !res.IsOk)
 				return null;
 
-			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => GetArtist(a, ctx));
+			var titleParseResult = NicoHelper.ParseTitle(res.Title, a => GetArtist(a, ctx, AppConfig.PreferredNicoArtistTypes));
 
 			if (!string.IsNullOrEmpty(titleParseResult.Title))
 				titleParseResult.TitleLanguage = languageDetector.Detect(titleParseResult.Title, ContentLanguageSelection.Unspecified);
