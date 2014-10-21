@@ -19,6 +19,10 @@ namespace VocaDb.Model.Domain.Albums {
 
 	public class Album : IEntryBase, IEntryWithNames, IEntryWithStatus, IDeletableEntry, IEquatable<Album>, INameFactory<AlbumName>, IWebLinkFactory<AlbumWebLink> {
 
+		public static string ParseBarcode(string barcode) {
+			return !string.IsNullOrEmpty(barcode) ? barcode.Replace(" ", string.Empty).Replace("-", string.Empty) : barcode;
+		}
+
 		public static bool TrackPropertiesEqual(SongInAlbum first, SongInAlbumEditContract second) {
 
 			return first.DiscNumber == second.DiscNumber && first.TrackNumber == second.TrackNumber;
