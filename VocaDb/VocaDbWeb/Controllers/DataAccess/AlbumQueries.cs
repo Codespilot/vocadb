@@ -342,8 +342,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.Description = true;
 				}
 
-				if (album.Barcode != properties.Barcode) {
-					album.Barcode = properties.Barcode;
+				var parsedBarcode = Album.ParseBarcode(properties.Barcode);
+				if (album.Barcode != parsedBarcode) {
+					album.Barcode = parsedBarcode;
 					diff.Barcode = true;
 				}
 
