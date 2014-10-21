@@ -11,6 +11,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
+			Map(m => m.Barcode).Length(30).Nullable();
 			Map(m => m.CoverPictureMime).Length(32).Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();

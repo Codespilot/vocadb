@@ -31,6 +31,15 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
+		public virtual bool Barcode {
+			get {
+				return IsChanged(AlbumEditableFields.Barcode);
+			}
+			set {
+				Set(AlbumEditableFields.Barcode, value);
+			}
+		}
+
 		public virtual string[] ChangedFieldNames {
 			get {
 

@@ -31,6 +31,7 @@ namespace VocaDb.Model.Service.Search.AlbumSearch {
 				.WhereDraftsOnly(queryParams.Common.DraftOnly)
 				.WhereStatusIs(queryParams.Common.EntryStatus)
 				.WhereHasArtistParticipationStatus(artistId, queryParams.ArtistParticipationStatus, queryParams.ChildVoicebanks, id => querySource.Load<Artist>(id))
+				.WhereHasBarcode(queryParams.Barcode)
 				.WhereHasType(queryParams.AlbumType)
 				.WhereHasTag(!string.IsNullOrEmpty(queryParams.Tag) ? queryParams.Tag : parsedQuery.TagName);
 
