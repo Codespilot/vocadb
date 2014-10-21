@@ -130,6 +130,9 @@ namespace VocaDb.Model.Domain.Albums {
 				artistString = value;
 			}
 		}
+
+		public virtual string Barcode { get; set; }
+
 		public virtual IList<AlbumComment> Comments {
 			get { return comments; }
 			set {

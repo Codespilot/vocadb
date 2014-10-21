@@ -122,6 +122,14 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<Album> WhereHasBarcode(this IQueryable<Album> query, string barcode) {
+
+			if (string.IsNullOrEmpty(barcode))
+				return query;
+
+			return query.Where(a => a.Barcode == barcode);
+
+		}
 
 		// TODO: should be combined with common name query somehow, but NH is making it hard
 		/// <summary>

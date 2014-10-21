@@ -16,6 +16,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			: base(album, languagePreference) {
 
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
+			Barcode = album.Barcode;
 			Deleted = album.Deleted;
 			Description = album.Description;
 			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
@@ -35,6 +36,9 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		[DataMember]
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
+
+		[DataMember]
+		public string Barcode { get; set; }
 
 		[DataMember]
 		public bool Deleted { get; set; }

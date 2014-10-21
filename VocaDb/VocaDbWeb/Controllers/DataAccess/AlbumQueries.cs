@@ -342,6 +342,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.Description = true;
 				}
 
+				if (album.Barcode != properties.Barcode) {
+					album.Barcode = properties.Barcode;
+					diff.Barcode = true;
+				}
+
 				if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
 					album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
 					diff.OriginalName = true;

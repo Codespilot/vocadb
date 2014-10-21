@@ -196,6 +196,14 @@
 				@Html.TextBoxFor(m => m.CatNum)
 				@Html.ValidationMessageFor(m => m.CatNum)
 			</div>
+			
+			<div class="editor-label">
+				<label>Barcode</label>
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(m => m.Barcode, new { maxlength = 30 })
+				@Html.ValidationMessageFor(m => m.Barcode)
+			</div>
 
 			<div class="editor-label">
 				@Html.LabelFor(m => m.ReleaseEvent, R.EditStrings.BaReleaseEvent)

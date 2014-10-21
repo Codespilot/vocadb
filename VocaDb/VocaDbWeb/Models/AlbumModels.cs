@@ -50,6 +50,7 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => album);
 
 			ArtistLinks = album.ArtistLinks;
+			Barcode = album.Barcode;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			DiscType = album.DiscType;
@@ -83,6 +84,9 @@ namespace VocaDb.Web.Models {
 
 		[FromJson]
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
+
+		[StringLength(30)]
+		public string Barcode { get; set; }
 
 		[Display(Name = "Catalog number")]
 		[StringLength(50)]
@@ -184,6 +188,7 @@ namespace VocaDb.Web.Models {
 
 			return new AlbumForEditContract {
 				ArtistLinks = this.ArtistLinks,
+				Barcode = this.Barcode,
 				Description = this.Description ?? string.Empty,
 				DiscType = this.DiscType,
 				Id = this.Id,

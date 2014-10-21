@@ -156,4 +156,7 @@
   <data name="WebLinks" xml:space="preserve">
     <value>External links</value>
   </data>
+  <data name="Barcode" xml:space="preserve">
+    <value>Barcode</value>
+  </data>
 </root>
