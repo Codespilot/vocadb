@@ -407,12 +407,12 @@
 			var sort = 'Name';
 			var groupByRating = true;
 
-			var followedArtistsViewModel = new vdb.viewModels.user.FollowedArtistsViewModel(userRepo, resourceRepo, languageSelection, loggedUserId, cultureCode);
+			var followedArtistsViewModel = new vdb.viewModels.user.FollowedArtistsViewModel(userRepo, resourceRepo, languageSelection, userId, cultureCode);
 
-			var albumCollectionViewModel = new vdb.viewModels.user.AlbumCollectionViewModel(userRepo, artistRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
+			var albumCollectionViewModel = new vdb.viewModels.user.AlbumCollectionViewModel(userRepo, artistRepo, resourceRepo, languageSelection, userId, cultureCode,
 				publicCollection, false);
 
-			var ratedSongsViewModel = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
+			var ratedSongsViewModel = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, userId, cultureCode,
 				sort, groupByRating, false);
 
 			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(userId, loggedUserId, canDeleteComments, userRepo, adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
