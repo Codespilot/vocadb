@@ -458,7 +458,10 @@ namespace VocaDb.Model.Service {
 
 				var artist = session.Load<Artist>(artistId);
 
+				NHibernateUtil.Initialize(artist.Picture);
 				artist.Deleted = false;
+
+				session.Update(artist);
 
 				AuditLog("restored " + EntryLinkFactory.CreateEntryLink(artist), session);
 
