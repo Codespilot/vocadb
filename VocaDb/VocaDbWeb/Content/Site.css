@@ -327,6 +327,10 @@ ul {
 	color: #1C5D74;
 }
 
+#appLinks img {
+	margin-bottom: 8px;
+}
+
 #socialSites {
 	margin-left: 15px;
 }

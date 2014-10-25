@@ -1215,6 +1215,7 @@
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\banners\appstore.png" />
     <Content Include="Content\banners\en_app_rgb_wo_45.png" />
     <Content Include="Content\banners\facebook.png" />
     <Content Include="Content\banners\googleplus-icon.png" />
