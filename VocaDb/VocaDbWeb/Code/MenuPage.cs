@@ -30,6 +30,7 @@ namespace VocaDb.Web.Code {
 
 				AppLinks = new[] {
 					new Link("Google Play Store", "https://play.google.com/store/apps/details?id=com.coolappz.Vocadb", "en_app_rgb_wo_45.png"),
+					new Link("App Store", "https://itunes.apple.com/us/app/vocadb/id907510673", "appstore.png"),
 				};
 
 			} else {

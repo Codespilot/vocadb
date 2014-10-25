@@ -84,10 +84,12 @@
 		
 	<div class="well">
 		@if (AppLinks.Any()) {
-			foreach (var link in AppLinks) {
-				@SmallBanner(link.Title, link.Url, link.BannerImg)
-			}		
-			<br />	
+			<div id="appLinks">
+				@foreach (var link in AppLinks) {
+					@SmallBanner(link.Title, link.Url, link.BannerImg)
+				}
+				<br />
+			</div>
 		}
 
 		<h4>@ViewRes._LayoutStrings.SocialSites</h4>
