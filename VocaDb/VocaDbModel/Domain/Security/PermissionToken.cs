@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts;
@@ -11,8 +12,12 @@ namespace VocaDb.Model.Domain.Security {
 		private Guid id;
 		private string name;
 
+		private static readonly IDictionary<Guid, PermissionToken> all = new Dictionary<Guid, PermissionToken>(50);
+
 		private static PermissionToken New(string guid, string name) {
-			return new PermissionToken(new Guid(guid), name);
+			var token = new PermissionToken(new Guid(guid), name);
+			all.Add(token.Id, token);
+			return token;
 		}
 
 		/// <summary>
@@ -29,6 +34,7 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken DeleteEntries =			New("cc51c6b6-be93-4942-a6e4-fdf88f4520b9", "DeleteEntries");
 		public static readonly PermissionToken DesignatedStaff =		New("b995a14b-49b4-4f1e-8fac-36a34967ddb0", "DesignatedStaff");
 		public static readonly PermissionToken DisableUsers =			New("cb46dfbe-5221-4af4-9968-53aec5faa3d4", "DisableUsers");
+		public static readonly PermissionToken EditAllSongLists =		New("b4873d98-b21f-40ee-b1d4-94102ae6e528", "EditAllSongLists");
 		public static readonly PermissionToken EditFeaturedLists =		New("a639e4a3-86fe-429a-81ea-d0aa05161e40", "EditFeaturedLists");
 		public static readonly PermissionToken EditNews =				New("c7f03d3f-7b4b-4149-b390-a0cafb7f284f", "EditNews");
 		public static readonly PermissionToken EditProfile =			New("4f79b01a-7154-4a7f-bc87-a8a9259a9905", "EditProfile");
@@ -49,19 +55,20 @@ namespace VocaDb.Model.Domain.Security {
 		/// <summary>
 		/// All tokens except Nothing
 		/// </summary>
-		public static readonly PermissionToken[] All = { 
-			AccessManageMenu, Admin, ApproveEntries, BulkDeletePVs, CreateComments, DeleteComments, DeleteEntries, 
-			DesignatedStaff, DisableUsers, EditFeaturedLists, EditNews, EditProfile, LockEntries, ManageDatabase, ManageEntryReports,
-			ManageEventSeries, ManageIPRules, ManageUserPermissions, MergeEntries, MikuDbImport, MoveToTrash, ReadRecentComments, RemoveTagUsages, 
-			RestoreRevisions, ViewAuditLog
-		};
+		public static readonly IEnumerable<PermissionToken> All = all.Values;
 
 		public static string GetNameById(Guid id) {
-			return All.First(t => t.Id == id).Name;
+			return GetById(id).Name;
 		}
 
 		public static PermissionToken GetById(Guid id) {
-			return All.First(t => t.Id == id);
+
+			PermissionToken token;
+			if (all.TryGetValue(id, out token))
+				return token;
+
+			throw new ArgumentException(string.Format("Invalid permission token: {0}.", id), "id");
+
 		}
 
 		public static bool operator ==(PermissionToken left, PermissionToken right) {

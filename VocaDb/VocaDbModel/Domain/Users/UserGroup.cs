@@ -14,18 +14,39 @@ namespace VocaDb.Model.Domain.Users {
 		private static readonly UserGroup limited = new UserGroup(UserGroupId.Limited, PermissionToken.EditProfile);
 
 		private static readonly UserGroup regular = new UserGroup(UserGroupId.Regular,
-			limited, PermissionToken.CreateComments, PermissionToken.ManageDatabase);
+			limited, 
+			PermissionToken.CreateComments, 
+			PermissionToken.ManageDatabase
+		);
 
 		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted,
-			regular, PermissionToken.ApproveEntries, PermissionToken.DeleteEntries, PermissionToken.EditFeaturedLists, 
-			PermissionToken.ManageEventSeries, PermissionToken.MergeEntries, PermissionToken.RemoveTagUsages);
+			regular, 
+			PermissionToken.ApproveEntries, 
+			PermissionToken.DeleteEntries, 
+			PermissionToken.EditFeaturedLists, 
+			PermissionToken.ManageEventSeries, 
+			PermissionToken.MergeEntries, 
+			PermissionToken.RemoveTagUsages
+		);
 
 		private static readonly UserGroup mod = new UserGroup(UserGroupId.Moderator,
-			trusted, PermissionToken.AccessManageMenu, PermissionToken.BulkDeletePVs, PermissionToken.DeleteComments, 
-			PermissionToken.DesignatedStaff, PermissionToken.DisableUsers, PermissionToken.EditNews,
-			PermissionToken.LockEntries, PermissionToken.ManageIPRules, PermissionToken.ManageEntryReports, 
-			PermissionToken.ManageUserPermissions, PermissionToken.MikuDbImport, PermissionToken.MoveToTrash, 
-			PermissionToken.RestoreRevisions, PermissionToken.ViewAuditLog);
+			trusted, 
+			PermissionToken.AccessManageMenu, 
+			PermissionToken.BulkDeletePVs, 
+			PermissionToken.DeleteComments, 
+			PermissionToken.DesignatedStaff, 
+			PermissionToken.DisableUsers, 
+			PermissionToken.EditAllSongLists, 
+			PermissionToken.EditNews, 
+			PermissionToken.LockEntries, 
+			PermissionToken.ManageIPRules, 
+			PermissionToken.ManageEntryReports, 
+			PermissionToken.ManageUserPermissions, 
+			PermissionToken.MikuDbImport, 
+			PermissionToken.MoveToTrash, 
+			PermissionToken.RestoreRevisions, 
+			PermissionToken.ViewAuditLog
+		);
 
 		private static readonly UserGroup admin = new UserGroup(UserGroupId.Admin,
 			mod, PermissionToken.Admin);

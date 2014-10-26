@@ -184,13 +184,13 @@ namespace VocaDb.Web.Helpers {
 
 		public static string PermissionTokenName(PermissionToken token) {
 
-			return PermissionTokenNames.ResourceManager.GetString(PermissionToken.GetNameById(token.Id));
+			return PermissionTokenNames.ResourceManager.GetString(token.Name) ?? token.Name;
 
 		}
 
 		public static string PermissionTokenName(PermissionTokenContract token) {
 
-			return PermissionTokenNames.ResourceManager.GetString(PermissionToken.GetNameById(token.Id));
+			return PermissionTokenNames.ResourceManager.GetString(PermissionToken.GetNameById(token.Id)) ?? token.Name;
 			 
 		}
 
