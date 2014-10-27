@@ -339,6 +339,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SongListFeaturedCategoryNames.de.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_GlobalResources\Songs\SongListEditableFieldNames.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SongListEditableFieldNames.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Songs\SongSortRuleNames.de.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2420,6 +2425,7 @@
     <Content Include="Views\User\Partials\_RatedSongs.cshtml" />
     <Content Include="Views\User\Partials\_FollowedArtists.cshtml" />
     <Content Include="Views\Shared\Partials\_CommentBody.cshtml" />
+    <Content Include="Views\SongList\Versions.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
@@ -2928,6 +2934,10 @@
     <Content Include="App_GlobalResources\WebLinkCategoryNames.de.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>WebLinkCategoryNames.de.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Songs\SongListEditableFieldNames.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>SongListEditableFieldNames.Designer.cs</LastGenOutput>
     </Content>
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.de.resx" />
     <EmbeddedResource Include="Resources\Ajax\AlbumStrings.fi.resx" />

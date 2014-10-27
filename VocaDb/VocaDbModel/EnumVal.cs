@@ -8,10 +8,16 @@ namespace VocaDb.Model {
 	/// Type-safe enum
 	/// </summary>
 	/// <typeparam name="T">Enum type</typeparam>
-	public struct EnumVal<T> where T : struct, IConvertible {
+	public class EnumVal<T> where T : struct, IConvertible {
 
 		private T val;
-		private readonly int valInt;
+
+		private int ValInt {
+			get { return Convert.ToInt32(val); }
+			set {
+				val = (T)Enum.ToObject(typeof(T), value);
+			}
+		}
 
 		/// <summary>
 		/// Checks whether a flag has been set.
@@ -95,10 +101,14 @@ namespace VocaDb.Model {
 		/// <summary>
 		/// Initializes a new instance of enum
 		/// </summary>
+		public EnumVal() {}
+
+		/// <summary>
+		/// Initializes a new instance of enum
+		/// </summary>
 		/// <param name="flags">Enum flags to set.</param>
 		public EnumVal(T flags) {
 			this.val = flags;
-			this.valInt = Convert.ToInt32(val);
 		}
 
 		/// <summary>
@@ -109,13 +119,36 @@ namespace VocaDb.Model {
 			set { val = value; }
 		}
 
+		public void AddFlag(T flag) {
+			ValInt |= Convert.ToInt32(flag);	
+		}
+
+		public void Clear() {
+			Value = default(T);
+		}
+
 		/// <summary>
 		/// Checks whether a flag has been set.
 		/// </summary>
 		/// <param name="flag">Flag to check.</param>
 		/// <returns>True if the flag is set.</returns>
 		public bool FlagIsSet(T flag) {
-			return (valInt & Convert.ToInt32(flag)) == Convert.ToInt32(flag);
+			return (ValInt & Convert.ToInt32(flag)) == Convert.ToInt32(flag);
+		}
+
+		public void RemoveFlag(T flag) {
+			ValInt -= Convert.ToInt32(flag);
+		}
+
+		public void SetFlag(T flag, bool val) {
+
+			var isSet = FlagIsSet(flag);
+
+			if (val && !isSet)
+				AddFlag(flag);
+			else if (!val && isSet)
+				RemoveFlag(flag);
+
 		}
 
 	}

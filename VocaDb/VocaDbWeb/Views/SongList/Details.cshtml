@@ -51,7 +51,9 @@
 
 @section Toolbar {	
 @if (Model.CanEdit) {
-	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editListLink" });
+	@Html.ActionLink(ViewRes.SharedStrings.Edit, "Edit", new { id = Model.Id }, new { id = "editListLink" })
+	@:
+	@Html.ActionLink(ViewRes.EntryDetailsStrings.ViewModifications, "Versions", new { id = Model.Id }, new { id = "viewVersions" })
 }
 }
 
@@ -63,6 +65,7 @@
 	$(document).ready(function () {
 
 		$("#editListLink").button({ icons: { primary: 'ui-icon-wrench' } });
+		$("#viewVersions").button({ icons: { primary: 'ui-icon-clock' } });
 
 		var languageSelection = '@UserContext.LanguagePreference';
 		var listId = @Model.Id;
