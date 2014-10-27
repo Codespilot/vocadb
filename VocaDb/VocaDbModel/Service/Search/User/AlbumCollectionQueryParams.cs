@@ -32,6 +32,8 @@ namespace VocaDb.Model.Service.Search.User {
 
 		public string Query { get; set; }
 
+		public string ReleaseEventName { get; set; }
+
 		public AlbumSortRule Sort { get; set; }
 
 		/// <summary>

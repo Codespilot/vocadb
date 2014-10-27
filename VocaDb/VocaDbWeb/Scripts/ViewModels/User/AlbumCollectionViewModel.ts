@@ -22,6 +22,7 @@ module vdb.viewModels.user {
 			this.collectionStatus.subscribe(this.updateResultsWithTotalCount);
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
+			this.releaseEventName.subscribe(this.updateResultsWithTotalCount);
 			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
 
@@ -39,6 +40,7 @@ module vdb.viewModels.user {
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
 		public pauseNotifications = false;
+		public releaseEventName = ko.observable<string>(null);
 		public resources = ko.observable<any>();
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public sort = ko.observable("Name");
@@ -89,7 +91,7 @@ module vdb.viewModels.user {
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
 			this.userRepo.getAlbumCollectionList(this.loggedUserId, pagingProperties, this.languageSelection, this.searchTerm(), this.artistId(),
-				this.collectionStatus(), this.sort(),
+				this.collectionStatus(), this.releaseEventName(), this.sort(),
 				(result: any) => {
 
 					this.pauseNotifications = false;

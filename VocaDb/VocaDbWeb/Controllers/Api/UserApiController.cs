@@ -53,6 +53,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="purchaseStatuses">
 		/// Filter by a comma-separated list of purchase statuses (optional). Possible values are Nothing, Wishlisted, Ordered, Owned, and all combinations of these.
 		/// </param>
+		/// <param name="releaseEventName">Filter by release event name, for example "The Voc@loid M@ster 24". Must be an exact match. Optional.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>
@@ -69,6 +70,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			int? artistId = null,
 			[FromUri] PurchaseStatuses? purchaseStatuses = null,
+			string releaseEventName = null,
 			int start = 0, 
 			int maxResults = defaultMax,
 			bool getTotalCount = false, 
@@ -86,6 +88,7 @@ namespace VocaDb.Web.Controllers.Api {
 				FilterByStatus = purchaseStatuses != null ? purchaseStatuses.Value.ToIndividualSelections().ToArray() : null,
 				NameMatchMode = nameMatchMode,
 				Query = query,
+				ReleaseEventName = releaseEventName,
 				Sort = sort ?? AlbumSortRule.Name
 			};
 
