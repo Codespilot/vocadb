@@ -193,6 +193,7 @@ namespace VocaDb.Web.App_Start {
 			bundles.Add(new ScriptBundle("~/bundles/User/AlbumCollection").Include(
 				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
+				"~/Scripts/KnockoutExtensions/ReleaseEventNameAutoComplete.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/User/AlbumCollectionViewModel.js"
@@ -204,6 +205,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/MomentJsTimeAgo.js",
+				"~/Scripts/KnockoutExtensions/ReleaseEventNameAutoComplete.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",

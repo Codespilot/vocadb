@@ -55,6 +55,18 @@
 		</div>
 	</div>
 
+	<div class="control-group">
+		<div class="control-label">Release event</div>
+		<div class="controls">
+			<div style="display: inline-block;" class="input-append input-prepend">
+				<a href="#" class="btn btn-nomargin" data-bind="visible: releaseEventName, attr: { href: '/Event/Find?query=' + encodeURIComponent(releaseEventName()) }" title="Release event information">
+					<i class="icon icon-info-sign"></i>
+				</a>
+				@KnockoutHelpers.LockingAutoComplete("releaseEventNameAutoComplete", "releaseEventName")
+			</div>
+		</div>
+	</div>
+
 </div>
 
 <div data-bind="css: { loading: loading }, visible: true" style="display: none;">
@@ -111,7 +123,7 @@
 					<span data-bind="text: album.releaseDate ? album.releaseDate.formatted : ''"></span>
 					<span data-bind="visible: album.releaseEvent">
 						<br />
-						<a data-bind="text: album.releaseEvent, attr: { href: '/Event/Find?query=' + encodeURIComponent(album.releaseEvent) }" href="#"></a>
+						<a data-bind="text: album.releaseEvent, click: function() { $parent.releaseEventName(album.releaseEvent); }" href="#"></a>
 					</span>
 				</td>
 				<td data-bind="visible: $parent.publicCollection">

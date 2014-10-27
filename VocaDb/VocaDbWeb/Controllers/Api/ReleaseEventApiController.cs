@@ -106,6 +106,36 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		/// <summary>
+		/// Find event names by a part of name.
+		/// 
+		/// Matching is done anywhere from the name.
+		/// </summary>
+		/// <param name="query">Event name query, for example "Voc@loid".</param>
+		/// <param name="maxResults">Maximum number of search results.</param>
+		/// <returns>
+		/// List of event names, for example "The Voc@loid M@ster 1", matching the query. Cannot be null.
+		/// </returns>
+		[Route("names")]
+		public string[] GetNames(
+			string query = "",
+			int maxResults = 10) {
+			
+			return repository.HandleQuery(ctx => {
+
+				var q = ctx.Query();
+
+				if (query.Length < 3)
+					q = q.Where(r => r.Name.StartsWith(query));
+				else
+					q = q.Where(r => r.Name.Contains(query));
+
+				return q.OrderBy(r => r.Name).Take(maxResults).Select(r => r.Name).ToArray();
+				
+			});
+
+		}
+
 	}
 
 }

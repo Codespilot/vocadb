@@ -24,6 +24,7 @@ module vdb.repositories {
 			paging: dc.PagingProperties, lang: string, query: string,
 			artistId: number,
 			purchaseStatuses: string,
+			releaseEventName: string,
 			sort: string,
 			callback) => {
 
@@ -31,6 +32,7 @@ module vdb.repositories {
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
 				query: query, artistId: artistId, purchaseStatuses: purchaseStatuses,
+				releaseEventName: releaseEventName,
 				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort
 			};
 

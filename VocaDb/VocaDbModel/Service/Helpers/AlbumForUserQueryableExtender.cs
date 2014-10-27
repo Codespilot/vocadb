@@ -182,6 +182,15 @@ namespace VocaDb.Model.Service.Helpers {
 
 		}
 
+		public static IQueryable<AlbumForUser> WhereHasReleaseEventName(this IQueryable<AlbumForUser> query, string releaseEventName) {
+
+			if (string.IsNullOrEmpty(releaseEventName))
+				return query;
+
+			return query.Where(s => s.Album.OriginalRelease.EventName == releaseEventName);
+
+		}
+
 	}
 
 }
