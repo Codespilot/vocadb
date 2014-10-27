@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using VocaDb.Model.DataContracts.Songs;
+using VocaDb.Model.Domain.Activityfeed;
+using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class SongList : IEntryBase {
+	public class SongList : IEntryWithNames {
+
+		INameManager IEntryWithNames.Names {
+			get { return new SingleNameManager(Name); }
+		}
 
 		int IEntryBase.Version {
 			get { return 0; }
 		}
 
+		private ArchivedVersionManager<ArchivedSongListVersion, SongListEditableFields> archivedVersions
+			= new ArchivedVersionManager<ArchivedSongListVersion, SongListEditableFields>();		
 		private User author;
 		private string description;
 		private string name;
@@ -35,6 +45,14 @@ namespace VocaDb.Model.Domain.Songs {
 			set {
 				ParamIs.NotNull(() => value);
 				songs = value;
+			}
+		}
+
+		public virtual ArchivedVersionManager<ArchivedSongListVersion, SongListEditableFields> ArchivedVersionsManager {
+			get { return archivedVersions; }
+			set {
+				ParamIs.NotNull(() => value);
+				archivedVersions = value;
 			}
 		}
 
@@ -111,6 +129,15 @@ namespace VocaDb.Model.Domain.Songs {
 			var link = new SongInList(song, this, order, notes);
 			AllSongs.Add(link);
 			return link;
+
+		}
+
+		public virtual ArchivedSongListVersion CreateArchivedVersion(SongListDiff diff, AgentLoginData author, EntryEditEvent reason) {
+
+			var archived = new ArchivedSongListVersion(this, diff, author, reason);
+			ArchivedVersionsManager.Add(archived);
+
+			return archived;
 
 		}
 

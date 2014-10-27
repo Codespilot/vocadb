@@ -14,6 +14,9 @@ namespace VocaDb.Model.Mapping.Songs {
 			Map(m => m.FeaturedCategory).Length(20).Not.Nullable();
 			Map(m => m.Name).Length(200).Not.Nullable();
 
+			Component(m => m.ArchivedVersionsManager,
+				c => c.HasMany(m => m.Versions).KeyColumn("[SongList]").Inverse().Cascade.All().OrderBy("Created DESC"));
+
 			Component(m => m.Thumb, c => {
 				c.Map(m => m.Mime).Column("ThumbMime").Length(30);
 				c.ParentReference(m => m.Entry);
@@ -44,6 +47,27 @@ namespace VocaDb.Model.Mapping.Songs {
 
 			References(m => m.List).Not.Nullable();
 			References(m => m.Song).Not.Nullable();
+
+		}
+
+	}
+
+	public class ArchivedSongListVersionMap : ClassMap<ArchivedSongListVersion> {
+
+		public ArchivedSongListVersionMap() {
+
+			Id(m => m.Id);
+
+			Map(m => m.CommonEditEvent).Length(30).Not.Nullable();
+			Map(m => m.Created).Not.Nullable();
+			Map(m => m.Status).Not.Nullable();
+
+			References(m => m.Author).Not.Nullable();
+			References(m => m.SongList).Not.Nullable();
+
+			Component(m => m.Diff, c => {
+				c.Map(m => m.ChangedFieldsString, "ChangedFields").Length(100).Not.Nullable();
+			});
 
 		}
 

@@ -130,8 +130,10 @@
     <Compile Include="DataContracts\CommentForApiContract.cs" />
     <Compile Include="DataContracts\EntryThumbForApiContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventForApiContract.cs" />
+    <Compile Include="DataContracts\Songs\ArchivedSongListVersionContract.cs" />
     <Compile Include="DataContracts\Songs\RelatedSongsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInListForApiContract.cs" />
+    <Compile Include="DataContracts\Songs\SongListWithArchivedVersionsContract.cs" />
     <Compile Include="DataContracts\Tags\TagForApiContract.cs" />
     <Compile Include="DataContracts\Tags\TagUsageForApiContract.cs" />
     <Compile Include="DataContracts\ArchivedEntryPictureFileContract.cs" />
@@ -344,11 +346,14 @@
     <Compile Include="Domain\Security\PermissionCollection.cs" />
     <Compile Include="Domain\Security\PermissionToken.cs" />
     <Compile Include="Domain\Security\IUserPermissionContextExtender.cs" />
+    <Compile Include="Domain\Songs\ArchivedSongListVersion.cs" />
     <Compile Include="Domain\Songs\ISongLink.cs" />
     <Compile Include="Domain\Songs\SongComment.cs" />
     <Compile Include="Domain\Songs\SongHit.cs" />
     <Compile Include="Domain\Songs\SongInList.cs" />
     <Compile Include="Domain\Songs\SongList.cs" />
+    <Compile Include="Domain\Songs\SongListDiff.cs" />
+    <Compile Include="Domain\Songs\SongListEditableFields.cs" />
     <Compile Include="Domain\Songs\SongListFeaturedCategory.cs" />
     <Compile Include="Domain\Songs\SongMergeRecord.cs" />
     <Compile Include="Domain\Songs\SongReport.cs" />
@@ -378,6 +383,7 @@
     <Compile Include="Domain\IEntryBase.cs" />
     <Compile Include="Domain\EntryType.cs" />
     <Compile Include="Domain\Globalization\INameManager.cs" />
+    <Compile Include="Domain\Versioning\EntryDiff.cs" />
     <Compile Include="Domain\Versioning\IArchivedObjectVersionWithFields.cs" />
     <Compile Include="Domain\Versioning\IEntryDiff.cs" />
     <Compile Include="Domain\IEntryWithNames.cs" />

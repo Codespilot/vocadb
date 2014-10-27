@@ -142,5 +142,18 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		public ActionResult Versions(int id = invalidId) {
+
+			if (id == invalidId)
+				return NoId();
+
+			var contract = queries.GetSongListWithArchivedVersions(id);
+
+			if (contract == null)
+				return HttpNotFound();
+
+			return View(contract);
+
+		}
     }
 }

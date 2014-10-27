@@ -5,6 +5,7 @@ using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -24,6 +25,14 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		private IUserPermissionContext PermissionContext {
 			get { return permissionContext; }
+		}
+
+		public void Archive(IRepositoryContext<SongList> ctx, SongList songList, SongListDiff diff, EntryEditEvent reason) {
+
+			var agentLoginData = ctx.CreateAgentLoginData(PermissionContext);
+			var archived = songList.CreateArchivedVersion(diff, agentLoginData, reason);
+			ctx.OfType<ArchivedSongListVersion>().Save(archived);
+
 		}
 
 		private User GetLoggedUser(IRepositoryContext<SongList> ctx) {
@@ -68,6 +77,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			ctx.Update(newList);
 
 			ctx.AuditLogger.AuditLog(string.Format("created song list {0}", entryLinkFactory.CreateEntryLink(newList)), user);
+			Archive(ctx, newList, new SongListDiff(), EntryEditEvent.Created);
 
 			return newList;
 
@@ -111,6 +121,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 		
 		}
 
+		public SongListWithArchivedVersionsContract GetSongListWithArchivedVersions(int id) {
+
+			return repository.HandleQuery(session => new SongListWithArchivedVersionsContract(session.Load(id), PermissionContext));
+
+		}
+
 		public int UpdateSongList(SongListForEditContract contract, UploadedFileContract uploadedFile) {
 
 			ParamIs.NotNull(() => contract);
@@ -129,22 +145,42 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				} else {
 
 					list = ctx.Load(contract.Id);
+					var diff = new SongListDiff();
 
 					EntryPermissionManager.VerifyEdit(PermissionContext, list);
 
-					list.Description = contract.Description;
-					list.Name = contract.Name;
+					if (list.Description != contract.Description) {
+						diff.Description.Set();
+						list.Description = contract.Description;						
+					}
 
-					if (EntryPermissionManager.CanManageFeaturedLists(PermissionContext))
-						list.FeaturedCategory = contract.FeaturedCategory;
+					if (list.Name != contract.Name) {
+						diff.Name.Set();
+						list.Name = contract.Name;						
+					}
+
+					if (EntryPermissionManager.CanManageFeaturedLists(PermissionContext) && list.FeaturedCategory != contract.FeaturedCategory) {
+						diff.FeaturedCategory.Set();
+						list.FeaturedCategory = contract.FeaturedCategory;						
+					}
 
 					var songDiff = list.SyncSongs(contract.SongLinks, c => ctx.OfType<Song>().Load(c.SongId));
+
+					if (songDiff.Changed) {
+						diff.Songs.Set();
+					}
+
 					ctx.OfType<SongInList>().Sync(songDiff);
-					SetThumb(list, uploadedFile);
+
+					if (uploadedFile != null) {
+						diff.Thumbnail.Set();
+						SetThumb(list, uploadedFile);						
+					}
 
 					ctx.Update(list);
 
 					ctx.AuditLogger.AuditLog(string.Format("updated song list {0}", entryLinkFactory.CreateEntryLink(list)), user);
+					Archive(ctx, list, diff, EntryEditEvent.Updated);
 
 				}
 
