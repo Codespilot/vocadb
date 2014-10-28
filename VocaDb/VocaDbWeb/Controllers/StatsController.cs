@@ -10,6 +10,7 @@ using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Web.Controllers {
@@ -177,6 +178,80 @@ namespace VocaDb.Web.Controllers {
 
 		}
 
+		private ActionResult SimplePieChart(string title, string seriesName, ICollection<Tuple<string, int>> points) {
+			
+			Response.Cache.SetCacheability(HttpCacheability.Public);
+			Response.Cache.SetMaxAge(TimeSpan.FromDays(1));
+			Response.Cache.SetSlidingExpiration(true);
+
+			return Json(new {
+				chart = new {
+					type = "pie",
+					height = 600
+				},
+				title = new {
+					text = title
+				},
+				xAxis = new {
+					title = new {
+						text = (string)null
+					}
+				},
+				yAxis = new {
+					title = new {
+						text = seriesName
+					}
+				},
+				plotOptions = new {
+					pie = new {
+						dataLabels = new {
+							enabled = true,
+							format = "<b>{point.name}</b>: {point.y}"
+						}
+					}
+				},
+				legend = new {
+					enabled = false
+				},
+				series = new Object[] {
+					new {
+						name = seriesName,
+						data = points.Select(p => new object[] { p.Item1, p.Item2 }).ToArray()
+					}
+				}
+				
+			});
+
+		}
+
+		private ICollection<Tuple<string, int>> GetGenreTagUsages<T>() where T : TagUsage {
+			
+			return userRepository.HandleQuery(ctx => {
+				
+				var genres = ctx.OfType<T>()
+					.Query()
+					.Where(u => u.Tag.AliasedTo == null && u.Tag.Parent == null && u.Tag.CategoryName == Tag.CommonCategory_Genres)
+					.GroupBy(s => s.Tag.Name)
+					.Select(g => new {
+						TagName = g.Key,
+						Count = g.Count()
+					})
+					.OrderByDescending(g => g.Count)
+					.ToArray();
+
+				var mainGenres = genres.Take(10).ToArray();
+				var otherCount = genres.Skip(10).Sum(g => g.Count);
+				var points = mainGenres.Concat(new[] { new {
+					TagName = "Other genres", 
+					Count = otherCount
+				} }).Select(g => Tuple.Create(g.TagName, g.Count)).ToArray();
+
+				return points;
+
+			});
+
+		}
+
 		private LocalizedValue[] GetTopValues<T>(Func<IQueryable<T>, IQueryable<LocalizedValue>> func) {
 			
 			var cached = GetCachedReport<LocalizedValue[]>();
@@ -207,6 +282,14 @@ namespace VocaDb.Web.Controllers {
 			this.userRepository = userRepository;
 			this.permissionContext = permissionContext;
 			this.context = context;
+		}
+
+		[OutputCache(Duration = clientCacheDurationSec)]
+		public ActionResult AlbumsPerGenre() {
+			
+			var points = GetGenreTagUsages<AlbumTagUsage>();
+			return SimplePieChart("Albums per genre", "Albums", points);
+
 		}
 
 		[OutputCache(Duration = clientCacheDurationSec)]
@@ -308,6 +391,14 @@ namespace VocaDb.Web.Controllers {
 			var points = values.Select(v => Tuple.Create(new DateTime(v.Year, v.Month, v.Day), v.Count)).ToArray();
 
 			return DateLineChartWithAverage("Edits per day", "Edits", "Number of edits", points);
+
+		}
+
+		[OutputCache(Duration = clientCacheDurationSec)]
+		public ActionResult SongsPerGenre() {
+			
+			var result = GetGenreTagUsages<SongTagUsage>();
+			return SimplePieChart("Songs per genre", "Songs", result);
 
 		}
 
