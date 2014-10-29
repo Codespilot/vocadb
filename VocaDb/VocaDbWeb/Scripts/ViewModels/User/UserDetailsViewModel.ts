@@ -29,7 +29,7 @@ module vdb.viewModels.user {
 
 		public getRatingsByGenre = (callback: (data: HighchartsOptions) => void) => {
 
-			var url = '../User/SongsPerGenre/' + this.userId;
+			var url = this.urlMapper.mapRelative('/User/SongsPerGenre/' + this.userId);
 			$.getJSON(url, data => {
 				callback(vdb.helpers.HighchartsHelper.simplePieChart(null, "Songs", data));
 			});
@@ -92,6 +92,7 @@ module vdb.viewModels.user {
 			private userId: number,
 			private loggedUserId: number,
 			private canDeleteComments: boolean,
+			private urlMapper: UrlMapper,
 			private userRepo: rep.UserRepository,
 			private adminRepo: rep.AdminRepository,
 			public followedArtistsViewModel: FollowedArtistsViewModel,

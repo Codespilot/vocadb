@@ -596,6 +596,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			
 			return repository.HandleQuery(ctx => {
 				
+				// TODO: map parents
 				var genres = ctx
 					.OfType<SongTagUsage>()
 					.Query()
