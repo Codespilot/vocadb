@@ -200,7 +200,9 @@
 			{
 				<h4>@R.FavoriteTags</h4>
 				@TagHelpers.TagList(Model.FavoriteTags)
-				<br /><br />
+				<br />
+				<div style="width: 400px; height: 200px;" data-bind="highcharts: getRatingsByGenre"></div>
+				<br />
 			}
 
 			@if (ownProfile && !Login.CanManageUsers)
@@ -377,6 +379,7 @@
 @section BodyScripts {
 	<link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
 	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+	<script src="http://code.highcharts.com/highcharts.js" type="text/javascript"></script>
 	@Scripts.Render("~/bundles/jqxRating", "~/bundles/User/Details")
 	<script type="text/javascript">
 

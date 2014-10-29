@@ -654,6 +654,16 @@ namespace VocaDb.Web.Controllers
 
         }
 
+		[OutputCache(Duration = statsCacheDurationSec)]
+		public ActionResult SongsPerGenre(int id = invalidId) {
+			
+			if (id == invalidId)
+				return NoId();
+
+			return LowercaseJson(Data.GetRatingsByGenre(id));
+
+		}
+
 		[Authorize]
 		public ActionResult MessageBody(int messageId = invalidId) {
 

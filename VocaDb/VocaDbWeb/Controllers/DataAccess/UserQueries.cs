@@ -15,6 +15,7 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service;
@@ -589,6 +590,38 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				return new PartialFindResult<T>(contracts, totalCount);
 
 			});
+		}
+
+		public Tuple<string, int>[] GetRatingsByGenre(int userId) {
+			
+			return repository.HandleQuery(ctx => {
+				
+				var genres = ctx
+					.OfType<SongTagUsage>()
+					.Query()
+					.Where(u => u.Song.UserFavorites.Any(f => f.User.Id == userId) && u.Tag.AliasedTo == null && u.Tag.Parent == null && u.Tag.CategoryName == Tag.CommonCategory_Genres)
+					.GroupBy(s => s.Tag.Name)
+					.Select(g => new {
+						TagName = g.Key,
+						Count = g.Count()
+					})
+					.OrderByDescending(g => g.Count)
+					.ToArray();
+
+				var mainGenres = genres.Take(10).ToArray();
+				var otherCount = genres.Skip(10).Sum(g => g.Count);
+
+				var allGenres = (otherCount > 0 ? mainGenres.Concat(new[] { new {
+					TagName = "Other genres", 
+					Count = otherCount
+				} }) : mainGenres);
+
+				var points = allGenres.Select(g => Tuple.Create(g.TagName, g.Count)).ToArray();
+
+				return points;
+
+			});
+
 		}
 
 		public SongVoteRating GetSongRating(int userId, int songId) {
