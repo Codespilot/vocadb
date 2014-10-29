@@ -27,6 +27,15 @@ module vdb.viewModels.user {
 
 		};
 
+		public getRatingsByGenre = (callback: (data: HighchartsOptions) => void) => {
+
+			var url = '../User/SongsPerGenre/' + this.userId;
+			$.getJSON(url, data => {
+				callback(vdb.helpers.HighchartsHelper.simplePieChart(null, "Songs", data));
+			});
+
+		}
+
 		public initComments = () => {
 
 			if (this.comments().length)

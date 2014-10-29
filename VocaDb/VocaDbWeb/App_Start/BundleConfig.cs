@@ -206,6 +206,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/MomentJsTimeAgo.js",
 				"~/Scripts/KnockoutExtensions/ReleaseEventNameAutoComplete.js",
+				"~/Scripts/KnockoutExtensions/Highcharts.js",				
+				"~/Scripts/Helpers/HighchartsHelper.js",				
 				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",

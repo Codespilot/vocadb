@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service.Repositories;
+using VocaDb.Web.Helpers;
 
 namespace VocaDb.Web.Controllers {
 
@@ -184,43 +185,7 @@ namespace VocaDb.Web.Controllers {
 			Response.Cache.SetMaxAge(TimeSpan.FromDays(1));
 			Response.Cache.SetSlidingExpiration(true);
 
-			return Json(new {
-				chart = new {
-					type = "pie",
-					height = 600
-				},
-				title = new {
-					text = title
-				},
-				xAxis = new {
-					title = new {
-						text = (string)null
-					}
-				},
-				yAxis = new {
-					title = new {
-						text = seriesName
-					}
-				},
-				plotOptions = new {
-					pie = new {
-						dataLabels = new {
-							enabled = true,
-							format = "<b>{point.name}</b>: {point.y}"
-						}
-					}
-				},
-				legend = new {
-					enabled = false
-				},
-				series = new Object[] {
-					new {
-						name = seriesName,
-						data = points.Select(p => new object[] { p.Item1, p.Item2 }).ToArray()
-					}
-				}
-				
-			});
+			return Json(HighchartsHelper.SimplePieChart(title, seriesName, points, false));
 
 		}
 

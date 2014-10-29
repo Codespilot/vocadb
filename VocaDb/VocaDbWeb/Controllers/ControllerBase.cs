@@ -28,6 +28,7 @@ namespace VocaDb.Web.Controllers {
 		protected const int invalidId = 0;
 		protected static readonly TimeSpan pictureCacheDuration = TimeSpan.FromDays(30);
 		protected const int pictureCacheDurationSec = 30 * 24 * 60 * 60;
+		protected const int statsCacheDurationSec = 24 * 60 * 60;
 
 		protected string Hostname {
 			get {
