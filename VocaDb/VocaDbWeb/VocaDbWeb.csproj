@@ -1900,6 +1900,7 @@
     <TypeScriptCompile Include="Scripts\Models\PVs\PVService.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\ReleaseEventRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongListRepository.ts" />
+    <TypeScriptCompile Include="Scripts\Tag\Details.ts" />
     <TypeScriptCompile Include="Scripts\typings\highcharts\highcharts.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
