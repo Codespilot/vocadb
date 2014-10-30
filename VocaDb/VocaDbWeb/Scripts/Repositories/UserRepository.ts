@@ -22,6 +22,7 @@ module vdb.repositories {
 		public getAlbumCollectionList = (
 			userId: number,
 			paging: dc.PagingProperties, lang: string, query: string,
+			tag: string,
 			artistId: number,
 			purchaseStatuses: string,
 			releaseEventName: string,
@@ -31,7 +32,7 @@ module vdb.repositories {
 			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/albums");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, artistId: artistId, purchaseStatuses: purchaseStatuses,
+				query: query, tag: tag, artistId: artistId, purchaseStatuses: purchaseStatuses,
 				releaseEventName: releaseEventName,
 				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort
 			};

@@ -292,6 +292,7 @@
     <Compile Include="Domain\Albums\AlbumTagUsage.cs" />
     <Compile Include="Domain\Albums\AlbumTagVote.cs" />
     <Compile Include="Domain\Albums\ArchivedReleaseEventVersion.cs" />
+    <Compile Include="Domain\Albums\IAlbumLink.cs" />
     <Compile Include="Domain\Albums\IAlbumRelease.cs" />
     <Compile Include="Domain\Albums\OtherArtistForAlbum.cs" />
     <Compile Include="Domain\Albums\ReleaseEventDiff.cs" />
@@ -646,6 +647,7 @@
     <Compile Include="Service\Queries\PreviousAndNextAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedSongsQuery.cs" />
+    <Compile Include="Service\QueryableExtenders\QueryableForAlbumLinkExtender.cs" />
     <Compile Include="Service\QueryableExtenders\QueryableForSongLinkExtender.cs" />
     <Compile Include="Service\Repositories\IArtistRepository.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />

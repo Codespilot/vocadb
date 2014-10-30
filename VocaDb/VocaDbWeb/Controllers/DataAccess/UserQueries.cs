@@ -473,7 +473,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					.WhereHasName(queryParams.Query, queryParams.NameMatchMode)
 					.WhereHasCollectionStatus(queryParams.FilterByStatus)
 					.WhereHasArtist(queryParams.ArtistId)
-					.WhereHasReleaseEventName(queryParams.ReleaseEventName);
+					.WhereHasReleaseEventName(queryParams.ReleaseEventName)
+					.WhereAlbumHasTag(queryParams.Tag);
 
 				var albums = query
 					.OrderBy(queryParams.Sort, PermissionContext.LanguagePreference)

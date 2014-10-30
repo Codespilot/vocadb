@@ -49,6 +49,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </summary>
 		/// <param name="userId">ID of the user whose albums are to be browsed.</param>
 		/// <param name="query">Album name query (optional).</param>
+		/// <param name="tag">Filter by tag (optional).</param>
 		/// <param name="artistId">Filter by album artist (optional).</param>
 		/// <param name="purchaseStatuses">
 		/// Filter by a comma-separated list of purchase statuses (optional). Possible values are Nothing, Wishlisted, Ordered, Owned, and all combinations of these.
@@ -68,6 +69,7 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<AlbumForUserForApiContract> GetAlbumCollection(
 			int userId,
 			string query = "", 
+			string tag = null,
 			int? artistId = null,
 			[FromUri] PurchaseStatuses? purchaseStatuses = null,
 			string releaseEventName = null,
@@ -89,7 +91,8 @@ namespace VocaDb.Web.Controllers.Api {
 				NameMatchMode = nameMatchMode,
 				Query = query,
 				ReleaseEventName = releaseEventName,
-				Sort = sort ?? AlbumSortRule.Name
+				Sort = sort ?? AlbumSortRule.Name,
+				Tag = tag
 			};
 
 			var albums = queries.GetAlbumCollection(queryParams, (afu, shouldShowCollectionStatus) => 

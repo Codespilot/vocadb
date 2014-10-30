@@ -25,6 +25,7 @@ module vdb.viewModels.user {
 			this.releaseEventName.subscribe(this.updateResultsWithTotalCount);
 			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
+			this.tag.subscribe(this.updateResultsWithTotalCount);
 
 			if (initialize)
 				this.init();
@@ -45,6 +46,7 @@ module vdb.viewModels.user {
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.resources() != null ? this.resources().albumSortRuleNames[this.sort()] : "");
+		public tag = ko.observable("");
 		public viewMode = ko.observable("Details");
 
 		public init = () => {
@@ -90,7 +92,9 @@ module vdb.viewModels.user {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.userRepo.getAlbumCollectionList(this.loggedUserId, pagingProperties, this.languageSelection, this.searchTerm(), this.artistId(),
+			this.userRepo.getAlbumCollectionList(this.loggedUserId, pagingProperties, this.languageSelection, this.searchTerm(),
+				this.tag(),
+				this.artistId(),
 				this.collectionStatus(), this.releaseEventName(), this.sort(),
 				(result: any) => {
 
