@@ -17,7 +17,6 @@ module vdb.helpers {
 					animation: false,
 					type: "pie",
 					backgroundColor: backgroundColor,
-					//height = 200
 				},
 				title: {
 					text: title
@@ -33,6 +32,9 @@ module vdb.helpers {
 					}
 				},
 				plotOptions: {
+					series: {
+						enableMouseTracking: false
+					},
 					pie: {
 						dataLabels: {
 							enabled: true,
