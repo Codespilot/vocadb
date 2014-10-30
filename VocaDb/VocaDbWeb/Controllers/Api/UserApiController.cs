@@ -162,6 +162,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// </summary>
 		/// <param name="userId">ID of the user whose songs are to be browsed.</param>
 		/// <param name="query">Song name query (optional).</param>
+		/// <param name="tag">Filter by tag (optional).</param>
 		/// <param name="artistId">Filter by song artist (optional).</param>
 		/// <param name="rating">Filter songs by given rating (optional).</param>
 		/// <param name="songListId">Filter songs by song list (optional).</param>
@@ -180,6 +181,7 @@ namespace VocaDb.Web.Controllers.Api {
 		public PartialFindResult<RatedSongForUserForApiContract> GetRatedSongs(
 			int userId,
 			string query = "", 
+			string tag = null,
 			int? artistId = null,
 			SongVoteRating? rating = null,
 			int? songListId = null,
@@ -200,7 +202,8 @@ namespace VocaDb.Web.Controllers.Api {
 				ArtistId = artistId ?? 0,
 				FilterByRating = rating ?? SongVoteRating.Nothing,
 				GroupByRating = groupByRating,
-				SonglistId = songListId ?? 0
+				SonglistId = songListId ?? 0,
+				Tag = tag
 			};
 
 			var songs = queries.GetRatedSongs(queryParams, ratedSong => new RatedSongForUserForApiContract(ratedSong, lang, fields));
