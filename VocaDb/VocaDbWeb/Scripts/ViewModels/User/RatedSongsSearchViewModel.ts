@@ -33,6 +33,7 @@ module vdb.viewModels.user {
 			this.searchTerm.subscribe(this.updateResultsWithTotalCount);
 			this.songListId.subscribe(this.updateResultsWithTotalCount);
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
+			this.tag.subscribe(this.updateResultsWithTotalCount);
 
 			if (initialize)
 				this.init();
@@ -55,6 +56,7 @@ module vdb.viewModels.user {
 		public songLists = ko.observableArray<dc.SongListBaseContract>([]);
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.resources() != null ? this.resources().songSortRuleNames[this.sort()] : "");
+		public tag = ko.observable("");
 
 		public init = () => {
 
@@ -93,7 +95,9 @@ module vdb.viewModels.user {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.userRepo.getRatedSongsList(this.loggedUserId, pagingProperties, this.languageSelection, this.searchTerm(), this.artistId(),
+			this.userRepo.getRatedSongsList(this.loggedUserId, pagingProperties, this.languageSelection, this.searchTerm(),
+				this.tag(),
+				this.artistId(),
 				this.rating(), this.songListId(), this.groupByRating(), this.sort(),
 				(result: any) => {
 

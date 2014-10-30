@@ -46,6 +46,8 @@ namespace VocaDb.Model.Service.Search.User {
 		/// </summary>
 		public SongSortRule SortRule { get; set; }
 
+		public string Tag { get; set; }
+
 		/// <summary>
 		/// Id of the user whose songs to get.
 		/// </summary>

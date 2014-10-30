@@ -568,7 +568,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					.WhereChildHasName(queryParams.Query, queryParams.NameMatchMode)
 					.WhereSongHasArtist(queryParams.ArtistId)
 					.WhereHasRating(queryParams.FilterByRating)
-					.WhereSongIsInList(queryParams.SonglistId);
+					.WhereSongIsInList(queryParams.SonglistId)
+					.WhereSongHasTag(queryParams.Tag);
 
 				var queryWithSort = q;
 
