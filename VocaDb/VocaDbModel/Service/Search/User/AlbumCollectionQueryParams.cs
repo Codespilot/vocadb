@@ -36,6 +36,8 @@ namespace VocaDb.Model.Service.Search.User {
 
 		public AlbumSortRule Sort { get; set; }
 
+		public string Tag { get; set; }
+
 		/// <summary>
 		/// Id of the user whose albums to get.
 		/// </summary>
