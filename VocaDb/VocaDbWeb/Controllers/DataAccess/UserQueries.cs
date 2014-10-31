@@ -516,6 +516,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					query = query.Where(a => a.Artist.ArtistType == queryParams.ArtistType);
 
 				var artists = query
+					.OrderByName(PermissionContext.LanguagePreference)
 					.Skip(paging.Start)
 					.Take(paging.MaxEntries)
 					.ToArray()

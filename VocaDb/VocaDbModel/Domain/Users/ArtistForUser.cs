@@ -6,7 +6,7 @@ namespace VocaDb.Model.Domain.Users {
 	/// User following an artist.
 	/// </summary>
 	/// <remarks>For owned artists see <see cref="OwnedArtistForUser"/>.</remarks>
-	public class ArtistForUser {
+	public class ArtistForUser : IArtistLink {
 
 		private Artist artist;
 		private User user;
