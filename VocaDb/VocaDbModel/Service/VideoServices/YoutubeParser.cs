@@ -22,7 +22,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 			var settings = new YouTubeRequestSettings("VocaDB", null);
 			var request = new YouTubeRequest(settings);
-			var videoEntryUrl = new Uri(string.Format("http://gdata.youtube.com/feeds/api/videos/{0}", id));
+			var videoEntryUrl = new Uri(string.Format("https://gdata.youtube.com/feeds/api/videos/{0}", id)); // Loading by HTTPS gives us HTTPS thumbnails as well
 
 			try {
 
