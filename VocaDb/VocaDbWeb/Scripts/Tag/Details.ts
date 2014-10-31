@@ -11,11 +11,11 @@
 		var str = "";
 		var links = _.map(tagList, item => tagLink(item));
 
-		for (var i = 0; i < tagList.length; i += 8) {
+		for (var i = 0; i < tagList.length; i += 7) {
 			
-			str += _.reduce<string, string>(_.take(_.rest(links, i), 8), (list, item) => list + ", " + item);
+			str += _.reduce<string, string>(_.take(_.rest(links, i), 7), (list, item) => list + ", " + item);
 
-			if (i < tagList.length + 8)
+			if (i < tagList.length + 7)
 				str += "<br/>";
 
 		}
@@ -35,8 +35,8 @@
 					var ren = this.renderer,
 						colors = Highcharts.getOptions().colors,
 						downArrow = ['M', 0, 0, 'L', 0, 40, 'L', -5, 35, 'M', 0, 40, 'L', 5, 35],
-						rightAndDownArrow = ['M', 0, 0, 'L', 50, 0, 'C', 70, 0, 70, 0, 70, 25,
-							'L', 70, 80, 'L', 65, 75, 'M', 70, 80, 'L', 75, 75];
+						rightAndDownArrow = ['M', 0, 0, 'L', 70, 0, 'C', 90, 0, 90, 0, 90, 25,
+							'L', 90, 80, 'L', 85, 75, 'M', 90, 80, 'L', 95, 75];
 
 					var y = 10;
 
@@ -65,28 +65,32 @@
 							})
 							.add();
 
-						// Arrow from parent to siblings
-						ren.path(rightAndDownArrow)
-							.translate(100, y + 20)
-							.attr({
-								'stroke-width': 2,
-								stroke: colors[3]
-							})
-							.add();
+						if (siblings && siblings.length) {
 
-						ren.label("Siblings:<br/>" + tagLinks(siblings), 130, y + 115)
-							.attr({
-								fill: colors[4],
-								stroke: 'white',
-								'stroke-width': 2,
-								padding: 5,
-								r: 5
-							})
-							.css({
-								color: 'white'
-							})
-							.add()
-							.shadow(true);
+							// Arrow from parent to siblings
+							ren.path(rightAndDownArrow)
+								.translate(100, y + 20)
+								.attr({
+									'stroke-width': 2,
+									stroke: colors[3]
+								})
+								.add();
+
+							ren.label("Siblings:<br/>" + tagLinks(siblings), 150, y + 115)
+								.attr({
+									fill: colors[4],
+									stroke: 'white',
+									'stroke-width': 2,
+									padding: 5,
+									r: 5
+								})
+								.css({
+									color: 'white'
+								})
+								.add()
+								.shadow(true);
+							
+						}
 
 						y += 115;
 
