@@ -4,6 +4,7 @@ using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.BrandableStrings;
 using VocaDb.Web.Models;
 
 namespace VocaDb.Web.Controllers
@@ -13,10 +14,12 @@ namespace VocaDb.Web.Controllers
     public class HomeController : ControllerBase
     {
 
+		private readonly BrandableStringsManager brandableStringsManager;
 		private readonly OtherService otherService;
 
-		public HomeController(OtherService otherService) {
+		public HomeController(OtherService otherService, BrandableStringsManager brandableStringsManager) {
 			this.otherService = otherService;
+			this.brandableStringsManager = brandableStringsManager;
 		}
 
 		public ActionResult Chat() {
@@ -38,7 +41,7 @@ namespace VocaDb.Web.Controllers
 
         public ActionResult Index() {
 
-			PageProperties.Description = "VocaDB is a Vocaloid music database with translated artists, albums and songs.";
+			PageProperties.Description = brandableStringsManager.Home.SiteDescription;
 
 			var contract = otherService.GetFrontPageContent();
 
