@@ -308,6 +308,7 @@
     <Compile Include="Domain\Artists\ArtistReport.cs" />
     <Compile Include="Domain\Artists\ArtistRoles.cs" />
     <Compile Include="Domain\Artists\CustomArtist.cs" />
+    <Compile Include="Domain\Artists\IArtistLink.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
     <Compile Include="Domain\EntryIdAndName.cs" />
     <Compile Include="Domain\EntryPictureFile.cs" />
@@ -648,6 +649,7 @@
     <Compile Include="Service\Queries\RelatedAlbumsQuery.cs" />
     <Compile Include="Service\Queries\RelatedSongsQuery.cs" />
     <Compile Include="Service\QueryableExtenders\QueryableForAlbumLinkExtender.cs" />
+    <Compile Include="Service\QueryableExtenders\QueryableForArtistLinkExtender.cs" />
     <Compile Include="Service\QueryableExtenders\QueryableForSongLinkExtender.cs" />
     <Compile Include="Service\Repositories\IArtistRepository.cs" />
     <Compile Include="Service\Repositories\IEntryReportRepository.cs" />
