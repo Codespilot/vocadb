@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="SiteDescription" xml:space="preserve">
-    <value>UtaiteDB is an utaite music database with translated artists, albums and songs.</value>
+    <value>UtaiteDB is an utaite music database with detailed information for artists, albums and songs.</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to the Utaite Database!</value>

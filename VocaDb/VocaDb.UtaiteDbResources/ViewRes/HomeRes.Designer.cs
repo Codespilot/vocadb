@@ -61,7 +61,7 @@ namespace VocaDb.UtaiteDb.Resources.ViewRes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UtaiteDB is an utaite music database with translated artists, albums and songs..
+        ///   Looks up a localized string similar to UtaiteDB is an utaite music database with detailed information for artists, albums and songs..
         /// </summary>
         public static string SiteDescription {
             get {

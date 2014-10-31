@@ -87,6 +87,7 @@
     <EmbeddedResource Include="ViewRes\HomeRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeRes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewRes\LayoutRes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
