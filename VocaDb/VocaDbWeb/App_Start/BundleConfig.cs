@@ -177,6 +177,9 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/SongList/Details").Include(
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
+				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
+				"~/Scripts/Models/PVServiceIcons.js",				
+				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Repositories/SongListRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
