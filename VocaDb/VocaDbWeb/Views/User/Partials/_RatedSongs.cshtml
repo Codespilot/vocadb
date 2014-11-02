@@ -113,25 +113,20 @@
 
 					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
 
+					<span data-bind="songTypeLabel: song.songType"></span>
+					<!-- ko foreach: $parent.pvServiceIcons.getIconUrls(song.pvServices) -->
+					<img data-bind="attr: { src: url, title: service }" />
+					<!-- /ko -->
+
 					<span data-bind="visible: rating == 'Favorite'" class="icon heartIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Favorite]"></span>
 					<span data-bind="visible: rating == 'Like'" class="icon starIcon" title="@Translate.SongVoteRatingNames[SongVoteRating.Like]"></span>
 
-
-					@*<span data-bind="songTypeLabel: song.songType"></span>
-						<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
-						<img data-bind="attr: { src: url, title: service }" />
-						<!-- /ko -->*@
 					@KnockoutHelpers.DraftIcon("status")
 					<br />
 					<small class="extraInfo" data-bind="text: song.artistString"></small>
 
 					<div data-bind="visible: song.pvServices, with: song.previewViewModel">
-						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
-							<div data-bind="with: ratingButtons" class="pull-right">
-								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
-							</div>
-							<div data-bind="html: previewHtml"></div>
-						</div>
+						@SongHelpers.PVPreviewKnockout("$parents[2].pvServiceIcons.getIconUrls")
 					</div>
 				</td>
 				<td>

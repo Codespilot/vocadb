@@ -56,19 +56,7 @@
 					<small class="extraInfo" data-bind="text: artistString"></small>
 
 					<div data-bind="visible: pvServices, with: previewViewModel">
-						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
-							<div data-bind="with: ratingButtons" class="pull-right">
-								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
-								
-								@* PV service switcher *@
-								<div data-bind="visible: $parent.pvServices && $parent.pvServices.indexOf(',') > 0, foreach: $parents[2].getPVServiceIcons($parent.pvServices)" class="pv-preview-services">
-									<a class="btn" data-bind="click: function () { $parents[1].switchPV(service); }, attr: { title: service }, css: { active: service == $parents[1].pvService() }">
-										<img data-bind="attr: { src: url }" />
-									</a>
-								</div>
-							</div>
-							<div data-bind="html: previewHtml"></div>
-						</div>
+						@SongHelpers.PVPreviewKnockout("$parents[2].getPVServiceIcons")
 					</div>
 				</td>
 				<td data-bind="if: $parents[1].showTags() && $data.tags" class="search-tags-column">

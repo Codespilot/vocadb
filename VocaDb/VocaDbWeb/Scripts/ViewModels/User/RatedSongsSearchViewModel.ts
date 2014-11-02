@@ -6,12 +6,16 @@ module vdb.viewModels.user {
 
 	export class RatedSongsSearchViewModel {
 		
-		constructor(private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
+		constructor(
+			urlMapper: UrlMapper,
+			private userRepo: rep.UserRepository, private artistRepo: rep.ArtistRepository,
 			private songRepo: rep.SongRepository,
 			private resourceRepo: rep.ResourceRepository,
 			private languageSelection: string, private loggedUserId: number, private cultureCode: string,
 			sort: string, groupByRating: boolean,
 			initialize = true) {
+
+			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
 
 			if (sort)
 				this.sort(sort);
@@ -49,6 +53,7 @@ module vdb.viewModels.user {
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
 		public pauseNotifications = false;
+		public pvServiceIcons: vdb.models.PVServiceIcons;
 		public rating = ko.observable("Nothing");
 		public resources = ko.observable<any>();
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
