@@ -32,7 +32,7 @@
 			var songRepo = new vdb.repositories.SongRepository(rootPath);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 
-			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
+			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(urlMapper, userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,
 				sort, groupByRating);
 			ko.applyBindings(vm);
 

@@ -2,16 +2,13 @@
 
 namespace VocaDb.Model.Service.BrandableStrings.Collections {
 
-	public class SongStrings {
+	public class SongStrings : ResStringCollection {
 
-		public SongStrings(ResourceManager resourceMan) {
-			ResourceManager = resourceMan;
-		}
-
-		public ResourceManager ResourceManager { get; private set; }
+		public SongStrings(ResourceManager resourceMan) 
+			: base(resourceMan) {}
 
 		public string NewSongInfo {
-			get { return ResourceManager.GetString("NewSongInfo"); }
+			get { return GetString("NewSongInfo"); }
 		}
 
 	}
