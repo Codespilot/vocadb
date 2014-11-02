@@ -11,6 +11,7 @@ using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Helpers;
+using VocaDb.Model.Service.BrandableStrings;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Paging;
 using NHibernate;
@@ -54,6 +55,8 @@ namespace VocaDb.Model.Service {
 // ReSharper disable UnusedMember.Local
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 // ReSharper restore UnusedMember.Local
+
+		private readonly BrandableStringsManager brandableStringsManager;
 
 		private UserDetailsContract GetUserDetails(ISession session, User user) {
 
@@ -160,8 +163,11 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory)
+		public UserService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory,
+			BrandableStringsManager brandableStringsManager)
 			: base(sessionFactory, permissionContext, entryLinkFactory) {
+
+			this.brandableStringsManager = brandableStringsManager;
 
 		}
 
@@ -664,7 +670,7 @@ namespace VocaDb.Model.Service {
 					|| (receiver.EmailOptions == UserEmailOptions.PrivateMessagesFromAdmins 
 						&& sender.EffectivePermissions.Has(PermissionToken.DesignatedStaff))) {
 
-					var mailer = new UserMessageMailer();
+					var mailer = new UserMessageMailer(brandableStringsManager);
 					mailer.SendPrivateMessageNotification(mySettingsUrl, messagesUrl, message);
 
 				}

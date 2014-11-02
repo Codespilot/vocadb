@@ -625,6 +625,7 @@
     <Compile Include="Service\BrandableStrings\Collections\ArtistStrings.cs" />
     <Compile Include="Service\BrandableStrings\Collections\HomeStrings.cs" />
     <Compile Include="Service\BrandableStrings\Collections\LayoutStrings.cs" />
+    <Compile Include="Service\BrandableStrings\Collections\ResStringCollection.cs" />
     <Compile Include="Service\BrandableStrings\Collections\SongStrings.cs" />
     <Compile Include="Service\BrandableStrings\IBrandedStringsAssemblyHeader.cs" />
     <Compile Include="Service\Exceptions\EntityNotFoundException.cs" />

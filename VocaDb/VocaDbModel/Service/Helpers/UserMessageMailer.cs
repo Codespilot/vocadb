@@ -2,12 +2,18 @@
 using System.Net.Mail;
 using NLog;
 using VocaDb.Model.Domain.Users;
+using VocaDb.Model.Service.BrandableStrings;
 
 namespace VocaDb.Model.Service.Helpers {
 
 	public class UserMessageMailer : IUserMessageMailer {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
+		private readonly BrandableStringsManager brandableStringsManager;
+
+		public UserMessageMailer(BrandableStringsManager brandableStringsManager) {
+			this.brandableStringsManager = brandableStringsManager;
+		}
 
 		public bool SendEmail(string toEmail, string receiverName, string subject, string body) {
 
@@ -31,8 +37,8 @@ namespace VocaDb.Model.Service.Helpers {
 					"Hi {0},\n\n" +
 					"{1}" +
 					"\n\n" +
-					"- VocaDB mailer",
-				receiverName, body);
+					"- {2} mailer",
+				receiverName, body, brandableStringsManager.Layout.SiteName);
 
 			var client = new SmtpClient();
 

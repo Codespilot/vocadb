@@ -28,8 +28,14 @@ namespace VocaDb.Model.Service {
 
 	public class MikuDbAlbumService : ServiceBase {
 
-		public MikuDbAlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) 
-			: base(sessionFactory, permissionContext, entryLinkFactory) {}
+		private ServiceModel Services { get; set; }
+
+		public MikuDbAlbumService(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, ServiceModel services) 
+			: base(sessionFactory, permissionContext, entryLinkFactory) {
+			
+			this.Services = services;
+
+		}
 
 		private AlbumContract AcceptImportedAlbum(ISession session, ContentLanguageSelection languageSelection, 
 			InspectedAlbum acceptedAlbum, int[] selectedSongIds) {

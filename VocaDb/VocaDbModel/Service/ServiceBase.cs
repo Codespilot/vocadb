@@ -74,12 +74,6 @@ namespace VocaDb.Model.Service {
 			get { return permissionContext; }
 		}
 
-		protected ServiceModel Services {
-			get {
-				return new ServiceModel(sessionFactory, PermissionContext, entryLinkFactory);
-			}
-		}
-
 		protected ISessionFactory SessionFactory {
 			get { return sessionFactory; }
 		}
