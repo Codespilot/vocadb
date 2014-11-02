@@ -1,18 +1,21 @@
 ﻿using NHibernate;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Service.BrandableStrings;
 
 namespace VocaDb.Model.Service {
 
 	public class ServiceModel {
 
+		private readonly BrandableStringsManager brandableStringsManager;
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IUserPermissionContext permissionContext;
 		private readonly ISessionFactory sessionFactory;
 
-		public ServiceModel(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory) {
+		public ServiceModel(ISessionFactory sessionFactory, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, BrandableStringsManager brandableStringsManager) {
 			this.sessionFactory = sessionFactory;
 			this.permissionContext = permissionContext;
 			this.entryLinkFactory = entryLinkFactory;
+			this.brandableStringsManager = brandableStringsManager;
 		}
 
 		public ActivityFeedService ActivityFeed {
@@ -41,7 +44,7 @@ namespace VocaDb.Model.Service {
 
 		public MikuDbAlbumService MikuDbAlbums {
 			get {
-				return new MikuDbAlbumService(sessionFactory, permissionContext, entryLinkFactory);				
+				return new MikuDbAlbumService(sessionFactory, permissionContext, entryLinkFactory, this);				
 			}
 		}
 
@@ -83,7 +86,7 @@ namespace VocaDb.Model.Service {
 
 		public UserService Users {
 			get {
-				return new UserService(sessionFactory, permissionContext, entryLinkFactory);
+				return new UserService(sessionFactory, permissionContext, entryLinkFactory, brandableStringsManager);
 			}
 		}
 
