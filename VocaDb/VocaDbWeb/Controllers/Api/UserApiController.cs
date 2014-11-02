@@ -214,6 +214,11 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		/// <summary>
+		/// Gets a list of song lists for a user.
+		/// </summary>
+		/// <param name="userId">User whose song lists are to be loaded.</param>
+		/// <returns>List of song lists.</returns>
 		[Route("{userId:int}/songLists")]
 		public SongListBaseContract[] GetSongLists(int userId) {
 			
@@ -221,6 +226,12 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		/// <summary>
+		/// Gets currently logged in user's rating for a song.
+		/// Requires authentication.
+		/// </summary>
+		/// <param name="songId">ID of the song whose rating is to be checked.</param>
+		/// <returns>Currently logged in user's rating for the specified song. If the song is not rated by the current user, this will be Nothing.</returns>
 		[Route("current/ratedSongs/{songId:int}")]
 		[Authorize]
 		[EnableCors(origins: "*", headers: "*", methods: "get", SupportsCredentials = true)]
