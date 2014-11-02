@@ -24,7 +24,7 @@ namespace VocaDb.Web.Code {
 
 		static MenuPage() {
 			
-			var config = AppConfig.GetLobalLinksSection();
+			var config = AppConfig.GetGlobalLinksSection();
 
 			if (config == null || config.AppLinks == null) {
 

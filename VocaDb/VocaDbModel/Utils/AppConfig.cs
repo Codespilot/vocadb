@@ -118,13 +118,14 @@ namespace VocaDb.Model.Utils {
 			get { return Val("GADomain"); }
 		}
 
-		public static GlobalLinksSection GetLobalLinksSection() {
+		public static GlobalLinksSection GetGlobalLinksSection() {
 		
+			var appLinks = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/appLinks");
 			var bigBanners = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/bigBanners");
 			var smallBanners = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/smallBanners");
 			var socialSites = (LinksSection)ConfigurationManager.GetSection("vocaDb/globalLinks/socialSites");
 
-			return new  GlobalLinksSection { BigBanners = bigBanners, SmallBanners  = smallBanners, SocialSites = socialSites };
+			return new  GlobalLinksSection { AppLinks = appLinks, BigBanners = bigBanners, SmallBanners  = smallBanners, SocialSites = socialSites };
 
 		}
 
