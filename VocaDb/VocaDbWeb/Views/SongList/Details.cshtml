@@ -76,7 +76,7 @@
 		var songRepo = new vdb.repositories.SongRepository(rootPath);
 		var songListRepo = new vdb.repositories.SongListRepository(urlMapper);
 
-		var vm = new vdb.viewModels.songList.SongListViewModel(songListRepo, songRepo, userRepo, languageSelection, listId);
+		var vm = new vdb.viewModels.songList.SongListViewModel(urlMapper, songListRepo, songRepo, userRepo, languageSelection, listId);
 		ko.applyBindings(vm);
 
 	});
@@ -126,27 +126,23 @@
 					
 					<span data-bind="text: order"></span>.
 					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
-
-					@*<span data-bind="songTypeLabel: song.songType"></span>
-						<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
-						<img data-bind="attr: { src: url, title: service }" />
-						<!-- /ko -->*@
-					@KnockoutHelpers.DraftIcon("status")
 					
 					<span data-bind="visible: notes">
 						(<span data-bind="text: notes"></span>)
 					</span>
 
+					<span data-bind="songTypeLabel: song.songType"></span>
+					<!-- ko foreach: $parent.pvServiceIcons.getIconUrls(song.pvServices) -->
+					<img data-bind="attr: { src: url, title: service }" />
+					<!-- /ko -->
+
+					@KnockoutHelpers.DraftIcon("status")
+					
 					<br />
 					<small class="extraInfo" data-bind="text: song.artistString"></small>
 
 					<div data-bind="visible: song.pvServices, with: song.previewViewModel">
-						<div data-bind="slideVisible: preview, complete: destroyPV" class="pvPreview" style="display: none;">
-							<div data-bind="with: ratingButtons" class="pull-right">
-								@{ Html.RenderPartial("Partials/_PVRatingButtonsForIndex"); }
-							</div>
-							<div data-bind="html: previewHtml"></div>
-						</div>
+						@SongHelpers.PVPreviewKnockout("$parents[2].pvServiceIcons.getIconUrls")
 					</div>
 				</td>
 			</tr>

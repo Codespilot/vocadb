@@ -6,9 +6,13 @@ module vdb.viewModels.songList {
 
 	export class SongListViewModel {
 
-		constructor(private songListRepo: rep.SongListRepository,
+		constructor(
+			urlMapper: UrlMapper,
+			private songListRepo: rep.SongListRepository,
 			private songRepo: rep.SongRepository, private userRepo: rep.UserRepository, 
 			private languageSelection: string, private listId: number) {
+
+			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
 
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
@@ -21,6 +25,7 @@ module vdb.viewModels.songList {
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
 		public pauseNotifications = false;
+		public pvServiceIcons: vdb.models.PVServiceIcons;
 
 		public updateResultsWithTotalCount = () => this.updateResults(true);
 		public updateResultsWithoutTotalCount = () => this.updateResults(false);
