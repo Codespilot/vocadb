@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NHibernate.Hql.Ast.ANTLR.Tree;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Exceptions;
@@ -369,6 +371,44 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			RefreshLoggedUser();
 
 			data.DisableUser(userWithoutEmail.Id);
+
+		}
+
+		[TestMethod]
+		public void GetRatingsByGenre() {
+			
+			var fakeTag = new Tag("temp") { Name = null }; // Need to fake it because NHibernate doesn't work with ?:
+			var vocarock = new Tag("Vocarock", Tag.CommonCategory_Genres) { Parent = fakeTag, AliasedTo = fakeTag };
+			var electronic = new Tag("Electronic", Tag.CommonCategory_Genres) { Parent = fakeTag, AliasedTo = fakeTag };
+			var trance = new Tag("Trance", Tag.CommonCategory_Genres) { Parent = electronic, AliasedTo = fakeTag };
+			repository.Add(vocarock, electronic, trance);
+
+			var song1 = CreateEntry.Song(name: "Nebula");
+			var song2 = CreateEntry.Song(name: "Anger");
+			var song3 = CreateEntry.Song(name: "DYE");
+			repository.Add(song1, song2, song3);
+
+			userWithEmail.AddSongToFavorites(song1, SongVoteRating.Favorite);
+			userWithEmail.AddSongToFavorites(song2, SongVoteRating.Favorite);
+			userWithEmail.AddSongToFavorites(song3, SongVoteRating.Favorite);
+
+			var usage1 = CreateEntry.SongTagUsage(song1, vocarock, userWithEmail);
+			var usage2 = CreateEntry.SongTagUsage(song1, trance, userWithEmail);
+			var usage3 = CreateEntry.SongTagUsage(song2, vocarock, userWithEmail);
+			var usage4 = CreateEntry.SongTagUsage(song2, trance, userWithEmail);
+			var usage5 = CreateEntry.SongTagUsage(song3, trance, userWithEmail);
+			repository.Add(usage1, usage2, usage3, usage4, usage5);
+
+			var result = data.GetRatingsByGenre(userWithEmail.Id);
+
+			Assert.AreEqual(2, result.Length, "Number of results");
+			var first = result[0];
+			Assert.AreEqual(electronic.Name, first.Item1, "First result is Electronic");
+			Assert.AreEqual(3, first.Item2, "Votes for Electronic");
+
+			var second = result[1];
+			Assert.AreEqual(vocarock.Name, second.Item1, "First result is Vocarock");
+			Assert.AreEqual(2, second.Item2, "Votes for Vocarock");
 
 		}
 
