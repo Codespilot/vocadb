@@ -35,6 +35,15 @@ namespace VocaDb.Tests.TestData {
 			return new Song(TranslatedString.Create(name ?? "Nebula")) { Id = id };
 		}
 
+		public static SongTagUsage SongTagUsage(Song song, Tag tag, User vote = null) {
+			
+			var usage = new SongTagUsage(song, tag);
+			song.Tags.Usages.Add(usage);
+			usage.CreateVote(vote);
+			return usage;
+
+		}
+
 		public static Tag Tag(string name, int id = 0) {
 			return new Tag(name) { Id = id, TagName = name };
 		}

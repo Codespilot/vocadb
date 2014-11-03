@@ -66,13 +66,14 @@ namespace VocaDb.Model.Domain.Tags {
 			Status = EntryStatus.Finished;
 		}
 
-		public Tag(string name)
+		public Tag(string name, string categoryName = "")
 			: this() {
 
 			if (!TagNameRegex.IsMatch(name))
 				throw new ArgumentException("Tag name must contain only word characters", "name");
 
 			Name = name;
+			CategoryName = categoryName;
 
 		}
 

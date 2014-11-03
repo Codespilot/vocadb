@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading;
 using System.Web;
 using NHibernate;
+using NHibernate.Exceptions;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
@@ -595,25 +597,46 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			});
 		}
 
+		private void AddCount(Dictionary<string, int> genresDict, string parentTag, int count) {
+			
+			if (parentTag == null)
+				return;
+
+			if (genresDict.ContainsKey(parentTag))
+				genresDict[parentTag] += count;
+			else
+				genresDict.Add(parentTag, count);
+
+		}
+
 		public Tuple<string, int>[] GetRatingsByGenre(int userId) {
 			
 			return repository.HandleQuery(ctx => {
 				
-				// TODO: map parents
 				var genres = ctx
 					.OfType<SongTagUsage>()
 					.Query()
-					.Where(u => u.Song.UserFavorites.Any(f => f.User.Id == userId) && u.Tag.AliasedTo == null && u.Tag.Parent == null && u.Tag.CategoryName == Tag.CommonCategory_Genres)
-					.GroupBy(s => s.Tag.Name)
+					.Where(u => u.Song.UserFavorites.Any(f => f.User.Id == userId) && u.Tag.CategoryName == Tag.CommonCategory_Genres)
+					.GroupBy(s => new { TagName = s.Tag.Name, Parent = s.Tag.Parent.Name, AliasedTo = s.Tag.AliasedTo.Name })
 					.Select(g => new {
-						TagName = g.Key,
+						TagName = g.Key.TagName,
+						Parent = g.Key.Parent,
+						AliasedTo = g.Key.AliasedTo,
 						Count = g.Count()
 					})
-					.OrderByDescending(g => g.Count)
 					.ToArray();
 
-				var mainGenres = genres.Take(10).ToArray();
-				var otherCount = genres.Skip(10).Sum(g => g.Count);
+				var genresDict = genres.Where(g => g.AliasedTo == null && g.Parent == null).ToDictionary(t => t.TagName, t => t.Count);
+					
+				foreach (var tag in genres) {
+
+					AddCount(genresDict, tag.Parent ?? tag.AliasedTo, tag.Count);
+
+				}
+
+				var sorted = genresDict.Select(t => new { TagName = t.Key, Count = t.Value }).OrderByDescending(t => t.Count).ToArray();
+				var mainGenres = sorted.Take(10);
+				var otherCount = sorted.Skip(10).Sum(g => g.Count);
 
 				var allGenres = (otherCount > 0 ? mainGenres.Concat(new[] { new {
 					TagName = "Other genres", 
