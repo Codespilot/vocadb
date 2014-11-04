@@ -198,7 +198,7 @@
 			</div>
 			
 			<div class="editor-label">
-				<label>Barcode</label>
+				@Helpers.HelpLabel("Barcode", "Barcodes are usually plain numbers, for example 01234567. They can be scanned from the product package.")
 			</div>
 			<div class="editor-field">
 				@Html.TextBoxFor(m => m.Barcode, new { maxlength = 30 })
