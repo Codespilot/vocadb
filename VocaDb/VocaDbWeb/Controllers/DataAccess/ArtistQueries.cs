@@ -68,8 +68,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 						RatedAlbumCount = a.AllAlbums.Count(l => l.Album.RatingCount > 0),
 						SongCount = a.AllSongs.Count,
 						RatedSongCount = a.AllSongs.Count(s => s.Song.RatingScore > 0),
-						AlbumRatingsTotalCount = a.AllAlbums.Sum(l => l.Album.RatingCount),
-						AlbumRatingsTotalSum = a.AllAlbums.Sum(l => l.Album.RatingTotal)
+						AlbumRatingsTotalCount = a.AllAlbums.Any() ? a.AllAlbums.Sum(l => l.Album.RatingCount) : 0,
+						AlbumRatingsTotalSum = a.AllAlbums.Any() ? a.AllAlbums.Sum(l => l.Album.RatingTotal) : 0
 					})
 					.FirstOrDefault();
 
