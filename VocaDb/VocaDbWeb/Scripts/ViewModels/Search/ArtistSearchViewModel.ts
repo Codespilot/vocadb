@@ -7,7 +7,10 @@ module vdb.viewModels.search {
 
 	export class ArtistSearchViewModel extends SearchCategoryBaseViewModel<dc.ArtistApiContract> {
 
-		constructor(searchViewModel: SearchViewModel, lang: string, private artistRepo: rep.ArtistRepository, artistType: string) {
+		constructor(searchViewModel: SearchViewModel, lang: string,
+			private artistRepo: rep.ArtistRepository,
+			private loggedUserId: number,
+			artistType: string) {
 
 			super(searchViewModel);
 
@@ -16,16 +19,20 @@ module vdb.viewModels.search {
 
 			this.sort.subscribe(this.updateResultsWithTotalCount);
 			this.artistType.subscribe(this.updateResultsWithTotalCount);
+			this.onlyFollowedByMe.subscribe(this.updateResultsWithTotalCount);
 
 			this.loadResults = (pagingProperties, searchTerm, tag, status, callback) => {
 
-				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag, this.fields(), status, callback);
+				this.artistRepo.getList(pagingProperties, lang, searchTerm, this.sort(), this.artistType(), tag,
+					this.onlyFollowedByMe() ? this.loggedUserId : null,
+					this.fields(), status, callback);
 
 			}
 
 		}
 
 		public artistType = ko.observable("Unknown");
+		public onlyFollowedByMe = ko.observable(false);
 		public showTags = ko.observable(false);
 		public sort = ko.observable("Name");
 		public sortName = ko.computed(() => this.searchViewModel.resources() != null ? this.searchViewModel.resources().artistSortRuleNames[this.sort()] : "");

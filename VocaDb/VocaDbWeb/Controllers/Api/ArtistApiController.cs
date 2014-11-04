@@ -81,6 +81,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="query">Artist name query (optional).</param>
 		/// <param name="artistTypes">Filtered artist type (optional).</param>
 		/// <param name="tag">Filter by tag (optional).</param>
+		/// <param name="followedByUserId">Filter by user following the artists. By default there is no filtering.</param>
 		/// <param name="status">Filter by entry status (optional).</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
@@ -96,6 +97,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			ArtistTypes artistTypes = ArtistTypes.Nothing,
 			string tag = null,
+			int? followedByUserId = null,
 			EntryStatus? status = null,
 			int start = 0, int maxResults = defaultMax, bool getTotalCount = false,
 			ArtistSortRule sort = ArtistSortRule.Name,
@@ -107,7 +109,8 @@ namespace VocaDb.Web.Controllers.Api {
 			var types = ArtistHelper.GetArtistTypesFromFlags(artistTypes);
 
 			var param = new ArtistQueryParams(query, types, start, Math.Min(maxResults, absoluteMax), false, getTotalCount, nameMatchMode, sort, false) {
-				Tag = tag
+				Tag = tag,
+				UserFollowerId = followedByUserId ?? 0
 			};
 			param.Common.EntryStatus = status;
 

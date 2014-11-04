@@ -26,7 +26,8 @@ namespace VocaDb.Model.Service.Search.Artists {
 				.WhereDraftsOnly(queryParams.Common.DraftOnly)
 				.WhereStatusIs(queryParams.Common.EntryStatus)
 				.WhereHasType(queryParams.ArtistTypes)
-				.WhereHasTag(queryParams.Tag);
+				.WhereHasTag(queryParams.Tag)
+				.WhereIsFollowedByUser(queryParams.UserFollowerId);
 
 			return query;
 
