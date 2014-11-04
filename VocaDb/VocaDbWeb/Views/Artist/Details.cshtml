@@ -185,6 +185,15 @@
 				<td>@ViewRes.EntryDetailsStrings.Stats</td>
 				<td>
 					@string.Format(R.DetailsStrings.FollowCount, Model.FollowCount)
+					@if (Model.SharedStats.RatedSongCount > 0) {
+						@(Model.SharedStats.RatedSongCount)@: rated songs.
+					}
+					@if (Model.SharedStats.RatedAlbumCount > 0) {
+						@(Model.SharedStats.RatedAlbumCount)@: rated albums (Average album rating is @(Model.SharedStats.AlbumRatingAverage)).
+					}
+					@if (Model.PersonalStats != null) {
+						@:You have rated @Model.PersonalStats.SongRatingCount songs by this artist.
+					}
 				</td>
 			</tr>
 
@@ -205,7 +214,10 @@
 
 		@if (Model.LatestAlbums.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentAlbums, "Index", "Search", new { searchType = EntryType.Album, artistId = Model.Id, sort = AlbumSortRule.AdditionDate }, null)</h3>
+			<h3>
+				@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentAlbums, "Index", "Search", new { searchType = EntryType.Album, artistId = Model.Id, sort = AlbumSortRule.AdditionDate }, null)
+				<small>(@string.Format("{0} total", Model.SharedStats.AlbumCount))</small>
+			</h3>
             <div id="newAlbums">                
     			@AlbumHelpers.AlbumThumbs(Model.LatestAlbums)
             </div>
@@ -213,7 +225,10 @@
         
 		@if (Model.TopAlbums.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopAlbums, "Index", "Search", new { searchType = EntryType.Album, artistId = Model.Id, sort = AlbumSortRule.RatingTotal }, null)</h3>
+			<h3>
+				@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopAlbums, "Index", "Search", new { searchType = EntryType.Album, artistId = Model.Id, sort = AlbumSortRule.RatingTotal }, null)
+				<small>(@string.Format("{0} rated albums total", Model.SharedStats.RatedAlbumCount))</small>
+			</h3>
             <div id="topAlbums">
 			    @AlbumHelpers.AlbumThumbs(Model.TopAlbums)                
             </div>
@@ -222,13 +237,19 @@
 
 		@if (Model.LatestSongs.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentSongs, "Index", "Search", UrlMapper.Search.Songs(artistId: Model.Id, sort: SongSortRule.AdditionDate), null)</h3>
+			<h3>
+				@Html.ActionLink(ViewRes.Artist.DetailsStrings.RecentSongs, "Index", "Search", UrlMapper.Search.Songs(artistId: Model.Id, sort: SongSortRule.AdditionDate), null)
+				<small>(@string.Format("{0} total", Model.SharedStats.SongCount))</small>
+			</h3>
 			@SongHelpers.SongGrid(Model.LatestSongs, 2, true)
 	    }
         
 		@if (Model.TopSongs.Any()) {
 			<br />
-			<h3>@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopSongs, "Index", "Search", UrlMapper.Search.Songs(artistId: Model.Id, sort: SongSortRule.RatingScore), null)</h3>
+			<h3>
+				@Html.ActionLink(ViewRes.Artist.DetailsStrings.TopSongs, "Index", "Search", UrlMapper.Search.Songs(artistId: Model.Id, sort: SongSortRule.RatingScore), null)
+				<small>(@string.Format("{0} rated songs total", Model.SharedStats.RatedSongCount))</small>
+			</h3>
 			@SongHelpers.SongGrid(Model.TopSongs, 2, true)
 	    }
 		

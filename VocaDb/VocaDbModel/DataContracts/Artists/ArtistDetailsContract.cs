@@ -98,7 +98,13 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public UserContract[] OwnerUsers { get; set; }
 
 		[DataMember]
+		public PersonalArtistStatsContract PersonalStats { get; set; }
+
+		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }
+
+		[DataMember]
+		public SharedArtistStatsContract SharedStats { get; set; }
 
 		[DataMember]
 		public TagUsageContract[] Tags { get; set; }
@@ -114,6 +120,40 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember]
 		public WebLinkContract[] WebLinks { get; set; }
+
+	}
+
+	[DataContract(Namespace = Schemas.VocaDb)]
+	public class PersonalArtistStatsContract {
+		
+		/// <summary>
+		/// Number of times logged user has rated songs by this artist.
+		/// </summary>
+		[DataMember]
+		public int SongRatingCount { get; set; }
+
+	}
+
+	[DataContract(Namespace = Schemas.VocaDb)]
+	public class SharedArtistStatsContract {
+
+		[DataMember]
+		public int AlbumCount { get; set; }
+
+		[DataMember]
+		public double AlbumRatingAverage { get; set; }
+
+		[DataMember]
+		public int RatedAlbumCount { get; set; }
+
+		[DataMember]
+		public int SongCount { get; set; }
+
+		/// <summary>
+		/// Total rating score for this artist.
+		/// </summary>
+		[DataMember]
+		public int RatedSongCount { get; set; }
 
 	}
 

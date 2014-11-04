@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Caching;
 using System.Web;
+using System.Web.Caching;
 using NHibernate;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
@@ -23,7 +25,7 @@ using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.Service.Queries;
 using VocaDb.Model.Service.Repositories;
-using VocaDb.Model.Service.Search.AlbumSearch;
+using VocaDb.Model.Domain.Caching;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
@@ -32,18 +34,68 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// </summary>
 	public class ArtistQueries : QueriesBase<IArtistRepository, Artist> {
 
+		private readonly ObjectCache cache;
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IEntryThumbPersister imagePersister;
+
+		private PersonalArtistStatsContract GetPersonalArtistStats(IRepositoryContext<Artist> ctx, Artist artist) {
+			
+			if (!PermissionContext.IsLoggedIn)
+				return null;
+
+			var key = string.Format("PersonalArtistStatsContract.{0}.{1}", artist.Id, PermissionContext.LoggedUserId);
+			return cache.GetOrInsert(key, CachePolicy.AbsoluteExpiration(1), () => {
+				
+				return new PersonalArtistStatsContract {
+					SongRatingCount = ctx.OfType<FavoriteSongForUser>()
+						.Query()
+						.Count(f => f.User.Id == PermissionContext.LoggedUserId && f.Song.AllArtists.Any(a => a.Artist.Id == artist.Id))
+				};
+
+			});
+			
+		}
+
+		private SharedArtistStatsContract GetSharedArtistStats(IRepositoryContext<Artist> ctx, Artist artist) {
+			
+			var key = string.Format("SharedArtistStatsContract.{0}", artist.Id);
+			return cache.GetOrInsert(key, CachePolicy.AbsoluteExpiration(1), () => {
+				
+				var stats = ctx.Query()
+					.Where(a => a.Id == artist.Id)
+					.Select(a => new {
+						AlbumCount = a.AllAlbums.Count,
+						RatedAlbumCount = a.AllAlbums.Count(l => l.Album.RatingCount > 0),
+						SongCount = a.AllSongs.Count,
+						RatedSongCount = a.AllSongs.Count(s => s.Song.RatingScore > 0),
+						AlbumRatingsTotalCount = a.AllAlbums.Sum(l => l.Album.RatingCount),
+						AlbumRatingsTotalSum = a.AllAlbums.Sum(l => l.Album.RatingTotal)
+					})
+					.FirstOrDefault();
+
+				return new SharedArtistStatsContract {
+					AlbumCount = stats.AlbumCount,
+					RatedAlbumCount = stats.RatedAlbumCount,
+					SongCount = stats.SongCount,
+					RatedSongCount = stats.RatedSongCount,
+					AlbumRatingAverage = (stats.AlbumRatingsTotalCount > 0 ? Math.Round(stats.AlbumRatingsTotalSum / (double)stats.AlbumRatingsTotalCount, 2) : 0)
+				};
+
+			});
+			
+		}
 
 		private ArtistMergeRecord GetMergeRecord(IRepositoryContext<Artist> session, int sourceId) {
 			return session.OfType<ArtistMergeRecord>().Query().FirstOrDefault(s => s.Source == sourceId);
 		}
 
-		public ArtistQueries(IArtistRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryThumbPersister imagePersister)
+		public ArtistQueries(IArtistRepository repository, IUserPermissionContext permissionContext, IEntryLinkFactory entryLinkFactory, IEntryThumbPersister imagePersister,
+			ObjectCache cache)
 			: base(repository, permissionContext) {
 
 			this.entryLinkFactory = entryLinkFactory;
 			this.imagePersister = imagePersister;
+			this.cache = cache;
 
 		}
 
@@ -163,7 +215,9 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				var contract = new ArtistDetailsContract(artist, LanguagePreference) {
 					CommentCount = stats.CommentCount,
-					FollowCount = stats.FollowCount
+					FollowCount = stats.FollowCount,
+					SharedStats = GetSharedArtistStats(session, artist),
+					PersonalStats = GetPersonalArtistStats(session, artist)
 				};
 
 				if (PermissionContext.LoggedUser != null) {

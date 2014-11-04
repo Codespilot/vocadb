@@ -310,6 +310,7 @@
     <Compile Include="Domain\Artists\CustomArtist.cs" />
     <Compile Include="Domain\Artists\IArtistLink.cs" />
     <Compile Include="Domain\Artists\IArtistWithSupport.cs" />
+    <Compile Include="Domain\Caching\ObjectCacheExtender.cs" />
     <Compile Include="Domain\EntryIdAndName.cs" />
     <Compile Include="Domain\EntryPictureFile.cs" />
     <Compile Include="Domain\EntryPictureFileManager.cs" />

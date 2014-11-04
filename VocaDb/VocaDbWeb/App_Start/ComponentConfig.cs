@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.Caching;
 using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
@@ -54,6 +55,7 @@ namespace VocaDb.Web.App_Start {
 			builder.RegisterType<BrandableStringsManager>().AsSelf().SingleInstance();
 			builder.RegisterType<VdbConfigManager>().AsSelf().SingleInstance();
 			builder.RegisterType<GravatarUserIconFactory>().As<IUserIconFactory>();
+			builder.Register(_ => MemoryCache.Default).As<ObjectCache>();
 
 			// Legacy services
 			builder.RegisterType<ServiceModel>().AsSelf();
