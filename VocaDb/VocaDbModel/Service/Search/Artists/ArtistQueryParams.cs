@@ -46,6 +46,8 @@ namespace VocaDb.Model.Service.Search.Artists {
 
 		public string Tag { get; set; }
 
+		public int UserFollowerId { get; set; }
+
 	}
 
 }

@@ -25,7 +25,7 @@ module vdb.viewModels.search {
 				this.searchTerm(searchTerm);
 
 			this.anythingSearchViewModel = new AnythingSearchViewModel(this, languageSelection, entryRepo);
-			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, artistType);
+			this.artistSearchViewModel = new ArtistSearchViewModel(this, languageSelection, artistRepo, loggedUserId, artistType);
 			this.albumSearchViewModel = new AlbumSearchViewModel(this, languageSelection, albumRepo, artistRepo,
 				searchType == "Album" ? sort : null, searchType == "Album" ? artistId : null, albumType);
 			this.songSearchViewModel = new SongSearchViewModel(this, urlMapper, languageSelection, songRepo, artistRepo, userRepo,

@@ -125,6 +125,7 @@
 					</div>
 
 					<div data-bind="visible: showAdvancedFilters" style="display: none;">
+						<!-- Tag filtering with top genres -->
 						<div class="control-group" data-bind="visible: showTagFilter">
 							<div class="control-label">@ViewRes.SharedStrings.Tag</div>
 							<div class="controls">
@@ -147,14 +148,26 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="control-group" data-bind="visible: showArtistSearch, with: artistSearchViewModel">
-							<div class="control-label">@Res.ArtistType</div>
-							<div class="controls">
-								@ArtistHelpers.ArtistTypesDropdownKnockout("artistType")
+						
+						<!-- Artist search options -->
+						<div data-bind="visible: showArtistSearch, with: artistSearchViewModel">
+							<div class="control-group">
+								<div class="control-label">@Res.ArtistType</div>
+								<div class="controls">
+									@ArtistHelpers.ArtistTypesDropdownKnockout("artistType")
+								</div>
+							</div>
+							<div class="control-group" data-bind="visible: loggedUserId">
+								<div class="controls">
+									<label class="checkbox">
+										<input type="checkbox" data-bind="checked: onlyFollowedByMe" />
+										Only my followed artists
+									</label>
+								</div>
 							</div>
 						</div>
-
+						
+						<!-- Album search options -->
 						<div data-bind="visible: showAlbumSearch, with: albumSearchViewModel">
 							<div class="control-group">
 								<div class="control-label">@Res.AlbumType</div>
@@ -187,7 +200,8 @@
 								</div>
 							</div>
 						</div>
-
+						
+						<!-- Song search options -->
 						<div data-bind="visible: showSongSearch, with: songSearchViewModel">
 							<div class="control-group">
 								<div class="control-label">@Res.SongType</div>
@@ -237,7 +251,8 @@
 							</div>
 
 						</div>
-
+						
+						<!-- Tag search options -->
 						<div class="control-group" data-bind="visible: showTagSearch, with: tagSearchViewModel">
 							<div class="control-label">@Res.TagCategory</div>
 							<div class="controls">
