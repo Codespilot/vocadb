@@ -191,7 +191,7 @@
 					@if (Model.SharedStats.RatedAlbumCount > 0) {
 						@(Model.SharedStats.RatedAlbumCount)@: rated albums (Average album rating is @(Model.SharedStats.AlbumRatingAverage)).
 					}
-					@if (Model.PersonalStats != null) {
+					@if (Model.PersonalStats != null && Model.PersonalStats.SongRatingCount > 0) {
 						@:You have rated @Model.PersonalStats.SongRatingCount songs by this artist.
 					}
 				</td>
