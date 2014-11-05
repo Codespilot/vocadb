@@ -8,6 +8,11 @@ namespace VocaDb.Model.Helpers {
 
 	public static class CollectionHelper {
 
+		public static T AddAndReturn<T>(IList<T> collection, T item) {
+			collection.Add(item);
+			return item;
+		}
+
 		/// <summary>
 		/// Calculates a diff between two collections, including new, unchanged and deleted items.
 		/// </summary>
@@ -201,7 +206,8 @@ namespace VocaDb.Model.Helpers {
 		/// First parameter is the old item to be updated and second parameter is the new state. 
 		/// Returns true if the old item was updated, or false if the items had equal content already. Cannot be null.</param>
 		/// <param name="remove">
-		/// Callback for removing an old item if that didn't exist in the new list.
+		/// Callback for removing an old item if that didn't exist in the new list. 
+		/// The old list is already updated by the algorithm. This is mostly used for cleanup of link objects.
 		/// Can be null.
 		/// </param>
 		/// <returns>Diff for the two collections. Cannot be null.</returns>

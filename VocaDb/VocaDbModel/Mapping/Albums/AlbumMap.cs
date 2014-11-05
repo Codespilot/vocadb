@@ -11,7 +11,6 @@ namespace VocaDb.Model.Mapping.Albums {
 			Cache.ReadWrite();
 			Id(m => m.Id);
 
-			Map(m => m.Barcode).Length(30).Nullable();
 			Map(m => m.CoverPictureMime).Length(32).Nullable();
 			Map(m => m.CreateDate).Not.Nullable();
 			Map(m => m.Deleted).Not.Nullable();
@@ -72,6 +71,7 @@ namespace VocaDb.Model.Mapping.Albums {
 			HasMany(m => m.AllSongs).Inverse().Cascade.All().OrderBy("DiscNumber, TrackNumber").Cache.ReadWrite();
 			HasMany(m => m.Comments).Inverse().Cascade.AllDeleteOrphan().OrderBy("Created");
 			HasMany(m => m.Hits).Inverse().Cascade.AllDeleteOrphan();
+			HasMany(m => m.Identifiers).Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			HasMany(m => m.OtherArtists).Inverse().Cascade.AllDeleteOrphan().Cache.ReadWrite();
 			HasMany(m => m.PVs).Inverse().Cascade.AllDeleteOrphan();
 			HasMany(m => m.UserCollections).Inverse().Cache.ReadWrite();
@@ -127,6 +127,20 @@ namespace VocaDb.Model.Mapping.Albums {
 				c.Map(m => m.ChangedFieldsString, "ChangedFields").Length(100).Not.Nullable();
 				c.Map(m => m.IsSnapshot).Not.Nullable();
 			});
+
+		}
+
+	}
+
+	public class AlbumIdentifierMap : ClassMap<AlbumIdentifier> {
+
+		public AlbumIdentifierMap() {
+			
+			Id(m => m.Id);
+
+			Map(m => m.Value).Length(50).Not.Nullable();
+
+			References(m => m.Album).Not.Nullable();
 
 		}
 

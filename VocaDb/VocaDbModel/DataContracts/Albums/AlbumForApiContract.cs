@@ -41,7 +41,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 			bool artists = true, bool names = true, bool pvs = false, bool tags = true, bool webLinks = false) {
 
 			ArtistString = album.ArtistString[languagePreference];
-			Barcode = album.Barcode;
 			CatalogNumber = album.OriginalRelease != null ? album.OriginalRelease.CatNum : null;
 			CreateDate = album.CreateDate;
 			DefaultName = album.DefaultName;
@@ -110,6 +109,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember(EmitDefaultValue = false)]
+		public AlbumIdentifierContract[] Identifiers { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public string LocalizedName { get; set; }
