@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Identifiers.
+        /// </summary>
+        internal static string Identifiers {
+            get {
+                return ResourceManager.GetString("Identifiers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Names.
         /// </summary>
         internal static string Names {

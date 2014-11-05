@@ -64,6 +64,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 			DoIfExists(version, AlbumEditableFields.Artists, xmlCache, (v, doc) => SetArtists(data, v, doc));
 			DoIfExists(version, AlbumEditableFields.Description, xmlCache, v => data.Description = v.Description);
+			DoIfExists(version, AlbumEditableFields.Identifiers, xmlCache, v => data.Identifiers = v.Identifiers);
 			DoIfExists(version, AlbumEditableFields.OriginalRelease, xmlCache, v => data.OriginalRelease = v.OriginalRelease);
 			DoIfExists(version, AlbumEditableFields.Names, xmlCache, v => data.Names = v.Names);
 			DoIfExists(version, AlbumEditableFields.Pictures, xmlCache, v => data.Pictures = v.Pictures);
@@ -86,6 +87,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			Description = (diff.IncludeDescription ? album.Description : null);
 			DiscType = album.DiscType;
 			Id = album.Id;
+			Identifiers = album.Identifiers.Select(i => new AlbumIdentifierContract(i)).ToArray();
 			MainPictureMime = album.CoverPictureMime;
 			OriginalRelease = (album.OriginalRelease != null && !album.OriginalRelease.IsEmpty ? new ArchivedAlbumReleaseContract(album.OriginalRelease) : null);
 			Pictures = (diff.IncludePictures ? album.Pictures.Select(p => new ArchivedEntryPictureFileContract(p)).ToArray() : null);
@@ -108,6 +110,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int Id { get; set; }
+
+		[DataMember]
+		public AlbumIdentifierContract[] Identifiers { get; set; }
 
 		[DataMember]
 		public string MainPictureMime { get; set; }
