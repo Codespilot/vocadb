@@ -159,4 +159,7 @@
   <data name="Barcode" xml:space="preserve">
     <value>Barcode</value>
   </data>
+  <data name="Identifiers" xml:space="preserve">
+    <value>Identifiers</value>
+  </data>
 </root>
