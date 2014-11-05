@@ -31,6 +31,10 @@
 			
 		}
 
+		public static bool IdEquals(this IEntryWithIntId left, IEntryWithIntId right) {
+			return left.Id == right.Id;
+		}
+
 		public static int IdOrDefault(this IEntryWithIntId entry) {
 			return entry != null ? entry.Id : 0;
 		}

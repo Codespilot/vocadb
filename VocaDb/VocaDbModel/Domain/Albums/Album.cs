@@ -46,6 +46,7 @@ namespace VocaDb.Model.Domain.Albums {
 		private IList<AlbumComment> comments = new List<AlbumComment>();
 		private string description;
 		private IList<AlbumHit> hits = new List<AlbumHit>();
+		private IList<AlbumIdentifier> identifiers = new List<AlbumIdentifier>();
 		private NameManager<AlbumName> names = new NameManager<AlbumName>();
 		private AlbumRelease originalRelease = new AlbumRelease();
 		private IList<OtherArtistForAlbum> otherArtists = new List<OtherArtistForAlbum>();
@@ -135,8 +136,6 @@ namespace VocaDb.Model.Domain.Albums {
 			}
 		}
 
-		public virtual string Barcode { get; set; }
-
 		public virtual IList<AlbumComment> Comments {
 			get { return comments; }
 			set {
@@ -181,6 +180,14 @@ namespace VocaDb.Model.Domain.Albums {
 		}
 
 		public virtual int Id { get; set; }
+
+		public virtual IList<AlbumIdentifier> Identifiers {
+			get { return identifiers; }
+			set {
+				ParamIs.NotNull(() => value);
+				identifiers = value;
+			}
+		}
 
 		/// <summary>
 		/// Gets the ordinal number of the last disc for this album, starting from 1.
@@ -700,6 +707,36 @@ namespace VocaDb.Model.Domain.Albums {
 			if (diff.Changed) {
 				UpdateArtistString();				
 			}
+
+			return diff;
+
+		}
+
+		public virtual CollectionDiffWithValue<AlbumIdentifier, AlbumIdentifier> SyncIdentifiers(string identifier) {
+
+			var newList = new List<AlbumIdentifier>();
+
+			if (!string.IsNullOrEmpty(identifier)) {
+				if (Identifiers.Any()) {
+					newList.Add(new AlbumIdentifier(this, identifier) { Id = Identifiers[0].Id });
+				} else {
+					newList.Add(new AlbumIdentifier(this, identifier));				
+				}				
+			}
+
+			var update = new Func<AlbumIdentifier, AlbumIdentifier, bool>((old, newEntry) => {
+			
+				if (!old.ContentEquals(newEntry)) {
+					old.Value = newEntry.Value;
+					return true;
+				} else {
+					return false;
+				}
+				
+			});
+
+			var diff = CollectionHelper.SyncWithContent(Identifiers, newList, IEntryWithIntIdExtender.IdEquals, 
+				i => CollectionHelper.AddAndReturn(Identifiers, i), update, null);
 
 			return diff;
 

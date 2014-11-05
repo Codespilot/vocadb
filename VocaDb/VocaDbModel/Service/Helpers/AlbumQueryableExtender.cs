@@ -127,7 +127,7 @@ namespace VocaDb.Model.Service.Helpers {
 			if (string.IsNullOrEmpty(barcode))
 				return query;
 
-			return query.Where(a => a.Barcode == barcode);
+			return query.Where(a => a.Identifiers.Any(i => i.Value == barcode));
 
 		}
 

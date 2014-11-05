@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Net.Mime;
+using System.Runtime.Caching;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
@@ -59,7 +60,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 			permissionContext = new FakePermissionContext(user);
 			imagePersister = new InMemoryImagePersister();
 
-			queries = new ArtistQueries(repository, permissionContext, new FakeEntryLinkFactory(), imagePersister);
+			queries = new ArtistQueries(repository, permissionContext, new FakeEntryLinkFactory(), imagePersister, MemoryCache.Default);
 
 			newArtistContract = new CreateArtistContract {
 				ArtistType = ArtistType.Producer,
