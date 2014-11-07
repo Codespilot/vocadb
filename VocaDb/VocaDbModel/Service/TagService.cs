@@ -209,10 +209,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private TagTopUsagesAndCount<TEntry> GetTopUsagesAndCount<TUsage, TEntry>(
+		private TagTopUsagesAndCount<TEntry> GetTopUsagesAndCount<TUsage, TEntry, TSort>(
 			ISession session, string tagName, 
 			Expression<Func<TUsage, bool>> whereExpression, 
-			Expression<Func<TUsage, DateTime>> createDateExpression,
+			Expression<Func<TUsage, TSort>> createDateExpression,
 			Expression<Func<TUsage, TEntry>> selectExpression)
 			where TUsage: TagUsage {
 			
@@ -223,7 +223,7 @@ namespace VocaDb.Model.Service {
 				.OrderByDescending(t => t.Count)
 				.ThenByDescending(createDateExpression)
 				.Select(selectExpression)
-				.Take(15)
+				.Take(12)
 				.ToArray();
 
 			var usageCount = q.Count();
@@ -245,9 +245,9 @@ namespace VocaDb.Model.Service {
 				if (tag == null)
 					return null;
 				
-				var artists = GetTopUsagesAndCount<ArtistTagUsage, Artist>(session, tagName, t => !t.Artist.Deleted, t => t.Artist.CreateDate, t => t.Artist);
-				var albums = GetTopUsagesAndCount<AlbumTagUsage, Album>(session, tagName, t => !t.Album.Deleted, t => t.Album.CreateDate, t => t.Album);
-				var songs = GetTopUsagesAndCount<SongTagUsage, Song>(session, tagName, t => !t.Song.Deleted, t => t.Song.CreateDate, t => t.Song);
+				var artists = GetTopUsagesAndCount<ArtistTagUsage, Artist, int>(session, tagName, t => !t.Artist.Deleted, t => t.Artist.Id, t => t.Artist);
+				var albums = GetTopUsagesAndCount<AlbumTagUsage, Album, int>(session, tagName, t => !t.Album.Deleted, t => t.Album.RatingTotal, t => t.Album);
+				var songs = GetTopUsagesAndCount<SongTagUsage, Song, int>(session, tagName, t => !t.Song.Deleted, t => t.Song.RatingScore, t => t.Song);
 
 				return new TagDetailsContract(tag, 
 					artists.TopUsages, artists.TotalCount, 

@@ -50,6 +50,14 @@ namespace VocaDb.Model.Utils.Search {
 
 		}
 
+		public SearchRouteParams Artists(string tag = null) {
+			
+			return new SearchRouteParams(EntryType.Artist) {
+				tag = tag,
+			};
+
+		}
+
 		public SearchRouteParams Songs(
 			int? artistId = null, 
 			SongType? songType = null, 
