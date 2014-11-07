@@ -1,15 +1,16 @@
-﻿@using R = ViewRes.Tag;
+﻿@using R = ViewRes.Tag.DetailsStrings;
 @using VocaDb.Model.Domain.Images
 @using VocaDb.Model.Utils
 @using VocaDb.Model.Helpers
 @using VocaDb.Web.Helpers;
+@using SharedRes = ViewRes.SharedStrings;
 @inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.Tags.TagDetailsContract>
 
 @{
 
-	ViewBag.PageTitle = R.DetailsStrings.TagDetails + " - " + Model.Name;
+	ViewBag.PageTitle = R.TagDetails + " - " + Model.Name;
 	ViewBag.Title = Model.Name;
-	ViewBag.SubTitle = R.DetailsStrings.Tag;
+	ViewBag.SubTitle = R.Tag;
 	ViewBag.Parents = new[] { Html.ActionLink(ViewRes.SharedStrings.Tags, "Index") };
 
 	var smallThumbUrl = ImageHelper.GetImageUrl(Model.Thumb, ImageSize.SmallThumb);
@@ -68,82 +69,96 @@
 	@Helpers.EntryStatusMessage(Model.Status)
 }
 
-<div id="tabs">
+<div class="well well-transparent">
+	<h3>@R.Overview</h3>
 
-	<ul>
-		<li><a href="#overviewTab">@R.DetailsStrings.Overview</a></li>
-		<!-- Can't remove tabs because the ID would change -->
-		<li style="@(Model.Artists.Any() ? "" : "display: none;")"><a href="@Url.Action("ArtistTagUsages", "Tag", new { id = Model.Name })" title="Artists">@R.DetailsStrings.AllArtists (@Model.ArtistCount)</a></li>
-		<li style="@(Model.Albums.Any() ? "" : "display: none;")"><a href="@Url.Action("AlbumTagUsages", "Tag", new { id = Model.Name })" title="Albums">@R.DetailsStrings.AllAlbums (@Model.AlbumCount)</a></li>
-		<li style="@(Model.Songs.Any() ? "" : "display: none;")"><a href="@Url.Action("SongTagUsages", "Tag", new { id = Model.Name })" title="Songs">@R.DetailsStrings.AllSongs (@Model.SongCount)</a></li>
-	</ul>
+	<div class="media">
+		@if (!string.IsNullOrEmpty(smallThumbUrl)) {
+			<a class="pull-left" href="@thumbUrl">
+				<img class="media-object" src="@smallThumbUrl" alt="Thumb" />
+			</a>
+		}
 
-	<div id="overviewTab">
-
-		<div class="media">
-			@if (!string.IsNullOrEmpty(smallThumbUrl)) {
-				<a class="pull-left" href="@thumbUrl">
-					<img class="media-object" src="@smallThumbUrl" alt="Thumb" />
-				</a>
+		<div class="media-body">
+			@if (Model.Description != string.Empty) {
+				@Html.Raw(descriptionHtml)
 			}
 
-			<div class="media-body">
-				@if (Model.Description != string.Empty) {
-					@Html.Raw(descriptionHtml)
-				}
+			@if (Model.CategoryName != string.Empty) {
+				<p>@R.Category: @Model.CategoryName</p>
+			}
 
-				@if (Model.CategoryName != string.Empty) {
-					<p>@R.DetailsStrings.Category: @Model.CategoryName</p>
-				}
+			@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
+				<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
+			}
 
-				@if (!string.IsNullOrEmpty(Model.AliasedTo)) {
-					<p>Aliased to @Html.ActionLink(Model.AliasedTo, "Details", new { id = Model.AliasedTo })</p>
-				}
+			@if (Model.Aliases.Any()) {
+				<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>
+			}
 
-				@if (Model.Aliases.Any()) {
-					<p>Aliases: @Html.LinkList(Model.Aliases, alias => Html.ActionLink(alias, "Details", new { id = alias }))</p>
-				}
+			@if (related.Any()) {
+				<div id="hierarchyContainer" style='width: 1000px; height: @((75 + (Model.Parent != null ? 125 : 0) + (Model.Children.Any() ? 125 : 0)) + "px")'></div>
+			}
+			
+			<br />
+			
+			@if (Model.ArtistCount > 0) {
+				<div>
+					@Html.ActionLink(R.AllArtists + " (" + Model.ArtistCount + ")", "Index", "Search", UrlMapper.Search.Artists(tag: Model.Name), null)
+				</div>
+			}
+			
+			@if (Model.AlbumCount > 0) {
+				<div>
+					@Html.ActionLink(R.AllAlbums + " (" + Model.AlbumCount + ")", "Index", "Search", UrlMapper.Search.Albums(tag: Model.Name), null)
+				</div>
+			}
+			
+			@if (Model.SongCount > 0) {
+				<div>
+					@Html.ActionLink(R.AllSongs + " (" + Model.SongCount + ")", "Index", "Search", UrlMapper.Search.Songs(tag: Model.Name), null)
+				</div>
+			}
 
-				@if (related.Any()) {
-					<div id="hierarchyContainer" style='width: 1000px; height: @((75 + (Model.Parent != null ? 125 : 0) + (Model.Children.Any() ? 125 : 0)) + "px")'></div>
-				}
-
-			</div>
 		</div>
-
-		@if (Model.Artists.Any()) {
-			<br />
-			<h3>@R.DetailsStrings.TopArtists</h3>
-			@ArtistHelpers.ArtistGrid(Model.Artists.Select(a => a), 2, true)
-		}
-
-		@if (Model.Albums.Any()) {
-			<br />
-			<h3>@R.DetailsStrings.TopAlbums</h3>
-			@AlbumHelpers.AlbumGrid(Model.Albums.Select(a => a), 2, false, false, true)
-		}
-
-		@if (Model.Songs.Any()) {
-			<br />
-			<h3>@R.DetailsStrings.TopSongs</h3>
-			@SongHelpers.SongGrid(Model.Songs.Select(s => s), 2, true)
-		}
-
 	</div>
-
-	@if (Model.Artists.Any()) {
-		<div id="Artists">
-		</div>
-	}
-
-	@if (Model.Albums.Any()) {
-		<div id="Albums">
-		</div>
-	}
-
-	@if (Model.Songs.Any()) {
-		<div id="Songs">
-		</div>
-	}
-
 </div>
+
+@if (Model.Artists.Any()) {
+	<div class="well well-transparent">
+		@Helpers.ShowMore(href: Url.Action("Index", "Search", UrlMapper.Search.Artists(tag: Model.Name)))
+		<h3>
+			<a href="@Url.Action("Index", "Search", UrlMapper.Search.Artists(tag: Model.Name))">
+				@R.TopArtists
+				<small>(@Model.ArtistCount @SharedRes.Total)</small>
+			</a>
+		</h3>
+		@ArtistHelpers.ArtistGrid(Model.Artists.Select(a => a), 2, true)
+	</div>
+}
+
+@if (Model.Albums.Any()) {
+	<div class="well well-transparent">
+		@Helpers.ShowMore(href: Url.Action("Index", "Search", UrlMapper.Search.Albums(tag: Model.Name)))
+		<h3>
+			<a href="@Url.Action("Index", "Search", UrlMapper.Search.Albums(tag: Model.Name))">
+				@R.TopAlbums
+				<small>(@Model.AlbumCount @SharedRes.Total)</small>
+			</a>							
+		</h3>
+		@AlbumHelpers.AlbumGrid(Model.Albums.Select(a => a), 2, false, false, true)
+	</div>
+}
+
+@if (Model.Songs.Any()) {
+	<div class="well well-transparent">
+		@Helpers.ShowMore(href: Url.Action("Index", "Search", UrlMapper.Search.Songs(tag: Model.Name)))
+		<h3>
+			<a href="@Url.Action("Index", "Search", UrlMapper.Search.Songs(tag: Model.Name))">
+				@R.TopSongs
+				<small>(@Model.SongCount @SharedRes.Total)</small>
+			</a>
+		</h3>
+		@SongHelpers.SongGrid(Model.Songs.Select(s => s), 2, true)
+	</div>
+}

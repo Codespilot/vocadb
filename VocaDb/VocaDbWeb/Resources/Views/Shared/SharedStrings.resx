@@ -204,6 +204,9 @@
   <data name="TopRatedAlbums" xml:space="preserve">
     <value>Top rated albums</value>
   </data>
+  <data name="Total" xml:space="preserve">
+    <value>total</value>
+  </data>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
   </data>

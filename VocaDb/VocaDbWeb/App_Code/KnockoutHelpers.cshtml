@@ -156,7 +156,9 @@
 						<select data-bind="value: category, options: $parent.categories, optionsText: 'name', optionsValue: 'id'" class="input-medium"></select>
 					</td>
 				}
-				<td><a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Delete</a></td>
+				<td>
+					<a href="#" class="textLink deleteLink" data-bind="click: $parent.remove">@ViewRes.SharedStrings.Delete</a>
+				</td>
 			</tr>
 		</tbody>
 	</table>
