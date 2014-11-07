@@ -2372,9 +2372,6 @@
     <Content Include="Views\Event\SeriesDetails.cshtml" />
     <Content Include="Views\Shared\PagedAlbums.cshtml" />
     <Content Include="Views\Shared\PagedSongs.cshtml" />
-    <Content Include="Views\Tag\ArtistTagUsages.cshtml" />
-    <Content Include="Views\Tag\AlbumTagUsages.cshtml" />
-    <Content Include="Views\Tag\SongTagUsages.cshtml" />
     <Content Include="Views\Shared\PVEmbedDynamic.cshtml" />
     <Content Include="Views\Shared\PVEmbedNND.cshtml" />
     <Content Include="Views\Song\SongItem.cshtml" />
