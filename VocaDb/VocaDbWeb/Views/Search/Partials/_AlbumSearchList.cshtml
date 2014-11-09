@@ -39,8 +39,8 @@
 		<tbody data-bind="foreach: page">
 			<tr>
 				<td style="width: 80px">
-					<a data-bind="visible: $data.mainPicture && mainPicture.urlTinyThumb, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#" class="coverPicThumb">
-						<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlTinyThumb : '') }" title="Cover picture" class="coverPicThumb img-rounded" />
+					<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#" class="coverPicThumb">
+						<img data-bind="attr: { src: ($data.mainPicture && mainPicture.urlTinyThumb ? mainPicture.urlTinyThumb : $parent.unknownPictureUrl) }" title="Cover picture" alt="Cover picture" class="coverPicThumb img-rounded" />
 					</a>
 				</td>
 				<td>
@@ -83,7 +83,7 @@
 		<li>
 			<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#">
 				<div class="pictureFrame">
-					<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : '') }, albumToolTip: id" alt="Preview" class="coverPic img-rounded" />
+					<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : $parent.unknownPictureUrl) }, albumToolTip: id" alt="Preview" class="coverPic img-rounded" />
 				</div>
 			</a>
 			<p data-bind="text: $data.localizedName || defaultName"></p>
