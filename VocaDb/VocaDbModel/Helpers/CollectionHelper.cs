@@ -141,36 +141,54 @@ namespace VocaDb.Model.Helpers {
 		/// <param name="oldItems">Original (current) collection. Cannot be null.</param>
 		/// <param name="newItems">New collection. Cannot be null.</param>
 		/// <param name="equality">Equality comparer. Cannot be null.</param>
+		/// <param name="remove">
+		/// Callback for removing an old item if that didn't exist in the new list. 
+		/// The old list is already updated by the algorithm. This is mostly used for cleanup of link objects.
+		/// Can be null.
+		/// </param>
 		/// <returns>Diff for the two collections. Cannot be null.</returns>
-		public static CollectionDiff<T, T> Sync<T>(IList<T> oldItems, IList<T> newItems, IEqualityComparer<T> equality) {
+		public static CollectionDiff<T, T> Sync<T>(IList<T> oldItems, IList<T> newItems, IEqualityComparer<T> equality, Action<T> remove = null) {
 
-			return Sync(oldItems, newItems, equality.Equals, t => t);
+			return Sync(oldItems, newItems, equality.Equals, t => t, remove);
 
 		}
 
 		/// <summary>
-		/// Syncs items in one collection with a new set.
+		/// Syncs items in one collection with a new set (create and delete, CD).
 		/// Removes missing items from the old collection and adds missing new items.
+		/// 
+		/// This method only supports immutable items: items will never be updated.
+		/// For a version that supports mutable items with updates, use <see cref="SyncWithContent"/>.
 		/// </summary>
 		/// <typeparam name="T">Type of the original (current) collection.</typeparam>
 		/// <typeparam name="T2">Type of the new collection.</typeparam>
 		/// <param name="old">Original (current) collection. Cannot be null.</param>
 		/// <param name="newItems">New collection. Cannot be null.</param>
 		/// <param name="equality">Equality test. Cannot be null.</param>
-		/// <param name="fac">Factory method for the new item. Cannot be null.</param>
+		/// <param name="create">Factory method for the new item. Cannot be null.</param>
+		/// <param name="remove">
+		/// Callback for removing an old item if that didn't exist in the new list. 
+		/// The old list is already updated by the algorithm. This is mostly used for cleanup of link objects.
+		/// Can be null.
+		/// </param>
 		/// <returns>Diff for the two collections. Cannot be null.</returns>
-		public static CollectionDiff<T, T> Sync<T, T2>(IList<T> old, IEnumerable<T2> newItems, Func<T, T2, bool> equality, Func<T2, T> fac) {
+		public static CollectionDiff<T, T> Sync<T, T2>(IList<T> old, IEnumerable<T2> newItems, Func<T, T2, bool> equality, Func<T2, T> create, Action<T> remove = null) {
 
 			var diff = Diff(old, newItems, equality);
 			var created = new List<T>();
 
-			foreach (var n in diff.Removed) {
+			foreach (var removed in diff.Removed) {
+
+				if (remove != null)
+					remove(removed);
+
 				// Note: this removes the item from the source collection directly, but not from any other collections.
-				old.Remove(n);
+				old.Remove(removed);
+
 			}
 
 			foreach (var linkEntry in diff.Added) {
-				var link = fac(linkEntry);
+				var link = create(linkEntry);
 				created.Add(link);
 			}
 
@@ -179,7 +197,7 @@ namespace VocaDb.Model.Helpers {
 		}
 
 		/// <summary>
-		/// Syncs items in one collection with a new set, comparing both identity and value.
+		/// Syncs items in one collection with a new set, comparing both identity and value (create, update, delete, CUD).
 		/// Removes missing items from the old collection and adds missing new items.
 		/// Existing items that have been changed will be updated.
 		/// </summary>

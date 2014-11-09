@@ -55,6 +55,7 @@ module vdb.tests.viewModels {
 				artistLinks: [producerArtistLink, vocalistArtistLink, labelArtistLink, customArtistLink],
 				discType: "Album",
 				hasCover: true,
+				identifiers: [],
 				names: [],
 				tracks: [songInAlbum, customTrack],
 				webLinks: [webLinkData]

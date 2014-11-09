@@ -28,6 +28,7 @@ namespace VocaDb.Web.Models {
 
 		public AlbumEdit() {
 			
+			Identifiers = new List<string>();
 			Names = new List<LocalizedStringWithIdContract>();
 			Pictures = new List<EntryPictureFileContract>();
 			PVs = new List<PVContract>();
@@ -50,11 +51,11 @@ namespace VocaDb.Web.Models {
 			ParamIs.NotNull(() => album);
 
 			ArtistLinks = album.ArtistLinks;
-			Barcode = album.Barcode;
 			DefaultLanguageSelection = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			DiscType = album.DiscType;
 			Id = album.Id;
+			Identifiers = album.Identifiers;
 			Name = album.Name;
 			Names = album.Names;
 			Pictures = album.Pictures;
@@ -85,9 +86,6 @@ namespace VocaDb.Web.Models {
 		[FromJson]
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
-		[StringLength(30)]
-		public string Barcode { get; set; }
-
 		[Display(Name = "Catalog number")]
 		[StringLength(50)]
 		public string CatNum { get; set; }
@@ -110,6 +108,9 @@ namespace VocaDb.Web.Models {
 		public bool HasCoverPicture { get; set; }
 
 		public int Id { get; set; }
+
+		[FromJson]
+		public IList<string> Identifiers { get; set; }
 
 		public string Name { get; set; }
 
@@ -180,6 +181,9 @@ namespace VocaDb.Web.Models {
 			if (ArtistLinks == null)
 				throw new InvalidFormException("Artists list was null");
 
+			if (Identifiers == null)
+				throw new InvalidFormException("Identifiers list was null");
+
 			if (Names == null)
 				throw new InvalidFormException("Names list was null");
 
@@ -188,10 +192,10 @@ namespace VocaDb.Web.Models {
 
 			return new AlbumForEditContract {
 				ArtistLinks = this.ArtistLinks,
-				Barcode = this.Barcode,
 				Description = this.Description ?? string.Empty,
 				DiscType = this.DiscType,
 				Id = this.Id,
+				Identifiers = this.Identifiers.ToArray(),
 				Name = this.Name,
 				Names = this.Names.ToArray(),
 				OriginalRelease = new AlbumReleaseContract {
@@ -212,6 +216,22 @@ namespace VocaDb.Web.Models {
 				UpdateNotes = this.UpdateNotes ?? string.Empty,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
 			};
+
+		}
+
+		public object ToJson() {
+			
+			var model = new {
+				artistLinks = ArtistLinks, 
+				discType = DiscType.ToString(), 
+				hasCover = HasCoverPicture, 
+				identifiers = Identifiers,
+				names = Names, 
+				tracks = Tracks, 
+				webLinks = WebLinks
+			};
+
+			return model;
 
 		}
 

@@ -712,32 +712,16 @@ namespace VocaDb.Model.Domain.Albums {
 
 		}
 
-		public virtual CollectionDiffWithValue<AlbumIdentifier, AlbumIdentifier> SyncIdentifiers(string identifier) {
+		public virtual CollectionDiff<AlbumIdentifier, AlbumIdentifier> SyncIdentifiers(string[] newIdentifiers) {
 
-			var newList = new List<AlbumIdentifier>();
-
-			if (!string.IsNullOrEmpty(identifier)) {
-				if (Identifiers.Any()) {
-					newList.Add(new AlbumIdentifier(this, identifier) { Id = Identifiers[0].Id });
-				} else {
-					newList.Add(new AlbumIdentifier(this, identifier));				
-				}				
-			}
-
-			var update = new Func<AlbumIdentifier, AlbumIdentifier, bool>((old, newEntry) => {
-			
-				if (!old.ContentEquals(newEntry)) {
-					old.Value = newEntry.Value;
-					return true;
-				} else {
-					return false;
-				}
-				
+			Func<AlbumIdentifier, string, bool> equality = ((i1, i2) => i1.Value == i2);
+			Func<string, AlbumIdentifier> create = (data => {
+				var id = new AlbumIdentifier(this, data);
+				Identifiers.Add(id);
+				return id;
 			});
 
-			var diff = CollectionHelper.SyncWithContent(Identifiers, newList, IEntryWithIntIdExtender.IdEquals, 
-				i => CollectionHelper.AddAndReturn(Identifiers, i), update, null);
-
+			var diff = CollectionHelper.Sync(Identifiers, newIdentifiers, equality, create);
 			return diff;
 
 		}

@@ -70,7 +70,7 @@
 		var artistRepo = new vdb.repositories.ArtistRepository(vdb.values.baseAddress);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, discType = Model.DiscType.ToString(), hasCover = Model.HasCoverPicture, names = Model.Names, tracks = Model.Tracks, webLinks = Model.WebLinks }));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJson()));
 		var allowCustomTracks = @ToJS(VocaDb.Model.Utils.AppConfig.AllowCustomTracks);
 
 		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, artistRoleJson, webLinkCategoryJson, modelJson, allowCustomTracks);
@@ -201,8 +201,14 @@
 				@Helpers.HelpLabel("Barcode", "Barcodes are usually plain numbers, for example 01234567. They can be scanned from the product package.")
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.Barcode, new { maxlength = 30 })
-				@Html.ValidationMessageFor(m => m.Barcode)
+				<div data-bind="foreach: identifiers">
+					<div>
+						<span data-bind="text: $data" style="width: 150px; display: inline-block;"></span>
+						<a href="#" class="textLink deleteLink" data-bind="click: function() { $parent.identifiers.remove($data); }">@ViewRes.SharedStrings.Delete</a>
+					</div>
+				</div>
+				<input type="text" placeholder="New barcode" maxlength="30" data-bind="textInput: newIdentifier, focusout: function() { createNewIdentifier(); } " />
+				<input type="hidden" name="identifiers" data-bind="value: ko.toJSON(identifiers)" />
 			</div>
 
 			<div class="editor-label">

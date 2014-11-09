@@ -342,8 +342,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.Description = true;
 				}
 
-				var parsedBarcode = Album.ParseBarcode(properties.Barcode);
-				var barcodeDiff = album.SyncIdentifiers(parsedBarcode);
+				var parsedBarcodes = properties.Identifiers.Select(Album.ParseBarcode).ToArray();
+				var barcodeDiff = album.SyncIdentifiers(parsedBarcodes);
 				session.OfType<AlbumIdentifier>().Sync(barcodeDiff);
 				if (barcodeDiff.Changed) {
 					diff.Identifiers = true;

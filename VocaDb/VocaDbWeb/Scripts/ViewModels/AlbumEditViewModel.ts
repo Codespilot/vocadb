@@ -63,6 +63,15 @@ module vdb.viewModels {
         // List of artist links for this album.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 
+		public createNewIdentifier = () => {
+			
+			if (this.newIdentifier()) {
+				this.identifiers.push(this.newIdentifier());
+				this.newIdentifier('');
+			}
+
+		}
+
         // Album disc type.
 		public discType: KnockoutObservable<cls.albums.AlbumType>;
 		public discTypeStr: KnockoutObservable<string>;
@@ -81,7 +90,11 @@ module vdb.viewModels {
 
 		public hasCover: boolean;
 
+		public identifiers: KnockoutObservableArray<string>;
+
 		public names: globalization.NamesEditViewModel;
+
+		public newIdentifier = ko.observable("");
 
 		public releaseYear = ko.observable<number>().extend({ parseInteger: {} });
 
@@ -229,6 +242,8 @@ module vdb.viewModels {
             };
 
 			this.hasCover = data.hasCover;
+
+			this.identifiers = ko.observableArray(data.identifiers);
 
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
 
@@ -407,6 +422,8 @@ module vdb.viewModels {
 		discType: string;
 
 		hasCover: boolean;
+
+		identifiers: string[];
 
 		names: dc.globalization.LocalizedStringWithIdContract[];
 
