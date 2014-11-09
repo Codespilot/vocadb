@@ -330,6 +330,7 @@
 			var songType ='@ViewBag.SongType';
 			var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
 			var loggedUserId = @ToJS(Login.Manager.LoggedUserId);
+			var unknownPictureUrl = '@Url.Content("~/Content/unknown.png")';
 
 			var rootPath = '@RootPath';
 			var urlMapper = new vdb.UrlMapper(rootPath);
@@ -343,6 +344,7 @@
 
 			var vm = new vdb.viewModels.search.SearchViewModel(urlMapper, entryRepo, artistRepo, albumRepo, songRepo, tagRepo, resourceRepo,
 				userRepo,
+				unknownPictureUrl,
 				languageSelection, loggedUserId, cultureCode, searchType, query, tag, sort, artistId, artistType, discType, songType, onlyWithPVs);
 			ko.applyBindings(vm);
 

@@ -7,7 +7,9 @@ module vdb.viewModels.search {
 
 	export class AlbumSearchViewModel extends SearchCategoryBaseViewModel<dc.AlbumContract> {
 
-		constructor(searchViewModel: SearchViewModel, lang: string, private albumRepo: rep.AlbumRepository,
+		constructor(searchViewModel: SearchViewModel,
+			private unknownPictureUrl: string,
+			lang: string, private albumRepo: rep.AlbumRepository,
 			private artistRepo: rep.ArtistRepository, sort: string, artistId: number, albumType: string) {
 
 			super(searchViewModel);
