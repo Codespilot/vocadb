@@ -25,13 +25,16 @@ namespace VocaDb.Model.Service.QueryableExtenders {
 
 		}
 
-		public static IQueryable<T> WhereSongHasArtist<T>(this IQueryable<T> query, int artistId)
+		public static IQueryable<T> WhereSongHasArtist<T>(this IQueryable<T> query, int artistId, bool childVoicebanks)
 			where T : ISongLink {
 			
 			if (artistId == 0)
 				return query;
 
-			return query.Where(s => s.Song.AllArtists.Any(a => a.Artist.Id == artistId));
+			if (!childVoicebanks)
+				return query.Where(s => s.Song.AllArtists.Any(a => a.Artist.Id == artistId));
+			else
+				return query.Where(s => s.Song.AllArtists.Any(a => a.Artist.Id == artistId || a.Artist.BaseVoicebank.Id == artistId));
 
 		}
 

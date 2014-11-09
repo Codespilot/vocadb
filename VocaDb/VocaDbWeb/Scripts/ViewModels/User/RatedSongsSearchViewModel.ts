@@ -1,6 +1,7 @@
 ﻿
 module vdb.viewModels.user {
 
+	import cls = vdb.models;
 	import dc = vdb.dataContracts;
 	import rep = vdb.repositories;
 
@@ -30,6 +31,7 @@ module vdb.viewModels.user {
 			};
 
 			this.artistId.subscribe(this.updateResultsWithTotalCount);
+			this.childVoicebanks.subscribe(this.updateResultsWithTotalCount);
 			this.groupByRating.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
@@ -39,6 +41,8 @@ module vdb.viewModels.user {
 			this.sort.subscribe(this.updateResultsWithoutTotalCount);
 			this.tag.subscribe(this.updateResultsWithTotalCount);
 
+			this.showChildVoicebanks = ko.computed(() => this.artistId() != null && helpers.ArtistHelper.canHaveChildVoicebanks(this.artistType()));
+
 			if (initialize)
 				this.init();
 
@@ -47,6 +51,8 @@ module vdb.viewModels.user {
 		public artistId = ko.observable<number>(null);
 		public artistName = ko.observable("");
 		public artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
+		public artistType = ko.observable<cls.artists.ArtistType>(null);
+		public childVoicebanks = ko.observable(false);
 		public groupByRating = ko.observable(true);
 		public isInit = false;
 		public loading = ko.observable(true); // Currently loading for data
@@ -57,6 +63,7 @@ module vdb.viewModels.user {
 		public rating = ko.observable("Nothing");
 		public resources = ko.observable<any>();
 		public searchTerm = ko.observable("").extend({ rateLimit: { timeout: 300, method: "notifyWhenChangesStop" } });
+		public showChildVoicebanks: KnockoutComputed<boolean>;
 		public songListId = ko.observable<number>(undefined);
 		public songLists = ko.observableArray<dc.SongListBaseContract>([]);
 		public sort = ko.observable("Name");
@@ -80,7 +87,11 @@ module vdb.viewModels.user {
 
 		public selectArtist = (selectedArtistId: number) => {
 			this.artistId(selectedArtistId);
-			this.artistRepo.getOne(selectedArtistId, artist => this.artistName(artist.name));
+			this.artistType(null);
+			this.artistRepo.getOne(selectedArtistId, artist => {
+				this.artistName(artist.name);
+				this.artistType(cls.artists.ArtistType[artist.artistType]);
+			});
 		};
 
 		public updateResultsWithTotalCount = () => this.updateResults(true);
@@ -103,6 +114,7 @@ module vdb.viewModels.user {
 			this.userRepo.getRatedSongsList(this.loggedUserId, pagingProperties, this.languageSelection, this.searchTerm(),
 				this.tag(),
 				this.artistId(),
+				this.childVoicebanks(),
 				this.rating(), this.songListId(), this.groupByRating(), this.sort(),
 				(result: any) => {
 

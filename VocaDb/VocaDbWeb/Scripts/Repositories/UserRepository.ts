@@ -32,9 +32,15 @@ module vdb.repositories {
 			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/albums");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, tag: tag, artistId: artistId, purchaseStatuses: purchaseStatuses,
+				query: query,
+				tag: tag,
+				artistId: artistId,
+				purchaseStatuses: purchaseStatuses,
 				releaseEventName: releaseEventName,
-				fields: "MainPicture", lang: lang, nameMatchMode: 'Auto', sort: sort
+				fields: "MainPicture",
+				lang: lang,
+				nameMatchMode: 'Auto',
+				sort: sort
 			};
 
 			$.getJSON(url, data, callback);
@@ -88,6 +94,7 @@ module vdb.repositories {
 			paging: dc.PagingProperties, lang: string, query: string,
 			tag: string,
 			artistId: number,
+			childVoicebanks: boolean,
 			rating: string,
 			songListId: number,
 			groupByRating: boolean,
@@ -97,7 +104,10 @@ module vdb.repositories {
 			var url = this.urlMapper.mapRelative("/api/users/" + userId + "/ratedSongs");
 			var data = {
 				start: paging.start, getTotalCount: paging.getTotalCount, maxResults: paging.maxEntries,
-				query: query, tag: tag, artistId: artistId, rating: rating, songListId: songListId, groupByRating: groupByRating,
+				query: query, tag: tag,
+				artistId: artistId,
+				childVoicebanks: childVoicebanks,
+				rating: rating, songListId: songListId, groupByRating: groupByRating,
 				fields: "ThumbUrl", lang: lang, nameMatchMode: 'Auto', sort: sort
 			};
 
