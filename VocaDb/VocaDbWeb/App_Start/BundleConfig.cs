@@ -39,6 +39,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/jqButton.js",
 				"~/Scripts/KnockoutExtensions/jqButtonset.js",
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
+				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/SongVoteRating.js",				// Referred by UserRepository
 				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
@@ -98,7 +99,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Artist/Edit").Include(
-				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/Globalization/ContentLanguageSelection.js",
 				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Helpers/KnockoutHelper.js",
@@ -123,7 +123,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/Models/PVServiceIcons.js",				
-				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Helpers/PVHelper.js",
@@ -153,7 +152,6 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Edit").Include(
 				"~/Scripts/Models/Artists/ArtistRoles.js",
-				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/Globalization/ContentLanguageSelection.js",
 				"~/Scripts/Models/Songs/SongType.js",
 				"~/Scripts/Models/Tags/Tag.js",
@@ -216,6 +214,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/HighchartsHelper.js",				
+				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
@@ -243,6 +242,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
 				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
+				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Repositories/ResourceRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",

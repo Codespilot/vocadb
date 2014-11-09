@@ -23,6 +23,8 @@ namespace VocaDb.Model.Service.Search.User {
 
 		public int ArtistId { get; set; }
 
+		public bool ChildVoicebanks { get; set; }
+
 		public SongVoteRating FilterByRating { get; set; }
 
 		/// <summary>

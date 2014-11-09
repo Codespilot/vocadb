@@ -167,6 +167,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// <param name="query">Song name query (optional).</param>
 		/// <param name="tag">Filter by tag (optional).</param>
 		/// <param name="artistId">Filter by song artist (optional).</param>
+		/// <param name="childVoicebanks">Include child voicebanks, if the artist being filtered by has any.</param>
 		/// <param name="rating">Filter songs by given rating (optional).</param>
 		/// <param name="songListId">Filter songs by song list (optional).</param>
 		/// <param name="groupByRating">Group results by rating so that highest rated are first.</param>
@@ -186,6 +187,7 @@ namespace VocaDb.Web.Controllers.Api {
 			string query = "", 
 			string tag = null,
 			int? artistId = null,
+			bool childVoicebanks = false,
 			SongVoteRating? rating = null,
 			int? songListId = null,
 			bool groupByRating = true,
@@ -203,6 +205,7 @@ namespace VocaDb.Web.Controllers.Api {
 				NameMatchMode = nameMatchMode,
 				SortRule = sort ?? SongSortRule.Name,
 				ArtistId = artistId ?? 0,
+				ChildVoicebanks = childVoicebanks,
 				FilterByRating = rating ?? SongVoteRating.Nothing,
 				GroupByRating = groupByRating,
 				SonglistId = songListId ?? 0,
