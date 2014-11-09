@@ -176,6 +176,10 @@ ul.thumbs div.pictureFrame {
 	border: 1px solid lightgray;	
 }
 
+ul.thumbs div.pictureFrame.img-rounded {
+	border-radius: 6px;
+}
+
 ul.smallThumbs li {
 	position: relative;
 	float: left;

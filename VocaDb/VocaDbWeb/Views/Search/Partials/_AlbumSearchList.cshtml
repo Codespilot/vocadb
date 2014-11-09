@@ -82,7 +82,7 @@
 	<ul class="smallThumbs" data-bind="foreach: page">
 		<li>
 			<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#">
-				<div class="pictureFrame">
+				<div class="pictureFrame img-rounded">
 					<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : $parent.unknownPictureUrl) }, albumToolTip: id" alt="Preview" class="coverPic img-rounded" />
 				</div>
 			</a>
