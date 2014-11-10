@@ -34,7 +34,7 @@ namespace VocaDb.Web.Controllers
 
 			name = name.Trim().Replace(' ', '_');
 
-			if (!Tag.TagNameRegex.IsMatch(name))
+			if (!Tag.IsValidTagName(name))
 				return Json(new GenericResponse<string>(false, TagControllerStrings.TagNameError));
 
 			var view = RenderPartialViewToString("TagSelection", new TagSelectionContract(name, true));
