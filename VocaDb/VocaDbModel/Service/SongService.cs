@@ -26,6 +26,7 @@ using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Helpers;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.Paging;
+using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search;
 using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
@@ -931,6 +932,27 @@ namespace VocaDb.Model.Service {
 		private readonly ISession session;
 
 		public SongTagUsageFactory(ISession session, Song song) {
+			this.session = session;
+			this.song = song;
+		}
+
+		public SongTagUsage CreateTagUsage(Tag tag) {
+
+			var usage = new SongTagUsage(song, tag);
+			session.Save(usage);
+
+			return usage;
+
+		}
+
+	}
+
+	public class SongTagUsageFactoryRepository : ITagUsageFactory<SongTagUsage> {
+
+		private readonly Song song;
+		private readonly IRepositoryContext<SongTagUsage> session;
+
+		public SongTagUsageFactoryRepository(IRepositoryContext<SongTagUsage> session, Song song) {
 			this.session = session;
 			this.song = song;
 		}

@@ -342,16 +342,16 @@ namespace VocaDb.Model.Domain.Songs {
 		/// </summary>
 		/// <param name="tag">Tag to be added. Cannot be null.</param>
 		/// <returns>The created tag usage. Can be null if the tag has already been added.</returns>
-		public virtual SongTagUsage AddTag(Tag tag) {
+		public virtual CollectionAddResult<SongTagUsage> AddTag(Tag tag) {
 			
 			ParamIs.NotNull(() => tag);
 
 			if (Tags.HasTag(tag))
-				return null;
+				return CollectionAddResult.Create(Tags.GetTagUsage(tag), false);
 
 			var usage = new SongTagUsage(this, tag);
 			Tags.Usages.Add(usage);
-			return usage;
+			return CollectionAddResult.Create(usage, true);
 
 		}
 

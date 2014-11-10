@@ -16,12 +16,12 @@ namespace VocaDb.Model.Domain.Security {
 		UserWithPermissionsContract LoggedUser { get; }
 
 		/// <summary>
-		/// Id of the logged in user. If not logged in, 0 will be returned.
+		/// Id of the logged in user. If not logged in, 0 (InvalidId) will be returned.
 		/// </summary>
 		int LoggedUserId { get; }
 
 		/// <summary>
-		/// Name of the currently acting agent. Cannot be null or empty.
+		/// Name of the currently acting agent. Null if not logged in.
 		/// </summary>
 		string Name { get; }
 

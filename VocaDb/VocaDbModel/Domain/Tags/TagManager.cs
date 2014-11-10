@@ -40,6 +40,11 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public virtual T GetTagUsage(Tag tag) {
+			ParamIs.NotNull(() => tag);
+			return Usages.FirstOrDefault(t => t.Tag.Equals(tag));
+		}
+
 		public virtual bool HasTag(Tag tag) {
 
 			ParamIs.NotNull(() => tag);
@@ -56,7 +61,8 @@ namespace VocaDb.Model.Domain.Tags {
 
 		}
 
-		public virtual void SyncVotes(User user, string[] tagNames, Dictionary<string, Tag> allTags, ITagFactory tagFactory, ITagUsageFactory<T> tagUsageFactory) {
+		public virtual void SyncVotes(User user, string[] tagNames, Dictionary<string, Tag> allTags, ITagFactory tagFactory, ITagUsageFactory<T> tagUsageFactory,
+			bool onlyAdd = false) {
 
 			var newTags = tagNames.Where(t => !allTags.ContainsKey(t));
 
@@ -75,13 +81,15 @@ namespace VocaDb.Model.Domain.Tags {
 				newUsage.CreateVote(user);
 			}
 
-			foreach (var removedTag in tagUsagesDiff.Removed) {
+			if (!onlyAdd) {
+				foreach (var removedTag in tagUsagesDiff.Removed) {
 
-				removedTag.RemoveVote(user);
+					removedTag.RemoveVote(user);
 
-				if (removedTag.Count <= 0)
-					Usages.Remove(removedTag);
+					if (removedTag.Count <= 0)
+						Usages.Remove(removedTag);
 
+				}				
 			}
 
 			foreach (var updated in tagUsagesDiff.Unchanged) {
