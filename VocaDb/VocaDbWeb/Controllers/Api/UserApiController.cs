@@ -12,6 +12,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
+using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
@@ -299,7 +300,7 @@ namespace VocaDb.Web.Controllers.Api {
 			if (tag == null)
 				throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-			var tags = tag.Where(t => !string.IsNullOrEmpty(t)).Select(t => t.Trim()).ToArray();
+			var tags = tag.Where(t => !string.IsNullOrEmpty(t) && Tag.IsValidTagName(t)).ToArray();
 
 			if (!tags.Any())
 				return;

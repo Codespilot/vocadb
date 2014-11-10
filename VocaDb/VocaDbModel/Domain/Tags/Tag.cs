@@ -33,7 +33,17 @@ namespace VocaDb.Model.Domain.Tags {
 		}
 
 		public const int MaxDisplayedTags = 4;
-		public static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_-]+$");
+		private static readonly Regex TagNameRegex = new Regex(@"^[a-zA-Z0-9_-]+$");
+
+		/// <summary>
+		/// Tests whether a string is a valid name for a tag.
+		/// Note that spaces are not allowed.
+		/// </summary>
+		/// <param name="tagName">Tag name to be validated.</param>
+		/// <returns>True if <paramref name="tagName"/> is a valid tag name, otherwise false.</returns>
+		public static bool IsValidTagName(string tagName) {
+			return TagNameRegex.IsMatch(tagName);
+		}
 
 		public const string CommonCategory_Genres = "Genres";
 		public const string CommonTag_ChangedLyrics = "changed_lyrics";
@@ -69,7 +79,7 @@ namespace VocaDb.Model.Domain.Tags {
 		public Tag(string name, string categoryName = "")
 			: this() {
 
-			if (!TagNameRegex.IsMatch(name))
+			if (!IsValidTagName(name))
 				throw new ArgumentException("Tag name must contain only word characters", "name");
 
 			Name = name;
