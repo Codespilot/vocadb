@@ -162,31 +162,6 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public void AddTags(int songId, string[] tags) {
-			
-			ParamIs.NotNull(() => tags);
-
-			VerifyManageDatabase();
-
-			repository.HandleTransaction(ctx => {
-				
-				tags = tags.Distinct(StringComparer.InvariantCultureIgnoreCase).ToArray();
-
-				var user = ctx.OfType<User>().GetLoggedUser(PermissionContext);
-				var song = ctx.Load(songId);
-
-				ctx.AuditLogger.AuditLog(string.Format("appending {0} with {1}",
-					entryLinkFactory.CreateEntryLink(song), string.Join(", ", tags)), user);
-
-				var tagFactory = new TagFactoryRepository(ctx.OfType<Tag>(), new AgentLoginData(user));
-				var existingTags = TagHelpers.GetTags(ctx.OfType<Tag>(), tags);
-
-				song.Tags.SyncVotes(user, tags, existingTags, tagFactory, new SongTagUsageFactoryRepository(ctx.OfType<SongTagUsage>(), song), onlyAdd: true);
-
-			});
-
-		}
-
 		public void Archive(IRepositoryContext<Song> ctx, Song song, SongDiff diff, SongArchiveReason reason, string notes = "") {
 
 			var agentLoginData = ctx.CreateAgentLoginData(PermissionContext);

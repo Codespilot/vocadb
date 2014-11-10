@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Web.Http;
-using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain;
@@ -170,31 +168,6 @@ namespace VocaDb.Web.Controllers.Api {
 					.ToArray());
 
 			return versions;
-
-		}
-
-		/// <summary>
-		/// Appends tags for a song, by the currently logged in user.
-		/// This can only be used to add tags - existing tags will not be removed. 
-		/// Nothing will be done for tags that are already applied by the current user for the song.
-		/// Authorization cookie is required.
-		/// </summary>
-		/// <param name="id">ID of the song to be tagged.</param>
-		/// <param name="tag">List of tags to be appended.</param>
-		[Route("{id:int}/tags")]
-		[Authorize]
-		[EnableCors(origins: "*", headers: "*", methods: "post", SupportsCredentials = true)]
-		public void PostTags(int id, [FromUri] string[] tag) {
-			
-			if (tag == null)
-				throw new HttpResponseException(HttpStatusCode.BadRequest);
-
-			var tags = tag.Where(t => !string.IsNullOrEmpty(t)).Select(t => t.Trim()).ToArray();
-
-			if (!tags.Any())
-				return;
-
-			queries.AddTags(id, tags);
 
 		}
 
