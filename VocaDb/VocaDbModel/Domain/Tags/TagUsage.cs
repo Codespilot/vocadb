@@ -42,6 +42,14 @@ namespace VocaDb.Model.Domain.Tags {
 		/// </summary>
 		public abstract IEnumerable<TagVote> VotesBase { get; }
 
+		/// <summary>
+		/// Adds a vote for a specific user.
+		/// </summary>
+		/// <param name="user">User voting for this tag usage.</param>
+		/// <returns>Created tag vote, or null if the user has already voted.</returns>
+		/// <remarks>
+		/// It is safe to call this method multiple times for the same user: if the user has already voted for this same tag, this method will do nothing.
+		/// </remarks>
 		public abstract TagVote CreateVote(User user);
 
 		public virtual void Delete() { }
