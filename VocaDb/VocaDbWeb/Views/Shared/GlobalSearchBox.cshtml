@@ -42,8 +42,12 @@
 				<li>@Html.ActionLink(ViewRes._LayoutStrings.Register, "Create", "User")</li>
 			} else {
 				<li>@Html.ActionLink(ViewRes.User.MySettingsStrings.Profile, "Profile", "User", new { id = Login.Manager.Name }, null)</li>
-				<li>@Html.ActionLink(Res.MyAlbums, "AlbumCollection", "User", new { id = Login.Manager.LoggedUserId }, null)</li>
-				<li>@Html.ActionLink(Res.MySongs, "FavoriteSongs", "User", new { id = Login.Manager.LoggedUserId }, null)</li>
+				<li>
+					<a href="@Url.Action("Profile", "User", new { id = Login.Manager.Name })#Albums">@Res.MyAlbums</a>
+				</li>
+				<li>
+					<a href="@Url.Action("Profile", "User", new { id = Login.Manager.Name })#Songs">@Res.MySongs</a>
+				</li>
 				<li>@Html.ActionLink(ViewRes.User.DetailsStrings.MySettings, "MySettings", "User")</li>
 				if (Login.CanManageEntryReports) {
 					<li>

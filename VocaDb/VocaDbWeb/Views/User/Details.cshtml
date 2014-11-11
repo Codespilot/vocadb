@@ -86,19 +86,19 @@
 		<a href="#" data-bind="click: function() { setOverview(); }">Overview</a>
 	</li>
 	<li data-bind="css: { active: view() == 'Artists' }">
-		<a href="#" data-bind="click: function() { setViewArtists(); }">@R.FollowedArtistsTab</a>
+		<a href="#Artists">@R.FollowedArtistsTab</a>
 	</li>
 	<li data-bind="css: { active: view() == 'Albums' }">
-		<a href="#" data-bind="click: function() { setViewAlbums(); }">@R.CollectionTab</a>
+		<a href="#Albums">@R.CollectionTab</a>
 	</li>
 	<li data-bind="css: { active: view() == 'Songs' }">
-		<a href="#" data-bind="click: function() { setViewSongs(); }">@R.FavoriteSongsTab</a>
+		<a href="#Songs">@R.FavoriteSongsTab</a>
 	</li>
 	<li data-bind="css: { active: view() == 'CustomLists' }">
-		<a href="#" data-bind="click: function() { setCustomLists(); }">@R.CustomListsTab</a>
+		<a href="#CustomLists">@R.CustomListsTab</a>
 	</li>
 	<li data-bind="css: { active: view() == 'Comments' }">
-		<a href="#" data-bind="click: function() { setComments(); }">@R.Comments</a>
+		<a href="#Comments">@R.Comments</a>
 	</li>
 </ul>
 
@@ -253,11 +253,11 @@
 		<div class="well well-transparent" id="favoriteAlbums">
 			<div class="pull-right">
 				<small>
-					<a href="#" data-bind="click: function() { scrollToTop(); setViewAlbums(); }">@ViewRes.SharedStrings.ShowMore</a>
+					<a href="#Albums">@ViewRes.SharedStrings.ShowMore</a>
 				</small>
 			</div>
 			<h3>
-				<a href="#" data-bind="click: function() { scrollToTop(); setViewAlbums(); }">
+				<a href="#Albums">
 					@R.SomeAlbumsILike
 					<small>(@string.Format(R.Total, Model.AlbumCollectionCount))</small>
 				</a>
@@ -271,11 +271,11 @@
 		<div class="well well-transparent">
 			<div class="pull-right">
 				<small>
-					<a href="#" data-bind="click: function() { scrollToTop(); setViewSongs(); }">@ViewRes.SharedStrings.ShowMore</a>
+					<a href="#Songs">@ViewRes.SharedStrings.ShowMore</a>
 				</small>
 			</div>
 			<h3>
-				<a href="#" data-bind="click: function() { scrollToTop(); setViewSongs(); }">
+				<a href="#Songs">
 					@R.SomeSongsILike
 					<small>(@string.Format(R.Total, Model.FavoriteSongCount))</small>
 				</a>
@@ -289,11 +289,11 @@
 		<div class="well well-transparent">
 			<div class="pull-right">
 				<small>
-					<a href="#" data-bind="click: function() { scrollToTop(); setViewArtists(); }">@ViewRes.SharedStrings.ShowMore</a>
+					<a href="#Artists">@ViewRes.SharedStrings.ShowMore</a>
 				</small>
 			</div>
 			<h3>
-				<a href="#" data-bind="click: function() { scrollToTop(); setViewArtists(); }">
+				<a href="#Artists">
 					@R.SomeArtistsIFollow
 					<small>(@string.Format(R.Total, Model.ArtistCount))</small>
 				</a>
@@ -305,11 +305,11 @@
 	<div class="well well-transparent">
 		<div class="pull-right">
 			<small>
-				<a href="#" data-bind="click: function() { scrollToTop(); setComments(); }">@ViewRes.SharedStrings.ShowMore</a>
+				<a href="#Comments">@ViewRes.SharedStrings.ShowMore</a>
 			</small>
 		</div>
 		<h3>
-			<a data-bind="click: function() { scrollToTop(); setComments(); }" href="#">
+			<a href="#Comments">
 				@ViewRes.EntryDetailsStrings.LatestComments
 			</a>
 		</h3>
@@ -383,11 +383,6 @@
 	@Scripts.Render("~/bundles/jqxRating", "~/bundles/User/Details")
 	<script type="text/javascript">
 
-		function scrollToTop() {
-			window.scrollTo(0, 0);
-			//$("#nav-bar")[0].scrollIntoView(true);
-		}
-
 		$(document).ready(function() {
 
 			var cultureCode = '@UICulture';
@@ -421,7 +416,7 @@
 			var viewModel = new vdb.viewModels.user.UserDetailsViewModel(userId, loggedUserId, canDeleteComments, urlMapper, userRepo, adminRepo, followedArtistsViewModel, albumCollectionViewModel, ratedSongsViewModel);
 			ko.applyBindings(viewModel);
 
-			if (window.location.hash && window.location.hash.length > 1) {
+			if (window.location.hash && window.location.hash.length >= 1) {
 				viewModel.setView(window.location.hash.substr(1));
 			}
 
