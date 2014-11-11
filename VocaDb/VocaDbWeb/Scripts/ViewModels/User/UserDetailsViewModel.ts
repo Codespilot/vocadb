@@ -8,6 +8,8 @@ module vdb.viewModels.user {
 
     export class UserDetailsViewModel {
 
+		private static overview = "Overview";
+
         public checkSFS = (ip: string) => {
 
             this.adminRepo.checkSFS(ip, html => {
@@ -57,10 +59,10 @@ module vdb.viewModels.user {
 		};
 
 		public comments = ko.observableArray<dc.CommentContract>();
-		public view = ko.observable("Overview");
+		public view = ko.observable(UserDetailsViewModel.overview);
 
-		public setView = (viewName: string) => {
-			
+		private initializeView = (viewName: string) => {
+
 			switch (viewName) {
 				case "Albums":
 					this.albumCollectionViewModel.init();
@@ -75,8 +77,18 @@ module vdb.viewModels.user {
 					this.ratedSongsViewModel.init();
 					break;
 			}
+			
+		}
 
-			window.location.hash = viewName != "Overview" ? viewName : "";
+		public setView = (viewName: string) => {
+
+			if (!viewName)
+				viewName = UserDetailsViewModel.overview;
+
+			this.initializeView(viewName);
+
+			window.scrollTo(0, 0);
+			window.location.hash = viewName != UserDetailsViewModel.overview ? viewName : "";
 			this.view(viewName);		
 
 		}
@@ -98,7 +110,12 @@ module vdb.viewModels.user {
 			public followedArtistsViewModel: FollowedArtistsViewModel,
 			public albumCollectionViewModel: AlbumCollectionViewModel,
 			public ratedSongsViewModel: RatedSongsSearchViewModel) {
-	        
+
+			window.onhashchange = () => {
+				if (window.location.hash && window.location.hash.length >= 1)
+					this.setView(window.location.hash.substr(1));
+			};
+
         }
 
     }
