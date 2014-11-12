@@ -350,22 +350,18 @@
 <div data-bind="visible: view() == 'Comments'" class="well well-transparent">
 	
 	@if (Login.CanManageDb) {
-		<div id="newCommentPanel">
-			@Html.TextArea("newCommentMessage", string.Empty, 6, 60, new { id = "newCommentMessage", maxlength = 800, @class = "span5", placeholder = ViewRes.DiscussionContentStrings.NewComment })
-			<a href="#" class="textLink addLink" id="createComment">@ViewRes.DiscussionContentStrings.AddComment</a>
+		<div>
+			<textarea data-bind="textInput: newComment" rows="6" cols="60" maxlength="800" class="span5" placeholder="@ViewRes.DiscussionContentStrings.NewComment"></textarea>
+			<a data-bind="click: createComment" href="#" class="textLink addLink">@ViewRes.DiscussionContentStrings.AddComment</a>
 			<hr />
 		</div>
 	}
 
-	<div data-bind="foreach: comments" id="comments">
+	<div data-bind="foreach: comments">
 		@{ Html.RenderPartial("Partials/_CommentBody"); }
 	</div>
 	
 </div>
-
-@Html.Hidden("collectionAlbumEditId", string.Empty, new { id = "collectionAlbumEditId" })
-
-@AlbumHelpers.EditCollectionDialog(PurchaseStatus.Nothing, MediaType.Other)
 
 @if (Login.CanManageUsers) {
 	<div id="sfsCheckDialog" title="StopForumSpam check"></div>
@@ -420,7 +416,7 @@
 				viewModel.setView(window.location.hash.substr(1));
 			}
 
-			initPage(userId, "@ViewRes.SharedStrings.Loading", "@R.ConfirmDisable", "@VocaDb.Model.Utils.AppConfig.HostAddress");
+			initPage("@R.ConfirmDisable");
 		});
 
 	</script>

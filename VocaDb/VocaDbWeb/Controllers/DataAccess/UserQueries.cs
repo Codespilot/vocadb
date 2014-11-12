@@ -201,7 +201,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public CommentContract CreateComment(int userId, string message) {
+		public CommentForApiContract CreateComment(int userId, string message) {
 
 			ParamIs.NotNullOrEmpty(() => message);
 
@@ -226,7 +226,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var notification = new UserMessage(user, "Comment posted on your profile", notificationMsg, false);
 				ctx.OfType<UserMessage>().Save(notification);
 
-				return new CommentContract(comment);
+				return new CommentForApiContract(comment, userIconFactory);
 
 			});
 
