@@ -2196,9 +2196,6 @@
     <TypeScriptCompile Include="Scripts\ViewModels\TopBarViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Song\SongWithPreviewViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\RequestVerificationViewModel.ts" />
-    <Content Include="Scripts\ViewModels\User\RequestVerificationViewModel.js">
-      <DependentUpon>RequestVerificationViewModel.ts</DependentUpon>
-    </Content>
     <TypeScriptCompile Include="Scripts\ViewModels\User\UserDetailsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\UserMessagesViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\WebLinksEditViewModel.ts" />

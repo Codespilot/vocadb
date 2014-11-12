@@ -6,7 +6,10 @@ module vdb.helpers {
 		public static stringEnum<T>(observable: KnockoutObservable<T>, enumType: any) {
 
 			return ko.computed({
-				read: () => enumType[observable()],
+				read: () => {
+					var val: any = observable();
+					return enumType[val];
+				},
 				write: (val: string) => observable(enumType[val])
 			});
 
