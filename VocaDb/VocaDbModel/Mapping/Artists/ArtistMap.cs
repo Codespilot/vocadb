@@ -15,7 +15,6 @@ namespace VocaDb.Model.Mapping.Artists {
 			Map(m => m.Deleted).Not.Nullable();
 			Map(m => m.Description).Not.Nullable();
 			Map(m => m.PictureMime).Length(32).Nullable();
-			Map(m => m.StartDate).Nullable();
 			Map(m => m.Status).Not.Nullable();
 			Map(m => m.Version).Not.Nullable();
 

@@ -31,7 +31,7 @@ module vdb.viewModels.user {
 			this.newComment("");
 
 			var url = this.urlMapper.mapRelative("/User/CreateComment");
-			$.post(url, { entryId: this.loggedUserId, message: comment }, (result: dc.CommentContract) => {
+			$.post(url, { entryId: this.userId, message: comment }, (result: dc.CommentContract) => {
 				this.processComment(result);
 				this.comments.unshift(result);
 			});
