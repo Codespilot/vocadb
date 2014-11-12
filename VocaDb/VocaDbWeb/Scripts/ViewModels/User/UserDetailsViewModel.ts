@@ -21,6 +21,24 @@ module vdb.viewModels.user {
 
 		};
 
+		public createComment = () => {
+
+			var comment = this.newComment();
+
+			if (!comment)
+				return;
+
+			this.newComment("");
+
+			var url = this.urlMapper.mapRelative("/User/CreateComment");
+			$.post(url, { entryId: this.loggedUserId, message: comment }, (result: dc.CommentContract) => {
+				this.processComment(result);
+				this.comments.unshift(result);
+			});
+
+
+		}
+
 		public deleteComment = (profileComment: dc.CommentContract) => {
 
 			this.userRepo.deleteComment(profileComment.id, () => {
@@ -45,12 +63,7 @@ module vdb.viewModels.user {
 
 			this.userRepo.getProfileComments(this.userId, { start: 0, maxEntries: 300, getTotalCount: false }, (result: dc.PartialFindResultContract<dc.CommentContract>) => {
 
-				_.forEach(result.items, comment => {
-
-					var commentAny: any = comment;
-					commentAny.canBeDeleted = (this.canDeleteComments || this.userId == this.loggedUserId || (comment.author && comment.author.id == this.loggedUserId));
-
-				});
+				_.forEach(result.items, this.processComment);
 
 				this.comments(result.items);
 
@@ -59,6 +72,7 @@ module vdb.viewModels.user {
 		};
 
 		public comments = ko.observableArray<dc.CommentContract>();
+		public newComment = ko.observable("");
 		public view = ko.observable(UserDetailsViewModel.overview);
 
 		private initializeView = (viewName: string) => {
@@ -78,6 +92,13 @@ module vdb.viewModels.user {
 					break;
 			}
 			
+		}
+
+		private processComment = (comment: dc.CommentContract) => {
+
+			var commentAny: any = comment;
+			commentAny.canBeDeleted = (this.canDeleteComments || this.userId == this.loggedUserId || (comment.author && comment.author.id == this.loggedUserId));
+
 		}
 
 		public setView = (viewName: string) => {

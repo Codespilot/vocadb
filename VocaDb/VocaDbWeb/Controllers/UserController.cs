@@ -602,11 +602,11 @@ namespace VocaDb.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
-		public PartialViewResult CreateComment(int entryId, string message) {
+		public ActionResult CreateComment(int entryId, string message) {
 
 			var comment = Data.CreateComment(entryId, message);
 
-			return PartialView("Comment", comment);
+			return LowercaseJson(comment);
 
 		}
 
