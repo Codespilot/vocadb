@@ -42,7 +42,6 @@ namespace VocaDb.Model.Domain.Artists {
 			CreateDate = DateTime.Now;
 			Deleted = false;
 			Description = string.Empty;
-			StartDate = null;
 			Status = EntryStatus.Draft;
 			Version = 0;
 		}
@@ -258,8 +257,6 @@ namespace VocaDb.Model.Domain.Artists {
 				return AllSongs.Where(s => !s.Song.Deleted);
 			}
 		}
-
-		public virtual DateTime? StartDate { get; set; }
 
 		public virtual EntryStatus Status { get; set; }
 
