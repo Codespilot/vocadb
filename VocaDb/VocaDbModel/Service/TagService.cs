@@ -126,58 +126,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumTagUsageContract> GetAlbums(string tagName, int start, int maxItems) {
-
-			return HandleQuery(session => {
-
-				var q = session.Query<AlbumTagUsage>().Where(a => !a.Album.Deleted && a.Tag.Name == tagName);
-
-				IQueryable<AlbumTagUsage> resultQ = q.OrderByDescending(t => t.Count);
-				resultQ = resultQ.Skip(start).Take(maxItems);
-
-				var contracts = resultQ.ToArray().Select(a => new AlbumTagUsageContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = q.Count();
-
-				return new PartialFindResult<AlbumTagUsageContract>(contracts, totalCount);
-
-			});
-		}
-
-		public PartialFindResult<ArtistTagUsageContract> GetArtists(string tagName, int start, int maxItems) {
-
-			return HandleQuery(session => {
-
-				var q = session.Query<ArtistTagUsage>().Where(a => !a.Artist.Deleted && a.Tag.Name == tagName);
-
-				IQueryable<ArtistTagUsage> resultQ = q.OrderByDescending(t => t.Count);
-				resultQ = resultQ.Skip(start).Take(maxItems);
-
-				var contracts = resultQ.ToArray().Select(a =>
-					new ArtistTagUsageContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = q.Count();
-
-				return new PartialFindResult<ArtistTagUsageContract>(contracts, totalCount);
-
-			});
-		}
-
-		public PartialFindResult<SongTagUsageContract> GetSongs(string tagName, int start, int maxItems) {
-
-			return HandleQuery(session => {
-
-				var q = session.Query<SongTagUsage>().Where(a => !a.Song.Deleted && a.Tag.Name == tagName);
-
-				IQueryable<SongTagUsage> resultQ = q.OrderByDescending(t => t.Count);
-				resultQ = resultQ.Skip(start).Take(maxItems);
-
-				var contracts = resultQ.ToArray().Select(a => new SongTagUsageContract(a, PermissionContext.LanguagePreference)).ToArray();
-				var totalCount = q.Count();
-
-				return new PartialFindResult<SongTagUsageContract>(contracts, totalCount);
-
-			});
-		}
-
 		/// <summary>
 		/// Attempts to get a tag by exact name.
 		/// </summary>
