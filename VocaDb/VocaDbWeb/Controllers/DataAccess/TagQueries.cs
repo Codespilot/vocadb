@@ -1,12 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using NHibernate;
+using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
+using VocaDb.Model.Domain.Albums;
+using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
@@ -21,8 +28,42 @@ namespace VocaDb.Web.Controllers.DataAccess {
 	/// </summary>
 	public class TagQueries : QueriesBase<ITagRepository, Tag> {
 
+		private static readonly Logger log = LogManager.GetCurrentClassLogger();
 		private readonly IEntryLinkFactory entryLinkFactory;
 		private readonly IEntryImagePersisterOld imagePersister;
+
+		private class TagTopUsagesAndCount<T> {
+
+			public T[] TopUsages { get; set; }
+
+			public int TotalCount { get; set; }
+
+		}
+
+		private TagTopUsagesAndCount<TEntry> GetTopUsagesAndCount<TUsage, TEntry, TSort>(
+			IRepositoryContext<Tag> ctx, string tagName, 
+			Expression<Func<TUsage, bool>> whereExpression, 
+			Expression<Func<TUsage, TSort>> createDateExpression,
+			Expression<Func<TUsage, TEntry>> selectExpression)
+			where TUsage: TagUsage {
+			
+			var q = TagUsagesQuery<TUsage>(ctx, tagName)
+				.Where(whereExpression);
+
+			var topUsages = q
+				.OrderByDescending(t => t.Count)
+				.ThenByDescending(createDateExpression)
+				.Select(selectExpression)
+				.Take(12)
+				.ToArray();
+
+			var usageCount = q.Count();
+
+			return new TagTopUsagesAndCount<TEntry> {
+				TopUsages = topUsages, TotalCount = usageCount
+			};
+
+		}
 
 		private Tag GetRealTag(IRepositoryContext<Tag> ctx, string tagName, Tag ignoreSelf) {
 
@@ -33,6 +74,52 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				return null;
 
 			return ctx.Query().FirstOrDefault(t => t.AliasedTo == null && t.Name == tagName);
+
+		}
+
+		private Tag GetTag(IRepositoryContext<Tag> ctx, string name) {
+
+			try {
+
+				var tag = ctx.Load(name);
+
+				if (name != tag.TagName)
+					tag = ctx.Load(tag.TagName);
+
+				return tag;
+
+			} catch (ObjectNotFoundException) {
+				log.Warn("Tag not found: {0}", name);
+				return null;
+			}
+
+		}
+
+		private IQueryable<T> TagUsagesQuery<T>(IRepositoryContext<Tag> ctx, string tagName) where T : TagUsage {
+
+			return ctx.OfType<T>().Query().Where(a => a.Tag.Name == tagName);
+
+		}
+
+		private int TagUsagesCount<T, TEntry>(IRepositoryContext<Tag> ctx, string[] tagNames, Expression<Func<T, TEntry>> entryFunc)
+			where T : TagUsage
+			where TEntry : IEntryBase {
+
+			return ctx.OfType<T>().Query().Where(a => tagNames.Contains(a.Tag.Name)).Select(entryFunc).Where(e => !e.Deleted).Distinct().Count();
+
+		}
+
+		private IEnumerable<TEntry> TagUsagesQuery<T, TEntry>(IRepositoryContext<Tag> ctx, string[] tagNames, int count, Expression<Func<T, TEntry>> entryFunc) 
+			where T : TagUsage where TEntry : IEntryBase {
+
+			return ctx.OfType<T>().Query()
+				.Where(a => tagNames.Contains(a.Tag.Name))
+				.OrderByDescending(u => u.Count)
+				.Select(entryFunc)
+				.Where(e => !e.Deleted)
+				.Take(count)
+				.ToArray()
+				.Distinct();
 
 		}
 
@@ -137,6 +224,31 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				return tags;
 
+			});
+
+		}
+
+		public TagDetailsContract GetDetails(string tagName) {
+
+			ParamIs.NotNullOrEmpty(() => tagName);
+
+			return HandleQuery(session => { 
+				
+				var tag = GetTag(session, tagName);
+
+				if (tag == null)
+					return null;
+				
+				var artists = GetTopUsagesAndCount<ArtistTagUsage, Artist, int>(session, tagName, t => !t.Artist.Deleted, t => t.Artist.Id, t => t.Artist);
+				var albums = GetTopUsagesAndCount<AlbumTagUsage, Album, int>(session, tagName, t => !t.Album.Deleted, t => t.Album.RatingTotal, t => t.Album);
+				var songs = GetTopUsagesAndCount<SongTagUsage, Song, int>(session, tagName, t => !t.Song.Deleted, t => t.Song.RatingScore, t => t.Song);
+
+				return new TagDetailsContract(tag, 
+					artists.TopUsages, artists.TotalCount, 
+					albums.TopUsages, albums.TotalCount, 
+					songs.TopUsages, songs.TotalCount, 
+					PermissionContext.LanguagePreference);
+				
 			});
 
 		}

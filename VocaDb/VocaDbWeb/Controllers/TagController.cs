@@ -58,7 +58,7 @@ namespace VocaDb.Web.Controllers
 			if (string.IsNullOrEmpty(id))
 				return NoId();
 
-			var contract = Service.GetTagDetails(id);
+			var contract = queries.GetDetails(id);
 
 			if (contract == null)
 				return HttpNotFound();
