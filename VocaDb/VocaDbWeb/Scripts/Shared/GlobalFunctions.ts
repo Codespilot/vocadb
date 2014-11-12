@@ -2,6 +2,14 @@
 
 module vdb.functions {
 
+	export function getId(elem: HTMLElement) {
+		if ($(elem) == null || $(elem).attr('id') == null)
+			return null;
+
+		var parts = $(elem).attr('id').split("_");
+		return (parts.length >= 2 ? parts[1] : null);		
+	}
+
     export function isNullOrWhiteSpace(str: string) {
 
         if (str == null || str.length == 0)
