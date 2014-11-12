@@ -1,5 +1,6 @@
-﻿
-function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
+﻿import rep = vdb.repositories;
+
+function initPage(userId, loadingStr, confirmDisableStr, hostAddress: string) {
 
 	$("#tabs").tabs({
 		load: function (event, ui) {
@@ -10,11 +11,11 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 		}
 	});
 
-	$("#mySettingsLink").button({ icons: { primary: 'ui-icon-wrench'} });
-	$("#messagesLink").button({ icons: { primary: 'ui-icon-mail-closed'} });
-	$("#composeMessageLink").button({ icons: { primary: 'ui-icon-mail-closed'} });
-	$("#editUserLink").button({ icons: { primary: 'ui-icon-wrench'} });
-	$("#disableUserLink").button({ icons: { primary: 'ui-icon-close'} });
+	$("#mySettingsLink").button({ icons: { primary: 'ui-icon-wrench' } });
+	$("#messagesLink").button({ icons: { primary: 'ui-icon-mail-closed' } });
+	$("#composeMessageLink").button({ icons: { primary: 'ui-icon-mail-closed' } });
+	$("#editUserLink").button({ icons: { primary: 'ui-icon-wrench' } });
+	$("#disableUserLink").button({ icons: { primary: 'ui-icon-close' } });
 	$("#avatar").tooltip({ placement: "bottom" });
 
 	$("#disableUserLink").click(function () {
@@ -30,7 +31,9 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 
 	});
 
-	$("#editCollectionDialog").dialog({ autoOpen: false, width: 320, modal: true, buttons: [{ text: "Save", click: function () {
+	$("#editCollectionDialog").dialog({
+		autoOpen: false, width: 320, modal: true, buttons: [{
+		text: "Save", click: function () {
 
 		$("#editCollectionDialog").dialog("close");
 
@@ -107,7 +110,7 @@ function initPage(userId, loadingStr, confirmDisableStr, hostAddress) {
 			return false;
 
 		var btn = this;
-		var id = getId(this);
+		var id = vdb.functions.getId(this);
 
 		$.post(hostAddress + "/User/DeleteComment", { commentId: id }, function () {
 
