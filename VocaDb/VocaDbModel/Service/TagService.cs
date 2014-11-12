@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using NLog;
-using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.Songs;
-using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
@@ -39,27 +32,6 @@ namespace VocaDb.Model.Service {
 				log.Warn("Tag not found: {0}", name);
 				return null;
 			}
-
-		}
-
-		private IQueryable<T> TagUsagesQuery<T>(ISession session, string tagName) where T : TagUsage {
-
-			return session.Query<T>().Where(a => a.Tag.Name == tagName);
-
-		}
-
-		private int TagUsagesCount<T, TEntry>(ISession session, string[] tagNames, Expression<Func<T, TEntry>> entryFunc)
-			where T : TagUsage
-			where TEntry : IEntryBase {
-
-			return session.Query<T>().Where(a => tagNames.Contains(a.Tag.Name)).Select(entryFunc).Where(e => !e.Deleted).Distinct().Count();
-
-		}
-
-		private IEnumerable<TEntry> TagUsagesQuery<T, TEntry>(ISession session, string[] tagNames, int count, Expression<Func<T, TEntry>> entryFunc) 
-			where T : TagUsage where TEntry : IEntryBase {
-
-			return session.Query<T>().Where(a => tagNames.Contains(a.Tag.Name)).OrderByDescending(u => u.Count).Select(entryFunc).Where(e => !e.Deleted).Take(count).ToArray().Distinct();
 
 		}
 
@@ -149,63 +121,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		private class TagTopUsagesAndCount<T> {
-
-			public T[] TopUsages { get; set; }
-
-			public int TotalCount { get; set; }
-
-		}
-
-		private TagTopUsagesAndCount<TEntry> GetTopUsagesAndCount<TUsage, TEntry, TSort>(
-			ISession session, string tagName, 
-			Expression<Func<TUsage, bool>> whereExpression, 
-			Expression<Func<TUsage, TSort>> createDateExpression,
-			Expression<Func<TUsage, TEntry>> selectExpression)
-			where TUsage: TagUsage {
-			
-			var q = TagUsagesQuery<TUsage>(session, tagName)
-				.Where(whereExpression);
-
-			var topUsages = q
-				.OrderByDescending(t => t.Count)
-				.ThenByDescending(createDateExpression)
-				.Select(selectExpression)
-				.Take(12)
-				.ToArray();
-
-			var usageCount = q.Count();
-
-			return new TagTopUsagesAndCount<TEntry> {
-				TopUsages = topUsages, TotalCount = usageCount
-			};
-
-		}
-
-		public TagDetailsContract GetTagDetails(string tagName) {
-
-			ParamIs.NotNullOrEmpty(() => tagName);
-
-			return HandleQuery(session => { 
-				
-				var tag = GetTag(session, tagName);
-
-				if (tag == null)
-					return null;
-				
-				var artists = GetTopUsagesAndCount<ArtistTagUsage, Artist, int>(session, tagName, t => !t.Artist.Deleted, t => t.Artist.Id, t => t.Artist);
-				var albums = GetTopUsagesAndCount<AlbumTagUsage, Album, int>(session, tagName, t => !t.Album.Deleted, t => t.Album.RatingTotal, t => t.Album);
-				var songs = GetTopUsagesAndCount<SongTagUsage, Song, int>(session, tagName, t => !t.Song.Deleted, t => t.Song.RatingScore, t => t.Song);
-
-				return new TagDetailsContract(tag, 
-					artists.TopUsages, artists.TotalCount, 
-					albums.TopUsages, albums.TotalCount, 
-					songs.TopUsages, songs.TotalCount, 
-					PermissionContext.LanguagePreference);
-				
-			});
-
-		}
 
 		public TagForEditContract GetTagForEdit(string tagName) {
 
