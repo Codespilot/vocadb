@@ -278,15 +278,16 @@ namespace VocaDb.Model.Service {
 			if (!names.Any())
 				return new EntryRefWithCommonPropertiesContract[] { };
 
+			// TODO: moved Distinct after ToArray to work around NH bug
 			return HandleQuery(session => {
 
 				return session.Query<AlbumName>()
 					.Where(n => names.Contains(n.Value))
 					.Select(n => n.Album)
 					.Where(n => !n.Deleted)
-					.Distinct()
 					.Take(10)
 					.ToArray()
+					.Distinct()
 					.Select(n => new EntryRefWithCommonPropertiesContract(n, PermissionContext.LanguagePreference))
 					.ToArray();
 
