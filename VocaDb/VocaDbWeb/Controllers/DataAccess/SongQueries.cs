@@ -298,13 +298,15 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				}
 
-				var nameMatches = (names.Any() ? ctx.OfType<SongName>().Query()
-					.Where(n => names.Contains(n.Value))
-					.Select(n => n.Song)
-					.Where(n => !n.Deleted)
+				var nameMatchIds = (names.Any() ? ctx.OfType<SongName>().Query()
+					.Where(n => names.Contains(n.Value) && !n.Song.Deleted)
+					.Select(n => n.Song.Id)
+					.OrderBy(s => s)
 					.Distinct()
 					.Take(10)
-					.ToArray()
+					.ToArray() : new int[0]);
+
+				var nameMatches = (nameMatchIds.Any() ? ctx.Query().Where(s => nameMatchIds.Contains(s.Id)).ToArray()
 					.Select(d => new Tuple<Song, SongMatchProperty>(d, SongMatchProperty.Title)) : new Tuple<Song, SongMatchProperty>[] { });
 
 				var pvMatches = pvs.Select(pv => ctx.OfType<PVForSong>().Query()
