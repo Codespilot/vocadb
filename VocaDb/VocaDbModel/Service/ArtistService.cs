@@ -184,21 +184,22 @@ namespace VocaDb.Model.Service {
 
 			return HandleQuery(session => {
 
+				// TODO: moved Distinct after ToArray to work around NH bug
 				var nameMatches = (names.Any() ? session.Query<ArtistName>()
-					.Where(n => names.Contains(n.Value))
+					.Where(n => names.Contains(n.Value) && !n.Artist.Deleted)
+					.OrderBy(n => n.Artist)
 					.Select(n => n.Artist)
-					.Where(n => !n.Deleted)
-					.Distinct()
 					.Take(10)
-					.ToArray() : new Artist[] {});
+					.ToArray()
+					.Distinct(): new Artist[] {});
 
 				var linkMatches = !string.IsNullOrEmpty(urlTrimmed) ?
 					session.Query<ArtistWebLink>()
 					.Where(w => w.Url == urlTrimmed)
 					.Select(w => w.Artist)
-					.Distinct()
 					.Take(10)
-					.ToArray() : new Artist[] {};
+					.ToArray()
+					.Distinct() : new Artist[] {};
 
 				return nameMatches.Union(linkMatches)
 					.Select(n => new EntryRefWithCommonPropertiesContract(n, PermissionContext.LanguagePreference))
