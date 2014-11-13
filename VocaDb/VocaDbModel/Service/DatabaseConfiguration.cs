@@ -23,7 +23,7 @@ namespace VocaDb.Model.Service {
 
 			var config = Fluently.Configure()
 				.Database(
-					MsSqlConfiguration.MsSql2008
+					MsSqlConfiguration.MsSql2012
 						.ConnectionString(c => c.FromConnectionStringWithKey(connectionStringName ?? ConnectionStringName))
 						.MaxFetchDepth(1)
 #if !DEBUG
