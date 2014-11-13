@@ -12,7 +12,7 @@ namespace VocaDb.Model.Domain.Tags {
 	/// <typeparam name="T">Tag usage type.</typeparam>
 	public class TagManager<T> where T : TagUsage {
 
-		private Iesi.Collections.Generic.ISet<T> tags = new Iesi.Collections.Generic.HashedSet<T>();
+		private ISet<T> tags = new HashSet<T>();
 
 		public virtual IEnumerable<Tag> Tags {
 			get {
@@ -32,7 +32,7 @@ namespace VocaDb.Model.Domain.Tags {
 		/// <summary>
 		/// List of all tag usages. Cannot be null.
 		/// </summary>
-		public virtual Iesi.Collections.Generic.ISet<T> Usages {
+		public virtual ISet<T> Usages {
 			get { return tags; }
 			set {
 				ParamIs.NotNull(() => value);

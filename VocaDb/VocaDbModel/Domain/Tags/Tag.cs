@@ -60,15 +60,15 @@ namespace VocaDb.Model.Domain.Tags {
 
 		}
 
-		private Iesi.Collections.Generic.ISet<AlbumTagUsage> albumTagUsages = new Iesi.Collections.Generic.HashedSet<AlbumTagUsage>();
-		private Iesi.Collections.Generic.ISet<Tag> aliases = new Iesi.Collections.Generic.HashedSet<Tag>();
+		private ISet<AlbumTagUsage> albumTagUsages = new HashSet<AlbumTagUsage>();
+		private ISet<Tag> aliases = new HashSet<Tag>();
 		private ArchivedVersionManager<ArchivedTagVersion, TagEditableFields> archivedVersions
 			= new ArchivedVersionManager<ArchivedTagVersion, TagEditableFields>();		
-		private Iesi.Collections.Generic.ISet<ArtistTagUsage> artistTagUsages = new Iesi.Collections.Generic.HashedSet<ArtistTagUsage>();
+		private ISet<ArtistTagUsage> artistTagUsages = new HashSet<ArtistTagUsage>();
 		private string categoryName;
-		private Iesi.Collections.Generic.ISet<Tag> children = new Iesi.Collections.Generic.HashedSet<Tag>();
+		private ISet<Tag> children = new HashSet<Tag>();
 		private string description;
-		private Iesi.Collections.Generic.ISet<SongTagUsage> songTagUsages = new Iesi.Collections.Generic.HashedSet<SongTagUsage>();
+		private ISet<SongTagUsage> songTagUsages = new HashSet<SongTagUsage>();
 
 		public Tag() {
 			CategoryName = string.Empty;
@@ -97,7 +97,7 @@ namespace VocaDb.Model.Domain.Tags {
 
 		public virtual Tag AliasedTo { get; set; }
 
-		public virtual Iesi.Collections.Generic.ISet<Tag> Aliases {
+		public virtual ISet<Tag> Aliases {
 			get { return aliases; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -105,7 +105,7 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
-		public virtual Iesi.Collections.Generic.ISet<AlbumTagUsage> AllAlbumTagUsages {
+		public virtual ISet<AlbumTagUsage> AllAlbumTagUsages {
 			get { return albumTagUsages; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -119,7 +119,7 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
-		public virtual Iesi.Collections.Generic.ISet<ArtistTagUsage> AllArtistTagUsages {
+		public virtual ISet<ArtistTagUsage> AllArtistTagUsages {
 			get { return artistTagUsages; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -149,7 +149,7 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
-		public virtual Iesi.Collections.Generic.ISet<Tag> Children {
+		public virtual ISet<Tag> Children {
 			get { return children; }
 			set {
 				ParamIs.NotNull(() => value);
@@ -278,7 +278,7 @@ namespace VocaDb.Model.Domain.Tags {
 
 		}
 
-		public virtual Iesi.Collections.Generic.ISet<SongTagUsage> AllSongTagUsages {
+		public virtual ISet<SongTagUsage> AllSongTagUsages {
 			get { return songTagUsages; }
 			set {
 				ParamIs.NotNull(() => value);
