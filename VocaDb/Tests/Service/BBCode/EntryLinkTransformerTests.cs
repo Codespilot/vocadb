@@ -25,7 +25,7 @@ namespace VocaDb.Tests.Service.BBCode {
 
 			var result = ApplyTransform("/Artist/Details/39");
 
-			Assert.AreEqual("<a href=\"/Artist/Details/39\">/Artist/Details/39</a>", result, "result");
+			Assert.AreEqual("<a href=\"/Ar/39\">/Artist/Details/39</a>", result, "result");
 
 		}
 
@@ -34,7 +34,7 @@ namespace VocaDb.Tests.Service.BBCode {
 
 			var result = ApplyTransform("/S/39");
 
-			Assert.AreEqual("<a href=\"/Song/Details/39\">/S/39</a>", result, "result");
+			Assert.AreEqual("<a href=\"/S/39\">/S/39</a>", result, "result");
 
 		}
 
