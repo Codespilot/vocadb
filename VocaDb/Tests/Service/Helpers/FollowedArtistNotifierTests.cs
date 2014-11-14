@@ -118,13 +118,13 @@ namespace VocaDb.Tests.Service.Helpers {
 		[TestMethod]	
 		public void TooManyUnreadMessages() {
 
-			for (int i = 0; i < 5; ++i) {
+			for (int i = 0; i < 10; ++i) {
 				user.ReceivedMessages.Add(repository.Save(new UserMessage(user, "New message!", i.ToString(), false)));
 			}
 
 			CallSendNotifications(creator);
 
-			Assert.AreEqual(5, repository.List<UserMessage>().Count, "No notification created");
+			Assert.AreEqual(10, repository.List<UserMessage>().Count, "No notification created");
 			Assert.IsTrue(repository.List<UserMessage>().All(m => m.Subject == "New message!"), "No notification created");
 
 		}

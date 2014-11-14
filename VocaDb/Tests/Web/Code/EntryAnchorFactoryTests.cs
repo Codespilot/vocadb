@@ -24,7 +24,7 @@ namespace VocaDb.Tests.Web.Code {
 
 			var result = factory.CreateEntryLink(EntryType.Artist, 39, "Hatsune Miku");
 
-			Assert.AreEqual("<a href=\"/Artist/Details/39\">Hatsune Miku</a>", result, "result");
+			Assert.AreEqual("<a href=\"/Ar/39\">Hatsune Miku</a>", result, "result");
 
 		}
 
@@ -34,7 +34,7 @@ namespace VocaDb.Tests.Web.Code {
 			var artist = new Artist(TranslatedString.Create("Hatsune Miku")) { Id = 39 };
 			var result = factory.CreateEntryLink(artist);
 
-			Assert.AreEqual("<a href=\"/Artist/Details/39\">Hatsune Miku</a>", result, "result");
+			Assert.AreEqual("<a href=\"/Ar/39\">Hatsune Miku</a>", result, "result");
 
 		}
 
