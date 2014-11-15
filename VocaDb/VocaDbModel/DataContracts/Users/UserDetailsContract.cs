@@ -20,7 +20,7 @@ namespace VocaDb.Model.DataContracts.Users {
 		public UserDetailsContract() {}
 
 		public UserDetailsContract(User user, IUserPermissionContext permissionContext) 
-			: base(user, permissionContext.LanguagePreference) {
+			: base(user, permissionContext.LanguagePreference, getPublicCollection: true) {
 
 			AboutMe = user.Options.AboutMe;
 			EmailVerified = user.Options.EmailVerified;
