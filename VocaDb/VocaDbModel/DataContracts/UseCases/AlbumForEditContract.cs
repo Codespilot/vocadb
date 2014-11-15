@@ -8,7 +8,7 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
-	public class AlbumForEditContract : AlbumWithAdditionalNamesContract {
+	public class AlbumForEditContract : AlbumContract {
 
 		public AlbumForEditContract() {}
 

@@ -12,12 +12,12 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public SongWithAlbumContract(Song song, ContentLanguagePreference languagePreference)
 			: base(song, languagePreference) {
 
-			Album = (song.Albums.Any() ? new AlbumWithAdditionalNamesContract(song.Albums.First().Album, languagePreference) : null);
+			Album = (song.Albums.Any() ? new AlbumContract(song.Albums.First().Album, languagePreference) : null);
 
 		}
 
 		[DataMember]
-		public AlbumWithAdditionalNamesContract Album { get; set; }
+		public AlbumContract Album { get; set; }
 
 	}
 

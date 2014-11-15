@@ -18,7 +18,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
-		public AlbumForArtistEditContract(AlbumWithAdditionalNamesContract albumContract) {
+		public AlbumForArtistEditContract(AlbumContract albumContract) {
 
 			AlbumId = albumContract.Id;
 			AlbumName = albumContract.Name;

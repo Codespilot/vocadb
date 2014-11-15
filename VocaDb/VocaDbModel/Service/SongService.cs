@@ -13,10 +13,8 @@ using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Activityfeed;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
-using VocaDb.Model.Domain.Images;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
@@ -28,7 +26,6 @@ using VocaDb.Model.DataContracts;
 using VocaDb.Model.Service.Paging;
 using VocaDb.Model.Service.Repositories;
 using VocaDb.Model.Service.Search;
-using VocaDb.Model.Service.Search.Artists;
 using VocaDb.Model.Service.Search.SongSearch;
 using VocaDb.Model.Service.VideoServices;
 
@@ -617,10 +614,10 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public SongWithAdditionalNamesContract GetSongWithAdditionalNames(int id) {
+		public SongContract GetSongWithAdditionalNames(int id) {
 
 			return HandleQuery(
-				session => new SongWithAdditionalNamesContract(session.Load<Song>(id), PermissionContext.LanguagePreference));
+				session => new SongContract(session.Load<Song>(id), PermissionContext.LanguagePreference));
 
 		}
 
@@ -643,9 +640,16 @@ namespace VocaDb.Model.Service {
 			});
 
 		}
+
 		public SongContract GetSongWithPV(PVService service, string pvId) {
 
 			return GetSongWithPV(s => new SongContract(s, PermissionContext.LanguagePreference), service, pvId);
+
+		}
+
+		public SongWithAlbumContract GetSongWithPVAndAlbum(PVService service, string pvId) {
+
+			return GetSongWithPV(s => new SongWithAlbumContract(s, PermissionContext.LanguagePreference), service, pvId);
 
 		}
 

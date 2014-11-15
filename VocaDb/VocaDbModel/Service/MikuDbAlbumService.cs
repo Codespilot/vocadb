@@ -350,12 +350,12 @@ namespace VocaDb.Model.Service {
 			result.MergeTracks = options.MergeTracks ?? true;
 
 			if (albumMatch != null) {
-				result.MergedAlbum = new AlbumWithAdditionalNamesContract(albumMatch, PermissionContext.LanguagePreference);
+				result.MergedAlbum = new AlbumContract(albumMatch, PermissionContext.LanguagePreference);
 				result.MergedAlbumId = albumMatch.Id;
 			}
 
-			result.ExistingAlbums = foundAlbums.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference))
-				.Concat(new[] { new AlbumWithAdditionalNamesContract { Name = "Nothing" } }).ToArray();
+			result.ExistingAlbums = foundAlbums.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference))
+				.Concat(new[] { new AlbumContract { Name = "Nothing" } }).ToArray();
 
 			result.Artists = artists.Select(a => a.InspectedArtist).ToArray();
 			result.Tracks = tracks;
@@ -386,7 +386,7 @@ namespace VocaDb.Model.Service {
 				: FindSong(session, importedTrack.Title, artists);
 
 			if (existingSong != null)
-				inspected.ExistingSong = new SongWithAdditionalNamesContract(existingSong, PermissionContext.LanguagePreference);
+				inspected.ExistingSong = new SongContract(existingSong, PermissionContext.LanguagePreference);
 
 			inspected.Selected = existingTrack != null;
 
@@ -618,7 +618,7 @@ namespace VocaDb.Model.Service {
 			ExistingArtist = existing;
 
 			if (existing != null)
-				InspectedArtist.ExistingArtist = new ArtistWithAdditionalNamesContract(existing, languagePreference);
+				InspectedArtist.ExistingArtist = new ArtistContract(existing, languagePreference);
 
 		}
 

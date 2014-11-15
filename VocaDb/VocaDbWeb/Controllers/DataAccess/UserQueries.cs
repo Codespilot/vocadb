@@ -519,12 +519,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public ArtistWithAdditionalNamesContract[] GetArtists(int userId) {
+		public ArtistContract[] GetArtists(int userId) {
 
 			return HandleQuery(session =>
 				session.Load(userId)
 					.Artists
-					.Select(a => new ArtistWithAdditionalNamesContract(a.Artist, PermissionContext.LanguagePreference))
+					.Select(a => new ArtistContract(a.Artist, PermissionContext.LanguagePreference))
 					.OrderBy(s => s.Name)
 					.ToArray());
 

@@ -7,7 +7,7 @@ using VocaDb.Model.Domain.Globalization;
 namespace VocaDb.Model.DataContracts.UseCases {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class ArtistForEditContract : ArtistWithAdditionalNamesContract {
+	public class ArtistForEditContract : ArtistContract {
 
 		public const int MaxAlbums = 200;
 

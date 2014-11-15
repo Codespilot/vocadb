@@ -49,7 +49,7 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAlbumsAdvanced(string term, int maxResults) {
+		public PartialFindResult<AlbumContract> FindAlbumsAdvanced(string term, int maxResults) {
 
 			return Services.Albums.FindAdvanced(term, new PagingProperties(0, maxResults, true), AlbumSortRule.Name);
 
@@ -63,7 +63,7 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
+		public PartialFindResult<ArtistContract> FindArtists(string term, int maxResults, NameMatchMode nameMatchMode = NameMatchMode.Auto) {
 
 			return Services.Artists.FindArtists(new ArtistQueryParams(term, new ArtistType[] {}, 0, maxResults, false, true, nameMatchMode, ArtistSortRule.Name, true));
 
@@ -210,8 +210,8 @@ namespace VocaDb.Web.Services {
 		}
 
 		[OperationContract]
-		public SongContract GetSongWithPV(PVService service, string pvId) {
-			return Services.Songs.GetSongWithPV(service, pvId);
+		public SongWithAlbumContract GetSongWithPV(PVService service, string pvId) {
+			return Services.Songs.GetSongWithPVAndAlbum(service, pvId);
 		}
 
 		[OperationContract]

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Songs;
+﻿using VocaDb.Model.DataContracts.Albums;
 using VocaDb.Model.DataContracts.Artists;
+using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.MikuDb {
@@ -20,11 +19,11 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 
 		public InspectedArtist[] Artists { get; set; }
 
-		public AlbumWithAdditionalNamesContract[] ExistingAlbums { get; set; }
+		public AlbumContract[] ExistingAlbums { get; set; }
 
 		public MikuDbAlbumContract ImportedAlbum { get; set; }
 
-		public AlbumWithAdditionalNamesContract MergedAlbum { get; set; }
+		public AlbumContract MergedAlbum { get; set; }
 
 		public int? MergedAlbumId { get; set; }
 
@@ -44,7 +43,7 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 			Name = artistName;
 		}
 
-		public ArtistWithAdditionalNamesContract ExistingArtist { get; set; }
+		public ArtistContract ExistingArtist { get; set; }
 
 		public string Name { get; set; }
 
@@ -58,7 +57,7 @@ namespace VocaDb.Model.DataContracts.MikuDb {
 			ImportedTrack = importedTrack;
 		}
 
-		public SongWithAdditionalNamesContract ExistingSong { get; set; }
+		public SongContract ExistingSong { get; set; }
 
 		public ImportedAlbumTrack ImportedTrack { get; set; }
 
