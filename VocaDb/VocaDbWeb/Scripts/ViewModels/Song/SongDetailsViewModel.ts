@@ -20,6 +20,8 @@ module vdb.viewModels {
 
 		public selectedLyricsId: KnockoutObservable<number>;
 
+		public selectedPvId: KnockoutObservable<number>;
+
         public showAllVersions: () => void;
 
         public songInListsDialog: SongInListsViewModel;
@@ -58,6 +60,7 @@ module vdb.viewModels {
             this.songInListsDialog = new SongInListsViewModel(repository, this.id);
             this.songListDialog = new SongListsViewModel(repository, resources, this.id);
 			this.selectedLyricsId = ko.observable(data.selectedLyricsId);
+			this.selectedPvId = ko.observable(data.selectedPvId);
 
             this.usersContent = ko.observable<string>();
 
@@ -172,6 +175,8 @@ module vdb.viewModels {
         id: number;
 
 		selectedLyricsId: number;
+
+		selectedPvId: number;
 
         userRating: string;
     
