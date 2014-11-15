@@ -864,6 +864,7 @@
     <Compile Include="Controllers\Api\ArtistApiController.cs" />
     <Compile Include="Controllers\Api\EntryApiController.cs" />
     <Compile Include="Controllers\Api\MikuApiController.cs" />
+    <Compile Include="Controllers\Api\PVApiController.cs" />
     <Compile Include="Controllers\Api\ReleaseEventApiController.cs" />
     <Compile Include="Controllers\Api\ResourcesApiController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
