@@ -235,12 +235,15 @@ namespace VocaDb.Web.Models {
 
 			var preferredLyrics = LocalizedStringHelper.GetBestMatch(model.Lyrics, Login.Manager.LanguagePreference, model.DefaultLanguageSelection);
 			SelectedLyricsId = preferredLyrics != null ? preferredLyrics.Id : 0;
+			SelectedPvId = model.PrimaryPV != null ? model.PrimaryPV.Id : 0;
 
 		}
 
 		public int Id { get; set; }
 
-		public int SelectedLyricsId { get; set;}
+		public int SelectedLyricsId { get; set; }
+
+		public int SelectedPvId { get; set; }
 
 		[JsonConverter(typeof(StringEnumConverter))]
 		public SongVoteRating UserRating { get; set; }
