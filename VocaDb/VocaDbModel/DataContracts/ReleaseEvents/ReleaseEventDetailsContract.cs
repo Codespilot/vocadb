@@ -15,13 +15,13 @@ namespace VocaDb.Model.DataContracts.ReleaseEvents {
 
 			ParamIs.NotNull(() => releaseEvent);
 
-			Albums = releaseEvent.Albums.Where(a => !a.Deleted).Select(a => new AlbumWithAdditionalNamesContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
+			Albums = releaseEvent.Albums.Where(a => !a.Deleted).Select(a => new AlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
 			SeriesNumber = releaseEvent.SeriesNumber;
 			SeriesSuffix = releaseEvent.SeriesSuffix;
 
 		}
 
-		public AlbumWithAdditionalNamesContract[] Albums { get; set; }
+		public AlbumContract[] Albums { get; set; }
 
 		public ReleaseEventSeriesContract[] AllSeries { get; set; }
 

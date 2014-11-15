@@ -8,12 +8,11 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Domain.Tags;
 
 namespace VocaDb.Model.DataContracts.Artists {
 
 	[DataContract(Namespace = Schemas.VocaDb)]
-	public class ArtistDetailsContract : ArtistWithAdditionalNamesContract {
+	public class ArtistDetailsContract : ArtistContract {
 
 		public ArtistDetailsContract() {}
 

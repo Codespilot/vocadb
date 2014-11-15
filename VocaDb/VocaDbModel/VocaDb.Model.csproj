@@ -111,8 +111,6 @@
     <Compile Include="DataContracts\Albums\AlbumForApiContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumIdentifierContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumReleaseContract.cs" />
-    <Compile Include="DataContracts\Albums\AlbumTagUsageContract.cs" />
-    <Compile Include="DataContracts\Albums\AlbumWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithArchivedVersions.cs" />
     <Compile Include="DataContracts\Albums\AlbumWithCoverPictureContract.cs" />
     <Compile Include="DataContracts\Albums\ArchivedAlbumContract.cs" />
@@ -164,7 +162,6 @@
     <Compile Include="DataContracts\Albums\SongInAlbumRefContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionContract.cs" />
     <Compile Include="DataContracts\Artists\ArchivedArtistVersionDetailsContract.cs" />
-    <Compile Include="DataContracts\Artists\ArtistTagUsageContract.cs" />
     <Compile Include="DataContracts\EntryNameContract.cs" />
     <Compile Include="DataContracts\EntryRefContract.cs" />
     <Compile Include="DataContracts\ReleaseEvents\ReleaseEventWithArchivedVersionsContract.cs" />
@@ -179,7 +176,6 @@
     <Compile Include="DataContracts\Songs\SongListForEditContract.cs" />
     <Compile Include="DataContracts\Songs\SongListsByCategoryContract.cs" />
     <Compile Include="DataContracts\Songs\SongMatchProperty.cs" />
-    <Compile Include="DataContracts\Songs\SongTagUsageContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionContract.cs" />
     <Compile Include="DataContracts\Songs\ArchivedSongVersionDetailsContract.cs" />
     <Compile Include="DataContracts\Songs\SongInAlbumEditContract.cs" />
@@ -207,7 +203,6 @@
     <Compile Include="DataContracts\Artists\ArchivedArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistDetailsContract.cs" />
-    <Compile Include="DataContracts\Artists\ArtistWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithArchivedVersions.cs" />
     <Compile Include="DataContracts\Artists\ArtistWithPictureContract.cs" />
     <Compile Include="DataContracts\Artists\CreateArtistContract.cs" />
@@ -252,7 +247,6 @@
     <Compile Include="DataContracts\Songs\ArchivedSongContract.cs" />
     <Compile Include="DataContracts\Songs\ArtistForSongContract.cs" />
     <Compile Include="DataContracts\Songs\LyricsForSongContract.cs" />
-    <Compile Include="DataContracts\Songs\SongWithAdditionalNamesContract.cs" />
     <Compile Include="DataContracts\TranslatedStringContract.cs" />
     <Compile Include="DataContracts\PictureDataContract.cs" />
     <Compile Include="DataContracts\Ranking\SongInRankingContract.cs" />

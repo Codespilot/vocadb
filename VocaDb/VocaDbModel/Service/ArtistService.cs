@@ -155,9 +155,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<ArtistWithAdditionalNamesContract> FindArtists(ArtistQueryParams queryParams) {
+		public PartialFindResult<ArtistContract> FindArtists(ArtistQueryParams queryParams) {
 
-			return FindArtists(a => new ArtistWithAdditionalNamesContract(a, PermissionContext.LanguagePreference), queryParams);
+			return FindArtists(a => new ArtistContract(a, PermissionContext.LanguagePreference), queryParams);
 
 		}
 
@@ -256,9 +256,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public ArtistWithAdditionalNamesContract GetArtistWithAdditionalNames(int id) {
+		public ArtistContract GetArtistWithAdditionalNames(int id) {
 
-			return HandleQuery(session => new ArtistWithAdditionalNamesContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
+			return HandleQuery(session => new ArtistContract(session.Load<Artist>(id), PermissionContext.LanguagePreference));
 
 		}
 

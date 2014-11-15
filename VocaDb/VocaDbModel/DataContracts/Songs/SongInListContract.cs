@@ -11,7 +11,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 			Order = songInList.Order;
 			Notes = songInList.Notes;
-			Song = new SongWithAdditionalNamesContract(songInList.Song, languagePreference);
+			Song = new SongContract(songInList.Song, languagePreference);
 
 		}
 
@@ -19,7 +19,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		public string Notes { get; set; }
 
-		public SongWithAdditionalNamesContract Song { get; set; }
+		public SongContract Song { get; set; }
 
 	}
 

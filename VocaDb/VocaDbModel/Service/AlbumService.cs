@@ -223,15 +223,15 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public PartialFindResult<AlbumWithAdditionalNamesContract> FindAdvanced(
+		public PartialFindResult<AlbumContract> FindAdvanced(
 			string query, PagingProperties paging, AlbumSortRule sortRule) {
 
 			return HandleQuery(session => {
 
 				var results = FindAdvanced(session, query, paging, sortRule);
 
-				return new PartialFindResult<AlbumWithAdditionalNamesContract>(
-					results.Items.Select(a => new AlbumWithAdditionalNamesContract(a, PermissionContext.LanguagePreference)).ToArray(),
+				return new PartialFindResult<AlbumContract>(
+					results.Items.Select(a => new AlbumContract(a, PermissionContext.LanguagePreference)).ToArray(),
 					results.TotalCount, results.Term, results.FoundExactMatch);
 
 			});
@@ -473,9 +473,9 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public AlbumWithAdditionalNamesContract GetAlbumWithAdditionalNames(int id) {
+		public AlbumContract GetAlbumWithAdditionalNames(int id) {
 
-			return HandleQuery(session => new AlbumWithAdditionalNamesContract(
+			return HandleQuery(session => new AlbumContract(
 				session.Load<Album>(id), PermissionContext.LanguagePreference));
 
 		}
