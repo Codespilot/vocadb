@@ -54,23 +54,6 @@
     }    
         
 }
-
-@helper PVList(IEnumerable<PVContract> pvs, bool showPVType) {
-    
- 	foreach (var pv in pvs) {
-		<a href="#" class="pvLink btn" id="pv_@(pv.Id)" data-bind="css: { active: selectedPvId() == @pv.Id }, click: function () { selectedPvId(@pv.Id); }">
-			<img src="@Html.VideoServiceLinkUrl(pv.Service)" alt="@pv.Service" />
-            @(!string.IsNullOrEmpty(pv.Name) ? pv.Name : pv.Service.ToString())
-            @if (showPVType) {
-			    @("(" + Translate.PVTypeNames[pv.PVType] + ")")
-            }
-		</a>
-		@Html.Raw("&nbsp;")
-		@("(")<a href="@pv.Url">@ViewRes.Song.DetailsStrings.ViewExternal</a>@(")")
-		<br />
-	}			
-       
-}
 		  
 @helper ReportEntryPopup(MvcHtmlString reportTypesDropdown) {
 	
