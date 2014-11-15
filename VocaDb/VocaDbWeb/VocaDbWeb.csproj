@@ -1477,6 +1477,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\CommentContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Globalization\LocalizedStringWithIdContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PartialFindResultContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\PVs\PVContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagUsageForApiContract.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
@@ -1858,6 +1859,7 @@
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-smoothness.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-start.css" />
     <Content Include="Scripts\jqwidgets27\styles\jqx.ui-sunny.css" />
+    <TypeScriptCompile Include="Scripts\Helpers\DateTimeHelper.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\HighchartsHelper.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\KnockoutHelper.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\PVHelper.ts" />
@@ -1954,6 +1956,8 @@
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeAlbumRepository.ts" />
     <TypeScriptCompile Include="Scripts\Tests\TestSupport\FakeEntryReportRepository.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVListEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\AlbumSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\ArtistSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchCategoryBaseViewModel.ts" />
@@ -2430,6 +2434,7 @@
     <Content Include="Views\User\Partials\_FollowedArtists.cshtml" />
     <Content Include="Views\Shared\Partials\_CommentBody.cshtml" />
     <Content Include="Views\SongList\Versions.cshtml" />
+    <Content Include="Views\Shared\KnockoutPartials\_PVContractForEdit.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
