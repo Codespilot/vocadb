@@ -16,8 +16,8 @@ namespace VocaDb.Model.DataContracts.Users {
 
 		public UserWithPermissionsContract() { }
 
-		public UserWithPermissionsContract(User user, ContentLanguagePreference languagePreference)
-			: base(user) {
+		public UserWithPermissionsContract(User user, ContentLanguagePreference languagePreference, bool getPublicCollection = false)
+			: base(user, getPublicCollection) {
 
 			AdditionalPermissions = new HashSet<PermissionToken>(user.AdditionalPermissions.PermissionTokens);
 			AlbumFormatString = user.Options.AlbumFormatString;
