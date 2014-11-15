@@ -19,6 +19,10 @@ module vdb.models {
 
 		}
 
+		getIconUrl = (service: string) => {
+			return this.icons[service];
+		}
+
 		// Gets icon URLs from a comma separated list of services
 		getIconUrls = (servicesStr: string) => {
 

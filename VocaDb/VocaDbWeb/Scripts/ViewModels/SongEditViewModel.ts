@@ -64,10 +64,6 @@ module vdb.viewModels {
 
 		};
 
-        private addLeadingZero(val) {
-            return (val < 10 ? "0" + val : val);
-        }
-
 		// Removes an artist from this album.
 		public removeArtist = (artist: ArtistForAlbumEditViewModel) => {
 			this.artistLinks.remove(artist);
@@ -107,9 +103,8 @@ module vdb.viewModels {
             this.webLinks = new WebLinksEditViewModel(data.webLinks, webLinkCategories);
             
             this.lengthFormatted = ko.computed({
-                read: () => {
-                    var mins = Math.floor(this.length() / 60);
-                    return mins + ":" + this.addLeadingZero(this.length() % 60);
+				read: () => {
+					return vdb.helpers.DateTimeHelper.formatFromSeconds(this.length());
                 },
                 write: (value: string) => {
                     var parts = value.split(":");

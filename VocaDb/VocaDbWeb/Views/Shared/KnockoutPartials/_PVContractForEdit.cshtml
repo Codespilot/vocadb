@@ -1,0 +1,26 @@
+﻿@model VocaDb.Model.DataContracts.PVs.PVContract
+
+<tr>
+	<td>
+		<a data-bind="attr: { href: url }">
+			<img data-bind="attr: { src: $parent.getPvServiceIcon(service) }" />
+			<span data-bind="text: service"></span>
+		</a>
+	</td>
+	<td>
+		<span data-bind="text: pvType"></span>
+	</td>
+	<td>
+		<input type="text" data-bind="textInput: name" maxlength="200" class="input-xlarge"  />
+	</td>
+	<td>
+		<span data-bind="text: $parent.formatLength(length)"></span>
+	</td>
+	<td>
+		@* TODO: pv link to admin *@
+		<span data-bind="text: author"></span>
+	</td>
+	<td>
+		<a data-bind="click: $parent.remove" href="#" class="textLink deleteLink">@ViewRes.SharedStrings.Delete</a>
+	</td>
+</tr>
