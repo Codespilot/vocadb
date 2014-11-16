@@ -16,7 +16,7 @@ namespace VocaDb.Web.Controllers.Api {
 	[RoutePrefix("api/songLists")]
 	public class SongListApiController : ApiController { 
 
-		private const int absoluteMax = 50;
+		private const int absoluteMax = 100;
 		private const int defaultMax = 10;
 		private readonly SongListQueries queries;
 
