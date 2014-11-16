@@ -22,16 +22,13 @@ module vdb.viewModels.songList {
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
 
-			/*$(".songlist-playlist-songs").scroll(() => {
-				//var x = $(".songlist-playlist-songs")[0];
-				var x = $(".songlist-playlist-songs-wrapper").scrollTop();
-				var y = $(".songlist-playlist-songs-wrapper")[0].scrollHeight;
-				var z = $(".songlist-playlist-songs-wrapper").height();
-				if ($(".songlist-playlist-songs-wrapper").scrollTop() == $(".songlist-playlist-songs-wrapper")[0].scrollHeight - $(".songlist-playlist-songs-wrapper").height()) {
+			var elem = $(".songlist-playlist-songs");
+			$(elem).scroll(() => {
+				var element = elem[0];
+				if (element.scrollHeight - element.scrollTop === element.clientHeight) {
 					this.paging.nextPage();
-					// ajax call get data from server and append to the div
 				}
-			});*/
+			});
 
 			this.updateResultsWithTotalCount();
 
@@ -45,7 +42,7 @@ module vdb.viewModels.songList {
 
 		public loading = ko.observable(true); // Currently loading for data
 		public page = ko.observableArray<dc.songs.SongInListContract>([]); // Current page of items
-		public paging = new ServerSidePagingViewModel(20); // Paging view model
+		public paging = new ServerSidePagingViewModel(100); // Paging view model
 		public pauseNotifications = false;
 		public playListViewModel: SongListPlayListViewModel;
 		public pvServiceIcons: vdb.models.PVServiceIcons;
@@ -68,14 +65,17 @@ module vdb.viewModels.songList {
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
 			this.songListRepo.getSongs(this.listId, "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro", pagingProperties, this.languageSelection,
-				(result: any) => {
+				(result: dc.PartialFindResultContract<dc.songs.SongInListContract>) => {
 
 					this.pauseNotifications = false;
 
 					if (pagingProperties.getTotalCount)
 						this.paging.totalItems(result.totalCount);
 
-					this.page(result.items);
+					_.each(result.items, item => {
+						this.page.push(item);
+					});
+					
 					this.loading(false);
 
 					if (result.items && result.items.length && !this.selectedSong())
