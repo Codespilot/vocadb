@@ -26,6 +26,7 @@ module vdb.utils {
 			{ url: "shop.fasic.jp/", desc: "fasic", cat: c.WebLinkCategory.Commercial }, /* UtaiteDB */
             { url: ".web.fc2.com", desc: "Website", cat: c.WebLinkCategory.Official },
             { url: ".fc2.com", desc: "Blog", cat: c.WebLinkCategory.Official },
+			{ url: "play.google.com/", desc: "Google Play", cat: c.WebLinkCategory.Commercial },
             { url: "itunes.apple.com/", desc: "iTunes", cat: c.WebLinkCategory.Commercial },
             { url: "karent.jp/", desc: "KarenT", cat: c.WebLinkCategory.Commercial },
             { url: "last.fm/", desc: "Last.fm", cat: c.WebLinkCategory.Official },
@@ -43,7 +44,8 @@ module vdb.utils {
             { url: "piapro.jp/", desc: "Piapro", cat: c.WebLinkCategory.Official },
             { url: "www.pixiv.net/member.php", desc: "Pixiv", cat: c.WebLinkCategory.Official },
             { url: "books.rakuten.co.jp/", desc: "Rakuten", cat: c.WebLinkCategory.Commercial },
-            { url: "soundcloud.com/", desc: "SoundCloud", cat: c.WebLinkCategory.Official },
+			{ url: "spotify.com/", desc: "Spotify", cat: c.WebLinkCategory.Commercial },
+			{ url: "soundcloud.com/", desc: "SoundCloud", cat: c.WebLinkCategory.Official },
 			{ url: "item.taobao.com/item.htm", desc: "Taobao", cat: c.WebLinkCategory.Commercial },
 			{ url: "www.lagoa.jp/", desc: "THREE!", cat: c.WebLinkCategory.Commercial }, /* UtaiteDB */
             { url: "toranoana.jp/mailorder/article/", desc: "Toranoana", cat: c.WebLinkCategory.Commercial },
