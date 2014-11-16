@@ -179,11 +179,13 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
 				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
+				"~/Scripts/Helpers/DateTimeHelper.js",
 				"~/Scripts/Repositories/SongListRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
-				"~/Scripts/ViewModels/SongList/SongListViewModel.js"
+				"~/Scripts/ViewModels/SongList/SongListViewModel.js",
+				"~/Scripts/ViewModels/SongList/SongListPlayListViewModel.js"
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Tag/Edit").Include(

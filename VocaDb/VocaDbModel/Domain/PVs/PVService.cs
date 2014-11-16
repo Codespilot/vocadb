@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace VocaDb.Model.Domain.PVs {
 
@@ -46,6 +48,18 @@ namespace VocaDb.Model.Domain.PVs {
 		Piapro			= PVService.Piapro,
 
 		Bilibili		= PVService.Bilibili
+
+	}
+
+	public static class PVServicesExtender {
+
+		public static IEnumerable<PVService> ToIndividualSelections(this PVServices selections) {
+			
+			return EnumVal<PVServices>
+				.GetIndividualValues(selections)
+				.Select(s => (PVService)s);
+
+		}
 
 	}
 

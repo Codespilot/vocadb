@@ -18,6 +18,10 @@ module vdb.dataContracts {
         
         artists?: ArtistContract[];
 
+		lengthSeconds: number;
+
+		thumbUrl?: string;
+
         vote: string;
 
     }

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using VocaDb.Model.Domain.Globalization;
+using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Helpers;
 
@@ -47,6 +48,24 @@ namespace VocaDb.Model.Service.QueryableExtenders {
 			return query.Where(s => s.Song.ListLinks.Any(l => l.List.Id == listId));
 
 		}
+
+		/// <summary>
+		/// Filter query by PV services bit array.
+		/// Song will pass the filter if ANY of the specified PV services matches.
+		/// </summary>
+		/// <typeparam name="T">Type of song link.</typeparam>
+		/// <param name="query">Query. Cannot be null.</param>
+		/// <param name="pvServices">PV services bit array. Can be null, in which case no filtering will be done.</param>
+		/// <returns>Filtered query.</returns>
+		public static IQueryable<T> WhereSongHasPVService<T>(this IQueryable<T> query, PVServices? pvServices)
+			where T : ISongLink {
+			
+			if (pvServices == null)
+				return query;
+
+			return query.Where(s => (s.Song.PVServices & pvServices) != PVServices.Nothing);
+
+		} 
 
 		public static IQueryable<T> WhereSongHasTag<T>(this IQueryable<T> query, string tag)
 			where T : ISongLink {

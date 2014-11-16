@@ -12,6 +12,7 @@ module vdb.viewModels.songList {
 			private songRepo: rep.SongRepository, private userRepo: rep.UserRepository, 
 			private languageSelection: string, private listId: number) {
 
+			this.playlistViewModel = new SongListPlayListViewModel(urlMapper, songListRepo, songRepo, userRepo, languageSelection, listId);
 			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
 
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
@@ -25,6 +26,8 @@ module vdb.viewModels.songList {
 		public page = ko.observableArray<dc.RatedSongForUserForApiContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(20); // Paging view model
 		public pauseNotifications = false;
+		public playlistMode = ko.observable(false);
+		public playlistViewModel: SongListPlayListViewModel;
 		public pvServiceIcons: vdb.models.PVServiceIcons;
 
 		public updateResultsWithTotalCount = () => this.updateResults(true);
@@ -44,7 +47,7 @@ module vdb.viewModels.songList {
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
 
-			this.songListRepo.getSongs(this.listId, pagingProperties, this.languageSelection,
+			this.songListRepo.getSongs(this.listId, null, pagingProperties, this.languageSelection,
 				(result: any) => {
 
 					_.each(result.items, (item: dc.RatedSongForUserForApiContract) => {

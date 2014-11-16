@@ -59,6 +59,7 @@
 
 @section BodyScripts {
 <link rel="stylesheet" href="@Url.Content("~/Content/Styles/Pager.css")" type="text/css" />
+<link rel="stylesheet" href="@Url.Content("~/Content/Styles/songlist.css")" type="text/css" />
 @Scripts.Render("~/bundles/SongList/Details")
 <script type="text/javascript">
 
@@ -97,7 +98,18 @@
 	</div>
 </div>
 
-<div data-bind="css: { loading: loading }, visible: true" style="display: none;">
+<div class="btn-group songlist-mode-selection">
+	<a data-bind="click: function() { playlistMode(false); }, css: { active: playlistMode() == false }" class="btn" href="#">
+		<i class="icon-th-list noMargin"></i>
+		Details
+	</a>
+	<a data-bind="click: function() { playlistMode(true); }, css: { active: playlistMode() == true }" class="btn" href="#">
+		<i class="icon-list noMargin"></i>
+		Playlist
+	</a>
+</div>
+
+<div data-bind="css: { loading: loading }, visible: playlistMode() == false" style="display: none;">
 
 	<div data-bind="with: paging" class="dropdown pull-right">
 		@KnockoutHelpers.EntryCount()
@@ -153,4 +165,10 @@
 		@KnockoutHelpers.ServerSidePaging()
 	</div>
 
+</div>
+
+<div data-bind="visible: playlistMode()" style="display: none;">
+	<div data-bind="with: playlistViewModel" class="well well-transparent songlist-playlist">
+		@{ Html.RenderPartial("Partials/_PlayList"); }
+	</div>
 </div>

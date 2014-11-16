@@ -254,6 +254,9 @@ namespace VocaDb.Model.Domain.Songs {
 			}
 		}
 
+		/// <summary>
+		/// Bitarray of PV services for this song. Persisted as a bitfield.
+		/// </summary>
 		public virtual PVServices PVServices { get; set; }
 
 		public virtual int RatingScore { get; set; }
