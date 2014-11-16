@@ -707,6 +707,7 @@
     <Compile Include="Service\Search\QueryProcessor.cs" />
     <Compile Include="Service\Search\ReleaseEventSearch.cs" />
     <Compile Include="Service\Search\SongSearch\ParsedSongQuery.cs" />
+    <Compile Include="Service\Search\SongSearch\SongListQueryParams.cs" />
     <Compile Include="Service\Search\User\FollowedArtistQueryParams.cs" />
     <Compile Include="Service\VideoServices\HtmlParsingHelper.cs" />
     <Compile Include="Service\IEntryLinkFactory.cs" />

@@ -11,7 +11,9 @@ using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service;
+using VocaDb.Model.Service.QueryableExtenders;
 using VocaDb.Model.Service.Repositories;
+using VocaDb.Model.Service.Search.SongSearch;
 
 namespace VocaDb.Web.Controllers.DataAccess {
 
@@ -43,16 +45,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		private PartialFindResult<T> GetSongsInList<T>(IRepositoryContext<SongList> session, int listId, int start, int maxItems, bool getTotalCount,
+		private PartialFindResult<T> GetSongsInList<T>(IRepositoryContext<SongList> session, SongListQueryParams queryParams,
 			Func<SongInList, T> fac) {
 
-			var q = session.OfType<SongInList>().Query().Where(a => !a.Song.Deleted && a.List.Id == listId);
+			var q = session.OfType<SongInList>().Query()
+				.Where(a => !a.Song.Deleted && a.List.Id == queryParams.ListId)
+				.WhereSongHasPVService(queryParams.PVServices);
 
 			IQueryable<SongInList> resultQ = q.OrderBy(s => s.Order);
-			resultQ = resultQ.Skip(start).Take(maxItems);
+			resultQ = resultQ.Skip(queryParams.Paging.Start).Take(queryParams.Paging.MaxEntries);
 
 			var contracts = resultQ.ToArray().Select(s => fac(s)).ToArray();
-			var totalCount = (getTotalCount ? q.Count() : 0);
+			var totalCount = (queryParams.Paging.GetTotalCount ? q.Count() : 0);
 
 			return new PartialFindResult<T>(contracts, totalCount);
 
@@ -103,15 +107,15 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			this.imagePersister = imagePersister;
 		}
 
-		public PartialFindResult<SongInListContract> GetSongsInList(int listId, int start, int maxItems, bool getTotalCount) {
+		public PartialFindResult<SongInListContract> GetSongsInList(SongListQueryParams queryParams) {
 
-			return repository.HandleQuery(session => GetSongsInList(session, listId, start, maxItems, getTotalCount, s => new SongInListContract(s, PermissionContext.LanguagePreference)));
+			return repository.HandleQuery(session => GetSongsInList(session, queryParams, s => new SongInListContract(s, PermissionContext.LanguagePreference)));
 
 		}
 
-		public PartialFindResult<T> GetSongsInList<T>(int listId, int start, int maxItems, bool getTotalCount, Func<SongInList, T> fac) {
+		public PartialFindResult<T> GetSongsInList<T>(SongListQueryParams queryParams, Func<SongInList, T> fac) {
 
-			return repository.HandleQuery(ctx => GetSongsInList(ctx, listId, start, maxItems, getTotalCount, fac));
+			return repository.HandleQuery(ctx => GetSongsInList(ctx, queryParams, fac));
 
 		}
 

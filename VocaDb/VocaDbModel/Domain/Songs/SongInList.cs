@@ -1,6 +1,6 @@
 ﻿namespace VocaDb.Model.Domain.Songs {
 
-	public class SongInList : IEntryWithIntId {
+	public class SongInList : IEntryWithIntId, ISongLink {
 
 		private SongList list;
 		private string notes;

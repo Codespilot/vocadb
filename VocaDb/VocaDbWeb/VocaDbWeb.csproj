@@ -1345,6 +1345,9 @@
     <Content Include="Content\Styles\Snow2013.css">
       <DependentUpon>Snow2013.less</DependentUpon>
     </Content>
+    <Content Include="Content\Styles\songlist.css">
+      <DependentUpon>songlist.less</DependentUpon>
+    </Content>
     <Content Include="Content\teto.jpg" />
     <Content Include="Content\tetoDB-title.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -1478,6 +1481,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\Globalization\LocalizedStringWithIdContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PartialFindResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PVs\PVContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Song\SongInListContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagUsageForApiContract.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumContract.ts" />
@@ -1540,6 +1544,7 @@
     <Content Include="Areas\HelpPage\Views\ApiHelp\Api.cshtml" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\Styles\Search.less" />
+    <Content Include="Content\Styles\songlist.less" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -2188,6 +2193,7 @@
     <Content Include="Scripts\ui\minified\jquery.ui.tabs.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\User\Edit.js" />
+    <TypeScriptCompile Include="Scripts\ViewModels\SongList\SongListPlayListViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongList\SongListViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
@@ -2435,6 +2441,7 @@
     <Content Include="Views\Shared\Partials\_CommentBody.cshtml" />
     <Content Include="Views\SongList\Versions.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_PVContractForEdit.cshtml" />
+    <Content Include="Views\SongList\Partials\_PlayList.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

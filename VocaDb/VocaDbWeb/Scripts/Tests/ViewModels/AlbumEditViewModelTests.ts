@@ -36,7 +36,7 @@ module vdb.tests.viewModels {
         setup: () => {
 
             songRep = new vdb.tests.testSupport.FakeSongRepository();
-            song = { additionalNames: "", artistString: "Tripshots", artists: [producer], id: 2, name: "Anger", vote: "Nothing" };
+            song = { additionalNames: "", artistString: "Tripshots", artists: [producer], id: 2, lengthSeconds: 0, name: "Anger", pvServices: "Nothing", vote: "Nothing" };
             songRep.song = song;
 
 			artistRep = new vdb.tests.testSupport.FakeArtistRepository();
