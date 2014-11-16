@@ -18,6 +18,11 @@ module vdb.viewModels.songList {
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
 			this.paging.pageSize.subscribe(this.updateResultsWithTotalCount);
 
+			this.playlistMode.subscribe(mode => {
+				if (mode)
+					this.playlistViewModel.init();
+			});
+
 			this.updateResultsWithTotalCount();
 
 		}

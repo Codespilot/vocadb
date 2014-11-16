@@ -30,11 +30,20 @@ module vdb.viewModels.songList {
 				}
 			});
 
-			this.updateResultsWithTotalCount();
-
 		}
 
 		public formatLength = (length: number) => vdb.helpers.DateTimeHelper.formatFromSeconds(length);
+		public isInit = false;
+
+		public init = () => {
+
+			if (this.isInit)
+				return;
+
+			this.updateResultsWithTotalCount();
+			this.isInit = true;
+
+		}
 
 		public playerHtml = ko.observable<string>(null);
 
