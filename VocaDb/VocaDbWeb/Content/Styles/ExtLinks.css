@@ -16,11 +16,17 @@ a.extLink[href^="http://d-stage.com/"] {
 a.extLink[href^="http://shop.fasic.jp/"] {
   background: url("/Content/ExtIcons/fasic.png") no-repeat left 50%;
 }
+a.extLink[href^="https://play.google.com/"] {
+  background: url("/Content/ExtIcons/google-play.png") no-repeat left 50%;
+}
 a.extLink[href^="http://www.hmv.co.jp/"] {
   background: url("/Content/ExtIcons/hmv.png") no-repeat left 50%;
 }
 a.extLink[href^="http://www.play-asia.com/"] {
   background: url("/Content/ExtIcons/playasia.png") no-repeat left 50%;
+}
+a.extLink[href^="https://play.spotify.com/"] {
+  background: url("/Content/ExtIcons/spotify.png") no-repeat left 50%;
 }
 a.extLink[href^="http://www.lagoa.jp/"] {
   background: url("/Content/ExtIcons/three.png") no-repeat left 50%;
