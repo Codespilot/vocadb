@@ -10,7 +10,9 @@
   border-radius: 3px;
   background-color: white;
 }
-.songlist-playlist-player .song-info {
+.songlist-playlist-player .song-info,
+.songlist-playlist-player .song-info:hover,
+.songlist-playlist-player .song-info:visited {
   color: white;
 }
 .songlist-playlist-player-artists {
