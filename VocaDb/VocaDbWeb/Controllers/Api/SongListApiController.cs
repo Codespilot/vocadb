@@ -28,7 +28,7 @@ namespace VocaDb.Web.Controllers.Api {
 		/// Gets a list of songs in a song list.
 		/// </summary>
 		/// <param name="listId">ID of the song list.</param>
-		/// <param name="pvServices">Filter by </param>
+		/// <param name="pvServices">Filter by one or more PV services (separated by commas). The song will pass the filter if it has a PV for any of the matched services.</param>
 		/// <param name="start">First item to be retrieved (optional, defaults to 0).</param>
 		/// <param name="maxResults">Maximum number of results to be loaded (optional, defaults to 10, maximum of 50).</param>
 		/// <param name="getTotalCount">Whether to load total number of items (optional, default to false).</param>

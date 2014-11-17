@@ -6,7 +6,11 @@
 		<span class="songlist-playlist-player-artists" data-bind="text: selectedSong().song.artistString"></span>
 	</h4>
 	
-	<div data-bind="html: playerHtml"></div>
+	<div id="pv-player" data-bind="html: playerHtml"></div>
+	
+	<a class="btn" data-bind="click: nextSong" title="Next song">
+		<i class="icon-forward"></i>
+	</a>
 
 	<a class="btn btn-info song-info pull-right" data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Song', selectedSong().song.id) }">
 		<i class="icon icon-info-sign"></i>
