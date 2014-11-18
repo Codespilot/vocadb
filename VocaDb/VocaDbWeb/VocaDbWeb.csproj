@@ -2386,8 +2386,8 @@
     <Content Include="Views\Event\SeriesDetails.cshtml" />
     <Content Include="Views\Shared\PagedAlbums.cshtml" />
     <Content Include="Views\Shared\PagedSongs.cshtml" />
-    <Content Include="Views\Shared\PVEmbedDynamic.cshtml" />
-    <Content Include="Views\Shared\PVEmbedNND.cshtml" />
+    <Content Include="Views\Shared\PVs\_PVEmbedDynamic.cshtml" />
+    <Content Include="Views\Shared\PVs\PVEmbedNicoIframe.cshtml" />
     <Content Include="Views\Song\SongItem.cshtml" />
     <Content Include="Views\Shared\EntryPictureFileEditRow.cshtml" />
     <Content Include="Views\Shared\Stars.cshtml" />
@@ -2395,7 +2395,7 @@
     <Content Include="Views\Tag\Versions.cshtml" />
     <Content Include="Views\Event\Versions.cshtml" />
     <Content Include="Views\Help\Index.ja.cshtml" />
-    <Content Include="Views\Shared\PVContent.cshtml" />
+    <Content Include="Views\Shared\PVs\_PVContent.cshtml" />
     <Content Include="Views\Ext\EmbedSong.cshtml" />
     <Content Include="Views\User\PagedUsers.cshtml" />
     <Content Include="Views\User\OwnedArtistForUserEditRow.cshtml" />
@@ -2446,7 +2446,7 @@
     <Content Include="Views\SongList\Versions.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_PVContractForEdit.cshtml" />
     <Content Include="Views\SongList\Partials\_PlayList.cshtml" />
-    <Content Include="Views\Shared\PVEmbedDynamicCustom.cshtml" />
+    <Content Include="Views\Shared\PVs\_PVEmbedDynamicCustom.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
