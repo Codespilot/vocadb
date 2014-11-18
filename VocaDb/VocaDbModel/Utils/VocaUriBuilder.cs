@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 
 namespace VocaDb.Model.Utils {
 
@@ -13,6 +14,10 @@ namespace VocaDb.Model.Utils {
 		// Path to static files root, for example http://static.vocadb.net. Possible trailing slash is removed.
 		private static readonly string staticResourceBase = RemoveTrailingSlash(AppConfig.StaticContentHost);
 		private static readonly string staticResourceBaseSSL = RemoveTrailingSlash(AppConfig.StaticContentHostSSL);
+
+		private static bool IsSSL(HttpRequest request) {
+			return request != null && request.Url.Scheme == Uri.UriSchemeHttps;
+		}
 
 		/// <summary>
 		/// Returns an absolute URL when the URL is known to be relative.
@@ -64,6 +69,10 @@ namespace VocaDb.Model.Utils {
 		/// <param name="ssl">SSL URL.</param>
 		public static string HostAddress(bool ssl) {
 			return ssl ? hostAddressSSL : hostAddress;
+		}
+
+		public static string HostAddress() {
+			return HostAddress(IsSSL(HttpContext.Current.Request));
 		}
 
 		public static string MakeSSL(string relative) {

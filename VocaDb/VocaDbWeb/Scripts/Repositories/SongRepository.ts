@@ -63,6 +63,10 @@ module vdb.repositories {
 
 		public pvForSongAndService: (songId: number, pvService: cls.pvs.PVService, callback: (result: string) => void) => void; 
 
+		public pvPlayer = (songId: number, params: PVEmbedParams, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => {
+			this.getJSON("/PVPlayer/" + songId, params, callback);
+		}
+
         public pvPlayerWithRating: (songId: number, callback: (result: dc.SongWithPVPlayerAndVoteContract) => void) => void; 
 
         //public songListsForSong: (songId: number, callback: (result: dc.SongListContract[]) => void) => void;
@@ -125,6 +129,14 @@ module vdb.repositories {
 
         }
 
-    }
+	}
+
+	export interface PVEmbedParams {
+
+		enableScriptAccess?: boolean;
+
+		elementId?: string;
+
+	}
 
 }

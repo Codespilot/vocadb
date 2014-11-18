@@ -953,6 +953,7 @@
     <Compile Include="Models\SharedModels.cs" />
     <Compile Include="Models\Shared\ArchivedObjectVersion.cs" />
     <Compile Include="Models\Shared\PagingData.cs" />
+    <Compile Include="Models\Shared\PVEmbedParams.cs" />
     <Compile Include="Models\Shared\WebLinkDisplay.cs" />
     <Compile Include="Models\SongLists\CreateFromWVR.cs" />
     <Compile Include="Models\SongLists\SongListEdit.cs" />
@@ -1916,6 +1917,7 @@
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\other.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\vdb\functions.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\youtube\youtube.d.ts" />
     <TypeScriptCompile Include="Scripts\User\Details.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistLinkViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Globalization\LocalizedStringWithIdEditViewModel.ts" />
@@ -2444,6 +2446,7 @@
     <Content Include="Views\SongList\Versions.cshtml" />
     <Content Include="Views\Shared\KnockoutPartials\_PVContractForEdit.cshtml" />
     <Content Include="Views\SongList\Partials\_PlayList.cshtml" />
+    <Content Include="Views\Shared\PVEmbedDynamicCustom.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>
