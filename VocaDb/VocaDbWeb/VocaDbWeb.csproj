@@ -2387,7 +2387,7 @@
     <Content Include="Views\Shared\PagedAlbums.cshtml" />
     <Content Include="Views\Shared\PagedSongs.cshtml" />
     <Content Include="Views\Shared\PVs\_PVEmbedDynamic.cshtml" />
-    <Content Include="Views\Shared\PVs\PVEmbedNicoIframe.cshtml" />
+    <Content Include="Views\Shared\PVs\_PVEmbedNicoIFrame.cshtml" />
     <Content Include="Views\Song\SongItem.cshtml" />
     <Content Include="Views\Shared\EntryPictureFileEditRow.cshtml" />
     <Content Include="Views\Shared\Stars.cshtml" />
