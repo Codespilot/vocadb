@@ -20,7 +20,7 @@ namespace VocaDb.Tests.Web.Controllers {
 		[TestMethod]
 		public void PVEmbedNND_NoId() {
 
-			var result = controller.PVEmbedNND();
+			var result = controller.PVEmbedNicoIFrame();
 
 			Assert.IsInstanceOfType(result, typeof(HttpNotFoundResult));
 

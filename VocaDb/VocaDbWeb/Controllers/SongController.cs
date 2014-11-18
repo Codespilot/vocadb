@@ -444,7 +444,7 @@ namespace VocaDb.Web.Controllers
 				return NoId();
 
 			var pv = queries.PVForSong(pvId);
-			return PartialView("PVEmbedDynamic", pv);
+			return PartialView("PVs/_PVEmbedDynamic", pv);
 
 		}
 
@@ -460,17 +460,17 @@ namespace VocaDb.Web.Controllers
 				return NoId();
 
 			var pv = queries.PVForSongAndService(songId, service.Value);
-			return PartialView("PVEmbedDynamic", pv);
+			return PartialView("PVs/_PVEmbedDynamic", pv);
 
 		}
 
-		public ActionResult PVEmbedNND(int pvId = invalidId) {
+		public ActionResult PVEmbedNicoIFrame(int pvId = invalidId) {
 
 		    if (pvId == invalidId)
 		        return NoId();
 
 			var pv = queries.PVForSong(pvId);
-			return PartialView("PVEmbedNND", pv);
+			return PartialView("PVs/_PVEmbedNicoIFrame", pv);
 
 		}
 
@@ -488,7 +488,7 @@ namespace VocaDb.Web.Controllers
 				return new EmptyResult();
 
 			var embedParams = new PVEmbedParams { PV = pv, EnableScriptAccess = enableScriptAccess, ElementId = elementId };
-			var view = RenderPartialViewToString("PVEmbedDynamicCustom", embedParams);
+			var view = RenderPartialViewToString("PVs/_PVEmbedDynamicCustom", embedParams);
 
 			return LowercaseJson(new SongWithPVPlayerAndVoteContract { PlayerHtml = view, PVService = pv.Service });
 
@@ -508,7 +508,7 @@ namespace VocaDb.Web.Controllers
 			if (pv == null)
 				return new EmptyResult();
 
-			var view = RenderPartialViewToString("PVEmbedDynamic", pv);
+			var view = RenderPartialViewToString("PVs/_PVEmbedDynamic", pv);
 
 			return LowercaseJson(new SongWithPVPlayerAndVoteContract { Song = song, PlayerHtml = view, PVService = pv.Service });
 
