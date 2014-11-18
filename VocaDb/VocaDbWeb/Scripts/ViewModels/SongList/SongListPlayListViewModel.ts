@@ -1,12 +1,14 @@
-﻿
+﻿/// <reference path="../../typings/youtube/youtube.d.ts" />
+
 module vdb.viewModels.songList {
-	
+
+	import cls = vdb.models;
 	import dc = vdb.dataContracts;
 
 	export class SongListPlayListViewModel {
 
 		constructor(
-			urlMapper: UrlMapper,
+			private urlMapper: UrlMapper,
 			private songListRepo: rep.SongListRepository,
 			private songRepo: rep.SongRepository,
 			private userRepo: rep.UserRepository, 
@@ -18,7 +20,20 @@ module vdb.viewModels.songList {
 			});
 
 			this.selectedSong.subscribe(song => {
-				songRepo.pvPlayerWithRating(song.song.id, result => this.playerHtml(result.playerHtml));
+
+				if (song == null)
+					return;
+
+				if (this.autoplay()) {
+					this.loadYoutubeVideo();
+				} else {
+					this.autoPlayPlayer = null;
+					songRepo.pvPlayer(song.song.id, { elementId: "pv-player", enableScriptAccess: true }, result => {
+						this.playerService = cls.pvs.PVService[result.pvService];
+						this.playerHtml(result.playerHtml);
+					});					
+				}
+
 			});
 
 			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
@@ -32,9 +47,67 @@ module vdb.viewModels.songList {
 				}
 			});
 
+			this.autoplay.subscribe(autoplay => {
+
+				this.updateResults(true, () => {
+					
+					if (autoplay && !this.autoPlayPlayer) {
+
+						if (this.playerService != cls.pvs.PVService.Youtube) {
+							$("#pv-player-wrapper").empty();
+							$("#pv-player-wrapper").append($("<div id='pv-player' />"));
+						}
+
+						// Youtube player object can only be created once per iframe, so reuse the existing player object if already created, otherwise create the player object.
+						this.autoPlayPlayer = new YT.Player("pv-player", {
+							events: {
+								'onStateChange': (event: YT.EventArgs) => {
+
+									// This will still be fired once if the user disabled autoplay mode.
+									if (this.autoplay() && event.data == YT.PlayerState.ENDED) {
+										this.nextSong();
+									}
+
+								},
+								'onReady': () => {
+
+									// If Youtube video wasn't playing, either load the Youtube video, or reset song if the current song doesn't have a Youtube PV.
+									if (this.playerService != cls.pvs.PVService.Youtube) {
+
+										if (this.selectedSong().song.pvServices.split(",").indexOf(cls.pvs.PVService[cls.pvs.PVService.Youtube]) > 0) {
+											this.loadYoutubeVideo();
+										} else {
+											this.selectedSong(this.page()[0]);
+										}
+
+									}
+
+								}
+							}
+						});
+
+					}
+
+				});
+
+			});
+
 		}
 
+		public autoplay = ko.observable(false);
+		private autoPlayPlayer: YT.Player = null;		
 		public formatLength = (length: number) => vdb.helpers.DateTimeHelper.formatFromSeconds(length);
+
+		private getSongIndex = (song: dc.songs.SongInListContract) => {
+			
+			for (var i = 0; i < this.page().length; ++i) {
+				if (this.page()[i].song.id == song.song.id)
+					return i;
+			}
+
+			return -1;
+
+		}
 
 		private hasMoreSongs: KnockoutComputed<boolean>;
 
@@ -50,9 +123,23 @@ module vdb.viewModels.songList {
 
 		}
 
+		private loadYoutubeVideo = () => {
+
+			if (this.selectedSong() == null)
+				return;
+
+			$.getJSON(this.urlMapper.mapRelative("/api/songs/" + this.selectedSong().song.id + "/pvs"), { service: "Youtube" }, pvId => {
+
+				if (this.autoPlayPlayer)
+					this.autoPlayPlayer.loadVideoById(pvId);
+
+			});
+				
+		}
+
 		public nextSong = () => {
 
-			var index = this.page().indexOf(this.selectedSong());
+			var index = this.getSongIndex(this.selectedSong());
 
 			if (index + 1 < this.songsLoaded()) {
 				this.selectedSong(this.page()[index + 1]);			
@@ -72,6 +159,7 @@ module vdb.viewModels.songList {
 		}
 
 		public playerHtml = ko.observable<string>(null);
+		private playerService: cls.pvs.PVService = null;
 
 		public selectedSong = ko.observable<dc.songs.SongInListContract>(null);
 
@@ -102,8 +190,9 @@ module vdb.viewModels.songList {
 			}
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
+			var services = this.autoplay() ? "Youtube" : "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro";
 
-			this.songListRepo.getSongs(this.listId, "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro", pagingProperties, this.languageSelection,
+			this.songListRepo.getSongs(this.listId, services, pagingProperties, this.languageSelection,
 				(result: dc.PartialFindResultContract<dc.songs.SongInListContract>) => {
 
 					this.pauseNotifications = false;

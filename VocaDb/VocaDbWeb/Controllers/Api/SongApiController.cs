@@ -171,6 +171,15 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		[Route("{songId:int}/pvs")]
+		[ApiExplorerSettings(IgnoreApi=true)]
+		public string GetPVId(int songId, PVService service) {
+			
+			var pv = queries.PVForSongAndService(songId, service);
+			return pv.PVId;
+
+		}
+
 	}
 
 }

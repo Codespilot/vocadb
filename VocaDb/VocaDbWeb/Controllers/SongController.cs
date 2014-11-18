@@ -24,6 +24,7 @@ using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
 using VocaDb.Model.DataContracts;
+using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.Song;
 using System;
 using VocaDb.Web.Helpers;
@@ -470,6 +471,26 @@ namespace VocaDb.Web.Controllers
 
 			var pv = queries.PVForSong(pvId);
 			return PartialView("PVEmbedNND", pv);
+
+		}
+
+		/// <summary>
+		/// Returns a PV player with song rating by song Id. Primary PV will be chosen.
+		/// </summary>
+		public ActionResult PVPlayer(int id = invalidId, bool enableScriptAccess = false, string elementId = null) {
+
+			if (id == invalidId)
+				return NoId();
+
+			var pv = queries.PrimaryPVForSong(id);
+
+			if (pv == null)
+				return new EmptyResult();
+
+			var embedParams = new PVEmbedParams { PV = pv, EnableScriptAccess = enableScriptAccess, ElementId = elementId };
+			var view = RenderPartialViewToString("PVEmbedDynamicCustom", embedParams);
+
+			return LowercaseJson(new SongWithPVPlayerAndVoteContract { PlayerHtml = view, PVService = pv.Service });
 
 		}
 
