@@ -37,7 +37,7 @@ module vdb.helpers {
 		static isProducerRoleType(artistType: cls.artists.ArtistType, roles: string[], isAnimation: boolean) {
 			
 			if (ArtistHelper.useDefaultRoles(artistType, roles)) {
-				return ArtistHelper.isProducerType(artistType);
+				return ArtistHelper.isProducerType(artistType, isAnimation);
 			}
 
 			var res =
@@ -59,9 +59,12 @@ module vdb.helpers {
 		}
 
 		// Whether an artist type with default roles is to be considered a producer
-		static isProducerType(artistType: cls.artists.ArtistType) {
+		static isProducerType(artistType: cls.artists.ArtistType, isAnimation: boolean) {
 
-			return artistType == ArtistType.Producer || artistType == ArtistType.Circle || artistType == ArtistType.Band;
+			return (artistType == ArtistType.Producer
+				|| artistType == ArtistType.Circle
+				|| artistType == ArtistType.Band
+				|| (artistType == ArtistType.Animator && isAnimation));
 
 		}
 
