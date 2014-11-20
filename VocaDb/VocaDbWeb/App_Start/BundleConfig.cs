@@ -180,10 +180,12 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/DateTimeHelper.js",
+				"~/Scripts/Helpers/PVHelper.js",
 				"~/Scripts/Repositories/SongListRepository.js",
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
+				"~/Scripts/ViewModels/PVs/PVPlayerViewModel.js",
 				"~/Scripts/ViewModels/SongList/SongListViewModel.js",
 				"~/Scripts/ViewModels/SongList/SongListPlayListViewModel.js"
 			));

@@ -12,28 +12,21 @@ module vdb.viewModels.songList {
 			private songListRepo: rep.SongListRepository,
 			private songRepo: rep.SongRepository,
 			private userRepo: rep.UserRepository, 
+			private pvPlayerViewModel: pvs.PVPlayerViewModel,
 			private languageSelection: string, 
 			private listId: number) {
 
+			pvPlayerViewModel.nextSong = this.nextSong;
+			pvPlayerViewModel.resetSong = () => {
+
+				this.pvPlayerViewModel.selectedSong(_.find(this.page(), song => pvPlayerViewModel.songIsValid(song)));
+
+			}
+
+			pvPlayerViewModel.autoplay.subscribe(() => this.updateResultsWithTotalCount());
+
 			this.hasMoreSongs = ko.computed(() => {
 				return this.page().length < this.paging.totalItems();
-			});
-
-			this.selectedSong.subscribe(song => {
-
-				if (song == null)
-					return;
-
-				if (this.autoplay()) {
-					this.loadYoutubeVideo();
-				} else {
-					this.autoPlayPlayer = null;
-					songRepo.pvPlayer(song.song.id, { elementId: "pv-player", enableScriptAccess: true }, result => {
-						this.playerService = cls.pvs.PVService[result.pvService];
-						this.playerHtml(result.playerHtml);
-					});					
-				}
-
 			});
 
 			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
@@ -47,58 +40,11 @@ module vdb.viewModels.songList {
 				}
 			});
 
-			this.autoplay.subscribe(autoplay => {
-
-				this.updateResults(true, () => {
-					
-					if (autoplay && !this.autoPlayPlayer) {
-
-						if (this.playerService != cls.pvs.PVService.Youtube) {
-							$("#pv-player-wrapper").empty();
-							$("#pv-player-wrapper").append($("<div id='pv-player' />"));
-						}
-
-						// Youtube player object can only be created once per iframe, so reuse the existing player object if already created, otherwise create the player object.
-						this.autoPlayPlayer = new YT.Player("pv-player", {
-							events: {
-								'onStateChange': (event: YT.EventArgs) => {
-
-									// This will still be fired once if the user disabled autoplay mode.
-									if (this.autoplay() && event.data == YT.PlayerState.ENDED) {
-										this.nextSong();
-									}
-
-								},
-								'onReady': () => {
-
-									// If Youtube video wasn't playing, either load the Youtube video, or reset song if the current song doesn't have a Youtube PV.
-									if (this.playerService != cls.pvs.PVService.Youtube) {
-
-										if (this.selectedSong().song.pvServices.split(",").indexOf(cls.pvs.PVService[cls.pvs.PVService.Youtube]) > 0) {
-											this.loadYoutubeVideo();
-										} else {
-											this.selectedSong(this.page()[0]);
-										}
-
-									}
-
-								}
-							}
-						});
-
-					}
-
-				});
-
-			});
-
 		}
 
-		public autoplay = ko.observable(false);
-		private autoPlayPlayer: YT.Player = null;		
 		public formatLength = (length: number) => vdb.helpers.DateTimeHelper.formatFromSeconds(length);
 
-		private getSongIndex = (song: dc.songs.SongInListContract) => {
+		private getSongIndex = (song: viewModels.pvs.IPVPlayerSong) => {
 			
 			for (var i = 0; i < this.page().length; ++i) {
 				if (this.page()[i].song.id == song.song.id)
@@ -123,51 +69,31 @@ module vdb.viewModels.songList {
 
 		}
 
-		private loadYoutubeVideo = () => {
-
-			if (this.selectedSong() == null)
-				return;
-
-			$.getJSON(this.urlMapper.mapRelative("/api/songs/" + this.selectedSong().song.id + "/pvs"), { service: "Youtube" }, pvId => {
-
-				if (this.autoPlayPlayer)
-					this.autoPlayPlayer.loadVideoById(pvId);
-
-			});
-				
-		}
-
 		public nextSong = () => {
 
-			var index = this.getSongIndex(this.selectedSong());
+			var index = this.getSongIndex(this.pvPlayerViewModel.selectedSong());
 
 			if (index + 1 < this.songsLoaded()) {
-				this.selectedSong(this.page()[index + 1]);			
+				this.pvPlayerViewModel.selectedSong(this.page()[index + 1]);			
 			} else {
 
 				if (this.hasMoreSongs()) {
 					this.paging.nextPage();
 					this.updateResults(false, () => {
-						this.selectedSong(this.page()[index + 1]);
+						this.pvPlayerViewModel.selectedSong(this.page()[index + 1]);
 					});					
 				} else {
-					this.selectedSong(this.page()[0]);					
+					this.pvPlayerViewModel.selectedSong(this.page()[0]);					
 				}
 
 			}
 			
 		}
 
-		public playerHtml = ko.observable<string>(null);
-		private playerService: cls.pvs.PVService = null;
-
-		public selectedSong = ko.observable<dc.songs.SongInListContract>(null);
-
 		public loading = ko.observable(true); // Currently loading for data
 		public page = ko.observableArray<dc.songs.SongInListContract>([]); // Current page of items
 		public paging = new ServerSidePagingViewModel(100); // Paging view model
 		public pauseNotifications = false;
-		public playListViewModel: SongListPlayListViewModel;
 		public pvServiceIcons: vdb.models.PVServiceIcons;
 
 		public songsLoaded = ko.computed(() => this.page().length);
@@ -190,7 +116,7 @@ module vdb.viewModels.songList {
 			}
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
-			var services = this.autoplay() ? "Youtube" : "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro";
+			var services = this.pvPlayerViewModel.autoplay() ? "Youtube" : "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro";
 
 			this.songListRepo.getSongs(this.listId, services, pagingProperties, this.languageSelection,
 				(result: dc.PartialFindResultContract<dc.songs.SongInListContract>) => {
@@ -201,13 +127,14 @@ module vdb.viewModels.songList {
 						this.paging.totalItems(result.totalCount);
 
 					_.each(result.items, item => {
+						item.song.pvServicesArray = vdb.helpers.PVHelper.pvServicesArrayFromString(item.song.pvServices);
 						this.page.push(item);
 					});
 					
 					this.loading(false);
 
-					if (result.items && result.items.length && !this.selectedSong())
-						this.selectedSong(result.items[0]);
+					if (result.items && result.items.length && !this.pvPlayerViewModel.selectedSong())
+						this.pvPlayerViewModel.selectedSong(result.items[0]);
 
 					if (callback)
 						callback();

@@ -1967,6 +1967,7 @@
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVListEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVPlayerViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\AlbumSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\ArtistSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchCategoryBaseViewModel.ts" />
