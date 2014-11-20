@@ -1,31 +1,33 @@
 ﻿
-<div class="songlist-playlist-player" data-bind="if: selectedSong() && selectedSong().song">
-	
-	<h4>
-		<span data-bind="text: selectedSong().song.localizedName"></span>
-		<span class="songlist-playlist-player-artists" data-bind="text: selectedSong().song.artistString"></span>
-	</h4>
-	
-	<div id="pv-player-wrapper" data-bind="html: playerHtml"></div>
-	
-	<a class="btn" data-bind="click: nextSong" title="Next song">
-		<i class="icon-step-forward noMargin"></i>
-	</a>
-	
-	<a class="btn" data-bind="click: function() { autoplay(!autoplay()); }, css: { active: autoplay }">
-		Autoplay (Only Youtube)
-	</a>
+<div data-bind="with: pvPlayerViewModel" class="songlist-playlist-player">
+	<div data-bind="if: selectedSong() && selectedSong().song">
 
-	<a class="btn btn-info song-info pull-right" data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Song', selectedSong().song.id) }">
-		<i class="icon icon-info-sign"></i>
-		@ViewRes.Home.IndexStrings.ViewSongInfo
-	</a>
+		<h4>
+			<span data-bind="text: selectedSong().song.localizedName"></span>
+			<span class="songlist-playlist-player-artists" data-bind="text: selectedSong().song.artistString"></span>
+		</h4>
+
+		<div id="pv-player-wrapper" data-bind="html: playerHtml"></div>
+
+		<a class="btn" data-bind="click: $parent.nextSong" title="Next song">
+			<i class="icon-step-forward noMargin"></i>
+		</a>
+
+		<a class="btn" data-bind="click: function() { autoplay(!autoplay()); }, css: { active: autoplay }">
+			Autoplay (Only Youtube)
+		</a>
+
+		<a class="btn btn-info song-info pull-right" data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Song', selectedSong().song.id) }">
+			<i class="icon icon-info-sign"></i>
+			@ViewRes.Home.IndexStrings.ViewSongInfo
+		</a>
+	</div>
 </div>
 
 <div class="songlist-playlist-songs-wrapper">
 	<table class="table table-condensed songlist-playlist-songs">
 		<tbody data-bind="foreach: page">
-			<tr data-bind="css: { active: ($parent.selectedSong() && $parent.selectedSong().song.id == song.id) }, click: $parent.selectedSong">
+			<tr data-bind="css: { active: ($parent.pvPlayerViewModel.selectedSong() && $parent.pvPlayerViewModel.selectedSong().song.id == song.id) }, click: $parent.pvPlayerViewModel.selectedSong">
 				<td style="width: 30px;">
 					<a data-bind="visible: song.thumbUrl, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#">
 						<img data-bind="attr: { src: song.thumbUrl }" title="Cover picture" class="coverPicIcon img-rounded" />
@@ -46,8 +48,8 @@
 					@KnockoutHelpers.DraftIcon("status")
 				</td>
 				@*<td>
-						<small class="extraInfo" data-bind="text: song.artistString"></small>
-					</td>*@
+				<small class="extraInfo" data-bind="text: song.artistString"></small>
+			</td>*@
 				<td>
 					<span data-bind="visible: song.lengthSeconds, text: $parent.formatLength(song.lengthSeconds)"></span>
 				</td>

@@ -10,9 +10,12 @@ module vdb.viewModels.songList {
 			urlMapper: UrlMapper,
 			private songListRepo: rep.SongListRepository,
 			private songRepo: rep.SongRepository, private userRepo: rep.UserRepository, 
-			private languageSelection: string, private listId: number) {
+			private languageSelection: string,
+			private listId: number,
+			pvPlayerWrapperElement: HTMLElement) {
 
-			this.playlistViewModel = new SongListPlayListViewModel(urlMapper, songListRepo, songRepo, userRepo, languageSelection, listId);
+			this.pvPlayerViewModel = new pvs.PVPlayerViewModel(urlMapper, songRepo, 'pv-player', pvPlayerWrapperElement);
+			this.playlistViewModel = new SongListPlayListViewModel(urlMapper, songListRepo, songRepo, userRepo, this.pvPlayerViewModel, languageSelection, listId);
 			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
 
 			this.paging.page.subscribe(this.updateResultsWithoutTotalCount);
@@ -33,6 +36,7 @@ module vdb.viewModels.songList {
 		public pauseNotifications = false;
 		public playlistMode = ko.observable(false);
 		public playlistViewModel: SongListPlayListViewModel;
+		public pvPlayerViewModel: pvs.PVPlayerViewModel;
 		public pvServiceIcons: vdb.models.PVServiceIcons;
 
 		public updateResultsWithTotalCount = () => this.updateResults(true);

@@ -77,8 +77,9 @@
 		var userRepo = new vdb.repositories.UserRepository(urlMapper);
 		var songRepo = new vdb.repositories.SongRepository(rootPath);
 		var songListRepo = new vdb.repositories.SongListRepository(urlMapper);
+		var pvPlayerElem = $("#pv-player-wrapper")[0];
 
-		var vm = new vdb.viewModels.songList.SongListViewModel(urlMapper, songListRepo, songRepo, userRepo, languageSelection, listId);
+		var vm = new vdb.viewModels.songList.SongListViewModel(urlMapper, songListRepo, songRepo, userRepo, languageSelection, listId, pvPlayerElem);
 		ko.applyBindings(vm);
 
 	});
