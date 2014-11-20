@@ -81,7 +81,7 @@ namespace VocaDb.Web.Controllers
 
 			var song = Services.Songs.GetSongWithPVAndVote(songId);
 
-			return PartialView(song);
+			return PartialView("PVs/_PVContent", song);
 
 		}
 
