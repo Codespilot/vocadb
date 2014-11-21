@@ -490,7 +490,9 @@ namespace VocaDb.Web.Controllers
 			var embedParams = new PVEmbedParams { PV = pv, EnableScriptAccess = enableScriptAccess, ElementId = elementId };
 			var view = RenderPartialViewToString("PVs/_PVEmbedDynamicCustom", embedParams);
 
-			return LowercaseJson(new SongWithPVPlayerAndVoteContract { PlayerHtml = view, PVService = pv.Service });
+			return LowercaseJson(new SongWithPVPlayerAndVoteContract {
+				PlayerHtml = view, PVId = pv.PVId, PVService = pv.Service
+			});
 
 		}
 

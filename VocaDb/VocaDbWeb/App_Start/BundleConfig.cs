@@ -175,6 +175,7 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/SongList/Details").Include(
+				"~/Scripts/soundcloud-api.js",				
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
 				"~/Scripts/Models/PVServiceIcons.js",				
@@ -185,6 +186,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/ServerSidePagingViewModel.js",
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
 				"~/Scripts/ViewModels/Song/SongWithPreviewViewModel.js",
+				"~/Scripts/ViewModels/PVs/PVPlayerYoutube.js",
+				"~/Scripts/ViewModels/PVs/PVPlayerSoundCloud.js",
 				"~/Scripts/ViewModels/PVs/PVPlayerViewModel.js",
 				"~/Scripts/ViewModels/SongList/SongListViewModel.js",
 				"~/Scripts/ViewModels/SongList/SongListPlayListViewModel.js"

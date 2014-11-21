@@ -1916,6 +1916,7 @@
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\moment\moment.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\other.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\soundcloud\soundcloud.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\vdb\functions.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\youtube\youtube.d.ts" />
     <TypeScriptCompile Include="Scripts\User\Details.ts" />
@@ -1967,7 +1968,9 @@
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVListEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVPlayerSoundCloud.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVPlayerViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\PVs\PVPlayerYoutube.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\AlbumSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\ArtistSearchViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Search\SearchCategoryBaseViewModel.ts" />
@@ -2008,6 +2011,7 @@
     <Content Include="Scripts\Song\Edit.js" />
     <Content Include="Scripts\Song\Index.js" />
     <Content Include="Scripts\Song\Merge.js" />
+    <Content Include="Scripts\soundcloud-api.js" />
     <Content Include="Scripts\Tag\Edit.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
     <Content Include="Scripts\ui\i18n\jquery.ui.datepicker-af.js" />
