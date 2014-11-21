@@ -178,6 +178,10 @@ namespace VocaDb.Tests.TestSupport {
 			return querySource.Query<T>();
 		}
 
+		public IQueryable<T2> Query<T2>() {
+			return OfType<T2>().Query();
+		}
+
 		public void Save(T obj) {
 
 			if (IsEntityWithId) {

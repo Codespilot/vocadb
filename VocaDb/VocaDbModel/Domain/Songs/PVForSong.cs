@@ -4,7 +4,7 @@ using VocaDb.Model.Domain.PVs;
 
 namespace VocaDb.Model.Domain.Songs {
 
-	public class PVForSong : PV, IPVWithThumbnail {
+	public class PVForSong : PV, IPVWithThumbnail, ISongLink {
 
 		private Song song;
 		private string thumbUrl;

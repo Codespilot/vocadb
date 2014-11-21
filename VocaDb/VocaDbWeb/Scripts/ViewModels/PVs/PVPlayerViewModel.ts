@@ -8,6 +8,8 @@ module vdb.viewModels.pvs {
 
 	export class PVPlayerViewModel {
 		
+		public static autoplayPVServicesString = "SoundCloud, Youtube";
+
 		constructor(
 			private urlMapper: UrlMapper,
 			private songRepo: rep.SongRepository,
@@ -46,10 +48,10 @@ module vdb.viewModels.pvs {
 						this.currentPlayer = null;						
 					}
 
-					// TODO: if autoplay mode is enabled, need to load a player that supports autoplay AND that has autoplay enabled
+					var services = this.autoplay() ? vdb.viewModels.pvs.PVPlayerViewModel.autoplayPVServicesString : null;
 
 					// Load new player from server and attach it
-					songRepo.pvPlayer(song.song.id, { elementId: playerElementId, enableScriptAccess: true }, result => {
+					songRepo.pvPlayer(song.song.id, { elementId: playerElementId, enableScriptAccess: true, pvServices: services }, result => {
 
 						this.playerHtml(result.playerHtml);
 						this.playerService = serv[result.pvService];

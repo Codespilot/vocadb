@@ -44,6 +44,10 @@ namespace VocaDb.Model.Service.Repositories {
 			return Session.Query<T>();
 		}
 
+		public IQueryable<T2> Query<T2>() {
+			return OfType<T2>().Query();
+		}
+
 		public void Save(T obj) {
 			Session.Save(obj);
 		}
