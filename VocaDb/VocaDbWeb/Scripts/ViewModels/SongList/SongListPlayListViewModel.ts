@@ -116,7 +116,7 @@ module vdb.viewModels.songList {
 			}
 
 			var pagingProperties = this.paging.getPagingProperties(clearResults);
-			var services = this.pvPlayerViewModel.autoplay() ? "Youtube" : "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro";
+			var services = this.pvPlayerViewModel.autoplay() ? "Youtube,SoundCloud" : "Youtube,SoundCloud,NicoNicoDouga,Bilibili,Vimeo,Piapro";
 
 			this.songListRepo.getSongs(this.listId, services, pagingProperties, this.languageSelection,
 				(result: dc.PartialFindResultContract<dc.songs.SongInListContract>) => {

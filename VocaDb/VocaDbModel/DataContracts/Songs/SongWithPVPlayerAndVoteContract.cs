@@ -12,6 +12,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public string PlayerHtml { get; set; }
 
 		[DataMember]
+		public string PVId { get; set; }
+
+		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]
 		public PVService PVService { get; set; }
 
