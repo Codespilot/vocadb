@@ -136,6 +136,7 @@
     <Compile Include="TestSupport\FakeArtistRepository.cs" />
     <Compile Include="TestSupport\FakeEventRepository.cs" />
     <Compile Include="TestSupport\FakeLanguageDetector.cs" />
+    <Compile Include="TestSupport\FakeObjectCache.cs" />
     <Compile Include="TestSupport\FakePVParser.cs" />
     <Compile Include="TestSupport\FakeSongRepository.cs" />
     <Compile Include="TestSupport\FakeUserIconFactory.cs" />

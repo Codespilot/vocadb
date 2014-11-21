@@ -446,11 +446,11 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public PVContract PrimaryPVForSong(int songId) {
+		public PVContract PrimaryPVForSong(int songId, PVServices? pvServices) {
 
 			return HandleQuery(ctx => {
 				
-				var pvs = ctx.Load(songId).PVs;
+				var pvs = ctx.Load(songId).PVs.Where(pv => pvServices == null || (pvServices.Value & (PVServices)pv.Service) == (PVServices)pv.Service);
 				var primaryPv = VideoServiceHelper.PrimaryPV(pvs, PermissionContext.IsLoggedIn ? (PVService?)PermissionContext.LoggedUser.PreferredVideoService : null);
 
 				return primaryPv != null ? new PVContract(primaryPv) : null;

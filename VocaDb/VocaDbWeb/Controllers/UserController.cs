@@ -287,7 +287,7 @@ namespace VocaDb.Web.Controllers
 	        if (id == invalidId)
 		        return NoId();
 
-			var model = Service.GetUserDetails(id);
+			var model = Data.GetUserDetails(id);
 			return View(model);
 
 		}
@@ -304,7 +304,7 @@ namespace VocaDb.Web.Controllers
 
 		public new ActionResult Profile(string id) {
 
-			var model = Service.GetUserByNameNonSensitive(id);
+			var model = Data.GetUserByNameNonSensitive(id);
 
 			if (model == null)
 				return HttpNotFound();

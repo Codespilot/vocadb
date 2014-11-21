@@ -61,6 +61,12 @@ namespace VocaDb.Model.Service.Repositories {
 		IQueryable<T> Query();
 
 		/// <summary>
+		/// LINQ query against the repository.
+		/// </summary>
+		/// <returns>Queryable interface. Cannot be null.</returns>
+		IQueryable<T2> Query<T2>();
+
+		/// <summary>
 		/// Persists a new entity in the repository.
 		/// </summary>
 		/// <param name="obj">Entity to be saved. Cannot be null.</param>

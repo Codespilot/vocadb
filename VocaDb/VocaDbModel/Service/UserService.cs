@@ -3,14 +3,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.Serialization;
 using System.Threading;
-using System.Web;
-using NHibernate.Criterion;
 using NLog;
-using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Songs;
-using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.Domain.Globalization;
-using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.BrandableStrings;
 using VocaDb.Model.Service.Exceptions;
 using VocaDb.Model.Service.Paging;
@@ -23,34 +17,16 @@ using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Songs;
-using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Service.Search.User;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.Domain.Versioning;
 using VocaDb.Model.DataContracts.Activityfeed;
-using VocaDb.Model.DataContracts.Artists;
 
 namespace VocaDb.Model.Service {
 
 	public class UserService : ServiceBase {
 
-		class UserStats {
-			
-			public int AlbumCollectionCount { get; set;}
-
-			public int ArtistCount { get; set; }
-
-			public int CommentCount { get; set; }
-
-			public int FavoriteSongCount { get; set; }
-
-			public int OwnedAlbumCount { get; set; }
-
-			public int RatedAlbumCount { get; set;}
-
-		}
 
 // ReSharper disable UnusedMember.Local
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
@@ -58,98 +34,6 @@ namespace VocaDb.Model.Service {
 
 		private readonly BrandableStringsManager brandableStringsManager;
 
-		private UserDetailsContract GetUserDetails(ISession session, User user) {
-
-			var details = new UserDetailsContract(user, PermissionContext);
-
-			var stats = session.Query<User>().Where(u => u.Id == user.Id).Select(u => new UserStats {
-				AlbumCollectionCount = u.AllAlbums.Count(a => !a.Album.Deleted),
-				ArtistCount = u.AllArtists.Count(a => !a.Artist.Deleted),
-				FavoriteSongCount = u.FavoriteSongs.Count(c => !c.Song.Deleted),
-				OwnedAlbumCount = u.AllAlbums.Count(a => !a.Album.Deleted && a.PurchaseStatus == PurchaseStatus.Owned),
-				RatedAlbumCount = u.AllAlbums.Count(a => !a.Album.Deleted && a.Rating != 0),
-			}).First();
-
-			details.AlbumCollectionCount = stats.AlbumCollectionCount;
-			details.ArtistCount = stats.ArtistCount;
-			details.FavoriteSongCount = stats.FavoriteSongCount;
-
-			details.FavoriteAlbums = session.Query<AlbumForUser>()
-				.Where(c => c.User.Id == user.Id && !c.Album.Deleted && c.Rating > 3)
-				.OrderByDescending(c => c.Rating)
-				.ThenByDescending(c => c.Id)
-				.Select(a => a.Album)
-				.Take(7)
-				.ToArray()
-				.Select(c => new AlbumContract(c, LanguagePreference))
-				.ToArray();
-
-			details.EditCount
-				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user)
-				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user)
-				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user);
-
-			details.CommentCount
-				= session.Query<AlbumComment>().Count(c => c.Author.Id == user.Id)
-				+ session.Query<ArtistComment>().Count(c => c.Author.Id == user.Id)
-				+ session.Query<SongComment>().Count(c => c.Author.Id == user.Id);
-
-			details.FavoriteTags = session.Query<SongTagUsage>()
-				.Where(c => c.Song.UserFavorites.Any(f => f.User.Id == user.Id) && c.Tag.CategoryName != "Lyrics" && c.Tag.CategoryName != "Distribution")
-				.GroupBy(t => t.Tag.Name)
-				.OrderByDescending(t => t.Count())
-				.Select(t => t.Key)
-				.Take(8)
-				.ToArray();
-
-			details.FollowedArtists = session.Query<ArtistForUser>()
-				.Where(c => c.User.Id == user.Id && !c.Artist.Deleted)
-				.OrderByDescending(a => a.Id)
-				.Select(c => c.Artist)
-				.Take(6)
-				.ToArray()
-				.Select(c => new ArtistContract(c, LanguagePreference))
-				.ToArray();
-
-			details.LatestComments = session.Query<UserComment>()
-				.Where(c => c.User == user).OrderByDescending(c => c.Created).Take(3)
-				.ToArray()
-				.Select(c => new CommentContract(c)).ToArray();
-
-			details.LatestRatedSongs = session.Query<FavoriteSongForUser>()
-				.Where(c => c.User.Id == user.Id && !c.Song.Deleted)
-				.OrderByDescending(c => c.Id)
-				.Select(c => c.Song)
-				.Take(6)
-				.ToArray()
-				.Select(c => new SongContract(c, LanguagePreference))
-				.ToArray();
-
-			// This could be mapped on the user side and queried together with stats.
-			details.SubmitCount
-				= session.Query<ArchivedAlbumVersion>().Count(c => c.Author == user && c.Version == 0)
-				+ session.Query<ArchivedArtistVersion>().Count(c => c.Author == user && c.Version == 0)
-				+ session.Query<ArchivedSongVersion>().Count(c => c.Author == user && c.Version == 0);
-
-			details.TagVotes
-				= session.Query<TagVote>().Count(t => t.User == user);
-
-			details.Power = UserHelper.GetPower(details, stats.OwnedAlbumCount, stats.RatedAlbumCount);
-			details.Level = UserHelper.GetLevel(details.Power);
-
-			if (user.Active && user.GroupId >= UserGroupId.Regular && user.Equals(PermissionContext.LoggedUser) && !user.AllOwnedArtists.Any()) {
-				
-				var producerTypes = new[] { ArtistType.Producer, ArtistType.Animator, ArtistType.Illustrator };
-				details.PossibleProducerAccount = session.Query<ArtistName>().Any(a => !a.Artist.Deleted 
-					&& producerTypes.Contains(a.Artist.ArtistType) 
-					&& a.Value == user.Name 
-					&& !a.Artist.OwnerUsers.Any());
-
-			}
-
-			return details;
-
-		}
 
 		/*private bool IsPoisoned(ISession session, string lcUserName) {
 
@@ -454,12 +338,6 @@ namespace VocaDb.Model.Service {
 
 		}
 
-		public UserDetailsContract GetUserDetails(int id) {
-
-			return HandleQuery(session => GetUserDetails(session, session.Load<User>(id)));
-
-		}
-
 		public UserForMySettingsContract GetUserForMySettings(int id) {
 
 			return HandleQuery(session => new UserForMySettingsContract(session.Load<User>(id)));
@@ -488,26 +366,6 @@ namespace VocaDb.Model.Service {
 
 				return contract;
 
-			});
-
-		}
-
-		public UserDetailsContract GetUserByNameNonSensitive(string name) {
-
-			if (string.IsNullOrEmpty(name))
-				return null;
-
-			return HandleQuery(session => {
-
-				var user = session
-					.Query<User>()
-					.FirstOrDefault(u => u.Name == name);
-
-				if (user == null)
-					return null;
-
-				return GetUserDetails(session, user);
-				
 			});
 
 		}

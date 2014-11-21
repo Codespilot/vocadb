@@ -1,4 +1,5 @@
-﻿using VocaDb.Model.Domain;
+﻿using System.Linq;
+using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Helpers;

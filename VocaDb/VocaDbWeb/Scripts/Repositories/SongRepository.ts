@@ -137,6 +137,8 @@ module vdb.repositories {
 
 		elementId?: string;
 
+		pvServices?: string;
+
 	}
 
 }

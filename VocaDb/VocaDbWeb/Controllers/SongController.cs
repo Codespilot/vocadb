@@ -477,12 +477,13 @@ namespace VocaDb.Web.Controllers
 		/// <summary>
 		/// Returns a PV player with song rating by song Id. Primary PV will be chosen.
 		/// </summary>
-		public ActionResult PVPlayer(int id = invalidId, bool enableScriptAccess = false, string elementId = null) {
+		public ActionResult PVPlayer(int id = invalidId, bool enableScriptAccess = false, string elementId = null,
+			PVServices? pvServices = null) {
 
 			if (id == invalidId)
 				return NoId();
 
-			var pv = queries.PrimaryPVForSong(id);
+			var pv = queries.PrimaryPVForSong(id, pvServices);
 
 			if (pv == null)
 				return new EmptyResult();
