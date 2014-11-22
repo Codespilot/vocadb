@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Caching;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -30,30 +31,7 @@ namespace VocaDb.Model.Service.VideoServices {
 	public static class NicoHelper {
 
 		private static readonly Logger log = LogManager.GetCurrentClassLogger();
-
-		private static readonly Dictionary<string, string> tagMapping = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {
-			{ "ミクビエント", "ambient" },
-			{ "オルタナティブミック", "alternative" },
-			{ "ボカロバラード", "ballad" },
-			{ "Chiptune×VOCALOIDリンク", "chiptune" },
-			{ "ボカロクラシカ", "Classic" },
-			{ "VOCALOID電波ソング", "denpa" },
-			{ "DubSteloid", "Dubstep" },
-			{ "VOCALOID-EUROBEAT", "Eurobeat" },
-			{ "VOCALOID処女作", "First_work" },
-			{ "ボカロハウス", "house" },
-			{ "ボカロメタル", "Metal" },
-			{ "ボカロラップ", "rap" },
-			{ "VOCALEAMO", "screamo" },
-			{ "ミクノポップ", "technopop" },
-			{ "ミクトランス", "Trance" },
-			{ "ボカロトランス", "Trance" },
-			{ "VOCAJAZZ", "vocajazz" },
-			{ "vocaloud", "vocaloud" },
-			{ "VOCAPUNK", "VOCAPUNK" },
-			{ "vocarock", "vocarock" },
-			{ "VOCASKA", "VOCASKA" }
-		};
+		private static readonly NicoTagMappingFactory nicoTagMappingFactory = new NicoTagMappingFactory(MemoryCache.Default);
 
 		private static string GetUserName(Stream htmlStream, Encoding encoding) {
 
@@ -143,6 +121,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			if (string.IsNullOrEmpty(author))
 				author = GetUserName(userId);
 
+			var tagMapping = nicoTagMappingFactory.GetMappings();
 			var nodeElements = doc.XPathSelectElements("//nicovideo_thumb_response/thumb/tags/tag");
 			var matchedTags = nodeElements
 				.Where(e => tagMapping.ContainsKey(e.Value))
