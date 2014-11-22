@@ -454,6 +454,7 @@
     <Compile Include="Domain\Songs\SongName.cs" />
     <Compile Include="Domain\Songs\SongWebLink.cs" />
     <Compile Include="Domain\WebLink.cs" />
+    <Compile Include="EmbeddedResources\EmbeddedResourceManager.cs" />
     <Compile Include="EnumVal.cs" />
     <Compile Include="Helpers\AlbumHelper.cs" />
     <Compile Include="Helpers\AlphaPassGenerator.cs" />
@@ -467,6 +468,7 @@
     <Compile Include="Helpers\LambdaComparer.cs" />
     <Compile Include="Helpers\LocalizedStringHelper.cs" />
     <Compile Include="Helpers\NameHelper.cs" />
+    <Compile Include="EmbeddedResources\EmbeddedResourceHelper.cs" />
     <Compile Include="Helpers\SongHelper.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
@@ -749,6 +751,7 @@
     <Compile Include="Service\VideoServices\IVideoService.cs" />
     <Compile Include="Service\VideoServices\IVideoServiceParser.cs" />
     <Compile Include="Service\VideoServices\NicoParser.cs" />
+    <Compile Include="Service\VideoServices\NicoTagMappingFactory.cs" />
     <Compile Include="Service\VideoServices\NicoTitleParseResult.cs" />
     <Compile Include="Service\VideoServices\RegexLinkMatcher.cs" />
     <Compile Include="Service\Helpers\SessionHelper.cs" />
@@ -787,6 +790,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="EmbeddedResources\nicoTagMapping.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
