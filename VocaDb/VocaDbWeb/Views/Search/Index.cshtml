@@ -41,6 +41,12 @@
 		<div class="row-fluid">
 			@{ Html.RenderPartial("Partials/_LeftMenu"); }
 			<div class="span10 rightFrame well" style="display: none; min-height: 1000px;" data-bind="visible: true">
+				
+				@if (!string.IsNullOrEmpty(Config.SiteSettings.SitewideAnnouncement)) {
+					<div class="alert">
+						@Html.Raw(Config.SiteSettings.SitewideAnnouncement)
+					</div>
+				}
 
 				<div id="messages">
 					<div class="wrapper">
@@ -62,7 +68,7 @@
 						</div>
 					</div>
 				</div>
-
+				
 				<ul class="nav nav-pills">
 					<li data-bind="css: { active: searchType() == 'Anything' }">
 						<a href="#" data-bind="click: function() { searchType('Anything'); }">@EntryTypeNames.Undefined</a>
