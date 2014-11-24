@@ -91,6 +91,12 @@
                                     @AppConfig.LockdownMessage
                                 </div>
                             }
+							
+							@if (!string.IsNullOrEmpty(Config.SiteSettings.SitewideAnnouncement)) {
+								<div class="alert">
+									@Html.Raw(Config.SiteSettings.SitewideAnnouncement)
+								</div>
+							}								
 
 							@if (IsSectionDefined("Toolbar")) {
 								<p>
