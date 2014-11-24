@@ -150,8 +150,8 @@
 
 		</div>
 
-		<div id="pvsTab">
-	
+		<div id="pvsTab" data-bind="with: pvs">
+
 			<table>
 				<thead>
 					<tr>
@@ -159,33 +159,36 @@
 						<th>Type</th>
 						<th>Name</th>
 						<th>Length</th>
-                        <th>Author</th>
+						<th>Author</th>
 						<th></th>
 					</tr>
 				</thead>
-				<tbody id="pvTableBody">
-				@foreach (var pv in Model.PVs) {
-		Html.RenderPartial("PVForSongEditRow", pv);
-	}
+				<tbody data-bind="foreach: pvs">
+					@{ Html.RenderPartial("PVs/_PVEdit"); }
 				</tbody>
 			</table>
-			
+			@Html.HiddenForKnockout(m => m.PVs, "value: ko.toJSON(pvs)")
+
 			<br />
 			<h4>Add media</h4>
 
 			<p>Supported services: Youtube, NicoNicoDouga, Vimeo, SoundCloud, Piapro and Bilibili.</p>
 			<p>
 				URL:
-				@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
+				<input type="text" data-bind="textInput: newPvUrl" maxlength="255" size="40" class="input-xlarge" />
 			</p>
 			<p>
-			Type:
-			@Html.EnumDropDownList("pvType_new", Translate.PVTypeDescriptions, new { id = "pvType_new", @class = "input-xlarge" })
+				Type:
+				<select class="input-xlarge">
+					@foreach (var pvType in Translate.PVTypeDescriptions.ValuesAndNamesStrings) {
+						<option value="@pvType.Key">@pvType.Value</option>
+					}
+				</select>
 			</p>
 
-			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">Add</a>
+			<a data-bind="click: add" href="#" class="textLink addLink">Add</a>
 			@Helpers.AjaxLoader("pvLoader")
-	
+
 		</div>
 
 		<div id="lyricsTab">
@@ -256,16 +259,20 @@
 
 	$(document).ready(function () {
 
+		ko.punches.enableAll();
+
 		vdb.resources.song = {
 			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
 		};
 
+		var canBulkDeletePVs = @ToJS(Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.BulkDeletePVs));
 		var rootPath = '@RootPath';
+		var urlMapper = new vdb.UrlMapper(rootPath);
 		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { artistLinks = Model.ArtistLinks, length = Model.Length, names = Model.Names, webLinks = Model.WebLinks }));
-		ko.applyBindings(new vdb.viewModels.SongEditViewModel(artistRepo, artistRoleJson, webLinkCategoryJson, modelJson));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJsonModel()));
+		ko.applyBindings(new vdb.viewModels.SongEditViewModel(artistRepo, urlMapper, artistRoleJson, webLinkCategoryJson, modelJson, canBulkDeletePVs));
 
 		initPage(@Model.Id);
 	});

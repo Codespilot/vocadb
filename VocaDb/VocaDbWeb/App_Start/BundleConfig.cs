@@ -11,6 +11,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/bootstrap.js",
 				//"~/Scripts/jquery-ui-1.10.1.js", // doesn't work if bundled together
 				"~/Scripts/knockout-{version}.js",
+				"~/Scripts/knockout.punches.min.js",
 				"~/Scripts/lodash.js", 
 				"~/Scripts/jquery.qtip.js"
 			));
@@ -41,6 +42,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/StopBinding.js",
 				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/SongVoteRating.js",				// Referred by UserRepository
+				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/Repositories/UserRepository.js",
@@ -122,7 +124,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
-				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Helpers/PVHelper.js",
@@ -151,6 +152,7 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Song/Edit").Include(
+				"~/Scripts/KnockoutExtensions/FormatLengthSecondsFilter.js",
 				"~/Scripts/Models/Artists/ArtistRoles.js",
 				"~/Scripts/Models/Globalization/ContentLanguageSelection.js",
 				"~/Scripts/Models/Songs/SongType.js",
@@ -162,6 +164,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/Globalization/LocalizedStringWithIdEditViewModel.js",
 				"~/Scripts/ViewModels/Globalization/NamesEditViewModel.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
+				"~/Scripts/ViewModels/PVs/PVEditViewModel.js",
+				"~/Scripts/ViewModels/PVs/PVListEditViewModel.js",
 				"~/Scripts/ViewModels/SongEditViewModel.js",
 				"~/Scripts/Song/Edit.js"
 			));
@@ -178,7 +182,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/soundcloud-api.js",				
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
-				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/DateTimeHelper.js",
 				"~/Scripts/Helpers/PVHelper.js",
@@ -219,7 +222,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/Highcharts.js",				
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
-				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/HighchartsHelper.js",				
 				"~/Scripts/Helpers/ArtistHelper.js",
@@ -248,7 +250,6 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
-				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/PVs/PVService.js",
 				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Repositories/ResourceRepository.js",

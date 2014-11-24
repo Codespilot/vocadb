@@ -5,8 +5,9 @@ module vdb.viewModels.pvs {
 	
 	export class PVListEditViewModel {
 
-		constructor(private urlMapper: UrlMapper,
-			pvs: dc.pvs.PVContract[]) {
+		constructor(public urlMapper: UrlMapper,
+			pvs: dc.pvs.PVContract[],
+			public canBulkDeletePVs: boolean) {
 
 			this.pvServiceIcons = new vdb.models.PVServiceIcons(urlMapper);
 			this.pvs = ko.observableArray(_.map(pvs, pv => new PVEditViewModel(pv)));
@@ -23,9 +24,15 @@ module vdb.viewModels.pvs {
 			var pvType = this.newPvType();
 
 			var url = this.urlMapper.mapRelative("/api/pvs");
-			$.getJSON(url, { pvUrl: newPvUrl }, (pv: dc.pvs.PVContract) => {
+			$.getJSON(url, { pvUrl: newPvUrl, type: this.newPvType() }, (pv: dc.pvs.PVContract) => {
 
+				this.newPvUrl("");
 				this.pvs.push(new PVEditViewModel(pv, pvType));
+
+			}).fail((jqXHR: JQueryXHR, textStatus: string) => {
+
+				if (jqXHR.statusText)
+					alert(jqXHR.statusText);
 
 			});
 
