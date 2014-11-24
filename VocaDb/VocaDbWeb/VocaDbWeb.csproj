@@ -1874,6 +1874,7 @@
     <TypeScriptCompile Include="Scripts\Helpers\SongHelper.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Artist\ArtistTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\ConfirmClick.ts" />
+    <TypeScriptCompile Include="Scripts\KnockoutExtensions\FormatLengthSecondsFilter.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Highcharts.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\InitialValue.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Markdown.ts" />
@@ -1897,6 +1898,7 @@
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Song\SongTypeLabel.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\Sortable.ts" />
     <TypeScriptCompile Include="Scripts\KnockoutExtensions\StopBinding.ts" />
+    <Content Include="Scripts\knockout.punches.min.js" />
     <Content Include="Scripts\Libraries\qunit-1.11.0.js" />
     <Content Include="Scripts\lodash.js" />
     <Content Include="Scripts\lodash.min.js" />
@@ -2452,6 +2454,7 @@
     <Content Include="Views\Shared\KnockoutPartials\_PVContractForEdit.cshtml" />
     <Content Include="Views\SongList\Partials\_PlayList.cshtml" />
     <Content Include="Views\Shared\PVs\_PVEmbedDynamicCustom.cshtml" />
+    <Content Include="Views\Shared\PVs\_PVEdit.cshtml" />
     <None Include="VocaDB.log" />
     <None Include="Web.config.default">
       <SubType>Designer</SubType>

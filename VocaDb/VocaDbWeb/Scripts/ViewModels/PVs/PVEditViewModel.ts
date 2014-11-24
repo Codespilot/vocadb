@@ -17,6 +17,7 @@ module vdb.viewModels.pvs {
 			this.url = contract.url;
 
 			this.name = ko.observable(contract.name);
+			this.lengthFormatted = vdb.helpers.DateTimeHelper.formatFromSeconds(this.length);
 
 		}
 
@@ -25,6 +26,8 @@ module vdb.viewModels.pvs {
 		id: number;
 
 		length: number;
+
+		lengthFormatted: string;
 
 		name: KnockoutObservable<string>;
 

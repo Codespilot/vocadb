@@ -98,36 +98,6 @@ function initPage(songId) {
 
 	});
 
-	$("#pvAdd").click(function () {
-
-		var pvUrl = $("#pvUrl_new").val();
-		var pvType = $("#pvType_new").val();
-
-		$("#pvUrl_new").val("");
-
-		$.post("../../Song/CreatePVForSongByUrl", { songId: songId, pvUrl: pvUrl, type: pvType }, function (response) {
-
-			if (!response.Successful) {
-				alert(response.Message);
-				return;
-			}
-
-			var addRow = $("#pvTableBody");
-			addRow.append(response.Result);
-
-		});
-
-		return false;
-
-	});
-
-	$(document).on("click", "a.pvRemove", function () {
-
-		$(this).parent().parent().remove();
-		return false;
-
-	});
-
 	$("#lyricsAdd").click(function () {
 
 		$.post("../../Song/CreateLyrics", null, function (html) {

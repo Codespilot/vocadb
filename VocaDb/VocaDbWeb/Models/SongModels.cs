@@ -343,6 +343,7 @@ namespace VocaDb.Web.Models {
 		public int OriginalVersionId { get; set; }
 
 		[Display(Name = "PVs")]
+		[FromJson]
 		public IList<PVContract> PVs { get; set; }
 
 		[Display(Name = "Song type")]
@@ -405,6 +406,20 @@ namespace VocaDb.Web.Models {
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 			};
+
+		}
+
+		public object ToJsonModel() {
+			
+			var model = new {
+				ArtistLinks, 
+				Length, 
+				Names, 
+				pvs = PVs,
+				WebLinks
+			};
+
+			return model;
 
 		}
 

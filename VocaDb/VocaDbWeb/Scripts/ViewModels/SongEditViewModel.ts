@@ -18,6 +18,7 @@ module vdb.viewModels {
         public length: KnockoutObservable<number>;
 		public lengthFormatted: KnockoutComputed<string>;
 		public names: globalization.NamesEditViewModel;
+		public pvs: pvs.PVListEditViewModel;
 		public songType: KnockoutComputed<cls.songs.SongType>;
 		public songTypeStr: KnockoutObservable<string>;
 		public submitting = ko.observable(false);
@@ -85,7 +86,13 @@ module vdb.viewModels {
 		public validationError_nonInstrumentalSongNeedsVocalists: KnockoutComputed<boolean>;
 		public validationError_unspecifiedNames: KnockoutComputed<boolean>;
 
-		constructor(private artistRepository: rep.ArtistRepository, private artistRoleNames, webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: SongEdit) {
+		constructor(
+			private artistRepository: rep.ArtistRepository,
+			urlMapper: vdb.UrlMapper,
+			private artistRoleNames,
+			webLinkCategories: vdb.dataContracts.TranslatedEnumField[],
+			data: SongEdit,
+			canBulkDeletePVs: boolean) {
 
 			this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(null, artist)));
 
@@ -97,6 +104,7 @@ module vdb.viewModels {
 
 			this.length = ko.observable(data.length);
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
+			this.pvs = new pvs.PVListEditViewModel(urlMapper, data.pvs, canBulkDeletePVs);
 			this.songTypeStr = ko.observable(data.songType);
 			this.songType = ko.computed(() => cls.songs.SongType[this.songTypeStr()]);
 			this.tags = data.tags;
@@ -152,6 +160,8 @@ module vdb.viewModels {
 		length: number;
 
 		names: dc.globalization.LocalizedStringWithIdContract[];
+
+		pvs: dc.pvs.PVContract[];
 
 		songType: string;
 
