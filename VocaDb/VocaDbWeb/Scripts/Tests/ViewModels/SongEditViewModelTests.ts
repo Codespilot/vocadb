@@ -12,11 +12,12 @@ module vdb.tests.viewModels {
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 0, url: "http://www.youtube.com/user/tripshots" };
     var data: vm.SongEdit = { artistLinks: [], length: 39, names: [], pvs: [], songType: 'Original', tags: [], webLinks: [webLinkData] }; 
 	var artistRepo = new sup.FakeArtistRepository();
+	var pvRepo = null;
 
     QUnit.module("SongEditViewModelTests");
 
     function createViewModel() {
-		return new vm.SongEditViewModel(artistRepo, new vdb.UrlMapper(''), [], categories, data, false);
+		return new vm.SongEditViewModel(artistRepo, pvRepo, new vdb.UrlMapper(''), [], categories, data, false);
     }
 
     test("constructor", () => {
