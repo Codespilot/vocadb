@@ -65,15 +65,23 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		var repo = new vdb.repositories.AlbumRepository(vdb.values.baseAddress);
-		var songRepo = new vdb.repositories.SongRepository(vdb.values.baseAddress);
-		var artistRepo = new vdb.repositories.ArtistRepository(vdb.values.baseAddress);
+		ko.punches.enableAll();
+
+		var canBulkDeletePVs = @ToJS(Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.BulkDeletePVs));
+		var rootPath = '@RootPath';
+		var urlMapper = new vdb.UrlMapper(rootPath);
+
+		var repo = new vdb.repositories.AlbumRepository(rootPath);
+		var songRepo = new vdb.repositories.SongRepository(rootPath);
+		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
+		var pvRepo = new vdb.repositories.PVRepository(urlMapper);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
 		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJson()));
 		var allowCustomTracks = @ToJS(VocaDb.Model.Utils.AppConfig.AllowCustomTracks);
 
-		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, artistRoleJson, webLinkCategoryJson, modelJson, allowCustomTracks);
+		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, pvRepo, urlMapper, 
+			artistRoleJson, webLinkCategoryJson, modelJson, allowCustomTracks, canBulkDeletePVs);
 		ko.applyBindings(viewModel);
 
 		initPage(viewModel, @Model.Id, "@Model.DiscType");
@@ -316,8 +324,8 @@
 
 		</div>
 
-		<div id="pvsTab">
-	
+		<div id="pvsTab" data-bind="with: pvs">
+
 			<p>@R.EditStrings.PvIntro</p>
 
 			<table>
@@ -326,28 +334,27 @@
 						<th>@R.EditStrings.PvService</th>
 						<th>@R.EditStrings.PvType</th>
 						<th colspan="2">@R.EditStrings.PvName</th>
-                        <th>@R.EditStrings.PvAuthor</th>
+						<th>@R.EditStrings.PvAuthor</th>
 						<th></th>
 					</tr>
 				</thead>
-				<tbody id="pvTableBody">
-					@foreach (var pv in Model.PVs) {
-		 Html.RenderPartial("PVForSongEditRow", pv);
-	 }
+				<tbody data-bind="foreach: pvs">
+					@{ Html.RenderPartial("PVs/_PVEdit"); }
 				</tbody>
 			</table>
+			@Html.HiddenForKnockout(m => m.PVs, "value: ko.toJSON(pvs)")
 
 			<br />
 			<h4>@R.EditStrings.PvAdd</h4>
 			<p>@R.EditStrings.PvSupportedServices</p>
 			<p>
-			@R.EditStrings.PvURL
-			@Html.TextBox("pvUrl_new", string.Empty, new { id = "pvUrl_new", maxlength = 255, size = 40, @class = "input-xlarge" })
+				@R.EditStrings.PvURL
+				<input type="text" data-bind="textInput: newPvUrl" maxlength="255" size="40" class="input-xlarge" />
 			</p>
 
-			<a href="#" class="pvAddNew textLink addLink" id="pvAdd">@ViewRes.SharedStrings.Add</a>
+			<a data-bind="click: add" href="#" class="textLink addLink">@ViewRes.SharedStrings.Add</a>
 			@Helpers.AjaxLoader("pvLoader")
-	
+
 		</div>
 
 	</div>

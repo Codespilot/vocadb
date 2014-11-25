@@ -8,7 +8,7 @@ module vdb.viewModels.pvs {
 
 		constructor(
 			private repo: rep.PVRepository,
-			public urlMapper: UrlMapper,
+			public urlMapper: UrlMapper, // Used from the view to map to PV listing
 			pvs: dc.pvs.PVContract[],
 			public canBulkDeletePVs: boolean) {
 

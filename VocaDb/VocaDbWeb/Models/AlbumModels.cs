@@ -130,6 +130,7 @@ namespace VocaDb.Web.Models {
 		public IList<EntryPictureFileContract> Pictures { get; set; }
 
 		[Display(Name = "PVs")]
+		[FromJson]
 		public IList<PVContract> PVs { get; set; }
 
 		[Display(Name = "Day")]
@@ -227,6 +228,7 @@ namespace VocaDb.Web.Models {
 				hasCover = HasCoverPicture, 
 				identifiers = Identifiers,
 				names = Names, 
+				pvs = PVs,
 				tracks = Tracks, 
 				webLinks = WebLinks
 			};

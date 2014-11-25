@@ -19,23 +19,6 @@ function getId(elem) {
 	return (parts.length >= 2 ? parts[1] : null);
 }
 
-// Handles GenericResponse, displaying an error message if appropriate.
-// Returns: null if the request FAILED, or the response content if the request succeeded.
-function handleGenericResponse(response) {
-
-	if (!response.Successful) {
-
-		if (response.Message != null)
-			alert(response.Message);
-
-		return null;
-
-	}
-
-	return response.Result;
-
-}
-
 function htmlDecode(value) {
 	if (value) {
 		return $('<div />').html(value).text();
