@@ -72,22 +72,6 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult CreatePVForAlbumByUrl(int albumId, string pvUrl) {
-
-			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
-
-			if (!result.IsOk) {
-				return Json(new GenericResponse<string>(false, result.Exception.Message));
-			}
-
-			var contract = new PVContract(result, PVType.Other);
-
-			var view = RenderPartialViewToString("PVForSongEditRow", contract);
-			return Json(new GenericResponse<string>(view));
-
-		}
-
-		[HttpPost]
 		public void CreateReport(int albumId, AlbumReportType reportType, string notes) {
 
 			Service.CreateReport(albumId, reportType, CfHelper.GetRealIp(Request), notes ?? string.Empty);
@@ -192,7 +176,10 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		public FileContentResult DownloadTags(int id, string formatString = "", bool setFormatString = false, bool includeHeader = false) {
+		public ActionResult DownloadTags(int id = invalidId, string formatString = "", bool setFormatString = false, bool includeHeader = false) {
+
+			if (id == invalidId)
+				return NoId();
 
 			if (setFormatString) {
 				userQueries.SetAlbumFormatString(formatString);

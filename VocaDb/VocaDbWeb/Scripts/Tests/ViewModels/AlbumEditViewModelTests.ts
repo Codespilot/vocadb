@@ -12,6 +12,8 @@ module vdb.tests.viewModels {
     var rep = new vdb.tests.testSupport.FakeAlbumRepository();
 	var songRep: vdb.tests.testSupport.FakeSongRepository;
 	var artistRep: vdb.tests.testSupport.FakeArtistRepository;
+	var pvRep = null;
+	var urlMapper = null;
 
     var song: dc.SongWithComponentsContract;
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
@@ -57,6 +59,7 @@ module vdb.tests.viewModels {
 				hasCover: true,
 				identifiers: [],
 				names: [],
+				pvs: [],
 				tracks: [songInAlbum, customTrack],
 				webLinks: [webLinkData]
             };
@@ -65,7 +68,7 @@ module vdb.tests.viewModels {
     });
 
     function createViewModel() {
-        return new vm.AlbumEditViewModel(rep, songRep, artistRep, roles, categories, data, true);
+        return new vm.AlbumEditViewModel(rep, songRep, artistRep, pvRep, urlMapper, roles, categories, data, true, false);
     }
 
     function createTrackPropertiesViewModel() {

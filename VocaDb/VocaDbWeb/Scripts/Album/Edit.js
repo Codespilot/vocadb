@@ -80,32 +80,4 @@ function initPage(viewModel, albumId, discType) {
 
 	});
 
-	$("#pvAdd").click(function () {
-
-		var pvUrl = $("#pvUrl_new").val();
-
-		$("#pvUrl_new").val("");
-
-		$.post("../../Album/CreatePVForAlbumByUrl", { albumId: albumId, pvUrl: pvUrl }, function (response) {
-
-			var result = handleGenericResponse(response);
-
-			if (result == null)
-				return;
-
-			$("#pvTableBody").append(result);
-
-		});
-
-		return false;
-
-	});
-
-	$(document).on("click", "a.pvRemove", function () {
-
-		$(this).parent().parent().remove();
-		return false;
-
-	});
-
 }

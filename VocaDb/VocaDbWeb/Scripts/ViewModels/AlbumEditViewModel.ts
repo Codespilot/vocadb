@@ -96,6 +96,8 @@ module vdb.viewModels {
 
 		public newIdentifier = ko.observable("");
 
+		public pvs: pvs.PVListEditViewModel;
+
 		public releaseYear = ko.observable<number>().extend({ parseInteger: {} });
 
         // Removes an artist from this album.
@@ -147,10 +149,15 @@ module vdb.viewModels {
 		public validationError_needType: KnockoutComputed<boolean>;
 		public validationError_unspecifiedNames: KnockoutComputed<boolean>;
 
-		constructor(public repository: rep.AlbumRepository, songRepository: rep.SongRepository,
+		constructor(
+			public repository: rep.AlbumRepository,
+			songRepository: rep.SongRepository,
 			private artistRepository: rep.ArtistRepository,
+			pvRepository: rep.PVRepository,
+			urlMapper: vdb.UrlMapper,
 			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit,
-			allowCustomTracks: boolean) {
+			allowCustomTracks: boolean,
+			canBulkDeletePVs: boolean) {
 
 			this.artistSearchParams = {
 				createNewItem: vdb.resources.albumEdit.addExtraArtist,
@@ -246,6 +253,8 @@ module vdb.viewModels {
 			this.identifiers = ko.observableArray(data.identifiers);
 
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
+
+			this.pvs = new pvs.PVListEditViewModel(pvRepository, urlMapper, data.pvs, canBulkDeletePVs);
 
             this.removeArtist = artistForAlbum => {
                 this.artistLinks.remove(artistForAlbum);
@@ -426,6 +435,8 @@ module vdb.viewModels {
 		identifiers: string[];
 
 		names: dc.globalization.LocalizedStringWithIdContract[];
+
+		pvs: dc.pvs.PVContract[];
 
         tracks: SongInAlbumEditContract[];
 

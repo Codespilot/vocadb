@@ -317,34 +317,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		[Obsolete("Integrated to saving properties")]
-		[AcceptVerbs(HttpVerbs.Post)]
-		public void DeleteArtistForSong(int artistForSongId) {
-
-		}
-
-		[HttpPost]
-		public ActionResult CreatePVForSongByUrl(int songId, string pvUrl, PVType type) {
-
-			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
-
-			if (!result.IsOk) {
-				return Json(new GenericResponse<string>(false, result.Exception.Message));
-			}
-
-			var contract = new PVContract(result, type);
-
-			var view = RenderPartialViewToString("PVForSongEditRow", contract);
-			return Json(new GenericResponse<string>(view));
-
-		}
-
-		[Obsolete("Integrated to saving properties")]
-		[HttpPost]
-		public void DeletePVForSong(int pvForSongId) {
-
-		}
-
 		public PartialViewResult CreateLyrics() {
 			
 			var entry = new LyricsForSongContract();
