@@ -88,6 +88,7 @@ module vdb.viewModels {
 
 		constructor(
 			private artistRepository: rep.ArtistRepository,
+			pvRepository: rep.PVRepository,
 			urlMapper: vdb.UrlMapper,
 			private artistRoleNames,
 			webLinkCategories: vdb.dataContracts.TranslatedEnumField[],
@@ -104,7 +105,7 @@ module vdb.viewModels {
 
 			this.length = ko.observable(data.length);
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
-			this.pvs = new pvs.PVListEditViewModel(urlMapper, data.pvs, canBulkDeletePVs);
+			this.pvs = new pvs.PVListEditViewModel(pvRepository, urlMapper, data.pvs, canBulkDeletePVs);
 			this.songTypeStr = ko.observable(data.songType);
 			this.songType = ko.computed(() => cls.songs.SongType[this.songTypeStr()]);
 			this.tags = data.tags;

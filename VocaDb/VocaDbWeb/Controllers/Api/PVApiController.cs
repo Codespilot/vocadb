@@ -13,7 +13,7 @@ namespace VocaDb.Web.Controllers.Api {
 	public class PVApiController : ApiController {
 
 		[Route("")]
-		public PVContract GetPVByUrl(string pvUrl) {
+		public PVContract GetPVByUrl(string pvUrl, PVType type = PVType.Original) {
 
 			if (string.IsNullOrEmpty(pvUrl))
 				throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -24,7 +24,7 @@ namespace VocaDb.Web.Controllers.Api {
 				throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { ReasonPhrase = result.Exception.Message });
 			}
 
-			var contract = new PVContract(result, PVType.Original);
+			var contract = new PVContract(result, type);
 			return contract;
 
 		}

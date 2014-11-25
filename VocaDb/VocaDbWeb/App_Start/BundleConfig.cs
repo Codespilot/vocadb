@@ -161,6 +161,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Helpers/ArtistHelper.js",
 				"~/Scripts/Helpers/DateTimeHelper.js",
 				"~/Scripts/Helpers/SongHelper.js",
+				"~/Scripts/Repositories/PVRepository.js",
 				"~/Scripts/ViewModels/Globalization/LocalizedStringWithIdEditViewModel.js",
 				"~/Scripts/ViewModels/Globalization/NamesEditViewModel.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",

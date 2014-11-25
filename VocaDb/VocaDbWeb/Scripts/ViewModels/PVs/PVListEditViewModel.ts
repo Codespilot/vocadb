@@ -2,10 +2,13 @@
 module vdb.viewModels.pvs {
 
 	import dc = vdb.dataContracts;
+	import rep = vdb.repositories;
 	
 	export class PVListEditViewModel {
 
-		constructor(public urlMapper: UrlMapper,
+		constructor(
+			private repo: rep.PVRepository,
+			public urlMapper: UrlMapper,
 			pvs: dc.pvs.PVContract[],
 			public canBulkDeletePVs: boolean) {
 
@@ -23,13 +26,12 @@ module vdb.viewModels.pvs {
 
 			var pvType = this.newPvType();
 
-			var url = this.urlMapper.mapRelative("/api/pvs");
-			$.getJSON(url, { pvUrl: newPvUrl, type: this.newPvType() }, (pv: dc.pvs.PVContract) => {
-
+			this.repo.getPVByUrl(newPvUrl, this.newPvType(), pv => {
+			
 				this.newPvUrl("");
 				this.pvs.push(new PVEditViewModel(pv, pvType));
-
-			}).fail((jqXHR: JQueryXHR, textStatus: string) => {
+					
+			}).fail((jqXHR: JQueryXHR) => {
 
 				if (jqXHR.statusText)
 					alert(jqXHR.statusText);
