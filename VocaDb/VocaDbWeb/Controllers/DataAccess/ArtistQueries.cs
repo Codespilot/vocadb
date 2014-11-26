@@ -64,10 +64,10 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				var stats = ctx.Query()
 					.Where(a => a.Id == artist.Id)
 					.Select(a => new {
-						AlbumCount = a.AllAlbums.Count,
-						RatedAlbumCount = a.AllAlbums.Count(l => l.Album.RatingCount > 0),
-						SongCount = a.AllSongs.Count,
-						RatedSongCount = a.AllSongs.Count(s => s.Song.RatingScore > 0),
+						AlbumCount = a.AllAlbums.Count(l => !l.Album.Deleted),
+						RatedAlbumCount = a.AllAlbums.Count(l => !l.Album.Deleted && l.Album.RatingCount > 0),
+						SongCount = a.AllSongs.Count(s => !s.Song.Deleted),
+						RatedSongCount = a.AllSongs.Count(s => !s.Song.Deleted && s.Song.RatingScore > 0),
 						AlbumRatingsTotalCount = a.AllAlbums.Any() ? a.AllAlbums.Sum(l => l.Album.RatingCount) : 0,
 						AlbumRatingsTotalSum = a.AllAlbums.Any() ? a.AllAlbums.Sum(l => l.Album.RatingTotal) : 0
 					})
