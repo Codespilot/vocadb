@@ -693,8 +693,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				var artists = query
 					.OrderByName(PermissionContext.LanguagePreference)
-					.Skip(paging.Start)
-					.Take(paging.MaxEntries)
+					.Paged(paging)
 					.ToArray()
 					.Select(fac)
 					.ToArray();
