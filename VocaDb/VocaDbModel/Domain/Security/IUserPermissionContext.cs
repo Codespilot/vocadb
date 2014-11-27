@@ -32,6 +32,12 @@ namespace VocaDb.Model.Domain.Security {
 
 		UserGroupId UserGroupId { get; }
 
+		/// <summary>
+		/// Tests whether the user has the specified permission flag.
+		/// If the user is not logged in they have no permissions.
+		/// </summary>
+		/// <param name="flag">Permission token to be tested.</param>
+		/// <returns>True if the user has the permission. For users that are not logged in, this will always be false, except for 'Nothing'.</returns>
 		bool HasPermission(PermissionToken flag);
 
 		/// <summary>

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Tests.TestSupport {
@@ -15,7 +15,7 @@ namespace VocaDb.Tests.TestSupport {
 			MatchedPVs = new Dictionary<string, VideoUrlParseResult>(StringComparer.InvariantCultureIgnoreCase);
 		}
 
-		public VideoUrlParseResult ParseByUrl(string url, bool getTitle) {
+		public VideoUrlParseResult ParseByUrl(string url, bool getTitle, IUserPermissionContext permissionContext) {
 
 			if (!MatchedPVs.ContainsKey(url))
 				return ResultFunc(url, getTitle);

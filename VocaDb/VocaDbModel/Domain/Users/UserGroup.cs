@@ -21,6 +21,7 @@ namespace VocaDb.Model.Domain.Users {
 
 		private static readonly UserGroup trusted = new UserGroup(UserGroupId.Trusted,
 			regular, 
+			PermissionToken.AddRawFileMedia,
 			PermissionToken.ApproveEntries, 
 			PermissionToken.DeleteEntries, 
 			PermissionToken.EditFeaturedLists, 

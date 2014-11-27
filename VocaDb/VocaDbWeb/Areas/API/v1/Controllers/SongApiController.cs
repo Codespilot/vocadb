@@ -87,7 +87,7 @@ namespace VocaDb.Web.API.v1.Controllers
 
 		public ActionResult ParsePVUrl(string pvUrl, string callback, DataFormat format = DataFormat.Auto) {
 
-			var result = VideoServiceHelper.ParseByUrl(pvUrl, true);
+			var result = VideoServiceHelper.ParseByUrl(pvUrl, true, LoginManager);
 
 			if (!result.IsOk) {
 				return Json(new GenericResponse<string>(false, result.Exception.Message));

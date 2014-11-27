@@ -63,7 +63,11 @@
 		case VocaDb.Model.Domain.PVs.PVService.Bilibili:
 			<iframe width="@width" height="@height" src="http://static.hdslb.com/miniloader.swf?aid=@(pv.PVId)" style="border: 0"></iframe>
 			break;
-			
+
+		case VocaDb.Model.Domain.PVs.PVService.File:
+			<audio id="@id" controls src="@pv.Url"></audio>
+			break;
+
 		case VocaDb.Model.Domain.PVs.PVService.NicoNicoDouga:
 			<script type="text/javascript" src="@(string.Format("http://ext.nicovideo.jp/thumb_watch/{0}?w={1}&h={2}", pv.PVId, width, height))"></script>
 			break;

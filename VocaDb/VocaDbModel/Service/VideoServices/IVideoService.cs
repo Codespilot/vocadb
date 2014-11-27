@@ -6,11 +6,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		bool IsValidFor(string url);
 
-		bool IsValidFor(PVService service);
-
 		VideoUrlParseResult ParseByUrl(string url, bool getTitle);
-
-		VideoUrlParseResult ParseById(string id, string url, bool getTitle);
 
 	}
 

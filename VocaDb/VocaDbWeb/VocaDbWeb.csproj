@@ -1311,6 +1311,7 @@
     <Content Include="Content\Icons\heart.png" />
     <Content Include="Content\Icons\help.png" />
     <Content Include="Content\Icons\lock.png" />
+    <Content Include="Content\Icons\music.png" />
     <Content Include="Content\Icons\remove.png" />
     <Content Include="Content\Icons\search.png" />
     <Content Include="Content\Icons\soundcloud.png" />
