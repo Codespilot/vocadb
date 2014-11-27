@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -36,6 +37,9 @@ namespace VocaDb.Model.Service.VideoServices {
 			new VideoService(PVService.Vimeo, new VimeoParser(), new[] {
 				new RegexLinkMatcher("vimeo.com/{0}", @"vimeo.com/(\d+)"),
 			});
+
+		public static readonly VideoServiceFile File =
+			new VideoServiceFile();
 
 		protected readonly RegexLinkMatcher[] linkMatchers;
 		private readonly IVideoServiceParser parser;
@@ -82,14 +86,19 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
+		/// <summary>
+		/// Tests whether the user has the required permissions to add PVs for this service.
+		/// </summary>
+		/// <param name="permissionContext">Permission context. Can be null (when no user is logged in).</param>
+		/// <returns>True if the user authorized to add PVs for this service, otherwise false.</returns>
+		public virtual bool IsAuthorized(IUserPermissionContext permissionContext) {
+			return true;
+		}
+
 		public bool IsValidFor(string url) {
 
 			return linkMatchers.Any(m => m.IsMatch(url));
 
-		}
-
-		public bool IsValidFor(PVService service) {
-			return (service == Service);
 		}
 
 		public virtual VideoUrlParseResult ParseByUrl(string url, bool getTitle) {
@@ -104,7 +113,7 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public virtual VideoUrlParseResult ParseById(string id, string url, bool getMeta) {
+		protected virtual VideoUrlParseResult ParseById(string id, string url, bool getMeta) {
 
 			var meta = (getMeta ? GetVideoTitle(id) : VideoTitleParseResult.Empty);
 

@@ -134,7 +134,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			if (string.IsNullOrEmpty(url))
 				return null;
 
-			var pvResult = pvParser.ParseByUrl(url, true);
+			var pvResult = pvParser.ParseByUrl(url, true, PermissionContext);
 
 			if (!pvResult.IsOk)
 				throw pvResult.Exception;
@@ -279,7 +279,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 			var firstNicoPV = getPVInfo ? anyPv.FirstOrDefault(p => VideoService.NicoNicoDouga.IsValidFor(p)) : null; // For downloading video info
 
 			// Parse PV URLs (gets ID and service for each PV). Metadata will be parsed only for the first Nico PV, and only if it's needed.
-			var pvs = anyPv.Select(p => pvParser.ParseByUrl(p, getPVInfo && p == firstNicoPV)).Where(p => p.IsOk).ToArray();
+			var pvs = anyPv.Select(p => pvParser.ParseByUrl(p, getPVInfo && p == firstNicoPV, PermissionContext)).Where(p => p.IsOk).ToArray();
 
 			if (!names.Any() && !pvs.Any())
 				return new NewSongCheckResultContract();

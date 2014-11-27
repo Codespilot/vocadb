@@ -26,6 +26,7 @@ namespace VocaDb.Model.Domain.Security {
 		public static readonly PermissionToken Nothing = new PermissionToken(Guid.Empty, "Nothing");
 
 		public static readonly PermissionToken AccessManageMenu =		New("b54de61d-9341-4435-8cb1-31e5e295d577", "AccessManageMenu");
+		public static readonly PermissionToken AddRawFileMedia =		New("9c1992d8-3fca-4008-b248-7d7f2a7f15dc", "AddRawFileMedia"); // Add raw media file links (such as .mp3) to songs
 		public static readonly PermissionToken Admin =					New("1c98077f-f36f-4ef2-8cf3-cd9e347d389a", "Admin");
 		public static readonly PermissionToken ApproveEntries =			New("e3b4b909-5128-4a0e-9f26-2bf1d5e497ab", "ApproveEntries");
 		public static readonly PermissionToken BulkDeletePVs =			New("caa8f4d7-322e-44f7-ad79-7de767ef1128", "BulkDeletePVs");

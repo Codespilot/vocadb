@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using VocaDb.Model.Domain.PVs;
+using VocaDb.Model.Domain.Security;
 
 namespace VocaDb.Model.Service.VideoServices {
 
 	public static class VideoServiceHelper {
 
-		private static readonly VideoService[] services = new[] {
+		private static readonly VideoService[] services = {
  			VideoService.Bilibili,
 			VideoService.NicoNicoDouga,
 			VideoService.Piapro,
 			VideoService.SoundCloud,
 			VideoService.Youtube,
-			VideoService.Vimeo
+			VideoService.Vimeo,
+			VideoService.File
 		};
 
 		public static readonly Dictionary<PVService, VideoService> Services = services.ToDictionary(s => s.Service);
@@ -144,9 +145,9 @@ namespace VocaDb.Model.Service.VideoServices {
 
 		}
 
-		public static VideoUrlParseResult ParseByUrl(string url, bool getTitle) {
+		public static VideoUrlParseResult ParseByUrl(string url, bool getTitle, IUserPermissionContext permissionContext) {
 
-			var service = services.FirstOrDefault(s => s.IsValidFor(url));
+			var service = services.FirstOrDefault(s => s.IsAuthorized(permissionContext) && s.IsValidFor(url));
 
 			if (service == null) {
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.NoMatcher);

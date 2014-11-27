@@ -22,7 +22,9 @@ namespace VocaDb.Model.Domain.PVs {
 
 		Piapro			= 16,
 
-		Bilibili		= 32
+		Bilibili		= 32,
+
+		File			= 64
 
 	}
 
@@ -47,7 +49,9 @@ namespace VocaDb.Model.Domain.PVs {
 
 		Piapro			= PVService.Piapro,
 
-		Bilibili		= PVService.Bilibili
+		Bilibili		= PVService.Bilibili,
+
+		File			= PVService.File
 
 	}
 
