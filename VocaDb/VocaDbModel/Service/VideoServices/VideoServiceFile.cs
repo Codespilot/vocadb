@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Web;
 using NLog;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Security;
+using VocaDb.Model.Service.Helpers;
 
 namespace VocaDb.Model.Service.VideoServices {
 
@@ -34,7 +37,15 @@ namespace VocaDb.Model.Service.VideoServices {
 		}
 
 		public override VideoTitleParseResult GetVideoTitle(string id) {
-			return VideoTitleParseResult.CreateSuccess(string.Empty, string.Empty, string.Empty);
+
+			Uri uri;
+			string name = string.Empty;
+			if (Uri.TryCreate(id, UriKind.Absolute, out uri)) {
+				name = HttpUtility.UrlDecode(uri.Segments.Last());
+			}
+
+			return VideoTitleParseResult.CreateSuccess(name, string.Empty, string.Empty);
+
 		}
 
 		public override bool IsAuthorized(IUserPermissionContext permissionContext) {
@@ -42,12 +53,19 @@ namespace VocaDb.Model.Service.VideoServices {
 		}
 
 		public override VideoUrlParseResult ParseByUrl(string url, bool getTitle) {
-			return ParseById(url, url, getTitle);
-		}
+			
+			url = UrlHelper.MakeLink(url);
 
-		protected override VideoUrlParseResult ParseById(string id, string url, bool getMeta) {
+			Uri parsedUri;
+			try {
+				parsedUri = new Uri(url, UriKind.Absolute);
+			} catch (UriFormatException x) {
+				var msg = string.Format("{0} could not be parsed as a valid URL.", url);
+				log.WarnException(msg, x);
+				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException(msg, x));							
+			}
 
-			var request = WebRequest.CreateHttp(url);
+			var request = WebRequest.CreateHttp(parsedUri);
 			request.UserAgent = "VocaDB";
 			request.Method = "HEAD";
 			request.Timeout = 10000;
@@ -70,9 +88,14 @@ namespace VocaDb.Model.Service.VideoServices {
 				return VideoUrlParseResult.CreateError(url, VideoUrlParseResultType.LoadError, new VideoParseException(msg, x));			
 			}
 
-			return VideoUrlParseResult.CreateOk(url, PVService.File, id, GetVideoTitle(id));
+			return VideoUrlParseResult.CreateOk(url, PVService.File, url, GetVideoTitle(url));
 
 		}
+
+		protected override VideoUrlParseResult ParseById(string id, string url, bool getMeta) {
+			return ParseByUrl(url, getMeta);
+		}
+
 	}
 
 }

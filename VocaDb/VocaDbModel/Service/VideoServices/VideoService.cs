@@ -95,7 +95,7 @@ namespace VocaDb.Model.Service.VideoServices {
 			return true;
 		}
 
-		public bool IsValidFor(string url) {
+		public virtual bool IsValidFor(string url) {
 
 			return linkMatchers.Any(m => m.IsMatch(url));
 
