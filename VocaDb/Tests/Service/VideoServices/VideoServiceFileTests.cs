@@ -43,6 +43,13 @@ namespace VocaDb.Tests.Service.VideoServices {
 		}
 
 		[TestMethod]
+		public void IsValidFor_MatchExtension() {
+			
+			TestIsValidFor("http://www.mp3.com/", false); // Contains .mp3 but is not valid, because it's not a file extension.
+
+		}
+
+		[TestMethod]
 		public void IsValidFor_Simple() {
 			
 			TestIsValidFor("http://vocadb.net/miku.mp3", true);
@@ -53,6 +60,15 @@ namespace VocaDb.Tests.Service.VideoServices {
 		public void IsValidFor_NoScheme() {
 			
 			TestIsValidFor("vocadb.net/miku.mp3", true);
+
+		}
+
+		// TODO: Not supported yet
+		[Ignore]
+		[TestMethod]
+		public void IsValidFor_WithParam() {
+			
+			TestIsValidFor("http://vocadb.net/miku.mp3?miku=39", true);
 
 		}
 

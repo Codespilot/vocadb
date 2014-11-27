@@ -13,7 +13,9 @@ module vdb.models.pvs {
 
 		Piapro			= 16,
 
-		Bilibili		= 32
+		Bilibili		= 32,
+
+		File			= 64
 
 	}
 
