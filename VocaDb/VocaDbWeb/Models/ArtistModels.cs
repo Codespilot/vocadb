@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using VocaDb.Model;
@@ -39,14 +38,11 @@ namespace VocaDb.Web.Models {
 
 			ArtistType = artist.ArtistType;
 			BaseVoicebank = artist.BaseVoicebank;
-			DefaultLanguageSelection = artist.TranslatedName.DefaultLanguage;
+			DefaultLanguageSelection = artist.DefaultNameLanguage;
 			Description = artist.Description;
 			Groups = artist.Groups;
 			Id = artist.Id;
 			Name = artist.Name;
-			NameEnglish = artist.TranslatedName.English;
-			NameJapanese = artist.TranslatedName.Japanese;
-			NameRomaji = artist.TranslatedName.Romaji;
 			Names = artist.Names;
 			Pictures = artist.Pictures;
 			Status = artist.Status;
@@ -89,18 +85,6 @@ namespace VocaDb.Web.Models {
 		[FromJson]
 		public IList<LocalizedStringWithIdContract> Names { get; set; }
 
-		[Display(Name = "Name in English")]
-		[StringLength(255)]
-		public string NameEnglish { get; set; }
-
-		[Display(Name = "Name in Japanese")]
-		[StringLength(255)]
-		public string NameJapanese { get; set; }
-
-		[Display(Name = "Name in Romaji")]
-		[StringLength(255)]
-		public string NameRomaji { get; set; }
-
 		[FromJson]
 		public IList<EntryPictureFileContract> Pictures { get; set; }
 
@@ -141,14 +125,13 @@ namespace VocaDb.Web.Models {
 				Id = this.Id,
 				ArtistType = this.ArtistType,
 				BaseVoicebank = this.BaseVoicebank,
+				DefaultNameLanguage = this.DefaultLanguageSelection,
 				Description =  this.Description ?? string.Empty,
 				Groups = this.Groups.ToArray(),
 				Name = this.Name,
 				Names = this.Names.ToArray(),
 				Pictures = this.Pictures.Select(p => p.NullToEmpty()).ToArray(),
 				Status = this.Status,
-				TranslatedName = new TranslatedStringContract(
-					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				UpdateNotes = this.UpdateNotes ?? string.Empty,
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
 
