@@ -14,7 +14,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public ArtistForEditContract(Artist artist, ContentLanguagePreference languagePreference)
 			: base(artist, languagePreference) {
 
-			AllNames = string.Join(", ", artist.AllNames.Where(n => n != Name));
 			BaseVoicebank = artist.BaseVoicebank != null ? new ArtistContract(artist.BaseVoicebank, languagePreference) : null;
 			DefaultNameLanguage = artist.TranslatedName.DefaultLanguage;
 			Description = artist.Description;
@@ -25,9 +24,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
 		}
-
-		[DataMember]
-		public string AllNames { get; set; }
 
 		[DataMember]
 		public ArtistContract BaseVoicebank { get; set; }
