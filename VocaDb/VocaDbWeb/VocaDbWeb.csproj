@@ -2007,7 +2007,6 @@
     <Content Include="Scripts\Shared\EntrySearchJqx.js" />
     <Content Include="Scripts\Shared\DiscussionTab.js" />
     <Content Include="Scripts\Shared\Messages.js" />
-    <Content Include="Scripts\Shared\NamesList.js" />
     <Content Include="Scripts\Shared\ReportEntryPopup.js" />
     <Content Include="Scripts\Shared\GlobalSearchBox.js" />
     <Content Include="Scripts\SongList\Edit.js" />
@@ -2409,7 +2408,6 @@
     <Content Include="Views\User\OwnedArtistForUserEditRow.cshtml" />
     <Content Include="Views\Song\ManageTagUsages.cshtml" />
     <Content Include="Views\User\FavoriteSongs.cshtml" />
-    <Content Include="Views\Shared\NameAliasEditRow.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\LocalizedStringWithIdContract.cshtml" />
     <Content Include="Views\User\AlbumCollection.cshtml" />
     <Content Include="Views\Home\Chat.cshtml" />

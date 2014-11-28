@@ -6,8 +6,6 @@ function initPage(artistId) {
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
 
-	initNamesList();
-
 	function acceptGroupSelection(groupId, term) {
 
 		if (!isNullOrWhiteSpace(artistId)) {

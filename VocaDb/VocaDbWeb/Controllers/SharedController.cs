@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
 using VocaDb.Model.DataContracts;
-using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Globalization;
-using VocaDb.Web.Models;
-using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
 {
@@ -15,14 +11,6 @@ namespace VocaDb.Web.Controllers
 		public PartialViewResult CreateEntryPictureFile() {
 
 			return PartialView("EntryPictureFileEditRow", new EntryPictureFileContract());
-
-		}
-
-		// Refactor: should get rid of these and do with knockout
-		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult CreateNewAlias(string nameVal) {
-
-			return PartialView("NameAliasEditRow", new LocalizedStringWithIdContract { Value = nameVal });
 
 		}
 
