@@ -10,6 +10,9 @@ a.extLink[href^="https://about.me/"] {
 a.extLink[href^="http://www.animate-onlineshop.jp/"] {
   background: url("/Content/ExtIcons/animate.png") no-repeat left 50%;
 }
+a.extLink[href*="booth.pm/"] {
+  background: url("/Content/ExtIcons/booth.png") no-repeat left 50%;
+}
 a.extLink[href^="http://d-stage.com/"] {
   background: url("/Content/ExtIcons/dstage.png") no-repeat left 50%;
 }
