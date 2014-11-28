@@ -40,7 +40,6 @@
 <form action="@Url.Action("EditBasicDetails", "Artist")" method="POST" enctype="multipart/form-data" data-bind="submit: submit">
 	@Html.HiddenFor(m => m.Id)
 	@Html.HiddenFor(m => m.Name)
-	@Html.HiddenFor(m => m.TooManyAlbums)
 
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
@@ -107,15 +106,22 @@
 						@Html.LabelFor(m => m.Groups)
 					</div>
 					<div class="editor-field">
+						@* TODO: extract template and viewmodel *@
 						<table>
-							<tbody id="groupTableBody">
-							@foreach (var grp in Model.Groups) {
-		   Html.RenderPartial("GroupForArtistEditRow", grp);
-	   }
+							<tbody data-bind="foreach: groups">
+								<tr>
+									<td>
+										<a data-bind="attr: { href: vdb.utils.EntryUrlMapper.details('Artist', group.id) }, text: group.name, artistToolTip: group.id"></a>
+									</td>
+									<td>
+										<a data-bind="click: $parent.removeGroup" href="#" class="textLink removeLink">@ViewRes.SharedStrings.Remove</a>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 						
-						@Helpers.EntrySearchNameBox("groupAddName")
+						<input type="text" data-bind="artistAutoComplete: groupSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />
+						<input type="hidden" name="groups" data-bind="value: ko.toJSON(groups)" />
 					</div>
 	}
 
@@ -191,7 +197,8 @@
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJsonModel()));
 		ko.applyBindings(new vdb.viewModels.ArtistEditViewModel(artistRepo, webLinkCategoryJson, modelJson));
-		initPage(@Model.Id); 
+
+		initPage(); 
 
 	});
 

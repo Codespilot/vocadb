@@ -10,17 +10,40 @@ module vdb.viewModels {
 
     export class ArtistEditViewModel {
 
+		private addGroup = (artistId: number) => {
+			
+			if (artistId) {
+				this.artistRepo.getOne(artistId, (artist: dc.ArtistContract) => {
+					this.groups.push({ id: 0, group: artist });
+				});
+			}
+
+		}
+
 		public artistType: KnockoutComputed<cls.artists.ArtistType>;
 		public artistTypeStr: KnockoutObservable<string>;
 		public allowBaseVoicebank: KnockoutComputed<boolean>;
 		public baseVoicebank: artists.ArtistLinkViewModel;
 		public baseVoicebankSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public description: KnockoutObservable<string>;
+		public groups: KnockoutObservableArray<dc.artists.GroupForArtistContract>;
+
+		public groupSearchParams: vdb.knockoutExtensions.AutoCompleteParams = {
+			allowCreateNew: false,
+			acceptSelection: this.addGroup,
+			extraQueryParams: { artistTypes: "Label,Circle,OtherGroup,Band" },
+			height: 300
+		};
+
 		public hasValidationErrors: KnockoutComputed<boolean>;
 		public id: number;
 
 		public names: globalization.NamesEditViewModel;
 		public pictures: EntryPictureFileListEditViewModel;
+
+		public removeGroup = (group: dc.artists.GroupForArtistContract) => {
+			this.groups.remove(group);
+		}
 
         public submit = () => {
             this.submitting(true);
@@ -34,13 +57,14 @@ module vdb.viewModels {
 		public validationError_unspecifiedNames: KnockoutComputed<boolean>;
         public webLinks: WebLinksEditViewModel;
 
-        constructor(artistRepo: rep.ArtistRepository, webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: ArtistEdit) {
+        constructor(private artistRepo: rep.ArtistRepository, webLinkCategories: vdb.dataContracts.TranslatedEnumField[], data: ArtistEdit) {
 
 			this.artistTypeStr = ko.observable(data.artistType);
 			this.artistType = ko.computed(() => cls.artists.ArtistType[this.artistTypeStr()]);
 			this.allowBaseVoicebank = ko.computed(() => helpers.ArtistHelper.isVocalistType(this.artistType()) || this.artistType() == cls.artists.ArtistType.OtherIndividual);
 			this.baseVoicebank = viewModels.artists.ArtistLinkViewModel.createFromContract(artistRepo, data.baseVoicebank);
 			this.description = ko.observable(data.description);
+			this.groups = ko.observableArray(data.groups);
 			this.id = data.id;
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
 			this.pictures = new EntryPictureFileListEditViewModel(data.pictures);
@@ -73,6 +97,8 @@ module vdb.viewModels {
 		baseVoicebank: dc.ArtistContract;
 
 		description: string;
+
+		groups: dc.artists.GroupForArtistContract[];
 
 		id: number;
 

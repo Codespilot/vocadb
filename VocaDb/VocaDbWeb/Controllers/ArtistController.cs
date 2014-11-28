@@ -367,7 +367,7 @@ namespace VocaDb.Web.Controllers
         // POST: /Artist/Edit/5
         [HttpPost]
         [Authorize]
-        public ActionResult EditBasicDetails(ArtistEdit model, IEnumerable<GroupForArtistContract> groups)
+        public ActionResult EditBasicDetails(ArtistEdit model)
         {
 
 			// Note: name is allowed to be whitespace, but not empty.
@@ -400,15 +400,6 @@ namespace VocaDb.Web.Controllers
 			return RedirectToAction("Details", new { id = model.Id });
 
         }
-
-		[HttpPost]
-		public PartialViewResult AddCircle(int artistId, int circleId) {
-
-			var circle = Service.GetArtistWithAdditionalNames(circleId);
-
-			return PartialView("GroupForArtistEditRow", new GroupForArtistContract { Group = circle });
-
-		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
 		[Obsolete("Happens on the album side")]
