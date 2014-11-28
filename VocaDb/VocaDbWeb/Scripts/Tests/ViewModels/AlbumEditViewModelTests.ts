@@ -59,6 +59,7 @@ module vdb.tests.viewModels {
 				hasCover: true,
 				identifiers: [],
 				names: [],
+				pictures: [],
 				pvs: [],
 				tracks: [songInAlbum, customTrack],
 				webLinks: [webLinkData]

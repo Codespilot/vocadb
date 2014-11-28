@@ -96,6 +96,8 @@ module vdb.viewModels {
 
 		public newIdentifier = ko.observable("");
 
+		public pictures: EntryPictureFileListEditViewModel;
+
 		public pvs: pvs.PVListEditViewModel;
 
 		public releaseYear = ko.observable<number>().extend({ parseInteger: {} });
@@ -253,6 +255,8 @@ module vdb.viewModels {
 			this.identifiers = ko.observableArray(data.identifiers);
 
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
+
+			this.pictures = new EntryPictureFileListEditViewModel(data.pictures);
 
 			this.pvs = new pvs.PVListEditViewModel(pvRepository, urlMapper, data.pvs, canBulkDeletePVs);
 
@@ -435,6 +439,8 @@ module vdb.viewModels {
 		identifiers: string[];
 
 		names: dc.globalization.LocalizedStringWithIdContract[];
+
+		pictures: dc.EntryPictureFileContract[];
 
 		pvs: dc.pvs.PVContract[];
 

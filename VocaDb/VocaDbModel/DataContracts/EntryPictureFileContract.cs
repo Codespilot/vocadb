@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Images;
+using VocaDb.Model.Helpers;
 
 namespace VocaDb.Model.DataContracts {
 
@@ -23,6 +24,7 @@ namespace VocaDb.Model.DataContracts {
 			Id = picture.Id;
 			Mime = picture.Mime;
 			Name = picture.Name;
+			ThumbUrl = ImageHelper.GetImageUrlThumb(this);
 
 		}
 
@@ -42,6 +44,9 @@ namespace VocaDb.Model.DataContracts {
 
 		[DataMember]
 		public string Name { get; set; }
+
+		[DataMember]
+		public string ThumbUrl { get; set; }
 
 		/// <summary>
 		/// File data stream. Only used for uploads.
