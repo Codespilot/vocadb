@@ -50,7 +50,6 @@ namespace VocaDb.Web.Models {
 			Names = artist.Names;
 			Pictures = artist.Pictures;
 			Status = artist.Status;
-			TooManyAlbums = artist.TooManyAlbums;
 			WebLinks = artist.WebLinks.Select(w => new WebLinkDisplay(w)).ToArray();
 
 			CopyNonEditableFields(artist);
@@ -79,6 +78,7 @@ namespace VocaDb.Web.Models {
 		public bool Draft { get; set; }
 
 		[Display(Name = "Groups and circles")]
+		[FromJson]
 		public IList<GroupForArtistContract> Groups { get; set; }
 
 		public int Id { get; set; }
@@ -106,8 +106,6 @@ namespace VocaDb.Web.Models {
 
 		[Display(Name = "Entry status")]
 		public EntryStatus Status { get; set; }
-
-		public bool TooManyAlbums { get; set; }
 
 		[StringLength(200)]
 		public string UpdateNotes { get; set; }
@@ -149,7 +147,6 @@ namespace VocaDb.Web.Models {
 				Names = this.Names.ToArray(),
 				Pictures = this.Pictures.Select(p => p.NullToEmpty()).ToArray(),
 				Status = this.Status,
-				TooManyAlbums = this.TooManyAlbums,
 				TranslatedName = new TranslatedStringContract(
 					NameEnglish, NameJapanese, NameRomaji, DefaultLanguageSelection),
 				UpdateNotes = this.UpdateNotes ?? string.Empty,
@@ -163,6 +160,7 @@ namespace VocaDb.Web.Models {
 			
 			var model = new {
 				BaseVoicebank, 
+				Groups,
 				Id, 
 				Names, 
 				Pictures,

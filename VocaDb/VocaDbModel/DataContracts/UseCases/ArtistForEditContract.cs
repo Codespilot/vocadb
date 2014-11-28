@@ -53,9 +53,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }
 
-		[DataMember]
-		public bool TooManyAlbums { get; set; }
-
 		public string UpdateNotes { get; set; }
 
 		[DataMember]
