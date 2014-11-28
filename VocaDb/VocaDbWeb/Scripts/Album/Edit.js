@@ -59,8 +59,6 @@ function initPage(viewModel, albumId, discType) {
 
 	});
 
-	initNamesList();
-
 	$("#picAdd").click(function () {
 
 		$.post("../../Shared/CreateEntryPictureFile", null, function (row) {
