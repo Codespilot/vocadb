@@ -9,13 +9,11 @@ using NHibernate;
 using NHibernate.Linq;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Artists;
-using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.Tags;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Security;
-using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Domain.Tags;
 using VocaDb.Model.Domain.Users;
 using VocaDb.Model.Service.Helpers;
@@ -25,7 +23,6 @@ using System.Drawing;
 using VocaDb.Model.Helpers;
 using System.Collections.Generic;
 using VocaDb.Model.Service.Repositories;
-using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.Search.Artists;
 
 namespace VocaDb.Model.Service {
@@ -433,7 +430,7 @@ namespace VocaDb.Model.Service {
 
 				source.Deleted = true;
 
-				Archive(session, target, ArtistArchiveReason.Merged, string.Format("Merged from '{0}'", source.DefaultName));
+				Archive(session, target, ArtistArchiveReason.Merged, string.Format("Merged from '{0}'", source));
 
 				NHibernateUtil.Initialize(source.Picture);
 				NHibernateUtil.Initialize(target.Picture);
