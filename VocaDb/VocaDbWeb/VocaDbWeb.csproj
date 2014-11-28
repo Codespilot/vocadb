@@ -1256,6 +1256,7 @@
     <Content Include="Content\ExtIcons\atwiki.png" />
     <Content Include="Content\ExtIcons\bandcamp.png" />
     <Content Include="Content\ExtIcons\bilibili.png" />
+    <Content Include="Content\ExtIcons\booth.png" />
     <Content Include="Content\ExtIcons\cdjapan.png" />
     <Content Include="Content\ExtIcons\cfm.png" />
     <Content Include="Content\ExtIcons\discogs.png" />
@@ -1479,6 +1480,7 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistForEditContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\GroupForArtistContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Base\EntryWithTagUsagesContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\CommentContract.ts" />
