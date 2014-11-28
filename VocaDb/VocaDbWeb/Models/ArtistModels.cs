@@ -101,6 +101,7 @@ namespace VocaDb.Web.Models {
 		[StringLength(255)]
 		public string NameRomaji { get; set; }
 
+		[FromJson]
 		public IList<EntryPictureFileContract> Pictures { get; set; }
 
 		[Display(Name = "Entry status")]
@@ -155,6 +156,20 @@ namespace VocaDb.Web.Models {
 				WebLinks = this.WebLinks.Select(w => w.ToContract()).ToArray()
 
 			};
+
+		}
+
+		public object ToJsonModel() {
+			
+			var model = new {
+				BaseVoicebank, 
+				Id, 
+				Names, 
+				Pictures,
+				WebLinks
+			};
+
+			return model;
 
 		}
 

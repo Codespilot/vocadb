@@ -20,6 +20,7 @@ module vdb.viewModels {
 		public id: number;
 
 		public names: globalization.NamesEditViewModel;
+		public pictures: EntryPictureFileListEditViewModel;
 
         public submit = () => {
             this.submitting(true);
@@ -42,6 +43,7 @@ module vdb.viewModels {
 			this.description = ko.observable(data.description);
 			this.id = data.id;
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
+			this.pictures = new EntryPictureFileListEditViewModel(data.pictures);
             this.webLinks = new WebLinksEditViewModel(data.webLinks, webLinkCategories);
     
 			this.baseVoicebankSearchParams = {
@@ -75,6 +77,8 @@ module vdb.viewModels {
 		id: number;
 
 		names: dc.globalization.LocalizedStringWithIdContract[];
+
+		pictures: dc.EntryPictureFileContract[];
 
         webLinks: vdb.dataContracts.WebLinkContract[];
 

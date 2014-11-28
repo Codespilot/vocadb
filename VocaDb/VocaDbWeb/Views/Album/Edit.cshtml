@@ -307,20 +307,19 @@
 
 		</div>
 		
-		<div id="picsTab">
+		<div id="picsTab" data-bind="with: pictures">
 			
 			<p>@R.EditStrings.PiPicturesGuide</p>
 			<p>@string.Format(R.EditStrings.BaPictureInfo, string.Join(", ", ImageHelper.AllowedExtensions), ImageHelper.MaxImageSizeMB)</p>
 
 			<table>
-				<tbody id="picturesTableBody">
-					@foreach (var pic in Model.Pictures) {
-						Html.RenderPartialTyped("EntryPictureFileEditRow", pic);
-					}
+				<tbody data-bind="foreach: pictures">
+					@{ Html.RenderPartial("KnockoutPartials/_EntryPictureFileEdit"); }
 				</tbody>
 			</table>
+			@Html.HiddenForKnockout(m => m.Pictures, "value: ko.toJSON(pictures)")
 			
-			<a href="#" id="picAdd" class="addLink textLink">@R.EditStrings.PiCreateNew</a>
+			<a data-bind="click: add" href="#" class="addLink textLink">@R.EditStrings.PiCreateNew</a>
 
 		</div>
 

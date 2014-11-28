@@ -40,23 +40,4 @@ function initPage(artistId) {
 
 	});
 
-	$("#picAdd").click(function () {
-
-		$.post("../../Shared/CreateEntryPictureFile", null, function (row) {
-
-			$("#picturesTableBody").append(row);
-
-		});
-
-		return false;
-
-	});
-
-	$(document).on("click", "a.picRemove", function () {
-
-		$(this).parent().parent().remove();
-		return false;
-
-	});
-
 }

@@ -151,20 +151,19 @@
 			</div>
 		</div>
 		
-		<div id="picsTab">
+		<div id="picsTab" data-bind="with: pictures">
 			
 			<p>Please only upload pictures relevant to this artist, nothing else.</p>
 			<p>Allowed types: @string.Join(", ", ImageHelper.AllowedExtensions) . Maximum size is @ImageHelper.MaxImageSizeMB MB.</p>
 
 			<table>
-				<tbody id="picturesTableBody">
-					@foreach (var pic in Model.Pictures) {
-						Html.RenderPartialTyped("EntryPictureFileEditRow", pic);
-					}
+				<tbody data-bind="foreach: pictures">
+					@{ Html.RenderPartial("KnockoutPartials/_EntryPictureFileEdit"); }
 				</tbody>
 			</table>
+			@Html.HiddenForKnockout(m => m.Pictures, "value: ko.toJSON(pictures)")
 			
-			<a href="#" id="picAdd" class="addLink textLink">Create new</a>
+			<a data-bind="click: add" href="#" class="addLink textLink">Create new</a>
 
 		</div>
 
@@ -190,7 +189,7 @@
 		var artistRepo = new vdb.repositories.ArtistRepository('@RootPath');
 
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(new { baseVoicebank = Model.BaseVoicebank, id = Model.Id, names = Model.Names, webLinks = Model.WebLinks }));
+		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJsonModel()));
 		ko.applyBindings(new vdb.viewModels.ArtistEditViewModel(artistRepo, webLinkCategoryJson, modelJson));
 		initPage(@Model.Id); 
 

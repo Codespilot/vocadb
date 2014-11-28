@@ -127,6 +127,7 @@ namespace VocaDb.Web.Models {
 		[Display(Name = "Name in Romaji")]
 		public string NameRomaji { get; set; }
 
+		[FromJson]
 		public IList<EntryPictureFileContract> Pictures { get; set; }
 
 		[Display(Name = "PVs")]
@@ -227,7 +228,8 @@ namespace VocaDb.Web.Models {
 				discType = DiscType.ToString(), 
 				hasCover = HasCoverPicture, 
 				identifiers = Identifiers,
-				names = Names, 
+				names = Names,
+ 				pictures = Pictures,
 				pvs = PVs,
 				tracks = Tracks, 
 				webLinks = WebLinks
