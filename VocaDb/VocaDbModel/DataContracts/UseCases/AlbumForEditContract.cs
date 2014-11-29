@@ -8,6 +8,7 @@ using VocaDb.Model.Domain.Globalization;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class AlbumForEditContract : AlbumContract {
 
 		public AlbumForEditContract() {}
@@ -16,7 +17,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			: base(album, languagePreference) {
 
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
-			Deleted = album.Deleted;
+			DefaultNameLanguage = album.TranslatedName.DefaultLanguage;
 			Description = album.Description;
 			Identifiers = album.Identifiers.Select(i => i.Value).ToArray();
 			Names = album.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
@@ -26,7 +27,6 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Songs = album.Songs
 				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
 				.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
-			TranslatedName = new TranslatedStringContract(album.TranslatedName);
 			UpdateNotes = string.Empty;
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
@@ -36,7 +36,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public ArtistForAlbumContract[] ArtistLinks { get; set; }
 
 		[DataMember]
-		public bool Deleted { get; set; }
+		public ContentLanguageSelection DefaultNameLanguage { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }
@@ -47,6 +47,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public AlbumReleaseContract OriginalRelease { get; set; }
 
+		[DataMember]
 		public LocalizedStringWithIdContract[] Names { get; set; }
 
 		[DataMember]
@@ -58,8 +59,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public SongInAlbumEditContract[] Songs { get; set; }
 
-		public TranslatedStringContract TranslatedName { get; set; }
-
+		[DataMember]
 		public string UpdateNotes { get; set; }
 
 		[DataMember]

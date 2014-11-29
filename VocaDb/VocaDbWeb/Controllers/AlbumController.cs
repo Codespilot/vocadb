@@ -273,7 +273,7 @@ namespace VocaDb.Web.Controllers
 			CheckConcurrentEdit(EntryType.Album, id);
 
         	var album = Service.GetAlbumForEdit(id);
-			return View(new AlbumEdit(album));
+			return View(new AlbumEditViewModel(album));
 
         }
 
@@ -282,7 +282,7 @@ namespace VocaDb.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(AlbumEdit model)
+        public ActionResult Edit(AlbumEditViewModel model)
         {
 
 			// Note: name is allowed to be whitespace, but not empty.
