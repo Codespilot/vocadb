@@ -92,7 +92,7 @@ module vdb.viewModels {
 			urlMapper: vdb.UrlMapper,
 			private artistRoleNames,
 			webLinkCategories: vdb.dataContracts.TranslatedEnumField[],
-			data: SongEdit,
+			data: dc.songs.SongForEditContract,
 			canBulkDeletePVs: boolean) {
 
 			this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(null, artist)));
@@ -151,24 +151,6 @@ module vdb.viewModels {
 			);
 
         }
-
-    }
-
-    export interface SongEdit {
-
-		artistLinks: dc.ArtistForAlbumContract[];
-
-		length: number;
-
-		names: dc.globalization.LocalizedStringWithIdContract[];
-
-		pvs: dc.pvs.PVContract[];
-
-		songType: string;
-
-		tags: string[];
-
-        webLinks: vdb.dataContracts.WebLinkContract[];
 
     }
 

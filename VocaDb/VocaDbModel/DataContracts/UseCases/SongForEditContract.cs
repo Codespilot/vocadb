@@ -1,10 +1,12 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
 namespace VocaDb.Model.DataContracts.UseCases {
 
+	[DataContract(Namespace = Schemas.VocaDb)]
 	public class SongForEditContract : SongDetailsContract {
 
 		public SongForEditContract() {}
@@ -20,10 +22,13 @@ namespace VocaDb.Model.DataContracts.UseCases {
 
 		}
 
+		[DataMember]
 		public LyricsForSongContract[] Lyrics { get; set; }
 
+		[DataMember]
 		public LocalizedStringWithIdContract[] Names { get; set; }
 
+		[DataMember]
 		public string UpdateNotes { get; set; }
 
 	}
