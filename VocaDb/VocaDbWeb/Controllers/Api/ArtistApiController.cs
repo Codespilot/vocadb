@@ -54,6 +54,14 @@ namespace VocaDb.Web.Controllers.Api {
 
 		}
 
+		[Route("{id:int}/for-edit")]
+		[ApiExplorerSettings(IgnoreApi=true)]
+		public ArtistForEditContract GetForEdit(int id) {
+			
+			return service.GetArtistForEdit(id);
+
+		}
+
 		/// <summary>
 		/// Gets an artist by Id.
 		/// </summary>

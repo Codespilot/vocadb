@@ -56,6 +56,9 @@ namespace VocaDb.Web.Helpers {
 			}
 		}			
 
+		public static readonly TranslateableEnum<ContentLanguageSelection> ContentLanguageSelectionNames =
+			new TranslateableEnum<ContentLanguageSelection>(() => global::Resources.ContentLanguageSelectionNames.ResourceManager);
+
 		public static TranslateableEnum<DiscType> DiscTypeNames {
 			get {
 				return new TranslateableEnum<DiscType>(() => Model.Resources.Albums.DiscTypeNames.ResourceManager);
@@ -151,13 +154,13 @@ namespace VocaDb.Web.Helpers {
 
 		public static string ContentLanguagePreferenceName(ContentLanguagePreference languagePreference) {
 
-			return ContentLanguageSelectionNames.ResourceManager.GetString(languagePreference.ToString());
+			return global::Resources.ContentLanguageSelectionNames.ResourceManager.GetString(languagePreference.ToString());
 
 		}
 
 		public static string ContentLanguageSelectionName(ContentLanguageSelection languageSelection) {
 
-			return ContentLanguageSelectionNames.ResourceManager.GetString(languageSelection.ToString());
+			return global::Resources.ContentLanguageSelectionNames.ResourceManager.GetString(languageSelection.ToString());
 
 		}
 

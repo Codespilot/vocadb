@@ -1,4 +1,5 @@
-﻿@inherits VocaDb.Web.Code.HelperPage
+﻿@using VocaDb.Web.Helpers
+@inherits VocaDb.Web.Code.HelperPage
 
 @helper CheckBoxButtons(Dictionary<string, string> options, string binding) {
 	<div style="display: inline-block;">
@@ -24,6 +25,14 @@
 			}
 		</ul>
 	</div>
+}
+
+@helper DropdownList(Dictionary<string, string> items, string valueBinding) {
+	<select data-bind="value: @valueBinding">
+		@foreach (var item in items) {
+			<option value="@item.Key">@item.Value</option>
+		}
+	</select>
 }
 
 @helper EntryCount() {
@@ -57,7 +66,7 @@
 	<div class="alert alert-no-bottom-margin" data-bind="visible: hasValidationErrors()" style="display: none;">
 		<div class="pull-right">
 			<a data-bind="click: function() { validationExpanded(!validationExpanded()); }, css: { active: validationExpanded }" class="btn btn-mini" href="#">
-				<i class="icon-plus"></i>
+				<i class="icon-plus noMargin"></i>
 				Details
 			</a>
 		</div>
@@ -84,6 +93,10 @@
 		<!-- /ko -->
 	</div>
 
+}
+
+@helper LanguageSelectionDropDown(string valueBinding) {
+	@DropdownList(Translate.ContentLanguageSelectionNames.ValuesAndNamesStrings, valueBinding)
 }
 
 @helper LockingAutoComplete(string bindingHandler, string binding, string textBinding = null, string valBinding = null) {

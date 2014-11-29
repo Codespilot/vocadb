@@ -9,6 +9,10 @@ module vdb.viewModels {
 
         public remove: (webLink) => void;
 
+		public toContracts: () => dc.WebLinkContract[] = () => {
+			return ko.toJS(this.webLinks);
+		}
+
         public webLinks: KnockoutObservableArray<WebLinkEditViewModel>;
 
         constructor(webLinkContracts: dc.WebLinkContract[], public categories?: dc.TranslatedEnumField[]) {

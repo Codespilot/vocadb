@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.Domain.Artists;
@@ -19,7 +20,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Description = artist.Description;
 			Groups = artist.Groups.Select(g => new GroupForArtistContract(g, languagePreference)).OrderBy(g => g.Group.Name).ToArray();
 			Names = artist.Names.Select(n => new LocalizedStringWithIdContract(n)).ToArray();
-			Pictures = artist.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
+			Pictures = artist.Pictures.Select(p => new EntryPictureFileContract(p)).ToList();
 			UpdateNotes = string.Empty;
 			WebLinks = artist.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
 
@@ -41,7 +42,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		public LocalizedStringWithIdContract[] Names { get; set; }
 
 		[DataMember]
-		public EntryPictureFileContract[] Pictures { get; set; }
+		public IList<EntryPictureFileContract> Pictures { get; set; }
 
 		[DataMember]
 		public string UpdateNotes { get; set; }
