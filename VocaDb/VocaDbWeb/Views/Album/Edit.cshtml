@@ -1,11 +1,11 @@
 ﻿@using System.Web.Optimization
 @using VocaDb.Model.Helpers
-@using VocaDb.Web.Models;
 @using VocaDb.Web.Helpers;
 @using R = ViewRes.Album;
-@using VocaDb.Model.Resources;
+@using Res = ViewRes.Album.EditStrings;
 @using ValidationErrors = VocaDb.Model.Resources.AlbumValidationErrors;
 @inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Album.AlbumEditViewModel>
+
 @{
 	ViewBag.Title = string.Format(R.EditStrings.EditTitle, Model.Name);
 	ViewBag.Parents = new[] { 
@@ -26,7 +26,7 @@
 
 @section Toolbar {
 @if (Login.CanDeleteEntries) {
-	if (!Model.Deleted) {
+	if (!Model.Album.Deleted) {
 		@Html.ActionLink(ViewRes.SharedStrings.Delete, "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = string.Format("return confirm(\"{0}\");", R.EditStrings.ConfirmDeleteAlbum) })
     } else {
 		@Html.ActionLink(ViewRes.EntryEditStrings.Restore, "Restore", new { id = Model.Id }, new { id = "restoreLink" })
@@ -77,14 +77,31 @@
 		var pvRepo = new vdb.repositories.PVRepository(urlMapper);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJson()));
 		var allowCustomTracks = @ToJS(VocaDb.Model.Utils.AppConfig.AllowCustomTracks);
+		var editedModel = @Html.Raw(JsonHelpers.Serialize(Model.EditedAlbum));
+		var viewModel;
 
-		var viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, pvRepo, urlMapper, 
-			artistRoleJson, webLinkCategoryJson, modelJson, allowCustomTracks, canBulkDeletePVs);
-		ko.applyBindings(viewModel);
+		if (editedModel) {
+			
+			viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, pvRepo, urlMapper,
+				artistRoleJson, webLinkCategoryJson, editedModel, allowCustomTracks, canBulkDeletePVs);
 
-		initPage(viewModel, @Model.Id, "@Model.DiscType");
+			ko.applyBindings(viewModel);
+
+		} else {
+
+			repo.getForEdit(@Model.Id, function (model) {
+
+				viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, pvRepo, urlMapper,
+					artistRoleJson, webLinkCategoryJson, model, allowCustomTracks, canBulkDeletePVs);
+
+				ko.applyBindings(viewModel);
+
+			});
+			
+		}
+
+		initPage();
 
 	});
 </script>
@@ -96,9 +113,7 @@
 @KnockoutHelpers.EntryValidationMessage(Model.Draft, validationErrors, "glalbums")
 
 <br />
-<form action="@Url.Action("Edit", "Album")" method="POST" enctype="multipart/form-data" data-bind="submit: submit">
-	@Html.HiddenFor(m => m.Id)
-	@Html.HiddenFor(m => m.Name)
+<form action="@Url.Action("Edit", "Album")" method="POST" enctype="multipart/form-data" data-bind="submit: submit, visible: true" style="display: none;">
 
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
@@ -115,10 +130,10 @@
 		<div id="basicInfoTab">
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DefaultLanguageSelection, R.EditStrings.BaDefaultLanguageSelection)
+				<label>@Res.BaDefaultLanguageSelection</label>
 			</div>
 			<div class="editor-field">
-				@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
+				@KnockoutHelpers.LanguageSelectionDropDown("defaultNameLanguage")
 			</div>
 
 			<div class="editor-label">
@@ -128,7 +143,6 @@
 			</div>
 			<div class="editor-field" data-bind="with: names">
 				@{ Html.RenderPartial("KnockoutPartials/_NamesEditor"); }
-				<input type="hidden" name="Names" id="Names" data-bind="value: ko.toJSON(allNames)" />
 			</div>
 
 			<div class="editor-label">
@@ -146,10 +160,10 @@
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Description, R.EditStrings.BaDescription)
+				<label>@Res.BaDescription</label>
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Description, 7, 70, new { @class = "span4" })
+				<textarea rows="8" cols="70" class="span5" data-bind="value: description"></textarea>
 			</div>
 
 			<div class="editor-label">
@@ -157,7 +171,7 @@
 			</div>
 			<div class="editor-field">
 				<div class="row-fluid">
-					@Html.DropdownForKnockout(m => m.DiscType, new SelectList(Model.AllDiscTypes, "Key", "Value"), "initialValue, value: discTypeStr")
+					@KnockoutHelpers.DropdownList(Model.AllDiscTypes, "discTypeStr")
 					<span data-bind="visible: validationError_needType, qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
 				</div>
 			</div>
@@ -171,28 +185,24 @@
 						</label>
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxForKnockout(m => m.ReleaseYear, binding: "initialValue, value: releaseYear", cssClass: "input-small", size: 10, maxLength: 4)
+						<input type="text" data-bind="textInput: releaseYear" class="input-small" size="10" maxlength="4" />
 						<span data-bind="visible: validationError_needReleaseYear, qTip" class="icon errorIcon" title="@ValidationErrors.NeedReleaseYear"></span>
-						<br />
-						@Html.ValidationMessageFor(m => m.ReleaseYear)
 					</div>				
 				</td>
 				<td>
 					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseMonth, R.EditStrings.BaReleaseMonth)
+						<label>@Res.BaReleaseMonth</label>
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseMonth, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
-						@Html.ValidationMessageFor(m => m.ReleaseMonth)
+						<input type="text" data-bind="textInput: releaseMonth" class="input-mini" size="4" maxlength="2" />
 					</div>				
 				</td>
 				<td>
 					<div class="editor-label">
-						@Html.LabelFor(m => m.ReleaseDay, R.EditStrings.BaReleaseDay)
+						<label>@Res.BaReleaseDay</label>
 					</div>
 					<div class="editor-field">
-						@Html.TextBoxFor(m => m.ReleaseDay, new { size = "4", maxlength = 2, @class = "input-mini" })<br />
-						@Html.ValidationMessageFor(m => m.ReleaseDay)
+						<input type="text" data-bind="textInput: releaseDay" class="input-mini" size="4" maxlength="2" />
 					</div>				
 				</td>
 			</tr></table>
@@ -201,8 +211,7 @@
 				@Helpers.HelpLabel(R.EditStrings.BaCatNum, "Usually catalog numbers are in the format ABC-1234, please do not add extra whitespace.")
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.CatNum)
-				@Html.ValidationMessageFor(m => m.CatNum)
+				<input type="text" data-bind="textInput: catalogNumber" />
 			</div>
 			
 			<div class="editor-label">
@@ -216,14 +225,13 @@
 					</div>
 				</div>
 				<input type="text" placeholder="New barcode" maxlength="30" data-bind="textInput: newIdentifier, focusout: function() { createNewIdentifier(); } " />
-				<input type="hidden" name="identifiers" data-bind="value: ko.toJSON(identifiers)" />
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.ReleaseEvent, R.EditStrings.BaReleaseEvent)
+				<label>@Res.BaReleaseEvent</label>
 			</div>
 			<div class="editor-field">
-				@Html.TextBoxFor(m => m.ReleaseEvent, new { id = "releaseEvent", size = 30 })
+				<input type="text" data-bind="textInput: releaseEventName" size="30" id="releaseEvent" />
 			</div>
 			
 			<div class="editor-label">
@@ -231,14 +239,13 @@
 			</div>
 			<div class="editor-field" data-bind="with: webLinks">
 				@KnockoutHelpers.WebLinksEditViewKnockout(true)
-				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
 			</div>
 
 			<div class="editor-label">
 				@Helpers.HelpLabel(R.EditStrings.BaStatus, Resources.CommonMessages.EntryStatusExplanation)
 			</div>
 			<div class="editor-field">
-				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+				@KnockoutHelpers.DropdownList(Translate.EntryStatusNames.GetValuesAndNamesStrings(Model.AllowedEntryStatuses), "status")
 			</div>
 
 		</div>
@@ -273,8 +280,6 @@
 			<br /><br />
 			<!-- /ko -->
 
-			<input type="hidden" name="tracks" data-bind="value: ko.toJSON(tracks)" />
-
 			<h4>@R.EditStrings.AddNew</h4>
 			<input type="text" data-bind="songAutoComplete: trackSearchParams" maxlength="128" placeholder="@ViewRes.SharedStrings.Search" class="input-xlarge" />			
 			<p>@R.EditStrings.TrAddTrackHelp</p>
@@ -299,7 +304,6 @@
 					@{ Html.RenderPartial("Partials/_ArtistForAlbumEdit"); }
 				</tbody>
 			</table>
-			<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
 
 			<br />
 			<h4>@R.EditStrings.ArAddArtist</h4>
@@ -317,7 +321,6 @@
 					@{ Html.RenderPartial("KnockoutPartials/_EntryPictureFileEdit"); }
 				</tbody>
 			</table>
-			@Html.HiddenForKnockout(m => m.Pictures, "value: ko.toJSON(pictures)")
 			
 			<a data-bind="click: add" href="#" class="addLink textLink">@R.EditStrings.PiCreateNew</a>
 
@@ -341,7 +344,6 @@
 					@{ Html.RenderPartial("PVs/_PVEdit"); }
 				</tbody>
 			</table>
-			@Html.HiddenForKnockout(m => m.PVs, "value: ko.toJSON(pvs)")
 
 			<br />
 			<h4>@R.EditStrings.PvAdd</h4>
@@ -360,11 +362,14 @@
 	<br />
 	
 	<p>@ViewRes.EntryEditStrings.UpdateNotes</p>
-	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })	
+	<textarea data-bind="value: updateNotes" class="input-xxlarge" rows="4" maxlength="200"></textarea>
 	
 	<br />
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
+	<!-- JSON model to be posted to the server -->
+	<input type="hidden" name="editedAlbum" data-bind="value: submittedJson" />
+
 </form>
 	
 @{ Html.RenderPartial("Partials/_EditArtistRolesPopup"); }

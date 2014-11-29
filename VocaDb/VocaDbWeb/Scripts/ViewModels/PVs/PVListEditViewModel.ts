@@ -60,6 +60,10 @@ module vdb.viewModels.pvs {
 			this.pvs.remove(pv);
 		}
 
+		public toContracts: () => dc.pvs.PVContract[] = () => {
+			return ko.toJS(this.pvs());
+		}
+
 	}
 
 }

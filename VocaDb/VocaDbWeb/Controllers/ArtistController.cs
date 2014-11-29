@@ -381,8 +381,7 @@ namespace VocaDb.Web.Controllers
 			try {
 				viewModel.CheckModel();
 			} catch (InvalidFormException x) {
-				log.WarnException("Form submission error", x);
-				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Diagnostic error message: {0}.", x.Message));
+				AddFormSubmissionError(x.Message);
 			}
 
 			if (!ModelState.IsValid) {

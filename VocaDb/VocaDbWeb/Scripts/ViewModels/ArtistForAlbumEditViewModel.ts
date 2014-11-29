@@ -28,6 +28,16 @@ module vdb.viewModels {
         // List of roles for this artist.
         public rolesArray: KnockoutObservableArray<string>;
 
+		public toContract: () => dc.ArtistForAlbumContract = () => {
+			return {
+				artist: this.artist,
+				id: this.id,
+				isSupport: this.isSupport(),
+				name: this.name,
+				roles: this.roles()
+			};
+		}
+
         constructor(repository: rep.AlbumRepository, data: dc.ArtistForAlbumContract) {
 
             this.artist = data.artist;

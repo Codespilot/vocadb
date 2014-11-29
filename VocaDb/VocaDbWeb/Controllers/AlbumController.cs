@@ -1,24 +1,16 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.UI;
 using MvcPaging;
 using NLog;
-using VocaDb.Model.DataContracts;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
 using VocaDb.Model.Domain.Albums;
-using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Images;
-using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Resources;
 using VocaDb.Model.Service;
 using VocaDb.Model.Service.Helpers;
-using VocaDb.Model.Service.Search.AlbumSearch;
 using VocaDb.Model.Service.TagFormatting;
 using VocaDb.Model.Utils.Search;
 using VocaDb.Web.Code.Exceptions;
@@ -28,8 +20,6 @@ using VocaDb.Web.Models;
 using System.Drawing;
 using VocaDb.Model.Helpers;
 using VocaDb.Web.Models.Album;
-using VocaDb.Model.Service.VideoServices;
-using VocaDb.Model.DataContracts.PVs;
 using VocaDb.Web.Models.Shared;
 
 namespace VocaDb.Web.Controllers
@@ -273,7 +263,7 @@ namespace VocaDb.Web.Controllers
 			CheckConcurrentEdit(EntryType.Album, id);
 
         	var album = Service.GetAlbumForEdit(id);
-			return View(new AlbumEditViewModel(album));
+			return View(new AlbumEditViewModel(album, PermissionContext));
 
         }
 
@@ -282,15 +272,17 @@ namespace VocaDb.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(AlbumEditViewModel model)
+        public ActionResult Edit(AlbumEditViewModel viewModel)
         {
+
+			var model = viewModel.EditedAlbum;
 
 			// Note: name is allowed to be whitespace, but not empty.
 			if (model.Names.All(n => string.IsNullOrEmpty(n.Value))) {
 				ModelState.AddModelError("Names", AlbumValidationErrors.UnspecifiedNames);
 			}
 
-			if (!OptionalDateTime.IsValid(model.ReleaseYear, model.ReleaseDay, model.ReleaseMonth))
+			if (!OptionalDateTime.IsValid(model.OriginalRelease.ReleaseDate.Year, model.OriginalRelease.ReleaseDate.Day, model.OriginalRelease.ReleaseDate.Month))
 				ModelState.AddModelError("ReleaseYear", "Invalid date");
 
 			var coverPicUpload = Request.Files["coverPicUpload"];
@@ -308,23 +300,17 @@ namespace VocaDb.Web.Controllers
 				ParseAdditionalPictures(coverPicUpload, model.Pictures);				
 			}
 
-			if (!ModelState.IsValid) {
-				var oldContract = Service.GetAlbumForEdit(model.Id);
-				model.CopyNonEditableFields(oldContract);
-				return View(model);
-			}
-
-			AlbumForEditContract contract;
 			try {
-				contract = model.ToContract();
+				viewModel.CheckModel();
 			} catch (InvalidFormException x) {
 				AddFormSubmissionError(x.Message);
-				var oldContract = Service.GetAlbumForEdit(model.Id);
-				model.CopyNonEditableFields(oldContract);
-				return View(model);				
 			}
 
-			queries.UpdateBasicProperties(contract, pictureData);
+			if (!ModelState.IsValid) {
+				return View(new AlbumEditViewModel(Service.GetAlbum(model.Id), PermissionContext, model));
+			}
+
+			queries.UpdateBasicProperties(model, pictureData);
 
         	return RedirectToAction("Details", new { id = model.Id });
 
