@@ -6,7 +6,6 @@ using VocaDb.Model.DataContracts.Users;
 using VocaDb.Model.Domain.Albums;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.DataContracts.Tags;
-using VocaDb.Model.Domain.Users;
 
 namespace VocaDb.Model.DataContracts.Albums {
 
@@ -19,7 +18,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 			: base(album, languagePreference) {
 
 			ArtistLinks = album.Artists.Select(a => new ArtistForAlbumContract(a, languagePreference)).OrderBy(a => a.Name).ToArray();
-			Deleted = album.Deleted;
 			Description = album.Description;
 			OriginalRelease = (album.OriginalRelease != null ? new AlbumReleaseContract(album.OriginalRelease) : null);
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
@@ -40,9 +38,6 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public int CommentCount { get; set; }
-
-		[DataMember]
-		public bool Deleted { get; set; }
 
 		[DataMember]
 		public string Description { get; set; }

@@ -25,7 +25,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 			Pictures = album.Pictures.Select(p => new EntryPictureFileContract(p)).ToArray();
 			PVs = album.PVs.Select(p => new PVContract(p)).ToArray();
 			Songs = album.Songs
-				.OrderBy(s => s.TrackNumber).OrderBy(s => s.DiscNumber)
+				.OrderBy(s => s.DiscNumber).ThenBy(s => s.TrackNumber)
 				.Select(s => new SongInAlbumEditContract(s, languagePreference)).ToArray();
 			UpdateNotes = string.Empty;
 			WebLinks = album.WebLinks.Select(w => new WebLinkContract(w)).OrderBy(w => w.DescriptionOrUrl).ToArray();
