@@ -27,7 +27,7 @@ module vdb.viewModels {
 
         public trackNumber: KnockoutObservable<number>;
 
-        constructor(data: SongInAlbumEditContract) {
+        constructor(data: dc.songs.SongInAlbumEditContract) {
             
             this.artists = ko.observableArray(data.artists);
             this.artistString = ko.observable(data.artistString);
@@ -48,29 +48,6 @@ module vdb.viewModels {
             });
         
         }
-
-    }
-
-    export interface SongInAlbumEditContract {
-
-        artists: dc.ArtistContract[];
-
-        artistString: string;
-
-		discNumber: number;
-
-		isCustomTrack?: boolean;
-
-        songAdditionalNames: string;
-
-        songId: number;
-        
-        songInAlbumId: number;
-
-        songName: string;
-
-        trackNumber: number;
-
 
     }
 

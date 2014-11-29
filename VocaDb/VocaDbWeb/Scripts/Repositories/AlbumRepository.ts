@@ -20,6 +20,13 @@ module vdb.repositories {
 
 		}
 
+		public getForEdit = (id: number, callback: (result: dc.albums.AlbumForEditContract) => void) => {
+
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums/" + id + "/for-edit");
+			$.getJSON(url, callback);
+
+		}
+
 		getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,
 			discTypes: string, tag: string,
 			artistId: number, artistParticipationStatus: string,
