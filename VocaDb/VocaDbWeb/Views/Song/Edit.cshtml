@@ -3,7 +3,7 @@
 @using VocaDb.Web.Helpers
 @using Newtonsoft.Json
 @using ValidationErrors = VocaDb.Model.Resources.SongValidationErrors;
-@inherits VocaDb.Web.Code.VocaDbPage<SongEdit>
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Song.SongEditViewModel>
 
 @{
 	ViewBag.Title = "Edit song - " + Model.Name;

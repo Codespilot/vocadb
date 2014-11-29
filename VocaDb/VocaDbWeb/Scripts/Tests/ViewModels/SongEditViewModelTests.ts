@@ -10,7 +10,7 @@ module vdb.tests.viewModels {
 
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 0, url: "http://www.youtube.com/user/tripshots" };
-    var data: vm.SongEdit = { artistLinks: [], length: 39, names: [], pvs: [], songType: 'Original', tags: [], webLinks: [webLinkData] }; 
+    var data: dc.songs.SongForEditContract = { artistLinks: [], length: 39, names: [], pvs: [], songType: 'Original', tags: [], webLinks: [webLinkData] }; 
 	var artistRepo = new sup.FakeArtistRepository();
 	var pvRepo = null;
 
