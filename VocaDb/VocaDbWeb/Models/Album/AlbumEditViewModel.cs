@@ -82,8 +82,14 @@ namespace VocaDb.Web.Models.Album {
 			if (EditedAlbum.Names == null)
 				throw new InvalidFormException("Names list was null");
 
+			if (EditedAlbum.PVs == null)
+				throw new InvalidFormException("PVs list was null");
+
 			if (EditedAlbum.Songs == null)
 				throw new InvalidFormException("Tracks list was null");
+
+			if (EditedAlbum.WebLinks == null)
+				throw new InvalidFormException("WebLinks list was null");
 
 		}
 
