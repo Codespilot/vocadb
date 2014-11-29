@@ -6,6 +6,7 @@ using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.QueryableExtenders;
 using VocaDb.Model.Service.VideoServices;
 
 namespace VocaDb.Model.Service.Search.SongSearch {
@@ -260,8 +261,7 @@ namespace VocaDb.Model.Service.Search.SongSearch {
 			var ids = query
 				.AddOrder(queryParams.SortRule, LanguagePreference)
 				.Select(s => s.Id)
-				.Skip(queryParams.Paging.Start)
-				.Take(queryParams.Paging.MaxEntries)
+				.Paged(queryParams.Paging)
 				.ToArray();
 
 			var songs = SortByIds(querySource
