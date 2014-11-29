@@ -27,11 +27,11 @@ module vdb.tests.viewModels {
     var labelArtistLink = { artist: label, id: 41, isSupport: false, name: "", roles: "Default" };
     var customArtistLink = { artist: null, id: 42, isSupport: false, name: "xxJulexx", roles: "Default" };
 
-	var songInAlbum: vm.SongInAlbumEditContract;
-	var customTrack: vm.SongInAlbumEditContract;
+	var songInAlbum: dc.songs.SongInAlbumEditContract;
+	var customTrack: dc.songs.SongInAlbumEditContract;
     var roles = { Default: "Default", VoiceManipulator: "Voice manipulator" };
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 123, url: "http://www.youtube.com/user/tripshots" };
-    var data: vm.AlbumEdit;
+    var data: dc.albums.AlbumForEditContract;
 	vdb.resources = { albumDetails: { download: "" }, albumEdit: { addExtraArtist: "" }, song: null };
 
     QUnit.module("AlbumEditViewModelTests", {
@@ -55,6 +55,8 @@ module vdb.tests.viewModels {
 
             data = {
 				artistLinks: [producerArtistLink, vocalistArtistLink, labelArtistLink, customArtistLink],
+				defaultNameLanguage: 'English',
+				description: '',
 				discType: "Album",
 				hasCover: true,
 				identifiers: [],

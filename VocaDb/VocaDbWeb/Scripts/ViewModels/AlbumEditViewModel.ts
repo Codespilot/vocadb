@@ -157,7 +157,7 @@ module vdb.viewModels {
 			private artistRepository: rep.ArtistRepository,
 			pvRepository: rep.PVRepository,
 			urlMapper: vdb.UrlMapper,
-			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: AlbumEdit,
+			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: dc.albums.AlbumForEditContract,
 			allowCustomTracks: boolean,
 			canBulkDeletePVs: boolean) {
 
@@ -425,28 +425,6 @@ module vdb.viewModels {
             });
         
         }
-    
-    }
-
-    export interface AlbumEdit {
-        
-        artistLinks: dc.ArtistForAlbumContract[];
-
-		discType: string;
-
-		hasCover: boolean;
-
-		identifiers: string[];
-
-		names: dc.globalization.LocalizedStringWithIdContract[];
-
-		pictures: dc.EntryPictureFileContract[];
-
-		pvs: dc.pvs.PVContract[];
-
-        tracks: SongInAlbumEditContract[];
-
-        webLinks: dc.WebLinkContract[];
     
     }
 

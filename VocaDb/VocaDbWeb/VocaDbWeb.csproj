@@ -1481,6 +1481,8 @@
     <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumForEditContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumReleaseContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\ArtistForEditContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Artist\GroupForArtistContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Base\EntryWithTagUsagesContract.ts" />
@@ -1489,6 +1491,7 @@
     <TypeScriptCompile Include="Scripts\DataContracts\Globalization\LocalizedStringWithIdContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PartialFindResultContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\PVs\PVContract.ts" />
+    <TypeScriptCompile Include="Scripts\DataContracts\Song\SongInAlbumEditContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Song\SongInListContract.ts" />
     <TypeScriptCompile Include="Scripts\DataContracts\Tag\TagUsageForApiContract.ts" />
     <TypeScriptCompile Include="Scripts\Helpers\ArtistHelper.ts" />

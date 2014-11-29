@@ -36,6 +36,14 @@ namespace VocaDb.Web.Controllers.Api {
 			this.thumbPersister = thumbPersister;
 		}
 
+		[Route("{id:int}/for-edit")]
+		[ApiExplorerSettings(IgnoreApi=true)]
+		public AlbumForEditContract GetForEdit(int id) {
+			
+			return service.GetAlbumForEdit(id);
+
+		}
+
 		/// <summary>
 		/// Gets an album by Id.
 		/// </summary>
