@@ -3,6 +3,7 @@ using System.Linq;
 using VocaDb.Model.Domain.Artists;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Service.Helpers;
+using VocaDb.Model.Service.QueryableExtenders;
 using VocaDb.Model.Service.Repositories;
 
 namespace VocaDb.Model.Service.Search.Artists {
@@ -61,8 +62,7 @@ namespace VocaDb.Model.Service.Search.Artists {
 			var ids = query
 				.OrderBy(queryParams.SortRule, LanguagePreference)
 				.Select(s => s.Id)
-				.Skip(queryParams.Paging.Start)
-				.Take(queryParams.Paging.MaxEntries)
+				.Paged(queryParams.Paging)
 				.ToArray();
 
 			var artists = SortByIds(context
