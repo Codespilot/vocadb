@@ -262,7 +262,7 @@ namespace VocaDb.Web.Controllers
 
 			CheckConcurrentEdit(EntryType.Album, id);
 
-        	var album = Service.GetAlbumForEdit(id);
+        	var album = Service.GetAlbum(id);
 			return View(new AlbumEditViewModel(album, PermissionContext));
 
         }
