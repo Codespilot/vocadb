@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Albums;
-using VocaDb.Model.DataContracts.Artists;
 using VocaDb.Model.DataContracts.Songs;
 using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
@@ -354,11 +352,9 @@ namespace VocaDb.Web.Controllers
 			if (id == invalidId)
 				return NoId();
 
-			RestoreErrorsFromTempData();
-
 			CheckConcurrentEdit(EntryType.Artist, id);
 
-        	var model = new ArtistEdit(Service.GetArtistForEdit(id));
+        	var model = new ArtistEditViewModel(Service.GetArtist(id), PermissionContext);
             return View(model);
 
         }
@@ -367,8 +363,10 @@ namespace VocaDb.Web.Controllers
         // POST: /Artist/Edit/5
         [HttpPost]
         [Authorize]
-        public ActionResult EditBasicDetails(ArtistEdit model)
+        public ActionResult Edit(ArtistEditViewModel viewModel)
         {
+
+			var model = viewModel.EditedArtist;
 
 			// Note: name is allowed to be whitespace, but not empty.
 			if (model.Names.All(n => string.IsNullOrEmpty(n.Value))) {
@@ -380,22 +378,18 @@ namespace VocaDb.Web.Controllers
 
 			ParseAdditionalPictures(coverPicUpload, model.Pictures);
 
-			if (!ModelState.IsValid) {
-				SaveErrorsToTempData();
-				return RedirectToAction("Edit", new { id = model.Id });
-			}
-
-			ArtistForEditContract contract;
 			try {
-				contract = model.ToContract();
+				viewModel.CheckModel();
 			} catch (InvalidFormException x) {
 				log.WarnException("Form submission error", x);
 				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Diagnostic error message: {0}.", x.Message));
-				SaveErrorsToTempData();
-				return RedirectToAction("Edit", new { id = model.Id });
 			}
 
-			queries.Update(contract, pictureData, LoginManager);
+			if (!ModelState.IsValid) {
+				return View("Edit", new ArtistEditViewModel(Service.GetArtist(model.Id), PermissionContext, model));
+			}
+
+			queries.Update(model, pictureData, LoginManager);
 
 			return RedirectToAction("Details", new { id = model.Id });
 

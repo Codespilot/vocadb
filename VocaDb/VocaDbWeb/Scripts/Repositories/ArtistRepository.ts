@@ -13,6 +13,13 @@ module vdb.repositories {
 
         public findDuplicate: (params, callback: (result: dc.DuplicateEntryResultContract[]) => void ) => void;
 
+		public getForEdit = (id: number, callback: (result: dc.artists.ArtistForEditContract) => void) => {
+	
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/artists/" + id + "/for-edit");
+			$.getJSON(url, callback);
+					
+		}
+
         public getOne: (id: number, callback: (result: dc.ArtistContract) => void) => void;
 
 		public getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,

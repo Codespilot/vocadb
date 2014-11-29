@@ -9,7 +9,9 @@ module vdb.viewModels.artists {
 		public artistContract = ko.computed(() => {
 			return {
 				id: this.artistId(),
-				name: this.artistName()
+				name: this.artistName(),
+				additionalNames: null,
+				artistType: null
 			}
 		});
 

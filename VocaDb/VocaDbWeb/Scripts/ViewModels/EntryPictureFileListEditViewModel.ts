@@ -21,6 +21,12 @@ module vdb.viewModels {
 			this.pictures.remove(picture);
 		}
 
+		public toContracts: () => dc.EntryPictureFileContract[] = () => {
+
+			return ko.toJS(this.pictures());
+
+		}
+
 	}
 
 }

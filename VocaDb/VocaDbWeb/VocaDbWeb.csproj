@@ -938,7 +938,7 @@
     <Compile Include="Models\Album\Create.cs" />
     <Compile Include="Models\Album\Index.cs" />
     <Compile Include="Models\Album\Versions.cs" />
-    <Compile Include="Models\ArtistModels.cs" />
+    <Compile Include="Models\Artist\ArtistEditViewModel.cs" />
     <Compile Include="Models\Artist\Create.cs" />
     <Compile Include="Models\Artist\Index.cs" />
     <Compile Include="Models\Artist\Versions.cs" />

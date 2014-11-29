@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using NLog;
 using VocaDb.Model.DataContracts;
 using VocaDb.Model.Domain;
+using VocaDb.Model.Domain.Security;
 using VocaDb.Model.Helpers;
 using VocaDb.Model.Service.Security;
 using VocaDb.Model.DataContracts.UseCases;
@@ -54,6 +55,10 @@ namespace VocaDb.Web.Controllers {
 			get {
 				return PagePropertiesData.Get(ViewBag);
 			}
+		}
+
+		protected IUserPermissionContext PermissionContext {
+			get { return LoginManager; }
 		}
 
 		protected ServiceModel Services {

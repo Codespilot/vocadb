@@ -25,6 +25,21 @@ module vdb.viewModels.globalization {
 			return _.some(this.allNames(), (name: vdb.viewModels.globalization.LocalizedStringWithIdEditViewModel) => name.language() != langSelection.Unspecified);
 		}
 
+		public toContracts = () => {
+			// TODO: ko.toJS?
+			return _.map(this.allNames(), (name) => {
+
+				var contract: dc.globalization.LocalizedStringWithIdContract = {
+					id: name.id,
+					language: name.languageStr(),
+					value: name.value()
+				}
+
+				return contract;
+
+			});
+		}
+
 		public static fromContracts(contracts: dc.globalization.LocalizedStringWithIdContract[]) {
 			return new NamesEditViewModel(_.map(contracts, contract => globalization.LocalizedStringWithIdEditViewModel.fromContract(contract)));
 		}
