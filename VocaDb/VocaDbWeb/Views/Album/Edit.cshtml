@@ -5,7 +5,7 @@
 @using R = ViewRes.Album;
 @using VocaDb.Model.Resources;
 @using ValidationErrors = VocaDb.Model.Resources.AlbumValidationErrors;
-@inherits VocaDb.Web.Code.VocaDbPage<AlbumEdit>
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Album.AlbumEditViewModel>
 @{
 	ViewBag.Title = string.Format(R.EditStrings.EditTitle, Model.Name);
 	ViewBag.Parents = new[] { 

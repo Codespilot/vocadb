@@ -42,6 +42,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ArtistString = album.ArtistString.GetBestMatch(languagePreference);
 			CoverPictureMime = album.CoverPictureMime;
 			CreateDate = album.CreateDate;
+			Deleted = album.Deleted;
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.TranslatedName[languagePreference];
@@ -62,6 +63,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			ArtistString = album.TranslatedArtistString.GetBestMatch(languagePreference);
 			CoverPictureMime = album.CoverPictureMime;
 			CreateDate = album.CreateDate;
+			Deleted = album.Deleted;
 			DiscType = album.DiscType;
 			Id = album.Id;
 			Name = album.Names.SortNames[languagePreference];
@@ -85,6 +87,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember]
 		public DateTime CreateDate { get; set; }
+
+		[DataMember]
+		public bool Deleted { get; set; }
 
 		[DataMember]
 		[JsonConverter(typeof(StringEnumConverter))]

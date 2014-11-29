@@ -349,8 +349,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.Identifiers = true;
 				}
 
-				if (album.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
-					album.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+				if (album.TranslatedName.DefaultLanguage != properties.DefaultNameLanguage) {
+					album.TranslatedName.DefaultLanguage = properties.DefaultNameLanguage;
 					diff.OriginalName = true;
 				}
 
