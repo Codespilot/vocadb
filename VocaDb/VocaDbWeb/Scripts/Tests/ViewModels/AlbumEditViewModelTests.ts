@@ -2,7 +2,7 @@
 /// <reference path="../../Models/WebLinkCategory.ts" />
 /// <reference path="../TestSupport/FakeAlbumRepository.ts" />
 /// <reference path="../TestSupport/FakeSongRepository.ts" />
-/// <reference path="../../ViewModels/AlbumEditViewModel.ts" />
+/// <reference path="../../ViewModels/Album/AlbumEditViewModel.ts" />
 
 module vdb.tests.viewModels {
 
@@ -55,15 +55,22 @@ module vdb.tests.viewModels {
 
             data = {
 				artistLinks: [producerArtistLink, vocalistArtistLink, labelArtistLink, customArtistLink],
+				coverPictureMime: "image/jpeg",
 				defaultNameLanguage: 'English',
 				description: '',
 				discType: "Album",
-				hasCover: true,
+				id: 0,
 				identifiers: [],
 				names: [],
+				originalRelease: {
+					catNum: '',
+					eventName: '',
+					releaseDate: {}
+				},
 				pictures: [],
 				pvs: [],
-				tracks: [songInAlbum, customTrack],
+				songs: [songInAlbum, customTrack],
+				status: 'Draft',
 				webLinks: [webLinkData]
             };
 

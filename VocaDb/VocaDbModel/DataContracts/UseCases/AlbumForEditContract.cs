@@ -53,7 +53,7 @@ namespace VocaDb.Model.DataContracts.UseCases {
 		[DataMember]
 		public EntryPictureFileContract[] Pictures { get; set; }
 
-		[DataMember]
+		[DataMember(Name = "pvs")]
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]

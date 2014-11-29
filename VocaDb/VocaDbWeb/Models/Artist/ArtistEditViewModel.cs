@@ -9,7 +9,7 @@ using VocaDb.Web.Code.Exceptions;
 using VocaDb.Web.Helpers;
 using VocaDb.Model.Domain.Security;
 
-namespace VocaDb.Web.Models {
+namespace VocaDb.Web.Models.Artist {
 
 	[PropertyModelBinder]
 	public class ArtistEditViewModel {

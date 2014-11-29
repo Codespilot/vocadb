@@ -1,6 +1,6 @@
-/// <reference path="../DataContracts/TranslatedEnumField.ts" />
-/// <reference path="../DataContracts/WebLinkContract.ts" />
-/// <reference path="WebLinksEditViewModel.ts" />
+/// <reference path="../../DataContracts/TranslatedEnumField.ts" />
+/// <reference path="../../DataContracts/WebLinkContract.ts" />
+/// <reference path="../WebLinksEditViewModel.ts" />
 
 module vdb.viewModels {
 

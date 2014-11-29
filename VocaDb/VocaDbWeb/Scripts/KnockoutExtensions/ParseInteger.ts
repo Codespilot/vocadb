@@ -10,8 +10,8 @@ ko.extenders.parseInteger = (target) => {
 	var result = ko.computed({
 		read: target,  //always return the original observables value
 		write: (newValue: any) => {
-			var current = target(),
-			valueToWrite = isNaN(newValue) || newValue == "" ? null : parseInt(newValue);
+			var current = target();
+			var valueToWrite = isNaN(newValue) || newValue == "" || newValue == null ? null : parseInt(newValue);
 
 			//only write if it changed
 			if (valueToWrite !== current) {

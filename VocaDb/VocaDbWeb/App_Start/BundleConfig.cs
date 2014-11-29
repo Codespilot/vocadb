@@ -93,7 +93,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/EntryPictureFileListEditViewModel.js",
 				"~/Scripts/ViewModels/ArtistForAlbumEditViewModel.js",
 				"~/Scripts/ViewModels/SongInAlbumEditViewModel.js",
-				"~/Scripts/ViewModels/AlbumEditViewModel.js",
+				"~/Scripts/ViewModels/Album/AlbumEditViewModel.js",
 				"~/Scripts/Album/Edit.js"
 			));
 
@@ -115,7 +115,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/ViewModels/EntryPictureFileEditViewModel.js",
 				"~/Scripts/ViewModels/EntryPictureFileListEditViewModel.js",
 				"~/Scripts/ViewModels/Artist/ArtistLinkViewModel.js",
-				"~/Scripts/ViewModels/ArtistEditViewModel.js",
+				"~/Scripts/ViewModels/Artist/ArtistEditViewModel.js",
 				"~/Scripts/Artist/Edit.js"
 			));
 

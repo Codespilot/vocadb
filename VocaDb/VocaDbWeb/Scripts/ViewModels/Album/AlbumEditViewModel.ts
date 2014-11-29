@@ -63,6 +63,8 @@ module vdb.viewModels {
         // List of artist links for this album.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 
+		public catalogNumber: KnockoutObservable<string>;
+
 		public createNewIdentifier = () => {
 			
 			if (this.newIdentifier()) {
@@ -71,6 +73,10 @@ module vdb.viewModels {
 			}
 
 		}
+
+		public defaultNameLanguage: KnockoutObservable<string>;
+
+		public description: KnockoutObservable<string>;
 
         // Album disc type.
 		public discType: KnockoutObservable<cls.albums.AlbumType>;
@@ -90,17 +96,25 @@ module vdb.viewModels {
 
 		public hasCover: boolean;
 
+		public id: number;
+
 		public identifiers: KnockoutObservableArray<string>;
 
 		public names: globalization.NamesEditViewModel;
 
 		public newIdentifier = ko.observable("");
 
+		public releaseDay: KnockoutObservable<number>;
+
+		public releaseEventName: KnockoutObservable<string>;
+
+		public releaseMonth: KnockoutObservable<number>;
+
 		public pictures: EntryPictureFileListEditViewModel;
 
 		public pvs: pvs.PVListEditViewModel;
 
-		public releaseYear = ko.observable<number>().extend({ parseInteger: {} });
+		public releaseYear: KnockoutObservable<number>;
 
         // Removes an artist from this album.
         public removeArtist: (artist: ArtistForAlbumEditViewModel) => void;
@@ -114,11 +128,44 @@ module vdb.viewModels {
         // Copies modified state from track properties view model to the single track being edited.
         public saveTrackProperties: () => void;
 
-        public submit = () => {
-            this.submitting(true);
-            return true;
+		public status: KnockoutObservable<string>;
+
+		public submit = () => {
+
+			this.submitting(true);
+
+			var submittedModel: dc.albums.AlbumForEditContract = {
+				artistLinks: _.map(this.artistLinks(), artist => artist.toContract()),
+				defaultNameLanguage: this.defaultNameLanguage(),
+				description: this.description(),
+				discType: this.discTypeStr(),
+				id: this.id,
+				identifiers: this.identifiers(),
+				names: this.names.toContracts(),
+				originalRelease: {
+					catNum: this.catalogNumber(),
+					releaseDate: {
+						day: this.releaseDay(),
+						month: this.releaseMonth(),
+						year: this.releaseYear()
+					},
+					eventName: this.releaseEventName()
+				},
+				pictures: this.pictures.toContracts(),
+				pvs: this.pvs.toContracts(),
+				songs: ko.toJS(this.tracks()),
+				status: this.status(),
+				updateNotes: this.updateNotes(),
+				webLinks: this.webLinks.toContracts()
+			};
+
+			this.submittedJson(ko.toJSON(submittedModel));
+
+			return true;
+
         };
 
+		public submittedJson = ko.observable("");
         public submitting = ko.observable(false);
 
         // Buttons for the track properties dialog.
@@ -135,6 +182,8 @@ module vdb.viewModels {
 
         // Gets a translated name for an artist role.
         public translateArtistRole: (role: string) => string;
+
+		public updateNotes = ko.observable("");
 
         // Updates track and disc numbers of all tracks for this album. This should be done every time the order changes, or tracks are added or removed.
         private updateTrackNumbers: () => void;
@@ -157,9 +206,23 @@ module vdb.viewModels {
 			private artistRepository: rep.ArtistRepository,
 			pvRepository: rep.PVRepository,
 			urlMapper: vdb.UrlMapper,
-			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[], data: dc.albums.AlbumForEditContract,
+			artistRoleNames, webLinkCategories: dc.TranslatedEnumField[],
+			data: dc.albums.AlbumForEditContract,
 			allowCustomTracks: boolean,
 			canBulkDeletePVs: boolean) {
+
+			this.catalogNumber = ko.observable(data.originalRelease.catNum);
+			this.defaultNameLanguage = ko.observable(data.defaultNameLanguage);
+			this.description = ko.observable(data.description);
+			this.discTypeStr = ko.observable(data.discType);
+			this.discType = ko.computed(() => cls.albums.AlbumType[this.discTypeStr()]);
+			this.id = data.id;
+			this.pvs = new pvs.PVListEditViewModel(pvRepository, urlMapper, data.pvs, canBulkDeletePVs);
+			this.releaseDay = ko.observable(data.originalRelease.releaseDate.day).extend({ parseInteger: {} });
+			this.releaseMonth = ko.observable(data.originalRelease.releaseDate.month).extend({ parseInteger: {} });
+			this.releaseYear = ko.observable(data.originalRelease.releaseDate.year).extend({ parseInteger: {} });
+			this.releaseEventName = ko.observable(data.originalRelease.eventName);
+			this.status = ko.observable(data.status);
 
 			this.artistSearchParams = {
 				createNewItem: vdb.resources.albumEdit.addExtraArtist,
@@ -220,8 +283,6 @@ module vdb.viewModels {
 
             this.artistLinks = ko.observableArray(_.map(data.artistLinks, artist => new ArtistForAlbumEditViewModel(repository, artist)));
 
-			this.discTypeStr = ko.observable(data.discType);
-			this.discType = ko.computed(() => cls.albums.AlbumType[this.discTypeStr()]);
 
             this.editMultipleTrackProperties = () => {
 
@@ -250,15 +311,13 @@ module vdb.viewModels {
                 return _.find(this.artistLinks(), artist => artist.id == artistForAlbumId);
             };
 
-			this.hasCover = data.hasCover;
+			this.hasCover = data.coverPictureMime != null;
 
 			this.identifiers = ko.observableArray(data.identifiers);
 
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
 
 			this.pictures = new EntryPictureFileListEditViewModel(data.pictures);
-
-			this.pvs = new pvs.PVListEditViewModel(pvRepository, urlMapper, data.pvs, canBulkDeletePVs);
 
             this.removeArtist = artistForAlbum => {
                 this.artistLinks.remove(artistForAlbum);
@@ -297,7 +356,7 @@ module vdb.viewModels {
 
             this.trackPropertiesDialogVisible = ko.observable(false);
 
-            this.tracks = ko.observableArray(_.map(data.tracks, song => new SongInAlbumEditViewModel(song)));
+            this.tracks = ko.observableArray(_.map(data.songs, song => new SongInAlbumEditViewModel(song)));
 
             _.forEach(this.tracks(), song => {
                 song.isNextDisc.subscribe(() => this.updateTrackNumbers());

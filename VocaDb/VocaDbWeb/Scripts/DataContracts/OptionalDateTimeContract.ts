@@ -5,7 +5,7 @@ module vdb.dataContracts {
 
 		day?: number;
 
-		formatted: string;
+		formatted?: string;
 
 		month?: number;
 

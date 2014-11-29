@@ -1994,14 +1994,14 @@
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongCreateViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\AlbumEditViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\ArtistForAlbumEditViewModelTests.ts" />
-    <TypeScriptCompile Include="Scripts\ViewModels\AlbumEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\SongEditViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\Song\SongDetailsViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\TopBarViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\Tests\ViewModels\User\UserMessagesViewModelTests.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ViewAuditLogViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Admin\ManageIPRulesViewModel.ts" />
-    <TypeScriptCompile Include="Scripts\ViewModels\ArtistEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumCreateViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumDetailsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\ArtistForAlbumEditViewModel.ts" />
