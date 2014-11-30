@@ -340,7 +340,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			contract = queries.UpdateBasicProperties(contract);
 
-			var songFromRepo = repository.Load(contract.Song.Id);
+			var songFromRepo = repository.Load(contract.Id);
 			Assert.AreEqual("Replaced name", songFromRepo.DefaultName);
 			Assert.AreEqual(1, songFromRepo.Version, "Version");
 			Assert.AreEqual(2, songFromRepo.AllArtists.Count, "Number of artists");
@@ -380,7 +380,7 @@ namespace VocaDb.Tests.Web.Controllers.DataAccess {
 
 			contract = queries.UpdateBasicProperties(contract);
 
-			var songFromRepo = repository.Load(contract.Song.Id);
+			var songFromRepo = repository.Load(contract.Id);
 
 			Assert.AreEqual(3, songFromRepo.AllArtists.Count, "Number of artists");
 

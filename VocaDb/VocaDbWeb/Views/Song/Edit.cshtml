@@ -1,7 +1,5 @@
 ﻿@using System.Web.Optimization
-@using VocaDb.Web.Models
 @using VocaDb.Web.Helpers
-@using Newtonsoft.Json
 @using ValidationErrors = VocaDb.Model.Resources.SongValidationErrors;
 @inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Web.Models.Song.SongEditViewModel>
 
@@ -25,7 +23,7 @@
 
 @section Toolbar {
 @if (Login.CanDeleteEntries) {
-	if (!Model.Deleted) {
+	if (!Model.Song.Deleted) {
 		@Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { id = "deleteLink", onclick = "return confirm(\"Are you sure you want to delete this song?\");" })
 	} else {
 		@Html.ActionLink("Restore", "Restore", new { id = Model.Id }, new { id = "restoreLink" })		
@@ -42,9 +40,7 @@
 @KnockoutHelpers.EntryValidationMessage(Model.Draft, validationErrors, "glsongs")
 
 <br />
-<form action="@Url.Action("Edit", "Song")" method="POST" data-bind="submit: submit">
-	@Html.HiddenFor(m => m.Id)
-	@Html.HiddenForKnockout(m => m.Length, "value: length")
+<form action="@Url.Action("Edit", "Song")" method="POST" data-bind="submit: submit, visible: true" style="display: none;">
 
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
@@ -60,10 +56,10 @@
 		<div id="basicInfoTab">
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.DefaultLanguageSelection)
+				<label>Original language</label>
 			</div>
 			<div class="editor-field">
-				@Html.LanguageSelectionDropDownListFor(m => m.DefaultLanguageSelection)
+				@KnockoutHelpers.LanguageSelectionDropDown("defaultNameLanguage")
 			</div>
 
 			<div class="editor-label">
@@ -75,50 +71,39 @@
 			</div>
 			<div class="editor-field" data-bind="with: names">
 				@{ Html.RenderPartial("KnockoutPartials/_NamesEditor"); }
-				<input type="hidden" name="Names" id="Names" data-bind="value: ko.toJSON(allNames)" />
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.Notes)
+				<label>Notes</label>
 			</div>
 			<div class="editor-field">
-				@Html.TextAreaFor(m => m.Notes, 6, 70, new { @class = "span4", maxlength = 800 })
+				<textarea data-bind="value: notes" rows="6" cols="70" class="span4" maxlength="800"></textarea>
 			</div>
 
 			<div class="editor-label">
-				@Html.LabelFor(m => m.SongType)
+				<label>Song type</label>
 			</div>
 			<div class="editor-field">
 				<div class="row-fluid">
 					<div class="span4">
-						@Html.DropdownForKnockout(m => m.SongType, ViewHelper.CreateSongTypesList(null), "value: songTypeStr")
+						@KnockoutHelpers.DropdownList(Model.AllSongTypes, "songTypeStr")
 						<span data-bind="visible: validationError_needType, qTip" class="icon errorIcon" title="@ValidationErrors.NeedType"></span>
 					</div>
 				</div>
 			</div>
 	
-			@if (Model.SongType != VocaDb.Model.Domain.Songs.SongType.Original) {
+			<!-- ko if: songTypeStr() != 'Original' -->
 			<div class="editor-label">
 				<label class="helpTip" data-bind="qTip: null" title="If the original version of this song exists on the site, use this field to link this derived version to the original. Choose the song by searching by song title.">
 					Original version
 				</label>
 			</div>
 			<div class="editor-field">
-				<span id="originalContent">
-					@{ Html.RenderPartial("SongLink", Model.OriginalVersion); }
-				</span>
-
-				<input id="changeOriginalBtn" type="button" value="Change" class="btn" />
-				<input id="clearOriginalBtn" type="button" value="Clear" class="btn" />
-
-				<div id="changeOriginalPanel" style="display:none;">
-					<div>
-						<input type="hidden" id="changeOriginalId" />
-						<input type="text" maxlength="128"  id="changeOriginalName" /><br />
-					</div>
+				<div style="display: inline-block;" class="input-append">
+					@KnockoutHelpers.LockingAutoComplete("songAutoComplete", "originalVersionSearchParams", textBinding: "originalVersionName", valBinding: "originalVersionId")
 				</div>
 			</div>
-   }
+			<!-- /ko -->
 			
 			<div class="editor-label">
 				<label>
@@ -131,7 +116,7 @@
 			
 			<div class="editor-label">
 				<label class="helpTip" data-bind="qTip: null" title="@ViewRes.EntryEditStrings.ExternalLinksQuickHelp">
-				    @Html.DisplayNameFor(m => m.WebLinks)
+				    Web links
                 </label>
 			</div>
 			<div class="editor-field" data-bind="with: webLinks">
@@ -141,11 +126,11 @@
 
 			<div class="editor-label">
 				<label class="helpTip" data-bind="qTip: null" title="@Resources.CommonMessages.EntryStatusExplanation">
-				    @Html.DisplayNameFor(m => m.Status)
+				    Status
                 </label>
 			</div>
 			<div class="editor-field">
-				@Html.EnumDropDownListFor(m => m.Status, Translate.EntryStatusNames.GetValuesAndNames(Model.AllowedEntryStatuses))
+				@KnockoutHelpers.DropdownList(Translate.EntryStatusNames.GetValuesAndNamesStrings(Model.AllowedEntryStatuses), "status")
 			</div>
 
 		</div>
@@ -167,7 +152,6 @@
 					@{ Html.RenderPartial("PVs/_PVEdit"); }
 				</tbody>
 			</table>
-			@Html.HiddenForKnockout(m => m.PVs, "value: ko.toJSON(pvs)")
 
 			<br />
 			<h4>Add media</h4>
@@ -191,12 +175,13 @@
 
 		</div>
 
-		<div id="lyricsTab">
+		<div id="lyricsTab" data-bind="with: lyrics">
+			
+			<!-- ko foreach: items -->
+			@{ Html.RenderPartial("Partials/_LyricsForSongEdit"); }
+			<!-- /ko -->
 
-			@foreach (var lyrics in Model.Lyrics) {
-	   Html.RenderPartial("LyricsForSongEditRow", lyrics);
-   }
-			<a href="#" class="lyricsAddNew textLink addLink" id="lyricsAdd">Add row</a>
+			<a data-bind="click: add" href="#" class="textLink addLink">Add row</a>
 
 		</div>
 
@@ -216,7 +201,6 @@
 							@{ Html.RenderPartial("Partials/_ArtistForSongEdit"); }
 						</tbody>
 					</table>
-					<input type="hidden" name="artistLinks" data-bind="value: ko.toJSON(artistLinks)" />
 
 					<br />
 					<h4>Add artist</h4>
@@ -242,11 +226,14 @@
 	<br />	
 
 	<p>Update notes (optional)</p>
-	@Html.TextAreaFor(m => m.UpdateNotes, new { @class = "input-xxlarge", @rows = 4, maxlength = 200 })
+	<textarea data-bind="value: updateNotes" class="input-xxlarge" rows="4" maxlength="200"></textarea>
 	
 	<br />
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Id }))
 	
+	<!-- JSON model to be posted to the server -->
+	@Html.HiddenForKnockout(m => m.EditedSong, "value: submittedJson")
+
 </form>
 
 @{ Html.RenderPartial("Partials/_EditArtistRolesPopup"); }
@@ -265,17 +252,29 @@
 			addExtraArtist: "@Html.Raw(AjaxRes.SharedStrings.AddExtraArtist)"
 		};
 
+		var editedModel = @Html.Raw(JsonHelpers.Serialize(Model.EditedSong));
 		var canBulkDeletePVs = @ToJS(Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.BulkDeletePVs));
 		var rootPath = '@RootPath';
 		var urlMapper = new vdb.UrlMapper(rootPath);
+		var songRepo = new vdb.repositories.SongRepository(rootPath);
 		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 		var pvRepo = new vdb.repositories.PVRepository(urlMapper);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
-		var modelJson = @Html.Raw(JsonHelpers.Serialize(Model.ToJsonModel()));
-		ko.applyBindings(new vdb.viewModels.SongEditViewModel(artistRepo, pvRepo, urlMapper, artistRoleJson, webLinkCategoryJson, modelJson, canBulkDeletePVs));
+		var vm;
 
-		initPage(@Model.Id);
+		if (editedModel) {
+			vm = new vdb.viewModels.SongEditViewModel(songRepo, artistRepo, pvRepo, urlMapper, artistRoleJson, webLinkCategoryJson, editedModel, canBulkDeletePVs);
+			ko.applyBindings(vm);
+		} else {
+			songRepo.getForEdit(@Model.Id, function (model) {
+				vm = new vdb.viewModels.SongEditViewModel(songRepo, artistRepo, pvRepo, urlMapper, artistRoleJson, webLinkCategoryJson, model, canBulkDeletePVs);
+				ko.applyBindings(vm);
+			});
+		}
+
+		initPage();
+
 	});
 
 </script>

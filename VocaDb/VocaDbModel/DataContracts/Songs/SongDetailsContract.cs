@@ -118,7 +118,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public SongInAlbumContract PreviousSong { get; set; }
 
-		[DataMember]
+		[DataMember(Name = "pvs")]
 		public PVContract[] PVs { get; set; }
 
 		[DataMember]

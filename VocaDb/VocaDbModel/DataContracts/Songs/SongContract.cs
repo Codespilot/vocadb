@@ -17,10 +17,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 			get { return Name; }
 		}
 
-		bool IDeletableEntry.Deleted {
-			get { return false; }
-		}
-
 		EntryType IEntryBase.EntryType {
 			get { return EntryType.Song; }
 		}
@@ -44,6 +40,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
 			ArtistString = song.ArtistString.GetBestMatch(languagePreference);
 			CreateDate = song.CreateDate;
+			Deleted = song.Deleted;
 			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
 			LengthSeconds = song.LengthSeconds;
@@ -69,6 +66,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public DateTime CreateDate { get; set; }
 
 		[DataMember]
+		public bool Deleted { get; set; }
+
+		[DataMember]
 		public int FavoritedTimes { get; set; }
 
 		[DataMember]
@@ -80,6 +80,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		[DataMember]
 		public string Name { get; set; }
 
+		// TODO: remove?
 		[System.Xml.Serialization.XmlIgnoreAttribute]
 		public ITranslatedString TranslatedName { get; set; }
 

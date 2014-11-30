@@ -20,6 +20,12 @@ namespace VocaDb.Model.Domain.Tags {
 			}
 		}
 
+		public virtual IEnumerable<string> TagNames {
+			get {
+				return Usages.Select(t => t.Tag.Name);
+			}
+		}
+
 		/// <summary>
 		/// Tags sorted descending by the number of votes. Cannot be null.
 		/// </summary>
