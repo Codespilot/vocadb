@@ -177,7 +177,7 @@
 	@Helpers.SaveAndBackBtn(Url.Action("Details", new { Model.Artist.Id }))
 	
 	<!-- JSON model to be posted to the server -->
-	<input type="hidden" name="editedArtist" data-bind="value: submittedJson" />
+	@Html.HiddenForKnockout(m => m.EditedArtist, "value: submittedJson")
 
 </form>
 
