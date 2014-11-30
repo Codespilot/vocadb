@@ -92,7 +92,7 @@
 				</div>
 			</div>
 	
-			<!-- ko if: songTypeStr() != 'Original' -->
+			<!-- ko if: canHaveOriginalVersion -->
 			<div class="editor-label">
 				<label class="helpTip" data-bind="qTip: null" title="If the original version of this song exists on the site, use this field to link this derived version to the original. Choose the song by searching by song title.">
 					Original version
@@ -121,7 +121,6 @@
 			</div>
 			<div class="editor-field" data-bind="with: webLinks">
 				@KnockoutHelpers.WebLinksEditViewKnockout(true)
-				<input type="hidden" name="webLinks" data-bind="value: ko.toJSON(webLinks)" />
 			</div>
 
 			<div class="editor-label">

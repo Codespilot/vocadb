@@ -6,6 +6,7 @@ function initPage() {
 	$("#deleteLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#restoreLink").button({ icons: { primary: 'ui-icon-trash'} });
 	$("#mergeLink").button();
+	$("input.artistRoleCheck").button();
 	$("#pvLoader")
 		.ajaxStart(function () { $(this).show(); })
 		.ajaxStop(function () { $(this).hide(); });
@@ -27,7 +28,6 @@ function initPage() {
 
 	}}});
 
-	$("input.artistRoleCheck").button();
 
 	$(document).on("click", "a.artistRolesEdit", function () {
 
