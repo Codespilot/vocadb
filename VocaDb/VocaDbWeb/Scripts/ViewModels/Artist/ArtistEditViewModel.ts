@@ -23,7 +23,7 @@ module vdb.viewModels {
 		public artistType: KnockoutComputed<cls.artists.ArtistType>;
 		public artistTypeStr: KnockoutObservable<string>;
 		public allowBaseVoicebank: KnockoutComputed<boolean>;
-		public baseVoicebank: artists.ArtistLinkViewModel;
+		public baseVoicebank: BasicEntryLinkViewModel<dc.ArtistContract>;
 		public baseVoicebankSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public canHaveCircles: KnockoutComputed<boolean>;
 		public defaultNameLanguage: KnockoutObservable<string>;
@@ -55,7 +55,7 @@ module vdb.viewModels {
 
 			var submittedModel: dc.artists.ArtistForEditContract = {
 				artistType: this.artistTypeStr(),
-				baseVoicebank: this.baseVoicebank.artistContract(),
+				baseVoicebank: this.baseVoicebank.entry(),
 				defaultNameLanguage: this.defaultNameLanguage(),
 				description: this.description(),
 				groups: this.groups(),
@@ -90,7 +90,7 @@ module vdb.viewModels {
 			this.artistTypeStr = ko.observable(data.artistType);
 			this.artistType = ko.computed(() => cls.artists.ArtistType[this.artistTypeStr()]);
 			this.allowBaseVoicebank = ko.computed(() => helpers.ArtistHelper.isVocalistType(this.artistType()) || this.artistType() == cls.artists.ArtistType.OtherIndividual);
-			this.baseVoicebank = viewModels.artists.ArtistLinkViewModel.createFromContract(artistRepo, data.baseVoicebank);
+			this.baseVoicebank = new BasicEntryLinkViewModel(data.baseVoicebank, artistRepo.getOne);
 			this.description = ko.observable(data.description);
 			this.defaultNameLanguage = ko.observable(data.defaultNameLanguage);
 			this.groups = ko.observableArray(data.groups);
@@ -101,7 +101,7 @@ module vdb.viewModels {
             this.webLinks = new WebLinksEditViewModel(data.webLinks, webLinkCategories);
     
 			this.baseVoicebankSearchParams = {
-				acceptSelection: this.baseVoicebank.selectArtist,
+				acceptSelection: this.baseVoicebank.id,
 				extraQueryParams: { artistTypes: "Vocaloid,UTAU,OtherVocalist,OtherVoiceSynthesizer,Unknown" },
 				filter: (item) => item.Id != this.id,
 			};
