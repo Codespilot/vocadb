@@ -333,7 +333,7 @@
 			var urlMapper = new vdb.UrlMapper("@Url.Content("~/")");		    
 
 			var userRepository = new vdb.repositories.UserRepository(urlMapper);
-			var viewModel = new vdb.viewModels.ArtistDetailsViewModel(@Model.Id, @ToJS(Model.EmailNotifications), userRepository);
+			var viewModel = new vdb.viewModels.ArtistDetailsViewModel(@Model.Id, @ToJS(Model.EmailNotifications), @ToJS(Model.SiteNotifications), userRepository);
 			ko.applyBindings(viewModel);
 
 			initPage(@Model.Id, "@ViewRes.SharedStrings.Save", urlMapper);

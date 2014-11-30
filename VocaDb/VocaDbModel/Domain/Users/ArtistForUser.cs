@@ -11,11 +11,16 @@ namespace VocaDb.Model.Domain.Users {
 		private Artist artist;
 		private User user;
 
-		public ArtistForUser() { }
+		public ArtistForUser() {
+			SiteNotifications = true;
+		}
 
-		public ArtistForUser(User user, Artist artist) {
+		public ArtistForUser(User user, Artist artist)
+			: this() {
+
 			User = user;
 			Artist = artist;
+
 		}
 
 		public virtual int Id { get; set; }
@@ -32,6 +37,11 @@ namespace VocaDb.Model.Domain.Users {
 		/// Send email notification to user for new songs/albums.
 		/// </summary>
 		public virtual bool EmailNotifications { get; set; }
+
+		/// <summary>
+		/// On-site notifications for new songs/albums.
+		/// </summary>
+		public virtual bool SiteNotifications { get; set; }
 
 		public virtual User User {
 			get { return user; }

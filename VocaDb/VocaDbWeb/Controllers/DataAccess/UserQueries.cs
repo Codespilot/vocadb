@@ -1056,7 +1056,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 		}
 
-		public void UpdateArtistSubscriptionForCurrentUser(int artistId, bool emailNotifications) {
+		public void UpdateArtistSubscriptionForCurrentUser(int artistId, bool? emailNotifications, bool? siteNotifications) {
 			
 			PermissionContext.VerifyPermission(PermissionToken.EditProfile);
 
@@ -1070,7 +1070,12 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				if (subscription == null)
 					return;
 
-				subscription.EmailNotifications = emailNotifications;
+				if (emailNotifications.HasValue)
+					subscription.EmailNotifications = emailNotifications.Value;
+
+				if (siteNotifications.HasValue)
+					subscription.SiteNotifications = siteNotifications.Value;
+
 				ctx.Update(subscription);
 
 				ctx.AuditLogger.SysLog(string.Format("updated artist subscription for {0}.", subscription.Artist));

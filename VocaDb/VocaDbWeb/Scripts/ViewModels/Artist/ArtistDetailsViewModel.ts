@@ -9,9 +9,9 @@ module vdb.viewModels {
 
 		customizeSubscriptionDialog: CustomizeArtistSubscriptionViewModel;
 
-		constructor(artistId: number, emailNotifications: boolean, userRepository: rep.UserRepository) {
+		constructor(artistId: number, emailNotifications: boolean, siteNotifications: boolean, userRepository: rep.UserRepository) {
 
-			this.customizeSubscriptionDialog = new CustomizeArtistSubscriptionViewModel(artistId, emailNotifications, userRepository);
+			this.customizeSubscriptionDialog = new CustomizeArtistSubscriptionViewModel(artistId, emailNotifications, siteNotifications, userRepository);
 
 		}
 
@@ -21,16 +21,14 @@ module vdb.viewModels {
 		
 		public dialogVisible = ko.observable(false);
 
-		public emailNotifications: KnockoutObservable<boolean>;
+		public notificationsMethod: KnockoutObservable<string>;
 
-		constructor(artistId: number, emailNotifications: boolean, userRepository: rep.UserRepository) {
+		constructor(artistId: number, emailNotifications: boolean, siteNotifications: boolean, userRepository: rep.UserRepository) {
 
-			this.emailNotifications = ko.observable(emailNotifications);
+			this.notificationsMethod = ko.observable(!siteNotifications ? "Nothing" : (!emailNotifications ? "Site" : "Email"));
 
-			this.emailNotifications.subscribe(notify => {
-
-				userRepository.updateArtistSubscription(artistId, notify);
-
+			this.notificationsMethod.subscribe(method => {
+				userRepository.updateArtistSubscription(artistId, method == "Email", method == "Site" || method == "Email");
 			});
 
 		}
