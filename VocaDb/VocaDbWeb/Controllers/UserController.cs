@@ -879,9 +879,9 @@ namespace VocaDb.Web.Controllers
 		}
 
 		[AcceptVerbs(HttpVerbs.Post)]
-		public void UpdateArtistSubscription(int artistId, bool emailNotifications) {
+		public void UpdateArtistSubscription(int artistId, bool? emailNotifications, bool? siteNotifications) {
 			
-			Data.UpdateArtistSubscriptionForCurrentUser(artistId, emailNotifications);
+			Data.UpdateArtistSubscriptionForCurrentUser(artistId, emailNotifications, siteNotifications);
 
 		}
 

@@ -130,9 +130,11 @@ module vdb.repositories {
 		};
 
 		// Updates artist subscription settings for an artist followed by a user.
-		public updateArtistSubscription = (artistId: number, emailNotifications: boolean) => {
+		public updateArtistSubscription = (artistId: number, emailNotifications?: boolean, siteNotifications?: boolean) => {
 
-			$.post(this.mapUrl("/UpdateArtistSubscription"), { artistId: artistId, emailNotifications: emailNotifications });
+			$.post(this.mapUrl("/UpdateArtistSubscription"), {
+				artistId: artistId, emailNotifications: emailNotifications, siteNotifications: siteNotifications
+			});
 
 		};
 

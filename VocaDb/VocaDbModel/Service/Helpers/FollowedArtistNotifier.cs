@@ -77,6 +77,7 @@ namespace VocaDb.Model.Service.Helpers {
 				.Where(afu => 
 					artistIds.Contains(afu.Artist.Id) 
 					&& afu.User.Id != creator.Id && afu.User.Active
+					&& afu.SiteNotifications
 					&& afu.User.ReceivedMessages.Count(m => !m.Read) <= 9)
 				.Select(afu => new {
 					UserId = afu.User.Id, 

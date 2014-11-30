@@ -106,6 +106,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 		public SharedArtistStatsContract SharedStats { get; set; }
 
 		[DataMember]
+		public bool SiteNotifications { get; set; }
+
+		[DataMember]
 		public TagUsageContract[] Tags { get; set; }
 
 		[DataMember]

@@ -227,6 +227,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					if (subscription != null) {
 						contract.IsAdded = true;
 						contract.EmailNotifications = subscription.EmailNotifications;
+						contract.SiteNotifications = subscription.SiteNotifications;
 					}
 
 				}

@@ -117,6 +117,8 @@ namespace VocaDb.Model.Mapping.Users {
 			Id(m => m.Id);
 
 			Map(m => m.EmailNotifications).Not.Nullable();
+			Map(m => m.SiteNotifications).Not.Nullable();
+
 			References(m => m.Artist).Not.Nullable();
 			References(m => m.User).Not.Nullable();
 
