@@ -15,6 +15,7 @@ module vdb.viewModels {
         // List of artist links for this song.
         public artistLinks: KnockoutObservableArray<ArtistForAlbumEditViewModel>;
 		artistSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
+		public canHaveOriginalVersion: KnockoutComputed<boolean>;
 		public defaultNameLanguage: KnockoutObservable<string>;
 		public deleted: boolean;
 		public id: number;
@@ -153,6 +154,8 @@ module vdb.viewModels {
 				acceptSelection: this.addArtist,
 				height: 300
 			};
+
+			this.canHaveOriginalVersion = ko.computed(() => this.songType() != cls.songs.SongType.Original);
 
 			var setOriginalVersion = (songId: number) => {
 				if (songId) {
