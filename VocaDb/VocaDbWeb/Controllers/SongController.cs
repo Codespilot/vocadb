@@ -292,28 +292,6 @@ namespace VocaDb.Web.Controllers
 
         }
 
-		[AcceptVerbs(HttpVerbs.Post)]
-		public PartialViewResult AddExistingArtist(int songId, int artistId) {
-
-			var artist = Services.Artists.GetArtistWithAdditionalNames(artistId);
-			var link = new ArtistForSongContract(artist);
-			return PartialView("ArtistForSongEditRow", link);
-
-		}
-
-		[AcceptVerbs(HttpVerbs.Post)]
-		public ActionResult AddNewArtist(int songId, string newArtistName) {
-
-			if (string.IsNullOrWhiteSpace(newArtistName)) {
-				log.Warn("Artist name for song was null or whitespace");
-				return HttpStatusCodeResult(HttpStatusCode.BadRequest, "Artist name cannot be null or whitespace");
-			}
-
-			var link = new ArtistForSongContract(newArtistName);
-			return PartialView("ArtistForSongEditRow", link);
-
-		}
-
         //
         // GET: /Song/Delete/5
 
