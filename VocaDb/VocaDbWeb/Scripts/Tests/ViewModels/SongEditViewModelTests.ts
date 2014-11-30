@@ -1,6 +1,6 @@
 /// <reference path="../../typings/qunit/qunit.d.ts" />
 /// <reference path="../../Models/WebLinkCategory.ts" />
-/// <reference path="../../ViewModels/SongEditViewModel.ts" />
+/// <reference path="../../ViewModels/Song/SongEditViewModel.ts" />
 
 module vdb.tests.viewModels {
 
@@ -10,14 +10,19 @@ module vdb.tests.viewModels {
 
     var categories: dc.TranslatedEnumField[] = [{ id: "Official", name: "Official" }, { id: "Commercial", name: "Commercial" }];
     var webLinkData = { category: "Official", description: "Youtube Channel", id: 0, url: "http://www.youtube.com/user/tripshots" };
-    var data: dc.songs.SongForEditContract = { artistLinks: [], length: 39, names: [], pvs: [], songType: 'Original', tags: [], webLinks: [webLinkData] }; 
+    var data: dc.songs.SongForEditContract = {
+		artists: [], defaultNameLanguage: 'English', deleted: false, id: 0, lengthSeconds: 39,
+		lyrics: [], names: [], notes: '', originalVersion: null, pvs: [], songType: 'Original',
+		status: 'Draft', tags: [], webLinks: [webLinkData]
+	}; 
+	var songRepo = new sup.FakeSongRepository();
 	var artistRepo = new sup.FakeArtistRepository();
 	var pvRepo = null;
 
     QUnit.module("SongEditViewModelTests");
 
     function createViewModel() {
-		return new vm.SongEditViewModel(artistRepo, pvRepo, new vdb.UrlMapper(''), [], categories, data, false);
+		return new vm.SongEditViewModel(songRepo, artistRepo, pvRepo, new vdb.UrlMapper(''), [], categories, data, false);
     }
 
     test("constructor", () => {

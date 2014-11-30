@@ -21,6 +21,13 @@ module vdb.repositories {
 
         private get: (relative: string, params: any, callback: any) => void;
 
+		public getForEdit = (id: number, callback: (result: dc.songs.SongForEditContract) => void) => {
+
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/songs/" + id + "/for-edit");
+			$.getJSON(url, callback);
+
+		}
+
         private getJSON: (relative: string, params: any, callback: any) => void;
 
         public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;

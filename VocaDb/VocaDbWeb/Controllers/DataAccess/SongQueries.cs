@@ -487,7 +487,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 			return repository.HandleTransaction(ctx => {
 
-				var song = ctx.Load(properties.Song.Id);
+				var song = ctx.Load(properties.Id);
 
 				VerifyEntryEdit(song);
 
@@ -507,18 +507,18 @@ namespace VocaDb.Web.Controllers.DataAccess {
 					diff.OriginalVersion = true;
 				}
 
-				if (song.SongType != properties.Song.SongType) {
+				if (song.SongType != properties.SongType) {
 					diff.SongType = true;
-					song.SongType = properties.Song.SongType;
+					song.SongType = properties.SongType;
 				}
 
-				if (song.LengthSeconds != properties.Song.LengthSeconds) {
+				if (song.LengthSeconds != properties.LengthSeconds) {
 					diff.Length = true;
-					song.LengthSeconds = properties.Song.LengthSeconds;
+					song.LengthSeconds = properties.LengthSeconds;
 				}
 
-				if (song.TranslatedName.DefaultLanguage != properties.TranslatedName.DefaultLanguage) {
-					song.TranslatedName.DefaultLanguage = properties.TranslatedName.DefaultLanguage;
+				if (song.TranslatedName.DefaultLanguage != properties.DefaultNameLanguage) {
+					song.TranslatedName.DefaultLanguage = properties.DefaultNameLanguage;
 					diff.OriginalName = true;
 				}
 
@@ -535,8 +535,8 @@ namespace VocaDb.Web.Controllers.DataAccess {
 				if (webLinkDiff.Changed)
 					diff.WebLinks = true;
 
-				if (song.Status != properties.Song.Status) {
-					song.Status = properties.Song.Status;
+				if (song.Status != properties.Status) {
+					song.Status = properties.Status;
 					diff.Status = true;
 				}
 

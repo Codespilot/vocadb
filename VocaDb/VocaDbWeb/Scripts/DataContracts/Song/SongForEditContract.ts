@@ -3,17 +3,33 @@ module vdb.dataContracts.songs {
 	
 	export interface SongForEditContract {
 
-		artistLinks: ArtistForAlbumContract[];
+		artists: ArtistForAlbumContract[];
 
-		length: number;
+		defaultNameLanguage: string;
+
+		deleted: boolean;
+
+		id: number;
+
+		lengthSeconds: number;
+
+		lyrics: LyricsForSongContract[];
 
 		names: globalization.LocalizedStringWithIdContract[];
+
+		notes: string;
+
+		originalVersion: SongContract;
 
 		pvs: pvs.PVContract[];
 
 		songType: string;
 
+		status: string;
+
 		tags: string[];
+
+		updateNotes?: string;
 
 		webLinks: vdb.dataContracts.WebLinkContract[];
 

@@ -5,9 +5,7 @@ using System.Web.Mvc;
 using NLog;
 using VocaDb.Model;
 using VocaDb.Model.DataContracts.Songs;
-using VocaDb.Model.DataContracts.UseCases;
 using VocaDb.Model.Domain;
-using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.PVs;
 using VocaDb.Model.Domain.Songs;
 using VocaDb.Model.Helpers;
@@ -23,12 +21,10 @@ using VocaDb.Web.Code.Feeds;
 using VocaDb.Web.Controllers.DataAccess;
 using VocaDb.Web.Models;
 using VocaDb.Model.Service.VideoServices;
-using VocaDb.Model.DataContracts;
 using VocaDb.Web.Models.Shared;
 using VocaDb.Web.Models.Song;
 using System;
 using VocaDb.Web.Helpers;
-using VocaDb.Model.DataContracts.PVs;
 
 namespace VocaDb.Web.Controllers
 {
@@ -102,6 +98,7 @@ namespace VocaDb.Web.Controllers
 
 		}
 
+		// TODO: referred to from merge page, should be removed
 		[HttpPost]
 		public PartialViewResult CreateSongLink(int? songId) {
 
@@ -256,7 +253,7 @@ namespace VocaDb.Web.Controllers
 
 			CheckConcurrentEdit(EntryType.Song, id);
 
-			var model = new SongEdit(Service.GetSongForEdit(id));
+			var model = new SongEditViewModel(Service.GetSong(id), PermissionContext);
 			return View(model);
 
 		}
@@ -265,31 +262,31 @@ namespace VocaDb.Web.Controllers
         // POST: /Song/Edit/5
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(SongEdit model)
+        public ActionResult Edit(SongEditViewModel viewModel)
         {
+
+			var model = viewModel.EditedSong;
 
 			// Note: name is allowed to be whitespace, but not empty.
 			if (model.Names.All(n => string.IsNullOrEmpty(n.Value))) {
 				ModelState.AddModelError("Names", SongValidationErrors.UnspecifiedNames);
 			}
 
-			if (!ModelState.IsValid) {
-				var oldContract = Service.GetSongForEdit(model.Id);
-				model.CopyNonEditableFields(oldContract);
-				return View(model);				
+			if (model.Lyrics.Any(n => string.IsNullOrEmpty(n.Value))) {
+				ModelState.AddModelError("Lyrics", "Lyrics cannot be empty");				
 			}
 
-			SongForEditContract contract;
 			try {
-				contract = model.ToContract();
+				viewModel.CheckModel();
 			} catch (InvalidFormException x) {
-				log.WarnException("Form submission error", x);
-				ModelState.AddModelError(string.Empty, string.Format("Error while sending form contents - please try again. Diagnostic error message: {0}.", x.Message));
-				var oldContract = Service.GetSongForEdit(model.Id);
-				model.CopyNonEditableFields(oldContract);
-				return View(model);
+				AddFormSubmissionError(x.Message);
 			}
-			queries.UpdateBasicProperties(contract);
+
+			if (!ModelState.IsValid) {
+				return View(new SongEditViewModel(Service.GetSong(model.Id), PermissionContext, model));				
+			}
+
+			queries.UpdateBasicProperties(model);
 
 			return RedirectToAction("Details", new { id = model.Id });
 
@@ -314,14 +311,6 @@ namespace VocaDb.Web.Controllers
 
 			var link = new ArtistForSongContract(newArtistName);
 			return PartialView("ArtistForSongEditRow", link);
-
-		}
-
-		public PartialViewResult CreateLyrics() {
-			
-			var entry = new LyricsForSongContract();
-
-			return PartialView("LyricsForSongEditRow", new LyricsForSongModel(entry));
 
 		}
 

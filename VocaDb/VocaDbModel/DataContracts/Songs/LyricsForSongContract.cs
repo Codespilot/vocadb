@@ -1,4 +1,6 @@
 ﻿using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using VocaDb.Model.Domain.Globalization;
 using VocaDb.Model.Domain.Songs;
 
@@ -24,6 +26,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 		public int Id { get; set; }
 
 		[DataMember]
+		[JsonConverter(typeof(StringEnumConverter))]
 		public ContentLanguageSelection Language { get; set; }
 
 		[DataMember]
