@@ -2301,7 +2301,6 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\MySettings.cshtml" />
     <Content Include="Views\Artist\ArtistForAlbumRow.cshtml" />
-    <Content Include="Views\Song\ArtistForSongEditRow.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\User\PermissionEditRow.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
@@ -2332,7 +2331,6 @@
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Shared\DuplicateEntryMessage.cshtml" />
     <Content Include="Views\Song\SongLink.cshtml" />
-    <Content Include="Views\Song\SongLinkEditRow.cshtml" />
     <Content Include="Views\Shared\TagSelections.cshtml" />
     <Content Include="Views\Shared\TagSelection.cshtml" />
     <Content Include="Views\Shared\TagList.cshtml" />
