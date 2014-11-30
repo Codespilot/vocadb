@@ -100,7 +100,7 @@
 }
 
 @helper LockingAutoComplete(string bindingHandler, string binding, string textBinding = null, string valBinding = null) {
-	<input type="text" class="input-large" data-bind="@bindingHandler: @binding, visible: !@(valBinding ?? binding)()" />
+	<input type="text" class="input-large" data-bind="@bindingHandler: @binding, visible: !@(valBinding ?? binding)()" placeholder="Search" />
 	<div class="input-append" data-bind="visible: @(valBinding ?? binding)()">
 		<input type="text" class="input-large" readonly data-bind="value: @(textBinding ?? binding)" />
 		<button type="button" class="btn btn-danger" data-bind="click: function() { @(valBinding ?? binding)(null); }">Clear</button>

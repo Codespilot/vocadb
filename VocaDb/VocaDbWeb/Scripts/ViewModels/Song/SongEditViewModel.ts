@@ -24,9 +24,7 @@ module vdb.viewModels {
 		public lyrics: songs.LyricsForSongListEditViewModel;
 		public names: globalization.NamesEditViewModel;
 		public notes: KnockoutObservable<string>;
-		public originalVersion: KnockoutObservable<dc.SongContract>;
-		public originalVersionId: KnockoutComputed<number>;
-		public originalVersionName: KnockoutComputed<string>;
+		public originalVersion: BasicEntryLinkViewModel<dc.SongContract>;
 		public originalVersionSearchParams: vdb.knockoutExtensions.AutoCompleteParams;
 		public pvs: pvs.PVListEditViewModel;
 		public songType: KnockoutComputed<cls.songs.SongType>;
@@ -96,7 +94,7 @@ module vdb.viewModels {
 				lyrics: this.lyrics.toContracts(),
 				names: this.names.toContracts(),
 				notes: this.notes(),
-				originalVersion: this.originalVersion(),
+				originalVersion: this.originalVersion.entry(),
 				pvs: this.pvs.toContracts(),
 				songType: this.songTypeStr(),
 				status: this.status(),
@@ -140,7 +138,7 @@ module vdb.viewModels {
 			this.lyrics = new songs.LyricsForSongListEditViewModel(data.lyrics);
 			this.names = globalization.NamesEditViewModel.fromContracts(data.names);
 			this.notes = ko.observable(data.notes);
-			this.originalVersion = ko.observable(data.originalVersion);
+			this.originalVersion = new BasicEntryLinkViewModel<dc.SongContract>(data.originalVersion, (songId, callback) => songRepository.getOne(songId, false, callback));
 			this.pvs = new pvs.PVListEditViewModel(pvRepository, urlMapper, data.pvs, canBulkDeletePVs);
 			this.songTypeStr = ko.observable(data.songType);
 			this.songType = ko.computed(() => cls.songs.SongType[this.songTypeStr()]);
@@ -157,22 +155,8 @@ module vdb.viewModels {
 
 			this.canHaveOriginalVersion = ko.computed(() => this.songType() != cls.songs.SongType.Original);
 
-			var setOriginalVersion = (songId: number) => {
-				if (songId) {
-					songRepository.getOne(songId, false, song => this.originalVersion(song));					
-				} else {
-					this.originalVersion(null);
-				}
-			}
-
-			this.originalVersionId = ko.computed({
-				read: () => this.originalVersion() ? this.originalVersion().id : null,
-				write: setOriginalVersion
-			});
-			this.originalVersionName = ko.computed(() => this.originalVersion() ? this.originalVersion().name : null);
-
 			this.originalVersionSearchParams = {
-				acceptSelection: setOriginalVersion,
+				acceptSelection: this.originalVersion.id,
 				allowCreateNew: false,
 				extraQueryParams: {
 					songTypes: "Unspecified,Original,Remaster,Remix,Cover,Mashup,DramaPV,Other"
