@@ -50,7 +50,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 			RatingScore = song.RatingScore;
 			SongType = song.SongType;
 			Status = song.Status;
-			TranslatedName = song.TranslatedName;
 			Version = song.Version;
 			ThumbUrl = thumbUrl ?? string.Empty;
 
@@ -79,10 +78,6 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember]
 		public string Name { get; set; }
-
-		// TODO: remove?
-		[System.Xml.Serialization.XmlIgnoreAttribute]
-		public ITranslatedString TranslatedName { get; set; }
 
 		[DataMember]
 		public string NicoId { get; set; }
