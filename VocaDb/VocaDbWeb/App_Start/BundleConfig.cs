@@ -112,9 +112,9 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Helpers/KnockoutHelper.js",
 				"~/Scripts/ViewModels/Globalization/LocalizedStringWithIdEditViewModel.js",
 				"~/Scripts/ViewModels/Globalization/NamesEditViewModel.js",
+				"~/Scripts/ViewModels/BasicEntryLinkViewModel.js",
 				"~/Scripts/ViewModels/EntryPictureFileEditViewModel.js",
 				"~/Scripts/ViewModels/EntryPictureFileListEditViewModel.js",
-				"~/Scripts/ViewModels/Artist/ArtistLinkViewModel.js",
 				"~/Scripts/ViewModels/Artist/ArtistEditViewModel.js",
 				"~/Scripts/Artist/Edit.js"
 			));

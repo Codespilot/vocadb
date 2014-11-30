@@ -3,6 +3,7 @@ module vdb.viewModels {
 	
 	// Basic link to an entry with ID and name.
 	// Allows changing the link by setting the ID.
+	// Works well with LockingAutoComplete.
 	export class BasicEntryLinkViewModel<TEntry extends vdb.models.IEntryWithIdAndName> {
 		
 		// entry: current entry reference (can be null).
