@@ -7,6 +7,8 @@ module vdb.dataContracts {
 
 		artistString: string;
 
+		discType: string;
+
 		id: number;
 
 		mainPicture: EntryThumbContract;

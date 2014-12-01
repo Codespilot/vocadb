@@ -27,6 +27,11 @@ module vdb.repositories {
 
 		}
 
+		public getOne = (id: number, callback: (result: dc.AlbumContract) => void) => {
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums/" + id);
+			$.getJSON(url, callback);
+		}
+
 		getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,
 			discTypes: string, tag: string,
 			artistId: number, artistParticipationStatus: string,
