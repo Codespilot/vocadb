@@ -32,6 +32,10 @@ module vdb.repositories {
 
         public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;
 
+		public getOneBase = (id: number, callback?: (result: dc.SongContract) => void) => {
+			this.getOne(id, false, callback);
+		}
+
 		public getList = (paging: dc.PagingProperties, lang: string, query: string,
 			sort: string, songTypes: string, tag: string,
 			artistId: number,

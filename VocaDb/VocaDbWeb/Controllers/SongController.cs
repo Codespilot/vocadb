@@ -98,21 +98,6 @@ namespace VocaDb.Web.Controllers
 
 		}
 
-		// TODO: referred to from merge page, should be removed
-		[HttpPost]
-		public PartialViewResult CreateSongLink(int? songId) {
-
-			SongContract song;
-
-			if (songId == null)
-				song = new SongContract();
-			else
-				song = Service.GetSong(songId.Value);
-
-			return PartialView("SongLink", song);
-
-		}
-
 		[HttpPost]
 		public void DeleteComment(int commentId) {
 

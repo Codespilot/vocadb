@@ -33,6 +33,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Shared/UrlMapper.js",
 				"~/Scripts/Shared/EntryUrlMapper.js",
 				"~/Scripts/Shared/ReportEntryPopup.js",
+				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/ConfirmClick.js",
 				"~/Scripts/KnockoutExtensions/Dialog.js",
 				"~/Scripts/KnockoutExtensions/EntryToolTip.js",
@@ -125,7 +126,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/Search/Index").Include(
-				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/Artist/ArtistTypeLabel.js",
 				"~/Scripts/KnockoutExtensions/Song/SongTypeLabel.js",
 				"~/Scripts/KnockoutExtensions/Tag/TagCategoryAutoComplete.js",
@@ -182,6 +182,11 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Song/Edit.js"
 			));
 
+			bundles.Add(new ScriptBundle("~/bundles/Song/Merge").Include(
+				"~/Scripts/ViewModels/BasicEntryLinkViewModel.js",
+				"~/Scripts/ViewModels/Song/SongMergeViewModel.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Song/Index").Include(
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/ViewModels/PVRatingButtonsViewModel.js",
@@ -215,7 +220,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/User/AlbumCollection").Include(
-				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/ReleaseEventNameAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
@@ -226,7 +230,6 @@ namespace VocaDb.Web.App_Start {
 
 			bundles.Add(new ScriptBundle("~/bundles/User/Details").Include(
 				"~/Scripts/moment-with-locales.js",
-				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/MomentJsTimeAgo.js",
@@ -257,7 +260,6 @@ namespace VocaDb.Web.App_Start {
 			));
 
 			bundles.Add(new ScriptBundle("~/bundles/User/RatedSongs").Include(
-				"~/Scripts/Shared/EntrySearchDrop.js",
 				"~/Scripts/KnockoutExtensions/SlideVisible.js",				
 				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
 				"~/Scripts/KnockoutExtensions/TagAutoComplete.js",
