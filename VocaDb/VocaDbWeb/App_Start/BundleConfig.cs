@@ -127,6 +127,12 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Artist/Edit.js"
 			));
 
+			bundles.Add(new ScriptBundle("~/bundles/Artist/Merge").Include(
+				"~/Scripts/KnockoutExtensions/ArtistAutoComplete.js",
+				"~/Scripts/ViewModels/BasicEntryLinkViewModel.js",
+				"~/Scripts/ViewModels/Artist/ArtistMergeViewModel.js"
+			));
+
 			bundles.Add(new ScriptBundle("~/bundles/Home/Index").Include(
 				"~/Scripts/ViewModels/NewsListViewModel.js",
 				"~/Scripts/Home/Index.js"

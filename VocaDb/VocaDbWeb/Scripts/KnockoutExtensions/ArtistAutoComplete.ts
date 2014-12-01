@@ -13,6 +13,22 @@ ko.bindingHandlers.artistAutoComplete = {
 
         var properties: vdb.knockoutExtensions.AutoCompleteParams = ko.utils.unwrapObservable(valueAccessor());
 
+		var filter = properties.filter;
+
+		if (properties.ignoreId) {
+
+			filter = (item) => {
+
+				if (properties.ignoreId && item.Id == properties.ignoreId) {
+					return false;
+				}
+
+				return properties.filter != null ? properties.filter(item) : true;
+
+			}
+
+		}
+
         initEntrySearch(element, null, "Artist", vdb.functions.mapAbsoluteUrl("/Artist/FindJson"),
             {
                 allowCreateNew: properties.allowCreateNew,
@@ -21,7 +37,7 @@ ko.bindingHandlers.artistAutoComplete = {
                 createOptionFirstRow: function (item) { return item.Name + " (" + item.ArtistType + ")"; },
                 createOptionSecondRow: function (item) { return item.AdditionalNames; },
                 extraQueryParams: properties.extraQueryParams,
-                filter: properties.filter,
+				filter: filter,
                 height: properties.height
             });
 
