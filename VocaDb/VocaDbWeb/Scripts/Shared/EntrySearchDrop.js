@@ -12,6 +12,8 @@
 	var createOptionHtml = null;
 	var createTitle = null;
 	var filter = null;
+	var method = 'POST';
+	var termParamName = 'term';
 
 	if (params != null) {
 
@@ -35,6 +37,12 @@
 
 		if (params.filter != null)
 			filter = params.filter;
+
+		if (params.method)
+			method = params.method;
+
+		if (params.termParamName)
+			termParamName = params.termParamName;
 
 		createOptionFirstRow = params.createOptionFirstRow;
 		createOptionSecondRow = params.createOptionSecondRow;
@@ -78,17 +86,18 @@
 
 	function getItems(par, response) {
 
-		var queryParams = { term: par.term };
+		var queryParams = {};
+		queryParams[termParamName] = par.term;
 
 		if (extraQueryParams != null)
 			jQuery.extend(queryParams, extraQueryParams);
 
-		$.post(searchUrl, queryParams, function (result) {
+		$.ajax({ type: method, url: searchUrl, data: queryParams, success: function (result) {
 
-			var filtered = (!filter ? result.Items : _.filter(result.Items, filter));
+			var filtered = (!filter ? result.Items || result.items : _.filter(result.Items || result.items, filter));
 
 			var mapped = $.map(filtered, function (item) {
-				return { label: item.Name, value: item.Id, data: item, term: par.term };
+				return { label: item.Name || item.name, value: item.Id || item.id, data: item, term: par.term };
 			});
 
 			if (createNewItem)
@@ -99,7 +108,7 @@
 
 			response(mapped);
 
-		});
+		}});
 
 	}
 

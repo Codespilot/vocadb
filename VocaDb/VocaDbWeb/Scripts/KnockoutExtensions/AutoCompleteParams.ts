@@ -3,19 +3,22 @@ module vdb.knockoutExtensions {
 
     export interface AutoCompleteParams {
 
-        acceptSelection?: (id: number, term: string, itemType?: string) => void;
+		acceptSelection?: (id: number, term: string, itemType?: string) => void;
 
-        allowCreateNew?: boolean;
+		allowCreateNew?: boolean;
 
 		createCustomItem?: string;
 
-        createNewItem?: string;
+		createNewItem?: string;
 
-        extraQueryParams?;
+		extraQueryParams?: any;
 
-        filter?: (any) => boolean;
+		filter?: (any) => boolean;
 
-        height?: number;
+		height?: number;
+
+		// Ignore entry by this ID
+		ignoreId?: number;
 
     }
 
