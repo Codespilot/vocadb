@@ -31,7 +31,7 @@
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: $parent.entryUrl($data), title: $data.additionalNames }" href="#"></a>
+					<a data-bind="text: name, attr: { href: $parent.entryUrl($data), title: $data.additionalNames }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: $data.artistType"></span>
 					<span data-bind="songTypeLabel: $data.songType"></span>

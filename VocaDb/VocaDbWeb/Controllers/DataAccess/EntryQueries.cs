@@ -99,7 +99,7 @@ namespace VocaDb.Web.Controllers.DataAccess {
 
 				// Merge and sort the final list
 				var entries = artists.Concat(albums).Concat(songs)
-					.OrderBy(a => a.LocalizedName ?? a.DefaultName);
+					.OrderBy(a => a.Name);
 
 				var count = 0;
 

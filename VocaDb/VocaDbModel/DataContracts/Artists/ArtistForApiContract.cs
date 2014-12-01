@@ -30,6 +30,7 @@ namespace VocaDb.Model.DataContracts.Artists {
 			DefaultName = artist.DefaultName;
 			DefaultNameLanguage = artist.Names.SortNames.DefaultLanguage;
 			Id = artist.Id;
+			Name = artist.Names.SortNames[languagePreference];				
 			PictureMime = artist.PictureMime;
 			Status = artist.Status;
 			Version = artist.Version;
@@ -104,6 +105,9 @@ namespace VocaDb.Model.DataContracts.Artists {
 
 		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
+
+		[DataMember]
+		public string Name { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public LocalizedStringContract[] Names { get; set; }

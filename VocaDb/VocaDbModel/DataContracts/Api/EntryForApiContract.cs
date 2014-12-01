@@ -23,6 +23,7 @@ namespace VocaDb.Model.DataContracts.Api {
 
 			DefaultName = entry.DefaultName;
 			DefaultNameLanguage = entry.Names.SortNames.DefaultLanguage;
+			Name = entry.Names.SortNames[languagePreference];				
 			Version = entry.Version;
 
 			if (languagePreference != ContentLanguagePreference.Default) {
@@ -158,6 +159,9 @@ namespace VocaDb.Model.DataContracts.Api {
 
 		[DataMember(EmitDefaultValue = false)]
 		public EntryThumbForApiContract MainPicture { get; set; }
+
+		[DataMember]
+		public string Name { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public LocalizedStringContract[] Names { get; set; }

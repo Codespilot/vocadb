@@ -126,7 +126,7 @@
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: album.localizedName || album.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Album', album.id), title: album.additionalNames }" href="#"></a><br />
+					<a data-bind="text: album.name, attr: { href: vdb.utils.EntryUrlMapper.details('Album', album.id), title: album.additionalNames }" href="#"></a><br />
 					@KnockoutHelpers.DraftIcon("status")
 					<small class="extraInfo" data-bind="text: album.artistString"></small><br />
 					<small class="extraInfo" data-bind="text: $parent.resources().discTypeNames[album.discType]"></small>
@@ -161,7 +161,7 @@
 					<img data-bind="attr: { src: (album.mainPicture ? album.mainPicture.urlSmallThumb : '') }, albumToolTip: album.id" alt="Preview" class="coverPic img-rounded" />
 				</div>
 			</a>
-			<p data-bind="text: album.localizedName || album.defaultName"></p>
+			<p data-bind="text: album.name"></p>
 		</li>
 	</ul>
 	<!-- /ko -->

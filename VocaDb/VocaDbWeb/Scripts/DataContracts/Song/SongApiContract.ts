@@ -9,7 +9,7 @@ module vdb.dataContracts {
 
 		id: number;
 
-		localizedName: string;
+		name: string;
 
 		pvServices: string;
 

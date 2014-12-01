@@ -31,7 +31,7 @@
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a>
+					<a data-bind="text: name, attr: { href: vdb.utils.EntryUrlMapper.details('Artist', id) }" href="#"></a>
 					&nbsp;
 					<span data-bind="artistTypeLabel: artistType"></span>
 					@KnockoutHelpers.DraftIcon("status")
