@@ -343,7 +343,7 @@
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 			var entryRepo = new vdb.repositories.EntryRepository(rootPath);
 			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
-			var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
+			var albumRepo = new vdb.repositories.AlbumRepository(rootPath, @LanguagePreferenceInt);
 			var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 			var tagRepo = new vdb.repositories.TagRepository(rootPath);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);

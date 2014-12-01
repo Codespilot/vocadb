@@ -3,16 +3,19 @@
 
 module vdb.repositories {
 
+	import cls = vdb.models;
 	import dc = vdb.dataContracts;
 
     // Repository for managing albums and related objects.
     // Corresponds to the AlbumController class.
-    export class AlbumRepository {
+    export class AlbumRepository extends BaseRepository {
 
         // Maps a relative URL to an absolute one.
         private mapUrl: (relative: string) => string;
 
-        constructor(private baseUrl: string) {
+		constructor(baseUrl: string, languagePreference = cls.globalization.ContentLanguagePreference.Default) {
+
+			super(baseUrl, languagePreference);
 
             this.mapUrl = (relative) => {
                 return vdb.functions.mergeUrls(baseUrl, "/Album") + relative;
@@ -29,7 +32,7 @@ module vdb.repositories {
 
 		public getOne = (id: number, callback: (result: dc.AlbumContract) => void) => {
 			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/albums/" + id);
-			$.getJSON(url, callback);
+			$.getJSON(url, { fields: 'AdditionalNames', lang: this.languagePreferenceStr }, callback);
 		}
 
 		getList = (paging: dc.PagingProperties, lang: string, query: string, sort: string,

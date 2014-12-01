@@ -7,4 +7,6 @@ module vdb.values {
     // URL including the scheme and site path, for example "http://vocadb.net/"
     export var hostAddress: string;
 
+	export var languagePreference: number;
+
 }

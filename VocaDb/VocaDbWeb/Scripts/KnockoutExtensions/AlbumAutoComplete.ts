@@ -25,7 +25,7 @@ ko.bindingHandlers.albumAutoComplete = {
 
 		}
 
-		var queryParams = { nameMatchMode: 'Auto' };
+		var queryParams = { nameMatchMode: 'Auto', lang: vdb.models.globalization.ContentLanguagePreference[vdb.values.languagePreference] };
 		if (properties.extraQueryParams)
 			jQuery.extend(queryParams, properties.extraQueryParams);
 

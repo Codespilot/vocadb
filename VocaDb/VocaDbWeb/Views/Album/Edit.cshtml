@@ -69,7 +69,7 @@
 		var rootPath = '@RootPath';
 		var urlMapper = new vdb.UrlMapper(rootPath);
 
-		var repo = new vdb.repositories.AlbumRepository(rootPath);
+		var repo = new vdb.repositories.AlbumRepository(rootPath, @LanguagePreferenceInt);
 		var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 		var pvRepo = new vdb.repositories.PVRepository(urlMapper);
@@ -80,7 +80,7 @@
 		var viewModel;
 
 		if (editedModel) {
-			
+
 			viewModel = new vdb.viewModels.AlbumEditViewModel(repo, songRepo, artistRepo, pvRepo, urlMapper,
 				artistRoleJson, webLinkCategoryJson, editedModel, allowCustomTracks, canBulkDeletePVs);
 
@@ -96,7 +96,7 @@
 				ko.applyBindings(viewModel);
 
 			});
-			
+
 		}
 
 		initPage();
