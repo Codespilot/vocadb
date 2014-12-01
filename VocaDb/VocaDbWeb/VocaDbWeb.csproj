@@ -1478,7 +1478,6 @@
     <Content Include="Scripts\Album\Details.js" />
     <Content Include="Scripts\Artist\Details.js" />
     <Content Include="Scripts\Artist\Edit.js" />
-    <Content Include="Scripts\Artist\Merge.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <TypeScriptCompile Include="Scripts\DataContracts\Album\AlbumForEditContract.ts" />
@@ -1936,6 +1935,7 @@
     <TypeScriptCompile Include="Scripts\typings\youtube\youtube.d.ts" />
     <TypeScriptCompile Include="Scripts\User\Details.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Album\AlbumMergeViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Artist\ArtistMergeViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\BasicEntryLinkViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\BasicListEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\EntryPictureFileEditViewModel.ts" />
