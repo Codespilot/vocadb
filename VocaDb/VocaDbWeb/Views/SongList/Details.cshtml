@@ -75,7 +75,7 @@
 		var rootPath = '@RootPath';
 		var urlMapper = new vdb.UrlMapper(rootPath);
 		var userRepo = new vdb.repositories.UserRepository(urlMapper);
-		var songRepo = new vdb.repositories.SongRepository(rootPath);
+		var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 		var songListRepo = new vdb.repositories.SongListRepository(urlMapper);
 		var pvPlayerElem = $("#pv-player-wrapper")[0];
 

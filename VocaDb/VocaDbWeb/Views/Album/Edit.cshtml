@@ -70,7 +70,7 @@
 		var urlMapper = new vdb.UrlMapper(rootPath);
 
 		var repo = new vdb.repositories.AlbumRepository(rootPath);
-		var songRepo = new vdb.repositories.SongRepository(rootPath);
+		var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 		var pvRepo = new vdb.repositories.PVRepository(urlMapper);
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));

@@ -35,8 +35,11 @@ namespace VocaDb.Model.DataContracts.Songs {
 			Status = song.Status;
 			Version = song.Version;
 
-			if (languagePreference != ContentLanguagePreference.Default) {
+			if (languagePreference != ContentLanguagePreference.Default || fields.HasFlag(SongOptionalFields.AdditionalNames)) {
 				AdditionalNames = song.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+			}
+
+			if (languagePreference != ContentLanguagePreference.Default) {
 				LocalizedName = song.Names.SortNames[languagePreference];				
 			}
 
@@ -194,13 +197,14 @@ namespace VocaDb.Model.DataContracts.Songs {
 	public enum SongOptionalFields {
 
 		None = 0,
-		Albums = 1,
-		Artists = 2,
-		Names = 4,
-		PVs = 8,
-		Tags = 16,
-		ThumbUrl = 32,
-		WebLinks = 64
+		AdditionalNames = 1,
+		Albums = 2,
+		Artists = 4,
+		Names = 8,
+		PVs = 16,
+		Tags = 32,
+		ThumbUrl = 64,
+		WebLinks = 128
 
 	}
 

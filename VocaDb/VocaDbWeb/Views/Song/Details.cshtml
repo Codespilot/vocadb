@@ -434,7 +434,7 @@
 		var jsonModel = @Html.Raw(Model.Json);
 		var rootPath = '@RootPath';
 		var urlMapper = new vdb.UrlMapper(rootPath);
-		var repo = new vdb.repositories.SongRepository(rootPath);
+		var repo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 		var userRepo = new vdb.repositories.UserRepository(urlMapper);
 		var viewModel = new vdb.viewModels.SongDetailsViewModel(repo, userRepo, resources, jsonModel, vdb.ui.showThankYouForRatingMessage);
 		ko.applyBindings(viewModel);
@@ -443,7 +443,7 @@
 		initPage(jsonModel, @Model.Id, "@ViewRes.SharedStrings.Save", "@ViewRes.EntryDetailsStrings.ConfirmDeleteComment", urlMapper);
 	});
 
-	</script>
+</script>
 }
 
 @helper PVList(IEnumerable<VocaDb.Model.DataContracts.PVs.PVContract> pvs, bool showPVType) {

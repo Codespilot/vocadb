@@ -29,7 +29,7 @@
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
-			var songRepo = new vdb.repositories.SongRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 
 			var vm = new vdb.viewModels.user.RatedSongsSearchViewModel(urlMapper, userRepo, artistRepo, songRepo, resourceRepo, languageSelection, loggedUserId, cultureCode,

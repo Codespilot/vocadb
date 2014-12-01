@@ -1919,9 +1919,11 @@
     <TypeScriptCompile Include="Scripts\Models\Albums\AlbumType.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistRoles.ts" />
     <TypeScriptCompile Include="Scripts\Models\Artists\ArtistType.ts" />
+    <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguagePreference.ts" />
     <TypeScriptCompile Include="Scripts\Models\IEntryWithIdAndName.ts" />
     <TypeScriptCompile Include="Scripts\Models\Globalization\ContentLanguageSelection.ts" />
     <TypeScriptCompile Include="Scripts\Models\PVs\PVService.ts" />
+    <TypeScriptCompile Include="Scripts\Repositories\BaseRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\PVRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\ReleaseEventRepository.ts" />
     <TypeScriptCompile Include="Scripts\Repositories\SongListRepository.ts" />

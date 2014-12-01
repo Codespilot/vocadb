@@ -32,7 +32,7 @@
 
 		$(function () {
 
-			var repo = new vdb.repositories.SongRepository('@RootPath');
+			var repo = new vdb.repositories.SongRepository('@RootPath', @LanguagePreferenceInt);
 			var vm = new vdb.viewModels.songs.SongMergeViewModel(repo, @Model.Id);
 			ko.applyBindings(vm);
 
