@@ -1,4 +1,5 @@
-﻿@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.Songs.SongContract>
+﻿@using System.Web.Optimization
+@inherits VocaDb.Web.Code.VocaDbPage<VocaDb.Model.DataContracts.Songs.SongContract>
 
 @{
 	ViewBag.Title = "Merge song - " + Model.Name;
@@ -14,13 +15,10 @@
 
 	@Helpers.MergeEntryInfo()
 
-	<input type="hidden" name="targetSongId" id="targetSongId" />
+	<input type="hidden" name="targetSongId" id="targetSongId" data-bind="value: target.id" />
 	
 	<br />
-	<div id="targetSong">		
-	</div><br />
-	
-	@Helpers.EntrySearchNameBox("songName")
+	@KnockoutHelpers.LockingAutoComplete("songAutoComplete", "targetSearchParams", "target.name", "target.id")
 	
 	<br /><br />
 
@@ -29,13 +27,19 @@
 }
 
 @section BodyScripts {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/Shared/EntrySearchDrop.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/Song/Merge.js")"></script>
+	@Scripts.Render("~/bundles/shared/edit", "~/bundles/Song/Merge")
     <script type="text/javascript">
 
-		$(document).ready(function () {
-			var urlMapper = new vdb.UrlMapper('@RootPath');
-			initPage(@Model.Id, urlMapper);
+		$(function () {
+
+			var repo = new vdb.repositories.SongRepository('@RootPath');
+			var vm = new vdb.viewModels.songs.SongMergeViewModel(repo, @Model.Id);
+			ko.applyBindings(vm);
+
+			$("#mergeBtn").click(function () {
+				return confirm("Are you sure you want to merge the songs?");
+			});
+
 	    });
 
     </script>

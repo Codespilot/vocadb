@@ -2027,7 +2027,6 @@
     <Content Include="Scripts\Song\Details.js" />
     <Content Include="Scripts\Song\Edit.js" />
     <Content Include="Scripts\Song\Index.js" />
-    <Content Include="Scripts\Song\Merge.js" />
     <Content Include="Scripts\soundcloud-api.js" />
     <Content Include="Scripts\Tag\Edit.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
@@ -2222,6 +2221,7 @@
     <TypeScriptCompile Include="Scripts\ViewModels\SongList\SongListPlayListViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\SongList\SongListViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\Song\LyricsForSongEditViewModel.ts" />
+    <TypeScriptCompile Include="Scripts\ViewModels\Song\SongMergeViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\StatsViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\TagEditViewModel.ts" />
     <TypeScriptCompile Include="Scripts\ViewModels\User\AlbumCollectionViewModel.ts" />
@@ -2331,7 +2331,6 @@
     <Content Include="Views\User\ForgotPassword.cshtml" />
     <Content Include="Views\User\ResetPassword.cshtml" />
     <Content Include="Views\Shared\DuplicateEntryMessage.cshtml" />
-    <Content Include="Views\Song\SongLink.cshtml" />
     <Content Include="Views\Shared\TagSelections.cshtml" />
     <Content Include="Views\Shared\TagSelection.cshtml" />
     <Content Include="Views\Shared\TagList.cshtml" />
