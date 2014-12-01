@@ -28,6 +28,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
 			LengthSeconds = song.LengthSeconds;
+			Name = song.Names.SortNames[languagePreference];
 			PVServices = song.PVServices;
 			RatingScore = song.RatingScore;
 			SongType = song.SongType;
@@ -76,6 +77,7 @@ namespace VocaDb.Model.DataContracts.Songs {
 			FavoritedTimes = song.FavoritedTimes;
 			Id = song.Id;
 			LengthSeconds = song.LengthSeconds;
+			Name = song.Names.SortNames[languagePreference];
 			PVServices = song.PVServices;
 			RatingScore = song.RatingScore;
 			SongType = song.SongType;
@@ -149,6 +151,9 @@ namespace VocaDb.Model.DataContracts.Songs {
 
 		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
+
+		[DataMember]
+		public string Name { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public LocalizedStringContract[] Names { get; set; }
