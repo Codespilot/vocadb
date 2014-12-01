@@ -8,7 +8,7 @@ module vdb.viewModels.songs {
 		
 		constructor(songRepo: rep.SongRepository, id: number) {
 
-			this.target = new BasicEntryLinkViewModel(null, songRepo.getOneBase);
+			this.target = new BasicEntryLinkViewModel(null, songRepo.getOne);
 
 			this.targetSearchParams = {
 				acceptSelection: this.target.id,

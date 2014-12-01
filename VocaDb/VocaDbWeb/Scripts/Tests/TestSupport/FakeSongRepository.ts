@@ -30,7 +30,7 @@ module vdb.tests.testSupport {
                     callback(this.results);
             };
 
-            this.getOne = (id, includeArtists = false, callback?) => {
+            this.getOneWithComponents = (id, includeArtists = false, callback?) => {
                 if (callback)
                     callback(this.song);
             }

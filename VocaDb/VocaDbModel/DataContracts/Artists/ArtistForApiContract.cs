@@ -35,8 +35,11 @@ namespace VocaDb.Model.DataContracts.Artists {
 			Status = artist.Status;
 			Version = artist.Version;
 
-			if (languagePreference != ContentLanguagePreference.Default) {
+			if (languagePreference != ContentLanguagePreference.Default || includedFields.HasFlag(ArtistOptionalFields.AdditionalNames)) {
 				AdditionalNames = artist.Names.GetAdditionalNamesStringForLanguage(languagePreference);
+			}
+
+			if (languagePreference != ContentLanguagePreference.Default) {
 				LocalizedName = artist.Names.SortNames[languagePreference];				
 			}
 
@@ -137,13 +140,14 @@ namespace VocaDb.Model.DataContracts.Artists {
 	public enum ArtistOptionalFields {
 
 		None = 0,
-		Description = 1,
-		Groups = 2,
-		MainPicture = 4,
-		Members = 8,
-		Names = 16,
-		Tags = 32,
-		WebLinks = 64
+		AdditionalNames = 1,
+		Description = 2,
+		Groups = 4,
+		MainPicture = 8,
+		Members = 16,
+		Names = 32,
+		Tags = 64,
+		WebLinks = 128
 
 	}
 

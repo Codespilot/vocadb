@@ -43,6 +43,8 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Models/Artists/ArtistType.js",
 				"~/Scripts/Models/SongVoteRating.js",				// Referred by UserRepository
 				"~/Scripts/Models/PVServiceIcons.js",				
+				"~/Scripts/Models/Globalization/ContentLanguagePreference.js",
+				"~/Scripts/Repositories/BaseRepository.js",
 				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/Repositories/UserRepository.js",

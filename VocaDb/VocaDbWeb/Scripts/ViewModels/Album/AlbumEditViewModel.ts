@@ -233,7 +233,7 @@ module vdb.viewModels {
             this.acceptTrackSelection = (songId: number, songName: string, itemType?: string) => {
 
                 if (songId) {
-                    songRepository.getOne(songId, true, song => {
+                    songRepository.getOneWithComponents(songId, true, song => {
                         var track = new SongInAlbumEditViewModel({ artists: song.artists, artistString: song.artistString, songAdditionalNames: song.additionalNames, songId: song.id, songName: song.name, discNumber: 1, songInAlbumId: 0, trackNumber: 1 });
                         track.isNextDisc.subscribe(() => this.updateTrackNumbers());
                         this.tracks.push(track);

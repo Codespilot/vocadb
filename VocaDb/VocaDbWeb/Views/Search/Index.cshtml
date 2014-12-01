@@ -322,29 +322,29 @@
 
 	<script type="text/javascript">
 
-		$(document).ready(function () {
+	$(document).ready(function () {
 
-			var cultureCode = '@UICulture';
-			var languageSelection = '@UserContext.LanguagePreference';
-			var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
-			var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
-			var searchType = '@ViewBag.SearchType';
-			var sort = '@ViewBag.Sort';
-			var artistId = @ToJS((int?)ViewBag.ArtistId);
-			var artistType = '@ViewBag.ArtistType';
-			var discType = '@ViewBag.DiscType';
-			var songType ='@ViewBag.SongType';
-			var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
-			var loggedUserId = @ToJS(Login.Manager.LoggedUserId);
-			var unknownPictureUrl = '@Url.Content("~/Content/unknown.png")';
+		var cultureCode = '@UICulture';
+		var languageSelection = '@UserContext.LanguagePreference';
+		var query = @Html.Raw(JsonHelpers.Serialize(ViewBag.Query));
+		var tag = @Html.Raw(JsonHelpers.Serialize(ViewBag.Tag));
+		var searchType = '@ViewBag.SearchType';
+		var sort = '@ViewBag.Sort';
+		var artistId = @ToJS((int?)ViewBag.ArtistId);
+		var artistType = '@ViewBag.ArtistType';
+		var discType = '@ViewBag.DiscType';
+		var songType ='@ViewBag.SongType';
+		var onlyWithPVs = @ToJS((bool?)ViewBag.OnlyWithPVs);
+		var loggedUserId = @ToJS(Login.Manager.LoggedUserId);
+		var unknownPictureUrl = '@Url.Content("~/Content/unknown.png")';
 
-			var rootPath = '@RootPath';
+		var rootPath = '@RootPath';
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
 			var entryRepo = new vdb.repositories.EntryRepository(rootPath);
 			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 			var albumRepo = new vdb.repositories.AlbumRepository(rootPath);
-			var songRepo = new vdb.repositories.SongRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 			var tagRepo = new vdb.repositories.TagRepository(rootPath);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 

@@ -18,6 +18,12 @@ namespace VocaDb.Web.Code {
 			get { return DependencyResolver.Current.GetService<VdbConfigManager>(); }
 		}
 
+		public int LanguagePreferenceInt {
+			get {
+				return (int)UserContext.LanguagePreference;
+			}
+		}
+
 		/// <summary>
 		/// Relative path to application root.
 		/// 
@@ -61,6 +67,12 @@ namespace VocaDb.Web.Code {
 
 		public VdbConfigManager Config {
 			get { return DependencyResolver.Current.GetService<VdbConfigManager>(); }
+		}
+
+		public int LanguagePreferenceInt {
+			get {
+				return (int)UserContext.LanguagePreference;
+			}
 		}
 
 		public string RootPath {

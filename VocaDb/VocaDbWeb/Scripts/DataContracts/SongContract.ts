@@ -10,17 +10,18 @@ module vdb.dataContracts {
 
         id: number;
 
+		lengthSeconds: number;
+
         name: string;
+
+		thumbUrl?: string;
 
     }
 
+	// TODO: migrate to SongForApi, extract SongWithPVAndVoteContract
     export interface SongWithComponentsContract extends SongContract {
         
         artists?: ArtistContract[];
-
-		lengthSeconds: number;
-
-		thumbUrl?: string;
 
         vote: string;
 

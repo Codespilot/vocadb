@@ -13,7 +13,7 @@ module vdb.repositories {
 
     // Repository for managing songs and related objects.
     // Corresponds to the SongController class.
-    export class SongRepository {
+    export class SongRepository extends BaseRepository {
 
         public addSongToList: (listId: number, songId: number, newListName: string, callback?: Function) => void;
 
@@ -30,10 +30,14 @@ module vdb.repositories {
 
         private getJSON: (relative: string, params: any, callback: any) => void;
 
-        public getOne: (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => void;
+		// TODO: migrate to API
+        public getOneWithComponents = (id: number, includeArtists: boolean, callback?: (result: dc.SongWithComponentsContract) => void) => {
+			this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);
+        }
 
-		public getOneBase = (id: number, callback?: (result: dc.SongContract) => void) => {
-			this.getOne(id, false, callback);
+		public getOne = (id: number, callback?: (result: dc.SongContract) => void) => {
+			var url = vdb.functions.mergeUrls(this.baseUrl, "/api/songs/" + id);
+			$.getJSON(url, { fields: 'AdditionalNames', lang: this.languagePreferenceStr }, callback);         
 		}
 
 		public getList = (paging: dc.PagingProperties, lang: string, query: string,
@@ -88,7 +92,9 @@ module vdb.repositories {
 
         public usersWithSongRating: (id: number, callback: (result: string) => void) => void;
 
-        constructor(private baseUrl: string) {
+        constructor(baseUrl: string, languagePreference = cls.globalization.ContentLanguagePreference.Default) {
+
+			super(baseUrl, languagePreference);
 
             this.get = (relative, params, callback) => {
                 $.get(this.mapUrl(relative), params, callback);
@@ -112,10 +118,6 @@ module vdb.repositories {
 
             this.findDuplicate = (params, callback: (result: dc.NewSongCheckResultContract) => void) => {
                 this.post("/FindDuplicate", params, callback);
-            }
-
-            this.getOne = (id: number, includeArtists: boolean = false, callback?: (result: dc.SongWithComponentsContract) => void) => {
-                this.post("/DataById", { id: id, includeArtists: includeArtists }, callback);         
             }
 
 			this.pvForSongAndService = (songId: number, pvService: cls.pvs.PVService, callback: (result: string) => void) => {

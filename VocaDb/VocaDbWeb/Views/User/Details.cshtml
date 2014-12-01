@@ -379,24 +379,24 @@
 	@Scripts.Render("~/bundles/jqxRating", "~/bundles/User/Details")
 	<script type="text/javascript">
 
-		$(document).ready(function() {
+	$(document).ready(function() {
 
-			var cultureCode = '@UICulture';
+		var cultureCode = '@UICulture';
 
-			moment.locale(cultureCode);
+		moment.locale(cultureCode);
 
-			var languageSelection = '@UserContext.LanguagePreference';
-			var userId = @Model.Id;
-			var canDeleteComments = @ToJS(UserContext.HasPermission(PermissionToken.DeleteComments));
-			var loggedUserId = @ToJS(UserContext.LoggedUserId);
-			var publicCollection = @ToJS(Model.PublicAlbumCollection || Model.Id == UserContext.LoggedUserId);
-			var rootPath = '@RootPath';
+		var languageSelection = '@UserContext.LanguagePreference';
+		var userId = @Model.Id;
+		var canDeleteComments = @ToJS(UserContext.HasPermission(PermissionToken.DeleteComments));
+		var loggedUserId = @ToJS(UserContext.LoggedUserId);
+		var publicCollection = @ToJS(Model.PublicAlbumCollection || Model.Id == UserContext.LoggedUserId);
+		var rootPath = '@RootPath';
 			var urlMapper = new vdb.UrlMapper(rootPath);
 			var adminRepo = new vdb.repositories.AdminRepository(urlMapper);
 			var userRepo = new vdb.repositories.UserRepository(urlMapper);
 			var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
 			var resourceRepo = new vdb.repositories.ResourceRepository(rootPath);
-			var songRepo = new vdb.repositories.SongRepository(rootPath);
+			var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
 
 			var sort = 'Name';
 			var groupByRating = true;
@@ -417,7 +417,7 @@
 			}
 
 			initPage("@R.ConfirmDisable");
-		});
+	});
 
 	</script>
 }
