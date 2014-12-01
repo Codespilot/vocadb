@@ -17,7 +17,8 @@
     vdb = vdb || {};
     vdb.values = vdb.values || {};
     vdb.values.hostAddress = '@VocaDb.Model.Utils.AppConfig.HostAddress';
-    vdb.values.baseAddress = baseAddress;
+	vdb.values.baseAddress = baseAddress;
+	vdb.values.languagePreference = @((int)Login.Manager.LanguagePreference);
     vdb.resources = vdb.resources || {};
     var urlMapper = new vdb.UrlMapper(baseAddress);
 
