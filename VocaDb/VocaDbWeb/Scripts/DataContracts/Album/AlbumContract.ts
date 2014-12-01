@@ -9,9 +9,9 @@ module vdb.dataContracts {
 
 		id: number;
 
-		localizedName: string;
-
 		mainPicture: EntryThumbContract;
+
+		name: string;
 
 		ratingAverage: number;
 

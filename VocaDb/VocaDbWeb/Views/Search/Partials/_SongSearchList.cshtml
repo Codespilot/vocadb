@@ -46,7 +46,7 @@
 						</a>
 					</div>
 
-					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', id), title: $data.additionalNames }" href="#"></a>
+					<a data-bind="text: name, attr: { href: vdb.utils.EntryUrlMapper.details('Song', id), title: $data.additionalNames }" href="#"></a>
 					<span data-bind="songTypeLabel: $data.songType"></span>
 					<!-- ko foreach: $parent.getPVServiceIcons($data.pvServices) -->
 					<img data-bind="attr: { src: url, title: service }" />

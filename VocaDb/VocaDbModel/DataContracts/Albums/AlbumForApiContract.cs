@@ -51,6 +51,7 @@ namespace VocaDb.Model.DataContracts.Albums {
 			DefaultNameLanguage = album.Names.SortNames.DefaultLanguage;
 			DiscType = album.DiscType;
 			Id = album.Id;
+			Name = album.Names.SortNames[languagePreference];				
 			RatingAverage = album.RatingAverage;
 			RatingCount = album.RatingCount;
 			ReleaseDate = new OptionalDateTimeContract(album.OriginalReleaseDate);
@@ -125,6 +126,9 @@ namespace VocaDb.Model.DataContracts.Albums {
 
 		[DataMember(EmitDefaultValue = false)]
 		public int MergedTo { get; set; }
+
+		[DataMember]
+		public string Name { get; set; }
 
 		[DataMember(EmitDefaultValue = false)]
 		public LocalizedStringContract[] Names { get; set; }

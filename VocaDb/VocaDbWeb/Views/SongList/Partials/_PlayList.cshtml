@@ -3,7 +3,7 @@
 	<div data-bind="if: selectedSong() && selectedSong().song">
 
 		<h4>
-			<span data-bind="text: selectedSong().song.localizedName"></span>
+			<span data-bind="text: selectedSong().song.name"></span>
 			<span class="songlist-playlist-player-artists" data-bind="text: selectedSong().song.artistString"></span>
 		</h4>
 
@@ -35,7 +35,7 @@
 				</td>
 				<td>
 					<span data-bind="text: order"></span>.
-					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
+					<a data-bind="text: song.name, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
 
 					<span data-bind="visible: notes">
 						(<span data-bind="text: notes"></span>)

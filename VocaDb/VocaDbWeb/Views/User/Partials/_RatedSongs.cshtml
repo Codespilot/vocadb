@@ -120,7 +120,7 @@
 						</a>
 					</div>
 
-					<a data-bind="text: song.localizedName || song.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
+					<a data-bind="text: song.name, attr: { href: vdb.utils.EntryUrlMapper.details('Song', song.id), title: song.additionalNames }" href="#"></a>
 
 					<span data-bind="songTypeLabel: song.songType"></span>
 					<!-- ko foreach: $parent.pvServiceIcons.getIconUrls(song.pvServices) -->

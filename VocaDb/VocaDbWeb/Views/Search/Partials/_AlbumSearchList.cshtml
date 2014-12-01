@@ -44,7 +44,7 @@
 					</a>
 				</td>
 				<td>
-					<a data-bind="text: $data.localizedName || $data.defaultName, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#"></a>
+					<a data-bind="text: name, attr: { href: vdb.utils.EntryUrlMapper.details('Album', id), title: $data.additionalNames }" href="#"></a>
 					@KnockoutHelpers.DraftIcon("status")
 					<br />
 					<small class="extraInfo" data-bind="text: artistString"></small><br />
@@ -86,7 +86,7 @@
 					<img data-bind="attr: { src: ($data.mainPicture ? mainPicture.urlSmallThumb : $parent.unknownPictureUrl) }, albumToolTip: id" alt="Preview" class="coverPic img-rounded" />
 				</div>
 			</a>
-			<p data-bind="text: $data.localizedName || defaultName"></p>
+			<p data-bind="text: name"></p>
 		</li>
 	</ul>
 	<!-- /ko -->
