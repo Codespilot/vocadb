@@ -254,9 +254,10 @@
 		var canBulkDeletePVs = @ToJS(Login.Manager.HasPermission(VocaDb.Model.Domain.Security.PermissionToken.BulkDeletePVs));
 		var rootPath = '@RootPath';
 		var urlMapper = new vdb.UrlMapper(rootPath);
-		var songRepo = new vdb.repositories.SongRepository(rootPath, @LanguagePreferenceInt);
-		var artistRepo = new vdb.repositories.ArtistRepository(rootPath);
-		var pvRepo = new vdb.repositories.PVRepository(urlMapper);
+		var repoFactory = new vdb.repositories.RepositoryFactory(urlMapper, @LanguagePreferenceInt);
+		var songRepo = repoFactory.songRepository();
+		var artistRepo = repoFactory.artistRepository();
+		var pvRepo = repoFactory.pvRepository();
 		var webLinkCategoryJson = @Html.Raw(JsonHelpers.Serialize(Translate.WebLinkCategoryNames.AllFields));
 		var artistRoleJson = @Html.Raw(JsonHelpers.Serialize(Translate.ArtistRoleNames.ValuesAndNames, false));
 		var vm;

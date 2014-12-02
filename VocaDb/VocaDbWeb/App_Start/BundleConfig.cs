@@ -45,6 +45,7 @@ namespace VocaDb.Web.App_Start {
 				"~/Scripts/Models/PVServiceIcons.js",				
 				"~/Scripts/Models/Globalization/ContentLanguagePreference.js",
 				"~/Scripts/Repositories/BaseRepository.js",
+				"~/Scripts/Repositories/RepositoryFactory.js",
 				"~/Scripts/Repositories/AdminRepository.js",
 				"~/Scripts/Repositories/EntryReportRepository.js",
 				"~/Scripts/Repositories/UserRepository.js",
