@@ -1,0 +1,1 @@
+Documentation moved to [VocaDB wiki](http://wiki.vocadb.net/wiki/12/album-track-format-strings-for-the-custom-csv-export).
